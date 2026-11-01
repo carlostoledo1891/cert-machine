@@ -252,3 +252,48 @@ Written 2026-10-31, after the maps existed (the build, same day):
 5. **Found**: the n = 2 ring is far narrower than one pixel (its outer band edge lies 10⁻³–10⁻² M outside the curve,
    the pitch is 0.078 M), so the n = 2 layer only samples it (260–643 pixels per spin). Phase 2 must not draw the
    n = 2 layer as if it were resolved.
+
+## Phase 2 — the viewer, and its two views off 17° (pre-registered 2026-10-31, before any map or enclosure at 45° or 80°)
+
+Written and committed before any ray at θo = 45° or 80° is traced and before any enclosure at those inclinations
+exists. At the commit that adds this section no viewer exists, corpus/bh-maps/ holds only the sixteen 17° files, and
+certs/bh-shadow.json holds the curve at 17° and the 13.9–20.5° band only.
+
+**The viewer** (the page /instruments/black-hole/, the operator's rulings of 2026-10-31) draws three standings:
+- **DECIDED**: Phase 0's critical curve at the shown spin and inclination, as a COVER of interval boxes (kerr.js
+  `evalBox` on u-boxes, each box at most 0.02 M across in α and β; a box is dropped only when it is proven off the
+  curve, r u² > 4 or β² < 0), drawn as one solid stroke whose half-width on the screen is never less than the largest
+  box's half-diagonal, so the true curve lies inside the drawn line. Every number printed from Phase 0 (θg, the
+  predicted diameters, the ring ratio band, t_g, the ISCO periods) is read from certs/bh-shadow.json.
+- **COMPUTED**: the Phase 1 maps (and the two views below), shaded per pixel per frame by the declared thin-disk
+  emission I = Σ_n g_n³ J(r_n), J = r⁻² · P on [r_isco, 20 M], in float32 on the GPU (WebGL2) or in double precision on
+  a canvas 2D fallback. The textures are the corpus bytes, checked against the manifest's sha256 in the reader's tab.
+- **ASSUMED**: the disk (Phase 1's model) and its brightness pattern P. P turns with the matter: at radius r its
+  azimuthal phase is φ − Ω(r)(t − t_k) with Ω = 1/(r^{3/2} + a) per t_g, the prograde Keplerian rate of Phase 1, so a
+  feature at r goes round in exactly the period 2π(r^{3/2} + a) t_g. Its features are value noise in (φ, ln r), born
+  and faded on a global schedule (two staggered epochs of 40 t_g, crossfaded at constant variance) so that the shear
+  never winds the picture into stripes. Chosen to be legible; not a flow solution; never claimed to loop.
+- **The clock**: t counted in t_g from the moment the page opens; one second on the screen is 4 t_g (CHOSEN). It is
+  printed in M87* days from the selected mass row's t_g enclosure (certs/bh-shadow.json `clock`), with the ISCO
+  period of the shown spin in days and in screen seconds. The light-travel delay between images is NOT applied (the
+  maps carry no arrival time): every image shows the disk at one moment, and the page says so.
+- **The n = 2 layer** is drawn blurred and labelled unresolved (Phase 1 deviation 5), never as a sharp line.
+- **The jet**: a VLBI jet image is used only if its licence is clear and it covers this field at a stated frequency;
+  otherwise the jet is an ASSUMED sketch, drawn dotted, and the page says no jet image is drawn.
+
+**The views off 17°** (the control "leave the 17° view", which relabels the view as a picture of the model, not of
+M87*): θo ∈ {45°, 80°}, at a = 47/50 only.
+- The maps: the Phase 1 grid, method, tolerance, disk and file formats, files `a47_50-i45-*` and `a47_50-i80-*` in
+  corpus/bh-maps/ with the manifest extended (a `views` list); cos θo and sin θo as fixed doubles, each asserted
+  inside kerr.js's enclosure `incl('45')`, `incl('80')`. The 17° files must re-trace to the same bytes.
+- **Phase 0 extended** to those inclinations: W, H and d̄ at (47/50, 45°) and (47/50, 80°) by both deciders (kerr.js
+  `extents`; second.py `extents` at `Incl(45)`, `Incl(80)`), agreement by intersection as before, written to
+  certs/bh-shadow.json (`enclosures.curveViews`).
+- **The checks**, per view (certs/bh-maps-check.json, the words AGREES / DISAGREES): 1 (the pins and a re-traced
+  sample), 2 (the closed form), 3 (pointwise at points proven on the decided curve at that view), 4 (the texture
+  against the decided curve; W, H, d̄ against `curveViews`), 6 (the n = 1…4 band edges strictly decreasing, the last
+  below one pixel; ratios printed). Check 5 is Schwarzschild's and stays at 17°. AGREES is required on every check;
+  if any view DISAGREES it is not shipped, and the control ships with the views that agree (said on the page).
+- **Red controls** (each as named, every run): the 45° map against the 80° decided curve DISAGREES on check 4; rays
+  at 45° at the 80° decided points DISAGREE on check 3.
+- **Budget**: about 1.3 MB per view gzipped, so about 7.5 MB for corpus/bh-maps/ in all (stated in the record).
