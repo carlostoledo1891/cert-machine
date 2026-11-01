@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-31",
+  "recorded": "2026-11-01",
   "browser": "Chrome/156.0.8078.74",
   "viewports": [
     1440,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "40706d978b296e2215d1857947a51da125436671f0fa4eca7e8e73e88c3c3a60"
+      "sha": "00e45fd853c90eb3be8c4a1df011d37ecf495d4d89e488269c10dde21c4e7765"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a65ed49417b927993e84e818a76ade23a09b3d87f957b471847da7897bb7e8a4"
+      "sha": "6244fe20d3d58eb3531af0a737ca7ee953fd724e922d40274fc6a3daf3af1a50"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -264,7 +264,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "35432e1fd853c104bb55288061f61d506ad2c0dba56b57dfbd274ca13c29a7c4"
+      "sha": "acdc4c2226f40ae54232419f2d062b9efac5f21190347973b3ebff44354dd83f"
     },
     "site/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1f5f9ed97eee69830d6962f8f5f75fe3b1adfce7fb3c962b30d203790c0067d8"
+      "sha": "b246d90382049a71ff47bd3bbe75bf967ead66a361da225be1f84f4358378b4b"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -328,6 +328,27 @@
         "clipped": 0
       },
       "sha": "77fac2d3268afac78c89bc2d80d9c1cdd42c7abd747441e021e58c1e3cdeb7f2"
+    },
+    "site/instruments/black-hole/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "1440": {
+        "spines": 9,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "867f447a4a56c98fa1a1e1f5577a3e83cdfc59c24fad3f2fd3470db34859eaed"
     },
     "site/instruments/blind-spot/index.html": {
       "390": {
@@ -474,7 +495,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e1a893ebcf1c9deffc6aac0fb0a82014ad34ab828c3c534f753be6dfeab8658d"
+      "sha": "b37401db67e9fc207729e9bbf3865cbdca58e12c85527ebb6ca0922e6be462aa"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -831,7 +852,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "095443af1f9a05b39621f547840e8542fca8cc8c1055538b1d159e2fed9b47a7"
+      "sha": "e5ed4d030388e8a54e3a2b108bfef9a459e4a83ba98a42160953e1140c0ee783"
     },
     "site/janela/metodo/index.html": {
       "390": {
@@ -852,7 +873,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "b063930a8bef6a63a19404c62a0b0cddfae205f670224eaf98587de99cc57b32"
+      "sha": "597ef0f1a2bd9b56396c2dfb43f410eea8105d9a41466c1a74d75b903efe2f93"
     },
     "site/machine/index.html": {
       "390": {
@@ -873,7 +894,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b7ca928466f54c58db3b3f5fc192b403aa6ff271deb3bd70af74fe7ddfa5886d"
+      "sha": "6493557ad5863632be7a082bfa619a51d17eecb736684e5db12e6e471f965b1f"
     },
     "site/machine/log.html": {
       "390": {
@@ -894,7 +915,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "33cd004b9d9dec8c80fe09d9002173aff71a8a16f19cb80d7d65be3c27b8964a"
+      "sha": "e96f78a57e56709424d160e1de850bf5d189dac409e09e79bc3f2f2fb4d6f5e5"
     },
     "site/oracle/index.html": {
       "390": {
@@ -915,7 +936,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "04bc33a5bdcec6ffdbbfed74c00fa82ce6e80b9ea9f0202b24ca4d98eb84ba03"
+      "sha": "ab3ec6c4c38731f74f63435bb56f8d0445b2860f578780a916f488f369b23f02"
     },
     "site/papers/index.html": {
       "390": {
@@ -936,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a88681a6220ce5e9956d46b6e7cd68e9ce1c0e8d49cbeb386b913ae665cd1d11"
+      "sha": "3ed029c039ccbfa8e5aeaaba8a7cf8eb552494ed2543bd74d17cd9c13fb8f162"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1944,7 +1965,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3f4f60c680d3aaac78b082cb930a9be7a61faf0463089651a31245ee13120bca"
+      "sha": "28f2b2c06c17d0aafcd62a270e06f87c75066551c5932aa0f6a34cde99c10f3d"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2805,7 +2826,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7131bbeae95b7a1080bed6530c36bb6ad72e1b06785c7f8f09941fabc530df84"
+      "sha": "b3a6f5375a794ea951effef2c5a92c8eac0d51fbfe6a5d9d93451400a2635020"
     },
     "site/reports/zeta-hankel.html": {
       "390": {
@@ -2872,13 +2893,13 @@
     },
     "site/swell/index.html": {
       "390": {
-        "spines": 7,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "768": {
-        "spines": 9,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -2931,7 +2952,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "958fd35e6454cf068bee56037f7f9b69b6926e26e3fffeea77a10179a0bb5ecd"
+      "sha": "4543412b77eced03edcc59d0fed5d2e9a43bb7a7db3970de2ff2d0d6c60b2a24"
     }
   }
 }
