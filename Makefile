@@ -187,6 +187,7 @@ test:
 	@printf "%-30s " "openai/math N(6) saved run"; $(PY) tools/check-openai-math-mub6.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ETH TSavo statement checks"; $(NODE) tools/eth-tsavo-gates.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ETH TSavo record"; $(NODE) tools/record-eth-tsavo.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "warrant-mpl (print kit)"; { [ -x kits/warrant-mpl/.venv/bin/python ] || $(MAKE) -s warrant-mpl-venv >/dev/null 2>&1; } && kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

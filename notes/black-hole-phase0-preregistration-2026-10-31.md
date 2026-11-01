@@ -131,4 +131,20 @@ not among these claims). We found no prior interval enclosure of the Kerr shadow
 
 ## Deviations
 
-(none yet)
+Written 2026-10-31, after the enclosures existed (the build, same day):
+
+1. **The inclination band is the first decider's alone, and only for d̄.** Over a wide inclination box, α scales like
+   1/sin θo and a point witness loses ~17 Δθo (radians) per box. The first decider answers it with two devices
+   written for it (the bound α² ≤ λ² + η + a²cos²θo on the curve, an equality where β = 0, and bracket witnesses:
+   a sign change of β² proven at both ends of a u-stretch). The second decider has neither and would need thousands
+   of Python boxes. So the band over θo ∈ [13.9°, 20.5°] is decided once, for d̄ only, at tol 2 × 10⁻² M; W and H
+   are banded at 17° only. The record says so (secondDecider.notCarried).
+2. **The second decider's spin band is a fixed grid**, coarser than the first's branch and bound; agreement is the
+   pre-registered intersection of the two enclosures, which holds.
+3. **The clock's EHT mass** (the pre-registration named no mass for the EHT row's clock, whose input is θg): M ∈
+   [5.6, 7.4] × 10⁹ M☉, the stat and sys halves added linearly. The clock needs M itself, so unlike θg it carries each
+   row's distance.
+4. **Added**: a = 99/100 among the root and ISCO spins (prograde and retrograde), to decide the scout's numbers there.
+5. **Found**: the scout's float script used (3 + 2Z₁ + Z₂) where Bardeen, Press & Teukolsky have (3 + Z₁ + 2Z₂).
+   Its r_isco at 0.94 and 0.998, its retrograde r_isco at 0.99, and the three ISCO periods built on them are REFUTED
+   in the record (a = 0 is unaffected, since (3 − Z₁) = 0 there).
