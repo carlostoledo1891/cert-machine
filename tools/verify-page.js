@@ -14,7 +14,8 @@
    the landing's guards; they are not printed. ONE line near the end sends a reader to the evidence, in /reports/.
 
    THE RHYTHM (v5): the hero and the scale at full width; then the proofs as alternating splits (words beside a figure
-   drawn at the split's own width, the side flipping each time; one column under 1024 px); the offers as two panels; the
+   drawn at the split's own width, the side flipping each time; one column under 1024 px); the products as a grid (v6: the
+   two flagship offers as two wide panels, then the rest, two to a row, each with its standing word as a chip); the
    schema at full width; the graders as a split; the register at full width; the engine's cards; the limits as four
    panels; a closing call to action. Every chart is drawn by design/charts.js twice, for the desk and for a phone
    (.vw-w / .vw-n, swapped by the page's own css below; the hero swaps by the template's rule). Only the template's
@@ -78,6 +79,18 @@ module.exports = function verifyPage(X) {
     + '.vf-panel .vf-go{margin-top:auto;padding-top:var(--s-3)}\n'
     + '.vf-close ul.plain{margin:var(--s-5) 0 0;max-width:var(--read)}\n'
     + '@media (max-width:860px){.vf-panels{grid-template-columns:minmax(0,1fr)}}\n'
+    /* the products (v6): the two flagships first, larger (the title a step up, one number), then the rest; both grids are
+       the offers' own two columns at the offers' gap, so every card edge sits on an edge the page already has. Each card's
+       standing is a WORD in the template's own chip (.tag held | dep | open), never a colour; one column under 860 px */
+    + '.vf-prods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5) var(--col-gap)}\n'
+    + '.vf-prods.flag{margin-bottom:var(--s-5)}\n'
+    + '.vf-prod-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-2) var(--s-3)}\n'
+    + '.vf-prods.flag .vf-panel h3{font-size:calc(var(--text-2) * 1.3);line-height:var(--leading-tight)}\n'
+    + '.vf-prods.flag .vf-panel > p:not([class]){font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-2)}\n'
+    + '.vf-panel p.vf-pn{font-family:var(--f-display);font-size:calc(var(--text-1) * 1.25);line-height:var(--leading-tight);letter-spacing:var(--track-display);font-weight:var(--weight-title);color:var(--ink)}\n'
+    + '.vf-panel p.vf-pe{font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-3);border-top:1px solid var(--rule);padding-top:var(--s-3)}\n'
+    + '.vf-prods:not(.flag) .vf-panel p.vf-go{font-size:var(--text-small)}\n'
+    + '@media (max-width:860px){.vf-prods{grid-template-columns:minmax(0,1fr)}}\n'
     /* the close: the call to action, then the one line that sends a reader to the evidence */
     + '.vf-close{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5)}\n'
     + '.vf-close h2{max-width:var(--title)}\n.vf-close > p{max-width:var(--read);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-3);margin:var(--s-4) 0 0}\n'
@@ -97,8 +110,9 @@ module.exports = function verifyPage(X) {
   /* ---- the records ------------------------------------------------------------------------------------------- */
   const REG = 'certs/claims-ledger.json', HM = 'certs/horizonmath-ledger.json', KWR = 'certs/kissing-wave.json',
     XXR = 'certs/xx-ledger.json', OK_ = 'certs/openai-math-kernel.json', OREL = 'corpus/openai-math/release.json',
-    OST = 'certs/openai-math-statements.json', ENV = 'certs/envs-record.json', MUT = 'certs/selfaudit-mutations.json';
-  const L = J(REG), Kw = J(KWR), Xx = J(XXR), Ok = J(OK_), Orel = J(OREL), S = J(OST), E = J(ENV), M = J(MUT).all;
+    OST = 'certs/openai-math-statements.json', ENV = 'certs/envs-record.json', MUT = 'certs/selfaudit-mutations.json',
+    GYM = 'certs/verify-gym-scorecard.json', GSM = 'certs/gsm8k-ledger.json';
+  const L = J(REG), Kw = J(KWR), Xx = J(XXR), Ok = J(OK_), Orel = J(OREL), S = J(OST), E = J(ENV), M = J(MUT).all, G = J(GYM), Gs = J(GSM);
 
   /* ---- THE HERO: the avalanche from both sides ----------------------------------------------------------------
      Two cumulative counts on one calendar, both exact and both read from records. Above: the manuscripts of ONE AI
@@ -375,7 +389,7 @@ module.exports = function verifyPage(X) {
   const envText = big(tolPct, 'of ' + fmt(tolAdmit.n) + ' provably wrong answers admitted by a tolerance grader')
     + C.p('A grader that compares decimals within a tolerance rewards answers that are provably wrong, and a policy trained against it learns exactly those. Tightening the tolerance by '
       + numword(Math.round(Math.log10(tols[tols.length - 1] / tols[0]))) + ' orders of magnitude does not close the hole. A grader that reads the certificate admits none, and rejects nothing right.')
-    + C.pRaw('Three environments built on certificates run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a>');
+    + C.pRaw('Verify Gym and three more environments built on certificates run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a>');
 
   /* ---- BELOW: the register's verdict mix ----------------------------------------------------------------------- */
   const VW = ['CERTIFIED', 'PARTIAL', 'REPAIRED', 'MIXED', 'REFUTED', 'NEEDS DATA'];
@@ -395,7 +409,7 @@ module.exports = function verifyPage(X) {
   /* the apps by name, once each (SkyAudit's two cities are one app); the frozen Petrobras submissions are not named */
   const appNames = [...new Set(appCards.map((a) => a.title.replace(/\s*[·—:-].*$/, '').split(/\s+/)[0]).filter((t) => !/Contraprova|Decidível|Abatimento|Registro/i.test(t)))];
   vg('the apps hub it points at lists no app', appNames.length > 0);
-  const products = C.cards([
+  const engineCards = C.cards([
     { href: HUB + 'lattice-claims', k: 'RL environment · Prime Intellect hub', title: 'lattice-claims', desc: 'A lattice claim is decided exactly, or the grader says what it would need.' },
     { href: HUB + 'blind-spot', k: 'RL environment · Prime Intellect hub', title: 'blind-spot', desc: 'An RTL mutation task: a kill is simulated, never taken from an answer key.' },
     { href: HUB + 'break-the-grader', k: 'RL environment · Prime Intellect hub', title: 'break-the-grader', desc: 'The reward is breaking a grader, and “I could not break it” is scored apart.' },
@@ -404,6 +418,78 @@ module.exports = function verifyPage(X) {
     { href: '../reports/rerun.html', k: 'open kit', title: 'The re-run kit', desc: 'Re-derive a verdict with your own code; the outside re-derivations so far are listed with it.' },
     { href: '../apps/', k: 'decision apps', title: 'Apps on the same verdicts', desc: appNames.join(', ') + ' and PU Verificado: operational answers with the certificate one click down.' },
   ]);
+
+  /* ---- THE PRODUCTS (v6, the operator, 2026-10-31: "see if we have room for more good products to offer on the page …
+     only flag as 'in development' or the right tag") --------------------------------------------------------------
+     Each product rests on something built here, and carries ONE standing word: PILOTS OPEN (built, offered now), LIVE
+     (public, usable today), IN DEVELOPMENT (partly built, not offered). The word is the chip's text; the chip's shape
+     is the template's (.tag held | dep | open), so no colour carries it. Every number is read from its record. */
+  const STAND = { pilots: ['Pilots open', 'held'], live: ['Live', 'dep'], dev: ['In development', 'open'] };
+  const bis = G.policies.find((p) => p.id === 'bisect');
+  const gymBest = G.models.slice().sort((a, b) => b.mean_reward - a.mean_reward)[0];
+  const gymBelow = G.models.filter((m) => m.mean_reward < bis.mean_reward).length;
+  vg('the Verify Gym scorecard has no model row, no exact-bisection policy, or its two deciders disagree on an answer',
+    G.models.length > 0 && bis && G.crosscheck.disagreements === 0 && G.models.every((m) => m.crosscheck && m.crosscheck.disagreements === 0));
+  const gsmItems = Gs.test.items + Gs.train.items;
+  const gsmWrong = Gs.test.classes.PRINTED_STEP_WRONG + Gs.train.classes.PRINTED_STEP_WRONG;
+  vg('the GSM8K ledger\'s classes do not number its items, or its printed-wrong count disagrees with its findings',
+    ['test', 'train'].every((k) => Object.values(Gs[k].classes).reduce((a, n) => a + n, 0) === Gs[k].items)
+    && gsmWrong === Gs.findings.printedStepWrongTest + Gs.findings.printedStepWrongTrain && gsmWrong > 0);
+  const encl0 = W.value(fmt(encl.falseAccept), W.DECIDED, { derived: ENV + '#/graders' });
+  const prod = ({ who, title, stand, line, numRaw, evRaw, go }) => '<div class="vf-panel vf-prod">'
+    + '<div class="vf-prod-top"><span class="vf-k">' + C.esc(who) + '</span>' + C.tag(STAND[stand][0], STAND[stand][1]) + '</div>'
+    + '<h3>' + C.esc(title) + '</h3><p>' + C.esc(line) + '</p>'
+    + (numRaw ? '<p class="vf-pn">' + numRaw + '</p>' : '')
+    + '<p class="vf-pe">' + evRaw + '</p>' + (go ? '<p class="vf-go">' + go + '</p>' : '') + '</div>';
+  const pilotGo = (what) => '<a href="' + C.escAttr(PILOT) + '">Request ' + what + ' pilot →</a>';
+  const FLAG = [
+    { who: 'for RL and evaluation teams', title: 'Verify Graders', stand: 'pilots',
+      line: 'Reward and grading a policy cannot game: the ground truth is a certificate, in code you run, and the grader must refuse planted wrong answers before it grades anything.',
+      numRaw: tolPct, evRaw: 'of ' + fmt(tolAdmit.n) + ' provably wrong answers pass a tolerance grader. A certificate grader admits ' + encl0 + '.',
+      go: pilotGo('a grader') },
+    { who: 'for labs and AI-for-science teams', title: 'Verify Audits', stand: 'pilots',
+      line: 'An independent audit of a claim, before or after publication: the gaps listed first, every finite part decided exactly, every formal statement read against its headline.',
+      numRaw: W.value(fmt(sShort) + ' of ' + fmt(S.counts.families), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }),
+      evRaw: 'formal statements in OpenAI’s math release claim more than they prove, while its '
+        + W.val({ rec: { path: OK_, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int' }) + ' proofs pass a second kernel. <a href="../reports/openai-math.html">The audit →</a>',
+      go: pilotGo('an audit') },
+  ];
+  const REST = [
+    { who: 'for anyone who trains on a reward', title: 'Grader Red-Team', stand: 'pilots',
+      line: 'Send your reward function. We attack it with planted forgeries and report its false-accept rate per kind of forgery, with the fixes.',
+      evRaw: 'Our own decider, first: ' + W.val({ rec: { path: MUT, ptr: MA + 'mutants' }, standing: W.DECIDED, fmt: 'int' }) + ' planted forgeries, '
+        + W.val({ rec: { path: MUT, ptr: MA + 'falseCertifications' }, standing: W.DECIDED, fmt: 'int' }) + ' certified; a float check at ' + tolWord(1e-6) + ' let '
+        + W.val({ rec: { path: MUT, ptr: MA + 'float/1e-6/witnessedFalseAccepted' }, standing: W.DECIDED, fmt: 'int' }) + ' through.',
+      go: pilotGo('a red-team') },
+    { who: 'for benchmark and data teams', title: 'Eval & Data Audit', stand: 'pilots',
+      line: 'Answer keys and benchmark labels re-decided step by step; every wrong key comes back with the exact value that shows it.',
+      evRaw: 'GSM8K: ' + W.value(fmt(gsmItems), W.DECIDED, { derived: [GSM + '#/test/items', GSM + '#/train/items'] }) + ' answer keys re-decided, '
+        + W.value(fmt(gsmWrong), W.DECIDED, { derived: [GSM + '#/test/classes/PRINTED_STEP_WRONG', GSM + '#/train/classes/PRINTED_STEP_WRONG'] })
+        + ' printed steps wrong by more than a rounding. <a href="../reports/gsm8k-audit.html">The audit →</a>',
+      go: pilotGo('a data-audit') },
+    { who: 'for model builders', title: 'Verify Gym', stand: 'live',
+      line: 'An RL environment whose reward is certified decimals: both ends of an interval proven, or nothing. Training a model on it is in development.',
+      evRaw: W.value(fmt(gymBelow) + ' of ' + fmt(G.models.length), W.DECIDED, { derived: [GYM + '#/models', GYM + '#/policies'] }) + ' open models score below exact bisection: the best '
+        + W.val({ rec: { path: GYM, ptr: '/models[id=' + gymBest.id + ']/mean_reward' }, standing: W.COMPUTED, fmt: 'fixed:3' }) + ', bisection '
+        + W.val({ rec: { path: GYM, ptr: '/policies[id=bisect]/mean_reward' }, standing: W.COMPUTED, fmt: 'fixed:3' }) + '.',
+      go: '<a href="' + C.escAttr(HUB + 'verify-gym') + '" target="_blank" rel="noopener">On the Environments Hub →</a>' },
+    { who: 'for RL teams', title: 'Training-Run Audit', stand: 'dev',
+      line: 'Send your rollout logs. Every rewarded sample is re-decided by an independent checker, and the reward paid to wrong answers is reported.',
+      evRaw: 'The re-checker is built on Verify Gym’s two deciders, which share no code: '
+        + W.val({ rec: { path: GYM, ptr: '/crosscheck/answers_compared' }, standing: W.DECIDED, fmt: 'int' }) + ' answers compared, '
+        + W.val({ rec: { path: GYM, ptr: '/crosscheck/disagreements' }, standing: W.DECIDED, fmt: 'int' }) + ' disagreements.' },
+    { who: 'for fine-tuning and evals', title: 'Verified Datasets', stand: 'dev',
+      line: 'Model answers that carry a certificate, so a fine-tune or an eval set holds only what was proven.',
+      evRaw: 'Being generated now, each answer decided by both of Verify Gym’s deciders.' },
+    { who: 'for formal-math teams', title: 'Statement Check', stand: 'dev',
+      line: 'Does a formal statement prove what its headline claims? The claim’s text goes in; a checkable object comes out, or a refusal with the reason.',
+      evRaw: 'The need: the ' + W.value(fmt(sShort), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }) + ' OpenAI statements above. The translator, claimbox, is open.',
+      go: '<a href="../claimbox/">Follow claimbox →</a>' },
+  ];
+  vg('a product carries no standing word, or a product offered for a pilot has no way to ask for one',
+    FLAG.concat(REST).every((p) => STAND[p.stand] && (p.stand !== 'pilots' || /pilot\.yml/.test(p.go || ''))));
+  const productGrid = '<div class="wide"><div class="vf-prods flag">' + FLAG.map(prod).join('') + '</div>'
+    + '<div class="vf-prods">' + REST.map(prod).join('') + '</div></div>';
 
   const legend = W.legendHtml({ compact: true });
   const col = (raw) => '<div class="col">' + raw + '</div>';
@@ -419,7 +505,7 @@ module.exports = function verifyPage(X) {
       deck: 'Verify re-decides a published claim from its own bytes, with code that shares nothing with the claimant, and returns one of three words: '
         + 'CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.'
     }),
-    '<div class="col vf-top">' + ctas + '<p class="vf-jump"><a href="#evidence">The evidence</a><a href="#offers">The offers</a><a href="#how">How it works</a><a href="#engine">Built on it</a></p></div>',
+    '<div class="col vf-top">' + ctas + '<p class="vf-jump"><a href="#evidence">The evidence</a><a href="#products">The products</a><a href="#how">How it works</a><a href="#engine">Built on it</a></p></div>',
     hero,
     scale,
     /* three proof points, the strongest trust signal first; the side of the figure flips each time */
@@ -428,24 +514,15 @@ module.exports = function verifyPage(X) {
     sec({ lab: 'proof 3 of 3 · outside', title: 'Outside checkers ran it again and agreed',
       raw: '<div class="col vf-quote">' + C.quote({ text: '“' + OUTSIDE.plain(qiushi.quote) + '”', cite: 'the claimant, after an audit: ' + qiushi.who })
         + C.p('Every verdict re-runs with one command, without this engine.') + '</div>' + back }),
-    sec({ id: 'offers', lab: 'the offers', title: 'Two ways to use it', raw: '<div class="wide"><div class="vf-panels">'
-      + panel('for RL and evaluation teams', 'Graders that cannot be gamed',
-        'Send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a certificate, in code you run, that must refuse planted wrong answers before it grades anything.',
-        '<a href="' + C.escAttr(PILOT) + '">Request a grader pilot →</a>')
-      + panel('for labs, AI-for-science companies and registries', 'Independent audits',
-        'Send a claim as published, with its bytes. You get the gaps listed first, every finite part decided in exact arithmetic or by a second, independent proof kernel, and every formal statement read against the claim. Before or after publication; the pilot’s terms say when the report is published.',
-        '<a href="' + C.escAttr(PILOT) + '">Request an audit pilot →</a>')
-      + '</div></div>' }),
+    sec({ id: 'products', lab: 'the products', title: 'One decider, ' + numword(FLAG.length + REST.length) + ' products',
+      raw: col(C.p('Each product is marked with where it stands: pilots open, live, or in development.')) + productGrid }),
     sec({ id: 'how', lab: 'how it works', title: 'From a claim to a certificate', raw: schema }),
     split({ lab: 'for graders', title: 'A tolerance is a hole a model can learn', textRaw: envText, figRaw: envFig + legend, flip: true }),
     sec({ lab: 'the register', title: 'Most published claims hold',
       raw: col(C.p('The value is in the ones that do not, and in saying exactly which part held.')) + regFig + col(C.pRaw('<a href="../reports/claims.html">Every claim, with its verdict →</a>')) }),
     sec({ id: 'engine', lab: 'the platform', title: 'Built on the same engine',
-      raw: col(C.p('The two offers above are what a pilot buys. Everything below runs on the same decider and the same three words, and most of it is open.'))
-        + '<div class="col" id="gym">' + C.pRaw(C.tag('under development', 'open') + ' <b>Verify Gym.</b> An always-evolving training ground on top of cert-machine. Models propose the tightest rational interval they can around a constant: '
-          + 'first, roots of x^x = y, k-th roots of integers and real roots of integer polynomials. The reward is certified decimals, both ends proven exactly; '
-          + 'an end that is refuted, malformed or unchecked earns nothing, so the reward cannot be gamed. New families arrive from the register’s newly decided claims; '
-          + 'a held-out set is frozen, and a public scorecard ranks every model, ours included. A trained open model ships only if it beats its own base on the held-out set.') + '</div>' + products }),
+      raw: col(C.p('Everything below runs on the same decider and the same three words, and most of it is open.'))
+        + engineCards }),
     sec({ lab: 'the limits', title: 'What it refuses', raw: '<div class="wide"><div class="vf-panels">'
       + panel('', 'Claims that are not finite', 'An asymptotic statement, a “for all n”, or a proof written in prose is refused with the reason, and the refusal says what would make it decidable.')
       + panel('', 'Your code', 'Nothing a claimant wrote is run. The decision comes from code written apart from it, so a bug cannot certify itself.')
