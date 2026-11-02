@@ -22,6 +22,50 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-11-02 — HANDOFF: THE SESSION OF 10-30 → 11-02 CLOSED. Everything below is committed and pushed (main 4b9a6e51 and this
+     entry); NOTHING IS BILLING (RunPod: no pods; Prime: no job of ours running — the claimbox chat ran its own model campaign
+     through Prime; wallet ~US$22.88 at last read). The contact form WORKS (the operator, 11-02).
+     ── LIVE, BUILT THIS SESSION:
+       /verify/ — the marketing product page (design/marketing.js; no visible pins, numbers still read from records): hook
+         "AI now publishes faster than anyone can check", the avalanche hero, proofs, "One decider, eight products" (Graders,
+         Audits = flagships; Grader Red-Team, Eval & Data Audit = pilots open; Verify Gym = live on the Hub; Training-Run Audit,
+         Verified Datasets, Statement Check = in development), its share card (design/assets/og-verify.png). Linked by ONE
+         landing line only.
+       THE CONTACT CARD — an overlay form sent by Web3Forms (key in design/contact.js only; empty key = mailto fallback) on
+         /verify/'s CTAs, the landing's Contact button and every shared footer (125 pages). NOT on /janela/, /swell/, SkyAudit
+         (own shells), /janela/metodo/ (not rebuilt), the frozen Petrobras pages, the foreign zones. Known wording to revisit
+         on /verify/: "a claim that is not yet public goes by e-mail".
+       VERIFY GYM — environments/verify_gym (pre-registered: notes/verify-gym-preregistration-2026-10-31.md, deviations 1–8);
+         public on Prime's Environments Hub as carlos-toledo/verify-gym 0.1.0 (the local README is ahead: new rows, filter);
+         certs/verify-gym-scorecard.json: 7 model rows, all below exact bisection (0.340); certs/verify-gym-filter.json: Verify
+         as the filter gives 0 false brackets on every row (first answer 35–76, majority 26–62), reward 0.147–0.318;
+         corpus/verify-gym/verified-v0.jsonl.gz (2,953 certified answers, NOT published); readiness GO on Qwen3.5-9B.
+         TRAINING BLOCKED: Prime closed shared LoRA Hosted Training on 2026-10-08 (corpus/verify-gym/training-attempt.json);
+         the configs wait in environments/verify_gym/train/.
+       THE BLACK HOLE — /instruments/black-hole/, listed: Phase 0 (certs/bh-shadow.json: the Kerr shadow edge enclosed, two
+         deciders, mass rows with pinned distances), Phase 1 (corpus/bh-maps/, certs/bh-maps-check.json: lensing maps that AGREE
+         with Phase 0), Phase 2 (playground/black-hole/: the WebGL viewer; ink ramp; 17° default, 45°/80° labelled model views;
+         spin, mass row, ring layers; M87*'s clock). Jet = dotted assumed sketch; no light-travel delay.
+       /reports/xx.html — x^x = y as a complete pipeline example: claimbox's records lifted (LIFT-claimbox.json extended), every
+         bracket re-decided here (certs/xx-ledger.json), the reduction PROVED IN LEAN (certs/xx-reduction-lean.json, CI run
+         41221355209), one own claim REFUSED with its reason.
+       /claimbox/ — redesigned as a marketing page and republished many times on the operator's word (last: claimbox f600cf7,
+         the translator shown; sha256 c31ad62e…).
+       THE RECEIVER — format v4, instruments/ledger, record-decision-mismatch, the row box, one bar reading (row_bar/rowBar), the
+         int-to-str fix for Python ≥ 3.11; claimbox lifted each.
+       THE SITE — light/dark switch everywhere (apps' colours approved; --witness-text #B3362C for red words); English only
+         (Swell, Janela + deck, Eleições, the atlas map); /grammar/ catalogue + ε handle; README and GitHub profile rewritten.
+     ── SENT BY THE OPERATOR: speedrun SR008 application (as "Verify"; deck outreach/speedrun-sr008/verify-deck.pdf, untracked);
+       the scout Kumesh Aroomoogan's e-mail + X reply; the X reply to @wyatt_benno; three X posts (d03, d06, 07; no AI line on X
+       from now); the #246 reply to maximusrufus.
+     ── OPEN, THE OPERATOR'S WORD:
+       Verify Gym training: ask Prime support for dedicated access (free) or self-host on RunPod (~US$50–70/GPU-day); push the
+       Hub README as 0.1.1; publish the verified dataset or not.
+       Black hole Phase 3: the interferometer's data-allowed skies beside the render (EHT ring over the image).
+       The 8 queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
+       /verify/ linking beyond the one landing line; the "not yet public" sentence.
+     ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads
+       as its numerator in the receiver (fraction bars not approved); the Swell ruler flap (@768/@1440).
   ◆ 2026-11-01 — BLACK HOLE LIVE AND LISTED: /instruments/black-hole/ (dfe6a4fb; Phase 0 certs/bh-shadow.json, Phase 1
      corpus/bh-maps + certs/bh-maps-check.json, Phase 2 playground/black-hole/): the decided Kerr shadow edge solid, the
      computed image, the assumed thin disk on M87*'s clock; spin, view (17° M87* / 45° / 80° model), ring layers, mass row.
