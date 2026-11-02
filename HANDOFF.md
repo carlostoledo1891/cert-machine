@@ -71,6 +71,9 @@ NEXT SESSION, IN ORDER:
          replay — PINNED (corpus/recognition.json the-build-eth-column, kind press "Written about in a column"; on /about/).
          The reply (notes/x/reply-zaibatsu-2026-11-02.txt) could NOT be posted by the API (X: replies only where mentioned):
          POSTED BY THE OPERATOR BY HAND 11-02. symthaea#10049 cites /eth-false (a 404): /eth-false → /eth/ now a 301 (vercel.json).
+         Second sweep 11-02 (web, GitHub, HN, Zulip, DataCite): whataifound.org's OpenAI-math entry cites the kernel audit and
+         statement readings (PR #30, merged 10-26) — PINNED (recognition row whataifound-openai-math, listing). Bluesky and
+         Reddit refused this machine's requests: unchecked; LinkedIn by hand.
        The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
        /verify/ linking beyond the one landing line.
      ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads
