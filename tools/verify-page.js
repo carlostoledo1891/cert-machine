@@ -97,7 +97,6 @@ module.exports = function verifyPage(X) {
     /* the close: the call to action, then the one line that sends a reader to the evidence */
     + '.vf-close{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5)}\n'
     + '.vf-close h2{max-width:var(--title)}\n.vf-close > p{max-width:var(--read);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-3);margin:var(--s-4) 0 0}\n'
-    + '.vf-close .vf-note{font-size:var(--text-small);color:var(--ink-4);margin:var(--s-4) 0 0}\n'
         + '.vf-ev{margin:var(--s-7) 0 0;font-size:var(--text-small);color:var(--ink-4)}\n'
     + 'details.more{margin-top:var(--s-6)}';
   /* a section as words beside a figure: `flip` puts the figure first on a desk; one column under 1024 px */
@@ -541,7 +540,7 @@ module.exports = function verifyPage(X) {
         { b: '1. Open a request.', raw: 'The <a href="' + C.escAttr(PILOT) + '">pilot form</a> asks what you want checked and where it is published.' },
         { b: '2. Scope before work.', text: 'The list of what can be decided, what will be read and what will be refused, before anything is run.' },
         { b: '3. The certificate.', text: 'Each verdict with its certificate, and a one-line command that re-derives it without this engine.' }])
-      + ctas + '<p class="vf-note">The form is public; a claim that is not yet public goes by e-mail.</p>\n</div>\n'
+      + ctas + '</div>\n'
       + '<p class="vf-ev">Every number on this page is read from a public record; the evidence is in <a href="../reports/">the reports →</a></p>\n</section>'
   ];
   /* v5 (design/marketing.js): no reasons block; a value's tooltip says its standing's word, not its reason (the grammar's
