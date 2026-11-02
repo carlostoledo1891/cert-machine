@@ -62,7 +62,11 @@ NEXT SESSION, IN ORDER:
        Verify Gym training: ask Prime support for dedicated access (free) or self-host on RunPod (~US$50–70/GPU-day); push the
        Hub README as 0.1.1; publish the verified dataset or not.
        Black hole Phase 3: the interferometer's data-allowed skies beside the render (EHT ring over the image).
-       The 8 queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
+       THE NEXT 4 X POSTS, PREPARED 11-02 (the operator: one post = a hook + the link + an image; attached image chosen over
+         the link card): d08 verify, d09 black hole (dark: the render is a negative on paper), d10 Ramsey (a chart drawn from
+         certs/ramsey-ledger.json), d11 self-audit — notes/x/drops/dNN-*-post.txt + dNN-*.png (2400×1350; sources in
+         cards-src/), each previewed ≤ 280 by tools/x.js; each its own yes: node tools/x.js post FILE --media PNG --send.
+       The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
        /verify/ linking beyond the one landing line.
      ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads
        as its numerator in the receiver (fraction bars not approved); the Swell ruler flap (@768/@1440).
