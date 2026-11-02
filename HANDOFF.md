@@ -66,6 +66,7 @@ NEXT SESSION, IN ORDER:
          the link card): d08 verify, d09 black hole (dark: the render is a negative on paper), d10 Ramsey (a chart drawn from
          certs/ramsey-ledger.json), d11 self-audit — notes/x/drops/dNN-*-post.txt + dNN-*.png (2400×1350; sources in
          cards-src/), each previewed ≤ 280 by tools/x.js; each its own yes: node tools/x.js post FILE --media PNG --send.
+         d08 SENT 11-02: x.com/_carlos_toledo_/status/2117233214330646596.
        The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
        /verify/ linking beyond the one landing line.
      ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads
