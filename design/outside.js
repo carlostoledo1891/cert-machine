@@ -16,7 +16,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
-const KINDS = { registry: 'Cited by a registry', credit: 'Credited by the claimant', peer: 'Noted by an independent replayer', listing: 'Listed' };
+const KINDS = { registry: 'Cited by a registry', credit: 'Credited by the claimant', peer: 'Noted by an independent replayer', press: 'Written about in a column', listing: 'Listed' };
 
 let cached = null;
 

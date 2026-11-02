@@ -67,6 +67,10 @@ NEXT SESSION, IN ORDER:
          certs/ramsey-ledger.json), d11 self-audit — notes/x/drops/dNN-*-post.txt + dNN-*.png (2400×1350; sources in
          cards-src/), each previewed ≤ 280 by tools/x.js; each its own yes: node tools/x.js post FILE --media PNG --send.
          d08 SENT 11-02: x.com/_carlos_toledo_/status/2117233214330646596.
+       OUTSIDE MENTIONS, SCAVENGED 11-02: Reg Saddler's column The Build (@zaibatsu, X article, 2026-10-29) led with the ETH
+         replay — PINNED (corpus/recognition.json the-build-eth-column, kind press "Written about in a column"; on /about/).
+         The reply (notes/x/reply-zaibatsu-2026-11-02.txt) could NOT be posted by the API (X: replies only where mentioned):
+         the operator posts it by hand. symthaea#10049 cites /eth-false (a 404): /eth-false → /eth/ now a 301 (vercel.json).
        The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
        /verify/ linking beyond the one landing line.
      ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads

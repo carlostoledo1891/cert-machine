@@ -35,6 +35,16 @@
       "statusCode": 301
     },
     {
+      "source": "/eth-false",
+      "destination": "/eth/",
+      "statusCode": 301
+    },
+    {
+      "source": "/eth-false/",
+      "destination": "/eth/",
+      "statusCode": 301
+    },
+    {
       "source": "/playground",
       "destination": "/instruments/",
       "statusCode": 301

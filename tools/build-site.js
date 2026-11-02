@@ -1687,7 +1687,7 @@ const aboutBody = [
   C.section({
     lab: 'outside the building', title: 'Where the work has gone, and what has come back', id: 'outside',
     bodyRaw: [
-      C.p('Credited elsewhere: what registries, claimants and curated lists have published about this work, each quoted from a snapshot pinned by sha256 (corpus/recognition.json).'),
+      C.p('Credited elsewhere: what registries, claimants, columnists and curated lists have published about this work, each quoted from a snapshot pinned by sha256 (corpus/recognition.json).'),
       C.plainList(OUTSIDE.items(C, { credits: outside.credits, reruns: [] })),
       C.plainList(externalReruns.map((r) => ({ b: RERUN_HEAD[r.kind] + ' — ' + longDate(r.date) + '.', raw: C.esc(r.who) + ': ' + C.esc(r.what) + ' Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' }))),
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
