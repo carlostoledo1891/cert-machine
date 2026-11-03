@@ -79,8 +79,8 @@ NEXT SESSION, IN ORDER:
      (tools/build-report-macmahon.js: the gaps first, the ten two-triangle sets drawn, the sufficiency facts, the kernel table,
      the statement reading; titles.json, the reports target, the site card and the shelf links; new-page baselines recorded;
      the day's outreach rows reworded — 'operator' is a census word on the about page, and a bare x.com/…/status/… token
-     clips the about page at 390 px). The issue to Jason Davies DRAFTED in outreach/davies-issue-2026-11-03.md, to be posted
-     with gh once the page is live (Vercel was still deploying at 23:40).
+     clips the about page at 390 px). The issue to Jason Davies POSTED with gh at ~23:45 UTC once the page was live (https://github.com/jasondavies/macmahon-min-universal-sets/issues/1;
+     row gh-davies-macmahon-2026-11-03). Reply to watch.
      MACMAHON KERNEL LANE GREEN (23:05 UTC): run 41729708954 — Comparator v4.35.0 'Your solution is okay!', Lean's kernel and
      nanoda both accept the ten shipped theorems, our own axiom report the three standard axioms; cache 116 s, build 207 s,
      comparator 347 s, peak 7.2 GB, a free runner. certs/macmahon-kernel.json (tools/record-macmahon-kernel.js; the artifact
