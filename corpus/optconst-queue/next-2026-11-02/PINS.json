@@ -1,0 +1,90 @@
+{
+ "what": "The bytes behind four newer family-1 rows of the registry (C_1c [Kos2026], #261; C_1d [STEPS2026], #247; C_1d [AER2026], the AlphaEvolve-repository PR 13 function the registry added with #248), pinned 2026-11-02 for a second-party replay: the registry pages at main, each certificate at the commit its row cites. The claimants' scripts are kept as text (.txt) and never run. Ours: only the extraction of the AER2026 list into two JSON readings. [SCIEL2026] (#248) is not here: its Zenodo record is restricted (files on request).",
+ "registryCommit": "87b4ebbd426ff8db597a2004cc45da17903bdcf2",
+ "koshtaCommit": "a4ee94ef29ff630f4a36d0d93b8e998cf20127af",
+ "stepsCommit": "9a091494facc801eaf6b92b175b63c58b7c3b30b",
+ "aerCommit": "4b3bbd2a44db92442e4ebb4e64e0bb90f229aad1",
+ "fetched": "2026-11-03T00:21:26.145Z",
+ "files": {
+  "aer-pr13/c4prime-n600.decimal.json": {
+   "url": "(extracted here from aer-pr13/problem_4_signed_autoconvolution_bounds.py.txt)",
+   "sha256": "d0dc7ebcf53ca30881e374a1ea3e1d2efd0d39126d7891ce2cc18904af960d05"
+  },
+  "aer-pr13/c4prime-n600.double.json": {
+   "url": "(extracted here from aer-pr13/problem_4_signed_autoconvolution_bounds.py.txt)",
+   "sha256": "0856651426ee194980a1176fe1897ecf45ab5be4fe541241bed3ed8460d148b0"
+  },
+  "aer-pr13/problem_4_signed_autoconvolution_bounds.py.txt": {
+   "url": "https://github.com/unclegareth-create/alphaevolve_repository_of_problems/blob/4b3bbd2a44db92442e4ebb4e64e0bb90f229aad1/experiments/autocorrelation_problems/problem_4_signed_autoconvolution_bounds.py",
+   "sha256": "1a290ad1074c10a871adaf2bd44402af56be8cf151f1f775a8fc37c7bdff54b2"
+  },
+  "koshta/FORMAT.md": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/FORMAT.md",
+   "sha256": "4809ae324fc9fd3124e5f74456c31d8c671a7855f4a01d98f48eddb247b3aa6e"
+  },
+  "koshta/K24576_0.4103333.json": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/K24576_0.4103333.json",
+   "sha256": "963cb7273062e7360fdfa460bb19c1cf37729364b8f708b09580b6655b783c9e"
+  },
+  "koshta/LICENSE": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/LICENSE",
+   "sha256": "b21a6ea0dd1d817ae419e403b6d81313ab16cf73a7822d5677db92012bf20c37"
+  },
+  "koshta/PROOF.md": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/PROOF.md",
+   "sha256": "64508adf594876a6e49538cbe06633efd30f084c8866a882e52082dae7ecc8c4"
+  },
+  "koshta/README.md": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/README.md",
+   "sha256": "47c879206d21d3e348776e6cdec3156061b4094d37c33c4cf315a34397bf0255"
+  },
+  "koshta/SHA256SUMS": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/SHA256SUMS",
+   "sha256": "2ae5586007ac7638b45bba1f6dd4e37b75f4fae68bc7a8a26cbad4214d790b0a"
+  },
+  "koshta/score_exact.py.txt": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/score_exact.py",
+   "sha256": "fe9d1c58ce94e92b4cced91f634e353ec4fba6ec7785dd0b71ec4e4b748066e4"
+  },
+  "koshta/verify.py.txt": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/verify.py",
+   "sha256": "033f75ad3b0fb7b29da4b5e75d6c62f04b1ccdf1d5cb50cbf155c2f9ffd51403"
+  },
+  "koshta/verify_independent.py.txt": {
+   "url": "https://github.com/DennisKoshta/c1c-autocorrelation-certificate/blob/a4ee94ef29ff630f4a36d0d93b8e998cf20127af/verify_independent.py",
+   "sha256": "5aa4509699b92cd741a50d5b147a0d38ade6068e48aef9b7704479f392bdf4ec"
+  },
+  "steps-re/README.md": {
+   "url": "https://github.com/steps-re/c1d-certificate/blob/9a091494facc801eaf6b92b175b63c58b7c3b30b/README.md",
+   "sha256": "0de19bb67eb44a6f8807a9f7a33c3c95073f800fda0c6340e7571beb581c088b"
+  },
+  "steps-re/construction.json": {
+   "url": "https://github.com/steps-re/c1d-certificate/blob/9a091494facc801eaf6b92b175b63c58b7c3b30b/construction.json",
+   "sha256": "3dd39fae744555179b0356b84e752db724e892bd23dda51403976edfb5b3a28c"
+  },
+  "steps-re/numeric_check.py.txt": {
+   "url": "https://github.com/steps-re/c1d-certificate/blob/9a091494facc801eaf6b92b175b63c58b7c3b30b/numeric_check.py",
+   "sha256": "f438439a8039e46471686aba053523df3f05c91be536d449ae81e2410aab3966"
+  },
+  "steps-re/optimize.py.txt": {
+   "url": "https://github.com/steps-re/c1d-certificate/blob/9a091494facc801eaf6b92b175b63c58b7c3b30b/optimize.py",
+   "sha256": "6f75112e595536d81b36c87317474b30a94f95d6f9f4cad6750a4ced88e060cf"
+  },
+  "steps-re/verify.py.txt": {
+   "url": "https://github.com/steps-re/c1d-certificate/blob/9a091494facc801eaf6b92b175b63c58b7c3b30b/verify.py",
+   "sha256": "89ebd66a3165b1894a5299da3dfc917017a2bc0a8309f27c63ade4e0bfcd8793"
+  },
+  "upstream/README.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/87b4ebbd426ff8db597a2004cc45da17903bdcf2/README.md",
+   "sha256": "6f6c505c5715a8320a7c2edbf6f7f4cba40c8bd6f6cccd6ed3c1c9eeaf769ac0"
+  },
+  "upstream/constants/1c.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/87b4ebbd426ff8db597a2004cc45da17903bdcf2/constants/1c.md",
+   "sha256": "3855ef4e89030f8b6d1302552c97c01ed2f8a78a2bbf5a617160d570ffee6a73"
+  },
+  "upstream/constants/1d.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/87b4ebbd426ff8db597a2004cc45da17903bdcf2/constants/1d.md",
+   "sha256": "157569d89b48349d48230795a022cb31643caf45b4d3cee644bd6f655571bb1a"
+  }
+ }
+}

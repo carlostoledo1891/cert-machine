@@ -532,6 +532,14 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ramsey-ledger.json'), 'utf8'));
       if (L.rows.length !== 18) fail('the Ramsey graphs card would misstate the record');
       return Object.entries(L.counts).map(([w, c]) => c + ' ' + w).join(' · ') + ' · 2 gaps in the release\'s check'; })() },
+  { g: 'ai', f: 'weight-space-programming.html', k: 'audit · Weight-Space Programming (MIT CSAIL)',
+    title: 'Weight-Space Programming: the edit decided from its bytes, the scores re-graded',
+    desc: 'MIT CSAIL had GPT-6 Astra edit Qwen3.5-0.8B\'s weights with no training and reported MATH-500 7.9 → 48.1, “131,072 weights, 0.016% of the model”. The edit is decided from the bytes of the two '
+      + 'checkpoints by two implementations sharing no code, and every released MATH-500 answer re-graded by an exact three-valued grader against their flags; the gaps lead.',
+    n: (() => { const Wr = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'wsp-weights.json'), 'utf8')); const Gr = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'wsp-regrade.json'), 'utf8'));
+      if (!Wr.deciders_agree || Wr.js.facts.differ_in_bytes.length !== 2) fail('the WSP card would misstate the record');
+      const t = Gr.post_runs.post_edited_50_passes.tally, u = Gr.post_runs.post_unedited.tally;
+      return '2 of ' + Wr.js.facts.tensors.base + ' tensors differ · ' + Wr.js.facts.changed_entries_total.toLocaleString('en-US') + ' entries, not 131,072 · ' + (t.n + u.n).toLocaleString('en-US') + ' answers re-graded, ' + (t.their_1_our_WRONG + t.their_0_our_CORRECT + u.their_1_our_WRONG + u.their_0_our_CORRECT) + ' disagreements · 6 gaps'; })() },
   /* the x^x = y report (2026-10-31, the operator): an AI model's proposals, stated by claimbox, decided here with code of
      our own — filed with the audits, because what is decided is a machine's claims, re-decided from their bytes */
   { g: 'ai', f: 'xx.html', k: 'audit · an AI model\'s fractions',

@@ -1,0 +1,52 @@
+"""Exact score of an equal-step certificate {K, weights_int}: K*min_{0<=k<=K} A_k / S^2 as a Fraction.
+
+A_k = sum_i w_i w_{i+k} is computed exactly with int64 numpy correlations on 15-bit limbs.
+"""
+import json, sys
+from fractions import Fraction
+import numpy as np
+
+B = 15
+
+
+def check(w, K):
+    if type(K) is not int or K < 1:
+        raise ValueError('K must be a positive JSON integer')
+    if not isinstance(w, list) or not w:
+        raise ValueError('weights_int must be a non-empty list')
+    for x in w:
+        if type(x) is not int or x < 0:
+            raise ValueError(f'weight {x!r} is not a non-negative JSON integer')
+    if sum(w) == 0:
+        raise ValueError('all weights are zero')
+    if len(w) >= 2 ** 30:
+        raise ValueError('too many weights')
+
+
+def exact_corr(w, K):
+    check(w, K)
+    n = len(w); L = max(1, (max(w).bit_length() + B - 1) // B)
+    limbs = [np.array([(x >> (B * j)) & ((1 << B) - 1) for x in w], dtype=np.int64) for j in range(L)]
+    A = [0] * (K + 1)
+    for a in range(L):
+        for b in range(L):
+            # c[k] = sum_i limbs[a][i] * limbs[b][i+k]
+            c = np.correlate(limbs[b], limbs[a], mode='full')[n - 1:]
+            sh = B * (a + b)
+            for k in range(min(K + 1, n)):
+                A[k] += int(c[k]) << sh
+    return A
+
+
+def score(w, K):
+    A = exact_corr(w, K)
+    S = sum(w)
+    k = min(range(K + 1), key=A.__getitem__)
+    return Fraction(K * A[k], S * S), k
+
+
+if __name__ == '__main__':
+    d = json.load(open(sys.argv[1]))
+    v, k = score(d['weights_int'], d['K'])
+    print(f'K={d["K"]} n={len(d["weights_int"])} argmin k={k} score={v.numerator}/{v.denominator}')
+    print(f'  = {v.numerator * 10**15 // v.denominator}e-15 (floor)')

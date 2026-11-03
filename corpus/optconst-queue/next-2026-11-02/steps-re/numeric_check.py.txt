@@ -1,0 +1,8 @@
+# Independent numeric check of max|f*f|/(int f)^2 for a step function on [-1/4,1/4]: oversample each cell, FFT-free direct convolution
+import json, sys, numpy as np
+v = np.array(json.load(open(sys.argv[1]))["values"] if sys.argv[1].endswith(".json") else [], dtype=float)
+n = len(v); K = int(sys.argv[2]) if len(sys.argv) > 2 else 8
+dx = 0.5 / (n * K)
+f = np.repeat(v, K)
+conv = np.convolve(f, f) * dx           # Riemann approximation of f*f at grid points
+print(n, "ratio~", np.abs(conv).max() / (f.sum() * dx) ** 2)

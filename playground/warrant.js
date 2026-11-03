@@ -209,7 +209,8 @@ function value(text, standing, { title, derived, claim, illustration } = {}) {
   if (illustration && (derived || claim)) throw new Error('warrant.value: an invented number has no address');
   /* addresses are listed space-separated, so a space inside one (a model's name as a key) is written %20 */
   const from = derived ? ` data-derived="${[].concat(derived).map((x) => String(x).replace(/ /g, '%20')).join(' ').replace(/"/g, '&quot;')}"` : '';
-  const cl = claim ? ` data-claim-rec="${String(claim).replace(/ /g, '%20').replace(/"/g, '&quot;')}"` : '';
+  /* the same for a claim's address, or several of them (an array), as the registry page cites two rows at once */
+  const cl = claim ? ` data-claim-rec="${[].concat(claim).map((x) => String(x).replace(/ /g, '%20')).join(' ').replace(/"/g, '&quot;')}"` : '';
   const il = illustration ? ' data-ill' : '';
   return `<span class="w-val ${textClass(standing)}"${from}${cl}${il} title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }

@@ -1,0 +1,234 @@
+{
+ "what": "Four newer family-1 rows of the optimization-constants registry — C_1c [Kos2026] (#261), C_1d [STEPS2026] (#247) and C_1d [AER2026] under both of its readings (#248) — decided exactly by two implementations that share no code (instruments/optq/autocorr.py; instruments/optq/stepfun-exact.js) against the bounds the registry prints, read from its pinned pages; offered as the second party the registry's asterisk rule asks for. [SCIEL2026] not decided: restricted bytes.",
+ "generated": "2026-11-03T01:24:37Z",
+ "seconds": 1354.8,
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "3ac2920c33bde7295f4fc1671850f98f28e0c0b562411d4b9b71292add2a2732",
+  "jsModule": "88480ec6a070e6ae31d5816027b0238c2032681f326bbc0ea8fd83b5b556ca5b",
+  "py": "07ac0527af37d1e25d372764d71542d276c2c7f8b2ee8c597e073f922db8cc86"
+ },
+ "pins": "corpus/optconst-queue/next-2026-11-02/PINS.json",
+ "registryCommit": "87b4ebbd426ff8db597a2004cc45da17903bdcf2",
+ "counts": {
+  "CERTIFIED": 4
+ },
+ "rows": [
+  {
+   "id": "1c-koshta-k24576",
+   "constant": "C_1c",
+   "ref": "Kos2026",
+   "thread": "teorth/optimizationproblems#261",
+   "producer": "Dennis Koshta with Claude (c1c-autocorrelation-certificate @ a4ee94ef), K = 24576",
+   "source": "corpus/optconst-queue/next-2026-11-02/koshta/K24576_0.4103333.json",
+   "sha256": "963cb7273062e7360fdfa460bb19c1cf37729364b8f708b09580b6655b783c9e",
+   "n": 24592,
+   "claim": "C_1c >= 0.4103333",
+   "asteriskedAtPin": true,
+   "printedShaMatches": true,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "134648548624804778248790016/328144294688458468928334649",
+    "decimal": "0.410333352748493339534747580157",
+    "at": 21264,
+    "n": 24592
+   },
+   "jsSeconds": 0.1,
+   "stated": {
+    "fraction": "134648548624804778248790016/328144294688458468928334649",
+    "decimal": "0.41033335274",
+    "at": 21264,
+    "fractionMatches": true,
+    "decimalMatches": true,
+    "atMatches": true
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "134648548624804778248790016/328144294688458468928334649",
+    "at": 21264,
+    "valueDecimal": "0.410333352748493339534747580157"
+   },
+   "pySeconds": 580.5,
+   "agree": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "1d-steps-n600",
+   "constant": "C_1d",
+   "ref": "STEPS2026",
+   "thread": "teorth/optimizationproblems#247",
+   "producer": "steps-re for Mike German (c1d-certificate @ 9a091494), 600 cells",
+   "source": "corpus/optconst-queue/next-2026-11-02/steps-re/construction.json",
+   "sha256": "3dd39fae744555179b0356b84e752db724e892bd23dda51403976edfb5b3a28c",
+   "n": 600,
+   "claim": "C_1d <= 1.460217284022874",
+   "asteriskedAtPin": true,
+   "printedShaMatches": true,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "698746209786798359455483373677229695641600/478522078482569620433992386249161163190849",
+    "decimal": "1.460217284022873985248826533292",
+    "at": 631,
+    "n": 600
+   },
+   "jsSeconds": 0,
+   "stated": {
+    "fraction": "698746209786798359455483373677229695641600/478522078482569620433992386249161163190849",
+    "decimal": "1.4602172840228739",
+    "fractionMatches": true,
+    "decimalMatches": true,
+    "atMatches": null
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "698746209786798359455483373677229695641600/478522078482569620433992386249161163190849",
+    "at": 631,
+    "valueDecimal": "1.460217284022873985248826533292"
+   },
+   "pySeconds": 1.3,
+   "agree": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "1d-aer-n600-decimal",
+   "constant": "C_1d",
+   "ref": "AER2026",
+   "thread": "teorth/optimizationproblems#248",
+   "producer": "the AlphaEvolve repository of problems, pull request 13 (unclegareth-create @ 4b3bbd2a), C'_4 with 600 cells, the decimals read exactly",
+   "source": "corpus/optconst-queue/next-2026-11-02/aer-pr13/c4prime-n600.decimal.json",
+   "sha256": "d0dc7ebcf53ca30881e374a1ea3e1d2efd0d39126d7891ce2cc18904af960d05",
+   "n": 600,
+   "claim": "C_1d <= 1.459989046905384",
+   "asteriskedAtPin": true,
+   "printedShaMatches": true,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "20684250041098457118804665472/14167400834233061222366701921",
+    "decimal": "1.459989046905383144952592421986",
+    "at": 599,
+    "n": 600
+   },
+   "jsSeconds": 0,
+   "stated": {
+    "decimal": "1.4599890469053831",
+    "fractionMatches": null,
+    "decimalMatches": true,
+    "atMatches": null
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "20684250041098457118804665472/14167400834233061222366701921",
+    "at": 599,
+    "valueDecimal": "1.459989046905383144952592421986"
+   },
+   "pySeconds": 1.2,
+   "agree": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "1d-aer-n600-binary64",
+   "constant": "C_1d",
+   "ref": "AER2026",
+   "thread": "teorth/optimizationproblems#248",
+   "producer": "the same 600 literals, read as the binary64 numbers Python makes of them",
+   "source": "corpus/optconst-queue/next-2026-11-02/aer-pr13/c4prime-n600.double.json",
+   "sha256": "0856651426ee194980a1176fe1897ecf45ab5be4fe541241bed3ed8460d148b0",
+   "n": 600,
+   "claim": "C_1d <= 1.459989046905384",
+   "asteriskedAtPin": true,
+   "printedShaMatches": null,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "916469474214778925354731044043533067059200/627723527212305237039091106377481433021627",
+    "decimal": "1.459989046905383243150303255860",
+    "at": 599,
+    "n": 600
+   },
+   "jsSeconds": 0,
+   "stated": {
+    "decimal": "1.4599890469053831",
+    "fractionMatches": null,
+    "decimalMatches": false,
+    "atMatches": null
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "916469474214778925354731044043533067059200/627723527212305237039091106377481433021627",
+    "at": 599,
+    "valueDecimal": "1.459989046905383243150303255860"
+   },
+   "pySeconds": 1.3,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "gap": "the page prints 1.4599890469053831… for both readings; under this reading the exact value is 1.45998904690538324315… (the bound 1.459989046905384 holds all the same)"
+  }
+ ],
+ "notDecided": [
+  {
+   "id": "1d-sciel-n800",
+   "ref": "SCIEL2026",
+   "thread": "teorth/optimizationproblems#248",
+   "claim": "C_1d <= 1.457854884921989",
+   "verdict": "NEEDS DATA",
+   "why": "the certificate is a restricted Zenodo record (doi:10.5281/zenodo.23541324, files on request): there are no public bytes to pin; the submitters offer access to anyone checking the bound"
+  }
+ ],
+ "redControls": [
+  {
+   "id": "a-bound-above-the-value",
+   "what": "the Kos2026 function against a lower bound 2·10^-15 above its exact value",
+   "claim": "0.410333352748495",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "0.410333352748493339534747580157",
+   "py": "REFUTED",
+   "pyWhy": "0.410333352748493339534747580157",
+   "fired": true
+  },
+  {
+   "id": "a-negative-weight",
+   "what": "the Kos2026 function with its second weight made negative",
+   "claim": "0.4103333",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "a negative weight",
+   "py": "REFUSED",
+   "pyWhy": "a negative weight",
+   "fired": true
+  },
+  {
+   "id": "a-bound-below-the-value",
+   "what": "the STEPS2026 function against an upper bound 10^-15 below its exact value",
+   "claim": "1.460217284022873",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "1.460217284022873985248826533292",
+   "py": "REFUTED",
+   "pyWhy": "1.460217284022873985248826533292",
+   "fired": true
+  },
+  {
+   "id": "a-zero-integral",
+   "what": "the STEPS2026 function with its first value changed so that Σv = 0 exactly",
+   "claim": "1.460217284022874",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "the integral is zero",
+   "py": "REFUSED",
+   "pyWhy": "the integral is zero",
+   "fired": true
+  },
+  {
+   "id": "a-doubled-cell",
+   "what": "the AER2026 function (decimals) with its last, largest cell doubled",
+   "claim": "1.459989046905384",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "2.016801503452085427678972472913",
+   "py": "REFUTED",
+   "pyWhy": "2.016801503452085427678972472913",
+   "fired": true
+  }
+ ]
+}

@@ -21,8 +21,8 @@ const CLAIMANT = 'printed by the claimant or the registry; not decided here';
 const TIMED = 'a wall-clock time: measured, not decided';
 /* D10: a reading and a claimant's digits name the record cell that holds them (`claim`); a timing names the cell it is
    printed from (`derived`). The few the second argument leaves out are held by no JSON record (see each call). */
-const read = (t, claim) => W.value(t, W.COMPUTED, Object.assign({ title: READ }, claim ? { claim: [].concat(claim).join(' ') } : {}));
-const theirs = (t, claim) => W.value(t, W.COMPUTED, Object.assign({ title: CLAIMANT }, claim ? { claim: [].concat(claim).join(' ') } : {}));
+const read = (t, claim) => W.value(t, W.COMPUTED, Object.assign({ title: READ }, claim ? { claim: [].concat(claim) } : {}));
+const theirs = (t, claim) => W.value(t, W.COMPUTED, Object.assign({ title: CLAIMANT }, claim ? { claim: [].concat(claim) } : {}));
 const timed = (t, derived) => W.value(t, W.COMPUTED, Object.assign({ title: TIMED }, derived ? { derived } : {}));
 const OQ = 'certs/optq-ledger.json', oq = (id, f) => OQ + '#/rows[id=' + id + ']/' + f;
 /* the premise ladder's glosses in this page's words: a mathematical premise here is a theorem cited or a proof read, so the
@@ -417,6 +417,31 @@ B.push(C.section({
           + C.m('instruments/optq/graphon-k4-second.js') + ' (JavaScript: exact integers, one term per orbit of ordered block pairs under seven block permutations, each verified exactly before use; ' + timed('about a minute', ['certs/graphon-k4.json#/rows[id=c89-k4]/js/seconds']) + ' on the laptop).' }
       ])
       + C.pRaw('Controls: perturbing one block value moves the density; a printed bound one unit below at its last place fails; the constant graphon W ≡ ½ gives its known value; the published 768-vertex graph of Parczyk, Pokutta, Spiegel and Szabó read as a 0/1 graphon gives their published K₄ value; blocks 0 and m−1 re-derived without the symmetry agree. Record ' + C.m('certs/graphon-k4.json') + ' with the pod\'s residues verbatim in ' + C.m('certs/graphon-k4-blocks.txt') + '; ' + C.m('node tools/replay-graphon-k4.js --check') + ' re-lifts them and re-derives block 0 in seconds.')
+  }));
+}
+/* §13 (2026-11-02): three newer family-1 rows, replayed as the second party (certs/autocorr-replay-next.json,
+   tools/replay-autocorr-next.js) — appended after §12 */
+{
+  const AN = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'autocorr-replay-next.json'), 'utf8'));
+  if (AN.deciders.js !== shaOf('tools/replay-autocorr-next.js') || AN.deciders.jsModule !== shaOf('instruments/optq/stepfun-exact.js') || AN.deciders.py !== shaOf('instruments/optq/autocorr.py')) die('certs/autocorr-replay-next.json was written by other deciders — re-run tools/replay-autocorr-next.js');
+  const g = (id) => AN.rows.find((r) => r.id === id) || die('§13: no row ' + id);
+  const k = g('1c-koshta-k24576'), s = g('1d-steps-n600'), ad = g('1d-aer-n600-decimal'), ab = g('1d-aer-n600-binary64'), sc = AN.notDecided.find((x) => x.ref === 'SCIEL2026');
+  if (![k, s, ad, ab].every((r) => r.agree && r.verdict === 'CERTIFIED') || !AN.redControls.every((r) => r.fired) || !k.stated.fractionMatches || !k.stated.atMatches || !s.stated.fractionMatches || !ad.stated.decimalMatches || ab.stated.decimalMatches || !sc)
+    die('the newer family-1 replay is not what §13 says — rewrite it');
+  if (k.n !== 24592 || !/K = 24576$/.test(k.producer) || s.n !== 600 || ad.n !== 600) die('a count §13 types (K = 24,576 and 24,592 weights; 600 cells) moved in certs/autocorr-replay-next.json');
+  const num = (r) => r.claim.split(/[<>]= /)[1];
+  B.push(C.section({
+    lab: '§13 · C₁c and C₁d, again', title: 'Three newer step functions, replayed as the second party', id: 'autocorr-next',
+    bodyRaw: C.pRaw('<b>Decided 2026-11-02, as the second party.</b> Three newer family-1 bounds carried the registry\'s asterisk with no replay but their submitters\' own. Each is decided here from the bytes its row cites, pinned by digest (every digest the page prints matches), against the bound the page prints, by the same two implementations as §7: '
+      + C.m('instruments/optq/autocorr.py') + ' (Python, every lag summed term by term) and ' + C.m('instruments/optq/stepfun-exact.js') + ' (JavaScript BigInt, Kronecker products). Both give the same fraction on every row; the claimants\' verifiers are kept as text and never run.')
+      + C.plainList([
+        { b: 'C₁c ≥ ' + num(k) + ' [Kos2026] — CERTIFIED.', raw: 'Koshta\'s step function (K = 24,576, 24,592 integer weights; <a href="https://github.com/teorth/optimizationproblems/pull/261">#261</a>): ' + C.m(k.js.decimal.slice(0, 22) + '…') + ', the page\'s fraction exactly, its minimum at the lag the page names (k = ' + k.js.at + ').' },
+        { b: 'C₁d ≤ ' + num(s) + ' [STEPS2026] — CERTIFIED.', raw: 'The 600-cell signed function of <a href="https://github.com/teorth/optimizationproblems/pull/247">#247</a>, each stored double read as an exact rational: ' + C.m(s.js.decimal.slice(0, 22) + '…') + ', the page\'s fraction exactly.' },
+        { b: 'C₁d ≤ ' + num(ad) + ' [AER2026] — CERTIFIED under both readings.', raw: 'The 600-cell C\'₄ function of the AlphaEvolve repository\'s pull request 13, given as decimal literals in a Python file (added to the page by <a href="https://github.com/teorth/optimizationproblems/pull/248">#248</a>). Read exactly: ' + C.m(ad.js.decimal.slice(0, 22) + '…') + '; read as binary64: ' + C.m(ab.js.decimal.slice(0, 22) + '…') + '. '
+          + '<b>A small gap:</b> the page gives ' + C.esc(ab.stated.decimal) + '… for both readings; that holds for the exact one, and the binary64 one differs from the sixteenth decimal. The bound holds either way.' },
+        { b: 'C₁d ≤ ' + C.esc(sc.claim.split('<= ')[1]) + ' [SCIEL2026] — not decided, NEEDS DATA.', text: 'Its certificate is a restricted Zenodo record (files on request), so there are no public bytes to pin.' }
+      ])
+      + C.pRaw('Red controls, which must come out wrong in both implementations: a C₁c bound 2·10⁻¹⁵ above the Kos2026 value and a C₁d bound 10⁻¹⁵ below the STEPS2026 value are REFUTED, as is the AER2026 function with its largest cell doubled; a negative weight and a function changed to integral zero are REFUSED. Record ' + C.m('certs/autocorr-replay-next.json') + '; re-derive with ' + C.m('node tools/replay-autocorr-next.js') + ' (both, about ' + Math.ceil(AN.seconds / 60) + ' minutes) or ' + C.m('--check') + ' (seconds).')
   }));
 }
 { const OUT = require(path.join(ROOT, 'design', 'outside.js')).section(C, 'reports/optconst-queue.html'); if (OUT) B.push(OUT); }

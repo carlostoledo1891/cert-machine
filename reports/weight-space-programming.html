@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weight-Space Programming: the edit decided from its bytes, the scores re-graded · Carlos Toledo</title>
+<meta name="description" content="MIT CSAIL’s Weight-Space Programming edit of Qwen3.5-0.8B decided from the bytes of the two checkpoints by two implementations sharing no code: two tensors differ, 130,188 entries (not 131,072), 0.015% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination, the baseline the open question.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/weight-space-programming.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/weight-space-programming.html">
+<meta property="og:title" content="Weight-Space Programming: the edit decided from its bytes, the scores re-graded · Carlos Toledo">
+<meta property="og:description" content="MIT CSAIL’s Weight-Space Programming edit of Qwen3.5-0.8B decided from the bytes of the two checkpoints by two implementations sharing no code: two tensors differ, 130,188 entries (not 131,072), 0.015% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination, the baseline the open question.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Weight-Space Programming: the edit decided from its bytes, the scores re-graded · Carlos Toledo">
+<meta name="twitter:description" content="MIT CSAIL’s Weight-Space Programming edit of Qwen3.5-0.8B decided from the bytes of the two checkpoints by two implementations sharing no code: two tensors differ, 130,188 entries (not 131,072), 0.015% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination, the baseline the open question.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Weight-Space Programming: the edit decided from its bytes, the scores re-graded","description":"MIT CSAIL’s Weight-Space Programming edit of Qwen3.5-0.8B decided from the bytes of the two checkpoints by two implementations sharing no code: two tensors differ, 130,188 entries (not 131,072), 0.015% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination, the baseline the open question.","url":"https://carlostoledo.co/reports/weight-space-programming.html","image":"https://carlostoledo.co/og-landing.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=1 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* @/site-css */
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · audit · Weight-Space Programming (MIT CSAIL) · found 2026-11-02 at RikiyaT/Qwen3.5-0.8B-weight-space-programming d1671a17</div>
+  <h1>Weight-Space Programming: the edit decided from its bytes, the scores re-graded</h1>
+  <p class="deck">On 2 November 2026 Rikiya Takehi, Teoh, Zhang and Khattab (MIT CSAIL) published “Sparks of Weight-Space Programming”: a frontier model, GPT-6 Astra, edited Qwen3.5-0.8B’s weights directly, with no training, and MATH-500 went from 7.9% to 48.1%, “131,072 weights, 0.016% of the model”. They released the edited checkpoint, a bit-exact diff, their logs and their graded outputs. Here the edit is decided from the bytes of the two checkpoints by two implementations that share no code, and every released MATH-500 answer is re-graded by an exact three-valued grader against their flags. The edit is exactly what the diff says; two printed numbers are not what the bytes say; and the exact grading agrees with theirs on every decided answer.</p>
+</header>
+
+<p class="scope">Published as a blog post, an X thread and a model card, not peer-reviewed. The checkpoints (Qwen/Qwen3.5-0.8B @ 2fc06364, the edited release @ d1671a17), the logs repository (RikiyaT/lm_understand-logs @ 4d09ba6d), MATH-500 (HuggingFaceH4 @ 6e4ed1a2) and Qwen’s model card were fetched 2026-11-02 and every file is pinned by sha256 in corpus/wsp/PINS.json. The claimants’ scripts (make_edit_diff.py, apply_edit.py, mathqa.py) were read as text and never run. What is decided: the tensor diff, its counts, its columns, the printed hashes, the first-sample answers. What is read: the benchmark scores themselves (no model was run here), the mechanism, the baseline’s settings.</p>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> <b>The edit is real and exactly as released; the two printed sizes are off; the scores re-grade identically.</b> Exactly <span class="w-val w-decided" data-derived="certs/wsp-weights.json#/js/facts/differ_in_bytes" title="the tensors whose bytes differ, listed by both deciders">two</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/tensors/base" data-fmt="int" title="decided — exact arithmetic backs it">488</span> tensors differ, the two the card names, and their sha256 are the printed ones. The entries whose bits differ number <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/changed_entries_total" data-fmt="int" title="decided — exact arithmetic backs it">130,188</span>, not 131,072 (that is the <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/entries_in_changed_columns_total" data-fmt="int" title="decided — exact arithmetic backs it">131,072</span> entries of the 64 columns the edit addressed, of which <span class="w-val w-decided" data-derived="certs/wsp-weights.json#/js/facts/entries_in_changed_columns_total certs/wsp-weights.json#/js/facts/changed_entries_total" title="the addressed entries less those whose bits differ">884</span> round back to the original value — their own manifest says so). The “0.016% of the model” is 131,072 over the round number 0.8 B: over the release’s actual <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/all" data-fmt="int" title="decided — exact arithmetic backs it">873,438,784</span> parameters it is <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1all/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.015</span>%, over the language model’s <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/language_model" data-fmt="int" title="decided — exact arithmetic backs it">752,393,024</span> it is <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1language_model/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.017</span>%. The edit is not “the direction subtracted” but six times its projection removed — the component along it reversed and amplified five-fold (the run’s own formula; the bytes show the ratio <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.15.mlp.down_proj.weight/alpha_over_u_dot_Wc/mean" data-fmt="fixed:3" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">6.000</span> and <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.19.mlp.down_proj.weight/alpha_over_u_dot_Wc/mean" data-fmt="fixed:3" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">6.000</span>). Of the post’s 500 unedited first samples only <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">35</span> end in a closed box, and every one of them is correct; of the edited run’s, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">303</span> do, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed_their_1" data-fmt="int" title="decided — exact arithmetic backs it">241</span> correct. The gain is termination. Whether a looping baseline under the post’s settings is the right denominator for “6×” is the open question (§1, G5): Qwen’s own card warns the 0.8B loops under those settings and recommends others.</li><li><b>The mechanism.</b> Two checkpoints, parsed from their safetensors headers, compared tensor by tensor as bytes and — where a dtype could differ — as exact rationals; the changed entries counted, their rows and columns listed, the parameter counts summed from the shapes, every fraction kept as an exact rational and rounded once to three decimals; a rank-1 witness (u, α) proposed by an SVD and an interval search, then checked entry by entry in binary32 arithmetic with round-to-nearest-even to bfloat16; a three-valued grader that canonicalises an answer to an exact object (rationals, radicals, multiples of π, complex numbers, tuples, degrees, base-n literals, words) or refuses it, run on every released answer string and text.</li><li><b>Check it.</b> <span class="m">node tools/wsp-weights.js --check</span> re-derives every fact and both red controls from the cached checkpoints (<span class="w-val w-decided" data-derived="certs/wsp-weights.json#/seconds" title="the record’s own run time">26.8</span> s to record; the 2.5 GB of inputs are fetched by the pins, not kept in git); <span class="m">python3 -I tools/wsp-regrade.py --check</span> re-grades every released answer (seconds).</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">tensors that differ</div><div class="v">2 of 488</div><div class="n">layers 15 and 19, mlp.down_proj; sha256 as printed on the card and in the diff manifest.</div></div>
+    <div class="stat"><div class="k">entries whose bits differ</div><div class="v">130,188</div><div class="n">of the 131,072 entries in 64 columns × 1,024 rows × 2 tensors the edit addressed; the post prints 131,072.</div></div>
+    <div class="stat"><div class="k">“0.016% of the model”</div><div class="v">0.015% / 0.017%</div><div class="n">over the release’s 873,438,784 parameters / the language model’s 752,393,024; 0.016% only over a round 0.8 B.</div></div>
+    <div class="stat"><div class="k">first-sample answers re-graded</div><div class="v">1,000</div><div class="n">980 decided, 20 refused by the exact grader; 0 disagreements with math-verify on the decided ones.</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the gaps</div>
+    <h2>What the post states and the bytes do not, dated at the pin</h2>
+  </div>
+<div class="note">
+  <span class="lab">G1 · count · found 2026-11-02</span>
+<p><b>“131,072 weights” is the addressed count, not the changed count.</b> The post and the card say the edit “directly changed only 0.016% of weights”, 131,072 of them. Both deciders count <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/changed_entries_total" data-fmt="int" title="decided — exact arithmetic backs it">130,188</span> bfloat16 entries whose bits differ (<span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/per_tensor/model.language_model.layers.15.mlp.down_proj.weight/changed_entries" data-fmt="int" title="decided — exact arithmetic backs it">65,260</span> in layer 15, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/per_tensor/model.language_model.layers.19.mlp.down_proj.weight/changed_entries" data-fmt="int" title="decided — exact arithmetic backs it">64,928</span> in layer 19); 131,072 is 64 columns × 1,024 rows × 2, the entries the edit touched, of which <span class="w-val w-decided" data-derived="certs/wsp-weights.json#/js/facts/entries_in_changed_columns_total certs/wsp-weights.json#/js/facts/changed_entries_total" title="the addressed entries less those whose bits differ">884</span> round back to their original bfloat16 value. The claimants’ own edit manifest counts 130,188 and says why in a note; the post rounds the other way. A reading, not a refutation of substance: the edit is what it says.</p><p><b>What would close it.</b> One clause in the post: “131,072 weights addressed, 130,188 changed”.</p>
+</div>
+<div class="note">
+  <span class="lab">G2 · fraction · found 2026-11-02</span>
+<p><b>“0.016% of the model” divides by the model’s name, not its parameter count.</b> 131,072 over 800,000,000 is <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1nominal_0.8B/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.016</span>%. The release is image-text-to-text and holds <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/all" data-fmt="int" title="decided — exact arithmetic backs it">873,438,784</span> parameters (<span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/visual" data-fmt="int" title="decided — exact arithmetic backs it">100,592,896</span> in the vision tower, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/language_model" data-fmt="int" title="decided — exact arithmetic backs it">752,393,024</span> in the language model, of which <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/parameters/embed_tokens" data-fmt="int" title="decided — exact arithmetic backs it">254,279,680</span> are the tied embedding): the fraction is <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1all/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.015</span>% of the release, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1language_model/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.017</span>% of the language model the post evaluated, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1language_model_minus_embed/percent_rounded_3dp" data-fmt="raw" title="decided — exact arithmetic backs it">0.026</span>% of its non-embedding weights. Every one of these is an exact rational in the record (<span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/fraction/131072~1language_model/fraction" data-fmt="raw" title="decided — exact arithmetic backs it">2048/11756141</span> for the language model), rounded once.</p><p><b>What would close it.</b> Name the denominator.</p>
+</div>
+<div class="note">
+  <span class="lab">G3 · dose · found 2026-11-02</span>
+<p><b>The direction is not subtracted; six times its projection is.</b> The post says Astra “subtracted that direction from 64 output columns in each” layer. The run’s own notes state the formula, W = W₀ − 6·u(uᵀW₀) on the 64 columns, and the bytes agree: the ratio of the witness’s per-column coefficient to the column’s projection on u is <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.15.mlp.down_proj.weight/alpha_over_u_dot_Wc/mean" data-fmt="fixed:3" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">6.000</span> ± <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.15.mlp.down_proj.weight/alpha_over_u_dot_Wc/std" data-fmt="sig:2" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">0.00015</span> in layer 15 and <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.19.mlp.down_proj.weight/alpha_over_u_dot_Wc/mean" data-fmt="fixed:3" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">6.000</span> ± <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-weights.json#/witness_proposer/model.language_model.layers.19.mlp.down_proj.weight/alpha_over_u_dot_Wc/std" data-fmt="sig:2" title="the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)">0.00016</span> in layer 19. So the component of each edited column along the “loop direction” is not removed: it is reversed and amplified five-fold. Astra reached that dose by trials (strength 1, 2, 3, 4, 6 in its history) and the post does not say so. The relative change of the two tensors is about a tenth (their manifest: 0.106 and 0.081).</p><p><b>What would close it.</b> The formula in the post, with its dose.</p>
+</div>
+<div class="note">
+  <span class="lab">G4 · evidence · found 2026-11-02</span>
+<p><b>The texts behind most of the 2,000 graded answers are not released.</b> The post’s MATH-500 score is the mean over 4 samples of 500 problems. The logs hold every sample’s correctness flag and, for the first sample only, the extracted answer string (500 per run) and the full text for 20 problems per shard (200 per run). The model card’s independent re-run (51.0%) releases its 2,000 flags and 20 texts. So what can be re-graded is <span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_unedited/tally/n certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/n" title="the first-sample answer strings of the two runs">1,000</span> first-sample answers and <span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_unedited/tally/texts certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/texts certs/wsp-regrade.json#/card_runs/card_rerun_edited/tally/texts certs/wsp-regrade.json#/card_runs/card_smoke_base/tally/texts" title="the released full texts">440</span> texts; the flags re-sum to the printed accuracies exactly (<span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/acc_resummed_all_samples" title="the mean of the 2,000 released flags, to four decimals">0.4810</span> against the printed <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/merged_printed/acc" data-fmt="raw" title="the claimants’ own flag or count, as released; read, not decided">0.481</span>).</p><p><b>What would close it.</b> The 2,000 generations per run, as the card’s re-run released its flags.</p>
+</div>
+<div class="note">
+  <span class="lab">G5 · baseline · a reading, not decided</span>
+<p><b>The 7.9% baseline is a looping regime that the base model’s own card warns about.</b> Under the post’s settings (temperature 0.6, 32,768 tokens) <span class="w-val w-computed" data-derived="certs/wsp-regrade.json#/post_runs/post_unedited/merged_printed/cut_share" title="the claimants’ own cut share, as printed in their merged.json; read, not decided">93.0%</span> of the unedited MATH-500 answers hit the token limit (their merged.json). Qwen’s model card for Qwen3.5-0.8B, pinned at the same revision, says: “In thinking mode, we have observed that when using the recommended sampling parameters, Qwen3.5-0.8B is more prone to entering thinking loops compared to other Qwen3.5 models”; its recommended thinking-mode text settings are temperature 1.0 with 81,920 output tokens for competition math, and its own table reports IFEval 44.0 (thinking) / 52.1 (non-thinking) for the base model against the post’s 21.0. The multipliers in the post (“6×”, “3×”) are measured against that baseline. The edited IFEval 62.3 is above the card’s numbers, so the edit does something real; how much of 7.9 → 48.1 a no-edit configuration recovers is not decided here. It would be by one GPU run (§4), pre-registered and not yet made.</p><p><b>What would close it.</b> The unedited model under the card’s settings, on the same grader, beside the post’s table.</p>
+</div>
+<div class="note">
+  <span class="lab">G6 · selection · a reading</span>
+<p><b>48.1 is one run of several.</b> The logs’ results table lists the three prompt-v3 runs the post reports (10, 25, 50 passes: 12.3, 14.1, 48.1 on MATH-500), two prompt-v4 runs (7.9 with no edit submitted; 14.1), earlier runs that submitted no edit, and prompt-v5 runs still pending. No variance across runs of the same budget is reported. The same table records the follow-up on Gemma 3 270M, a model that does not loop (8.5% of answers at the limit): fifty passes moved MATH-500 from 6.8 to 7.0 under lenient grading, within noise. Read together with §3: where there is no loop to break, the method found nothing to gain.</p>
+</div>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-decided">decided</span> — the addressed entries less those whose bits differ</li><li><span class="w-computed">computed</span> — the proposer’s reading of the witness it found: α_c over uᵀW[:, c] per column, numpy float64; computed, not decided (the witness itself is REFUSED)</li><li><span class="w-decided">decided</span> — the first-sample answer strings of the two runs</li><li><span class="w-decided">decided</span> — the released full texts</li><li><span class="w-decided">decided</span> — the mean of the 2,000 released flags, to four decimals</li><li><span class="w-computed">computed</span> — the claimants’ own flag or count, as released; read, not decided</li><li><span class="w-computed">computed</span> — the claimants’ own cut share, as printed in their merged.json; read, not decided</li></ul></div></section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the weights</div>
+    <h2>Seven sub-claims, each decided by two implementations</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th></th><th>claim</th><th>what the bytes say</th><th>verdict</th></tr></thead><tbody><tr><td>W1</td><td>the same tensors in both checkpoints (names, shapes, dtypes)</td><td>488 tensors each; no name, shape or dtype differs</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>W2</td><td>exactly two tensors differ: layers 15 and 19 mlp.down_proj</td><td>layers.15.mlp.down_proj.weight, layers.19.mlp.down_proj.weight; every other tensor byte-identical</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>W3</td><td>“131,072 weights” as the entries whose bits differ</td><td>130,188 differ (65,260 + 64,928); their manifest’s 130,188 CERTIFIED</td><td><span class="tag dep">REFUTED</span></td></tr><tr><td>W3′</td><td>131,072 as the entries of the 64 addressed columns</td><td>64 × 1,024 × 2 = 131,072</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>W4</td><td>“0.016%” over the release / the language model / its non-embedding weights</td><td>0.015% / 0.017% / 0.026%</td><td><span class="tag dep">REFUTED</span></td></tr><tr><td>W4′</td><td>“0.016%” over a round 0.8 B</td><td>0.016%</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>W5</td><td>the changed entries lie in exactly 64 columns per tensor, the ones the run’s manifest names</td><td>64 and 64 columns; 1,024 and 1,023 of 1,024 rows</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>W6</td><td>one direction: a witness (u, α) with bf16(W − u·α_c) = W′ on every changed column</td><td>the best witness found reproduces all but 42 and 65 of 65,536 entries per tensor (each within 6.3e-5 in absolute value, at entries where the subtraction nearly cancels); a failed search refutes nothing</td><td><span class="tag open">REFUSED</span></td></tr><tr><td>W7</td><td>the printed sha256 of both edited tensors (the card) and both base tensors (the manifest)</td><td>all four equal the bytes</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>The sub-claims were written to corpus/wsp/claims.json before either decider ran. The Python decider (standard library: struct, mmap, array, Fraction) and the JavaScript one (Buffer, Uint16Array, Math.fround, BigInt) read the safetensors headers and the raw bytes themselves and agree on every count, column, hash and verdict. Two red controls must come out wrong and do: one bit flipped in a third tensor (W2 REFUTED with three tensors differing) and the layer-15 delta doubled (W6 REFUSED (the witness fails) and W3/W7 REFUTED on layer 15).</p><p><b>W6, in words.</b> Astra’s own float32 submission was rank-1 to float32 precision (its manifest reports a directional residual of 2.5·10⁻⁷); the released checkpoint is that submission rounded to bfloat16, which adds a relative noise of about 2⁻⁹ to every entry. An SVD of the delta recovers the direction to that noise, and an interval search (every edited entry fixes the binary32 interval that rounds to it) brings the witness to within <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/witness/model.language_model.layers.15.mlp.down_proj.weight/mismatches" data-fmt="int" title="decided — exact arithmetic backs it">42</span> + <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-weights.json#/js/facts/witness/model.language_model.layers.19.mlp.down_proj.weight/mismatches" data-fmt="int" title="decided — exact arithmetic backs it">65</span> entries of exact. The claim is CERTIFIED only with a witness that reproduces every entry; none was found, so it is REFUSED — which is a limit of the search, stated as such, not a finding against the edit.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the scores</div>
+    <h2>Every released answer re-graded: the gain is termination</h2>
+  </div>
+<div class="col"><p>The grader here (instruments/wsp/grade.py) reads the last closed <span class="m">\boxed{}</span> itself, canonicalises both the prediction and MATH-500’s answer to an exact object, and says CORRECT, WRONG or REFUSED. It refuses what it will not canonicalise — an expression, an interval, a unit, a percentage against a bare number, a base-n literal against a bare number, the same elements in another order — rather than guess; <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/gold/decidable" data-fmt="int" title="decided — exact arithmetic backs it">447</span> of the 500 gold answers are in its reach. The claimants graded with math-verify 0.9.0 on the same box.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>run (the post’s logs)</th><th>MATH-500, printed</th><th>the 2,000 flags re-summed</th><th>first samples ending in a box</th><th>of those, correct (theirs)</th><th>of those, correct (exact)</th><th>decided answers: agreement with theirs</th></tr></thead><tbody><tr><td>unedited</td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/merged_printed/acc" data-fmt="raw" title="the claimants’ own flag or count, as released; read, not decided">0.079</span></td><td><span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_unedited/acc_resummed_all_samples" title="the mean of the 2,000 released flags, to four decimals">0.0790</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">35</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/n" data-fmt="int" title="decided — exact arithmetic backs it">500</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed_their_1" data-fmt="int" title="the claimants’ own flag or count, as released; read, not decided">35</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed_our_CORRECT" data-fmt="int" title="decided — exact arithmetic backs it">35</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed_decided" data-fmt="int" title="decided — exact arithmetic backs it">35</span> decided</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/agree" data-fmt="int" title="decided — exact arithmetic backs it">500</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/decided" data-fmt="int" title="decided — exact arithmetic backs it">500</span>; <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/refused" data-fmt="int" title="decided — exact arithmetic backs it">0</span> refused</td></tr><tr><td>edited, 50 passes</td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/merged_printed/acc" data-fmt="raw" title="the claimants’ own flag or count, as released; read, not decided">0.481</span></td><td><span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/acc_resummed_all_samples" title="the mean of the 2,000 released flags, to four decimals">0.4810</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">303</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/n" data-fmt="int" title="decided — exact arithmetic backs it">500</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed_their_1" data-fmt="int" title="the claimants’ own flag or count, as released; read, not decided">241</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed_our_CORRECT" data-fmt="int" title="decided — exact arithmetic backs it">230</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed_decided" data-fmt="int" title="decided — exact arithmetic backs it">283</span> decided</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/agree" data-fmt="int" title="decided — exact arithmetic backs it">480</span> of <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/decided" data-fmt="int" title="decided — exact arithmetic backs it">480</span>; <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/refused" data-fmt="int" title="decided — exact arithmetic backs it">20</span> refused</td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 230" role="img" aria-label="Six bars. Unedited: 35 of 500 first samples end in a closed box, 35 correct by their grader, 35 by the exact grader. Edited: 303 boxed, 241 correct by theirs, 230 of 283 decided by ours.">
+    <line x1="300.0" y1="10" x2="300.0" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="300.0" y="186.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="405.2" y1="10" x2="405.2" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="405.2" y="186.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="510.4" y1="10" x2="510.4" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="510.4" y="186.0" text-anchor="middle" class="t-ax">200</text>
+    <line x1="615.6" y1="10" x2="615.6" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="615.6" y="186.0" text-anchor="middle" class="t-ax">300</text>
+    <line x1="720.8" y1="10" x2="720.8" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="720.8" y="186.0" text-anchor="middle" class="t-ax">400</text>
+    <line x1="826.0" y1="10" x2="826.0" y2="166" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="826.0" y="186.0" text-anchor="middle" class="t-ax">500</text>
+    <path d="M300 14 h32.81999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-32.81999999999999 Z" fill="var(--ink-3)" data-cm="unedited · answered (a closed box)" data-cmv="35" tabindex="0"/>
+    <text x="290.0" y="27.0" text-anchor="end" class="t-ax">unedited · answered (a closed box)</text>
+    <text x="344.8" y="27.0" text-anchor="start" class="t-lab">35 of 500</text>
+    <path d="M300 40 h32.81999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-32.81999999999999 Z" fill="var(--ink-5)" data-cm="unedited · correct, their grader" data-cmv="35" tabindex="0"/>
+    <text x="290.0" y="53.0" text-anchor="end" class="t-ax">unedited · correct, their grader</text>
+    <text x="344.8" y="53.0" text-anchor="start" class="t-lab">35</text>
+    <path d="M300 66 h32.81999999999999 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-32.81999999999999 Z" fill="var(--ink-1)" data-cm="unedited · correct, exact grader" data-cmv="35" tabindex="0"/>
+    <text x="290.0" y="79.0" text-anchor="end" class="t-ax">unedited · correct, exact grader</text>
+    <text x="344.8" y="79.0" text-anchor="start" class="t-lab">35 of 35 decided</text>
+    <path d="M300 92 h314.756 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-314.756 Z" fill="var(--ink-3)" data-cm="edited, 50 passes · answered (a closed box)" data-cmv="303" tabindex="0"/>
+    <text x="290.0" y="105.0" text-anchor="end" class="t-ax">edited, 50 passes · answered (a closed box)</text>
+    <text x="626.8" y="105.0" text-anchor="start" class="t-lab">303 of 500</text>
+    <path d="M300 118 h249.53199999999993 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-249.53199999999993 Z" fill="var(--ink-5)" data-cm="edited, 50 passes · correct, their grader" data-cmv="241" tabindex="0"/>
+    <text x="290.0" y="131.0" text-anchor="end" class="t-ax">edited, 50 passes · correct, their grader</text>
+    <text x="561.5" y="131.0" text-anchor="start" class="t-lab">241</text>
+    <path d="M300 144 h237.96000000000004 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-237.96000000000004 Z" fill="var(--ink-1)" data-cm="edited, 50 passes · correct, exact grader" data-cmv="230" tabindex="0"/>
+    <text x="290.0" y="157.0" text-anchor="end" class="t-ax">edited, 50 passes · correct, exact grader</text>
+    <text x="550.0" y="157.0" text-anchor="start" class="t-lab">230 of 283 decided</text>
+    <text x="563.0" y="208.0" text-anchor="middle" class="t-note">first-sample answers, of 500 MATH-500 problems</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/wsp-regrade.json@b346efb4db9b" data-stop>First samples of the 500 MATH-500 problems, per run. Answered: a closed box in the response. The unedited model answers 35 and is right 35 times; the edited one answers 303 and is right 241. The exact grader decides 283 of the edited boxed answers and agrees with math-verify on every one.<span class="fig-rec">Record: <span class="m">certs/wsp-regrade.json</span> · sha256 b346efb4db9b</span><span class="fig-stop">The build refuses this figure if a decided first-sample answer is graded differently by the exact grader and by math-verify.</span></figcaption>
+</figure></div><div class="col"><p><b>Read exactly.</b> The unedited model, when it finishes, is right: <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">35</span> first samples end in a box and all <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_unedited/tally/boxed_their_1" data-fmt="int" title="the claimants’ own flag or count, as released; read, not decided">35</span> are correct by both graders. The edited model finishes <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed" data-fmt="int" title="decided — exact arithmetic backs it">303</span> times and is right <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/boxed_their_1" data-fmt="int" title="the claimants’ own flag or count, as released; read, not decided">241</span> of them (<span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/acc_given_boxed_theirs" title="their correct boxed first samples over their boxed first samples">79.5%</span>). So the edit does not make the model better at the problems it already finishes; it makes it finish — which is exactly the mechanism the authors describe (a “loop direction” written by two MLPs) and exactly why a baseline that does not loop (§1, G5, G6) is the number the “6×” needs.</p><p><b>The card’s independent re-run.</b> akhaliq’s re-run of the edited checkpoint prints <span class="w-val w-computed" data-w="computed" data-rec="certs/wsp-regrade.json#/card_runs/card_rerun_edited/summary_printed/acc" data-fmt="raw" title="the claimants’ own flag or count, as released; read, not decided">0.51</span>; its 2,000 flags re-sum to <span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/card_runs/card_rerun_edited/acc_resummed" title="the mean of the released flags, to three decimals">0.510</span>. Its <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/card_runs/card_rerun_edited/tally/texts" data-fmt="int" title="decided — exact arithmetic backs it">20</span> released texts re-extract and re-grade as flagged (<span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/card_runs/card_rerun_edited/tally/decided" data-fmt="int" title="decided — exact arithmetic backs it">19</span> decided, <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/card_runs/card_rerun_edited/tally/agree_with_first_flag" data-fmt="int" title="decided — exact arithmetic backs it">19</span> agree); the 25-problem base smoke test likewise (<span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/card_runs/card_smoke_base/tally/decided" data-fmt="int" title="decided — exact arithmetic backs it">15</span> decided, all agree).</p><p><b>Extraction.</b> On all <span class="w-val w-decided" data-derived="certs/wsp-regrade.json#/post_runs/post_unedited/tally/texts certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/texts" title="the released first-sample texts of the two runs">400</span> released texts of the post’s runs, the last box read here equals the answer string their pipeline extracted. The <span class="w-val w-decided" data-w="decided" data-rec="certs/wsp-regrade.json#/post_runs/post_edited_50_passes/tally/refused" data-fmt="int" title="decided — exact arithmetic backs it">20</span> refused edited answers are listed in the record with the reason each (a unit after the number, an equation for a number, a matrix, an interval, two multiple-choice letters, an order).</p></div><div class="col"><div class="w-legend compact" data-n="2" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div><div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — the claimants’ own flag or count, as released; read, not decided</li><li><span class="w-decided">decided</span> — the mean of the 2,000 released flags, to four decimals</li><li><span class="w-decided">decided</span> — the claimants’ own flag or count, as released; read, not decided</li><li><span class="w-decided">decided</span> — their correct boxed first samples over their boxed first samples</li><li><span class="w-decided">decided</span> — the mean of the released flags, to three decimals</li><li><span class="w-decided">decided</span> — the released first-sample texts of the two runs</li></ul></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the baseline</div>
+    <h2>What would decide the multiplier, and is not run</h2>
+  </div>
+<p>The question G5 leaves open has one answer: the unedited Qwen3.5-0.8B on MATH-500, four samples per problem, the grader of §3, under three conditions side by side — the post’s settings (a control that should reproduce about 7.9), the card’s thinking-mode text settings (temperature 1.0, 81,920 tokens), and the card’s non-thinking settings. It is pre-registered in notes/wsp-stage3-preregistration-2026-11-02.md with its stop rule and costs about US$15–30 of GPU time. It has not been run: a paid run is the operator’s word, and this page says so rather than guess the number. When it runs, its record (certs/wsp-baseline.json) is added here and the gaps above are re-dated.</p><p><b>What is not claimed.</b> That the edit is small or large in effect beyond the released flags; that the mechanism is as described (read from the run’s notes, not probed here); anything about GSM8K, IFEval or the other benchmarks beyond re-reading their printed numbers; that math-verify is wrong anywhere (it agreed with the exact grader on every decided answer).</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · how it was done</div>
+    <h2>Read, stated, decided</h2>
+  </div>
+<ul class="plain"><li><b>Pinned.</b> Both checkpoints at their revisions, the logs repository at its commit, MATH-500 at its revision and Qwen’s card: 22 files, each sha256 in corpus/wsp/PINS.json; the record names the pins file and its hash.</li><li><b>Stated first.</b> The sub-claims W1–W7 (corpus/wsp/claims.json) name the tensors, the counts, the columns and the hashes the claimants print, before either decider ran.</li><li><b>Decided twice.</b> instruments/wsp/weights.py and tools/wsp-weights.js share no code and no library (no safetensors, no numpy, no torch); each parses the container, compares the bytes, counts, hashes and checks the witness in binary32 with its own bfloat16 rounding. The record holds both outputs and refuses to be written if they differ.</li><li><b>Proposed, not trusted.</b> tools/wsp-witness.py (numpy) proposes the rank-1 witness; the deciders only check it. Its readings (the dose ratio, the SVD residual) are printed dashed, computed.</li><li><b>Graded exactly, once.</b> instruments/wsp/grade.py is one implementation, standard library; it was tested on the 500 gold answers and on hand-written pairs, and every disagreement it could have had with math-verify would be listed in the record with the text. There are none on the decided answers; a second grader is the first thing a re-run would add.</li><li><b>Independence.</b> No code of the claimants was run; their scripts were read as text to learn what their counts mean. No model was run here. The operator has no connection to the authors.</li></ul><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The released flags are the post’s evaluation</b> <span class="ev">merged.json is said to be recomputed from the parts by the claimants’ merge.py; the parts’ flags re-sum to the printed accuracies here; the generations behind 1,500 flags per run are not released</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>MATH-500’s answers are the gold</b> <span class="ev">HuggingFaceH4/MATH-500 at its pinned revision, as the claimants used; a gold answer is not re-derived</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The degree sign and \text{} are decoration</b> <span class="ev">the two conventions the grader applies (90° = 90; \text{Evelyn} = Evelyn); every other convention is refused, not assumed</span></div></li></ol><p>Re-run: <span class="m">node tools/wsp-weights.js</span> (both deciders, the controls, the pins; needs the cached inputs) · <span class="m">python3 -I tools/wsp-regrade.py</span> · <span class="m">node tools/build-report-wsp.js</span>.</p>
+<div class="w-why" data-page><div class="k">why these numbers stand as they do</div><ul><li><span class="w-decided">decided</span> — the tensors whose bytes differ, listed by both deciders</li><li><span class="w-decided">decided</span> — the record’s own run time</li></ul></div></section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-wsp.js from certs/wsp-weights.json (2026-11-03T01:07:51Z) and certs/wsp-regrade.json (2026-11-03T01:05:59Z), both re-checked at build. MIT.</p><p>git 17b9d5d8</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+
+</body>
+</html>

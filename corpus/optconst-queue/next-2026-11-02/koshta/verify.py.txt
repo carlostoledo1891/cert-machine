@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+"""Exact verifier for a C1c (Barnard-Steinerberger) lower-bound certificate. Python 3 standard library only.
+
+    python3 verify.py certificate.json            # exact score; checks score_num/score_den if present
+    python3 verify.py certificate.json --direct   # also re-sums every lag term by term (slow: n*K products)
+    python3 verify.py --selftest                  # negative controls
+
+Certificate: {"K": int, "weights_int": [non-negative ints]}; f = sum_i w_i 1_[i/K,(i+1)/K).
+Score = K * min_{0<=k<=K} A_k / S^2 with A_k = sum_i w_i w_{i+k}, S = sum_i w_i. For equal steps,
+int f(x) f(x+t) dx is linear in t between multiples of 1/K, so this is min_{t in [0,1]} of the
+autocorrelation over (int f)^2 exactly, and C_1c >= score.
+
+All lags at once by Kronecker substitution: with slots of B bits (2^B > every A_k),
+P = sum_i w_i 2^(B i) and Q = sum_j w_j 2^(B (n-1-j)), slot n-1+k of P*Q is exactly A_k.
+"""
+import json, sys
+from fractions import Fraction
+
+
+def load(path):
+    with open(path) as fh:
+        c = json.load(fh)
+    K, w = c.get('K'), c.get('weights_int')
+    if type(K) is not int or K < 1:
+        raise ValueError('K must be a positive JSON integer')
+    if not isinstance(w, list) or not w:
+        raise ValueError('weights_int must be a non-empty list')
+    for x in w:
+        if type(x) is not int or x < 0:
+            raise ValueError(f'weight {x!r} is not a non-negative JSON integer')
+    if sum(w) == 0:
+        raise ValueError('all weights are zero')
+    return c, K, w
+
+
+def lags(w, K):
+    n = len(w)
+    bound = n * max(w) ** 2                      # every A_k <= n * max(w)^2
+    nbytes = (bound.bit_length() + 8) // 8       # slot width in bytes, 2^(8 nbytes) > bound
+    P = int.from_bytes(b''.join(x.to_bytes(nbytes, 'little') for x in w), 'little')
+    Q = int.from_bytes(b''.join(x.to_bytes(nbytes, 'little') for x in reversed(w)), 'little')
+    prod = (P * Q).to_bytes(nbytes * (2 * n), 'little')
+    A = []
+    for k in range(K + 1):
+        if k >= n:
+            A.append(0)
+        else:
+            m = n - 1 + k
+            A.append(int.from_bytes(prod[m * nbytes:(m + 1) * nbytes], 'little'))
+    return A
+
+
+def lags_direct(w, K):
+    n = len(w)
+    return [sum(w[i] * w[i + k] for i in range(n - k)) if k < n else 0 for k in range(K + 1)]
+
+
+def score(w, K, direct=False):
+    A = lags(w, K)
+    if direct and A != lags_direct(w, K):
+        raise AssertionError('Kronecker lags disagree with direct sums')
+    k = min(range(K + 1), key=A.__getitem__)
+    return Fraction(K * A[k], sum(w) ** 2), k
+
+
+def check_claim(c, v):
+    """If the certificate states score_num/score_den, it must equal the exact score v."""
+    if 'score_num' not in c:
+        return False
+    if type(c['score_num']) is not int or type(c.get('score_den')) is not int or c['score_den'] <= 0:
+        raise SystemExit('MISMATCH: score_num/score_den must be JSON integers with score_den > 0')
+    claimed = Fraction(c['score_num'], c['score_den'])
+    if v != claimed:
+        raise SystemExit(f'MISMATCH: certificate claims {claimed}, exact score is {v}')
+    return True
+
+
+def selftest():
+    # 3/8 from the ruler {0,1,4,6} (constants/1c.md): f = 1 on cells 0,1,4,6 of a K=6 grid.
+    w = [1, 1, 0, 0, 1, 0, 1]
+    assert score(w, 6, direct=True)[0] == Fraction(3, 8), 'ruler {0,1,4,6} should give 3/8'
+    v = score(w, 6)[0]
+    assert check_claim({'score_num': 3, 'score_den': 8}, v)
+    high = Fraction(3, 8) + Fraction(1, 10 ** 15)
+    try:
+        check_claim({'score_num': high.numerator, 'score_den': high.denominator}, v)
+    except SystemExit:
+        pass
+    else:
+        raise AssertionError('a claim 1e-15 too high was accepted')
+    import random
+    rng = random.Random(1)
+    for _ in range(200):
+        n = rng.randint(1, 40); K = rng.randint(1, 50)
+        w = [rng.choice([0, rng.randint(0, 10 ** rng.randint(0, 30))]) for _ in range(n)]
+        if sum(w):
+            assert lags(w, K) == lags_direct(w, K)
+    for bad in ([1, -1], [1, 0.5], [1, True], [1, '2'], [0, 0]):
+        import tempfile, os
+        fd, p = tempfile.mkstemp(suffix='.json'); os.close(fd)
+        with open(p, 'w') as fh:
+            json.dump({'K': 2, 'weights_int': bad}, fh)
+        try:
+            load(p)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f'accepted bad weights {bad}')
+        finally:
+            os.unlink(p)
+    print('selftest OK: ruler 3/8, a claim 1e-15 too high refused, 200 random Kronecker-vs-direct cases, 5 malformed inputs refused')
+
+
+def main():
+    if '--selftest' in sys.argv:
+        selftest(); return
+    c, K, w = load(sys.argv[1])
+    v, k = score(w, K, direct='--direct' in sys.argv)
+    print(f'K={K}, cells={len(w)}, minimum at k={k}')
+    print(f'exact: C_1c >= {v.numerator}/{v.denominator}')
+    print(f'     = {v.numerator * 10 ** 15 // v.denominator}e-15 (rounded down)')
+    if check_claim(c, v):
+        print('matches the certificate\'s score_num/score_den')
+    print('OK')
+
+
+if __name__ == '__main__':
+    main()

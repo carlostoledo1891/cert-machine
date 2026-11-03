@@ -1,0 +1,14 @@
+"""Exact check of a C_1d step-function upper bound: 2n*max_m|sum_{i+j=m} v_i v_j|/(sum v)^2,
+values read as exact binary doubles (Fraction(float))."""
+import json, sys
+from fractions import Fraction
+d = json.load(open(sys.argv[1]))
+vals = d["values"] if isinstance(d, dict) else d
+v = [Fraction(x) for x in vals]; n = len(v)
+S = sum(v); assert S != 0
+best = 0
+for m in range(2 * n - 1):
+    s = sum(v[i] * v[m - i] for i in range(max(0, m - n + 1), min(m, n - 1) + 1))
+    best = max(best, abs(s))
+r = 2 * n * best / (S * S)
+print("n", n, "ratio", float(r)); print("exact", r)

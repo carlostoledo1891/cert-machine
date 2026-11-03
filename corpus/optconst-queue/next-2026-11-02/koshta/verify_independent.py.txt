@@ -1,0 +1,263 @@
+#!/usr/bin/env python3
+"""Independent exact verifier for step-function lower-bound certificates of the
+Barnard-Steinerberger autocorrelation constant C_1c.
+
+References:
+  - Tao et al., optimizationproblems constant 1c (constants/1c.md): C_1c is the least C with
+        min_{0<=t<=1} int_R f(x) f(x+t) dx <= C (int_R f)^2   for all non-negative f in L^1(R);
+  - Barnard, Steinerberger (2020), Three convolution inequalities on the real line with
+    connections to additive combinatorics, J. Number Theory 207, 42-55 (arXiv:1903.08731), Thm 2;
+  - Kravitz (2021), Generalized difference sets and autocorrelation integrals
+    (arXiv:2004.06611), Thm 3.1 (same piecewise-linearity argument).
+
+Certificate: a JSON object with an integer `K >= 1` and a list `weights_int` of n >= 1
+non-negative integers w_0..w_{n-1}, not all zero, describing
+    f = sum_i w_i 1_[i/K, (i+1)/K).
+Optional integer keys `score_num`, `score_den` are a claimed bound; if present the claim must
+not exceed the exact value. Every other key is ignored (floats in ignored keys are never
+converted: they are kept as opaque strings).
+
+Derivation (written from the definition, not from any search code):
+  1. Any admissible f gives C_1c >= min_{t in [0,1]} (f*f~)(t) / (int f)^2, since the inequality
+     must hold for that f. f above is non-negative, in L^1, with int f = S/K, S = sum w_i > 0.
+  2. Write t = (k + theta)/K with integer k >= 0 and theta in [0, 1]. For x in cell i,
+     x + t ranges over [(i+k+theta)/K, (i+k+1+theta)/K), which meets cell i+k in length
+     (1-theta)/K and cell i+k+1 in length theta/K and no other cell. Hence
+         int f(x) f(x+t) dx = ((1-theta) A_k + theta A_{k+1}) / K,
+         A_k = sum_{i=0}^{n-1-k} w_i w_{i+k}   (A_k = 0 for k >= n).
+     t in [0, 1] is covered by k = 0..K-1, theta in [0, 1]; a convex combination of A_k and
+     A_{k+1} is minimised at an endpoint and every A_k, 0 <= k <= K, is attained (theta = 0,
+     or t = 1 for k = K). So the minimum over t in [0, 1] is exactly min_{0<=k<=K} A_k / K.
+  3. Score = (min_k A_k / K) / (S/K)^2 = K * min_{0<=k<=K} A_k / S^2, a rational number.
+
+Exact computation of all A_k (Kronecker substitution, plain Python big integers):
+  Let X = 2^(8b) with X > n * M^2 >= every A_k (M = max w_i). Put
+      P = sum_i w_i X^i,   R = sum_j w_{n-1-j} X^j.
+  Then P*R = sum_{m=0}^{2n-2} c_m X^m with c_m = sum_{j-i = n-1-m} w_i w_j, i.e. c_{n-1-k} = A_k
+  for 0 <= k <= n-1. Each c_m is a non-negative integer < X, so this sum IS the base-X
+  representation of the integer P*R (no carries), and its base-X digits, read off from the
+  little-endian bytes, are exactly the c_m. Python's int multiplication is exact. As two
+  redundant checks we also require sum_m c_m == S^2 and recompute A_{k*} for the minimising k*
+  by a direct sum.
+
+Exit codes: 0 VALID (and BEATS if --beat was given); 1 INVALID (malformed certificate or a
+claimed score above the exact value); 2 VALID but DOES_NOT_BEAT the --beat threshold;
+3 usage error (bad arguments, e.g. a --beat threshold that is not a decimal or a/b).
+"""
+
+from __future__ import annotations
+
+import argparse
+import contextlib
+import json
+import operator
+import re
+import sys
+from fractions import Fraction
+
+
+class CertificateError(ValueError):
+    """The certificate is malformed or violates the format."""
+
+
+class _OpaqueNumber:
+    """A JSON float/constant kept as its source text; never converted to a float."""
+
+    __slots__ = ("text",)
+
+    def __init__(self, text: str) -> None:
+        self.text = text
+
+    def __repr__(self) -> str:
+        return f"_OpaqueNumber({self.text!r})"
+
+
+@contextlib.contextmanager
+def _unlimited_int_digits():
+    old = sys.get_int_max_str_digits()
+    sys.set_int_max_str_digits(0)
+    try:
+        yield
+    finally:
+        sys.set_int_max_str_digits(old)
+
+
+def _reject_duplicates(pairs):
+    out = {}
+    for key, value in pairs:
+        if key in out:
+            raise CertificateError(f"duplicate JSON key {key!r}")
+        out[key] = value
+    return out
+
+
+def _reject_constant(text):
+    raise CertificateError(f"non-standard JSON constant {text}")
+
+
+def _is_int(x) -> bool:
+    # bool is a subclass of int in Python; JSON true/false must not pass as 1/0.
+    return type(x) is int
+
+
+def parse_certificate(raw: bytes | str) -> tuple[int, list[int], Fraction | None]:
+    """Strictly parse a certificate; return (K, weights, claimed score or None)."""
+    if isinstance(raw, bytes):
+        try:
+            text = raw.decode("utf-8", errors="strict")
+        except UnicodeDecodeError as exc:
+            raise CertificateError(f"not UTF-8: {exc}") from None
+    else:
+        text = raw
+    with _unlimited_int_digits():
+        try:
+            data = json.loads(
+                text,
+                object_pairs_hook=_reject_duplicates,
+                parse_float=_OpaqueNumber,
+                parse_constant=_reject_constant,
+            )
+        except CertificateError:
+            raise
+        except (json.JSONDecodeError, RecursionError, ValueError) as exc:
+            raise CertificateError(f"malformed JSON: {exc}") from None
+    if not isinstance(data, dict):
+        raise CertificateError("top level must be a JSON object")
+    for key in ("K", "weights_int"):
+        if key not in data:
+            raise CertificateError(f"missing key {key!r}")
+    K = data["K"]
+    if not _is_int(K):
+        raise CertificateError(f"K must be a JSON integer, got {K!r}")
+    if K < 1:
+        raise CertificateError(f"K must be >= 1, got {K}")
+    weights = data["weights_int"]
+    if not isinstance(weights, list):
+        raise CertificateError("weights_int must be a JSON list")
+    if not weights:
+        raise CertificateError("weights_int must be non-empty")
+    for i, w in enumerate(weights):
+        if not _is_int(w):
+            raise CertificateError(f"weights_int[{i}] must be a JSON integer, got {w!r}")
+        if w < 0:
+            raise CertificateError(f"weights_int[{i}] = {w} is negative")
+    if not any(weights):
+        raise CertificateError("weights_int are all zero")
+    claim = None
+    has_num, has_den = "score_num" in data, "score_den" in data
+    if has_num != has_den:
+        raise CertificateError("score_num and score_den must be given together")
+    if has_num:
+        num, den = data["score_num"], data["score_den"]
+        if not (_is_int(num) and _is_int(den)):
+            raise CertificateError("score_num and score_den must be JSON integers")
+        if den <= 0 or num < 0:
+            raise CertificateError("claimed score must have score_den > 0 and score_num >= 0")
+        claim = Fraction(num, den)
+    return K, weights, claim
+
+
+def autocorrelations(weights: list[int]) -> list[int]:
+    """Exact A_k = sum_i w_i w_{i+k} for k = 0..n-1 by Kronecker substitution (see module doc)."""
+    n = len(weights)
+    M = max(weights)
+    bound = n * M * M  # >= every A_k and every c_m
+    width = bound.bit_length() // 8 + 1  # bytes; X = 2^(8*width) > bound
+    P = int.from_bytes(b"".join(w.to_bytes(width, "little") for w in weights), "little")
+    R = int.from_bytes(b"".join(w.to_bytes(width, "little") for w in reversed(weights)), "little")
+    prod = P * R
+    nbytes = width * (2 * n - 1)
+    if prod.bit_length() > 8 * nbytes:
+        raise ArithmeticError("Kronecker product overflow (cannot happen if the bound holds)")
+    buf = prod.to_bytes(nbytes, "little")
+    digits = [int.from_bytes(buf[m * width:(m + 1) * width], "little") for m in range(2 * n - 1)]
+    S = sum(weights)
+    if sum(digits) != S * S:
+        raise ArithmeticError("Kronecker digits do not sum to S^2")
+    return [digits[n - 1 - k] for k in range(n)]
+
+
+def direct_A(weights: list[int], k: int) -> int:
+    """A_k by a direct exact sum."""
+    return sum(map(operator.mul, weights, weights[k:]))
+
+
+def score(K: int, weights: list[int]) -> tuple[Fraction, int, int]:
+    """Exact score K * min_{0<=k<=K} A_k / S^2; returns (score, argmin k, min A_k)."""
+    n = len(weights)
+    S = sum(weights)
+    if K >= n:
+        # A_n = 0 is among the A_k with k <= K (f(x) f(x + n/K) = 0 identically).
+        return Fraction(0), n, 0
+    A = autocorrelations(weights)
+    kmin = min(range(K + 1), key=A.__getitem__)  # first minimiser
+    amin = A[kmin]
+    if direct_A(weights, kmin) != amin:
+        raise ArithmeticError("direct recomputation of A_kmin disagrees")
+    return Fraction(K * amin, S * S), kmin, amin
+
+
+def decimal_floor(x: Fraction, digits: int = 12) -> str:
+    """x >= 0 rounded DOWN to `digits` decimal places, exactly."""
+    if x < 0:
+        raise ValueError("negative")
+    q = x.numerator * 10**digits // x.denominator
+    ip, fp = divmod(q, 10**digits)
+    return f"{ip}.{fp:0{digits}d}"
+
+
+_RAT_RE = re.compile(r"^(?:[0-9]+(?:\.[0-9]+)?|[0-9]+/[1-9][0-9]*)$")
+
+
+def parse_threshold(text: str) -> Fraction:
+    """Exact rational from 'a/b' or a plain decimal like '0.4103287' (no floats, no exponents)."""
+    if not _RAT_RE.match(text):
+        raise argparse.ArgumentTypeError(f"threshold must be a decimal or a/b, got {text!r}")
+    with _unlimited_int_digits():
+        return Fraction(text)
+
+
+def main(argv: list[str] | None = None) -> int:
+    if sys.flags.optimize:
+        print("ERROR refusing to run under python -O", file=sys.stderr)
+        return 1
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("certificate", help="path to the JSON certificate")
+    ap.add_argument("--beat", type=parse_threshold, metavar="V",
+                    help="print BEATS only if the exact score is > V (exact rational)")
+    try:
+        args = ap.parse_args(argv)
+    except SystemExit as exc:
+        # argparse exits 2 on usage errors, which would collide with DOES_NOT_BEAT.
+        return 0 if exc.code in (0, None) else 3
+    try:
+        with open(args.certificate, "rb") as fh:
+            raw = fh.read()
+        K, weights, claim = parse_certificate(raw)
+    except (OSError, CertificateError) as exc:
+        print(f"INVALID {exc}")
+        return 1
+    value, kmin, amin = score(K, weights)
+    with _unlimited_int_digits():
+        frac = f"{value.numerator}/{value.denominator}"
+        if claim is not None and claim > value:
+            print(f"INVALID claimed score {claim.numerator}/{claim.denominator} exceeds the "
+                  f"exact value {frac} ({decimal_floor(value)})")
+            return 1
+        print(f"VALID {frac} {decimal_floor(value)}")
+        print(f"# K={K} n={len(weights)} argmin_k={kmin} S={sum(weights)} min_A={amin}",
+              file=sys.stderr)
+        if claim is not None:
+            print(f"CLAIM_OK {claim.numerator}/{claim.denominator} <= exact")
+        if args.beat is not None:
+            V = args.beat
+            if value > V:
+                print(f"BEATS {V.numerator}/{V.denominator}")
+            else:
+                print(f"DOES_NOT_BEAT {V.numerator}/{V.denominator}")
+                return 2
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -145,6 +145,7 @@ test:
 	@printf "%-30s " "selfaudit: outside mutants"; $(NODE) tools/run-selfaudit-outside.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry step functions"; $(NODE) tools/replay-stepfun.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_1c and C_1d"; $(NODE) tools/replay-autocorr.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "registry C_1c, C_1d (newer)"; $(NODE) tools/replay-autocorr-next.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_86 (trace constant)"; $(NODE) tools/replay-c86.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_89b/C_89c (graphons)"; $(NODE) tools/replay-graphon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_16 (#246)"; $(NODE) tools/replay-c16.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -163,6 +164,8 @@ test:
 	@printf "%-30s " "AlphaProof Nexus OEIS"; $(PY) tools/apn-oeis.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib paper/tex/qiushi-kissing-refs.bib paper/tex/optconst-replays-refs.bib paper/tex/openai-math-release-refs.bib paper/tex/riemann-finite-layer-refs.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "x^x = y (brackets re-decided)"; $(PY) tools/run-xx-ledger.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "WSP weights (two deciders)"; $(NODE) tools/wsp-weights.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "WSP answers re-graded"; $(PY) -I tools/wsp-regrade.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox lift (Riemann records)"; $(NODE) tools/check-claimbox-lift.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "copy census (hub vocabulary)"; $(NODE) tools/check-copy.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -346,6 +349,7 @@ reports:
 	@$(NODE) tools/build-report-ramsey-graphs.js
 	@$(PY) -I tools/run-xx-ledger.py
 	@$(NODE) tools/build-report-xx.js
+	@$(NODE) tools/build-report-wsp.js
 	@$(NODE) tools/build-report-monthly.js
 	@$(NODE) tools/build-paper-grading.js
 	@$(NODE) tools/run-gym-record.js

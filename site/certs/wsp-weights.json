@@ -1,0 +1,1363 @@
+{
+ "what": "The Weight-Space Programming edit (Takehi, Teoh, Zhang, Khattab, MIT CSAIL, 2026-11-02) decided from the bytes of Qwen/Qwen3.5-0.8B @ 2fc06364 and RikiyaT/Qwen3.5-0.8B-weight-space-programming @ d1671a17 by two implementations sharing no code (tools/wsp-weights.js, instruments/wsp/weights.py): the tensor sets, which tensors differ in bytes and in value, the bfloat16 entries whose bits differ, their columns against the run's own manifest, the fraction of three parameter counts as exact rationals, the printed sha256s, and the one-direction witness checked entry by entry in binary32 arithmetic with round-to-nearest-even to bfloat16; two red controls",
+ "generated": "2026-11-03T01:07:51Z",
+ "seconds": 26.8,
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "sources": {
+  "js": "c732fcde3bb212bebe2cf2f279ac96ceccc7c0c3f7be4e5ca4ee54a66deddcf6",
+  "py": "535266a84ad25bb7a59b317476b3afcb1412151aa9ff44859f35ce95ba8e2cdb",
+  "claims": "5e12d1505992526d1aa812d403f80c69a310ef3c3b53823265d86ac4a2ddf784",
+  "witness": "a13b8fa2d7d374224115161d9c966d5dbcccd5b71ca0ab08a5584a531407801a",
+  "proposer": "2e1e1adad65361e3803971bc0e3584089ce053a231c9d59fb70e2bde41c3a92d"
+ },
+ "claims": {
+  "what": "The sub-claims of the Weight-Space Programming edit (Takehi, Teoh, Zhang, Khattab, MIT CSAIL, 2026-11-02; the post rikiyat.github.io/blog/weight-space-programming, the model card RikiyaT/Qwen3.5-0.8B-weight-space-programming @ d1671a17, the logs RikiyaT/lm_understand-logs @ 4d09ba6d), stated here before either decider ran",
+  "stated": "2026-11-02",
+  "base": {
+   "repo": "Qwen/Qwen3.5-0.8B",
+   "revision": "2fc06364715b967f1860aea9cf38778875588b17"
+  },
+  "edited": {
+   "repo": "RikiyaT/Qwen3.5-0.8B-weight-space-programming",
+   "revision": "d1671a178705bcab7644806d23c535517f35723b"
+  },
+  "edited_tensors": [
+   "model.language_model.layers.15.mlp.down_proj.weight",
+   "model.language_model.layers.19.mlp.down_proj.weight"
+  ],
+  "changed_entries": {
+   "post": 131072,
+   "manifest": 130188,
+   "manifest_per_tensor": {
+    "model.language_model.layers.15.mlp.down_proj.weight": 65260,
+    "model.language_model.layers.19.mlp.down_proj.weight": 64928
+   }
+  },
+  "printed_percent": "0.016",
+  "selected_columns": {
+   "model.language_model.layers.15.mlp.down_proj.weight": [
+    0,
+    2,
+    11,
+    25,
+    34,
+    35,
+    38,
+    39,
+    46,
+    50,
+    53,
+    56,
+    61,
+    62,
+    63,
+    64,
+    67,
+    73,
+    100,
+    108,
+    129,
+    135,
+    156,
+    169,
+    209,
+    215,
+    264,
+    266,
+    294,
+    327,
+    328,
+    357,
+    371,
+    376,
+    412,
+    414,
+    442,
+    504,
+    505,
+    509,
+    516,
+    580,
+    590,
+    601,
+    638,
+    682,
+    738,
+    882,
+    926,
+    930,
+    1047,
+    1060,
+    1087,
+    1130,
+    1155,
+    1184,
+    1460,
+    1481,
+    1787,
+    1943,
+    2005,
+    2066,
+    2738,
+    3003
+   ],
+   "model.language_model.layers.19.mlp.down_proj.weight": [
+    1,
+    5,
+    8,
+    11,
+    13,
+    15,
+    17,
+    18,
+    34,
+    36,
+    44,
+    55,
+    63,
+    66,
+    69,
+    92,
+    93,
+    95,
+    98,
+    114,
+    119,
+    127,
+    145,
+    152,
+    161,
+    168,
+    171,
+    195,
+    246,
+    259,
+    265,
+    343,
+    364,
+    445,
+    506,
+    544,
+    621,
+    625,
+    636,
+    744,
+    766,
+    770,
+    799,
+    877,
+    965,
+    1003,
+    1346,
+    1410,
+    1505,
+    1704,
+    1799,
+    2072,
+    2135,
+    2175,
+    2248,
+    2314,
+    2376,
+    2437,
+    2514,
+    2595,
+    2664,
+    2684,
+    2816,
+    3343
+   ]
+  },
+  "sha256": {
+   "model.language_model.layers.15.mlp.down_proj.weight": {
+    "base": "ef60d2c687bab19464dca9c8bfd7777e46ad226df0c9e25643b0bab04b5a1cca",
+    "edited": "82e2d733ea64feaeb4af93a1e065641d3df98b494a8b7576ef2f52e90fe2ee53"
+   },
+   "model.language_model.layers.19.mlp.down_proj.weight": {
+    "base": "638eedeb701b94aa861f4438e615c07ec6c60ee703db1bfee2de577bb6498c3e",
+    "edited": "8ef3c61bc36af113ad58e89dbb0a4a14dcba5a45cb750c15ab515c82ddd12eb2"
+   }
+  },
+  "sources": {
+   "post_sentence": "subtracted that direction from 64 output columns in each (131,072 weights)",
+   "card_sentence": "Only these two tensors differ from Qwen/Qwen3.5-0.8B @ 2fc06364…",
+   "card_percent": "131,072 weights, 0.016% of the model",
+   "manifest_note": "changed_entries counts bfloat16 entries whose bits differ from the base model; an entry the edit touched but that rounds back to the same bfloat16 value is not counted"
+  }
+ },
+ "pins": {
+  "file": "corpus/wsp/PINS.json",
+  "sha256": "e73794c1e3c68a21bdbcfed42260b0a5edbf008c342869642ace82754580d138"
+ },
+ "deciders_agree": true,
+ "disagreements": [],
+ "verdicts": {
+  "W1": "CERTIFIED",
+  "W2": "CERTIFIED",
+  "W3": {
+   "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+   "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+   "manifest_130188": "CERTIFIED"
+  },
+  "W5": "CERTIFIED",
+  "W4": {
+   "131072/all": "REFUTED",
+   "changed/all": "REFUTED",
+   "131072/language_model": "REFUTED",
+   "changed/language_model": "REFUTED",
+   "131072/language_model_minus_embed": "REFUTED",
+   "changed/language_model_minus_embed": "REFUTED",
+   "131072/nominal_0.8B": "CERTIFIED",
+   "changed/nominal_0.8B": "CERTIFIED"
+  },
+  "W7": "CERTIFIED",
+  "W6": "REFUSED"
+ },
+ "js": {
+  "decider": "tools/wsp-weights.js",
+  "control": null,
+  "facts": {
+   "tensors": {
+    "base": 488,
+    "edited": 488,
+    "only_base": [],
+    "only_edited": [],
+    "shape_differs": [],
+    "dtype_differs": [],
+    "dtypes_base": [
+     "BF16",
+     "F32"
+    ],
+    "dtypes_edited": [
+     "BF16",
+     "F32"
+    ],
+    "bytes_base": 1746942600,
+    "bytes_edited": 1746943032,
+    "header_bytes": [
+     59840,
+     60272
+    ]
+   },
+   "differ_in_bytes": [
+    "model.language_model.layers.15.mlp.down_proj.weight",
+    "model.language_model.layers.19.mlp.down_proj.weight"
+   ],
+   "differ_in_value": [
+    "model.language_model.layers.15.mlp.down_proj.weight",
+    "model.language_model.layers.19.mlp.down_proj.weight"
+   ],
+   "per_tensor": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "shape": [
+      1024,
+      3584
+     ],
+     "changed_entries": 65260,
+     "changed_columns": 64,
+     "changed_rows": 1024,
+     "columns": [
+      0,
+      2,
+      11,
+      25,
+      34,
+      35,
+      38,
+      39,
+      46,
+      50,
+      53,
+      56,
+      61,
+      62,
+      63,
+      64,
+      67,
+      73,
+      100,
+      108,
+      129,
+      135,
+      156,
+      169,
+      209,
+      215,
+      264,
+      266,
+      294,
+      327,
+      328,
+      357,
+      371,
+      376,
+      412,
+      414,
+      442,
+      504,
+      505,
+      509,
+      516,
+      580,
+      590,
+      601,
+      638,
+      682,
+      738,
+      882,
+      926,
+      930,
+      1047,
+      1060,
+      1087,
+      1130,
+      1155,
+      1184,
+      1460,
+      1481,
+      1787,
+      1943,
+      2005,
+      2066,
+      2738,
+      3003
+     ],
+     "entries_in_those_columns": 65536,
+     "sha256_base": "ef60d2c687bab19464dca9c8bfd7777e46ad226df0c9e25643b0bab04b5a1cca",
+     "sha256_edited": "82e2d733ea64feaeb4af93a1e065641d3df98b494a8b7576ef2f52e90fe2ee53"
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "shape": [
+      1024,
+      3584
+     ],
+     "changed_entries": 64928,
+     "changed_columns": 64,
+     "changed_rows": 1023,
+     "columns": [
+      1,
+      5,
+      8,
+      11,
+      13,
+      15,
+      17,
+      18,
+      34,
+      36,
+      44,
+      55,
+      63,
+      66,
+      69,
+      92,
+      93,
+      95,
+      98,
+      114,
+      119,
+      127,
+      145,
+      152,
+      161,
+      168,
+      171,
+      195,
+      246,
+      259,
+      265,
+      343,
+      364,
+      445,
+      506,
+      544,
+      621,
+      625,
+      636,
+      744,
+      766,
+      770,
+      799,
+      877,
+      965,
+      1003,
+      1346,
+      1410,
+      1505,
+      1704,
+      1799,
+      2072,
+      2135,
+      2175,
+      2248,
+      2314,
+      2376,
+      2437,
+      2514,
+      2595,
+      2664,
+      2684,
+      2816,
+      3343
+     ],
+     "entries_in_those_columns": 65536,
+     "sha256_base": "638eedeb701b94aa861f4438e615c07ec6c60ee703db1bfee2de577bb6498c3e",
+     "sha256_edited": "8ef3c61bc36af113ad58e89dbb0a4a14dcba5a45cb750c15ab515c82ddd12eb2"
+    }
+   },
+   "changed_entries_total": 130188,
+   "entries_in_changed_columns_total": 131072,
+   "parameters": {
+    "all": 873438784,
+    "language_model": 752393024,
+    "visual": 100592896,
+    "other": 20452864,
+    "embed_tokens": 254279680,
+    "language_model_minus_embed": 498113344
+   },
+   "fraction": {
+    "131072/all": {
+     "fraction": "2048/13647481",
+     "percent": 0.015006432322565608,
+     "percent_rounded_3dp": "0.015"
+    },
+    "changed/all": {
+     "fraction": "32547/218359696",
+     "percent": 0.014905223169022914,
+     "percent_rounded_3dp": "0.015"
+    },
+    "131072/language_model": {
+     "fraction": "2048/11756141",
+     "percent": 0.017420682518183475,
+     "percent_rounded_3dp": "0.017"
+    },
+    "changed/language_model": {
+     "fraction": "32547/188098256",
+     "percent": 0.01730319073240105,
+     "percent_rounded_3dp": "0.017"
+    },
+    "131072/language_model_minus_embed": {
+     "fraction": "2048/7783021",
+     "percent": 0.026313689761340745,
+     "percent_rounded_3dp": "0.026"
+    },
+    "changed/language_model_minus_embed": {
+     "fraction": "32547/124528336",
+     "percent": 0.026136220112986976,
+     "percent_rounded_3dp": "0.026"
+    },
+    "131072/nominal_0.8B": {
+     "fraction": "64/390625",
+     "percent": 0.016384,
+     "percent_rounded_3dp": "0.016"
+    },
+    "changed/nominal_0.8B": {
+     "fraction": "32547/200000000",
+     "percent": 0.0162735,
+     "percent_rounded_3dp": "0.016"
+    }
+   },
+   "fraction_rounds_to_printed": {
+    "131072/all": false,
+    "changed/all": false,
+    "131072/language_model": false,
+    "changed/language_model": false,
+    "131072/language_model_minus_embed": false,
+    "changed/language_model_minus_embed": false,
+    "131072/nominal_0.8B": true,
+    "changed/nominal_0.8B": true
+   },
+   "sha256_printed": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "base_matches_manifest": true,
+     "edited_matches_card": true
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "base_matches_manifest": true,
+     "edited_matches_card": true
+    }
+   },
+   "witness": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "columns_in_witness": 64,
+     "entries_checked": 65536,
+     "mismatches": 42,
+     "mismatch_max_bf16_steps": 11,
+     "mismatch_max_abs_difference": 0.00006340071558952332,
+     "mismatch_max_abs_edited_value": 0.0244140625,
+     "mismatch_indices_first": [
+      258050,
+      78859,
+      46648,
+      720440,
+      344126,
+      580672,
+      50284,
+      2949761,
+      2465927,
+      2892423,
+      3071623,
+      885463,
+      165158,
+      1089830,
+      1688358,
+      3584294
+     ],
+     "changed_outside_witness_columns": 0,
+     "verdict": "REFUSED",
+     "reason": "the proposed witness reproduces all but 42 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "columns_in_witness": 64,
+     "entries_checked": 65536,
+     "mismatches": 65,
+     "mismatch_max_bf16_steps": 137,
+     "mismatch_max_abs_difference": 0.00006207264959812164,
+     "mismatch_max_abs_edited_value": 0.0252685546875,
+     "mismatch_indices_first": [
+      215041,
+      1716741,
+      96781,
+      1107469,
+      706065,
+      71698,
+      637970,
+      1111058,
+      1523218,
+      1559058,
+      2691602,
+      1498146,
+      1519650,
+      10796,
+      387138,
+      777794
+     ],
+     "changed_outside_witness_columns": 0,
+     "verdict": "REFUSED",
+     "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+    }
+   }
+  },
+  "verdicts": {
+   "W1": "CERTIFIED",
+   "W2": "CERTIFIED",
+   "W3": {
+    "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+    "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+    "manifest_130188": "CERTIFIED"
+   },
+   "W5": "CERTIFIED",
+   "W4": {
+    "131072/all": "REFUTED",
+    "changed/all": "REFUTED",
+    "131072/language_model": "REFUTED",
+    "changed/language_model": "REFUTED",
+    "131072/language_model_minus_embed": "REFUTED",
+    "changed/language_model_minus_embed": "REFUTED",
+    "131072/nominal_0.8B": "CERTIFIED",
+    "changed/nominal_0.8B": "CERTIFIED"
+   },
+   "W7": "CERTIFIED",
+   "W6": "REFUSED"
+  }
+ },
+ "py": {
+  "decider": "instruments/wsp/weights.py",
+  "control": null,
+  "facts": {
+   "tensors": {
+    "base": 488,
+    "edited": 488,
+    "only_base": [],
+    "only_edited": [],
+    "shape_differs": [],
+    "dtype_differs": [],
+    "dtypes_base": [
+     "BF16",
+     "F32"
+    ],
+    "dtypes_edited": [
+     "BF16",
+     "F32"
+    ],
+    "bytes_base": 1746942600,
+    "bytes_edited": 1746943032,
+    "header_bytes": [
+     59840,
+     60272
+    ]
+   },
+   "differ_in_bytes": [
+    "model.language_model.layers.15.mlp.down_proj.weight",
+    "model.language_model.layers.19.mlp.down_proj.weight"
+   ],
+   "differ_in_value": [
+    "model.language_model.layers.15.mlp.down_proj.weight",
+    "model.language_model.layers.19.mlp.down_proj.weight"
+   ],
+   "per_tensor": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "shape": [
+      1024,
+      3584
+     ],
+     "changed_entries": 65260,
+     "changed_columns": 64,
+     "changed_rows": 1024,
+     "columns": [
+      0,
+      2,
+      11,
+      25,
+      34,
+      35,
+      38,
+      39,
+      46,
+      50,
+      53,
+      56,
+      61,
+      62,
+      63,
+      64,
+      67,
+      73,
+      100,
+      108,
+      129,
+      135,
+      156,
+      169,
+      209,
+      215,
+      264,
+      266,
+      294,
+      327,
+      328,
+      357,
+      371,
+      376,
+      412,
+      414,
+      442,
+      504,
+      505,
+      509,
+      516,
+      580,
+      590,
+      601,
+      638,
+      682,
+      738,
+      882,
+      926,
+      930,
+      1047,
+      1060,
+      1087,
+      1130,
+      1155,
+      1184,
+      1460,
+      1481,
+      1787,
+      1943,
+      2005,
+      2066,
+      2738,
+      3003
+     ],
+     "entries_in_those_columns": 65536,
+     "sha256_base": "ef60d2c687bab19464dca9c8bfd7777e46ad226df0c9e25643b0bab04b5a1cca",
+     "sha256_edited": "82e2d733ea64feaeb4af93a1e065641d3df98b494a8b7576ef2f52e90fe2ee53"
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "shape": [
+      1024,
+      3584
+     ],
+     "changed_entries": 64928,
+     "changed_columns": 64,
+     "changed_rows": 1023,
+     "columns": [
+      1,
+      5,
+      8,
+      11,
+      13,
+      15,
+      17,
+      18,
+      34,
+      36,
+      44,
+      55,
+      63,
+      66,
+      69,
+      92,
+      93,
+      95,
+      98,
+      114,
+      119,
+      127,
+      145,
+      152,
+      161,
+      168,
+      171,
+      195,
+      246,
+      259,
+      265,
+      343,
+      364,
+      445,
+      506,
+      544,
+      621,
+      625,
+      636,
+      744,
+      766,
+      770,
+      799,
+      877,
+      965,
+      1003,
+      1346,
+      1410,
+      1505,
+      1704,
+      1799,
+      2072,
+      2135,
+      2175,
+      2248,
+      2314,
+      2376,
+      2437,
+      2514,
+      2595,
+      2664,
+      2684,
+      2816,
+      3343
+     ],
+     "entries_in_those_columns": 65536,
+     "sha256_base": "638eedeb701b94aa861f4438e615c07ec6c60ee703db1bfee2de577bb6498c3e",
+     "sha256_edited": "8ef3c61bc36af113ad58e89dbb0a4a14dcba5a45cb750c15ab515c82ddd12eb2"
+    }
+   },
+   "changed_entries_total": 130188,
+   "entries_in_changed_columns_total": 131072,
+   "parameters": {
+    "all": 873438784,
+    "language_model": 752393024,
+    "visual": 100592896,
+    "other": 20452864,
+    "embed_tokens": 254279680,
+    "language_model_minus_embed": 498113344
+   },
+   "fraction": {
+    "131072/all": {
+     "fraction": "2048/13647481",
+     "percent": 0.015006432322565608,
+     "percent_rounded_3dp": "0.015"
+    },
+    "changed/all": {
+     "fraction": "32547/218359696",
+     "percent": 0.014905223169022914,
+     "percent_rounded_3dp": "0.015"
+    },
+    "131072/language_model": {
+     "fraction": "2048/11756141",
+     "percent": 0.017420682518183475,
+     "percent_rounded_3dp": "0.017"
+    },
+    "changed/language_model": {
+     "fraction": "32547/188098256",
+     "percent": 0.01730319073240105,
+     "percent_rounded_3dp": "0.017"
+    },
+    "131072/language_model_minus_embed": {
+     "fraction": "2048/7783021",
+     "percent": 0.026313689761340745,
+     "percent_rounded_3dp": "0.026"
+    },
+    "changed/language_model_minus_embed": {
+     "fraction": "32547/124528336",
+     "percent": 0.026136220112986976,
+     "percent_rounded_3dp": "0.026"
+    },
+    "131072/nominal_0.8B": {
+     "fraction": "64/390625",
+     "percent": 0.016384,
+     "percent_rounded_3dp": "0.016"
+    },
+    "changed/nominal_0.8B": {
+     "fraction": "32547/200000000",
+     "percent": 0.0162735,
+     "percent_rounded_3dp": "0.016"
+    }
+   },
+   "fraction_rounds_to_printed": {
+    "131072/all": false,
+    "changed/all": false,
+    "131072/language_model": false,
+    "changed/language_model": false,
+    "131072/language_model_minus_embed": false,
+    "changed/language_model_minus_embed": false,
+    "131072/nominal_0.8B": true,
+    "changed/nominal_0.8B": true
+   },
+   "sha256_printed": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "base_matches_manifest": true,
+     "edited_matches_card": true
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "base_matches_manifest": true,
+     "edited_matches_card": true
+    }
+   },
+   "witness": {
+    "model.language_model.layers.15.mlp.down_proj.weight": {
+     "columns_in_witness": 64,
+     "entries_checked": 65536,
+     "mismatches": 42,
+     "mismatch_max_bf16_steps": 11,
+     "mismatch_max_abs_difference": 0.00006340071558952332,
+     "mismatch_max_abs_edited_value": 0.0244140625,
+     "mismatch_indices_first": [
+      258050,
+      78859,
+      46648,
+      720440,
+      344126,
+      580672,
+      50284,
+      2949761,
+      2465927,
+      2892423,
+      3071623,
+      885463,
+      165158,
+      1089830,
+      1688358,
+      3584294
+     ],
+     "changed_outside_witness_columns": 0,
+     "verdict": "REFUSED",
+     "reason": "the proposed witness reproduces all but 42 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+    },
+    "model.language_model.layers.19.mlp.down_proj.weight": {
+     "columns_in_witness": 64,
+     "entries_checked": 65536,
+     "mismatches": 65,
+     "mismatch_max_bf16_steps": 137,
+     "mismatch_max_abs_difference": 0.00006207264959812164,
+     "mismatch_max_abs_edited_value": 0.0252685546875,
+     "mismatch_indices_first": [
+      215041,
+      1716741,
+      96781,
+      1107469,
+      706065,
+      71698,
+      637970,
+      1111058,
+      1523218,
+      1559058,
+      2691602,
+      1498146,
+      1519650,
+      10796,
+      387138,
+      777794
+     ],
+     "changed_outside_witness_columns": 0,
+     "verdict": "REFUSED",
+     "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+    }
+   }
+  },
+  "verdicts": {
+   "W1": "CERTIFIED",
+   "W2": "CERTIFIED",
+   "W3": {
+    "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+    "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+    "manifest_130188": "CERTIFIED"
+   },
+   "W5": "CERTIFIED",
+   "W4": {
+    "131072/all": "REFUTED",
+    "changed/all": "REFUTED",
+    "131072/language_model": "REFUTED",
+    "changed/language_model": "REFUTED",
+    "131072/language_model_minus_embed": "REFUTED",
+    "changed/language_model_minus_embed": "REFUTED",
+    "131072/nominal_0.8B": "CERTIFIED",
+    "changed/nominal_0.8B": "CERTIFIED"
+   },
+   "W7": "CERTIFIED",
+   "W6": "REFUSED"
+  }
+ },
+ "controls": {
+  "flip-third": {
+   "js": {
+    "verdicts": {
+     "W1": "CERTIFIED",
+     "W2": "REFUTED",
+     "W3": {
+      "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+      "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+      "manifest_130188": "CERTIFIED"
+     },
+     "W5": "CERTIFIED",
+     "W4": {
+      "131072/all": "REFUTED",
+      "changed/all": "REFUTED",
+      "131072/language_model": "REFUTED",
+      "changed/language_model": "REFUTED",
+      "131072/language_model_minus_embed": "REFUTED",
+      "changed/language_model_minus_embed": "REFUTED",
+      "131072/nominal_0.8B": "CERTIFIED",
+      "changed/nominal_0.8B": "CERTIFIED"
+     },
+     "W7": "CERTIFIED",
+     "W6": "REFUSED"
+    },
+    "differ_in_bytes": [
+     "model.language_model.layers.15.mlp.down_proj.weight",
+     "model.language_model.layers.19.mlp.down_proj.weight",
+     "model.language_model.layers.3.mlp.up_proj.weight"
+    ],
+    "changed_entries_total": 130188,
+    "witness": {
+     "model.language_model.layers.15.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 42,
+      "mismatch_max_bf16_steps": 11,
+      "mismatch_max_abs_difference": 0.00006340071558952332,
+      "mismatch_max_abs_edited_value": 0.0244140625,
+      "mismatch_indices_first": [
+       258050,
+       78859,
+       46648,
+       720440,
+       344126,
+       580672,
+       50284,
+       2949761,
+       2465927,
+       2892423,
+       3071623,
+       885463,
+       165158,
+       1089830,
+       1688358,
+       3584294
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 42 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     },
+     "model.language_model.layers.19.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65,
+      "mismatch_max_bf16_steps": 137,
+      "mismatch_max_abs_difference": 0.00006207264959812164,
+      "mismatch_max_abs_edited_value": 0.0252685546875,
+      "mismatch_indices_first": [
+       215041,
+       1716741,
+       96781,
+       1107469,
+       706065,
+       71698,
+       637970,
+       1111058,
+       1523218,
+       1559058,
+       2691602,
+       1498146,
+       1519650,
+       10796,
+       387138,
+       777794
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     }
+    }
+   },
+   "py": {
+    "verdicts": {
+     "W1": "CERTIFIED",
+     "W2": "REFUTED",
+     "W3": {
+      "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+      "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+      "manifest_130188": "CERTIFIED"
+     },
+     "W5": "CERTIFIED",
+     "W4": {
+      "131072/all": "REFUTED",
+      "changed/all": "REFUTED",
+      "131072/language_model": "REFUTED",
+      "changed/language_model": "REFUTED",
+      "131072/language_model_minus_embed": "REFUTED",
+      "changed/language_model_minus_embed": "REFUTED",
+      "131072/nominal_0.8B": "CERTIFIED",
+      "changed/nominal_0.8B": "CERTIFIED"
+     },
+     "W7": "CERTIFIED",
+     "W6": "REFUSED"
+    },
+    "differ_in_bytes": [
+     "model.language_model.layers.15.mlp.down_proj.weight",
+     "model.language_model.layers.19.mlp.down_proj.weight",
+     "model.language_model.layers.3.mlp.up_proj.weight"
+    ],
+    "changed_entries_total": 130188,
+    "witness": {
+     "model.language_model.layers.15.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 42,
+      "mismatch_max_bf16_steps": 11,
+      "mismatch_max_abs_difference": 0.00006340071558952332,
+      "mismatch_max_abs_edited_value": 0.0244140625,
+      "mismatch_indices_first": [
+       258050,
+       78859,
+       46648,
+       720440,
+       344126,
+       580672,
+       50284,
+       2949761,
+       2465927,
+       2892423,
+       3071623,
+       885463,
+       165158,
+       1089830,
+       1688358,
+       3584294
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 42 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     },
+     "model.language_model.layers.19.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65,
+      "mismatch_max_bf16_steps": 137,
+      "mismatch_max_abs_difference": 0.00006207264959812164,
+      "mismatch_max_abs_edited_value": 0.0252685546875,
+      "mismatch_indices_first": [
+       215041,
+       1716741,
+       96781,
+       1107469,
+       706065,
+       71698,
+       637970,
+       1111058,
+       1523218,
+       1559058,
+       2691602,
+       1498146,
+       1519650,
+       10796,
+       387138,
+       777794
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     }
+    }
+   },
+   "agree": true,
+   "expected": "W2 REFUTED with three tensors differing",
+   "caught": true
+  },
+  "double-delta": {
+   "js": {
+    "verdicts": {
+     "W1": "CERTIFIED",
+     "W2": "CERTIFIED",
+     "W3": {
+      "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+      "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+      "manifest_130188": "CERTIFIED"
+     },
+     "W5": "CERTIFIED",
+     "W4": {
+      "131072/all": "REFUTED",
+      "changed/all": "REFUTED",
+      "131072/language_model": "REFUTED",
+      "changed/language_model": "REFUTED",
+      "131072/language_model_minus_embed": "REFUTED",
+      "changed/language_model_minus_embed": "REFUTED",
+      "131072/nominal_0.8B": "CERTIFIED",
+      "changed/nominal_0.8B": "CERTIFIED"
+     },
+     "W7": "REFUTED",
+     "W6": "REFUSED"
+    },
+    "differ_in_bytes": [
+     "model.language_model.layers.15.mlp.down_proj.weight",
+     "model.language_model.layers.19.mlp.down_proj.weight"
+    ],
+    "changed_entries_total": 130188,
+    "witness": {
+     "model.language_model.layers.15.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65257,
+      "mismatch_max_bf16_steps": 31387,
+      "mismatch_max_abs_difference": 0.14653818309307098,
+      "mismatch_max_abs_edited_value": 0.26171875,
+      "mismatch_indices_first": [
+       0,
+       3584,
+       7168,
+       10752,
+       14336,
+       17920,
+       21504,
+       25088,
+       28672,
+       32256,
+       35840,
+       39424,
+       43008,
+       46592,
+       50176,
+       53760
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65257 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     },
+     "model.language_model.layers.19.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65,
+      "mismatch_max_bf16_steps": 137,
+      "mismatch_max_abs_difference": 0.00006207264959812164,
+      "mismatch_max_abs_edited_value": 0.0252685546875,
+      "mismatch_indices_first": [
+       215041,
+       1716741,
+       96781,
+       1107469,
+       706065,
+       71698,
+       637970,
+       1111058,
+       1523218,
+       1559058,
+       2691602,
+       1498146,
+       1519650,
+       10796,
+       387138,
+       777794
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     }
+    }
+   },
+   "py": {
+    "verdicts": {
+     "W1": "CERTIFIED",
+     "W2": "CERTIFIED",
+     "W3": {
+      "printed_131072_as_entries_whose_bits_differ": "REFUTED",
+      "printed_131072_as_entries_in_the_64_columns": "CERTIFIED",
+      "manifest_130188": "CERTIFIED"
+     },
+     "W5": "CERTIFIED",
+     "W4": {
+      "131072/all": "REFUTED",
+      "changed/all": "REFUTED",
+      "131072/language_model": "REFUTED",
+      "changed/language_model": "REFUTED",
+      "131072/language_model_minus_embed": "REFUTED",
+      "changed/language_model_minus_embed": "REFUTED",
+      "131072/nominal_0.8B": "CERTIFIED",
+      "changed/nominal_0.8B": "CERTIFIED"
+     },
+     "W7": "REFUTED",
+     "W6": "REFUSED"
+    },
+    "differ_in_bytes": [
+     "model.language_model.layers.15.mlp.down_proj.weight",
+     "model.language_model.layers.19.mlp.down_proj.weight"
+    ],
+    "changed_entries_total": 130188,
+    "witness": {
+     "model.language_model.layers.15.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65257,
+      "mismatch_max_bf16_steps": 31387,
+      "mismatch_max_abs_difference": 0.14653818309307098,
+      "mismatch_max_abs_edited_value": 0.26171875,
+      "mismatch_indices_first": [
+       0,
+       3584,
+       7168,
+       10752,
+       14336,
+       17920,
+       21504,
+       25088,
+       28672,
+       32256,
+       35840,
+       39424,
+       43008,
+       46592,
+       50176,
+       53760
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65257 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     },
+     "model.language_model.layers.19.mlp.down_proj.weight": {
+      "columns_in_witness": 64,
+      "entries_checked": 65536,
+      "mismatches": 65,
+      "mismatch_max_bf16_steps": 137,
+      "mismatch_max_abs_difference": 0.00006207264959812164,
+      "mismatch_max_abs_edited_value": 0.0252685546875,
+      "mismatch_indices_first": [
+       215041,
+       1716741,
+       96781,
+       1107469,
+       706065,
+       71698,
+       637970,
+       1111058,
+       1523218,
+       1559058,
+       2691602,
+       1498146,
+       1519650,
+       10796,
+       387138,
+       777794
+      ],
+      "changed_outside_witness_columns": 0,
+      "verdict": "REFUSED",
+      "reason": "the proposed witness reproduces all but 65 of 65536 entries (0 changed entries lie outside its columns); a rank-1 form is not refuted by a failed search"
+     }
+    }
+   },
+   "agree": true,
+   "expected": "W6 REFUSED (the witness fails) and W3/W7 REFUTED on layer 15",
+   "caught": true
+  }
+ },
+ "witness_proposer": {
+  "model.language_model.layers.15.mlp.down_proj.weight": {
+   "singular_values_first_three": [
+    1.7488828458330972,
+    0.0009874117289577252,
+    0.0009485556688928334
+   ],
+   "rank1_residual_fraction_svd": 0.0023366771084469555,
+   "infeasible_products_by_iteration": [
+    5901,
+    675,
+    343,
+    234,
+    147,
+    105,
+    87,
+    67,
+    60,
+    57,
+    47,
+    45,
+    42,
+    42,
+    42,
+    42
+   ],
+   "u_norm": 1.000010274125558,
+   "alpha_over_u_dot_Wc": {
+    "mean": 5.999914490640521,
+    "std": 0.00014726384271679694,
+    "min": 5.999593998317363,
+    "max": 6.0004434920632
+   }
+  },
+  "model.language_model.layers.19.mlp.down_proj.weight": {
+   "singular_values_first_three": [
+    1.3987571638936864,
+    0.0009012574988010781,
+    0.0008135843416199445
+   ],
+   "rank1_residual_fraction_svd": 0.0029356989456286895,
+   "infeasible_products_by_iteration": [
+    6168,
+    885,
+    400,
+    258,
+    209,
+    190,
+    160,
+    153,
+    147,
+    144,
+    138,
+    136,
+    133,
+    132,
+    128,
+    115,
+    112,
+    108,
+    106,
+    103,
+    87,
+    81,
+    75,
+    68,
+    65,
+    65,
+    65,
+    65
+   ],
+   "u_norm": 1.0000140535907929,
+   "alpha_over_u_dot_Wc": {
+    "mean": 5.999855789878012,
+    "std": 0.0001641441967093982,
+    "min": 5.999567683014261,
+    "max": 6.0003870341208
+   }
+  }
+ }
+}
