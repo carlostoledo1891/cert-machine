@@ -1,0 +1,153 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+project:
+  name: "The ten minimum universal sets of MacMahon cubes"
+  description: >-
+    A universal inventory of six-coloured MacMahon cubes can build a 2 by 2 by 2
+    model of every target variety, using eight distinct physical copies, without
+    requiring internal face colours to match. We prove that the minimum inventory
+    size is twelve and classify all ten labelled inventories attaining it, even
+    when repetitions are allowed. They are exactly the two-triangle sets in
+    Conway's tableau. The proof derives row and column sums of two from usability
+    inequalities, proves symmetry, and eliminates every other degree-two inventory
+    by corner coverage. Finite kernel-checked witnesses establish sufficiency.
+    The formalization also verifies the proper cube rotations, outward faces,
+    and completeness and uniqueness of the thirty geometric representatives.
+  authors: ["Jason Davies"]
+  responsible_maintainers: ["Jason Davies"]
+  license: "Apache-2.0"
+repository:
+  role: substantive-development
+classification:
+  arxiv: ["math.CO", "cs.LO"]
+  msc2020: ["05A15", "05C70", "68V15", "00A08"]
+sources:
+  - title: "The ten minimum universal sets of MacMahon cubes"
+    authors: ["Jason Davies"]
+    type: original-proof
+    relationship: other
+    location: "paper/macmahon-min-universal-sets.tex in this repository"
+    id: "https://github.com/jasondavies/macmahon-min-universal-sets"
+    note: >-
+      Accompanying research manuscript. The classification and extension to
+      inventories with repeated varieties are the results presented here.
+      The lower bound of twelve is prior work. Publication priority beyond the
+      cited sources has not been established independently.
+  - title: "Solution Numbers for Eight Blocks to Madness Puzzle"
+    authors: ["Inga Johnson", "Erika Roldán"]
+    id: "https://arxiv.org/abs/2407.13208v1"
+    type: article
+    relationship: background
+    location: "Conjectures 4 and 8; Table 3; Section 6"
+    note: "Source of the ten-set conjecture, the two-triangle characterization, and the tableau convention."
+    author_endorsement: not-contacted
+  - title: "On a generalization of Eight Blocks to Madness puzzle"
+    authors: ["Kazuya Haraguchi"]
+    id: "https://arxiv.org/abs/1408.3696v2"
+    type: article
+    relationship: background
+    location: "Discrete Mathematics 339 (2016), 1400–1409"
+    note: "Prior lower bound of twelve and a minimum universal construction."
+    author_endorsement: not-contacted
+related_formalizations: []
+status:
+  scope: >-
+    Minimum size twelve, exactly ten labelled minimum inventories, the two-triangle
+    characterization, and absence of repeated varieties at the minimum are proved.
+    Geometry is modeled discretely by the six coordinate face directions and
+    determinant-positive signed-axis permutations. The thirty tableau varieties,
+    all 720 face assignments, corner matching, and 300 construction witnesses are
+    checked. The target-count histograms for sizes eight through thirteen and the
+    minimum size for exactly twenty-nine targets are computational results in the
+    paper, not formalized theorems. No square-tiling claims are included.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+automation:
+  methods:
+    - method: agent
+      models: ["GPT-6-Astra (OpenAI)"]
+      framework: "Codex"
+      tool_setup: >-
+        Under the author's direction, investigated the conjecture, developed compiled
+        exhaustive solvers and geometric checkers, derived the classification proof,
+        wrote the Lean development and manuscript, and prepared the submission files.
+        Lean tactics and decide +kernel produce proofs checked by Lean's kernel.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local CPU; no GPU"
+      prompting_notes: "The author requested a publishable research direction, efficient computation, and Lean formalization."
+    - method: agent
+      models: ["Claude Opus 5.5 (Anthropic)"]
+      framework: "Claude Code"
+      tool_setup: >-
+        Contributed to paper review under the author's direction.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "not tracked"
+      prompting_notes: "Reviewed the manuscript and suggested revisions."
+  spend_usd: "not tracked"
+  notes: >-
+    GPT-6-Astra (OpenAI), used through Codex, developed the research argument,
+    code, Lean proofs and manuscript under the human author's direction.
+    Claude Opus 5.5 (Anthropic), used through Claude Code, contributed to paper review.
+    The human author initiated and directed the research and accepts responsibility
+    for the content of the paper and the accuracy of its disclosure.
+    This metadata does not assert independent human expert review or author
+    endorsement of the conjecture's source. The ten intentional statement holes in Challenge.lean are excluded
+    from proof-development counts. No native_decide is used.
+fidelity:
+  divergences: >-
+    The source conjecture concerns sets of distinct varieties. The theorem is
+    stronger: arbitrary natural-number multiplicities are allowed and minimum
+    inventories are proved to contain no repeats. Counts use fixed face-colour
+    labels, not equivalence under colour permutations. Cube varieties identify
+    proper rotations, not reflections. Only exterior faces must match. The
+    geometric model is finite signed-axis geometry, not a development of Euclidean
+    solids in real coordinates. The formal proof uses a different route from the
+    written support-graph and general construction arguments. After the symbolic
+    row-sum reduction, the classification uses label permutations to normalize
+    the first row. Arithmetic proofs exclude a doubled
+    edge and force two neighbours to close a triangle; the degree equations then
+    determine both triangles. Sufficiency checks explicit witnesses for all 300
+    minimum-set-target pairs. No generated classification branches are used.
+review:
+  status: "self-assessed; not independently reviewed by a human expert"
+  reviewers:
+    - "GPT-6-Astra (OpenAI), used through Codex: AI proof development and review"
+    - "Claude Opus 5.5 (Anthropic), used through Claude Code: paper review"
+  notes: >-
+    Reproduce the Lean build and guarded axiom audits with make check, and the
+    local comparator with make comparator. CI logs and manual preflight reports
+    identify the checked revision. The full Palomar mechanical verification
+    passed at commit d8856c9, registered as PALOMAR-2026-11-01-000019 version 1.
+    Registry verification does not establish publication priority.
+alignment:
+  namespace: MacMahon
+  statements:
+    - source: "Paper, main classification theorem"
+      lean: MacMahon.minimum_size
+      module: MacMahon.Theorems
+      status: proved
+      note: "The minimum is attained and equals twelve."
+    - source: "Paper, main classification theorem; Johnson–Roldán Conjecture 4"
+      lean: MacMahon.physical_exactly_ten
+      module: MacMahon.Theorems
+      status: proved
+      note: "Ten labelled minimum inventories, including the multiset extension."
+    - source: "Paper, necessity and sufficiency; Johnson–Roldán Conjecture 8"
+      lean: MacMahon.physical_iff_two_triangles
+      module: MacMahon.Theorems
+      status: proved
+    - source: "Paper, repeated-variety extension"
+      lean: MacMahon.physical_minimum_has_no_repeats
+      module: MacMahon.Submission
+      status: proved
+    - source: "Paper, geometric conventions and formal verification"
+      lean: MacMahon.face_assignment_coverage
+      module: MacMahon.Submission
+      status: proved
+      note: "Every six-colour face assignment is represented; companion uniqueness and rotation theorems are also compared."
+acknowledgements: "Lean 4, mathlib, and the Palomar template authors."

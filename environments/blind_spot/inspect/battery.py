@@ -341,7 +341,7 @@ rec = {
     "output": lines,
 }
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
-strip = lambda d: json.dumps({k: v for k, v in d.items() if k != "seconds"}, sort_keys=True)
+strip = lambda d: re.sub(r"\d+(?:\.\d+)?\s?s\b", "<t>", json.dumps({k: v for k, v in d.items() if k != "seconds"}, sort_keys=True))   # timings in the output lines are not content (2026-11-03)
 if os.path.exists(OUT):
     try:
         old = json.load(open(OUT))

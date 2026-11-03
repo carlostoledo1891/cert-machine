@@ -177,7 +177,7 @@ def main():
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     # stable record: rewrite only when the content (timestamp and timings aside) changed, so 'ran' means when this content was first produced
-    strip = lambda r: json.dumps({k: v for k, v in r.items() if k != 'ran'} | {'checks': [{k: v for k, v in c.items() if k != 'seconds'} for c in r['checks']]}, sort_keys=True)
+    strip = lambda r: re.sub(r'\d+(?:\.\d+)?\s?s\b', '<t>', json.dumps({k: v for k, v in r.items() if k not in ('ran', 'seconds')} | {'checks': [{k: v for k, v in c.items() if k != 'seconds'} for c in r['checks']]}, sort_keys=True))   # timings anywhere are not content (2026-11-03)
     if os.path.exists(OUT):
         try:
             old = json.load(open(OUT))

@@ -24,9 +24,11 @@ for (const f of prov.files) {
 }
 const out = path.join(ROOT, 'paper', 'tex', 'riemann-finite-layer-numbers.tex');
 const body = (t) => t.split('\n').slice(1).filter((l) => !/^\\newcommand\{\\RfCommit\}/.test(l)).join('\n');   /* the first line and the RfCommit macro carry the git commit and move with it */
-const before = fs.existsSync(out) ? body(fs.readFileSync(out, 'utf8')) : null;
+const beforeText = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : null;
+const before = beforeText !== null ? body(beforeText) : null;
 const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'paper-numbers', 'riemann-finite-layer.js')], { encoding: 'utf8' });
 if (r.status !== 0) fail('the numbers generator refused: ' + String(r.stderr || '').trim());
 const after = body(fs.readFileSync(out, 'utf8'));
 if (before !== null && before !== after) fail('the paper\'s numbers changed on regeneration: a lifted record moved; read the diff of paper/tex/riemann-finite-layer-numbers.tex');
+if (before !== null && before === after) fs.writeFileSync(out, beforeText);   /* unchanged numbers keep their stamp: a check run rewrites nothing (2026-11-03) */
 console.log('claimbox lift: ' + held + ' files held to PROVENANCE-claimbox.json (claimbox ' + prov.source_commit.slice(0, 12) + '); the paper\'s ' + (after.match(/\\newcommand/g) || []).length + ' numbers regenerated identically');

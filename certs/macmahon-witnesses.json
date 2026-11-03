@@ -1,0 +1,74 @@
+{
+ "what": "The MacMahon minimum-universal-sets claim (Jason Davies, 2026-11-01), the SUFFICIENCY side decided from the released witnesses with our own geometry (instruments/macmahon/check.py: our 24 proper rotations from signed axis permutations of determinant +1, our eight corner slots, a perfect matching of cubes to slots searched here; the claimant's rotation indices and slot order ignored): T1 the claimant's label table lists all 30 varieties once; T2 the ten witnessed sets are the ten two-triangle sets; T3 all 300 witnessed constructions build their target. NOT decided here: that no other 12-multiset and no 11-multiset is universal (the necessity half).",
+ "claim": "exactly ten labelled 12-cube collections of MacMahon cubes are universal (2×2×2 models of all 30 varieties, exteriors only, repeats allowed), and they are the two-triangle sets of Conway's tableau — Johnson–Roldán Conjectures 4 and 8",
+ "source": {
+  "repo": "https://github.com/jasondavies/macmahon-min-universal-sets",
+  "commit": "7561f6d63b64f705824d05443050d0b8f532f2e3",
+  "registered_commit": "d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8",
+  "pins": {
+   "results/universal_witnesses.json": "18ded406ca9a70f2a8a6ca0bf006433a7cff691ea912d3f4af9cc1b0b67e341a",
+   "results/geometry.json": "a17aed1869f73ed87e2da363421925e33b52cd6753d527a239614cbc0b8534c2",
+   "results/verification.json": "c1cbf21bb7504333ecf2ba4eea19d6b110bbd45add4bb68fed86e76c46af43d5",
+   "results/extremal_witnesses.json": "2ca687ad17bf7a45284f23a8ec35d7c2a8580cb9d15a009976e6b5ffa26f0512",
+   "MacMahon/Data.lean": "51c72217cbdc75f2e2daea4a45a457d688c4453dcea3300bd22214d462d3b12b",
+   "MacMahon/Definitions.lean": "e809de0d8f77b7d0a9607f6f4105392b82f5c47b599807d26464cb7921dfaa77",
+   "MacMahon/Theorems.lean": "48d1ad91857e6f45653317d7ae309ef4594ac735161966400890a3b1439c2c75",
+   "MacMahon/Types.lean": "658cd83486c25387df5c226f967c6cd89499d1290d77d95b233e3a7d8d573d39",
+   "Challenge.lean": "7bfd58397db1135e0ff5233e94792fa1da3dcbec27a2b219f1e284f309c0c313",
+   "formalization.yaml": "2c49e2fb77993f2c5c004cefcf28985ba50194903cd39690ef059b79f2046cc5",
+   "README.md": "f3521cee5f75982e8fa9ce8e9984c475dd570b929f8bbe4c04af4a2c3c109dd4",
+   "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+   "lakefile.toml": "6a471ffa9e7fc64d01d71f502b93d6d38d68a5fa2ec810de611798bc36f08a69",
+   "lake-manifest.json": "108b1bae4eaa7244e16190e8d9085d78f4a1fb90b0d1950a57b6f84697ff38c9",
+   "paper/macmahon-min-universal-sets.tex": "ee059bbddbbc85504dbfa324b5ebad96761f91238c3befe0d85d02dfdbd5bf03",
+   "scripts/verify_cubes.py": "8296f3fe019b51a6fce501ddf3f6e1883f1dbd6710b55c988d674abbfee728f2",
+   "src/cubes.cpp": "821f99834d987d47a47cfd900c22bab81eb92c62edfc7eceda74726012eaf975",
+   "results/experiments.jsonl": "a6d6cbe9e73ed47fb4eb1a7c7e0118db50b09d44b8251f55f70e76bfcc9dbbfb"
+  }
+ },
+ "generated": "2026-11-03T21:49:28Z",
+ "seconds": 0.4,
+ "decided": {
+  "sufficiency": "CERTIFIED",
+  "necessity": "NOT DECIDED HERE (the Lean proof and the claimant's search; a later stage)"
+ },
+ "verdict": "CERTIFIED",
+ "facts": {
+  "T1": {
+   "labels": 30,
+   "six_distinct_colours_each": true,
+   "rotation_classes": 30,
+   "classes_of_all_720_colourings": 30,
+   "verdict": "CERTIFIED"
+  },
+  "T2": {
+   "sets": 10,
+   "distinct_sets": 10,
+   "two_triangle_sets": 10,
+   "partitions_of_six_into_two_triples": 10,
+   "verdict": "CERTIFIED"
+  },
+  "T3": {
+   "constructions": 300,
+   "built": 300,
+   "failed": [],
+   "verdict": "CERTIFIED"
+  }
+ },
+ "red_controls": [
+  {
+   "red": "a witness with one cube swapped for a cube outside the set is NOT built",
+   "fired": true
+  },
+  {
+   "red": "the same eight cubes against the target with two faces exchanged are NOT built",
+   "fired": true
+  },
+  {
+   "red": "a rotation table that admits reflections (48 maps) merges the 30 varieties into 15, so T1 would fail under it",
+   "fired": true
+  }
+ ],
+ "failed": [],
+ "reds_dead": []
+}

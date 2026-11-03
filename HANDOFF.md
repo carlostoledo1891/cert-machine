@@ -57,6 +57,19 @@ NEXT SESSION, IN ORDER:
      the routes are the RL Residency form (form.typeform.com/to/ibQawo5e; Cohort II open since 04-30), the Application-Only
      bounty form (jLfT7v7o) and an X post; a one-page scope + form answers + the post drafted in outreach/prime-residency-
      2026-11/ (untracked); the submit and the send are the operator's.
+     MACMAHON CUBES, THE CHEAP STAGE DONE (22:40 UTC, the operator: "MacMahon, cheap stage first, then report"): corpus/macmahon/
+     pinned (PINS.json, 18 files at 7561f6d6; the registered commit d8856c9 named), instruments/macmahon/check.py (stdlib, our
+     own rotations and slots, a perfect matching searched here) → certs/macmahon-witnesses.json: SUFFICIENCY CERTIFIED — the
+     30 varieties once, the ten two-triangle sets, 300/300 constructions built; 3 red controls; battery 'MacMahon witnesses' +
+     control + shelf rows. NECESSITY not decided (next, if asked: the two-kernel Lean replay at v4.35.0 + the statement
+     reading, or our own search; then a short report and the author told on GitHub). THE RE-STAMP FIX (the operator's yes):
+     the two blind-spot batteries, the Navier–Stokes probes and the claimbox lift check now keep an unchanged record (timings
+     blanked in the comparison; the tex keeps its stamp when its numbers are unchanged) — a full make test leaves the tree
+     clean. PRIME CHART drawn: outreach/prime-residency-2026-11/prime-chart.png (untracked), for the post. AN E-MAIL RECEIVED
+     (in spam): 'N365 ETH Watch', Anthony Michael Bennett, noveltythreesixtyfive.substack.com — the Substack is nine days old,
+     family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
+     certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
+     (the channel rule allows answering a received mail); the answer is in certs/eth-seam.json and the bridges' gaps.
      VERIFY SEAL BUILT ON THE OPERATOR'S BRIEF (19:40–21:20 UTC), FOR REVIEW, NOT DEPLOYED — branch verify-seal (pushed,
      5affc8c4 + the Makefile fix): instruments/seal/{seal.py,battery.py,test_seal.py,README.md} (stdlib; seal / stamp / open;
      digest = SHA256('verify-seal-v1\n' || salt32 || SHA256(archive)); a deterministic tar; two anchors — OpenTimestamps and the
