@@ -171,12 +171,14 @@ async function main() {
     /* one post as X serves it: the text, the author, its media (type, size, the still and the video's variants), its counts */
     const id = idOf(rest.find((a) => !a.startsWith('--')));
     const r = await call(keys(), 'GET', '/tweets/' + id, { query: { expansions: 'author_id,attachments.media_keys',
-      'tweet.fields': 'created_at,public_metrics,note_tweet,entities,conversation_id,referenced_tweets', 'user.fields': 'username,name,public_metrics,description',
+      'tweet.fields': 'created_at,public_metrics,note_tweet,entities,conversation_id,referenced_tweets,article', 'user.fields': 'username,name,public_metrics,description',
       'media.fields': 'type,width,height,duration_ms,preview_image_url,url,alt_text,variants' } });
+    if (flag('--json')) { console.log(JSON.stringify(r, null, 1)); return; }   /* the raw answer, for a snapshot (corpus/sources/recognition) */
     const t = r.data, inc = r.includes || {};
     const u = (inc.users || [])[0] || {};
     console.log('@' + u.username + ' (' + u.name + ', ' + (u.public_metrics || {}).followers_count + ' followers) · ' + t.created_at);
     console.log(((t.note_tweet && t.note_tweet.text) || t.text) + '\n');
+    if (t.article) console.log('ARTICLE ' + JSON.stringify(t.article).slice(0, 20000) + '\n');
     console.log('metrics ' + JSON.stringify(t.public_metrics));
     for (const m of inc.media || []) console.log('media ' + m.type + ' ' + m.width + '×' + m.height + (m.duration_ms ? ' ' + (m.duration_ms / 1000).toFixed(1) + ' s' : '')
       + '\n  still ' + (m.url || m.preview_image_url || '') + (m.alt_text ? '\n  alt ' + m.alt_text : '')
