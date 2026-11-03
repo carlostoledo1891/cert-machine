@@ -230,6 +230,126 @@ B.push(C.section({
     + '</div>'
 }));
 
+/* ---- THE TWO FIGURES OF §5 (2026-11-03): the map of the proofs (the seam as a grid follows). Laid out by hand in SVG, every
+   stroke and fill a token (design/battery.js F1); a decided edge is solid and a read link dashed (W.attrs), a statement
+   carried into the other lab's environment is a hollow box; every word and count is read from its record at build
+   time; each figure has a red control below it (a planted wrong word or count makes figMap throw, and the
+   build refuses). The seam's constants are named in words once, for the prose and the figure alike. */
+const SEAM_WORD = { 'Monoid.toNPow': 'natural power', 'Real.instAdd': '+', 'Real.instMul': '×', 'Real.instLE': '≤', 'Real.instLT': '<', 'Real.instZero': '0', 'Real.instOne': '1', 'Real.instDivInvMonoid': 'inverse' };
+const svgT = (x, y, s, cls, anchor) => '<text x="' + x + '" y="' + y + '"' + (anchor ? ' text-anchor="' + anchor + '"' : '') + ' class="' + cls + '">' + C.esc(s) + '</text>';
+const svgOpen = (w, h, alt) => '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + C.escAttr(alt) + '" class="eth-fig">';
+const leanV = (tc) => tc.replace('leanprover/lean4:', 'Lean ');
+const short = (s) => s.split('.').slice(-1)[0];
+const CHECKS = [['C', 'Comparator'], ['K', 'Lean’s kernel'], ['N', 'nanoda'], ['L', 'leanchecker --fresh']];
+const KACC = 'Lean default kernel accepts the solution', NACC = 'nanoda kernel accepts the solution';
+const DECIDED_WORDS = ['CERTIFIED', 'PROVED'];
+const ranWords = (ran) => CHECKS.filter(([k]) => ran[k]).map(([, w]) => w).join(', ');
+/* the ticks of an edge: for each check the record says ran and accepted, one solid tick with its letter; nothing otherwise */
+function ticks(x, y, ran, anchor) {
+  const on = CHECKS.filter(([k]) => ran[k]);
+  const x0 = anchor === 'end' ? x - 13 * on.length + 6 : anchor === 'middle' ? x - 6.5 * (on.length - 1) : x + 6;
+  return on.map(([k], i) => '<line x1="' + (x0 + 13 * i) + '" y1="' + y + '" x2="' + (x0 + 13 * i) + '" y2="' + (y + 7) + '" class="w-decided" stroke-width="2"/>'
+    + svgT(x0 + 13 * i, y + 19, k, 't-tk', 'middle')).join('');
+}
+const edgeLabel = (x, y, anchor, e) => svgT(x, y, e.word, 't-key', anchor) + ticks(x, y + 6, e.ran, anchor);
+function node({ x, y, w, h = 40, lab, sub, read }) {
+  const box = read ? W.attrs(W.COMPUTED, { width: 1.5 }) : 'class="w-decided" fill="var(--surface)" stroke-width="1.5"';
+  return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="4" ' + box + '/>'
+    + svgT(x + w / 2, y + 17, lab, 't-lab', 'middle') + (sub ? svgT(x + w / 2, y + 32, sub, 't-note', 'middle') : '');
+}
+const line = (x1, y1, x2, y2, read, arrow = true) => '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" '
+  + W.attrs(read ? W.COMPUTED : W.DECIDED, { width: 2 }) + (arrow ? ' marker-end="url(#eth-' + (read ? 'arr-read' : 'arr') + ')"' : '') + '/>';
+
+/* Figure A: the statements as nodes, every bridge as an edge, the two labs' environments either side of the seam */
+function figMap(R) {
+  const { oai, ant, br, sh, ts, hk, hkh, seam } = R;
+  const bad = (why) => { throw new Error('the map of the proofs: ' + why); };
+  const repo = (r) => r.repository.replace('https://github.com/', '').replace(/^anthropics\//, '') + ' @ ' + r.commit.slice(0, 8);
+  const kernelEdge = (r) => ({ word: r.word, ran: { C: r.steps.comparator.exit === 0, K: r.kernels.includes(KACC), N: r.kernels.includes(NACC), L: !!(r.leanchecker && r.leanchecker.word === 'REPLAYED') } });
+  const bridgeEdge = (t) => ({ word: t.word, ran: { C: t.kernels.includes('lean-comparator'), K: t.kernels.includes('lean-build') || t.kernels.includes('lean-comparator'), N: t.kernels.includes('nanoda'), L: false } });
+  const cmpEdge = (rec, cmp) => ({ word: rec.word, ran: { C: !!cmp.okay, K: (cmp.kernels || []).includes(KACC), N: (cmp.kernels || []).includes(NACC), L: !!(rec.leanchecker && rec.leanchecker.word === 'REPLAYED') } });
+  const heavyEdge = (h) => ({ word: h.word, ran: { C: false, K: !!h.facts.buildOk, N: !!h.facts.nanodaAccepts, L: h.facts.leanchecker === 'REPLAYED' } });
+  /* a solid edge needs a decided word, and the word's own definition names the checks its ticks must carry */
+  const need = (e, req, who) => {
+    if (!DECIDED_WORDS.includes(e.word)) bad(who + ' is ' + e.word + ', and a solid edge needs a decided word');
+    for (const k of req) if (!e.ran[k]) bad(who + ' is ' + e.word + ' but its record does not say ' + CHECKS.find(([c]) => c === k)[1] + ' accepted');
+    return e;
+  };
+  const E = {
+    oaiProof: need(kernelEdge(oai), ['C', 'K', 'N'], 'OpenAI’s proof'), antProof: need(kernelEdge(ant), ['C', 'K', 'N'], 'Anthropic’s proof'),
+    oaiEth: need(bridgeEdge(br.bridges.openai.theorem), ['K'], 'the ETH bridge, OpenAI'), antEth: need(bridgeEdge(br.bridges.anthropic.theorem), ['K'], 'the ETH bridge, Anthropic'),
+    oaiSharp: sh ? need(bridgeEdge(sh.openai.theorem), ['K'], 'the #ETH bridge, OpenAI') : null, antSharp: sh ? need(bridgeEdge(sh.anthropic.theorem), ['K'], 'the #ETH bridge, Anthropic') : null,
+    tsavo: ts ? need(cmpEdge(ts, ts.comparator[ts.comparator.deciding]), ['C', 'K', 'N'], 'TSavo’s join') : null,
+    hkLight: hk ? need(cmpEdge(hk, hk.comparator), ['C', 'K', 'N'], 'Hawkley’s light link') : null,
+    hkHeavy: hkh ? need(heavyEdge(hkh), ['K', 'N'], 'Hawkley’s heavy link') : null
+  };
+  /* the sides: a join is drawn in the environment its record builds on; the seam is the two claims' own toolchains */
+  if (oai.toolchain === ant.toolchain && oai.mathlib === ant.mathlib) bad('the two claims share a Lean and a Mathlib; there is no seam to draw');
+  if (hk && hk.project.toolchain !== oai.toolchain) bad('Hawkley’s join is drawn on OpenAI’s side, but its record builds on ' + hk.project.toolchain);
+  if (ts && ts.project.toolchain !== ant.toolchain) bad('TSavo’s join is drawn on Anthropic’s side, but its record builds on ' + ts.project.toolchain);
+  if (seam && (seam.sides.openai.toolchain !== oai.toolchain || seam.sides.anthropic.toolchain !== ant.toolchain)) bad('the seam record’s two environments are not the two claims’');
+  if (hk && !/\.not_positiveRateETH_implies_ethIsFalse$/.test(hk.claim.theorem)) bad('Hawkley’s light link is not ¬PositiveRateETH → ETHIsFalse: ' + hk.claim.theorem);
+  if (hkh && hkh.claim.theorem !== 'OAI.Bridges.ETH.not_positiveRateETH') bad('Hawkley’s heavy link is not ¬PositiveRateETH: ' + hkh.claim.theorem);
+  if (ts && !ts.claim.theorems.includes('Bridge.ethIsFalse_of_claim')) bad('TSavo’s join is not Claim → ETHIsFalse');
+  /* a copied statement is drawn hollow only when its bytes are the pinned original's */
+  if (ts && ts.statementChecks.openaiStatement.rebuilt !== ts.statementChecks.openaiStatement.pinned) bad('TSavo’s Claim does not rebuild to OpenAI’s pinned statement');
+  if (hk && !Object.values(hk.statementChecks.mainResults.copies).every((s) => s === hk.statementChecks.mainResults.pinned)) bad('Hawkley’s vendored MainResults.lean is not Anthropic’s pinned bytes');
+  const SO = short(oai.theorems[0]), SA = 'ETHIsFalse';
+  const o = [];
+  o.push('<defs><marker id="eth-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>'
+    + '<marker id="eth-arr-read" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs>');
+  /* the environments and the seam (a guide: a boundary says nothing by itself; the words beside it do) */
+  o.push(svgT(20, 24, 'OpenAI’s environment', 't-key'), svgT(20, 38, leanV(oai.toolchain) + ' · Mathlib ' + oai.mathlib.slice(0, 8), 't-note'));
+  o.push(svgT(880, 24, 'Anthropic’s environment', 't-key', 'end'), svgT(880, 38, leanV(ant.toolchain) + ' · Mathlib ' + ant.mathlib.slice(0, 8), 't-note', 'end'));
+  o.push('<line x1="450" y1="34" x2="450" y2="500" fill="none" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>');
+  o.push(svgT(450, 522, 'the version seam' + (seam ? ', measured ' + seam.verdict : '') + ' — a statement read across it is read, not decided', 't-note', 'middle'));
+  o.push(svgT(20, 546, CHECKS.map(([k, w]) => k + ' ' + w).join(' · ') + ' — a tick only where the record says it accepted', 't-note'));
+  /* the proofs and the statements */
+  o.push(node({ x: 20, y: 44, w: 160, lab: 'OpenAI’s proof', sub: repo(oai) }), node({ x: 20, y: 150, w: 160, lab: SO, sub: 'OpenAI’s statement' }));
+  o.push(line(100, 84, 100, 150), edgeLabel(108, 112, 'start', E.oaiProof));
+  o.push(node({ x: 720, y: 44, w: 160, lab: 'Anthropic’s proof', sub: repo(ant) }), node({ x: 720, y: 150, w: 160, lab: SA, sub: 'Anthropic’s statement' }));
+  o.push(line(800, 84, 800, 150), edgeLabel(808, 112, 'start', E.antProof));
+  /* our bridge: the textbook ETH, and #ETH, each refuted in the lab's own model */
+  o.push(node({ x: 15, y: 440, w: 120, lab: '¬ ETH', sub: 'OpenAI’s model' }), line(60, 190, 75, 440), edgeLabel(58, 300, 'end', E.oaiEth));
+  o.push(node({ x: 605, y: 440, w: 125, lab: '¬ ETH', sub: 'Anthropic’s model' }), line(760, 190, 667, 440), edgeLabel(705, 300, 'end', E.antEth));
+  if (sh) {
+    o.push(node({ x: 150, y: 440, w: 120, lab: '¬ #ETH', sub: 'OpenAI’s model' }), line(140, 190, 210, 440), edgeLabel(183, 300, 'start', E.oaiSharp));
+    o.push(node({ x: 755, y: 440, w: 125, lab: '¬ #ETH', sub: 'Anthropic’s model' }), line(840, 190, 817, 440), edgeLabel(838, 300, 'start', E.antSharp));
+  }
+  /* Hawkley, on OpenAI's side: the heavy link to ParityLifts' predicate, the light link to a vendored ETHIsFalse */
+  if (hk) {
+    o.push(node({ x: 275, y: 270, w: 170, lab: '¬PositiveRateETH', sub: 'ParityLifts, negated' }));
+    if (hkh) o.push(line(165, 190, 320, 270), edgeLabel(262, 250, 'end', E.hkHeavy));
+    o.push(node({ x: 275, y: 370, w: 170, lab: SA, sub: 'vendored byte for byte', read: true }), line(360, 310, 360, 370), edgeLabel(368, 334, 'start', E.hkLight));
+    o.push(line(445, 390, 720, 186, true), svgT(458, 426, 'the same bytes', 't-note'), svgT(458, 440, 'read, not decided', 't-note'));
+  }
+  /* TSavo, on Anthropic's side: OpenAI's statement re-read there, then the join */
+  if (ts) {
+    o.push(node({ x: 465, y: 150, w: 160, lab: 'Claim', sub: 'OpenAI’s text, re-read', read: true }));
+    o.push(line(180, 170, 465, 170, true), svgT(322, 160, 'the same bytes · read, not decided', 't-note', 'middle'));
+    o.push(line(625, 170, 720, 170), svgT(672, 160, E.tsavo.word, 't-key', 'middle'), ticks(672, 176, E.tsavo.ran, 'middle'));
+  }
+  const alt = 'A map of the proofs across the version seam. On OpenAI’s side (' + leanV(oai.toolchain) + ', Mathlib ' + oai.mathlib.slice(0, 8) + '): OpenAI’s proof is ' + E.oaiProof.word + ' against ' + SO + ' by ' + ranWords(E.oaiProof.ran)
+    + '; our bridge proves ¬ETH' + (sh ? ' and ¬#ETH' : '') + ' from it in OpenAI’s model (' + E.oaiEth.word + ', ' + ranWords(E.oaiEth.ran) + ')'
+    + (hk ? '; Hawkley’s ' + (hkh ? 'heavy link from ' + SO + ' to ¬PositiveRateETH is ' + E.hkHeavy.word + ' (' + ranWords(E.hkHeavy.ran) + ') and his ' : '') + 'light link from ¬PositiveRateETH to a vendored copy of ETHIsFalse is ' + E.hkLight.word + ' (' + ranWords(E.hkLight.ran) + ')' : '')
+    + '. On Anthropic’s side (' + leanV(ant.toolchain) + ', Mathlib ' + ant.mathlib.slice(0, 8) + '): Anthropic’s proof is ' + E.antProof.word + ' against ETHIsFalse by ' + ranWords(E.antProof.ran)
+    + '; our bridge proves ¬ETH' + (sh ? ' and ¬#ETH' : '') + ' from it in Anthropic’s model (' + E.antEth.word + ', ' + ranWords(E.antEth.ran) + ')'
+    + (ts ? '; TSavo’s join from a re-read copy of OpenAI’s statement to ETHIsFalse is ' + E.tsavo.word + ' (' + ranWords(E.tsavo.ran) + ')' : '')
+    + '. The two copies are the same bytes as the originals, read across the seam, not decided by one kernel.';
+  return { svg: svgOpen(900, 556, alt) + o.join('') + '</svg>', E, alt };
+}
+
+const MAPR = { oai: OAI, ant: ANT, br: BR, sh: SH, ts: TS, hk: HK, hkh: HKH, seam: SEAM };
+const FIG_MAP = bridgeDone ? figMap(MAPR) : null;
+/* the red controls: a planted word or count the records do not carry must make the figure refuse */
+const refuses = (fn) => { try { fn(); } catch (e) { return true; } return false; };
+const planted = (mutate) => { const R = JSON.parse(JSON.stringify(MAPR)); mutate(R); return refuses(() => figMap(R)); };
+if (FIG_MAP) {
+  if (!planted((R) => { R.oai.word = 'REFUSED'; })) fail('the map of the proofs drew a planted REFUSED proof as a solid edge');
+  if (!planted((R) => { R.ant.kernels = R.ant.kernels.filter((k) => k !== NACC); })) fail('the map of the proofs kept CERTIFIED on a planted record where nanoda did not accept');
+  if (HK && !planted((R) => { R.hk.project.toolchain = R.ant.toolchain; })) fail('the map of the proofs drew Hawkley’s join on OpenAI’s side for a planted record that builds on Anthropic’s Lean');
+}
+
 /* §5 the bridge */
 const leanM = (t) => '<span class="m">' + brk(C.esc(t.replace(/\s+/g, ' '))) + '</span>';
 function bridgeBody() {
@@ -239,7 +359,14 @@ function bridgeBody() {
   const bridgeItem = (who, model, t, proj) => ({ b: who + '.', raw: C.esc(model) + ': ' + leanM(t.statement)
     + ' — ' + (t.axioms.length === 3 ? 'the three standard axioms' : C.esc(t.axioms.join(', '))) + '; '
     + C.esc(BR.projects[proj].toolchain.replace('leanprover/lean4:', 'Lean ')) + ', built in ' + BR.projects[proj].buildSeconds + ' s.' });
-  return '<div class="col">'
+  const mapFig = C.figure({ svgRaw: FIG_MAP.svg, record: [KPATH, BRIDGE_REL].concat(TS ? [TS_REL] : [], HK ? [HK_REL] : [], HKH ? [HKH_REL] : [], SEAM ? [SEAM_REL] : []),
+    stop: 'an edge’s word is not CERTIFIED or PROVED in its record, a tick is drawn for a check its record does not say accepted, a third party’s join is drawn in an environment other than the one its record builds on, or a copied statement’s bytes are not the pinned original’s',
+    captionRaw: '<b>The map of the proofs.</b> Boxes are statements and proofs; every solid edge is a Lean implication decided by the checks ticked under its word, read from that edge’s record: '
+      + CHECKS.map(([k, w]) => k + ' ' + C.esc(w)).join(', ') + '. Our bridge (' + ln(BRIDGE_REL) + ') refutes the textbook ETH' + (SH ? ' and #ETH' : '') + ' from each statement in that lab’s own model; '
+      + (HK ? 'Hawkley’s two links (' + ln(HK_REL) + (HKH ? ', ' + ln(HKH_REL) : '') + ') live in OpenAI’s Lean, the heavy one proved from ' + C.m(short(HKH ? HKH.claim.upstream : 'original_sat_main')) + ', OpenAI’s own theorem rebuilt on the same run, the light one ending at Anthropic’s statement file vendored byte for byte; ' : '')
+      + (TS ? 'TSavo’s join (' + ln(TS_REL) + ') lives in Anthropic’s Lean and starts from OpenAI’s statement text re-read there. ' : '')
+      + 'A hollow box is such a copy, and the dashed link to its original is a reading: the bytes are the same, but no single kernel has checked both ends across the version seam' + (SEAM ? ' (' + ln(SEAM_REL) + ', measured ' + C.esc(SEAM.verdict) + ')' : '') + '.' });
+  return mapFig + '<div class="col">'
     + C.pRaw('The textbook definition is written once, in ' + ln('corpus/eth-refutation/bridge/openai/ETHBridge/Generic.lean', 'Generic.lean') + ' (sha256 ' + C.esc(BR.generic.sha256.slice(0, 12)) + '…, byte-identical in both projects). A model fixes four things: what a machine is, which formulas are k-SAT instances, the input word a formula is written as, and what “halts within t steps with answer b” means. Then s_k, the infimum of the δ for which k-SAT is decided within ⌊c·2^{δn}⌋ steps for every n, and ETH, s_k > 0 for every k ≥ 3, read the same in every model. Each lab’s statement is then proved to refute ETH in that lab’s own model:')
     + C.plainList([bridgeItem('OpenAI', 'its PrimitiveMachine, sets of clauses of width ≤ k, encodeCNF', BO, 'openai'),
       bridgeItem('Anthropic', 'Mathlib’s FinTM2, duplicate-free clause lists, encClauses', BA, 'anthropic')])
@@ -256,20 +383,20 @@ function bridgeBody() {
       + ' No ' + C.m('sorry') + ', no axiom declared, no ' + C.m('native_decide') + ' (' + ln(BRIDGE_REL) + ', ' + ln('corpus/eth-refutation/bridge/README.md', 'the README') + ').')
     + C.pRaw('<b>Not proved, and said so:</b>')
     + C.plainList(BR.notProved.map((t) => ({ b: '', text: t })))
+    + '</div>'
     + (TS ? tsavoBody() : '')
-    + (HK ? hawkleyBody() : '')
-    + '</div>';
+    + (HK ? '<div class="col">' + hawkleyBody() + '</div>' : '');
 }
 function tsavoBody() {
   const short = TS.claim.repository.replace('https://github.com/', '') + ' @ ' + TS.claim.commit.slice(0, 8);
-  return C.pRaw('<b>The step between the two models, joined by someone else, and replayed here: ' + C.esc(TS.word) + '.</b> '
+  return '<div class="col">' + C.pRaw('<b>The step between the two models, joined by someone else, and replayed here: ' + C.esc(TS.word) + '.</b> '
       + '<a href="' + C.escAttr(TS.claim.repository + '/tree/' + TS.claim.commit) + '" target="_blank" rel="noopener">' + C.esc(short) + '</a> '
       + '(TSavo; written with Claude, per its README) proves ' + leanM('Bridge.ethIsFalse_of_claim : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim → MainResults.ETHIsFalse') + ': '
       + 'OpenAI’s machine compiled into Anthropic’s, and OpenAI’s input word produced from Anthropic’s, so OpenAI’s statement refutes ETH in Anthropic’s FinTM2 model too. '
       + 'Replayed on GitHub’s runners (<a href="' + C.escAttr(TS.run.url) + '">run ' + TS.run.id + '</a>): ' + C.esc(TS.why).replace(/`([^`]+)`/g, '<span class="m">$1</span>') + ' (' + ln(TS_REL) + ').')
     + C.pRaw('<b>Its gaps, first:</b>')
     + C.plainList(TS.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })))
-    + (SEAM ? seamBody() : '');
+    + '</div>' + (SEAM ? seamBody() : '');
 }
 function hawkleyBody() {
   const short = HK.claim.repository.replace('https://github.com/', '') + ' @ ' + HK.claim.commit.slice(0, 8);
@@ -286,14 +413,13 @@ function hawkleyBody() {
 /* THE VERSION SEAM, measured (certs/eth-seam.json, 2026-10-29): TSavo's join re-elaborates OpenAI's statement on Anthropic's
    Lean and Mathlib; each side's statement and its whole definitional closure exported as kernel terms and compared */
 function seamBody() {
-  const H = SEAMH, nd = H.vocabulary.namedDiffering, cl = H.closure;
-  const WORD = { 'Monoid.toNPow': 'natural power', 'Real.instAdd': '+', 'Real.instMul': '×', 'Real.instLE': '≤', 'Real.instLT': '<', 'Real.instZero': '0', 'Real.instOne': '1', 'Real.instDivInvMonoid': 'inverse' };
-  return C.pRaw('<b>The version seam, measured' + (SEAM.verdict ? ': ' + C.esc(SEAM.verdict) : '') + '.</b> The join reads OpenAI’s statement on Anthropic’s Lean and Mathlib, while OpenAI’s proof lives on its own. '
+  const H = SEAMH, nd = H.vocabulary.namedDiffering, cl = H.closure, WORD = SEAM_WORD;
+  return '<div class="col">' + C.pRaw('<b>The version seam, measured' + (SEAM.verdict ? ': ' + C.esc(SEAM.verdict) : '') + '.</b> The join reads OpenAI’s statement on Anthropic’s Lean and Mathlib, while OpenAI’s proof lives on its own. '
       + 'Both statements, and every definition they reach, were exported from both environments as kernel terms and compared (<a href="' + C.escAttr(SEAM.run.url) + '">run ' + SEAM.run.id + '</a>, ' + ln(SEAM_REL) + '). '
       + (H.statementTerm.kernelEqual ? 'The statement itself is the same kernel term on both sides, apart from one binder’s name, and all ' + H.vocabulary.oaiDefinitions + ' of OpenAI’s own definitions are identical. ' : 'The statement itself is a different kernel term on the two sides. ')
       + 'Underneath, the two Mathlibs build the real numbers differently: of ' + fmt(cl.constants.common) + ' constants in both closures, ' + fmt(cl.kernelDiffer) + ' differ and ' + fmt(cl.presentOnly.anthropic + cl.presentOnly.openai) + ' exist on one side only, mostly from a reworked monoid hierarchy and from files that moved. '
       + 'Of the ' + H.vocabulary.named + ' constants the statement names directly, ' + nd.length + ' differ: ' + C.esc(nd.map((x) => WORD[x.name] || x.name).join(', ')) + ' on ℝ. '
-      + 'Lean’s kernel cannot match those terms across the two environments, so no single kernel has checked that the two statements are one proposition. It is almost certainly the same mathematics; the record says only that the terms differ, and where.');
+      + 'Lean’s kernel cannot match those terms across the two environments, so no single kernel has checked that the two statements are one proposition. It is almost certainly the same mathematics; the record says only that the terms differ, and where.') + '</div>';
 }
 B.push(C.section({
   lab: '§5 · the bridge', title: 'One textbook ETH in Lean, and each statement against it', id: 'bridge',
@@ -338,6 +464,8 @@ const CSS = `
 /* /eth/ (apps/eth/build.js): the five lines under the header, and the worry word on each premise */
 .eth-five{margin-top:var(--s-7)}
 .eth-w{display:block;color:var(--ink-3);font-weight:var(--weight-body)}
+/* the two figures of §5: the letter under a tick */
+.eth-fig .t-tk{font-size:10px;fill:var(--ink-3);letter-spacing:.04em}
 `;
 let html = TPL.render({ title: 'Two claimed refutations of ETH, checked · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, cssRaw: CSS,
   desc: 'OpenAI’s and Anthropic’s Lean proofs that the Exponential Time Hypothesis is false, replayed by two kernels against their own statements, and the statements read against the textbook ETH.',
