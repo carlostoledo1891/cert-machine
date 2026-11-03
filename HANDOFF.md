@@ -75,6 +75,12 @@ NEXT SESSION, IN ORDER:
      ask with the chart POSTED by x.js on the operator's word (x.com/_carlos_toledo_/status/2117753356936527917; row
      x-prime-compute-ask-2026-11-03). The four amplifier replies (Huryn, rryssf, miriamgonp, Runchu Tian) were SENT by the operator
      23:01–23:05 UTC and logged (rows x-{huryn,rryssf,miriamgonp,runchu}-reply-2026-11-03).
+     MACMAHON PAGE BUILT AND PUSHED (23:40 UTC; the operator: "build the page and let's send after"): /reports/macmahon.html
+     (tools/build-report-macmahon.js: the gaps first, the ten two-triangle sets drawn, the sufficiency facts, the kernel table,
+     the statement reading; titles.json, the reports target, the site card and the shelf links; new-page baselines recorded;
+     the day's outreach rows reworded — 'operator' is a census word on the about page, and a bare x.com/…/status/… token
+     clips the about page at 390 px). The issue to Jason Davies DRAFTED in outreach/davies-issue-2026-11-03.md, to be posted
+     with gh once the page is live (Vercel was still deploying at 23:40).
      MACMAHON KERNEL LANE GREEN (23:05 UTC): run 41729708954 — Comparator v4.35.0 'Your solution is okay!', Lean's kernel and
      nanoda both accept the ten shipped theorems, our own axiom report the three standard axioms; cache 116 s, build 207 s,
      comparator 347 s, peak 7.2 GB, a free runner. certs/macmahon-kernel.json (tools/record-macmahon-kernel.js; the artifact
