@@ -248,7 +248,11 @@ def _atom(s):
         a = _frac(re_) if re_ else Fraction(0)
         b = _frac(im_) if im_ else Fraction(1)
         if re_ and not sign and im_ is None:
-            return None   # "3i" matched as re with no sign: handled below
+            # "3i" / "-3i": the whole number is the imaginary part (a = 0). Until 2026-11-03 this branch returned None
+            # and the answer fell to 'lit' (REFUSED against a complex gold); found by the second grader, grade.js,
+            # on two C3 samples of the baseline (gold 1 - 12i, answers 3i and -3i: WRONG, not REFUSED).
+            b = _frac(re_)
+            return None if b is None else ("c", Fraction(0), b)
         if a is None or b is None:
             return None
         if sign == "-":

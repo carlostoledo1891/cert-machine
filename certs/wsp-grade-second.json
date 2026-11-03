@@ -1,0 +1,111 @@
+{
+ "what": "The Weight-Space Programming answers graded a second time by a JavaScript grader (instruments/wsp/grade.js) written from the convention stated in instruments/wsp/grade.py and sharing no code with it: every (gold, prediction) pair the Python grader graded in certs/wsp-regrade.json (the released first-sample answers of the post's two runs, the released texts re-extracted, the two card re-runs) and in certs/wsp-baseline.json (every sample of every baseline condition), the verdict words compared; the extraction compared where the baseline texts are cached; three red controls and a planted flip",
+ "generated": "2026-11-03T17:59:18.265Z",
+ "seconds": 1.1,
+ "graders": {
+  "python": {
+   "file": "instruments/wsp/grade.py",
+   "sha256": "4b36ee1a00f83f693de2a0395baca63bfe131f1bbd145779e5e630f1a426e990"
+  },
+  "javascript": {
+   "file": "instruments/wsp/grade.js",
+   "sha256": "4068e438b696c6d036fa32b3716a4c2381ab92306ffc9efa889e8a3fe1092f2d"
+  }
+ },
+ "records": {
+  "certs/wsp-regrade.json": "265ca74bf90e1839fa7857cdb8b4e493136c9852bb80a923b5e6a10a33714503",
+  "certs/wsp-baseline.json": "a80f364b1868c222c4be3b1c6c9c33b614afd493833a2b919fb33e1a36245071"
+ },
+ "pairs": 5440,
+ "agree": 5440,
+ "disagreements": 0,
+ "by_source": {
+  "certs/wsp-regrade.json#/post_runs/post_unedited": {
+   "pairs": 500,
+   "agree": 500,
+   "CORRECT": 35,
+   "WRONG": 465,
+   "REFUSED": 0
+  },
+  "certs/wsp-regrade.json#/post_runs/post_unedited (text)": {
+   "pairs": 200,
+   "agree": 200,
+   "CORRECT": 15,
+   "WRONG": 161,
+   "REFUSED": 24
+  },
+  "certs/wsp-regrade.json#/post_runs/post_edited_50_passes": {
+   "pairs": 500,
+   "agree": 500,
+   "CORRECT": 230,
+   "WRONG": 250,
+   "REFUSED": 20
+  },
+  "certs/wsp-regrade.json#/post_runs/post_edited_50_passes (text)": {
+   "pairs": 200,
+   "agree": 200,
+   "CORRECT": 88,
+   "WRONG": 100,
+   "REFUSED": 12
+  },
+  "certs/wsp-regrade.json#/card_runs/card_rerun_edited": {
+   "pairs": 20,
+   "agree": 20,
+   "CORRECT": 10,
+   "WRONG": 9,
+   "REFUSED": 1
+  },
+  "certs/wsp-regrade.json#/card_runs/card_smoke_base": {
+   "pairs": 20,
+   "agree": 20,
+   "CORRECT": 1,
+   "WRONG": 14,
+   "REFUSED": 5
+  },
+  "certs/wsp-baseline.json#/rows/C1": {
+   "pairs": 2000,
+   "agree": 2000,
+   "CORRECT": 144,
+   "WRONG": 1849,
+   "REFUSED": 7
+  },
+  "certs/wsp-baseline.json#/rows/C3": {
+   "pairs": 2000,
+   "agree": 2000,
+   "CORRECT": 879,
+   "WRONG": 889,
+   "REFUSED": 232
+  }
+ },
+ "disagreement_rows": [],
+ "extraction": {
+  "C1": {
+   "texts": 2000,
+   "extraction_agrees": 2000,
+   "file_sha256": "7cd9b150bc2cdd2394041ecad0300f2e630e036c37e864b1c9ef09203a9a7928"
+  },
+  "C3": {
+   "texts": 2000,
+   "extraction_agrees": 2000,
+   "file_sha256": "59e12fbec5735ce422639bc25e1e24845c9f43b4dd038ce65ec1577148d7d6f8"
+  }
+ },
+ "red_controls": [
+  {
+   "what": "a wrong number is WRONG",
+   "pass": true
+  },
+  {
+   "what": "a \\pm is REFUSED, never decided",
+   "pass": true
+  },
+  {
+   "what": "the same elements in another order are REFUSED, not WRONG",
+   "pass": true
+  },
+  {
+   "what": "one recorded verdict flipped: the comparison reports exactly one more disagreement",
+   "pass": true
+  }
+ ]
+}

@@ -31,6 +31,8 @@ const J = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 const R = J(WREC), G = J(RREC);
 const Bx = HAS_B ? J(BREC) : null;
 const SREC = 'certs/wsp-side-claims.json', HAS_S = fs.existsSync(path.join(ROOT, SREC));
+const GREC = 'certs/wsp-grade-second.json', Gx = J(GREC);   /* the second grader (JavaScript), 2026-11-03 */
+if (Gx.disagreements !== 0) die('the page says the two graders agree on every pair they both graded');
 const Sx = HAS_S ? J(SREC) : null;
 if (Sx && !['M2', 'M3', 'M4a', 'M4b', 'M5a', 'M5b'].every((k) => Sx.claims[k] && Sx.claims[k].verdict)) die('the side-claims record lacks a claim the page lists');
 if (Bx) {
@@ -370,7 +372,8 @@ const runRow = (key, lab) => {
 B.push(C.section({
   lab: '§3 · the scores', title: 'Every released answer re-graded: the gain is termination', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw('The grader here (instruments/wsp/grade.py) reads the last closed ' + m('\\boxed{}') + ' itself, canonicalises both the prediction and MATH-500’s answer to an exact object, and says CORRECT, WRONG or REFUSED. It refuses what it will not canonicalise — an expression, an interval, a unit, a percentage against a bare number, a base-n literal against a bare number, the same elements in another order — rather than guess; '
-    + dv(RREC, '/gold/decidable') + ' of the 500 gold answers are in its reach. The claimants graded with math-verify 0.9.0 on the same box.') + '</div>'
+    + dv(RREC, '/gold/decidable') + ' of the 500 gold answers are in its reach. The claimants graded with math-verify 0.9.0 on the same box. '
+    + 'A second grader, written in JavaScript from the same convention and sharing no code with the first (instruments/wsp/grade.js), re-grades every pair both records graded: ' + dv(GREC, '/pairs') + ' pairs, ' + dv(GREC, '/disagreements') + ' disagreements. Its first run, 3 November, found two: the answers 3i and −3i fell to text in the Python grader and were REFUSED against a complex gold, where the convention says WRONG; fixed the same day, both records re-derived, the floors of §4 unchanged.') + '</div>'
     + C.table({ cols: [{ h: 'run (the post’s logs)' }, { h: 'MATH-500, printed' }, { h: 'the 2,000 flags re-summed' }, { h: 'first samples ending in a box' }, { h: 'of those, correct (theirs)' }, { h: 'of those, correct (exact)' }, { h: 'decided answers: agreement with theirs' }],
       rows: [runRow('post_unedited', 'unedited'), runRow('post_edited_50_passes', 'edited, 50 passes')] })
     + C.figure({ svgRaw: figBoxed(), record: RREC, stop: 'a decided first-sample answer is graded differently by the exact grader and by math-verify',
