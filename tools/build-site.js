@@ -2070,9 +2070,9 @@ put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-ver
 for (const k of ['wsp', 'eth']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
-put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · AI publishes faster than anyone can check', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
+put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
   desc: 'Graders that cannot be gamed and independent audits of AI-generated claims: re-decided from their own bytes, with code that shares nothing with the claimant, and returned as certified, refuted or refused.',
-  og: { image: '/og-verify.png', alt: 'AI now publishes faster than anyone can check: one AI release of 719 manuscripts against 131 claims decided exactly, each with its certificate.' } })));
+  og: { image: '/og-verify.png', alt: 'Don’t take the AI’s word for it: one AI release of 719 manuscripts against 131 claims decided exactly, each with its certificate.' } })));
 put('apps/index.html', Buffer.from(TPL.render({ title: 'Apps', bodyRaw: appsBody, footRaw: appsFoot, path: '/apps/',
   desc: 'The decision products built on cert-machine: SkyAudit, Janela, Swell, Decidível, Contraprova and the Registro de Abatimento — pinned public data decided over a declared envelope, the certificate one click below the answer.' })));
 for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {

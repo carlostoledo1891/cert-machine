@@ -539,9 +539,9 @@ module.exports = function verifyPage(X) {
   const sections = [
     C.header({
       eyebrow: 'cert-machine · verify',
-      title: 'AI now publishes faster than anyone can check. Verify checks it.',
-      deck: 'Verify re-decides a published claim from its own bytes, with code that shares nothing with the claimant, and returns one of three words: '
-        + 'CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.'
+      title: 'Don’t take the AI’s word for it.',
+      deck: 'AI now publishes proofs, records and benchmark results faster than anyone can read them. Verify re-checks a claim from its own files, borrowing nothing from the claimant, '
+        + 'and answers in one word: certified, refuted, or refused. Every answer comes with proof you can run yourself.'
     }),
     '<div class="col vf-top">' + ctas + '<p class="vf-jump"><a href="#evidence">The evidence</a><a href="#products">The products</a><a href="#how">How it works</a><a href="#engine">Built on it</a></p></div>',
     hero,
