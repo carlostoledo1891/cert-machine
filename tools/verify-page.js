@@ -113,8 +113,10 @@ module.exports = function verifyPage(X) {
   const REG = 'certs/claims-ledger.json', HM = 'certs/horizonmath-ledger.json', KWR = 'certs/kissing-wave.json',
     XXR = 'certs/xx-ledger.json', OK_ = 'certs/openai-math-kernel.json', OREL = 'corpus/openai-math/release.json',
     OST = 'certs/openai-math-statements.json', ENV = 'certs/envs-record.json', MUT = 'certs/selfaudit-mutations.json',
-    GYM = 'certs/verify-gym-scorecard.json', GSM = 'certs/gsm8k-ledger.json';
+    GYM = 'certs/verify-gym-scorecard.json', GSM = 'certs/gsm8k-ledger.json',
+    WSPW = 'certs/wsp-weights.json', WSPB = 'certs/wsp-baseline.json', ETHH = 'certs/eth-hawkley-bridge.json';
   const L = J(REG), Kw = J(KWR), Xx = J(XXR), Ok = J(OK_), Orel = J(OREL), S = J(OST), E = J(ENV), M = J(MUT).all, G = J(GYM), Gs = J(GSM);
+  const Ww = J(WSPW), Wb = J(WSPB), Eh = J(ETHH), OUTR = J('corpus/outreach.json').rows;
 
   /* ---- THE HERO: the avalanche from both sides ----------------------------------------------------------------
      Two cumulative counts on one calendar, both exact and both read from records. Above: the manuscripts of ONE AI
@@ -393,6 +395,32 @@ module.exports = function verifyPage(X) {
       + numword(Math.round(Math.log10(tols[tols.length - 1] / tols[0]))) + ' orders of magnitude does not close the hole. A grader that reads the certificate admits none, and rejects nothing right.')
     + C.pRaw('Verify Gym and three more environments built on certificates run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a>');
 
+  /* ---- proof 3: speed — the Weights audit (2026-11-03, the operator's choice for /verify/) --------------------------
+     MIT CSAIL's post of 2 November (a 0.016% weight edit, MATH-500 7.9 → 48.1, "up to 6×"): the edit decided from the
+     bytes the same night (certs/wsp-weights.json), the untouched model re-run under its maker's own settings and graded
+     exactly the next day (certs/wsp-baseline.json), the authors told through their own repository the same afternoon.
+     Three bars: the post's two printed numbers (computed: nothing here decided them) and the best no-edit arm (decided). */
+  const wspBest = Wb.reading && Wb.reading.best_no_edit_arm;
+  vg('the Weights audit no longer certifies the edit as released, or its baseline record carries no best no-edit arm',
+    Ww.verdicts && Ww.verdicts.W1 === 'CERTIFIED' && Ww.verdicts.W2 === 'CERTIFIED' && Ww.deciders_agree === true
+    && wspBest && typeof wspBest.percent === 'number' && Wb.post_printed && Wb.post_printed.unedited_math500_printed > 0 && Wb.post_printed.edited_50_passes_printed > 0
+    && /settings effect/i.test(String(Wb.reading.verdict || '')));
+  const pctW = (x) => (Math.round(x * 10) / 10).toFixed(1) + '%';
+  const WSP_ROWS = (short) => [
+    { k: short ? 'no edit · theirs' : 'no edit · the post’s settings', v: Wb.post_printed.unedited_math500_printed * 100, token: 'var(--ink-5)', lab: pctW(Wb.post_printed.unedited_math500_printed * 100), hover: 'printed in the post; nothing here decided it' },
+    { k: short ? 'the edit · theirs' : 'the edit · the post’s settings', v: Wb.post_printed.edited_50_passes_printed * 100, token: 'var(--ink-5)', lab: pctW(Wb.post_printed.edited_50_passes_printed * 100), hover: 'printed in the post; nothing here decided it' },
+    { k: short ? 'no edit · maker’s' : 'no edit · the maker’s settings', v: wspBest.percent, token: 'var(--ink)', lab: pctW(wspBest.percent), hover: 'every answer graded exactly, the floor over the first samples' },
+  ];
+  const WSP_ALT = 'Three bars of MATH-500 accuracy. The post prints ' + pctW(Wb.post_printed.unedited_math500_printed * 100) + ' without the edit and ' + pctW(Wb.post_printed.edited_50_passes_printed * 100) + ' with it, both under its own settings. The untouched model under its maker’s own settings, re-run and graded exactly here, scores ' + pctW(wspBest.percent) + '.';
+  const wspSvg = (short) => CH.bars({ w: short ? 320 : SW_ + 130, rowH: short ? 34 : 40, max: 100, padL: short ? 150 : 236, padR: short ? 48 : 60,
+    rows: WSP_ROWS(short), xTicks: [0, 25, 50, 75, 100].map((v) => ({ v, t: String(v) })), xLabel: 'MATH-500, per cent correct', alt: WSP_ALT });
+  const wspFig = C.figure({ svgRaw: dual(wspSvg(false), wspSvg(true)), record: [WSPB, WSPW], pins: false,
+    captionRaw: 'MATH-500: the post’s two printed numbers beside the untouched model under the card’s settings, decided here. Grey is printed, ink is decided.' });
+  const wspText = big(W.val({ rec: { path: WSPB, ptr: '/reading/best_no_edit_arm/percent' }, standing: W.DECIDED, fmt: 'lo:1' }) + '%', 'of MATH-500 with no edit at all, under the maker’s own settings')
+    + C.pRaw(C.esc('On 2 November MIT CSAIL posted that an AI had edited 0.016% of a small model’s weights and taken it from 7.9 to 48.1 on MATH-500, “up to 6×”. Three million people read it. The edit was decided from its bytes that night: two tensors differ, ')
+      + W.val({ rec: { path: WSPW, ptr: '/claims/changed_entries/manifest' }, standing: W.DECIDED, fmt: 'int' }) + C.esc(' entries, exactly as released. The untouched model was re-run under its maker’s own settings and graded exactly the next day, and the authors were told through their own repository the same afternoon.'))
+    + C.pRaw('The edit is real. The six times is mostly a settings effect. <a href="../reports/weight-space-programming.html">The audit →</a>');
+
   /* ---- BELOW: the register's verdict mix ----------------------------------------------------------------------- */
   const VW = ['CERTIFIED', 'PARTIAL', 'REPAIRED', 'MIXED', 'REFUTED', 'NEEDS DATA'];
   const REG_STOP = 'its bars do not number the register\'s decided claims verdict by verdict';
@@ -447,7 +475,7 @@ module.exports = function verifyPage(X) {
   const FLAG = [
     { who: 'for RL and evaluation teams', title: 'Verify Graders', stand: 'pilots',
       line: 'Reward and grading a policy cannot game: the ground truth is a certificate, in code you run, and the grader must refuse planted wrong answers before it grades anything.',
-      numRaw: tolPct, evRaw: 'of ' + fmt(tolAdmit.n) + ' provably wrong answers pass a tolerance grader. A certificate grader admits ' + encl0 + '.',
+      numRaw: tolPct, evRaw: 'of ' + fmt(tolAdmit.n) + ' provably wrong answers pass a tolerance grader. A certificate grader admits ' + encl0 + '. Where a grader ships twice, the two share no code and a disagreement stops the run; the second grader of <a href="../reports/weight-space-programming.html">the Weights audit</a> caught a bug in the first on its first run.',
       go: pilotGo('a grader', 'Verify Graders') },
     { who: 'for labs and AI-for-science teams', title: 'Verify Audits', stand: 'pilots',
       line: 'An independent audit of a claim, before or after publication: the gaps listed first, every finite part decided exactly, every formal statement read against its headline.',
@@ -470,7 +498,7 @@ module.exports = function verifyPage(X) {
         + ' printed steps wrong by more than a rounding. <a href="../reports/gsm8k-audit.html">The audit →</a>',
       go: pilotGo('a data-audit', 'Eval & Data Audit') },
     { who: 'for model builders', title: 'Verify Gym', stand: 'live',
-      line: 'An RL environment whose reward is certified decimals: both ends of an interval proven, or nothing. Training a model on it is in development.',
+      line: 'An RL environment whose reward is certified decimals: both ends of an interval proven, or nothing. Training a model on it waits on hosted access.',
       evRaw: W.value(fmt(gymBelow) + ' of ' + fmt(G.models.length), W.DECIDED, { derived: [GYM + '#/models', GYM + '#/policies'] }) + ' open models score below exact bisection: the best '
         + W.val({ rec: { path: GYM, ptr: '/models[id=' + gymBest.id + ']/mean_reward' }, standing: W.COMPUTED, fmt: 'fixed:3' }) + ', bisection '
         + W.val({ rec: { path: GYM, ptr: '/policies[id=bisect]/mean_reward' }, standing: W.COMPUTED, fmt: 'fixed:3' }) + '.',
@@ -482,12 +510,14 @@ module.exports = function verifyPage(X) {
         + W.val({ rec: { path: GYM, ptr: '/crosscheck/disagreements' }, standing: W.DECIDED, fmt: 'int' }) + ' disagreements.' },
     { who: 'for fine-tuning and evals', title: 'Verified Datasets', stand: 'dev',
       line: 'Model answers that carry a certificate, so a fine-tune or an eval set holds only what was proven.',
-      evRaw: 'Being generated now, each answer decided by both of Verify Gym’s deciders.' },
+      evRaw: 'In development: a first set exists, each answer decided by both of Verify Gym’s deciders, and is not yet published.' },
     { who: 'for formal-math teams', title: 'Statement Check', stand: 'dev',
       line: 'Does a formal statement prove what its headline claims? The claim’s text goes in; a checkable object comes out, or a refusal with the reason.',
       evRaw: 'The need: the ' + W.value(fmt(sShort), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }) + ' OpenAI statements above. The translator, claimbox, is open.',
       go: '<a href="../claimbox/">Follow claimbox →</a>' },
   ];
+  vg('the first inbound request is no longer a certified record received on 3 November 2026',
+    Eh.word === 'CERTIFIED' && OUTR.some((r) => r.id === 'email-hawkley-reply-2026-11-03' && r.sent === '2026-11-03' && /contact-form/.test(r.what)));
   vg('a product carries no standing word, or a product offered for a pilot has no way to ask for one',
     FLAG.concat(REST).every((p) => STAND[p.stand] && (p.stand !== 'pilots' || /data-contact="/.test(p.go || ''))));
   vg('its products are not the contact card\'s products, in the same order (design/contact.js PRODUCTS)',
@@ -513,9 +543,10 @@ module.exports = function verifyPage(X) {
     hero,
     scale,
     /* three proof points, the strongest trust signal first; the side of the figure flips each time */
-    split({ id: 'evidence', lab: 'proof 1 of 3 · trust', title: 'The verifier is attacked before it is trusted', textRaw: mutText, figRaw: mutFig }),
-    split({ lab: 'proof 2 of 3 · audits', title: 'It reads the statement a proof checker is handed', textRaw: ostText, figRaw: ostFig, flip: true, afterRaw: sixFold }),
-    sec({ lab: 'proof 3 of 3 · outside', title: 'Outside checkers ran it again and agreed',
+    split({ id: 'evidence', lab: 'proof 1 of 4 · trust', title: 'The verifier is attacked before it is trusted', textRaw: mutText, figRaw: mutFig }),
+    split({ lab: 'proof 2 of 4 · audits', title: 'It reads the statement a proof checker is handed', textRaw: ostText, figRaw: ostFig, flip: true, afterRaw: sixFold }),
+    split({ lab: 'proof 3 of 4 · speed', title: 'A viral claim, decided from its bytes within a day', textRaw: wspText, figRaw: wspFig }),
+    sec({ lab: 'proof 4 of 4 · outside', title: 'Outside checkers ran it again and agreed',
       raw: '<div class="col vf-quote">' + C.quote({ text: '“' + OUTSIDE.plain(qiushi.quote) + '”', cite: 'the claimant, after an audit: ' + qiushi.who })
         + C.p('Every verdict re-runs with one command, without this engine.') + '</div>' + back }),
     sec({ id: 'products', lab: 'the products', title: 'One decider, ' + numword(FLAG.length + REST.length) + ' products',
@@ -532,14 +563,16 @@ module.exports = function verifyPage(X) {
       + panel('', 'Your code', 'Nothing a claimant wrote is run. The decision comes from code written apart from it, so a bug cannot certify itself.')
       + panel('', 'Meaning, passed off as a decision', 'A kernel cannot say what a statement means. Where a verdict rests on reading a statement, the report says so and keeps the reading apart from what was decided.')
       + panel('', 'A verdict it cannot back', 'Absence of proof is never turned into CERTIFIED or REFUTED. Not peer-reviewed; every page ships its own falsifiers.')
-      + '</div></div>' }),
+      + '</div></div>'
+      + col(C.p('What it is not: a proof of inference. A zero-knowledge proof that a committed model produced an answer (Anthropic’s FlashProve, October 2026) says which model ran. Verify says whether the answer is right. One is the layer below the other; they compose, and neither replaces the other.')) }),
     /* the close: one call to action, the pilot's three steps, then the one line to the evidence */
     '<section id="pilot">\n<div class="vf-close">\n<div class="sec-head"><div class="lab">start a pilot</div><h2>Bring one claim. Get a certificate.</h2></div>\n'
       + C.p('Send one published claim, or one task family. Before anything runs, you get the scope: what can be decided, what will be read, what will be refused, and why.')
       + C.plainList([
         { b: '1. Open a request.', raw: 'The <a href="' + C.escAttr(PILOT) + '">pilot form</a> asks what you want checked and where it is published.' },
-        { b: '2. Scope before work.', text: 'The list of what can be decided, what will be read and what will be refused, before anything is run.' },
-        { b: '3. The certificate.', text: 'Each verdict with its certificate, and a one-line command that re-derives it without this engine.' }])
+        { b: '2. Scope before work.', text: 'One claim family per pilot. The list of what can be decided, what will be read and what will be refused, with the price, before anything is run.' },
+        { b: '3. The certificate.', text: 'Within ten business days of the scope: each verdict with its certificate, a report that lists the gaps first, and a one-line command that re-derives every verdict without this engine.' }])
+      + C.p('The first request through this page arrived on 3 November: an outside prover’s Lean bridge between two published refutations, replayed and certified the same day.')
       + ctas + '</div>\n'
       + '<p class="vf-ev">Every number on this page is read from a public record; the evidence is in <a href="../reports/">the reports →</a></p>\n</section>'
   ];
