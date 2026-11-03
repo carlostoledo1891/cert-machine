@@ -341,7 +341,7 @@ const CSS = `
 `;
 let html = TPL.render({ title: 'Two claimed refutations of ETH, checked · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, cssRaw: CSS,
   desc: 'OpenAI’s and Anthropic’s Lean proofs that the Exponential Time Hypothesis is false, replayed by two kernels against their own statements, and the statements read against the textbook ETH.',
-  path: '/eth/' });
+  path: '/eth/', og: { image: '/og-eth.png', alt: require(path.join(ROOT, 'tools', 'build-og-report.js')).alt('eth') } });
 if (/name="robots" content="noindex/.test(html)) fail('the page is listed (2026-10-29) and must not carry noindex');
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
