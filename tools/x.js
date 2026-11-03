@@ -171,7 +171,7 @@ async function main() {
     /* one post as X serves it: the text, the author, its media (type, size, the still and the video's variants), its counts */
     const id = idOf(rest.find((a) => !a.startsWith('--')));
     const r = await call(keys(), 'GET', '/tweets/' + id, { query: { expansions: 'author_id,attachments.media_keys',
-      'tweet.fields': 'created_at,public_metrics,note_tweet,entities', 'user.fields': 'username,name,public_metrics,description',
+      'tweet.fields': 'created_at,public_metrics,note_tweet,entities,conversation_id,referenced_tweets', 'user.fields': 'username,name,public_metrics,description',
       'media.fields': 'type,width,height,duration_ms,preview_image_url,url,alt_text,variants' } });
     const t = r.data, inc = r.includes || {};
     const u = (inc.users || [])[0] || {};
@@ -182,6 +182,8 @@ async function main() {
       + '\n  still ' + (m.url || m.preview_image_url || '') + (m.alt_text ? '\n  alt ' + m.alt_text : '')
       + ((m.variants || []).filter((v) => v.content_type === 'video/mp4').map((v) => '\n  mp4 ' + v.bit_rate + ' ' + v.url).join('')));
     for (const x of ((t.entities || {}).urls || [])) console.log('link ' + x.expanded_url);
+    if (t.conversation_id && t.conversation_id !== t.id) console.log('conversation https://x.com/i/status/' + t.conversation_id);
+    for (const r of t.referenced_tweets || []) console.log(r.type + ' https://x.com/i/status/' + r.id);
     return;
   }
 
