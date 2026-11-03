@@ -11,7 +11,8 @@
 # start command (entrypoint /bin/bash -c; the image has python3 but no curl is assumed):
 #   python3 -c "import urllib.request as u;u.urlretrieve('https://raw.githubusercontent.com/carlostoledo1891/cert-machine/<sha>/tools/runpod-wsp-baseline.sh','/run.sh')" && bash /run.sh
 # env: AUDIT_SHA; CONDITIONS (default "C1 C3 C2"; C4 = the edited checkpoint under C2); DEADLINE_HOURS (no condition
-#      STARTS after this many hours since the pod began; default 6); SAMPLES (4); LIMIT (problems, 0 = all 500)
+#      STARTS after this many hours since the pod began; default 6); SAMPLES (4; SAMPLES_<condition> overrides one, e.g.
+#      SAMPLES_C2=1 — a deviation from the pre-registration, stated in the record when used); LIMIT (problems, 0 = all 500)
 set -uo pipefail
 : "${AUDIT_SHA:?}"
 CONDITIONS="${CONDITIONS:-C1 C3 C2}"; DEADLINE_HOURS="${DEADLINE_HOURS:-6}"; SAMPLES="${SAMPLES:-4}"; LIMIT="${LIMIT:-0}"
@@ -76,9 +77,10 @@ for c in $CONDITIONS; do
   read -r model thinking sampling <<< "$(settings $c)"
   [ -n "$model" ] || { status "FAILED: unknown condition $c"; sleep infinity; }
   if [ $(( $(date +%s) - T0 )) -gt $(python3 -c "print(int($DEADLINE_HOURS*3600))") ]; then status "deadline: $c not started"; continue; fi
+  n=$(eval echo "\${SAMPLES_$c:-$SAMPLES}")     # SAMPLES_C2=1 overrides the samples per problem for one condition (recorded in its meta.json)
   mkdir -p $R/$c; status "running $c"
   python3 $W/wsp-baseline-eval.py --model $W/$model --problems $W/math500/test.jsonl --out $R/$c --condition $c \
-    --thinking $thinking --sampling "$sampling" --samples $SAMPLES --limit $LIMIT > $R/$c/_run.log 2>&1
+    --thinking $thinking --sampling "$sampling" --samples $n --limit $LIMIT > $R/$c/_run.log 2>&1
   if [ $? -eq 0 ] && [ -s $R/$c/samples.jsonl.gz ]; then DONE="$DONE $c"; status "finished $c"; else status "FAILED: $c (see $c/_run.log)"; fi
 done
 status complete
