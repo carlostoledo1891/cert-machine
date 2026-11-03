@@ -230,10 +230,10 @@ B.push(C.section({
     + '</div>'
 }));
 
-/* ---- THE TWO FIGURES OF §5 (2026-11-03): the map of the proofs (the seam as a grid follows). Laid out by hand in SVG, every
+/* ---- THE TWO FIGURES OF §5 (2026-11-03): the map of the proofs, and the seam as a grid. Laid out by hand in SVG, every
    stroke and fill a token (design/battery.js F1); a decided edge is solid and a read link dashed (W.attrs), a statement
    carried into the other lab's environment is a hollow box; every word and count is read from its record at build
-   time; each figure has a red control below it (a planted wrong word or count makes figMap throw, and the
+   time; each figure has a red control below it (a planted wrong word or count makes figMap / figSeam throw, and the
    build refuses). The seam's constants are named in words once, for the prose and the figure alike. */
 const SEAM_WORD = { 'Monoid.toNPow': 'natural power', 'Real.instAdd': '+', 'Real.instMul': '×', 'Real.instLE': '≤', 'Real.instLT': '<', 'Real.instZero': '0', 'Real.instOne': '1', 'Real.instDivInvMonoid': 'inverse' };
 const svgT = (x, y, s, cls, anchor) => '<text x="' + x + '" y="' + y + '"' + (anchor ? ' text-anchor="' + anchor + '"' : '') + ' class="' + cls + '">' + C.esc(s) + '</text>';
@@ -339,8 +339,48 @@ function figMap(R) {
   return { svg: svgOpen(900, 556, alt) + o.join('') + '</svg>', E, alt };
 }
 
+/* Figure B: the seam as a grid — the two closures as proportional blocks, then the statement's own vocabulary */
+function figSeam(S) {
+  const H = S.headline, cl = H.closure, V = H.vocabulary, nd = V.namedDiffering;
+  const bad = (why) => { throw new Error('the seam as a grid: ' + why); };
+  const onlyO = cl.presentOnly.openai, onlyA = cl.presentOnly.anthropic;
+  for (const n of [cl.constants.common, cl.kernelDiffer, onlyO, onlyA, V.named]) if (!Number.isInteger(n) || n < 0) bad('a count is not a whole number: ' + n);
+  const same = cl.constants.common - cl.kernelDiffer;
+  if (same < 0) bad('more common constants differ (' + cl.kernelDiffer + ') than there are (' + cl.constants.common + ')');
+  if (cl.constants.openai.full !== cl.constants.common + onlyO || cl.constants.anthropic.full !== cl.constants.common + onlyA) bad('common plus one side only is not that side’s closure');
+  if (nd.length > V.named) bad(nd.length + ' named constants differ, of ' + V.named + ' named');
+  const total = cl.constants.common + onlyO + onlyA, vSame = V.named - nd.length;
+  const names = nd.map((x) => (SEAM_WORD[x.name] || x.name) + ' (' + x.name + ')');
+  const o = [];
+  const block = (x, w, y, h, kind) => '<rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + w.toFixed(1) + '" height="' + h + '" class="w-decided" stroke-width="1" fill="'
+    + (kind === 'same' ? 'var(--ink-5)' : kind === 'differ' ? 'var(--ink)' : 'none') + '"/>';
+  /* strip 1: the closures, 820 units for every constant in either */
+  const X0 = 40, WID = 820, u = WID / total;
+  o.push(svgT(X0, 22, 'The two definitional closures, constant by constant', 't-key'), svgT(860, 22, fmt(total) + ' constants in either closure', 't-note', 'end'));
+  let x = X0;
+  const parts = [['same', same], ['differ', cl.kernelDiffer], ['onlyO', onlyO], ['onlyA', onlyA]];
+  const at = {};
+  for (const [k, n] of parts) { at[k] = { x, w: n * u }; o.push(block(x, n * u, 36, 30, k)); x += n * u; }
+  if (Math.abs(x - X0 - WID) > 1e-6) bad('the blocks do not add up to the strip');
+  o.push(svgT(at.same.x + at.same.w / 2, 88, fmt(same) + ' the same kernel term on both sides', 't-lab', 'middle'));
+  o.push(svgT(at.differ.x + at.differ.w / 2, 88, fmt(cl.kernelDiffer) + ' differ', 't-lab', 'middle'));
+  const lead = (k, yEnd) => '<line x1="' + (at[k].x + at[k].w / 2).toFixed(1) + '" y1="70" x2="' + (at[k].x + at[k].w / 2).toFixed(1) + '" y2="' + yEnd + '" fill="none" stroke="var(--ink-4)" stroke-width="1"/>';
+  o.push(lead('onlyO', 100), svgT(at.onlyO.x + at.onlyO.w / 2 - 6, 108, fmt(onlyO) + ' only in OpenAI’s (hollow)', 't-note', 'end'));
+  o.push(lead('onlyA', 118), svgT(at.onlyA.x + at.onlyA.w / 2 - 6, 126, fmt(onlyA) + ' only in Anthropic’s (hollow)', 't-note', 'end'));
+  /* strip 2: the constants the statement names directly, with the differing ones named beside */
+  const W2 = 400, u2 = W2 / V.named, wS = vSame * u2;
+  o.push(svgT(X0, 164, 'The ' + fmt(V.named) + ' constants the statement names directly', 't-key'));
+  o.push(block(X0, wS, 174, 30, 'same'), block(X0 + wS, nd.length * u2, 174, 30, 'differ'));
+  o.push(svgT(X0 + wS / 2, 226, fmt(vSame) + ' the same', 't-lab', 'middle'), svgT(X0 + W2, 226, fmt(nd.length) + ' differ', 't-lab', 'end'));
+  o.push(svgT(470, 178, 'the ' + fmt(nd.length) + ' that differ, listed:', 't-note'));
+  for (let i = 0; i < names.length; i += 2) o.push(svgT(470, 194 + 8 * i, names.slice(i, i + 2).join(' · '), 't-ax'));
+  const alt = 'Two strips. The closures: ' + fmt(total) + ' constants in either environment, drawn in proportion: ' + fmt(same) + ' the same kernel term on both sides, ' + fmt(cl.kernelDiffer) + ' differ, '
+    + fmt(onlyO) + ' only in OpenAI’s, ' + fmt(onlyA) + ' only in Anthropic’s. The vocabulary: of the ' + fmt(V.named) + ' constants the statement names directly, ' + fmt(vSame) + ' are the same and ' + fmt(nd.length) + ' differ: ' + names.join(', ') + '.';
+  return { svg: svgOpen(900, 196 + 8 * Math.max(names.length, 4) + 24, alt) + o.join('') + '</svg>', same, total, vSame, names, alt };
+}
 const MAPR = { oai: OAI, ant: ANT, br: BR, sh: SH, ts: TS, hk: HK, hkh: HKH, seam: SEAM };
 const FIG_MAP = bridgeDone ? figMap(MAPR) : null;
+const FIG_SEAM = SEAM ? figSeam(SEAM) : null;
 /* the red controls: a planted word or count the records do not carry must make the figure refuse */
 const refuses = (fn) => { try { fn(); } catch (e) { return true; } return false; };
 const planted = (mutate) => { const R = JSON.parse(JSON.stringify(MAPR)); mutate(R); return refuses(() => figMap(R)); };
@@ -349,6 +389,12 @@ if (FIG_MAP) {
   if (!planted((R) => { R.ant.kernels = R.ant.kernels.filter((k) => k !== NACC); })) fail('the map of the proofs kept CERTIFIED on a planted record where nanoda did not accept');
   if (HK && !planted((R) => { R.hk.project.toolchain = R.ant.toolchain; })) fail('the map of the proofs drew Hawkley’s join on OpenAI’s side for a planted record that builds on Anthropic’s Lean');
 }
+if (FIG_SEAM) {
+  const seamPlanted = (mutate) => { const S = JSON.parse(JSON.stringify(SEAM)); mutate(S); return refuses(() => figSeam(S)); };
+  if (!seamPlanted((S) => { S.headline.closure.kernelDiffer = S.headline.closure.constants.common + 1; })) fail('the seam grid drew a planted count of differing constants larger than the common closure');
+  if (!seamPlanted((S) => { S.headline.vocabulary.named = S.headline.vocabulary.namedDiffering.length - 1; })) fail('the seam grid drew more differing named constants than the planted count of named ones');
+}
+const SEAM_PTR = (p) => W.val({ rec: { path: SEAM_REL, ptr: p }, standing: W.DECIDED, fmt: 'int', why: 'counted by comparing the exported kernel terms of the two closures (certs/eth-seam.json)' });
 
 /* §5 the bridge */
 const leanM = (t) => '<span class="m">' + brk(C.esc(t.replace(/\s+/g, ' '))) + '</span>';
@@ -414,7 +460,13 @@ function hawkleyBody() {
    Lean and Mathlib; each side's statement and its whole definitional closure exported as kernel terms and compared */
 function seamBody() {
   const H = SEAMH, nd = H.vocabulary.namedDiffering, cl = H.closure, WORD = SEAM_WORD;
-  return '<div class="col">' + C.pRaw('<b>The version seam, measured' + (SEAM.verdict ? ': ' + C.esc(SEAM.verdict) : '') + '.</b> The join reads OpenAI’s statement on Anthropic’s Lean and Mathlib, while OpenAI’s proof lives on its own. '
+  const seamFig = C.figure({ svgRaw: FIG_SEAM.svg, record: SEAM_REL,
+    stop: 'a count in the seam record is not a whole number, more common constants differ than there are, a side’s closure is not the common part plus what is only on that side, or more named constants differ than the statement names',
+    captionRaw: '<b>The seam as a grid.</b> Every constant either statement reaches, exported from both environments as a kernel term and compared: of '
+      + SEAM_PTR('/headline/closure/constants/common') + ' in both closures, ' + W.value(fmt(FIG_SEAM.same), W.DECIDED, { derived: [SEAM_REL + '#/headline/closure/constants/common', SEAM_REL + '#/headline/closure/kernelDiffer'], title: 'the common constants minus the ones whose kernel terms differ' })
+      + ' are the same term and ' + SEAM_PTR('/headline/closure/kernelDiffer') + ' differ; ' + SEAM_PTR('/headline/closure/presentOnly/openai') + ' exist only in OpenAI’s and ' + SEAM_PTR('/headline/closure/presentOnly/anthropic') + ' only in Anthropic’s (hollow). '
+      + 'Of the ' + SEAM_PTR('/headline/vocabulary/named') + ' constants the statement names directly, ' + W.value(fmt(FIG_SEAM.names.length), W.DECIDED, { derived: [SEAM_REL + '#/headline/vocabulary/namedDiffering'], title: 'the length of the record’s list of named constants whose terms differ' }) + ' differ, listed beside the strip: the real numbers’ instances and the monoid power. Width is count; every block is decided.' });
+  return seamFig + '<div class="col">' + C.pRaw('<b>The version seam, measured' + (SEAM.verdict ? ': ' + C.esc(SEAM.verdict) : '') + '.</b> The join reads OpenAI’s statement on Anthropic’s Lean and Mathlib, while OpenAI’s proof lives on its own. '
       + 'Both statements, and every definition they reach, were exported from both environments as kernel terms and compared (<a href="' + C.escAttr(SEAM.run.url) + '">run ' + SEAM.run.id + '</a>, ' + ln(SEAM_REL) + '). '
       + (H.statementTerm.kernelEqual ? 'The statement itself is the same kernel term on both sides, apart from one binder’s name, and all ' + H.vocabulary.oaiDefinitions + ' of OpenAI’s own definitions are identical. ' : 'The statement itself is a different kernel term on the two sides. ')
       + 'Underneath, the two Mathlibs build the real numbers differently: of ' + fmt(cl.constants.common) + ' constants in both closures, ' + fmt(cl.kernelDiffer) + ' differ and ' + fmt(cl.presentOnly.anthropic + cl.presentOnly.openai) + ' exist on one side only, mostly from a reworked monoid hierarchy and from files that moved. '
