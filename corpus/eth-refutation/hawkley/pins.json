@@ -1,0 +1,378 @@
+{
+ "what": "The bytes of Daniel Hawkley's ETH cross-formalization RPI-378.3d (OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse) at github.com/thinkthoughts/math @ d6b79b7d1, a fork of openai/math, pinned by sha256 before any run (tools/pin-eth-hawkley.js): GitHub's compare of the fork with openai/math @ 7ef5c0cc (the base corpus/eth-refutation/pins.json pins for the kernel lane) lists the files the fork adds and the one it modifies; each was fetched at the commit, its git blob hash checked against the blob the compare names, and copied to src/. The base lakefile and the three ParityLifts files the challenge slices were fetched from openai/math at the pin (base/), the lakefile checked against pins.json, the three checked to carry the same blob in the fork. No verdict lives here: tools/record-eth-hawkley.js writes certs/eth-hawkley-bridge.json.",
+ "pinnedAt": "2026-11-03",
+ "hawkley": {
+  "repository": "https://github.com/thinkthoughts/math",
+  "forkOf": "https://github.com/openai/math",
+  "commit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "commitDate": "2026-11-03T01:50:36Z",
+  "commitMessage": "RPI-378.3d: unconditional ¬PositiveRateETH → MainResults.ETHIsFalse",
+  "author": "Dan With Glasses",
+  "license": "Apache-2.0 (the repository's LICENSE, OpenAI's, unchanged; copied beside the bytes in src/)",
+  "base": {
+   "repository": "https://github.com/openai/math",
+   "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "behindBy": 0,
+   "aheadBy": 21,
+   "totalCommits": 21
+  },
+  "commits": [
+   {
+    "sha": "02ff4b35fa83d3712eb94f3253c7fe16834c9003",
+    "date": "2026-11-01T04:46:43Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component A: runtime factor is subexponential"
+   },
+   {
+    "sha": "c4dfd2e2e8733ffe4798f354849bf0bfb0cbd359",
+    "date": "2026-11-01T05:35:16Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B, milestone B1a: semantic CNF bridge"
+   },
+   {
+    "sha": "2ac95a314075bf7182e1213029b33ba23904ecf9",
+    "date": "2026-11-01T05:47:57Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B, milestone B1b: exact encoding equality"
+   },
+   {
+    "sha": "11ca39e13fda7baf71db1b3308c15d7403ad1019",
+    "date": "2026-11-01T06:03:34Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.0: converter interface theorem"
+   },
+   {
+    "sha": "c0fafea4dd97558eb4cd48bad55a719ef2a591d7",
+    "date": "2026-11-01T06:03:34Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.1: generic polynomial sorting program"
+   },
+   {
+    "sha": "d18cffd66cc3c80a0d8183622938525399937a0f",
+    "date": "2026-11-01T06:14:47Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.2: lexicographic comparison and clause sort"
+   },
+   {
+    "sha": "2a565fb1e22a16b5f3ff156a96bf4a6e34ac0fac",
+    "date": "2026-11-01T06:31:12Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.3: verified binary-to-unary decoding"
+   },
+   {
+    "sha": "8473c9afabd2dc03a6706e622b7c17bd1a2541e4",
+    "date": "2026-11-01T06:51:07Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.4: verified serialization programs"
+   },
+   {
+    "sha": "dfe611b52ba2cdd0f49a53e227f6521ce5c0afad",
+    "date": "2026-11-01T07:03:35Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.5a: assembled executable converter"
+   },
+   {
+    "sha": "e3dd46565329742fd8c799cebb3148b558b129f0",
+    "date": "2026-11-01T07:33:18Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.5b.1: input and decoded-pair size bounds"
+   },
+   {
+    "sha": "c934c617ad00394a678b20306b9c85b44645bb49",
+    "date": "2026-11-01T07:33:19Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.5b.2: time of the nested decoding"
+   },
+   {
+    "sha": "7389b21a823545acb9e6cc85416773a7479ff0db",
+    "date": "2026-11-01T07:33:19Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component B2.5b.3: uniform polynomial bound and RBEval"
+   },
+   {
+    "sha": "2e6e5783fdc2d98898309d14de4ec03e0657006b",
+    "date": "2026-11-01T07:58:19Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component C0: machine-model interface and conditional reduction"
+   },
+   {
+    "sha": "f6a4a0f6a97d48cea21a2c6a19032fb1494fd54e",
+    "date": "2026-11-01T08:14:24Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component C1a: PrimitiveMachine translation"
+   },
+   {
+    "sha": "54012fddb1e19e9365693002563a3931d305c8d2",
+    "date": "2026-11-01T13:38:29Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component C1b.1: executable runner and correctness"
+   },
+   {
+    "sha": "2f7b3a3ab560cc60f93377f41b03a355d61e50d5",
+    "date": "2026-11-01T21:17:23Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component C1b.2: polynomial runner bound; SimulationHypothesis proved"
+   },
+   {
+    "sha": "81ec97cd23d21675cee4ee76768fffba33a61e17",
+    "date": "2026-11-01T21:17:23Z",
+    "author": "Dan With Glasses",
+    "message": "ETH bridge, component C2: final instantiation (NOT built in this environment)"
+   },
+   {
+    "sha": "dc6c4a9002d0d16f00f1ff60ef04b4e9cfa35c19",
+    "date": "2026-11-02T19:52:53Z",
+    "author": "Dan With Glasses",
+    "message": "RPI-378.3a: conditional reduction ¬PositiveRateETH → MainResults.ETHIsFalse"
+   },
+   {
+    "sha": "0ddefa897efe2b00df0f875ee778590a1d93ff33",
+    "date": "2026-11-02T20:52:52Z",
+    "author": "Dan With Glasses",
+    "message": "RPI-378.3b: ParityLifts Machine → Mathlib FinTM2 simulation (H1 discharged)"
+   },
+   {
+    "sha": "beec4dc6bed640f6f90b16f22afb75adcf16c86a",
+    "date": "2026-11-02T21:26:03Z",
+    "author": "Dan With Glasses",
+    "message": "RPI-378.3c: input encoding converter (H2 discharged)"
+   },
+   {
+    "sha": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+    "date": "2026-11-03T01:50:36Z",
+    "author": "Dan With Glasses",
+    "message": "RPI-378.3d: unconditional ¬PositiveRateETH → MainResults.ETHIsFalse"
+   }
+  ],
+  "delta": {
+   "added": [
+    "docs/RPI-378.3a_REPORT.md",
+    "docs/RPI-378.3b_REPORT.md",
+    "docs/RPI-378.3c_REPORT.md",
+    "docs/RPI-378.3d_REPORT.md",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.json",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+    "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean",
+    "lean/OAI/Bridges/AnthropicETH/Audit.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean",
+    "lean/OAI/Bridges/AnthropicETH/Lengths.lean",
+    "lean/OAI/Bridges/AnthropicETH/Main.lean",
+    "lean/OAI/Bridges/AnthropicETH/Reduction.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean",
+    "lean/OAI/Bridges/ETH/CanonicalCNF.lean",
+    "lean/OAI/Bridges/ETH/CanonicalWord.lean",
+    "lean/OAI/Bridges/ETH/Converter.lean",
+    "lean/OAI/Bridges/ETH/ConverterInterface.lean",
+    "lean/OAI/Bridges/ETH/ConverterPoly.lean",
+    "lean/OAI/Bridges/ETH/ConverterSize.lean",
+    "lean/OAI/Bridges/ETH/ConverterTime.lean",
+    "lean/OAI/Bridges/ETH/DecodeProgram.lean",
+    "lean/OAI/Bridges/ETH/FinalImplication.lean",
+    "lean/OAI/Bridges/ETH/LexProgram.lean",
+    "lean/OAI/Bridges/ETH/MachineInterface.lean",
+    "lean/OAI/Bridges/ETH/MachineRunner.lean",
+    "lean/OAI/Bridges/ETH/MachineRunnerCost.lean",
+    "lean/OAI/Bridges/ETH/MachineTranslation.lean",
+    "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean",
+    "lean/OAI/Bridges/ETH/SerializeProgram.lean",
+    "lean/OAI/Bridges/ETH/SortProgram.lean",
+    "lean/Vendor/Anthropic/MainResults.lean",
+    "lean/scripts/check_rpi378_challenge.py"
+   ],
+   "modified": [
+    "lean/lakefile.lean"
+   ],
+   "fileCount": 40
+  },
+  "fileCount": 41,
+  "bytes": 337561,
+  "listSha256": "1fa0169395e88fc0fc02598ec87e9c321b02b149ec3cc1d42be40087fe3a23dd",
+  "comparatorConfig": {
+   "path": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.json",
+   "sha256": "0a2c533ec9b447a9fa63fc6e2fb3e7c26b5d06c94406dfb64db35e94ee5ab311",
+   "content": {
+    "challenge_module": "ComparatorChallenges.AnthropicETHCrossFormalization",
+    "solution_module": "OAI.Bridges.AnthropicETH.Main",
+    "theorem_names": [
+     "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "enable_nanoda": false
+   }
+  },
+  "lakefile": {
+   "base": "fc590a5d14923f79e71ea80e29efd42950bb3ec051481b5209157f0a01f63de1",
+   "fork": "a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933",
+   "insertedAfterLine": 111,
+   "insertedLines": [
+    "-- RPI-378.3a: Anthropic's trusted statement file, copied byte for byte from",
+    "-- anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5:eth/MainResults.lean",
+    "-- (SHA-256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944).",
+    "lean_lib MainResults where",
+    "  srcDir := \"Vendor/Anthropic\"",
+    "  roots := #[`MainResults]"
+   ]
+  },
+  "files": {
+   "docs/RPI-378.3a_REPORT.md": "d63ceba00da4aae74d1d96564765fb8b1e77257349839beed00f3b7fbe2831f6",
+   "docs/RPI-378.3b_REPORT.md": "7c3a6ad9a3063f003cb25e8be787ece59098d45dd81b7dfa8bc53d01b6ebe283",
+   "docs/RPI-378.3c_REPORT.md": "4c176fbfab1109ab350180c3ca278b4533a87c0a7c5e2804d289a193bffb9b9d",
+   "docs/RPI-378.3d_REPORT.md": "285f178b8d52e34df064e8122f1322534a67e2bdca2b453c579ea13d5b6498ee",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization.json": "0a2c533ec9b447a9fa63fc6e2fb3e7c26b5d06c94406dfb64db35e94ee5ab311",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean": "459a5209e260862769e2e84ad69d6b349d730df452e9b967596403d308ef71f9",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean": "811aefa8e59f2489a637b4d8ef178227bf48dca099422e31da47f2df9c18d24a",
+   "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean": "7982efd56a311e17a536911bc6f5e816ffab96a7c49222ab7b51dcc5407ab7a5",
+   "lean/OAI/Bridges/AnthropicETH/Audit.lean": "20ecf72c030db1928ec890c4de3b260c91290fefabcbc150edfc49474e1a5259",
+   "lean/OAI/Bridges/AnthropicETH/Converter.lean": "7fb9988697f5a747835d33950ff309b9ba205d6e0b28756a00e596520b218b46",
+   "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean": "69bb729c8fb6c1f3bd9bf225f946a2faac6245f6e7855e64d8c3e6713e9db3ee",
+   "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean": "f4c3bdbe9f0e83f78b1089e458caf7f07df18aa0798cf7af361692c56c0dbf25",
+   "lean/OAI/Bridges/AnthropicETH/Lengths.lean": "a7f406120b6e16d6601c7e7e5ec603f92ba78f74d3e1b58caf5e9365365b315d",
+   "lean/OAI/Bridges/AnthropicETH/Main.lean": "f696d4e58233652f01e1b93d0089230ba7c6450da275047a0beb54fc3ba04d81",
+   "lean/OAI/Bridges/AnthropicETH/Reduction.lean": "1f6af6d7a2997c0e6a86dbb9bcbad34e5f3b6329db9fcea5afee1d6a6177b7ca",
+   "lean/OAI/Bridges/AnthropicETH/Simulation.lean": "c1e95c3cb69f8aea96856a24f4cf779cc09c2c3d480783d9daf2287ea042669f",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean": "0da3c145f79c6fea822e99e66620a6f17d71a6d3c6ba119ec683ec48dcb5a38f",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean": "206257f6d78c80cbe794ca8581f5240e440240bfb94a0ea305bdbe9302f83007",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean": "138605738a5a5d035fef906e68ac436fd8d9319568bb17bfbd626b8090800f66",
+   "lean/OAI/Bridges/ETH/CanonicalCNF.lean": "4120c5c0b15217267adaf8739e5f9eec8c3cd25a9e252f0a8059b95ebf8be6b2",
+   "lean/OAI/Bridges/ETH/CanonicalWord.lean": "015b3d453279c110490a2d2b4a1f440876535a8b9f183319e302a04b93021387",
+   "lean/OAI/Bridges/ETH/Converter.lean": "3bcf281313d3239eed528252781b0aec224cffef6f74be99bae41570a4db50bc",
+   "lean/OAI/Bridges/ETH/ConverterInterface.lean": "fc84a9b65fa60d9f380947079b6c3343e1dd2c39d26e586bfeb423051e99e700",
+   "lean/OAI/Bridges/ETH/ConverterPoly.lean": "1cb7ddf160371dd6d497f8b32ed89dafea620d50e653ff9c393431174b1b5819",
+   "lean/OAI/Bridges/ETH/ConverterSize.lean": "b3cbef1c64876027c875094537cb4ece1341a5c19c6e1b6bad7e45619fed4b5b",
+   "lean/OAI/Bridges/ETH/ConverterTime.lean": "914b57abf860da5a2e42a5955eb9583400e03a760ede5a1231e855eba4b124a2",
+   "lean/OAI/Bridges/ETH/DecodeProgram.lean": "09c28a6da64709b1e61e9374776f8ab88001f71b67f5b3178bb5227d282145bf",
+   "lean/OAI/Bridges/ETH/FinalImplication.lean": "224429dd47f3061bedd044a255c43a70c62ed49f3dc07ba61009f8ed68a7f289",
+   "lean/OAI/Bridges/ETH/LexProgram.lean": "06f4ba4d2404042f93e73669bd53c303790c6e01f71587ff81eafeff6f72fdce",
+   "lean/OAI/Bridges/ETH/MachineInterface.lean": "a39b894e4e19510f089e85080e4e047039d4f305471e2f84a8387b2e73bfdd00",
+   "lean/OAI/Bridges/ETH/MachineRunner.lean": "b96a4467e575f7eb403d5778503768cbae834e5be5b6b04e7d944bb92a711f1a",
+   "lean/OAI/Bridges/ETH/MachineRunnerCost.lean": "9db1231ef0495d26ddd64f5abf2030b30ecc1de1c16d62887f599d329472d0cf",
+   "lean/OAI/Bridges/ETH/MachineTranslation.lean": "d23fc60e66b526493e3c2793652c0abfb3ac2429632bcc3cdf742772f2702390",
+   "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean": "f50ac313341bae9b5a06e9eb0ae72e97c764f47ab438978cd4ad1da2638bf0bb",
+   "lean/OAI/Bridges/ETH/SerializeProgram.lean": "5a7033121d1c233e3db068e734b721ef4ac8b113c6294338690f17075800eca8",
+   "lean/OAI/Bridges/ETH/SortProgram.lean": "22368796ea4087f7ed8e64ee6f2e428eccf2157c8827b739cf91f39f7bad6520",
+   "lean/Vendor/Anthropic/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "lean/lakefile.lean": "a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933",
+   "lean/scripts/check_rpi378_challenge.py": "7378700f9adc7c0a7493d99bc78b852057f1ad3f2c0222bb7192e74eca5b6aa4",
+   "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "blobs": {
+   "docs/RPI-378.3a_REPORT.md": "5adc4d61a5992c3f31b6fb8f45119e9791573306",
+   "docs/RPI-378.3b_REPORT.md": "5da06501bd52d3ac4a375f69da44020b7a0023e6",
+   "docs/RPI-378.3c_REPORT.md": "759189c286934dc10e30285b5b9c92859e95eed5",
+   "docs/RPI-378.3d_REPORT.md": "59095962b1c5e6e5bc73e76eb1ff431e2ae4783b",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization.json": "92ce837890387942b9918b6a83c704ee57da57e3",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean": "46bf05c9ac208fd21ad6c953fb451e09abc0a40c",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean": "1c62a550fa1e4cbec65bb7112f92ad67589afddc",
+   "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean": "88cd673e5ee35103ddd5261eed88dfa8455a0ab2",
+   "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean": "1fdf06b23aaa424d70f704454e809442e6b56af3",
+   "lean/OAI/Bridges/AnthropicETH/Audit.lean": "b40212b2f82d7d82b5024e5e7b058f3af40c043f",
+   "lean/OAI/Bridges/AnthropicETH/Converter.lean": "ddd6af4b7860eca468e34b462e393154e6343322",
+   "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean": "9c67a46af3d9c13345a9ddfc14a7675a6302e223",
+   "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean": "c1f5844ffec17f324e9465660c1e761e313430b5",
+   "lean/OAI/Bridges/AnthropicETH/Lengths.lean": "71e6befe64aa9cc2ca9a82e8f03401de4b8f9855",
+   "lean/OAI/Bridges/AnthropicETH/Main.lean": "da9159320aadccc8ee554fbeef4de00e96a62d14",
+   "lean/OAI/Bridges/AnthropicETH/Reduction.lean": "65d6acd1da6e11f8e7f87a19e8215fae22df8bd1",
+   "lean/OAI/Bridges/AnthropicETH/Simulation.lean": "040c0a2c309827a4c8a7bce96f3c0bf7d5523431",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean": "690fe13f5a19b998f44947297796327fa99b233e",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean": "a151e5d26abeb1d813921441f30b0b42677a710b",
+   "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean": "276cf6c074c065c5ed8f4e828d070f11abd9dec5",
+   "lean/OAI/Bridges/ETH/CanonicalCNF.lean": "14cd30121f3569f84a8c4f74cc19be78876719c5",
+   "lean/OAI/Bridges/ETH/CanonicalWord.lean": "c93f50c7b595fd8122392d5975622f7e24114ab3",
+   "lean/OAI/Bridges/ETH/Converter.lean": "6b2df267ad356ae52370e0f4fdaeb877246b0fae",
+   "lean/OAI/Bridges/ETH/ConverterInterface.lean": "32d2226df55a5047e0e4e5bb9593e04b5afb363e",
+   "lean/OAI/Bridges/ETH/ConverterPoly.lean": "269ba2175e44cbedf4e3eeaad6cbfc1a3f8591d0",
+   "lean/OAI/Bridges/ETH/ConverterSize.lean": "3f6730c953972e958ee5ac2f13ea6d2624a26594",
+   "lean/OAI/Bridges/ETH/ConverterTime.lean": "1811885c76a1398fc22f5ab2c49c5d58ddabca72",
+   "lean/OAI/Bridges/ETH/DecodeProgram.lean": "531754dc23396386d8f2802e967180264b16cb87",
+   "lean/OAI/Bridges/ETH/FinalImplication.lean": "b1289692b599ee8430917738b7a8e91cc372e1df",
+   "lean/OAI/Bridges/ETH/LexProgram.lean": "339d326bbda105037a782b60e953b87351296a76",
+   "lean/OAI/Bridges/ETH/MachineInterface.lean": "e3cfc9f41a886475319a446cf835f395ec417c04",
+   "lean/OAI/Bridges/ETH/MachineRunner.lean": "7ed5341f4357f770510a6271a994ab3d478f9803",
+   "lean/OAI/Bridges/ETH/MachineRunnerCost.lean": "c280f68dbc02d5596c31782d740949c447e97bc5",
+   "lean/OAI/Bridges/ETH/MachineTranslation.lean": "a4aac40ecca0e3e459787811235f909e5a082364",
+   "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean": "2f7458b747aeec8b2f800a7791bf55dc8ca15573",
+   "lean/OAI/Bridges/ETH/SerializeProgram.lean": "9f6549b05147ef6631321412cf9eb9504bea3703",
+   "lean/OAI/Bridges/ETH/SortProgram.lean": "332822c50d892a4df48e5eb743e79d002a117e63",
+   "lean/Vendor/Anthropic/MainResults.lean": "1c62a550fa1e4cbec65bb7112f92ad67589afddc",
+   "lean/lakefile.lean": "ad63e2a3b7c2ade33e288ca1a9a06427f95fc8ff",
+   "lean/scripts/check_rpi378_challenge.py": "de7b5224b6d53e63305c97291bd389271fd6f598",
+   "LICENSE": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+  }
+ },
+ "base": {
+  "lean/lakefile.lean": {
+   "sha256": "fc590a5d14923f79e71ea80e29efd42950bb3ec051481b5209157f0a01f63de1",
+   "blob": "cd24ca2ee09fb6fe33e82400534d9e60a616125b",
+   "bytes": 16876,
+   "pinnedInEthPins": true
+  },
+  "lean/OAI/Combinatorics/ParityLifts/Machines.lean": {
+   "sha256": "d9ff69d594e31cdb4b84bab1a12333e238eb56a1ba439618464baf52cc8566f6",
+   "blob": "ae5c9cdafbf42bda2b53078185ab23b0ffbf2485",
+   "bytes": 6045,
+   "pinnedInEthPins": false,
+   "sameBlobInFork": true
+  },
+  "lean/OAI/Combinatorics/ParityLifts/SAT.lean": {
+   "sha256": "42f682a64f54e5dc92c485eeb641a04d0a66f0fb0e1c067ce5ec16b7340059e6",
+   "blob": "cb4d79834066285ff912c8b2675f38a5a13a1c85",
+   "bytes": 13490,
+   "pinnedInEthPins": false,
+   "sameBlobInFork": true
+  },
+  "lean/OAI/Combinatorics/ParityLifts/SATChoice.lean": {
+   "sha256": "2209014df8f6a033d4453a13cd135aa8a44c3599f16167395067ab8f44fd0bfd",
+   "blob": "379ce6007cf9ac963c5555e4466ece2825f38dee",
+   "bytes": 15397,
+   "pinnedInEthPins": false,
+   "sameBlobInFork": true
+  },
+  "LICENSE": {
+   "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+   "blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+   "bytes": 11357,
+   "pinnedInEthPins": false,
+   "sameBlobInFork": true
+  }
+ },
+ "statementPins": {
+  "mainResults": {
+   "repository": "https://github.com/anthropics/formal-math",
+   "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+   "path": "eth/MainResults.lean",
+   "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "copiesInFork": [
+    "lean/Vendor/Anthropic/MainResults.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean"
+   ]
+  },
+  "parityLiftsSlices": {
+   "repository": "https://github.com/openai/math",
+   "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "files": [
+    "lean/OAI/Combinatorics/ParityLifts/Machines.lean",
+    "lean/OAI/Combinatorics/ParityLifts/SAT.lean",
+    "lean/OAI/Combinatorics/ParityLifts/SATChoice.lean"
+   ],
+   "note": "the challenge's ParityLifts.lean is checked by tools/eth-hawkley-gates.js to be exactly lines 5–69 of Machines.lean, 5–35 of SAT.lean and 24–35 of SATChoice.lean, from base/, inside a fixed namespace skeleton"
+  },
+  "openaiChallenge": {
+   "path": "lean/ComparatorChallenges/SubexponentialSAT.lean",
+   "sha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "note": "OpenAI's Comparator-checked statement; NOT the hypothesis of this theorem (see the record's gaps)"
+  }
+ }
+}
