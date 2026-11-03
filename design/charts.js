@@ -886,3 +886,146 @@ module.exports = { clampX,
   lines, band, bars, dist, dumbbell, strip, intervals, segments, scatter, lines2, sparkline,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
 };
+
+/* HIST — one population per panel, stacked, each on its own binned axis from 0 to its cap (added 2026-11-03 for the
+   Weight-Space Programming report: tokens generated per sample, one panel per arm of the baseline run). The bins are
+   DECIDED counts and are drawn solid in one ink; a non-empty bin is never thinner than 1 px (rounded outward, never
+   away). Three kinds of mark may sit on a panel, each in the grammar's stroke:
+     cap     { x, t }                        a vertical guide (design/grammar.js 2 3, says nothing) with its words
+     hmarks  [{ y, x0, x1, t, standing, rec }] a horizontal rule at a COUNT across a bin range — a number someone
+                                             printed, drawn in its standing's stroke (dashed for COMPUTED), never a bar
+     pts     [{ x, t, standing, rec, row }]  a value on the baseline: DECIDED a filled dot, COMPUTED a hollow dashed ring
+   rows: [{ k, note: [lines], bins: [{ lo, hi, n }], x1, xTicks, token, cap, hmarks, pts }]; keys: the legend (required
+   once a panel carries a mark beside its bins — colour is never the only channel, and neither is a dash). */
+function hist(o) {
+  const W = require('../playground/warrant.js');
+  const rows = o.rows;
+  const w = o.w || 900, L = o.padL === undefined ? 62 : o.padL, R = o.padR === undefined ? 22 : o.padR;
+  const avail = w - L - R, plotH = o.panelH || 150, LAB = 17;
+  const marked = rows.some((r) => (r.hmarks && r.hmarks.length) || (r.pts && r.pts.length) || r.cap);
+  if (marked && !(o.keys && o.keys.length)) throw new Error('charts.hist: a panel carries marks beside its bins and needs a labelled legend');
+  const nLeg = legendLines(o.keys, avail, o.legendGap);
+  const legH = nLeg ? 10 + nLeg * LEGEND_LINE : 0;
+  const headOf = (r) => 22 + (r.note ? [].concat(r.note).length * 15 : 0) + 8;
+  const footOf = (r) => 30 + (r.pts && r.pts.some((p) => p.t) ? (1 + Math.max(0, ...r.pts.map((p) => p.row || 0))) * LAB : 0);
+  const tops = []; let yy = 8;
+  for (const r of rows) { yy += headOf(r); tops.push(yy); yy += plotH + footOf(r) + 10; }
+  const h = yy + (o.xLabel ? 16 : 0) + legH;
+  const out = [open({ w, h, alt: o.alt })];
+  rows.forEach((r, i) => {
+    const top = tops[i], bottom = top + plotH;
+    const px = (v) => L + (v / r.x1) * avail;
+    const tok = r.token || o.token || 'var(--ink)';
+    const maxN = Math.max(1, ...r.bins.map((b) => b.n));
+    /* the title and its note lines above the plot; the cap's words on the title line, right-aligned */
+    out.push(txt(L, top - headOf(r) + 14, r.k, 't-lab', 'start'));
+    [].concat(r.note || []).forEach((s, k) => out.push(txt(L, top - headOf(r) + 29 + k * 15, s, 't-note', 'start')));
+    if (r.cap && r.cap.t) out.push(txt(L + avail, top - headOf(r) + 14, r.cap.t, 't-lab', 'end'));
+    /* the count axis: a hairline at the tallest bin, its count beside it; zero at the baseline */
+    out.push('    <line x1="' + L + '" y1="' + top + '" x2="' + (L + avail) + '" y2="' + top + '" stroke="' + GRID + '" stroke-width="1"/>');
+    out.push(txt(L - 9, top + 4, maxN.toLocaleString('en-US'), 't-ax', 'end'));
+    out.push(txt(L - 9, bottom + 4, '0', 't-ax', 'end'));
+    out.push('    <text x="13" y="' + (top + plotH / 2) + '" class="t-note" transform="rotate(-90 13 ' + (top + plotH / 2) + ')" text-anchor="middle">' + esc(r.yLabel || 'samples') + '</text>');
+    for (const t of (r.xTicks || [])) {
+      const x = px(t.v !== undefined ? t.v : t), lab = t.t !== undefined ? t.t : compact(t.v !== undefined ? t.v : t);
+      out.push('    <line x1="' + x.toFixed(1) + '" y1="' + bottom + '" x2="' + x.toFixed(1) + '" y2="' + (bottom + 5) + '" stroke="' + AXIS + '" stroke-width="1"/>');
+      out.push(txt(clampX({ w }, x, lab, 'middle'), bottom + 20, lab, 't-ax', 'middle'));
+    }
+    out.push('    <line x1="' + L + '" y1="' + bottom + '" x2="' + (L + avail) + '" y2="' + bottom + '" stroke="' + AXIS + '" stroke-width="1"/>');
+    /* the bins: solid, one ink, a 2 px surface gap, a 1 px floor for a bin that holds anything */
+    for (const b of r.bins) {
+      if (!b.n) continue;
+      const x0 = px(b.lo), x1 = px(b.hi), bw = Math.max(1, x1 - x0 - 2);
+      const hgt = Math.max(1, (b.n / maxN) * plotH), y = bottom - hgt;
+      out.push('    <rect ' + hit('x="' + x0.toFixed(2) + '" y="' + y.toFixed(2) + '" width="' + bw.toFixed(2) + '" height="' + hgt.toFixed(2) + '" fill="' + tok + '" data-w="decided"',
+        r.k + ' · ' + compact(b.lo) + '–' + compact(b.hi) + (o.unit ? ' ' + o.unit : ''), b.n.toLocaleString('en-US') + ' samples') + '/>');
+    }
+    if (r.cap) {
+      const x = px(r.cap.x);
+      out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (top - 6) + '" x2="' + x.toFixed(1) + '" y2="' + (bottom + 6) + '" stroke="' + CTX + '" stroke-width="1.5" stroke-dasharray="' + G.GUIDE + '"/>');
+    }
+    for (const m of (r.hmarks || [])) {
+      const y = bottom - (m.y / maxN) * plotH, x0 = px(m.x0), x1 = px(m.x1);
+      out.push('    <line ' + hit('x1="' + x0.toFixed(1) + '" y1="' + y.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y.toFixed(1) + '" ' + W.attrs(m.standing, { width: 2, rec: m.rec }), m.t, m.v !== undefined ? m.v : Math.round(m.y).toLocaleString('en-US') + ' samples') + '/>');
+      if (m.t) out.push(txt(x0 - 8, y + 4, m.t, 't-lab', m.anchor || 'end'));
+    }
+    for (const p of (r.pts || [])) {
+      const x = px(p.x), y = bottom;
+      const dec = p.standing === W.DECIDED;
+      /* a decided value is a filled dot; a read one a larger hollow dashed ring, so a printed number that coincides with
+         the measured one reads as a dot inside a ring, never as one mark hiding the other */
+      const look = dec ? 'r="5" fill="' + tok + '" stroke="' + SURFACE + '" stroke-width="2" data-w="decided"' + (p.rec ? ' data-rec="' + escAttr(p.rec.path + '#' + p.rec.ptr) + '"' : '')
+        : 'r="8" ' + W.attrs(p.standing, { width: 2, rec: p.rec });
+      out.push('    <circle cx="' + x.toFixed(1) + '" cy="' + y + '" ' + look + '/>');
+      out.push('    <circle ' + hit('cx="' + x.toFixed(1) + '" cy="' + y + '" r="12" fill="transparent"', p.t || r.k, p.v !== undefined ? p.v : compact(p.x) + (o.unit ? ' ' + o.unit : '')) + '/>');
+      if (p.t) out.push(txt(clampX({ w }, x, p.t, 'middle'), bottom + 36 + (p.row || 0) * LAB, p.t, 't-note', 'middle'));
+    }
+  });
+  if (o.xLabel) out.push(txt(L + avail / 2, h - legH - 4, o.xLabel, 't-note', 'middle'));
+  if (o.keys) out.push(legend(o.keys, L, h - 7, o.legendGap, avail));
+  out.push(close);
+  return out.join('\n');
+}
+
+/* RULER — one horizontal axis with named bands and values placed on it (added 2026-11-03 for the Weight-Space
+   Programming report: the pre-registered reading's three bands with every number the reading weighs). The bands are a
+   RULE, not data: shaded in ordered ink tokens, each carrying its word, and their edges labelled on the axis. A value is
+   a vertical mark in its standing's stroke (DECIDED solid, COMPUTED dashed, read from playground/warrant.js), its words
+   on a row above the band (`side: 'above'`) or below the axis (`side: 'below'`); a bracket is a solid extent between two
+   decided ends. `note` is one line of words at the top (the date the edges were fixed).
+     bands: [{ x0, x1, t, token }]; edges: [x]; marks: [{ x, t, standing, side, row, anchor, rec }];
+     brackets: [{ x0, x1, t, standing, row, anchor, rec }]; xTicks: [{ v, t }]; keys: the legend (required). */
+function ruler(o) {
+  const W = require('../playground/warrant.js');
+  if (!(o.keys && o.keys.length)) throw new Error('charts.ruler: two standings share the axis and need a labelled legend');
+  const w = o.w || 900, L = o.padL === undefined ? 30 : o.padL, R = o.padR === undefined ? 30 : o.padR;
+  const avail = w - L - R, LAB = 17, STRIP = 26;
+  const px = (v) => L + (v - o.x0) / (o.x1 - o.x0) * avail;
+  const marks = o.marks || [], brs = o.brackets || [];
+  const above = 1 + Math.max(0, ...marks.filter((m) => m.side !== 'below').map((m) => m.row || 0), ...brs.map((b) => b.row || 0));
+  const below = 1 + Math.max(-1, ...marks.filter((m) => m.side === 'below').map((m) => m.row || 0));
+  const nLeg = legendLines(o.keys, avail, o.legendGap);
+  const legH = 10 + nLeg * LEGEND_LINE;
+  const top = 8 + (o.note ? 18 : 0) + above * LAB + 14;      /* the strip's top edge */
+  const axis = top + STRIP;                                    /* the axis line under the strip */
+  const h = axis + 30 + below * LAB + 8 + legH;
+  const out = [open({ w, h, alt: o.alt })];
+  if (o.note) out.push(txt(L, 18, o.note, 't-note', 'start'));
+  for (const b of (o.bands || [])) {
+    const x0 = px(b.x0), x1 = px(b.x1);
+    out.push('    <rect ' + hit('x="' + x0.toFixed(1) + '" y="' + top + '" width="' + Math.max(1, x1 - x0 - 1).toFixed(1) + '" height="' + STRIP + '" fill="' + (b.token || GRID) + '"', b.t, compact(b.x0) + ' to ' + compact(b.x1)) + '/>');
+    if (b.t) out.push(txt((x0 + x1) / 2, top + STRIP / 2 + 4, b.t, 't-lab', 'middle'));
+  }
+  for (const t of (o.xTicks || [])) {
+    const v = t.v !== undefined ? t.v : t, x = px(v), lab = t.t !== undefined ? t.t : compact(v);
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + axis + '" x2="' + x.toFixed(1) + '" y2="' + (axis + 5) + '" stroke="' + AXIS + '" stroke-width="1"/>');
+    out.push(txt(clampX({ w }, x, lab, 'middle'), axis + 19, lab, 't-ax', 'middle'));
+  }
+  for (const e of (o.edges || [])) {
+    const x = px(e);
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (top - 4) + '" x2="' + x.toFixed(1) + '" y2="' + (axis + 5) + '" stroke="' + AXIS + '" stroke-width="1"/>');
+    out.push(txt(x, axis + 19, compact(e), 't-lab', 'middle'));
+  }
+  out.push('    <line x1="' + L + '" y1="' + axis + '" x2="' + (L + avail) + '" y2="' + axis + '" stroke="' + AXIS + '" stroke-width="1"/>');
+  for (const b of brs) {
+    const x0 = px(b.x0), x1 = px(b.x1), y = top - 5;
+    out.push('    <line ' + hit('x1="' + x0.toFixed(1) + '" y1="' + y + '" x2="' + x1.toFixed(1) + '" y2="' + y + '" ' + W.attrs(b.standing, { width: 2.5, rec: b.rec }), b.t, compact(b.x0) + ' … ' + compact(b.x1)) + '/>');
+    for (const x of [x0, x1]) out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (y - 5) + '" x2="' + x.toFixed(1) + '" y2="' + (y + 5) + '" ' + W.attrs(b.standing, { width: 2.5 }) + '/>');
+    if (b.t) out.push(txt(b.anchor === 'start' ? x0 : b.anchor === 'end' ? x1 : (x0 + x1) / 2, top - 14 - (b.row || 0) * LAB, b.t, 't-lab', b.anchor || 'middle'));
+  }
+  for (const m of marks) {
+    const x = px(m.x), dec = m.standing === W.DECIDED;
+    out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (top - 8) + '" x2="' + x.toFixed(1) + '" y2="' + (axis + 8) + '" ' + W.attrs(m.standing, { width: dec ? 2.5 : 2, rec: m.rec }) + '/>');
+    out.push('    <rect ' + hit('x="' + (x - 6).toFixed(1) + '" y="' + (top - 8) + '" width="12" height="' + (STRIP + 16) + '" fill="transparent"', m.t, m.v !== undefined ? m.v : String(m.x)) + '/>');
+    if (m.t) {
+      const y = m.side === 'below' ? axis + 36 + (m.row || 0) * LAB : top - 14 - (m.row || 0) * LAB;
+      const anchor = m.anchor || 'start';
+      out.push(txt(clampX({ w }, x + (anchor === 'end' ? -6 : anchor === 'start' ? 6 : 0), m.t, anchor), y, m.t, 't-lab', anchor));
+    }
+  }
+  out.push(legend(o.keys, L, h - 7, o.legendGap, avail));
+  out.push(close);
+  return out.join('\n');
+}
+module.exports.hist = hist;
+module.exports.ruler = ruler;
