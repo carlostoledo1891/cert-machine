@@ -5,7 +5,8 @@ brought here by tools/import-runpod-wsp.js) graded by instruments/wsp/grade.py �
 math-verify is not used — against HuggingFaceH4/MATH-500's answers, and the pre-registered readings written:
   (a) the accuracy on the decided subset (CORRECT / (CORRECT + WRONG); a REFUSED is neither),
   (b) the floor: REFUSED counted as wrong (CORRECT / all),
-  (c) the cut share (generations that reached max_tokens), and the boxed share (a closed \\boxed{} present),
+  (c) the cut share (generations that reached max_tokens), and the boxed share (a closed, non-empty \\boxed{} present;
+      an EMPTY \\boxed{} — the instruction echoed, as looping outputs do — counts as no answer, WRONG, and is counted),
 each for the first sample per problem and over all samples; then the pre-registered interpretation rule applied as
 written (a card-settings condition within 10 points of 48.1 → the "6×" is mostly the baseline's settings; both below
 20 → the edit's gain stands against the card's settings too).
@@ -64,20 +65,25 @@ def grade_condition(c, meta, samples_path, gold):
     for line in gzip.open(samples_path, "rt", encoding="utf-8"):
         s = json.loads(line)
         pred = G.extract_boxed(s["text"])
-        verdict, reason = G.grade(gold[s["id"]], pred)
-        rows.setdefault(s["id"], []).append({"k": s["k"], "finish": s["finish"], "tokens": s["tokens"], "pred": pred,
+        empty = pred is not None and pred.strip() == ""
+        if empty:   # a literal \boxed{} with nothing in it (the instruction echoed, as looping outputs do): no answer, like no box
+            verdict, reason = "WRONG", "an empty \\boxed{} (the instruction echoed): no answer"
+        else:
+            verdict, reason = G.grade(gold[s["id"]], pred)
+        rows.setdefault(s["id"], []).append({"k": s["k"], "finish": s["finish"], "tokens": s["tokens"], "pred": pred, "empty_box": empty,
                                              "verdict": verdict, "reason": reason if verdict != "CORRECT" else None})
     problems = [{"id": i, "gold": gold[i], "samples": sorted(v, key=lambda x: x["k"])} for i, v in rows.items()]
     problems.sort(key=lambda p: p["id"])
 
     def tally(samples):
         t = {"n": len(samples), "CORRECT": 0, "WRONG": 0, "REFUSED": 0, "no_box": 0, "boxed": 0, "cut": 0, "tokens": 0,
-             "boxed_and_cut": 0}
+             "boxed_and_cut": 0, "empty_box": 0}
         for s in samples:
             t[s["verdict"]] += 1
             t["tokens"] += s["tokens"]
-            if s["pred"] is None:
+            if s["pred"] is None or s.get("empty_box"):
                 t["no_box"] += 1
+                t["empty_box"] += bool(s.get("empty_box"))
             else:
                 t["boxed"] += 1
             if s["finish"] == "length":

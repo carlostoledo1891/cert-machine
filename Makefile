@@ -166,6 +166,7 @@ test:
 	@printf "%-30s " "x^x = y (brackets re-decided)"; $(PY) tools/run-xx-ledger.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "WSP weights (two deciders)"; $(NODE) tools/wsp-weights.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "WSP answers re-graded"; $(PY) -I tools/wsp-regrade.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "WSP baseline (Stage 3)"; $(PY) -I tools/wsp-baseline.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox lift (Riemann records)"; $(NODE) tools/check-claimbox-lift.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "copy census (hub vocabulary)"; $(NODE) tools/check-copy.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -190,6 +191,8 @@ test:
 	@printf "%-30s " "openai/math N(6) saved run"; $(PY) tools/check-openai-math-mub6.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ETH TSavo statement checks"; $(NODE) tools/eth-tsavo-gates.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ETH TSavo record"; $(NODE) tools/record-eth-tsavo.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ETH Hawkley statement checks"; $(NODE) tools/eth-hawkley-gates.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ETH Hawkley record"; $(NODE) tools/record-eth-hawkley.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "warrant-mpl (print kit)"; { [ -x kits/warrant-mpl/.venv/bin/python ] || $(MAKE) -s warrant-mpl-venv >/dev/null 2>&1; } && kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
