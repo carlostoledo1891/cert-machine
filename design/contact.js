@@ -34,7 +34,7 @@ const FROM_NAME = 'carlostoledo.co';
 /* the eight /verify/ products, in the page's order; tools/verify-page.js refuses to build when its product list and
    this one differ */
 const PRODUCTS = ['Verify Graders', 'Verify Audits', 'Grader Red-Team', 'Eval & Data Audit', 'Verify Gym',
-  'Training-Run Audit', 'Verified Datasets', 'Statement Check'];
+  'Training-Run Audit', 'Verified Datasets', 'Statement Check', 'Verify Seal'];
 const OTHER = 'Something else';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

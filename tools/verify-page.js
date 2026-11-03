@@ -515,6 +515,10 @@ module.exports = function verifyPage(X) {
       line: 'Does a formal statement prove what its headline claims? The claim’s text goes in; a checkable object comes out, or a refusal with the reason.',
       evRaw: 'The need: the ' + W.value(fmt(sShort), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }) + ' OpenAI statements above. The translator, claimbox, is open.',
       go: '<a href="../claimbox/">Follow claimbox →</a>' },
+    { who: 'for mathematicians and research groups', title: 'Verify Seal', stand: 'dev',
+      line: 'Prove you held exact bytes by a date without revealing them: a salted digest leaves your machine, the date comes from public anchors nobody here controls, and anyone re-derives it with one line of shell.',
+      numRaw: '0 bytes',
+      evRaw: 'of the idea leave your machine, by design: the archive and the salt stay with you. The same sha-committed records already run <a href="../reports/forecast-gym.html">the Forecast Gym</a>. The battery passes; the tool is not yet published.' },
   ];
   vg('the first inbound request is no longer a certified record received on 3 November 2026',
     Eh.word === 'CERTIFIED' && OUTR.some((r) => r.id === 'email-hawkley-reply-2026-11-03' && r.sent === '2026-11-03' && /contact-form/.test(r.what)));
@@ -553,6 +557,15 @@ module.exports = function verifyPage(X) {
       raw: col(C.p('Each product is marked with where it stands: pilots open, live, or in development.')) + productGrid }),
     sec({ id: 'how', lab: 'how it works', title: 'From a claim to a certificate', raw: schema }),
     split({ lab: 'for graders', title: 'A tolerance is a hole a model can learn', textRaw: envText, figRaw: envFig + legend, flip: true }),
+    sec({ id: 'seal', lab: 'for researchers', title: 'Share the problem without giving it away',
+      raw: col(C.pRaw('Researchers now hold back directions for fear that a draft pasted into a frontier model comes back as someone else’s paper; <a href="https://teorth.github.io/tao-web/ai-views.html">Terence Tao said as much in his Math 2.0 talk</a>. A seal lets you prove you held the exact bytes by a date and reveal nothing until you choose to. Seal before anything goes into a cloud model.'))
+        + '<div class="wide"><div class="vf-panels">'
+        + panel('1 · seal', 'The bytes, committed', 'A deterministic archive of the file or folder and a 32-byte salt stay on your machine. One digest comes out: SHA-256 of the salt and the archive’s hash, nothing a reader can invert or guess.')
+        + panel('2 · anchor', 'The date, from outside', 'The digest goes to OpenTimestamps (a Bitcoin-attested date) and to a public registry whose commit date is the second anchor. Neither anchor is ours to move.')
+        + panel('3 · open', 'The reveal, when you choose', 'Hand over the archive and the salt. Anyone re-derives the digest with one line of shell, without this engine, and reads the anchors’ dates.')
+        + panel('4 · decide', 'Three words', 'CERTIFIED: the bytes re-derive the digest and an anchor confirms the date. REFUTED: they do not, and the input that differs is named. REFUSED: a part is missing or no anchor is confirmed yet, with what would decide it. An opened seal can go straight into Statement Check or an audit.')
+        + '</div></div>'
+        + col(C.pRaw('<b>What a seal does not say.</b> It proves possession of exact bytes by a date. It does not say who first had the idea, that the idea is correct, or anything about credit; a short statement can be guessed and hashed, so seal the whole draft, and a lost salt is an unopenable seal.')) }),
     sec({ lab: 'the register', title: 'Most published claims hold',
       raw: col(C.p('The value is in the ones that do not, and in saying exactly which part held.')) + regFig + col(C.pRaw('<a href="../reports/claims.html">Every claim, with its verdict →</a>')) }),
     sec({ id: 'engine', lab: 'the platform', title: 'Built on the same engine',
