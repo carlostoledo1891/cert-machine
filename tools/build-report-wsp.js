@@ -86,7 +86,7 @@ function figBoxed() {
     const t = G.post_runs[run].tally;
     rows.push({ k: lab + ' · answered (a closed box)', v: t.boxed, lab: num(t.boxed) + ' of ' + num(t.n), token: 'var(--ink-3)' });
     rows.push({ k: lab + ' · correct, their grader', v: t.boxed_their_1, lab: num(t.boxed_their_1), token: 'var(--ink-5)' });
-    rows.push({ k: lab + ' · correct, exact grader', v: t.boxed_our_CORRECT, lab: num(t.boxed_our_CORRECT) + ' of ' + num(t.boxed_decided) + ' decided', token: 'var(--ink-1)' });
+    rows.push({ k: lab + ' · correct, exact grader', v: t.boxed_our_CORRECT, lab: num(t.boxed_our_CORRECT) + ' of ' + num(t.boxed_decided) + ' decided', token: 'var(--ink)' });
   }
   return CH.bars({ w: 900, rows, max: 500, padL: 300, xTicks: [0, 100, 200, 300, 400, 500], xLabel: 'first-sample answers, of 500 MATH-500 problems',
     alt: 'Six bars. Unedited: ' + UN.tally.boxed + ' of 500 first samples end in a closed box, ' + UN.tally.boxed_their_1 + ' correct by their grader, ' + UN.tally.boxed_our_CORRECT + ' by the exact grader. Edited: ' + ED.tally.boxed + ' boxed, ' + ED.tally.boxed_their_1 + ' correct by theirs, ' + ED.tally.boxed_our_CORRECT + ' of ' + ED.tally.boxed_decided + ' decided by ours.' });
