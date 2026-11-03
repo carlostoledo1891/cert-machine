@@ -1,4 +1,4 @@
-# Carlos Toledo — resume (v4, the oversight accent; 2026-11-02; v3 of 2026-10-19 is in git; every send is the operator's)
+# Carlos Toledo — resume (v4.1, the oversight accent; 2026-11-03; v3 of 2026-10-19 is in git; every send is the operator's)
 
 _Independent research engineer · independent verification of AI-generated claims · graders that cannot be gamed · founder of Verify_
 
@@ -10,8 +10,7 @@ github.com/carlostoledo1891/cert-machine
 
 **I check what AI systems, labs and benchmarks claim — in exact arithmetic, with code that shares nothing with the
 claimant — and publish each verdict as a re-runnable certificate: certified, refuted with a witness, or refused with the
-reason. 131 published machine-generated claims decided since August 2026; the work has been re-run by outsiders, cited
-by registries and written about in the press.**
+reason. 131 published machine-generated claims decided since August 2026; re-run by outsiders, cited by registries.**
 
 ## Audits of frontier-lab releases | 2026 · all public
 
@@ -31,9 +30,13 @@ by registries and written about in the press.**
   - Every formal statement read against the claim it carries: 34 of 242 formalized families state a different or weaker
     theorem than their headline, with nothing saying so. Cited by whataifound.org, which corrected its "no outside
     checks" entry on these reports.
-- **Also audited:** [AlphaEvolve's 18 Ramsey graphs](https://carlostoledo.co/reports/ramsey-graphs.html) (17 certified,
-  1 refused while its search runs); [AlphaProof Nexus](https://carlostoledo.co/reports/alphaproof-nexus.html) (two
-  kernels; 3 "new" OEIS proofs already on record); [NIST's ECDSA curve seeds](https://carlostoledo.co/reports/curve-seeds.html) (34 of 34).
+- **MIT CSAIL's "weight-space programming" claim (2 Nov 2026), decided from the bytes within a day** ·
+  [report](https://carlostoledo.co/reports/weight-space-programming.html) — the edit decided by two implementations
+  sharing no code; every released answer re-graded exactly (a second grader caught a bug in the first); the untouched
+  model re-run under its maker's settings, pre-registered: the edit is real, the "6×" is mostly a settings effect.
+- **An AI's Lean classification (MacMahon cubes, 1 Nov 2026), decided twice** ·
+  [report](https://carlostoledo.co/reports/macmahon.html) — 300 released constructions re-built with my own geometry;
+  ten theorems through Comparator and nanoda with my own axiom report.
 
 ## Graders, reward hacking and RL environments | 2026
 
@@ -58,13 +61,12 @@ by registries and written about in the press.**
   published claims, each false one witnessed by a script sharing no code with the decider: 0 false certifications and 0
   false refutations, after the campaign found 77 defects in the verifier itself (fixed, kept on the record). A
   floating-point check at 10⁻⁶ accepted 82 of 295 of the same false values.
-- **Re-run from outside:** three people re-derived seven of the verdicts, five with their own code — no disagreement.
+- **Re-run from outside:** three people re-derived seven verdicts, five with their own code; no disagreement.
 - **Cited where it was checked:** Terence Tao's optimization-constants registry removed ten "verification minimal"
   asterisks on our replays in four merged pull requests (#216, #230, #232, #243) and cites them as [T2026]; one row
   corrected on our check. The Qiushi Engine's authors credit the independent verification of all 19 of their
   kissing-number dimensions in their README (9.75 × 10¹⁵ pairs decided exactly).
-- **Writing:** the [method paper](https://carlostoledo.co/paper/cert-machine-method.pdf) (draft v0.10, 46 pp, not
-  peer-reviewed); Zenodo doi:10.5281/zenodo.22225860.
+- **Writing:** the [method paper](https://carlostoledo.co/paper/cert-machine-method.pdf) (draft v0.10, not peer-reviewed); Zenodo doi:10.5281/zenodo.22225860.
 
 ## How I work
 
@@ -72,10 +74,9 @@ Verifier first: a check that has never gone red is decorative, so every battery 
 Pre-registration before any spend, deviations dated, negative results reported as results; every number read from a
 record. My tools are built with Claude; every verdict is decided by exact arithmetic or a proof kernel, never by a model.
 
-- **Research:** Python (standard library, Inspect, verifiers, pytest), JavaScript (BigInt exact arithmetic,
-  headless-Chrome gates), Lean 4 (statements, bridges, Comparator, nanoda), SAT, C, LaTeX; GPU and CPU campaigns on
-  RunPod; Prime Intellect Hosted Training and Environments Hub.
-- **Product:** Figma, design systems, Webflow (CMS, GSAP, custom code), API integrations, SEO, accessibility.
+- **Research:** Python (stdlib, Inspect, verifiers), JavaScript (BigInt exact arithmetic), Lean 4 (bridges, Comparator,
+  nanoda), SAT, C; GPU and CPU campaigns on RunPod; Prime Intellect's Hub and Hosted Training.
+- **Product:** Figma, design systems, Webflow, API integrations, accessibility.
 
 ## Experience
 
