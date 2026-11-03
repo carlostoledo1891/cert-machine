@@ -74,6 +74,10 @@ NEXT SESSION, IN ORDER:
          Second sweep 11-02 (web, GitHub, HN, Zulip, DataCite): whataifound.org's OpenAI-math entry cites the kernel audit and
          statement readings (PR #30, merged 10-26) — PINNED (recognition row whataifound-openai-math, listing). Bluesky and
          Reddit refused this machine's requests: unchecked; LinkedIn by hand.
+       RESUME v4 (11-02, the oversight accent): outreach/resume/resume.md rewritten — ETH (two kernels, 51 bridge theorems, The
+         Build), OpenAI audit (+ whataifound), Ramsey/AlphaProof Nexus/curve seeds, graders + Verify Gym + GRPO, the
+         self-audit, outside re-runs and the registry's ten asterisks, Verify; every figure re-read from its record (sender
+         notes at the foot); resume.pdf 2 pages (git-ignored). The four job packets still carry v3: refresh per send.
        The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
        /verify/ linking beyond the one landing line.
      ── KNOWN, SMALL: the standing legend wraps narrow under /verify/'s tolerance chart (shared component); a fraction bar reads
