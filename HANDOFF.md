@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ A POD MAY BE BILLING (2026-11-03 10:03 UTC): x9gnpx07fzx4up — WSP Stage 3, the unedited baseline (NVIDIA H200, secure,
+     EUR-IS-4, US$5.29/h, hard stop US$40 ≈ 7.5 h; image vllm/vllm-openai:v0.33.0; tools/runpod-wsp-baseline.sh at
+     243a589a; conditions C1 C3 C2 C4, no condition starts after 4.5 h). Facts: https://x9gnpx07fzx4up-8000.proxy.runpod.net/
+     _status.json (phase, done). When phase is "complete" (or a FAILED / deadline phase after the finished conditions):
+     `node tools/import-runpod-wsp.js x9gnpx07fzx4up`, then `python3 -I tools/wsp-baseline.py` → certs/wsp-baseline.json,
+     then delete-pod x9gnpx07fzx4up and get-pod → 404, and strike this line. The operator said "Run stage 3" on 11-03.
   ★★ 2026-11-02 night — WEIGHT-SPACE PROGRAMMING: STAGES 1–2 DONE, THE PAGE BUILT, STAGE 3 WAITS ON THE OPERATOR.
      The plan ran as written (notes/wsp-verification-plan-2026-11-02.md; status at its foot). RECORDS: certs/wsp-weights.json
      (tools/wsp-weights.js + instruments/wsp/weights.py, two deciders sharing no code, sub-claims stated first in
