@@ -2041,6 +2041,21 @@ for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) {
 /* the index of the pre-papers, for the reviewing group: rendered from paper/INDEX.json and the PDFs
    themselves (page counts and sizes read from the files); refuses when the shelf and the manifest differ */
 put('papers/index.html', Buffer.from(require(path.join(__dirname, 'build-papers-index.js')).html()));
+/* the reports reach site/ on disk BEFORE /grammar/ is built (2026-11-03): the grammar page's guard runs the marks gate
+   over site/, and put() only records what the sync will write at the end — so a report rebuilt from a record that
+   moved sat stale in site/ and refused the whole sync. The same bytes are written here and recorded for the sync. */
+for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
+  /* a committed report page passes through the title registry on its way to
+     site/ — the same function a fresh render runs, so the two agree */
+  let buf = null;
+  if (f.endsWith('.html')) buf = Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'reports', f), 'utf8'), '/reports/' + f));
+  else if (f.endsWith('.py') || f.endsWith('.js')) buf = fs.readFileSync(path.join(ROOT, 'reports', f));
+  if (!buf) continue;
+  put('reports/' + f, buf);
+  const early = path.join(ROOT, 'site', 'reports', f);
+  fs.mkdirSync(path.dirname(early), { recursive: true });
+  if (!fs.existsSync(early) || !fs.readFileSync(early).equals(buf)) fs.writeFileSync(early, buf);
+}
 /* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
    (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
 { const GR = require(path.join(__dirname, 'build-grammar.js'));
@@ -2060,12 +2075,6 @@ put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · AI publishes
   og: { image: '/og-verify.png', alt: 'AI now publishes faster than anyone can check: one AI release of 719 manuscripts against 131 claims decided exactly, each with its certificate.' } })));
 put('apps/index.html', Buffer.from(TPL.render({ title: 'Apps', bodyRaw: appsBody, footRaw: appsFoot, path: '/apps/',
   desc: 'The decision products built on cert-machine: SkyAudit, Janela, Swell, Decidível, Contraprova and the Registro de Abatimento — pinned public data decided over a declared envelope, the certificate one click below the answer.' })));
-for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
-  /* a committed report page passes through the title registry on its way to
-     site/ — the same function a fresh render runs, so the two agree */
-  if (f.endsWith('.html')) put('reports/' + f, Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'reports', f), 'utf8'), '/reports/' + f)));
-  else if (f.endsWith('.py') || f.endsWith('.js')) put('reports/' + f, fs.readFileSync(path.join(ROOT, 'reports', f)));
-}
 for (const f of fs.readdirSync(path.join(ROOT, 'certs'))) {
   if (WORKING.test(f)) continue;          /* the one pattern, not a second copy */
   if (f.endsWith('.json') || f.endsWith('.jsonl')) put('certs/' + f, fs.readFileSync(path.join(ROOT, 'certs', f)));

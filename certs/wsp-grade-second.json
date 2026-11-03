@@ -1,7 +1,7 @@
 {
  "what": "The Weight-Space Programming answers graded a second time by a JavaScript grader (instruments/wsp/grade.js) written from the convention stated in instruments/wsp/grade.py and sharing no code with it: every (gold, prediction) pair the Python grader graded in certs/wsp-regrade.json (the released first-sample answers of the post's two runs, the released texts re-extracted, the two card re-runs) and in certs/wsp-baseline.json (every sample of every baseline condition), the verdict words compared; the extraction compared where the baseline texts are cached; three red controls and a planted flip",
- "generated": "2026-11-03T17:59:18.265Z",
- "seconds": 1.1,
+ "generated": "2026-11-03T18:58:55.081Z",
+ "seconds": 3.2,
  "graders": {
   "python": {
    "file": "instruments/wsp/grade.py",
@@ -14,10 +14,10 @@
  },
  "records": {
   "certs/wsp-regrade.json": "265ca74bf90e1839fa7857cdb8b4e493136c9852bb80a923b5e6a10a33714503",
-  "certs/wsp-baseline.json": "a80f364b1868c222c4be3b1c6c9c33b614afd493833a2b919fb33e1a36245071"
+  "certs/wsp-baseline.json": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
  },
- "pairs": 5440,
- "agree": 5440,
+ "pairs": 7440,
+ "agree": 7440,
  "disagreements": 0,
  "by_source": {
   "certs/wsp-regrade.json#/post_runs/post_unedited": {
@@ -69,6 +69,13 @@
    "WRONG": 1849,
    "REFUSED": 7
   },
+  "certs/wsp-baseline.json#/rows/C2": {
+   "pairs": 2000,
+   "agree": 2000,
+   "CORRECT": 445,
+   "WRONG": 1532,
+   "REFUSED": 23
+  },
   "certs/wsp-baseline.json#/rows/C3": {
    "pairs": 2000,
    "agree": 2000,
@@ -83,6 +90,11 @@
    "texts": 2000,
    "extraction_agrees": 2000,
    "file_sha256": "7cd9b150bc2cdd2394041ecad0300f2e630e036c37e864b1c9ef09203a9a7928"
+  },
+  "C2": {
+   "texts": 2000,
+   "extraction_agrees": 2000,
+   "file_sha256": "598030f6f7c246e28bb7a6384b1b39ee995b3857a5e14580c8acd5b784171736"
   },
   "C3": {
    "texts": 2000,
