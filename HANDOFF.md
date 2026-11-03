@@ -79,8 +79,8 @@ NEXT SESSION, IN ORDER:
      THE CRITIC FOUND (22:30 UTC, by tools/x.js search; the operator never had to paste it): @dummerspast39, post
      2117416640132366570 of 00:40 UTC 11-03 (1,520 likes, 896 bookmarks, 162k impressions) — the brief's M1–M5 verbatim —
      pinned in corpus/wsp/critic-2117416640132366570.json; the three-post reply DRAFTED (notes/x/reply-critic-2026-11-03.txt
-     + .md: most of his numbers hold, two refuted — 'test answers' and 'one run replayed'); THE SEND IS THE OPERATOR'S (x.js
-     post FILE --reply-to URL --send). The zaibatsu follow-up was POSTED by the operator 14:51 UTC and is logged. THE
+     + .md: most of his numbers hold, two refuted — 'test answers' and 'one run replayed'); SENT by the operator by hand 22:41 UTC (three replies,
+     2117748912534499369 → …973574529300 → …749238050513045; logged as x-critic-reply-2026-11-03). The zaibatsu follow-up was POSTED by the operator 14:51 UTC and is logged. THE
      MACMAHON KERNEL LANE DISPATCHED: .github/workflows/macmahon-kernel.yml run 41729708954 (Comparator v4.35.0 + nanoda on
      the shipped comparator.json, our own axiom report); when green: `gh run download 41729708954 -n macmahon-kernel -D <dir>`,
      `node tools/record-macmahon-kernel.js <dir> 41729708954` → certs/macmahon-kernel.json, then a battery row + shelf row
