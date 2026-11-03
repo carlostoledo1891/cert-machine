@@ -1,0 +1,322 @@
+{
+ "what": "The Verify Seal battery (instruments/seal/battery.py): the commitment SHA256('verify-seal-v1\\n' || salt || SHA256(archive)) opened under planted forgeries \u2014 each must come back REFUTED or REFUSED, never CERTIFIED \u2014 plus the determinism check (the same contents written another way re-derive the sealed digest), the date rule (an anchor dated after the claimed date refuses), the unconfirmed-anchor cases, and the one-line shell re-derivation against the Python digest; three red controls on a deliberately broken opener. Run in a temporary directory with a temporary git registry; no network, no ots client.",
+ "generated": "2026-11-03T19:18:43Z",
+ "seconds": 3.1,
+ "seal_py_sha256": "088a47f9109fd48b526e4ceb5e21251118ba18a161d31b35ec1bf99f631d4ca0",
+ "python": "3.9.6",
+ "verdict": "PASS",
+ "planted": 12,
+ "certified": 0,
+ "forgeries": [
+  {
+   "forgery": "one byte flipped in the archive",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "certified": false
+  },
+  {
+   "forgery": "wrong salt (64 hex, another value)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the salt: salt.hex is not the salt drawn at sealing",
+   "certified": false
+  },
+  {
+   "forgery": "truncated salt (60 hex)",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is not exactly 64 lowercase hex characters (60 character(s))",
+   "certified": false
+  },
+  {
+   "forgery": "salt with a trailing newline",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is not exactly 64 lowercase hex characters (65 character(s), ends in a newline)",
+   "certified": false
+  },
+  {
+   "forgery": "salt missing",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is missing: without the salt the digest cannot be re-derived (a lost salt is an unopenable seal)",
+   "certified": false
+  },
+  {
+   "forgery": "archive missing",
+   "verdict": "REFUSED",
+   "reason": "archive.tar is missing: without the bytes there is nothing to re-derive (the researcher holds it)",
+   "certified": false
+  },
+  {
+   "forgery": "a file added inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "certified": false
+  },
+  {
+   "forgery": "a file removed inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "certified": false
+  },
+  {
+   "forgery": "a file renamed inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "certified": false
+  },
+  {
+   "forgery": "seal.json's digest edited",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the recorded digest itself: archive and salt are the sealed ones, so seal.json's digest was edited",
+   "certified": false
+  },
+  {
+   "forgery": "seal.json's version edited",
+   "verdict": "REFUSED",
+   "reason": "seal.json version 'verify-seal-v0' is not verify-seal-v1; this opener reads only verify-seal-v1",
+   "certified": false
+  },
+  {
+   "forgery": "seal.json missing",
+   "verdict": "REFUSED",
+   "reason": "seal.json is missing; the bundle cannot be opened without the recorded digest",
+   "certified": false
+  }
+ ],
+ "cases": [
+  {
+   "case": "the honest seal with a registry anchor",
+   "verdict": "CERTIFIED",
+   "reason": "the archive and salt re-derive the recorded digest; 1 anchor(s) confirmed; the bytes were held by 2026-11-03",
+   "want": "CERTIFIED",
+   "pass": true,
+   "note": "held_by 2026-11-03"
+  },
+  {
+   "case": "claimed --by a date on the anchor's day",
+   "verdict": "CERTIFIED",
+   "reason": "the archive and salt re-derive the recorded digest; 1 anchor(s) confirmed; the bytes were held by 2026-11-03 (on or before the claimed 2026-11-03)",
+   "want": "CERTIFIED",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "claimed --by a date AFTER the anchor (a later claim is weaker, still decidable)",
+   "verdict": "CERTIFIED",
+   "reason": "the archive and salt re-derive the recorded digest; 1 anchor(s) confirmed; the bytes were held by 2026-11-03 (on or before the claimed 2026-12-01)",
+   "want": "CERTIFIED",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "an anchor dated after the claimed date (--by 2026-11-01, anchor 2026-11-03)",
+   "verdict": "REFUSED",
+   "reason": "the digest re-derives and the earliest confirmed anchor is dated 2026-11-03, after the claimed 2026-11-01: possession by 2026-11-01 is not decidable from the anchors (an earlier anchor would decide it)",
+   "want": [
+    "REFUSED",
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "no anchor at all",
+   "verdict": "REFUSED",
+   "reason": "the digest re-derives, but no public anchor is in the bundle: the date is only a local claim. Decidable once `stamp` anchors it (digest.txt.ots and/or a registry commit in anchors.json)",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "a registry anchor without the clone",
+   "verdict": "REFUSED",
+   "reason": "the digest re-derives, but no anchor is confirmed here: no --registry <clone> given, so the commit is not read (git clone https://github.com/carlostoledo1891/cert-machine)",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "an .ots present but not confirmable here",
+   "verdict": "REFUSED",
+   "reason": "the digest re-derives, but no anchor is confirmed here: the ots client is not installed here (pip install opentimestamps-client), so the attestation is not read",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "a registry commit that does not hold this digest",
+   "verdict": "REFUSED",
+   "reason": "the digest re-derives, but no anchor is confirmed here: the digest is not in seals/registry.jsonl at that commit",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: one byte flipped in the archive",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "want": [
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: wrong salt (64 hex, another value)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the salt: salt.hex is not the salt drawn at sealing",
+   "want": [
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: truncated salt (60 hex)",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is not exactly 64 lowercase hex characters (60 character(s))",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: salt with a trailing newline",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is not exactly 64 lowercase hex characters (65 character(s), ends in a newline)",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: salt missing",
+   "verdict": "REFUSED",
+   "reason": "salt.hex is missing: without the salt the digest cannot be re-derived (a lost salt is an unopenable seal)",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: archive missing",
+   "verdict": "REFUSED",
+   "reason": "archive.tar is missing: without the bytes there is nothing to re-derive (the researcher holds it)",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: a file added inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "want": [
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: a file removed inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "want": [
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: a file renamed inside the folder (re-archived under the sealed salt)",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the archive: its sha256 is not the one sealed (a byte, a file or a name inside it differs)",
+   "want": [
+    "REFUTED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: seal.json's digest edited",
+   "verdict": "REFUTED",
+   "reason": "the digest does not re-derive; what differs is the recorded digest itself: archive and salt are the sealed ones, so seal.json's digest was edited",
+   "want": [
+    "REFUTED",
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: seal.json's version edited",
+   "verdict": "REFUSED",
+   "reason": "seal.json version 'verify-seal-v0' is not verify-seal-v1; this opener reads only verify-seal-v1",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "forgery: seal.json missing",
+   "verdict": "REFUSED",
+   "reason": "seal.json is missing; the bundle cannot be opened without the recorded digest",
+   "want": [
+    "REFUSED"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "determinism: the same contents written in another order, other mtimes and modes, under LC_ALL=C and another TZ, re-archived: the sealed digest re-derives",
+   "verdict": "CERTIFIED",
+   "reason": "the archive and salt re-derive the recorded digest; 1 anchor(s) confirmed; the bytes were held by 2026-11-03",
+   "want": "CERTIFIED",
+   "pass": true,
+   "note": "archive sha256 equal: True"
+  },
+  {
+   "case": "the one-line shell re-derivation equals the Python digest",
+   "verdict": "CERTIFIED",
+   "reason": "fbe0a87043af9932839168f562aabe9f3f9c1c0181c2c09fc5984c7139ba9a4f",
+   "want": "CERTIFIED",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "case": "a folder with a symbolic link refuses to seal",
+   "verdict": "REFUSED",
+   "reason": "a symbolic link inside the folder cannot be sealed: link",
+   "want": "REFUSED",
+   "pass": true,
+   "note": ""
+  }
+ ],
+ "red_controls": [
+  {
+   "red": "an opener that certifies a mismatched digest IS caught (a flipped byte comes back CERTIFIED under it)",
+   "fired": true
+  },
+  {
+   "red": "an opener that ignores the claimed date IS caught (a date before the anchor comes back CERTIFIED under it)",
+   "fired": true
+  },
+  {
+   "red": "an opener that tolerates a newline after the salt IS caught (bytes.fromhex strips it; the strict rule is what refuses)",
+   "fired": true
+  }
+ ],
+ "failed": [],
+ "reds_dead": []
+}

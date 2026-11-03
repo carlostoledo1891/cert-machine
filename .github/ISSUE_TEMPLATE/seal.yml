@@ -1,0 +1,32 @@
+name: Register a Verify Seal digest
+description: Post ONE digest (64 lowercase hex characters) to the public seal registry. Never the file, never its name, never a description of the idea.
+title: "[seal] "
+labels: ["seal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **What this is.** A second public anchor for a Verify Seal (instruments/seal/seal.py). The maintainer appends the
+        digest to `seals/registry.jsonl` in one commit; that commit's date is the anchor. Nothing else is recorded.
+
+        **What to post.** The 64-hex digest printed by `seal.py seal`, exactly as `seal.py stamp` prints it after
+        `verify-seal-v1`. Nothing else: no file, no file name, no title, no hint of the contents. An issue carrying
+        anything but a digest is closed without being registered.
+
+        **What it proves.** That this digest existed by the commit's date. Not who first had the idea, not that the idea
+        is right, not credit. OpenTimestamps (`seal.py stamp`) is the stronger anchor; use both.
+  - type: input
+    id: digest
+    attributes:
+      label: The digest
+      description: Exactly 64 lowercase hexadecimal characters. Anything else is refused.
+      placeholder: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    validations:
+      required: true
+  - type: checkboxes
+    id: nothing_else
+    attributes:
+      label: Nothing else
+      options:
+        - label: I am posting a digest only; no file contents, name or description of the sealed idea appear in this issue.
+          required: true
