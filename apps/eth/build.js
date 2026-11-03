@@ -63,6 +63,11 @@ const SEAM = fs.existsSync(path.join(ROOT, SEAM_REL)) ? J(SEAM_REL) : null;
 const SEAMH = SEAM ? SEAM.headline : null;
 if (SEAM && !(SEAMH.statementTerm && typeof SEAMH.statementTerm.kernelEqual === 'boolean' && SEAMH.vocabulary && Array.isArray(SEAMH.vocabulary.namedDiffering))) fail('certs/eth-seam.json lacks the fields the page reads');
 const TS_REL = 'certs/eth-tsavo-bridge.json';
+/* a second third-party join, the other way round (thinkthoughts/math, Daniel Hawkley), replayed 2026-11-03; its gaps lead */
+const HK_REL = 'certs/eth-hawkley-bridge.json', HKH_REL = 'certs/eth-hawkley-heavy.json';
+const HK = fs.existsSync(path.join(ROOT, HK_REL)) ? J(HK_REL) : null;
+const HKH = fs.existsSync(path.join(ROOT, HKH_REL)) ? J(HKH_REL) : null;
+if (HK && HK.word === 'CERTIFIED' && !HK.axiomsPrinted.every((a) => a.axioms.every((x) => STD.includes(x)))) fail(HK_REL + ' is CERTIFIED with an axiom outside the three standard ones');
 const TS = fs.existsSync(path.join(ROOT, TS_REL)) ? J(TS_REL) : null;
 if (TS && TS.word === 'CERTIFIED' && !TS.axiomsPrinted.every((a) => a.axioms.every((x) => STD.includes(x)))) fail(TS_REL + ' is CERTIFIED with an axiom outside the three standard ones');
 const thm = (proj, short) => BR.projects[proj].theorems.find((t) => t.name.endsWith('.' + short)) || fail('the bridge record has no theorem ' + short);
@@ -252,6 +257,7 @@ function bridgeBody() {
     + C.pRaw('<b>Not proved, and said so:</b>')
     + C.plainList(BR.notProved.map((t) => ({ b: '', text: t })))
     + (TS ? tsavoBody() : '')
+    + (HK ? hawkleyBody() : '')
     + '</div>';
 }
 function tsavoBody() {
@@ -264,6 +270,18 @@ function tsavoBody() {
     + C.pRaw('<b>Its gaps, first:</b>')
     + C.plainList(TS.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })))
     + (SEAM ? seamBody() : '');
+}
+function hawkleyBody() {
+  const short = HK.claim.repository.replace('https://github.com/', '') + ' @ ' + HK.claim.commit.slice(0, 8);
+  const heavy = HKH ? ' The link from OpenAI’s checked theorem to that predicate — his <span class="m">OAI.Bridges.ETH.not_positiveRateETH</span>, proved from <span class="m">original_sat_main</span> on top of OpenAI’s whole family-378 proof — was replayed on a rented machine (' + ln(HKH_REL) + '): ' + C.esc(HKH.word) + ', ' + C.esc(HKH.why) + '.'
+    : ' The link from OpenAI’s checked theorem to that predicate (his <span class="m">OAI.Bridges.ETH.not_positiveRateETH</span>, on top of OpenAI’s whole family-378 proof) is being replayed on a rented machine; until its record exists the join stands on the predicate.';
+  return C.pRaw('<b>A second join, the other way round, and replayed here: ' + C.esc(HK.word) + '.</b> '
+      + '<a href="' + C.escAttr(HK.claim.repository + '/tree/' + HK.claim.commit) + '" target="_blank" rel="noopener">' + C.esc(short) + '</a> '
+      + '(Daniel Hawkley, formalize.now; a fork of OpenAI’s release) proves ' + leanM('OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse') + ': '
+      + 'OpenAI’s ParityLifts machines simulated on Anthropic’s FinTM2 and Anthropic’s input word converted to OpenAI’s, inside OpenAI’s own Lean and Mathlib, with Anthropic’s statement file vendored byte for byte. '
+      + 'Replayed on GitHub’s runners (<a href="' + C.escAttr(HK.run.url) + '">run ' + HK.run.id + '</a>): ' + C.esc(HK.why).replace(/`([^`]+)`/g, '<span class="m">$1</span>') + ' (' + ln(HK_REL) + ').' + heavy)
+    + C.pRaw('<b>Its gaps, first:</b>')
+    + C.plainList(HK.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })));
 }
 /* THE VERSION SEAM, measured (certs/eth-seam.json, 2026-10-29): TSavo's join re-elaborates OpenAI's statement on Anthropic's
    Lean and Mathlib; each side's statement and its whole definitional closure exported as kernel terms and compared */
