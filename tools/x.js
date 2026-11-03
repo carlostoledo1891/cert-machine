@@ -237,6 +237,20 @@ async function main() {
     return;
   }
 
-  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | show URL | users h1,h2 | follow h1,h2 [--send] | mentions [--max N] | recent [--max N]');
+  if (cmd === 'timeline') {
+    /* another account's latest posts (each read is billed by X): to judge whether a reply is warranted before drafting one */
+    const K = keys();
+    const name = (rest.find((a) => !a.startsWith('--')) || '').replace(/^@/, '');
+    if (!name) die('usage: node tools/x.js timeline handle [--max N]');
+    const u = (await call(K, 'GET', '/users/by/username/' + name, { query: { 'user.fields': 'public_metrics,description' } })).data;
+    console.log('@' + u.username + ' (' + u.name + ', ' + (u.public_metrics || {}).followers_count + ' followers) ' + String(u.description || '').replace(/\s+/g, ' ').slice(0, 140));
+    const r = await call(K, 'GET', '/users/' + u.id + '/tweets', { query: { max_results: String(Math.min(100, Math.max(5, Number(opt('--max') || 10)))), exclude: 'retweets',
+      'tweet.fields': 'created_at,conversation_id,public_metrics,referenced_tweets,entities' } });
+    for (const t of r.data || []) console.log(t.created_at + '  https://x.com/i/status/' + t.id + (t.conversation_id !== t.id ? '  (reply in ' + t.conversation_id + ')' : '') + '\n  ' + t.text.replace(/\n/g, '\n  ') + '\n  metrics ' + JSON.stringify(t.public_metrics));
+    if (!(r.data || []).length) console.log('no posts');
+    return;
+  }
+
+  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | show URL | users h1,h2 | follow h1,h2 [--send] | mentions [--max N] | recent [--max N] | timeline handle [--max N]');
 }
 main().catch((e) => die(e.stack || String(e)));
