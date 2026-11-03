@@ -1,14 +1,14 @@
-Reply to x.com/rikiyatakehi/status/2117313742891327994 (the operator's word to post; ≤ 280 chars per post, split as marked).
-Numbers: certs/wsp-baseline.json (C1, C3; C2/C4 pending — update [2/4] if C2 lands above C3), certs/wsp-weights.json, certs/wsp-regrade.json.
+Reply under the MAIN post x.com/rikiyatakehi/status/2117313742891327994 (the operator's word to post; ≤ 280 chars per post, split as marked; each post a reply to the previous one so the thread reads in order).
+Numbers: certs/wsp-baseline.json (C1, C3; C2/C4 pending — update [2/4] if C2 lands above C3), certs/wsp-weights.json, certs/wsp-regrade.json, certs/wsp-side-claims.json. The authors already have the record: github.com/RikiyaT/lm_understand-logs/issues/4.
 
 [1/4]
-Decided the edit from the bytes, two implementations, no shared code: exactly 2 tensors differ, sha256 as printed. 130,188 bf16 entries differ (131,072 = the 64×1,024×2 addressed). The dose is 6: W' = W − 6u(uᵀW), the loop component reversed ×5. Real edit, nice release.
+Thank you for releasing the checkpoint, the diff, the logs and the graded outputs — that is why any of this is checkable. I decided the edit from the bytes, two implementations, no shared code: exactly 2 tensors differ, sha256 as printed. The edit is real, as described.
 
 [2/4]
-Then the baseline, pre-registered, same prompt, same exact grader, 4 samples × 500: your settings reproduce 7.2% (93% hit the token limit). The untouched model under Qwen's own non-thinking settings: 44–52% depending on how refusals count. The edit's 48.1 sits inside that range.
+Then the baseline, pre-registered before the run, same prompt and chat template, 4 samples × 500, exact grading: your settings reproduce 7.2% (93% hit the token limit). The untouched model under Qwen's own non-thinking settings: 44–52%, depending on how refused answers count.
 
 [3/4]
-So the "6×" is mostly a settings effect: the base model loops under temp 0.6 + thinking, and the edit makes it stop. Under the card's settings it already finishes 98.5% of answers. Every text, every verdict and every pin is in the record.
+Read carefully: the edit does what your logs say — it stops the loop (the dose is 6, the loop component reversed, not subtracted). But the 6× is measured against a looping regime the model card warns about; under the card's settings the base model already finishes 98.5%.
 
 [4/4]
-From your logs too: the dose was tuned on 3,680 practice answers (GSM8K/MATH train), never a MATH-500 problem — "test set" is refuted. Report, records, grader: carlostoledo.co/reports/weight-space-programming.html
+Two more arms (the card's thinking settings; your edited checkpoint under them) go into the same record tonight. Texts, verdicts, pins and the 300-line grader are here, and I opened an issue on your logs repo so you can correct what I misread: carlostoledo.co/reports/weight-space-programming.html
