@@ -1,0 +1,249 @@
+{
+ "claim": "hawkley",
+ "env": [
+  "claim: hawkley",
+  "pin: d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "toolchain: leanprover/lean4:v4.34.1",
+  "kernel: 6.8.0-138-generic",
+  "lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.34.1",
+  "lean4export: /tools/v4.34.1/lean4export (076e8e57707e813375e8f9da8bf989799ace9680)",
+  "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g, threads 16",
+  "leanchecker: leanchecker",
+  "vm.max_map_count: 65530",
+  "cgroup memory.max: 128000000000",
+  "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+ ],
+ "verify": {
+  "claim": "openai",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "checked": 3985,
+  "mismatches": [
+   "lean/lakefile.lean: a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933"
+  ],
+  "unpinned": [],
+  "ok": false
+ },
+ "steps": {
+  "prepare": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 236,
+   "running": false,
+   "maxRssKB": 1982800,
+   "containerPeakKB": 18492804,
+   "logTail": [
+    "Decompressed 8908 file(s)",
+    "Already decompressed 8908 file(s)",
+    "all 42 dependency revisions equal the pinned manifest",
+    "warning: PrimeNumberTheoremAnd: repository '/src/hawk/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+    "warning: belyi: repository '/src/hawk/lean/.lake/packages/belyi' has local changes",
+    "warning: formal-schemes: repository '/src/hawk/lean/.lake/packages/formal-schemes' has local changes",
+    "warning: elliptic-curves: repository '/src/hawk/lean/.lake/packages/elliptic-curves' has local changes",
+    "warning: tempered-fundamental-groups: repository '/src/hawk/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+    "warning: oka: repository '/src/hawk/lean/.lake/packages/oka' has local changes",
+    "warning: orbicurve-cores: repository '/src/hawk/lean/.lake/packages/orbicurve-cores' has local changes",
+    "warning: pi1: repository '/src/hawk/lean/.lake/packages/pi1' has local changes",
+    "warning: heights: repository '/src/hawk/lean/.lake/packages/heights' has local changes",
+    "warning: genl: repository '/src/hawk/lean/.lake/packages/genl' has local changes",
+    "warning: tate-curves-theta: repository '/src/hawk/lean/.lake/packages/tate-curves-theta' has local changes",
+    "warning: iut: repository '/src/hawk/lean/.lake/packages/iut' has local changes",
+    "warning: gromov: repository '/src/hawk/lean/.lake/packages/gromov' has local changes",
+    "warning: SphereEversion: repository '/src/hawk/lean/.lake/packages/SphereEversion' has local changes",
+    "warning: schoenflies-lean: repository '/src/hawk/lean/.lake/packages/schoenflies-lean' has local changes",
+    "warning: ClassFieldTheory: repository '/src/hawk/lean/.lake/packages/ClassFieldTheory' has local changes",
+    "warning: AINTLIB: repository '/src/hawk/lean/.lake/packages/AINTLIB' has local changes",
+    "warning: AbsorptionCutoff: repository '/src/hawk/lean/.lake/packages/AbsorptionCutoff' has local changes",
+    "warning: StrongPNT: repository '/src/hawk/lean/.lake/packages/StrongPNT' has local changes",
+    "warning: carleson: repository '/src/hawk/lean/.lake/packages/carleson' has local changes",
+    "warning: rellich-kondrachov: repository '/src/hawk/lean/.lake/packages/rellich-kondrachov' has local changes",
+    "warning: Zeta3Irrational: repository '/src/hawk/lean/.lake/packages/Zeta3Irrational' has local changes",
+    "warning: fixed-point-theorems: repository '/src/hawk/lean/.lake/packages/fixed-point-theorems' has local changes",
+    "Current branch: HEAD",
+    "Using cache from origin: (some leanprover-community/mathlib4)",
+    "No files to download",
+    "Already decompressed 8908 file(s)"
+   ],
+   "errTail": []
+  },
+  "comparator": null,
+  "build": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 2357,
+   "running": false,
+   "maxRssKB": 17820076,
+   "containerPeakKB": 55675372,
+   "logTail": [
+    "\u2714 [11588/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryStreamCorrect (59s)",
+    "\u2714 [11589/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryStreamSpaceBudgets (7.3s)",
+    "\u2714 [11590/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryCount (9.3s)",
+    "\u2714 [11591/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryCorrect (12s)",
+    "\u2714 [11592/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryStreamBudgets (24s)",
+    "\u2714 [11593/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeQuerySpaceBounds (6.8s)",
+    "\u2714 [11594/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeQueryTimeBounds (7.4s)",
+    "\u2714 [11595/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeOuterBudgets (8.1s)",
+    "\u2714 [11596/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeHashQueries (13s)",
+    "\u2714 [11597/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeLeafContract (12s)",
+    "\u2714 [11598/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.NativeLargeEntry (6.8s)",
+    "\u2139 [11599/11600] Built OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final (6.6s)",
+    "info: OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:197:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.compiled_exact_count_and_sat' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]",
+    "info: OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:198:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]",
+    "info: OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:199:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_eth' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]",
+    "info: OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:200:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.sat_polynomial_space' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]",
+    "info: OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:201:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]",
+    "\u2139 [11600/11600] Built OAI.Bridges.ETH.FinalImplication (6.1s)",
+    "info: OAI/Bridges/ETH/FinalImplication.lean:27:0: 'OAI.Bridges.ETH.not_positiveRateETH' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "Build completed successfully (11600 jobs)."
+   ],
+   "errTail": [
+    "warning: PrimeNumberTheoremAnd: repository '/src/hawk/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+    "warning: belyi: repository '/src/hawk/lean/.lake/packages/belyi' has local changes",
+    "warning: formal-schemes: repository '/src/hawk/lean/.lake/packages/formal-schemes' has local changes",
+    "warning: elliptic-curves: repository '/src/hawk/lean/.lake/packages/elliptic-curves' has local changes",
+    "warning: tempered-fundamental-groups: repository '/src/hawk/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+    "warning: oka: repository '/src/hawk/lean/.lake/packages/oka' has local changes",
+    "warning: orbicurve-cores: repository '/src/hawk/lean/.lake/packages/orbicurve-cores' has local changes",
+    "warning: pi1: repository '/src/hawk/lean/.lake/packages/pi1' has local changes",
+    "warning: heights: repository '/src/hawk/lean/.lake/packages/heights' has local changes",
+    "warning: genl: repository '/src/hawk/lean/.lake/packages/genl' has local changes",
+    "warning: tate-curves-theta: repository '/src/hawk/lean/.lake/packages/tate-curves-theta' has local changes",
+    "warning: iut: repository '/src/hawk/lean/.lake/packages/iut' has local changes",
+    "warning: gromov: repository '/src/hawk/lean/.lake/packages/gromov' has local changes",
+    "warning: SphereEversion: repository '/src/hawk/lean/.lake/packages/SphereEversion' has local changes",
+    "warning: schoenflies-lean: repository '/src/hawk/lean/.lake/packages/schoenflies-lean' has local changes",
+    "warning: ClassFieldTheory: repository '/src/hawk/lean/.lake/packages/ClassFieldTheory' has local changes",
+    "warning: AINTLIB: repository '/src/hawk/lean/.lake/packages/AINTLIB' has local changes",
+    "warning: AbsorptionCutoff: repository '/src/hawk/lean/.lake/packages/AbsorptionCutoff' has local changes",
+    "warning: StrongPNT: repository '/src/hawk/lean/.lake/packages/StrongPNT' has local changes",
+    "warning: carleson: repository '/src/hawk/lean/.lake/packages/carleson' has local changes",
+    "warning: rellich-kondrachov: repository '/src/hawk/lean/.lake/packages/rellich-kondrachov' has local changes",
+    "warning: Zeta3Irrational: repository '/src/hawk/lean/.lake/packages/Zeta3Irrational' has local changes",
+    "warning: fixed-point-theorems: repository '/src/hawk/lean/.lake/packages/fixed-point-theorems' has local changes"
+   ]
+  },
+  "axioms": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 20,
+   "running": false,
+   "maxRssKB": 8205020,
+   "containerPeakKB": 36570100,
+   "logTail": [
+    "'OAI.Bridges.ETH.not_positiveRateETH' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main' depends on axioms: [propext,",
+    " Classical.choice,",
+    " Quot.sound]"
+   ],
+   "errTail": [
+    "warning: PrimeNumberTheoremAnd: repository '/src/hawk/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+    "warning: belyi: repository '/src/hawk/lean/.lake/packages/belyi' has local changes",
+    "warning: formal-schemes: repository '/src/hawk/lean/.lake/packages/formal-schemes' has local changes",
+    "warning: elliptic-curves: repository '/src/hawk/lean/.lake/packages/elliptic-curves' has local changes",
+    "warning: tempered-fundamental-groups: repository '/src/hawk/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+    "warning: oka: repository '/src/hawk/lean/.lake/packages/oka' has local changes",
+    "warning: orbicurve-cores: repository '/src/hawk/lean/.lake/packages/orbicurve-cores' has local changes",
+    "warning: pi1: repository '/src/hawk/lean/.lake/packages/pi1' has local changes",
+    "warning: heights: repository '/src/hawk/lean/.lake/packages/heights' has local changes",
+    "warning: genl: repository '/src/hawk/lean/.lake/packages/genl' has local changes",
+    "warning: tate-curves-theta: repository '/src/hawk/lean/.lake/packages/tate-curves-theta' has local changes",
+    "warning: iut: repository '/src/hawk/lean/.lake/packages/iut' has local changes",
+    "warning: gromov: repository '/src/hawk/lean/.lake/packages/gromov' has local changes",
+    "warning: SphereEversion: repository '/src/hawk/lean/.lake/packages/SphereEversion' has local changes",
+    "warning: schoenflies-lean: repository '/src/hawk/lean/.lake/packages/schoenflies-lean' has local changes",
+    "warning: ClassFieldTheory: repository '/src/hawk/lean/.lake/packages/ClassFieldTheory' has local changes",
+    "warning: AINTLIB: repository '/src/hawk/lean/.lake/packages/AINTLIB' has local changes",
+    "warning: AbsorptionCutoff: repository '/src/hawk/lean/.lake/packages/AbsorptionCutoff' has local changes",
+    "warning: StrongPNT: repository '/src/hawk/lean/.lake/packages/StrongPNT' has local changes",
+    "warning: carleson: repository '/src/hawk/lean/.lake/packages/carleson' has local changes",
+    "warning: rellich-kondrachov: repository '/src/hawk/lean/.lake/packages/rellich-kondrachov' has local changes",
+    "warning: Zeta3Irrational: repository '/src/hawk/lean/.lake/packages/Zeta3Irrational' has local changes",
+    "warning: fixed-point-theorems: repository '/src/hawk/lean/.lake/packages/fixed-point-theorems' has local changes"
+   ]
+  },
+  "leanchecker": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 2612,
+   "running": false,
+   "maxRssKB": 19454096,
+   "containerPeakKB": 49357524,
+   "logTail": [],
+   "errTail": [
+    "warning: PrimeNumberTheoremAnd: repository '/src/hawk/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+    "warning: belyi: repository '/src/hawk/lean/.lake/packages/belyi' has local changes",
+    "warning: formal-schemes: repository '/src/hawk/lean/.lake/packages/formal-schemes' has local changes",
+    "warning: elliptic-curves: repository '/src/hawk/lean/.lake/packages/elliptic-curves' has local changes",
+    "warning: tempered-fundamental-groups: repository '/src/hawk/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+    "warning: oka: repository '/src/hawk/lean/.lake/packages/oka' has local changes",
+    "warning: orbicurve-cores: repository '/src/hawk/lean/.lake/packages/orbicurve-cores' has local changes",
+    "warning: pi1: repository '/src/hawk/lean/.lake/packages/pi1' has local changes",
+    "warning: heights: repository '/src/hawk/lean/.lake/packages/heights' has local changes",
+    "warning: genl: repository '/src/hawk/lean/.lake/packages/genl' has local changes",
+    "warning: tate-curves-theta: repository '/src/hawk/lean/.lake/packages/tate-curves-theta' has local changes",
+    "warning: iut: repository '/src/hawk/lean/.lake/packages/iut' has local changes",
+    "warning: gromov: repository '/src/hawk/lean/.lake/packages/gromov' has local changes",
+    "warning: SphereEversion: repository '/src/hawk/lean/.lake/packages/SphereEversion' has local changes",
+    "warning: schoenflies-lean: repository '/src/hawk/lean/.lake/packages/schoenflies-lean' has local changes",
+    "warning: ClassFieldTheory: repository '/src/hawk/lean/.lake/packages/ClassFieldTheory' has local changes",
+    "warning: AINTLIB: repository '/src/hawk/lean/.lake/packages/AINTLIB' has local changes",
+    "warning: AbsorptionCutoff: repository '/src/hawk/lean/.lake/packages/AbsorptionCutoff' has local changes",
+    "warning: StrongPNT: repository '/src/hawk/lean/.lake/packages/StrongPNT' has local changes",
+    "warning: carleson: repository '/src/hawk/lean/.lake/packages/carleson' has local changes",
+    "warning: rellich-kondrachov: repository '/src/hawk/lean/.lake/packages/rellich-kondrachov' has local changes",
+    "warning: Zeta3Irrational: repository '/src/hawk/lean/.lake/packages/Zeta3Irrational' has local changes",
+    "warning: fixed-point-theorems: repository '/src/hawk/lean/.lake/packages/fixed-point-theorems' has local changes"
+   ]
+  }
+ },
+ "comparator": {
+  "okay": false,
+  "kernels": [],
+  "stages": [],
+  "exit": null
+ },
+ "axioms": {
+  "printed": [
+   {
+    "theorem": "OAI.Bridges.ETH.not_positiveRateETH",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "theorem": "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "file": "import OAI.Bridges.ETH.FinalImplication\n#print axioms OAI.Bridges.ETH.not_positiveRateETH\n#print axioms OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main\n"
+ },
+ "leanchecker": {
+  "command": "lake env leanchecker --fresh OAI.Bridges.ETH.FinalImplication",
+  "errorLines": []
+ },
+ "phaseOrder": [
+  "prepare",
+  "build",
+  "axioms",
+  "export",
+  "nanoda",
+  "nanoda-control",
+  "leanchecker"
+ ]
+}

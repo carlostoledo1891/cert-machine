@@ -25,8 +25,9 @@ What I did, with no code of yours run:
    `original_sat_main`, on top of the whole family-378 build — on a rented 16-vCPU machine: lake build exit 0
    (11,600 jobs), both theorems' axioms the three standard ones, a standalone lean4export of the theorem's closure
    (2.4 GB) accepted by nanoda in 348 s, the negative control (Classical.choice removed from the permitted list)
-   rejected as it should be, [HEAVY: leanchecker --fresh over the module: exit N in T s]. Record:
-   certs/eth-hawkley-heavy.json.
+   rejected as it should be, and leanchecker --fresh replayed the whole module into an empty environment, OpenAI's
+   proof included, exit 0 in 44 minutes (peak 99 GB). Result: CERTIFIED. Record:
+   https://github.com/carlostoledo1891/cert-machine/blob/main/certs/eth-hawkley-heavy.json.
 
 On your question — does this close the machine-model gap in this direction — my honest reading, written as gaps
 first in the record:

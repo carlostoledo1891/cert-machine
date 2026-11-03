@@ -1,0 +1,197 @@
+{
+ "what": "The heavy link of Daniel Hawkley’s ETH bridge — OAI.Bridges.ETH.not_positiveRateETH : ¬ OAI.ParityWL.Complexity.PositiveRateETH, proved from OpenAI’s original_sat_main inside thinkthoughts/math @ d6b79b7d (a fork of openai/math at 7ef5c0cc) — decided from the facts of one RunPod run of tools/runpod-eth-hawkley.sh. No Comparator challenge exists for it; the rule is in tools/record-eth-hawkley-heavy.js.",
+ "words": {
+  "CERTIFIED": "the clone and every file at the pins (OpenAI’s unchanged but the lakefile’s six-line block), lake update moving no dependency, the claimant’s build exit 0, #print axioms (our file) only the three standard axioms for his theorem and OpenAI’s, nanoda accepting the theorem’s exported closure and rejecting the negative control; leanchecker counted when it ran",
+  "REFUTED": "a kernel rejects the solution on a type error, reproduced by a second run",
+  "REFUSED": "no decision, with the exact reason"
+ },
+ "claim": {
+  "repository": "https://github.com/thinkthoughts/math",
+  "forkOf": "https://github.com/openai/math",
+  "commit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "commitDate": "2026-11-03T01:50:36Z",
+  "author": "Dan With Glasses",
+  "theorem": "OAI.Bridges.ETH.not_positiveRateETH",
+  "module": "OAI.Bridges.ETH.FinalImplication",
+  "upstream": "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main",
+  "pageNamesCommit": "81ec97cd23d21675cee4ee76768fffba33a61e17"
+ },
+ "run": {
+  "pod": "dumwx3gz82jcvf",
+  "audit": "c4c4576562e0edcab752c1d29a8c468b58851a04",
+  "pin": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "imported": "2026-11-03T13:58:48.594Z",
+  "complete": true,
+  "phase": "complete",
+  "machine": "16 vCPU; cgroup memory.max 128000000000 bytes; host shows 755 GB; 100G free; vm.max_map_count 65530",
+  "started": "2026-11-03T12:22:36Z",
+  "env": [
+   "claim: hawkley",
+   "pin: d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+   "toolchain: leanprover/lean4:v4.34.1",
+   "kernel: 6.8.0-138-generic",
+   "lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+   "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.34.1",
+   "lean4export: /tools/v4.34.1/lean4export (076e8e57707e813375e8f9da8bf989799ace9680)",
+   "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g, threads 16",
+   "leanchecker: leanchecker",
+   "vm.max_map_count: 65530",
+   "cgroup memory.max: 128000000000",
+   "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+  ],
+  "head": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa 2026-11-03T01:50:36+00:00 Dan With Glasses RPI-378.3d: unconditional ¬PositiveRateETH → MainResults.ETHIsFalse"
+ },
+ "steps": {
+  "prepare": {
+   "exit": 0,
+   "seconds": 236,
+   "ran": true,
+   "started": true,
+   "maxRssKB": 1982800,
+   "containerPeakKB": 18492804
+  },
+  "build": {
+   "exit": 0,
+   "seconds": 2357,
+   "ran": true,
+   "started": true,
+   "maxRssKB": 17820076,
+   "containerPeakKB": 55675372
+  },
+  "axioms": {
+   "exit": 0,
+   "seconds": 20,
+   "ran": true,
+   "started": true,
+   "maxRssKB": 8205020,
+   "containerPeakKB": 36570100
+  },
+  "export": {
+   "exit": 0,
+   "seconds": 123,
+   "ran": true,
+   "started": true,
+   "maxRssKB": null,
+   "containerPeakKB": null
+  },
+  "nanoda": {
+   "exit": 0,
+   "seconds": 348,
+   "ran": true,
+   "started": true,
+   "maxRssKB": null,
+   "containerPeakKB": null
+  },
+  "nanoda-control": {
+   "exit": 1,
+   "seconds": 0,
+   "ran": true,
+   "started": true,
+   "maxRssKB": null,
+   "containerPeakKB": null
+  },
+  "leanchecker": {
+   "exit": 0,
+   "seconds": 2612,
+   "ran": true,
+   "started": true,
+   "maxRssKB": 19454096,
+   "containerPeakKB": 49357524
+  }
+ },
+ "axiomsPrinted": [
+  {
+   "theorem": "OAI.Bridges.ETH.not_positiveRateETH",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  {
+   "theorem": "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  }
+ ],
+ "export": {
+  "sha256": "8e085975d249673ae30e1c1426c5e1701e0446b46854808e96fdb5c763c6cd75",
+  "declarations": "Comparator’s list: the theorem plus Quot, propext, Quot.sound, Classical.choice and the Nat/String builtins"
+ },
+ "nanoda": {
+  "exit": 0,
+  "seconds": 348,
+  "config": {
+   "use_stdin": false,
+   "export_file_path": "/src/hawk/lean/solution.export",
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "unpermitted_axiom_hard_error": true,
+   "num_threads": 16,
+   "nat_extension": true,
+   "string_extension": true
+  },
+  "build": "ammkrn/nanoda_lib 3a240721 with the issue44 patch and a 1 GiB stack (the eth-kernel lane’s)"
+ },
+ "control": {
+  "exit": 1,
+  "rejectedOnAxiom": true,
+  "errTail": [
+   "Error: export file declares unpermitted axiom \"Classical.choice\""
+  ]
+ },
+ "leanchecker": {
+  "status": "REPLAYED",
+  "exit": 0,
+  "seconds": 2612,
+  "logTail": []
+ },
+ "pins": {
+  "hawkleyFiles": 36,
+  "hawkleyMissingOrChanged": [],
+  "openaiChecked": 3985,
+  "openaiMismatches": [
+   "lean/lakefile.lean: a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933"
+  ],
+  "lakefileAddedLines": [
+   "-- RPI-378.3a: Anthropic's trusted statement file, copied byte for byte from",
+   "-- anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5:eth/MainResults.lean",
+   "-- (SHA-256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944).",
+   "lean_lib MainResults where",
+   "  srcDir := \"Vendor/Anthropic\"",
+   "  roots := #[`MainResults]"
+  ],
+  "lakefileRemovedLines": 0
+ },
+ "facts": {
+  "headAtPin": true,
+  "openaiFilesAtPins": true,
+  "hisFilesAtPins": true,
+  "lakefileIsBasePlusBlock": true,
+  "manifestUnmoved": true,
+  "prepareOk": true,
+  "buildOk": true,
+  "axiomsStandard": true,
+  "exportOk": true,
+  "nanodaAccepts": true,
+  "nanodaResourceAbort": false,
+  "controlRejectsOnAxiom": true,
+  "leanchecker": "REPLAYED"
+ },
+ "word": "CERTIFIED",
+ "why": "the clone at the pin, OpenAI’s 3985 pinned files unchanged but the lakefile (his six-line block), his 36 files at their pins, lake update moving no dependency; lake build exit 0 (2357 s); #print axioms (our file) names only propext, Classical.choice, Quot.sound for his theorem and for OpenAI’s original_sat_main; nanoda accepts the theorem’s closure exported by lean4export (348 s) and rejects the negative control; leanchecker --fresh replayed the module into an empty environment (exit 0, 2612 s)",
+ "gaps": [
+  "No Comparator challenge exists for this theorem in the claimant’s tree: its statement is read from the pinned bytes of lean/OAI/Bridges/ETH/FinalImplication.lean (¬ OAI.ParityWL.Complexity.PositiveRateETH, no premise), not compared by Comparator against a trusted file; the kernels decide the proof, the bytes decide the statement.",
+  "The trust base includes OpenAI’s proof of original_sat_main, rebuilt here as part of the same lake build and reached by the same nanoda export; OpenAI’s own Comparator-checked statement is exact_count_and_sat (certs/eth-kernel.json, CERTIFIED), and the step from it to ¬ PositiveRateETH is this theorem’s content.",
+  "With the light theorem (certs/eth-hawkley-bridge.json) the chain from OpenAI’s accepted theorem to Anthropic’s MainResults.ETHIsFalse is kernel-checked inside OpenAI’s Lean v4.34.1 and Mathlib d13f23b7; Anthropic proved ETHIsFalse on v4.33.1 with Mathlib 0df444a3, and the elaborated terms across that seam are not compared here (certs/eth-seam.json did it for TSavo’s direction).",
+  "The claimant’s page names 81ec97cd2 as the commit where this theorem was verified; the replay is of his HEAD d6b79b7d1, which holds the same bridge modules by his later commits’ file lists (read, not decided): the pinned bytes are d6b79b7d1’s.",
+  "leanchecker --fresh replayed every constant the module reaches, OpenAI’s proof included."
+ ],
+ "generated": "2026-11-03T13:58:48.746Z"
+}
