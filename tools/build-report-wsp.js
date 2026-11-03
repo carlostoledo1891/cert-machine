@@ -22,7 +22,7 @@ const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cw
 
 /* ---- both records re-check before a word is written ---- */
 const BREC = 'certs/wsp-baseline.json', HAS_B = fs.existsSync(path.join(ROOT, BREC));   /* Stage 3, when it has run */
-for (const [cmd, args] of [['node', ['tools/wsp-weights.js', '--check']], ['python3', ['-I', 'tools/wsp-regrade.py', '--check']], ...(HAS_B ? [['python3', ['-I', 'tools/wsp-baseline.py', '--check']]] : [])]) {
+for (const [cmd, args] of [['node', ['tools/wsp-weights.js', '--check']], ['python3', ['-I', 'tools/wsp-regrade.py', '--check']], ...(HAS_B ? [['python3', ['-I', 'tools/wsp-baseline.py', '--check']]] : []), ...(fs.existsSync(path.join(ROOT, 'certs/wsp-side-claims.json')) ? [['python3', ['-I', 'tools/wsp-side-claims.py', '--check']]] : [])]) {
   const r = cp.spawnSync(cmd, args, { cwd: ROOT, encoding: 'utf8' });
   if (r.status !== 0) die(args[0] + ' does not re-check: ' + String(r.stderr || r.stdout).trim());
 }
@@ -30,6 +30,9 @@ const WREC = 'certs/wsp-weights.json', RREC = 'certs/wsp-regrade.json';
 const J = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 const R = J(WREC), G = J(RREC);
 const Bx = HAS_B ? J(BREC) : null;
+const SREC = 'certs/wsp-side-claims.json', HAS_S = fs.existsSync(path.join(ROOT, SREC));
+const Sx = HAS_S ? J(SREC) : null;
+if (Sx && !['M2', 'M3', 'M4a', 'M4b', 'M5a', 'M5b'].every((k) => Sx.claims[k] && Sx.claims[k].verdict)) die('the side-claims record lacks a claim the page lists');
 if (Bx) {
   if (!Bx.conditions || !Object.keys(Bx.conditions).length) die('the baseline record holds no condition');
   for (const [c, d] of Object.entries(Bx.conditions)) if (d.n_problems !== 500) die('condition ' + c + ' did not cover the 500 problems');
@@ -262,6 +265,19 @@ if (Bx) B.push(sec4Run()); else B.push(C.section({
     + 'It is pre-registered in notes/wsp-stage3-preregistration-2026-11-02.md with its stop rule and costs about US$15–30 of GPU time. It has not been run: a paid run is the operator’s word, and this page says so rather than guess the number. When it runs, its record (certs/wsp-baseline.json) is added here and the gaps above are re-dated.')
     + NOT_CLAIMED
 }));
+
+/* §4b the side claims of the public argument, decided from the released logs (certs/wsp-side-claims.json) */
+if (Sx) {
+  const tagOf = (v) => v.split(/ · /).map((w) => C.tag(w.split(' ')[0].split('(')[0])).join(' ');
+  const row = (k) => { const c = Sx.claims[k]; return [k, esc(c.claim.replace(/^M\d[ab]? — /, '')), { raw: tagOf(c.verdict) + ' ' + dFrom(c.verdict, SREC + '#/claims/' + k + '/verdict', 'the verdict as the record words it') }, esc(c.reason)]; };
+  B.push(C.section({
+    lab: '§4b · the public argument', title: 'The critic’s checkable claims, decided from the authors’ own logs', wide: true,
+    bodyRaw: C.pRaw('A viral thread answered the post with claims about the other experiments and about how the math edit was found. The ones that rest on released bytes are decided here from the logs the authors published (RikiyaT/lm_understand-logs @ 4d09ba6d; ' + dFrom(num(Object.keys(Sx.pins).length), SREC + '#/pins', 'the files read, each pinned by sha256') + ' files pinned; nothing of the claimants’ run, their .npz parsed with the standard library). '
+      + 'A claim with no released source is REFUSED as a limit, not as a finding against whoever made it. The critic’s one number about the math — 47% with no edit in non-thinking mode — is a question for §4, not for the logs.')
+      + C.table({ cols: [{ h: '' }, { h: 'claim' }, { h: 'verdict' }, { h: 'what the logs say' }], rows: ['M2', 'M3', 'M4a', 'M4b', 'M5a', 'M5b'].map(row) })
+      + C.pRaw('<b>Read exactly.</b> The dose was chosen over thousands of answers — on practice problems from the GSM8K and MATH training splits, never on a MATH-500 problem, by id or by text (M2): the number the critic implies, tuning on the test set, is not in the logs. The game-identification scoring did credit “Frogger” as “Freeway” under a keyword rule the README states (M3). The car policy was edited to weights in the hundreds and evaluated on one level over 1,280 episodes, not one replay (M4). The PPO comparisons and the two lost games are in the released tables as stated; “weak” has no criterion to decide (M5a). The sycophancy round failed from the weights alone, in the authors’ own words (M5b).')
+  }));
+}
 
 /* §5 method, independence, what it rests on */
 B.push(C.section({
