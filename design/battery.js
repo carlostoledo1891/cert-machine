@@ -435,6 +435,34 @@ let reds = 0; const redTotal = 15;
   } catch (e) { threw3 = true; }
   if (threw3) { reds++; console.log('       RED ok  X9 a right-scale series sharing the left\'s stroke style is REFUSED'); }
   else console.log('       RED FAIL  X9 two scales were allowed to share a stroke style');
+
+  /* the hist and ruler forms (2026-11-03): their labels are laid out by the 0.62 em bound, so a planted crowd must come
+     out with no two labels on one baseline overlapping and nothing wider than its panel. Every <text> of the drawing
+     is re-measured here by the same bound, from the markup, not from the form's own bookkeeping. */
+  const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+  const texts = (svg) => [...svg.matchAll(/<text x="([\d.]+)" y="([\d.]+)"(?: text-anchor="(\w+)")? class="([\w-]+)"[^>]*>([^<]*)<\/text>/g)]
+    .map((m) => { const wd = CH.adv(m[5], m[4]), x = +m[1], a = m[3] || 'start'; const x0 = a === 'start' ? x : a === 'end' ? x - wd : x - wd / 2; return { x0, x1: x0 + wd, y: +m[2], t: m[5], cls: m[4] }; });
+  const overlaps = (ts) => ts.filter((p, i) => ts.some((q, j) => j > i && Math.abs(p.y - q.y) < 12 && p.x0 < q.x1 && q.x0 < p.x1)).map((p) => p.t);
+  const longTitle = 'C2 · the card’s thinking-mode text settings with every word the arm’s own line carries, planted long';
+  const hs = CH.hist({ w: 900, ptsLead: 'mean tokens', alt: 'planted',
+    rows: [{ k: longTitle, note: ['a note'], bins: [{ lo: 0, hi: 50, n: 3 }, { lo: 50, hi: 100, n: 7 }], x1: 100, xTicks: [0, 50, 100],
+      cap: { x: 100, t: 'at the cap of 100: 7 of 10 (70.0%)' },
+      pts: [{ x: 60, t: 'this run 60', standing: W.DECIDED }, { x: 61, t: 'the post’s unedited run, printed 61', standing: W.COMPUTED }, { x: 40, t: 'edited, printed 40', standing: W.COMPUTED }] }],
+    keys: [{ token: 'var(--ink)', t: 'bins' }, { kind: 'dash', token: 'var(--ink-2)', t: 'read' }, { kind: 'guide', token: CH.CTX, t: 'cap' }] });
+  const ht = texts(hs), title = ht.find((p) => p.t === longTitle), capT = ht.find((p) => /^at the cap/.test(p.t)), reading = ht.filter((p) => /^(mean tokens|· )/.test(p.t));
+  check('F7 hist: a planted long title sends the cap’s words to their own line; the reading line sits under the axis, left-aligned, inside the panel; no two labels collide',
+    title && capT && capT.y > title.y && reading.length >= 1 && reading.every((p) => p.x0 === 62 && p.x1 <= 900 - 22) && overlaps(ht).length === 0, overlaps(ht).join(' | '));
+  const rs = CH.ruler({ w: 900, x0: 0, x1: 60, xTicks: [0, 20, 40, 60], edges: [15, 40], alt: 'planted',
+    bands: [{ x0: 0, x1: 15, t: 'HOLDS', token: 'var(--rule-soft)' }, { x0: 15, x1: 40, t: 'OVERSTATED', token: 'var(--rule)' }, { x0: 40, x1: 60, t: 'MOSTLY A SETTINGS EFFECT', token: 'var(--rule-strong)' }],
+    brackets: [{ x0: 44, x1: 50, t: 'a bracket over all samples: floor 44 … decided 50', standing: W.DECIDED, anchor: 'end' }],
+    marks: [42, 44, 46, 48].map((x) => ({ x, t: 'a decided mark, measured here, planted at ' + x, standing: W.DECIDED, anchor: 'end' }))
+      .concat([41, 43, 45, 47].map((x) => ({ x, t: 'a printed number, read, planted at ' + x, standing: W.COMPUTED, anchor: 'end' }))),
+    keys: [{ kind: 'line', token: 'var(--ink)', t: 'decided' }, { kind: 'dash', token: 'var(--ink-2)', t: 'read' }] });
+  const rt = texts(rs), rowsOf = (re) => new Set(rt.filter((p) => re.test(p.t)).map((p) => p.y)).size;
+  const axisY = +(/<line x1="30" y1="(\d+)" x2="870" y2="\1"/.exec(rs) || [])[1];
+  const sides = rt.filter((p) => /planted at/.test(p.t)).every((p) => (/decided/.test(p.t) ? p.y < axisY : p.y > axisY));
+  check('F8 ruler: eight planted marks two points apart come out on distinct rows, decided above the axis and read below, with leaders and nothing overlapping',
+    overlaps(rt).length === 0 && rowsOf(/decided mark/) === 4 && rowsOf(/printed number/) === 4 && sides && (rs.match(/stroke-dasharray="2 3"/g) || []).length >= 9 && /paint-order="stroke"/.test(rs), overlaps(rt).join(' | '));
 }
 {
   const bad = escapedTagLeaks('<td>&lt;strong&gt;9 / 10 certified&lt;/strong&gt;</td>', 'planted');

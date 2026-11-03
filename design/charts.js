@@ -887,40 +887,91 @@ module.exports = { clampX,
   compact, decades, nf, CAT, SEQ, CTX, GRID, AXIS, SURFACE
 };
 
+/* TEXT EXTENT IN THE TWO FORMS BELOW (2026-11-03, after the WSP figures shipped with labels over labels). A label's
+   advance is BOUNDED at 0.62 em per character of its class's size (design/template.js: t-lab 13 px, t-note 11.5 px,
+   t-ax 12 px — mono runs at 0.6 em, so the bound errs wide). The bound decides where a label may sit and when a line
+   must wrap; the browser never decides that, because its way of deciding is to overlap. */
+const EM = { 't-lab': 13, 't-note': 11.5, 't-ax': 12 };
+const adv = (s, cls) => String(s).length * 0.62 * (EM[cls] || 13);
+/* the box a label occupies, kept inside the drawing: [x0, x1] and the x its anchor lands on after the clamp */
+function labelBox(w, x, s, cls, anchor) {
+  const wd = adv(s, cls);
+  const reachL = anchor === 'start' ? 0 : anchor === 'end' ? wd : wd / 2, reachR = wd - reachL;
+  const lo = 2 + reachL, hi = w - 2 - reachR;
+  const ax = hi >= lo ? Math.max(lo, Math.min(hi, x)) : w / 2;
+  return { ax, x0: ax - reachL, x1: ax + reachR };
+}
+/* Greedy fit of word segments into lines no wider than `max` px in class `cls`, joined by `sep`; a continuation line
+   opens with `cont`; a segment wider than a whole line is broken at its spaces. */
+function fitLines(segs, max, cls, sep, cont) {
+  const lines = [];
+  let cur = '';
+  for (const seg of segs) {
+    const joined = cur ? cur + sep + seg : seg;
+    if (adv(joined, cls) <= max) { cur = joined; continue; }
+    if (cur) lines.push(cur);
+    const pre = lines.length ? cont : '';
+    cur = pre + seg;
+    if (adv(cur, cls) <= max) continue;
+    cur = pre;
+    for (const word of seg.split(' ')) {
+      const t = cur === pre ? pre + word : cur + ' ' + word;
+      if (cur === pre || adv(t, cls) <= max) cur = t; else { lines.push(cur); cur = cont + word; }
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+const standingWord = (W, s) => (s === W.DECIDED ? 'solid' : s === W.COMPUTED ? 'dashed' : s === W.CHOSEN ? 'dotted' : '');
+
 /* HIST — one population per panel, stacked, each on its own binned axis from 0 to its cap (added 2026-11-03 for the
    Weight-Space Programming report: tokens generated per sample, one panel per arm of the baseline run). The bins are
    DECIDED counts and are drawn solid in one ink; a non-empty bin is never thinner than 1 px (rounded outward, never
    away). Three kinds of mark may sit on a panel, each in the grammar's stroke:
-     cap     { x, t }                        a vertical guide (design/grammar.js 2 3, says nothing) with its words
+     cap     { x, t }                        a vertical guide (design/grammar.js 2 3, says nothing) with its words on
+                                             the title line, right-aligned — on their own line when the title is too
+                                             long to share it (the bound above decides)
      hmarks  [{ y, x0, x1, t, standing, rec }] a horizontal rule at a COUNT across a bin range — a number someone
                                              printed, drawn in its standing's stroke (dashed for COMPUTED), never a bar
-     pts     [{ x, t, standing, rec, row }]  a value on the baseline: DECIDED a filled dot, COMPUTED a hollow dashed ring
-   rows: [{ k, note: [lines], bins: [{ lo, hi, n }], x1, xTicks, token, cap, hmarks, pts }]; keys: the legend (required
-   once a panel carries a mark beside its bins — colour is never the only channel, and neither is a dash). */
+     pts     [{ x, t, standing, rec }]       a value on the baseline: DECIDED a filled dot, COMPUTED a hollow dashed ring.
+                                             Their words are READ IN ONE LINE under the axis, left-aligned at the panel's
+                                             left — "<ptsLead> — <t> (solid) · <t> (dashed) · …" — wrapped at the panel's
+                                             width by the bound, never one label under each mark (they collided at the
+                                             right edge, 2026-11-03)
+   rows: [{ k, note: [lines], bins: [{ lo, hi, n }], x1, xTicks, token, cap, hmarks, pts }]; ptsLead: the words that open
+   the reading line; keys: the legend (required once a panel carries a mark beside its bins — colour is never the only
+   channel, and neither is a dash). */
 function hist(o) {
   const W = require('../playground/warrant.js');
   const rows = o.rows;
   const w = o.w || 900, L = o.padL === undefined ? 62 : o.padL, R = o.padR === undefined ? 22 : o.padR;
-  const avail = w - L - R, plotH = o.panelH || 150, LAB = 17;
+  const avail = w - L - R, plotH = o.panelH || 150, LINE = 15;
   const marked = rows.some((r) => (r.hmarks && r.hmarks.length) || (r.pts && r.pts.length) || r.cap);
   if (marked && !(o.keys && o.keys.length)) throw new Error('charts.hist: a panel carries marks beside its bins and needs a labelled legend');
   const nLeg = legendLines(o.keys, avail, o.legendGap);
   const legH = nLeg ? 10 + nLeg * LEGEND_LINE : 0;
-  const headOf = (r) => 22 + (r.note ? [].concat(r.note).length * 15 : 0) + 8;
-  const footOf = (r) => 30 + (r.pts && r.pts.some((p) => p.t) ? (1 + Math.max(0, ...r.pts.map((p) => p.row || 0))) * LAB : 0);
+  /* each panel's head and foot are sized from its words BEFORE anything is drawn */
+  const lay = rows.map((r) => {
+    const note = [].concat(r.note || []);
+    const capOwn = !!(r.cap && r.cap.t) && adv(r.k, 't-lab') + 24 + adv(r.cap.t, 't-lab') > avail;
+    const segs = (r.pts || []).filter((p) => p.t).map((p) => p.t + (standingWord(W, p.standing) ? ' (' + standingWord(W, p.standing) + ')' : ''));
+    const read = segs.length ? fitLines([(o.ptsLead ? o.ptsLead + ' — ' : '') + segs[0]].concat(segs.slice(1)), avail, 't-note', ' · ', '· ') : [];
+    return { note, capOwn, read, head: 22 + (capOwn ? LINE : 0) + note.length * LINE + 8, foot: 30 + read.length * LINE };
+  });
   const tops = []; let yy = 8;
-  for (const r of rows) { yy += headOf(r); tops.push(yy); yy += plotH + footOf(r) + 10; }
+  rows.forEach((r, i) => { yy += lay[i].head; tops.push(yy); yy += plotH + lay[i].foot + 10; });
   const h = yy + (o.xLabel ? 16 : 0) + legH;
   const out = [open({ w, h, alt: o.alt })];
   rows.forEach((r, i) => {
-    const top = tops[i], bottom = top + plotH;
+    const { note, capOwn, read, head } = lay[i];
+    const top = tops[i], bottom = top + plotH, y0 = top - head;
     const px = (v) => L + (v / r.x1) * avail;
     const tok = r.token || o.token || 'var(--ink)';
     const maxN = Math.max(1, ...r.bins.map((b) => b.n));
-    /* the title and its note lines above the plot; the cap's words on the title line, right-aligned */
-    out.push(txt(L, top - headOf(r) + 14, r.k, 't-lab', 'start'));
-    [].concat(r.note || []).forEach((s, k) => out.push(txt(L, top - headOf(r) + 29 + k * 15, s, 't-note', 'start')));
-    if (r.cap && r.cap.t) out.push(txt(L + avail, top - headOf(r) + 14, r.cap.t, 't-lab', 'end'));
+    /* the title, the cap's words beside it or under it, the note lines */
+    out.push(txt(L, y0 + 14, r.k, 't-lab', 'start'));
+    if (r.cap && r.cap.t) out.push(txt(L + avail, y0 + 14 + (capOwn ? LINE : 0), r.cap.t, 't-lab', 'end'));
+    note.forEach((s, k) => out.push(txt(L, y0 + 29 + (capOwn ? LINE : 0) + k * LINE, s, 't-note', 'start')));
     /* the count axis: a hairline at the tallest bin, its count beside it; zero at the baseline */
     out.push('    <line x1="' + L + '" y1="' + top + '" x2="' + (L + avail) + '" y2="' + top + '" stroke="' + GRID + '" stroke-width="1"/>');
     out.push(txt(L - 9, top + 4, maxN.toLocaleString('en-US'), 't-ax', 'end'));
@@ -947,7 +998,7 @@ function hist(o) {
     for (const m of (r.hmarks || [])) {
       const y = bottom - (m.y / maxN) * plotH, x0 = px(m.x0), x1 = px(m.x1);
       out.push('    <line ' + hit('x1="' + x0.toFixed(1) + '" y1="' + y.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y.toFixed(1) + '" ' + W.attrs(m.standing, { width: 2, rec: m.rec }), m.t, m.v !== undefined ? m.v : Math.round(m.y).toLocaleString('en-US') + ' samples') + '/>');
-      if (m.t) out.push(txt(x0 - 8, y + 4, m.t, 't-lab', m.anchor || 'end'));
+      if (m.t) out.push(txt(labelBox(w, x0 - 8, m.t, 't-lab', m.anchor || 'end').ax, y + 4, m.t, 't-lab', m.anchor || 'end'));
     }
     for (const p of (r.pts || [])) {
       const x = px(p.x), y = bottom;
@@ -958,8 +1009,8 @@ function hist(o) {
         : 'r="8" ' + W.attrs(p.standing, { width: 2, rec: p.rec });
       out.push('    <circle cx="' + x.toFixed(1) + '" cy="' + y + '" ' + look + '/>');
       out.push('    <circle ' + hit('cx="' + x.toFixed(1) + '" cy="' + y + '" r="12" fill="transparent"', p.t || r.k, p.v !== undefined ? p.v : compact(p.x) + (o.unit ? ' ' + o.unit : '')) + '/>');
-      if (p.t) out.push(txt(clampX({ w }, x, p.t, 'middle'), bottom + 36 + (p.row || 0) * LAB, p.t, 't-note', 'middle'));
     }
+    read.forEach((s, k) => out.push(txt(L, bottom + 36 + k * LINE, s, 't-note', 'start')));
   });
   if (o.xLabel) out.push(txt(L + avail / 2, h - legH - 4, o.xLabel, 't-note', 'middle'));
   if (o.keys) out.push(legend(o.keys, L, h - 7, o.legendGap, avail));
@@ -969,35 +1020,58 @@ function hist(o) {
 
 /* RULER — one horizontal axis with named bands and values placed on it (added 2026-11-03 for the Weight-Space
    Programming report: the pre-registered reading's three bands with every number the reading weighs). The bands are a
-   RULE, not data: shaded in ordered ink tokens, each carrying its word, and their edges labelled on the axis. A value is
-   a vertical mark in its standing's stroke (DECIDED solid, COMPUTED dashed, read from playground/warrant.js), its words
-   on a row above the band (`side: 'above'`) or below the axis (`side: 'below'`); a bracket is a solid extent between two
-   decided ends. `note` is one line of words at the top (the date the edges were fixed).
-     bands: [{ x0, x1, t, token }]; edges: [x]; marks: [{ x, t, standing, side, row, anchor, rec }];
+   RULE, not data: shaded in ordered ink tokens, each carrying its word centred in it, and their edges labelled on the
+   axis. A value is a vertical mark in its standing's stroke (DECIDED solid, COMPUTED dashed, read from
+   playground/warrant.js); a bracket is a solid extent between two decided ends. `note` is one line of words at the top
+   (the date the edges were fixed).
+   THE LABEL PASS (2026-11-03, after the first render put two read labels on one row and three marks through a band's
+   word): a DECIDED label goes above the strip, a read one below the axis — the side is the standing's, never the
+   caller's. Each label is placed, in input order, in the first row of its side where its box (the bound above) clears
+   every label already placed there and covers no band word, and is tied to its mark by a guide hairline (2 3, says
+   nothing). The band words are drawn last, cased in their band's own ink, so a mark through a band reads as a mark
+   behind a word and never as a word struck out. `row` on a mark or bracket is a floor for its row, not its row.
+     bands: [{ x0, x1, t, token }]; edges: [x]; marks: [{ x, t, standing, row, anchor, rec }];
      brackets: [{ x0, x1, t, standing, row, anchor, rec }]; xTicks: [{ v, t }]; keys: the legend (required). */
 function ruler(o) {
   const W = require('../playground/warrant.js');
   if (!(o.keys && o.keys.length)) throw new Error('charts.ruler: two standings share the axis and need a labelled legend');
   const w = o.w || 900, L = o.padL === undefined ? 30 : o.padL, R = o.padR === undefined ? 30 : o.padR;
-  const avail = w - L - R, LAB = 17, STRIP = 26;
+  const avail = w - L - R, LAB = 17, STRIP = 26, GAP = 8;
   const px = (v) => L + (v - o.x0) / (o.x1 - o.x0) * avail;
-  const marks = o.marks || [], brs = o.brackets || [];
-  const above = 1 + Math.max(0, ...marks.filter((m) => m.side !== 'below').map((m) => m.row || 0), ...brs.map((b) => b.row || 0));
-  const below = 1 + Math.max(-1, ...marks.filter((m) => m.side === 'below').map((m) => m.row || 0));
+  const marks = o.marks || [], brs = o.brackets || [], bands = o.bands || [];
+  /* the pass, in x: a row never shares a y with the strip, so the band-word check can only bite a row the pass would put
+     in the strip — it never does, and the check stays as the rule's own words */
+  const words = bands.filter((b) => b.t).map((b) => { const c = (px(b.x0) + px(b.x1)) / 2, wd = adv(b.t, 't-lab'); return { x0: c - wd / 2, x1: c + wd / 2 }; });
+  const placed = { above: [], below: [] };
+  const place = (x, t, anchor, side, floor) => {
+    const box = labelBox(w, x + (anchor === 'end' ? -6 : anchor === 'start' ? 6 : 0), t, 't-lab', anchor);
+    const clear = (r) => !placed[side].some((p) => p.row === r && p.x0 < box.x1 + GAP && box.x0 < p.x1 + GAP)
+      && !(r < 0 && words.some((q) => q.x0 < box.x1 && box.x0 < q.x1));
+    let row = floor;
+    while (!clear(row)) row++;
+    const it = { x, t, anchor, side, row, ax: box.ax, x0: box.x0, x1: box.x1 };
+    placed[side].push(it);
+    return it;
+  };
+  const labs = [];
+  for (const m of marks) if (m.t) labs.push([m, place(px(m.x), m.t, m.anchor || 'start', m.standing === W.DECIDED ? 'above' : 'below', m.row || 0)]);
+  for (const b of brs) if (b.t) labs.push([b, place(b.anchor === 'start' ? px(b.x0) : b.anchor === 'end' ? px(b.x1) : (px(b.x0) + px(b.x1)) / 2, b.t, b.anchor || 'middle', 'above', b.row || 0)]);
+  const above = 1 + Math.max(-1, ...placed.above.map((p) => p.row)), below = 1 + Math.max(-1, ...placed.below.map((p) => p.row));
   const nLeg = legendLines(o.keys, avail, o.legendGap);
   const legH = 10 + nLeg * LEGEND_LINE;
-  const top = 8 + (o.note ? 18 : 0) + above * LAB + 14;      /* the strip's top edge */
-  const axis = top + STRIP;                                    /* the axis line under the strip */
+  const top = 8 + (o.note ? 18 : 0) + above * LAB + (brs.length ? 16 : 10);   /* the strip's top edge, under the label rows and the bracket */
+  const axis = top + STRIP;                                                   /* the axis line under the strip */
   const h = axis + 30 + below * LAB + 8 + legH;
+  const rowY = (it) => (it.side === 'above' ? top - 16 - it.row * LAB : axis + 36 + it.row * LAB);
   const out = [open({ w, h, alt: o.alt })];
   if (o.note) out.push(txt(L, 18, o.note, 't-note', 'start'));
-  for (const b of (o.bands || [])) {
+  for (const b of bands) {
     const x0 = px(b.x0), x1 = px(b.x1);
     out.push('    <rect ' + hit('x="' + x0.toFixed(1) + '" y="' + top + '" width="' + Math.max(1, x1 - x0 - 1).toFixed(1) + '" height="' + STRIP + '" fill="' + (b.token || GRID) + '"', b.t, compact(b.x0) + ' to ' + compact(b.x1)) + '/>');
-    if (b.t) out.push(txt((x0 + x1) / 2, top + STRIP / 2 + 4, b.t, 't-lab', 'middle'));
   }
   for (const t of (o.xTicks || [])) {
     const v = t.v !== undefined ? t.v : t, x = px(v), lab = t.t !== undefined ? t.t : compact(v);
+    if ((o.edges || []).includes(v)) continue;                          /* an edge carries its own number on this row */
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + axis + '" x2="' + x.toFixed(1) + '" y2="' + (axis + 5) + '" stroke="' + AXIS + '" stroke-width="1"/>');
     out.push(txt(clampX({ w }, x, lab, 'middle'), axis + 19, lab, 't-ax', 'middle'));
   }
@@ -1008,24 +1082,29 @@ function ruler(o) {
   }
   out.push('    <line x1="' + L + '" y1="' + axis + '" x2="' + (L + avail) + '" y2="' + axis + '" stroke="' + AXIS + '" stroke-width="1"/>');
   for (const b of brs) {
-    const x0 = px(b.x0), x1 = px(b.x1), y = top - 5;
+    const x0 = px(b.x0), x1 = px(b.x1), y = top - 6;
     out.push('    <line ' + hit('x1="' + x0.toFixed(1) + '" y1="' + y + '" x2="' + x1.toFixed(1) + '" y2="' + y + '" ' + W.attrs(b.standing, { width: 2.5, rec: b.rec }), b.t, compact(b.x0) + ' … ' + compact(b.x1)) + '/>');
     for (const x of [x0, x1]) out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (y - 5) + '" x2="' + x.toFixed(1) + '" y2="' + (y + 5) + '" ' + W.attrs(b.standing, { width: 2.5 }) + '/>');
-    if (b.t) out.push(txt(b.anchor === 'start' ? x0 : b.anchor === 'end' ? x1 : (x0 + x1) / 2, top - 14 - (b.row || 0) * LAB, b.t, 't-lab', b.anchor || 'middle'));
   }
   for (const m of marks) {
     const x = px(m.x), dec = m.standing === W.DECIDED;
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (top - 8) + '" x2="' + x.toFixed(1) + '" y2="' + (axis + 8) + '" ' + W.attrs(m.standing, { width: dec ? 2.5 : 2, rec: m.rec }) + '/>');
     out.push('    <rect ' + hit('x="' + (x - 6).toFixed(1) + '" y="' + (top - 8) + '" width="12" height="' + (STRIP + 16) + '" fill="transparent"', m.t, m.v !== undefined ? m.v : String(m.x)) + '/>');
-    if (m.t) {
-      const y = m.side === 'below' ? axis + 36 + (m.row || 0) * LAB : top - 14 - (m.row || 0) * LAB;
-      const anchor = m.anchor || 'start';
-      out.push(txt(clampX({ w }, x + (anchor === 'end' ? -6 : anchor === 'start' ? 6 : 0), m.t, anchor), y, m.t, 't-lab', anchor));
-    }
   }
+  /* the labels, each on its row, each with its leader from the mark's end (or the bracket's rule) to the words */
+  for (const [src, it] of labs) {
+    const y = rowY(it), isBr = src.x0 !== undefined;
+    const from = it.side === 'above' ? (isBr ? top - 11 : top - 8) : axis + 8, to = it.side === 'above' ? y + 3 : y - 11;
+    if (Math.abs(to - from) > 1) out.push('    <line x1="' + it.x.toFixed(1) + '" y1="' + from + '" x2="' + it.x.toFixed(1) + '" y2="' + to + '" stroke="' + AXIS + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>');
+    out.push(txt(it.ax, y, it.t, 't-lab', it.anchor));
+  }
+  /* the band words last, centred, cased in their own band's ink: a mark passes behind the word */
+  for (const b of bands) if (b.t) out.push(txt((px(b.x0) + px(b.x1)) / 2, top + STRIP / 2 + 4, b.t, 't-lab', 'middle', ' stroke="' + (b.token || GRID) + '" stroke-width="4" stroke-linejoin="round" paint-order="stroke"'));
   out.push(legend(o.keys, L, h - 7, o.legendGap, avail));
   out.push(close);
   return out.join('\n');
 }
 module.exports.hist = hist;
 module.exports.ruler = ruler;
+module.exports.fitLines = fitLines;
+module.exports.adv = adv;

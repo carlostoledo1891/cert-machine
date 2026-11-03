@@ -138,7 +138,8 @@ const pctOut = (a, b, up) => (up ? Math.ceil(a * 10000 / b) : Math.floor(a * 100
 const NBINS = 32;
 const armTokens = (B, c) => { const t = []; for (const r of B.rows[c]) for (const s of r.samples) t.push(s.tokens); return t; };
 /* the post's runs sit on the arm that reproduces their settings: both ran under the post's own sampling, which C1 repeats */
-const POST_ON = { C1: [['post_unedited', 'the post’s unedited run'], ['post_edited_50_passes', 'the post’s edited run']] };
+/* [run, its words, its short word for the reading line under the panel — one line, so the second run drops the words the first already said] */
+const POST_ON = { C1: [['post_unedited', 'the post’s unedited run', 'the post’s unedited run'], ['post_edited_50_passes', 'the post’s edited run', 'edited']] };
 function gateLoop(B) {
   for (const c of Object.keys(B.rows)) {
     const d = B.conditions[c]; if (!d) throw new Error('rows for ' + c + ' with no condition');
@@ -203,12 +204,12 @@ function figLoop() {
     const bw = cap / NBINS, bins = [];
     for (let i = 0; i < NBINS; i++) bins.push({ lo: i * bw, hi: (i + 1) * bw, n: 0 });
     for (const x of t) bins[Math.min(NBINS - 1, Math.floor(x / bw))].n++;         /* a sample at the cap lands in the last bin */
-    const pts = [{ x: a.mean_tokens, t: 'mean ' + num(Math.round(a.mean_tokens)) + ', this run', standing: W.DECIDED, rec: { path: BREC, ptr: '/conditions/' + c + '/all_samples/mean_tokens' } }];
+    const pts = [{ x: a.mean_tokens, t: 'this run ' + num(Math.round(a.mean_tokens)), standing: W.DECIDED, rec: { path: BREC, ptr: '/conditions/' + c + '/all_samples/mean_tokens' } }];
     const hmarks = [], post = [];
-    for (const [run, lab] of (POST_ON[c] || [])) {
+    for (const [run, lab, short] of (POST_ON[c] || [])) {
       const p = G.post_runs[run].merged_printed;
       hmarks.push({ y: p.cut_share * a.n, x0: cap - bw, x1: cap, t: lab + ', printed: ' + pctStr(p.cut_share) + '% at the cap', v: pctStr(p.cut_share) + '% of ' + num(a.n) + ', as printed', standing: W.COMPUTED, rec: { path: RREC, ptr: '/post_runs/' + run + '/merged_printed/cut_share' } });
-      pts.push({ x: p.mean_tokens, t: lab + ', printed: mean ' + num(Math.round(p.mean_tokens)), v: num(Math.round(p.mean_tokens)) + ' tokens, as printed', standing: W.COMPUTED, row: pts.length, rec: { path: RREC, ptr: '/post_runs/' + run + '/merged_printed/mean_tokens' } });
+      pts.push({ x: p.mean_tokens, t: short + ', printed ' + num(Math.round(p.mean_tokens)), v: num(Math.round(p.mean_tokens)) + ' tokens, as printed', standing: W.COMPUTED, rec: { path: RREC, ptr: '/post_runs/' + run + '/merged_printed/mean_tokens' } });
       post.push(lab + ' prints ' + pctStr(p.cut_share) + '% at the cap and a mean of ' + num(Math.round(p.mean_tokens)));
       postCap.push(lab.replace('the post’s ', '') + ' ' + cFrom(pctStr(p.cut_share) + '%', RREC + '#/post_runs/' + run + '/merged_printed/cut_share', WHY_THEIRS) + ', mean ' + cFrom(num(Math.round(p.mean_tokens)), RREC + '#/post_runs/' + run + '/merged_printed/mean_tokens', WHY_THEIRS));
     }
@@ -219,7 +220,7 @@ function figLoop() {
     alt.push(c + ': ' + num(a.n) + ' samples, ' + num(a.cut) + ' at the cap of ' + num(cap) + ' tokens (' + pct1(a.cut_share) + '), mean ' + num(Math.round(a.mean_tokens)) + (post.length ? '; ' + post.join(', ') : ''));
     capt.push(c + ' ' + bv(c, 'all_samples/cut', num(a.cut), 'generations that reached max_tokens, over all samples of ' + c) + ' of ' + bv(c, 'all_samples/n', num(a.n), 'all samples of ' + c) + ' (' + bv(c, 'all_samples/cut_share', pct1(a.cut_share), 'generations that reached max_tokens, over all samples') + ')');
   }
-  const svg = CH.hist({ w: 900, rows, unit: 'tokens', xLabel: 'tokens generated per sample',
+  const svg = CH.hist({ w: 900, rows, unit: 'tokens', xLabel: 'tokens generated per sample', ptsLead: 'mean tokens',
     keys: [{ token: 'var(--ink)', t: 'samples per bin, generated here (decided)' }, { kind: 'line', token: 'var(--ink)', t: 'mean tokens, this run (solid)' }, { kind: 'dash', token: 'var(--ink-2)', t: 'the post’s printed run (read, dashed)' }, { kind: 'guide', token: CH.CTX, t: 'the token cap' }],
     alt: 'Tokens generated per sample, ' + NBINS + ' bins per arm from 0 to its cap. ' + alt.join('. ') + '.' });
   return C.figure({ svgRaw: svg, record: [BREC, RREC], stop: 'an arm’s samples re-counted from the record’s rows differ from its tallies (the count, the number at the cap, the share, the mean, the token sum), or a sample lies outside 0 to its cap',
@@ -237,13 +238,13 @@ function figRuler() {
   const svg = CH.ruler({ w: 900, x0: 0, x1: 60, xTicks: [0, 10, 20, 30, 50, 60].map((v) => ({ v, t: String(v) + (v === 60 ? '%' : '') })), edges: [e1, e2],
     bands: [{ x0: 0, x1: e1, t: 'HOLDS', token: 'var(--rule-soft)' }, { x0: e1, x1: e2, t: 'OVERSTATED', token: 'var(--rule)' }, { x0: e2, x1: 60, t: 'MOSTLY A SETTINGS EFFECT', token: 'var(--rule-strong)' }],
     note: 'band edges ' + e1 + ' and ' + e2 + ' fixed ' + when + ' before any such token · MATH-500 accuracy, %',
-    brackets: [{ x0: lo, x1: hi, t: best.arm + ' over all samples: floor ' + lo + ' … decided ' + hi, standing: W.DECIDED, row: 1, anchor: 'end', rec: { path: BREC, ptr: '/conditions/' + best.arm + '/all_samples/acc_floor' } }],
+    brackets: [{ x0: lo, x1: hi, t: best.arm + ' over all samples: floor ' + lo + ' … decided ' + hi, standing: W.DECIDED, anchor: 'end', rec: { path: BREC, ptr: '/conditions/' + best.arm + '/all_samples/acc_floor' } }],
     marks: [
-      { x: c1, t: 'C1, the control, measured here: ' + c1, standing: W.DECIDED, side: 'above', row: 0, anchor: 'start', rec: RP('control_C1/all_samples_floor_percent') },
-      { x: best.percent, t: best.arm + ', the best no-edit arm: ' + best.percent, standing: W.DECIDED, side: 'above', row: 0, anchor: 'end', rec: RP('best_no_edit_arm/percent') },
-      { x: Number(un), t: 'the post’s unedited run, printed: ' + un, standing: W.COMPUTED, side: 'below', row: 0, anchor: 'start', rec: { path: RREC, ptr: '/post_runs/post_unedited/merged_printed/acc' } },
-      { x: Number(ed), t: 'the post’s edited run, printed: ' + ed, standing: W.COMPUTED, side: 'below', row: 0, anchor: 'end', rec: { path: RREC, ptr: '/post_runs/post_edited_50_passes/merged_printed/acc' } },
-      { x: critic, t: 'the critic’s number, his run not shared: ' + critic, standing: W.COMPUTED, side: 'below', row: 1, anchor: 'end', rec: RP('critic_47_non_thinking/distance_points') }],
+      { x: c1, t: 'C1, the control, measured here: ' + c1, standing: W.DECIDED, anchor: 'start', rec: RP('control_C1/all_samples_floor_percent') },
+      { x: best.percent, t: best.arm + ', the best no-edit arm: ' + best.percent, standing: W.DECIDED, anchor: 'end', rec: RP('best_no_edit_arm/percent') },
+      { x: Number(un), t: 'the post’s unedited run, printed: ' + un, standing: W.COMPUTED, anchor: 'start', rec: { path: RREC, ptr: '/post_runs/post_unedited/merged_printed/acc' } },
+      { x: Number(ed), t: 'the post’s edited run, printed: ' + ed, standing: W.COMPUTED, anchor: 'end', rec: { path: RREC, ptr: '/post_runs/post_edited_50_passes/merged_printed/acc' } },
+      { x: critic, t: 'the critic’s number, his run not shared: ' + critic, standing: W.COMPUTED, anchor: 'end', rec: RP('critic_47_non_thinking/distance_points') }],
     keys: [{ kind: 'line', token: 'var(--ink)', t: 'measured here, decided (solid)' }, { kind: 'dash', token: 'var(--ink-2)', t: 'a printed number, read (dashed)' }],
     alt: 'A ruler from 0 to 60 percent. The three pre-registered bands: HOLDS below ' + e1 + ', OVERSTATED from ' + e1 + ' to ' + e2 + ', MOSTLY A SETTINGS EFFECT from ' + e2 + ', their edges fixed ' + when + '. Solid marks, measured here: the control C1 at ' + c1 + '; the best no-edit arm ' + best.arm + ' at ' + best.percent + ', its all-samples floor ' + lo + ' to its decided accuracy ' + hi + '. Dashed marks, read: the post’s ' + un + ' and ' + ed + ', the critic’s ' + critic + '.' });
   return C.figure({ svgRaw: svg, record: [BREC, RREC], stop: 'the band edges, the best arm’s percent, the control, the post’s two numbers or the critic’s distance do not re-derive from the records, or the verdict word is not the band the best arm falls in',
