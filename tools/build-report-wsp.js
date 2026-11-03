@@ -126,6 +126,129 @@ function postRow(key, lab) {
   return ['', lab, key === 'post_unedited' ? 'unedited' : 'edited', '—', '—', { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/acc', 'raw', WHY_THEIRS) + ' (printed, 4 samples)' },
     { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/cut_share', 'raw', WHY_THEIRS) }, { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/mean_tokens', 'raw', WHY_THEIRS) }];
 }
+/* ---- the two figures of §4, each gated by a re-derivation from the record and each with a red control ----
+   Every number drawn is read from certs/wsp-baseline.json or certs/wsp-regrade.json at build time; the gates below
+   re-derive what the figures draw from the record's own rows and refuse the page when the record disagrees with
+   itself, and a planted wrong number must make each gate throw before the figures are drawn (the controls). */
+const clone = (x) => JSON.parse(JSON.stringify(x));
+/* a decimal string shifted two places (0.079 → 7.9): a printed fraction as a percent with no float in between */
+const pctStr = (x) => { const s = String(x); if (!/^\d+(\.\d+)?$/.test(s)) die('not a decimal: ' + s); const [i, f = ''] = s.split('.'); const d = i + (f + '00').slice(0, 2), r = (f + '00').slice(2).replace(/0+$/, ''); return String(Number(d)) + (r ? '.' + r : ''); };
+/* a count over a count as a percent to two decimals, rounded OUTWARD (a floor down, an upper end up), in integers */
+const pctOut = (a, b, up) => (up ? Math.ceil(a * 10000 / b) : Math.floor(a * 10000 / b)) / 100;
+const NBINS = 32;
+const armTokens = (B, c) => { const t = []; for (const r of B.rows[c]) for (const s of r.samples) t.push(s.tokens); return t; };
+/* the post's runs sit on the arm that reproduces their settings: both ran under the post's own sampling, which C1 repeats */
+const POST_ON = { C1: [['post_unedited', 'the post’s unedited run'], ['post_edited_50_passes', 'the post’s edited run']] };
+function gateLoop(B) {
+  for (const c of Object.keys(B.rows)) {
+    const d = B.conditions[c]; if (!d) throw new Error('rows for ' + c + ' with no condition');
+    const cap = d.meta.sampling.max_tokens, a = d.all_samples, t = armTokens(B, c);
+    if (t.length !== a.n) throw new Error(c + ': ' + t.length + ' samples in the rows, the tally says ' + a.n);
+    if (t.some((x) => !(x >= 0 && x <= cap))) throw new Error(c + ': a sample is outside 0 … ' + cap);
+    const atCap = t.filter((x) => x === cap).length;
+    if (atCap !== a.cut) throw new Error(c + ': ' + atCap + ' samples at the cap, the tally says ' + a.cut);
+    if (Math.abs(atCap / t.length - a.cut_share) > 5e-4) throw new Error(c + ': the cut share ' + a.cut_share + ' is not ' + atCap + '/' + t.length);
+    const mean = t.reduce((s, x) => s + x, 0) / t.length;
+    if (Math.abs(mean - a.mean_tokens) > 5e-4) throw new Error(c + ': the mean ' + a.mean_tokens + ' is not the rows’ ' + mean);
+    if (t.reduce((s, x) => s + x, 0) !== a.tokens) throw new Error(c + ': the token sum is not the rows’');
+  }
+}
+function readingEdges(B) {
+  const m = /below (\d+(?:\.\d+)?)% HOLDS; (\d+(?:\.\d+)?) to (\d+(?:\.\d+)?)% OVERSTATED; (\d+(?:\.\d+)?)% or above MOSTLY A SETTINGS EFFECT/.exec(B.reading.rule);
+  if (!m) throw new Error('the reading’s rule does not state the three bands');
+  const e = m.slice(1).map(Number);
+  if (e[0] !== e[1] || e[2] !== e[3] || !(e[0] < e[2])) throw new Error('the band edges in the rule disagree: ' + e.join(', '));
+  return [e[0], e[2]];
+}
+function gateRuler(B, Gr) {
+  const [e1, e2] = readingEdges(B), rd = B.reading, best = rd.best_no_edit_arm;
+  if (!best || !rd.control_C1) throw new Error('the reading names no best no-edit arm or no control');
+  const d = B.conditions[best.arm]; if (!d) throw new Error('the best arm ' + best.arm + ' is not a condition');
+  const re = Math.max(d.first_sample.acc_floor, d.all_samples.acc_floor) * 100;
+  if (Math.abs(re - best.percent) > 5e-3) throw new Error('the best arm’s ' + best.percent + ' does not re-derive (' + re + ')');
+  if (!(best.percent >= d.all_samples.acc_floor * 100 - 5e-3 && best.percent <= d.all_samples.acc_decided * 100 + 5e-3)) throw new Error('the best arm’s percent is outside its floor-to-decided range');
+  const c1 = B.conditions.C1; if (!c1) throw new Error('no control C1');
+  if (Math.abs(rd.control_C1.all_samples_floor_percent - c1.all_samples.acc_floor * 100) > 5e-3) throw new Error('the control’s percent does not re-derive');
+  if (rd.control_C1.within_3_points !== (Math.abs(rd.control_C1.all_samples_floor_percent - rd.control_C1.printed) <= 3)) throw new Error('the control’s stop rule is misapplied');
+  if (Math.abs(rd.target_percent - Gr.post_runs.post_edited_50_passes.merged_printed.acc * 100) > 1e-9) throw new Error('the target is not the post’s printed edited accuracy');
+  if (Math.abs(rd.control_C1.printed - Gr.post_runs.post_unedited.merged_printed.acc * 100) > 1e-9) throw new Error('the control’s printed number is not the post’s');
+  const critic = Number((/The critic.s (\d+(?:\.\d+)?)%/.exec(rd.rule) || [])[1]);
+  const k = rd.critic_47_non_thinking;
+  if (!critic || !k || Math.abs(Math.abs(critic - k.C3_best_percent) - k.distance_points) > 5e-3) throw new Error('the critic’s number does not re-derive from the reading');
+  if (rd.conditions.C3 && k.C3_best_percent !== rd.conditions.C3.best_percent) throw new Error('the critic’s C3 is not C3');
+  const bandOf = (p) => (p < e1 ? 'holds' : p < e2 ? 'overstated' : 'mostly a settings effect');
+  const expect = rd.control_C1.within_3_points ? bandOf(best.percent) : 'no verdict on the multiplier';
+  if (rd.verdict.split(':')[0] !== expect) throw new Error('the verdict word “' + rd.verdict.split(':')[0] + '” is not the band the best arm falls in (' + expect + ')');
+  if (!/^2026-11-03T12:40Z/.test(rd.amendment)) throw new Error('the amendment is not the one the page dates: ' + rd.amendment);
+  return { e1, e2, critic };
+}
+if (Bx) {
+  gateLoop(Bx);
+  const c0 = Object.keys(Bx.rows)[0];
+  const PA = clone(Bx); PA.conditions[c0].all_samples.cut_share = Number((PA.conditions[c0].all_samples.cut_share + 0.01).toFixed(3));
+  let caughtA = false; try { gateLoop(PA); } catch (e) { caughtA = true; }
+  if (!caughtA) die('red control: a cut share planted one point off on ' + c0 + ' was not caught by the loop figure’s gate');
+  if (Bx.reading.best_no_edit_arm) {
+    gateRuler(Bx, G);
+    const PB = clone(Bx); PB.reading.best_no_edit_arm.percent = Number((PB.reading.best_no_edit_arm.percent - 10).toFixed(2));
+    let caughtB = false; try { gateRuler(PB, G); } catch (e) { caughtB = true; }
+    if (!caughtB) die('red control: the best arm’s percent planted ten points low was not caught by the ruler’s gate');
+  }
+}
+const wrap = (s, n = 96) => { const out = []; let cur = ''; for (const w of s.split(' ')) { if (cur && (cur + ' ' + w).length > n) { out.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w; } if (cur) out.push(cur); return out; };
+function figLoop() {
+  const arms = Object.keys(Bx.rows).sort(), rows = [], alt = [], capt = [], postCap = [];
+  for (const c of arms) {
+    const d = Bx.conditions[c], cap = d.meta.sampling.max_tokens, a = d.all_samples, t = armTokens(Bx, c);
+    const bw = cap / NBINS, bins = [];
+    for (let i = 0; i < NBINS; i++) bins.push({ lo: i * bw, hi: (i + 1) * bw, n: 0 });
+    for (const x of t) bins[Math.min(NBINS - 1, Math.floor(x / bw))].n++;         /* a sample at the cap lands in the last bin */
+    const pts = [{ x: a.mean_tokens, t: 'mean ' + num(Math.round(a.mean_tokens)) + ', this run', standing: W.DECIDED, rec: { path: BREC, ptr: '/conditions/' + c + '/all_samples/mean_tokens' } }];
+    const hmarks = [], post = [];
+    for (const [run, lab] of (POST_ON[c] || [])) {
+      const p = G.post_runs[run].merged_printed;
+      hmarks.push({ y: p.cut_share * a.n, x0: cap - bw, x1: cap, t: lab + ', printed: ' + pctStr(p.cut_share) + '% at the cap', v: pctStr(p.cut_share) + '% of ' + num(a.n) + ', as printed', standing: W.COMPUTED, rec: { path: RREC, ptr: '/post_runs/' + run + '/merged_printed/cut_share' } });
+      pts.push({ x: p.mean_tokens, t: lab + ', printed: mean ' + num(Math.round(p.mean_tokens)), v: num(Math.round(p.mean_tokens)) + ' tokens, as printed', standing: W.COMPUTED, row: pts.length, rec: { path: RREC, ptr: '/post_runs/' + run + '/merged_printed/mean_tokens' } });
+      post.push(lab + ' prints ' + pctStr(p.cut_share) + '% at the cap and a mean of ' + num(Math.round(p.mean_tokens)));
+      postCap.push(lab.replace('the post’s ', '') + ' ' + cFrom(pctStr(p.cut_share) + '%', RREC + '#/post_runs/' + run + '/merged_printed/cut_share', WHY_THEIRS) + ', mean ' + cFrom(num(Math.round(p.mean_tokens)), RREC + '#/post_runs/' + run + '/merged_printed/mean_tokens', WHY_THEIRS));
+    }
+    pts[0].v = num(Math.round(a.mean_tokens)) + ' tokens';
+    const [head, ...rest] = COND_WORDS[c].split(': ');
+    rows.push({ k: c + ' · ' + head, note: rest.length ? wrap(rest.join(': ')) : null, bins, x1: cap, xTicks: [0, 1, 2, 3, 4].map((i) => ({ v: i * cap / 4, t: num(i * cap / 4) })),
+      cap: { x: cap, t: 'at the cap of ' + num(cap) + ': ' + num(a.cut) + ' of ' + num(a.n) + ' (' + pct1(a.cut_share) + ')' }, hmarks, pts });
+    alt.push(c + ': ' + num(a.n) + ' samples, ' + num(a.cut) + ' at the cap of ' + num(cap) + ' tokens (' + pct1(a.cut_share) + '), mean ' + num(Math.round(a.mean_tokens)) + (post.length ? '; ' + post.join(', ') : ''));
+    capt.push(c + ' ' + bv(c, 'all_samples/cut', num(a.cut), 'generations that reached max_tokens, over all samples of ' + c) + ' of ' + bv(c, 'all_samples/n', num(a.n), 'all samples of ' + c) + ' (' + bv(c, 'all_samples/cut_share', pct1(a.cut_share), 'generations that reached max_tokens, over all samples') + ')');
+  }
+  const svg = CH.hist({ w: 900, rows, unit: 'tokens', xLabel: 'tokens generated per sample',
+    keys: [{ token: 'var(--ink)', t: 'samples per bin, generated here (decided)' }, { kind: 'line', token: 'var(--ink)', t: 'mean tokens, this run (solid)' }, { kind: 'dash', token: 'var(--ink-2)', t: 'the post’s printed run (read, dashed)' }, { kind: 'guide', token: CH.CTX, t: 'the token cap' }],
+    alt: 'Tokens generated per sample, ' + NBINS + ' bins per arm from 0 to its cap. ' + alt.join('. ') + '.' });
+  return C.figure({ svgRaw: svg, record: [BREC, RREC], stop: 'an arm’s samples re-counted from the record’s rows differ from its tallies (the count, the number at the cap, the share, the mean, the token sum), or a sample lies outside 0 to its cap',
+    captionRaw: 'The loop, made visible: tokens generated per sample, every sample of the record in ' + NBINS + ' bins from 0 to the arm’s cap, the cap a dashed guide with the share at it beside it — ' + capt.join('; ') + '. '
+      + 'On C1 the post’s own printed cut shares and mean lengths (their merged.json) sit as dashed read marks beside the decided bars: ' + postCap.join('; ') + '. The bins are counts, drawn no thinner than 1 px.' });
+}
+function figRuler() {
+  const { e1, e2, critic } = gateRuler(Bx, G);
+  const rd = Bx.reading, best = rd.best_no_edit_arm, d = Bx.conditions[best.arm], a = d.all_samples;
+  const lo = pctOut(a.CORRECT, a.n, false), hi = pctOut(a.CORRECT, a.decided, true);
+  if (Math.abs(lo - a.acc_floor * 100) > 0.01 || Math.abs(hi - a.acc_decided * 100) > 0.01) die('the best arm’s floor and decided accuracy do not re-derive from its counts');
+  const un = pctStr(UN.merged_printed.acc), ed = pctStr(ED.merged_printed.acc), c1 = rd.control_C1.all_samples_floor_percent;
+  const when = rd.amendment.replace(/^(\d{4}-\d\d-\d\d)T(\d\d:\d\d)Z.*$/, '$1 $2 UTC');
+  const RP = (ptr) => ({ path: BREC, ptr: '/reading/' + ptr });
+  const svg = CH.ruler({ w: 900, x0: 0, x1: 60, xTicks: [0, 10, 20, 30, 50, 60].map((v) => ({ v, t: String(v) + (v === 60 ? '%' : '') })), edges: [e1, e2],
+    bands: [{ x0: 0, x1: e1, t: 'HOLDS', token: 'var(--rule-soft)' }, { x0: e1, x1: e2, t: 'OVERSTATED', token: 'var(--rule)' }, { x0: e2, x1: 60, t: 'MOSTLY A SETTINGS EFFECT', token: 'var(--rule-strong)' }],
+    note: 'band edges ' + e1 + ' and ' + e2 + ' fixed ' + when + ' before any such token · MATH-500 accuracy, %',
+    brackets: [{ x0: lo, x1: hi, t: best.arm + ' over all samples: floor ' + lo + ' … decided ' + hi, standing: W.DECIDED, row: 1, anchor: 'end', rec: { path: BREC, ptr: '/conditions/' + best.arm + '/all_samples/acc_floor' } }],
+    marks: [
+      { x: c1, t: 'C1, the control, measured here: ' + c1, standing: W.DECIDED, side: 'above', row: 0, anchor: 'start', rec: RP('control_C1/all_samples_floor_percent') },
+      { x: best.percent, t: best.arm + ', the best no-edit arm: ' + best.percent, standing: W.DECIDED, side: 'above', row: 0, anchor: 'end', rec: RP('best_no_edit_arm/percent') },
+      { x: Number(un), t: 'the post’s unedited run, printed: ' + un, standing: W.COMPUTED, side: 'below', row: 0, anchor: 'start', rec: { path: RREC, ptr: '/post_runs/post_unedited/merged_printed/acc' } },
+      { x: Number(ed), t: 'the post’s edited run, printed: ' + ed, standing: W.COMPUTED, side: 'below', row: 0, anchor: 'end', rec: { path: RREC, ptr: '/post_runs/post_edited_50_passes/merged_printed/acc' } },
+      { x: critic, t: 'the critic’s number, his run not shared: ' + critic, standing: W.COMPUTED, side: 'below', row: 1, anchor: 'end', rec: RP('critic_47_non_thinking/distance_points') }],
+    keys: [{ kind: 'line', token: 'var(--ink)', t: 'measured here, decided (solid)' }, { kind: 'dash', token: 'var(--ink-2)', t: 'a printed number, read (dashed)' }],
+    alt: 'A ruler from 0 to 60 percent. The three pre-registered bands: HOLDS below ' + e1 + ', OVERSTATED from ' + e1 + ' to ' + e2 + ', MOSTLY A SETTINGS EFFECT from ' + e2 + ', their edges fixed ' + when + '. Solid marks, measured here: the control C1 at ' + c1 + '; the best no-edit arm ' + best.arm + ' at ' + best.percent + ', its all-samples floor ' + lo + ' to its decided accuracy ' + hi + '. Dashed marks, read: the post’s ' + un + ' and ' + ed + ', the critic’s ' + critic + '.' });
+  return C.figure({ svgRaw: svg, record: [BREC, RREC], stop: 'the band edges, the best arm’s percent, the control, the post’s two numbers or the critic’s distance do not re-derive from the records, or the verdict word is not the band the best arm falls in',
+    captionRaw: 'The pre-registered ruler: the three bands of Amendment 1, fixed ' + esc(when) + ' before any C2/C3 token existed, and every number the reading weighs. Solid, measured here: the control C1 at ' + dv(BREC, '/reading/control_C1/all_samples_floor_percent', 'raw', 'CORRECT over all samples of C1, as a percent') + ' and the best no-edit arm ' + esc(best.arm) + ' at ' + dv(BREC, '/reading/best_no_edit_arm/percent', 'raw', 'the larger of the first-sample and the all-samples floor of the best card-settings arm') + ' (floor ' + bv(best.arm, 'all_samples/acc_floor', String(lo), 'CORRECT over all samples, as a percent, rounded down') + ' to decided ' + bv(best.arm, 'all_samples/acc_decided', String(hi), 'CORRECT over CORRECT + WRONG among all samples, as a percent, rounded up') + '). Dashed, read: the post’s ' + cFrom(un, RREC + '#/post_runs/post_unedited/merged_printed/acc', WHY_THEIRS) + ' and ' + cFrom(ed, RREC + '#/post_runs/post_edited_50_passes/merged_printed/acc', WHY_THEIRS) + ', the critic’s ' + cFrom(String(critic), BREC + '#/reading/critic_47_non_thinking/distance_points', 'a number in a thread, read from the reading’s rule; his run is REFUSED until shared') + ' — a number in a thread, his run not shared. The reading: ' + esc(RW()) + '.' });
+}
 function sec4Run() {
   const conds = Object.keys(Bx.conditions).sort(), first = Bx.conditions[conds[0]].meta;
   const dev = conds.filter((c) => Bx.conditions[c].meta.samples !== 4).map((c) => c + ' (' + Bx.conditions[c].meta.samples + ')');
@@ -136,7 +259,9 @@ function sec4Run() {
       + 'Accuracy is given two ways, as pre-registered: on the decided subset (CORRECT over CORRECT + WRONG) and as a floor (REFUSED counted wrong). The record (certs/wsp-baseline.json) holds every verdict and every pin.')
       + C.table({ cols: [{ h: '' }, { h: 'condition' }, { h: 'model' }, { h: 'first samples answered' }, { h: 'first sample: decided / floor' }, { h: 'all samples: decided / floor' }, { h: 'hit the token limit' }, { h: 'mean tokens' }],
         rows: conds.map(condRow).concat([postRow('post_unedited', 'the post’s own unedited run, as printed (their settings = C1)'), postRow('post_edited_50_passes', 'the post’s edited run, as printed')]) })
+      + figLoop()
       + C.pRaw('<b>The pre-registered reading, applied as written.</b> ' + esc(Bx.reading.rule) + ' Here: <b>' + esc(RW()) + '</b> — ' + floorMarks() + '.')
+      + (Bx.reading.best_no_edit_arm ? figRuler() : '')
       + C.pRaw('<b>Read beside §3.</b> The control C1 is the post’s own protocol run again on the unedited model; the card’s settings are what Qwen tells users to run. Whatever the table says, the counting is the same exact grader on every row, and a REFUSED answer is listed in the record with its reason, never scored.')
       + NOT_CLAIMED
   });
