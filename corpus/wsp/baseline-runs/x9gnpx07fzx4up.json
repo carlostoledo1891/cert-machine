@@ -6,17 +6,17 @@
   "conditions_requested": "C1 C3 C2 C4",
   "deadline_hours": 4.5,
   "status": {
-   "phase": "running C3",
-   "done": " C1",
+   "phase": "running C2",
+   "done": " C1 C3",
    "audit": "243a589ac03390a40fa6255c8b5f87630418f6a3",
    "conditions": "C1 C3 C2 C4",
    "deadline_hours": 4.5,
-   "elapsed_s": 5110,
-   "updated": "2026-11-03T12:36:59Z"
+   "elapsed_s": 6176,
+   "updated": "2026-11-03T12:54:45Z"
   },
   "build": "audit 243a589ac03390a40fa6255c8b5f87630418f6a3\n041eb507cae1ff7221a82c132cf93c1a8def154a8cc899249a99761a08eed744  /w/wsp-baseline-eval.py\ne73794c1e3c68a21bdbcfed42260b0a5edbf008c342869642ace82754580d138  /w/PINS.json\nNVIDIA H200, 595.91.07, 143771 MiB\nvllm 0.33.0 transformers 5.20.2 torch 2.14.0+cu130 cuda 13.0 True\n96\n               total        used        free      shared  buff/cache   available\nMem:            2015          79         357          14        1605        1935\noverlay          40G   16M   40G   1% /\n"
  },
- "imported": "2026-11-03T12:38:07.149Z",
+ "imported": "2026-11-03T13:15:00.528Z",
  "conditions": {
   "C1": {
    "condition": "C1",
@@ -60,6 +60,50 @@
    "samples_sha256": "7cd9b150bc2cdd2394041ecad0300f2e630e036c37e864b1c9ef09203a9a7928",
    "samples_bytes": 9585916,
    "samples_file": "corpus/wsp/.cache/baseline-runs/x9gnpx07fzx4up/C1/samples.jsonl.gz"
+  },
+  "C3": {
+   "condition": "C3",
+   "model_dir": "/w/base",
+   "thinking": false,
+   "sampling": {
+    "temperature": 1,
+    "top_p": 1,
+    "top_k": 20,
+    "min_p": 0,
+    "presence_penalty": 2,
+    "max_tokens": 32768,
+    "seed": 0
+   },
+   "samples": 4,
+   "n_problems": 500,
+   "instruction": "Please reason step by step, and put your final answer within \\boxed{}.",
+   "prompt_form": "problem + '\\n' + instruction, one user turn, add_generation_prompt, enable_thinking=False",
+   "prompts_sha256": "5812ad73f6d3d1a53391be43ee709995ce6665348ae00e82df35a4a30eb38278",
+   "chat_template_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+   "prompt_example": "<|im_start|>user\nConvert the point $(0,3)$ in rectangular coordinates to polar coordinates.  Enter your answer in the form $(r,\\theta),$ where $r > 0$ and $0 \\le \\theta < 2 \\pi.$\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+   "versions": {
+    "vllm": "0.33.0",
+    "transformers": "5.20.2",
+    "torch": "2.14.0+cu130",
+    "cuda": "13.0",
+    "python": "3.12.3"
+   },
+   "gpu": "NVIDIA H200",
+   "max_model_len": 34816,
+   "gpu_memory_utilization": 0.85,
+   "llm_seed": 0,
+   "started": "2026-11-03T12:37:07Z",
+   "seconds": 991,
+   "generations": 2000,
+   "tokens_sum": 18114139,
+   "mean_tokens": 9057.0695,
+   "cut": 6,
+   "cut_share": 0.003,
+   "boxed_mentions": 1984,
+   "finished": "2026-11-03T12:54:40Z",
+   "samples_sha256": "59e12fbec5735ce422639bc25e1e24845c9f43b4dd038ce65ec1577148d7d6f8",
+   "samples_bytes": 15200505,
+   "samples_file": "corpus/wsp/.cache/baseline-runs/x9gnpx07fzx4up/C3/samples.jsonl.gz"
   }
  }
 }
