@@ -215,6 +215,31 @@ async function main() {
     return;
   }
 
+  if (cmd === 'get') {
+    /* one public post by id or URL, with its links expanded (a scout's read; billed by X like any read) */
+    const K = keys();
+    const t = (await call(K, 'GET', '/tweets/' + idOf(rest[0]), { query: { 'tweet.fields': 'created_at,entities,public_metrics,author_id' } })).data;
+    console.log(t.created_at + '  ' + t.text.replace(/\s+/g, ' '));
+    for (const u of ((t.entities || {}).urls || [])) console.log('  → ' + u.expanded_url);
+    return;
+  }
+  if (cmd === 'search') {
+    /* the last seven days of public posts matching a query (X API v2 recent search; each read is billed by X), the
+       top ones by likes — a scout's read, never a send. usage: node tools/x.js search "QUERY" [--max N] */
+    const q = rest.filter((r) => !r.startsWith('--') && r !== opt('--max'))[0];
+    if (!q) die('search needs a query');
+    const K = keys();
+    const r = await call(K, 'GET', '/tweets/search/recent', { query: { query: q, max_results: String(Math.min(100, Math.max(10, Number(opt('--max') || 50)))),
+      'tweet.fields': 'created_at,public_metrics,entities,author_id,conversation_id', expansions: 'author_id', 'user.fields': 'username,name' } });
+    const users = Object.fromEntries(((r.includes || {}).users || []).map((u) => [u.id, u.username]));
+    const rows = (r.data || []).map((t) => ({ likes: t.public_metrics.like_count, rts: t.public_metrics.retweet_count, at: t.created_at.slice(0, 16),
+      user: users[t.author_id] || t.author_id, id: t.id, text: t.text.replace(/\s+/g, ' '),
+      urls: ((t.entities || {}).urls || []).map((u) => u.expanded_url).filter((u) => u && !/x\.com|twitter\.com/.test(u)) }));
+    rows.sort((a, b) => b.likes - a.likes);
+    for (const x of rows) console.log(x.likes + '♥ ' + x.rts + '↻ ' + x.at + ' @' + x.user + ' x.com/' + x.user + '/status/' + x.id + '\n   ' + x.text.slice(0, 300) + (x.urls.length ? '\n   → ' + x.urls.join(' ') : ''));
+    console.log('-- ' + rows.length + ' post(s) for ' + JSON.stringify(q));
+    return;
+  }
   if (cmd === 'mentions') {
     const K = keys();
     const me = (await call(K, 'GET', '/users/me')).data;
