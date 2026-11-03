@@ -28,7 +28,7 @@ NEXT SESSION, IN ORDER:
      /og-wsp.png, /og-eth.png). `make test`: 191 PASS; the ruler alone green (its red in the suite was a Chrome collision with a page
      build — never run make page and make test together). DISK: 47 merged clean agent worktrees removed (2.4 GB → 55 GB free; memory
      worktrees-fill-the-disk). SENT today: the authors' issue #4, the one-line reply under Takehi's post, the standalone X post (all logged).
-     WAITING: C2 on the pod (→ import; C4 only if C2 ends by ~19:00 UTC, the US$60 cap is 21:20), Hawkley's e-mail (the operator sends),
+     WAITING: C2 on the pod (→ import; C4 only if C2 ends by ~19:00 UTC, the US$60 cap is 21:20), Hawkley's e-mail SENT by the operator ~16:15 UTC (logged),
      the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand), the ETH X post d13 tomorrow.
   ◆ STATE AT 14:15 UTC 2026-11-03 (the operator approved US$75 total; RunPod topped up): WEIGHTS — C1 and C3 imported, graded,
      on the page (§4: mostly a settings effect; §4b: the six side claims); C2 running on x9gnpx07fzx4up (ends ~17:30), then
