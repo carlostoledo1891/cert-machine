@@ -27,7 +27,13 @@ NEXT SESSION, IN ORDER:
      243a589a; conditions C1 C3 C2 C4, no condition starts after 4.5 h). Facts: https://x9gnpx07fzx4up-8000.proxy.runpod.net/
      _status.json (phase, done). When phase is "complete" (or a FAILED / deadline phase after the finished conditions):
      `node tools/import-runpod-wsp.js x9gnpx07fzx4up`, then `python3 -I tools/wsp-baseline.py` → certs/wsp-baseline.json,
-     then delete-pod x9gnpx07fzx4up and get-pod → 404, and strike this line. The operator said "Run stage 3" on 11-03.
+     then delete-pod x9gnpx07fzx4up and get-pod → 404, and strike this line. The operator said "Run stage 3" on 11-03;
+     at 12:15 UTC approved US$75 total across both pods (Weights cap US$60 incl. C4 at 4 samples; ETH cap US$15).
+  ◆ A SECOND POD MAY BE BILLING (2026-11-03 12:21 UTC): dumwx3gz82jcvf — the HEAVY link of Hawkley's ETH bridge
+     (cpu3m 16 vCPU / 128 GB, US-GA-2, US$0.88/h, cap US$15; tools/runpod-eth-hawkley.sh at c4c45765). Facts:
+     https://dumwx3gz82jcvf-8000.proxy.runpod.net/_status.json (_phase; hawkley). When _phase is "complete":
+     `node tools/import-runpod-eth-hawkley.js dumwx3gz82jcvf`, then the recorder on branch eth-hawkley-replay (the fork's
+     tools/record-eth-hawkley.js, to be extended with the heavy facts), then delete-pod dumwx3gz82jcvf, get-pod → 404.
   ★★ 2026-11-02 night — WEIGHT-SPACE PROGRAMMING: STAGES 1–2 DONE, THE PAGE BUILT, STAGE 3 WAITS ON THE OPERATOR.
      The plan ran as written (notes/wsp-verification-plan-2026-11-02.md; status at its foot). RECORDS: certs/wsp-weights.json
      (tools/wsp-weights.js + instruments/wsp/weights.py, two deciders sharing no code, sub-claims stated first in
