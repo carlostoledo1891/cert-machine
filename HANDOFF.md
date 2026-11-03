@@ -47,9 +47,20 @@ NEXT SESSION, IN ORDER:
      (6) make test: 192 PASS; the ruler red in the suite, green alone (the known collision). LEFT UNTOUCHED, uncommitted:
      four timing-only battery rewrites (corpus/blindspot/{record,inspect-record}.json, corpus/navier-stokes/probes.json,
      paper/tex/riemann-finite-layer-numbers.tex) — revert or commit, the operator's call (the session's checkout was refused).
-     STARTED ON THE OPERATOR'S WORD (19:40 UTC): VERIFY SEAL — a stdlib seal tool (seal / stamp / open; a salted sha256
-     commitment with public anchors), its battery, a design note and a /verify/ page diff FOR REVIEW, NOT DEPLOYED: parked on
-     branch verify-seal. Replies to watch unchanged: lm_understand-logs #4 (window ends 11-04 ~14:45 UTC), TSavo #1,
+     VERIFY SEAL BUILT ON THE OPERATOR'S BRIEF (19:40–21:20 UTC), FOR REVIEW, NOT DEPLOYED — branch verify-seal (pushed,
+     5affc8c4 + the Makefile fix): instruments/seal/{seal.py,battery.py,test_seal.py,README.md} (stdlib; seal / stamp / open;
+     digest = SHA256('verify-seal-v1\n' || salt32 || SHA256(archive)); a deterministic tar; two anchors — OpenTimestamps and the
+     registry commit — never faked: no client / no clone / not upgraded → REFUSED), certs/seal-battery.json (12 planted
+     forgeries, 0 certified; 23 cases; 3 red controls; its FIRST RUN CAUGHT A BUG: `re.match` with `$` let a newline-terminated
+     salt through — now fullmatch), the digest-only registry (.github/ISSUE_TEMPLATE/seal.yml, seals/registry.jsonl,
+     tools/seal-registry.py add/--check), notes/verify-seal-design-2026-11-03.md (threat model; Phase 2 = a v2 per-file salted
+     manifest, RECOMMENDED, NOT BUILT; Phase 3 built minimal), three battery rows (make test on the branch: 195 PASS, wiring
+     green alone), /verify/ on the branch: the ninth card 'Verify Seal' (In development; '0 bytes of the idea leave your
+     machine, by design', no mark) + the section 'Share the problem without giving it away' (Seal · Anchor · Open · Decide;
+     'What a seal does not say'; ONE Tao sentence linked to his AI-views page — the Math 2.0 video is on the AIM site, not
+     SAIR's channel: THE OPERATOR PASTES THE VIDEO URL), the dropdown's ninth product. TO MERGE: the operator reviews the
+     diff (tools/verify-page.js, design/contact.js), then merge verify-seal into main, `make page` (sync) + `make test`, push.
+     Not built: a /reports/ page for the seal (the operator's question; recommendation in the session's report). Replies to watch unchanged: lm_understand-logs #4 (window ends 11-04 ~14:45 UTC), TSavo #1,
      rpi-index #1, formal-math #36, Hawkley's e-mail; the critic's URL and the zaibatsu reply still the operator's.
   ★★ 2026-11-03 ~17:50 UTC — START HERE: REVIEW /verify/ AND ITS LINKS; IMPROVE; ADD WHAT IS NEW AND VALUABLE (the operator's
      handoff request). The page: site/verify/ (built straight into site/ by its builder — see tools/build-site.js around the
