@@ -32,7 +32,7 @@ NEXT SESSION, IN ORDER:
      the heavy facts → certs/eth-hawkley-heavy.json (apps/eth/build.js already reads it: word, why), rebuild /eth/, delete the
      pod. SENDS: the authors' GitHub issue POSTED 14:45 UTC (RikiyaT/lm_understand-logs #4, corpus/outreach.json) with a 24 h window;
      DECIDED 14:40: the thread reply + X post TOMORROW MORNING after the window; C4 runs; the critic's reply after the operator
-     pastes his thread URL; Hawkley's e-mail after the heavy record, offering the seam run. Still to send: the thread reply (notes/x/reply-wsp-2026-11-03.txt), the X post d12 after C2/C4, the critic (needs his thread URL),
+     pastes his thread URL; Hawkley's e-mail after the heavy record, offering the seam run. The ONE-reply version POSTED BY THE OPERATOR 14:06 UTC (x.com/_carlos_toledo_/status/2117619511759188081, logged). Still to send: the X post d12 + the ETH post d13 (next morning), the critic (his URL), Hawkley's e-mail (the operator sends it; log when confirmed). Earlier words: (notes/x/reply-wsp-2026-11-03.txt), the X post d12 after C2/C4, the critic (needs his thread URL),
      the Hawkley e-mail after his heavy record, an ETH X post tomorrow. The adversarial review: notes/wsp-adversarial-review-2026-11-03.md.
   ◆ A POD MAY BE BILLING (2026-11-03 10:03 UTC): x9gnpx07fzx4up — WSP Stage 3, the unedited baseline (NVIDIA H200, secure,
      EUR-IS-4, US$5.29/h, hard stop US$40 ≈ 7.5 h; image vllm/vllm-openai:v0.33.0; tools/runpod-wsp-baseline.sh at

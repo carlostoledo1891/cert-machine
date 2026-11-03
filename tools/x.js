@@ -19,6 +19,7 @@
                                                      "---"; previews each with its weighted length (≤ 280), and
                                                      publishes only with --send
      node tools/x.js mentions [--max N]              the latest mentions (each read is billed by X)
+     node tools/x.js recent [--max N]                the account's own latest posts (to review a post made by hand)
 
    Every published post is appended to ~/.config/cert-machine/x-sent.jsonl (id, url, text, time).       MIT */
 'use strict';
@@ -221,6 +222,17 @@ async function main() {
     return;
   }
 
-  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | show URL | users h1,h2 | follow h1,h2 [--send] | mentions [--max N]');
+  if (cmd === 'recent') {
+    /* the account's own latest posts (each read is billed by X): to review what the operator posted by hand */
+    const K = keys();
+    const me = (await call(K, 'GET', '/users/me')).data;
+    const r = await call(K, 'GET', '/users/' + me.id + '/tweets', { query: { max_results: String(Math.min(100, Math.max(5, Number(opt('--max') || 5)))),
+      'tweet.fields': 'created_at,conversation_id,in_reply_to_user_id,public_metrics,entities' } });
+    for (const t of r.data || []) console.log(t.created_at + '  https://x.com/i/status/' + t.id + (t.conversation_id !== t.id ? '  (in conversation ' + t.conversation_id + ')' : '') + '\n  ' + t.text.replace(/\n/g, '\n  ') + '\n  metrics ' + JSON.stringify(t.public_metrics));
+    if (!(r.data || []).length) console.log('no posts');
+    return;
+  }
+
+  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | show URL | users h1,h2 | follow h1,h2 [--send] | mentions [--max N] | recent [--max N]');
 }
 main().catch((e) => die(e.stack || String(e)));
