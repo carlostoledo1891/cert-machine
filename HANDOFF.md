@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ STATE AT 16:05 UTC 2026-11-03: BOTH PAGES LIVE WITH FIGURES (the operator: "improve the pages visually") — Weights §4: the loop
+     made visible (tokens per sample per arm; charts.js `hist`) and the pre-registered ruler (`ruler`), battery F7/F8; /eth/ §5: the map
+     of the proofs and the seam grid (helpers inside apps/eth/build.js). Both pages carry their own share card (tools/build-og-report.js,
+     /og-wsp.png, /og-eth.png). `make test`: 191 PASS; the ruler alone green (its red in the suite was a Chrome collision with a page
+     build — never run make page and make test together). DISK: 47 merged clean agent worktrees removed (2.4 GB → 55 GB free; memory
+     worktrees-fill-the-disk). SENT today: the authors' issue #4, the one-line reply under Takehi's post, the standalone X post (all logged).
+     WAITING: C2 on the pod (→ import; C4 only if C2 ends by ~19:00 UTC, the US$60 cap is 21:20), Hawkley's e-mail (the operator sends),
+     the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand), the ETH X post d13 tomorrow.
   ◆ STATE AT 14:15 UTC 2026-11-03 (the operator approved US$75 total; RunPod topped up): WEIGHTS — C1 and C3 imported, graded,
      on the page (§4: mostly a settings effect; §4b: the six side claims); C2 running on x9gnpx07fzx4up (ends ~17:30), then
      C4 needs a RESTART of the container with CONDITIONS="C4" DEADLINE_HOURS=24 (update-pod env + pod-action restart; import
