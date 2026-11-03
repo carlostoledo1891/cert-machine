@@ -21,13 +21,21 @@ const die = (m) => { console.error('WSP REPORT REFUSED: ' + m); process.exit(1);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
 /* ---- both records re-check before a word is written ---- */
-for (const [cmd, args] of [['node', ['tools/wsp-weights.js', '--check']], ['python3', ['-I', 'tools/wsp-regrade.py', '--check']]]) {
+const BREC = 'certs/wsp-baseline.json', HAS_B = fs.existsSync(path.join(ROOT, BREC));   /* Stage 3, when it has run */
+for (const [cmd, args] of [['node', ['tools/wsp-weights.js', '--check']], ['python3', ['-I', 'tools/wsp-regrade.py', '--check']], ...(HAS_B ? [['python3', ['-I', 'tools/wsp-baseline.py', '--check']]] : [])]) {
   const r = cp.spawnSync(cmd, args, { cwd: ROOT, encoding: 'utf8' });
   if (r.status !== 0) die(args[0] + ' does not re-check: ' + String(r.stderr || r.stdout).trim());
 }
 const WREC = 'certs/wsp-weights.json', RREC = 'certs/wsp-regrade.json';
 const J = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 const R = J(WREC), G = J(RREC);
+const Bx = HAS_B ? J(BREC) : null;
+if (Bx) {
+  if (!Bx.conditions || !Object.keys(Bx.conditions).length) die('the baseline record holds no condition');
+  for (const [c, d] of Object.entries(Bx.conditions)) if (d.n_problems !== 500) die('condition ' + c + ' did not cover the 500 problems');
+  if (!/^(the ’6×’ is mostly the baseline’s settings|the '6×' is mostly the baseline's settings|the edit’s gain stands|the edit's gain stands|between|NEEDS DATA)/.test(Bx.reading.verdict)) die('the baseline reading is not one of the pre-registered outcomes: ' + Bx.reading.verdict);
+  if (Bx.not_cached && Bx.not_cached.length) die('the baseline record was written with conditions not cached');
+}
 const F = R.js.facts, V = R.verdicts;
 const T15 = 'model.language_model.layers.15.mlp.down_proj.weight', T19 = 'model.language_model.layers.19.mlp.down_proj.weight';
 const UN = G.post_runs.post_unedited, ED = G.post_runs.post_edited_50_passes;
@@ -81,6 +89,56 @@ function figBoxed() {
     alt: 'Six bars. Unedited: ' + UN.tally.boxed + ' of 500 first samples end in a closed box, ' + UN.tally.boxed_their_1 + ' correct by their grader, ' + UN.tally.boxed_our_CORRECT + ' by the exact grader. Edited: ' + ED.tally.boxed + ' boxed, ' + ED.tally.boxed_their_1 + ' correct by theirs, ' + ED.tally.boxed_our_CORRECT + ' of ' + ED.tally.boxed_decided + ' decided by ours.' });
 }
 
+/* ---- Stage 3, the baseline record (when it exists): addresses, rows, the pre-registered reading ---- */
+const NOT_CLAIMED = C.pRaw('<b>What is not claimed.</b> That the edit is small or large in effect beyond the released flags; that the mechanism is as described (read from the run’s notes, not probed here); anything about GSM8K, IFEval or the other benchmarks beyond re-reading their printed numbers; that math-verify is wrong anywhere (it agreed with the exact grader on every decided answer).');
+const COND_WORDS = { C1: 'the post’s settings: temperature 0.6, top_p 0.95, presence penalty 1.5, 32,768 tokens, thinking on (the control)', C2: 'the card’s thinking-mode text settings: temperature 1.0, top_p 0.95, presence penalty 1.5, 81,920 tokens, thinking on',
+  C3: 'the card’s non-thinking text settings: temperature 1.0, top_p 1.0, presence penalty 2.0, 32,768 tokens, thinking off', C4: 'the EDITED checkpoint under C2’s settings' };
+const bA = (c, k) => BREC + '#/conditions/' + c + '/' + k;
+const bv = (c, k, text, why) => dFrom(text, bA(c, k), why);
+const pctOr = (x) => x == null ? '—' : pct1(x);
+const RW = () => Bx.reading.verdict.split(':')[0].replace(/'/g, '’');
+const floorMarks = () => Object.keys(Bx.conditions).filter((c) => c !== 'C4').map((c) => c + ' ' + bv(c, 'all_samples/acc_floor', pct1(Bx.conditions[c].all_samples.acc_floor), 'CORRECT over all samples of ' + c + ' (REFUSED counted wrong)')).join(', ');
+function baselineTldr() {
+  const parts = [];
+  if (Bx.conditions.C3) parts.push(bv('C3', 'all_samples/acc_floor', pct1(Bx.conditions.C3.all_samples.acc_floor), 'CORRECT over all samples of C3 (REFUSED counted wrong)') + ' under the card’s non-thinking settings');
+  if (Bx.conditions.C2) parts.push(bv('C2', 'all_samples/acc_floor', pct1(Bx.conditions.C2.all_samples.acc_floor), 'CORRECT over all samples of C2 (REFUSED counted wrong)') + ' under its thinking settings with 81,920 tokens');
+  return 'With no edit, under Qwen’s own recommended settings (§4, run 2026-11-03), the base model scores ' + parts.join(' and ') + ' on MATH-500, against the post’s 7.9 and the edit’s 48.1'
+    + (Bx.conditions.C1 ? '; the post’s own settings give ' + bv('C1', 'all_samples/acc_floor', pct1(Bx.conditions.C1.all_samples.acc_floor), 'CORRECT over all samples of C1 (REFUSED counted wrong)') + ' here' : '')
+    + (Bx.conditions.C4 ? '; the edited checkpoint under the card’s thinking settings gives ' + bv('C4', 'all_samples/acc_floor', pct1(Bx.conditions.C4.all_samples.acc_floor), 'CORRECT over all samples of C4 (REFUSED counted wrong)') : '')
+    + '. The pre-registered reading: ' + esc(RW()) + '.';
+}
+function g5Decided() {
+  return 'Under the card’s settings the unedited model scores ' + floorMarks() + ' (all samples, REFUSED counted wrong; the decided-subset accuracies and the first-sample ones are in the table). The pre-registered reading: <b>' + esc(RW()) + '</b>.';
+}
+function condRow(c) {
+  const d = Bx.conditions[c], f = d.first_sample, a = d.all_samples, mt = d.meta;
+  return [c, COND_WORDS[c] + (mt.samples !== 4 ? ' — ' + mt.samples + ' sample' + (mt.samples === 1 ? '' : 's') + ' per problem, a stated deviation from the pre-registered 4' : ''), mt.model === 'edited' ? 'edited' : 'unedited',
+    { raw: bv(c, 'first_sample/boxed_share', pct1(f.boxed_share), 'first samples ending in a closed box, over 500') },
+    { raw: bv(c, 'first_sample/acc_decided', pctOr(f.acc_decided), 'CORRECT over CORRECT + WRONG among first samples (REFUSED neither)') + ' / ' + bv(c, 'first_sample/acc_floor', pct1(f.acc_floor), 'CORRECT over 500 first samples (REFUSED counted wrong)') },
+    { raw: bv(c, 'all_samples/acc_decided', pctOr(a.acc_decided), 'CORRECT over CORRECT + WRONG among all samples') + ' / ' + bv(c, 'all_samples/acc_floor', pct1(a.acc_floor), 'CORRECT over all samples (REFUSED counted wrong)') },
+    { raw: bv(c, 'all_samples/cut_share', pct1(a.cut_share), 'generations that reached max_tokens, over all samples') },
+    { raw: bv(c, 'all_samples/mean_tokens', num(Math.round(a.mean_tokens)), 'mean generated tokens per sample, rounded') }];
+}
+function postRow(key, lab) {
+  return ['', lab, key === 'post_unedited' ? 'unedited' : 'edited', '—', '—', { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/acc', 'raw', WHY_THEIRS) + ' (printed, 4 samples)' },
+    { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/cut_share', 'raw', WHY_THEIRS) }, { raw: cv(RREC, '/post_runs/' + key + '/merged_printed/mean_tokens', 'raw', WHY_THEIRS) }];
+}
+function sec4Run() {
+  const conds = Object.keys(Bx.conditions).sort(), first = Bx.conditions[conds[0]].meta;
+  const dev = conds.filter((c) => Bx.conditions[c].meta.samples !== 4).map((c) => c + ' (' + Bx.conditions[c].meta.samples + ')');
+  return C.section({
+    lab: '§4 · the baseline', title: 'The unedited model under its maker’s settings, run and graded', wide: true,
+    bodyRaw: C.pRaw('Pre-registered on 2026-11-02 (notes/wsp-stage3-preregistration-2026-11-02.md) before anything ran; run on 2026-11-03 on one rented ' + esc(first.gpu || 'GPU') + ' with vLLM ' + esc(first.versions.vllm) + ' (the version of the card’s own re-run) from the pinned checkpoints and MATH-500, the prompt and the chat template of the post’s own evaluate.py; '
+      + dFrom(String(conds.length), BREC + '#/conditions', 'the conditions in the record') + ' conditions, ' + (dev.length ? 'four samples per problem except ' + esc(dev.join(', ')) + ' — a deviation from the pre-registration, stated here and in the record' : 'four samples per problem as pre-registered') + '; every generated text brought to the desk and graded by the grader of §3, ' + dv(RREC, '/gold/decidable') + ' of the 500 gold answers in its reach. '
+      + 'Accuracy is given two ways, as pre-registered: on the decided subset (CORRECT over CORRECT + WRONG) and as a floor (REFUSED counted wrong). The record (certs/wsp-baseline.json) holds every verdict and every pin.')
+      + C.table({ cols: [{ h: '' }, { h: 'condition' }, { h: 'model' }, { h: 'first samples answered' }, { h: 'first sample: decided / floor' }, { h: 'all samples: decided / floor' }, { h: 'hit the token limit' }, { h: 'mean tokens' }],
+        rows: conds.map(condRow).concat([postRow('post_unedited', 'the post’s own unedited run, as printed (their settings = C1)'), postRow('post_edited_50_passes', 'the post’s edited run, as printed')]) })
+      + C.pRaw('<b>The pre-registered reading, applied as written.</b> ' + esc(Bx.reading.rule) + ' Here: <b>' + esc(RW()) + '</b> — ' + floorMarks() + '.')
+      + C.pRaw('<b>Read beside §3.</b> The control C1 is the post’s own protocol run again on the unedited model; the card’s settings are what Qwen tells users to run. Whatever the table says, the counting is the same exact grader on every row, and a REFUSED answer is listed in the record with its reason, never scored.')
+      + NOT_CLAIMED
+  });
+}
+
 const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · audit · Weight-Space Programming (MIT CSAIL) · found 2026-11-02 at RikiyaT/Qwen3.5-0.8B-weight-space-programming ' + R.claims.edited.revision.slice(0, 8),
@@ -92,7 +150,7 @@ B.push(C.header({
 }));
 B.push(C.scope('Published as a blog post, an X thread and a model card, not peer-reviewed. The checkpoints (Qwen/Qwen3.5-0.8B @ ' + R.claims.base.revision.slice(0, 8) + ', the edited release @ ' + R.claims.edited.revision.slice(0, 8)
   + '), the logs repository (RikiyaT/lm_understand-logs @ 4d09ba6d), MATH-500 (HuggingFaceH4 @ 6e4ed1a2) and Qwen’s model card were fetched 2026-11-02 and every file is pinned by sha256 in corpus/wsp/PINS.json. '
-  + 'The claimants’ scripts (make_edit_diff.py, apply_edit.py, mathqa.py) were read as text and never run. What is decided: the tensor diff, its counts, its columns, the printed hashes, the first-sample answers. What is read: the benchmark scores themselves (no model was run here), the mechanism, the baseline’s settings.'));
+  + 'The claimants’ scripts (make_edit_diff.py, apply_edit.py, mathqa.py) were read as text and never run. What is decided: the tensor diff, its counts, its columns, the printed hashes, the first-sample answers. ' + (Bx ? 'What is run here (§4, 2026-11-03): the unedited model under the pre-registered conditions on one rented GPU, every text graded by the same exact grader. What is read: the post’s own benchmark scores, the mechanism.' : 'What is read: the benchmark scores themselves (no model was run here), the mechanism, the baseline’s settings.')));
 
 B.push(C.tldr({
   findingRaw: '<b>The edit is real and exactly as released; the two printed sizes are off; the scores re-grade identically.</b> '
@@ -103,7 +161,7 @@ B.push(C.tldr({
     + dv(WREC, fr('131072/language_model') + 'percent_rounded_3dp', 'raw') + '%. The edit is not “the direction subtracted” but six times its projection removed — the component along it reversed and amplified five-fold (the run’s own formula; the bytes show the ratio '
     + cv(WREC, '/witness_proposer/' + T15 + '/alpha_over_u_dot_Wc/mean', 'fixed:3', WHY_DOSE) + ' and ' + cv(WREC, '/witness_proposer/' + T19 + '/alpha_over_u_dot_Wc/mean', 'fixed:3', WHY_DOSE) + '). '
     + 'Of the post’s 500 unedited first samples only ' + tally('post_unedited', 'boxed') + ' end in a closed box, and every one of them is correct; of the edited run’s, ' + tally('post_edited_50_passes', 'boxed') + ' do, ' + tally('post_edited_50_passes', 'boxed_their_1') + ' correct. '
-    + 'The gain is termination. Whether a looping baseline under the post’s settings is the right denominator for “6×” is the open question (§1, G5): Qwen’s own card warns the 0.8B loops under those settings and recommends others.',
+    + 'The gain is termination. ' + (Bx ? baselineTldr() : 'Whether a looping baseline under the post’s settings is the right denominator for “6×” is the open question (§1, G5): Qwen’s own card warns the 0.8B loops under those settings and recommends others.'),
   mechanismRaw: 'Two checkpoints, parsed from their safetensors headers, compared tensor by tensor as bytes and — where a dtype could differ — as exact rationals; the changed entries counted, their rows and columns listed, the parameter counts summed from the shapes, '
     + 'every fraction kept as an exact rational and rounded once to three decimals; a rank-1 witness (u, α) proposed by an SVD and an interval search, then checked entry by entry in binary32 arithmetic with round-to-nearest-even to bfloat16; '
     + 'a three-valued grader that canonicalises an answer to an exact object (rationals, radicals, multiples of π, complex numbers, tuples, degrees, base-n literals, words) or refuses it, run on every released answer string and text.',
@@ -141,10 +199,10 @@ B.push(C.section({
       + dFrom(num(UN.tally.texts + ED.tally.texts + CR.tally.texts + G.card_runs.card_smoke_base.tally.texts), [RREC + '#/post_runs/post_unedited/tally/texts', RREC + '#/post_runs/post_edited_50_passes/tally/texts', RREC + '#/card_runs/card_rerun_edited/tally/texts', RREC + '#/card_runs/card_smoke_base/tally/texts'], 'the released full texts') + ' texts; the flags re-sum to the printed accuracies exactly ('
       + dFrom(ED.acc_resummed_all_samples.toFixed(4), RREC + '#/post_runs/post_edited_50_passes/acc_resummed_all_samples', 'the mean of the 2,000 released flags, to four decimals') + ' against the printed ' + cv(RREC, '/post_runs/post_edited_50_passes/merged_printed/acc', 'raw', WHY_THEIRS) + ').')
       + C.pRaw('<b>What would close it.</b> The 2,000 generations per run, as the card’s re-run released its flags.') }),
-    C.note({ lab: 'G5 · baseline · a reading, not decided', bodyRaw: C.pRaw('<b>The 7.9% baseline is a looping regime that the base model’s own card warns about.</b> Under the post’s settings (temperature 0.6, 32,768 tokens) ' + cFrom(pct1(UN.merged_printed.cut_share), RREC + '#/post_runs/post_unedited/merged_printed/cut_share', 'the claimants’ own cut share, as printed in their merged.json; read, not decided') + ' of the unedited MATH-500 answers hit the token limit (their merged.json). '
+    C.note({ lab: Bx ? 'G5 · baseline · decided 2026-11-03 (§4)' : 'G5 · baseline · a reading, not decided', bodyRaw: C.pRaw('<b>The 7.9% baseline is a looping regime that the base model’s own card warns about.</b> Under the post’s settings (temperature 0.6, 32,768 tokens) ' + cFrom(pct1(UN.merged_printed.cut_share), RREC + '#/post_runs/post_unedited/merged_printed/cut_share', 'the claimants’ own cut share, as printed in their merged.json; read, not decided') + ' of the unedited MATH-500 answers hit the token limit (their merged.json). '
       + 'Qwen’s model card for Qwen3.5-0.8B, pinned at the same revision, says: “In thinking mode, we have observed that when using the recommended sampling parameters, Qwen3.5-0.8B is more prone to entering thinking loops compared to other Qwen3.5 models”; its recommended thinking-mode text settings are temperature 1.0 with 81,920 output tokens for competition math, and its own table reports IFEval 44.0 (thinking) / 52.1 (non-thinking) for the base model against the post’s 21.0. '
-      + 'The multipliers in the post (“6×”, “3×”) are measured against that baseline. The edited IFEval 62.3 is above the card’s numbers, so the edit does something real; how much of 7.9 → 48.1 a no-edit configuration recovers is not decided here. It would be by one GPU run (§4), pre-registered and not yet made.')
-      + C.pRaw('<b>What would close it.</b> The unedited model under the card’s settings, on the same grader, beside the post’s table.') }),
+      + 'The multipliers in the post (“6×”, “3×”) are measured against that baseline. The edited IFEval 62.3 is above the card’s numbers, so the edit does something real; ' + (Bx ? 'how much of 7.9 → 48.1 a no-edit configuration recovers was decided here on 2026-11-03 by one GPU run (§4), pre-registered the day before.' : 'how much of 7.9 → 48.1 a no-edit configuration recovers is not decided here. It would be by one GPU run (§4), pre-registered and not yet made.'))
+      + (Bx ? C.pRaw('<b>Closed 2026-11-03.</b> ' + g5Decided()) : C.pRaw('<b>What would close it.</b> The unedited model under the card’s settings, on the same grader, beside the post’s table.')) }),
     C.note({ lab: 'G6 · selection · a reading', bodyRaw: C.pRaw('<b>48.1 is one run of several.</b> The logs’ results table lists the three prompt-v3 runs the post reports (10, 25, 50 passes: 12.3, 14.1, 48.1 on MATH-500), two prompt-v4 runs (7.9 with no edit submitted; 14.1), earlier runs that submitted no edit, and prompt-v5 runs still pending. No variance across runs of the same budget is reported. '
       + 'The same table records the follow-up on Gemma 3 270M, a model that does not loop (8.5% of answers at the limit): fifty passes moved MATH-500 from 6.8 to 7.0 under lenient grading, within noise. Read together with §3: where there is no loop to break, the method found nothing to gain.') })
   ].join('\n')
@@ -197,12 +255,12 @@ B.push(C.section({
     + '<div class="col">' + W.legendHtml({ compact: true }) + '</div>'
 }));
 
-/* §4 the baseline, pre-registered and not run */
-B.push(C.section({
+/* §4 the baseline: run (certs/wsp-baseline.json) or pre-registered and not run */
+if (Bx) B.push(sec4Run()); else B.push(C.section({
   lab: '§4 · the baseline', title: 'What would decide the multiplier, and is not run',
   bodyRaw: C.pRaw('The question G5 leaves open has one answer: the unedited Qwen3.5-0.8B on MATH-500, four samples per problem, the grader of §3, under three conditions side by side — the post’s settings (a control that should reproduce about 7.9), the card’s thinking-mode text settings (temperature 1.0, 81,920 tokens), and the card’s non-thinking settings. '
     + 'It is pre-registered in notes/wsp-stage3-preregistration-2026-11-02.md with its stop rule and costs about US$15–30 of GPU time. It has not been run: a paid run is the operator’s word, and this page says so rather than guess the number. When it runs, its record (certs/wsp-baseline.json) is added here and the gaps above are re-dated.')
-    + C.pRaw('<b>What is not claimed.</b> That the edit is small or large in effect beyond the released flags; that the mechanism is as described (read from the run’s notes, not probed here); anything about GSM8K, IFEval or the other benchmarks beyond re-reading their printed numbers; that math-verify is wrong anywhere (it agreed with the exact grader on every decided answer).')
+    + NOT_CLAIMED
 }));
 
 /* §5 method, independence, what it rests on */
@@ -225,11 +283,11 @@ B.push(C.section({
 }));
 { const OUT = require(path.join(ROOT, 'design', 'outside.js')).section(C, 'reports/weight-space-programming.html'); if (OUT) B.push(OUT); }
 
-const foot = '<p>' + esc('Generated by tools/build-report-wsp.js from certs/wsp-weights.json (' + R.generated + ') and certs/wsp-regrade.json (' + G.generated + '), both re-checked at build. MIT.') + '</p><p>' + esc('git ' + git) + '</p>';
+const foot = '<p>' + esc('Generated by tools/build-report-wsp.js from certs/wsp-weights.json (' + R.generated + '), certs/wsp-regrade.json (' + G.generated + ')' + (Bx ? ' and certs/wsp-baseline.json (' + Bx.generated + ')' : '') + ', ' + (Bx ? 'all three' : 'both') + ' re-checked at build. MIT.') + '</p><p>' + esc('git ' + git) + '</p>';
 const html = TPL.render({
   title: 'Weight-Space Programming, decided from its bytes · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/weight-space-programming.html',
   desc: 'MIT CSAIL’s Weight-Space Programming edit of Qwen3.5-0.8B decided from the bytes of the two checkpoints by two implementations sharing no code: two tensors differ, ' + num(F.changed_entries_total) + ' entries (not 131,072), '
-    + F.fraction['131072/all'].percent_rounded_3dp + '% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination, the baseline the open question.'
+    + F.fraction['131072/all'].percent_rounded_3dp + '% of the release (not 0.016%), six times the projection removed; every released MATH-500 answer re-graded exactly with no disagreement on the decided ones; the gain is termination' + (Bx ? '; the unedited model run under its maker’s own settings: ' + RW() + '.' : ', the baseline the open question.')
 });
 fs.writeFileSync(path.join(ROOT, 'reports', 'weight-space-programming.html'), html);
 console.log('reports/weight-space-programming.html written: ' + num(F.changed_entries_total) + ' entries, ' + num(UN.tally.n + ED.tally.n) + ' answers re-graded @ git ' + git + ' (' + Math.round(html.length / 1024) + ' KB)');
