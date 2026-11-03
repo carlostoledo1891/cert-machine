@@ -1,0 +1,458 @@
+{
+ "what": "The replay of a third party's Lean proof that joins the two claimed refutations of the Exponential Time Hypothesis in the other direction from TSavo's: Daniel Hawkley's OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse (github.com/thinkthoughts/math @ d6b79b7d1, RPI-378.3d, a fork of openai/math: OpenAI ParityLifts' ETH predicate, negated, implies Anthropic's ETHIsFalse), built inside OpenAI's lean/ project at openai/math @ 7ef5c0cc, decided by tools/record-eth-hawkley.js from a GitHub-hosted run of .github/workflows/eth-hawkley.yml. CERTIFIED here means the statements are the two labs' own bytes (Anthropic's MainResults.lean byte for byte; OpenAI's ParityLifts definitions sliced byte for byte, checked against our pins), the theorem states exactly ¬ PositiveRateETH → ETHIsFalse, uses only propext, Classical.choice and Quot.sound, and two independently written kernels accept it. It does NOT mean that ETH is false, nor that OpenAI's checked theorem implies Anthropic's: the hypothesis is ParityLifts' predicate, whose link to OpenAI's checked statement is the claimant's separate, heavier theorem, not replayed here (gaps).",
+ "campaign": "eth-refutation; the Hawkley bridge lane (the claim arrived by the site's contact form on 2026-11-03, pointing at formalize.now/378/); pins recorded before any run (corpus/eth-refutation/hawkley/pins.json)",
+ "words": {
+  "CERTIFIED": "git's facts hold; the statement checks pass on the run's bytes; lake update moved no pinned dependency; Comparator exit 0 with \"Your solution is okay!\"; Lean's kernel and nanoda both accept; lake build exit 0; #print axioms (our file) names only propext, Classical.choice, Quot.sound",
+  "REFUTED": "a kernel rejects the solution, reproduced by a second run",
+  "REFUSED": "no decision, with the exact reason (resources, a build failure, bytes differing from the pins, a statement check, a moved dependency, Comparator stopping on its own check, kernels disagreeing, or one kernel rejection not yet reproduced)"
+ },
+ "claim": {
+  "repository": "https://github.com/thinkthoughts/math",
+  "forkOf": "https://github.com/openai/math",
+  "commit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "commitDate": "2026-11-03T01:50:36Z",
+  "author": "Dan With Glasses (Daniel Hawkley, formalize.now, per his message and his page)",
+  "license": "Apache-2.0 (the repository's LICENSE, OpenAI's, unchanged; copied beside the bytes in src/)",
+  "theorem": "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse",
+  "solutionModule": "OAI.Bridges.AnthropicETH.Main",
+  "challengeModule": "ComparatorChallenges.AnthropicETHCrossFormalization",
+  "config": {
+   "challenge_module": "ComparatorChallenges.AnthropicETHCrossFormalization",
+   "solution_module": "OAI.Bridges.AnthropicETH.Main",
+   "theorem_names": [
+    "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": false
+  },
+  "configSha256": "0a2c533ec9b447a9fa63fc6e2fb3e7c26b5d06c94406dfb64db35e94ee5ab311",
+  "delta": {
+   "added": [
+    "docs/RPI-378.3a_REPORT.md",
+    "docs/RPI-378.3b_REPORT.md",
+    "docs/RPI-378.3c_REPORT.md",
+    "docs/RPI-378.3d_REPORT.md",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.json",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+    "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean",
+    "lean/OAI/Bridges/AnthropicETH/Audit.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean",
+    "lean/OAI/Bridges/AnthropicETH/Lengths.lean",
+    "lean/OAI/Bridges/AnthropicETH/Main.lean",
+    "lean/OAI/Bridges/AnthropicETH/Reduction.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean",
+    "lean/OAI/Bridges/ETH/CanonicalCNF.lean",
+    "lean/OAI/Bridges/ETH/CanonicalWord.lean",
+    "lean/OAI/Bridges/ETH/Converter.lean",
+    "lean/OAI/Bridges/ETH/ConverterInterface.lean",
+    "lean/OAI/Bridges/ETH/ConverterPoly.lean",
+    "lean/OAI/Bridges/ETH/ConverterSize.lean",
+    "lean/OAI/Bridges/ETH/ConverterTime.lean",
+    "lean/OAI/Bridges/ETH/DecodeProgram.lean",
+    "lean/OAI/Bridges/ETH/FinalImplication.lean",
+    "lean/OAI/Bridges/ETH/LexProgram.lean",
+    "lean/OAI/Bridges/ETH/MachineInterface.lean",
+    "lean/OAI/Bridges/ETH/MachineRunner.lean",
+    "lean/OAI/Bridges/ETH/MachineRunnerCost.lean",
+    "lean/OAI/Bridges/ETH/MachineTranslation.lean",
+    "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean",
+    "lean/OAI/Bridges/ETH/SerializeProgram.lean",
+    "lean/OAI/Bridges/ETH/SortProgram.lean",
+    "lean/Vendor/Anthropic/MainResults.lean",
+    "lean/scripts/check_rpi378_challenge.py"
+   ],
+   "modified": [
+    "lean/lakefile.lean"
+   ],
+   "fileCount": 40
+  },
+  "commitsAhead": 21,
+  "pinnedFiles": 41,
+  "pinnedListSha256": "1fa0169395e88fc0fc02598ec87e9c321b02b149ec3cc1d42be40087fe3a23dd"
+ },
+ "project": {
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+  "toolchain": "leanprover/lean4:v4.34.1",
+  "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "lakefileChange": {
+   "insertedAfterLine": 111,
+   "lines": [
+    "-- RPI-378.3a: Anthropic's trusted statement file, copied byte for byte from",
+    "-- anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5:eth/MainResults.lean",
+    "-- (SHA-256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944).",
+    "lean_lib MainResults where",
+    "  srcDir := \"Vendor/Anthropic\"",
+    "  roots := #[`MainResults]"
+   ]
+  }
+ },
+ "word": "CERTIFIED",
+ "why": "git's facts hold (HEAD at the pin, a clean tree, the diff against openai/math@7ef5c0cc naming exactly the pinned delta); the statement checks pass on the run's bytes; lake update moved no pinned dependency; Comparator exit 0 with \"Your solution is okay!\" on the claimant's config with nanoda on; Lean's kernel and nanoda both accept; lake build exit 0; the theorem's axioms are among propext, Classical.choice, Quot.sound",
+ "stage": null,
+ "gaps": [
+  "The hypothesis is ParityLifts' predicate, not OpenAI's checked statement. ¬ OAI.ParityWL.Complexity.PositiveRateETH is a definition of OpenAI's combinatorics library (lean/OAI/Combinatorics/ParityLifts/SATChoice.lean, lines 24–35, sliced into the challenge), while what OpenAI's release checks with Comparator is OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat (certs/eth-kernel.json). The link from OpenAI's theorem to ¬ PositiveRateETH is the claimant's SEPARATE theorem OAI.Bridges.ETH.not_positiveRateETH (lean/OAI/Bridges/ETH/FinalImplication.lean, his components A–C of 2026-11-01, commit 81ec97cd2 whose message says \"NOT built in this environment\"; his page says a later VPS build passed), which imports OpenAI's whole family-378 proof and is NOT replayed here (the hosted runner cannot hold that build: certs/openai-math-kernel-7ef5c0cc.json; a pod run is the operator's word). So this record, if CERTIFIED, decides ¬ PositiveRateETH → ETHIsFalse and nothing about ETH itself.",
+  "nanoda is off in the claimant's shipped config (enable_nanoda: false, like every challenge of openai/math); this replay turns it on, its one declared change, so both kernels decide here. The claimant reports nanoda aborting inside Comparator on a 32 MB thread stack in his harness and a standalone nanoda acceptance with a 1 GiB stack; here nanoda runs inside Comparator with the eth-kernel lane's 1 GiB-stack build.",
+  "The claimant states three qualifications of his own harness run (Landlock ABI v7 with an older landrun 3ee150a, no systemd-run wrapper, nanoda's stack); none applies here (landrun 811cfff5 as the eth-kernel lane pins it, the runner's LSM list in machine.txt), and his VPS run is his own report, not read here.",
+  "Independence of the proof from both labs' results is the claimant's claim, checked by his Audit.lean at constant level; here it is checked at the import level only (tools/eth-hawkley-gates.js closure: the solution reaches OAI.Combinatorics.ParityLifts.SATChoice and Mathlib, nothing under OAI.Algorithms or OAI.Bridges.ETH) and by Comparator's own statement comparison; his Audit module is not built here.",
+  "Anthropic's MainResults.lean is vendored into OpenAI's project and re-elaborated on Lean v4.34.1 with Mathlib d13f23b7, while Anthropic proved ETHIsFalse on Lean v4.33.1 with Mathlib 0df444a3 (certs/eth-kernel.json): the bytes are the same (the gates), the elaborated terms are not compared here — the same seam certs/eth-seam.json measured for the TSavo bridge, in the other direction.",
+  "leanchecker --fresh was not run on this theorem; the rule stands on Lean's kernel and nanoda inside Comparator.",
+  "Mentions of forbidden words inside comments (facts, not holes): lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean (sorry ×1)."
+ ],
+ "closes": "What the theorem moves out of prose, if CERTIFIED: a Lean proof that ParityLifts' multitape machines run on Mathlib's FinTM2 within a linear number of steps (his simulationHypothesis_proved) and that Anthropic's input word encClauses converts into ParityLifts' encodeFormula within a polynomial of one fixed degree (his converterHypothesis_proved), so that one machine per rate on OpenAI's side becomes one machine per rate on Anthropic's. What stays prose: that OpenAI's checked theorem gives ¬ PositiveRateETH (his separate bridge, not replayed), and Anthropic's own step from FinTM2 on encClauses to the textbook hypothesis (corpus/eth-refutation/readings/), the step certs/eth-bridge.json also leaves to prose.",
+ "statementChecks": {
+  "git": {
+   "head": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+   "baseAncestor": true,
+   "cleanBefore": true,
+   "deltaByGit": {
+    "ok": true,
+    "pinned": 40,
+    "gitDiff": 40,
+    "missing": [],
+    "extra": []
+   },
+   "statusAfter": [
+    "?? lean/AuditAxiomsHawkley.lean",
+    "?? lean/audit-config-hawkley.json"
+   ],
+   "deltaBytesUnchangedAfter": true
+  },
+  "tree": {
+   "files": 41,
+   "pinned": 41,
+   "clone": false,
+   "ok": true
+  },
+  "cloneBase": {
+   "lean/OAI/Combinatorics/ParityLifts/Machines.lean": {
+    "pinned": "d9ff69d594e31cdb4b84bab1a12333e238eb56a1ba439618464baf52cc8566f6",
+    "got": "d9ff69d594e31cdb4b84bab1a12333e238eb56a1ba439618464baf52cc8566f6"
+   },
+   "lean/OAI/Combinatorics/ParityLifts/SAT.lean": {
+    "pinned": "42f682a64f54e5dc92c485eeb641a04d0a66f0fb0e1c067ce5ec16b7340059e6",
+    "got": "42f682a64f54e5dc92c485eeb641a04d0a66f0fb0e1c067ce5ec16b7340059e6"
+   },
+   "lean/OAI/Combinatorics/ParityLifts/SATChoice.lean": {
+    "pinned": "2209014df8f6a033d4453a13cd135aa8a44c3599f16167395067ab8f44fd0bfd",
+    "got": "2209014df8f6a033d4453a13cd135aa8a44c3599f16167395067ab8f44fd0bfd"
+   },
+   "LICENSE": {
+    "pinned": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "got": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+   }
+  },
+  "mainResults": {
+   "pinned": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "copies": {
+    "lean/Vendor/Anthropic/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+   }
+  },
+  "slices": {
+   "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+   "expectedSha256": "811aefa8e59f2489a637b4d8ef178227bf48dca099422e31da47f2df9c18d24a",
+   "gotSha256": "811aefa8e59f2489a637b4d8ef178227bf48dca099422e31da47f2df9c18d24a",
+   "slices": [
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/Machines.lean",
+     "lines": "5-69",
+     "baseSha256": "d9ff69d594e31cdb4b84bab1a12333e238eb56a1ba439618464baf52cc8566f6"
+    },
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/SAT.lean",
+     "lines": "5-35",
+     "baseSha256": "42f682a64f54e5dc92c485eeb641a04d0a66f0fb0e1c067ce5ec16b7340059e6"
+    },
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/SATChoice.lean",
+     "lines": "24-35",
+     "baseSha256": "2209014df8f6a033d4453a13cd135aa8a44c3599f16167395067ab8f44fd0bfd"
+    }
+   ],
+   "ok": true
+  },
+  "challenge": {
+   "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+   "text": "import ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts import ComparatorChallenges.AnthropicETHCrossFormalization.MainResults theorem OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse := by sorry",
+   "expected": "import ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts import ComparatorChallenges.AnthropicETHCrossFormalization.MainResults theorem OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse := by sorry",
+   "ok": true
+  },
+  "config": {
+   "ok": true,
+   "shipped": {
+    "challenge_module": "ComparatorChallenges.AnthropicETHCrossFormalization",
+    "solution_module": "OAI.Bridges.AnthropicETH.Main",
+    "theorem_names": [
+     "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "enable_nanoda": false
+   },
+   "ran": {
+    "challenge_module": "ComparatorChallenges.AnthropicETHCrossFormalization",
+    "solution_module": "OAI.Bridges.AnthropicETH.Main",
+    "theorem_names": [
+     "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "enable_nanoda": true
+   }
+  },
+  "census": {
+   "leanFiles": [
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+    "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean",
+    "lean/OAI/Bridges/AnthropicETH/Audit.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean",
+    "lean/OAI/Bridges/AnthropicETH/Lengths.lean",
+    "lean/OAI/Bridges/AnthropicETH/Main.lean",
+    "lean/OAI/Bridges/AnthropicETH/Reduction.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean",
+    "lean/OAI/Bridges/ETH/CanonicalCNF.lean",
+    "lean/OAI/Bridges/ETH/CanonicalWord.lean",
+    "lean/OAI/Bridges/ETH/Converter.lean",
+    "lean/OAI/Bridges/ETH/ConverterInterface.lean",
+    "lean/OAI/Bridges/ETH/ConverterPoly.lean",
+    "lean/OAI/Bridges/ETH/ConverterSize.lean",
+    "lean/OAI/Bridges/ETH/ConverterTime.lean",
+    "lean/OAI/Bridges/ETH/DecodeProgram.lean",
+    "lean/OAI/Bridges/ETH/FinalImplication.lean",
+    "lean/OAI/Bridges/ETH/LexProgram.lean",
+    "lean/OAI/Bridges/ETH/MachineInterface.lean",
+    "lean/OAI/Bridges/ETH/MachineRunner.lean",
+    "lean/OAI/Bridges/ETH/MachineRunnerCost.lean",
+    "lean/OAI/Bridges/ETH/MachineTranslation.lean",
+    "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean",
+    "lean/OAI/Bridges/ETH/SerializeProgram.lean",
+    "lean/OAI/Bridges/ETH/SortProgram.lean",
+    "lean/Vendor/Anthropic/MainResults.lean"
+   ],
+   "forbiddenOutsideComments": [],
+   "challengeHole": [
+    {
+     "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+     "line": 25,
+     "what": "sorry"
+    }
+   ],
+   "mentionsInComments": [
+    {
+     "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+     "what": "sorry",
+     "count": 1
+    }
+   ]
+  },
+  "lakefile": {
+   "basePinned": "fc590a5d14923f79e71ea80e29efd42950bb3ec051481b5209157f0a01f63de1",
+   "forkSha256": "a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933",
+   "insertedAfterLine": 111,
+   "block": [
+    "-- RPI-378.3a: Anthropic's trusted statement file, copied byte for byte from",
+    "-- anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5:eth/MainResults.lean",
+    "-- (SHA-256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944).",
+    "lean_lib MainResults where",
+    "  srcDir := \"Vendor/Anthropic\"",
+    "  roots := #[`MainResults]"
+   ],
+   "pinnedBlockAgrees": true,
+   "ok": true
+  },
+  "closure": {
+   "solution": "OAI.Bridges.AnthropicETH.Main",
+   "internalModules": [
+    "MainResults",
+    "OAI.Bridges.AnthropicETH.Asymptotics",
+    "OAI.Bridges.AnthropicETH.Converter",
+    "OAI.Bridges.AnthropicETH.Converter.Program",
+    "OAI.Bridges.AnthropicETH.Converter.Spec",
+    "OAI.Bridges.AnthropicETH.Lengths",
+    "OAI.Bridges.AnthropicETH.Main",
+    "OAI.Bridges.AnthropicETH.Reduction",
+    "OAI.Bridges.AnthropicETH.Simulation",
+    "OAI.Bridges.AnthropicETH.Simulation.Machine",
+    "OAI.Bridges.AnthropicETH.Simulation.Run",
+    "OAI.Bridges.AnthropicETH.Simulation.Steps"
+   ],
+   "internalCount": 12,
+   "external": [
+    "Mathlib",
+    "OAI.Combinatorics.ParityLifts.SATChoice"
+   ],
+   "externalRoots": [
+    "Mathlib",
+    "OAI"
+   ],
+   "openaiModules": [
+    "OAI.Combinatorics.ParityLifts.SATChoice"
+   ],
+   "forbidden": [],
+   "vendoredMainResults": true
+  },
+  "controls": "every red control refused by the check it targets; the clean copy passes (controls-gate.txt)"
+ },
+ "dependencies": {
+  "manifestChecked": true,
+  "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612"
+ },
+ "comparator": {
+  "exit": 0,
+  "okay": true,
+  "kernels": [
+   "Lean default kernel accepts the solution",
+   "nanoda kernel accepts the solution"
+  ],
+  "stages": [
+   "Building ComparatorChallenges.AnthropicETHCrossFormalization",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.AnthropicETHCrossFormalization",
+   "Building OAI.Bridges.AnthropicETH.Main",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Bridges.AnthropicETH.Main",
+   "Running nanoda kernel on solution",
+   "Running Lean default kernel on solution."
+  ],
+  "lakeErrors": []
+ },
+ "axiomsPrinted": [
+  {
+   "theorem": "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  }
+ ],
+ "decider": "Comparator leanprover/comparator d03acab1 (tag v4.34.0) built with Lean v4.34.1 and its lean4export 076e8e57; landrun 811cfff5; nanoda ammkrn/nanoda_lib 3a240721 with the issue44 patch and a 1 GiB stack: the OpenAI row of certs/eth-kernel.json, on a GitHub-hosted runner, the clone checked by git and against the pins before anything ran",
+ "declaredChanges": [
+  "enable_nanoda: true on the claimant's config (he ships false): the ONE change to his bytes, so that both kernels decide",
+  "GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 for every Lean step (the value the eth-kernel lane declared; a malloc setting, never what Lean checks)",
+  "nanoda as the eth-kernel lane builds it (issue44 patch, 1 GiB stack; nanoda.patch kept with the run)",
+  "lake update before anything else (OpenAI's post_update hook; lane K's rule), every resolved revision checked against the pinned manifest",
+  "a blob-filtered sparse clone (lean/ top-level files, OAI/Combinatorics, OAI/Bridges, ComparatorChallenges, Vendor, scripts, docs): the other 50,000 files of openai/math are not checked out; git's diff against the base names the delta on the full trees",
+  "Comparator runs BEFORE lake build (its README's second assumption: nothing outside the sandbox has built the solution)"
+ ],
+ "trustBase": "the two kernels (Lean's inside Comparator, nanoda), lean4export, Comparator's comparison code, landrun's Landlock sandbox (--best-effort; the runner's LSM list is in machine.txt), the Mathlib cache fetched by lake exe cache get, OpenAI's lakefile and its post_update hook, git's object hashing for the base, and GitHub's runner; the statement files are trusted only because they are byte-checked against the two labs' pinned files",
+ "run": {
+  "id": 41634655114,
+  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/41634655114",
+  "commit": "8a0b6ce7122670d96d3bf1cc7f9418d9ed213a77",
+  "branch": "eth-hawkley-replay",
+  "createdAt": "2026-11-03T12:18:53Z",
+  "conclusion": "success",
+  "jobs": [
+   {
+    "name": "tools",
+    "conclusion": "success",
+    "startedAt": "2026-11-03T12:18:57Z",
+    "completedAt": "2026-11-03T12:20:18Z"
+   },
+   {
+    "name": "replay",
+    "conclusion": "success",
+    "startedAt": "2026-11-03T12:20:21Z",
+    "completedAt": "2026-11-03T12:33:32Z"
+   }
+  ]
+ },
+ "machine": [
+  "runner: GitHub Actions 1000003445 Linux X64, image ubuntu24 20261026.354.1",
+  "cpus: 4",
+  "MemTotal:       16367524 kB",
+  "SwapTotal:       3145724 kB",
+  "vm.max_map_count: 262144",
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "/dev/root       145G   37G  108G  26% /"
+ ],
+ "env": [
+  "toolchain: leanprover/lean4:v4.34.1",
+  "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "Lake version 5.0.0-src+5045d00 (Lean version 4.34.1)",
+  "lean prefix: /home/runner/.elan/toolchains/leanprover--lean4---v4.34.1",
+  "comparator: d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+  "lean4export: 076e8e57707e813375e8f9da8bf989799ace9680 built with leanprover/lean4:v4.34.1",
+  "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g",
+  "landrun: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4",
+  "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1",
+  "fork: d6b79b7d165f9e6bef6e033949e3f14e913efdaa (base 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a)",
+  "commit: 8a0b6ce7122670d96d3bf1cc7f9418d9ed213a77",
+  "run: 41634655114 attempt 1"
+ ],
+ "steps": {
+  "update": {
+   "exit": 0,
+   "seconds": 177,
+   "timedOut": false,
+   "maxRssKB": 1979448,
+   "usedMemPeakKB": 2380008
+  },
+  "cache": {
+   "exit": 0,
+   "seconds": 19,
+   "timedOut": false,
+   "maxRssKB": 1777212,
+   "usedMemPeakKB": 2230808
+  },
+  "comparator": {
+   "exit": 0,
+   "seconds": 408,
+   "timedOut": false,
+   "maxRssKB": 10307408,
+   "usedMemPeakKB": 5670676
+  },
+  "build": {
+   "exit": 0,
+   "seconds": 19,
+   "timedOut": false,
+   "maxRssKB": 1931832,
+   "usedMemPeakKB": 2169848
+  },
+  "axioms": {
+   "exit": 0,
+   "seconds": 11,
+   "timedOut": false,
+   "maxRssKB": 7206060,
+   "usedMemPeakKB": 1253480
+  }
+ },
+ "logs": "corpus/eth-refutation/hawkley/runs/41634655114",
+ "runs": [
+  {
+   "run": 41634655114,
+   "at": "2026-11-03T12:18:53Z",
+   "commit": "8a0b6ce7122670d96d3bf1cc7f9418d9ed213a77",
+   "word": "CERTIFIED",
+   "why": "git's facts hold (HEAD at the pin, a clean tree, the diff against openai/math@7ef5c0cc naming exactly the pinned delta); the statement checks pass on the run's bytes; lake update moved no pinned dependency; Comparator exit 0 with \"Your solution is okay!\" on the claimant's config with nanoda on; Lean's kernel and nanoda both accept; lake build exit 0; the theorem's axioms are among propext, Classical.choice, Quot.sound"
+  }
+ ]
+}

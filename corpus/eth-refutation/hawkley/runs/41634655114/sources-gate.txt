@@ -1,0 +1,10 @@
+tree: 41 of 41 pinned files present, every sha256 equal (a clone: the base is git's)
+cloneBase: 4 of 4 base files at their pins
+MainResults.lean: 2 of 2 copies carry the Anthropic pin 47f78a9550d9
+slices: exactly the three pinned slices (expected sha256 811aefa8e59f)
+challenge: exactly "import ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts import ComparatorChallenges.AnthropicETHCrossFormalization.MainResults theorem OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse := by sorry"
+config: {"challenge_module":"ComparatorChallenges.AnthropicETHCrossFormalization","solution_module":"OAI.Bridges.AnthropicETH.Main","theorem_names":["OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"],"definition_names":[],"permitted_axioms":["propext","Quot.sound","Classical.choice"],"enable_nanoda":false}
+census: 33 .lean files; forbidden outside comments: none; the challenge hole: 1; mentions inside comments: [{"file":"lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean","what":"sorry","count":1}]
+lakefile: OpenAI's pinned lakefile + the six-line block after line 111
+closure: 12 modules of the delta; external: 2 (roots Mathlib, OAI); OpenAI modules reached: 1; forbidden: none
+all statement checks pass

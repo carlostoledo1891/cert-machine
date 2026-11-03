@@ -1,0 +1,281 @@
+{
+ "ok": true,
+ "fails": [],
+ "facts": {
+  "tree": {
+   "files": 41,
+   "pinned": 41,
+   "clone": false,
+   "ok": true
+  },
+  "mainResults": {
+   "pinned": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "copies": {
+    "lean/Vendor/Anthropic/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+   }
+  },
+  "slices": {
+   "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+   "expectedSha256": "811aefa8e59f2489a637b4d8ef178227bf48dca099422e31da47f2df9c18d24a",
+   "gotSha256": "811aefa8e59f2489a637b4d8ef178227bf48dca099422e31da47f2df9c18d24a",
+   "slices": [
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/Machines.lean",
+     "lines": "5-69",
+     "baseSha256": "d9ff69d594e31cdb4b84bab1a12333e238eb56a1ba439618464baf52cc8566f6"
+    },
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/SAT.lean",
+     "lines": "5-35",
+     "baseSha256": "42f682a64f54e5dc92c485eeb641a04d0a66f0fb0e1c067ce5ec16b7340059e6"
+    },
+    {
+     "file": "lean/OAI/Combinatorics/ParityLifts/SATChoice.lean",
+     "lines": "24-35",
+     "baseSha256": "2209014df8f6a033d4453a13cd135aa8a44c3599f16167395067ab8f44fd0bfd"
+    }
+   ],
+   "ok": true
+  },
+  "challenge": {
+   "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+   "text": "import ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts import ComparatorChallenges.AnthropicETHCrossFormalization.MainResults theorem OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse := by sorry",
+   "expected": "import ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts import ComparatorChallenges.AnthropicETHCrossFormalization.MainResults theorem OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse := by sorry",
+   "ok": true
+  },
+  "config": {
+   "challenge_module": "ComparatorChallenges.AnthropicETHCrossFormalization",
+   "solution_module": "OAI.Bridges.AnthropicETH.Main",
+   "theorem_names": [
+    "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": false
+  },
+  "census": {
+   "leanFiles": [
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean",
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean",
+    "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean",
+    "lean/OAI/Bridges/AnthropicETH/Audit.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean",
+    "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean",
+    "lean/OAI/Bridges/AnthropicETH/Lengths.lean",
+    "lean/OAI/Bridges/AnthropicETH/Main.lean",
+    "lean/OAI/Bridges/AnthropicETH/Reduction.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean",
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean",
+    "lean/OAI/Bridges/ETH/CanonicalCNF.lean",
+    "lean/OAI/Bridges/ETH/CanonicalWord.lean",
+    "lean/OAI/Bridges/ETH/Converter.lean",
+    "lean/OAI/Bridges/ETH/ConverterInterface.lean",
+    "lean/OAI/Bridges/ETH/ConverterPoly.lean",
+    "lean/OAI/Bridges/ETH/ConverterSize.lean",
+    "lean/OAI/Bridges/ETH/ConverterTime.lean",
+    "lean/OAI/Bridges/ETH/DecodeProgram.lean",
+    "lean/OAI/Bridges/ETH/FinalImplication.lean",
+    "lean/OAI/Bridges/ETH/LexProgram.lean",
+    "lean/OAI/Bridges/ETH/MachineInterface.lean",
+    "lean/OAI/Bridges/ETH/MachineRunner.lean",
+    "lean/OAI/Bridges/ETH/MachineRunnerCost.lean",
+    "lean/OAI/Bridges/ETH/MachineTranslation.lean",
+    "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean",
+    "lean/OAI/Bridges/ETH/SerializeProgram.lean",
+    "lean/OAI/Bridges/ETH/SortProgram.lean",
+    "lean/Vendor/Anthropic/MainResults.lean"
+   ],
+   "forbidden": [],
+   "challengeHole": [
+    {
+     "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+     "line": 25,
+     "what": "sorry"
+    }
+   ],
+   "mentionsInComments": [
+    {
+     "file": "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean",
+     "what": "sorry",
+     "count": 1
+    }
+   ],
+   "imports": {
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization.lean": [
+     "ComparatorChallenges.AnthropicETHCrossFormalization.ParityLifts",
+     "ComparatorChallenges.AnthropicETHCrossFormalization.MainResults"
+    ],
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/MainResults.lean": [
+     "Mathlib"
+    ],
+    "lean/ComparatorChallenges/AnthropicETHCrossFormalization/ParityLifts.lean": [
+     "Mathlib"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Asymptotics.lean": [
+     "MainResults"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Audit.lean": [
+     "OAI.Bridges.AnthropicETH.Reduction",
+     "OAI.Bridges.AnthropicETH.Simulation",
+     "OAI.Bridges.AnthropicETH.Converter",
+     "OAI.Bridges.AnthropicETH.Main"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Converter.lean": [
+     "OAI.Bridges.AnthropicETH.Converter.Program"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Converter/Program.lean": [
+     "OAI.Bridges.AnthropicETH.Converter.Spec"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Converter/Spec.lean": [
+     "OAI.Bridges.AnthropicETH.Reduction"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Lengths.lean": [
+     "OAI.Combinatorics.ParityLifts.SATChoice",
+     "MainResults"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Main.lean": [
+     "OAI.Bridges.AnthropicETH.Simulation",
+     "OAI.Bridges.AnthropicETH.Converter"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Reduction.lean": [
+     "OAI.Bridges.AnthropicETH.Lengths",
+     "OAI.Bridges.AnthropicETH.Asymptotics"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Simulation.lean": [
+     "OAI.Bridges.AnthropicETH.Simulation.Run"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Machine.lean": [
+     "OAI.Bridges.AnthropicETH.Reduction"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Run.lean": [
+     "OAI.Bridges.AnthropicETH.Simulation.Steps"
+    ],
+    "lean/OAI/Bridges/AnthropicETH/Simulation/Steps.lean": [
+     "OAI.Bridges.AnthropicETH.Simulation.Machine"
+    ],
+    "lean/OAI/Bridges/ETH/CanonicalCNF.lean": [
+     "OAI.Algorithms.SubexponentialSAT.SAT",
+     "OAI.Combinatorics.ParityLifts.BitNormalize"
+    ],
+    "lean/OAI/Bridges/ETH/CanonicalWord.lean": [
+     "OAI.Bridges.ETH.CanonicalCNF",
+     "OAI.Algorithms.SubexponentialSAT.Encoding"
+    ],
+    "lean/OAI/Bridges/ETH/Converter.lean": [
+     "OAI.Bridges.ETH.DecodeProgram",
+     "OAI.Bridges.ETH.LexProgram",
+     "OAI.Bridges.ETH.SerializeProgram"
+    ],
+    "lean/OAI/Bridges/ETH/ConverterInterface.lean": [
+     "OAI.Bridges.ETH.CanonicalWord"
+    ],
+    "lean/OAI/Bridges/ETH/ConverterPoly.lean": [
+     "OAI.Bridges.ETH.ConverterTime",
+     "OAI.Combinatorics.ParityLifts.ExpBounds"
+    ],
+    "lean/OAI/Bridges/ETH/ConverterSize.lean": [
+     "OAI.Bridges.ETH.Converter"
+    ],
+    "lean/OAI/Bridges/ETH/ConverterTime.lean": [
+     "OAI.Bridges.ETH.ConverterSize"
+    ],
+    "lean/OAI/Bridges/ETH/DecodeProgram.lean": [
+     "OAI.Bridges.ETH.SortProgram",
+     "OAI.Bridges.ETH.CanonicalCNF"
+    ],
+    "lean/OAI/Bridges/ETH/FinalImplication.lean": [
+     "OAI.Bridges.ETH.MachineRunnerCost",
+     "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final"
+    ],
+    "lean/OAI/Bridges/ETH/LexProgram.lean": [
+     "OAI.Bridges.ETH.SortProgram",
+     "OAI.Bridges.ETH.CanonicalWord"
+    ],
+    "lean/OAI/Bridges/ETH/MachineInterface.lean": [
+     "OAI.Bridges.ETH.ConverterPoly",
+     "OAI.Bridges.ETH.RuntimeAsymptotics",
+     "OAI.Algorithms.SubexponentialSAT.SqrtLog.StatementCanonical",
+     "OAI.Combinatorics.ParityLifts.FixedBridge"
+    ],
+    "lean/OAI/Bridges/ETH/MachineRunner.lean": [
+     "OAI.Bridges.ETH.MachineTranslation",
+     "OAI.Combinatorics.ParityLifts.RaceStage"
+    ],
+    "lean/OAI/Bridges/ETH/MachineRunnerCost.lean": [
+     "OAI.Bridges.ETH.MachineRunner"
+    ],
+    "lean/OAI/Bridges/ETH/MachineTranslation.lean": [
+     "OAI.Bridges.ETH.MachineInterface"
+    ],
+    "lean/OAI/Bridges/ETH/RuntimeAsymptotics.lean": [
+     "OAI.Algorithms.SubexponentialSAT.SqrtLog.StatementScale",
+     "OAI.Combinatorics.ParityLifts.ExpBounds"
+    ],
+    "lean/OAI/Bridges/ETH/SerializeProgram.lean": [
+     "OAI.Bridges.ETH.CanonicalWord"
+    ],
+    "lean/OAI/Bridges/ETH/SortProgram.lean": [
+     "OAI.Combinatorics.ParityLifts.BitNormalize"
+    ],
+    "lean/Vendor/Anthropic/MainResults.lean": [
+     "Mathlib"
+    ]
+   }
+  },
+  "lakefile": {
+   "basePinned": "fc590a5d14923f79e71ea80e29efd42950bb3ec051481b5209157f0a01f63de1",
+   "forkSha256": "a064a6092f9015183af7e1ca8ca6865cc38fb289abb3069e3ae49ca492d86933",
+   "insertedAfterLine": 111,
+   "block": [
+    "-- RPI-378.3a: Anthropic's trusted statement file, copied byte for byte from",
+    "-- anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5:eth/MainResults.lean",
+    "-- (SHA-256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944).",
+    "lean_lib MainResults where",
+    "  srcDir := \"Vendor/Anthropic\"",
+    "  roots := #[`MainResults]"
+   ],
+   "pinnedBlockAgrees": true,
+   "ok": true
+  },
+  "closure": {
+   "solution": "OAI.Bridges.AnthropicETH.Main",
+   "internalModules": [
+    "MainResults",
+    "OAI.Bridges.AnthropicETH.Asymptotics",
+    "OAI.Bridges.AnthropicETH.Converter",
+    "OAI.Bridges.AnthropicETH.Converter.Program",
+    "OAI.Bridges.AnthropicETH.Converter.Spec",
+    "OAI.Bridges.AnthropicETH.Lengths",
+    "OAI.Bridges.AnthropicETH.Main",
+    "OAI.Bridges.AnthropicETH.Reduction",
+    "OAI.Bridges.AnthropicETH.Simulation",
+    "OAI.Bridges.AnthropicETH.Simulation.Machine",
+    "OAI.Bridges.AnthropicETH.Simulation.Run",
+    "OAI.Bridges.AnthropicETH.Simulation.Steps"
+   ],
+   "internalCount": 12,
+   "external": [
+    "Mathlib",
+    "OAI.Combinatorics.ParityLifts.SATChoice"
+   ],
+   "externalRoots": [
+    "Mathlib",
+    "OAI"
+   ],
+   "openaiModules": [
+    "OAI.Combinatorics.ParityLifts.SATChoice"
+   ],
+   "forbidden": [],
+   "vendoredMainResults": true
+  }
+ }
+}

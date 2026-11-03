@@ -1,0 +1,181 @@
+info: downloading https://releases.lean-lang.org/lean4/v4.34.1/lean-4.34.1-linux.tar.zst
+info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.34.1
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: iut: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: tate-curves-theta: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: genl: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: heights: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: pi1: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: orbicurve-cores: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: oka: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: tempered-fundamental-groups: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: elliptic-curves: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: formal-schemes: applied compatibility patch before dependency resolution
+info: /home/runner/work/cert-machine/cert-machine/work/fork/lean/lakefile.lean:296:0: belyi: applied compatibility patch before dependency resolution
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+info: mathlib: checking out revision 'd13f23b723b8a846827a245b89c10fc7d3f11612'
+info: checkdecls: cloning https://github.com/PatrickMassot/checkdecls.git
+info: checkdecls: checking out revision '3d425859e73fcfbef85b9638c2a91708ef4a22d4'
+info: doc-gen4: cloning https://github.com/leanprover/doc-gen4.git
+info: doc-gen4: checking out revision '953c8992d174b4e56955e01e101d46668c68f2bb'
+info: PrimeCert: cloning https://github.com/b-mehta/PrimeCert.git
+info: PrimeCert: checking out revision '0803c2f6bd289c09704c7d352bb8fcf770cbb9b2'
+info: LeanArchitect: cloning https://github.com/hanwenzhu/LeanArchitect.git
+info: LeanArchitect: checking out revision '468e8f58fb4ad6e6ad672a08da6d0d0531e95a97'
+info: leancert: cloning https://github.com/alerad/leancert.git
+info: leancert: checking out revision '7f91b6eb3567437f6cfac03ed279706603ee22f4'
+info: PrimeNumberTheoremAnd: cloning https://github.com/AlexKontorovich/PrimeNumberTheoremAnd.git
+info: PrimeNumberTheoremAnd: checking out revision 'c39a751132c88b6e8080b74c74023fd95b3d8be0'
+warning: belyi: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/runner/work/cert-machine/cert-machine/work/fork/lean/.lake/packages/iut' has local changes
+info: gromov: cloning https://github.com/Aaron1011/gromov.git
+info: gromov: checking out revision '8db79f13cf211b570e3116301d91379fbc01cf3e'
+info: TauCeti: cloning https://github.com/TauCetiProject/TauCeti.git
+info: TauCeti: checking out revision '3bed7e37f3c504a99e8c07e9f309540812a7aa90'
+info: SphereEversion: cloning https://github.com/leanprover-community/sphere-eversion.git
+info: SphereEversion: checking out revision '9c53f91e2a281199163ecea04dc4976cb79e2076'
+info: schoenflies-lean: cloning https://github.com/alonamaloh/schoenflies-lean
+info: schoenflies-lean: checking out revision '05a43d29cde026618777db3d4e4316204ccca237'
+info: ClassFieldTheory: cloning https://github.com/n-yamaguchi-0729/ClassFieldTheory.git
+info: ClassFieldTheory: checking out revision '2eb22d6485af45f29c5219de6c49f196a61c4f49'
+info: AINTLIB: cloning https://github.com/CBirkbeck/AINTLIB.git
+info: AINTLIB: checking out revision '160e446617a2168c34c95bbe7a76c4105b392434'
+info: AbsorptionCutoff: cloning https://github.com/BennyAvelin/AbsorptionCutoff.git
+info: AbsorptionCutoff: checking out revision '41c45c6d72e979419e46224bb7b4be5cee31f2b5'
+info: StrongPNT: cloning https://github.com/math-inc/strongpnt.git
+info: StrongPNT: checking out revision '2f5835c322314f55f1026ec2f139d704b7c45c69'
+info: carleson: cloning https://github.com/fpvandoorn/carleson.git
+info: carleson: checking out revision '306ae5b29300771aece1aa39f0a939183cc59486'
+info: rellich-kondrachov: cloning https://github.com/abenenson/rellich-kondrachov.git
+info: rellich-kondrachov: checking out revision '70f85d4c1bf99c6e7d61e8be4daa6f3664d08d23'
+info: Zeta3Irrational: cloning https://github.com/ahhwuhu/zeta_3_irrational.git
+info: Zeta3Irrational: checking out revision 'e8785315a01c8fbcddaa0fc03b3c8b29a61bc1f1'
+info: fixed-point-theorems: cloning https://github.com/harfe/fixed-point-theorems-lean4.git
+info: fixed-point-theorems: checking out revision '770940ddf9878cf61952ed53d910b92bca841838'
+warning: toolchain not updated; multiple toolchain candidates:
+  leanprover/lean4:v4.34.1
+    from OAI (fixed toolchain)
+  leanprover/lean4:v4.35.0-rc3
+    from TauCeti
+  leanprover/lean4:v4.32.0
+    from «fixed-point-theorems» (fixed toolchain)
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision '118aa17ee84656b8bd727fef7c458ee8c833385c'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision 'ddf04cf3949fa556442341e87d47f9f6e6074707'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision 'e928b72544873815af278d38681b31c0293588e3'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '106ff4fafc74ef4ac99d81dbf3ab399118f497a5'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '355695d523e41d0554926416cba2a2b3544fbbc9'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision 'f2effa3d803fda822b1f97b806c47cf2adfbcbc2'
+info: leansqlite: cloning https://github.com/leanprover/leansqlite
+info: leansqlite: checking out revision 'f9cdb9eacb5c8b8ecc02ee9fd9e568d7d28c1416'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision 'e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204'
+info: UnicodeBasic: cloning https://github.com/fgdorais/lean4-unicode-basic
+info: UnicodeBasic: checking out revision '0e569d08b6443ce0908d356884c765397253e2f0'
+info: BibtexQuery: cloning https://github.com/dupuisf/BibtexQuery
+info: BibtexQuery: checking out revision '4d8616fd4870d0a3453d845770833eac7951fe1c'
+info: MD4Lean: cloning https://github.com/acmepjz/md4lean
+info: MD4Lean: checking out revision '31907cc18f48a95384f99cee5582c00fb39e0f67'
+info: OAI: running post-update hooks
+info: iut: compatibility patch verified after dependency resolution
+info: tate-curves-theta: compatibility patch verified after dependency resolution
+info: genl: compatibility patch verified after dependency resolution
+info: heights: compatibility patch verified after dependency resolution
+info: pi1: compatibility patch verified after dependency resolution
+info: orbicurve-cores: compatibility patch verified after dependency resolution
+info: oka: compatibility patch verified after dependency resolution
+info: tempered-fundamental-groups: compatibility patch verified after dependency resolution
+info: elliptic-curves: compatibility patch verified after dependency resolution
+info: formal-schemes: compatibility patch verified after dependency resolution
+info: belyi: compatibility patch verified after dependency resolution
+info: fixed-point-theorems: applied compatibility patch fixed-point-theorems-lean4341.patch
+info: PrimeNumberTheoremAnd: applied compatibility patch PrimeNumberTheoremAnd-lean4341.patch
+info: Zeta3Irrational: applied compatibility patch Zeta3Irrational-lean4341.patch
+info: rellich-kondrachov: applied compatibility patch rellich-kondrachov-lean4341.patch
+info: carleson: applied compatibility patch carleson-lean4341.patch
+info: StrongPNT: applied compatibility patch StrongPNT-lean4341.patch
+info: AbsorptionCutoff: applied compatibility patch AbsorptionCutoff-lean4341.patch
+info: AINTLIB: applied compatibility patch AINTLIB-lean4341.patch
+info: ClassFieldTheory: applied compatibility patch ClassFieldTheory-lean4341.patch
+info: schoenflies-lean: applied compatibility patch schoenflies-lean-lean4341.patch
+info: SphereEversion: applied compatibility patch SphereEversion-lean4341.patch
+info: gromov: applied compatibility patch gromov-lean4341.patch
+info: mathlib: running post-update hooks
+✔ [1/5] Built Cache.Cli (428ms)
+✔ [3/42] Built Cache.Lean (541ms)
+✔ [6/42] Built Cache.Cli:c.o (186ms)
+✔ [7/42] Built Cache.Lean:c.o (220ms)
+✔ [8/42] Built Cache.Env (507ms)
+✔ [9/42] Built Cache.Env:c.o (175ms)
+✔ [10/42] Built Batteries.Tactic.OpenPrivate (1.0s)
+✔ [11/42] Built Cache.Infra (587ms)
+✔ [12/42] Built Cache.Infra:c.o (306ms)
+✔ [13/42] Built Batteries.Tactic.OpenPrivate:c.o (1.1s)
+✔ [14/42] Built Cache.IO (1.4s)
+✔ [15/42] Built Cache.Hashing (923ms)
+✔ [16/42] Built Cache.IO:c.o (1.4s)
+✔ [17/42] Built Cache.Hashing:c.o (499ms)
+✔ [18/42] Built Cache.Requests (1.6s)
+✔ [19/42] Built Cache.Marker (739ms)
+✔ [20/42] Built Cache.Marker:c.o (165ms)
+✔ [21/42] Built Cache.Query (942ms)
+✔ [22/42] Built Cache.Upload.Dest (1.1s)
+✔ [23/42] Built Cache.Query:c.o (381ms)
+✔ [24/42] Built Cache.Upload.Dest:c.o (206ms)
+✔ [25/42] Built Cache.Requests:c.o (2.5s)
+✔ [26/42] Built Cache.Warning (1.2s)
+✔ [27/42] Built Cache.Upload.Curl (997ms)
+✔ [28/42] Built Cache.Upload.Rclone (989ms)
+✔ [29/42] Built Cache.Warning:c.o (335ms)
+✔ [30/42] Built Cache.Upload.Rclone:c.o (236ms)
+✔ [31/42] Built Cache.Upload.Curl:c.o (239ms)
+✔ [32/42] Built Cache.Upload.Azure (852ms)
+✔ [33/42] Built Cache.Upload.S3 (893ms)
+✔ [34/42] Built Cache.Upload.Azure:c.o (150ms)
+✔ [35/42] Built Cache.Upload.S3:c.o (280ms)
+✔ [36/42] Built Cache.Upload.Defs (769ms)
+✔ [37/42] Built Cache.Upload.Defs:c.o (148ms)
+✔ [38/42] Built Cache.Upload (724ms)
+✔ [39/42] Built Cache.Upload:c.o (122ms)
+✔ [40/42] Built Cache.Main (1.1s)
+✔ [41/42] Built Cache.Main:c.o (735ms)
+✔ [42/42] Built cache:exe (802ms)
+Downloaded: 1 file(s) [attempted 1/8908 = 0%, 171 KB/s], Decompressed: 0Downloaded: 128 file(s) [attempted 128/8908 = 1%, 1327 KB/s], Decompressed: 34Downloaded: 283 file(s) [attempted 283/8908 = 3%, 1018 KB/s], Decompressed: 34Downloaded: 424 file(s) [attempted 424/8908 = 4%, 2692 KB/s], Decompressed: 34Downloaded: 556 file(s) [attempted 556/8908 = 6%, 331 KB/s], Decompressed: 128Downloaded: 664 file(s) [attempted 664/8908 = 7%, 193 KB/s], Decompressed: 128Downloaded: 736 file(s) [attempted 736/8908 = 8%, 1839 KB/s], Decompressed: 128Downloaded: 842 file(s) [attempted 842/8908 = 9%, 722 KB/s], Decompressed: 128Downloaded: 1001 file(s) [attempted 1001/8908 = 11%, 843 KB/s], Decompressed: 128Downloaded: 1150 file(s) [attempted 1150/8908 = 12%, 1898 KB/s], Decompressed: 128Downloaded: 1306 file(s) [attempted 1306/8908 = 14%, 2019 KB/s], Decompressed: 128Downloaded: 1450 file(s) [attempted 1450/8908 = 16%, 2934 KB/s], Decompressed: 128Downloaded: 1592 file(s) [attempted 1592/8908 = 17%, 5266 KB/s], Decompressed: 128Downloaded: 1796 file(s) [attempted 1796/8908 = 20%, 559 KB/s], Decompressed: 505Downloaded: 1936 file(s) [attempted 1936/8908 = 21%, 360 KB/s], Decompressed: 505Downloaded: 2027 file(s) [attempted 2027/8908 = 22%, 259 KB/s], Decompressed: 505Downloaded: 2123 file(s) [attempted 2123/8908 = 23%, 198 KB/s], Decompressed: 505Downloaded: 2296 file(s) [attempted 2296/8908 = 25%, 3532 KB/s], Decompressed: 505Downloaded: 2453 file(s) [attempted 2453/8908 = 27%, 2146 KB/s], Decompressed: 505Downloaded: 2582 file(s) [attempted 2582/8908 = 28%, 3019 KB/s], Decompressed: 505Downloaded: 2763 file(s) [attempted 2763/8908 = 31%, 4322 KB/s], Decompressed: 505Downloaded: 2907 file(s) [attempted 2907/8908 = 32%, 1448 KB/s], Decompressed: 505Downloaded: 3063 file(s) [attempted 3063/8908 = 34%, 740 KB/s], Decompressed: 505Downloaded: 3221 file(s) [attempted 3221/8908 = 36%, 784 KB/s], Decompressed: 505Downloaded: 3361 file(s) [attempted 3361/8908 = 37%, 916 KB/s], Decompressed: 505Downloaded: 3433 file(s) [attempted 3433/8908 = 38%, 226 KB/s], Decompressed: 505Downloaded: 3599 file(s) [attempted 3599/8908 = 40%, 5120 KB/s], Decompressed: 505Downloaded: 3767 file(s) [attempted 3767/8908 = 42%, 433 KB/s], Decompressed: 505Downloaded: 3882 file(s) [attempted 3882/8908 = 43%, 991 KB/s], Decompressed: 505Downloaded: 4063 file(s) [attempted 4063/8908 = 45%, 4032 KB/s], Decompressed: 505Downloaded: 4216 file(s) [attempted 4216/8908 = 47%, 196 KB/s], Decompressed: 505Downloaded: 4401 file(s) [attempted 4401/8908 = 49%, 1266 KB/s], Decompressed: 505Downloaded: 4543 file(s) [attempted 4543/8908 = 50%, 1402 KB/s], Decompressed: 505Downloaded: 4690 file(s) [attempted 4690/8908 = 52%, 362 KB/s], Decompressed: 505Downloaded: 4774 file(s) [attempted 4774/8908 = 53%, 2054 KB/s], Decompressed: 505Downloaded: 4935 file(s) [attempted 4935/8908 = 55%, 503 KB/s], Decompressed: 505Downloaded: 5110 file(s) [attempted 5110/8908 = 57%, 300 KB/s], Decompressed: 505Downloaded: 5259 file(s) [attempted 5259/8908 = 59%, 881 KB/s], Decompressed: 505Downloaded: 5428 file(s) [attempted 5428/8908 = 60%, 2066 KB/s], Decompressed: 505Downloaded: 5533 file(s) [attempted 5533/8908 = 62%, 1014 KB/s], Decompressed: 505Downloaded: 5711 file(s) [attempted 5711/8908 = 64%, 314 KB/s], Decompressed: 505Downloaded: 5872 file(s) [attempted 5872/8908 = 65%, 844 KB/s], Decompressed: 1664Downloaded: 5978 file(s) [attempted 5978/8908 = 67%, 170 KB/s], Decompressed: 1664Downloaded: 6084 file(s) [attempted 6084/8908 = 68%, 2173 KB/s], Decompressed: 1664Downloaded: 6218 file(s) [attempted 6218/8908 = 69%, 442 KB/s], Decompressed: 1664Downloaded: 6281 file(s) [attempted 6281/8908 = 70%, 2149 KB/s], Decompressed: 1664Downloaded: 6432 file(s) [attempted 6432/8908 = 72%, 734 KB/s], Decompressed: 1664Downloaded: 6589 file(s) [attempted 6589/8908 = 73%, 354 KB/s], Decompressed: 1664Downloaded: 6737 file(s) [attempted 6737/8908 = 75%, 247 KB/s], Decompressed: 1664Downloaded: 6910 file(s) [attempted 6910/8908 = 77%, 841 KB/s], Decompressed: 1664Downloaded: 7059 file(s) [attempted 7059/8908 = 79%, 270 KB/s], Decompressed: 1664Downloaded: 7206 file(s) [attempted 7206/8908 = 80%, 141 KB/s], Decompressed: 1664Downloaded: 7333 file(s) [attempted 7333/8908 = 82%, 2173 KB/s], Decompressed: 1664Downloaded: 7427 file(s) [attempted 7427/8908 = 83%, 2213 KB/s], Decompressed: 1664Downloaded: 7513 file(s) [attempted 7513/8908 = 84%, 744 KB/s], Decompressed: 1664Downloaded: 7655 file(s) [attempted 7655/8908 = 85%, 364 KB/s], Decompressed: 1664Downloaded: 7737 file(s) [attempted 7737/8908 = 86%, 283 KB/s], Decompressed: 1664Downloaded: 7898 file(s) [attempted 7898/8908 = 88%, 891 KB/s], Decompressed: 1664Downloaded: 8054 file(s) [attempted 8054/8908 = 90%, 1655 KB/s], Decompressed: 1664Downloaded: 8206 file(s) [attempted 8206/8908 = 92%, 394 KB/s], Decompressed: 1664Downloaded: 8311 file(s) [attempted 8311/8908 = 93%, 583 KB/s], Decompressed: 1664Downloaded: 8472 file(s) [attempted 8472/8908 = 95%, 2437 KB/s], Decompressed: 1664Downloaded: 8549 file(s) [attempted 8549/8908 = 95%, 960 KB/s], Decompressed: 1664Downloaded: 8693 file(s) [attempted 8693/8908 = 97%, 641 KB/s], Decompressed: 1664Downloaded: 8778 file(s) [attempted 8778/8908 = 98%, 148 KB/s], Decompressed: 1664Downloaded: 8908 file(s) [attempted 8908/8908 = 100%, 148 KB/s], Decompressed: 1664
+	Command being timed: "timeout 3600 lake update"
+	User time (seconds): 154.50
+	System time (seconds): 60.31
+	Percent of CPU this job got: 121%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:56.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1979448
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 464
+	Minor (reclaiming a frame) page faults: 6742979
+	Voluntary context switches: 531640
+	Involuntary context switches: 17842
+	Swaps: 0
+	File system inputs: 2992
+	File system outputs: 25841080
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
