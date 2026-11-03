@@ -218,8 +218,10 @@ async function main() {
   if (cmd === 'get') {
     /* one public post by id or URL, with its links expanded (a scout's read; billed by X like any read) */
     const K = keys();
-    const t = (await call(K, 'GET', '/tweets/' + idOf(rest[0]), { query: { 'tweet.fields': 'created_at,entities,public_metrics,author_id' } })).data;
-    console.log(t.created_at + '  ' + t.text.replace(/\s+/g, ' '));
+    const t = (await call(K, 'GET', '/tweets/' + idOf(rest[0]), { query: { 'tweet.fields': 'created_at,entities,public_metrics,author_id,note_tweet,conversation_id' } })).data;
+    const full = (t.note_tweet && t.note_tweet.text) || t.text;   /* a long post keeps its whole text in note_tweet */
+    console.log(t.created_at + '  ' + full.replace(/\s+/g, ' '));
+    if (rest.includes('--json')) console.log(JSON.stringify(t));
     for (const u of ((t.entities || {}).urls || [])) console.log('  → ' + u.expanded_url);
     return;
   }

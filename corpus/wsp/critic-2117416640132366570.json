@@ -1,0 +1,38 @@
+{
+ "what": "The critic's post on MIT CSAIL's Weight-Space Programming (the thread the 11-03 brief quoted as 'the critic'), fetched from the X API v2 by tools/x.js get and pinned here verbatim: the long post's full text (note_tweet), its id, author id, time and public metrics at fetch. His only other post in the conversation is an emoji reply.",
+ "fetched_at": "2026-11-03T22:21:35Z",
+ "url": "https://x.com/dummerspast39/status/2117416640132366570",
+ "author": "@dummerspast39",
+ "post": {
+  "author_id": "1823248660601212928",
+  "conversation_id": "2117416640132366570",
+  "created_at": "2026-11-03T00:40:41.000Z",
+  "edit_history_tweet_ids": [
+   "2117416640132366570"
+  ],
+  "entities": {
+   "urls": [
+    {
+     "display_url": "x.com/rikiyatakehi/s…",
+     "end": 297,
+     "expanded_url": "https://twitter.com/rikiyatakehi/status/2117313742891327994",
+     "start": 274,
+     "url": "https://t.co/7aDHDnS2f3"
+    }
+   ]
+  },
+  "id": "2117416640132366570",
+  "note_tweet": {
+   "text": "This is BULLSHIT:\n\nWent through the astra weight programming thread + their own logs and tested it myself.\n\n\"Math up to 6x\"\n-they run qwen 0.8B in thinking mode. qwens own model card says that mode loops\n-it types \"wait\" + the same calculation until the token limit, 93% of answers never finish\n-Default non-thinking mode w/ zero edits: 47% on MATH-500. astras edit: 48%\n-the prompt basically hands astra the task: if the model repeats itself and never finishes fix that, go after the biggest failure\n-it fixed the repeating and nothing else. Basically set to non thinking. problems Qwen already finished were right almost every time before and after\n\n\"only 0.016% of weights\"\n-2 matrices pushed against the repeat direction, strength picked by trial and error over thousands of test answers\n\n\"correctly named all four\"\n-4 tiny game bots, Astra must guess the game from raw weights. how it guessed (thread doesnt say): The player only stands on a few squares so only those weights get trained\n-Big first layer weights literally draw the map. bar on the bottom row = breakout paddle, maze = pacman. 1 line script, prob any decent model can do this\n-it answered Frogger btw. they counted it as Freeway😭\n\nTo the car shit. \"just 3.5% of the weights\"\n-original weights almost all under 0.5, biggest about 2. Astra set 10 of them to hundreds, up to 876\n-thats a hardcoded \"drive backwards then full throttle\" rule screaming over the whole network, the trained net only drives the last few steps\n-Same level every time so 100% success = one run replayed 1024 times. never tested on any other level\n\n\"20x higher than PPO\"\n-astra got the full game source code and wrote \"move paddle to where ball lands\" as weights\n-uses 6 of its 32 first layer neurons, 96% of the weights are zero\n-whole thing is 61 different numbers, mostly ramps like 0.02 0.04 0.06\n-their PPO is trash, most runs score around 6\n-Me and Opus 5.5 wrote the same idea as a 25 line script. scores higher than astras network\n-in the other 2 games astra lost to that same PPO. not in the thread ofc\n\nSycophancy (not in the thread either)\n-Finetuned 2 copies of gemma 270M, one honest, one always agrees with whatever answer the user suggests. which one is the suck up, from weights only\n-failed all 4 tries, 3 were straight 50/50 coin flips\n-only got it after they let it watch the models run, so its just watching behavior\n-Changed the parts astra blamed and the behavior didnt change at all\n\nTheir claim: LLMs can read and rewrite weights like code. Truth: simple rules turned into weights + a loop fix found by trial and error. \n\nLike holy fucking shit. Why can't people smell this bullshit immediately.\n\nMIT is FUCKED. This guy is a LARPER."
+  },
+  "public_metrics": {
+   "bookmark_count": 896,
+   "impression_count": 162557,
+   "like_count": 1520,
+   "quote_count": 44,
+   "reply_count": 61,
+   "retweet_count": 82
+  },
+  "text": "This is BULLSHIT:\n\nWent through the astra weight programming thread + their own logs and tested it myself.\n\n\"Math up to 6x\"\n-they run qwen 0.8B in thinking mode. qwens own model card says that mode loops\n-it types \"wait\" + the same calculation until the token limit, 93% of https://t.co/7aDHDnS2f3"
+ }
+}

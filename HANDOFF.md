@@ -70,6 +70,15 @@ NEXT SESSION, IN ORDER:
      family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
      certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
      (the channel rule allows answering a received mail); the answer is in certs/eth-seam.json and the bridges' gaps.
+     THE CRITIC FOUND (22:30 UTC, by tools/x.js search; the operator never had to paste it): @dummerspast39, post
+     2117416640132366570 of 00:40 UTC 11-03 (1,520 likes, 896 bookmarks, 162k impressions) — the brief's M1–M5 verbatim —
+     pinned in corpus/wsp/critic-2117416640132366570.json; the three-post reply DRAFTED (notes/x/reply-critic-2026-11-03.txt
+     + .md: most of his numbers hold, two refuted — 'test answers' and 'one run replayed'); THE SEND IS THE OPERATOR'S (x.js
+     post FILE --reply-to URL --send). The zaibatsu follow-up was POSTED by the operator 14:51 UTC and is logged. THE
+     MACMAHON KERNEL LANE DISPATCHED: .github/workflows/macmahon-kernel.yml run 41729708954 (Comparator v4.35.0 + nanoda on
+     the shipped comparator.json, our own axiom report); when green: `gh run download 41729708954 -n macmahon-kernel -D <dir>`,
+     `node tools/record-macmahon-kernel.js <dir> 41729708954` → certs/macmahon-kernel.json, then a battery row + shelf row
+     + the report page, and the author told on GitHub.
      VERIFY SEAL BUILT ON THE OPERATOR'S BRIEF (19:40–21:20 UTC), FOR REVIEW, NOT DEPLOYED — branch verify-seal (pushed,
      5affc8c4 + the Makefile fix): instruments/seal/{seal.py,battery.py,test_seal.py,README.md} (stdlib; seal / stamp / open;
      digest = SHA256('verify-seal-v1\n' || salt32 || SHA256(archive)); a deterministic tar; two anchors — OpenTimestamps and the
