@@ -22,6 +22,17 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ STATE AT 14:15 UTC 2026-11-03 (the operator approved US$75 total; RunPod topped up): WEIGHTS — C1 and C3 imported, graded,
+     on the page (§4: mostly a settings effect; §4b: the six side claims); C2 running on x9gnpx07fzx4up (ends ~17:30), then
+     C4 needs a RESTART of the container with CONDITIONS="C4" DEADLINE_HOURS=24 (update-pod env + pod-action restart; import
+     C2 FIRST — the disk is wiped), then import, `python3 -I tools/wsp-baseline.py`, `make page R=wsp` (the measure ratchet may
+     need `node tools/check-measure.js --accept --accept-worse` for a changed table — say why in the commit), delete the pod.
+     ETH — the light theorem CERTIFIED and on /eth/; the heavy link on dumwx3gz82jcvf at leanchecker --fresh (build, axioms,
+     nanoda + its control all green); when complete: `node tools/import-runpod-eth-hawkley.js dumwx3gz82jcvf`, a recorder for
+     the heavy facts → certs/eth-hawkley-heavy.json (apps/eth/build.js already reads it: word, why), rebuild /eth/, delete the
+     pod. SENDS (the operator's word, in this order): the authors' GitHub issue (outreach/wsp-authors-issue-2026-11-03.md),
+     the thread reply (notes/x/reply-wsp-2026-11-03.txt), the X post d12 after C2/C4, the critic (needs his thread URL),
+     the Hawkley e-mail after his heavy record, an ETH X post tomorrow. The adversarial review: notes/wsp-adversarial-review-2026-11-03.md.
   ◆ A POD MAY BE BILLING (2026-11-03 10:03 UTC): x9gnpx07fzx4up — WSP Stage 3, the unedited baseline (NVIDIA H200, secure,
      EUR-IS-4, US$5.29/h, hard stop US$40 ≈ 7.5 h; image vllm/vllm-openai:v0.33.0; tools/runpod-wsp-baseline.sh at
      243a589a; conditions C1 C3 C2 C4, no condition starts after 4.5 h). Facts: https://x9gnpx07fzx4up-8000.proxy.runpod.net/
