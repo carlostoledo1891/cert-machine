@@ -1,0 +1,116 @@
+{
+ "what": "The kernel lane of the MacMahon classification (Jason Davies, 2026-11-01): the repository at the commit the Palomar registry names, built with its own toolchain (Lean v4.35.0, Mathlib v4.35.0) and audited by leanprover/comparator v4.35.0 with nanoda on, on the configuration the repository ships (comparator.json: ten theorems, Challenge.lean importing only Mathlib, Solution.lean proving them); then #print axioms from our own file. A concordance with the claimant's CI and the registry's check, never a verification of the mathematics beyond what a kernel is. The statement reading is kept apart as READ.",
+ "source": {
+  "repository": "https://github.com/jasondavies/macmahon-min-universal-sets",
+  "commit": "d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8",
+  "registered_commit": "d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8",
+  "workflow": ".github/workflows/macmahon-kernel.yml",
+  "run": "41729708954",
+  "pins": "corpus/macmahon/PINS.json"
+ },
+ "generated": "2026-11-03",
+ "verdict": "CERTIFIED",
+ "why": "Comparator: each of the ten named theorems states what Challenge.lean states, uses only the permitted axioms, and its proof replays through Lean's kernel and through nanoda; our own #print axioms names only propext, Classical.choice, Quot.sound (exposed_face_rule: propext alone)",
+ "comparator": {
+  "exit": 0,
+  "seconds": 347,
+  "okay": true,
+  "kernels": [
+   "Lean default kernel accepts the solution",
+   "nanoda kernel accepts the solution"
+  ],
+  "nanodaRequested": true,
+  "nanodaAnswered": true,
+  "rssKb": 7183600,
+  "cacheSeconds": 116,
+  "buildSeconds": 207
+ },
+ "theorems": [
+  "MacMahon.minimum_size",
+  "MacMahon.physical_minimum",
+  "MacMahon.physical_exactly_ten",
+  "MacMahon.physical_iff_two_triangles",
+  "MacMahon.physical_minimum_has_no_repeats",
+  "MacMahon.proper_rotation_iff",
+  "MacMahon.exposed_face_rule",
+  "MacMahon.face_colours_valid",
+  "MacMahon.face_assignment_coverage",
+  "MacMahon.face_assignment_unique"
+ ],
+ "permittedAxioms": [
+  "propext",
+  "Quot.sound",
+  "Classical.choice"
+ ],
+ "axioms": {
+  "MacMahon.minimum_size": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.physical_minimum": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.physical_exactly_ten": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.physical_iff_two_triangles": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.physical_minimum_has_no_repeats": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.proper_rotation_iff": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.exposed_face_rule": [
+   "propext"
+  ],
+  "MacMahon.face_colours_valid": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.face_assignment_coverage": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "MacMahon.face_assignment_unique": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "axiomsExit": 0,
+ "env": "kernel: 7.0.0-1017-azure\nlandlock: lockdown,capability,landlock,yama,apparmor,ima,evm\nLean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)\ncomparator rev: e3dcf3083fc53d44b27a4431fabf7d43181583f5\nlean4export rev: 5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe\nnanoda build: stack1g\nclaim: d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8\n",
+ "sha256": "7bfd58397db1135e0ff5233e94792fa1da3dcbec27a2b219f1e284f309c0c313  Challenge.lean\n9eb99bff2e12cb3658257c74d312a2e3728d859126d001467553b567bc9f890c  Solution.lean\nca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c  lean-toolchain\n108b1bae4eaa7244e16190e8d9085d78f4a1fb90b0d1950a57b6f84697ff38c9  lake-manifest.json\n334c76af192126fffe1cba3df7dfeac1781ef4117c2d55d72ba15c8c790ad7f4  comparator.json\n09ed1643d75652f2bd3ce1b277051842ab537fc9672cd837948e306404b6ce1f  MacMahon/Arithmetic.lean\n6037a457fffc9be6fed8ea07482a61954c58f1d3a587c6a5ffc933c5283ded67  MacMahon/Classification.lean\ndc017c5b15444df737bffc7f84ba801b9f3e40be0daea6cc70726f91b76a4b0f  MacMahon/Colourings.lean\n41df70e48e0e97126229fe12b73ed5df9deb6044909cd0a40746806099c94a58  MacMahon/Counting.lean\n51c72217cbdc75f2e2daea4a45a457d688c4453dcea3300bd22214d462d3b12b  MacMahon/Data.lean\ne809de0d8f77b7d0a9607f6f4105392b82f5c47b599807d26464cb7921dfaa77  MacMahon/Definitions.lean\na20b1c87c49d5cda823ad74fcc0ae5ea542d36242f347ea864f00d4f89d19305  MacMahon/Geometry.lean\n6b1ae4de7509d54170a717a2b487bb2f38b125ec3c1256a9436e78d51e9a6e63  MacMahon/Incidence.lean\na6659d6d1a290591b326de10885c0923c258d08de08f234763483d8e8d1aa94f  MacMahon/Partitions.lean\ned5aede4571acc4fed837fd20e0c3a9571a877f50d6d1ebfc3440d89d5bfb2ee  MacMahon/Rotations.lean\n1c399c92d1dad523e22eb23570b3d3d44bfce498ffb6ff572afcf60f9beca789  MacMahon/Structure.lean\n7d6ca55e6df5c4e7b47a0d8f372aab94057dca7989766c6899137830c9e0f958  MacMahon/Submission.lean\n48d1ad91857e6f45653317d7ae309ef4594ac735161966400890a3b1439c2c75  MacMahon/Theorems.lean\n658cd83486c25387df5c226f967c6cd89499d1290d77d95b233e3a7d8d573d39  MacMahon/Types.lean\n9cb03e529bcf03cc7865205b81a37311c70236feec4ae215f7fccbf7f890ff34  MacMahon/Witness.lean\nd0b06b254cf514571dd6bb7a356aa80c752c2b60ad10079d873991f7a5ca2904  MacMahon/WitnessData.lean\n",
+ "reading": {
+  "what": "Challenge.lean (imports only Mathlib) read against the paper's Theorem 1 (\"The minimum size of a universal collection is twelve. Exactly ten labelled collections attain that size, even when repeated varieties are permitted. Each unordered partition of the six labels into triples gives one; these are all; none has repeats.\") — a reading, not a decision.",
+  "word": "MATCHES",
+  "points": [
+   "An Inventory is Pair → ℕ: multiplicities allowed, so \"repeated varieties permitted\" is in the statement; DiagonalZero removes the thirty diagonal non-varieties; total is the collection size.",
+   "PhysicalBuilds a t asks for an INJECTION of the eight slots into the stock (eight distinct physical copies) with a rotation each, and FaceFits constrains only the three exposed faces of each slot: \"exteriors only, internal faces free\" as the paper says.",
+   "PhysicalUniversal quantifies over every ordered pair i ≠ j: all thirty varieties, each labelled by Conway's tableau; \"labelled\" (colours fixed, no quotient by colour permutations) is the statement's own frame, as the paper's Theorem 1 says.",
+   "minimum_size (IsLeast … 12) and physical_minimum are the first sentence; physical_exactly_ten (Nat.card = 10) the second; physical_iff_two_triangles the third (twoTriangles s for a 3-subset s); physical_minimum_has_no_repeats the last.",
+   "The five auxiliary theorems (proper_rotation_iff, exposed_face_rule, face_colours_valid, face_assignment_coverage, face_assignment_unique) certify the tables the statement rests on: the 24 rotations are exactly the proper ones, the slots expose the outward faces, and the faceColours table lists every six-distinct-colour colouring exactly once up to rotation — the same facts certs/macmahon-witnesses.json decided independently (T1).",
+   "Not in the Lean statement: the physical cubes themselves (the model is the discrete one the paper declares: six face directions, signed-axis permutations of determinant +1). The paper says so; this is the one step a reader takes on the paper's word."
+  ]
+ },
+ "decided": {
+  "kernel": "CERTIFIED",
+  "sufficiency_from_witnesses": "certs/macmahon-witnesses.json",
+  "mathematics": "not decided here beyond what a kernel is"
+ },
+ "logTail": "minimum, MacMahon.physical_exactly_ten, MacMahon.physical_iff_two_triangles, MacMahon.physical_minimum_has_no_repeats, MacMahon.proper_rotation_iff, MacMahon.exposed_face_rule, MacMahon.face_colours_valid, MacMahon.face_assignment_coverage, MacMahon.face_assignment_unique, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge\nBuilding Solution\nBuild completed successfully (9065 jobs).\nExporting #[Quot, Quot.mk, Quot.lift, Quot.ind, MacMahon.minimum_size, MacMahon.physical_minimum, MacMahon.physical_exactly_ten, MacMahon.physical_iff_two_triangles, MacMahon.physical_minimum_has_no_repeats, MacMahon.proper_rotation_iff, MacMahon.exposed_face_rule, MacMahon.face_colours_valid, MacMahon.face_assignment_coverage, MacMahon.face_assignment_unique, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution\nRunning nanoda kernel on solution\nnanoda kernel accepts the solution\nRunning Lean default kernel on solution.\nLean default kernel accepts the solution\nYour solution is okay!\n"
+}

@@ -70,6 +70,12 @@ NEXT SESSION, IN ORDER:
      family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
      certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
      (the channel rule allows answering a received mail); the answer is in certs/eth-seam.json and the bridges' gaps.
+     MACMAHON KERNEL LANE GREEN (23:05 UTC): run 41729708954 — Comparator v4.35.0 'Your solution is okay!', Lean's kernel and
+     nanoda both accept the ten shipped theorems, our own axiom report the three standard axioms; cache 116 s, build 207 s,
+     comparator 347 s, peak 7.2 GB, a free runner. certs/macmahon-kernel.json (tools/record-macmahon-kernel.js; the artifact
+     kept in corpus/macmahon/kernel-run; --check re-reads it), battery 'MacMahon kernel (two kernels)' + control + shelf rows;
+     the statement reading MATCHES (in the record). The classification is now DECIDED TWICE here with no shared code. NEXT,
+     the operator's word: the short report page and the author told on GitHub.
      THE CRITIC FOUND (22:30 UTC, by tools/x.js search; the operator never had to paste it): @dummerspast39, post
      2117416640132366570 of 00:40 UTC 11-03 (1,520 likes, 896 bookmarks, 162k impressions) — the brief's M1–M5 verbatim —
      pinned in corpus/wsp/critic-2117416640132366570.json; the three-post reply DRAFTED (notes/x/reply-critic-2026-11-03.txt
