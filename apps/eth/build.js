@@ -517,7 +517,7 @@ const CSS = `
 .eth-five{margin-top:var(--s-7)}
 .eth-w{display:block;color:var(--ink-3);font-weight:var(--weight-body)}
 /* the two figures of §5: the letter under a tick */
-.eth-fig .t-tk{font-size:10px;fill:var(--ink-3);letter-spacing:.04em}
+.eth-fig .t-tk{font-size:var(--text-eyebrow);fill:var(--ink-3);letter-spacing:var(--track-slight)}
 `;
 let html = TPL.render({ title: 'Two claimed refutations of ETH, checked · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, cssRaw: CSS,
   desc: 'OpenAI’s and Anthropic’s Lean proofs that the Exponential Time Hypothesis is false, replayed by two kernels against their own statements, and the statements read against the textbook ETH.',
