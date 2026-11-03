@@ -73,8 +73,8 @@ NEXT SESSION, IN ORDER:
      PRIME INTELLECT (23:00 UTC): the RL Residency application SUBMITTED by the operator (the three answers in
      outreach/prime-residency-2026-11/as-submitted.md; row prime-residency-application-2026-11-03) and the public two-post
      ask with the chart POSTED by x.js on the operator's word (x.com/_carlos_toledo_/status/2117753356936527917; row
-     x-prime-compute-ask-2026-11-03). The three amplifier replies (Huryn, rryssf, miriamgonp) are DRAFTED in notes/x/
-     reply-{huryn,rryssf,miriamgonp}-2026-11-03.txt, each within 280; the sends the operator's.
+     x-prime-compute-ask-2026-11-03). The four amplifier replies (Huryn, rryssf, miriamgonp, Runchu Tian) were SENT by the operator
+     23:01–23:05 UTC and logged (rows x-{huryn,rryssf,miriamgonp,runchu}-reply-2026-11-03).
      MACMAHON KERNEL LANE GREEN (23:05 UTC): run 41729708954 — Comparator v4.35.0 'Your solution is okay!', Lean's kernel and
      nanoda both accept the ten shipped theorems, our own axiom report the three standard axioms; cache 116 s, build 207 s,
      comparator 347 s, peak 7.2 GB, a free runner. certs/macmahon-kernel.json (tools/record-macmahon-kernel.js; the artifact
