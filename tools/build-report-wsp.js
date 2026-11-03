@@ -33,7 +33,7 @@ const Bx = HAS_B ? J(BREC) : null;
 if (Bx) {
   if (!Bx.conditions || !Object.keys(Bx.conditions).length) die('the baseline record holds no condition');
   for (const [c, d] of Object.entries(Bx.conditions)) if (d.n_problems !== 500) die('condition ' + c + ' did not cover the 500 problems');
-  if (!/^(the ’6×’ is mostly the baseline’s settings|the '6×' is mostly the baseline's settings|the edit’s gain stands|the edit's gain stands|between|NEEDS DATA)/.test(Bx.reading.verdict)) die('the baseline reading is not one of the pre-registered outcomes: ' + Bx.reading.verdict);
+  if (!/^(holds|overstated|mostly a settings effect|no verdict on the multiplier|NEEDS DATA)/.test(Bx.reading.verdict)) die('the baseline reading is not one of the pre-registered outcomes: ' + Bx.reading.verdict);
   if (Bx.not_cached && Bx.not_cached.length) die('the baseline record was written with conditions not cached');
 }
 const F = R.js.facts, V = R.verdicts;

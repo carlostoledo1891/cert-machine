@@ -31,3 +31,17 @@ pod id, GPU, image, vLLM/transformers versions and the exact sampling dict per c
 If C2 or C3 reaches a MATH-500 accuracy within 10 points of 48.1 (first-sample or 4-sample mean), the "6×" is mostly
 the baseline's settings and the report says so. If both stay below ~20%, the edit's gain stands against the card's
 settings too and the report says that. Either way the number goes on the page beside the post's table, dated.
+
+## Amendment 1 — 2026-11-03 12:40 UTC (C1 running; no C2/C3 token generated yet)
+Bands and stop rules fixed before any no-edit card-settings result exists (the operator's brief of 11-03; the adversarial
+review notes/wsp-adversarial-review-2026-11-03.md §3). tools/wsp-baseline.py implements them as written.
+- Stop rule A: C1 (the post's settings, unedited) within 7.9 ± 3 points (all-samples floor), else "no verdict on the
+  multiplier: the setup does not reproduce the claimants'".
+- Stop rule B: the edited control is the card's independent re-run (51.0 on 2,000 released flags, re-graded in
+  certs/wsp-regrade.json), within 48.1 ± 4; C4 is the like-for-like lift under the card's settings, not a control.
+- Outcome bands on the best no-edit card-settings arm (C2 or C3; the larger of the first-sample and the all-samples
+  floor, REFUSED counted wrong): < 15% HOLDS; 15–40% OVERSTATED; ≥ 40% MOSTLY A SETTINGS EFFECT. A best arm within 2
+  points of an edge is reported "at the edge". The critic's "47% in non-thinking mode": REFUTED as stated unless C3 is
+  within 5 points of 47; his own run is REFUSED until its settings are shared.
+- The multiplier is re-stated as 48.1 over the best no-edit arm. No arm is re-run. (The 10-point / 20-point rule of the
+  original text is superseded by these bands; it is kept in the record beside them for the reader.)

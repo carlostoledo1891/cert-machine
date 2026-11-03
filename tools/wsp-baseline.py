@@ -107,11 +107,20 @@ def grade_condition(c, meta, samples_path, gold):
 
 
 def reading(conds):
-    """the pre-registered interpretation rule, applied as written to the card-settings conditions C2 and C3."""
-    out = {"rule": "a card-settings condition (C2 or C3) whose MATH-500 accuracy (first-sample or 4-sample mean, the floor, "
-                   "REFUSED counted wrong) is within 10 points of 48.1 → the '6×' is mostly the baseline's settings; both "
-                   "below 20 → the edit's gain stands against the card's settings too; otherwise: between, stated as such",
-           "target_percent": RULE["target"], "conditions": {}}
+    """the pre-registered interpretation, as amended 2026-11-03 12:40 UTC before any no-edit card-settings token existed
+    (notes/wsp-stage3-preregistration-2026-11-02.md, Amendment 1): stop rule A on the control, the three bands on the best
+    no-edit card-settings arm, the noise flag, the critic's 47%, the multiplier re-stated. The original 10-/20-point rule
+    is reported beside it."""
+    out = {"rule": "Stop rule A: C1 within 7.9 ± 3 (all-samples floor), else no verdict on the multiplier. Bands on the best "
+                   "no-edit card-settings arm (C2 or C3; the larger of the first-sample and the all-samples floor): below 15% "
+                   "HOLDS; 15 to 40% OVERSTATED; 40% or above MOSTLY A SETTINGS EFFECT; within 2 points of an edge: at the edge. "
+                   "The critic's 47% (non-thinking, no edit): REFUTED as stated unless C3 is within 5 points of 47. The "
+                   "multiplier re-stated as 48.1 over the best no-edit arm.",
+           "target_percent": RULE["target"], "conditions": {}, "amendment": "2026-11-03T12:40Z, before any C2/C3 token"}
+    c1 = conds.get("C1")
+    if c1:
+        f = c1["all_samples"]["acc_floor"] * 100
+        out["control_C1"] = {"all_samples_floor_percent": round(f, 2), "printed": 7.9, "within_3_points": abs(f - 7.9) <= 3.0}
     best = {}
     for c in ("C2", "C3"):
         if c not in conds:
@@ -119,18 +128,32 @@ def reading(conds):
             continue
         f, a = conds[c]["first_sample"]["acc_floor"] * 100, conds[c]["all_samples"]["acc_floor"] * 100
         best[c] = max(f, a)
-        out["conditions"][c] = {"first_sample_floor_percent": round(f, 2), "all_samples_floor_percent": round(a, 2),
-                                "points_below_48_1": round(RULE["target"] - max(f, a), 2)}
+        out["conditions"][c] = {"first_sample_floor_percent": round(f, 2), "all_samples_floor_percent": round(a, 2), "best_percent": round(best[c], 2)}
     if not best:
         out["verdict"] = "NEEDS DATA: no card-settings condition finished"
-    elif any(RULE["target"] - v <= RULE["near"] for v in best.values()):
-        out["verdict"] = "the '6×' is mostly the baseline's settings: " + ", ".join("%s reaches %.1f%%" % (c, v) for c, v in best.items() if RULE["target"] - v <= RULE["near"])
-    elif all(v < RULE["low"] for v in best.values()) and len(best) == 2:
-        out["verdict"] = "the edit's gain stands against the card's settings too: " + ", ".join("%s %.1f%%" % (c, v) for c, v in best.items())
-    elif len(best) < 2:
-        out["verdict"] = "between (one card-settings condition only): " + ", ".join("%s %.1f%%" % (c, v) for c, v in best.items())
+        return out
+    b = max(best.values()); arm = max(best, key=best.get)
+    out["best_no_edit_arm"] = {"arm": arm, "percent": round(b, 2), "multiplier_48_1_over_best": round(RULE["target"] / b, 2) if b > 0 else None}
+    edge = min(abs(b - 15.0), abs(b - 40.0)) < 2.0
+    if c1 and not out["control_C1"]["within_3_points"]:
+        word = "no verdict on the multiplier: the control C1 does not reproduce the post's 7.9 within 3 points"
+    elif b < 15.0:
+        word = "holds: the edit adds most of the gain"
+    elif b < 40.0:
+        word = "overstated: a real gain over a fair baseline, smaller than 6x"
     else:
-        out["verdict"] = "between: " + ", ".join("%s %.1f%%" % (c, v) for c, v in best.items())
+        word = "mostly a settings effect: a no-edit arm recovers most of 48.1"
+    if edge:
+        word += " (at the edge: within 2 points of a band boundary, sampling noise)"
+    out["verdict"] = word + ": " + ", ".join("%s %.1f%%" % (c, v) for c, v in sorted(best.items()))
+    if "C3" in best:
+        d = abs(best["C3"] - 47.0)
+        out["critic_47_non_thinking"] = {"C3_best_percent": round(best["C3"], 2), "distance_points": round(d, 2),
+                                         "reading": "close (within 5 points): the critic's number stands here" if d <= 5.0 else "REFUTED as stated: C3 is %.1f points from 47" % d,
+                                         "his_run": "REFUSED until its settings, prompt, grader and samples are shared"}
+    # the original rule of the first text, kept beside
+    orig = "within 10 points of 48.1 -> mostly the settings" if RULE["target"] - b <= RULE["near"] else ("both below 20 -> stands" if all(v < RULE["low"] for v in best.values()) and len(best) == 2 else "between")
+    out["original_rule_reading"] = orig
     return out
 
 
