@@ -358,6 +358,7 @@ reports:
 	@$(NODE) tools/build-report-lueker.js
 	@$(NODE) tools/build-report-cryptids.js
 	@$(NODE) tools/build-report-ramsey-graphs.js
+	@$(NODE) tools/build-report-macmahon.js
 	@$(PY) -I tools/run-xx-ledger.py
 	@$(NODE) tools/build-report-xx.js
 	@$(NODE) tools/build-report-wsp.js

@@ -525,6 +525,13 @@ const REPORTS = [
     n: (() => { const B = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'cryptids-benchmark.json'), 'utf8'));
       if (!B.M8.length || !B.M5.pairs) fail('the cryptids card would misstate the record');
       return B.M8.length + ' gaps · ' + B.M1.H.rows + ' claims by hand · ' + B.M1.C.written + ' through claimbox · ' + B.M5.agree + ' of ' + B.M5.pairs + ' paired claims agree'; })() },
+  { g: 'ai', f: 'macmahon.html', k: 'audit · MacMahon cubes, an AI\'s classification',
+    title: 'The ten minimum universal sets of MacMahon cubes: a classification decided twice',
+    desc: 'Jason Davies published a proof, written by GPT-6 Astra and checked in Lean, that exactly ten twelve-cube collections build every MacMahon variety, settling the Johnson–Roldán conjectures. '
+      + 'Decided here twice with no shared code: the 300 released constructions re-built with our own rotations and slots, and the ten theorems replayed through Lean\'s kernel and nanoda with our own axiom report.',
+    n: (() => { const W = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'macmahon-witnesses.json'), 'utf8')); const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'macmahon-kernel.json'), 'utf8'));
+      if (W.verdict !== 'CERTIFIED' || K.verdict !== 'CERTIFIED') fail('the MacMahon card would misstate the records');
+      return W.facts.T3.built + ' of ' + W.facts.T3.constructions + ' constructions built · ' + K.theorems.length + ' theorems through two kernels · ' + W.red_controls.length + ' red controls'; })() },
   { g: 'ai', f: 'ramsey-graphs.html', k: 'audit · AlphaEvolve\'s Ramsey graphs',
     title: 'AlphaEvolve\'s Ramsey lower bounds, each graph decided',
     desc: 'Google released 18 graphs with AlphaEvolve, one per claimed lower bound R(s, t) ≥ m. Each is read as a simple graph and both of its properties '
