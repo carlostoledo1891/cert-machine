@@ -115,7 +115,7 @@ function g5Decided() {
 }
 function condRow(c) {
   const d = Bx.conditions[c], f = d.first_sample, a = d.all_samples, mt = d.meta;
-  return [c, COND_WORDS[c] + (mt.samples !== 4 ? ' — ' + mt.samples + ' sample' + (mt.samples === 1 ? '' : 's') + ' per problem, a stated deviation from the pre-registered 4' : ''), mt.model === 'edited' ? 'edited' : 'unedited',
+  return [c, COND_WORDS[c].split(':')[0] + (/\(the control\)/.test(COND_WORDS[c]) ? ' (the control)' : '') + (mt.samples !== 4 ? ' — ' + mt.samples + ' sample' + (mt.samples === 1 ? '' : 's') + ' per problem, a stated deviation' : ''), mt.model === 'edited' ? 'edited' : 'unedited',
     { raw: bv(c, 'first_sample/boxed_share', pct1(f.boxed_share), 'first samples ending in a closed box, over 500') },
     { raw: bv(c, 'first_sample/acc_decided', pctOr(f.acc_decided), 'CORRECT over CORRECT + WRONG among first samples (REFUSED neither)') + ' / ' + bv(c, 'first_sample/acc_floor', pct1(f.acc_floor), 'CORRECT over 500 first samples (REFUSED counted wrong)') },
     { raw: bv(c, 'all_samples/acc_decided', pctOr(a.acc_decided), 'CORRECT over CORRECT + WRONG among all samples') + ' / ' + bv(c, 'all_samples/acc_floor', pct1(a.acc_floor), 'CORRECT over all samples (REFUSED counted wrong)') },
@@ -259,7 +259,8 @@ function sec4Run() {
       + dFrom(String(conds.length), BREC + '#/conditions', 'the conditions in the record') + ' conditions, ' + (dev.length ? 'four samples per problem except ' + esc(dev.join(', ')) + ' — a deviation from the pre-registration, stated here and in the record' : 'four samples per problem as pre-registered') + '; every generated text brought to the desk and graded by the grader of §3, ' + dv(RREC, '/gold/decidable') + ' of the 500 gold answers in its reach. '
       + 'Accuracy is given two ways, as pre-registered: on the decided subset (CORRECT over CORRECT + WRONG) and as a floor (REFUSED counted wrong). The record (certs/wsp-baseline.json) holds every verdict and every pin.')
       + C.table({ cols: [{ h: '' }, { h: 'condition' }, { h: 'model' }, { h: 'first samples answered' }, { h: 'first sample: decided / floor' }, { h: 'all samples: decided / floor' }, { h: 'hit the token limit' }, { h: 'mean tokens' }],
-        rows: conds.map(condRow).concat([postRow('post_unedited', 'the post’s own unedited run, as printed (their settings = C1)'), postRow('post_edited_50_passes', 'the post’s edited run, as printed')]) })
+        rows: conds.map(condRow).concat([postRow('post_unedited', 'the post, unedited, as printed (its settings are C1’s)'), postRow('post_edited_50_passes', 'the post, edited (50 passes), as printed')]) })
+      + C.pRaw('<b>The settings.</b> ' + conds.map((c) => c + ': ' + esc(COND_WORDS[c].split(':').slice(1).join(':').trim().replace(/ \(the control\)$/, ''))).join('. ') + '. Each arm: the same prompt and chat template, seed 0, ' + dFrom('4', BREC + '#/conditions/' + conds[0] + '/meta/samples', 'samples per problem') + ' samples per problem unless stated.')
       + figLoop()
       + C.pRaw('<b>The pre-registered reading, applied as written.</b> ' + esc(Bx.reading.rule) + ' Here: <b>' + esc(RW()) + '</b> — ' + floorMarks() + '.')
       + (Bx.reading.best_no_edit_arm ? figRuler() : '')
