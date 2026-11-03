@@ -29,7 +29,7 @@ NEXT SESSION, IN ORDER:
      build — never run make page and make test together). DISK: 47 merged clean agent worktrees removed (2.4 GB → 55 GB free; memory
      worktrees-fill-the-disk). SENT today: the authors' issue #4, the one-line reply under Takehi's post, the standalone X post (all logged).
      WAITING: C2 on the pod (→ import; C4 only if C2 ends by ~19:00 UTC, the US$60 cap is 21:20), Hawkley's e-mail SENT by the operator ~16:15 UTC (logged),
-     the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand), the ETH X post d13 tomorrow.
+     the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand). The ETH X post d13 SENT 16:25 UTC (x.com/_carlos_toledo_/status/2117653910903005332, logged).
   ◆ STATE AT 14:15 UTC 2026-11-03 (the operator approved US$75 total; RunPod topped up): WEIGHTS — C1 and C3 imported, graded,
      on the page (§4: mostly a settings effect; §4b: the six side claims); C2 running on x9gnpx07fzx4up (ends ~17:30), then
      C4 needs a RESTART of the container with CONDITIONS="C4" DEADLINE_HOURS=24 (update-pod env + pod-action restart; import
