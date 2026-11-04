@@ -24,6 +24,8 @@
 # env: AUDIT_SHA (required), BUILD_TIMEOUT (s, default 36000), NANODA_TIMEOUT (s per theorem, default 10800),
 #      STEPS (default "L1 L2 L3 L4 L5"), LEAN_THREADS (override the parallel bound), SPLIT_BUILD (1 = one lake call per target)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 BUILD_TIMEOUT="${BUILD_TIMEOUT:-36000}"
 NANODA_TIMEOUT="${NANODA_TIMEOUT:-10800}"
@@ -79,7 +81,7 @@ step() {
   local n=$1 to=$2 dir=$3; shift 3
   status _phase "$n running"
   date +%s > $R/$n.start
-  runuser -u $U -- env HOME=$H PATH="$H/.elan/bin:/usr/local/bin:/usr/bin:/bin" LEAN_NUM_THREADS="$BOUND" \
+  runuser -u $U -- env -i HOME=$H PATH="$H/.elan/bin:/usr/local/bin:/usr/bin:/bin" LEAN_NUM_THREADS="$BOUND" \
     bash -c 'cd "$1" && shift && ulimit -s unlimited 2>/dev/null; exec /usr/bin/time -v timeout "$0" "$@"' "$to" "$dir" "$@" \
     > $R/$n.out 2> $R/$n.err
   echo $? > $R/$n.exit; date +%s > $R/$n.end

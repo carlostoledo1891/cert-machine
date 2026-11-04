@@ -12,6 +12,8 @@
 #   curl -fsSL https://raw.githubusercontent.com/carlostoledo1891/cert-machine/<sha>/tools/runpod-qiushi-lifting.sh -o /run.sh && bash /run.sh
 # env: AUDIT_SHA, DIMS (space-separated, decided in order), CAL ("32:358430976 39:325490632", desk contact counts), BACKEND (triton | torch)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${DIMS:?}" "${CAL:?}"
 R=/results; D=/data; mkdir -p $R $D /w
 status() { echo "{\"phase\":\"$1\",\"done\":\"${done_list:-}\",\"audit\":\"$AUDIT_SHA\",\"updated\":\"$(date -u +%FT%TZ)\"}" > $R/_status.json; }

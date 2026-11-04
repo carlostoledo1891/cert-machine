@@ -12,6 +12,8 @@
 #   curl -fsSL https://raw.githubusercontent.com/carlostoledo1891/cert-machine/<sha>/tools/runpod-sidorenko.sh -o /run.sh && bash /run.sh
 # env: AUDIT_SHA, BUDGET_HOURS (= (10 - 0.3 x price) / price, per the pre-registration)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${BUDGET_HOURS:?}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA
 R=/results; W=/w; mkdir -p $R $W/sidorenko

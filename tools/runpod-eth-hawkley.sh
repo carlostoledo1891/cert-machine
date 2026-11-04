@@ -24,6 +24,8 @@
 #      leanchecker); NANODA_THREADS (default nproc); LEAN_GLIBC_TUNABLES (exported as GLIBC_TUNABLES for every Lean step
 #      when set; the kernel lane's declared value for OpenAI's build was glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 HAWK_REPO=https://github.com/thinkthoughts/math.git
 HAWK_PIN="${HAWK_PIN:-d6b79b7d165f9e6bef6e033949e3f14e913efdaa}"

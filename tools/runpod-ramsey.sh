@@ -12,6 +12,8 @@
 # env: AUDIT_SHA, JOB (an AlphaEvolve file name, e.g. R_8_18_ge_1052), SIDE (I), BUDGET (seconds of search),
 #      FLAGS (kernel flags, e.g. "-b -R": split into branches, cheap roots first)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${JOB:?}" "${SIDE:?}" "${BUDGET:?}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA
 R=/results; W=/cm; mkdir -p $R $W/tools $W/instruments/ramsey $W/corpus/ramsey/alphaevolve/graphs

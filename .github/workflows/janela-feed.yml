@@ -37,8 +37,9 @@ on:
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch: {}
+# the gate only reads; the write token is granted to the feed job alone (security pass, 2026-11-04)
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: janela-feed
   cancel-in-progress: false
@@ -70,6 +71,8 @@ jobs:
     needs: gate
     if: needs.gate.outputs.todo == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     timeout-minutes: 90
     env:
       # GitHub's runners have no IPv6 route; coastwatch.noaa.gov publishes an AAAA record

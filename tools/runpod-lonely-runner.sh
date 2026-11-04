@@ -10,6 +10,8 @@
 #     && bash /run.sh
 # env: AUDIT_SHA, GATES (space-separated primes, decided in order), EXTRA (optional: "233:--no-neargcd" pairs)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${GATES:?}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA
 R=/results; mkdir -p $R /lr

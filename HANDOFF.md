@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-04 ~19:45 UTC, ETH D1 + C1 + C2 CERTIFIED — both labs' statements reach cslib's multitape machine; /reports/flashprove.html built; nothing billing; earlier, ETH D1 + C1 CERTIFIED, C2 PROVED IN CLAIMBOX, the census report LIVE; earlier, A FLASHPROVE POD IS BILLING (iuordtjfu4g3s2, cap US$25 ~23:50 UTC) · /EXTREMOS/ REWORKED · claimbox republished · #242 rebased and answered; earlier, /EXTREMOS/ LIVE UNLISTED (pt-BR solutions page); earlier, 2026-11-04 ~02:40 UTC, HANDOFF: THE SESSION OF 11-03 CLOSED — twenty sends, three applications, Verify re-headlined + the Seal, MacMahon decided twice, nothing billing; earlier, 11-03 ~21:45 UTC, HANDOFF: /VERIFY/ UPDATED, THE JS SECOND GRADER, C2 IN, THE POD TERMINATED, VERIFY SEAL LIVE; earlier, ~17:50 UTC, HANDOFF: WEIGHTS C1/C3 + ETH BRIDGES LIVE WITH FIGURES, SEVEN SENDS OUT, PATURI ACKNOWLEDGED; next: review /verify/; earlier, 2026-11-02 ~23:45 UTC, HANDOFF: WEIGHT-SPACE PROGRAMMING STAGES 1–2 DONE, the page built, stage 3 pre-registered on the operator's word; earlier, 2026-10-30 ~10:00 UTC, HANDOFF: THE SESSION CLOSED — ETH and the grammar live, the claimbox growth plan written, the three-verdict ideas saved NOT ADOPTED, two job packets; earlier, 2026-10-27 ~23:00 UTC, HANDOFF: THE DAY CLOSED — the site incident fixed and guarded, Machinidae published, release v2026.10.27 on Zenodo, the three confirmations posted, the papers current, Pedro's package ready; earlier, ~17:30 UTC, ALL IMPROVEMENTS RUN, PAID ONES INCLUDED — the IEEE 1788 suite and a dReal comparison in the paper, C_16/K4/R(3,33) decided as the reciprocal second party, the release's second pin re-run, two RunPod pods run and deleted, the disk cleaned; earlier, ~07:00 UTC, THE METHOD PAPER v0.9 for the Pedro meeting — shorter on his structure, the claimbox variant RETIRED, the registry's third round, the reciprocity and the outside reruns added; earlier, ~01:30 UTC, THE BUILD BEFORE THE SENDS — the registry's third round pinned (six more asterisks off, the second-party rule), the truncated-upper-bound sweep CLOSED (GNNW, the entropy witness, the lonely-runner threshold), three reciprocity targets scouted OPEN; Eleições PAUSED on the operator's word; earlier, 2026-10-26 evening, HANDOFF: THE ELEIÇÕES 2026 DOSSIER BUILT AND LIVE, UNLISTED, at /eleicoes2026/ — both rounds decided from the TSE's public files, redesigned with party colours, maps and four calculations on the margin; the round-2 pieces wait on the TSE's bulk publication; earlier, 2026-10-24 ~23:20 UTC, HANDOFF: the session of 10-23/24 closed — the Ramsey graphs 17/18, the outside credits pinned and shown, the indexes ordered, Clade Code's zone made safe and republished, an outside rerun's C42 findings fixed; NEXT: the truncated-upper-bound sweep (C84b first, a public digit); earlier, ~21:45 UTC, AN OUTSIDE RERUN'S FINDINGS FIXED: the C42 decider's verdict words, outward printed bounds and route check (self-audit amended and re-pinned), the first outside mutant set recorded (7 of 7 located, none certified); earlier, ~08:20 UTC, R(7,13) CERTIFIED: the Ramsey graphs 17 of 18, R(8,18) left open; earlier, ~06:00 UTC, WHAT CAME BACK, PINNED AND ON THE SITE — corpus/recognition.json (10 public credits, each quoted verbatim from a pinned snapshot) and design/outside.js, read by the landing, the About page and eight reports; earlier, ~03:00 UTC, THE RAMSEY GRAPHS: 16 of 18 CERTIFIED, the page LIVE at /reports/ramsey-graphs.html, R(7,13) and R(8,18) REFUSED pending compute; earlier, 2026-10-23 ~21:30 UTC, THE FIRST OUTSIDE RERUN OF THE MONTH recorded (maximusrufus: twelve rows, no disagreement), the Windows line-ending fix, the control build repaired; earlier, ~17:45 UTC, THE FOREIGN ZONE MADE SAFE TO UPDATE — tools/publish-zone.js publishes site/clade-code/ as one pinned commit on origin/main without touching this checkout or rebuilding the site; `make test` GREEN again (the grammar and wiring fixes); earlier, site/clade-code/ RESERVED as a FOREIGN ZONE (design/zones.js: never pruned, never gated; nothing published there yet); earlier, AN INBOUND CROSS-CHECK OFFER ANSWERED — cert-machine #1 (maximusrufus: their N(6) = 3 re-run, AlphaEvolve Ramsey graphs) REPLIED, the N(6) note OWED; earlier, THE FIRST REVIEWS: registry PR #257 FIXED on a contributor's change request (the 28 May line corrected in place) and the reply POSTED, #243 and #249 approved by the same contributor (not merged), KissingNumbers #2 closed as completed; earlier, HANDOFF: THE WEEK COMMUNICATED ON GITHUB — google-deepmind/cryptids #14 POSTED, the companion paper linked on formal-math #30, the C84b correction FILED as registry PR #257, the lake-check config issue HELD for a reproduction; CLAIM COURT PARKED for a future environment; earlier, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-11-04 ~19:45 UTC, ETH D1 + C1 + C2 CERTIFIED — both labs' statements reach cslib's multitape machine; /reports/flashprove.html built; nothing billing; earlier, ETH D1 + C1 CERTIFIED, C2 PROVED IN CLAIMBOX, the census report LIVE; earlier, A FLASHPROVE POD IS BILLING (iuordtjfu4g3s2, cap US$25 ~23:50 UTC) · /EXTREMOS/ REWORKED · claimbox republished · #242 rebased and answered; earlier, /EXTREMOS/ LIVE UNLISTED (pt-BR solutions page); earlier, 2026-11-04 ~02:40 UTC, HANDOFF: THE SESSION OF 11-03 CLOSED — twenty sends, three applications, Verify re-headlined + the Seal, MacMahon decided twice, nothing billing; earlier, 11-03 ~21:45 UTC, HANDOFF: /VERIFY/ UPDATED, THE JS SECOND GRADER, C2 IN, THE POD TERMINATED, VERIFY SEAL LIVE; earlier, ~17:50 UTC, HANDOFF: WEIGHTS C1/C3 + ETH BRIDGES LIVE WITH FIGURES, SEVEN SENDS OUT, PATURI ACKNOWLEDGED; next: review /verify/; earlier, 2026-11-02 ~23:45 UTC, HANDOFF: WEIGHT-SPACE PROGRAMMING STAGES 1–2 DONE, the page built, stage 3 pre-registered on the operator's word; earlier, 2026-10-30 ~10:00 UTC, HANDOFF: THE SESSION CLOSED — ETH and the grammar live, the claimbox growth plan written, the three-verdict ideas saved NOT ADOPTED, two job packets; earlier, 2026-10-27 ~23:00 UTC, HANDOFF: THE DAY CLOSED — the site incident fixed and guarded, Machinidae published, release v2026.10.27 on Zenodo, the three confirmations posted, the papers current, the partner's package ready; earlier, ~17:30 UTC, ALL IMPROVEMENTS RUN, PAID ONES INCLUDED — the IEEE 1788 suite and a dReal comparison in the paper, C_16/K4/R(3,33) decided as the reciprocal second party, the release's second pin re-run, two RunPod pods run and deleted, the disk cleaned; earlier, ~07:00 UTC, THE METHOD PAPER v0.9 for the the partner meeting — shorter on his structure, the claimbox variant RETIRED, the registry's third round, the reciprocity and the outside reruns added; earlier, ~01:30 UTC, THE BUILD BEFORE THE SENDS — the registry's third round pinned (six more asterisks off, the second-party rule), the truncated-upper-bound sweep CLOSED (GNNW, the entropy witness, the lonely-runner threshold), three reciprocity targets scouted OPEN; Eleições PAUSED on the operator's word; earlier, 2026-10-26 evening, HANDOFF: THE ELEIÇÕES 2026 DOSSIER BUILT AND LIVE, UNLISTED, at /eleicoes2026/ — both rounds decided from the TSE's public files, redesigned with party colours, maps and four calculations on the margin; the round-2 pieces wait on the TSE's bulk publication; earlier, 2026-10-24 ~23:20 UTC, HANDOFF: the session of 10-23/24 closed — the Ramsey graphs 17/18, the outside credits pinned and shown, the indexes ordered, Clade Code's zone made safe and republished, an outside rerun's C42 findings fixed; NEXT: the truncated-upper-bound sweep (C84b first, a public digit); earlier, ~21:45 UTC, AN OUTSIDE RERUN'S FINDINGS FIXED: the C42 decider's verdict words, outward printed bounds and route check (self-audit amended and re-pinned), the first outside mutant set recorded (7 of 7 located, none certified); earlier, ~08:20 UTC, R(7,13) CERTIFIED: the Ramsey graphs 17 of 18, R(8,18) left open; earlier, ~06:00 UTC, WHAT CAME BACK, PINNED AND ON THE SITE — corpus/recognition.json (10 public credits, each quoted verbatim from a pinned snapshot) and design/outside.js, read by the landing, the About page and eight reports; earlier, ~03:00 UTC, THE RAMSEY GRAPHS: 16 of 18 CERTIFIED, the page LIVE at /reports/ramsey-graphs.html, R(7,13) and R(8,18) REFUSED pending compute; earlier, 2026-10-23 ~21:30 UTC, THE FIRST OUTSIDE RERUN OF THE MONTH recorded (maximusrufus: twelve rows, no disagreement), the Windows line-ending fix, the control build repaired; earlier, ~17:45 UTC, THE FOREIGN ZONE MADE SAFE TO UPDATE — tools/publish-zone.js publishes site/clade-code/ as one pinned commit on origin/main without touching this checkout or rebuilding the site; `make test` GREEN again (the grammar and wiring fixes); earlier, site/clade-code/ RESERVED as a FOREIGN ZONE (design/zones.js: never pruned, never gated; nothing published there yet); earlier, AN INBOUND CROSS-CHECK OFFER ANSWERED — cert-machine #1 (maximusrufus: their N(6) = 3 re-run, AlphaEvolve Ramsey graphs) REPLIED, the N(6) note OWED; earlier, THE FIRST REVIEWS: registry PR #257 FIXED on a contributor's change request (the 28 May line corrected in place) and the reply POSTED, #243 and #249 approved by the same contributor (not merged), KissingNumbers #2 closed as completed; earlier, HANDOFF: THE WEEK COMMUNICATED ON GITHUB — google-deepmind/cryptids #14 POSTED, the companion paper linked on formal-math #30, the C84b correction FILED as registry PR #257, the lake-check config issue HELD for a reproduction; CLAIM COURT PARKED for a future environment; earlier, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -82,14 +82,14 @@ NEXT SESSION, IN ORDER:
         summary may go, and the PULL REQUEST to their README — one line, the untouched model under Qwen's recommended
         settings scores 45.6% (certs/wsp-baseline.json), with the records linked; the send the operator's.
      2. REPLIES TO WATCH (none yet): the critic's thread (@dummerspast39; our three replies 22:41 UTC), the four amplifier
-        replies, Roșu, Prime (@PrimeIntellect post + the residency form), Davies (macmahon-min-universal-sets #1), TSavo #1,
+        (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
         rpi-index #1, formal-math #36, Hawkley's e-mail; N365 PUBLISHED 11-04 (recognition row n365-eth-watch-explainer, pinned) — the old note: a recognition row from
         a pinned snapshot, kind 'press'). tools/x.js now has `search` and `get` for reads; `mentions` for ours.
-     3. APPLICATIONS PENDING: Prime RL Residency (11-03), Anthropic Residency (11-03; offers January; the take-home and
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
         interviews are the operator's alone — a study guide on scalable oversight/control/RL reward design is allowed and
-        worth building on his word), Transformative AI Fund grant (11-03, rolling), speedrun SR008 (10-31), Epoch/FAR.AI/Cohere
-        (10-20). Next targets from the scout (notes/job-search-2026-11-03.md, git-excluded): Axiom (the CFSG hold to think
-        through first), Harmonic, METR; Mercor's fund is INELIGIBLE (US/UK + institution).
+        (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+        (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+        (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      4. CLAIMBOX: its page has no og:image — a card and a note wait in outreach/claimbox-og/ for the claimbox session to adopt
         (one copy into web/, one republish of the zone). Nothing here writes claimbox.
      5. OPTIONAL, on the operator's word: the C4 arm of the Weights lane (~6 h H200, ~US$32); the three-bar chart as an X
@@ -99,7 +99,7 @@ NEXT SESSION, IN ORDER:
      content changes, a re-rendered share card, Verify Seal (tool + battery + registry + note + the ninth card), the JS
      second grader (it caught a grade.py bug), C2 imported (C4 not run under the cap), MacMahon decided twice + the page +
      the author told, the build-trap fix (reports synced before the grammar guard), the re-stamp fix (make test leaves the
-     tree clean), the Prime chart, the residency and grant packets (outreach/anthropic-residency-2026-11, taif-2026-11).
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
   ★★ 2026-11-03 ~21:45 UTC — HANDOFF: /verify/ REVIEWED AND UPDATED, THE JS SECOND GRADER LIVE, C2 IMPORTED, C4 NOT RUN, THE POD
      TERMINATED (delete-pod on the operator's word at ~21:30 UTC, get-pod → 404; NOTHING IS BILLING), VERIFY SEAL MERGED AND
      LIVE on the operator's "merge and deploy as reviewed" (the card In development; the Tao sentence links his AI-views page,
@@ -110,7 +110,7 @@ NEXT SESSION, IN ORDER:
      seven changes the operator chose built and live (proof 3 of 4 · speed = the Weights audit with a three-bar MATH-500
      figure; the first inbound request line; the FlashProve 'layer below' line under the limits; the pilot's shape without
      a price; the two soft tags tightened; the graders card's two-implementation rule scoped); declined: outside provers +
-     press strip. The deck (outreach/speedrun-sr008/deck.js → verify-deck.pdf, untracked) and application.md v4 mirror it.
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      (2) THE SECOND GRADER: instruments/wsp/grade.js (JavaScript, written from the convention, no shared code) +
      tools/wsp-grade-second.js → certs/wsp-grade-second.json (7,440 pairs of both records, 0 disagreements; extraction
      equal on the cached texts; 3 red controls + a planted flip); battery 'WSP second grader (JS)' in make test + the
@@ -132,8 +132,8 @@ NEXT SESSION, IN ORDER:
      distinct-distances-gp-2026-11 (an exact rational Farkas certificate + Lean, 0 stars), euclid-uniform-2026-11 (the
      Moschovakis refutation, Lean), murty-simon-742-2026-11 (Erdős #742 with a third-party Lean check), gac-chemistry-lean-
      2026-10 (arXiv 2610.30808). PRIME INTELLECT: the operator's draft e-mail judged a good idea on the wrong channel —
-     the routes are the RL Residency form (form.typeform.com/to/ibQawo5e; Cohort II open since 04-30), the Application-Only
-     bounty form (jLfT7v7o) and an X post; a one-page scope + form answers + the post drafted in outreach/prime-residency-
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      2026-11/ (untracked); the submit and the send are the operator's.
      MACMAHON CUBES, THE CHEAP STAGE DONE (22:40 UTC, the operator: "MacMahon, cheap stage first, then report"): corpus/macmahon/
      pinned (PINS.json, 18 files at 7561f6d6; the registered commit d8856c9 named), instruments/macmahon/check.py (stdlib, our
@@ -143,7 +143,7 @@ NEXT SESSION, IN ORDER:
      reading, or our own search; then a short report and the author told on GitHub). THE RE-STAMP FIX (the operator's yes):
      the two blind-spot batteries, the Navier–Stokes probes and the claimbox lift check now keep an unchanged record (timings
      blanked in the comparison; the tex keeps its stamp when its numbers are unchanged) — a full make test leaves the tree
-     clean. PRIME CHART drawn: outreach/prime-residency-2026-11/prime-chart.png (untracked), for the post. AN E-MAIL RECEIVED
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      (in spam): 'N365 ETH Watch', Anthony Michael Bennett, noveltythreesixtyfive.substack.com — the Substack is nine days old,
      family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
      certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
@@ -152,20 +152,20 @@ NEXT SESSION, IN ORDER:
      page and the e-mail — accurate; Carlos replied with permission to publish and two corrections (attribute the quotes to the
      e-mail; two kernels, three replays). WHEN IT IS PUBLISHED: pin a snapshot and add a recognition row (kind 'press'), as for
      Saddler's and Prisco's columns.
-     TRANSFORMATIVE AI FUND (EA Funds) GRANT APPLICATION SUBMITTED by Carlos (~02:00 UTC 11-04; row
-     taif-grant-application-2026-11-03): the Verify Gym run, US$33,000 over three months (four scenarios to US$53,900;
-     outreach/taif-2026-11/application.md, the budget git-excluded); rolling decisions; the Mercor AI Safety Fund was found
-     INELIGIBLE (US/UK-based, institution-held awards). THREE APPLICATIONS NOW PENDING: Prime RL Residency, Anthropic
-     Residency, the TAIF grant (+ speedrun SR008 from 10-31; Epoch/FAR.AI/Cohere from 10-20 unanswered).
-     ANTHROPIC RESIDENCY APPLICATION SUBMITTED by Carlos (~00:30 UTC 11-04; row anthropic-residency-application-2026-11-03):
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      the essays from his own draft, refined under Anthropic's candidate AI guidance (draft yourself, refine with Claude,
      be transparent — the line is in the cover note); resume v4.1 (outreach/resume; the Weights + MacMahon audits added).
      Offers January 2027. NEXT STAGES ARE HIS ALONE unless Anthropic says otherwise (the take-home, the live interviews);
      a study guide and practice questions are allowed and worth building on his word. THE SCOUT of programs is in
-     notes/job-search-2026-11-03.md (git-excluded): next in order — the Mercor AI Safety Fund and the Transformative AI
-     Fund (rolling grants for the Verify Gym run), Axiom (the CFSG hold to think through), Harmonic, METR.
-     PRIME INTELLECT (23:00 UTC): the RL Residency application SUBMITTED by the operator (the three answers in
-     outreach/prime-residency-2026-11/as-submitted.md; row prime-residency-application-2026-11-03) and the public two-post
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      ask with the chart POSTED by x.js on the operator's word (x.com/_carlos_toledo_/status/2117753356936527917; row
      x-prime-compute-ask-2026-11-03). The four amplifier replies (Huryn, rryssf, miriamgonp, Runchu Tian) were SENT by the operator
      23:01–23:05 UTC and logged (rows x-{huryn,rryssf,miriamgonp,runchu}-reply-2026-11-03).
@@ -213,7 +213,7 @@ NEXT SESSION, IN ORDER:
      lane the same day, say so); (2) the share card (/og-verify.png) and the title; (3) what is new since the page was written
      and belongs on it: the Weights verification (an AI-lab claim decided from the bytes and re-run, pre-registered, within 30 h;
      /reports/weight-space-programming.html), the ETH bridges (two third-party joins replayed, the seam measured; /eth/), the
-     recognition (Reg Saddler's The Build, Giulio Prisco's Metafuturing week, whataifound, Tao's registry; corpus/recognition.json
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      via design/outside.js), Paturi's acknowledgement (outreach row email-paturi-eth-repository-2026-11-03); (4) one new line the
      FlashProve paper gives us (targets row flashprove-2026-11): proof-of-inference ('the committed model ran') is the layer BELOW
      ours ('the answer is right'); they compose, neither replaces the other; (5) the eight products' tags still honest (nothing
@@ -241,7 +241,7 @@ NEXT SESSION, IN ORDER:
      build — never run make page and make test together). DISK: 47 merged clean agent worktrees removed (2.4 GB → 55 GB free; memory
      worktrees-fill-the-disk). SENT today: the authors' issue #4, the one-line reply under Takehi's post, the standalone X post (all logged).
      WAITING: C2 on the pod (→ import; C4 only if C2 ends by ~19:00 UTC, the US$60 cap is 21:20), Hawkley's e-mail SENT by the operator ~16:15 UTC (logged),
-     the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand). SENT 11-03 afternoon by hand: the reply to Giulio Prisco (16:38 UTC; his column pinned as recognition row metafuturing-eth-column), the announcement on Paturi's 'announce your results' page (~17:10 UTC, logged); the e-mail to rpaturi@ucsd.edu SENT (logged); the one-line reply under Ryan Williams's post SENT 17:07 UTC (x.com/_carlos_toledo_/status/2117665007005831444, logged); the TSavo issue POSTED 17:35 UTC (TSavo/eth-bridge #1, logged). The registry issue for Hawkley POSTED 17:45 UTC (thinkthoughts/rpi-index #1, logged; his code repo has issues off). ETH outreach is now complete; replies to watch: formal-math #36, lm_understand-logs #4, TSavo #1, rpi-index #1, Hawkley's e-mail, the organizers' page. The ETH X post d13 SENT 16:25 UTC (x.com/_carlos_toledo_/status/2117653910903005332, logged).
+     the critic's URL, the zaibatsu reply (notes/x/reply-zaibatsu-2026-11-03.txt, by hand). SENT 11-03 afternoon by hand: the reply to Giulio Prisco (16:38 UTC; his column pinned as recognition row metafuturing-eth-column), the announcement on Paturi's 'announce your results' page (~17:10 UTC, logged); the e-mail to [an e-mail address] SENT (logged); the one-line reply under Ryan Williams's post SENT 17:07 UTC (x.com/_carlos_toledo_/status/2117665007005831444, logged); the TSavo issue POSTED 17:35 UTC (TSavo/eth-bridge #1, logged). The registry issue for Hawkley POSTED 17:45 UTC (thinkthoughts/rpi-index #1, logged; his code repo has issues off). ETH outreach is now complete; replies to watch: formal-math #36, lm_understand-logs #4, TSavo #1, rpi-index #1, Hawkley's e-mail, the organizers' page. The ETH X post d13 SENT 16:25 UTC (x.com/_carlos_toledo_/status/2117653910903005332, logged).
   ◆ STATE AT 14:15 UTC 2026-11-03 (the operator approved US$75 total; RunPod topped up): WEIGHTS — C1 and C3 imported, graded,
      on the page (§4: mostly a settings effect; §4b: the six side claims); C2 running on x9gnpx07fzx4up (ends ~17:30), then
      C4 needs a RESTART of the container with CONDITIONS="C4" DEADLINE_HOURS=24 (update-pod env + pod-action restart; import
@@ -308,7 +308,7 @@ NEXT SESSION, IN ORDER:
      decided): the base loops (93% at the limit) and Qwen's card warns of exactly that for the 0.8B, its base IFEval 44.0
      thinking / 52.1 non-thinking vs the post's 21.0; 48.1 is one selected run (10 passes 12.3, 25 passes 14.1). Speed
      matters (the thread is live). Sends (thread reply, X post) are the operator's word.
-     PAUSED for this (the operator): the mentions list (whataifound checks, LinkedIn, ORCID/Scholar, the method paper on
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      Zenodo/arXiv, the X posts d10/d11/d09) and registry Phase B after its first batch. PHASE B BATCH 1 DONE AND COMMITTED:
      three newer family-1 rows replayed as the second party (tools/replay-autocorr-next.js → certs/autocorr-replay-next.json;
      corpus/optconst-queue/next-2026-11-02 pinned; /reports/optconst-queue.html §13; `make test` + control battery rows):
@@ -351,8 +351,8 @@ NEXT SESSION, IN ORDER:
          int-to-str fix for Python ≥ 3.11; claimbox lifted each.
        THE SITE — light/dark switch everywhere (apps' colours approved; --witness-text #B3362C for red words); English only
          (Swell, Janela + deck, Eleições, the atlas map); /grammar/ catalogue + ε handle; README and GitHub profile rewritten.
-     ── SENT BY THE OPERATOR: speedrun SR008 application (as "Verify"; deck outreach/speedrun-sr008/verify-deck.pdf, untracked);
-       the scout Kumesh Aroomoogan's e-mail + X reply; the X reply to @wyatt_benno; three X posts (d03, d06, 07; no AI line on X
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+       the scout a scout's e-mail + X reply; the X reply to @wyatt_benno; three X posts (d03, d06, 07; no AI line on X
        from now); the #246 reply to maximusrufus.
      ── OPEN, THE OPERATOR'S WORD:
        Verify Gym training: ask Prime support for dedicated access (free) or self-host on RunPod (~US$50–70/GPU-day); push the
@@ -367,11 +367,11 @@ NEXT SESSION, IN ORDER:
          replay — PINNED (corpus/recognition.json the-build-eth-column, kind press "Written about in a column"; on /about/).
          The reply (notes/x/reply-zaibatsu-2026-11-02.txt) could NOT be posted by the API (X: replies only where mentioned):
          POSTED BY THE OPERATOR BY HAND 11-02. symthaea#10049 cites /eth-false (a 404): /eth-false → /eth/ now a 301 (vercel.json).
-         Second sweep 11-02 (web, GitHub, HN, Zulip, DataCite): whataifound.org's OpenAI-math entry cites the kernel audit and
-         statement readings (PR #30, merged 10-26) — PINNED (recognition row whataifound-openai-math, listing). Bluesky and
+         (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+         (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
          Reddit refused this machine's requests: unchecked; LinkedIn by hand.
        RESUME v4 (11-02, the oversight accent): outreach/resume/resume.md rewritten — ETH (two kernels, 51 bridge theorems, The
-         Build), OpenAI audit (+ whataifound), Ramsey/AlphaProof Nexus/curve seeds, graders + Verify Gym + GRPO, the
+         (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
          self-audit, outside re-runs and the registry's ten asterisks, Verify; every figure re-read from its record (sender
          notes at the foot); resume.pdf 2 pages (git-ignored). The four job packets still carry v3: refresh per send.
        The older queued X drafts (d02, d04, d05, d07, 05, 06, 08, 09) — each its own yes, one post + image, no AI line.
@@ -384,13 +384,13 @@ NEXT SESSION, IN ORDER:
      Jet a dotted assumed sketch (no licence-clear image at this scale); no light-travel delay; Phase 3 (the interferometer's
      data-allowed skies beside it) next. /VERIFY/ PRODUCT LINEUP LIVE: "One decider, eight products" (Graders, Audits =
      flagships; Grader Red-Team, Eval & Data Audit = pilots open; Verify Gym = live on the Hub; Training-Run Audit, Verified
-     Datasets, Statement Check = in development); deck slide 8 the lineup (outreach/speedrun-sr008/, untracked).
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      PRIME LANE (lane-gym-prime-1031b, NOT merged): rows gpt-oss-20b 0.054, gpt-oss-120b 0.095; qwen3.5-35b-a3b still
      sampling; glm-4.7 stopped at 2× cost; filter trial: Verify as filter 0.18–0.32 reward, 103–114/120 certified, 0 false
      vs first answer 0.04–0.09 with 65–71 false; steps 2–4 to finish.
-  ◆ 2026-10-31 night — SPEEDRUN SCOUT: Kumesh Aroomoogan (x.com/kumesh_a/status/2116603153059582000) asked SR008 applicants
-     to e-mail; the operator SENT the e-mail (product framing; deck v2 attached) and POSTED the X reply
-     (notes/x/reply-kumesh-2026-10-31.txt). Deck v2: outreach/speedrun-sr008/verify-deck.pdf, 9 slides from /verify/'s own
+  (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      figures + Verify Gym's scorecard (deck.js rebuilds it from records). Draft folder untracked.
   ◆ 2026-10-31 — WRAPPED UP (make control 181/181, fe1ab71e). BLACK HOLE STARTED. The operator's rulings on the scout's questions:
      disk in the INK RAMP (greys; red stays the witness); headline about STANDING ("every line says what it rests on"), never
@@ -449,8 +449,8 @@ NEXT SESSION, IN ORDER:
      echo 0, float 0.531 with 22 REFUTED, bisect 0.340, cf 0.981), battery ~30 s in make test + the control; targets row
      verify-gym-2026-10. NEXT, each the operator's: model rows (API spend), the val-stream readiness gate, a GRPO pilot.
      No paid runs, no Hub publish, no page without the operator's word.
-  ◆ 2026-10-31 — SPEEDRUN SR008 SUBMITTED by the operator, as "Verify" (carlostoledo.co/verify): answers and the 8-slide deck
-     in outreach/speedrun-sr008/ (untracked: the repo is public; deck.js rebuilds the PDF from records). If speedrun asks for
+  (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      more: a video pitch (the operator on camera, script in application.md) or a 15-minute interview.
   ◆ 2026-10-31 — /REPORTS/XX.HTML LIVE (the operator: "built here on the reports page with the grammar"; listed under the
      audits): claimbox's x^x = y study lifted (LIFT-claimbox.json extended, dated; corpus/claimbox-xx/), every bracket
@@ -478,7 +478,7 @@ NEXT SESSION, IN ORDER:
      no link yet"): the product face in tools/build-site.js (two offers — graders that cannot be gamed, independent audits;
      the evidence read from the landing's own records; what it refuses; how a pilot starts) and the pilot form
      .github/ISSUE_TEMPLATE/pilot.yml. In the sitemap, indexable; NO link from the landing, nav or hubs until the operator
-     says. For speedrun SR008: outreach/speedrun-sr008/application.md v2 (the strategy; [YOU] facts), closes 11-01 23:59 PT.
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
   ◆ 2026-10-30 night — OUTREACH on the operator's per-item yes: teorth/optimizationproblems#246 reply to maximusrufus
      (issuecomment-6537863084; his 0c57070 checked exactly, never run; outreach.json row). X, one post each with an image
      and the link in the body, no reply (the operator's new form): d03 kissing hours (chart from certs/kissing-wave.json,
@@ -486,8 +486,8 @@ NEXT SESSION, IN ORDER:
      bound (the K(11) figure, light) …/2116360637668323551; 07 the grammar (the √x hero, light) …/2116360646367289686.
      RULED (the operator): NO line about AI/Claude on X posts from now on (d03/d06 went out with it; the queued drafts
      carry none). STALE IN THE MENU, corrected: the Woett reply was POSTED 2026-10-06 and the N(6) note is DONE (0b17df38).
-     STILL QUEUED (each needs its own yes): X d02, d04, d05, d07, 05 Ramsey, 06 METR, 08 reruns, 09 Campos; speedrun SR008
-     (closes 11-01 23:59 PT, draft outreach/speedrun-sr008/, the operator's [YOU] facts); OEIS pack (by hand).
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
   ◆ 2026-10-30 night — /claimbox/ REPUBLISHED on the operator's word ("wait for claimbox to finish and send live") from
      claimbox 70e3691 (c32aa22c; live sha256 ab3a82c1… checked). A RECEIVER FINDING from claimbox (not yet acted on; its
      PLAN.md §9): the receiver took a record's word for an EinsteinArena platform score moved by 2,000,001 units of its last
@@ -758,14 +758,14 @@ NEXT SESSION, IN ORDER:
        target + the seam).
        PAPER: the method paper v0.10 live (Prop. 4 completeness up to tightness, Blum–Kannan, independence by who decides,
        seven outside re-derivations by three parties in the abstract; the sentence "The contribution is the system and its
-       semantics." was dropped — the operator tells Pedro).
+       semantics." was dropped — the operator tells the partner).
        OPENAI-MATH: the Hodge sentence corrected from a record (certs/openai-math-hodge-statement.json, READ: the challenge and
        the solution state the theorem with different definitions, closures 259 / 33,170 share no module, so Comparator's
        statement check cannot pass); lane K's Hodge row stays REFUSED (resources); a new gap on 032.md's "Comparator statement".
-       An outside replayer (Neal McBurnett, by e-mail) found the same by running Comparator; the operator REPLIED 10-29 (draft
-       outreach/neal-mcburnett-reply.private.md, git-ignored); credit on the page ONLY once he agrees.
+       An outside replayer (an outside replayer, by e-mail) found the same by running Comparator; the operator REPLIED 10-29 (draft
+       a private file, git-ignored); credit on the page ONLY once he agrees.
        OUTREACH: Qiushi's lead e-mailed privately 10-29 (joint companion paper + checking their next results; fallback
-       2026-11-05: a private-repo invite to Cherish0925); Ricardo de Lima Ribeiro hooked (memory coauthor-outreach).
+       2026-11-05: a private-repo invite to [a GitHub handle]); a co-author candidate hooked (memory coauthor-outreach).
      ── NEXT, IN ORDER:
        1. RUNPOD CEILING: the account refuses every pod > ~US$0.22/h although the balance is US$25.12 (not the balance: a
           spend limit or account restriction; the operator asks RunPod support with the quote in POD.txt). Once lifted:
@@ -796,13 +796,13 @@ NEXT SESSION, IN ORDER:
      name, 74 OAI definitions identical, ℝ's +,×,≤,<,0,1,inverse,npow differ between Mathlibs — no single kernel checked
      the two are one proposition); the #36 follow-up POSTED (issuecomment-6507840689); the method paper v0.10 (Prop. 4
      completeness up to tightness, Blum–Kannan, independence by who decides, seven outside re-derivations by three parties
-     — the abstract dropped "The contribution is the system and its semantics.": tell Pedro); D15 /grammar/roundtable/;
+     — the abstract dropped "The contribution is the system and its semantics.": tell the partner); D15 /grammar/roundtable/;
      Tier 1 heroes batch 1 (gsm8k-audit, time-horizon; design/heroes.json + check). RUNNING (agents, branches): Anthropic's
      leanchecker --fresh on a 4-vCPU pod ijw7890hq4ed9x (cap US$6; POD.txt on eth-leanchecker-fresh-3); the Hodge statement
      record + openai-math sentence fix (branch openai-hodge-statement); heroes batch 2, the landing + apps (heroes-tier1-batch2).
      BLOCKED: RunPod refuses any pod > ~US$0.22/h even after the top-up (balance US$25.47): the operator checks the account's
      spend limit / support; OpenAI's fresh replay and a Hodge second-party Comparator run wait on it. PENDING THE OPERATOR:
-     Neal McBurnett's reply (outreach/neal-mcburnett-reply.private.md, git-ignored; he found Comparator rejects OpenAI's Hodge
+     an outside replayer's reply (a private file, git-ignored; he found Comparator rejects OpenAI's Hodge
      challenge by statement mismatch, confirmed from sources here; his nanoda work and issues #61/#71 overlap our 18 refused
      lane-K rows; he is an RLA/election-audit expert); credit him on the page only with his permission.
   ★★★★★★★★ 2026-10-29 (night) — D15 LIVE: /grammar/roundtable/ (approved specimen merged, then the full page: who sat and
@@ -818,7 +818,7 @@ NEXT SESSION, IN ORDER:
      known flap left at its recorded 9). The Qiushi proposal is now a PRIVATE e-mail draft (the operator: no public
      conversation for it; GitHub has no private messages): outreach/qiushi-coauthor-proposal.private.md, git-ignored
      (outreach/*.private.md), To the Oxelra org address, Cc Yihao Yang's ZJU address from CITATION.cff; SENT by the
-     operator 2026-10-29 18:42 UTC. ON 2026-11-05, IF NO REPLY: the private fallback, a private-repository invitation to Cherish0925
+     operator 2026-10-29 18:42 UTC. ON 2026-11-05, IF NO REPLY: the private fallback, a private-repository invitation to [a GitHub handle]
      holding the companion's draft with the proposal as its first issue (on the operator's word). If they say yes: scout
      the F2 matmul Lean replay first (targets oxelra-matmul-f2-rank21), and re-word the method paper's "exchange" line. The
      earlier public-comment draft is removed from the tree (it stays in history at 39066f52). CFSG: ON HOLD (the operator, 10-29); when resumed, the reading step first
@@ -846,7 +846,7 @@ NEXT SESSION, IN ORDER:
        facts + order: read the TauCeti statement layer first, replay only after oleans ship) and oxelra-matmul-f2-rank21
        (UNSCOUTED); outreach/qiushi-coauthor-proposal.md (superseded the same evening by the private e-mail draft; was: a comment on Qiushi kissing #1 inviting a joint
        companion paper + a certify-before-you-announce offer + their F2 matmul Lean replay; two decisions flagged inside).
-     ── CO-AUTHOR OUTREACH (Pedro's suggestion; memory coauthor-outreach): Ricardo de Lima Ribeiro messaged by the operator
+     ── CO-AUTHOR OUTREACH (the partner's suggestion; memory coauthor-outreach): a co-author candidate messaged by the operator
        10-29, hooked; Qiushi next (the draft above). Oxelra never answered our Bandeira issue (#1 there, 10-15).
      ── STILL OPEN from the ★★★★★ list: D10 continues (step 2, Tier 1 stat tiles, the unpointed values), D11 continues (the
        print kit's premises() and design/print/specimen.js still draw the legacy glyph), D15 after D12 merges, the social
@@ -983,7 +983,7 @@ NEXT SESSION, IN ORDER:
        section, check-wiring does not walk /janela/, /eleicoes2026/, /eth/, /papers/, rule 5's wording vs practice,
        the three declared dash exemptions unstated, the halo drawn by four codes (no warrant.js function); (4) the
        default /og.png is an old landing screenshot: per-page share cards (paper register) from each page's own figure
-       were proposed; (5) LabECO before/after: one typical report figure redrawn on paper from public data (the
+       were proposed; (5) the partner group before/after: one typical report figure redrawn on paper from public data (the
        specimens in design/print/ are a start); (6) Tier 2 reports still unconverted; the lanes' leftovers: erdos852
        "12th significant digit" (its 11th) on four pages + titles.json, refusals.html lacks the 9 PARTIAL + 2 NEEDS
        DATA rows, time-horizon's "Amber points", contours' floored closingEdgeLength, /graph's editor small on phones.
@@ -1017,7 +1017,7 @@ NEXT SESSION, IN ORDER:
        the Lean replay lane's shape (two kernels, axiom census, the machine-written statement READ against the textbook
        classification); corpus/targets.json row axiom-cfsg-2026-10 UNSCOUTED; scout one hour at the next pause (public? size?
        toolchain? builds on a runner?) before any run. Not before the grammar rulings are built.
-       RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; UFSC/Pedro off X;
+       RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; the university/the partner off X;
        only claimant-directed replies go in corpus/outreach.json; check a handle with `x.js users` before tagging.
      ── ETH (done for now): the TCS form SUBMITTED, the blog comment LIVE (ethdiscussion.blog, comment 3 of 3, 10-28 4:22 pm
        PT; the others: a3nm = Antoine Amarilli, and soltrinox = Frank Dylan Rosario, an unevidenced provenance claim against
@@ -1149,7 +1149,7 @@ NEXT SESSION, IN ORDER:
      DRAFTS for the operator's approval: the community form (the draft given in chat 10-28) and one short post to the
      ETH_Repository Drive / ethdiscussion.blog with the report link and the disclosures (our tools built with Claude;
      one claim is Anthropic's; independent of both labs). NO standalone paper (later, maybe one exercise in the method
-     paper, with Pedro). NO GitHub issues on either lab's repository unless the bridge finds a real gap.
+     paper, with the partner). NO GitHub issues on either lab's repository unless the bridge finds a real gap.
      ── FRONT 1: THE ETH CHECK (the operator: "dig on the subject and rise with as much information and verification we
      could"; cap US$50 approved). A RUNPOD POD IS BILLING: x8ifbbj2vbolyj (cpu3m 32 vCPU / 256 GB, EU-RO-1, US$1.76/h,
      created 2026-10-28T18:47:48Z; ~US$1.30 by 19:32Z). It runs tools/runpod-eth.sh at 00340f97 (branch eth-kernel-lane).
@@ -1354,7 +1354,7 @@ NEXT SESSION, IN ORDER:
      supplement Table S2, the per-record runtime (median 3.4 s, 18 of 23 under a minute, longest the likelihood fits 536 s); the
      abstract at 250 words; C_16, K4 and the second pin in §3.4; the recall plants attributed correctly (an AI agent, not the
      first author). Macros: MtItf*, MtDr*, MtRt*, MtOaTwo*, MtCs*, MtGnKf*. The bibliography cut 101 → 60 PROPOSED in
-     notes/method-paper-review-2026-10-27.md §7 (Pedro's lane E), not applied.
+     notes/method-paper-review-2026-10-27.md §7 (the partner's lane E), not applied.
      THE COMPANIONS v0.2 (working documents): qiushi-kissing 18 pp, optconst-replays 24 pp, openai-math-release 18 pp — current
      with the records and the method paper; INDEX lines set.
      RECIPROCITY (drafts only, NOTHING POSTED — the operator's word): C_16 (#246, maximusrufus) lower CERTIFIED / upper PARTIAL
@@ -1395,7 +1395,7 @@ NEXT SESSION, IN ORDER:
      THE SENDS, on the operator's word (evening): C_16 on #246 (issuecomment-6450361158), K4 on #255 (-6450361795), R(3,33) on
      #252 (-6450362406), all citing f4ee2715; corpus/outreach.json rows, the sweep watches all three.
      THE OPERATOR'S DECISIONS (evening): R(8,18) PARKED (no full run; the probe's measurement stands); the ITF1788 membership fix
-     HELD for a while (open finding stays in the paper's limits); the bibliography cut REVISED to protect Pedro's references
+     HELD for a while (open finding stays in the paper's limits); the bibliography cut REVISED to protect the partner's references
      (15 of the first proposal's 36 were his; the revised proposal drops 21, 101 → 80 cited — the note's §7b, his call).
      THE PAPERS BROUGHT CURRENT (evening, on "are we 100% up to date with the papers?" — they were not): LocalSmoothing finished
      and the second-pin ledger was recorded whole (20 of 20: 18 CERTIFIED, 2 REFUSED by the runner's resources, none rejected);
@@ -1404,21 +1404,21 @@ NEXT SESSION, IN ORDER:
      circulant and the evening's three confirmations (OcKf*, OcCs*, OcRt*, OcLaterPosted); the two target rows of the
      2026-10-26 release record the replay; all five PDFs regenerated at one commit (edc5cab7: method 44 pp, supplement 14,
      companions 18/24/18), INDEX lines v0.3, the site synced, check-links PASS. Pushed.
-     PEDRO'S PACKAGE (LOCAL, not in the repo): ~/Downloads/cert-machine-for-pedro-2026-10-27/ and .zip — the five PDFs numbered in
+     THE PARTNER'S PACKAGE (LOCAL, not in the repo): ~/Downloads/a local package folder/ and .zip — the five PDFs numbered in
      reading order, a README.md (what is in it; the document set — paper + supplement only, companions are working documents,
      the claimbox variant retired, the Riemann paper separate; what changed since v0.8; his lanes A–E; the bibliography cut
      101 → 80 keeping all his references; six meeting questions; links), and tex/ with every source the five need (compiled
      standalone with Tectonic from a clean copy: same page counts, no unresolved reference; XeLaTeX; a tex/README.md on
-     compiling and on never editing the generated *-numbers.tex). The operator sends it by WhatsApp with the live links
-     (a pt-BR message was given in chat). When Pedro returns edited .tex: merge into paper/tex, regenerate the numbers
+     compiling and on never editing the generated *-numbers.tex). The operator sends it by a private message with the live links
+     (a pt-BR message was given in chat). When the partner returns edited .tex: merge into paper/tex, regenerate the numbers
      (tools/paper-numbers/*.js), rebuild (`node tools/build-paper-tex.js <name>`), turn any hand-typed number into a macro.
-     NEXT: (1) the Pedro meeting (notes/method-paper-review-2026-10-27.md §5 questions, §7b the revised cut); merge his edits;
+     NEXT: (1) the the partner meeting (notes/method-paper-review-2026-10-27.md §5 questions, §7b the revised cut); merge his edits;
      (2) replies on #246/#255/#252/#277/#279 (the sweep watches them); (3) parked/held by the operator: R(8,18) (~60 pod-hours),
      the ITF1788 membership fix (four records re-derived); (4) the two REFUSED second-pin challenges need a bigger runner if
      ever wanted; lane S on the two new headline statements was not run.
   ★ HANDOFF 2026-10-27 ~07:00 UTC — THE METHOD PAPER v0.9, on "back to the method paper and companions. Tomorrow I have a
-     meeting with Pedro … review the methods paper first and decide the final companions later … consider all suggestions
-     lately sent by Pedro, add cert-machine's updates about the external validations, findings and interactions … more
+     meeting with the partner … review the methods paper first and decide the final companions later … consider all suggestions
+     lately sent by the partner, add cert-machine's updates about the external validations, findings and interactions … more
      professional and academic, less pages … make it simpler. What is the strongest version?". NOTHING PUSHED, NOTHING SENT.
      THE DECISION, applied: the document set is the METHOD PAPER + its SUPPLEMENT (+ the companions, the meeting's call);
      the claimbox VARIANT is RETIRED — paper/tex/cert-machine-method-claimbox.tex, paper/variants/ and `make paper-variant`
@@ -1426,12 +1426,12 @@ NEXT SESSION, IN ORDER:
      claim-machine is a separate system; the two-arm cryptids benchmark was run by one agent with a declared leak; a toggled
      source is two PDFs to compare. If it is ever a paper it is a fifth companion.
      v0.9 (paper/tex/cert-machine-method.tex, "Draft v0.9 of 2026-10-27"): 46 → 42 pp (2 front + 32 text + 1 appendix + 7
-     references), body 16.5k → 13.6k words, Pedro's four layers KEPT in his order. Stated ONCE now: the function lemmas
+     references), body 16.5k → 13.6k words, the partner's four layers KEPT in his order. Stated ONCE now: the function lemmas
      (S1.1–S1.8, the main text's Table A.1 cites them by number), the certifiers' results (S3), nested boxes (S2), the proofs
      of termination and composition (new in S2), the decision loop (S4); App. B deleted, App. A = the outward proof + the
-     function table. DROPPED: the expected-cost model and McNemar (defined, never reported — the referee's and Pedro's
+     function table. DROPPED: the expected-cost model and McNemar (defined, never reported — the referee's and the partner's
      point), the split-rule prose that Table 3 already states, the Sum2 derivation (now S1, "the Sum2 bound as implemented").
-     NEW: Table 9, eight tool families × six properties of the decision (Pedro's REV-M1), replacing the related-practice
+     NEW: Table 9, eight tool families × six properties of the decision (the partner's REV-M1), replacing the related-practice
      prose; R1–R7 as a compact list; R7 gained "a printed enclosure is rounded outward, never cut"; the recommendations
      gained "print every enclosure outward". FROM THE RECORDS (tools/paper-numbers/cert-machine-method.js, 372 macros):
      the registry's third round (ten marks over three rounds, the second-party rule with its four routes = MtRgRuleRoutesWord,
@@ -1444,7 +1444,7 @@ NEXT SESSION, IN ORDER:
      THE SUPPLEMENT v0.9: lemmas renamed S1.k; S2 = termination + composition + thresholds; S5 lists the R5 second
      implementations; its references to the main text's numbering checked (Prop. 3/4, Cor. 1, Table 4, Table A.1).
      paper/INDEX.json + /papers/ rebuilt; check-bib 151/151 (101 cited). The MEETING NOTE: notes/method-paper-review-
-     2026-10-27.md (LOCAL, untracked — it quotes the co-author): v0.8→v0.9 table, Pedro's lanes A–E status, the document-set
+     2026-10-27.md (LOCAL, untracked — it quotes the co-author): v0.8→v0.9 table, the partner's lanes A–E status, the document-set
      argument, the page levers left (the bibliography 101 → ~60 saves ~3 pp and is HIS lane E; §3.3 to one paragraph ~1 pp;
      the running instances + Table 1 ~1 pp), six open questions (authors/CRediT, venue, the register freeze, the Zenodo
      version at a tagged commit, the epistemic planted set, the NS specialist read). A fresh-agent REFEREE READ of v0.8
@@ -1836,7 +1836,7 @@ NEXT SESSION, IN ORDER:
   ★ HANDOFF 2026-10-23 ~04:40 UTC (the session that read the queue, evaluated the Claim Court brainstorm and the
      Hack-Verifiable Environments paper, parked the idea, and sent the week's GitHub items; everything COMMITTED AND PUSHED at
      1015b48b and LIVE — /about/ lists the new sends, the reports hub dates fixed). NOTHING IS HALF-DONE; the tree is clean but
-     for the two local-only notes (pedro-feedback, claim-court). IN ORDER: (1) run `node tools/sweep-claims.js` at session start —
+     for the two local-only notes (partner-feedback, claim-court). IN ORDER: (1) run `node tools/sweep-claims.js` at session start —
      it now watches cryptids #14, registry #249 and #257, formal-math #8 and #30; a reply is read and answered only on the
      operator's word; (2) registry PRs #232 (filed 10-18), #242, #243 (10-20), #249 (10-22), #257 (10-23) all unanswered — on or
      after 2026-10-25 one short ping on #232 is reasonable, a send (the operator's word); when any merges, the registry snapshot
@@ -1878,10 +1878,10 @@ NEXT SESSION, IN ORDER:
      /uirapuru/ (the bird story) are LIVE BUT UNLISTED — not in the sitemap, linked from nowhere; the operator reviews and chooses, then
      the loser of the two easy reads is deleted (folder, output, baseline rows, Makefile line) and the chosen pages get a card and a
      sitemap line in tools/build-site.js. THE PAPER VARIANT: paper/variants/cert-machine-method-claimbox.pdf (47 pp) beside
-     paper/cert-machine-method.pdf (45 pp), one source, `make paper-variant`; for Pedro's reading, off the papers index. THE OPERATOR'S
+     paper/cert-machine-method.pdf (45 pp), one source, `make paper-variant`; for the partner's reading, off the papers index. THE OPERATOR'S
      ITEMS, in order: (1) [DONE 2026-10-23: POSTED as google-deepmind/cryptids #14, ★ above] read the cryptids report and say whether to post the issue to google-deepmind/cryptids (GitHub only; the
      gaps and the asks; the draft is NOT written — write it, show it, post on the word; their CONTRIBUTING invites "reports of
-     oversights" as issues; a PR fixing verify.py's docstring and the missing stage only if they answer); (2) send Pedro the variant
+     oversights" as issues; a PR fixing verify.py's docstring and the missing stage only if they answer); (2) send the partner the variant
      beside the base with §3.4 first; (3) choose between the two easy reads and whether to link /explained/ and /uirapuru/; (4) the
      standing holds (Z3 the Lean-community note; the C31 vectors deposit; formal-math #25 / PR #17 as a replay target, unread).
      RULES LEARNED THIS SESSION, now in memory: e-mails are OFF (outreach-github-only); a reader must quote the source's text for every
@@ -1889,7 +1889,7 @@ NEXT SESSION, IN ORDER:
      under Lean's kernel alone — say which kernels answered; wow on this site is the house grammar extended, never a second language.
   ◆ THE CRYPTIDS AUDIT, RUN TWICE — THE BENCHMARK OF THE PROCESS WITH AND WITHOUT CLAIMBOX (2026-10-23, ~00:30–04:30 UTC; the
      operator: "Proceed. Can we benchmark the process using claimbox vs not using? To have more information to the paper? After that we
-     build not a new version but a variation of the paper considering claimbox so we can compare and present to Pedro?").
+     build not a new version but a variation of the paper considering claimbox so we can compare and present to the partner?").
      PRE-REGISTERED FIRST: notes/cryptids-benchmark-preregistration-2026-10-23.md (the target at google-deepmind/cryptids 664cd039, the two
      arms, eight metrics M1–M8, twelve plants, the kill switch, the leak stated: arm H first, then arm C, same agent). THE LIFT:
      LIFT-cryptids.json → corpus/cryptids (53 files; PROVENANCE-cryptids.json; make drift). ARM H (tools/run-cryptids.py, its own parsers
@@ -1919,7 +1919,7 @@ NEXT SESSION, IN ORDER:
      paper/tex/cryptids-benchmark-numbers.tex (tools/paper-numbers/cryptids-benchmark.js, 45 macros from the benchmark, the audit, the
      decisions, claimbox's register coverage 97/132 and recall 56/56, the kernel record); paper/tex/cert-machine-method-claimbox.tex is
      the two-line wrapper that defines the toggle and inputs the base — ONE SOURCE, two PDFs: paper/cert-machine-method.pdf (45 pp,
-     unchanged in content) and paper/cert-machine-method-claimbox.pdf (47 pp), for Pedro's comparison; the variant is NOT on the papers
+     unchanged in content) and paper/cert-machine-method-claimbox.pdf (47 pp), for the partner's comparison; the variant is NOT on the papers
      index. NEXT (the operator's): read the variant beside the base and decide; one GitHub issue to google-deepmind/cryptids with the
      gaps and the asks (drafted nowhere yet; GitHub only).
   ◆ THE UIRAPURU STORY — /uirapuru/, UNLISTED (2026-10-23, ~09:00–10:00 UTC; the operator: "duplicate the page and build a fun page
@@ -2123,8 +2123,8 @@ NEXT SESSION, IN ORDER:
         12pt review format, against his 52 pp with empty Results/Discussion), paper/cert-machine-method-supplement.pdf (13 pp:
         the lemma proofs, thresholds, certifiers in detail, decision loop, reproduction table), paper/qiushi-kissing.pdf (17),
         paper/optconst-replays.pdf (19), paper/openai-math-release.pdf (17). The co-author block IS in the tex on the operator's word
-        (2026-10-21 night, "Add Pedro name and email to the paper"): Pedro Veras Guimarães, Department of Mechanical Engineering,
-        UFSC, Florianópolis, pedro.veras.guimaraes@ufsc.br (the address his own manuscript carries); CRediT roles written as
+        (2026-10-21 night, "Add the partner name and email to the paper"): the partner, Department of Mechanical Engineering,
+        the university, Florianópolis, [an e-mail address] (the address his own manuscript carries); CRediT roles written as
         methodology, formal analysis, review — to be confirmed by him. The title is the co-author's; JoCS is numbered (elsarticle-num).
      3. THE CO-AUTHOR'S REMAINING ITEMS, his: lane B notation (α→ω for the convergence order, u/ρ/t, T/F sans-serif, y± for the
         rounded ends — done here; he may prefer other letters), the Introduction's \todo{Last thing to do} (his paragraphs restored
@@ -2143,7 +2143,7 @@ NEXT SESSION, IN ORDER:
         153 PASS — the bib battery red because P3's URL had moved after verification (verified, green again), wiring red only
         because the C_31 page builder of the next commit sits in tools/ unregistered (see the ◆ above); the layout ruler PASSED.
   ★ THE SESSION OF 2026-10-21 (evening): the co-author's manuscript (cert-machine-jocs.tex, 52 pp, 1,555 lines, a mathematical
-     Methodology with 35 CODE-CHECK marks and a PENDING list A–E) assessed first (notes/pedro-feedback-2026-10-21.md, local), then
+     Methodology with 35 CODE-CHECK marks and a PENDING list A–E) assessed first (notes/partner-feedback-2026-10-21.md, local), then
      the operator lifted the hold. CODE (lane A): instruments/hseva/families.js √π from the ENCLOSURE of π (c(Math.PI) was a thin
      box that does not contain π; found writing the lemmas) and the erf pad carrying its 2/√π (13 % short); special.js LGAMMA_MIN
      retired — across the minimum the lower end is proved by convexity from the enclosures at XSTAR; fit.js Sum2's hypotheses
@@ -2194,7 +2194,7 @@ NEXT SESSION, IN ORDER:
      2. THE PAPER (held): one sentence for the abstract and a paragraph for §4 — the pre-registered campaign, 572 mutants with
         exact witnesses, two defects found by its rule and fixed on the record, 0 false certifications after, 94 of 119 rows
         witnessed, 91 concordance comparisons with 0 disagreements, and M5's two sides (a tolerance admits a quarter of the false
-        claims and cannot confirm a quarter of the true ones). Pedro's read of the abstract (2026-10-22, WhatsApp) already has it.
+        claims and cannot confirm a quarter of the true ones). the partner's read of the abstract (2026-10-22, a private message) already has it.
      3. THE OPEN FINDING: instruments/polymaps's P.ev zips a point against a short exponent tuple and drops the excess, so F7's
         partial path answers PARTIAL to a malformed term; a shape check in P (every exponent tuple of length n) closes it — a
         decider change, recorded if made; the full keller path already refuses such a term.
@@ -2437,7 +2437,7 @@ NEXT SESSION, IN ORDER:
      00:17 local, 31 commands, exit 0, 132 register rows unchanged, @ fcff53c7 on the M2 (node v24.14.1, python 3.9.6) —
      the first run since 2026-10-02 (88 rows, 18 records); the 7 never-timed entries are timed now (the five mc100 records:
      tensors 0.1–1.6 s, einstein-arena 46.6 s, station 0.1 s). Slower than 10-02 across the board (hseva 518 s vs 379, ledger.json
-     344 vs 302, gnnw 219 vs 185, horizon 134 vs 116, polymaps 98 vs 84): on battery, with a sagui stream running and, for two
+     (a private line — a frozen commercial project, kept off the public repo; 2026-11-04)
      minutes, an accidental control build (below) — a measurement of the machine that night, not of the code; Phase 2 measures
      properly. EVERY WRITER CAME BACK DIFFERENT, EVERY DIFFERENCE A STAMP: the 13 commands that write their record
      (erdos852, kissing, ledger.json, strassen, easota, ecbench, gsm8k, horizon, the five mc100) re-derived every decision and
@@ -2488,7 +2488,7 @@ NEXT SESSION, IN ORDER:
      translator needs it (a three-array data block for tensor identities); the rest of the menu. Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
-  ★ THE δ₃ PACKET AUDITED FROM OUTSIDE (2026-10-20, an e-mail from Sonny Guardian, pasted by the operator; the reply is DRAFTED, NOT
+  (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      SENT: outreach/delta3-audit-reply-2026-10-20.md). "The main δ₃ argument held up in this audit. That is an audit result, not refereeing."
      Four points, every one VERIFIED HERE before anything was changed, then fixed: (1) a Windows crash in instruments/delta3/battery.js —
      line 135 stripped the prefix certs/delta3/ from each certificate's label, so a backslashed label kept its prefix and the forged lookups
@@ -2512,7 +2512,7 @@ NEXT SESSION, IN ORDER:
      the evidence packet offered would be pinned beside the record. make test after the fix: 152 rows, one FAIL, the layout ruler —
      the δ₃ page's new 60-character fraction overflowed the phone width (fixed: it breaks at its slash; the page re-measured clean) and
      site/swell/index.html @1440 spines 9 → 10 / @768 8 → 7, the KNOWN live-feed flake (OPEN, not ours; it passed at 13:xx today and
-     flags now with the same bytes on disk). THE SENDER: the operator gave the address, hello@gocheckyourself.org — the domain was
+     flags now with the same bytes on disk). THE SENDER: the operator gave the address, [an e-mail address] — the domain was
      REGISTERED THE SAME MORNING (2026-10-20T07:21Z, Cloudflare), has no website, forwards mail through Cloudflare Email Routing (a Brevo
      TXT record), and no web search finds it: a fresh anonymous mailbox; the audit's substance is unaffected; the reply asks who they are,
      pins any packet by digest and runs nothing. THE PAPER: paper/tex/delta3.tex line 103 ("the first-order part of L at y = 0 is exact up
@@ -2537,7 +2537,7 @@ NEXT SESSION, IN ORDER:
      [predicate JSON] → [cert-machine decides] — a standard-library pattern-matching translator with red controls, in its own project,
      starting from our knowledge. I had built the format, the checker and a generic decider HERE and argued the parser away; that was
      a substitution of my design for the operator's, and it was rejected twice. BUILT THE SAME NIGHT, in ~/Projects/claimbox (local
-     git; the GitHub push is the operator's, as with Sagui): claimbox/grammar.py — the shapes (bound, value-compare, digits,
+     git; the GitHub push is the operator's, as with a frozen private project): claimbox/grammar.py — the shapes (bound, value-compare, digits,
      decomposition, kissing, score, identity; LaTeX and Unicode normalised: $…$, \leq, C_{1d}, ⟨a,b,c⟩, the registry's * mark) and the
      refusals (asymptotic, unbounded quantifier, approximation, two relations, no printed quantity, prose); claimbox/translate.py — shape
      + the page + the claimant's bytes (+ a decider path, a record) → the object in THIS repository's format: the quote FOUND in the
@@ -2611,7 +2611,7 @@ NEXT SESSION, IN ORDER:
      KEPT in corpus/navier-stokes/local-build-2026-09 with a README, committed on main); ~/.elan (all four Lean toolchains, by
      `elan self uninstall`: THERE IS NO LOCAL LEAN ON THIS MAC NOW — Comparator/nanoda work runs on the hosted runners);
      ~/Projects/openai-math (3.1 GB; the records and pins stay in corpus/openai-math; the Sidorenko battery skips its optional
-     source checks and says so); the Claude desktop VM bundle (10.1 GB); sagui's three data/raw folders (1.9 GB, its make export
+     (a private line — a frozen commercial project, kept off the public repo; 2026-11-04)
      re-fetches); certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (superseded); git gc; the Spotify, Cursor, Claude-app, pip, npm,
      Homebrew, Playwright, electron, node-gyp, TypeScript, Apple-Python caches; Cursor's state.vscdb.backup; ~/.lightkurve.
      NOT DELETED: ~/.cache/mathlib (1.7 GB) — the auto-mode classifier refused twice; the operator's one-liner is
@@ -2651,7 +2651,7 @@ NEXT SESSION, IN ORDER:
      NEXT, in order, each with a kill switch (SCHEMA.md): v2 the YIELD MEASUREMENT over the 132 register rows — expressible,
      expressible with one new primitive, not expressible — under half expressible → publish the null and stop; v3 the JavaScript second
      checker + the concord on twenty rows read twice + SMT-LIB export with Z3 as a third decider; the deciders reading the object one
-     family at a time, the oracle first; a spin-out repository (Sagui mechanics: LIFT.json + PROVENANCE.json) only when a claimant or
+     family at a time, the oracle first; a spin-out repository (a frozen private project mechanics: LIFT.json + PROVENANCE.json) only when a claimant or
      an outside verifier reads the format. THE NAME IS THE OPERATOR'S: "box" is the paper's word and the working name; "claim"
      collides with the register, the ledger and the sweep. Memory: box-declared-claims.md.
      VERSION 2 BUILT THE SAME SESSION (on "Proceed"): THE YIELD MEASUREMENT — instruments/claimbox/yield.py (the rule in its docstring,
@@ -2691,7 +2691,7 @@ NEXT SESSION, IN ORDER:
      only; Leech/E8 in the wave runner only; the kissing samples differ, d25's JS sample omits the new rows; span = rank of XᵀX,
      not recorded for 25/27; the rerun kit ran before kissing/NS, not before the registry; the GPU bill as read at 21:25 UTC);
      the Qiushi READMEs that link the check PINNED (corpus/kissing/wave/qiushi-readmes-2026-10-19); C_82 added (§3.2, tables).
-     NOT APPLIED — the operator's or the co-authors' call: S2 rename "benchmark exercises" → "case studies" (the title; Pedro's
+     NOT APPLIED — the operator's or the co-authors' call: S2 rename "benchmark exercises" → "case studies" (the title; the partner's
      shape); S3 move Krawczyk/radii-polynomial to Appendix B; S4 primary sources for the opening list of failures (l.68); S1 put
      the exercises in the register and the rerun kit; S11 the third exercise's dollar cost (no record holds it); S15 Appendix C
      Prop 9(a) monotonicity wording; T2/T3 box warnings; the eight uncited bib entries. AND A RECORD QUESTION: certs/optq-ledger.json
@@ -2739,7 +2739,7 @@ NEXT SESSION, IN ORDER:
      (6) merged into main (merge commit 6d2cc5c8) and pushed.
      NOT a change of any published verdict: every CERTIFIED stands; the fixes are printed enclosures and doors.
   ◆ WAITING ON THE OPERATOR (2026-10-19):
-     (1) Send the method paper to Pedro — v0.7 is the live one now (56 pp; the v0.6 referee read applied):
+     (1) Send the method paper to the partner — v0.7 is the live one now (56 pp; the v0.6 referee read applied):
          - PDF paper/cert-machine-method.pdf, live at carlostoledo.co/paper/cert-machine-method.pdf;
          - source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
          - decide the referee's structural items first or send them with it (★ METHOD PAPER v0.7 above lists them).
@@ -2769,11 +2769,11 @@ NEXT SESSION, IN ORDER:
      (7) Confirm the Navier–Stokes "six readers" were AI agents.
      (8) AE-PR needs Google's CLA.
   ◆ WAITING ON THE WORLD:
-     - the δ₃ auditor (hello@gocheckyourself.org, anonymous): a name for the rerun registry and the evidence packet (see ★ THE δ₃ PACKET AUDITED).
+     - the δ₃ auditor ([an e-mail address], anonymous): a name for the rerun registry and the evidence packet (see ★ THE δ₃ PACKET AUDITED).
      - #232, #242, #243 (Tao), all filed, no reply. WHEN ANY MERGES: take a registry snapshot (SNAPS in
        read-optconst-registry.js) before the paper counts more marks; update the queue page and the paper's counts.
      - Schmidt's answer: check any proof against the 48 recorded cases.
-     - Pedro's comments.
+     - the partner's comments.
   ◆ READY TO BUILD ON A WORD: nothing queued (C_82 was built 2026-10-20).
   ★ THE FOUR DEFERRED REFEREE ITEMS + THE ERDŐS CHECK (2026-10-19 evening, on "Proceed the four items deferred. Proceed
      the Erdos check"):
@@ -2807,18 +2807,18 @@ NEXT SESSION, IN ORDER:
        - Files: corpus/openai-math/recall-2026-10-19 (Apache NOTICE names the 12 changed files);
          tools/score-reading-recall.py → certs/reading-recall.json; battery with 5 red controls.
      - S3: in the v0.6 draft on the branch (above).
-     - The two frontier-apps CPU jobs were killed on the operator's word (Sagui untouched). C_86 needed no RunPod, and
+     - The two frontier-apps CPU jobs were killed on the operator's word (a frozen private project untouched). C_86 needed no RunPod, and
        the other session built it.
      - Coordination with the other session (cert-machine-bd) worked by message: each staged only its own hunks; it
        closed its lane.
-  ★ SAGUI SPUN OUT (2026-10-19 afternoon, this session): the operator's commercial national PNT-interference watch
-     (formerly Atalaia, planned in frontier-apps/experiments/atalaia) now lives in ~/Projects/sagui — PRIVATE, its own
+  (a private line — a frozen commercial project, kept off the public repo; 2026-11-04)
+     (a private line — a frozen commercial project, kept off the public repo; 2026-11-04)
      git, CLAUDE.md and HANDOFF.md; it is NOT part of cert-machine and never competes with this pipeline. It LIFTED,
      read-only and pinned by sha256 at ce300003: apps/janela/audit/{pnboia,currents,currents_observe,observe,passes}.py +
      platforms.js, apps/janela/scenario/{sites,platforms}.json, instruments/forecast/*.js, instruments/horizon/interval.py,
      corpus/anp/*, corpus/janela/pnboia/*, certs/janela-pnboia-check.json. Nothing here was edited; no task here changes.
-     Sagui work is done from its own folder (operator 2026-10-19: "open the new folder in a new window"); its GitHub push
-     is the operator's (the auto-mode classifier refused it here). Memory: atalaia-commercial-venture.md.
+     a frozen private project work is done from its own folder (operator 2026-10-19: "open the new folder in a new window"); its GitHub push
+     (a private line — a frozen commercial project, kept off the public repo; 2026-11-04)
   ★ C_86 REPLAYED (2026-10-19 afternoon, on "proceed the missing PRs or issues we have planned"): the registry's newest asterisk,
      C_86 <= 1.8117251* (R. Pinho, #227, MERGED 2026-10-18; the Schur–Siegel–Smyth trace constant from a 629-cell step measure
      and eleven integer polynomials, Smith's sufficiency criterion) — the certificate's six finite conditions DECIDED by two
@@ -2840,7 +2840,7 @@ NEXT SESSION, IN ORDER:
      looped forever on the reducible red control in both kernels — the red control earned its keep.
      NOT DONE: #232 still OPEN, no comment (T-PR3 waits for it); the C84b PR waits for the Althöfer email (operator item 4);
      AE-PR needs Google's CLA (operator); the Pydantic door-opener is a send. C_82 (#229) is the next build.
-  ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt (mail@felixschmidt.org) e-mailed a note claiming the
+  ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt ([an e-mail address]) e-mailed a note claiming the
      analytic bound on our buffer K (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1
      @ 8564602b; pinned by digest only in corpus/erdos1/schmidt-2026-10-18/PINS.json; no code of his run). DECIDED on a
      pre-registered grid of 48 (b, s) up to d = 3,125 (instruments/erdos1/structure.py → certs/erdos1/buffer-structure.json;
@@ -2863,7 +2863,7 @@ NEXT SESSION, IN ORDER:
      check-bib caught it); unexercised certifiers moved to Appendix B; xurl dropped (paths no longer break mid-name);
      A4; the version history out of the title note. NOT DONE (the operator's call or later): S3's full cut of the
      engineering material, S5's planted Lean statements, S6's second C71 implementation, O2's Arb audit of bigfloat and
-     Decimal ln, S12's figure-to-table. The operator sends v0.5 to Pedro.
+     Decimal ln, S12's figure-to-table. The operator sends v0.5 to the partner.
   ★ METHOD PAPER v0.4 (2026-10-18, LIVE, 49 pp; archived as release v2026.10.18, doi:10.5281/zenodo.23446020) — the two
      outside readings acted on, on the operator's "Proceed your suggestions" (items 1–16 and 18; 17 venue undefined, 19
      reviewing group ongoing, 20 arXiv wait, 21 replication asks and 22 an outside arithmetic expert ongoing):
@@ -2880,7 +2880,7 @@ NEXT SESSION, IN ORDER:
        truth all decided correctly (certs/method-eval.json; --check is a battery).
      18 self-citations 10 → 6 under the archive's concept DOI; the release minted 23446020. ZENODO'S VERSION FIELD reads
        v2026.10 (a stale .zenodo.json, now bumped) — fix it on Zenodo with your login or ZENODO_TOKEN=… node
-       tools/zenodo-metadata.js --apply. The operator sends the PDF to Pedro.
+       tools/zenodo-metadata.js --apply. The operator sends the PDF to the partner.
      v0.4.1 (2026-10-18 ~09:40 UTC): #230 MERGED 05:54 UTC — the registry re-snapshotted as
        corpus/optconst-queue/registry-2026-10-18b/ (the morning snapshot kept: each supports the sentences about its
        moment; `node tools/read-optconst-registry.js --check` re-reads both); §3.2 says merged, 3.5 h after filing, the
@@ -2928,7 +2928,7 @@ NEXT SESSION, IN ORDER:
      submits. Next packets: Pydantic (after a door-opener issue/PR on pydantic-evals), Elicit, Gray Swan, Prime Intellect
      Evals & Data; the contractor asks (Surge, Snorkel, Fireworks). Jane Street (Formal Methods Engineer) only after a
      relocation decision.
-  OPERATOR: the HN moderator email (hn@ycombinator.com, both permalinks; drafted in the chat of 2026-10-17); the
+  OPERATOR: the HN moderator email ([an e-mail address], both permalinks; drafted in the chat of 2026-10-17); the
      curve-seeds notes to Valsorda and Weis (outreach/curveseeds-note-2026-10-16.md, the lane sentence included); the
      Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes yes/no; paper venue + authors; reopening
      awesome-ai-proofs#2 when HorizonMath answers; the Method cuts.
@@ -3092,7 +3092,7 @@ target for us?" → scouted OPEN, BUILD-NOW; then "All focus on the first indepe
      figure is read from a record and the sender notes list them. The private file beside it holds the phone, the
      availability line rewritten for the remote-international shape, employment and education; the "selected live sites"
      paragraph of the 10-05 variant was dropped from this accent to hold two pages (it stays in primeintellect/).
-  8. FOUR PACKETS, nothing sent (SEND-QUEUE lane J): outreach/epoch (Lever; Benchmarking Reviews; no cover letter by their
+  (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      rule; the one free-text box drafted), outreach/far-ai (Ashby; Remote International explicit, EOR or contractor;
      $150–250K), outreach/nous (Ashby; Americas; the five responsibilities answered one by one), outreach/cohere (Ashby;
      no location restriction; the statistics half claimed, the training and top-venue-paper requirements stated as not
@@ -3178,8 +3178,8 @@ shelf card, certs-shelf row; `make reports` runs both). RESULT: 99.17% REPRODUCE
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (afternoon), THE FINANCE LANE — scouted, nothing built (operator: "explore financial companies on the job
 searching and build reports/instruments to that area… a high impact experiment"). Two scouts: (1) jobs — 47 open rows in
-notes/job-search-raw-2026-10-16/finance.md (local), top: Stone model validation (remote), C6, ANBIMA Preços & Índices,
-Santander FRTB; plan §7 of notes/job-search-2026-10-16.md. (2) prior art + data for three instruments, rows written to
+(a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+(a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
 corpus/targets.json: tesouro-anbima-pu-2026-10 OPEN — BUILD-NOW (TD history ODbL + ANBIMA daily file + holidays/VNA/
 SGS/SIDRA all open; one rule table STN 29/04/2024 = ANBIMA 2021 §22; prior art tesouroemfoco 328,953 rows, 922
 unexplained cent-slips, closed source; PYield implements, decides nothing); exchange-margin-span-core DEAD; focus-scoring
@@ -3289,11 +3289,11 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
   BATCH ONE POSTED 2026-10-15 ~23:50 UTC (operator: "Proceed batch one outreach"): A1 on alphaevolve#6, C1-C3 on optimizationproblems
      #225/#221/#226, B1-B5 on formal-conjectures #7304/#7305/#7306/#7308/#7330, F1 on Oxelra Bandeira#1 — URLs in
      outreach/three-campaigns-2026-10-15.md. WATCH THE TEN THREADS. Day 2 (A2-A4, C5 the Mosaic refusal, P1-P5) waits for the operator.
-  JOB SEARCH (operator 2026-10-16, "not only hyped AI labs"): three scouts, ~130 boards; the ranked list and the application plan are
-     LOCAL in notes/job-search-2026-10-16.md (+ raw tables in notes/job-search-raw-2026-10-16/, git-excluded). Tier 1 = Epoch AI
-     (Benchmark Reviews), Pydantic evals, FAR.AI RE (international), Nous evals (Americas), Cohere evaluation MTS, Stone (model
-     validation, remote; GenAI Core, hybrid Floripa), Surge, Elicit, Eldorado, Gray Swan. NEXT: resume v3 with the October work;
-     door-openers (pydantic-evals issue/PR; the Mercor Lean placement); packets in outreach/<employer>/; every send the operator's.
+  (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
   OUTREACH PLAN: outreach/outreach-plan-2026-10-15.md — goals per venue, tone rules, the two-day sequence (confirmations first,
      the #210 refusal last), week-2 follow-ups (AE-PR needs the CLA; T-PR after merges), what we offer if they answer, and the
      new drafts (F1 Bandeira follow-up, P1-P5, AE-PR, T-PR, POST). Threads re-read 2026-10-15 ~23:30 UTC: unchanged since the pins.

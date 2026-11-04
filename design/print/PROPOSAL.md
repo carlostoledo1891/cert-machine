@@ -4,8 +4,8 @@
 T3b (no light theme on the site) stays as it is; the site's pages and gates are untouched. The register lives in
 `design/print/`, which Vercel never serves.
 
-**Why.** UFSC LabECO (Pedro Guimarães) writes reports for Petrobras: PDFs and Word documents read on white paper and
-printed on mono laser printers. WARRANT is dark-only, so it could not reach them. LabECO works in Python, so the kit is
+**Why.** the partner group (the partner) writes reports for Petrobras: PDFs and Word documents read on white paper and
+printed on mono laser printers. WARRANT is dark-only, so it could not reach them. the partner group works in Python, so the kit is
 matplotlib.
 
 **What to look at.** `specimen.pdf` (colour) and `specimen-grey.pdf` (as a mono laser prints it), with their SVGs: the
@@ -57,14 +57,14 @@ told apart by ▲ against ■ and the label; guide · witness (2.0), told apart 
 ## Open questions
 
 - **Word.** The kit writes SVG, PDF and PNG. Recent Word inserts SVG; older Word needs PNG (300 dpi) or EMF. Which
-  Word does LabECO deliver in? (Ask Pedro.)
+  Word does the partner group deliver in? (Ask the partner.)
 - **The first ramp step** (#e9e9e9, about a 9% tint) may drop out on some office lasers; a four-step ramp from #d5d5d5
   is the fallback if a test print shows it.
-- **Fonts.** The sheets use Inter and JetBrains Mono; LabECO's machines will fall back to Arial or DejaVu Sans (the kit
+- **Fonts.** The sheets use Inter and JetBrains Mono; the partner group's machines will fall back to Arial or DejaVu Sans (the kit
   resolves the chain at `use()`, and DejaVu Sans carries ∅ and ×).
 - **Two blues across projects.** The print blue sits ΔE 10.1 from Machinidae's violet #6744c5 and 24.3 from its blue
   #79b9d6. They never share a figure, but rule 2 is "one colour, one meaning, in every project".
-- **A Python-native checker** for LabECO's own CI would be a second implementation of check-svg.js; it would need a
+- **A Python-native checker** for the partner group's own CI would be a second implementation of check-svg.js; it would need a
   concordance battery, as wiring has (JS vs Python).
 - **The papers** stay as WARRANT says ("never in the papers" until ruled paper-ready); this proposal does not change
   that.

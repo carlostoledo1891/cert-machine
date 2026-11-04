@@ -94,7 +94,7 @@
 - [x] The providers head to head on the same targets (PLACAR "Frente a frente"), from the first scores.
 - [ ] NOAA's 06/12/18 UTC runs (a second cron) and hourly steps in the app.
 - [ ] Watch GitHub's schedule (2026-10-07: neither slot fired; five slots + tools/janela-watchdog.sh since).
-- [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
+- [ ] The last-mile pilot with the partner group (brief written, private; Babitonga first): engine + certified band + field test.
 
 
 ## v1.3 — ready for outreach (2026-10-07, operator: "finish all missing items to prepare Janela to start outreach phase;
@@ -112,7 +112,7 @@
       screenshots, every figure from a record) at /janela/janela-apresentacao.pdf.
 - [x] Janela on the landing page (tools/build-site.js) — and the site build unblocked: the certificate shelf now
       describes the nine janela-* records (the build had refused since they were added on 2026-10-06).
-- [ ] The sends (Petrobras logistics/marine operations, a marine warranty surveyor, LabECO's brief, Radar Ciclo 4) —
+- [ ] The sends (Petrobras logistics/marine operations, a marine warranty surveyor, the partner group's brief, Radar Ciclo 4) —
       the operator's, each approved per item.
 - [ ] English version of the app's surface (outreach beyond Brazil) — not started; pt-BR is the market.
 
@@ -134,4 +134,4 @@
 - [ ] The altimeter truth v2: Copernicus L3 adds CFOSAT, HY-2B and HY-2C to the eight RADS missions (more passes, nearer
       the units) — a new truth version, dated before use, and the bands re-calibrated against it.
 - [ ] Period criteria: a cited limit per operation, then the long-swell Hs decides; SAR graded in aggregate.
-- [ ] The live buoys (REMO Observacional, UFSC's TriAXYS, FPSO wave radars) — partner asks, the operator's.
+- [ ] The live buoys (REMO Observacional, the university's TriAXYS, FPSO wave radars) — partner asks, the operator's.

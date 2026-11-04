@@ -57,7 +57,7 @@ this phase, commit, push live and handoff").
     site/swell before a commit (DEBT row).
   THE NEXT SESSION, FIRST: `git pull --rebase`; the 10-09 altimeter scores in Janela's PLACAR and Swell's Placar, in
     Chrome; `node tools/sweep-claims.js`; then WAIT.
-  WAITING ON THE OPERATOR: the two paper links to the UFSC contact (a pt-BR message was given in chat; the send is the
+  WAITING ON THE OPERATOR: the two paper links to the the university contact (a pt-BR message was given in chat; the send is the
     operator's); the CPSI items before 2026-10-19 17:00 (Petronect CRC + "Tenho Interesse", the annexes, §11 comercial,
     an LCA partner or none, the submission); everything listed under 10-08 (buoy access, openai/math go, the beach-project
     partnership — its coast plan stays local and untracked).
@@ -66,7 +66,7 @@ this phase, commit, push live and handoff").
     larger one is ONE verdict module that every instrument imports.
 
 ────────────────────────────────────────────────────────────────────────────
-2026-10-09 (~15:00 UTC), TWO PAPERS FOR THE UFSC CONTACT (operator: "I think we need (for Pedro) 1. cert-machine method paper.
+2026-10-09 (~15:00 UTC), TWO PAPERS FOR THE the university CONTACT (operator: "I think we need (for the partner) 1. cert-machine method paper.
 Focused on math and verification. Claiming the system. 2. how it is applied to extreme event analysis"; asked, the operator chose
 "P1 + contours"). Committed and pushed live (see below); nothing sent.
   BUILT:
@@ -94,8 +94,8 @@ Focused on math and verification. Claiming the system. 2. how it is applied to e
   PUSHED LIVE on the operator's word ("push live"), together with the Abatimento commit (now 722c84d: the CPSI page,
     deck, Registro de cálculo and Proposta Técnica are public at /abatimento/; §11 comercial is still a placeholder).
     BEFORE THE PUSH the coast plan (notes/coast-plan-2026-10-08.md) was taken OUT of that unpushed commit: it names the
-    beach-project partner, his personal repository and his LabECO tie, and partner names stay out of the public repo
-    until both sides agree. It stays on this desk, untracked, excluded in .git/info/exclude. Links for the UFSC contact:
+    beach-project partner, his personal repository and his the partner group tie, and partner names stay out of the public repo
+    until both sides agree. It stays on this desk, untracked, excluded in .git/info/exclude. Links for the the university contact:
     carlostoledo.co/paper/cert-machine-method.pdf and /paper/p1-return-levels.pdf. Sending them is the operator's.
 
 ────────────────────────────────────────────────────────────────────────────
@@ -142,7 +142,7 @@ Focused on math and verification. Claiming the system. 2. how it is applied to e
     2. `gh run list --workflow=janela-feed.yml --limit 6` and `--workflow=swell-feed.yml`: the 10-09 days (~09-11 UTC).
        If Swell's 10-09 day is not on swell-field by ~12 UTC: `gh workflow run swell-feed.yml --ref main`.
     3. 10-09 is the FIRST ALTIMETER SCORES day: the PLACAR and the head-to-heads (IFS x NOAA x AIFS) start filling;
-       Swell's Placar reads the floripa rows of Janela's ledger. Check both apps show them, in Chrome.
+       (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
     4. `node tools/sweep-claims.js` and report what moved.
     5. Then WAIT. No send, no new lane, no paid run without the operator's word.
   WAITING ON THE OPERATOR (unchanged): the buoy-access requests (10-08 01:55 entry); the openai/math go; the partnership
@@ -225,14 +225,14 @@ operator's go is pending.)
     band, the decided wave limits (▲ PERIGO / ATENÇÃO with both flips / abaixo do limite — never "seguro"), forecast words and
     dashed forecast warnings kept apart from decided ink, the week, safety and emergency numbers, a downloadable certificate,
     the crest-line map (frontier's island-model shader), wind streaks, longshore currents, "Como sabemos" generated from the
-    records, the Placar (the open sea's scores at floripa from Janela's ledger; first live scores 10-09).
+    (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
   POWERED UP FROM FRONTIER, BY MEASUREMENT:
     · the forecast: Open-Meteo's non-commercial API left the app; apps/swell/audit/feed.py (built by a subagent, reviewed)
-      reads ECMWF IFS HRES + NOAA GFS-Wave at Janela's floripa node every 3 h to 144 h then 6-hourly, ECMWF's wind on the 16
+      (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
       nodes over the island, Copernicus' sea level, tide and water temperature — Janela's own decoders; equal to Janela's feeds
       at every shared lead (its battery);
     · the band: Janela's definition, imported not copied (today.js compute() over bandset.forDecision: ECMWF ∪ NOAA, held-out
-      coverage 96.5% of 21,259 passes; floripa's ECMWF cell 388/428 at 24 h);
+      (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
     · breaking: frontier's probes stopped at 4.5-6.5 m, so 14 of 21 ocean beaches could never read more than 2.3-2.5 m (a 5 m
       SSE 14 s sea read 2.49 m at Joaquina); sim/probes.py reproduces frontier's beach tables EXACTLY (33/33 beaches, K for all
       64 cases) and adds 8.5/11 m targets — every ocean beach now reaches 8.8-13.1 m; model/surf.js marches in from the deepest
@@ -261,7 +261,7 @@ operator's go is pending.)
     provenance), render, wiring green; the layout ruler recorded the page (390: 0 px overflow); the full control build 127/127, EXIT 0 (the drift line "137 source gone" unchanged: the source lab is not at the path the lift records on this desk).
   NEXT (apps/swell/TODO.md, in order): watch the first cloud days; Swell's own 3-hourly proposer in certs/swell-ledger/ (never
     Janela's ledger: its scorer would grade it as Janela's); the wind refit on ECMWF vs SBFL METAR; shore truth (Campeche
-    SWASH, stereo video, the UFSC buoy — partners' agreement first); the box extended south (Guarda/Pinheira); a method page
+    SWASH, stereo video, the the university buoy — partners' agreement first); the box extended south (Guarda/Pinheira); a method page
     and the PWA. Commercial use needs licensed bathymetry.
 
 ────────────────────────────────────────────────────────────────────────────
@@ -285,15 +285,15 @@ operator's go is pending.)
     providers-eval-aifs-v1 with the same rule; 2026-11-24 GlobCurrent 202411 retires.
   WAITING ON THE OPERATOR — THE BUOY ACCESS (the real use case: Janela graded at a unit; routes and a pt-BR BNDO request
     draft given in chat 2026-10-08, nothing sent):
-    · Pedro / LabECO (fastest, warm): research access to the REMO Observacional wave data (the CHM + Petrobras Spotters
-      in the pre-salt since 2020-10, the >2,000 m mooring) and to UFSC's TriAXYS (SiMCosta CNM 01/2025, Alessandra
-      Fonseca's project, Florianópolis); a joint validation study. Messages to LabECO stay OUT of the public repo.
+    · the partner / the partner group (fastest, warm): research access to the REMO Observacional wave data (the CHM + Petrobras Spotters
+      in the pre-salt since 2020-10, the >2,000 m mooring) and to the university's TriAXYS (SiMCosta CNM 01/2025, Alessandra
+      Fonseca's project, Florianópolis); a joint validation study. Messages to the partner group stay OUT of the public repo.
     · BNDO (CHM, Niterói): the request form marinha.mil.br/chm/form/formulario-de-solicitacao-de-dad for PNBOIA + REMO
       fixed-buoy waves and wind 2020-present (the public archive stops 2020); stronger with an institutional affiliation;
       the argument: the 2025-02 Petrobras-Navy R$ 100 M REMO expansion, data said to be shared with the scientific
       community; Fala.BR (LAI) if no answer in ~30 days.
     · Petrobras: FPSO wave radars and its own buoys only inside a pilot under NDA (the deck's last slide; Janela can run
-      on their side); routes: Pedro's Petrobras contact, Radar Ciclo 4, an ANP-clause R&D project with UFSC.
+      on their side); routes: the partner's Petrobras contact, Radar Ciclo 4, an ANP-clause R&D project with the university.
     · A Spotter of our own: < US$5k + Iridium; mooring needs a vessel and Navy authorisation — coastal first, last resort.
     · Sofar's free archive: read its Data Access Agreement before any commercial use.
   STATE AT HANDOFF: main 082410b + this commit; control build 125/125; janela battery 33 + 24 reds; every Janela check
@@ -303,7 +303,7 @@ operator's go is pending.)
     HY-2C — a new truth version, bands re-calibrated); period criteria (a cited limit per operation, then the long-swell
     Hs decides; SAR graded monthly); the 12 UTC second daily day (design notes in the 10-07 refinements entry); the
     cloud backup trigger (needs GitHub connected to the Claude account); the sends (Radar Ciclo 4, CNPq MAI/DAI with
-    UFSC, a marine warranty surveyor for an outside rerun of the site alpha).
+    the university, a marine warranty surveyor for an outside rerun of the site alpha).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-07 (21:00–22:21 UTC), THE FREE FRONTIER ITEMS — "proceed all what can do now free" (after the buoy/frontier scouting:
@@ -376,7 +376,7 @@ use cases, the user needs. Consider it all on this version. Rebuild the html ind
     the screenshots from the built app through a local server.
   · THE LINK PREVIEW — site/janela/og.png (1200×630: the words of slide 1 + the app) as og:image/twitter:image of /janela/
     and /janela/metodo/ (design/template.js headHtml takes an optional `og`; every other page byte-identical), the
-    pt-BR alt text. A recipient's WhatsApp/LinkedIn/e-mail card used to show cert-machine's English math card.
+    pt-BR alt text. A recipient's a private message/LinkedIn/e-mail card used to show cert-machine's English math card.
   · THE HTML INDEX — Janela has a section on the landing page (tools/build-site.js, English, numbers from the same
     records); THE SITE BUILD HAD BEEN REFUSING since 2026-10-06 (the certificate shelf did not describe the nine janela-*
     records): tools/certs-shelf.js now describes them, site/certs/ carries them, the landing and /machine rebuilt.
@@ -420,8 +420,8 @@ session waiting for instructions").
   OPEN MENU (the operator picks; see the entries below for the detail): the 12 UTC second daily day (design notes in
     the refinements entry); the calibrated current band (~10-18); swell period/direction criteria (needs a cited
     limit — none public found); planner mobilisation/transit and any start day; the cloud backup trigger (operator:
-    later; needs GitHub connected to the Claude account); the LabECO pilot brief (written, private, unsent); the
-    sends (Radar Ciclo 4, CNPq MAI/DAI with UFSC, a marine warranty surveyor for an outside rerun).
+    later; needs GitHub connected to the Claude account); the the partner group pilot brief (written, private, unsent); the
+    sends (Radar Ciclo 4, CNPq MAI/DAI with the university, a marine warranty surveyor for an outside rerun).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-07 (late night, 17:45–19:30 UTC), REFINEMENTS — "close the gaps, refine the models, a unique state-of-the-art tool".
@@ -679,7 +679,7 @@ on the next session").
        placar.js NAMES_PT; the second verifier is unaffected unless decisions change (it re-decides from the day).
     f. Later: the calibrated WW3 band (back-archive 2021→, matchups, conformal, its own pinned proposer); swell
        partitions on the card (period/direction criteria for offloading and lifts); 4 runs a day in the app.
-  ALSO OPEN (unchanged): the LabECO last-mile pilot brief is written (a private Claude Doc, pt-BR: Babitonga first,
+  ALSO OPEN (unchanged): the the partner group last-mile pilot brief is written (a private Claude Doc, pt-BR: Babitonga first,
     650 SWAN runs in 3 sets drawn from the WW3 hindcast, an RBF engine with an exact conformal band, 5 acceptance
     tests, an 8–12-week field measurement) — https://claude.ai/code/artifact/5db724bb-ba34-4b85-b7c4-49be2fcadae5 —
     sending it is the operator's. Decision-level scoring from 10-09; the campaign planner; the site alpha at 3–4 m;
@@ -832,12 +832,12 @@ on the next session").
       account is the operator's act.
     · Wind alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind: anemometer height); period uncertainty (B706);
       the app's default hour (it opens on +24 h, not the hour nearest now).
-    · Sends (the operator's): Petrobras Radar Ciclo 4 (a third solution), CNPq MAI/DAI 30/2026 with UFSC
+    · Sends (the operator's): Petrobras Radar Ciclo 4 (a third solution), CNPq MAI/DAI 30/2026 with the university
       (Dec 11), a marine warranty surveyor for an outside rerun of the site alpha.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-06 (afternoon/evening), JANELA v1 — THE SWELL PORT, RE-SCOPED TO OFFSHORE ENERGY, BUILT AND LIVE.
-  THE OPERATOR'S RULINGS (2026-10-06): port SWELL (frontier-apps/PORT-SWELL.md) for the LabECO partnership,
+  THE OPERATOR'S RULINGS (2026-10-06): port SWELL (frontier-apps/PORT-SWELL.md) for the the partner group partnership,
     commercial ventures and calls; the commercial focus is ENERGY INFRASTRUCTURE (platforms, production areas,
     terminals), not sports or beaches; Swell (the beach app) stays as the PUBLIC face. Plan v2 approved:
     (1) the engine + Janela first, Swell second; (2) Swell keeps the Navy chart data; (3) name "Janela";
@@ -885,7 +885,7 @@ on the next session").
   NEXT (the operator picks): Swell re-homed on this engine as the public face (apps/swell/TODO.md has the port
     plan and the source review's findings); period uncertainty for swell-sensitive operations (B706); wind
     alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind — anemometer height); the nearshore transfer for berth
-    limits; a send of any of this (the Radar, MAI/DAI with UFSC, a surveyor) is the operator's.
+    limits; a send of any of this (the Radar, MAI/DAI with the university, a surveyor) is the operator's.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-06, HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS.
@@ -914,7 +914,7 @@ on the next session").
       about 7 days, and after teorth/optimizationproblems PR #216 settles.
     · The GitHub bio and the pinned repositories (no API for pins).
     · The ec-benchmark issue: the partners' field; lane U first.
-    · Older held lanes, unchanged: R5 (the LabECO thread), METR M1/M3/M3a, U1. R2 is superseded by RamseyLean#1.
+    · Older held lanes, unchanged: R5 (the the partner group thread), METR M1/M3/M3a, U1. R2 is superseded by RamseyLean#1.
   HELD WITH A DATE (confirm with the operator on the day):
     · teorth/erdosproblems PR, item 20 of outreach/github-p3a-2026-10-06.md (lambda4_cubic: three real roots,
       λ(4) the largest), on or after 2026-10-08, given Tao's notification load.
@@ -928,7 +928,7 @@ on the next session").
     · The C42 ≤ 0.688970 decider (1–3 h), which would unblock the review on turan-c42-certificate#2.
     · lattice-claims, the ternary arm (−1 for a confident wrong answer).
     · The three Elsevier papers (paper/tex; authors to be agreed).
-    · The next-fronts menu (memory, 2026-10-01): LabECO evolutions, LRCAP (~10-26), calls (CNPq RHAE IA closes
+    · The next-fronts menu (memory, 2026-10-01): the partner group evolutions, LRCAP (~10-26), calls (CNPq RHAE IA closes
       2026-10-09, Finep ~10-14 to verify, MAI/DAI 12-11).
     · Lean for δ₃: weeks of work. δ₄ is BLOCKED (the quartic term).
 
@@ -985,7 +985,7 @@ on the next session").
     dualverse-ai/station_data_v2#2), R4 (suvrit/count-ex-machina#1); the ζ(7) reply (gmDevi#1). The #1186 proof claim
     SENT by the operator (moderation). The Erdős #1 forum comment is PUBLIC — snapshot pinned 2026-10-05 — so
     Mathstodon (outreach/erdos1-mastodon.md) may go. tools/sweep-claims.js watches all of it. LEFT FOR THE
-    OPERATOR (no transport here): R2 (email to Norin), R5 (the LabECO thread), METR M1 (recruiting), M3/M3a (the
+    OPERATOR (no transport here): R2 (email to Norin), R5 (the the partner group thread), METR M1 (recruiting), M3/M3a (the
     Lever applications), Mathstodon, and D (the k = 4 comment, READY since the claim showed, revised 2026-10-06); C (the teorth
     note) DROPPED (CONTRIBUTING sends mathematics to the forum).
   THE GITHUB MAP AND THE RECORD CORRECTIONS (2026-10-05 night → 10-06). outreach/GITHUB-OUTREACH.md: 13 touchpoints
@@ -1365,13 +1365,13 @@ with phases and start building. Stop at each phase and handoff."
     cstar, mm-alphaevolve-48-4x4x4, optconst-84b · Norin ×2: gnnw-gai-3782,
     horizonmath-ramsey-asymptotic · the EinsteinArena thread + Dualverse ×3: kiss-ea-
     604, kiss-station-604-1, ea-overlap-together_ai_2026 · Sra ×1: countex-dpp-
-    feasible-step · the LabECO pair ×1: ecbench-marginals). The kit page's §3 draws
+    feasible-step · the the partner group pair ×1: ecbench-marginals). The kit page's §3 draws
     the corpus and the milestone stat "n of 5 parties" is READ from corpus/external-
     reruns.json (a registry row may now carry `rows: [register ids]`; a party counts
     when one of its rows names a corpus id; the build refuses an unknown id or
     party). The five asks are DRAFTED in outreach/rerun-asks-2026-10-02.md (LANE R
     in outreach/SEND-QUEUE.md): R1 rainrzk, R2 Norin (email, English), R3 the #64
-    thread + a Dualverse issue, R4 Sra, R5 the LabECO pair (Portuguese, salutation
+    thread + a Dualverse issue, R4 Sra, R5 the the partner group pair (Portuguese, salutation
     and signature left to the operator; nobody named). EVERY ONE IS A SEND on the
     operator's per-item word; after a reply, add the registry row with its `rows`
     and rebuild. Phase 2 is then measured, not declared: the page says 0 of 5 today.
@@ -1450,7 +1450,7 @@ with phases and start building. Stop at each phase and handoff."
 ────────────────────────────────────────────────────────────────────────────
 HANDOFF 2026-10-01, END OF THE TWENTY-SEVENTH SESSION — THE BRAINSTORM (talk only, no
 development; the operator's words: "no development for now, just talk"). State: the
-shelf below is committed and pushed (c814c9a); the partnership with the LabECO pair is
+shelf below is committed and pushed (c814c9a); the partnership with the the partner group pair is
 ongoing and they hold the index link; the Radar forms are in. Three menus were given in
 chat and are recorded here so the next session does not redo them.
   A. RESEARCH EVOLUTIONS OFFERED (the operator picks with the partners): (1) the ten
@@ -1479,7 +1479,7 @@ chat and are recorded here so the next session does not redo them.
      ceiling, decided" the day the edital lands (hours); sealed clearing predictions
      before Dec 2 (Forecast Gym pattern; publishing a hash is a SEND); the bid book as
      a Contraprova vertical only if a bidder appears; the audit-targets page; the
-     rebound paper (weeks, not LabECO's domain); the contract as a decidable object
+     rebound paper (weeks, not the partner group's domain); the contract as a decidable object
      after the auction.
   C. PUBLIC CALLS SCANNED (web, 2026-10-01; verify every date on the official edital):
      · CNPq RHAE IA 29/2026 — DEADLINE 2026-10-09 — AI researchers in innovative
@@ -1487,7 +1487,7 @@ chat and are recorded here so the next session does not redo them.
        and a named researcher.
      · CNPq/CAPES MAI/DAI 30/2026 — 2026-12-11 — the ICT proposes, the company gives
        counterpart for MSc/PhD scholarships: THE PARTNERSHIP'S FUNDING VEHICLE (thesis
-       on the standard / contours / POT); find UFSC's internal deadline first.
+       on the standard / contours / POT); find the university's internal deadline first.
      · Finep Mais Inovação Rodada 2, Tecnologias Digitais — 2026-10-14 per one source,
        09-30 per another — companies/startups, subsidy; heavy proposal.
      · FAPESC Horizonte Europa 65/2025 — continuous to 2028-06-30, up to R$ 700 k per
@@ -1501,13 +1501,13 @@ chat and are recorded here so the next session does not redo them.
      · Decidable objects coming without a call: offshore-wind area offers (design
        values per site = P1's product); the LRCAP ceiling (B).
   D. R&D ROUTES (standing pipes, not contests): (1) the ANP PD&I clause through
-     LabECO — Res. 918/2023 lets Brazilian companies co-execute, and up to 30% of the
+     the partner group — Res. 918/2023 lets Brazilian companies co-execute, and up to 30% of the
      credentialed-institution share may go to partnerships with Brazilian companies for
      product/process/service innovation; our entry is co-executor in their existing
      Petrobras/ANP project or in a CENPES thematic-network term of cooperation; needs a
-     CNPJ meeting the 70% small-ownership rule. (2) Embrapii at UFSC — inoVARE/UFSC and
-     MOVE-UFSC (the latter in LabECO's own department): a client contracts the unit,
-     Embrapii pays about a third; ask whether LabECO can execute under MOVE-UFSC.
+     CNPJ meeting the 70% small-ownership rule. (2) Embrapii at the university — inoVARE/the university and
+     MOVE-the university (the latter in the partner group's own department): a client contracts the unit,
+     Embrapii pays about a third; ask whether the partner group can execute under MOVE-the university.
      (3) CNPq/ANR Brazil–France 32/2026 — open to 2027-03-31, digital-continuum axis
      (modeling, simulation, HPC, AI), up to 4 projects nationally — the only open
      international window; needs a French group (Ifremer Brest; validated numerics).
@@ -1515,7 +1515,7 @@ chat and are recorded here so the next session does not redo them.
      utility (storage/AI themes; needs a utility). Closed this year, calendar for next:
      CNPq Universal 06/2026 (results 11-03 / 12-04; next mid-2027), CAPES/COFECUB
      07/2026 (closed 05-29; next spring 2027), Belmont Forum Ocean 2 (closed 08-27).
-     Suggested order to raise with the partners: ANP co-execution → MOVE-UFSC →
+     Suggested order to raise with the partners: ANP co-execution → MOVE-the university →
      a French partner for 32/2026.
   CALENDAR, dated: 10-09 RHAE IA · 10-14 Finep rodada 2 (verify) · ~10-26 LRCAP edital
   + ceiling · 11-03/12-04 Universal results · ~11-17 EPE qualification · 12-02/12-04
@@ -1531,7 +1531,7 @@ paper/INDEX.json — the manifest: title, 40–60-word description, status, form
 venue, report page, tex, records — and from the PDFs' own page counts via
 pdfinfo; it REFUSES when the shelf and the manifest differ in either direction;
 wired into tools/build-site.js as 'papers/index.html'; the PDFs are served at
-/paper/<name>.pdf). The reviewing group: BOTH LabECO members will review ALL the
+/paper/<name>.pdf). The reviewing group: BOTH the partner group members will review ALL the
 mathematics papers and the operator plans to offer co-authorship on all of them
 — an offer, not yet an agreement: NOBODY is named in the repo, every author
 block is Carlos alone with "author list to be agreed".
@@ -1599,7 +1599,7 @@ block is Carlos alone with "author list to be agreed".
 ────────────────────────────────────────────────────────────────────────────
 FIRST — THE PAPERS ARE DRAFTED (2026-10-01, the twenty-seventh session). On the
 operator's word ("build the full pre papers to help [the contact] review"; the
-partnership has started; a second LabECO member — the method paper's first
+partnership has started; a second the partner group member — the method paper's first
 author — joined the thread, and the operator will help with his work too; names
 stay OUT of the repo until they agree to be named). FOUR MANUSCRIPTS BUILT, in
 paper/, every number interpolated from the records:
@@ -1649,7 +1649,7 @@ paper/, every number interpolated from the records:
   cmelsevier.sty (the verdict words, float, the ONE AI declaration — Elsevier
   requires it). tectonic fetches elsarticle on first use.
   RULES KEPT. Carlos is the only author on all four; a title note says the author
-  list and CRediT roles are to be agreed; NOBODY from LabECO is named in the repo
+  list and CRediT roles are to be agreed; NOBODY from the partner group is named in the repo
   (the method paper is cited as literature, as the public pages already do).
   "Certified" is defined once per paper, in the mathematical sense; every claim
   carries a reference; the novelty line is the decision grammar + the record.
@@ -1680,13 +1680,13 @@ paper/, every number interpolated from the records:
 
 ────────────────────────────────────────────────────────────────────────────
 FIRST — THE PAPERS (handed off 2026-10-01, start of the twenty-seventh session).
-The operator's geoscience contact (the UFSC line; his name and messages stay OUT
+The operator's geoscience contact (the the university line; his name and messages stay OUT
 of the public repo until he agrees to be named) offered to help publish the
 method in Elsevier journals. The operator wants to start with the cert-machine
 method as seen through Decidível and Contraprova. THE PLAN AGREED IN CHAT:
 THREE PAPERS, STAGGERED — never one omnibus paper — in this order:
 
-  P1 · CERTIFIED RETURN LEVELS (first; Pedro-carried). Claim: a fitted 100-year
+  P1 · CERTIFIED RETURN LEVELS (first; the partner-carried). Claim: a fitted 100-year
      wave is a design value only if the fit is the maximum it claims to be;
      decided exactly over a public hindcast, most default-call fits are not.
      Evidence on disk: certs/hseva-atlas.json (46,602 fits in 2,589 cells;
@@ -1792,7 +1792,7 @@ INSTRUCTIONS — do not act before reading them.
       (the published scenarios plotted inside the envelope) needs the paper's parameters:
       E4. Sg per cell from the simulator: not in the corpus, E1.
 
-  2026-09-30 ~18:00 BRT: THE UFSC CONTACT'S THREE AUDIO NOTES (transcribed locally with
+  2026-09-30 ~18:00 BRT: THE the university CONTACT'S THREE AUDIO NOTES (transcribed locally with
   faster-whisper; the transcripts stay OUT of the repo, in the session scratchpad) applied
   to page, deck and form texts, committed and pushed:
     1. DATA. Petrobras seismic and reservoir data are confidential even inside the company;
@@ -1876,9 +1876,9 @@ INSTRUCTIONS — do not act before reading them.
        CLOSED 2026-09-30 23:59 BRT; if the next session is later, Ciclo 3 is over —
        the Radar runs quarterly, so the same pack goes to the next cycle's form: check
        its questions against answers-*.json before running the filler).
-    2. The UFSC contact (the 2026-09-30 meeting happened; he advised that seismic PD&I
+    2. The the university contact (the 2026-09-30 meeting happened; he advised that seismic PD&I
        is better funded — hence Decidível). Whether he agreed to be NAMED is unknown:
-       nothing about him or UFSC is on the pages or in the answers. If he agrees:
+       nothing about him or the university is on the pages or in the answers. If he agrees:
        apps/contraprova/data/partner.json { "line": "..." } adds the line on
        Contraprova; the form's "parceiros" field stays blank until then.
     3. `make site` was NOT re-run after Decidível's battery was registered (the laptop
@@ -1910,8 +1910,8 @@ INSTRUCTIONS — do not act before reading them.
       (battery -> receipts vs data/gate-ledger.json, refuse on drift -> page -> deck,
       re-printed only when its HTML changes). `make site` runs it; site/contraprova/ is
       an app-owned zone in tools/build-site.js; template.render takes `lang`.
-  NEXT. The meeting with the UFSC contact (2026-09-30): the partner line (NOTHING about
-  him or UFSC is on the page until he agrees), the portfolio routing, then revise,
+  NEXT. The meeting with the the university contact (2026-09-30): the partner line (NOTHING about
+  him or the university is on the page until he agrees), the portfolio routing, then revise,
   push, and the operator submits before 23:59.
   2026-09-30 (the twenty-fifth session, continued): the contact advised that SEISMIC
   PD&I is better funded; the operator asked for a new vertical in Geophysics and
@@ -2011,7 +2011,7 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29 night, end of the twenty-
   once and restored it from HEAD before any commit). Hold one `caffeinate -i -s`.
 
   (The twenty-fourth session's earlier state — A11 LIVE, the meeting kit for the
-  UFSC lab meeting of 2026-09-30 given in chat and as a private page — is below.)
+  the university lab meeting of 2026-09-30 given in chat and as a private page — is below.)
   A11 (one commit, page-only — SERVED.json still names 3385237, nothing under
   instruments/hseva or instruments/interval moved):
     · THE decision of a printed fit is playground/return-level-check/printed.js
@@ -2400,7 +2400,7 @@ THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I woul
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-27 (the twenty-first session). In the order I would take it:
 
-  0. THE UFSC LINE, FROM "HIS METHOD, APPROXIMATELY" TO "HIS METHOD, ON HIS DATA".
+  0. THE the university LINE, FROM "HIS METHOD, APPROXIMATELY" TO "HIS METHOD, ON HIS DATA".
      A reply from the contact (private correspondence: NOT in this public repo;
      the operator holds it) asked who the certifier of a marginal fit would be,
      and said the data source matters less than the probability model and that
@@ -2654,7 +2654,7 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      days on-site, cap-exempt H-1B. SEND ORDER when the operator says so:
      Task Dev → Eval Execution, same week. MAIN PUSHED 2026-09-22 ~08:30 -03
      (72d2fd6..ff37f4e, six commits) on the operator's "fix now" — the
-     return-levels link in the Pedro message 404ed because nothing since the
+     return-levels link in the the partner message 404ed because nothing since the
      seventeenth session had been deployed; seven pages checked 200 after.
   0j. THE HUB PUSH IS READY AND THE OWN-RUNS PIPELINE IS WIRED (2026-09-22,
      morning, on "continue"; credit re-probed: still refused). blind-spot
@@ -2711,10 +2711,10 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      roles that will fit my portfolio, any company, any field, remote from
      Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
      the employers' own ATS pages, a ranked top 15 (Epoch AI Benchmarking SWE
-     first, fully remote; Mercor APEX fellowship; Prime Intellect Evals; the
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      UK AISI Inspect team), the Brazil-remote-verified set, the closed/no-role
      list so the search is not repeated, and the portfolio gaps it names.
-     Two dates this week: Mercor APEX (reported 26 Sept), AISI Control Red
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      Team (30 Sept). Every application is a send.
 
 ────────────────────────────────────────────────────────────────────────────
@@ -2733,7 +2733,7 @@ THE MENU, as of 2026-09-21 (planning only; nothing built since 09-17):
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-17 (the seventeenth session). In the order I would take it:
 
-  0. THE UFSC LINE IS AT THE OUTREACH PHASE. Four live pages on Pedro Veras
+  0. THE the university LINE IS AT THE OUTREACH PHASE. Four live pages on the partner Veras
      Guimarães's research, all rebuilt or re-read this session, all gates green,
      NOT COMMITTED at the close (see the log): reports/breaking-geometry.html
      (his GRL paper of 2026-09-16 read number by number against its own table;
@@ -2743,7 +2743,7 @@ THE MENU, as of 2026-09-17 (the seventeenth session). In the order I would take 
      stereo-reach (Caparica 2021 preset; the area-vs-point Hs excess decided to
      be inside the rig's own cell), reports/ec-benchmark.html (unchanged). The
      corrigendum question is ANSWERED (an affiliation; no number). A gated
-     outreach draft is in notes/ufsc-outreach-draft-2026-09-17.md; the send is
+     outreach draft is in notes/the university-outreach-draft-2026-09-17.md; the send is
      the operator's, per item. Still open on the line: IFORM/ISORM/HD on one
      fitted model (the hseva marginals are half of it); item 4 (Forecast Gym
      on PNBOIA); items 6, 7B; a certified digamma would admit the generalized
@@ -2924,12 +2924,12 @@ THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take it:
 
-  0. THE UFSC LINE IS OPEN AND ITS FIRST ITEM IS BUILT. The operator has a
-     contact at UFSC Florianópolis — Pedro Veras Guimarães, labECO, ocean
+  0. THE the university LINE IS OPEN AND ITS FIRST ITEM IS BUILT. The operator has a
+     contact at the university Florianópolis — the partner, the partner group, ocean
      engineering: extreme value analysis of Hs (Ocean Eng. 2026, with a
      corrigendum), a Petrobras multivariate-extremes contract, low-cost stereo
      video, wave breaking, the national buoy network. The menu is
-     notes/ufsc-labeco-menu-2026-09-12.md and the targets row `labeco`.
+     a private note and its targets row.
      mare-farm (sin-mfg, class C, method lit-OCCUPIED, not his topic) is NOT
      revived; its direction is, with the emphasis flipped: the metocean object
      is what we certify. ITEM 1 SHIPPED THIS SESSION — the environmental-
@@ -2940,7 +2940,7 @@ THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take i
      the laboratory (reports/breaking-geometry.html). NEXT on that line: (2)
      the return-level table as a certificate — needs his data, and the first
      question to him is what the corrigendum corrected; then 4 (Hs forecasts on
-     PNBOIA buoys), 6 (waves against a current), 7B (weather-window Wardrop). Nothing has been sent to Pedro or to the
+     PNBOIA buoys), 6 (waves against a current), 7B (weather-window Wardrop). Nothing has been sent to the partner or to the
      benchmark's organizers; both are the operator's.
   0a. COMMITTED 2026-09-15 as 6659a49 at the start of the fifteenth session, so
      the template pass had clean boundaries. Not pushed.
@@ -3088,7 +3088,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ══════════════════════════════════════════════════════════════════════════
 
   ── WHY ── the operator: "Read HANDOFF.md's task menu and start Phase A at A0.
-    Phase A has to be live before my UFSC meeting on Wednesday 2026-09-30. Do
+    Phase A has to be live before my the university meeting on Wednesday 2026-09-30. Do
     A1 first and ship it on its own, then A2–A9 as one reviewed re-run, then
     A10 if there's time."
 
@@ -3235,7 +3235,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ══════════════════════════════════════════════════════════════════════════
 
   ── WHY ── the operator: "Is it valuable to create a visually stunning
-    playground with maplibre, controls, etc? Also focused on Pedro's work?
+    playground with maplibre, controls, etc? Also focused on the partner's work?
     Something only cert-machine could do and that will open new ideas for his
     research? … Evolve, improve, amaze." The answer built: the paper's own
     global map, with every cell a certificate.
@@ -3487,7 +3487,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
   92/92 · control 92/92 · NOT PUSHED · nothing sent.
 ══════════════════════════════════════════════════════════════════════════
 
-  ── WHY ── the operator relayed a reply from the UFSC contact (private; the
+  ── WHY ── the operator relayed a reply from the the university contact (private; the
     operator holds it) and asked whether anything could elevate the reports;
     the evaluation (the paper's full text read; a scratch measurement of scipy
     against the ledger; the hindcast found public) was accepted with
@@ -3574,7 +3574,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     (iv) outreach/metr-eval-analysis-issue-2026-09-25.md, an issue for
     METR's own analysis repo offering the certified re-derivation and a
     certify_fit check (LANE M4); (v) the resume, the two cover notes and the
-    Lever answers carry the campaign's numbers; the portfolio page states the
+    (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
     ladder, gated on the Inspect ledger. LANE M rewritten; M0 resolved.
 
   ── 3 · THE HUB PUSH (15:17 -03, on "publish 1. for me") ── prime 0.6.31 at
@@ -3878,15 +3878,15 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     90/90. NOTHING SENT.
 
 ══════════════════════════════════════════════════════════════════════════
-  SEVENTEENTH SESSION, 2026-09-17 — THE UFSC LINE TAKEN TO THE OUTREACH PHASE:
-  PEDRO'S BREAKING-WAVE PAPER (PUBLISHED THE DAY BEFORE) READ NUMBER BY NUMBER
+  SEVENTEENTH SESSION, 2026-09-17 — THE the university LINE TAKEN TO THE OUTREACH PHASE:
+  THE PARTNER'S BREAKING-WAVE PAPER (PUBLISHED THE DAY BEFORE) READ NUMBER BY NUMBER
   AGAINST ITS OWN TABLE; THE RETURN-LEVEL TABLE BUILT AS A CERTIFICATE ON PUBLIC
   BUOYS; THE CAPARICA RIG ADDED TO STEREO-REACH; A CHART ON EVERY PAGE.
   NOT COMMITTED at the close · make test 88/88 · control 89/89 · 64 reports · 20 instrument pages.
 ══════════════════════════════════════════════════════════════════════════
 
   ── WHY ── the operator: "Are the reports and instruments good enough? can we
-    improve? How? Are they related to the latest Pedro's research?" — then, on
+    improve? How? Are they related to the latest the partner's research?" — then, on
     the assessment, "proceed with your suggestions. Review everything, see if we
     have opportunity to add a nice chart per page. The goal is to fix and improve
     to the outreach phase. Go."
@@ -3903,7 +3903,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     corpus/blacksea-breaking/paper/grl.xml. The auto-mode classifier refused an
     in-page fetch of the PDF; the XML was enough. ScienceDirect likewise: the
     Ocean Eng. paper and its corrigendum fetched headed; the CORRIGENDUM
-    CORRECTS AN AFFILIATION ("Universidade Federal de Florianópolis" → UFSC)
+    CORRECTS AN AFFILIATION ("Universidade Federal de Florianópolis" → the university)
     and no number — the menu's "first question to him" is moot.
 
   ── 2 · THE PAPER READ AGAINST THE TABLE ── instruments/breaking/paper.js:
@@ -4128,7 +4128,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     the buffer law. Nothing sent; nothing pushed.
 
 ══════════════════════════════════════════════════════════════════════════
-  FOURTEENTH SESSION, 2026-09-12 — THE UFSC LINE OPENED: A MENU FOR PEDRO VERAS
+  FOURTEENTH SESSION, 2026-09-12 — THE the university LINE OPENED: A MENU FOR the partner VERAS
   GUIMARÃES'S RESEARCH, AND THREE OF ITS ITEMS BUILT THE SAME DAY — THE ENVIRONMENTAL-
   CONTOUR BENCHMARK RE-DECIDED TO THE LAST POINT (REPORT + INSTRUMENT), THE STEREO
   RIG'S ERROR BUDGET AS ENCLOSURES (INSTRUMENT), AND HIS 16,369 BREAKING WAVES
@@ -4136,7 +4136,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
   NOT PUSHED, NOT COMMITTED at the close · 86/86 batteries · 63 pages · 20 instruments.
 ══════════════════════════════════════════════════════════════════════════
 
-  ── WHY ── the operator: "I have a contact on UFSC, Florianópolis. I want to
+  ── WHY ── the operator: "I have a contact on the university, Florianópolis. I want to
     see if we can revive mare-farm or anything related to this from here or from
     sin-mfg. The goal is to produce reports and playgrounds that fit his recent
     research topics" — with the Lattes CV — then "go".
@@ -4153,7 +4153,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     wave, wind profile and current profile — i.e. ENVIRONMENTAL CONTOURS — low-
     cost stereo video (Coastal Eng. 2024, Big Wave Tracker at Nazaré), a new
     16,000-breaking-wave dataset (Zenodo, CC-BY, 8.9 GB), wave–current (SKIB),
-    ReNOMO. Seven ideas ranked in notes/ufsc-labeco-menu-2026-09-12.md; the row
+    ReNOMO. Seven ideas ranked in a private note; the row
     written. The killer-app test passes for the first time on a scouted line: an
     offshore operator is legally required to produce a defensible 100-year value
     under DNV/ISO rules, which is his contract word for word.
@@ -4257,7 +4257,7 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     make site ran once (16 min) and make control twice more.
 
   ── 7 · ITEM 3, ON "PROCEED" ── the operator asked whether every next task
-    still connects to Pedro; the honest ranking by fit was 2 → 3 → 5, with 4 and
+    still connects to the partner; the honest ranking by fit was 2 → 3 → 5, with 4 and
     6 as gifts and 7B the weakest; "proceed" — and 2 needs his data, so 3 was
     built: THE STEREO RIG'S ERROR BUDGET AS ENCLOSURES. instruments/stereo/
     budget.js is require-free and takes the interval module: the rectified
@@ -4338,8 +4338,8 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 
   ── NOT DONE ── nothing committed or pushed (not asked). Nothing sent: the
     two-number finding and the thirty polygons are a note to the benchmark's
-    organizers (ecbenchmark@gmail.com / a GitHub issue) and a first conversation
-    with Pedro, both the operator's. The IFORM-vs-HD "same fitted model" decision
+    organizers ([an e-mail address] / a GitHub issue) and a first conversation
+    with the partner, both the operator's. The IFORM-vs-HD "same fitted model" decision
     from the menu was not built (needs a fitted joint model; the benchmark's
     baseline fit is in organizers-code and could be the model). Items 2, 4, 6,
     7 open; 2 waits on his data.
@@ -7813,7 +7813,7 @@ SESSION 2026-08-31c — #290 CLOSED, AND THE NEXT MOVE IS READING
      DERIVED at build; a gate refuses the build if an extension ever fails to
      add an unconditional digit.
    · WHY THE DIGITS MATTER, and this was mis-stated for most of the session:
-     van Doorn arXiv:2411.03073 is about denominators of generalized harmonic
+     (a private line — applications, job search or private correspondence — kept off the public repo; 2026-11-04)
      sums and proves b(a) > a + 0.54*log(a). c_0 IS that constant. A third
      unconditional digit is the difference between a published theorem saying
      0.54 and saying 0.546. NOT AN OEIS ORNAMENT. (Inferred from the abstract;
@@ -8496,7 +8496,7 @@ only what stands).
   loop ledger and replaced with the honest statement.
 
 LAB v0 — SHIPPED 2026-08-28 (operator-approved "I accept the
-suggestion"; the target user, by name, is Ricardo de Lima Ribeiro of the
+suggestion"; the target user, by name, is a co-author candidate of the
 KAUST MFG group, and the page succeeds when HE uses it).
   WHAT SHIPPED: reports/mfg-observatory.html — THE MFG REGIME
   OBSERVATORY. The mfg-cap point theorem generalised to a MAP: the
@@ -9463,7 +9463,7 @@ arrived with the message, so the direction was taken from the words):
     the hover readout exercised in-browser; no horizontal overflow.
 
 SESSION 2026-08-28e (LAB v0 — operator's word: the MFG research lab,
-tools-first, target Ricardo de Lima Ribeiro; three binding requirements
+tools-first, target a co-author candidate; three binding requirements
 kept — full rebuild in OUR design system, tools-first, code in labs/mfg
 with the page under /reports):
   - THE CENTREPIECE SHIPPED: reports/mfg-observatory.html. 19,800
@@ -9560,7 +9560,7 @@ foreground on the other tasks"):
     stack, Aug 31, 11k entrants) — PASS, wrong window/audience/stack.
     OEIS entries — worth doing as the first third-party acceptance and
     the pretext for engaging van Doorn, not as a credential.
-  - LAB v0 (MFG, tools-first, target Ricardo de Lima Ribeiro) approved
+  - LAB v0 (MFG, tools-first, target a co-author candidate) approved
     and written up as FIRST THING NEXT SESSION above.
 
 SESSION 2026-08-28c (R3 + HarborProof — operator's word "work on R3 and

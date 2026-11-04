@@ -14,6 +14,8 @@
 #      STARTS after this many hours since the pod began; default 6); SAMPLES (4; SAMPLES_<condition> overrides one, e.g.
 #      SAMPLES_C2=1 — a deviation from the pre-registration, stated in the record when used); LIMIT (problems, 0 = all 500)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 CONDITIONS="${CONDITIONS:-C1 C3 C2}"; DEADLINE_HOURS="${DEADLINE_HOURS:-6}"; SAMPLES="${SAMPLES:-4}"; LIMIT="${LIMIT:-0}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA

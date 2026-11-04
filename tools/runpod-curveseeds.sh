@@ -11,6 +11,8 @@
 #     && bash /run.sh
 # env: AUDIT_SHA, RUNS (space-separated curve names; a group is scanned to its largest index), JOBS (optional; default nproc)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${RUNS:?}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA
 R=/results; W=/work; mkdir -p $R $W/instruments/curveseeds $W/corpus/curveseeds $W/tools $W/certs

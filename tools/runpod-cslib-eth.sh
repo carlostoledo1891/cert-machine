@@ -16,6 +16,8 @@
 #   L5 fresh      `lake env leanchecker --fresh ComplexityAbstracts.SubexponentialSATAbstract`
 # env: AUDIT_SHA (required)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 REPO=https://github.com/cslib-community/complexitylib.git
 PIN=1b7d62a8655b08351ba37684f3318257c3cd63f9
@@ -47,7 +49,7 @@ chmod -R a+rX /audit
 step() {
   local n=$1 to=$2 dir=$3; shift 3
   status _phase "$n running"; date +%s > $R/$n.start
-  runuser -u $U -- env HOME=$H PATH="$H/.elan/bin:$H/.cargo/bin:/usr/local/bin:/usr/bin:/bin" \
+  runuser -u $U -- env -i HOME=$H PATH="$H/.elan/bin:$H/.cargo/bin:/usr/local/bin:/usr/bin:/bin" \
     bash -c 'cd "$1" && shift && ulimit -s unlimited 2>/dev/null; exec /usr/bin/time -v timeout "$0" "$@"' "$to" "$dir" "$@" > $R/$n.out 2> $R/$n.err
   echo $? > $R/$n.exit; date +%s > $R/$n.end
   status "$n" "exit $(cat $R/$n.exit) after $(( $(cat $R/$n.end) - $(cat $R/$n.start) )) s"

@@ -68,7 +68,7 @@ does not publish; the file's authors are asked BEFORE anyone reads that sentence
   The quartic 8.85e-7 below its family's optimum; v₆ and D1trunc 15 give 0.86864150 / 0.93432075 (+1.33e-6); the optimality certificate
   over polynomial windows of degree ≤ 20; the ζ calibration to eighteen digits; what AtOne.lean needs. Links claimbox afd776c. The
   operator posts: `gh issue create -R anthropics/formal-math`.
-### Z4. The e-mail to Alpöge and Furman — DROPPED 2026-10-23: E-MAILS ARE OFF (operator: GitHub only; we answer e-mails we receive, we do not start them — the first e-mail to Pedro went to spam). Its content is in Z6.
+### Z4. The e-mail to Alpöge and Furman — DROPPED 2026-10-23: E-MAILS ARE OFF (operator: GitHub only; we answer e-mails we receive, we do not start them — the first e-mail to the partner went to spam). Its content is in Z6.
   Carries the three things together: the window's family optimum and v₆, the tail (the part they can act on), the abstract's 0.8362.
   The paper link goes in after Z2. The operator sends.
 ### Z4-old. The two-line courtesy note as it was
@@ -206,7 +206,7 @@ B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none ope
   - Draft: `outreach/zeta7-anand-issue-reply.md`.
   - Before sending, re-fetch the issue: a v2 on Zenodo changes the text.
 
-## LANE R — THE RERUN PROGRAM, PHASE 2 (2026-10-02): R1, R3, R4 POSTED 2026-10-05 on the operator's word; R2 (email) and R5 (WhatsApp) are the operator's
+## LANE R — THE RERUN PROGRAM, PHASE 2 (2026-10-02): R1, R3, R4 POSTED 2026-10-05 on the operator's word; R2 (email) and R5 (a private message) are the operator's
 
 File: `outreach/rerun-asks-2026-10-02.md`; the corpus is `corpus/rerun-corpus.json` (ten register
 rows, five parties); the kit every ask points at is live at /reports/rerun.html. A reply is recorded
@@ -221,11 +221,11 @@ moves only from that file. Each is a SEND on the operator's per-item word:
      closed; the comment notifies its participants) and https://github.com/dualverse-ai/station_data_v2/issues/2
      (kiss-ea-604, kiss-station-604-1, ea-overlap-together_ai_2026).
   R4 S. Sra — POSTED 2026-10-05: https://github.com/suvrit/count-ex-machina/issues/1 (countex-dpp-feasible-step).
-  R5 the LabECO pair (the operator's thread, Portuguese; nobody named in the repo): ecbench-marginals.
+  R5 the the partner group pair (the operator's thread, Portuguese; nobody named in the repo): ecbench-marginals.
 
-## LANE U — THE UFSC LINE (2026-09-28): three pages live (the report, the check, the atlas); the sends are the operator's
+## LANE U — THE the university LINE (2026-09-28): three pages live (the report, the check, the atlas); the sends are the operator's
 
-### U1. The reply to the UFSC contact — DRAFTED, HELD BY THE OPERATOR (private correspondence: the text is not in this public repo)
+### U1. The reply to the the university contact — DRAFTED, HELD BY THE OPERATOR (private correspondence: the text is not in this public repo)
 The draft of 2026-09-28 (given in the session chat) supersedes every earlier one. It links
 https://carlostoledo.co/reports/return-levels.html, https://carlostoledo.co/instruments/return-level-check/ and
 https://carlostoledo.co/instruments/return-level-atlas/ — the paper's own global map with every open-sea cell of its hindcast
@@ -268,7 +268,7 @@ engineer.md` (deliverables 1, 3 and the time-horizon instrument, in the posting'
 `outreach/metr/cover-mts-evaluation-execution.md` (the calibration and the three-audience write-up; the
 relocation/visa line is [OPERATOR FILLS]). The portfolio page /portfolio/ (built, gated on three ledgers)
 is live. MAIN WAS PUSHED 2026-09-22 (72d2fd6..ff37f4e) on the operator's "fix now" when the return-levels
-link 404ed for Pedro's message; every link in the three files now resolves (checked 200). Every figure in
+link 404ed for the partner's message; every link in the three files now resolves (checked 200). Every figure in
 the three files is a ledger field. Each application is a send, per role.
 
 ### M4. An issue on METR/eval-analysis-public — the TH1.1 fits certified — POSTED 2026-10-05: https://github.com/METR/eval-analysis-public/issues/43

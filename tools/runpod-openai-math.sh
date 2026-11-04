@@ -13,6 +13,8 @@
 #      issue44-stack1g; default issue44-stack1g), SLOTS (challenges at once; default 3), LEAN_GLIBC_TUNABLES (optional,
 #      amendment 15: exported as GLIBC_TUNABLES for the Comparator run — the release README's workaround)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}" "${CHALLENGES:?}"
 NANODA_BUILD="${NANODA_BUILD:-issue44-stack1g}"
 SLOTS="${SLOTS:-3}"

@@ -7,6 +7,8 @@
 # byte flipped, which must be refused. No credential; facts read-only on port 8000; every step as an ordinary user.
 # env: AUDIT_SHA (required)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 CLAIM_REPO=https://github.com/anthropics/FlashProve.git
 CLAIM_PIN=9e2bdd8ff5bf9c62f18263d7dac189b0400b260c
@@ -33,7 +35,7 @@ chmod -R a+rX /audit
 step() {
   local n=$1 to=$2 dir=$3; shift 3
   status _phase "$n running"; date +%s > $R/$n.start
-  runuser -u $U -- env HOME=$H PATH="$H/cuda-13.2.86/nvidia/cu13/bin:/usr/local/bin:/usr/bin:/bin" \
+  runuser -u $U -- env -i HOME=$H PATH="$H/cuda-13.2.86/nvidia/cu13/bin:/usr/local/bin:/usr/bin:/bin" \
     bash -c 'cd "$1" && shift && exec /usr/bin/time -v timeout "$0" "$@"' "$to" "$dir" "$@" > $R/$n.out 2> $R/$n.err
   echo $? > $R/$n.exit; date +%s > $R/$n.end
   status "$n" "exit $(cat $R/$n.exit) after $(( $(cat $R/$n.end) - $(cat $R/$n.start) )) s"

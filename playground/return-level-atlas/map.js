@@ -1,12 +1,12 @@
 /* map.js — site/instruments/return-level-atlas/map/: the atlas as a flat map, in the apps' product look.
    playground/return-level-atlas/ · cert-machine · 2026-10-29
 
-   WHY A SECOND VIEW. Pedro Guimarães (UFSC LabECO, extreme values of Hs for a Petrobras/ANP contract) says the data
+   WHY A SECOND VIEW. the partner (the partner group, extreme values of Hs for a Petrobras/ANP contract) says the data
    and the figures are among the most painful parts of that work: everyone fits their own marginal model, and nobody
    can see what the choice of model does to the number. The globe answers the paper; this page answers the engineer.
    One question at a time — the design wave, 100 or 1000 years, on daily, weekly or monthly maxima — on an EQUAL-AREA
    flat map (Equal Earth, drawn by the page itself: no library, no tiles), and a card per cell in product words: the
-   design wave as the ledger decides it, the six families side by side (their spread IS the model uncertainty Pedro
+   design wave as the ledger decides it, the six families side by side (their spread IS the model uncertainty the partner
    describes), whether the decided family survives the other criteria and blocks, the statistical width another 32
    years could give, and, one click down, what the number rests on and the cell's certificate on the globe.
 

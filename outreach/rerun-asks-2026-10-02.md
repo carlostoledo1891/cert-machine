@@ -60,8 +60,8 @@ Where: an issue on github.com/suvrit/count-ex-machina, or email. One row: `count
 >
 > Two things would settle it: your reading, which I will record on the page as yours; and, if you have five minutes, a rerun — `python3 tools/run-countex-ledger.py --check` re-decides all fourteen cases in 33 s with the standard library, and the repository's `rerun` issue template records what you obtained. One observation from the audit, offered rather than claimed: none of the fourteen `verify.py` files reads the certificate it writes.
 
-## R5 · the LabECO pair — the benchmark's marginals, in their own field
-Where: the open WhatsApp thread with the two of them (the operator's; in Portuguese; names stay
+## R5 · the the partner group pair — the benchmark's marginals, in their own field
+Where: the open a private message thread with the two of them (the operator's; in Portuguese; names stay
 out of the repository). One row: `ecbench-marginals`. The ask doubles as the first concrete step of
 the P1 review: the row IS the paper's §4.
 

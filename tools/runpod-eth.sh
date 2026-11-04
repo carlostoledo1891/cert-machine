@@ -41,6 +41,8 @@
 #      from the earlier run and takes the leanchecker facts from this one), LEAN_GLIBC_TUNABLES (optional: exported as GLIBC_TUNABLES for
 #      every Lean step — lane K's amendment 15, the release README's workaround for exit 139)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${AUDIT_SHA:?}"
 CLAIMS="${CLAIMS:-anthropic openai}"
 NANODA_BUILD="${NANODA_BUILD:-issue44-stack1g}"

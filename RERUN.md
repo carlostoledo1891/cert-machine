@@ -55,7 +55,7 @@ Milestone: five independent parties obtain the same verdicts on this corpus — 
 | S. Norin (Gupta–Ndiaye–Norin–Wei), for the authors | `gnnw-gai-3782` (CERTIFIED), `horizonmath-ramsey-asymptotic` (REFUTED) | open |
 | the EinsteinArena thread (vinid/einstein-arena #64) and the Dualverse Station authors | `kiss-ea-604` (CERTIFIED), `kiss-station-604-1` (CERTIFIED), `ea-overlap-together_ai_2026` (REPAIRED) | open |
 | S. Sra (count-ex-machina) | `countex-dpp-feasible-step` (PARTIAL) | open |
-| the LabECO pair (UFSC; not named in this repository) | `ecbench-marginals` (MIXED) | open |
+| the the partner group pair (the university; not named in this repository) | `ecbench-marginals` (MIXED) | open |
 
 ## The registry of independent reruns
 
@@ -75,4 +75,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git 6039e6f8
+git 7e680cc0

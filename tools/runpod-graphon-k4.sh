@@ -12,6 +12,8 @@
 #     && bash /run.sh
 # env: K4_SHA (the commit), THREADS (the pod's vCPU count; nproc can report the host's)
 set -uo pipefail
+# the pod's own API key never reaches the claimant's build (security pass, 2026-11-04)
+unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${K4_SHA:?}"
 RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$K4_SHA
 CERT=corpus/optconst-queue/c89a-k4-2026-10-27/c89-k4/c89_stepgraphon_D20.json.gz

@@ -2,7 +2,7 @@
 /* kit.js — writes what kits/warrant-mpl reads, so the Python kit never retypes a value.
    design/print/ · cert-machine (2026-10-29)
 
-   The matplotlib kit is for people who will never run this repository (UFSC LabECO works in Python), so it carries
+   The matplotlib kit is for people who will never run this repository (the partner group works in Python), so it carries
    its own copy of the register. A copy typed by hand is the drift the corpus.js lesson names; this one is GENERATED
    from the sources and checked against them:
 

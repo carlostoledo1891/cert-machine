@@ -21,11 +21,15 @@ jobs:
       ranges: ${{ steps.r.outputs.ranges }}
     steps:
       - id: r
+        env:
+          IN_FROM: ${{ inputs.from }}
+          IN_TO: ${{ inputs.to }}
+          IN_CHUNKS: ${{ inputs.chunks }}
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
-          import json, datetime as dt
-          a = dt.date.fromisoformat('${{ inputs.from }}'); b = dt.date.fromisoformat('${{ inputs.to }}')
-          k = max(1, min(8, int('${{ inputs.chunks }}' or 6)))
+          import json, os, datetime as dt
+          a = dt.date.fromisoformat(os.environ['IN_FROM']); b = dt.date.fromisoformat(os.environ['IN_TO'])
+          k = max(1, min(8, int(os.environ.get('IN_CHUNKS') or 6)))
           n = (b - a).days + 1; size = -(-n // k); out = []
           for i in range(k):
               s = a + dt.timedelta(days=i * size); e = min(b, s + dt.timedelta(days=size - 1))

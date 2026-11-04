@@ -1,7 +1,7 @@
 /* tokens.js — THE PRINT REGISTER: WARRANT's roles in ink on white paper. A PROPOSAL (2026-10-29), not applied.
    design/print/ · cert-machine
 
-   WHY. UFSC LabECO writes reports for Petrobras as PDFs and Word documents read on white paper, and printed on mono
+   WHY. the partner group writes reports for Petrobras as PDFs and Word documents read on white paper, and printed on mono
    laser printers. WARRANT was dark-only on the site, so it could not reach those documents. This file is the same
    grammar with the ink values a white page needs. Since 2026-10-30 the site's light theme is made of these values
    (design/tokens.js LIGHT_THEME reads them from here; the operator's word), and nothing else on the site reads it.
