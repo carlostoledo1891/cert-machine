@@ -22,6 +22,13 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ TWO PODS ARE BILLING (2026-11-04 21:15 UTC): q8t8dhcpevt7d1 (eth-comparator-c1c2-r2; cpu3m 4 vCPU, US$0.22/h, cap
+     US$10; tools/runpod-eth-comparator.sh, lake comparator --paranoid on C1/C2, the re-run after bwrap refused a namespace
+     on 6c6qd1lla7mtt5) and v8xrvxkpr3b5bv (eth-chain-decide; cpu5m 8 vCPU, US$0.52/h, cap US$15;
+     tools/runpod-eth-chain.sh on claimbox c1442b1, Anthropic's eth/ ported to Lean 4.36: MainResults.ethIsFalse → C2 →
+     ¬ETH in one environment). When each _phase is 'complete': import with tools/import-runpod-facts.js into
+     corpus/eth-refutation/{comparator,chain}/runs, write the records (recorders to write: comparator, chain), delete
+     the pod and get-pod → 404. The chain record, if CERTIFIED, makes seam 2 DECIDED for Anthropic's chain on /eth/ §5b.
   ◆ ETH MODEL GAP CLOSED TO THE READING (2026-11-04 ~19:45 UTC): D1, C1 and C2 CERTIFIED (certs/eth-cslib-d1.json,
      eth-c1.json, eth-c2.json). C2 = claimbox 235fbfa EthBridge.Anthropic.not_eth_of_ethIsFalse (Anthropic's ETHIsFalse ⇒
      complexitylib's ¬ETH on cslib's multitape TM with encCNF; proof by an agent): statement pin c84eae82…, MainResults
