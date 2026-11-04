@@ -59,7 +59,7 @@ NEXT SESSION, IN ORDER:
         settings scores 45.6% (certs/wsp-baseline.json), with the records linked; the send the operator's.
      2. REPLIES TO WATCH (none yet): the critic's thread (@dummerspast39; our three replies 22:41 UTC), the four amplifier
         replies, Roșu, Prime (@PrimeIntellect post + the residency form), Davies (macmahon-min-universal-sets #1), TSavo #1,
-        rpi-index #1, formal-math #36, Hawkley's e-mail, N365 (the explainer is due to publish — then a recognition row from
+        rpi-index #1, formal-math #36, Hawkley's e-mail; N365 PUBLISHED 11-04 (recognition row n365-eth-watch-explainer, pinned) — the old note: a recognition row from
         a pinned snapshot, kind 'press'). tools/x.js now has `search` and `get` for reads; `mentions` for ours.
      3. APPLICATIONS PENDING: Prime RL Residency (11-03), Anthropic Residency (11-03; offers January; the take-home and
         interviews are the operator's alone — a study guide on scalable oversight/control/RL reward design is allowed and
