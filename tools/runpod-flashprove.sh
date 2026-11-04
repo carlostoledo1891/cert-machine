@@ -22,7 +22,7 @@
 #                   else) checks each export
 #
 # env: AUDIT_SHA (required), BUILD_TIMEOUT (s, default 36000), NANODA_TIMEOUT (s per theorem, default 10800),
-#      STEPS (default "L1 L2 L3 L4 L5")
+#      STEPS (default "L1 L2 L3 L4 L5"), LEAN_THREADS (override the parallel bound), SPLIT_BUILD (1 = one lake call per target)
 set -uo pipefail
 : "${AUDIT_SHA:?}"
 BUILD_TIMEOUT="${BUILD_TIMEOUT:-36000}"
@@ -64,6 +64,8 @@ status _machine "$(nproc) vCPU; cgroup memory.max $MEMMAX bytes; host shows $(fr
 # the claim's rule of thumb for the build (lean/CHECKING.md): one process, and one more per 12 GiB beyond 50
 if [ "$MEMMAX" != unknown ] && [ "$MEMMAX" != max ]; then GIB=$(( MEMMAX / 1073741824 )); else GIB=$(free -g | awk '/Mem:/{print $2}'); fi
 BOUND=$(( 1 + (GIB > 50 ? (GIB - 50) / 12 : 0) )); [ $BOUND -gt "$(nproc)" ] && BOUND=$(nproc)
+# a re-run may lower it (the 2026-11-04 run: Lake itself segfaulted at 37,583/37,650 jobs with 16)
+[ -n "${LEAN_THREADS:-}" ] && BOUND=$LEAN_THREADS
 status _leanNumThreads "$BOUND (from $GIB GiB)"
 
 mkdir -p /audit/tools /audit/corpus/flashprove
@@ -104,7 +106,16 @@ BLOCK
   [ "$(cat $R/L1.exit)" = 0 ] || { status _phase "STOPPED: L1 failed"; sleep infinity; }
 fi
 
-has L2 && step L2 "$BUILD_TIMEOUT" $FP/lean env LEAN_ABORT_ON_PANIC=1 lake build
+if has L2; then
+  if [ "${SPLIT_BUILD:-0}" = 1 ]; then
+    # one Lake call per default target, so no single Lake process holds the whole job graph
+    step L2a "$BUILD_TIMEOUT" $FP/lean env LEAN_ABORT_ON_PANIC=1 lake build Library
+    step L2b "$BUILD_TIMEOUT" $FP/lean env LEAN_ABORT_ON_PANIC=1 lake build AtFullSide
+    cp $R/L2b.exit $R/L2.exit
+  else
+    step L2 "$BUILD_TIMEOUT" $FP/lean env LEAN_ABORT_ON_PANIC=1 lake build
+  fi
+fi
 has L3 && { cp /audit/tools/flashprove-axioms.lean /tmp/FlashproveAxioms.lean; chmod 644 /tmp/FlashproveAxioms.lean
             step L3 3600 $FP/lean lake env lean /tmp/FlashproveAxioms.lean; }
 
