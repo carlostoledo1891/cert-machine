@@ -20,7 +20,7 @@ Checked against certs/eth-c2.json (CERTIFIED), certs/eth-c1.json (CERTIFIED), ce
 ---- PASTE (reply to #comment-24) ----
 An update to my comment above. There I said that neither lab formalizes the step from its own machine model to a standard one. For Anthropic's statement, that step is now proved in Lean:
 
-If Anthropic's ETHIsFalse holds, then for every δ > 0 a deterministic multitape Turing machine (cslib's, as used by cslib-community/complexitylib) decides 3-SAT on the plain binary encoding of every formula in time c · 2^(δn) · (L+1)^e + c. Here n is the number of variables and L the input length. Variable names may be arbitrary, and literals and clauses may repeat. Anthropic's MainResults.lean is used byte for byte. The proof converts the input to Anthropic's encoding in polynomial time and simulates Anthropic's machine on the multitape machine.
+If Anthropic's ETHIsFalse holds, then for every δ > 0 a deterministic multitape Turing machine (cslib's, as used by cslib-community/complexitylib) decides 3-SAT on the plain binary encoding of every formula in time c · 2^(δn) · (L+1)^e + c. Here n is the number of variables and L the input length. Variable names may be arbitrary, and literals and clauses may repeat. Anthropic's MainResults.lean is used byte for byte. The proof converts the input to Anthropic's encoding in polynomial time and simulates the machine Anthropic's statement provides (Mathlib's FinTM2) on the multitape machine.
 
 With Daniel Hawkley's chain from OpenAI's theorem to ETHIsFalse (comment above), both labs' statements now reach the same standard machine.
 
