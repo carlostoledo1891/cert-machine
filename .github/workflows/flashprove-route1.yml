@@ -1,0 +1,104 @@
+# FlashProve, phase 1 of the outside check (notes/flashprove-preregistration-2026-11-04.md): routes 1 and 2 of the
+# claim's README on a hosted Ubuntu 24.04 runner (g++ 13), as an ordinary user. The claim github.com/anthropics/FlashProve
+# is cloned at the pin and every pinned byte is re-hashed against corpus/flashprove/PINS.json before anything runs.
+#   R1.1  verifier/build.sh                          R1.2  cp_verify on the small stored proof
+#   R1.3  cp_verify on the full-size stored proof    R1.4  six tamper controls on the small proof (each must not be YES)
+#   R2    blocks/first_look.sh (toy proofs)          R3    run_suite.py cpu (the claim's CPU suite)
+# Each step writes <name>.exit and <name>.out; nothing is judged here. The artifact flashprove-route1 is read by
+# tools/record-flashprove.js. Nothing here pushes.
+#   gh workflow run flashprove-route1.yml
+name: flashprove-route1
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  CLAIM_REPO: https://github.com/anthropics/FlashProve.git
+  CLAIM_PIN: 9e2bdd8ff5bf9c62f18263d7dac189b0400b260c
+jobs:
+  route1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools/flashprove-pins.py
+            corpus/flashprove/PINS.json
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: the claim at the pin, its bytes against PINS.json
+        run: |
+          set -euo pipefail
+          mkdir -p ~/results
+          git clone -q "$CLAIM_REPO" ~/fp && git -C ~/fp checkout -q "$CLAIM_PIN"
+          python3 -I audit/tools/flashprove-pins.py ~/fp --check | tee ~/results/pins.out
+          { uname -a; nproc; free -g | head -2; g++ --version | head -1; python3 --version; grep -o -m1 'sha_ni' /proc/cpuinfo || echo 'no sha_ni'; cat /sys/kernel/security/lsm 2>/dev/null || true; } > ~/results/machine.txt
+      - name: tools the suite asks for (numpy, pytest, clang)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq clang make unzip util-linux > /dev/null
+          python3 -m pip install -q --user numpy pytest 2>&1 | tail -1 || true
+      - name: R1.1 build the verifier
+        run: |
+          cd ~/fp; set +e
+          verifier/build.sh > ~/results/R1.1.out 2>&1; echo $? > ~/results/R1.1.exit
+          tail -3 ~/results/R1.1.out
+      - name: R1.2 / R1.3 the two stored proofs
+        run: |
+          cd ~/fp; set +e
+          for e in accepted-proof full-size; do
+            n=$([ $e = accepted-proof ] && echo R1.2 || echo R1.3)
+            d=examples/$e
+            bin/cp_verify $d/config $d/ivk $d/example.req $d/example.y $d/example.proof -id "$(cat $d/ID.txt)" > ~/results/$n.out 2>&1
+            echo $? > ~/results/$n.exit; tail -4 ~/results/$n.out
+          done
+      - name: R1.4 the tamper controls (small proof)
+        run: |
+          cd ~/fp; set +e
+          d=examples/accepted-proof; T=$(mktemp -d)
+          cp $d/example.proof $d/example.req $d/example.y $T/
+          python3 - "$T" <<'EOF'
+          import sys, os
+          T = sys.argv[1]
+          def flip(src, dst, at):
+              b = bytearray(open(src, 'rb').read()); i = at(len(b)); b[i] ^= 0x01; open(dst, 'wb').write(b); return i
+          print('a: byte', flip(T + '/example.proof', T + '/a.proof', lambda n: n // 2), 'of example.proof flipped')
+          print('d: byte', flip(T + '/example.req', T + '/d.req', lambda n: n - 1), 'of example.req flipped')
+          b = open(T + '/example.proof', 'rb').read(); open(T + '/e.proof', 'wb').write(b[:-1])
+          y = open(T + '/example.y', 'rb').read()
+          print('example.y bytes:', y.hex())
+          EOF
+          ID=$(cat $d/ID.txt); last=${ID: -1}; alt=$(printf '%x' $(( (0x$last + 1) % 16 ))); BADID="${ID%?}$alt"
+          python3 - "$T" <<'EOF'
+          import sys, struct
+          T = sys.argv[1]
+          y = open(T + '/example.y', 'rb').read()
+          # the token file: 4 bytes; read as little-endian unsigned and raised by one (the verifier's own reading is
+          # in docs/format/FORMAT.md; whichever reading it uses, the bytes differ)
+          v = struct.unpack('<I', y)[0]; open(T + '/c.y', 'wb').write(struct.pack('<I', v + 1)); print('c: token', v, '->', v + 1)
+          EOF
+          run() { n=$1; shift; bin/cp_verify "$@" > ~/results/R1.4$n.out 2>&1; echo $? > ~/results/R1.4$n.exit; echo "$n: exit $(cat ~/results/R1.4$n.exit), $(tail -1 ~/results/R1.4$n.out)"; }
+          run a $d/config $d/ivk $d/example.req $d/example.y $T/a.proof -id "$ID"
+          run b $d/config $d/ivk $d/example.req $d/example.y $d/example.proof -id "$BADID"
+          run c $d/config $d/ivk $d/example.req $T/c.y $d/example.proof -id "$ID"
+          run d $d/config $d/ivk $T/d.req $d/example.y $d/example.proof -id "$ID"
+          run e $d/config $d/ivk $d/example.req $d/example.y $T/e.proof -id "$ID"
+          run f $d/config $d/ivk $d/example.req $d/example.y $d/example.proof -id "$(cat examples/full-size/ID.txt)"
+          echo "$BADID" > ~/results/R1.4b.id
+      - name: R2 toy proofs
+        run: |
+          cd ~/fp; set +e
+          W=$(mktemp -d); blocks/first_look.sh "$W/look" > ~/results/R2.out 2>&1; echo $? > ~/results/R2.exit
+          tail -4 ~/results/R2.out
+      - name: R3 the claim's CPU suite
+        timeout-minutes: 300
+        run: |
+          cd ~/fp; set +e
+          D=$(mktemp -d); ./run_suite.py cpu "$D/work" > ~/results/R3.out 2>&1; echo $? > ~/results/R3.exit
+          tail -15 ~/results/R3.out
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flashprove-route1
+          path: ~/results
+          retention-days: 30
