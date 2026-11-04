@@ -70,6 +70,10 @@ NEXT SESSION, IN ORDER:
      family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
      certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
      (the channel rule allows answering a received mail); the answer is in certs/eth-seam.json and the bridges' gaps.
+     N365 ETH WATCH: the writer sent the full explainer for a pre-publication look (~23:30 BRT 11-03); checked here against the
+     page and the e-mail — accurate; Carlos replied with permission to publish and two corrections (attribute the quotes to the
+     e-mail; two kernels, three replays). WHEN IT IS PUBLISHED: pin a snapshot and add a recognition row (kind 'press'), as for
+     Saddler's and Prisco's columns.
      ANTHROPIC RESIDENCY APPLICATION SUBMITTED by Carlos (~00:30 UTC 11-04; row anthropic-residency-application-2026-11-03):
      the essays from his own draft, refined under Anthropic's candidate AI guidance (draft yourself, refine with Claude,
      be transparent — the line is in the cover note); resume v4.1 (outreach/resume; the Weights + MacMahon audits added).
