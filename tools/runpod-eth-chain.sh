@@ -65,7 +65,7 @@ for t in 1 2 3 4 5; do rm -rf $CB; git clone -q $REPO $CB && break; sleep \$((t 
 git -C $CB checkout -q $CLAIMBOX_SHA && test "\$(git -C $CB rev-parse HEAD)" = $CLAIMBOX_SHA
 cd $W && test "\$(cat lean-toolchain)" = $TOOLCHAIN && elan toolchain install $TOOLCHAIN
 for t in 1 2 3 4 5; do lake exe cache get && break; sleep \$((t * 60)); done
-lean --version; sha256sum EthBridge/*.lean EthBridge/Anthropic/*.lean Planted/*.lean AnthropicEth/PORT.md; find AnthropicEth -name '*.lean' | wc -l lakefile.toml lake-manifest.json
+lean --version; sha256sum EthBridge/*.lean EthBridge/Anthropic/*.lean Planted/*.lean AnthropicEth/PORT.md lakefile.toml lake-manifest.json; echo "AnthropicEth .lean files: \$(find AnthropicEth -name '*.lean' | wc -l)"
 BLOCK
 chmod 644 /tmp/L1.sh; step L1 7200 / bash /tmp/L1.sh
 [ "$(cat $R/L1.exit)" = 0 ] || { status _phase "STOPPED: L1 failed"; sleep infinity; }

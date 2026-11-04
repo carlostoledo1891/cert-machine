@@ -1,0 +1,34 @@
+Resolving dependencies
+Building Challenge.C2
+⚠ [19354/19357] Replayed EthBridge.Anthropic.MainResults
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19355/19357] Ran EthBridge.Anthropic.MainResults:irArts
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19356/19357] Replayed Challenge.C2
+warning: Challenge/C2.lean:7:8: declaration uses `sorry`
+Build completed successfully (19357 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, EthBridge.Anthropic.not_eth_of_ethIsFalse, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge.C2
+Building EthBridge.Anthropic
+⚠ [19374/19381] Replayed EthBridge.Anthropic.MainResults
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19375/19381] Ran EthBridge.Anthropic.MainResults:irArts
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (19381 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, EthBridge.Anthropic.not_eth_of_ethIsFalse, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from EthBridge.Anthropic
+Running Lean paranoid kernel on solution
+Lean paranoid kernel accepts the solution
+Running lean4lean kernel on solution
+[anonymous]:thmDecl _private.Complexity.Computability.Machines.Turing.MultiTape.Internal.FoldCompiler.0.Turing.MultiTapeTM.Internal.FoldCompiler.foldl._proof_1_13: lean4lean took 1150
+checked 22059 declarations
+lean4lean kernel accepts the solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running con-leche kernel on solution
+con-leche: accepted 22058 declarations (--verified)
+con-leche kernel accepts the solution
+Running con-ron kernel on solution
+con-ron: accepted 22058 declarations (--verified)
+con-ron kernel accepts the solution
+Running Lean default kernel on solution
+Lean default kernel accepts the solution
+Your solution is okay!
