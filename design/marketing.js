@@ -21,6 +21,11 @@ const PAGES = {
     ruled: '2026-10-31',
     quote: 'No need to pin everything on Verify LP, this is a mkt touchpoint and the focus now is content and visuals.',
   },
+  'extremos/index.html': {
+    url: '/extremos/',
+    ruled: '2026-11-04',
+    quote: 'Build an unlisted pt-br page showing what are the solutions we can offer. Highly visual, examples on page. Do not talk about project structure, we are offering tools and solutions.',
+  },
 };
 
 /* `rel`: a built page's path relative to site/ ("verify/index.html"), either separator */

@@ -40,6 +40,7 @@ site: playground control
 	@$(NODE) apps/eth/build.js
 	@$(NODE) apps/explained-v1/build.js
 	@$(NODE) apps/uirapuru/build.js
+	@$(NODE) apps/extremos/build.js
 	@$(NODE) apps/cv/build.js
 
 playground:
