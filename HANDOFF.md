@@ -22,13 +22,15 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ TWO PODS ARE BILLING (2026-11-04 21:15 UTC): q8t8dhcpevt7d1 (eth-comparator-c1c2-r2; cpu3m 4 vCPU, US$0.22/h, cap
-     US$10; tools/runpod-eth-comparator.sh, lake comparator --paranoid on C1/C2, the re-run after bwrap refused a namespace
-     on 6c6qd1lla7mtt5) and v8xrvxkpr3b5bv (eth-chain-decide; cpu5m 8 vCPU, US$0.52/h, cap US$15;
-     tools/runpod-eth-chain.sh on claimbox c1442b1, Anthropic's eth/ ported to Lean 4.36: MainResults.ethIsFalse → C2 →
-     ¬ETH in one environment). When each _phase is 'complete': import with tools/import-runpod-facts.js into
-     corpus/eth-refutation/{comparator,chain}/runs, write the records (recorders to write: comparator, chain), delete
-     the pod and get-pod → 404. The chain record, if CERTIFIED, makes seam 2 DECIDED for Anthropic's chain on /eth/ §5b.
+  ◆ A POD IS BILLING (2026-11-04 22:55 UTC): aa1oy86aj465u8 (eth-chain-decide-r2; cpu5m 8 vCPU, US$0.52/h, cap US$15;
+     tools/runpod-eth-chain.sh at b5d615ac on claimbox c1442b1: Anthropic's eth/ ported to Lean 4.36, MainResults.ethIsFalse
+     → C2 → ¬ETH in one environment, then lake comparator --paranoid). When _phase is 'complete': import into
+     corpus/eth-refutation/chain/runs, write the chain record (recorder to write), delete the pod, get-pod → 404. The first
+     run (v8xrvxkpr3b5bv) stopped at L1 on our own wc bug, recorded. The Comparator re-run on C1/C2 (q8t8dhcpevt7d1) is
+     DONE and DELETED: lake comparator --paranoid accepted both, both planted statements rejected, run WITHOUT the sandbox
+     (bwrap cannot start on RunPod), facts in corpus/eth-refutation/comparator/runs; its record is still to write.
+     Exposure review + security pass DONE (b4e1d7d8; rulesets on main in both repos; Dependabot alerts on; history left
+     as is, the operator's word). Web3Forms: restrict the key to carlostoledo.co in its dashboard (the operator's).
   ◆ ETH MODEL GAP CLOSED TO THE READING (2026-11-04 ~19:45 UTC): D1, C1 and C2 CERTIFIED (certs/eth-cslib-d1.json,
      eth-c1.json, eth-c2.json). C2 = claimbox 235fbfa EthBridge.Anthropic.not_eth_of_ethIsFalse (Anthropic's ETHIsFalse ⇒
      complexitylib's ¬ETH on cslib's multitape TM with encCNF; proof by an agent): statement pin c84eae82…, MainResults
