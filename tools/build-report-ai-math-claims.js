@@ -104,11 +104,23 @@ B.push(C.section({
 const E = D.eth;
 const ethSteps = E.steps.map((s) => ({ b: s.verdict + '.', raw: esc(s.text) + (s.record ? ' Record: ' + recLink(s.record) + '.' : '') }));
 for (const s of E.steps) if (s.record) resolve(s.record);
+for (const w of E.who || []) { if (w.record) resolve(w.record); if (!w.who || !w.what || !w.role) die('an ETH who-did-what row lacks a field'); }
 B.push(C.section({
   lab: '§2 · the lead case', title: 'ETH: from the labs\' machines to the textbook', id: 'eth',
   bodyRaw: C.pRaw('In October 2026 OpenAI and Anthropic each published a Lean proof that the Exponential Time Hypothesis is false. Both proofs check. Each is stated for a machine and an input format of its own lab\'s choosing, so the question left is whether those statements are the textbook ETH. This is where that question stands, step by step, as of ' + esc(E.asOf) + '.')
+    + (E.who ? C.pRaw('<b>Who did what.</b> The mathematics is the labs\'. What the others added is checking and links, and each row names its record.')
+      + C.table({ cols: [{ h: 'who' }, { h: 'what' }, { h: 'record' }], rows: E.who.map((w) => [{ raw: '<b>' + esc(w.who) + '</b><br><span class="small">' + esc(w.role) + '</span>' }, w.what, w.record ? { raw: recLink(w.record) } : 'not replayed here']) }) : '')
     + C.plainList(ethSteps.map((s) => ({ b: s.b, raw: s.raw })))
     + C.pRaw('The page on the two proofs is <a href="../eth/">/eth/</a>; the plan for the open steps is pre-registered in ' + recLink('notes/eth-model-gap-preregistration-2026-11-04.md') + '.')
+}));
+
+/* §2b our own claims: what claimbox and its agents wrote, decided by the same rules, never counted in the census */
+const OWN = (D.ownClaims || []).map((o) => { const r = resolve(o.record); if (!fs.existsSync(path.join(ROOT, o.statementPin))) die('an own claim\'s statement pin is gone: ' + o.statementPin); return Object.assign({ verdict: r.verdict, decl: r.nanoda && r.nanoda.claim ? r.nanoda.claim.declarations : null }, o); });
+if (OWN.length) B.push(C.section({
+  lab: '§2b · our own claims', title: 'What we claimed, decided by the same rules', id: 'own',
+  bodyRaw: C.pRaw('Two of the ETH links were written here: the statements by hand, the proofs by Claude agents in claimbox, which acts as the claimant. cert-machine then decided them as it decides anyone\'s. Each statement was pinned before any proof was decided. Each proof was checked by two kernels and leanchecker --fresh, and shipped with three planted wrong variants that had to be refused. They are not among the ' + rows.length + ' claims counted above, because a census does not count its author\'s own rows. claimbox and cert-machine have the same operator, so this separates the roles of author and checker; it is not a second party.')
+    + C.table({ cols: [{ h: '' }, { h: 'claim' }, { h: 'decided here' }, { h: 'statement pinned first' }],
+      rows: OWN.map((o) => [o.id, { raw: esc(o.claim) + '<br><span class="small"><span class="m">' + esc(o.theorem) + '</span> · ' + esc(o.date) + '</span>' }, { raw: tag(o.verdict) + (o.decl ? '<br><span class="small">nanoda ' + esc(o.decl.toLocaleString('en-US')) + ' declarations · ' + recLink(o.record) + '</span>' : '') }, { raw: recLink(o.statementPin) }]) })
 }));
 
 /* §3 the census, by lab */

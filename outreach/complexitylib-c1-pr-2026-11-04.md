@@ -1,7 +1,11 @@
-# DRAFT — complexitylib PR: TM → word RAM at logarithmic word size, bounded by space (C1)
+# DRAFT — complexitylib PR: TM → word RAM at logarithmic word size, bounded by space (C1), and the TM2 bridge (C2)
 
 Status: DRAFT, not sent. Sending is the operator's word (one PR from carlostoledo1891 to cslib-community/complexitylib).
-The source is claimbox lean/eth-bridge at 68a063bb (EthBridge/WordRAM/*), decided in cert-machine certs/eth-c1.json.
+The source is claimbox lean/eth-bridge at 235fbfa (EthBridge/WordRAM/* for C1, EthBridge/Anthropic/* for C2), decided in
+cert-machine certs/eth-c1.json and certs/eth-c2.json. The operator chose on 11-04 to send C1 and C2 together. One PR or
+two is their call; the body below is one PR in two parts. C2's MainResults.lean is Anthropic's file. anthropics/formal-math is Apache-2.0,
+and so is complexitylib (both checked 11-04), so vendoring it is licence-compatible with its NOTICE kept. Their maintainers may still prefer
+the TM2 pieces (5–7) alone, with the Anthropic corollary left in claimbox.
 
 ---
 
@@ -32,7 +36,23 @@ Checks. The build is from source at complexitylib 7c66eb71. `#print axioms` show
 factor dropped. Record:
 https://github.com/carlostoledo1891/cert-machine/blob/main/certs/eth-c1.json
 
-Disclosure: the statement was written by hand. The proofs were written by an AI agent (Claude, Anthropic) and decided in
+**Part 2 (C2): a uniform one-step certificate for TM2, and a bridge from Mathlib's FinTM2 statements**
+
+5. `DegreeStep.stepTotalD`. One step of any TM2 program is `ComputableTidilyInDegree … 1 1`: a degree-one certificate,
+   the same for every program. The existing `stepTotal_polyTime` / `run_polyTime` give a polynomial whose degree depends on
+   the program, which is circular when the program is chosen after δ (as in any 2^{δn} argument).
+6. `DegreeRun.runBitD`. A t-step run as a degree-two fold over a unary clock `(w, t)`, with `runBit_eq` tying it to
+   `TM2OutputsInTime`.
+7. `Prep.prep` / `Words.prep_polyTime` / `Prep.prep_spec`. `encCNF` → (dense relabel, `eraseDupsBy`) → `encClauses 3`,
+   in polynomial time, preserving satisfiability and Nodup.
+8. Corollary `not_eth_of_ethIsFalse`. Anthropic's `MainResults.ETHIsFalse` (FinTM2 on `encClauses`) implies
+   `SubexponentialSATAbstract.ETH` is false.
+
+Checks for part 2: `#print axioms` shows the three standard axioms only. nanoda accepts all 23,430 declarations beneath
+the corollary. `leanchecker --fresh` passes. Three planted variants were refused: `sorry`, a new axiom, and the hypothesis
+replaced by the conclusion. Record: https://github.com/carlostoledo1891/cert-machine/blob/main/certs/eth-c2.json
+
+Disclosure: the statements were written by hand. The proofs were written by an AI agent (Claude, Anthropic) and decided in
 a separate repository by the same operator. That separates author from checker, but it is not an independent second
 party. Names and placement follow claimbox's layout; I'm glad to move them into `WordRAM/` and rename to the
 library's conventions.

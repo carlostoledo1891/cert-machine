@@ -464,6 +464,13 @@ const REPORTS = [
       const dec = L.rows.filter((r) => r.ours && !/^(OPEN|ON HOLD|IN PROGRESS)$/.test(r.ours.verdict)).length;
       if (L.rows.length < 50 || dec < 30) fail('the AI-claims census card would misstate the record');
       return L.rows.length + ' claims · ' + dec + ' decided here · as of ' + L.asOf; })() },
+  { g: 'ai', f: 'flashprove.html', k: 'audit · a proof-of-inference claim',
+    title: 'FlashProve, checked from the public bytes',
+    desc: 'Anthropic\'s FlashProve proves that a reply came from the committed model, with a soundness theorem in Lean. Its verifier, Lean library and GPU route run here from the public repository, its statements read by two blind readers, its numbers recomputed exactly. '
+      + 'No tampered proof was accepted; the five gaps both readers found are already in its own ledger, between the README\'s sentences and it.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'flashprove-check.json'), 'utf8'));
+      if ((L.verdicts.REFUTED || 0) !== 0) fail('the FlashProve card would misstate the record');
+      return L.verdicts.CERTIFIED + ' steps certified · ' + ((L.verdicts.REFUSED || 0) + (L.verdicts['NOT RUN'] || 0)) + ' not settled · 0 tampered inputs accepted · ' + L.gaps.length + ' gaps'; })() },
   { g: 'ai', f: 'wowii-counterexamples.html', k: 'audit · five Graffiti.pc conjectures',
     title: 'Written on the Wall II: five counterexamples, decided',
     desc: 'One account filed sixty Graffiti.pc conjectures with disproofs on formal-conjectures in a day. The five with explicit witness graphs — total domination in trees, 2-domination in bridged cliques — '

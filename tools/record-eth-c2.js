@@ -39,6 +39,27 @@ const nan = (t) => { const out = rd('L4.nanoda-' + t + '.out'), err = rd('L4.nan
     refusal: (/infer_const: [^\n]*/.exec(err) || [null])[0] }; };
 const nanoda = { claim: nan('claim'), plantedSorry: nan('sorry'), plantedAxiom: nan('axiom') };
 const planted = {
+  statement: { refused: stmt.plantedStatement.found && stmt.plantedStatement.equalsPin === false, by: 'the statement check: the trusted block differs from the pin', sha256: stmt.plantedStatement.sha256 },
+  sorry: { refused: (axOf(rd('L3p.out'), 'planted_c2_sorry') || []).includes('sorryAx') && !nanoda.plantedSorry.accepted, axioms: axOf(rd('L3p.out'), 'planted_c2_sorry'), by: 'the axioms file (sorryAx) and nanoda (' + nanoda.plantedSorry.refusal + ')' },
+  axiom: { refused: (axOf(rd('L3p.out'), 'planted_c2_axiom') || []).includes('planted_c2_cheat') && !nanoda.plantedAxiom.accepted, axioms: axOf(rd('L3p.out'), 'planted_c2_axiom'), by: 'the axioms file (planted_c2_cheat) and nanoda (' + nanoda.plantedAxiom.refusal + ')' },
+};
+const fails = [];
+if (stmt.pinSha256 !== pinSha) fails.push('the pod checked against a different pin');
+if (!stmt.claim.equalsPin) fails.push('the trusted statement differs from the pin');
+if (stmt.mainResultsSha256 !== MAIN_PIN) fails.push('the vendored MainResults.lean is not Anthropic\'s pinned bytes');
+for (const s of ['L1', 'L2', 'L3', 'L3p', 'L3s', 'L5']) if (ex(s) !== 0) fails.push(s + ' exit ' + ex(s));
+for (const [h, a] of Object.entries(axioms)) if (!a || a.some((x) => !STD.includes(x))) fails.push(h + ' axioms ' + JSON.stringify(a));
+if (!nanoda.claim.accepted) fails.push('nanoda on not_eth_of_ethIsFalse');
+for (const [k, p] of Object.entries(planted)) if (!p.refused) fails.push('the planted ' + k + ' was NOT refused');
+const rec = {
+  what: 'C2 of the ETH model-gap lane: claimbox\'s proof that Anthropic\'s ETHIsFalse implies complexitylib\'s ¬ETH on cslib\'s multitape Turing machine, decided here from claimbox\'s pinned commit with our own statement pin, axioms files, nanoda (with two negative controls) and leanchecker --fresh, and three planted wrong variants that must be refused.',
+  generated: new Date().toISOString().slice(0, 10),
+  claim: { repo: 'https://github.com/carlostoledo1891/claimbox', commit: JSON.parse(rd('_status.json'))._claimbox, folder: 'lean/eth-bridge',
+    theorem: 'EthBridge.Anthropic.not_eth_of_ethIsFalse', builtOn: 'cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)',
+    authors: 'the statement by hand (cert-machine\'s operator session); the proof by an AI agent (Claude), in claimbox' },
+  verdict: fails.length ? 'REFUSED' : 'CERTIFIED',
+  scope: 'If Anthropic\'s ETHIsFalse holds (for every δ > 0 a deterministic Mathlib FinTM2 machine decides 3-SAT on duplicate-free formulas written as encClauses 3 within ⌊c·2^(δ·n)⌋ steps), then complexitylib\'s ETH is false: for every δ > 0 a deterministic cslib multitape Turing machine decides 3-SAT on every formula, written as the binary encCNF, within c·2^(δ·n)·(L+1)^e + c steps. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic\'s, the three standard axioms, nanoda accepting all ' + (nanoda.claim.declarations || 0).toLocaleString('en-US') + ' declarations beneath it, leanchecker --fresh, and the three planted variants refused.',
+  fails,
   statement: { pin: 'corpus/eth-refutation/c2/statement.lean', sha256: pinSha, mainResults: { pin: 'corpus/eth-refutation/tsavo/pins.json', sha256: MAIN_PIN, served: stmt.mainResultsSha256 } },
   reading: [
     'MainResults.lean is Anthropic\'s file byte for byte, but elaborated here against complexitylib\'s Mathlib (Lean v4.36.0-rc2), not Anthropic\'s (v4.33.1). That ETHIsFalse here means what Anthropic proved there is the version seam: read, not decided.',

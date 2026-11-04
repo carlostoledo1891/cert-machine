@@ -1,0 +1,225 @@
+{
+ "what": "The outside check of anthropics/FlashProve at 9e2bdd8f: the claimant's verifier and Lean library run from the public bytes by a second party, the statements read against what is checked, and the numbers recomputed exactly. Not a review of the cryptography.",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/anthropics/FlashProve",
+  "commit": "9e2bdd8ff5bf9c62f18263d7dac189b0400b260c",
+  "version": "0.16.0-rc.26"
+ },
+ "preregistration": "notes/flashprove-preregistration-2026-11-04.md",
+ "verdicts": {
+  "CERTIFIED": 15,
+  "REFUSED": 4,
+  "NOT RUN": 2
+ },
+ "falseAcceptance": "none: no tampered input accepted by either verifier, no suite row with status 3",
+ "gaps": [
+  {
+   "id": "G1",
+   "gap": "Nothing is proved about the programs a user runs. Soundness is a theorem about the Lean `verify` under a random oracle. It is not about `cp_verify`, and the hash is not BLAKE2b. README.md:15-16 tells users to check with `cp_verify`, next to the bound.",
+   "ledger": "LIMITS L1, L4, L8; GAPS 45, 51; THEOREM.md:199-201"
+  },
+  {
+   "id": "G2",
+   "gap": "\"The committed model\" means the weights an extractor reads. No theorem ties them to the provider's model or to `cp_commit`. No theorem ties a commitment ID to one set of public files, so one ID could pass with two file sets and two sets of weights.",
+   "ledger": "LIMITS L2, L28; GAPS 64, 69, 77; THEOREM.md item 4"
+  },
+  {
+   "id": "G3",
+   "gap": "The bound \"q/2^124 + 2^-101\" holds under conditions the README sentence does not give. It holds only at exact match, which `verify` does not test, while serving uses the clipped-gap policy. It holds only for files fixed before the hash is drawn, and it is the probability that one proof is both accepted and wrong. N proofs at once cost N times; proofs checked one after another have no bound.",
+   "ledger": "LIMITS L4, L5; GAPS 5, 6, 44, 70; THEOREM.md:86, :300-303"
+  },
+  {
+   "id": "G4",
+   "gap": "No real deployment is shown to satisfy the theorems. Completeness and zero knowledge hold for the Lean prover, on requests in `CanServe`. They are known to have content at one Lean value, `storedSetup`, whose scale file comes from synthetic weights. No proof on real weights has gone to the Lean verifier, and there is no theorem about the GPU prover.",
+   "ledger": "THEOREM.md:41-44; GAPS 14, 52, 57; LIMITS L27, L69"
+  },
+  {
+   "id": "G5",
+   "gap": "Weight hiding is proved only of the Lean prover, and it counts something else. The zero-knowledge count of 688,127 is single-request replies on one copy of the table. The programs stop a copy at 688,127 batches of up to 64 requests, and no theorem ties the two counts. The proof assumes fresh randomness, while the programs derive masks from a seed. The paper calls hiding by the programs \"our judgement, not a proof\".",
+   "ledger": "LIMITS L83, L84, L93; GAPS 15, 15(3); paper abstract"
+  }
+ ],
+ "steps": [
+  {
+   "id": "pins",
+   "phase": 1,
+   "what": "every pinned byte of the claim against corpus/flashprove/PINS.json",
+   "verdict": "CERTIFIED",
+   "got": "ok  80 files and the tree equal corpus/flashprove/PINS.json",
+   "why": "the clone re-hashed before any step"
+  },
+  {
+   "id": "R1.1",
+   "phase": 1,
+   "what": "verifier/build.sh builds cp_verify",
+   "verdict": "CERTIFIED",
+   "got": "exit 0; THE VERIFIER IS BUILT: /home/runner/fp/bin/cp_verify",
+   "why": "expected exit 0 and the BUILT line"
+  },
+  {
+   "id": "R1.2",
+   "phase": 1,
+   "what": "cp_verify on examples/accepted-proof (the small example)",
+   "verdict": "CERTIFIED",
+   "got": "exit 0; YES",
+   "why": "expected YES; the small example is outside every theorem (THEOREM.md:303), so this is a fact about the C++ program only"
+  },
+  {
+   "id": "R1.3",
+   "phase": 1,
+   "what": "cp_verify on examples/full-size",
+   "verdict": "CERTIFIED",
+   "got": "exit 0; YES; bits=128; proof of work: up to 32 bits counted in 71 rounds; with it the least round has 128.00 bits, without it 96.23 bits",
+   "why": "expected YES and bits=128"
+  },
+  {
+   "id": "R1.4",
+   "phase": 1,
+   "what": "six tampered inputs to cp_verify (a byte of the proof, the ID, the reply, a byte of the request, the proof cut by a byte, the wrong ID)",
+   "verdict": "CERTIFIED",
+   "got": "(a) exit 1 NO: proof-refused; (b) exit 1 NO: model-statement; (c) exit 1 NO: reply-differs; (d) exit 1 NO: statement-range; (e) exit 1 NO: proof-refused; (f) exit 1 NO: model-statement",
+   "why": "each must not be accepted; an exit 0 on any would be a finding"
+  },
+  {
+   "id": "R2",
+   "phase": 1,
+   "what": "blocks/first_look.sh (an honest copy accepted, a one-bit flip rejected)",
+   "verdict": "CERTIFIED",
+   "got": "exit 0",
+   "why": "expected exit 0 and AS EXPECTED"
+  },
+  {
+   "id": "R3",
+   "phase": 1,
+   "what": "run_suite.py cpu (the claimant's own suite, CPU rows)",
+   "verdict": "REFUSED",
+   "got": "exit 1; run_suite.py: 90 rows passed, 1 passed in part (status 77: their last lines say what was not run), 1 failed, 0 not run, 0 left out under version word H821, 13 left out in mode cpu because they need nvcc or a GPU, 0 taken and not run (--taken) and 0 that only these need; failed: FAILED tools.lean_verify.script 153.7 s status 1; lean_verify_test.sh: 344 calls: NOT AS EXPECTED: 1; no row ended with status 3 (no false acceptance)",
+   "why": "expected exit 0. One row of 92 (the Lean verifier's test script: 1 of 344 calls not as expected) failed, and our workflow did not keep that row's screen, so what the call was cannot be read from our facts: not decided either way. No row reported a false acceptance (status 3)."
+  },
+  {
+   "id": "L1",
+   "phase": 2,
+   "what": "elan, Lean v4.29.1, Mathlib's cache, the pins",
+   "verdict": "CERTIFIED",
+   "got": "exit 0; Lean (version 4.29.1, x86_64-unknown-linux-gnu, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+   "why": ""
+  },
+  {
+   "id": "L2",
+   "phase": 2,
+   "what": "lake build of the library (default targets)",
+   "verdict": "REFUSED",
+   "got": "exit 139 after 21242 s; the last line built: [37583/37650] Built ShapeLines.Layers.Link22MembersOneToThree",
+   "why": "exit 139 is a segmentation fault of Lake itself at 37,583 of 37,650 jobs, every module before it built with the three standard axioms: a platform failure, not a failure of the claim. A re-run with fewer threads waits on CPU stock."
+  },
+  {
+   "id": "L3",
+   "phase": 2,
+   "what": "#print axioms of the six theorems from our own file",
+   "verdict": "REFUSED",
+   "got": "exit 1; object file '/home/tester/fp/lean/.lake/build/lib/lean/AtFullSide/Face/TheSixLines.olean' of module AtFullSide.Face.TheSixLines does not exist",
+   "why": "not reached: the six theorems' module was among the 67 jobs L2 did not build"
+  },
+  {
+   "id": "L4.cp",
+   "phase": 2,
+   "what": "cp_verify built on the pod, on examples/full-size",
+   "verdict": "CERTIFIED",
+   "got": "exit 0; YES",
+   "why": ""
+  },
+  {
+   "id": "L4.lean",
+   "phase": 2,
+   "what": "the Lean verifier (tools/lean-verify) on examples/full-size",
+   "verdict": "CERTIFIED",
+   "got": "exit 0 after 1604 s; VERDICT: ACCEPT (exact match)",
+   "why": "expected ACCEPT, beside cp_verify's YES"
+  },
+  {
+   "id": "L4.tamper",
+   "phase": 2,
+   "what": "both verifiers on the full-size proof with its middle byte flipped",
+   "verdict": "CERTIFIED",
+   "got": "cp_verify exit 1 NO: proof-refused; the Lean verifier exit 2 NO VERDICT",
+   "why": "neither accepted it. The Lean verifier gave NO VERDICT, not the REJECT the pre-registration expected: its parser, outside Lean, refused the file, so Lean's own rejection path was not reached by this control."
+  },
+  {
+   "id": "L5.nanoda",
+   "phase": 2,
+   "what": "nanoda (second kernel) on a PUBLIC lean4export of VerifierAndGoals.AtTheName.sound_of_verify_at — the route the claim's CHECKING.md calls \"untried\"",
+   "verdict": "CERTIFIED",
+   "got": "exit 0 after 860 s; 207,461 declarations checked, no typechecker error",
+   "why": "the three standard axioms permitted; the one pretty-printer error is nanoda's printer, not a check"
+  },
+  {
+   "id": "L5.six",
+   "phase": 2,
+   "what": "nanoda on exports of the six theorems",
+   "verdict": "REFUSED",
+   "got": "sound export exit 1; soundAndBinding export exit 1; completeOnCanServe export exit 1; zeroKnowledgeOnCanServe export exit 1; refusedHandsOutNoProof export exit 1; repliesFit export exit 1",
+   "why": "not reached: their module was not built (L2)"
+  },
+  {
+   "id": "P3",
+   "phase": 3,
+   "what": "two blind statement readings, merged (corpus/flashprove/readings/)",
+   "verdict": "CERTIFIED",
+   "got": "5 gaps found by both readers; each already stated in the claimant's own ledger",
+   "why": "a reading, not a proof: the word says the pre-registered procedure ran and gave its table"
+  },
+  {
+   "id": "E1",
+   "phase": 4,
+   "what": "the printed bounds against their Lean definitions, in exact rationals",
+   "verdict": "CERTIFIED",
+   "got": "soundness 2^-101 at q = 0, reaches 2^-40 at q = 19342813113833998067433472 (about 2^84); binding 2^-100 at q = 0; the exact values lie just above the printed \"about\" forms, by a factor 1 to six places",
+   "why": "\"about q/2^124 + 2^-101\" and \"about q/2^124 + 2^-100\" match finalSoundnessError and finalBindingError"
+  },
+  {
+   "id": "E2",
+   "phase": 4,
+   "what": "the field and the counts the statements name",
+   "verdict": "CERTIFIED",
+   "got": "p = 2^64 - 2^32 + 1 prime by a Pratt certificate checked here (two planted certificates refused); x^3 - 7 irreducible over F_p; p^3 < 2^192 (which the claim says it does not prove); 62 + 688,127·64 = 44,040,190 ≤ 44,040,191",
+   "why": ""
+  },
+  {
+   "id": "E3",
+   "phase": 4,
+   "what": "our own byte-level parse of the proof header from docs/format/FORMAT.md",
+   "verdict": "NOT RUN",
+   "got": "—",
+   "why": "not written in this round; the differential of the two verifiers (L4) stands on one proof"
+  },
+  {
+   "id": "GPU",
+   "phase": 5,
+   "what": "examples/quickstart-gpu.sh on one H100 (build, commit, prove a 64-token request, verify)",
+   "verdict": "CERTIFIED",
+   "got": "exit 0 after 1250 s; cp_verify YES; 3 \"Compiled by\" lines, each nvcc 13.2 V13.2.86",
+   "why": ""
+  },
+  {
+   "id": "GPU.recheck",
+   "phase": 5,
+   "what": "the fresh GPU proof re-checked, and a tampered copy",
+   "verdict": "NOT RUN",
+   "got": "cp_verify exit 2 on both: \"input-unreadable-policy: policy.txt cannot be read: No such file or directory\"",
+   "why": "OUR ERROR: our script passed the wrong paths for the config and key files, so neither check reached the proof. The proof itself was deleted with the pod. The GPU line above (the route's own cp_verify YES) stands; the second check does not exist."
+  }
+ ],
+ "spend": {
+  "route1": "GitHub-hosted runner (free)",
+  "leanPod": "≈ US$12 (cpu3m 32 vCPU, about 6.9 h)",
+  "gpuPod": "≈ US$1.81 (H100, 21 min)"
+ },
+ "facts": {
+  "route1": "corpus/flashprove/runs/route1-41809013962",
+  "leanPod": "corpus/flashprove/runs/runpod-iuordtjfu4g3s2",
+  "gpuPod": "corpus/flashprove/runs/runpod-oubgvlnuegf8og",
+  "readings": "corpus/flashprove/readings/",
+  "exact": "corpus/flashprove/exact.json"
+ }
+}

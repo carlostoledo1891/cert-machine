@@ -1,0 +1,21 @@
++ mkdir -m 700 /tmp/tmp.YJHZxbfSVy/look
++ cd -P -- /tmp/tmp.YJHZxbfSVy/look
++ mkdir -p proofs/on-the-first-table proofs/on-the-copy
++ make -C /home/runner/fp/blocks OUT=/tmp/tmp.YJHZxbfSVy/look/build SETTINGS=f2h1 /tmp/tmp.YJHZxbfSVy/look/build/f2h1/frame/handover_proof.bin > make.log 2>&1
++ ./build/f2h1/frame/handover_proof.bin ./proofs
+key: 501984 bytes: YES; proof of work counted
+entry: 131848 bytes: YES; proof of work counted
+on-the-first-table/0.proof: 577548 bytes: YES; proof of work counted; place 0
+on-the-first-table/1.proof: 576668 bytes: YES; proof of work counted; place 1
+on-the-first-table/2.proof: 576460 bytes: YES; proof of work counted; place 2
+on-the-copy/0.proof: 577340 bytes: YES; proof of work counted; place 0
+on-the-copy/1.proof: 577764 bytes: YES; proof of work counted; place 1
+on-the-copy/2.proof: 577388 bytes: YES; proof of work counted; place 2
+54 altered copies and calls, 0 accepted; 0 honest files refused
++ cp proofs/on-the-copy/0.proof honest.proof
++ python3 -I -c 'import sys; b = bytearray(open(sys.argv[1], "rb").read()); b[len(b) // 2] ^= 1; open(sys.argv[2], "xb").write(b)' honest.proof bent.proof
++ ./build/f2h1/frame/handover_proof.bin ./proofs judge on-the-copy 0 ./honest.proof > honest.log 2>&1
++ ./build/f2h1/frame/handover_proof.bin ./proofs judge on-the-copy 0 ./bent.proof > bent.log 2>&1
+AS EXPECTED: the honest copy was accepted, and the copy with one bit flipped was rejected. The last line of each check:
+/tmp/tmp.YJHZxbfSVy/look/honest.proof: 577340 bytes: ACCEPTED
+/tmp/tmp.YJHZxbfSVy/look/bent.proof: 577340 bytes: an opening does not lead to its root

@@ -1,0 +1,120 @@
+{
+ "what": "C2 of the ETH model-gap lane: claimbox's proof that Anthropic's ETHIsFalse implies complexitylib's ¬ETH on cslib's multitape Turing machine, decided here from claimbox's pinned commit with our own statement pin, axioms files, nanoda (with two negative controls) and leanchecker --fresh, and three planted wrong variants that must be refused.",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "235fbfa90e7e19827be462431fd822c82ccaf5fc",
+  "folder": "lean/eth-bridge",
+  "theorem": "EthBridge.Anthropic.not_eth_of_ethIsFalse",
+  "builtOn": "cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+  "authors": "the statement by hand (cert-machine's operator session); the proof by an AI agent (Claude), in claimbox"
+ },
+ "verdict": "CERTIFIED",
+ "scope": "If Anthropic's ETHIsFalse holds (for every δ > 0 a deterministic Mathlib FinTM2 machine decides 3-SAT on duplicate-free formulas written as encClauses 3 within ⌊c·2^(δ·n)⌋ steps), then complexitylib's ETH is false: for every δ > 0 a deterministic cslib multitape Turing machine decides 3-SAT on every formula, written as the binary encCNF, within c·2^(δ·n)·(L+1)^e + c steps. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, the three standard axioms, nanoda accepting all 23,430 declarations beneath it, leanchecker --fresh, and the three planted variants refused.",
+ "fails": [],
+ "statement": {
+  "pin": "corpus/eth-refutation/c2/statement.lean",
+  "sha256": "c84eae828cc117698c6893effe28a81aa53bae49f936b366c95a835e46e1a1e1",
+  "mainResults": {
+   "pin": "corpus/eth-refutation/tsavo/pins.json",
+   "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "served": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+  }
+ },
+ "reading": [
+  "MainResults.lean is Anthropic's file byte for byte, but elaborated here against complexitylib's Mathlib (Lean v4.36.0-rc2), not Anthropic's (v4.33.1). That ETHIsFalse here means what Anthropic proved there is the version seam: read, not decided.",
+  "C2 is an implication. Its conclusion is already proved outright by complexitylib's own not_eth (certs/eth-cslib-d1.json); what C2 adds is the link from a lab's statement to the standard machine, so Anthropic's proof, and with Hawkley's chain OpenAI's, refutes ETH on cslib's multitape machine with encCNF, up to the seam.",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+ ],
+ "axioms": {
+  "EthBridge.Anthropic.not_eth_of_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.Assemble.decidableInExpTime": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.DegreeStep.stepTotalD": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.DegreeRun.runBitD": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.Words.prep_polyTime": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.Prep.prep_spec": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "claim": {
+   "exit": 0,
+   "declarations": 23430,
+   "accepted": true,
+   "refusal": null
+  },
+  "plantedSorry": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_c2_sorry depends on sorryAx which was not found in the environment"
+  },
+  "plantedAxiom": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_c2_axiom depends on planted_c2_cheat which was not found in the environment"
+  }
+ },
+ "planted": {
+  "statement": {
+   "refused": true,
+   "by": "the statement check: the trusted block differs from the pin",
+   "sha256": "251148e3ac0894bfe751eb4cf1fcf610d3e03eec8141f35daeaeb1dfbcc290ea"
+  },
+  "sorry": {
+   "refused": true,
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (sorryAx) and nanoda (infer_const: declaration planted_c2_sorry depends on sorryAx which was not found in the environment)"
+  },
+  "axiom": {
+   "refused": true,
+   "axioms": [
+    "planted_c2_cheat",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (planted_c2_cheat) and nanoda (infer_const: declaration planted_c2_axiom depends on planted_c2_cheat which was not found in the environment)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 913,
+  "leancheckerSeconds": 2066
+ },
+ "run": {
+  "id": "runpod-45ru7t5g9hshjt",
+  "auditSha": "d972899344c6c92e2be563b932281d842716056b",
+  "host": "RunPod CPU pod 45ru7t5g9hshjt: 4 vCPU; cgroup memory.max 32000000000",
+  "startedAt": "2026-11-04T18:31:30Z",
+  "finishedAt": "2026-11-04T19:24:32Z",
+  "facts": "corpus/eth-refutation/c2/runs/runpod-45ru7t5g9hshjt"
+ }
+}
