@@ -70,6 +70,13 @@ NEXT SESSION, IN ORDER:
      family-run, no ETH series, no post; the mail quotes /eth/ accurately and asks one fair question (what would move 'does not
      certify' to certification); no link, no ask: harmless, probably an AI-assisted newsletter; a reply is the operator's call
      (the channel rule allows answering a received mail); the answer is in certs/eth-seam.json and the bridges' gaps.
+     ANTHROPIC RESIDENCY APPLICATION SUBMITTED by Carlos (~00:30 UTC 11-04; row anthropic-residency-application-2026-11-03):
+     the essays from his own draft, refined under Anthropic's candidate AI guidance (draft yourself, refine with Claude,
+     be transparent — the line is in the cover note); resume v4.1 (outreach/resume; the Weights + MacMahon audits added).
+     Offers January 2027. NEXT STAGES ARE HIS ALONE unless Anthropic says otherwise (the take-home, the live interviews);
+     a study guide and practice questions are allowed and worth building on his word. THE SCOUT of programs is in
+     notes/job-search-2026-11-03.md (git-excluded): next in order — the Mercor AI Safety Fund and the Transformative AI
+     Fund (rolling grants for the Verify Gym run), Axiom (the CFSG hold to think through), Harmonic, METR.
      PRIME INTELLECT (23:00 UTC): the RL Residency application SUBMITTED by the operator (the three answers in
      outreach/prime-residency-2026-11/as-submitted.md; row prime-residency-application-2026-11-03) and the public two-post
      ask with the chart POSTED by x.js on the operator's word (x.com/_carlos_toledo_/status/2117753356936527917; row
