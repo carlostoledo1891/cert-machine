@@ -1,0 +1,6 @@
+OpenAI and Anthropic each published a Lean proof that the Exponential Time Hypothesis is false. I replayed both with two independent kernels: both proofs check against their own statements. A kernel can't say what a statement means, so the statements were read too.
+---
+Anthropic's statement is ETH's negation itself: s₃ = 0 for Mathlib's Turing machines. OpenAI's Lean defines no ETH; it proves a running-time bound. So I wrote the textbook ETH once in Lean and proved each statement refutes it, in that lab's own machine model.
+---
+What stays informal for both is moving between machine models. Someone else joined the two models in Lean; I replayed it and both kernels accept.
+Disclosure: my tools are built with Claude, and one of the two claims is Anthropic's.

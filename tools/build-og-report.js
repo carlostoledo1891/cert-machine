@@ -28,9 +28,10 @@ const CARDS = {
     title: 'Two claims that ETH is false, decided',
     deck: 'Both labs’ Lean proofs replayed by two kernels and accepted against their own statements. The bridges between the two machine models, written by third parties, replayed and certified. The version seam between the two Leans measured, and said to be read, not decided.',
     path: '/eth/' },
-  'eth-chain': { eyebrow: 'Carlos Toledo · independent certification · ETH',
-    title: 'Both AI “ETH is false” proofs now reach a textbook machine',
-    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. What stays a reading, the textbook definition and two Lean version gaps, is marked as one.',
+  'eth-chain': { eyebrow: 'Carlos Toledo · independent certification',
+    title: 'AI proofs that the Exponential Time Hypothesis is false now reach a textbook machine',
+    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. The textbook definition and two Lean version gaps stay readings.',
+    css: 'h1{font-size:42px}',
     path: '/eth/',
     svgRaw: '<svg viewBox="0 0 470 400" width="470" height="400" role="img" aria-label="Two lab boxes, linked by solid lines to a standard multitape Turing machine with its tape, and a dashed line to the textbook ETH" style="font-family:var(--mono, ui-monospace, monospace)">'
       + '<defs><marker id="og-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>'
@@ -65,7 +66,7 @@ function cardHtml(c) {
     /* path '/' on purpose: the card is a still, not the page — design/titles.js would otherwise hold its H1 to the registry's */
     title: c.title, path: '/', footRaw: null, desc: c.deck,
     /* a still, not a page: no nav, no theme pill, no entrance motion; the block set lower and larger so it reads at thumbnail size */
-    cssRaw: 'h1,.deck,.stats{animation:none}\nnav.topnav,[class*="theme"]{display:none !important}\n.page{padding-top:var(--s-10)}\n.og-host{margin-top:var(--s-7)}\nh1{font-size:clamp(34px,4.2vw,54px);line-height:1.08}\n.deck{font-size:clamp(18px,1.9vw,24px);line-height:1.45}',
+    cssRaw: 'h1,.deck,.stats{animation:none}\nnav.topnav,[class*="theme"]{display:none !important}\n.page{padding-top:var(--s-10)}\n.og-host{margin-top:var(--s-7)}\nh1{font-size:clamp(34px,4.2vw,54px);line-height:1.08}\n.deck{font-size:clamp(18px,1.9vw,24px);line-height:1.45}' + (c.css ? '\n' + c.css : ''),
     bodyRaw: c.svgRaw
       ? '<div class="og-two" style="display:grid;grid-template-columns:1fr 470px;gap:44px;align-items:center;padding:0 56px;margin-top:-64px">'
         + '<div>' + C.header({ eyebrow: c.eyebrow, title: c.title, deck: c.deck }) + '<div class="eyebrow" style="margin-top:22px">carlostoledo.co' + c.path + '</div></div>'
