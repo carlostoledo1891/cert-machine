@@ -24,6 +24,6 @@ What it does not settle:
 - It elaborates your file against complexitylib's Mathlib (Lean v4.36.0-rc2), not yours (v4.33.1). That the two `ETHIsFalse` mean the same thing is read, not decided.
 - That cslib's multitape ETH is the textbook ETH is still a reading of a definition, though now of a standard machine.
 
-With TSavo's and Hawkley's bridge from OpenAI's statement to yours, both labs' statements now reach the same standard machine.
+With the bridges from OpenAI's statement to yours (TSavo's, and Daniel Hawkley's inside OpenAI's Lean), both labs' statements now reach the same standard machine.
 
-Disclosure: the statement was written by hand and the proof by Claude. It was decided in a separate repository with the same operator, so this separates author from checker but is not an independent review.
+Disclosure: I wrote the statement, Claude wrote the proof, and my own checker, also built with Claude, decided it in a separate repository. The roles are separate, but this is not an independent review.

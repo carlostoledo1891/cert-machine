@@ -12,6 +12,12 @@ here on request.
 
 ---
 
+## LANE E — ETH C2 (2026-11-04)
+### E1. ethdiscussion.blog reply under comment-24 — POSTED by Carlos by hand 2026-11-04 (awaiting moderation)
+### E2. anthropics/formal-math #36 — POSTED 2026-11-04 (issuecomment-6641391967)
+### E3. complexitylib PR (C1 + C2) — READY after a rebase and rebuild on their main (outreach/complexitylib-c1-pr-2026-11-04.md)
+### E4. X post d14 with the §5b figure — READY (notes/x/drops/d14-eth-standard-post.txt); best a day after E2/E3
+
 ## LANE D — THE SENDS OF 2026-10-23: the week's work communicated (outreach/github-2026-10-23.md)
 
 On the operator's "Proceed the githib outreaches, issues, reponses, PRs. Let's focus on communicate what we did latelly".
