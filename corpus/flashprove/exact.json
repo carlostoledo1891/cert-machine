@@ -1,0 +1,270 @@
+{
+ "what": "Phase 4 (E1, E2) of the FlashProve check: the numbers the theorems name, recomputed exactly from their Lean definitions at 9e2bdd8f.",
+ "claim": {
+  "repo": "https://github.com/anthropics/FlashProve",
+  "commit": "9e2bdd8ff5bf9c62f18263d7dac189b0400b260c"
+ },
+ "definitions": {
+  "soundnessErrorInQueries": "Ladder/Bits.lean:96 — 16·(t+n+2^23)/2^128 + (t+n+2^23+2)^2/2^256",
+  "finalSoundnessError": "Johnson/Face/FinalStatement.lean:225 — soundnessErrorInQueries q 1",
+  "bindingErrorInQueries": "Ladder/Bits.lean:110 — 16·(t+2^23)/2^128 + (t+2^48+2^23+2)^2/2^256",
+  "finalBindingError": "Johnson/Face/FinalStatement.lean:228 → Ladder/PackageBits.lean:99 — max(soundnessErrorInQueries q 2^23, bindingErrorInQueries q)",
+  "pGold": "Code/Field.lean:400 — 2^64 - 2^32 + 1; EGold = FGold[x]/(x^3 - 7) (Code/Field.lean:6)",
+  "finalCompletenessError": "Johnson/Face/FinalStatement.lean:219 → Ladder.lean:239 — (2^-1)^40",
+  "finalZeroKnowledgeError": "AtFullSide/Face/ZeroKnowledgeNumber.lean:29 — (2^-1)^154, at finalVerifierQueries = 2^64 and finalReplyCount = 688127"
+ },
+ "E1": {
+  "finalSoundnessError": {
+   "atQ": {
+    "1": {
+     "exact": {
+      "num": "2854496065976653603993498865648209534352621569",
+      "den": "7237005577332262213973186563042994240829374041602535252466099000494570602496",
+      "log2Floor": -101
+     },
+     "printed": {
+      "num": "8388609",
+      "den": "21267647932558653966460912964485513216",
+      "log2Floor": -101
+     },
+     "exactOverPrinted": 1.0000001192092753,
+     "exactAbovePrinted": true
+    },
+    "2^48": {
+     "exact": {
+      "num": "1532495586537820469466934035259042856628882076566814729",
+      "den": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+      "log2Floor": -76
+     },
+     "printed": {
+      "num": "33554433",
+      "den": "2535301200456458802993406410752",
+      "log2Floor": -76
+     },
+     "exactOverPrinted": 1.0000000000000036,
+     "exactAbovePrinted": true
+    },
+    "2^64": {
+     "exact": {
+      "num": "100433627766232564153324021725172791172657941162008636293129",
+      "den": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+      "log2Floor": -60
+     },
+     "printed": {
+      "num": "2199023255553",
+      "den": "2535301200456458802993406410752",
+      "log2Floor": -60
+     },
+     "exactOverPrinted": 1.0,
+     "exactAbovePrinted": true
+    },
+    "2^80": {
+     "exact": {
+      "num": "6582018229284825675793445672240927434913199821783084472960286729",
+      "den": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+      "log2Floor": -44
+     },
+     "printed": {
+      "num": "144115188075855873",
+      "den": "2535301200456458802993406410752",
+      "log2Floor": -44
+     },
+     "exactOverPrinted": 1.0000000000000002,
+     "exactAbovePrinted": true
+    }
+   },
+   "leastQReaching": {
+    "2^-40": "19342813113833998067433472",
+    "2^-1": "10613135514496568483362279794228433842"
+   },
+   "atZero": {
+    "num": "45671931611108586928880566436377633641333784585",
+    "den": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+    "log2Floor": -101
+   }
+  },
+  "finalBindingError": {
+   "atQ": {
+    "1": {
+     "exact": {
+      "num": "91343857777699303122745717458761689111864541193",
+      "den": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+      "log2Floor": -100
+     },
+     "printed": {
+      "num": "16777217",
+      "den": "21267647932558653966460912964485513216",
+      "log2Floor": -100
+     },
+     "exactOverPrinted": 1.0,
+     "exactAbovePrinted": true
+    },
+    "2^48": {
+     "exact": {
+      "num": "383123908052435297884944873527195796846284639616106497",
+      "den": "28948022309329048855892746252171976963317496166410141009864396001978282409984",
+      "log2Floor": -76
+     },
+     "printed": {
+      "num": "16777217",
+      "den": "1267650600228229401496703205376",
+      "log2Floor": -76
+     },
+     "exactOverPrinted": 1.0,
+     "exactAbovePrinted": true
+    },
+    "2^64": {
+     "exact": {
+      "num": "25108406941569559018511523642657987598309814838873036947457",
+      "den": "28948022309329048855892746252171976963317496166410141009864396001978282409984",
+      "log2Floor": -60
+     },
+     "printed": {
+      "num": "1099511627777",
+      "den": "1267650600228229401496703205376",
+      "log2Floor": -60
+     },
+     "exactOverPrinted": 1.0,
+     "exactAbovePrinted": true
+    },
+    "2^80": {
+     "exact": {
+      "num": "1645504557321206430366341598578448294042530307551153931016994817",
+      "den": "28948022309329048855892746252171976963317496166410141009864396001978282409984",
+      "log2Floor": -44
+     },
+     "printed": {
+      "num": "72057594037927937",
+      "den": "1267650600228229401496703205376",
+      "log2Floor": -44
+     },
+     "exactOverPrinted": 1.0000000000000002,
+     "exactAbovePrinted": true
+    }
+   },
+   "leastQReaching": {
+    "2^-40": "19342813113833998059044865",
+    "2^-1": "10613135514496568483362278701117598690"
+   },
+   "atZero": {
+    "num": "22835963083295358096932575511191992550884900865",
+    "den": "28948022309329048855892746252171976963317496166410141009864396001978282409984",
+    "log2Floor": -100
+   }
+  }
+ },
+ "E2": {
+  "p": "18446744069414584321",
+  "pMinusOne": {
+   "2": 32,
+   "3": 1,
+   "5": 1,
+   "17": 1,
+   "257": 1,
+   "65537": 1
+  },
+  "pratt": {
+   "p": 18446744069414584321,
+   "g": 7,
+   "factors": {
+    "2": 32,
+    "3": 1,
+    "5": 1,
+    "17": 1,
+    "257": 1,
+    "65537": 1
+   },
+   "sub": [
+    {
+     "p": 2
+    },
+    {
+     "p": 3,
+     "g": 2,
+     "factors": {
+      "2": 1
+     },
+     "sub": [
+      {
+       "p": 2
+      }
+     ]
+    },
+    {
+     "p": 5,
+     "g": 2,
+     "factors": {
+      "2": 2
+     },
+     "sub": [
+      {
+       "p": 2
+      }
+     ]
+    },
+    {
+     "p": 17,
+     "g": 3,
+     "factors": {
+      "2": 4
+     },
+     "sub": [
+      {
+       "p": 2
+      }
+     ]
+    },
+    {
+     "p": 257,
+     "g": 3,
+     "factors": {
+      "2": 8
+     },
+     "sub": [
+      {
+       "p": 2
+      }
+     ]
+    },
+    {
+     "p": 65537,
+     "g": 3,
+     "factors": {
+      "2": 16
+     },
+     "sub": [
+      {
+       "p": 2
+      }
+     ]
+    }
+   ]
+  },
+  "prattChecked": true,
+  "plantedCertificatesRefused": {
+   "generator 1": true,
+   "a factor power changed": true
+  },
+  "sevenToTheThird": "18446744065119617025",
+  "sevenNotACube": true,
+  "xCubedMinusSevenIrreducible": true,
+  "irreducibleBecause": "3 | p-1 and 7^((p-1)/3) != 1 mod p, so 7 is not a cube in F_p; a cubic with no root over a field is irreducible",
+  "pCubedBelow2to192": true,
+  "columns": {
+   "lhs": 44040190,
+   "rhs": 44040191,
+   "holds": true,
+   "slack": 1
+  },
+  "completeness": {
+   "num": "1",
+   "den": "1099511627776",
+   "log2Floor": -40
+  },
+  "zeroKnowledge": {
+   "num": "1",
+   "den": "22835963083295358096932575511191922182123945984",
+   "log2Floor": -154
+  }
+ }
+}
