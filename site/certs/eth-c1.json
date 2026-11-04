@@ -1,0 +1,105 @@
+{
+ "what": "C1 of the ETH model-gap lane: claimbox's proof that ETH is false on the word RAM at logarithmic word size, decided here from claimbox's pinned commit with our own statement pin, axioms files, nanoda (with two negative controls) and leanchecker --fresh, and three planted wrong variants that must be refused.",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "68a063bb40d8a1131fa9faa5e17e4a8a7bed82c3",
+  "folder": "lean/eth-bridge",
+  "theorem": "EthBridge.WordRAM.not_eth_ram",
+  "builtOn": "cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+  "authors": "the statement by hand (cert-machine's operator session); the proof by an AI agent (Claude), in claimbox"
+ },
+ "verdict": "CERTIFIED",
+ "scope": "For every δ > 0 one fixed word-RAM program over the additive basis, reading the bits of encCNF φ one per word, decides 3-SAT within c·⌈2^(δ·n)⌉·(L+1)^e + c instructions at every word size of at least k·(⌊log₂ L⌋+1) bits: ETH is false on the word RAM with O(log L)-bit words. Decided: the statement byte-equal to the pin, the three standard axioms, nanoda accepting all 49,735 declarations beneath it, leanchecker --fresh, and the three planted variants refused.",
+ "fails": [],
+ "statement": {
+  "pin": "corpus/eth-refutation/c1/statement.lean",
+  "sha256": "780a69de4c590f573c99e198d0da8ef004091474b8e4c28f223e71b03f33a6ac"
+ },
+ "reading": [
+  "The word RAM is complexitylib's (cslib's Basis.additive: addition, truncated subtraction, constants, copies, loads, stores, branches; unit cost per instruction) under its transdichotomous convention (UniformDecidableInTimeLogWord: every word size at least k·(⌊log₂ L⌋+1) admitted). Words hold one input bit each. That is the standard word RAM with Θ(log L)-bit words up to the basis chosen; a richer basis only helps an upper bound.",
+  "The decider is built from complexitylib's native model counter (polynomial work space), not from either lab's statement: C1 closes the model step for complexitylib's native proof (decided in certs/eth-cslib-d1.json), not for the labs' own Lean statements (C2).",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+ ],
+ "axioms": {
+  "EthBridge.WordRAM.not_eth_ram": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.WordRAM.Sim.executes_simProgram_of_space": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.WordRAM.Decide.uniformDecidable_of_timeSpace": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.WordRAM.Decider.exists_ksat3_decider": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "claim": {
+   "exit": 0,
+   "declarations": 49735,
+   "accepted": true,
+   "refusal": null
+  },
+  "plantedSorry": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_sorry depends on sorryAx which was not found in the environment"
+  },
+  "plantedAxiom": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_axiom depends on planted_cheat which was not found in the environment"
+  }
+ },
+ "planted": {
+  "statement": {
+   "refused": true,
+   "by": "the statement check: the trusted block differs from the pin",
+   "sha256": "ccc56e03f2bdd081202c37bfbf4e56837532eda6f7c523061ef31d2f326f2dc2"
+  },
+  "sorry": {
+   "refused": true,
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (sorryAx) and nanoda (infer_const: declaration planted_sorry depends on sorryAx which was not found in the environment)"
+  },
+  "axiom": {
+   "refused": true,
+   "axioms": [
+    "planted_cheat",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (planted_cheat) and nanoda (infer_const: declaration planted_axiom depends on planted_cheat which was not found in the environment)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 1182,
+  "leancheckerSeconds": 1110
+ },
+ "run": {
+  "id": "runpod-dxfrqfml7gtvpj",
+  "auditSha": "5c1864fc5cc04db678a8e415064c384f1649bb5c",
+  "host": "RunPod CPU pod dxfrqfml7gtvpj: 4 vCPU; cgroup memory.max 32000000000",
+  "startedAt": "2026-11-04T16:33:05Z",
+  "finishedAt": "2026-11-04T17:17:14Z",
+  "facts": "corpus/eth-refutation/c1/runs/runpod-dxfrqfml7gtvpj"
+ }
+}

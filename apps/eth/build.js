@@ -485,6 +485,58 @@ B.push(C.section({
 const D1_REL = 'certs/eth-cslib-d1.json', C1_REL = 'certs/eth-c1.json';
 const ghRec = (rel) => '<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/' + C.escAttr(rel) + '"><span class="m">' + C.esc(rel) + '</span></a>';
 const vTag = (v) => C.tag(v, v === 'CERTIFIED' ? 'held' : v === 'REFUTED' ? 'fail' : 'open');
+/* Figure C (2026-11-04): from Anthropic's statement across the second seam into complexitylib's environment — D1 and C1
+   as solid edges read from their records, C2 as a void until its record exists, the textbook ETH a dashed reading */
+function figStd(R) {
+  const { d1, c1, ant } = R;
+  const bad = (why) => { throw new Error('the standard-machine map: ' + why); };
+  const d1Edge = { word: d1.verdict, ran: { C: false, K: d1.fails.length === 0, N: !!(d1.nanoda.not_eth && d1.nanoda.not_eth.accepted), L: d1.steps.leancheckerExit === 0 } };
+  const c1Edge = c1 ? { word: c1.verdict, ran: { C: false, K: c1.fails.length === 0, N: !!c1.nanoda.claim.accepted, L: c1.fails.length === 0 } } : null;
+  const need = (e, who) => { if (!DECIDED_WORDS.includes(e.word)) bad(who + ' is ' + e.word + ', and a solid edge needs a decided word');
+    for (const k of ['K', 'N', 'L']) if (!e.ran[k]) bad(who + ' is drawn solid but its record does not say ' + CHECKS.find(([c]) => c === k)[1] + ' accepted'); return e; };
+  need(d1Edge, 'D1'); if (c1Edge) need(c1Edge, 'C1');
+  if (c1 && !Object.values(c1.planted).every((p) => p.refused)) bad('C1 is drawn solid but a planted variant was not refused');
+  const cxV = 'Lean v4.36.0-rc2';
+  if (d1.claim.toolchain !== 'leanprover/lean4:v4.36.0-rc2') bad('D1 does not build on complexitylib’s ' + cxV);
+  const o = [];
+  o.push('<defs><marker id="eth-arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>'
+    + '<marker id="eth-arr2-read" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker>'
+    + '<pattern id="eth-void" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--surface)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--ink-5)" stroke-width="0.7" fill="none"/></pattern></defs>');
+  const ln2 = (x1, y1, x2, y2, read) => '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + W.attrs(read ? W.COMPUTED : W.DECIDED, { width: 2 }) + ' marker-end="url(#eth-arr2' + (read ? '-read' : '') + ')"/>';
+  o.push(svgT(20, 24, 'Anthropic’s environment', 't-key'), svgT(20, 38, leanV(ant.toolchain) + ' · Mathlib ' + ant.mathlib.slice(0, 8), 't-note'));
+  o.push(svgT(880, 24, 'complexitylib’s environment', 't-key', 'end'), svgT(880, 38, cxV + ' · cslib, Mathlib through its pins', 't-note', 'end'));
+  o.push('<line x1="245" y1="34" x2="245" y2="430" fill="none" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>');
+  o.push(svgT(245, 452, 'the second version seam — the same bytes, read, not decided', 't-note', 'middle'));
+  o.push(svgT(20, 474, CHECKS.filter(([k]) => k !== 'C').map(([k, w]) => k + ' ' + w).join(' · ') + ' — a tick only where the record says it accepted', 't-note'));
+  o.push(node({ x: 30, y: 220, w: 190, lab: 'ETHIsFalse', sub: 'Anthropic’s statement' }));
+  o.push(node({ x: 265, y: 220, w: 165, lab: 'ETHIsFalse', sub: 'vendored, same bytes', read: true }));
+  o.push(ln2(220, 240, 265, 240, true));
+  o.push(node({ x: 560, y: 44, w: 200, lab: 'complexitylib’s proof', sub: 'native, @ ' + d1.claim.commit.slice(0, 8) }));
+  o.push(node({ x: 504, y: 220, w: 200, lab: '¬ ETH', sub: 'cslib multitape TM, encCNF' }));
+  o.push(node({ x: 714, y: 220, w: 182, lab: '¬ ETH', sub: 'word RAM, O(log L) words' }));
+  o.push(ln2(620, 84, 604, 220), edgeLabel(604, 140, 'end', d1Edge), svgT(604, 128, 'D1', 't-note', 'end'));
+  if (c1Edge) o.push(ln2(720, 84, 800, 220), edgeLabel(770, 140, 'start', c1Edge), svgT(770, 128, 'C1', 't-note'));
+  else o.push('<rect x="735" y="100" width="40" height="100" class="w-void" fill="url(#eth-void)" stroke="var(--rule-strong)" stroke-width="1"/>', svgT(785, 150, '∅ C1, not yet decided', 't-note'));
+  /* C2: no record, so no edge — a void the width of the gap, with its words */
+  o.push('<rect x="434" y="230" width="66" height="20" class="w-void" fill="url(#eth-void)" stroke="var(--rule-strong)" stroke-width="1"/>');
+  o.push(svgT(467, 272, '∅ C2', 't-key', 'middle'), svgT(467, 286, 'not yet proved', 't-note', 'middle'));
+  o.push(node({ x: 560, y: 370, w: 200, lab: 'ETH is false', sub: 'the textbook statement', read: true }));
+  o.push(ln2(604, 260, 625, 370, true), ln2(800, 260, 715, 370, true));
+  o.push(svgT(660, 426, 'a reading of a definition, and always one', 't-note', 'middle'));
+  const alt = 'The chain beyond §5’s map. In Anthropic’s environment (' + leanV(ant.toolchain) + '), Anthropic’s statement ETHIsFalse. Across a second version seam, in complexitylib’s environment (' + cxV + '), the same file vendored byte for byte, drawn hollow: read, not decided. '
+    + 'complexitylib’s native proof implies ¬ETH on cslib’s multitape Turing machine with the binary encoding encCNF (D1, ' + d1Edge.word + ', ' + ranWords(d1Edge.ran) + ')'
+    + (c1Edge ? ', and ¬ETH on the word RAM with logarithmic words (C1, ' + c1Edge.word + ', ' + ranWords(c1Edge.ran) + ', every planted variant refused)' : '; C1, the word RAM, is not yet decided')
+    + '. Between the vendored ETHIsFalse and the multitape ¬ETH a void: C2, not yet proved. Both ¬ETH boxes link by dashed lines to the textbook statement, a reading of a definition.';
+  return { svg: svgOpen(900, 482, alt) + o.join('') + '</svg>', d1Edge, c1Edge, alt };
+}
+const STDR = fs.existsSync(path.join(ROOT, D1_REL)) ? { d1: J(D1_REL), c1: fs.existsSync(path.join(ROOT, C1_REL)) ? J(C1_REL) : null, ant: ANT } : null;
+const FIG_STD = STDR ? figStd(STDR) : null;
+if (FIG_STD) {
+  const stdPlanted = (mutate) => { const R = JSON.parse(JSON.stringify(STDR)); mutate(R); return refuses(() => figStd(R)); };
+  if (!stdPlanted((R) => { R.d1.verdict = 'REFUSED'; })) fail('the standard-machine map drew a planted REFUSED D1 as a solid edge');
+  if (!stdPlanted((R) => { R.d1.nanoda.not_eth.accepted = false; })) fail('the standard-machine map kept D1 solid on a planted record where nanoda did not accept');
+  if (STDR.c1 && !stdPlanted((R) => { R.c1.planted.sorry.refused = false; })) fail('the standard-machine map kept C1 solid on a planted record where a planted variant was not refused');
+}
 const lane = [];
 if (fs.existsSync(path.join(ROOT, D1_REL))) {
   const d1 = J(D1_REL);
@@ -500,9 +552,12 @@ if (fs.existsSync(path.join(ROOT, C1_REL))) {
 lane.push({ b: 'The labs’ own statements on the standard machine.', raw: vTag('IN PROGRESS') + ' Anthropic’s ETHIsFalse (Mathlib FinTM2 on encClauses) implying complexitylib’s ¬ETH, so that, with Hawkley’s chain, both labs’ statements reach cslib’s machine. Stated in claimbox; not yet proved.' });
 lane.push({ b: 'What stays a reading.', text: 'That any formal ETH, ours, cslib’s or a lab’s, is the textbook ETH is a reading of a definition. The best outcome of this lane makes it a reading of a standard multitape machine and a word RAM with a reasonable binary encoding.' });
 B.push(C.section({
-  lab: '§5b · toward the standard machine', title: 'From the labs’ machines to a textbook one', id: 'standard',
-  bodyRaw: C.pRaw('The two prose steps above, the machine and the encoding, are the gap every reader names. Since 4 November this lane works on them: proofs written by claimbox and its AI agents, decided here from pinned bytes. claimbox and this page have the same author, so a decision here separates roles; it is not a second party.')
-    + C.plainList(lane)
+  lab: '§5b · toward the standard machine', title: 'From the labs’ machines to a textbook one', id: 'standard', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('The two prose steps above, the machine and the encoding, are the gap every reader names. Since 4 November this lane works on them: proofs written by claimbox and its AI agents, decided here from pinned bytes. claimbox and this page have the same author, so a decision here separates roles; it is not a second party.')
+    + '</div>' + (FIG_STD ? C.figure({ svgRaw: FIG_STD.svg, record: [D1_REL].concat(STDR.c1 ? [C1_REL] : []),
+      stop: 'an edge’s word is not CERTIFIED or PROVED in its record, a tick is drawn for a check its record does not say accepted, C1 is drawn solid while a planted variant was not refused, or D1 does not build on complexitylib’s Lean',
+      captionRaw: '<b>The chain toward a standard machine.</b> Solid edges are Lean implications decided here, ticked by the checks their records say accepted; a hollow box is a copy read across a version seam; the hatched gap is C2, which has no proof yet; the dashed links to the textbook statement are readings. D1 is complexitylib’s own proof (' + ghRec(D1_REL) + ')' + (STDR.c1 ? '; C1 is claimbox’s, with its three planted wrong variants refused (' + ghRec(C1_REL) + ')' : '') + '.' }) : '')
+    + '<div class="col">' + C.plainList(lane) + '</div>'
 }));
 
 /* §6 open, and who wrote this */

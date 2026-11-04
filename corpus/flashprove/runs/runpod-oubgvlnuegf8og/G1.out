@@ -1,0 +1,60 @@
+ok  80 files and the tree equal corpus/flashprove/PINS.json
+Collecting cuda-toolkit==13.2.2 (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading cuda_toolkit-13.2.2-py2.py3-none-any.whl.metadata (20 kB)
+Collecting nvidia-cuda-cccl==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cuda_cccl-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-crt==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cuda_crt-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cublas==13.4.1.3.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cublas-13.4.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-nvrtc==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cuda_nvrtc-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-runtime==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cuda_runtime-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cuda-nvcc==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_cuda_nvcc-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.9 kB)
+Collecting nvidia-nvvm==13.2.86.* (from cuda-toolkit[cccl,crt,cublas,cudart,nvcc,nvvm]==13.2.2)
+  Downloading nvidia_nvvm-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Downloading cuda_toolkit-13.2.2-py2.py3-none-any.whl (2.6 kB)
+Downloading nvidia_cublas-13.4.1.3-py3-none-manylinux_2_27_x86_64.whl (404.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 404.9/404.9 MB 22.8 MB/s eta 0:00:00
+Downloading nvidia_cuda_cccl-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 3.8 MB/s eta 0:00:00
+Downloading nvidia_cuda_crt-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (133 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.3/133.3 kB 22.0 MB/s eta 0:00:00
+Downloading nvidia_cuda_nvcc-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (44.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.0/44.0 MB 183.7 MB/s eta 0:00:00
+Downloading nvidia_cuda_nvrtc-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (47.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.0/47.0 MB 72.9 MB/s eta 0:00:00
+Downloading nvidia_cuda_runtime-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 76.8 MB/s eta 0:00:00
+Downloading nvidia_nvvm-13.2.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (64.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.3/64.3 MB 123.7 MB/s eta 0:00:00
+Installing collected packages: cuda-toolkit, nvidia-nvvm, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-crt, nvidia-cuda-cccl, nvidia-cuda-nvcc, nvidia-cublas
+Successfully installed cuda-toolkit-13.2.2 nvidia-cublas-13.4.1.3 nvidia-cuda-cccl-13.2.86 nvidia-cuda-crt-13.2.86 nvidia-cuda-nvcc-13.2.86 nvidia-cuda-nvrtc-13.2.86 nvidia-cuda-runtime-13.2.86 nvidia-nvvm-13.2.86
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2026 NVIDIA Corporation
+Built on Fri_May_08_10:53:34_AM_PDT_2026
+Cuda compilation tools, release 13.2, V13.2.86
+Build cuda_13.2.r13.2/compiler.37953736_0
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Wed Nov  4 16:55:56 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.91.07              Driver Version: 595.91.07      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:3B:00.0 Off |                    0 |
+| N/A   30C    P0             70W /  700W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+

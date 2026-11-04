@@ -1,0 +1,17 @@
+'EthBridge.WordRAM.not_eth_ram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EthBridge.WordRAM.Sim.executes_simProgram_of_space' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EthBridge.WordRAM.Decide.uniformDecidable_of_timeSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EthBridge.WordRAM.Decider.exists_ksat3_decider' depends on axioms: [propext, Classical.choice, Quot.sound]
+def EthBridge.WordRAM.RAMDecidableInExpTime : ℝ → Prop :=
+fun δ =>
+  ∃ c e,
+    Cslib.WordRAM.UniformDecidableInTimeLogWord Cslib.WordRAM.Basis.additive
+      (ComplexityAbstracts.SubexponentialSATAbstract.KSAT 3) EthBridge.WordRAM.input
+      (fun φ => (ComplexityAbstracts.SubexponentialSATAbstract.encCNF φ).length) fun φ x =>
+      c *
+          (⌈2 ^ (δ * ↑(ComplexityAbstracts.SubexponentialSATAbstract.numVars φ))⌉₊ *
+            ((ComplexityAbstracts.SubexponentialSATAbstract.encCNF φ).length + 1) ^ e) +
+        c
+def EthBridge.WordRAM.ETH_RAM : Prop :=
+∃ δ, 0 < δ ∧ ¬EthBridge.WordRAM.RAMDecidableInExpTime δ
+EthBridge.WordRAM.not_eth_ram : ¬EthBridge.WordRAM.ETH_RAM

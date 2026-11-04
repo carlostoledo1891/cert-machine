@@ -1,0 +1,610 @@
+[step 1] $ W=$(mktemp -d) && WORK="$W/example" && echo "WORK=$WORK"
+WORK=/tmp/tmp.3Tsmlu5bti/example
+expected: a new directory
+got:      /tmp/tmp.3Tsmlu5bti
+All output of this run also goes to /tmp/tmp.3Tsmlu5bti/quickstart-gpu.log.
+From here on HOME and TMPDIR are /tmp/tmp.3Tsmlu5bti.
+
+quickstart-gpu needs: one NVIDIA H100 that nothing else uses, and its driver;
+CUDA 13.2 Update 2 (nvcc 13.2.86); the driver's library
+registered with the system's loader, and the toolkit's libraries registered too or in its
+directory lib64 or lib, if that meets the conditions in prover/docs/build.md; gcc and g++ 13;
+python3, binutils and flock; an x86-64 CPU with the SHA extensions; 10 GB of available
+memory; 1 GB of free disk space in the repository and 2 GB in /tmp, both on a local disk.
+It checks for each of these first, except for those conditions, which the second build checks.
+It writes to bin/ and prover/build/ in the repository and to /tmp/tmp.3Tsmlu5bti.
+The whole run takes about half an hour, nearly all of it the second build.
+
+[step 2] $ nvidia-smi --id=0 --query-gpu=name,compute_cap,driver_version,memory.used --format=csv,noheader,nounits
+NVIDIA H100 80GB HBM3, 9.0, 595.91.07, 0
+expected: a GPU of compute capability 9.0, as an H100 has, with less than 1024 MiB in use
+got:      NVIDIA H100 80GB HBM3, compute capability 9.0, driver 595.91.07, 0 MiB in use
+
+[step 3] $ type -P nvcc && nvcc --version | tail -n 2; prover/check_nvcc_version.sh
+/home/tester/cuda-13.2.86/nvidia/cu13/bin/nvcc
+Cuda compilation tools, release 13.2, V13.2.86
+Build cuda_13.2.r13.2/compiler.37953736_0
+expected: a path, a version, and exit status 0
+got:      exit status 0
+
+[step 4] $ gcc -dumpfullversion -dumpversion; g++ -dumpfullversion -dumpversion
+13.3.0
+13.3.0
+expected: gcc and g++, each 13 (tested: 13.3) or later (untested)
+got:      gcc 13, g++ 13
+
+[step 5] $ type -P python3 ld nm objcopy strings ldd sha256sum flock && python3 --version
+/usr/bin/python3
+/usr/bin/ld
+/usr/bin/nm
+/usr/bin/objcopy
+/usr/bin/strings
+/usr/bin/ldd
+/usr/bin/sha256sum
+/usr/bin/flock
+Python 3.12.3
+expected: eight paths and a version
+got:      Python 3.12.3
+
+[step 6] $ /sbin/ldconfig -p | grep -E 'libcuda|libcudart|libcublas'
+	libcudadebugger.so.1 (libc6,x86-64) => /lib/x86_64-linux-gnu/libcudadebugger.so.1
+	libcuda.so.1 (libc6,x86-64) => /lib/x86_64-linux-gnu/libcuda.so.1
+	libcuda.so (libc6,x86-64) => /lib/x86_64-linux-gnu/libcuda.so
+expected: a line for libcuda.so.1; for each of libcudart.so.13 libcublas.so.13 libcublasLt.so.13, a line or a file in /home/tester/cuda-13.2.86/nvidia/cu13/lib
+got:      a line for libcuda.so.1; only in /home/tester/cuda-13.2.86/nvidia/cu13/lib: libcudart.so.13 libcublas.so.13 libcublasLt.so.13
+cp_commit and cp_prove will find these only through a run path (rpath) to that directory,
+which prover/build.sh sets under the conditions in prover/docs/build.md. If it sets none, it says
+so only when it ends, in about half an hour, and this script then stops.
+
+[step 7] $ grep -m1 -ow sha_ni /proc/cpuinfo
+sha_ni
+expected: sha_ni
+got:      sha_ni
+
+[step 8] $ grep -sE '^(MemAvailable:|inactive_file|active_file) +[0-9]+( kB)?$' /proc/meminfo /sys/fs/cgroup/memory.stat; grep -s . /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory.current /sys/fs/cgroup/memory/memory.limit_in_bytes
+/proc/meminfo:MemAvailable:   2024243004 kB
+/sys/fs/cgroup/memory.stat:inactive_file 2835779584
+/sys/fs/cgroup/memory.stat:active_file 6897664
+/sys/fs/cgroup/memory.max:250999996416
+/sys/fs/cgroup/memory.current:2986930176
+expected: at least 10000000 kB available, on the machine and under the container's memory limit, if there is one
+got:      244976312 kB available under the container's memory limit of 245117184 kB; file cache counts as available
+
+[step 9] $ df -k --output=avail /tmp .
+   Avail
+60117528
+60117528
+expected: at least 2000000 kB available in /tmp and 1000000 kB in the repository
+got:      60117528 kB and 60117528 kB
+
+[step 10] $ flock -n "$W" true && flock -n . true
+expected: exit status 0: both directories can be locked
+got:      exit status 0
+
+A short program that calls the CUDA runtime goes to /tmp/tmp.3Tsmlu5bti/cuda_check.cu.
+
+[step 11] $ nvcc -std=c++17 --gpu-architecture=sm_90a --cudart=static -o "$W/cuda_check" "$W/cuda_check.cu" && "$W/cuda_check"
+the CUDA runtime reached the GPU
+expected: the CUDA runtime reached the GPU
+got:      the CUDA runtime reached the GPU
+
+Next: two builds. The first takes a minute or two. The second takes about half an hour and
+prints little but compiler warnings, which are not failures: this script checks each build's
+exit status.
+
+[step 12] $ verifier/build.sh
+build=93afdaf592393a54ebd17b681d1c03295eb883f0161ff0e6ab872a3b39939595 dw=8
+compiling cp_verify.cpp: one compiler call of one to two minutes, which prints nothing while it runs
+THE VERIFIER IS BUILT: /home/tester/fp/bin/cp_verify
+expected: exit status 0, and the program bin/cp_verify
+got:      exit status 0, and the program
+
+[step 13] $ ldd bin/cp_verify 2>&1 | grep -E 'libstdc|not found'
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x0000785aa19e3000)
+expected: a path for libstdc++, and no "not found"
+got:      a path
+
+[step 14] $ prover/build.sh
+building two programs, side by side: about half an hour in all. Little is printed meanwhile but the compiler's warnings. The last line of a good end begins THE PROGRAMS ARE BUILT
+building serving_cp_prove
+building serving_cp_commit
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/transform_groups_gl64.cuh(129): warning #550-D: variable "c" was set but never used
+    u32 l, h, c;
+              ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/transform_groups_gl64.cuh(129): warning #550-D: variable "c" was set but never used
+    u32 l, h, c;
+              ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./hiding/forest_fused.cuh(350): warning #177-D: variable "g" was declared but never referenced
+    const int warp = threadIdx.x >> 5, lane = threadIdx.x & 31, g = lane >> 2, t4 = lane & 3;
+                                                                ^
+
+./hiding/forest_fused.cuh(350): warning #177-D: variable "t4" was declared but never referenced
+    const int warp = threadIdx.x >> 5, lane = threadIdx.x & 31, g = lane >> 2, t4 = lane & 3;
+                                                                               ^
+
+./attn/front.cuh(379): warning #177-D: variable "p" was declared but never referenced
+      AP &p = P.p;
+          ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/transform_groups_gl64.cuh(129): warning #550-D: variable "c" was set but never used
+    u32 l, h, c;
+              ^
+
+./prover/layer_walk.cuh(766): warning #177-D: variable "W" was declared but never referenced
+    hw::Walk &W = Q.W;
+              ^
+
+./prover/layer_prove.cuh(36): warning #177-D: variable "HT" was declared but never referenced
+    HiddenTail &HT = Q.HT;
+                ^
+
+./prover/layer_prove.cuh(216): warning #177-D: variable "Q" was declared but never referenced
+    HFk &Q = *K.h;
+         ^
+
+./prover/layer_prove.cuh(541): warning #177-D: variable "HT" was declared but never referenced
+    HiddenTail &HT = Q.HT;
+                ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+Compiled by /home/tester/cuda-13.2.86/nvidia/cu13/bin/nvcc, release 13.2, V13.2.86
+build.sh: the compiler passed the check by value on this machine's GPU (compiler_sample: 324 values are the same on the GPU and on the CPU; the kernel has 80 bytes of local memory per thread)
+build.sh: note: serving_cp_commit will load the CUDA libraries from /home/tester/cuda-13.2.86/nvidia/cu13/lib, and /home/tester/cuda-13.2.86/nvidia/cu13/lib belongs to tester, not to root: whoever can write there chooses code that the program loads, no matter who runs it or where it is copied; see prover/docs/build.md.
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/lazy_gl64.cuh(86): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o0" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                              ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o1" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                  ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o2" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                      ^
+
+./field/lazy_gl64.cuh(438): warning #550-D: variable "o3" was set but never used
+      u32 e0, e1, e2, e3, e4, o0, o1, o2, o3;
+                                          ^
+
+./hiding/forest_fused.cuh(350): warning #177-D: variable "g" was declared but never referenced
+    const int warp = threadIdx.x >> 5, lane = threadIdx.x & 31, g = lane >> 2, t4 = lane & 3;
+                                                                ^
+
+./hiding/forest_fused.cuh(350): warning #177-D: variable "t4" was declared but never referenced
+    const int warp = threadIdx.x >> 5, lane = threadIdx.x & 31, g = lane >> 2, t4 = lane & 3;
+                                                                               ^
+
+./attn/front.cuh(379): warning #177-D: variable "p" was declared but never referenced
+      AP &p = P.p;
+          ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o0" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                        ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o1" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                            ^
+
+./field/transform_groups_gl64.cuh(74): warning #550-D: variable "o2" was set but never used
+    u32 e0, e1, e2, e3, o0, o1, o2;
+                                ^
+
+./field/transform_groups_gl64.cuh(129): warning #550-D: variable "c" was set but never used
+    u32 l, h, c;
+              ^
+
+./prover/layer_walk.cuh(766): warning #177-D: variable "W" was declared but never referenced
+    hw::Walk &W = Q.W;
+              ^
+
+./prover/layer_prove.cuh(36): warning #177-D: variable "HT" was declared but never referenced
+    HiddenTail &HT = Q.HT;
+                ^
+
+./prover/layer_prove.cuh(216): warning #177-D: variable "Q" was declared but never referenced
+    HFk &Q = *K.h;
+         ^
+
+./prover/layer_prove.cuh(541): warning #177-D: variable "HT" was declared but never referenced
+    HiddenTail &HT = Q.HT;
+                ^
+
+./common/zeroing_heap.h(51): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(54): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(57): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new ") is not allowed
+
+./common/zeroing_heap.h(60): warning #20011-D: calling a __host__ function("zeroing_heap_take(unsigned long, unsigned long)") from a __host__ __device__ function("operator new[] ") is not allowed
+
+./common/zeroing_heap.h(75): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(78): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(81): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(84): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(87): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(90): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+./common/zeroing_heap.h(93): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete ") is not allowed
+
+./common/zeroing_heap.h(96): warning #20011-D: calling a __host__ function("zeroing_heap_give(void *)") from a __host__ __device__ function("operator delete[] ") is not allowed
+
+Compiled by /home/tester/cuda-13.2.86/nvidia/cu13/bin/nvcc, release 13.2, V13.2.86
+build.sh: the compiler passed the check by value on this machine's GPU (compiler_sample: 324 values are the same on the GPU and on the CPU; the kernel has 80 bytes of local memory per thread)
+build.sh: note: serving_cp_prove will load the CUDA libraries from /home/tester/cuda-13.2.86/nvidia/cu13/lib, and /home/tester/cuda-13.2.86/nvidia/cu13/lib belongs to tester, not to root: whoever can write there chooses code that the program loads, no matter who runs it or where it is copied; see prover/docs/build.md.
+Compiled by /home/tester/cuda-13.2.86/nvidia/cu13/bin/nvcc, release 13.2, V13.2.86
+build.sh: note: each of the two programs will load the CUDA libraries from /home/tester/cuda-13.2.86/nvidia/cu13/lib, and /home/tester/cuda-13.2.86/nvidia/cu13/lib belongs to tester, not to root: whoever can write there chooses code that the program loads, no matter who runs it or where it is copied; see prover/docs/build.md.
+cp_prove and cp_commit carry a run path to /home/tester/cuda-13.2.86/nvidia/cu13/lib: they load the CUDA libraries from there.
+THE PROGRAMS ARE BUILT: cp_commit, cp_prove and cp_verify lie in /home/tester/fp/prover/build/hc
+expected: exit status 0, and the programs cp_commit, cp_prove and cp_verify in prover/build/hc
+got:      exit status 0, and the three programs
+
+[step 15] $ ldd prover/build/hc/cp_commit prover/build/hc/cp_prove 2>&1 | grep -E 'libcuda|libcublas|not found'
+	libcublas.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcublas.so.13 (0x00007a534ca00000)
+	libcudart.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcudart.so.13 (0x00007a534c600000)
+	libcublasLt.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcublasLt.so.13 (0x00007a5327c00000)
+	libcublasLt.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcublasLt.so.13 (0x00007b5fee400000)
+	libcublas.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcublas.so.13 (0x00007b5feae00000)
+	libcuda.so.1 => /lib/x86_64-linux-gnu/libcuda.so.1 (0x00007b5fe5600000)
+	libcudart.so.13 => /home/tester/cuda-13.2.86/nvidia/cu13/lib/libcudart.so.13 (0x00007b5fe5200000)
+expected: a path for each CUDA library that cp_commit and cp_prove need, and no "not found"
+got:      a path for each
+
+[step 16] $ nvidia-smi --id=0 --query-gpu=name,compute_cap,driver_version,memory.used --format=csv,noheader,nounits
+NVIDIA H100 80GB HBM3, 9.0, 595.91.07, 0
+expected: a GPU of compute capability 9.0, as an H100 has, with less than 1024 MiB in use
+got:      NVIDIA H100 80GB HBM3, compute capability 9.0, driver 595.91.07, 0 MiB in use
+
+[step 17] $ prover/examples/run_target_example.sh target_small_f2_roomy "${WORK:?first run the line with mktemp}"
+   $ cd /tmp/tmp.3Tsmlu5bti/example
+1. The public configuration: the parameter file, the scales, the layout of a proof's arrays
+   $ cp /home/tester/fp/prover/examples/target_small_f2_roomy/policy.txt /home/tester/fp/prover/examples/target_small_f2_roomy/KL.bin /home/tester/fp/prover/examples/target_small_f2_roomy/layout.txt config/
+2. cp_commit draws a seed and commits to the weights: ivk/ is for the clients, isk/ stays with the provider
+   $ /home/tester/fp/prover/build/hc/cp_commit -weights made-up-blocks -config config -M 1 -ivk ivk -isk isk > cp_commit.log 2>&1
+   the commitment's ID, to be published: 4117d0e3abe83f17e186561320e904cf18a8f2391337d679add26c856733912a
+3. The request: a made-up prompt, the model's own first choices after it, and the question whether each of them is that, and which token comes next
+   $ cp /home/tester/fp/prover/examples/target_small_f2_roomy/own_choices.req in/example.req
+4. cp_prove runs the model on the request and writes the answer and its proof
+   $ env HOME=/tmp/tmp.3Tsmlu5bti/example/home TMPDIR=/tmp/tmp.3Tsmlu5bti/example/tmp /home/tester/fp/prover/build/hc/cp_prove -isk /tmp/tmp.3Tsmlu5bti/example/isk -in /tmp/tmp.3Tsmlu5bti/example/in -out /tmp/tmp.3Tsmlu5bti/example/out > cp_prove.log 2>&1
+5. cp_verify: the client's one call, on public files alone, under the commitment ID; printed below: if cp_verify accepts, the answer and the files' lengths; then its line on what the proof covers, its accounting as one number (where proof of work is counted: with it and, in brackets, without it) with its caution on such figures, its line on the commitment, its exit status, its line on proof of work, and its last line, the verdict
+   $ /home/tester/fp/prover/build/hc/cp_verify config ivk in/example.req out/example.y out/example.proof -id 4117d0e3abe83f17e186561320e904cf18a8f2391337d679add26c856733912a > cp_verify.log
+   the answer: token 284; key 1096048, entry 538016, proof 4150020 bytes
+covered: r=15 e=64 T=64 C=256 theta=256 cap=0 s=16 sh=8 positions=15..63 tokens=16..63 y=yes next-token=no policy=exact-match above-clip=0 (places in the request, counted from 0; y=yes: the answer is about y too; it is about nothing else; above-clip: so many of the tokens named by tokens= may cost more than C, and such a token may be any token. It is no limit on the tokens that may be any token: one that costs C or less may be any token too where the committed model's logits lie close together, and no verifier sees that. All costs, each counted as at most C, add up to at most theta times the number of these tokens)
+accounting: as one number, by the compiled bound: 126.21 bits, proof of work counted (without it: 96.23 bits)
+accounting:   that the programs compute the protocol is not proved; no figure here is a security level
+commitment: 49 closeness rounds of the one-time files rest on another source than the bound within a third of the distance; the table has a record: the binding of the weights rests on the theorem on codes (ePrint 2025/2055, Theorem 4.6), taken as given
+   status 0
+proof of work: up to 32 bits counted in 38 rounds; with it the least round has 128.00 bits, without it 96.23 bits
+YES
+expected: exit status 0, and from cp_verify: YES
+got:      exit status 0, and from cp_verify: YES
+
+The proof is /tmp/tmp.3Tsmlu5bti/example/out/example.proof.
+The commitment ID is 4117d0e3abe83f17e186561320e904cf18a8f2391337d679add26c856733912a.
+quickstart-gpu: all steps ended as expected; your files are in /tmp/tmp.3Tsmlu5bti
