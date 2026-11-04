@@ -26,7 +26,7 @@ With Daniel Hawkley's chain from OpenAI's theorem to ETHIsFalse (comment above),
 
 What it does not settle: the steps run on three Lean versions (4.33.1, 4.34.1, 4.36.0-rc2), and I have read, not proved, that the copied statements mean the same in each. That a formal ETH is the textbook ETH remains a reading of a definition. Siyuan Zhuang's proofs (on OpenAI's machine model) and complexitylib's (on cslib's) are native re-proofs. As far as I found, this is the first link from a lab's own statement to a standard machine.
 
-Checked from pinned files with Lean's kernel and nanoda (23,430 declarations) plus leanchecker --fresh; three deliberately wrong variants were refused. Separately: ETH also fails on the word RAM with O(log L)-bit words, from complexitylib's proof. I wrote the statements; Claude wrote the proofs; I wrote the checker. So the roles are separate, but this is not an independent second party.
+Checked from pinned files with Lean's kernel and nanoda (23,430 declarations) plus leanchecker --fresh; three deliberately wrong variants were refused. Separately: ETH also fails on the word RAM with O(log L)-bit words, from complexitylib's proof. I wrote the statements, Claude wrote the proofs, and my own checker, also built with Claude, decided them. The roles are separate, but this is not an independent second party.
 
 Figure and records: https://carlostoledo.co/eth/#standard
 Lean source: https://github.com/carlostoledo1891/claimbox/tree/main/lean/eth-bridge
