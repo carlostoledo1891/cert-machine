@@ -74,6 +74,11 @@ NEXT SESSION, IN ORDER:
      page and the e-mail — accurate; Carlos replied with permission to publish and two corrections (attribute the quotes to the
      e-mail; two kernels, three replays). WHEN IT IS PUBLISHED: pin a snapshot and add a recognition row (kind 'press'), as for
      Saddler's and Prisco's columns.
+     TRANSFORMATIVE AI FUND (EA Funds) GRANT APPLICATION SUBMITTED by Carlos (~02:00 UTC 11-04; row
+     taif-grant-application-2026-11-03): the Verify Gym run, US$33,000 over three months (four scenarios to US$53,900;
+     outreach/taif-2026-11/application.md, the budget git-excluded); rolling decisions; the Mercor AI Safety Fund was found
+     INELIGIBLE (US/UK-based, institution-held awards). THREE APPLICATIONS NOW PENDING: Prime RL Residency, Anthropic
+     Residency, the TAIF grant (+ speedrun SR008 from 10-31; Epoch/FAR.AI/Cohere from 10-20 unanswered).
      ANTHROPIC RESIDENCY APPLICATION SUBMITTED by Carlos (~00:30 UTC 11-04; row anthropic-residency-application-2026-11-03):
      the essays from his own draft, refined under Anthropic's candidate AI guidance (draft yourself, refine with Claude,
      be transparent — the line is in the cover note); resume v4.1 (outreach/resume; the Weights + MacMahon audits added).
