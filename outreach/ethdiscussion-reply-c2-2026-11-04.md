@@ -18,12 +18,15 @@ stated as "as far as I found".
 Checked against certs/eth-c2.json (CERTIFIED), certs/eth-c1.json (CERTIFIED), certs/eth-cslib-d1.json (CERTIFIED).
 
 ---- PASTE (reply to #comment-24) ----
-An update to my comment above. I wrote there that the step between the machine models is formalized by neither lab. For Anthropic's statement, that step is now in Lean:
+An update to my comment above. There I said that neither lab formalizes the step from its own machine model to a standard one. For Anthropic's statement, that step is now proved in Lean:
 
-MainResults.ETHIsFalse → ¬ETH, where ETH is cslib-community/complexitylib's: deterministic cslib multitape Turing machines, 3-SAT on the binary encCNF of every formula (any labels, repeated literals and clauses), time c · 2^(δn) · (L+1)^e + c. Anthropic's file is used byte for byte. The proof adds a polynomial-time conversion to encClauses 3, and a TM2 simulation whose cost does not depend on the program; the program is chosen after δ.
+If Anthropic's ETHIsFalse holds, then for every δ > 0 a deterministic multitape Turing machine (cslib's, as used by cslib-community/complexitylib) decides 3-SAT on the plain binary encoding of every formula in time c · 2^(δn) · (L+1)^e + c. Here n is the number of variables and L the input length. Variable names may be arbitrary, and literals and clauses may repeat. Anthropic's MainResults.lean is used byte for byte. The proof converts the input to Anthropic's encoding in polynomial time and simulates Anthropic's machine on the multitape machine.
 
-With Daniel Hawkley's ¬PositiveRateETH → ETHIsFalse (comment above), both labs' statements reach the same standard machine. Two things stay read, not decided: the Lean versions differ between the steps (4.33.1, 4.34.1, 4.36.0-rc2), and a formal ETH being the textbook ETH is a reading of a definition. Siyuan Zhuang's proofs and complexitylib's reach multitape machines natively. As far as I found, this is the first link from a lab's own statement.
+With Daniel Hawkley's chain from OpenAI's theorem to ETHIsFalse (comment above), both labs' statements now reach the same standard machine.
 
-It was checked from pinned bytes: Lean's kernel, nanoda (23,430 declarations), leanchecker --fresh, and three planted wrong variants refused. Separately, ¬ETH on the word RAM at logarithmic word size, from complexitylib's proof. Statements by hand, proofs by Claude, checker by the same author: separate roles, not a second party.
+What it does not settle: the steps run on three Lean versions (4.33.1, 4.34.1, 4.36.0-rc2), and I have read, not proved, that the copied statements mean the same in each. That a formal ETH is the textbook ETH remains a reading of a definition. Siyuan Zhuang's proofs (on OpenAI's machine model) and complexitylib's (on cslib's) are native re-proofs. As far as I found, this is the first link from a lab's own statement to a standard machine.
 
-Records: https://carlostoledo.co/eth/#standard · source: https://github.com/carlostoledo1891/claimbox/tree/main/lean/eth-bridge
+Checked from pinned files with Lean's kernel and nanoda (23,430 declarations) plus leanchecker --fresh; three deliberately wrong variants were refused. Separately: ETH also fails on the word RAM with O(log L)-bit words, from complexitylib's proof. I wrote the statements; Claude wrote the proofs; I wrote the checker. So the roles are separate, but this is not an independent second party.
+
+Figure and records: https://carlostoledo.co/eth/#standard
+Lean source: https://github.com/carlostoledo1891/claimbox/tree/main/lean/eth-bridge
