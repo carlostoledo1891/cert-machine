@@ -27,7 +27,35 @@ const CARDS = {
   eth: { eyebrow: 'Carlos Toledo · independent certification · the Exponential Time Hypothesis',
     title: 'Two claims that ETH is false, decided',
     deck: 'Both labs’ Lean proofs replayed by two kernels and accepted against their own statements. The bridges between the two machine models, written by third parties, replayed and certified. The version seam between the two Leans measured, and said to be read, not decided.',
-    path: '/eth/' }
+    path: '/eth/' },
+  'eth-chain': { eyebrow: 'Carlos Toledo · independent certification · ETH',
+    title: 'Both AI “ETH is false” proofs now reach a textbook machine',
+    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. What stays a reading, the textbook definition and two Lean version gaps, is marked as one.',
+    path: '/eth/',
+    svgRaw: '<svg viewBox="0 0 470 400" width="470" height="400" role="img" aria-label="Two lab boxes, linked by solid lines to a standard multitape Turing machine with its tape, and a dashed line to the textbook ETH" style="font-family:var(--mono, ui-monospace, monospace)">'
+      + '<defs><marker id="og-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>'
+      + '<marker id="og-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-2)"/></marker></defs>'
+      /* the two labs, each on a machine of its own */
+      + '<rect x="6" y="20" width="150" height="58" rx="5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>'
+      + '<text x="81" y="45" text-anchor="middle" font-size="17" fill="var(--ink)">OpenAI</text><text x="81" y="66" text-anchor="middle" font-size="12" fill="var(--ink-3)">its own machine</text>'
+      + '<rect x="6" y="150" width="150" height="58" rx="5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>'
+      + '<text x="81" y="175" text-anchor="middle" font-size="17" fill="var(--ink)">Anthropic</text><text x="81" y="196" text-anchor="middle" font-size="12" fill="var(--ink-3)">its own machine</text>'
+      + '<line x1="81" y1="78" x2="81" y2="148" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#og-a)"/>'
+      + '<path d="M70,96 l22,-6 M70,102 l22,-6" stroke="var(--ink-2)" stroke-width="1.6"/>' + '<text x="100" y="112" font-size="12" fill="var(--ink)">checked</text><text x="100" y="128" font-size="11" fill="var(--ink-3)">K · N</text>'
+      /* the standard machine: a head over a tape of bits */
+      + '<line x1="156" y1="179" x2="262" y2="179" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#og-a)"/>'
+      + '<path d="M182,168 l-6,22 M188,168 l-6,22" stroke="var(--ink-2)" stroke-width="1.6"/>' + '<text x="226" y="168" text-anchor="middle" font-size="12" fill="var(--ink)">checked</text><text x="226" y="198" text-anchor="middle" font-size="11" fill="var(--ink-3)">K · N</text>'
+      + '<rect x="264" y="128" width="198" height="104" rx="5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>'
+      + '<text x="363" y="154" text-anchor="middle" font-size="14" fill="var(--ink)">a standard multitape</text><text x="363" y="170" text-anchor="middle" font-size="14" fill="var(--ink)">Turing machine</text>'
+      + ['1', '0', '1', '1', '0', '0', '1', '0', '1'].map((b, i) => '<rect x="' + (276 + i * 19.5) + '" y="196" width="18" height="24" fill="none" stroke="var(--ink-2)" stroke-width="1.2"/><text x="' + (285 + i * 19.5) + '" y="213" text-anchor="middle" font-size="12" fill="var(--ink-2)">' + b + '</text>').join('')
+      + '<path d="M355,181 l12,0 l-6,10 z" fill="var(--ink)"/>'
+      /* the reading: dashed, as on every page here */
+      + '<line x1="363" y1="234" x2="363" y2="300" stroke="var(--ink-2)" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#og-r)"/>'
+      + '<text x="373" y="270" font-size="12" fill="var(--ink-2)">read</text>'
+      + '<rect x="284" y="302" width="158" height="52" rx="5" fill="none" stroke="var(--ink-2)" stroke-width="1.6" stroke-dasharray="5 4"/>'
+      + '<text x="363" y="333" text-anchor="middle" font-size="15" fill="var(--ink-2)">the textbook ETH</text>'
+      + '<text x="6" y="378" font-size="11" fill="var(--ink-3)">solid: decided by two kernels</text><text x="6" y="394" font-size="11" fill="var(--ink-3)">//: a Lean version gap, read · dashed: a reading</text>'
+      + '</svg>' }
 };
 
 function cardHtml(c) {
@@ -38,8 +66,12 @@ function cardHtml(c) {
     title: c.title, path: '/', footRaw: null, desc: c.deck,
     /* a still, not a page: no nav, no theme pill, no entrance motion; the block set lower and larger so it reads at thumbnail size */
     cssRaw: 'h1,.deck,.stats{animation:none}\nnav.topnav,[class*="theme"]{display:none !important}\n.page{padding-top:var(--s-10)}\n.og-host{margin-top:var(--s-7)}\nh1{font-size:clamp(34px,4.2vw,54px);line-height:1.08}\n.deck{font-size:clamp(18px,1.9vw,24px);line-height:1.45}',
-    bodyRaw: C.header({ eyebrow: c.eyebrow, title: c.title, deck: c.deck })
-      + '\n<div class="col og-host"><div class="eyebrow">carlostoledo.co' + c.path + '</div></div>'
+    bodyRaw: c.svgRaw
+      ? '<div class="og-two" style="display:grid;grid-template-columns:1fr 470px;gap:44px;align-items:center;padding:0 56px;margin-top:-64px">'
+        + '<div>' + C.header({ eyebrow: c.eyebrow, title: c.title, deck: c.deck }) + '<div class="eyebrow" style="margin-top:22px">carlostoledo.co' + c.path + '</div></div>'
+        + '<div>' + c.svgRaw + '</div></div>'
+      : C.header({ eyebrow: c.eyebrow, title: c.title, deck: c.deck })
+        + '\n<div class="col og-host"><div class="eyebrow">carlostoledo.co' + c.path + '</div></div>'
   });
 }
 
