@@ -26,7 +26,8 @@
    claimbox/ (2026-10-30, at claimbox's request, on the operator's word there: "I want the claimbox page live as it is now
    first"): ~/Projects/claimbox/web/, built there by `make web` → web/dist/, one self-contained index.html gated by its own
    `python3 -m web.build --check`; its grammar is re-expressed there (web/grammar.css), nothing imported, the cert-machine
-   files it was read from pinned in claimbox's web/PINS.json. Indexable and in the sitemap; linked from no page here. */
+   files it was read from pinned in claimbox's web/PINS.json. Indexable and in the sitemap. 2026-11-04, on the operator's word ("maybe only one [link] to generate traffic"): ONE link
+   to it, from /eth/ §5b's who-did-what line, where claimbox is named as the claimant of C1 and C2. */
 'use strict';
 
 const FOREIGN = [
