@@ -1,0 +1,55 @@
+'ComplexityAbstracts.SubexponentialSATAbstract.not_eth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ComplexityAbstracts.SubexponentialSATAbstract.not_seth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ComplexityAbstracts.SubexponentialSATAbstract.exact_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ComplexityAbstracts.SubexponentialSATAbstract.satExponent_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ComplexityAbstracts.SubexponentialSATAbstract.length_encCNF' depends on axioms: [propext, Quot.sound]
+'Cslib.WordRAM.OfTuring.executes_simProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Turing.MultiTapeTM.ComputableInPolyTime.exists_wordRAM' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ComplexityAbstracts.SubexponentialSATAbstract.ETH : Prop :=
+∃ δ,
+  0 < δ ∧
+    ¬ComplexityAbstracts.SubexponentialSATAbstract.DecidableInExpTime
+        (ComplexityAbstracts.SubexponentialSATAbstract.KSAT 3) ComplexityAbstracts.SubexponentialSATAbstract.encCNF
+        ComplexityAbstracts.SubexponentialSATAbstract.numVars δ
+def ComplexityAbstracts.SubexponentialSATAbstract.DecidableInExpTime : {α : Type} →
+  Set α → (α ↪ List Bool) → (α → ℕ) → ℝ → Prop :=
+fun {α} A enc μ δ =>
+  ∃ e,
+    ComplexityAbstracts.SubexponentialSATAbstract.DecidableInTimeO A enc fun x =>
+      2 ^ (δ * ↑(μ x)) * (↑(enc x).length + 1) ^ e
+def ComplexityAbstracts.SubexponentialSATAbstract.DecidableInTimeO : {α : Type} →
+  Set α → (α ↪ List Bool) → (α → ℝ) → Prop :=
+fun {α} A enc T => ∃ c t s, (∀ (x : α), ↑(t x) ≤ ↑c * T x + ↑c) ∧ Turing.MultiTapeTM.DecidableInTimeAndSpace A enc t s
+def Turing.MultiTapeTM.DecidableInTimeAndSpace.{u_3} : {α : Type u_3} →
+  Set α → (α ↪ List Bool) → (α → ℕ) → (α → ℕ) → Prop :=
+fun {α} L enc t s =>
+  Turing.MultiTapeTM.ComputableInTimeAndSpace (Turing.MultiTapeTM.indicator L) enc
+    { toFun := fun b => [b], inj' := Turing.MultiTapeTM.DecidableInTimeAndSpace._proof_1 } t s
+structure Turing.MultiTapeTM.{u_3, u_4} (k : ℕ) (Symbol : Type u_3) (State : Type u_4) : Type (max u_3 u_4)
+number of parameters: 3
+parents:
+  Turing.MultiTapeTM.toMultiTapeNTM : Turing.MultiTapeNTM k Symbol State
+fields:
+  Turing.MultiTapeNTM.q₀ : State
+  Turing.MultiTapeNTM.Tr : State → Option Symbol → (Fin k → Option Symbol) → Turing.Action k Symbol State → Prop
+  Turing.MultiTapeTM.deterministic : self.IsDeterministic
+constructor:
+  Turing.MultiTapeTM.mk.{u_3, u_4} {k : ℕ} {Symbol : Type u_3} {State : Type u_4}
+    (toMultiTapeNTM : Turing.MultiTapeNTM k Symbol State) (deterministic : toMultiTapeNTM.IsDeterministic) :
+    Turing.MultiTapeTM k Symbol State
+field notation resolution order:
+  Turing.MultiTapeTM, Turing.MultiTapeNTM
+@Cslib.WordRAM.OfTuring.executes_simProgram : ∀ {k m : ℕ} {Q : Type} {tm : Turing.MultiTapeTM k Bool Q}
+  {inp : List Bool} {δ : Q → Option Bool → (Fin k → Option Bool) → Turing.Action k Bool Q},
+  (∀ (q : Q) (a : Option Bool) (s : Fin k → Option Bool), tm.tr q a s = δ q a s) →
+    ∀ (e : Q ≃ Fin m) {t : ℕ},
+      (Turing.MultiTapeTM.runFrom (tm.initCfg inp) t).state = none →
+        ∀ {w : ℕ},
+          Cslib.WordRAM.OfTuring.simBound k m inp.length t < 2 ^ w →
+            (Turing.MultiTapeTM.runFrom (tm.initCfg inp) t).output.length < w →
+              ∃ n ≤ Cslib.WordRAM.OfTuring.simTime k m t,
+                Cslib.WordRAM.Executes w (Cslib.WordRAM.OfTuring.simProgram δ tm.q₀ e)
+                  (Cslib.WordRAM.State.init (List.map Bool.toNat inp))
+                  (Cslib.BitString.lsbValue (Turing.MultiTapeTM.runFrom (tm.initCfg inp) t).output) n

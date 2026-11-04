@@ -480,6 +480,31 @@ B.push(C.section({
     : C.pRaw(W.value('not yet run', W.REFUSED) + '. The gap both readers found is OpenAI’s: its Lean has no ETH. The bridge is the textbook definition (s_k as an infimum, ETH as s_k > 0 for k ≥ 3), written once in Lean and instantiated in each lab’s own machine and encoding, with a proof that OpenAI’s theorem implies its negation there, and that Anthropic’s ETHIsFalse does. It is being built on GitHub’s runners. The steps between machine models and encodings, §2’s third and fourth premises, stay prose for both labs.')
 }));
 
+/* §5b toward the standard machine (the model-gap lane, notes/eth-model-gap-preregistration-2026-11-04.md): each step
+   read from its record when the record exists, and said to be in progress when it does not */
+const D1_REL = 'certs/eth-cslib-d1.json', C1_REL = 'certs/eth-c1.json';
+const ghRec = (rel) => '<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/' + C.escAttr(rel) + '"><span class="m">' + C.esc(rel) + '</span></a>';
+const vTag = (v) => C.tag(v, v === 'CERTIFIED' ? 'held' : v === 'REFUTED' ? 'fail' : 'open');
+const lane = [];
+if (fs.existsSync(path.join(ROOT, D1_REL))) {
+  const d1 = J(D1_REL);
+  if (d1.verdict === 'CERTIFIED' && !(d1.nanoda.not_eth && d1.nanoda.not_eth.accepted)) fail('the D1 record says CERTIFIED without nanoda accepting not_eth');
+  lane.push({ b: 'A native re-proof on a standard machine.', raw: vTag(d1.verdict) + ' cslib-community/complexitylib (built by AI agents, reviewed by an AI reviewer) re-proves OpenAI’s Proposition 6.4 route from scratch, with ETH stated on cslib’s deterministic multitape Turing machine and the binary encoding encCNF, as close to the textbook model as a Lean statement has come. Decided here at ' + C.esc(d1.claim.commit.slice(0, 8)) + ': the build from source, the three standard axioms from our own file, nanoda accepting all ' + C.esc(d1.nanoda.not_eth.declarations.toLocaleString('en-US')) + ' declarations beneath not_eth, leanchecker --fresh. It is a re-proof, not a bridge from either lab’s statement. ' + ghRec(D1_REL) + '.' });
+}
+if (fs.existsSync(path.join(ROOT, C1_REL))) {
+  const c1 = J(C1_REL);
+  lane.push({ b: 'ETH on a word RAM.', raw: vTag(c1.verdict) + ' ' + C.esc(c1.scope) + ' ' + ghRec(C1_REL) + '.' });
+} else {
+  lane.push({ b: 'ETH on a word RAM.', raw: vTag('IN PROGRESS') + ' complexitylib’s Turing-machine-to-RAM inclusions at logarithmic word size need polynomial running time, because its simulator bounds addresses by time. A proof that bounds them by space instead, so the 2^{o(n)}-time decider runs at O(log L)-bit words, is written in claimbox (lean/eth-bridge, a proposal) and is being decided here.' });
+}
+lane.push({ b: 'The labs’ own statements on the standard machine.', raw: vTag('IN PROGRESS') + ' Anthropic’s ETHIsFalse (Mathlib FinTM2 on encClauses) implying complexitylib’s ¬ETH, so that, with Hawkley’s chain, both labs’ statements reach cslib’s machine. Stated in claimbox; not yet proved.' });
+lane.push({ b: 'What stays a reading.', text: 'That any formal ETH, ours, cslib’s or a lab’s, is the textbook ETH is a reading of a definition. The best outcome of this lane makes it a reading of a standard multitape machine and a word RAM with a reasonable binary encoding.' });
+B.push(C.section({
+  lab: '§5b · toward the standard machine', title: 'From the labs’ machines to a textbook one', id: 'standard',
+  bodyRaw: C.pRaw('The two prose steps above, the machine and the encoding, are the gap every reader names. Since 4 November this lane works on them: proofs written by claimbox and its AI agents, decided here from pinned bytes. claimbox and this page have the same author, so a decision here separates roles; it is not a second party.')
+    + C.plainList(lane)
+}));
+
 /* §6 open, and who wrote this */
 B.push(C.section({
   lab: '§6 · open', title: 'What this page does not say',

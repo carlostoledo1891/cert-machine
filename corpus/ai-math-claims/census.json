@@ -1,0 +1,2258 @@
+{
+ "what": "Public AI-lab and AI-assisted mathematics claims from June to November 2026, each with its formal artefact, its outside checks, cert-machine's verdict where one exists and a pointer to the record that holds it. Read on 2026-11-04: the outside facts from the public sources each row cites (confidence C confirmed at the primary source, P partly, U unconfirmed); cert-machine's verdicts from the records each row points to, re-resolved at every build.",
+ "asOf": "2026-11-04",
+ "rows": [
+  {
+   "id": "openai-math-release",
+   "lab": "OpenAI",
+   "claim": "Bulk release of 719 machine manuscripts in about 373 families; about 185 main results have Lean, checked by 405 to 416 Comparator challenges",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math"
+   },
+   "independent": [
+    {
+     "who": "Commelin (remarks in Quanta, not a check)",
+     "url": "https://www.quantamagazine.org/update/168049/"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "398 of 416 Comparator challenges accepted by two kernels (Lean and nanoda) at fd4aeeb2; 18 REFUSED for resources; none rejected",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/counts/words",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "REFUSED",
+      "record": "certs/openai-math-kernel.json",
+      "pointer": "/counts/words"
+     }
+    ]
+   },
+   "gap": "Five headlines rest on no checked statement; 34 of 242 formalized families state less than they claim; 63 of 65 definition holes are compared by type only; nanoda on for 2 of 416; 15 witnesses unpublished",
+   "pattern": [
+    "statement-vs-headline",
+    "custom-model",
+    "one-kernel",
+    "missing-files",
+    "no-witness"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math",
+    "https://www.quantamagazine.org/update/168049/"
+   ]
+  },
+  {
+   "id": "openai-weil-withdrawal",
+   "lab": "OpenAI",
+   "claim": "A sign error withdraws the Weil-classes paper on split abelian eightfolds and two dependent papers; 14 papers revised",
+   "date": "2026-10-07",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "finder not named",
+     "url": "https://github.com/openai/math/blob/main/history.md"
+    }
+   ],
+   "ours": null,
+   "gap": "Only unformalized results were affected; the README's warning that unformalized results could have issues applies",
+   "pattern": [
+    "credit",
+    "declared-gap"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math/blob/main/history.md"
+   ]
+  },
+  {
+   "id": "openai-navier-stokes",
+   "lab": "OpenAI",
+   "claim": "3D Navier-Stokes blow-up with a smooth force (Clay alternatives C and D), plus unforced Euler blow-up; 166 pages and about 600k lines of Lean",
+   "date": "2026-09-08",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/NavierStokesAndEuler"
+   },
+   "independent": [
+    {
+     "who": "Clay Mathematics Institute (evaluating, no decision)",
+     "url": null
+    },
+    {
+     "who": "Bastounis, Circelli, Hansen",
+     "url": "https://arxiv.org/abs/2610.08144"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Built here; Comparator and nanoda on both configurations; standard axioms only; at f9e8bc5b the Lean proves Theorem 1.1 as stated, finite energy included (PARTIAL at the announced 8937a8f4)",
+    "record": "certs/claims-ledger.json",
+    "pointer": "/rows/54",
+    "page": "reports/navier-stokes.html"
+   },
+   "gap": "The force is inside the statement; 13 places where the paper asserts without showing; the analytic core was read, not decided",
+   "pattern": [
+    "statement-vs-headline",
+    "one-kernel"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/NavierStokesAndEuler",
+    "https://arxiv.org/abs/2610.08144"
+   ]
+  },
+  {
+   "id": "openai-eth",
+   "lab": "OpenAI",
+   "claim": "ETH is false: deterministic exact #k-CNF counting in subexponential time and polynomial space (family 378, SubexponentialSAT)",
+   "date": "2026-10-26",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/SubexponentialSAT.lean"
+   },
+   "independent": [
+    {
+     "who": "Impagliazzo-Paturi-Williams working group (letter says not certification; no outcome yet)",
+     "url": "https://ethdiscussion.blog/"
+    },
+    {
+     "who": "Fortnow (comment, not a verification)",
+     "url": null
+    },
+    {
+     "who": "O'Donnell, Kintali, Sellke (expositions)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Comparator with Lean's kernel, nanoda and leanchecker --fresh at 7ef5c0cc; a Lean bridge proves the claim refutes textbook ETH in OpenAI's own machine model",
+    "record": "certs/eth-kernel.json",
+    "pointer": "/rows/0",
+    "page": "eth/",
+    "also": [
+     {
+      "verdict": "PROVED",
+      "record": "certs/eth-bridge.json",
+      "pointer": "/bridges/openai/theorem/word"
+     }
+    ]
+   },
+   "gap": "The machine model (PrimitiveMachine) and CNF encoding are custom and defined in the challenge file; the step across machine models is prose; the release config ships with nanoda off",
+   "pattern": [
+    "custom-model",
+    "one-kernel",
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/SubexponentialSAT.lean",
+    "https://ethdiscussion.blog/"
+   ]
+  },
+  {
+   "id": "openai-local-smoothing",
+   "lab": "OpenAI",
+   "claim": "Local smoothing in all dimensions n >= 2, with Bochner-Riesz, Kakeya maximal and dimension, Stein square function and spherical restriction consequences",
+   "date": "2026-10-26",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/LocalSmoothing.lean"
+   },
+   "independent": [],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane only (one of 18 of 20 at 7ef5c0cc); no statement reading run",
+    "record": "certs/openai-math-kernel-7ef5c0cc.json",
+    "pointer": "/rows/11",
+    "page": "reports/openai-math.html"
+   },
+   "gap": "Custom definitions in the trusted base (halfWaveIntegral, IsKakeyaSet, kakeyaMaximal, literalSteinSquareFunction) not read against the literature",
+   "pattern": [
+    "custom-model",
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/LocalSmoothing.lean"
+   ]
+  },
+  {
+   "id": "openai-hodge-cm",
+   "lab": "OpenAI",
+   "claim": "Rational Hodge conjecture for CM abelian varieties in every dimension",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math/tree/main/lean/ComparatorChallenges/HodgeConjectureCMAbelianVarieties"
+   },
+   "independent": [
+    {
+     "who": "an outside replayer (not named until they consent) found the statement mismatch",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "READ",
+    "scope": "Statement read at 7ef5c0cc: challenge and solution name different constants, so Comparator's statement comparison cannot pass; kernel REFUSED for resources",
+    "record": "certs/openai-math-hodge-statement.json",
+    "pointer": "/word",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "REFUSED",
+      "record": "certs/openai-math-kernel-7ef5c0cc.json",
+      "pointer": "/rows/6"
+     }
+    ]
+   },
+   "gap": "The statement imports HodgeConjecture.Variants and OAI definitions that must be trusted; repaired upstream 10-29 (PR #4), not re-run here",
+   "pattern": [
+    "custom-model",
+    "unreplayed-computation",
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math/tree/main/lean/ComparatorChallenges/HodgeConjectureCMAbelianVarieties",
+    "https://github.com/openai/math/pull/4"
+   ]
+  },
+  {
+   "id": "openai-quasi-rh",
+   "lab": "OpenAI",
+   "claim": "Quasi-Riemann hypothesis: no zeros of zeta or Dirichlet L-functions for Re s > 7/8; Hecke variant",
+   "date": "2026-09-30",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/QuasiRiemannHypothesis.lean"
+   },
+   "independent": [
+    {
+     "who": "Sarnak (not a theorem until humans check it)",
+     "url": null
+    },
+    {
+     "who": "Tao (still being digested, 10-19)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane at fd4aeeb2; lane S reads the statement as riemannZeta s != 0 on Mathlib's zeta (family 003 MATCHES)",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/rows/286",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "MATCHES",
+      "record": "certs/openai-math-statements.json",
+      "pointer": "/rows/0/word"
+     }
+    ]
+   },
+   "gap": "One kernel upstream; the human-edited 11/12 write-up is not formal",
+   "pattern": [
+    "one-kernel"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/QuasiRiemannHypothesis.lean"
+   ]
+  },
+  {
+   "id": "openai-siegel-zeros",
+   "lab": "OpenAI",
+   "claim": "Uniform exclusion of Landau-Siegel zeros",
+   "date": "2026-10-01",
+   "formal": {
+    "kind": "Lean",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "Tao (sketch of Green's reformulation, an exposition)",
+     "url": "https://terrytao.wordpress.com/2026/10/19/a-sketch-of-the-proof-of-non-existence-of-siegel-zeroes/"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane only (challenge SiegelZeros, at fd4aeeb2)",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/rows/318",
+    "page": "reports/openai-math.html"
+   },
+   "gap": "Statement not compared with the headline here",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://terrytao.wordpress.com/2026/10/19/a-sketch-of-the-proof-of-non-existence-of-siegel-zeroes/"
+   ]
+  },
+  {
+   "id": "openai-hadwiger",
+   "lab": "OpenAI",
+   "claim": "Hadwiger's conjecture is false for graphs with independence number at most 2",
+   "date": "2026-09-23",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/HadwigerCounterexample.lean"
+   },
+   "independent": [
+    {
+     "who": "E. Bonnet (kernel replay that vendors OpenAI's 288 construction modules)",
+     "url": "https://github.com/EdouardBonnet/hadwiger-counterexample"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane only (challenge HadwigerCounterexample, at fd4aeeb2)",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/rows/159",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "NARROWER — DECLARED",
+      "record": "certs/openai-math-statements.json",
+      "pointer": "/rows/93/word"
+     },
+     {
+      "verdict": "NEEDS DATA",
+      "record": "certs/openai-math-finite.json",
+      "pointer": "/rows/26/word"
+     }
+    ]
+   },
+   "gap": "hadwigerNumber and connectedMatchingNumber are defined in the challenge file; no second, independent construction",
+   "pattern": [
+    "custom-model",
+    "one-kernel"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/HadwigerCounterexample.lean",
+    "https://github.com/EdouardBonnet/hadwiger-counterexample"
+   ]
+  },
+  {
+   "id": "openai-five-color",
+   "lab": "OpenAI",
+   "claim": "The plane is not 5-colourable (EuclideanFiveColor, family 158)",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math"
+   },
+   "independent": [],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane; the displayed definition checked by a transfer check (TRANSFERS); the finite graph NEEDS DATA",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/rows/117",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "TRANSFERS",
+      "record": "certs/openai-math-kernel.json",
+      "pointer": "/rows/117/transfer/word"
+     },
+     {
+      "verdict": "NEEDS DATA",
+      "record": "certs/openai-math-finite.json",
+      "pointer": "/rows/29/word"
+     }
+    ]
+   },
+   "gap": "The finite unit-distance graph exists by compactness and is never shown",
+   "pattern": [
+    "no-witness",
+    "custom-model"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math"
+   ]
+  },
+  {
+   "id": "openai-sidorenko",
+   "lab": "OpenAI",
+   "claim": "Sidorenko's conjecture is false (family 161; H has 22 triples on 13 points)",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math"
+   },
+   "independent": [
+    {
+     "who": "rohanarun (exact certificates for parts, no new counterexample)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Kernel lane; the host NEEDS DATA; a pilot found no explicit host up to N = 32 (7.9 GPU-hours, every margin positive)",
+    "record": "certs/openai-math-kernel.json",
+    "pointer": "/rows/317",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "NEEDS DATA",
+      "record": "certs/openai-math-finite.json",
+      "pointer": "/rows/30/word"
+     }
+    ]
+   },
+   "gap": "The host lives on D x D matrices over F_q with D in the hundreds, then a sampled graph; no explicit counterexample exists",
+   "pattern": [
+    "no-witness",
+    "unreplayed-computation"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math"
+   ]
+  },
+  {
+   "id": "openai-mub6",
+   "lab": "OpenAI",
+   "claim": "N(6) = 3: at most 3 mutually unbiased bases in dimension 6 (family 266)",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "other",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "maximusrufus (re-ran the search, 12.4 h on 16 threads)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Consistency and coverage of the saved records only (19 of 19 checks); N(6) = 3 not decided",
+    "record": "certs/openai-math-mub6-records.json",
+    "pointer": "/word",
+    "page": "reports/openai-math.html",
+    "also": [
+     {
+      "verdict": "REFUSED",
+      "record": "certs/openai-math-kernel.json",
+      "pointer": "/rows/237/word"
+     }
+    ]
+   },
+   "gap": "The execution archive the manuscript cites is not shipped; a full C++ replay on Linux is not done",
+   "pattern": [
+    "unreplayed-computation",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math"
+   ]
+  },
+  {
+   "id": "openai-borsuk-9",
+   "lab": "OpenAI",
+   "claim": "Borsuk counterexample in dimension 9",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math"
+   },
+   "independent": [],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "C_28a <= 9 decided from the earlier kernel record of BorsukNine (two kernels; statement MATCHES); nothing new computed; CERTIFIED given a reading of the statement",
+    "record": "certs/optq-ledger.json",
+    "pointer": "/rows/8",
+    "page": "reports/optconst-queue.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/openai-math-kernel.json",
+      "pointer": "/rows/30"
+     }
+    ]
+   },
+   "gap": "None at the finite layer",
+   "pattern": [],
+   "conf": "C",
+   "sources": [
+    "https://github.com/openai/math"
+   ]
+  },
+  {
+   "id": "openai-other-headlines",
+   "lab": "OpenAI",
+   "claim": "Other release headlines: Unique Games, omega <= 9/4, Hilbert's tenth over Q, Erdős-Turán AP, Kakeya 3D/4D, Erdős-Gallai",
+   "date": "2026-09-23",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/openai/math"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "Only through the release-wide kernel lane and lane S; the per-headline statement gap is not established; Hilbert 10 over Q reportedly has no Lean",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "U",
+   "sources": [
+    "https://github.com/openai/math"
+   ]
+  },
+  {
+   "id": "openai-qft-4d",
+   "lab": "OpenAI",
+   "claim": "Existence of interacting 4D QFT, including Yang-Mills and QCD; Lean said to be finished 10-16",
+   "date": "2026-10-26",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "a physics group (Gross, Douglas, Jaffe, Klebanov, Nekrasov) writing it up",
+     "url": null
+    }
+   ],
+   "ours": null,
+   "gap": "Nothing public to check",
+   "pattern": [
+    "missing-files"
+   ],
+   "conf": "U",
+   "sources": []
+  },
+  {
+   "id": "openai-erdos-1",
+   "lab": "OpenAI",
+   "claim": "GPT-6 Astra disproves Erdős #1 (sum-distinct sets) in Lean",
+   "date": "2026-08-28",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/tadamcz/erdos1"
+   },
+   "independent": [
+    {
+     "who": "Bloom (exposition)",
+     "url": "https://www.erdosproblems.com/1"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Made effective: explicit sum-distinct sets below Bohman, 34 of 41 verified instances, smallest n = 1,701",
+    "record": "certs/erdos1-ledger.json",
+    "pointer": "/counts",
+    "page": "reports/erdos1.html"
+   },
+   "gap": "The original disproof is non-effective (Smith-form limit); the buffer law K = O(d) is measured, not proved",
+   "pattern": [
+    "no-witness"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/tadamcz/erdos1",
+    "https://www.erdosproblems.com/1"
+   ]
+  },
+  {
+   "id": "openai-imo-2026",
+   "lab": "OpenAI",
+   "claim": "IMO 2026 perfect or gold score by an OpenAI model",
+   "date": "2026-07",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "No official claim found; secondary reports only",
+   "pattern": [
+    "one-kernel"
+   ],
+   "conf": "U",
+   "sources": [
+    "https://www.36kr.com/p/3903358160307848"
+   ]
+  },
+  {
+   "id": "anthropic-zeta-two-thirds",
+   "lab": "Anthropic",
+   "claim": "More than 2/3 of zeta zeros are simple and on the critical line, and at least 5/6 are distinct; proof found by Claude",
+   "date": "2026-08-10",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/anthropics/formal-math/tree/main/zeta23"
+   },
+   "independent": [
+    {
+     "who": "Lamzouri (independent new proof)",
+     "url": "https://arxiv.org/abs/2609.02882"
+    },
+    {
+     "who": "mdumitrean (improved to 0.6728005676, kernel-checked)",
+     "url": "https://github.com/anthropics/formal-math/pull/17"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "The numerical certificate re-checked without Lean, as concordance, not as verification of the ceiling; window constants raised to 0.86864150 / 0.93432075",
+    "record": "corpus/claimbox-riemann/records/riemann-run.json",
+    "pointer": null,
+    "page": "paper/riemann-finite-layer.pdf"
+   },
+   "gap": "The side ceiling p0 <= 0.6818287 takes EnclOK as a hypothesis; its certificate file cert_N256_blk_b128m.json is unpublished",
+   "pattern": [
+    "missing-files",
+    "unreplayed-computation"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2608.13637",
+    "https://github.com/anthropics/formal-math/tree/main/zeta23",
+    "https://github.com/anthropics/formal-math/issues/8",
+    "https://github.com/anthropics/formal-math/issues/30"
+   ]
+  },
+  {
+   "id": "anthropic-eth",
+   "lab": "Anthropic",
+   "claim": "ETH is false: #3-SAT in subexponential time on Mathlib Turing machines (MainResults.ETHIsFalse)",
+   "date": "2026-10-26",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/anthropics/formal-math/tree/main/eth"
+   },
+   "independent": [
+    {
+     "who": "Impagliazzo-Paturi-Williams working group",
+     "url": "https://ethdiscussion.blog/"
+    },
+    {
+     "who": "TSavo (bridge)",
+     "url": "https://github.com/anthropics/formal-math/issues/36"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Comparator with Lean's kernel, nanoda and leanchecker --fresh; the bridge proves #ETH and not-ETH in the claim's own model",
+    "record": "certs/eth-kernel.json",
+    "pointer": "/rows/1",
+    "page": "eth/"
+   },
+   "gap": "The README says no machine checks that the file says what the paper says; the main theorem needs m >= 2, n >= 4 and every variable to occur; TM steps to RAM time is informal",
+   "pattern": [
+    "declared-gap",
+    "custom-model",
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/anthropics/formal-math/tree/main/eth",
+    "https://github.com/anthropics/formal-math/issues/36"
+   ]
+  },
+  {
+   "id": "eth-bridges-third-party",
+   "lab": "Anthropic",
+   "claim": "Third-party bridges between the two ETH claims: TSavo (OpenAI's claim implies Anthropic's statement) and Hawkley (OpenAI's model to Anthropic's ETHIsFalse inside OpenAI's environment)",
+   "date": "2026-10-29",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/TSavo/eth-bridge"
+   },
+   "independent": [
+    {
+     "who": "the bridge authors themselves",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Both bridges replayed; the version seam measured DIFFERENT (real-number arithmetic differs between the two Mathlibs)",
+    "record": "certs/eth-tsavo-bridge.json",
+    "pointer": "/word",
+    "page": "eth/",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/eth-hawkley-bridge.json",
+      "pointer": "/word"
+     },
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/eth-hawkley-heavy.json",
+      "pointer": "/word"
+     },
+     {
+      "verdict": "DIFFERENT",
+      "record": "certs/eth-seam.json",
+      "pointer": "/verdict"
+     }
+    ]
+   },
+   "gap": "No single kernel has compared the two labs' statements across the Lean/Mathlib version seam",
+   "pattern": [
+    "custom-model",
+    "one-kernel"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/TSavo/eth-bridge"
+   ]
+  },
+  {
+   "id": "anthropic-hadamard-668",
+   "lab": "Anthropic",
+   "claim": "Hadamard matrices of order 668 and the other open orders below 2000, by three humans and Claude",
+   "date": "2026-08-12",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "VibeMathed (reportedly decoded and checked H Ht = nI)",
+     "url": "https://www.qbitai.com/2026/08/472016.html"
+    },
+    {
+     "who": "Epoch (provisionally solved)",
+     "url": "https://epoch.ai/frontiermath/open-problems/hadamard"
+    }
+   ],
+   "ours": {
+    "verdict": "NEEDS DATA",
+    "scope": "Search target DEAD; no matrix file found, so no check",
+    "record": "corpus/targets.json",
+    "pointer": null,
+    "page": null
+   },
+   "gap": "No dataset or technical report is published; the check is one line once the bytes exist",
+   "pattern": [
+    "missing-files",
+    "no-witness"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://www.qbitai.com/2026/08/472016.html",
+    "https://epoch.ai/frontiermath/open-problems/hadamard"
+   ]
+  },
+  {
+   "id": "anthropic-forced-euler",
+   "lab": "Anthropic",
+   "claim": "Forced 3D Euler blow-up (Buckmaster and Alpöge; Lean written by Claude)",
+   "date": "2026-08-15",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/tristanbuckmaster/fluid_lean"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "The result is forced Euler, not Navier-Stokes; not replayed",
+   "pattern": [
+    "statement-vs-headline",
+    "one-kernel"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/tristanbuckmaster/fluid_lean"
+   ]
+  },
+  {
+   "id": "anthropic-3sum-apsp",
+   "lab": "Anthropic",
+   "claim": "Lean formalization of Alman and Vassilevska Williams: 3SUM in O(n^1.9992) and APSP in O(n^2.99942)",
+   "date": "2026-10-06",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/anthropics/formal-math/tree/main/3sum-apsp"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "The word-RAM is a 139-line custom file; the README lists running times not proved for any machine",
+   "pattern": [
+    "custom-model",
+    "declared-gap"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/anthropics/formal-math/tree/main/3sum-apsp"
+   ]
+  },
+  {
+   "id": "anthropic-flashprove",
+   "lab": "Anthropic",
+   "claim": "FlashProve: zero-knowledge proofs of inference for Llama 4 Maverick, soundness proved in Lean",
+   "date": "2026-10-30",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/anthropics/FlashProve"
+   },
+   "independent": [],
+   "ours": {
+    "verdict": "OPEN",
+    "scope": "In progress, pre-registered 2026-11-04 (notes/flashprove-preregistration-2026-11-04.md): routes 1–2 on a hosted runner, the Lean library on a CPU pod; no verdict yet",
+    "record": "corpus/targets.json",
+    "pointer": "/targets/133/verdict",
+    "page": null
+   },
+   "gap": "Proved only for the Lean verifier in the random-oracle model; the C++ verifier and CUDA prover are tested, not proved; the served float model is not the one proved; zero knowledge proved for one request",
+   "pattern": [
+    "declared-gap",
+    "float-checker"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/anthropics/FlashProve"
+   ]
+  },
+  {
+   "id": "deepmind-alphaproof-nexus",
+   "lab": "Google DeepMind",
+   "claim": "AlphaProof Nexus: 9 of 353 Erdős problems and 44 of 492 OEIS conjectures, in Lean",
+   "date": "2026-05-21",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/google-deepmind/alphaproof-nexus-results"
+   },
+   "independent": [
+    {
+     "who": "lazarus-boop (rebuilt, audited axioms)",
+     "url": "https://github.com/google-deepmind/alphaproof-nexus-results/issues/3"
+    },
+    {
+     "who": "rwst (re-adding results to OEIS)",
+     "url": "https://github.com/google-deepmind/alphaproof-nexus-results/issues/1"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "All 9 Erdős proofs plus the corrected #741(i): Comparator against formal-conjectures plus nanoda",
+    "record": "certs/apn-kernel.json",
+    "pointer": "/counts",
+    "page": "reports/alphaproof-nexus.html",
+    "also": [
+     {
+      "verdict": "MATCHES",
+      "record": "certs/apn-oeis.json",
+      "pointer": "/counts/words"
+     }
+    ]
+   },
+   "gap": "The 9 statements cover 7 problem numbers; #741(i) published in a demoted reading; 38 of 44 OEIS proofs published; 3 targets already proved; 2 statements degenerate",
+   "pattern": [
+    "statement-vs-headline",
+    "missing-files",
+    "credit"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/google-deepmind/alphaproof-nexus-results",
+    "https://github.com/google-deepmind/alphaproof-nexus-results/issues/4"
+   ]
+  },
+  {
+   "id": "deepmind-cryptids",
+   "lab": "Google DeepMind",
+   "claim": "Cryptids: small Turing machines whose halting is equivalent to not-Goldbach (21 states), not-Con(ZF) (380) or not-RH (95); BB(6) and BB(3,3) holdouts",
+   "date": "2026-10-09",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/google-deepmind/cryptids"
+   },
+   "independent": [
+    {
+     "who": "community PRs (winger, RH 95)",
+     "url": "https://github.com/google-deepmind/cryptids/pull/7"
+    },
+    {
+     "who": "Wieser (review acknowledged)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Audited twice: 152 claims, 143 CERTIFIED, 1 REFUTED, 8 REFUSED; kernel lane CERTIFIED (Lean and nanoda)",
+    "record": "certs/cryptids-audit.json",
+    "pointer": "/summary",
+    "page": "reports/cryptids.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/cryptids-kernel.json",
+      "pointer": "/summary"
+     }
+    ]
+   },
+   "gap": "ZF write-up transition counts off by one; riemann_104 checkpoint k undefined; verify.py checks theorems by substring and skips a stage it names; BB(6) labels subject to community acceptance",
+   "pattern": [
+    "missing-files",
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2610.22603",
+    "https://github.com/google-deepmind/cryptids",
+    "https://github.com/google-deepmind/cryptids/issues/14"
+   ]
+  },
+  {
+   "id": "deepmind-ramsey-lower-bounds",
+   "lab": "Google DeepMind",
+   "claim": "AlphaEvolve Ramsey lower bounds: 18 graphs, for example R(4,21) >= 244 and R(8,18) >= 1052",
+   "date": "2026-10-22",
+   "formal": {
+    "kind": "none",
+    "url": "https://github.com/google-research/google-research/tree/master/ramsey_number_bounds"
+   },
+   "independent": [
+    {
+     "who": "maximusrufus (partial re-run; did not finish R(10,12) or R(7,13))",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "17 of 18 by an exact clique search (R(7,13): 613e9 nodes); R(8,18) REFUSED, about 60 pod-hours, parked",
+    "record": "certs/ramsey-ledger.json",
+    "pointer": "/counts",
+    "page": "reports/ramsey-graphs.html",
+    "also": [
+     {
+      "verdict": "REFUSED",
+      "record": "certs/ramsey-ledger.json",
+      "pointer": "/rows/17/verdict"
+     }
+    ]
+   },
+   "gap": "The notebook ships unexecuted and reads only the upper triangle; R(8,18) >= 1052 has no independent check anywhere",
+   "pattern": [
+    "unreplayed-computation",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2603.09172",
+    "https://github.com/google-research/google-research/tree/master/ramsey_number_bounds"
+   ]
+  },
+  {
+   "id": "deepmind-alphaevolve-repository",
+   "lab": "Google DeepMind",
+   "claim": "AlphaEvolve problem repository: 67 problems, 19 records, with community certificates in issues #4 to #12",
+   "date": "2026-06",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "maximusrufus (verifier bugs: t-design check always true, difference-basis miscount, NaN/inf accepted)",
+     "url": "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/14"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Community certificates: 70 CERTIFIED, 2 REFUSED",
+    "record": "certs/aerp-ledger.json",
+    "pointer": "/counts",
+    "page": "reports/alphaevolve-community.html"
+   },
+   "gap": "Records are often published as a program, not an object; the verifiers compare floats",
+   "pattern": [
+    "float-checker",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/14",
+    "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/15",
+    "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/16"
+   ]
+  },
+  {
+   "id": "deepmind-omega-bound",
+   "lab": "Google DeepMind",
+   "claim": "AlphaEvolve-assisted bound omega < 2.371177, with Alman, Vassilevska Williams et al.",
+   "date": "2026-08",
+   "formal": {
+    "kind": "none",
+    "url": "https://github.com/google-deepmind/alphaevolve"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "verification.py uses floats and is for search; the rigorous check is a separate rational Colab; no Lean",
+   "pattern": [
+    "float-checker"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://arxiv.org/abs/2608.16884",
+    "https://github.com/google-deepmind/alphaevolve"
+   ]
+  },
+  {
+   "id": "deepmind-alphaevolve-2025-baseline",
+   "lab": "Google DeepMind",
+   "claim": "AlphaEvolve K(11) >= 593 and the rank-48 4x4 matrix-multiplication scheme over C (2025, the baseline)",
+   "date": "2025-05",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "many",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "K(11) >= 593 in the kissing ledger, exact; the rank-48 scheme exactly over Z[i]",
+    "record": "certs/kissing-ledger.json",
+    "pointer": "/rows/2",
+    "page": "reports/kissing.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/claims-ledger.json",
+      "pointer": "/rows/28"
+     }
+    ]
+   },
+   "gap": "Included only as the baseline that June to November claims improved on",
+   "pattern": [],
+   "conf": "C",
+   "sources": []
+  },
+  {
+   "id": "deepmind-imo-2026",
+   "lab": "Google DeepMind",
+   "claim": "Gemini Deep Think at IMO 2026",
+   "date": "2026-07",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "No official 2026 DeepMind claim found",
+   "pattern": [],
+   "conf": "U",
+   "sources": []
+  },
+  {
+   "id": "axiom-cfsg",
+   "lab": "Axiom",
+   "claim": "Complete Lean proof of the classification of finite simple groups (43.1M lines, 2.05M declarations, 24 days)",
+   "date": "2026-10-26",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/AxiomMath/CFSG"
+   },
+   "independent": [
+    {
+     "who": "Kim Morrison (lint PRs, no verdict)",
+     "url": null
+    },
+    {
+     "who": "lean-eval (limit raised to 10 GB, no scored result)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "ON HOLD",
+    "scope": "Scouted, OPEN, held on the operator's word; not buildable on a laptop or a hosted runner",
+    "record": "corpus/targets.json",
+    "pointer": "/targets/126/verdict",
+    "page": null
+   },
+   "gap": "The statement is TauCeti's ClassificationStatement and nothing proves its list of groups is the textbook list; about 8 GB of certificate data; no oleans published; sorry-free is Axiom's word alone",
+   "pattern": [
+    "custom-model",
+    "one-kernel",
+    "unreplayed-computation"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://axiommath.ai/research/the-enormous-theorem-formalized/",
+    "https://github.com/AxiomMath/CFSG"
+   ]
+  },
+  {
+   "id": "axiom-cfsg-2-generated",
+   "lab": "Axiom",
+   "claim": "Every finite simple group is 2-generated, from the CFSG development",
+   "date": "2026-11-02",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/AxiomMath/CFSGCorollary"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "Inherits every gap of the CFSG claim",
+   "pattern": [
+    "custom-model",
+    "unreplayed-computation"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/AxiomMath/CFSGCorollary"
+   ]
+  },
+  {
+   "id": "axiom-imo-2026",
+   "lab": "Axiom",
+   "claim": "AxiomProver 42/42 at IMO 2026, with Lean",
+   "date": "2026-07-16",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/AxiomMath/IMO2026"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "AxiomProver wrote the formal problem statements itself, with no human audit found; checked through Axiom's own service plus a local Comparator run",
+   "pattern": [
+    "statement-vs-headline",
+    "one-kernel"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/AxiomMath/IMO2026"
+   ]
+  },
+  {
+   "id": "axiom-dedekind-zero-free",
+   "lab": "Axiom",
+   "claim": "With Cureton and Thorner: uniform zero-free region for Dedekind zeta (Re s > 31/32), building on OpenAI's quasi-RH",
+   "date": "2026-10",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/AxiomMath/DedekindZetaZeroFree"
+   },
+   "independent": [
+    {
+     "who": "Frei, Sofos, Widmer (state they have not verified it)",
+     "url": null
+    }
+   ],
+   "ours": null,
+   "gap": "Depends on vendored class-field-theory code; the constant changed between versions",
+   "pattern": [
+    "custom-model"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/AxiomMath/DedekindZetaZeroFree"
+   ]
+  },
+  {
+   "id": "zeta5-irrational",
+   "lab": "Axiom",
+   "claim": "zeta(5) is irrational: Fauzan's human proof, with AI Lean formalizations by Axiom and others",
+   "date": "2026-09-17",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/AxiomMath/Zeta5Irrational"
+   },
+   "independent": [
+    {
+     "who": "several mutually independent Lean developments reaching the same formal-conjectures statement",
+     "url": "https://github.com/mo271/Zeta5"
+    }
+   ],
+   "ours": null,
+   "gap": "The mathematics is human; Axiom's version runs on a sorry-free PNT fork; not peer-reviewed",
+   "pattern": [
+    "credit"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/AxiomMath/Zeta5Irrational",
+    "https://github.com/mo271/Zeta5"
+   ]
+  },
+  {
+   "id": "proofatlas-collatz-density",
+   "lab": "Lech Mazur / ProofAtlas",
+   "claim": "A positive density of n reach 1 within 10.46 ln n Collatz steps (Codex/GPT)",
+   "date": "2026-09-05",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://www.proofatlas.ai/formalizations/positive-density-log-time-collatz/"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "Not Collatz itself; no LeanChecker replay, no independent replay or paper review",
+   "pattern": [
+    "statement-vs-headline",
+    "one-kernel"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://www.proofatlas.ai/formalizations/positive-density-log-time-collatz/"
+   ]
+  },
+  {
+   "id": "harmonic-kourovka",
+   "lab": "Harmonic",
+   "claim": "Aristotle with van Doorn et al.: 8 Kourovka Notebook group-theory problems",
+   "date": "2026-07-20",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/pitmonticone/Kourovka"
+   },
+   "independent": [
+    {
+     "who": "human co-authors; shared with the Notebook's editors",
+     "url": null
+    }
+   ],
+   "ours": null,
+   "gap": "21.149 is solved only in its old v43 wording; axioms are not listed",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/pitmonticone/Kourovka"
+   ]
+  },
+  {
+   "id": "plasma-erdos-809",
+   "lab": "Plasma AI",
+   "claim": "Lean proof of Erdős #809 for all k >= 3",
+   "date": "2026-10-08",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/plasma-ai/erdos"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "Statements checked by AI sessions and an automated review only; no outside review",
+   "pattern": [
+    "one-kernel",
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/plasma-ai/erdos"
+   ]
+  },
+  {
+   "id": "einsteinarena-kissing-604",
+   "lab": "Together AI / EinsteinArena",
+   "claim": "K(11) >= 604, plus about 11 leaderboard records over AlphaEvolve",
+   "date": "2026-06-09",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "The Station (independent exact 604-point configurations)",
+     "url": "https://arxiv.org/abs/2608.23691"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "The 604 decided exactly and congruent to the Station's (a signed permutation); SOTA table: 20 constructions, 16 exact, 4 REPAIRED",
+    "record": "certs/kissing-ledger.json",
+    "pointer": "/rows/9",
+    "page": "reports/kissing.html",
+    "also": [
+     {
+      "verdict": "REPAIRED",
+      "record": "certs/easota-ledger.json",
+      "pointer": "/rows/9"
+     }
+    ]
+   },
+   "gap": "The verifier was floating-point at first and the first submission overlapped; Monte-Carlo rows REFUSED; four README rows have no files",
+   "pattern": [
+    "float-checker",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2606.10402"
+   ]
+  },
+  {
+   "id": "station-results",
+   "lab": "The Station (dualverse-ai)",
+   "claim": "New results on 5 of 12 AlphaEvolve problems, including an exact 604 and finite-field Kakeya sets",
+   "date": "2026-08-24",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/dualverse-ai/station"
+   },
+   "independent": [
+    {
+     "who": "overlap with EinsteinArena only",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "The 604 configurations exact and congruent to EinsteinArena's; the 3-D Keller map CERTIFIED (det -6, non-injective); the rest of the pool OPEN",
+    "record": "certs/kissing-ledger.json",
+    "pointer": "/rows/4",
+    "page": "reports/kissing.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/mc100-station-v2.json",
+      "pointer": "/rows/0"
+     },
+     {
+      "verdict": "OPEN",
+      "record": "corpus/targets.json",
+      "pointer": "/targets/68/verdict"
+     }
+    ]
+   },
+   "gap": "The abstract does not say which results are Lean-checked and which are only exact constructions",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2608.23691",
+    "https://github.com/dualverse-ai/station"
+   ]
+  },
+  {
+   "id": "oxelra-kissing-19",
+   "lab": "Oxelra",
+   "claim": "Qiushi Engine: kissing lower bounds in 19 dimensions (25, 27, 32 to 39, 43, 45, 49 to 55)",
+   "date": "2026-09-22",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "none other than cert-machine (credited in their README)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "WITNESSED",
+    "scope": "All 19 configurations checked pair by pair; the K(18) and K(25-31) wave: 11 decided, 0 violations, 2 REPAIRED",
+    "record": "certs/kissing-wave.json",
+    "pointer": "/rows/2",
+    "page": "reports/kissing.html"
+   },
+   "gap": "No other third party has checked them; Kravatsky's 49 to 96 publish counts only (NEEDS DATA)",
+   "pattern": [
+    "one-kernel",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2609.35051"
+   ]
+  },
+  {
+   "id": "oxelra-bandeira-02a",
+   "lab": "Oxelra",
+   "claim": "Disproof of Bandeira's Open Problem 0.2(a), the matrix AM-GM inequality in spectral norm",
+   "date": "2026-06-16",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/Oxelra-AI/Bandeira-0.2a-open-source"
+   },
+   "independent": [
+    {
+     "who": "only cert-machine (issue #1, unanswered)",
+     "url": "https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Core decided on cert-machine's own certificate: the Lai-Lim (5,5) SOS SDP is infeasible at lambda = 120; the claimant's certificate decides only the SDP without the transpose",
+    "record": "certs/bandeira-ledger.json",
+    "pointer": "/rows/0",
+    "page": "reports/bandeira.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/bandeira-ledger.json",
+      "pointer": "/rows/1"
+     },
+     {
+      "verdict": "REFUTED",
+      "record": "certs/bandeira-ledger.json",
+      "pointer": "/decisions/claimant/leftT/verdict"
+     }
+    ]
+   },
+   "gap": "Their Lean assumes the pairing as a structure field and defines no SDP; PSD is shown by SymPy outside Lean",
+   "pattern": [
+    "custom-model",
+    "float-checker"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/Oxelra-AI/Bandeira-0.2a-open-source"
+   ]
+  },
+  {
+   "id": "oxelra-matmul-f2-rank21",
+   "lab": "Oxelra",
+   "claim": "Structural tensor-rank lower bound 21 for 3x3 matrix multiplication over F2, with Lean",
+   "date": "2026-09-17",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/Oxelra-AI/Qiushi-Engine-Matmul-Research"
+   },
+   "independent": [],
+   "ours": null,
+   "gap": "UNSCOUTED here (corpus/targets.json /targets/127); what structural restricts is unread",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "U",
+   "sources": [
+    "https://github.com/Oxelra-AI/Qiushi-Engine-Matmul-Research"
+   ]
+  },
+  {
+   "id": "horizonmath-discoveries",
+   "lab": "HorizonMath",
+   "claim": "Benchmark paper credits six discoveries to GPT-5.4 Pro and GPT-5.6 Sol Max",
+   "date": "2026-09-10",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "domain experts (per the paper)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "REFUTED",
+    "scope": "The diagonal-Ramsey certificate: its pair at lambda = 1 lies outside GNNW's region R, 56 of 201 points outside; Kakeya area CERTIFIED (6008623/55050240); the GPT-5.6 closed forms NEEDS DATA; the spinor form not decided",
+    "record": "certs/horizonmath-ledger.json",
+    "pointer": "/rows/0",
+    "page": "reports/horizonmath.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/horizonmath-ledger.json",
+      "pointer": "/rows/1"
+     },
+     {
+      "verdict": "NEEDS DATA",
+      "record": "certs/horizonmath-ledger.json",
+      "pointer": "/rows/2"
+     }
+    ]
+   },
+   "gap": "The validator tests one orientation where the theorem needs both; the paper details three of the six discoveries",
+   "pattern": [
+    "float-checker",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2603.15617"
+   ]
+  },
+  {
+   "id": "gnnw-diagonal-ramsey",
+   "lab": "Gupta-Ndiaye-Norin-Wei",
+   "claim": "G_AI from ChatGPT 5.6 Sol gives R(k,k) <= 3.78233^(k+o(k)), printed as preliminary and unverified",
+   "date": "2026-08-29",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "none (the authors call it unverified)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Theorem 14 holds on all of (0, 1] by two programs; further rounds reach 3.77213",
+    "record": "certs/gnnw-certificate.json",
+    "pointer": "/decided/verdict",
+    "page": "reports/diagonal-ramsey.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/gnnw-chain-certificate.json",
+      "pointer": "/decided/verdict"
+     }
+    ]
+   },
+   "gap": "Lower published records (3.769 with Lean by the authors; 3.69507) are not checked here",
+   "pattern": [
+    "unreplayed-computation"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2407.19026"
+   ]
+  },
+  {
+   "id": "gao-keller-markus-yamabe",
+   "lab": "Gao",
+   "claim": "Keller / Jacobian counterexamples (Claude assisting) and Markus-Yamabe fields first published in a ChatGPT gist",
+   "date": "2026-08",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "pith.science review (flags wording)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "7 CERTIFIED, 1 PARTIAL (F7's determinant rests on the paper's lemma)",
+    "record": "certs/polymaps-ledger.json",
+    "pointer": "/byVerdict",
+    "page": "reports/polymaps.html"
+   },
+   "gap": "The promised ancillary files are not on arXiv; the 18-dimensional unipotency is checked in the paper at one sample point",
+   "pattern": [
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2608.00222",
+    "https://arxiv.org/abs/2608.05392"
+   ]
+  },
+  {
+   "id": "ai-assisted-manuscripts-six",
+   "lab": "AI-assisted authors (six manuscripts)",
+   "claim": "Six AI-assisted manuscripts: Maxwell point charges, Korenblum c2 >= 0.4263, Erdős #1038, Ran-Teng Conjecture 20, Mathieu property, rank-two Poisson",
+   "date": "2026-02",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "the authors' own float or Arb checks",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "5 CONFIRMED, 1 PARTIAL (the record's words); in each, the computational fragment only",
+    "record": "certs/ai-claims-summary.json",
+    "pointer": "/verdicts",
+    "page": "reports/ai-claims-audit.html"
+   },
+   "gap": "In 6 of 6 the analytic core is prose; Maxwell holds at epsilon = 1/6 only; source checks were floating-point with no artefact",
+   "pattern": [
+    "float-checker",
+    "missing-files"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://arxiv.org/abs/2607.17748"
+   ]
+  },
+  {
+   "id": "davies-macmahon-cubes",
+   "lab": "Jason Davies",
+   "claim": "GPT-6 Astra: exactly ten minimum universal sets of 12 MacMahon cubes (Johnson-Roldán Conjectures 4 and 8)",
+   "date": "2026-11-01",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/jasondavies/macmahon-min-universal-sets"
+   },
+   "independent": [
+    {
+     "who": "Vilin97 (LeanPool PR #730 rebuild)",
+     "url": null
+    },
+    {
+     "who": "Palomar registry (automated)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Decided twice: 300 of 300 witnesses rebuilt with independent geometry; Comparator and nanoda; statement reading MATCHES",
+    "record": "certs/macmahon-kernel.json",
+    "pointer": "/verdict",
+    "page": "reports/macmahon.html",
+    "also": [
+     {
+      "verdict": "CERTIFIED",
+      "record": "certs/macmahon-witnesses.json",
+      "pointer": "/verdict"
+     }
+    ]
+   },
+   "gap": "Necessity rests on Lean, not on a second exact search; the numerical histograms are outside Lean",
+   "pattern": [
+    "one-kernel"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/jasondavies/macmahon-min-universal-sets"
+   ]
+  },
+  {
+   "id": "mit-weight-space-programming",
+   "lab": "MIT CSAIL",
+   "claim": "Weight-Space Programming: GPT-6 Astra edits Qwen3.5-0.8B weights; MATH-500 from 7.9% to 48.1%",
+   "date": "2026-11-02",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "KidIkaros (reproduced the edit)",
+     "url": "https://github.com/KidIkaros/wsp-reproduction"
+    },
+    {
+     "who": "Honnibal, Goedecke (critiques)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "The edit: 2 tensors, 130,188 entries; the gain is termination, mostly a settings effect; 'tuned on the test set' REFUTED; 'PPO weak' REFUSED",
+    "record": "certs/wsp-weights.json",
+    "pointer": "/verdicts",
+    "page": "reports/weight-space-programming.html",
+    "also": [
+     {
+      "verdict": "REFUTED",
+      "record": "certs/wsp-side-claims.json",
+      "pointer": "/verdicts/M2"
+     },
+     {
+      "verdict": "REFUSED",
+      "record": "certs/wsp-side-claims.json",
+      "pointer": "/verdicts/M5a"
+     }
+    ]
+   },
+   "gap": "An ML claim adjacent to mathematics; the authors' issue window closed 11-04",
+   "pattern": [
+    "statement-vs-headline"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/KidIkaros/wsp-reproduction"
+   ]
+  },
+  {
+   "id": "epoch-frontiermath-open",
+   "lab": "Epoch AI",
+   "claim": "FrontierMath Open Problems: 10 of about 50 solved (5 by AI alone, 5 human plus AI), including Hadamard 668",
+   "date": "2026-03",
+   "formal": {
+    "kind": "other",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "Epoch's verifiers and the problem authors",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "OPEN",
+    "scope": "18 AI-autoformalized Erdős statements scouted, no fidelity defect on a first reading; the census adds that the Chowla verifier was fooled by a demo set",
+    "record": "corpus/targets.json",
+    "pointer": "/targets/60/verdict",
+    "page": null
+   },
+   "gap": "Labels conflict with the changelog for 2 entries; sampling-based verifiers can be gamed",
+   "pattern": [
+    "float-checker",
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://epoch.ai/frontiermath/open-problems/hadamard"
+   ]
+  },
+  {
+   "id": "erdos-problems-ai-wiki",
+   "lab": "Erdős problems community",
+   "claim": "AI contributions to Erdős problems (teorth wiki): about 69 full-solution rows; 25 rows where the literature was found afterwards",
+   "date": "2026-06-30",
+   "formal": {
+    "kind": "Lean",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "Bloom, Tao and editors (classify rows)",
+     "url": null
+    }
+   ],
+   "ours": {
+    "verdict": "NEEDS DATA",
+    "scope": "Pool DEAD as witness claims (proofs, not objects); #513 registered as expected NEEDS DATA, not decided",
+    "record": "corpus/targets.json",
+    "pointer": null,
+    "page": null
+   },
+   "gap": "Rediscovery is common (19 of 25 similar); statement fidelity unaudited; post-June AI claims not on the wiki",
+   "pattern": [
+    "credit",
+    "statement-vs-headline"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"
+   ]
+  },
+  {
+   "id": "x-lean-claims-2026-11",
+   "lab": "several",
+   "claim": "Third-party Lean claims seen on X: Murty-Simon (Erdős #742), a Global Attractor case, Euclid uniform processes, distinct distances, a Diophantine equation equivalent to Con(ZFC)",
+   "date": "2026-10-24",
+   "formal": {
+    "kind": "Lean",
+    "url": null
+   },
+   "independent": [],
+   "ours": {
+    "verdict": "OPEN",
+    "scope": "All scouted 11-03; none built",
+    "record": "corpus/targets.json",
+    "pointer": "/targets/138/verdict",
+    "page": null,
+    "also": [
+     {
+      "verdict": "OPEN",
+      "record": "corpus/targets.json",
+      "pointer": "/targets/139/verdict"
+     },
+     {
+      "verdict": "OPEN",
+      "record": "corpus/targets.json",
+      "pointer": "/targets/137/verdict"
+     },
+     {
+      "verdict": "OPEN",
+      "record": "corpus/targets.json",
+      "pointer": "/targets/136/verdict"
+     },
+     {
+      "verdict": "OPEN",
+      "record": "corpus/targets.json",
+      "pointer": "/targets/134/verdict"
+     }
+    ]
+   },
+   "gap": "Each needs a statement reading and a two-kernel replay; for Con(ZFC) the authors mark separate finite checks as open",
+   "pattern": [
+    "one-kernel",
+    "declared-gap"
+   ],
+   "conf": "P",
+   "sources": [
+    "https://arxiv.org/abs/2610.30808"
+   ]
+  },
+  {
+   "id": "imo-2026-others",
+   "lab": "several",
+   "claim": "IMO 2026 by others: Huawei / Xiaohongshu 42/42, NVIDIA Nemotron 30/42, Kimi K3, DeepSeek and Grok via deedy/imo-2026",
+   "date": "2026-07",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "IMO organisers' grading as reported (AFP via France24)",
+     "url": "https://www.france24.com/en/live-news/20260723-ai-catches-up-with-humans-to-score-100-at-top-maths-contest"
+    }
+   ],
+   "ours": null,
+   "gap": "No IMO statement or transcripts found; one harness grades with AI and showed a model the reviewer's findings before repairs",
+   "pattern": [
+    "one-kernel"
+   ],
+   "conf": "U",
+   "sources": [
+    "https://github.com/deedy/imo-2026"
+   ]
+  },
+  {
+   "id": "sun-catalan-irrational",
+   "lab": "Zhi-Wei Sun",
+   "claim": "Catalan's constant is irrational (AI-produced numerical data)",
+   "date": "2026-09-03",
+   "formal": {
+    "kind": "none",
+    "url": null
+   },
+   "independent": [
+    {
+     "who": "Wachs (finds the main estimate unjustified)",
+     "url": "https://arxiv.org/abs/2609.22339"
+    }
+   ],
+   "ours": null,
+   "gap": "Disputed; a reported parallel OpenAI claim could not be confirmed",
+   "pattern": [
+    "credit"
+   ],
+   "conf": "U",
+   "sources": [
+    "https://arxiv.org/abs/2609.04176"
+   ]
+  },
+  {
+   "id": "cslib-complexitylib-eth",
+   "lab": "CSLib complexitylib (AI agents)",
+   "claim": "Native re-proof that ETH and SETH are false on a standard deterministic multitape Turing machine with a binary encoding, and that word RAMs simulate multitape machines in linear time",
+   "date": "2026-10-27",
+   "formal": {
+    "kind": "Lean",
+    "url": "https://github.com/cslib-community/complexitylib/pull/1338"
+   },
+   "independent": [
+    {
+     "who": "an AI reviewer outside both authoring contexts (per the PR)",
+     "url": "https://github.com/cslib-community/complexitylib/pull/1338"
+    }
+   ],
+   "ours": {
+    "verdict": "CERTIFIED",
+    "scope": "Built at 1b7d62a8; the headlines rest on the three standard axioms (our file); nanoda accepts not_eth, exact_count and executes_simProgram; leanchecker --fresh replays the abstract module",
+    "record": "certs/eth-cslib-d1.json",
+    "pointer": "/verdict",
+    "page": null
+   },
+   "gap": "Proposition 6.4's bound, not Theorem 1.1's; a re-proof, not a bridge from either lab's statement; ETH on a word RAM at logarithmic word size is not covered (the RAM inclusions need polynomial time)",
+   "pattern": [
+    "custom-model",
+    "one-kernel"
+   ],
+   "conf": "C",
+   "sources": [
+    "https://github.com/cslib-community/complexitylib/pull/1338",
+    "https://github.com/cslib-community/complexitylib/pull/2027",
+    "https://github.com/cslib-community/complexitylib/issues/739"
+   ]
+  }
+ ],
+ "patterns": [
+  {
+   "id": "statement-vs-headline",
+   "title": "The statement is not the headline",
+   "line": "The checked statement is a different object, a weaker or partial statement, has a moved clause, an old or degenerate target, or is missing, so the proof can pass while the headline stays unchecked."
+  },
+  {
+   "id": "custom-model",
+   "title": "Custom definitions are trusted",
+   "line": "Machine models, encodings and definitions written in the challenge file, and Comparator definition holes compared by type only, are part of what a reader must trust."
+  },
+  {
+   "id": "one-kernel",
+   "title": "One kernel, one party",
+   "line": "The second kernel is mostly off, checks are run by the claimant or graded by AI, and the few rebuilds often vendor the claimant's construction modules."
+  },
+  {
+   "id": "float-checker",
+   "title": "Floats and tolerances in the checker",
+   "line": "Numerical certificates were checked with floating-point verifiers, tolerances, sampling grids or one-sided validators."
+  },
+  {
+   "id": "no-witness",
+   "title": "Existence without a witness",
+   "line": "Objects are proved to exist and never shown, or a disproof is non-effective."
+  },
+  {
+   "id": "unreplayed-computation",
+   "title": "Large computations nobody has replayed",
+   "line": "The cost of replaying a search or a build (pod-hours, memory, unreleased tooling) is itself the open gap."
+  },
+  {
+   "id": "missing-files",
+   "title": "Missing files and checkers that stop short",
+   "line": "Matrices, certificate files, witnesses, execution archives and ancillary files are not published, or a shipped checker skips what it names."
+  },
+  {
+   "id": "declared-gap",
+   "title": "Gaps the claimant declares",
+   "line": "Some claimants list their own gaps by design, and those declared gaps become the audit's reading list."
+  },
+  {
+   "id": "credit",
+   "title": "Credit and novelty, not correctness",
+   "line": "Literature rediscovery, priority disputes and withdrawals bear on credit rather than on whether a checked statement holds."
+  }
+ ],
+ "numbers": [
+  {
+   "id": "openai-kernel-certified",
+   "value": 398,
+   "record": "certs/openai-math-kernel.json",
+   "pointer": "/counts/words/CERTIFIED",
+   "line": "OpenAI challenges accepted by two kernels at fd4aeeb2."
+  },
+  {
+   "id": "openai-kernel-refused",
+   "value": 18,
+   "record": "certs/openai-math-kernel.json",
+   "pointer": "/counts/words/REFUSED",
+   "line": "OpenAI challenges REFUSED for resources at fd4aeeb2."
+  },
+  {
+   "id": "openai-kernel-total",
+   "value": 416,
+   "record": "certs/openai-math-kernel.json",
+   "pointer": "/counts/of",
+   "line": "Comparator challenges in the release at fd4aeeb2."
+  },
+  {
+   "id": "openai-7ef5c0cc-certified",
+   "value": 18,
+   "record": "certs/openai-math-kernel-7ef5c0cc.json",
+   "pointer": "/counts/words/CERTIFIED",
+   "line": "CERTIFIED of the 20 challenges re-run at 7ef5c0cc."
+  },
+  {
+   "id": "openai-7ef5c0cc-total",
+   "value": 20,
+   "record": "certs/openai-math-kernel-7ef5c0cc.json",
+   "pointer": "/counts/of",
+   "line": "Challenges added or changed at 7ef5c0cc and re-run."
+  },
+  {
+   "id": "openai-gaps",
+   "value": 14,
+   "record": "corpus/openai-math/findings.json",
+   "pointer": "/findings",
+   "line": "The findings list at fd4aeeb2 has 14 entries (the value is the list's length).",
+   "derive": {
+    "mode": "len"
+   }
+  },
+  {
+   "id": "openai-headlines-unchecked",
+   "value": 5,
+   "record": "corpus/targets.json",
+   "pointer": "/targets/87/verdict",
+   "line": "The audit row states five headlines carried by no checked statement (findings 0 to 4, severity 1).",
+   "derive": {
+    "mode": "token",
+    "text": "five headlines carried by no checked statement"
+   }
+  },
+  {
+   "id": "openai-families-read",
+   "value": 242,
+   "record": "certs/openai-math-statements.json",
+   "pointer": "/counts/families",
+   "line": "Formalized families whose statements were read in lane S."
+  },
+  {
+   "id": "openai-families-state-less",
+   "value": 34,
+   "record": "certs/openai-math-statements.json",
+   "pointer": "/counts/words",
+   "line": "Families that state less than or other than they claim: NARROWER — UNDECLARED (23) plus DIFFERENT (11).",
+   "derive": {
+    "mode": "sum",
+    "keys": [
+     "NARROWER — UNDECLARED",
+     "DIFFERENT"
+    ]
+   }
+  },
+  {
+   "id": "openai-holes-displayed",
+   "value": 63,
+   "record": "corpus/openai-math/release.json",
+   "pointer": "/counted/definitionHoles/displayedWithBody",
+   "line": "Definition holes displayed with a body, which Comparator compares by type only."
+  },
+  {
+   "id": "openai-holes-declared",
+   "value": 65,
+   "record": "corpus/openai-math/release.json",
+   "pointer": "/counted/definitionHoles/declared",
+   "line": "Definition holes declared in the release's configs."
+  },
+  {
+   "id": "openai-nanoda-on",
+   "value": 2,
+   "record": "corpus/openai-math/release.json",
+   "pointer": "/counted/enableNanoda/true",
+   "line": "Challenges whose shipped config enables nanoda (412 false, 2 absent)."
+  },
+  {
+   "id": "openai-witnesses-unpublished",
+   "value": 15,
+   "record": "certs/openai-math-finite.json",
+   "pointer": "/counts/NEEDS DATA",
+   "line": "Finite cores whose witness is asserted but not published (lane F)."
+  },
+  {
+   "id": "mub6-checks-passed",
+   "value": 19,
+   "record": "certs/openai-math-mub6-records.json",
+   "pointer": "/summary/passed",
+   "line": "Checks passed on the N(6) saved records, of 19."
+  },
+  {
+   "id": "erdos1-smallest-n",
+   "value": 1701,
+   "record": "certs/erdos1-ledger.json",
+   "pointer": "/smallest/n",
+   "line": "Smallest n of an explicit sum-distinct set below Bohman."
+  },
+  {
+   "id": "erdos1-ratio-79092",
+   "value": "0.145269",
+   "record": "certs/erdos1-ledger.json",
+   "pointer": "/instances/39/ratio6",
+   "line": "Ratio at n = 79,092 quoted by the census; the ledger's best is 0.136855 at n = 121,500 (/best)."
+  },
+  {
+   "id": "erdos1-best-ratio",
+   "value": "0.136855",
+   "record": "certs/erdos1-ledger.json",
+   "pointer": "/best/ratio6",
+   "line": "The ledger's best verified ratio, at n = 121,500."
+  },
+  {
+   "id": "apn-erdos-certified",
+   "value": 10,
+   "record": "certs/apn-kernel.json",
+   "pointer": "/counts/CERTIFIED",
+   "line": "AlphaProof Nexus Erdős proofs CERTIFIED: the 9 published plus the corrected #741(i)."
+  },
+  {
+   "id": "apn-problem-numbers",
+   "value": 7,
+   "record": "certs/apn-statements.json",
+   "pointer": "/counts/problemNumbers",
+   "line": "Distinct Erdős problem numbers covered by the 9 statements."
+  },
+  {
+   "id": "apn-oeis-published",
+   "value": 38,
+   "record": "certs/apn-oeis.json",
+   "pointer": "/published",
+   "line": "OEIS proofs published, of 44 claimed (/claimed)."
+  },
+  {
+   "id": "apn-oeis-prior-proofs",
+   "value": 3,
+   "record": "certs/apn-oeis.json",
+   "pointer": "/counts/priorProofRows",
+   "line": "OEIS targets already proved before the preprint (list of 3).",
+   "derive": {
+    "mode": "len"
+   }
+  },
+  {
+   "id": "apn-oeis-degenerate",
+   "value": 2,
+   "record": "certs/apn-oeis.json",
+   "pointer": "/counts/words/VACUOUS~1TRIVIAL",
+   "line": "OEIS statements read as vacuous or trivial."
+  },
+  {
+   "id": "cryptids-certified",
+   "value": 143,
+   "record": "certs/cryptids-audit.json",
+   "pointer": "/summary/CERTIFIED",
+   "line": "Cryptids claims CERTIFIED of 152 (1 REFUTED, 8 REFUSED)."
+  },
+  {
+   "id": "ramsey-certified",
+   "value": 17,
+   "record": "certs/ramsey-ledger.json",
+   "pointer": "/counts/CERTIFIED",
+   "line": "AlphaEvolve Ramsey graphs CERTIFIED of 18."
+  },
+  {
+   "id": "ramsey-r713-nodes",
+   "value": 613161647297,
+   "record": "certs/ramsey-ledger.json",
+   "pointer": "/rows/14/I/nodes",
+   "line": "Nodes of the exact independent-set search for R(7,13) >= 513."
+  },
+  {
+   "id": "aerp-certified",
+   "value": 70,
+   "record": "certs/aerp-ledger.json",
+   "pointer": "/counts/CERTIFIED",
+   "line": "AlphaEvolve community certificates CERTIFIED (2 REFUSED)."
+  },
+  {
+   "id": "easota-constructions",
+   "value": 20,
+   "record": "certs/easota-ledger.json",
+   "pointer": "/rows",
+   "line": "EinsteinArena SOTA table constructions decided (list of 20: 16 WITNESSED, 4 REPAIRED).",
+   "derive": {
+    "mode": "len"
+   }
+  },
+  {
+   "id": "qiushi-witnessed",
+   "value": 19,
+   "record": "certs/kissing-wave.json",
+   "pointer": "/rows",
+   "line": "Qiushi configurations WITNESSED (the qiushi-* rows of the list).",
+   "derive": {
+    "mode": "count",
+    "where": {
+     "claimant": "qiushi",
+     "verdict": "WITNESSED"
+    }
+   }
+  },
+  {
+   "id": "sidorenko-gpu-hours",
+   "value": "7.9",
+   "record": "corpus/targets.json",
+   "pointer": "/targets/89/verdict",
+   "line": "GPU-hours of the explicit-host pilot up to N = 32.",
+   "derive": {
+    "mode": "token"
+   }
+  },
+  {
+   "id": "horizonmath-kakeya-area",
+   "value": "6008623/55050240",
+   "record": "certs/claims-ledger.json",
+   "pointer": "/rows/77/scope",
+   "line": "Exact area of the union of the 128 printed triangles.",
+   "derive": {
+    "mode": "token"
+   }
+  },
+  {
+   "id": "gnnw-base",
+   "value": "3.78233",
+   "record": "certs/gnnw-certificate.json",
+   "pointer": "/decided/printedBase",
+   "line": "The printed base, the rounding of the certified e^F(1)."
+  },
+  {
+   "id": "gnnw-chain-base",
+   "value": "3.772130762900366389246867113974",
+   "record": "certs/gnnw-chain-certificate.json",
+   "pointer": "/decided/c/0",
+   "line": "Lower end of the base reached by further rounds (3.77213)."
+  },
+  {
+   "id": "polymaps-certified",
+   "value": 7,
+   "record": "certs/polymaps-ledger.json",
+   "pointer": "/byVerdict/CERTIFIED",
+   "line": "Gao and Markus-Yamabe maps CERTIFIED (1 PARTIAL)."
+  },
+  {
+   "id": "ai-manuscripts-confirmed",
+   "value": 5,
+   "record": "certs/ai-claims-summary.json",
+   "pointer": "/confirmed",
+   "line": "AI-assisted manuscripts CONFIRMED of 6 (1 PARTIAL, /partial)."
+  },
+  {
+   "id": "macmahon-witnesses",
+   "value": 300,
+   "record": "certs/macmahon-witnesses.json",
+   "pointer": "/facts/T3/built",
+   "line": "MacMahon constructions rebuilt with independent geometry, of 300."
+  },
+  {
+   "id": "wsp-entries",
+   "value": "130,188",
+   "record": "corpus/targets.json",
+   "pointer": "/targets/130/verdict",
+   "line": "Entries changed by the WSP edit (the printed 131,072 is the addressed count).",
+   "derive": {
+    "mode": "token"
+   }
+  }
+ ],
+ "unpointed": [
+  {
+   "id": "anthropic-zeta-two-thirds",
+   "reason": "The concordance decisions live in corpus/claimbox-riemann/records (copies of claimbox's pinned records, lifted for the companion paper), not under certs/; no certs/ file records this verdict."
+  },
+  {
+   "id": "anthropic-hadamard-668",
+   "reason": "No matrix was published, so nothing was decided; the only record is corpus/targets.json /targets/91 (DEAD as a search target), which is not a NEEDS DATA decision."
+  },
+  {
+   "id": "erdos-problems-ai-wiki",
+   "reason": "corpus/targets.json /targets/71 records the pool as DEAD and #513 as 'expected NEEDS DATA' in the 100-claim corpus (corpus/machine-claims-100.json); no certs/ record decides #513."
+  }
+ ],
+ "eth": {
+  "asOf": "2026-11-04",
+  "steps": [
+   {
+    "id": "labs",
+    "text": "Both labs' Lean proofs check against their own statements, on two kernels each.",
+    "record": "certs/eth-kernel.json",
+    "verdict": "CERTIFIED"
+   },
+   {
+    "id": "hawkley",
+    "text": "OpenAI's theorem implies Anthropic's ETHIsFalse, kernel-checked inside OpenAI's Lean 4.34.1 (Hawkley's chain, nanoda on); the seam to Anthropic's Lean 4.33.1 is read, not decided.",
+    "record": "certs/eth-hawkley-heavy.json",
+    "verdict": "CERTIFIED"
+   },
+   {
+    "id": "d1",
+    "text": "complexitylib's native ¬ETH on cslib's deterministic multitape Turing machine with the binary encoding encCNF (PR #1338) decided here: built from source, the three standard axioms from our own file, nanoda accepting all 49,025 declarations beneath not_eth, leanchecker --fresh exit 0. It formalizes OpenAI's Proposition 6.4 route as a native re-proof, not a bridge from either lab's own statement.",
+    "record": "certs/eth-cslib-d1.json",
+    "verdict": "CERTIFIED"
+   },
+   {
+    "id": "c1",
+    "text": "¬ETH on the word RAM at logarithmic word size: complexitylib's TM-to-RAM inclusions need polynomial time, so the space-based address bound is new (claimbox lean/eth-bridge, a proposal until decided here).",
+    "record": null,
+    "verdict": "IN PROGRESS"
+   },
+   {
+    "id": "c2",
+    "text": "Mathlib's FinTM2 on encClauses simulated by cslib's multitape TM on encCNF, so both labs' own statements reach the standard machine.",
+    "record": null,
+    "verdict": "NOT STARTED"
+   },
+   {
+    "id": "reading",
+    "text": "That any formal ETH (ours, cslib's, a lab's) is the textbook ETH is a reading of a definition. It stays one; the best outcome makes it a reading of a standard multitape machine and a word RAM with a reasonable binary encoding.",
+    "record": null,
+    "verdict": "A READING"
+   }
+  ]
+ }
+}

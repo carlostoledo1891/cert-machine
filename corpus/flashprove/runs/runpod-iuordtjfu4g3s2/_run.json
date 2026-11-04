@@ -1,0 +1,31 @@
+{
+ "run": "runpod-iuordtjfu4g3s2",
+ "auditSha": "ce9c62cb5d00d52efeb1a0596a6a2cf982edb1b8",
+ "startedAt": "2026-11-04T09:43:45Z",
+ "updatedAt": "2026-11-04T16:33:15Z",
+ "finishedAt": "2026-11-04T16:33:15Z",
+ "status": "completed",
+ "url": "https://iuordtjfu4g3s2-8000.proxy.runpod.net/",
+ "files": 89,
+ "host": "RunPod CPU pod iuordtjfu4g3s2: 32 vCPU; cgroup memory.max 256000000000 bytes; host shows 755 GB; 200G free; kernel 6.8.0-138-generic; sha_ni",
+ "leanNumThreads": "16 (from 238 GiB)",
+ "steps": {
+  "L1": "exit 0 after 120 s",
+  "L2": "exit 139 after 21242 s",
+  "L3": "exit 1 after 320 s",
+  "L4.build": "exit 0 after 75 s",
+  "L4.cp": "exit 0 after 26 s",
+  "L4.cp-a": "exit 1 after 13 s",
+  "L4.lean": "exit 0 after 1604 s",
+  "L4.lean-a": "exit 2 after 120 s",
+  "L5.tools": "exit 0 after 34 s",
+  "L5.export-sound_of_verify_at": "exit 0 after 148 s",
+  "L5.nanoda-sound_of_verify_at": "exit 0 after 860 s",
+  "L5.export-sound": "exit 1 after 1 s",
+  "L5.export-repliesFit": "exit 1 after 1 s",
+  "L5.export-refusedHandsOutNoProof": "exit 1 after 1 s",
+  "L5.export-soundAndBinding": "exit 1 after 1 s",
+  "L5.export-completeOnCanServe": "exit 1 after 1 s",
+  "L5.export-zeroKnowledgeOnCanServe": "exit 1 after 0 s"
+ }
+}

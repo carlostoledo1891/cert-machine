@@ -22,15 +22,20 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ A POD IS BILLING (2026-11-04): RunPod iuordtjfu4g3s2 (flashprove-lean; cpu3m 32 vCPU / 256 GB, EU-CZ-1, US$1.76/h,
-     created 09:42:58 UTC; CAP US$25 = ~23:50 UTC, the operator's). Status: https://iuordtjfu4g3s2-8000.proxy.runpod.net/_status.json.
-     When _phase is 'complete' (or at the cap): `node tools/import-runpod-flashprove.js iuordtjfu4g3s2` (--partial at the cap),
-     commit corpus/flashprove/runs/, then delete-pod iuordtjfu4g3s2 and get-pod → 404. The steps (L1 prepare, L2 lake build,
-     L3 our axioms file, L4 cp_verify beside the Lean verifier, L5 nanoda on public-lean4export exports) and the stop rules are
-     notes/flashprove-preregistration-2026-11-04.md; route 1/2 ran on the hosted runner (flashprove-route1.yml, run
-     41809013962, artifact flashprove-route1). Phases 3–4 (the statement reading, the exact checks), phase 5 (GPU, cap US$5)
-     and the report /reports/flashprove.html (gaps first) are next; any post on anthropics/FlashProve after the operator
-     reads the report.
+  ◆ A POD IS BILLING (2026-11-04 16:32 UTC): RunPod dxfrqfml7gtvpj (eth-c1-decide; cpu3m 4 vCPU / 32 GB, US-CA-2, US$0.22/h,
+     cap US$10). It decides C1 from claimbox 68a063bb (tools/runpod-eth-c1.sh). When _phase is 'complete'
+     (https://dxfrqfml7gtvpj-8000.proxy.runpod.net/_status.json): `node tools/import-runpod-facts.js dxfrqfml7gtvpj
+     corpus/eth-refutation/c1/runs`, write the C1 record, then delete-pod and get-pod → 404.
+     DONE today: FlashProve pod iuordtjfu4g3s2 DELETED (≈US$12; facts in corpus/flashprove/runs/runpod-iuordtjfu4g3s2: the
+     build crashed in Lake itself (signal 11) at 37,583/37,650 jobs, so the axioms file and the six exports did not run;
+     cp_verify YES on the full-size proof and NO on the tampered copy; the Lean verifier ACCEPT on the full-size proof and
+     NO VERDICT on the tampered one (its parser, outside Lean, refused the file); nanoda through the PUBLIC lean4export
+     accepted 207,461 declarations beneath sound_of_verify_at — the route the claim calls "untried"). Route 1/2 runner
+     41809013962 finished (success); its artifact is not yet read. FlashProve phases 3–4 and the report remain.
+     ETH D1 CERTIFIED (certs/eth-cslib-d1.json; pod h07oiww4hr8ikm deleted, ≈US$0.40). C1 proved in claimbox (68a063bb,
+     pushed on the operator's word for lean/eth-bridge only), being decided above. C2 (Anthropic's ETHIsFalse ⇒ cslib
+     ¬ETH) stated in claimbox (local, not committed), an agent proving it. /reports/ai-math-claims.html built (56 rows),
+     not pushed until make test passes.
   ★★ 2026-11-04 (later) — claimbox REPUBLISHED on the operator's word (e2e64f88; live sha256 = pin 47b87b51…); receiver
      asks (a)–(d) still unruled. teorth/optimizationproblems #242 REBASED (2ca4846: the C86 cell 1.8117251 (1.8084990*),
      Kos2026 kept) and the reply POSTED (issuecomment-6627410507) after two second-party replays (arhancanli; maximusrufus's

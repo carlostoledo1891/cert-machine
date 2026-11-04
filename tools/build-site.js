@@ -455,6 +455,15 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'optq-ledger.json'), 'utf8'));
       if (L.counts.REFUTED !== 0) fail('the PR-queue card would misstate the record');
       return L.counts.CERTIFIED + ' certified · ' + L.counts.REFUSED + ' refused · C₁a ≤ 1.5027435 · C₃c ≥ 1.674894 · Λ ≤ 0.1595 refused'; })() },
+  { g: 'ai', f: 'ai-math-claims.html', k: 'census · the state of AI math claims',
+    title: 'Public AI math claims, and how far each is checked',
+    desc: 'Every public mathematics claim by an AI lab or an AI-assisted author that a census found from June to November 2026: the formal artefact behind each, who has checked it, '
+      + 'the verdict here where one exists, and the gap still open. Where proofs were replayed, the kernels accepted them; what fails is the step between the formal object and the headline. '
+      + 'The ETH machine-model gap is the lead case.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'ai-math-claims', 'census.json'), 'utf8'));
+      const dec = L.rows.filter((r) => r.ours && !/^(OPEN|ON HOLD|IN PROGRESS)$/.test(r.ours.verdict)).length;
+      if (L.rows.length < 50 || dec < 30) fail('the AI-claims census card would misstate the record');
+      return L.rows.length + ' claims · ' + dec + ' decided here · as of ' + L.asOf; })() },
   { g: 'ai', f: 'wowii-counterexamples.html', k: 'audit · five Graffiti.pc conjectures',
     title: 'Written on the Wall II: five counterexamples, decided',
     desc: 'One account filed sixty Graffiti.pc conjectures with disproofs on formal-conjectures in a day. The five with explicit witness graphs — total domination in trees, 2-domination in bridged cliques — '

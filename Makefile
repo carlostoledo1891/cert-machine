@@ -334,6 +334,7 @@ reports:
 	@$(NODE) tools/build-report-aerp.js
 	@$(PY) -I tools/run-wowii-ledger.py
 	@$(NODE) tools/build-report-wowii.js
+	@$(NODE) tools/build-report-ai-math-claims.js
 	@$(PY) -I tools/run-optq-ledger.py
 	@$(NODE) tools/build-report-optq.js
 	@$(NODE) tools/run-pu-ledger.js

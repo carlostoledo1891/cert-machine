@@ -1,0 +1,98 @@
+{
+ "what": "D1 of the ETH model-gap lane: cslib-community/complexitylib's native ETH refutation (PR #1338) and its word-RAM simulation (PR #2027), built from source at the pin and decided here with our own axioms file, nanoda on lean4export exports, and leanchecker --fresh. No code of the claimant's audit is run.",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/cslib-community/complexitylib",
+  "commit": "1b7d62a8655b08351ba37684f3318257c3cd63f9",
+  "toolchain": "leanprover/lean4:v4.36.0-rc2",
+  "authors": "AI agents (Codex and Claude Code workers) with an AI reviewer, per the PR bodies"
+ },
+ "verdict": "CERTIFIED",
+ "scope": "The headlines not_eth, not_seth, exact_count, satExponent_eq_zero, length_encCNF (abstract), executes_simProgram and ComputableInPolyTime.exists_wordRAM compile at the pin and rest on the three standard axioms; nanoda accepts not_eth, exact_count and executes_simProgram with every declaration beneath them; leanchecker --fresh replays the abstract module.",
+ "fails": [],
+ "reading": [
+  "ETH here is ∃ δ > 0 such that 3-SAT (clauses of at most 3 literals, any variable labels, repeats allowed) is not decided by a deterministic multitape Turing machine of cslib within c·2^(δ·n)·(L+1)^e + c steps with some space bound, n the number of distinct variables and L the length of encCNF. That is Impagliazzo–Paturi's s₃ > 0 with a polynomial factor in L, which changes no infimum.",
+  "The machine is cslib's Turing.MultiTapeTM: finitely many states, a fixed number of work tapes, a read-only input tape and a write-only output tape, time counted in transitions. encCNF writes each literal's variable in binary with a polarity bit, framed; its exact length is a theorem (length_encCNF). This is the closest a Lean statement of ETH has come to the textbook model; that it IS the textbook ETH stays a reading.",
+  "It formalizes the interpolation-scale route of OpenAI's Proposition 6.4, not the sharper Theorem 1.1 / Appendix D bound (their issue #1538 is open). It is a native re-proof, not a bridge from either lab's own Lean statement."
+ ],
+ "gaps": [
+  "No planted-wrong control was run for nanoda in this run, so this run alone does not show nanoda rejecting a bad proof (earlier lanes ran one: certs/eth-hawkley-heavy.json).",
+  "The word-RAM theorem executes_simProgram bounds addresses by the running time; it is decided here as stated, and it does not by itself give ETH on a word RAM at logarithmic word size (C1 of the pre-registration).",
+  "Mathlib came from its published cache (lake exe cache get); cslib and complexitylib were built from source."
+ ],
+ "axioms": {
+  "ComplexityAbstracts.SubexponentialSATAbstract.not_eth": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "ComplexityAbstracts.SubexponentialSATAbstract.not_seth": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "ComplexityAbstracts.SubexponentialSATAbstract.exact_count": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "ComplexityAbstracts.SubexponentialSATAbstract.satExponent_eq_zero": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "ComplexityAbstracts.SubexponentialSATAbstract.length_encCNF": [
+   "propext",
+   "Quot.sound"
+  ],
+  "Cslib.WordRAM.OfTuring.executes_simProgram": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "Turing.MultiTapeTM.ComputableInPolyTime.exists_wordRAM": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "not_eth": {
+   "exportExit": 0,
+   "exit": 0,
+   "declarations": 49025,
+   "accepted": true,
+   "exportSha256": "7a3440c8006fda7083bc097743625e4726933459a6723f6edd36bad8ccc2e0e7",
+   "note": "nanoda's pretty-printer could not print the axiom list (a display limit, not a check)"
+  },
+  "exact_count": {
+   "exportExit": 0,
+   "exit": 0,
+   "declarations": 48829,
+   "accepted": true,
+   "exportSha256": "e932e99d720ef47d462011feb361ac3b5a5d5d9c4114c4de6e3783234e68f19c",
+   "note": "nanoda's pretty-printer could not print the axiom list (a display limit, not a check)"
+  },
+  "executes_simProgram": {
+   "exportExit": 0,
+   "exit": 0,
+   "declarations": 6178,
+   "accepted": true,
+   "exportSha256": "addd5278221e14f4fda86caaabb2a29a69d9b8381c460f35db9eb1f65ee917f8",
+   "note": "nanoda's pretty-printer could not print the axiom list (a display limit, not a check)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 757,
+  "leancheckerSeconds": 1198,
+  "leancheckerExit": 0
+ },
+ "run": {
+  "id": "runpod-h07oiww4hr8ikm",
+  "auditSha": "00699a96d0ae7f83102a935ac13741741ebbf16c",
+  "host": "RunPod CPU pod h07oiww4hr8ikm: 8 vCPU; cgroup memory.max 64000000000; 80G free",
+  "startedAt": "2026-11-04T15:36:20Z",
+  "finishedAt": "2026-11-04T16:15:25Z",
+  "facts": "corpus/eth-refutation/cslib/runs/runpod-h07oiww4hr8ikm"
+ }
+}
