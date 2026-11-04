@@ -19,6 +19,12 @@ within the platform's resolution certifies only that box, so the half-unit box a
 record's own claim is admitted CERTIFIED with the resolution box. (9) ONE READING OF A ROW'S BAR (2026-10-31): the number after
 the row claim's last relation, for the bar check and the record with no value alike — the horizonmath row that prints two numbers
 admits the object stating its claim, CERTIFIED, and refuses the one stating its first decimal (record-bar-mismatch), in both checkers.
+(10) CLAIMBOX'S FOUR ASKS (2026-11-04): (a) certs/easota-ledger.json read through instruments/easota/word.js (WITNESSED -> CERTIFIED,
+MISPRINTED -> REFUTED; REPAIRED, UNWITNESSED and unknown words refused; the bar rules as for any record; another path keeps the
+strict rule), check.py's reading held to the module on every row; (b) Index with three indices (the Station's 604, one
+configuration a slice), out of range and negative refused, two indices on three dimensions as before; (c) an integer Product and
+Sum with one reduction at the end, equal to the per-term Fraction's, and Erdős #852's 33,859-factor C* REFUTED in seconds (timed)
+with one factor off by one flipping it; (d) the hexagon decider as a named route through the ledger. The fixtures are in asks/.
 
 usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
@@ -31,6 +37,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -783,6 +790,244 @@ try:
     ok(not disagree, 'check.js gives the same word and kind on both one-bar cases', '; '.join(disagree)[:160])
 finally:
     shutil.rmtree(tmp9, ignore_errors=True)
+
+# ---- 10 · claimbox's four asks (2026-11-04, its PLAN.md §9, the operator's approval) -------------------------------------
+# (a) the SOTA table's ledger read through instruments/easota/word.js, for that ledger alone; (b) Index with three indices;
+# (c) an integer Product and Sum, one reduction at the end (Erdős #852's 33,859-factor C*); (d) the hexagon decider as a named
+# route. The fixtures are in asks/; every case is run by both checkers.
+ASKS = os.path.join(HERE, 'asks')
+LEDGER = 'certs/easota-ledger.json'
+tmp10 = tempfile.mkdtemp(prefix='claimbox-asks-')
+
+
+def js_objects(objs, root=ROOT):
+    """check.js over objects given as JSON texts, under a root; a list of results (None where node failed)"""
+    js = ("const C=require(process.argv[1]);C.setWords(C.loadVocab());const a=JSON.parse(require('fs').readFileSync(0,'utf8'));"
+          "console.log(JSON.stringify(a.texts.map(t=>{try{return C.checkObj(C.parseJSON(t),a.root)}catch(e){return null}})))")
+    r = subprocess.run(['node', '-e', js, os.path.join(HERE, 'check.js')], input=json.dumps({'texts': [json.dumps(o) for o in objs], 'root': root}), capture_output=True, text=True, timeout=1800)
+    return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else [None] * len(objs)
+
+
+def both(cases, root=ROOT, section=''):
+    """each case (label, object, word, kind, decided or None) in check.py and check.js; a red where a refusal is expected"""
+    jrs = js_objects([c[1] for c in cases], root)
+    for (label, o, word, kind, decided), jr in zip(cases, jrs):
+        res = B.check_obj(o, root)
+        good = res['word'] == word and res['kind'] == kind and (decided is None or res['decided'] == decided)
+        (ok if word == B.ADMITTED else red)(good, section + label + ' -> ' + (kind or 'ADMITTED' + (' [' + ' · '.join(decided) + ']' if decided is not None else '')),
+                                             (res['kind'] or res['word']) + ': ' + (res['msg'] or ' · '.join(res['decided']))[:90])
+        ok(jr is not None and shape(jr) == shape(res), section + label + ': check.js gives the same word, kind, decisions, witness, count and value', 'js ' + (str(jr['word']) + ' ' + str(jr['kind']) if jr else 'failed'))
+    return jrs
+
+
+def planted_source(tag, quote):
+    sp = os.path.join(tmp10, tag + '.md')
+    open(sp, 'w', encoding='utf-8').write(quote + '\n')
+    return {'what': 'the sentence, planted', 'path': os.path.relpath(sp, ROOT), 'sha256': hashlib.sha256(open(sp, 'rb').read()).hexdigest(), 'quote': quote}
+
+
+def rat(q):
+    q = Fraction(q)
+    return str(q.numerator) + '/' + str(q.denominator)
+
+
+try:
+    a_files = sorted(f for f in os.listdir(ASKS) if f.endswith('.json'))
+    ok(a_files == ['ask-a-easota-autocorr-ttt.json', 'ask-b-station-604-shells.json', 'ask-d-easota-hexagons-alphaevolve.json'], 'the three fixtures of the asks in asks/', ', '.join(a_files))
+    oa = json.load(open(os.path.join(ASKS, 'ask-a-easota-autocorr-ttt.json'), encoding='utf-8'))
+    ob = json.load(open(os.path.join(ASKS, 'ask-b-station-604-shells.json'), encoding='utf-8'))
+    od = json.load(open(os.path.join(ASKS, 'ask-d-easota-hexagons-alphaevolve.json'), encoding='utf-8'))
+
+    # ---- (a) the ledger's words ----
+    with open(os.path.join(ROOT, LEDGER), encoding='utf-8') as fh:
+        ledger = json.load(fh)
+    lrows = {x['id']: x for x in ledger['rows']}
+    # check.py's reading of a row's word held to word.js's (wordOf, then registerWord) on every ledger row and the planted ones
+    probes = [dict(x) for x in ledger['rows']] + [{'verdict': 'WITNESSED', 'printed': '1.5', 'printedAgrees': False}, {'verdict': 'WITNESSED', 'printed': None, 'printedAgrees': False},
+                                                  {'verdict': 'MISPRINTED'}, {'verdict': 'UNWITNESSED'}, {'verdict': 'UNDECIDED'}, {'verdict': 'PROVED'}, {'verdict': 'CERTIFIED'}, {}]
+    js_w = ("const W=require(process.argv[1]);const rs=JSON.parse(require('fs').readFileSync(0,'utf8'));console.log(JSON.stringify(rs.map(r=>{try{const w=W.wordOf({verdict:r.verdict,"
+            "printed:r.printed===undefined?null:r.printed,printedAgrees:r.printedAgrees===undefined?null:r.printedAgrees});const g=W.registerWord(w);return [w,g?g.verdict:null]}catch(e){return null}})))")
+    wj = subprocess.run(['node', '-e', js_w, B.LEDGER_WORDS[LEDGER]], input=json.dumps(probes), capture_output=True, text=True, timeout=60)
+    theirs_w = json.loads(wj.stdout) if wj.returncode == 0 else None
+    mine_w = []
+    for x in probes:
+        try:
+            mine_w.append(list(B.ledger_word(x, B.LEDGER_WORDS[LEDGER])))
+        except B.Refuse:
+            mine_w.append(None)
+    ok(theirs_w == mine_w and ['MISPRINTED', R] in mine_w and ['WITNESSED', C] in mine_w and ['REPAIRED', 'REPAIRED'] in mine_w and ['UNWITNESSED', None] in mine_w and mine_w[-3:] == [None, None, None],
+       'check.py reads a ledger row\'s word as word.js does on all ' + str(len(ledger['rows'])) + ' rows and ' + str(len(probes) - len(ledger['rows'])) + ' planted ones (WITNESSED -> CERTIFIED, MISPRINTED -> REFUTED, REPAIRED and UNWITNESSED no word of the three, PROVED refused)',
+       str(sum(1 for a, b in zip(mine_w, theirs_w or []) if a != b)) + ' disagreements')
+
+    # quotes of two table rows, so an object can print the other row's bar
+    readme_a = open(os.path.join(ROOT, oa['source']['path']), encoding='utf-8').read()
+    two_lines = '\n'.join(l for l in readme_a.split('\n') if l.startswith('| TTT-Discover') or l.startswith('| **Ours (Together AI)**'))
+    two_src = dict(oa['source'], quote=two_lines)
+
+    def a_obj(**kw):
+        o = clone(oa)
+        for k, v in kw.items():
+            if k == 'pred':
+                o['predicate'][0].update(v)
+            else:
+                o[k] = v
+        return o
+    repaired = lrows['overlap/ttt_discover_2026']
+    o_rep = a_obj(record=dict(oa['record'], row='overlap/ttt_discover_2026'), domain=dict(oa['domain'], pin={'path': repaired['file'], 'sha256': repaired['sha256']}, count=600))
+    o_valueless_own = a_obj(record=dict(oa['record'], value=None))
+    o_other_bar = a_obj(source=two_src, pred={'printed': '1.50286286', 'c': rat('1.50286286')})
+    lo_, hi_ = Fraction('1.50286286') - Fraction(5, 10 ** 9), Fraction('1.50286286') + Fraction(5, 10 ** 9)
+    o_valueless_in = a_obj(source=two_src, record=dict(oa['record'], value=None), pred={'rel': 'in', 'printed': '1.50286286', 'c': [rat(lo_), rat(hi_)]})
+    # the same ledger's bytes at another path: the vocabulary is that ledger's alone
+    elsewhere = os.path.join(tmp10, 'easota-ledger-copy.json')
+    shutil.copy(os.path.join(ROOT, LEDGER), elsewhere)
+    o_elsewhere = a_obj(record=dict(oa['record'], path=os.path.relpath(elsewhere, ROOT)))
+    both([
+        ('the fixture: C_1 <= 1.50286290 over the 30,000 values, the ledger\'s WITNESSED read as CERTIFIED and its exact rational re-decided', oa, B.ADMITTED, None, [C]),
+        ('the row\'s own bar with no value read (the row\'s word alone decides its own claim)', o_valueless_own, B.ADMITTED, None, [C]),
+        ('a REPAIRED row (overlap/ttt_discover_2026: word.js reads it as the register\'s REPAIRED, not one of the three)', o_rep, B.REFUSED_WORD, 'record-verdict-word', None),
+        ('the object declaring the ledger\'s own word WITNESSED', a_obj(record=dict(oa['record'], verdict='WITNESSED')), B.REFUSED_WORD, 'record-verdict-word', None),
+        ('a WITNESSED row whose claim states another bar (the object prints the next row\'s 1.50286286)', o_other_bar, B.REFUSED_WORD, 'record-bar-mismatch', None),
+        ('a WITNESSED row read with no value for another bar (the 1e829d0b rule: a valueless record decides only its own bar)', o_valueless_in, B.REFUSED_WORD, 'record-decision-mismatch', None),
+        ('the same ledger\'s bytes at another path (the strict rule: WITNESSED is not one of the three)', o_elsewhere, B.REFUSED_WORD, 'record-verdict-word', None),
+    ], section='(a) ')
+    ok(any('WITNESSED, read as CERTIFIED' in n for n in B.check_obj(oa)['notes']), '(a) the note records the ledger\'s word beside the register\'s')
+    # a planted root whose ledger holds the words the real one does not (MISPRINTED, UNWITNESSED, a word word.js does not compose)
+    root10 = os.path.join(tmp10, 'root')
+    os.makedirs(os.path.join(root10, 'certs'))
+    for rel_ in (oa['source']['path'], oa['domain']['pin']['path'], oa['predicate'][0]['g']['where']):
+        os.makedirs(os.path.dirname(os.path.join(root10, rel_)), exist_ok=True)
+        shutil.copy(os.path.join(ROOT, rel_), os.path.join(root10, rel_))
+    forged = clone(ledger)
+    base_row = lrows['autocorr/ttt_discover_2026']
+    forged['rows'] = [dict(base_row, id='misprinted', printed='1.50286289', printedAgrees=False, claim=base_row['claim'].replace('1.50286290', '1.50286289')),
+                      dict(base_row, id='unwitnessed', verdict='UNWITNESSED'), dict(base_row, id='proved', verdict='PROVED')]
+    json.dump(forged, open(os.path.join(root10, LEDGER), 'w'))
+    mis_src = planted_source('misprinted', base_row['claim'].replace('1.50286290', '1.50286289'))
+    shutil.copy(os.path.join(ROOT, mis_src['path']), os.path.join(root10, 'misprinted.md'))
+    mis_src['path'] = 'misprinted.md'
+    o_mis = a_obj(source=mis_src, record=dict(oa['record'], row='misprinted', verdict=R), pred={'printed': '1.50286289', 'c': rat('1.50286289')})
+    both([
+        ('a WITNESSED row whose printed digits do not state its value (word.js: MISPRINTED -> REFUTED), re-decided REFUTED', o_mis, B.ADMITTED, None, [R]),
+        ('the MISPRINTED row with the object declaring CERTIFIED', a_obj(source=mis_src, record=dict(oa['record'], row='misprinted'), pred={'printed': '1.50286289', 'c': rat('1.50286289')}), B.REFUSED_WORD, 'record-verdict-word', None),
+        ('an UNWITNESSED row (word.js names no register word)', a_obj(record=dict(oa['record'], row='unwitnessed')), B.REFUSED_WORD, 'record-verdict-word', None),
+        ('a word word.js does not compose (PROVED)', a_obj(record=dict(oa['record'], row='proved')), B.REFUSED_WORD, 'record-verdict-word', None),
+    ], root=root10, section='(a) planted ledger: ')
+
+    # ---- (b) three indices ----
+    ok(len(B.decode_data(ob['domain']['data'], os.path.join(ROOT, ob['domain']['pin']['path']), 'b')[0][0][0]) == 2, '(b) configs.0 decodes as 604 × 11 × 2 integer pairs')
+    def b_obj(g=None, pin=None):
+        o = clone(ob)
+        if g is not None:
+            o['predicate'] = [{'g': g, 'rel': 'eq', 'c': '0', 'forall': [['i', '0', ['Subtract', 'n', '1']]]}]
+        if pin is not None:
+            o['domain']['pin'] = pin
+        return o
+    st = json.load(open(os.path.join(ROOT, ob['domain']['pin']['path']), encoding='utf-8'))
+    st['configs'][0][7][3][1] += 1
+    moved = os.path.join(tmp10, 'station-moved.json')
+    json.dump(st, open(moved, 'w'))
+    both([
+        ('the fixture: configuration 0 on one shell, 36|u|^2 = 144 + 0 sqrt2, read with three indices', ob, B.ADMITTED, None, []),
+        ('a third index out of range (part 2 of a pair)', b_obj(['Index', 'f', 'i', '0', '2']), B.REFUSED_WORD, 'index', None),
+        ('a negative index (refused, not wrapped to the last coordinate)', b_obj(['Index', 'f', 'i', '-1', '0']), B.REFUSED_WORD, 'index', None),
+        ('two indices on the three-dimensional slice (no scalar reached, as before)', b_obj(['Index', 'f', 'i', '0']), B.REFUSED_WORD, 'index', None),
+        ('four indices', b_obj(['Index', 'f', 'i', '0', '0', '0']), B.REFUSED_WORD, 'arity', None),
+    ], section='(b) ')
+    rmv = B.check_obj(b_obj(pin={'path': os.path.relpath(moved, ROOT), 'sha256': hashlib.sha256(open(moved, 'rb').read()).hexdigest()}))
+    rb = B.check_obj(ob)
+    red(rmv['word'] == B.ADMITTED and [x['word'] for x in rmv['fromObject']] == [R, R] and rmv['fromObject'][0]['witness']['at'] == {'i': 7} and rmv['fromObject'][0]['violations'] == 1,
+        '(b) one sqrt2 part moved by one (vector 7, coordinate 3): both shell predicates REFUTED at i = 7, one violation each', json.dumps([x and (x['word'], x['witness'], x['violations']) for x in rmv['fromObject']])[:120])
+    ok([x['word'] for x in rb['fromObject']] == [C, C] and all(x['violations'] == 0 for x in rb['fromObject']), '(b) the fixture: both shell predicates CERTIFIED over the 604 vectors, no violation')
+
+    # ---- (c) an integer Product and Sum ----
+    lim_p = 400000
+    sieve = bytearray([1]) * (lim_p + 1)
+    sieve[0] = sieve[1] = 0
+    for i in range(2, int(lim_p ** 0.5) + 1):
+        if sieve[i]:
+            sieve[i * i::i] = bytearray(len(sieve[i * i::i]))
+    primes = [i for i in range(3, lim_p + 1) if sieve[i]]
+    ok(len(primes) == 33859 and primes[-1] == 399989, '(c) the odd primes to 400,000: 33,859 of them (the certificate\'s refutation limit)', str(len(primes)))
+    with open(os.path.join(ROOT, 'certs', 'erdos852-certificate.json'), encoding='utf-8') as fh:
+        cert852 = json.load(fh)['cstar']
+    printed852 = cert852['published']['value']
+    src852 = planted_source('cstar', 'C* = ' + printed852)
+
+    def c_obj(ps, tag, g=None, printed=printed852):
+        dp = os.path.join(tmp10, tag + '.json')
+        json.dump({'primes': ps}, open(dp, 'w'))
+        g = g or ['Multiply', '1/2', ['Subtract', ['Product', 'k', '0', ['Subtract', 'n', '1'], ['Add', '1', ['Divide', '1', ['Power', ['Subtract', ['Index', 'p', 'k'], '1'], '3']]]], '1']]
+        return {'id': 'ask-c-' + tag, 'text': 'C* = ½(∏_{p ≥ 3} (1 + 1/(p − 1)³) − 1) = ' + printed852 + ' (Erdős #852)', 'source': src852, 'reading': 'universal',
+                'domain': {'kind': 'finite', 'pin': {'path': os.path.relpath(dp, ROOT), 'sha256': hashlib.sha256(open(dp, 'rb').read()).hexdigest()}, 'decoder': 'the odd primes, in order', 'count': len(ps), 'variable': 'p',
+                           'data': {'select': 'primes', 'elements': 'integers', 'shape': ['n']}},
+                'predicate': [{'g': g, 'rel': 'le', 'printed': printed, 'c': rat(printed)}],
+                'reference': 'the partial product over the listed primes, a strict lower bound of C* (every factor exceeds 1): above the bar, it refutes C* <= the published value',
+                'hypotheses': [], 'falsifier': ['the partial product\'s constant exceeds the bar']}
+    # the small lists: the one-reduction value equals the value reduced per term (Fraction, term by term)
+    small = primes[:200]
+    per_factor = Fraction(1)
+    for p_ in small:
+        per_factor *= 1 + Fraction(1, (p_ - 1) ** 3)
+    harmonic_g = ['Add', ['Sum', 'k', '0', ['Subtract', 'n', '1'], ['Divide', '1', ['Add', 'k', '1']]], ['Sum', 'k', '0', ['Subtract', 'n', '1'], ['Divide', ['Index', 'p', 'k'], '1024']]]
+    per_term = sum((Fraction(1, k + 1) for k in range(200)), Fraction(0)) + sum((Fraction(p_, 1024) for p_ in small), Fraction(0))
+    small_cases = [('the product over the first 200 odd primes', c_obj(small, 'small-product'), (per_factor - 1) / 2),
+                   ('a harmonic sum and a sum over one power of 2, 200 terms each', c_obj(small, 'small-sum', g=harmonic_g, printed='0'), per_term)]
+    js_small = js_objects([o for _, o, _ in small_cases])
+    for (label, o, want), jr in zip(small_cases, js_small):
+        res = B.check_obj(o)
+        v = res['fromObject'][0]['value'] if res['word'] == B.ADMITTED and res['fromObject'][0] else None
+        red(v == str(want) and jr is not None and jr['fromObject'][0] and jr['fromObject'][0]['value'] == str(want),
+            '(c) ' + label + ': the one-reduction value equals the per-term Fraction\'s, in both checkers (else the reduction is wrong)', (v or str(res['kind']))[:40])
+    # the gcd the one reduction needs, in check.js (Lehmer for two large operands), held to Python's on planted common factors
+    rng10 = random.Random(20261104)
+    pairs = []
+    for bits in (100, 3000, 20000, 30000, 60000):
+        g_ = rng10.getrandbits(bits // 3) | 1
+        pairs.append((rng10.getrandbits(bits) * g_, rng10.getrandbits(bits) * g_ + 1))
+        pairs.append((rng10.getrandbits(bits) * g_, rng10.getrandbits(bits) * g_ * 6))
+    js_g = ("const C=require(process.argv[1]);const ps=JSON.parse(require('fs').readFileSync(0,'utf8'));"
+            "console.log(JSON.stringify(ps.map(([n,d])=>new C.Q(BigInt(n),BigInt(d)).toString())))")
+    gj = subprocess.run(['node', '-e', js_g, os.path.join(HERE, 'check.js')], input=json.dumps([[str(n), str(d)] for n, d in pairs]), capture_output=True, text=True, timeout=300)
+    ok(gj.returncode == 0 and json.loads(gj.stdout) == [str(Fraction(n, d)) for n, d in pairs],
+       '(c) check.js reduces ten planted fractions of 100 to 60,000 bits as Python\'s Fraction does (its gcd: Euclid, and Lehmer above 2^2048)', gj.stderr[:80])
+    # C*: 33,859 factors, timed, in both checkers; and the prime 3 read as 4, which must change the decision
+    o852 = c_obj(primes, 'cstar')
+    o852_off = c_obj([4] + primes[1:], 'cstar-off-by-one')
+    t10 = time.time()
+    r852 = B.check_obj(o852)
+    py_s = time.time() - t10
+    t10 = time.time()
+    j852, j852_off = js_objects([o852, o852_off])
+    js_s = time.time() - t10
+    r852_off = B.check_obj(o852_off)
+    fo852 = r852['fromObject'][0] if r852['word'] == B.ADMITTED else None
+    enc = cert852['enclosure']
+    ok(fo852 is not None and fo852['word'] == R and Fraction(fo852['value']) > Fraction(752403861778, 10 ** 13) and Fraction(fo852['value']) < Fraction(enc['lo']),
+       '(c) C* over the 33,859 factors: REFUTED against the published ' + printed852 + ' — the partial product\'s constant above the certificate\'s 0.0752403861778 and below its enclosure ' + enc['lo'][:16] + '…',
+       (fo852['value'][:24] + '… (' + str(len(fo852['value'])) + ' characters)') if fo852 else str(r852['kind']) + ': ' + r852['msg'][:60])
+    ok(j852 is not None and fo852 is not None and j852['fromObject'][0]['value'] == fo852['value'] and j852['fromObject'][0]['word'] == R, '(c) check.js gives the same word and the same exact value, digit for digit')
+    print('      (c) timing for the 33,859-factor C*: check.py %.1f s, check.js %.1f s for it and its off-by-one copy together (target < 30 s each)' % (py_s, js_s))
+    # the gate is loose on purpose (a loaded machine is slower; the per-factor normalisation it replaces took hours): the target is printed
+    ok(py_s < 120 and js_s < 240, '(c) the 33,859-factor product evaluates in seconds, not hours (check.py %.1f s; check.js %.1f s for two; gate 120 s, target 30 s)' % (py_s, js_s))
+    red(r852_off['word'] == B.ADMITTED and r852_off['fromObject'][0]['word'] == C and j852_off is not None and j852_off['fromObject'][0]['word'] == C,
+        '(c) one factor off by one (the prime 3 read as 4): the decision changes, REFUTED -> CERTIFIED, in both checkers', str(r852_off['fromObject'][0] and r852_off['fromObject'][0]['word']))
+
+    # ---- (d) the hexagons: the named route through the ledger ----
+    hexrow = lrows['hexagons/alphaevolve_2025']
+    od_moved = clone(od)
+    od_moved['source'] = planted_source('hex-moved', 'side 3.9419124')
+    od_moved['predicate'][0].update({'printed': '3.9419124', 'c': rat('3.9419124')})
+    od_other = clone(od)
+    od_other['record'] = dict(od['record'], row='hexagons/ours_2026')
+    both([
+        ('the fixture: side 3.9419123, the hexagon decider\'s row (WITNESSED) through its exact outer side', od, B.ADMITTED, None, [C]),
+        ('the side moved one unit of its last digit (3.9419124)', od_moved, B.REFUSED_WORD, 'record-decision-mismatch', None),
+        ('the other packing\'s row for these bytes (its sha256 is another file\'s)', od_other, B.REFUSED_WORD, 'record-pin-mismatch', None),
+    ], section='(d) ')
+    ok(hexrow['exactRational'] == od['predicate'][0]['c'] and hexrow['sha256'] == od['domain']['pin']['sha256'], '(d) the row\'s exact side is the object\'s bar and its sha256 the object\'s pin')
+finally:
+    shutil.rmtree(tmp10, ignore_errors=True)
 
 print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

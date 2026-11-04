@@ -19,6 +19,9 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const ARB = path.join(ROOT, 'certs', 'kernel-arb-audit.json');
 const VERDICT_JS = path.join(ROOT, 'instruments', 'verdict.js');
 const WARRANT_JS = path.join(ROOT, 'playground', 'warrant.js');
+/* LEDGER WORDS (2026-11-04, claimbox's ask, its PLAN.md §9): a record whose rows speak another vocabulary is read through the ONE
+   module that composes it, and only that record (the record's path -> the module); every other record keeps the three words */
+const LEDGER_WORDS = { 'certs/easota-ledger.json': path.join(ROOT, 'instruments', 'easota', 'word.js') };
 const ADMITTED = 'ADMITTED', REFUSED_WORD = 'REFUSED';
 
 const VOCAB = { Add: [2, 'add'], Subtract: [2, 'sub'], Multiply: [2, 'mul'], Divide: [2, 'div'], Abs: [1, 'abs'], Square: [1, 'sqr'], Power: [2, 'pow'],
@@ -112,7 +115,54 @@ function parseJSON(text) {
 
 /* ---- exact rationals on BigInt ------------------------------------------------------------------------------------ */
 const babs = (a) => (a < 0n ? -a : a);
-function gcd(a, b) { a = babs(a); b = babs(b); while (b) { [a, b] = [b, a % b]; } return a; }
+const bitLen = (x) => { const h = x.toString(16); return (h.length - 1) * 4 + (32 - Math.clz32(parseInt(h[0], 16))); };
+const SMALL = 2n ** 2048n;
+/* the gcd. Euclid while either operand is small (every gcd before 2026-11-04 took this path, unchanged). For two large ones —
+   the one reduction of a 33,859-factor Product, 1.7 million bits a side, which Euclid takes minutes over — Lehmer's algorithm
+   (Knuth, TAOCP vol. 2, 4.5.2, Algorithm L) on the leading 50 bits, held exact in doubles, and above 24,576 bits the same
+   carried by the leading 16,384 bits at a time (their cosequence, applied to the whole pair, shrinks it by about 8,000 bits).
+   Every step multiplies the pair by an integer matrix of determinant ±1, so the gcd is kept whatever the leading bits
+   predicted; a step that does not shrink the pair is replaced by one exact Euclid step. */
+function lehmer(a, b, n) { // the cosequence of the leading 50 bits of a ≥ b > 0 while both quotient bounds agree, or null
+  const sh = BigInt(n - 50);
+  let x = Number(a >> sh), y = Number(b >> sh), A = 1, B = 0, C = 0, D = 1;
+  for (;;) {
+    const u = y + C, v = y + D;
+    if (u <= 0 || v <= 0) break;
+    let q = Math.floor((x + A) / u); if (q * u > x + A) q--; else if ((q + 1) * u <= x + A) q++;
+    let r = Math.floor((x + B) / v); if (r * v > x + B) r--; else if ((r + 1) * v <= x + B) r++;
+    if (q !== r) break;
+    let t = A - q * C; A = C; C = t; t = B - q * D; B = D; D = t; t = x - q * y; x = y; y = t;
+  }
+  return B === 0 ? null : [BigInt(A), BigInt(B), BigInt(C), BigInt(D)];
+}
+function gcd(a, b) {
+  a = babs(a); b = babs(b);
+  if (a < SMALL || b < SMALL) { while (b) { [a, b] = [b, a % b]; } return a; }
+  if (a < b) [a, b] = [b, a];
+  const W = 8192;
+  while (b) {
+    const n = bitLen(a);
+    if (n <= 64) { while (b) [a, b] = [b, a % b]; return a; }
+    if (n > 3 * W && bitLen(b) > n - W) {
+      const s = BigInt(n - 2 * W);
+      let x = a >> s, y = b >> s, A = 1n, B = 0n, C = 0n, D = 1n;
+      while (y && bitLen(y) > W + 64) {
+        const m = lehmer(x, y, bitLen(x));
+        if (m) { const [p, q, r, t] = m; [x, y] = [p * x + q * y, r * x + t * y]; [A, B, C, D] = [p * A + q * C, p * B + q * D, r * A + t * C, r * B + t * D]; }
+        else { const q = x / y; [x, y] = [y, x - q * y]; [A, B, C, D] = [C, D, A - q * C, B - q * D]; }
+      }
+      const a2 = babs(A * a + B * b), b2 = babs(C * a + D * b);
+      if (bitLen(a2 > b2 ? a2 : b2) < n - 64) { [a, b] = a2 > b2 ? [a2, b2] : [b2, a2]; continue; }
+    }
+    const m = lehmer(a, b, n);
+    if (m) { const [p, q, r, t] = m; const a2 = babs(p * a + q * b), b2 = babs(r * a + t * b); [a, b] = a2 >= b2 ? [a2, b2] : [b2, a2]; }
+    else [a, b] = [b, a % b];
+  }
+  return a;
+}
+// the product of a list of BigInts in a balanced tree: big times big, never one big number times every small one
+function treeProduct(xs) { while (xs.length > 1) { const ys = []; for (let i = 0; i < xs.length; i += 2) ys.push(i + 1 < xs.length ? xs[i] * xs[i + 1] : xs[i]); xs = ys; } return xs.length ? xs[0] : 1n; }
 class Q {
   constructor(n, d = 1n) { if (d === 0n) throw new Refuse('division-by-zero', 'rational'); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; this.n = n / g; this.d = d / g; }
   static fromString(s) { const m = /^(-?\d+)(?:\/([1-9]\d*))?$/.exec(s); if (!m) throw new Error('not a rational ' + s); return new Q(BigInt(m[1]), m[2] ? BigInt(m[2]) : 1n); }
@@ -242,7 +292,8 @@ function walk(e, symbols, where, root, dataSym, bound) {
     }
     if (head === 'Index') {
       if (dataSym === null) throw new Refuse('vocabulary', where + ': Index needs a typed data block in the domain');
-      if (!(e.length === 3 || e.length === 4) || e[1] !== dataSym) throw new Refuse('arity', where + ': Index takes the data symbol and one or two indices');
+      // one to three indices (three since 2026-11-04: one slice of a four-dimensional array, the Station's 3 × 604 × 11 pairs)
+      if (!(e.length >= 3 && e.length <= 5) || e[1] !== dataSym) throw new Refuse('arity', where + ': Index takes the data symbol and one to three indices');
       let ok = true;
       e.slice(2).forEach((a, i) => { ok = walk(a, symbols, where + '.Index[' + i + ']', root, dataSym, bound) && ok; });
       return ok;
@@ -291,6 +342,23 @@ function ev(e, env, data, where, lim) {
     if ((head === 'MaxOver' || head === 'MinOver') && hi < lo) throw new Refuse('empty-range', where + ': ' + head + ' over ' + lo + '..' + hi);
     let acc = head === 'Sum' ? Z(0) : head === 'Product' ? Z(1) : null;
     const env2 = new Map(env);
+    if ((head === 'Sum' || head === 'Product') && !lim) {
+      /* (2026-11-04, claimbox's ask) integers, numerator and denominator apart, and ONE reduction at the end (a Q reduced per
+         term pays a gcd of the growing accumulator every step): a Product multiplies its numerators and its denominators each in
+         a balanced tree; a Sum keeps one denominator, the larger when one divides the other, else their product. Under an int64
+         reading every partial value is held, so that path below is unchanged. */
+      let n = 0n, d = 1n;
+      const ns = [], ds = [];
+      for (let k = lo; k <= hi; k++) {
+        env2.set(v, Z(k));
+        const x = ev(e[4], env2, data, where, lim);
+        if (head === 'Product') { ns.push(x.n); ds.push(x.d); }
+        else if (d % x.d === 0n) n += x.n * (d / x.d);
+        else if (x.d % d === 0n) { n = n * (x.d / d) + x.n; d = x.d; }
+        else { n = n * x.d + x.n * d; d *= x.d; }
+      }
+      return head === 'Product' ? new Q(treeProduct(ns), treeProduct(ds)) : new Q(n, d); // the one reduction
+    }
     for (let k = lo; k <= hi; k++) {
       env2.set(v, Z(k));
       const x = ev(e[4], env2, data, where, lim);
@@ -353,6 +421,18 @@ function recordValue(v, where) {
   if (isStr(v) && RAT.test(v)) return ['exact', Q.fromString(v)];
   if (Array.isArray(v) && v.length === 2 && v.every(isNum)) { const lo = Q.fromDouble(Number(v[0].text)), hi = Q.fromDouble(Number(v[1].text)); if (lo.cmp(hi) > 0) throw new Refuse('record-value', where + ': enclosure with lo > hi'); return ['enclosure', [lo, hi]]; }
   throw new Refuse('record-value', where + ': ' + JSON.stringify(v === undefined ? null : (isNum(v) ? v.text : v)).slice(0, 80));
+}
+/* a ledger row's word, read by the module that composes the ledger's words (instruments/easota/word.js, required, not copied):
+   wordOf (a WITNESSED row whose printed digits do not state its value is MISPRINTED), then registerWord, the register's word or
+   null where the module names none; [the ledger's word, the register's] */
+function ledgerWord(row, module) {
+  if (!fs.existsSync(module)) die(path.relative(ROOT, module) + ' is missing; a ledger\'s words are read from it');
+  const WD = require(module);
+  let said;
+  try { said = WD.wordOf({ verdict: row.verdict, printed: row.printed === undefined ? null : row.printed, printedAgrees: row.printedAgrees === undefined ? null : row.printedAgrees }); }
+  catch (e) { throw new Refuse('record-verdict-word', 'the ledger says ' + JSON.stringify(row.verdict === undefined ? null : row.verdict) + ', not a word of ' + path.relative(ROOT, module)); }
+  const reg = WD.registerWord(said);
+  return [said, reg ? reg.verdict : null];
 }
 const REL_WORD = { '<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq' };
 // THE BAR A RECORD ROW STATES, read ONE way (2026-10-30 for the record with no value; 2026-10-31 for every row, the operator's
@@ -623,6 +703,13 @@ function checkObj(o, root = ROOT) {
       if (r.row === null) row = rec;
       else { row = (Array.isArray(rec.rows) ? rec.rows : []).find((x) => x && typeof x === 'object' && !Array.isArray(x) && Object.prototype.hasOwnProperty.call(x, rkey) && x[rkey] === r.row); if (!row) throw new Refuse('record-row-missing', r.path + ' row ' + String(r.row)); }
       rv = d.kind === 'lean' ? ('word' in row ? row.word : row.verdict) : row.verdict;
+      const ledger = isStr(r.path) && d.kind !== 'lean' ? LEDGER_WORDS[path.posix.normalize(r.path.split(path.sep).join('/'))] : undefined;
+      if (ledger) {
+        const [said, reg] = ledgerWord(row, ledger);
+        rv = reg;
+        if (!WORDS.includes(rv)) throw new Refuse('record-verdict-word', 'the ledger says ' + said + ', which ' + path.relative(ROOT, ledger) + ' reads as ' + (rv ? JSON.stringify(rv) : 'no register word') + ': not one of the three');
+        out.notes.push('the ledger says ' + said + ', read as ' + rv + ' (' + path.relative(ROOT, ledger) + ')');
+      }
       if (!WORDS.includes(rv)) throw new Refuse('record-verdict-word', 'the record says ' + JSON.stringify(rv));
       if (r.verdict !== rv) throw new Refuse('record-verdict-word', 'the object declares ' + JSON.stringify(r.verdict) + ', the record says ' + rv);
       const rsha = row.sha256;

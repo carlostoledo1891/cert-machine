@@ -13,7 +13,8 @@ declared box (a JSON number is a double and is refused; a printed decimal is ref
 the rational its digits mean, or the box its digits allow); every pin resolves and hashes; the quoted
 sentence is byte for byte in the pinned source; the printed bar is in the quote and the exact bar c is the
 rational of the printed digits; every function head is in the vocabulary, with its arity; the reading and the
-falsifier are declared; when a record is attached, it exists, its verdict is one of the three words, its bar
+falsifier are declared; when a record is attached, it exists, its verdict is one of the three words (a ledger's
+own words, WITNESSED and the rest, read through the one module that composes them, for that ledger alone), its bar
 is the object's bar, and the record's exact value or enclosure, re-decided here against the object's bar,
 gives the record's verdict. SINCE VERSION 3 it also DECIDES, from the object alone, every predicate written in
 the exact heads over typed data (the finite quantifier: Sum, Product, MaxOver, MinOver over integer ranges,
@@ -63,6 +64,10 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 ARB = os.path.join(ROOT, 'certs', 'kernel-arb-audit.json')
 VERDICT_JS = os.path.join(ROOT, 'instruments', 'verdict.js')
 WARRANT_JS = os.path.join(ROOT, 'playground', 'warrant.js')
+# LEDGER WORDS (2026-11-04, claimbox's ask, its PLAN.md §9): a record whose rows speak another vocabulary is read through the ONE
+# module that composes that vocabulary, and only that record — the record's path -> the module. Every other record keeps the
+# three words (record-verdict-word).
+LEDGER_WORDS = {'certs/easota-ledger.json': os.path.join(ROOT, 'instruments', 'easota', 'word.js')}
 
 ADMITTED = 'ADMITTED'
 REFUSED_WORD = 'REFUSED'
@@ -76,7 +81,8 @@ VOCAB = {
     'LogGamma': (1, 'lgamma'), 'Digamma': (1, 'digamma'), 'Trigamma': (1, 'trigamma'),
     'GammaP': (2, 'gammaP'), 'Phi': (1, 'Phi'),
 }
-# exact heads (version 3): rational arithmetic, no kernel. Index takes the data symbol and one or two index expressions.
+# exact heads (version 3): rational arithmetic, no kernel. Index takes the data symbol and one to three index expressions (three
+# since 2026-11-04: one slice of a four-dimensional array, the Station's 3 × 604 × 11 integer pairs read at "configs.0").
 EXACT_EXTRA = {'Min': 2, 'Max': 2, 'Kronecker': 2}
 QUANT = ('Sum', 'Product', 'MaxOver', 'MinOver')          # [head, var, lo, hi, body]
 EXACT_HEADS = ('Add', 'Subtract', 'Multiply', 'Divide', 'Abs', 'Square', 'Power') + tuple(EXACT_EXTRA) + QUANT + ('Index',)
@@ -118,7 +124,7 @@ KINDS = {
     'division-by-zero': 'the exact evaluation divided by zero',
     'record-missing': 'the deciding record is not on disk',
     'record-row-missing': 'the deciding record has no row of that id',
-    'record-verdict-word': 'the record\'s verdict is not one of the three words, or the object declares another',
+    'record-verdict-word': 'the record\'s verdict is not one of the three words (a ledger\'s word read through the module that composes it, LEDGER_WORDS: certs/easota-ledger.json through instruments/easota/word.js), or the object declares another',
     'record-value': 'the record\'s value is neither an exact rational nor an enclosure of two numbers',
     'record-bar-mismatch': 'the record decided a bar other than the object\'s',
     'record-pin-mismatch': 'the record decided bytes other than the object\'s pin (the record row carries a sha256 that differs)',
@@ -324,8 +330,8 @@ def walk(e, symbols, where, root, data_sym=None, bound=()):
         if head == 'Index':
             if data_sym is None:
                 raise Refuse('vocabulary', where + ': Index needs a typed data block in the domain')
-            if len(e) not in (3, 4) or e[1] != data_sym:
-                raise Refuse('arity', where + ': Index takes the data symbol ' + str(data_sym) + ' and one or two indices')
+            if len(e) not in (3, 4, 5) or e[1] != data_sym:
+                raise Refuse('arity', where + ': Index takes the data symbol ' + str(data_sym) + ' and one to three indices')
             ok = True
             for i, a in enumerate(e[2:]):
                 ok = walk(a, symbols, where + '.Index[' + str(i) + ']', root, data_sym, bound) and ok
@@ -376,6 +382,13 @@ def exact_of(x):
     return int(f) if f.denominator == 1 else f
 
 
+def tree_product(xs):
+    """the product of a list of integers in a balanced tree: big times big, never one big number times every small one"""
+    while len(xs) > 1:
+        xs = [xs[i] * xs[i + 1] if i + 1 < len(xs) else xs[i] for i in range(0, len(xs), 2)]
+    return xs[0] if xs else 1
+
+
 class Wrap(Exception):
     """format 4, int64 reading: a value the exact evaluation reaches that int64 arithmetic would not hold (it would wrap, or
     it is not an integer). The exact value is then not the int64 program's value, so the predicate is not decided here."""
@@ -410,6 +423,35 @@ def ev(e, env, data, where='g', lim=None):
             raise Refuse('empty-range', where + ': ' + head + ' over ' + str(lo) + '..' + str(hi))
         acc = 0 if head == 'Sum' else 1 if head == 'Product' else None
         env2 = dict(env)
+        if head in ('Sum', 'Product') and lim is None:
+            # (2026-11-04, claimbox's ask) integers, numerator and denominator apart, and ONE reduction at the end: a Fraction
+            # normalised per term pays a gcd of the growing accumulator every step (Erdős #852's 33,859-factor C* took hours).
+            # A Product multiplies its numerators and its denominators each in a balanced tree; a Sum keeps one denominator,
+            # the larger when one divides the other (powers of 2, powers of 10), else their product. The value is the same
+            # rational; under an int64 reading every partial value is held, so that path below is unchanged.
+            n, den, nums, dens = 0, 1, [], []
+            for k in range(lo, hi + 1):
+                env2[var] = k
+                v = ev(body, env2, data, where, lim)
+                if head == 'Sum' and den == 1 and isinstance(v, int):
+                    n += v
+                    continue
+                vn, vd = (v, 1) if isinstance(v, int) else (v.numerator, v.denominator)
+                if head == 'Product':
+                    nums.append(vn)
+                    dens.append(vd)
+                elif den % vd == 0:
+                    n += vn * (den // vd)
+                elif vd % den == 0:
+                    n, den = n * (vd // den) + vn, vd
+                else:
+                    n, den = n * vd + vn * den, den * vd
+            if head == 'Product':
+                n, den = tree_product(nums), tree_product(dens)
+            if den == 1:
+                return n
+            q = Fraction(n, den)   # the one reduction
+            return int(q) if q.denominator == 1 else q
         for k in range(lo, hi + 1):
             env2[var] = k
             v = ev(body, env2, data, where, lim)
@@ -534,6 +576,40 @@ def record_value(v, where):
             raise Refuse('record-value', where + ': enclosure with lo > hi')
         return ('enclosure', (lo, hi))
     raise Refuse('record-value', where + ': ' + repr(v)[:80])
+
+
+LEDGER_TABLES = {}
+
+
+def ledger_table(module):
+    """(the words the module composes, the register's word for each) read from its source — WORDS and REGISTER of
+    instruments/easota/word.js — never typed here; the checker refuses to run when they are not where it reads them"""
+    if module not in LEDGER_TABLES:
+        if not os.path.exists(module):
+            die(os.path.relpath(module, ROOT) + ' is missing; a ledger\'s words are read from it')
+        with open(module, encoding='utf-8') as f:
+            src = f.read()
+        w = re.search(r"^const WORDS = \[([^\]]*)\];", src, re.M)
+        g = re.search(r"^const REGISTER = \{(.*)\};", src, re.M)
+        words = tuple(re.findall(r"'([A-Z]+)'", w.group(1))) if w else ()
+        register = dict(re.findall(r"([A-Z]+): \['([A-Z]+)'", g.group(1))) if g else {}
+        if 'WITNESSED' not in words or 'MISPRINTED' not in words or not register or any(k not in words for k in register):
+            die(os.path.relpath(module, ROOT) + ' does not declare WORDS and REGISTER where this checker reads them')
+        LEDGER_TABLES[module] = (words, register)
+    return LEDGER_TABLES[module]
+
+
+def ledger_word(row, module):
+    """a ledger row's word read the way instruments/easota/word.js reads it: wordOf (a WITNESSED row whose printed digits do
+    not state its exact value is MISPRINTED — the one rule written here again, held to the module by the battery), then
+    registerWord (the register's word, or None where the module names none). Returns (the ledger's word, the register's)."""
+    words, register = ledger_table(module)
+    said = row.get('verdict')
+    if said not in words:
+        raise Refuse('record-verdict-word', 'the ledger says ' + repr(said) + ', not a word of ' + os.path.relpath(module, ROOT))
+    if said == 'WITNESSED' and row.get('printed') is not None and row.get('printedAgrees') is False:
+        said = 'MISPRINTED'
+    return said, register.get(said)
 
 
 REL_WORD = {'<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq'}
@@ -961,6 +1037,12 @@ def check_obj(o, root=ROOT):
                 if row is None:
                     raise Refuse('record-row-missing', r['path'] + ' row ' + str(r['row']))
             rv = row.get('word', row.get('verdict')) if d['kind'] == 'lean' else row.get('verdict')
+            ledger = LEDGER_WORDS.get(os.path.normpath(r['path']).replace(os.sep, '/')) if isinstance(r['path'], str) and d['kind'] != 'lean' else None
+            if ledger is not None:
+                said, rv = ledger_word(row, ledger)
+                if rv not in WORDS:
+                    raise Refuse('record-verdict-word', 'the ledger says ' + said + ', which ' + os.path.relpath(ledger, ROOT) + ' reads as ' + (repr(rv) if rv else 'no register word') + ': not one of the three')
+                out['notes'].append('the ledger says ' + said + ', read as ' + rv + ' (' + os.path.relpath(ledger, ROOT) + ')')
             if rv not in WORDS:
                 raise Refuse('record-verdict-word', 'the record says ' + repr(rv))
             if r['verdict'] != rv:

@@ -17,6 +17,7 @@ instruments/claimbox/battery.py    the gate (make test "claimbox: declared claim
 instruments/claimbox/check.js      the second checker (JavaScript, no shared code)          node instruments/claimbox/check.js <object.json>...
 instruments/claimbox/primitive/    objects decided from the bytes alone (version 3)
 instruments/claimbox/v4/           the format-4 calibration objects (section "Format 4" below)
+instruments/claimbox/asks/         the fixtures of claimbox's four asks of 2026-11-02/03 (section "The four asks" below)
 ```
 
 ## The object
@@ -47,7 +48,7 @@ instruments/claimbox/v4/           the format-4 calibration objects (section "Fo
 | `reference` | what the number is about: which bar, which reading of the bytes, which quantity | non-empty (the lattice-claims lesson) |
 | `hypotheses` | what is taken from the literature and read, never decided | a list, may be empty |
 | `falsifier` | what would make the object go red | non-empty (the certificate rule) |
-| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three, the record's bar is the object's (the row's bar read one way, below, "The bar a row states"; else `record-bar-mismatch`), and the record's value re-decided against the object's bar gives the record's verdict; a record that carries no value decides only the claim its row states (below, "A record with no value"), else `record-decision-mismatch`. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
+| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three (a ledger's own words read through the module that composes them, for that ledger alone: below, "The four asks", (a)), the record's bar is the object's (the row's bar read one way, below, "The bar a row states"; else `record-bar-mismatch`), and the record's value re-decided against the object's bar gives the record's verdict; a record that carries no value decides only the claim its row states (below, "A record with no value"), else `record-decision-mismatch`. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
 | `repair` | optional: the bar the record certifies beside a refuted print | its own `printed`/`c` rule; re-decided the same way |
 | `notes` | optional prose | a list of strings |
 
@@ -154,7 +155,8 @@ decoded size, and the array must be rectangular; `count` must equal the first si
 number are different numbers, and the checker will not choose: see the 605 case below.
 
 **The finite quantifier.** Four heads bind an integer index over a range, inclusive: `["Sum", "k", lo, hi, body]`,
-`Product`, `MaxOver`, `MinOver` (the last two refuse an empty range); `["Index", f, i, j]` reads the decoded data;
+`Product`, `MaxOver`, `MinOver` (the last two refuse an empty range); `["Index", f, i, j]` reads the decoded data (one to
+three indices since 2026-11-04, below);
 `Min`, `Max` (binary) and `Kronecker` are exact heads too. A predicate may carry
 `"forall": [["i", "0", ["Subtract", "n", "2"]], ["j", ["Add", "i", "1"], ["Subtract", "n", "1"]]]`: the relation
 must hold at every index tuple. A bar the claimant printed must still be quoted; only the zero of a structural
@@ -264,3 +266,52 @@ commit the lane built (the row's `commit`, else the record's `release.commit` or
 | v4-mutant-two-on-one-bar | a mutant: the C_1d bar, printed once, carrying two inequalities | REFUSED, canonical |
 
 Format 4 adds four refusal kinds: `readings`, `standing`, `canonical`, `lean`.
+
+## The four asks (2026-11-04, claimbox's PLAN.md §9, the operator's approval)
+
+Each is held by the battery's section 10, in both checkers, with its red controls; the fixtures are in `asks/`. No object of the
+corpus changed its word, kind or decisions.
+
+**(a) A ledger's words as record words.** `certs/easota-ledger.json` says WITNESSED, MISPRINTED, REPAIRED, UNWITNESSED; the
+register reads them through `instruments/easota/word.js`, and the checkers now read that ledger's rows the same way and for that
+ledger alone (`LEDGER_WORDS` in each checker maps the record's path to the module; every other record keeps the three words and
+`record-verdict-word`). The row's word is composed by word.js's `wordOf` (a WITNESSED row whose printed digits do not state its
+exact value is MISPRINTED) and turned into the register's by its `registerWord`: WITNESSED → CERTIFIED, MISPRINTED → REFUTED.
+REPAIRED reads as the register's REPAIRED (a witness only within a verifier's tolerance) and UNWITNESSED as no word at all, so
+an object over either is refused `record-verdict-word`, as is a word word.js does not compose. check.js requires word.js;
+check.py reads its `WORDS` and `REGISTER` tables from the source (it refuses to run when they are not where it reads them) and
+writes the one `wordOf` line again, held to the module by the battery over every row of the ledger and planted cases. The
+object declares the register's word (`"verdict": "CERTIFIED"`), and a note records the ledger's. Everything else is as for any
+record: the row's `exactRational` (`record.value`) re-decided against the object's bar, the bar a row states (a WITNESSED row
+whose claim prints another bar is refused `record-bar-mismatch`, and a valueless reading of it decides only its own bar,
+`record-decision-mismatch`), the row's sha256 held to the object's pin. Fixture: `ask-a-easota-autocorr-ttt` (C₁ ≤ 1.50286290
+over the 30,000 values, CERTIFIED by the row's exact rational).
+
+**(b) `Index` with three indices.** `["Index", f, i, j, k]` reads a three-dimensional array; with `select` reaching one slice
+of a deeper one (`"configs.0"`), the Station's 3 × 604 × 11 integer pairs are read one configuration at a time,
+`shape: ["n", "d", "two"]`. An index outside its dimension, negative included, is refused `index` (never wrapped); an Index
+that stops short of a scalar (two indices on a three-dimensional array) is refused `index` as before; four indices are
+`arity`. Fixture: `ask-b-station-604-shells` (every vector of configuration 0 on the shell 36·|u|² = 144 + 0·√2, decided from
+the object, CERTIFIED twice).
+
+**(c) An integer `Product` and `Sum`.** Over an integer range the checkers evaluate both as integers, numerator and
+denominator apart, with ONE reduction at the end: a Product multiplies its numerators and its denominators each in a balanced
+tree; a Sum keeps one denominator, the larger when one divides the other (powers of 2 and of 10 stay one power), else their
+product. The value is the same rational as the per-term reduction's (the battery holds them equal); only the cost changes —
+Erdős #852's C* = ½(∏_{3≤p≤400000}(1 + 1/(p−1)³) − 1), 33,859 factors, which a Fraction normalised per factor took hours over,
+is decided in about 11 s by check.py and 3 s by check.js (unloaded; the battery prints its own timing), the two values equal digit for digit (744,068 characters). check.js's
+gcd, which the one reduction needs at 1.7 million bits a side, is Lehmer's for two large operands (Euclid, unchanged, while
+either is below 2²⁰⁴⁸). Under an `int64` reading every partial value is still held, as before.
+
+**(d) The hexagons: the named route, not a `Sqrt` head.** The smaller sound design is the one (a) already gives: a hexagon
+claim is a named predicate whose `where` is the hexagon decider (`instruments/easota/hexagons.js`: certified intervals with
+certified sine and cosine of the printed degrees), decided by the ledger's row through its exact outer side (`exactRational`)
+re-decided against the object's bar. Fixture: `ask-d-easota-hexagons-alphaevolve` (side 3.9419123, CERTIFIED); a side moved
+one unit of its last digit is refused `record-decision-mismatch` (the row's claim states no bar, so its exact side decides). It decides the published packings only: a Pythagorean repair (TODO item 8 of
+claimbox) is new bytes with no ledger row, and needs either a row from the decider or the head below. **`Sqrt`, not built — the
+design, if asked:** values in Q(√r) carried as a + b√r (a, b rational, r a positive integer that is not a square; √ of a
+rational square is its root, exactly); +, −, ×, ÷ (by the conjugate) closed in one field; two radicands r, s compose only when
+r·s is a square (√s = (√(rs)/r)·√r); the sign of a + b√r decided by integers (the signs of a and b, else a² against b²r), so
+every comparison, Min, Max, Abs, MaxOver and every relation is exact; anything else — a second field, a nested root, a
+negative radicand, an index or exponent that is not rational — leaves the predicate not decided from the object, with a note;
+no float anywhere; the SMT export refuses the head. About a hundred lines a checker, with a printed form both share.

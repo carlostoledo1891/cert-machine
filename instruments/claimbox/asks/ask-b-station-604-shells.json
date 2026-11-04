@@ -1,0 +1,141 @@
+{
+ "id": "ask-b-station-604-shells",
+ "text": "Each of the Station's 604 vectors of its first configuration, entries (a + b*sqrt2)/6, lies on the sphere of squared radius 4: sum of a^2 + 2b^2 is 144 and sum of a*b is 0.",
+ "source": {
+  "what": "the Station's kissing certificates (dualverse-ai/station_data_v2, kissing_certificates.npz) as pinned here",
+  "path": "corpus/kissing/station-d11-604.json",
+  "sha256": "8991d25d7a7ce03476d643d4a005404fbcbc70927f612ec2e4cee00fbea43a8c",
+  "quote": "three 604-point configurations, entries (a+b*sqrt2)/6"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/kissing/station-d11-604.json",
+   "sha256": "8991d25d7a7ce03476d643d4a005404fbcbc70927f612ec2e4cee00fbea43a8c"
+  },
+  "decoder": "configs[0]: 604 vectors of 11 coordinates, each the integer pair (a, b) of (a + b*sqrt2)/6",
+  "count": 604,
+  "variable": "f",
+  "data": {
+   "select": "configs.0",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d",
+    "two"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Sum",
+     "k",
+     "0",
+     [
+      "Subtract",
+      "d",
+      "1"
+     ],
+     [
+      "Add",
+      [
+       "Square",
+       [
+        "Index",
+        "f",
+        "i",
+        "k",
+        "0"
+       ]
+      ],
+      [
+       "Multiply",
+       "2",
+       [
+        "Square",
+        [
+         "Index",
+         "f",
+         "i",
+         "k",
+         "1"
+        ]
+       ]
+      ]
+     ]
+    ],
+    "144"
+   ],
+   "rel": "eq",
+   "c": "0",
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "note": "the rational part of 36·|u|²: 144, so |u|² = 4"
+  },
+  {
+   "g": [
+    "Sum",
+    "k",
+    "0",
+    [
+     "Subtract",
+     "d",
+     "1"
+    ],
+    [
+     "Multiply",
+     [
+      "Index",
+      "f",
+      "i",
+      "k",
+      "0"
+     ],
+     [
+      "Index",
+      "f",
+      "i",
+      "k",
+      "1"
+     ]
+    ]
+   ],
+   "rel": "eq",
+   "c": "0",
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "note": "the sqrt2 part of 36·|u|² is twice this sum: 0"
+  }
+ ],
+ "reference": "the radius of the configuration's shell, read from the integer pairs with three indices (vector, coordinate, rational or sqrt2 part); the kissing inequality itself is the claim-machine's to state",
+ "hypotheses": [],
+ "falsifier": [
+  "some vector's 36·|u|² differs from 144 in its rational part or its sqrt2 part",
+  "the pinned file does not hash to 8991d25d…"
+ ],
+ "notes": [
+  "the receiver's fixture for claimbox's ask (b) of 2026-11-02: Index with three indices over one slice of the 3 × 604 × 11 × 2 array (select configs.0); decided from the object, no record"
+ ]
+}

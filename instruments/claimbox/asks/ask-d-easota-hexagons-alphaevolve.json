@@ -1,0 +1,53 @@
+{
+ "id": "ask-d-easota-hexagons-alphaevolve",
+ "text": "AlphaEvolve V2 packs 12 unit hexagons, disjoint, inside a regular hexagon of side 3.9419123.",
+ "source": {
+  "what": "the EinsteinArena / Together AI new-SOTA table at c388c6f7, the hexagon-packing README",
+  "path": "corpus/easota/hexagon-packing/README.md",
+  "sha256": "f6f7474396e9b33f3550a33fb5a2e2ee308a3a8ea6d924ca3a3579b9bb29c891",
+  "quote": "| AlphaEvolve V2 | [Georgiev et al.](https://arxiv.org/abs/2511.02864); `einstein-arena/web/data/baselines/alphaevolve.json` | Nov 2025 | 3.9419123 |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/easota/hexagon-packing/alphaevolve_2025.json",
+   "sha256": "daa887e9ba08b64bf405cf38a56cde2429ef07782db24f08c69bc91a2a250df0"
+  },
+  "decoder": "12 inner hexagons (center x, center y, angle in degrees) and the outer hexagon (center, side, angle in degrees), each JSON number the exact rational its digits mean",
+  "count": 12,
+  "variable": "h"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "the score of the packing: the outer side, when the hexagon decider certifies the 12 unit hexagons pairwise disjoint and inside the outer one (certified intervals with certified sine and cosine of the printed angles)",
+    "where": "instruments/easota/hexagons.js",
+    "args": [
+     "h"
+    ]
+   },
+   "rel": "eq",
+   "printed": "3.9419123",
+   "c": "39419123/10000000"
+  }
+ ],
+ "reference": "the bar is the table's printed outer side 3.9419123, which the bytes state exactly (outer_side_length); the quantity is the score the platform defines, decided as a witness by the hexagon decider, the named route",
+ "hypotheses": [
+  "the platform's score of a feasible packing is its outer side (read, the problem's statement)"
+ ],
+ "falsifier": [
+  "the hexagon decider finds two inner hexagons overlapping or a vertex outside the outer hexagon",
+  "the ledger's exact outer side is not 3.9419123",
+  "the pinned file does not hash to daa887e9…"
+ ],
+ "record": {
+  "path": "certs/easota-ledger.json",
+  "row": "hexagons/alphaevolve_2025",
+  "value": "exactRational",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the receiver's fixture for claimbox's ask (d) of 2026-11-03, the hexagon decider as a named route: the vertices of a rotated hexagon are sines and cosines of printed degrees (or, under a Pythagorean rotation, numbers of Q(sqrt 3)), which the expression language does not state; the decider's ledger row is the authority, read through ask (a)"
+ ]
+}

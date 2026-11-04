@@ -1,0 +1,52 @@
+{
+ "id": "ask-a-easota-autocorr-ttt",
+ "text": "TTT-Discover's 30,000-value step function f >= 0 on [-1/4, 1/4] gives C_1 <= 1.50286290 (the first autocorrelation inequality).",
+ "source": {
+  "what": "the EinsteinArena / Together AI new-SOTA table at c388c6f7, the first-autocorrelation README",
+  "path": "corpus/easota/first-autocorrelation/README.md",
+  "sha256": "da935213ff3e3e33324803c52ee1ca60e4079312905b6540da1421328c1d2b60",
+  "quote": "| TTT-Discover | [Yuksekgonul et al.](https://arxiv.org/abs/2601.16175) | Jan 2026 | 30,000 | 1.50286290 |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/easota/first-autocorrelation/ttt_discover_2026.json",
+   "sha256": "4f24a0ef2515171617e3be99bc58e3ea8d350ff6b299775c029c5dc2971f413d"
+  },
+  "decoder": "the 30,000 numbers at \"values\", each the exact rational its printed digits mean (the ledger's reading)",
+  "count": 30000,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "C_1 of the step function f: max over t of (f*f)(t) / (integral of f)^2, f the 30,000 heights on [-1/4, 1/4] in equal steps, computed exactly",
+    "where": "instruments/easota/decide.js",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.50286290",
+   "c": "150286290/100000000"
+  }
+ ],
+ "reference": "the bar is the table's printed 1.50286290 taken exactly (an upper bound, so the print is read as the bound it states); the quantity is C_1 of the published heights read as the decimals they print",
+ "hypotheses": [
+  "any step function f >= 0 with integral f > 0 gives C_1 <= its ratio (read, the autocorrelation literature)"
+ ],
+ "falsifier": [
+  "the ratio of the pinned heights computed exactly exceeds 1.50286290",
+  "the pinned file does not hash to 4f24a0ef…"
+ ],
+ "record": {
+  "path": "certs/easota-ledger.json",
+  "row": "autocorr/ttt_discover_2026",
+  "value": "exactRational",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the receiver's fixture for claimbox's ask (a) of 2026-11-03 (its PLAN.md §9): the ledger's row says WITNESSED, read as CERTIFIED by instruments/easota/word.js, and the row's exact rational is re-decided against the object's bar; the receiver's own evaluator would be quadratic in the 30,000 values, so the predicate is named and the ledger's decider is the authority"
+ ]
+}
