@@ -645,4 +645,6 @@ function swellField(guard) {
   };
 }
 
-module.exports = { topic: { id: 'maps', title: 'Maps', lead: 'Cells, regions, sites, reaches and fields: what a map says about each place, and what it may not.' }, scenes: [atlasCells, claimBox, janelaSites, glideReach, swellField] };
+/* the drawing helpers, shared with apps/extremos/ (one coast, one contour, one PNG reader) */
+module.exports.helpers = { land, landFill, simplify, clipRing, dOf, contour, png, sha, readJSON, mark, marks, YES, NO, OPEN };
+Object.assign(module.exports, { topic: { id: 'maps', title: 'Maps', lead: 'Cells, regions, sites, reaches and fields: what a map says about each place, and what it may not.' }, scenes: [atlasCells, claimBox, janelaSites, glideReach, swellField]  });

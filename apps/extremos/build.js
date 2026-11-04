@@ -92,6 +92,11 @@ const LEG = {
 };
 const voidSw = () => { const h = hatch(); return sw(h.def + '<rect x="3" y="1" width="22" height="10" fill="url(#' + h.id + ')"/>'); };
 const legend = (items) => '<ul class="ex-leg w-legend">' + items.map(([s, t]) => '<li>' + s + '<span>' + esc(t) + '</span></li>').join('') + '</ul>';
+/* the figures drawn from the other instruments' records (Janela, Swell, the hindcast's raw maxima): apps/extremos/figs.js */
+const F = require(path.join(__dirname, 'figs.js'))({ need, br, int, v, hatch, f1, ln, legend, sw, LEG, voidSw, dual, GUIDE, esc });
+/* a method block: what is computed and what is proved, in formulas (mono lines), and a feature list */
+const method = (rows) => '<div class="ex-math"><div class="ex-mk">Método</div><dl>' + rows.map(([k, f, d]) => '<dt>' + esc(k) + '</dt><dd>' + (f ? '<code class="ex-f">' + f + '</code>' : '') + (d ? '<span>' + d + '</span>' : '') + '</dd>').join('') + '</dl></div>';
+const feats = (items) => '<ul class="ex-feat">' + items.map(([k, d]) => '<li><b>' + esc(k) + '</b> ' + d + '</li>').join('') + '</ul>';
 
 /* ================================================================================================================
    THE HERO — one hindcast node, seven answers. The 100-year daily-block level of every family at Campos, each a
@@ -181,9 +186,10 @@ const fitTable = C.table({
 const ggRefusedIn = BLK.filter(([b]) => !CP.blocks[b].fits.gengamma.certified).length;
 need(ggRefusedIn === 3 && CP.blocks.monthly.fits.gengamma.certified, 'the generalized gamma\'s refusals at Campos moved (three blocks, certified only monthly)');
 const s1Big = '<div class="ex-text"><p class="ex-big">' + v('4 de 4', W.DECIDED, CRIT.map(([k]) => DAY + '/rankings/' + k)) + '</p><p class="ex-big-k">critérios decidem a mesma distribuição no bloco diário de Campos</p>'
-  + C.p('Quando o bloco muda, o vencedor pode mudar. A tabela abaixo mostra cada decisão: nenhuma é um arredondamento.') + '</div>';
-const s1Text = C.p('Ajustamos as seis distribuições usuais de extremos, e a GEV, à sua série. Cada máximo de verossimilhança vem com uma prova: uma caixa em que existe exatamente um máximo, e nenhum outro fora dela. Os critérios de aderência são calculados em intervalos, e a escolha só sai quando a melhor distribuição fica inteira abaixo de todas as outras.')
-  + C.p('Quando a escolha não pode ser decidida, a resposta é RECUSADO, dizendo quais distribuições empatam. Quando uma família não tem máximo, como a gama generalizada em três dos quatro blocos de Campos, isso é provado, e ela não entra na disputa.');
+  + C.p('Com o bloco, o vencedor pode mudar: a tabela mostra cada decisão.') + '</div>';
+const s1Text = C.p('Ajusta as seis distribuições usuais de extremos, e a GEV, a uma série de altura significativa, em blocos de 3 horas, diário, semanal ou mensal. Cada máximo de verossimilhança sai com uma caixa de parâmetros em que ele é provado único; os níveis de retorno e os quatro critérios de aderência são intervalos calculados sobre essa caixa.')
+  + C.p('A escolha da distribuição é decidida quando o critério da melhor fica inteiro abaixo do de todas as outras; senão a resposta é RECUSADO, com as distribuições empatadas. Uma família sem máximo, como a gama generalizada em três dos quatro blocos de Campos, é provada sem máximo e sai da disputa.')
+  + feats([['Entrada:', 'uma série de Hs (boia, hindcast ou reanálise), o bloco e os períodos de retorno.'], ['Saída:', 'parâmetros, níveis de retorno, os quatro critérios e a escolha, cada um como intervalo ou veredito, com o certificado.']]);
 const s1Fig = '<div class="ex-tab">' + fitTable + '<p class="ex-cap col">Bacia de Campos, ' + cpYears + ' anos de hindcast; critérios Anderson–Darling (A²), Kolmogorov–Smirnov (KS), erro quadrático médio (EQM) e qui-quadrado (χ²). O vencedor muda com o bloco e com o critério; cada célula é uma decisão, não um arredondamento. '
   + 'A gama generalizada fica de fora onde não tem máximo (3 horas, diário, semanal).</p></div>';
 
@@ -232,9 +238,10 @@ const s2Fig = C.figure({ record: HS, pins: false, wide: false,
     + v(int(Math.round(spDeficit)), W.COMPUTED, [SPP + '/default/deficit']) + ' unidades de log-verossimilhança antes do máximo.'
     + legend([[LEG.decided, 'decidido'], [LEG.computed, 'saída do software (calculado)'], [LEG.wx, 'contraexemplo exibido']]) });
 const s2Text = '<p class="ex-big">' + v(br(spRatio, 1).replace(',0', '') + '×', W.DECIDED, [SPP + '/default/level100', SPCP + '/returnLevel/100']) + '</p><p class="ex-big-k">a diferença entre a onda de 100 anos do software e a certificada</p>'
-  + C.p('Bibliotecas de ajuste param quando o otimizador para, não quando o máximo é atingido. Com a localização livre, a verossimilhança nem tem máximo, e o número que sai depende do ponto de partida.')
-  + C.p('Conferimos a saída do seu software, ou qualquer ajuste publicado: os parâmetros entram, e sai PROVADO (é o máximo), REFUTADO (com o membro mais verossímil exibido) ou RECUSADO (a precisão impressa não decide).')
-  + C.pRaw('<a href="../instruments/return-level-check/">Confira um ajuste no navegador →</a> <span class="ex-en">(em inglês; nada sai da sua máquina)</span>');
+  + C.p('Otimizadores numéricos param por critério de tolerância, não no máximo. Com a localização livre, a verossimilhança da Weibull exponenciada nem tem máximo, e o resultado depende do ponto de partida.')
+  + C.p('A conferência recebe os parâmetros que um software devolveu e decide: PROVADO, se estão na caixa do máximo certificado; REFUTADO, com um membro da família de verossimilhança maior; RECUSADO, se a precisão informada não decide.')
+  + feats([['Entrada:', 'a série e os parâmetros de qualquer ajuste (SciPy, R, MATLAB, planilha).'], ['Saída:', 'o veredito, o déficit de log-verossimilhança e o membro exibido.']])
+  + C.pRaw('<a href="../instruments/return-level-check/">Conferência no navegador →</a> <span class="ex-en">(em inglês; os dados não saem da máquina)</span>');
 
 /* ================================================================================================================
    3 · PRINTED TABLES, DECIDED — the benchmark contributions' printed marginals at dataset A
@@ -296,8 +303,8 @@ const s3Fig = C.figure({ record: HS, pins: false, wide: false,
     + v(int(nA), W.DECIDED, [HS + '#/printed/reference/A/n']) + ' horas em que foram ajustadas. Cada barra é a faixa de todos os valores que os dígitos impressos permitem; o anel, o máximo certificado da mesma família.'
     + legend([[LEG.dot, 'nível implicado pela tabela'], [sw('<circle cx="14" cy="6" r="4.5" fill="none" stroke="var(--c-1)" stroke-width="2"/>'), 'máximo certificado'], [LEG.wx, 'contraexemplo exibido'], [voidSw(), 'recusado']]) });
 const s3Text = '<p class="ex-big">' + v(int(c9.belowLocation[0]), W.DECIDED, [PRP + '/' + PR.rows.indexOf(c9) + '/belowLocation']) + ' horas</p><p class="ex-big-k">abaixo da localização que uma tabela publicada imprime: a verossimilhança dela é menos infinito</p>'
-  + C.p('Tabelas de projeto, relatórios e artigos imprimem parâmetros com três ou quatro dígitos. Decidimos o que esses dígitos realmente afirmam sobre os seus dados: se o ajuste é o máximo, se fica abaixo dele, se nem pertence ao suporte da distribuição.')
-  + C.p('Funciona com a tabela de um fornecedor, de um consultor ou de um artigo: o resultado é a distância entre dois registros, nunca uma acusação.');
+  + C.p('Tabelas de projeto, relatórios e artigos imprimem parâmetros com três ou quatro dígitos. Os dígitos impressos definem uma caixa de parâmetros; a conferência decide o que a caixa inteira afirma sobre os dados em que a tabela foi ajustada: se contém o máximo, se fica abaixo dele, ou se põe dados fora do suporte da distribuição.')
+  + feats([['Entrada:', 'a tabela impressa (distribuição, parâmetros, dígitos) e a série original.'], ['Saída:', 'o nível de retorno implicado, como faixa, e o veredito contra o máximo certificado da mesma família.']]);
 
 /* ================================================================================================================
    4 · THE ATLAS — every open-sea cell of the global hindcast, the decided family's 100-year daily level
@@ -325,6 +332,8 @@ function mapSvg() {
   const o = [CH.open({ w, h, alt }), H.def];
   o.push('    <rect x="0" y="0" width="' + w + '" height="' + h + '" fill="none" stroke="' + CH.GRID + '" stroke-width="1"/>');
   for (const la of [-60, -30, 0, 30, 60]) o.push(ln(0, Y(la), w, Y(la), 'stroke="' + CH.GRID + '" stroke-width="1"'));
+  /* the land, Natural Earth 1:50m (corpus/basemap, pinned), under the cells: the cells are open sea, the land says where the coast is */
+  o.push('    <path d="' + F.landWorld(w, h, la0, la1) + '" ' + F.landFill + '/>');
   /* the grid is finer along some coasts: each mark is sized to half the distance to its nearest neighbour, so none overlaps */
   const P = atlasCellsDrawn.map((x) => [X(x.lo), Y(x.la)]);
   const rad = P.map(([a, b], i) => { let d = Infinity; P.forEach(([c, e], j) => { if (j !== i) d = Math.min(d, Math.hypot(a - c, b - e)); }); return Math.min(3.6, d / 2 - 0.3); });
@@ -340,7 +349,7 @@ function mapSvg() {
   o.push(CH.close);
   return o.join('\n');
 }
-const s4Fig = C.figure({ record: ATL, pins: false, svgRaw: mapSvg(),
+const s4Fig = C.figure({ record: [ATL, 'corpus/basemap/ne_50m_land.geojson'], pins: false, svgRaw: mapSvg(),
   captionRaw: 'A onda de 100 anos (bloco diário) da distribuição decidida, em cada uma das ' + v(int(atlasCells), W.DECIDED, [ATL + '#/cells']) + ' células oceânicas do hindcast global. '
     + 'Hachuradas, as ' + v(int(atlasRefused + atlasNoLevel), W.DECIDED, [ATL + '#/cells']) + ' em que a escolha ou o nível é recusado, com o motivo.'
     + legend(CL.map(([, , t], i) => [sw('<circle cx="14" cy="6" r="5" fill="' + CH.SEQ[i] + '"/>'), t]).concat([[voidSw(), 'recusado']])) });
@@ -396,9 +405,9 @@ const s5Fig = C.figure({ record: EC, pins: false, wide: false,
     + CON.map((r) => 'Contribuição ' + r.contribution + ' (' + esc(r.method) + '): ' + v(int(r.counts.full.out), W.DECIDED, [ECP(r) + '/counts/full/out']) + ' horas fora').join('; ') + '.'
     + legend([[LEG.decided, 'contorno, como o arquivo o lista'], [sw('<rect x="3" y="1" width="22" height="10" fill="' + CH.SEQ[3] + '" opacity="0.55"/>'), 'horas observadas (densidade)']]) });
 const s5Text = '<p class="ex-big">' + v(int(CON[0].counts.full.out), W.DECIDED, [ECP(CON[0]) + '/counts/full/out']) + ' horas</p><p class="ex-big-k">fora de um contorno de 20 anos cuja própria definição espera ' + v('1', W.DECIDED, [EC + '#/expected/' + E.expected.indexOf(EXP) + '/total/exact']) + '</p>'
-  + C.p('Cada hora observada é classificada dentro, fora ou sobre o contorno em aritmética exata. Também conferimos a geometria: de ' + int(ecRows) + ' contornos submetidos ao benchmark, '
+  + C.p('Cada hora observada é classificada dentro, fora ou sobre o polígono do contorno, em aritmética exata, e a contagem é comparada com o que a definição do contorno espera. A geometria também é conferida: de ' + int(ecRows) + ' contornos submetidos ao benchmark, '
     + int(ecOpen) + ' não fecham e ' + int(ecCross) + ' cruzam a si mesmos.')
-  + C.p('Hoje: a auditoria de qualquer contorno, o seu ou o de um fornecedor. Em desenvolvimento: contornos Hs–Tp com certificado, a partir do seu modelo conjunto e do seu método (IFORM, ISORM ou outro).');
+  + feats([['Entrada:', 'o contorno (lista de pontos), o período de retorno, o tipo (total ou marginal) e a série Hs–Tz.'], ['Saída:', 'as contagens exatas dentro, fora e sobre, o esperado pela definição e a geometria.']]);
 
 /* ================================================================================================================
    6 · THE THRESHOLD THAT FLIPS THE VERDICT — an instrument over the Campos enclosures
@@ -427,8 +436,8 @@ const instrumentJs = '<script>\n(function(){\'use strict\';\nvar E=' + JSON.stri
   + ' else if(edge.length)set(\'ex-v2\',\'RECUSADO\',\'open\',\'H cai dentro da caixa de \'+edge[0].name);\n'
   + ' else set(\'ex-v2\',\'PROVADO\',\'held\',\'as cinco ficam abaixo\');}\n'
   + 'r.addEventListener(\'input\',go);go();})();\n</script>';
-const s6Text = C.p('Uma afirmação de projeto vira uma pergunta com resposta. Arraste a altura: o veredito muda exatamente no limiar, e o limiar é publicado. Abaixo dele, a resposta vem com o contraexemplo: a distribuição que passa da altura.')
-  + C.p('O mesmo vale para uma carga, uma janela operacional ou um critério de norma: o número que inverte o veredito diz quanto dado falta, ou quanta margem sobra.');
+const s6Text = C.p('Uma afirmação de projeto, “a onda de 100 anos não passa de H”, é decidida contra os níveis certificados. O veredito muda exatamente no limiar, que é publicado; abaixo dele, o contraexemplo é a distribuição que passa da altura.')
+  + C.p('A mesma construção vale para cargas, janelas operacionais e critérios de norma: o limiar diz quanta margem sobra, ou quanto dado falta.');
 
 /* ================================================================================================================
    7 · REPORTS THAT SAY WHAT EACH NUMBER IS WORTH — one return-level figure, drawn the usual way and in WARRANT
@@ -487,67 +496,211 @@ const s7Fig = C.figure({ record: HS, pins: false,
 const kit = C.code('import warrant_mpl as wm\nwm.use()                      # ou wm.use(\'grey\'): como a laser imprime\n\nwm.line(ax, T, hs, wm.COMPUTED)   # a curva ajustada: tracejada\nwm.knot(ax, 100, h100)            # o nível decidido: um ponto\nwm.void(ax, 0, 1, 7.6, 8.0, words=\'gama gen.: recusada\')');
 
 /* ================================================================================================================
+   THE FIGURES FROM THE OTHER INSTRUMENTS (apps/extremos/figs.js), captioned here
+   ================================================================================================================ */
+const fRl = C.figure({ record: [HS, F.WW3], pins: false,
+  svgRaw: dual(F.rlEmpirical({ w: 1000, short: false, QF, best, FAM_S, rl, mid, stat, cpMax }), F.rlEmpirical({ w: 340, short: true, QF, best, FAM_S, rl, mid, stat, cpMax })),
+  captionRaw: 'Bacia de Campos: os ' + v(int(F.nD), W.DECIDED, [DAY + '/n']) + ' máximos diários de 1993 a 2024; os ' + int(F.nPts) + ' maiores no seu período de retorno empírico, pela posição de plotagem de Weibull i/(n+1), escolhida. '
+    + 'As curvas da Weibull exponenciada, da GEV e da Gumbel são calculadas em ponto flutuante a partir dos parâmetros certificados e passam, a menos de 10⁻⁶ m, pelos níveis decididos de 10, 100 e 1000 anos (os pontos). À direita dos 32 anos de registro, toda curva é extrapolação.'
+    + legend([[sw('<circle cx="14" cy="6" r="2.2" fill="var(--ink)"/>'), 'máximo diário registrado'], [LEG.computed, 'curva ou intervalo calculado'], [LEG.dot, 'nível decidido'], [LEG.guide, 'fim do registro']]) });
+
+const fBoard = C.figure({ record: F.DEC, pins: false,
+  svgRaw: dual(F.board({ w: 1000, short: false }), F.board({ w: 340, short: true })),
+  captionRaw: 'Uma rodada do registro de decisões, ' + esc(F.R.run.slice(8, 10) + '/' + F.R.run.slice(5, 7) + '/' + F.R.run.slice(0, 4)) + ', ' + esc(F.R.run.slice(11, 13)) + ' UTC, escolhida: em cada ponto de mar aberto e a cada passo de seis horas, pode começar ali uma operação de 48 horas com Hs ≤ 2,0 m? '
+    + 'De ' + v(int(F.nL + F.nV + F.nI), W.DECIDED, [F.DEC + '#/sites']) + ' partidas que a previsão alcança, ' + v(int(F.nL), W.DECIDED, [F.DEC + '#/sites']) + ' são liberadas, ' + v(int(F.nV), W.DECIDED, [F.DEC + '#/sites']) + ' vetadas e ' + v(int(F.nI), W.DECIDED, [F.DEC + '#/sites']) + ' indefinidas.'
+    + legend([[F.LEGS.lib, 'LIBERADA'], [F.LEGS.vet, 'VETADA'], [voidSw(), 'INDEFINIDA, ou além da previsão']]) });
+const fTime = C.figure({ record: [F.LEDGER, F.DEC], pins: false,
+  svgRaw: dual(F.timeline({ w: 1000, short: false }), F.timeline({ w: 340, short: true })),
+  captionRaw: 'Potiguar, uma linha da semana acima: a faixa de previsão gravada no registro público antes do mar acontecer (as previsões do ECMWF e da NOAA, cada uma alargada pelo erro medido contra satélites neste ponto, unidas; afirma ' + (F.claim[1] - F.claim[0]) + ' em ' + F.claim[1] + '). '
+    + 'As janelas são decididas de novo aqui, a partir da faixa do registro, e o build recusa a página se diferirem das que foram publicadas naquela manhã.'
+    + legend([[LEG.computed, 'bordas da faixa (calculadas)'], [LEG.decided, 'limite'], [F.LEGS.lib, 'LIBERADA'], [voidSw(), 'INDEFINIDA, ou além da previsão']]) });
+
+const Q2 = (q) => { const [n, d] = String(q).split('/'); return Number(n) / Number(d || 1); };
+const CA = F.camposA, CAp = F.WK + '#/sites/campos/cells/' + F.key(F.AL.lim, F.AL.per).replace('/', '~1');
+const climData = {};
+for (const lim of F.LIMS) for (const per of F.PERS) climData[lim + '/' + per] = Object.fromEntries(F.wsites.map((s) => [s.id, F.WR.sites[s.id].cells[F.key(lim, per)].oplim.map((x) => [x[0], x[1]])]));
+const climCtl = '<div class="ex-ctl" id="ex-clim-ctl" role="group" aria-label="Limite e duração da operação">'
+  + '<span class="ex-ck">limite de Hs</span>' + F.LIMS.map((l) => '<button type="button" data-lim="' + l + '" aria-pressed="' + (l === F.AL.lim) + '">' + br(Number(l), 1) + ' m</button>').join('')
+  + '<span class="ex-ck">duração</span>' + F.PERS.map((d) => '<button type="button" data-per="' + d + '" aria-pressed="' + (d === F.AL.per) + '">' + d + ' h</button>').join('') + '</div>';
+const fClim = C.figure({ record: F.WK, pins: false,
+  svgRaw: climCtl + '<div class="ex-clim">' + dual(F.climate({ w: 1000, short: false, lim: F.AL.lim, per: F.AL.per }), F.climate({ w: 340, short: true, lim: F.AL.lim, per: F.AL.per })) + '</div>',
+  captionRaw: 'Seis bacias, ' + v('32', W.DECIDED, [F.WK + '#/hindcast']) + ' anos de hindcast WAVEWATCH III a cada 3 horas: em cada mês, a fração exata de horários de partida em que a operação encontra a sua janela, viáveis sobre determinados, escrita em porcentagem arredondada para baixo. Escolha o limite e a duração; nada é ajustado nem suavizado.'
+    + legend(CH.SEQ.map((c, i) => [sw('<rect x="3" y="1" width="22" height="10" fill="' + c + '"/>'), (i === 4 ? '≥ 80 %' : (i * 20) + '–' + (i * 20 + 20) + ' %')])) });
+const fAlpha = C.figure({ record: F.WK, pins: false, wide: false,
+  svgRaw: dual(F.alphaFig({ w: 480, short: false }), F.alphaFig({ w: 330, short: true })),
+  captionRaw: 'O mesmo registro, no ano todo, para 48 horas com Hs ≤ 2,0 m: o ponto cheio com o limite simples; o vazado com o limite de previsão reduzido pelo fator α da DNV (DNV-ST-N001), em Campos α = ' + v(br(Number(Q2(CA.alpha)), 2), W.DECIDED, [CAp + '/alpha']) + ' e o limite ' + v(br(Number(CA.opwfDec), 2) + ' m', W.DECIDED, [CAp + '/opwfDec']) + '.'
+    + legend([[sw('<circle cx="14" cy="6" r="4.5" fill="var(--ink)"/>'), 'limite simples'], [sw('<circle cx="14" cy="6" r="4" fill="var(--sunk)" stroke="var(--ink)" stroke-width="2"/>'), 'limite × α']]) });
+
+const fGrade = C.figure({ record: [F.LEDGER, F.DEF], pins: false,
+  svgRaw: dual(F.graded({ w: 1000, short: false }), F.graded({ w: 340, short: true })),
+  captionRaw: 'Potiguar, de ' + esc(F.TP[0].slice(8, 10) + '/' + F.TP[0].slice(5, 7)) + ' a ' + esc(F.TP[F.TP.length - 1].slice(8, 10) + '/' + F.TP[F.TP.length - 1].slice(5, 7)) + ' de 2026: cada passagem de satélite altímetro a até 100 km e 3 horas de um passo previsto, e a previsão mais recente para esse passo, gravada antes da passagem. '
+    + 'Em todos os pontos até agora, o conjunto do ECMWF acertou ' + int(F.tot[0].k) + ' de ' + int(F.tot[0].n) + ' passagens e a faixa da decisão ' + int(F.tot[1].k) + ' de ' + int(F.tot[1].n) + '; cada acerto e cada erro é decidido de novo aqui em aritmética exata. A nota admite ou poda um previsor; nunca decide uma janela.'
+    + legend([[sw('<rect x="9" y="1" width="10" height="10" fill="var(--ink-4)"/>'), 'previsão que acertou (calculada)'], [sw('<rect x="9.5" y="1.5" width="9" height="9" fill="none" stroke="var(--ink-3)"/>'), 'previsão que errou'], [sw('<circle cx="14" cy="6" r="3" fill="var(--ink)"/>'), 'altura medida pelo satélite']]) });
+
+const lowTxt = F.low.map(([n, x]) => esc(n) + ' (×' + br(x.medianRatio, 2) + ')').join(', ');
+const fCoast = C.figure({ record: [F.CASE, F.DEPTH, F.BEA, F.CMP], pins: false,
+  svgRaw: dual(F.coast({ w: 1000, short: false }), F.coast({ w: 340, short: true })),
+  captionRaw: 'O modelo da ilha de Florianópolis, o caso de um swell de ' + F.PER + ' s vindo de ' + F.DIR + '°, escolhido: cada vigésima quinta crista, uma linha de nível da fase calculada por um modelo linear de refração, onde a onda alcança a água. A costa é a máscara de mar do próprio modelo, numa grade de 60 m. '
+    + 'O modelo é recusado a ' + F.EDGE_KM + ' km das bordas norte e sul, onde entra a onda plana sem refração; das 34 praias, ' + v(String(F.nCmp), W.DECIDED, [F.CMP + '#/readings/swell/byBeachLong']) + ' foram comparadas a uma solução de Boussinesq, e em três o modelo lê baixo: ' + lowTxt + '.'
+    + legend([[LEG.computed, 'crista (calculada)'], [sw('<rect x="9" y="1" width="10" height="10" fill="var(--ink)"/>'), 'praia comparada'], [sw('<rect x="9.5" y="1.5" width="9" height="9" fill="var(--sunk)" stroke="var(--ink)"/>'), 'praia sem comparação'], [voidSw(), 'recusado']]) });
+
+const climJs = '<script>\n(function(){\'use strict\';\nvar D=' + JSON.stringify(climData) + ',S=' + JSON.stringify(CH.SEQ) + ',L=' + JSON.stringify(F.AL.lim) + ',P=' + JSON.stringify(String(F.AL.per)) + ';\n'
+  + 'var c=document.getElementById(\'ex-clim-ctl\');if(!c)return;\n'
+  + 'function sh(k,n){var r=[0,.2,.4,.6,.8],s=0;for(var i=0;i<r.length;i++)if(k*10>=r[i]*10*n)s=i;return s;}\n'
+  + 'function pc(k,n){return (Math.floor(1000*k/n)/10).toFixed(1).replace(\'.\',\',\');}\n'
+  + 'function draw(){var d=D[L+\'/\'+P];document.querySelectorAll(\'.ex-clim [data-c]\').forEach(function(e){var a=e.getAttribute(\'data-c\').split(\',\'),x=d[a[0]][+a[1]];e.setAttribute(\'fill\',S[sh(x[0],x[1])]);});\n'
+  + ' document.querySelectorAll(\'.ex-clim [data-t]\').forEach(function(e){var a=e.getAttribute(\'data-t\').split(\',\'),x=d[a[0]][+a[1]];e.textContent=pc(x[0],x[1]);});\n'
+  + ' c.querySelectorAll(\'button\').forEach(function(b){b.setAttribute(\'aria-pressed\',String(b.getAttribute(\'data-lim\')===L||b.getAttribute(\'data-per\')===P));});}\n'
+  + 'c.addEventListener(\'click\',function(ev){var b=ev.target.closest(\'button\');if(!b)return;if(b.dataset.lim)L=b.dataset.lim;if(b.dataset.per)P=b.dataset.per;draw();});draw();})();\n</script>';
+
+/* ================================================================================================================
    THE PAGE
    ================================================================================================================ */
 const STAND = { live: ['Disponível', 'dep'], dev: ['Em desenvolvimento', 'open'] };
 const chip = (s) => C.tag(STAND[s][0], STAND[s][1]);
+const head = (lab, title, stand) => '<div class="sec-head"><div class="lab">' + esc(lab) + '</div><h2>' + esc(title) + '</h2>' + (stand ? '<div class="ex-chips">' + [].concat(stand).map(chip).join('') + '</div>' : '') + '</div>';
 const split = ({ id, lab, title, stand, textRaw, figRaw, flip }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n<div class="ex-split' + (flip ? ' flip' : '') + '">\n'
-  + '<div class="ex-text"><div class="sec-head"><div class="lab">' + esc(lab) + '</div><h2>' + esc(title) + '</h2>' + (stand ? '<div class="ex-chips">' + [].concat(stand).map(chip).join('') + '</div>' : '') + '</div>\n' + textRaw + '\n</div>\n'
+  + '<div class="ex-text">' + head(lab, title, stand) + '\n' + textRaw + '\n</div>\n'
   + '<div class="ex-fig">\n' + figRaw + '\n</div>\n</div>\n</section>';
-const sec = ({ id, lab, title, stand, raw }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n<div class="sec-head"><div class="lab">' + esc(lab) + '</div><h2>' + esc(title) + '</h2>' + (stand ? '<div class="ex-chips">' + chip(stand) + '</div>' : '') + '</div>\n' + raw + '\n</section>';
+const sec = ({ id, lab, title, stand, raw }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n' + head(lab, title, stand) + '\n' + raw + '\n</section>';
 const panel = (k, title, raw, stand) => '<div class="ex-panel">' + '<div class="ex-ptop">' + (k ? '<span class="ex-pk">' + esc(k) + '</span>' : '<span></span>') + (stand ? chip(stand) : '') + '</div><h3>' + esc(title) + '</h3><p>' + raw + '</p></div>';
-const MAILTO = (subject) => 'mailto:' + CT.MAIL + '?subject=' + encodeURIComponent(subject);
-const cta = '<div class="ex-cta"><a class="ex-btn" href="' + C.escAttr(MAILTO('Extremos — uma tabela para conferir')) + '">Envie uma tabela para conferir →</a>'
-  + '<a class="ex-btn ghost" href="' + C.escAttr(MAILTO('Extremos')) + '"><span class="m">' + esc(CT.MAIL) + '</span></a></div>';
+const col = (raw) => '<div class="col">' + raw + '</div>';
+const twoCol = (a, b) => '<div class="ex-two">' + a + b + '</div>';
+
+const KRAW = 'K(X) = m − Y·∇ℓ(m) + (I − Y·J(X))·(X − m) ⊂ int X';
+const M1 = method([
+  ['máximo certificado', esc(KRAW), 'Newton em ponto flutuante dá o candidato m; o operador de Krawczyk, avaliado em aritmética intervalar com arredondamento para fora sobre todos os dados, prova que a caixa X tem exatamente um zero do escore ∇ℓ, e a Hessiana é provada negativa definida em X. O zero é o máximo na caixa.'],
+  ['nível de retorno', esc('z_T = F⁻¹(1 − b / (8766·T)),  b = 24 h no bloco diário'), 'Avaliado sobre toda a caixa X: o intervalo contém o nível de retorno de todo parâmetro da caixa. 8766 horas = 365,25 × 24, exato.'],
+  ['aderência', esc('A² = −n − (1/n)·Σ (2i−1)·[ln F(x₍ᵢ₎) + ln(1 − F(x₍ₙ₊₁₋ᵢ₎))]'), 'Com Kolmogorov–Smirnov, o erro quadrático médio e o χ² (dados agrupados exatamente em racionais), cada critério é um intervalo. Somas de n termos com Sum2 (Ogita, Rump e Oishi, 2005), com o erro limitado e somado para fora.'],
+  ['escolha', esc('sup A²(melhor) < inf A²(outra), para toda outra'), 'Senão: RECUSADO, com o empate nomeado. A decisão ordena a aritmética do critério nesta amostra; não é um teste entre modelos.'],
+]);
+const M2 = method([
+  ['refutação', esc('inf ℓ(θ′) − sup ℓ(θ_software) > 0'), 'Um membro θ′ da mesma família com log-verossimilhança provadamente maior refuta o ajuste do software como máximo; o déficit é a diferença, um intervalo.'],
+]);
+const M3 = method([
+  ['dígitos impressos', esc('p ± ½·10⁻ᵈ  para cada parâmetro impresso com d casas'), 'A caixa de parâmetros que os dígitos permitem; a verossimilhança e o nível de retorno são avaliados sobre ela inteira.'],
+  ['suporte', esc('x ≤ γ  ⇒  f(x) = 0  ⇒  ℓ = −∞'), 'Numa distribuição de três parâmetros, um dado abaixo da localização impressa γ tem densidade zero: a tabela é decidida incompatível com os dados, sem ajuste nenhum.'],
+]);
+const M5 = method([
+  ['dentro ou fora', esc('orient(a, b, p) = (b_x − a_x)(p_y − a_y) − (b_y − a_y)(p_x − a_x)'), 'O sinal de cada determinante é decidido exatamente (um filtro com limite de erro provado, e aritmética racional quando o filtro não decide); a regra par-ímpar do benchmark classifica cada hora DENTRO, FORA ou SOBRE.'],
+  ['o esperado', esc('α = 1 / (T · 8766) = 1/175320,  n·α = 1  (total, T = 20 anos)'), 'Para um contorno total de 20 anos, a definição espera n·α horas fora; para IFORM, com β = Φ⁻¹(1 − α) = 4,38861…, a tabela 1 do benchmark é certificada.'],
+]);
+const M6 = method([
+  ['veredito', esc('H ≥ sup z₁₀₀ ⇒ PROVADO;  H < inf z₁₀₀ ⇒ REFUTADO;  senão RECUSADO'), 'A comparação é feita em inteiros (BigInt, em unidades de 10⁻⁸ m), no navegador, contra as caixas certificadas.'],
+]);
+const M7 = method([
+  ['janela', esc('LIBERADA ⇔ ∀k ∈ janela: sup faixa_k ≤ limite;   VETADA ⇔ ∃k: inf faixa_k > limite'), 'Senão INDEFINIDA, com o limiar que mudaria o veredito. Comparação racional exata, passo a passo da previsão; uma regra que limita algo que ninguém prevê (corrente, visibilidade) dá SEM DADOS.'],
+  ['faixa', esc('faixa = previsão ± erro medido contra satélites  (afirma 9 em 10)'), 'A faixa é a afirmação de um previsor, não o mar: é gravada no registro público antes da passagem e conferida depois (abaixo).'],
+]);
+const M8 = method([
+  ['viável', esc('viável(k) ⇔ ∀j ∈ [k, k + TR/3]: x_j · den ≤ num · 500'), 'Hs do hindcast como inteiro (bruto/500 m) e o limite como fração num/den: a comparação é entre inteiros. Uma janela com amostra faltando é indeterminada, contada à parte, nunca estimada.'],
+  ['frequência', esc('p_mês = viáveis / determinadas  (fração exata)'), 'Com o fator α da DNV, o limite de previsão é α × limite; a mesma contagem dá a frequência sob a regra de planejamento.'],
+]);
+const M9 = method([
+  ['acerto', esc('inf faixa ≤ Hs_satélite ≤ sup faixa'), 'Decidido em racionais para cada passagem a até 100 km e 3 horas; a contagem de acertos é comparada com a cobertura que o previsor afirma. Um previsor que não cumpre a própria cobertura deixa de ser admitido até ser recalibrado.'],
+]);
+
+/* ---- related pages: the other pages of this site on sea, wind, energy and the method, grouped; generic labels (the
+   page names no group, project or person), each target checked to exist in site/ at build ---------------------------- */
+const REL = [
+  ['Mar e ondas', [
+    ['instruments/return-level-atlas/', 'Atlas de níveis de retorno', 'cada célula do oceano, 1993–2024, com certificado', 'en'],
+    ['instruments/return-level-check/', 'Conferência de um ajuste', 'certifique um ajuste a partir do seu arquivo, no navegador', 'en'],
+    ['reports/return-levels.html', 'Níveis de retorno de Hs como certificados', 'o relatório completo da ferramenta 1', 'en'],
+    ['instruments/contours/', 'Contornos ambientais', 'cada hora de mar contra cada contorno', 'en'],
+    ['reports/ec-benchmark.html', 'O benchmark de contornos, decidido', 'os 150 contornos e as contagens publicadas', 'en'],
+    ['reports/breaking-geometry.html', 'Ondas arrebentando no Mar Negro', 'a geometria de 16.369 eventos, número a número', 'en'],
+    ['instruments/stereo-reach/', 'Vídeo estéreo de ondas', 'o orçamento de erro de um sistema de câmeras', 'en'],
+  ]],
+  ['Previsão, janelas e costa', [
+    ['janela/', 'Janela', 'janelas operacionais offshore, decididas sobre a previsão', 'en'],
+    ['janela/metodo/', 'Janela: o método', 'a faixa medida contra satélites e os vereditos', 'en'],
+    ['swell/', 'Swell', 'o mar de Florianópolis, praia a praia', 'en'],
+  ]],
+  ['Vento e ar', [
+    ['reports/glide-band.html', 'Anel de planeio como banda certificada', 'alcance com vento, num voo real', 'en'],
+    ['apps/skyaudit/', 'SkyAudit', 'um dia de voos, reserva de energia decidida voo a voo', 'en'],
+  ]],
+  ['Energia e clima', [
+    ['contraprova/', 'Contraprova', 'verificação independente de números de engenharia e de IA', 'pt'],
+    ['decidivel/', 'Decidível', 'sísmica 4D para injeção de gás e CO₂, detectabilidade garantida', 'pt'],
+    ['abatimento/', 'Registro de abatimento', 'potenciais de abatimento de emissões, sem dupla contagem', 'pt'],
+  ]],
+  ['Método', [
+    ['grammar/', 'A gramática visual WARRANT', 'o que cada traço de um gráfico afirma', 'en'],
+    ['verify/', 'Verify', 'conferência independente de afirmações de IA', 'en'],
+    ['reports/rerun.html', 'O kit de reexecução', 'refaça qualquer veredito sem a nossa máquina', 'en'],
+  ]],
+];
+for (const [, links] of REL) for (const [href] of links) need(fs.existsSync(path.join(ROOT, 'site', href.endsWith('/') ? href + 'index.html' : href)), 'a related page does not exist in site/: ' + href);
+const related = '<div class="wide"><div class="ex-rel">' + REL.map(([g, links]) => '<div class="ex-relg"><div class="ex-pk">' + esc(g) + '</div><ul>'
+  + links.map(([href, t, d, lang]) => '<li><a href="../' + C.escAttr(href) + '">' + esc(t) + ' →</a><span>' + esc(d) + (lang === 'en' ? ' <span class="ex-en">(em inglês)</span>' : '') + '</span></li>').join('')
+  + '</ul></div>').join('') + '</div></div>';
 
 const sections = [
   C.header({
-    eyebrow: 'cert-machine · extremos de onda, vento e corrente',
-    title: 'Qual onda de 100 anos você assina?',
-    deck: 'Na Bacia de Campos, os mesmos ' + cpYears + ' anos de hindcast dão de ' + br(mid(lowF), 2) + ' a ' + br(mid(highF), 2) + ' m, conforme a distribuição. '
-      + 'Nossas ferramentas decidem essa escolha em aritmética exata e entregam, com cada número de projeto, um certificado matemático que qualquer pessoa reexecuta.'
+    eyebrow: 'cert-machine · extremos metoceânicos',
+    title: 'Extremos metoceânicos: métodos e ferramentas',
+    deck: 'Ajuste de distribuições, níveis de retorno, contornos ambientais, janelas operacionais e transferência para a costa. Cada número é decidido em aritmética exata e acompanhado de um certificado matemático reexecutável; o que é apenas calculado ou estimado aparece marcado como tal.'
   }),
-  '<div class="col ex-top">' + cta + '<p class="ex-jump"><a href="#ajuste">Ajustes</a><a href="#tabelas">Tabelas</a><a href="#atlas">Atlas</a><a href="#contornos">Contornos</a><a href="#limiar">Limiar</a><a href="#relatorios">Relatórios</a><a href="#proximos">Em desenvolvimento</a></p></div>',
+  '<div class="col ex-top"><p class="ex-jump"><a href="#ler">Leitura</a><a href="#ajuste">Ajustes</a><a href="#software">Software</a><a href="#tabelas">Tabelas</a><a href="#atlas">Atlas</a><a href="#contornos">Contornos</a><a href="#janelas">Janelas</a><a href="#clima">Climatologia</a><a href="#previsao">Previsões</a><a href="#costa">Costa</a><a href="#limiar">Limiar</a><a href="#relatorios">Relatórios</a><a href="#proximos">Em desenvolvimento</a><a href="#relacionadas">Relacionadas</a></p></div>',
   hero,
   stats,
-  sec({ lab: 'três palavras', title: 'Toda resposta é uma de três',
+  sec({ id: 'ler', lab: 'leitura', title: 'Três vereditos e quatro traços',
     raw: '<div class="wide"><div class="ex-panels three">'
-      + panel('', 'PROVADO', 'A afirmação vale para todos os valores da caixa declarada, e o certificado mostra por quê.')
-      + panel('', 'REFUTADO', 'Não vale, e o contraexemplo vem junto: a distribuição, a hora ou o parâmetro que a quebra.')
-      + panel('', 'RECUSADO', 'Os dados não decidem. A resposta diz o que falta e o limiar que mudaria o veredito.')
-      + '</div></div>' }),
-  '<section id="ajuste">\n<div class="ex-split">\n<div class="ex-text"><div class="sec-head"><div class="lab">solução 1 · ajustes</div><h2>A distribuição certa, decidida</h2><div class="ex-chips">' + chip('live') + '</div></div>\n' + s1Text + '\n</div>\n<div class="ex-fig">' + s1Big + '</div>\n</div>\n' + s1Fig + '\n</section>',
-  split({ lab: 'solução 2 · conferência de software', title: 'O seu software parou antes do máximo?', stand: 'live', textRaw: s2Text, figRaw: s2Fig, flip: true }),
-  split({ id: 'tabelas', lab: 'solução 3 · tabelas publicadas', title: 'O que os dígitos impressos afirmam', stand: 'live', textRaw: s3Text, figRaw: s3Fig }),
-  sec({ id: 'atlas', lab: 'solução 4 · atlas global', title: 'Qualquer ponto do oceano, já certificado', stand: 'live',
-    raw: '<div class="col">' + C.p('Cada célula oceânica do hindcast global de 1993 a 2024, nas seis distribuições e na GEV, em blocos diário, semanal e mensal. Clique numa célula: os dados, o histograma, os níveis de retorno e a decisão abrem no navegador, e qualquer célula pode ser recertificada ali mesmo.') + '</div>'
-      + s4Fig + '<div class="col">' + C.pRaw('<a href="../instruments/return-level-atlas/">Abra o atlas →</a> <span class="ex-en">(em inglês)</span>') + '</div>' }),
-  split({ id: 'contornos', lab: 'solução 5 · contornos ambientais', title: 'Contornos conferidos hora a hora', stand: ['live', 'dev'], textRaw: s5Text, figRaw: s5Fig, flip: true }),
-  split({ id: 'limiar', lab: 'solução 6 · decisão de projeto', title: 'O número que vira o veredito', stand: 'live', textRaw: s6Text, figRaw: instrument }),
-  sec({ id: 'relatorios', lab: 'solução 7 · relatórios', title: 'Gráficos que dizem quanto cada número vale', stand: 'live',
-    raw: '<div class="col">' + C.p('Num relatório comum, a curva ajustada, o nível certificado e o intervalo estatístico têm o mesmo traço. Na gramática WARRANT, o traço carrega o que sustenta cada marca, e quem lê sabe na hora o que foi provado e o que foi estimado.') + '</div>'
+      + panel('', 'PROVADO', 'A afirmação vale para todos os valores da caixa declarada; o certificado mostra por quê.')
+      + panel('', 'REFUTADO', 'Não vale; o contraexemplo vem junto: a distribuição, a hora ou o parâmetro que a quebra.')
+      + panel('', 'RECUSADO', 'Os dados ou a precisão não decidem; a resposta diz o que falta e o limiar que mudaria o veredito.')
+      + '</div>' + legend([[LEG.decided, 'sólido: decidido'], [LEG.computed, 'tracejado: calculado (ponto flutuante, modelo, previsão)'], [sw('<line x1="2" y1="6" x2="26" y2="6" ' + W.attrs(W.CHOSEN, { width: 2 }) + '/>'), 'pontilhado: escolhido'], [voidSw(), 'hachura: recusado, com o motivo'], [LEG.wx, '×: contraexemplo exibido']]) + '</div>' }),
+  sec({ id: 'ajuste', lab: 'ferramenta 1 · ajuste', title: 'Ajuste de distribuições e níveis de retorno', stand: 'live',
+    raw: '<div class="ex-split"><div class="ex-text">' + s1Text + '</div><div class="ex-fig">' + s1Big + '</div></div>' + '<div class="ex-gap"></div>' + fRl + s1Fig + col(M1) }),
+  split({ id: 'software', lab: 'ferramenta 2 · conferência de software', title: 'Conferência de ajustes de software', stand: 'live', textRaw: s2Text + M2, figRaw: s2Fig, flip: true }),
+  split({ id: 'tabelas', lab: 'ferramenta 3 · tabelas publicadas', title: 'Conferência de tabelas publicadas', stand: 'live', textRaw: s3Text + M3, figRaw: s3Fig }),
+  sec({ id: 'atlas', lab: 'ferramenta 4 · atlas global', title: 'Atlas global de níveis de retorno', stand: 'live',
+    raw: col(C.p('Cada célula oceânica do hindcast global de 1993 a 2024, nas seis distribuições e na GEV, em blocos diário, semanal e mensal, com o mesmo certificado da ferramenta 1. No navegador, cada célula abre com a série, o histograma, os níveis de retorno e a decisão, e pode ser recertificada ali.'))
+      + s4Fig + col(C.pRaw('<a href="../instruments/return-level-atlas/">Atlas no navegador →</a> <span class="ex-en">(em inglês)</span>')) }),
+  split({ id: 'contornos', lab: 'ferramenta 5 · contornos ambientais', title: 'Conferência de contornos ambientais', stand: ['live', 'dev'], textRaw: s5Text + M5, figRaw: s5Fig, flip: true }),
+  sec({ id: 'janelas', lab: 'ferramenta 6 · janelas operacionais', title: 'Janelas operacionais decididas', stand: 'live',
+    raw: col(C.p('Para uma operação com limite publicado (uma norma, o procedimento do operador, um limite próprio), cada horário de partida é decidido sobre a faixa de previsão, cujo erro foi medido: LIBERADA, VETADA ou INDEFINIDA, e para a indefinida, o limiar que a viraria.')
+      + feats([['Entrada:', 'o ponto, a operação (limites e duração) e a previsão com o seu erro medido.'], ['Saída:', 'a semana em janelas, o veredito de cada partida e o motivo, e o registro que confere a previsão.']]))
+      + fBoard + fTime + col(M7) }),
+  sec({ id: 'clima', lab: 'ferramenta 7 · climatologia de janelas', title: 'Com que frequência a janela abre', stand: 'live',
+    raw: col(C.p('A mesma pergunta sobre o passado: em 32 anos de hindcast, em que fração dos horários de partida de cada mês a operação teria encontrado a sua janela. É uma contagem, não um ajuste: cada partida é viável ou não, e a frequência é uma fração exata de inteiros.'))
+      + fClim
+      + twoCol('<div class="ex-text">' + C.pRaw('Com o fator α da DNV, que reduz o limite para compensar o erro da previsão, a frequência cai. Em Campos, para 48 horas com Hs ≤ 2,0 m, o ano passa de '
+        + v(F.pct(CA.oplim[12][0], CA.oplim[12][1]) + ' %', W.DECIDED, [CAp + '/oplim/12']) + ' para ' + v(F.pct(CA.opwfCells[12][0], CA.opwfCells[12][1]) + ' %', W.DECIDED, [CAp + '/opwfCells/12']) + ' das partidas.')
+        + C.p('Um α melhor vem de uma previsão com erro medido menor: a mesma contagem diz quanto a operação ganharia.') + M8 + '</div>', '<div class="ex-fig">' + fAlpha + '</div>') }),
+  sec({ id: 'previsao', lab: 'ferramenta 8 · previsões conferidas', title: 'Previsões conferidas contra satélites', stand: 'live',
+    raw: col(C.p('Cada faixa de previsão é gravada num registro público antes de o mar acontecer; três dias depois, as passagens de satélites altímetros dão a nota. O previsor é admitido enquanto cumpre a cobertura que afirma.'))
+      + fGrade + col(M9) }),
+  sec({ id: 'costa', lab: 'ferramenta 9 · do largo à costa', title: 'Transferência do largo para a costa', stand: 'live',
+    raw: col(C.p('A onda de mar aberto, já com a sua faixa medida, é levada à costa por um modelo linear de refração sobre a batimetria da carta náutica, praia a praia. O mapa é um retrato do modelo: as cristas são tracejadas, as bordas onde o modelo não vale ficam vazias, e cada praia mostra até onde o modelo foi comparado.')
+      + feats([['Entrada:', 'a onda ao largo (altura, período, direção) e a batimetria.'], ['Saída:', 'altura, direção e arrebentação em cada ponto da costa, com o trecho recusado declarado.']]))
+      + fCoast + col(C.pRaw('<a href="../swell/">O modelo em uso, praia a praia →</a> <span class="ex-en">(em inglês)</span>')) }),
+  split({ id: 'limiar', lab: 'ferramenta 10 · limiar de decisão', title: 'O limiar que vira o veredito', stand: 'live', textRaw: s6Text + M6, figRaw: instrument }),
+  sec({ id: 'relatorios', lab: 'ferramenta 11 · relatórios', title: 'Relatórios na gramática WARRANT', stand: 'live',
+    raw: col(C.p('Num relatório comum, a curva ajustada, o nível certificado e o intervalo estatístico têm o mesmo traço. Na gramática WARRANT, o traço diz o que sustenta cada marca: sólido é decidido, tracejado é calculado, pontilhado é escolhido, e o recusado é um vazio com o motivo escrito. Funciona em tons de cinza e em impressão a laser.'))
       + s7Fig
-      + '<div class="ex-kit"><div class="ex-kit-t"><h3>Uma linha no seu matplotlib</h3>' + C.p('O kit warrant-mpl aplica a gramática aos gráficos que vocês já fazem em Python, para relatórios lidos em papel branco e impressos em laser monocromática. A validação de cores passa nas três formas de daltonismo.') + '</div>' + kit + '</div>' }),
-  sec({ id: 'proximos', lab: 'em desenvolvimento', title: 'O que vem a seguir',
+      + '<div class="ex-kit"><div class="ex-kit-t"><h3>warrant-mpl, para matplotlib</h3>' + C.p('Aplica a gramática aos gráficos feitos em Python, para relatórios lidos em papel branco e impressos em laser monocromática. A validação de cores passa nas três formas de daltonismo.') + '</div>' + kit + '</div>' }),
+  sec({ id: 'proximos', lab: 'em desenvolvimento', title: 'Em desenvolvimento',
     raw: '<div class="wide"><div class="ex-panels">'
-      + panel('validação da base', 'Hindcast contra boias, com veredito', 'A concordância entre a base de reanálise e as medições vira uma afirmação decidida: “o viés acima do percentil 99 é menor que 0,30 m nesta boia” sai PROVADO, REFUTADO ou RECUSADO, e um registro curto demais diz quantos anos a mais decidiriam.', 'dev')
-      + panel('no seu pipeline', 'O verificador em Python, onde estão os dados', 'Um verificador sem dependências que roda dentro do seu ambiente: os dados ficam com vocês, e sai um certificado de poucos kilobytes que qualquer pessoa reexecuta.', 'dev')
-      + panel('contornos', 'Contornos Hs–Tp com certificado', 'O seu modelo conjunto e o seu método, e cada ponto do contorno com a garantia de que está na probabilidade declarada.', 'dev')
-      + panel('cargas', 'Da onda de projeto à carga', 'A mesma decisão aplicada às cargas ambientais na estrutura: o limiar publicado entre subdimensionar e superdimensionar.', 'dev')
+      + panel('validação da base', 'Hindcast contra boias, com veredito', 'A concordância entre a reanálise e as medições como afirmação decidida: “o viés acima do percentil 99 é menor que 0,30 m nesta boia” sai PROVADO, REFUTADO ou RECUSADO, e um registro curto demais diz quantos anos a mais decidiriam.', 'dev')
+      + panel('no seu ambiente', 'Verificador em Python', 'Um verificador sem dependências que roda onde estão os dados: os dados não saem, e sai um certificado de poucos kilobytes que qualquer pessoa reexecuta.', 'dev')
+      + panel('contornos', 'Contornos Hs–Tp com certificado', 'A partir de um modelo conjunto e de um método (IFORM, ISORM ou outro), cada ponto do contorno com a garantia de que está na probabilidade declarada.', 'dev')
+      + panel('cargas', 'Da onda de projeto à carga', 'A mesma decisão aplicada às cargas ambientais na estrutura, com o limiar entre subdimensionar e superdimensionar publicado.', 'dev')
       + '</div></div>' }),
-  sec({ lab: 'como funciona', title: 'O que acompanha cada número',
+  sec({ lab: 'garantias', title: 'O que acompanha cada número',
     raw: '<div class="wide"><div class="ex-panels">'
-      + panel('1', 'Os dados ficam com vocês', 'O verificador vai até os dados, e não o contrário. Dados confidenciais nunca saem do seu ambiente; o certificado sai.')
-      + panel('2', 'Código escrito à parte', 'Nada do código de quem fez a afirmação é executado. Um erro no ajuste não consegue se autocertificar.')
-      + panel('3', 'Reexecutável por qualquer pessoa', 'Cada veredito volta com um comando que o refaz sem a nossa máquina: um revisor, um cliente ou um auditor chegam ao mesmo resultado.')
-      + panel('4', 'Um certificado matemático', 'Não é certificação de classe nem laudo regulatório: é uma prova que qualquer um confere. Incerteza estatística aparece sempre separada, rotulada como calculada.')
+      + panel('1', 'Os dados ficam onde estão', 'O verificador vai até os dados. Dados confidenciais não saem do ambiente de quem os tem; sai o certificado.')
+      + panel('2', 'Código independente', 'Nenhum código de quem fez a afirmação é executado: um erro no ajuste não consegue se autocertificar.')
+      + panel('3', 'Reexecutável', 'Cada veredito vem com o comando que o refaz sem a nossa máquina: um revisor, um cliente ou um auditor chegam ao mesmo resultado.')
+      + panel('4', 'Certificado matemático', 'Não é certificação de classe nem laudo regulatório: é uma prova que qualquer um confere. A incerteza estatística aparece sempre separada, marcada como calculada.')
       + '</div></div>' }),
-  '<section id="contato">\n<div class="ex-close">\n<div class="sec-head"><div class="lab">comece por um caso</div><h2>Traga uma tabela. Devolvemos o certificado.</h2></div>\n'
-    + C.p('Uma tabela de projeto, um ajuste do seu software ou um contorno. Antes de rodar qualquer coisa, você recebe o escopo: o que pode ser decidido, o que será recusado e por quê.')
-    + cta + '</div>\n</section>',
+  '<section id="relacionadas">\n' + head('mais', 'Páginas relacionadas') + '\n' + related + '\n'
+    + col(C.pRaw('Contato: <a href="' + C.escAttr('mailto:' + CT.MAIL + '?subject=' + encodeURIComponent('Extremos')) + '"><span class="m">' + esc(CT.MAIL) + '</span></a>')) + '\n</section>',
 ];
 let body = sections.join('\n\n');
-body += CH.script() + instrumentJs;
+body += CH.script() + instrumentJs + climJs;
 need(!/\b(?:LabECO|AMEx|Petrobras|UFSC|Guimarães|Farina|Reis)\b/.test(body), 'it names a group, a project or a person (the operator\'s ruling: generic, no names)');
 need(!/certifica[çc][aã]o(?! de classe)|certificadora/i.test(body), 'it says certificação or certificadora outside "não é certificação de classe" (offshore, those words are class societies and the regulator)');
 
@@ -556,12 +709,35 @@ const CSS = `/* /extremos/ (apps/extremos/build.js): /verify/'s rhythm, in token
 @media (max-width:680px){.ex-w{display:none}.ex-n{display:block}}
 .page{--col-gap:calc(var(--s-7) + 1px)}
 .ex-top + .wide{margin-top:var(--s-8)}
-.ex-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-4);margin:var(--s-6) 0 0}
-a.ex-btn{display:inline-flex;align-items:center;gap:var(--s-2);padding:var(--s-3) var(--s-5);border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);font-weight:var(--weight-medium);font-size:var(--text-body);line-height:var(--leading-snug);transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
-a.ex-btn:hover{background:var(--ink-2);border-color:var(--ink-2)}
-a.ex-btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
-a.ex-btn.ghost:hover{border-color:var(--ink);background:transparent}
-a.ex-btn .m{font-family:var(--f-mono);font-size:var(--text-small)}
+.ex-it{font-style:italic}
+.ex-feat{list-style:none;margin:var(--s-4) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s-2)}
+.ex-feat li{margin:0;padding:0;font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-3)}
+.ex-feat li::before{content:none}
+.ex-feat b{color:var(--ink);font-weight:var(--weight-medium)}
+.ex-math{border-top:1px solid var(--rule);margin:var(--s-5) 0 0;padding-top:var(--s-4)}
+.ex-mk{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin-bottom:var(--s-3)}
+.ex-math dl{margin:0;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-3)}
+.ex-math dt{font-size:var(--text-small);font-weight:var(--weight-medium);color:var(--ink);margin:0}
+.ex-math dd{margin:0;display:flex;flex-direction:column;gap:var(--s-1)}
+.ex-math dd span{font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-3)}
+code.ex-f{display:block;font-family:var(--f-mono);font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink);background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.ex-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2);margin:0 0 var(--s-4)}
+.ex-ck{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin-right:var(--s-1)}
+.ex-ck + button{margin-left:0}
+.ex-ctl button{font:inherit;font-size:var(--text-small);color:var(--ink-2);background:transparent;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-1) var(--s-3);cursor:pointer}
+.ex-ctl button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ex-ctl button + .ex-ck{margin-left:var(--s-4)}
+.ex-gap{height:var(--s-6)}
+.col > .ex-feat{margin-bottom:var(--s-6)}
+.ex-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6) var(--col-gap);align-items:start;margin-top:var(--s-6)}
+@media (max-width:1023px){.ex-two{grid-template-columns:minmax(0,1fr)}}
+.ex-rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s-5) var(--col-gap);align-items:start}
+.ex-relg{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)}
+.ex-relg ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s-3)}
+.ex-relg li{margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s-1)}
+.ex-relg li::before{content:none}
+.ex-relg li > a{align-self:flex-start}
+.ex-relg li > span{font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-3)}
 .ex-jump{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-4);margin:var(--s-5) 0 0;font-size:var(--text-small);color:var(--ink-4)}
 
 .ex-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6) var(--col-gap);align-items:center}
@@ -603,9 +779,6 @@ ul.ex-leg svg.ex-sw{width:calc(var(--s-6) + var(--s-1));height:var(--s-4);flex:n
 .ex-kit p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0}
 .ex-kit pre.code{margin:0}
 @media (max-width:860px){.ex-kit{grid-template-columns:minmax(0,1fr)}}
-.ex-close{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5)}
-.ex-close h2{max-width:var(--title)}
-.ex-close > p{max-width:var(--read);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-3);margin:var(--s-4) 0 0}
 `;
 const foot = '<p>Página em português para conversas sobre extremos metoceânicos. Cada número dela é lido de um registro público deste repositório; nada nela é ao vivo. MIT.</p>';
 let html = TPL.render({ title: 'Extremos metoceânicos, decididos · cert-machine', bodyRaw: body, footRaw: foot, cssRaw: CSS, lang: 'pt-BR',

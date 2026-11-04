@@ -609,3 +609,5 @@ module.exports = {
     lead: 'Data that moves: a flight along its route, a week of six-hour windows, a forecast and the sea that came after it, a star dimming as a planet crosses it, a price stepping as its rate moves. Each is read from an instrument\'s own record, and each is drawn so the stretch nobody saw, the hours nobody can decide and the claim nobody has checked yet look like what they are.' },
   scenes: [route, board, timeline, graded, lightCurve, steps],
 };
+/* the ledger and the run helpers, shared with apps/extremos/ */
+module.exports.helpers = { ledger, LEDGER, Q, qf, runsOf, dayOf };
