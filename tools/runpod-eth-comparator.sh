@@ -12,7 +12,7 @@
 #   P3 C1          lake comparator --paranoid  (Challenge.C1 vs EthBridge.WordRAM, not_eth_ram)
 #   P4 C2          lake comparator --paranoid  (Challenge.C2 vs EthBridge.Anthropic, not_eth_of_ethIsFalse)
 #   P5 controls    the planted statements as solutions; each must exit 1
-# If the sandbox cannot start (exit 2: bwrap without user namespaces), each comparator step is run again with
+# If the sandbox cannot start (bwrap without user namespaces: exit 2, or exit 1 with bwrap's refusal), each comparator step is run again with
 # --inadvisably-no-sandbox and recorded as such; the sandbox protects the judge from the claim's build, not the verdict's
 # arithmetic, and the record says which mode decided.
 # env: AUDIT_SHA, CLAIMBOX_SHA (both required)
@@ -99,7 +99,9 @@ cp $W/Challenge/C1.lean $R/Challenge-C1.lean; cp $W/Challenge/C2.lean $R/Challen
 step P2b 7200 $W lake build Challenge
 judge() {  # $1 name, $2 config
   step "$1" 21600 $W lake comparator --paranoid --config "$2"
-  if [ "$(cat $R/$1.exit)" = 2 ]; then
+  # the sandbox may not start on a container without unprivileged user namespaces: lake prints bwrap's refusal and
+  # exits 1 (seen on RunPod 2026-11-04, run 6c6qd1lla7mtt5), not the documented 2; either way no judging happened
+  if [ "$(cat $R/$1.exit)" = 2 ] || grep -q "^bwrap: No permissions to create new namespace" "$R/$1.err"; then
     for e in exit out err start end; do mv "$R/$1.$e" "$R/$1.sandbox.$e"; done
     step "$1" 21600 $W lake comparator --paranoid --inadvisably-no-sandbox --config "$2"
     echo nosandbox > "$R/$1.mode"
