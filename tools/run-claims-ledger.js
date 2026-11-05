@@ -401,6 +401,143 @@ for (const { r, f } of mc100Same) {
   twin.preregistered = { corpus: 'corpus/machine-claims-100.json', id: r.id, pool: r.pool, alsoDecidedFrom: 'certs/' + f };
 }
 
+/* 19 · THE ETH REFUTATION CLAIMS (campaign eth-refutation, 2026-10-28 →): two labs' Lean refutations of the Exponential
+   Time Hypothesis, two third parties' bridges between them, a native re-proof, and the Anthropic chain joined in one
+   Lean. Each row's verdict is the record's `word`/`verdict`; its scope is the record's own definition of what that
+   word means and does not mean (the formal statement checks; that a Lean statement is the textbook hypothesis is a
+   reading, never decided). The page is /eth/ unless the record has a report of its own.
+   LEFT OUT ON PURPOSE: certs/eth-c1.json and certs/eth-c2.json (C1, C2) and certs/eth-bridge.json (our generic bridge)
+   are OUR OWN claims, and this register holds externally published claims only — the census already lists them as our
+   own, outside the count; certs/eth-seam.json and certs/eth-comparator.json are MEASUREMENTS of other rows (the version
+   seam between two lanes; a Comparator challenge against a port), not claims anyone published. */
+const ethWord = (file, w) => { if (w !== 'CERTIFIED' && w !== 'REFUTED' && w !== 'REFUSED') die(file + ' holds a word outside the vocabulary: ' + w); return w; };
+const after = (text, mark, file) => { const i = text.indexOf(mark); if (i < 0) die(file + ' no longer says "' + mark + '"'); return text.slice(i); };
+const sig = (what, theorem, file) => { const m = new RegExp(theorem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ' : ([^(,]+?)(?: \\(|, )').exec(what); if (!m) die(file + ' does not state the signature of ' + theorem); return m[1]; };
+/* How the two third-party bridges reached us is read from each record's `campaign` and carried on the row (arrivedBy).
+   Their ORIGIN stays self-initiated: the register's `submitted` column is the intake queue's, which has no record, and
+   the claims page says the queue is empty in its own copy — whether a contact-form arrival counts as a submission is
+   the operator's decision, not this tool's. */
+const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? on \d{4}-\d{2}-\d{2}|was posted on [^;]+? with a request for a check)/.exec(campaign); if (!m) die(file + ' no longer says how the claim arrived'); return m[1]; };
+{
+  const k = J('certs/eth-kernel.json');
+  if (!k.rows || k.rows.length !== k.counts.of || k.counts.decided !== k.rows.filter((r) => r.word).length) die('the eth-kernel record disagrees with its counts');
+  for (const r of k.rows) {
+    for (const f of ['claim', 'label', 'repository', 'commit', 'theorems', 'word', 'why', 'toolchain', 'mathlib', 'pinnedFiles']) if (r[f] === undefined || r[f] === null) die('the eth-kernel row ' + r.claim + ' has no ' + f);
+    if (!r.kernels || r.kernels.length !== 2 || !r.leanchecker || r.leanchecker.word !== 'REPLAYED') die('the eth-kernel row ' + r.claim + ' is not what its word says');
+    const v = ethWord('certs/eth-kernel.json', r.word);
+    rows.push({
+      id: 'eth-' + (r.claim === 'openai' ? 'openai-378' : r.claim === 'anthropic' ? 'anthropic-formal-math' : r.claim),
+      claim: 'the Exponential Time Hypothesis is false, in Lean: ' + r.label + ', the theorem' + (r.theorems.length > 1 ? 's ' : ' ') + r.theorems.join(' and ') + ' (' + r.toolchain + ', Mathlib ' + r.mathlib.slice(0, 8) + ')',
+      claimant: r.label.split(',')[0], source: r.repository.replace(/^https?:\/\//, '') + ' @ ' + r.commit.slice(0, 8) + ' (' + r.pinnedFiles.toLocaleString('en-US') + ' files pinned)',
+      origin: 'self-initiated', verdict: v,
+      scope: 'the formal statement checks: ' + r.why + '. ' + after(k.what, 'It does NOT mean', 'certs/eth-kernel.json'),
+      kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"claim": "' + r.claim + '"', decidedFrom: 'certs/eth-kernel.json', page: '/eth/'
+    });
+  }
+}
+{
+  const t = J('certs/eth-tsavo-bridge.json');
+  for (const f of ['word', 'why', 'what']) if (!t[f]) die('the TSavo record has no ' + f);
+  for (const f of ['repository', 'commit', 'author', 'theorems']) if (!t.claim[f]) die('the TSavo record\'s claim has no ' + f);
+  const v = ethWord('certs/eth-tsavo-bridge.json', t.word);
+  rows.push({
+    id: 'eth-tsavo-bridge', claim: 'a Lean bridge from OpenAI\'s claimed refutation of ETH to Anthropic\'s: ' + t.claim.theorems[0] + ' : ' + sig(t.what, t.claim.theorems[0], 'certs/eth-tsavo-bridge.json') + ' (OpenAI\'s challenge statement, as a proposition, implies Anthropic\'s ETHIsFalse)',
+    claimant: t.claim.author, source: t.claim.repository.replace(/^https?:\/\//, '') + ' @ ' + t.claim.commit.slice(0, 8) + ', built inside ' + t.project.repository.replace(/^https?:\/\//, '') + ' @ ' + t.project.commit.slice(0, 8),
+    origin: 'self-initiated', arrivedBy: arrivedBy(t.campaign, 'certs/eth-tsavo-bridge.json'), verdict: v, scope: after(t.what, 'CERTIFIED here means', 'certs/eth-tsavo-bridge.json'),
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"word": "' + t.word + '"', decidedFrom: 'certs/eth-tsavo-bridge.json', page: '/eth/'
+  });
+}
+{
+  const h = J('certs/eth-hawkley-bridge.json'), g = J('certs/eth-hawkley-heavy.json');
+  for (const [f, n] of [[h, 'bridge'], [g, 'heavy']]) { for (const q of ['word', 'why', 'what', 'gaps']) if (!f[q]) die('the Hawkley ' + n + ' record has no ' + q); for (const q of ['repository', 'commit', 'author', 'theorem']) if (!f.claim[q]) die('the Hawkley ' + n + ' record\'s claim has no ' + q); }
+  if (h.claim.commit !== g.claim.commit || !h.claim.author.startsWith(g.claim.author)) die('the two Hawkley records are not the same claimant at the same pin');
+  const src = h.claim.repository.replace(/^https?:\/\//, '') + ' @ ' + h.claim.commit.slice(0, 8) + ' (a fork of ' + h.claim.forkOf.replace(/^https?:\/\//, '') + ' @ ' + h.project.commit.slice(0, 8) + ')';
+  const vh = ethWord('certs/eth-hawkley-bridge.json', h.word), vg = ethWord('certs/eth-hawkley-heavy.json', g.word);
+  rows.push({
+    id: 'eth-hawkley-bridge', claim: 'a Lean bridge from OpenAI\'s claimed refutation of ETH to Anthropic\'s, the light theorem: ' + h.claim.theorem + ' : ' + sig(h.what, h.claim.theorem, 'certs/eth-hawkley-bridge.json') + ' (OpenAI ParityLifts\' ETH predicate, negated, implies Anthropic\'s ETHIsFalse)',
+    claimant: h.claim.author, source: src, origin: 'self-initiated', arrivedBy: arrivedBy(h.campaign, 'certs/eth-hawkley-bridge.json'), verdict: vh, scope: after(h.what, 'CERTIFIED here means', 'certs/eth-hawkley-bridge.json'),
+    kind: vh === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"word": "' + h.word + '"', decidedFrom: 'certs/eth-hawkley-bridge.json', page: '/eth/'
+  });
+  if (!g.facts || !g.facts.nanodaAccepts || !g.facts.controlRejectsOnAxiom || !g.facts.axiomsStandard) die('the Hawkley heavy record\'s facts do not carry its word');
+  rows.push({
+    id: 'eth-hawkley-heavy', claim: 'the heavy link of the same bridge: ' + g.claim.theorem + ' : ' + sig(g.what, g.claim.theorem, 'certs/eth-hawkley-heavy.json') + ', proved from OpenAI\'s ' + g.claim.upstream.split('.').pop() + ' (so OpenAI\'s accepted theorem reaches Anthropic\'s ETHIsFalse inside OpenAI\'s Lean)',
+    claimant: h.claim.author, source: src, origin: 'self-initiated', arrivedBy: arrivedBy(h.campaign, 'certs/eth-hawkley-bridge.json'), verdict: vg,
+    scope: 'CERTIFIED here means ' + g.words.CERTIFIED + '. ' + g.gaps[0],
+    kind: vg === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"word": "' + g.word + '"', decidedFrom: 'certs/eth-hawkley-heavy.json', page: '/eth/'
+  });
+}
+{
+  const d = J('certs/eth-cslib-d1.json');
+  for (const f of ['verdict', 'scope', 'what', 'reading', 'axioms']) if (!d[f]) die('the D1 record has no ' + f);
+  for (const f of ['repo', 'commit', 'toolchain', 'authors']) if (!d.claim[f]) die('the D1 record\'s claim has no ' + f);
+  if (d.fails && d.fails.length) die('the D1 record lists fails: ' + d.fails.join('; '));
+  const v = ethWord('certs/eth-cslib-d1.json', d.verdict);
+  const m = /: (.*?), built from source/.exec(d.what); if (!m) die('the D1 record no longer names what was built');
+  const reading = d.reading.find((x) => /stays a reading/.test(x)), native = d.reading.find((x) => /native re-proof/.test(x));
+  if (!reading || !native) die('the D1 record\'s reading no longer says what stays a reading');
+  const headline = Object.keys(d.axioms)[0];
+  rows.push({
+    id: 'eth-cslib-d1', claim: 'the Exponential Time Hypothesis is false, natively in Lean on cslib\'s multitape Turing machine: ' + m[1] + ', the headline theorem ' + headline + ' (' + d.claim.toolchain + ')',
+    claimant: d.claim.repo.replace(/^https?:\/\/github\.com\//, '') + ' — ' + d.claim.authors, source: d.claim.repo.replace(/^https?:\/\//, '') + ' @ ' + d.claim.commit.slice(0, 8),
+    origin: 'self-initiated', verdict: v, scope: d.scope + ' ' + reading.split('. ').pop() + ' ' + native.split('. ').pop(),
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + d.verdict + '"', decidedFrom: 'certs/eth-cslib-d1.json', page: '/eth/'
+  });
+}
+{
+  const c = J('certs/eth-chain.json');
+  for (const f of ['verdict', 'scope', 'reading', 'judge', 'nanoda']) if (!c[f]) die('the chain record has no ' + f);
+  for (const f of ['repo', 'commit', 'folder', 'theorem', 'builtOn', 'port', 'authors']) if (!c.claim[f]) die('the chain record\'s claim has no ' + f);
+  if (c.fails && c.fails.length) die('the chain record lists fails: ' + c.fails.join('; '));
+  if (!c.judge.claim.okay || !c.nanoda.claim.accepted || c.judge.planted.okay) die('the chain record\'s judge and kernels do not carry its verdict');
+  const v = ethWord('certs/eth-chain.json', c.verdict);
+  const parts = c.scope.split('. Decided: '); if (parts.length !== 2) die('the chain record\'s scope no longer separates the claim from what was decided');
+  const port = c.reading.find((x) => /modified copy/.test(x)), operator = c.reading.find((x) => /not a second party/.test(x));
+  if (!port || !operator) die('the chain record\'s reading no longer says the proof is a port, or who the operator is');
+  rows.push({
+    id: 'eth-anthropic-chain', claim: c.claim.theorem + ' — ' + parts[0],
+    claimant: 'Anthropic\'s proof (' + c.claim.port.of + '), ported and joined in claimbox: ' + c.claim.authors,
+    source: c.claim.repo.replace(/^https?:\/\//, '') + ' @ ' + c.claim.commit.slice(0, 8) + ' ' + c.claim.folder + ', built on ' + c.claim.builtOn,
+    origin: 'self-initiated', verdict: v, scope: 'Decided: ' + parts[1] + ' ' + port.split('. ')[0] + '. ' + operator,
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-chain.json', page: '/reports/eth-anthropic-chain.html'
+  });
+}
+
+/* 20 · the Weight-Space Programming claim (MIT CSAIL, 2026-11-02): one row for the authors' headline. The edit is decided
+   from the two checkpoints' bytes (certs/wsp-weights.json), the printed accuracies re-summed and re-graded from the released
+   flags (certs/wsp-regrade.json, a second grader in certs/wsp-grade-second.json), and the multiplier decided by the
+   pre-registered baseline run (certs/wsp-baseline.json: the unedited model under its own card's settings). The verdict word
+   follows the baseline record's pre-registered band: `holds` certifies the row; `overstated` and `mostly a settings effect`
+   make it MIXED — the edit and the printed numbers hold, and the multiplier is a correct ratio to a different question
+   (the edit over a looping baseline, not the edit over the model's own settings), the register's `wrong-quantity`. Any other
+   band (no verdict on the multiplier) gets no row. */
+{
+  const B = J('certs/wsp-baseline.json'), R = J('certs/wsp-weights.json'), G = J('certs/wsp-regrade.json'), S2 = J('certs/wsp-grade-second.json');
+  for (const f of ['reading', 'post_printed', 'conditions']) if (!B[f]) die('the WSP baseline record has no ' + f);
+  if (!R.deciders_agree) die('the WSP weights deciders disagree: ' + (R.disagreements || []).join(', '));
+  const edit = ['W1', 'W2', 'W5', 'W7'];
+  for (const w of edit) if (R.verdicts[w] !== 'CERTIFIED') die('the WSP edit sub-claim ' + w + ' is ' + R.verdicts[w] + ', not CERTIFIED: the row\'s scope no longer holds');
+  if (R.verdicts.W6 !== 'REFUSED') die('the WSP witness W6 is not REFUSED as the scope says');
+  const UN = G.post_runs.post_unedited, ED = G.post_runs.post_edited_50_passes;
+  for (const run of [UN, ED]) { if (run.acc_resummed_all_samples !== run.merged_printed.acc) die('a WSP printed accuracy does not re-sum'); if (run.tally.their_1_our_WRONG !== 0 || run.tally.their_0_our_CORRECT !== 0) die('the WSP exact grader disagrees with the claimants\' on a decided answer'); }
+  if (S2.disagreements !== 0 || S2.agree !== S2.pairs) die('the two WSP graders disagree');
+  if (B.post_printed.unedited_math500_printed !== UN.merged_printed.acc || B.post_printed.edited_50_passes_printed !== ED.merged_printed.acc) die('the WSP baseline and regrade records print different accuracies');
+  const rd = B.reading;
+  if (!rd.control_C1 || rd.control_C1.within_3_points !== true) die('the WSP control C1 does not reproduce the printed baseline: no verdict on the multiplier, no row');
+  const band = String(rd.verdict).split(':')[0];
+  const verdict = band === 'holds' ? 'CERTIFIED' : (band === 'overstated' || band === 'mostly a settings effect') ? 'MIXED' : die('the WSP baseline reading is not a band this row can carry: ' + rd.verdict);
+  const who = /\(([^;]+), (\d{4}-\d{2}-\d{2}); the post ([^,]+),/.exec(R.claims.what); if (!who) die('the WSP weights record no longer names the authors, the date and the post');
+  const pct = (x) => (x * 100).toFixed(1) + '%', un = UN.merged_printed.acc, ed = ED.merged_printed.acc;
+  if (!rd.best_no_edit_arm || !rd.conditions[rd.best_no_edit_arm.arm]) die('the WSP baseline reading names no best no-edit arm');
+  rows.push({
+    id: 'wsp-math500', claim: 'Weight-Space Programming: an edit of ' + R.claims.changed_entries.post.toLocaleString('en-US') + ' weights (' + R.claims.printed_percent + '% of the model), written with no training, lifts Qwen3.5-0.8B\'s MATH-500 accuracy from ' + pct(un) + ' to ' + pct(ed) + ' (' + Math.round(ed / un) + '×)',
+    claimant: who[1] + ' (the post of ' + who[2] + ')', source: 'the post ' + who[3] + '; the model card ' + R.claims.edited.repo + ' @ ' + R.claims.edited.revision.slice(0, 8) + '; the logs ' + G.sources.logs.repo + ' @ ' + G.sources.logs.commit.slice(0, 8) + '; the base ' + R.claims.base.repo + ' @ ' + R.claims.base.revision.slice(0, 8),
+    origin: 'self-initiated', verdict,
+    scope: 'the edit is real: ' + edit.join(', ') + ' of the seven sub-claims CERTIFIED by two implementations sharing no code (W3 and W4, the printed ' + R.claims.changed_entries.post.toLocaleString('en-US') + ' and ' + R.claims.printed_percent + '%, hold under one reading of the authors\' own text and not the other; W6, a one-direction witness, REFUSED as a limit of the search); the printed ' + pct(un) + ' and ' + pct(ed) + ' re-sum from the released flags, and the exact grader agrees with the claimants\' on every decided first-sample answer (' + S2.pairs.toLocaleString('en-US') + ' pairs graded twice, ' + S2.disagreements + ' disagreements); the control C1 reproduces the printed ' + pct(un) + ' (' + rd.control_C1.all_samples_floor_percent + '% floor); the multiplier is ' + rd.verdict + ' (the unedited model under its own card\'s settings), so ' + rd.target_percent + ' over the best no-edit arm (' + rd.best_no_edit_arm.arm + ') is ' + rd.best_no_edit_arm.multiplier_48_1_over_best + '×',
+    kind: 'none', kinds: kindCount(Array(edit.length + 2).fill('none').concat(verdict === 'CERTIFIED' ? [] : ['wrong-quantity'])),
+    key: '"verdict": "' + band, decidedFrom: 'certs/wsp-baseline.json', alsoDecidedFrom: 'certs/wsp-weights.json, certs/wsp-regrade.json, certs/wsp-grade-second.json', page: '/reports/weight-space-programming.html'
+  });
+}
+
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';
@@ -410,7 +547,10 @@ for (const r of rows) {
   const key = r.key || (r.id.startsWith('ai-') ? r.id.slice(3) : r.id.startsWith('kiss-') ? r.id.slice(5) : r.id === 'erdos852-cstar' ? 'cstar' : r.id === 'rm-registry' ? 'ramanujan-audit' : r.id);
   r.recordedOn = firstSeen(r.decidedFrom.split(' ')[0], key);
   delete r.key;
+  /* a page the row points at must be built: a site path resolves under site/ (a folder to its index) */
+  if (r.page.startsWith('/') && !fs.existsSync(path.join(ROOT, 'site', r.page.endsWith('/') ? r.page + 'index.html' : r.page))) die('row ' + r.id + ' points at a page that does not exist in site/: ' + r.page);
 }
+if (new Set(rows.map((r) => r.id)).size !== rows.length) die('two rows share an id');
 
 const byVerdict = {};
 for (const r of rows) byVerdict[r.verdict] = (byVerdict[r.verdict] || 0) + 1;

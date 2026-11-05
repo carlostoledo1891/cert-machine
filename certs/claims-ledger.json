@@ -1987,22 +1987,134 @@
    "decidedFrom": "certs/mc100-station-v2.json",
    "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-station-v2.json",
    "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "eth-openai-378",
+   "claim": "the Exponential Time Hypothesis is false, in Lean: OpenAI, openai/math family 378 (SubexponentialSAT), the theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat (leanprover/lean4:v4.34.1, Mathlib d13f23b7)",
+   "claimant": "OpenAI",
+   "source": "github.com/openai/math @ 7ef5c0cc (3,991 files pinned)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the formal statement checks: Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: REPLAYED. It does NOT mean that the Lean statement is the paper's theorem, nor that ETH is false: no machine checks that, and both claimants say so (Anthropic's README; OpenAI's scope note lean/docs/378.md states a weaker bound than its manuscript).",
+   "kind": "none",
+   "decidedFrom": "certs/eth-kernel.json",
+   "page": "/eth/",
+   "recordedOn": "2026-10-28"
+  },
+  {
+   "id": "eth-anthropic-formal-math",
+   "claim": "the Exponential Time Hypothesis is false, in Lean: Anthropic, anthropics/formal-math eth/ (MainResults), the theorems MainResults.ethIsFalse and MainResults.mainTheorem (leanprover/lean4:v4.33.1, Mathlib 0df444a3)",
+   "claimant": "Anthropic",
+   "source": "github.com/anthropics/formal-math @ 16a5ce41 (1,066 files pinned)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the formal statement checks: Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: REPLAYED. It does NOT mean that the Lean statement is the paper's theorem, nor that ETH is false: no machine checks that, and both claimants say so (Anthropic's README; OpenAI's scope note lean/docs/378.md states a weaker bound than its manuscript).",
+   "kind": "none",
+   "decidedFrom": "certs/eth-kernel.json",
+   "page": "/eth/",
+   "recordedOn": "2026-10-28"
+  },
+  {
+   "id": "eth-tsavo-bridge",
+   "claim": "a Lean bridge from OpenAI's claimed refutation of ETH to Anthropic's: Bridge.ethIsFalse_of_claim : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim → MainResults.ETHIsFalse (OpenAI's challenge statement, as a proposition, implies Anthropic's ETHIsFalse)",
+   "claimant": "TSavo (written with Claude, per its README and commits)",
+   "source": "github.com/TSavo/eth-bridge @ 34f9ca20, built inside github.com/anthropics/formal-math @ 16a5ce41",
+   "origin": "self-initiated",
+   "arrivedBy": "was posted on anthropics/formal-math#36 with a request for a check",
+   "verdict": "CERTIFIED",
+   "scope": "CERTIFIED here means the statements are the two labs' own (checked byte for byte against our pins), the theorem states exactly Claim → ETHIsFalse, uses only propext, Classical.choice and Quot.sound, and two independently written kernels accept it. It does NOT mean that ETH is false: the implication needs OpenAI's Claim, which OpenAI proved (certs/eth-kernel.json) on another Lean and Mathlib (see gaps), and no machine checks that MainResults.ETH is the textbook hypothesis (corpus/eth-refutation/readings/).",
+   "kind": "none",
+   "decidedFrom": "certs/eth-tsavo-bridge.json",
+   "page": "/eth/",
+   "recordedOn": "2026-10-28"
+  },
+  {
+   "id": "eth-hawkley-bridge",
+   "claim": "a Lean bridge from OpenAI's claimed refutation of ETH to Anthropic's, the light theorem: OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬ OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse (OpenAI ParityLifts' ETH predicate, negated, implies Anthropic's ETHIsFalse)",
+   "claimant": "Dan With Glasses (Daniel Hawkley, formalize.now, per his message and his page)",
+   "source": "github.com/thinkthoughts/math @ d6b79b7d (a fork of github.com/openai/math @ 7ef5c0cc)",
+   "origin": "self-initiated",
+   "arrivedBy": "arrived by the site's contact form on 2026-11-03",
+   "verdict": "CERTIFIED",
+   "scope": "CERTIFIED here means the statements are the two labs' own bytes (Anthropic's MainResults.lean byte for byte; OpenAI's ParityLifts definitions sliced byte for byte, checked against our pins), the theorem states exactly ¬ PositiveRateETH → ETHIsFalse, uses only propext, Classical.choice and Quot.sound, and two independently written kernels accept it. It does NOT mean that ETH is false, nor that OpenAI's checked theorem implies Anthropic's: the hypothesis is ParityLifts' predicate, whose link to OpenAI's checked statement is the claimant's separate, heavier theorem, not replayed here (gaps).",
+   "kind": "none",
+   "decidedFrom": "certs/eth-hawkley-bridge.json",
+   "page": "/eth/",
+   "recordedOn": "2026-11-03"
+  },
+  {
+   "id": "eth-hawkley-heavy",
+   "claim": "the heavy link of the same bridge: OAI.Bridges.ETH.not_positiveRateETH : ¬ OAI.ParityWL.Complexity.PositiveRateETH, proved from OpenAI's original_sat_main (so OpenAI's accepted theorem reaches Anthropic's ETHIsFalse inside OpenAI's Lean)",
+   "claimant": "Dan With Glasses (Daniel Hawkley, formalize.now, per his message and his page)",
+   "source": "github.com/thinkthoughts/math @ d6b79b7d (a fork of github.com/openai/math @ 7ef5c0cc)",
+   "origin": "self-initiated",
+   "arrivedBy": "arrived by the site's contact form on 2026-11-03",
+   "verdict": "CERTIFIED",
+   "scope": "CERTIFIED here means the clone and every file at the pins (OpenAI’s unchanged but the lakefile’s six-line block), lake update moving no dependency, the claimant’s build exit 0, #print axioms (our file) only the three standard axioms for his theorem and OpenAI’s, nanoda accepting the theorem’s exported closure and rejecting the negative control; leanchecker counted when it ran. No Comparator challenge exists for this theorem in the claimant’s tree: its statement is read from the pinned bytes of lean/OAI/Bridges/ETH/FinalImplication.lean (¬ OAI.ParityWL.Complexity.PositiveRateETH, no premise), not compared by Comparator against a trusted file; the kernels decide the proof, the bytes decide the statement.",
+   "kind": "none",
+   "decidedFrom": "certs/eth-hawkley-heavy.json",
+   "page": "/eth/",
+   "recordedOn": "2026-11-03"
+  },
+  {
+   "id": "eth-cslib-d1",
+   "claim": "the Exponential Time Hypothesis is false, natively in Lean on cslib's multitape Turing machine: cslib-community/complexitylib's native ETH refutation (PR #1338) and its word-RAM simulation (PR #2027), the headline theorem ComplexityAbstracts.SubexponentialSATAbstract.not_eth (leanprover/lean4:v4.36.0-rc2)",
+   "claimant": "cslib-community/complexitylib — AI agents (Codex and Claude Code workers) with an AI reviewer, per the PR bodies",
+   "source": "github.com/cslib-community/complexitylib @ 1b7d62a8",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "The headlines not_eth, not_seth, exact_count, satExponent_eq_zero, length_encCNF (abstract), executes_simProgram and ComputableInPolyTime.exists_wordRAM compile at the pin and rest on the three standard axioms; nanoda accepts not_eth, exact_count and executes_simProgram with every declaration beneath them; leanchecker --fresh replays the abstract module. This is the closest a Lean statement of ETH has come to the textbook model; that it IS the textbook ETH stays a reading. It is a native re-proof, not a bridge from either lab's own Lean statement.",
+   "kind": "none",
+   "decidedFrom": "certs/eth-cslib-d1.json",
+   "page": "/eth/",
+   "recordedOn": "2026-11-04"
+  },
+  {
+   "id": "eth-anthropic-chain",
+   "claim": "EthBridge.AnthropicChain.not_eth — ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from Anthropic's own proof through C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from Anthropic's proof to the standard machine crosses a version seam",
+   "claimant": "Anthropic's proof (anthropics/formal-math eth/ @ 16a5ce41), ported and joined in claimbox: the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox",
+   "source": "github.com/carlostoledo1891/claimbox @ c1442b12 lean/eth-bridge, built on cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, the three standard axioms, nanoda accepting all 77,276 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: 74,801 declarations). The proof that checks here is a modified copy of Anthropic's: 47 of its 809 files were changed to build on the newer Lean and Mathlib (renames, imports, tactic repairs; 45 declarations changed text only by a forced rename; every change listed with both sha256s in PORT.md). claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.",
+   "kind": "none",
+   "decidedFrom": "certs/eth-chain.json",
+   "page": "/reports/eth-anthropic-chain.html",
+   "recordedOn": "2026-11-04"
+  },
+  {
+   "id": "wsp-math500",
+   "claim": "Weight-Space Programming: an edit of 131,072 weights (0.016% of the model), written with no training, lifts Qwen3.5-0.8B's MATH-500 accuracy from 7.9% to 48.1% (6×)",
+   "claimant": "Takehi, Teoh, Zhang, Khattab, MIT CSAIL (the post of 2026-11-02)",
+   "source": "the post rikiyat.github.io/blog/weight-space-programming; the model card RikiyaT/Qwen3.5-0.8B-weight-space-programming @ d1671a17; the logs github.com/RikiyaT/lm_understand-logs @ 4d09ba6d; the base Qwen/Qwen3.5-0.8B @ 2fc06364",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "the edit is real: W1, W2, W5, W7 of the seven sub-claims CERTIFIED by two implementations sharing no code (W3 and W4, the printed 131,072 and 0.016%, hold under one reading of the authors' own text and not the other; W6, a one-direction witness, REFUSED as a limit of the search); the printed 7.9% and 48.1% re-sum from the released flags, and the exact grader agrees with the claimants' on every decided first-sample answer (7,440 pairs graded twice, 0 disagreements); the control C1 reproduces the printed 7.9% (7.2% floor); the multiplier is mostly a settings effect: a no-edit arm recovers most of 48.1: C2 22.2%, C3 45.6% (the unedited model under its own card's settings), so 48.1 over the best no-edit arm (C3) is 1.05×",
+   "kind": "wrong-quantity",
+   "kinds": {
+    "none": 6,
+    "wrong-quantity": 1
+   },
+   "decidedFrom": "certs/wsp-baseline.json",
+   "alsoDecidedFrom": "certs/wsp-weights.json, certs/wsp-regrade.json, certs/wsp-grade-second.json",
+   "page": "/reports/weight-space-programming.html",
+   "recordedOn": "2026-11-03"
   }
  ],
- "count": 132,
- "decided": 131,
+ "count": 140,
+ "decided": 139,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 107,
+  "CERTIFIED": 114,
   "PARTIAL": 9,
   "REFUTED": 2,
   "QUEUED": 1,
-  "MIXED": 5,
+  "MIXED": 6,
   "REPAIRED": 6,
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 132
+  "self-initiated": 140
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -2021,7 +2133,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 108,
+  "none": 115,
   "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -2029,7 +2141,7 @@
   "not-from-the-published-data": 1,
   "arithmetic-slip": 2,
   "not-the-optimum": 1,
-  "wrong-quantity": 1,
+  "wrong-quantity": 2,
   "data-not-public": 2,
   "depends-on-reading": 1,
   "checker-wider-than-definition": 1
@@ -2037,7 +2149,8 @@
  "byMonth": {
   "2026-08": 18,
   "2026-09": 69,
-  "2026-10": 45
+  "2026-10": 48,
+  "2026-11": 5
  },
  "submitted": 0,
  "preregistered": {
@@ -2051,7 +2164,7 @@
   ]
  },
  "meta": {
-  "date": "2026-10-27",
-  "git": "aae61990"
+  "date": "2026-11-05",
+  "git": "a6efcabd"
  }
 }
