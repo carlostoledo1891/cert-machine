@@ -30,7 +30,7 @@ const CARDS = {
     path: '/eth/' },
   'eth-chain': { eyebrow: 'Carlos Toledo · independent certification',
     title: 'AI proofs that the Exponential Time Hypothesis is false now reach a textbook machine',
-    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. The textbook definition and two Lean version gaps stay readings.',
+    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. Anthropic’s side runs in one Lean; the textbook definition and one version gap stay readings.',
     css: 'h1{font-size:42px}',
     path: '/eth/',
     svgRaw: '<svg viewBox="0 0 470 400" width="470" height="400" role="img" aria-label="Two lab boxes, linked by solid lines to a standard multitape Turing machine with its tape, and a dashed line to the textbook ETH" style="font-family:var(--mono, ui-monospace, monospace)">'
@@ -45,7 +45,7 @@ const CARDS = {
       + '<path d="M70,96 l22,-6 M70,102 l22,-6" stroke="var(--ink-2)" stroke-width="1.6"/>' + '<text x="100" y="112" font-size="12" fill="var(--ink)">checked</text><text x="100" y="128" font-size="11" fill="var(--ink-3)">K · N</text>'
       /* the standard machine: a head over a tape of bits */
       + '<line x1="156" y1="179" x2="262" y2="179" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#og-a)"/>'
-      + '<path d="M182,168 l-6,22 M188,168 l-6,22" stroke="var(--ink-2)" stroke-width="1.6"/>' + '<text x="226" y="168" text-anchor="middle" font-size="12" fill="var(--ink)">checked</text><text x="226" y="198" text-anchor="middle" font-size="11" fill="var(--ink-3)">K · N</text>'
+      + '<text x="226" y="168" text-anchor="middle" font-size="12" fill="var(--ink)">checked</text><text x="226" y="198" text-anchor="middle" font-size="11" fill="var(--ink-3)">K · N</text>'
       + '<rect x="264" y="128" width="198" height="104" rx="5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>'
       + '<text x="363" y="154" text-anchor="middle" font-size="14" fill="var(--ink)">a standard multitape</text><text x="363" y="170" text-anchor="middle" font-size="14" fill="var(--ink)">Turing machine</text>'
       + ['1', '0', '1', '1', '0', '0', '1', '0', '1'].map((b, i) => '<rect x="' + (276 + i * 19.5) + '" y="196" width="18" height="24" fill="none" stroke="var(--ink-2)" stroke-width="1.2"/><text x="' + (285 + i * 19.5) + '" y="213" text-anchor="middle" font-size="12" fill="var(--ink-2)">' + b + '</text>').join('')

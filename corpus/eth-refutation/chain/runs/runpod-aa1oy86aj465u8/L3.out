@@ -1,0 +1,8 @@
+'EthBridge.AnthropicChain.not_eth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'EthBridge.Anthropic.not_eth_of_ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+MainResults.ethIsFalse : MainResults.ETHIsFalse
+EthBridge.AnthropicChain.not_eth : ¬ComplexityAbstracts.SubexponentialSATAbstract.ETH
+def MainResults.ETHIsFalse : Prop :=
+¬MainResults.ETH

@@ -126,6 +126,8 @@ B.push(C.header({
 /* THE PAGE IN FIVE PLAIN LINES (2026-10-29, on an outside reading: "I had to read §5 to understand the summary"): what was
    replayed, by what, what the bridge proves, what stays prose, and what one more day closes; then the disclosure, which
    sat in §6. Every line is read from the records below it. */
+const CHAINDONE = (() => { const f = path.join(ROOT, 'certs', 'eth-chain.json'); if (!fs.existsSync(f)) return false;
+  const r = JSON.parse(fs.readFileSync(f, 'utf8')); return r.verdict === 'CERTIFIED' && r.fails.length === 0 && Object.values(r.planted).every((x) => x.refused); })();
 const C2DONE = (() => { const f = path.join(ROOT, 'certs', 'eth-c2.json'); if (!fs.existsSync(f)) return false;
   const r = JSON.parse(fs.readFileSync(f, 'utf8')); return r.verdict === 'CERTIFIED' && r.fails.length === 0 && Object.values(r.planted).every((x) => x.refused); })();
 const FIVE = [
@@ -133,7 +135,7 @@ const FIVE = [
     + (TS && TS.word === 'CERTIFIED' ? ', and a third party’s Lean join of the two' + (SEAM ? ', whose copy of OpenAI’s statement is the same Lean term as OpenAI’s own' + (SEAMH.statementTerm.kernelEqual ? '' : ' (it is not)') + ' but rests on real-number arithmetic that differs between the two Mathlib versions it spans (§5)' : '') + '.' : '.') },
   { b: 'Checked by.', raw: 'Comparator, the Lean FRO’s judge, with Lean’s own kernel, and nanoda, a kernel written independently of Lean’s. Both accept both proofs, using only ' + STD.map(C.m).join(', ') + '.' },
   { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model' + (SH ? ', also proved in Lean (Anthropic’s on the formulas its theorem speaks of)' : ' (read here; its Lean proof is running)') + '.' + (bridgeAll3 ? ' Every bridge theorem passes three checks: Lean’s kernel at build, Lean’s kernel again in Comparator, and nanoda.' : '') : 'Being built.' },
-  C2DONE ? { b: 'Still read.', raw: 'The step from each lab’s machine to a standard one is now in Lean (§5b): Anthropic’s statement implies ETH is false on cslib’s multitape Turing machine with a binary encoding, and OpenAI’s implies Anthropic’s. Two things no kernel can check stay: that the Lean version seams the chain crosses change nothing, and that the multitape statement is the textbook ETH, which is a reading and always will be.' }
+  C2DONE ? { b: 'Still read.', raw: 'The step from each lab’s machine to a standard one is now in Lean (§5b): Anthropic’s statement implies ETH is false on cslib’s multitape Turing machine with a binary encoding, and OpenAI’s implies Anthropic’s. ' + (CHAINDONE ? 'Anthropic’s proof, ported, checks in the same Lean as that step, so its side crosses no version seam. Two things stay read: OpenAI’s side still crosses one seam, between its Lean and the standard machine’s; and that the multitape statement is the textbook ETH, which is a reading and always will be.' : 'Two things no kernel can check stay: that the Lean version seams the chain crosses change nothing, and that the multitape statement is the textbook ETH, which is a reading and always will be.') }
     : { b: 'Still prose.', raw: 'Two things no kernel can check: that each lab’s machine and input encoding match the textbook’s (a constant cost per step and a polynomial-time encoding, harmless in front of 2^{o(n)}), and that our Lean ETH is the textbook ETH, which is a reading and always will be.' },
   { b: freshOpen.length ? 'One more day.' : 'Also replayed.', raw: (freshOpen.length ? 'A third replay from a fresh environment: ' : 'A third replay from a fresh environment, for both: ') + freshWords() + '.' },
 ];
@@ -491,21 +493,24 @@ const vTag = (v) => C.tag(v, v === 'CERTIFIED' ? 'held' : v === 'REFUTED' ? 'fai
 /* Figure C (2026-11-04): from Anthropic's statement across the second seam into complexitylib's environment — D1 and C1
    and C2 as solid edges read from their records (a void until a record exists), the textbook ETH a dashed reading */
 function figStd(R) {
-  const { d1, c1, c2, ant, oai, hk, hkh } = R;
+  const { d1, c1, c2, ant, oai, hk, hkh, cmp, chain } = R;
+  /* Lean's own judge (lake comparator --paranoid, six checkers) ticks C on an edge only where its record accepted that claim */
+  const judgedC = (k) => !!(cmp && cmp.verdict === 'CERTIFIED' && cmp.claims[k] && cmp.claims[k].verdict === 'CERTIFIED');
   const bad = (why) => { throw new Error('the standard-machine map: ' + why); };
   const d1Edge = { word: d1.verdict, ran: { C: false, K: d1.fails.length === 0, N: !!(d1.nanoda.not_eth && d1.nanoda.not_eth.accepted), L: d1.steps.leancheckerExit === 0 } };
-  const c1Edge = c1 ? { word: c1.verdict, ran: { C: false, K: c1.fails.length === 0, N: !!c1.nanoda.claim.accepted, L: c1.fails.length === 0 } } : null;
+  const c1Edge = c1 ? { word: c1.verdict, ran: { C: judgedC('c1'), K: c1.fails.length === 0, N: !!c1.nanoda.claim.accepted, L: c1.fails.length === 0 } } : null;
   /* Hawkley's two links, drawn as one edge from OpenAI's statement to the ETHIsFalse vendored in OpenAI's Lean: solid
      only when both records are decided, each tick only where both say that check accepted */
   const hkEdge = hk && hkh ? { word: hk.word === hkh.word ? hk.word : 'MIXED', ran: { C: false,
     K: !!hkh.facts.buildOk && (hk.comparator.kernels || []).includes(KACC), N: !!hkh.facts.nanodaAccepts && (hk.comparator.kernels || []).includes(NACC),
     L: hkh.facts.leanchecker === 'REPLAYED' && !!(hk.leanchecker && hk.leanchecker.word === 'REPLAYED') } } : null;
-  const c2Edge = c2 ? { word: c2.verdict, ran: { C: false, K: c2.fails.length === 0, N: !!c2.nanoda.claim.accepted, L: c2.fails.length === 0 } } : null;
+  const c2Edge = c2 ? { word: c2.verdict, ran: { C: judgedC('c2'), K: c2.fails.length === 0, N: !!c2.nanoda.claim.accepted, L: c2.fails.length === 0 } } : null;
+  const chainEdge = chain ? { word: chain.verdict, ran: { C: !!(chain.judge && chain.judge.claim && chain.judge.claim.okay && chain.judge.claim.accepted.length === 6), K: chain.fails.length === 0, N: !!chain.nanoda.claim.accepted, L: chain.fails.length === 0 } } : null;
   const need = (e, who) => { if (!DECIDED_WORDS.includes(e.word)) bad(who + ' is ' + e.word + ', and a solid edge needs a decided word');
     for (const k of ['K', 'N', 'L']) if (!e.ran[k]) bad(who + ' is drawn solid but its record does not say ' + CHECKS.find(([c]) => c === k)[1] + ' accepted'); return e; };
-  need(d1Edge, 'D1'); if (c1Edge) need(c1Edge, 'C1'); if (c2Edge) need(c2Edge, 'C2');
+  need(d1Edge, 'D1'); if (c1Edge) need(c1Edge, 'C1'); if (c2Edge) need(c2Edge, 'C2'); if (chainEdge) need(chainEdge, 'the chain');
   if (hkEdge) { if (!DECIDED_WORDS.includes(hkEdge.word)) bad('Hawkley’s chain is ' + hkEdge.word + ', and a solid edge needs a decided word'); if (!hkEdge.ran.K || !hkEdge.ran.N) bad('Hawkley’s chain is drawn solid but its records do not both say Lean’s kernel and nanoda accepted'); }
-  for (const [who, r] of [['C1', c1], ['C2', c2]]) if (r && !Object.values(r.planted).every((p) => p.refused)) bad(who + ' is drawn solid but a planted variant was not refused');
+  for (const [who, r] of [['C1', c1], ['C2', c2], ['the chain', chain]]) if (r && !Object.values(r.planted).every((p) => p.refused)) bad(who + ' is drawn solid but a planted variant was not refused');
   const cxV = 'Lean v4.36.0-rc2';
   if (d1.claim.toolchain !== 'leanprover/lean4:v4.36.0-rc2') bad('D1 does not build on complexitylib’s ' + cxV);
   const o = [];
@@ -525,10 +530,11 @@ function figStd(R) {
   } else o.push(svgT(20, 24, 'Anthropic’s environment', 't-key'), svgT(20, 38, leanV(ant.toolchain) + ' · Mathlib ' + ant.mathlib.slice(0, 8), 't-note'));
   o.push(svgT(880, 24, 'complexitylib’s environment', 't-key', 'end'), svgT(880, 38, cxV + ' · cslib, Mathlib through its pins', 't-note', 'end'));
   o.push('<line x1="245" y1="34" x2="245" y2="430" fill="none" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>');
-  o.push(svgT(245, 452, 'the second version seam — the same bytes, read, not decided', 't-note', 'middle'));
-  o.push(svgT(20, 474, CHECKS.filter(([k]) => k !== 'C').map(([k, w]) => k + ' ' + w).join(' · ') + ' — a tick only where the record says it accepted', 't-note'));
+  o.push(chainEdge ? svgT(20, 452, 'the second seam: crossed by proof, Anthropic’s proof rebuilt here', 't-note') : svgT(245, 452, 'the second version seam — the same bytes, read, not decided', 't-note', 'middle'));
+  o.push(svgT(20, 474, CHECKS.filter(([k]) => k !== 'C' || cmp || chainEdge).map(([k, w]) => k + ' ' + (k === 'C' ? 'Lean’s judge (6 checkers)' : w)).join(' · ') + ' — ticks where the record accepted', 't-note'));
   o.push(node({ x: 30, y: 220, w: 190, lab: 'ETHIsFalse', sub: 'Anthropic’s statement' }));
-  o.push(node({ x: 265, y: 220, w: 165, lab: 'ETHIsFalse', sub: 'vendored, same bytes', read: true }));
+  o.push(node({ x: 265, y: 220, w: 165, lab: 'ETHIsFalse', sub: chainEdge ? 'same bytes, proved here' : 'vendored, same bytes', read: !chainEdge }));
+  if (chainEdge) o.push(node({ x: 265, y: 100, w: 165, lab: 'Anthropic’s proof', sub: 'ported, 47/809 edited' }), ln2(347, 140, 347, 220), svgT(357, 160, 'chain', 't-note'), edgeLabel(357, 174, 'start', chainEdge));
   o.push(ln2(220, 240, 265, 240, true));
   o.push(node({ x: 560, y: 44, w: 200, lab: 'complexitylib’s proof', sub: 'native, @ ' + d1.claim.commit.slice(0, 8) }));
   o.push(node({ x: 504, y: 220, w: 200, lab: '¬ ETH', sub: 'cslib multitape TM, encCNF' }));
@@ -543,14 +549,15 @@ function figStd(R) {
   o.push(node({ x: 560, y: 370, w: 200, lab: 'ETH is false', sub: 'the textbook statement', read: true }));
   o.push(ln2(604, 260, 625, 370, true), ln2(800, 260, 715, 370, true));
   o.push(svgT(660, 426, 'a reading of a definition, and always one', 't-note', 'middle'));
-  const alt = (hkEdge ? 'In OpenAI’s environment (' + leanV(oai.toolchain) + '), OpenAI’s statement implies a byte-for-byte copy of Anthropic’s ETHIsFalse (Hawkley’s chain, ' + hkEdge.word + ', ' + ranWords(hkEdge.ran) + '); across the first version seam that copy is read as Anthropic’s statement, not decided. ' : '') + 'The chain beyond §5’s map. In Anthropic’s environment (' + leanV(ant.toolchain) + '), Anthropic’s statement ETHIsFalse. Across a second version seam, in complexitylib’s environment (' + cxV + '), the same file vendored byte for byte, drawn hollow: read, not decided. '
+  const alt = (hkEdge ? 'In OpenAI’s environment (' + leanV(oai.toolchain) + '), OpenAI’s statement implies a byte-for-byte copy of Anthropic’s ETHIsFalse (Hawkley’s chain, ' + hkEdge.word + ', ' + ranWords(hkEdge.ran) + '); across the first version seam that copy is read as Anthropic’s statement, not decided. ' : '') + 'The chain beyond §5’s map. In Anthropic’s environment (' + leanV(ant.toolchain) + '), Anthropic’s statement ETHIsFalse. ' + (chainEdge ? 'In complexitylib’s environment (' + cxV + '), Anthropic’s proof, ported (47 of 809 files edited), proves the same file vendored byte for byte (the chain, ' + chainEdge.word + ', ' + ranWords(chainEdge.ran) + '): the second version seam is crossed by proof. ' : 'Across a second version seam, in complexitylib’s environment (' + cxV + '), the same file vendored byte for byte, drawn hollow: read, not decided. ')
     + 'complexitylib’s native proof implies ¬ETH on cslib’s multitape Turing machine with the binary encoding encCNF (D1, ' + d1Edge.word + ', ' + ranWords(d1Edge.ran) + ')'
     + (c1Edge ? ', and ¬ETH on the word RAM with logarithmic words (C1, ' + c1Edge.word + ', ' + ranWords(c1Edge.ran) + ', every planted variant refused)' : '; C1, the word RAM, is not yet decided')
     + (c2Edge ? '. The vendored ETHIsFalse implies the multitape ¬ETH (C2, ' + c2Edge.word + ', ' + ranWords(c2Edge.ran) + ', every planted variant refused)' : '. Between the vendored ETHIsFalse and the multitape ¬ETH a void: C2, not yet decided') + '. Both ¬ETH boxes link by dashed lines to the textbook statement, a reading of a definition.';
-  return { svg: svgOpen(900, 482, alt) + o.join('') + '</svg>', d1Edge, c1Edge, c2Edge, hkEdge, alt };
+  return { svg: svgOpen(900, 482, alt) + o.join('') + '</svg>', d1Edge, c1Edge, c2Edge, hkEdge, chainEdge, alt };
 }
 const opt = (rel) => fs.existsSync(path.join(ROOT, rel)) ? J(rel) : null;
-const STDR = fs.existsSync(path.join(ROOT, D1_REL)) ? { d1: J(D1_REL), c1: opt(C1_REL), c2: opt(C2_REL), ant: ANT, oai: OAI, hk: HK, hkh: HKH } : null;
+const CH_REL = 'certs/eth-chain.json', CMP_REL = 'certs/eth-comparator.json';
+const STDR = fs.existsSync(path.join(ROOT, D1_REL)) ? { d1: J(D1_REL), c1: opt(C1_REL), c2: opt(C2_REL), ant: ANT, oai: OAI, hk: HK, hkh: HKH, chain: opt(CH_REL), cmp: opt(CMP_REL) } : null;
 const FIG_STD = STDR ? figStd(STDR) : null;
 if (FIG_STD) {
   const stdPlanted = (mutate) => { const R = JSON.parse(JSON.stringify(STDR)); mutate(R); return refuses(() => figStd(R)); };
@@ -558,6 +565,8 @@ if (FIG_STD) {
   if (!stdPlanted((R) => { R.d1.nanoda.not_eth.accepted = false; })) fail('the standard-machine map kept D1 solid on a planted record where nanoda did not accept');
   if (STDR.c1 && !stdPlanted((R) => { R.c1.planted.sorry.refused = false; })) fail('the standard-machine map kept C1 solid on a planted record where a planted variant was not refused');
   if (STDR.hk && STDR.hkh && !stdPlanted((R) => { R.hkh.facts.nanodaAccepts = false; })) fail('the standard-machine map kept Hawkley’s chain solid on a planted record where nanoda did not accept');
+  if (STDR.chain && !stdPlanted((R) => { R.chain.planted.sorry.refused = false; })) fail('the standard-machine map kept the chain solid on a planted record where a planted variant was not refused');
+  if (STDR.cmp && stdPlanted((R) => { R.cmp.claims.c1.verdict = 'REFUSED'; }) === false && figStd(Object.assign({}, STDR, { cmp: Object.assign({}, STDR.cmp, { claims: Object.assign({}, STDR.cmp.claims, { c1: Object.assign({}, STDR.cmp.claims.c1, { verdict: 'REFUSED' }) }) }) })).c1Edge.ran.C) fail('the standard-machine map ticked C on C1 from a planted record the judge refused');
   if (STDR.c2 && !stdPlanted((R) => { R.c2.planted.statement.refused = false; })) fail('the standard-machine map kept C2 solid on a planted record where the changed statement was not refused');
 }
 const lane = [];
@@ -578,13 +587,21 @@ if (fs.existsSync(path.join(ROOT, C2_REL))) {
 } else {
   lane.push({ b: 'The labs’ own statements on the standard machine.', raw: vTag('IN PROGRESS') + ' Anthropic’s ETHIsFalse (Mathlib FinTM2 on encClauses) implying complexitylib’s ¬ETH, so that, with Hawkley’s chain, both labs’ statements reach cslib’s machine. Proved in claimbox (lean/eth-bridge, a proposal) by an AI agent; being decided here.' });
 }
-lane.push({ b: 'What stays a reading.', text: 'That any formal ETH, ours, cslib’s or a lab’s, is the textbook ETH is a reading of a definition. ' + (C2DONE ? 'This lane has made it a reading of a standard machine with a reasonable binary encoding: cslib’s multitape Turing machine, reached from both labs’ statements across version seams that are read, and a word RAM at logarithmic word size, reached from complexitylib’s own proof.' : 'The best outcome of this lane makes it a reading of a standard multitape machine and a word RAM with a reasonable binary encoding.') });
+if (fs.existsSync(path.join(ROOT, CH_REL))) {
+  const ch = J(CH_REL);
+  lane.push({ b: 'Anthropic’s proof in the same Lean.', raw: vTag(ch.verdict) + ' ' + C.esc(ch.scope) + ' ' + C.esc(ch.reading[0]) + ' ' + C.esc(ch.reading[1]) + ' ' + ghRec(CH_REL) + '.' });
+}
+if (fs.existsSync(path.join(ROOT, CMP_REL))) {
+  const cm = J(CMP_REL);
+  lane.push({ b: 'Lean’s own judge.', raw: vTag(cm.verdict) + ' C1 and C2 were also judged by lake comparator --paranoid against challenges written from this page’s pins: Lean’s kernel, leanchecker-paranoid, lean4lean, nanoda, con-leche and con-ron all accept, and the two planted changed statements are rejected for a mismatch. ' + C.esc(cm.sandbox.split('; the sandbox')[0]) + '. ' + ghRec(CMP_REL) + '.' });
+}
+lane.push({ b: 'What stays a reading.', text: 'That any formal ETH, ours, cslib’s or a lab’s, is the textbook ETH is a reading of a definition. ' + (C2DONE ? 'This lane has made it a reading of a standard machine with a reasonable binary encoding: cslib’s multitape Turing machine, reached from both labs’ statements (' + (CHAINDONE ? 'Anthropic’s inside one Lean, its proof ported; OpenAI’s across one version seam that is read' : 'across version seams that are read') + '), and a word RAM at logarithmic word size, reached from complexitylib’s own proof.' : 'The best outcome of this lane makes it a reading of a standard multitape machine and a word RAM with a reasonable binary encoding.') });
 B.push(C.section({
   lab: '§5b · toward the standard machine', title: 'From the labs’ machines to a textbook one', id: 'standard', wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('The machine and the encoding, the two steps §2 read, are the gap every reader names. Since 4 November this lane works on them: proofs written by claimbox and its AI agents, decided here from pinned bytes. claimbox and this page have the same author, so a decision here separates roles; it is not a second party.') + C.pRaw('<b>Who did what.</b> The algorithms and the two statements are the labs’. The chain from OpenAI’s statement to Anthropic’s is Daniel Hawkley’s. D1 is complexitylib’s own proof, written by its AI agents. The statements of C1 and C2 were written by hand and pinned here before any proof was decided; their proofs were written by Claude agents in <a href="../claimbox/">claimbox</a>, the claimant. Every solid edge was decided here.')
-    + '</div>' + (FIG_STD ? C.figure({ svgRaw: FIG_STD.svg, record: (FIG_STD.hkEdge ? [HK_REL, HKH_REL] : []).concat([D1_REL], STDR.c1 ? [C1_REL] : [], STDR.c2 ? [C2_REL] : []),
-      stop: 'an edge’s word is not CERTIFIED or PROVED in its record, a tick is drawn for a check its record does not say accepted, C1 or C2 is drawn solid while a planted variant was not refused, or D1 does not build on complexitylib’s Lean',
-      captionRaw: '<b>The chain toward a standard machine.</b> Solid edges are Lean implications decided here, ticked by the checks their records say accepted; a hollow box is a copy read across a version seam; ' + (FIG_STD.hkEdge ? 'the top edge is Daniel Hawkley’s chain from OpenAI’s statement, inside OpenAI’s Lean (' + ghRec(HKH_REL) + ', ' + ghRec(HK_REL) + '); ' : '') + '' + (STDR.c2 ? '' : 'the hatched gap is C2, not yet decided; ') + 'the dashed links to the textbook statement are readings. D1 is complexitylib’s own proof (' + ghRec(D1_REL) + ')' + (STDR.c1 ? '; C1 is claimbox’s, with its three planted wrong variants refused (' + ghRec(C1_REL) + ')' : '') + (STDR.c2 ? '; C2 is claimbox’s, from Anthropic’s statement, with its three planted wrong variants refused (' + ghRec(C2_REL) + ')' : '') + '.' }) : '')
+  bodyRaw: '<div class="col">' + C.pRaw('The machine and the encoding, the two steps §2 read, are the gap every reader names. Since 4 November this lane works on them: proofs written by claimbox and its AI agents, decided here from pinned bytes. claimbox and this page have the same author, so a decision here separates roles; it is not a second party.') + C.pRaw('<b>Who did what.</b> The algorithms and the two statements are the labs’. The chain from OpenAI’s statement to Anthropic’s is Daniel Hawkley’s. D1 is complexitylib’s own proof, written by its AI agents. The statements of C1 and C2 were written by hand and pinned here before any proof was decided; their proofs, and the port of Anthropic’s proof to complexitylib’s Lean, were written by Claude agents in <a href="../claimbox/">claimbox</a>, the claimant. Every solid edge was decided here.')
+    + '</div>' + (FIG_STD ? C.figure({ svgRaw: FIG_STD.svg, record: (FIG_STD.hkEdge ? [HK_REL, HKH_REL] : []).concat([D1_REL], STDR.c1 ? [C1_REL] : [], STDR.c2 ? [C2_REL] : [], STDR.chain ? [CH_REL] : [], STDR.cmp ? [CMP_REL] : []),
+      stop: 'an edge’s word is not CERTIFIED or PROVED in its record, a tick is drawn for a check its record does not say accepted, C1, C2 or the chain is drawn solid while a planted variant was not refused, a C tick is drawn where Lean’s judge did not accept with all six checkers, or D1 does not build on complexitylib’s Lean',
+      captionRaw: '<b>The chain toward a standard machine.</b> Solid edges are Lean implications decided here, ticked by the checks their records say accepted; a hollow box is a copy read across a version seam; ' + (FIG_STD.hkEdge ? 'the top edge is Daniel Hawkley’s chain from OpenAI’s statement, inside OpenAI’s Lean (' + ghRec(HKH_REL) + ', ' + ghRec(HK_REL) + '); ' : '') + '' + (STDR.c2 ? '' : 'the hatched gap is C2, not yet decided; ') + 'the dashed links to the textbook statement are readings. D1 is complexitylib’s own proof (' + ghRec(D1_REL) + ')' + (STDR.c1 ? '; C1 is claimbox’s, with its three planted wrong variants refused (' + ghRec(C1_REL) + ')' : '') + (STDR.c2 ? '; C2 is claimbox’s, from Anthropic’s statement, with its three planted wrong variants refused (' + ghRec(C2_REL) + ')' : '') + (STDR.chain ? '; the chain is Anthropic’s proof ported into complexitylib’s Lean, so its statement is proved where C2 runs (' + ghRec(CH_REL) + ')' : '') + (STDR.cmp ? '; C is Lean’s own judge, lake comparator --paranoid, run without its sandbox (' + ghRec(CMP_REL) + ')' : '') + '.' }) : '')
     + '<div class="col">' + C.plainList(lane) + '</div>'
 }));
 
@@ -593,7 +610,7 @@ B.push(C.section({
   lab: '§6 · open', title: 'What this page does not say',
   bodyRaw: C.plainList([
     { b: 'It does not certify that ETH is false.', text: bridgeDone
-      ? (C2DONE ? 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and decides the step from those statements to cslib’s standard multitape machine (§5b). It reads the Lean version seams between those steps, and that the multitape statement is the textbook ETH.' : 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and reads the model and encoding steps that remain.')
+      ? (C2DONE ? 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and decides the step from those statements to cslib’s standard multitape machine (§5b). It reads ' + (CHAINDONE ? 'the one version seam left on OpenAI’s side' : 'the Lean version seams between those steps') + ', and that the multitape statement is the textbook ETH.' : 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and reads the model and encoding steps that remain.')
       : 'It decides that two proofs check against their own statements, and it reports two readings of what those statements mean.' },
     { b: 'The papers are not checked.', text: 'OpenAI’s Lean statement is its paper’s weaker Proposition 6.4, not the headline Theorem 1.1, and neither paper’s arguments outside Lean were read here for correctness.' },
     { b: 'The algorithms were not run.', text: 'Neither paper’s algorithm was run here against brute force on small formulas: Lean’s kernels already decide the formalized algorithms correct, and no run on small inputs can speak to a subexponential bound, which is the part in dispute.' },

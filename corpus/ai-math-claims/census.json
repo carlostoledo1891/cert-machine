@@ -145,7 +145,7 @@
      }
     ]
    },
-   "gap": "The machine model (PrimitiveMachine) and CNF encoding are custom and defined in the challenge file; the release config ships with nanoda off. The step across machine models is no longer prose: Hawkley's chain (to Anthropic's ETHIsFalse) and C2 (to cslib's multitape machine) are decided in Lean; the Lean version seams between them are read, not decided",
+   "gap": "The machine model (PrimitiveMachine) and CNF encoding are custom and defined in the challenge file; the release config ships with nanoda off. The step across machine models is no longer prose: Hawkley's chain (to Anthropic's ETHIsFalse) and C2 (to cslib's multitape machine) are decided in Lean; the seam between OpenAI's Lean and the standard machine's is read, not decided",
    "pattern": [
     "custom-model",
     "one-kernel",
@@ -651,7 +651,7 @@
     "pointer": "/rows/1",
     "page": "eth/"
    },
-   "gap": "The README says no machine checks that the file says what the paper says; the main theorem needs m >= 2, n >= 4 and every variable to occur. The step from its FinTM2 statement to a standard multitape machine is now C2, decided here; the seam between its Lean 4.33.1 and the 4.36.0-rc2 used there is read, not decided",
+   "gap": "The README says no machine checks that the file says what the paper says; the main theorem needs m >= 2, n >= 4 and every variable to occur. The step from its FinTM2 statement to a standard multitape machine is now decided (C2), and its proof, ported, checks in the same Lean as C2, so no version seam is left on Anthropic's chain; that the multitape statement is the textbook ETH stays a reading",
    "pattern": [
     "declared-gap",
     "custom-model",
@@ -2260,14 +2260,20 @@
    },
    {
     "id": "c1",
-    "text": "¬ETH on the word RAM at logarithmic word size (claimbox lean/eth-bridge, proof by an AI agent) decided here: the statement byte-equal to our pin, the three standard axioms, nanoda accepting all 49,735 declarations beneath not_eth_ram, leanchecker --fresh, and three planted wrong variants refused. complexitylib's own TM-to-RAM inclusions need polynomial time; the space-based address bound is the new step.",
+    "text": "¬ETH on the word RAM at logarithmic word size (claimbox lean/eth-bridge, proof by an AI agent) decided here: the statement byte-equal to our pin, the three standard axioms, nanoda accepting all 49,735 declarations beneath not_eth_ram, leanchecker --fresh, and three planted wrong variants refused. complexitylib's own TM-to-RAM inclusions need polynomial time; the space-based address bound is the new step. Also accepted by Lean's own judge, lake comparator --paranoid, with all six checkers (certs/eth-comparator.json).",
     "record": "certs/eth-c1.json",
     "verdict": "CERTIFIED"
    },
    {
     "id": "c2",
-    "text": "Anthropic's ETHIsFalse implies complexitylib's ¬ETH on cslib's multitape Turing machine with encCNF (claimbox lean/eth-bridge, proof by an AI agent), decided here: the statement byte-equal to our pin, Anthropic's MainResults.lean byte-equal to its pin, the three standard axioms, nanoda accepting all 23,430 declarations beneath it, leanchecker --fresh, three planted wrong variants refused. With Hawkley's chain, both labs' own statements now reach the standard machine; the seam between Anthropic's Lean 4.33.1 and the 4.36.0-rc2 used here is read, not decided.",
+    "text": "Anthropic's ETHIsFalse implies complexitylib's ¬ETH on cslib's multitape Turing machine with encCNF (claimbox lean/eth-bridge, proof by an AI agent), decided here: the statement byte-equal to our pin, Anthropic's MainResults.lean byte-equal to its pin, the three standard axioms, nanoda accepting all 23,430 declarations beneath it, leanchecker --fresh, three planted wrong variants refused. With Hawkley's chain, both labs' own statements now reach the standard machine; also accepted by lake comparator --paranoid with all six checkers (certs/eth-comparator.json).",
     "record": "certs/eth-c2.json",
+    "verdict": "CERTIFIED"
+   },
+   {
+    "id": "chain",
+    "text": "The Anthropic chain in one Lean: Anthropic's proof, ported to complexitylib's Lean (47 of 809 files changed, every change listed), proves ETHIsFalse there, and with C2 gives ETH false on cslib's multitape machine. Decided: the statement pinned, the three standard axioms, nanoda accepting all 77,276 declarations, leanchecker --fresh, lake comparator --paranoid with six checkers, three planted variants refused. No step from Anthropic's proof to the standard machine crosses a version seam; OpenAI's side still crosses one, read.",
+    "record": "certs/eth-chain.json",
     "verdict": "CERTIFIED"
    },
    {
@@ -2304,13 +2310,13 @@
    },
    {
     "who": "cert-machine (this site)",
-    "what": "Decided every Lean step above on two kernels; wrote the textbook ETH once in Lean and proved that each lab's statement refutes it in its own model; measured the version seam.",
+    "what": "Decided every Lean step above on two kernels, and C1, C2 and the chain also with Lean's own six-checker judge; wrote the textbook ETH once in Lean and proved that each lab's statement refutes it in its own model; measured the version seam.",
     "record": "certs/eth-bridge.json",
     "role": "us"
    },
    {
     "who": "claimbox and its Claude agents (same operator)",
-    "what": "The two links from a lab's statement to standard machines that this census found nowhere else: C2 (Anthropic's statement to cslib's multitape machine) and C1 (the word RAM at logarithmic word size, from complexitylib's proof). Statements by hand, proofs by the agents, decisions by cert-machine.",
+    "what": "The links from a lab's statement to standard machines that this census found nowhere else: C2 (Anthropic's statement to cslib's multitape machine), the chain (Anthropic's proof ported into the same Lean, so no version seam is left on that side), and C1 (the word RAM, from complexitylib's proof). Statements by hand, proofs by the agents, decisions by cert-machine.",
     "record": "certs/eth-c2.json",
     "role": "us"
    }
@@ -2331,6 +2337,14 @@
    "theorem": "EthBridge.Anthropic.not_eth_of_ethIsFalse",
    "statementPin": "corpus/eth-refutation/c2/statement.lean",
    "record": "certs/eth-c2.json",
+   "date": "2026-11-04"
+  },
+  {
+   "id": "Chain",
+   "claim": "Anthropic's proof, ported to complexitylib's Lean, with C2: ETH is false on cslib's multitape Turing machine, in one environment",
+   "theorem": "EthBridge.AnthropicChain.not_eth",
+   "statementPin": "corpus/eth-refutation/chain/statement.lean",
+   "record": "certs/eth-chain.json",
    "date": "2026-11-04"
   }
  ]

@@ -22,15 +22,15 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ A POD IS BILLING (2026-11-04 22:55 UTC): aa1oy86aj465u8 (eth-chain-decide-r2; cpu5m 8 vCPU, US$0.52/h, cap US$15;
-     tools/runpod-eth-chain.sh at b5d615ac on claimbox c1442b1: Anthropic's eth/ ported to Lean 4.36, MainResults.ethIsFalse
-     → C2 → ¬ETH in one environment, then lake comparator --paranoid). When _phase is 'complete': import into
-     corpus/eth-refutation/chain/runs, write the chain record (recorder to write), delete the pod, get-pod → 404. The first
-     run (v8xrvxkpr3b5bv) stopped at L1 on our own wc bug, recorded. The Comparator re-run on C1/C2 (q8t8dhcpevt7d1) is
-     DONE and DELETED: lake comparator --paranoid accepted both, both planted statements rejected, run WITHOUT the sandbox
-     (bwrap cannot start on RunPod), facts in corpus/eth-refutation/comparator/runs; its record is still to write.
-     Exposure review + security pass DONE (b4e1d7d8; rulesets on main in both repos; Dependabot alerts on; history left
-     as is, the operator's word). Web3Forms: restrict the key to carlostoledo.co in its dashboard (the operator's).
+  ◆ ETH: THE ANTHROPIC CHAIN CERTIFIED IN ONE LEAN (2026-11-05 ~00:30 UTC): certs/eth-chain.json (claimbox c1442b1;
+     Anthropic's eth/ ported to Lean 4.36, 47 of 809 files edited, PORT.md; nanoda 77,276 declarations; leanchecker --fresh;
+     lake comparator --paranoid, six checkers, no sandbox; three planted variants refused) and certs/eth-comparator.json
+     (C1 and C2 accepted by the six-checker judge, both planted statements rejected). /eth/ §5b: C ticks, the chain node,
+     the second seam crossed by proof; the census: the chain step, our own claims, the lab rows' gaps; the share card shows
+     one version gap. NOTHING IS BILLING (pods aa1oy86aj465u8, q8t8dhcpevt7d1, v8xrvxkpr3b5bv, 6c6qd1lla7mtt5 deleted).
+     OPEN: OpenAI's side still crosses one seam (its Lean 4.34.1 → the standard machine), read; a port of OpenAI's family-378
+     proof would close it (large). Sends drafted on the chain: none yet; the operator's word. Exposure review + security pass
+     DONE (b4e1d7d8; rulesets; Dependabot; aiohttp bumped). Web3Forms domain restriction: the operator's.
   ◆ ETH MODEL GAP CLOSED TO THE READING (2026-11-04 ~19:45 UTC): D1, C1 and C2 CERTIFIED (certs/eth-cslib-d1.json,
      eth-c1.json, eth-c2.json). C2 = claimbox 235fbfa EthBridge.Anthropic.not_eth_of_ethIsFalse (Anthropic's ETHIsFalse ⇒
      complexitylib's ¬ETH on cslib's multitape TM with encCNF; proof by an agent): statement pin c84eae82…, MainResults

@@ -1,0 +1,146 @@
+{
+ "what": "The Anthropic chain in one environment: Anthropic's eth/ proof ported to complexitylib's Lean (v4.36.0-rc2) proves MainResults.ethIsFalse against the vendored MainResults.lean, and with C2 gives ¬ETH on cslib's multitape Turing machine, decided here with our statement pin, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean's own judge (lake comparator --paranoid, six checkers).",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "c1442b12b97495e2f284cf4b92e3708bf06f07b3",
+  "folder": "lean/eth-bridge",
+  "theorem": "EthBridge.AnthropicChain.not_eth",
+  "builtOn": "cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+  "port": {
+   "of": "anthropics/formal-math eth/ @ 16a5ce41",
+   "files": 809,
+   "byteIdentical": 762,
+   "modified": 47,
+   "ledger": "lean/eth-bridge/AnthropicEth/PORT.md"
+  },
+  "authors": "the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox"
+ },
+ "verdict": "CERTIFIED",
+ "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from Anthropic's own proof through C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from Anthropic's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, the three standard axioms, nanoda accepting all 77,276 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: 74,801 declarations).",
+ "fails": [],
+ "statement": {
+  "pin": "corpus/eth-refutation/chain/statement.lean",
+  "sha256": "229e7202c5a00303d73c2108ac97612a977f79e798419627e862b5a144d44480",
+  "mainResults": {
+   "pin": "corpus/eth-refutation/tsavo/pins.json",
+   "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "served": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+  }
+ },
+ "reading": [
+  "The proof that checks here is a modified copy of Anthropic's: 47 of its 809 files were changed to build on the newer Lean and Mathlib (renames, imports, tactic repairs; 45 declarations changed text only by a forced rename; every change listed with both sha256s in PORT.md). Lean checks whatever proof is there against Anthropic's unchanged statement, so the port changes nothing that is decided; it is said here because the proof is not Anthropic's bytes.",
+  "This closes the second version seam for Anthropic's chain only. OpenAI's statement reaches ETHIsFalse inside OpenAI's Lean (v4.34.1, Hawkley's chain); that seam is read, not decided.",
+  "Lean's judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod's containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox's.",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+ ],
+ "judge": {
+  "claim": {
+   "exit": 0,
+   "okay": true,
+   "accepted": [
+    "Lean default",
+    "Lean paranoid",
+    "lean4lean",
+    "nanoda",
+    "con-leche",
+    "con-ron"
+   ],
+   "declarations": 74801,
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "sandboxRefusal": true
+  },
+  "planted": {
+   "exit": 1,
+   "okay": false,
+   "accepted": [],
+   "declarations": null,
+   "sandbox": "nosandbox",
+   "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.AnthropicChain.not_eth'",
+   "sandboxRefusal": true
+  },
+  "challengeSha256": "abd02381393694154cfaeda1f6b15887bd1992d0c526a99658c1378608d47fe6"
+ },
+ "axioms": {
+  "EthBridge.AnthropicChain.not_eth": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "MainResults.ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "MainResults.mainTheorem": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.not_eth_of_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "claim": {
+   "exit": 0,
+   "declarations": 77276,
+   "accepted": true,
+   "refusal": null
+  },
+  "plantedSorry": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_chain_sorry depends on sorryAx which was not found in the environment"
+  },
+  "plantedAxiom": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_chain_axiom depends on planted_chain_cheat which was not found in the environment"
+  }
+ },
+ "planted": {
+  "statement": {
+   "refused": true,
+   "by": "the statement check: the trusted block differs from the pin",
+   "sha256": "fda81eb90cdf307fde395205e9eed138d0f082e53d2287193fb91fd4a28d733b"
+  },
+  "sorry": {
+   "refused": true,
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (sorryAx) and nanoda (infer_const: declaration planted_chain_sorry depends on sorryAx which was not found in the environment)"
+  },
+  "axiom": {
+   "refused": true,
+   "axioms": [
+    "planted_chain_cheat",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (planted_chain_cheat) and nanoda (infer_const: declaration planted_chain_axiom depends on planted_chain_cheat which was not found in the environment)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 607,
+  "leancheckerSeconds": 1323
+ },
+ "run": {
+  "id": "runpod-aa1oy86aj465u8",
+  "auditSha": "b5d615ac971bd0e24ab73c689eff06fb85fd9eff",
+  "host": "RunPod CPU pod aa1oy86aj465u8: 8 vCPU; cgroup memory.max 64000000000",
+  "startedAt": "2026-11-04T22:56:15Z",
+  "finishedAt": "2026-11-04T23:41:07Z",
+  "facts": "corpus/eth-refutation/chain/runs/runpod-aa1oy86aj465u8"
+ }
+}

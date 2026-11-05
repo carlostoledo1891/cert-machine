@@ -1,0 +1,83 @@
+{
+ "what": "Lean's own judge, lake comparator --paranoid (six checkers), on C1 and C2 of the ETH model-gap lane, against challenges written from cert-machine's statement pins, with the planted changed statements as solutions that must be rejected.",
+ "generated": "2026-11-04",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "235fbfa90e7e19827be462431fd822c82ccaf5fc",
+  "folder": "lean/eth-bridge",
+  "toolchain": "leanprover/lean4:v4.36.0-rc2"
+ },
+ "verdict": "CERTIFIED",
+ "checkers": [
+  "Lean default",
+  "Lean paranoid",
+  "lean4lean",
+  "nanoda",
+  "con-leche",
+  "con-ron"
+ ],
+ "sandbox": "The judge's sandbox (bubblewrap) could not create a user namespace on RunPod's containers, so every step ran with --inadvisably-no-sandbox; the sandbox protects the judge from a hostile build, not the checkers' arithmetic, and the build here is our own claimbox's. The first run (6c6qd1lla7mtt5) stopped there and is recorded as a platform failure.",
+ "fails": [],
+ "claims": {
+  "c1": {
+   "verdict": "CERTIFIED",
+   "judged": {
+    "exit": 0,
+    "okay": true,
+    "accepted": [
+     "Lean default",
+     "Lean paranoid",
+     "lean4lean",
+     "nanoda",
+     "con-leche",
+     "con-ron"
+    ],
+    "declarations": 47843,
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "sandboxRefusal": true
+   },
+   "challengeSha256": "006c02c73f85669209c8f8d5adee8bec83b77ecff37cac388927faca39847660",
+   "pinSha256": "780a69de4c590f573c99e198d0da8ef004091474b8e4c28f223e71b03f33a6ac",
+   "planted": {
+    "rejected": true,
+    "by": "error: Const does not match between challenge and target 'EthBridge.WordRAM.ETH_RAM'",
+    "sandbox": "nosandbox"
+   }
+  },
+  "c2": {
+   "verdict": "CERTIFIED",
+   "judged": {
+    "exit": 0,
+    "okay": true,
+    "accepted": [
+     "Lean default",
+     "Lean paranoid",
+     "lean4lean",
+     "nanoda",
+     "con-leche",
+     "con-ron"
+    ],
+    "declarations": 22058,
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "sandboxRefusal": true
+   },
+   "challengeSha256": "5cd08eec7c199612f3d541df519d2ae04d9a366c4448146746164f509b19da51",
+   "pinSha256": "c84eae828cc117698c6893effe28a81aa53bae49f936b366c95a835e46e1a1e1",
+   "planted": {
+    "rejected": true,
+    "by": "error: Challenge and solution theorem statement do not match: 'EthBridge.Anthropic.not_eth_of_ethIsFalse'",
+    "sandbox": "nosandbox"
+   }
+  }
+ },
+ "run": {
+  "id": "runpod-q8t8dhcpevt7d1",
+  "auditSha": "eb5b81d1de2f9372e31a89279761203996a5f9ea",
+  "host": "RunPod CPU pod q8t8dhcpevt7d1: 4 vCPU; cgroup memory.max 32000000000; bwrap bubblewrap 0.9.0; userns 1",
+  "startedAt": "2026-11-04T21:16:23Z",
+  "finishedAt": "2026-11-04T21:37:14Z",
+  "facts": "corpus/eth-refutation/comparator/runs/runpod-q8t8dhcpevt7d1"
+ }
+}
