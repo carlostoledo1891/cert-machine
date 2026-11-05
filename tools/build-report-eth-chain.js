@@ -17,6 +17,7 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const OUTREACH = require(path.join(ROOT, 'design', 'outreach.js'));   /* the complexitylib pull requests, read from the record */
 const die = (m) => { console.error('ETH CHAIN REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const J = (rel) => { if (!fs.existsSync(path.join(ROOT, rel))) die('a record the page reads is gone: ' + rel); return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8')); };
@@ -103,6 +104,7 @@ B.push(C.section({
       { b: 'ETH only, not SETH.', text: 'The same file also states ¬SETH and that the SAT exponent is 0 for every clause width; complexitylib’s own proof (D1) proves those. The chain from Anthropic’s statement decides ¬ETH only.' },
       { b: 'Who wrote the target.', text: 'The definition was written by ' + DEF.source.authors.split(' (')[0] + ', in a library built largely by AI agents and audited by #check_abstract. It is a neutral, checked library, but a reader judging independence should know that the target was co-written by OpenAI.' },
       { b: 'Two complexitylib commits.', text: 'D1 decided complexitylib at ' + d1.claim.commit.slice(0, 8) + '; the bridge builds on ' + DEF.source.commit.slice(0, 8) + ', a later commit. The first is an ancestor of the second, both pin the same Lean, cslib and Mathlib, and the files that define the statement are byte-identical between them.' },
+      { b: 'Offered upstream.', raw: OUTREACH.complexitylibPRs() },
     ]) + '</div>'
 }));
 
