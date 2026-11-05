@@ -537,15 +537,15 @@ function figStd(R) {
   o.push(svgT(880, 24, 'complexitylib’s environment', 't-key', 'end'), svgT(880, 38, cxV + ' · cslib, Mathlib through its pins', 't-note', 'end'));
   o.push('<line x1="245" y1="34" x2="245" y2="430" fill="none" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>');
   o.push(ochEdge && chainEdge ? svgT(20, 452, 'both seams crossed by proof: the ports and C1, C2 are claimbox’s claims (the claimant); every solid edge was decided here', 't-note') : chainEdge ? svgT(20, 452, 'the second seam: crossed by proof, Anthropic’s proof rebuilt here (claimbox’s port); every solid edge decided here', 't-note') : svgT(245, 452, 'the second version seam — the same bytes, read, not decided', 't-note', 'middle'));
-  o.push(svgT(20, 474, CHECKS.filter(([k]) => k !== 'C' || cmp || chainEdge).map(([k, w]) => k + ' ' + (k === 'C' ? 'Lean’s judge (6' + (ochEdge ? '; 4 named on the OpenAI chain' : '') + ')' : w)).join(' · ') + ' · ticks where the record accepted', 't-note'));
+  o.push(svgT(20, 474, CHECKS.filter(([k]) => k !== 'C' || cmp || chainEdge).map(([k, w]) => k + ' ' + (k === 'C' ? 'Lean’s judge (6' + (ochEdge ? '; 4 named on the OpenAI chain' : '') + ')' : w)).join(' · '), 't-note'));
   o.push(node({ x: 30, y: 220, w: 190, lab: 'ETHIsFalse', sub: 'Anthropic’s statement' }));
   /* with the OpenAI chain the ETHIsFalse box widens to take two proofs: Anthropic's from above, OpenAI's down its right side */
   const efW = ochEdge ? 200 : 165;
   o.push(node({ x: 265, y: 220, w: efW, lab: 'ETHIsFalse', sub: chainEdge ? 'same bytes, proved here' : 'vendored, same bytes', read: !chainEdge }));
   if (chainEdge && ochEdge) {
-    o.push(node({ x: 265, y: 44, w: 165, lab: 'OpenAI + Hawkley', sub: 'claimbox port, ' + och.claim.port.modified + '/' + och.claim.port.files.toLocaleString('en-US') + ' edited' }));
+    o.push(node({ x: 265, y: 44, w: 165, lab: 'OpenAI + Hawkley', sub: 'claimbox port · ' + och.claim.port.modified + '/' + och.claim.port.files.toLocaleString('en-US') }));
     o.push('<path d="M430,64 H448 V220" fill="none" ' + W.attrs(W.DECIDED, { width: 1.5 }) + ' marker-end="url(#eth-arr2)"/>', svgT(456, 104, 'OpenAI chain', 't-note'), edgeLabel(456, 118, 'start', ochEdge));
-    o.push(node({ x: 265, y: 120, w: 165, lab: 'Anthropic’s proof', sub: 'claimbox port, ' + chain.claim.port.modified + '/' + chain.claim.port.files + ' edited' }), ln2(330, 160, 330, 220), svgT(340, 176, 'Anthropic chain', 't-note'), edgeLabel(340, 190, 'start', chainEdge));
+    o.push(node({ x: 265, y: 120, w: 165, lab: 'Anthropic’s proof', sub: 'claimbox port · ' + chain.claim.port.modified + '/' + chain.claim.port.files }), ln2(330, 160, 330, 220), svgT(340, 176, 'Anthropic chain', 't-note'), edgeLabel(340, 190, 'start', chainEdge));
   } else if (chainEdge) o.push(node({ x: 265, y: 100, w: 165, lab: 'Anthropic’s proof', sub: 'ported, 47/809 edited' }), ln2(347, 140, 347, 220), svgT(357, 160, 'chain', 't-note'), edgeLabel(357, 174, 'start', chainEdge));
   o.push(ln2(220, 240, 265, 240, true));
   o.push(node({ x: 560, y: 44, w: 200, lab: 'complexitylib’s proof', sub: 'native, @ ' + d1.claim.commit.slice(0, 8) }));
