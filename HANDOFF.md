@@ -59,9 +59,16 @@ NEXT SESSION, IN ORDER:
      credited first in the file and the body) and PR #2510 (tm2-degree-uniform fd0985df, the program-independent TM2 step and
      clocked run) were opened from the fork carlostoledo1891/complexitylib on base main b28df563 (unmoved since the recheck;
      both merge clean, no file overlap). Bodies: outreach/gh-complexitylib-2509/2510-2026-11-05.md; rows in corpus/outreach.json.
-     WATCH: their CI and the coordinator/agent review — answer review asks in the PR (renames, placement, a word-RAM ETH
-     definition if they want one); amend from the scratchpad clone (complexitylib-pr/complexitylib, remote `fork`) or from
-     ~/Projects/complexitylib-pr-2026-11-05.bundle. If merged: credit rows (corpus/recognition.json), /eth/ §5b's C1 line and
+     REVIEWED within 20 min by the maintainers' reviewer agent (reviewer-codex-edemaine; 'agent review, not human approval'):
+     #2509 APPROVED (one non-blocking placement note); #2510 CHANGES REQUESTED (a private foldl_step = Mathlib's
+     List.foldl_const) — FIXED AND PUSHED 68b12c06 (~04:40 UTC; builds, lint-style, hygiene green; tidy-surface/changed-files
+     not re-run), re-review awaited; CI waits for a maintainer to enable it. WATCH: the re-review, CI, a human/coordinator
+     merge; answer further asks in the PR. Amend from a fresh clone of the fork (the scratchpad clone was deleted on the
+     operator's word; ~/Projects/complexitylib-pr-2026-11-05.bundle is thin on b28df563).
+     THE OPENAI SIDE STARTED (same session): pre-registered (notes/eth-openai-chain-preregistration-2026-11-05.md), scouted
+     (corpus/eth-refutation/openai-chain/: closure 3,210 files, all OpenAI files byte-equal to 7ef5c0cc), decisions taken
+     (route A only, US$25 cap, one report page for both chains, Hawkley told after); a port agent runs in claimbox
+     lean/eth-bridge (OpenAIEth/); the decision tooling (tools/runpod-eth-openai-chain.sh, record) is being adapted. If merged: credit rows (corpus/recognition.json), /eth/ §5b's C1 line and
      the census say "merged upstream"; the HANDOFF menu. Also waiting: Paturi's answer to the one question (record it beside
      the reading on /reports/eth-anthropic-chain.html), the ethdiscussion reply in moderation, replies on formal-math #36,
      rpi-index #1 and X (d15 2118152759283159493). The 12 GB scratchpad clone can go once the PRs close (the bundle stays).
