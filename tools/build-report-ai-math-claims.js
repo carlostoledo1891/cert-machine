@@ -111,7 +111,7 @@ B.push(C.section({
     + (E.who ? C.pRaw('<b>Who did what.</b> The mathematics is the labs\'. What the others added is checking and links, and each row names its record.')
       + C.table({ cols: [{ h: 'who' }, { h: 'what' }, { h: 'record' }], rows: E.who.map((w) => [{ raw: '<b>' + esc(w.who) + '</b><br><span class="small">' + esc(w.role) + '</span>' }, w.what, w.record ? { raw: recLink(w.record) } : 'not replayed here']) }) : '')
     + C.plainList(ethSteps.map((s) => ({ b: s.b, raw: s.raw })))
-    + C.pRaw('The page on the two proofs is <a href="../eth/">/eth/</a>; the plan for the open steps is pre-registered in ' + recLink('notes/eth-model-gap-preregistration-2026-11-04.md') + '.')
+    + C.pRaw('The page on the two proofs is <a href="../eth/">/eth/</a>; Anthropic’s side, closed in one Lean, has its own report, <a href="eth-anthropic-chain.html">Anthropic’s ETH proof, carried to a standard Turing machine in one Lean</a>; the plan for the open steps is pre-registered in ' + recLink('notes/eth-model-gap-preregistration-2026-11-04.md') + '.')
 }));
 
 /* §2b our own claims: what claimbox and its agents wrote, decided by the same rules, never counted in the census */

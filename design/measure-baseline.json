@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-11-04",
+  "recorded": "2026-11-05",
   "browser": "Chrome/156.0.8078.80",
   "viewports": [
     1440,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "98ec029ebcbfa210849c325f528d0436e0c76b29c6a94b3db45dba17a36ece92"
+      "sha": "8fc0dd3f168047c8b4b00f90bb90c7ff9731224efab99ff84ab5cedb9f4e8215"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0c7c299b90700646551fd10a2417e7104ce8884b07e54d56234caeba91d0e953"
+      "sha": "2a4e804e3f049a64fcac876fb7bdc8fe7fbfa761effc800b12e1d6d096bb0d6f"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -201,7 +201,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2180252ec5ac0e705261e9984383c90a287de71414c3b45c275c246eb7a81132"
+      "sha": "13964451750e2a3783dd7955397c62782a3cc9219571e2ebfa3f6465500d6f48"
     },
     "site/explained/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a24a3216bd852b1987c387487defcc28e763815f30ebb1965e5fc96ae9e82916"
+      "sha": "7f3c4024e08950e43a32633dc07a84706f5b60af1e9075490ed9f5d1507e5942"
     },
     "site/index.html": {
       "390": {
@@ -306,7 +306,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a87002d1f28c8fded59e842570cb0d0f85c9a49056387fcd39474cda5277d4dc"
+      "sha": "b915e0c2af24a7e25186886914b24942cc463c3df90724cfb9b1093132f4d8cc"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -915,7 +915,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d5566e88f920bea7bd4f352145db7c7bdaec3992e4cb01e1ed9f63b953e9b3e6"
+      "sha": "724efa3828d9381cbcc7867cbcc0541b795d5a40e9367c3469752fa6abb8ecba"
     },
     "site/machine/log.html": {
       "390": {
@@ -957,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bc4250d624789105b8d857865dd1c50cfe71158fb8cf5903f7b2a0492dfcd5fb"
+      "sha": "27bd8c443a2fcc1c9f331cd0340b2b334368a3e15775b4dfdaf389596a540f6a"
     },
     "site/papers/index.html": {
       "390": {
@@ -978,7 +978,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0f16d50b56b1d3fbbd4fd8319bd33cc7d99420132119259feaa87865f9d7046d"
+      "sha": "e3ee9855dbc4e70b30494d62af30adb7361f0198bf7251c04f71b37436f23d95"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1083,7 +1083,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e1fd14ec890f95af05ce255ec50cb8bd21e06b163c0fbb506072073391142fb2"
+      "sha": "014e00d3e6350e7976ba8dc70ec13118b2a44528fa2c7f2655b88a0240149054"
     },
     "site/reports/alien-science.html": {
       "390": {
@@ -1778,6 +1778,27 @@
       },
       "sha": "d8f4c16222df1b2c5d83adf8476678d1d2240a40419bf06a32dfc8fb3c4ae6f8"
     },
+    "site/reports/eth-anthropic-chain.html": {
+      "390": {
+        "spines": 2,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "768": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "06b5a8a31693b73da4b94feb2ba962806dc96d7da0559e38636e05cf17ec1097"
+    },
     "site/reports/evtol-energy.html": {
       "390": {
         "spines": 3,
@@ -2028,7 +2049,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "01f05fb7c6f8996985db36183285762df2912b199d0084f66e40fed2524800a3"
+      "sha": "ac52abf949443b06789cce9fd0398b90dd2247fb806ace6e41f0feb443ef9c62"
     },
     "site/reports/keller.html": {
       "390": {

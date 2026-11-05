@@ -336,6 +336,7 @@ reports:
 	@$(NODE) tools/build-report-wowii.js
 	@$(NODE) tools/build-report-ai-math-claims.js
 	@$(NODE) tools/build-report-flashprove.js
+	@$(NODE) tools/build-report-eth-chain.js
 	@$(PY) -I tools/run-optq-ledger.py
 	@$(NODE) tools/build-report-optq.js
 	@$(NODE) tools/run-pu-ledger.js
