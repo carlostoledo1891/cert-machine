@@ -101,7 +101,13 @@
 > decision touched. One record does not re-derive until the kit is run whole again: certs/selfaudit-run.json was
 > measured on the 25-record kit of 2026-10-21 and its `--check` counts command×profile pairs against the kit as it is
 > now (78 against the 62 measured) and compares the kit's digest, which `--repin` does not carry — recorded here, not
-> hidden. Nothing else changes.
+> hidden. Nothing else changes. *Later the same day:* tools/run-selfaudit.js gained `--append --only` — a tool addition,
+> not a rule change: `--check` still demands a measured pair for every command of the current kit, the pairs of the whole
+> run are never replaced (a command that has pairs refuses), and the record's dated `appended` entry names the commands
+> joined, the kit digest carried and this machine's state. The seven new commands' sixteen pairs (eight commands × two
+> profiles, cold and warm) were measured on 2026-11-05 beside a running Lean build on the same Mac, so their seconds are
+> not comparable with the 2026-10-21 ones; the record has no per-run note field, so this is said in its `appended` entry
+> and here.
 
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper

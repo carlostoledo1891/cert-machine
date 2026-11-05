@@ -31,6 +31,16 @@
 
    usage: node tools/run-selfaudit.js                       run everything, write certs/selfaudit-run.json
           node tools/run-selfaudit.js --check               verify the record on disk, write nothing (exit 1 on drift)
+          node tools/run-selfaudit.js --append --only a,b     measure ONLY the kit commands whose record path contains a or b
+                                                            — commands the kit gained after the whole run — under the
+                                                            pre-registered profiles and runs, and join their pairs to the
+                                                            record on disk (build-report-rerun.js --run --only's shape):
+                                                            the measured pairs already there are never replaced (a command
+                                                            that has pairs refuses), the totals and findings re-derive over
+                                                            the whole kit, the kit digest and the record pins move to the
+                                                            inventory's, and a dated `appended` entry names the commands
+                                                            and this machine's state. --check's rule is unchanged: every
+                                                            command of the current kit must have its measured pairs
           node tools/run-selfaudit.js --repin --why "…"       re-pin the record on disk against the pre-registration and the
                                                             inventory as they are NOW (a dated amendment to the note, the
                                                             inventory regenerated): the pins and the record pins updated, a
@@ -77,7 +87,9 @@ const sha = (rel) => shaBuf(fs.readFileSync(path.join(ROOT, rel)));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const log = (s) => process.stderr.write(s + '\n');
 
-if (!CHECK && !RECLASSIFY && !REPIN && (ONLY || CAP !== PORTABLE_WALL_S || PROFILE_LIST.join() !== Object.keys(PROFILES).join()) && !outArg) die('--only, --cap and --profiles are for dry runs: give --out');
+const APPEND = argv.includes('--append');
+if (APPEND && (!ONLY || outArg || CAP !== PORTABLE_WALL_S || PROFILE_LIST.join() !== Object.keys(PROFILES).join())) die('--append takes --only and nothing else: the new pairs join the record on disk under the pre-registered profiles, runs and cap');
+if (!CHECK && !RECLASSIFY && !REPIN && !APPEND && (ONLY || CAP !== PORTABLE_WALL_S || PROFILE_LIST.join() !== Object.keys(PROFILES).join()) && !outArg) die('--only, --cap and --profiles are for dry runs: give --out');
 for (const p of PROFILE_LIST) if (!(p in PROFILES)) die('unknown profile ' + p);
 
 /* ---- inputs and their pins ------------------------------------------------------------------------------------------ */
@@ -291,7 +303,19 @@ const main = async () => {
   const entries = KIT.entries.filter((e) => !ONLY || ONLY.some((s) => e.record.includes(s)));
   const commands = [];
   for (const e of entries) for (const kind of ['rederive', 'verifier', 'second']) if (e[kind]) commands.push({ record: e.record, kind, command: e[kind] });
-  log('selfaudit runner: ' + commands.length + ' commands × ' + PROFILE_LIST.length + ' profiles × ' + RUNS.length + ' runs; portable cap ' + CAP + ' s; ' + machine.powerAtStart + '; load ' + machine.loadAtStart.toFixed(2));
+  /* --append: the record on disk must be whole, and no selected command may already hold a measured pair — the pairs
+     measured on the whole run are never replaced, only joined */
+  let prevRecord = null;
+  if (APPEND) {
+    if (!fs.existsSync(path.join(ROOT, OUT))) die('--append needs a run record on disk: ' + OUT);
+    prevRecord = J(OUT);
+    if (prevRecord.partial) die('the run record on disk is partial; --append joins pairs to a whole run only');
+    if (!commands.length) die('--only selects no kit command');
+    const held = new Set(prevRecord.runs.map((r) => r.record + '|' + r.kind));
+    const dup = commands.filter((c) => held.has(c.record + '|' + c.kind)).map((c) => c.record + '|' + c.kind);
+    if (dup.length) die('--append never replaces a measured pair; these commands already have theirs: ' + dup.join(', '));
+  }
+  log('selfaudit runner: ' + commands.length + ' commands × ' + PROFILE_LIST.length + ' profiles × ' + RUNS.length + ' runs; portable cap ' + CAP + ' s; ' + machine.powerAtStart + '; load ' + machine.loadAtStart.toFixed(2) + (APPEND ? '; APPENDING to ' + OUT + ' (' + prevRecord.runs.length + ' runs kept as measured)' : ''));
   for (const c of commands) {
     const pinBuf = fs.readFileSync(path.join(ROOT, c.record));
     const pinDoc = parse(pinBuf);
@@ -368,6 +392,30 @@ const main = async () => {
         log('      ' + JSON.stringify({ seq, record: c.record, kind: c.kind, profile, run, verdict, wall: t.wallSeconds, cpu: t.cpuSeconds, rss: t.peakRssBytes, sha256After, stamps: cls.stampPaths, other: cls.nonStampPaths, rowsMoved, wrote, exit: t.exit }));
       }
     }
+  }
+  if (APPEND) {
+    /* join: the previous runs as measured, the new runs numbered after them; totals and findings over the WHOLE kit (the
+       --check rule: a measured pair for every command of the current kit); the pins moved to the inventory's as they are
+       now; a dated entry says what joined and under what conditions. The whole-run `machine` stays the whole run's. */
+    const last = prevRecord.runs.reduce((m, r) => Math.max(m, r.seq), 0);
+    runs.forEach((r, i) => { r.seq = last + i + 1; });
+    const merged = prevRecord.runs.concat(runs);
+    const d = derive(merged, KIT.entries);
+    const out = Object.assign({}, prevRecord, {
+      generated: new Date().toISOString(), git,
+      preregistration: { path: NOTE, sha256: sha(NOTE) },
+      inventory: { path: INV, sha256: sha(INV) },
+      inputs: { register: { path: REGISTER, sha256: pins.register, rows: R.rows.length }, kit: { path: KITPATH, sha256: pins.kit, entries: KIT.entries.length }, recordPins: pins.records },
+      partial: false,
+      appended: (prevRecord.appended || []).concat([{ at: new Date().toISOString(), git, why: 'commands the kit gained after the whole run of ' + prevRecord.generated.slice(0, 10) + ', measured here and joined; the pairs of that run untouched',
+        commands: commands.map((c) => c.record + '|' + c.kind), runs: runs.length, machine,
+        note: 'measured apart from the whole run, on this machine as it was at the time (powerAtStart, loadAtStart): the seconds are not comparable with the whole run\'s' }]),
+      totals: d.totals, findings: d.findings, runs: merged
+    });
+    fs.writeFileSync(path.join(ROOT, OUT), JSON.stringify(out, null, 1) + '\n');
+    log('appended to ' + OUT + ': ' + runs.length + ' runs joined to ' + prevRecord.runs.length + ' (' + merged.length + ' now); kit ' + pins.kit.slice(0, 12) + '…; findings ' + d.findings.length);
+    if (d.findings.length) log('FINDINGS:\n' + d.findings.map((f) => '  ' + JSON.stringify(f)).join('\n'));
+    return;
   }
   const d = derive(runs, entries);
   const out = {
