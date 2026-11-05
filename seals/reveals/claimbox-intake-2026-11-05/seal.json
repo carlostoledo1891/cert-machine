@@ -1,0 +1,14 @@
+{
+ "version": "verify-seal-v2",
+ "digest": "8e794bc681ea3338df608502c86c59fabd1ef77d14b2b8a9d05f815c69ddf562",
+ "manifest_sha256": "e4f7ca8fa9ba30a8c060d8d189a11787ca816fac2dde9a85d341ad72f83af3ae",
+ "salt_sha256": "8db560f82eb23de84bec2ee5c62865be2886ba7e22177116f7c24a0a536ea22d",
+ "file_count": 10,
+ "manifest_bytes": 1709,
+ "archive_sha256": "15780360f8bfd7d5ca5a73ea445164384caa4cb9c6dec1cac05f8a72cefcbef3",
+ "archive_bytes": 440320,
+ "created_at": "2026-11-05T16:52:03-0300",
+ "created_at_is": "a local claim, decided by nobody; the date a seal proves is its anchors'",
+ "commitment": "SHA256('verify-seal-v2\\n' || salt_bytes || SHA256(manifest_bytes)); per file h_i = SHA256('verify-seal-v2-file\\n' || s_i || SHA256(bytes_i)), q_i = SHA256('verify-seal-v2-path\\n' || s_i || path_i)",
+ "rederive": "( printf 'verify-seal-v2\\n'; xxd -r -p salt.hex; shasum -a 256 manifest.json | cut -c1-64 | xxd -r -p ) | shasum -a 256"
+}

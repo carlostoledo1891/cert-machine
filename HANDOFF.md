@@ -51,7 +51,21 @@ agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; 
      commitment and the battery tables, the registry (empty, the first row promised); series `record`, hub group `applied`;
      the /verify/ card links it and names the tool, the section links the README; the card's tag still "In development".
      opentimestamps-client installed (~/Library/Python/3.9/bin/ots; put it on PATH for `stamp`/`open`).
-  ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE (a background agent working in ~/Projects/claimbox; it does NOT push — it leaves a branch
+     ~20:45 UTC, THE FIRST SEAL DONE: claimbox's intake proposal (branch intake-2026-11-05 at 71b9426, 10 files) sealed file by
+     file in ~/Projects/seals/claimbox-intake-2026-11-05/proposal.seal2 (PRIVATE: archive.tar + salts.json; keep it, never
+     commit it), digest 8e794bc6…, stamped (digest.txt.ots PENDING — in an hour or two: `PATH=$HOME/Library/Python/3.9/bin:$PATH
+     ots upgrade ~/Projects/seals/claimbox-intake-2026-11-05/proposal.seal2/digest.txt.ots`, copy the .ots into
+     seals/reveals/claimbox-intake-2026-11-05/, re-run the verify into certs/seal-first-use.json, rebuild the page: the Bitcoin
+     date appears), the registry line committed (0dcc77fb, the anchor), lean/INTAKE.md revealed (seals/reveals/claimbox-intake-
+     2026-11-05/), verify CERTIFIED held by 2026-11-05 (certs/seal-first-use.json); the page re-verifies it at every build
+     (section "the first seal"). The /verify/ card's tag is still "In development": flipping it is the operator's call.
+  ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE — DONE BY THE AGENT (2026-11-05 ~20:30 UTC), NOT PUSHED: branch intake-2026-11-05 in
+     ~/Projects/claimbox, two commits (0c9f304 the lift — one pin moved, the corpus 132 → 141 sentences; 71b9426 the intake:
+     lean/INTAKE.md, tools/intake_scout.py, tools/intake_port.py, battery §16 with 16 greens and 8 red controls; calibrated:
+     the OpenAI scout reproduces scout-pins.json and scout-closure.txt BYTE FOR BYTE, the Anthropic scout the 809 digests, the
+     four lean_lib blocks and the planted files byte-equal, the ledger PORT.md's twenty entries). OWED IN CLAIMBOX (its own
+     session or the operator): `python3 -m claimbox prose register --run --record records/prose-register.json` (~27 min at
+     full CPU; the agent stopped it), `tests/battery.py --write`, `make web`; then push the branch and merge. The original brief: (a background agent working in ~/Projects/claimbox; it does NOT push — it leaves a branch
      and a report; the push is the operator's or claimbox's own session; cert-machine reads claimbox read-only as always):
      (1) `make lift` there — certs/claims-ledger.json's digest moved three times on 2026-11-05 (now 3558fcf5…) and PROVENANCE.json
      shows drift until then; (2) the intake route, written as claimbox's standard route and tooled, with the two ETH chains as its

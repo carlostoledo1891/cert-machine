@@ -1,0 +1,32 @@
+{
+ "index": 6,
+ "path": "lean/INTAKE.md",
+ "bytes": 12329,
+ "digest": "8e794bc681ea3338df608502c86c59fabd1ef77d14b2b8a9d05f815c69ddf562",
+ "recorded_digest": "8e794bc681ea3338df608502c86c59fabd1ef77d14b2b8a9d05f815c69ddf562",
+ "manifest_files": 10,
+ "claimed_at": "2026-11-05T16:52:03-0300",
+ "claimed_at_is": "a local claim, decided by nobody",
+ "file_sha256": "e7d67776d41833652a95ce4acb77f3ddab06de703785110f6f221632192df6a4",
+ "path_hash": "9bd71a0161ea36b78d3915e5d2ebea93670ee8b89738098293ebbbd29c2f3a29",
+ "anchors": [
+  {
+   "kind": "opentimestamps",
+   "file": "digest.txt.ots",
+   "confirmed": false,
+   "date": null,
+   "why": "ots verify did not report a Bitcoin block (pending? run `ots upgrade`; a Bitcoin node or `--no-bitcoin` may be needed): coin blockchain\nCalendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain\nCalendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain"
+  },
+  {
+   "kind": "git",
+   "commit": "0dcc77fb391f9ec3e7ca06cb826506ffecb04bfd",
+   "path": "seals/registry.jsonl",
+   "confirmed": true,
+   "date": "2026-11-05",
+   "line": "{\"digest\": \"8e794bc681ea3338df608502c86c59fabd1ef77d14b2b8a9d05f815c69ddf562\", \"posted\": \"2026-11-05\", \"issue\": 0}"
+  }
+ ],
+ "held_by": "2026-11-05",
+ "verdict": "CERTIFIED",
+ "reason": "this file re-derives its salted hash and its salted name at index 6 of a manifest whose seal re-derives; 1 anchor(s) confirmed; the file was held by 2026-11-05. The other 9 file(s) stay unrevealed and undecided."
+}
