@@ -116,3 +116,4 @@ import     node tools/import-runpod-eth.js 69d9t7dxjffo6n (complete) into corpus
 DELETED 2026-10-30 ~01:00Z (delete-pod 204; get-pod 404 "pod not found"; list-pods empty), from the cert-machine
            session, after the import. Uptime 5,921 s at the read before deletion ≈ US$1.45 at US$0.88/h; the cap was US$15.
 2026-11-05T05:27:20Z uueovtfolgfovc eth-openai-port cpu3m 16 vCPU / 128 GB, EU-NL-1, US$0.88/h, image runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404, disk 120 GB, ssh proxy uueovtfolgfovc-64411e9d@ssh.runpod.io — the OpenAI port's build box (claimbox lean/eth-bridge OpenAIEth/), created by the coordinator session on the operator's US$25 cap; the port agent drives it over SSH; DELETE when the port is pushed (the coordinator), confirm 404.
+2026-11-05T07:00Z uueovtfolgfovc DELETED by the coordinator (204, then get-pod 404) after the port was pushed (claimbox bdf357ef); ≈1.6 h ≈ US$1.4.
