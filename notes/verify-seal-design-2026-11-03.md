@@ -59,6 +59,21 @@ sealing the manifest with per-file salted path hashes, or by letting the owner n
 after the v1 page is reviewed, as `verify-seal-v2` with its own battery row (a revealed file whose bytes differ → REFUTED;
 a revealed file absent from the manifest → REFUTED; a manifest whose seal fails → REFUSED).
 
+### Phase 2, built 2026-11-05 (the operator's word: "manifest v2 + first use on claimbox")
+
+Built in instruments/seal/seal.py as `seal2` / `reveal` / `verify` (and `open` reads a v2 bundle whole). ONE DEVIATION from
+the format above, on the path-leak risk it names: the salts are NOT in the manifest. The manifest holds per file only an
+index, `q_i = SHA256("verify-seal-v2-path\n" || s_i || path_i)` and `h_i = SHA256("verify-seal-v2-file\n" || s_i ||
+SHA256(bytes_i))`; the salts stay in the bundle's private `salts.json`, and a reveal publishes one salt. So showing the
+manifest reveals the file count and nothing else, a revealed salt says nothing about the other files, and a short file
+cannot be guessed from its entry without its salt (with the salts in the manifest, one reveal would have exposed every
+other file's salt and made short files guessable). Canonical manifest bytes (sorted keys, no spaces, one newline) are
+part of the commitment; a non-canonical manifest REFUSES. The verdict words: CERTIFIED "this file, under a sealed manifest
+held by <date>; the others unrevealed"; REFUTED when the bytes, the name, the index or the salt do not re-derive the entry,
+or the manifest's digest does not re-derive; REFUSED as v1. The battery grew from 12 to 24 planted forgeries (0 certified),
+23 to 42 cases, 3 to 5 red controls (a verifier that skips the salted path check; one that skips the salted file hash).
+The first use — claimbox sealing its next proposal before cert-machine decides it — follows in the same lane.
+
 ## Phase 3 — the registry (built, minimal)
 
 `.github/ISSUE_TEMPLATE/seal.yml` accepts one input (the digest) and a checkbox; the form cannot validate a regex, so

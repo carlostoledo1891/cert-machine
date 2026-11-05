@@ -70,6 +70,41 @@ class SealTests(unittest.TestCase):
             r = subprocess.run(["bash", "-c", S.REDERIVE], cwd=bundle, capture_output=True, text=True)
             self.assertEqual(r.stdout.split()[0], d)
 
+    # ---- v2: the per-file salted manifest
+    def test_v2_commitments_by_hand(self):
+        s_i = bytes(range(32))
+        data = b"Theorem. x\n"
+        self.assertEqual(S.file_hash(s_i, data), hashlib.sha256(b"verify-seal-v2-file\n" + s_i + hashlib.sha256(data).digest()).hexdigest())
+        self.assertEqual(S.path_hash(s_i, "notes/plan.txt"), hashlib.sha256(b"verify-seal-v2-path\n" + s_i + "notes/plan.txt".encode("utf-8")).hexdigest())
+        files = [{"index": 0, "path_hash": "0" * 64, "sha256": "1" * 64}]
+        man = S.manifest_bytes(files)
+        self.assertEqual(man, b'{"files":[{"index":0,"path_hash":"' + b"0" * 64 + b'","sha256":"' + b"1" * 64 + b'"}],"version":"verify-seal-v2"}\n')
+        salt = bytes(range(32, 64))
+        self.assertEqual(S.digest2(man, salt), hashlib.sha256(b"verify-seal-v2\n" + salt + hashlib.sha256(man).digest()).hexdigest())
+
+    def test_v2_seal_reveal_verify_roundtrip(self):
+        bundle = os.path.join(self.d, "idea.seal2")
+        r = subprocess.run([sys.executable, "-I", S.__file__, "seal2", self.idea, "--out", bundle], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        d = r.stdout.strip()
+        self.assertRegex(d, r"^[0-9a-f]{64}$")
+        man = open(os.path.join(bundle, "manifest.json"), "rb").read()
+        self.assertNotIn(b"a.txt", man); self.assertNotIn(b"sub", man)            # no path in the manifest
+        self.assertEqual(S.digest2(man, S.parse_salt(open(os.path.join(bundle, "salt.hex")).read())), d)
+        pkg = os.path.join(self.d, "r")
+        r = subprocess.run([sys.executable, "-I", S.__file__, "reveal", bundle, "sub/c.txt", "--out", pkg], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertEqual(os.listdir(os.path.join(pkg, "files")), ["sub"])
+        self.assertFalse(os.path.exists(os.path.join(pkg, "salts.json")))        # the other salts never leave the bundle
+        self.assertFalse(os.path.exists(os.path.join(pkg, "archive.tar")))
+        r = subprocess.run([sys.executable, "-I", S.__file__, "verify", pkg], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 2)          # no anchor: REFUSED, never CERTIFIED
+        self.assertIn('"REFUSED"', r.stdout)
+        self.assertIn('"file_sha256"', r.stdout)   # the file and the manifest re-derived before the anchors stopped it
+        if shutil.which("xxd") and shutil.which("shasum"):
+            r = subprocess.run(["bash", "-c", S.REDERIVE2], cwd=bundle, capture_output=True, text=True)
+            self.assertEqual(r.stdout.split()[0], d)
+
 
 if __name__ == "__main__":
     unittest.main()

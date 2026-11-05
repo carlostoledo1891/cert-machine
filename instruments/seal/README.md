@@ -1,4 +1,4 @@
-# Verify Seal (v1)
+# Verify Seal (v1, and v2 for selective reveal)
 
 Prove you held exact bytes by a date without revealing them. One file, Python standard library, nothing of the sealed
 content leaves the machine: only a salted digest goes out, to public anchors nobody here controls.
@@ -51,3 +51,34 @@ same files written in another order, with other mtimes and modes, under another 
 
 A seal proves possession of exact bytes by a date. It does not say who first had the idea, that the idea is correct,
 or anything about credit. The battery: `python3 -I instruments/seal/battery.py` (record `certs/seal-battery.json`).
+
+## v2 — reveal one file, keep the rest sealed
+
+```
+python3 instruments/seal/seal.py seal2 <folder>                    # -> <name>.seal2/ (manifest.json, salts.json [private], archive.tar [private], salt.hex, seal.json, digest.txt)
+python3 instruments/seal/seal.py reveal <name>.seal2 <path> [--out <dir>]   # the package that shows ONE file: its bytes, its salt, the manifest, the seal and anchors
+python3 instruments/seal/seal.py verify <package> [--by YYYY-MM-DD] [--registry <clone>]
+```
+
+Each file gets its own 32-byte salt `s_i`. The manifest holds, per file, only two salted hashes and an index:
+
+```
+h_i = SHA256( "verify-seal-v2-file\n" || s_i || SHA256(bytes_i) )        the bytes
+q_i = SHA256( "verify-seal-v2-path\n" || s_i || path_i )                 the name
+manifest = {"files":[{"index":i,"path_hash":q_i,"sha256":h_i},…],"version":"verify-seal-v2"}   canonical JSON, sorted keys, no spaces, one newline
+digest   = SHA256( "verify-seal-v2\n" || salt_bytes || SHA256(manifest_bytes) )                  anchored exactly as v1
+```
+
+Showing the manifest reveals how many files were sealed and nothing else: no path, no salt. Revealing file *i* publishes
+its bytes, its name and `s_i`; the other salts never leave `salts.json`, so a revealed salt says nothing about the other
+files, and a short file cannot be guessed from its entry without its salt. `verify` recomputes `h_i` and `q_i`, requires
+both at index *i*, re-derives the manifest's digest and reads the anchors:
+
+- **CERTIFIED**: this file, under a sealed manifest held by the anchor's date; the other files stay unrevealed and undecided.
+- **REFUTED**: the bytes, the name or the salt do not match the manifest at that index, or the manifest's digest does not re-derive.
+- **REFUSED**: a part is missing or not canonical, or no anchor is confirmed here (as v1).
+
+`open` also opens a v2 bundle whole (archive.tar and salts.json present): every file must re-derive its entry. The
+manifest's own line of shell: `( printf 'verify-seal-v2\n'; xxd -r -p salt.hex; shasum -a 256 manifest.json | cut -c1-64 | xxd -r -p ) | shasum -a 256`.
+The battery adds the v2 cases: a revealed file whose bytes differ, the right bytes under another name, another index,
+another salt, an edited or non-canonical manifest, and two red controls on a verifier that skips a check.

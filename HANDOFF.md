@@ -37,6 +37,13 @@ agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; 
      next proposal (the manifest over the proposal's files) BEFORE cert-machine decides it, anchored, so author and judge get a
      timestamped separation and the "same operator" caveat shrinks to what the seal cannot prove. The /verify/ card stays "In
      development" until that first use works; publishing the tool for outside claimants is a later question.
+     ~19:30 UTC, PHASE 2 BUILT (this session, on "spawn and start"): instruments/seal/seal.py gained seal2 / reveal / verify (and
+     open reads a v2 bundle whole); the salts are NOT in the manifest (salts.json stays private; a reveal publishes one salt) —
+     the deviation and its reason in the design note's "Phase 2, built" entry; the battery 24 planted forgeries, 0 certified,
+     42 cases, 5 red controls (certs/seal-battery.json regenerated); the unit tests 7; the README's v2 section; the /verify/
+     Seal panel's one sentence on the reveal; the card stays "In development". THE FIRST USE waits for lane B's report: seal2
+     the claimbox intake branch's deliverable, register the digest (tools/seal-registry.py add + one commit = the anchor),
+     reveal the route document, verify it — then say it on the page.
   ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE (a background agent working in ~/Projects/claimbox; it does NOT push — it leaves a branch
      and a report; the push is the operator's or claimbox's own session; cert-machine reads claimbox read-only as always):
      (1) `make lift` there — certs/claims-ledger.json's digest moved three times on 2026-11-05 (now 3558fcf5…) and PROVENANCE.json
@@ -49,6 +56,14 @@ agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; 
      decided within a week of its announcement, the caveats on the page. The agent's brief names claimbox's own rules (build what
      is asked, never substitute a design; its SCHEMA.md; commitments 5 and 7). Pods, if the calibration needs a build, are
      created from THIS session (an agent cannot), under the operator's cap.
+  ◆◆ P. A PAPER IDEA KEPT (the operator, 2026-11-05 ~19:10 UTC: "Can cross-version proof portability become a reusable
+     workflow? If yes, keep."): YES — the two ETH ports are the data (Anthropic 809 files / 47 edited / R-kinds; OpenAI
+     3,210 / 20 / R0–R3 with one representation change ruled by a dated amendment), the workflow is pin → scout → port with
+     a two-hash ledger and an admissibility rule → planted variants → decide (the judge, with the named-checker lesson), and
+     lane B's intake tooling is its instrument. A companion in the papers plan (working doc), not the method paper: "Cross-
+     version proof portability as a measured workflow: two ports of AI-written refutations of ETH". First step: the prior-art
+     scout (mathport Lean 3→4; proof repair, Ringer et al.; Coq/Isabelle AFP maintenance; Mathlib's own bump-day practice)
+     written to corpus/targets.json as a scouted row before any text. Nothing drafted yet.
   ◆◆ C. The dormant asks stay where they are: the Qiushi fallback (its date was 11-05, the operator's), the N(6) note to
      maximusrufus, the OEIS pack by hand, the Petrobras pages frozen, Marola on hold.
   ◆◆ THE OPENAI SIDE, IN FLIGHT (2026-11-05 ~06:30 UTC; the operator's decisions the same night: route A only, route B parked,

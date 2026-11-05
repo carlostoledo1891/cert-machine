@@ -214,11 +214,101 @@ def main():
     vb = json.loads(r6.stdout)
     reds.append({"red": "an opener that tolerates a newline after the salt IS caught (bytes.fromhex strips it; the strict rule is what refuses)", "fired": vb["verdict"] == "CERTIFIED"})
 
+    # ---- v2: the per-file salted manifest, one file revealed under it (verify-seal-v2)
+    bundle2 = os.path.join(work, "idea.seal2")
+    r7 = subprocess.run([sys.executable, "-I", SEAL, "seal2", idea, "--out", bundle2], capture_output=True, text=True)
+    assert r7.returncode == 0, r7.stderr
+    digest2 = r7.stdout.strip()
+    repo2, commit2 = registry_with(digest2, "2026-11-05T12:00:00+0000")
+    anchors(bundle2, commit2)
+    # the shell re-derivation of the manifest's digest
+    if sh:
+        r8 = subprocess.run(["bash", "-c", S.REDERIVE2], cwd=bundle2, capture_output=True, text=True)
+        case("v2: the one-line shell re-derivation equals the manifest's Python digest", {"verdict": "CERTIFIED" if (r8.stdout.split() or [""])[0] == digest2 else "REFUTED", "reason": r8.stdout[:80]}, "CERTIFIED")
+    # the whole bundle opened: every file re-derives
+    v = run("open", bundle2, "--registry", repo2)
+    case("v2: the whole bundle opened (archive + salts): every file re-derives, the manifest's seal re-derives", v, "CERTIFIED", "held_by " + str(v.get("held_by")))
+    assert v.get("held_by") == "2026-11-05", v
+    # one file revealed, the others sealed
+    pkg = os.path.join(work, "reveal-statement")
+    r9 = subprocess.run([sys.executable, "-I", SEAL, "reveal", bundle2, "statement.md", "--out", pkg], capture_output=True, text=True)
+    assert r9.returncode == 0, r9.stderr
+    assert sorted(os.listdir(os.path.join(pkg, "files"))) == ["statement.md"], "the package must carry the one file only"
+    man_txt = open(os.path.join(pkg, "manifest.json")).read()
+    assert "plan.txt" not in man_txt and "statement" not in man_txt and "lemma" not in man_txt, "the manifest must name no path"
+    v = run("verify", pkg, "--registry", repo2)
+    case("v2: one file revealed under the sealed manifest (the package holds that file, its salt, the manifest; no other path, no other salt)", v, "CERTIFIED", "held_by " + str(v.get("held_by")))
+    case("v2: the revealed file with --by on the anchor's day", run("verify", pkg, "--by", "2026-11-05", "--registry", repo2), "CERTIFIED")
+    case("v2: the revealed file with --by before the anchor", run("verify", pkg, "--by", "2026-11-01", "--registry", repo2), ("REFUSED",))
+    case("v2: the revealed file with no registry clone", run("verify", pkg), ("REFUSED",))
+    pkg_nested = os.path.join(work, "reveal-lemma")
+    r10 = subprocess.run([sys.executable, "-I", SEAL, "reveal", bundle2, "notes/deep/lemma-3.tex", "--out", pkg_nested], capture_output=True, text=True)
+    assert r10.returncode == 0, r10.stderr
+    case("v2: a nested file revealed (notes/deep/lemma-3.tex)", run("verify", pkg_nested, "--registry", repo2), "CERTIFIED")
+
+    def forged2(name, p, want=("REFUTED", "REFUSED")):
+        v = run("verify", p, "--registry", repo2)
+        forg.append({"forgery": "v2: " + name, "verdict": v["verdict"], "reason": v.get("reason", ""), "certified": v["verdict"] == "CERTIFIED"})
+        case("v2 forgery: " + name, v, want)
+
+    def copy_pkg(src):
+        d = tempfile.mkdtemp(prefix="seal2-case-")
+        dst = os.path.join(d, "r")
+        shutil.copytree(src, dst)
+        return dst
+
+    q = copy_pkg(pkg); fp = os.path.join(q, "files", "statement.md"); data = bytearray(open(fp, "rb").read()); data[0] ^= 0x01; open(fp, "wb").write(data)
+    forged2("the revealed file's bytes differ by one bit", q, ("REFUTED",))
+    q = copy_pkg(pkg); rj = json.load(open(os.path.join(q, "reveal.json"))); rj["path"] = "statement-final.md"; os.rename(os.path.join(q, "files", "statement.md"), os.path.join(q, "files", "statement-final.md")); json.dump(rj, open(os.path.join(q, "reveal.json"), "w"))
+    forged2("the right bytes revealed under another name", q, ("REFUTED",))
+    q = copy_pkg(pkg); rj = json.load(open(os.path.join(q, "reveal.json"))); rj["index"] = 0; json.dump(rj, open(os.path.join(q, "reveal.json"), "w"))
+    forged2("the revealed file claimed at another index of the manifest", q, ("REFUTED",))
+    q = copy_pkg(pkg); rj = json.load(open(os.path.join(q, "reveal.json"))); rj["index"] = 99; json.dump(rj, open(os.path.join(q, "reveal.json"), "w"))
+    forged2("a revealed file absent from the manifest (index beyond it)", q, ("REFUTED",))
+    q = copy_pkg(pkg); rj = json.load(open(os.path.join(q, "reveal.json"))); rj["salt"] = "f" * 64; json.dump(rj, open(os.path.join(q, "reveal.json"), "w"))
+    forged2("another salt for the revealed file", q, ("REFUTED",))
+    q = copy_pkg(pkg); m = json.load(open(os.path.join(q, "manifest.json"))); m["files"][1]["sha256"] = "0" * 64
+    open(os.path.join(q, "manifest.json"), "wb").write(S.manifest_bytes(m["files"]))
+    forged2("the manifest edited (a sha256 changed, canonical form kept): its seal no longer re-derives", q, ("REFUTED",))
+    q = copy_pkg(pkg); open(os.path.join(q, "manifest.json"), "w").write(json.dumps(json.load(open(os.path.join(pkg, "manifest.json"))), indent=1))
+    forged2("the manifest re-serialised with spaces (not canonical)", q, ("REFUSED",))
+    q = copy_pkg(pkg); os.remove(os.path.join(q, "manifest.json"))
+    forged2("the manifest missing from the package", q, ("REFUSED",))
+    q = copy_pkg(pkg); open(os.path.join(q, "salt.hex"), "w").write("e" * 64)
+    forged2("another manifest salt", q, ("REFUTED",))
+    q = copy_pkg(pkg); m = json.load(open(os.path.join(q, "seal.json"))); m["version"] = "verify-seal-v1"; json.dump(m, open(os.path.join(q, "seal.json"), "w"))
+    forged2("the package's seal.json claims v1", q, ("REFUSED",))
+    # the whole-bundle forgeries
+    b2 = tempfile.mkdtemp(prefix="seal2-b-"); dst = os.path.join(b2, "b.seal2"); shutil.copytree(bundle2, dst)
+    ap = os.path.join(dst, "archive.tar"); data = bytearray(open(ap, "rb").read()); i2 = data.index(b"circle"); data[i2] ^= 0x01; open(ap, "wb").write(data)
+    v = run("open", dst, "--registry", repo2)
+    forg.append({"forgery": "v2: one byte flipped in the whole bundle's archive (the manifest intact)", "verdict": v["verdict"], "reason": v.get("reason", ""), "certified": v["verdict"] == "CERTIFIED"})
+    case("v2 forgery: one byte flipped in the whole bundle's archive", v, ("REFUTED",))
+    b3 = tempfile.mkdtemp(prefix="seal2-b-"); dst3 = os.path.join(b3, "b.seal2"); shutil.copytree(bundle2, dst3); sj = json.load(open(os.path.join(dst3, "salts.json"))); sj["files"][0]["salt"] = "a" * 64; json.dump(sj, open(os.path.join(dst3, "salts.json"), "w"))
+    v = run("open", dst3, "--registry", repo2)
+    forg.append({"forgery": "v2: one per-file salt replaced in salts.json", "verdict": v["verdict"], "reason": v.get("reason", ""), "certified": v["verdict"] == "CERTIFIED"})
+    case("v2 forgery: one per-file salt replaced", v, ("REFUTED",))
+    # v2 red control: a verifier that skips the path check must be caught (the right bytes under another name come back CERTIFIED under it)
+    src5 = src.replace('if files[i]["path_hash"] != q:', 'if False:')
+    assert src5 != src
+    open(broken, "w").write(src5)
+    q = copy_pkg(pkg); rj = json.load(open(os.path.join(q, "reveal.json"))); rj["path"] = "statement-final.md"; os.rename(os.path.join(q, "files", "statement.md"), os.path.join(q, "files", "statement-final.md")); json.dump(rj, open(os.path.join(q, "reveal.json"), "w"))
+    r11 = subprocess.run([sys.executable, "-I", broken, "verify", q, "--registry", repo2], capture_output=True, text=True)
+    vb = json.loads(r11.stdout)
+    reds.append({"red": "v2: a verifier that skips the salted path check IS caught (the right bytes under another name come back CERTIFIED under it)", "fired": vb["verdict"] == "CERTIFIED"})
+    src6 = src.replace('if files[i]["sha256"] != h:', 'if False:')
+    assert src6 != src
+    open(broken, "w").write(src6)
+    q = copy_pkg(pkg); fp = os.path.join(q, "files", "statement.md"); data = bytearray(open(fp, "rb").read()); data[0] ^= 0x01; open(fp, "wb").write(data)
+    r12 = subprocess.run([sys.executable, "-I", broken, "verify", q, "--registry", repo2], capture_output=True, text=True)
+    vb = json.loads(r12.stdout)
+    reds.append({"red": "v2: a verifier that skips the salted file hash IS caught (flipped bytes come back CERTIFIED under it)", "fired": vb["verdict"] == "CERTIFIED"})
+
     planted = len(forg)
     certified = sum(1 for f in forg if f["certified"])
     failed = [c["case"] for c in cases if not c["pass"]]
     dead = [r["red"] for r in reds if not r["fired"]]
-    rec = {"what": "The Verify Seal battery (instruments/seal/battery.py): the commitment SHA256('verify-seal-v1\\n' || salt || SHA256(archive)) opened under planted forgeries — each must come back REFUTED or REFUSED, never CERTIFIED — plus the determinism check (the same contents written another way re-derive the sealed digest), the date rule (an anchor dated after the claimed date refuses), the unconfirmed-anchor cases, and the one-line shell re-derivation against the Python digest; three red controls on a deliberately broken opener. Run in a temporary directory with a temporary git registry; no network, no ots client.",
+    rec = {"what": "The Verify Seal battery (instruments/seal/battery.py): the commitment SHA256('verify-seal-v1\\n' || salt || SHA256(archive)) opened under planted forgeries, and since 2026-11-05 the v2 per-file salted manifest (one file revealed under a sealed manifest, the whole bundle opened) under its own forgeries and two red controls — each must come back REFUTED or REFUSED, never CERTIFIED — plus the determinism check (the same contents written another way re-derive the sealed digest), the date rule (an anchor dated after the claimed date refuses), the unconfirmed-anchor cases, and the one-line shell re-derivation against the Python digest; three red controls on a deliberately broken opener. Run in a temporary directory with a temporary git registry; no network, no ots client.",
            "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "seconds": round(time.time() - t0, 1),
            "seal_py_sha256": hashlib.sha256(open(SEAL, "rb").read()).hexdigest(), "python": sys.version.split()[0],
            "verdict": "PASS" if not failed and not dead and certified == 0 else "FAIL",

@@ -562,7 +562,7 @@ module.exports = function verifyPage(X) {
         + '<div class="wide"><div class="vf-panels">'
         + panel('1 · seal', 'The bytes, committed', 'A deterministic archive of the file or folder and a 32-byte salt stay on your machine. One digest comes out: SHA-256 of the salt and the archive’s hash, nothing a reader can invert or guess.')
         + panel('2 · anchor', 'The date, from outside', 'The digest goes to OpenTimestamps (a Bitcoin-attested date) and to a public registry whose commit date is the second anchor. Neither anchor is ours to move.')
-        + panel('3 · open', 'The reveal, when you choose', 'Hand over the archive and the salt. Anyone re-derives the digest with one line of shell, without this engine, and reads the anchors’ dates.')
+        + panel('3 · open', 'The reveal, when you choose', 'Hand over the archive and the salt. Anyone re-derives the digest with one line of shell, without this engine, and reads the anchors’ dates. Sealed file by file, one file can be shown while the rest stay sealed: the manifest names no path and no salt.')
         + panel('4 · decide', 'Three words', 'CERTIFIED: the bytes re-derive the digest and an anchor confirms the date. REFUTED: they do not, and the input that differs is named. REFUSED: a part is missing or no anchor is confirmed yet, with what would decide it. An opened seal can go straight into Statement Check or an audit.')
         + '</div></div>'
         + col(C.pRaw('<b>What a seal does not say.</b> It proves possession of exact bytes by a date. It does not say who first had the idea, that the idea is correct, or anything about credit; a short statement can be guessed and hashed, so seal the whole draft, and a lost salt is an unopenable seal.')) }),

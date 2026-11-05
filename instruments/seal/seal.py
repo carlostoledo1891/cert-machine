@@ -9,6 +9,12 @@ the researcher; what goes out is one salted digest, anchored in public (OpenTime
   seal.py open <bundle> [--by YYYY-MM-DD] [--registry <clone>]   recompute everything and decide: CERTIFIED / REFUTED / REFUSED
   seal.py digest <archive> <salt.hex>    the commitment of an archive and a salt, nothing else
 
+  v2, selective reveal (one file shown, the others stay sealed):
+  seal.py seal2 <path> [--out <dir>]     seal a folder file by file: a manifest of salted per-file hashes, sealed as one digest
+  seal.py reveal <bundle> <path> [--out <dir>]   the package that shows ONE sealed file: its bytes, its salt, the manifest
+  seal.py verify <package> [--by YYYY-MM-DD] [--registry <clone>]   decide a revealed file under its sealed manifest
+  seal.py open <bundle>                  also opens a v2 bundle whole (archive.tar + salts.json present): every file re-derived
+
 THE COMMITMENT (verify-seal-v1, fixed; a change is a new version string)
   digest = SHA256( b"verify-seal-v1\\n" || salt_bytes || SHA256(archive_bytes) )
   salt_bytes: exactly 32 bytes, stored as 64 lowercase hex characters in salt.hex with NOTHING else (no newline);
@@ -38,6 +44,21 @@ THE VERDICT of `open`
              confirmed anchor later than the claimed date. The reason says what would make it decidable.
   A seal proves possession of exact bytes by a date. It does not say who first had the idea, that the idea is right,
   or anything about credit. Exit status: 0 CERTIFIED, 1 REFUTED, 2 REFUSED.
+
+THE COMMITMENT, v2 (verify-seal-v2, fixed)
+  per file i, with its own 32-byte salt s_i (drawn at sealing, kept PRIVATE in salts.json until that file is revealed):
+    h_i = SHA256( b"verify-seal-v2-file\n" || s_i || SHA256(bytes_i) )          the file's salted hash
+    q_i = SHA256( b"verify-seal-v2-path\n" || s_i || path_i_utf8 )              the file's salted path hash
+  the manifest: canonical JSON {"version":"verify-seal-v2","files":[{"index":i,"path_hash":q_i,"sha256":h_i}, ...]}
+  (sorted keys, no spaces, one trailing newline; files in the archive's order) — it names NO path and NO salt, so showing it
+  reveals only how many files were sealed. digest = SHA256( b"verify-seal-v2\n" || salt_bytes || SHA256(manifest_bytes) ),
+  one salt.hex for the manifest, anchored exactly as v1. Revealing file i publishes (path_i, s_i, bytes_i) and the manifest;
+  the verifier recomputes h_i and q_i, finds both at index i, re-derives the manifest's digest and reads the anchors:
+    CERTIFIED  this file, under a sealed manifest held by <date>; the other files stay unrevealed and undecided
+    REFUTED    the revealed bytes, path or salt do not match the manifest at that index, or the manifest does not re-derive
+    REFUSED    a part is missing or malformed, or no anchor is confirmed here (as v1)
+  A revealed salt s_i exposes nothing about the other files: each has its own salt. The manifest's own line of shell:
+    ( printf 'verify-seal-v2\n'; xxd -r -p salt.hex; shasum -a 256 manifest.json | cut -c1-64 | xxd -r -p ) | shasum -a 256
 MIT · cert-machine"""
 import hashlib
 import io
@@ -54,6 +75,11 @@ import unicodedata
 
 VERSION = "verify-seal-v1"
 PREFIX = b"verify-seal-v1\n"
+VERSION2 = "verify-seal-v2"
+PREFIX2 = b"verify-seal-v2\n"
+FILE_PREFIX2 = b"verify-seal-v2-file\n"
+PATH_PREFIX2 = b"verify-seal-v2-path\n"
+REDERIVE2 = "( printf 'verify-seal-v2\\n'; xxd -r -p salt.hex; shasum -a 256 manifest.json | cut -c1-64 | xxd -r -p ) | shasum -a 256"
 HEX64 = re.compile(r"[0-9a-f]{64}")   # used with fullmatch: `$` would let a trailing newline through (the battery caught it)
 REDERIVE = "( printf 'verify-seal-v1\\n'; xxd -r -p salt.hex; shasum -a 256 archive.tar | cut -c1-64 | xxd -r -p ) | shasum -a 256"
 REGISTRY_URL = "https://github.com/carlostoledo1891/cert-machine"
@@ -264,8 +290,10 @@ def _open(bundle, by, registry):
         meta = json.load(open(sj))
     except Exception as e:
         raise Refused("seal.json does not parse: " + str(e))
+    if meta.get("version") == VERSION2:
+        return _open_v2(bundle, meta, by, registry)
     if meta.get("version") != VERSION:
-        raise Refused("seal.json version %r is not %s; this opener reads only %s" % (meta.get("version"), VERSION, VERSION))
+        raise Refused("seal.json version %r is not %s or %s; this opener reads only those" % (meta.get("version"), VERSION, VERSION2))
     rec = str(meta.get("digest", ""))
     if not HEX64.fullmatch(rec):
         raise Refused("seal.json carries no 64-hex digest")
@@ -314,6 +342,289 @@ def _open(bundle, by, registry):
     return out
 
 
+# ---------------------------------------------------------------- v2: the manifest, the reveal, the verifier
+def file_hash(salt_i, data):
+    """h_i: the salted hash of one file's bytes"""
+    return hashlib.sha256(FILE_PREFIX2 + salt_i + sha256(data)).hexdigest()
+
+
+def path_hash(salt_i, path):
+    """q_i: the salted hash of one file's archive name (NFC, '/' separators)"""
+    return hashlib.sha256(PATH_PREFIX2 + salt_i + unicodedata.normalize("NFC", path).encode("utf-8")).hexdigest()
+
+
+def manifest_bytes(files):
+    """the canonical bytes of a manifest: sorted keys, no spaces, one trailing newline"""
+    return (json.dumps({"version": VERSION2, "files": [{"index": f["index"], "path_hash": f["path_hash"], "sha256": f["sha256"]} for f in files]},
+                       sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n").encode("utf-8")
+
+
+def digest2(manifest, salt):
+    return hashlib.sha256(PREFIX2 + salt + sha256(manifest)).hexdigest()
+
+
+def _read_manifest(path):
+    if not os.path.isfile(path):
+        raise Refused("manifest.json is missing")
+    raw = open(path, "rb").read()
+    try:
+        m = json.loads(raw.decode("utf-8"))
+    except Exception as e:
+        raise Refused("manifest.json does not parse: " + str(e))
+    if not isinstance(m, dict) or m.get("version") != VERSION2 or not isinstance(m.get("files"), list):
+        raise Refused("manifest.json is not a %s manifest" % VERSION2)
+    files = m["files"]
+    for i, f in enumerate(files):
+        if not isinstance(f, dict) or f.get("index") != i or not HEX64.fullmatch(str(f.get("path_hash", ""))) or not HEX64.fullmatch(str(f.get("sha256", ""))):
+            raise Refused("manifest.json entry %d is malformed (index, path_hash and sha256 must be present, in order)" % i)
+    if manifest_bytes(files) != raw:
+        raise Refused("manifest.json is not in canonical form (sorted keys, no spaces, one trailing newline): re-derive it with manifest_bytes")
+    return files, raw
+
+
+def cmd_seal2(path, out=None):
+    entries = _entries(path)
+    bundle = out or (os.path.basename(os.path.abspath(path).rstrip(os.sep)) + ".seal2")
+    if os.path.exists(bundle):
+        raise Refused("the bundle exists; choose --out or remove it: " + bundle)
+    files, salts = [], []
+    for i, (name, p) in enumerate(entries):
+        s_i = secrets.token_bytes(32)
+        data = open(p, "rb").read()
+        files.append({"index": i, "path_hash": path_hash(s_i, name), "sha256": file_hash(s_i, data)})
+        salts.append({"index": i, "path": name, "salt": s_i.hex(), "bytes": len(data)})
+    man = manifest_bytes(files)
+    salt = secrets.token_bytes(32)
+    d = digest2(man, salt)
+    arch = archive_bytes(path)
+    os.makedirs(bundle)
+    with open(os.path.join(bundle, "manifest.json"), "wb") as fh:
+        fh.write(man)
+    with open(os.path.join(bundle, "salts.json"), "w") as fh:
+        json.dump({"version": VERSION2, "private": "the per-file salts: keep with the bundle, never publish; revealing file i publishes salt i only", "files": salts}, fh, indent=1)
+        fh.write("\n")
+    with open(os.path.join(bundle, "archive.tar"), "wb") as fh:
+        fh.write(arch)
+    with open(os.path.join(bundle, "salt.hex"), "w") as fh:
+        fh.write(salt.hex())
+    with open(os.path.join(bundle, "digest.txt"), "w") as fh:
+        fh.write(d + "\n")
+    meta = {"version": VERSION2, "digest": d, "manifest_sha256": sha256(man).hex(), "salt_sha256": sha256(salt).hex(),
+            "file_count": len(files), "manifest_bytes": len(man), "archive_sha256": sha256(arch).hex(), "archive_bytes": len(arch),
+            "created_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "created_at_is": "a local claim, decided by nobody; the date a seal proves is its anchors'",
+            "commitment": "SHA256('verify-seal-v2\\n' || salt_bytes || SHA256(manifest_bytes)); per file h_i = SHA256('verify-seal-v2-file\\n' || s_i || SHA256(bytes_i)), q_i = SHA256('verify-seal-v2-path\\n' || s_i || path_i)",
+            "rederive": REDERIVE2}
+    with open(os.path.join(bundle, "seal.json"), "w") as fh:
+        json.dump(meta, fh, indent=1)
+        fh.write("\n")
+    print(d)
+    print("sealed %d file(s) file by file -> %s/ (manifest.json, salts.json [private], archive.tar [private], salt.hex, seal.json, digest.txt)" % (len(files), bundle), file=sys.stderr)
+    print("next: python3 seal.py stamp %s ; to show one file later: python3 seal.py reveal %s <path>" % (bundle, bundle), file=sys.stderr)
+    return d
+
+
+def _bundle_v2(bundle):
+    sj = os.path.join(bundle, "seal.json")
+    if not os.path.isdir(bundle):
+        raise Refused("no bundle directory at " + bundle)
+    if not os.path.isfile(sj):
+        raise Refused("seal.json is missing; the bundle cannot be opened without the recorded digest")
+    try:
+        meta = json.load(open(sj))
+    except Exception as e:
+        raise Refused("seal.json does not parse: " + str(e))
+    return meta
+
+
+def cmd_reveal(bundle, path, out=None):
+    meta = _bundle_v2(bundle)
+    if meta.get("version") != VERSION2:
+        raise Refused("reveal needs a %s bundle (seal2); this one is %r" % (VERSION2, meta.get("version")))
+    files, man = _read_manifest(os.path.join(bundle, "manifest.json"))
+    sp = os.path.join(bundle, "salts.json")
+    if not os.path.isfile(sp):
+        raise Refused("salts.json is missing: without the per-file salts nothing can be revealed (a lost salt is an unopenable seal)")
+    salts = json.load(open(sp)).get("files", [])
+    name = unicodedata.normalize("NFC", path.replace(os.sep, "/"))
+    hit = [x for x in salts if x.get("path") == name]
+    if not hit:
+        raise Refused("no sealed file is named %r (the names are the archive's: relative, '/' separators)" % name)
+    x = hit[0]
+    i = x["index"]
+    buf = io.BytesIO(open(os.path.join(bundle, "archive.tar"), "rb").read())
+    with tarfile.open(fileobj=buf, mode="r") as tf:
+        try:
+            data = tf.extractfile(tf.getmember(name)).read()
+        except KeyError:
+            raise Refused("the archive holds no entry %r" % name)
+    pkg = out or (os.path.basename(bundle.rstrip(os.sep)).replace(".seal2", "") + ".reveal-" + str(i))
+    if os.path.exists(pkg):
+        raise Refused("the package exists; choose --out or remove it: " + pkg)
+    os.makedirs(os.path.join(pkg, "files", os.path.dirname(name)) if os.path.dirname(name) else os.path.join(pkg, "files"))
+    with open(os.path.join(pkg, "files", name), "wb") as fh:
+        fh.write(data)
+    with open(os.path.join(pkg, "manifest.json"), "wb") as fh:
+        fh.write(man)
+    with open(os.path.join(pkg, "reveal.json"), "w") as fh:
+        json.dump({"version": VERSION2, "index": i, "path": name, "salt": x["salt"], "bytes": len(data), "revealed": "this file only; the manifest names no other path and no other salt"}, fh, indent=1)
+        fh.write("\n")
+    for f in ("seal.json", "salt.hex", "digest.txt", "digest.txt.ots", "anchors.json"):
+        src = os.path.join(bundle, f)
+        if os.path.isfile(src):
+            shutil.copyfile(src, os.path.join(pkg, f))
+    print(json.dumps({"package": pkg, "index": i, "path": name, "bytes": len(data), "contains": "the file, its salt, the manifest, the manifest's seal and anchors — nothing of the other files"}, indent=1))
+    return pkg
+
+
+def _manifest_seal(d_dir, meta):
+    """the manifest's own seal: re-derive the digest from manifest.json and salt.hex; the anchors read as v1"""
+    files, man = _read_manifest(os.path.join(d_dir, "manifest.json"))
+    sp = os.path.join(d_dir, "salt.hex")
+    if not os.path.isfile(sp):
+        raise Refused("salt.hex (the manifest's salt) is missing")
+    salt = parse_salt(open(sp, "rb").read())
+    rec = str(meta.get("digest", ""))
+    if not HEX64.fullmatch(rec):
+        raise Refused("seal.json carries no 64-hex digest")
+    d = digest2(man, salt)
+    return files, man, salt, d, rec
+
+
+def cmd_verify(pkg, by=None, registry=None):
+    try:
+        v = _verify(pkg, by, registry)
+    except Refused as e:
+        v = {"verdict": "REFUSED", "reason": str(e)}
+    print(json.dumps(v, indent=1))
+    return {"CERTIFIED": 0, "REFUTED": 1, "REFUSED": 2}[v["verdict"]]
+
+
+def _verify(pkg, by, registry):
+    meta = _bundle_v2(pkg)
+    if meta.get("version") != VERSION2:
+        raise Refused("seal.json version %r is not %s; this verifier reads only %s" % (meta.get("version"), VERSION2, VERSION2))
+    rj = os.path.join(pkg, "reveal.json")
+    if not os.path.isfile(rj):
+        raise Refused("reveal.json is missing: which file is revealed, its salt and its name")
+    try:
+        r = json.load(open(rj))
+    except Exception as e:
+        raise Refused("reveal.json does not parse: " + str(e))
+    if r.get("version") != VERSION2 or not isinstance(r.get("index"), int) or not isinstance(r.get("path"), str):
+        raise Refused("reveal.json is malformed (version, index, path, salt)")
+    s_i = parse_salt(str(r.get("salt", "")))
+    name = unicodedata.normalize("NFC", r["path"])
+    fp = os.path.join(pkg, "files", name)
+    if not os.path.isfile(fp):
+        raise Refused("the revealed file is missing from the package: files/" + name)
+    data = open(fp, "rb").read()
+    files, man, salt, d, rec = _manifest_seal(pkg, meta)
+    out = {"index": r["index"], "path": name, "bytes": len(data), "digest": d, "recorded_digest": rec, "manifest_files": len(files),
+           "claimed_at": meta.get("created_at"), "claimed_at_is": "a local claim, decided by nobody"}
+    if d != rec:
+        which = "the manifest: its sha256 is not the one sealed" if meta.get("manifest_sha256") and sha256(man).hex() != meta["manifest_sha256"] else \
+                "the salt: salt.hex is not the manifest's salt" if meta.get("salt_sha256") and sha256(salt).hex() != meta["salt_sha256"] else \
+                "the recorded digest itself"
+        out.update(verdict="REFUTED", reason="the manifest's digest does not re-derive; what differs is " + which + " — nothing under it is decided")
+        return out
+    i = r["index"]
+    if not (0 <= i < len(files)):
+        out.update(verdict="REFUTED", reason="reveal.json names index %d, but the sealed manifest holds %d file(s): no such sealed file" % (i, len(files)))
+        return out
+    h, q = file_hash(s_i, data), path_hash(s_i, name)
+    if files[i]["sha256"] != h and files[i]["path_hash"] != q:
+        out.update(verdict="REFUTED", reason="neither the revealed bytes nor the revealed name re-derive the manifest's entry %d under this salt: not the file that was sealed there" % i)
+        return out
+    if files[i]["sha256"] != h:
+        out.update(verdict="REFUTED", reason="the revealed bytes do not re-derive the manifest's sha256 at index %d (the name does): the bytes differ from the sealed ones" % i)
+        return out
+    if files[i]["path_hash"] != q:
+        out.update(verdict="REFUTED", reason="the revealed name does not re-derive the manifest's path_hash at index %d (the bytes do): the file was sealed under another name" % i)
+        return out
+    out["file_sha256"] = h
+    out["path_hash"] = q
+    anchors = anchors_of(pkg, d, registry)
+    out["anchors"] = anchors
+    confirmed = [a for a in anchors if a["confirmed"]]
+    if not anchors:
+        out.update(verdict="REFUSED", reason="the file and the manifest re-derive, but no public anchor is in the package: the date is only a local claim")
+        return out
+    if not confirmed:
+        out.update(verdict="REFUSED", reason="the file and the manifest re-derive, but no anchor is confirmed here: " + "; ".join(a.get("why", "?") for a in anchors))
+        return out
+    earliest = min(a["date"] for a in confirmed)
+    out["held_by"] = earliest
+    if by:
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", by):
+            raise Refused("--by takes YYYY-MM-DD")
+        if earliest > by:
+            out.update(verdict="REFUSED", reason="the file re-derives under the sealed manifest and the earliest confirmed anchor is dated %s, after the claimed %s: possession by %s is not decidable from the anchors" % (earliest, by, by))
+            return out
+    out.update(verdict="CERTIFIED", reason="this file re-derives its salted hash and its salted name at index %d of a manifest whose seal re-derives; %d anchor(s) confirmed; the file was held by %s%s. The other %d file(s) stay unrevealed and undecided." % (i, len(confirmed), earliest, (" (on or before the claimed " + by + ")") if by else "", len(files) - 1))
+    return out
+
+
+def _open_v2(bundle, meta, by, registry):
+    """a v2 bundle opened whole: every file in archive.tar re-derives its manifest entry under salts.json, and the manifest's seal re-derives"""
+    files, man, salt, d, rec = _manifest_seal(bundle, meta)
+    out = {"digest": d, "recorded_digest": rec, "manifest_files": len(files), "claimed_at": meta.get("created_at"), "claimed_at_is": "a local claim, decided by nobody"}
+    if d != rec:
+        out.update(verdict="REFUTED", reason="the manifest's digest does not re-derive (the manifest, the salt or the recorded digest differs)")
+        return out
+    sp = os.path.join(bundle, "salts.json")
+    ap = os.path.join(bundle, "archive.tar")
+    if not os.path.isfile(sp):
+        raise Refused("salts.json is missing: without the per-file salts the files cannot be re-derived (reveal packages carry one salt each)")
+    if not os.path.isfile(ap):
+        raise Refused("archive.tar is missing: without the bytes there is nothing to re-derive")
+    salts = json.load(open(sp)).get("files", [])
+    if len(salts) != len(files):
+        out.update(verdict="REFUTED", reason="salts.json holds %d salt(s) for a manifest of %d file(s)" % (len(salts), len(files)))
+        return out
+    buf = io.BytesIO(open(ap, "rb").read())
+    bad = []
+    with tarfile.open(fileobj=buf, mode="r") as tf:
+        members = {m.name: m for m in tf.getmembers()}
+        for x in salts:
+            i, name = x.get("index"), x.get("path")
+            try:
+                s_i = parse_salt(str(x.get("salt", "")))
+            except Refused:
+                bad.append("index %s: a malformed salt" % i); continue
+            if name not in members:
+                bad.append("index %s: %r is not in the archive" % (i, name)); continue
+            data = tf.extractfile(members[name]).read()
+            if not (isinstance(i, int) and 0 <= i < len(files)):
+                bad.append("index %s: not in the manifest" % i); continue
+            if files[i]["sha256"] != file_hash(s_i, data) or files[i]["path_hash"] != path_hash(s_i, name):
+                bad.append("index %d (%s): the bytes or the name do not re-derive the manifest's entry" % (i, name))
+        extra = sorted(set(members) - {x.get("path") for x in salts})
+    if extra:
+        bad.append("archive entries with no salt: " + ", ".join(extra[:5]))
+    if bad:
+        out.update(verdict="REFUTED", reason="the manifest's seal re-derives but %d file(s) do not: " % len(bad) + "; ".join(bad[:6]))
+        return out
+    anchors = anchors_of(bundle, d, registry)
+    out["anchors"] = anchors
+    confirmed = [a for a in anchors if a["confirmed"]]
+    if not anchors:
+        out.update(verdict="REFUSED", reason="every file re-derives, but no public anchor is in the bundle: the date is only a local claim")
+        return out
+    if not confirmed:
+        out.update(verdict="REFUSED", reason="every file re-derives, but no anchor is confirmed here: " + "; ".join(a.get("why", "?") for a in anchors))
+        return out
+    earliest = min(a["date"] for a in confirmed)
+    out["held_by"] = earliest
+    if by:
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", by):
+            raise Refused("--by takes YYYY-MM-DD")
+        if earliest > by:
+            out.update(verdict="REFUSED", reason="every file re-derives and the earliest confirmed anchor is dated %s, after the claimed %s" % (earliest, by))
+            return out
+    out.update(verdict="CERTIFIED", reason="all %d file(s) re-derive their salted hashes and names under a manifest whose seal re-derives; %d anchor(s) confirmed; the bytes were held by %s" % (len(files), len(confirmed), earliest))
+    return out
+
+
 # ---------------------------------------------------------------- main
 def main(argv):
     if len(argv) < 2 or argv[1] in ("-h", "--help"):
@@ -343,6 +654,24 @@ def main(argv):
                 raise Refused("digest <archive> <salt.hex>")
             print(digest(open(args[0], "rb").read(), parse_salt(open(args[1], "rb").read())))
             return 0
+        if cmd == "seal2":
+            if not args:
+                raise Refused("seal2 <path> [--out <dir>]")
+            out = args[args.index("--out") + 1] if "--out" in args else None
+            cmd_seal2(args[0], out)
+            return 0
+        if cmd == "reveal":
+            if len(args) < 2:
+                raise Refused("reveal <bundle> <path> [--out <dir>]")
+            out = args[args.index("--out") + 1] if "--out" in args else None
+            cmd_reveal(args[0], args[1], out)
+            return 0
+        if cmd == "verify":
+            if not args:
+                raise Refused("verify <package> [--by YYYY-MM-DD] [--registry <clone>]")
+            by = args[args.index("--by") + 1] if "--by" in args else None
+            reg = args[args.index("--registry") + 1] if "--registry" in args else None
+            return cmd_verify(args[0], by, reg)
         raise Refused("unknown command " + cmd)
     except Refused as e:
         print(json.dumps({"verdict": "REFUSED", "reason": str(e)}))
