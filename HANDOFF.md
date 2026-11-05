@@ -137,6 +137,10 @@ NEXT SESSION, IN ORDER:
      ETH_Repository E-MAIL for the note v0.2 SENT by hand (links only, no attachment), as the organizers' page asks — rows
      ethdiscussion-reply-openai-chain-2026-11-05 and email-paturi-eth-repository-v02-2026-11-05. BOTH BLOG REPLIES ARE LIVE
      (the 11-04 one as comment-30, today's as comment-34; both rows updated); the open thread with the definition question stays held.
+     ~18:15 UTC: FIVE X REPLIES sent by the operator's hand from this session's drafts (the scout: tools/x.js search; targets
+     ranked by fit): under Ryan Williams's 'announce your results' post, KostyaAI (the statement-match question), 99sunny2 (the
+     nanoda stack, nanoda_lib#80), zkbernard12138 (their independent rebuild), jrdothoughts — rows x-reply-*-2026-11-05 in
+     corpus/outreach.json. Read the mentions next session (`node tools/x.js mentions`).
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
