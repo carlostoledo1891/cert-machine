@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 2.4s, install 0.7s, check 141.3s
+con-leche: stats: install pool: 0.598s wall, 16 workers + the commit thread, 98686 records, busy 5.166s (50.7%); tail 0.000s after the last start, 1 busy then, 0.000s worker-time in it (3.1%)
+con-leche: stats: slowest installs: 0.273s def Nat.lor (#20138); 0.227s def Nat.land (#1678); 0.164s def Nat.xor (#98683); 0.052s def AddMonoid.nsmul_zero._autoParam (#324); 0.044s def Pi.instSMul (#2288)
+con-leche: stats: check pool: 141.285s wall, 16 workers, 98664 records, busy 1436.390s (63.5%); tail 94.834s after the last start, 16 busy then, 693.435s worker-time in it (45.7%)
+con-leche: stats: slowest checks: 116.255s theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQuerySetup.PreparedRun.guard_loop (#94346); 107.750s theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryTraversal.high_loop_run (#94315); 98.576s theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryLoop.branch_step_resources (#94267); 84.503s theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryProgram.conditioned_resources (#94260); 80.274s theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.DFSVisit.body_refinement._proof_1_8 (#98074)
+con-leche: stats: peak RSS 68.85 GiB
+	Command being timed: "timeout 14400 env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 /home/tester/src/con-leche/.lake/build/bin/con-leche --trusted --jobs=16 /home/tester/export-comparator.ndjson"
+	User time (seconds): 1414.83
+	System time (seconds): 23.69
+	Percent of CPU this job got: 993%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:24.76
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 72202240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5703817
+	Voluntary context switches: 26333
+	Involuntary context switches: 144875
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
