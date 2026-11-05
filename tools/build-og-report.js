@@ -20,6 +20,28 @@ const ROOT = path.resolve(__dirname, '..');
 const MAX = 300 * 1024;
 
 const CARDS = {
+  /* an ART card (the operator, 2026-11-05: "an abstract representation, on our grammar, to communicate beautifully the subject;
+     not every detail; look and feel over message; the hook is in the post text"): no title, no deck — the grammar's marks
+     alone (hatched voids for what stays sealed, one solid block for the file shown, one solid line to one anchor), the
+     eyebrow and the URL in the corners, rendered in the LIGHT theme. The receipt's description is the alt. */
+  'verify-seal': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Verify Seal', path: '/reports/verify-seal.html',
+    title: 'Verify Seal',
+    alt: 'Eighteen hatched blocks in three rows, sealed; one block solid; from it one line to a single point at the edge, the anchor.',
+    svgRaw: (() => {
+      const o = [];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Eighteen hatched blocks, sealed; one solid; one line to one anchor" style="position:absolute;left:0;top:0">');
+      o.push('<defs><pattern id="og-void" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="var(--surface)"/><path d="M0,9 l9,-9 M-2.25,2.25 l4.5,-4.5 M6.75,11.25 l4.5,-4.5" stroke="var(--ink-5)" stroke-width="0.9" fill="none"/></pattern></defs>');
+      const x0 = 140, dx = 122, y0 = 182, dy = 104, w = 88, h = 58, R = 3, Cn = 6, rc = 1, rr = 5;
+      for (let r = 0; r < R; r++) for (let c = 0; c < Cn; c++) {
+        const x = x0 + c * dx, y = y0 + r * dy, on = r === rc && c === rr;
+        o.push('<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5" ' + (on ? 'fill="var(--ink)" stroke="var(--ink)"' : 'fill="url(#og-void)" stroke="var(--ink-4)"') + ' stroke-width="1.2"/>');
+      }
+      const ax = 1064, yl = y0 + rc * dy + h / 2, xr = x0 + rr * dx + w;
+      o.push('<line x1="' + xr + '" y1="' + yl + '" x2="' + (ax - 10) + '" y2="' + yl + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+      o.push('<circle cx="' + ax + '" cy="' + yl + '" r="6.5" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',
@@ -62,9 +84,19 @@ const CARDS = {
 function cardHtml(c) {
   const C = require(path.join(ROOT, 'design', 'components.js'));
   const TPL = require(path.join(ROOT, 'design', 'template.js'));
+  const themeHead = c.theme === 'light' ? '<script>document.documentElement.setAttribute("data-theme","light")</script>' : '';
+  if (c.art) return TPL.render({
+    title: c.title, path: '/', footRaw: null, desc: c.alt, headRaw: themeHead,
+    cssRaw: 'nav.topnav,[class*="theme"]{display:none !important}\nbody{margin:0;overflow:hidden}\n.page{padding:0;max-width:none}\n.og-art .eyebrow{animation:none}',
+    bodyRaw: '<div class="og-art" style="position:absolute;left:0;top:0;width:1200px;height:630px;overflow:hidden">' + c.svgRaw
+      + '<div class="eyebrow" style="position:absolute;left:140px;top:108px">' + C.esc(c.eyebrow) + '</div>'
+      + '<div class="eyebrow" style="position:absolute;left:140px;bottom:72px">carlostoledo.co' + C.esc(c.path) + '</div>'
+      /* the font check below asks for Inter 550 64px: an art card sets no such text, so one invisible glyph loads the face */
+      + '<span aria-hidden="true" style="position:absolute;left:-9999px;top:0;font:550 64px Inter">.</span></div>'
+  });
   return TPL.render({
     /* path '/' on purpose: the card is a still, not the page — design/titles.js would otherwise hold its H1 to the registry's */
-    title: c.title, path: '/', footRaw: null, desc: c.deck,
+    title: c.title, path: '/', footRaw: null, desc: c.deck, headRaw: themeHead,
     /* a still, not a page: no nav, no theme pill, no entrance motion; the block set lower and larger so it reads at thumbnail size */
     cssRaw: 'h1,.deck,.stats{animation:none}\nnav.topnav,[class*="theme"]{display:none !important}\n.page{padding-top:var(--s-10)}\n.og-host{margin-top:var(--s-7)}\nh1{font-size:clamp(34px,4.2vw,54px);line-height:1.08}\n.deck{font-size:clamp(18px,1.9vw,24px);line-height:1.45}' + (c.css ? '\n' + c.css : ''),
     bodyRaw: c.svgRaw
@@ -108,7 +140,7 @@ async function build(key) {
   if (w !== 1200 || h !== 630) throw new Error('the card is ' + w + ' × ' + h + ', not 1200 × 630');
   if (buf.length >= MAX) throw new Error('the card is ' + buf.length + ' bytes, over 300 KB');
   const receipt = { what: 'The share card of ' + c.path + ' (og:image, twitter:image), rendered by tools/build-og-report.js from the house page shell: the eyebrow, the title and one deck sentence, no number.',
-    key, path: c.path, eyebrow: c.eyebrow, title: c.title, description: c.deck, width: w, height: h, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), rendered: new Date().toISOString().slice(0, 10) };
+    key, path: c.path, eyebrow: c.eyebrow, title: c.title, description: c.art ? c.alt : c.deck, art: !!c.art, theme: c.theme || 'dark', width: w, height: h, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), rendered: new Date().toISOString().slice(0, 10) };
   fs.writeFileSync(REC, JSON.stringify(receipt, null, 2) + '\n');
   console.log('wrote design/assets/og-' + key + '.png (' + w + ' × ' + h + ', ' + Math.round(buf.length / 1024) + ' KB) and its receipt');
 }
