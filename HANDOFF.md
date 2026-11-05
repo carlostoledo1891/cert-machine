@@ -43,6 +43,20 @@ NEXT SESSION, IN ORDER:
      https://f0xfo9d8mcnhz6-8000.proxy.runpod.net/_status.json; when _phase is complete: `node tools/import-runpod-facts.js
      f0xfo9d8mcnhz6 corpus/eth-refutation/openai-chain/runs`, `node tools/record-eth-openai-chain.js`, then DELETE the pod, confirm 404.
      (A plain ubuntu:24.04 image was refused as "no instances" four times; the runpod/pytorch image took at once — use it for CPU pods.)
+     10:00 UTC: THE DECISION POD REACHED THE JUDGE AND P1 REJECTED — lake comparator --paranoid: Lean paranoid (leanchecker-paranoid)
+     and Lean default ACCEPT; the bundled lean4lean, nanoda, con-leche and con-ron exit non-zero with NO diagnostic (P1.err: "lean4lean
+     exited with 1", nothing else; 62 GB max RSS, 63 min). Our own nanoda (L4: 16 threads, 1 GiB stack) accepted all 101,618
+     declarations in 137 s at 37 GB; L5 leanchecker --fresh exit 0 in 42 min; L1–L3s all green; P2 (the planted statement) rejected
+     as it must. The export is 2.45 GB (the Anthropic chain's: 0.65 GB, 77,276 declarations, all six accepted). The comparator runs
+     its checkers with num_threads 4 and no stack size (Lake/CLI/Check.lean runExternalKernel) — a resource limit is the likely
+     cause, NOT SHOWN. As pre-registered the record would be REFUSED on P1. The operator (10:05 UTC): DIAGNOSE ON A FRESH POD and
+     WAIT FOR P3. Diagnostic pod atkkgtterhqpxk (cpu3m, US$0.88/h, EU-NL-1, created 10:08 UTC, POD.txt): the same build, the export
+     made as the comparator makes it (leanexport + the comparator's declaration list), then each bundled checker by hand with
+     stderr and /usr/bin/time -v, in the comparator's configuration (stage A) and with larger limits (stage B); the script is the
+     session scratchpad's diag.sh (not in the repo), facts at https://atkkgtterhqpxk-8000.proxy.runpod.net/; SSH direct
+     root@91.199.227.82 -p 34260 (the proxy needs a PTY and hangs; the direct port answers ~1 min after creation). THEN: a dated
+     amendment to the pre-registration (a platform failure is re-run and recorded as such — the stop rule's own words) only if the
+     by-hand runs show a limit, with the comparator's own verdict kept in the record; BOTH pods deleted after their imports.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
