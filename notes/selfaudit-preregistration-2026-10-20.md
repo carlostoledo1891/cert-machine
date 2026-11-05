@@ -115,7 +115,8 @@
 > through C2; CERTIFIED by the statement pin, the port ledger, the axioms file, nanoda with two negative controls,
 > leanchecker --fresh, three planted variants refused, and Lean's judge with named checkers after the dated amendment
 > in notes/eth-openai-chain-preregistration-2026-11-05.md — the judge as shipped recorded beside it with its four
-> bundled stops). The register moves from sha256 3c0ff499b704… (140 rows) to d7a94b75c357… (141 rows). The rerun kit
+> bundled stops). The register moves from sha256 3c0ff499b704… (140 rows) to 3558fcf5a471… (141 rows; the two chain rows'
+> claim text was reordered and their page moved to /reports/eth-chain.html the same evening, before the pin). The rerun kit
 > gains the record's re-derive command (both pod run directories named; no standard-library verifier), run once with
 > `--only` and merged into certs/rerun-kit-run.json; the self-audit run gains its pairs by `--append --only`, measured
 > on 2026-11-05 on the same Mac. The row is not mutated, with the reason in the inventory's class table (a kernel replay

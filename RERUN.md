@@ -46,7 +46,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 140 decided rows) 
 | `certs/eth-hawkley-heavy.json` | node; the imported pod facts in corpus/eth-refutation/hawkley/runs/runpod-dumwx3gz82jcvf | 1 (1 CERTIFIED) | `node tools/record-eth-hawkley-heavy.js --check` (< 1 s) | — | — | `7c88e9465fd439b4…` |
 | `certs/eth-cslib-d1.json` | node; the imported pod facts in corpus/eth-refutation/cslib/runs | 1 (1 CERTIFIED) | `node tools/record-eth-cslib-d1.js corpus/eth-refutation/cslib/runs/runpod-h07oiww4hr8ikm` (< 1 s) | — | — | `73f02f389c226bd7…` |
 | `certs/eth-chain.json` | node; the imported pod facts in corpus/eth-refutation/chain/runs | 1 (1 CERTIFIED) | `node tools/record-eth-chain.js corpus/eth-refutation/chain/runs/runpod-aa1oy86aj465u8` (< 1 s) | — | — | `a6291d9300aa7a5a…` |
-| `certs/eth-openai-chain.json` | node; the imported pod facts of both runs in corpus/eth-refutation/openai-chain/runs | 1 (1 CERTIFIED) | `node tools/record-eth-openai-chain.js corpus/eth-refutation/openai-chain/runs/runpod-f0xfo9d8mcnhz6 --named corpus/eth-refutation/openai-chain/runs/runpod-atkkgtterhqpxk` (< 1 s) | — | — | `633a1158ff44c26d…` |
+| `certs/eth-openai-chain.json` | node; the imported pod facts of both runs in corpus/eth-refutation/openai-chain/runs | 1 (1 CERTIFIED) | `node tools/record-eth-openai-chain.js corpus/eth-refutation/openai-chain/runs/runpod-f0xfo9d8mcnhz6 --named corpus/eth-refutation/openai-chain/runs/runpod-atkkgtterhqpxk` (< 1 s) | — | — | `428ecfe115d5f286…` |
 | `certs/wsp-baseline.json` | python3 standard library; the cached generations under corpus/wsp/.cache/baseline-runs; node for the second grader | 1 (1 MIXED) | `python3 -I tools/wsp-baseline.py --check` (3 s) | — | `node tools/wsp-grade-second.js --check` (3.5 s) | `27cbeeb6082d6877…` |
 
 Runtimes measured 2026-11-05 on Apple M2 (Darwin 27.0.0, v24.14.1, Python 3.9.6); the register's 141 rows compared before and after, none moved.
@@ -83,4 +83,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git dc141bbe
+git adeb2603

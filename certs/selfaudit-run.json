@@ -6,16 +6,16 @@
  "git": "f0ea4a7c",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49"
+  "sha256": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "fb7502dd5b180ef8fc066da540d427cdf292c16ab70947b1134adf716f81fea1"
+  "sha256": "a7865c3f4d4c52ae66a8965a2334e981d8ae90790f99b4c98f7dc863182e00cf"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "d7a94b75c3572a5e4f74e8c4a00e130bc51dd9180dd88038b8ab01fab20dd49c",
+   "sha256": "3558fcf5a4718a8a9c9017c5329bea56db497465354c8119d73bcaa350c18db4",
    "rows": 141
   },
   "kit": {
@@ -55,7 +55,7 @@
    "certs/eth-hawkley-heavy.json": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08",
    "certs/eth-cslib-d1.json": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394",
    "certs/eth-chain.json": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338",
-   "certs/eth-openai-chain.json": "633a1158ff44c26d4af30763f2688099782b7e8df95295c706acfe4cf0acef26",
+   "certs/eth-openai-chain.json": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950",
    "certs/wsp-baseline.json": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
   }
  },
@@ -10478,6 +10478,40 @@
    "after": {
     "preregistration": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49",
     "inventory": "fb7502dd5b180ef8fc066da540d427cdf292c16ab70947b1134adf716f81fea1"
+   }
+  },
+  {
+   "at": "2026-11-05T16:16:54.450Z",
+   "git": "adeb2603",
+   "why": "Amendment 2026-11-05, later: the OpenAI chain's kit command shortened to its default form (both run directories found by the tool); no measurement touched",
+   "before": {
+    "preregistration": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49",
+    "inventory": "fb7502dd5b180ef8fc066da540d427cdf292c16ab70947b1134adf716f81fea1",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49",
+    "inventory": "7800861000dee4a3d270b91ce4fcf74076f91c6fb38bafe9f687b20bd22f35e1"
+   }
+  },
+  {
+   "at": "2026-11-05T16:24:19.464Z",
+   "git": "adeb2603",
+   "why": "Amendment 2026-11-05, later: the register at 141 rows, final form (3558fcf5a471…: the two chain rows' claim text reordered, their page /reports/eth-chain.html); no measurement touched",
+   "before": {
+    "preregistration": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49",
+    "inventory": "7800861000dee4a3d270b91ce4fcf74076f91c6fb38bafe9f687b20bd22f35e1",
+    "recordsMoved": [
+     {
+      "record": "certs/eth-openai-chain.json",
+      "from": "633a1158ff44c26d4af30763f2688099782b7e8df95295c706acfe4cf0acef26",
+      "to": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d",
+    "inventory": "a7865c3f4d4c52ae66a8965a2334e981d8ae90790f99b4c98f7dc863182e00cf"
    }
   }
  ],

@@ -494,11 +494,11 @@ const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? 
   const port = c.reading.find((x) => /modified copy/.test(x)), operator = c.reading.find((x) => /not a second party/.test(x));
   if (!port || !operator) die('the chain record\'s reading no longer says the proof is a port, or who the operator is');
   rows.push({
-    id: 'eth-anthropic-chain', claim: c.claim.theorem + ' — ' + parts[0],
+    id: 'eth-anthropic-chain', claim: parts[0] + ' (' + c.claim.theorem + ')',
     claimant: 'Anthropic\'s proof (' + c.claim.port.of + '), ported and joined in claimbox: ' + c.claim.authors,
     source: c.claim.repo.replace(/^https?:\/\//, '') + ' @ ' + c.claim.commit.slice(0, 8) + ' ' + c.claim.folder + ', built on ' + c.claim.builtOn,
     origin: 'self-initiated', verdict: v, scope: 'Decided: ' + parts[1] + ' ' + port.split('. ')[0] + '. ' + operator,
-    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-chain.json', page: '/reports/eth-anthropic-chain.html'
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-chain.json', page: '/reports/eth-chain.html'
   });
 }
 
@@ -515,11 +515,11 @@ const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? 
   const port = c.reading.find((x) => /modified copy/.test(x)), operator = c.reading.find((x) => /not a second party/.test(x)), judge = c.reading.find((x) => /did not finish on this export/.test(x));
   if (!port || !operator || !judge) die('the OpenAI chain record\'s reading no longer says the proof is a port, who the operator is, or how the judge was re-run');
   rows.push({
-    id: 'eth-openai-chain', claim: c.claim.theorem + ' — ' + parts[0],
+    id: 'eth-openai-chain', claim: parts[0] + ' (' + c.claim.theorem + ')',
     claimant: 'OpenAI\'s proof and Hawkley\'s bridges (' + c.claim.port.of + '), ported and joined in claimbox: ' + c.claim.authors,
     source: c.claim.repo.replace(/^https?:\/\//, '') + ' @ ' + c.claim.commit.slice(0, 8) + ' ' + c.claim.folder + ', built on ' + c.claim.builtOn,
     origin: 'self-initiated', verdict: v, scope: 'Decided: ' + parts[1] + ' ' + port.split('. ')[0] + '. ' + judge.split('. ').slice(-3).join('. ') + ' ' + operator,
-    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-openai-chain.json', page: '/eth/'
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-openai-chain.json', page: '/reports/eth-chain.html'
   });
 }
 

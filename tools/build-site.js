@@ -464,13 +464,13 @@ const REPORTS = [
       const dec = L.rows.filter((r) => r.ours && !/^(OPEN|ON HOLD|IN PROGRESS)$/.test(r.ours.verdict)).length;
       if (L.rows.length < 50 || dec < 30) fail('the AI-claims census card would misstate the record');
       return L.rows.length + ' claims · ' + dec + ' decided here · as of ' + L.asOf; })() },
-  { g: 'ai', f: 'eth-anthropic-chain.html', k: 'decided · the ETH model gap',
-    title: 'Anthropic’s ETH proof, carried to a standard Turing machine in one Lean',
-    desc: 'Anthropic’s Lean proof that the Exponential Time Hypothesis is false is stated on a machine of its own lab’s making. Ported to one Lean, it implies ETH fails on a standard multitape Turing machine with a binary encoding, every step checked there; '
-      + 'what stays open first: the textbook match, OpenAI’s one version seam, the port’s edits, one author on both sides.',
-    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'eth-chain.json'), 'utf8'));
-      if (L.verdict !== 'CERTIFIED') fail('the ETH chain card would misstate the record');
-      return 'certified · six checkers · nanoda ' + L.nanoda.claim.declarations.toLocaleString('en-US') + ' declarations · ' + L.claim.port.byteIdentical + ' of ' + L.claim.port.files + ' files unchanged'; })() },
+  { g: 'ai', f: 'eth-chain.html', k: 'decided · the ETH model gap',
+    title: 'Two AI labs’ ETH proofs, carried to a standard Turing machine in one Lean',
+    desc: 'Each lab’s Lean proof that the Exponential Time Hypothesis is false is stated on a machine of its own making. Both proofs, ported to one Lean, imply ETH fails on a standard multitape Turing machine with a binary encoding, every step checked there; '
+      + 'what stays open first: the textbook match, the ports’ edits, the judge’s shorter checker list on OpenAI’s side, one author on both sides.',
+    n: (() => { const A = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'eth-chain.json'), 'utf8')), O = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'eth-openai-chain.json'), 'utf8'));
+      if (A.verdict !== 'CERTIFIED' || O.verdict !== 'CERTIFIED') fail('the ETH chain card would misstate a record');
+      return 'both certified · nanoda ' + A.nanoda.claim.declarations.toLocaleString('en-US') + ' + ' + O.nanoda.claim.declarations.toLocaleString('en-US') + ' declarations · ' + A.claim.port.byteIdentical + ' of ' + A.claim.port.files + ' and ' + O.claim.port.byteIdentical.toLocaleString('en-US') + ' of ' + O.claim.port.files.toLocaleString('en-US') + ' files unchanged'; })() },
   { g: 'ai', f: 'flashprove.html', k: 'audit · a proof-of-inference claim',
     title: 'FlashProve, checked from the public bytes',
     desc: 'Anthropic\'s FlashProve proves that a reply came from the committed model, with a soundness theorem in Lean. Its verifier, Lean library and GPU route run here from the public repository, its statements read by two blind readers, its numbers recomputed exactly. '

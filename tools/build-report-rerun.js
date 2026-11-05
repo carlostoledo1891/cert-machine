@@ -260,7 +260,7 @@ const kitRows = KIT.entries.map((e) => {
   const rows = rowsOf(e.record);
   const vh = e.verifier ? verifierHref(e.verifier) : null;
   const cmdCell = (cmd, kind) => cmd
-    ? { raw: '<span class="m">' + C.esc(cmd) + '</span><br><small>' + secs(timed(e.record, kind), e.record, kind) + '</small>' }
+    ? { raw: '<span class="m">' + C.esc(cmd).replace(/\//g, '/<wbr>') + '</span><br><small>' + secs(timed(e.record, kind), e.record, kind) + '</small>' }
     : { raw: '<small>—</small>' };
   return [
     { raw: '<span class="m">' + C.esc(e.record) + '</span><br><small>' + C.esc(needsShown(e.needs)) + '</small>' },

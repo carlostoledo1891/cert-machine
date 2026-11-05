@@ -30,7 +30,7 @@ const CARDS = {
     path: '/eth/' },
   'eth-chain': { eyebrow: 'Carlos Toledo · independent certification',
     title: 'AI proofs that the Exponential Time Hypothesis is false now reach a textbook machine',
-    deck: 'The step both papers left in prose is now in Lean, checked by two kernels. Anthropic’s side runs in one Lean; the textbook definition and one version gap stay readings.',
+    deck: 'The step both papers left in prose is now in Lean, checked by independent kernels. Both sides run in one Lean; the textbook definition stays a reading.',
     css: 'h1{font-size:42px}',
     path: '/eth/',
     svgRaw: '<svg viewBox="0 0 470 400" width="470" height="400" role="img" aria-label="Two lab boxes, linked by solid lines to a standard multitape Turing machine with its tape, and a dashed line to the textbook ETH" style="font-family:var(--mono, ui-monospace, monospace)">'

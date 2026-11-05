@@ -1,0 +1,560 @@
+<title>Black Hole as a Set</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..650&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+/* Layout: chapters scroll on the left; the instrument (sky, lid rail, u–v plane, the hypothesis dial) stays on the
+   right and changes with the chapter. On a phone the sky sticks to the top and the chapters scroll under it.
+   Colour test (rules retired): every hue still has one role, so the test is whether roles hold up in colour. */
+:root {
+  color-scheme: dark;
+  --paper: #08080b;
+  --surface: #121217;
+  --surface2: #18181f;
+  --ink: #f6f6f8;
+  --ink-2: #c9c9d2;
+  --ink-3: #9a9aa6;
+  --ink-4: #6e6e7a;
+  --ink-5: #4a4a55;
+  --rule: #23232b;
+  --rule-strong: #32323d;
+  --ember: #ff9a3c;      /* a pick's brightness */
+  --lid: #4fd6ec;        /* a certificate's ceiling */
+  --witness: #ff4d6d;    /* an exhibited counterexample */
+  --hyp: #b9a6ff;        /* a named hypothesis: the mood */
+  --doubt: #6f8cff;      /* where the picks disagree */
+  --f-body: "Inter", "Helvetica Neue", -apple-system, system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink-2); font: 400 15px/1.65 var(--f-body); }
+.wrap { max-width: 1400px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.eyebrow { font: 500 11px/1.5 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); }
+h1 { font-weight: 560; font-size: clamp(2.2rem, 1.2rem + 3.6vw, 4rem); line-height: 1.04; letter-spacing: -.035em; color: var(--ink); margin: 12px 0 0; text-wrap: balance; max-width: 18ch; }
+h2 { font-weight: 540; font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem); line-height: 1.15; letter-spacing: -.015em; color: var(--ink); margin: 6px 0 0; text-wrap: balance; }
+h3 { font: 500 11px/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); margin: 0; }
+p { margin: 0; max-width: 62ch; }
+b, strong { color: var(--ink); font-weight: 560; }
+a { color: var(--ink); text-underline-offset: 3px; }
+.lede { font-size: 1.1rem; margin-top: 16px; max-width: 64ch; }
+header { padding-block: 44px 28px; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; font: 400 12.5px/1.4 var(--f-mono); color: var(--ink-3); }
+.key span { display: inline-flex; align-items: center; gap: 8px; }
+.key i { width: 18px; height: 10px; border-radius: 2px; display: inline-block; }
+.hypo { font-family: var(--f-mono); font-style: italic; color: var(--hyp); }
+.mono { font-family: var(--f-mono); }
+.small { font-size: 13px; line-height: 1.55; color: var(--ink-3); }
+
+.inst { display: grid; grid-template-columns: minmax(300px, 400px) minmax(0, 1fr); gap: 40px; align-items: start; }
+.chapters { display: flex; flex-direction: column; }
+.ch { min-height: 78vh; padding-block: 28px 40px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 12px; }
+.ch:first-child { border-top: 0; }
+.ch .n { font: 600 12px/1 var(--f-mono); color: var(--ink-4); }
+.ch.on .n { color: var(--ink); }
+.ch .tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.stage { position: sticky; top: max(12px, env(safe-area-inset-top, 0px)); display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 10px 12px; background: var(--surface); border-radius: 10px; font-size: 13px; }
+.bar label { font: 500 10.5px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-4); }
+.bar select { font: 400 12.5px/1.2 var(--f-mono); color: var(--ink); background: var(--sunk, #0d0d11); border: 1px solid var(--rule-strong); border-radius: 6px; padding: 5px 7px; }
+.bar .given { flex-basis: 100%; }
+.stagebody { display: grid; grid-template-columns: minmax(280px, min(calc(100vh - 190px), 640px)) minmax(220px, 1fr); gap: 20px; align-items: start; }
+.skybox { position: relative; width: 100%; aspect-ratio: 1; }
+.side { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.side svg { width: 100%; height: auto; display: block; }
+.side .uvw { max-width: 230px; }
+#sky, #ov { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border-radius: 8px; }
+#ov { overflow: visible; }
+
+.navs { display: flex; flex-wrap: wrap; gap: 6px; }
+.navs button { font: 500 11.5px/1 var(--f-mono); color: var(--ink-3); background: transparent; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 6px 10px; cursor: pointer; }
+.navs button[aria-current="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+button.act { font: 500 13px/1 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 6px; padding: 8px 11px; cursor: pointer; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ctl { display: flex; flex-direction: column; gap: 4px; }
+.ctl label { display: flex; justify-content: space-between; font: 500 10.5px/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-4); }
+.ctl output { color: var(--ink); letter-spacing: 0; text-transform: none; }
+input[type=range] { width: 100%; accent-color: var(--ember); margin: 0; }
+.ctls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.card { background: var(--surface); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.vd { display: inline-flex; align-items: center; gap: 7px; font: 600 11px/1 var(--f-mono); letter-spacing: .08em; color: var(--ink); }
+.vd svg { width: 14px; height: 14px; flex: none; }
+.st { display: inline-flex; align-items: center; gap: 7px; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; color: var(--ink-2); }
+.st svg { width: 28px; height: 8px; }
+.hole { font: 500 10px/1 var(--f-mono); letter-spacing: .1em; color: var(--ink-2); border: 1px solid var(--rule-strong); border-radius: 999px; padding: 4px 8px; }
+.wit { color: var(--witness); }
+.lidc { color: var(--lid); }
+.emb { color: var(--ember); }
+.ledger { border-top: 1px solid var(--rule); padding-block: 48px 64px; margin-top: 24px; }
+.tw { overflow-x: auto; margin-top: 18px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { font: 500 10px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); text-align: left; padding: 0 14px 8px 0; border-bottom: 1px solid var(--rule); }
+td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { color: var(--ink); white-space: nowrap; }
+.t-ax { font: 400 10.5px var(--f-mono); fill: var(--ink-4); }
+.t-lb { font: 500 12px var(--f-mono); fill: var(--ink-2); }
+.t-tag { font: 600 11px var(--f-mono); letter-spacing: .06em; }
+.t-it { font: italic 400 11px var(--f-mono); fill: var(--hyp); }
+@media (max-width: 1180px) {
+  .stagebody { grid-template-columns: minmax(0, 1fr); }
+  .skybox { width: min(100%, calc(100vh - 380px), 640px); }
+  .side { flex-direction: row; }
+  .side > div:first-child { flex: 1; }
+  .side .uvw { width: 170px; flex: none; }
+}
+@media (max-width: 960px) {
+  .inst { grid-template-columns: minmax(0, 1fr); }
+  .stage { order: -1; z-index: 5; background: var(--paper); padding-top: 6px; }
+  .stagebody { display: block; }
+  .skybox { width: min(100%, 46vh); margin: 0 auto; }
+  .side, .bar, .navs { display: none; }
+  .ch { min-height: 0; padding-block: 22px 28px; }
+  .ctls { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">/instruments · interferometer · redrawn in WARRANT v2 · a colour test</div>
+    <h1>The black hole, as a set</h1>
+    <p class="lede">The famous image of M87 is one sky picked from infinitely many that the data allow. This instrument draws the rest: what the picks share, what nothing in the data decides, the lid no sky can exceed, the sky that breaks the story, and the hypothesis every verdict leans on. Every number is read from the instrument’s records or computed in your tab from the 838 released visibilities.</p>
+    <div class="key" aria-label="Colour roles">
+      <span><i style="background:linear-gradient(90deg,#3a0c0a,#e8741c,#fff6e2)"></i>a pick’s brightness</span>
+      <span><i style="background:var(--doubt)"></i>where the picks disagree</span>
+      <span><i style="background:var(--lid)"></i>a certified lid</span>
+      <span><i style="background:var(--witness)"></i>a counterexample, exhibited</span>
+      <span><i style="background:var(--hyp)"></i><em class="hypo">the hypothesis it leans on</em></span>
+      <span><i style="background:repeating-linear-gradient(45deg,var(--ink-4) 0 2px,transparent 2px 5px)"></i>nothing decides it</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="inst">
+    <div class="chapters" id="chapters">
+      <section class="ch" data-mode="pick" id="c-pick">
+        <span class="n">1 · a photograph is a pick</span>
+        <h2>One sky, chosen</h2>
+        <p>This is one of eighteen skies fitted to the released visibilities of 21 April 2018: the one with the best closure-phase fit. The famous image is a pick of the same kind, made with a different prior. A pick is <b>CHOSEN</b>, so its frame is dotted, and its warm colours mean one thing only: <span class="emb">how bright this pick is</span>.</p>
+        <p class="small">Its ring is smaller than the published 43 µas. Under-regularised fits do that; the record says so. The dotted circle is the published diameter, drawn for scale.</p>
+        <div class="tags" id="t-pick"></div>
+      </section>
+      <section class="ch" data-mode="sheet" id="c-sheet">
+        <span class="n">2 · eighteen picks</span>
+        <h2>Six seeds, three phase weights, three sparsities</h2>
+        <p>Every tile fits the data by the rule it was fitted with, and every tile is a different picture. Three of them dropped the LMT telescope and parked about 7 Jy in the field. The stated hypothesis allows at most 2 Jy, so those three are outside the set: each carries a <span class="wit">red ×</span>, because the excess flux is the object that breaks the rule.</p>
+        <div class="tags" id="t-sheet"></div>
+      </section>
+      <section class="ch" data-mode="agree" id="c-agree">
+        <span class="n">3 · agreement is still a pick</span>
+        <h2>Where the picks agree, and where they don’t</h2>
+        <p>Centred on their own flux, the fifteen picks that keep the hypothesis agree on <span class="emb">brightness</span> and disagree in <span style="color:var(--doubt)">blue stipple</span>. It is tempting to call the warm part “what the data say”. It is not: eighteen samples are not the set, so their agreement is <b>CHOSEN</b> too. Only a certificate speaks for every sky.</p>
+        <div class="tags" id="t-agree"></div>
+      </section>
+      <section class="ch" data-mode="where" id="c-where">
+        <span class="n">4 · where</span>
+        <h2>Nothing here says where M87 is</h2>
+        <p>Slide a sky across the field and every visibility amplitude stays the same; so does every closure phase. Nothing in these files can locate the source. Left where their fits put them, the picks’ centres scatter by up to <b id="n-drift">…</b>. The cross at the centre is a convention, not a measurement: <b>VOID</b>, hatched.</p>
+        <div class="tags" id="t-where"></div>
+      </section>
+      <section class="ch" data-mode="lid" id="c-lid">
+        <span class="n">5 · the lid</span>
+        <h2>The most flux any allowed sky can hold</h2>
+        <p>For every sky the data allow, at most this much flux fits inside a disk of radius r around the centre. The bound comes from a dual certificate: one inequality that must hold at every point of the field. It was checked on a fine grid with a margin, in floating point, so the <span class="lidc">lid</span> is dashed: <b>COMPUTED</b>. Check that inequality with interval arithmetic and it turns solid. That is the paving instrument’s job, applied to the sky.</p>
+        <p class="small">Each lid is true only under its own hypothesis, so every value is set in <span class="hypo">italic and names it</span>. Change the dial above the sky and watch which lids survive: a lid carries over to any hypothesis that is stricter on every row, and to nothing else.</p>
+        <div class="tags" id="t-lid"></div>
+      </section>
+      <section class="ch" data-mode="witness" id="c-witness">
+        <span class="n">6 · the witness</span>
+        <h2>A bright centre the amplitudes allow</h2>
+        <p>This sky breaks none of the amplitude ceilings it was built against, and puts <b>0.140 Jy</b> within 6 µas of the centre: 28% of its flux, in the middle of where the shadow should be. It is the exhibited counterexample to “the amplitudes alone force a dark centre”, so it is <span class="wit">red</span>. It looks nothing like a black hole, which is the point. Whatever darkens the centre in the famous image, it is not the amplitudes alone.</p>
+        <p class="small">It is also the lower end of the lid at r = 6: no ceiling can sit below a sky that exists. Your tab reads an 8-bit copy of it, so it widens every visibility by the rounding of the copy before it judges; no row breaks beyond that rounding.</p>
+        <div class="tags" id="t-witness"></div>
+      </section>
+      <section class="ch" data-mode="found" id="c-found">
+        <span class="n">7 · what this tab found · 2026-10-27</span>
+        <h2>The picks are not inside their own set</h2>
+        <p id="found-text">Measuring every pick against all 838 one-sided ceilings…</p>
+        <p class="small">The current instrument page says “every sky drawn here is one the data allow”. The picks were admitted by a two-sided χ² fit; the lid and the witness use “every row within its ceiling”. One word, two admission rules: a <b>READING</b> hole, on our own page. The one-sided rule is also very strict: real data have outliers, and every row must hold. What needs fixing is the hypothesis, an outlier allowance or a systematic error budget, not the black hole. The dial lets you try both.</p>
+        <div class="tags" id="t-found"></div>
+      </section>
+      <section class="ch" data-mode="lab" id="c-lab">
+        <span class="n">8 · your sky, your hypothesis</span>
+        <h2>Draw a sky and ask the data</h2>
+        <p>Build a sky from a ring and a central spot, or load one of the records. Your tab computes all 838 visibilities and checks each against its ceiling under the hypothesis on the dial. A row that breaks is drawn as a <span class="wit">red ×</span> on the u–v plane: the datum that refutes your sky. The <span class="lidc">lid</span> rail shows how much flux your sky puts inside each disk.</p>
+        <div class="btns" style="display:flex;flex-wrap:wrap;gap:8px">
+          <button class="act" data-load="ring">a 43 µas ring</button>
+          <button class="act" data-load="faint">a faint ring</button>
+          <button class="act" data-load="pick">the best pick</button>
+          <button class="act" data-load="witness">the witness</button>
+        </div>
+        <div class="ctls" id="lab-ctls">
+          <div class="ctl"><label for="l-d">ring diameter <output id="l-d-o"></output></label><input type="range" id="l-d" min="16" max="64" step="0.5" value="43.3"></div>
+          <div class="ctl"><label for="l-w">ring width <output id="l-w-o"></output></label><input type="range" id="l-w" min="2" max="18" step="0.5" value="6"></div>
+          <div class="ctl"><label for="l-f">ring flux <output id="l-f-o"></output></label><input type="range" id="l-f" min="0" max="1.4" step="0.01" value="0.5"></div>
+          <div class="ctl"><label for="l-a">brighter side <output id="l-a-o"></output></label><input type="range" id="l-a" min="0" max="0.9" step="0.05" value="0.5"></div>
+          <div class="ctl"><label for="l-p">towards <output id="l-p-o"></output></label><input type="range" id="l-p" min="0" max="355" step="5" value="180"></div>
+          <div class="ctl"><label for="l-c">centre flux <output id="l-c-o"></output></label><input type="range" id="l-c" min="0" max="0.5" step="0.01" value="0"></div>
+        </div>
+        <div class="card" id="lab-out"><p class="small">Scroll here and the sky on the right becomes yours.</p></div>
+      </section>
+    </div>
+
+    <aside class="stage" aria-label="The instrument">
+      <div class="navs" id="navs"></div>
+      <div class="bar" id="hbar">
+        <label for="h-model">gains</label><select id="h-model"><option value="station">per station, dividing</option><option value="add">additive 5%</option></select>
+        <label for="h-n">ceiling</label><select id="h-n"><option value="2">2σ</option><option value="3" selected>3σ</option><option value="4">4σ</option><option value="5">5σ</option></select>
+        <label for="h-o">rows allowed to break</label><select id="h-o"><option value="0" selected>none</option><option value="2">2</option><option value="5">5</option><option value="10">10</option><option value="20">20</option></select>
+        <span class="given hypo" id="h-text"></span>
+      </div>
+      <div class="stagebody">
+        <div class="skybox"><canvas id="sky" width="640" height="640" role="img" aria-label="The sky field, 80 microarcseconds across"></canvas><svg id="ov" viewBox="0 0 640 640" aria-hidden="true"></svg></div>
+        <div class="side">
+          <div><h3>the lid · flux inside r of the centre</h3><svg id="rail" viewBox="0 0 440 150" role="img" aria-label="Lids for four radii"></svg></div>
+          <div class="uvw"><h3>u–v plane · 838 rows</h3><svg id="uv" viewBox="0 0 200 200" role="img" aria-label="The sampled spatial frequencies"></svg></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="ledger">
+    <div class="eyebrow">the figure’s ledger</div>
+    <h2>What is decided here, and how</h2>
+    <p class="lede">Every object on this instrument, with its standing, its colour, its verdict, the hypothesis it leans on and what would make it stronger.</p>
+    <div class="tw"><table id="ledger"></table></div>
+    <p class="small" style="margin-top:18px">Data: Event Horizon Telescope public release 2024-D01-01, M87, 2018-04-21, band 3, HOPS, calibrated Stokes I; 838 rows above 0.4 Gλ from 117 snapshots. The data are not MIT: cite the release (eventhorizontelescope.org/for-astronomers/data). Records: playground/interferometer/out/page-data.json and cp-sweep.json in cert-machine. A private colour test, not built into the site.</p>
+  </section>
+</div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+'use strict';
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = s => document.querySelector(s), NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs || {}) { const v = attrs[k]; if (v == null) continue; if (k === 'fill' || k === 'stroke' || k === 'opacity') e.style.setProperty(k, String(v)); else if (k === 'text') e.textContent = v; else e.setAttribute(k, v); }
+  if (parent) parent.appendChild(e); return e;
+}
+const clear = n => { while (n.firstChild) n.removeChild(n.firstChild); };
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+/* the grammar: nested ink at period 6 */
+const ink = s => (s === 3 ? {} : s === 2 ? { 'stroke-dasharray': '4 2' } : s === 1 ? { 'stroke-dasharray': '1 5', 'stroke-dashoffset': '-1.5', 'stroke-linecap': 'round' } : { stroke: 'none' });
+const WN = ['VOID', 'CHOSEN', 'COMPUTED', 'DECIDED'];
+const stChip = s => `<span class="st"><svg viewBox="0 0 28 8" aria-hidden="true">${s === 0 ? '<rect x="1" y="1" width="26" height="6" style="fill:none;stroke:var(--ink-4)"/>' : `<line x1="1" y1="4" x2="27" y2="4" style="stroke:currentColor" stroke-width="2" ${s === 2 ? 'stroke-dasharray="4 2"' : s === 1 ? 'stroke-dasharray="1 5" stroke-dashoffset="-1.5" stroke-linecap="round"' : ''}/>`}</svg>${WN[s]}</span>`;
+const glyph = (v, col) => { const c = col || 'currentColor', fr = `<rect x="1.5" y="1.5" width="11" height="11" style="fill:none;stroke:currentColor" stroke-width="1.5"/>`, x = `<path d="M4.3 4.3L9.7 9.7M9.7 4.3L4.3 9.7" style="stroke:${c}" stroke-width="2" stroke-linecap="round"/>`;
+  return `<svg viewBox="0 0 14 14" aria-hidden="true">${v === 'C' ? '<rect x="1" y="1" width="12" height="12" style="fill:currentColor"/>' : v === 'R' ? fr + x : v === 'K' ? '<rect x="1" y="1" width="12" height="12" style="fill:currentColor"/>' + x : fr}</svg>`; };
+const chip = (v, word, col) => `<span class="vd">${glyph(v, col)}${word}</span>`;
+const hole = h => `<span class="hole">HOLE · ${h}</span>`;
+
+/* ===================== the data and the kernels ===================== */
+const N = D.meta.N, NP = N * N, K = D.vis.u.length, UAS = 4.84813681109536e-12, RF = D.meta.fov * UAS, ST = D.meta.stations;
+const DELTA = { AA: 0.05, AX: 0.055, MG: 0.035, MM: 0.07, LM: 0.26, SW: 0.075, PV: 0.05, GL: 0.10 };
+const co = Float64Array.from({ length: N }, (_, i) => -RF + (2 * RF * i) / (N - 1)), cu = Array.from(co, c => c / UAS);
+const Eu = new Float64Array(K * N * 2), Ev = new Float64Array(K * N * 2);
+for (let k = 0; k < K; k++) for (let i = 0; i < N; i++) {
+  const a = -2 * Math.PI * D.vis.u[k] * co[i], b = -2 * Math.PI * D.vis.v[k] * co[i], o = (k * N + i) * 2;
+  Eu[o] = Math.cos(a); Eu[o + 1] = Math.sin(a); Ev[o] = Math.cos(b); Ev[o + 1] = Math.sin(b);
+}
+/* |V_k| for a sky on the grid: V = Σ w exp(−2πi(u l + v m)), separable in l and m */
+function vis(w) {
+  const nz = []; for (let j = 0; j < N; j++) { const l = []; for (let i = 0; i < N; i++) if (w[j * N + i]) l.push(i); nz.push(l); }
+  const out = new Float64Array(K);
+  for (let k = 0; k < K; k++) {
+    let re = 0, im = 0; const ok = k * N * 2;
+    for (let j = 0; j < N; j++) {
+      const l = nz[j]; if (!l.length) continue; let sr = 0, si = 0;
+      for (const i of l) { const v = w[j * N + i]; sr += v * Eu[ok + 2 * i]; si += v * Eu[ok + 2 * i + 1]; }
+      const c = Ev[ok + 2 * j], s = Ev[ok + 2 * j + 1]; re += sr * c - si * s; im += sr * s + si * c;
+    }
+    out[k] = Math.hypot(re, im);
+  }
+  return out;
+}
+/* the 8-bit records: each pixel is known to within peak/510, so every |V| is known to within E */
+const decode = x => { const b = atob(x.b64), w = new Float64Array(NP); for (let i = 0; i < NP; i++) w[i] = (b.charCodeAt(i) / 255) * x.peak; return { w, E: (NP * x.peak) / 510, total: x.total }; };
+const PICKS = D.members.map((m, i) => Object.assign({ id: 'pick ' + (i + 1), meta: m }, decode(m)));
+const WITS = D.ceiling.map(c => Object.assign({ id: 'witness r ≤ ' + c.r0, meta: c }, decode(c)));
+const BEST = PICKS[13];
+/* the hypothesis: the ceiling A_k on every row */
+const H = { model: 'station', nsig: 3, out: 0 };
+const hName = h => `given ${h.model === 'station' ? 'per-station gains' : 'additive 5% gains'} · ${h.nsig}σ · ${h.out ? h.out + ' rows may break' : 'every row'} · F ≤ 2 Jy · 80 µas field`;
+function Avec(h) {
+  const A = new Float64Array(K);
+  for (let k = 0; k < K; k++) {
+    const amp = D.vis.amp[k], num = amp + h.nsig * D.vis.sig[k];
+    A[k] = h.model === 'add' ? num + D.meta.gain * amp : num / ((1 - DELTA[ST[D.vis.s1[k]]]) * (1 - DELTA[ST[D.vis.s2[k]]]));
+  }
+  return A;
+}
+/* ∀ rows: a sky is in the set if every row holds (up to the allowed outliers). Broken rows are exhibited, so red. */
+function judge(V, E, A, out) {
+  const br = []; let und = 0, worst = 0, wk = 0;
+  for (let k = 0; k < K; k++) { const r = V[k] / A[k]; if (r > worst) { worst = r; wk = k; } if (V[k] - E > A[k]) br.push(k); else if (V[k] + E > A[k]) und++; }
+  br.sort((a, b) => V[b] / A[b] - V[a] / A[a]);
+  return { v: br.length > out ? 'R' : br.length + und <= out ? 'C' : 'X', br, und, worst, wk };
+}
+const fluxWithin = (w, r) => { let s = 0; for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) if (Math.hypot(cu[i], cu[j]) <= r) s += w[j * N + i]; return s; };
+const RADII = [6, 12, 20, 28];
+/* the lids, each true only under the hypothesis it was solved for */
+const LIDS = [
+  { h: { model: 'station', nsig: 3, out: 0 }, rows: D.sweep.map(r => ({ r: r.r0, lo: r.witness, hi: r.ceiling })), when: 'the corrected run, 12,000 iterations' },
+  { h: { model: 'add', nsig: 3, out: 0 }, rows: D.ceiling.map(c => ({ r: c.r0, lo: c.value, hi: c.upper })), when: 'the first run, before the per-station correction' },
+];
+LIDS.forEach(L => { L.A = Avec(L.h); });
+const sameH = (a, b) => a.model === b.model && a.nsig === b.nsig && a.out === b.out;
+function lidsFor(h) {
+  if (h.out > 0) return [];
+  const A = Avec(h);
+  return LIDS.filter(L => { for (let k = 0; k < K; k++) if (A[k] > L.A[k]) return false; return true; }).map(L => ({ L, same: sameH(L.h, h) }));
+}
+
+/* ===================== drawing ===================== */
+const RAMP = {
+  ember: [[0, [8, 8, 11]], [0.16, [58, 12, 10]], [0.4, [150, 44, 16]], [0.66, [232, 116, 28]], [0.85, [255, 206, 120]], [1, [255, 246, 226]]],
+  crimson: [[0, [8, 8, 11]], [0.2, [72, 8, 32]], [0.48, [196, 26, 92]], [0.76, [255, 96, 142]], [1, [255, 228, 238]]],
+};
+function rampAt(r, t) { t = Math.max(0, Math.min(1, t)); for (let i = 1; i < r.length; i++) if (t <= r[i][0]) { const [a, ca] = r[i - 1], [b, cb] = r[i], f = (t - a) / (b - a); return ca.map((c, j) => Math.round(c + f * (cb[j] - c))); } return r[r.length - 1][1]; }
+const sky = $('#sky'), ctx = sky.getContext('2d'), ov = $('#ov');
+const SC = 7.875, X = l => 320 - l * SC, Y = m => 320 - m * SC;   /* east left, north up */
+function paint(w, ramp, x0 = 0, y0 = 0, size = 640, alpha = 1, gamma = 0.72) {
+  const off = document.createElement('canvas'); off.width = off.height = N;
+  const o = off.getContext('2d'), img = o.createImageData(N, N); let pk = 0; for (const v of w) if (v > pk) pk = v;
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const c = rampAt(RAMP[ramp], Math.pow(w[j * N + i] / (pk || 1), gamma)), p = ((N - 1 - j) * N + (N - 1 - i)) * 4;
+    img.data[p] = c[0]; img.data[p + 1] = c[1]; img.data[p + 2] = c[2]; img.data[p + 3] = 255;
+  }
+  o.putImageData(img, 0, 0);
+  ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(off, x0, y0, size, size); ctx.restore();
+}
+function ground() { ctx.fillStyle = css('--paper'); ctx.fillRect(0, 0, 640, 640); }
+function tag(text, color, x = 16, y = 26, anchor = 'start') { S('text', { x, y, class: 't-tag', 'text-anchor': anchor, fill: color, text }, ov); }
+function frame(standing, color) { S('rect', Object.assign({ x: 5, y: 5, width: 630, height: 630, rx: 8, fill: 'none', stroke: color, 'stroke-width': 2 }, ink(standing)), ov); }
+function compass() {
+  S('text', { x: 616, y: 610, class: 't-ax', 'text-anchor': 'end', text: 'N ↑  E ←' }, ov);
+  S('line', { x1: 24, y1: 612, x2: 24 + 20 * SC, y2: 612, stroke: 'var(--ink-2)', 'stroke-width': 2 }, ov);
+  S('text', { x: 24, y: 600, class: 't-ax', text: '20 µas' }, ov);
+}
+const xMark = (cx, cy, r, color, w = 2.4) => S('path', { d: `M${cx - r} ${cy - r}L${cx + r} ${cy + r}M${cx + r} ${cy - r}L${cx - r} ${cy + r}`, stroke: color, 'stroke-width': w, 'stroke-linecap': 'round' }, ov);
+
+/* the u–v plane, with the rows a sky breaks as red × */
+const uvs = $('#uv'), UVMAX = D.meta.uvMax;
+function drawUV(broken) {
+  clear(uvs);
+  const P = (u, v) => [100 - (u / UVMAX) * 92, 100 - (v / UVMAX) * 92];
+  S('circle', { cx: 100, cy: 100, r: 92, fill: 'none', stroke: 'var(--rule)', 'stroke-width': 1 }, uvs);
+  for (let k = 0; k < K; k++) for (const s of [1, -1]) { const [x, y] = P(s * D.vis.u[k], s * D.vis.v[k]); S('circle', { cx: x, cy: y, r: 1.1, fill: 'var(--ink-5)' }, uvs); }
+  (broken || []).forEach(k => { for (const s of [1, -1]) { const [x, y] = P(s * D.vis.u[k], s * D.vis.v[k]); S('path', { d: `M${x - 3.5} ${y - 3.5}L${x + 3.5} ${y + 3.5}M${x + 3.5} ${y - 3.5}L${x - 3.5} ${y + 3.5}`, stroke: 'var(--witness)', 'stroke-width': 1.8, 'stroke-linecap': 'round' }, uvs); } });
+  S('text', { x: 100, y: 197, class: 't-ax', 'text-anchor': 'middle', text: (broken && broken.length ? broken.length + ' rows break' : 'u, v to 7.3 Gλ') }, uvs);
+}
+/* the lid rail: one row per radius */
+const rail = $('#rail');
+function drawRail(w, verdict, hl) {
+  clear(rail);
+  const XJ = j => 64 + (j / 1.0) * 356, lids = lidsFor(H);
+  [0, 0.25, 0.5, 0.75, 1].forEach(j => { S('line', { x1: XJ(j), y1: 4, x2: XJ(j), y2: 128, stroke: 'var(--rule)', 'stroke-width': 1 }, rail); S('text', { x: XJ(j), y: 142, class: 't-ax', 'text-anchor': 'middle', text: j + ' Jy' }, rail); });
+  RADII.forEach((r, n) => {
+    const y = 18 + n * 30;
+    S('text', { x: 0, y: y + 4, class: 't-lb', text: 'r ≤ ' + r }, rail);
+    if (!lids.length) { S('text', { x: XJ(0), y: y + 4, class: 't-it', text: 'no lid for this hypothesis: re-solve the dual' }, rail); }
+    lids.forEach(({ L, same }, m) => {
+      const row = L.rows.find(q => q.r === r); if (!row) return;
+      const yy = y + (m ? 7 : 0), hiX = XJ(row.hi), loX = same ? XJ(row.lo) : XJ(0);
+      S('line', Object.assign({ x1: loX, y1: yy, x2: hiX, y2: yy, stroke: 'var(--lid)', 'stroke-width': m ? 1.6 : 3, opacity: m ? 0.55 : 1 }, ink(2)), rail);
+      S('line', { x1: hiX, y1: yy - 6, x2: hiX, y2: yy + 6, stroke: 'var(--lid)', 'stroke-width': 2, opacity: m ? 0.55 : 1 }, rail);
+      if (same) S('line', { x1: loX, y1: yy - 4, x2: loX, y2: yy + 4, stroke: hl === 'witness' && r === 6 ? 'var(--witness)' : 'var(--lid)', 'stroke-width': 2 }, rail);
+      if (!m) S('text', { x: hiX + 6, y: yy + 4, class: 't-it', text: '≤ ' + row.hi.toFixed(3) }, rail);
+    });
+    if (w) {
+      const f = fluxWithin(w, r), x = XJ(Math.min(1, f)), over = verdict === 'C' && lids.some(({ L }) => f > L.rows.find(q => q.r === r).hi);
+      if (over) { S('rect', { x: x - 6, y: y - 6, width: 12, height: 12, fill: 'var(--lid)' }, rail); S('path', { d: `M${x - 4} ${y - 4}L${x + 4} ${y + 4}M${x + 4} ${y - 4}L${x - 4} ${y + 4}`, stroke: 'var(--witness)', 'stroke-width': 2 }, rail); }
+      else S('line', { x1: x, y1: y - 9, x2: x, y2: y + 9, stroke: hl === 'witness' ? 'var(--witness)' : 'var(--ember)', 'stroke-width': 2.5 }, rail);
+    }
+  });
+}
+
+/* ===================== the chapters ===================== */
+const MODES = ['pick', 'sheet', 'agree', 'where', 'lid', 'witness', 'found', 'lab'];
+const LABELS = ['pick', 'eighteen', 'agree', 'where', 'lid', 'witness', 'found', 'yours'];
+let mode = 'pick', labSky = null, labE = 0, labName = '';
+const inHyp = PICKS.filter(p => p.total <= D.meta.F);
+/* consensus of the picks that keep the hypothesis, each centred on its own flux */
+function shift(w) {
+  let s = 0, cx = 0, cy = 0; for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const v = w[j * N + i]; s += v; cx += v * i; cy += v * j; }
+  const dx = cx / s - (N - 1) / 2, dy = cy / s - (N - 1) / 2, b = new Float64Array(NP);
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const sx = i + dx, sy = j + dy, i0 = Math.floor(sx), j0 = Math.floor(sy), fx = sx - i0, fy = sy - j0;
+    const g = (ii, jj) => (ii < 0 || ii >= N || jj < 0 || jj >= N ? 0 : w[jj * N + ii] / s);
+    b[j * N + i] = g(i0, j0) * (1 - fx) * (1 - fy) + g(i0 + 1, j0) * fx * (1 - fy) + g(i0, j0 + 1) * (1 - fx) * fy + g(i0 + 1, j0 + 1) * fx * fy;
+  }
+  return { b, dx: cu[0] + (cx / s) * (cu[1] - cu[0]), dy: cu[0] + (cy / s) * (cu[1] - cu[0]) };
+}
+const REG = inHyp.map(p => shift(p.w));
+const MEAN = new Float64Array(NP), SD = new Float64Array(NP);
+for (let p = 0; p < NP; p++) { let m = 0; for (const r of REG) m += r.b[p]; m /= REG.length; let v = 0; for (const r of REG) v += (r.b[p] - m) ** 2; MEAN[p] = m; SD[p] = Math.sqrt(v / REG.length); }
+const RAWMEAN = new Float64Array(NP); inHyp.forEach(p => { for (let q = 0; q < NP; q++) RAWMEAN[q] += p.w[q] / p.total / inHyp.length; });
+const DRIFT = Math.max(...REG.map(r => Math.hypot(r.dx, r.dy)));
+$('#n-drift').textContent = DRIFT.toFixed(1) + ' µas';
+
+let rnd = 1; const rand = () => { rnd = (rnd * 16807) % 2147483647; return rnd / 2147483647; };
+function draw() {
+  clear(ov); ground();
+  let w = null, verdict = null, hl = null, broken = null;
+  const A = Avec(H);
+  if (mode === 'pick' || mode === 'lid' || mode === 'found') {
+    paint(BEST.w, 'ember', 0, 0, 640, mode === 'lid' ? 0.5 : 1);
+    S('circle', Object.assign({ cx: X(0), cy: Y(0), r: (43.3 / 2) * SC, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.5 }, ink(1)), ov);
+    if (mode === 'pick') { frame(1, 'var(--ember)'); tag('A PICK · CHOSEN', 'var(--ember)'); S('text', { x: X(0), y: Y(-21.65) + 18, class: 't-ax', 'text-anchor': 'middle', text: 'published diameter, 43.3 µas' }, ov); }
+    w = BEST.w;
+    const J = judge(vis(BEST.w), BEST.E, A, H.out); verdict = J.v;
+    if (mode === 'found') { broken = J.br; frame(1, 'var(--ember)'); tag('THE BEST PICK, AGAINST EVERY CEILING', 'var(--ember)'); S('text', { x: 16, y: 46, class: 't-it', text: hName(H) }, ov);
+      S('text', { x: 16, y: 70, class: 't-lb', fill: 'var(--witness)', text: J.v === 'R' ? `breaks ${J.br.length} rows · worst ×${J.worst.toFixed(2)} on ${ST[D.vis.s1[J.wk]]}–${ST[D.vis.s2[J.wk]]}` : J.v === 'C' ? 'fits every row' : 'the 8-bit copy is too coarse to decide' }, ov); }
+  }
+  if (mode === 'lid') {
+    RADII.forEach(r => { S('circle', Object.assign({ cx: X(0), cy: Y(0), r: r * SC, fill: 'none', stroke: 'var(--lid)', 'stroke-width': 2 }, ink(2)), ov); S('text', { x: X(0) + r * SC * 0.71 + 4, y: Y(0) - r * SC * 0.71 - 4, class: 't-lb', fill: 'var(--lid)', text: 'r ' + r }, ov); });
+    tag('THE LID · COMPUTED', 'var(--lid)'); S('text', { x: 16, y: 46, class: 't-it', text: hName(H) }, ov);
+    w = null;
+  }
+  if (mode === 'sheet') {
+    const t = 100, g = 6, x0 = 7, y0 = 164;
+    PICKS.forEach((p, n) => {
+      const x = x0 + (n % 6) * (t + g), y = y0 + Math.floor(n / 6) * (t + g);
+      paint(p.w, 'ember', x, y, t);
+      S('rect', Object.assign({ x: x + 1, y: y + 1, width: t - 2, height: t - 2, fill: 'none', stroke: 'var(--ember)', 'stroke-width': 1.4 }, ink(1)), ov);
+      S('text', { x: x + 5, y: y + t - 6, class: 't-ax', fill: 'var(--ink-2)', text: p.meta.total.toFixed(2) + ' Jy' }, ov);
+      if (p.total > D.meta.F) { xMark(x + t / 2, y + t / 2 - 6, 16, 'var(--witness)', 3.4); S('text', { x: x + t / 2, y: y + t / 2 + 26, class: 't-ax', fill: 'var(--witness)', 'text-anchor': 'middle', text: '> 2 Jy' }, ov); }
+    });
+    tag('EIGHTEEN PICKS · CHOSEN', 'var(--ember)');
+    S('text', { x: 16, y: 140, class: 't-ax', text: 'rows: phase weight 0 · 0.15 · 1     columns: seed, sparsity, telescopes' }, ov);
+  }
+  if (mode === 'agree') {
+    paint(MEAN, 'ember');
+    let pk = 0; for (const v of MEAN) if (v > pk) pk = v;
+    rnd = 7; ctx.fillStyle = css('--doubt');
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+      const m = MEAN[j * N + i]; if (m < pk * 0.12) continue;
+      const cv = SD[j * N + i] / m, dots = cv > 0.55 ? Math.min(3, 1 + Math.floor((cv - 0.55) * 4)) : 0;
+      for (let d = 0; d < dots; d++) { ctx.beginPath(); ctx.arc((N - 1 - i) * 10 + 5 + (rand() - 0.5) * 8, (N - 1 - j) * 10 + 5 + (rand() - 0.5) * 8, 1.3, 0, 2 * Math.PI); ctx.fill(); }
+    }
+    frame(1, 'var(--ember)'); tag('FIFTEEN PICKS, CENTRED · CHOSEN', 'var(--ember)');
+  }
+  if (mode === 'where') {
+    paint(RAWMEAN, 'ember', 0, 0, 640, 0.75);
+    const rr = (DRIFT + 1.5) * SC;
+    const defs = S('defs', {}, ov), pat = S('pattern', { id: 'hatch', width: 7, height: 7, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+    S('line', { x1: 0, y1: 0, x2: 0, y2: 7, stroke: 'var(--ink-3)', 'stroke-width': 1.4 }, pat);
+    S('circle', { cx: X(0), cy: Y(0), r: rr, fill: 'url(#hatch)', stroke: 'var(--ink-3)', 'stroke-width': 1 }, ov);
+    REG.forEach(r => S('circle', { cx: X(r.dx), cy: Y(r.dy), r: 4, fill: 'var(--paper)', stroke: 'var(--ember)', 'stroke-width': 1.6 }, ov));
+    S('line', { x1: X(0) - 12, y1: Y(0), x2: X(0) + 12, y2: Y(0), stroke: 'var(--ink)', 'stroke-width': 1.5 }, ov); S('line', { x1: X(0), y1: Y(0) - 12, x2: X(0), y2: Y(0) + 12, stroke: 'var(--ink)', 'stroke-width': 1.5 }, ov);
+    S('text', { x: X(0) + rr + 8, y: Y(0) + 4, class: 't-lb', text: 'where: VOID' }, ov);
+    tag('LEFT WHERE THE FITS PUT THEM', 'var(--ink-2)');
+  }
+  if (mode === 'witness') {
+    const Wt = WITS[0];
+    paint(Wt.w, 'crimson');
+    S('circle', Object.assign({ cx: X(0), cy: Y(0), r: 6 * SC, fill: 'none', stroke: 'var(--lid)', 'stroke-width': 2 }, ink(2)), ov);
+    S('text', { x: X(0) + 6 * SC + 8, y: Y(0) + 4, class: 't-lb', fill: 'var(--witness)', text: '0.140 Jy inside 6 µas' }, ov);
+    frame(2, 'var(--witness)'); tag('THE WITNESS · COMPUTED', 'var(--witness)'); S('text', { x: 16, y: 46, class: 't-it', text: 'built given additive 5% gains · 3σ · every row' }, ov);
+    w = Wt.w; hl = 'witness'; const J = judge(vis(Wt.w), Wt.E, A, H.out); verdict = J.v; broken = J.br;
+  }
+  if (mode === 'lab') {
+    const sky0 = labSky || ringSky(); paint(sky0, 'ember'); frame(1, 'var(--ember)'); tag('YOUR SKY', 'var(--ember)');
+    S('text', { x: 16, y: 46, class: 't-it', text: hName(H) }, ov);
+    w = sky0; const J = judge(vis(sky0), labE, A, H.out); verdict = J.v; broken = J.br; labReport(J, sky0);
+  }
+  compass(); drawUV(broken); drawRail(w, verdict, hl);
+  document.querySelectorAll('#navs button').forEach(b => b.setAttribute('aria-current', b.dataset.mode === mode));
+  document.querySelectorAll('.ch').forEach(c => c.classList.toggle('on', c.dataset.mode === mode));
+}
+
+/* ===================== the lab ===================== */
+const LC = ['d', 'w', 'f', 'a', 'p', 'c'].reduce((o, k) => (o[k] = $('#l-' + k), o), {});
+function ringSky() {
+  const Dm = +LC.d.value, W = +LC.w.value, F = +LC.f.value, asym = +LC.a.value, pa = (+LC.p.value * Math.PI) / 180, Fc = +LC.c.value;
+  const w = new Float64Array(NP), c = new Float64Array(NP); let s = 0, sc = 0;
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const x = cu[i], y = cu[j], r = Math.hypot(x, y), th = Math.atan2(x, y);
+    const v = Math.exp(-0.5 * ((r - Dm / 2) / (W / 2.355)) ** 2) * (1 + asym * Math.cos(th - pa)); w[j * N + i] = v; s += v;
+    const g = Math.exp(-0.5 * (r / 3) ** 2); c[j * N + i] = g; sc += g;
+  }
+  for (let p = 0; p < NP; p++) w[p] = (w[p] * F) / (s || 1) + (Fc ? (c[p] * Fc) / sc : 0);
+  return w;
+}
+function labOutputs() {
+  $('#l-d-o').textContent = (+LC.d.value).toFixed(1) + ' µas'; $('#l-w-o').textContent = (+LC.w.value).toFixed(1) + ' µas';
+  $('#l-f-o').textContent = (+LC.f.value).toFixed(2) + ' Jy'; $('#l-a-o').textContent = (+LC.a.value).toFixed(2);
+  const p = +LC.p.value; $('#l-p-o').textContent = p + '° ' + ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'][Math.round(p / 45) % 8]; $('#l-c-o').textContent = (+LC.c.value).toFixed(2) + ' Jy';
+}
+function labReport(J, w) {
+  const lids = lidsFor(H), f6 = fluxWithin(w, 6);
+  let html = `<h3>${labName || 'a ring and a centre'} · ${stChip(2)}</h3>`;
+  html += `<div>${J.v === 'R' ? chip('R', `BREAKS ${J.br.length} ROW${J.br.length === 1 ? '' : 'S'}`, 'var(--witness)') : J.v === 'C' ? chip('C', 'FITS EVERY CEILING') : chip('X', 'NOT DECIDED FROM THE 8-BIT COPY')}</div>`;
+  html += `<p class="small hypo">${hName(H)}</p>`;
+  html += `<p class="small">Worst row: ${ST[D.vis.s1[J.wk]]}–${ST[D.vis.s2[J.wk]]} at ${(Math.hypot(D.vis.u[J.wk], D.vis.v[J.wk]) / 1e9).toFixed(2)} Gλ, |V| = ${(J.worst).toFixed(2)} × its ceiling.${J.und ? ' ' + J.und + ' rows sit inside the rounding of the copy.' : ''}</p>`;
+  html += `<p class="small">Inside 6 µas: ${f6.toFixed(3)} Jy${lids.length ? `; the lid allows at most ${Math.min(...lids.map(({ L }) => L.rows[0].hi)).toFixed(3)}` : '; no lid holds under this hypothesis'}.</p>`;
+  if (J.v === 'C' && lids.some(({ L }) => f6 > L.rows[0].hi)) html += `<div>${chip('K', 'CONFLICT', 'var(--witness)')}</div><p class="small">A sky that fits every row and exceeds the lid: the certificate or this tab is wrong. Freeze both until a person explains it.</p>`;
+  html += `<p class="small">Computed in floating point, so COMPUTED. The margins are far above rounding; an interval check would confirm or overturn them: ${hole('COMPUTE')}</p>`;
+  $('#lab-out').innerHTML = html;
+}
+let raf = 0; const redraw = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(); }); };
+Object.values(LC).forEach(e => e.addEventListener('input', () => { labSky = null; labE = 0; labName = ''; labOutputs(); if (mode === 'lab') redraw(); }));
+document.querySelectorAll('[data-load]').forEach(b => b.addEventListener('click', () => {
+  const k = b.dataset.load;
+  if (k === 'ring') { Object.assign(LC.d, { value: 43.3 }); LC.w.value = 6; LC.f.value = 0.5; LC.a.value = 0.5; LC.p.value = 180; LC.c.value = 0; labSky = null; labE = 0; labName = 'a 43 µas ring, brighter to the south'; }
+  if (k === 'faint') { LC.d.value = 43.3; LC.w.value = 10; LC.f.value = 0.2; LC.a.value = 0.3; LC.p.value = 180; LC.c.value = 0; labSky = null; labE = 0; labName = 'a faint, wide ring'; }
+  if (k === 'pick') { labSky = BEST.w; labE = BEST.E; labName = 'the best pick, from its 8-bit record'; }
+  if (k === 'witness') { labSky = WITS[0].w; labE = WITS[0].E; labName = 'the witness, from its 8-bit record'; }
+  labOutputs(); setMode('lab', true);
+}));
+labOutputs();
+
+/* ===================== the hypothesis dial ===================== */
+function readH() { H.model = $('#h-model').value; H.nsig = +$('#h-n').value; H.out = +$('#h-o').value; $('#h-text').textContent = hName(H); found(); redraw(); }
+['#h-model', '#h-n', '#h-o'].forEach(s => $(s).addEventListener('change', readH));
+$('#h-text').textContent = hName(H);
+
+/* ===================== chapter 7, measured ===================== */
+function found() {
+  const A = Avec(H), rows = inHyp.map(p => ({ p, J: judge(vis(p.w), p.E, A, H.out) }));
+  const brk = rows.filter(r => r.J.v === 'R'), counts = rows.map(r => r.J.br.length), worst = rows.reduce((a, r) => (r.J.worst > a.J.worst ? r : a));
+  const wj = WITS.map(Wt => judge(vis(Wt.w), Wt.E, A, H.out)), wFit = wj.filter(j => j.v !== 'R').length;
+  const ring = judge(vis(ringSkyDefault), 0, A, H.out);
+  $('#found-text').innerHTML = `<span class="hypo">${hName(H)}:</span> <b>${brk.length} of ${rows.length}</b> picks break the one-sided ceilings, at ${Math.min(...counts)} to ${Math.max(...counts)} rows each, worst <b class="wit">×${worst.J.worst.toFixed(2)}</b> on ${ST[D.vis.s1[worst.J.wk]]}–${ST[D.vis.s2[worst.J.wk]]}. ${wFit} of 4 witnesses are not refuted. A plain 43 µas ring of 0.5 Jy breaks <b>${ring.br.length}</b> rows. The broken rows are the red × on the u–v plane.`;
+  $('#t-found').innerHTML = `${chip('R', 'PICKS OUTSIDE THE SET', 'var(--witness)')} ${stChip(2)} ${hole('READING')}`;
+}
+let ringSkyDefault;
+ringSkyDefault = ringSky();
+
+/* ===================== the chapter tags and the ledger ===================== */
+$('#t-pick').innerHTML = `${stChip(1)} <span class="small">closure χ² ${BEST.meta.chi2.toFixed(2)} · ${BEST.meta.total.toFixed(2)} Jy</span>`;
+$('#t-sheet').innerHTML = `${stChip(1)} ${chip('R', '3 OUTSIDE F ≤ 2 JY', 'var(--witness)')}`;
+$('#t-agree').innerHTML = `${stChip(1)}`;
+$('#t-where').innerHTML = `${stChip(0)} ${hole('DATA')} <span class="small">absolute phase, or astrometry</span>`;
+$('#t-lid').innerHTML = `${stChip(2)} ${hole('COMPUTE')}`;
+$('#t-witness').innerHTML = `${chip('R', 'REFUTES “AMPLITUDES FORCE A DARK CENTRE”', 'var(--witness)')} ${stChip(2)}`;
+const LEDGER = [
+  ['the best pick', stChip(1), '<span class="emb">ember</span>', '—', '—', 'none: a pick stays a pick'],
+  ['eighteen picks', stChip(1), '<span class="emb">ember</span>, dotted frames', 'three REFUTED by their own flux (7 Jy &gt; 2)', '<span class="hypo">F ≤ 2 Jy</span>', '—'],
+  ['their agreement', stChip(1), '<span class="emb">ember</span> + <span style="color:var(--doubt)">blue stipple</span>', '—', '—', 'INSTRUMENT: a certificate, not more samples'],
+  ['position', stChip(0), 'hatched', '—', '—', 'DATA: absolute phase or astrometry'],
+  ['the lid', stChip(2), '<span class="lidc">cyan, dashed</span>', 'CERTIFIED “≤ ceiling”, conditionally', '<span class="hypo">its own hypothesis, named</span>', 'COMPUTE: interval check of one inequality over the field'],
+  ['the witness', stChip(2), '<span class="wit">red</span>', 'REFUTES “the amplitudes force a dark centre”', '<span class="hypo">additive 5% · 3σ</span>', 'COMPUTE: the same interval check'],
+  ['picks vs ceilings', stChip(2), '<span class="wit">red ×</span> on the u–v plane', 'REFUTED: the picks are outside the one-sided set', '<span class="hypo">the dial</span>', 'READING: “allowed” names two admission rules'],
+  ['complex visibilities', stChip(2), '—', 'REFUTED “some sky fits them at 3σ” (χ² 4.8 per datum, from the record)', '<span class="hypo">no self-calibration</span>', 'COMPUTE: a dual certificate for the empty set'],
+];
+$('#ledger').innerHTML = '<tr><th>object</th><th>standing</th><th>colour</th><th>verdict</th><th>leans on</th><th>what would make it stronger</th></tr>' + LEDGER.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+
+/* ===================== scrolling drives the stage ===================== */
+const navs = $('#navs');
+MODES.forEach((m, i) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.mode = m; b.textContent = (i + 1) + ' ' + LABELS[i]; b.addEventListener('click', () => setMode(m, true)); navs.appendChild(b); });
+function setMode(m, scroll) {
+  mode = m; draw();
+  if (scroll) { const el = document.querySelector(`.ch[data-mode="${m}"]`); if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
+}
+const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting && e.target.dataset.mode !== mode) { mode = e.target.dataset.mode; redraw(); } }); }, { rootMargin: matchMedia('(max-width: 960px)').matches ? '-60% 0px -35% 0px' : '-40% 0px -55% 0px' });
+document.querySelectorAll('.ch').forEach(c => io.observe(c));
+draw();
+setTimeout(found, 30);
+</script>

@@ -1,0 +1,1326 @@
+<title>Warrant Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..650&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one 1120px track, left-aligned prose; every application is a band with the live figure on the left and its
+   controls and verdicts on the right, stacking to one column on a phone. The house palette: grayscale only, dark only,
+   because the grammar has to work without colour. */
+:root {
+  color-scheme: dark;
+  --paper: #0a0a0c;
+  --surface: #141419;
+  --sunk: #101014;
+  --surface2: #1a1a20;
+  --ink: #f6f6f8;
+  --ink-2: #c9c9d2;
+  --ink-3: #9a9aa6;
+  --ink-4: #6e6e7a;
+  --ink-5: #4a4a55;
+  --rule: #232329;
+  --rule-strong: #32323c;
+  --band: rgba(246, 246, 248, 0.06);
+  --f-body: "Inter", "Helvetica Neue", -apple-system, system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink-2); font: 400 15px/1.65 var(--f-body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.eyebrow { font: 500 11px/1.5 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4); }
+h1 { font-weight: 560; font-size: clamp(2.3rem, 1.1rem + 4.4vw, 4.4rem); line-height: 1.04; letter-spacing: -.035em; color: var(--ink); margin: 14px 0 0; max-width: 15ch; text-wrap: balance; }
+h2 { font-weight: 540; font-size: clamp(1.6rem, 1.15rem + 1.6vw, 2.3rem); line-height: 1.1; letter-spacing: -.02em; color: var(--ink); margin: 10px 0 0; text-wrap: balance; }
+h3 { font: 500 11px/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); margin: 0; }
+p { max-width: 68ch; margin: 0; }
+.lede { font-size: 1.06rem; color: var(--ink-2); margin-top: 16px; }
+.mono { font-family: var(--f-mono); }
+b, strong { color: var(--ink); font-weight: 560; }
+a { color: var(--ink); text-decoration-color: var(--ink-4); text-underline-offset: 3px; }
+code { font: 400 .9em var(--f-mono); color: var(--ink); }
+
+/* the hero */
+.hero { padding-block: 56px 48px; }
+.hero .lede { font-size: 1.15rem; max-width: 60ch; }
+.legend { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; margin-top: 40px; }
+.legend > div { min-width: 0; }
+.typerule { margin-top: 26px; padding: 14px 16px; background: var(--surface); border-radius: 10px; color: var(--ink-2); max-width: none; }
+.projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin-top: 14px; }
+.projects a { display: block; background: var(--paper); padding: 14px 16px; text-decoration: none; color: var(--ink-2); }
+.projects a:hover { background: var(--surface); }
+.projects b { display: block; font: 500 13px/1.3 var(--f-mono); color: var(--ink); margin-bottom: 4px; }
+.projects span { font-size: 13px; line-height: 1.45; color: var(--ink-3); }
+.spine { margin-top: 40px; display: flex; flex-direction: column; gap: 4px; }
+.spine .src { font: 400 12px/1.5 var(--f-mono); color: var(--ink-4); }
+
+/* an application */
+section.app { border-top: 1px solid var(--rule); padding-block: 64px; }
+.bench { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; margin-top: 28px; align-items: start; }
+figure { margin: 0; }
+.fig { position: relative; padding-left: 18px; min-width: 0; }
+.fig > .rule { position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px; }
+.rule[data-s="3"] { background: var(--ink-3); }
+.rule[data-s="2"] { background: repeating-linear-gradient(to bottom, var(--ink-3) 0 4px, transparent 4px 6px); }
+.rule[data-s="1"] { background: radial-gradient(circle at 1px 2.5px, var(--ink-3) 0 1px, transparent 1.3px) 0 0 / 2px 6px repeat-y; }
+.rule[data-s="0"] { background: none; }
+.fstand { display: flex; align-items: center; gap: 8px; margin-top: 12px; font: 400 12px/1.4 var(--f-mono); color: var(--ink-4); }
+.scroll { overflow-x: auto; }
+.scroll > svg { min-width: 560px; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+.panel { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.ctl { display: flex; flex-direction: column; gap: 6px; }
+.ctl > label, .ctl > .lbl { display: flex; justify-content: space-between; gap: 10px; font: 500 11px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-4); }
+.ctl output { color: var(--ink); letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--ink-2); margin: 0; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+button { font: 500 13px/1 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 6px; padding: 9px 12px; cursor: pointer; }
+button:hover { background: var(--surface2); }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+select, input[type=text] { font: 400 14px/1.2 var(--f-mono); color: var(--ink); background: var(--sunk); border: 1px solid var(--rule-strong); border-radius: 6px; padding: 8px 10px; width: 100%; }
+.card { background: var(--surface); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card p { font-size: 14px; line-height: 1.55; }
+.small { font-size: 13px; line-height: 1.5; color: var(--ink-3); }
+.rulep { margin-top: 28px; padding-left: 18px; color: var(--ink-3); }
+.rulep b { color: var(--ink-2); }
+
+/* verdict chips: the glyph is the geometry in miniature (cover, point, gap, point on a cover) */
+.vd { display: inline-flex; align-items: center; gap: 7px; font: 600 11px/1 var(--f-mono); letter-spacing: .08em; color: var(--ink); white-space: nowrap; }
+.vd[data-v="X"] { color: var(--ink-3); }
+.vd svg { width: 14px; height: 14px; flex: none; overflow: visible; }
+.st { display: inline-flex; align-items: center; gap: 7px; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; color: var(--ink-2); white-space: nowrap; }
+.st svg { width: 30px; height: 8px; flex: none; }
+.hole { display: inline-block; font: 500 10px/1 var(--f-mono); letter-spacing: .1em; color: var(--ink-2); border: 1px solid var(--rule-strong); border-radius: 999px; padding: 4px 8px; }
+.pred { font-family: var(--f-mono); font-style: italic; color: var(--ink-3); }
+.price { font: italic 400 12px/1.4 var(--f-mono); color: var(--ink-3); padding: 6px 9px; display: inline-block;
+  background:
+    linear-gradient(90deg, var(--ink-4) 4px, transparent 0) top / 6px 1px repeat-x,
+    linear-gradient(90deg, var(--ink-4) 4px, transparent 0) bottom / 6px 1px repeat-x,
+    linear-gradient(0deg, var(--ink-4) 4px, transparent 0) left / 1px 6px repeat-y,
+    linear-gradient(0deg, var(--ink-4) 4px, transparent 0) right / 1px 6px repeat-y; }
+
+/* tables of readouts */
+.tw { overflow-x: auto; margin-top: 22px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { font: 500 10px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); text-align: left; padding: 0 14px 8px 0; border-bottom: 1px solid var(--rule); }
+td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+
+/* svg text */
+.t-ax { font: 400 11px var(--f-mono); fill: var(--ink-4); }
+.t-lb { font: 500 12px var(--f-mono); fill: var(--ink-2); }
+.t-big { font: 500 16px var(--f-body); fill: var(--ink); }
+.t-sm { font: 400 10.5px var(--f-mono); fill: var(--ink-3); }
+.t-pred { font: italic 400 11px var(--f-mono); fill: var(--ink-3); }
+
+/* the sentence */
+.sentence { font: 500 clamp(1.6rem, 1.1rem + 2vw, 2.4rem)/1.3 var(--f-mono); color: var(--ink); letter-spacing: -.01em; margin-top: 4px; overflow-wrap: anywhere; }
+.sentence .q { text-decoration: underline solid var(--ink-3) 2px; text-underline-offset: 8px; }
+.sentence .rd { font-size: .5em; color: var(--ink-3); text-decoration: underline dotted var(--ink-4) 2px; text-underline-offset: 6px; }
+.sentence .rd.stated { color: var(--ink); text-decoration: underline solid var(--ink-3) 2px; }
+.reads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.reads .card { gap: 10px; }
+.reads .card[data-chosen="true"] { outline: 1px solid var(--ink-3); }
+.exact { font: 400 11.5px/1.55 var(--f-mono); color: var(--ink-3); overflow-wrap: anywhere; }
+.exact b { font-weight: 500; }
+.fields { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: center; }
+.fields span { font: 500 16px var(--f-mono); color: var(--ink-3); }
+
+/* the annunciator: a product face, verdict in words and shape */
+.ann { display: flex; gap: 16px; align-items: center; padding: 16px 18px; border-radius: 10px; border: 1px solid var(--rule-strong); background: var(--surface); }
+.ann .big { font: 600 15px/1.2 var(--f-mono); letter-spacing: .08em; color: var(--ink); white-space: nowrap; }
+.ann .big svg { width: 22px; height: 22px; }
+.ann[data-v="C"] { background: var(--ink); border-color: var(--ink); }
+.ann[data-v="C"] .big, .ann[data-v="C"] p { color: var(--paper); }
+.ann[data-v="R"] { border: 2px solid var(--ink); }
+.ann[data-v="X"] .big { color: var(--ink-2); }
+.ann p { font-size: 14px; line-height: 1.5; }
+details { margin-top: 14px; }
+summary { cursor: pointer; font: 500 12px/1.4 var(--f-mono); color: var(--ink-3); letter-spacing: .04em; }
+details .exact { margin-top: 10px; }
+
+/* page standing */
+.foot { border-top: 1px solid var(--rule); padding-block: 56px 72px; }
+.sttab td:first-child { color: var(--ink); }
+
+/* the ink lab */
+.inkgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+canvas { display: block; max-width: 100%; height: auto; }
+#pave-cv { width: min(100%, 460px); aspect-ratio: 1; image-rendering: pixelated; border-radius: 2px; }
+#ink-cv { width: 100%; }
+.dens { display: grid; grid-template-columns: 9.5em 1fr 3.5em; gap: 6px 10px; align-items: center; font: 400 12px var(--f-mono); color: var(--ink-3); margin-top: 14px; }
+.dens i { display: block; height: 6px; background: var(--ink-2); border-radius: 1px; }
+.dens span:last-child, .dens .v { color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 900px) {
+  .bench, .legend, .inkgrid { grid-template-columns: minmax(0, 1fr); }
+  .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reads { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .projects { grid-template-columns: minmax(0, 1fr); }
+  .fields { grid-template-columns: 1fr auto 1fr; }
+  .fields span:nth-of-type(2) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">WARRANT v2 · one grammar for cert-machine, claimbox, Machinidae and the apps</div>
+    <h1>Every mark carries two labels.</h1>
+    <p class="lede">The stroke says how a number was made. Where the mark sits says what its question got. The drawing obeys the same rules as the arithmetic: the weakest input sets the stroke, and everything rounds outward, digits and pixels alike. Eight live applications below, each computed in your browser.</p>
+
+    <div class="legend">
+      <div>
+        <h3>How was it made? The stroke.</h3>
+        <svg id="legend-strokes" viewBox="0 0 520 176" role="img" aria-label="The four standings and their strokes"></svg>
+      </div>
+      <div>
+        <h3>What did the question get? The shape.</h3>
+        <svg id="legend-verdicts" viewBox="0 0 460 176" role="img" aria-label="The verdict shapes: cover, point, gap, point on a cover, no frame"></svg>
+      </div>
+    </div>
+    <p class="typerule"><b>The one rule between them.</b> Only a DECIDED mark can be CERTIFIED or REFUTED. A float, a fit or a forecast is a candidate. It can prune, it can propose, it can never admit.</p>
+
+    <div class="spine">
+      <h3 style="margin-top:28px">One spec and one small module, copied into each project by sha256. Each keeps its own marks.</h3>
+      <nav class="projects" aria-label="Applications by project">
+        <a href="#line"><b>cert-machine</b><span>the number line, the paving, the chain</span></a>
+        <a href="#sentence"><b>claimbox</b><span>the sentence and its readings</span></a>
+        <a href="#champion"><b>Machinidae</b><span>lineages, champions, frozen eras</span></a>
+        <a href="#label"><b>the apps</b><span>the missing input, the weather window</span></a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="app" id="line">
+  <div class="wrap">
+    <div class="eyebrow">cert-machine · one number · hole: compute</div>
+    <h2>The number line</h2>
+    <p class="lede">Is √2 below t? Is φ? Is √3? Each number is an exact enclosure, so every bar is solid. The verdict comes from where the bar sits against t. A bar that crosses t is still exact; only the question is open, and the refusal prices what would close it.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-line"><i class="rule"></i>
+        <div class="scroll"><svg id="line-svg" viewBox="0 0 720 232" role="img" aria-label="Three enclosures against a movable bar t"></svg></div>
+        <div class="fstand" data-for="fig-line"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="line-t">The bar t <output id="line-t-out"></output></label><input type="range" id="line-t" min="1350" max="1850" step="1" value="1620"></div>
+        <div class="ctl"><label for="line-b">Budget <output id="line-b-out"></output></label><input type="range" id="line-b" min="1" max="30" step="1" value="6"></div>
+        <div class="btns"><button id="line-spend" type="button">Spend the forecast</button><button id="line-usual" type="button" aria-pressed="false">Draw it the usual way</button></div>
+        <p class="small" id="line-note"></p>
+      </div>
+    </div>
+    <div class="tw"><table id="line-tab"></table></div>
+    <p class="rulep"><b>The rule.</b> Round outward, once for digits and once for pixels. The printed lower end is rounded down and the upper end up. The drawn bar covers every figure unit the enclosure touches, so a bar narrower than a unit is drawn one unit wide, and the figure says so. The price of a refusal is a forecast, so it is dashed, set in italic, and graded when the bits are spent.</p>
+  </div>
+</section>
+
+<section class="app" id="paving">
+  <div class="wrap">
+    <div class="eyebrow">cert-machine · a claim over a region · holes: instrument, compute</div>
+    <h2>The paving</h2>
+    <p class="lede">The claim is P(x, y) ≥ c on the whole square. A cover proves it, one point refutes it, and what is left is a framed gap with a name. At c = 0 the claim is true but touches the bar at two points, and no number of boxes closes a gap whose margin is zero. A second instrument closes it in one box.</p>
+    <p class="mono small" style="margin-top:14px">P(x, y) = x⁴ + 2x²y² + y⁴ − (3/4)x² − (3/4)y² − (1/2)xy + 1/4 = (x² + y² − 1/2)² + (1/4)(x − y)²</p>
+    <div class="bench">
+      <figure class="fig" id="fig-paving"><i class="rule"></i>
+        <canvas id="pave-cv" width="512" height="512" role="img" aria-label="The paving of the square by decided boxes"></canvas>
+        <p class="small" style="margin-top:10px">x, y from −1 to 1. Bright: two deciders cover. Grey: one decider covers. Hatched: a gap. ×: a witness. Ring: P equals c exactly. One figure pixel is 1/128; a pixel is inked only when every point under it is covered.</p>
+        <div class="fstand" data-for="fig-paving"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="pave-c">The bar c <output id="pave-c-out"></output></label><input type="range" id="pave-c" min="-32" max="16" step="1" value="0"></div>
+        <div class="ctl"><label for="pave-d">Budget: depth <output id="pave-d-out"></output></label><input type="range" id="pave-d" min="0" max="10" step="1" value="7"></div>
+        <div class="ctl"><label for="pave-b">Second decider</label>
+          <select id="pave-b"><option value="none">none</option><option value="sos">sum-of-squares form</option><option value="bug">sum-of-squares form, planted bug</option></select></div>
+        <div class="btns">
+          <button type="button" data-pave="0,7,none">True zero</button>
+          <button type="button" data-pave="0,7,sos">Second instrument</button>
+          <button type="button" data-pave="-4,6,none">Room to spare</button>
+          <button type="button" data-pave="4,6,sos">Refuted</button>
+          <button type="button" data-pave="4,6,bug">Planted bug</button>
+        </div>
+        <div class="card" id="pave-out"></div>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> Merging deciders is a join on knowledge: a cover from either one covers, a gap stays a gap only if both leave it, and a point inside a cover is a CONFLICT. All arithmetic here is on integers below 2<sup>53</sup>; if any value left that range the instrument would refuse rather than round.</p>
+  </div>
+</section>
+
+<section class="app" id="sentence">
+  <div class="wrap">
+    <div class="eyebrow">claimbox · one byte string, three readings · hole: reading</div>
+    <h2>The sentence</h2>
+    <p class="lede">The same bytes can state different propositions. claimbox does not pick one silently. It decides every reading exactly and sets them side by side. When the readings disagree and the claimant did not say which one they meant, the claim is refused with a READING hole. When they agree, the choice does not matter and the claim is decided.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-sentence"><i class="rule"></i>
+        <div class="sentence" id="sent-text"></div>
+        <div class="reads" id="sent-reads"></div>
+        <div class="fstand" data-for="fig-sentence"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><span class="lbl">The claim a + b = c</span>
+          <div class="fields"><input type="text" id="sent-a" value="0.1" aria-label="a" spellcheck="false"><span>+</span><input type="text" id="sent-b" value="0.2" aria-label="b" spellcheck="false"><span>=</span><input type="text" id="sent-c" value="0.3" aria-label="c" spellcheck="false"></div></div>
+        <div class="btns">
+          <button type="button" data-sent="0.1,0.2,0.3">0.1 + 0.2 = 0.3</button>
+          <button type="button" data-sent="0.1,0.7,0.8">0.1 + 0.7 = 0.8</button>
+          <button type="button" data-sent="16777216,1,16777216">2²⁴ + 1 = 2²⁴</button>
+          <button type="button" data-sent="0.5,0.25,0.75">0.5 + 0.25 = 0.75</button>
+        </div>
+        <div class="ctl"><label for="sent-r">Reading stated by the claimant</label>
+          <select id="sent-r"><option value="">not stated</option><option value="dec">exact decimals</option><option value="dbl">IEEE-754 double</option><option value="sgl">IEEE-754 single</option></select></div>
+        <div class="card" id="sent-out"></div>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> The quoted bytes are DECIDED: they are what was said. A reading inferred by pattern is CHOSEN, so it is underlined with dots until the claimant states it. Each reading is decided exactly: doubles and singles are rationals, and their sums are checked as rationals.</p>
+  </div>
+</section>
+
+<section class="app" id="champion">
+  <div class="wrap">
+    <div class="eyebrow">Machinidae · selection is a choice · illustrative lineage</div>
+    <h2>The champion</h2>
+    <p class="lede">A lineage of programs, each scored by two deciders that share no code. Edges are dotted because selection chose the parents. Unjudged proposals are dashed and carry the score the model claimed, set in italic. The champion is decided only when its lower bound clears every other upper bound. An exact tie is decided as a tie, and picking one of the tied programs is a choice, drawn dotted.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-champion"><i class="rule"></i>
+        <div class="scroll"><svg id="champ-svg" viewBox="0 0 780 340" role="img" aria-label="A lineage of scored programs across five generations"></svg></div>
+        <div class="fstand" data-for="fig-champion"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="champ-b">Budget <output id="champ-b-out"></output></label><input type="range" id="champ-b" min="0" max="12" step="1" value="2"></div>
+        <div class="btns"><button type="button" id="champ-judge" aria-pressed="false">Judge the proposals</button><button type="button" id="champ-plant" aria-pressed="false">Plant a disagreement on c3</button></div>
+        <div class="card" id="champ-out"></div>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> Selection demotes to CHOSEN. An argmax is decided only when the optimum is unique; a tie-break, a default or a seed is a choice and is drawn as one. Two deciders whose enclosures do not overlap cannot both be right, so the program's life is voided and the era freezes until a person explains it.</p>
+  </div>
+</section>
+
+<section class="app" id="chain">
+  <div class="wrap">
+    <div class="eyebrow">the register · dependencies</div>
+    <h2>The chain</h2>
+    <p class="lede">Proof flows forward and refutation flows backward. If a premise is refuted, what depended on it loses its proof and is refused, naming the premise; it is not refuted. If the conclusion is refuted, at least one premise is false, and only the other premises can say which. Click c1, c2 or c3 to change what its own certifier decided.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-chain"><i class="rule"></i>
+        <div class="scroll"><svg id="chain-svg" viewBox="0 0 660 300" role="img" aria-label="Three premises, a lemma and a theorem"></svg></div>
+        <div class="fstand" data-for="fig-chain"></div>
+      </figure>
+      <div class="panel">
+        <div class="btns"><button type="button" id="chain-cex" aria-pressed="false">Find a counterexample to T</button><button type="button" id="chain-reset">Reset</button></div>
+        <div class="card" id="chain-out"></div>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> Certificates compose forward: certified premises and a certified step give a certified conclusion. Refutations compose backward: a refuted conclusion and a certified step mean some premise is false. A refuted conclusion over certified premises is a CONFLICT, which only happens when a step or a decider is wrong.</p>
+  </div>
+</section>
+
+<section class="app" id="label">
+  <div class="wrap">
+    <div class="eyebrow">an app · a claim with a missing input · hole: data · illustrative numbers</div>
+    <h2>The missing input</h2>
+    <p class="lede">A carrier claims a shipment emitted at most 1,000 kg CO₂e. Distance and payload are on the waybill. The emission factor comes from a published table as a range. The load factor was not disclosed. The verdict is NEEDS DATA, and the page publishes the exact number that would flip it. Disclosure is the only way through.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-label"><i class="rule"></i>
+        <div class="ann" id="label-ann"></div>
+        <div class="scroll" style="margin-top:20px"><svg id="label-svg" viewBox="0 0 640 160" role="img" aria-label="The verdict as a function of the load factor"></svg></div>
+        <details><summary>Why you can trust this</summary><div class="exact" id="label-why"></div></details>
+        <div class="fstand" data-for="fig-label"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="label-d">The carrier discloses</label>
+          <select id="label-d"><option value="no">nothing yet</option><option value="yes">a load factor</option></select></div>
+        <div class="ctl"><label for="label-k">Load factor <output id="label-k-out"></output></label><input type="range" id="label-k" min="400" max="1000" step="1" value="820" disabled></div>
+        <p class="small">The product face says what to do. The arithmetic sits one click down, in the details, with every number's standing.</p>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> A refusal names who can fill it. A DATA hole can be filled only by the claimant, so the page prints the threshold where the claim turns green. Between the two thresholds the disclosure is not enough: the published factor is too wide, and the next thing to ask for is a fuel record.</p>
+  </div>
+</section>
+
+<section class="app" id="window">
+  <div class="wrap">
+    <div class="eyebrow">an app · the forecast proposes, the certifier decides · illustrative numbers</div>
+    <h2>The weather window</h2>
+    <p class="lede">A crane lift needs every 3-hourly wave-height reading at or below 2.5 m until 18:00. The forecast enters as boxes, never points, and its numbers are set in italic: predicted and decided never share a typeface. The certifier decides over the boxes and names the forecast it relied on. As the hours pass, the buoy grades the forecaster, and a forecaster that misses its boxes stops being admitted.</p>
+    <div class="bench">
+      <figure class="fig" id="fig-window"><i class="rule"></i>
+        <div class="ann" id="win-ann"></div>
+        <div class="scroll" style="margin-top:20px"><svg id="win-svg" viewBox="0 0 720 290" role="img" aria-label="Forecast boxes, buoy readings and the limit"></svg></div>
+        <div class="fstand" data-for="fig-window"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="win-t">Now <output id="win-t-out"></output></label><input type="range" id="win-t" min="6" max="18" step="3" value="6"></div>
+        <div class="card" id="win-out"></div>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> Prediction is a proposer, never an authority. A verdict that leans on a forecast says so, and it is withdrawn the moment that forecast is graded out.</p>
+  </div>
+</section>
+
+<section class="app" id="ink">
+  <div class="wrap">
+    <div class="eyebrow">the grammar itself · research item R-1</div>
+    <h2>Nested ink</h2>
+    <p class="lede">The strokes are ordered by how much ink they carry, and each pattern sits inside the next. Overprint two marks and you see the stronger. Mask one with the other and you see the weaker. Blur or photocopy the page and darker still means stronger. The two patterns in use today do not nest: some dots land in a dash's gap.</p>
+    <div class="inkgrid" style="margin-top:28px">
+      <figure class="fig" id="fig-ink"><i class="rule"></i>
+        <svg id="ink-svg" viewBox="0 0 560 330" role="img" aria-label="Today's patterns against the nested proposal"></svg>
+        <div class="fstand" data-for="fig-ink"></div>
+      </figure>
+      <div class="panel">
+        <div class="ctl"><label for="ink-r">Blur <output id="ink-r-out"></output></label><input type="range" id="ink-r" min="0" max="10" step="1" value="0"></div>
+        <canvas id="ink-cv" width="640" height="236" role="img" aria-label="The strokes blurred, measured in your browser"></canvas>
+        <div class="dens" id="ink-dens"></div>
+        <p class="small" id="ink-note"></p>
+      </div>
+    </div>
+    <p class="rulep"><b>The rule.</b> With one common period of 6, CHOSEN (1 on, offset, round caps) sits inside COMPUTED (4 on, 2 off), which sits inside solid. Inclusion of ink sets is an exact interval check. Whether readers decode the order is the half that needs people: a perception study, not yet run.</p>
+  </div>
+</section>
+
+<footer class="foot" id="standing">
+  <div class="wrap">
+    <div class="eyebrow">the grammar applied to this page</div>
+    <h2>This page's standing</h2>
+    <p class="lede">A page carries the weakest standing of what it holds. Each figure's left rule is computed live from its marks. Illustrative data was chosen by the author, so those figures are dotted at the root. The prose is a brainstorm.</p>
+    <div class="tw"><table class="sttab" id="st-tab"></table></div>
+    <div class="spine">
+      <span class="src">source: notes/visual-grammar-2026-10-27.md · WARRANT 2026-09-04 (playground/warrant.js) · instruments/verdict.js · design/grammar.js</span>
+      <span class="src">brainstorm, not built into cert-machine; nothing here is a record</span>
+    </div>
+  </div>
+</footer>
+
+<script id="core">
+'use strict';
+/* ===================== the grammar ===================== */
+const WN = ['VOID', 'CHOSEN', 'COMPUTED', 'DECIDED'];
+const VWORD = { C: 'CERTIFIED', R: 'REFUTED', X: 'REFUSED', K: 'CONFLICT' };
+
+/* ===================== exact helpers (BigInt) ===================== */
+const fdiv = (a, b) => { let q = a / b; if (a % b !== 0n && ((a < 0n) !== (b < 0n))) q -= 1n; return q; };
+const cdiv = (a, b) => -fdiv(-a, b);
+function isqrt(n) {
+  if (n < 2n) return n;
+  let x = 1n << BigInt(Math.ceil(n.toString(2).length / 2));
+  for (;;) { const y = (x + n / x) >> 1n; if (y >= x) return x; x = y; }
+}
+function fmtFixed(m, k) {
+  const neg = m < 0n; let s = (neg ? -m : m).toString();
+  if (k === 0) return (neg ? '−' : '') + s;
+  s = s.padStart(k + 1, '0');
+  return (neg ? '−' : '') + s.slice(0, -k) + '.' + s.slice(-k);
+}
+const outward = (n, d, k, up) => fmtFixed(up ? cdiv(n * 10n ** BigInt(k), d) : fdiv(n * 10n ** BigInt(k), d), k);
+
+/* ===================== the number line ===================== */
+const LINE_Q = [
+  { name: '√2', f: Math.SQRT2, enc(b) { const B = BigInt(b), s = isqrt(2n << (2n * B)); return [s, s + 1n, 1n << B]; } },
+  { name: 'φ', f: (1 + Math.sqrt(5)) / 2, enc(b) { const B = BigInt(b), s = isqrt(5n << (2n * B)), h = 1n << B; return [h + s, h + s + 1n, h << 1n]; } },
+  { name: '√3', f: Math.sqrt(3), enc(b) { const B = BigInt(b), s = isqrt(3n << (2n * B)); return [s, s + 1n, 1n << B]; } },
+];
+/* claim: x < t, with t = k/1000 */
+function lineVerdict(e, k) {
+  const K = BigInt(k);
+  if (e[1] * 1000n <= K * e[2]) return 'C';
+  if (e[0] * 1000n >= K * e[2]) return 'R';
+  return 'X';
+}
+function lineRealized(q, b, k) { for (let j = b; j <= b + 160; j++) if (lineVerdict(q.enc(j), k) !== 'X') return j; return Infinity; }
+/* a forecast, in floating point, so it is COMPUTED and drawn dashed */
+function lineForecast(q, b, k) {
+  const e = q.enc(b), den = Number(e[2]);
+  const mid = (Number(e[0]) + Number(e[1])) / 2 / den, d = Math.abs(mid - k / 1000);
+  if (d === 0) return null;
+  return b + Math.max(1, Math.ceil(Math.log2((1 / den) / d)));
+}
+/* figure units: u = 1000 v − 1240, so 1 unit = 0.001 and t sits on whole units */
+const uFloor = (n, d) => Number(fdiv(1000n * n - 1240n * d, d));
+const uCeil = (n, d) => Number(cdiv(1000n * n - 1240n * d, d));
+
+/* ===================== the paving ===================== */
+/* X = x·2^10. Q = 4·2^40·P is an integer polynomial; every value stays below 2^53, so Number arithmetic is exact. */
+const PD = 10, PS = 1 << PD, K2 = 2 ** (2 * PD), K4 = 2 ** (4 * PD);
+const iadd = (a, b) => [a[0] + b[0], a[1] + b[1]];
+const isub = (a, b) => [a[0] - b[1], a[1] - b[0]];
+const iscale = (k, a) => (k >= 0 ? [k * a[0], k * a[1]] : [k * a[1], k * a[0]]);
+const isq = a => (a[0] >= 0 ? [a[0] * a[0], a[1] * a[1]] : a[1] <= 0 ? [a[1] * a[1], a[0] * a[0]] : [0, Math.max(a[0] * a[0], a[1] * a[1])]);
+const imul = (a, b) => { const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]]; return [Math.min(...p), Math.max(...p)]; };
+/* decider A: the expanded form, naive intervals */
+function Fnaive(X, Y) {
+  const X2 = isq(X), Y2 = isq(Y);
+  let r = iadd(iadd(iscale(4, isq(X2)), iscale(8, imul(X2, Y2))), iscale(4, isq(Y2)));
+  r = isub(r, iscale(3 * K2, X2)); r = isub(r, iscale(3 * K2, Y2)); r = isub(r, iscale(2 * K2, imul(X, Y)));
+  return iadd(r, [K4, K4]);
+}
+const Qexp = (X, Y) => 4 * X ** 4 + 8 * X * X * Y * Y + 4 * Y ** 4 - 3 * K2 * X * X - 3 * K2 * Y * Y - 2 * K2 * X * Y + K4;
+/* decider B: the sum-of-squares form, separate code; the planted bug misreads the constant term (+1/8) */
+const Fsos = bug => (X, Y) => {
+  const a = isub(iadd(isq(X), isq(Y)), [K2 / 2, K2 / 2]);
+  const r = iadd(iscale(4, isq(a)), iscale(K2, isq(isub(X, Y))));
+  return bug ? iadd(r, [K4 / 2, K4 / 2]) : r;
+};
+const Qsos = bug => (X, Y) => { const a = X * X + Y * Y - K2 / 2, d = X - Y; return 4 * a * a + K2 * d * d + (bug ? K4 / 2 : 0); };
+
+function pave(F, Q, C, dmax) {
+  const out = { covered: [], gaps: [], wcells: [], witnesses: [], touches: [], evals: 0, forecast: 0, refused: false };
+  const seenW = new Set(), seenT = new Set();
+  let level = [[-PS, PS, -PS, PS]];
+  for (let d = 0; d <= dmax && level.length; d++) {
+    const next = [];
+    for (const c of level) {
+      const [x0, x1, y0, y1] = c; out.evals++;
+      const r = F([x0, x1], [y0, y1]);
+      if (!Number.isSafeInteger(r[0]) || !Number.isSafeInteger(r[1])) { out.refused = true; return out; }
+      if (r[0] >= C) { out.covered.push(c); continue; }
+      let wit = false;
+      for (const [px, py] of [[x0, y0], [x1, y0], [x0, y1], [x1, y1]]) {
+        const q = Q(px, py), key = px + ',' + py;
+        if (q < C) { wit = true; if (!seenW.has(key)) { seenW.add(key); out.witnesses.push([px, py, q]); } }
+        else if (q === C && !seenT.has(key)) { seenT.add(key); out.touches.push([px, py]); }
+      }
+      if (wit) { out.wcells.push(c); continue; }
+      if (d < dmax) {
+        const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+        next.push([x0, mx, y0, my], [mx, x1, y0, my], [x0, mx, my, y1], [mx, x1, my, y1]);
+      } else {
+        out.gaps.push(c);
+        const q = Q((x0 + x1) / 2, (y0 + y1) / 2), margin = q - C, over = q - r[0];
+        out.forecast = margin > 0 ? Math.max(out.forecast, Math.max(1, Math.ceil(Math.log2(over / margin)))) : Infinity;
+      }
+    }
+    level = next;
+  }
+  out.verdict = out.witnesses.length ? 'R' : out.gaps.length ? 'X' : 'C';
+  out.hole = out.verdict === 'X' ? (out.touches.length ? 'INSTRUMENT' : 'COMPUTE') : null;
+  return out;
+}
+const inCover = (P, x, y) => P.covered.some(c => c[0] <= x && x <= c[1] && c[2] <= y && y <= c[3]);
+/* merging deciders: the knowledge join */
+function kjoin(vs) {
+  if (vs.includes('R') && vs.includes('C')) return 'K';
+  if (vs.includes('R')) return 'R';
+  if (vs.includes('C')) return 'C';
+  return 'X';
+}
+
+/* ===================== the sentence ===================== */
+function parseDec(str) {
+  const m = /^\s*([+-]?)(\d+)(?:\.(\d*))?(?:[eE]([+-]?\d{1,3}))?\s*$/.exec(str);
+  if (!m) return null;
+  const frac = m[3] || '', exp = m[4] ? parseInt(m[4], 10) : 0;
+  let n = BigInt(m[2] + frac), k = frac.length - exp;
+  if (k < 0) { n *= 10n ** BigInt(-k); k = 0; }
+  if (n !== 0n) { const mag = n.toString().length - 1 - k; if (mag > 30 || mag < -30) return { range: true }; }
+  if (k > 60) return { range: true };
+  return { s: m[1] === '-' ? -1n : 1n, n, k };
+}
+const bitlen = n => (n === 0n ? 0 : n.toString(2).length);
+/* round n/d (both > 0) to p significant bits, ties to even: returns m·2^e */
+function roundBin(n, d, p) {
+  let e = bitlen(n) - bitlen(d) - p;
+  const quo = e => (e >= 0 ? [n / (d << BigInt(e)), n % (d << BigInt(e)), d << BigInt(e)] : [(n << BigInt(-e)) / d, (n << BigInt(-e)) % d, d]);
+  let [m, r, den] = quo(e);
+  const lo = 1n << BigInt(p - 1), hi = 1n << BigInt(p);
+  while (m >= hi) { e++; [m, r, den] = quo(e); }
+  while (m < lo) { e--; [m, r, den] = quo(e); }
+  if (2n * r > den || (2n * r === den && (m & 1n))) m++;
+  if (m === hi) { m >>= 1n; e++; }
+  return Number(m) * 2 ** e;
+}
+const toBinary = (x, p) => (x.n === 0n ? 0 : (x.s < 0n ? -1 : 1) * roundBin(x.n, 10n ** BigInt(x.k), p));
+/* the exact decimal value of a double */
+function exactDecimal(v) {
+  if (v === 0) return '0';
+  const dv = new DataView(new ArrayBuffer(8)); dv.setFloat64(0, v);
+  const hi = dv.getUint32(0), lo = dv.getUint32(4), neg = hi >>> 31, ex = (hi >>> 20) & 0x7ff;
+  let mant = (BigInt(hi & 0xfffff) << 32n) | BigInt(lo), e;
+  if (ex === 0) e = -1074; else { mant |= 1n << 52n; e = ex - 1075; }
+  let s;
+  if (e >= 0) s = (mant << BigInt(e)).toString();
+  else {
+    const k = -e, t = (mant * 5n ** BigInt(k)).toString().padStart(k + 1, '0');
+    s = (t.slice(0, t.length - k) + '.' + t.slice(t.length - k)).replace(/0+$/, '').replace(/\.$/, '');
+  }
+  return (neg ? '−' : '') + s;
+}
+function readings(as, bs, cs) {
+  const a = parseDec(as), b = parseDec(bs), c = parseDec(cs);
+  if (!a || !b || !c) return { error: 'Each of a, b and c must be a decimal number, like 0.1 or 2.5e-3.' };
+  if (a.range || b.range || c.range) return { error: 'Keep each number between 1e-30 and 1e30 in size, so every reading stays inside its format’s normal range.' };
+  const K = Math.max(a.k, b.k, c.k), sc = x => x.s * x.n * 10n ** BigInt(K - x.k);
+  const sum = sc(a) + sc(b), rhs = sc(c);
+  const trim = s => (s.includes('.') ? s.replace(/0+$/, '').replace(/\.$/, '') : s);
+  const dec = { v: sum === rhs ? 'C' : 'R', lhs: trim(fmtFixed(sum, K)), rhs: trim(fmtFixed(rhs, K)) };
+  const da = toBinary(a, 53), db = toBinary(b, 53), dc = toBinary(c, 53), ds = da + db;
+  const fa = toBinary(a, 24), fb = toBinary(b, 24), fc = toBinary(c, 24), fs = Math.fround(fa + fb);
+  return {
+    dec,
+    dbl: { v: ds === dc ? 'C' : 'R', a: da, b: db, s: ds, c: dc },
+    sgl: { v: fs === fc ? 'C' : 'R', a: fa, b: fb, s: fs, c: fc },
+  };
+}
+
+/* ===================== the champion (illustrative lineage) ===================== */
+/* true scores are integers over 2^16, set by the author for the illustration */
+const ORGS = [
+  { id: 'S0', gen: 0, parent: null, v: 40632, seed: true },
+  { id: 'a1', gen: 1, parent: 'S0', v: 45875 },
+  { id: 'b1', gen: 1, parent: 'S0', v: 43254 },
+  { id: 'c1', gen: 1, parent: 'S0', v: 38011 },
+  { id: 'a2', gen: 2, parent: 'a1', v: 50463 },
+  { id: 'b2', gen: 2, parent: 'a1', v: 48497 },
+  { id: 'c2', gen: 2, parent: 'b1', v: 46531 },
+  { id: 'd2', gen: 2, parent: 'b1', v: 42598 },
+  { id: 'a3', gen: 3, parent: 'a2', v: 53248 },
+  { id: 'b3', gen: 3, parent: 'c2', v: 53248 },
+  { id: 'c3', gen: 3, parent: 'a2', v: 51773 },
+  { id: 'd3', gen: 3, parent: 'b2', v: 49807, oneDecider: true },
+  { id: 'p1', gen: 4, parent: 'a3', v: 54395, claimed: 56361, proposal: true },
+  { id: 'p2', gen: 4, parent: 'b3', v: 51118, claimed: 55050, proposal: true },
+];
+function champ(b, judged, planted) {
+  const SC = 2 ** 24, exact = b >= 12;
+  const hA = exact ? 0 : Math.floor(0.025 * SC / 2 ** b) + 1, hB = exact ? 0 : Math.floor(0.018 * SC / 2 ** b) + 1;
+  const res = {}; let frozenGen = Infinity, conflictId = null;
+  for (const o of ORGS) {
+    const S = o.v * 256, r = { o, S };
+    if (o.proposal && !judged) { r.state = 'proposal'; res[o.id] = r; continue; }
+    r.A = [S - hA, S + hA];
+    if (!o.oneDecider) { const sh = planted && o.id === 'c3' ? 1006632 : 0; r.B = [S + sh - hB, S + sh + 2 * hB]; }
+    const lo = r.B ? Math.max(r.A[0], r.B[0]) : r.A[0], hi = r.B ? Math.min(r.A[1], r.B[1]) : r.A[1];
+    if (lo > hi) { r.state = 'conflict'; conflictId = o.id; frozenGen = Math.min(frozenGen, o.gen); }
+    else { r.state = 'judged'; r.I = [lo, hi]; }
+    res[o.id] = r;
+  }
+  for (const id in res) { const r = res[id]; if (r.o.gen >= frozenGen && r.state !== 'conflict') r.state = 'void'; }
+  let status, contenders = [];
+  if (conflictId) status = 'FROZEN';
+  else {
+    const pool = Object.values(res).filter(r => r.state === 'judged');
+    const lead = pool.reduce((a, r) => (r.I[0] > a.I[0] ? r : a));
+    contenders = pool.filter(r => r.I[1] >= lead.I[0]);
+    if (contenders.length === 1) status = 'DECIDED';
+    else if (contenders.every(r => r.I[0] === r.I[1] && r.I[0] === lead.I[0])) status = 'TIE';
+    else status = 'OPEN';
+  }
+  return { res, status, contenders: contenders.map(r => r.o.id), conflictId, frozenGen, hA, hB, exact };
+}
+
+/* ===================== the chain ===================== */
+const PREM = { L: ['c1', 'c2'], T: ['L', 'c3'] };
+function chainSolve(st) {
+  const node = {};
+  for (const k of ['c1', 'c2', 'c3']) node[k] = { v: st[k], note: 'set by its certifier' };
+  for (const k of ['L', 'T']) {
+    const bad = PREM[k].filter(p => node[p].v !== 'C');
+    node[k] = bad.length ? { v: 'X', note: 'lost its proof: ' + bad.join(', ') } : { v: 'C', note: 'derived forward' };
+  }
+  const back = []; let disj = null, conflict = false, explained = null;
+  if (st.cex) {
+    if (node.T.v === 'C') { node.T = { v: 'K', note: 'proved and refuted' }; conflict = true; }
+    else {
+      node.T = { v: 'R', note: 'counterexample found' };
+      let cur = 'T';
+      while (PREM[cur]) {
+        const ps = PREM[cur], already = ps.find(p => node[p].v === 'R');
+        if (already) { explained = { by: already, from: cur }; break; }
+        const open = ps.filter(p => node[p].v !== 'C');
+        if (!open.length) { node[cur] = { v: 'K', note: 'refuted over certified premises' }; conflict = true; break; }
+        if (open.length > 1) { disj = { of: open, from: cur }; break; }
+        node[open[0]] = { v: 'R', note: 'forced back from ' + cur };
+        back.push([cur, open[0]]); cur = open[0];
+      }
+    }
+  }
+  return { node, back, disj, conflict, explained };
+}
+
+/* ===================== the missing input ===================== */
+const LBL = { dist: 820, payload: 18, ef: [50, 54], limit: 1000 };
+const TK = LBL.dist * LBL.payload; /* tonne-km */
+/* E (kg) = TK · EF / k, with EF in g per tonne-km and the load factor k in per-mille */
+function labelVerdict(k) {
+  if (k == null) return { v: 'X', hole: 'DATA', why: 'undisclosed' };
+  if (TK * LBL.ef[1] <= LBL.limit * k) return { v: 'C' };
+  if (TK * LBL.ef[0] > LBL.limit * k) return { v: 'R' };
+  return { v: 'X', hole: 'DATA', why: 'factor' };
+}
+
+/* ===================== the weather window ===================== */
+/* centimetres; forecast fc-0600 issued at 06:00 */
+const WIN = { limit: 250, steps: [
+  { t: 9, box: [150, 190], real: 182 },
+  { t: 12, box: [170, 220], real: 231 },
+  { t: 15, box: [190, 240], real: 228 },
+  { t: 18, box: [215, 270], real: 244 },
+] };
+function windowAt(now) {
+  const past = WIN.steps.filter(s => s.t <= now), fut = WIN.steps.filter(s => s.t > now);
+  const miss = past.find(s => s.real < s.box[0] || s.real > s.box[1]);
+  const hits = past.filter(s => s.real >= s.box[0] && s.real <= s.box[1]).length;
+  const over = past.find(s => s.real > WIN.limit);
+  let v, why, openUntil = null, hole = null;
+  if (over) { v = 'R'; why = 'buoy'; }
+  else if (!fut.length) { v = 'C'; why = 'buoy'; }
+  else if (miss) { v = 'X'; hole = 'DATA'; why = 'demoted'; }
+  else if (fut.every(s => s.box[1] <= WIN.limit)) { v = 'C'; why = 'forecast'; }
+  else if (fut.some(s => s.box[0] > WIN.limit)) { v = 'R'; why = 'forecast'; }
+  else {
+    v = 'X'; hole = 'DATA'; why = 'straddle'; openUntil = now;
+    for (const s of fut) { if (s.box[1] <= WIN.limit) openUntil = s.t; else break; }
+  }
+  return { v, why, hole, openUntil, past, fut, miss, hits, over };
+}
+if (typeof module !== 'undefined') module.exports = { LINE_Q, lineVerdict, lineRealized, lineForecast, uFloor, uCeil, outward, pave, Fnaive, Qexp, Fsos, Qsos, kjoin, inCover, readings, exactDecimal, champ, chainSolve, labelVerdict, windowAt, PS, K4 };
+</script>
+
+<script>
+'use strict';
+/* ===================== drawing helpers ===================== */
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs || {}) {
+    const v = attrs[k]; if (v == null) continue;
+    if (k === 'fill' || k === 'stroke' || k === 'opacity') e.style.setProperty(k, String(v));
+    else if (k === 'text') e.textContent = v;
+    else e.setAttribute(k, v);
+  }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const clear = n => { while (n.firstChild) n.removeChild(n.firstChild); };
+/* THE nested ink: one period of 6. CHOSEN's round dot sits inside COMPUTED's dash. */
+function ink(s) {
+  if (s === 3) return {};
+  if (s === 2) return { 'stroke-dasharray': '4 2', 'stroke-linecap': 'butt' };
+  if (s === 1) return { 'stroke-dasharray': '1 5', 'stroke-dashoffset': '-1.5', 'stroke-linecap': 'round' };
+  return { stroke: 'none' };
+}
+function mark(p, x1, y1, x2, y2, s, extra) {
+  if (s === 0) return null;
+  return S('line', Object.assign({ x1, y1, x2, y2, stroke: 'var(--ink-2)', 'stroke-width': 2 }, ink(s), extra || {}), p);
+}
+function glyph(v) {
+  const fr = '<rect x="1.5" y="1.5" width="11" height="11" style="fill:none;stroke:currentColor" stroke-width="1.5"/>';
+  const fl = '<rect x="1" y="1" width="12" height="12" style="fill:currentColor"/>';
+  const x = c => `<path d="M4.3 4.3L9.7 9.7M9.7 4.3L4.3 9.7" style="stroke:${c}" stroke-width="1.9" stroke-linecap="round"/>`;
+  const body = v === 'C' ? fl : v === 'R' ? fr + x('currentColor') : v === 'K' ? fl + x('var(--paper)') : fr;
+  return `<svg viewBox="0 0 14 14" aria-hidden="true">${body}</svg>`;
+}
+const chip = (v, word) => `<span class="vd" data-v="${v}">${glyph(v)}${word || VWORD[v]}</span>`;
+function stChip(s) {
+  const a = s === 3 ? '' : s === 2 ? 'stroke-dasharray="4 2"' : s === 1 ? 'stroke-dasharray="1 5" stroke-dashoffset="-1.5" stroke-linecap="round"' : '';
+  const line = s === 0 ? '<rect x="1" y="1" width="28" height="6" style="fill:none;stroke:var(--ink-4)" stroke-width="1"/>' : `<line x1="1" y1="4" x2="29" y2="4" style="stroke:currentColor" stroke-width="2" ${a}/>`;
+  return `<span class="st"><svg viewBox="0 0 30 8" aria-hidden="true">${line}</svg>${WN[s]}</span>`;
+}
+const holeChip = h => `<span class="hole">HOLE · ${h}</span>`;
+const FIGS = {};
+function setStanding(id, s, why) {
+  FIGS[id] = { s, why };
+  const f = document.getElementById(id); f.querySelector('.rule').dataset.s = s;
+  f.querySelector('.fstand').innerHTML = `${stChip(s)}<span>figure standing: ${why}</span>`;
+  renderFoot();
+}
+function svgPoint(svg, evt) {
+  const pt = svg.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const rgb = hex => { const h = hex.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); };
+
+/* ===================== the legend ===================== */
+(function legend() {
+  const g = $('#legend-strokes');
+  const rows = [
+    [3, 'DECIDED', 'an exact decision: enclosure, rational, proof'],
+    [2, 'COMPUTED', 'arithmetic not verified: float, fit, solver'],
+    [1, 'CHOSEN', 'one pick among what the data admits'],
+    [0, 'VOID', 'nothing to draw: missing, out of domain'],
+  ];
+  rows.forEach(([s, name, what], i) => {
+    const y = 22 + i * 40;
+    S('text', { x: 0, y: y + 4, class: 't-lb', text: name }, g);
+    if (s) mark(g, 110, y, 250, y, s, { stroke: 'var(--ink)', 'stroke-width': 2.4 });
+    else { S('rect', { x: 110, y: y - 7, width: 140, height: 14, fill: 'none', stroke: 'var(--ink-5)', 'stroke-width': 1 }, g); S('text', { x: 180, y: y + 3.5, class: 't-sm', 'text-anchor': 'middle', text: 'no mark' }, g); }
+    S('text', { x: 266, y: y + 4, class: 't-sm', text: what }, g);
+  });
+  S('text', { x: 0, y: 172, class: 't-sm', text: 'a mark takes the weakest standing on its path to the pixel' }, g);
+
+  const h = $('#legend-verdicts');
+  const cells = [['C', 'a cover', 'CERTIFIED'], ['R', 'a point', 'REFUTED'], ['X', 'a gap', 'REFUSED'], ['K', 'on a cover', 'CONFLICT'], ['-', 'no frame', 'not asked']];
+  cells.forEach(([v, shape, word], i) => {
+    const x = 8 + i * 90, y = 14, w = 54;
+    if (v === 'C' || v === 'K') S('rect', { x, y, width: w, height: w, fill: 'var(--ink-2)' }, h);
+    if (v === 'R') { S('rect', { x, y, width: w, height: w, fill: 'none', stroke: 'var(--ink-2)', 'stroke-width': 1.5 }, h); S('rect', { x: x + 6, y: y + 6, width: 18, height: 42, fill: 'var(--ink-4)' }, h); }
+    if (v === 'X') { S('rect', { x, y, width: w, height: w, fill: 'none', stroke: 'var(--ink-2)', 'stroke-width': 1.5 }, h); S('rect', { x: x + 6, y: y + 6, width: 42, height: 18, fill: 'var(--ink-4)' }, h); }
+    if (v === 'R' || v === 'K') {
+      const cx = x + 37, cy = y + 34, c = v === 'K' ? 'var(--paper)' : 'var(--ink)';
+      S('path', { d: `M${cx - 6} ${cy - 6}L${cx + 6} ${cy + 6}M${cx + 6} ${cy - 6}L${cx - 6} ${cy + 6}`, stroke: c, 'stroke-width': 2.6, 'stroke-linecap': 'round' }, h);
+    }
+    if (v === '-') S('text', { x: x + w / 2, y: y + w / 2 + 4, class: 't-sm', 'text-anchor': 'middle', text: '·' }, h);
+    S('text', { x: x + w / 2, y: 92, class: 't-lb', 'text-anchor': 'middle', text: word }, h);
+    S('text', { x: x + w / 2, y: 110, class: 't-sm', 'text-anchor': 'middle', text: shape }, h);
+  });
+  S('text', { x: 8, y: 146, class: 't-sm', text: 'the claim is “P holds on the box”; the frame is the box' }, h);
+  S('text', { x: 8, y: 166, class: 't-sm', text: 'a CONFLICT only comes from two deciders disagreeing' }, h);
+})();
+
+/* ===================== the number line ===================== */
+(function numberLine() {
+  const svg = $('#line-svg'), tIn = $('#line-t'), bIn = $('#line-b'), tab = $('#line-tab'), note = $('#line-note');
+  const st = { usual: false, grades: null };
+  const ROWY = [56, 108, 160], AX = 204;
+  function draw() {
+    const k = +tIn.value, b = +bIn.value;
+    $('#line-t-out').textContent = 't = ' + (k / 1000).toFixed(3);
+    $('#line-b-out').textContent = b + (b === 1 ? ' bit' : ' bits');
+    clear(svg);
+    for (let i = 0; i <= 6; i++) {
+      const x = 60 + i * 100;
+      S('line', { x1: x, y1: AX, x2: x, y2: AX + 5, stroke: 'var(--ink-5)', 'stroke-width': 1 }, svg);
+      S('text', { x, y: AX + 19, class: 't-ax', 'text-anchor': 'middle', text: (1.3 + i / 10).toFixed(1) }, svg);
+    }
+    S('line', { x1: 60, y1: AX, x2: 660, y2: AX, stroke: 'var(--ink-5)', 'stroke-width': 1 }, svg);
+    const ut = k - 1240;
+    const rows = [];
+    let subres = false;
+    LINE_Q.forEach((q, i) => {
+      const y = ROWY[i], e = q.enc(b), v = lineVerdict(e, k);
+      S('text', { x: 14, y: y + 6, class: 't-big', text: q.name }, svg);
+      if (st.usual) {
+        const xf = 1000 * q.f - 1240;
+        S('circle', { cx: xf, cy: y, r: 5.5, fill: 'none', stroke: 'var(--ink-2)', 'stroke-width': 2, 'stroke-dasharray': '4 2' }, svg);
+        S('text', { x: xf, y: y - 14, class: 't-sm', 'text-anchor': 'middle', text: String(q.f) }, svg);
+      } else {
+        let x0 = uFloor(e[0], e[2]), x1 = uCeil(e[1], e[2]);
+        const cl0 = x0 < 60, cl1 = x1 > 660; x0 = Math.max(60, x0); x1 = Math.min(660, x1);
+        if (x1 > x0) {
+          S('rect', { x: x0, y: y - 5, width: x1 - x0, height: 10, fill: 'var(--ink-2)' }, svg);
+          if (!cl0) S('line', { x1: x0, y1: y - 11, x2: x0, y2: y + 11, stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+          if (!cl1) S('line', { x1: x1, y1: y - 11, x2: x1, y2: y + 11, stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+          if (cl0) S('path', { d: `M${x0 + 7} ${y - 8}L${x0} ${y}L${x0 + 7} ${y + 8}`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+          if (cl1) S('path', { d: `M${x1 - 7} ${y - 8}L${x1} ${y}L${x1 - 7} ${y + 8}`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+        }
+        if (v !== 'X' && (uCeil(e[1], e[2]) === ut || uFloor(e[0], e[2]) === ut)) subres = true;
+      }
+      const digits = Math.min(14, Math.max(3, Math.ceil(b * 0.30103) + 1));
+      rows.push({ q, e, v, lo: outward(e[0], e[2], digits, false), hi: outward(e[1], e[2], digits, true), f: v === 'X' ? lineForecast(q, b, k) : null });
+    });
+    S('line', { x1: ut, y1: 26, x2: ut, y2: AX, stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+    S('path', { d: `M${ut - 7} 14L${ut + 7} 14L${ut} 24Z`, fill: 'var(--ink)' }, svg);
+    const tl = S('text', { x: ut + 10, y: 22, class: 't-lb', text: 't = ' + (k / 1000).toFixed(3) }, svg);
+    if (ut > 560) { tl.setAttribute('x', ut - 10); tl.setAttribute('text-anchor', 'end'); }
+    const hit = S('rect', { x: 50, y: 0, width: 620, height: AX + 24, fill: 'transparent', cursor: 'ew-resize' }, svg);
+    hit.style.touchAction = 'none';
+
+    const head = st.usual
+      ? '<tr><th>number</th><th>what the usual chart has</th><th>what it can say</th></tr>'
+      : '<tr><th>number</th><th>enclosure, printed outward</th><th>is it below t?</th><th>price or grade</th></tr>';
+    tab.innerHTML = head + rows.map(r => {
+      if (st.usual) return `<tr><td class="num">${r.q.name}</td><td class="num">${r.q.f}</td><td><span class="small">a candidate: the float says ${r.q.f < k / 1000 ? 'below' : 'above'}. It cannot certify or refute.</span></td></tr>`;
+      let price = '<span class="small">decided</span>';
+      const g = st.grades && st.grades[r.q.name];
+      if (g) price = `<span class="price">forecast ${g.f} bits</span> <span class="small">· decided at ${g.r} bits · the forecast ${g.r <= g.f ? 'held' : 'missed'}${g.r < g.f ? ', over by ' + (g.f - g.r) : g.r > g.f ? ' by ' + (g.r - g.f) : ', exactly'}</span>`;
+      else if (r.v === 'X') price = r.f == null ? '<span class="price">unpriced: the midpoint sits on t</span>' : `<span class="price">about ${r.f} bits (forecast)</span>`;
+      return `<tr><td class="num">${r.q.name}</td><td class="num">[${r.lo}, ${r.hi}]</td><td>${chip(r.v)}</td><td>${price}</td></tr>`;
+    }).join('');
+    note.textContent = st.usual
+      ? 'The usual chart draws a dot at a float and reads a verdict off it. Here the dot is dashed: a computed value proposes, it does not decide.'
+      : subres ? 'One verdict is decided closer to t than this figure can show (one unit is 0.001). It is drawn touching t; the table carries the exact enclosure.' : 'One figure unit is 0.001. Every bar is drawn outward to whole units.';
+    setStanding('fig-line', st.usual ? 2 : 3, st.usual ? 'COMPUTED, the dots are floats' : 'DECIDED, every bar is an exact enclosure');
+    $('#line-spend').disabled = st.usual || !rows.some(r => r.v === 'X' && r.f != null);
+  }
+  let drag = false;
+  const setFromEvt = ev => { const p = svgPoint(svg, ev); tIn.value = Math.max(1350, Math.min(1850, Math.round(p.x + 1240))); st.grades = null; draw(); };
+  svg.addEventListener('pointerdown', ev => { drag = true; svg.setPointerCapture(ev.pointerId); setFromEvt(ev); });
+  svg.addEventListener('pointermove', ev => { if (drag) setFromEvt(ev); });
+  svg.addEventListener('pointerup', () => { drag = false; });
+  tIn.addEventListener('input', () => { st.grades = null; draw(); });
+  bIn.addEventListener('input', () => { st.grades = null; draw(); });
+  $('#line-spend').addEventListener('click', () => {
+    const k = +tIn.value, b = +bIn.value, grades = {}; let nb = b;
+    LINE_Q.forEach(q => {
+      if (lineVerdict(q.enc(b), k) !== 'X') return;
+      const f = lineForecast(q, b, k); if (f == null) return;
+      grades[q.name] = { f, r: lineRealized(q, b, k) }; nb = Math.max(nb, f);
+    });
+    bIn.value = Math.min(30, nb); draw(); st.grades = grades; draw();
+  });
+  $('#line-usual').addEventListener('click', ev => { st.usual = !st.usual; ev.currentTarget.setAttribute('aria-pressed', st.usual); draw(); });
+  draw();
+})();
+
+/* ===================== the paving ===================== */
+(function paving() {
+  const cv = $('#pave-cv'), ctx = cv.getContext('2d'), cIn = $('#pave-c'), dIn = $('#pave-d'), bSel = $('#pave-b'), out = $('#pave-out');
+  const COL = { both: rgb(cssVar('--ink-2')), one: rgb(cssVar('--ink-4')), gap: rgb(cssVar('--sunk')), hatch: rgb(cssVar('--ink-5')) };
+  const R = 256, N = 512;
+  const frac = m => { if (m === 0) return '0'; let n = Math.abs(m), d = 256; while (n % 2 === 0 && d > 1) { n /= 2; d /= 2; } return (m < 0 ? '−' : '') + (d === 1 ? n : n + '/' + d); };
+  const coord = X => { if (X === 0) return '0'; let n = Math.abs(X), d = 1024; while (n % 2 === 0 && d > 1) { n /= 2; d /= 2; } return (X < 0 ? '−' : '') + (d === 1 ? n : n + '/' + d); };
+  function grid(P) {
+    const g = new Uint8Array(R * R).fill(1);
+    const m = c => {
+      const i0 = Math.floor((c[0] + PS) / 8), i1 = Math.ceil((c[1] + PS) / 8), j0 = Math.floor((c[2] + PS) / 8), j1 = Math.ceil((c[3] + PS) / 8);
+      for (let j = j0; j < j1; j++) { const row = R - 1 - j; for (let i = i0; i < i1; i++) g[row * R + i] = 0; }
+    };
+    P.gaps.forEach(m); P.wcells.forEach(m);
+    return g;
+  }
+  const toC = (X, Y) => [(X + PS) / 4, N - (Y + PS) / 4];
+  let raf = 0;
+  function run() {
+    raf = 0;
+    const m = +cIn.value, dmax = +dIn.value, mode = bSel.value, C = m * 2 ** 34;
+    $('#pave-c-out').textContent = 'c = ' + frac(m);
+    $('#pave-d-out').textContent = dmax;
+    const A = pave(Fnaive, Qexp, C, dmax);
+    const B = mode === 'none' ? null : pave(Fsos(mode === 'bug'), Qsos(mode === 'bug'), C, dmax);
+    const ds = B ? [A, B] : [A];
+    const grids = ds.map(grid);
+    const img = ctx.createImageData(N, N), px = img.data;
+    for (let j = 0; j < R; j++) for (let i = 0; i < R; i++) {
+      let n = 0; for (const g of grids) n += g[j * R + i];
+      for (let dy = 0; dy < 2; dy++) for (let dx = 0; dx < 2; dx++) {
+        const x = 2 * i + dx, y = 2 * j + dy, o = (y * N + x) * 4;
+        const c = n >= 2 ? COL.both : n === 1 ? (B ? COL.one : COL.both) : ((x + y) % 6 === 0 ? COL.hatch : COL.gap);
+        px[o] = c[0]; px[o + 1] = c[1]; px[o + 2] = c[2]; px[o + 3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    ctx.strokeStyle = cssVar('--sunk'); ctx.lineWidth = 1.5;
+    for (const P of ds) for (const c of P.covered) {
+      if (c[1] - c[0] < 64) continue;
+      const [x, y] = toC(c[0], c[3]); ctx.strokeRect(x + 0.75, y + 0.75, (c[1] - c[0]) / 4 - 1.5, (c[3] - c[2]) / 4 - 1.5);
+    }
+    ctx.strokeStyle = cssVar('--ink-3'); ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, N - 1, N - 1);
+    /* touches: P equals c exactly */
+    for (const P of ds) for (const [X, Y] of P.touches) {
+      const [x, y] = toC(X, Y); ctx.beginPath(); ctx.arc(x, y, 7, 0, 2 * Math.PI); ctx.strokeStyle = cssVar('--ink'); ctx.lineWidth = 2; ctx.stroke();
+    }
+    /* witnesses, and the conflict: a point inside the other decider's cover */
+    let conflictAt = null; const drawn = new Set();
+    ds.forEach((P, idx) => {
+      const other = ds[1 - idx];
+      P.witnesses.slice(0, 3).forEach(([X, Y]) => {
+        const key = X + ',' + Y; if (drawn.has(key)) return; drawn.add(key);
+        const [x, y] = toC(X, Y), conflict = other && inCover(other, X, Y);
+        if (conflict) conflictAt = conflictAt || [X, Y];
+        ctx.beginPath(); ctx.arc(x, y, 13, 0, 2 * Math.PI);
+        if (conflict) { ctx.fillStyle = cssVar('--ink'); ctx.fill(); } else { ctx.fillStyle = cssVar('--paper'); ctx.fill(); ctx.strokeStyle = cssVar('--ink'); ctx.lineWidth = 2; ctx.stroke(); }
+        ctx.beginPath(); ctx.moveTo(x - 6, y - 6); ctx.lineTo(x + 6, y + 6); ctx.moveTo(x + 6, y - 6); ctx.lineTo(x - 6, y + 6);
+        ctx.strokeStyle = conflict ? cssVar('--paper') : cssVar('--ink'); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+      });
+    });
+    for (const P of ds) for (const w of P.witnesses) { const o = ds.find(q => q !== P); if (o && inCover(o, w[0], w[1])) conflictAt = conflictAt || w; }
+    const merged = kjoin(ds.map(P => P.verdict));
+    const stat = P => `${P.evals.toLocaleString('en-US')} boxes · ${P.covered.length.toLocaleString('en-US')} covered · ${P.gaps.length.toLocaleString('en-US')} gaps${P.witnesses.length ? ' · ' + P.witnesses.length + ' witness' + (P.witnesses.length > 1 ? 'es' : '') : ''}`;
+    let html = `<h3>Decider A · expanded form, naive intervals</h3><div>${chip(A.verdict)}</div><p class="small">${stat(A)}</p>`;
+    if (B) html += `<h3>Decider B · ${mode === 'bug' ? 'sum of squares, constant misread' : 'sum-of-squares form'}</h3><div>${chip(B.verdict)}</div><p class="small">${stat(B)}</p>`;
+    html += `<h3>${B ? 'Merged · the knowledge join' : 'Verdict'}</h3><div>${chip(merged)}</div>`;
+    const w0 = (A.witnesses[0] || (B && B.witnesses[0]));
+    if (merged === 'C') html += `<p>Covered: P ≥ ${frac(m)} at every point of the square.${B && A.verdict !== 'C' ? ' Decider A alone could not show it; B’s cover is the proof, and grey marks where only B vouches.' : ''}</p>`;
+    else if (merged === 'R') html += `<p>Refuted at (${coord(w0[0])}, ${coord(w0[1])}), where P = ${w0[2] / 2 ** 42 === 0 ? '0' : (w0[2] / 2 ** 42).toString()} &lt; ${frac(m)}, computed exactly. One point is the whole refutation.</p>`;
+    else if (merged === 'K') html += `<p>Decider A found a point where P &lt; c at (${coord(conflictAt[0])}, ${coord(conflictAt[1])}); decider B covers that point. Both cannot be right. Nothing downstream may use either verdict until a person explains it. Machinidae freezes the era here.</p>`;
+    else if (A.hole === 'INSTRUMENT') html += `<p>${holeChip('INSTRUMENT')}</p><p>P equals c exactly at ${A.touches.map(t => '(' + coord(t[0]) + ', ' + coord(t[1]) + ')').join(' and ')}. Boxes cannot close a zero margin: the naive enclosure always dips below c near those points. Try a different instrument, the sum-of-squares form.</p>`;
+    else {
+      const f = Math.max(A.forecast, B ? B.forecast : 0);
+      html += `<p>${holeChip('COMPUTE')}</p><p>Gaps remain at depth ${dmax}. <span class="price">${isFinite(f) && dmax + f <= 10 ? 'about ' + f + ' more level' + (f > 1 ? 's' : '') + ' (forecast)' : isFinite(f) ? 'about ' + f + ' more levels, past this page’s depth limit (forecast)' : 'unpriced'}</span></p>`;
+    }
+    out.innerHTML = html;
+    setStanding('fig-paving', 3, 'DECIDED, exact integer arithmetic');
+  }
+  const queue = () => { if (!raf) raf = requestAnimationFrame(run); };
+  [cIn, dIn].forEach(e => e.addEventListener('input', queue)); bSel.addEventListener('change', queue);
+  document.querySelectorAll('[data-pave]').forEach(btn => btn.addEventListener('click', () => {
+    const [m, d, b] = btn.dataset.pave.split(','); cIn.value = m; dIn.value = d; bSel.value = b; queue();
+  }));
+  run();
+})();
+
+/* ===================== the sentence ===================== */
+(function sentence() {
+  const aI = $('#sent-a'), bI = $('#sent-b'), cI = $('#sent-c'), rSel = $('#sent-r'), text = $('#sent-text'), reads = $('#sent-reads'), out = $('#sent-out');
+  const NAMES = { dec: 'exact decimals', dbl: 'IEEE-754 double', sgl: 'IEEE-754 single' };
+  const esc = s => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  function draw() {
+    const a = aI.value.trim(), b = bI.value.trim(), c = cI.value.trim(), stated = rSel.value;
+    text.innerHTML = `<span class="q">${esc(a)}</span> + <span class="q">${esc(b)}</span> = <span class="q">${esc(c)}</span> <span class="rd${stated ? ' stated' : ''}">${stated ? 'in ' + NAMES[stated] : 'reading not stated'}</span>`;
+    const r = readings(a, b, c);
+    if (r.error) { reads.innerHTML = ''; out.innerHTML = `<p>${r.error}</p>`; setStanding('fig-sentence', 0, 'VOID, nothing parsed to decide'); return; }
+    const fl = (x, s) => `<b>${s}</b> = ${exactDecimal(x)}`;
+    const card = (key, title, v, lines) => `<div class="card" data-chosen="${stated === key}"><h3>${title}</h3><div>${chip(v)}</div><div class="exact">${lines}</div></div>`;
+    reads.innerHTML =
+      card('dec', 'exact decimals', r.dec.v, `<b>a + b</b> = ${r.dec.lhs}<br><b>c</b> = ${r.dec.rhs}`) +
+      card('dbl', 'IEEE-754 double', r.dbl.v, `${fl(r.dbl.a, 'fl(a)')}<br>${fl(r.dbl.b, 'fl(b)')}<br>${fl(r.dbl.s, 'fl(fl(a) + fl(b))')}<br>${fl(r.dbl.c, 'fl(c)')}`) +
+      card('sgl', 'IEEE-754 single', r.sgl.v, `${fl(r.sgl.a, 'fl₃₂(a)')}<br>${fl(r.sgl.b, 'fl₃₂(b)')}<br>${fl(r.sgl.s, 'fl₃₂(fl₃₂(a) + fl₃₂(b))')}<br>${fl(r.sgl.c, 'fl₃₂(c)')}`);
+    const vs = [r.dec.v, r.dbl.v, r.sgl.v], agree = vs.every(v => v === vs[0]);
+    let html;
+    if (stated) html = `<h3>The claim</h3><div>${chip(r[stated].v)}</div><p>The claimant stated the reading, so the claim is that proposition and nothing else.</p>`;
+    else if (agree) html = `<h3>The claim</h3><div>${chip(vs[0])}</div><p>All three readings agree, so the unstated reading does not matter.</p>`;
+    else html = `<h3>The claim</h3><div>${chip('X')}</div><p>${holeChip('READING')}</p><p>The readings disagree. Only the claimant can say which proposition they meant; claimbox shows all three and picks none.</p>`;
+    out.innerHTML = html;
+    setStanding('fig-sentence', 3, 'DECIDED, every reading is decided exactly');
+  }
+  [aI, bI, cI].forEach(e => e.addEventListener('input', draw)); rSel.addEventListener('change', draw);
+  document.querySelectorAll('[data-sent]').forEach(btn => btn.addEventListener('click', () => { const [a, b, c] = btn.dataset.sent.split(','); aI.value = a; bI.value = b; cI.value = c; draw(); }));
+  draw();
+})();
+
+/* ===================== the champion ===================== */
+(function champion() {
+  const svg = $('#champ-svg'), bIn = $('#champ-b'), out = $('#champ-out');
+  const st = { judged: false, planted: false };
+  const SC = 2 ** 24, Y = v => 300 - (v - 0.55) / 0.35 * 255;
+  const fmt = v => (v / SC).toFixed(3);
+  function draw() {
+    const b = +bIn.value, R = champ(b, st.judged, st.planted);
+    $('#champ-b-out').textContent = R.exact ? 'exact' : b + (b === 1 ? ' step' : ' steps');
+    clear(svg);
+    const defs = S('defs', {}, svg), pat = S('pattern', { id: 'hatch', width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+    S('line', { x1: 0, y1: 0, x2: 0, y2: 6, stroke: 'var(--ink-5)', 'stroke-width': 1.2 }, pat);
+    [0.6, 0.7, 0.8, 0.9].forEach(v => { S('line', { x1: 44, y1: Y(v), x2: 772, y2: Y(v), stroke: 'var(--rule)', 'stroke-width': 1 }, svg); S('text', { x: 38, y: Y(v) + 4, class: 't-ax', 'text-anchor': 'end', text: v.toFixed(1) }, svg); });
+    const colX = g => 86 + g * 140, gens = {};
+    ORGS.forEach(o => (gens[o.gen] = gens[o.gen] || []).push(o));
+    const pos = {};
+    Object.keys(gens).forEach(g => gens[g].forEach((o, i) => { pos[o.id] = colX(+g) + (i - (gens[g].length - 1) / 2) * 30; }));
+    ['seed', 'gen 1', 'gen 2', 'gen 3', 'proposals'].forEach((t, g) => S('text', { x: colX(g), y: 330, class: 't-ax', 'text-anchor': 'middle', text: t }, svg));
+    if (R.conflictId) {
+      const x0 = colX(R.frozenGen) - 62;
+      S('rect', { x: x0, y: 20, width: 776 - x0, height: 292, fill: 'url(#hatch)', opacity: 0.55 }, svg);
+      S('text', { x: x0 + 8, y: 34, class: 't-lb', text: 'era frozen' }, svg);
+    }
+    const mid = r => (r.I ? Y((r.I[0] + r.I[1]) / 2 / SC) : r.state === 'proposal' ? Y(r.o.claimed / 65536) : Y(r.S / SC));
+    /* edges: selection chose the parents, so they are CHOSEN */
+    ORGS.forEach(o => {
+      if (!o.parent) return; const r = R.res[o.id], p = R.res[o.parent];
+      if (r.state === 'void' || p.state === 'void') return;
+      const x1 = pos[o.parent], y1 = mid(p), x2 = pos[o.id], y2 = mid(r), cx = (x1 + x2) / 2;
+      S('path', Object.assign({ d: `M${x1} ${y1}C${cx} ${y1} ${cx} ${y2} ${x2} ${y2}`, fill: 'none', stroke: 'var(--ink-4)', 'stroke-width': 1.6 }, ink(1)), svg);
+    });
+    ORGS.forEach(o => {
+      const r = R.res[o.id], x = pos[o.id];
+      if (r.state === 'void') {
+        S('rect', { x: x - 5, y: Y(r.S / SC) - 5, width: 10, height: 10, fill: 'none', stroke: 'var(--ink-5)', 'stroke-width': 1 }, svg);
+        return;
+      }
+      if (r.state === 'proposal') {
+        const y = Y(o.claimed / 65536);
+        S('circle', Object.assign({ cx: x, cy: y, r: 6, fill: 'none', stroke: 'var(--ink-2)', 'stroke-width': 2 }, ink(2)), svg);
+        S('text', { x: x + 10, y: y + 4, class: 't-pred', text: o.id + ' claims ' + (o.claimed / 65536).toFixed(3) }, svg);
+        return;
+      }
+      if (r.state === 'conflict') {
+        const draw1 = (I, dx) => { S('line', { x1: x + dx, y1: Math.floor(Y(I[1] / SC)), x2: x + dx, y2: Math.ceil(Y(I[0] / SC)) + 1, stroke: 'var(--ink)', 'stroke-width': 2.2 }, svg); };
+        draw1(r.A, -4); draw1(r.B, 4);
+        const cy = Y(r.S / SC) - 12;
+        S('circle', { cx: x, cy, r: 9, fill: 'var(--ink)' }, svg);
+        S('path', { d: `M${x - 4} ${cy - 4}L${x + 4} ${cy + 4}M${x + 4} ${cy - 4}L${x - 4} ${cy + 4}`, stroke: 'var(--paper)', 'stroke-width': 2.2, 'stroke-linecap': 'round' }, svg);
+        S('text', { x: x + 14, y: cy + 4, class: 't-lb', text: o.id + ': A and B disagree' }, svg);
+        return;
+      }
+      const yt = Math.floor(Y(r.I[1] / SC)), yb = Math.max(Math.ceil(Y(r.I[0] / SC)), yt + 2);
+      if (r.B) { [-1.8, 1.8].forEach(dx => S('line', { x1: x + dx, y1: yt, x2: x + dx, y2: yb, stroke: 'var(--ink)', 'stroke-width': 1.3 }, svg)); }
+      else S('line', { x1: x, y1: yt, x2: x, y2: yb, stroke: 'var(--ink)', 'stroke-width': 2.4 }, svg);
+      [yt, yb].forEach(y => S('line', { x1: x - 5, y1: y, x2: x + 5, y2: y, stroke: 'var(--ink)', 'stroke-width': 1.3 }, svg));
+      if (o.seed) S('circle', Object.assign({ cx: x, cy: (yt + yb) / 2, r: 11, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.6 }, ink(1)), svg);
+      if (o.proposal) {
+        const yc = Y(o.claimed / 65536);
+        S('line', Object.assign({ x1: x - 8, y1: yc, x2: x + 8, y2: yc, stroke: 'var(--ink-3)', 'stroke-width': 2 }, ink(2)), svg);
+        S('text', { x: x + 12, y: yc + 4, class: 't-pred', text: 'claimed ' + (o.claimed / 65536).toFixed(3) }, svg);
+      }
+      S('text', { x: x + 8, y: yb + 12, class: 't-sm', text: o.id }, svg);
+    });
+    let html;
+    if (R.status === 'FROZEN') {
+      html = `<h3>Champion</h3><div>${chip('K')}</div><p>Decider A and decider B give ${R.conflictId} enclosures that do not overlap. One of them is wrong. The life is voided, era ${R.frozenGen} is frozen and every later program is void until a person explains the disagreement. No champion is named.</p>`;
+    } else if (R.status === 'DECIDED') {
+      const c = R.res[R.contenders[0]];
+      html = `<h3>Champion</h3><div>${chip('C', 'DECIDED · ' + c.o.id)}</div><p>${c.o.id}’s lower bound ${fmt(c.I[0])} clears every other upper bound.</p>`;
+    } else if (R.status === 'TIE') {
+      html = `<h3>Champion</h3><div>${stChip(1)}</div><p>Exact scores: ${R.contenders.join(' and ')} both score ${fmt(R.res[R.contenders[0]].I[0])}. The tie is decided. Naming one of them champion is a choice, so the crown is dotted; a tie-break rule must be stated, not hidden.</p>`;
+    } else {
+      html = `<h3>Champion</h3><div>${chip('X')}</div><p>${holeChip('COMPUTE')}</p><p>Still overlapping at this budget: ${R.contenders.join(', ')}. More budget may separate them; if two are exactly tied, no budget will, and only an exact score settles it.</p>`;
+    }
+    const props = ORGS.filter(o => o.proposal);
+    html += `<h3>Proposals</h3><p class="small">${props.map(o => {
+      const r = R.res[o.id];
+      return r.state === 'proposal' ? `${o.id}: the model claims <span class="pred">${(o.claimed / 65536).toFixed(3)}</span>, not yet judged`
+        : r.I ? `${o.id}: claimed <span class="pred">${(o.claimed / 65536).toFixed(3)}</span>, decided [${fmt(r.I[0])}, ${fmt(r.I[1])}]` : `${o.id}: void, era frozen`;
+    }).join('<br>')}</p>`;
+    out.innerHTML = html;
+    /* the crowns */
+    if (R.status === 'DECIDED' || R.status === 'TIE') R.contenders.forEach(id => {
+      const r = R.res[id], x = pos[id], y = Math.floor(Y(r.I[1] / SC)) - 14;
+      S('circle', Object.assign({ cx: x, cy: y, r: 7, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2 }, ink(R.status === 'DECIDED' ? 3 : 1)), svg);
+    });
+    if (R.status === 'OPEN') {
+      const xs = R.contenders.map(id => pos[id]), top = Math.min(...R.contenders.map(id => Y(R.res[id].I[1] / SC))) - 16;
+      S('path', { d: `M${Math.min(...xs) - 8} ${top + 6}V${top}H${Math.max(...xs) + 8}V${top + 6}`, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.3 }, svg);
+      S('text', { x: (Math.min(...xs) + Math.max(...xs)) / 2, y: top - 6, class: 't-sm', 'text-anchor': 'middle', text: 'ranking open' }, svg);
+    }
+    setStanding('fig-champion', 1, 'CHOSEN, the lineage is illustrative and its edges are selections');
+  }
+  bIn.addEventListener('input', draw);
+  $('#champ-judge').addEventListener('click', ev => { st.judged = !st.judged; ev.currentTarget.setAttribute('aria-pressed', st.judged); draw(); });
+  $('#champ-plant').addEventListener('click', ev => { st.planted = !st.planted; ev.currentTarget.setAttribute('aria-pressed', st.planted); draw(); });
+  draw();
+})();
+
+/* ===================== the chain ===================== */
+(function chain() {
+  const svg = $('#chain-svg'), out = $('#chain-out');
+  const st = { c1: 'C', c2: 'C', c3: 'C', cex: false };
+  const BOX = { c1: [16, 22], c2: [16, 122], c3: [16, 222], L: [250, 72], T: [484, 152] }, W = 160, H = 58;
+  const cycle = { C: 'X', X: 'R', R: 'C' };
+  function draw() {
+    const R = chainSolve(st);
+    clear(svg);
+    const defs = S('defs', {}, svg), mk = S('marker', { id: 'arr', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }, defs);
+    S('path', { d: 'M0 0L10 5L0 10Z', fill: 'var(--ink-3)' }, mk);
+    const mk2 = S('marker', { id: 'arr2', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }, defs);
+    S('path', { d: 'M0 0L10 5L0 10Z', fill: 'var(--ink)' }, mk2);
+    for (const k of ['L', 'T']) for (const p of PREM[k]) {
+      const [px, py] = BOX[p], [kx, ky] = BOX[k];
+      S('path', { d: `M${px + W} ${py + H / 2}C${px + W + 40} ${py + H / 2} ${kx - 40} ${ky + H / 2} ${kx - 2} ${ky + H / 2}`, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.5, 'marker-end': 'url(#arr)' }, svg);
+    }
+    R.back.forEach(([from, to]) => {
+      const [fx, fy] = BOX[from], [tx, ty] = BOX[to];
+      S('path', { d: `M${fx + W / 2} ${fy - 2}C${fx + W / 2} ${fy - 44} ${tx + W / 2} ${ty - 44} ${tx + W / 2} ${ty - 3}`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2, 'marker-end': 'url(#arr2)' }, svg);
+      S('text', { x: (fx + tx + W) / 2, y: Math.min(fy, ty) - 30, class: 't-sm', 'text-anchor': 'middle', text: 'refutation flows back' }, svg);
+    });
+    if (R.disj) {
+      const ys = R.disj.of.map(k => BOX[k][1]), xs = R.disj.of.map(k => BOX[k][0]);
+      const x = Math.min(...xs) - 8, y0 = Math.min(...ys) - 4, y1 = Math.max(...ys) + H + 4;
+      S('path', { d: `M${x + 6} ${y0}H${x}V${y1}H${x + 6}`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.6 }, svg);
+    }
+    for (const k of ['c1', 'c2', 'c3', 'L', 'T']) {
+      const [x, y] = BOX[k], n = R.node[k], base = k[0] === 'c';
+      const g = S('g', base ? { tabindex: 0, role: 'button', 'aria-label': `${k}: ${VWORD[n.v]}. Change it.`, cursor: 'pointer' } : {}, svg);
+      S('rect', { x, y, width: W, height: H, rx: 8, fill: n.v === 'C' ? 'var(--surface2)' : 'var(--sunk)', stroke: n.v === 'X' ? 'var(--ink-5)' : 'var(--ink-3)', 'stroke-width': 1 }, g);
+      S('text', { x: x + 12, y: y + 22, class: 't-big', text: k }, g);
+      const gx = x + W - 28, gy = y + 10;
+      if (n.v === 'C' || n.v === 'K') S('rect', { x: gx, y: gy, width: 16, height: 16, fill: 'var(--ink)' }, g);
+      else S('rect', { x: gx + 0.75, y: gy + 0.75, width: 14.5, height: 14.5, fill: 'none', stroke: n.v === 'X' ? 'var(--ink-3)' : 'var(--ink)', 'stroke-width': 1.5 }, g);
+      if (n.v === 'R' || n.v === 'K') S('path', { d: `M${gx + 4.5} ${gy + 4.5}L${gx + 11.5} ${gy + 11.5}M${gx + 11.5} ${gy + 4.5}L${gx + 4.5} ${gy + 11.5}`, stroke: n.v === 'K' ? 'var(--paper)' : 'var(--ink)', 'stroke-width': 2, 'stroke-linecap': 'round' }, g);
+      S('text', { x: x + 12, y: y + 40, class: 't-lb', text: VWORD[n.v] }, g);
+      S('text', { x: x + 12, y: y + 52, class: 't-sm', text: n.note }, g);
+      if (base) {
+        const go = () => { st[k] = cycle[st[k]]; draw(); };
+        g.addEventListener('click', go);
+        g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); go(); } });
+      }
+    }
+    if (R.disj) S('text', { x: BOX[R.disj.of[0]][0], y: BOX[R.disj.of[0]][1] - 8, class: 't-sm', text: 'at least one of these is false' }, svg);
+    let html = `<h3>T</h3><div>${chip(R.node.T.v)}</div>`;
+    if (R.conflict) html += '<p>A conclusion is refuted while every premise and every step is certified. Two proofs cannot disagree, so a step, a premise’s decider or the counterexample’s check is wrong. Freeze it and find which.</p>';
+    else if (st.cex) {
+      html += '<p>The counterexample refutes T. Refutation flows backward through the certified steps.</p>';
+      if (R.back.length) html += `<p class="small">Forced: ${R.back.map(([a, b]) => b + ' (from ' + a + ')').join(', ')}. Every other premise on the path is certified, so the false one is located.</p>`;
+      if (R.disj) html += `<p class="small">Not located: one of ${R.disj.of.join(' and ')} is false, and nothing here says which.</p>`;
+      if (R.explained) html += `<p class="small">Already explained: ${R.explained.by} is refuted.</p>`;
+    } else if (R.node.T.v === 'C') html += '<p>Every premise is certified and every step is certified, so T is certified.</p>';
+    else {
+      const roots = ['c1', 'c2', 'c3'].filter(k => st[k] !== 'C');
+      html += `<p>${holeChip(roots.join(', '))}</p><p>T lost its proof because ${roots.map(k => k + ' is ' + VWORD[st[k]].toLowerCase()).join(' and ')}. T is refused, naming that premise, not refuted: it may still be true, and a premise’s refutation says nothing about T itself.</p>`;
+    }
+    out.innerHTML = html;
+    setStanding('fig-chain', 1, 'CHOSEN, you set the premises');
+  }
+  $('#chain-cex').addEventListener('click', ev => { st.cex = !st.cex; ev.currentTarget.setAttribute('aria-pressed', st.cex); draw(); });
+  $('#chain-reset').addEventListener('click', () => { Object.assign(st, { c1: 'C', c2: 'C', c3: 'C', cex: false }); $('#chain-cex').setAttribute('aria-pressed', false); draw(); });
+  draw();
+})();
+
+/* ===================== the missing input ===================== */
+(function missingInput() {
+  const svg = $('#label-svg'), sel = $('#label-d'), kIn = $('#label-k'), ann = $('#label-ann'), why = $('#label-why');
+  const X = p => 40 + p * 5.6; /* p in percent */
+  function draw() {
+    const disclosed = sel.value === 'yes', k = disclosed ? +kIn.value : null, v = labelVerdict(k);
+    kIn.disabled = !disclosed;
+    $('#label-k-out').textContent = disclosed ? (k / 10).toFixed(1) + ' %' : 'not disclosed';
+    clear(svg);
+    const y0 = 50, h = 34;
+    /* R zone: every point refutes, so it is drawn as points */
+    S('rect', { x: X(0), y: y0, width: X(73.8) - X(0), height: h, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.2 }, svg);
+    for (let p = 4; p < 73; p += 5.5) { const cx = X(p), cy = y0 + h / 2; S('path', { d: `M${cx - 3.5} ${cy - 3.5}L${cx + 3.5} ${cy + 3.5}M${cx + 3.5} ${cy - 3.5}L${cx - 3.5} ${cy + 3.5}`, stroke: 'var(--ink-3)', 'stroke-width': 1.4, 'stroke-linecap': 'round' }, svg); }
+    S('rect', { x: X(73.8), y: y0, width: X(79.704) - X(73.8), height: h, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 1.2 }, svg);
+    S('rect', { x: X(79.704), y: y0, width: X(100) - X(79.704), height: h, fill: 'var(--ink-2)' }, svg);
+    S('text', { x: X(36.9), y: y0 - 10, class: 't-sm', 'text-anchor': 'middle', text: 'REFUTED below 73.8 %' }, svg);
+    S('text', { x: X(100), y: y0 - 10, class: 't-sm', 'text-anchor': 'end', text: 'CERTIFIED from 79.704 %' }, svg);
+    for (let p = 0; p <= 100; p += 20) { S('text', { x: X(p), y: y0 + h + 18, class: 't-ax', 'text-anchor': 'middle', text: p + ' %' }, svg); }
+    S('text', { x: X(50), y: y0 + h + 40, class: 't-ax', 'text-anchor': 'middle', text: 'load factor' }, svg);
+    S('text', { x: X(0), y: y0 + h + 66, class: 't-sm', text: 'the narrow framed gap, 73.8 % to 79.704 %: REFUSED, the published factor is too wide to decide' }, svg);
+    if (disclosed) {
+      const x = X(k / 10);
+      S('line', { x1: x, y1: y0 - 6, x2: x, y2: y0 + h + 6, stroke: 'var(--ink)', 'stroke-width': 2.5 }, svg);
+      S('circle', { cx: x, cy: y0 + h + 6, r: 4, fill: 'var(--ink)' }, svg);
+    } else {
+      S('path', { d: `M${X(0)} ${y0 + h + 24}V${y0 + h + 28}H${X(100)}V${y0 + h + 24}`, fill: 'none', stroke: 'var(--ink-4)', 'stroke-width': 1 }, svg);
+    }
+    const word = { C: 'CERTIFIED', R: 'REFUTED', X: 'NEEDS DATA' }[v.v];
+    let msg;
+    if (!disclosed) msg = 'Disclose the load factor. At 79.704 % or more this claim is CERTIFIED; below 73.8 % it is REFUTED.';
+    else if (v.v === 'C') msg = `At ${(k / 10).toFixed(1)} % the shipment emitted at most ${Math.ceil(TK * LBL.ef[1] / k * 10) / 10} kg CO₂e, inside the 1,000 kg claim even at the top of the published factor.`;
+    else if (v.v === 'R') msg = `At ${(k / 10).toFixed(1)} % the shipment emitted at least ${Math.floor(TK * LBL.ef[0] / k * 10) / 10} kg CO₂e, over the 1,000 kg claim even at the bottom of the published factor.`;
+    else msg = `At ${(k / 10).toFixed(1)} % the published factor is too wide to decide. A fuel record for this trip would. Above 79.704 % no record is needed.`;
+    ann.dataset.v = v.v;
+    ann.innerHTML = `<div class="big">${glyph(v.v)} ${word}</div><p>${msg}</p>`;
+    const E = k == null ? 'E ≥ 738 kg, no upper bound' : `E ∈ [${Math.floor(TK * LBL.ef[0] / k * 10) / 10}, ${Math.ceil(TK * LBL.ef[1] / k * 10) / 10}] kg, rounded outward`;
+    why.innerHTML = `<b>distance</b> 820 km · DECIDED, quoted from the waybill<br><b>payload</b> 18 t · DECIDED, quoted from the waybill<br><b>emission factor at full load</b> [50, 54] g CO₂e per t·km · DECIDED, an enclosure from the published table<br><b>load factor</b> ${k == null ? 'not disclosed · VOID, the hole' : (k / 10).toFixed(1) + ' % · DECIDED, quoted from the disclosure'}<br><br><b>E</b> = 820 × 18 × factor ÷ load factor<br>${E}<br><b>claim</b> E ≤ 1,000 kg<br><b>certified exactly when</b> 14,760 × 54 ≤ 1,000 × load factor in per-mille, so from 797.04 ‰<br><b>refuted exactly when</b> 14,760 × 50 &gt; 1,000 × load factor in per-mille, so below 738 ‰`;
+    setStanding('fig-label', 1, 'CHOSEN, the numbers are illustrative');
+  }
+  sel.addEventListener('change', draw); kIn.addEventListener('input', draw);
+  draw();
+})();
+
+/* ===================== the weather window ===================== */
+(function weatherWindow() {
+  const svg = $('#win-svg'), tIn = $('#win-t'), ann = $('#win-ann'), out = $('#win-out');
+  const X = t => 70 + (t - 6) * 50, Y = h => 260 - (h - 100) / 200 * 220;
+  const hh = t => String(t).padStart(2, '0') + ':00', m = c => (c / 100).toFixed(2);
+  function draw() {
+    const now = +tIn.value, W = windowAt(now);
+    $('#win-t-out').textContent = hh(now);
+    clear(svg);
+    S('rect', { x: X(6), y: 30, width: X(now) - X(6), height: 230, fill: 'var(--band)' }, svg);
+    [100, 150, 200, 250, 300].forEach(h => { S('line', { x1: 64, y1: Y(h), x2: 680, y2: Y(h), stroke: 'var(--rule)', 'stroke-width': 1 }, svg); S('text', { x: 58, y: Y(h) + 4, class: 't-ax', 'text-anchor': 'end', text: m(h) }, svg); });
+    S('text', { x: 58, y: 18, class: 't-ax', 'text-anchor': 'end', text: 'Hs, m' }, svg);
+    [6, 9, 12, 15, 18].forEach(t => S('text', { x: X(t), y: 282, class: 't-ax', 'text-anchor': 'middle', text: hh(t) }, svg));
+    S('line', { x1: 64, y1: Y(250), x2: 680, y2: Y(250), stroke: 'var(--ink)', 'stroke-width': 1.5 }, svg);
+    S('text', { x: X(6) + 8, y: Y(250) - 8, class: 't-lb', text: 'limit 2.50' }, svg);
+    const demotedAt = W.miss ? W.miss.t : Infinity;
+    WIN.steps.forEach(s => {
+      const admitted = s.t <= demotedAt || !W.miss;
+      const x0 = X(s.t) - 15, faded = !admitted && s.t > now;
+      S('rect', Object.assign({ x: x0, y: Y(s.box[1]), width: 30, height: Y(s.box[0]) - Y(s.box[1]), fill: 'none', stroke: faded ? 'var(--ink-5)' : 'var(--ink-2)', 'stroke-width': 1.6 }, ink(2)), svg);
+      S('text', { x: X(s.t) + 20, y: Y(s.box[1]) + 4, class: 't-pred', text: m(s.box[1]) }, svg);
+      S('text', { x: X(s.t) + 20, y: Y(s.box[0]) + 4, class: 't-pred', text: m(s.box[0]) }, svg);
+      if (s.t <= now) {
+        const miss = s.real < s.box[0] || s.real > s.box[1];
+        S('circle', { cx: X(s.t), cy: Y(s.real), r: 4.5, fill: 'var(--ink)' }, svg);
+        S('text', { x: X(s.t) - 9, y: Y(s.real) + 4, class: 't-lb', 'text-anchor': 'end', text: m(s.real) }, svg);
+        if (miss) S('text', { x: X(s.t), y: Y(s.box[1]) - 10, class: 't-sm', 'text-anchor': 'middle', text: 'outside its box' }, svg);
+      }
+      if (faded) S('text', { x: X(s.t), y: Y(s.box[0]) + 16, class: 't-sm', 'text-anchor': 'middle', text: 'not admitted' }, svg);
+    });
+    S('line', { x1: X(now), y1: 30, x2: X(now), y2: 262, stroke: 'var(--ink-4)', 'stroke-width': 1 }, svg);
+    S('text', { x: X(now) + 6, y: 42, class: 't-sm', text: 'now ' + hh(now) }, svg);
+    if (W.openUntil && W.openUntil > now) {
+      S('path', { d: `M${X(now)} 24V20H${X(W.openUntil)}V24`, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 1.6 }, svg);
+      S('text', { x: (X(now) + X(W.openUntil)) / 2, y: 13, class: 't-sm', 'text-anchor': 'middle', text: 'decided open, given fc-0600' }, svg);
+    }
+    let word, msg;
+    if (W.v === 'R') { word = 'WINDOW CLOSED'; msg = W.why === 'buoy' ? `The buoy read ${m(W.over.real)} m at ${hh(W.over.t)}, over the limit.` : 'Every scenario in the forecast boxes breaks the limit.'; }
+    else if (W.v === 'C') { word = 'WINDOW OPEN'; msg = W.why === 'buoy' ? 'Every 3-hourly reading stayed at or below 2.50 m. Decided from the buoy alone; no forecast is needed now.' : 'Every forecast box stays at or below 2.50 m. Decided given forecast fc-0600, named here.'; }
+    else if (W.why === 'demoted') { word = 'NOT DECIDED'; msg = `Forecast fc-0600 missed at ${hh(W.miss.t)} (read ${m(W.miss.real)} m, box ${m(W.miss.box[0])}–${m(W.miss.box[1])}). It is no longer admitted, and the GO it supported is withdrawn. A recalibrated forecast is needed.`; }
+    else { word = 'NOT DECIDED'; msg = W.openUntil > now ? `Open until ${hh(W.openUntil)}, given forecast fc-0600. After that its box straddles the limit, so the full window is not decided.` : 'The next forecast box straddles the limit.'; }
+    ann.dataset.v = W.v;
+    ann.innerHTML = `<div class="big">${glyph(W.v)} ${word}</div><p>${msg}</p>`;
+    const graded = W.past.length;
+    out.innerHTML = `<h3>Forecaster fc-0600</h3><p>${graded ? `${W.hits} of ${graded} boxes held` : 'not yet graded'}${W.miss ? ' · demoted' : graded ? ' · admitted' : ''}</p><p class="small">Forecast numbers are italic and their boxes dashed. Buoy readings are upright and solid. The two never share a typeface.</p>${W.hole ? `<p>${holeChip(W.hole)}</p>` : ''}`;
+    setStanding('fig-window', 1, 'CHOSEN, the numbers are illustrative');
+  }
+  tIn.addEventListener('input', draw);
+  draw();
+})();
+
+/* ===================== nested ink ===================== */
+(function nestedInk() {
+  const svg = $('#ink-svg');
+  const sc = S('g', { transform: 'scale(2)' }, svg);
+  const lab = (y, t) => S('text', { x: 0, y: y * 2 + 4, class: 't-lb', text: t }, svg);
+  S('text', { x: 0, y: 14, class: 't-sm', text: 'TODAY · 5 4 and 1 5 (periods 9 and 6)' }, svg);
+  const L0 = 70, L1 = 268;
+  const line = (y, attrs) => S('line', Object.assign({ x1: L0, y1: y, x2: L1, y2: y, stroke: 'var(--ink)', 'stroke-width': 2 }, attrs), sc);
+  lab(18, '5 4'); line(18, { 'stroke-dasharray': '5 4' });
+  lab(32, '1 5'); line(32, { 'stroke-dasharray': '1 5', 'stroke-linecap': 'round' });
+  lab(46, 'overprint'); line(46, { 'stroke-dasharray': '5 4' }); line(46, { 'stroke-dasharray': '1 5', 'stroke-linecap': 'round' });
+  let gaps = 0;
+  for (let p = 0; p < L1 - L0; p += 6) {
+    const a = p - 1, b = p + 2, ph = ((a % 9) + 9) % 9;
+    if (!(ph + 3 <= 5)) { gaps++; S('path', { d: `M${L0 + p - 1.4} 53L${L0 + p} 50.6L${L0 + p + 1.4} 53`, fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 0.6 }, sc); }
+  }
+  S('text', { x: 0, y: 124, class: 't-sm', text: `${gaps} of the dots land outside a dash: the overprint is a pattern in no grammar` }, svg);
+
+  S('text', { x: 0, y: 160, class: 't-sm', text: 'PROPOSED · one period of 6' }, svg);
+  const defs = S('defs', {}, svg), mk = S('mask', { id: 'm42', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 560, height: 330 }, defs);
+  S('line', { x1: L0, y1: 152, x2: L1, y2: 152, stroke: '#fff', 'stroke-width': 4, 'stroke-dasharray': '4 2' }, mk);
+  lab(86, 'solid'); line(86, {});
+  lab(100, '4 2'); line(100, ink(2));
+  lab(114, '1 5'); line(114, ink(1));
+  lab(128, 'overprint'); line(128, ink(2)); line(128, ink(1));
+  lab(142, 'mask');
+  const masked = S('g', { mask: 'url(#m42)' }, sc); S('line', Object.assign({ x1: L0, y1: 152, x2: L1, y2: 152, stroke: 'var(--ink)', 'stroke-width': 2 }, ink(1)), masked);
+  masked.setAttribute('transform', 'translate(0,-10)');
+  S('text', { x: 0, y: 312, class: 't-sm', text: 'overprint 4 2 with 1 5 and you get 4 2, the join;' }, svg);
+  S('text', { x: 0, y: 326, class: 't-sm', text: 'mask 1 5 by 4 2 and you get 1 5, the meet' }, svg);
+  setStanding('fig-ink', 2, 'COMPUTED, the densities are measured in floating point');
+
+  /* the blur lab: measured on the pixels this browser drew */
+  const cv = $('#ink-cv'), ctx = cv.getContext('2d'), rIn = $('#ink-r'), dens = $('#ink-dens'), note = $('#ink-note');
+  const ROWS = [
+    { name: 'DECIDED', dash: [] },
+    { name: 'COMPUTED 4 2', dash: [12, 6] },
+    { name: 'CHOSEN 1 5', dash: [3, 15], off: -4.5, round: true },
+    { name: 'VOID', none: true },
+    { name: 'today 5 4', dash: [15, 12] },
+    { name: 'today 1 5', dash: [3, 15], round: true },
+  ];
+  const Wd = cv.width, Hd = cv.height, x0 = 136, x1 = 136 + 486;
+  const bg = rgb(cssVar('--sunk')), fg = rgb(cssVar('--ink'));
+  function render() {
+    const r = +rIn.value;
+    $('#ink-r-out').textContent = r + ' px';
+    ctx.fillStyle = cssVar('--sunk'); ctx.fillRect(0, 0, Wd, Hd);
+    ROWS.forEach((row, i) => {
+      const y = 22 + i * 38; if (row.none) return;
+      ctx.save(); ctx.beginPath(); ctx.rect(x0, y - 12, x1 - x0, 24); ctx.clip();
+      ctx.strokeStyle = cssVar('--ink'); ctx.lineWidth = 6; ctx.lineCap = row.round ? 'round' : 'butt';
+      ctx.setLineDash(row.dash); ctx.lineDashOffset = row.off || 0;
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke(); ctx.restore();
+    });
+    const img = ctx.getImageData(0, 0, Wd, Hd), d = img.data;
+    let L = new Float32Array(Wd * Hd);
+    for (let i = 0; i < Wd * Hd; i++) L[i] = (d[4 * i] - bg[0]) / (fg[0] - bg[0]);
+    const blur = (src, horiz) => {
+      const dst = new Float32Array(src.length);
+      for (let y = 0; y < Hd; y++) for (let x = 0; x < Wd; x++) {
+        let s = 0, n = 0;
+        for (let k = -r; k <= r; k++) { const xx = horiz ? x + k : x, yy = horiz ? y : y + k; if (xx < 0 || yy < 0 || xx >= Wd || yy >= Hd) continue; s += src[yy * Wd + xx]; n++; }
+        dst[y * Wd + x] = s / n;
+      }
+      return dst;
+    };
+    if (r > 0) for (let pass = 0; pass < 2; pass++) { L = blur(L, true); L = blur(L, false); }
+    const centre = ROWS.map((row, i) => { const y = 22 + i * 38; let s = 0; for (let x = x0 + 54; x < x1 - 54; x++) s += L[y * Wd + x]; return s / (x1 - x0 - 108); });
+    const rel = centre.map(c => Math.max(0, c / centre[0]));
+    for (let i = 0; i < Wd * Hd; i++) { const v = Math.max(0, Math.min(1, L[i])); for (let ch = 0; ch < 3; ch++) d[4 * i + ch] = Math.round(bg[ch] + v * (fg[ch] - bg[ch])); d[4 * i + 3] = 255; }
+    ctx.putImageData(img, 0, 0);
+    ctx.font = '500 13px ' + cssVar('--f-mono'); ctx.fillStyle = cssVar('--ink-3');
+    ROWS.forEach((row, i) => ctx.fillText(row.name, 8, 26 + i * 38));
+    dens.innerHTML = ROWS.map((row, i) => `<span>${row.name}</span><i style="width:${(rel[i] * 100).toFixed(1)}%"></i><span class="v">${rel[i].toFixed(2)}</span>`).join('');
+    const ordered = rel[3] < rel[2] && rel[2] < rel[1] && rel[1] < rel[0];
+    note.innerHTML = `Darkness along each line, relative to solid, measured on this canvas after the blur. Proposed order VOID &lt; CHOSEN &lt; COMPUTED &lt; DECIDED ${ordered ? 'holds' : 'fails'}: ${rel[3].toFixed(2)} &lt; ${rel[2].toFixed(2)} &lt; ${rel[1].toFixed(2)} &lt; 1. Today the two patterns sit ${Math.abs(rel[4] - rel[5]).toFixed(2)} apart; the proposal puts ${(rel[1] - rel[2]).toFixed(2)} between them.`;
+  }
+  rIn.addEventListener('input', render);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+  render();
+})();
+
+/* ===================== the page's standing ===================== */
+function renderFoot() {
+  const tab = $('#st-tab'); if (!tab) return;
+  const names = { 'fig-line': 'The number line', 'fig-paving': 'The paving', 'fig-sentence': 'The sentence', 'fig-champion': 'The champion', 'fig-chain': 'The chain', 'fig-label': 'The missing input', 'fig-window': 'The weather window', 'fig-ink': 'Nested ink' };
+  const rows = Object.keys(names).filter(id => FIGS[id]).map(id => [names[id], FIGS[id].s, FIGS[id].why]);
+  rows.push(['The prose', 1, 'CHOSEN, a brainstorm']);
+  const page = Math.min(...rows.map(r => r[1]));
+  tab.innerHTML = '<tr><th>part</th><th>standing</th><th>why</th></tr>' + rows.map(r => `<tr><td>${r[0]}</td><td>${stChip(r[1])}</td><td class="small">${r[2]}</td></tr>`).join('') +
+    `<tr><td><b>The page</b></td><td>${stChip(page)}</td><td class="small">the weakest of the above</td></tr>`;
+}
+renderFoot();
+</script>
