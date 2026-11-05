@@ -107,6 +107,18 @@ NEXT SESSION, IN ORDER:
      the operator decides (rewrite, or leave). Zenodo: a new GitHub release (v2026.11.05b or 11.06) mints the v0.2 DOI — not created,
      the operator's call. Drafts ready, untracked: outreach/gh-rpi-index-1-openai-chain-2026-11-05.md, outreach/gh-formal-math-36-
      openai-chain-2026-11-05.md, notes/x/drops/d12-openai-chain.txt.
+     ~17:10 UTC: LIVE AND RELEASED. The site pushed (8a8e1375): /reports/eth-chain.html (301 from eth-anthropic-chain.html),
+     /eth/, the landing at 141 rows, the note v0.2; make control GREEN (197 batteries). The history REWRITTEN: the three
+     commits rebuilt without the 59 notes (fc5b2276 → 82e2f114 → 503c61dc), force-pushed with lease after the operator's
+     word and the ruleset "protect main" lifted for one push and re-enabled (the old commits stay fetchable by hash on GitHub
+     for a while). Release v2026.11.05b CREATED; Zenodo doi:10.5281/zenodo.23985003 (version field correct this time);
+     CITATION.cff, corpus/zenodo.json, paper/INDEX.json and the note's tnote carry it. SENT on the operator's word: the
+     follow-up to Hawkley (rpi-index #1, issuecomment-6663996258) and the last update on formal-math #36
+     (issuecomment-6663996674), both in corpus/outreach.json. The X drop d12 (three posts, the share card as media) is
+     PREVIEWED and waits for the operator's final yes: `node tools/x.js post notes/x/drops/d12-openai-chain-post.txt --media
+     design/assets/og-eth-chain.png --send`. OWED: claimbox `make lift` (the register digest moved twice today); a reply on
+     teorth/optimizationproblems #279 and a scout of arhancanli/quantavane-replays, the operator's call; the comparator-limits
+     report upstream (lean4lean fuel default, nanoda's bundled build, con-leche's fuel), the operator's call.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
