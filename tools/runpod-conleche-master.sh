@@ -3,6 +3,10 @@
 # the comparator made on the OpenAI chain (sha256 d9cae367…, 2,452,607,904 bytes), re-made here from claimbox bdf357ef on
 # Lean v4.36.0-rc2; then con-leche built from its master (its own toolchain, lake) and run on it, --verified (the default)
 # and --trusted; con-ron master likewise if it builds. Facts in /results (port 8000). Run as root; work as `tester`.
+# The second run (2026-11-05 ~22:15 UTC): on 8 vCPU / 64 GB, con-leche master at --jobs=16 was killed by the cgroup at
+# 62 GB RSS after 236 s (exit 137, nothing printed). JOBS (default "16") is the list of --jobs values each con-leche mode
+# tries in order, the next one only after an exit 137 (killed: memory), every attempt kept as its own step;
+# SKIP_CONRON=1 skips E6/E7 when con-ron master was already measured.
 set -uo pipefail
 unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${CLAIMBOX_SHA:?}"
@@ -68,12 +72,19 @@ chmod 644 /tmp/E4.sh; step E4 7200 / bash /tmp/E4.sh
 CL=$(ls $H/src/con-leche/.lake/build/bin/* 2>/dev/null | head -1)
 if [ "$(cat $R/E4.exit)" = 0 ] && [ -n "$CL" ]; then
   status conleche_bin "$CL"
-  step E5.con-leche-master 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CL --jobs=16 $X
-  step E5.con-leche-master-trusted 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CL --trusted --jobs=16 $X
+  for mode in verified trusted; do
+    flag=""; [ $mode = trusted ] && flag=--trusted
+    for j in ${JOBS:-16}; do
+      n=E5.con-leche-master$([ $mode = trusted ] && echo -trusted)-j$j
+      step $n 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CL $flag --jobs=$j $X
+      [ "$(cat $R/$n.exit)" = 137 ] || break
+    done
+  done
 else
   status _note "con-leche master did not build (E4 exit $(cat $R/E4.exit)); see E4.err"
 fi
 # con-ron from master, the same way, if it builds
+[ "${SKIP_CONRON:-0}" = 1 ] && { status _phase complete; status _finished "$(date -u +%Y-%m-%dT%H:%M:%SZ)"; sleep infinity; }
 cat > /tmp/E6.sh <<'BLOCK'
 set -euo pipefail
 export PATH=$HOME/.elan/bin:$PATH
