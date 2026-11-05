@@ -1,0 +1,49 @@
+{
+ "what": "The two Lean kernel exports of the OpenAI chain, deposited on Zenodo for con-leche, con-ron and the other independent checkers as a public regression test (leanprover/con-leche#16). Pinned here from the public record as re-read after publication; the compressed files' md5 are Zenodo's, the sha256 are ours (SHA256SUMS in the deposit).",
+ "doi": "10.5281/zenodo.23991348",
+ "record": "https://zenodo.org/records/23991348",
+ "published": "2026-11-05",
+ "title": "Two Lean 4 kernel exports of OpenAI's ETH refutation (family 378), ported to Lean v4.36.0-rc2",
+ "license": "apache2.0",
+ "readAt": "2026-11-05T23:50Z",
+ "files": [
+  {
+   "key": "README.md",
+   "size": 4506,
+   "md5": "792274a7d1dc3a28aefb919d5eb75922",
+   "sha256": null
+  },
+  {
+   "key": "SHA256SUMS",
+   "size": 370,
+   "md5": "56a617fd1966de733602f1eb078ad8fc",
+   "sha256": null
+  },
+  {
+   "key": "export-challenge.ndjson.zst",
+   "size": 229407981,
+   "md5": "7abed00e14226f73469c8031ae65cb0a",
+   "sha256": "0d7c808b9e0d7c15d29fae3248c88c5ad76511a5499de57e82ad9e7051b81650"
+  },
+  {
+   "key": "export-comparator.ndjson.zst",
+   "size": 238909716,
+   "md5": "a8ae9912e1a55eb5b1fa1777a913a0c0",
+   "sha256": "c910242a19a590d27e37d12317f7ac2323590e27ff2ed95e8140e02cfde457cb"
+  }
+ ],
+ "uncompressed": [
+  {
+   "file": "export-comparator.ndjson",
+   "bytes": 2452607904,
+   "declarations": 98686,
+   "sha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2"
+  },
+  {
+   "file": "export-challenge.ndjson",
+   "bytes": 2363606488,
+   "declarations": 93373,
+   "sha256": "a8afc439db7a68abd1dc94630e920f868c8b248ce7f1a413a60b613c422a2575"
+  }
+ ]
+}

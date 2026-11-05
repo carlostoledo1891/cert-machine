@@ -2,11 +2,11 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-11-05T16:24:19.405Z",
- "git": "adeb2603",
+ "generated": "2026-11-05T23:42:44.008Z",
+ "git": "9d49de55",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d"
+  "sha256": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c"
  },
  "inputs": {
   "register": {
@@ -25,9 +25,9 @@
   },
   "run": {
    "path": "certs/rerun-kit-run.json",
-   "sha256": "5458e434d238bc9475332d0ed0d5870b35d87a1e159798db9b741beafbf88440",
+   "sha256": "fb3e25637754ed4c9bc606f03ca9a6537d66f9b3dca3670ec9831dd44bbba0e8",
    "date": "2026-11-05",
-   "git": "adeb2603",
+   "git": "9d49de55",
    "machine": {
     "os": "Darwin 27.0.0",
     "cpu": "Apple M2",
@@ -1201,7 +1201,7 @@
   },
   {
    "record": "certs/eth-openai-chain.json",
-   "sha256": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950",
+   "sha256": "8fdc50bc1a14b073fa0f7e55a389490c836ea637fd49b12d43d89283aee1dbf1",
    "rows": 1,
    "byVerdict": {
     "CERTIFIED": 1
@@ -1214,7 +1214,7 @@
     "rederive": {
      "seconds": 0.1,
      "status": 0,
-     "sha256After": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950"
+     "sha256After": "8fdc50bc1a14b073fa0f7e55a389490c836ea637fd49b12d43d89283aee1dbf1"
     },
     "verifier": null,
     "second": null

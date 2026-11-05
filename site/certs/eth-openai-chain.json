@@ -34,7 +34,8 @@
   "This closes the version seam on OpenAI's side the way Anthropic's was closed (certs/eth-chain.json): by rebuilding the proof in the statement's Lean (v4.36.0-rc2), not by comparing kernels across v4.34.1 → v4.36.0-rc2. That complexitylib's ETH is the textbook ETH stays a reading of a definition.",
   "Lean's judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod's containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox's.",
   "The judge's --paranoid run did not finish on this export (2.45 GB; the Anthropic chain's was 0.65 GB and all six checkers accepted there): the bundled nanoda 0.4.17 overflows a worker thread's stack and has no stack setting, lean4lean's fuel counter reaches zero, con-leche and con-ron exhaust a compiled fuel constant — each stop reproduced by hand on the comparator's own export (judge.diagnosis). The verdict reads the judge re-run with checkers that can finish: leanchecker-paranoid, our pinned nanoda with a 1 GiB thread stack, lean4lean with its fuel raised 100×, and Lean's default kernel. con-leche and con-ron are not among them; nothing here is their verdict either way. The amendment is dated in the pre-registration.",
-  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.",
+  "After the record, on the con-leche maintainer's request (leanprover/con-leche#16: \"Could you try latest master?\"), con-leche and con-ron built from source at their master branches (con-leche 7cb7a45c (2026-11-05 16:20 UTC) and dc8ca857 (2026-11-05 22:40 UTC); con-ron 97eead2d (2026-10-31 16:17 UTC)) and run by hand on the same export (the comparator's bytes, sha256 checked) accept all 98,686 declarations in every run that had the memory: con-leche at 4–32 workers in both modes, 130–287 s, 34.3–68.9 GiB; con-ron 63–136 s, 41.0–41.4 GiB. At 16 workers con-leche was killed by a 64 GB machine's memory limit in both modes (signal 9, nothing printed; a resource fact, not a verdict); with fewer workers it fits: 8 workers 51.4 GiB, 4 workers 34.3 GiB. On the second export (OpenAI's Main with its challenge theorem exact_count_and_sat, sha256 a8afc439…), where the bundled builds stopped at QueryNodeEvaluation.nodeBody_prefix, con-leche (both modes) and con-ron accept all 93,373 declarations (42.0–73.2 GiB). Both exports are public as a regression test for the checkers: doi:10.5281/zenodo.23991348. The fuel stops recorded above are fixed on their master branches, not in the builds Lean v4.36.0-rc2 bundles. Outside the judge: not part of the decision."
  ],
  "judge": {
   "named": {
@@ -296,6 +297,309 @@
    "enable_nanoda": false
   },
   "buildError": null
+ },
+ "masters": {
+  "runs": [
+   {
+    "step": "E5.con-leche-master-trusted",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --trusted --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 137,
+    "seconds": 426,
+    "word": null,
+    "accepted": null,
+    "maxRssKb": 62231876,
+    "killedBySignal": 9,
+    "machine": 64000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-jem86b8b2cdmnq",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E5.con-leche-master",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 137,
+    "seconds": 236,
+    "word": null,
+    "accepted": null,
+    "maxRssKb": 62166936,
+    "killedBySignal": 9,
+    "machine": 64000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-jem86b8b2cdmnq",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E7.con-ron-master",
+    "checker": "con-ron",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-ron --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 136,
+    "word": "con-ron: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 43376152,
+    "killedBySignal": null,
+    "machine": 64000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-jem86b8b2cdmnq",
+    "commit": "97eead2d5b496f1017da5d11fe08bb1cb328eb7d"
+   },
+   {
+    "step": "E5.con-leche-master-j16",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 146,
+    "word": "con-leche: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 69087004,
+    "killedBySignal": null,
+    "machine": 128000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qfmk1og820iz15",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E5.con-leche-master-trusted-j16",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --trusted --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 145,
+    "word": "con-leche: accepted 98686 declarations (--trusted)",
+    "accepted": 98686,
+    "maxRssKb": 72202240,
+    "killedBySignal": null,
+    "machine": 128000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qfmk1og820iz15",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E8.con-leche-master-j4",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --jobs=4 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 287,
+    "word": "con-leche: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 35999520,
+    "killedBySignal": null,
+    "machine": 128000000000,
+    "byHand": true,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qfmk1og820iz15",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E8.con-leche-master-j8",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --jobs=8 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 195,
+    "word": "con-leche: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 53946804,
+    "killedBySignal": null,
+    "machine": 128000000000,
+    "byHand": true,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qfmk1og820iz15",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470"
+   },
+   {
+    "step": "E5.con-leche-master-j32-challenge",
+    "checker": "con-leche",
+    "export": "challenge",
+    "exportSha256": "a8afc439db7a68abd1dc94630e920f868c8b248ce7f1a413a60b613c422a2575",
+    "args": "con-leche --jobs=32 /home/tester/export-challenge.ndjson",
+    "exit": 0,
+    "seconds": 131,
+    "word": "con-leche: accepted 93373 declarations (--verified)",
+    "accepted": 93373,
+    "maxRssKb": 76795272,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "dc8ca857d6de080cb29906c8ab10b10f837c369d"
+   },
+   {
+    "step": "E5.con-leche-master-j32",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --jobs=32 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 199,
+    "word": "con-leche: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 68841864,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "dc8ca857d6de080cb29906c8ab10b10f837c369d"
+   },
+   {
+    "step": "E5.con-leche-master-trusted-j32-challenge",
+    "checker": "con-leche",
+    "export": "challenge",
+    "exportSha256": "a8afc439db7a68abd1dc94630e920f868c8b248ce7f1a413a60b613c422a2575",
+    "args": "con-leche --trusted --jobs=32 /home/tester/export-challenge.ndjson",
+    "exit": 0,
+    "seconds": 142,
+    "word": "con-leche: accepted 93373 declarations (--trusted)",
+    "accepted": 93373,
+    "maxRssKb": 69261484,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "dc8ca857d6de080cb29906c8ab10b10f837c369d"
+   },
+   {
+    "step": "E5.con-leche-master-trusted-j32",
+    "checker": "con-leche",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-leche --trusted --jobs=32 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 130,
+    "word": "con-leche: accepted 98686 declarations (--trusted)",
+    "accepted": 98686,
+    "maxRssKb": 68378772,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "dc8ca857d6de080cb29906c8ab10b10f837c369d"
+   },
+   {
+    "step": "E7.con-ron-master-challenge",
+    "checker": "con-ron",
+    "export": "challenge",
+    "exportSha256": "a8afc439db7a68abd1dc94630e920f868c8b248ce7f1a413a60b613c422a2575",
+    "args": "con-ron --jobs=16 /home/tester/export-challenge.ndjson",
+    "exit": 0,
+    "seconds": 60,
+    "word": "con-ron: accepted 93373 declarations (--verified)",
+    "accepted": 93373,
+    "maxRssKb": 43988908,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "97eead2d5b496f1017da5d11fe08bb1cb328eb7d"
+   },
+   {
+    "step": "E7.con-ron-master",
+    "checker": "con-ron",
+    "export": "chain",
+    "exportSha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2",
+    "args": "con-ron --jobs=16 /home/tester/export-comparator.ndjson",
+    "exit": 0,
+    "seconds": 63,
+    "word": "con-ron: accepted 98686 declarations (--verified)",
+    "accepted": 98686,
+    "maxRssKb": 42975548,
+    "killedBySignal": null,
+    "machine": 256000000000,
+    "byHand": false,
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5",
+    "commit": "97eead2d5b496f1017da5d11fe08bb1cb328eb7d"
+   }
+  ],
+  "builds": [
+   {
+    "checker": "con-leche",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470",
+    "committed": "2026-11-05T16:20:12+00:00",
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-jem86b8b2cdmnq"
+   },
+   {
+    "checker": "con-ron",
+    "commit": "97eead2d5b496f1017da5d11fe08bb1cb328eb7d",
+    "committed": "2026-10-31T16:17:46+00:00",
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-jem86b8b2cdmnq"
+   },
+   {
+    "checker": "con-leche",
+    "commit": "7cb7a45cd573daf282766aa45c59fdd36b1b9470",
+    "committed": "2026-11-05T16:20:12+00:00",
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qfmk1og820iz15"
+   },
+   {
+    "checker": "con-leche",
+    "commit": "dc8ca857d6de080cb29906c8ab10b10f837c369d",
+    "committed": "2026-11-05T22:40:01+00:00",
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5"
+   },
+   {
+    "checker": "con-ron",
+    "commit": "97eead2d5b496f1017da5d11fe08bb1cb328eb7d",
+    "committed": "2026-10-31T16:17:46+00:00",
+    "facts": "corpus/eth-refutation/openai-chain/runs/runpod-qyaqg7hre6o2z5"
+   }
+  ],
+  "deposit": {
+   "doi": "10.5281/zenodo.23991348",
+   "record": "https://zenodo.org/records/23991348",
+   "license": "apache2.0",
+   "files": [
+    {
+     "key": "README.md",
+     "size": 4506,
+     "md5": "792274a7d1dc3a28aefb919d5eb75922",
+     "sha256": null
+    },
+    {
+     "key": "SHA256SUMS",
+     "size": 370,
+     "md5": "56a617fd1966de733602f1eb078ad8fc",
+     "sha256": null
+    },
+    {
+     "key": "export-challenge.ndjson.zst",
+     "size": 229407981,
+     "md5": "7abed00e14226f73469c8031ae65cb0a",
+     "sha256": "0d7c808b9e0d7c15d29fae3248c88c5ad76511a5499de57e82ad9e7051b81650"
+    },
+    {
+     "key": "export-comparator.ndjson.zst",
+     "size": 238909716,
+     "md5": "a8ae9912e1a55eb5b1fa1777a913a0c0",
+     "sha256": "c910242a19a590d27e37d12317f7ac2323590e27ff2ed95e8140e02cfde457cb"
+    }
+   ],
+   "uncompressed": [
+    {
+     "file": "export-comparator.ndjson",
+     "bytes": 2452607904,
+     "declarations": 98686,
+     "sha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2"
+    },
+    {
+     "file": "export-challenge.ndjson",
+     "bytes": 2363606488,
+     "declarations": 93373,
+     "sha256": "a8afc439db7a68abd1dc94630e920f868c8b248ce7f1a413a60b613c422a2575"
+    }
+   ],
+   "pin": "corpus/eth-refutation/openai-chain/exports-deposit.json"
+  }
  },
  "port": {
   "pins": "corpus/eth-refutation/openai-chain/scout-pins.json",

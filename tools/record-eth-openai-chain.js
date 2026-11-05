@@ -181,6 +181,73 @@ if (notRun && !/does not compile/.test(notRun)) fails.push('P3 ' + notRun);
 if (p3shippedRan && !p3ran) fails.push('OpenAI\'s own challenge: no named run (Q3)');
 if (p3ran && !p3accepted) fails.push('OpenAI\'s own challenge with the named checkers did not accept the ported proof (' + p3.rejection + '; checkers accepting: ' + q3.accepted.join(', ') + ')');
 const n = (x) => (x || 0).toLocaleString('en-US');
+/* AFTER THE RECORD (2026-11-05 evening, leanprover/con-leche#16: the maintainer asked us to try latest master): con-leche and
+   con-ron built from their master branches and run by hand on the same export (its sha256 checked against the comparator's),
+   outside the judge. Every such step under runs/ (E5/E8 con-leche-master*, E7 con-ron-master*) is listed with its exit, the
+   checker's own last word, its time and its peak RSS; a run killed by the machine (signal 9) is a resource fact, never a
+   verdict. NOT part of the decision: the verdict reads the judge's named checkers above. */
+const masters = (() => {
+  const out = { runs: [], builds: [] };
+  if (!fs.existsSync(RUNS)) return out;
+  for (const d of fs.readdirSync(RUNS).sort()) {
+    const D = path.join(RUNS, d), F = (f) => (fs.existsSync(path.join(D, f)) ? fs.readFileSync(path.join(D, f), 'utf8') : '');
+    if (!F('_run.json')) continue;
+    const st = F('_status.json') ? JSON.parse(F('_status.json')) : {};
+    for (const [e, who] of [['E4.out', 'con-leche'], ['E6.out', 'con-ron']]) {
+      const m = new RegExp('^' + who + ' master ([0-9a-f]{40}) (\\S+)', 'm').exec(F(e));
+      if (m) out.builds.push({ checker: who, commit: m[1], committed: m[2], facts: path.relative(ROOT, D) });
+    }
+    for (const f of fs.readdirSync(D).filter((x) => /^E[578]\.con-(leche|ron)-master.*\.exit$/.test(x)).sort()) {
+      const step = f.replace(/\.exit$/, ''), err = F(step + '.err'), txt = F(step + '.out') + '\n' + err;
+      const cmd = (/Command being timed: "([^"]*)"/.exec(err) || [])[1] || '';
+      const word = (/^con-(?:leche|ron): (?:accepted|internal error|error)[^\n]*/m.exec(txt) || [])[0] || null;
+      const rss = /Maximum resident set size \(kbytes\): (\d+)/.exec(err), sig = /Command terminated by signal (\d+)/.exec(err);
+      out.runs.push({ step, checker: /con-ron/.test(step) ? 'con-ron' : 'con-leche', export: /export-challenge/.test(cmd) ? 'challenge' : 'chain',
+        exportSha256: /export-challenge/.test(cmd) ? (st.export_challenge_sha || null) : (st.export_sha || null),
+        args: cmd.replace(/^timeout \d+ env (?:\S+=\S+ )*/, '').replace(/\S*\/(con-leche|con-ron) /, '$1 '),
+        exit: Number(F(step + '.exit').trim()), seconds: Number(F(step + '.end')) - Number(F(step + '.start')),
+        word, accepted: word && /accepted (\d+) declarations/.test(word) ? Number(/accepted (\d+)/.exec(word)[1]) : null,
+        maxRssKb: rss ? Number(rss[1]) : null, killedBySignal: sig ? Number(sig[1]) : null,
+        machine: (/cgroup memory\.max (\d+)/.exec(st._machine || '') || [])[1] ? Number(/cgroup memory\.max (\d+)/.exec(st._machine)[1]) : null,
+        byHand: /^E8\./.test(step), facts: path.relative(ROOT, D) });
+    }
+  }
+  return out;
+})();
+/* the two exports, public on Zenodo as a regression test for the checkers (pinned from the public record) */
+const DEP = path.join(ROOT, 'corpus', 'eth-refutation', 'openai-chain', 'exports-deposit.json');
+if (fs.existsSync(DEP)) {
+  const dep = JSON.parse(fs.readFileSync(DEP, 'utf8'));
+  const exp = { chain: masters.runs.find((r) => r.export === 'chain' && r.exportSha256), challenge: masters.runs.find((r) => r.export === 'challenge' && r.exportSha256) };
+  const un = Object.fromEntries((dep.uncompressed || []).map((u) => [u.file, u.sha256]));
+  if (exp.chain && un['export-comparator.ndjson'] !== exp.chain.exportSha256) die('the deposit\'s chain export is not the bytes the runs checked');
+  if (exp.challenge && un['export-challenge.ndjson'] !== exp.challenge.exportSha256) die('the deposit\'s challenge export is not the bytes the runs checked');
+  masters.deposit = { doi: dep.doi, record: dep.record, license: dep.license, files: dep.files, uncompressed: dep.uncompressed, pin: path.relative(ROOT, DEP) };
+}
+for (const r of masters.runs) r.commit = (masters.builds.find((b) => b.facts === r.facts && b.checker === r.checker) || {}).commit || null;
+const mastersReading = (() => {
+  const ok = (c, x) => masters.runs.filter((r) => r.checker === c && r.export === x && r.exit === 0 && r.accepted);
+  const cl = ok('con-leche', 'chain'), cr = ok('con-ron', 'chain');
+  if (!cl.length && !cr.length) return null;
+  const jobs = (r) => Number((/--jobs=(\d+)/.exec(r.args) || [])[1] || 0), gib = (kb) => (kb / 1048576).toFixed(1);
+  const span = (rs, f) => { const v = rs.map(f); return Math.min(...v) === Math.max(...v) ? String(Math.min(...v)) : Math.min(...v) + '–' + Math.max(...v); };
+  const gspan = (rs) => { const v = rs.map((r) => r.maxRssKb); return gib(Math.min(...v)) + (Math.min(...v) === Math.max(...v) ? '' : '–' + gib(Math.max(...v))) + ' GiB'; };
+  const commits = (c) => [...new Map(masters.builds.filter((b) => b.checker === c && masters.runs.some((r) => r.commit === b.commit)).map((b) => [b.commit, b])).values()]
+    .sort((a, b) => a.committed.localeCompare(b.committed)).map((b) => b.commit.slice(0, 8) + ' (' + b.committed.slice(0, 16).replace('T', ' ') + ' UTC)').join(' and ');
+  const killed = masters.runs.filter((r) => r.checker === 'con-leche' && r.export === 'chain' && r.killedBySignal === 9);
+  const fewer = cl.filter((r) => !/--trusted/.test(r.args) && jobs(r) < 16).sort((a, b) => jobs(b) - jobs(a));
+  const all = [...cl, ...cr], total = all[0].accepted;
+  const chL = ok('con-leche', 'challenge'), chR = ok('con-ron', 'challenge'), ch = [...chL, ...chR];
+  const chSha = (ch[0] || {}).exportSha256;
+  return 'After the record, on the con-leche maintainer\'s request (leanprover/con-leche#16: "Could you try latest master?"), con-leche and con-ron built from source at their master branches (con-leche ' + commits('con-leche') + '; con-ron ' + commits('con-ron') + ') and run by hand on the same export (the comparator\'s bytes, sha256 checked) accept all ' + n(total) + ' declarations in every run that had the memory: '
+    + (cl.length ? 'con-leche at ' + span(cl, jobs) + ' workers in both modes, ' + span(cl, (r) => r.seconds) + ' s, ' + gspan(cl) : '')
+    + (cr.length ? (cl.length ? '; ' : '') + 'con-ron ' + span(cr, (r) => r.seconds) + ' s, ' + gspan(cr) : '') + '.'
+    + (killed.length ? ' At 16 workers con-leche was killed by a 64 GB machine\'s memory limit in both modes (signal 9, nothing printed; a resource fact, not a verdict)' + (fewer.length ? '; with fewer workers it fits: ' + fewer.map((r) => jobs(r) + ' workers ' + gib(r.maxRssKb) + ' GiB').join(', ') : '') + '.' : '')
+    + (ch.length ? ' On the second export (OpenAI\'s Main with its challenge theorem exact_count_and_sat' + (chSha ? ', sha256 ' + chSha.slice(0, 8) + '…' : '') + '), where the bundled builds stopped at QueryNodeEvaluation.nodeBody_prefix, '
+      + [chL.length ? 'con-leche (' + (chL.length > 1 ? 'both modes' : chL[0].args.replace(/ \S+$/, '').replace(/^con-leche /, '')) + ')' : '', chR.length ? 'con-ron' : ''].filter(Boolean).join(' and ') + ' accept all ' + n(ch[0].accepted) + ' declarations (' + gspan(ch) + ').' : '')
+    + (masters.deposit ? ' Both exports are public as a regression test for the checkers: doi:' + masters.deposit.doi + '.' : '')
+    + ' The fuel stops recorded above are fixed on their master branches, not in the builds Lean v4.36.0-rc2 bundles. Outside the judge: not part of the decision.';
+})();
 const rec = {
   what: 'The OpenAI chain in one environment: OpenAI\'s family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley\'s two bridge theorems ported to complexitylib\'s Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib\'s multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean\'s own judge (lake comparator) with named checkers — leanchecker-paranoid, nanoda (our pinned build, 1 GiB stack), lean4lean (fuel ×100) and Lean\'s default kernel — beside the judge as shipped (--paranoid), whose four bundled checkers stop at their own limits on this export.',
   generated: new Date().toISOString().slice(0, 10),
@@ -199,11 +266,13 @@ const rec = {
     'This closes the version seam on OpenAI\'s side the way Anthropic\'s was closed (certs/eth-chain.json): by rebuilding the proof in the statement\'s Lean (v4.36.0-rc2), not by comparing kernels across v4.34.1 → v4.36.0-rc2. That complexitylib\'s ETH is the textbook ETH stays a reading of a definition.',
     'Lean\'s judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod\'s containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox\'s.',
     'The judge\'s --paranoid run did not finish on this export (2.45 GB; the Anthropic chain\'s was 0.65 GB and all six checkers accepted there): the bundled nanoda 0.4.17 overflows a worker thread\'s stack and has no stack setting, lean4lean\'s fuel counter reaches zero, con-leche and con-ron exhaust a compiled fuel constant — each stop reproduced by hand on the comparator\'s own export (judge.diagnosis). The verdict reads the judge re-run with checkers that can finish: leanchecker-paranoid, our pinned nanoda with a 1 GiB thread stack, lean4lean with its fuel raised 100×, and Lean\'s default kernel. con-leche and con-ron are not among them; nothing here is their verdict either way. The amendment is dated in the pre-registration.',
-    'claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.'
+    'claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.',
+    ...(mastersReading ? [mastersReading] : [])
   ],
   judge: { named: { chain: q1, planted: q2, checkers: NAMED, externalKernels: q0 ? q0.externalKernels : null, challengeSha256: q0 ? q0.challenge : null, facts: namedDir ? path.relative(ROOT, namedDir) : null },
     shipped: { claim: { ...judge, stops: stops(rd('P1.err')) }, planted: plantedJudge, challengeSha256: challenge.challenge }, diagnosis },
   p3,
+  masters,
   port: { pins: 'corpus/eth-refutation/openai-chain/scout-pins.json', pinsSha256: pinsSha, pinCommit: PINS.commit, portMd: { found: port.portMdFound, sha256: port.portMdSha256 }, counts: port.counts, modified: port.modified, refusals: port.refusals },
   statements, axioms, nanoda, planted,
   steps: { buildSeconds: Number(rd('L2.end')) - Number(rd('L2.start')), leancheckerSeconds: Number(rd('L5.end')) - Number(rd('L5.start')) },

@@ -124,6 +124,16 @@
 > 141. The inventory is regenerated and the run and mutations records re-pinned with this amendment as the reason; no
 > measurement, mutant or decision touched. Nothing else changes.
 
+> **Amendment 2026-11-05, night (one record's bytes move; no row, verdict or definition moved).** certs/eth-openai-chain.json
+> gains, outside its decision, a `masters` section and one reading line: con-leche master (7cb7a45c, dc8ca857) and
+> con-ron master (97eead2d) run by hand on the same export on three RunPod pods at the con-leche maintainer's request
+> (leanprover/con-leche#16), every run with its exit, word, time and peak RSS, and the two exports' Zenodo deposit
+> (doi:10.5281/zenodo.23991348, pinned in corpus/eth-refutation/openai-chain/exports-deposit.json). Its verdict
+> (CERTIFIED), judge, scope and register row are unchanged; the register keeps 141 rows. The rerun kit's entry for the
+> record is unchanged (its command reads every imported run directory), the command is re-run with `--only`, the
+> inventory and the concordance regenerated and the run and mutations records re-pinned with this amendment as the
+> reason; no measurement, mutant or decision touched. Nothing else changes.
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a

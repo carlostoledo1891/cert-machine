@@ -127,3 +127,11 @@ OpenAI's side the way Anthropic's was closed: by rebuilding the proof in the sta
   the checkers that accepted. con-leche and con-ron are not among them: they cannot finish this export at any setting.
   Nothing else in the pre-registration changes; the pod facts of both runs are imported under
   corpus/eth-refutation/openai-chain/runs/.
+
+- **2026-11-05 ~23:10 UTC, after the record — a fact, not an amendment.** "They cannot finish this export at any
+  setting" held for the builds Lean v4.36.0-rc2 bundles. On the con-leche maintainer's request (leanprover/con-leche#16,
+  20:11 UTC: "Could you try latest master?"), con-leche master 7cb7a45c and con-ron master 97eead2d, built from source
+  and run by hand on the same export (sha256 d9cae367…, re-made from claimbox bdf357ef and checked equal), accept all
+  98,686 declarations; con-leche needs 65.9 GiB at 16 workers (killed on a 64 GB machine, both modes) and 51.4 GiB at 8.
+  Recorded in certs/eth-openai-chain.json `masters` and one reading line; the verdict, the judge and check 5 are
+  unchanged — these runs are outside the judge and are not part of the decision.

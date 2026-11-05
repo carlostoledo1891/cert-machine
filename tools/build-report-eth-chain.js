@@ -44,6 +44,15 @@ if (!och.judge.shipped || !och.judge.shipped.claim || Object.keys(och.judge.ship
 if (!och.p3 || !och.p3.accepted) die('OpenAI\'s own challenge did not accept the ported proof, and this page says it did');
 const ojReading = och.reading.find((x) => /did not finish on this export/.test(x));
 if (!ojReading) die('the OpenAI chain record no longer says how its judge was re-run');
+/* after the record: the master branches leanprover/con-leche#16 asked for (the record's `masters`), one sentence, outside the decision */
+const omR = ((och.masters || {}).runs || []).filter((r) => r.export === 'chain' && r.exit === 0 && r.accepted);
+const omJ = (r) => Number((/--jobs=(\d+)/.exec(r.args) || [])[1] || 0);
+const omL = omR.filter((r) => r.checker === 'con-leche' && !/--trusted/.test(r.args)).sort((a, b) => omJ(b) - omJ(a));
+const omSentence = omR.some((r) => r.checker === 'con-leche') && omR.some((r) => r.checker === 'con-ron')
+  ? ' After the record, at the con-leche maintainer’s request, con-leche and con-ron built from their master branches and run by hand on the same export accept all ' + omR[0].accepted.toLocaleString('en-US') + ' declarations'
+    + (omL.length ? ' (con-leche needs ' + omL.map((r, i) => (r.maxRssKb / 1048576).toFixed(1) + (i ? '' : ' GiB') + ' at ' + omJ(r) + (i ? '' : ' workers')).join(', ') + ')' : '')
+    + ': their fuel stops are fixed upstream, not yet in a Lean release.' + (och.masters.deposit ? ' Both exports are public as a test case for the checkers (doi:' + och.masters.deposit.doi + ').' : '') + ' Outside the judge, not part of the decision.'
+  : '';
 const FIG = J('corpus/eth-refutation/figures/standard-chain.json');
 for (const [rel, sha] of Object.entries(FIG.stamp)) {
   const now = crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
@@ -95,7 +104,7 @@ B.push(C.section({
     { b: 'It does not say ETH is false.', text: 'The claims are the labs’, and so are their algorithms and their papers; neither paper’s arguments outside Lean nor the algorithms’ novelty were checked here. What is decided is that a Lean statement on a standard machine follows from each lab’s proof.' },
     { b: 'The textbook match is a reading.', text: 'That cslib’s multitape ETH, with complexitylib’s binary encoding encCNF and time c · 2^(δn) · (L+1)^e + c, is the ETH of Impagliazzo and Paturi is a reading of a definition. It is now a reading of a standard machine, and it always will be one.' },
     { b: 'The proofs are ported copies.', text: ch.reading[0] + ' OpenAI’s likewise: ' + och.reading[0].replace(/^The proof that checks here is a modified copy of OpenAI’s and Hawkley’s: /, '') },
-    { b: 'On OpenAI’s side the judge’s list is shorter.', text: ojReading + ' On Anthropic’s side all six accepted.' },
+    { b: 'On OpenAI’s side the judge’s list is shorter.', text: ojReading + omSentence + ' On Anthropic’s side all six accepted.' },
     { b: 'The judge ran without its sandbox.', text: ch.reading[2] },
     { b: 'One author on both sides.', text: 'The statements were written by hand and pinned before any proof was decided; the proofs and the port were written by Claude agents in claimbox; cert-machine decided them. claimbox and cert-machine have one author, so this separates the roles of author and checker. It is not a second party, and an outside replay of the records below would be the next step up.' },
   ])

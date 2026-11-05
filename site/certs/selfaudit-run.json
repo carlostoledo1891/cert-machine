@@ -6,11 +6,11 @@
  "git": "f0ea4a7c",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d"
+  "sha256": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "a7865c3f4d4c52ae66a8965a2334e981d8ae90790f99b4c98f7dc863182e00cf"
+  "sha256": "176b4106215ee0dad733c475304ebf64e96d4f29c0109e20a8abcbeaf6a361e3"
  },
  "inputs": {
   "register": {
@@ -55,7 +55,7 @@
    "certs/eth-hawkley-heavy.json": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08",
    "certs/eth-cslib-d1.json": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394",
    "certs/eth-chain.json": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338",
-   "certs/eth-openai-chain.json": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950",
+   "certs/eth-openai-chain.json": "8fdc50bc1a14b073fa0f7e55a389490c836ea637fd49b12d43d89283aee1dbf1",
    "certs/wsp-baseline.json": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
   }
  },
@@ -10512,6 +10512,26 @@
    "after": {
     "preregistration": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d",
     "inventory": "a7865c3f4d4c52ae66a8965a2334e981d8ae90790f99b4c98f7dc863182e00cf"
+   }
+  },
+  {
+   "at": "2026-11-05T23:42:44.063Z",
+   "git": "9d49de55",
+   "why": "Amendment 2026-11-05, night, in notes/selfaudit-preregistration-2026-10-20.md: certs/eth-openai-chain.json gains, outside its decision, the con-leche/con-ron master runs and the exports' Zenodo deposit; verdict, row and definitions unchanged",
+   "before": {
+    "preregistration": "431adbcee329f2f294e04dade96c46d56805fa547948d85e96ba74249726853d",
+    "inventory": "a7865c3f4d4c52ae66a8965a2334e981d8ae90790f99b4c98f7dc863182e00cf",
+    "recordsMoved": [
+     {
+      "record": "certs/eth-openai-chain.json",
+      "from": "428ecfe115d5f286f2383d690e1d5e76b9484b4558afcc0db9c08c87fd064950",
+      "to": "8fdc50bc1a14b073fa0f7e55a389490c836ea637fd49b12d43d89283aee1dbf1"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c",
+    "inventory": "176b4106215ee0dad733c475304ebf64e96d4f29c0109e20a8abcbeaf6a361e3"
    }
   }
  ],
