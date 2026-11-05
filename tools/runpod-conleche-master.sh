@@ -6,7 +6,10 @@
 # The second run (2026-11-05 ~22:15 UTC): on 8 vCPU / 64 GB, con-leche master at --jobs=16 was killed by the cgroup at
 # 62 GB RSS after 236 s (exit 137, nothing printed). JOBS (default "16") is the list of --jobs values each con-leche mode
 # tries in order, the next one only after an exit 137 (killed: memory), every attempt kept as its own step;
-# SKIP_CONRON=1 skips E6/E7 when con-ron master was already measured.
+# SKIP_CONRON=1 skips E6/E7 when con-ron master was already measured. SECOND_EXPORT=1 also builds OpenAI's own solution
+# module OAI.Algorithms.SubexponentialSAT.Main and exports it with the theorem of OpenAI's challenge file
+# (exact_count_and_sat, where the bundled con-leche and con-ron stopped at nodeBody_prefix, fold position 86052), and
+# runs every checker on both exports (the second's steps end in -challenge).
 set -uo pipefail
 unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 : "${CLAIMBOX_SHA:?}"
@@ -57,6 +60,14 @@ X=$H/export-comparator.ndjson
 step E3 7200 $W bash -c "lake env leanexport EthBridge.OpenAIChain -- $DECLS > $X && ls -l $X && sha256sum $X"
 [ "$(cat $R/E3.exit)" = 0 ] || { status _phase "STOPPED: E3 failed"; sleep infinity; }
 GOT=$(grep -o -E '^[0-9a-f]{64}' $R/E3.out | head -1); status export_sha "$GOT"
+XS=$X
+if [ "${SECOND_EXPORT:-0}" = 1 ]; then
+  X2=$H/export-challenge.ndjson
+  DECLS2="${DECLS/EthBridge.OpenAIChain.not_eth/OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat}"
+  step E2b 14400 $W lake build OAI.Algorithms.SubexponentialSAT.Main
+  [ "$(cat $R/E2b.exit)" = 0 ] && step E3b 7200 $W bash -c "lake env leanexport OAI.Algorithms.SubexponentialSAT.Main -- $DECLS2 > $X2 && ls -l $X2 && sha256sum $X2"
+  [ "$(cat $R/E3b.exit 2>/dev/null)" = 0 ] && { XS="$X $X2"; status export_challenge_sha "$(grep -o -E '^[0-9a-f]{64}' $R/E3b.out | head -1)"; }
+fi
 [ "$GOT" = "$EXPORT_SHA" ] && status export_equal "yes: the same bytes the comparator judged on 2026-11-05" || status export_equal "NO: $GOT vs $EXPORT_SHA (the run still measures con-leche master, on this export)"
 # con-leche from master: its own toolchain (lean-toolchain in the repo), lake
 cat > /tmp/E4.sh <<'BLOCK'
@@ -72,12 +83,15 @@ chmod 644 /tmp/E4.sh; step E4 7200 / bash /tmp/E4.sh
 CL=$(ls $H/src/con-leche/.lake/build/bin/* 2>/dev/null | head -1)
 if [ "$(cat $R/E4.exit)" = 0 ] && [ -n "$CL" ]; then
   status conleche_bin "$CL"
-  for mode in verified trusted; do
-    flag=""; [ $mode = trusted ] && flag=--trusted
-    for j in ${JOBS:-16}; do
-      n=E5.con-leche-master$([ $mode = trusted ] && echo -trusted)-j$j
-      step $n 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CL $flag --jobs=$j $X
-      [ "$(cat $R/$n.exit)" = 137 ] || break
+  for x in $XS; do
+    sfx=""; [ $x = $X ] || sfx=-challenge
+    for mode in verified trusted; do
+      flag=""; [ $mode = trusted ] && flag=--trusted
+      for j in ${JOBS:-16}; do
+        n=E5.con-leche-master$([ $mode = trusted ] && echo -trusted)-j$j$sfx
+        step $n 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CL $flag --jobs=$j $x
+        [ "$(cat $R/$n.exit)" = 137 ] || break
+      done
     done
   done
 else
@@ -97,6 +111,9 @@ chmod 644 /tmp/E6.sh; step E6 7200 / bash /tmp/E6.sh
 CR=$(ls $H/src/con-ron/target/release/con-ron $H/src/con-ron/.lake/build/bin/* 2>/dev/null | head -1)
 if [ "$(cat $R/E6.exit)" = 0 ] && [ -n "$CR" ]; then
   status conron_bin "$CR"
-  step E7.con-ron-master 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CR --jobs=16 $X
+  for x in $XS; do
+    sfx=""; [ $x = $X ] || sfx=-challenge
+    step E7.con-ron-master$sfx 14400 /tmp env LEAN_ABORT_ON_PANIC=1 CON_LECHE_VERBOSE=1 $CR --jobs=16 $x
+  done
 fi
 status _phase complete; status _finished "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
