@@ -995,6 +995,15 @@ const tolPct = W.value(tolAdmit.pct, W.CHOSEN, { derived: [tolCell('falseAccept'
 /* the register's latest decisions: the five most recent distinct pages */
 /* a register row's label on the landing: the report's formal title where the row points at a report, otherwise
    the claim's first clause — the register's own sentences are written for the register page */
+/* the claimant column, cut at a word within 32 characters like the claim column's label (2026-11-05: the register's November
+   rows carry long claimant strings — a library's agents, a lab's ported proof — and the untrimmed column grew past the
+   ruler's 280 px, adding a left edge to the landing at 1440) */
+const claimantLabel = (s) => {
+  const t = String(s).replace(/\s*\(.*$/, '');
+  if (t.length <= 32) return t;
+  const cut = t.slice(0, 32).replace(/[\s,;:—–-]+\S*$/, '').replace(/[\s,;:—–-]+$/, '');
+  return (cut || t.slice(0, 32)) + '…';
+};
 const claimLabel = (r) => {
   const m = /^\/reports\/([^#?]+\.html)/.exec(r.page || '');
   const e = m && TITLES.entries().find((x) => x.file === m[1]);
@@ -1223,7 +1232,7 @@ B.push(C.section({
     cols: [{ h: 'recorded' }, { h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }],
     rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '‑'),
       { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
-      String(r.claimant).replace(/\s*\(.*$/, ''), r.verdict])
+      claimantLabel(r.claimant), r.verdict])
   }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: '
     /* every month on disk, read rather than typed (it listed September and October by hand) */
     + fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort()
