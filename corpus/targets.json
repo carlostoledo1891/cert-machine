@@ -1382,11 +1382,12 @@
   {
    "id": "eth-openai-chain-2026-11",
    "name": "The OpenAI side of the ETH model gap in one Lean: OpenAI's family-378 proof (openai/math 7ef5c0cc, Lean v4.34.1) with Hawkley's two bridges (thinkthoughts/math d6b79b7d) ported to complexitylib's Lean v4.36.0-rc2 beside C2, so EthBridge.OpenAIChain.not_eth : ¬ETH holds with no version seam, as the Anthropic chain does (certs/eth-chain.json)",
-   "verdict": "OPEN — scouted and pre-registered 2026-11-05 (notes/eth-openai-chain-preregistration-2026-11-05.md); route A (the port) chosen, route B (a direct bridge without Hawkley's links) parked",
+   "verdict": "CERTIFIED 2026-11-05 (certs/eth-openai-chain.json): the port complete at claimbox bdf357ef (3,210 files, 3,190 byte-identical, 20 modified as PORT.md declares); nanoda 101,618 declarations, leanchecker --fresh, three planted variants refused; Lean's judge with named checkers accepts the chain and OpenAI's own challenge, after the dated amendment of 12:55 UTC — lake comparator --paranoid's four bundled checkers (nanoda's thread stack, lean4lean's fuel, con-leche/con-ron's compiled fuel) stop on the 2.45 GB export, recorded in their words. Route B (a direct bridge) stays parked, not needed.",
    "scouted": "2026-11-05",
    "finding": "The chain closure is 3,210 files / 569,603 lines (3,091 of OpenAI's SubexponentialSAT, 92 ParityLifts, 27 of Hawkley's), Mathlib-only imports; all 3,183 OpenAI files byte-equal (same blob) to openai/math 7ef5c0cc, the certified commit (corpus/eth-refutation/openai-chain/scout-*.json). No native_decide, sorry, axiom, unsafe or extern in the closure; 23,889 `decide`s in 1,721 files are the port risk on the newer Lean. The jump is Lean 4.34.1 → 4.36.0-rc2 and 1,019 Mathlib commits; Anthropic's port of 809 files needed 47 repairs in ~3.5 h, so expect 100–250 repairs here over one to two agent sessions. OpenAI's closure built in 39 min on 16 vCPU and its leanchecker --fresh peaked at 99 GB, so the decision pod needs ≥128 GB.",
    "fit": "The same closure as Anthropic's, for the other lab: the proof rebuilt in the statement's Lean, every change in a ledger, decided with our statement pin, axioms file, nanoda, leanchecker --fresh, Lean's judge and planted variants.",
-   "next": "An agent ports in claimbox lean/eth-bridge (OpenAIEth/, PORT.md); then tools/runpod-eth-openai-chain.sh on a cpu3m pod (cap US$25); then /eth/ §5b, the census, one report page for both chains, the note v0.2; Hawkley told after, on rpi-index #1."
+   "next": "An agent ports in claimbox lean/eth-bridge (OpenAIEth/, PORT.md); then tools/runpod-eth-openai-chain.sh on a cpu3m pod (cap US$25); then /eth/ §5b, the census, one report page for both chains, the note v0.2; Hawkley told after, on rpi-index #1.",
+   "closed": "2026-11-05"
   }
  ]
 }

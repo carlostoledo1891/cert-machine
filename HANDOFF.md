@@ -72,6 +72,24 @@ NEXT SESSION, IN ORDER:
      complete: `node tools/import-runpod-facts.js atkkgtterhqpxk corpus/eth-refutation/openai-chain/runs`, `node
      tools/record-eth-openai-chain.js` (both run directories found by themselves), DELETE the pod (404), POD.txt; then the
      shelf row + battery, and the publishing list on the operator's word. Spend so far ≈US$4.9 + the diagnostic pod.
+     15:45 UTC: THE OPENAI CHAIN IS CERTIFIED (certs/eth-openai-chain.json, f0ea4a7c). Stage D on the diagnostic pod: Q1 the
+     chain ACCEPTED by lake comparator with the named checkers (lean4lean fuel ×100, our pinned nanoda, leanchecker-paranoid,
+     Lean default; 4,613 s), Q2 the planted statement rejected on the statement (22 s), Q3 OpenAI's own pinned challenge
+     against the ported Main ACCEPTED by the same four (4,357 s). Both pods DELETED (404 confirmed); both run directories
+     imported (runs/runpod-f0xfo9d8mcnhz6, runs/runpod-atkkgtterhqpxk). The record carries the judge as shipped (two kernels
+     accept, four bundled stops in their own words), the named run, and the by-hand diagnosis (judge.diagnosis). THE REGISTER
+     IS AT 141 ROWS (sha d7a94b75; the row eth-openai-chain points at /eth/ until the one report page exists), the shelf row
+     in tools/certs-shelf.js, the rerun kit entry and partial run, the self-audit inventory/run/mutations re-pinned with the
+     dated amendment in notes/selfaudit-preregistration-2026-10-20.md, the run appended, concord regenerated, the dReal
+     claims regenerated and the workflow re-dispatched (run 42057270814 at 18b6edbe; record it with --record, then
+     make control). SPEND of the OpenAI side ≈US$8.9 (port 1.4, decision 2.7, diagnosis 4.8) of the US$25 cap; nothing
+     billing. NOT YET DONE, ON THE OPERATOR'S WORD (the publishing list): /eth/ §5b and the share card ("one version gap" →
+     none), the census, ONE report page for both chains (/reports/eth-chain.html, 301 from eth-anthropic-chain.html; the
+     register row's page then moves there), the note v0.2 (new Zenodo version; one sentence on complexitylib #2509/#2510,
+     agreed 2026-11-05), the site rebuild; drafts for formal-math #36, rpi-index #1 (Hawkley) and X — first person, AI
+     disclosed. ALSO 2026-11-05: arhancanli posted an independent exact replay of C_89c on teorth/optimizationproblems #279
+     agreeing with ours to the digit (outreach row gh-optq-279 updated); a reply there and a reciprocity scout of
+     arhancanli/quantavane-replays are the operator's call.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
