@@ -6,17 +6,17 @@
  "git": "ccd5c190",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a"
+  "sha256": "f594549274303025bb5b45831125e1b674c160b896382f1bbedfa79b416c638c"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651"
+  "sha256": "2a466e2d9d75ff42d1a31700c638a874ba44b4017ae89f938bd90a6bafe84ee8"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "42e96aa98a0c8613b255f2678bfabcc3e58de7c1a6c1344630da2f5d1ed7389f",
-   "rows": 132
+   "sha256": "3c0ff499b704ba4c976a6e9819f3894dab1d9bffd4a100e57a4b20d1425c8a9b",
+   "rows": 140
   },
   "kit": {
    "path": "corpus/rerun-kit.json",
@@ -48,7 +48,14 @@
    "certs/mc100-alphatensor-f2.json": "0222c5552b7c24f38f1231508bce613876eafce4e161325ef1b0bf3817d90a77",
    "certs/mc100-alphaevolve-nb-matmul.json": "50183f3ffba87bd2964ae6c0e32a8d985c8f0176f420728f8b19d826df4ea12a",
    "certs/mc100-einstein-arena.json": "2526c08b4a11f2aba4cec991e52685ba1434b3372e5f9fd93b665a8bcbb79b04",
-   "certs/mc100-station-v2.json": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431"
+   "certs/mc100-station-v2.json": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+   "certs/eth-kernel.json": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0",
+   "certs/eth-tsavo-bridge.json": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236",
+   "certs/eth-hawkley-bridge.json": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d",
+   "certs/eth-hawkley-heavy.json": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08",
+   "certs/eth-cslib-d1.json": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394",
+   "certs/eth-chain.json": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338",
+   "certs/wsp-baseline.json": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
   }
  },
  "machine": {
@@ -8561,6 +8568,49 @@
    "after": {
     "preregistration": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a",
     "inventory": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651"
+   }
+  },
+  {
+   "at": "2026-11-05T03:59:04.919Z",
+   "git": "4a90bb96",
+   "why": "Amendment 2026-11-05: the register grows from 132 to 140 rows — seven records decided after the freeze (eth-kernel, eth-tsavo-bridge, eth-hawkley-bridge, eth-hawkley-heavy, eth-cslib-d1, eth-chain, wsp-baseline), named by the rerun kit and classified not mutated; no measurement, mutant or decision touched",
+   "before": {
+    "preregistration": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a",
+    "inventory": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651",
+    "recordsMoved": [
+     {
+      "record": "certs/eth-kernel.json",
+      "to": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0"
+     },
+     {
+      "record": "certs/eth-tsavo-bridge.json",
+      "to": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236"
+     },
+     {
+      "record": "certs/eth-hawkley-bridge.json",
+      "to": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d"
+     },
+     {
+      "record": "certs/eth-hawkley-heavy.json",
+      "to": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08"
+     },
+     {
+      "record": "certs/eth-cslib-d1.json",
+      "to": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394"
+     },
+     {
+      "record": "certs/eth-chain.json",
+      "to": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338"
+     },
+     {
+      "record": "certs/wsp-baseline.json",
+      "to": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "f594549274303025bb5b45831125e1b674c160b896382f1bbedfa79b416c638c",
+    "inventory": "2a466e2d9d75ff42d1a31700c638a874ba44b4017ae89f938bd90a6bafe84ee8"
    }
   }
  ]

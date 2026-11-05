@@ -200,6 +200,62 @@
       "second": null,
       "needs": "python3 standard library and instruments/polymaps",
       "note": "The Station pool of the hundred, wave 1: the Jacobian construction's printed map of Q^3 decided as a non-injective Keller map (det JF = -6 identically, three rational points with one image) by the code path the register's Gao rows used; the family checks for maps the file does not print are not decided; the other nine rows listed with what they need."
+    },
+    {
+      "record": "certs/eth-kernel.json",
+      "rederive": "node tools/record-eth-kernel.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the imported pod facts in corpus/eth-refutation/runs (runpod-x8ifbbj2vbolyj, runpod-69d9t7dxjffo6n, runpod-ijw7890hq4ed9x)",
+      "note": "The kernel lane of the two claimed ETH refutations (OpenAI family 378 @ 7ef5c0cc, Anthropic eth/ @ 16a5ce41): Comparator with Lean's kernel and nanoda, our axioms file, leanchecker --fresh, decided from the facts the pods served; the rule lives in the recorder."
+    },
+    {
+      "record": "certs/eth-tsavo-bridge.json",
+      "rederive": "node tools/record-eth-tsavo.js --check",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the kept GitHub run under corpus/eth-refutation/tsavo/runs",
+      "note": "TSavo's bridge Claim → ETHIsFalse built inside Anthropic's project: the statement checks against both labs' pins, Comparator on TSavo's config with the one declared lakefile amendment, both kernels."
+    },
+    {
+      "record": "certs/eth-hawkley-bridge.json",
+      "rederive": "node tools/record-eth-hawkley.js --check",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the kept GitHub run under corpus/eth-refutation/hawkley/runs",
+      "note": "Hawkley's light theorem ¬PositiveRateETH → ETHIsFalse inside OpenAI's project: git's facts against the pinned delta, the sliced statements against the pins, Comparator with nanoda on, both kernels."
+    },
+    {
+      "record": "certs/eth-hawkley-heavy.json",
+      "rederive": "node tools/record-eth-hawkley-heavy.js --check",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the imported pod facts in corpus/eth-refutation/hawkley/runs/runpod-dumwx3gz82jcvf",
+      "note": "Hawkley's heavy link ¬PositiveRateETH from OpenAI's original_sat_main: the build, our axioms file, nanoda on the exported closure with a negative control, leanchecker --fresh; no Comparator challenge exists, the bytes decide the statement."
+    },
+    {
+      "record": "certs/eth-cslib-d1.json",
+      "rederive": "node tools/record-eth-cslib-d1.js corpus/eth-refutation/cslib/runs/runpod-h07oiww4hr8ikm",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the imported pod facts in corpus/eth-refutation/cslib/runs",
+      "note": "complexitylib's native ¬ETH on cslib's multitape machine (PR #1338) and its word-RAM simulation (PR #2027), built at the pin and decided with our axioms file, nanoda on lean4export exports and leanchecker --fresh."
+    },
+    {
+      "record": "certs/eth-chain.json",
+      "rederive": "node tools/record-eth-chain.js corpus/eth-refutation/chain/runs/runpod-aa1oy86aj465u8",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the imported pod facts in corpus/eth-refutation/chain/runs",
+      "note": "The Anthropic chain in one Lean: the ported eth/ proof reaching complexitylib's ¬ETH, the statement pin, the axioms file, nanoda with two negative controls, leanchecker --fresh, three planted variants refused, lake comparator --paranoid with six checkers."
+    },
+    {
+      "record": "certs/wsp-baseline.json",
+      "rederive": "python3 -I tools/wsp-baseline.py --check",
+      "verifier": null,
+      "second": "node tools/wsp-grade-second.js --check",
+      "needs": "python3 standard library; the cached generations under corpus/wsp/.cache/baseline-runs; node for the second grader",
+      "note": "Stage 3 of the Weight-Space Programming verification: the unedited model under the pre-registered conditions, every text graded by the exact three-valued grader and the pre-registered reading applied as written; the JavaScript grader re-grades every pair."
     }
   ]
 }

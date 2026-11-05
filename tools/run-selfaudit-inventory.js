@@ -65,7 +65,18 @@ const CLASSES = {
   'certs/horizon-ledger.json': [null, 'an aggregate row (a time-horizon fit); no object to mutate'],
   'certs/hseva-ledger.json': [null, 'an aggregate row (a benchmark\'s marginals); no object to mutate'],
   'certs/design-table-audit.json': [null, 'a NEEDS DATA row whose pin cannot resolve; no object to mutate'],
-  'ledger.json': [null, 'the engine\'s own ledger (the Ramanujan-audit row); an aggregate, no object to mutate']
+  'ledger.json': [null, 'the engine\'s own ledger (the Ramanujan-audit row); an aggregate, no object to mutate'],
+  /* the records added 2026-11-05 (the amendment of that date): kernel replays of pinned Lean trees and one LLM-evaluation
+     aggregate — not exact-arithmetic deciders, so none of the FALSE/TRUE/MALFORMED classes above applies; a mutant of a
+     kernel replay would be a changed tree checked on a pod or a runner, which the eth-chain record's own planted variants
+     (a changed statement, a sorry, an axiom; all refused) already are */
+  'certs/eth-kernel.json': [null, 'a kernel replay (Comparator with Lean\'s kernel and nanoda, leanchecker --fresh) of two labs\' pinned Lean trees; no exact object to mutate here — a mutant would be a changed tree on a pod'],
+  'certs/eth-tsavo-bridge.json': [null, 'a kernel replay of a third party\'s Lean bridge inside Anthropic\'s pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner'],
+  'certs/eth-hawkley-bridge.json': [null, 'a kernel replay of a third party\'s Lean bridge inside OpenAI\'s pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner'],
+  'certs/eth-hawkley-heavy.json': [null, 'a kernel replay of a third party\'s Lean theorem on a pod (its own negative control, nanoda rejecting a planted axiom, is in the record); no exact object to mutate here'],
+  'certs/eth-cslib-d1.json': [null, 'a kernel replay of a Lean library at its pin on a pod; no exact object to mutate here — a mutant would be a changed tree on a pod'],
+  'certs/eth-chain.json': [null, 'a kernel replay whose record carries the lane\'s own three planted variants (statement, sorry, axiom), each refused; no further object to mutate here'],
+  'certs/wsp-baseline.json': [null, 'an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader\'s red controls are in its records']
 };
 
 /* ---- inputs --------------------------------------------------------------------------------------------------- */

@@ -81,6 +81,28 @@
 > mutant or decision moves. The inventory is regenerated and the run and mutations records re-pinned with this amendment
 > as the reason.
 
+> **Amendment 2026-11-05 (the register grows from 132 to 140 rows; no definition moved).** Eight rows reached the claims
+> register from seven records decided after the freeze, each row read from its record by tools/run-claims-ledger.js
+> (commit 4a90bb96): certs/eth-kernel.json (two rows — OpenAI's family 378 and Anthropic's eth/, the two claimed
+> refutations of ETH, each CERTIFIED by two kernels), certs/eth-tsavo-bridge.json, certs/eth-hawkley-bridge.json and
+> certs/eth-hawkley-heavy.json (three third-party Lean bridges between them, CERTIFIED), certs/eth-cslib-d1.json
+> (complexitylib's native ¬ETH, CERTIFIED), certs/eth-chain.json (the Anthropic chain in one Lean, CERTIFIED) and
+> certs/wsp-baseline.json (the Weight-Space Programming headline, MIXED: the edit holds, the multiplier is the
+> pre-registered band's "mostly a settings effect"). The register moves from sha256 42e96aa98a0c… (132 rows, 2026-10-27)
+> to 3c0ff499b704… (140 rows). The rerun kit gains the seven records' re-derive commands (no standard-library verifier;
+> the WSP row's JavaScript grader as its second implementation), run once with `--only` and merged into
+> certs/rerun-kit-run.json — the other 31 commands keep their timings as measured on 2026-10-21; two re-derive commands
+> (D1, the chain) rewrite their record with today's date stamp, so their sha256After differs from the pin by the stamp
+> alone and the records on disk stay at their pins. None of the eight rows is mutated, with the reason in the
+> inventory's class table: six records are kernel replays of pinned Lean trees (a mutant would be a changed tree on a
+> pod or a runner; certs/eth-chain.json carries the lane's own three planted variants, each refused) and the WSP record
+> is an aggregate of an LLM evaluation with no exact object; mutable rows stay 119, now of 140. The inventory is
+> regenerated and the run and mutations records re-pinned with this amendment as the reason; no measurement, mutant or
+> decision touched. One record does not re-derive until the kit is run whole again: certs/selfaudit-run.json was
+> measured on the 25-record kit of 2026-10-21 and its `--check` counts command×profile pairs against the kit as it is
+> now (78 against the 62 measured) and compares the kit's digest, which `--repin` does not carry — recorded here, not
+> hidden. Nothing else changes.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
