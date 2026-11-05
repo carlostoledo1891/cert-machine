@@ -28,8 +28,9 @@ NEXT SESSION, IN ORDER:
      scratchpad complexitylib-pr/PR-BODY.md: add Schlesinger's credit to PR 1's body, fill the Hosted CI line after CI).
      Re-check record: corpus/eth-refutation/complexitylib-pr/recheck-2026-11-05. Also waiting: Paturi's answer to the one
      question (record it beside the reading on /reports/eth-anthropic-chain.html), the ethdiscussion reply in moderation,
-     replies on formal-math #36, rpi-index #1 and X (d15 2118152759283159493). NOTE: the scratchpad clone is temporary —
-     if it is gone, rebuild the branches from claimbox lean/eth-bridge as the 11-05 agent did.
+     replies on formal-math #36, rpi-index #1 and X (d15 2118152759283159493). The branches are saved outside the scratchpad:
+     ~/Projects/complexitylib-pr-2026-11-05.bundle (git fetch it into a clone of complexitylib at b28df563) and
+     ~/Projects/complexitylib-pr-2026-11-05-PR-BODY.md.
   ◆ 2026-11-05 ~01:10 UTC: RELEASE v2026.11.05 → Zenodo doi:10.5281/zenodo.23966840 (its version field reads v2026.10.27:
      .zenodo.json was not bumped before the tag — bumped now; the record's label needs the depositor's token, the
      operator's). The technical note paper/eth-chain.pdf (v0.1, with the DOI) on the papers shelf. /reports/eth-anthropic-
