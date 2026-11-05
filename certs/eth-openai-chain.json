@@ -1,0 +1,253 @@
+{
+ "what": "The OpenAI chain in one environment: OpenAI's family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley's two bridge theorems ported to complexitylib's Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib's multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean's own judge (lake comparator --paranoid, six checkers).",
+ "generated": "2026-11-05",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "bdf357ef782847f506a605b76f77edafa9fcc50f",
+  "folder": "lean/eth-bridge",
+  "theorem": "EthBridge.OpenAIChain.not_eth",
+  "builtOn": "cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+  "port": {
+   "of": "openai/math @ 7ef5c0cc (OpenAI's family-378 proof and ParityLifts, 3,183 files) and thinkthoughts/math @ d6b79b7d (Hawkley's OAI.Bridges, 27 files), the closure of the two bridge files, pinned at d6b79b7d",
+   "files": 3210,
+   "byteIdentical": 3190,
+   "modified": 20,
+   "ledger": "lean/eth-bridge/OpenAIEth/PORT.md",
+   "pins": "corpus/eth-refutation/openai-chain/scout-pins.json"
+  },
+  "authors": "the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox"
+ },
+ "verdict": "REFUSED",
+ "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: 0 declarations).",
+ "fails": [
+  "lake comparator --paranoid did not accept with all six checkers (Lean default, Lean paranoid)",
+  "OpenAI's own challenge REJECTED the ported proof (exit 1; checkers accepting: Lean default, Lean paranoid)"
+ ],
+ "statement": {
+  "pin": "corpus/eth-refutation/openai-chain/statement.lean",
+  "sha256": "dcce9dcb1ce6d1c68fd920c2a47800ebc3458a303399ac33e1df07eb0bfb3006",
+  "mainResults": {
+   "pin": "corpus/eth-refutation/tsavo/pins.json",
+   "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "served": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+  }
+ },
+ "reading": [
+  "The proof that checks here is a modified copy of OpenAI's and Hawkley's: 20 of its 3,210 files were changed to build on the newer Lean and Mathlib (every change listed with both sha256s in OpenAIEth/PORT.md, and every file checked here against the scout pins: byte-equal to its pin, or modified exactly as declared, nothing else). Lean checks whatever proof is there against the unchanged statements (Hawkley's two theorem types printed by our file, MainResults.lean byte-equal to Anthropic's), so the port changes nothing that is decided; it is said here because the proof is not OpenAI's or Hawkley's bytes.",
+  "This closes the version seam on OpenAI's side the way Anthropic's was closed (certs/eth-chain.json): by rebuilding the proof in the statement's Lean (v4.36.0-rc2), not by comparing kernels across v4.34.1 → v4.36.0-rc2. That complexitylib's ETH is the textbook ETH stays a reading of a definition.",
+  "Lean's judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod's containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox's.",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+ ],
+ "judge": {
+  "claim": {
+   "exit": 1,
+   "okay": false,
+   "accepted": [
+    "Lean default",
+    "Lean paranoid"
+   ],
+   "declarations": null,
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "sandboxRefusal": true
+  },
+  "planted": {
+   "exit": 1,
+   "okay": false,
+   "accepted": [],
+   "declarations": null,
+   "sandbox": "nosandbox",
+   "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
+   "sandboxRefusal": true
+  },
+  "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3"
+ },
+ "p3": {
+  "challenge": {
+   "pin": "corpus/eth-refutation/openai-chain/challenge/SubexponentialSAT.lean",
+   "sha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "upstream": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "served": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "module": "Challenge.OpenAISubexponentialSAT"
+  },
+  "ran": true,
+  "accepted": false,
+  "checkers": [
+   "Lean default",
+   "Lean paranoid"
+  ],
+  "declarations": null,
+  "sandbox": "nosandbox",
+  "rejection": "exit 1",
+  "notRunReason": null,
+  "configChanges": {
+   "challenge_module": {
+    "from": "ComparatorChallenges.SubexponentialSAT",
+    "to": "Challenge.OpenAISubexponentialSAT"
+   }
+  },
+  "config": {
+   "challenge_module": "Challenge.OpenAISubexponentialSAT",
+   "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+   "theorem_names": [
+    "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": false
+  },
+  "buildError": null
+ },
+ "port": {
+  "pins": "corpus/eth-refutation/openai-chain/scout-pins.json",
+  "pinsSha256": "4edb45c651137730c25af3ca97cdb293f85c7efc3c06ede3f5e371a11769a367",
+  "pinCommit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "portMd": {
+   "found": true,
+   "sha256": "4f2f5a215ba952afa0b7554f9be56ecdc1d1bdcada3c326f289f97697d6be2ef"
+  },
+  "counts": {
+   "pinned": 3210,
+   "present": 3210,
+   "unchanged": 3190,
+   "modifiedDeclared": 20,
+   "ledgerRows": 20,
+   "refusals": 0
+  },
+  "modified": [
+   "OAI/Algorithms/SubexponentialSAT/CounterPrograms.lean",
+   "OAI/Algorithms/SubexponentialSAT/MulticolorTypes.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLog/CodeSearchProgramGraphWord.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLog/MomentsAssemblyProgramRegisterBase.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/DFSLoop.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCountProgram.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/StructuredSpace.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorEncoding.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorLoop.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorOutput.lean",
+   "OAI/Algorithms/SubexponentialSAT/Types.lean",
+   "OAI/Bridges/AnthropicETH/Asymptotics.lean",
+   "OAI/Bridges/AnthropicETH/Lengths.lean",
+   "OAI/Combinatorics/ParityLifts/FunctionalCode.lean",
+   "OAI/Combinatorics/ParityLifts/LeafCounts.lean",
+   "OAI/Combinatorics/ParityLifts/ProgramLoops.lean",
+   "OAI/Combinatorics/ParityLifts/SparseMachine.lean",
+   "OAI/Combinatorics/ParityLifts/SparseTree.lean",
+   "OAI/Combinatorics/ParityLifts/TreePrograms.lean"
+  ],
+  "refusals": []
+ },
+ "statements": {
+  "OAI.Bridges.ETH.not_positiveRateETH": {
+   "printed": "¬OAI.ParityWL.Complexity.PositiveRateETH",
+   "expected": "¬OAI.ParityWL.Complexity.PositiveRateETH",
+   "equal": true
+  },
+  "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse": {
+   "printed": "¬OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse",
+   "expected": "¬OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse",
+   "equal": true
+  },
+  "EthBridge.OpenAIChain.not_eth": {
+   "printed": "¬ComplexityAbstracts.SubexponentialSATAbstract.ETH",
+   "expected": "¬ComplexityAbstracts.SubexponentialSATAbstract.ETH",
+   "equal": true
+  }
+ },
+ "axioms": {
+  "EthBridge.OpenAIChain.not_eth": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Bridges.ETH.not_positiveRateETH": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.not_eth_of_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "claim": {
+   "exit": 0,
+   "declarations": 101618,
+   "accepted": true,
+   "refusal": null
+  },
+  "plantedSorry": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_openai_chain_sorry depends on sorryAx which was not found in the environment"
+  },
+  "plantedAxiom": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_openai_chain_axiom depends on planted_openai_chain_cheat which was not found in the environment"
+  }
+ },
+ "planted": {
+  "statement": {
+   "refused": true,
+   "by": "the statement check: the trusted block differs from the pin",
+   "sha256": "045fb338ccac2fe43600dce62f2f3e59cd4d2f48dab4cbb4991e25ba776fbca4"
+  },
+  "sorry": {
+   "refused": true,
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (sorryAx) and nanoda (infer_const: declaration planted_openai_chain_sorry depends on sorryAx which was not found in the environment)"
+  },
+  "axiom": {
+   "refused": true,
+   "axioms": [
+    "planted_openai_chain_cheat",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (planted_openai_chain_cheat) and nanoda (infer_const: declaration planted_openai_chain_axiom depends on planted_openai_chain_cheat which was not found in the environment)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 1716,
+  "leancheckerSeconds": 2510
+ },
+ "run": {
+  "id": "runpod-f0xfo9d8mcnhz6",
+  "auditSha": "e3f6a20f7a78eddb08035f62cf377cf4509b1a53",
+  "host": "RunPod CPU pod f0xfo9d8mcnhz6: 16 vCPU; cgroup memory.max 128000000000",
+  "startedAt": "2026-11-05T07:24:09Z",
+  "finishedAt": "2026-11-05T10:54:20Z",
+  "facts": "corpus/eth-refutation/openai-chain/runs/runpod-f0xfo9d8mcnhz6"
+ }
+}

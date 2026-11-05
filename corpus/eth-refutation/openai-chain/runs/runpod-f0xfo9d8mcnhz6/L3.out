@@ -1,0 +1,18 @@
+'EthBridge.OpenAIChain.not_eth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Bridges.ETH.not_positiveRateETH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'EthBridge.Anthropic.not_eth_of_ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Bridges.ETH.not_positiveRateETH : ¬OAI.ParityWL.Complexity.PositiveRateETH
+OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse : ¬OAI.ParityWL.Complexity.PositiveRateETH →
+  MainResults.ETHIsFalse
+EthBridge.OpenAIChain.not_eth : ¬ComplexityAbstracts.SubexponentialSATAbstract.ETH
+def MainResults.ETHIsFalse : Prop :=
+¬MainResults.ETH

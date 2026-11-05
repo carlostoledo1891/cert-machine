@@ -1,0 +1,34 @@
+WARNING: Sandbox disabled, this run is not trustworthy.
+uncaught exception: at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready: (kernel) deterministic timeout
+
+thread 'thread_3' (67698) has overflowed its stack
+fatal runtime error: stack overflow, aborting
+con-leche: 1 inductive blocks modelled in-process: Lean.Syntax (30 generated records, checked by the fold as declarations and not counted as records of the file)
+con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=191.6s
+con-ron: 1 inductive blocks modelled in-process: Lean.Syntax (30 generated records, checked by the fold as declarations and not counted as records of the file)
+con-ron: error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=80.973s
+error: lean4lean exited with 1
+Command exited with non-zero status 1
+	Command being timed: "timeout 28800 lake comparator --paranoid --inadvisably-no-sandbox --config comparator-openai-chain.json"
+	User time (seconds): 6009.31
+	System time (seconds): 141.21
+	Percent of CPU this job got: 162%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:03:10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 62531212
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 23
+	Minor (reclaiming a frame) page faults: 60991178
+	Voluntary context switches: 855930
+	Involuntary context switches: 384229
+	Swaps: 0
+	File system inputs: 378992
+	File system outputs: 4931520
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

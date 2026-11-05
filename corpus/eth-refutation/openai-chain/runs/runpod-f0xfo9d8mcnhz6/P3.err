@@ -1,0 +1,34 @@
+WARNING: Sandbox disabled, this run is not trustworthy.
+uncaught exception: at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready: (kernel) deterministic timeout
+
+thread 'thread_2' (77390) has overflowed its stack
+fatal runtime error: stack overflow, aborting
+con-leche: 1 inductive blocks modelled in-process: Lean.Syntax (30 generated records, checked by the fold as declarations and not counted as records of the file)
+con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052] (--verified) t=183.3s
+con-ron: 1 inductive blocks modelled in-process: Lean.Syntax (30 generated records, checked by the fold as declarations and not counted as records of the file)
+con-ron: error: fuel exhausted: whnfCore [at thm OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052] (--verified) t=177.491s
+error: lean4lean exited with 1
+Command exited with non-zero status 1
+	Command being timed: "timeout 28800 lake comparator --paranoid --inadvisably-no-sandbox --config comparator-openai-challenge.json"
+	User time (seconds): 7404.18
+	System time (seconds): 255.54
+	Percent of CPU this job got: 194%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:05:41
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 75158804
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 5
+	Minor (reclaiming a frame) page faults: 67341382
+	Voluntary context switches: 864461
+	Involuntary context switches: 340266
+	Swaps: 0
+	File system inputs: 1216
+	File system outputs: 4761160
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
