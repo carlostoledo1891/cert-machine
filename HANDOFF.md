@@ -59,6 +59,9 @@ agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; 
      date appears), the registry line committed (0dcc77fb, the anchor), lean/INTAKE.md revealed (seals/reveals/claimbox-intake-
      2026-11-05/), verify CERTIFIED held by 2026-11-05 (certs/seal-first-use.json); the page re-verifies it at every build
      (section "the first seal"). The /verify/ card's tag is still "In development": flipping it is the operator's call.
+     ~20:05 UTC, THE SEAL ON X: the standalone post with the art card (2118433088707637700) and four replies (Jose A. Alonso's
+     Math 2.0 post, psantacl, the Chen Institute's AIAS+ 2026, Bahram Shakerin) sent by the operator's hand from the drafts;
+     rows x-d13-verify-seal-2026-11-05 and x-reply-*-seal-2026-11-05. Read the mentions next session.
   ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE — DONE BY THE AGENT (2026-11-05 ~20:30 UTC), NOT PUSHED: branch intake-2026-11-05 in
      ~/Projects/claimbox, two commits (0c9f304 the lift — one pin moved, the corpus 132 → 141 sentences; 71b9426 the intake:
      lean/INTAKE.md, tools/intake_scout.py, tools/intake_port.py, battery §16 with 16 greens and 8 red controls; calibrated:
