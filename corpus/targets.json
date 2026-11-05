@@ -1378,6 +1378,15 @@
    "finding": "No flaw reported, no acceptance (ethdiscussion.blog: four posts, no expert reading of the model or encoding steps; Busnello's Comparator rerun 10-31; Szeider: galactic constants). complexitylib, built by AI agents (Codex, Claude Code) with an AI reviewer, proves ¬ETH/¬SETH/exact #k-SAT natively on cslib's multitape TM with binary encCNF (Prop 6.4 route; Appendix D open, #1538), and RAM ⇐ multitape TM in linear time (#2027); the composition is open (#739); no native port of Anthropic's proof. Mathlib's TM2to1/TM1to0 carry no step counts; OpenAI's StackAdapter compiles FinTM2 onto PrimitiveMachine at a constant factor (one-bit outputs); PrimitiveMachine → FinTM2 is missing (scout estimate 700–1,200 lines); Anthropic's PolyT library (5.6k lines) makes encoding conversions cheap.",
    "fit": "cert-machine's role exactly: an AI-built library's headline decided by two kernels with a statement reading, and the one missing composition built by claimbox and decided here.",
    "next": "D1 on a CPU pod at complexitylib's merge commit; claim a claimbox folder with the claimbox session before C1/C2."
+  },
+  {
+   "id": "eth-openai-chain-2026-11",
+   "name": "The OpenAI side of the ETH model gap in one Lean: OpenAI's family-378 proof (openai/math 7ef5c0cc, Lean v4.34.1) with Hawkley's two bridges (thinkthoughts/math d6b79b7d) ported to complexitylib's Lean v4.36.0-rc2 beside C2, so EthBridge.OpenAIChain.not_eth : ¬ETH holds with no version seam, as the Anthropic chain does (certs/eth-chain.json)",
+   "verdict": "OPEN — scouted and pre-registered 2026-11-05 (notes/eth-openai-chain-preregistration-2026-11-05.md); route A (the port) chosen, route B (a direct bridge without Hawkley's links) parked",
+   "scouted": "2026-11-05",
+   "finding": "The chain closure is 3,210 files / 569,603 lines (3,091 of OpenAI's SubexponentialSAT, 92 ParityLifts, 27 of Hawkley's), Mathlib-only imports; all 3,183 OpenAI files byte-equal (same blob) to openai/math 7ef5c0cc, the certified commit (corpus/eth-refutation/openai-chain/scout-*.json). No native_decide, sorry, axiom, unsafe or extern in the closure; 23,889 `decide`s in 1,721 files are the port risk on the newer Lean. The jump is Lean 4.34.1 → 4.36.0-rc2 and 1,019 Mathlib commits; Anthropic's port of 809 files needed 47 repairs in ~3.5 h, so expect 100–250 repairs here over one to two agent sessions. OpenAI's closure built in 39 min on 16 vCPU and its leanchecker --fresh peaked at 99 GB, so the decision pod needs ≥128 GB.",
+   "fit": "The same closure as Anthropic's, for the other lab: the proof rebuilt in the statement's Lean, every change in a ledger, decided with our statement pin, axioms file, nanoda, leanchecker --fresh, Lean's judge and planted variants.",
+   "next": "An agent ports in claimbox lean/eth-bridge (OpenAIEth/, PORT.md); then tools/runpod-eth-openai-chain.sh on a cpu3m pod (cap US$25); then /eth/ §5b, the census, one report page for both chains, the note v0.2; Hawkley told after, on rpi-index #1."
   }
  ]
 }
