@@ -135,8 +135,8 @@ NEXT SESSION, IN ORDER:
      #279 and the X thread; claimbox `make lift`; the Qiushi fallback is the operator's (its date was 11-05).
      ~18:20 UTC: the BLOG REPLY under comment-24 SUBMITTED by the operator (awaiting moderation, beside the 11-04 one) and the
      ETH_Repository E-MAIL for the note v0.2 SENT by hand (links only, no attachment), as the organizers' page asks — rows
-     ethdiscussion-reply-openai-chain-2026-11-05 and email-paturi-eth-repository-v02-2026-11-05. Check whether the two blog
-     replies appear; the open thread with the definition question stays held.
+     ethdiscussion-reply-openai-chain-2026-11-05 and email-paturi-eth-repository-v02-2026-11-05. BOTH BLOG REPLIES ARE LIVE
+     (the 11-04 one as comment-30, today's as comment-34; both rows updated); the open thread with the definition question stays held.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
