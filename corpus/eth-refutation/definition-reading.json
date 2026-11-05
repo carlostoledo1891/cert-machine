@@ -1,0 +1,26 @@
+{
+ "what": "The definition at the end of the Anthropic chain, read clause by clause against Impagliazzo–Paturi (2001). A READING, not a decision: no kernel decides that a formal definition is the textbook one. Read on 2026-11-05 from complexitylib's abstracts/ComplexityAbstracts/SubexponentialSATAbstract.lean at 7c66eb71 (the commit claimbox pins); the facts under `checked` were checked here by machine, the `rows` are read.",
+ "source": {
+  "repository": "https://github.com/cslib-community/complexitylib",
+  "commit": "7c66eb718fb2c1ea8d5037bc0bbee64912cfc030",
+  "file": "abstracts/ComplexityAbstracts/SubexponentialSATAbstract.lean",
+  "authors": "OpenAI, Samuel Schlesinger and Anton Kovsharov (the file's copyright and authors line); the native port recorded in complexitylib #1226 with Erik Demaine and Codex, Claude and Jetski workers",
+  "audit": "#check_abstract ComplexityAbstracts.SubexponentialSATAbstract allowing [ComplexityAbstracts.Encoding], held by #guard_msgs at every build: \"abstract audit passed … 27 root declarations\""
+ },
+ "checked": {
+  "statementDependsOnlyOnLibrary": "The chain's theorem states ¬ ComplexityAbstracts.SubexponentialSATAbstract.ETH. Its definitions are complexitylib's and cslib's; the library's #check_abstract admits nothing beyond its Encoding module into them, and Lean's judge (certs/eth-chain.json) checked that the theorem's type is the pinned challenge's, a module that imports only ComplexityAbstracts.SubexponentialSATAbstract. So no file of the port enters the statement.",
+  "d1CommitVs7c66eb71": "D1 decided complexitylib at 1b7d62a8 (the merge of #2027); claimbox builds on 7c66eb71. 1b7d62a8 is an ancestor of 7c66eb71; both pin Lean v4.36.0-rc2, cslib 254e30e6 and Mathlib 69552756; SubexponentialSATAbstract.lean, Encoding.lean and Check.lean are byte-identical between them (git diff, empty).",
+  "alsoInTheTarget": "The same file states and proves ¬SETH and satExponent k = 0 for every k (complexitylib's own proof, D1: their axioms checked). The chain from Anthropic's statement decides ¬ETH only."
+ },
+ "rows": [
+  { "clause": "Statement", "standard": "s₃ > 0: some δ > 0 admits no O(2^{δn}) algorithm for 3-SAT", "lean": "∃ δ > 0, ¬ DecidableInExpTime (KSAT 3) encCNF numVars δ", "reading": "same" },
+  { "clause": "Quantifiers in ¬ETH", "standard": "for every δ > 0, some algorithm", "lean": "for every δ, some e, c and one machine, all fixed before the inputs; they may depend on δ", "reading": "same" },
+  { "clause": "Machine", "standard": "a deterministic Turing machine", "lean": "cslib's deterministic binary multitape TM: finitely many states, a fixed number of work tapes, a read-only input tape; time counts transitions", "reading": "same" },
+  { "clause": "Problem", "standard": "3-SAT, a decision problem", "lean": "KSAT 3: satisfiable formulas whose clauses have at most 3 literals", "reading": "same" },
+  { "clause": "n", "standard": "the number of variables", "lean": "numVars: the distinct variables occurring, not the largest label", "reading": "same" },
+  { "clause": "Time bound", "standard": "2^{δn}, polynomial factors implicit", "lean": "c · 2^{δn} · (L+1)^e + c, with L the encoded length", "reading": "to confirm: formulas may repeat clauses, so L is not bounded by a polynomial in n and the factor in L is needed; the usual convention, for the definition's authors to confirm" },
+  { "clause": "Encoding", "standard": "any reasonable encoding (Garey–Johnson)", "lean": "binary labels with explicit framing; the length proved exactly (length_encCNF: one bit per clause plus 10 + 8·b bits per literal, b the label's binary length)", "reading": "same" },
+  { "clause": "Space", "standard": "unconstrained", "lean": "some space bound must exist; otherwise unconstrained", "reading": "same" },
+  { "clause": "Inputs that are not encodings", "standard": "not addressed", "lean": "no condition, not even on time", "reading": "the standard promise" }
+ ]
+}

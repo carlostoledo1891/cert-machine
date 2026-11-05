@@ -39,6 +39,12 @@ for (const [rel, sha] of Object.entries(FIG.stamp)) {
 }
 if (!FIG.stamp[R.chain]) die('the figure does not draw the chain');
 const N = (x) => Number(x).toLocaleString('en-US');
+const DEF = J('corpus/eth-refutation/definition-reading.json');
+if (DEF.source.commit.slice(0, 8) !== ch.claim.builtOn.split(' ')[1].slice(0, 8)) die('the definition was read at another complexitylib commit than the chain builds on');
+for (const k of ['ComplexityAbstracts.SubexponentialSATAbstract.not_seth', 'ComplexityAbstracts.SubexponentialSATAbstract.satExponent_eq_zero'])
+  if (!(d1.axioms[k] || []).every((x) => ['propext', 'Classical.choice', 'Quot.sound'].includes(x)) || !(d1.axioms[k] || []).length) die('D1 does not carry ' + k + ' on the standard axioms, and the page says it does');
+if (!(ch.judge.claim.okay && ch.judge.planted.mismatch)) die('the judge did not check the chain\'s type against the challenge');
+
 const ant = kn.rows.find((r) => r.theorems.includes('MainResults.ethIsFalse'));
 if (!ant || ant.word !== 'CERTIFIED') die('the kernel record does not hold Anthropic\'s ethIsFalse CERTIFIED');
 
@@ -84,6 +90,20 @@ B.push(C.section({
   bodyRaw: '<div class="col">' + W.legendHtml({ compact: true }) + '</div>' + C.figure({ svgRaw: FIG.svg, record: Object.keys(FIG.stamp),
     stop: 'a record it was drawn from has moved since apps/eth/build.js drew it, or any link’s word is not CERTIFIED',
     captionRaw: '<b>The chain toward a standard machine</b>, as on <a href="../eth/#standard">/eth/</a>. Solid edges are Lean implications decided here, ticked by the checks their records say accepted (C Lean’s judge with six checkers, K Lean’s kernel, N nanoda, L leanchecker --fresh); a dashed box is a copy read across a version seam; the dashed links to the textbook statement are readings.' })
+}));
+
+/* the definition the chain ends at, read clause by clause (a reading, marked as one) */
+B.push(C.section({
+  lab: 'the definition', title: 'Where the chain ends, read against the textbook', id: 'definition', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('<b>The port cannot change what the theorem says.</b> The final statement, ¬ETH, mentions only complexitylib’s and cslib’s definitions: the library’s own audit (<span class="m">#check_abstract</span>, run at every build) admits nothing beyond its encoding module into them, and Lean’s judge checked that the theorem’s type is the pinned challenge’s, which imports nothing from the port. None of the ' + ch.claim.port.modified + ' edited files can change what <span class="m">not_eth</span> means.')
+    + C.pRaw('That definition, clause by clause, against Impagliazzo and Paturi (2001). This column is a reading, not a decision; only the time bound needs the judgment of the people who wrote the definition.') + '</div>'
+    + C.table({ cols: [{ h: 'clause' }, { h: 'the standard ETH' }, { h: 'complexitylib’s ETH' }, { h: 'our reading' }],
+      rows: DEF.rows.map((r) => [{ raw: '<b>' + esc(r.clause) + '</b>' }, r.standard, r.lean, r.reading === 'same' ? 'same' : { raw: '<b>' + esc(r.reading.split(':')[0]) + '</b>' + (r.reading.includes(':') ? esc(':' + r.reading.split(':').slice(1).join(':')) : '') }]) })
+    + '<div class="col">' + C.plainList([
+      { b: 'ETH only, not SETH.', text: 'The same file also states ¬SETH and that the SAT exponent is 0 for every clause width; complexitylib’s own proof (D1) proves those. The chain from Anthropic’s statement decides ¬ETH only.' },
+      { b: 'Who wrote the target.', text: 'The definition was written by ' + DEF.source.authors.split(' (')[0] + ', in a library built largely by AI agents and audited by #check_abstract. It is a neutral, checked library, but a reader judging independence should know that the target was co-written by OpenAI.' },
+      { b: 'Two complexitylib commits.', text: 'D1 decided complexitylib at ' + d1.claim.commit.slice(0, 8) + '; the bridge builds on ' + DEF.source.commit.slice(0, 8) + ', a later commit. The first is an ancestor of the second, both pin the same Lean, cslib and Mathlib, and the files that define the statement are byte-identical between them.' },
+    ]) + '</div>'
 }));
 
 /* §3 every link */
