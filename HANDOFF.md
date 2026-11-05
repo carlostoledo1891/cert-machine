@@ -115,8 +115,8 @@ NEXT SESSION, IN ORDER:
      CITATION.cff, corpus/zenodo.json, paper/INDEX.json and the note's tnote carry it. SENT on the operator's word: the
      follow-up to Hawkley (rpi-index #1, issuecomment-6663996258) and the last update on formal-math #36
      (issuecomment-6663996674), both in corpus/outreach.json. The X drop d12 (three posts, the share card as media) is
-     PREVIEWED and waits for the operator's final yes: `node tools/x.js post notes/x/drops/d12-openai-chain-post.txt --media
-     design/assets/og-eth-chain.png --send`. OWED: claimbox `make lift` (the register digest moved twice today); a reply on
+     SENT on the operator's "send" (~17:25 UTC): https://x.com/_carlos_toledo_/status/2118392572041212131 (three posts, the card
+     on the first; corpus/outreach.json x-d12-openai-chain-2026-11-05). OWED: claimbox `make lift` (the register digest moved twice today); a reply on
      teorth/optimizationproblems #279 and a scout of arhancanli/quantavane-replays, the operator's call; the comparator-limits
      report upstream (lean4lean fuel default, nanoda's bundled build, con-leche's fuel), the operator's call.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
