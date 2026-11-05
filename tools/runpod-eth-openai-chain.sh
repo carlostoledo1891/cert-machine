@@ -22,9 +22,9 @@
 #   P  comparator  `lake comparator --paranoid`: Challenge.OpenAIChain vs EthBridge.OpenAIChain, and vs Planted.OpenAIChainStatement
 #   P3 OpenAI's own challenge (pre-registration §5, "attempted in addition"): lean/ComparatorChallenges/SubexponentialSAT.lean
 #                  pinned in corpus/eth-refutation/openai-chain/challenge/ (sha256 checked against its PINS.json before use),
-#                  placed unchanged as the module Challenge.OpenAISubexponentialSAT; the config from OpenAI's json with two
-#                  fields changed (challenge_module → ours; solution_module → OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final,
-#                  the ported module that holds exact_count_and_sat), both recorded in P3.0.out; `lake comparator --paranoid`
+#                  placed unchanged as the module Challenge.OpenAISubexponentialSAT; the config from OpenAI's json with ONE
+#                  field changed (challenge_module → ours; solution_module stays OpenAI's OAI.Algorithms.SubexponentialSAT.Main,
+#                  which the port carries and P3b builds), recorded in P3.0.out; `lake comparator --paranoid`
 #                  like P1. If the challenge does not BUILD on this Mathlib (69552756) the step ends NOT RUN (P3.notrun, the
 #                  build error in P3b.err), distinct from a rejection.
 # env: AUDIT_SHA, CLAIMBOX_SHA (both required)
@@ -222,7 +222,7 @@ out = {'leanSha256': got, 'pinSha256': want, 'pinOk': got == want, 'configSha256
 if got != want:
     print(json.dumps(out, indent=1)); sys.exit(3)
 open(W + '/Challenge/OpenAISubexponentialSAT.lean', 'wb').write(lean)
-new = dict(cfg); new['challenge_module'] = 'Challenge.OpenAISubexponentialSAT'; new['solution_module'] = 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final'
+new = dict(cfg); new['challenge_module'] = 'Challenge.OpenAISubexponentialSAT'
 out['configChanges'] = {k: {'from': cfg[k], 'to': new[k]} for k in cfg if cfg[k] != new[k]}
 out['config'] = new
 json.dump(new, open(W + '/comparator-openai-challenge.json', 'w'), indent=1)
@@ -235,9 +235,10 @@ else
   cp $W/Challenge/OpenAISubexponentialSAT.lean $R/Challenge-OpenAISubexponentialSAT.lean; cp $W/comparator-openai-challenge.json $R/
   # the challenge is `import Mathlib` plus self-contained definitions: a Mathlib rename between d13f23b7 and 69552756 could
   # stop it compiling, which is NOT a verdict on the proof — reported as it ran
-  step P3b 7200 $W lake build Challenge.OpenAISubexponentialSAT
+  # OpenAI's own solution module (Main, in the port) is built here too: L2 builds only what the chain imports
+  step P3b 7200 $W lake build Challenge.OpenAISubexponentialSAT OAI.Algorithms.SubexponentialSAT.Main
   if [ "$(cat $R/P3b.exit)" != 0 ]; then
-    echo "NOT RUN: the challenge does not compile on Mathlib 69552756 (lake build exit $(cat $R/P3b.exit); the error in P3b.err)" > $R/P3.notrun; echo notrun > $R/P3.mode
+    echo "NOT RUN: the challenge or OpenAI's Main does not compile on Mathlib 69552756 (lake build exit $(cat $R/P3b.exit); the error in P3b.err)" > $R/P3.notrun; echo notrun > $R/P3.mode
   else
     judge P3 comparator-openai-challenge.json
   fi

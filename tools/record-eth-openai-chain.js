@@ -13,7 +13,7 @@
    theorem's export, leanchecker --fresh exits 0, AND every planted variant is refused (the changed statement by the
    statement check, the sorry and the axiom by the axioms file and by nanoda). A control that does not fire refuses the record.
    P3, OpenAI's own Comparator challenge (corpus/eth-refutation/openai-chain/challenge/, pinned at openai/math 7ef5c0cc) against
-   the ported SqrtLogSpace.Final, pre-registered as "attempted in addition": REJECTED refuses the record (the port would have
+   the ported solution module (OpenAI's own Main), pre-registered as "attempted in addition": REJECTED refuses the record (the port would have
    changed OpenAI's statement); NOT RUN because the challenge does not compile on the new Mathlib is said with its reason and
    leaves the verdict alone; accepted adds one line to the scope.
 
