@@ -90,6 +90,23 @@ NEXT SESSION, IN ORDER:
      disclosed. ALSO 2026-11-05: arhancanli posted an independent exact replay of C_89c on teorth/optimizationproblems #279
      agreeing with ours to the digit (outreach row gh-optq-279 updated); a reply there and a reciprocity scout of
      arhancanli/quantavane-replays are the operator's call.
+     ~18:30 UTC: THE PUBLISHING BUILD IS DONE LOCALLY, THE SITE NOT PUSHED (the operator's word): ONE report page for both chains
+     (reports/eth-chain.html; eth-anthropic-chain.html removed, a 301 in vercel.json, titles/baselines/hub/register pages renamed),
+     /eth/ with both chains in the §5b figure (the OpenAI chain edge; "OpenAI + Hawkley · claimbox port"; lighter outlines — node
+     stroke 1, edges 1.5, the ink baseline accepted on the operator's "outlines too heavy") and in the lane, claimbox named as the
+     claimant on the figure and in the report's "Who claims, who decides" paragraph ("cert-machine … claims nothing of its own"),
+     the share card's deck without the "one version gap"; the note v0.2 (paper/tex/eth-chain.tex, 7 pp, by an agent:
+     tools/paper-numbers/eth-chain.js reads the OpenAI record; INDEX.json status v0.2; the complexitylib PR sentence); the register's
+     two chain rows reworded (plain words first; final sha 3558fcf5) with the self-audit re-pinned (amendment text updated), the
+     dReal re-run recorded on the final claims (run 42064197788), the rerun page's paths breakable; make page R=eth-chain GREEN
+     (style, marks, render, ruler; three ruler improvements locked); make control running at the handoff. SOURCES PUSHED (269417c8);
+     site/ (the built pages, the landing at 141 rows, the certs copies) WAITS for the word — `git add site && commit && push` goes
+     live. A SLIP TO SETTLE: commit 0254d579 swept 59 untracked private notes into the public repo (`git add notes`); 0b3d5d3a
+     untracks them again, but they remain in the history (notes/pedro-feedback-2026-10-21.md, method-paper-review, the roundtable
+     folder, visual-grammar, tcs-form-answers, notes/x/*); a history rewrite (force push) was refused by the permission classifier —
+     the operator decides (rewrite, or leave). Zenodo: a new GitHub release (v2026.11.05b or 11.06) mints the v0.2 DOI — not created,
+     the operator's call. Drafts ready, untracked: outreach/gh-rpi-index-1-openai-chain-2026-11-05.md, outreach/gh-formal-math-36-
+     openai-chain-2026-11-05.md, notes/x/drops/d12-openai-chain.txt.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
