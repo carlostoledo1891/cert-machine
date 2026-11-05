@@ -1077,6 +1077,33 @@
    "sent": "2026-11-05",
    "status": "posted, no reply",
    "note": "the reciprocity scout of arhancanli/quantavane-replays c89/ (f4daa1e0) runs the same evening; its row in corpus/targets.json"
+  },
+  {
+   "id": "gh-lean4-16290-2026-11-05",
+   "what": "Issue on leanprover/lean4: `lake comparator --paranoid` on a 2.45 GB export — leanchecker-paranoid and the default kernel accept, the four bundled external checkers exit non-zero at their own limits (nanoda's worker stack, lean4lean's fuel, con-leche's and con-ron's compiled fuel) and the comparator prints each as 'rejected the solution'; the by-hand reproduction with every number; three asks (report a decline or crash as such; a stack field in the nanoda config; lean4lean's fuel). AI help disclosed. Filed on Carlos's word.",
+   "where": "GitHub, leanprover/lean4 issue 16290",
+   "url": "https://github.com/leanprover/lean4/issues/16290",
+   "sent": "2026-11-05",
+   "status": "posted, no reply",
+   "note": "the draft outreach/gh-lean4-comparator-limits-2026-11-05.md (untracked); the facts certs/eth-openai-chain.json judge.shipped / judge.diagnosis"
+  },
+  {
+   "id": "gh-nanoda-80-2026-11-05",
+   "what": "Issue on ammkrn/nanoda_lib: the 0.4.17 binary bundled with Lean v4.36.0-rc2 overflows a worker thread's stack on a 2.45 GB export and reads no stack_size_bytes (RUST_MIN_STACK no help); the source at 8de7e0c4 with a 1 GiB stack accepts in 142 s. AI help disclosed. Filed on Carlos's word.",
+   "where": "GitHub, ammkrn/nanoda_lib issue 80",
+   "url": "https://github.com/ammkrn/nanoda_lib/issues/80",
+   "sent": "2026-11-05",
+   "status": "posted, no reply",
+   "note": "the draft outreach/gh-nanoda-stack-2026-11-05.md (untracked); linked from lean4#16290"
+  },
+  {
+   "id": "gh-con-leche-16-2026-11-05",
+   "what": "Issue on leanprover/con-leche: 'fuel exhausted: whnfCore' (exit 3) at a theorem of a 2.45 GB export in con-leche and con-ron alike, a compiled fuel with no setting; the comparator reports the decline as a rejection (filed as lean4#16290); the ask: a fuel setting or a documented decline exit. AI help disclosed. Filed on Carlos's word.",
+   "where": "GitHub, leanprover/con-leche issue 16",
+   "url": "https://github.com/leanprover/con-leche/issues/16",
+   "sent": "2026-11-05",
+   "status": "posted, no reply",
+   "note": "the draft outreach/gh-con-leche-fuel-2026-11-05.md (untracked); linked from lean4#16290"
   }
  ]
 }
