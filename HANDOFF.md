@@ -57,6 +57,21 @@ NEXT SESSION, IN ORDER:
      root@91.199.227.82 -p 34260 (the proxy needs a PTY and hangs; the direct port answers ~1 min after creation). THEN: a dated
      amendment to the pre-registration (a platform failure is re-run and recorded as such — the stop rule's own words) only if the
      by-hand runs show a limit, with the comparator's own verdict kept in the record; BOTH pods deleted after their imports.
+     12:55 UTC: THE STOPS NAMED AND THE AMENDMENT MADE. Stages A–C on the diagnostic pod (POD.txt): on the comparator's own
+     export the bundled nanoda 0.4.17 overflows a worker stack (no stack field in that build; RUST_MIN_STACK no help), OUR
+     pinned nanoda (8de7e0c4) accepts in 142 s with a 1 GiB stack; lean4lean stops on its own FuelConfig and accepts in 23 min
+     with every field ×100; leanchecker-paranoid --from-export accepts; con-leche and con-ron exit 3 "internal error: fuel
+     exhausted: whnfCore" at a compiled constant (their charter: a decline, never a verdict). The decision pod DELETED (404),
+     its facts imported (runs/runpod-f0xfo9d8mcnhz6), the record written REFUSED as pre-registered (ac2cea46). The operator
+     chose "comparator with named checkers": the amendment is in the pre-registration (12:55 UTC) and the record script reads
+     a second run directory (--named; default the newest holding Q1.exit): Q1 chain, Q2 planted statement, Q3 OpenAI's own
+     challenge, judged by `lake comparator` with external_kernels = leanchecker-paranoid, our pinned nanoda (16 threads,
+     1 GiB), lean4lean (fuel ×100), Lean default last; the --paranoid runs stay in the record with each stop in the checker's
+     words (judge.shipped, p3.shipped) and the by-hand stages as judge.diagnosis. STAGE D RUNNING on atkkgtterhqpxk from
+     13:00 UTC (scratchpad diag3.sh; ≈2–2.5 h: the build of Main, then three comparator runs of ~50 min). WHEN _phase is
+     complete: `node tools/import-runpod-facts.js atkkgtterhqpxk corpus/eth-refutation/openai-chain/runs`, `node
+     tools/record-eth-openai-chain.js` (both run directories found by themselves), DELETE the pod (404), POD.txt; then the
+     shelf row + battery, and the publishing list on the operator's word. Spend so far ≈US$4.9 + the diagnostic pod.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
