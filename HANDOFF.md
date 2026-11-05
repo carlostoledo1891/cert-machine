@@ -30,7 +30,7 @@ NEXT SESSION, IN ORDER:
      rpi-index #1 (6646098520). complexitylib PRs READY LOCALLY, NOT PUSHED (scratchpad complexitylib-pr/, two branches on
      b28df563: wordram-space-bounded-sim eb32a374, tm2-degree-uniform fd0985df; PR-BODY.md); decisions for the operator:
      one PR or two, Schlesinger in the Authors line of the space proof, comment on #739 first, re-decide the port in
-     cert-machine before sending. The e-mail to Paturi: the operator's, from his thread.
+     cert-machine before sending. The e-mail to Paturi: the operator's, in the existing thread.
   ◆ ETH: THE ANTHROPIC CHAIN CERTIFIED IN ONE LEAN (2026-11-05 ~00:30 UTC): certs/eth-chain.json (claimbox c1442b1;
      Anthropic's eth/ ported to Lean 4.36, 47 of 809 files edited, PORT.md; nanoda 77,276 declarations; leanchecker --fresh;
      lake comparator --paranoid, six checkers, no sandbox; three planted variants refused) and certs/eth-comparator.json
