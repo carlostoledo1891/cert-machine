@@ -36,7 +36,13 @@ NEXT SESSION, IN ORDER:
      files; PORT.md 3,464 lines; README) — the Mac could not build it (each lean maps ~8 GB of Mathlib; 183 modules in 2.5 h), so a
      RunPod pod uueovtfolgfovc (cpu3m 16 vCPU / 128 GB, EU-NL-1, US$0.88/h, created 05:27 UTC, corpus/eth-refutation/POD.txt) is the
      build box: the port agent drives it over SSH (key ~/.ssh/id_ed25519_runpod; direct root@91.199.227.82 -p 34710), stops at 10 h;
-     IT BILLS UNTIL DELETED — list-pods first, delete it when the port is pushed (or if the agent is dead), confirm 404.
+     THE PORT COMPLETED on that pod (claimbox bdf357ef: 3,210 modules, 3,190 byte-identical, 20 modified — R0 ×2, R1 ×4, R2 ×16,
+     R3 ×1; all six theorems on the three standard axioms; the four libraries + the chain built in 49 min 37 s on 16 vCPU); the port
+     pod DELETED 07:00 UTC (404 confirmed, ≈US$1.4). THE DECISION POD IS BILLING: f0xfo9d8mcnhz6 (cpu3m 16 vCPU / 128 GB, EU-RO-1,
+     US$0.88/h, created 07:24 UTC) runs tools/runpod-eth-openai-chain.sh (AUDIT_SHA e3f6a20f, CLAIMBOX_SHA bdf357ef); facts at
+     https://f0xfo9d8mcnhz6-8000.proxy.runpod.net/_status.json; when _phase is complete: `node tools/import-runpod-facts.js
+     f0xfo9d8mcnhz6 corpus/eth-refutation/openai-chain/runs`, `node tools/record-eth-openai-chain.js`, then DELETE the pod, confirm 404.
+     (A plain ubuntu:24.04 image was refused as "no instances" four times; the runpod/pytorch image took at once — use it for CPU pods.)
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
