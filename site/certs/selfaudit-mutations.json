@@ -13,17 +13,17 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a"
+  "sha256": "ca3b6543f3339040815fe917a321d12e475ce983e19f7dcb8e14ba2521e632fc"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651"
+  "sha256": "b96232b92ad9f5bc82dd1f4fba84bee98ebebd894f7d828595f376ee8f972110"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "42e96aa98a0c8613b255f2678bfabcc3e58de7c1a6c1344630da2f5d1ed7389f",
-   "rows": 132
+   "sha256": "3c0ff499b704ba4c976a6e9819f3894dab1d9bffd4a100e57a4b20d1425c8a9b",
+   "rows": 140
   },
   "recordPins": {
    "certs/strassen-certificate.json": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
@@ -29700,6 +29700,34 @@
    "after": {
     "preregistration": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a",
     "inventory": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651"
+   }
+  },
+  {
+   "at": "2026-11-05T03:59:05.028Z",
+   "git": "4a90bb96",
+   "why": "Amendment 2026-11-05: the register grows from 132 to 140 rows — seven records decided after the freeze (eth-kernel, eth-tsavo-bridge, eth-hawkley-bridge, eth-hawkley-heavy, eth-cslib-d1, eth-chain, wsp-baseline), named by the rerun kit and classified not mutated; no measurement, mutant or decision touched",
+   "before": {
+    "preregistration": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a",
+    "inventory": "d18d642a05e4d37a9f4201a6bebc746a2766bf386202b1e9817ec2c8fb453651",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "f594549274303025bb5b45831125e1b674c160b896382f1bbedfa79b416c638c",
+    "inventory": "2a466e2d9d75ff42d1a31700c638a874ba44b4017ae89f938bd90a6bafe84ee8"
+   }
+  },
+  {
+   "at": "2026-11-05T04:05:33.619Z",
+   "git": "5464846c",
+   "why": "Amendment 2026-11-05, later the same day: the runner gained --append --only and the seven new kit commands were measured and joined to the run record; the note and the inventory moved with it; no mutant or decision touched",
+   "before": {
+    "preregistration": "f594549274303025bb5b45831125e1b674c160b896382f1bbedfa79b416c638c",
+    "inventory": "2a466e2d9d75ff42d1a31700c638a874ba44b4017ae89f938bd90a6bafe84ee8",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "ca3b6543f3339040815fe917a321d12e475ce983e19f7dcb8e14ba2521e632fc",
+    "inventory": "b96232b92ad9f5bc82dd1f4fba84bee98ebebd894f7d828595f376ee8f972110"
    }
   }
  ]

@@ -2,57 +2,57 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-10-31T01:35:19.750Z",
- "git": "df88e284",
+ "generated": "2026-11-05T04:04:27.977Z",
+ "git": "5464846c",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "9437517a5f30d152ad81c290fcea6c0c41dfd8d339d989887b2a31fab16e849a"
+  "sha256": "ca3b6543f3339040815fe917a321d12e475ce983e19f7dcb8e14ba2521e632fc"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "42e96aa98a0c8613b255f2678bfabcc3e58de7c1a6c1344630da2f5d1ed7389f",
-   "rows": 132,
+   "sha256": "3c0ff499b704ba4c976a6e9819f3894dab1d9bffd4a100e57a4b20d1425c8a9b",
+   "rows": 140,
    "meta": {
-    "date": "2026-10-27",
-    "git": "aae61990"
+    "date": "2026-11-05",
+    "git": "a6efcabd"
    }
   },
   "kit": {
    "path": "corpus/rerun-kit.json",
-   "sha256": "8d276e9c3ec889d7bfaafdf8f06567f8743a9afe9437dd15d22665998ced1b5a",
-   "entries": 25
+   "sha256": "03776713bcebbda41f6548cd48cb508f7d4ad1599ff22879d26524fb9eeb6327",
+   "entries": 32
   },
   "run": {
    "path": "certs/rerun-kit-run.json",
-   "sha256": "415cd158cbec52f4784214abbc91845282c4143d5d8914a6ba0348887e898ee9",
-   "date": "2026-10-21",
-   "git": "fcff53c7",
+   "sha256": "0aebc806fde580d25261995979b9f70e3250425265fa7acee2e1059acfe7a00e",
+   "date": "2026-11-05",
+   "git": "4a90bb96",
    "machine": {
     "os": "Darwin 27.0.0",
     "cpu": "Apple M2",
     "node": "v24.14.1",
     "python": "Python 3.9.6"
    },
-   "registerRows": 132
+   "registerRows": 140
   }
  },
  "totals": {
-  "records": 25,
-  "rows": 132,
-  "rowsDecided": 131,
+  "records": 32,
+  "rows": 140,
+  "rowsDecided": 139,
   "rowsPending": 1,
   "byVerdict": {
-   "CERTIFIED": 107,
+   "CERTIFIED": 114,
    "PARTIAL": 9,
    "REFUTED": 2,
    "QUEUED": 1,
-   "MIXED": 5,
+   "MIXED": 6,
    "REPAIRED": 6,
    "NEEDS DATA": 2
   },
   "byKind": {
-   "none": 108,
+   "none": 115,
    "narrower-scope": 8,
    "float-printed-as-exact": 1,
    "sign-slip": 1,
@@ -60,23 +60,23 @@
    "not-from-the-published-data": 1,
    "arithmetic-slip": 2,
    "not-the-optimum": 1,
-   "wrong-quantity": 1,
+   "wrong-quantity": 2,
    "data-not-public": 2,
    "depends-on-reading": 1,
    "checker-wider-than-definition": 1
   },
-  "recordsWithRederive": 23,
+  "recordsWithRederive": 30,
   "recordsWithVerifier": 7,
-  "recordsWithSecond": 1,
+  "recordsWithSecond": 2,
   "recordsWithoutRederive": [
    "certs/ai-claims-summary.json",
    "corpus/navier-stokes/audit.json"
   ],
-  "rowsWithRederive": 125,
+  "rowsWithRederive": 133,
   "rowsWithVerifier": 50,
-  "rowsWithSecond": 1,
-  "commandsTimed": 31,
-  "recordsTimed": 23,
+  "rowsWithSecond": 2,
+  "commandsTimed": 39,
+  "recordsTimed": 30,
   "recordsUntimed": [],
   "portableWallSeconds": 60,
   "recordsOverPortable": [
@@ -117,7 +117,11 @@
    "certs/countex-ledger.json",
    "certs/horizonmath-ledger.json",
    "certs/gnnw-certificate.json",
-   "certs/polymaps-ledger.json"
+   "certs/polymaps-ledger.json",
+   "certs/eth-tsavo-bridge.json",
+   "certs/eth-hawkley-bridge.json",
+   "certs/eth-hawkley-heavy.json",
+   "certs/wsp-baseline.json"
   ],
   "rederiveWrites": [
    "certs/erdos852-certificate.json",
@@ -132,9 +136,14 @@
    "certs/mc100-alphatensor-f2.json",
    "certs/mc100-alphaevolve-nb-matmul.json",
    "certs/mc100-einstein-arena.json",
-   "certs/mc100-station-v2.json"
+   "certs/mc100-station-v2.json",
+   "certs/eth-kernel.json",
+   "certs/eth-cslib-d1.json",
+   "certs/eth-chain.json"
   ],
-  "rederiveByteIdentical": [],
+  "rederiveByteIdentical": [
+   "certs/eth-kernel.json"
+  ],
   "rederiveNotByteIdentical": [
    "certs/erdos852-certificate.json",
    "certs/kissing-ledger.json",
@@ -148,11 +157,13 @@
    "certs/mc100-alphatensor-f2.json",
    "certs/mc100-alphaevolve-nb-matmul.json",
    "certs/mc100-einstein-arena.json",
-   "certs/mc100-station-v2.json"
+   "certs/mc100-station-v2.json",
+   "certs/eth-cslib-d1.json",
+   "certs/eth-chain.json"
   ],
   "rowsWithPerRowTiming": 74,
   "rowsMutable": 119,
-  "rowsNotMutated": 13,
+  "rowsNotMutated": 21,
   "byFamily": {
    "erdos852": 1,
    "kissing": 11,
@@ -188,7 +199,7 @@
   ],
   "compositions": {
    "PARTIAL": 9,
-   "MIXED": 5,
+   "MIXED": 6,
    "REPAIRED": 6
   }
  },
@@ -998,6 +1009,227 @@
    "mutation": {
     "family": "polymaps",
     "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/eth-kernel.json",
+   "sha256": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0",
+   "rows": 2,
+   "byVerdict": {
+    "CERTIFIED": 2
+   },
+   "rederive": "node tools/record-eth-kernel.js",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the imported pod facts in corpus/eth-refutation/runs (runpod-x8ifbbj2vbolyj, runpod-69d9t7dxjffo6n, runpod-ijw7890hq4ed9x)",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": true,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay (Comparator with Lean's kernel and nanoda, leanchecker --fresh) of two labs' pinned Lean trees; no exact object to mutate here — a mutant would be a changed tree on a pod"
+   }
+  },
+  {
+   "record": "certs/eth-tsavo-bridge.json",
+   "sha256": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-eth-tsavo.js --check",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the kept GitHub run under corpus/eth-refutation/tsavo/runs",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay of a third party's Lean bridge inside Anthropic's pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner"
+   }
+  },
+  {
+   "record": "certs/eth-hawkley-bridge.json",
+   "sha256": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-eth-hawkley.js --check",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the kept GitHub run under corpus/eth-refutation/hawkley/runs",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay of a third party's Lean bridge inside OpenAI's pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner"
+   }
+  },
+  {
+   "record": "certs/eth-hawkley-heavy.json",
+   "sha256": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-eth-hawkley-heavy.js --check",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the imported pod facts in corpus/eth-refutation/hawkley/runs/runpod-dumwx3gz82jcvf",
+   "timed": {
+    "rederive": {
+     "seconds": 0.2,
+     "status": 0,
+     "sha256After": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.2,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay of a third party's Lean theorem on a pod (its own negative control, nanoda rejecting a planted axiom, is in the record); no exact object to mutate here"
+   }
+  },
+  {
+   "record": "certs/eth-cslib-d1.json",
+   "sha256": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-eth-cslib-d1.js corpus/eth-refutation/cslib/runs/runpod-h07oiww4hr8ikm",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the imported pod facts in corpus/eth-refutation/cslib/runs",
+   "timed": {
+    "rederive": {
+     "seconds": 0,
+     "status": 0,
+     "sha256After": "5e9fd27f58ba0322097e9b4b9af25a565e043cac4b2d169bb8cc6b54e80a410d"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay of a Lean library at its pin on a pod; no exact object to mutate here — a mutant would be a changed tree on a pod"
+   }
+  },
+  {
+   "record": "certs/eth-chain.json",
+   "sha256": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-eth-chain.js corpus/eth-refutation/chain/runs/runpod-aa1oy86aj465u8",
+   "verifier": null,
+   "second": null,
+   "needs": "node; the imported pod facts in corpus/eth-refutation/chain/runs",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "dec2569b2f3a7f1eb7c5543c26b4fa4b48bfa0b153556d658fb69259b257cc8a"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a kernel replay whose record carries the lane's own three planted variants (statement, sorry, axiom), each refused; no further object to mutate here"
+   }
+  },
+  {
+   "record": "certs/wsp-baseline.json",
+   "sha256": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "python3 -I tools/wsp-baseline.py --check",
+   "verifier": null,
+   "second": "node tools/wsp-grade-second.js --check",
+   "needs": "python3 standard library; the cached generations under corpus/wsp/.cache/baseline-runs; node for the second grader",
+   "timed": {
+    "rederive": {
+     "seconds": 3,
+     "status": 0,
+     "sha256After": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
+    },
+    "verifier": null,
+    "second": {
+     "seconds": 3.5,
+     "status": 0,
+     "sha256After": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
+    }
+   },
+   "rederiveSeconds": 3,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader's red controls are in its records"
    }
   }
  ],
@@ -2585,6 +2817,102 @@
    "mutable": true,
    "family": "polymaps",
    "notMutatedBecause": null
+  },
+  {
+   "id": "eth-openai-378",
+   "record": "certs/eth-kernel.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay (Comparator with Lean's kernel and nanoda, leanchecker --fresh) of two labs' pinned Lean trees; no exact object to mutate here — a mutant would be a changed tree on a pod"
+  },
+  {
+   "id": "eth-anthropic-formal-math",
+   "record": "certs/eth-kernel.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay (Comparator with Lean's kernel and nanoda, leanchecker --fresh) of two labs' pinned Lean trees; no exact object to mutate here — a mutant would be a changed tree on a pod"
+  },
+  {
+   "id": "eth-tsavo-bridge",
+   "record": "certs/eth-tsavo-bridge.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay of a third party's Lean bridge inside Anthropic's pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner"
+  },
+  {
+   "id": "eth-hawkley-bridge",
+   "record": "certs/eth-hawkley-bridge.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay of a third party's Lean bridge inside OpenAI's pinned tree; no exact object to mutate here — a mutant would be a changed tree on a runner"
+  },
+  {
+   "id": "eth-hawkley-heavy",
+   "record": "certs/eth-hawkley-heavy.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay of a third party's Lean theorem on a pod (its own negative control, nanoda rejecting a planted axiom, is in the record); no exact object to mutate here"
+  },
+  {
+   "id": "eth-cslib-d1",
+   "record": "certs/eth-cslib-d1.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/eth/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay of a Lean library at its pin on a pod; no exact object to mutate here — a mutant would be a changed tree on a pod"
+  },
+  {
+   "id": "eth-anthropic-chain",
+   "record": "certs/eth-chain.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/eth-anthropic-chain.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a kernel replay whose record carries the lane's own three planted variants (statement, sorry, axiom), each refused; no further object to mutate here"
+  },
+  {
+   "id": "wsp-math500",
+   "record": "certs/wsp-baseline.json",
+   "verdict": "MIXED",
+   "kind": "wrong-quantity",
+   "page": "/reports/weight-space-programming.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader's red controls are in its records"
   }
  ]
 }

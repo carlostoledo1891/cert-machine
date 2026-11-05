@@ -1,7 +1,7 @@
 {
  "what": "The rerun kit, executed: every command of corpus/rerun-kit.json run from this repository, timed, the register's rows (verdict, scope, kind) compared before and after. Written by tools/build-report-rerun.js --run; the page reads the runtimes from here and never types one.",
- "date": "2026-10-21",
- "git": "fcff53c7",
+ "date": "2026-11-05",
+ "git": "4a90bb96",
  "machine": {
   "os": "Darwin 27.0.0",
   "cpu": "Apple M2",
@@ -257,9 +257,73 @@
    "seconds": 0.1,
    "status": 0,
    "sha256After": "81bdedb6c49552ca1c2cab65d91a22302099e2c5297967a5b6127b06c9756de7"
+  },
+  {
+   "record": "certs/eth-kernel.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-kernel.js",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0"
+  },
+  {
+   "record": "certs/eth-tsavo-bridge.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-tsavo.js --check",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236"
+  },
+  {
+   "record": "certs/eth-hawkley-bridge.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-hawkley.js --check",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d"
+  },
+  {
+   "record": "certs/eth-hawkley-heavy.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-hawkley-heavy.js --check",
+   "seconds": 0.2,
+   "status": 0,
+   "sha256After": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08"
+  },
+  {
+   "record": "certs/eth-cslib-d1.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-cslib-d1.js corpus/eth-refutation/cslib/runs/runpod-h07oiww4hr8ikm",
+   "seconds": 0,
+   "status": 0,
+   "sha256After": "5e9fd27f58ba0322097e9b4b9af25a565e043cac4b2d169bb8cc6b54e80a410d"
+  },
+  {
+   "record": "certs/eth-chain.json",
+   "kind": "rederive",
+   "command": "node tools/record-eth-chain.js corpus/eth-refutation/chain/runs/runpod-aa1oy86aj465u8",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "dec2569b2f3a7f1eb7c5543c26b4fa4b48bfa0b153556d658fb69259b257cc8a"
+  },
+  {
+   "record": "certs/wsp-baseline.json",
+   "kind": "rederive",
+   "command": "python3 -I tools/wsp-baseline.py --check",
+   "seconds": 3,
+   "status": 0,
+   "sha256After": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
+  },
+  {
+   "record": "certs/wsp-baseline.json",
+   "kind": "second",
+   "command": "node tools/wsp-grade-second.js --check",
+   "seconds": 3.5,
+   "status": 0,
+   "sha256After": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
   }
  ],
- "registerRows": 132,
+ "registerRows": 140,
  "rowsMoved": [],
  "failed": []
 }
