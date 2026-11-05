@@ -13,9 +13,13 @@
   {
    "kind": "opentimestamps",
    "file": "digest.txt.ots",
-   "confirmed": false,
-   "date": null,
-   "why": "ots verify did not report a Bitcoin block (pending? run `ots upgrade`; a Bitcoin node or `--no-bitcoin` may be needed): coin blockchain\nCalendar https://btc.calendar.catallaxy.com: Pending confirmation in Bitcoin blockchain\nCalendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain"
+   "confirmed": true,
+   "date": "2026-11-05",
+   "block": 974704,
+   "block_hash": "00000000000000000001499a40e7bda4cce8310b620f2cb569648caefb6dfb0e",
+   "merkle_root": "49863c91afe3bd3488c4bc89baa2d8a21863da893aa07a60e89bf20e7b708b90",
+   "block_time": "2026-11-05T20:34:20Z",
+   "read_via": "public block explorers, not a Bitcoin node: https://blockstream.info/api, https://mempool.space/api"
   },
   {
    "kind": "git",
@@ -28,5 +32,5 @@
  ],
  "held_by": "2026-11-05",
  "verdict": "CERTIFIED",
- "reason": "this file re-derives its salted hash and its salted name at index 6 of a manifest whose seal re-derives; 1 anchor(s) confirmed; the file was held by 2026-11-05. The other 9 file(s) stay unrevealed and undecided."
+ "reason": "this file re-derives its salted hash and its salted name at index 6 of a manifest whose seal re-derives; 2 anchor(s) confirmed; the file was held by 2026-11-05. The other 9 file(s) stay unrevealed and undecided."
 }

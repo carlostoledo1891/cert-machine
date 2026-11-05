@@ -72,6 +72,7 @@ import sys
 import tarfile
 import time
 import unicodedata
+import urllib.request
 
 VERSION = "verify-seal-v1"
 PREFIX = b"verify-seal-v1\n"
@@ -221,6 +222,65 @@ def _git(clone, *args):
     return r.stdout
 
 
+ESPLORA = ("https://blockstream.info/api", "https://mempool.space/api")
+
+
+def _get(url):
+    with urllib.request.urlopen(url, timeout=20) as r:
+        return r.read(4096).decode("ascii").strip()
+
+
+def header_fields(hexhdr):
+    """(block hash, merkle root, time) of an 80-byte Bitcoin block header, computed here from its bytes"""
+    h = bytes.fromhex(hexhdr)
+    if len(h) != 80:
+        raise Refused("a block header is 80 bytes; this one is %d" % len(h))
+    return sha256(sha256(h))[::-1].hex(), h[36:68][::-1].hex(), int.from_bytes(h[68:72], "little")
+
+
+def _ots_by_explorers(ots, ots_file, txt):
+    """No Bitcoin node answered `ots verify`. `ots --no-bitcoin verify` still checks the path from the digest to a block's
+    merkle root and names both; the block's 80-byte header is then read from public block explorers (the Esplora API; the
+    list in $SEAL_ESPLORA, comma-separated, empty to stay offline) and its hash and merkle root are computed here.
+    Confirmed only when every explorer serves the same header for that height and its merkle root is the one the .ots
+    reaches. The date is the header's time, in UTC."""
+    no = {"why": "ots verify did not report a Bitcoin block (pending? run `ots upgrade`): " + txt.strip()[-200:]}
+    r = subprocess.run([ots, "--no-bitcoin", "verify", ots_file], capture_output=True, text=True)
+    hits = re.findall(r"Bitcoin block (\d+) has merkleroot ([0-9a-f]{64})", r.stdout + r.stderr)
+    if not hits:
+        return no
+    n, root = min((int(b), m) for b, m in hits)
+    no.update(block=n, merkle_root=root)                  # the full values here; a reason carries 12 hex digits of a hash
+    urls = [u.strip().rstrip("/") for u in os.environ.get("SEAL_ESPLORA", ",".join(ESPLORA)).split(",") if u.strip()]
+    if not urls:
+        no["why"] = "the .ots reaches Bitcoin block %d; no Bitcoin node answered and SEAL_ESPLORA is empty, so the block is not read" % n
+        return no
+    seen = []
+    for u in urls:
+        try:
+            bh = _get(u + "/block-height/%d" % n)
+            if not HEX64.fullmatch(bh):
+                raise ValueError("the height did not answer with a block hash")
+            got = header_fields(_get(u + "/block/" + bh + "/header"))
+        except Exception as e:
+            no["why"] = "the .ots reaches Bitcoin block %d; %s could not be read: %s" % (n, u, e)
+            return no
+        if got[0] != bh:
+            no["why"] = "%s names block …%s at height %d, but the header it serves hashes to …%s" % (u, bh[-12:], n, got[0][-12:])
+            return no
+        seen.append(got)
+    if len(set(seen)) != 1:
+        no["why"] = "the explorers disagree on block %d: %s" % (n, ", ".join("…" + g[0][-12:] for g in seen))
+        return no
+    bh, mr, t = seen[0]
+    if mr != root:
+        no.update(block_merkle_root=mr, why="block %d's merkle root is %s…; the .ots reaches %s…" % (n, mr[:12], root[:12]))
+        return no
+    return {"confirmed": True, "date": time.strftime("%Y-%m-%d", time.gmtime(t)), "block": n, "block_hash": bh, "merkle_root": root,
+            "block_time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t)),
+            "read_via": "public block explorers, not a Bitcoin node: " + ", ".join(urls)}
+
+
 def anchors_of(bundle, d, registry=None):
     """every anchor the bundle names, each confirmed here or not, with its date when confirmed"""
     out = []
@@ -235,9 +295,9 @@ def anchors_of(bundle, d, registry=None):
             txt = (r.stdout + r.stderr)
             m = re.search(r"Bitcoin block (\d+) attests (?:data )?existence as of (\d{4}-\d{2}-\d{2})", txt)
             if m:
-                a.update(confirmed=True, date=m.group(2), block=int(m.group(1)))
+                a.update(confirmed=True, date=m.group(2), block=int(m.group(1)), read_via="a Bitcoin node (ots verify)")
             else:
-                a["why"] = "ots verify did not report a Bitcoin block (pending? run `ots upgrade`; a Bitcoin node or `--no-bitcoin` may be needed): " + txt.strip()[-200:]
+                a.update(_ots_by_explorers(ots, ots_file, txt))
         out.append(a)
     aj = os.path.join(bundle, "anchors.json")
     if os.path.isfile(aj):

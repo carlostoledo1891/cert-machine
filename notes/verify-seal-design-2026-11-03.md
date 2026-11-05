@@ -74,6 +74,20 @@ or the manifest's digest does not re-derive; REFUSED as v1. The battery grew fro
 23 to 42 cases, 3 to 5 red controls (a verifier that skips the salted path check; one that skips the salted file hash).
 The first use — claimbox sealing its next proposal before cert-machine decides it — follows in the same lane.
 
+### The Bitcoin anchor without a node (2026-11-05 evening)
+
+The first seal's `.ots` upgraded to Bitcoin block 974704 (mined 20:34:20 UTC), and `ots verify` could not confirm it: the
+client asks a local Bitcoin node, and the Mac has none (public RPC nodes are https, which the client's library refuses). So
+`anchors_of` now falls back: `ots --no-bitcoin verify` still checks the path from digest.txt to the block's merkle root and
+prints both; the tool reads that block's 80-byte header from public Esplora explorers ($SEAL_ESPLORA, default
+blockstream.info and mempool.space; empty = offline), computes the header's hash and merkle root itself, and confirms only
+when every explorer serves the same header, its hash is the one the explorer named for that height, and its merkle root is
+the one the `.ots` reaches. The date is the header's time in UTC; the anchor records `read_via`, and the page says "read
+from two public block explorers, not a Bitcoin node of ours". What it does not check: that the header is in the
+most-work chain (that needs a node) — two independent explorers agreeing is the trust. The battery exercises it against
+stand-ins (a fake `ots`, local explorers serving block 974704's real header): 27 planted forgeries, 49 cases, 7 red
+controls.
+
 ## Phase 3 — the registry (built, minimal)
 
 `.github/ISSUE_TEMPLATE/seal.yml` accepts one input (the digest) and a checkbox; the form cannot validate a regex, so

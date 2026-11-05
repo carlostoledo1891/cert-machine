@@ -3,14 +3,17 @@
 determinism check that must be CERTIFIED; the date rule; the shell re-derivation against the Python digest.
 
 Everything runs in a temporary directory with a temporary git registry (the public registry is the same shape:
-seals/registry.jsonl, one line per digest, the commit's date as the anchor). No network, no ots client needed: the
-OpenTimestamps path is exercised only as 'present but unconfirmed' (REFUSED), never faked as confirmed.
+seals/registry.jsonl, one line per digest, the commit's date as the anchor). No network, no ots client needed. The
+OpenTimestamps path without a Bitcoin node (the .ots read by `ots --no-bitcoin verify`, the block header read from
+public explorers) runs against stand-ins: an `ots` script on PATH that names a block and a merkle root, and two local
+explorers serving block 974704's real 80-byte header; the confirmation logic is what is tested, not the network.
 
 usage: python3 instruments/seal/battery.py            -> certs/seal-battery.json
        python3 instruments/seal/battery.py --check    re-runs everything and compares with the record; nothing written
 Record format: planted, certified (must be 0), by case; red controls (a check that must fail under a broken opener).
 MIT · cert-machine"""
 import hashlib
+import http.server
 import io
 import json
 import os
@@ -19,6 +22,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import threading
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -30,10 +34,12 @@ sys.path.insert(0, HERE)
 import seal as S  # noqa: E402
 
 t0 = time.time()
+# block 974704 of Bitcoin mainnet (2026-11-05 20:34:20 UTC), the 80 bytes as blockstream.info and mempool.space serve them
+BLOCK_974704 = "0000ff3facb76d278d1b2e1af079b2de0ff5da5c0c97485a970601000000000000000000908b707b0ef29be8607aa03a89da6318a2d8a2ba89bcc48834bde3af913c86494ce8ec6aace50117c4dc3f47"
 
 
-def run(*args, cwd=None):
-    r = subprocess.run([sys.executable, "-I", SEAL] + list(args), capture_output=True, text=True, cwd=cwd)
+def run(*args, cwd=None, env=None):
+    r = subprocess.run([sys.executable, "-I", SEAL] + list(args), capture_output=True, text=True, cwd=cwd, env=env)
     try:
         v = json.loads(r.stdout)                      # `open` prints one JSON document
     except Exception:
@@ -167,6 +173,58 @@ def main():
     b = copy_bundle(bundle); os.remove(os.path.join(b, "seal.json"))
     forged("seal.json missing", b, ("REFUSED",))
 
+    # ---- OpenTimestamps without a Bitcoin node: the header read from explorers. Stand-ins: a fake `ots` naming block
+    #      974704 and the merkle root in $SEAL_BATTERY_ROOT; local explorers serving that block's real header (good, good2),
+    #      a header whose merkle field was replaced (liar: its hash no longer matches the block it is served as), and
+    #      another self-consistent header for the same height (other: the nonce changed).
+    HDR = bytes.fromhex(BLOCK_974704)
+    HASH, ROOT_, _t = S.header_fields(BLOCK_974704)
+    FORGED_ROOT = "ab" * 32
+    liar = HDR[:36] + bytes.fromhex(FORGED_ROOT)[::-1] + HDR[68:]
+    other = HDR[:76] + bytes([HDR[76] ^ 0x01]) + HDR[77:]
+    OTHER_HASH = S.header_fields(other.hex())[0]
+    routes = {}
+    for name, h, hdr in (("good", HASH, HDR), ("good2", HASH, HDR), ("liar", HASH, liar), ("other", OTHER_HASH, other)):
+        routes["/%s/block-height/974704" % name] = h
+        routes["/%s/block/%s/header" % (name, h)] = hdr.hex()
+
+    class Explorer(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            body = routes.get(self.path)
+            self.send_response(200 if body else 404); self.end_headers()
+            self.wfile.write((body or "not found").encode())
+
+        def log_message(self, *a):
+            pass
+    srv = http.server.HTTPServer(("127.0.0.1", 0), Explorer)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d/" % srv.server_port
+    fake = tempfile.mkdtemp(prefix="seal-ots-")
+    open(os.path.join(fake, "ots"), "w").write('#!/bin/sh\ncase " $* " in\n  *" --no-bitcoin "*) echo "Not checking Bitcoin attestation; Bitcoin disabled"; '
+                                             'echo "To verify manually, check that Bitcoin block 974704 has merkleroot $SEAL_BATTERY_ROOT";;\n'
+                                             '  *) echo "Could not connect to Bitcoin node" >&2; exit 1;;\nesac\n')
+    os.chmod(os.path.join(fake, "ots"), 0o755)
+    tb = copy_bundle(bundle); os.remove(os.path.join(tb, "anchors.json")); open(os.path.join(tb, "digest.txt.ots"), "wb").write(b"\x00stand-in")
+
+    def ots_env(explorers, root=ROOT_):
+        return dict(os.environ, PATH=fake + os.pathsep + os.environ.get("PATH", ""), SEAL_BATTERY_ROOT=root,
+                    SEAL_ESPLORA=",".join(base + e for e in explorers) if isinstance(explorers, list) else explorers)
+
+    v = run("open", tb, env=ots_env(["good", "good2"]))
+    case("an .ots complete, no Bitcoin node: block 974704's header read from two explorers, its merkle root the one the .ots reaches", v, "CERTIFIED", "held_by " + str(v.get("held_by")))
+    assert v.get("held_by") == "2026-11-05", v
+    case("the date rule on that anchor (--by 2026-11-04, block time 2026-11-05)", run("open", tb, "--by", "2026-11-04", env=ots_env(["good", "good2"])), ("REFUSED",))
+    case("no node and SEAL_ESPLORA empty: the block is not read", run("open", tb, env=ots_env("")), ("REFUSED",))
+    case("an explorer that does not answer", run("open", tb, env=ots_env(["good"]) | {"SEAL_ESPLORA": base + "good,http://127.0.0.1:9/x"}), ("REFUSED",))
+
+    def forged_ots(name, explorers, root=ROOT_):
+        v = run("open", tb, env=ots_env(explorers, root))
+        forg.append({"forgery": name, "verdict": v["verdict"], "reason": v.get("reason", ""), "certified": v["verdict"] == "CERTIFIED"})
+        case("forgery: " + name, v, ("REFUSED",))
+    forged_ots("an .ots reaching another merkle root than block 974704's", ["good", "good2"], FORGED_ROOT)
+    forged_ots("an explorer serving a header with the forged merkle root in it (its hash no longer the block's)", ["liar"], FORGED_ROOT)
+    forged_ots("two explorers serving different headers for the same height", ["good", "other"])
+
     # ---- determinism: the same contents written another way, archived again, must give the SAME archive bytes
     idea2 = make_idea(os.path.join(tempfile.mkdtemp(prefix="seal-det-"), "idea"), variant=1)
     env = dict(os.environ, LC_ALL="C", LANG="C", TZ="Asia/Tokyo")
@@ -213,6 +271,17 @@ def main():
     r6 = subprocess.run([sys.executable, "-I", broken, "open", bnl, "--registry", repo], capture_output=True, text=True)
     vb = json.loads(r6.stdout)
     reds.append({"red": "an opener that tolerates a newline after the salt IS caught (bytes.fromhex strips it; the strict rule is what refuses)", "fired": vb["verdict"] == "CERTIFIED"})
+
+    src7 = src.replace("if mr != root:", "if False:")
+    assert src7 != src
+    open(broken, "w").write(src7)
+    r13 = subprocess.run([sys.executable, "-I", broken, "open", tb], capture_output=True, text=True, env=ots_env(["good", "good2"], FORGED_ROOT))
+    reds.append({"red": "an opener that skips the merkle-root comparison IS caught (an .ots for other bytes comes back CERTIFIED under it)", "fired": json.loads(r13.stdout)["verdict"] == "CERTIFIED"})
+    src8 = src.replace("if got[0] != bh:", "if False:")
+    assert src8 != src
+    open(broken, "w").write(src8)
+    r14 = subprocess.run([sys.executable, "-I", broken, "open", tb], capture_output=True, text=True, env=ots_env(["liar"], FORGED_ROOT))
+    reds.append({"red": "an opener that skips the header's own hash IS caught (an explorer's edited header comes back CERTIFIED under it)", "fired": json.loads(r14.stdout)["verdict"] == "CERTIFIED"})
 
     # ---- v2: the per-file salted manifest, one file revealed under it (verify-seal-v2)
     bundle2 = os.path.join(work, "idea.seal2")
@@ -308,7 +377,7 @@ def main():
     certified = sum(1 for f in forg if f["certified"])
     failed = [c["case"] for c in cases if not c["pass"]]
     dead = [r["red"] for r in reds if not r["fired"]]
-    rec = {"what": "The Verify Seal battery (instruments/seal/battery.py): the commitment SHA256('verify-seal-v1\\n' || salt || SHA256(archive)) opened under planted forgeries, and since 2026-11-05 the v2 per-file salted manifest (one file revealed under a sealed manifest, the whole bundle opened) under its own forgeries and two red controls — each must come back REFUTED or REFUSED, never CERTIFIED — plus the determinism check (the same contents written another way re-derive the sealed digest), the date rule (an anchor dated after the claimed date refuses), the unconfirmed-anchor cases, and the one-line shell re-derivation against the Python digest; three red controls on a deliberately broken opener. Run in a temporary directory with a temporary git registry; no network, no ots client.",
+    rec = {"what": "The Verify Seal battery (instruments/seal/battery.py): the commitment SHA256('verify-seal-v1\\n' || salt || SHA256(archive)) opened under planted forgeries, and since 2026-11-05 the v2 per-file salted manifest (one file revealed under a sealed manifest, the whole bundle opened) under its own forgeries and two red controls — each must come back REFUTED or REFUSED, never CERTIFIED — plus the determinism check (the same contents written another way re-derive the sealed digest), the date rule (an anchor dated after the claimed date refuses), the unconfirmed-anchor cases, and the one-line shell re-derivation against the Python digest; three red controls on a deliberately broken opener; and since 2026-11-05 evening the OpenTimestamps reading without a Bitcoin node (ots --no-bitcoin verify, the block header read from explorers) against stand-ins — a fake ots and local explorers serving block 974704's real header — with three forgeries and two red controls of its own. Run in a temporary directory with a temporary git registry; no network, no real ots client.",
            "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "seconds": round(time.time() - t0, 1),
            "seal_py_sha256": hashlib.sha256(open(SEAL, "rb").read()).hexdigest(), "python": sys.version.split()[0],
            "verdict": "PASS" if not failed and not dead and certified == 0 else "FAIL",

@@ -44,7 +44,12 @@ same files written in another order, with other mtimes and modes, under another 
 ## Anchors
 
 1. **OpenTimestamps** (`digest.txt.ots`): a Bitcoin-attested date. `open` runs `ots verify` when the client is installed
-   and reads "Bitcoin block N attests existence as of <date>". Pending attestations refuse until `ots upgrade`.
+   and reads "Bitcoin block N attests existence as of <date>". Pending attestations refuse until `ots upgrade`. With no
+   Bitcoin node to ask, `ots --no-bitcoin verify` still checks the path from the digest to block N's merkle root; the
+   tool then reads block N's 80-byte header from public block explorers (`SEAL_ESPLORA`, comma-separated Esplora URLs,
+   default blockstream.info and mempool.space; empty to stay offline), computes its hash and merkle root itself, and
+   confirms only when every explorer serves the same header and its merkle root is the one the `.ots` reaches. The date
+   is the header's time in UTC; the anchor says `read_via` which way it was read. The request sends the block's number.
 2. **The registry** (`seals/registry.jsonl` in this repository): post the digest with the issue form "Register a Verify
    Seal digest"; the maintainer appends one line in one commit; record `{"kind": "git", "commit": "<sha>", "path":
    "seals/registry.jsonl"}` in the bundle's `anchors.json`. `open --registry <clone>` reads the line and the commit date.
