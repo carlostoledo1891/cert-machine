@@ -21,7 +21,36 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER:
+NEXT SESSION, IN ORDER (the operator's answers, 2026-11-05 ~18:40 UTC: two lanes in parallel, one session with a background
+agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; start next session):
+  ◆◆ 0. THE HARVEST, FIRST HOUR: read what came back — `node tools/x.js mentions` (the d12 thread and five replies under
+     rrwilliams, KostyaAI, 99sunny2, zkbernard12138, jrdothoughts), GitHub notifications (lean4#16290, nanoda_lib#80, con-leche#16,
+     complexitylib #2509/#2510 — on a merge the standing permission applies —, rpi-index #1, formal-math #36, optimizationproblems
+     #279), ethdiscussion.blog comment-30/34 replies, Paturi's e-mail (the operator reports it). Answers on the operator's word.
+  ◆◆ A. VERIFY SEAL, PHASE 2 (this session, cert-machine): the v2 per-file salted manifest of notes/verify-seal-design-2026-11-03.md
+     §Phase 2 — `{"version":"verify-seal-v2","files":[{path, salt_i, sha256_i}]}`, h_i = SHA256("verify-seal-v2-file\n" || s_i ||
+     SHA256(bytes_i)), the manifest sealed as in v1 (one digest, one anchor set); opening one file reveals (path, s_i, bytes_i) +
+     the manifest; the verdict vocabulary gains "this file CERTIFIED under a sealed manifest; the others unrevealed"; the path-leak
+     mitigation chosen and said (salted path hashes, or files by index). Its own battery rows (a revealed file whose bytes differ →
+     REFUTED; a revealed file absent from the manifest → REFUTED; a manifest whose seal fails → REFUSED; the v1 twelve kept), the
+     registry (tools/seal-registry.py) extended, the page's "why you can trust this" layer. THEN ITS FIRST USE: claimbox seals its
+     next proposal (the manifest over the proposal's files) BEFORE cert-machine decides it, anchored, so author and judge get a
+     timestamped separation and the "same operator" caveat shrinks to what the seal cannot prove. The /verify/ card stays "In
+     development" until that first use works; publishing the tool for outside claimants is a later question.
+  ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE (a background agent working in ~/Projects/claimbox; it does NOT push — it leaves a branch
+     and a report; the push is the operator's or claimbox's own session; cert-machine reads claimbox read-only as always):
+     (1) `make lift` there — certs/claims-ledger.json's digest moved three times on 2026-11-05 (now 3558fcf5…) and PROVENANCE.json
+     shows drift until then; (2) the intake route, written as claimbox's standard route and tooled, with the two ETH chains as its
+     calibration case: a lab release in (repo + commit + the README's claim sentence) → the pinned trusted statement, the scout
+     (closure, blob pins), the port plan (one lean_lib per upstream library, PORT.md with both sha256s per file and every changed
+     line by kind, the admissibility rule for forced library changes), the planted variants (statement, sorry, axiom), and the
+     decision script cert-machine runs (the runpod-eth-*-chain.sh shape with the port-ledger check and the judge with named
+     checkers after the 11-05 amendment) → a proposal cert-machine decides. Target: the next OpenAI / Anthropic / DeepMind claim
+     decided within a week of its announcement, the caveats on the page. The agent's brief names claimbox's own rules (build what
+     is asked, never substitute a design; its SCHEMA.md; commitments 5 and 7). Pods, if the calibration needs a build, are
+     created from THIS session (an agent cannot), under the operator's cap.
+  ◆◆ C. The dormant asks stay where they are: the Qiushi fallback (its date was 11-05, the operator's), the N(6) note to
+     maximusrufus, the OEIS pack by hand, the Petrobras pages frozen, Marola on hold.
   ◆◆ THE OPENAI SIDE, IN FLIGHT (2026-11-05 ~06:30 UTC; the operator's decisions the same night: route A only, route B parked,
      US$25 soft cap in pods, ONE report page for both chains (/reports/eth-chain.html, 301 from eth-anthropic-chain.html), Hawkley told
      AFTER the record on rpi-index #1): PRE-REGISTERED (notes/eth-openai-chain-preregistration-2026-11-05.md, two dated amendments),
