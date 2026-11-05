@@ -20,6 +20,13 @@
 #   L4 nanoda      exports of not_eth, planted_openai_chain_sorry, planted_openai_chain_axiom; the first must pass, the two others must fail
 #   L5 fresh       `lake env leanchecker --fresh EthBridge.OpenAIChain`
 #   P  comparator  `lake comparator --paranoid`: Challenge.OpenAIChain vs EthBridge.OpenAIChain, and vs Planted.OpenAIChainStatement
+#   P3 OpenAI's own challenge (pre-registration §5, "attempted in addition"): lean/ComparatorChallenges/SubexponentialSAT.lean
+#                  pinned in corpus/eth-refutation/openai-chain/challenge/ (sha256 checked against its PINS.json before use),
+#                  placed unchanged as the module Challenge.OpenAISubexponentialSAT; the config from OpenAI's json with two
+#                  fields changed (challenge_module → ours; solution_module → OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final,
+#                  the ported module that holds exact_count_and_sat), both recorded in P3.0.out; `lake comparator --paranoid`
+#                  like P1. If the challenge does not BUILD on this Mathlib (69552756) the step ends NOT RUN (P3.notrun, the
+#                  build error in P3b.err), distinct from a rejection.
 # env: AUDIT_SHA, CLAIMBOX_SHA (both required)
 # pod: >= 128 GB RAM (OpenAI's own closure: `lake build` 39 min on 16 vCPU, leanchecker --fresh 44 min at 99 GB peak,
 #      nanoda 6 min on a 2.4 GB export) — the cpu3m 16 vCPU shape (US$0.88/h); a soft cap of US$25 before asking (the
@@ -53,8 +60,9 @@ MEMMAX=$(cat /sys/fs/cgroup/memory.max 2>/dev/null)
 status _machine "$(nproc) vCPU; cgroup memory.max $MEMMAX"
 # leanchecker --fresh peaked at 99 GB on OpenAI's closure: a smaller pod would end in an OOM kill, a platform failure
 case "$MEMMAX" in ''|max) ;; *) [ "$MEMMAX" -ge 120000000000 ] || { status _phase "STOPPED: the pod has under 120 GB (memory.max $MEMMAX); the pre-registration asks for >= 128 GB"; sleep infinity; } ;; esac
-mkdir -p /audit/tools /audit/corpus/eth-refutation/openai-chain
-for f in tools/eth-openai-chain-axioms.lean tools/eth-openai-chain-planted-axioms.lean corpus/eth-refutation/openai-chain/statement.lean corpus/eth-refutation/openai-chain/scout-pins.json; do
+mkdir -p /audit/tools /audit/corpus/eth-refutation/openai-chain/challenge
+for f in tools/eth-openai-chain-axioms.lean tools/eth-openai-chain-planted-axioms.lean corpus/eth-refutation/openai-chain/statement.lean corpus/eth-refutation/openai-chain/scout-pins.json \
+         corpus/eth-refutation/openai-chain/challenge/SubexponentialSAT.lean corpus/eth-refutation/openai-chain/challenge/SubexponentialSAT.json corpus/eth-refutation/openai-chain/challenge/PINS.json; do
   curl -fsSL --retry 5 "$RAW/$f" -o "/audit/$f" || { status _phase "FAILED: fetch $f"; sleep infinity; }
 done
 chmod -R a+rX /audit
@@ -202,5 +210,38 @@ judge() {  # $1 name, $2 config
 }
 judge P1 comparator-openai-chain.json
 judge P2 comparator-openai-chain-planted.json
+# P3: OpenAI's own challenge against the ported solution. The pinned .lean is checked against PINS.json, placed unchanged
+# as Challenge/OpenAISubexponentialSAT.lean, and the config written from OpenAI's json with exactly two fields changed.
+cat > /tmp/P3.py <<'PYEOF'
+import hashlib, json, os, sys
+W, A = sys.argv[1], '/audit/corpus/eth-refutation/openai-chain/challenge/'
+pins = json.load(open(A + 'PINS.json'))
+lean = open(A + 'SubexponentialSAT.lean', 'rb').read(); cfg = json.load(open(A + 'SubexponentialSAT.json'))
+got = hashlib.sha256(lean).hexdigest(); want = pins['files']['SubexponentialSAT.lean']['sha256']
+out = {'leanSha256': got, 'pinSha256': want, 'pinOk': got == want, 'configSha256': hashlib.sha256(open(A + 'SubexponentialSAT.json', 'rb').read()).hexdigest(), 'upstream': pins['upstream']}
+if got != want:
+    print(json.dumps(out, indent=1)); sys.exit(3)
+open(W + '/Challenge/OpenAISubexponentialSAT.lean', 'wb').write(lean)
+new = dict(cfg); new['challenge_module'] = 'Challenge.OpenAISubexponentialSAT'; new['solution_module'] = 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final'
+out['configChanges'] = {k: {'from': cfg[k], 'to': new[k]} for k in cfg if cfg[k] != new[k]}
+out['config'] = new
+json.dump(new, open(W + '/comparator-openai-challenge.json', 'w'), indent=1)
+print(json.dumps(out, indent=1))
+PYEOF
+chmod 644 /tmp/P3.py; step P3.0 600 / python3 -I /tmp/P3.py $W
+if [ "$(cat $R/P3.0.exit)" != 0 ]; then
+  echo "NOT RUN: the fetched challenge is not the pinned bytes (P3.0 exit $(cat $R/P3.0.exit))" > $R/P3.notrun; echo notrun > $R/P3.mode
+else
+  cp $W/Challenge/OpenAISubexponentialSAT.lean $R/Challenge-OpenAISubexponentialSAT.lean; cp $W/comparator-openai-challenge.json $R/
+  # the challenge is `import Mathlib` plus self-contained definitions: a Mathlib rename between d13f23b7 and 69552756 could
+  # stop it compiling, which is NOT a verdict on the proof — reported as it ran
+  step P3b 7200 $W lake build Challenge.OpenAISubexponentialSAT
+  if [ "$(cat $R/P3b.exit)" != 0 ]; then
+    echo "NOT RUN: the challenge does not compile on Mathlib 69552756 (lake build exit $(cat $R/P3b.exit); the error in P3b.err)" > $R/P3.notrun; echo notrun > $R/P3.mode
+  else
+    judge P3 comparator-openai-challenge.json
+  fi
+fi
+status P3 "$(cat $R/P3.notrun 2>/dev/null || echo "judged, exit $(cat $R/P3.exit)")"
 status _phase complete; status _finished "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 sleep infinity

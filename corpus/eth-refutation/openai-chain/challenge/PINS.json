@@ -1,0 +1,38 @@
+{
+ "what": "OpenAI's own Comparator challenge for family 378 (lean/ComparatorChallenges/SubexponentialSAT.lean: `import Mathlib` plus self-contained definitions and the statement of SqrtLogSpace.exact_count_and_sat closed by sorry) and its config, copied byte for byte from the sparse clone of thinkthoughts/math at d6b79b7d (a fork of openai/math) that the 2026-11-05 scout used; both blobs equal openai/math at 7ef5c0cc (GitHub's contents API at that ref, re-checked 2026-11-05 against git hash-object). Used by tools/runpod-eth-openai-chain.sh step P3: the challenge against the ported solution in Lean v4.36.0-rc2.",
+ "pinnedAt": "2026-11-05",
+ "upstream": {
+  "repository": "https://github.com/openai/math",
+  "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a"
+ },
+ "copiedFrom": {
+  "repository": "https://github.com/thinkthoughts/math",
+  "commit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa"
+ },
+ "files": {
+  "SubexponentialSAT.lean": {
+   "path": "lean/ComparatorChallenges/SubexponentialSAT.lean",
+   "sha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "gitBlob": "a8d5ff3a3e80323675b1f2d1ea611560b783e9ca"
+  },
+  "SubexponentialSAT.json": {
+   "path": "lean/ComparatorChallenges/SubexponentialSAT.json",
+   "sha256": "debbfdc9c01104d2369be80da5180978275106df8b685f693fba7ce7da7c5b19",
+   "gitBlob": "d4cc9e7074e900c1aa6371151cfd234c121a0b82"
+  }
+ },
+ "config": {
+  "challenge_module": "ComparatorChallenges.SubexponentialSAT",
+  "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+  "theorem_names": [
+   "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": false
+ }
+}

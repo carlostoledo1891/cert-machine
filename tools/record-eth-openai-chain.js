@@ -12,6 +12,10 @@
    axioms file shows the theorem and its links on propext, Classical.choice and Quot.sound only, nanoda accepts the
    theorem's export, leanchecker --fresh exits 0, AND every planted variant is refused (the changed statement by the
    statement check, the sorry and the axiom by the axioms file and by nanoda). A control that does not fire refuses the record.
+   P3, OpenAI's own Comparator challenge (corpus/eth-refutation/openai-chain/challenge/, pinned at openai/math 7ef5c0cc) against
+   the ported SqrtLogSpace.Final, pre-registered as "attempted in addition": REJECTED refuses the record (the port would have
+   changed OpenAI's statement); NOT RUN because the challenge does not compile on the new Mathlib is said with its reason and
+   leaves the verdict alone; accepted adds one line to the scope.
 
    usage: node tools/record-eth-openai-chain.js [<run-dir>]   (default: the newest completed run under
           corpus/eth-refutation/openai-chain/runs/; with none, "no run" and no record written) */
@@ -97,6 +101,24 @@ if (!(plantedJudge.exit !== 0 && plantedJudge.mismatch)) fails.push('the planted
 const challenge = JSON.parse(rd('P0.out') || '{}');
 if (challenge.pin !== pinSha) fails.push('the judge\'s challenge was written from another pin');
 for (const [k, p] of Object.entries(planted)) if (!p.refused) fails.push('the planted ' + k + ' was NOT refused');
+/* P3: OpenAI's own challenge. The pod checked the fetched .lean against PINS.json; we check the same sha256 here. */
+const CH = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'eth-refutation', 'openai-chain', 'challenge', 'PINS.json'), 'utf8'));
+const p30 = JSON.parse(rd('P3.0.out') || 'null');
+const notRun = rd('P3.notrun').trim() || null;
+const p3j = fs.existsSync(path.join(dir, 'P3.exit')) ? J.judged(dir, 'P3') : null;
+const p3ran = !notRun && !!p3j && Number.isFinite(p3j.exit);
+const p3accepted = p3ran && p3j.exit === 0 && p3j.okay && J.KERNELS.every((k) => p3j.accepted.includes(k));
+const p3 = {
+  challenge: { pin: 'corpus/eth-refutation/openai-chain/challenge/SubexponentialSAT.lean', sha256: CH.files['SubexponentialSAT.lean'].sha256, upstream: CH.upstream.commit, served: p30 ? p30.leanSha256 : null, module: 'Challenge.OpenAISubexponentialSAT' },
+  ran: p3ran, accepted: p3accepted, checkers: p3j ? p3j.accepted : [], declarations: p3j ? p3j.declarations : null, sandbox: p3j ? p3j.sandbox : null,
+  rejection: p3ran && !p3accepted ? (p3j.mismatch || ('exit ' + p3j.exit)) : null,
+  notRunReason: notRun, configChanges: p30 ? p30.configChanges : null, config: p30 ? p30.config : null,
+  buildError: notRun && /does not compile/.test(notRun) ? rd('P3b.err').split('\n').filter((l) => /error/.test(l)).slice(0, 5) : null,
+};
+if (!p30) fails.push('P3 left no facts (P3.0.out)');
+else if (p30.leanSha256 !== CH.files['SubexponentialSAT.lean'].sha256) fails.push('the pod\'s copy of OpenAI\'s challenge is not the pinned bytes');
+if (notRun && !/does not compile/.test(notRun)) fails.push('P3 ' + notRun);
+if (p3ran && !p3accepted) fails.push('OpenAI\'s own challenge REJECTED the ported proof (' + p3.rejection + '; checkers accepting: ' + p3j.accepted.join(', ') + ')');
 const n = (x) => (x || 0).toLocaleString('en-US');
 const rec = {
   what: 'The OpenAI chain in one environment: OpenAI\'s family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley\'s two bridge theorems ported to complexitylib\'s Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib\'s multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean\'s own judge (lake comparator --paranoid, six checkers).',
@@ -107,7 +129,8 @@ const rec = {
       files: port.counts.present, byteIdentical: port.counts.unchanged, modified: port.counts.modifiedDeclared, ledger: 'lean/eth-bridge/OpenAIEth/PORT.md', pins: 'corpus/eth-refutation/openai-chain/scout-pins.json' },
     authors: 'the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox' },
   verdict: fails.length ? 'REFUSED' : 'CERTIFIED',
-  scope: 'ETH (complexitylib\'s, on cslib\'s deterministic multitape Turing machine with encCNF) is false, from OpenAI\'s own proof through Hawkley\'s two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI\'s proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic\'s, every ported file byte-equal to its scout pin (' + n(port.counts.unchanged) + ') or modified as PORT.md declares (' + n(port.counts.modifiedDeclared) + '), Hawkley\'s two theorem types as pinned, the three standard axioms, nanoda accepting all ' + n(nanoda.claim.declarations) + ' declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: ' + n(judge.declarations) + ' declarations).',
+  scope: 'ETH (complexitylib\'s, on cslib\'s deterministic multitape Turing machine with encCNF) is false, from OpenAI\'s own proof through Hawkley\'s two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI\'s proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic\'s, every ported file byte-equal to its scout pin (' + n(port.counts.unchanged) + ') or modified as PORT.md declares (' + n(port.counts.modifiedDeclared) + '), Hawkley\'s two theorem types as pinned, the three standard axioms, nanoda accepting all ' + n(nanoda.claim.declarations) + ' declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: ' + n(judge.declarations) + ' declarations).'
+    + (p3accepted ? ' OpenAI\'s own Comparator challenge (lean/ComparatorChallenges/SubexponentialSAT.lean at 7ef5c0cc, unchanged) accepts the ported proof of exact_count_and_sat in the new Lean with all six checkers.' : notRun ? ' OpenAI\'s own challenge against the ported proof: NOT RUN (' + notRun.replace(/^NOT RUN: /, '') + ').' : ''),
   fails,
   statement: { pin: 'corpus/eth-refutation/openai-chain/statement.lean', sha256: pinSha, mainResults: { pin: 'corpus/eth-refutation/tsavo/pins.json', sha256: MAIN_PIN, served: stmt.mainResultsSha256 } },
   reading: [
@@ -117,10 +140,11 @@ const rec = {
     'claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.'
   ],
   judge: { claim: judge, planted: plantedJudge, challengeSha256: challenge.challenge },
+  p3,
   port: { pins: 'corpus/eth-refutation/openai-chain/scout-pins.json', pinsSha256: pinsSha, pinCommit: PINS.commit, portMd: { found: port.portMdFound, sha256: port.portMdSha256 }, counts: port.counts, modified: port.modified, refusals: port.refusals },
   statements, axioms, nanoda, planted,
   steps: { buildSeconds: Number(rd('L2.end')) - Number(rd('L2.start')), leancheckerSeconds: Number(rd('L5.end')) - Number(rd('L5.start')) },
   run: { id: run.run, auditSha: run.auditSha, host: run.host, startedAt: run.startedAt, finishedAt: run.finishedAt, facts: path.relative(ROOT, dir) },
 };
 fs.writeFileSync(path.join(ROOT, 'certs', 'eth-openai-chain.json'), JSON.stringify(rec, null, 1) + '\n');
-console.log('certs/eth-openai-chain.json: ' + rec.verdict + (fails.length ? ' (' + fails.join('; ') + ')' : '') + ' — port ' + port.counts.unchanged + ' unchanged, ' + port.counts.modifiedDeclared + ' modified as declared, ' + port.refusals.length + ' refused; nanoda ' + nanoda.claim.declarations + ' declarations; planted refused: ' + Object.entries(planted).filter(([, p]) => p.refused).map(([k]) => k).join(', '));
+console.log('certs/eth-openai-chain.json: ' + rec.verdict + (fails.length ? ' (' + fails.join('; ') + ')' : '') + ' — port ' + port.counts.unchanged + ' unchanged, ' + port.counts.modifiedDeclared + ' modified as declared, ' + port.refusals.length + ' refused; nanoda ' + nanoda.claim.declarations + ' declarations; planted refused: ' + Object.entries(planted).filter(([, p]) => p.refused).map(([k]) => k).join(', ') + '; P3 ' + (p3accepted ? 'accepted' : p3ran ? 'REJECTED' : notRun || 'no facts'));
