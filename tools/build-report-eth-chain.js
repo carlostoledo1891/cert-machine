@@ -97,6 +97,7 @@ B.push(C.section({
     { b: 'Build.', raw: 'Clone <a href="https://github.com/carlostoledo1891/claimbox/tree/' + C.escAttr(ch.claim.commit) + '/lean/eth-bridge">claimbox at ' + esc(ch.claim.commit.slice(0, 7)) + '</a>, enter <span class="m">lean/eth-bridge</span>, run <span class="m">lake exe cache get</span> and <span class="m">lake build EthBridge.AnthropicChain</span> (about ten minutes over Mathlib’s cache on a laptop).' },
     { b: 'Check the statement.', raw: 'The trusted statement is pinned in ' + rec('corpus/eth-refutation/chain/statement.lean') + '; <span class="m">EthBridge/Anthropic/MainResults.lean</span> must hash to Anthropic’s published sha256 47f78a95…' },
     { b: 'Judge it.', raw: 'Our pod script ' + rec('tools/runpod-eth-chain.sh') + ' runs every step on a plain Ubuntu machine: our own axioms file, nanoda through lean4export, leanchecker --fresh, and lake comparator --paranoid. The facts of our run are in ' + rec(ch.run.facts) + '.' },
+    { b: 'Read the note.', raw: 'The same result as a short technical note, every number read from the records: <a href="../paper/eth-chain.pdf">A formal bridge from Anthropic’s refutation of the Exponential Time Hypothesis to a standard multitape Turing machine</a> (PDF, not peer-reviewed).' },
     { b: 'Read the port.', raw: 'Every file of Anthropic’s proof that changed is listed with both hashes in <a href="https://github.com/carlostoledo1891/claimbox/blob/' + C.escAttr(ch.claim.commit) + '/lean/eth-bridge/AnthropicEth/PORT.md">PORT.md</a>.' },
   ])
 }));

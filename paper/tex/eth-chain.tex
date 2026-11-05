@@ -1,0 +1,93 @@
+\documentclass[preprint,11pt,authoryear,a4paper]{elsarticle}
+\PassOptionsToPackage{obeyspaces,spaces,hyphens}{url}
+\usepackage{cmelsevier}
+\usepackage{amsthm}
+\setlength{\emergencystretch}{3em}
+%% every number is read from the records (tools/paper-numbers/eth-chain.js); a record that no longer supports a sentence
+%% stops the build
+\input{eth-chain-numbers.tex}
+\newcommand{\vword}[1]{{\normalfont\scshape #1}}
+\newcommand{\vC}{\vword{certified}}
+\newcommand{\lean}[1]{\texttt{#1}}
+\makeatletter
+\def\ps@pprintTitle{\let\@oddhead\@empty\let\@evenhead\@empty
+  \def\@oddfoot{\footnotesize\itshape A technical note, not peer-reviewed (v0.1, 2026-11-05)\hfill}%
+  \let\@evenfoot\@oddfoot}
+\makeatother
+
+\begin{document}
+\begin{frontmatter}
+
+\title{A formal bridge from Anthropic's refutation of the Exponential Time Hypothesis to a standard multitape Turing machine\tnoteref{t1}}
+\tnotetext[t1]{v0.1 of 2026-11-05, built from repository commit \EcCommit. Every measured number is a macro read at build time from the records named in the Data availability statement; a record that no longer supports a sentence stops the build.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
+
+\begin{abstract}
+In October 2026 Anthropic published a Lean~4 proof that the Exponential Time Hypothesis (ETH) is false. Its statement, \lean{ETHIsFalse}, is the negation of $s_3>0$ with $s_3$ taken over Mathlib's multi-stack Turing machines (\lean{FinTM2}) reading a custom encoding of duplicate-free formulas over the variables $x_0,\dots,x_{n-1}$; the step from that machine and encoding to a standard model is left to prose. We prove in Lean that \lean{ETHIsFalse} implies ETH is false as stated in the cslib-community library \lean{complexitylib}: for every $\delta>0$ a deterministic multitape Turing machine decides 3-SAT on the plain binary encoding of every formula within $c\cdot 2^{\delta n}\cdot(L+1)^{e}+c$ steps. We then port Anthropic's proof (\EcPortFiles{} files, \EcPortSame{} unchanged, \EcPortEdited{} edited for the newer toolchain) into the same Lean, so that the proof, the statement and the bridge are checked in one environment and no step crosses a version boundary. Every step was checked from pinned bytes by Lean's kernel, by nanoda over \EcChainNanoda{} declarations, by \lean{leanchecker --fresh}, and by Lean's judge \lean{lake comparator --paranoid} with six checkers; \EcPlanted{} planted wrong variants were refused. Whether the formal statement is the textbook ETH remains a reading of a definition. The proofs were written by AI agents directed by the author, who also wrote the checker; this is not an independent review.
+\end{abstract}
+
+\begin{keyword}
+Exponential Time Hypothesis \sep 3-SAT \sep formal proof \sep Lean \sep machine models \sep independent checking
+\end{keyword}
+
+\end{frontmatter}
+
+\section{What is claimed, and what is not}\label{sec:claim}
+
+Two AI laboratories published Lean proofs in October 2026 that the Exponential Time Hypothesis of \citet{IP01} is false \citep{AnthropicETH,OpenAIETH}. Both proofs are accepted by Lean's kernel, which we confirmed independently for both, against their own statements, with a second kernel \citep{CMEth}. The question that readers raised is not whether the proofs check but what they state: each statement is about a machine and an input encoding of its laboratory's making, and the step from there to a standard machine is argued in prose.
+
+This note closes that step for Anthropic's statement. \emph{Claimed:} a Lean theorem, checked as described in Section~\ref{sec:check}, that Anthropic's \lean{ETHIsFalse} implies the negation of ETH as defined over cslib's deterministic multitape Turing machine with a binary encoding of arbitrary formulas; and a second Lean theorem in which Anthropic's own proof of \lean{ETHIsFalse}, ported, supplies the hypothesis in the same environment. \emph{Not claimed:} that ETH is false; the correctness or novelty of either laboratory's algorithm outside its Lean development; that a formal definition is the textbook one, which no machine decides (Section~\ref{sec:limits}).
+
+\section{The two statements}\label{sec:defs}
+
+\paragraph{Anthropic's} \lean{MainResults.lean} at commit \EcAnthropicCommit{} (Lean \EcAnthropicLean, sha256 \texttt{\EcMainResultsSha\dots}) defines \lean{InTime 3 $\delta$}: some \lean{FinTM2} machine with finite alphabets and a constant $c$ decide, for every $n$ and every 3-CNF $\varphi$ on $x_0,\dots,x_{n-1}$ without repeated clauses, the satisfiability of $\varphi$ within $\lfloor c\,2^{\delta n}\rfloor$ steps, reading \lean{encClauses 3 $\varphi$}. Then $s_3=\inf\{\delta: \text{\lean{InTime 3 $\delta$}}\}$, \lean{ETH} is $0<s_3$, and \lean{ETHIsFalse} is its negation.
+
+\paragraph{complexitylib's} \lean{ETH} is $\exists\,\delta>0,\ \neg\,\text{\lean{DecidableInExpTime (KSAT 3) encCNF numVars $\delta$}}$, where \lean{DecidableInExpTime} asks for one deterministic multitape Turing machine (cslib's \lean{Turing.MultiTapeTM}) and an exponent $e$ such that the machine decides membership in \lean{KSAT 3} within $O(2^{\delta\,n}\,(L+1)^{e})$ steps on the binary encoding \lean{encCNF} of length $L$, for every formula: variable labels are arbitrary natural numbers, and literals and clauses may repeat. This is the form of the hypothesis on a standard machine model with a reasonable binary encoding; its distance from the textbook definition is discussed in Section~\ref{sec:limits}.
+
+\section{The bridge}\label{sec:bridge}
+
+\begin{quote}
+\lean{EthBridge.Anthropic.not\_eth\_of\_ethIsFalse : MainResults.ETHIsFalse $\to$ $\neg$\,ComplexityAbstracts.SubexponentialSATAbstract.ETH}
+\end{quote}
+Given $\delta>0$, take $m=\lceil 2/\delta\rceil+1$ and a \lean{FinTM2} decider at a rate below $1/m$. The proof has four parts.
+(i)~\emph{One step of any program in degree one.} complexitylib already simulates a \lean{TM2} program on the multitape machine in polynomial time, but the degree of that polynomial depends on the program, and here the program is chosen after $\delta$, so the bound would be circular. We prove that a single step of any \lean{TM2} program is computable in degree one, uniformly in the program (\lean{DegreeStep.stepTotalD}).
+(ii)~\emph{The run on a unary clock.} The $t$-step run is a degree-two fold over the pair (input, $t$ in unary) (\lean{DegreeRun.runBitD}), tied to Mathlib's \lean{TM2OutputsInTime} (\lean{runBit\_eq}).
+(iii)~\emph{The reduction.} A polynomial-time map from \lean{encCNF} to \lean{encClauses 3} relabels the variables densely, removes repeated clauses, and passes $n$ along, so that the decider can write $2^{n/m+c_0}$ in unary and run that many steps (\lean{Words.prep\_polyTime}, \lean{Prep.prep\_spec}: satisfiability and duplicate-freeness preserved).
+(iv)~\emph{The rate.} The composed decider runs within $2^{2n/m}\cdot\mathrm{poly}(L)$ steps, and $2/m\le\delta$ (\lean{Assemble.decidableInExpTime}).
+
+\paragraph{One environment} The bridge elaborates Anthropic's \lean{MainResults.lean}, byte for byte, against complexitylib's Lean (v4.36.0-rc2) rather than Anthropic's (\EcAnthropicLean). To remove that version boundary from the chain, Anthropic's proof (the import closure of its \lean{Solution.lean}, \EcPortFiles{} files) was ported to the same toolchain: \EcPortSame{} files are byte-identical; \EcPortEdited{} were edited for library renames, missing imports and tactic repairs, each edit listed with both digests in the port's ledger. No edit touches \lean{MainResults.lean}, and every statement changed only by a forced rename is listed. Then
+\begin{quote}
+\lean{EthBridge.AnthropicChain.not\_eth : $\neg$\,ETH :=}\\
+\lean{\ \ not\_eth\_of\_ethIsFalse MainResults.ethIsFalse}
+\end{quote}
+is checked in one Lean. The ported proof is a modified copy; since Lean checks whatever proof is supplied against the unchanged statement, the edits affect no decided fact, but the proof checked is not Anthropic's bytes.
+
+\section{How it was checked}\label{sec:check}
+
+Each trusted statement was written by hand and pinned by digest before any proof was decided (bridge \texttt{\EcCtwoPinSha\dots}, chain \texttt{\EcChainPinSha\dots}). On a rented Ubuntu machine, from the published commits (claimbox \EcClaimboxCtwo{} and \EcClaimboxChain{}, on complexitylib \EcComplexitylib), each run (a)~checked the statement block byte for byte against the pin and \lean{MainResults.lean} against Anthropic's published digest; (b)~built from source; (c)~printed the axioms from our own file: \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound} only, for the theorem and its helpers; (d)~exported the theorem with \lean{lean4export} and replayed it in nanoda, a kernel written independently of Lean's, which accepted \EcCtwoNanoda{} declarations under the bridge and \EcChainNanoda{} under the chain; (e)~ran \lean{leanchecker --fresh}; (f)~ran Lean's judge \lean{lake comparator --paranoid} against a challenge written on the machine from the pin, where Lean's kernel, \lean{leanchecker-paranoid}, \lean{lean4lean}, nanoda, \lean{con-leche} and \lean{con-ron} all accepted (the last two over \EcCtwoJudgeDecls{} and \EcChainJudgeDecls{} declarations). Three planted variants per theorem had to be refused, and were: the statement closed by \lean{sorry} (shown by the axioms file and refused by nanoda), the statement through a new axiom (likewise), and the statement silently changed (refused by the statement check and rejected by the judge for a mismatch). The judge's sandbox could not start on the rented containers; the judge ran without it, and the records say so.
+
+\paragraph{Beside the chain} Two further results use the same checks. The library's own proof that its \lean{ETH} is false (commit \EcDoneCommit; nanoda over \EcDoneNanoda{} declarations) is a re-proof on the standard machine, not a bridge from either laboratory's statement. And ETH is false on the word RAM with $O(\log L)$-bit words (\lean{EthBridge.WordRAM.not\_eth\_ram}, nanoda over \EcConeNanoda{} declarations, six checkers): complexitylib's simulator bounds simulated addresses by the running time, which rules out logarithmic words for super-polynomial runs; our variant bounds them by the work space, and complexitylib's model counter runs in polynomial space. On OpenAI's side, a third party's Lean bridge \citep{Hawkley26} proves that OpenAI's theorem implies \lean{ETHIsFalse} inside OpenAI's Lean (v4.34.1); we replayed it with two kernels \citep{CMEth}.
+
+\section{What stays open}\label{sec:limits}
+
+(1)~\emph{The textbook match is a reading.} That complexitylib's \lean{ETH} is the hypothesis of \citet{IP01} is a reading of a definition: the machine, the binary encoding, the parameter $n$ and the polynomial factor in $L$ are standard choices, and any further distance is argued, not proved. (2)~\emph{OpenAI's side crosses one version boundary.} OpenAI's statement reaches \lean{ETHIsFalse} in OpenAI's Lean; that the copy there and the one here are the same proposition is read, not decided; a port of OpenAI's proof, as done here for Anthropic's, would close it. (3)~\emph{The ported proof is a modified copy} (Section~\ref{sec:bridge}). (4)~\emph{The judge ran without its sandbox}, which protects the judge from a hostile build; the build was the author's. (5)~\emph{One author.} The statements were written by the author; the proofs and the port were written by AI agents (Claude, Anthropic) under the author's direction; the checks were run by the author's tooling. Roles are separated, but no second party has replayed the records; doing so is the next step, and the Data availability statement gives what it needs.
+
+\section*{Data availability}\label{sec:data}
+The Lean sources are in \url{https://github.com/carlostoledo1891/claimbox/tree/\EcClaimboxChain/lean/eth-bridge} (the port's ledger is \lean{AnthropicEth/PORT.md}). The records, the pinned statements, the machine scripts and every fact of every run are in \url{https://github.com/carlostoledo1891/cert-machine}: \lean{certs/eth-chain.json}, \lean{eth-c2.json}, \lean{eth-c1.json}, \lean{eth-comparator.json}, \lean{eth-cslib-d1.json}; \lean{corpus/eth-refutation/}; \lean{tools/runpod-eth-chain.sh}. A summary with the figure is at \url{https://carlostoledo.co/reports/eth-anthropic-chain.html}.
+
+\section*{Declaration of generative AI use}
+The Lean proofs, the port and parts of the tooling were written by AI agents (Claude, Anthropic) directed by the author, who wrote the statements, chose the checks and takes responsibility for the claims. One of the two laboratories whose claims are discussed is Anthropic.
+
+\begin{thebibliography}{9}
+\bibitem[{Anthropic(2026)}]{AnthropicETH} Anthropic, 2026. formal-math: \texttt{eth/}, a Lean formalization that the Exponential Time Hypothesis is false. \url{https://github.com/anthropics/formal-math}, commit 16a5ce41.
+\bibitem[{Hawkley(2026)}]{Hawkley26} Hawkley, D., 2026. OpenAI--Anthropic ETH cross-formalization (RPI-ETH-010). \url{https://formalize.now/378/}.
+\bibitem[{Impagliazzo and Paturi(2001)}]{IP01} Impagliazzo, R., Paturi, R., 2001. On the complexity of $k$-SAT. J. Comput. Syst. Sci. 62, 367--375.
+\bibitem[{OpenAI(2026)}]{OpenAIETH} OpenAI, 2026. The Exponential Time Hypothesis is false; and a Lean formalization in \url{https://github.com/openai/math}.
+\bibitem[{Toledo(2026)}]{CMEth} Toledo, C., 2026. Two claimed refutations of ETH, checked. \url{https://carlostoledo.co/eth/}.
+\end{thebibliography}
+
+\end{document}
