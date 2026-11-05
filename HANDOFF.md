@@ -133,6 +133,10 @@ NEXT SESSION, IN ORDER:
      con-ron inside) — rows in corpus/outreach.json; the blog reply NOT YET posted (the operator, by hand); Paturi HELD. NEXT
      SESSION: record the blog row when posted; answer what comes back on the issues, #2509/#2510, rpi-index #1, formal-math #36,
      #279 and the X thread; claimbox `make lift`; the Qiushi fallback is the operator's (its date was 11-05).
+     ~18:20 UTC: the BLOG REPLY under comment-24 SUBMITTED by the operator (awaiting moderation, beside the 11-04 one) and the
+     ETH_Repository E-MAIL for the note v0.2 SENT by hand (links only, no attachment), as the organizers' page asks — rows
+     ethdiscussion-reply-openai-chain-2026-11-05 and email-paturi-eth-repository-v02-2026-11-05. Check whether the two blog
+     replies appear; the open thread with the definition question stays held.
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
