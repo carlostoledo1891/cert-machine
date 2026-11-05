@@ -46,7 +46,7 @@ const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · the ETH model gap',
   title: 'Anthropic’s ETH proof, carried to a standard Turing machine in one Lean',
-  deck: 'Anthropic’s Lean proof that the Exponential Time Hypothesis is false is stated on a machine of its own lab’s making. Here that proof, ported to one Lean, implies ETH fails on a standard deterministic multitape Turing machine with a plain binary encoding, and every step is checked in that one environment: no step from the proof to the standard machine crosses a version seam. What stays open comes first.'
+  deck: 'Two AI labs say a 1999 conjecture about how fast computers can solve hard problems is false. Their proofs check. The objection was that each proof runs on a computer of its own lab’s design. For Anthropic’s proof, that objection now has a Lean answer: it reaches the textbook machine.'
 }));
 B.push(C.stats([
   { k: 'checkers that accept the chain', v: String(ch.judge.claim.accepted.length), n: 'Lean’s judge, lake comparator --paranoid; nanoda and leanchecker --fresh besides' },
@@ -55,9 +55,19 @@ B.push(C.stats([
   { k: 'planted wrong variants', v: '0 accepted', n: 'of ' + (Object.keys(ch.planted).length + Object.keys(c2.planted).length + Object.keys(c1.planted).length) + ' across the chain, C2 and C1' },
 ]));
 
+/* §0 the story, for a reader who arrives from a post: one minute, plain words, every number from the records */
+B.push(C.section({
+  lab: 'the story in one minute', title: 'What happened, and what I did', id: 'story',
+  bodyRaw: C.pRaw('<b>The claim.</b> The Exponential Time Hypothesis, proposed by Impagliazzo and Paturi in 1999, says that some problems, like 3-SAT, cannot be solved much faster than trying every possibility: the time has to grow exponentially. Hundreds of results in computer science are built on it. In October 2026, OpenAI and Anthropic each published an AI-written proof that it is false, each checked by Lean, a program that verifies mathematical proofs line by line.')
+    + C.pRaw('<b>The catch.</b> A proof checker only checks the statement it is given. Each lab stated its result about a computer of its own design, reading the input in its own format. Whether that is the computer of the textbooks, the multitape Turing machine every course teaches, was argued in a paragraph, not proved.')
+    + C.pRaw('<b>What I did.</b> With AI agents, I wrote a Lean proof that Anthropic’s statement implies the hypothesis fails on a standard multitape Turing machine reading ordinary binary input, for every formula. Then I moved Anthropic’s own proof into the same Lean, ' + ch.claim.port.byteIdentical + ' of its ' + ch.claim.port.files + ' files unchanged, so every step from their proof to the textbook machine is checked in one place. Six proof checkers accepted it, four of them written apart from Lean’s own kernel, and every one of ' + (Object.keys(ch.planted).length + Object.keys(c2.planted).length + Object.keys(c1.planted).length) + ' deliberately wrong versions I planted was refused.')
+    + C.pRaw('<b>What it means.</b> When an AI lab says “machine-checked”, the question is always what was checked. For Anthropic’s claim, the distance between the headline and the checked statement is now one definition wide: that the textbook’s ETH is this formal one. That last step is a reading of a definition, and always will be. The claim, the algorithm and the paper remain Anthropic’s; this page checks the link, not the mathematics behind it.')
+    + C.pRaw('The limits come next, then the picture, then every step with its record. The full argument is in the <a href="../paper/eth-chain.pdf">technical note (PDF)</a>.')
+}));
+
 /* §1 the gaps first */
 B.push(C.section({
-  lab: '§1 · what stays open', title: 'What this does not settle', id: 'open',
+  lab: 'what stays open', title: 'What this does not settle', id: 'open',
   bodyRaw: C.plainList([
     { b: 'It does not say ETH is false.', text: 'The claim is Anthropic’s, and so are its algorithm and its paper; neither the paper’s arguments outside Lean nor the algorithm’s novelty were checked here. What is decided is that a Lean statement on a standard machine follows from Anthropic’s proof.' },
     { b: 'The textbook match is a reading.', text: 'That cslib’s multitape ETH, with complexitylib’s binary encoding encCNF and time c · 2^(δn) · (L+1)^e + c, is the ETH of Impagliazzo and Paturi is a reading of a definition. It is now a reading of a standard machine, and it always will be one.' },
@@ -70,7 +80,7 @@ B.push(C.section({
 
 /* §2 the figure, with the grammar's legend (check-wiring: a page that draws the grammar prints its legend) */
 B.push(C.section({
-  lab: '§2 · the chain', title: 'From each lab’s statement to a standard machine', id: 'chain', wide: true,
+  lab: 'the picture', title: 'From each lab’s statement to a standard machine', id: 'chain', wide: true,
   bodyRaw: '<div class="col">' + W.legendHtml({ compact: true }) + '</div>' + C.figure({ svgRaw: FIG.svg, record: Object.keys(FIG.stamp),
     stop: 'a record it was drawn from has moved since apps/eth/build.js drew it, or any link’s word is not CERTIFIED',
     captionRaw: '<b>The chain toward a standard machine</b>, as on <a href="../eth/#standard">/eth/</a>. Solid edges are Lean implications decided here, ticked by the checks their records say accepted (C Lean’s judge with six checkers, K Lean’s kernel, N nanoda, L leanchecker --fresh); a dashed box is a copy read across a version seam; the dashed links to the textbook statement are readings.' })
@@ -78,7 +88,7 @@ B.push(C.section({
 
 /* §3 every link */
 B.push(C.section({
-  lab: '§3 · the links', title: 'Each step, and the record that decides it', id: 'links', wide: true,
+  lab: 'the details', title: 'Each step, and the record that decides it', id: 'links', wide: true,
   bodyRaw: C.table({ cols: [{ h: 'step' }, { h: 'what it proves' }, { h: 'proof by' }, { h: 'decided here' }],
     rows: [
       ['Anthropic’s proof', 'MainResults.ethIsFalse, in Anthropic’s own Lean (v4.33.1)', 'Anthropic', { raw: tag(ant.word) + '<br><span class="small">' + rec(R.kernel) + '</span>' }],
@@ -92,7 +102,7 @@ B.push(C.section({
 
 /* §4 how to re-run */
 B.push(C.section({
-  lab: '§4 · re-run it', title: 'How to check this yourself', id: 'rerun',
+  lab: 'check it yourself', title: 'How to check this yourself', id: 'rerun',
   bodyRaw: C.plainList([
     { b: 'Build.', raw: 'Clone <a href="https://github.com/carlostoledo1891/claimbox/tree/' + C.escAttr(ch.claim.commit) + '/lean/eth-bridge">claimbox at ' + esc(ch.claim.commit.slice(0, 7)) + '</a>, enter <span class="m">lean/eth-bridge</span>, run <span class="m">lake exe cache get</span> and <span class="m">lake build EthBridge.AnthropicChain</span> (about ten minutes over Mathlib’s cache on a laptop).' },
     { b: 'Check the statement.', raw: 'The trusted statement is pinned in ' + rec('corpus/eth-refutation/chain/statement.lean') + '; <span class="m">EthBridge/Anthropic/MainResults.lean</span> must hash to Anthropic’s published sha256 47f78a95…' },
