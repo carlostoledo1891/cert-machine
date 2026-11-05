@@ -119,6 +119,14 @@ NEXT SESSION, IN ORDER:
      on the first; corpus/outreach.json x-d12-openai-chain-2026-11-05). OWED: claimbox `make lift` (the register digest moved twice today); a reply on
      teorth/optimizationproblems #279 and a scout of arhancanli/quantavane-replays, the operator's call; the comparator-limits
      report upstream (lean4lean fuel default, nanoda's bundled build, con-leche's fuel), the operator's call.
+     ~17:45 UTC: the operator's answers — PR #279 REPLIED (issuecomment-6664534192; outreach row gh-optq-279-reply-2026-11-05);
+     the RECIPROCITY SCOUT of arhancanli/quantavane-replays c89/ RUN in an isolated folder (their checker: fetch OK, selftest
+     PASS, sk2026 PASS with three red controls, the same fraction as ours; corpus/targets.json arhancanli-c89-replay-2026-11,
+     CONCORDANT; nothing differed, nothing to post); THREE UPSTREAM ISSUE DRAFTS written, NOT filed (outreach/gh-lean4-
+     comparator-limits-2026-11-05.md, gh-nanoda-stack-2026-11-05.md, gh-con-leche-fuel-2026-11-05.md — untracked; the
+     operator says which to file); the BLOG REPLY drafted for the operator to post by hand under comment-24
+     (outreach/ethdiscussion-reply-openai-chain-2026-11-05.md, sent in chat 17:40 UTC); the Paturi e-mail HELD until he
+     answers today's reply (the channel rule). Session still open on "keep going".
      NEXT, in order: (1) the agent's report → claimbox commit; (2) decide on a fresh cpu3m 16 vCPU pod with tools/runpod-eth-openai-chain.sh
      (AUDIT_SHA, CLAIMBOX_SHA), import with `node tools/import-runpod-facts.js <pod> corpus/eth-refutation/openai-chain/runs`, then
      `node tools/record-eth-openai-chain.js`; shelf row; battery; (3) /eth/ §5b (the share card's "one version gap" → none), the census,
