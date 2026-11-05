@@ -1,22 +1,22 @@
 {
  "what": "cert-machine and dReal 4 (delta-complete; Gao, Avigad, Clarke) on the same claims: the Contraprova flow-line gate's nine receipts (every check as a claim, the printed enclosures, the bracket of Colebrook's root) and the self-audit's entropy family (4 originals, 12 mutants), each put to dReal at two deltas. dReal's unsat is a proof; delta-sat is not a witness — each delta-sat box of a flow-line query has its midpoint re-decided by the gate. Agreement means dReal's unsat matches our CERTIFIED/REFUTED and a split refusal of ours shows delta-sat on both sides; disagreements are reported as they fell. Written by tools/dreal-compare.js --record; --check re-derives every word, agreement and total from the stored run and refuses on drift.",
  "name": "dreal-compare",
- "generated": "2026-11-05T04:08:52.197Z",
- "git": "145f76c1",
+ "generated": "2026-11-05T16:31:12.370Z",
+ "git": "0b3d5d3a",
  "run": {
-  "id": 41965738593,
-  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/41965738593",
-  "headSha": "145f76c131d64966510f901f816074246642abd3",
+  "id": 42064197788,
+  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/42064197788",
+  "headSha": "0254d5797b902b926ee1b18d9875720552a815dd",
   "event": "workflow_dispatch",
   "conclusion": "success",
-  "createdAt": "2026-11-05T04:06:44Z",
-  "dir": "corpus/dreal-compare/run-41965738593",
+  "createdAt": "2026-11-05T16:25:00Z",
+  "dir": "corpus/dreal-compare/run-42064197788",
   "files": {
-   "dreal.json": "686ac01eec5a05d5a794922f5df9e332cee588461c21eba16da57ed5836496e6",
-   "dreal.log": "56943d3f4e775c6458e6981d70efba553775ad57586328430053e194580c3766",
+   "dreal.json": "de8ae3d5215a3f1aad7193441a5076ba6f8d7bfeed39a59b078dcd1aa26b05d1",
+   "dreal.log": "e7ef6cea6fc830811e9c5d6c0c365bf61a21ad2ecf4ef7426d738a7603961ec8",
    "ibex-version.txt": "b4ed3e3aef6923782ad6a5cb202ab65c09fe386db40f8b60d7a9aa40d3ee144b",
-   "ours-runner.json": "279df0cafd4e15183684198cf2a1e3cc62e7d04398aed61d1414779878203e8b",
-   "run.json": "2bc5410d8d5239b0ce21277da86deb7fd382f885a934bea91cfd941df44da784"
+   "ours-runner.json": "55be9a05993899b0c95ec31e88f73666f9342bf0ef4f14f5e869a10381498211",
+   "run.json": "c1c0f09c7a4388a019f4127e5bd4c866a58d7957a16ced92e3a623808ee2a50d"
   }
  },
  "dreal": {
@@ -33,7 +33,7 @@
   "host": {
    "python": "3.10.22",
    "platform": "Linux-6.8.0-1070-azure-x86_64-with-glibc2.35",
-   "cpu": "AMD EPYC 9V45 96-Core Processor",
+   "cpu": "AMD EPYC 7763 64-Core Processor",
    "cpus": 4
   },
   "systemLibraries": [
@@ -41,8 +41,8 @@
    "libibex-dev 2.7.4.20220710184652.git352eeeb2345fb2b7a7ec248b44770d8cdc4a5d67~22.04",
    "libnlopt-cxx-dev 2.7.1-3build1"
   ],
-  "started": "2026-11-05T04:07:48Z",
-  "finished": "2026-11-05T04:08:30Z"
+  "started": "2026-11-05T16:25:59Z",
+  "finished": "2026-11-05T16:27:13Z"
  },
  "deltas": [
   "0.001",
@@ -51,14 +51,14 @@
  "timeoutSeconds": 900,
  "claimsFile": {
   "path": "corpus/dreal-compare/claims.json",
-  "sha256": "6394031cc677136519b72f74fcc1b8124591108346fac4795e8f21a2fea2e7f9"
+  "sha256": "40f0ab3c6820ec055e54cb4c94e01987b86b0d8302226fc1c0e8b47733ffb1d9"
  },
  "sources": {
   "apps/contraprova/gate/scenarios.json": "199bb6f8170f6353b2d6348c3bf60d4488cd3691b15f346a5c8fab35f443b934",
   "apps/contraprova/gate/flowline.js": "e64151a67ae8ab98619cd661623ac2e14fba7a367c730a8218c77495bbeee8c7",
   "apps/contraprova/data/gate-ledger.json": "b124ffe573e014c1740a8cabb66fa817a6b65e62c2443d70818fe49b911b7d07",
-  "certs/selfaudit-mutations.json": "ec5cab5f96968cd60bd7918026be6ac1d744d388b47d5763fca21bea5c2a6e90",
-  "certs/claims-ledger.json": "3c0ff499b704ba4c976a6e9819f3894dab1d9bffd4a100e57a4b20d1425c8a9b",
+  "certs/selfaudit-mutations.json": "eaabc6e77a1836b73e16dace66b0a4e40f299c962a971d6a1ca953db10a632c0",
+  "certs/claims-ledger.json": "3558fcf5a4718a8a9c9017c5329bea56db497465354c8119d73bcaa350c18db4",
   "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
   "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
   "instruments/selfaudit/entropy.js": "63ca98745e8d7fd14c038d367f3eb6fa16b1bfeb4bda3bb5765f5ca47608ce84",
@@ -76,9 +76,9 @@
     "cpus": 8,
     "node": "v24.14.1",
     "loadAverage": [
-     2.19,
-     2.82,
-     3.42
+     6.99,
+     5.5,
+     4.83
     ]
    },
    "unit": "milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)"
@@ -87,13 +87,13 @@
    "machine": {
     "platform": "linux-x64",
     "os": "6.8.0-1070-azure",
-    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
     "cpus": 4,
     "node": "v20.20.2",
     "loadAverage": [
-     0.9,
-     0.33,
-     0.12
+     0.89,
+     0.36,
+     0.14
     ]
    },
    "unit": "milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)"
@@ -417,8 +417,8 @@
     }
    ],
    "oursMs": {
-    "local": 11.821041,
-    "runner": 10.229776
+    "local": 15.092709,
+    "runner": 19.067852
    }
   },
   {
@@ -460,8 +460,8 @@
     }
    ],
    "oursMs": {
-    "local": 3.861792,
-    "runner": 3.44935
+    "local": 4.478583,
+    "runner": 6.40743
    }
   },
   {
@@ -503,8 +503,8 @@
     }
    ],
    "oursMs": {
-    "local": 4.055084,
-    "runner": 3.363804
+    "local": 4.67625,
+    "runner": 6.324466
    }
   },
   {
@@ -551,8 +551,8 @@
     }
    ],
    "oursMs": {
-    "local": 3.807125,
-    "runner": 3.51639
+    "local": 4.213458,
+    "runner": 6.495963
    }
   },
   {
@@ -599,8 +599,8 @@
     }
    ],
    "oursMs": {
-    "local": 3.745209,
-    "runner": 3.398575
+    "local": 5.041084,
+    "runner": 6.383535
    }
   },
   {
@@ -642,8 +642,8 @@
     }
    ],
    "oursMs": {
-    "local": 3.671458,
-    "runner": 3.353468
+    "local": 4.27625,
+    "runner": 6.345485
    }
   },
   {
@@ -685,8 +685,8 @@
     }
    ],
    "oursMs": {
-    "local": 3.680417,
-    "runner": 3.372076
+    "local": 3.926917,
+    "runner": 6.339694
    }
   },
   {
@@ -733,8 +733,8 @@
     }
    ],
    "oursMs": {
-    "local": 4.449209,
-    "runner": 3.41509
+    "local": 4.152708,
+    "runner": 6.38595
    }
   },
   {
@@ -776,8 +776,8 @@
     }
    ],
    "oursMs": {
-    "local": 0.005833,
-    "runner": 0.003906
+    "local": 0.007209,
+    "runner": 0.007664
    }
   }
  ],
@@ -791,13 +791,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.0003462630000115041,
+     "seconds": 0.0005313369999839779,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0003462630000115041,
-       "buildSeconds": 0.0005493040000033034,
-       "wallSeconds": 0.002797675000010713,
+       "solveSeconds": 0.0005313369999839779,
+       "buildSeconds": 0.001194066000039129,
+       "wallSeconds": 0.005853116000025693,
        "box": {
         "rho": [
          "1024.9995",
@@ -830,13 +830,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.00022096700001839054,
+     "seconds": 0.0004591030000256069,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00022096700001839054,
-       "buildSeconds": 0.0004832969999881698,
-       "wallSeconds": 0.0018119839999997112,
+       "solveSeconds": 0.0004591030000256069,
+       "buildSeconds": 0.0011249579999912385,
+       "wallSeconds": 0.0044910970000273664,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -873,8 +873,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000146417,
-    "runner": 0.00010159
+    "local": 0.00016154199999999998,
+    "runner": 0.000202506
    }
   },
   {
@@ -886,19 +886,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.000519930999985263,
+     "seconds": 0.0010303739999244499,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00029285399998002504,
-       "buildSeconds": 0.0005343720000041685,
-       "wallSeconds": 0.001794799999998986
+       "solveSeconds": 0.0005637969999270354,
+       "buildSeconds": 0.0012611109999625114,
+       "wallSeconds": 0.004666703999987476
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.000227077000005238,
-       "buildSeconds": 0.0004939719999867975,
-       "wallSeconds": 0.0016610710000009021,
+       "solveSeconds": 0.00046657699999741453,
+       "buildSeconds": 0.0012584959999912826,
+       "wallSeconds": 0.0045301099999051075,
        "box": {
         "rho": [
          "1024.9995",
@@ -935,19 +935,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.00047664699999927507,
+     "seconds": 0.0010372049999887167,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002565810000021429,
-       "buildSeconds": 0.00043243000001780274,
-       "wallSeconds": 0.0015794910000010987
+       "solveSeconds": 0.0005727530000285697,
+       "buildSeconds": 0.00121265100005985,
+       "wallSeconds": 0.004547462000004998
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00022006599999713217,
-       "buildSeconds": 0.00043996200000151475,
-       "wallSeconds": 0.0014934630000027482,
+       "solveSeconds": 0.0004644519999601471,
+       "buildSeconds": 0.001226106000103755,
+       "wallSeconds": 0.004442205999907856,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -988,8 +988,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000152208,
-    "runner": 0.000146096
+    "local": 0.00016837499999999999,
+    "runner": 0.000421511
    }
   },
   {
@@ -1001,19 +1001,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.00040768499999899177,
+     "seconds": 0.0009329620000926298,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021833400001014525,
-       "buildSeconds": 0.00035601700000142955,
-       "wallSeconds": 0.001395527999989099
+       "solveSeconds": 0.0005144550000295567,
+       "buildSeconds": 0.0010407119999626957,
+       "wallSeconds": 0.0042516419999856225
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018935099998884652,
-       "buildSeconds": 0.00037668800001711134,
-       "wallSeconds": 0.0013680969999825265,
+       "solveSeconds": 0.00041850700006307306,
+       "buildSeconds": 0.0010448689999975613,
+       "wallSeconds": 0.0042159460000448234,
        "box": {
         "D": [
          "0.152",
@@ -1042,19 +1042,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.00041900100001157625,
+     "seconds": 0.0009571760000426366,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021438800001760683,
-       "buildSeconds": 0.0003507600000034472,
-       "wallSeconds": 0.0013634299999978339
+       "solveSeconds": 0.0005303039999944303,
+       "buildSeconds": 0.0011046309999755977,
+       "wallSeconds": 0.004344244999970215
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00020461299999396942,
-       "buildSeconds": 0.00042041300000050796,
-       "wallSeconds": 0.0015561559999923702,
+       "solveSeconds": 0.00042687200004820625,
+       "buildSeconds": 0.0010592759999781265,
+       "wallSeconds": 0.004227378000109638,
        "box": {
         "D": [
          "0.1523999995",
@@ -1087,8 +1087,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000153792,
-    "runner": 0.000205685
+    "local": 0.00018537500000000002,
+    "runner": 0.00022489700000000003
    }
   },
   {
@@ -1100,13 +1100,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.0017812989999868023,
+     "seconds": 0.0030110400000467052,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0017812989999868023,
-       "buildSeconds": 0.0007502520000173263,
-       "wallSeconds": 0.003452915999986317,
+       "solveSeconds": 0.0030110400000467052,
+       "buildSeconds": 0.002000263000013547,
+       "wallSeconds": 0.007892863000051875,
        "box": {
         "f": [
          "0.016305263062722477",
@@ -1158,13 +1158,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.0028379150000148456,
+     "seconds": 0.004684716000042499,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0028379150000148456,
-       "buildSeconds": 0.0007552889999828949,
-       "wallSeconds": 0.004438527000019121,
+       "solveSeconds": 0.004684716000042499,
+       "buildSeconds": 0.0020140289999517336,
+       "wallSeconds": 0.009600492000004124,
        "box": {
         "f": [
          "0.01630554219720848",
@@ -1220,8 +1220,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.571459,
-    "runner": 2.342871
+    "local": 2.888292,
+    "runner": 4.368336
    }
   },
   {
@@ -1233,37 +1233,37 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.001836582000009912,
+     "seconds": 0.003340170000001308,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.0009307290000037938,
-       "buildSeconds": 0.0007419590000097287,
-       "wallSeconds": 0.0025444310000182213
+       "solveSeconds": 0.001684617000023536,
+       "buildSeconds": 0.0020326139999724546,
+       "wallSeconds": 0.006533748999913769
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0009058530000061182,
-       "buildSeconds": 0.0007472570000004453,
-       "wallSeconds": 0.0024782619999825783
+       "solveSeconds": 0.0016555529999777718,
+       "buildSeconds": 0.001975888000060877,
+       "wallSeconds": 0.00644520499997725
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0018249750000052245,
+     "seconds": 0.003352363999965746,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.000925111000015022,
-       "buildSeconds": 0.0007242129999838198,
-       "wallSeconds": 0.002519333000009283
+       "solveSeconds": 0.0017073999999865919,
+       "buildSeconds": 0.0020571790000758483,
+       "wallSeconds": 0.006649293999998918
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0008998639999902025,
-       "buildSeconds": 0.000762069000018073,
-       "wallSeconds": 0.002484540999972751
+       "solveSeconds": 0.0016449639999791543,
+       "buildSeconds": 0.0020061839999243603,
+       "wallSeconds": 0.0065721610000082364
       }
      }
     }
@@ -1273,8 +1273,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.58125,
-    "runner": 2.293238
+    "local": 3.134625,
+    "runner": 4.347958
    }
   },
   {
@@ -1286,13 +1286,13 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 0.003148705000029395,
+     "seconds": 0.005425742999932481,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0016027150000184065,
-       "buildSeconds": 0.0007522439999831931,
-       "wallSeconds": 0.0032311779999929513,
+       "solveSeconds": 0.002732392999973854,
+       "buildSeconds": 0.002075914000101875,
+       "wallSeconds": 0.008096513000054983,
        "box": {
         "f": [
          "0.014503831164485777",
@@ -1343,9 +1343,9 @@
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0015459900000109883,
-       "buildSeconds": 0.0007487599999933536,
-       "wallSeconds": 0.0031518410000046515,
+       "solveSeconds": 0.0026933499999586274,
+       "buildSeconds": 0.0020395359999838547,
+       "wallSeconds": 0.007998718000067129,
        "box": {
         "f": [
          "0.014767816449526548",
@@ -1398,13 +1398,13 @@
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 0.005608971000015117,
+     "seconds": 0.007854501999986496,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0024590540000133387,
-       "buildSeconds": 0.0007487489999959962,
-       "wallSeconds": 0.004072495000002618,
+       "solveSeconds": 0.0039477990000023055,
+       "buildSeconds": 0.002049024000029931,
+       "wallSeconds": 0.009034541000005447,
        "box": {
         "f": [
          "0.014504256795273989",
@@ -1455,9 +1455,9 @@
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0031499170000017784,
-       "buildSeconds": 0.0007587849999879381,
-       "wallSeconds": 0.004954771999990726,
+       "solveSeconds": 0.003906702999984191,
+       "buildSeconds": 0.002024617999950351,
+       "wallSeconds": 0.008903868999937004,
        "box": {
         "f": [
          "0.014768575284205155",
@@ -1514,8 +1514,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 1.09125,
-    "runner": 0.979742
+    "local": 1.464875,
+    "runner": 1.877654
    }
   },
   {
@@ -1527,13 +1527,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.0002101609999840548,
+     "seconds": 0.0004450370000768089,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0002101609999840548,
-       "buildSeconds": 0.00045937100000514874,
-       "wallSeconds": 0.001637977000001456,
+       "solveSeconds": 0.0004450370000768089,
+       "buildSeconds": 0.0011227339999777541,
+       "wallSeconds": 0.004453206999983195,
        "box": {
         "rho": [
          "1024.9995",
@@ -1566,13 +1566,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.00019838400001503942,
+     "seconds": 0.00040372900002694223,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00019838400001503942,
-       "buildSeconds": 0.00041661699998485346,
-       "wallSeconds": 0.0015682840000010856,
+       "solveSeconds": 0.00040372900002694223,
+       "buildSeconds": 0.0011096199999656164,
+       "wallSeconds": 0.0043486329999495865,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -1609,8 +1609,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000140125,
-    "runner": 0.000098896
+    "local": 0.00022070899999999998,
+    "runner": 0.000404199
    }
   },
   {
@@ -1622,13 +1622,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.0017885999999975866,
+     "seconds": 0.003000621000069259,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0017885999999975866,
-       "buildSeconds": 0.0007874870000250667,
-       "wallSeconds": 0.0035955470000033074,
+       "solveSeconds": 0.003000621000069259,
+       "buildSeconds": 0.0020275030000220795,
+       "wallSeconds": 0.007950108000045475,
        "box": {
         "f": [
          "0.016305263062722477",
@@ -1680,13 +1680,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.0029451139999991938,
+     "seconds": 0.00474798400000509,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0029451139999991938,
-       "buildSeconds": 0.0008626679999963471,
-       "wallSeconds": 0.0048547339999913675,
+       "solveSeconds": 0.00474798400000509,
+       "buildSeconds": 0.002108564999957707,
+       "wallSeconds": 0.009906039000043165,
        "box": {
         "f": [
          "0.01630554219720848",
@@ -1742,8 +1742,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.575209,
-    "runner": 2.338665
+    "local": 3.307209,
+    "runner": 4.374789
    }
   },
   {
@@ -1755,37 +1755,37 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.0019023890000084975,
+     "seconds": 0.0033490879999362733,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.0009733920000201124,
-       "buildSeconds": 0.0007977930000038214,
-       "wallSeconds": 0.002685248000005913
+       "solveSeconds": 0.0017083719999391178,
+       "buildSeconds": 0.0020617870000023686,
+       "wallSeconds": 0.006810933999986446
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0009289969999883851,
-       "buildSeconds": 0.0007913130000076762,
-       "wallSeconds": 0.0026434370000174567
+       "solveSeconds": 0.0016407159999971554,
+       "buildSeconds": 0.0020599539999466288,
+       "wallSeconds": 0.0066287150000334805
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0018663849999995819,
+     "seconds": 0.003411162999896078,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.0009524710000050618,
-       "buildSeconds": 0.0007383040000092933,
-       "wallSeconds": 0.00262083399999824
+       "solveSeconds": 0.001758303999963573,
+       "buildSeconds": 0.0020132970000759087,
+       "wallSeconds": 0.006765670000049795
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0009139139999945201,
-       "buildSeconds": 0.0007464960000049814,
-       "wallSeconds": 0.0025358970000013414
+       "solveSeconds": 0.001652858999932505,
+       "buildSeconds": 0.0020912920000455415,
+       "wallSeconds": 0.006717491000017617
       }
      }
     }
@@ -1795,8 +1795,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.575542,
-    "runner": 2.346276
+    "local": 3.278917,
+    "runner": 4.355802
    }
   },
   {
@@ -1808,19 +1808,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.002198748000012074,
+     "seconds": 0.00512765899986789,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009653509999907328,
-       "buildSeconds": 0.0007836510000061025,
-       "wallSeconds": 0.0026428459999863207
+       "solveSeconds": 0.0030142959999466257,
+       "buildSeconds": 0.003223444000013842,
+       "wallSeconds": 0.009343485000044893
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0012333970000213412,
-       "buildSeconds": 0.0007906919999811635,
-       "wallSeconds": 0.003023149000000558,
+       "solveSeconds": 0.0021133629999212644,
+       "buildSeconds": 0.0020718860000670247,
+       "wallSeconds": 0.007288289999905828,
        "box": {
         "f": [
          "0.01741816675716177",
@@ -1873,19 +1873,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.00298855799999842,
+     "seconds": 0.005077534999941236,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009764069999960157,
-       "buildSeconds": 0.000749531000025172,
-       "wallSeconds": 0.002681022999979632
+       "solveSeconds": 0.0017592860000377186,
+       "buildSeconds": 0.0021139539999239787,
+       "wallSeconds": 0.006889009000019541
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0020121510000024045,
-       "buildSeconds": 0.000747176999993826,
-       "wallSeconds": 0.0036848299999974188,
+       "solveSeconds": 0.003318248999903517,
+       "buildSeconds": 0.0020818750000444197,
+       "wallSeconds": 0.008420080000064445,
        "box": {
         "f": [
          "0.01741816675716177",
@@ -1942,8 +1942,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 1.15125,
-    "runner": 1.010958
+    "local": 1.261167,
+    "runner": 1.899164
    }
   },
   {
@@ -1955,13 +1955,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.0002131159999976262,
+     "seconds": 0.0004248989999950936,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0002131159999976262,
-       "buildSeconds": 0.00037860099999420527,
-       "wallSeconds": 0.0014383209999948576,
+       "solveSeconds": 0.0004248989999950936,
+       "buildSeconds": 0.001167618000067705,
+       "wallSeconds": 0.004585111999972469,
        "box": {
         "rho": [
          "1024.9995",
@@ -1994,13 +1994,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.00018686699999648226,
+     "seconds": 0.0004158519999464261,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018686699999648226,
-       "buildSeconds": 0.0003689360000009856,
-       "wallSeconds": 0.0014211159999888423,
+       "solveSeconds": 0.0004158519999464261,
+       "buildSeconds": 0.0011765340000238211,
+       "wallSeconds": 0.004474356000059743,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -2037,8 +2037,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000115916,
-    "runner": 0.000059397999999999996
+    "local": 0.00011625,
+    "runner": 0.000104314
    }
   },
   {
@@ -2050,19 +2050,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.0005014030000154435,
+     "seconds": 0.0011077160000922959,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002800350000029539,
-       "buildSeconds": 0.00041946100000700426,
-       "wallSeconds": 0.0015252299999986008
+       "solveSeconds": 0.0005880610000303932,
+       "buildSeconds": 0.0012756480000462034,
+       "wallSeconds": 0.004749677000063457
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00022136800001248957,
-       "buildSeconds": 0.0004159160000085649,
-       "wallSeconds": 0.0015267029999961323,
+       "solveSeconds": 0.0005196550000619027,
+       "buildSeconds": 0.0012845740000102523,
+       "wallSeconds": 0.0047141620000275,
        "box": {
         "rho": [
          "1024.9995",
@@ -2099,19 +2099,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0004763650000256803,
+     "seconds": 0.0011098389999233405,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00025592900001925045,
-       "buildSeconds": 0.00043173999998202817,
-       "wallSeconds": 0.001506431999985125
+       "solveSeconds": 0.0005874400000038804,
+       "buildSeconds": 0.0012756979999721807,
+       "wallSeconds": 0.004744557999970311
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00022043600000642982,
-       "buildSeconds": 0.00041020800000524105,
-       "wallSeconds": 0.001516978000012159,
+       "solveSeconds": 0.00052239899991946,
+       "buildSeconds": 0.0012865490000422142,
+       "wallSeconds": 0.004796142999907715,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -2152,8 +2152,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000151417,
-    "runner": 0.00010853
+    "local": 0.000209292,
+    "runner": 0.000194221
    }
   },
   {
@@ -2165,19 +2165,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.00040398000001573564,
+     "seconds": 0.0010860659999707423,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002175129999955061,
-       "buildSeconds": 0.0003723209999861865,
-       "wallSeconds": 0.0014042299999914576
+       "solveSeconds": 0.0006139700000176163,
+       "buildSeconds": 0.0010929989999794998,
+       "wallSeconds": 0.005070262999993247
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018646700002022953,
-       "buildSeconds": 0.000349667999984149,
-       "wallSeconds": 0.0014112709999949402,
+       "solveSeconds": 0.000472095999953126,
+       "buildSeconds": 0.0011440739999670768,
+       "wallSeconds": 0.0046118010000100185,
        "box": {
         "D": [
          "0.152",
@@ -2206,19 +2206,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.00040092399999025474,
+     "seconds": 0.0009999070001640575,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021591000000853455,
-       "buildSeconds": 0.00036888700000758945,
-       "wallSeconds": 0.0013943960000233346
+       "solveSeconds": 0.0005051080000839647,
+       "buildSeconds": 0.0011268409999729556,
+       "wallSeconds": 0.004550466999944547
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0001850139999817202,
-       "buildSeconds": 0.0003513210000107847,
-       "wallSeconds": 0.0013966289999984838,
+       "solveSeconds": 0.0004947990000800928,
+       "buildSeconds": 0.0010826689999703376,
+       "wallSeconds": 0.004474877000006927,
        "box": {
         "D": [
          "0.1523999995",
@@ -2251,8 +2251,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000150667,
-    "runner": 0.00010794
+    "local": 0.000183458,
+    "runner": 0.00019353
    }
   },
   {
@@ -2264,25 +2264,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.0009764570000072581,
+     "seconds": 0.0017252930000495326,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009764570000072581,
-       "buildSeconds": 0.000759474999995291,
-       "wallSeconds": 0.0025562180000235912
+       "solveSeconds": 0.0017252930000495326,
+       "buildSeconds": 0.002118282999958865,
+       "wallSeconds": 0.006898636999949304
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.0009449899999935951,
+     "seconds": 0.0017855339999641728,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009449899999935951,
-       "buildSeconds": 0.0007266069999900537,
-       "wallSeconds": 0.0025692670000125872
+       "solveSeconds": 0.0017855339999641728,
+       "buildSeconds": 0.002052640999977484,
+       "wallSeconds": 0.0068736999999146065
       }
      }
     }
@@ -2292,8 +2292,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.592125,
-    "runner": 2.338775
+    "local": 3.134167,
+    "runner": 4.380749
    }
   },
   {
@@ -2305,37 +2305,37 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.0019035299999927702,
+     "seconds": 0.0034490220000407135,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.0009855999999786036,
-       "buildSeconds": 0.0008579910000037216,
-       "wallSeconds": 0.0029106830000102946
+       "solveSeconds": 0.0017761569999947824,
+       "buildSeconds": 0.0021517039999707777,
+       "wallSeconds": 0.007072449000020242
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0009179300000141666,
-       "buildSeconds": 0.0007581239999865375,
-       "wallSeconds": 0.002552522000002
+       "solveSeconds": 0.001672865000045931,
+       "buildSeconds": 0.0021562529999528124,
+       "wallSeconds": 0.006893095999998877
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0018737270000031003,
+     "seconds": 0.003462066999986746,
      "queries": {
       "below": {
        "answer": "unsat",
-       "solveSeconds": 0.0009559769999896162,
-       "buildSeconds": 0.0007438819999947555,
-       "wallSeconds": 0.0025671040000077028
+       "solveSeconds": 0.0017062470000155372,
+       "buildSeconds": 0.002122820999943542,
+       "wallSeconds": 0.006950783000092997
       },
       "above": {
        "answer": "unsat",
-       "solveSeconds": 0.0009177500000134842,
-       "buildSeconds": 0.0007318039999972825,
-       "wallSeconds": 0.0025220169999897735
+       "solveSeconds": 0.0017558199999712087,
+       "buildSeconds": 0.0020896490000268386,
+       "wallSeconds": 0.006748427999923479
       }
      }
     }
@@ -2345,8 +2345,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.581166,
-    "runner": 2.353757
+    "local": 3.133708,
+    "runner": 4.342077
    }
   },
   {
@@ -2358,19 +2358,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.0021528199999920616,
+     "seconds": 0.0038584139999784384,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.000965049999990697,
-       "buildSeconds": 0.0007411779999983992,
-       "wallSeconds": 0.0025714999999877364
+       "solveSeconds": 0.0017788829999290101,
+       "buildSeconds": 0.0020164730000260533,
+       "wallSeconds": 0.006656186999975944
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0011877700000013647,
-       "buildSeconds": 0.0007152100000098471,
-       "wallSeconds": 0.0027978459999928873,
+       "solveSeconds": 0.0020795310000494283,
+       "buildSeconds": 0.0021230309999964447,
+       "wallSeconds": 0.007150253999952838,
        "box": {
         "f": [
          "0.01757020379394675",
@@ -2423,19 +2423,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0029753989999790065,
+     "seconds": 0.005096061000017471,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009618349999982456,
-       "buildSeconds": 0.0007410679999964032,
-       "wallSeconds": 0.002552062000006572
+       "solveSeconds": 0.001744238000014775,
+       "buildSeconds": 0.0020233760000110124,
+       "wallSeconds": 0.006569104999925912
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.002013563999980761,
-       "buildSeconds": 0.0007380440000019917,
-       "wallSeconds": 0.00363783099999182,
+       "solveSeconds": 0.003351823000002696,
+       "buildSeconds": 0.0021081029999550083,
+       "wallSeconds": 0.00838466499999413,
        "box": {
         "f": [
          "0.01757020379394675",
@@ -2492,8 +2492,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 1.111667,
-    "runner": 1.010748
+    "local": 1.585333,
+    "runner": 1.895096
    }
   },
   {
@@ -2505,25 +2505,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.0001946179999947617,
+     "seconds": 0.00042416700000558194,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0001946179999947617,
-       "buildSeconds": 0.00029239300002359414,
-       "wallSeconds": 0.0013184929999852102
+       "solveSeconds": 0.00042416700000558194,
+       "buildSeconds": 0.0009188760000142793,
+       "wallSeconds": 0.004185910000046533
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.00019266599997536105,
+     "seconds": 0.0004161630000680816,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00019266599997536105,
-       "buildSeconds": 0.000282749000007243,
-       "wallSeconds": 0.0012774129999968409
+       "solveSeconds": 0.0004161630000680816,
+       "buildSeconds": 0.0009001999999327381,
+       "wallSeconds": 0.004108758000029411
       }
      }
     }
@@ -2533,8 +2533,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.00091125,
-    "runner": 0.0013898390000000001
+    "local": 0.001151584,
+    "runner": 0.0028618709999999998
    }
   },
   {
@@ -2546,13 +2546,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.00018876000001455395,
+     "seconds": 0.0004599940000389324,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018876000001455395,
-       "buildSeconds": 0.00039868099997875106,
-       "wallSeconds": 0.0014102600000001075,
+       "solveSeconds": 0.0004599940000389324,
+       "buildSeconds": 0.0011086579999073365,
+       "wallSeconds": 0.004428531000030489,
        "box": {
         "rho": [
          "1024.9995",
@@ -2585,13 +2585,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.0001846240000134003,
+     "seconds": 0.00040651500000876695,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0001846240000134003,
-       "buildSeconds": 0.00036512099998731173,
-       "wallSeconds": 0.0014127329999951144,
+       "solveSeconds": 0.00040651500000876695,
+       "buildSeconds": 0.0011206600000832623,
+       "wallSeconds": 0.004480226999930892,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -2628,8 +2628,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000089458,
-    "runner": 0.000059147
+    "local": 0.000078125,
+    "runner": 0.00021807399999999999
    }
   },
   {
@@ -2641,13 +2641,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.001772637000016175,
+     "seconds": 0.0030272500000592117,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.001772637000016175,
-       "buildSeconds": 0.0007502919999922142,
-       "wallSeconds": 0.003395111000003226,
+       "solveSeconds": 0.0030272500000592117,
+       "buildSeconds": 0.00202838499990321,
+       "wallSeconds": 0.007987827999954789,
        "box": {
         "f": [
          "0.01609080328887906",
@@ -2699,13 +2699,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.0028645950000054654,
+     "seconds": 0.004802786000027481,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0028645950000054654,
-       "buildSeconds": 0.0007376629999953366,
-       "wallSeconds": 0.004527469000009887,
+       "solveSeconds": 0.004802786000027481,
+       "buildSeconds": 0.0020548549999830357,
+       "wallSeconds": 0.009891652999954204,
        "box": {
         "f": [
          "0.016091078757130478",
@@ -2761,8 +2761,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.595375,
-    "runner": 2.387648
+    "local": 3.196833,
+    "runner": 4.358428
    }
   },
   {
@@ -2774,13 +2774,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.00019105300000887837,
+     "seconds": 0.0004166630000099758,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00019105300000887837,
-       "buildSeconds": 0.000393943999995372,
-       "wallSeconds": 0.0014122319999785304,
+       "solveSeconds": 0.0004166630000099758,
+       "buildSeconds": 0.0011538119999841001,
+       "wallSeconds": 0.004402902999913749,
        "box": {
         "rho": [
          "1024.9995",
@@ -2813,13 +2813,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.00018601600001488805,
+     "seconds": 0.0004312900000513764,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018601600001488805,
-       "buildSeconds": 0.00036568199999464923,
-       "wallSeconds": 0.0014005859999883796,
+       "solveSeconds": 0.0004312900000513764,
+       "buildSeconds": 0.0011335750000398548,
+       "wallSeconds": 0.004347951999989164,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -2856,8 +2856,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000076959,
-    "runner": 0.000057314999999999996
+    "local": 0.00013345799999999998,
+    "runner": 0.000105275
    }
   },
   {
@@ -2869,25 +2869,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.00040081399998825873,
+     "seconds": 0.000828748000003543,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00040081399998825873,
-       "buildSeconds": 0.000594872000021951,
-       "wallSeconds": 0.0018455339999832177
+       "solveSeconds": 0.000828748000003543,
+       "buildSeconds": 0.0016554229999883319,
+       "wallSeconds": 0.005285020999963308
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.00039540599999554615,
+     "seconds": 0.000839027999973041,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00039540599999554615,
-       "buildSeconds": 0.0005911260000175389,
-       "wallSeconds": 0.0018003469999996469
+       "solveSeconds": 0.000839027999973041,
+       "buildSeconds": 0.0017750050000131523,
+       "wallSeconds": 0.0054670789999136105
       }
      }
     }
@@ -2897,8 +2897,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.016393249999999998,
-    "runner": 0.014444100000000001
+    "local": 0.019709458000000003,
+    "runner": 0.027910049
    }
   },
   {
@@ -2910,25 +2910,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.0009461820000069565,
+     "seconds": 0.00173248600003717,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0009461820000069565,
-       "buildSeconds": 0.0008060039999975288,
-       "wallSeconds": 0.0026763249999817162
+       "solveSeconds": 0.00173248600003717,
+       "buildSeconds": 0.002053571999908854,
+       "wallSeconds": 0.006743409000023348
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.000934225000008837,
+     "seconds": 0.001726865000023281,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.000934225000008837,
-       "buildSeconds": 0.0007172120000120685,
-       "wallSeconds": 0.002532993000016859
+       "solveSeconds": 0.001726865000023281,
+       "buildSeconds": 0.00208907800003999,
+       "wallSeconds": 0.006793802000061078
       }
      }
     }
@@ -2938,8 +2938,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.594125,
-    "runner": 2.325105
+    "local": 2.793333,
+    "runner": 4.365511
    }
   },
   {
@@ -2951,25 +2951,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.00021555899999725625,
+     "seconds": 0.0004993269999431504,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021555899999725625,
-       "buildSeconds": 0.00038647299999183815,
-       "wallSeconds": 0.001422216999998227
+       "solveSeconds": 0.0004993269999431504,
+       "buildSeconds": 0.0011285250000128144,
+       "wallSeconds": 0.004483142000026419
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.00020941099998594837,
+     "seconds": 0.0005085840000447206,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00020941099998594837,
-       "buildSeconds": 0.0003599730000019008,
-       "wallSeconds": 0.0014179509999792117
+       "solveSeconds": 0.0005085840000447206,
+       "buildSeconds": 0.001132140999970943,
+       "wallSeconds": 0.004481097999928352
       }
      }
     }
@@ -2979,8 +2979,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000078333,
-    "runner": 0.000058126
+    "local": 0.000080084,
+    "runner": 0.000105696
    }
   },
   {
@@ -2992,25 +2992,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.0007613489999869216,
+     "seconds": 0.001443690000087372,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0007613489999869216,
-       "buildSeconds": 0.0007346080000161237,
-       "wallSeconds": 0.0023273779999897215
+       "solveSeconds": 0.001443690000087372,
+       "buildSeconds": 0.002015290999906938,
+       "wallSeconds": 0.006275951000020541
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.0007694800000024316,
+     "seconds": 0.0015034909999940282,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0007694800000024316,
-       "buildSeconds": 0.0007129760000168517,
-       "wallSeconds": 0.0023334680000175467
+       "solveSeconds": 0.0015034909999940282,
+       "buildSeconds": 0.001986516999977539,
+       "wallSeconds": 0.006380293999995956
       }
      }
     }
@@ -3020,8 +3020,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.555042,
-    "runner": 2.319276
+    "local": 3.032708,
+    "runner": 4.356344
    }
   },
   {
@@ -3033,25 +3033,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.0002357589999917309,
+     "seconds": 0.000512862000050518,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002357589999917309,
-       "buildSeconds": 0.00036659300002384043,
-       "wallSeconds": 0.0014336050000167688
+       "solveSeconds": 0.000512862000050518,
+       "buildSeconds": 0.0011599130000377045,
+       "wallSeconds": 0.0044841339999948104
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.00021038200000589313,
+     "seconds": 0.0004719859999795517,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021038200000589313,
-       "buildSeconds": 0.000389828000010084,
-       "wallSeconds": 0.0013964190000024246
+       "solveSeconds": 0.0004719859999795517,
+       "buildSeconds": 0.001130609000028926,
+       "wallSeconds": 0.00441958400006115
       }
      }
     }
@@ -3061,8 +3061,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.00007645799999999999,
-    "runner": 0.000056474
+    "local": 0.000080459,
+    "runner": 0.000104033
    }
   },
   {
@@ -3074,25 +3074,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.000746186000014859,
+     "seconds": 0.0015216939999618262,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.000746186000014859,
-       "buildSeconds": 0.0007377629999893998,
-       "wallSeconds": 0.002356692000006433
+       "solveSeconds": 0.0015216939999618262,
+       "buildSeconds": 0.002012356000022919,
+       "wallSeconds": 0.0064316689999941445
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.0007533159999866257,
+     "seconds": 0.0015219649999380636,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0007533159999866257,
-       "buildSeconds": 0.0007501820000186399,
-       "wallSeconds": 0.0023363720000020294
+       "solveSeconds": 0.0015219649999380636,
+       "buildSeconds": 0.002435061000028327,
+       "wallSeconds": 0.006837672999949973
       }
      }
     }
@@ -3102,8 +3102,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 2.581041,
-    "runner": 2.298805
+    "local": 3.324542,
+    "runner": 4.342017
    }
   },
   {
@@ -3115,25 +3115,25 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.00021315600000093582,
+     "seconds": 0.000494317999937266,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021315600000093582,
-       "buildSeconds": 0.00035876100000109545,
-       "wallSeconds": 0.0014091980000046078
+       "solveSeconds": 0.000494317999937266,
+       "buildSeconds": 0.0011494230000153038,
+       "wallSeconds": 0.0045609569999669475
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.0002291489999777241,
+     "seconds": 0.0004832070000020394,
      "queries": {
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002291489999777241,
-       "buildSeconds": 0.0003532640000116771,
-       "wallSeconds": 0.0013781520000009095
+       "solveSeconds": 0.0004832070000020394,
+       "buildSeconds": 0.001130488999933732,
+       "wallSeconds": 0.00442558600002485
       }
      }
     }
@@ -3143,8 +3143,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000151458,
-    "runner": 0.000105196
+    "local": 0.000173834,
+    "runner": 0.000192186
    }
   },
   {
@@ -3156,13 +3156,13 @@
    "dreal": {
     "0.001": {
      "word": "CONSISTENT",
-     "seconds": 0.00025121199999489363,
+     "seconds": 0.0005564529999446677,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00025121199999489363,
-       "buildSeconds": 0.0003775889999815263,
-       "wallSeconds": 0.0014613950000068598,
+       "solveSeconds": 0.0005564529999446677,
+       "buildSeconds": 0.0011371809999900506,
+       "wallSeconds": 0.004549766000081945,
        "box": {
         "rho": [
          "1024.573178294242",
@@ -3195,13 +3195,13 @@
     },
     "1e-9": {
      "word": "CONSISTENT",
-     "seconds": 0.00035007900001460257,
+     "seconds": 0.0006517599999824597,
      "queries": {
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00035007900001460257,
-       "buildSeconds": 0.00035808999999176194,
-       "wallSeconds": 0.0015323609999882137,
+       "solveSeconds": 0.0006517599999824597,
+       "buildSeconds": 0.0011060340000312863,
+       "wallSeconds": 0.004657215000065662,
        "box": {
         "rho": [
          "1024.572004469395",
@@ -3238,8 +3238,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000076,
-    "runner": 0.000056103
+    "local": 0.000081,
+    "runner": 0.000104073
    }
   },
   {
@@ -3251,13 +3251,13 @@
    "dreal": {
     "0.001": {
      "word": "REFUTED",
-     "seconds": 0.00047533500000440654,
+     "seconds": 0.0010501689999955488,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00021989600000438259,
-       "buildSeconds": 0.0004177489999790396,
-       "wallSeconds": 0.00151276099998654,
+       "solveSeconds": 0.0004653739999866957,
+       "buildSeconds": 0.001289183000039884,
+       "wallSeconds": 0.004528516999926069,
        "box": {
         "rho": [
          "1024.9995",
@@ -3292,21 +3292,21 @@
       },
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00025543900000002395,
-       "buildSeconds": 0.0004279439999947954,
-       "wallSeconds": 0.0014953160000175103
+       "solveSeconds": 0.0005847950000088531,
+       "buildSeconds": 0.0012457529999210237,
+       "wallSeconds": 0.004622790999974313
       }
      }
     },
     "1e-9": {
      "word": "REFUTED",
-     "seconds": 0.0004647289999866189,
+     "seconds": 0.0010170769999149343,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00021411699998452605,
-       "buildSeconds": 0.0004062820000001466,
-       "wallSeconds": 0.001487944999979618,
+       "solveSeconds": 0.0004784579999750349,
+       "buildSeconds": 0.001223571000082302,
+       "wallSeconds": 0.004502859000012904,
        "box": {
         "rho": [
          "1024.9999999995",
@@ -3341,9 +3341,9 @@
       },
       "phi": {
        "answer": "unsat",
-       "solveSeconds": 0.00025061200000209283,
-       "buildSeconds": 0.00042399800000225696,
-       "wallSeconds": 0.001486542999998619
+       "solveSeconds": 0.0005386189999398994,
+       "buildSeconds": 0.0012455230000796291,
+       "wallSeconds": 0.004516083999988041
       }
      }
     }
@@ -3353,8 +3353,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.000152041,
-    "runner": 0.00010438500000000001
+    "local": 0.00015470900000000003,
+    "runner": 0.000192768
    }
   },
   {
@@ -3366,19 +3366,19 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.00041516500002103385,
+     "seconds": 0.0009311489998253819,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00021164400001794093,
-       "buildSeconds": 0.00034951799997884336,
-       "wallSeconds": 0.0014118229999837695
+       "solveSeconds": 0.0005154569998921943,
+       "buildSeconds": 0.0010396300000365954,
+       "wallSeconds": 0.004327582999962942
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00020352100000309292,
-       "buildSeconds": 0.0003477959999997893,
-       "wallSeconds": 0.0013686780000057297,
+       "solveSeconds": 0.0004156919999331876,
+       "buildSeconds": 0.0011036090000970944,
+       "wallSeconds": 0.004287138999984563,
        "box": {
         "D": [
          "0.152",
@@ -3407,19 +3407,19 @@
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.00039224100001433726,
+     "seconds": 0.0009664829999564972,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0002094600000077662,
-       "buildSeconds": 0.00035077000001138003,
-       "wallSeconds": 0.0013758580000171605
+       "solveSeconds": 0.0005067499999995562,
+       "buildSeconds": 0.0010414940001055584,
+       "wallSeconds": 0.004229260999977669
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.00018278100000657105,
-       "buildSeconds": 0.0003460530000154449,
-       "wallSeconds": 0.0013607870000100775,
+       "solveSeconds": 0.00045973299995694106,
+       "buildSeconds": 0.0010370250000732995,
+       "wallSeconds": 0.004208943000094223,
        "box": {
         "D": [
          "0.1523999995",
@@ -3452,8 +3452,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.0001535,
-    "runner": 0.000103754
+    "local": 0.000172125,
+    "runner": 0.000192206
    }
   },
   {
@@ -3465,37 +3465,37 @@
    "dreal": {
     "0.001": {
      "word": "HOLDS",
-     "seconds": 0.0007226609999690936,
+     "seconds": 0.0014539299999114519,
      "queries": {
       "low": {
        "answer": "unsat",
-       "solveSeconds": 0.000366061999983458,
-       "buildSeconds": 0.000575683000022309,
-       "wallSeconds": 0.0017869879999921068
+       "solveSeconds": 0.000739713999905689,
+       "buildSeconds": 0.0015619290001041009,
+       "wallSeconds": 0.005078859000036573
       },
       "high": {
        "answer": "unsat",
-       "solveSeconds": 0.0003565989999856356,
-       "buildSeconds": 0.0005630940000003193,
-       "wallSeconds": 0.001729943000015055
+       "solveSeconds": 0.0007142160000057629,
+       "buildSeconds": 0.001575665000018489,
+       "wallSeconds": 0.005084108000005472
       }
      }
     },
     "1e-9": {
      "word": "HOLDS",
-     "seconds": 0.0007272670000304515,
+     "seconds": 0.0017435870000781506,
      "queries": {
       "low": {
        "answer": "unsat",
-       "solveSeconds": 0.0003598930000237033,
-       "buildSeconds": 0.0006359019999990778,
-       "wallSeconds": 0.0018182039999885546
+       "solveSeconds": 0.0010063580000405636,
+       "buildSeconds": 0.002001335000045401,
+       "wallSeconds": 0.005797101999974075
       },
       "high": {
        "answer": "unsat",
-       "solveSeconds": 0.00036737400000674825,
-       "buildSeconds": 0.0006301040000096236,
-       "wallSeconds": 0.001924712000004547
+       "solveSeconds": 0.000737229000037587,
+       "buildSeconds": 0.0016069929999957822,
+       "wallSeconds": 0.005170137999925828
       }
      }
     }
@@ -3505,8 +3505,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.025105459,
-    "runner": 0.022842562
+    "local": 0.028802042,
+    "runner": 0.043016471
    }
   },
   {
@@ -3518,37 +3518,37 @@
    "dreal": {
     "0.001": {
      "word": "HOLDS",
-     "seconds": 0.0007791249999797856,
+     "seconds": 0.0014994839998507814,
      "queries": {
       "low": {
        "answer": "unsat",
-       "solveSeconds": 0.0003769889999887255,
-       "buildSeconds": 0.0005447570000001178,
-       "wallSeconds": 0.0017510540000102992
+       "solveSeconds": 0.000754630999949768,
+       "buildSeconds": 0.0016009820000135733,
+       "wallSeconds": 0.0051541679999900225
       },
       "high": {
        "answer": "unsat",
-       "solveSeconds": 0.0004021359999910601,
-       "buildSeconds": 0.0006404689999897073,
-       "wallSeconds": 0.0020323820000101023
+       "solveSeconds": 0.0007448529999010134,
+       "buildSeconds": 0.0015509790000578505,
+       "wallSeconds": 0.005148406999978761
       }
      }
     },
     "1e-9": {
      "word": "HOLDS",
-     "seconds": 0.0007343569999989086,
+     "seconds": 0.0015377749999743173,
      "queries": {
       "low": {
        "answer": "unsat",
-       "solveSeconds": 0.0003822259999992639,
-       "buildSeconds": 0.0005555340000000797,
-       "wallSeconds": 0.0018021010000097704
+       "solveSeconds": 0.0007968789999495129,
+       "buildSeconds": 0.0016480900000033216,
+       "wallSeconds": 0.005198299999960909
       },
       "high": {
        "answer": "unsat",
-       "solveSeconds": 0.0003521309999996447,
-       "buildSeconds": 0.0005407419999983176,
-       "wallSeconds": 0.0017479600000172013
+       "solveSeconds": 0.0007408960000248044,
+       "buildSeconds": 0.0015555069999209081,
+       "wallSeconds": 0.0052016160000221134
       }
      }
     }
@@ -3558,8 +3558,8 @@
     "1e-9": "agree"
    },
    "oursMs": {
-    "local": 0.024775290999999998,
-    "runner": 0.022688825000000003
+    "local": 0.036440042,
+    "runner": 0.043092593
    }
   },
   {
@@ -3571,38 +3571,38 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.007053050999985544,
+     "seconds": 0.012805891999960295,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0038374060000023746,
-       "buildSeconds": 0.0012839720000101806,
-       "wallSeconds": 0.005992630000008603
+       "solveSeconds": 0.006766200000015488,
+       "buildSeconds": 0.0032905990000244856,
+       "wallSeconds": 0.012999602000036248
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0032156449999831693,
-       "buildSeconds": 0.0013364000000137821,
-       "wallSeconds": 0.005516083000003391,
+       "solveSeconds": 0.006039691999944807,
+       "buildSeconds": 0.0033461120000310984,
+       "wallSeconds": 0.012639444000001276,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.006977879999993775,
+     "seconds": 0.012877645000003213,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0037975369999969644,
-       "buildSeconds": 0.0012609279999935552,
-       "wallSeconds": 0.0059558450000167795
+       "solveSeconds": 0.006797377999987475,
+       "buildSeconds": 0.003305777000036869,
+       "wallSeconds": 0.013076694999995198
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0031803429999968102,
-       "buildSeconds": 0.0012647639999840976,
-       "wallSeconds": 0.005357357999997703,
+       "solveSeconds": 0.006080267000015738,
+       "buildSeconds": 0.003292101000056391,
+       "wallSeconds": 0.01235830200005239,
        "box": {}
       }
      }
@@ -3632,40 +3632,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 0.006402035999968803,
+     "seconds": 0.012008162000029188,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0031907579999881364,
-       "buildSeconds": 0.0012604280000232393,
-       "wallSeconds": 0.005332472000020516,
+       "solveSeconds": 0.005992354999989402,
+       "buildSeconds": 0.003301809000049616,
+       "wallSeconds": 0.012189709000040239,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.003211277999980666,
-       "buildSeconds": 0.0012410790000103589,
-       "wallSeconds": 0.005345039999980372,
+       "solveSeconds": 0.006015807000039786,
+       "buildSeconds": 0.0033310139999684907,
+       "wallSeconds": 0.012357580000070811,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 0.006349116999984972,
+     "seconds": 0.011974517999874479,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0031824649999805388,
-       "buildSeconds": 0.0012436629999967863,
-       "wallSeconds": 0.005291460999984565,
+       "solveSeconds": 0.006030383999927835,
+       "buildSeconds": 0.0033104860000321423,
+       "wallSeconds": 0.012296577000029174,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.003166652000004433,
-       "buildSeconds": 0.0012551099999882354,
-       "wallSeconds": 0.005286393999995198,
+       "solveSeconds": 0.005944133999946644,
+       "buildSeconds": 0.003237570000010237,
+       "wallSeconds": 0.012100082999950246,
        "box": {}
       }
      }
@@ -3695,38 +3695,38 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.006993614000009529,
+     "seconds": 0.012865211999951498,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.003776536999993141,
-       "buildSeconds": 0.0012313840000217624,
-       "wallSeconds": 0.005878821000010248
+       "solveSeconds": 0.006860596000024088,
+       "buildSeconds": 0.0033588449999797376,
+       "wallSeconds": 0.013426605000063319
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0032170770000163884,
-       "buildSeconds": 0.0012480999999979758,
-       "wallSeconds": 0.005360713000015949,
+       "solveSeconds": 0.00600461599992741,
+       "buildSeconds": 0.0033330180000348264,
+       "wallSeconds": 0.01248742100005984,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.007382548999999017,
+     "seconds": 0.013313423999989027,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.003876563999995142,
-       "buildSeconds": 0.0012707129999967037,
-       "wallSeconds": 0.006072338000024047
+       "solveSeconds": 0.007283621000055973,
+       "buildSeconds": 0.003306958999928611,
+       "wallSeconds": 0.013801411000031294
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.003505985000003875,
-       "buildSeconds": 0.0012959200000182136,
-       "wallSeconds": 0.005713226000011673,
+       "solveSeconds": 0.006029802999933054,
+       "buildSeconds": 0.003324221000070793,
+       "wallSeconds": 0.01250728800005163,
        "box": {}
       }
      }
@@ -3756,38 +3756,38 @@
    "dreal": {
     "0.001": {
      "word": "CERTIFIED",
-     "seconds": 0.007168753000001971,
+     "seconds": 0.012871955999912643,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.00391187700000728,
-       "buildSeconds": 0.0014119619999917177,
-       "wallSeconds": 0.006413222999981372
+       "solveSeconds": 0.006859383999994861,
+       "buildSeconds": 0.0032941250000249056,
+       "wallSeconds": 0.01326039600007789
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0032568759999946906,
-       "buildSeconds": 0.0013265449999835255,
-       "wallSeconds": 0.005541131000001087,
+       "solveSeconds": 0.006012571999917782,
+       "buildSeconds": 0.0033163060001015765,
+       "wallSeconds": 0.012568511999916154,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "CERTIFIED",
-     "seconds": 0.0071268510000095375,
+     "seconds": 0.013120689999936985,
      "queries": {
       "notphi": {
        "answer": "unsat",
-       "solveSeconds": 0.0038684920000093825,
-       "buildSeconds": 0.0012869169999873975,
-       "wallSeconds": 0.006069402999997919
+       "solveSeconds": 0.007065408999892497,
+       "buildSeconds": 0.0034285650000356327,
+       "wallSeconds": 0.014142514000013762
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.003258359000000155,
-       "buildSeconds": 0.0012826200000120025,
-       "wallSeconds": 0.0054331110000021,
+       "solveSeconds": 0.006055281000044488,
+       "buildSeconds": 0.0035291109999207038,
+       "wallSeconds": 0.013186740000037389,
        "box": {}
       }
      }
@@ -3817,40 +3817,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 3.7920933960000127,
+     "seconds": 6.66020453100009,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.8839158229999953,
-       "buildSeconds": 0.01965549499999497,
-       "wallSeconds": 1.9055665439999814,
+       "solveSeconds": 3.3043059080000603,
+       "buildSeconds": 0.03894982600002095,
+       "wallSeconds": 3.348192858999937,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9081775730000174,
-       "buildSeconds": 0.020443792999998323,
-       "wallSeconds": 1.9310405220000177,
+       "solveSeconds": 3.35589862300003,
+       "buildSeconds": 0.03727763199992751,
+       "wallSeconds": 3.397443206000048,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 3.8231328120000114,
+     "seconds": 6.628117218000057,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9215800679999973,
-       "buildSeconds": 0.02062935800000787,
-       "wallSeconds": 1.944729805999998,
+       "solveSeconds": 3.328256603,
+       "buildSeconds": 0.037585832999980084,
+       "wallSeconds": 3.3703915910000433,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9015527440000142,
-       "buildSeconds": 0.020494748000004392,
-       "wallSeconds": 1.924417854000012,
+       "solveSeconds": 3.299860615000057,
+       "buildSeconds": 0.03790339199997561,
+       "wallSeconds": 3.342265553999937,
        "box": {}
       }
      }
@@ -3880,40 +3880,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 3.8161351409999895,
+     "seconds": 6.614346114,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.881536987000004,
-       "buildSeconds": 0.02069710899999677,
-       "wallSeconds": 1.9046751340000014,
+       "solveSeconds": 3.307245695000006,
+       "buildSeconds": 0.03787575699993795,
+       "wallSeconds": 3.349648245000026,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9345981539999855,
-       "buildSeconds": 0.02008122600000206,
-       "wallSeconds": 1.9571099730000014,
+       "solveSeconds": 3.307100418999994,
+       "buildSeconds": 0.03772327399997266,
+       "wallSeconds": 3.3491914080000242,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 3.8538174340000353,
+     "seconds": 6.597867068000028,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.919754298000015,
-       "buildSeconds": 0.020477884999991147,
-       "wallSeconds": 1.942837537999992,
+       "solveSeconds": 3.3094442359999903,
+       "buildSeconds": 0.03752446399994369,
+       "wallSeconds": 3.3513957290000462,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9340631360000202,
-       "buildSeconds": 0.020354361999977755,
-       "wallSeconds": 1.956878493000005,
+       "solveSeconds": 3.2884228320000375,
+       "buildSeconds": 0.03798481100000117,
+       "wallSeconds": 3.330854539000029,
        "box": {}
       }
      }
@@ -3943,40 +3943,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 3.825257327999992,
+     "seconds": 6.604332751000015,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9153223699999842,
-       "buildSeconds": 0.020647713000016665,
-       "wallSeconds": 1.9384385150000014,
+       "solveSeconds": 3.2998470249999627,
+       "buildSeconds": 0.037453384000059486,
+       "wallSeconds": 3.3417639859999326,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.909934958000008,
-       "buildSeconds": 0.020690645999991375,
-       "wallSeconds": 1.9331167160000007,
+       "solveSeconds": 3.3044857260000526,
+       "buildSeconds": 0.037589832999969985,
+       "wallSeconds": 3.3465456919999497,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 3.8193173770000044,
+     "seconds": 6.593085307000024,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9032196880000072,
-       "buildSeconds": 0.02108933700000648,
-       "wallSeconds": 1.926805284000011,
+       "solveSeconds": 3.2993289810000306,
+       "buildSeconds": 0.037248740999984875,
+       "wallSeconds": 3.3408024980000164,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9160976889999972,
-       "buildSeconds": 0.020492302000008067,
-       "wallSeconds": 1.9390800710000065,
+       "solveSeconds": 3.2937563259999934,
+       "buildSeconds": 0.03659436600003119,
+       "wallSeconds": 3.3345088309999937,
        "box": {}
       }
      }
@@ -4006,40 +4006,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 3.730160969000025,
+     "seconds": 6.590250500000025,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.8872049120000156,
-       "buildSeconds": 0.02066038199998843,
-       "wallSeconds": 1.9103108070000019,
+       "solveSeconds": 3.3009474159999854,
+       "buildSeconds": 0.037477344999956586,
+       "wallSeconds": 3.342738078000025,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.8429560570000092,
-       "buildSeconds": 0.01969691499999726,
-       "wallSeconds": 1.8650804190000088,
+       "solveSeconds": 3.2893030840000392,
+       "buildSeconds": 0.037212906999911866,
+       "wallSeconds": 3.3308230430000094,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 3.8275833329999784,
+     "seconds": 6.595425734999935,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9136369269999989,
-       "buildSeconds": 0.01973831700001938,
-       "wallSeconds": 1.9359580010000172,
+       "solveSeconds": 3.2998165739999195,
+       "buildSeconds": 0.03692955600001824,
+       "wallSeconds": 3.341060748000018,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 1.9139464059999796,
-       "buildSeconds": 0.020590268999995942,
-       "wallSeconds": 1.936968338000014,
+       "solveSeconds": 3.2956091610000158,
+       "buildSeconds": 0.03745719499988809,
+       "wallSeconds": 3.337416839999946,
        "box": {}
       }
      }
@@ -4069,40 +4069,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 1.3281889139999805,
+     "seconds": 2.2914226249999956,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6627024069999834,
-       "buildSeconds": 0.012153799000003573,
-       "wallSeconds": 0.6772542580000049,
+       "solveSeconds": 1.1468796710000788,
+       "buildSeconds": 0.022918689999983144,
+       "wallSeconds": 1.1739075360000015,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6654865069999971,
-       "buildSeconds": 0.012229807000011306,
-       "wallSeconds": 0.68006598300002,
+       "solveSeconds": 1.1445429539999168,
+       "buildSeconds": 0.02289836300008119,
+       "wallSeconds": 1.1714528610000343,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 1.3514087000000075,
+     "seconds": 2.295238015000109,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6574029390000078,
-       "buildSeconds": 0.012052624000006062,
-       "wallSeconds": 0.6716942790000076,
+       "solveSeconds": 1.1476264060000858,
+       "buildSeconds": 0.022846445999903153,
+       "wallSeconds": 1.1744149980000884,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6940057609999997,
-       "buildSeconds": 0.012146653999991486,
-       "wallSeconds": 0.7085263399999917,
+       "solveSeconds": 1.1476116090000232,
+       "buildSeconds": 0.022845855000014126,
+       "wallSeconds": 1.174450274000037,
        "box": {}
       }
      }
@@ -4132,40 +4132,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 1.3370294220000005,
+     "seconds": 2.2903448459999254,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6632177390000038,
-       "buildSeconds": 0.01233233899998254,
-       "wallSeconds": 0.6780365089999805,
+       "solveSeconds": 1.145184094000001,
+       "buildSeconds": 0.02313275699998485,
+       "wallSeconds": 1.1723802019999994,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6738116829999967,
-       "buildSeconds": 0.012257177999998703,
-       "wallSeconds": 0.6883741640000096,
+       "solveSeconds": 1.1451607519999243,
+       "buildSeconds": 0.022708360000024186,
+       "wallSeconds": 1.1718329679999897,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 1.3441128890000016,
+     "seconds": 2.2982702000000472,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.668823648,
-       "buildSeconds": 0.01241035399999646,
-       "wallSeconds": 0.6835040130000039,
+       "solveSeconds": 1.1458530429999882,
+       "buildSeconds": 0.022900520999996843,
+       "wallSeconds": 1.172997462000012,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6752892410000015,
-       "buildSeconds": 0.012177268999977287,
-       "wallSeconds": 0.689715270000022,
+       "solveSeconds": 1.152417157000059,
+       "buildSeconds": 0.022890102000019397,
+       "wallSeconds": 1.1793823439999187,
        "box": {}
       }
      }
@@ -4195,40 +4195,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 1.3024429789999772,
+     "seconds": 2.335467257999994,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6527062969999804,
-       "buildSeconds": 0.012061727999991945,
-       "wallSeconds": 0.667062164000015,
+       "solveSeconds": 1.1903550499999938,
+       "buildSeconds": 0.02271037899993189,
+       "wallSeconds": 1.2169696380000232,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6497366819999968,
-       "buildSeconds": 0.01220644599999332,
-       "wallSeconds": 0.6642685729999869,
+       "solveSeconds": 1.1451122080000005,
+       "buildSeconds": 0.02267295700005434,
+       "wallSeconds": 1.1718561810000665,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 1.311944140999998,
+     "seconds": 2.291393264999897,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.653886110000002,
-       "buildSeconds": 0.011691533000004029,
-       "wallSeconds": 0.6677911129999927,
+       "solveSeconds": 1.1469671809999227,
+       "buildSeconds": 0.02268756300009045,
+       "wallSeconds": 1.1736632549999513,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6580580309999959,
-       "buildSeconds": 0.012098426999983758,
-       "wallSeconds": 0.672394042999997,
+       "solveSeconds": 1.1444260839999743,
+       "buildSeconds": 0.02292449399999441,
+       "wallSeconds": 1.1713599099999783,
        "box": {}
       }
      }
@@ -4258,40 +4258,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 1.322622641999999,
+     "seconds": 2.2925213519999943,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6576910059999932,
-       "buildSeconds": 0.012013741000004075,
-       "wallSeconds": 0.6720024050000006,
+       "solveSeconds": 1.1447689259999834,
+       "buildSeconds": 0.022628645000054348,
+       "wallSeconds": 1.171419554999943,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6649316360000057,
-       "buildSeconds": 0.011863492999992786,
-       "wallSeconds": 0.6790335270000014,
+       "solveSeconds": 1.147752426000011,
+       "buildSeconds": 0.022820495000019037,
+       "wallSeconds": 1.17462991900004,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 1.3166034319999937,
+     "seconds": 2.2939821150000625,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6552491570000143,
-       "buildSeconds": 0.012235449999991488,
-       "wallSeconds": 0.669721949999996,
+       "solveSeconds": 1.1463536400000294,
+       "buildSeconds": 0.02280850299996473,
+       "wallSeconds": 1.173107363999975,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.6613542749999795,
-       "buildSeconds": 0.011773964000013848,
-       "wallSeconds": 0.6772614829999952,
+       "solveSeconds": 1.1476284750000332,
+       "buildSeconds": 0.02261707800005297,
+       "wallSeconds": 1.174415761999967,
        "box": {}
       }
      }
@@ -4321,40 +4321,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 0.0033067990000006375,
+     "seconds": 0.002723144000015054,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0014804740000045058,
-       "buildSeconds": 0.0022241350000058446,
-       "wallSeconds": 0.007712806000000683,
+       "solveSeconds": 0.0014156979999597752,
+       "buildSeconds": 0.0019783999999845037,
+       "wallSeconds": 0.006492817999969702,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0018263249999961317,
-       "buildSeconds": 0.002570789000003515,
-       "wallSeconds": 0.007883650000025,
+       "solveSeconds": 0.001307446000055279,
+       "buildSeconds": 0.001897099999951024,
+       "wallSeconds": 0.006102865000002566,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 0.0020900269999799548,
+     "seconds": 0.002666487000055895,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.001190363999995725,
-       "buildSeconds": 0.0019191829999840593,
-       "wallSeconds": 0.005265210000004572,
+       "solveSeconds": 0.0012966960000539984,
+       "buildSeconds": 0.0019239910000123928,
+       "wallSeconds": 0.006096472000081121,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0008996629999842298,
-       "buildSeconds": 0.0014722509999955946,
-       "wallSeconds": 0.004204017999995813,
+       "solveSeconds": 0.0013697910000018965,
+       "buildSeconds": 0.0018709419999822785,
+       "wallSeconds": 0.0061761399999795685,
        "box": {}
       }
      }
@@ -4384,40 +4384,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 0.002111718999998402,
+     "seconds": 0.0026432939999949667,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0009369379999952798,
-       "buildSeconds": 0.0013773009999908936,
-       "wallSeconds": 0.004239340999987462,
+       "solveSeconds": 0.00135556500003986,
+       "buildSeconds": 0.0017956819999653817,
+       "wallSeconds": 0.005959589000099186,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0011747810000031222,
-       "buildSeconds": 0.0012677579999831323,
-       "wallSeconds": 0.004145211000007976,
+       "solveSeconds": 0.0012877289999551067,
+       "buildSeconds": 0.0018377999999756867,
+       "wallSeconds": 0.005933731000027365,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 0.001989449000006971,
+     "seconds": 0.002697576999935336,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.001265716000006023,
-       "buildSeconds": 0.001661191000010831,
-       "wallSeconds": 0.005004724000002625,
+       "solveSeconds": 0.001365724999914164,
+       "buildSeconds": 0.0018171120000260998,
+       "wallSeconds": 0.005968454999901951,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0007237330000009479,
-       "buildSeconds": 0.0007919029999925442,
-       "wallSeconds": 0.0025158269999963068,
+       "solveSeconds": 0.001331852000021172,
+       "buildSeconds": 0.001862365999954818,
+       "wallSeconds": 0.006035709999991923,
        "box": {}
       }
      }
@@ -4447,40 +4447,40 @@
    "dreal": {
     "0.001": {
      "word": "REFUSED",
-     "seconds": 0.001409016999986079,
+     "seconds": 0.0026465800000323725,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0007073079999884158,
-       "buildSeconds": 0.0007333370000139894,
-       "wallSeconds": 0.002318844999990688,
+       "solveSeconds": 0.0013234150000016598,
+       "buildSeconds": 0.0018586489999279365,
+       "wallSeconds": 0.005999583000061648,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0007017089999976633,
-       "buildSeconds": 0.0007071579999831101,
-       "wallSeconds": 0.0022579650000125184,
+       "solveSeconds": 0.0013231650000307127,
+       "buildSeconds": 0.0018634780000184037,
+       "wallSeconds": 0.005973244000074374,
        "box": {}
       }
      }
     },
     "1e-9": {
      "word": "REFUSED",
-     "seconds": 0.0013629389999891828,
+     "seconds": 0.002598423000108596,
      "queries": {
       "notphi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0006858159999865165,
-       "buildSeconds": 0.0006711739999900601,
-       "wallSeconds": 0.002201331000009077,
+       "solveSeconds": 0.0012939220000589557,
+       "buildSeconds": 0.001844872999981817,
+       "wallSeconds": 0.006025950999969609,
        "box": {}
       },
       "phi": {
        "answer": "delta-sat",
-       "solveSeconds": 0.0006771230000026662,
-       "buildSeconds": 0.0007000269999934972,
-       "wallSeconds": 0.0022201689999974406,
+       "solveSeconds": 0.0013045010000496404,
+       "buildSeconds": 0.0018066220000036992,
+       "wallSeconds": 0.005937036999966949,
        "box": {}
       }
      }

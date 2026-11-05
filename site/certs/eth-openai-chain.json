@@ -1,0 +1,448 @@
+{
+ "what": "The OpenAI chain in one environment: OpenAI's family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley's two bridge theorems ported to complexitylib's Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib's multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean's own judge (lake comparator) with named checkers — leanchecker-paranoid, nanoda (our pinned build, 1 GiB stack), lean4lean (fuel ×100) and Lean's default kernel — beside the judge as shipped (--paranoid), whose four bundled checkers stop at their own limits on this export.",
+ "generated": "2026-11-05",
+ "claim": {
+  "repo": "https://github.com/carlostoledo1891/claimbox",
+  "commit": "bdf357ef782847f506a605b76f77edafa9fcc50f",
+  "folder": "lean/eth-bridge",
+  "theorem": "EthBridge.OpenAIChain.not_eth",
+  "builtOn": "cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+  "port": {
+   "of": "openai/math @ 7ef5c0cc (OpenAI's family-378 proof and ParityLifts, 3,183 files) and thinkthoughts/math @ d6b79b7d (Hawkley's OAI.Bridges, 27 files), the closure of the two bridge files, pinned at d6b79b7d",
+   "files": 3210,
+   "byteIdentical": 3190,
+   "modified": 20,
+   "ledger": "lean/eth-bridge/OpenAIEth/PORT.md",
+   "pins": "corpus/eth-refutation/openai-chain/scout-pins.json"
+  },
+  "authors": "the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox"
+ },
+ "verdict": "CERTIFIED",
+ "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator accepting with its named checkers (lean4lean-fuel, nanoda-pinned, paranoid, Lean default). As shipped, lake comparator --paranoid accepts with Lean paranoid and Lean default and its four bundled checkers stop at their own limits (nanoda: a worker thread's stack; lean4lean: its fuel; con-leche and con-ron: a compiled fuel constant, \"never a verdict\" in their charter) — recorded, not counted as a rejection. OpenAI's own Comparator challenge (its SubexponentialSAT.lean at 7ef5c0cc, unchanged; the path in p3.challenge) accepts the ported proof of exact_count_and_sat in the new Lean with the same named checkers.",
+ "fails": [],
+ "statement": {
+  "pin": "corpus/eth-refutation/openai-chain/statement.lean",
+  "sha256": "dcce9dcb1ce6d1c68fd920c2a47800ebc3458a303399ac33e1df07eb0bfb3006",
+  "mainResults": {
+   "pin": "corpus/eth-refutation/tsavo/pins.json",
+   "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "served": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+  }
+ },
+ "reading": [
+  "The proof that checks here is a modified copy of OpenAI's and Hawkley's: 20 of its 3,210 files were changed to build on the newer Lean and Mathlib (every change listed with both sha256s in OpenAIEth/PORT.md, and every file checked here against the scout pins: byte-equal to its pin, or modified exactly as declared, nothing else). Lean checks whatever proof is there against the unchanged statements (Hawkley's two theorem types printed by our file, MainResults.lean byte-equal to Anthropic's), so the port changes nothing that is decided; it is said here because the proof is not OpenAI's or Hawkley's bytes.",
+  "This closes the version seam on OpenAI's side the way Anthropic's was closed (certs/eth-chain.json): by rebuilding the proof in the statement's Lean (v4.36.0-rc2), not by comparing kernels across v4.34.1 → v4.36.0-rc2. That complexitylib's ETH is the textbook ETH stays a reading of a definition.",
+  "Lean's judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod's containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox's.",
+  "The judge's --paranoid run did not finish on this export (2.45 GB; the Anthropic chain's was 0.65 GB and all six checkers accepted there): the bundled nanoda 0.4.17 overflows a worker thread's stack and has no stack setting, lean4lean's fuel counter reaches zero, con-leche and con-ron exhaust a compiled fuel constant — each stop reproduced by hand on the comparator's own export (judge.diagnosis). The verdict reads the judge re-run with checkers that can finish: leanchecker-paranoid, our pinned nanoda with a 1 GiB thread stack, lean4lean with its fuel raised 100×, and Lean's default kernel. con-leche and con-ron are not among them; nothing here is their verdict either way. The amendment is dated in the pre-registration.",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
+ ],
+ "judge": {
+  "named": {
+   "chain": {
+    "exit": 0,
+    "okay": true,
+    "accepted": [
+     "lean4lean-fuel",
+     "nanoda-pinned",
+     "paranoid",
+     "Lean default"
+    ],
+    "rejected": [],
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "seconds": 4613
+   },
+   "planted": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [],
+    "rejected": [],
+    "sandbox": "nosandbox",
+    "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
+    "seconds": 22
+   },
+   "checkers": [
+    "Lean default",
+    "paranoid",
+    "nanoda-pinned",
+    "lean4lean-fuel"
+   ],
+   "externalKernels": {
+    "lean4lean-fuel": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+     "--config:whnf=10000000",
+     "--config:whnfEager=100000000",
+     "--config:lazyDelta=100000",
+     "--config:etaExpand=100000",
+     "--config:recDepth=5000000",
+     "--config:inductiveFuel=100000",
+     "--import"
+    ],
+    "nanoda-pinned": [
+     "/home/tester/bin/nanoda-pinned.sh"
+    ],
+    "paranoid": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+     "--silent",
+     "--from-export"
+    ]
+   },
+   "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3",
+   "facts": "corpus/eth-refutation/openai-chain/runs/runpod-atkkgtterhqpxk"
+  },
+  "shipped": {
+   "claim": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [
+     "Lean default",
+     "Lean paranoid"
+    ],
+    "declarations": null,
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "sandboxRefusal": true,
+    "stops": {
+     "lean4lean": "(kernel) deterministic timeout at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready",
+     "nanoda": "thread has overflowed its stack",
+     "con-leche": "internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102]",
+     "con-ron": "error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102]"
+    }
+   },
+   "planted": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [],
+    "declarations": null,
+    "sandbox": "nosandbox",
+    "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
+    "sandboxRefusal": true
+   },
+   "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3"
+  },
+  "diagnosis": {
+   "export": {
+    "madeAs": "leanexport (the toolchain's), the module and the declaration list the comparator printed",
+    "bytes": 2452607904,
+    "sha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2"
+   },
+   "bundled": {
+    "nanoda (the comparator's configuration: 4 threads, no stack size)": {
+     "exit": 134,
+     "seconds": 47,
+     "maxRssKb": 3647176,
+     "reason": "thread 'thread_3' (63983) has overflowed its stack",
+     "declarations": null
+    },
+    "nanoda (stack_size_bytes 1 GiB, 16 threads: the bundled build has no such field)": {
+     "exit": 134,
+     "seconds": 49,
+     "maxRssKb": 4796268,
+     "reason": "thread 'thread_14' (64282) has overflowed its stack",
+     "declarations": null
+    },
+    "nanoda (RUST_MIN_STACK 1 GiB)": {
+     "exit": 134,
+     "seconds": 47,
+     "maxRssKb": 3660680,
+     "reason": "thread 'thread_1' (64650) has overflowed its stack",
+     "declarations": null
+    },
+    "lean4lean (default fuel)": {
+     "exit": 1,
+     "seconds": 549,
+     "maxRssKb": 8911012,
+     "reason": "uncaught exception: at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready: (kernel) deterministic timeout",
+     "declarations": null
+    },
+    "lean4lean (every fuel field ×100)": {
+     "exit": 0,
+     "seconds": 1382,
+     "maxRssKb": 9957436,
+     "reason": null,
+     "declarations": null
+    },
+    "leanchecker-paranoid --from-export": {
+     "exit": 0,
+     "seconds": 1529,
+     "maxRssKb": 13954352,
+     "reason": null,
+     "declarations": null
+    },
+    "con-leche": {
+     "exit": 3,
+     "seconds": 170,
+     "maxRssKb": 56853624,
+     "reason": "con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=169.2s",
+     "declarations": null
+    },
+    "con-leche --jobs=16": {
+     "exit": 3,
+     "seconds": 67,
+     "maxRssKb": 6124892,
+     "reason": "con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=66.8s",
+     "declarations": null
+    },
+    "con-ron": {
+     "exit": 3,
+     "seconds": 69,
+     "maxRssKb": 9037408,
+     "reason": "con-ron: error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=67.284s",
+     "declarations": null
+    },
+    "con-ron --jobs=16": {
+     "exit": 3,
+     "seconds": 78,
+     "maxRssKb": 8980904,
+     "reason": "con-ron: error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=76.302s",
+     "declarations": null
+    }
+   },
+   "ours": {
+    "nanoda, our pinned build (ammkrn/nanoda_lib 8de7e0c4; 16 threads, 1 GiB stack)": {
+     "exit": 0,
+     "seconds": 142,
+     "maxRssKb": 37533356,
+     "reason": null,
+     "declarations": 101621
+    }
+   },
+   "checkers": [
+    {
+     "sha256": "7de38e9e048ee992f34996756206f9ae178abed6961ae937c2abfb3f725eb244",
+     "path": "/home/tester/src/nanoda/target/release/nanoda_bin"
+    },
+    {
+     "sha256": "baaec030a70c78562ced2c75866ab0d2410e81ce680b835179ed16570ad5ef97",
+     "path": "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean"
+    },
+    {
+     "sha256": "4508d26d3e22463a9566a6155d7a1600c7bfc42b6cd2548be73e3d19d159d6c5",
+     "path": "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid"
+    }
+   ],
+   "wrapper": "#!/bin/bash\n# our pinned nanoda on the comparator's own config (export path, permitted axioms), with 16 threads and a 1 GiB thread stack\nset -euo pipefail\npython3 -c \"import json,sys; c=json.load(open(sys.argv[1])); c['num_threads']=16; c['stack_size_bytes']=1073741824; c['print_success_message']=True; json.dump(c, open(sys.argv[2],'w'))\" \"$1\" \"$1.pinned.json\"\nexec /home/tester/src/nanoda/target/release/nanoda_bin \"$1.pinned.json\"\n"
+  }
+ },
+ "p3": {
+  "challenge": {
+   "pin": "corpus/eth-refutation/openai-chain/challenge/SubexponentialSAT.lean",
+   "sha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "upstream": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "served": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "module": "Challenge.OpenAISubexponentialSAT"
+  },
+  "ran": true,
+  "accepted": true,
+  "checkers": [
+   "lean4lean-fuel",
+   "nanoda-pinned",
+   "paranoid",
+   "Lean default"
+  ],
+  "sandbox": "nosandbox",
+  "named": {
+   "exit": 0,
+   "okay": true,
+   "accepted": [
+    "lean4lean-fuel",
+    "nanoda-pinned",
+    "paranoid",
+    "Lean default"
+   ],
+   "rejected": [],
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "seconds": 4357
+  },
+  "shipped": {
+   "exit": 1,
+   "okay": false,
+   "accepted": [
+    "Lean default",
+    "Lean paranoid"
+   ],
+   "declarations": null,
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "sandboxRefusal": true,
+   "stops": {
+    "lean4lean": "(kernel) deterministic timeout at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready",
+    "nanoda": "thread has overflowed its stack",
+    "con-leche": "internal error: fuel exhausted: whnfCore [at theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052]",
+    "con-ron": "error: fuel exhausted: whnfCore [at thm OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052]"
+   }
+  },
+  "rejection": null,
+  "notRunReason": null,
+  "configChanges": {
+   "challenge_module": {
+    "from": "ComparatorChallenges.SubexponentialSAT",
+    "to": "Challenge.OpenAISubexponentialSAT"
+   }
+  },
+  "config": {
+   "challenge_module": "Challenge.OpenAISubexponentialSAT",
+   "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+   "theorem_names": [
+    "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": false
+  },
+  "buildError": null
+ },
+ "port": {
+  "pins": "corpus/eth-refutation/openai-chain/scout-pins.json",
+  "pinsSha256": "4edb45c651137730c25af3ca97cdb293f85c7efc3c06ede3f5e371a11769a367",
+  "pinCommit": "d6b79b7d165f9e6bef6e033949e3f14e913efdaa",
+  "portMd": {
+   "found": true,
+   "sha256": "4f2f5a215ba952afa0b7554f9be56ecdc1d1bdcada3c326f289f97697d6be2ef"
+  },
+  "counts": {
+   "pinned": 3210,
+   "present": 3210,
+   "unchanged": 3190,
+   "modifiedDeclared": 20,
+   "ledgerRows": 20,
+   "refusals": 0
+  },
+  "modified": [
+   "OAI/Algorithms/SubexponentialSAT/CounterPrograms.lean",
+   "OAI/Algorithms/SubexponentialSAT/MulticolorTypes.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLog/CodeSearchProgramGraphWord.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLog/MomentsAssemblyProgramRegisterBase.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/DFSLoop.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCountProgram.lean",
+   "OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/StructuredSpace.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorEncoding.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorLoop.lean",
+   "OAI/Algorithms/SubexponentialSAT/SubexpChunkDescriptorOutput.lean",
+   "OAI/Algorithms/SubexponentialSAT/Types.lean",
+   "OAI/Bridges/AnthropicETH/Asymptotics.lean",
+   "OAI/Bridges/AnthropicETH/Lengths.lean",
+   "OAI/Combinatorics/ParityLifts/FunctionalCode.lean",
+   "OAI/Combinatorics/ParityLifts/LeafCounts.lean",
+   "OAI/Combinatorics/ParityLifts/ProgramLoops.lean",
+   "OAI/Combinatorics/ParityLifts/SparseMachine.lean",
+   "OAI/Combinatorics/ParityLifts/SparseTree.lean",
+   "OAI/Combinatorics/ParityLifts/TreePrograms.lean"
+  ],
+  "refusals": []
+ },
+ "statements": {
+  "OAI.Bridges.ETH.not_positiveRateETH": {
+   "printed": "¬OAI.ParityWL.Complexity.PositiveRateETH",
+   "expected": "¬OAI.ParityWL.Complexity.PositiveRateETH",
+   "equal": true
+  },
+  "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse": {
+   "printed": "¬OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse",
+   "expected": "¬OAI.ParityWL.Complexity.PositiveRateETH → MainResults.ETHIsFalse",
+   "equal": true
+  },
+  "EthBridge.OpenAIChain.not_eth": {
+   "printed": "¬ComplexityAbstracts.SubexponentialSATAbstract.ETH",
+   "expected": "¬ComplexityAbstracts.SubexponentialSATAbstract.ETH",
+   "equal": true
+  }
+ },
+ "axioms": {
+  "EthBridge.OpenAIChain.not_eth": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Bridges.ETH.not_positiveRateETH": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Bridges.AnthropicETH.not_positiveRateETH_implies_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "EthBridge.Anthropic.not_eth_of_ethIsFalse": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "nanoda": {
+  "claim": {
+   "exit": 0,
+   "declarations": 101618,
+   "accepted": true,
+   "refusal": null
+  },
+  "plantedSorry": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_openai_chain_sorry depends on sorryAx which was not found in the environment"
+  },
+  "plantedAxiom": {
+   "exit": 101,
+   "declarations": null,
+   "accepted": false,
+   "refusal": "infer_const: declaration planted_openai_chain_axiom depends on planted_openai_chain_cheat which was not found in the environment"
+  }
+ },
+ "planted": {
+  "statement": {
+   "refused": true,
+   "by": "the statement check: the trusted block differs from the pin",
+   "sha256": "045fb338ccac2fe43600dce62f2f3e59cd4d2f48dab4cbb4991e25ba776fbca4"
+  },
+  "sorry": {
+   "refused": true,
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (sorryAx) and nanoda (infer_const: declaration planted_openai_chain_sorry depends on sorryAx which was not found in the environment)"
+  },
+  "axiom": {
+   "refused": true,
+   "axioms": [
+    "planted_openai_chain_cheat",
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "by": "the axioms file (planted_openai_chain_cheat) and nanoda (infer_const: declaration planted_openai_chain_axiom depends on planted_openai_chain_cheat which was not found in the environment)"
+  }
+ },
+ "steps": {
+  "buildSeconds": 1716,
+  "leancheckerSeconds": 2510
+ },
+ "run": {
+  "id": "runpod-f0xfo9d8mcnhz6",
+  "auditSha": "e3f6a20f7a78eddb08035f62cf377cf4509b1a53",
+  "host": "RunPod CPU pod f0xfo9d8mcnhz6: 16 vCPU; cgroup memory.max 128000000000",
+  "startedAt": "2026-11-05T07:24:09Z",
+  "finishedAt": "2026-11-05T10:54:20Z",
+  "facts": "corpus/eth-refutation/openai-chain/runs/runpod-f0xfo9d8mcnhz6"
+ }
+}
