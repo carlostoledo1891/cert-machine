@@ -76,6 +76,7 @@ const CLASSES = {
   'certs/eth-hawkley-heavy.json': [null, 'a kernel replay of a third party\'s Lean theorem on a pod (its own negative control, nanoda rejecting a planted axiom, is in the record); no exact object to mutate here'],
   'certs/eth-cslib-d1.json': [null, 'a kernel replay of a Lean library at its pin on a pod; no exact object to mutate here — a mutant would be a changed tree on a pod'],
   'certs/eth-chain.json': [null, 'a kernel replay whose record carries the lane\'s own three planted variants (statement, sorry, axiom), each refused; no further object to mutate here'],
+  'certs/eth-openai-chain.json': [null, 'a kernel replay (2026-11-05) whose record carries the lane\'s own three planted variants (statement, sorry, axiom), each refused, and the judge\'s planted statement rejected on the statement; no further object to mutate here'],
   'certs/wsp-baseline.json': [null, 'an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader\'s red controls are in its records']
 };
 

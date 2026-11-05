@@ -250,6 +250,14 @@
       "note": "The Anthropic chain in one Lean: the ported eth/ proof reaching complexitylib's ¬ETH, the statement pin, the axioms file, nanoda with two negative controls, leanchecker --fresh, three planted variants refused, lake comparator --paranoid with six checkers."
     },
     {
+      "record": "certs/eth-openai-chain.json",
+      "rederive": "node tools/record-eth-openai-chain.js corpus/eth-refutation/openai-chain/runs/runpod-f0xfo9d8mcnhz6 --named corpus/eth-refutation/openai-chain/runs/runpod-atkkgtterhqpxk",
+      "verifier": null,
+      "second": null,
+      "needs": "node; the imported pod facts of both runs in corpus/eth-refutation/openai-chain/runs",
+      "note": "The OpenAI chain in one Lean: OpenAI's family-378 proof and Hawkley's two bridges ported, reaching complexitylib's ¬ETH through C2; the statement pin, the port ledger against the scout pins, the axioms file, nanoda with two negative controls, leanchecker --fresh, three planted variants refused, lake comparator with named checkers (leanchecker-paranoid, our pinned nanoda, lean4lean with raised fuel, Lean default) after the amendment of 2026-11-05 12:55 UTC; the --paranoid run's four bundled stops recorded in their words."
+    },
+    {
       "record": "certs/wsp-baseline.json",
       "rederive": "python3 -I tools/wsp-baseline.py --check",
       "verifier": null,

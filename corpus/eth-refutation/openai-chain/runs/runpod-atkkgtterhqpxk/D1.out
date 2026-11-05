@@ -1,0 +1,159 @@
+
+leanprover/lean4:v4.36.0-rc2 installed - Lean (version 4.36.0-rc2, x86_64-unknown-linux-gnu, commit b35cb10cf2ced51a2fd1880cfdbf75c71ab7a35a, Release)
+
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+Attempting to download 9081 file(s) from leanprover-community/mathlib4 cache at https://cache.mathlib.org/mathlib4-master
+Decompressed 9081 file(s)
+Already decompressed 9081 file(s)
+Lean (version 4.36.0-rc2, x86_64-unknown-linux-gnu, commit b35cb10cf2ced51a2fd1880cfdbf75c71ab7a35a, Release)
+total 91884
+-r-xr-xr-x 1 tester tester  4274392 Oct 27 16:47 beam-daemon
+-rwxr-xr-x 1 tester tester  1115504 Oct 27 16:15 cadical
+-rwxr-xr-x 1 tester tester   119280 Oct 27 16:15 clang
+-rwxr-xr-x 1 tester tester 18506216 Oct 27 16:46 con-leche
+-rwxr-xr-x 1 tester tester  3649920 Oct 27 16:47 con-ron
+-rwxr-xr-x 1 tester tester    13416 Oct 27 16:42 lake
+-rwxr-xr-x 1 tester tester  6054672 Oct 27 16:15 ld.lld
+-rwxr-xr-x 1 tester tester     9024 Oct 27 16:42 lean
+-r-xr-xr-x 1 tester tester  2271720 Oct 27 16:47 lean-beam
+-r-xr-xr-x 1 tester tester  6354456 Oct 27 16:47 lean-beam-mcp
+-rwxr-xr-x 1 tester tester 36897680 Oct 27 16:43 lean4lean
+-rwxr-xr-x 1 tester tester    35448 Oct 27 16:42 leanc
+-rwxr-xr-x 1 tester tester    59208 Oct 27 16:42 leanchecker
+-rwxr-xr-x 1 tester tester  9727784 Oct 27 16:42 leanchecker-paranoid
+-rwxr-xr-x 1 tester tester   658144 Oct 27 16:42 leanexport
+-rwxr-xr-x 1 tester tester   220984 Oct 27 16:42 leanir
+-rwxr-xr-x 1 tester tester      839 Oct 27 16:14 leanmake
+-rwxr-xr-x 1 tester tester  2692960 Jun 27 14:25 leantar
+-rwxr-xr-x 1 tester tester    80920 Oct 27 16:15 llvm-ar
+-rwxr-xr-x 1 tester tester  1299760 Oct 27 16:47 nanoda_bin
+== lean4lean --help
+uncaught exception: Could not infer main module (tried Ethbridge). Use `lake exe lean4lean <target>` instead
+== nanoda_bin --help
+nanoda_bin 0.4.17
+
+A type checker for the Lean 4 programming language and theorem prover
+
+get more help at https://github.com/ammkrn/nanoda_lib
+
+# About
+
+This is an external type checker for the [Lean 4](https://lean-lang.org/) programming language and theorem prover. You can read more about what an external type checker is and why you might want to use one in [this book](https://ammkrn.github.io/type_checking_in_lean4/).
+
+# Usage
+
+## Building and running the binary
+
+Either run the binary directly through cargo `cargo run --release -- <path_to_config>`, or build the binary using `cargo build --release`, then run the built binary, passing a path to a [configuration](#configuration-file). Building with cargo should just work on all modern platforms without requiring additional build steps.
+
+The binary takes a single argument, which is a path to a json configuration file describing the resource locations and desired options needed to run the type checker. Export files can be streamed via stdin rather than by file path by setting the configuration option `use_stdin: true`, at which point the executable will expect to receive the contents of the export file via stdin.
+
+Export files can be created with [lean4export](https://github.com/leanprover/lean4export).
+
+## Using the library
+
+The library component can be imported and used as a normal rust crate by specifying it as a dependency in a `Cargo.toml` file.
+
+# Configuration file
+
+The execution conditions of `nanoda_bin` are determined by a json configuration file, there is no old school CLI. This was a conscious design choice to accommodate modern development practices (checking in to version control, use with CI and automation) and what we envision to be the most likely use case for external type checkers (running a suite of external checkers). The UI for external checkers is somewhat TBD and is expected to evolve as the community starts to integrate these into what they're doing.
+
+Given that lean4export already uses json as its export format, adding a json parser as a dependency doesn't increase the overall complexity of the project.
+
+## Configuration options
+
+Users can either specify a path to the export file to be checked, or set `"use_stdin": true`, in which case the program will wait for the export file to be passed via stdin. If the `"export_file_path"` key is not defined, then `"use_stdin"` must be set to `true`. Specifying an export file and setting `"use_stdin": true` are mutually exclusive, and will result in a hard error.
+
+The `"permitted_axioms"` list is where users specify the axioms an export file is permitted to use. For axioms to be permitted, they must be identified in the config file. The average Lean user will want to permit the three semi-official axioms, which are `Quot.sound`, `Classical.choice`, and `propext`, and most export files will also rely on `Lean.trustCompiler`.
+
+if `"unpermitted_axiom_hard_error"` is set to `true`, the presence of an axiom in the export file that is not in the `permitted_axioms` list will cause a hard error and abort checking, regardless of whether it's used by any later declarations. If set to `false`, the unpermitted axiom will simply be ignored, meaning it will not be checked, will not be added to the environment, and will cause a hard error only if another exported declaration actually tries to use it. This value is currently set to `true` by default out of an abundance of caution, but this may change; most users will probably want to set this to `false`, since things like the prelude's `sorryAx` are declared so that they may be used by metaprograms, but will not actually be invoked by other declarations in the file and are therefore safe to just skip.
+
+If `"unsafe_permit_all_axioms"` is set to `true`, all axioms will be admitted to the environment (when using this option, you must also explicitly set `"unpermitted_axiom_hard_error": false` to avoid a hard error on startup). This is checked so as to be mutually exclusive with any of the axiom allow list/whitelist features: it cannot be combined with `"unpermitted_axiom_hard_error": true` or with a non-empty `"permitted_axioms"` list, and either combination will result in a hard error. Defaults to `false`.
+
+== con-leche --help
+usage: con-leche [--verified|--trusted] [--jobs=<n>] [--progress[=<stride>]] FILE.ndjson
+       con-leche --help
+
+  --verified        the default, and the mode the main theorem is
+                    about: the graded model with the annotation-
+                    gated checks.  The validated-annotation beta
+                    gate skips per-redex argument certificates at
+                    provably non-Prop binders, and the io-graded
+                    knot skips the per-argument application
+                    certificate under the same licence; every other
+                    certificate family runs.  The theorem: if the
+                    declaration fold accepts a stream in this mode
+                    (checkDecls .verified ds = .ok env), the
+                    environment env holds no constant whose type is
+                    False (ConLeche.no_proof_of_False,
+                    ConLeche/MainTheorem.lean)
+  --trusted         the unverified mode: the SAME checker bodies as
+                    --verified, instantiated at the mode with the
+                    certification-only work switched off (the
+                    verifiedChecks and certs mode functions false):
+                    the annotation validations, the lambda-codomain
+                    sort check, and the certificate families the
+                    reference kernel does not run (the beta/io
+                    argument certificates, the iota/eta/unit/K
+                    telescope certificates, the projection
+                    certificate) are omitted; every check the
+                    official kernel performs stays.  Everything
+                    believed necessary for SOUNDNESS stays, which is
+                    not the same as necessary for the soundness
+                    proof to go through: an accept in this mode is
+                    outside the theorem.  The mode is never
+                    optimized on its own — it is the verified mode
+                    with certain steps omitted
+  --jobs=<n>        the number of worker threads for the check phase
+                    (default: the machine's hardware thread count).
+                    The run has two phases: the INSTALL phase reads
+                    the records in order and installs every one of
+                    them in a single thread (a definition, theorem or
+                    opaque is annotated and pushed with its check
+                    recorded; everything else is checked in full as it
+== con-ron --help
+usage: con-ron [--verified|--trusted] [--jobs=<n>] [--no-mark-persistent]
+               [--progress[=<stride>]] [--pins FILE|--no-pins]
+               FILE.ndjson
+       con-ron --help
+
+  --verified        the default, and the mode the main theorem is about: if
+                    the declaration fold accepts a stream in this mode, the
+                    environment holds no constant whose type is False
+                    (ConLeche.no_proof_of_False, and DESIGN.md §1's
+                    conron.no_proof_of_False for the port).
+  --trusted         the unverified mode: the SAME checker bodies at the mode
+                    with the certification-only work switched off.  An accept
+                    in this mode is outside the theorem.
+  --jobs=<n>        the check phase's worker count: <n> workers claim records
+                    one at a time off a shared counter, and --jobs=1 runs the
+                    plain loop with no counter and no result table.  The
+                    verdict, and the declaration a rejection names, are the
+                    same at every <n>: the results are walked in RECORD order,
+                    so the first failing record in fold order is the one
+                    reported.  Each worker reserves 1 GiB of address space for
+                    its stack, so a run under `ulimit -v` needs 3x the
+                    checker's resident set plus a gigabyte per worker; the
+                    DEFAULT is one worker per hardware thread capped at 16 for
+                    that reason (con-leche's uncapped default aborts on a
+                    96-thread machine).  0 or a non-numeral is a usage error,
+                    as in con-leche.
+  --no-mark-persistent
+                    ACCEPTED AND A NO-OP: the mark it turns off is a
+                    Lean-runtime reference-counting device
+                    (Runtime.markPersistent), and this program's counts are
+                    std::sync::Arc counts -- atomic by type, in every lane,
+                    with no runtime mark to clear.  A run that passes it says
+                    so on stderr.
+  --progress[=<stride>]
+                    opt-in progress heartbeat on STDERR, one line shape per
+                    phase:
+                      con-ron: parse done: <N> fold records ... t=<s>s
+                      con-ron: install <i>/<N> <decl> t=<s>s
+                      con-ron: install done: <N>/<N> ..., <M> checks pending t=<s>s
+                      con-ron: check <done>/<M> <kind> <name> t=<s>s
+== leanchecker-paranoid --help
+uncaught exception: Could not find any oleans for: Ethbridge
+== leanexport --help
+{"meta":{"exporter":{"name":"lean4export","version":"3.1.0"},"format":{"version":"3.1.0"},"lean":{"githash":"b35cb10cf2ced51a2fd1880cfdbf75c71ab7a35a","version":"4.36.0-rc2"}}}

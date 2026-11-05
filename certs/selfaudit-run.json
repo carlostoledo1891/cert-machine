@@ -6,17 +6,17 @@
  "git": "5464846c",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "ca3b6543f3339040815fe917a321d12e475ce983e19f7dcb8e14ba2521e632fc"
+  "sha256": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "b96232b92ad9f5bc82dd1f4fba84bee98ebebd894f7d828595f376ee8f972110"
+  "sha256": "fb7502dd5b180ef8fc066da540d427cdf292c16ab70947b1134adf716f81fea1"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "3c0ff499b704ba4c976a6e9819f3894dab1d9bffd4a100e57a4b20d1425c8a9b",
-   "rows": 140
+   "sha256": "d7a94b75c3572a5e4f74e8c4a00e130bc51dd9180dd88038b8ab01fab20dd49c",
+   "rows": 141
   },
   "kit": {
    "path": "corpus/rerun-kit.json",
@@ -55,6 +55,7 @@
    "certs/eth-hawkley-heavy.json": "7c88e9465fd439b4fec65bf119571566bfda261ccc8f553001fe23b22a96be08",
    "certs/eth-cslib-d1.json": "73f02f389c226bd717f1743ddd494e742eb4cd7d05c03c36347d54afc9569394",
    "certs/eth-chain.json": "a6291d9300aa7a5acdc899afd23c8796235d029961865fbdbf75f3bcfbdd1338",
+   "certs/eth-openai-chain.json": "633a1158ff44c26d4af30763f2688099782b7e8df95295c706acfe4cf0acef26",
    "certs/wsp-baseline.json": "27cbeeb6082d6877f4fde0edf50d89bde3c8d4d2fff24fcb18d1a35e84b3dc38"
   }
  },
@@ -10258,6 +10259,25 @@
    "after": {
     "preregistration": "f594549274303025bb5b45831125e1b674c160b896382f1bbedfa79b416c638c",
     "inventory": "2a466e2d9d75ff42d1a31700c638a874ba44b4017ae89f938bd90a6bafe84ee8"
+   }
+  },
+  {
+   "at": "2026-11-05T15:37:53.033Z",
+   "git": "dc141bbe",
+   "why": "Amendment 2026-11-05, later: the register at 141 rows (certs/eth-openai-chain.json, the OpenAI chain in one Lean); the rerun kit names the record; the inventory classifies it; no measurement, mutant or decision touched",
+   "before": {
+    "preregistration": "ca3b6543f3339040815fe917a321d12e475ce983e19f7dcb8e14ba2521e632fc",
+    "inventory": "b96232b92ad9f5bc82dd1f4fba84bee98ebebd894f7d828595f376ee8f972110",
+    "recordsMoved": [
+     {
+      "record": "certs/eth-openai-chain.json",
+      "to": "633a1158ff44c26d4af30763f2688099782b7e8df95295c706acfe4cf0acef26"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "9a06c1281b30c08cd2a3a4fed2b954fa9a48a80b8c9f6e6b8676688252a7da49",
+    "inventory": "fb7502dd5b180ef8fc066da540d427cdf292c16ab70947b1134adf716f81fea1"
    }
   }
  ],

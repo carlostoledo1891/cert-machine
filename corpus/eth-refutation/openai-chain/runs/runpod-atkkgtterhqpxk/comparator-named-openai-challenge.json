@@ -1,0 +1,33 @@
+{
+ "challenge_module": "Challenge.OpenAISubexponentialSAT",
+ "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+ "theorem_names": [
+  "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+ ],
+ "definition_names": [],
+ "permitted_axioms": [
+  "propext",
+  "Quot.sound",
+  "Classical.choice"
+ ],
+ "external_kernels": {
+  "lean4lean-fuel": [
+   "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+   "--config:whnf=10000000",
+   "--config:whnfEager=100000000",
+   "--config:lazyDelta=100000",
+   "--config:etaExpand=100000",
+   "--config:recDepth=5000000",
+   "--config:inductiveFuel=100000",
+   "--import"
+  ],
+  "nanoda-pinned": [
+   "/home/tester/bin/nanoda-pinned.sh"
+  ],
+  "paranoid": [
+   "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+   "--silent",
+   "--from-export"
+  ]
+ }
+}

@@ -2083,6 +2083,19 @@
    "recordedOn": "2026-11-04"
   },
   {
+   "id": "eth-openai-chain",
+   "claim": "EthBridge.OpenAIChain.not_eth — ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam",
+   "claimant": "OpenAI's proof and Hawkley's bridges (openai/math @ 7ef5c0cc (OpenAI's family-378 proof and ParityLifts, 3,183 files) and thinkthoughts/math @ d6b79b7d (Hawkley's OAI.Bridges, 27 files), the closure of the two bridge files, pinned at d6b79b7d), ported and joined in claimbox: the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox",
+   "source": "github.com/carlostoledo1891/claimbox @ bdf357ef lean/eth-bridge, built on cslib-community/complexitylib 7c66eb71 (Lean v4.36.0-rc2)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator accepting with its named checkers (lean4lean-fuel, nanoda-pinned, paranoid, Lean default). As shipped, lake comparator --paranoid accepts with Lean paranoid and Lean default and its four bundled checkers stop at their own limits (nanoda: a worker thread's stack; lean4lean: its fuel; con-leche and con-ron: a compiled fuel constant, \"never a verdict\" in their charter) — recorded, not counted as a rejection. OpenAI's own Comparator challenge (lean/ComparatorChallenges/SubexponentialSAT.lean at 7ef5c0cc, unchanged) accepts the ported proof of exact_count_and_sat in the new Lean with the same named checkers. The proof that checks here is a modified copy of OpenAI's and Hawkley's: 20 of its 3,210 files were changed to build on the newer Lean and Mathlib (every change listed with both sha256s in OpenAIEth/PORT.md, and every file checked here against the scout pins: byte-equal to its pin, or modified exactly as declared, nothing else). The verdict reads the judge re-run with checkers that can finish: leanchecker-paranoid, our pinned nanoda with a 1 GiB thread stack, lean4lean with its fuel raised 100×, and Lean's default kernel. con-leche and con-ron are not among them; nothing here is their verdict either way. The amendment is dated in the pre-registration. claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party.",
+   "kind": "none",
+   "decidedFrom": "certs/eth-openai-chain.json",
+   "page": "/eth/",
+   "recordedOn": "2026-11-05"
+  },
+  {
    "id": "wsp-math500",
    "claim": "Weight-Space Programming: an edit of 131,072 weights (0.016% of the model), written with no training, lifts Qwen3.5-0.8B's MATH-500 accuracy from 7.9% to 48.1% (6×)",
    "claimant": "Takehi, Teoh, Zhang, Khattab, MIT CSAIL (the post of 2026-11-02)",
@@ -2101,11 +2114,11 @@
    "recordedOn": "2026-11-03"
   }
  ],
- "count": 140,
- "decided": 139,
+ "count": 141,
+ "decided": 140,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 114,
+  "CERTIFIED": 115,
   "PARTIAL": 9,
   "REFUTED": 2,
   "QUEUED": 1,
@@ -2114,7 +2127,7 @@
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 140
+  "self-initiated": 141
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -2133,7 +2146,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 115,
+  "none": 116,
   "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -2150,7 +2163,7 @@
   "2026-08": 18,
   "2026-09": 69,
   "2026-10": 48,
-  "2026-11": 5
+  "2026-11": 6
  },
  "submitted": 0,
  "preregistered": {
@@ -2165,6 +2178,6 @@
  },
  "meta": {
   "date": "2026-11-05",
-  "git": "a6efcabd"
+  "git": "dc141bbe"
  }
 }

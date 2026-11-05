@@ -17,13 +17,9 @@
   },
   "authors": "the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox"
  },
- "verdict": "REFUSED",
- "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator accepting with its named checkers (none). As shipped, lake comparator --paranoid accepts with Lean paranoid and Lean default and its four bundled checkers stop at their own limits (nanoda: a worker thread's stack; lean4lean: its fuel; con-leche and con-ron: a compiled fuel constant, \"never a verdict\" in their charter) — recorded, not counted as a rejection.",
- "fails": [
-  "lake comparator with the named checkers did not accept the chain (no named run)",
-  "the planted statement was NOT rejected by the judge with the named checkers",
-  "OpenAI's own challenge: no named run (Q3)"
- ],
+ "verdict": "CERTIFIED",
+ "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator accepting with its named checkers (lean4lean-fuel, nanoda-pinned, paranoid, Lean default). As shipped, lake comparator --paranoid accepts with Lean paranoid and Lean default and its four bundled checkers stop at their own limits (nanoda: a worker thread's stack; lean4lean: its fuel; con-leche and con-ron: a compiled fuel constant, \"never a verdict\" in their charter) — recorded, not counted as a rejection. OpenAI's own Comparator challenge (lean/ComparatorChallenges/SubexponentialSAT.lean at 7ef5c0cc, unchanged) accepts the ported proof of exact_count_and_sat in the new Lean with the same named checkers.",
+ "fails": [],
  "statement": {
   "pin": "corpus/eth-refutation/openai-chain/statement.lean",
   "sha256": "dcce9dcb1ce6d1c68fd920c2a47800ebc3458a303399ac33e1df07eb0bfb3006",
@@ -42,17 +38,57 @@
  ],
  "judge": {
   "named": {
-   "chain": null,
-   "planted": null,
+   "chain": {
+    "exit": 0,
+    "okay": true,
+    "accepted": [
+     "lean4lean-fuel",
+     "nanoda-pinned",
+     "paranoid",
+     "Lean default"
+    ],
+    "rejected": [],
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "seconds": 4613
+   },
+   "planted": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [],
+    "rejected": [],
+    "sandbox": "nosandbox",
+    "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
+    "seconds": 22
+   },
    "checkers": [
     "Lean default",
     "paranoid",
     "nanoda-pinned",
     "lean4lean-fuel"
    ],
-   "externalKernels": null,
-   "challengeSha256": null,
-   "facts": null
+   "externalKernels": {
+    "lean4lean-fuel": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+     "--config:whnf=10000000",
+     "--config:whnfEager=100000000",
+     "--config:lazyDelta=100000",
+     "--config:etaExpand=100000",
+     "--config:recDepth=5000000",
+     "--config:inductiveFuel=100000",
+     "--import"
+    ],
+    "nanoda-pinned": [
+     "/home/tester/bin/nanoda-pinned.sh"
+    ],
+    "paranoid": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+     "--silent",
+     "--from-export"
+    ]
+   },
+   "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3",
+   "facts": "corpus/eth-refutation/openai-chain/runs/runpod-atkkgtterhqpxk"
   },
   "shipped": {
    "claim": {
@@ -84,7 +120,109 @@
    },
    "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3"
   },
-  "diagnosis": null
+  "diagnosis": {
+   "export": {
+    "madeAs": "leanexport (the toolchain's), the module and the declaration list the comparator printed",
+    "bytes": 2452607904,
+    "sha256": "d9cae367b15b195b381b88005c4af866b7a6e36e7388794d1136cb0ad03782f2"
+   },
+   "bundled": {
+    "nanoda (the comparator's configuration: 4 threads, no stack size)": {
+     "exit": 134,
+     "seconds": 47,
+     "maxRssKb": 3647176,
+     "reason": "thread 'thread_3' (63983) has overflowed its stack",
+     "declarations": null
+    },
+    "nanoda (stack_size_bytes 1 GiB, 16 threads: the bundled build has no such field)": {
+     "exit": 134,
+     "seconds": 49,
+     "maxRssKb": 4796268,
+     "reason": "thread 'thread_14' (64282) has overflowed its stack",
+     "declarations": null
+    },
+    "nanoda (RUST_MIN_STACK 1 GiB)": {
+     "exit": 134,
+     "seconds": 47,
+     "maxRssKb": 3660680,
+     "reason": "thread 'thread_1' (64650) has overflowed its stack",
+     "declarations": null
+    },
+    "lean4lean (default fuel)": {
+     "exit": 1,
+     "seconds": 549,
+     "maxRssKb": 8911012,
+     "reason": "uncaught exception: at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready: (kernel) deterministic timeout",
+     "declarations": null
+    },
+    "lean4lean (every fuel field ×100)": {
+     "exit": 0,
+     "seconds": 1382,
+     "maxRssKb": 9957436,
+     "reason": null,
+     "declarations": null
+    },
+    "leanchecker-paranoid --from-export": {
+     "exit": 0,
+     "seconds": 1529,
+     "maxRssKb": 13954352,
+     "reason": null,
+     "declarations": null
+    },
+    "con-leche": {
+     "exit": 3,
+     "seconds": 170,
+     "maxRssKb": 56853624,
+     "reason": "con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=169.2s",
+     "declarations": null
+    },
+    "con-leche --jobs=16": {
+     "exit": 3,
+     "seconds": 67,
+     "maxRssKb": 6124892,
+     "reason": "con-leche: internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=66.8s",
+     "declarations": null
+    },
+    "con-ron": {
+     "exit": 3,
+     "seconds": 69,
+     "maxRssKb": 9037408,
+     "reason": "con-ron: error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=67.284s",
+     "declarations": null
+    },
+    "con-ron --jobs=16": {
+     "exit": 3,
+     "seconds": 78,
+     "maxRssKb": 8980904,
+     "reason": "con-ron: error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102] (--verified) t=76.302s",
+     "declarations": null
+    }
+   },
+   "ours": {
+    "nanoda, our pinned build (ammkrn/nanoda_lib 8de7e0c4; 16 threads, 1 GiB stack)": {
+     "exit": 0,
+     "seconds": 142,
+     "maxRssKb": 37533356,
+     "reason": null,
+     "declarations": 101621
+    }
+   },
+   "checkers": [
+    {
+     "sha256": "7de38e9e048ee992f34996756206f9ae178abed6961ae937c2abfb3f725eb244",
+     "path": "/home/tester/src/nanoda/target/release/nanoda_bin"
+    },
+    {
+     "sha256": "baaec030a70c78562ced2c75866ab0d2410e81ce680b835179ed16570ad5ef97",
+     "path": "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean"
+    },
+    {
+     "sha256": "4508d26d3e22463a9566a6155d7a1600c7bfc42b6cd2548be73e3d19d159d6c5",
+     "path": "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid"
+    }
+   ],
+   "wrapper": "#!/bin/bash\n# our pinned nanoda on the comparator's own config (export path, permitted axioms), with 16 threads and a 1 GiB thread stack\nset -euo pipefail\npython3 -c \"import json,sys; c=json.load(open(sys.argv[1])); c['num_threads']=16; c['stack_size_bytes']=1073741824; c['print_success_message']=True; json.dump(c, open(sys.argv[2],'w'))\" \"$1\" \"$1.pinned.json\"\nexec /home/tester/src/nanoda/target/release/nanoda_bin \"$1.pinned.json\"\n"
+  }
  },
  "p3": {
   "challenge": {
@@ -94,11 +232,29 @@
    "served": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
    "module": "Challenge.OpenAISubexponentialSAT"
   },
-  "ran": false,
-  "accepted": false,
-  "checkers": [],
-  "sandbox": null,
-  "named": null,
+  "ran": true,
+  "accepted": true,
+  "checkers": [
+   "lean4lean-fuel",
+   "nanoda-pinned",
+   "paranoid",
+   "Lean default"
+  ],
+  "sandbox": "nosandbox",
+  "named": {
+   "exit": 0,
+   "okay": true,
+   "accepted": [
+    "lean4lean-fuel",
+    "nanoda-pinned",
+    "paranoid",
+    "Lean default"
+   ],
+   "rejected": [],
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "seconds": 4357
+  },
   "shipped": {
    "exit": 1,
    "okay": false,

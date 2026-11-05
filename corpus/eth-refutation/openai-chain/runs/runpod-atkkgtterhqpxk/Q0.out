@@ -1,0 +1,100 @@
+{
+ "challenge": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3",
+ "pin": "dcce9dcb1ce6d1c68fd920c2a47800ebc3458a303399ac33e1df07eb0bfb3006",
+ "externalKernels": {
+  "lean4lean-fuel": [
+   "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+   "--config:whnf=10000000",
+   "--config:whnfEager=100000000",
+   "--config:lazyDelta=100000",
+   "--config:etaExpand=100000",
+   "--config:recDepth=5000000",
+   "--config:inductiveFuel=100000",
+   "--import"
+  ],
+  "nanoda-pinned": [
+   "/home/tester/bin/nanoda-pinned.sh"
+  ],
+  "paranoid": [
+   "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+   "--silent",
+   "--from-export"
+  ]
+ },
+ "openai": {
+  "leanSha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+  "pinSha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+  "pinOk": true,
+  "configSha256": "debbfdc9c01104d2369be80da5180978275106df8b685f693fba7ce7da7c5b19",
+  "upstream": {
+   "repository": "https://github.com/openai/math",
+   "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a"
+  },
+  "configChanges": {
+   "external_kernels": {
+    "from": null,
+    "to": {
+     "lean4lean-fuel": [
+      "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+      "--config:whnf=10000000",
+      "--config:whnfEager=100000000",
+      "--config:lazyDelta=100000",
+      "--config:etaExpand=100000",
+      "--config:recDepth=5000000",
+      "--config:inductiveFuel=100000",
+      "--import"
+     ],
+     "nanoda-pinned": [
+      "/home/tester/bin/nanoda-pinned.sh"
+     ],
+     "paranoid": [
+      "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+      "--silent",
+      "--from-export"
+     ]
+    }
+   },
+   "enable_nanoda": {
+    "from": false,
+    "to": null
+   },
+   "challenge_module": {
+    "from": "ComparatorChallenges.SubexponentialSAT",
+    "to": "Challenge.OpenAISubexponentialSAT"
+   }
+  },
+  "config": {
+   "challenge_module": "Challenge.OpenAISubexponentialSAT",
+   "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+   "theorem_names": [
+    "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "external_kernels": {
+    "lean4lean-fuel": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/lean4lean",
+     "--config:whnf=10000000",
+     "--config:whnfEager=100000000",
+     "--config:lazyDelta=100000",
+     "--config:etaExpand=100000",
+     "--config:recDepth=5000000",
+     "--config:inductiveFuel=100000",
+     "--import"
+    ],
+    "nanoda-pinned": [
+     "/home/tester/bin/nanoda-pinned.sh"
+    ],
+    "paranoid": [
+     "/home/tester/.elan/toolchains/leanprover--lean4---v4.36.0-rc2/bin/leanchecker-paranoid",
+     "--silent",
+     "--from-export"
+    ]
+   }
+  }
+ }
+}

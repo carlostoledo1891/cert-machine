@@ -108,7 +108,20 @@
 > profiles, cold and warm) were measured on 2026-11-05 beside a running Lean build on the same Mac, so their seconds are
 > not comparable with the 2026-10-21 ones; the record has no per-run note field, so this is said in its `appended` entry
 > and here.
-
+>
+> **Amendment 2026-11-05, later (the register grows from 140 to 141 rows; no definition moved).** One row reached the
+> register from one record decided the same day: certs/eth-openai-chain.json (the OpenAI chain in one Lean — OpenAI's
+> family-378 proof and Hawkley's two bridges ported to complexitylib's Lean, reaching ¬ETH on cslib's multitape machine
+> through C2; CERTIFIED by the statement pin, the port ledger, the axioms file, nanoda with two negative controls,
+> leanchecker --fresh, three planted variants refused, and Lean's judge with named checkers after the dated amendment
+> in notes/eth-openai-chain-preregistration-2026-11-05.md — the judge as shipped recorded beside it with its four
+> bundled stops). The register moves from sha256 3c0ff499b704… (140 rows) to d7a94b75c357… (141 rows). The rerun kit
+> gains the record's re-derive command (both pod run directories named; no standard-library verifier), run once with
+> `--only` and merged into certs/rerun-kit-run.json; the self-audit run gains its pairs by `--append --only`, measured
+> on 2026-11-05 on the same Mac. The row is not mutated, with the reason in the inventory's class table (a kernel replay
+> carrying its own three planted variants and the judge's rejected planted statement); mutable rows stay 119, now of
+> 141. The inventory is regenerated and the run and mutations records re-pinned with this amendment as the reason; no
+> measurement, mutant or decision touched. Nothing else changes.
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

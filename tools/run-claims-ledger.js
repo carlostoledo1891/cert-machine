@@ -502,6 +502,27 @@ const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? 
   });
 }
 
+{
+  const c = J('certs/eth-openai-chain.json');
+  for (const f of ['verdict', 'scope', 'reading', 'judge', 'nanoda', 'p3']) if (!c[f]) die('the OpenAI chain record has no ' + f);
+  for (const f of ['repo', 'commit', 'folder', 'theorem', 'builtOn', 'port', 'authors']) if (!c.claim[f]) die('the OpenAI chain record\'s claim has no ' + f);
+  if (c.fails && c.fails.length) die('the OpenAI chain record lists fails: ' + c.fails.join('; '));
+  // the amendment of 2026-11-05 12:55 UTC: the verdict reads the judge with named checkers; the shipped --paranoid run is kept beside it
+  if (!c.judge.named || !c.judge.named.chain || !c.judge.named.chain.okay || !c.nanoda.claim.accepted || !c.judge.named.planted || !c.judge.named.planted.mismatch) die('the OpenAI chain record\'s judge and kernels do not carry its verdict');
+  if (!c.judge.shipped || !c.judge.shipped.claim || !c.judge.shipped.claim.stops || Object.keys(c.judge.shipped.claim.stops).length !== 4) die('the OpenAI chain record no longer carries the four bundled stops of the judge as shipped');
+  const v = ethWord('certs/eth-openai-chain.json', c.verdict);
+  const parts = c.scope.split('. Decided: '); if (parts.length !== 2) die('the OpenAI chain record\'s scope no longer separates the claim from what was decided');
+  const port = c.reading.find((x) => /modified copy/.test(x)), operator = c.reading.find((x) => /not a second party/.test(x)), judge = c.reading.find((x) => /did not finish on this export/.test(x));
+  if (!port || !operator || !judge) die('the OpenAI chain record\'s reading no longer says the proof is a port, who the operator is, or how the judge was re-run');
+  rows.push({
+    id: 'eth-openai-chain', claim: c.claim.theorem + ' — ' + parts[0],
+    claimant: 'OpenAI\'s proof and Hawkley\'s bridges (' + c.claim.port.of + '), ported and joined in claimbox: ' + c.claim.authors,
+    source: c.claim.repo.replace(/^https?:\/\//, '') + ' @ ' + c.claim.commit.slice(0, 8) + ' ' + c.claim.folder + ', built on ' + c.claim.builtOn,
+    origin: 'self-initiated', verdict: v, scope: 'Decided: ' + parts[1] + ' ' + port.split('. ')[0] + '. ' + judge.split('. ').slice(-3).join('. ') + ' ' + operator,
+    kind: v === 'CERTIFIED' ? 'none' : 'narrower-scope', key: '"verdict": "' + c.verdict + '"', decidedFrom: 'certs/eth-openai-chain.json', page: '/eth/'
+  });
+}
+
 /* 20 · the Weight-Space Programming claim (MIT CSAIL, 2026-11-02): one row for the authors' headline. The edit is decided
    from the two checkpoints' bytes (certs/wsp-weights.json), the printed accuracies re-summed and re-graded from the released
    flags (certs/wsp-regrade.json, a second grader in certs/wsp-grade-second.json), and the multiplier decided by the

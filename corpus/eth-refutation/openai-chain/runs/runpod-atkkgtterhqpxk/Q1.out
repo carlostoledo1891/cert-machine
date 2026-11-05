@@ -1,0 +1,990 @@
+Resolving dependencies
+Building Challenge.OpenAIChain
+⚠ [8412/8413] Replayed Challenge.OpenAIChain
+warning: Challenge/OpenAIChain.lean:7:8: declaration uses `sorry`
+Build completed successfully (8413 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, EthBridge.OpenAIChain.not_eth, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge.OpenAIChain
+Building EthBridge.OpenAIChain
+⚠ [19185/19381] Replayed EthBridge.Anthropic.MainResults
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19186/19381] Ran EthBridge.Anthropic.MainResults:irArts
+warning: EthBridge/Anthropic/MainResults.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19381/19809] Replayed OAI.Combinatorics.ParityLifts.Model
+warning: OpenAIEth/OAI/Combinatorics/ParityLifts/Model.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19382/19809] Ran OAI.Combinatorics.ParityLifts.Model:irArts
+warning: OpenAIEth/OAI/Combinatorics/ParityLifts/Model.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19529/19809] Replayed OAI.Combinatorics.ParityLifts.CodeErasure
+warning: OpenAIEth/OAI/Combinatorics/ParityLifts/CodeErasure.lean:252:6: Unused tactic linter: `apply PolyProgram.prependAll_code_eq` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Combinatorics/ParityLifts/CodeErasure.lean:364:4: Unused tactic linter: `exact PolyProgram.all_code_eq _ _ (PolyProgram.cardEq_code_eq α β q)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Combinatorics/ParityLifts/CodeErasure.lean:418:114: Unused tactic linter: `with_reducible rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ℹ [19537/19809] Replayed OAI.Bridges.ETH.SortProgram
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:158:0: 'OAI.Bridges.ETH.insertBy_perm' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:159:0: 'OAI.Bridges.ETH.sortBy_perm' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:160:0: 'OAI.Bridges.ETH.pairwise_sortBy' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:161:0: 'OAI.Bridges.ETH.sortBy_eq_insertionSort' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:162:0: 'OAI.Bridges.ETH.insertBy_size' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:163:0: 'OAI.Bridges.ETH.insertByProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:164:0: 'OAI.Bridges.ETH.sortByProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:165:0: 'OAI.Bridges.ETH.natSortProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SortProgram.lean:166:0: 'OAI.Bridges.ETH.natSortProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [19539/19809] Replayed OAI.Algorithms.SubexponentialSAT.LeanCompat
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/LeanCompat.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [19540/19809] Ran OAI.Algorithms.SubexponentialSAT.LeanCompat:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/LeanCompat.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [19543/19809] Replayed OAI.Bridges.ETH.CanonicalCNF
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:233:0: 'OAI.Bridges.ETH.decodeName_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:234:0: 'OAI.Bridges.ETH.canonicalCNF_width' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:235:0: 'OAI.Bridges.ETH.canonicalCNF_satisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:236:0: 'OAI.Bridges.ETH.bitCanonical_varBound_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:237:0: 'OAI.Bridges.ETH.bitCanonical_width' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalCNF.lean:238:0: 'OAI.Bridges.ETH.bitCanonical_satisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19545/19809] Replayed OAI.Bridges.ETH.DecodeProgram
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:219:0: 'OAI.Bridges.ETH.decodeName_nil' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:220:0: 'OAI.Bridges.ETH.decodeName_cons' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:221:0: 'OAI.Bridges.ETH.decodeName_eq_horner' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:222:0: 'OAI.Bridges.ETH.le_foldl_hornerStep' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:223:0: 'OAI.Bridges.ETH.horner_prefix_le' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:224:0: 'OAI.Bridges.ETH.hornerStepProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:225:0: 'OAI.Bridges.ETH.decodePrep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:226:0: 'OAI.Bridges.ETH.decodeCore' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:227:0: 'OAI.Bridges.ETH.decodeProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:228:0: 'OAI.Bridges.ETH.decodeProgram_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:229:0: 'OAI.Bridges.ETH.treeEncode_nat_size' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:230:0: 'OAI.Bridges.ETH.decodeMeasure_eq' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:231:0: 'OAI.Bridges.ETH.bool_size_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:232:0: 'OAI.Bridges.ETH.decodeProgram_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:233:0: 'OAI.Bridges.ETH.decodeProgram_rbeval' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/DecodeProgram.lean:234:0: 'OAI.Bridges.ETH.decodeProgram_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19549/19809] Replayed OAI.Bridges.ETH.CanonicalWord
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:169:0: 'OAI.Bridges.ETH.sort_eq_insertionSort_dedup' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:170:0: 'OAI.Bridges.ETH.bitVarBound_eq' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:171:0: 'OAI.Bridges.ETH.literalCode_toLiteral' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:172:0: 'OAI.Bridges.ETH.clauseWordNumbers_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:173:0: 'OAI.Bridges.ETH.mem_canonicalCNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:174:0: 'OAI.Bridges.ETH.formulaWordNumbers_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:175:0: 'OAI.Bridges.ETH.canonicalWord_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/CanonicalWord.lean:176:0: 'OAI.Bridges.ETH.canonicalWord_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19551/19809] Replayed OAI.Bridges.ETH.LexProgram
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:218:0: 'OAI.Bridges.ETH.listLe_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:219:0: 'OAI.Bridges.ETH.lexLe_nil_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:220:0: 'OAI.Bridges.ETH.lexLe_cons_nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:221:0: 'OAI.Bridges.ETH.lexLe_cons_cons' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:222:0: 'OAI.Bridges.ETH.formulaWordNumbers_eq_sort' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:223:0: 'OAI.Bridges.ETH.foldl_const_iterate' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:224:0: 'OAI.Bridges.ETH.decideStripped_iterate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:225:0: 'OAI.Bridges.ETH.decideStripped_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:226:0: 'OAI.Bridges.ETH.tail_size_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:227:0: 'OAI.Bridges.ETH.stripStep_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:228:0: 'OAI.Bridges.ETH.stripStepProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:229:0: 'OAI.Bridges.ETH.stripProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:230:0: 'OAI.Bridges.ETH.decideProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:231:0: 'OAI.Bridges.ETH.lexLeProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:232:0: 'OAI.Bridges.ETH.lexLeProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:233:0: 'OAI.Bridges.ETH.clauseListSortProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/LexProgram.lean:234:0: 'OAI.Bridges.ETH.formulaWordNumbers_eq_clauseListSort' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19553/19809] Replayed OAI.Bridges.ETH.SerializeProgram
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:198:0: 'OAI.Bridges.ETH.encodeNat_eq_flat' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:199:0: 'OAI.Bridges.ETH.frame_eq_flat' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:200:0: 'OAI.Bridges.ETH.encodeList_eq_flat' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:201:0: 'OAI.Bridges.ETH.oaiEncodeNatProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:202:0: 'OAI.Bridges.ETH.escapeBitProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:203:0: 'OAI.Bridges.ETH.frameProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:204:0: 'OAI.Bridges.ETH.encodeListProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:205:0: 'OAI.Bridges.ETH.cnfBodyProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:206:0: 'OAI.Bridges.ETH.wordProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:207:0: 'OAI.Bridges.ETH.polyProgram_spec' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:208:0: 'OAI.Bridges.ETH.oaiEncodeNatProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:209:0: 'OAI.Bridges.ETH.frameProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:210:0: 'OAI.Bridges.ETH.cnfBodyProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:211:0: 'OAI.Bridges.ETH.wordProgram_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:212:0: 'OAI.Bridges.ETH.encodeNat_length' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:213:0: 'OAI.Bridges.ETH.encodeNat_length_le_size' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:214:0: 'OAI.Bridges.ETH.frame_length' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:215:0: 'OAI.Bridges.ETH.encodeList_length_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:216:0: 'OAI.Bridges.ETH.clauseCode_length_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/SerializeProgram.lean:217:0: 'OAI.Bridges.ETH.cnfBody_length_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19555/19809] Replayed OAI.Bridges.ETH.Converter
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:284:0: 'OAI.Bridges.ETH.consStep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:285:0: 'OAI.Bridges.ETH.mapCore' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:286:0: 'OAI.Bridges.ETH.map_eq_reverse_foldl' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:287:0: 'OAI.Bridges.ETH.mapProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:288:0: 'OAI.Bridges.ETH.mapProgram_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:289:0: 'OAI.Bridges.ETH.litArithProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:290:0: 'OAI.Bridges.ETH.decodeLitCore' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:291:0: 'OAI.Bridges.ETH.litPairProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:292:0: 'OAI.Bridges.ETH.litPairProgram_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:293:0: 'OAI.Bridges.ETH.clausePairsProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:294:0: 'OAI.Bridges.ETH.formulaPairsProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:295:0: 'OAI.Bridges.ETH.foldl_max_eq' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:296:0: 'OAI.Bridges.ETH.listMax_eq_foldr' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:297:0: 'OAI.Bridges.ETH.maxStepProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:298:0: 'OAI.Bridges.ETH.listMaxProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:299:0: 'OAI.Bridges.ETH.dedupList_nodup' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:300:0: 'OAI.Bridges.ETH.insertionSort_dedupList' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:301:0: 'OAI.Bridges.ETH.clauseNormProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:302:0: 'OAI.Bridges.ETH.formulaNormProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:303:0: 'OAI.Bridges.ETH.postProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:304:0: 'OAI.Bridges.ETH.listMax_pairs' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:305:0: 'OAI.Bridges.ETH.norm_pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:306:0: 'OAI.Bridges.ETH.postFun_pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:307:0: 'OAI.Bridges.ETH.canonicalWordCore' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:308:0: 'OAI.Bridges.ETH.canonicalWordProgram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:309:0: 'OAI.Bridges.ETH.canonicalWordProgram_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:310:0: 'OAI.Bridges.ETH.canonicalWordProgram_encodeCNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:311:0: 'OAI.Bridges.ETH.canonicalWordProgram_rbeval' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:312:0: 'OAI.Bridges.ETH.canonicalWordProgram_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/Converter.lean:313:0: 'OAI.Bridges.ETH.postProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19557/19809] Replayed OAI.Bridges.ETH.ConverterSize
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:117:0: 'OAI.Bridges.ETH.inputBound' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:118:0: 'OAI.Bridges.ETH.minimizeList_bitList' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:119:0: 'OAI.Bridges.ETH.card_literal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:120:0: 'OAI.Bridges.ETH.inputSize_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:121:0: 'OAI.Bridges.ETH.mem_minimized' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:122:0: 'OAI.Bridges.ETH.minimized_decode_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:123:0: 'OAI.Bridges.ETH.minimized_literal_size_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:124:0: 'OAI.Bridges.ETH.minimized_clause_length_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:125:0: 'OAI.Bridges.ETH.map_size_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:126:0: 'OAI.Bridges.ETH.litPair_size_le' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterSize.lean:127:0: 'OAI.Bridges.ETH.pairsSize_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19559/19809] Replayed OAI.Bridges.ETH.ConverterTime
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:209:0: 'OAI.Bridges.ETH.elem_size_le' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:210:0: 'OAI.Bridges.ETH.foldl_cons_map' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:211:0: 'OAI.Bridges.ETH.stepBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:212:0: 'OAI.Bridges.ETH.mapTimeBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:213:0: 'OAI.Bridges.ETH.mapProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:214:0: 'OAI.Bridges.ETH.decPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:215:0: 'OAI.Bridges.ETH.decPoly_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:216:0: 'OAI.Bridges.ETH.decodeProgram_time_decPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:217:0: 'OAI.Bridges.ETH.litPairProgram_time_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:218:0: 'OAI.Bridges.ETH.litTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:219:0: 'OAI.Bridges.ETH.litPairProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:220:0: 'OAI.Bridges.ETH.clauseTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:221:0: 'OAI.Bridges.ETH.decodeTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:222:0: 'OAI.Bridges.ETH.clausePairsProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterTime.lean:223:0: 'OAI.Bridges.ETH.formulaPairsProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19565/19809] Replayed OAI.Bridges.ETH.ConverterPoly
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:181:0: 'OAI.Bridges.ETH.NatPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:182:0: 'OAI.Bridges.ETH.NatPoly.const' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:183:0: 'OAI.Bridges.ETH.NatPoly.id' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:184:0: 'OAI.Bridges.ETH.NatPoly.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:185:0: 'OAI.Bridges.ETH.NatPoly.mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:186:0: 'OAI.Bridges.ETH.NatPoly.pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:187:0: 'OAI.Bridges.ETH.NatPoly.mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:188:0: 'OAI.Bridges.ETH.natPoly_inputBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:189:0: 'OAI.Bridges.ETH.natPoly_decPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:190:0: 'OAI.Bridges.ETH.natPoly_mapTimeBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:191:0: 'OAI.Bridges.ETH.natPoly_pairsBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:192:0: 'OAI.Bridges.ETH.natPoly_litTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:193:0: 'OAI.Bridges.ETH.natPoly_clauseTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:194:0: 'OAI.Bridges.ETH.natPoly_decodeTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:195:0: 'OAI.Bridges.ETH.convTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:196:0: 'OAI.Bridges.ETH.natPoly_convTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:197:0: 'OAI.Bridges.ETH.convTime_expBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:198:0: 'OAI.Bridges.ETH.canonicalWordProgram_time_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:199:0: 'OAI.Bridges.ETH.canonicalWordProgram_time_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:200:0: 'OAI.Bridges.ETH.canonicalWordProgram_rbeval_convTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:201:0: 'OAI.Bridges.ETH.canonicalWordProgram_rbeval_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/ConverterPoly.lean:202:0: 'OAI.Bridges.ETH.converter_seq' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19569/19809] Replayed OAI.Bridges.ETH.RuntimeAsymptotics
+info: OpenAIEth/OAI/Bridges/ETH/RuntimeAsymptotics.lean:121:0: 'OAI.Bridges.ETH.runtimeScale_ratio_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/RuntimeAsymptotics.lean:122:0: 'OAI.Bridges.ETH.runtimeScale_eventually_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/RuntimeAsymptotics.lean:123:0: 'OAI.Bridges.ETH.runtimeFactor_expBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19585/19809] Replayed OAI.Bridges.ETH.MachineInterface
+info: OpenAIEth/OAI/Bridges/ETH/MachineInterface.lean:163:0: 'OAI.Bridges.ETH.PrimitiveSimulation' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineInterface.lean:164:0: 'OAI.Bridges.ETH.SimulationHypothesis' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineInterface.lean:165:0: 'OAI.Bridges.ETH.encodeCNF_length_le_convTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineInterface.lean:166:0: 'OAI.Bridges.ETH.not_positiveRateETH_of_decider' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineInterface.lean:167:0: 'OAI.Bridges.ETH.not_positiveRateETH_of_feasible_three_of_simulation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [19587/19809] Replayed OAI.Bridges.ETH.MachineTranslation
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:325:0: 'OAI.Bridges.ETH.symCode' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:326:0: 'OAI.Bridges.ETH.symDecode_symCode' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:327:0: 'OAI.Bridges.ETH.tapeIndex' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:328:0: 'OAI.Bridges.ETH.tapeIndex_injective' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:329:0: 'OAI.Bridges.ETH.stateEnc' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:330:0: 'OAI.Bridges.ETH.toTransition' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:331:0: 'OAI.Bridges.ETH.toParityMachine' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:332:0: 'OAI.Bridges.ETH.output_running' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:333:0: 'OAI.Bridges.ETH.output_halting' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:334:0: 'OAI.Bridges.ETH.TapeRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:335:0: 'OAI.Bridges.ETH.CfgRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:336:0: 'OAI.Bridges.ETH.TapeRep.head' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:337:0: 'OAI.Bridges.ETH.TapeRep.move' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:338:0: 'OAI.Bridges.ETH.TapeRep.write' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:339:0: 'OAI.Bridges.ETH.TapeRep.rewrite' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:340:0: 'OAI.Bridges.ETH.mk₁_nth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:341:0: 'OAI.Bridges.ETH.getI_map_some' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:342:0: 'OAI.Bridges.ETH.init_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:343:0: 'OAI.Bridges.ETH.toTransition_running' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:344:0: 'OAI.Bridges.ETH.step_of_output_none' depends on axioms: [propext]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:345:0: 'OAI.Bridges.ETH.step_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:346:0: 'OAI.Bridges.ETH.iterate_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:347:0: 'OAI.Bridges.ETH.trace_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:348:0: 'OAI.Bridges.ETH.emits_mono'' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineTranslation.lean:349:0: 'OAI.Bridges.ETH.emits_of_outputsInTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19603/19809] Replayed OAI.Bridges.ETH.MachineRunner
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:217:0: 'OAI.Bridges.ETH.runStep' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:218:0: 'OAI.Bridges.ETH.runnerProj' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:219:0: 'OAI.Bridges.ETH.runnerProbe' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:220:0: 'OAI.Bridges.ETH.runnerStep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:221:0: 'OAI.Bridges.ETH.runnerInit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:222:0: 'OAI.Bridges.ETH.runnerExtract' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:223:0: 'OAI.Bridges.ETH.primitiveRunner' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:224:0: 'OAI.Bridges.ETH.loopTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:225:0: 'OAI.Bridges.ETH.runnerTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:226:0: 'OAI.Bridges.ETH.runStep_found' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:227:0: 'OAI.Bridges.ETH.runStep_continue' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:228:0: 'OAI.Bridges.ETH.runnerStep_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:229:0: 'OAI.Bridges.ETH.continue_ne_nil' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:230:0: 'OAI.Bridges.ETH.stop_eq_nil' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:231:0: 'OAI.Bridges.ETH.loop_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:232:0: 'OAI.Bridges.ETH.runStep_iterate_prefix' depends on axioms: [propext, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:233:0: 'OAI.Bridges.ETH.primitiveRunner_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunner.lean:234:0: 'OAI.Bridges.ETH.primitiveRunner_rbeval' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [19605/19809] Replayed OAI.Bridges.ETH.MachineRunnerCost
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:183:0: 'OAI.Bridges.ETH.runState_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:184:0: 'OAI.Bridges.ETH.runStep_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:185:0: 'OAI.Bridges.ETH.runStep_iterate_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:186:0: 'OAI.Bridges.ETH.runStep_iterate_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:187:0: 'OAI.Bridges.ETH.loopTime_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:188:0: 'OAI.Bridges.ETH.runnerPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:189:0: 'OAI.Bridges.ETH.runnerTime_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:190:0: 'OAI.Bridges.ETH.natPoly_runnerPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:191:0: 'OAI.Bridges.ETH.primitiveRunner_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:192:0: 'OAI.Bridges.ETH.simulationHypothesis_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:193:0: 'OAI.Bridges.ETH.not_positiveRateETH_of_feasible_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OpenAIEth/OAI/Bridges/ETH/MachineRunnerCost.lean:194:0: 'OAI.Bridges.ETH.not_positiveRateETH_of_mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [19627/19809] Replayed OAI.Algorithms.SubexponentialSAT.BitProgramCompile
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/BitProgramCompile.lean:89:20: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [19889/20131] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafParametersProgramNative
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:512:35: Unused tactic linter: `apply h` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1288:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1288:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1293:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1293:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1293:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1306:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1306:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1314:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1319:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1319:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1319:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1327:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1327:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1327:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1332:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1332:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1332:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1340:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1340:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1340:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1345:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1345:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1345:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1353:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1353:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1353:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1358:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1358:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1358:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1366:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1371:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1371:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1371:78: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1384:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1384:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1384:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1392:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1392:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1392:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1397:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1397:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1397:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1405:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1405:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1405:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1410:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1410:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1410:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1418:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1423:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1423:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1423:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1431:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1431:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1431:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1436:28: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1436:39: Unused tactic linter: `apply hl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramNative.lean:1436:76: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20159/20501] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.SequentialProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/SequentialProgram.lean:96:54: Unused tactic linter: `<;>` can be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20313/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.HashSelectProgramCore
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/HashSelectProgramCore.lean:139:47: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20357/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafProgramDecision
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramDecision.lean:84:47: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20385/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.BinaryArgminRecords
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/BinaryArgminRecords.lean:117:61: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20431/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HashGreedy
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HashGreedy.lean: imports `Mathlib.Data.List.Range` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20432/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HashGreedy:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HashGreedy.lean: imports `Mathlib.Data.List.Range` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20441/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Counters
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Counters.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20442/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Counters:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Counters.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20443/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.VisitedTape
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/VisitedTape.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/VisitedTape.lean: imports `Mathlib.Data.Fintype.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20444/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.VisitedTape:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/VisitedTape.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/VisitedTape.lean: imports `Mathlib.Data.Fintype.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20473/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HashCandidates
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HashCandidates.lean: imports `Mathlib.Data.List.SplitLengths` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20474/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HashCandidates:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HashCandidates.lean: imports `Mathlib.Data.List.SplitLengths` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20475/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.ABI
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/ABI.lean: imports `Mathlib.Data.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20476/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.ABI:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/ABI.lean: imports `Mathlib.Data.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20483/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.EncodingBounds
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/EncodingBounds.lean: imports `Mathlib.Data.Nat.Digits.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/EncodingBounds.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20484/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.EncodingBounds:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/EncodingBounds.lean: imports `Mathlib.Data.Nat.Digits.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/EncodingBounds.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20493/20501] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.CountModel
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CountModel.lean: imports `Mathlib.Data.Nat.Digits.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CountModel.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20494/20501] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.CountModel:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CountModel.lean: imports `Mathlib.Data.Nat.Digits.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CountModel.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20503/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparsePriority
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.List.MinMax` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Nat.Choose.Bounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Prod.Lex` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.List` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean:6:0: 'Mathlib.Data.Prod.Lex' has been deprecated: please replace this import by
+
+import Mathlib.Order.Prod.Lex.Basic
+⚠ [20504/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparsePriority:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.List.MinMax` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Nat.Choose.Bounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Data.Prod.Lex` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.List` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriority.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20507/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.BinaryCompareProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/BinaryCompareProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20508/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.BinaryCompareProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/BinaryCompareProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20509/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparsePriorityPrimitives
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriorityPrimitives.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20510/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparsePriorityPrimitives:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparsePriorityPrimitives.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20559/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointSparsifyProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointSparsifyProgram.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20560/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointSparsifyProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointSparsifyProgram.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20565/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.CNFNormalize
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CNFNormalize.lean: imports `Mathlib.Data.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20566/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.CNFNormalize:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/CNFNormalize.lean: imports `Mathlib.Data.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20567/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparseCharging
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.Ring.GeomSum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.BigOperators.Intervals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20568/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparseCharging:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.Ring.GeomSum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Algebra.BigOperators.Intervals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20569/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparseBudget
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Algebra.Ring.GeomSum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Nat.Log` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Nat.Find` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Base` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Rat.Cast.Order` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.NormNum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20570/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.SparseBudget:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Algebra.Ring.GeomSum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Nat.Log` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Nat.Find` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Base` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Data.Rat.Cast.Order` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.NormNum` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseBudget.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20587/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.CodeCandidates
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/CodeCandidates.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20588/20839] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.CodeCandidates:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/CodeCandidates.lean: imports `Mathlib.Tactic.NormNum.NatLog` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [20755/20839] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.HashInputProgramFrame
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/HashInputProgramFrame.lean:66:31: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20905/21188] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafHighContextProgramMask
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafHighContextProgramMask.lean:41:10: Unused tactic linter: `exact (hi ⟨0, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafHighContextProgramMask.lean:42:10: Unused tactic linter: `exact (hi ⟨1, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [20917/21188] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafHighContextProgramMerge
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafHighContextProgramMerge.lean:54:10: Unused tactic linter: `exact (hi ⟨2, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ℹ [21059/21188] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgramAudit
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafStatisticsProgramAudit.lean:9:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgram.program_primitive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafStatisticsProgramAudit.lean:10:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgram.Arity.program_primitive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafStatisticsProgramAudit.lean:11:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgram.Finalize.program_runsIn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafStatisticsProgramAudit.lean:12:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgram.Binary.lifted_eval' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [21173/21188] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.MatrixScanStepProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/MatrixScanStepProgram.lean:90:54: Unused tactic linter: `<;>` can be replaced with `;`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21217/21557] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.MatrixAnchorReadProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/MatrixAnchorReadProgram.lean:77:58: Unused tactic linter: `<;>` can be replaced with `;`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21369/21557] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.OneHotAlphabetProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/OneHotAlphabetProgram.lean:95:36: Unused tactic linter: `exact (hj ⟨0, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/OneHotAlphabetProgram.lean:96:35: Unused tactic linter: `exact (hj ⟨2, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21399/21557] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.PackingBucketCalls
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/PackingBucketCalls.lean:79:44: Unused tactic linter: `exact False.elim (hj 1 rfl)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/PackingBucketCalls.lean:80:38: Unused tactic linter: `exact False.elim (hj 3 rfl)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/PackingBucketCalls.lean:81:8: Unused tactic linter: `exact False.elim (hj 4 rfl)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/PackingBucketCalls.lean:130:44: Unused tactic linter: `exact False.elim (hj 1 rfl)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21421/21557] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.PackingExtractionEmit
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/PackingExtractionEmit.lean:60:10: Unused tactic linter: `exact False.elim (hj 2 rfl)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21433/21557] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.AssignmentSeedRange
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/AssignmentSeedRange.lean:59:35: Unused tactic linter: `exact (hi ⟨2, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/AssignmentSeedRange.lean:104:8: Unused tactic linter: `exact (hi ⟨1, rfl⟩).elim` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21685/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.AttainedSignatures
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Data.Vector.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Data.Fin.Tuple.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.SetTheory.Cardinal.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21686/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.AttainedSignatures:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Data.Vector.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Data.Fin.Tuple.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.SetTheory.Cardinal.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/AttainedSignatures.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21687/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.SignatureTupleDFS
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Data.Fintype.BigOperators` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Algebra.Order.BigOperators.Ring.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21688/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.SignatureTupleDFS:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Data.Fintype.BigOperators` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Algebra.Order.BigOperators.Ring.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleDFS.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21707/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.SignatureTupleTraversal
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleTraversal.lean: imports `Mathlib.Algebra.BigOperators.Intervals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21708/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.SignatureTupleTraversal:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleTraversal.lean: imports `Mathlib.Algebra.BigOperators.Intervals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21715/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.TruncatedRing
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRing.lean: imports `Mathlib.Algebra.Ring.InjSurj` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21716/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.TruncatedRing:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRing.lean: imports `Mathlib.Algebra.Ring.InjSurj` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [21797/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.SquarefreeKeyMapProgram
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/SquarefreeKeyMapProgram.lean:537:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.Squarefree.KeyMapProgram.native_map_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/SquarefreeKeyMapProgram.lean:538:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.Squarefree.KeyMapProgram.mapped_eq_filter_map' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [21847/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.TruncatedRingProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRingProgram.lean: imports `Mathlib.Tactic.GCongr` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRingProgram.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21848/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.TruncatedRingProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRingProgram.lean: imports `Mathlib.Tactic.GCongr` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/TruncatedRingProgram.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21849/21931] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21850/21931] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21931/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.FactorCacheProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FactorCacheProgram.lean:239:8: Unused tactic linter: `skip` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [21941/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.BooleanDifferences
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.MvPolynomial.Degrees` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.MvPolynomial.Eval` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.Polynomial.Eval.Coeff` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.BigOperators.Group.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Data.Fintype.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21942/22251] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.BooleanDifferences:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.MvPolynomial.Degrees` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.MvPolynomial.Eval` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.Polynomial.Eval.Coeff` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Algebra.BigOperators.Group.Finset.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/BooleanDifferences.lean: imports `Mathlib.Data.Fintype.Powerset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21943/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DifferencePairs
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Data.List.Nodup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Data.List.OfFn` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21944/22251] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DifferencePairs:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Data.List.Nodup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Data.List.OfFn` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairs.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21957/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HeadEvaluation
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HeadEvaluation.lean: imports `Mathlib.Algebra.BigOperators.GroupWithZero.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21958/22251] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HeadEvaluation:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HeadEvaluation.lean: imports `Mathlib.Algebra.BigOperators.GroupWithZero.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21967/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HeadSpecializationProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HeadSpecializationProgram.lean: imports `Mathlib.Data.List.Forall2` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [21968/22251] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HeadSpecializationProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HeadSpecializationProgram.lean: imports `Mathlib.Data.List.Forall2` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [22175/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LayoutSourcePlanLookupScan
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:53:10: Unused tactic linter: `exact False.elim (hi ⟨0, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:54:10: Unused tactic linter: `exact False.elim (hi ⟨1, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:55:10: Unused tactic linter: `exact False.elim (hi ⟨2, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:56:10: Unused tactic linter: `exact False.elim (hi ⟨3, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:57:10: Unused tactic linter: `exact False.elim (hi ⟨4, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupScan.lean:58:10: Unused tactic linter: `exact False.elim (hi ⟨5, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [22187/22251] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LayoutSourcePlanLookupFound
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:49:10: Unused tactic linter: `exact False.elim (hi ⟨0, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:50:10: Unused tactic linter: `exact False.elim (hi ⟨1, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:51:10: Unused tactic linter: `exact False.elim (hi ⟨2, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:52:10: Unused tactic linter: `exact False.elim (hi ⟨3, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:53:10: Unused tactic linter: `exact False.elim (hi ⟨4, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LayoutSourcePlanLookupFound.lean:54:10: Unused tactic linter: `exact False.elim (hi ⟨5, rfl⟩)` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [22479/22640] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PerturbationAssemblyNativeCoordinate
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PerturbationAssemblyNativeCoordinate.lean:123:14: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [22509/22640] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.IdempotentPreparationProgramRepeat
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/IdempotentPreparationProgramRepeat.lean:91:51: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [22587/22640] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafProgramFactorServicesBase
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramFactorServicesBase.lean:64:20: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramFactorServicesBase.lean:73:20: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [22597/22640] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DifferencePairsProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairsProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [22598/22640] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DifferencePairsProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DifferencePairsProgram.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [23283/23365] Replayed OAI.Algorithms.SubexponentialSAT.Subexp.ScoreBuilderRawInput
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/ScoreBuilderRawInput.lean:60:46: Unused tactic linter: `<;>` can be replaced with `;`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/Subexp/ScoreBuilderRawInput.lean:99:51: Unused tactic linter: `<;>` can be replaced with `;`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23287/23365] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingLoaderProgramReady
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingLoaderProgramReady.lean:66:6: Unused tactic linter: `<;>` can be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23379/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingHeadProgramPreserve
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingHeadProgramPreserve.lean:92:30: Unused tactic linter: `rfl` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23539/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgramBoundsBasic
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsBasic.lean:70:58: Unused tactic linter: `exact hw` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsBasic.lean:70:69: Unused tactic linter: `exact hn` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23541/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgramBoundsLoader
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsLoader.lean:25:75: Unused tactic linter: `exact hn` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsLoader.lean:25:86: Unused tactic linter: `exact hw` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23543/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgramBoundsSelection
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsSelection.lean:50:21: Unused tactic linter: `exact hn` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsSelection.lean:50:32: Unused tactic linter: `exact hw` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramBoundsSelection.lean:50:43: Unused tactic linter: `exact hparam` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ℹ [23567/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafQueryFrontendExact
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafQueryFrontendExact.lean:89:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafQueryFrontend.frontend_eval_with_inputLengths' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [23583/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafParametersProgramSerializationBounds
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramSerializationBounds.lean:63:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafParametersProgram.Serialization.guarded_lengths_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafParametersProgramSerializationBounds.lean:64:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafParametersProgram.Serialization.uniform_guarded_lengths_polynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [23595/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgramPositivity
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafStatisticsProgramPositivity.lean:59:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafStatisticsProgram.arity_pos_of_free_pos' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [23695/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.ProgramTapeReplay
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/ProgramTapeReplay.lean:64:55: Unused tactic linter: `<;>` can be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ℹ [23703/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgramReplay
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramReplay.lean:77:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgram.Replay.command_avoids' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PackingCallerProgramReplay.lean:78:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingCallerProgram.Replay.replay' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [23741/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QuerySelectorFrames
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QuerySelectorFrames.lean:324:12: Unused tactic linter: `exact True.intro` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QuerySelectorFrames.lean:334:14: Unused tactic linter: `exact True.intro` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+ℹ [23743/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafQueryFrontendReplay
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafQueryFrontendReplay.lean:179:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafQueryFrontend.frontend_avoids_outerCarried' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafQueryFrontendReplay.lean:180:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafQueryFrontend.frontend_eval_rebase_outerCarried' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [23745/23757] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafProgramOuterCarriedMono
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramOuterCarriedMono.lean:13:12: Unused tactic linter: `trivial` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramOuterCarriedMono.lean:22:12: Unused tactic linter: `trivial` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23763/24121] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Asymptotics
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Asymptotics.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Base` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Asymptotics.lean: imports `Mathlib.Data.Nat.Sqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [23764/24121] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Asymptotics:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Asymptotics.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Base` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Asymptotics.lean: imports `Mathlib.Data.Nat.Sqrt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [23791/24121] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.PerturbationAssemblyInputReady
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PerturbationAssemblyInputReady.lean:45:8: Unused tactic linter: `exact h.lowModulus.trans h.modulus` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/PerturbationAssemblyInputReady.lean:46:8: Unused tactic linter: `exact h.lowWidth` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [23995/24121] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.MomentsAssemblyFoldRel
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/MomentsAssemblyFoldRel.lean: imports `Mathlib.Data.List.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [23996/24121] Ran OAI.Algorithms.SubexponentialSAT.SqrtLog.MomentsAssemblyFoldRel:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/MomentsAssemblyFoldRel.lean: imports `Mathlib.Data.List.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24131/24473] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.MomentsAssemblyProgramRegisterFrame
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/MomentsAssemblyProgramRegisterFrame.lean:56:6: Unused tactic linter: `exact takeFrame _ _ _ i hi` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [24159/24473] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLog.FactorResourceSource
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:108:21: Unused tactic linter: `exact hs` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:108:32: Unused tactic linter: `exact hlen` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:108:62: Unused tactic linter: `exact h.colors` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:108:79: Unused tactic linter: `exact h.nodes` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:109:4: Unused tactic linter: `exact h.offset` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:109:38: Unused tactic linter: `exact h.scalarWidth` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLog/FactorResourceSource.lean:109:60: Unused tactic linter: `exact h.power` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [24267/24473] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.FactorTableSpace
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FactorTableSpace.lean: imports `Mathlib.Tactic.GCongr` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24268/24473] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.FactorTableSpace:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FactorTableSpace.lean: imports `Mathlib.Tactic.GCongr` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24542/24759] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.LayoutSizes
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/LayoutSizes.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24543/24759] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.LayoutSizes:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/LayoutSizes.lean: imports `Mathlib.Data.Nat.Size` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24656/24759] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryLoop
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HighQueryLoop.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.List` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24657/24759] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryLoop:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HighQueryLoop.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.List` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24682/24759] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.BinaryClogProgram
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/BinaryClogProgram.lean: imports `Mathlib.Data.List.Induction` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24683/24759] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.BinaryClogProgram:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/BinaryClogProgram.lean: imports `Mathlib.Data.List.Induction` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24716/24759] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.FiniteFallback
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.EquivFin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Logic.Equiv.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Vector` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Finset.Lattice.Fold` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Sigma` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [24717/24759] Ran OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.FiniteFallback:irArts
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.EquivFin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Logic.Equiv.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Tactic.FinCases` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Vector` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Finset.Lattice.Fold` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean: imports `Mathlib.Data.Fintype.Sigma` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [24732/24759] Replayed OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:197:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.compiled_exact_count_and_sat' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:198:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:199:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_eth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:200:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.sat_polynomial_space' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OpenAIEth/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean:201:0: 'OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.original_sat_main' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [24734/24759] Replayed OAI.Bridges.ETH.FinalImplication
+info: OpenAIEth/OAI/Bridges/ETH/FinalImplication.lean:27:0: 'OAI.Bridges.ETH.not_positiveRateETH' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (24759 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, EthBridge.OpenAIChain.not_eth, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from EthBridge.OpenAIChain
+Running lean4lean-fuel kernel on solution
+[anonymous]:thmDecl KaehlerDifferential.mvPolynomialEquiv._proof_1: lean4lean took 1464
+[anonymous]:thmDecl KaehlerDifferential.mvPolynomialEquiv._proof_2: lean4lean took 1036
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.PowerPrograms.extend_mulPorts: lean4lean took 113118
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.BinaryPrograms.Mul.extend_addStack: lean4lean took 13301
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.ModularQuotientPrograms.0.OAI.Algorithms.SubexponentialSAT.ModularQuotientPrograms.embed_quotient: lean4lean took 67986
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.Subexp.AssignmentSeedRange.reverse_eval: lean4lean took 35370
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.Subexp.OneHotAlphabetProgram.visits: lean4lean took 70515
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.PackingProgram.Streams.weighted_eval: lean4lean took 24119
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.ModularRingPrograms.0.OAI.Algorithms.SubexponentialSAT.ModularRingPrograms.embed_seven: lean4lean took 7816
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.ModularRingCore.0.OAI.Algorithms.SubexponentialSAT.ModularRingPrograms.embed_mul: lean4lean took 11555
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.collector_not_touched: lean4lean took 1272
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.RingCoefficientLiftProgram.pad_eval: lean4lean took 3073
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.Squarefree.Program.embedStorage: lean4lean took 2020
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.Squarefree.Program.embedSeven: lean4lean took 8110
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SubexpNodeIndexProgram.Internal.compare_eval: lean4lean took 6237
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.DensePolynomialProgram.nativeMulBudget_polynomial._proof_1_1: lean4lean took 1340
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.SqrtLog.ReconstructionProgramPolynomialCost.0.OAI.Algorithms.SubexponentialSAT.SqrtLog.ReconstructionProgram.Native.controller_polynomial: lean4lean took 11394
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.LayoutSourcePlanLookup.Scan.command_eval_found: lean4lean took 24401
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.PolynomialExecutorProgram.callbackCost_polynomial._proof_1_1: lean4lean took 1212
+[anonymous]:thmDecl _private.Complexity.Computability.Machines.Turing.MultiTape.Internal.FoldCompiler.0.Turing.MultiTapeTM.Internal.FoldCompiler.foldl._proof_1_13: lean4lean took 1426
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryStreamBudgets.0.OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryStreamBudgets.budget_le_scalar: lean4lean took 3917
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryProducerSpace.Native.combinedBudget_polynomial: lean4lean took 1692
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLog.PerturbationBetaProgram.nativeBudget_polynomial._proof_1_1: lean4lean took 1321
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.SignatureTupleRun.leaf_step: lean4lean took 25887
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.DFSVisit.body_refinement._proof_1_8: lean4lean took 56475
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.DisjointReuse.DFSVisit.body_refinement._proof_1_4: lean4lean took 56700
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix: lean4lean took 58557
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryReconstructionReplay.prepare_avoids: lean4lean took 2040
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryKeptFrame.Control.reconstruction_avoids: lean4lean took 2053
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafProgramReadbackReduce.0.OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafProgram.Readback.embed_remainder: lean4lean took 106309
+[anonymous]:thmDecl _private.OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryReconstruction.0.OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryReconstruction.core_execution: lean4lean took 1810
+[anonymous]:thmDecl OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.HighQueryProgram.conditioned_resources: lean4lean took 75650
+[anonymous]:thmDecl OAI.Bridges.AnthropicETH.converterHypothesis_proved: lean4lean took 30106
+checked 98683 declarations
+lean4lean-fuel kernel accepts the solution
+Running nanoda-pinned kernel on solution
+Checked 101621 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+nanoda-pinned kernel accepts the solution
+Running paranoid kernel on solution
+paranoid kernel accepts the solution
+Running Lean default kernel on solution
+Lean default kernel accepts the solution
+Your solution is okay!
