@@ -1,11 +1,11 @@
 {
  "what": "THE deposit record. Every Zenodo archive of this repository, its DOI and its date, in one place. tools/check-wiring.js gates CITATION.cff against it.",
  "why": "CITATION.cff named version v2026.09.1 and carried the DOI of v2026.09 for a day and a half — 10.5281/zenodo.22257596 instead of 10.5281/zenodo.22285003. Nothing caught it, because the version string and the DOI were two facts nobody had written down together. They are written down together here.",
- "recorded": "2026-09-04",
+ "recorded": "2026-11-05",
  "observedFrom": "https://zenodo.org/api/records/<id>, read 2026-09-04",
  "conceptDoi": "10.5281/zenodo.22225860",
  "conceptNote": "Resolves to the latest archived version. This is the DOI the site pages and the papers cite, and it is the only one that should appear in prose that outlives a release.",
- "latest": "v2026.11.05",
+ "latest": "v2026.11.05b",
  "versions": [
   {
    "version": "lambda4-v1.0.1",
@@ -65,7 +65,13 @@
    "version": "v2026.11.05",
    "doi": "10.5281/zenodo.23966840",
    "date": "2026-11-05",
-   "note": "Current. Minted by the GitHub integration on the tagged release v2026.11.05 (commit 289590ff): the technical note paper/eth-chain.pdf (Anthropic's ETH refutation carried to a standard multitape Turing machine in one Lean), the ETH chain records, the FlashProve check, the AI math claims census. Verified from the public record the same hour. ITS VERSION FIELD READS v2026.10.27: .zenodo.json's `version` was not bumped before the tag; a metadata edit needs the depositor's token (tools/zenodo-metadata.js --apply), the operator's."
+   "note": "SUPERSEDED by v2026.11.05b on 2026-11-05 — cite the concept DOI or v2026.11.05b. Minted by the GitHub integration on the tagged release v2026.11.05 (commit 289590ff): the technical note paper/eth-chain.pdf (Anthropic's ETH refutation carried to a standard multitape Turing machine in one Lean), the ETH chain records, the FlashProve check, the AI math claims census. Verified from the public record the same hour. ITS VERSION FIELD READS v2026.10.27: .zenodo.json's `version` was not bumped before the tag; a metadata edit needs the depositor's token (tools/zenodo-metadata.js --apply), the operator's."
+  },
+  {
+   "version": "v2026.11.05b",
+   "doi": "10.5281/zenodo.23985003",
+   "date": "2026-11-05",
+   "note": "Current. Minted by the GitHub integration on the tagged release v2026.11.05b (commit 8a8e1375): the technical note paper/eth-chain.pdf v0.2 (both labs' ETH refutations carried to a standard multitape Turing machine in one Lean each), the OpenAI chain record with the judge's shipped and named runs, the one report page, the register at 141 rows. Verified from the public record the same hour; .zenodo.json's version bumped before the tag, so its version field reads v2026.11.05b."
   }
  ],
  "titleLag": {
