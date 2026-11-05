@@ -1,5 +1,5 @@
 {
- "what": "The OpenAI chain in one environment: OpenAI's family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley's two bridge theorems ported to complexitylib's Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib's multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean's own judge (lake comparator --paranoid, six checkers).",
+ "what": "The OpenAI chain in one environment: OpenAI's family-378 proof (exact_count_and_sat, original_sat_main) and Hawkley's two bridge theorems ported to complexitylib's Lean (v4.36.0-rc2) prove MainResults.ETHIsFalse against the vendored MainResults.lean, and with C2 give ¬ETH on cslib's multitape Turing machine, decided here with our statement pin, the port ledger against the scout pins, axioms files, nanoda (two negative controls), leanchecker --fresh, three planted variants, and Lean's own judge (lake comparator) with named checkers — leanchecker-paranoid, nanoda (our pinned build, 1 GiB stack), lean4lean (fuel ×100) and Lean's default kernel — beside the judge as shipped (--paranoid), whose four bundled checkers stop at their own limits on this export.",
  "generated": "2026-11-05",
  "claim": {
   "repo": "https://github.com/carlostoledo1891/claimbox",
@@ -18,10 +18,11 @@
   "authors": "the statement by hand; the port and the corollary by an AI agent (Claude), in claimbox"
  },
  "verdict": "REFUSED",
- "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator --paranoid accepting with all six checkers (con-leche and con-ron: 0 declarations).",
+ "scope": "ETH (complexitylib's, on cslib's deterministic multitape Turing machine with encCNF) is false, from OpenAI's own proof through Hawkley's two links and C2, every step elaborated and checked in one Lean (v4.36.0-rc2): no step from OpenAI's proof to the standard machine crosses a version seam. Decided: the statement byte-equal to the pin, MainResults.lean byte-equal to Anthropic's, every ported file byte-equal to its scout pin (3,190) or modified as PORT.md declares (20), Hawkley's two theorem types as pinned, the three standard axioms, nanoda accepting all 101,618 declarations beneath it, leanchecker --fresh, the three planted variants refused, and lake comparator accepting with its named checkers (none). As shipped, lake comparator --paranoid accepts with Lean paranoid and Lean default and its four bundled checkers stop at their own limits (nanoda: a worker thread's stack; lean4lean: its fuel; con-leche and con-ron: a compiled fuel constant, \"never a verdict\" in their charter) — recorded, not counted as a rejection.",
  "fails": [
-  "lake comparator --paranoid did not accept with all six checkers (Lean default, Lean paranoid)",
-  "OpenAI's own challenge REJECTED the ported proof (exit 1; checkers accepting: Lean default, Lean paranoid)"
+  "lake comparator with the named checkers did not accept the chain (no named run)",
+  "the planted statement was NOT rejected by the judge with the named checkers",
+  "OpenAI's own challenge: no named run (Q3)"
  ],
  "statement": {
   "pin": "corpus/eth-refutation/openai-chain/statement.lean",
@@ -36,31 +37,54 @@
   "The proof that checks here is a modified copy of OpenAI's and Hawkley's: 20 of its 3,210 files were changed to build on the newer Lean and Mathlib (every change listed with both sha256s in OpenAIEth/PORT.md, and every file checked here against the scout pins: byte-equal to its pin, or modified exactly as declared, nothing else). Lean checks whatever proof is there against the unchanged statements (Hawkley's two theorem types printed by our file, MainResults.lean byte-equal to Anthropic's), so the port changes nothing that is decided; it is said here because the proof is not OpenAI's or Hawkley's bytes.",
   "This closes the version seam on OpenAI's side the way Anthropic's was closed (certs/eth-chain.json): by rebuilding the proof in the statement's Lean (v4.36.0-rc2), not by comparing kernels across v4.34.1 → v4.36.0-rc2. That complexitylib's ETH is the textbook ETH stays a reading of a definition.",
   "Lean's judge ran without its sandbox (bubblewrap cannot create a user namespace on RunPod's containers). The sandbox protects the judge from a hostile build; the build here is our own claimbox's.",
+  "The judge's --paranoid run did not finish on this export (2.45 GB; the Anthropic chain's was 0.65 GB and all six checkers accepted there): the bundled nanoda 0.4.17 overflows a worker thread's stack and has no stack setting, lean4lean's fuel counter reaches zero, con-leche and con-ron exhaust a compiled fuel constant — each stop reproduced by hand on the comparator's own export (judge.diagnosis). The verdict reads the judge re-run with checkers that can finish: leanchecker-paranoid, our pinned nanoda with a 1 GiB thread stack, lean4lean with its fuel raised 100×, and Lean's default kernel. con-leche and con-ron are not among them; nothing here is their verdict either way. The amendment is dated in the pre-registration.",
   "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party."
  ],
  "judge": {
-  "claim": {
-   "exit": 1,
-   "okay": false,
-   "accepted": [
+  "named": {
+   "chain": null,
+   "planted": null,
+   "checkers": [
     "Lean default",
-    "Lean paranoid"
+    "paranoid",
+    "nanoda-pinned",
+    "lean4lean-fuel"
    ],
-   "declarations": null,
-   "sandbox": "nosandbox",
-   "mismatch": null,
-   "sandboxRefusal": true
+   "externalKernels": null,
+   "challengeSha256": null,
+   "facts": null
   },
-  "planted": {
-   "exit": 1,
-   "okay": false,
-   "accepted": [],
-   "declarations": null,
-   "sandbox": "nosandbox",
-   "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
-   "sandboxRefusal": true
+  "shipped": {
+   "claim": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [
+     "Lean default",
+     "Lean paranoid"
+    ],
+    "declarations": null,
+    "sandbox": "nosandbox",
+    "mismatch": null,
+    "sandboxRefusal": true,
+    "stops": {
+     "lean4lean": "(kernel) deterministic timeout at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready",
+     "nanoda": "thread has overflowed its stack",
+     "con-leche": "internal error: fuel exhausted: whnfCore [at theorem OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102]",
+     "con-ron": "error: fuel exhausted: whnfCore [at thm OAI.Bridges.AnthropicETH.converterHypothesis_proved, fold position 24102]"
+    }
+   },
+   "planted": {
+    "exit": 1,
+    "okay": false,
+    "accepted": [],
+    "declarations": null,
+    "sandbox": "nosandbox",
+    "mismatch": "error: Challenge and solution theorem statement do not match: 'EthBridge.OpenAIChain.not_eth'",
+    "sandboxRefusal": true
+   },
+   "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3"
   },
-  "challengeSha256": "520c6b4515d1e0419e6a7a9c45ea83c8b33d7b581e53fdfe57111a40b127a0c3"
+  "diagnosis": null
  },
  "p3": {
   "challenge": {
@@ -70,15 +94,30 @@
    "served": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
    "module": "Challenge.OpenAISubexponentialSAT"
   },
-  "ran": true,
+  "ran": false,
   "accepted": false,
-  "checkers": [
-   "Lean default",
-   "Lean paranoid"
-  ],
-  "declarations": null,
-  "sandbox": "nosandbox",
-  "rejection": "exit 1",
+  "checkers": [],
+  "sandbox": null,
+  "named": null,
+  "shipped": {
+   "exit": 1,
+   "okay": false,
+   "accepted": [
+    "Lean default",
+    "Lean paranoid"
+   ],
+   "declarations": null,
+   "sandbox": "nosandbox",
+   "mismatch": null,
+   "sandboxRefusal": true,
+   "stops": {
+    "lean4lean": "(kernel) deterministic timeout at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready",
+    "nanoda": "thread has overflowed its stack",
+    "con-leche": "internal error: fuel exhausted: whnfCore [at theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052]",
+    "con-ron": "error: fuel exhausted: whnfCore [at thm OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.QueryNodeEvaluation.nodeBody_prefix, fold position 86052]"
+   }
+  },
+  "rejection": null,
   "notRunReason": null,
   "configChanges": {
    "challenge_module": {

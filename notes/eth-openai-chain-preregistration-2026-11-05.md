@@ -102,3 +102,28 @@ OpenAI's side the way Anthropic's was closed: by rebuilding the proof in the sta
   library's representation, listed with the declaration it touches. The stop rule's words "a forced Mathlib rename" read
   "a forced Mathlib change — a rename or a representation change of the same object — listed in §3". A change to what a
   statement asserts remains a stop.
+- **2026-11-05 12:55 UTC — the judge's four bundled checkers stop at their own limits; the judge is re-run with named
+  checkers (a platform failure, re-run and recorded as such).** On the decision pod (f0xfo9d8mcnhz6) check 5 ran as
+  written: `lake comparator --paranoid` on the chain (P1) and on OpenAI's own challenge (P3). In both, Lean's paranoid
+  kernel (leanchecker-paranoid) and Lean's default kernel ACCEPT; the four bundled external checkers exit non-zero, each
+  for a resource reason in its own words (P1.err, P3.err; reproduced by hand on a second pod, atkkgtterhqpxk, on the
+  export made exactly as the comparator makes it, 2,452,607,904 bytes, sha256 d9cae367…): the bundled nanoda 0.4.17
+  "thread has overflowed its stack" (exit 134) in 47 s — its configuration has no stack-size field, and the same build
+  overflows with RUST_MIN_STACK at 1 GiB, while our pinned nanoda (ammkrn/nanoda_lib 8de7e0c4, the build check 3 used)
+  accepts the same export in 142 s with 16 threads and a 1 GiB thread stack; lean4lean "(kernel) deterministic timeout"
+  at OAI.Algorithms.SubexponentialSAT.SqrtLog.LeafRingSetupProgram.Interpolation.staged_ready (exit 1, 549 s) — its own
+  fuel counter (FuelConfig: whnf, whnfEager, lazyDelta, etaExpand, recDepth, inductiveFuel) reaching zero, and it accepts
+  the export in 1,382 s with every field raised 100×; con-leche and con-ron exit 3 "internal error: fuel exhausted:
+  whnfCore" at OAI.Bridges.AnthropicETH.converterHypothesis_proved (170 s / 69 s; the same with --jobs=16) — a compiled
+  constant with no setting, and in their charter a fuel stop is "OUR resource limit, so a DECLINE, never a verdict".
+  The export is 2.45 GB against 0.65 GB for the Anthropic chain, where all six accepted. None of the four is a
+  rejection of a declaration. The operator's choice (12:55 UTC, "comparator with named checkers"): check 5 is re-run
+  as `lake comparator` (no `--paranoid`) with `external_kernels` = leanchecker-paranoid (the toolchain's), our pinned
+  nanoda (16 threads, 1 GiB stack, on the comparator's own config and export) and lean4lean with every fuel field
+  raised 100×, Lean's default kernel last as always, on the same pod, with the same challenge file (sha256 520c6b45…,
+  the pin plus its import and `sorry`) against the chain (Q1), the planted statement (Q2, must be rejected on the
+  statement) and OpenAI's own challenge against the ported solution (Q3). The record keeps the `--paranoid` runs as they
+  ran (both accepting kernels and each stop in the checker's words) beside the named run, and the scope sentence names
+  the checkers that accepted. con-leche and con-ron are not among them: they cannot finish this export at any setting.
+  Nothing else in the pre-registration changes; the pod facts of both runs are imported under
+  corpus/eth-refutation/openai-chain/runs/.
