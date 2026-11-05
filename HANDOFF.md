@@ -42,11 +42,10 @@ NEXT SESSION, IN ORDER (handoff 2026-11-05 ~21:20 UTC; the session's background 
      block N attests": cp the .ots into seals/reveals/claimbox-intake-2026-11-05/, re-run `python3 -I instruments/seal/seal.py verify
      seals/reveals/claimbox-intake-2026-11-05 --registry . > certs/seal-first-use.json`, `make page R=verify-seal`, commit, push:
      the page then shows both dates. (A watcher did this automatically while the session lived; it dies with the session.)
-  ◆◆ 2. CLAIMBOX'S BRANCH: the owed steps ran in this session on intake-2026-11-05 (the prose re-decision exit 0 after 4,161 s;
-     the battery write, `make web` and `make test` were running at the handoff, then one commit). Check `git -C
-     ~/Projects/claimbox log --oneline -3 intake-2026-11-05` and `git status`: if the last commit is "after the lift: …" the
-     branch is complete; if not, re-run `python3 tests/battery.py --write`, `make web`, `make test` (read the pass/fail line — it
-     pipes through tail) and commit. The PUSH and the merge are the operator's / claimbox's own session's word.
+  ◆◆ 2. CLAIMBOX'S BRANCH IS COMPLETE (21:23 UTC): intake-2026-11-05 at 6a52e11 — the lift (0c9f304), the intake route (71b9426),
+     then "after the lift" (the prose re-decision exit 0 after 4,161 s; the battery re-written; make web; make test 617 pass,
+     0 fail, 171/171 red controls); the working tree clean. NOT PUSHED: the push and the merge into main are the operator's /
+     claimbox's own session's word (`git -C ~/Projects/claimbox push -u origin intake-2026-11-05`, then the merge).
   ◆◆ F. THE JOB FUNNEL (the operator, 2026-11-05 evening: "the only thing I want to claim in this journey is a job"; the funnel
      as agreed, each stage's output a public artifact the next stage points at; the measure named per stage):
      F1 BE SEEN by the right fifty people — answer every reply within hours, with numbers: the three checker issues
