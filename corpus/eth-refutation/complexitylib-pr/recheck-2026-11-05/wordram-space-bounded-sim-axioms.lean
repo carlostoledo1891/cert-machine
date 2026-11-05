@@ -1,0 +1,6 @@
+import Complexity.Computability.WordRAM.OfTuring.Space
+import Complexity.Computability.Complexity.FineGrained.WordRAM
+#print axioms Cslib.WordRAM.OfTuring.executes_simProgram_of_runsInSpace
+#print axioms Cslib.WordRAM.uniformDecidableInTimeLogWord_of_decidableInTimeAndSpace
+#print axioms Cslib.Complexity.CountingNativeEndpoint.exists_decidableInTimeAndSpace_KSAT
+#print axioms Cslib.WordRAM.uniformDecidableInTimeLogWord_KSAT
