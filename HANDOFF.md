@@ -22,6 +22,15 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-11-05 ~01:10 UTC: RELEASE v2026.11.05 → Zenodo doi:10.5281/zenodo.23966840 (its version field reads v2026.10.27:
+     .zenodo.json was not bumped before the tag — bumped now; the record's label needs the depositor's token, the
+     operator's). The technical note paper/eth-chain.pdf (v0.1, with the DOI) on the papers shelf. /reports/eth-anthropic-
+     chain.html: the story first, the definition table (corpus/eth-refutation/definition-reading.json, a reading), ETH only
+     not SETH, the target co-written by OpenAI, the two complexitylib commits. Posted: formal-math #36 (6646098070),
+     rpi-index #1 (6646098520). complexitylib PRs READY LOCALLY, NOT PUSHED (scratchpad complexitylib-pr/, two branches on
+     b28df563: wordram-space-bounded-sim eb32a374, tm2-degree-uniform fd0985df; PR-BODY.md); decisions for the operator:
+     one PR or two, Schlesinger in the Authors line of the space proof, comment on #739 first, re-decide the port in
+     cert-machine before sending. The e-mail to Paturi: the operator's, from his thread.
   ◆ ETH: THE ANTHROPIC CHAIN CERTIFIED IN ONE LEAN (2026-11-05 ~00:30 UTC): certs/eth-chain.json (claimbox c1442b1;
      Anthropic's eth/ ported to Lean 4.36, 47 of 809 files edited, PORT.md; nanoda 77,276 declarations; leanchecker --fresh;
      lake comparator --paranoid, six checkers, no sandbox; three planted variants refused) and certs/eth-comparator.json
