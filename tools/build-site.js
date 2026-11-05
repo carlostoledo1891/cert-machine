@@ -2086,11 +2086,6 @@ for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {
   fs.mkdirSync(path.dirname(early), { recursive: true });
   if (!fs.existsSync(early) || !fs.readFileSync(early).equals(buf)) fs.writeFileSync(early, buf);
 }
-/* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
-   (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
-{ const GR = require(path.join(__dirname, 'build-grammar.js'));
-  put('grammar/index.html', Buffer.from(GR.html()));
-  put('grammar/llms.txt', Buffer.from(GR.brief()));   /* the page's plain-text brief, for AI assistants (2026-10-30) */ }
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
@@ -2150,6 +2145,21 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    makes a claim that needs gating. This build neither writes nor prunes there.
    The one thing it does do is list its pages in the sitemap below, because a
    page nobody can find is not free, it is hidden. */
+/* THE GUARD READS site/ ON DISK (the 11-03 trap, again for the hubs, 2026-11-05): /grammar/'s guard runs the marks gate over the
+   built pages, and put() only records. A register that moved left the landing and /verify/ stale in site/ and refused the whole
+   sync, in a loop (the landing is written by the control build, which refuses while the marks battery reads the stale copy).
+   So /grammar/ is built after every other page is recorded, and every recorded page is written early, as the reports are. */
+for (const [rel, buf] of desired) {
+  if (!/\.(html|txt|json|xml)$/.test(rel)) continue;
+  const early = path.join(ROOT, 'site', rel);
+  fs.mkdirSync(path.dirname(early), { recursive: true });
+  if (!fs.existsSync(early) || !fs.readFileSync(early).equals(buf)) fs.writeFileSync(early, buf);
+}
+/* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
+   (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
+{ const GR = require(path.join(__dirname, 'build-grammar.js'));
+  put('grammar/index.html', Buffer.from(GR.html()));
+  put('grammar/llms.txt', Buffer.from(GR.brief()));   /* the page's plain-text brief, for AI assistants (2026-10-30) */ }
 /* sitemap: every PAGE in the desired map (the landing, section indexes,
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
