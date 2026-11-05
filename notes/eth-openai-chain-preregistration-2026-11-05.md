@@ -88,3 +88,17 @@ OpenAI's side the way Anthropic's was closed: by rebuilding the proof in the sta
 - Nothing is posted without the operator's word. The outcome goes to /eth/ §5b, the census, one report page for both
   chains (/reports/eth-chain.html, a 301 from eth-anthropic-chain.html) and the note v0.2; Hawkley is told on
   rpi-index #1 after the record, with the PORT ledger linked.
+
+## Amendments (dated)
+- **2026-11-05 ~05:30 UTC — the port builds on a pod, not on the Mac.** The port agent found the 16 GB Mac cannot hold Mathlib's
+  .oleans for a 3,210-module build (each `lean` maps ~7.8 GB; 183 modules in 2.5 h, thrashing). The build loop moved to a
+  RunPod cpu3m 16 vCPU / 128 GB pod (uueovtfolgfovc, US$0.88/h, EU-NL-1), under the same US$25 soft cap; the local tree in
+  claimbox stays the source of truth and the commit comes from it. The pre-registration's "builds locally (no cost)" line is
+  replaced by this; nothing decided changes.
+- **2026-11-05 ~05:30 UTC — ruling on R1 (a forced Mathlib change that is not a rename).** Mathlib 69552756 made `Set α` a
+  structure, so `DecidablePred (side t g)` no longer elaborates and is written `DecidablePred (· ∈ side t g)`: the same
+  constant, the same set, a definitionally equal predicate, in four anonymous instances (OpenAIEth/PORT.md §3). Ruled
+  admissible under the stop rule as the Anthropic port's R4 was (`coeff m p` → `p.coeff m`): a change forced by the
+  library's representation, listed with the declaration it touches. The stop rule's words "a forced Mathlib rename" read
+  "a forced Mathlib change — a rename or a representation change of the same object — listed in §3". A change to what a
+  statement asserts remains a stop.
