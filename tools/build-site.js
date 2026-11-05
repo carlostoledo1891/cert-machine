@@ -715,6 +715,12 @@ const REPORTS = [
     title: 'PU Verificado',
     desc: 'Every fixed-rate Tesouro Direto price since ' + PU.scope.firstDate.slice(0, 4) + ' re-decided from the Treasury\u2019s own rule table in exact arithmetic — the settlement and rounding conventions measured, every OFF price listed with the exact value and the difference in centavos, a second decider sharing no code on every exception.',
     n: fmt(PU.scope.pairsDecided) + ' prices decided · ' + (100 * (PU.counts.byVerdict.REPRODUCED || 0) / PU.scope.pairsDecided).toFixed(2) + '% the rule\u2019s value to the centavo · ' + fmt(PU.counts.byVerdict.OFF || 0) + ' off' },
+  { g: 'applied', f: 'verify-seal.html', k: 'for researchers · Verify Seal',
+    title: 'Prove you held the draft, without showing it',
+    desc: 'A seal proves you held exact bytes by a date and reveals nothing until you choose: a salted digest leaves your machine, two public anchors date it, one line of shell re-derives it; sealed file by file, one file can be shown while the rest stay sealed. What a seal does not say, first.',
+    n: (() => { const B = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'seal-battery.json'), 'utf8'));
+      if (B.verdict !== 'PASS' || B.certified !== 0) fail('the Verify Seal card would misstate the battery');
+      return B.planted + ' planted forgeries · ' + B.certified + ' certified · ' + B.red_controls.length + ' red controls fired'; })() },
   { g: 'applied', f: 'skyaudit.html', k: 'aerospace · the app, cited',
     title: 'SkyAudit: the helicopter day, decided',
     desc: 'One pinned day of New York helicopter traffic, re-flown on paper by four eVTOLs’ own published numbers under the FAA reserve rule — every flight decided: E-FLYABLE, BEYOND RANGE with an exact witness, or NEEDS DATA where public specs cannot say. The citable methodology behind the live app.',

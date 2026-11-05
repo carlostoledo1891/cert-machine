@@ -44,6 +44,13 @@ agent for claimbox; the Seal's scope = manifest v2 + its first use on claimbox; 
      Seal panel's one sentence on the reveal; the card stays "In development". THE FIRST USE waits for lane B's report: seal2
      the claimbox intake branch's deliverable, register the digest (tools/seal-registry.py add + one commit = the anchor),
      reveal the route document, verify it — then say it on the page.
+     ~20:10 UTC, THE SEAL'S PAGE BUILT AND LIVE (the operator: build it now, link the tool, both anchors for the first use,
+     written for researchers with a draft): /reports/verify-seal.html (tools/build-report-verify-seal.js, read from
+     certs/seal-battery.json and seals/registry.jsonl; a battery not PASS or a certified forgery refuses the page) — the story
+     in one minute, what a seal does not say FIRST, the six commands and the two shell one-liners, the three verdict words, the
+     commitment and the battery tables, the registry (empty, the first row promised); series `record`, hub group `applied`;
+     the /verify/ card links it and names the tool, the section links the README; the card's tag still "In development".
+     opentimestamps-client installed (~/Library/Python/3.9/bin/ots; put it on PATH for `stamp`/`open`).
   ◆◆ B. CLAIMBOX, THE LAB-CLAIM INTAKE (a background agent working in ~/Projects/claimbox; it does NOT push — it leaves a branch
      and a report; the push is the operator's or claimbox's own session; cert-machine reads claimbox read-only as always):
      (1) `make lift` there — certs/claims-ledger.json's digest moved three times on 2026-11-05 (now 3558fcf5…) and PROVENANCE.json
