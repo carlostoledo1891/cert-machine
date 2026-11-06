@@ -302,6 +302,45 @@ declaration of kind axiom of the leaf module and flags it, and the planted theor
 exit 0; nanoda refuses. The other predictions stand (P1, P2, P4 came out as predicted on the toy; P4's theorem is
 listed with no axiom at all, the blind spot).
 
+### Lane 4 amendment C, 2026-11-06, written AFTER a first pass and BEFORE the pass that is recorded
+
+**The first pass.** The script as first committed (`tools/runpod-zq-lane4.sh` sha256 `482089e3…`) ran every stage
+once, 02:21–02:33 UTC, under `/root/zq-lane4/{src,out,work}`. It showed two faults of ours and one of a tool:
+(a) the `modules` stage fed all 53 entries of `SOURCE_MANIFEST.json` to `lean`, the 48 modules plus the root, the
+frozen file and three non-Lean files (the three errored, as text that is not Lean does); it now takes exactly the 48
+entries whose `module` is `ZInQ.*` (the root is covered by the build, the frozen file by F1);
+(b) the bundled `nanoda_bin` 0.4.19 overflowed a worker's stack on the full export (exit 134 after 62 s, peak RSS
+22 GB); (c) everything else ran: build, our audit, both `leanchecker` modes and `--fresh` exited 0, the plants exited
+as predicted. **Nothing of the first pass is imported into the record.** The recorded pass is a second, clean one of
+the final script in a fresh directory, `/root/zq-lane4/final` (new clone, new build). What the first pass taught is
+written here before that pass:
+
+1. **nanoda with a configurable stack.** nanoda_lib at commit `8de7e0c4` (v0.4.31, upstream HEAD of 2026-10-29,
+   unmodified; its PR #78 adds the config key `stack_size_bytes`) is built with `cargo build --release --locked` (Rust
+   stable from rustup, under `/root/zq-lane4/final/rust`) and run with `stack_size_bytes` = 1 GiB on the same full
+   export and on each planted export; the binary's sha256 and `rustc --version` are recorded. The bundled 0.4.19 is
+   run again on the same inputs and recorded; if it overflows again it is a tool row, never a verdict input. The
+   nanoda row of the verdict is the v0.4.31 run, and the plants' "nanoda refuses" (exit ≠ 0) applies to both binaries.
+2. **The exported view, measured.** On the toy, our audit run from a module-system file (`module`, `public import`)
+   sees no private declaration, and sees every imported THEOREM as an axiom (bodies are not exported), so only
+   `Lean.collectAxioms` (the stored tables) means anything there. Our audit body is run once that way on the library
+   (stage `exported`), informational: prediction, exactly their 704 names.
+3. **The reconciliation classes, named from the first pass.** Ours 990 = their 704 + 286, all theorems with
+   `_private` names; by the part after `_private.<module>.0.`: last component `_proof_<i>_<j>` (aux proofs, 198),
+   `_simp_<i>_<j>` (15), `_arg_pusher` (4), and any other private name (69 = the "private" count of their own
+   SOURCE_MANIFEST). The recorder applies exactly this rule; a non-private extra, a count off the manifest's 69, or a
+   name of theirs not ours is a disagreement (REFUSED).
+4. **The axiom-set comparison, refined.** Their 704 axiom sets are compared with BOTH traversals. In the first pass
+   `Lean.collectAxioms` equalled theirs on all 704 (their checker's method, reproduced) and ours equalled theirs on
+   700; on 4, the constructors `verum`, `falsum`, `conj`, `disj` of `ZInQ.EquationCompression.EquationFormula`, ours
+   is {propext, Quot.sound, Classical.choice} and theirs and Lean's are empty: those constructors' own types mention
+   only the inductive, and ours follows the inductive back to its `equation` constructor (whose `MvPolynomial (Fin n)
+   ℚ` reaches the three axioms), as Lean's own uncached walk would; v4.35.0's stored table has [] for them (our
+   reading: the shared cache's sentinel when the module's table is written). Amendment A's letter would call these
+   4 a disagreement; we refine it here, after seeing them, to: it reconciles when Lean's sets equal theirs on all
+   704 and ours contains theirs on all 704 with every strict difference listed, all within the three standard axioms.
+   That this rule was written after the first pass is said in the record.
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."

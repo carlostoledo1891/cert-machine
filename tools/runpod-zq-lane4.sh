@@ -6,32 +6,39 @@
 # THE THEOREM IS UNDECIDED HERE. The main Lean target (lean/Frozen/BoundedIntegerPolynomial.lean) is `sorry`; this
 # lane checks the helper library and the target's statement, and decides nothing about the theorem.
 #
-# Pre-registered in notes/zq-preregistration-2026-11-06.md (lane 4, amendments A and B). Everything happens under
-# /root/zq-lane4 (another agent works elsewhere on the same pod): the clone at the pin (sparse, lean/ only), the
-# sha256 of every file under lean/ (the desk compares them with SOURCE_MANIFEST.json), `lake exe cache get`,
-# `lake build ZInQ`, each of the 48 sources re-elaborated with -Ddebug.skipKernelTC=false, our axiom audit
-# (tools/zq-lean-audit.lean), the frozen target alone and in a copy with one added lean_lib, leanchecker,
-# leanchecker-paranoid, leanchecker --fresh, a full-environment leanexport replayed by nanoda, lean4lean (one try),
-# and the planted variants P1-P4 (tools/zq-lean-plants.txt) in a copy. Every step writes <step>.log, .exit, .time
-# (GNU time -v: wall, peak RSS), .start, .end and .code (the sha256 of our files) into /root/zq-lane4/out, the only
-# directory the desk copies back. No verdict here: tools/record-zq-lean-replay.js decides on the desk.
+# Pre-registered in notes/zq-preregistration-2026-11-06.md (lane 4, amendments A, B and C). Everything happens under
+# /root/zq-lane4/$ZQ_RUN (another agent works elsewhere on the same pod): the clone at the pin (sparse, lean/ only),
+# the sha256 of every file under lean/ (the desk compares them with SOURCE_MANIFEST.json), `lake exe cache get`,
+# `lake build ZInQ`, each of the 48 modules re-elaborated with -Ddebug.skipKernelTC=false, our axiom audit
+# (tools/zq-lean-audit.lean) from a plain file and, informational, from a module-system file (the exported view),
+# the frozen target alone and in a copy with one added lean_lib, leanchecker, leanchecker-paranoid, leanchecker
+# --fresh, a full-environment leanexport replayed by nanoda (the bundled 0.4.19 and v0.4.31 built here at 8de7e0c4
+# with a 1 GiB worker stack), lean4lean (one try), and the planted variants P1-P4 (tools/zq-lean-plants.txt) in a
+# copy. Every step writes <step>.log, .exit, .time (GNU time -v: wall, peak RSS), .start, .end and .code (the sha256
+# of our files) into $ZQ_RUN/out, the only directory the desk copies back. No verdict here:
+# tools/record-zq-lean-replay.js decides on the desk.
 #
 # The claimant's repository has no licence: its files are built and read here and never leave the pod.
 #
-# usage (on the pod, our files in /root/zq-lane4/ours): nohup bash /root/zq-lane4/ours/runpod-zq-lane4.sh STAGE... &
-#   stages: clone rehash cache build modules audit frozen checkers export nanoda fresh lean4lean planted
+# usage (on the pod, our files in /root/zq-lane4/ours):
+#   ZQ_RUN=final nohup bash /root/zq-lane4/ours/runpod-zq-lane4.sh STAGE... &
+#   stages: clone rehash cache build modules audit exported frozen checkers fresh export nanoda-build nanoda
+#           lean4lean planted
 set -uo pipefail
 unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
-W=/root/zq-lane4; OUT=$W/out; OURS=$W/ours; WORK=$W/work
+R=/root/zq-lane4; OURS=$R/ours; W=$R/${ZQ_RUN:?set ZQ_RUN, e.g. final}; OUT=$W/out; WORK=$W/work
 CLONE=$W/src/diophantine-z-q; D=$CLONE/lean
 PIN=97cec7fdd757d9a8e4f468151a47a6d3610fb2f2
 URL=https://github.com/elliotglazer/diophantine-z-q.git
 TC=leanprover/lean4:v4.35.0
 BIN=/root/.elan/toolchains/leanprover--lean4---v4.35.0/bin
+NANODA_URL=https://github.com/ammkrn/nanoda_lib.git
+NANODA_PIN=8de7e0c4ed3052745a7f8725164efd9e76d84c56
+NANODA2=$W/bin/nanoda_bin-0.4.31
 ALLOWED='["propext", "Quot.sound", "Classical.choice"]'
 JOBS="${JOBS:-6}"; NANODA_THREADS="${NANODA_THREADS:-8}"
-export PATH=/root/.elan/bin:$PATH GIT_TERMINAL_PROMPT=0
-mkdir -p "$OUT" "$WORK" "$OUT/modules"
+export PATH=/root/.elan/bin:$PATH GIT_TERMINAL_PROMPT=0 RUSTUP_HOME=$W/rust/rustup CARGO_HOME=$W/rust/cargo
+mkdir -p "$OUT" "$WORK" "$OUT/modules" "$W/bin"
 status() { echo "$(date -u +%FT%TZ) $*" >> "$OUT/_status.txt"; }
 code() { (cd "$OURS" && sha256sum runpod-zq-lane4.sh zq-lean-audit.lean zq-lean-hyperop.lean zq-lean-plants.txt); }
 # step NAME TIMEOUT DIR CMD... : the command's stdout+stderr in NAME.log, GNU time in NAME.time
@@ -43,8 +50,18 @@ step() {
 }
 ok() { test -f "$OUT/$1.exit" && test "$(cat "$OUT/$1.exit")" = 0; }
 need() { for s in "$@"; do ok "$s" || { status "skip: $s did not exit 0"; return 1; }; done; }
-nanoda_cfg() {  # nanoda_cfg EXPORT CONFIG
-  printf '{"export_file_path": "%s", "use_stdin": false, "permitted_axioms": %s, "unpermitted_axiom_hard_error": false, "nat_extension": true, "string_extension": true, "num_threads": %s, "print_success_message": true}\n' "$1" "$ALLOWED" "$NANODA_THREADS" > "$2"
+nanoda_cfg() {  # nanoda_cfg EXPORT CONFIG [STACK_BYTES]: the bundled 0.4.19 gets no stack key, v0.4.31 gets 1 GiB
+  local stack=""; if [ -n "${3:-}" ]; then stack=", \"stack_size_bytes\": $3"; fi
+  printf '{"export_file_path": "%s", "use_stdin": false, "permitted_axioms": %s, "unpermitted_axiom_hard_error": false, "nat_extension": true, "string_extension": true, "num_threads": %s, "print_success_message": true%s}\n' "$1" "$ALLOWED" "$NANODA_THREADS" "$stack" > "$2"
+}
+# nanoda_both NAME EXPORT : the bundled binary as NAME-bundled, v0.4.31 as NAME
+nanoda_both() {
+  nanoda_cfg "$2" "$WORK/$1-bundled.json"; cp "$WORK/$1-bundled.json" "$OUT/$1-bundled.json"
+  step "$1-bundled" 21600 "$WORK" "$BIN/nanoda_bin" "$WORK/$1-bundled.json"
+  if [ -x "$NANODA2" ]; then
+    nanoda_cfg "$2" "$WORK/$1.json" 1073741824; cp "$WORK/$1.json" "$OUT/$1.json"
+    step "$1" 21600 "$WORK" "$NANODA2" "$WORK/$1.json"
+  else status "skip $1: no $NANODA2"; fi
 }
 # a COPY of the claimant's lean/ folder (their bytes; .lake/packages shared by symlink, the project build copied)
 mkcopy() {  # mkcopy DIR [build]
@@ -98,7 +115,7 @@ build)
 modules)
   need build || continue
   # the pre-registered flag, literally: each of the 48 sources re-elaborated with -Ddebug.skipKernelTC=false
-  (cd "$D" && python3 -I -c 'import json; [print(f["path"]) for f in json.load(open("SOURCE_MANIFEST.json"))["files"]]') > "$OUT/modules/list.txt"
+  (cd "$D" && python3 -I -c 'import json; [print(f["path"]) for f in json.load(open("SOURCE_MANIFEST.json"))["files"] if f.get("module", "").startswith("ZInQ.")]') > "$OUT/modules/list.txt"
   status "start modules"; date +%s > "$OUT/modules.start"; code > "$OUT/modules.code"
   (cd "$D" && xargs -P "$JOBS" -I{} bash -c 'f={}; m=${f//\//_}; /usr/bin/time -v -o '"$OUT"'/modules/$m.time timeout 3600 lake env lean -Ddebug.skipKernelTC=false "$f" > '"$OUT"'/modules/$m.log 2>&1 < /dev/null; echo $? > '"$OUT"'/modules/$m.exit' < "$OUT/modules/list.txt")
   date +%s > "$OUT/modules.end"
@@ -111,6 +128,14 @@ audit)
   need build || continue
   cp "$OURS/zq-lean-audit.lean" "$WORK/zq-lean-audit.lean"
   step audit 7200 "$D" env ZQ_AUDIT_OUT="$OUT/audit.jsonl" lake env lean "$WORK/zq-lean-audit.lean"
+  ;;
+
+exported)
+  need build || continue
+  # informational (amendment C item 2): the same audit body from a module-system file, the view a `module` importer gets
+  { echo "module"; echo "public import ZInQ"; echo "public import Lean"; grep -v '^import ' "$OURS/zq-lean-audit.lean"; } > "$WORK/zq-lean-audit-exported.lean"
+  sha256sum "$WORK/zq-lean-audit-exported.lean" > "$OUT/exported.sha256"
+  step exported 7200 "$D" env ZQ_AUDIT_OUT="$OUT/exported-audit.jsonl" lake env lean "$WORK/zq-lean-audit-exported.lean"
   ;;
 
 frozen)
@@ -155,10 +180,21 @@ with open(sys.argv[1], "rb") as f:
 print(json.dumps({"meta": head, "lines": n, "linesByFirstKey": c}, sort_keys=True))' "$WORK/zinq.export"; } > "$OUT/export.txt" 2>&1
   ;;
 
+nanoda-build)
+  # nanoda_lib at its pin, unmodified (amendment C item 1); Rust stable from rustup, all under $W/rust
+  step nanoda-build 3600 "$W" bash -c "set -e
+    curl -sSf https://sh.rustup.rs | sh -s -- -y -q --profile minimal --no-modify-path
+    $CARGO_HOME/bin/rustc --version; $CARGO_HOME/bin/cargo --version
+    rm -rf $W/tools-src/nanoda_lib; mkdir -p $W/tools-src
+    git clone -q $NANODA_URL $W/tools-src/nanoda_lib; cd $W/tools-src/nanoda_lib; git checkout -q $NANODA_PIN
+    test \"\$(git rev-parse HEAD)\" = $NANODA_PIN; test -z \"\$(git status --porcelain)\"; grep -m1 '^version' Cargo.toml
+    $CARGO_HOME/bin/cargo build --release --locked -q
+    cp target/release/nanoda_bin $NANODA2; sha256sum $NANODA2"
+  ;;
+
 nanoda)
   need export || continue
-  nanoda_cfg "$WORK/zinq.export" "$WORK/nanoda.json"; cp "$WORK/nanoda.json" "$OUT/nanoda.json"
-  step nanoda 21600 "$WORK" "$BIN/nanoda_bin" "$WORK/nanoda.json"
+  nanoda_both nanoda "$WORK/zinq.export"
   ;;
 
 lean4lean)
@@ -202,8 +238,8 @@ print([m for m in root if m not in used][-1])' "$C" > "$OUT/planted-leaf.txt"
       step "planted-$P-audit" 7200 "$C" env ZQ_AUDIT_OUT="$OUT/planted-$P-audit.jsonl" lake env lean "$WORK/zq-lean-audit.lean"
       step "planted-$P-leanchecker" 3600 "$C" lake env "$BIN/leanchecker" --verbose "$MOD"
       step "planted-$P-export" 3600 "$C" bash -c "lake env $BIN/leanexport $MOD -- $T > $WORK/planted-$P.export"
-      nanoda_cfg "$WORK/planted-$P.export" "$WORK/planted-$P-nanoda.json"
-      step "planted-$P-nanoda" 3600 "$WORK" "$BIN/nanoda_bin" "$WORK/planted-$P-nanoda.json"
+      sha256sum "$WORK/planted-$P.export" > "$OUT/planted-$P-export.sha256"
+      nanoda_both "planted-$P-nanoda" "$WORK/planted-$P.export"
     fi
   done
   cp "$ORIG" "$LF"; cp "$D/ZInQ.lean" "$C/ZInQ.lean"; rm -f "$C/ZInQ/ZqPlantedP4.lean"
