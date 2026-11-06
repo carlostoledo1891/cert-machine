@@ -1,0 +1,6195 @@
+{
+ "source": "exported-audit.jsonl",
+ "sha256": "c2357ebf7808be88d7b8b629cfa5f41f5f7803c805781e76e5c1a2c7bf9669fb",
+ "bytes": 5808302,
+ "summary": {
+  "declarations": 704,
+  "kinds": {
+   "axiom": 359,
+   "constructor": 12,
+   "def": 256,
+   "inductive": 4,
+   "recursor": 4,
+   "theorem": 69
+  },
+  "modules": 49,
+  "unionLean": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "axiomsInClosure": 1617,
+  "nonstandard": 648,
+  "traversalDisagreements": 648
+ },
+ "decls": [
+  {
+   "name": "RankTwoMatrix.detPolar",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar._proof_1",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar.eq_1",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "theorem",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolarBilin",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolarBilin_apply",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_E00_E11",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_add_left",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_add_right",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_eq",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_eq_zero_of_mem_span",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_smul_left",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_smul_right",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_zero_left",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.detPolar_zero_right",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.det_eq_zero_of_mem_matrixUnits",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.exists_mem_det_ne_zero",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.exists_mem_det_ne_zero_of_commRing",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.matrixUnits",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.matrixUnits.eq_1",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.not_forall_set_span_eq_top_exists_det_ne_zero",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.rank_two_target",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "RankTwoMatrix.span_matrixUnits",
+   "module": "ZInQ.RankTwoMatrix",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ",
+   "module": "ZInQ.AlphaCore",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ._f",
+   "module": "ZInQ.AlphaCore",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ._sunfold",
+   "module": "ZInQ.AlphaCore",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ._unsafe_rec",
+   "module": "ZInQ.AlphaCore",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ.match_1",
+   "module": "ZInQ.AlphaCore",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_add_succ",
+   "module": "ZInQ.AlphaAddition",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_add_two",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_cassini",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_consecutive_coprime",
+   "module": "ZInQ.AlphaSquareDivisibilityDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_descent",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_dvd_iff",
+   "module": "ZInQ.AlphaDivisibility",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_emod_eq_of_mod_eq",
+   "module": "ZInQ.AlphaParameterCongruence",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_eq_rescaledChebyshev",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_ge_index",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_large_odd_pair",
+   "module": "ZInQ.AlphaLargeOddPair",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_mod_two_eq_one_or_succ",
+   "module": "ZInQ.AlphaParity",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_multiple_square_mod",
+   "module": "ZInQ.AlphaSquareDivisibilityDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_one",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_power_modulus_dvd",
+   "module": "ZInQ.AlphaPowerModulus",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_sq_dvd_iff",
+   "module": "ZInQ.AlphaSquareDivisibilityDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_step",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_succ_le_pow",
+   "module": "ZInQ.AlphaPowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_succ_strict",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_two_left",
+   "module": "ZInQ.AlphaAddition",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.alphaZ_zero",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.AlphaPower.companion_dvd_alphaZ_add_period",
+   "module": "ZInQ.AlphaPeriodReflection",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.companion_dvd_alphaZ_add_two_mul",
+   "module": "ZInQ.AlphaCompanionPeriod",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.companion_dvd_alphaZ_reflection",
+   "module": "ZInQ.AlphaPeriodReflection",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.companion_of_additive_witness",
+   "module": "ZInQ.AlphaIndexCompanion",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.coprime_of_square_witness",
+   "module": "ZInQ.AlphaWitnessTransport",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.eq_of_small_signed_residue",
+   "module": "ZInQ.AlphaSignedResidue",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.exists_eq_alphaZ_of_quadratic",
+   "module": "ZInQ.AlphaUnordered",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.exists_folded_index",
+   "module": "ZInQ.AlphaIndexCompanion",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.exists_gt_two_modEq_pair",
+   "module": "ZInQ.AlphaCRTWitness",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.exists_large_additive_companion",
+   "module": "ZInQ.AlphaIndexCompanion",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.exists_parameter_pair_residues",
+   "module": "ZInQ.AlphaWitnessTransport",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.folded_alpha_signed_residue",
+   "module": "ZInQ.AlphaFoldedResidue",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.folded_index_recovery",
+   "module": "ZInQ.AlphaSignedResidue",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.orderedPair_positive_index",
+   "module": "ZInQ.AlphaIndexCompanion",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.ordered_core_iff_consecutive",
+   "module": "ZInQ.AlphaCore",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.pow_le_alphaZ_succ",
+   "module": "ZInQ.AlphaPowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.pow_lt_alphaZ_power_modulus",
+   "module": "ZInQ.PowerBoundDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.square_divisibility_to_index",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.square_multiple_pair",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.sub_two_dvd_alphaZ_sub_index",
+   "module": "ZInQ.AlphaCongruence",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.AlphaPower.two_mul_alphaZ_lt_companion",
+   "module": "ZInQ.AlphaCompanionBound",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.choose_lt_base",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.div_pow_mod_eq_choose",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.macroHolds",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.BinomialDigit.macro_holds_above_row",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.macro_holds_iff_choose",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.macro_holds_zero_column",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BinomialDigit.macro_holds_zero_row",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BooleanCube.exists_simultaneous_one",
+   "module": "ZInQ.BooleanCube",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BooleanCube.sum_eval_eq_top_coeff",
+   "module": "ZInQ.BooleanCube",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.BooleanCube.sum_eval_eq_zero_of_totalDegree_lt",
+   "module": "ZInQ.BooleanCube",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.decode",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.decode5",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.decode5.eq_1",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.decode5_encode5",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.decode_pair",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.encode5",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.encode5.eq_1",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.encode5_decode5",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop._unary",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop._unary._proof_1",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop._unary.eq_def",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop._unsafe_rec",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop.eq_1",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.loop.eq_def",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair.eq_1",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair_decode",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair_inj",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair_loop",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair_lt_tri_succ",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pair_sum_eq",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.pairing_equation_iff",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.succ_mul_succ_succ",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.tri_le_pair",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.tri_mono",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.tri_succ",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.two_dvd_mul_succ",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.two_mul_pair",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CantorDecoder.two_mul_tri",
+   "module": "ZInQ.CantorDecoder",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "inductive",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit._sizeOf_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit._sizeOf_inst",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.below",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.brecOn",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.brecOn.eq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.brecOn.go",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.casesOn",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.ctorElim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.ctorElimType",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.ctorIdx",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.empty",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.empty.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.empty.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval._f",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval._sunfold",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval._unsafe_rec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval.eq_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval.eq_2",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval.eq_def",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval.match_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval_residual_polynomials_eq_zero_iff",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval_satisfies",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.eval_zero_output_polynomial_eq_zero_iff",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.exists_output_iff",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.exists_unique_satisfies",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.exists_zero_output_polynomial_eq_zero_iff",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.noConfusionType",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.rec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "recursor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.recOn",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials._f",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials._sunfold",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials._unsafe_rec",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials.eq_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials.eq_2",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials.eq_def",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.residualPolynomials.match_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies._f",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies._sunfold",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies._unsafe_rec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies.eq_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies.eq_2",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies.eq_def",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies.match_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.satisfies_iff_eq_eval",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc.inj",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc.injEq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.snoc.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.zeroOutputPolynomial",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Circuit.zeroOutputPolynomial.eq_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "inductive",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate._sizeOf_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate._sizeOf_inst",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add.inj",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add.injEq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.add.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.casesOn",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant.inj",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant.injEq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.constant.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.ctorElim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.ctorElimType",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.ctorIdx",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.eval",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.eval.match_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.eval_rhs_polynomial",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input.inj",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input.injEq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.input.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul.elim",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul.inj",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul.injEq",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.mul.sizeOf_spec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.noConfusion",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.noConfusionType",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rec",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "recursor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.recOn",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial.eq_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial.eq_2",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial.eq_3",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial.eq_4",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.coeff_mul_at_one_two_exponent",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.oneTwoExponent_apply",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_apply",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_apply_le_one",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_apply_of_mem",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_apply_of_notMem",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_disjoint_apply",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_injective",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CoefficientAllocation.squarefreeExponent_sdiff_apply",
+   "module": "ZInQ.CoefficientAllocation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CyclicSignatures.coeff_pow_two_pow_eq_single_augmentation",
+   "module": "ZInQ.CyclicSignatures",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CyclicSignatures.explicit_inverse_of_augmentation_eq_one",
+   "module": "ZInQ.CyclicSignatures",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CyclicSignatures.isUnit_iff_augmentation_eq_one",
+   "module": "ZInQ.CyclicSignatures",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.CyclicSignatures.pow_two_pow_eq_single_augmentation",
+   "module": "ZInQ.CyclicSignatures",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula",
+   "module": "ZInQ.EquationCompression",
+   "kind": "inductive",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula._sizeOf_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula._sizeOf_inst",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.below",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.brecOn",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.brecOn.eq",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.brecOn.go",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.casesOn",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj",
+   "module": "ZInQ.EquationCompression",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj.elim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj.inj",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj.injEq",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj.noConfusion",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.conj.sizeOf_spec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.ctorElim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.ctorElimType",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.ctorIdx",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj",
+   "module": "ZInQ.EquationCompression",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj.elim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj.inj",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj.injEq",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj.noConfusion",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.disj.sizeOf_spec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation",
+   "module": "ZInQ.EquationCompression",
+   "kind": "constructor",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation.elim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation.inj",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation.injEq",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation.noConfusion",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.equation.sizeOf_spec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.falsum",
+   "module": "ZInQ.EquationCompression",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.falsum.elim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.falsum.sizeOf_spec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.noConfusion",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.noConfusionType",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.rec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "recursor",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.recOn",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.verum",
+   "module": "ZInQ.EquationCompression",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.verum.elim",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.EquationFormula.verum.sizeOf_spec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.commonDenominator",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.commonDenominator_pos",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile._f",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile._sunfold",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile._unsafe_rec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_2",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_3",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_4",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_5",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.compile.eq_def",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.conjoin",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.conjoin.eq_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.disjoin",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.disjoin.eq_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.eval_compile_eq_zero_iff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.eval_conjoin_eq_zero_iff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.eval_conjoin_nonneg",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.eval_disjoin_eq_zero_iff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.exists_conjunction_fresh_iff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.exists_disjunction_fresh_iff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.exists_int_eq_commonDenominator_mul_coeff",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.exists_integer_equation",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.exists_integer_multiple",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds._f",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds._sunfold",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds._unsafe_rec",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_2",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_3",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_4",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_5",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.eq_def",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.holds.match_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.leftVars",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.leftVars.match_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.rightVars",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.EquationCompression.sum_elim_comp_leftVars",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound"
+   ]
+  },
+  {
+   "name": "ZInQ.EquationCompression.sum_elim_comp_rightVars",
+   "module": "ZInQ.EquationCompression",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound"
+   ]
+  },
+  {
+   "name": "ZInQ.ExplicitCutoffBounds.d",
+   "module": "ZInQ.ExplicitCutoffBounds",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ExplicitCutoffBounds.factorialBase",
+   "module": "ZInQ.ExplicitCutoffBounds",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ExplicitCutoffBounds.g0",
+   "module": "ZInQ.ExplicitCutoffBounds",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ExplicitCutoffBounds.t",
+   "module": "ZInQ.ExplicitCutoffBounds",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ExplicitCutoffBounds.t_lt_triplePower",
+   "module": "ZInQ.ExplicitCutoffBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HammingDigits.eval_hammingBitPolynomial_eq_bit",
+   "module": "ZInQ.HammingDigits",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HammingDigits.eval_hammingBitPolynomial_eq_choose",
+   "module": "ZInQ.HammingDigits",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HammingDigits.hammingBitPolynomial",
+   "module": "ZInQ.HammingDigits",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HammingDigits.hammingBitPolynomial.eq_1",
+   "module": "ZInQ.HammingDigits",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HammingDigits.totalDegree_hammingBitPolynomial_le",
+   "module": "ZInQ.HammingDigits",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedAdd",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedAdd.eq_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedAddThree",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedAddThree.eq_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorial",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop._unary",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop._unary._proof_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop._unary.eq_def",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop._unsafe_rec",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.eq_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.eq_2",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.eq_def",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.match_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorialLoop_eq_saturate",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedFactorial_eq_saturate",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedHeightBody",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.cappedHeightBody_eq_saturate",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightBody",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightBody_pos",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstant",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped.eq_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped_eq_min",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped_eq_saturate",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped_le_iff",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstantCapped_zero",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantAlgorithm.heightConstant_pos",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.bCm",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.bCmForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.c",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.cCm",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.cCmForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.cForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.c_for_degree_le_main_power",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.c_le_h6",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.c_le_h6_of_primes",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.c_le_main_power",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.d",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.d0",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.degreeFromBase",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.degree_le_r_for_degree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.e0",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.e0ForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.eight_le_r_for_degree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.g0",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.h6",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.h6ForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.h6ForMax",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.h6_for_degree_from_base_317_eq_height_body",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.h6_for_max_317_eq_height_constant",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.max_factor_mul_product_le_main_power",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.max_le_r_for_degree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.one_le_d",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.one_le_degree_from_base",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.primeProduct",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.prime_product_le_self_power",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.q0",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.q0ForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.r",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.rForDegree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.two_le_g0",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.two_mul_c_for_degree_le_h6_for_degree",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.two_mul_c_le_h6",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.two_mul_c_le_h6_for_max",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.HeightConstantComparison.two_mul_c_le_h6_of_primes",
+   "module": "ZInQ.HeightConstantComparison",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.coordinate_change",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.delta_identity",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.epsilon_inverse",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.point_R",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.scale_back",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelCoordinates.tangent_coordinates",
+   "module": "ZInQ.ModelCoordinateIdentities",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ModelDuplication.duplication_bounds",
+   "module": "ZInQ.ModelDuplicationBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.bit_and",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.bit_and_iff_land_eq",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.choose_add_odd_iff_land_eq_zero",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.choose_odd_iff_land_eq",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.mask",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.mask.eq_1",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.mask_iff_land_eq",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.odd_witness",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.odd_witness_iff_odd",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.orthogonal",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.orthogonal.eq_1",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.NaturalBitwiseMacros.orthogonal_iff_land_eq_zero",
+   "module": "ZInQ.BitwiseMacros",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.coefficient_bound_of_cutoff_bound",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.degree_bound_of_cutoff_bound",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.degree_bound_of_parameter_cutoff",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.eleven_lt_two_pow",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.inner_exponent_lt_succ",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.quadruplePower",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.quadruplePower_9014_lt_tower_eight",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.quadruplePower_strictMono",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.succ_pow_le_of_lt",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.tower_add_four",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.tower_add_three",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.tower_four",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.tower_succ",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.tower_zero",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower_9014_lt_tower_seven",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower_pow",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower_pow_2048",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower_pow_2048_lt_succ",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.triplePower_strictMono",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.NumericalTowerBounds.two_pow_lt_quadruplePower",
+   "module": "ZInQ.NumericalTowerBounds",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PackedHistory.packed_register_decode",
+   "module": "ZInQ.PackedRegister",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.bitIndex",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.PolePolynomial.compiledPolePolynomial",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.compiledPolePolynomial.eq_1",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.coordinates",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.coordinates_witnessOfCoordinates",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.eval_compiledPolePolynomial_eq_zero_iff",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.eval_polePolynomial",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.eval_polePolynomial_eq_zero_iff",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.exists_compiledPolePolynomial_eq_zero_iff",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.no_negative_odd_valuation_of_compiled_pole_root",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial._proof_1",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial._proof_2",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial._proof_3",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial._proof_4",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial._proof_5",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.polePolynomial.eq_1",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.witnessOfCoordinates",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.witnessOfCoordinates._proof_1",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolePolynomial.witnessOfCoordinates_coordinates",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.certificate_77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.divisibility_77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.dvd_of_certificate",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.eval_square_of_certificate",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.eval_sub_of_certificate",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi11_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi13_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi17_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi1_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi3_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi5_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.phi7_eq_cyclotomic",
+   "module": "ZInQ.PolynomialCertificatesCyclotomic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.quotient77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.rawQuotient77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_certificate_77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.raw_divisibility_77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau1",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau105",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau11",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau13",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau15",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau17",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau21",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau3",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau33",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau35",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau5",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau65",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau7",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PolynomialCertificates.tau77",
+   "module": "ZInQ.PolynomialCertificates",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.and_one_eq_mod_two",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedMul",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedMul_eq_saturate",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPower",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop._unary",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop._unary._proof_1",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop._unary.eq_def",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop._unsafe_rec",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop.eq_1",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "theorem",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop.eq_def",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPowerLoop_eq_saturate",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPower_eq_saturate",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.cappedPower_le_iff",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.checkedCappedPower",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "def",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.checkedCappedPower_eq",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.checkedCappedPower_zero_cap",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionAlgorithms.shiftRight_one_eq_div_two",
+   "module": "ZInQ.PrecisionAlgorithms",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.four_mul_pow_lt_iff",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.le_saturate_iff_of_le",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.mul_lt_iff_le_div_pred",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_add",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_eq_cap",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_eq_self",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_le_cap",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_le_iff",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_le_iff_of_le",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_le_self",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_lt_iff_of_le",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_max",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_mul",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_one",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_pow",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_pow_saturate",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_pow_saturate_exponent",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_saturate",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.PrecisionArithmetic.saturate_zero",
+   "module": "ZInQ.PrecisionArithmetic",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.RationalGuards.rational_pos_iff_four_squares_inverse",
+   "module": "ZInQ.RationalPositiveGuard",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness",
+   "module": "ZInQ.PoleValuation",
+   "kind": "inductive",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness._sizeOf_1",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness._sizeOf_inst",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.bit",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.casesOn",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.ctorIdx",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.e",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk",
+   "module": "ZInQ.PoleValuation",
+   "kind": "constructor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk._flat_ctor",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk.inj",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk.injEq",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk.noConfusion",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.mk.sizeOf_spec",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.noConfusion",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.noConfusionType",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.r1",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.r2",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.rec",
+   "module": "ZInQ.PoleValuation",
+   "kind": "recursor",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.recOn",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.w",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.PoleWitness.z",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.bit_eq_zero_or_one",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.curve_rhs_nonzero_and_valuation",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.elliptic_x_valuation_even_of_parameter_even",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.factor0_unit",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.factor_unit",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.negative_input_pole_h_valuation",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.padicValRat_three_eq_zero",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleA",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleH",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleMultiplier",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleMultiplier._proof_1",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleMultiplier_nonzero_and_valuation_zero",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleSystem",
+   "module": "ZInQ.PoleValuation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleSystem.eq_1",
+   "module": "ZInQ.PolePolynomial",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.poleSystem_no_negative_odd_valuation",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.unit_mul",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.ValuationObstruction.unit_of_eq_natCast_dvd",
+   "module": "ZInQ.PoleValuation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.abs_sub_int_lt_inv_den_iff",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.auxiliary_dvd_smoothing_integer_sub_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.conductor_dvd_smoothing_integer_sub_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.den_le_exp_rational_log_height",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.eq_int_of_abs_sub_lt_inv_den",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.eq_int_of_real_abs_sub_lt_exp_neg_of_height_le",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.eq_int_of_real_abs_sub_lt_inv_of_den_le",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.exp_rational_log_height",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.inv_den_le_abs_sub_int",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.inv_den_le_real_abs_sub_int",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.not_two_pow_succ_dvd_smoothing_integer_sub_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.odd_smoothing_integer",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.rationalLogHeight",
+   "module": "ZInQ.RationalSeparation",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothingInteger",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothingInteger.eq_1",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "theorem",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_integer_coprime",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_integer_gt_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_integer_mod_two_pow_succ",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_integer_sub_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_square_exact_two_depth",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.smoothing_square_multiplicity_two",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "ZInQ.two_pow_dvd_smoothing_integer_sub_one",
+   "module": "ZInQ.SmoothingArithmetic",
+   "kind": "axiom",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.eq_1",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.eq_2",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.eq_def",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.match_1.eq_1",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.match_1.eq_2",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.BinomialDigit.0.Nat.ofDigits.match_1.splitter",
+   "module": "ZInQ.BinomialDigit",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.eval.match_1.eq_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.eval.match_1.eq_2",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.eval.match_1.splitter",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.satisfies.match_1.eq_1",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.satisfies.match_1.eq_2",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitEncoding.0.ZInQ.CircuitEncoding.Circuit.satisfies.match_1.splitter",
+   "module": "ZInQ.CircuitEncoding",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Circuit.residualPolynomials.match_1.eq_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Circuit.residualPolynomials.match_1.eq_2",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Circuit.residualPolynomials.match_1.splitter",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": [
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1.eq_1",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1.eq_2",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1.eq_3",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1.eq_4",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.CircuitPolynomial.0.ZInQ.CircuitEncoding.Gate.rhsPolynomial.match_1.splitter",
+   "module": "ZInQ.CircuitPolynomial",
+   "kind": "def",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.eq_1",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.eq_2",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.eq_3",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.eq_4",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.eq_5",
+   "module": "ZInQ.EquationCompression",
+   "kind": "theorem",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.EquationCompression.0.ZInQ.EquationCompression.holds.match_1.splitter",
+   "module": "ZInQ.EquationCompression",
+   "kind": "def",
+   "lean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ]
+  },
+  {
+   "name": "_private.ZInQ.HeightConstantAlgorithm.0.ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.match_1.eq_1",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.HeightConstantAlgorithm.0.ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.match_1.eq_2",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "theorem",
+   "lean": []
+  },
+  {
+   "name": "_private.ZInQ.HeightConstantAlgorithm.0.ZInQ.HeightConstantAlgorithm.cappedFactorialLoop.match_1.splitter",
+   "module": "ZInQ.HeightConstantAlgorithm",
+   "kind": "def",
+   "lean": []
+  }
+ ]
+}

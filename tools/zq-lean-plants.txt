@@ -1,0 +1,17 @@
+-- zq-lean-plants.txt — the planted variants of Track A lane 4 (notes/zq-preregistration-2026-11-06.md, amendment A
+-- item 8, B). cert-machine's own text. tools/runpod-zq-lane4.sh appends ONE section at a time to the leaf module of a
+-- COPY of the claimant's lean/ folder (the original bytes are restored and re-hashed between sections), and
+-- tools/record-zq-lean-replay.js runs its census over each section in memory. A section runs from its marker line to
+-- the next marker. The theorem (Z is Diophantine in Q) is undecided here; these plants decide nothing about it.
+-- ZQ-PLANT P1 sorry
+theorem zq_planted_sorry : (2 : Nat) + 2 = 5 := by sorry
+-- ZQ-PLANT P2 axiom
+axiom zq_planted_axiom : (2 : Nat) + 2 = 5
+theorem zq_planted_uses_axiom : (2 : Nat) + 2 = 5 := zq_planted_axiom
+-- ZQ-PLANT P3 native_decide
+theorem zq_planted_native : (2 : Nat) + 2 = 4 := by native_decide
+-- ZQ-PLANT P4 kernel-bypass
+set_option debug.skipKernelTC true in
+open Lean Elab Command in
+run_cmd liftTermElabM do
+  addDecl (.thmDecl { name := `zq_planted_unchecked, levelParams := [], type := mkConst ``False, value := mkConst ``True.intro })

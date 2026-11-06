@@ -1,0 +1,103 @@
+⚠ [2088/2112] Replayed ZInQ.PoleValuation
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3175/3196] Replayed ZInQ.ModelCoordinateIdentities
+warning: ZInQ/ModelCoordinateIdentities.lean:39:0: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.epsilon_inverse`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQ/ModelCoordinateIdentities.lean:43:0: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.delta_identity`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQ/ModelCoordinateIdentities.lean:65:0: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.point_R`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [3179/3196] Replayed ZInQ.CoefficientAllocation
+warning: ZInQ/CoefficientAllocation.lean:44:6: Unused tactic linter: `simp` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQ/CoefficientAllocation.lean:44:6: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQ/CoefficientAllocation.lean:48:32: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQ/CoefficientAllocation.lean:52:32: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQ/CoefficientAllocation.lean:122:65: Unused tactic linter: `done` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQ/CoefficientAllocation.lean:123:6: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQ/CoefficientAllocation.lean:124:6: Unused tactic linter: `(simp only [Finsupp.coe_add, Finsupp.coe_nsmul, Pi.add_apply, Pi.smul_apply, smul_eq_mul];
+  done)` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQ/CoefficientAllocation.lean:126:6: Unused tactic linter: `(simp; done)` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQ/CoefficientAllocation.lean:123:6: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQ/CoefficientAllocation.lean:124:6: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQ/CoefficientAllocation.lean:126:6: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+⚠ [3181/3196] Replayed ZInQ.AlphaCompanionPeriod
+warning: ZInQ/AlphaCompanionPeriod.lean:63:56: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3187/3196] Replayed ZInQ.HammingDigits
+warning: ZInQ/HammingDigits.lean:123:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQ/HammingDigits.lean:124:43: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQ/HammingDigits.lean:125:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQ/HammingDigits.lean:130:36: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [3189/3196] Replayed ZInQ.AlphaSquareDivisibilityDraft
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:24:48: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:76:24: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [3194/3196] Built ZInQ.AlphaSquareBridgeDraft (877ms)
+✔ [3195/3196] Built ZInQ (1.1s)
+Build completed successfully (3196 jobs).

@@ -1,0 +1,23 @@
+	Command being timed: "timeout 1800 bash -c git clone -q --filter=blob:none --no-checkout https://github.com/elliotglazer/diophantine-z-q.git /root/zq-lane4/final/src/diophantine-z-q && git -C /root/zq-lane4/final/src/diophantine-z-q config core.autocrlf false && git -C /root/zq-lane4/final/src/diophantine-z-q sparse-checkout set lean && git -C /root/zq-lane4/final/src/diophantine-z-q checkout -q 97cec7fdd757d9a8e4f468151a47a6d3610fb2f2 && test "$(git -C /root/zq-lane4/final/src/diophantine-z-q rev-parse HEAD)" = 97cec7fdd757d9a8e4f468151a47a6d3610fb2f2 && git -C /root/zq-lane4/final/src/diophantine-z-q log -1 --format='%H %cI %an <%ae>' && git -C /root/zq-lane4/final/src/diophantine-z-q status --porcelain | wc -l"
+	User time (seconds): 0.10
+	System time (seconds): 0.05
+	Percent of CPU this job got: 12%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.28
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13828
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 9345
+	Voluntary context switches: 487
+	Involuntary context switches: 4
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 6840
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
