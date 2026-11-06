@@ -21,7 +21,17 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER (handoff 2026-11-06 ~02:10 UTC; TWO PODS ARE BILLING — read the ◆◆ Z block first):
+NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ Z-now. ALL FOUR LANES OF THE PUSH LANDED (03:40 UTC): Track A lanes 1–4 + H2 merged, checked here and wired (202/202
+     green): lane 1 CERTIFIED, lane 2 CERTIFIED under H1/H2/M/L1, H2 REFUSED (not a computation; F1–F9 CERTIFIED), lane 3 MIXED
+     (statements CERTIFIED on 671,659 cases; replay 1 of 4), lane 4 CERTIFIED (48 helpers in the kernel, 990 = 704 + 286
+     private; nanoda overflows on ExplicitCutoffBounds — a nanoda issue to file with the outreach). Track B: claimbox branch
+     zinq-2026-11-06 (unpushed): the frozen statement, conclusion byte-identical, proved from EIGHT named hypotheses (M, C, LT,
+     H, PC, CC, H1, H2) after G was discharged 2-adically; 141 theorems on the standard axioms; three planted variants; NOT
+     YET DECIDED HERE (needs a pinned decision script + a pod: kernel replay, axioms, statement byte-compare, planted refused).
+     The Check.lean PR ready (waits for a maintainer on #16290). complexitylib #2509/#2510 IN THE MERGE QUEUE (positions 7–8
+     behind a batch, AWAITING_CHECKS at 03:37). The operator: OUTREACH ONLY AFTER EVERYTHING; a page /reports/z-in-q.html,
+     UNLISTED, approved 03:30 (being built). Older blocks below are history.
   ◆◆ Z. "PUSH TO THE LIMITS" ON ℤ-IN-ℚ (the operator's four answers, 2026-11-06 ~01:50 UTC: Track B the full conditional
      theorem; lanes 4, 3 and the H2 discharge; a US$50 pod cap; two outward drafts). TWO PODS BILLING (corpus/zq/POD.txt):
      az459u2cmh2rvk zq-lean-box (cpu3m 16 vCPU / 128 GB, US$0.88/h, root@213.173.105.94 -p 22450; Lean v4.35.0 under elan;
