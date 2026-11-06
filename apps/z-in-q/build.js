@@ -54,11 +54,14 @@ if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: 
 const GM = J(GAPMAP);
 function PIN_EARLY() { return L1.pins.commit; }
 const TB = J(RB);
-/* Version 3 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the head */
-const V3 = J('corpus/zq/version3-tree-check.json');
-if (V3.pin !== PIN_EARLY()) die('the Version 3 comparison starts from another pin than the records');
-if (V3.removed.length || V3.unchanged + V3.changed.length !== V3.files || V3.changed.some((f) => !/README\.md$/.test(f))) die('the Version 3 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
-if (V3.frozenTarget.blobPin !== V3.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
+/* Versions 3 and 4 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the
+   latest head checked (tools/zq-tree-check.js; corpus/zq/version3-tree-check.json is the earlier, Version 3 one) */
+const VREC = 'corpus/zq/version4-tree-check.json';
+const V4 = J(VREC);
+if (V4.pin !== PIN_EARLY()) die('the Version 4 comparison starts from another pin than the records');
+if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 4 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
+if (V4.frozenTarget.blobPin !== V4.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
+const README_DIFF = V4.changed.length === 1 ? 'the one difference a README' : 'the ' + (['', 'one', 'two', 'three', 'four'][V4.changed.length] || N(V4.changed.length)) + ' differences READMEs';
 if (!fs.existsSync(path.join(ROOT, PREREG_B))) die('the Track B pre-registration is gone: ' + PREREG_B);
 
 /* the words this page states, each read back from its record */
@@ -203,11 +206,12 @@ B.push(C.header({
     + 'with exact arithmetic and code that shares nothing with his. The theorem itself is undecided.'
 }));
 
-/* Version 3, dated: what moved and what still applies */
+/* Versions 3 and 4, dated: what moved and what still applies */
 B.push(C.section({
-  lab: 'since these checks', title: 'Version 3 appeared the same day', id: 'version-3',
-  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved to Version 3, a new manuscript naming six people as its collaboration and a new, far smaller explicit polynomial (a quartic), with its own package of checks. Version 3 is not checked here yet.')
-    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V3.unchanged) + ' of ' + N(V3.files) + ' files compared one by one, the one difference a README. So the Lean replay and Track B apply to the repository as it stands, and so does the bookkeeping of the original construction (' + rec('corpus/zq/version3-tree-check.json') + ').')
+  lab: 'since these checks', title: 'Versions 3 and 4 appeared the same day', id: 'version-3',
+  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved twice: to Version 3, a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic), then to Version 4, a smaller quartic still, each with its own package of checks. Neither quartic is checked here yet.')
+    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
+      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for the Version 4 quartic, which has no Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it today (' + rec(VREC) + ').')
 }));
 
 /* the story in one minute: first person for the author, the AI help said in the same sentence */

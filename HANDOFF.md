@@ -27,8 +27,14 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-
      the same day and is NOT checked; construction/ and lean/ the same bytes at its head, corpus/zq/version3-tree-check.json);
      leanprover/con-leche#17 (both masters overflow their stacks on the Track B export); ammkrn/nanoda_lib#82 (num-bigint pow
      overflow on ZInQ.ExplicitCutoffBounds). /z-in-q/ LISTED (sitemap, audits hub) with a dated Version 3 note. The X thread
-     (notes/x/drops/d18-z-in-q-post.txt + design/assets/og-z-in-q.png) the operator posts BY HAND. Watch the three issues;
-     Version 3's quartic is the natural next lane (pre-register first; the operator's word).
+     (notes/x/drops/d18-z-in-q-post.txt + design/assets/og-z-in-q.png) the operator posts BY HAND; the reply under his X post
+     notes/x/drops/d19-glazer-reply.txt, by hand too. Watch the three issues (0 replies at ~19:00 UTC).
+     VERSION 4 (11-06 ~19:00 UTC): his head 5cb2c199 is Version 4, a quartic in 4,973 variables (11 commits after 96dac827,
+     Pheidas credited); corpus/zq/version4-tree-check.json (node tools/zq-tree-check.js, which re-derives the Version 3
+     record exactly): 86 of 88 decided files the same bytes, construction/README.md and lean/README.md changed, the frozen
+     target the same blob. His lean/README now says the frozen target is the ORIGINAL polynomial's and the quartic has no Lean
+     statement. /z-in-q/ reads the Version 4 record ("Versions 3 and 4 appeared the same day"); d18 rewritten for Version 4.
+     NEXT LANE, on the operator's word (11-06): the Version 4 quartic, pre-registered before any code.
   ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
      (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
      zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,
