@@ -11,3 +11,7 @@ not "rejected"; leanprover/lean4#16290) — lean4 built from source and the chan
 and tested (the PR itself is opened only on the operator's word). Under the same US$50 cap.
 2026-11-06T01:58Z az459u2cmh2rvk set up by hand over SSH: apt (git curl zstd python3 time build-essential), elan, the toolchain
 leanprover/lean4:v4.35.0 (bundles leanchecker, leanchecker-paranoid, leanexport, nanoda_bin, lean4lean, con-leche, con-ron).
+2026-11-06T02:40Z 729plge5azm2sh DELETED (delete-pod 204, then get-pod 404) after the Check.lean PR was built and tested: lean4
+f4158700 (master, 2026-11-06 00:46 UTC) built from source, the lake check/comparator tests 26/26 before and after the patch,
+the whole lake suite 101/101 after; the patch, PR.md, test output and demo under ~/Projects/lean4-checklean-pr/ (outside the
+repos). ≈43 min ≈ US$1.5. NOT opened: lean4's CONTRIBUTING closes external PRs by a bot unless a maintainer agrees first.
