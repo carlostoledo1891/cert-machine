@@ -1,0 +1,1248 @@
+{
+ "what": "Track A lane 4 on the claim \"Z is Diophantine in Q\" (Elliot Glazer with AI agents, announced 2026-11-05): the kernel replay of the 48 accepted Lean helper modules (integration 31) on Lean 4.35.0 with Mathlib v4.35.0, our own axiom audit of every declaration, three replays by the toolchain kernel and one by nanoda, the reconciliation with their 704-declaration ledger, a census, the frozen target elaborated, and planted variants that must fail.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this record decides it. This record decides that the 48 accepted helper modules check in the kernel with only the three standard axioms, how their declarations reconcile with the claimant's 704, and that the frozen statement elaborates with its one `sorry`; whether the helper statements mean what the manuscript needs is not decided here.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md (lane 4; amendments A and B before any run, C after a first pass and before the recorded one, D during it before the step it adds, E on the desk for the recorder)",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "sourceManifest": {
+   "path": "lean/SOURCE_MANIFEST.json",
+   "sha256": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96"
+  },
+  "axioms": {
+   "path": "lean/AXIOMS.json",
+   "sha256": "4890463e3344f729a320319f9daa116655b83eeabb7d2de73b3590116977a868"
+  },
+  "lakeManifest": {
+   "path": "lean/lake-manifest.json",
+   "sha256": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58"
+  },
+  "frozen": {
+   "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+   "sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+  },
+  "validation": {
+   "path": "lean/VALIDATION.json",
+   "sha256": "88e748d1369cde4e80ed4468795f28e5d5bb873738947ff468eae1c6ebcb677a"
+  },
+  "lakefile": {
+   "path": "lean/lakefile.toml",
+   "sha256": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26"
+  }
+ },
+ "code": {
+  "tools/record-zq-lean-replay.js": "412ef1877f96766343623658c7df1f6d4379dd4bf5413ad94301e67ac55faf73",
+  "tools/runpod-zq-lane4.sh": "e2acab027003b4a0da28c4b5f92099317646ac12485e24781218239e58b71515",
+  "tools/zq-lean-audit.lean": "a5a129335167126ad3d630b8f214560970f21a0a89d02adb068dd41f00bd49af",
+  "tools/zq-lean-hyperop.lean": "01ae0ca8c3d5330678e5e34a6754065ca7609f96ca0dee56bb9c7adfc755cc84",
+  "tools/zq-lean-plants.txt": "2ef7107a14ae52ff9f982aca1e1d66a741474f7c2ca7f6cc7de78f24733ef0c8",
+  "tools/runpod-zq-lane4-nanoda-modules.sh": "aaf167eb26c63d7f727eceb564821a96ef7eec2778f0a81da7cf83de7ca7626a"
+ },
+ "run": {
+  "facts": "corpus/zq/runs/lane4-2026-11-06",
+  "pod": "RunPod CPU pod, 16 vCPU, 128 GB cgroup (shared with another agent's build), /root/zq-lane4/final",
+  "firstStatus": "2026-11-06T02:39:03Z start clone",
+  "lastStatus": "2026-11-06T02:54:21Z end nanoda-modules (48 modules)",
+  "firstPass": "a first pass of an earlier script (482089e3…) ran 02:21-02:33 UTC; nothing of it is imported (amendment C)"
+ },
+ "verdict": "CERTIFIED",
+ "verdictScope": "the 48 helper modules check in the kernel with only propext, Quot.sound and Classical.choice; our 990 declarations reconcile with their 704; the frozen statement elaborates with exactly its one sorry. The theorem itself: undecided here.",
+ "verdictReason": "every row and every red control as pre-registered; the nanoda row is REFUSED as a tool limit and the replay requirement rests on leanchecker --fresh (amendment A item 5, D)",
+ "rows": [
+  {
+   "id": "R1",
+   "statement": "a fresh clone of the claimant repository is at the pinned commit with a clean tree",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "head": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2 2026-11-05T09:38:23-08:00"
+   }
+  },
+  {
+   "id": "R2",
+   "statement": "the 48 module sources and the 5 other manifest files hash as lean/SOURCE_MANIFEST.json says, on the pod and in the desk clone; the root imports exactly the 48; no other .lean file in ZInQ/; the pod's lean/ tree equals the desk clone file for file",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "manifestEntries": 53,
+    "modules": 48,
+    "mismatchesPod": [],
+    "mismatchesDesk": [],
+    "filesUnderLean": 60,
+    "manifestCounts": {
+     "modules": 48,
+     "public": 463,
+     "private": 69,
+     "total": 532
+    }
+   }
+  },
+  {
+   "id": "R3",
+   "statement": "the pinned toolchain is reproduced: Lean 4.35.0 at commit eb6cafb7 (the commit their VALIDATION.json names), and every dependency checkout is at its lake-manifest revision with clean tracked sources",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "lean": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+    "platform": "Linux 6.8.0-147-generic x86_64",
+    "dependencies": 9,
+    "toolSha256": {
+     "lean": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+     "lake": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1",
+     "leanchecker": "12c38901cdbfab178f1bf6145dd30012e9a3b2c11ca695292a5884fa3cbaddb6",
+     "leanchecker-paranoid": "ca74d1e9a856149ed05acb600d8931a574dd9f465745beeaf93e3de7b7cbe274",
+     "leanexport": "f6a6483d518a11b323c28b9bac176d2220df0e9fc3230833815db9586669c074",
+     "nanoda_bin": "cbf13950fc4a48f635a0beceeb5ed32dd82568b870cfd081b6391c1f2cf02ba5",
+     "lean4lean": "baaec030a70c78562ced2c75866ab0d2410e81ce680b835179ed16570ad5ef97"
+    }
+   }
+  },
+  {
+   "id": "R4",
+   "statement": "`lake build ZInQ` (kernel checking on: the lakefile sets no option and debug.skipKernelTC defaults to false) builds the 48 modules and the root with no error and no `sorry`",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "exit": 0,
+    "seconds": 28,
+    "maxRssKiB": 1649784,
+    "projectModulesBuilt": 49,
+    "oleans": 49,
+    "warnings": 22,
+    "jobs": 3196
+   }
+  },
+  {
+   "id": "R5",
+   "statement": "each of the 48 modules re-elaborated alone with `lake env lean -Ddebug.skipKernelTC=false` exits 0 with no error and no `sorry` warning",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "modules": 48,
+    "failing": [],
+    "wallSecondsAll": 25,
+    "maxWallSeconds": 24.24,
+    "maxRssKiB": 1942980
+   }
+  },
+  {
+   "id": "R6",
+   "statement": "our audit (tools/zq-lean-audit.lean): every declaration of the 48 modules, selected by defining module, reaches only propext, Quot.sound and Classical.choice, by our fresh traversal AND by Lean.collectAxioms; no declaration of kind axiom; no unresolved reference",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "exit": 0,
+    "seconds": 5,
+    "maxRssKiB": 3910908,
+    "declarations": 990,
+    "modulesScanned": 49,
+    "kinds": {
+     "constructor": 12,
+     "def": 256,
+     "inductive": 4,
+     "recursor": 4,
+     "theorem": 714
+    },
+    "closureConstants": 26297,
+    "fixpointPasses": 4,
+    "axiomsInClosure": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "codeGeneratorExtraNames": 185,
+    "flags": {
+     "private": 315,
+     "internal": 362,
+     "auxRecursor": 26,
+     "noConfusion": 13,
+     "matcher": 9,
+     "instance": 4,
+     "unsafe": 0,
+     "partial": 9,
+     "implementedBy": 0,
+     "extern": 0
+    },
+    "skipKernelTCDefault": false,
+    "traversalDisagreements": 4
+   }
+  },
+  {
+   "id": "R7",
+   "statement": "our declarations reconcile with their 704 (lean/AXIOMS.json): all 704 are ours; Lean.collectAxioms gives their axiom set on all 704; ours contains theirs on all 704, every strict difference listed and standard; our 990 − 704 = 286 others are private theorems in the named classes, the explicit ones exactly the manifest's 69 private declarations",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "theirs": 704,
+    "ours": 990,
+    "extra": 286,
+    "extraClasses": {
+     "explicitPrivate": 69,
+     "privateArgPusher": 4,
+     "privateAuxProof": 198,
+     "privateAuxSimp": 15
+    },
+    "extraKinds": [
+     "theorem"
+    ],
+    "theirsNotOurs": [],
+    "leanSetDiffers": [],
+    "oursStrictlyLarger": [
+     "ZInQ.EquationCompression.EquationFormula.verum",
+     "ZInQ.EquationCompression.EquationFormula.disj",
+     "ZInQ.EquationCompression.EquationFormula.falsum",
+     "ZInQ.EquationCompression.EquationFormula.conj"
+    ],
+    "rule": "amendment C items 3-4 (written after the first pass)"
+   }
+  },
+  {
+   "id": "R8",
+   "statement": "census of the 48 sources and the root: no code occurrence of sorry, admit, axiom, native_decide, implemented_by, extern, unsafe, skipKernelTC, run_cmd, #eval, ofReduceBool, trustCompiler or addDecl; the frozen file has exactly one code `sorry` and nothing else of that list; the lakefile sets no Lean option",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "files": 50,
+    "linesScanned": 6686,
+    "tally": {
+     "sorry": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "admit": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "axiom": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "native_decide": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "implemented_by": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "extern": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "unsafe": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "opaque": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "partial": {
+      "code": 0,
+      "commentOrString": 1
+     },
+     "skipKernelTC": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "set_option": {
+      "code": 7,
+      "commentOrString": 0
+     },
+     "run_cmd": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "#eval": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "ofReduceBool": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "trustCompiler": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "addDecl": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "elab": {
+      "code": 0,
+      "commentOrString": 0
+     },
+     "macro": {
+      "code": 0,
+      "commentOrString": 4
+     }
+    },
+    "frozenCodeSorry": 1,
+    "lakefileSetsOptions": false,
+    "preRegisteredTokens": [
+     "sorry",
+     "axiom",
+     "native_decide",
+     "implemented_by",
+     "extern",
+     "unsafe"
+    ]
+   }
+  },
+  {
+   "id": "R9",
+   "statement": "the frozen target elaborated alone (`lake env lean Frozen/BoundedIntegerPolynomial.lean`, the pinned bytes) exits 0 with exactly one \"declaration uses `sorry`\" warning and no error",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "exit": 0,
+    "seconds": 2,
+    "maxRssKiB": 1097124,
+    "sorryWarnings": 1,
+    "warningAt": "12:8"
+   }
+  },
+  {
+   "id": "R10",
+   "statement": "the frozen target as its own module (their file byte-identical, one lean_lib added in a copy): one declaration, its axioms sorryAx plus standard ones only, its statement built from Mathlib's `hyperoperation` (Mathlib.Data.Nat.Hyperoperation), MvPolynomial, Rat, Int and nothing of the claimant's; in the same file our kernel-checked theorem ∀ k, hyperoperation 4 2 k = T k (T 0 = 1, T (k+1) = 2^(T k)) makes hyperoperation 4 2 7 = 2↑↑7 and 4 2 8 = 2↑↑8, and 4 2 1, 2, 3, 4 = 2, 4, 16, 65536 are decided",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "targetAxioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext",
+     "sorryAx"
+    ],
+    "statementConstants": 38,
+    "hyperoperationModule": "Mathlib.Data.Nat.Hyperoperation",
+    "ourTheoremsAxioms": {
+     "zq_hyperoperation_four_two": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "zq_hyperoperation_seven": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "zq_hyperoperation_eight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "zq_hyperoperation_small": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    "evaluated": "(2, 4, 16)",
+    "frozenClosure": 3183
+   }
+  },
+  {
+   "id": "R11",
+   "statement": "`leanchecker ZInQ`: the 49 modules ZInQ, ZInQ.* replayed by the toolchain kernel onto their imports",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "step": "leanchecker",
+    "exit": 0,
+    "seconds": 63,
+    "wallSeconds": 62.55,
+    "maxRssKiB": 87044184,
+    "userSeconds": 58.98,
+    "systemSeconds": 136.1,
+    "replayed": 49,
+    "logTail": "replaying ZInQ.CircuitEncoding | replaying ZInQ.PrecisionArithmetic"
+   }
+  },
+  {
+   "id": "R12",
+   "statement": "`leanchecker-paranoid ZInQ`: the same replay by the paranoid build",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "step": "leanchecker-paranoid",
+    "exit": 0,
+    "seconds": 73,
+    "wallSeconds": 73.57,
+    "maxRssKiB": 91076336,
+    "userSeconds": 74.33,
+    "systemSeconds": 130.67,
+    "replayed": 49,
+    "logTail": "replaying ZInQ.CircuitEncoding | replaying ZInQ.PrecisionArithmetic"
+   }
+  },
+  {
+   "id": "R13",
+   "statement": "`leanchecker --fresh ZInQ`: every constant of the closure (core, Mathlib, the 48 modules) replayed into an empty environment",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "step": "fresh",
+    "exit": 0,
+    "seconds": 330,
+    "wallSeconds": 330.19,
+    "maxRssKiB": 3852924,
+    "userSeconds": 323.81,
+    "systemSeconds": 6.27,
+    "replayed": 1,
+    "logTail": "replaying ZInQ with --fresh"
+   }
+  },
+  {
+   "id": "R14",
+   "statement": "nanoda v0.4.31 (nanoda_lib 8de7e0c4, built on the pod, unmodified; 1 GiB worker stack) accepts the full-environment export of ZInQ with permitted axioms exactly propext, Quot.sound, Classical.choice",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "nanoda",
+    "exit": 101,
+    "seconds": 62,
+    "wallSeconds": 61.45,
+    "maxRssKiB": 2708228,
+    "userSeconds": 285.18,
+    "systemSeconds": 1.41,
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "binarySha256": "592704b0755154cb6d4737dd30cc489f6077c2bbfbb1c1d3f49c791104bbb52c",
+    "logTail": "thread 'thread_6' (24085) panicked at /root/zq-lane4/final/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13: | memory overflow"
+   }
+  }
+ ],
+ "recorded": [
+  {
+   "id": "X1",
+   "statement": "our audit body from a module-system file (`module`, `public import ZInQ`): the exported view a module importer gets",
+   "outcome": "exactly their 704 names",
+   "numbers": {
+    "declarations": 704,
+    "sameNamesAsTheirs": true,
+    "leanAxiomsEqualTheirs": true,
+    "kinds": {
+     "axiom": 359,
+     "constructor": 12,
+     "def": 256,
+     "inductive": 4,
+     "recursor": 4,
+     "theorem": 69
+    },
+    "theoremsSeenAsAxiomsInClosure": 1617,
+    "original": "exported-audit.jsonl 5808302 bytes, sha256 c2357ebf7808be88d7b8b629cfa5f41f5f7803c805781e76e5c1a2c7bf9669fb (reduced on import: in this view every imported theorem is its own axiom, so our traversal's lists are long and meaningless)",
+    "prediction": "exactly their 704 names (amendment C item 2)"
+   }
+  },
+  {
+   "id": "R15",
+   "statement": "the toolchain's bundled nanoda_bin 0.4.19 on the same export (no stack option)",
+   "outcome": "a worker stack overflow (exit 134): a tool limit, not a verdict input",
+   "numbers": {
+    "step": "nanoda-bundled",
+    "exit": 134,
+    "seconds": 76,
+    "wallSeconds": 76.79,
+    "maxRssKiB": 22738072,
+    "userSeconds": 396.24,
+    "systemSeconds": 10.26
+   }
+  },
+  {
+   "id": "R16",
+   "statement": "lean4lean (bundled) on ZInQ, one try",
+   "outcome": "cannot read the v4.35.0 .olean files (\"incompatible header\"), exit 1: not usable with this toolchain",
+   "numbers": {
+    "step": "lean4lean",
+    "exit": 1,
+    "seconds": 3,
+    "wallSeconds": 3.32,
+    "maxRssKiB": 835788,
+    "userSeconds": 0.62,
+    "systemSeconds": 2.75
+   }
+  },
+  {
+   "id": "R17",
+   "statement": "the full-environment export (`leanexport ZInQ`, lean4export 3.1.0) given to nanoda",
+   "outcome": "exported",
+   "numbers": {
+    "sha256": "714992e2f34308f4a4018d12a29ef232d96fddc31d9dfee3def8e726abeabb55",
+    "bytes": 2494617457,
+    "lines": 43916817,
+    "declarationLines": {
+     "axiom": 4,
+     "def": 125752,
+     "thm": 272318,
+     "opaque": 2811,
+     "quot": 4,
+     "inductive": 4622
+    },
+    "step": "export",
+    "exit": 0,
+    "seconds": 100,
+    "wallSeconds": 99.87,
+    "maxRssKiB": 5622476,
+    "userSeconds": 96.15,
+    "systemSeconds": 3.69
+   }
+  },
+  {
+   "id": "R18",
+   "statement": "nanoda v0.4.31 on each module's closure of its non-private declarations (amendment D)",
+   "outcome": "47 of 48 modules accepted by a second, independent kernel; the rest: {\"memory overflow (num-bigint pow)\":1}",
+   "numbers": {
+    "byOutcome": {
+     "accepted": 47,
+     "memory overflow (num-bigint pow)": 1
+    },
+    "notAccepted": [
+     {
+      "module": "ZInQ.ExplicitCutoffBounds",
+      "outcome": "memory overflow (num-bigint pow)"
+     }
+    ],
+    "perModule": [
+     {
+      "module": "ZInQ.AlphaAddition",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.07,
+      "maxRssKiB": 7680
+     },
+     {
+      "module": "ZInQ.AlphaCRTWitness",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.06,
+      "maxRssKiB": 9224
+     },
+     {
+      "module": "ZInQ.AlphaCompanionBound",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.09,
+      "maxRssKiB": 10752
+     },
+     {
+      "module": "ZInQ.AlphaCompanionPeriod",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.1,
+      "maxRssKiB": 12300
+     },
+     {
+      "module": "ZInQ.AlphaCongruence",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.05,
+      "maxRssKiB": 7680
+     },
+     {
+      "module": "ZInQ.AlphaCore",
+      "names": 14,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.39,
+      "maxRssKiB": 43340
+     },
+     {
+      "module": "ZInQ.AlphaDivisibility",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.11,
+      "maxRssKiB": 10760
+     },
+     {
+      "module": "ZInQ.AlphaFoldedResidue",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.11,
+      "maxRssKiB": 16904
+     },
+     {
+      "module": "ZInQ.AlphaIndexCompanion",
+      "names": 4,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.12,
+      "maxRssKiB": 21516
+     },
+     {
+      "module": "ZInQ.AlphaLargeOddPair",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.19,
+      "maxRssKiB": 24576
+     },
+     {
+      "module": "ZInQ.AlphaParameterCongruence",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.02,
+      "maxRssKiB": 3072
+     },
+     {
+      "module": "ZInQ.AlphaParity",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.09,
+      "maxRssKiB": 13828
+     },
+     {
+      "module": "ZInQ.AlphaPeriodReflection",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.11,
+      "maxRssKiB": 13828
+     },
+     {
+      "module": "ZInQ.AlphaPowerBounds",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.08,
+      "maxRssKiB": 12296
+     },
+     {
+      "module": "ZInQ.AlphaPowerModulus",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.05,
+      "maxRssKiB": 7692
+     },
+     {
+      "module": "ZInQ.AlphaSignedResidue",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.09,
+      "maxRssKiB": 16900
+     },
+     {
+      "module": "ZInQ.AlphaSquareBridgeDraft",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.16,
+      "maxRssKiB": 18440
+     },
+     {
+      "module": "ZInQ.AlphaSquareDivisibilityDraft",
+      "names": 3,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.15,
+      "maxRssKiB": 16896
+     },
+     {
+      "module": "ZInQ.AlphaUnordered",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.1,
+      "maxRssKiB": 15364
+     },
+     {
+      "module": "ZInQ.AlphaWitnessTransport",
+      "names": 2,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.07,
+      "maxRssKiB": 7692
+     },
+     {
+      "module": "ZInQ.BinomialDigit",
+      "names": 7,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.22,
+      "maxRssKiB": 26120
+     },
+     {
+      "module": "ZInQ.BitwiseMacros",
+      "names": 12,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.63,
+      "maxRssKiB": 59504
+     },
+     {
+      "module": "ZInQ.BooleanCube",
+      "names": 3,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.41,
+      "maxRssKiB": 42324
+     },
+     {
+      "module": "ZInQ.CantorDecoder",
+      "names": 29,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.07,
+      "maxRssKiB": 15368
+     },
+     {
+      "module": "ZInQ.CircuitEncoding",
+      "names": 79,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.06,
+      "maxRssKiB": 7688
+     },
+     {
+      "module": "ZInQ.CircuitPolynomial",
+      "names": 19,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.39,
+      "maxRssKiB": 42412
+     },
+     {
+      "module": "ZInQ.CoefficientAllocation",
+      "names": 10,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.38,
+      "maxRssKiB": 47456
+     },
+     {
+      "module": "ZInQ.CyclicSignatures",
+      "names": 4,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.49,
+      "maxRssKiB": 50456
+     },
+     {
+      "module": "ZInQ.EquationCompression",
+      "names": 78,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.51,
+      "maxRssKiB": 46396
+     },
+     {
+      "module": "ZInQ.ExplicitCutoffBounds",
+      "names": 5,
+      "exportExit": 0,
+      "exit": 101,
+      "outcome": "memory overflow (num-bigint pow)",
+      "wallSeconds": 0.08,
+      "maxRssKiB": 13828
+     },
+     {
+      "module": "ZInQ.HammingDigits",
+      "names": 5,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.65,
+      "maxRssKiB": 54788
+     },
+     {
+      "module": "ZInQ.HeightConstantAlgorithm",
+      "names": 27,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.12,
+      "maxRssKiB": 21504
+     },
+     {
+      "module": "ZInQ.HeightConstantComparison",
+      "names": 38,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.15,
+      "maxRssKiB": 21504
+     },
+     {
+      "module": "ZInQ.ModelCoordinateIdentities",
+      "names": 6,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.12,
+      "maxRssKiB": 19972
+     },
+     {
+      "module": "ZInQ.ModelDuplicationBounds",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.44,
+      "maxRssKiB": 45180
+     },
+     {
+      "module": "ZInQ.NumericalTowerBounds",
+      "names": 21,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.19,
+      "maxRssKiB": 29196
+     },
+     {
+      "module": "ZInQ.PackedRegister",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.21,
+      "maxRssKiB": 25496
+     },
+     {
+      "module": "ZInQ.PolePolynomial",
+      "names": 21,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.95,
+      "maxRssKiB": 81300
+     },
+     {
+      "module": "ZInQ.PoleValuation",
+      "names": 37,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.39,
+      "maxRssKiB": 33792
+     },
+     {
+      "module": "ZInQ.PolynomialCertificates",
+      "names": 129,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 1.01,
+      "maxRssKiB": 151864
+     },
+     {
+      "module": "ZInQ.PolynomialCertificatesCyclotomic",
+      "names": 7,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 1.65,
+      "maxRssKiB": 115056
+     },
+     {
+      "module": "ZInQ.PowerBoundDraft",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.09,
+      "maxRssKiB": 10752
+     },
+     {
+      "module": "ZInQ.PrecisionAlgorithms",
+      "names": 17,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.08,
+      "maxRssKiB": 13828
+     },
+     {
+      "module": "ZInQ.PrecisionArithmetic",
+      "names": 20,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.08,
+      "maxRssKiB": 16908
+     },
+     {
+      "module": "ZInQ.RankTwoMatrix",
+      "names": 22,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.53,
+      "maxRssKiB": 48368
+     },
+     {
+      "module": "ZInQ.RationalPositiveGuard",
+      "names": 1,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.99,
+      "maxRssKiB": 93980
+     },
+     {
+      "module": "ZInQ.RationalSeparation",
+      "names": 9,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.98,
+      "maxRssKiB": 85360
+     },
+     {
+      "module": "ZInQ.SmoothingArithmetic",
+      "names": 13,
+      "exportExit": 0,
+      "exit": 0,
+      "outcome": "accepted",
+      "wallSeconds": 0.27,
+      "maxRssKiB": 33792
+     }
+    ],
+    "needsInvestigation": []
+   }
+  }
+ ],
+ "redControls": [
+  {
+   "id": "P1",
+   "mutation": "theorem zq_planted_sorry : 2 + 2 = 5 := by sorry, appended to the leaf",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "prediction": "build 0 with one new sorry warning; the audit flags sorryAx by both traversals; leanchecker 0; nanoda (both) refuse; the census sees sorry",
+   "outcome": {
+    "build": 0,
+    "newSorryWarnings": 1,
+    "declarations": 991,
+    "flagged": [
+     "zq_planted_sorry [\"sorryAx\"]"
+    ],
+    "leanchecker": 0,
+    "leancheckerKernelError": false,
+    "nanoda": 101,
+    "nanodaBundled": 101,
+    "census": [
+     "sorry"
+    ],
+    "fallback": null
+   },
+   "passed": true
+  },
+  {
+   "id": "P2",
+   "mutation": "axiom zq_planted_axiom and a theorem using it, appended to the leaf",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "prediction": "build 0; the audit lists the axiom (kind axiom) and flags both; leanchecker 0; nanoda (both) refuse; the census sees axiom",
+   "outcome": {
+    "build": 0,
+    "newSorryWarnings": 0,
+    "declarations": 992,
+    "flagged": [
+     "zq_planted_axiom [\"zq_planted_axiom\"]",
+     "zq_planted_uses_axiom [\"zq_planted_axiom\"]"
+    ],
+    "leanchecker": 0,
+    "leancheckerKernelError": false,
+    "nanoda": 101,
+    "nanodaBundled": 101,
+    "census": [
+     "axiom"
+    ],
+    "fallback": null
+   },
+   "passed": true
+  },
+  {
+   "id": "P3",
+   "mutation": "theorem zq_planted_native : 2 + 2 = 4 := by native_decide, appended to the leaf",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "prediction": "build 0; the audit lists the auxiliary native_decide axiom (kind axiom) and flags it and the theorem; leanchecker 0; nanoda (both) refuse; the census sees native_decide (amendment B)",
+   "outcome": {
+    "build": 0,
+    "newSorryWarnings": 0,
+    "declarations": 992,
+    "flagged": [
+     "_private.ZInQ.AlphaSquareBridgeDraft.0.zq_planted_native._native.native_decide.ax_1_1 [\"_private.ZInQ.AlphaSquareBridgeDraft.0.zq_planted_native._native.native_decide.ax_1_1\"]",
+     "zq_planted_native [\"_private.ZInQ.AlphaSquareBridgeDraft.0.zq_planted_native._native.native_decide.ax_1_1\"]"
+    ],
+    "leanchecker": 0,
+    "leancheckerKernelError": false,
+    "nanoda": 101,
+    "nanodaBundled": 101,
+    "census": [
+     "native_decide"
+    ],
+    "fallback": null
+   },
+   "passed": true
+  },
+  {
+   "id": "P4",
+   "mutation": "theorem zq_planted_unchecked : False := True.intro, added by run_cmd under set_option debug.skipKernelTC true",
+   "module": "ZInQ.AlphaSquareBridgeDraft",
+   "prediction": "build 0; the audit sees NO axiom on it (its blind spot); leanchecker non-zero with a kernel type mismatch; nanoda (both) refuse; the census sees skipKernelTC, run_cmd, addDecl",
+   "outcome": {
+    "build": 0,
+    "newSorryWarnings": 0,
+    "declarations": 991,
+    "flagged": [],
+    "leanchecker": 1,
+    "leancheckerKernelError": true,
+    "nanoda": 101,
+    "nanodaBundled": 101,
+    "census": [
+     "addDecl",
+     "run_cmd",
+     "set_option",
+     "skipKernelTC"
+    ],
+    "fallback": null
+   },
+   "passed": true
+  },
+  {
+   "id": "P5",
+   "mutation": "one byte appended to ZInQ/PrecisionArithmetic.lean (in memory, on the desk)",
+   "module": null,
+   "prediction": "the re-hash of R2 flags exactly that file",
+   "outcome": {
+    "flagged": [
+     "ZInQ/PrecisionArithmetic.lean"
+    ]
+   },
+   "passed": true
+  }
+ ],
+ "validationComparison": [
+  {
+   "field": "toolchain",
+   "theirs": "Lean (version 4.35.0, x86_64-w64-windows-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+   "ours": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+   "agrees": true,
+   "note": "same Lean commit; theirs Windows, ours Linux"
+  },
+  {
+   "field": "dependency_pins",
+   "theirs": "9 revisions",
+   "ours": "9 checkouts",
+   "agrees": true
+  },
+  {
+   "field": "source_manifest_sha256",
+   "theirs": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+   "ours": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+   "agrees": true
+  },
+  {
+   "field": "project_modules_freshly_compiled",
+   "theirs": 48,
+   "ours": 48,
+   "agrees": true
+  },
+  {
+   "field": "root_compiled",
+   "theirs": true,
+   "ours": true,
+   "agrees": true
+  },
+  {
+   "field": "declarations_axiom_checked",
+   "theirs": 704,
+   "ours": 990,
+   "agrees": false,
+   "note": "not a contradiction: ours adds the 286 private theorems a module-system importer does not see (R7, X1); their 704 are all among ours"
+  },
+  {
+   "field": "allowed_axioms",
+   "theirs": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "ours": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "agrees": true
+  },
+  {
+   "field": "main_theorem_proved",
+   "theirs": false,
+   "ours": false,
+   "agrees": true,
+   "note": "the frozen target is sorry (R9, R10)"
+  },
+  {
+   "field": "quarantined_target_compiled",
+   "theirs": false,
+   "ours": true,
+   "agrees": false,
+   "note": "they did not compile it; we did (R9, R10): it elaborates with its one sorry"
+  },
+  {
+   "field": "seconds",
+   "theirs": 241.343,
+   "ours": 28,
+   "agrees": null,
+   "note": "their whole check on Windows with 2 jobs; ours is `lake build ZInQ` alone on 16 vCPU"
+  }
+ ],
+ "census": {
+  "tally": {
+   "sorry": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "admit": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "axiom": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "native_decide": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "implemented_by": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "extern": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "unsafe": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "opaque": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "partial": {
+    "code": 0,
+    "commentOrString": 1
+   },
+   "skipKernelTC": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "set_option": {
+    "code": 7,
+    "commentOrString": 0
+   },
+   "run_cmd": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "#eval": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "ofReduceBool": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "trustCompiler": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "addDecl": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "elab": {
+    "code": 0,
+    "commentOrString": 0
+   },
+   "macro": {
+    "code": 0,
+    "commentOrString": 4
+   }
+  },
+  "hits": [
+   {
+    "file": "lean/ZInQ/PolynomialCertificates.lean",
+    "line": 20,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 45,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 46,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 51,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 52,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 59,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/ZInQ/ExplicitCutoffBounds.lean",
+    "line": 113,
+    "token": "set_option",
+    "inCode": true
+   },
+   {
+    "file": "lean/Frozen/BoundedIntegerPolynomial.lean",
+    "line": 21,
+    "token": "sorry",
+    "inCode": true
+   }
+  ],
+  "allHits": 13
+ },
+ "notes": [
+  "9 declaration(s) are partial or unsafe, all compiler-generated `._unsafe_rec` auxiliaries of well-founded definitions (the sources contain no `partial` or `unsafe` in code, R8); the kernel forbids a safe declaration to use them.",
+  "Our traversal and Lean.collectAxioms differ on 4 declaration(s), every difference inside the three standard axioms: ZInQ.EquationCompression.EquationFormula.conj (ours [\"Classical.choice\",\"Quot.sound\",\"propext\"], Lean []); ZInQ.EquationCompression.EquationFormula.disj (ours [\"Classical.choice\",\"Quot.sound\",\"propext\"], Lean []); ZInQ.EquationCompression.EquationFormula.falsum (ours [\"Classical.choice\",\"Quot.sound\",\"propext\"], Lean []); ZInQ.EquationCompression.EquationFormula.verum (ours [\"Classical.choice\",\"Quot.sound\",\"propext\"], Lean []). Our reading (amendment C item 4): these constructors' own types mention only their inductive, which ours follows back to the `equation` constructor; v4.35.0's stored table has [] for them.",
+  "nanoda v0.4.31 on the full export: \"memory overflow\" panics inside num-bigint's pow (its Nat extension computes a literal power without the exponent bound Lean's kernel applies), after 62 s; a tool limit under amendment A item 5, so R14 is REFUSED as a tool row and the replay requirement rests on R13 (amendment D).",
+  "P4's census check failed on this recorder's first run: the census token boundary excluded a preceding \".\", so `debug.skipKernelTC` was not seen. The boundary was fixed (amendment E) and the census re-run over every file; the claimant's sources gave the same code hits before and after."
+ ]
+}

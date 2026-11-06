@@ -364,6 +364,19 @@ well-founded recursive defs, which our audit flags `partial` (no `partial` or `u
 nanoda does not accept as input. They are dropped from the lists (the kernel forbids a safe declaration to use a
 partial one, so no theorem's closure needs them), the first run's outputs are deleted, and the localization is run again.
 
+### Lane 4 amendment E, 2026-11-06, on the desk after the recorded pass
+
+Two changes to the RECORDER, nothing on the pod. (1) Its first run failed red control P4: the census token boundary
+excluded a preceding `.`, so `set_option debug.skipKernelTC true` was not seen as `skipKernelTC`. The boundary now
+allows a preceding `.` (qualified uses such as `Lean.ofReduceBool` are seen too); the census over the claimant's 50
+files gave the same 13 hits before and after (7 `set_option` in code — `maxRecDepth` and `exponentiation.threshold` —
+1 `partial` in a docstring, 4 `macro` in comments, the frozen file's one `sorry`), and P4 then came out as predicted.
+(2) The exported-view audit (X1) is 5.8 MB, because in that view every imported theorem is its own axiom; it is
+imported reduced to names, kinds and Lean's axiom sets (`--reduce-exported`), its sha256 and size kept.
+
+Lane 4 has run: `certs/zq-lean-replay.json` (`node tools/record-zq-lean-replay.js --check`), facts in
+`corpus/zq/runs/lane4-2026-11-06/`.
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."

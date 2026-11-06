@@ -1,0 +1,18 @@
+ZInQ/ModelCoordinateIdentities.lean:39:0: warning: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.epsilon_inverse`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQ/ModelCoordinateIdentities.lean:43:0: warning: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.delta_identity`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ZInQ/ModelCoordinateIdentities.lean:65:0: warning: automatically included section variable(s) unused in theorem `ZInQ.ModelCoordinates.point_R`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
