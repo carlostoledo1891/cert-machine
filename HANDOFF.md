@@ -44,7 +44,12 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~00:10 UTC; NOTHING BILLING — list-
      NEXT (the operator chose all three to be PREPARED, each shown before it goes out): (a) one comment on leanprover/lean4#16290 — the con-* stops are fixed on master, what
      remains is the bundled builds' limits (nanoda's stack, lean4lean's fuel) and the "rejected" wording, with the DOI; (b) an X
      post (six kernels accept, the export public); (c) the note v0.3 (paper/tex/eth-chain.tex: the masters fact + the exports'
-     DOI; a new tagged release → a new Zenodo version; bump .zenodo.json before the tag). Drafts in outreach/ (untracked).
+     DOI; a new tagged release → a new Zenodo version; bump .zenodo.json before the tag). PREPARED 2026-11-06 ~00:40 UTC: (a)
+     outreach/gh-lean4-16290-update-2026-11-06.md, (b) notes/x/drops/d16-six-kernels-post.txt (untracked, as the other drafts),
+     (c) the note v0.3 on LOCAL branch note-v0.3 (45746f55, not pushed: the tex, its numbers from the record's masters, the
+     generator), its PDF built for review at ~/Projects/eth-chain-note-v0.3-draft.pdf (7 pp). On the operator's word for (c):
+     merge, `node tools/build-paper-tex.js eth-chain`, bump .zenodo.json to the new version, the papers index, tag + release,
+     record the minted DOI (corpus/zenodo.json, CITATION.cff), rebuild the note with it.
   ◆◆ 0b. ℤ IS DIOPHANTINE IN ℚ (Elliot Glazer, 2026-11-05 18:00 UTC, github.com/elliotglazer/diophantine-z-q; AI-produced, NOT
      formalized: the main Lean target has a sorry; no LICENSE file): SCOUTED, the row glazer-z-diophantine-in-q-2026-11 (OPEN).
      The operator asked "verify the work but also try to fill the Lean gap with AI + claimbox": the plan answered — Track A
