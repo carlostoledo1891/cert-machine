@@ -34,8 +34,9 @@ theorem zq_hyperoperation_small :
   simp only [zq_hyperoperation_four_two]; decide
 
 -- Mathlib's `hyperoperation` is well-founded recursion, so `decide` cannot unfold it directly; the small values are
--- decided above through the kernel-checked tower theorem, and also evaluated here by the compiled definition:
-#eval (hyperoperation 4 2 1, hyperoperation 4 2 2, hyperoperation 4 2 3, hyperoperation 4 2 4)
+-- decided above through the kernel-checked tower theorem, and the first three also evaluated here by the definition
+-- itself (it computes in unary steps, so 4 2 4 = 65536 costs ~10^9 calls in the interpreter and is left out):
+#eval (hyperoperation 4 2 1, hyperoperation 4 2 2, hyperoperation 4 2 3)
 
 #print axioms zq_hyperoperation_four_two
 #print axioms zq_hyperoperation_seven
