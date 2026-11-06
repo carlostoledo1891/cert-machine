@@ -101,6 +101,19 @@ def('EcOaJudgeMin', int(named.chain.seconds / 60)); def('EcOaPthreeMin', int(oa.
 def('EcOaBuildMin', int(oa.steps.buildSeconds / 60)); def('EcOaFreshMin', int(oa.steps.leancheckerSeconds / 60));
 def('EcOaPlanted', int(Object.keys(oa.planted).length));
 def('EcPlanted', int(Object.keys(ch.planted).length + Object.keys(c2.planted).length + Object.keys(c1.planted).length + Object.keys(oa.planted).length));
+/* v0.3: the master runs con-leche#16 asked for, and the exports' deposit (the record's `masters`, outside the decision) */
+{
+  const ms = (oa.masters || {}), runs = ms.runs || [], ok = (c, x) => runs.filter((r) => r.checker === c && r.export === x && r.exit === 0 && r.accepted);
+  const jobsOf = (r) => Number((/--jobs=(\d+)/.exec(r.args) || [])[1] || 0);
+  const cl = ok('con-leche', 'chain'), cr = ok('con-ron', 'chain'), ch = [...ok('con-leche', 'challenge'), ...ok('con-ron', 'challenge')];
+  if (!cl.length || !cr.length || !ch.length || !ms.deposit) die('the record carries no master runs or no deposit; v0.3 states both');
+  const commits = (c) => [...new Set(runs.filter((r) => r.checker === c && r.exit === 0 && r.accepted).map((r) => r.commit.slice(0, 8)))].sort().join(' and ');
+  const leanAt = (j) => { const r = cl.find((x) => jobsOf(x) === j && !/--trusted/.test(x.args)); if (!r) die('no con-leche run at ' + j + ' workers'); return (r.maxRssKb / 1048576).toFixed(1); };
+  def('EcOaMastersLeche', commits('con-leche')); def('EcOaMastersRon', commits('con-ron'));
+  def('EcOaMastersDecls', int(cl[0].accepted)); def('EcOaMastersChallengeDecls', int(ch[0].accepted));
+  def('EcOaLecheSixteenGib', leanAt(16)); def('EcOaLecheEightGib', leanAt(8));
+  def('EcOaExportsDoi', ms.deposit.doi); def('EcOaExportMb', int(ms.deposit.files.find((f) => f.key === 'export-comparator.ndjson.zst').size / 1e6));
+}
 def('EcCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('paper/tex/eth-chain-numbers.tex: ' + (M.length - 1) + ' macros');
