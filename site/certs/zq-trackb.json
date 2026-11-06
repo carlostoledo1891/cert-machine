@@ -9,7 +9,7 @@
   "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party"
  ],
  "generated": "2026-11-06",
- "preregistration": "notes/zq-trackb-preregistration-2026-11-06.md (committed and pushed before any code of ours ran on claimbox's files; amendments A and B after a first pass and before the recorded one, C after the recorded pass and before its supplement)",
+ "preregistration": "notes/zq-trackb-preregistration-2026-11-06.md (committed and pushed before any code of ours ran on claimbox's files; amendments A and B after a first pass and before the recorded one, C after the recorded pass and before its screen supplement, D before the second-kernel supplement)",
  "pins": {
   "claimbox": {
    "repository": "github.com/carlostoledo1891/claimbox",
@@ -37,7 +37,7 @@
   "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679"
  },
  "code": {
-  "tools/record-zq-trackb.js": "7bc360e93f413398280a577e9f3b71f6cb7507fafa44d73ecaf1597944a3247b",
+  "tools/record-zq-trackb.js": "b829f361021bac8714a1362ffbc8694da00b67c799210e411ebf6a25542a7cae",
   "tools/runpod-zq-trackb.sh": "c4af2b5310d5323cc8359c12906e1d78bf8a48cf2571d19820ddece811e4277d",
   "tools/zq-lean-audit.lean": "a5a129335167126ad3d630b8f214560970f21a0a89d02adb068dd41f00bd49af",
   "tools/zq-trackb-statement.lean": "40dd95d47dd7746ec551df09311ad424c8ce6501402b1012b484c9b20970071d",
@@ -51,6 +51,13 @@
   "lastStatus": "2026-11-06T13:13:11Z recorded pass done",
   "steps": 43,
   "firstPass": "a first pass ran 11:05-12:22 UTC under /root/zq-trackb/pass1; nothing of it is imported (amendments A and B)",
+  "kernelSupplement": {
+   "facts": "corpus/zq/runs/trackb-2026-11-06/kernel-supplement",
+   "why": "amendment D: con-leche master on a 128 GB pod and con-ron master with 1 GiB worker stacks; read only if its export is the recorded pass's bytes",
+   "steps": 11,
+   "exportSameBytes": true,
+   "firstStatus": "2026-11-06T14:27:41Z start setup"
+  },
   "supplement": {
    "facts": "corpus/zq/runs/trackb-2026-11-06/screen-supplement",
    "why": "amendment C: the recorded pass's screen lines were broken by a fault of ours (a `return` in a match arm left the screen function); the screens re-run with the corrected check file, every other row from the recorded pass",
@@ -798,12 +805,30 @@
    }
   },
   {
-   "id": "B8lm",
-   "statement": "con-leche master dc8ca857 (lake) accepts the export (--jobs=8)",
+   "id": "B8rm2",
+   "statement": "con-ron master 97eead2d with 1 GiB worker stacks (RUST_MIN_STACK, the kernel supplement on 128 GB) accepts the export",
    "verdict": "REFUSED",
    "numbers": {
-    "notRun": "not run in the recorded pass (amendment B): on the 64 GB pod it can only be killed by the memory limit again",
-    "continuation": "exit 137 after 18 min, 62 GB peak (quoted, not imported)",
+    "step": "kernel-supplement/con-ron-master",
+    "exit": 134,
+    "seconds": 33,
+    "wallSeconds": 33.39,
+    "maxRssKiB": 33009616,
+    "logTail": "fatal runtime error: stack overflow, aborting | timeout: the monitored command dumped core",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8lm",
+   "statement": "con-leche master dc8ca857 (lake, on the pod) accepts the export (--jobs=8; the kernel supplement on 128 GB, amendment D)",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "kernel-supplement/con-leche-master",
+    "exit": 134,
+    "seconds": 119,
+    "wallSeconds": 119.06,
+    "maxRssKiB": 74388232,
+    "logTail": "Stack overflow detected. Aborting. | timeout: the monitored command dumped core",
     "toolStop": true
    }
   }
@@ -831,6 +856,38 @@
     "wallSeconds": 18.66,
     "maxRssKiB": 6821720,
     "exportLog": ""
+   }
+  },
+  {
+   "id": "X4",
+   "statement": "a minimal reproduction of nanoda's overflow, ours (amendment D, informational): `theorem nanoda_pow_repro : (2 : Nat) ^ (2 ^ 32) = 2 ^ 4294967296 := rfl` with plain Lean 4.35.0, exported and given to both nanoda builds",
+   "outcome": "Lean did not accept it",
+   "numbers": {
+    "source": "theorem nanoda_pow_repro : (2 : Nat) ^ (2 ^ 32) = 2 ^ 4294967296 := rfl",
+    "log": [
+     "6c40ee1313654376128ffcac2f59b58fb39eb12ed413fbcb80affaf03de08d20  NanodaRepro.lean",
+     "NanodaRepro.lean:3:0: warning: exponent 4294967296 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold",
+     "NanodaRepro.lean:3:68: warning: exponent 4294967296 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold",
+     "NanodaRepro.lean:3:8: error: (kernel) the kernel refused to evaluate `Nat.pow` because its second argument does not fit in a 32-bit unsigned integer",
+     "lean exit 1",
+     "uncaught exception: process 'lean' exited with code 255",
+     "stderr:",
+     "could not execute external process 'lean'",
+     "",
+     "export exit 1",
+     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /root/zq-trackb/repro/repro.export",
+     "0",
+     "== /root/.elan/toolchains/leanprover--lean4---v4.35.0/bin/nanoda_bin",
+     "Checked 0 declarations with no typechecker errors, 1 pretty printer errors: [",
+     "    \"Unable to print axioms\",",
+     "]",
+     "exit 0",
+     "== /root/zq-trackb/kernels/bin/nanoda_bin-0.4.31",
+     "Checked 0 declarations with no typechecker errors, 1 pretty printer errors: [",
+     "    \"Unable to print axioms\",",
+     "]",
+     "exit 0"
+    ]
    }
   },
   {

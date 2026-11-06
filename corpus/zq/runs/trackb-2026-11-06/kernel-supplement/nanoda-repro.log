@@ -1,0 +1,22 @@
+6c40ee1313654376128ffcac2f59b58fb39eb12ed413fbcb80affaf03de08d20  NanodaRepro.lean
+NanodaRepro.lean:3:0: warning: exponent 4294967296 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+NanodaRepro.lean:3:68: warning: exponent 4294967296 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+NanodaRepro.lean:3:8: error: (kernel) the kernel refused to evaluate `Nat.pow` because its second argument does not fit in a 32-bit unsigned integer
+lean exit 1
+uncaught exception: process 'lean' exited with code 255
+stderr:
+could not execute external process 'lean'
+
+export exit 1
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /root/zq-trackb/repro/repro.export
+0
+== /root/.elan/toolchains/leanprover--lean4---v4.35.0/bin/nanoda_bin
+Checked 0 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+exit 0
+== /root/zq-trackb/kernels/bin/nanoda_bin-0.4.31
+Checked 0 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+exit 0

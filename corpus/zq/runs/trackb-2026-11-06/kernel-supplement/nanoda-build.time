@@ -1,0 +1,30 @@
+	Command being timed: "timeout 3600 bash -c set -e
+    curl -sSf https://sh.rustup.rs | sh -s -- -y -q --profile minimal --no-modify-path
+    /root/zq-trackb/kernels/rust/cargo/bin/rustc --version; /root/zq-trackb/kernels/rust/cargo/bin/cargo --version
+    rm -rf /root/zq-trackb/kernels/tools-src/nanoda_lib; mkdir -p /root/zq-trackb/kernels/tools-src
+    git clone -q https://github.com/ammkrn/nanoda_lib.git /root/zq-trackb/kernels/tools-src/nanoda_lib; cd /root/zq-trackb/kernels/tools-src/nanoda_lib; git checkout -q 8de7e0c4ed3052745a7f8725164efd9e76d84c56
+    test "$(git rev-parse HEAD)" = 8de7e0c4ed3052745a7f8725164efd9e76d84c56; test -z "$(git status --porcelain)"; grep -m1 '^version' Cargo.toml
+    /root/zq-trackb/kernels/rust/cargo/bin/cargo build --release --locked -q
+    cp target/release/nanoda_bin /root/zq-trackb/kernels/bin/nanoda_bin-0.4.31; sha256sum /root/zq-trackb/kernels/bin/nanoda_bin-0.4.31"
+	User time (seconds): 36.69
+	System time (seconds): 5.07
+	Percent of CPU this job got: 145%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:28.76
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 533236
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 204
+	Minor (reclaiming a frame) page faults: 893596
+	Voluntary context switches: 19240
+	Involuntary context switches: 592
+	Swaps: 0
+	File system inputs: 38712
+	File system outputs: 1781648
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

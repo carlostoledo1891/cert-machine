@@ -29,11 +29,13 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-
      CERTIFIED). leanchecker / -paranoid / --fresh (34 min) accept; 271 declarations on the 3 standard axioms; our own
      statement module (type_of%) + syntactic check; 7 controls caught (nanoda refuses C2/C3/Q3 for their planted reasons).
      Every second kernel stops on a resource limit (nanoda num-bigint overflow; con-ron/con-leche bundled fuel at
-     CondZQ.t_body; con-ron master stack overflow; con-leche master killed at 64 GB, not re-run) — a bigger pod (128–256 GB)
-     could give con-leche master a real try, and the fuel stop is a con-leche#16-style report. Amendments A (first pass:
+     CondZQ.t_body; con-ron master AND con-leche master on a STACK OVERFLOW, also on a 128 GB pod with RUST_MIN_STACK=1 GiB —
+     amendment D, kernel-supplement/, ~US$0.27) — a con-leche/con-ron report (rebuild commands, the export not public: it
+     holds Glazer's unlicensed declarations). The nanoda minimal repro failed (Lean's kernel refuses 2^(2^32) too): no
+     nanoda issue until a real minimal case. Amendments A (first pass:
      Q3 layout, aux-proof names), B (order; con-leche master skipped), C (after the recorded pass: the screen's lines were
      broken by a `return` in a match arm — re-run in a supplement whose target/F/G lines equal the recorded pass's; Q3's
-     prediction word). /z-in-q/ carries the verdicts (still unlisted). Pods ≈ US$4.0 of the US$50 cap. OUTREACH still held
+     prediction word), D (the second-kernel supplement). /z-in-q/ carries the verdicts (still unlisted). Pods ≈ US$4.3 of the US$50 cap. OUTREACH still held
      (the operator: after everything): the Glazer issue draft can now add lanes 3/4 + Track B.
   ◆◆ Z-now. ALL FOUR LANES OF THE PUSH LANDED (03:40 UTC): Track A lanes 1–4 + H2 merged, checked here and wired (202/202
      green): lane 1 CERTIFIED, lane 2 CERTIFIED under H1/H2/M/L1, H2 REFUSED (not a computation; F1–F9 CERTIFIED), lane 3 MIXED

@@ -209,7 +209,7 @@ more try at a second, independent kernel, which can only strengthen a row or add
   thread Rust spawns without an explicit size, so con-ron master's workers get the room nanoda got from its config key).
 - **Same bytes:** the supplement's export must hash to the recorded pass's, `b04d30ee…` (184,384,945 bytes); otherwise the
   supplement is REFUSED and nothing of it is read.
-- **Rows:** B8lm (con-ron… con-leche master, `--jobs=8`) is read from the supplement; a new row B8rm2, con-ron master with
+- **Rows:** B8lm (con-leche master, `--jobs=8`) is read from the supplement; a new row B8rm2, con-ron master with
   1 GiB worker stacks; the recorded pass's B8rm (default stack, stack overflow) stays as recorded. Acceptance: exit 0 and
   `accepted N declarations`. A stop on a resource limit is REFUSED (tool).
 - **Informational, not part of the decision:** a minimal reproduction of nanoda's overflow for its maintainers, written by

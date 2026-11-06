@@ -287,7 +287,7 @@ B.push(C.section({
 /* Track B, from cert-machine's decision */
 const SECOND_TEXT = SECOND_OK.length
   ? 'Of the second, independent checkers, ' + SECOND_OK.map((r) => r.statement.split(' ')[0]).join(', ') + ' also accept it.'
-  : 'Every second, independent checker stopped on a resource limit before reaching a verdict (nanoda on a big-integer overflow, as in lane 4; con-ron and con-leche on their computation budget, con-ron’s master on its stack; con-leche’s master needs a larger machine), so the kernel replay rests on Lean’s own checker, as lane 4’s does. '
+  : 'Every second, independent checker stopped on a resource limit before reaching a verdict (nanoda on a big-integer overflow, as in lane 4; con-ron and con-leche as Lean ships them on their computation budget; both of their master branches on a stack overflow, also on a 128 GB machine), so the kernel replay rests on Lean’s own checker, as lane 4’s does. '
     + 'On the planted variants nanoda did reach a verdict, and refused each for its planted reason.';
 const NDR = TB.redControls.filter((c) => ['C2', 'C3', 'Q3'].includes(c.id)).map((c) => c.outcome.nanoda && c.outcome.nanoda.reason);
 if (!/sorryAx/.test(NDR[0] || '') || !/planted_zinq_axiom/.test(NDR[1] || '') || !/def_eq/.test(NDR[2] || '')) die('Track B: nanoda no longer refuses the planted variants for their planted reasons');

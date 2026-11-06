@@ -67,6 +67,9 @@ const fact = (name) => { const p = path.join(RUN, name); return fs.existsSync(p)
 const SUP = path.join(RUN, 'screen-supplement');
 const CHECK_RECORDED = 'fd34b9bd24fe90af6d426a4e5218be1f751ae8cc4af11b4da3122edd5703ac49';   /* zq-trackb-check.lean as the recorded pass ran it */
 const supFact = (name) => { const p = path.join(SUP, name); return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null; };
+/* amendment D: the second-kernel supplement on a 128 GB pod */
+const KSUP = path.join(RUN, 'kernel-supplement');
+const kFact = (name) => { const p = path.join(KSUP, name); return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null; };
 const supJsonl = (name) => { const t = supFact(name); if (t === null) die('missing supplement fact ' + name); return t.split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l)); };
 const need = (name) => { const t = fact(name); if (t === null) die('missing fact ' + name + ' in ' + path.relative(ROOT, RUN)); return t; };
 const exitOf = (s) => { const t = fact(s + '.exit'); return t === null ? null : Number(t.trim()); };
@@ -134,6 +137,7 @@ function build() {
   };
   const stepsRecorded = codeCheck(RUN, need, 'the recorded pass');
   const stepsSupplement = codeCheck(SUP, (f) => supFact(f), 'the supplement');
+  const stepsKernels = fs.existsSync(KSUP) ? codeCheck(KSUP, (f) => kFact(f), 'the kernel supplement') : 0;
 
   /* B1 the source at its pins */
   const fe = step('fetch'), felog = lines(fact('fetch.log')).filter(Boolean);
@@ -257,8 +261,18 @@ function build() {
   record('X1', 'the name-restricted export (`leanexport CertMachineZQ -- <our four theorems> <the built-in list>`) given to the second kernels', step('export') && step('export').exit === 0 ? 'exported with the built-in list' : step('export-plain') && step('export-plain').exit === 0 ? 'exported without the built-in list (the toolchain lacks a name of it)' : 'not exported',
     Object.assign({ sha256: (exp.match(/^([0-9a-f]{64})/) || [])[1], bytes: Number((exp.match(/^(\d+) bytes$/m) || [])[1]), lines: ej && ej.lines, declarationLines: ej && Object.fromEntries(['axiom', 'def', 'thm', 'opaque', 'quot', 'inductive'].map((k) => [k, ej.linesByFirstKey[k] || 0])) }, step('export') || {}, { exportLog: tail(fact('export.log')) }));
   const toolStop = (log) => /overflow|out of memory|fuel|stack|Killed|memory/i.test(log || '');
-  const second = (id, s, statement, accepted) => {
-    const x = step(s), log = fact(s + '.log') || '';
+  /* a step of the kernel supplement (amendment D), read only if its export is the recorded pass's bytes */
+  const kStep = (s) => {
+    const e = kFact(s + '.exit'); if (e === null) return null;
+    const a = kFact(s + '.start'), b = kFact(s + '.end');
+    return Object.assign({ step: 'kernel-supplement/' + s, exit: Number(e.trim()), seconds: a && b ? Number(b) - Number(a) : null }, gnuTime(kFact(s + '.time')));
+  };
+  const recordedExportSha = (exp.match(/^([0-9a-f]{64})/) || [])[1];
+  const kExportSha = ((kFact('export.txt') || '').match(/^([0-9a-f]{64})/) || [])[1];
+  const kSame = !!kExportSha && kExportSha === recordedExportSha;
+  const second = (id, s, statement, accepted, inK) => {
+    if (inK && !kSame) { rows.push({ id, statement, verdict: 'REFUSED', numbers: { notRead: 'the kernel supplement\'s export (' + (kExportSha || 'none').slice(0, 12) + ') is not the recorded pass\'s bytes (amendment D)', toolStop: true } }); return 'REFUSED'; }
+    const x = inK ? kStep(s) : step(s), log = (inK ? kFact(s + '.log') : fact(s + '.log')) || '';
     if (!x) { info.push({ id, statement, outcome: 'not run', numbers: {} }); return null; }
     const ok = x.exit === 0 && accepted(log);
     const verdict = ok ? 'CERTIFIED' : toolStop(log) || x.exit === 137 || x.exit === 124 ? 'REFUSED' : 'INVESTIGATE';
@@ -272,12 +286,18 @@ function build() {
   second('B8rb', 'con-ron-bundled', 'con-ron as bundled with v4.35.0 accepts the export', (l) => /accepted \d+ declarations/.test(l));
   second('B8lb', 'con-leche-bundled', 'con-leche as bundled with v4.35.0 accepts the export (--jobs=8)', (l) => /accepted \d+ declarations/.test(l));
   second('B8rm', 'con-ron-master', 'con-ron master ' + CONRON_PIN.slice(0, 8) + ' (cargo, on the pod) accepts the export', (l) => /accepted \d+ declarations/.test(l));
-  if (step('con-leche-master')) second('B8lm', 'con-leche-master', 'con-leche master ' + CONLECHE_PIN.slice(0, 8) + ' (lake, on the pod) accepts the export (--jobs=8)', (l) => /accepted \d+ declarations/.test(l));
-  else {
-    rows.push({ id: 'B8lm', statement: 'con-leche master ' + CONLECHE_PIN.slice(0, 8) + ' (lake) accepts the export (--jobs=8)', verdict: 'REFUSED', numbers: { notRun: 'not run in the recorded pass (amendment B): on the 64 GB pod it can only be killed by the memory limit again', continuation: 'exit 137 after 18 min, 62 GB peak (quoted, not imported)', toolStop: true } });
-  }
-  const secondIds = ['B8n', 'B8nb', 'B8rb', 'B8lb', 'B8rm', 'B8lm'];
+  second('B8rm2', 'con-ron-master', 'con-ron master ' + CONRON_PIN.slice(0, 8) + ' with 1 GiB worker stacks (RUST_MIN_STACK, the kernel supplement on 128 GB) accepts the export', (l) => /accepted \d+ declarations/.test(l), true);
+  second('B8lm', 'con-leche-master', 'con-leche master ' + CONLECHE_PIN.slice(0, 8) + ' (lake, on the pod) accepts the export (--jobs=8; the kernel supplement on 128 GB, amendment D)', (l) => /accepted \d+ declarations/.test(l), true);
+  const secondIds = ['B8n', 'B8nb', 'B8rb', 'B8lb', 'B8rm', 'B8rm2', 'B8lm'];
   const secondAccepted = rows.filter((r) => secondIds.includes(r.id) && r.verdict === 'CERTIFIED').map((r) => r.id);
+
+  const rep = kFact('nanoda-repro.log');
+  if (rep !== null) {
+    const leanOk = /^lean exit 0$/m.test(rep), panics = (rep.match(/memory overflow/g) || []).length;
+    record('X4', 'a minimal reproduction of nanoda\'s overflow, ours (amendment D, informational): `theorem nanoda_pow_repro : (2 : Nat) ^ (2 ^ 32) = 2 ^ 4294967296 := rfl` with plain Lean 4.35.0, exported and given to both nanoda builds',
+      leanOk ? (panics ? 'Lean accepts it; nanoda panics with "memory overflow" (' + panics + ' line(s))' : 'Lean accepts it; nanoda did not report a memory overflow') : 'Lean did not accept it',
+      { source: (kFact('nanoda-repro.lean') || '').split('\n').filter((l) => /^theorem/.test(l))[0] || null, log: rep.trim().split('\n').map((l) => l.slice(0, 200)) });
+  }
 
   /* recorded: claimbox's own checks, the conclusion span */
   const th = step('theirs'), thlog = fact('theirs.log') || '';
@@ -357,11 +377,12 @@ function build() {
     undecided: UNDECIDED,
     notDecided: NOT_DECIDED,
     generated: new Date().toISOString().slice(0, 10),
-    preregistration: 'notes/zq-trackb-preregistration-2026-11-06.md (committed and pushed before any code of ours ran on claimbox\'s files; amendments A and B after a first pass and before the recorded one, C after the recorded pass and before its supplement)',
+    preregistration: 'notes/zq-trackb-preregistration-2026-11-06.md (committed and pushed before any code of ours ran on claimbox\'s files; amendments A and B after a first pass and before the recorded one, C after the recorded pass and before its screen supplement, D before the second-kernel supplement)',
     pins: PIN,
     code: Object.assign({ 'tools/record-zq-trackb.js': sha(fs.readFileSync(__filename)) }, Object.fromEntries(Object.values(OURS).map((p) => [p, sha(fs.readFileSync(path.join(ROOT, p)))]))),
     run: { facts: path.relative(ROOT, RUN), pod: 'RunPod CPU pod, 8 vCPU, 64 GB cgroup, /root/zq-trackb/final', firstStatus: status[0], lastStatus: status[status.length - 1], steps: stepsRecorded,
       firstPass: 'a first pass ran 11:05-12:22 UTC under /root/zq-trackb/pass1; nothing of it is imported (amendments A and B)',
+      kernelSupplement: fs.existsSync(KSUP) ? { facts: path.relative(ROOT, KSUP), why: 'amendment D: con-leche master on a 128 GB pod and con-ron master with 1 GiB worker stacks; read only if its export is the recorded pass\'s bytes', steps: stepsKernels, exportSameBytes: kSame, firstStatus: (kFact('_status.txt') || '').trim().split('\n')[0] } : null,
       supplement: { facts: path.relative(ROOT, SUP), why: 'amendment C: the recorded pass\'s screen lines were broken by a fault of ours (a `return` in a match arm left the screen function); the screens re-run with the corrected check file, every other row from the recorded pass', checkFileRecordedPass: CHECK_RECORDED, checkFileSupplement: cur['zq-trackb-check.lean'], steps: stepsSupplement, firstStatus: (supFact('_status.txt') || '').trim().split('\n')[0], agreesOnTargetsFAndG: supplementAgrees } },
     verdict: head.verdict,
     verdictScope: 'the frozen statement follows in Lean from the eight named hypotheses; G holds and says what the manuscript\'s prop:generator says first. The theorem itself, and each of the eight: undecided here.',
