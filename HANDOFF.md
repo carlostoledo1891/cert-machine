@@ -22,6 +22,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
+     (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
+     zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,
+     LT, CC, H1, H2), T9 CERTIFIED, G CERTIFIED (P_0 infinite order) with the manuscript's point and curve (Gmeaning
+     CERTIFIED). leanchecker / -paranoid / --fresh (34 min) accept; 271 declarations on the 3 standard axioms; our own
+     statement module (type_of%) + syntactic check; 7 controls caught (nanoda refuses C2/C3/Q3 for their planted reasons).
+     Every second kernel stops on a resource limit (nanoda num-bigint overflow; con-ron/con-leche bundled fuel at
+     CondZQ.t_body; con-ron master stack overflow; con-leche master killed at 64 GB, not re-run) — a bigger pod (128–256 GB)
+     could give con-leche master a real try, and the fuel stop is a con-leche#16-style report. Amendments A (first pass:
+     Q3 layout, aux-proof names), B (order; con-leche master skipped), C (after the recorded pass: the screen's lines were
+     broken by a `return` in a match arm — re-run in a supplement whose target/F/G lines equal the recorded pass's; Q3's
+     prediction word). /z-in-q/ carries the verdicts (still unlisted). Pods ≈ US$4.0 of the US$50 cap. OUTREACH still held
+     (the operator: after everything): the Glazer issue draft can now add lanes 3/4 + Track B.
   ◆◆ Z-now. ALL FOUR LANES OF THE PUSH LANDED (03:40 UTC): Track A lanes 1–4 + H2 merged, checked here and wired (202/202
      green): lane 1 CERTIFIED, lane 2 CERTIFIED under H1/H2/M/L1, H2 REFUSED (not a computation; F1–F9 CERTIFIED), lane 3 MIXED
      (statements CERTIFIED on 671,659 cases; replay 1 of 4), lane 4 CERTIFIED (48 helpers in the kernel, 990 = 704 + 286

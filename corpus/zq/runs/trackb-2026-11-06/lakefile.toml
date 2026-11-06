@@ -1,0 +1,43 @@
+# claimbox/lean/zinq — a conditional Lean development for the frozen main target of Elliot Glazer's
+# "Z is Diophantine in Q" (github.com/elliotglazer/diophantine-z-q at 97cec7fd, lean/Frozen/BoundedIntegerPolynomial.lean).
+# A proposal until cert-machine decides it (claimbox commitment 5). Glazer's repository carries no licence, so none of
+# its files is copied here: it is a git dependency at the pinned commit, its Lean project in subDir `lean`.
+# Mathlib is required at the same tag his lake-manifest pins (v4.35.0, rev 56a005855ea17e0b0958f73ec801ae140b0a1679).
+name = "zinq"
+version = "0.1.0"
+defaultTargets = ["CondZQ"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.35.0"
+
+[[require]]
+name = "z_in_q"
+git = "https://github.com/elliotglazer/diophantine-z-q.git"
+rev = "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2"
+subDir = "lean"
+
+[[lean_lib]]
+name = "CondZQ"
+
+# The planted wrong variants (claimbox commitment 7): no default target; a decider builds them and must refuse each.
+[[lean_lib]]
+name = "Planted"
+globs = ["Planted.+"]
+
+# Glazer's frozen target, compiled from the dependency checkout (never copied) for the statement
+# check only: Checks/Statement.lean names its theorem's type. Not a default target.
+[[lean_lib]]
+name = "Frozen"
+srcDir = ".lake/packages/z_in_q/lean"
+roots = ["Frozen.BoundedIntegerPolynomial"]
+
+# The statement check and the axioms of every theorem (#print axioms); not a default target.
+[[lean_lib]]
+name = "Checks"
+globs = ["Checks.+"]

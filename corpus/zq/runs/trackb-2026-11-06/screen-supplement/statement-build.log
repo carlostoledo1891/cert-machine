@@ -1,0 +1,36 @@
+⚠ [9052/9069] Replayed ZInQ.PoleValuation
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9056/9069] Replayed Frozen.BoundedIntegerPolynomial
+warning: .lake/packages/z_in_q/lean/Frozen/BoundedIntegerPolynomial.lean:12:8: declaration uses `sorry`
+⚠ [9058/9069] Replayed CondZQ.Basic
+warning: CondZQ/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9069] Replayed CondZQ.Model
+warning: CondZQ/Model.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.HeightConstantComparison` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.RationalSeparation` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.PolePolynomial` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9060/9069] Replayed CondZQ.Cutoff
+warning: CondZQ/Cutoff.lean: imports `ZInQ.ExplicitCutoffBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Cutoff.lean: imports `ZInQ.NumericalTowerBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Cutoff.lean:244:32: exponent 2600 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+warning: CondZQ/Cutoff.lean:275:30: exponent 2606 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+⚠ [9065/9069] Replayed CondZQ.GeneratorOrder
+warning: CondZQ/GeneratorOrder.lean:82:47: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: CondZQ/GeneratorOrder.lean:82:60: Variable name `hy` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hy
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9068/9069] Built CertMachineZQ (5.8s)
+Build completed successfully (9069 jobs).

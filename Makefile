@@ -208,6 +208,7 @@ test:
 	@printf "%-30s " "ZQ lane 3 finite suites"; $(NODE) tools/zq-finite.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ H2 attempt"; $(NODE) tools/zq-h2.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ lane 4 Lean replay"; $(NODE) tools/record-zq-lean-replay.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ZQ Track B decision"; $(NODE) tools/record-zq-trackb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "warrant-mpl (print kit)"; { [ -x kits/warrant-mpl/.venv/bin/python ] || $(MAKE) -s warrant-mpl-venv >/dev/null 2>&1; } && kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

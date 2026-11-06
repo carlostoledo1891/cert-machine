@@ -1,0 +1,25 @@
+	Command being timed: "timeout 1800 bash -c set -e; sha256sum /root/zq-trackb/zinq.bundle; git clone -q --no-checkout /root/zq-trackb/zinq.bundle /root/zq-trackb/final/src/claimbox; git -C /root/zq-trackb/final/src/claimbox config core.autocrlf false
+    git -C /root/zq-trackb/final/src/claimbox checkout -q 125509a1fbb307ed4b80faef216b701a9165ccf2; test "$(git -C /root/zq-trackb/final/src/claimbox rev-parse HEAD)" = 125509a1fbb307ed4b80faef216b701a9165ccf2; test "$(git -C /root/zq-trackb/final/src/claimbox rev-parse HEAD:lean/zinq)" = bf5111756795bbdb47935e2981f5d62414821a8a
+    git -C /root/zq-trackb/final/src/claimbox log -1 --format='%H %cI %an <%ae>'; git -C /root/zq-trackb/final/src/claimbox rev-parse HEAD:lean/zinq; git -C /root/zq-trackb/final/src/claimbox status --porcelain | wc -l"
+	User time (seconds): 0.91
+	System time (seconds): 0.87
+	Percent of CPU this job got: 118%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 29088
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 15849
+	Voluntary context switches: 2059
+	Involuntary context switches: 135
+	Swaps: 0
+	File system inputs: 34032
+	File system outputs: 153824
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,22 @@
+leanchecker found a problem in CertMachineZQPlant.Q3
+replaying CertMachineZQPlant.Q3
+uncaught exception: while replaying declaration 'CertMachineZQPlant.q3_unchecked':
+(kernel) declaration type mismatch, 'CertMachineZQPlant.q3_unchecked' has type
+  True
+but it is expected to have type
+  CondZQ.HypM →
+    CondZQ.HypH →
+      CondZQ.HypPC →
+        CondZQ.HypC →
+          CondZQ.HypLT →
+            CondZQ.HypCC →
+              CondZQ.HypH1 →
+                CondZQ.HypH2 →
+                  Exists fun P =>
+                    And (instLTNat.lt P.totalDegree (hyperoperation 4 2 7))
+                      (And
+                        (∀ (m : Finsupp (Fin 292890231905) Nat),
+                          instLTNat.lt (Finsupp.instFunLike.coe P.coeff m).natAbs (hyperoperation 4 2 8))
+                        (∀ (q : Rat),
+                          Iff (Exists fun w => Eq (MvPolynomial.eval₂ (Int.castRingHom Rat) (Fin.cons q w) P) 0)
+                            (Exists fun z => Eq z.cast q)))

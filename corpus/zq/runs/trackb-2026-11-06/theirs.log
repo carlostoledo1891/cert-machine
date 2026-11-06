@@ -1,0 +1,183 @@
+⚠ [9052/9070] Replayed ZInQ.PoleValuation
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9056/9070] Replayed Frozen.BoundedIntegerPolynomial
+warning: .lake/packages/z_in_q/lean/Frozen/BoundedIntegerPolynomial.lean:12:8: declaration uses `sorry`
+⚠ [9058/9070] Replayed CondZQ.Basic
+warning: CondZQ/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9070] Replayed CondZQ.Model
+warning: CondZQ/Model.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.HeightConstantComparison` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.RationalSeparation` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Model.lean: imports `ZInQ.PolePolynomial` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9060/9070] Replayed CondZQ.Cutoff
+warning: CondZQ/Cutoff.lean: imports `ZInQ.ExplicitCutoffBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Cutoff.lean: imports `ZInQ.NumericalTowerBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: CondZQ/Cutoff.lean:244:32: exponent 2600 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+warning: CondZQ/Cutoff.lean:275:30: exponent 2606 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+⚠ [9065/9070] Replayed CondZQ.GeneratorOrder
+warning: CondZQ/GeneratorOrder.lean:82:47: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: CondZQ/GeneratorOrder.lean:82:60: Variable name `hy` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hy
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9068/9070] Built Checks.Statement (6.7s)
+ℹ [9069/9070] Built Checks.Axioms (8.3s)
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Aht.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Aht_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Aht_pos : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_C : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_X : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_add : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_mono : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_mul : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_ofNat : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_one : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_pow : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_rename : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_sub : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Bd_sum : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Cset.eq_1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.E.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Ed_body : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Fint.eq_1 : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Fint_ne_zero : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Hcat.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Hcat_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Hmax.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.M0.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Ns.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Ns_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.P0.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.P0_equation : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.P0_nonsingular : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.P0x.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.P0y.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Ps.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Ps_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.T.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.T_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.T_eq_closed : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.T_lt_triplePower : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Wm.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Wm_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.Wm_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.assembled.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.assembled_iff : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.bound_assembled : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.bound_mainPoly : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.cCm_le_q17 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.card_Wit : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.card_catUnits_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.catPrime_le_Hmax : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.catUnits.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.close_sound : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.closed_core : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.code.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.code.eq_2 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.code_injective : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.comp_append : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.comp_vec1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.competitors_core : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.competitors_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.cstar.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.cstar_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.d0_eq_factorialBase : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.d0_val : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.d_body : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.d_eq_cutoff_d : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.d_gt : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.dco.eq_1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.degreeFromBase_gt : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.double_mu : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.eps_nonneg : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.eq_of_close_of_dvd : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.eval_mainPoly : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.eval_rename_kV : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses : [propext,
+ Classical.choice,
+ Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.exists_bounded_integer_polynomial_defining_integers_of_hypotheses : [propext,
+ Classical.choice,
+ Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.exp_aux : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.exp_bound : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.fact_not_isSquare_two : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.four_sq_eq_zero : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.g0_eq_cutoff_g0 : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.g0_val : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.hypG_holds : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.iota_injective : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.jW_injective : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_C : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_X : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_add_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_eq_sum_of_subset : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_monomial : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_mul_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_neg : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_one : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_pow_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_rename_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_sub_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_sum_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.l1_zero : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.lin_aux1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.lin_aux2 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.lin_aux3 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mainPoly.eq_1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mainPoly_complete : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mainPoly_sound : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mapC.eq_1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mapM.eq_1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mapP.eq_1 : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mapT.eq_1 : [propext, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_A : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_P0x : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_add_eq_of_lt : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_add_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_div : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_formula : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_four : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_mul : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_neg : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.mu_zero : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.natAbs_coeff_le_l1 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.norm_K0 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.norm_inv_K0 : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.not_isSquare_two_rat : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.nsOf.eq_1 : []
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.one_le_T : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.orbit : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.p2_le : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.p2_lt : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.padicNorm_two_two : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.pole_bound : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.pole_eq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.pow_eq_of_exp : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.shift_not_mem : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.sq_add_sq_eq_zero_iff : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.sq_le_max_sq : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.statement_is_the_frozen_target : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.statement_is_the_frozen_target_of_eight : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.t_body : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.t_eq : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.ten_pow_12_le_d : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.towerT.eq_1 : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.tower_bounds : [propext, Classical.choice, Quot.sound]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.two_pow_2000_lt_d0 : [propext]
+info: Checks/Axioms.lean:31:0: AXIOMS CondZQ.wOf.eq_1 : []
+info: Checks/Axioms.lean:31:0: AXIOMS-SUMMARY theorems=141 outside-standard=0
+Build completed successfully (9070 jobs).

@@ -1,0 +1,16 @@
+
+thread 'thread_1' (27969) panicked at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'thread_0' (27968) panicked at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow
+
+thread 'main' (27967) panicked at src/tc.rs:173:26:
+A thread in `check_all_declars` panicked while being joined: Any { .. }
+
+thread 'thread_2' (27970) panicked at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow
+
+thread 'thread_7' (27975) panicked at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow

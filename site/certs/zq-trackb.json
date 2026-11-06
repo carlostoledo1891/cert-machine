@@ -1,0 +1,1005 @@
+{
+ "what": "The Track B decision on the claim \"Z is Diophantine in Q\" (Elliot Glazer with AI agents, announced 2026-11-05): claimbox's conditional Lean theorem at 125509a1 (lean/zinq), which proves Glazer's frozen main statement from named hypotheses, built on Lean 4.35.0 with Mathlib v4.35.0 and decided here by our own axiom audit, our own statement module and syntactic checks, the toolchain kernel three ways, second kernels on an export, and planted controls that must fail.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here. This decides that Glazer's frozen statement follows in Lean from eight named hypotheses; it does not decide that any of them is true, nor that they say what the manuscript's premises say. If one is false, the conditional theorem is vacuous.",
+ "notDecided": [
+  "the theorem: Z Diophantine in Q is not decided by anything here",
+  "each of the eight hypotheses that remain (M, H, PC, C, LT, CC, H1, H2): whether it is true, and whether it says what the manuscript's premise says, is a reading recorded beside it, not a decision",
+  "their joint consistency: if they cannot all hold, the conditional theorem is vacuous",
+  "that the polynomial T8 asserts is Glazer's saved P_* (the frozen statement is existential in P)",
+  "claimbox and cert-machine have the same operator: this decision separates the roles of author and checker; it is not a second party"
+ ],
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-trackb-preregistration-2026-11-06.md (committed and pushed before any code of ours ran on claimbox's files; amendments A and B after a first pass and before the recorded one, C after the recorded pass and before its supplement)",
+ "pins": {
+  "claimbox": {
+   "repository": "github.com/carlostoledo1891/claimbox",
+   "commit": "125509a1fbb307ed4b80faef216b701a9165ccf2",
+   "branch": "zinq-2026-11-06",
+   "folder": "lean/zinq",
+   "tree": "bf5111756795bbdb47935e2981f5d62414821a8a",
+   "files": 23,
+   "transfer": "a git bundle (the branch was not public at the decision); the commit id pins the tree"
+  },
+  "glazer": {
+   "repository": "github.com/elliotglazer/diophantine-z-q",
+   "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+   "subDir": "lean"
+  },
+  "frozen": {
+   "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+   "sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+   "constant": "ZInQ.exists_bounded_integer_polynomial_defining_integers"
+  },
+  "tex": {
+   "path": "diophantine_zq.tex",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  },
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679"
+ },
+ "code": {
+  "tools/record-zq-trackb.js": "7bc360e93f413398280a577e9f3b71f6cb7507fafa44d73ecaf1597944a3247b",
+  "tools/runpod-zq-trackb.sh": "c4af2b5310d5323cc8359c12906e1d78bf8a48cf2571d19820ddece811e4277d",
+  "tools/zq-lean-audit.lean": "a5a129335167126ad3d630b8f214560970f21a0a89d02adb068dd41f00bd49af",
+  "tools/zq-trackb-statement.lean": "40dd95d47dd7746ec551df09311ad424c8ce6501402b1012b484c9b20970071d",
+  "tools/zq-trackb-check.lean": "e07a8541b4ded832998559e45cc65e9b2d0a551fe3850845a26c49e0d2f3c80f",
+  "tools/zq-trackb-plants.txt": "71f6b9e1f2fe174dc36e96d9f564f8cc96941aea3dc530c7d6faf0c056adec4b"
+ },
+ "run": {
+  "facts": "corpus/zq/runs/trackb-2026-11-06",
+  "pod": "RunPod CPU pod, 8 vCPU, 64 GB cgroup, /root/zq-trackb/final",
+  "firstStatus": "2026-11-06T12:28:12Z start setup",
+  "lastStatus": "2026-11-06T13:13:11Z recorded pass done",
+  "steps": 43,
+  "firstPass": "a first pass ran 11:05-12:22 UTC under /root/zq-trackb/pass1; nothing of it is imported (amendments A and B)",
+  "supplement": {
+   "facts": "corpus/zq/runs/trackb-2026-11-06/screen-supplement",
+   "why": "amendment C: the recorded pass's screen lines were broken by a fault of ours (a `return` in a match arm left the screen function); the screens re-run with the corrected check file, every other row from the recorded pass",
+   "checkFileRecordedPass": "fd34b9bd24fe90af6d426a4e5218be1f751ae8cc4af11b4da3122edd5703ac49",
+   "checkFileSupplement": "e07a8541b4ded832998559e45cc65e9b2d0a551fe3850845a26c49e0d2f3c80f",
+   "steps": 16,
+   "firstStatus": "2026-11-06T13:33:20Z start setup",
+   "agreesOnTargetsFAndG": true
+  }
+ },
+ "verdict": "CERTIFIED",
+ "verdictScope": "the frozen statement follows in Lean from the eight named hypotheses; G holds and says what the manuscript's prop:generator says first. The theorem itself, and each of the eight: undecided here.",
+ "verdictReason": "every row and every control as pre-registered; second kernels accepting: none (each stop a tool limit, recorded)",
+ "claims": [
+  {
+   "id": "T8",
+   "name": "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses",
+   "statement": "Glazer's frozen statement follows in Lean from the eight hypotheses M, H, PC, C, LT, CC, H1, H2 (claimbox's theorem; ours trackB_eight states it with his statement by type_of%)",
+   "rows": [
+    "B6a8"
+   ],
+   "verdict": "CERTIFIED",
+   "reason": "every row and every control as pre-registered; second kernels accepting: none (each stop a tool limit, recorded)"
+  },
+  {
+   "id": "T9",
+   "name": "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_hypotheses",
+   "statement": "the same from the nine hypotheses, G first",
+   "rows": [
+    "B6a9"
+   ],
+   "verdict": "CERTIFIED",
+   "reason": "every row and every control as pre-registered; second kernels accepting: none (each stop a tool limit, recorded)"
+  },
+  {
+   "id": "G",
+   "name": "CondZQ.hypG_holds",
+   "statement": "HypG holds: P0 has infinite order (claimbox's proof, 2-adic)",
+   "rows": [
+    "B6aG"
+   ],
+   "verdict": "CERTIFIED",
+   "reason": "every row and every control as pre-registered; second kernels accepting: none (each stop a tool limit, recorded)"
+  },
+  {
+   "id": "Gmeaning",
+   "name": "CondZQ.HypG",
+   "statement": "HypG is the first clause of the manuscript's prop:generator about the manuscript's own curve and point: \"the point P_0 has infinite order\"",
+   "rows": [
+    "B6aG",
+    "B6d"
+   ],
+   "verdict": "CERTIFIED",
+   "reason": "every row and every control as pre-registered; second kernels accepting: none (each stop a tool limit, recorded)"
+  }
+ ],
+ "rows": [
+  {
+   "id": "B1",
+   "statement": "the source at its pins: claimbox 125509a1 from the bundle with lean/zinq at tree bf511175 and a clean checkout (23 files, each hashed); the committed lake-manifest (no `lake update`) pins Glazer's repository at 97cec7fd and Mathlib at 56a00585; every dependency checkout is at its manifest revision with clean tracked sources; Glazer's frozen file hashes to its pin",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "commit": "125509a1fbb307ed4b80faef216b701a9165ccf2 2026-11-06T00:26:36-03:00",
+    "bundleSha256": "84dcad8a7a90df66938f680fb87eaf39a30a247ec248f21da79ebf7fac500cb4",
+    "files": {
+     ".gitignore": "637cfc01adb46fef4d5b55a34389eb58f203d51b72ca75df320107bb95fc86a3",
+     "BUILD-LOG.txt": "efc26d7c58c1ebd17900e9f2c1a5775547f2d1b2d9fbbee259980f1b422f8622",
+     "Checks/Axioms.lean": "b3bd0f3cc2d8afa4f7ae10b8dd79a2bbd8f36df12d5c9204ca40e7962d5b321b",
+     "Checks/Statement.lean": "6caad391d114ff2e942b02141a5d0633aa9a6c788bed1817d3e2af0f36e740ac",
+     "CondZQ.lean": "6db50f3d9af87030b1c04d317d3d1be858f1170bbfcf9b1acd3ebfd40821f3b2",
+     "CondZQ/Assembly.lean": "0294a217379dc590b01205d41644a79be5cfc5e08ea57aa26339e043571c8b74",
+     "CondZQ/Basic.lean": "05acd3a77c2ca5a5bcf6721f18faa486be856eade2455424aa4b11ed2d450053",
+     "CondZQ/Bridge.lean": "1488c334fffb2928a3519bfcbcd5110827dbc5c9a4a8a9f8311750779c019e81",
+     "CondZQ/Cutoff.lean": "96d123fd6630587392617f32787641ebf05a8b916d5caa556f31aa9f9bc7054a",
+     "CondZQ/Discharged.lean": "fdfd80b238be09c7c7b002b3da077dd4fd1deab42ea77284c84fd2700e24eb21",
+     "CondZQ/GeneratorOrder.lean": "88bd51a44da6ef5f3e22583a316d1ef527acf5bb98ea73e91afe1d18ab5643a0",
+     "CondZQ/Hypotheses.lean": "714a0ba1a144ff218b47c8418f781e02043562f8fe995def540f11447f4c314d",
+     "CondZQ/Main.lean": "4a5ebcda6d91dc9d0424569c2f0e73fe26a270485e9fa18c4a39810ea8fbd974",
+     "CondZQ/Model.lean": "40be25ab1ad5842eff5c214799a2aadfd88f24c86d972d3b8df746ae88b6fc38",
+     "LEDGER.md": "8f43e43b0b0d0acd1f95afb82a350d6c33b8551d92b8cb5903e0deb6de8c290e",
+     "Planted/Axiom.lean": "3c5bbda34e62f391b8c002ed0079b6ca408bc7262d114f078d23392a265ea9b4",
+     "Planted/Axioms.lean": "f04dadbaf4d477d449afa7653d624eb986e34b7cb69ab0cd5c65afd24b9f50de",
+     "Planted/Conclusion.lean": "62c830f196242a71bb4664bd39d7702a4f8c743097bc2930f5a1a42170a61620",
+     "Planted/Sorry.lean": "98757e02280d7f5fea62f4bdd6c6bd57877df3f7fb4eb53ac663a9dc7f71332c",
+     "README.md": "e009602cf4c78b792ba175cf56efd30a0fcbe834940262ecdbd48a9dae345ac5",
+     "lake-manifest.json": "8168266a8a368a8689cb9aaa68f8fb1d46f8bdda77d1afb03676697fbd5ba36f",
+     "lakefile.toml": "32584948181b863c2cad2acb565a2bef0b259015eaa3466a844991d97f33dbad",
+     "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+    },
+    "dependencies": {
+     "Cli": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+     "LeanSearchClient": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+     "Qq": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+     "aesop": "4a174c490d8707121c4a9290800489f105d85e07",
+     "batteries": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+     "importGraph": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+     "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+     "plausible": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+     "proofwidgets": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+     "z_in_q": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2"
+    },
+    "frozenSha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+   }
+  },
+  {
+   "id": "B2",
+   "statement": "the pinned toolchain: Lean 4.35.0 at commit eb6cafb7 (elan's leanprover/lean4:v4.35.0, the toolchain of Track A lane 4), each tool recorded by sha256",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "lean": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+    "platform": "Linux 6.8.0-147-generic x86_64",
+    "nproc": 8,
+    "toolSha256": {
+     "lean": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+     "lake": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1",
+     "leanchecker": "12c38901cdbfab178f1bf6145dd30012e9a3b2c11ca695292a5884fa3cbaddb6",
+     "leanchecker-paranoid": "ca74d1e9a856149ed05acb600d8931a574dd9f465745beeaf93e3de7b7cbe274",
+     "leanexport": "f6a6483d518a11b323c28b9bac176d2220df0e9fc3230833815db9586669c074",
+     "nanoda_bin": "cbf13950fc4a48f635a0beceeb5ed32dd82568b870cfd081b6391c1f2cf02ba5",
+     "con-ron": "60f4ca9fb9436c323789fa49aae33af6dcd1b9b54b43a66b461779ce79fd8eec",
+     "con-leche": "23a32522ea2c79f4ec8b48916272b37a423bda171e57cd83cfcf142eec50e621"
+    }
+   }
+  },
+  {
+   "id": "B3",
+   "statement": "`lake build CondZQ Frozen` exits 0 with no error, and its one \"declaration uses `sorry`\" warning is the frozen file's",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "exit": 0,
+    "seconds": 73,
+    "maxRssKiB": 7032976,
+    "sorryWarningAt": [
+     ".lake/packages/z_in_q/lean/Frozen/BoundedIntegerPolynomial.lean:12:8"
+    ],
+    "projectModulesBuilt": 10,
+    "oleans": 10
+   }
+  },
+  {
+   "id": "B3m",
+   "statement": "each of the ten sources (CondZQ.lean, CondZQ/*.lean) re-elaborated alone with `lake env lean -Ddebug.skipKernelTC=false` exits 0 with no error and no `sorry` warning",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "sources": [
+     "CondZQ.lean",
+     "CondZQ/Assembly.lean",
+     "CondZQ/Basic.lean",
+     "CondZQ/Bridge.lean",
+     "CondZQ/Cutoff.lean",
+     "CondZQ/Discharged.lean",
+     "CondZQ/GeneratorOrder.lean",
+     "CondZQ/Hypotheses.lean",
+     "CondZQ/Main.lean",
+     "CondZQ/Model.lean"
+    ],
+    "failing": [],
+    "maxWallSeconds": 19.02,
+    "maxRssKiB": 7015028
+   }
+  },
+  {
+   "id": "B4",
+   "statement": "our audit (tools/zq-lean-audit.lean, Track A lane 4's): every declaration of claimbox's ten CondZQ modules, selected by defining module, reaches only propext, Quot.sound and Classical.choice, by our fresh traversal AND by Lean.collectAxioms; no declaration of kind axiom; no implemented_by or extern; T8, T9 and G among them as theorems",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "exit": 0,
+    "seconds": 17,
+    "maxRssKiB": 7270288,
+    "declarations": 271,
+    "kinds": {
+     "def": 85,
+     "theorem": 186
+    },
+    "perModule": {
+     "CondZQ.Assembly": 69,
+     "CondZQ.Basic": 18,
+     "CondZQ.Bridge": 21,
+     "CondZQ.Cutoff": 80,
+     "CondZQ.Discharged": 1,
+     "CondZQ.GeneratorOrder": 20,
+     "CondZQ.Hypotheses": 11,
+     "CondZQ.Main": 18,
+     "CondZQ.Model": 33
+    },
+    "closureConstants": 32311,
+    "axiomsInClosure": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "partialOrUnsafe": [],
+    "traversalDisagreements": 0,
+    "targets": {
+     "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     },
+     "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_hypotheses": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     },
+     "CondZQ.hypG_holds": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "B5",
+   "statement": "our statement module (tools/zq-trackb-statement.lean as lean_lib CertMachineZQ in a copy whose lakefile gains only our two lean_libs): our four theorems, the conclusion Glazer's statement by `type_of%`, proved by T8, T9, G and Mathlib's addOrderOf_eq_zero_iff, build and reach only the three standard axioms by both traversals (the frozen theorem's `sorry` is not used)",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "build": 0,
+    "seconds": 13,
+    "declarations": {
+     "CertMachineZQ.trackB_G": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     },
+     "CertMachineZQ.trackB_G_infinite": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     },
+     "CertMachineZQ.trackB_eight": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     },
+     "CertMachineZQ.trackB_nine": {
+      "ours": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ],
+      "lean": [
+       "Classical.choice",
+       "Quot.sound",
+       "propext"
+      ]
+     }
+    },
+    "lakefileAdded": [
+     "",
+     "[[lean_lib]]",
+     "name = \"CertMachineZQ\"",
+     "roots = [\"CertMachineZQ\"]",
+     "",
+     "[[lean_lib]]",
+     "name = \"CertMachineZQPlant\"",
+     "globs = [\"CertMachineZQPlant.+\"]"
+    ]
+   }
+  },
+  {
+   "id": "B6b",
+   "statement": "F, the frozen theorem's type (module Frozen.BoundedIntegerPolynomial, its value `sorry`), is built from constants none of which is defined in a claimbox or cert-machine module",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "constants": 38,
+    "byModuleRoot": {
+     "Init": 19,
+     "Mathlib": 19
+    },
+    "frozenAxioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext",
+     "sorryAx"
+    ],
+    "hash": "2283463248"
+   }
+  },
+  {
+   "id": "B6c",
+   "statement": "the screen of the nine hypotheses (not a decision of their meaning): each a definition of type Prop, not False; neither its value nor any claimbox definition it reaches contains F or mentions the frozen theorem",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "hypotheses": {
+     "CondZQ.HypM": {
+      "reachedDefinitions": 31,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 3,
+       "Init": 16,
+       "Mathlib": 3
+      }
+     },
+     "CondZQ.HypH": {
+      "reachedDefinitions": 6,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 5,
+       "Init": 15,
+       "Mathlib": 10
+      }
+     },
+     "CondZQ.HypPC": {
+      "reachedDefinitions": 4,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 2,
+       "Init": 1
+      }
+     },
+     "CondZQ.HypC": {
+      "reachedDefinitions": 40,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 6,
+       "Init": 18,
+       "Mathlib": 8
+      }
+     },
+     "CondZQ.HypLT": {
+      "reachedDefinitions": 38,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 9,
+       "Init": 24,
+       "Mathlib": 8
+      }
+     },
+     "CondZQ.HypCC": {
+      "reachedDefinitions": 18,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 2,
+       "Init": 7,
+       "Mathlib": 3
+      }
+     },
+     "CondZQ.HypH1": {
+      "reachedDefinitions": 7,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 2,
+       "Init": 7,
+       "Mathlib": 3
+      }
+     },
+     "CondZQ.HypH2": {
+      "reachedDefinitions": 19,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 8,
+       "Init": 14,
+       "Mathlib": 13
+      }
+     },
+     "CondZQ.HypG": {
+      "reachedDefinitions": 8,
+      "flagged": false,
+      "valueConstantsByModuleRoot": {
+       "CondZQ": 5,
+       "Init": 7,
+       "Mathlib": 9
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "B6a8",
+   "statement": "T8's type is exactly HypM → HypH → HypPC → HypC → HypLT → HypCC → HypH1 → HypH2 → F: eight binders whose domains are those constants in that order, then a closed body alpha-equivalent to F",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "name": "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses",
+    "binders": 8,
+    "domains": [
+     "CondZQ.HypM",
+     "CondZQ.HypH",
+     "CondZQ.HypPC",
+     "CondZQ.HypC",
+     "CondZQ.HypLT",
+     "CondZQ.HypCC",
+     "CondZQ.HypH1",
+     "CondZQ.HypH2"
+    ],
+    "conclusionEqv": true,
+    "conclusionEqual": true,
+    "conclusionHash": "2283463248",
+    "goalHash": "2283463248",
+    "leanAxioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
+   }
+  },
+  {
+   "id": "B6a9",
+   "statement": "T9's type is exactly HypG → HypM → … → HypH2 → F, the same check with HypG first",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "name": "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_hypotheses",
+    "binders": 9,
+    "domains": [
+     "CondZQ.HypG",
+     "CondZQ.HypM",
+     "CondZQ.HypH",
+     "CondZQ.HypPC",
+     "CondZQ.HypC",
+     "CondZQ.HypLT",
+     "CondZQ.HypCC",
+     "CondZQ.HypH1",
+     "CondZQ.HypH2"
+    ],
+    "conclusionEqv": true,
+    "conclusionEqual": true,
+    "conclusionHash": "2283463248",
+    "goalHash": "2283463248",
+    "leanAxioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
+   }
+  },
+  {
+   "id": "B6aG",
+   "statement": "G's type is exactly the constant CondZQ.HypG",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "name": "CondZQ.hypG_holds",
+    "binders": 0,
+    "domains": [],
+    "conclusionEqv": true,
+    "conclusionEqual": true,
+    "conclusionHash": "155428968",
+    "goalHash": "155428968",
+    "leanAxioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
+   }
+  },
+  {
+   "id": "B6d",
+   "statement": "what G says: HypG is alpha-equivalent to our `addOrderOf CondZQ.P0 = 0`; P0 is Point.some of P0x, P0y on CondZQ.Pt; Pt, E and K0 are alpha-equivalent to our `E.toAffine.Point`, `{ a₁ := 0, a₂ := 0, a₃ := 0, a₄ := -(dco * dco), a₆ := 0 }` and `QuadraticAlgebra ℚ 2 0` (s² = 2); the six rationals of dco, P0x, P0y computed by Lean equal the manuscript's d = 75-53s, P_0 = ((1641-1160s)/8, (-123720+87483s)/32) (TeX sec:model, line 254)",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "structure": {
+     "HypG": {
+      "eqvUpToAuxProofNames": true,
+      "eqv": false,
+      "auxProofsTheirs": [
+       "CondZQ.HypG._proof_1"
+      ],
+      "auxProofsOurs": [
+       "ZqTrackBCheck.ourG._proof_1"
+      ],
+      "theirs": "addOrderOf CondZQ.P0 = 0"
+     },
+     "Pt": {
+      "eqvUpToAuxProofNames": true,
+      "eqv": true,
+      "auxProofsTheirs": [],
+      "auxProofsOurs": [],
+      "theirs": "CondZQ.E.toAffine.Point"
+     },
+     "E": {
+      "eqvUpToAuxProofNames": true,
+      "eqv": true,
+      "auxProofsTheirs": [],
+      "auxProofsOurs": [],
+      "theirs": "{ a₁ := 0, a₂ := 0, a₃ := 0, a₄ := -(CondZQ.dco * CondZQ.dco), a₆ := 0 }"
+     },
+     "K0": {
+      "eqvUpToAuxProofNames": true,
+      "eqv": true,
+      "auxProofsTheirs": [],
+      "auxProofsOurs": [],
+      "theirs": "QuadraticAlgebra ℚ 2 0"
+     }
+    },
+    "rule": "amendment A (written after the first pass): alpha-equivalence up to the names of auxiliary proof constants",
+    "P0": {
+     "type": "CondZQ.Pt",
+     "isPointSome": true,
+     "argsAreP0xP0y": true
+    },
+    "rationals": [
+     {
+      "name": "dco",
+      "lean": [
+       {
+        "den": "1",
+        "num": "75"
+       },
+       {
+        "den": "1",
+        "num": "-53"
+       }
+      ],
+      "manuscript": [
+       {
+        "num": "75",
+        "den": "1"
+       },
+       {
+        "num": "-53",
+        "den": "1"
+       }
+      ],
+      "equal": true
+     },
+     {
+      "name": "P0x",
+      "lean": [
+       {
+        "den": "8",
+        "num": "1641"
+       },
+       {
+        "den": "1",
+        "num": "-145"
+       }
+      ],
+      "manuscript": [
+       {
+        "num": "1641",
+        "den": "8"
+       },
+       {
+        "num": "-145",
+        "den": "1"
+       }
+      ],
+      "equal": true
+     },
+     {
+      "name": "P0y",
+      "lean": [
+       {
+        "den": "4",
+        "num": "-15465"
+       },
+       {
+        "den": "32",
+        "num": "87483"
+       }
+      ],
+      "manuscript": [
+       {
+        "num": "-15465",
+        "den": "4"
+       },
+       {
+        "num": "87483",
+        "den": "32"
+       }
+      ],
+      "equal": true
+     }
+    ],
+    "manuscript": {
+     "d": "75-53s",
+     "P0x": "(1641-1160s)/8",
+     "P0y": "(-123720+87483s)/32"
+    }
+   }
+  },
+  {
+   "id": "B7a",
+   "statement": "`leanchecker CondZQ` and `leanchecker-paranoid CondZQ`: claimbox's ten modules replayed by the toolchain kernel onto their imports",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "leanchecker": {
+     "step": "leanchecker-condzq",
+     "exit": 0,
+     "seconds": 67,
+     "wallSeconds": 66.88,
+     "maxRssKiB": 50368888,
+     "replayed": 10,
+     "logTail": "replaying CondZQ.Model | replaying CondZQ.Basic"
+    },
+    "paranoid": {
+     "step": "leanchecker-paranoid-condzq",
+     "exit": 0,
+     "seconds": 71,
+     "wallSeconds": 71.36,
+     "maxRssKiB": 53013264,
+     "replayed": 10,
+     "logTail": "replaying CondZQ.Model | replaying CondZQ.Basic"
+    }
+   }
+  },
+  {
+   "id": "B7b",
+   "statement": "`leanchecker CertMachineZQ` and `leanchecker-paranoid CertMachineZQ`: our statement module replayed",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "leanchecker": {
+     "step": "leanchecker-ours",
+     "exit": 0,
+     "seconds": 26,
+     "wallSeconds": 25.5,
+     "maxRssKiB": 6391784,
+     "replayed": 1,
+     "logTail": "replaying CertMachineZQ"
+    },
+    "paranoid": {
+     "step": "leanchecker-paranoid-ours",
+     "exit": 0,
+     "seconds": 23,
+     "wallSeconds": 23.26,
+     "maxRssKiB": 6266088,
+     "replayed": 1,
+     "logTail": "replaying CertMachineZQ"
+    }
+   }
+  },
+  {
+   "id": "B7c",
+   "statement": "`leanchecker --fresh CertMachineZQ`: every constant of the closure (core, Mathlib, Glazer's modules, claimbox's, ours) replayed into an empty environment",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "step": "fresh",
+    "exit": 0,
+    "seconds": 2040,
+    "wallSeconds": 2039.82,
+    "maxRssKiB": 8754780,
+    "replayed": 1,
+    "logTail": "replaying CertMachineZQ with --fresh"
+   }
+  },
+  {
+   "id": "B8n",
+   "statement": "nanoda v0.4.31 (nanoda_lib 8de7e0c4, built on the pod, 1 GiB stack) accepts the export, permitted axioms exactly the three",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "nanoda",
+    "exit": 101,
+    "seconds": 6,
+    "wallSeconds": 5.58,
+    "maxRssKiB": 247916,
+    "logTail": "thread 'thread_4' (27991) panicked at /root/zq-trackb/final/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13: | memory overflow",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8nb",
+   "statement": "the toolchain's bundled nanoda_bin accepts the export",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "nanoda-bundled",
+    "exit": 101,
+    "seconds": 5,
+    "wallSeconds": 5.6,
+    "maxRssKiB": 256536,
+    "logTail": "thread 'thread_7' (27975) panicked at /home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13: | memory overflow",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8rb",
+   "statement": "con-ron as bundled with v4.35.0 accepts the export",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "con-ron-bundled",
+    "exit": 3,
+    "seconds": 10,
+    "wallSeconds": 10.24,
+    "maxRssKiB": 3939452,
+    "logTail": "con-ron: error: fuel exhausted: whnfCore [at theorem CondZQ.t_body, fold position 29513] (--verified) t=10.196s",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8lb",
+   "statement": "con-leche as bundled with v4.35.0 accepts the export (--jobs=8)",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "con-leche-bundled",
+    "exit": 3,
+    "seconds": 20,
+    "wallSeconds": 19.84,
+    "maxRssKiB": 3479956,
+    "logTail": "con-leche: internal error: fuel exhausted: whnfCore [at theorem CondZQ.t_body, fold position 29513] (--verified) t=19.7s",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8rm",
+   "statement": "con-ron master 97eead2d (cargo, on the pod) accepts the export",
+   "verdict": "REFUSED",
+   "numbers": {
+    "step": "con-ron-master",
+    "exit": 134,
+    "seconds": 35,
+    "wallSeconds": 34.53,
+    "maxRssKiB": 26537396,
+    "logTail": "fatal runtime error: stack overflow, aborting | timeout: the monitored command dumped core",
+    "toolStop": true
+   }
+  },
+  {
+   "id": "B8lm",
+   "statement": "con-leche master dc8ca857 (lake) accepts the export (--jobs=8)",
+   "verdict": "REFUSED",
+   "numbers": {
+    "notRun": "not run in the recorded pass (amendment B): on the 64 GB pod it can only be killed by the memory limit again",
+    "continuation": "exit 137 after 18 min, 62 GB peak (quoted, not imported)",
+    "toolStop": true
+   }
+  }
+ ],
+ "recorded": [
+  {
+   "id": "X1",
+   "statement": "the name-restricted export (`leanexport CertMachineZQ -- <our four theorems> <the built-in list>`) given to the second kernels",
+   "outcome": "exported with the built-in list",
+   "numbers": {
+    "sha256": "b04d30ee79350341cbd7e6f753b2280c8cc687613ace6f4edbe3dc1a694c21bf",
+    "bytes": 184384945,
+    "lines": 3445747,
+    "declarationLines": {
+     "axiom": 3,
+     "def": 7623,
+     "thm": 22693,
+     "opaque": 23,
+     "quot": 4,
+     "inductive": 736
+    },
+    "step": "export",
+    "exit": 0,
+    "seconds": 19,
+    "wallSeconds": 18.66,
+    "maxRssKiB": 6821720,
+    "exportLog": ""
+   }
+  },
+  {
+   "id": "X2",
+   "statement": "claimbox's own Checks library (its statement check and #print_axioms_all), built here",
+   "outcome": "built; AXIOMS-SUMMARY theorems=141 outside-standard=0",
+   "numbers": {
+    "step": "theirs",
+    "exit": 0,
+    "seconds": 20,
+    "wallSeconds": 20.8,
+    "maxRssKiB": 7000332
+   }
+  },
+  {
+   "id": "X3",
+   "statement": "the 355-byte conclusion span claimbox calls byte-identical, hashed in CondZQ/Main.lean, CondZQ/Discharged.lean and the frozen file",
+   "outcome": "identical in all three (355 bytes)",
+   "numbers": {
+    ".lake/packages/z_in_q/lean/Frozen/BoundedIntegerPolynomial.lean": {
+     "bytes": 355,
+     "sha256": "5406ba3e3d53ea3557819524f6150de802d9b8c8cf7c63c8cd38db805367935b",
+     "start": 283
+    },
+    "CondZQ/Discharged.lean": {
+     "bytes": 355,
+     "sha256": "5406ba3e3d53ea3557819524f6150de802d9b8c8cf7c63c8cd38db805367935b",
+     "start": 577
+    },
+    "CondZQ/Main.lean": {
+     "bytes": 355,
+     "sha256": "5406ba3e3d53ea3557819524f6150de802d9b8c8cf7c63c8cd38db805367935b",
+     "start": 3804
+    }
+   }
+  }
+ ],
+ "redControls": [
+  {
+   "id": "C1",
+   "mutation": "claimbox's Planted.Conclusion: the degree bound 2↑↑7 → 2↑↑8, proved from the nine hypotheses",
+   "prediction": "builds; standard axioms; B6(a) with nine hypotheses refuses it (body not alpha-equivalent to F)",
+   "outcome": {
+    "pass": false,
+    "domainsOk": true,
+    "conclusionEqv": false,
+    "axioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "leanchecker": 0
+   },
+   "passed": true
+  },
+  {
+   "id": "C2",
+   "mutation": "claimbox's Planted.Sorry: the frozen statement from the nine hypotheses by `sorry`",
+   "prediction": "B6(a) passes; the audit flags sorryAx by both traversals; nanoda refuses its export",
+   "outcome": {
+    "pass": true,
+    "axiomsOurs": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext",
+     "sorryAx"
+    ],
+    "axiomsLean": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext",
+     "sorryAx"
+    ],
+    "nanoda": {
+     "v031": 101,
+     "bundled": 101,
+     "reason": "infer_const: declaration CondZQ.Planted.planted_sorry depends on sorryAx which was not found in the environment",
+     "reasonBundled": "declaration not found in infer_const, sorryAx"
+    }
+   },
+   "passed": true
+  },
+  {
+   "id": "C3",
+   "mutation": "claimbox's Planted.Axiom: the frozen statement asserted as a new axiom and used",
+   "prediction": "B6(a) passes; the audit lists planted_zinq_axiom (kind axiom) and flags planted_axiom; nanoda refuses its export",
+   "outcome": {
+    "pass": true,
+    "axiomDecl": "axiom",
+    "axiomsOurs": [
+     "Classical.choice",
+     "CondZQ.Planted.planted_zinq_axiom",
+     "Quot.sound",
+     "propext"
+    ],
+    "nanoda": {
+     "v031": 101,
+     "bundled": 101,
+     "reason": "infer_const: declaration CondZQ.Planted.planted_axiom depends on CondZQ.Planted.planted_zinq_axiom which was not found in the environment",
+     "reasonBundled": "declaration not found in infer_const, CondZQ.Planted.planted_zinq_axiom"
+    }
+   },
+   "passed": true
+  },
+  {
+   "id": "Q1",
+   "mutation": "ours: an extra first hypothesis (1 : Nat) = 0, the theorem proved by absurd",
+   "prediction": "B6(a) with eight refuses it",
+   "outcome": {
+    "pass": false,
+    "binders": 9,
+    "domainsOk": false,
+    "axioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
+   },
+   "passed": true
+  },
+  {
+   "id": "Q2",
+   "mutation": "ours: HypH2 replaced by HypCirc := F, the theorem proved by it",
+   "prediction": "B6(a) refuses it (the eighth domain is not HypH2) and the screen flags HypCirc",
+   "outcome": {
+    "pass": false,
+    "domainsOk": false,
+    "screenHypCirc": {
+     "flagged": true,
+     "containsF": [
+      "CertMachineZQPlant.HypCirc"
+     ]
+    }
+   },
+   "passed": true
+  },
+  {
+   "id": "Q3",
+   "mutation": "ours: T8's exact type with the value True.intro, added by run_cmd under set_option debug.skipKernelTC true",
+   "prediction": "B6(a) PASSES and the audit sees no axiom outside the three standard ones, raising no flag (both blind spots; the word corrected after the recorded pass, amendment C); leanchecker on its module exits non-zero; nanoda refuses its export",
+   "outcome": {
+    "pass": true,
+    "axiomsOurs": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "leanchecker": 1,
+    "leancheckerKernelError": true,
+    "nanoda": {
+     "v031": 101,
+     "bundled": 101,
+     "reason": "assertion failed: self.def_eq(u, v)",
+     "reasonBundled": "assertion failed: self.def_eq(u, v)"
+    }
+   },
+   "passed": true
+  },
+  {
+   "id": "Q4",
+   "mutation": "one byte appended to CondZQ/Main.lean in a copy, on the pod",
+   "prediction": "B1's re-hash flags exactly that file",
+   "outcome": {
+    "flagged": [
+     "CondZQ/Main.lean"
+    ]
+   },
+   "passed": true
+  }
+ ],
+ "notes": []
+}

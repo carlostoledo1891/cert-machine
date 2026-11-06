@@ -1,0 +1,14 @@
+40dd95d47dd7746ec551df09311ad424c8ce6501402b1012b484c9b20970071d  CertMachineZQ.lean
+289d88d07fe59f6440f5c9fdc9d66408f0b3bf709016337a67280819ba50ae6c  CertMachineZQPlant/Q1.lean
+9f932c9b8b8da313636beaecc3ef689344e2f93dcc2013c85d22983aeb66f627  CertMachineZQPlant/Q2.lean
+fd33f3c69d51aab79db7f6338039bb73b9f5d06bd70beac4b7cdbd0e9bb42578  CertMachineZQPlant/Q3.lean
+452079bb67e65f08f7fc66aa5d8531860ddb7746c33208555d587d540c829fb7  lakefile.toml
+43a44,51
+> 
+> [[lean_lib]]
+> name = "CertMachineZQ"
+> roots = ["CertMachineZQ"]
+> 
+> [[lean_lib]]
+> name = "CertMachineZQPlant"
+> globs = ["CertMachineZQPlant.+"]

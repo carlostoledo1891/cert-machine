@@ -19,3 +19,13 @@ repos). ≈43 min ≈ US$1.5. NOT opened: lean4's CONTRIBUTING closes external P
 certs/zq-lean-replay.json) and Track B (claimbox branch zinq-2026-11-06: b78ddb2 the conditional theorem from nine
 hypotheses, 125509a G discharged — eight remain; BUILD-LOG.txt in the branch). ≈1.7 h ≈ US$1.5. The push's pods so far:
 ≈US$3.0 of the US$50 cap (the lean4 build box ≈US$1.5 included). Deciding claimbox's proposal here needs a new pod later.
+2026-11-06T11:02:51Z 8rmyr365eryddc zq-trackb-decision cpu3m 8 vCPU / 64 GB, US-CA-2, US$0.44/h, disk 80 GB, the runpod image, startSsh +
+22/tcp 8000/http (cpu3m and cpu5m 16 vCPU refused "no instances"). The Track B decision (notes/zq-trackb-preregistration-2026-11-06.md,
+tools/runpod-zq-trackb.sh under /root/zq-trackb). DELETE after the import (delete-pod, then get-pod -> 404).
+2026-11-06T13:16Z 8rmyr365eryddc DELETED (delete-pod 204, get-pod 404, list-pods empty) after the recorded pass of the Track B decision
+(/root/zq-trackb/final, 12:28-13:13 UTC; imported: corpus/zq/runs/trackb-2026-11-06/). A first pass ran 11:05-12:22 UTC (not imported,
+amendments A and B). 11:02-13:16 = 2.2 h x US$0.44 = ~US$1.0. The push so far: ~US$4.0 of the US$50 cap.
+2026-11-06T13:30:47Z 6w39t5g8p5bpa4 zq-trackb-screens cpu3m 4 vCPU / 32 GB, EU-RO-1, US$0.22/h, disk 40 GB: the screen supplement of
+amendment C (stages setup fetch cache build copy statement check plants under /root/zq-trackb/screen). DELETE after the import.
+2026-11-06T13:41Z 6w39t5g8p5bpa4 DELETED (delete-pod 204, get-pod 404, list-pods empty) after the screen supplement (13:33-13:40 UTC; imported:
+corpus/zq/runs/trackb-2026-11-06/screen-supplement/). ~11 min = ~US$0.04. The push so far: ~US$4.0 of the US$50 cap. NOTHING BILLING.

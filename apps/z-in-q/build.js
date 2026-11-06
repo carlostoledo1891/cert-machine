@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* build.js — site/z-in-q/index.html: the claim that ℤ is Diophantine in ℚ (Elliot Glazer with AI agents, 2026-11-05),
    told once for a reader who arrives from a post: what was claimed, what this machine decided about it (Track A, four
-   lanes and the H2 attempt), what it does not settle, and Track B (the Lean gap) in words. The shape of
+   lanes and the H2 attempt), what it does not settle, and Track B (the Lean gap) as decided here. The shape of
    reports/eth-chain.html: the story in one minute, the gaps FIRST among the substantive sections, then each lane with
    its record, then how to check it. Unlisted (the operator, 2026-11-06 ~03:30 UTC: "Build it now, unlisted"): noindex,
    in no index, hub, sitemap or nav until the outreach goes out; live at its URL.
@@ -14,9 +14,10 @@
    names has changed since it was written. The records themselves are re-derived by their own --check (make test, the
    control build); those need the claimant's clone, which a page build must not, so this file reads the records only.
 
-   TRACK B is stated in words only. Its proposal is claimbox's (~/Projects/claimbox), which this repository never reads
-   (CLAUDE.md, the claimbox relationship): no number, no hypothesis list and no verdict on this page comes from it until
-   cert-machine's decision is a record here.
+   TRACK B is read from cert-machine's decision, certs/zq-trackb.json (claimbox's proposal decided on a pod by
+   tools/runpod-zq-trackb.sh): every verdict, hypothesis name and number of that section comes from the record; the
+   one-line reading of each hypothesis is this page's own words, checked against the record's list of names. Nothing is
+   read from claimbox itself (CLAUDE.md, the claimbox relationship).
 
    The claimant's repository has no licence: nothing of his is copied here; the page quotes the statement only.
 
@@ -45,11 +46,14 @@ const N = (x) => BigInt(String(x)).toLocaleString('en-US');
 /* ---- the records ------------------------------------------------------------------------------------------------- */
 const R = { recount: 'certs/zq-recount.json', tower: 'certs/zq-tower.json', h2: 'certs/zq-h2.json', finite: 'certs/zq-finite.json', lean: 'certs/zq-lean-replay.json' };
 const PREREG = 'notes/zq-preregistration-2026-11-06.md', GAPMAP = 'corpus/zq/gap-map.json';
+const RB = 'certs/zq-trackb.json', PREREG_B = 'notes/zq-trackb-preregistration-2026-11-06.md';
 const L1 = J(R.recount), L2 = J(R.tower), H2 = J(R.h2), L3 = J(R.finite), L4 = J(R.lean);
 const ALL = { 'lane 1': L1, 'lane 2': L2, 'the H2 attempt': H2, 'lane 3': L3, 'lane 4': L4 };
 const FILE = { 'lane 1': R.recount, 'lane 2': R.tower, 'the H2 attempt': R.h2, 'lane 3': R.finite, 'lane 4': R.lean };
 if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: ' + PREREG);
 const GM = J(GAPMAP);
+const TB = J(RB);
+if (!fs.existsSync(path.join(ROOT, PREREG_B))) die('the Track B pre-registration is gone: ' + PREREG_B);
 
 /* the words this page states, each read back from its record */
 const SAYS = { 'lane 1': 'CERTIFIED', 'lane 2': 'CERTIFIED', 'the H2 attempt': 'REFUSED', 'lane 3': 'MIXED', 'lane 4': 'CERTIFIED' };
@@ -138,6 +142,44 @@ if (!L4.redControls.length || !L4.redControls.every((c) => c.passed)) die('lane 
 const ONE = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 const word = (k) => ONE[k] || String(k);
 const Word = (k) => { const w = word(k); return w.charAt(0).toUpperCase() + w.slice(1); };
+/* Track B: the decision's words, its pins, its hypotheses, its kernels and controls */
+const SAYS_B = { T8: 'CERTIFIED', T9: 'CERTIFIED', G: 'CERTIFIED', Gmeaning: 'CERTIFIED' };
+const claimB = (id) => { const c = TB.claims.find((x) => x.id === id); if (!c) die('Track B has no claim ' + id); if (c.verdict !== SAYS_B[id]) die('Track B: ' + id + ' is ' + c.verdict + ' in ' + RB + ', and this page states it ' + SAYS_B[id]); return c; };
+const T8B = claimB('T8'), T9B = claimB('T9'), GB = claimB('G'), GMB = claimB('Gmeaning');
+if (!/^The theorem \(Z is Diophantine in Q\) is undecided here/.test(TB.undecided)) die('Track B no longer says first that the theorem is undecided here');
+if (TB.pins.glazer.commit !== PIN || TB.pins.glazer.repository !== REPO) die('Track B pins another commit of the claimant\'s repository');
+if (TB.preregistration.indexOf(PREREG_B) !== 0) die('Track B names another pre-registration: ' + TB.preregistration);
+for (const [rel, want] of Object.entries(TB.code)) {
+  if (!fs.existsSync(path.join(ROOT, rel))) die('Track B: the code it names is gone: ' + rel);
+  if (sha(fs.readFileSync(path.join(ROOT, rel))) !== want) die('Track B: ' + rel + ' has changed since the record was written (re-run its --check)');
+}
+const rowB = (id) => { const r = TB.rows.find((x) => x.id === id); if (!r) die('Track B has no row ' + id); return r; };
+for (const id of ['B1', 'B2', 'B3', 'B3m', 'B4', 'B5', 'B6a8', 'B6a9', 'B6aG', 'B6b', 'B6c', 'B6d', 'B7a', 'B7b', 'B7c']) if (rowB(id).verdict !== 'CERTIFIED') die('Track B: row ' + id + ' is not CERTIFIED');
+/* the eight, in the order T8 binds them; the page's own one-line reading of each, keyed by name */
+const HYP = {
+  'CondZQ.HypM': ['M', 'a polynomial of bounded size whose rational zeros are exactly the code triples of multiplication, (ι(a), ι(b), ι(ab))', 'premise M, the multiplication section'],
+  'CondZQ.HypH': ['H', 'the height bound h(u) ≤ H₆·M(u)²⁴ for every rational u outside the six contact points', 'the height theorem (thm:height)'],
+  'CondZQ.HypPC': ['PC', 'every rational B of the stated local shape is a value at which his pole polynomial has a rational zero', 'the pole hypothesis (hyp:PC)'],
+  'CondZQ.HypC': ['C', 'a polynomial of bounded size that defines the precision machine’s closeness relation exactly', 'premise C, the compiler section'],
+  'CondZQ.HypLT': ['LT', 'a polynomial of bounded size carrying the six local tests, sound and complete', 'lem:test and lem:test-complete'],
+  'CondZQ.HypCC': ['CC', 'for every n outside the contact points and every κ ≠ 0, the precision machine accepts some run', 'eq:close-complete'],
+  'CondZQ.HypH1': ['H1', 'the explicit bound on primes in arithmetic progressions, as the cutoff proof applies it', 'proof of prop:cutoff (Bennett–Martin–O’Bryant–Rechnitzer)'],
+  'CondZQ.HypH2': ['H2', 'a formal multiple of P₀ of index at most N_s^10 with the required divisibility, the same H2 as lane 2’s', 'proof of prop:cutoff (Silverman)'],
+};
+const DOM8 = rowB('B6a8').numbers.domains;
+if (JSON.stringify(DOM8) !== JSON.stringify(Object.keys(HYP))) die('Track B: T8 binds other hypotheses, or in another order, than this page reads: ' + JSON.stringify(DOM8));
+const SCREENED = Object.keys(rowB('B6c').numbers.hypotheses).sort();
+if (JSON.stringify(SCREENED) !== JSON.stringify(['CondZQ.HypG', ...Object.keys(HYP)].sort())) die('Track B: the screened hypotheses are not G and the eight');
+if (rowB('B6a9').numbers.domains[0] !== 'CondZQ.HypG') die('Track B: T9 does not bind G first');
+if (TB.redControls.map((c) => c.id).join() !== 'C1,C2,C3,Q1,Q2,Q3,Q4' || !TB.redControls.every((c) => c.passed)) die('Track B: the seven controls the page names are not all there and caught');
+const DECLB = rowB('B4').numbers.declarations, FRESHMIN = Math.round(rowB('B7c').numbers.wallSeconds / 60);
+const MAN = Object.fromEntries(Object.entries(rowB('B6d').numbers.manuscript).map(([k, v]) => [k, v.replace(/-/g, '−').replace(/\+/g, ' + ').replace(/(\d)−/g, '$1 − ')]));
+if (!rowB('B6d').numbers.rationals.every((x) => x.equal)) die('Track B: a rational of the point or the curve differs from the manuscript');
+const SECOND = TB.rows.filter((r) => /^B8/.test(r.id));
+const SECOND_OK = SECOND.filter((r) => r.verdict === 'CERTIFIED');
+if (!SECOND.every((r) => r.verdict === 'CERTIFIED' || (r.verdict === 'REFUSED' && r.numbers.toolStop))) die('Track B: a second kernel stopped with something other than a resource limit');
+if (TB.notes.some((n) => /^B8/.test(n))) die('Track B: a second kernel\'s stop is still to be read');
+
 /* a formula as the records write it (M_0 ≤ N_s^10, P_*): escaped, then its subscripts and exponents set as sub/sup */
 const math = (t) => esc(t).replace(/_([0-9a-z*])/g, '<sub>$1</sub>').replace(/\^([0-9]+)/g, '<sup>$1</sup>');
 if (math(H2.h2.statement) !== 'M<sub>0</sub> ≤ N<sub>s</sub><sup>10</sup>') die('H2 is no longer the statement M_0 ≤ N_s^10');
@@ -166,8 +208,9 @@ B.push(C.section({
       + 'the number of variables and the height of the expression; the tower bounds on the degree and the coefficients; his four finite test suites; and his ' + MODS + ' Lean modules, replayed in Lean’s kernel on a rented machine.')
     + C.pRaw('<b>What came out.</b> The bookkeeping holds. The polynomial has exactly ' + AMB + ' variables, counted two ways, and its expression height is ' + n1.rootHeight + ', as stated. '
       + 'The bounds on degree and coefficients follow by exact arithmetic, but only from four named premises; an attempt to remove one of them by computation was refused, because it is not a computation. '
-      + 'The statements his suites test hold on ' + N(CASES) + ' cases of mine, and his Lean helpers check in the kernel with only the three standard axioms.')
-    + C.pRaw('<b>What it means.</b> None of this decides the theorem. It decides what a machine can decide about the claim today and names what it cannot: the deep results the proof rests on, and the main Lean statement, which is unproved. '
+      + 'The statements his suites test hold on ' + N(CASES) + ' cases of mine, and his Lean helpers check in the kernel with only the three standard axioms. '
+      + 'Then the Lean gap: a proof of his frozen main statement from ' + word(DOM8.length) + ' named hypotheses, written with Claude agents in claimbox, checks in the kernel here, and one of his premises, that the point P₀ has infinite order, is now proved outright.')
+    + C.pRaw('<b>What it means.</b> None of this decides the theorem. It decides what a machine can decide about the claim today and names what it cannot: the deep results the proof rests on, now ' + word(DOM8.length) + ' named Lean hypotheses instead of a ' + m('sorry') + '. '
       + 'The limits come first below, then each lane with its record.')
 }));
 
@@ -189,10 +232,12 @@ B.push(C.section({
       + 'The statements each suite tests were decided on cases of mine instead; a count of mine that equals his is never presented as a reproduction of his set. The six-contact suite’s reported values were replayed, exactly.' },
     { b: 'The Lean helpers check; what they mean is not checked here.', raw: 'The ' + MODS + ' modules check in the kernel, but whether their statements are the ones the manuscript needs is not decided. '
       + 'One second kernel, nanoda, could not finish the full export (a big-integer overflow, a limit of the tool), so the replay rests on ' + m('leanchecker --fresh') + '; nanoda accepted ' + NAN.accepted + ' of the ' + MODS + ' modules one by one.' },
-    { b: 'Track B is undecided.', text: 'A Lean proof of the frozen statement from named hypotheses has been proposed (below). It is not yet decided here, and a certification would still leave the theorem resting on those hypotheses.' },
+    { b: 'The Lean statement now rests on ' + word(DOM8.length) + ' hypotheses.', raw: 'Track B decides that his frozen statement follows in Lean from ' + word(DOM8.length) + ' named hypotheses (below). None of them is proved here. If any is false, the Lean theorem says nothing. '
+      + 'Whether each Lean hypothesis says what the manuscript’s premise says is my reading, not a decision; a screen only checked that none of them contains his statement itself. Their joint consistency is not decided either.' },
     { b: 'Some rules came after a first look.', text: 'Every lane was pre-registered before any of my code ran on his data, and every later rule is dated in the pre-registration: lane 4’s rule for four constructors’ axiom sets was written after a first pass and before the recorded one, '
-      + 'its per-module nanoda run during the recorded pass, and its recorder’s census fix after it. One red control of the H2 tool was blind for a structural reason, so a sharper one was added after the run. Lane 2’s red controls came after the pre-registration: a check of the tool, not a pre-registered test.' },
-    { b: 'One author on both sides.', text: 'The checks of Track A and the proposal of Track B were both written by me with Claude agents. claimbox proposes and cert-machine decides; the two have one author, so this separates the roles, not the people. '
+      + 'its per-module nanoda run during the recorded pass, and its recorder’s census fix after it. One red control of the H2 tool was blind for a structural reason, so a sharper one was added after the run. Lane 2’s red controls came after the pre-registration: a check of the tool, not a pre-registered test. '
+      + 'In Track B, the rule for comparing the generator statement with mine (equal up to the names Lean gives its hidden helper proofs) was written after a first pass and before the recorded one.' },
+    { b: 'One author on both sides.', text: 'The checks of Track A, the proof of Track B and its decision were all written by me with Claude agents. claimbox proposes and cert-machine decides; the two have one author, so this separates the roles, not the people. '
       + 'No one else has replayed these records yet; an outside replay would be the next step up.' }
   ])
 }));
@@ -222,10 +267,16 @@ const LANES = [
     { raw: 'The ' + MODS + ' accepted helper modules build and re-elaborate with kernel checking on. ' + m(N(DECL)) + ' declarations, his ' + N(THEIRS) + ' and ' + N(EXTRA) + ' private theorems, reach only propext, Quot.sound and Classical.choice, by two independent traversals. '
       + m('leanchecker') + ', ' + m('leanchecker-paranoid') + ' and ' + m('leanchecker --fresh') + ' accept; nanoda accepts ' + NAN.accepted + ' of ' + MODS + ' modules. The frozen statement elaborates with exactly ' + word(row('R9').numbers.sorryWarnings) + ' ' + m('sorry') + ', and Mathlib’s hyperoperation 4 2 k = 2↑↑k is kernel-checked. '
       + Word(L4.redControls.length) + ' planted wrong variants, each caught.' },
-    { raw: rec(R.lean) }]
+    { raw: rec(R.lean) }],
+  ['B · the Lean gap', { raw: tag(T8B.verdict) + '<br><span class="small">conditional on ' + word(DOM8.length) + ' hypotheses</span>' },
+    { raw: 'His frozen statement, his file unchanged, follows in Lean from the ' + word(DOM8.length) + ' named hypotheses ' + Object.values(HYP).map((h) => h[0]).join(', ') + ': the kernel accepts the proof three ways, and the statement is checked against his file twice. Details below.' },
+    { raw: rec(RB) }],
+  ['B · P₀ has infinite order', { raw: tag(GB.verdict) },
+    { raw: 'The first half of his generator proposition, proved in Lean (claimbox’s 2-adic proof), with the point and the curve the manuscript’s own, number for number.' },
+    { raw: rec(RB) }]
 ];
 B.push(C.section({
-  lab: 'the four lanes', title: 'What was decided, lane by lane', id: 'lanes', wide: true,
+  lab: 'the four lanes and track b', title: 'What was decided, lane by lane', id: 'lanes', wide: true,
   bodyRaw: C.table({ cols: [{ h: 'lane' }, { h: 'verdict' }, { h: 'what it decides' }, { h: 'record' }], rows: LANES })
     + C.table({ cols: [{ h: 'lane 3 · suite' }, { h: 'its statements, on my cases' }, { h: 'his own cases, replayed' }, { h: 'my cases' }, { h: 'red controls' }],
       rows: S.map((s) => [SUITE_NAME[s.suite], { raw: tag(s.statements) }, { raw: tag(s.replay) }, N(s.casesOurs), String(s.redControls)]) })
@@ -233,14 +284,26 @@ B.push(C.section({
       + 'A conditional certification names its premises, and decides none of them.') + '</div>'
 }));
 
-/* Track B, in words only */
+/* Track B, from cert-machine's decision */
+const SECOND_TEXT = SECOND_OK.length
+  ? 'Of the second, independent checkers, ' + SECOND_OK.map((r) => r.statement.split(' ')[0]).join(', ') + ' also accept it.'
+  : 'Every second, independent checker stopped on a resource limit before reaching a verdict (nanoda on a big-integer overflow, as in lane 4; con-ron and con-leche on their computation budget, con-ron’s master on its stack; con-leche’s master needs a larger machine), so the kernel replay rests on Lean’s own checker, as lane 4’s does. '
+    + 'On the planted variants nanoda did reach a verdict, and refused each for its planted reason.';
+const NDR = TB.redControls.filter((c) => ['C2', 'C3', 'Q3'].includes(c.id)).map((c) => c.outcome.nanoda && c.outcome.nanoda.reason);
+if (!/sorryAx/.test(NDR[0] || '') || !/planted_zinq_axiom/.test(NDR[1] || '') || !/def_eq/.test(NDR[2] || '')) die('Track B: nanoda no longer refuses the planted variants for their planted reasons');
 B.push(C.section({
-  lab: 'track b', title: 'The Lean gap: a proposal, not yet decided', id: 'track-b',
-  bodyRaw: C.pRaw('<b>The gap.</b> Lane 4 shows that his Lean helpers check and that the main statement is still ' + m('sorry') + '. Track B asks a narrower question than the theorem: can that frozen statement, his file unchanged, be proved in Lean from named hypotheses, so that what stays open is a list of stated mathematical results instead of a ' + m('sorry') + '?')
-    + C.pRaw('<b>The proposal.</b> <a href="../claimbox/">claimbox</a>, the claimant of this machine’s Lean proposals, has proposed such a proof: the frozen statement derived in Lean from named hypotheses, with the deep results of the manuscript among them, entering as hypotheses rather than proved. Claude agents wrote it there; claimbox and this page have one author.')
-    + C.pRaw('<b>Not yet decided here.</b> cert-machine has not decided it. Until it does, the proposal is stated here in words only: no number, no list of hypotheses and no verdict on this page comes from it. When it is decided, against the frozen statement byte for byte, its record will name each hypothesis, and this page will carry the verdict, whatever it is.')
-    + C.pRaw('<b>What a certification would mean.</b> That the frozen statement follows, in Lean, from those hypotheses. It would not prove that ℤ is Diophantine in ℚ: the theorem would rest on the hypotheses, as lane 2’s bounds rest on theirs. '
-      + 'The plan it answers is this repository’s gap map, ' + rec(GAPMAP) + ', a reading of his texts that sorts each open obligation into what today’s Mathlib could formalize and what must enter as a hypothesis.')
+  lab: 'track b', title: 'The Lean gap: his statement from ' + word(DOM8.length) + ' named hypotheses', id: 'track-b',
+  bodyRaw: C.pRaw('<b>The question.</b> Lane 4 shows that his Lean helpers check and that the main statement is still ' + m('sorry') + '. Track B asks a narrower question than the theorem: can that frozen statement, his file unchanged, be proved in Lean from named hypotheses, so that what stays open is a list of stated results instead of a ' + m('sorry') + '?')
+    + C.pRaw('<b>The proof.</b> <a href="../claimbox/">claimbox</a>, the claimant of this machine’s Lean proposals, proved it: from ' + word(DOM8.length) + ' hypotheses, each a deep result or a premise of the manuscript entering unproved, his frozen statement follows. Claude agents wrote it there; claimbox and this page have one author.')
+    + C.pRaw('<b>What was decided here.</b> ' + said(T8B.verdict) + ', as pre-registered. Lean’s kernel accepts the proof three ways, the last replaying every constant it rests on, core and Mathlib included, into an empty environment (' + FRESHMIN + ' minutes). '
+      + 'My audit finds only the three standard axioms in all ' + N(DECLB) + ' of claimbox’s declarations. The statement is his, checked twice: a Lean module of mine states it by taking the type of his frozen theorem from his file, and is proved by claimbox’s theorem; and a syntactic check finds exactly the ' + word(DOM8.length) + ' hypotheses followed by his statement. '
+      + Word(TB.redControls.length) + ' planted wrong variants, a changed conclusion, an extra hypothesis, a circular one, a ' + m('sorry') + ', a new axiom, a proof that skipped the kernel and a changed byte, were each caught. ' + SECOND_TEXT)
+    + C.pRaw('<b>One premise is now proved.</b> That his point P₀ = (' + esc(MAN.P0x) + ', ' + esc(MAN.P0y) + ') has infinite order on y² = x³ − d²x with d = ' + esc(MAN.d) + ', over ℚ(s) with s² = 2: the first half of his generator proposition. '
+      + 'claimbox proves it at the prime 2, the way the manuscript argues elsewhere; the kernel accepts it, ' + said(GB.verdict) + ', and the point and the curve in the Lean statement are the manuscript’s, number for number (' + said(GMB.verdict) + ').')
+    + C.pRaw('<b>The ' + word(DOM8.length) + ' hypotheses</b>, in the order the theorem takes them, each in my reading, with where the manuscript has it:')
+    + C.plainList(DOM8.map((n) => ({ b: HYP[n][0] + '.', raw: math(HYP[n][1]) + ' (' + esc(HYP[n][2]) + ').' })))
+    + C.pRaw('<b>What it does not mean.</b> It does not prove that ℤ is Diophantine in ℚ: the theorem now rests on these ' + word(DOM8.length) + ', as lane 2’s bounds rest on theirs. If any of them is false, the Lean theorem says nothing. '
+      + 'The readings above are mine, not decisions; the record keeps each hypothesis as Lean prints it. The plan this answers is this repository’s gap map, ' + rec(GAPMAP) + ', which named seven of them; building the proof found two more inputs (LT and CC) and proved one (G).')
 }));
 
 /* how to re-run */
@@ -251,16 +314,17 @@ B.push(C.section({
     { b: 'Re-derive the records.', raw: 'In a clone of <a href="https://github.com/carlostoledo1891/cert-machine">cert-machine</a>, run ' + [L1, L2, H2, L3, L4].map((r) => m('node ' + Object.keys(r.code)[0] + ' --check')).join(', ')
       + '. Each checks the sha256 of every file of his it reads against the pin before reading it, derives its record again and refuses on any difference. They need Node and its standard library, and his clone at the pinned commit.' },
     { b: 'The Lean replay.', raw: 'It ran on a rented machine with ' + rec('tools/runpod-zq-lane4.sh') + '; the facts of the run are in ' + recDir(L4.run.facts) + '. The recorder’s ' + m('--check') + ' derives again from your clone what can be derived on a laptop (the census, the re-hash, the reconciliation with his ' + N(THEIRS) + ' declarations) and refuses if a script that ran on that machine has changed since.' },
+    { b: 'The Lean gap.', raw: 'claimbox’s proof is public on its branch ' + m(TB.pins.claimbox.branch) + '. It was decided on a rented machine with ' + rec('tools/runpod-zq-trackb.sh') + ', the facts in ' + recDir(TB.run.facts) + '; ' + m('node tools/record-zq-trackb.js --check') + ' derives the record again from those facts and the manuscript’s numbers, and refuses if a script that ran there has changed since. Its pre-registration: ' + rec(PREREG_B) + '.' },
     { b: 'Nothing of his is copied here.', text: 'His repository has no licence (its README: licences for original project material are awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
     { b: 'Read the pre-registration.', raw: rec(PREREG) + ': what each lane would decide and what would make it fail, written before any code ran on his data, with its dated amendments.' }
   ])
 }));
 
-const foot = '<p>Generated by apps/z-in-q/build.js from the records ' + Object.values(R).map(rec).join(', ') + ', the pre-registration ' + rec(PREREG) + ' and the gap map ' + rec(GAPMAP)
-  + '. The claim and its repository are Elliot Glazer’s; Track A by Carlos Toledo with Claude agents, decided by cert-machine; built with Claude (Anthropic).</p>';
+const foot = '<p>Generated by apps/z-in-q/build.js from the records ' + Object.values(R).concat([RB]).map(rec).join(', ') + ', the pre-registrations ' + rec(PREREG) + ' and ' + rec(PREREG_B) + ' and the gap map ' + rec(GAPMAP)
+  + '. The claim and its repository are Elliot Glazer’s; Track A and the decision of Track B by Carlos Toledo with Claude agents, decided by cert-machine; Track B’s proof written with Claude agents in claimbox; built with Claude (Anthropic).</p>';
 let html = TPL.render({
   title: TITLE + ' · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'en',
-  desc: 'Elliot Glazer’s AI-assisted claim that ℤ is Diophantine in ℚ, decided where a machine can decide it: the variable count and height of his polynomial, its tower bounds under four named premises, his finite suites and his Lean helper modules. The theorem itself is undecided here.',
+  desc: 'Elliot Glazer’s AI-assisted claim that ℤ is Diophantine in ℚ, decided where a machine can decide it: the variable count and height of his polynomial, its tower bounds under four named premises, his finite suites, his Lean helper modules, and his frozen Lean statement from eight named hypotheses. The theorem itself is undecided here.',
   path: '/z-in-q/', og: { image: '/og-z-in-q.png', alt: OG.alt('z-in-q') }
 });
 /* unlisted (2026-11-06): noindex, in no index, hub, sitemap or nav; the sync's prune list keeps it (tools/build-site.js) */
@@ -268,4 +332,4 @@ html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots"
 if (!/name="robots" content="noindex, nofollow"/.test(html)) die('the page carries no noindex, and it is unlisted');
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
-console.log('site/z-in-q/index.html written (unlisted): ' + Object.entries(ALL).map(([k, r]) => k + ' ' + r.verdict).join(', ') + '; Track B in words, undecided');
+console.log('site/z-in-q/index.html written (unlisted): ' + Object.entries(ALL).map(([k, r]) => k + ' ' + r.verdict).join(', ') + '; Track B ' + TB.claims.map((c) => c.id + ' ' + c.verdict).join(', '));
