@@ -682,7 +682,11 @@ function build() {
   const suites = [suiteIC(report), suiteDP(spec, report, ev), suiteFE(spec, report, ev, lane1), suiteSC(report, review)];
   const replayCertified = suites.filter((s) => s.replay.verdict === 'CERTIFIED').map((s) => s.suite);
   const stmt = suites.map((s) => s.statements.verdict);
-  const verdict = stmt.includes('REFUTED') ? 'REFUTED' : stmt.includes('REFUSED') ? 'REFUSED' : 'CERTIFIED';
+  /* the headline says both halves (the coordinator, 2026-11-06): CERTIFIED only when the statements hold AND every suite's
+     own case set was replayed; statements CERTIFIED with a replay refused anywhere is MIXED, so the word never reads as
+     "their suites were reproduced" when three of four case sets are not in their prose */
+  const verdict = stmt.includes('REFUTED') ? 'REFUTED' : stmt.includes('REFUSED') ? 'REFUSED'
+    : suites.every((s) => s.replay.verdict === 'CERTIFIED') ? 'CERTIFIED' : 'MIXED';
   return {
     what: 'Track A lane 3 on the claim "Z is Diophantine in Q" (Glazer et al., announced 2026-11-05): the claimant\'s four finite arithmetic suites (integer compiler, division polynomials over Q(√2), finite polynomial expressions, six-contact identities), re-derived clean-room from their prose and data with exact arithmetic of our own; their checker code not read.',
     undecided: UNDECIDED,
