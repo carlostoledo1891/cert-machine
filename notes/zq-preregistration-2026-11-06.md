@@ -341,6 +341,23 @@ written here before that pass:
    704 and ours contains theirs on all 704 with every strict difference listed, all within the three standard axioms.
    That this rule was written after the first pass is said in the record.
 
+### Lane 4 amendment D, 2026-11-06, during the recorded pass (before the step it adds)
+
+The recorded pass (`/root/zq-lane4/final`, 02:39–02:48 UTC) finished every stage. nanoda v0.4.31 did not finish on
+the full export: after 61 s two workers panicked with "memory overflow" inside num-bigint's `pow` (its Nat extension,
+`src/tc.rs` `do_nat_bin`, computes `arg1.pow(arg2)` for any two literals; Lean's kernel bounds the exponent before it
+computes a power). That is a tool limit, not a type error: under amendment A item 5 the nanoda row is REFUSED (tool)
+and the verdict rests on `leanchecker --fresh`, which accepted. The bundled 0.4.19 overflowed its stack again.
+
+**Added, informational, never a verdict input except as said:** localize it. A separate script of ours,
+`tools/runpod-zq-lane4-nanoda-modules.sh` (the four files of the recorded pass are not touched), exports, for each of
+the 48 modules, the closure of that module's non-private declarations (their names from our audit; a private name is
+reached only through the public ones that use it) with `leanexport <module> -- <names>`, and runs nanoda v0.4.31 on
+each (same config). Recorded per module: accepted, "memory overflow", stack overflow, or the panic's first line. A
+module nanoda accepts is a second, independent kernel's acceptance of those declarations and their closure. A panic
+that is a type or definitional-equality error on a constant of the 48 modules (not an overflow) would be
+investigated before any verdict and, confirmed, would be REFUTED.
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."
