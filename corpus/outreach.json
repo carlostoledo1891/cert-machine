@@ -1160,6 +1160,15 @@
    "note": "outreach/gh-glazer-zq-reproducibility-2026-11-06.md (untracked, v4); records at cert-machine 856b1104; the page /z-in-q/."
   },
   {
+   "id": "gh-glazer-zq-3-v4-2026-11-06",
+   "what": "A follow-up comment on elliotglazer/diophantine-z-q#3: the Version 4 quartic (5cb2c199, 4,973 variables) re-checked clean-room — the coefficient table as stated, Φ exactly the sum of the squares of the 4,552 published residuals, the 551-step certificate replayed from the published source to exactly those residuals by the manuscript's step rules; 13 controls; format notes (the weights line per row id, the header's SOS degree, rows stored negated, rows_sha256 unchecked); what it does not establish (thm:quartic-selected-source, the source modules, the prose step arguments read). First person, Claude disclosed. Posted with gh on the operator's word ('Post it after the push').",
+   "where": "github.com/elliotglazer/diophantine-z-q/issues/3, a comment",
+   "url": "https://github.com/elliotglazer/diophantine-z-q/issues/3#issuecomment-6692963557",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-glazer-zq-v4-2026-11-06.md (untracked); record certs/zq-v4.json at cert-machine 0eeac777; /z-in-q/#version-4."
+  },
+  {
    "id": "gh-con-leche-17-2026-11-06",
    "what": "Both master branches (con-leche dc8ca857, con-ron 97eead2d) overflow their stacks on the 184 MB Track B export that leanchecker --fresh accepts, also on a 128 GB machine and with RUST_MIN_STACK=1 GiB; the bundled v4.35.0 builds stop on fuel at CondZQ.t_body; the commands that rebuild the export (not attached: it holds declarations of an unlicensed repository). First person, Claude disclosed. Filed with gh.",
    "where": "github.com/leanprover/con-leche, a new issue",

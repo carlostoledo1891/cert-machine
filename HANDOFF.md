@@ -38,8 +38,9 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-
      "ZQ Version 4 quartic"; pre-registered notes/zq-v4-preregistration-2026-11-06.md, amendments A–D each a reading of ours
      corrected) — V1 table, V2 Φ = ΣRᵢ² over 4,552 residuals, V3 the 551-step certificate replayed from the source to exactly
      those residuals: all CERTIFIED, 13 controls. Not decided: thm:quartic-selected-source + inherited hypotheses. /z-in-q/
-     section "The Version 4 quartic, decided". A follow-up comment on #3 is drafted (outreach/gh-glazer-zq-v4-2026-11-06.md),
-     sent on the operator's word; d18 rewritten to carry it.
+     section "The Version 4 quartic, decided". The follow-up on #3 POSTED 11-06 on the operator's word (#issuecomment-6692963557;
+     outreach/gh-glazer-zq-v4-2026-11-06.md). d18 rewritten to lead with the quartic; the reply under his X post is
+     notes/x/drops/d19b-glazer-reply-v4.txt (the operator's pick); both BY HAND — log their URLs when given.
   ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
      (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
      zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,
