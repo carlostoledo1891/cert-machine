@@ -1,0 +1,42 @@
+-- zq-trackb-plants.txt — our planted controls of the ZQ Track B decision (notes/zq-trackb-preregistration-2026-11-06.md,
+-- B7 Q1-Q3). cert-machine's own text. tools/runpod-zq-trackb.sh writes each section, from its marker line to the next,
+-- as the module CertMachineZQPlant.<id> of the copy of claimbox's project (lean_lib CertMachineZQPlant); every check of
+-- the decision is then run on it, and each must come out as predicted. The theorem (Z is Diophantine in Q) is
+-- undecided here; these plants decide nothing about it.
+-- ZQ-PLANT Q1 extra-hypothesis
+import CondZQ
+import Frozen.BoundedIntegerPolynomial
+
+/-- an extra first hypothesis, `1 = 0`, and the frozen statement from it by `absurd` -/
+theorem CertMachineZQPlant.q1_extra_hypothesis (h0 : (1 : Nat) = 0) (hM : CondZQ.HypM) (hH : CondZQ.HypH)
+    (hPC : CondZQ.HypPC) (hC : CondZQ.HypC) (hLT : CondZQ.HypLT) (hCC : CondZQ.HypCC) (hH1 : CondZQ.HypH1)
+    (hH2 : CondZQ.HypH2) :
+    type_of% @ZInQ.exists_bounded_integer_polynomial_defining_integers :=
+  absurd h0 (by decide)
+-- ZQ-PLANT Q2 circular-hypothesis
+import CondZQ
+import Frozen.BoundedIntegerPolynomial
+
+/-- a hypothesis that IS the frozen statement -/
+def CertMachineZQPlant.HypCirc : Prop := type_of% @ZInQ.exists_bounded_integer_polynomial_defining_integers
+
+/-- HypH2 replaced by HypCirc, and the frozen statement from it -/
+theorem CertMachineZQPlant.q2_circular (hM : CondZQ.HypM) (hH : CondZQ.HypH) (hPC : CondZQ.HypPC)
+    (hC : CondZQ.HypC) (hLT : CondZQ.HypLT) (hCC : CondZQ.HypCC) (hH1 : CondZQ.HypH1)
+    (hX : CertMachineZQPlant.HypCirc) :
+    type_of% @ZInQ.exists_bounded_integer_polynomial_defining_integers :=
+  hX
+-- ZQ-PLANT Q3 kernel-bypass
+import CondZQ
+import Frozen.BoundedIntegerPolynomial
+import Lean
+
+/- T8's exact type with the value `True.intro`, added with the kernel switched off -/
+set_option debug.skipKernelTC true in
+open Lean Elab Command in
+run_cmd liftTermElabM do
+  let f ← Meta.inferType (mkConst ``ZInQ.exists_bounded_integer_polynomial_defining_integers)
+  let hs := [``CondZQ.HypM, ``CondZQ.HypH, ``CondZQ.HypPC, ``CondZQ.HypC, ``CondZQ.HypLT, ``CondZQ.HypCC,
+    ``CondZQ.HypH1, ``CondZQ.HypH2]
+  let ty := hs.foldr (fun h acc => mkForall `h .default (mkConst h) acc) f
+  addDecl (.thmDecl { name := `CertMachineZQPlant.q3_unchecked, levelParams := [], type := ty, value := mkConst ``True.intro })

@@ -131,3 +131,37 @@ the final files in a fresh directory, their sha256s recorded by every step.
 
 RunPod CPU, cpu3m 16 vCPU / 128 GB (≈US$0.88/h) or the closest shape that places, SSH direct, the runpod image.
 Deleted after the import (delete-pod, then get-pod → 404); `corpus/zq/POD.txt` gets its lines.
+
+## Amendment A, 2026-11-06, written AFTER a first pass and BEFORE the pass that is recorded
+
+**The first pass.** The files as first committed (pre-registration 6406f546; `tools/runpod-zq-trackb.sh`,
+`tools/zq-trackb-check.lean`, `tools/zq-trackb-plants.txt` as they were then) ran 11:05–11:14 UTC on the pod under
+`/root/zq-trackb/pass1`, every stage up to the toolchain kernel's replays. Nothing of it is imported. It showed two faults
+of ours and nothing of claimbox's:
+
+1. **Q3 did not compile** (`unexpected identifier; expected '}'`): the structure instance of its `addDecl` continued on
+   a line indented left of its `{`. The text is now one line; what Q3 plants is unchanged.
+2. **B5(d)'s comparison of `HypG` came out false for a reason that is not about meaning.** Every other structural check
+   passed (T8, T9, G and our three theorems under B5(a); F under B5(b); the nine screens; `Pt`, `E`, `K0`; P0 is
+   `Point.some P0x P0y _`; the six rationals are 75, −53; 1641/8, −145; −15465/4, 87483/32, which are the manuscript's
+   numbers in the basis 1, s). `HypG`'s value and our `ourG` differ in exactly one constant: the elaborator abstracts a
+   proof inside the instance arguments into an auxiliary constant named after the definition, `CondZQ.HypG._proof_1` in
+   theirs and `ZqTrackBCheck.ourG._proof_1` in ours. **The comparison is refined to:** alpha-equivalence after each
+   auxiliary proof constant (a constant whose last name component begins `_proof_`) is replaced by a marker applied to
+   its own statement, so two elaborations compare equal when they differ only in the names of abstracted proofs of
+   alpha-equivalent statements. It stays syntactic (no unfolding). Plain `Expr.eqv` and both lists of auxiliary
+   constants are still recorded. This rule was written after seeing the first pass; the record says so.
+
+A deprecation (`levelZero` → `Level.zero`) is fixed with no change of meaning, and each screen line also carries the
+hypothesis as Lean prints it (informational: what the record names, the page may quote; nothing is decided from it). A continuation of the first pass in the
+same directory, with these fixes, ran the remaining stages to learn their output formats; it is not imported either.
+What the continuation showed, written here before the recorded pass: `leanchecker --fresh CertMachineZQ` accepts (33 min,
+8.8 GB); every second kernel stops on a resource limit — nanoda (both builds) on num-bigint's `pow` overflow, con-ron and
+con-leche as bundled on `fuel exhausted: whnfCore` at `CondZQ.t_body`, con-ron master on a worker stack overflow, con-leche
+master killed by the 64 GB pod's memory limit (exit 137). On the planted exports nanoda's reason differs by plant (C2:
+`depends on sorryAx which was not found`); the record states the reason of each refusal, and a refusal by overflow
+carries no weight for its control (C2 and C3 rest on the audit, Q3 on leanchecker). No rule changes for this.
+
+The recorded pass is a fresh run of the final files in `/root/zq-trackb/final`, every step recording their sha256s.
+claimbox's branch `zinq-2026-11-06` was pushed to GitHub at the operator's word (2026-11-06) before the recorded pass, so
+the commit is public.
