@@ -174,3 +174,24 @@ memory-heavy steps overlap on the 64 GB pod. con-leche master is NOT run in the 
 killed by the memory limit again (the continuation: exit 137 after 18 min, 62 GB peak at `--jobs=8`). Its row is REFUSED
 (tool, not run here), the continuation's measurement is quoted as a note, not imported, and it waits for a larger pod. The
 pod script's `con-masters` stage is split into `con-ron-master` and `con-leche-master` for this; nothing else changes.
+
+## Amendment C, 2026-11-06, AFTER the recorded pass (12:28–13:13 UTC) and before the supplement it adds
+
+Two faults of ours, found by the recorder on the recorded pass's facts; nothing of claimbox's.
+
+1. **The screen's lines are broken.** In `tools/zq-trackb-check.lean` as it ran (sha256 `fd34b9bd…`), the hypothesis's
+   printed statement was computed by a `match` whose arm ended in `do return …`; in Lean 4's do-notation that `return`
+   leaves the whole `screen` function, so each of the nine screen lines (and Q2's) is only that printed statement, and
+   B5(c) has no output. The other lines of the check (B5(a) targets, B5(b) F, B5(d) G's meaning) are complete. **Added:** a
+   SUPPLEMENT on a new pod, the same pod script and the corrected check file (the printing moved to its own function,
+   nothing else changed), stages `setup fetch cache build copy statement check plants`, facts in
+   `corpus/zq/runs/trackb-2026-11-06/screen-supplement/`. B5(c) and Q2 are read from the supplement; every other row from
+   the recorded pass. The record keeps both sha256s of the check file and requires the supplement's target, F and G
+   lines (and the plants' target lines) to equal the recorded pass's, byte for byte as JSON, so the supplement can only
+   have added the screens.
+2. **Q3's prediction had a wrong word.** "The audit sees no axiom" was copied from lane 4's P4, whose type `False` reaches
+   none. Q3's type binds the eight hypotheses, whose definitions reach `propext`, `Quot.sound` and `Classical.choice`, so
+   the audit sees those three and nothing else, and flags nothing. **Corrected to:** "the audit sees no axiom outside the
+   three standard ones (raises no flag)". The point of the control, that only the kernel replay catches a proof that
+   skipped the kernel, is what came out: `leanchecker` exited 1 on it. Corrected after the recorded pass; the record
+   says so.

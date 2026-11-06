@@ -81,6 +81,12 @@ def byRoot (env : Environment) (e : Expr) : Json :=
   let roots := (cs.map fun c => (modOf env c).getRoot.toString).toList.eraseDups
   Json.mkObj (roots.map fun r => (r, namesJson (cs.filter fun c => (modOf env c).getRoot.toString == r)))
 
+/-- a value as Lean prints it, or null -/
+def prettyOf (value? : Option Expr) : MetaM Json := do
+  match value? with
+  | some v => return Json.str s!"{← ppExpr v}"
+  | none => return Json.null
+
 /-- B5(c): the screen of one hypothesis constant against circularity -/
 def screen (fType : Expr) (h : Name) : MetaM Json := do
   let env ← getEnv
@@ -107,10 +113,9 @@ def screen (fType : Expr) (h : Name) : MetaM Json := do
       for d in used do
         if isLocal env d && !seen.contains d then todo := todo.push d
   let flagged := !(ci matches .defnInfo _) || !isProp || isFalse || !containsF.isEmpty || !mentionsFrozen.isEmpty
-  -- the hypothesis as Lean prints it, recorded beside the screen (informational, amendment A)
-  let pretty : Json ← match value? with
-    | some v => do return Json.str s!"{← ppExpr v}"
-    | none => pure Json.null
+  -- the hypothesis as Lean prints it, recorded beside the screen (informational, amendment A; its own function since
+  -- amendment C: a `return` in a `match` arm here returned from the whole of `screen`)
+  let pretty ← prettyOf value?
   return Json.mkObj [
     ("type", "screen"), ("name", h.toString), ("found", true), ("module", (modOf env h).toString),
     ("kind", kindOf ci), ("isProp", isProp), ("valueIsFalse", isFalse),
