@@ -211,6 +211,88 @@ reconciles with their 704, the frozen statement elaborates. REFUTED: a module fa
 the pinned toolchain cannot be reproduced. **Out of scope:** the main theorem (the frozen target is `sorry`); whether
 the helper statements mean what the manuscript needs.
 
+### Lane 4 amendment A, 2026-11-06 (written and committed BEFORE any code of ours runs on the claimant's data)
+
+The operator approved lane 4 on 2026-11-06, about 01:50 UTC ("push to the limits"); the pod was already running
+(16 vCPU, 128 GB cgroup, shared with another agent's build, so memory is read per process by GNU time, never from the
+cgroup). Before this amendment the pod ran only: tool `--help` probes, and a toy module-system project of ours
+(no claimant byte) to learn the v4.35.0 tools' behaviour. What that taught, and what is added beyond the procedure
+above:
+
+1. **The tools are the toolchain's own.** elan's `leanprover/lean4:v4.35.0` (Linux, commit `eb6cafb7…`, the same
+   commit as their Windows `VALIDATION.json`) ships `leanchecker`, `leanchecker-paranoid`, `leanexport` (lean4export
+   3.1.0), `nanoda_bin` 0.4.19 and `lean4lean`; we use those binaries, each recorded by sha256. `lean4lean` failed on
+   the toy with "incompatible header" on the toolchain's own `.olean` files: it is run once on the library with a
+   15-minute cap and recorded, never a verdict input.
+2. **The kernel flag.** `lake build ZInQ` runs at the lakefile's options (the lakefile sets none; the option
+   `debug.skipKernelTC` has default `false` in `Lean/Environment.lean` v4.35.0, and the audit prints the default it
+   sees). The pre-registered flag is applied literally in a second pass: each of the 48 sources re-elaborated with
+   `lake env lean -Ddebug.skipKernelTC=false <file>`; every pass must exit 0 with no error and no `sorry` warning.
+3. **Two axiom traversals, not one.** In v4.35.0 `Lean.collectAxioms` reads, for an imported constant, the axiom table
+   each `.olean` stores at export time (`exportedAxiomsExt`, `Lean/Util/CollectAxioms.lean`), so an audit built on it
+   trusts the stored tables (theirs, our build's, and Mathlib's downloaded cache). Our script
+   (`tools/zq-lean-audit.lean`, written without opening `Checks/Axioms.lean`) reports BOTH: `lean` =
+   `Lean.collectAxioms`, and `ours` = a fresh traversal of every constant's type, value, constructors and recursor
+   rules through Mathlib and core, from the environment's private view, ignoring every stored table (a depth-first
+   order, then a bitmask fixpoint, so cycles of inductive families are exact). A difference between the two on any
+   declaration is a finding; a non-standard axiom by EITHER is a further axiom.
+4. **"Every declaration of the 48 modules"** = every constant whose DEFINING MODULE (the environment's
+   constant-to-module map) is `ZInQ` or `ZInQ.*`, never selected by name. Each is listed with its module, kind and
+   flags (private, internal name, auxiliary recursor, no-confusion, matcher, instance, unsafe, partial,
+   `implemented_by`, `extern`). The code generator's extra names (`extraConstNames`, no kernel declaration) are
+   counted apart. **Reconciliation with their 704** (`lean/AXIOMS.json`): matched by name; it reconciles when every
+   one of their 704 names is ours with the SAME axiom set, and every name of ours outside theirs falls in a class we
+   name and count (for instance compiler- or elaborator-generated declarations). A name of theirs that we do not
+   find, an axiom set that differs, or a residue we cannot name is a recorded disagreement: REFUSED (REFUTED if it
+   exposes a non-standard axiom). Their `Checks/Axioms.lean` may be READ after our run, only to explain the class
+   boundary; that it was read is then recorded.
+5. **Kernel replays.** All four are run, each with exit code, wall seconds and GNU-time peak RSS: `leanchecker ZInQ`
+   (every `ZInQ*` module replayed onto its imports), `leanchecker-paranoid ZInQ` (the same CLI), `leanchecker --fresh
+   ZInQ` (every constant of the whole closure, core and Mathlib included, into an empty environment), and nanoda on
+   a `leanexport ZInQ` of the full environment, permitted axioms exactly {propext, Quot.sound, Classical.choice},
+   `unpermitted_axiom_hard_error: false` (core DECLARES `sorryAx` and the compiler axioms; a declaration that USES
+   one is still an error), Nat and String extensions on. The verdict needs the per-module pass, our audit and at least
+   one of `leanchecker --fresh` / nanoda to accept; a replay that REJECTS a constant of the 48 modules is REFUTED; one
+   that rejects a Mathlib or core constant, or that cannot finish (time, memory, tool), is recorded and makes that row
+   REFUSED, not the claim refuted. The downloaded Mathlib cache is a trusted input of the BUILD only: the fresh replay
+   and nanoda re-check every constant of the closure from the oleans.
+6. **Census** over the 48 sources, the root, the frozen file and the lakefile, run on the desk by the recorder from the
+   read-only clone (sha256-checked against the manifest): the six pre-registered tokens plus `admit`, `opaque`,
+   `partial`, `skipKernelTC`, `set_option`, `run_cmd`, `#eval`, `ofReduceBool`, `trustCompiler`, `addDecl`,
+   `elab`, `macro`; each hit with file, line and whether it is in code or in a comment/docstring/string. Reported,
+   cross-checked with the audit's flags; a code hit of `sorry`/`admit`/`axiom`/`native_decide` in the 48 sources would
+   contradict the audit and is investigated before any verdict.
+7. **The frozen target**, two ways: (F1) `lake env lean Frozen/BoundedIntegerPolynomial.lean` in the pristine clone
+   must exit 0 with exactly one "declaration uses `sorry`" warning and no error; (F2) in a COPY whose lakefile gains
+   one `lean_lib Frozen` (their file byte-identical), the module is built and our audit runs on it: its theorem's
+   axioms must be `sorryAx` plus at most the three standard ones, and the constants of its statement must resolve to
+   Mathlib's `hyperoperation` (module `Mathlib.Data.Nat.Hyperoperation`), `MvPolynomial`, `Rat`, `Int`. In the same
+   file our theorem `∀ k, hyperoperation 4 2 k = T k` with T 0 = 1, T (k+1) = 2^(T k) (so T 1 = 2, the manuscript's
+   2↑↑1) is proved and kernel-checked, giving `hyperoperation 4 2 7` = 2↑↑7 and `hyperoperation 4 2 8` = 2↑↑8 exactly,
+   and 4 2 1 = 2, 4 2 3 = 16, 4 2 4 = 65536 are decided.
+8. **Planted variants**, in a COPY, each appended to one leaf module (the last module of the root's import list that
+   no other `ZInQ` module imports; the plant texts are ours, `tools/zq-lean-plants.txt`), the original bytes restored
+   and re-hashed between variants. For each: build, our audit, `leanchecker` on the leaf module, and nanoda on a
+   `leanexport` of the planted constant's closure. Predictions, fixed here:
+   - **P1** (pre-registered) `theorem … := by sorry`: build exit 0 with one new `sorry` warning; the audit flags
+     `sorryAx` by both traversals; leanchecker exit 0 (an axiom is not a kernel error); nanoda refuses.
+   - **P2** (pre-registered) a new `axiom` and a theorem using it: build exit 0; the audit lists the axiom as a
+     declaration of kind axiom and flags both; leanchecker exit 0; nanoda refuses.
+   - **P3** `theorem … := by native_decide`: build exit 0; the audit flags `Lean.ofReduceBool`; leanchecker exit 0;
+     nanoda refuses.
+   - **P4** a theorem of type `False` with value `True.intro`, added by `run_cmd` under `set_option
+     debug.skipKernelTC true` (the kernel bypassed at build time): build exit 0; the audit sees NO axiom (its blind
+     spot by design, recorded as such); leanchecker exits non-zero with a kernel type mismatch; nanoda refuses. If
+     their leaf cannot host it, P4 goes in a new module of the copy imported by the root, said so.
+   - **P5** one byte appended to a source: the recorder's re-hash flags exactly that file.
+   A control whose outcome differs from its prediction makes the lane REFUSED (an instrument we cannot trust).
+9. **Records.** Pod: `tools/runpod-zq-lane4.sh`, run over SSH under `/root/zq-lane4` only; nothing of theirs leaves
+   the pod except small text facts (logs, exit codes, timings, RSS, sha256s, our audit's JSON lines naming their
+   declarations) into `corpus/zq/runs/lane4-2026-11-06/`. Desk: `tools/record-zq-lean-replay.js` →
+   `certs/zq-lean-replay.json`, which takes every number from those facts and re-derives the census, the re-hash
+   and the reconciliation from the read-only clone; `--check` re-derives and refuses on any difference, including a
+   change to any of our pod-side files after the run (their sha256s are recorded by the pod).
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."
