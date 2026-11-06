@@ -55,7 +55,7 @@ Runtimes measured 2026-11-05 on Apple M2 (Darwin 27.0.0, v24.14.1, Python 3.9.6)
 
 ## The corpus for outside reruns
 
-Milestone: five independent parties obtain the same verdicts on this corpus — or record where they do not. 2 of 5 parties have re-run a row (2 of 10 rows), read from the registry below.
+Milestone: five independent parties obtain the same verdicts on this corpus — or record where they do not. 2 of 6 parties have re-run a row (2 of 11 rows), read from the registry below.
 
 | party | rows | status |
 |---|---|---|
@@ -64,6 +64,7 @@ Milestone: five independent parties obtain the same verdicts on this corpus — 
 | the EinsteinArena thread (vinid/einstein-arena #64) and the Dualverse Station authors | `kiss-ea-604` (CERTIFIED), `kiss-station-604-1` (CERTIFIED), `ea-overlap-together_ai_2026` (REPAIRED) | open |
 | S. Sra (count-ex-machina) | `countex-dpp-feasible-step` (PARTIAL) | open |
 | the the partner group pair (the university; not named in this repository) | `ecbench-marginals` (MIXED) | open |
+| the maintainers of Lean's kernel checkers (con-leche, con-ron, nanoda, lean4lean) | `eth-openai-chain` (CERTIFIED) | open |
 
 ## The registry of independent reruns
 
@@ -83,4 +84,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git 9d49de55
+git b46b5220

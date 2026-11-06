@@ -620,7 +620,9 @@ if (fs.existsSync(path.join(ROOT, OCH_REL))) {
   const oc = J(OCH_REL);
   const judgeReading = oc.reading.find((x) => /did not finish on this export/.test(x));
   if (oc.verdict === 'CERTIFIED' && !judgeReading) fail('the OpenAI chain record says CERTIFIED without saying how its judge was re-run');
-  lane.push({ b: 'OpenAI’s proof in the same Lean.', raw: vTag(oc.verdict) + ' ' + C.esc(oc.scope) + ' ' + C.esc(oc.reading[0]) + ' ' + C.esc(oc.reading[1]) + (judgeReading ? ' ' + C.esc(judgeReading) : '') + ' ' + ghRec(OCH_REL) + '.' });
+  const EM = require(path.join(ROOT, 'design', 'eth-masters.js'));   /* the con-leche story, told once (also on reports/eth-chain.html) */
+  const after = [EM.summary(oc), EM.stops(oc)].filter(Boolean).map((x) => ' ' + C.esc(x)).join('');
+  lane.push({ b: 'OpenAI’s proof in the same Lean.', raw: vTag(oc.verdict) + ' ' + C.esc(oc.scope) + ' ' + C.esc(oc.reading[0]) + ' ' + C.esc(oc.reading[1]) + (judgeReading ? ' ' + C.esc(judgeReading) : '') + after + ' ' + ghRec(OCH_REL) + '.' });
 }
 if (fs.existsSync(path.join(ROOT, CMP_REL))) {
   const cm = J(CMP_REL);

@@ -44,15 +44,10 @@ if (!och.judge.shipped || !och.judge.shipped.claim || Object.keys(och.judge.ship
 if (!och.p3 || !och.p3.accepted) die('OpenAI\'s own challenge did not accept the ported proof, and this page says it did');
 const ojReading = och.reading.find((x) => /did not finish on this export/.test(x));
 if (!ojReading) die('the OpenAI chain record no longer says how its judge was re-run');
-/* after the record: the master branches leanprover/con-leche#16 asked for (the record's `masters`), one sentence, outside the decision */
-const omR = ((och.masters || {}).runs || []).filter((r) => r.export === 'chain' && r.exit === 0 && r.accepted);
-const omJ = (r) => Number((/--jobs=(\d+)/.exec(r.args) || [])[1] || 0);
-const omL = omR.filter((r) => r.checker === 'con-leche' && !/--trusted/.test(r.args)).sort((a, b) => omJ(b) - omJ(a));
-const omSentence = omR.some((r) => r.checker === 'con-leche') && omR.some((r) => r.checker === 'con-ron')
-  ? ' After the record, at the con-leche maintainer’s request, con-leche and con-ron built from their master branches and run by hand on the same export accept all ' + omR[0].accepted.toLocaleString('en-US') + ' declarations'
-    + (omL.length ? ' (con-leche needs ' + omL.map((r, i) => (r.maxRssKb / 1048576).toFixed(1) + (i ? '' : ' GiB') + ' at ' + omJ(r) + (i ? '' : ' workers')).join(', ') + ')' : '')
-    + ': their fuel stops are fixed upstream, not yet in a Lean release.' + (och.masters.deposit ? ' Both exports are public as a test case for the checkers (doi:' + och.masters.deposit.doi + ').' : '') + ' Outside the judge, not part of the decision.'
-  : '';
+/* after the record: the con-leche story, told once in design/eth-masters.js (also read by /eth/), outside the decision */
+const EM = require(path.join(ROOT, 'design', 'eth-masters.js'));
+const omSentence = [EM.summary(och), EM.stops(och)].filter(Boolean).map((x) => ' ' + x).join('');
+const omRerun = EM.rerun(och);
 const FIG = J('corpus/eth-refutation/figures/standard-chain.json');
 for (const [rel, sha] of Object.entries(FIG.stamp)) {
   const now = crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
@@ -107,6 +102,7 @@ B.push(C.section({
     { b: 'On OpenAI’s side the judge’s list is shorter.', text: ojReading + omSentence + ' On Anthropic’s side all six accepted.' },
     { b: 'The judge ran without its sandbox.', text: ch.reading[2] },
     { b: 'One author on both sides.', text: 'The statements were written by hand and pinned before any proof was decided; the proofs and the port were written by Claude agents in claimbox; cert-machine decided them. claimbox and cert-machine have one author, so this separates the roles of author and checker. It is not a second party, and an outside replay of the records below would be the next step up.' },
+    ...(omRerun ? [{ b: 'Check it yourself.', text: omRerun.text }] : [])
   ])
 }));
 
