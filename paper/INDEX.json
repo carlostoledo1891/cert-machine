@@ -441,7 +441,7 @@
    "group": "decided",
    "title": "A formal bridge from two refutations of the Exponential Time Hypothesis to a standard multitape Turing machine",
    "desc": "A technical note: Anthropic's ETHIsFalse (Mathlib's FinTM2 on a custom encoding of duplicate-free formulas) implies ETH is false as complexitylib states it, on cslib's deterministic multitape Turing machine with the binary encoding of every formula; both laboratories' proofs, ported (Anthropic's 809 files, 47 edited; OpenAI's with Hawkley's two links, 3,210 files, 20 edited), supply the hypothesis in the same Lean, so no step crosses a version boundary. Checked from pinned bytes: the three standard axioms, nanoda, leanchecker --fresh, Lean's judge (six checkers on Anthropic's chain; on OpenAI's 2.45 GB export the four bundled checkers stop at their own limits and the verdict reads the judge re-run with named kernels), twelve planted variants refused. What stays open first: the textbook match is a reading, the shorter checker list on OpenAI's side, the ported copies, the judge without its sandbox, one author on both sides.",
-   "status": "v0.2 · 2026-11-05 · a technical note, not peer-reviewed; release v2026.11.05b on Zenodo",
+   "status": "v0.3 · 2026-11-06 · a technical note, not peer-reviewed; release v2026.11.06 on Zenodo (v0.2: v2026.11.05b)",
    "form": "article",
    "venue": null,
    "report": "/reports/eth-chain.html",
