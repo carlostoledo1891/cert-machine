@@ -1,0 +1,281 @@
+{
+ "what": "The Version 4 quartic of the claim \"Z is Diophantine in Q\" (Glazer et al., Version 4, 2026-11-06): V1 its coefficient table, V2 the sum of squares, V3 its certificate replayed from the arithmetic source by the manuscript's own step rules, by a clean-room reader (Node, BigInt, exact rationals; none of the repository's .py run, read or ported).",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here. This decides the finite algebra of Version 4: that the published quartic is the stated polynomial, that it is the sum of the squares of the published residuals, and that the published certificate carries the published arithmetic source to those residuals by the steps the manuscript describes. It does not decide the source's arithmetic theorem (thm:quartic-selected-source) or the inherited hypotheses it rests on.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-v4-preregistration-2026-11-06.md",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "5cb2c1997dde6e358f3c2fe9bbdb4b8f4c23bac6",
+  "tex": {
+   "path": "quartic_4973.tex",
+   "sha256": "d1700d3450e9646422516efc0d37ca657b89b7a10734496d7fc02a2c09b12c34"
+  },
+  "table": {
+   "path": "quartics/quartic-4973/polynomial.expanded.txt",
+   "sha256": "094f6a7ed17e7cc8d5d17a2f809127bbaffd0fe343cb2a32d18ac97e61279876"
+  },
+  "tableGz": {
+   "path": "quartics/quartic-4973/polynomial.expanded.txt.gz",
+   "sha256": "ac7ddfb1a5540ca996b5e7ca97265847b41000887ee4885f9d2b6a2fbf6c5264"
+  },
+  "residuals": {
+   "path": "quartics/quartic-4973/residuals.json.gz",
+   "sha256": "67fa6e2554045ba89dad1575dc31299d0cf34ea93611fac7710b7183ea29f7ab"
+  },
+  "weights": {
+   "path": "quartics/quartic-4973/weights.json",
+   "sha256": "3dd137c9c1a8930b0f9d2de90cf49d6bd71b24de77b9a0317ac4ce97b9c10da8"
+  },
+  "variableMap": {
+   "path": "quartics/quartic-4973/variable-map.json",
+   "sha256": "2402920061d7db7084485d448c8f8c0c9688900d1946d73db390cdf6c21a2a3b"
+  },
+  "certificate": {
+   "path": "quartics/quartic-4973/certificate.jsonl.gz",
+   "sha256": "81ca768459a13b76dbdf4bfe81e94fbab9ab99f14a5731f6b1a1b03e28c1df2b"
+  },
+  "source": {
+   "path": "quartics/quartic-4973/source-residuals.jsonl.gz",
+   "sha256": "94f8a1972cbfc0cf6493d418e628a18482307dec5c427db72e86d3eacb1a6f5d",
+   "uncompressedSha256": "4a82d9a8dc1b5c92eb40a49751c0a6aae073c8f765ca5e276a74802fd56b84be"
+  },
+  "sourceEntry": {
+   "path": "quartics/quartic-4973/source-entry.json",
+   "sha256": "39af6e354ce265a7954c2fbae53373862a89f81114e6c24c56eb9ff3020d9857"
+  }
+ },
+ "code": {
+  "tools/zq-v4.js": "73bf562bcc51aa4acd2c2e056a342d239e7ed35e0eabb18dd3b61457b34b3b47"
+ },
+ "claim": {
+  "variables": 4973,
+  "witnesses": 4972,
+  "monomials": 72925,
+  "degree": 4,
+  "maxAbsCoefficient": "685783949153203534233890",
+  "residuals": 4552,
+  "sourceCoordinates": 4935,
+  "sourceResiduals": 4513,
+  "steps": 551,
+  "census": {
+   "parity_conic": 1,
+   "circuit": 13,
+   "linear": 266,
+   "eliminate": 121,
+   "shear": 2,
+   "relation_eliminate": 148
+  },
+  "sources": [
+   "quartic_4973.tex thm:quartic (8695-8711)",
+   "8713-8729 (the table)",
+   "10036-10063 (the source)",
+   "10179-10215 (the finite realization)"
+  ]
+ },
+ "verdict": "CERTIFIED",
+ "reason": "the table is the stated polynomial; it is exactly the sum of the squares of the 4,552 published residuals; and all 551 certificate steps check by the manuscript's rules, from the published source to exactly those residuals; every control refused",
+ "verdicts": {
+  "V1": "CERTIFIED",
+  "V2": "CERTIFIED",
+  "V3": "CERTIFIED"
+ },
+ "V1": {
+  "verdict": "CERTIFIED",
+  "differs": [],
+  "numbers": {
+   "bytes": 1622053,
+   "monomials": 72925,
+   "degree": 4,
+   "variables": 4973,
+   "maxIndex": 4972,
+   "witnesses": 4972,
+   "inputOccurs": true,
+   "maxAbsCoefficient": "685783949153203534233890",
+   "below2to80": true
+  }
+ },
+ "V2": {
+  "verdict": "CERTIFIED",
+  "numbers": {
+   "residuals": 4552,
+   "maxResidualDegree": 2,
+   "weightsAllOne": true,
+   "expansionMonomials": 72925,
+   "differingMonomials": 0,
+   "firstDiffering": null
+  }
+ },
+ "V3": {
+  "verdict": "CERTIFIED",
+  "differs": [],
+  "numbers": {
+   "sourceCoordinates": 4935,
+   "sourceResiduals": 4513,
+   "sourceDegree": 8,
+   "liftGates": 366,
+   "liftReuses": 646,
+   "liftedRows": 4879,
+   "steps": 551,
+   "census": {
+    "initial": 1,
+    "parity_conic": 1,
+    "circuit": 13,
+    "linear": 266,
+    "eliminate": 121,
+    "shear": 2,
+    "relation_eliminate": 148
+   },
+   "weightsLineEntries": 4879,
+   "replayedRows": 4552,
+   "equalsPublishedResiduals": true,
+   "sameOrderAsPublished": true,
+   "variableMapDirection": "variable-map.json[new index] = replayed index",
+   "finalReportAgrees": true,
+   "finalRowsSha256": "not checked: its serialization is not stated"
+  },
+  "notes": {
+   "reuseScales": {
+    "1/1": 521,
+    "1/2": 125
+   },
+   "circuitOutputs": [
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80",
+    "2/24/80"
+   ],
+   "parity": {
+    "displayedIdentities": 2,
+    "forward": [
+     "zero",
+     "zero",
+     "zero",
+     "zero",
+     "a multiple of the second old equation",
+     "zero",
+     "zero",
+     "zero",
+     "a multiple of the fourth old equation"
+    ]
+   },
+   "liftFactors": {
+    "1": 4163,
+    "-1": 350
+   },
+   "liftRowsNeedingReuse": 0,
+   "linearFactors": {
+    "1": 48,
+    "-1": 180,
+    "-1/49": 37,
+    "1/224": 1
+   }
+  }
+ },
+ "readings": {
+  "V1": "the TeX's rules for the table (8716-8723): one comment line; a nonzero integer then a nondecreasing index list per line; rows strictly increasing in lexicographic index-list order, so like terms are collected; the variables are the indices that occur.",
+  "V2": "Σ Rᵢ² expanded by our own code, every product of two terms, compared monomial by monomial with the table.",
+  "V3": "each step kind checked by the condition TeX 10065-10177 states (pre-registration, amendment A); the rows the certificate patches are adopted only after the check; the step's proofs that the rational input projection is preserved are read, not decided, except the parity block's displayed identities and its forward map, checked as exact rational functions."
+ },
+ "controls": [
+  {
+   "id": "C1a",
+   "what": "one coefficient of the table changed by one: V1",
+   "refused": true,
+   "refusal": "V1: the table is not the bytes whose sha256 the TeX states",
+   "passed": true
+  },
+  {
+   "id": "C1b",
+   "what": "the same change: V2 (the squares no longer give the table)",
+   "refused": true,
+   "refusal": "V2: 1 monomial(s) differ",
+   "passed": true
+  },
+  {
+   "id": "C2a",
+   "what": "one residual dropped",
+   "refused": true,
+   "refusal": "V2: 4551 residuals, the TeX states 4552",
+   "passed": true
+  },
+  {
+   "id": "C2b",
+   "what": "one weight set to 2",
+   "refused": true,
+   "refusal": "V2: the weights are not 4552 ones",
+   "passed": true
+  },
+  {
+   "id": "C3a",
+   "what": "initial: a gate's product changed (line 0)",
+   "refused": true,
+   "refusal": "line 0: gate 0 (x4935 = x34·x35): lifted row 4513 is not its definition",
+   "passed": true
+  },
+  {
+   "id": "C3b",
+   "what": "linear: a = 0 (line 15)",
+   "refused": true,
+   "refusal": "line 15 (linear): a = 0",
+   "passed": true
+  },
+  {
+   "id": "C3c",
+   "what": "eliminate: one affected row left out (line 160)",
+   "refused": true,
+   "refusal": "line 160 (eliminate): the affected rows are not every other row containing x198",
+   "passed": true
+  },
+  {
+   "id": "C3d",
+   "what": "relation_eliminate: one multiplier coefficient changed (line 404)",
+   "refused": true,
+   "refusal": "line 404 (relation_eliminate): the identity for row 38 fails (F(N) − ΣM·H is not a nonzero multiple of the new row)",
+   "passed": true
+  },
+  {
+   "id": "C3e",
+   "what": "shear: the scalar changed (line 400)",
+   "refused": true,
+   "refusal": "line 400 (shear): row 248 is not a nonzero multiple of itself with x4943 := x4943 + c·x4942",
+   "passed": true
+  },
+  {
+   "id": "C3f",
+   "what": "circuit: r^24 defined as r^16·r^4 (line 2)",
+   "refused": true,
+   "refusal": "line 2 (circuit): x393 has another value through the new definitions",
+   "passed": true
+  },
+  {
+   "id": "C3g",
+   "what": "parity_conic: one coefficient of a new equation changed (line 1)",
+   "refused": true,
+   "refusal": "line 1 (parity_conic) new block: row 4532 (868·x[1000000013,1000000013] + -34·x[1000000013,1000000014] + 17·x[1000000005,1000000015] + -1·x[1000000014,1000000014]) is no equation of the prose",
+   "passed": true
+  },
+  {
+   "id": "C3h",
+   "what": "the input coordinate 0 as the eliminated variable (line 160)",
+   "refused": true,
+   "refusal": "line 160 (eliminate): input coordinate 0 is a target of deletion or redefinition",
+   "passed": true
+  },
+  {
+   "id": "C4",
+   "what": "our arithmetic: four identities hold, four planted non-identities are seen",
+   "refused": true,
+   "refusal": "every planted non-identity was seen",
+   "passed": true
+  }
+ ]
+}

@@ -34,7 +34,12 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-
      record exactly): 86 of 88 decided files the same bytes, construction/README.md and lean/README.md changed, the frozen
      target the same blob. His lean/README now says the frozen target is the ORIGINAL polynomial's and the quartic has no Lean
      statement. /z-in-q/ reads the Version 4 record ("Versions 3 and 4 appeared the same day"); d18 rewritten for Version 4.
-     NEXT LANE, on the operator's word (11-06): the Version 4 quartic, pre-registered before any code.
+     VERSION 4 QUARTIC DECIDED (11-06 ~20:00 UTC, on the Mac, $0): certs/zq-v4.json (node tools/zq-v4.js --check, ~3 s; battery
+     "ZQ Version 4 quartic"; pre-registered notes/zq-v4-preregistration-2026-11-06.md, amendments A–D each a reading of ours
+     corrected) — V1 table, V2 Φ = ΣRᵢ² over 4,552 residuals, V3 the 551-step certificate replayed from the source to exactly
+     those residuals: all CERTIFIED, 13 controls. Not decided: thm:quartic-selected-source + inherited hypotheses. /z-in-q/
+     section "The Version 4 quartic, decided". A follow-up comment on #3 is drafted (outreach/gh-glazer-zq-v4-2026-11-06.md),
+     sent on the operator's word; d18 rewritten to carry it.
   ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
      (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
      zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,

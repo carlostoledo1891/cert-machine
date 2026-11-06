@@ -62,6 +62,18 @@ if (V4.pin !== PIN_EARLY()) die('the Version 4 comparison starts from another pi
 if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 4 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
 if (V4.frozenTarget.blobPin !== V4.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
 const README_DIFF = V4.changed.length === 1 ? 'the one difference a README' : 'the ' + (['', 'one', 'two', 'three', 'four'][V4.changed.length] || N(V4.changed.length)) + ' differences READMEs';
+
+/* the Version 4 quartic, decided (tools/zq-v4.js; notes/zq-v4-preregistration-2026-11-06.md, amendments A-D) */
+const RQ = 'certs/zq-v4.json', PREREG_Q = 'notes/zq-v4-preregistration-2026-11-06.md';
+const Q4 = J(RQ);
+if (!fs.existsSync(path.join(ROOT, PREREG_Q))) die('the Version 4 pre-registration is gone: ' + PREREG_Q);
+if (!/^The theorem \(Z is Diophantine in Q\) is undecided here\./.test(Q4.undecided)) die('the Version 4 record no longer says first that the theorem is undecided');
+for (const k of ['V1', 'V2', 'V3']) if (Q4.verdicts[k] !== 'CERTIFIED') die('Version 4 ' + k + ' is ' + Q4.verdicts[k] + ' in ' + RQ + ', and this page states it CERTIFIED');
+if (Q4.pins.commit !== V4.head) die('the Version 4 record pins another commit than the tree check');
+const QN = { v1: Q4.V1.numbers, v2: Q4.V2.numbers, v3: Q4.V3.numbers };
+if (!QN.v3.equalsPublishedResiduals || QN.v2.differingMonomials !== 0) die('the Version 4 record no longer ends at the published residuals');
+const QC = QN.v3.census, QCTL = Q4.controls.length;
+if (!Q4.controls.every((c) => c.passed)) die('a Version 4 control did not come out as pre-registered');
 if (!fs.existsSync(path.join(ROOT, PREREG_B))) die('the Track B pre-registration is gone: ' + PREREG_B);
 
 /* the words this page states, each read back from its record */
@@ -209,7 +221,7 @@ B.push(C.header({
 /* Versions 3 and 4, dated: what moved and what still applies */
 B.push(C.section({
   lab: 'since these checks', title: 'Versions 3 and 4 appeared the same day', id: 'version-3',
-  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved twice: to Version 3, a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic), then to Version 4, a smaller quartic still, each with its own package of checks. Neither quartic is checked here yet.')
+  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved twice: to Version 3, a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic), then to Version 4, a smaller quartic still, each with its own package of checks. Version 3’s quartic is not checked here; Version 4’s is, in <a href="#version-4">its own section</a>.')
     + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
       + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for the Version 4 quartic, which has no Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it today (' + rec(VREC) + ').')
 }));
@@ -323,6 +335,18 @@ B.push(C.section({
       + 'The readings above are mine, not decisions; the record keeps each hypothesis as Lean prints it. The plan this answers is this repository’s gap map, ' + rec(GAPMAP) + ', which named seven of them; building the proof found two more inputs (LT and CC) and proved one (G).')
 }));
 
+/* the Version 4 quartic: what it does not decide first, then the three questions */
+B.push(C.section({
+  lab: 'version 4', title: 'The Version 4 quartic, decided', id: 'version-4',
+  bodyRaw: C.pRaw('<b>What this does not decide.</b> The theorem. The manuscript proves separately that its arithmetic source, a system of ' + N(QN.v3.sourceResiduals) + ' equations in ' + N(QN.v3.sourceCoordinates) + ' rational coordinates, has a rational solution for exactly the integer inputs. That proof rests on the same inherited hypotheses as before and a sharper height estimate, and nothing here decides it. '
+      + 'Nor whether those equations are the modules the manuscript describes, nor the short arguments in prose that each kind of step keeps the same inputs. It is not a Lean proof.')
+    + C.pRaw('<b>What it decides.</b> The finite algebra that turns that source into one quartic, checked with my own code, written from the manuscript and the data files; none of his checkers was run or read. ' + said(Q4.verdicts.V1) + ': his coefficient table is a polynomial of degree ' + QN.v1.degree + ' with ' + N(QN.v1.monomials) + ' terms in ' + N(QN.v1.variables) + ' variables and largest coefficient ' + N(QN.v1.maxAbsCoefficient) + ', below 2<sup>80</sup>, as stated. '
+      + said(Q4.verdicts.V2) + ': it is exactly the sum of the squares of his ' + N(QN.v2.residuals) + ' published residuals, each of degree at most two, so at rational points it vanishes exactly when they all do. '
+      + said(Q4.verdicts.V3) + ': his certificate’s ' + N(QN.v3.steps) + ' steps (' + [['linear', 'row operations'], ['relation_eliminate', 'eliminations modulo kept equations'], ['eliminate', 'eliminations of a defined variable'], ['circuit', 'power circuits'], ['shear', 'shears'], ['parity_conic', 'parity block']].map(([k, w]) => N(QC[k]) + ' ' + w).join(', ') + '), replayed from the source after the quadratic lift, each pass the condition the manuscript states for its kind and end at exactly those residuals.')
+    + C.pRaw('<b>So.</b> If the source theorem holds, and the short step arguments are right, the quartic defines ℤ in ℚ. What stands between this quartic and the claim is now that one theorem and its inputs, not the algebra. '
+      + 'All ' + N(QCTL) + ' controls came out as pre-registered: a changed coefficient, a dropped residual, a doubled weight, one planted error for each kind of step and the input deleted were each refused, and my arithmetic caught its planted non-identities. The pre-registration was written before any code ran; its four dated amendments each correct a reading of mine (a header field, the sign of a row), none a result (' + rec(PREREG_Q) + ', ' + rec(RQ) + ').')
+}));
+
 /* how to re-run */
 B.push(C.section({
   lab: 'check it yourself', title: 'How to check this yourself', id: 'rerun',
@@ -332,12 +356,13 @@ B.push(C.section({
       + '. Each checks the sha256 of every file of his it reads against the pin before reading it, derives its record again and refuses on any difference. They need Node and its standard library, and his clone at the pinned commit.' },
     { b: 'The Lean replay.', raw: 'It ran on a rented machine with ' + rec('tools/runpod-zq-lane4.sh') + '; the facts of the run are in ' + recDir(L4.run.facts) + '. The recorder’s ' + m('--check') + ' derives again from your clone what can be derived on a laptop (the census, the re-hash, the reconciliation with his ' + N(THEIRS) + ' declarations) and refuses if a script that ran on that machine has changed since.' },
     { b: 'The Lean gap.', raw: 'claimbox’s proof is public on its branch ' + m(TB.pins.claimbox.branch) + '. It was decided on a rented machine with ' + rec('tools/runpod-zq-trackb.sh') + ', the facts in ' + recDir(TB.run.facts) + '; ' + m('node tools/record-zq-trackb.js --check') + ' derives the record again from those facts and the manuscript’s numbers, and refuses if a script that ran there has changed since. Its pre-registration: ' + rec(PREREG_B) + '.' },
+    { b: 'The Version 4 quartic.', raw: 'A sparse clone of his repository at ' + m(Q4.pins.commit.slice(0, 8)) + ' (the package ' + m('quartics/quartic-4973/') + ' and ' + m('quartic_4973.tex') + '), then ' + m('ZQ_V4_REPO=<clone> node tools/zq-v4.js --check') + ', about three seconds on a laptop.' },
     { b: 'Nothing of his is copied here.', text: 'His repository has no licence (its README: licences for original project material are awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
     { b: 'Read the pre-registration.', raw: rec(PREREG) + ': what each lane would decide and what would make it fail, written before any code ran on his data, with its dated amendments.' }
   ])
 }));
 
-const foot = '<p>Generated by apps/z-in-q/build.js from the records ' + Object.values(R).concat([RB]).map(rec).join(', ') + ', the pre-registrations ' + rec(PREREG) + ' and ' + rec(PREREG_B) + ' and the gap map ' + rec(GAPMAP)
+const foot = '<p>Generated by apps/z-in-q/build.js from the records ' + Object.values(R).concat([RB, RQ]).map(rec).join(', ') + ', the pre-registrations ' + rec(PREREG) + ', ' + rec(PREREG_B) + ' and ' + rec(PREREG_Q) + ' and the gap map ' + rec(GAPMAP)
   + '. The claim and its repository are Elliot Glazer’s; Track A and the decision of Track B by Carlos Toledo with Claude agents, decided by cert-machine; Track B’s proof written with Claude agents in claimbox; built with Claude (Anthropic).</p>';
 let html = TPL.render({
   title: TITLE + ' · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'en',

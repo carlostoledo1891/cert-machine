@@ -117,3 +117,31 @@ reads each reuse as the definition `v := (s1/s0)·x_a·x_b`, requires its anchor
 ratio the recorded scale) and unchanged in the lift, and substitutes it so; gate definitions stay `v − x_a·x_b`. Gate
 `k`'s defining row is lifted row `4513 + k`. Large integers in every JSON file are read exactly (BigInt from the source
 text), never through a float.
+
+## Amendment B (2026-11-06, after the first run, before any change to V1 or V2)
+
+The first run gave V1 CERTIFIED and V2 CERTIFIED and stopped V3 at line 0 on a check of ours that the prose does not
+state: the source header's `degree: 8` against the rows' total degree 4. The TeX fixes the field (6614–6615: the base
+compiler's "degree-eight sum-of-squares encoding"): it is the degree of the sum of the squares, twice the rows'. The check
+is now `header degree = 2 × row degree`. That run also labelled this stop REFUTED, which the verdict rules above forbid
+for a field misread; the decider now separates the two stops in code (a prose condition that fails: REFUTED; a field that
+cannot be read: REFUSED) instead of by matching words in the message.
+A second run stopped at a reuse whose anchor row is the definition times −1 (source row 229, `x61·x247 − x35`): the
+pre-registration says "up to nonzero scale", the code had demanded equality; the code now follows the registered rule.
+
+## Amendment C (2026-11-06, after the third run, before any change to V1 or V2)
+
+The third run stopped V3 at lifted row 228, which is its source row times −1 once the gate `x4935 = x34²` is substituted.
+The pre-registration said "equal to its source row"; the TeX says nonzero rational row normalization preserves each row's
+zero set (10186–10187), so the lift check is now "equal up to a nonzero rational factor, modulo the definitions", and the
+record counts the factors met. The full substitution into undefined variables is replaced by the gates first, then the
+reuse definitions only where the two sides still differ, a level at a time (at most six): the source's 25 anchor
+squarings make the full expansion astronomically long. A row this cannot show is a limit of ours and stops as REFUSED,
+never REFUTED.
+
+## Amendment D (2026-11-06, after the fourth run, before any change to V1 or V2)
+
+The fourth run passed the lift and lines 1–14 and stopped at line 15, the first linear step: the new row is
+`−(12·R286 + 11·R285)`, the registered combination times −1 (the patched rows carry a positive leading coefficient). This
+is the same row normalization as amendment C. So every rule above that says a new row "is exactly" a combination is read up
+to a nonzero rational factor (TeX 10186–10187), and the record counts the factors met; no other rule changes.
