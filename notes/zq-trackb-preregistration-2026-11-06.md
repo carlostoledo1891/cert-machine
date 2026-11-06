@@ -195,3 +195,25 @@ Two faults of ours, found by the recorder on the recorded pass's facts; nothing 
    three standard ones (raises no flag)". The point of the control, that only the kernel replay catches a proof that
    skipped the kernel, is what came out: `leanchecker` exited 1 on it. Corrected after the recorded pass; the record
    says so.
+
+## Amendment D, 2026-11-06, a second-kernel supplement on a larger pod (before it runs; the operator's "yes, run it now")
+
+The recorded decision stands as recorded (T8, T9, G, G's meaning CERTIFIED on Lean's own kernel three ways). This adds one
+more try at a second, independent kernel, which can only strengthen a row or add a REFUTED if it rejects a constant of
+`CondZQ*` or `CertMachineZQ` (the rule of B6/B8 unchanged).
+
+- **Pod:** RunPod CPU with at least 128 GB (cpu3m 16 vCPU / 128 GB, else cpu5m 32 vCPU / 256 GB). Facts in
+  `corpus/zq/runs/trackb-2026-11-06/kernel-supplement/`.
+- **Stages** of the same pod script and files (none of them changes): `setup fetch cache build copy statement export
+  con-ron-master con-leche-master`, the driver's environment carrying `RUST_MIN_STACK=1073741824` (1 GiB for every
+  thread Rust spawns without an explicit size, so con-ron master's workers get the room nanoda got from its config key).
+- **Same bytes:** the supplement's export must hash to the recorded pass's, `b04d30ee…` (184,384,945 bytes); otherwise the
+  supplement is REFUSED and nothing of it is read.
+- **Rows:** B8lm (con-ron… con-leche master, `--jobs=8`) is read from the supplement; a new row B8rm2, con-ron master with
+  1 GiB worker stacks; the recorded pass's B8rm (default stack, stack overflow) stays as recorded. Acceptance: exit 0 and
+  `accepted N declarations`. A stop on a resource limit is REFUSED (tool).
+- **Informational, not part of the decision:** a minimal reproduction of nanoda's overflow for its maintainers, written by
+  us: `example : (2 : Nat) ^ (2 ^ 32) = 2 ^ 4294967296 := rfl` and nothing else, compiled to an `.olean` with plain Lean
+  4.35.0 (no Mathlib), exported with `leanexport`, given to nanoda v0.4.31 and the bundled build. Prediction: Lean accepts
+  it (its kernel reduces the inner power and does not compute the outer one), nanoda panics with "memory overflow" in
+  num-bigint's `pow`.
