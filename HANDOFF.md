@@ -71,6 +71,18 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~00:10 UTC; NOTHING BILLING — list-
      certs/zq-recount.json, red controls), lane 2 if B is unambiguous, and the gap map (corpus/zq/gap-map.json); it reports
      wiring lines, touches no shared registry, does not push. If the session ended first: find its worktree, read its
      commits, merge with `git -C <main> merge`. Lane 4 (the Lean replay, v4.35.0) needs a pod — not started.
+     ~01:45 UTC: THE AGENT FINISHED, its work checked here and MERGED (a6125b7d): pre-registration f972484f before any run;
+     LANE 1 CERTIFIED (certs/zq-recount.json: 292,890,231,905 ambient by two derivations, root height 256 — 260 if renaming
+     calls were charged, the reading the manuscript declines —, the bounds file agreeing row by row, 9/9 red controls);
+     LANE 2 CERTIFIED conditional on H1 (an explicit primes-in-progressions bound), H2 (M₀ ≤ N_s^10), M (the majorant lemma),
+     L1 (lane 1) and REFUSED unconditionally (certs/zq-tower.json; log2log2log2 of the degree bound ≤ 8,971 < 65,536); the gap
+     map corpus/zq/gap-map.json (formalizable now: compiler, construction/bounds but H1/H2, final composition; absent theory:
+     height, restricted converse — not even statable in Mathlib, used only for pole completeness —, multiplication
+     (Green–Tao–Ziegler), whole model; the frozen target is existential in P). Both batteries wired (make test, build-control;
+     199/199 green; they need the clone at $ZQ_REPO, default ~/Projects/zq-scout/diophantine-z-q at 97cec7fd — the claimant's
+     files are unlicensed, read in place, never copied here); the shelf rows. NEXT on the operator's word: a numbers-only
+     issue on his repo (lane 1 confirms his headline count; lane 2's named premises); Track B in claimbox (the conditional
+     main theorem); lanes 3–4.
   ◆◆ 1. THE FIRST SEAL'S BITCOIN ANCHOR — DONE 2026-11-05 ~22:00 UTC (3d149d95, pushed): the .ots complete at Bitcoin block
      974704 (mined 20:34:20 UTC), copied into seals/reveals/claimbox-intake-2026-11-05/; certs/seal-first-use.json CERTIFIED
      on BOTH anchors, held by 2026-11-05; the page shows both. `ots verify` could not confirm it here — the client needs a
