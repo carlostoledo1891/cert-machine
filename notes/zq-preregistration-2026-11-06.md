@@ -211,6 +211,119 @@ reconciles with their 704, the frozen statement elaborates. REFUTED: a module fa
 the pinned toolchain cannot be reproduced. **Out of scope:** the main theorem (the frozen target is `sorry`); whether
 the helper statements mean what the manuscript needs.
 
+## Amendment A1, 2026-11-06 02:15 UTC: the H2 attempt (PRE-REGISTERED, committed before any H2 computation)
+
+The operator approved, 2026-11-06 about 01:50 UTC: lane 3 AND an attempt to discharge H2 exactly. Before this commit
+nothing about H2 was computed. The reading used `sed`/`grep` on the TeX and `python3 -I` to print the JSON's
+`definitions` block and `fixedConstants`. Nothing is pushed, no pod is created and nothing is posted.
+
+**H2, exactly.** M_0 ≤ N_s^10. It has no label of its own: it is the last sentence of the proof of `prop:cutoff`
+(TeX line 6347, "Therefore the literal search succeeds by N_s^4 m_0 and M_0 ≤ N_s^{10}"; the proof runs over lines
+6297–6349). Lane 2 uses it once, as log2 M ≤ 10·log2 N_s for the fixedConstant `M = least_formal_multiple(Ns)`.
+The objects in it:
+- M_0 (TeX lines 239–245, sec:syntax, their source S31; JSON `definitions.coefficientAlgorithms.localMultiplier`):
+  the least m ≥ 1 such that 1/x([m]P_0) = (a + b√2)/c, with a, b, c ∈ ℤ, c > 0 and gcd(a,b,c) = 1, satisfies
+  N_s^4 | a, N_s^4 | b and gcd(c, N_s) = 1. The inverse abscissa of the identity is 0.
+- N_s = P_s·H_cat (fixedConstant `Ns = P0·Hproduct`): P_s = ∏_{p≤324} p (lane 2, row E1); H_cat is the product of the
+  catalogue, the first 22 primes > 324 in each unit class mod W = 4P_s (JSON `coefficientAlgorithms.catalogue`).
+- P_0 = ((1641 − 1160√2)/8, (−123720 + 87483√2)/32) on E: y² = x³ − d²x, d = 75 − 53√2 (TeX lines 256–262).
+
+**What computation would decide it.** H2 is a statement about one fixed integer, so it is finite in principle. Neither
+route to it is a computation anyone can run:
+(a) The direct route: N_s needs the whole catalogue, 22·φ(W) primes with φ(W) a 432-bit number (lane 2, row E6), and
+    then a search over m ≤ N_s^10.
+(b) The manuscript's route: M_0 ≤ N_s^4·m_0, where m_0 is the product of the reduction orders of P_0 at every place
+    above every odd prime of N_s, which again means every catalogue prime. The step from m_0 to the valuation bounds
+    then uses theorems at all of those places at once: the reduction filtration E_0/E_1 ≅ Ẽ_ns (Silverman VII.2.1),
+    Hasse's bound (V.1.1), and the formal-group facts (multiplication by p raises v(z) at an odd place; the logarithm
+    is an isometry at the dyadic place once v_s(z) > v_s(2)).
+
+**Prediction, fixed now.** H2 as a whole is REFUSED. Deciding it needs either the catalogue, which cannot be
+enumerated, or the cited theorems over all of its places, and neither is a finite computation here. No catalogue
+prime is sampled and no heuristic is used.
+
+**What is decided exactly instead: the finite ingredients of the manuscript's proof of H2.** Each one is CERTIFIED or
+REFUTED by exact arithmetic in ℚ(√2) and in finite fields (BigInt, no floating point). The tool is
+`tools/zq-h2.js` → `certs/zq-h2.json`, with `--check`.
+- F1. P_0 lies on E. A = −d² = −11243 + 7950√2 equals the JSON's `quadraticField.A`, and the JSON's
+  `fixedPointCodes.P` is P_0.
+- F2. Norm(d) = 7, and the discriminant of E is 64·d^6, so the odd places of bad reduction are exactly the places
+  dividing d. 7 splits (2 is a square mod 7); d ≡ 0 at √2 ≡ 3 and d ≢ 0 at √2 ≡ 4 (mod 7).
+- F3. P_0 is integral at every odd place: the denominators 8 and 32 are powers of 2.
+- F4. At √2 ≡ 3 (mod 7), P_0 reduces to (2, 6) on y² = x³ and is nonsingular there (2y ≢ 0). The nonsingular
+  points of y² = x³ over F_7, together with ∞, number exactly 7. The equation is minimal at that place
+  (v(Δ) = 6 < 12).
+- F5. For every odd prime p ≤ 324 (65 primes), the exact order of the reduction of P_0 at every place above p
+  (residue field F_p or F_{p²}, or the nonsingular group at the bad place), each one < p³. Their product m_0(P_s) is
+  then compared exactly with (P_s/2)^6. This decides the P_s part of "m_0 ≤ N_s^6". The catalogue part cannot be
+  computed and stays with Hasse's bound.
+- F6. (p+1)² < p³ for every integer p ≥ 3: at p = 3 + t, p³ − (p+1)² has only positive coefficients in t.
+- F7. At the dyadic place, with v_s(√2) = 1: v_s(x(P_0)) = −6, v_s(y(P_0)) = −9, and v_s(z) = 3 > 2 = v_s(2), where
+  z = −x/y.
+- F8. The valuation bookkeeping, as exact integer arithmetic. N_s is squarefree (P_s is squarefree, and the catalogue
+  primes are distinct and > 324), so v_p(N_s) = 1 for every p | N_s, 2 included. At an odd place 2 + 8 ≥ 4. At the
+  dyadic place 6 + 16 = 22, and extracting a and b loses at most 2 and 3 units of v_s, so v_2(a), v_2(b) ≥ 10 ≥ 4.
+  The extraction-loss bound itself (conjugation fixes the prime (√2)) is a one-line valuation argument; it is read,
+  not computed.
+- F9. The exponent arithmetic: at most two places per prime, each order < p³, gives m_0 < ∏ p^6 ≤ N_s^6, and
+  N_s^4·N_s^6 = N_s^10.
+
+**Verdicts.** H2 is CERTIFIED only if an exact computation decided M_0 ≤ N_s^10, which is not expected. H2 is
+REFUTED only by an exact counterexample, which cannot be computed here. A failed F-row REFUTES that step of the
+manuscript's proof (not H2 itself) and is reported with the exact numbers. H2 REFUSED is the expected verdict, and it
+names the theorems H2 rests on.
+
+**How lane 2 would read** (certs/zq-tower.json is not edited here; the operator decides). If H2 were discharged,
+lane 2 would read CERTIFIED conditional on H1, M and L1, with L1 itself CERTIFIED by lane 1. If H2 is REFUSED with
+F1–F9 CERTIFIED, lane 2 stays conditional on H2. H2 can then be restated as the narrower premise H2′: the cited
+theorems (VII.2.1, V.1.1 and the formal-group facts) applied at the places above N_s, with every finite fact of the
+proof decided here.
+
+**Red controls** for the H2 tool, each with its prediction:
+- HC1: P_0 with its x moved by 1 fails F1.
+- HC2: x(P_0) over 16 instead of 8 gives v_s(x) = −8 and fails F7.
+- HC3: the bound p² in place of p³ fails F5 at some inert p (an order can reach (p+1)²). If it fails nowhere, that is
+  a blind spot and the record says so.
+- HC4: d = 75 − 52√2 (norm 5625 − 5408 = 217 = 7·31) moves the bad places, and F2 fails.
+
+## Amendment A2, 2026-11-06 02:15 UTC: lane 3, what the Phase 0 reading found (before any lane-3 code ran)
+
+The lane-3 procedure above assumed the case sets come with stated ranges. They do not. Their README gives only the
+counts. Their report (`docs/construction-checks-r2.json`, data) gives counts, the n-values of the division-polynomial
+graphs, the fixture constants and hashes of the expression suite, and the output values of the six-contact
+checker. Their prose (integer-compiler-spec.txt, the TeX and the JSON's `definitions` block) states the mathematics
+but none of the case ranges: the (N,K) range of the 285 digit cases, the pairs of the 4,096 bit cases, the machines
+and inputs of the 30,120 packed cases, what a "backend" case is, the four evaluation points per n of the 44 exact
+division-polynomial cases, why 30 changed-y cases rather than 44, the serialization behind the expression hashes,
+and the four malformed bindings. Their checker code is not read. So, by the pre-registered rule, the following is
+fixed now and written down before running:
+
+- Each suite gets two verdicts. **replay**: whether their case set is reconstructed and agrees. It is REFUSED when
+  the set is not in the prose, with the reason. **statements**: the mathematics the suite is said to check, decided
+  on OUR cases with the ranges below. It is CERTIFIED if every case agrees exactly and REFUTED if one fails (the case
+  is the witness). A count of ours that equals theirs is never presented as a reproduction of their set.
+- Integer compiler (spec §§1–5). §1, the formula conventions (Eq/And/Or, strict inequality, divisibility,
+  congruence), on boxes with entries in [0, 12]. §2, the power macro at Q, R ∈ [0, 7]. §3, the binomial digit at
+  N ∈ [0, 20], K ∈ [0, 22], and the subset, disjoint and AND encodings at X, Y ∈ [0, 63]. §§4–5, the packed-history
+  equations on small register machines: completeness on inputs a ∈ [0, 12], and soundness by exhaustive enumeration
+  in a small (q, c) box.
+- Division polynomials (TeX lines 206–233; JSON `psiNormalization`, `fixedPointCodes`). The ι formulas against
+  independent affine double-and-add over ℚ(√2) at n ∈ [−10, 10], which contains their eleven n-values, at the points
+  P_0, [2]P_0, [−3]P_0 and P_0 + (0,0), with changed-x and changed-y rejections. Beyond their suite, the SAVED
+  templates `multiply.scalar` (index c ∈ [1, 8] substituted for cstar) and `scalar.integer_constant_0/1/2` (their
+  actual indices) are evaluated by our reader with our psi semantics at p ∈ {ι(1), ι(2), ι(−3)}. Their one witness is
+  solved, and changed outputs are rejected by an exact count of real roots in the witness (Sturm).
+  `scalar.integer_constant_4` (index 1,399) is attempted; if it does not finish on this Mac it is recorded as not run.
+- Finite expressions. The parameter, witness, node and call counts of `multiply` and `natural` against their
+  `variableCounts`. Which fixed constants (cstar, ell, T) each named template reaches, against the equal and unequal
+  pattern of their hashes across the two fixtures. `multiply.scalar` at cstar ∈ {4, 8}, and `multiply.guard` at
+  T ∈ {0, 1} on all 27 code triples in [−1, 1]³, evaluated from the saved DAG with our constructor semantics.
+- Six contact (TeX sec:height lines 377–560 and 905–965). Every value in their report's six-contact block,
+  recomputed from the manuscript's definitions; a value whose meaning the prose does not give is matched as a number
+  only and listed separately. Then every finite identity and inequality those lines state.
+- Red controls per suite: a perturbed case or a perturbed formula must fail. Each is listed in the record with its
+  outcome.
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."

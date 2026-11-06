@@ -1,0 +1,969 @@
+{
+ "what": "The attempt, pre-registered as Amendment A1, to discharge lane 2's premise H2 (M_0 ≤ N_s^10) on the claim \"Z is Diophantine in Q\" (Glazer et al., announced 2026-11-05): H2 REFUSED as not a computation, and the nine finite ingredients of the manuscript's proof of it decided by exact arithmetic in Q(√2) and in the residue fields above every odd prime ≤ 324.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this record decides it. Nor does this record decide H2 (M_0 ≤ N_s^10): it decides the finite ingredients of the manuscript's proof of H2 and records why H2 itself is not a computation.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md, Amendment A1 (commit 13c9e92e, before any H2 computation)",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "definition": {
+   "path": "construction/ordinary-integer-definition.json",
+   "sha256": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6"
+  },
+  "tex": {
+   "path": "diophantine_zq.tex",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  }
+ },
+ "code": {
+  "tools/zq-h2.js": "9a7503a0022f5b5cf603bf109f2406b13b84d354505242809ba7f3a0a509acc8",
+  "tools/zq-k0.js": "5cdabc3dc84216188687cedd3a4cdcbcaa9e8c6d39e44d54c30c8e89f8244634"
+ },
+ "lane2": {
+  "record": "certs/zq-tower.json",
+  "verdict": "CERTIFIED",
+  "contentSha256": "838d8fa855e905906a1ffea39544db23e6ba7c25cf8d010c8f48c28bc82c3dd2",
+  "note": "sha256 of the record with its date nulled"
+ },
+ "arithmeticSelfTest": {
+  "gcd": {
+   "pairs": 96,
+   "disagreements": 0
+  },
+  "note": "the Lehmer gcd of tools/zq-k0.js against plain Euclid"
+ },
+ "h2": {
+  "statement": "M_0 ≤ N_s^10",
+  "label": "no label of its own: the last sentence of the proof of prop:cutoff (TeX line 6347, proof lines 6297-6349); M_0 defined at TeX lines 239-245 (source S31) and in the JSON definitions.coefficientAlgorithms.localMultiplier; lane 2 uses it once, as log2 M ≤ 10·log2 N_s for the fixedConstant M = least_formal_multiple(Ns)",
+  "verdict": "REFUSED",
+  "reason": "H2 is finite in principle (one fixed integer, a bounded search) but no computation decides it. The direct route needs N_s, hence the whole catalogue: 22·φ(W) primes with φ(W) a 432-bit number (lane 2, row E6), and then a search over m ≤ N_s^10. The manuscript's route needs the reduction order of P_0 at every place above every catalogue prime, and its step from those orders to the valuation bounds uses three theorems at all of those places at once: the reduction filtration E_0/E_1 ≅ Ẽ_ns (Silverman VII.2.1), Hasse's bound (V.1.1), and the formal-group facts (multiplication by p raises v(z) at an odd place; the logarithm is an isometry at the dyadic place once v_s(z) > v_s(2)). Every finite fact the proof states is decided here (F1-F9); the theorems are not.",
+  "restsOn": [
+   "Silverman VII.2.1 (E_0/E_1 ≅ Ẽ_ns(k)) at every place above N_s",
+   "Silverman V.1.1 (Hasse) at every place above a catalogue prime (checked here at the 95 places above p ≤ 324)",
+   "the formal-group facts: [p] raises v(z) by at least v(p) on the formal subgroup at an odd place; at the dyadic place the logarithm is an isometry for v_s(z) > v_s(2) = 2 (Silverman IV.6.4), so v_s(z([2]Q)) = v_s(z(Q)) + 2",
+   "the catalogue's definition: distinct primes > 324 (read, JSON coefficientAlgorithms.catalogue)"
+  ]
+ },
+ "verdict": "REFUSED",
+ "verdictScope": "H2 itself REFUSED (as predicted in A1); its finite ingredients F1-F9 all CERTIFIED",
+ "ingredients": [
+  {
+   "id": "F1",
+   "statement": "P_0 = ((1641 − 1160√2)/8, (−123720 + 87483√2)/32) lies on E: y² = x³ − d²x, d = 75 − 53√2; A = −d² = −11243 + 7950√2 is the JSON's quadraticField.A; the JSON's fixedPointCodes.P is the code of P_0",
+   "source": "TeX 256-262; JSON definitions",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "A": "-11243 + 7950·√2"
+   }
+  },
+  {
+   "id": "F2",
+   "statement": "Norm(d) = 7 and Δ(E) = −16·4A³ = 64·d⁶, so the odd places of bad reduction are the places dividing d: 7 splits (√2 ≡ 3, 4 mod 7), d ≡ 0 at √2 ≡ 3 and d ≢ 0 at √2 ≡ 4",
+   "source": "TeX 6319-6321",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "normD": "7",
+    "dMod7": [
+     {
+      "r": 3,
+      "dmod7": 0
+     },
+     {
+      "r": 4,
+      "dmod7": 3
+     }
+    ]
+   }
+  },
+  {
+   "id": "F3",
+   "statement": "P_0 is integral at every odd place: the denominators of its four coordinates are powers of 2 (8, 1, 4, 32)",
+   "source": "TeX 262; used in TeX 6309-6315",
+   "verdict": "CERTIFIED",
+   "numbers": {}
+  },
+  {
+   "id": "F4",
+   "statement": "at √2 ≡ 3 (mod 7) P_0 reduces to (2, 6) on y² = x³, nonsingular (2y ≢ 0); the nonsingular points there with ∞ number exactly 7 and P_0's order is 7; v(Δ) = 6·v(d) = 6 < 12, so the equation is minimal at that place",
+   "source": "TeX 6319-6326",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "orderAtBadPlace": 7
+   }
+  },
+  {
+   "id": "F5",
+   "statement": "at all 95 places above the 65 odd primes p ≤ 324: the exact order of the reduction of P_0 divides the number of nonsingular points, every good place's count lies in Hasse's interval (q + 1 − #)² ≤ 4q, every order is < p³; their product m_0(P_s) < (P_s/2)^6",
+   "source": "TeX 6309-6327; Silverman V.1.1 checked here at these places",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "places": 95,
+    "split": 60,
+    "inert": 35,
+    "m0PsBits": 469,
+    "boundBits": 2591,
+    "largestOrderOverPSquared": "0.2528",
+    "placesWithOrderAtLeastPSquared": 0
+   }
+  },
+  {
+   "id": "F6",
+   "statement": "(p+1)² < p³ for every integer p ≥ 3: at p = 3 + t, p³ − (p+1)² = 1t^3 + 8t^2 + 19t + 11, every coefficient positive",
+   "source": "TeX 6324-6325",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "coefficients": [
+     "11",
+     "19",
+     "8",
+     "1"
+    ]
+   }
+  },
+  {
+   "id": "F7",
+   "statement": "at the dyadic place (v_s(√2) = 1): v_s(x(P_0)) = −6, v_s(y(P_0)) = −9, v_s(z) = 3 > 2 = v_s(2) for z = −x/y, the condition under which the formal logarithm is an isometry",
+   "source": "TeX 6335-6338",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "vx": -6,
+    "vy": -9,
+    "vz": 3,
+    "v2": 2
+   }
+  },
+  {
+   "id": "F8",
+   "statement": "N_s is squarefree (P_s is, and the catalogue primes are distinct and > 324 by their definition, read), so v_p(N_s) = 1 for every p | N_s, 2 included (P_s ≡ 2 mod 4); at an odd place v(1/x) ≥ 2(1 + 4) = 10 ≥ 4; at the dyadic place v_s(1/x) ≥ 2(3 + 8) = 22, and extraction (division by 2 and 2√2) leaves v_2(a) ≥ 10 and v_2(b) ≥ ⌈19/2⌉ = 10, both ≥ 4",
+   "source": "TeX 6328-6347",
+   "verdict": "CERTIFIED",
+   "numbers": {
+    "oddPlaceBound": 10,
+    "dyadicBound": 22
+   }
+  },
+  {
+   "id": "F9",
+   "statement": "at most two places above each prime (Q(√2) has degree 2), each order < p³, so m_0 < Π_{odd p | N_s} p⁶ = (N_s/2)⁶ < N_s⁶; and M_0 ≤ N_s⁴·m_0 < N_s^(4+6) = N_s^10",
+   "source": "TeX 6326-6347",
+   "verdict": "CERTIFIED",
+   "numbers": {}
+  }
+ ],
+ "places": [
+  {
+   "p": 3,
+   "place": "inert",
+   "q": 9,
+   "bad": false,
+   "points": 16,
+   "order": 2
+  },
+  {
+   "p": 5,
+   "place": "inert",
+   "q": 25,
+   "bad": false,
+   "points": 20,
+   "order": 5
+  },
+  {
+   "p": 7,
+   "place": "√2≡3",
+   "q": 7,
+   "bad": true,
+   "points": 7,
+   "order": 7
+  },
+  {
+   "p": 7,
+   "place": "√2≡4",
+   "q": 7,
+   "bad": false,
+   "points": 8,
+   "order": 2
+  },
+  {
+   "p": 11,
+   "place": "inert",
+   "q": 121,
+   "bad": false,
+   "points": 100,
+   "order": 5
+  },
+  {
+   "p": 13,
+   "place": "inert",
+   "q": 169,
+   "bad": false,
+   "points": 180,
+   "order": 15
+  },
+  {
+   "p": 17,
+   "place": "√2≡6",
+   "q": 17,
+   "bad": false,
+   "points": 20,
+   "order": 5
+  },
+  {
+   "p": 17,
+   "place": "√2≡11",
+   "q": 17,
+   "bad": false,
+   "points": 16,
+   "order": 2
+  },
+  {
+   "p": 19,
+   "place": "inert",
+   "q": 361,
+   "bad": false,
+   "points": 400,
+   "order": 10
+  },
+  {
+   "p": 23,
+   "place": "√2≡5",
+   "q": 23,
+   "bad": false,
+   "points": 24,
+   "order": 3
+  },
+  {
+   "p": 23,
+   "place": "√2≡18",
+   "q": 23,
+   "bad": false,
+   "points": 24,
+   "order": 3
+  },
+  {
+   "p": 29,
+   "place": "inert",
+   "q": 841,
+   "bad": false,
+   "points": 800,
+   "order": 10
+  },
+  {
+   "p": 31,
+   "place": "√2≡8",
+   "q": 31,
+   "bad": false,
+   "points": 32,
+   "order": 4
+  },
+  {
+   "p": 31,
+   "place": "√2≡23",
+   "q": 31,
+   "bad": false,
+   "points": 32,
+   "order": 8
+  },
+  {
+   "p": 37,
+   "place": "inert",
+   "q": 1369,
+   "bad": false,
+   "points": 1440,
+   "order": 15
+  },
+  {
+   "p": 41,
+   "place": "√2≡17",
+   "q": 41,
+   "bad": false,
+   "points": 52,
+   "order": 13
+  },
+  {
+   "p": 41,
+   "place": "√2≡24",
+   "q": 41,
+   "bad": false,
+   "points": 32,
+   "order": 2
+  },
+  {
+   "p": 43,
+   "place": "inert",
+   "q": 1849,
+   "bad": false,
+   "points": 1764,
+   "order": 21
+  },
+  {
+   "p": 47,
+   "place": "√2≡7",
+   "q": 47,
+   "bad": false,
+   "points": 48,
+   "order": 3
+  },
+  {
+   "p": 47,
+   "place": "√2≡40",
+   "q": 47,
+   "bad": false,
+   "points": 48,
+   "order": 4
+  },
+  {
+   "p": 53,
+   "place": "inert",
+   "q": 2809,
+   "bad": false,
+   "points": 2720,
+   "order": 170
+  },
+  {
+   "p": 59,
+   "place": "inert",
+   "q": 3481,
+   "bad": false,
+   "points": 3600,
+   "order": 30
+  },
+  {
+   "p": 61,
+   "place": "inert",
+   "q": 3721,
+   "bad": false,
+   "points": 3700,
+   "order": 185
+  },
+  {
+   "p": 67,
+   "place": "inert",
+   "q": 4489,
+   "bad": false,
+   "points": 4356,
+   "order": 33
+  },
+  {
+   "p": 71,
+   "place": "√2≡12",
+   "q": 71,
+   "bad": false,
+   "points": 72,
+   "order": 18
+  },
+  {
+   "p": 71,
+   "place": "√2≡59",
+   "q": 71,
+   "bad": false,
+   "points": 72,
+   "order": 9
+  },
+  {
+   "p": 73,
+   "place": "√2≡32",
+   "q": 73,
+   "bad": false,
+   "points": 68,
+   "order": 17
+  },
+  {
+   "p": 73,
+   "place": "√2≡41",
+   "q": 73,
+   "bad": false,
+   "points": 80,
+   "order": 10
+  },
+  {
+   "p": 79,
+   "place": "√2≡9",
+   "q": 79,
+   "bad": false,
+   "points": 80,
+   "order": 5
+  },
+  {
+   "p": 79,
+   "place": "√2≡70",
+   "q": 79,
+   "bad": false,
+   "points": 80,
+   "order": 20
+  },
+  {
+   "p": 83,
+   "place": "inert",
+   "q": 6889,
+   "bad": false,
+   "points": 7056,
+   "order": 42
+  },
+  {
+   "p": 89,
+   "place": "√2≡25",
+   "q": 89,
+   "bad": false,
+   "points": 80,
+   "order": 10
+  },
+  {
+   "p": 89,
+   "place": "√2≡64",
+   "q": 89,
+   "bad": false,
+   "points": 100,
+   "order": 25
+  },
+  {
+   "p": 97,
+   "place": "√2≡14",
+   "q": 97,
+   "bad": false,
+   "points": 80,
+   "order": 10
+  },
+  {
+   "p": 97,
+   "place": "√2≡83",
+   "q": 97,
+   "bad": false,
+   "points": 116,
+   "order": 29
+  },
+  {
+   "p": 101,
+   "place": "inert",
+   "q": 10201,
+   "bad": false,
+   "points": 10004,
+   "order": 2501
+  },
+  {
+   "p": 103,
+   "place": "√2≡38",
+   "q": 103,
+   "bad": false,
+   "points": 104,
+   "order": 13
+  },
+  {
+   "p": 103,
+   "place": "√2≡65",
+   "q": 103,
+   "bad": false,
+   "points": 104,
+   "order": 13
+  },
+  {
+   "p": 107,
+   "place": "inert",
+   "q": 11449,
+   "bad": false,
+   "points": 11236,
+   "order": 53
+  },
+  {
+   "p": 109,
+   "place": "inert",
+   "q": 11881,
+   "bad": false,
+   "points": 12064,
+   "order": 754
+  },
+  {
+   "p": 113,
+   "place": "√2≡51",
+   "q": 113,
+   "bad": false,
+   "points": 100,
+   "order": 25
+  },
+  {
+   "p": 113,
+   "place": "√2≡62",
+   "q": 113,
+   "bad": false,
+   "points": 100,
+   "order": 25
+  },
+  {
+   "p": 127,
+   "place": "√2≡16",
+   "q": 127,
+   "bad": false,
+   "points": 128,
+   "order": 4
+  },
+  {
+   "p": 127,
+   "place": "√2≡111",
+   "q": 127,
+   "bad": false,
+   "points": 128,
+   "order": 8
+  },
+  {
+   "p": 131,
+   "place": "inert",
+   "q": 17161,
+   "bad": false,
+   "points": 17424,
+   "order": 22
+  },
+  {
+   "p": 137,
+   "place": "√2≡31",
+   "q": 137,
+   "bad": false,
+   "points": 160,
+   "order": 10
+  },
+  {
+   "p": 137,
+   "place": "√2≡106",
+   "q": 137,
+   "bad": false,
+   "points": 160,
+   "order": 5
+  },
+  {
+   "p": 139,
+   "place": "inert",
+   "q": 19321,
+   "bad": false,
+   "points": 19600,
+   "order": 70
+  },
+  {
+   "p": 149,
+   "place": "inert",
+   "q": 22201,
+   "bad": false,
+   "points": 22304,
+   "order": 697
+  },
+  {
+   "p": 151,
+   "place": "√2≡46",
+   "q": 151,
+   "bad": false,
+   "points": 152,
+   "order": 19
+  },
+  {
+   "p": 151,
+   "place": "√2≡105",
+   "q": 151,
+   "bad": false,
+   "points": 152,
+   "order": 19
+  },
+  {
+   "p": 157,
+   "place": "inert",
+   "q": 24649,
+   "bad": false,
+   "points": 24820,
+   "order": 6205
+  },
+  {
+   "p": 163,
+   "place": "inert",
+   "q": 26569,
+   "bad": false,
+   "points": 26244,
+   "order": 81
+  },
+  {
+   "p": 167,
+   "place": "√2≡13",
+   "q": 167,
+   "bad": false,
+   "points": 168,
+   "order": 21
+  },
+  {
+   "p": 167,
+   "place": "√2≡154",
+   "q": 167,
+   "bad": false,
+   "points": 168,
+   "order": 7
+  },
+  {
+   "p": 173,
+   "place": "inert",
+   "q": 29929,
+   "bad": false,
+   "points": 30260,
+   "order": 7565
+  },
+  {
+   "p": 179,
+   "place": "inert",
+   "q": 32041,
+   "bad": false,
+   "points": 31684,
+   "order": 89
+  },
+  {
+   "p": 181,
+   "place": "inert",
+   "q": 32761,
+   "bad": false,
+   "points": 32724,
+   "order": 909
+  },
+  {
+   "p": 191,
+   "place": "√2≡57",
+   "q": 191,
+   "bad": false,
+   "points": 192,
+   "order": 48
+  },
+  {
+   "p": 191,
+   "place": "√2≡134",
+   "q": 191,
+   "bad": false,
+   "points": 192,
+   "order": 3
+  },
+  {
+   "p": 193,
+   "place": "√2≡52",
+   "q": 193,
+   "bad": false,
+   "points": 208,
+   "order": 26
+  },
+  {
+   "p": 193,
+   "place": "√2≡141",
+   "q": 193,
+   "bad": false,
+   "points": 208,
+   "order": 26
+  },
+  {
+   "p": 197,
+   "place": "inert",
+   "q": 38809,
+   "bad": false,
+   "points": 39200,
+   "order": 175
+  },
+  {
+   "p": 199,
+   "place": "√2≡20",
+   "q": 199,
+   "bad": false,
+   "points": 200,
+   "order": 5
+  },
+  {
+   "p": 199,
+   "place": "√2≡179",
+   "q": 199,
+   "bad": false,
+   "points": 200,
+   "order": 25
+  },
+  {
+   "p": 211,
+   "place": "inert",
+   "q": 44521,
+   "bad": false,
+   "points": 44100,
+   "order": 105
+  },
+  {
+   "p": 223,
+   "place": "√2≡15",
+   "q": 223,
+   "bad": false,
+   "points": 224,
+   "order": 7
+  },
+  {
+   "p": 223,
+   "place": "√2≡208",
+   "q": 223,
+   "bad": false,
+   "points": 224,
+   "order": 14
+  },
+  {
+   "p": 227,
+   "place": "inert",
+   "q": 51529,
+   "bad": false,
+   "points": 51984,
+   "order": 114
+  },
+  {
+   "p": 229,
+   "place": "inert",
+   "q": 52441,
+   "bad": false,
+   "points": 52884,
+   "order": 4407
+  },
+  {
+   "p": 233,
+   "place": "√2≡85",
+   "q": 233,
+   "bad": false,
+   "points": 260,
+   "order": 65
+  },
+  {
+   "p": 233,
+   "place": "√2≡148",
+   "q": 233,
+   "bad": false,
+   "points": 260,
+   "order": 65
+  },
+  {
+   "p": 239,
+   "place": "√2≡99",
+   "q": 239,
+   "bad": false,
+   "points": 240,
+   "order": 5
+  },
+  {
+   "p": 239,
+   "place": "√2≡140",
+   "q": 239,
+   "bad": false,
+   "points": 240,
+   "order": 15
+  },
+  {
+   "p": 241,
+   "place": "√2≡22",
+   "q": 241,
+   "bad": false,
+   "points": 212,
+   "order": 53
+  },
+  {
+   "p": 241,
+   "place": "√2≡219",
+   "q": 241,
+   "bad": false,
+   "points": 272,
+   "order": 34
+  },
+  {
+   "p": 251,
+   "place": "inert",
+   "q": 63001,
+   "bad": false,
+   "points": 63504,
+   "order": 126
+  },
+  {
+   "p": 257,
+   "place": "√2≡60",
+   "q": 257,
+   "bad": false,
+   "points": 256,
+   "order": 4
+  },
+  {
+   "p": 257,
+   "place": "√2≡197",
+   "q": 257,
+   "bad": false,
+   "points": 260,
+   "order": 65
+  },
+  {
+   "p": 263,
+   "place": "√2≡110",
+   "q": 263,
+   "bad": false,
+   "points": 264,
+   "order": 33
+  },
+  {
+   "p": 263,
+   "place": "√2≡153",
+   "q": 263,
+   "bad": false,
+   "points": 264,
+   "order": 66
+  },
+  {
+   "p": 269,
+   "place": "inert",
+   "q": 72361,
+   "bad": false,
+   "points": 72500,
+   "order": 725
+  },
+  {
+   "p": 271,
+   "place": "√2≡96",
+   "q": 271,
+   "bad": false,
+   "points": 272,
+   "order": 17
+  },
+  {
+   "p": 271,
+   "place": "√2≡175",
+   "q": 271,
+   "bad": false,
+   "points": 272,
+   "order": 17
+  },
+  {
+   "p": 277,
+   "place": "inert",
+   "q": 76729,
+   "bad": false,
+   "points": 76960,
+   "order": 962
+  },
+  {
+   "p": 281,
+   "place": "√2≡132",
+   "q": 281,
+   "bad": false,
+   "points": 292,
+   "order": 73
+  },
+  {
+   "p": 281,
+   "place": "√2≡149",
+   "q": 281,
+   "bad": false,
+   "points": 292,
+   "order": 73
+  },
+  {
+   "p": 283,
+   "place": "inert",
+   "q": 80089,
+   "bad": false,
+   "points": 80656,
+   "order": 142
+  },
+  {
+   "p": 293,
+   "place": "inert",
+   "q": 85849,
+   "bad": false,
+   "points": 86420,
+   "order": 21605
+  },
+  {
+   "p": 307,
+   "place": "inert",
+   "q": 94249,
+   "bad": false,
+   "points": 94864,
+   "order": 154
+  },
+  {
+   "p": 311,
+   "place": "√2≡66",
+   "q": 311,
+   "bad": false,
+   "points": 312,
+   "order": 39
+  },
+  {
+   "p": 311,
+   "place": "√2≡245",
+   "q": 311,
+   "bad": false,
+   "points": 312,
+   "order": 26
+  },
+  {
+   "p": 313,
+   "place": "√2≡120",
+   "q": 313,
+   "bad": false,
+   "points": 288,
+   "order": 3
+  },
+  {
+   "p": 313,
+   "place": "√2≡193",
+   "q": 313,
+   "bad": false,
+   "points": 340,
+   "order": 17
+  },
+  {
+   "p": 317,
+   "place": "inert",
+   "q": 100489,
+   "bad": false,
+   "points": 100640,
+   "order": 3145
+  }
+ ],
+ "redControls": [
+  {
+   "id": "HC1",
+   "mutation": "P_0 with its x moved by 1",
+   "prediction": "F1 fails (off the curve)",
+   "outcome": "off the curve",
+   "passed": true
+  },
+  {
+   "id": "HC4",
+   "mutation": "d = 75 − 52√2 (norm 217 = 7·31)",
+   "prediction": "F2 fails",
+   "outcome": "fails (norm 217)",
+   "passed": true
+  },
+  {
+   "id": "HC3",
+   "mutation": "the bound p² in place of p³",
+   "prediction": "fails at some inert place (an order can reach (p+1)²); if it fails nowhere, a blind spot (A1)",
+   "outcome": "fails nowhere: a BLIND SPOT, for a structural reason the pre-registration did not foresee. E has full 2-torsion over K0 and P_0 ∈ 2E(K0), so its reduction lies in 2Ẽ(F_q), of order #Ẽ/4 ≤ (p+1)²/4 < p² (checked: at every good place 4 | #Ẽ and 4·order ≤ #Ẽ: true; largest order/p² = 0.2528)",
+   "passed": false,
+   "blindSpot": true,
+   "foreseenByA1": true
+  },
+  {
+   "id": "HC5",
+   "mutation": "the bound p in place of p³ (added after the run, because HC3 was blind; not pre-registered)",
+   "prediction": "fails at some place",
+   "outcome": "16 places fail, first p = 5 (inert, order 5)",
+   "passed": true,
+   "addedAfterRun": true
+  },
+  {
+   "id": "HC2",
+   "mutation": "x(P_0) over 16 instead of 8",
+   "prediction": "F7 fails (v_s(x) = −8)",
+   "outcome": "fails, v_s(x) = -8",
+   "passed": true
+  }
+ ],
+ "lane2Reading": {
+  "asRecorded": {
+   "record": "certs/zq-tower.json",
+   "verdict": "CERTIFIED",
+   "conditionalOn": [
+    "H1",
+    "H2",
+    "M",
+    "L1"
+   ]
+  },
+  "ifH2Discharged": "deg P_* < 2↑↑7 and |c| < 2↑↑8 CERTIFIED conditional on H1, M and L1, and L1 is itself CERTIFIED (certs/zq-recount.json): in effect conditional on H1 (the BMOR primes-in-progressions application) and M (the B^(8h) majorant lemma).",
+  "asItStands": "unchanged: CERTIFIED conditional on H1, H2, M, L1. H2 can be narrowed to H2′ = the three cited theorems at the places above N_s plus the catalogue's definition, with every finite fact of the manuscript's proof of H2 decided by this record. Lane 2's file is not edited here; the operator decides."
+ }
+}

@@ -1,0 +1,1318 @@
+{
+ "what": "Track A lane 3 on the claim \"Z is Diophantine in Q\" (Glazer et al., announced 2026-11-05): the claimant's four finite arithmetic suites (integer compiler, division polynomials over Q(√2), finite polynomial expressions, six-contact identities), re-derived clean-room from their prose and data with exact arithmetic of our own; their checker code not read.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this record decides it. This record re-derives the claimant's four finite arithmetic suites; by their own README those suites do not establish the zero projection, the global height or restricted-converse inputs, or the natural precision polynomial's semantics.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md (lane 3; Amendment A2, commit 13c9e92e)",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "definition": {
+   "path": "construction/ordinary-integer-definition.json",
+   "sha256": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6"
+  },
+  "readme": {
+   "path": "construction/README.md",
+   "sha256": "94f1e289506baa1cd23d90da6ce83a1cdaf57a9c016f884bc87f0b9a049f784b"
+  },
+  "spec": {
+   "path": "construction/integer-compiler-spec.txt",
+   "sha256": "9a3a01fc78e922351cf4e6f47d1bc160c6f392d76279d71c9f0b9f2bc91d9eb1"
+  },
+  "tex": {
+   "path": "diophantine_zq.tex",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  },
+  "report": {
+   "path": "docs/construction-checks-r2.json",
+   "sha256": "306a7c8fe8021b45a0e0d9e9838914b4f7269543c405ad1c22c13afe66bbf252"
+  },
+  "divisionChecks": {
+   "path": "construction/division-polynomial-checks.json",
+   "sha256": "8ec8233dd4be90bb95f12aea21de7f659a7abe9bf35c21346f437e676b51c24a"
+  },
+  "reviewArithmetic": {
+   "path": "docs/reviews/height-replacement/whole/arithmetic.json",
+   "sha256": "3a21a5b582ef911205c93db58f5050939d66caf6a201d6e8bd2e84d3328c1b33"
+  }
+ },
+ "code": {
+  "tools/zq-finite.js": "8b31574cdb8a9dd9d77cff2c097024fe68943eb3a4e837e99921c8c906b91e79",
+  "tools/zq-k0.js": "5cdabc3dc84216188687cedd3a4cdcbcaa9e8c6d39e44d54c30c8e89f8244634"
+ },
+ "lane1": {
+  "record": "certs/zq-recount.json",
+  "verdict": "CERTIFIED",
+  "contentSha256": "60be6d13251caf9c04d68dc68baaff9c8904f449905476463c292329c952121f",
+  "note": "sha256 of the record with its date nulled; used for the witness counts of multiply and natural"
+ },
+ "arithmeticSelfTest": {
+  "gcd": {
+   "pairs": 96,
+   "disagreements": 0
+  },
+  "note": "the Lehmer gcd of tools/zq-k0.js against plain Euclid"
+ },
+ "verdict": "CERTIFIED",
+ "verdictScope": "the statements each suite is said to check, decided on our own cases (four suites, 671,659 cases); the replay of THEIR case sets: six contact CERTIFIED, integer compiler, division polynomials, finite polynomial expressions REFUSED (the case sets are not in the prose)",
+ "summary": [
+  {
+   "suite": "integer compiler",
+   "checker": "verify-integer-compiler.js",
+   "replay": "REFUSED",
+   "statements": "CERTIFIED",
+   "casesOurs": 670930,
+   "rows": 14,
+   "redControls": 8
+  },
+  {
+   "suite": "division polynomials",
+   "checker": "verify-division-polynomials.js",
+   "replay": "REFUSED",
+   "statements": "CERTIFIED",
+   "casesOurs": 612,
+   "rows": 13,
+   "redControls": 3
+  },
+  {
+   "suite": "finite polynomial expressions",
+   "checker": "verify-finite-polynomial-expressions.js",
+   "replay": "REFUSED",
+   "statements": "CERTIFIED",
+   "casesOurs": 74,
+   "rows": 5,
+   "redControls": 4
+  },
+  {
+   "suite": "six contact",
+   "checker": "verify-six-contact.js",
+   "replay": "CERTIFIED",
+   "statements": "CERTIFIED",
+   "casesOurs": 43,
+   "rows": 12,
+   "redControls": 3
+  }
+ ],
+ "suites": [
+  {
+   "suite": "integer compiler",
+   "checker": "verify-integer-compiler.js",
+   "theirs": {
+    "digitCases": 285,
+    "bitCases": 4096,
+    "packedCases": 30120,
+    "backendCases": 49,
+    "smokeCircuit": {
+     "variables": 2394,
+     "nodes": 13755,
+     "formulas": 1850,
+     "macroCounts": {
+      "alpha": 87,
+      "power": 29,
+      "binomial": 9,
+      "orthogonal": 6,
+      "mask": 3,
+      "bitAnd": 2
+     }
+    }
+   },
+   "notChecked": "the alpha system itself (AFP Alpha_Sequence.alpha_dioph, eight variables) is cited, not spelled out, in the prose; IC5 checks the power macro given α. The fixed interpreter and precision machines (spec §7) are not part of this suite.",
+   "replay": {
+    "verdict": "REFUSED",
+    "reason": "their case sets are not in the prose: integer-compiler-spec.txt states the encodings and their proofs but no ranges for the 285 digit cases, the 4,096 bit cases or the 30,120 packed cases (which machines, inputs, q and c), and the word \"backend\" (49 cases) is not defined in it; their smoke circuit (2,394 variables, 13,755 nodes) is their compiler's output on a program the prose does not name. Recovering any of these means reading verify-integer-compiler.js, which this lane does not do."
+   },
+   "statements": {
+    "verdict": "CERTIFIED",
+    "reason": "14 stated facts on 670,930 cases of ours, every one exact; 8 red controls as predicted"
+   },
+   "casesOurs": 670930,
+   "rows": [
+    {
+     "id": "IC1",
+     "statement": "Eq(A,B) ↦ A−B, And(F_i) ↦ Σ P_i², Or(F_i) ↦ Π P_i, empty And ↦ 0, empty Or ↦ 1: the polynomial vanishes exactly when the formula holds (over Q; leaves −1, 0, 1, 2, −1/2; And/Or of arity 0-2, two levels)",
+     "source": "integer-compiler-spec.txt §1",
+     "cases": 7814,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC2",
+     "statement": "A < B ⟺ ∃d ∈ N: B = A+1+d (A, B ∈ [0,12])",
+     "source": "spec §1",
+     "cases": 169,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC3",
+     "statement": "A | B ⟺ ∃d ∈ N: B = A·d, with 0 | B only for B = 0 (A, B ∈ [0,12])",
+     "source": "spec §1",
+     "cases": 169,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC4",
+     "statement": "A ≡ B (mod M) ⟺ ∃u,v ∈ N: A + M·u = B + M·v, M = 0 meaning equality (A, B, M ∈ [0,12]; witnesses in [0,12], enough here)",
+     "source": "spec §1",
+     "cases": 2197,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC5",
+     "statement": "the power macro: for Q > 0 the unique P ∈ [0, m) with P + b·α_b(R) ≡ Q·α_b(R) + α_b(R+1) (mod m) is Q^R, and Q^R < m (Q, R ∈ [0,7]; Q = 0 is handled explicitly by the macro)",
+     "source": "spec §2",
+     "cases": 64,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC6",
+     "statement": "base = 2^(N+1), total = (1+base)^N, place = base^K, total = place·(base·u + C) + r with C < base, r < place: the unique C is binomial(N,K), 0 for K > N, and every binomial(N,j) < base (N ∈ [0,20], K ∈ [0,22])",
+     "source": "spec §3",
+     "cases": 483,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC7",
+     "statement": "A is a bitwise subset of B ⟺ binomial(B, A) is odd (A, B ∈ [0,63])",
+     "source": "spec §3 (Lucas at 2)",
+     "cases": 4096,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC8",
+     "statement": "A and B have disjoint bits ⟺ binomial(A+B, A) is odd (A, B ∈ [0,63])",
+     "source": "spec §3",
+     "cases": 4096,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC9",
+     "statement": "Z = X AND Y is the unique natural Z with X = Z+A, Y = Z+B and (Z,A), (Z,B), (A,B) pairwise disjoint, each disjointness by binomial parity (X, Y ∈ [0,63])",
+     "source": "spec §3",
+     "cases": 4096,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC10",
+     "statement": "R ⊆ D and R < T ⟺ every base-B digit of R is < K and its digit q is 0 (c ∈ {1,2}, q ∈ {1,2,3}, every R < T)",
+     "source": "spec §5",
+     "cases": 4952,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC11",
+     "statement": "S_i ⊆ F, Σ S_i = F and S_halt = T ⟺ exactly one state per slot and the halt state exactly at slot q (m ∈ {2,3} states, q ∈ {1,2}, every tuple of subsets of F)",
+     "source": "spec §5",
+     "cases": 656,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC12",
+     "statement": "completeness: for every accepting run (three machines of ours, inputs a ∈ [0,12]) with c chosen so that K exceeds every register value and B > m, every equation of §5 holds (BF+1 = F+BT, D+F = KF, the masks, K·N_j = (R_j+D) AND K·F, V_i = S_i AND N_j, S_i = V_i + W_i, the register and state equations)",
+     "source": "spec §§4-6",
+     "cases": 33,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "acceptingRuns": 33,
+      "nonAcceptingInputs": 6
+     }
+    },
+    {
+     "id": "IC13",
+     "statement": "K·N_j = (R_j + D) AND (K·F) gives exactly the packed nonzero indicator Σ_t [r_j(t) > 0]·B^t",
+     "source": "spec §5",
+     "cases": 33,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC14",
+     "statement": "soundness in a box: over every state sequence (halt only at slot q) and every register digit sequence (digits < K, digit q = 0), the solutions of all §5 equations are exactly the actual accepting run of length q, or none (machines clear, even, move; a ≤ 3; q ≤ 5; c ≤ 2)",
+     "source": "spec §6",
+     "cases": 642072,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "boxes": 64,
+      "candidates": 642072,
+      "solutions": 11
+     }
+    }
+   ],
+   "redControls": [
+    {
+     "id": "PC1",
+     "mutation": "m + Q² = bQ in place of m + Q² + 1 = bQ",
+     "prediction": "fails on some (Q, R)",
+     "outcome": "40 of 64 fail",
+     "passed": true
+    },
+    {
+     "id": "PC2",
+     "mutation": "b = Q² + 2 (the α_{Q+4}(R+1) term dropped)",
+     "prediction": "fails on some (Q, R): m no longer exceeds Q^R",
+     "outcome": "38 of 64 fail",
+     "passed": true
+    },
+    {
+     "id": "DG1",
+     "mutation": "base = 2^N in place of 2^(N+1)",
+     "prediction": "fails at N = 0 (binomial(0,0) = 1 is not < 1)",
+     "outcome": "23 fail, first [0,0]",
+     "passed": true
+    },
+    {
+     "id": "BT1",
+     "mutation": "the AND decomposition without the (A,B) disjointness",
+     "prediction": "some (X, Y) has more than one Z",
+     "outcome": "3367 pairs with more than one Z, first [1,1]",
+     "passed": true
+    },
+    {
+     "id": "BT2",
+     "mutation": "subset read as binomial(A, B) odd (arguments swapped)",
+     "prediction": "fails on some pair",
+     "outcome": "1330 pairs fail",
+     "passed": true
+    },
+    {
+     "id": "PK1",
+     "mutation": "machine move, a = 3: register r1's digit at t = 2 raised by one",
+     "prediction": "some equation fails (the register equation for r1)",
+     "outcome": "register1",
+     "passed": true
+    },
+    {
+     "id": "PK2",
+     "mutation": "machine move, a = 3: the state at the first slot in state 1 replaced by state 2",
+     "prediction": "some equation fails",
+     "outcome": "register1, state0, state1, state2, state3",
+     "passed": true
+    },
+    {
+     "id": "PK3",
+     "mutation": "the register equation without its B·C_j term",
+     "prediction": "completeness fails for machine clear at every a ≥ 1 (12 of 13 inputs)",
+     "outcome": "12 of 13 inputs fail",
+     "passed": true
+    }
+   ]
+  },
+  {
+   "suite": "division polynomials",
+   "checker": "verify-division-polynomials.js",
+   "theirs": {
+    "exactCases": 44,
+    "changedXCases": 44,
+    "changedYCases": 30,
+    "nValues": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     -1,
+     -4
+    ],
+    "graphNodes": [
+     32,
+     251,
+     256,
+     348,
+     380,
+     426,
+     451,
+     504,
+     529,
+     253,
+     382
+    ]
+   },
+   "notRun": "scalar.integer_constant_4 (index 1399), attempted as A2 pre-registered, NOT RUN: a scratch probe outside this tool computed ψ_1398, ψ_1399, ψ_1400 and ψ_2798 at P_0 with the same recurrence over integers on a power of 32 in 8 s (ψ_2798 has 51,680,860 bits), but the rest, [1399]P_0 by affine double-and-add with reduced rationals of ~10^7 bits and the template's 137 nodes over numbers near 10^8 bits, was not run within the lane's time budget on this Mac. integer_constant_3 has a 3,181,317-digit index and cannot be evaluated by anyone.",
+   "savedTemplateCases": [
+    {
+     "template": "scalar.integer_constant_0",
+     "index": 4,
+     "k": 1,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_0",
+     "index": 4,
+     "k": 2,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_0",
+     "index": 4,
+     "k": -3,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_1",
+     "index": 2,
+     "k": 1,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_1",
+     "index": 2,
+     "k": 2,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_1",
+     "index": 2,
+     "k": -3,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_2",
+     "index": 3,
+     "k": 1,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_2",
+     "index": 3,
+     "k": 2,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    },
+    {
+     "template": "scalar.integer_constant_2",
+     "index": 3,
+     "k": -3,
+     "ok": true,
+     "cx": false,
+     "cy": false
+    }
+   ],
+   "replay": {
+    "verdict": "REFUSED",
+    "reason": "their 44 exact, 44 changed-x and 30 changed-y cases are evaluations of eleven graphs (n ∈ {0, 1, 2, 3, 4, 5, 6, 7, 8, -1, -4}, 32/251/256/348/380/426/451/504/529/253/382 nodes) that their code generates; the graphs are not in the saved JSON, and the prose states neither the evaluation points per n nor why 30 changed-y cases rather than 44. The n-values come from their report; our 84 cases contain 44 at those n-values by our choice of four points, which is not a reproduction of their set."
+   },
+   "statements": {
+    "verdict": "CERTIFIED",
+    "reason": "13 stated facts on 612 cases of ours, every one exact; 3 red controls as predicted"
+   },
+   "casesOurs": 612,
+   "rows": [
+    {
+     "id": "DP0",
+     "statement": "the JSON's A (definitions.quadraticField.A) is −d² for d = 75 − 53√2 (TeX line 258), and its fixedPointCodes.P is the code of P_0 (TeX line 262), which lies on E",
+     "source": "TeX 256-263; JSON definitions",
+     "cases": 3,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP1",
+     "statement": "ι(n) by the JSON's fixedPointCodes (x_n = x − ψ_{n+1}ψ_{n−1}/ψ_n², y_n = ψ_{2n}/(2ψ_n⁴), y negated for −n, ι(0) = (1,0,0,0,0)) with the normalized recurrences equals [n]P by independent affine double-and-add over Q(√2) (n ∈ [−10,10]; P ∈ {P0, [2]P0, [−3]P0, P0+(0,0)})",
+     "source": "JSON definitions.psiNormalization, fixedPointCodes; TeX 206-233",
+     "cases": 84,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "atTheirNValues": 44,
+      "theirNValues": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       -1,
+       -4
+      ]
+     }
+    },
+    {
+     "id": "DP2",
+     "statement": "the TeX's Jacobian convention: x([n]P) = φ_n/ψ_n² with φ_n = xψ_n² − ψ_{n+1}ψ_{n−1}, and y([n]P) = ω_n/ψ_n³ with ω_n = (ψ_{n+2}ψ_{n−1}² − ψ_{n−2}ψ_{n+1}²)/(4y), the minus sign as printed",
+     "source": "TeX 222-230",
+     "cases": 80,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP3",
+     "statement": "the fixed-scalar ordinate equation 2·y([n]P)·ψ_n(P)⁴ = ψ_{2n}(P)",
+     "source": "TeX 231-232",
+     "cases": 80,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP4",
+     "statement": "the abscissa equation x([n]P)·ψ_n² = xψ_n² − ψ_{n+1}ψ_{n−1}",
+     "source": "TeX 222-226",
+     "cases": 80,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP5",
+     "statement": "changed-x rejection: x([n]P) + 1 does not satisfy the abscissa equation",
+     "source": "their \"changed-x\" class, on our cases",
+     "cases": 80,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP6",
+     "statement": "changed-y rejection: y([n]P) + 1 does not satisfy the ordinate equation",
+     "source": "their \"changed-y\" class, on our cases",
+     "cases": 80,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP7",
+     "statement": "the saved template multiply.scalar (\"r=[fixed positive index]p\") with c ∈ [1,8] for cstar, evaluated by our reader with our ψ semantics: at p = ι(k), r = ι(ck) it has a rational witness (k ∈ {1, 2, −3})",
+     "source": "JSON template multiply.scalar",
+     "cases": 24,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP8",
+     "statement": "the same template rejects (no rational witness) r with x0 + 1",
+     "source": "their changed-x class, on the saved template",
+     "cases": 24,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP9",
+     "statement": "the same template rejects r with y0 + 1",
+     "source": "their changed-y class, on the saved template",
+     "cases": 24,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP10",
+     "statement": "the same template rejects the wrong multiple r = ι((c+1)k)",
+     "source": "the template's stated meaning",
+     "cases": 24,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP11",
+     "statement": "its identity branch: p = r = ι(0) accepted, p = ι(0) with r = ι(1) rejected (cstar = 3)",
+     "source": "JSON template multiply.scalar",
+     "cases": 2,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "DP12",
+     "statement": "the saved templates scalar.integer_constant_0/1/2 at their own indices (4, 2, 3): ι(k) ↦ ι(nk) accepted, the changed-x and changed-y outputs rejected (k ∈ {1, 2, −3})",
+     "source": "JSON templates scalar.integer_constant_*",
+     "cases": 27,
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "redControls": [
+    {
+     "id": "DV1",
+     "mutation": "f_4 without its factor 2",
+     "prediction": "disagrees with double-and-add for some n ∈ [1,8] at P0",
+     "outcome": "7 of 8 disagree",
+     "passed": true
+    },
+    {
+     "id": "DV2",
+     "mutation": "the odd recurrence's parity rule swapped (D·L − R for odd m)",
+     "prediction": "disagrees for some n ∈ [1,8]",
+     "outcome": "6 of 8 disagree",
+     "passed": true
+    },
+    {
+     "id": "DV3",
+     "mutation": "ω_n with a plus sign (the sign TeX line 227 warns about)",
+     "prediction": "disagrees for some n ∈ [1,8]",
+     "outcome": "7 of 8 disagree",
+     "passed": true
+    }
+   ]
+  },
+  {
+   "suite": "finite polynomial expressions",
+   "checker": "verify-finite-polynomial-expressions.js",
+   "theirs": {
+    "checks": 8,
+    "fixtures": [
+     {
+      "cstar": "4",
+      "ell": "12",
+      "T": "1"
+     },
+     {
+      "cstar": "8",
+      "ell": "144",
+      "T": "0"
+     }
+    ],
+    "invalidBindingsRejected": 4,
+    "variableCounts": [
+     {
+      "name": "multiply",
+      "parameters": 15,
+      "witnesses": 35134,
+      "nodes": 84,
+      "calls": 6
+     },
+     {
+      "name": "natural",
+      "parameters": 5,
+      "witnesses": 140604,
+      "nodes": 80,
+      "calls": 7
+     }
+    ]
+   },
+   "replay": {
+    "verdict": "REFUSED",
+    "reason": "their eight checks are sha256 hashes of their expander's output (8 template-fixture pairs over fixtures {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} and {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}), and neither the serialization behind the hashes nor the four malformed bindings they reject is stated in prose or data. FB1-FB4 are four malformed bindings of OUR choosing that our reader refuses; they are not theirs."
+   },
+   "statements": {
+    "verdict": "CERTIFIED",
+    "reason": "5 stated facts on 74 cases of ours, every one exact; 4 red controls as predicted"
+   },
+   "casesOurs": 74,
+   "rows": [
+    {
+     "id": "FE1",
+     "statement": "the parameter, witness, node and call counts of multiply and natural equal their variableCounts (witnesses from lane 1's derived counts, certs/zq-recount.json)",
+     "source": "their report; JSON templates",
+     "cases": 8,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "FE2",
+     "statement": "the fixtures differ in cstar, ell, T; their hashes are equal across the two fixtures exactly for the templates whose OWN nodes read none of these constants (natural), so their expansion hashes cover each template's own nodes with calls left unexpanded. Re-read after the first run: the reading through calls (natural reaches cstar, ell and T via multiply) does not fit natural's equal hashes. A finding about what their check covers, not a refutation: their natural checks do not exercise the fixture constants.",
+     "source": "their report hashes; JSON constructor nodes and calls",
+     "cases": 4,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "reach": [
+       {
+        "template": "multiply.scalar",
+        "ownNodesRead": [
+         "cstar"
+        ],
+        "throughCallsRead": [
+         "cstar"
+        ],
+        "theirHashesEqual": false
+       },
+       {
+        "template": "multiply.guard",
+        "ownNodesRead": [
+         "T"
+        ],
+        "throughCallsRead": [
+         "T"
+        ],
+        "theirHashesEqual": false
+       },
+       {
+        "template": "multiply",
+        "ownNodesRead": [
+         "ell"
+        ],
+        "throughCallsRead": [
+         "cstar",
+         "ell",
+         "T"
+        ],
+        "theirHashesEqual": false
+       },
+       {
+        "template": "natural",
+        "ownNodesRead": [],
+        "throughCallsRead": [
+         "cstar",
+         "ell",
+         "T"
+        ],
+        "theirHashesEqual": true
+       }
+      ],
+      "throughCallsReadingFits": false
+     }
+    },
+    {
+     "id": "FE3",
+     "statement": "the saved template multiply.guard (guard·w = 1) at T = 1 accepts exactly the 9 true triples ab = c among the 27 code triples in [−1,1]³ and rejects the 18 false ones; at T = 0 (the empty product, 1) it accepts all 27",
+     "source": "JSON definitions.finiteGuard; template multiply.guard",
+     "cases": 54,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "FE4",
+     "statement": "the guard is a box guard: at T = 1 the false triple (2, 1, 1), outside [−1,1]³, is accepted; at T = 2, where it lies in the box, it is rejected (TeX lines 247-252: bounding T does not exclude every false triple)",
+     "source": "TeX 247-252; template multiply.guard",
+     "cases": 2,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "FE5",
+     "statement": "multiply.scalar at the fixture values cstar ∈ {4, 8}: ι(k) ↦ ι(c·k) accepted and ι(k) ↦ ι(c·k + 1) rejected (k ∈ {1, 2, −3})",
+     "source": "their fixtures; JSON template multiply.scalar",
+     "cases": 6,
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "redControls": [
+    {
+     "id": "FB1",
+     "mutation": "a psi_component asking for component 2",
+     "prediction": "our reader refuses it",
+     "outcome": "refused: a malformed psi_component binding",
+     "passed": true
+    },
+    {
+     "id": "FB2",
+     "mutation": "a psi_component with four arguments",
+     "prediction": "our reader refuses it",
+     "outcome": "refused: a malformed psi_component binding",
+     "passed": true
+    },
+    {
+     "id": "FB3",
+     "mutation": "a psi_component whose index is the astronomically large fixedConstant M",
+     "prediction": "our reader refuses it (not a fixture, not a small literal)",
+     "outcome": "refused: the fixed constant M is neither a fixture nor a small literal",
+     "passed": true
+    },
+    {
+     "id": "FB4",
+     "mutation": "a finite_guard_product with fourteen coordinate nodes",
+     "prediction": "our reader refuses it (the definition names fifteen)",
+     "outcome": "refused: a malformed finite_guard_product binding",
+     "passed": true
+    }
+   ]
+  },
+  {
+   "suite": "six contact",
+   "checker": "verify-six-contact.js",
+   "theirs": {
+    "fields": 13
+   },
+   "reportedValues": [
+    {
+     "what": "contacts",
+     "theirs": [
+      "0",
+      "-15",
+      "-20",
+      "-24",
+      "-30",
+      "-60"
+     ],
+     "ours": [
+      "0",
+      "-15",
+      "-20",
+      "-24",
+      "-30",
+      "-60"
+     ],
+     "agree": true
+    },
+    {
+     "what": "F (ascending)",
+     "theirs": [
+      "0",
+      "12960000",
+      "2700000",
+      "216000",
+      "8250",
+      "149",
+      "1"
+     ],
+     "ours": [
+      "0",
+      "12960000",
+      "2700000",
+      "216000",
+      "8250",
+      "149",
+      "1"
+     ],
+     "agree": true
+    },
+    {
+     "what": "G",
+     "theirs": [
+      "3600",
+      "300",
+      "7"
+     ],
+     "ours": [
+      "3600",
+      "300",
+      "7"
+     ],
+     "agree": true
+    },
+    {
+     "what": "H",
+     "theirs": [
+      "-46656000000",
+      "-11664000000",
+      "-1069200000",
+      "-43200000",
+      "-621000",
+      "4500",
+      "143"
+     ],
+     "ours": [
+      "-46656000000",
+      "-11664000000",
+      "-1069200000",
+      "-43200000",
+      "-621000",
+      "4500",
+      "143"
+     ],
+     "agree": true
+    },
+    {
+     "what": "numeratorNorm = ‖57600·F²‖₁",
+     "theirs": "14533295809536000000",
+     "ours": "14533295809536000000",
+     "agree": true
+    },
+    {
+     "what": "denominatorNorm = ‖G⁶‖₁",
+     "theirs": "3556808369970021551449",
+     "ours": "3556808369970021551449",
+     "agree": true
+    },
+    {
+     "what": "gram",
+     "theirs": [
+      [
+       "0",
+       "0",
+       "-1",
+       "1"
+      ],
+      [
+       "0",
+       "0",
+       "1",
+       "-2"
+      ],
+      [
+       "1",
+       "-1",
+       "0",
+       "0"
+      ],
+      [
+       "-1",
+       "2",
+       "0",
+       "0"
+      ]
+     ],
+     "ours": [
+      [
+       "0",
+       "0",
+       "-1",
+       "1"
+      ],
+      [
+       "0",
+       "0",
+       "1",
+       "-2"
+      ],
+      [
+       "1",
+       "-1",
+       "0",
+       "0"
+      ],
+      [
+       "-1",
+       "2",
+       "0",
+       "0"
+      ]
+     ],
+     "agree": true
+    },
+    {
+     "what": "resultants of (G, H1, H2, H3) = (7u²+300u+3600, u²−60u−1800, 13u²+480u+3600, 11u²+600u+7200), the order of TeX lines 389 and 512",
+     "theirs": [
+      {
+       "i": 0,
+       "j": 1,
+       "resultant": "29160000"
+      },
+      {
+       "i": 0,
+       "j": 2,
+       "resultant": "116640000"
+      },
+      {
+       "i": 0,
+       "j": 3,
+       "resultant": "116640000"
+      },
+      {
+       "i": 1,
+       "j": 2,
+       "resultant": "-87480000"
+      },
+      {
+       "i": 1,
+       "j": 3,
+       "resultant": "-87480000"
+      },
+      {
+       "i": 2,
+       "j": 3,
+       "resultant": "-349920000"
+      }
+     ],
+     "ours": [
+      {
+       "i": 0,
+       "j": 1,
+       "resultant": "29160000"
+      },
+      {
+       "i": 0,
+       "j": 2,
+       "resultant": "116640000"
+      },
+      {
+       "i": 0,
+       "j": 3,
+       "resultant": "116640000"
+      },
+      {
+       "i": 1,
+       "j": 2,
+       "resultant": "-87480000"
+      },
+      {
+       "i": 1,
+       "j": 3,
+       "resultant": "-87480000"
+      },
+      {
+       "i": 2,
+       "j": 3,
+       "resultant": "-349920000"
+      }
+     ],
+     "agree": true
+    },
+    {
+     "what": "levelThree.ringSize = |O/3O|",
+     "theirs": 81,
+     "ours": 81,
+     "agree": true
+    },
+    {
+     "what": "levelThree.unitCount = |(O/3O)*| (units found by search for an inverse)",
+     "theirs": 72,
+     "ours": 72,
+     "agree": true
+    },
+    {
+     "what": "levelThree.normOneCount = #{units with nrd ≡ 1 (mod 3)}",
+     "theirs": 36,
+     "ours": 36,
+     "agree": true
+    }
+   ],
+   "matchedAsNumbersOnly": [
+    {
+     "what": "levelThree.effectiveLevelIndexBound",
+     "theirs": 36,
+     "ours": 36,
+     "reading": "equals our normOneCount; the prose does not say what this field bounds",
+     "agree": true
+    },
+    {
+     "what": "levelThree.effectiveNormalizerIndexBound",
+     "theirs": 144,
+     "ours": 144,
+     "reading": "equals 4 × normOneCount, with 4 = |N/(A_f* K_0)| of TeX line 429; the prose does not say what this field bounds",
+     "agree": true
+    }
+   ],
+   "reviewerReconciliation": {
+    "file": "docs/reviews/height-replacement/whole/arithmetic.json",
+    "rows": [
+     {
+      "what": "Res(F,G)",
+      "reviewer": {
+       "2": 18,
+       "3": 13,
+       "5": 10,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 18,
+       "3": 13,
+       "5": 10,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     },
+     {
+      "what": "Res(F,H)",
+      "reviewer": {
+       "2": 54,
+       "3": 39,
+       "5": 30,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 54,
+       "3": 39,
+       "5": 30,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     },
+     {
+      "what": "Res(G,H)",
+      "reviewer": {
+       "2": 22,
+       "3": 18,
+       "5": 12,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 22,
+       "3": 18,
+       "5": 12,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     },
+     {
+      "what": "disc F",
+      "reviewer": {
+       "2": 36,
+       "3": 26,
+       "5": 20,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 36,
+       "3": 26,
+       "5": 20,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     },
+     {
+      "what": "disc G",
+      "reviewer": {
+       "2": 4,
+       "3": 3,
+       "5": 2,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 4,
+       "3": 3,
+       "5": 2,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     },
+     {
+      "what": "disc H",
+      "reviewer": {
+       "2": 56,
+       "3": 51,
+       "5": 30,
+       "remaining": "1"
+      },
+      "ours": {
+       "2": 56,
+       "3": 51,
+       "5": 30,
+       "remaining": "1"
+      },
+      "agreeOn235": true
+     }
+    ]
+   },
+   "replay": {
+    "verdict": "CERTIFIED",
+    "reason": "every one of the 11 values their report lists for verify-six-contact.js is reproduced exactly from the manuscript's definitions (contacts, F, G, H, both coefficient norms, the Gram matrix, the six resultants, the three level-three counts). The checker's own list of assertions is in its code and is not reconstructed; what is certified is its reported output plus the manuscript's statements SC1-SC11. Two further fields (effectiveLevelIndexBound, effectiveNormalizerIndexBound) are matched as numbers only: the prose does not say what they bound."
+   },
+   "statements": {
+    "verdict": "CERTIFIED",
+    "reason": "12 stated facts on 43 cases of ours, every one exact; 3 red controls as predicted"
+   },
+   "casesOurs": 43,
+   "rows": [
+    {
+     "id": "SC0",
+     "statement": "every value their report lists for the six-contact checker (11 fields), recomputed from the manuscript's definitions",
+     "source": "their report; TeX 377-560, 905-965",
+     "cases": 11,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC1",
+     "statement": "G⁶ − 97200·F² = H²",
+     "source": "TeX line 514",
+     "cases": 1,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC2",
+     "statement": "J(u) + 16/27 = 16H²/(27G⁶) for J = −57600F²/G⁶, i.e. 16G⁶ − 27·57600·F² = 16H², so J takes 0, ∞, −16/27 on F, G, H with indices 2, 6, 2",
+     "source": "TeX lines 510-515",
+     "cases": 1,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC3",
+     "statement": "disc(G) = −10800 < 0",
+     "source": "TeX line 542",
+     "cases": 1,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC4",
+     "statement": "the discriminants and resultants are nonzero (F, G, H squarefree and pairwise coprime) and have prime support at most 13",
+     "source": "TeX lines 516-517",
+     "cases": 15,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "factorizations": [
+       {
+        "what": "disc F",
+        "sign": 1,
+        "exponents": {
+         "2": 36,
+         "3": 26,
+         "5": 20
+        }
+       },
+       {
+        "what": "disc G",
+        "sign": -1,
+        "exponents": {
+         "2": 4,
+         "3": 3,
+         "5": 2
+        }
+       },
+       {
+        "what": "disc H",
+        "sign": 1,
+        "exponents": {
+         "2": 56,
+         "3": 51,
+         "5": 30
+        }
+       },
+       {
+        "what": "Res(F,G)",
+        "sign": 1,
+        "exponents": {
+         "2": 18,
+         "3": 13,
+         "5": 10
+        }
+       },
+       {
+        "what": "Res(F,H)",
+        "sign": -1,
+        "exponents": {
+         "2": 54,
+         "3": 39,
+         "5": 30
+        }
+       },
+       {
+        "what": "Res(G,H)",
+        "sign": 1,
+        "exponents": {
+         "2": 22,
+         "3": 18,
+         "5": 12
+        }
+       },
+       {
+        "what": "Res(G,H1)",
+        "sign": 1,
+        "exponents": {
+         "2": 6,
+         "3": 6,
+         "5": 4
+        }
+       },
+       {
+        "what": "Res(G,H2)",
+        "sign": 1,
+        "exponents": {
+         "2": 8,
+         "3": 6,
+         "5": 4
+        }
+       },
+       {
+        "what": "Res(G,H3)",
+        "sign": 1,
+        "exponents": {
+         "2": 8,
+         "3": 6,
+         "5": 4
+        }
+       },
+       {
+        "what": "Res(H1,H2)",
+        "sign": -1,
+        "exponents": {
+         "2": 6,
+         "3": 7,
+         "5": 4
+        }
+       },
+       {
+        "what": "Res(H1,H3)",
+        "sign": -1,
+        "exponents": {
+         "2": 6,
+         "3": 7,
+         "5": 4
+        }
+       },
+       {
+        "what": "Res(H2,H3)",
+        "sign": -1,
+        "exponents": {
+         "2": 8,
+         "3": 7,
+         "5": 4
+        }
+       },
+       {
+        "what": "lc F",
+        "sign": 1,
+        "exponents": {}
+       },
+       {
+        "what": "lc G",
+        "sign": 1,
+        "exponents": {
+         "7": 1
+        }
+       },
+       {
+        "what": "lc H",
+        "sign": 1,
+        "exponents": {
+         "11": 1,
+         "13": 1
+        }
+       }
+      ]
+     }
+    },
+    {
+     "id": "SC5",
+     "statement": "tame normalization e/gcd(e, a) with branch indices (4, 6, 2) and pullback indices (2, 6, 2) leaves (2, 1, 1)",
+     "source": "TeX lines 515-516",
+     "cases": 1,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC6",
+     "statement": "Trd(μ⁻¹·x·ȳ), μ = 2j + ij, has the printed matrix in the basis (1, i, (1+j)/2, (i+ij)/2), and determinant one",
+     "source": "TeX lines 405-412",
+     "cases": 2,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC7",
+     "statement": "O = Z⟨1, i, (1+j)/2, (i+ij)/2⟩ is closed under multiplication and |det Trd(e_a e_b)| = 36 = 6², the square of the discriminant of B = (2, −3), so O is maximal",
+     "source": "TeX line 405 (\"the maximal order\")",
+     "cases": 2,
+     "verdict": "CERTIFIED",
+     "numbers": {
+      "traceFormDeterminant": "-36"
+     }
+    },
+    {
+     "id": "SC8",
+     "statement": "deg(Y_3 → P¹_j) ≤ 4·|(O/3O)*| ≤ 4·81 = 324, with |(O/3O)*| = 72",
+     "source": "TeX line 440",
+     "cases": 1,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC9",
+     "statement": "ψ4 = J2² − 24·J4 = 144j for J2 = 12(j+1), J4 = 6(j²+j+1); and 16·144⁵·χ10²/ψ4⁵ with the lny normalizations is 3779136·(Π z_m)⁴/(Σ z_m⁸)⁵, norms 3779136 and 10⁵ = 10 terms to the fifth, degree 40 = 4·10 = 8·5",
+     "source": "TeX lines 910-927",
+     "cases": 3,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC10",
+     "statement": "the coefficient norm bound: ‖57600·F²‖₁ and ‖G⁶‖₁ are each ≤ 4000⁶, so −57600bF(X)² − aG(X)⁶ has norm ≤ 2·4000⁶·max(|a|,|b|), and log(2·4000⁶) < 74",
+     "source": "TeX lines 949-955",
+     "cases": 2,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "SC11",
+     "statement": "log(3779136 + 10⁵) < 22 (so h(j) ≤ 40·h + 22); C_2 = 1000·2⁴·(log 2⁴)⁵ ≤ 1000·2²⁴ (by ln 2 < 7/10, an exact series bound); 40·10000·2²⁴ + 96 = 6710886400096 < 10¹³",
+     "source": "TeX lines 927-944, 963",
+     "cases": 3,
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "redControls": [
+    {
+     "id": "SR1",
+     "mutation": "97201 in place of 97200",
+     "prediction": "the identity G⁶ − c·F² = H² fails",
+     "outcome": "fails",
+     "passed": true
+    },
+    {
+     "id": "SR2",
+     "mutation": "the contact −24 moved to −25",
+     "prediction": "F differs from their F and the identity fails",
+     "outcome": "F differs; identity fails",
+     "passed": true
+    },
+    {
+     "id": "SR3",
+     "mutation": "μ = 2j − ij in place of 2j + ij",
+     "prediction": "the Gram matrix differs from theirs",
+     "outcome": "differs",
+     "passed": true
+    }
+   ]
+  }
+ ]
+}
