@@ -42,6 +42,28 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for the six-kernel follow-up (the operator, 2026-11-06: "a nice white mode abstract image like today's one",
+     to upload with the post instead of the link preview): one solid block, the export, the same bytes every checker read; six
+     solid lines from it to six points, grouped as the designs are (Lean's kernel twice, lean4lean, nanoda, con-leche and
+     con-ron together); one dashed line to a hollow ring, the textbook reading that stays a reading. LIGHT theme, no number. */
+  'eth-kernels': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the Exponential Time Hypothesis', path: '/reports/eth-chain.html',
+    title: 'Six kernels, one export',
+    alt: 'One solid block; six solid lines from it to six points in four groups; one dashed line to a hollow ring.',
+    svgRaw: (() => {
+      const o = [];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="One solid block, six solid lines to six points in four groups, one dashed line to a hollow ring" style="position:absolute;left:0;top:0">');
+      const bx = 140, by = 278, bw = 132, bh = 74, sx = bx + bw, sy = by + bh / 2, ax = 1064;
+      o.push('<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/>');
+      for (const y of [176, 200, 262, 338, 404, 428]) {
+        o.push('<line x1="' + sx + '" y1="' + sy + '" x2="' + (ax - 10) + '" y2="' + y + '" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>');
+        o.push('<circle cx="' + ax + '" cy="' + y + '" r="6.5" fill="var(--ink)"/>');
+      }
+      const ry = 486;
+      o.push('<line x1="' + sx + '" y1="' + sy + '" x2="' + (ax - 11) + '" y2="' + ry + '" stroke="var(--ink-3)" stroke-width="1.4" stroke-dasharray="5 7" stroke-linecap="round"/>');
+      o.push('<circle cx="' + ax + '" cy="' + ry + '" r="6.5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',
