@@ -1,0 +1,13 @@
+Pods for the ℤ-in-ℚ lanes (Track A lane 4, Track B builds). A POD BILLS UNTIL TERMINATED. Cap: the operator's US$50 of
+2026-11-06 ("push to the limits": Track B full conditional theorem, lanes 3/4, H2, two outward drafts).
+
+2026-11-06T01:55:40Z az459u2cmh2rvk zq-lean-box cpu3m 16 vCPU / 128 GB, EU-RO-1, US$0.88/h, disk 120 GB, image
+runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404 (image start: sshd), startSsh + 22/tcp 8000/http. The shared Lean v4.35.0 +
+Mathlib v4.35.0 box: lane 4 (the claimant's 48 accepted modules built and replayed by our checkers) under /root/zq-lane4,
+and claimbox's Track B builds over SSH under /root/zinq. DELETE when both are done (delete-pod, then get-pod → 404).
+2026-11-06T01:57:37Z 729plge5azm2sh lean4-checklean-pr cpu5m 32 vCPU / 256 GB, EUR-IS-1, US$2.08/h, disk 120 GB, the same image
+and SSH shape: the build box for the lean4 Check.lean pull request (a checker's decline or crash reported as "did not finish",
+not "rejected"; leanprover/lean4#16290) — lean4 built from source and the change tested. DELETE when the PR branch is built
+and tested (the PR itself is opened only on the operator's word). Under the same US$50 cap.
+2026-11-06T01:58Z az459u2cmh2rvk set up by hand over SSH: apt (git curl zstd python3 time build-essential), elan, the toolchain
+leanprover/lean4:v4.35.0 (bundles leanchecker, leanchecker-paranoid, leanexport, nanoda_bin, lean4lean, con-leche, con-ron).

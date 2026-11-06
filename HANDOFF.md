@@ -21,7 +21,20 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER (handoff 2026-11-06 ~00:10 UTC; NOTHING BILLING — list-pods empty; read this first):
+NEXT SESSION, IN ORDER (handoff 2026-11-06 ~02:10 UTC; TWO PODS ARE BILLING — read the ◆◆ Z block first):
+  ◆◆ Z. "PUSH TO THE LIMITS" ON ℤ-IN-ℚ (the operator's four answers, 2026-11-06 ~01:50 UTC: Track B the full conditional
+     theorem; lanes 4, 3 and the H2 discharge; a US$50 pod cap; two outward drafts). TWO PODS BILLING (corpus/zq/POD.txt):
+     az459u2cmh2rvk zq-lean-box (cpu3m 16 vCPU / 128 GB, US$0.88/h, root@213.173.105.94 -p 22450; Lean v4.35.0 under elan;
+     /root/zq-lane4 = lane 4, /root/zinq = Track B) and 729plge5azm2sh lean4-checklean-pr (cpu5m 32 vCPU / 256 GB, US$2.08/h,
+     root@185.226.156.232 -p 51574; the lean4 build). FOUR BACKGROUND AGENTS (they end with the session): lane 4 (a
+     cert-machine worktree; tools/runpod-zq-lane4.sh, tools/record-zq-lean-replay.js → certs/zq-lean-replay.json), lane 3 + H2
+     (a worktree; certs/zq-finite.json, certs/zq-h2.json, a pre-registration amendment first), Track B (claimbox branch
+     zinq-2026-11-06 from intake-2026-11-05: lean/zinq/ requiring Glazer's repo pinned, never vendored — it has no licence;
+     the conditional theorem, LEDGER.md, planted variants), and the Check.lean PR (prepared under ~/Projects/lean4-checklean-pr/:
+     patch, test output, PR.md; NOT opened). IF THE SESSION ENDED: list-pods; check each agent's output (worktrees under
+     .claude/worktrees/, the claimbox branch, ~/Projects/lean4-checklean-pr/); bring back small facts; DELETE both pods (404).
+     The Glazer issue is DRAFTED at outreach/gh-glazer-zq-reproducibility-2026-11-06.md (lanes 1–2 numbers from the records;
+     shown to the operator before it is filed).
   ◆◆ 0. CON-LECHE#16 ANSWERED AND CLOSED OUT FROM OUR SIDE (2026-11-05 ~23:45 UTC): three pods ran con-leche and con-ron from
      master on the OpenAI chain's export (the comparator's bytes, sha256 d9cae367…) and on a second export (OpenAI's Main with its
      challenge theorem exact_count_and_sat, sha256 a8afc439…): con-leche 7cb7a45c and dc8ca857 (both modes, 4–32 workers) and
