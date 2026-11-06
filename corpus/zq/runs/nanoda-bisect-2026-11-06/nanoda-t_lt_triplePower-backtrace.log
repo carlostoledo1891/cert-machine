@@ -1,0 +1,42 @@
+
+thread 'thread_1' (3470) panicked at /root/bisect/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+   1: core::panicking::panic_fmt
+   2: <num_bigint::biguint::BigUint as num_traits::pow::Pow<num_bigint::biguint::BigUint>>::pow
+   3: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+   4: <nanoda_lib::tc::TypeChecker>::whnf
+   5: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+   6: <nanoda_lib::tc::TypeChecker>::lazy_delta_step
+   7: <nanoda_lib::tc::TypeChecker>::def_eq
+   8: <nanoda_lib::tc::TypeChecker>::def_eq_app
+   9: <nanoda_lib::tc::TypeChecker>::def_eq
+  10: <nanoda_lib::tc::TypeChecker>::infer
+  11: <nanoda_lib::tc::TypeChecker>::infer
+  12: <nanoda_lib::util::ExportFile>::check_declar
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+thread 'thread_3' (3472) panicked at /root/bisect/rust/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.5.1/src/biguint/power.rs:25:13:
+memory overflow
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+   1: core::panicking::panic_fmt
+   2: <num_bigint::biguint::BigUint as num_traits::pow::Pow<num_bigint::biguint::BigUint>>::pow
+   3: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+   4: <nanoda_lib::tc::TypeChecker>::whnf
+   5: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+   6: <nanoda_lib::tc::TypeChecker>::whnf
+   7: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+   8: <nanoda_lib::tc::TypeChecker>::whnf
+   9: <nanoda_lib::tc::TypeChecker>::try_reduce_nat
+  10: <nanoda_lib::tc::TypeChecker>::lazy_delta_step
+  11: <nanoda_lib::tc::TypeChecker>::def_eq
+  12: <nanoda_lib::tc::TypeChecker>::def_eq_app
+  13: <nanoda_lib::tc::TypeChecker>::def_eq
+  14: <nanoda_lib::tc::TypeChecker>::infer
+  15: <nanoda_lib::tc::TypeChecker>::infer
+  16: <nanoda_lib::tc::TypeChecker>::infer
+  17: <nanoda_lib::util::ExportFile>::check_declar
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+exit 101

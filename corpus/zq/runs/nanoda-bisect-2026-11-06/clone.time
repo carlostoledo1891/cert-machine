@@ -1,0 +1,23 @@
+	Command being timed: "timeout 1800 bash -c rm -rf /root/bisect/src/diophantine-z-q && git clone -q --filter=blob:none --no-checkout https://github.com/elliotglazer/diophantine-z-q.git /root/bisect/src/diophantine-z-q && git -C /root/bisect/src/diophantine-z-q sparse-checkout set lean && git -C /root/bisect/src/diophantine-z-q checkout -q 97cec7fdd757d9a8e4f468151a47a6d3610fb2f2 && test "$(git -C /root/bisect/src/diophantine-z-q rev-parse HEAD)" = 97cec7fdd757d9a8e4f468151a47a6d3610fb2f2"
+	User time (seconds): 0.10
+	System time (seconds): 0.14
+	Percent of CPU this job got: 18%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 16948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8756
+	Voluntary context switches: 680
+	Involuntary context switches: 41
+	Swaps: 0
+	File system inputs: 1168
+	File system outputs: 7000
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
