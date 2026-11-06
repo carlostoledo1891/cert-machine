@@ -54,12 +54,15 @@ if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: 
 const GM = J(GAPMAP);
 function PIN_EARLY() { return L1.pins.commit; }
 const TB = J(RB);
-/* Versions 3 and 4 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the
-   latest head checked (tools/zq-tree-check.js; corpus/zq/version3-tree-check.json is the earlier, Version 3 one) */
-const VREC = 'corpus/zq/version4-tree-check.json';
+/* Versions 3 to 7 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the
+   latest head checked, and of the Version 4 quartic's package at its own pin and that head (tools/zq-tree-check.js;
+   corpus/zq/version3- and version4-tree-check.json are the earlier ones) */
+const VREC = 'corpus/zq/version7-tree-check.json';
 const V4 = J(VREC);
-if (V4.pin !== PIN_EARLY()) die('the Version 4 comparison starts from another pin than the records');
-if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 4 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
+if (V4.pin !== PIN_EARLY()) die('the Version 7 comparison starts from another pin than the records');
+const QP = V4.quartic4973;
+if (!QP || QP.unchanged !== QP.files || QP.removed.length || QP.changed.length) die('the Version 4 quartic\'s package is not the same bytes at the head: the page must say what no longer applies');
+if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 7 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
 if (V4.frozenTarget.blobPin !== V4.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
 const README_DIFF = V4.changed.length === 1 ? 'the one difference a README' : 'the ' + (['', 'one', 'two', 'three', 'four'][V4.changed.length] || N(V4.changed.length)) + ' differences READMEs';
 
@@ -69,7 +72,7 @@ const Q4 = J(RQ);
 if (!fs.existsSync(path.join(ROOT, PREREG_Q))) die('the Version 4 pre-registration is gone: ' + PREREG_Q);
 if (!/^The theorem \(Z is Diophantine in Q\) is undecided here\./.test(Q4.undecided)) die('the Version 4 record no longer says first that the theorem is undecided');
 for (const k of ['V1', 'V2', 'V3']) if (Q4.verdicts[k] !== 'CERTIFIED') die('Version 4 ' + k + ' is ' + Q4.verdicts[k] + ' in ' + RQ + ', and this page states it CERTIFIED');
-if (Q4.pins.commit !== V4.head) die('the Version 4 record pins another commit than the tree check');
+if (Q4.pins.commit !== QP.base) die('the Version 4 record pins another commit than the package comparison starts from');
 const QN = { v1: Q4.V1.numbers, v2: Q4.V2.numbers, v3: Q4.V3.numbers };
 if (!QN.v3.equalsPublishedResiduals || QN.v2.differingMonomials !== 0) die('the Version 4 record no longer ends at the published residuals');
 const QC = QN.v3.census, QCTL = Q4.controls.length;
@@ -218,12 +221,13 @@ B.push(C.header({
     + 'with exact arithmetic and code that shares nothing with his. The theorem itself is undecided.'
 }));
 
-/* Versions 3 and 4, dated: what moved and what still applies */
+/* Versions 3 to 7, dated: what moved and what still applies */
 B.push(C.section({
-  lab: 'since these checks', title: 'Versions 3 and 4 appeared the same day', id: 'version-3',
-  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved twice: to Version 3, a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic), then to Version 4, a smaller quartic still, each with its own package of checks. Version 3’s quartic is not checked here; Version 4’s is, in <a href="#version-4">its own section</a>.')
+  lab: 'since these checks', title: 'Versions 3 to 7 appeared the same day', id: 'version-3',
+  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved five times, from Version 3 to Version 7, each a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic) with its own package of checks. '
+      + 'Version 7 presents three final polynomials: the original large one, the Version 4 quartic, decided in <a href="#version-4">its own section</a> below, its package the same bytes at the head (' + N(QP.unchanged) + ' of ' + N(QP.files) + ' files), and a newer, smaller quartic first published in Version 6, not checked here. The quartics of Versions 3 and 5 are superseded and not checked.')
     + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
-      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for the Version 4 quartic, which has no Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it today (' + rec(VREC) + ').')
+      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for any quartic, none of which has a Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it today (' + rec(VREC) + ').')
 }));
 
 /* the story in one minute: first person for the author, the AI help said in the same sentence */

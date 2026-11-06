@@ -2,7 +2,9 @@
 /* zq-tree-check.js — whether the parts of Glazer et al.'s 11/5 release decided here are still the same bytes at a later
    head of their repository: every file under construction/ and lean/, compared by git blob id at the pin (git ls-tree in
    the read-only clone, ~/Projects/zq-scout/diophantine-z-q, never fetched into) and at the head (GitHub's git/trees API),
-   plus the sha256 of the frozen Lean target at the head. Writes the record apps/z-in-q/build.js reads.
+   plus the sha256 of the frozen Lean target at the head; and, once the Version 4 quartic is decided (certs/zq-v4.json), its
+   package quartics/quartic-4973/ compared the same way between that record's pin and the head. Writes the record
+   apps/z-in-q/build.js reads.
 
    usage: node tools/zq-tree-check.js --head <sha> --label "Version 4" --out corpus/zq/version4-tree-check.json   MIT */
 'use strict';
@@ -26,10 +28,20 @@ for (const line of execFileSync('git', ['-C', CLONE, 'ls-tree', '-r', PIN], { en
   const [meta, p] = line.split('\t'); const [, type, blob] = meta.split(' ');
   if (type === 'blob' && decided(p)) at[p] = blob;
 }
-const tree = JSON.parse(execFileSync('gh', ['api', 'repos/' + REPO + '/git/trees/' + HEAD + '?recursive=1'], { encoding: 'utf8', maxBuffer: 1 << 28 }));
-if (tree.truncated) die('the head tree came back truncated');
+const treeAt = (c) => { const t = JSON.parse(execFileSync('gh', ['api', 'repos/' + REPO + '/git/trees/' + c + '?recursive=1'], { encoding: 'utf8', maxBuffer: 1 << 28 })); if (t.truncated) die('the tree at ' + c + ' came back truncated'); return t.tree.filter((e) => e.type === 'blob'); };
+const tree = treeAt(HEAD);
 const head = {};
-for (const e of tree.tree) if (e.type === 'blob' && decided(e.path)) head[e.path] = e.sha;
+for (const e of tree) if (decided(e.path)) head[e.path] = e.sha;
+/* the Version 4 quartic's package, from the pin of its decision to the head */
+const V4REC = path.join(ROOT, 'certs/zq-v4.json');
+let quartic4973 = null;
+if (fs.existsSync(V4REC)) {
+  const base = JSON.parse(fs.readFileSync(V4REC, 'utf8')).pins.commit, PKG = 'quartics/quartic-4973/';
+  const pick = (blobs) => Object.fromEntries(blobs.filter((e) => e.path.startsWith(PKG)).map((e) => [e.path, e.sha]));
+  const a = pick(treeAt(base)), b = pick(tree);
+  const ks = Object.keys(a);
+  quartic4973 = { base, files: ks.length, unchanged: ks.filter((k) => b[k] === a[k]).length, changed: ks.filter((k) => k in b && b[k] !== a[k]), removed: ks.filter((k) => !(k in b)), added: Object.keys(b).filter((k) => !(k in a)) };
+}
 
 const files = Object.keys(at).sort();
 const changed = files.filter((p) => p in head && head[p] !== at[p]);
@@ -46,7 +58,8 @@ const rec = {
   files: files.length,
   unchanged: files.length - changed.length - removed.length,
   changed, removed, added,
-  frozenTarget: { path: FROZEN, blobPin: at[FROZEN], blobHead: head[FROZEN], sha256Head: crypto.createHash('sha256').update(raw).digest('hex') }
+  frozenTarget: { path: FROZEN, blobPin: at[FROZEN], blobHead: head[FROZEN], sha256Head: crypto.createHash('sha256').update(raw).digest('hex') },
+  ...(quartic4973 ? { quartic4973 } : {})
 };
 fs.writeFileSync(path.resolve(ROOT, OUT), JSON.stringify(rec, null, 1) + '\n');
-console.log(OUT + ': ' + rec.unchanged + ' of ' + rec.files + ' unchanged; changed ' + (changed.join(', ') || 'none') + '; removed ' + removed.length + '; added ' + added.length + '; frozen target ' + (rec.frozenTarget.blobPin === rec.frozenTarget.blobHead ? 'the same blob' : 'CHANGED'));
+console.log(OUT + ': ' + rec.unchanged + ' of ' + rec.files + ' unchanged; changed ' + (changed.join(', ') || 'none') + '; removed ' + removed.length + '; added ' + added.length + '; frozen target ' + (rec.frozenTarget.blobPin === rec.frozenTarget.blobHead ? 'the same blob' : 'CHANGED') + (quartic4973 ? '; the Version 4 package ' + quartic4973.unchanged + ' of ' + quartic4973.files + ' unchanged' : ''));
