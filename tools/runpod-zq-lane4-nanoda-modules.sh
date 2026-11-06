@@ -5,7 +5,8 @@
 #
 # THE THEOREM IS UNDECIDED HERE; this decides nothing about it.
 #
-# For each of the 48 modules: `leanexport <module> -- <its non-private declaration names>` (the names from our audit,
+# For each of the 48 modules: `leanexport <module> -- <its non-private, non-partial declaration names>` (nanoda's
+# parser refuses partial definitions; the only ones are 9 compiler-generated ._unsafe_rec; the names from our audit,
 # /root/zq-lane4/final/out/audit.jsonl), then nanoda v0.4.31 (built by tools/runpod-zq-lane4.sh stage nanoda-build)
 # with the recorded pass's config. Writes nanoda-modules/<module>.{export.exit,export.sha256,exit,time,log,code} into
 # /root/zq-lane4/final/out. Run over SSH: nohup bash /root/zq-lane4/ours/runpod-zq-lane4-nanoda-modules.sh &
@@ -15,7 +16,7 @@ R=/root/zq-lane4; W=$R/final; OUT=$W/out; WORK=$W/work/nanoda-modules; D=$W/src/
 BIN=/root/.elan/toolchains/leanprover--lean4---v4.35.0/bin; NANODA2=$W/bin/nanoda_bin-0.4.31
 JOBS="${JOBS:-4}"; THREADS="${THREADS:-4}"
 export PATH=/root/.elan/bin:$PATH OUT WORK D BIN NANODA2 THREADS
-mkdir -p "$OUT/nanoda-modules" "$WORK"
+rm -rf "$OUT/nanoda-modules" "$WORK"; mkdir -p "$OUT/nanoda-modules" "$WORK"
 echo "$(date -u +%FT%TZ) start nanoda-modules" >> "$OUT/_status.txt"
 (cd "$R/ours" && sha256sum runpod-zq-lane4-nanoda-modules.sh) > "$OUT/nanoda-modules.code"
 python3 -I -c '
@@ -23,7 +24,8 @@ import json, os, sys
 by = {}
 for l in open(sys.argv[1], encoding="utf-8"):
     d = json.loads(l)
-    if d.get("type") == "decl" and d["module"].startswith("ZInQ.") and not d["name"].startswith("_private"):
+    if d.get("type") == "decl" and d["module"].startswith("ZInQ.") and not d["name"].startswith("_private") \
+            and not {"partial", "unsafe"} & set(d["flags"]):
         by.setdefault(d["module"], []).append(d["name"])
 for m in sorted(by):
     open(os.path.join(sys.argv[2], m + ".names"), "w", encoding="utf-8").write("\n".join(by[m]) + "\n")

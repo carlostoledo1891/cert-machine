@@ -358,6 +358,12 @@ module nanoda accepts is a second, independent kernel's acceptance of those decl
 that is a type or definitional-equality error on a constant of the 48 modules (not an overflow) would be
 investigated before any verdict and, confirmed, would be REFUTED.
 
+*Addendum to D, before its second run.* Its first run stopped in nanoda's PARSER on 7 modules ("assertion failed:
+!matches!(safety, Unsafe | Partial)"): the name lists held the 9 compiler-generated `…._unsafe_rec` definitions of
+well-founded recursive defs, which our audit flags `partial` (no `partial` or `unsafe` occurs in the sources) and which
+nanoda does not accept as input. They are dropped from the lists (the kernel forbids a safe declaration to use a
+partial one, so no theorem's closure needs them), the first run's outputs are deleted, and the localization is run again.
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."
