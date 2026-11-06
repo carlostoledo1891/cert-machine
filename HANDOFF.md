@@ -41,7 +41,12 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~00:10 UTC; NOTHING BILLING — list-
      table cell made a 768 px spine — keep DOIs out of table cells). Pods:
      jem86b8b2cdmnq (64 GB), qfmk1og820iz15 (128 GB, + the 8/4-worker runs by hand), qyaqg7hre6o2z5 (256 GB, both exports) —
      all imported and DELETED (404); the evening ≈US$3.7, the day's OpenAI side ≈US$12.6 of the US$25 cap.
-     NEXT (the operator chose all three to be PREPARED, each shown before it goes out): (a) one comment on leanprover/lean4#16290 — the con-* stops are fixed on master, what
+     DONE ~00:50 UTC on the operator's answers: (a) the lean4#16290 update POSTED (issuecomment-6673405261; the PR offer
+     for Lake/CLI/Check.lean made — open it if a maintainer says yes: F2(a)); (b) the X post d16 HELD (the operator may post
+     it by hand with the art card design/assets/og-eth-kernels.png — light theme, one block, six lines in four groups, one
+     dashed line to a hollow ring); (c) the note v0.3 PUBLISHED: release v2026.11.06 = doi:10.5281/zenodo.23992217 (verified;
+     CITATION.cff, corpus/zenodo.json, the note rebuilt with its DOI). The prepared drafts, for the record:
+     (a) one comment on leanprover/lean4#16290 — the con-* stops are fixed on master, what
      remains is the bundled builds' limits (nanoda's stack, lean4lean's fuel) and the "rejected" wording, with the DOI; (b) an X
      post (six kernels accept, the export public); (c) the note v0.3 (paper/tex/eth-chain.tex: the masters fact + the exports'
      DOI; a new tagged release → a new Zenodo version; bump .zenodo.json before the tag). PREPARED 2026-11-06 ~00:40 UTC: (a)
@@ -59,7 +64,13 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~00:10 UTC; NOTHING BILLING — list-
      v4.35.0 and the 147-citation inventory), B1 construction/bounds then compiler/multiplication, B2 the frozen main statement
      proved from a short list of named, pinned published theorems ("formalized modulo k theorems"); contributions as PRs to
      HIS repo (CONTRIBUTING.md asks for exactly that: declaration, compile result, axiom report). WAITING for the operator's go
-     on Phase 0 (pin, build + replay the 48 modules, the gap map, the Track A pre-registration).
+     on Phase 0 (pin, build + replay the 48 modules, the gap map, the Track A pre-registration). GO GIVEN ~00:30 UTC 11-06
+     ("Phase 0 + start Track A lane 1"): the repo cloned read-only at ~/Projects/zq-scout/diophantine-z-q (97cec7fd; the
+     construction JSON sha256 4d639d4c…); a BACKGROUND AGENT in a worktree (branch under .claude/worktrees/) writes the
+     pre-registration (notes/zq-preregistration-2026-11-06.md) BEFORE running, our own recount (tools/zq-recount.js →
+     certs/zq-recount.json, red controls), lane 2 if B is unambiguous, and the gap map (corpus/zq/gap-map.json); it reports
+     wiring lines, touches no shared registry, does not push. If the session ended first: find its worktree, read its
+     commits, merge with `git -C <main> merge`. Lane 4 (the Lean replay, v4.35.0) needs a pod — not started.
   ◆◆ 1. THE FIRST SEAL'S BITCOIN ANCHOR — DONE 2026-11-05 ~22:00 UTC (3d149d95, pushed): the .ots complete at Bitcoin block
      974704 (mined 20:34:20 UTC), copied into seals/reveals/claimbox-intake-2026-11-05/; certs/seal-first-use.json CERTIFIED
      on BOTH anchors, held by 2026-11-05; the page shows both. `ots verify` could not confirm it here — the client needs a
