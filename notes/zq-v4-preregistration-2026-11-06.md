@@ -108,3 +108,12 @@ verdict.
 V1 and V2 we expect CERTIFIED (the package says its own checker passed). V3 we expect CERTIFIED or REFUSED on a field we
 misread; a REFUTED would be a finding, sent to the authors on the operator's word. The record and `/z-in-q/` state each
 verdict with the "not decided" paragraph above first; any reply on elliotglazer/diophantine-z-q#3 is the operator's word.
+
+## Amendment A (2026-11-06, before any code of ours ran on the package)
+
+Inspecting the reuse field before writing the decider: a reuse records `scale: [s0, s1]`, and its anchor source row is
+`s0·v − s1·x_a·x_b` (521 reuses with (1, 1), 125 with (1, 2), so `v = 2·x_a·x_b`). The initial-lift check therefore
+reads each reuse as the definition `v := (s1/s0)·x_a·x_b`, requires its anchor row to be exactly that (two terms, the
+ratio the recorded scale) and unchanged in the lift, and substitutes it so; gate definitions stay `v − x_a·x_b`. Gate
+`k`'s defining row is lifted row `4513 + k`. Large integers in every JSON file are read exactly (BigInt from the source
+text), never through a float.
