@@ -1,0 +1,1109 @@
+{
+ "what": "Track A lane 1 on the claim \"Z is Diophantine in Q\" (Glazer et al., announced 2026-11-05): the ambient variable count and the root expression-height bound of the saved polynomial P_*, re-derived from the pinned construction/ordinary-integer-definition.json by a clean-room reader (Node, BigInt, standard library; no code copied, ported or read from the claimant's .js or .py).",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this record decides it. This record decides two finite numbers about the saved artifact: its ambient variable count and its root expression-height bound.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "definition": {
+   "path": "construction/ordinary-integer-definition.json",
+   "sha256": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6"
+  },
+  "bounds": {
+   "path": "construction/ordinary-integer-polynomial-size-bounds.json",
+   "sha256": "dfef3ff3da641814edf62f9992cb7a27aa0a770deccc95b084a65751289dbd9e"
+  },
+  "frozenLean": {
+   "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+   "sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+  },
+  "tex": {
+   "path": "diophantine_zq.tex",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  },
+  "sizeBoundProof": {
+   "path": "construction/z-in-q-polynomial-size-bound-proof.txt",
+   "sha256": "0ab03b116bab829cb9b8dbaea5ecd811d728ccf95345228a85a4fe37527b050e"
+  }
+ },
+ "code": {
+  "tools/zq-recount.js": "c573af39ba88cd13e7e822e33c823d4f20c0801f7395442d99e7b5d23f1db790"
+ },
+ "claim": {
+  "ambientVariables": "292890231905",
+  "witnesses": "292890231904",
+  "rootHeightBound": 256,
+  "sources": [
+   "diophantine_zq.tex lines 43, 61-75 (thm:target)",
+   "README.md line 41",
+   "ordinary-integer-definition.json top-level witnessCount",
+   "ordinary-integer-polynomial-size-bounds.json lines 3, 154"
+  ]
+ },
+ "verdict": "CERTIFIED",
+ "reason": "the structure tiles exactly, the ambient count is 292,890,231,905 by two derivations, the root height is 256 ≤ 256 under the stated rules, and every red control came out as predicted",
+ "numbers": {
+  "ambientVariables": "292890231905",
+  "witnesses": "292890231904",
+  "ambientViaMultiplicities": "292890231905",
+  "rootHeight": 256,
+  "rootHeightIfRenamingsCharged": 260,
+  "criticalHeightChain": [
+   "integers 256",
+   "value 254",
+   "value_union 252",
+   "main 251",
+   "value.test 249",
+   "multiply 214",
+   "height_certificate 207",
+   "slope 169",
+   "test_group 79",
+   "log25 25"
+  ],
+  "syntacticallyReachedWitnesses": "292890231904",
+  "inputReadByRoot": true,
+  "constraintsPerRecipeAtMost2to20": true
+ },
+ "readings": {
+  "ambient": "need(integers): one more than the largest variable slot any node, block or allocated point of the root recipe uses, with every call block's length equal to OUR derived witness count of its callee; the slots must tile [parameterCount, need) exactly at every object (no overlap, no gap, nothing inside the parameters).",
+  "viaMultiplicities": "second derivation: Σ over objects of (invocations in the fully expanded call tree) × (own slots: a template's own witness variables, a model recipe's generator and allocated point slots, a composition's explicit ranges), plus the input.",
+  "height": "H-claim: the size-bound proof §2 and TeX lines 6386-6425 (renaming calls in compositions charge nothing; model-recipe callees charge 1 + 2; constraints at the safe bound 4; sum of squares +2, product +1). rootHeightIfRenamingsCharged is the looser reading the manuscript declines (TeX 6421-6427), reported only.",
+  "reached": "informational, never a verdict input: witness slots read by some var node reachable from the root through calls whose callee reads that parameter. It bounds the occurring variables from above (cancellation is not seen; psi_component of odd index is counted as reading y)."
+ },
+ "share": [
+  {
+   "object": "test_group",
+   "invocations": "1349815914",
+   "ownSlots": "102",
+   "slots": "137681223228"
+  },
+  {
+   "object": "slope",
+   "invocations": "224969319",
+   "ownSlots": "315",
+   "slots": "70865335485"
+  },
+  {
+   "object": "member",
+   "invocations": "5424260269",
+   "ownSlots": "7",
+   "slots": "37969821883"
+  },
+  {
+   "object": "raw_add",
+   "invocations": "5406412104",
+   "ownSlots": "6",
+   "slots": "32438472624"
+  },
+  {
+   "object": "raw_z",
+   "invocations": "10798527312",
+   "ownSlots": "1",
+   "slots": "10798527312"
+  },
+  {
+   "object": "pole",
+   "invocations": "224969320",
+   "ownSlots": "11",
+   "slots": "2474662520"
+  },
+  {
+   "object": "height_certificate",
+   "invocations": "8332197",
+   "ownSlots": "39",
+   "slots": "324955683"
+  },
+  {
+   "object": "multiply",
+   "invocations": "8332197",
+   "ownSlots": "23",
+   "slots": "191640531"
+  },
+  {
+   "object": "natural",
+   "invocations": "1305816",
+   "ownSlots": "50",
+   "slots": "65290800"
+  },
+  {
+   "object": "power_value",
+   "invocations": "15845",
+   "ownSlots": "2343",
+   "slots": "37124835"
+  },
+  {
+   "object": "multiply.scalar",
+   "invocations": "33328788",
+   "ownSlots": "1",
+   "slots": "33328788"
+  },
+  {
+   "object": "multiply.guard",
+   "invocations": "8332197",
+   "ownSlots": "1",
+   "slots": "8332197"
+  }
+ ],
+ "structuralProblems": [],
+ "declaredVersusDerived": {
+  "agree": true,
+  "differences": []
+ },
+ "boundsFile": {
+  "agree": true,
+  "rows": [
+   {
+    "what": "total_variables",
+    "theirs": "292890231905",
+    "ours": "292890231905",
+    "agree": true
+   },
+   {
+    "what": "rational_witnesses",
+    "theirs": "292890231904",
+    "ours": "292890231904",
+    "agree": true
+   },
+   {
+    "what": "root_height_bound",
+    "theirs": "256",
+    "ours": "256",
+    "agree": true
+   },
+   {
+    "what": "template member height",
+    "theirs": "18",
+    "ours": "18",
+    "agree": true
+   },
+   {
+    "what": "template member nodes",
+    "theirs": "150",
+    "ours": "150",
+    "agree": true
+   },
+   {
+    "what": "template raw_add height",
+    "theirs": "21",
+    "ours": "21",
+    "agree": true
+   },
+   {
+    "what": "template raw_add nodes",
+    "theirs": "309",
+    "ours": "309",
+    "agree": true
+   },
+   {
+    "what": "template raw_z height",
+    "theirs": "12",
+    "ours": "12",
+    "agree": true
+   },
+   {
+    "what": "template raw_z nodes",
+    "theirs": "69",
+    "ours": "69",
+    "agree": true
+   },
+   {
+    "what": "template raw_inverse_x height",
+    "theirs": "12",
+    "ours": "12",
+    "agree": true
+   },
+   {
+    "what": "template raw_inverse_x nodes",
+    "theirs": "55",
+    "ours": "55",
+    "agree": true
+   },
+   {
+    "what": "template log25 height",
+    "theirs": "25",
+    "ours": "25",
+    "agree": true
+   },
+   {
+    "what": "template log25 nodes",
+    "theirs": "230",
+    "ours": "230",
+    "agree": true
+   },
+   {
+    "what": "template pole height",
+    "theirs": "24",
+    "ours": "24",
+    "agree": true
+   },
+   {
+    "what": "template pole nodes",
+    "theirs": "107",
+    "ours": "107",
+    "agree": true
+   },
+   {
+    "what": "template test_group height",
+    "theirs": "79",
+    "ours": "79",
+    "agree": true
+   },
+   {
+    "what": "template test_group nodes",
+    "theirs": "516",
+    "ours": "516",
+    "agree": true
+   },
+   {
+    "what": "template slope height",
+    "theirs": "169",
+    "ours": "169",
+    "agree": true
+   },
+   {
+    "what": "template slope nodes",
+    "theirs": "2682",
+    "ours": "2682",
+    "agree": true
+   },
+   {
+    "what": "template height_certificate height",
+    "theirs": "207",
+    "ours": "207",
+    "agree": true
+   },
+   {
+    "what": "template height_certificate nodes",
+    "theirs": "261",
+    "ours": "261",
+    "agree": true
+   },
+   {
+    "what": "template multiply.scalar height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template multiply.scalar nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "template multiply.guard height",
+    "theirs": "4",
+    "ours": "4",
+    "agree": true
+   },
+   {
+    "what": "template multiply.guard nodes",
+    "theirs": "23",
+    "ours": "23",
+    "agree": true
+   },
+   {
+    "what": "template multiply height",
+    "theirs": "214",
+    "ours": "214",
+    "agree": true
+   },
+   {
+    "what": "template multiply nodes",
+    "theirs": "84",
+    "ours": "84",
+    "agree": true
+   },
+   {
+    "what": "template natural height",
+    "theirs": "223",
+    "ours": "223",
+    "agree": true
+   },
+   {
+    "what": "template natural nodes",
+    "theirs": "80",
+    "ours": "80",
+    "agree": true
+   },
+   {
+    "what": "template value.signed_encode height",
+    "theirs": "230",
+    "ours": "230",
+    "agree": true
+   },
+   {
+    "what": "template value.signed_encode nodes",
+    "theirs": "139",
+    "ours": "139",
+    "agree": true
+   },
+   {
+    "what": "template value.abs height",
+    "theirs": "9",
+    "ours": "9",
+    "agree": true
+   },
+   {
+    "what": "template value.abs nodes",
+    "theirs": "24",
+    "ours": "24",
+    "agree": true
+   },
+   {
+    "what": "template value.close_coordinates height",
+    "theirs": "34",
+    "ours": "34",
+    "agree": true
+   },
+   {
+    "what": "template value.close_coordinates nodes",
+    "theirs": "272",
+    "ours": "272",
+    "agree": true
+   },
+   {
+    "what": "template value.test height",
+    "theirs": "249",
+    "ours": "249",
+    "agree": true
+   },
+   {
+    "what": "template value.test nodes",
+    "theirs": "776",
+    "ours": "776",
+    "agree": true
+   },
+   {
+    "what": "template value.exceptions height",
+    "theirs": "43",
+    "ours": "43",
+    "agree": true
+   },
+   {
+    "what": "template value.exceptions nodes",
+    "theirs": "488",
+    "ours": "488",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_0 height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_0 nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_1 height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_1 nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_2 height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_2 nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_3 height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_3 nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_4 height",
+    "theirs": "17",
+    "ours": "17",
+    "agree": true
+   },
+   {
+    "what": "template scalar.integer_constant_4 nodes",
+    "theirs": "137",
+    "ours": "137",
+    "agree": true
+   },
+   {
+    "what": "recipe power_value height",
+    "theirs": "228",
+    "ours": "228",
+    "agree": true
+   },
+   {
+    "what": "recipe power_value constraint_count",
+    "theirs": "476",
+    "ours": "476",
+    "agree": true
+   },
+   {
+    "what": "recipe precision height",
+    "theirs": "233",
+    "ours": "233",
+    "agree": true
+   },
+   {
+    "what": "recipe precision constraint_count",
+    "theirs": "293622",
+    "ours": "293622",
+    "agree": true
+   },
+   {
+    "what": "recipe close height",
+    "theirs": "235",
+    "ours": "235",
+    "agree": true
+   },
+   {
+    "what": "recipe close constraint_count",
+    "theirs": "7",
+    "ours": "7",
+    "agree": true
+   },
+   {
+    "what": "recipe main height",
+    "theirs": "251",
+    "ours": "251",
+    "agree": true
+   },
+   {
+    "what": "recipe main constraint_count",
+    "theirs": "2",
+    "ours": "2",
+    "agree": true
+   },
+   {
+    "what": "recipe value_union height",
+    "theirs": "252",
+    "ours": "252",
+    "agree": true
+   },
+   {
+    "what": "recipe value_union constraint_count",
+    "theirs": "2",
+    "ours": "2",
+    "agree": true
+   },
+   {
+    "what": "recipe value height",
+    "theirs": "254",
+    "ours": "254",
+    "agree": true
+   },
+   {
+    "what": "recipe value constraint_count",
+    "theirs": "2",
+    "ours": "2",
+    "agree": true
+   },
+   {
+    "what": "recipe integers height",
+    "theirs": "256",
+    "ours": "256",
+    "agree": true
+   },
+   {
+    "what": "recipe integers constraint_count",
+    "theirs": "1",
+    "ours": "1",
+    "agree": true
+   }
+  ],
+  "informational": [
+   {
+    "what": "explicit_constant_nodes",
+    "theirs": "173",
+    "ours": {
+     "total": 173,
+     "distinctValues": 36,
+     "reachedFromRoots": 132
+    }
+   },
+   {
+    "what": "finite_constructor_nodes",
+    "theirs": "50",
+    "ours": {
+     "total": 50,
+     "byOp": {
+      "psi_component": 48,
+      "finite_guard_product": 1,
+      "fixed_integer": 1
+     },
+     "reachedFromRoots": 50
+    }
+   },
+   {
+    "what": "max_fixed_literal_decimal_digits",
+    "theirs": "3181317",
+    "ours": 3181317
+   }
+  ]
+ },
+ "templates": [
+  {
+   "name": "member",
+   "parameters": 5,
+   "witnesses": "7",
+   "height": 18,
+   "nodes": 150,
+   "unreachedNodes": 0,
+   "reachedWitnesses": "7",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "raw_add",
+   "parameters": 15,
+   "witnesses": "6",
+   "height": 21,
+   "nodes": 309,
+   "unreachedNodes": 0,
+   "reachedWitnesses": "6",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "raw_z",
+   "parameters": 7,
+   "witnesses": "1",
+   "height": 12,
+   "nodes": 69,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "raw_inverse_x",
+   "parameters": 7,
+   "witnesses": "0",
+   "height": 12,
+   "nodes": 55,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "0",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "log25",
+   "parameters": 4,
+   "witnesses": "0",
+   "height": 25,
+   "nodes": 230,
+   "unreachedNodes": 9,
+   "reachedWitnesses": "0",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "pole",
+   "parameters": 1,
+   "witnesses": "11",
+   "height": 24,
+   "nodes": 107,
+   "unreachedNodes": 0,
+   "reachedWitnesses": "11",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "test_group",
+   "parameters": 44,
+   "witnesses": "162",
+   "height": 79,
+   "nodes": 516,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "162",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "slope",
+   "parameters": 22,
+   "witnesses": "1298",
+   "height": 169,
+   "nodes": 2682,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1298",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "height_certificate",
+   "parameters": 36,
+   "witnesses": "35106",
+   "height": 207,
+   "nodes": 261,
+   "unreachedNodes": 3,
+   "reachedWitnesses": "35106",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "multiply.scalar",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "multiply.guard",
+   "parameters": 15,
+   "witnesses": "1",
+   "height": 4,
+   "nodes": 23,
+   "unreachedNodes": 0,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "multiply",
+   "parameters": 15,
+   "witnesses": "35134",
+   "height": 214,
+   "nodes": 84,
+   "unreachedNodes": 3,
+   "reachedWitnesses": "35134",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "natural",
+   "parameters": 5,
+   "witnesses": "140604",
+   "height": 223,
+   "nodes": 80,
+   "unreachedNodes": 4,
+   "reachedWitnesses": "140604",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "value.signed_encode",
+   "parameters": 10,
+   "witnesses": "140654",
+   "height": 230,
+   "nodes": 139,
+   "unreachedNodes": 3,
+   "reachedWitnesses": "140654",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "value.abs",
+   "parameters": 2,
+   "witnesses": "4",
+   "height": 9,
+   "nodes": 24,
+   "unreachedNodes": 0,
+   "reachedWitnesses": "4",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "value.close_coordinates",
+   "parameters": 16,
+   "witnesses": "53",
+   "height": 34,
+   "nodes": 272,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "53",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "value.test",
+   "parameters": 11,
+   "witnesses": "35282",
+   "height": 249,
+   "nodes": 776,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "35282",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "value.exceptions",
+   "parameters": 6,
+   "witnesses": "406",
+   "height": 43,
+   "nodes": 488,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "406",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "scalar.integer_constant_0",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "scalar.integer_constant_1",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "scalar.integer_constant_2",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "scalar.integer_constant_3",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  },
+  {
+   "name": "scalar.integer_constant_4",
+   "parameters": 10,
+   "witnesses": "1",
+   "height": 17,
+   "nodes": 137,
+   "unreachedNodes": 2,
+   "reachedWitnesses": "1",
+   "callsEarlierOnly": true
+  }
+ ],
+ "recipes": [
+  {
+   "name": "power_value",
+   "kind": "model",
+   "parameters": 20,
+   "witnesses": "17786698",
+   "total": "17786718",
+   "height": 228,
+   "heightStrict": 228,
+   "constraints": 476,
+   "reachedWitnesses": "17786698",
+   "heightActualArguments": 226,
+   "sourceVariableRows": 82,
+   "sourceVariableCount": 82,
+   "operations": 386
+  },
+  {
+   "name": "precision",
+   "kind": "model",
+   "parameters": 25,
+   "witnesses": "292889492836",
+   "total": "292889492861",
+   "height": 233,
+   "heightStrict": 233,
+   "constraints": 293622,
+   "reachedWitnesses": "292889492836",
+   "heightActualArguments": 231,
+   "sourceVariableRows": 54056,
+   "sourceVariableCount": 1305811,
+   "operations": 239554
+  },
+  {
+   "name": "close",
+   "kind": "composition",
+   "parameters": 11,
+   "witnesses": "292890196199",
+   "total": "292890196210",
+   "height": 235,
+   "heightStrict": 236,
+   "constraints": 7,
+   "reachedWitnesses": "292890196199"
+  },
+  {
+   "name": "main",
+   "kind": "composition",
+   "parameters": 6,
+   "witnesses": "292890231486",
+   "total": "292890231492",
+   "height": 251,
+   "heightStrict": 252,
+   "constraints": 2,
+   "reachedWitnesses": "292890231486"
+  },
+  {
+   "name": "value_union",
+   "kind": "composition",
+   "parameters": 6,
+   "witnesses": "292890231892",
+   "total": "292890231898",
+   "height": 252,
+   "heightStrict": 254,
+   "constraints": 2,
+   "reachedWitnesses": "292890231892"
+  },
+  {
+   "name": "value",
+   "kind": "composition",
+   "parameters": 6,
+   "witnesses": "292890231899",
+   "total": "292890231905",
+   "height": 254,
+   "heightStrict": 257,
+   "constraints": 2,
+   "reachedWitnesses": "292890231899"
+  },
+  {
+   "name": "integers",
+   "kind": "composition",
+   "parameters": 1,
+   "witnesses": "292890231904",
+   "total": "292890231905",
+   "height": 256,
+   "heightStrict": 260,
+   "constraints": 1,
+   "reachedWitnesses": "292890231904"
+  }
+ ],
+ "redControls": [
+  {
+   "id": "RC0",
+   "mutation": "the pinned bytes with one byte (a newline) appended",
+   "prediction": "the sha256 check refuses",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292890231905",
+    "rootHeight": 256,
+    "structuralProblems": [],
+    "declaredMismatches": []
+   },
+   "passed": true,
+   "seenBy": [
+    "pin check"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  },
+  {
+   "id": "RC1",
+   "mutation": "integers.explicitWitnessRanges [1,5] -> [1,6] and its call witnessStart 6 -> 7 (one block one longer, the rest shifted)",
+   "prediction": "count 292,890,231,906; integers flagged declared ≠ derived",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231906",
+    "ambientViaMultiplicities": "292890231906",
+    "rootHeight": 256,
+    "structuralProblems": [],
+    "declaredMismatches": [
+     "integers.variableCount",
+     "integers.witnessCount",
+     "(top level).witnessCount"
+    ]
+   },
+   "passed": true,
+   "seenBy": [
+    "ambient count",
+    "second derivation",
+    "declared-versus-derived"
+   ],
+   "ambientNumberBlind": false,
+   "blindSpot": false
+  },
+  {
+   "id": "RC2",
+   "mutation": "one extra witness variable in the leaf template multiply.guard (a var node at index variableCount; its declared counts raised by one)",
+   "prediction": "derived W of multiply changes by +1; the tiling refuses with an overlap in multiply's callers",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292898564102",
+    "rootHeight": 256,
+    "structuralProblems": [
+     "natural: overlap",
+     "value.test: overlap",
+     "power_value: overlap",
+     "precision: overlap"
+    ],
+    "declaredMismatches": [
+     "multiply.variableCount",
+     "multiply.witnessCount",
+     "multiply.witnessBlocks",
+     "natural.witnessBlocks",
+     "value.test.witnessBlocks",
+     "power_value.variableCount",
+     "power_value.witnessCount"
+    ]
+   },
+   "passed": true,
+   "seenBy": [
+    "second derivation",
+    "tiling check",
+    "declared-versus-derived"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  },
+  {
+   "id": "RC3",
+   "mutation": "only the value call's own witnessCount field inside integers raised by one",
+   "prediction": "count unchanged; the field flagged",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292890231905",
+    "rootHeight": 256,
+    "structuralProblems": [],
+    "declaredMismatches": [
+     "integers.calls[value].witnessCount"
+    ]
+   },
+   "passed": true,
+   "seenBy": [
+    "declared-versus-derived"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  },
+  {
+   "id": "RC4",
+   "mutation": "recipe power_value deleted from recipes",
+   "prediction": "REFUSED: a dangling reference",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": "precision calls a recipe that does not exist: power_value",
+    "ambient": null,
+    "ambientViaMultiplicities": null,
+    "rootHeight": null,
+    "structuralProblems": null,
+    "declaredMismatches": null
+   },
+   "passed": true,
+   "seenBy": [
+    "reference check (REFUSED)"
+   ],
+   "ambientNumberBlind": false,
+   "blindSpot": false
+  },
+  {
+   "id": "RC5",
+   "mutation": "a second call to close appended to main, its block at main's old end (variableCount)",
+   "prediction": "count + W(close) = + 292,890,196,199",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "585780428104",
+    "ambientViaMultiplicities": "585780428104",
+    "rootHeight": 256,
+    "structuralProblems": [],
+    "declaredMismatches": [
+     "main.variableCount",
+     "main.witnessCount",
+     "value_union.calls[main].witnessCount",
+     "value_union.variableCount",
+     "value_union.witnessCount",
+     "value.calls[value_union].witnessCount",
+     "value.variableCount",
+     "value.witnessCount",
+     "integers.calls[value].witnessCount",
+     "integers.variableCount",
+     "integers.witnessCount",
+     "(top level).witnessCount"
+    ]
+   },
+   "passed": true,
+   "seenBy": [
+    "ambient count",
+    "second derivation",
+    "declared-versus-derived"
+   ],
+   "ambientNumberBlind": false,
+   "blindSpot": false
+  },
+  {
+   "id": "RC6",
+   "mutation": "the member call deleted from value (a block that is not last)",
+   "prediction": "ambient count UNCHANGED (designed blindness of the count); the tiling refuses with a gap in value",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292890231898",
+    "rootHeight": 256,
+    "structuralProblems": [
+     "value: gap"
+    ],
+    "declaredMismatches": []
+   },
+   "passed": true,
+   "seenBy": [
+    "second derivation",
+    "tiling check"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  },
+  {
+   "id": "RC7",
+   "mutation": "the root of value.test (the first template on the critical height chain) wrapped in mul(const 1, root)",
+   "prediction": "root height 257",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292890231905",
+    "rootHeight": 257,
+    "structuralProblems": [],
+    "declaredMismatches": []
+   },
+   "passed": true,
+   "seenBy": [
+    "root height",
+    "template height"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  },
+  {
+   "id": "RC8",
+   "mutation": "the root of member (off the critical chain) wrapped in mul(const 1, root)",
+   "prediction": "member 19, root unchanged",
+   "outcome": {
+    "pinCheck": "refused (sha256 differs from the pin)",
+    "refusedWith": null,
+    "ambient": "292890231905",
+    "ambientViaMultiplicities": "292890231905",
+    "rootHeight": 256,
+    "structuralProblems": [],
+    "declaredMismatches": []
+   },
+   "passed": true,
+   "seenBy": [
+    "template height"
+   ],
+   "ambientNumberBlind": true,
+   "blindSpot": false
+  }
+ ],
+ "redControlsNote": "Every mutant also fails the pin; seenBy lists what sees it BEYOND the pin. The ambient number (the largest slot) does not move under RC2 (a block one longer overlaps its neighbour), RC3 (a declared field only) or RC6 (a middle block removed leaves a gap): there the number alone is blind, and the reader sees the mutation through the tiling check, the declared-versus-derived comparison and the second derivation (Σ multiplicity × own slots), which moves by +8332197 under RC2 and -7 under RC6. RC7 and RC8 change heights only, by design. No control was seen by nothing."
+}

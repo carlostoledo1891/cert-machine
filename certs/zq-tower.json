@@ -1,0 +1,360 @@
+{
+ "what": "Track A lane 2 on the claim \"Z is Diophantine in Q\" (Glazer et al., announced 2026-11-05): the stated tower bounds on the degree and coefficients of the saved polynomial P_*, decided by exact integer comparison from the fixedConstants of the pinned definition JSON, evaluated by a generic interpreter of their expression language with outward-rounded bounds on log2 and log2 log2. Conditional on four named premises; unconditional form REFUSED.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this record decides it. This record decides the exact arithmetic from the named premises H1, H2, M and L1 to the two stated tower bounds; it does not decide the premises.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "definition": {
+   "path": "construction/ordinary-integer-definition.json",
+   "sha256": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6"
+  },
+  "bounds": {
+   "path": "construction/ordinary-integer-polynomial-size-bounds.json",
+   "sha256": "dfef3ff3da641814edf62f9992cb7a27aa0a770deccc95b084a65751289dbd9e"
+  },
+  "tex": {
+   "path": "diophantine_zq.tex",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  }
+ },
+ "code": {
+  "tools/zq-tower.js": "c29fc083db095334960180fe94e729525c3d24763f97f93715c9596370910248"
+ },
+ "lane1": {
+  "record": "certs/zq-recount.json",
+  "verdict": "CERTIFIED",
+  "rootHeight": 256,
+  "contentSha256": "60be6d13251caf9c04d68dc68baaff9c8904f449905476463c292329c952121f",
+  "note": "sha256 of the record with its date nulled"
+ },
+ "premises": {
+  "H1": "BMOR [bmor] Thm 1.2, (1.10)-(1.11), Cor. 6.17 with A = 1, as applied in the proof of prop:cutoff: at X = 2^(W³), |ϑ(X;W,a) − X/φ(W)| ≤ X/(160·ln X) for every unit class a mod W, including the possible exceptional-zero case. Used 2 times (catalogue_max, catalogue_product).",
+  "H2": "M_0 ≤ N_s^10: the reduction-order and formal-subgroup argument in the proof of prop:cutoff (Silverman VII.2.1, V.1.1). Used 1 time (least_formal_multiple).",
+  "M": "the degree and log-norm majorant B^(8h) at syntax height h (TeX lines 6386-6430; size-bound proof §§1-2). A mathematical induction, read and not decided.",
+  "L1": "root height 256, CERTIFIED by certs/zq-recount.json on the same bytes."
+ },
+ "verdict": "CERTIFIED",
+ "verdictScope": "the exact chain from H1, H2, M, L1 to deg < 2↑↑7 and |c| < 2↑↑8; the unconditional claim REFUSED",
+ "rows": [
+  {
+   "id": "E1",
+   "statement": "P0 is the product of the primes ≤ 324 (the manuscript's P_s)",
+   "source": "TeX sec:size line 6276",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "primes": 66,
+    "P0Bits": "433"
+   }
+  },
+  {
+   "id": "E2",
+   "statement": "W = 4·∏_{p≤324} p",
+   "source": "TeX sec:syntax (the catalogue modulus)",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {}
+  },
+  {
+   "id": "E3",
+   "statement": "10^5 < W < 2^512",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "WBits": "435"
+   }
+  },
+  {
+   "id": "E4",
+   "statement": "2^2000 < F0 = 324! < 2^2250",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "FBits": "2241"
+   }
+  },
+  {
+   "id": "E5",
+   "statement": "log2 3 ∈ [(b−1)/2^20, b/2^20] with b = 1661954 the bit length of 3^(2^20) (no constant typed in)",
+   "source": "arithmetic (bit length)",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "b": "1661954",
+    "lower": "1584961891e-9",
+    "upper": "1584962845e-9"
+   }
+  },
+  {
+   "id": "E6",
+   "statement": "every prime ≤ 324 divides W (so no unit class mod W contains one), φ(W) = 4·∏_{3≤p≤324}(p−1)",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "phiWBits": "432"
+   }
+  },
+  {
+   "id": "E7",
+   "statement": "BMOR's hypothesis holds at q = W, x = 2^(W³): q ≥ 10^5 and 0.03·√q·(ln q)³ < (ln 2)·W³",
+   "source": "TeX prop:cutoff proof; [bmor] Thm 1.2",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {}
+  },
+  {
+   "id": "E8",
+   "statement": "given H1: ϑ(X;W,a) > X/(2W) and more than 22 primes ≤ X in every unit class, so H_max < X = 2^(W³)",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1"
+   ],
+   "numbers": {}
+  },
+  {
+   "id": "E9",
+   "statement": "2^(2^8008) < D < 2^(2^9010)",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {
+    "log2DLowerBits": "8970",
+    "log2DUpperBits": "8970",
+    "relativeWidth": "below 2^-21"
+   }
+  },
+  {
+   "id": "E10",
+   "statement": "G0 < 2^37",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {}
+  },
+  {
+   "id": "E11",
+   "statement": "the size-bound proof §3 exponent comparison, unconditional: 2917 + 16104·W < D (≤ 221·R·E0, as R ≥ D by its definition as a maximum)",
+   "source": "size-bound proof §3",
+   "verdict": "CERTIFIED",
+   "premises": [],
+   "numbers": {}
+  },
+  {
+   "id": "C1",
+   "statement": "log2 N_s < 2^2054",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1"
+   ],
+   "numbers": {
+    "log2NsUpperBits": "1741"
+   }
+  },
+  {
+   "id": "C2",
+   "statement": "c_* = 4·M_0 < 2^(2^2059)",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "log2CstarUpperBits": "1744"
+   }
+  },
+  {
+   "id": "C3",
+   "statement": "R = max(D, H_max, c_*, 10^12) = D",
+   "source": "TeX prop:cutoff",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {}
+  },
+  {
+   "id": "C4",
+   "statement": "the maximum in A_ht = 2·10^13·max(1, C_cm, Q^17) is Q^17",
+   "source": "TeX prop:cutoff proof",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "log2log2Q17LowerBits": "8971",
+    "log2log2CcmUpperBits": "8971"
+   }
+  },
+  {
+   "id": "C5",
+   "statement": "T = (96·10^13)^13·D^(2210·G0²·D³) (the closed form their Lean helper ExplicitCutoffBounds.t bounds)",
+   "source": "TeX prop:cutoff",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {}
+  },
+  {
+   "id": "C6",
+   "statement": "log2 T < D^8 < 2^(2^9013), so T+1 ≤ U = 2^(2^(2^9013))",
+   "source": "TeX prop:cutoff proof; lines 6431-6432",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "log2log2TUpperBits": "8971"
+   }
+  },
+  {
+   "id": "C7",
+   "statement": "B = max(2^20, T+1, 1+|c| over every fixedConstant, constant node, psi index and fixed_integer) = T+1",
+   "source": "bounds JSON \"B\", \"simplified_B\"; size-bound proof §3",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "belowTByStructure": [
+     "Hmax",
+     "M",
+     "cstar",
+     "F",
+     "D",
+     "G0",
+     "E0",
+     "R",
+     "Q",
+     "Bcm",
+     "Ccm",
+     "Aheight"
+    ],
+    "belowTByBounds": [
+     "P0",
+     "W",
+     "Hproduct",
+     "Ns",
+     "ell",
+     "integer_constant_0",
+     "integer_constant_1",
+     "integer_constant_2",
+     "integer_constant_3",
+     "integer_constant_4"
+    ],
+    "constantNodes": 173,
+    "maxConstantNodeBits": "69",
+    "psiIndices": 48,
+    "fixedIntegers": 1,
+    "log2log2TLowerBits": "8971"
+   }
+  },
+  {
+   "id": "C8",
+   "statement": "(T+1)^2048 ≤ U^2048 = 2^(2^(2^9013+11)) < 2^(2^(2^9014))",
+   "source": "TeX lines 6433-6435",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "log2log2DegreeBoundUpperBits": "8971"
+   }
+  },
+  {
+   "id": "C9",
+   "statement": "9014 < 65536 = 2↑↑4, so the degree bound (T+1)^2048 < 2↑↑7 = 2^(2^(2^65536))",
+   "source": "TeX lines 6437-6438",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {
+    "log2log2log2DegreeBoundAtMost": "8971",
+    "log2log2log2TowerSeven": "65536"
+   }
+  },
+  {
+   "id": "C10",
+   "statement": "the coefficient bound 2^((T+1)^2048) < 2^(2↑↑7) = 2↑↑8",
+   "source": "TeX lines 6437-6438",
+   "verdict": "CERTIFIED",
+   "premises": [
+    "H1",
+    "H2"
+   ],
+   "numbers": {}
+  }
+ ],
+ "conclusions": [
+  {
+   "claim": "deg P_* < 2↑↑7",
+   "verdict": "CERTIFIED",
+   "conditionalOn": [
+    "H1",
+    "H2",
+    "M",
+    "L1"
+   ],
+   "reading": "deg P_* ≤ B^(8·256) = (T+1)^2048 by M and L1; B = T+1 (C7); (T+1)^2048 < 2↑↑7 (C9)."
+  },
+  {
+   "claim": "|[X^α]P_*| < 2↑↑8 for every α",
+   "verdict": "CERTIFIED",
+   "conditionalOn": [
+    "H1",
+    "H2",
+    "M",
+    "L1"
+   ],
+   "reading": "|c| ≤ ‖P_*‖₁ ≤ 2^(B^2048) = 2^((T+1)^2048) by M and L1; < 2↑↑8 (C10)."
+  },
+  {
+   "claim": "the same two bounds with no premise",
+   "verdict": "REFUSED",
+   "conditionalOn": [],
+   "reading": "Without H1 and H2 the artifact gives no upper bound on H_max or M_0: Hmax, Hproduct, Ns, M, cstar, ell, R, Q, Aheight, T are unbounded above in our evaluation. H1 and H2 are applications of published theorems (BMOR; Silverman) and M is a mathematical lemma; none is decided here."
+  }
+ ],
+ "redControls": [
+  {
+   "id": "TC1",
+   "mutation": "no premise (H1 and H2 both absent)",
+   "prediction": "T unbounded above: the tower undetermined",
+   "outcome": "null",
+   "passed": true
+  },
+  {
+   "id": "TC2",
+   "mutation": "a planted copy with F0 = 2000! in place of 324!",
+   "prediction": "the planted degree bound (T+1)^2048 is ≥ 2↑↑7 by a LOWER bound (C9 would refute)",
+   "outcome": "log2 log2 log2 of the planted degree bound ≥ 76222 > 65536",
+   "passed": true
+  },
+  {
+   "id": "TC3",
+   "mutation": "H2 absent, H1 present",
+   "prediction": "c_* and so R, T unbounded: the tower undetermined",
+   "outcome": "null",
+   "passed": true
+  }
+ ],
+ "redControlsNote": "Added after the pre-registration (which fixed red controls for lane 1 only), so they are a check of this tool, not a pre-registered test.",
+ "margin": "Under the premises, log2 log2 log2 of the degree bound is at most 8971 (the claim needs < 65536; the manuscript states < 2^9014 at the same level).",
+ "evaluationDigest": "f154fb801946680d52a5049b11a20c311c6c1d5a59e3f113647d84e0a2ad4cd0"
+}

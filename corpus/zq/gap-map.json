@@ -1,0 +1,173 @@
+{
+ "what": "Track B gap map for the claim \"Z is Diophantine in Q\" (Glazer et al., announced 2026-11-05): the open obligation groups the claimant's lean/README.md names, each with what it asserts (manuscript section and label), the published theorems it rests on (from the claimant's own citation inventory), whether Mathlib v4.35.0 plausibly has the theory, and a tractability class. READING ONLY: nothing here was proved, compiled or decided.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target lean/Frozen/BoundedIntegerPolynomial.lean is unproved (its proof is `sorry`) and nothing in this map decides it. It is a plan for filling the Lean gap, written from the claimant's texts.",
+ "generated": "2026-11-06",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+  "diophantine_zq.tex": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b",
+  "lean/README.md": "9f0f53559e29a4fb2605183824172df2120da104aec402f0d53dcdad80d0b497",
+  "lean/Frozen/BoundedIntegerPolynomial.lean": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+  "lean/SOURCE_MANIFEST.json": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+  "docs/theorem-application-audit/applications.json": "1d53028414eefe1eeed85db566aae47b2b00d4206f3eaffeec8625f0e3c089bb",
+  "docs/theorem-application-audit/citations.json": "3e6c88fe1f78de17ee8496fe33e41736e9b4ddcf8983ece351e8323775b6947f",
+  "docs/theorem-application-audit/sources.json": "6e8732d40657374f58e148cfdbf830b72426eafbc92fd3bd969e4e8a3f9802cf"
+ },
+ "method": "Each group is mapped to TeX line ranges by the manuscript's own section structure and its proof of thm:target (lines 89-139: the premises G, M, H, PC, C, B and lem:assembly). 'citationKeys' are the \\cite keys of citations.json whose line falls in those ranges; 'applications' are the records of applications.json with a manuscript anchor starting in those ranges (an application anchored in two groups is listed in both). 'mathlib' is a reading, three-valued: present (we know the theory is in Mathlib; to be confirmed by a grep of the pinned Mathlib rev 56a005855ea17e0b0958f73ec801ae140b0a1679 before use), absent (far beyond any Mathlib we know), unknown (we do not know; not guessed). 'acceptedHelpers' are modules of the claimant's 48-module accepted snapshot (integration 31) that touch the group, read from their docstrings; none closes a group (lean/README.md).",
+ "frozenTarget": {
+  "file": "lean/Frozen/BoundedIntegerPolynomial.lean",
+  "sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+  "imports": ["Mathlib.Algebra.MvPolynomial.Degrees", "Mathlib.Algebra.Field.Rat", "Mathlib.Data.Fin.Tuple.Basic", "Mathlib.Data.Nat.Hyperoperation"],
+  "statement": "theorem exists_bounded_integer_polynomial_defining_integers :\n  ∃ P : MvPolynomial (Fin 292890231905) Int,\n    P.totalDegree < hyperoperation 4 2 7 ∧\n    (∀ m : Fin 292890231905 →₀ Nat,\n      (P.coeff m).natAbs < hyperoperation 4 2 8) ∧\n    ∀ q : Rat,\n      (∃ w : Fin 292890231904 → Rat,\n        MvPolynomial.eval₂ (Int.castRingHom Rat) (Fin.cons q w) P = 0) ↔\n      ∃ z : Int, (z : Rat) = q := by\n  sorry",
+  "readings": [
+   "The target is EXISTENTIAL in P: it does not name P_* or the JSON. Any polynomial meeting the bounds in that ambient ring discharges it; the 292,890,231,905 ambient count is a ceiling (a construction with fewer variables can be padded), consistent with the manuscript's \"does not assert that every variable occurs essentially\". So the Lean target is weaker than thm:target's \"the same polynomial\" reading about P_*, and a Track B proof is free to use P_* or anything else.",
+   "hyperoperation 4 2 7 is 2↑↑7 with 2↑↑1 = 2 (the manuscript's convention) under Mathlib's definition (hyperoperation (n+3) m 0 = 1; hyperoperation (n+1) m (k+1) = hyperoperation n m (hyperoperation (n+1) m k); hyperoperation 3 m k = m^k). The claimant's accepted helper ZInQ.NumericalTowerBounds proves tower_zero, tower_succ and tower_four : hyperoperation 4 2 4 = 65536 from Mathlib's lemmas. To confirm in lane 4 (kernel replay).",
+   "`Fin.cons q w : Fin (292890231904 + 1) → Rat` is used at type Fin 292890231905 → Rat; this needs the literal 292890231904 + 1 to reduce to 292890231905 definitionally. Expected to elaborate (it is in their quarantined file, excluded from their build and axiom audit by lean/README.md, and lean/VALIDATION.json records 'quarantined_target_compiled: false'). To confirm in lane 4.",
+   "Lane 1 (certs/zq-recount.json) certifies that P_* lives in exactly this ambient ring (292,890,231,905 slots, every slot syntactically reached). Lane 2 (certs/zq-tower.json) certifies the two tower inequalities from H1, H2, the majorant lemma and the height 256."
+  ]
+ },
+ "assembly": {
+  "label": "lem:assembly",
+  "lines": "TeX 110-139",
+  "statement": "Assume G, M, H, PC, C, B. Then P_* satisfies Theorem thm:target.",
+  "proofOfTarget": "G by sec:model (prop:generator); H by thm:height for the two constant sets; RC by sec:rc-sec:limits with app:even-source-app:endpoints; PC from RC by the descent of sec:pole; M from G, H, PC by sec:mult (with the finite guard); C by sec:compiler; B by sec:syntax, sec:size and app:literal; then lem:assembly via sec:bridge."
+ },
+ "groups": [
+  {
+   "id": "whole-model",
+   "premise": "G",
+   "sections": ["sec:model (TeX 254-375)", "prop:generator (268)"],
+   "asserts": "On E: y^2 = x^3 − d^2 x over K0 = Q(√2), d = 75 − 53√2, the point P0 = ((1641 − 1160√2)/8, (−123720 + 87483√2)/32) has infinite order and 2E(K0) = Z·P0; canonical point codes form exactly that cyclic group; the membership polynomial types arbitrary rational inputs; raw addition describes the group law on canonical codes.",
+   "applications": ["A055", "A058", "A059", "A060"],
+   "citationKeys": [],
+   "works": ["Silverman, The arithmetic of elliptic curves, 2nd ed. (VII Prop. 3.1 torsion injection, VIII Thm 6.7 Mordell–Weil, VIII Thm 9.1-9.3 canonical height, X Ex. 4.8 two-isogeny descent)", "Milne, Algebraic Number Theory v3.08 (class number one of Z[√2], units)", "Matiyasevich 1971 (four-square existential encoding)"],
+   "mathlib": {"state": "partial", "present": ["Weierstrass curves and the group law on affine points (Mathlib.AlgebraicGeometry.EllipticCurve: WeierstrassCurve.Affine.Point with its AddCommGroup)", "division polynomials ψ, φ, ω (WeierstrassCurve.ψ etc.)", "Lagrange's four squares (Nat.sum_four_squares)"], "unknown": ["Mordell–Weil over a number field", "two-isogeny descent and the descent sequence", "injectivity of prime-to-p torsion under good reduction (needs reduction of elliptic curves over a local field)", "canonical heights and the small-height enumeration", "class number one of Z[√2] as a Mathlib theorem"]},
+   "acceptedHelpers": ["ModelCoordinateIdentities", "ModelDuplicationBounds", "RationalPositiveGuard"],
+   "tractability": {
+    "class": "mixed",
+    "formalizableNow": "the code ↔ point bijection, the membership and raw-addition polynomials against Mathlib's group law (finite polynomial identities over a field containing √2), the duplication forms, the four-square positivity guard, infinite order of P0 by a finite reduction computation once reduction is available",
+    "namedHypothesis": "2E(K0) = Z·P0 (rank one, torsion = full 2-torsion, P0 generates 2E): it needs Mordell–Weil-type descent and canonical heights. It is STATABLE in Mathlib today (points of a Weierstrass curve over a concrete field), so it can enter as an explicit hypothesis without new definitions."
+   }
+  },
+  {
+   "id": "height",
+   "premise": "H",
+   "sections": ["sec:height (TeX 377-972)", "thm:height (404)", "De Rham comparison appendix (10936-11007)"],
+   "asserts": "The six-contact estimate: for the stated S, R and every u ∈ Q \\ C, h(u) ≤ H_6(S;R)·M_S(u)^24, with the constants used by the precision computation and, separately, by multiplication.",
+   "applications": ["A001", "A002", "A003", "A004", "A005", "A006", "A007", "A008", "A009", "A010", "A011", "A012", "A013", "A014", "A015", "A016", "A017", "A018", "A061", "A062", "A063", "A064", "A065", "A066", "A071", "A078", "A079"],
+   "citationKeys": ["babagranath", "berger2002", "brinon-conrad", "buzzard", "cmheight", "conrad-local-characters", "faltings1983", "faltings1988", "fowler", "gr2014", "javanpeykar", "li-newforms", "linyang", "lny", "milne", "milne-av", "pan2022", "pazuki", "scholze-erratum", "scholze2013", "serrelocal", "shimura-factors", "silverbergzarhin", "silverman"],
+   "works": ["Faltings 1983 (Endlichkeitssätze) and 1988", "Scholze 2013 (p-adic Hodge theory for rigid-analytic varieties) with erratum", "Pan 2022 (Fontaine–Mazur, residually reducible case) for the modularity of r5", "Baba–Granath; Lin–Yang (quaternionic polarizations, Siegel threefold)", "Barquero-Sanchez et al. (Faltings heights of CM elliptic curves)", "Brinon–Conrad, Berger 2002 (p-adic Hodge theory)", "Silverberg–Zarhin; Javanpeykar; Pazuki"],
+   "mathlib": {"state": "absent", "basis": "Faltings heights, abelian varieties with quaternionic multiplication and their moduli, p-adic Hodge theory (de Rham ⇒ potentially semistable), modularity lifting: none is in Mathlib in any form we know."},
+   "acceptedHelpers": ["HeightConstantAlgorithm", "HeightConstantComparison"],
+   "tractability": {
+    "class": "needs absent theory",
+    "formalizableNow": "the literal constants H_6(S;R) and their comparison (their helpers do this), and every finite inequality in the proof once the inputs are stated",
+    "namedHypothesis": "thm:height itself. STATABLE in Mathlib today: h(a/b) = log max(|a|, b), M_S an explicit arithmetic function, the exceptional set C finite — an elementary statement about rationals, so it can enter as an explicit hypothesis."
+   }
+  },
+  {
+   "id": "restricted-converse",
+   "premise": "RC (consumed only by PC)",
+   "sections": ["sec:rc (TeX 1760-2716)", "Actual classes, local conditions and central comparison (2718-4380)", "sec:limits (4382-5743)", "app:even-source, app:odd-source, app:endpoints (6825-10935)", "hyp:RC (1005)"],
+   "asserts": "For every positive squarefree ℓ ≡ 11 (mod 12), with E_ℓ: y^2 = x(x − ℓ)(x + 3ℓ): corank_{Z_2} Sel_{2^∞}(E_ℓ/Q) = 1 ⇒ ord_{s=1} L(E_ℓ, s) = 1 (a 2-converse theorem for this non-CM family).",
+   "applications": ["A020", "A022", "A023", "A024", "A025", "A026", "A027", "A028", "A029", "A030", "A031", "A032", "A033", "A034", "A035", "A036", "A037", "A038", "A039", "A040", "A041", "A042", "A043", "A044", "A045", "A049", "A050", "A051", "A052", "A053", "A054", "A057", "A065", "A066", "A067", "A068", "A069", "A070", "A071", "A073", "A074", "A075", "A076", "A080", "A081", "A082"],
+   "citationKeys": ["bcdt", "bfh", "carayol", "casselman", "ccl", "cornutjetchev", "cst", "dd", "desjardins", "edixhoven", "elkik", "hl", "howard2012", "jetchevkane", "kato", "lang1956", "milne", "milnemf", "nekovar", "ramsey", "serre", "silverman", "stackscohom", "voight-quaternion", "waldspurger", "waldspurgerICM", "weil"],
+   "works": ["Kato 2004 (Euler systems, Thm 13.4(2), Cor 14.3)", "Dokchitser–Dokchitser (Selmer parity)", "Nekovář, Selmer complexes", "Waldspurger (half-integral weight Fourier coefficients)", "Bump–Friedberg–Hoffstein; Hoffstein–Luo (nonvanishing of twists)", "Gross–Zagier and Kolyvagin (forward rank one)", "Breuil–Conrad–Diamond–Taylor (modularity)", "Cornut–Jetchev; Cornut–Shu–Tian; Howard; Jetchev–Kane; Carayol; Elkik", "Milne, Arithmetic Duality Theorems / CFT", "Stacks Project (cohomology, limits)"],
+   "mathlib": {"state": "absent", "basis": "Not even STATABLE without new definitions: Mathlib has Dirichlet L-functions but no L-function of an elliptic curve over Q and no Selmer groups or their Z_2-corank. Euler systems, Gross–Zagier, Waldspurger, Selmer complexes and modularity of elliptic curves are far beyond Mathlib."},
+   "acceptedHelpers": ["CyclicSignatures", "RankTwoMatrix", "SmoothingArithmetic", "PolynomialCertificates", "PolynomialCertificatesCyclotomic", "BooleanCube", "CoefficientAllocation", "HammingDigits"],
+   "tractability": {
+    "class": "needs absent theory",
+    "formalizableNow": "the finite combinatorial lemmas (coefficient symbols and finite address lemmas, the Gauss polynomial certificates, group-algebra and Boolean-cube identities, the smoothing integer) — several are already among the accepted helpers",
+    "namedHypothesis": "DO NOT state RC as the hypothesis: its statement needs absent definitions. RC is used ONLY to prove PC (its one application site is TeX line 1111, inside sec:pole; lines 128 and 1803 say the same), and PC is elementary to state. Track B should take PC (below) as the named hypothesis and leave RC to the manuscript."
+   }
+  },
+  {
+   "id": "pole-completeness",
+   "premise": "PC",
+   "sections": ["sec:pole (TeX 973-1122)", "lem:pole (988)", "hyp:PC (1001)", "lem:corank (1072)", "lem:forward-rank (1086)"],
+   "asserts": "For every rational B with square reduced denominator, 0 < B < 1/2 and v_p(B) ≥ 4 for every p ∈ S0 imply Φ(B), where Φ is the explicit pole polynomial's existential (total degree 75); the one-sided obstruction lem:pole is the converse direction.",
+   "applications": ["A019", "A020", "A057", "A065", "A066", "A082"],
+   "citationKeys": ["bcdt", "kato", "kolyvagin", "poonenstoll"],
+   "works": ["Poonen–Stoll (Cassels–Tate pairing, alternating quotient)", "Kolyvagin; Gross–Zagier (forward rank one)", "Kato 2004 (forward analytic rank zero)", "BCDT (modularity)", "Silverman X.4.2, VIII.6.7", "Milne CFT V.2.2 (Dirichlet)"],
+   "mathlib": {"state": "absent", "basis": "The descent uses the restricted converse, Cassels–Tate and the Gross–Zagier–Kolyvagin theorem; none in Mathlib. Dirichlet's theorem on primes in progressions is, to our knowledge, present (Mathlib.NumberTheory.LSeries.PrimesInAP); to confirm at the pinned rev."},
+   "acceptedHelpers": ["PolePolynomial", "PoleValuation"],
+   "tractability": {
+    "class": "mixed",
+    "formalizableNow": "lem:pole (the valuation obstruction; the accepted PoleValuation and PolePolynomial helpers cover the literal polynomial and the obstruction)",
+    "namedHypothesis": "hyp:PC. STATABLE in Mathlib today (Φ is an explicit integer polynomial existential over Q, v_p is padicValRat), so it is the right hypothesis to carry in place of RC."
+   }
+  },
+  {
+   "id": "multiplication",
+   "premise": "M",
+   "sections": ["sec:mult (TeX 1123-1758)", "prop:box (1225)", "prop:fixed-prime-pattern (1267)"],
+   "asserts": "The guarded multiplication template (35,134 witnesses) has rational witnesses exactly for code triples with indices (a, b, ab), on all rational input codes, including the finite false-triple guard over the box [−T, T]^3.",
+   "applications": ["A021", "A057", "A071", "A072"],
+   "citationKeys": ["greentao", "gtz", "moebius", "silverman", "williams-mertens"],
+   "works": ["Green–Tao, Linear equations in primes (Ann. Math. 2010)", "Green–Tao, The Möbius function is strongly orthogonal to nilsequences", "Green–Tao–Ziegler, inverse theorem for the Gowers U^{s+1} norm (with erratum)", "Williams 1974 (Mertens' theorem in progressions)", "Silverman IV (formal groups, logarithm), III.7-8 and V.1.1 (Hasse bound, CM reduction)"],
+   "mathlib": {"state": "absent", "basis": "The completeness of the 22-prime pattern rests on the Green–Tao–Ziegler asymptotic for linear equations in primes (A021): absent. Formal groups of elliptic curves and the formal logarithm: unknown (we know of no Mathlib development). Hasse's bound for elliptic curves over finite fields: unknown."},
+   "acceptedHelpers": ["RationalSeparation"],
+   "tractability": {
+    "class": "needs absent theory",
+    "formalizableNow": "prop:box (the finite-box deduction from the local identities and the height estimate) and the guard's exact zero set (a finite product of squared-distance factors) given G",
+    "namedHypothesis": "M itself, or more finely the 22-prime pattern prop:fixed-prime-pattern (statable: an existence statement about integers) plus the local formal-group identities; both statable in Mathlib terms once the template semantics is formalized."
+   }
+  },
+  {
+   "id": "compiler",
+   "premise": "C",
+   "sections": ["sec:compiler (TeX 5745-6093)", "The literal alpha and power formulas (5855)", "Interpreter, lowering and five-input specialization (5977)", "Translation to point codes (6052)"],
+   "asserts": "The saved five-input natural polynomial (1,305,811 natural variables, sha256 f3e163f5…) has a natural solution exactly when the fixed precision machine accepts its input (the decision predicate with the strict tests |r(a,j) − n| < ε_l and 4ε_l < 4^(−A|κF(n)|^24)), and its rational point-code translation has the same semantics, including the power template.",
+   "applications": ["A077"],
+   "citationKeys": ["afp"],
+   "works": ["Archive of Formal Proofs, DPRM_Theorem (Alpha_Sequence.alpha_dioph, Exponential_Relation.exp_repr), mirror rev b4f3b892"],
+   "mathlib": {"state": "partial", "present": ["Diophantine sets and exponentiation through Pell equations (Mathlib.NumberTheory.Dioph, Mathlib.NumberTheory.PellMatiyasevic) — a different route to the same power interface than the AFP alpha sequence"], "unknown": ["register-machine-to-polynomial compilation (none we know in Mathlib)"]},
+   "acceptedHelpers": ["AlphaAddition", "AlphaCRTWitness", "AlphaCompanionBound", "AlphaCompanionPeriod", "AlphaCongruence", "AlphaCore", "AlphaDivisibility", "AlphaFoldedResidue", "AlphaIndexCompanion", "AlphaLargeOddPair", "AlphaParameterCongruence", "AlphaParity", "AlphaPeriodReflection", "AlphaPowerBounds", "AlphaPowerModulus", "AlphaSignedResidue", "AlphaSquareBridgeDraft", "AlphaSquareDivisibilityDraft", "AlphaUnordered", "AlphaWitnessTransport", "PowerBoundDraft", "BinomialDigit", "BitwiseMacros", "PackedRegister", "CircuitEncoding", "CircuitPolynomial", "CantorDecoder", "EquationCompression", "PrecisionAlgorithms", "PrecisionArithmetic"],
+   "tractability": {
+    "class": "finite/combinatorial — formalizable now",
+    "formalizableNow": "everything in principle: the alpha/power characterization (20 accepted Alpha* modules; Mathlib's Pell route is an alternative), binomial digits, bitwise macros, packed histories (integer-compiler-spec.txt §§3-6), the precision program's exact quadratic-field arithmetic, and the translation to point codes. The large engineering item is binding a 1,305,811-variable SAVED polynomial (an 18 MB JSON) to its semantics inside Lean: by a verified generator that reproduces it, or by a reflected checker; the kernel cost of either at this size is unknown.",
+    "namedHypothesis": "none needed mathematically; if the binding of the saved bytes is postponed, 'the saved natural polynomial equals the compiler's output on the fixed program' can enter as a named, checkable hypothesis (lane 3 of the pre-registration re-derives its finite suites clean-room)."
+   }
+  },
+  {
+   "id": "construction-bounds",
+   "premise": "B",
+   "sections": ["sec:syntax (TeX 141-253)", "sec:size (6272-6442)", "prop:cutoff (6285)", "Quantitative syntax bounds (6362)", "app:literal (6666-6782)"],
+   "asserts": "The templates, finite constructors and private witness substitutions specify the saved expression P_* (one polynomial in Z[t, w], 292,890,231,904 witnesses); the quantitative syntax calculation (root height 256, majorant B^(8h)) applies to it; R = D and T < 2^(2^(2^9013)), so deg P_* < 2↑↑7 and every coefficient < 2↑↑8.",
+   "applications": ["A046", "A055", "A056", "A057", "A071"],
+   "citationKeys": ["bmor", "silverman", "sutherland"],
+   "works": ["Bennett–Martin–O'Bryant–Rechnitzer, Explicit bounds for primes in arithmetic progressions (Thm 1.2, Cor. 6.17, A = 1)", "Silverman VII.2.1, V.1.1 (reduction orders, Hasse), IV (formal groups)", "Sutherland, MIT 18.783 Lecture 5 (division polynomials)", "Milne CFT V.2.2 (Dirichlet)"],
+   "mathlib": {"state": "partial", "present": ["MvPolynomial with totalDegree and coeff (the target's own imports)", "Dirichlet's theorem on primes in progressions (to confirm at the pinned rev)", "division polynomials of Weierstrass curves"], "absent": ["BMOR's explicit error bounds for ϑ(x; q, a) (explicit analytic number theory with possible exceptional zeros)"], "unknown": ["formal groups and reduction orders of elliptic curves over local fields"]},
+   "acceptedHelpers": ["NumericalTowerBounds", "ExplicitCutoffBounds"],
+   "tractability": {
+    "class": "mixed",
+    "formalizableNow": "the DAG → MvPolynomial interpretation of the saved expression, the witness-block disjointness and the ambient count (decided outside Lean in lane 1: certs/zq-recount.json), the height and the B^(8h) majorant induction, B = T+1 and the tower arithmetic (decided outside Lean in lane 2: certs/zq-tower.json; their NumericalTowerBounds and ExplicitCutoffBounds prove the closed-form part, t_lt_triplePower : t < triplePower 9013, but do NOT identify the JSON's T with that closed form — that identification is exactly lane 2's rows C3-C5, which need H1 and H2)",
+    "namedHypothesis": "H1 (BMOR's error bound at X = 2^(W^3)) and H2 (M_0 ≤ N_s^10). Both are elementary to STATE (H_max < 2^(W^3); least_formal_multiple(N_s) ≤ N_s^10), so they enter as hypotheses. Note: the existential Lean target lets a proof AVOID H1/H2 by bounding T crudely if any unconditional upper bound on H_max and M_0 were available; none is in the artifact.",
+    "kernelCost": "the lane-1 checks touch about 830,000 intervals in the precision recipe alone; doing them by kernel computation (decide or a reflected checker over the 23 MB JSON imported as data) is untested and its cost unknown; native_decide would widen the trusted base."
+   }
+  },
+  {
+   "id": "final-composition",
+   "premise": "lem:assembly via sec:bridge",
+   "sections": ["sec:main (TeX 52-140)", "lem:assembly (110)", "sec:bridge (6094-6270)", "lem:test (6151)", "lem:test-complete (6202)"],
+   "asserts": "From G, C, H and PC: Val(ι(n), t) is exactly the graph t = n (the Close relation forces |t − n| < e^(−B(n,κ)), the six local tests force h(t) ≤ B(n,κ) by lem:test and the height estimate, the denominator gap then forces t = n; completeness by lem:test-complete and an approximation along positive multiples of P0); existential quantification over the index code gives ordinary Z in Q; S01 and S16 multiply the exception and main-branch polynomials and conjoin membership.",
+   "applications": ["A071", "A076"],
+   "citationKeys": ["openaihtp", "silverman"],
+   "works": ["Silverman IV.2.3(a) (the derivative of [n] at the identity)", "Stacks Tags 086J, 08ZY and Milne CFT (compactness, finite intersection)", "OpenAI, Hilbert's tenth problem over the rational numbers (2026-10-06), provenance only"],
+   "mathlib": {"state": "partial", "present": ["rationals, padicValRat, real analysis for the approximation step"], "unknown": ["the real points E(R) of a Weierstrass curve as a compact topological group, needed for 'positive multiples of P0 approach the identity in E(R) × E(R)'"]},
+   "acceptedHelpers": ["RationalSeparation", "RationalPositiveGuard", "EquationCompression"],
+   "tractability": {
+    "class": "finite/combinatorial — formalizable now (given the named premises)",
+    "formalizableNow": "lem:assembly as a Lean theorem whose hypotheses are G, M, H, PC, C (all statable in Mathlib terms, see above) and whose conclusion is the frozen target, with B, the bridge and the final composition proved: the sum-of-squares/product zero-set lemmas, the denominator gap (RationalSeparation is the claimant's start), the six local tests' algebra",
+    "namedHypothesis": "none beyond G, M, H, PC, C; the density step may need a small piece of topology on E(R) (unknown in Mathlib) or can be replaced by an explicit choice of multiples."
+   }
+  }
+ ],
+ "headline": {
+  "formalizableNow": ["compiler (C): finite and combinatorial; 30 of the 48 accepted helper modules already serve it; the large item is binding the saved 1,305,811-variable natural polynomial", "construction/bounds (B) minus H1 and H2: the expression semantics, the counts, the height and majorant, the towers (lanes 1 and 2 decided the finite part outside Lean)", "final composition (lem:assembly with sec:bridge), with G, M, H, PC, C as hypotheses"],
+  "needsAbsentTheory": ["height (H): Faltings heights, QM abelian varieties, p-adic Hodge theory, modularity lifting", "restricted converse (RC): L-functions of elliptic curves, Selmer coranks, Kato, Gross–Zagier, Waldspurger — not even statable in Mathlib without new definitions", "pole completeness (PC): through RC and Cassels–Tate (its obstruction half is done)", "multiplication (M): Green–Tao–Ziegler for the 22-prime pattern, formal groups", "whole model (G): Mordell–Weil descent and canonical heights (the finite certificate parts are formalizable now)", "two cutoff inputs inside B: H1 (BMOR explicit primes in progressions) and H2 (reduction orders, formal groups)"],
+  "trackBShape": "A theorem `exists_bounded_integer_polynomial_defining_integers_of (hG : G) (hM : M) (hH : H) (hPC : PC) (hC : C) (hH1 : H1) (hH2 : H2)` concluding the frozen statement verbatim. Every premise is statable in Mathlib v4.35 vocabulary (points of a Weierstrass curve over Q(√2), the explicit height inequality, the explicit pole existential, the template's zero set, the natural polynomial's semantics, two integer inequalities). RC is deliberately NOT a premise: it needs absent definitions and is consumed only by PC. The theorem would then be CERTIFIED here as a conditional, its premises named — the same posture as lane 2.",
+  "notAddressedHere": "the truth of any premise; whether the 82 scoped application decisions of their audit are right; the three corollaries (Mazur, universal polynomial, HTP(Q) ≡ 0')."
+ }
+}
