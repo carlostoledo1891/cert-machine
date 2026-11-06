@@ -1,0 +1,22 @@
+{
+ "what": "Whether the parts of the 11/5 release decided here are unchanged in Glazer et al.'s repository after Version 3 (2026-11-06): every file under construction/ and lean/, compared by git blob id at the pin and at the head.",
+ "checked": "2026-11-06",
+ "repository": "github.com/elliotglazer/diophantine-z-q",
+ "pin": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+ "head": "96dac827de612b071b4e4e86fabb40d50d8090de",
+ "method": "git ls-tree -r at the pin in the read-only clone; GitHub API git/trees/<head>?recursive=1 at the head; blob ids compared path by path",
+ "files": 88,
+ "unchanged": 87,
+ "changed": [
+  "construction/README.md"
+ ],
+ "removed": [],
+ "added": [],
+ "frozenTarget": {
+  "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+  "blobPin": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "blobHead": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "sha256Head": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+ },
+ "reading": "Version 3 is a new construction (an explicit quartic, its own package and manuscript); it is not checked here. The original large construction and the whole Lean formalization are the same bytes, so lanes 1, 2 and 4 and Track B apply to the repository as it stands at the head."
+}

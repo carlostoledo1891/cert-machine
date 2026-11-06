@@ -1151,6 +1151,33 @@
    "note": "outreach/email-paturi-reply-2026-11-06.md (untracked); companion to email-paturi-eth-repository-v02-2026-11-05. Whether the optional reminder line on the open definition question was added is not recorded here."
   },
   {
+   "id": "gh-glazer-zq-3-2026-11-06",
+   "what": "The reproducibility report on Glazer et al.'s \"Z is Diophantine in Q\" (11/5 release and the current Lean target): the variable count and height agree; the tower bounds hold under four named premises; H2 not decidable by computation, its nine finite ingredients hold; the four finite suites (statements on 671,659 cases of mine, his case sets replayable for one); the 48 Lean modules check; claimbox's conditional Lean proof of the frozen target from eight named hypotheses, flagged as a statement change, G proved; what it does not establish; the offer of a PR only with his yes; a version note (Version 3 appeared the same day; construction/ and lean/ unchanged). First person, Claude agents disclosed. Filed with gh.",
+   "where": "github.com/elliotglazer/diophantine-z-q, a new issue (a computation and formalization report, per its CONTRIBUTING.md)",
+   "url": "https://github.com/elliotglazer/diophantine-z-q/issues/3",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-glazer-zq-reproducibility-2026-11-06.md (untracked, v4); records at cert-machine 856b1104; the page /z-in-q/."
+  },
+  {
+   "id": "gh-con-leche-17-2026-11-06",
+   "what": "Both master branches (con-leche dc8ca857, con-ron 97eead2d) overflow their stacks on the 184 MB Track B export that leanchecker --fresh accepts, also on a 128 GB machine and with RUST_MIN_STACK=1 GiB; the bundled v4.35.0 builds stop on fuel at CondZQ.t_body; the commands that rebuild the export (not attached: it holds declarations of an unlicensed repository). First person, Claude disclosed. Filed with gh.",
+   "where": "github.com/leanprover/con-leche, a new issue",
+   "url": "https://github.com/leanprover/con-leche/issues/17",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-con-leche-zq-stack-2026-11-06.md (untracked); certs/zq-trackb.json rows B8."
+  },
+  {
+   "id": "gh-nanoda-82-2026-11-06",
+   "what": "nanoda v0.4.31 panics with \"memory overflow\" in num-bigint's pow on the public module ZInQ.ExplicitCutoffBounds (Glazer's repository at 97cec7fd), which Lean's kernel accepts; the reproduction commands; the failed minimal case explained (Lean's kernel refuses Nat.pow beyond 32-bit exponents). First person, Claude disclosed. Filed with gh.",
+   "where": "github.com/ammkrn/nanoda_lib, a new issue (separate from #80)",
+   "url": "https://github.com/ammkrn/nanoda_lib/issues/82",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-nanoda-pow-overflow-2026-11-06.md (untracked); certs/zq-lean-replay.json R18, certs/zq-trackb.json B8n/X4."
+  },
+  {
    "id": "x-reply-rrwilliams-eth-chain-2026-11-05",
    "what": "A reply under Ryan Williams's 'announce your new results related to not-ETH here' post: both proofs now reach the standard multitape machine inside one Lean each (Anthropic's eth/ 762/809 unchanged, OpenAI's with Hawkley's two bridges 3,190/3,210), every step checked, the caveats written out; with Claude agents; the report link. First person, AI disclosed. Sent by Carlos by hand from the X app on 2026-11-05 ~18:12 UTC, from the drafts of this session.",
    "where": "X, a reply under Ryan Williams's 'announce your results' post (rrwilliams, 2116987964123168822)",

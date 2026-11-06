@@ -3,8 +3,8 @@
    told once for a reader who arrives from a post: what was claimed, what this machine decided about it (Track A, four
    lanes and the H2 attempt), what it does not settle, and Track B (the Lean gap) as decided here. The shape of
    reports/eth-chain.html: the story in one minute, the gaps FIRST among the substantive sections, then each lane with
-   its record, then how to check it. Unlisted (the operator, 2026-11-06 ~03:30 UTC: "Build it now, unlisted"): noindex,
-   in no index, hub, sitemap or nav until the outreach goes out; live at its URL.
+   its record, then how to check it. Built unlisted (2026-11-06 ~03:30 UTC), listed the same day after the report to the
+   claimant was filed.
 
    EVERY NUMBER AND EVERY VERDICT WORD IS READ HERE from the five Track A records — certs/zq-recount.json (lane 1),
    zq-tower.json (lane 2), zq-h2.json (the H2 attempt), zq-finite.json (lane 3), zq-lean-replay.json (lane 4) — and the
@@ -52,7 +52,13 @@ const ALL = { 'lane 1': L1, 'lane 2': L2, 'the H2 attempt': H2, 'lane 3': L3, 'l
 const FILE = { 'lane 1': R.recount, 'lane 2': R.tower, 'the H2 attempt': R.h2, 'lane 3': R.finite, 'lane 4': R.lean };
 if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: ' + PREREG);
 const GM = J(GAPMAP);
+function PIN_EARLY() { return L1.pins.commit; }
 const TB = J(RB);
+/* Version 3 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the head */
+const V3 = J('corpus/zq/version3-tree-check.json');
+if (V3.pin !== PIN_EARLY()) die('the Version 3 comparison starts from another pin than the records');
+if (V3.removed.length || V3.unchanged + V3.changed.length !== V3.files || V3.changed.some((f) => !/README\.md$/.test(f))) die('the Version 3 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
+if (V3.frozenTarget.blobPin !== V3.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
 if (!fs.existsSync(path.join(ROOT, PREREG_B))) die('the Track B pre-registration is gone: ' + PREREG_B);
 
 /* the words this page states, each read back from its record */
@@ -197,6 +203,13 @@ B.push(C.header({
     + 'with exact arithmetic and code that shares nothing with his. The theorem itself is undecided.'
 }));
 
+/* Version 3, dated: what moved and what still applies */
+B.push(C.section({
+  lab: 'since these checks', title: 'Version 3 appeared the same day', id: 'version-3',
+  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved to Version 3, a new manuscript naming six people as its collaboration and a new, far smaller explicit polynomial (a quartic), with its own package of checks. Version 3 is not checked here yet.')
+    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V3.unchanged) + ' of ' + N(V3.files) + ' files compared one by one, the one difference a README. So the Lean replay and Track B apply to the repository as it stands, and so does the bookkeeping of the original construction (' + rec('corpus/zq/version3-tree-check.json') + ').')
+}));
+
 /* the story in one minute: first person for the author, the AI help said in the same sentence */
 B.push(C.section({
   lab: 'the story in one minute', title: 'What was claimed, and what I checked', id: 'story',
@@ -327,9 +340,8 @@ let html = TPL.render({
   desc: 'Elliot Glazer’s AI-assisted claim that ℤ is Diophantine in ℚ, decided where a machine can decide it: the variable count and height of his polynomial, its tower bounds under four named premises, his finite suites, his Lean helper modules, and his frozen Lean statement from eight named hypotheses. The theorem itself is undecided here.',
   path: '/z-in-q/', og: { image: '/og-z-in-q.png', alt: OG.alt('z-in-q') }
 });
-/* unlisted (2026-11-06): noindex, in no index, hub, sitemap or nav; the sync's prune list keeps it (tools/build-site.js) */
-html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
-if (!/name="robots" content="noindex, nofollow"/.test(html)) die('the page carries no noindex, and it is unlisted');
+/* listed 2026-11-06 on the operator's word, after the report to the claimant (github.com/elliotglazer/diophantine-z-q/issues/3):
+   in the sitemap and the audits hub (tools/build-site.js); the sync's prune list keeps it */
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
-console.log('site/z-in-q/index.html written (unlisted): ' + Object.entries(ALL).map(([k, r]) => k + ' ' + r.verdict).join(', ') + '; Track B ' + TB.claims.map((c) => c.id + ' ' + c.verdict).join(', '));
+console.log('site/z-in-q/index.html written: ' + Object.entries(ALL).map(([k, r]) => k + ' ' + r.verdict).join(', ') + '; Track B ' + TB.claims.map((c) => c.id + ' ' + c.verdict).join(', '));
