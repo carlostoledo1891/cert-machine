@@ -40,7 +40,9 @@ NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-
      those residuals: all CERTIFIED, 13 controls. Not decided: thm:quartic-selected-source + inherited hypotheses. /z-in-q/
      section "The Version 4 quartic, decided". The follow-up on #3 POSTED 11-06 on the operator's word (#issuecomment-6692963557;
      outreach/gh-glazer-zq-v4-2026-11-06.md). d18 rewritten to lead with the quartic; the reply under his X post is
-     notes/x/drops/d19b-glazer-reply-v4.txt (the operator's pick); both BY HAND — log their URLs when given.
+     notes/x/drops/d19b-glazer-reply-v4.txt was NOT posted: Glazer BLOCKED the operator on X (11-06). The thread d18 POSTED
+     11-06 with tools/x.js --send on the operator's word: https://x.com/_carlos_toledo_/status/2118792342622621735. No more X
+     replies to Glazer; GitHub #3 stays the channel (his CONTRIBUTING invites reports).
   ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
      (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
      zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,
