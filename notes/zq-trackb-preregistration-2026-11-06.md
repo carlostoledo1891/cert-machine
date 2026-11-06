@@ -165,3 +165,12 @@ carries no weight for its control (C2 and C3 rest on the audit, Q3 on leanchecke
 The recorded pass is a fresh run of the final files in `/root/zq-trackb/final`, every step recording their sha256s.
 claimbox's branch `zinq-2026-11-06` was pushed to GitHub at the operator's word (2026-11-06) before the recorded pass, so
 the commit is public.
+
+## Amendment B, 2026-11-06, before the recorded pass (an order and one omission, no rule)
+
+The recorded pass runs `leanchecker --fresh` (33 min, 8.8 GB in the continuation) at the same time as the second
+kernels on the export, after the toolchain kernel's other replays (49–51 GB each) have finished, so that no two
+memory-heavy steps overlap on the 64 GB pod. con-leche master is NOT run in the recorded pass: on this pod it can only be
+killed by the memory limit again (the continuation: exit 137 after 18 min, 62 GB peak at `--jobs=8`). Its row is REFUSED
+(tool, not run here), the continuation's measurement is quoted as a note, not imported, and it waits for a larger pod. The
+pod script's `con-masters` stage is split into `con-ron-master` and `con-leche-master` for this; nothing else changes.

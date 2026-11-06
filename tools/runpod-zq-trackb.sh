@@ -23,7 +23,7 @@
 # usage (on the pod, our files in /root/zq-trackb/ours, the bundle at /root/zq-trackb/zinq.bundle):
 #   ZQ_RUN=final nohup bash /root/zq-trackb/ours/runpod-zq-trackb.sh STAGE... &
 #   stages: setup fetch rehash cache build modules audit theirs copy statement check plants checkers fresh export
-#           nanoda-build nanoda con-bundled con-masters plants-export
+#           nanoda-build nanoda con-bundled con-ron-master con-leche-master plants-export
 set -uo pipefail
 unset RUNPOD_API_KEY RUNPOD_SECRET_KEY 2>/dev/null || true
 R=/root/zq-trackb; OURS=$R/ours; BUNDLE=$R/zinq.bundle
@@ -265,14 +265,20 @@ con-bundled)
   if [ -x "$BIN/con-leche" ]; then step con-leche-bundled 7200 "$WORK" "$BIN/con-leche" --jobs=8 "$WORK/trackb.export"; else status "skip: no bundled con-leche"; fi
   ;;
 
-con-masters)
-  test -s "$WORK/trackb.export" || { status "skip con-masters: no export"; continue; }
+con-ron-master)
+  test -s "$WORK/trackb.export" || { status "skip con-ron-master: no export"; continue; }
   mkdir -p "$W/tools-src"
   step con-ron-master-build 3600 "$W/tools-src" bash -c "set -e
     test -x $CARGO_HOME/bin/cargo || curl -sSf https://sh.rustup.rs | sh -s -- -y -q --profile minimal --no-modify-path
     rm -rf con-ron; git clone -q https://github.com/leanprover/con-ron.git; cd con-ron; git checkout -q $CONRON_PIN
     test \"\$(git rev-parse HEAD)\" = $CONRON_PIN; $CARGO_HOME/bin/cargo build --release -q; sha256sum target/release/con-ron"
   ok con-ron-master-build && step con-ron-master 7200 "$WORK" "$W/tools-src/con-ron/target/release/con-ron" --jobs=16 "$WORK/trackb.export"
+  ;;
+
+con-leche-master)
+  # needs more than a 64 GB pod at --jobs=8 on this export (amendment B); run it on a larger one
+  test -s "$WORK/trackb.export" || { status "skip con-leche-master: no export"; continue; }
+  mkdir -p "$W/tools-src"
   step con-leche-master-build 3600 "$W/tools-src" bash -c "set -e
     rm -rf con-leche; git clone -q https://github.com/leanprover/con-leche.git; cd con-leche; git checkout -q $CONLECHE_PIN
     test \"\$(git rev-parse HEAD)\" = $CONLECHE_PIN; cat lean-toolchain; elan toolchain install \"\$(cat lean-toolchain)\"
