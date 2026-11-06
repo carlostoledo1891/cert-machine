@@ -64,6 +64,32 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /z-in-q/ (2026-11-06, the unlisted ℤ-in-ℚ page): a tower climbing like a stack of exponents (the claim's
+     bounds are towers, 2↑↑7 and 2↑↑8), its lower blocks solid (the finite parts decided), its upper blocks hatched voids
+     (what stays a premise), and from its top one dashed line to a hollow ring: the theorem, reached only by a reading.
+     LIGHT theme, no number, no title text. */
+  'z-in-q': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · ℤ is Diophantine in ℚ', path: '/z-in-q/',
+    title: 'The claim that ℤ is Diophantine in ℚ',
+    alt: 'A tower of seven blocks climbing up and to the right like a stack of exponents, the lower four solid, the upper three hatched; from its top, one dashed line to a hollow ring.',
+    svgRaw: (() => {
+      const o = [];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A tower of blocks climbing like a stack of exponents, the lower ones solid, the upper ones hatched; one dashed line from its top to a hollow ring" style="position:absolute;left:0;top:0">');
+      o.push('<defs><pattern id="og-void" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="var(--surface)"/><path d="M0,9 l9,-9 M-2.25,2.25 l4.5,-4.5 M6.75,11.25 l4.5,-4.5" stroke="var(--ink-5)" stroke-width="0.9" fill="none"/></pattern></defs>');
+      /* each block a superscript of the one before: 0.74 of its size, its baseline 0.62 of the way up, a gap of a tenth */
+      let x = 140, base = 500, s = 168, right = 0, mid = 0;
+      for (let i = 0; i < 7; i++) {
+        const solid = i < 4;
+        right = x + s; mid = base - s / 2;
+        o.push('<rect x="' + x.toFixed(1) + '" y="' + (base - s).toFixed(1) + '" width="' + s.toFixed(1) + '" height="' + s.toFixed(1) + '" rx="' + Math.max(2, s / 34).toFixed(1) + '" '
+          + (solid ? 'fill="var(--ink)" stroke="var(--ink)"' : 'fill="url(#og-void)" stroke="var(--ink-4)"') + ' stroke-width="1.2"/>');
+        x += s * 1.1; base -= 0.62 * s; s *= 0.74;
+      }
+      const ax = 1064, ay = mid;   /* the ring at the height of the top block's middle */
+      o.push('<line x1="' + (right + 14).toFixed(1) + '" y1="' + ay.toFixed(1) + '" x2="' + (ax - 11) + '" y2="' + ay.toFixed(1) + '" stroke="var(--ink-3)" stroke-width="1.4" stroke-dasharray="5 7" stroke-linecap="round"/>');
+      o.push('<circle cx="' + ax + '" cy="' + ay.toFixed(1) + '" r="6.5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',

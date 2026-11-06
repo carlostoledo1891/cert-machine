@@ -42,6 +42,7 @@ site: playground control
 	@$(NODE) apps/uirapuru/build.js
 	@$(NODE) apps/extremos/build.js
 	@$(NODE) apps/cv/build.js
+	@$(NODE) apps/z-in-q/build.js
 
 playground:
 	@$(NODE) playground/build.js

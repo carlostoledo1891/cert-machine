@@ -2107,7 +2107,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
@@ -2233,7 +2233,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
   /* swell/ joined the app zones 2026-10-08 and was missing from this list: a bare `node tools/build-site.js`
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('eleicoes2026/') || rel.startsWith('uirapuru/') || rel.startsWith('extremos/') || rel.startsWith('eth/') || rel.startsWith('cv/')) continue;   /* cv/: the public CV's PDF (apps/cv/build.js, 2026-10-29) — the first sync after it was built pruned it */
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('eleicoes2026/') || rel.startsWith('uirapuru/') || rel.startsWith('extremos/') || rel.startsWith('eth/') || rel.startsWith('cv/') || rel.startsWith('z-in-q/')) continue;   /* cv/: the public CV's PDF (apps/cv/build.js, 2026-10-29) — the first sync after it was built pruned it; z-in-q/: the unlisted ℤ-in-ℚ page (apps/z-in-q/build.js, 2026-11-06) */
   if (isForeign(rel)) continue;   /* machinidae/: owned by Machinidae's page engine (design/zones.js) */
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
