@@ -22,6 +22,13 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-06 ~03:40 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ Z-OUT. ℤ-IN-ℚ OUTREACH STARTED (2026-11-06 ~15:30 UTC, the operator's sprint): elliotglazer/diophantine-z-q#3 (the report,
+     11/5 release + the current Lean target, a version note: Version 3 — a quartic in 9,625 variables, six names — appeared
+     the same day and is NOT checked; construction/ and lean/ the same bytes at its head, corpus/zq/version3-tree-check.json);
+     leanprover/con-leche#17 (both masters overflow their stacks on the Track B export); ammkrn/nanoda_lib#82 (num-bigint pow
+     overflow on ZInQ.ExplicitCutoffBounds). /z-in-q/ LISTED (sitemap, audits hub) with a dated Version 3 note. The X thread
+     (notes/x/drops/d18-z-in-q-post.txt + design/assets/og-z-in-q.png) the operator posts BY HAND. Watch the three issues;
+     Version 3's quartic is the natural next lane (pre-register first; the operator's word).
   ◆◆ Z-B. TRACK B DECIDED (2026-11-06 13:45 UTC; NOTHING BILLING — both pods deleted, list-pods empty): certs/zq-trackb.json
      (node tools/record-zq-trackb.js --check; battery "ZQ Track B decision"): claimbox's proof at 125509a1 (branch
      zinq-2026-11-06, PUSHED on the operator's word, branch only) — T8 CERTIFIED (Glazer's frozen statement from M, H, PC, C,
