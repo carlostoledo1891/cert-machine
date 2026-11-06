@@ -634,8 +634,8 @@
    "where": "teorth/optimizationproblems pull request 279",
    "url": "https://github.com/teorth/optimizationproblems/pull/279#issuecomment-6433758202",
    "sent": "2026-10-27",
-   "status": "posted, no reply",
-   "note": "certs/graphon-replay.json at d813a99b; the page /reports/optconst-queue.html#graphons — 2026-11-05 15:04 UTC: arhancanli (quantavane-replays @ f4daa1e0, c89/) posted an independent exact replay of the same certificate on the PR, two C programs written apart plus exact rationals, with brute-force self-tests and three red controls, 'no connection with the author', AI assistance disclosed: the same fraction to the digit (0.742254861593625… · 2⁻¹⁴), the printed bound held by 6.4·10⁻¹² · 2⁻¹⁴. Their comment on the PR (15:04 UTC) does not mention ours; the two replays agree exactly."
+   "status": "answered",
+   "note": "certs/graphon-replay.json at d813a99b; the page /reports/optconst-queue.html#graphons — 2026-11-05 15:04 UTC: arhancanli (quantavane-replays @ f4daa1e0, c89/) posted an independent exact replay of the same certificate on the PR, two C programs written apart plus exact rationals, with brute-force self-tests and three red controls, 'no connection with the author', AI assistance disclosed: the same fraction to the digit (0.742254861593625… · 2⁻¹⁴), the printed bound held by 6.4·10⁻¹² · 2⁻¹⁴. Their comment on the PR (15:04 UTC) does not mention ours; the two replays agree exactly. JeetuSK0808 thanked both replays on #277 (2026-11-06 05:57 UTC) and corrected his page; pinned in corpus/recognition.json (jeetu-c89-replays)."
   },
   {
    "id": "gh-optq-246",
@@ -1102,8 +1102,8 @@
    "where": "GitHub, ammkrn/nanoda_lib issue 80",
    "url": "https://github.com/ammkrn/nanoda_lib/issues/80",
    "sent": "2026-11-05",
-   "status": "posted, no reply",
-   "note": "the draft outreach/gh-nanoda-stack-2026-11-05.md (untracked); linked from lean4#16290"
+   "status": "answered",
+   "note": "the draft outreach/gh-nanoda-stack-2026-11-05.md (untracked); linked from lean4#16290 The maintainer answered 2026-11-06 20:38 UTC: the bundled build is the comparator's choice, upstream can take a newer version or match the C++ kernel's stack; thanked and closed by Carlos the same evening (#issuecomment-6695103175), followed at leanprover/lean4#16290."
   },
   {
    "id": "gh-con-leche-16-2026-11-05",
@@ -1183,8 +1183,8 @@
    "where": "github.com/ammkrn/nanoda_lib, a new issue (separate from #80)",
    "url": "https://github.com/ammkrn/nanoda_lib/issues/82",
    "sent": "2026-11-06",
-   "status": "posted, no reply",
-   "note": "outreach/gh-nanoda-pow-overflow-2026-11-06.md (untracked); certs/zq-lean-replay.json R18, certs/zq-trackb.json B8n/X4."
+   "status": "answered",
+   "note": "outreach/gh-nanoda-pow-overflow-2026-11-06.md (untracked); certs/zq-lean-replay.json R18, certs/zq-trackb.json B8n/X4. The maintainer asked 2026-11-06 20:36 UTC what exactly the issue and the expected behaviour are; answered after a bisection (gh-nanoda-82-reply-2026-11-06)."
   },
   {
    "id": "x-reply-rrwilliams-eth-chain-2026-11-05",
@@ -1311,6 +1311,24 @@
    "sent": "2026-11-06",
    "status": "posted, no reply",
    "note": "notes/x/drops/d18-z-in-q-post.txt; posts 2118792342622621735, …344749166617, …346523361522, …348242981072, …349908103633."
+  },
+  {
+   "id": "gh-nanoda-82-reply-2026-11-06",
+   "what": "The answer to the nanoda maintainer's question on #82: a bisection on a pod (each of the module's five declarations exported alone) — d, factorialBase, g0 and t accepted, only t_lt_triplePower panics; the RUST_BACKTRACE path def_eq → lazy_delta_step → try_reduce_nat → BigUint::pow; Lean's leanchecker accepts the module; the expected behaviour (decline the power above a bound, or an error instead of a panic) offered as a reading; the logs linked, the unlicensed exports not attached. First person, Claude disclosed. Posted on Carlos's word.",
+   "where": "github.com/ammkrn/nanoda_lib/issues/82, a comment",
+   "url": "https://github.com/ammkrn/nanoda_lib/issues/82#issuecomment-6695924286",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-nanoda-82-reply-2026-11-06.md (untracked); facts corpus/zq/runs/nanoda-bisect-2026-11-06/ at 5191b511; tools/runpod-zq-nanoda-bisect.sh."
+  },
+  {
+   "id": "gh-optq-279-c89check-2026-11-06",
+   "what": "The promised run of arhancanli's c89_check.py on our side (quantavane-replays at f4daa1e0): selftest PASS (Franek 2002 reproduced), row sk2026 PASS with the same exact fraction as our 27 October replay, the three red controls as stated, the output identical to their committed result apart from timings. First person, Claude disclosed. Posted on Carlos's word.",
+   "where": "teorth/optimizationproblems pull request 279",
+   "url": "https://github.com/teorth/optimizationproblems/pull/279#issuecomment-6695882152",
+   "sent": "2026-11-06",
+   "status": "posted, no reply",
+   "note": "outreach/gh-c89check-2026-11-06.md (untracked); the run's output in ~/Projects/replays-ext/out-c89 (outside the repos)."
   }
  ]
 }
