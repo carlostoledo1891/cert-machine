@@ -293,6 +293,15 @@ above:
    and the reconciliation from the read-only clone; `--check` re-derives and refuses on any difference, including a
    change to any of our pod-side files after the run (their sha256s are recorded by the pod).
 
+### Lane 4 amendment B, 2026-11-06 (still before any run on the claimant's data)
+
+Our audit, run on the toy project (our bytes only), showed that in v4.35.0 `native_decide` does not reach
+`Lean.ofReduceBool`: it adds an auxiliary private AXIOM named `…._native.native_decide.ax_1_1` to the module, which
+the theorem then uses. **P3's prediction is corrected to:** build exit 0; the audit lists that auxiliary axiom as a
+declaration of kind axiom of the leaf module and flags it, and the planted theorem, by both traversals; leanchecker
+exit 0; nanoda refuses. The other predictions stand (P1, P2, P4 came out as predicted on the toy; P4's theorem is
+listed with no axiom at all, the blind spot).
+
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."
