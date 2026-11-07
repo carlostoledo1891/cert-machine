@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ R174. THE HEPTAGON (Erdős #174 / Graham), REVEALED 2026-11-07 19:25 UTC on the operator's word ("Reveal"; the bundle
+     was narrowed to the repo + one comment): carlostoledo1891/heptagon-ramsey-lean at 914298f3 (public; Lean of Pálvölgyi's
+     heptagon not Ramsey, formal-conjectures' erdos_174.variants.graham false, Theorem A.3 as printed and its ℚ-independence
+     corollary; four checkers, CHECKS.md) and ONE comment on formal-conjectures PR #7706 (#issuecomment-6711953944; the
+     formal_proof line at Transport.lean#L98 with the palomar opt-out; the text outreach/gh-fc7706-heptagon-2026-11-07.md).
+     NOT done, on purpose: no page, no wstrinz issue, no X post — each is a new word. WATCH #7706 (in the sweep); answer
+     review there; a PR with the line only if asked. Say "the first proof of A.3 as stated, the first in Lean" — never
+     "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only
      on his yes or ~a week of silence (needs the Google CLA signed on carlostoledo1891), his proof linked by formal_proof, the
