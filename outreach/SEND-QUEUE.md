@@ -389,6 +389,10 @@ let them choose. Do not argue for the long one.
 
 ## LANE 3 — already out, nothing to do
 
+- **Glazer's Lean PRs** — OPENED 2026-11-07 on the operator's word ("re-check, then open both"), after the Issue 3 note
+  re-check matched (certs/zq-finite-v2.json): elliotglazer/diophantine-z-q #5 (P0 has infinite order, no hypotheses) and #6
+  (the frozen conclusion from eight explicit hypotheses, stacked on #5); fork carlostoledo1891/diophantine-z-q; texts
+  outreach/gh-zq-pr5-infinite-order-2026-11-07.md and gh-zq-pr6-conditional-2026-11-07.md; pod run certs/zq-pr-build.json.
 - **C51 replay on teorth/optimizationproblems PR #184** — POSTED 2026-11-07 on the operator's word ("replay C51, post
   if it agrees"; issuecomment-6707059155; text outreach/gh-c51-replay-2026-11-07.md; record certs/c51-replay.json CERTIFIED,
   pinned at 4d8e0f94). A second party for the C51 row beside arhancanli's replay.
