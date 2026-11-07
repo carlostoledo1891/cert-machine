@@ -84,6 +84,22 @@ O.push(C.section({
     + C.pRaw('His request to mark the problem solved (' + '<a href="' + C.escAttr(R.pins.claim.pr) + '">pull request #5297</a>' + ') drew one approving review and a maintainer’s question: how is the counterexample built, and who found it first? It was not answered, the request’s licence check failed, and on 14 October the problem’s file changed its form, so the request no longer applies as written.')
 }));
 
+/* who did what: each step of the work as a separate job, with whoever did it for this claim. The translation line says
+   plainly that it was not needed here — claimbox was not used for #488, and the page must never imply it was. */
+const role = (r, whoRaw) => ({ b: r + '.', raw: whoRaw });
+O.push(C.section({
+  lab: 'who did what', title: 'Each step is a separate job', id: 'roles',
+  bodyRaw: C.plainList([
+    role('Find the result', C.esc('Declan Gessel, with OpenAI’s GPT-6 Astra in Codex.')),
+    role('State the question formally', C.esc('Google DeepMind, in its list of open problems in Lean (formal-conjectures).')),
+    role('Turn a claim in words into a formal statement', C.esc('Not needed here: the question already existed in Lean, and the proof came in Lean. When a claim arrives in words, this is the job of ') + '<a href="../claimbox/">claimbox</a>' + C.esc(', which was not used for this claim.')),
+    role('Write the proof', C.esc('Gessel, in one Lean file.')),
+    role('Decide it, independently', C.esc('cert-machine: the statement checked against DeepMind’s own declaration, the axiom audit, two arithmetic deciders, the search, the planted fakes.')),
+    role('Check the proof', C.esc('Lean’s kernel (three ways) and nanoda, a kernel written apart from Lean.')),
+    role('Prove the dates', C.esc('Verify Seal: salted fingerprints in a public registry and in Bitcoin, before each step ran.'))
+  ])
+}));
+
 const row = (q, did, v, kind) => [{ raw: C.esc(q) }, { raw: did }, { raw: C.tag(v, kind || 'held') }];
 O.push(C.section({
   lab: 'the checks', title: 'Seven questions, written down and sealed before any code ran', id: 'checks', wide: true,
