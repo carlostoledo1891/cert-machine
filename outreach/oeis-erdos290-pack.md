@@ -1,5 +1,8 @@
 # OEIS submission packs — the Erdős #290 family
 
+RE-CHECKED 2026-11-07: an OEIS search of each pack's leading data (packs 1, 2, 4, 5) finds no matching sequence, so
+all are still new; nothing was pasted yet. The erdosproblems.com #290 note never left moderation (row erdos290-oeis).
+
 STATUS (2026-08-28): packs 1–3 are READY — content is campaign-independent
 and every term below was recomputed today by exact integer resultants
 (Bareiss, no libraries) with the composition identity verified on the data.

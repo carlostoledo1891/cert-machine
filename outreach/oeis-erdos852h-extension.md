@@ -1,5 +1,7 @@
 # OEIS extension pack — runs of pairwise-distinct consecutive prime gaps
 
+RE-CHECKED 2026-11-07: A079007 still holds 31 terms (n = 0..30, last 196948778371), so the 32nd term below is still new.
+
 READY. Verified independently 2026-08-31: verify-record.js 263552821783 31
 returns length 31 exact, 31 of 31 distinct gaps.
 
