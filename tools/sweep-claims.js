@@ -198,7 +198,7 @@ for (const [repo, num, label] of [
   ['k-nic/Leech_lifting', 1, 'Takhanov–Yun (K(25), d31 points)'],
   ['teorth/erdosproblems', 179, '#179 (our #1038 correction)'],
   ['teorth/erdosproblems', 164, '#164 (Woett, the #290 bracket)'],
-  ['teorth/optimizationproblems', 184, 'PR #184 (our C42 review)'],
+  ['teorth/optimizationproblems', 184, 'PR #184 (our C42 review; the C51 replay posted 2026-11-07, issuecomment-6707059155)'],
   ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
   ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
   ['subroy13/awesome-ai-proofs', 2, 'awesome-ai-proofs #2 (audit records)'],

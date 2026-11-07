@@ -389,6 +389,9 @@ let them choose. Do not argue for the long one.
 
 ## LANE 3 — already out, nothing to do
 
+- **C51 replay on teorth/optimizationproblems PR #184** — POSTED 2026-11-07 on the operator's word ("replay C51, post
+  if it agrees"; issuecomment-6707059155; text outreach/gh-c51-replay-2026-11-07.md; record certs/c51-replay.json CERTIFIED,
+  pinned at 4d8e0f94). A second party for the C51 row beside arhancanli's replay.
 - **#852 correction** — PUBLIC; `tools/sweep-claims.js` reports the snapshot
   pinned and the watch closed.
 - **#510 comment** (`outreach/erdos510-comment.md`) — PUBLIC since 2026-08-26 on /forum/thread/510 (found 2026-10-06;
