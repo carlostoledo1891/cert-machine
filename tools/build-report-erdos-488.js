@@ -148,7 +148,7 @@ O.push(C.section({
 O.push(C.section({
   lab: 'check it yourself', title: 'How to re-run it', id: 'rerun',
   bodyRaw: C.plainList([
-    { b: 'The note.', raw: 'The full account, with the provenance and the protocol: <a href="https://doi.org/10.5281/zenodo.24025464">doi:10.5281/zenodo.24025464</a>.' },
+    /* the note (doi:10.5281/zenodo.24025464, reserved) joins this list the day it is published: a DOI that does not resolve yet is not linked */
     { b: 'The record.', raw: m('node tools/record-erdos488.js --check') + ' re-derives every verdict from ' + rec('corpus/erdos488/runs/pod-2026-11-06') + ' and re-runs both arithmetic deciders.' },
     { b: 'The arithmetic alone.', raw: m('node tools/erdos488-p4.js --controls') + ' and ' + m('python3 -I tools/erdos488-p4.py --controls') + ', standard library only.' },
     { b: 'The Lean run.', raw: rec('tools/erdos488-lean/runpod-488.sh') + ' with its statement, check and planted files beside it: a Linux machine with elan, about an hour for the from-scratch replay.' },
