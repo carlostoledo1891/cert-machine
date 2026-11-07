@@ -614,3 +614,22 @@ which commit we compared.
 **Overall.** `certs/zq-finite-v2.json` states its gaps first, then a verdict per suite (replay), the rows hash, the
 file identity, and an overall word: CERTIFIED only if every item is; REFUTED if any is; otherwise MIXED. The theorem
 stays undecided here. Nothing is pushed or posted under this amendment.
+
+### Amendment A3.1, 2026-11-07, written AFTER a first pass of `tools/zq-finite-v2.js` and BEFORE the pass that is recorded
+
+The first pass (not committed; its output is overwritten by the recorded pass) gave every item as A3 predicted
+except one red control, FER2, and it showed one gap in an informational readout. Both are ours; no result changes.
+
+1. **FER2 was mis-aimed.** It changed const node 5 of `natural` and predicted a different root hash; the hash was
+   the same. All four const nodes of `natural` (5 to 8: "0", "1", "−11243", "7950") are unreachable from its root
+   (node 79; 76 of its 80 nodes are reachable), and the note states that unrelated nodes are not appended to the root
+   hash. So an unchanged hash is the stated behaviour, and the control tested nothing. Re-aimed: FER2 now changes by
+   one the first const node REACHABLE from the root of `multiply` (template 11, hashed under reading R1) and predicts a
+   different hash. Added, FER5: the first-pass mutation itself (an unreachable const of `natural` changed) must leave
+   the hash UNCHANGED, which checks the note's "unrelated nodes" clause.
+2. **The forced-witness readout** (informational, A3) computed a root only for a linear witness polynomial. In the
+   first pass the saved template's polynomial in w is of degree 2 for every k ≠ 0 and identically zero for k = 0.
+   Extended: rational roots of a degree-2 polynomial by its discriminant, each compared with 1/N(ψ_n(Q)^e),
+   e ∈ {1,2,3,4}; for k = 0 the readout says "vanishes for every w". Still informational, deciding nothing.
+
+Nothing else changes: the items, readings R1 and R2, verdict words and other controls stay as A3 fixed them.
