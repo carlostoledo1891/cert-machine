@@ -49,8 +49,8 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only
      on his yes or ~a week of silence (needs the Google CLA signed on carlostoledo1891), his proof linked by formal_proof, the
      credit his and GPT-6 Astra's, the docstring citing doi:10.5281/zenodo.24025464 and Liu (doi:10.5281/zenodo.23439872).
-     (2) OWED: `ots upgrade` of seals 0–3 (bundles in the private repo; client: pip install opentimestamps-client), then record
-     the Bitcoin blocks. (3) Liu NOT contacted (no GitHub presence; no e-mail started). (4) claimbox was NOT used for #488 —
+     (2) DONE 11-07 06:55 UTC: seals 0–3 upgraded to Bitcoin block 974877 and reopened CERTIFIED with both anchors (the
+     private repo's seals/LEDGER.md); seals 4–7 likewise (blocks 974909, 974956). (3) Liu NOT contacted (no GitHub presence; no e-mail started). (4) claimbox was NOT used for #488 —
      the page says so ("who did what"); never claim otherwise.
   ◆◆ OUT-NEXT. THE OPERATOR'S PICKS (11-07): (a) the job-funnel update — CV (apps/cv/cv.md via figure tokens; /cv/ publishes
      on build, so preview first and publish on his word) and the open applications, with this week: complexitylib #2509/#2510
