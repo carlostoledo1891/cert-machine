@@ -46,7 +46,16 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      X post yet. POSTED 11-07 ~21:30 UTC on the operator's word: wstrinz/spherical-ramsey#1, JD-Jones-ASES/six-concyclic-lean#1,
      carlostoledo1891/heptagon-ramsey-lean#1 (@domotorp; the Equation (2) remark, M recomputed exactly before sending); texts
      outreach/gh-{wstrinz,jdjones}-heptagon-2026-11-07.md, gh-heptagon-palvolgyi-2026-11-07.md; all three in the sweep. The page
-     gained the translation row (claimbox NOT used for the heptagon: A.3 written by hand with Claude), as #488's says. Say "the first proof of A.3 as stated, the first in Lean" — never
+     gained the translation row (claimbox NOT used for the heptagon: A.3 written by hand with Claude), as #488's says.
+     X POSTED 11-07 (https://x.com/_carlos_toledo_/status/2119174882613240195, draft C, light card). PALOMAR: branch `palomar`
+     of heptagon-ramsey-lean PUSHED (e33842e9; main and v1.0.0 untouched): the module-system port at v4.35.0-rc2 (16 OpenAI
+     files re-ported, equal to wstrinz's port; Challenge Mathlib-only: heptagon_counterexample, graham_false',
+     generic_seven_not_isRamsey, seven_circle_configuration_isRamsey), CHECKS-PALOMAR.md (six kernels accept, forged rejected,
+     six controls refused, --fresh), and Palomar's own preflight workflow on push (PalomarSubmission 14aa8d6b, full,
+     palomar-standard-v1) — the sandboxed Comparator verdict the pod could not give (bwrap; --inadvisably-no-sandbox was
+     refused to the agent and not used). NEXT: read the preflight; on green, the submission (the operator's word; repo
+     carlostoledo1891/heptagon-ramsey-lean, the green commit, project path blank, comparator.json); once listed, the #7706
+     link-swap PR (on the word). Pod 4payuvr4okgqmf deleted 21:48 (404). Say "the first proof of A.3 as stated, the first in Lean" — never
      "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only
