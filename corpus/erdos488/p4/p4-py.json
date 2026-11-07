@@ -1,0 +1,179 @@
+{
+  "facts": [
+    {
+      "id": "F1",
+      "statement": "|O| = 53, where O = the odd primes below 257 (own sieve, cross-checked by naive trial division)",
+      "result": true,
+      "numbers": {
+        "countP": "54",
+        "countO": "53",
+        "claimedCountO": "53",
+        "largestInO": "251",
+        "sieveAgreesWithTrialDivision": true,
+        "O": [
+          "3",
+          "5",
+          "7",
+          "11",
+          "13",
+          "17",
+          "19",
+          "23",
+          "29",
+          "31",
+          "37",
+          "41",
+          "43",
+          "47",
+          "53",
+          "59",
+          "61",
+          "67",
+          "71",
+          "73",
+          "79",
+          "83",
+          "89",
+          "97",
+          "101",
+          "103",
+          "107",
+          "109",
+          "113",
+          "127",
+          "131",
+          "137",
+          "139",
+          "149",
+          "151",
+          "157",
+          "163",
+          "167",
+          "173",
+          "179",
+          "181",
+          "191",
+          "193",
+          "197",
+          "199",
+          "211",
+          "223",
+          "227",
+          "229",
+          "233",
+          "239",
+          "241",
+          "251"
+        ]
+      }
+    },
+    {
+      "id": "F2",
+      "statement": "totient(Q) = phi, Q = prod of O, phi = prod (p-1) over O; totient from trial-division factorisation and the general formula prod p^(e-1)(p-1)",
+      "result": true,
+      "numbers": {
+        "Q": "32133165458954322436165317614053356655440093295804604057122379340449075183940351576262600371617210115",
+        "phi": "6449338146298816039189204226752375763972945771408415527222676870616270485927336345600000000000000000",
+        "totientQ": "6449338146298816039189204226752375763972945771408415527222676870616270485927336345600000000000000000",
+        "distinctPrimeFactorsOfQ": "53",
+        "maxExponentInQ": "1",
+        "QbitLength": "334"
+      }
+    },
+    {
+      "id": "F3",
+      "statement": "128 < Q",
+      "result": true,
+      "numbers": {
+        "lhs": "128",
+        "Q": "32133165458954322436165317614053356655440093295804604057122379340449075183940351576262600371617210115"
+      }
+    },
+    {
+      "id": "F4",
+      "statement": "3*Q < 16*phi",
+      "result": true,
+      "numbers": {
+        "threeQ": "96399496376862967308495952842160069966320279887413812171367138021347225551821054728787801114851630345",
+        "sixteenPhi": "103189410340781056627027267628038012223567132342534648435562829929860327774837381529600000000000000000",
+        "difference_16phi_minus_3Q": "6789913963918089318531314785877942257246852455120836264195691908513102223016326800812198885148369655",
+        "floor_3Q_over_phi": "14"
+      }
+    },
+    {
+      "id": "F5",
+      "statement": "2^4096 * (8*4096+1)^53 < 3^4096 (exact integers)",
+      "result": true,
+      "numbers": {
+        "base_8n_plus_1": "32769",
+        "two_pow_4096": {
+          "bitLength": 4097,
+          "decimalDigits": 1234,
+          "sha256OfDecimal": "579f091a3ddb8d5da2deb269b77297b71c5739b5dc52e9f2486976f3474d2572"
+        },
+        "base_pow_53": "208712751635148987929698766523569503428279573867230289639569457614515951334684127528819769036205263167134857037302979652415459249470772988494818270574023913693849445954618769075693562338757701025069341134019797715128871350699913563451588609",
+        "lhs": {
+          "bitLength": 4892,
+          "decimalDigits": 1473,
+          "sha256OfDecimal": "1b0ba9572ba8f70a7ced3449b1d7c900d3a2d6a8034d177846308f546ea19af6"
+        },
+        "rhs_three_pow_4096": {
+          "bitLength": 6493,
+          "decimalDigits": 1955,
+          "sha256OfDecimal": "c089e3176cc0b136cee530dffeab835f2d43409db1079f75942d7adb82a75819"
+        },
+        "lhsBitLength": "4892",
+        "rhsBitLength": "6493"
+      }
+    }
+  ],
+  "allTrue": true,
+  "controls": [
+    {
+      "id": "C-a",
+      "statement": "planted: 2^1000 * (8*1000+1)^53 < 3^1000",
+      "result": false,
+      "caughtAsFalse": true,
+      "numbers": {
+        "base_8n_plus_1": "8001",
+        "lhs": {
+          "bitLength": 1688,
+          "decimalDigits": 508,
+          "sha256OfDecimal": "c45fd6ef8b9c276eaf4f194672b5f6f78bd021d97e98b617be226133cc0229a7"
+        },
+        "rhs_three_pow_1000": {
+          "bitLength": 1585,
+          "decimalDigits": 478,
+          "sha256OfDecimal": "27c7e3a85ebf919254fbfe7023ac192ec8f636054e85580af5f50e8f9b47481e"
+        },
+        "lhsBitLength": "1688",
+        "rhsBitLength": "1585"
+      }
+    },
+    {
+      "id": "C-b",
+      "statement": "planted: 3*Q < 14*phi  (k = floor(3Q/phi) = 14, the largest integer factor for which the claim is false; k+1 = 15 makes it true)",
+      "result": false,
+      "caughtAsFalse": true,
+      "numbers": {
+        "k": "14",
+        "threeQ": "96399496376862967308495952842160069966320279887413812171367138021347225551821054728787801114851630345",
+        "kPhi": "90290734048183424548648859174533260695621240799717817381117476188627786802982708838400000000000000000",
+        "kPlus1Phi": "96740072194482240587838063401285636459594186571126232908340153059244057288910045184000000000000000000",
+        "kPlus1ClaimHolds": true,
+        "factor15ClaimHolds": true
+      }
+    },
+    {
+      "id": "C-c",
+      "statement": "planted: |O| = 54",
+      "result": false,
+      "caughtAsFalse": true,
+      "numbers": {
+        "countO": "53",
+        "claimedCountO": "54"
+      }
+    }
+  ],
+  "allControlsCaught": true
+}

@@ -1,0 +1,289 @@
+{
+ "what": "The independent certification of the refutation of Erdős Problem #488 (formal-conjectures PR #5297): the pre-registered questions P1–P7, each read back from the run.",
+ "undecided": "The discovery is Declan Gessel's, made with OpenAI's GPT-6 Astra in Codex (2026-09-05). This record decides whether his Lean proof refutes the entry as it stands in google-deepmind/formal-conjectures, on the kernels run here, with the arithmetic re-derived independently. It does not decide who found the counterexample first (a reading), the least counterexample, or anything the four checkers not run here would add.",
+ "generated": "2026-11-07",
+ "preregistration": "notes/erdos488-preregistration-2026-11-06.md",
+ "seals": [
+  {
+   "seal": 0,
+   "digest": "6269947088f4b720bf0b4f824c2bbdf7cc904853051a753266bf1ccdb5176f64",
+   "anchors": "cert-machine seals/registry.jsonl @ 8173ba17 (2026-11-06); OpenTimestamps pending"
+  },
+  {
+   "seal": 1,
+   "digest": "e9058a8da01944ae6cebe602630d9efc21b514c52ac9b2f10c32cdf9acd98386",
+   "anchors": "cert-machine seals/registry.jsonl @ f431bcbb (2026-11-06); OpenTimestamps pending"
+  },
+  {
+   "seal": 2,
+   "digest": "0759afc2cb2722977e6fb8646670f9e71ae27665aee1a8687500d326e66b5703",
+   "anchors": "cert-machine seals/registry.jsonl @ 53259050 (2026-11-06); OpenTimestamps pending"
+  }
+ ],
+ "pins": {
+  "entry": {
+   "repository": "github.com/google-deepmind/formal-conjectures",
+   "commit": "2055e5a",
+   "path": "FormalConjectures/ErdosProblems/488.lean",
+   "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+   "toolchain": "leanprover/lean4:v4.33.1",
+   "declaration": "Erdos488.erdos_488"
+  },
+  "claim": {
+   "pr": "https://github.com/google-deepmind/formal-conjectures/pull/5297",
+   "gist": "https://gist.github.com/declangessel/d8e15e5ff1b6c7e99e3d86d7c66f1d08",
+   "commit": "034be67a5c958e55505bb357f9e4ef3015788465",
+   "file": "Erdos488.lean",
+   "sha256": "f2a7dcfde9689e00db7b697c22eb6436c1b02d834555a28a476d9e5e606e9ca0",
+   "toolchain": "leanprover/lean4:v4.33.0",
+   "author": "Declan Gessel, with GPT-6 Astra in Codex (OpenAI)",
+   "date": "2026-09-05"
+  }
+ },
+ "code": {
+  "tools/record-erdos488.js": "3aac41859b418c88f864c8ba03f33fcc84e3330942fffc60f101930d53b7802c",
+  "tools/erdos488-p4.js": "e4ad7d23ed6141a64087520a56e2f7c771dbb54dbf71552a9850e12ef02fe7ec",
+  "tools/erdos488-p4.py": "aa95593a3932034137659bc5b67b83cc3eb94e76a6fcaaff2b6b6a193481b223",
+  "tools/erdos488-search.c": "32afd42093dcdb07ed8027d0432e4de66252cab42eef0ba2b488957e53f8a777",
+  "tools/erdos488-lean/P1.lean": "f1678ef9cf440e27044fa8895a31ca84fbf08d1a5d855cc4e8d489d6b69ad2b8",
+  "tools/erdos488-lean/Check.lean": "f0fcac66af28fc7f2eee46030e983fde1a2f21fbbdbc9ba07eaffa055d26480b",
+  "tools/erdos488-lean/Ctl1.lean": "964cef5943c2e10b298b159bf14e10f9c15d96e1654f73d93c63c7bc6e08ba32",
+  "tools/erdos488-lean/Ctl2.lean": "d4ea0c6af0077ba1bb1cceeefa72b8702a1b78efe2c47346f0ef8467d43593bc",
+  "tools/erdos488-lean/Ctl3.lean": "e640c286db49ffa3b7377a506159c87327885ad4a4663d4049ada84050f41da4",
+  "tools/erdos488-lean/runpod-488.sh": "5d873b69bca1b580a97d41bec17fca63d1e75b8021b4f9a06c10cc8a47098fcd",
+  "notes/erdos488-preregistration-2026-11-06.md": "2497fd97cb25f2e8f111b681ac2dd89ef98beb27a7ae4e4f382506cae15ca4c9"
+ },
+ "verdict": "CERTIFIED",
+ "verdicts": {
+  "P1": "CERTIFIED",
+  "P2": "CERTIFIED",
+  "P3": "CERTIFIED",
+  "P3secondKernel": "ACCEPTS",
+  "P4": "CERTIFIED",
+  "P5": "NEGATIVE (no claim)",
+  "P6": "READING",
+  "P7": "4/4 caught"
+ },
+ "P1": {
+  "build": {
+   "exit": 0,
+   "axiomsStandard": true
+  },
+  "check": {
+   "alphaEquivalent": true,
+   "strictlyEqual": false,
+   "defeq": true,
+   "p1IsNotOfDeepMindsStatement": true
+  },
+  "controls": [
+   {
+    "id": "Ctl1 · the statement as it read before 2026-10-14 (answer(sorry) ↔ …)",
+    "exit": 1,
+    "refusedByTypeMismatch": true
+   },
+   {
+    "id": "Ctl2 · the constant 2 changed to 3",
+    "exit": 1,
+    "refusedByTypeMismatch": true
+   },
+   {
+    "id": "Ctl3 · m > n changed to m ≥ n",
+    "exit": 1,
+    "refusedByTypeMismatch": true
+   }
+  ],
+  "ctl1FirstRun": {
+   "exit": 1,
+   "refusedByTypeMismatch": false,
+   "why": "its first run failed on a syntax error (`answer` not imported), not on the statement; rerun with the import, it is refused for the right reason"
+  },
+  "verdict": "CERTIFIED"
+ },
+ "P2": {
+  "original": {
+   "exit": 0,
+   "axiomsStandard": true
+  },
+  "deepmind": {
+   "exit": 0,
+   "jobs": 1329
+  },
+  "portDiff": "none: the gist's file is built byte for byte (corpus/erdos488/runs/pod-2026-11-06/port-files.sha256)",
+  "verdict": "CERTIFIED"
+ },
+ "P3": {
+  "audit": {
+   "declarations": 103,
+   "closure": 9898,
+   "axiomsInClosure": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "nonstandard": [],
+   "traversalDisagreements": [],
+   "lean": "4.33.1"
+  },
+  "leanchecker": {
+   "exit": 0,
+   "wall": "0:19.11"
+  },
+  "fresh": {
+   "exit": 0,
+   "wall": "36:01.79",
+   "peakKB": 10324656
+  },
+  "nanoda": {
+   "exit": 0,
+   "declarations": 10177,
+   "wall": "0:08.00",
+   "version": "v0.4.31 (8de7e0c4)",
+   "export": {
+    "sha256": "208ac1e918750bb84f493c39f45b36881ae40dc21a657716918561ab7f1cdc9e",
+    "bytes": 39709680,
+    "exporter": "lean4export 3.1.0"
+   },
+   "note": "its one \"pretty printer error: Unable to print axioms\" is a display note seen in every nanoda run, not a type error"
+  },
+  "notRun": [
+   "leanchecker-paranoid",
+   "con-leche",
+   "con-ron",
+   "lean4lean"
+  ],
+  "notRunWhy": "Lean 4.33.1 does not bundle them, and only nanoda and an exporter were built here",
+  "verdict": "CERTIFIED",
+  "secondKernel": "ACCEPTS"
+ },
+ "P4": {
+  "facts": [
+   {
+    "id": "oddPrimes_card",
+    "statement": "|{odd primes < 257}| = 53",
+    "js": true
+   },
+   {
+    "id": "totient_Q",
+    "statement": "φ(Q) = ∏(p − 1) over the odd primes below 257 (φ computed from the factorisation)",
+    "js": true
+   },
+   {
+    "id": "Q_large",
+    "statement": "128 < Q",
+    "js": true
+   },
+   {
+    "id": "constant_ratio",
+    "statement": "3·Q < 16·φ(Q)",
+    "js": true
+   },
+   {
+    "id": "endpoint_gap",
+    "statement": "2^4096 · (8·4096 + 1)^53 < 3^4096",
+    "js": true
+   }
+  ],
+  "python": [
+   {
+    "id": "F1",
+    "statement": "|O| = 53, where O = the odd primes below 257 (own sieve, cross-checked by naive trial division)",
+    "result": true
+   },
+   {
+    "id": "F2",
+    "statement": "totient(Q) = phi, Q = prod of O, phi = prod (p-1) over O; totient from trial-division factorisation and the general formula prod p^(e-1)(p-1)",
+    "result": true
+   },
+   {
+    "id": "F3",
+    "statement": "128 < Q",
+    "result": true
+   },
+   {
+    "id": "F4",
+    "statement": "3*Q < 16*phi",
+    "result": true
+   },
+   {
+    "id": "F5",
+    "statement": "2^4096 * (8*4096+1)^53 < 3^4096 (exact integers)",
+    "result": true
+   }
+  ],
+  "agree": true,
+  "phiOverQ": 0.200706592524,
+  "controlsCaught": {
+   "js": true,
+   "python": true
+  },
+  "correction": "the JavaScript decider's first control (3·Q < 15·φ) was itself true, since φ/Q > 1/5; corrected to 14 before recording; the Python decider's author computed 14 independently",
+  "verdict": "CERTIFIED"
+ },
+ "P5": {
+  "configurations": 4253,
+  "hits": 0,
+  "skippedOrEmpty": 19,
+  "sieveLimit": 10000000,
+  "bestRatioAll": 1.999998,
+  "bestRatioAtLeast10": 1.382718,
+  "reading": "no counterexample in the family of smooth bands (T, cT] with exact counts to 10^7; ratios approach 2 only for one to four generators, where an elementary bound keeps them below 2",
+  "verdict": "NEGATIVE (no claim)"
+ },
+ "P7": [
+  {
+   "id": "Red1 · the endpoint gap with 1000 for 4096 (false)",
+   "caught": true,
+   "how": "the build fails: decide proves the planted inequality false"
+  },
+  {
+   "id": "Red2 · a sorry in constant_ratio",
+   "caught": true,
+   "how": "the audit lists sorryAx"
+  },
+  {
+   "id": "Red3 · an added axiom",
+   "caught": true,
+   "how": "the audit lists Submissions.ErdosMultiplesSmoothRefuted.Counterexample.plumbRedAxiom"
+  },
+  {
+   "id": "Red4 · native_decide in endpoint_gap",
+   "caught": true,
+   "how": "the audit lists Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1"
+  }
+ ],
+ "P6": {
+  "reading": "dated 2026-11-06, from Liu (Zenodo doi:10.5281/zenodo.23439872, 2026-10-17) and the sources it cites",
+  "sources": [
+   {
+    "who": "D. Gessel (with GPT-6 Astra in Codex)",
+    "date": "2026-09-05",
+    "what": "the counterexample, Lean-verified; formal-conjectures PR #5297; Jig problem 398, statement 40",
+    "url": "https://gist.github.com/declangessel/d8e15e5ff1b6c7e99e3d86d7c66f1d08"
+   },
+   {
+    "who": "woshuajolk (Jig)",
+    "date": "2026-09-05",
+    "what": "statement 39: the inequality holds whenever A ⊂ (n/5, n]; statement 41: an explicit instance, A = the 257-smooth integers in (2^384, 2^392]",
+    "url": "https://jig.so/p/398"
+   },
+   {
+    "who": "C. Benefield (Jig)",
+    "date": "2026-09-06",
+    "what": "statements 42, 43: the ratio exceeds 3, then is unbounded",
+    "url": "https://jig.so/p/398"
+   },
+   {
+    "who": "shoal-rat",
+    "date": "2026-09-05",
+    "what": "Lean-verified bounds and counterexamples for a sieved variant",
+    "url": "https://github.com/shoal-rat/erdos-488-lean"
+   },
+   {
+    "who": "Zongmin (Dylan Z.) Liu",
+    "date": "2026-10-17",
+    "what": "the sharp order of the growth; the threshold λ* in [5, 54.18]; open problems",
+    "url": "https://doi.org/10.5281/zenodo.23439872"
+   }
+  ]
+ }
+}

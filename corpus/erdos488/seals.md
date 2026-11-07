@@ -1,0 +1,3 @@
+| 0 | plumb at ac09991 (plan, threat model, scouts, kill reviews, blind re-rank, TARGET-488) — 12 files | 6269947088f4b720bf0b4f824c2bbdf7cc904853051a753266bf1ccdb5176f64 | cert-machine seals/registry.jsonl @ 8173ba17 (2026-11-06); OpenTimestamps pending | CERTIFIED, held by 2026-11-06 |
+| 1 | plumb at 2ae775e (+ PREREG-488.md, PINS-488.txt) | e9058a8da01944ae6cebe602630d9efc21b514c52ac9b2f10c32cdf9acd98386 | cert-machine seals/registry.jsonl @ f431bcbb (2026-11-06); OpenTimestamps pending | CERTIFIED, held by 2026-11-06 |
+| 2 | plumb at 9972292 (P1-P7 results, the pod run) | 0759afc2cb2722977e6fb8646670f9e71ae27665aee1a8687500d326e66b5703 | cert-machine seals/registry.jsonl @ 53259050 (2026-11-06); OpenTimestamps pending | CERTIFIED, held by 2026-11-06 |

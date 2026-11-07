@@ -1,0 +1,56 @@
+{
+ "decider": "decide-p4.js",
+ "Q": "32133165458954322436165317614053356655440093295804604057122379340449075183940351576262600371617210115",
+ "phi": "6449338146298816039189204226752375763972945771408415527222676870616270485927336345600000000000000000",
+ "facts": [
+  {
+   "id": "oddPrimes_card",
+   "what": "|{odd primes < 257}| = 53",
+   "ok": true,
+   "n": 53
+  },
+  {
+   "id": "totient_Q",
+   "what": "φ(Q) = ∏(p − 1) over the odd primes below 257 (φ computed from the factorisation)",
+   "ok": true,
+   "Qbits": 334
+  },
+  {
+   "id": "Q_large",
+   "what": "128 < Q",
+   "ok": true
+  },
+  {
+   "id": "constant_ratio",
+   "what": "3·Q < 16·φ(Q)",
+   "ok": true,
+   "ratioPhiOverQ": 0.200706592524
+  },
+  {
+   "id": "endpoint_gap",
+   "what": "2^4096 · (8·4096 + 1)^53 < 3^4096",
+   "ok": true,
+   "lhsBits": 4892,
+   "rhsBits": 6493
+  }
+ ],
+ "allTrue": true,
+ "controls": [
+  {
+   "id": "endpoint_gap_1000",
+   "what": "2^1000 · (8·1000 + 1)^53 < 3^1000 (must be false)",
+   "caught": true
+  },
+  {
+   "id": "constant_ratio_tighter",
+   "what": "3·Q < 14·φ(Q) (must be false: it needs φ/Q > 3/14 ≈ 0.2143)",
+   "caught": true
+  },
+  {
+   "id": "oddPrimes_card_54",
+   "what": "|odd primes < 257| = 54 (must be false)",
+   "caught": true
+  }
+ ],
+ "controlsCaught": true
+}

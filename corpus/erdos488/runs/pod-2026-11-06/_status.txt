@@ -1,0 +1,59 @@
+2026-11-06T22:38:48Z start setup
+2026-11-06T22:39:43Z end setup exit 0
+2026-11-06T22:39:43Z start gist-clone
+2026-11-06T22:39:44Z end gist-clone exit 0
+2026-11-06T22:39:44Z start gist-update
+2026-11-06T22:41:29Z end gist-update exit 0
+2026-11-06T22:41:29Z start gist-cache
+2026-11-06T22:41:40Z end gist-cache exit 0
+2026-11-06T22:41:40Z start gist-lean
+2026-11-06T22:42:05Z end gist-lean exit 0
+2026-11-06T22:42:05Z start fc-clone
+2026-11-06T22:42:07Z end fc-clone exit 0
+2026-11-06T22:42:07Z start fc-cache
+2026-11-06T22:43:45Z end fc-cache exit 0
+2026-11-06T22:43:45Z start fc-build488
+2026-11-06T22:46:38Z end fc-build488 exit 0
+2026-11-06T22:47:16Z start port-build
+2026-11-06T22:47:47Z end port-build exit 0
+2026-11-06T22:47:47Z start p1-build
+2026-11-06T22:48:14Z end p1-build exit 0
+2026-11-06T22:48:14Z start check
+2026-11-06T22:48:25Z end check exit 0
+2026-11-06T22:48:25Z start audit
+2026-11-06T22:48:40Z end audit exit 0
+2026-11-06T22:48:40Z start leanchecker
+2026-11-06T22:48:59Z end leanchecker exit 0
+2026-11-06T22:48:59Z absent: leanchecker-paranoid in v4.33.1
+2026-11-06T22:48:59Z start ctl-Ctl1
+2026-11-06T22:49:13Z end ctl-Ctl1 exit 1
+2026-11-06T22:49:13Z start ctl-Ctl2
+2026-11-06T22:49:27Z end ctl-Ctl2 exit 1
+2026-11-06T22:49:27Z start ctl-Ctl3
+2026-11-06T22:49:42Z end ctl-Ctl3 exit 1
+2026-11-06T22:49:42Z start red-Red1
+2026-11-06T22:50:09Z end red-Red1 exit 1
+2026-11-06T22:50:09Z start red-Red2
+2026-11-06T22:50:29Z end red-Red2 exit 0
+2026-11-06T22:50:29Z start red-audit-Red2
+2026-11-06T22:50:37Z end red-audit-Red2 exit 0
+2026-11-06T22:50:37Z start red-Red3
+2026-11-06T22:50:58Z end red-Red3 exit 0
+2026-11-06T22:50:58Z start red-audit-Red3
+2026-11-06T22:51:05Z end red-audit-Red3 exit 0
+2026-11-06T22:51:05Z start red-Red4
+2026-11-06T22:51:31Z end red-Red4 exit 0
+2026-11-06T22:51:31Z start red-audit-Red4
+2026-11-06T22:51:38Z end red-audit-Red4 exit 0
+2026-11-06T22:51:38Z start fresh
+2026-11-06T23:27:40Z end fresh exit 0
+2026-11-06T23:27:40Z done: setup gist fc port p1 check audit checkers controls redteam fresh
+2026-11-06T23:44:02Z start lean4export-build
+2026-11-06T23:44:11Z end lean4export-build exit 0
+2026-11-06T23:44:11Z start export
+2026-11-06T23:44:22Z end export exit 0
+2026-11-06T23:44:22Z start nanoda-build
+2026-11-06T23:44:52Z end nanoda-build exit 0
+2026-11-06T23:44:52Z start nanoda
+2026-11-06T23:45:00Z end nanoda exit 0
+2026-11-06T23:45:00Z done: lean4export export nanoda

@@ -381,6 +381,10 @@ const REPORTS = [
       + 'two-atom witness within 2.3×10⁻⁵ of optimal. Plus the certified landscape: an interior cubic champion and '
       + 'a quintic cliff where the sublevel set changes topology.',
     n: 'per-degree theorems · the conjecture itself stays open · not peer-reviewed' },
+  { g: 'erdos', f: 'erdos-488.html', k: 'erdős #488 · an AI refutation, certified',
+    title: 'An AI-assisted refutation, certified',
+    desc: 'Declan Gessel’s Lean refutation of Erdős #488, made with GPT-6 Astra and waiting two months on Google DeepMind’s list of open problems, checked from every side: DeepMind’s current statement, two kernels, the arithmetic by two independent deciders, planted fakes caught.',
+    n: 'two kernels accept · the statement exactly DeepMind’s' },
   { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its ' + ORDINAL[csWrongAt] + ' decimal place (its ' + ORDINAL[csWrongSig] + ' significant digit) and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',

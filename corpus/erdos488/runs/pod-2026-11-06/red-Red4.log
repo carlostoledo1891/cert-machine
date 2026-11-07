@@ -1,0 +1,39 @@
+⚠ [1329/1329] Built Plumb.Red4 (23s)
+warning: Plumb/Red4.lean:128:68: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red4.lean:128:87: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red4.lean:130:42: This simp argument is unused:
+  pow_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red4.lean:132:72: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: Plumb/Red4.lean:509:0: 'Submissions.ErdosMultiplesSmoothRefuted.Counterexample.proof' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1]
+warning: Plumb/Red4.lean:551:36: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+info: Plumb/Red4.lean:561:0: 'Erdos488ExactAdapter.refutation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1]
+Build completed successfully (1329 jobs).

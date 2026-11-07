@@ -1,0 +1,44 @@
+✖ [1329/1329] Building Plumb.Red1 (24s)
+trace: .> LEAN_PATH=/root/p488/port/.lake/packages/Cli/.lake/build/lib/lean:/root/p488/port/.lake/packages/batteries/.lake/build/lib/lean:/root/p488/port/.lake/packages/Qq/.lake/build/lib/lean:/root/p488/port/.lake/packages/aesop/.lake/build/lib/lean:/root/p488/port/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/p488/port/.lake/packages/importGraph/.lake/build/lib/lean:/root/p488/port/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/p488/port/.lake/packages/plausible/.lake/build/lib/lean:/root/p488/port/.lake/packages/mathlib/.lake/build/lib/lean:/root/p488/port/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /root/p488/port/Plumb/Red1.lean -o /root/p488/port/.lake/build/lib/lean/Plumb/Red1.olean -i /root/p488/port/.lake/build/lib/lean/Plumb/Red1.ilean -c /root/p488/port/.lake/build/ir/Plumb/Red1.c --setup /root/p488/port/.lake/build/ir/Plumb/Red1.setup.json --json
+warning: Plumb/Red1.lean:128:68: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red1.lean:128:87: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red1.lean:130:42: This simp argument is unused:
+  pow_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red1.lean:132:72: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Plumb/Red1.lean:139:2: exponent 1000 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+error: Plumb/Red1.lean:139:2: Tactic `decide` proved that the proposition
+  2 ^ 1000 * (8 * 1000 + 1) ^ 53 < 3 ^ 1000
+is false
+info: Plumb/Red1.lean:509:0: 'Submissions.ErdosMultiplesSmoothRefuted.Counterexample.proof' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+warning: Plumb/Red1.lean:551:36: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+info: Plumb/Red1.lean:561:0: 'Erdos488ExactAdapter.refutation' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- Plumb.Red1
+error: build failed
