@@ -493,3 +493,124 @@ Lane 4 has run: `certs/zq-lean-replay.json` (`node tools/record-zq-lean-replay.j
 ## What every artifact of Track A says first
 "The theorem (ℤ is Diophantine in ℚ) is undecided here: the main Lean target is unproved and nothing in this record
 decides it."
+
+## Amendment A3, 2026-11-07 12:20 UTC: lane 3's three REFUSED replays, re-checked against the claimant's Issue 3 note (PRE-REGISTERED, committed before any code of ours runs on the note's data)
+
+**Why.** On 2026-11-07 11:23 UTC Glazer closed elliotglazer/diophantine-z-q#3 and published the case sets lane 3 found
+missing, at commit `036cebe4f1a4aa7ca89820a9b48f3629b4c364d6` (his main HEAD), in `docs/audit-history/issue3/`.
+Fetched read-only into a NEW clone, `~/Projects/zq-scout/issue3-036cebe4` (no licence: nothing copied here, only
+hashes, counts and short facts). What was read before this commit, with `cat`, `jq` and `sed` only (no code of ours
+ran on it): his closing comment on #3; the note's `README.md`; `construction-checks.json`, `quartic-checks.json`,
+`source-comparison.json`; for writing this amendment, the definition JSON's `definitions` and
+`library.finitePolynomialConstructors` blocks and the constructor nodes of templates 9 to 12; the spec's §§3 to 6;
+TeX lines 236 to 246 and 1262 to 1276 at `97cec7fd`; and the first 400 bytes of `candidate-rows.json.gz` and the keys
+of the certificate's final line at `5cb2c199`. **Not read and not run, now or later:** `replay_row_hash.py`, any
+`verify-*.js`, `scripts/check_construction.py`, `verify_certificate.py`, his CI, or any other file of his code.
+
+| File at `036cebe4` (`docs/audit-history/issue3/`) | sha256 |
+|---|---|
+| `README.md` (the prose this amendment replays) | `fffbd11b15206875f116ff82acfb57d1bb41fddf191e13b4f934e6fbbd8fa402` |
+| `construction-checks.json` (the eight hashes, the counts) | `4c608807700fe1eb21b2390998522ee18f39faaa12e11d0bc4bba6a0eb6eceb2` |
+| `quartic-checks.json` | `b7b2519d2af4f4780fc156f1a8dab4766397f6d4b81426732ba6c7feeff18089` |
+| `source-comparison.json` (his 28-file identity claim) | `e4f054eacacbe29b36c50efd53d087565117cccb6049b58f29fb208999d60996` |
+| `replay_row_hash.py` (hashed only, NEVER read) | `ad7fe0f985549d8e79b0fa840d651e0120c2a85dd4d18fbed8f09673200de52a` |
+
+**Verdict words, per item and per suite.** Each suite's replay is split into the counted items his report gives
+(counters, outcomes, hashes). An item is CERTIFIED when it is rebuilt from his prose and data and agrees exactly (the
+count, every case's outcome, the hash); REFUTED when a case he reports as passing fails our exact check (the case is
+the witness); REFUSED when the prose and data do not determine it, with the missing item named. A stated hash that our
+code computes differently is never REFUTED (a hash is not a mathematical statement): it is recorded as DIFFERS, the
+item is REFUSED, our own code is suspected first and re-read twice, and the difference goes to the record word for
+word. The suite's replay is CERTIFIED when every counted item is, REFUTED when one is, MIXED when some are CERTIFIED and
+some REFUSED, REFUSED when none is CERTIFIED. Things he reports that are not counted cases (the smoke circuit's
+structure, the division-polynomial graphs' node counts) are listed as gaps and decide nothing. The lane-3 statements
+verdicts of `certs/zq-finite.json` are not re-run: that record and its MIXED stay as dated history; the new record is
+`certs/zq-finite-v2.json`, from a companion tool `tools/zq-finite-v2.js` (`tools/zq-finite.js` and `tools/zq-v4.js`
+are not edited, because their records pin their own bytes). Where the new tool reuses a function of `tools/zq-v4.js`
+or `tools/zq-finite.js` it loads that file's pinned bytes (the sha256 in its record) without running its main block,
+so the code that decided those records is the code reused; everything else is written fresh, from the note's prose.
+
+**Integer compiler** (note §"Integer compiler cases"; spec §§3 to 5). Four items, rebuilt exactly as the note states:
+`digitCases` n ∈ [0,14], k ∈ [0,18], B = 2^(n+1), ⌊(B+1)^n / B^k⌋ mod B = binomial(n,k), 0 for k > n (285);
+`bitCases` every ordered (a,b) ∈ [0,63]², one case = the three assertions together (binomial(b,a) odd ⟺ a AND b = a;
+binomial(a+b,a) odd ⟺ a AND b = 0; z = a AND b, x = a−z, y = b−z have z AND x = z AND y = x AND y = 0) (4,096);
+`packedCases` the six programs (instruction 0 on register 0, instruction 1 halt: add→0, add→1, and sub with
+(nonzero, zero) ∈ {0,1}²), c ∈ {1,2}, q ∈ [0,3], every register sequence of length q+1 over [0, 2^c−1] and every
+state sequence of length q+1 over {0,1}; on each, the packed predicate (every §5 equation with R_j, S_i packed from the
+sequence, input a = r(0), N_j, V_i, W_i by their defining equations) against the direct predicate (initial state 0,
+final state 1, final register 0, no earlier halt, the transition at every step, a zero register staying zero on the
+zero branch); the item is CERTIFIED when they agree on every one of 30,120 sequences, and the number of valid histories
+is reported; `backendCases` x, y ∈ [0,6], the first zero of ((y−x−1−d)² + (x+3u−y−3v)²)·(x−5) over d, then u, then v
+in [0,7] against (x < y ∧ x ≡ y mod 3) ∨ x = 5 (49). Prediction: four items CERTIFIED, so the suite CERTIFIED. Gap
+named in advance: the eleven uncounted smoke tests and the smoke circuit's structure (2,394 variables, 13,755 nodes,
+1,850 formulas, the macro counts) are his compiler's output; not replayed. Red controls, each must disagree somewhere:
+the digit base 2^n in place of 2^(n+1); the subset test with the binomial's arguments swapped; the register equation
+without its B·C_j term; the direct predicate without "no earlier halt" (this one may coincide on two-state programs;
+the outcome is recorded either way and it decides nothing); the backend factor (x−6) in place of (x−5); the backend
+search range [0,3] in place of [0,7].
+
+**Division polynomials** (note §"Division-polynomial evaluation points"; TeX 206 to 263; JSON `psiNormalization`,
+`fixedPointCodes`). The note fixes the case set: n ∈ {0,…,8,−1,−4}, k ∈ {−1,0,1,2}, the input block code([k]P) and the
+output block code([nk]P) by affine double-and-add, [∞,x0,x1,y0,y1] with ∞ = [1,0,0,0,0], for n ≠ 0 one inverse-norm
+witness (0 when k = 0). His graphs are still not in the prose or the data (the JSON's own constructor text defers the
+ψ expansion to `elliptic-division-polynomials.js`), so the replay decides each of his assignments against two things,
+and the record says which: (i) the relation the suite states, the output block equal to ι_n of the input block by
+the ψ formulas of `fixedPointCodes` evaluated at the input point (∞ ↦ ∞, n = 0 ↦ ∞), computed independently of the
+double-and-add that built the assignment; (ii) for n ∈ [1,8], the SAVED template `multiply.scalar` ("r = [fixed
+positive index] p") at cstar = n, evaluated by lane 3's evaluator (loaded from `tools/zq-finite.js`'s pinned bytes):
+correct assignments must have a rational witness, corrupted ones none. Items: `exactCases` 44 (all accepted),
+`changedXCases` 44 (output x0 + 1, all rejected), `changedYCases` 30 (output y0, y1 negated, n ≠ 0 and k ≠ 0, all
+rejected), each CERTIFIED when the count and every outcome agree under (i), with (ii) reported beside it for n ∈ [1,8];
+and the witness rule: for k ≠ 0 the denominator ψ_n([k]P) is nonzero (so the witness exists), the witness count per
+graph is 0 for n = 0 and 1 otherwise, against his `artifacts`. Informational only: which of 1/N(ψ_n(Q)^e), e ∈ {1,2,3,4},
+the saved template's forced witness equals. Prediction: CERTIFIED. Gaps named in advance: his eleven graph polynomials
+are not evaluated (they are his code's output), so their node counts (32 to 529) are not reproduced, and for
+n ∈ {0,−1,−4} no saved graph exists; CERTIFIED here means his case set, rebuilt, has his outcomes under (i), not that
+his graphs were evaluated. Red controls: an assignment with output [nk+1]P must be rejected under (i) and (ii); ψ with
+f_4 lacking its factor 2 must disagree with double-and-add on some of his assignments; a "corruption" of 0 added to x0
+must be ACCEPTED (the rejection test is not vacuous).
+
+**Finite polynomial expressions** (note §"Finite-expression cases and hashes"; JSON `scalarNodeEncoding`,
+`finitePolynomialConstructors`, `finiteGuard`; TeX 1271). Items: the eight root hashes; the variable counts; the four
+rejected mutations. The hash is implemented exactly as the note states it (H = lowercase hex sha256 of the UTF-8
+string; nodes in index order; const, var, add, mul, call as displayed; a call's string its template id, its last
+argument, then its argument hashes; no sorting). That fixes the hash for nodes of those five kinds only. Templates 9
+and 10 carry `psi_component` and `finite_guard_product`, whose node-level expansions the JSON defers to
+`elliptic-division-polynomials.js` and `rational-model-assembly.js`: **multiply.scalar at both fixtures and
+multiply.guard at T = 1 are predicted REFUSED**, the missing item being those expansions. `natural` (template 12) has
+only the five kinds: its hash is determined, both fixtures. Two single readings, fixed now, each tried once and never
+varied: a `fixed_integer` expands to ONE const node whose string is the decimal of its value (`multiply`, template 11,
+ell = 12 and 144); the empty guard product (T = 0, no false triple in [0,0]³) expands to ONE const node "1"
+(`multiply.guard` at T = 0). A match under a reading is reported as a match under that reading; a mismatch makes that
+hash REFUSED with the reading named, never REFUTED. Variable counts: parameters, witnesses (lane 1's derived counts),
+nodes and calls of the four templates, against the two his report states (multiply, natural). Rejections: a clean-room
+validator from the prose must refuse each of his four mutated libraries and accept the pinned one: P0 must be
+∏_{p≤324} p and W = 4·P0 (TeX 1271, with the JSON's Ns = P0·Hproduct matching TeX's N_s = P_s·H_cat); every node
+argument that names a node is an integer index below its own (the encoding's topological order); a guard's cutoff is
+the fixed constant T (`finiteGuard.bound`); a fixed integer expression contains no variable
+(`finitePolynomialConstructors.fixed_integer`). Prediction: FE MIXED (natural CERTIFIED; the two readings either way;
+multiply.scalar ×2 and multiply.guard at T = 1 REFUSED; counts and rejections CERTIFIED). Red controls: natural's hash
+with one add node's operands swapped must differ; with one const changed must differ; the validator must accept the
+pinned library (a validator refusing everything proves nothing) and must refuse a fifth mutation of ours
+(psi_component component 2).
+
+**Version 4 `final.rows_sha256`** (note §"Version 4 final.rows_sha256"). The 4,879 rows are rebuilt by our own V4
+replay (`tools/zq-v4.js`'s `replay`, loaded from its pinned bytes `73bf562b…` on the clone at `5cb2c199`): the terminal
+system, rows 0 to 4,878 in id order, empty rows as []; each row's terms in the order our replay holds them; each term
+[coefficient as a bare signed integer, the nondecreasing index list]; compact ASCII JSON, no whitespace, no final
+newline; sha256 against `758e6c9f9225109017d2d80ee663a266c92ccf51de91f308304a02147031c7ea` and against the
+certificate's final line. Said now: a terminal row's terms are those of the certificate patch our replay adopted after
+checking the step (or the lifted row of line 0), so the rows and their term order are HIS DATA, checked step by step;
+the hash then checks the serialization of a checked table, not an independent derivation of term order. Beside it:
+the empty-row count (327 stated), byte equality with `candidate-rows.json.gz` decompressed, and row-by-row polynomial
+equality (term order ignored) with that file. Red controls: a final newline; empty rows dropped; two terms of one row
+swapped; one coefficient changed: each must change the hash.
+
+**File identity.** The 25 construction files and three Version 4 files of `source-comparison.json`: sha256 of each at
+`036cebe4`, against his listed value and against our clones at `97cec7fd` and `5cb2c199`. CERTIFIED when all 28
+agree; any difference is named. His `reviewed_current_commit` is `8b1db087`, the parent of `036cebe4`; the record says
+which commit we compared.
+
+**Overall.** `certs/zq-finite-v2.json` states its gaps first, then a verdict per suite (replay), the rows hash, the
+file identity, and an overall word: CERTIFIED only if every item is; REFUTED if any is; otherwise MIXED. The theorem
+stays undecided here. Nothing is pushed or posted under this amendment.
