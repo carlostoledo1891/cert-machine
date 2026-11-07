@@ -167,6 +167,23 @@ async function main() {
     return;
   }
 
+  if (cmd === 'delete') {
+    /* one post of this account, by id or URL; previews the post first, deletes only with --send (the operator's word) */
+    const target = rest.find((a) => !a.startsWith('--'));
+    if (!target) die('usage: node tools/x.js delete ID|URL [--send]');
+    const id = idOf(target), K = keys();
+    const me = (await call(K, 'GET', '/users/me')).data;
+    const t = (await call(K, 'GET', '/tweets/' + id, { query: { 'tweet.fields': 'author_id,text' } })).data;
+    if (!t || t.author_id !== me.id) die('post ' + id + ' is not @' + me.username + '\'s: nothing deleted');
+    console.log('post ' + id + ' by @' + me.username + ':\n' + t.text);
+    if (!flag('--send')) { console.log('\npreview only — add --send to delete'); return; }
+    const r = await call(K, 'DELETE', '/tweets/' + id);
+    if (!r.data || r.data.deleted !== true) die('X did not confirm the deletion: ' + JSON.stringify(r));
+    fs.appendFileSync(LOG, JSON.stringify({ id, deleted: true, text: t.text, at: new Date().toISOString() }) + '\n');
+    console.log('deleted ' + id);
+    return;
+  }
+
   if (cmd === 'show') {
     /* one post as X serves it: the text, the author, its media (type, size, the still and the video's variants), its counts */
     const id = idOf(rest.find((a) => !a.startsWith('--')));
