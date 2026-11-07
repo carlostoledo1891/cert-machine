@@ -202,7 +202,7 @@ for (const [repo, num, label] of [
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
-  ['google-deepmind/formal-conjectures', 7706, 'formal-conjectures PR #7706 (Erdős #174 Graham: our Lean of the heptagon, carlostoledo1891/heptagon-ramsey-lean; commented 2026-11-07)'],
+  ['google-deepmind/formal-conjectures', 7706, 'formal-conjectures PR #7706 (Erdős #174 Graham: our heptagon Lean linked by its author in 81b79068; waiting on a maintainer; we owe the Palomar entry + the link swap)'],
   ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
   ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
   ['subroy13/awesome-ai-proofs', 2, 'awesome-ai-proofs #2 (audit records)'],

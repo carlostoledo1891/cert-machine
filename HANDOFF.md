@@ -27,8 +27,16 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      heptagon not Ramsey, formal-conjectures' erdos_174.variants.graham false, Theorem A.3 as printed and its ℚ-independence
      corollary; four checkers, CHECKS.md) and ONE comment on formal-conjectures PR #7706 (#issuecomment-6711953944; the
      formal_proof line at Transport.lean#L98 with the palomar opt-out; the text outreach/gh-fc7706-heptagon-2026-11-07.md).
-     NOT done, on purpose: no page, no wstrinz issue, no X post — each is a new word. WATCH #7706 (in the sweep); answer
-     review there; a PR with the line only if asked. Say "the first proof of A.3 as stated, the first in Lean" — never
+     19:30 UTC: the PR's author (anxkhn, a contributor, not a maintainer) ADDED our link in 81b79068 (opt-out included),
+     checked the source himself (IsRamsey byte-identical, the statement up to namespace/whitespace, no sorry/axioms; his
+     build green; our 4.34.1 build and kernels not re-run) and asked for a Palomar entry; CI green, "blocked" on a
+     maintainer's approval + merge. Our reply posted (#issuecomment-6712431488; outreach/gh-fc7706-reply-2026-11-07.md):
+     we register a Palomar entry and send a follow-up PR swapping the link and removing the opt-out. 914298f3 tagged
+     v1.0.0 — NEVER rewrite or delete the repo. OWED: the Palomar port (module system, Palomar's pin, Challenge.lean
+     Mathlib-only, Comparator, formalization.yaml; on wstrinz's ported OAI closure, radian-ramsey, Apache-2.0, credited);
+     the Palomar submission and the swap PR each on the operator's word. On the merge: pin anxkhn's credit in
+     corpus/recognition.json. NOT done, on purpose: no page, no wstrinz/JD Jones/Pálvölgyi texts, no X post — the
+     operator chose them 11-07 then deferred them behind Palomar. Say "the first proof of A.3 as stated, the first in Lean" — never
      "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only
