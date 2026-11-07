@@ -14,7 +14,7 @@
   "merged": "accepted into the other party's repository",
   "closed, no comment": "the other party closed it without a reply"
  },
- "lastChecked": "2026-11-06",
+ "lastChecked": "2026-11-07",
  "rows": [
   {
    "id": "erdos852-thread",
@@ -1356,6 +1356,78 @@
    "sent": "2026-11-07",
    "status": "posted, no reply",
    "note": "plumb/reveal/x-thread.txt (private repo). The fourth post was replaced twice the same night; it is now 2118888179428151543 (the DOI link, then the report link, no labels), the earlier two deleted."
+  },
+  {
+   "id": "gh-optq-184-c51-replay-2026-11-07",
+   "what": "A comment on teorth/optimizationproblems PR #184 (the row [R2026b], He–Tang): C_51 ≥ 0.5850788196744 decided by two implementations sharing no code with each other or with the claimant, the infinite tail included, every planted control as predicted.",
+   "where": "GitHub, teorth/optimizationproblems PR #184",
+   "url": "https://github.com/teorth/optimizationproblems/pull/184#issuecomment-6707059155",
+   "sent": "2026-11-07",
+   "status": "live, no reply",
+   "note": "outreach/gh-c51-replay-2026-11-07.md; certs/c51-replay.json."
+  },
+  {
+   "id": "gh-zq-pr5-infinite-order-2026-11-07",
+   "what": "A pull request to elliotglazer/diophantine-z-q (invited on issue #3): the Lean lemma that the point P0 has infinite order, with no hypotheses; no file of his edited.",
+   "where": "GitHub, elliotglazer/diophantine-z-q PR #5",
+   "url": "https://github.com/elliotglazer/diophantine-z-q/pull/5",
+   "sent": "2026-11-07",
+   "status": "open, no comments",
+   "note": "outreach/gh-zq-pr5-infinite-order-2026-11-07.md; certs/zq-pr-build.json. His CI waits on his approval of a first-time contributor."
+  },
+  {
+   "id": "gh-zq-pr6-conditional-2026-11-07",
+   "what": "A pull request to elliotglazer/diophantine-z-q, stacked on #5: the frozen target's conclusion, byte for byte, from eight explicit hypotheses (conditional; none of the eight proved), in its own namespace.",
+   "where": "GitHub, elliotglazer/diophantine-z-q PR #6",
+   "url": "https://github.com/elliotglazer/diophantine-z-q/pull/6",
+   "sent": "2026-11-07",
+   "status": "open, no comments",
+   "note": "outreach/gh-zq-pr6-conditional-2026-11-07.md; certs/zq-pr-build.json."
+  },
+  {
+   "id": "gh-fc-7706-heptagon-2026-11-07",
+   "what": "A comment on google-deepmind/formal-conjectures PR #7706 (Graham's conjecture re-tagged solved): a Lean proof of the PR's statement through Pálvölgyi's heptagon and OpenAI's classification, gaps first, with the formal_proof line ready to paste. The PR's author added the link within minutes (81b79068), checked the source himself and asked for a Palomar entry; our reply committed to the entry and the link swap.",
+   "where": "GitHub, google-deepmind/formal-conjectures PR #7706",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7706#issuecomment-6711953944",
+   "sent": "2026-11-07",
+   "status": "answered",
+   "note": "outreach/gh-fc7706-heptagon-2026-11-07.md, gh-fc7706-reply-2026-11-07.md; the reply #issuecomment-6712431488; the page /reports/heptagon.html."
+  },
+  {
+   "id": "gh-wstrinz-heptagon-2026-11-07",
+   "what": "An issue on wstrinz/spherical-ramsey: the heptagon (the missing half of the README's minimality row) and Theorem A.3 in Lean on the same OpenAI pin as rope AV2; the A.3 route to the phase diagram's non-Ramsey half; nothing asked.",
+   "where": "GitHub, wstrinz/spherical-ramsey issue #1",
+   "url": "https://github.com/wstrinz/spherical-ramsey/issues/1",
+   "sent": "2026-11-07",
+   "status": "open, no comments",
+   "note": "outreach/gh-wstrinz-heptagon-2026-11-07.md."
+  },
+  {
+   "id": "gh-jdjones-heptagon-2026-11-07",
+   "what": "An issue on JD-Jones-ASES/six-concyclic-lean: the heptagon's failure of the criterion, which the README lists as not claimed in Lean, now in Lean, by the argument of the note's certificate 0002; nothing asked.",
+   "where": "GitHub, JD-Jones-ASES/six-concyclic-lean issue #1",
+   "url": "https://github.com/JD-Jones-ASES/six-concyclic-lean/issues/1",
+   "sent": "2026-11-07",
+   "status": "open, no comments",
+   "note": "outreach/gh-jdjones-heptagon-2026-11-07.md."
+  },
+  {
+   "id": "gh-heptagon-palvolgyi-2026-11-07",
+   "what": "An issue on carlostoledo1891/heptagon-ramsey-lean mentioning Dömötör Pálvölgyi (@domotorp): Theorem A.3 of his appendix, marked unchecked, checked in Lean; one remark, not an error, on Equation (2) for A.3's configuration.",
+   "where": "GitHub, carlostoledo1891/heptagon-ramsey-lean issue #1",
+   "url": "https://github.com/carlostoledo1891/heptagon-ramsey-lean/issues/1",
+   "sent": "2026-11-07",
+   "status": "open, no comments",
+   "note": "outreach/gh-heptagon-palvolgyi-2026-11-07.md."
+  },
+  {
+   "id": "x-heptagon-2026-11-07",
+   "what": "One post: one lab's model wrote a theorem its author marked unchecked; another lab's model proved it in Lean on the first lab's own formalization — Pálvölgyi's heptagon and his Theorem A.3, checked by five kernels; Claude wrote the Lean. Linking the page with its light card. Posted with tools/x.js on Carlos's word.",
+   "where": "X, @_carlos_toledo_",
+   "url": "https://x.com/_carlos_toledo_/status/2119174882613240195",
+   "sent": "2026-11-07",
+   "status": "posted, no reply",
+   "note": "notes/x/drops/d20-heptagon-post.txt; the page /reports/heptagon.html."
   }
  ]
 }
