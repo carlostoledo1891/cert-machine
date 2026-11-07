@@ -65,6 +65,12 @@ O.push(C.section({
 }));
 
 O.push(C.section({
+  lab: 'also first', title: 'Where the run differs from the plan', id: 'deviations',
+  bodyRaw: C.pRaw('The plan was sealed before the run; three things differ from it, and the record keeps all three.')
+    + C.plainList(R.deviations.map((d) => ({ b: { pin: 'A wrong pin in the plan.', P3: 'One Lean checker short.', P7: 'A planted fake that was not false.' }[d.id] || (d.id + '.'), text: d.text })))
+}));
+
+O.push(C.section({
   lab: 'the question', title: 'Can the share of multiples more than double?', id: 'question',
   bodyRaw: C.pRaw('Take a finite set of whole numbers, none of them 0 or 1, and count how many numbers up to a limit are multiples of at least one of them. With the set {5}: up to 9, one number in nine is a multiple (about 11%); far out, one in five (20%). The share grew by a factor of about 1.8. '
       + 'Erdős asked whether, from a limit n at least as large as every number in the set to any larger m, the share can ever reach more than twice what it was at n. With a single number it gets close to 2 and never reaches it.')

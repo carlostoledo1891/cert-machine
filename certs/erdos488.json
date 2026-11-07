@@ -41,7 +41,7 @@
   }
  },
  "code": {
-  "tools/record-erdos488.js": "3aac41859b418c88f864c8ba03f33fcc84e3330942fffc60f101930d53b7802c",
+  "tools/record-erdos488.js": "8a1e8109beae11fbc6dd4233571ce24cf084c72abfd28aeb4ee89124834bb62c",
   "tools/erdos488-p4.js": "e4ad7d23ed6141a64087520a56e2f7c771dbb54dbf71552a9850e12ef02fe7ec",
   "tools/erdos488-p4.py": "aa95593a3932034137659bc5b67b83cc3eb94e76a6fcaaff2b6b6a193481b223",
   "tools/erdos488-search.c": "32afd42093dcdb07ed8027d0432e4de66252cab42eef0ba2b488957e53f8a777",
@@ -251,6 +251,20 @@
    "how": "the audit lists Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1"
   }
  ],
+ "deviations": [
+  {
+   "id": "pin",
+   "text": "The pre-registration gives DeepMind's Mathlib as b7eb3304; that is the plausible package's pin. Mathlib is v4.33.1 at 0df444a3 (the entry's lake-manifest.json; fc-cache.log)."
+  },
+  {
+   "id": "P3",
+   "text": "The pre-registered rule names three Lean checkers (leanchecker, leanchecker-paranoid, --fresh); leanchecker-paranoid is not in Lean 4.33.1, so P3 rests on leanchecker and --fresh, with nanoda as an independent kernel. The separate re-elaboration of each source with -Ddebug.skipKernelTC=false was not run; the audit records the kernel check on by default."
+  },
+  {
+   "id": "P7",
+   "text": "The pre-registered false variant (4095 for 4096) is in fact true, 2^4095·32769^53 < 3^4095, so it would not have been a fake; the run used 1000, which is false."
+  }
+ ],
  "P6": {
   "reading": "dated 2026-11-06, from Liu (Zenodo doi:10.5281/zenodo.23439872, 2026-10-17) and the sources it cites",
   "sources": [
@@ -263,7 +277,13 @@
    {
     "who": "woshuajolk (Jig)",
     "date": "2026-09-05",
-    "what": "statement 39: the inequality holds whenever A ⊂ (n/5, n]; statement 41: an explicit instance, A = the 257-smooth integers in (2^384, 2^392]",
+    "what": "statement 39: the inequality holds whenever A ⊂ (n/5, n]",
+    "url": "https://jig.so/p/398"
+   },
+   {
+    "who": "woshuajolk (Jig)",
+    "date": "undated in the sources read",
+    "what": "statement 41: an explicit instance, A = the 257-smooth integers in (2^384, 2^392]",
     "url": "https://jig.so/p/398"
    },
    {

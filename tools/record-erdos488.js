@@ -128,11 +128,17 @@ function build() {
     verdict: all ? 'CERTIFIED' : 'REFUSED',
     verdicts: { P1: p1.verdict, P2: p2.verdict, P3: p3.verdict, P3secondKernel: p3.secondKernel, P4: p4.verdict, P5: p5.verdict, P6: 'READING', P7: p7.every((r) => r.caught) ? '4/4 caught' : 'MISSED' },
     P1: p1, P2: p2, P3: p3, P4: p4, P5: p5, P7: p7,
+    deviations: [
+      { id: 'pin', text: 'The pre-registration gives DeepMind\'s Mathlib as b7eb3304; that is the plausible package\'s pin. Mathlib is v4.33.1 at 0df444a3 (the entry\'s lake-manifest.json; fc-cache.log).' },
+      { id: 'P3', text: 'The pre-registered rule names three Lean checkers (leanchecker, leanchecker-paranoid, --fresh); leanchecker-paranoid is not in Lean 4.33.1, so P3 rests on leanchecker and --fresh, with nanoda as an independent kernel. The separate re-elaboration of each source with -Ddebug.skipKernelTC=false was not run; the audit records the kernel check on by default.' },
+      { id: 'P7', text: 'The pre-registered false variant (4095 for 4096) is in fact true, 2^4095·32769^53 < 3^4095, so it would not have been a fake; the run used 1000, which is false.' },
+    ],
     P6: {
       reading: 'dated 2026-11-06, from Liu (Zenodo doi:10.5281/zenodo.23439872, 2026-10-17) and the sources it cites',
       sources: [
         { who: 'D. Gessel (with GPT-6 Astra in Codex)', date: '2026-09-05', what: 'the counterexample, Lean-verified; formal-conjectures PR #5297; Jig problem 398, statement 40', url: PIN.claim.gist },
-        { who: 'woshuajolk (Jig)', date: '2026-09-05', what: 'statement 39: the inequality holds whenever A ⊂ (n/5, n]; statement 41: an explicit instance, A = the 257-smooth integers in (2^384, 2^392]', url: 'https://jig.so/p/398' },
+        { who: 'woshuajolk (Jig)', date: '2026-09-05', what: 'statement 39: the inequality holds whenever A ⊂ (n/5, n]', url: 'https://jig.so/p/398' },
+        { who: 'woshuajolk (Jig)', date: 'undated in the sources read', what: 'statement 41: an explicit instance, A = the 257-smooth integers in (2^384, 2^392]', url: 'https://jig.so/p/398' },
         { who: 'C. Benefield (Jig)', date: '2026-09-06', what: 'statements 42, 43: the ratio exceeds 3, then is unbounded', url: 'https://jig.so/p/398' },
         { who: 'shoal-rat', date: '2026-09-05', what: 'Lean-verified bounds and counterexamples for a sieved variant', url: 'https://github.com/shoal-rat/erdos-488-lean' },
         { who: 'Zongmin (Dylan Z.) Liu', date: '2026-10-17', what: 'the sharp order of the growth; the threshold λ* in [5, 54.18]; open problems', url: 'https://doi.org/10.5281/zenodo.23439872' },
