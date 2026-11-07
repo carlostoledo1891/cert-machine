@@ -151,3 +151,22 @@ arhancanli's or the note's, our code is suspected first; the disagreement is the
 
 Theorem 2.8 and Lemma 3.1 (read, the pairing re-derived, nothing formalized); whether the parameters are optimal;
 the note's Bernstein certificate itself (not run); anything about C42; Sothanaphan's note beyond its two parameters.
+
+## Amendment A (2026-11-07, after the first full run; no rule above changed, no prediction moved)
+
+- **C6's tail was mis-stated above.** τ₂ = 2K⁻⁶/(1 − K⁻⁴) = 9.7507·10⁻⁴, not ≈ 0.0099 (K⁶ ≈ 2064; an arithmetic slip in
+  this note, not in the code). The prediction, REFUSED, and its outcome are unchanged.
+- **One REFUSED path in the JavaScript decision is not named above.** It was in the code before the code's first run:
+  when a cell's midpoint has a lower bound of F_N above the certification threshold (a − τ)² and at or below the
+  refutation threshold (a + τ)², no cell containing that point can ever be accepted, so the decision refuses at once
+  ("gap") instead of running down the depth budget. It never yields CERTIFIED or REFUTED. It could pre-empt a REFUTED
+  only for a claim within 4aτ_N (about 10⁻⁵⁷ in F at N = 13) of a value F_N attains. It is the path that refuses C6
+  in JavaScript; the Python refuses C6 by the depth budget, as registered.
+- **"Published digits" in the self-tests means π's first 50 digits** (both formulas). cos and sin are tested by
+  identities in the record (cos π/3 = sin π/6 = 1/2, |e^{iθ}|² ∋ 1, and the double angle in Python). cos 1 and sin 1
+  matched their published 40 digits in a probe that is not part of the record.
+- **Run time.** The record takes about 45 s and `--check` about 60 s, not ~15 s.
+- **Found while comparing, reported as found.** arhancanli's comment gives x = cos²θ ≈ 0.6503 at θ ≈ 0.6455415545.
+  Both of our enclosures put the maximizer at θ ∈ [0.645541554518, 0.645541554519], where cos²θ = 0.6380400117…
+  (0.6503 would correspond to θ ≈ 0.6327). θ and the gap above |P(0)| agree with that comment. The x figure looks like
+  a slip in the comment and has no bearing on the bound.

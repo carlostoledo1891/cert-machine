@@ -1,0 +1,765 @@
+{
+ "gaps": [
+  "Not decided: He and Tang's Theorem 2.8 with Lemma 3.1 (beta(f_{K,eps}) = 1/max_theta|P(theta)|), read with Lemmas 2.1–2.7; the pairing of the indices n and -n-1 re-derived by hand; nothing formalized.",
+  "Not decided: that these parameters are optimal, or that the printed digits are the best this function gives (C1b shows 0.5850788196745 also holds).",
+  "Not run: the note's Bernstein certificate (scripts/certify_maximum_term.py and audit.py were never fetched); this replay is a second certificate of the same finite statement, not an audit of theirs.",
+  "Not blind: arhancanli's comment (2026-11-07 10:36 UTC) was read, numbers included, before this replay; the replay is independent in code and method only.",
+  "Not checked: Sothanaphan's note beyond the two parameters the PR prints; anything about the C42 half of the PR; the README merge conflict."
+ ],
+ "what": "teorth/optimizationproblems PR #184, row [R2026b]: C_51 >= 0.5850788196744 for the He–Tang function f_{K,eps}, K = 3.5681854310698435, alpha = 3.9615431126097391 — the finite statement max_theta |P(theta)| <= 1/0.5850788196744 (infinite tail included, whole circle) decided by two implementations sharing no code with each other, with the claimant's scripts or with arhancanli's replay",
+ "verdict": "CERTIFIED",
+ "margin": {
+  "beta": "1.1347e-13",
+  "A": "3.3149e-13",
+  "betaPy": "1.1347e-13",
+  "Apy": "3.3149e-13"
+ },
+ "claim": {
+  "row": "C_51 >= 0.5850788196744 [R2026b]",
+  "asA": "A <= 1/0.5850788196744",
+  "K": "3.5681854310698435",
+  "alpha": "3.9615431126097391"
+ },
+ "generated": "2026-11-07T12:35:42Z",
+ "git": "22e3f3771bd1942277e4eee5e2deecccf2f1f07f",
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "e9e494701492f75e4234876adedc149e24bd5232e334241518dcc807c90610a5",
+  "py": "240e5ec98166337e6c62c510f422cdd0ec210bea0276d91ab26195073606fdf6"
+ },
+ "preregistration": {
+  "path": "notes/c51-replay-preregistration-2026-11-07.md",
+  "sha256": "96b28289a7c77d86e9bbe80264ccffc857c4307308f933bc6737353719544d53",
+  "addedIn": "8f9bcb48b720cb1d45a7f35e4675a3caaea3902b 2026-11-07T09:17:02-03:00",
+  "sha256AsRegistered": "4554ed6f89ac71b1acfb53d63ad321e891a852aaeb5d96cb1e72e9350521b25a",
+  "amendments": "A (2026-11-07, after the first full run): C6's tau_2 mis-stated in the note; the JavaScript gap refusal named; the self-test digits; run time; the cos^2 slip in arhancanli's comment"
+ },
+ "pins": {
+  "certificateCommit": "ed6387399cf6de02eaa4cf10c43787633496619a",
+  "tag": "v1.0.2",
+  "prHead": "f7003e2e1893a522593fc8072ad072672168cff3",
+  "files": {
+   "data": {
+    "url": "https://raw.githubusercontent.com/AndreRoehrig/optimization-constants-certificates/ed6387399cf6de02eaa4cf10c43787633496619a/certificates/maximum_term.json",
+    "sha256": "dcf9d1bc0f6d7b295e0eff548cf73faf092efd8d038829e4d19755f07df33683"
+   },
+   "manifest": {
+    "url": "https://raw.githubusercontent.com/AndreRoehrig/optimization-constants-certificates/ed6387399cf6de02eaa4cf10c43787633496619a/MANIFEST.sha256",
+    "sha256": "ff8af05cdbe590ea8c75f9c451760281ff19fa9628dbf79b9a62413ee06b5368"
+   },
+   "note": {
+    "url": "https://raw.githubusercontent.com/AndreRoehrig/optimization-constants-certificates/ed6387399cf6de02eaa4cf10c43787633496619a/notes/maximum_term.md",
+    "sha256": "f81bb57a98a8daec96837224b7a5d0f5ce108c645c205cd693ca928bb8a9fe41"
+   },
+   "page51a": {
+    "url": "https://raw.githubusercontent.com/teorth/optimizationproblems/f7003e2e1893a522593fc8072ad072672168cff3/constants/51a.md",
+    "sha256": "ee27509994f3f7e967d21f9fb0206fcf57cec8c22febb13400dc153fddc41c01"
+   },
+   "paper": {
+    "url": "https://arxiv.org/pdf/2602.12217v1",
+    "sha256": "d61ee288717d1a7b436d270d10b88bcf9c95049814d8cdc897a9f5346f08bce9"
+   }
+  },
+  "checked": {
+   "dataFields": {
+    "constant": "C_51",
+    "K": "3.5681854310698435",
+    "alpha": "3.9615431126097391",
+    "lower_bound": "0.5850788196744",
+    "N": 9
+   },
+   "manifestStatesData": true,
+   "rowAtHead": true,
+   "arhancanliComment": "unchanged since read"
+  }
+ },
+ "read": [
+  "PR #184 body, diff and its three comments (ours of 2026-10-06, maximusrufus 2026-11-04, arhancanli 2026-11-07 10:36:28 UTC)",
+  "the certificate repository's README.md, MANIFEST.sha256, notes/maximum_term.md, certificates/maximum_term.json, certificates/maximum_term_verification.json",
+  "arXiv:2602.12217v1 in full"
+ ],
+ "neverReadOrRun": [
+  "scripts/certify_maximum_term.py",
+  "scripts/certify_turan.py",
+  "scripts/audit.py (sha256s known only from the MANIFEST)",
+  "github.com/arhancanli/quantavane-replays",
+  "QuanyuTang/ep513-arb-certification",
+  "Sothanaphan's note"
+ ],
+ "arhancanliComment": {
+  "url": "https://github.com/teorth/optimizationproblems/pull/184#issuecomment-6705699711",
+  "id": 6705699711,
+  "createdAt": "2026-11-07T10:36:28Z",
+  "bodySha256": "3f99e9a35cd4c2a6fab5c63ae16e646ebd5bc334f601b51152ad1d66e241769c",
+  "A": [
+   "1.709171425067672530527823486722",
+   "1.709171425067672530527824486723"
+  ],
+  "beta": [
+   "0.585078819674513477028433803123",
+   "0.585078819674513477028434145442"
+  ],
+  "betaOld": [
+   "0.585078819653352950854632279223",
+   "0.585078819653352950854632621542"
+  ],
+  "theta": "0.6455415545",
+  "gap": "1.16e-15",
+  "x": "0.6503"
+ },
+ "method": {
+  "reduction": "max over the circle = max over [0, U] with U >= pi/2: |P(-t)| = |P(t)|, P(pi - t) = -P(t), period 2 pi; |P - P_N| <= tau_N = 2K^{-T_{N+1}}/(1 - K^{-(N+2)}) (T_{n+1} - T_n = n + 1 >= N + 2 for n >= N + 1), exact; CERTIFIED when every cell bound on F_N = |P_N|^2 is <= (a - tau)^2 and the accepted cells cover [0, U] with 2U >= pi_hi; REFUTED by a witness with F_N > (a + tau)^2",
+  "js": {
+   "arithmetic": "BigInt decimal fixed point 10^-100, outward",
+   "N": 13,
+   "U": "3927/2500",
+   "tau": "1.969e-58",
+   "pi": "Strassnitzky",
+   "trig": "Taylor at x/2^12 + 12 squarings; e^{i alpha T_n} directly from alpha T_n",
+   "cellBound": "F(m) + |F'(m)| r + G2 r^2/2, monotonicity |F'(m)| > G2 r",
+   "G2": "73.247093",
+   "decision": "depth-first, gap refusal",
+   "enclosure": "refine every surviving cell each round"
+  },
+  "py": {
+   "arithmetic": "Python integers, binary fixed point 2^-320, outward",
+   "N": 14,
+   "U": "1609/1024",
+   "tau": "1.018e-66",
+   "pi": "Euler arctan(1/2)+arctan(1/3)",
+   "trig": "Taylor at the point; e^{i alpha T_n} as products of powers of e^{i alpha}",
+   "cellBound": "mean-value form F(m) + r max|F'(cell)|, F' by its interval extension over the cell; monotonicity test",
+   "decision": "depth-first",
+   "enclosure": "best-first"
+  },
+  "differsFrom": [
+   "the note: Bernstein subdivision of a degree-19 polynomial in x = cos^2 theta",
+   "He–Tang: a 2,000,000-point mesh and a global Lipschitz constant",
+   "arhancanli: quadratic Taylor at the midpoint plus a global cubic remainder, 1,050 cells"
+  ],
+  "budgets": {
+   "maxDepth": 64,
+   "cells": 400000,
+   "enclosureTolF": "1e-32"
+  }
+ },
+ "rows": {
+  "R1": {
+   "what": "beta >= 0.5850788196744 at the pinned K, alpha (the registry row)",
+   "js": {
+    "verdict": "CERTIFIED",
+    "cells": 351,
+    "depth": 23,
+    "leaves": 176
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "cells": 291,
+    "depth": 22,
+    "leaves": 146
+   },
+   "agree": true
+  },
+  "R2": {
+   "what": "A <= 1.709171425067816128872617735945 (the claimant's printed maximum)",
+   "js": {
+    "verdict": "CERTIFIED",
+    "cells": 357,
+    "depth": 23,
+    "leaves": 179
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "cells": 301,
+    "depth": 23,
+    "leaves": 151
+   },
+   "agree": true
+  }
+ },
+ "enclosure": {
+  "js": {
+   "A": [
+    "1.709171425067672530527823486722",
+    "1.709171425067672530527823486723"
+   ],
+   "beta": [
+    "0.585078819674513477028434145441",
+    "0.585078819674513477028434145442"
+   ],
+   "width": "1.820e-33",
+   "argmaxTheta": "0.645541554518",
+   "maximizerIn": [
+    {
+     "theta": [
+      "0.645541554518",
+      "0.645541554519"
+     ],
+     "cells": 6
+    }
+   ],
+   "cells": 719,
+   "rounds": 56,
+   "absP0": [
+    "1.709171425067671370724186091097",
+    "1.709171425067671370724186091098"
+   ],
+   "maxMinusAbsP0": [
+    "1.1598e-15",
+    "1.1599e-15"
+   ],
+   "interiorMaximumProved": true
+  },
+  "py": {
+   "A": [
+    "1.709171425067672530527823486722",
+    "1.709171425067672530527823486723"
+   ],
+   "beta": [
+    "0.585078819674513477028434145441",
+    "0.585078819674513477028434145442"
+   ],
+   "width": "2.738e-33",
+   "argmaxTheta": "0.645541554518",
+   "maximizerIn": [
+    {
+     "theta": [
+      "0.645541554518",
+      "0.645541554519"
+     ],
+     "cells": 7
+    }
+   ],
+   "cos2AtArgmax": "0.6380400117",
+   "cells": 621,
+   "depth": 56,
+   "absP0": [
+    "1.709171425067671370724186091097",
+    "1.709171425067671370724186091098"
+   ],
+   "maxMinusAbsP0": [
+    "1.1598e-15",
+    "1.1599e-15"
+   ],
+   "interiorMaximumProved": true
+  },
+  "intersection": {
+   "A": [
+    "1.709171425067672530527823486722",
+    "1.709171425067672530527823486723"
+   ],
+   "beta": [
+    "0.585078819674513477028434145441",
+    "0.585078819674513477028434145442"
+   ],
+   "intersect": true
+  },
+  "maximum": "interior: at theta in [[\"0.645541554518\",\"0.645541554519\"]] on [0, pi/2] (and its images -theta, pi +- theta), above |P(0)| by 1.1598e-15..1.1599e-15",
+  "againstNote": {
+   "ourAhiBelowNoteMax": true,
+   "noteMinusOurAhi": "1.4359e-13",
+   "noteBetaLowerBelowOurs": true
+  },
+  "againstArhancanli": {
+   "AinsideTheirs": true,
+   "betaInsideTheirs": true,
+   "thetaAgrees": true,
+   "gapAgrees": true,
+   "cos2AtArgmax": "0.6380400117",
+   "theirX": "0.6503",
+   "xNote": "their parenthetical x = cos^2 theta ~ 0.6503 does not match theta ~ 0.6455415545, where cos^2 theta = 0.6380400117…; immaterial to the bound"
+  }
+ },
+ "controls": {
+  "C1a": {
+   "what": "the least 13-decimal claim above our beta-enclosure",
+   "predicted": "REFUTED",
+   "js": "REFUTED",
+   "py": "REFUTED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 21,
+    "depth": 20,
+    "witnessTheta": "0.000000749015808105468750000000"
+   },
+   "pyDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 21,
+    "depth": 20,
+    "witnessTheta": "0.000000749249011278152465820312"
+   },
+   "claim": "0.5850788196746"
+  },
+  "C1b": {
+   "what": "the greatest 13-decimal claim below it",
+   "predicted": "CERTIFIED",
+   "js": "CERTIFIED",
+   "py": "CERTIFIED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 375,
+    "depth": 24,
+    "leaves": 188
+   },
+   "pyDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 319,
+    "depth": 24,
+    "leaves": 160
+   },
+   "claim": "0.5850788196745"
+  },
+  "C2": {
+   "what": "alpha + 1e-6, the claim 0.5850788196744",
+   "predicted": "REFUTED",
+   "js": "REFUTED",
+   "py": "REFUTED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 11,
+    "depth": 10,
+    "witnessTheta": "0.000766992187500000000000000000"
+   },
+   "pyDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 11,
+    "depth": 10,
+    "witnessTheta": "0.000767230987548828125000000000"
+   }
+  },
+  "C3a": {
+   "what": "[S2026] parameters, the claim 0.5850788196744",
+   "predicted": "REFUTED",
+   "js": "REFUTED",
+   "py": "REFUTED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 17,
+    "depth": 16,
+    "witnessTheta": "0.000011984252929687500000000000"
+   },
+   "pyDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 17,
+    "depth": 16,
+    "witnessTheta": "0.000011987984180450439453125000"
+   }
+  },
+  "C3b": {
+   "what": "[S2026] parameters, its own 0.585078819653",
+   "predicted": "CERTIFIED",
+   "js": "CERTIFIED",
+   "py": "CERTIFIED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 305,
+    "depth": 22,
+    "leaves": 153
+   },
+   "pyDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 253,
+    "depth": 22,
+    "leaves": 127
+   },
+   "claim": "0.585078819653"
+  },
+  "C4a": {
+   "what": "He–Tang (K0, alpha0), 0.58507",
+   "predicted": "CERTIFIED",
+   "js": "CERTIFIED",
+   "py": "CERTIFIED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 113,
+    "depth": 10,
+    "leaves": 57
+   },
+   "pyDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 93,
+    "depth": 9,
+    "leaves": 47
+   },
+   "claim": "0.58507"
+  },
+  "C4b": {
+   "what": "He–Tang (K0, alpha0), the registry's 0.5850724",
+   "predicted": "CERTIFIED",
+   "js": "CERTIFIED",
+   "py": "CERTIFIED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 117,
+    "depth": 10,
+    "leaves": 59
+   },
+   "pyDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 99,
+    "depth": 10,
+    "leaves": 50
+   },
+   "claim": "0.5850724"
+  },
+  "C5a": {
+   "what": "the cover [0, 3/2] only",
+   "predicted": "REFUSED",
+   "js": "REFUSED",
+   "py": "REFUSED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUSED",
+    "why": "coverage check: 2U < upper end of pi, [0, U] may miss [0, pi/2]",
+    "cells": 351,
+    "leaves": 176
+   },
+   "pyDetail": {
+    "verdict": "REFUSED",
+    "why": "coverage check: 2U < upper end of pi, [0, U] may miss [0, pi/2]",
+    "cells": 291,
+    "leaves": 146
+   }
+  },
+  "C5b": {
+   "what": "a certified cover with one accepted cell removed",
+   "predicted": "REFUSED",
+   "js": "REFUSED",
+   "py": "REFUSED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUSED",
+    "why": "coverage check: a gap or overlap at a cell edge",
+    "cells": 351,
+    "leaves": 175
+   },
+   "pyDetail": {
+    "verdict": "REFUSED",
+    "why": "coverage check: a gap or overlap at a cell edge",
+    "cells": 291,
+    "leaves": 145
+   }
+  },
+  "C6": {
+   "what": "truncation N = 2",
+   "predicted": "REFUSED",
+   "js": "REFUSED",
+   "py": "REFUSED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUSED",
+    "why": "gap: a point lies above the certification threshold and below the refutation threshold (the tail bound and the precision leave the claim undecidable here)",
+    "cells": 6,
+    "depth": 5
+   },
+   "pyDetail": {
+    "verdict": "REFUSED",
+    "why": "depth budget exhausted",
+    "cells": 65,
+    "depth": 64
+   },
+   "tau": "9.7507e-4"
+  },
+  "C7": {
+   "what": "working precision starved (2^-32 / 10^-10)",
+   "predicted": "REFUSED",
+   "js": "REFUSED",
+   "py": "REFUSED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUSED",
+    "why": "working precision exhausted: a cell midpoint is not representable",
+    "cells": 9,
+    "depth": 8
+   },
+   "pyDetail": {
+    "verdict": "REFUSED",
+    "why": "working precision exhausted: a cell midpoint is not representable",
+    "cells": 23,
+    "depth": 22
+   }
+  },
+  "C8a": {
+   "what": "A <= (our lower end - 1e-25)",
+   "predicted": "REFUTED",
+   "js": "REFUTED",
+   "py": "REFUTED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 400,
+    "depth": 42,
+    "witnessTheta": "0.645541554518156954145524650812"
+   },
+   "pyDetail": {
+    "verdict": "REFUTED",
+    "why": "a witness theta with |P_N| - tau above the claim",
+    "cells": 331,
+    "depth": 40,
+    "witnessTheta": "0.645541554518503701842746522743"
+   }
+  },
+  "C8b": {
+   "what": "A <= (our upper end + 1e-25)",
+   "predicted": "CERTIFIED",
+   "js": "CERTIFIED",
+   "py": "CERTIFIED",
+   "agree": true,
+   "asPredicted": true,
+   "jsDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 589,
+    "depth": 43,
+    "leaves": 295
+   },
+   "pyDetail": {
+    "verdict": "CERTIFIED",
+    "cells": 503,
+    "depth": 43,
+    "leaves": 252
+   }
+  }
+ },
+ "controlValues": {
+  "C2": {
+   "js": {
+    "A": [
+     "1.70917197852665168737",
+     "1.70917197852665168738"
+    ],
+    "beta": [
+     "0.58507863021603280237",
+     "0.58507863021603280238"
+    ],
+    "width": "2.058e-25",
+    "argmaxTheta": "0.000000000000",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.000000000000",
+       "0.000000000003"
+      ],
+      "cells": 7
+     }
+    ],
+    "cells": 407,
+    "rounds": 43
+   },
+   "py": {
+    "A": [
+     "1.70917197852665168737",
+     "1.70917197852665168738"
+    ],
+    "beta": [
+     "0.58507863021603280237",
+     "0.58507863021603280238"
+    ],
+    "width": "2.492e-25",
+    "argmaxTheta": "0.000000000000",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.000000000000",
+       "0.000000000002"
+      ],
+      "cells": 3
+     }
+    ],
+    "cos2AtArgmax": "0.9999999999",
+    "cells": 317,
+    "depth": 42
+   }
+  },
+  "C3c": {
+   "js": {
+    "A": [
+     "1.709171425129488076503468804440",
+     "1.709171425129488076503468804441"
+    ],
+    "beta": [
+     "0.585078819653352950854632621541",
+     "0.585078819653352950854632621542"
+    ],
+    "width": "1.342e-33",
+    "argmaxTheta": "0.000000000000",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.000000000000",
+       "0.000000000001"
+      ],
+      "cells": 6
+     }
+    ],
+    "cells": 579,
+    "rounds": 56,
+    "betaHiBelowNoteUpper": true
+   },
+   "py": {
+    "A": [
+     "1.709171425129488076503468804440",
+     "1.709171425129488076503468804441"
+    ],
+    "beta": [
+     "0.585078819653352950854632621541",
+     "0.585078819653352950854632621542"
+    ],
+    "width": "1.413e-33",
+    "argmaxTheta": "0.000000000000",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.000000000000",
+       "0.000000000001"
+      ],
+      "cells": 4
+     }
+    ],
+    "cos2AtArgmax": "0.9999999999",
+    "cells": 459,
+    "depth": 56,
+    "belowNoteUpper": true,
+    "betaLoBelowNoteUpper": true,
+    "betaHiBelowNoteUpper": true
+   },
+   "noteUpper": "0.585078819653352950854632621542",
+   "arhancanli": [
+    "0.585078819653352950854632279223",
+    "0.585078819653352950854632621542"
+   ]
+  },
+  "C4b": {
+   "js": {
+    "A": [
+     "1.70917639741444652784",
+     "1.70917639741444652785"
+    ],
+    "beta": [
+     "0.58507711755951473047",
+     "0.58507711755951473048"
+    ],
+    "width": "2.061e-25",
+    "argmaxTheta": "0.645484603900",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.645484603899",
+       "0.645484603901"
+      ],
+      "cells": 7
+     }
+    ],
+    "cells": 451,
+    "rounds": 43
+   },
+   "py": {
+    "A": [
+     "1.70917639741444652784",
+     "1.70917639741444652785"
+    ],
+    "beta": [
+     "0.58507711755951473047",
+     "0.58507711755951473048"
+    ],
+    "width": "2.734e-25",
+    "argmaxTheta": "0.645484603900",
+    "maximizerIn": [
+     {
+      "theta": [
+       "0.645484603899",
+       "0.645484603901"
+      ],
+      "cells": 4
+     }
+    ],
+    "cos2AtArgmax": "0.6380947481",
+    "cells": 403,
+    "depth": 42
+   }
+  },
+  "C4c": {
+   "js": {
+    "absP5": [
+     "1.709176397414741464507875377482",
+     "1.709176397414741464507875377483"
+    ],
+    "printed": "1.709176397414741464507875",
+    "agreesToPrintedDigits": true,
+    "sameFirst25Digits": true
+   },
+   "py": {
+    "absP5": [
+     "1.709176397414741464507875377482",
+     "1.709176397414741464507875377483"
+    ],
+    "printed": "1.709176397414741464507875",
+    "agreesToPrintedDigits": true,
+    "sameFirst25Digits": true
+   }
+  },
+  "C6tau": {
+   "js": "9.7507e-4",
+   "py": "9.7507e-4"
+  }
+ },
+ "readings": {
+  "noteTail": "the note's tail T = 2K^{-(N+1)(N+2)/2}/(1 - K^{-(N+2)}) is ours at N = 9: tau_9 = 8.2495e-31, inside their transcript's tail_bound [0, 1e-30]",
+  "lemma31": "P(theta) = e^{i theta} k(eps e^{2i theta}) = 2 sum_n eps^{T_n} K^{-T_n} cos((2n+1) theta) with eps = e^{i alpha}: the PR's and the note's formula is the paper's, T_n = n(n+1)/2 in both places"
+ },
+ "allAgree": true,
+ "allAsPredicted": true,
+ "selftests": {
+  "js": {
+   "piStrassnitzkyContainsPublished50": true,
+   "cosPiOver3ContainsHalf": true,
+   "sinPiOver6ContainsHalf": true,
+   "unitModulus": true,
+   "symmetries": true,
+   "cellBoundAboveSamples": true,
+   "G2AboveSecondDifferences": true,
+   "tailAboveNext40Terms": true
+  },
+  "py": {
+   "piEulerContainsPublished50": true,
+   "piWidth": "3.20e-135",
+   "cosPiOver3ContainsHalf": true,
+   "sinPiOver6ContainsHalf": true,
+   "cos2PlusSin2Contains1": true,
+   "doubleAngle": true,
+   "symmetries": true,
+   "cellBoundAboveSamples": true,
+   "derivativeVsCentralDifference": true,
+   "tailAboveNext40Terms": true
+  },
+  "allPass": true
+ },
+ "rederive": "node tools/c51-replay.js --check (offline, ~45 s); node tools/c51-replay.js re-checks the pins over the network and rewrites this record",
+ "seconds": 43.5
+}
