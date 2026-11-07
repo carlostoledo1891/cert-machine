@@ -1,0 +1,1788 @@
+{
+ "what": "Lane 3's three REFUSED replays of the claim \"Z is Diophantine in Q\" (Glazer et al.) re-checked against the claimant's Issue 3 note (036cebe4, docs/audit-history/issue3/), clean-room from its prose and data; plus the Version 4 final.rows_sha256 under his stated serialization and his 28-file identity claim. His code (replay_row_hash.py, verify-*.js, check_construction.py, verify_certificate.py, CI) not read or run.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here: the main Lean target is unproved (its proof is `sorry`) and nothing in this record decides it. This record re-checks three finite-suite replays and one serialization against the claimant's Issue 3 note; by his own README those suites do not establish the zero projection, the global height or restricted-converse inputs, or the natural precision polynomial's semantics.",
+ "gaps": [
+  {
+   "rank": 1,
+   "suite": "finite polynomial expressions",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "The hash of multiply.scalar at {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} is not determined by the prose (psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose).",
+   "closes": "the node-level expansion of psi_component stated in prose, or the expanded templates published as data"
+  },
+  {
+   "rank": 1,
+   "suite": "finite polynomial expressions",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "The hash of multiply.guard at {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} is not determined by the prose (finite_guard_product at T = 1: its node-level expansion is defined by rational-model-assembly.js (the JSON's finitePolynomialConstructors), not in prose).",
+   "closes": "the node-level expansion of finite_guard_product stated in prose, or the expanded templates published as data"
+  },
+  {
+   "rank": 1,
+   "suite": "finite polynomial expressions",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "The hash of multiply.scalar at {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"} is not determined by the prose (psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose).",
+   "closes": "the node-level expansion of psi_component stated in prose, or the expanded templates published as data"
+  },
+  {
+   "rank": 2,
+   "suite": "division polynomials",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "His eleven graph polynomials (n ∈ {0, 1, 2, 3, 4, 5, 6, 7, 8, -1, -4}, 32/251/256/348/380/426/451/504/529/253/382 nodes) are the output of elliptic-division-polynomials.js and are in neither the prose nor the data (the JSON's own constructor text defers the ψ expansion to that file): they are not evaluated here and their node counts are not reproduced. For n ∈ {0, −1, −4} no saved graph exists; for n ∈ [1,8] the saved template multiply.scalar stands in, which is not stated to be the same polynomial.",
+   "closes": "the eleven graph polynomials published as data, or their construction stated node by node"
+  },
+  {
+   "rank": 3,
+   "suite": "division polynomials",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "The exact witness value (\"the reciprocal of the graph's denominator norm\") depends on the graph's denominator, which is not stated; only its existence (a nonzero norm) is checked. The saved template's forced witness is reported in forcedWitness as information.",
+   "closes": "the graph's denominator named in prose (the saved template's forced witness is 1/N(ψ_n(Q)), see forcedWitness)"
+  },
+  {
+   "rank": 4,
+   "suite": "finite polynomial expressions",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "Five of the eight hashes are reproduced, three of them under a reading of ours fixed before the run (R1 for multiply at both fixtures, R2 for multiply.guard at T = 0): the prose does not say that a fixed_integer, or an empty guard product, expands to one const node. The matching sha256 confirms the readings; the prose still omits them.",
+   "closes": "one sentence in the note per constructor"
+  },
+  {
+   "rank": 5,
+   "suite": "integer compiler",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "The eleven uncounted smoke tests of the clear-register machine and its compiled circuit's structure (2,394 variables, 13,755 nodes, 1,850 formulas, macro counts {\"alpha\":87,\"power\":29,\"binomial\":9,\"orthogonal\":6,\"mask\":3,\"bitAnd\":2}) are his compiler's output; not replayed (the note says they are not an exhaustive test either).",
+   "closes": "not needed for the counted suite (uncounted by his own note)"
+  },
+  {
+   "rank": 6,
+   "suite": "Version 4 final.rows_sha256",
+   "at": "036cebe4 (2026-11-07)",
+   "gap": "Each terminal row is the certificate patch our replay adopted after checking its step (or the lifted row of line 0), with its terms in the patch's order: the rows and their term order are HIS DATA, checked step by step by our replay (V3 CERTIFIED). So this is a serialization check of a checked table, not an independent derivation of the term order.",
+   "closes": "nothing in his release; a scope note on what our hash check is"
+  }
+ ],
+ "generated": "2026-11-07",
+ "preregistration": "notes/zq-preregistration-2026-11-06.md, Amendment A3 (commit 1a5ab1e9, before any run) and A3.1 (commit 985fcc56, after a first pass, before the recorded pass: FER2 re-aimed, FER5 added, the forced-witness readout extended)",
+ "history": {
+  "record": "certs/zq-finite.json",
+  "generated": "2026-11-06",
+  "verdict": "MIXED",
+  "note": "not rewritten; it stays as dated history. Its six-contact replay (CERTIFIED) and its statements verdicts (CERTIFIED, four suites) are not re-run here."
+ },
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "note": {
+   "commit": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+   "files": {
+    "docs/audit-history/issue3/README.md": "fffbd11b15206875f116ff82acfb57d1bb41fddf191e13b4f934e6fbbd8fa402",
+    "docs/audit-history/issue3/construction-checks.json": "4c608807700fe1eb21b2390998522ee18f39faaa12e11d0bc4bba6a0eb6eceb2",
+    "docs/audit-history/issue3/quartic-checks.json": "b7b2519d2af4f4780fc156f1a8dab4766397f6d4b81426732ba6c7feeff18089",
+    "docs/audit-history/issue3/source-comparison.json": "e4f054eacacbe29b36c50efd53d087565117cccb6049b58f29fb208999d60996"
+   },
+   "hashedNeverRead": {
+    "docs/audit-history/issue3/replay_row_hash.py": "ad7fe0f985549d8e79b0fa840d651e0120c2a85dd4d18fbed8f09673200de52a"
+   }
+  },
+  "original": {
+   "commit": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+   "definition": {
+    "path": "construction/ordinary-integer-definition.json",
+    "sha256": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6"
+   },
+   "spec": {
+    "path": "construction/integer-compiler-spec.txt",
+    "sha256": "9a3a01fc78e922351cf4e6f47d1bc160c6f392d76279d71c9f0b9f2bc91d9eb1"
+   },
+   "tex": {
+    "path": "diophantine_zq.tex",
+    "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+   }
+  },
+  "version4": {
+   "commit": "5cb2c1997dde6e358f3c2fe9bbdb4b8f4c23bac6",
+   "candidateRows": {
+    "path": "quartics/quartic-4973/candidate-rows.json.gz",
+    "sha256": "1399f9e16932863b4b46a8977061617ed2013ad0947f4b4b7742f07e8e30edd1"
+   }
+  }
+ },
+ "issue": {
+  "url": "https://github.com/elliotglazer/diophantine-z-q/issues/3",
+  "closed": "2026-11-07T11:23:15Z",
+  "closingComment": "2026-11-07T11:23:14Z, elliotglazer"
+ },
+ "code": {
+  "tools/zq-finite-v2.js": "d5c421c0de199c8ae232c661115d154ab28fc62e2cb362d208e01316982f41ab",
+  "tools/zq-k0.js": "5cdabc3dc84216188687cedd3a4cdcbcaa9e8c6d39e44d54c30c8e89f8244634",
+  "tools/zq-finite.js": "b1ea1e751a2b98ee06e4a7290c64ed25edc1eeeeb351a07dbe2e5adfe61ca727 (reused: makeEvaluator; main block not run)",
+  "tools/zq-v4.js": "73bf562bcc51aa4acd2c2e056a342d239e7ed35e0eabb18dd3b61457b34b3b47 (reused: inputs, replay, decideV1, decideV3; main block not run)"
+ },
+ "verdict": "MIXED",
+ "verdictScope": "per suite (replay of his case sets as the note now specifies them): integer compiler REFUSED → CERTIFIED; division polynomials REFUSED → CERTIFIED; finite polynomial expressions REFUSED → MIXED; final.rows_sha256 CERTIFIED; file identity CERTIFIED",
+ "summary": [
+  {
+   "suite": "integer compiler",
+   "before": "REFUSED",
+   "after": "CERTIFIED",
+   "items": [
+    "IC-digit CERTIFIED",
+    "IC-bit CERTIFIED",
+    "IC-packed CERTIFIED",
+    "IC-backend CERTIFIED"
+   ],
+   "redControls": 6
+  },
+  {
+   "suite": "division polynomials",
+   "before": "REFUSED",
+   "after": "CERTIFIED",
+   "items": [
+    "DP-exact CERTIFIED",
+    "DP-changedX CERTIFIED",
+    "DP-changedY CERTIFIED",
+    "DP-witness CERTIFIED"
+   ],
+   "redControls": 3
+  },
+  {
+   "suite": "finite polynomial expressions",
+   "before": "REFUSED",
+   "after": "MIXED",
+   "items": [
+    "FE-hash multiply.scalar {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} REFUSED",
+    "FE-hash multiply.guard {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} REFUSED",
+    "FE-hash multiply {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} CERTIFIED",
+    "FE-hash natural {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"} CERTIFIED",
+    "FE-hash multiply.scalar {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"} REFUSED",
+    "FE-hash multiply.guard {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"} CERTIFIED",
+    "FE-hash multiply {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"} CERTIFIED",
+    "FE-hash natural {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"} CERTIFIED",
+    "FE-counts CERTIFIED",
+    "FE-rejections CERTIFIED"
+   ],
+   "redControls": 5
+  }
+ ],
+ "suites": [
+  {
+   "suite": "integer compiler",
+   "checker": "verify-integer-compiler.js",
+   "before": "REFUSED",
+   "after": "CERTIFIED",
+   "reason": "every counted item rebuilt from the note and agreeing exactly (4 items; 6 red controls as predicted)",
+   "source": "note §\"Integer compiler cases\"; spec §§3-5 (97cec7fd)",
+   "gaps": [
+    "The eleven uncounted smoke tests of the clear-register machine and its compiled circuit's structure (2,394 variables, 13,755 nodes, 1,850 formulas, macro counts {\"alpha\":87,\"power\":29,\"binomial\":9,\"orthogonal\":6,\"mask\":3,\"bitAnd\":2}) are his compiler's output; not replayed (the note says they are not an exhaustive test either)."
+   ],
+   "items": [
+    {
+     "id": "IC-digit",
+     "what": "digitCases: n ∈ [0,14], k ∈ [0,18], B = 2^(n+1): ⌊(B+1)^n / B^k⌋ mod B = binomial(n,k), 0 for k > n",
+     "theirs": 285,
+     "ours": 285,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC-bit",
+     "what": "bitCases: every ordered (a,b) ∈ [0,63]²; binomial(b,a) odd ⟺ a AND b = a; binomial(a+b,a) odd ⟺ a AND b = 0; z = a AND b, x = a−z, y = b−z give z AND x = z AND y = x AND y = 0",
+     "theirs": 4096,
+     "ours": 4096,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "IC-packed",
+     "what": "packedCases: six two-instruction programs (instruction 0 on register 0, instruction 1 halt), c ∈ {1,2}, q ∈ [0,3], every register sequence over [0, 2^c−1] and state sequence over {0,1} of length q+1: the packed predicate of spec §5 (input a = r(0)) agrees with the direct history predicate on every sequence",
+     "theirs": 30120,
+     "ours": 30120,
+     "verdict": "CERTIFIED",
+     "validHistories": 11,
+     "countFormula": "6·Σ_{c=1,2} Σ_{q=0..3} (2^c)^(q+1)·2^(q+1)"
+    },
+    {
+     "id": "IC-backend",
+     "what": "backendCases: x, y ∈ [0,6]; the first zero of ((y−x−1−d)² + (x+3u−y−3v)²)·(x−5) over d, u, v ∈ [0,7] (d, then u, then v) exists exactly when (x < y ∧ x ≡ y mod 3) ∨ x = 5",
+     "theirs": 49,
+     "ours": 49,
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "redControls": [
+    {
+     "id": "ICR1",
+     "mutation": "the digit base 2^n in place of 2^(n+1)",
+     "prediction": "some digit case fails",
+     "outcome": "1 of 285 fail, first [0,0]",
+     "passed": true
+    },
+    {
+     "id": "ICR2",
+     "mutation": "the subset test with the binomial's arguments swapped, binomial(a,b)",
+     "prediction": "some pair fails",
+     "outcome": "1330 of 4096 fail",
+     "passed": true
+    },
+    {
+     "id": "ICR3",
+     "mutation": "the register equation without its B·C_j term",
+     "prediction": "packed and direct disagree on some sequence",
+     "outcome": "7 sequences disagree",
+     "passed": true
+    },
+    {
+     "id": "ICR4",
+     "mutation": "the direct predicate without \"no earlier halt\" (a halt step imposing nothing); pre-registered as deciding nothing either way",
+     "prediction": "recorded either way",
+     "outcome": "90 sequences disagree",
+     "passed": true
+    },
+    {
+     "id": "ICR5",
+     "mutation": "the backend factor (x−6) in place of (x−5)",
+     "prediction": "some (x, y) disagrees",
+     "outcome": "14 pairs disagree, first [5,0,null,true]",
+     "passed": true
+    },
+    {
+     "id": "ICR6",
+     "mutation": "the backend search range [0,3] in place of [0,7]",
+     "prediction": "some (x, y) disagrees",
+     "outcome": "1 pairs disagree, first [0,6,null,true]",
+     "passed": true
+    }
+   ]
+  },
+  {
+   "suite": "division polynomials",
+   "checker": "verify-division-polynomials.js",
+   "before": "REFUSED",
+   "after": "CERTIFIED",
+   "reason": "every counted item rebuilt from the note and agreeing exactly (4 items; 3 red controls as predicted)",
+   "scope": "CERTIFIED here means his case set, rebuilt from the note, has his outcomes under the stated relation (i), with the saved template multiply.scalar (ii) agreeing for n ∈ [1,8]; it does NOT mean his eleven graphs were evaluated.",
+   "source": "note §\"Division-polynomial evaluation points\"; TeX 206-263 and the JSON's psiNormalization, fixedPointCodes (97cec7fd)",
+   "curve": {
+    "noteCurveAndPointEqualPinned": true,
+    "A": "−11243 + 7950√2",
+    "P": "((1641−1160√2)/8, (−123720+87483√2)/32)"
+   },
+   "gaps": [
+    "His eleven graph polynomials (n ∈ {0, 1, 2, 3, 4, 5, 6, 7, 8, -1, -4}, 32/251/256/348/380/426/451/504/529/253/382 nodes) are the output of elliptic-division-polynomials.js and are in neither the prose nor the data (the JSON's own constructor text defers the ψ expansion to that file): they are not evaluated here and their node counts are not reproduced. For n ∈ {0, −1, −4} no saved graph exists; for n ∈ [1,8] the saved template multiply.scalar stands in, which is not stated to be the same polynomial.",
+    "The exact witness value (\"the reciprocal of the graph's denominator norm\") depends on the graph's denominator, which is not stated; only its existence (a nonzero norm) is checked. The saved template's forced witness is reported in forcedWitness as information."
+   ],
+   "items": [
+    {
+     "id": "DP-exact",
+     "what": "exactCases: for n ∈ {0,…,8,−1,−4} and k ∈ {−1,0,1,2}, the input block code([k]P) and the output block code([nk]P) (affine double-and-add) satisfy the stated relation: the output is ι_n of the input by the ψ formulas of fixedPointCodes at the input point (∞ ↦ ∞, n = 0 ↦ ∞)",
+     "theirs": 44,
+     "ours": 44,
+     "verdict": "CERTIFIED",
+     "savedTemplate": "multiply.scalar at cstar = n accepts 32 of the 32 assignments with n ∈ [1,8]"
+    },
+    {
+     "id": "DP-changedX",
+     "what": "changedXCases: the same 44 with 1 added to the output x0 coordinate are rejected by the stated relation",
+     "theirs": 44,
+     "ours": 44,
+     "verdict": "CERTIFIED",
+     "savedTemplate": "multiply.scalar rejects 32 of 32"
+    },
+    {
+     "id": "DP-changedY",
+     "what": "changedYCases: for n ≠ 0 and k ≠ 0 (30), the output y0 and y1 both negated are rejected by the stated relation",
+     "theirs": 30,
+     "ours": 30,
+     "verdict": "CERTIFIED",
+     "savedTemplate": "multiply.scalar rejects 24 of 24"
+    },
+    {
+     "id": "DP-witness",
+     "what": "the inverse-norm witness: one per graph for n ≠ 0, none for n = 0 (his artifacts list); for k ≠ 0 the denominator ψ_n([k]P) is nonzero, so its reciprocal norm exists; 0 when k = 0",
+     "theirs": "0:0 1:1 2:1 3:1 4:1 5:1 6:1 7:1 8:1 -1:1 -4:1",
+     "ours": "0:0 1:1 2:1 3:1 4:1 5:1 6:1 7:1 8:1 -1:1 -4:1",
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "redControls": [
+    {
+     "id": "DPR1",
+     "mutation": "an output [nk+1]P in place of [nk]P",
+     "prediction": "rejected by (i) on all 44 and by (ii) on all 32",
+     "outcome": "accepted by (i) on 0, by (ii) on 0",
+     "passed": true
+    },
+    {
+     "id": "DPR2",
+     "mutation": "ψ with f_4 lacking its factor 2",
+     "prediction": "disagrees with double-and-add for some n ∈ [1,8]",
+     "outcome": "7 of 8 values of n disagree (at P, k = 1)",
+     "passed": true
+    },
+    {
+     "id": "DPR3",
+     "mutation": "a \"corruption\" of 0 added to x0",
+     "prediction": "accepted on all 44 (the rejection test is not vacuous)",
+     "outcome": "44 of 44 accepted",
+     "passed": true
+    }
+   ],
+   "forcedWitness": [
+    {
+     "n": 1,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1,
+       2,
+       3,
+       4
+      ]
+     ]
+    },
+    {
+     "n": 1,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 1,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1,
+       2,
+       3,
+       4
+      ]
+     ]
+    },
+    {
+     "n": 1,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1,
+       2,
+       3,
+       4
+      ]
+     ]
+    },
+    {
+     "n": 2,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 2,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 2,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 2,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 3,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 3,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 3,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 3,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 4,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 4,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 4,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 4,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 5,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 5,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 5,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 5,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 6,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 6,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 6,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 6,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 7,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 7,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 7,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 7,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 8,
+     "k": -1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 8,
+     "k": 0,
+     "atZero": "vanishes for every w"
+    },
+    {
+     "n": 8,
+     "k": 1,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "n": 8,
+     "k": 2,
+     "polyDegree": 2,
+     "rationalRoots": 1,
+     "rootEqualsInverseNormOfPsiPower": [
+      [
+       1
+      ]
+     ]
+    }
+   ],
+   "cases": [
+    {
+     "n": 0,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": true,
+     "witnessSlots": 0,
+     "witness": null,
+     "template": null
+    },
+    {
+     "n": 0,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 0,
+     "witness": null,
+     "template": null
+    },
+    {
+     "n": 0,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": true,
+     "witnessSlots": 0,
+     "witness": null,
+     "template": null
+    },
+    {
+     "n": 0,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": true,
+     "witnessSlots": 0,
+     "witness": null,
+     "template": null
+    },
+    {
+     "n": 1,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 1,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 1,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 1,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 2,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 2,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 2,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 2,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 3,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 3,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 3,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 3,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 4,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 4,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 4,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 4,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 5,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 5,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 5,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 5,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 6,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 6,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 6,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 6,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 7,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 7,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 7,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 7,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 8,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 8,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": {
+      "exact": "any",
+      "changedX": "none",
+      "changedY": null
+     }
+    },
+    {
+     "n": 8,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": 8,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": {
+      "exact": "one",
+      "changedX": "none",
+      "changedY": "none"
+     }
+    },
+    {
+     "n": -1,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    },
+    {
+     "n": -1,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": null
+    },
+    {
+     "n": -1,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    },
+    {
+     "n": -1,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    },
+    {
+     "n": -4,
+     "k": -1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    },
+    {
+     "n": -4,
+     "k": 0,
+     "inputIsIdentity": true,
+     "outputIsIdentity": true,
+     "witnessSlots": 1,
+     "witness": "0",
+     "template": null
+    },
+    {
+     "n": -4,
+     "k": 1,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    },
+    {
+     "n": -4,
+     "k": 2,
+     "inputIsIdentity": false,
+     "outputIsIdentity": false,
+     "witnessSlots": 1,
+     "witness": "reciprocal of a nonzero norm (≠ 0: true)",
+     "template": null
+    }
+   ]
+  },
+  {
+   "suite": "finite polynomial expressions",
+   "checker": "verify-finite-polynomial-expressions.js",
+   "before": "REFUSED",
+   "after": "MIXED",
+   "reason": "CERTIFIED: FE-hash multiply {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}, FE-hash natural {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}, FE-hash multiply.guard {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}, FE-hash multiply {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}, FE-hash natural {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}, FE-counts, FE-rejections; REFUSED: FE-hash multiply.scalar {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}, FE-hash multiply.guard {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}, FE-hash multiply.scalar {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+   "source": "note §\"Finite-expression cases and hashes\"; the JSON's scalarNodeEncoding, finitePolynomialConstructors, finiteGuard; TeX 1271 (97cec7fd)",
+   "readings": {
+    "R1": "a fixed_integer expands to ONE const node whose string is the decimal of its value (multiply, template 11)",
+    "R2": "the empty guard product (T = 0) expands to ONE const node \"1\" (multiply.guard)",
+    "rule": "each tried once, never varied (A3)"
+   },
+   "gaps": [
+    "The hash of multiply.scalar at {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}: psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose.",
+    "The hash of multiply.guard at {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}: finite_guard_product at T = 1: its node-level expansion is defined by rational-model-assembly.js (the JSON's finitePolynomialConstructors), not in prose.",
+    "The hash of multiply.scalar at {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}: psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose."
+   ],
+   "items": [
+    {
+     "id": "FE-hash multiply.scalar {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "what": "the recursive expression hash at t.root of template multiply.scalar at fixture {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "theirs": "57a8672d14b81a18f5f50bbf0053365e743193069edd8aed04c6f57bd8d0226d",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "id": "FE-hash multiply.guard {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "what": "the recursive expression hash at t.root of template multiply.guard at fixture {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "theirs": "a726b73271dddbc6439485e9ec0e3693f957e1fe2ad4a3ae251fd7a2ced76470",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "finite_guard_product at T = 1: its node-level expansion is defined by rational-model-assembly.js (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "id": "FE-hash multiply {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "what": "the recursive expression hash at t.root of template multiply at fixture {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "theirs": "e31fe6b03e7b7ac02087cd5f755aef9cce1396905480aa12077ce088bbfeb510",
+     "ours": "e31fe6b03e7b7ac02087cd5f755aef9cce1396905480aa12077ce088bbfeb510",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R1: a fixed_integer expands to one const node, the decimal of its value"
+    },
+    {
+     "id": "FE-hash natural {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "what": "the recursive expression hash at t.root of template natural at fixture {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}",
+     "theirs": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "ours": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "verdict": "CERTIFIED",
+     "note": "reproduced"
+    },
+    {
+     "id": "FE-hash multiply.scalar {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "what": "the recursive expression hash at t.root of template multiply.scalar at fixture {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "theirs": "3080f22ed3e4ae86363ee36939c63ab770c0797a928ec356a7c62d2ecafe3335",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "id": "FE-hash multiply.guard {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "what": "the recursive expression hash at t.root of template multiply.guard at fixture {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "theirs": "4295a98ec9383a6ac59fbc77ea8e50e9cb2f9ff282cd8ce82f750f1841613c15",
+     "ours": "4295a98ec9383a6ac59fbc77ea8e50e9cb2f9ff282cd8ce82f750f1841613c15",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R2: the empty guard product (T = 0) expands to one const node \"1\""
+    },
+    {
+     "id": "FE-hash multiply {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "what": "the recursive expression hash at t.root of template multiply at fixture {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "theirs": "ee464f849f46ca31f5b8cae64a36f6579f80bf2249d6c4d50d862a22aee3594c",
+     "ours": "ee464f849f46ca31f5b8cae64a36f6579f80bf2249d6c4d50d862a22aee3594c",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R1: a fixed_integer expands to one const node, the decimal of its value"
+    },
+    {
+     "id": "FE-hash natural {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "what": "the recursive expression hash at t.root of template natural at fixture {\"cstar\":\"8\",\"ell\":\"144\",\"T\":\"0\"}",
+     "theirs": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "ours": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "verdict": "CERTIFIED",
+     "note": "reproduced"
+    },
+    {
+     "id": "FE-counts",
+     "what": "the parameter, witness (lane 1's derived counts), node and call counts of the templates his report lists (multiply, natural); multiply.scalar and multiply.guard have no stated value and are reported only",
+     "theirs": [
+      {
+       "name": "multiply",
+       "parameters": 15,
+       "witnesses": 35134,
+       "nodes": 84,
+       "calls": 6
+      },
+      {
+       "name": "natural",
+       "parameters": 5,
+       "witnesses": 140604,
+       "nodes": 80,
+       "calls": 7
+      }
+     ],
+     "ours": [
+      {
+       "name": "multiply.scalar",
+       "parameters": 10,
+       "witnesses": 1,
+       "nodes": 137,
+       "calls": 0
+      },
+      {
+       "name": "multiply.guard",
+       "parameters": 15,
+       "witnesses": 1,
+       "nodes": 23,
+       "calls": 0
+      },
+      {
+       "name": "multiply",
+       "parameters": 15,
+       "witnesses": 35134,
+       "nodes": 84,
+       "calls": 6
+      },
+      {
+       "name": "natural",
+       "parameters": 5,
+       "witnesses": 140604,
+       "nodes": 80,
+       "calls": 7
+      }
+     ],
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "FE-rejections",
+     "what": "his four mutated fresh copies of the symbolic library are refused by our clean-room validator, which accepts the pinned library",
+     "theirs": 4,
+     "ours": 4,
+     "verdict": "CERTIFIED",
+     "mutations": [
+      {
+       "id": "M1",
+       "mutation": "fixedConstants.P0 set to [\"literal\",\"1\"]",
+       "refused": true,
+       "refusal": "fixedConstants.P0 is not ∏_{p≤324} p (TeX 1271: P_s = ∏_{p≤324} p; the JSON's Ns = P0·Hproduct is TeX's N_s = P_s·H_cat)"
+      },
+      {
+       "id": "M2",
+       "mutation": "argument 1 of the psi_component node in template 9 set to 999999 (the first such node, 14; each of the eight placements tried)",
+       "refused": true,
+       "placements": 8,
+       "refusal": "template 9 node 14 (psi_component): argument 999999 is not an earlier node (nodes are topologically ordered)"
+      },
+      {
+       "id": "M3",
+       "mutation": "argument 0 of the finite_guard_product node in template 10 set to [\"literal\",\"1\"]",
+       "refused": true,
+       "refusal": "template 10 node 15 (finite_guard_product): the cutoff [\"literal\",\"1\"] is not the fixed constant T (finiteGuard.bound)"
+      },
+      {
+       "id": "M4",
+       "mutation": "argument 0 of the fixed_integer node in template 11 set to [\"variable\",0]",
+       "refused": true,
+       "refusal": "template 11 node 56 (fixed_integer): [\"variable\",0] uses an operator outside the fixed-expression operators (a fixed integer expression has no quantified variable)"
+      }
+     ]
+    }
+   ],
+   "redControls": [
+    {
+     "id": "FER1",
+     "mutation": "natural with one add node's operands swapped (node 73)",
+     "prediction": "the hash differs (operand order is hashed)",
+     "outcome": "differs",
+     "passed": true
+    },
+    {
+     "id": "FER2",
+     "mutation": "multiply (reading R1, fixture {\"cstar\":\"4\",\"ell\":\"12\",\"T\":\"1\"}) with its first const reachable from the root changed by one (node 15)",
+     "prediction": "the hash differs",
+     "outcome": "differs",
+     "passed": true
+    },
+    {
+     "id": "FER5",
+     "mutation": "natural with a const UNREACHABLE from its root changed by one (node 5; natural's unreachable nodes: 5, 6, 7, 8 of 80)",
+     "prediction": "the hash is unchanged (the note: unrelated nodes are not appended)",
+     "outcome": "same hash",
+     "passed": true
+    },
+    {
+     "id": "FER3",
+     "mutation": "the pinned library, unmutated",
+     "prediction": "accepted by the validator",
+     "outcome": "accepted",
+     "passed": true
+    },
+    {
+     "id": "FER4",
+     "mutation": "a fifth mutation of ours: a psi_component asking for component 2",
+     "prediction": "refused",
+     "outcome": "refused: template 9 node 14 (psi_component): component 2 is not 0 or 1",
+     "passed": true
+    }
+   ],
+   "hashes": [
+    {
+     "template": "multiply.scalar",
+     "fixture": {
+      "cstar": "4",
+      "ell": "12",
+      "T": "1"
+     },
+     "theirs": "57a8672d14b81a18f5f50bbf0053365e743193069edd8aed04c6f57bd8d0226d",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "template": "multiply.guard",
+     "fixture": {
+      "cstar": "4",
+      "ell": "12",
+      "T": "1"
+     },
+     "theirs": "a726b73271dddbc6439485e9ec0e3693f957e1fe2ad4a3ae251fd7a2ced76470",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "finite_guard_product at T = 1: its node-level expansion is defined by rational-model-assembly.js (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "template": "multiply",
+     "fixture": {
+      "cstar": "4",
+      "ell": "12",
+      "T": "1"
+     },
+     "theirs": "e31fe6b03e7b7ac02087cd5f755aef9cce1396905480aa12077ce088bbfeb510",
+     "ours": "e31fe6b03e7b7ac02087cd5f755aef9cce1396905480aa12077ce088bbfeb510",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R1: a fixed_integer expands to one const node, the decimal of its value"
+    },
+    {
+     "template": "natural",
+     "fixture": {
+      "cstar": "4",
+      "ell": "12",
+      "T": "1"
+     },
+     "theirs": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "ours": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "verdict": "CERTIFIED",
+     "note": "reproduced"
+    },
+    {
+     "template": "multiply.scalar",
+     "fixture": {
+      "cstar": "8",
+      "ell": "144",
+      "T": "0"
+     },
+     "theirs": "3080f22ed3e4ae86363ee36939c63ab770c0797a928ec356a7c62d2ecafe3335",
+     "ours": null,
+     "verdict": "REFUSED",
+     "note": "psi_component: its node-level expansion is defined by the normalized recurrences \"in elliptic-division-polynomials.js\" (the JSON's finitePolynomialConstructors), not in prose"
+    },
+    {
+     "template": "multiply.guard",
+     "fixture": {
+      "cstar": "8",
+      "ell": "144",
+      "T": "0"
+     },
+     "theirs": "4295a98ec9383a6ac59fbc77ea8e50e9cb2f9ff282cd8ce82f750f1841613c15",
+     "ours": "4295a98ec9383a6ac59fbc77ea8e50e9cb2f9ff282cd8ce82f750f1841613c15",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R2: the empty guard product (T = 0) expands to one const node \"1\""
+    },
+    {
+     "template": "multiply",
+     "fixture": {
+      "cstar": "8",
+      "ell": "144",
+      "T": "0"
+     },
+     "theirs": "ee464f849f46ca31f5b8cae64a36f6579f80bf2249d6c4d50d862a22aee3594c",
+     "ours": "ee464f849f46ca31f5b8cae64a36f6579f80bf2249d6c4d50d862a22aee3594c",
+     "verdict": "CERTIFIED",
+     "note": "reproduced under reading R1: a fixed_integer expands to one const node, the decimal of its value"
+    },
+    {
+     "template": "natural",
+     "fixture": {
+      "cstar": "8",
+      "ell": "144",
+      "T": "0"
+     },
+     "theirs": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "ours": "770615fa678fdb91fb39fd80de1e92eae764b20cbe295538aede3310b9dfa41e",
+     "verdict": "CERTIFIED",
+     "note": "reproduced"
+    }
+   ]
+  }
+ ],
+ "rowsHash": {
+  "verdict": "CERTIFIED",
+  "before": "not checked (certs/zq-v4.json: \"its serialization is not stated\")",
+  "what": "final.rows_sha256 of the Version 4 certificate, recomputed under the note's serialization from the terminal table of OUR replay (tools/zq-v4.js's replay, reused from its pinned bytes, on the clone at 5cb2c199): rows 0 to N−1 in id order, empty rows as [], each term [bare signed integer, nondecreasing index list] in the order our replay holds it, compact ASCII JSON, no final newline",
+  "whatItChecks": "Each terminal row is the certificate patch our replay adopted after checking its step (or the lifted row of line 0), with its terms in the patch's order: the rows and their term order are HIS DATA, checked step by step by our replay (V3 CERTIFIED). So this is a serialization check of a checked table, not an independent derivation of the term order.",
+  "v3Verdict": "CERTIFIED",
+  "claimed": "758e6c9f9225109017d2d80ee663a266c92ccf51de91f308304a02147031c7ea",
+  "certificateFinalLine": "758e6c9f9225109017d2d80ee663a266c92ccf51de91f308304a02147031c7ea",
+  "ours": "758e6c9f9225109017d2d80ee663a266c92ccf51de91f308304a02147031c7ea",
+  "rows": 4879,
+  "emptyRows": 327,
+  "nonIntegerCoefficients": 0,
+  "bytes": 416625,
+  "candidateRows": {
+   "path": "quartics/quartic-4973/candidate-rows.json.gz",
+   "sha256": "1399f9e16932863b4b46a8977061617ed2013ad0947f4b4b7742f07e8e30edd1",
+   "decompressedBytesEqualOurs": true,
+   "decompressedSha256": "758e6c9f9225109017d2d80ee663a266c92ccf51de91f308304a02147031c7ea",
+   "rows": 4879,
+   "rowsDifferingAsPolynomials": 0,
+   "rowsSamePolynomialOtherTermOrder": 0
+  },
+  "redControls": [
+   {
+    "id": "RHR1",
+    "mutation": "a final newline",
+    "prediction": "the hash changes",
+    "outcome": "changed",
+    "passed": true
+   },
+   {
+    "id": "RHR2",
+    "mutation": "the 327 empty rows dropped",
+    "prediction": "the hash changes",
+    "outcome": "changed",
+    "passed": true
+   },
+   {
+    "id": "RHR3",
+    "mutation": "the first two terms of row 4 swapped",
+    "prediction": "the hash changes",
+    "outcome": "changed",
+    "passed": true
+   },
+   {
+    "id": "RHR4",
+    "mutation": "one coefficient of row 4 raised by one",
+    "prediction": "the hash changes",
+    "outcome": "changed",
+    "passed": true
+   }
+  ]
+ },
+ "fileIdentity": {
+  "verdict": "CERTIFIED",
+  "statement": "his source-comparison.json: the 25 curated construction files equal 97cec7fd and the three Version 4 checker/data files equal 5cb2c199",
+  "comparedAt": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6 (his reviewed_current_commit is 8b1db08764b4935c37676ffa36f58ae084fa2ff0, the parent of 036cebe4; 036cebe4 itself changes only .github/workflows/research-checks.yml, construction/README.md, docs/audit-history/issue3/README.md, docs/audit-history/issue3/construction-checks.json, docs/audit-history/issue3/quartic-checks.json, docs/audit-history/issue3/replay_row_hash.py, docs/audit-history/issue3/source-comparison.json)",
+  "construction": 25,
+  "version4": 3,
+  "agreeing": 28,
+  "differing": [],
+  "files": [
+   {
+    "path": "construction/audit-rational-expression.js",
+    "historical": "97cec7fd",
+    "his": "9d7313e65e27996caa852fcf1102a4add3cda790c0ad1b2438c424c59e9870bc",
+    "at036cebe4": "9d7313e65e27996caa852fcf1102a4add3cda790c0ad1b2438c424c59e9870bc",
+    "atHistorical": "9d7313e65e27996caa852fcf1102a4add3cda790c0ad1b2438c424c59e9870bc",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/bound-ordinary-integer-polynomial.py",
+    "historical": "97cec7fd",
+    "his": "d3c826dc4adbca3fa87bc5142ddee8d789e039eb316dbae10030120a161ae8ae",
+    "at036cebe4": "d3c826dc4adbca3fa87bc5142ddee8d789e039eb316dbae10030120a161ae8ae",
+    "atHistorical": "d3c826dc4adbca3fa87bc5142ddee8d789e039eb316dbae10030120a161ae8ae",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/elliptic-division-polynomials.js",
+    "historical": "97cec7fd",
+    "his": "ce4d92950444eff9e590dfb3ecb9fa78e84fdbb7348891166f8f90b2300364d7",
+    "at036cebe4": "ce4d92950444eff9e590dfb3ecb9fa78e84fdbb7348891166f8f90b2300364d7",
+    "atHistorical": "ce4d92950444eff9e590dfb3ecb9fa78e84fdbb7348891166f8f90b2300364d7",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/finite-polynomial-expressions.js",
+    "historical": "97cec7fd",
+    "his": "983a82e0a01d6bf7a19fef1d5f7e6a3a0493fb0b0592f283a073b0d147965a18",
+    "at036cebe4": "983a82e0a01d6bf7a19fef1d5f7e6a3a0493fb0b0592f283a073b0d147965a18",
+    "atHistorical": "983a82e0a01d6bf7a19fef1d5f7e6a3a0493fb0b0592f283a073b0d147965a18",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/fixed-certificate-constants.js",
+    "historical": "97cec7fd",
+    "his": "de3ba41ede9447c4bdefa8534c6a478c0805580a770fdc1a72163d4573ecd932",
+    "at036cebe4": "de3ba41ede9447c4bdefa8534c6a478c0805580a770fdc1a72163d4573ecd932",
+    "atHistorical": "de3ba41ede9447c4bdefa8534c6a478c0805580a770fdc1a72163d4573ecd932",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/integer-compiler-spec.txt",
+    "historical": "97cec7fd",
+    "his": "9a3a01fc78e922351cf4e6f47d1bc160c6f392d76279d71c9f0b9f2bc91d9eb1",
+    "at036cebe4": "9a3a01fc78e922351cf4e6f47d1bc160c6f392d76279d71c9f0b9f2bc91d9eb1",
+    "atHistorical": "9a3a01fc78e922351cf4e6f47d1bc160c6f392d76279d71c9f0b9f2bc91d9eb1",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/integer-diophantine-compiler.js",
+    "historical": "97cec7fd",
+    "his": "c0c7e8f738fe9b7a07c82be1429e1924b772cd360058dc14f2b331555b1dc893",
+    "at036cebe4": "c0c7e8f738fe9b7a07c82be1429e1924b772cd360058dc14f2b331555b1dc893",
+    "atHistorical": "c0c7e8f738fe9b7a07c82be1429e1924b772cd360058dc14f2b331555b1dc893",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/integer-halting-correctness-proof.txt",
+    "historical": "97cec7fd",
+    "his": "c7ed7faf156bfb6c769d2194335d84b807d32d89920b01dc07d986dd645f5fa3",
+    "at036cebe4": "c7ed7faf156bfb6c769d2194335d84b807d32d89920b01dc07d986dd645f5fa3",
+    "atHistorical": "c7ed7faf156bfb6c769d2194335d84b807d32d89920b01dc07d986dd645f5fa3",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/multiplication-certificate.js",
+    "historical": "97cec7fd",
+    "his": "222975953ce1dd42de37ee6411e338a08eeb213e1f6c314627670f4d6a65011c",
+    "at036cebe4": "222975953ce1dd42de37ee6411e338a08eeb213e1f6c314627670f4d6a65011c",
+    "atHistorical": "222975953ce1dd42de37ee6411e338a08eeb213e1f6c314627670f4d6a65011c",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/ordinary-integer-definition.json",
+    "historical": "97cec7fd",
+    "his": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6",
+    "at036cebe4": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6",
+    "atHistorical": "4d639d4c44e69ea360d36d4591b8fdc82269d68b9363af0157d1e5c1174c7af6",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/ordinary-integer-definition.json.checks.json",
+    "historical": "97cec7fd",
+    "his": "038931df18514c3c4d49738892a8f4d85223b182ae2e34f1df7e1d0db95feb7a",
+    "at036cebe4": "038931df18514c3c4d49738892a8f4d85223b182ae2e34f1df7e1d0db95feb7a",
+    "atHistorical": "038931df18514c3c4d49738892a8f4d85223b182ae2e34f1df7e1d0db95feb7a",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/ordinary-integer-polynomial-size-bounds.json",
+    "historical": "97cec7fd",
+    "his": "dfef3ff3da641814edf62f9992cb7a27aa0a770deccc95b084a65751289dbd9e",
+    "at036cebe4": "dfef3ff3da641814edf62f9992cb7a27aa0a770deccc95b084a65751289dbd9e",
+    "atHistorical": "dfef3ff3da641814edf62f9992cb7a27aa0a770deccc95b084a65751289dbd9e",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/ordinary-integer-polynomial.js",
+    "historical": "97cec7fd",
+    "his": "a0f2c5915d479fbf4321e94c7d19b24b58eb8d618917a7b5a87fdb6943690846",
+    "at036cebe4": "a0f2c5915d479fbf4321e94c7d19b24b58eb8d618917a7b5a87fdb6943690846",
+    "atHistorical": "a0f2c5915d479fbf4321e94c7d19b24b58eb8d618917a7b5a87fdb6943690846",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/precision-natural-polynomial.json",
+    "historical": "97cec7fd",
+    "his": "f3e163f5c60b972c98b48647274f956dd7d78428e27ddc0543574a5f18120b8c",
+    "at036cebe4": "f3e163f5c60b972c98b48647274f956dd7d78428e27ddc0543574a5f18120b8c",
+    "atHistorical": "f3e163f5c60b972c98b48647274f956dd7d78428e27ddc0543574a5f18120b8c",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/rational-circuit-translator.js",
+    "historical": "97cec7fd",
+    "his": "d0c389916b10e8523877026dd89aa0163c1fe9fecc7a129f61231ff5683a4bbd",
+    "at036cebe4": "d0c389916b10e8523877026dd89aa0163c1fe9fecc7a129f61231ff5683a4bbd",
+    "atHistorical": "d0c389916b10e8523877026dd89aa0163c1fe9fecc7a129f61231ff5683a4bbd",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/rational-elliptic-core.js",
+    "historical": "97cec7fd",
+    "his": "2c5ef4fa4a035e143fcce0a39eb9a98fccaf12f2f67569fe6af188552eb87bd6",
+    "at036cebe4": "2c5ef4fa4a035e143fcce0a39eb9a98fccaf12f2f67569fe6af188552eb87bd6",
+    "atHistorical": "2c5ef4fa4a035e143fcce0a39eb9a98fccaf12f2f67569fe6af188552eb87bd6",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/rational-field-arithmetic.js",
+    "historical": "97cec7fd",
+    "his": "ea2f0f2bd5b1aafdb5acca92ae9f1e95cc6c2f3e00eb514e97fd2e70fcceafa0",
+    "at036cebe4": "ea2f0f2bd5b1aafdb5acca92ae9f1e95cc6c2f3e00eb514e97fd2e70fcceafa0",
+    "atHistorical": "ea2f0f2bd5b1aafdb5acca92ae9f1e95cc6c2f3e00eb514e97fd2e70fcceafa0",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/rational-model-assembly.js",
+    "historical": "97cec7fd",
+    "his": "c581a45f68d4019452bf1c5c2b2f941a880b7a626a6e4ab83f3faae2d034bf2d",
+    "at036cebe4": "c581a45f68d4019452bf1c5c2b2f941a880b7a626a6e4ab83f3faae2d034bf2d",
+    "atHistorical": "c581a45f68d4019452bf1c5c2b2f941a880b7a626a6e4ab83f3faae2d034bf2d",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/rational-polynomial-library.js",
+    "historical": "97cec7fd",
+    "his": "54c1488882c9ec67e59d6ea8a598b06f817eb136565af52a324c98ada8abce7e",
+    "at036cebe4": "54c1488882c9ec67e59d6ea8a598b06f817eb136565af52a324c98ada8abce7e",
+    "atHistorical": "54c1488882c9ec67e59d6ea8a598b06f817eb136565af52a324c98ada8abce7e",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/variable-shift-polynomial-library.js",
+    "historical": "97cec7fd",
+    "his": "13c42d304e0bff268c382aab4cd8bd36f8e9d20c33d54b646ccdff92a0658767",
+    "at036cebe4": "13c42d304e0bff268c382aab4cd8bd36f8e9d20c33d54b646ccdff92a0658767",
+    "atHistorical": "13c42d304e0bff268c382aab4cd8bd36f8e9d20c33d54b646ccdff92a0658767",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/verify-division-polynomials.js",
+    "historical": "97cec7fd",
+    "his": "9a97febb9cf8df081b16db2ce37f20772f3d473c584971a7abef3657796e42f8",
+    "at036cebe4": "9a97febb9cf8df081b16db2ce37f20772f3d473c584971a7abef3657796e42f8",
+    "atHistorical": "9a97febb9cf8df081b16db2ce37f20772f3d473c584971a7abef3657796e42f8",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/verify-finite-polynomial-expressions.js",
+    "historical": "97cec7fd",
+    "his": "555564f5a215aabbfcddeffd01d161d6f4c4013d6e0743ac6b9243d8b42cf84f",
+    "at036cebe4": "555564f5a215aabbfcddeffd01d161d6f4c4013d6e0743ac6b9243d8b42cf84f",
+    "atHistorical": "555564f5a215aabbfcddeffd01d161d6f4c4013d6e0743ac6b9243d8b42cf84f",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/verify-integer-compiler.js",
+    "historical": "97cec7fd",
+    "his": "891701e2b63df5ae0c0e300166cd8afabfe8277b6c2e4fba3826f8099f005907",
+    "at036cebe4": "891701e2b63df5ae0c0e300166cd8afabfe8277b6c2e4fba3826f8099f005907",
+    "atHistorical": "891701e2b63df5ae0c0e300166cd8afabfe8277b6c2e4fba3826f8099f005907",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/verify-six-contact.js",
+    "historical": "97cec7fd",
+    "his": "45f3746130fa40ceed99a856e076d413485fcb52861256c4f16eb2f429a71910",
+    "at036cebe4": "45f3746130fa40ceed99a856e076d413485fcb52861256c4f16eb2f429a71910",
+    "atHistorical": "45f3746130fa40ceed99a856e076d413485fcb52861256c4f16eb2f429a71910",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "construction/z-in-q-polynomial-size-bound-proof.txt",
+    "historical": "97cec7fd",
+    "his": "0ab03b116bab829cb9b8dbaea5ecd811d728ccf95345228a85a4fe37527b050e",
+    "at036cebe4": "0ab03b116bab829cb9b8dbaea5ecd811d728ccf95345228a85a4fe37527b050e",
+    "atHistorical": "0ab03b116bab829cb9b8dbaea5ecd811d728ccf95345228a85a4fe37527b050e",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "quartics/quartic-4973/candidate-rows.json.gz",
+    "historical": "5cb2c199",
+    "his": "1399f9e16932863b4b46a8977061617ed2013ad0947f4b4b7742f07e8e30edd1",
+    "at036cebe4": "1399f9e16932863b4b46a8977061617ed2013ad0947f4b4b7742f07e8e30edd1",
+    "atHistorical": "1399f9e16932863b4b46a8977061617ed2013ad0947f4b4b7742f07e8e30edd1",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "quartics/quartic-4973/certificate.jsonl.gz",
+    "historical": "5cb2c199",
+    "his": "81ca768459a13b76dbdf4bfe81e94fbab9ab99f14a5731f6b1a1b03e28c1df2b",
+    "at036cebe4": "81ca768459a13b76dbdf4bfe81e94fbab9ab99f14a5731f6b1a1b03e28c1df2b",
+    "atHistorical": "81ca768459a13b76dbdf4bfe81e94fbab9ab99f14a5731f6b1a1b03e28c1df2b",
+    "gitBlobEqual": true,
+    "agrees": true
+   },
+   {
+    "path": "quartics/quartic-4973/verify_certificate.py",
+    "historical": "5cb2c199",
+    "his": "b7180b01029b3d9364d94914401a4f1f66b190762f10b99a38e9fd4f49437ffe",
+    "at036cebe4": "b7180b01029b3d9364d94914401a4f1f66b190762f10b99a38e9fd4f49437ffe",
+    "atHistorical": "b7180b01029b3d9364d94914401a4f1f66b190762f10b99a38e9fd4f49437ffe",
+    "gitBlobEqual": true,
+    "agrees": true
+   }
+  ]
+ }
+}
