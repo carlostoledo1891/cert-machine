@@ -90,6 +90,30 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/erdos-488.html (2026-11-07): the seven pre-registered checks as seven blocks in a row — five
+     solid (decided), one hollow (the search that found nothing), one hatched (the reading of who was first) — under one solid
+     line, the 2× the question is about; far to the right, above the line, a single diamond: the counterexample, at a size
+     no count reaches. LIGHT theme, no number, no title text. */
+  'erdos-488': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Erdős #488', path: '/reports/erdos-488.html',
+    title: 'Erdős #488: an AI-assisted refutation, certified',
+    alt: 'Seven blocks in a row, five solid, one hollow, one hatched, under one solid line; far to the right, a single diamond above the line.',
+    svgRaw: (() => {
+      const o = [];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Seven blocks in a row, five solid, one hollow, one hatched, under one solid line; far to the right a single diamond above the line" style="position:absolute;left:0;top:0">');
+      o.push('<defs><pattern id="og-void" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="var(--surface)"/><path d="M0,9 l9,-9 M-2.25,2.25 l4.5,-4.5 M6.75,11.25 l4.5,-4.5" stroke="var(--ink-5)" stroke-width="0.9" fill="none"/></pattern></defs>');
+      const x0 = 140, s = 86, gap = 22, y = 330, kinds = ['solid', 'solid', 'solid', 'solid', 'hollow', 'void', 'solid'];
+      kinds.forEach((k, i) => {
+        const x = x0 + i * (s + gap);
+        const paint = k === 'solid' ? 'fill="var(--ink)" stroke="var(--ink)"' : k === 'void' ? 'fill="url(#og-void)" stroke="var(--ink-4)"' : 'fill="var(--surface)" stroke="var(--ink-3)"';
+        o.push('<rect x="' + x + '" y="' + y + '" width="' + s + '" height="' + s + '" rx="4" ' + paint + ' stroke-width="1.6"/>');
+      });
+      const ly = 250, lx1 = 1064;
+      o.push('<line x1="' + x0 + '" y1="' + ly + '" x2="' + lx1 + '" y2="' + ly + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+      const dx = 1064, dy = 196, d = 11;   /* the counterexample: above the line, far out */
+      o.push('<path d="M' + dx + ' ' + (dy - d) + ' L' + (dx + d) + ' ' + dy + ' L' + dx + ' ' + (dy + d) + ' L' + (dx - d) + ' ' + dy + ' Z" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',

@@ -133,6 +133,22 @@ function build() {
     verdict: all ? 'CERTIFIED' : 'REFUSED',
     verdicts: { P1: p1.verdict, P2: p2.verdict, P3: p3.verdict, P3secondKernel: p3.secondKernel, P4: p4.verdict, P5: p5.verdict, P6: 'READING', P7: p7.every((r) => r.caught) ? '4/4 caught' : 'MISSED' },
     P1: p1, P2: p2, P3: p3, P4: p4, P5: p5, P7: p7,
+    /* the order of events, each time from where it is kept: the seal commits from this repository's history (public), the run
+       from its own log, the publications from the services that published them (read on 2026-11-07) */
+    timeline: (() => {
+      const gitTime = (c) => new Date(cp.execSync('git show -s --format=%cI ' + c, { cwd: ROOT }).toString().trim()).toISOString().slice(0, 19) + 'Z';
+      const st = rd('_status.txt').split('\n'), at = (re) => { const l = st.find((x) => re.test(x)); if (!l) die('the run log lacks ' + re); return l.slice(0, 19) + 'Z'; };
+      return {
+        seals: [['seal 0 · the plan', '8173ba17'], ['seal 1 · the rules', 'f431bcbb'], ['seal 2 · the results', '53259050'], ['seal 3 · the final drafts', 'cbe34796']].map(([k, c]) => ({ k, at: gitTime(c), source: 'cert-machine ' + c + ' (seals/registry.jsonl)' })),
+        run: [{ k: 'the Lean run (P1–P3, P7)', from: at(/start gist-clone/), to: at(/end fresh/), source: 'the run log, _status.txt' }, { k: 'nanoda', from: at(/start lean4export-build/), to: at(/end nanoda exit/), source: 'the run log, _status.txt' }],
+        published: [
+          { k: 'the page', at: gitTime('0aee5c18'), source: 'cert-machine 0aee5c18' },
+          { k: 'the note', at: '2026-11-07T01:42:31Z', source: 'Zenodo record 24025464, created' },
+          { k: 'the review', at: '2026-11-07T01:47:59Z', source: 'GitHub, #pullrequestreview-5809293292' },
+          { k: 'the thread', at: '2026-11-07T02:00:07Z', source: 'X, 2118886183690195107' },
+        ],
+      };
+    })(),
     deviations: [
       { id: 'pin', text: 'The pre-registration gives DeepMind\'s Mathlib as b7eb3304; that is the plausible package\'s pin. Mathlib is v4.33.1 at 0df444a3 (the entry\'s lake-manifest.json; fc-cache.log).' },
       { id: 'P3', text: 'The pre-registered rule names three Lean checkers (leanchecker, leanchecker-paranoid, --fresh); leanchecker-paranoid is not in Lean 4.33.1, so P3 rests on leanchecker and --fresh, with nanoda as an independent kernel. The separate re-elaboration of each source with -Ddebug.skipKernelTC=false was not run; the audit records the kernel check on by default.' },
