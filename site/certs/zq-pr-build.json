@@ -1,0 +1,713 @@
+{
+ "what": "Build and check facts of the two pull-request branches prepared for github.com/elliotglazer/diophantine-z-q (invited on issue #3, 2026-11-07 11:23 UTC): PR 1, the unconditional Lean lemma that P0 has infinite order; PR 2, stacked on it, the frozen target's statement from eight explicit hypotheses. Recorded on a RunPod CPU pod from a git bundle, each branch at its exact commit in a fresh clone.",
+ "scope": "Facts only, no verdict. The checks are the claimant side's own (the PR's check script, Lean's leanchecker, the repository's CI Lean steps) run by the same operator who prepared the branches: a same-operator check, never an independent one. The main theorem (Z Diophantine in Q) is not addressed; PR 2 is conditional on eight hypotheses none of which is proved; PR 1 proves the first clause of prop:generator only.",
+ "generated": "2026-11-07",
+ "pins": {
+  "repository": "github.com/elliotglazer/diophantine-z-q",
+  "baseMain": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6",
+  "baseMainCheckedAt": "2026-11-07T12:58Z (unchanged since 2026-11-07T11:22:18Z)",
+  "invitation": "issue #3, comment of 2026-11-07T11:23:14Z by elliotglazer (issue closed)",
+  "branches": {
+   "g-infinite-order": {
+    "commit": "6cf3c1d60b50f4523ec05cef4b50ebd0d42f8baf",
+    "tree": "96e99a72be446fc3dc7f86b5bad8fe3864c4273b",
+    "parent": "036cebe4f1a4aa7ca89820a9b48f3629b4c364d6"
+   },
+   "conditional-eight-hypotheses": {
+    "commit": "7663a19635390053716f02bfcbd16b97c42bd26a",
+    "tree": "23ae766f8ecc75e289acfb1982a3d4039ccfcd84",
+    "parent": "6cf3c1d60b50f4523ec05cef4b50ebd0d42f8baf"
+   }
+  },
+  "localClone": "~/Projects/zq-pr/diophantine-z-q (not pushed; no fork)",
+  "frozenTarget": {
+   "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+   "sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+  },
+  "manuscript": {
+   "what": "diophantine_zq.tex at 97cec7fd = docs/theorem-application-audit/source/audited-baseline.tex on main (same git blob bf0799bb)",
+   "sha256": "cb1148cd6c7769d2af3f1636b60ff0ada4b40431978d1e98d0c339274b3d792b"
+  },
+  "leanSource": {
+   "what": "claimbox lean/zinq, the proof adapted (module system, G removed as a hypothesis, docstrings and TeX lines re-checked)",
+   "repository": "github.com/carlostoledo1891/claimbox",
+   "branch": "zinq-2026-11-06",
+   "commit": "125509a1fbb307ed4b80faef216b701a9165ccf2",
+   "decidedBefore": "certs/zq-trackb.json (the claimbox version, not these branches)"
+  },
+  "transfer": "one git bundle holding main and both branches (sha256 in environment.inputsSha256)"
+ },
+ "pod": {
+  "name": "zq-pr",
+  "provider": "RunPod CPU pod, created and deleted by the orchestrating session",
+  "shape": "8 vCPU, 64 GB cgroup, 80 GB disk",
+  "priceUsdPerHour": 0.44,
+  "workDir": "/root/zqpr/rec/<branch>",
+  "thisAgentFirstCommand": "2026-11-07T12:13:49Z",
+  "recordedRunStart": "2026-11-07T12:49:00Z",
+  "recordedRunEnd": "2026-11-07T12:57:36Z",
+  "devRunsBefore": "12:14-12:48 UTC: toolchain install, a development clone, import minimization and trial builds (not the record)",
+  "thisAgentLastCommand": "2026-11-07T12:59:13Z",
+  "thisAgentWindow": "2026-11-07T12:13:49Z to 2026-11-07T12:59:13Z (about 47 minutes, about US$0.35 at US$0.44/h; the pod itself was created earlier by the orchestrating session and is deleted by it)"
+ },
+ "code": {
+  "zq-pr-run.sh": "the recorded run's driver (scratchpad, not committed); sha256 in environment.inputsSha256",
+  "plants.py": "the planted variants' runner (scratchpad, not committed); sha256 in environment.inputsSha256",
+  "checkScript": "scripts/check_lean_contrib.py inside each branch (pinned by the branch commit)"
+ },
+ "branches": {
+  "g-infinite-order": {
+   "role": "PR 1: the unconditional lemma (P0 has infinite order)",
+   "commit": "6cf3c1d60b50f4523ec05cef4b50ebd0d42f8baf",
+   "cloneHead": "6cf3c1d60b50f4523ec05cef4b50ebd0d42f8baf Carlos Toledo <carlos@carlostoledo.co> 2026-11-07T09:44:37-03:00",
+   "trackedChangesAfterClone": 0,
+   "filesOfTheirsModifiedDeletedOrRenamed": [],
+   "trackedChangesAfterRun": [],
+   "sha256AtCommit": {
+    "Frozen/BoundedIntegerPolynomial.lean": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+    "lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "ZInQ.lean": "d4cd9022452845d95ebb591f4ebd26dd4208b1550cb54f27d16a246aac431477",
+    "SOURCE_MANIFEST.json": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+    "lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58"
+   },
+   "dependencies": [
+    "Cli c24fe6078c630e89b489bffe59b3e20ac30d12c8 0",
+    "LeanSearchClient d6b4c7be5be75ec4917c873ac50c756dc1436372 0",
+    "Qq dce0ad79c486cb1fb504af04f953c3466b0c6db8 0",
+    "aesop 4a174c490d8707121c4a9290800489f105d85e07 0",
+    "batteries 66e469188fe07963e5cf666c7d4433f45b8131c5 0",
+    "importGraph a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93 0",
+    "mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679 0",
+    "plausible dfa4f38190d07c37e315953e08b90fe2d95b3c24 0",
+    "proofwidgets df72b022e558978a1c50264cfc4d7fec86fa8e04 0"
+   ],
+   "steps": [
+    {
+     "step": "clone",
+     "exit": 0,
+     "wallSeconds": 2.25,
+     "maxRSSKB": 218500,
+     "userSeconds": 2.66,
+     "systemSeconds": 0.41
+    },
+    {
+     "step": "cache",
+     "exit": 0,
+     "wallSeconds": 50.17,
+     "maxRSSKB": 1009284,
+     "userSeconds": 51.66,
+     "systemSeconds": 34.6
+    },
+    {
+     "step": "ci-check-lean",
+     "exit": 0,
+     "wallSeconds": 0.09,
+     "maxRSSKB": 16924,
+     "userSeconds": 0.08,
+     "systemSeconds": 0.0
+    },
+    {
+     "step": "ci-check-lean-build",
+     "exit": 0,
+     "wallSeconds": 57.88,
+     "maxRSSKB": 1937512,
+     "userSeconds": 73.42,
+     "systemSeconds": 17.8
+    },
+    {
+     "step": "contrib-source",
+     "exit": 0,
+     "wallSeconds": 0.14,
+     "maxRSSKB": 18448,
+     "userSeconds": 0.12,
+     "systemSeconds": 0.01
+    },
+    {
+     "step": "contrib-build",
+     "exit": 0,
+     "wallSeconds": 6.83,
+     "maxRSSKB": 1564948,
+     "userSeconds": 5.03,
+     "systemSeconds": 1.83
+    },
+    {
+     "step": "leanchecker",
+     "exit": 0,
+     "wallSeconds": 8.89,
+     "maxRSSKB": 5279484,
+     "userSeconds": 4.22,
+     "systemSeconds": 8.62
+    },
+    {
+     "step": "leanchecker-paranoid",
+     "exit": 0,
+     "wallSeconds": 8.69,
+     "maxRSSKB": 5628952,
+     "userSeconds": 4.12,
+     "systemSeconds": 8.13
+    },
+    {
+     "step": "lake-build-local",
+     "exit": 0,
+     "wallSeconds": 5.16,
+     "maxRSSKB": 1360548,
+     "userSeconds": 5.05,
+     "systemSeconds": 2.17
+    }
+   ],
+   "theirCI": {
+    "check_lean.py": "{\"source_check\": \"PASS\", \"byte_identical_modules\": 48, \"main_theorem_proved\": false, \"quarantined_sorries\": 1}",
+    "check_lean.py --build": {
+     "status": "PASS",
+     "toolchain": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+     "project_modules_freshly_compiled": 48,
+     "declarations_axiom_checked": 704,
+     "allowed_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+     ],
+     "main_theorem_proved": false,
+     "quarantined_target_compiled": false,
+     "seconds": 57.715
+    }
+   },
+   "contribCheck": {
+    "status": "PASS",
+    "toolchain": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+    "contributed_modules": [
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "snapshot_modules_compiled": [],
+    "check_only_modules_compiled": [],
+    "check_only_sorry_warnings": {},
+    "conclusion_spans": {},
+    "source_sha256": {
+     "Checks/ContribAxioms.lean": "98a5d71ae7ba74dbe1b3724cec2dd5751806a83dfafe3bb4d49a854b6318f2d6",
+     "EllipticModel/Curve.lean": "4139d7f32b0d0947f32b9aee5b2e483705c537fe0bb78e3a29403b1f8987c703",
+     "EllipticModel/InfiniteOrder.lean": "2bf0ea74a8248d59dfff28e86dbaf76a02e58e3d4889617d20326de42d91929a",
+     "EllipticModel.lean": "6d708376476890ff8ef9744570a47520fb400fe3eb23bdabe1fa09fe9a3ffc40"
+    },
+    "contributed_declarations_axiom_checked": 35,
+    "contributed_modules_audited": 3,
+    "named_theorem_axioms": {
+     "EllipticModel.P0_addOrderOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "EllipticModel.P0_not_isOfFinAddOrder": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    "statement_checks": [],
+    "allowed_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "frozen_target": "Frozen/BoundedIntegerPolynomial.lean",
+    "frozen_target_sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+    "main_theorem_proved": false,
+    "dependency_libraries": "Prebuilt cache at verified source revisions; not rebuilt",
+    "project_artifact_reuse": false,
+    "seconds": 6.573
+   },
+   "leanchecker": {
+    "modules": [
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "replayed": [
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "exit": 0,
+    "paranoidReplayed": [
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "paranoidExit": 0
+   },
+   "lakeBuildWithLocalLeanLib": {
+    "exit": 0,
+    "tail": "Build completed successfully (2365 jobs).",
+    "note": "lean_lib entries appended to lakefile.toml for this step only and restored after it; never committed"
+   }
+  },
+  "conditional-eight-hypotheses": {
+   "role": "PR 2: the conditional theorem from eight hypotheses, stacked on PR 1",
+   "commit": "7663a19635390053716f02bfcbd16b97c42bd26a",
+   "cloneHead": "7663a19635390053716f02bfcbd16b97c42bd26a Carlos Toledo <carlos@carlostoledo.co> 2026-11-07T09:47:58-03:00",
+   "trackedChangesAfterClone": 0,
+   "filesOfTheirsModifiedDeletedOrRenamed": [],
+   "trackedChangesAfterRun": [],
+   "sha256AtCommit": {
+    "Frozen/BoundedIntegerPolynomial.lean": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+    "lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
+    "ZInQ.lean": "d4cd9022452845d95ebb591f4ebd26dd4208b1550cb54f27d16a246aac431477",
+    "SOURCE_MANIFEST.json": "343d2eb94974a9c3defb58b8349f94378fb1984cb260b53162790426d8bbff96",
+    "lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58"
+   },
+   "dependencies": [
+    "Cli c24fe6078c630e89b489bffe59b3e20ac30d12c8 0",
+    "LeanSearchClient d6b4c7be5be75ec4917c873ac50c756dc1436372 0",
+    "Qq dce0ad79c486cb1fb504af04f953c3466b0c6db8 0",
+    "aesop 4a174c490d8707121c4a9290800489f105d85e07 0",
+    "batteries 66e469188fe07963e5cf666c7d4433f45b8131c5 0",
+    "importGraph a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93 0",
+    "mathlib 56a005855ea17e0b0958f73ec801ae140b0a1679 0",
+    "plausible dfa4f38190d07c37e315953e08b90fe2d95b3c24 0",
+    "proofwidgets df72b022e558978a1c50264cfc4d7fec86fa8e04 0"
+   ],
+   "steps": [
+    {
+     "step": "clone",
+     "exit": 0,
+     "wallSeconds": 2.27,
+     "maxRSSKB": 218524,
+     "userSeconds": 2.69,
+     "systemSeconds": 0.43
+    },
+    {
+     "step": "cache",
+     "exit": 0,
+     "wallSeconds": 53.13,
+     "maxRSSKB": 1010224,
+     "userSeconds": 52.17,
+     "systemSeconds": 35.23
+    },
+    {
+     "step": "ci-check-lean",
+     "exit": 0,
+     "wallSeconds": 0.1,
+     "maxRSSKB": 16944,
+     "userSeconds": 0.09,
+     "systemSeconds": 0.0
+    },
+    {
+     "step": "ci-check-lean-build",
+     "exit": 0,
+     "wallSeconds": 53.14,
+     "maxRSSKB": 1938632,
+     "userSeconds": 68.84,
+     "systemSeconds": 17.93
+    },
+    {
+     "step": "contrib-source",
+     "exit": 0,
+     "wallSeconds": 0.15,
+     "maxRSSKB": 18436,
+     "userSeconds": 0.13,
+     "systemSeconds": 0.01
+    },
+    {
+     "step": "contrib-build",
+     "exit": 0,
+     "wallSeconds": 24.17,
+     "maxRSSKB": 1938004,
+     "userSeconds": 24.84,
+     "systemSeconds": 9.42
+    },
+    {
+     "step": "leanchecker",
+     "exit": 0,
+     "wallSeconds": 33.47,
+     "maxRSSKB": 25187328,
+     "userSeconds": 21.46,
+     "systemSeconds": 45.69
+    },
+    {
+     "step": "leanchecker-paranoid",
+     "exit": 0,
+     "wallSeconds": 33.61,
+     "maxRSSKB": 26231284,
+     "userSeconds": 25.64,
+     "systemSeconds": 47.59
+    },
+    {
+     "step": "lake-build-local",
+     "exit": 0,
+     "wallSeconds": 16.53,
+     "maxRSSKB": 1643156,
+     "userSeconds": 29.69,
+     "systemSeconds": 9.45
+    },
+    {
+     "step": "plants",
+     "exit": 0,
+     "wallSeconds": 157.63,
+     "maxRSSKB": 1940276,
+     "userSeconds": 166.39,
+     "systemSeconds": 62.93
+    }
+   ],
+   "theirCI": {
+    "check_lean.py": "{\"source_check\": \"PASS\", \"byte_identical_modules\": 48, \"main_theorem_proved\": false, \"quarantined_sorries\": 1}",
+    "check_lean.py --build": {
+     "status": "PASS",
+     "toolchain": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+     "project_modules_freshly_compiled": 48,
+     "declarations_axiom_checked": 704,
+     "allowed_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+     ],
+     "main_theorem_proved": false,
+     "quarantined_target_compiled": false,
+     "seconds": 52.977
+    }
+   },
+   "contribCheck": {
+    "status": "PASS",
+    "toolchain": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+    "contributed_modules": [
+     "CondZQ",
+     "CondZQ.Assembly",
+     "CondZQ.Basic",
+     "CondZQ.Bridge",
+     "CondZQ.Cutoff",
+     "CondZQ.Hypotheses",
+     "CondZQ.Main",
+     "CondZQ.Model",
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "snapshot_modules_compiled": [
+     "ZInQ.ExplicitCutoffBounds",
+     "ZInQ.HeightConstantAlgorithm",
+     "ZInQ.HeightConstantComparison",
+     "ZInQ.NumericalTowerBounds",
+     "ZInQ.PolePolynomial",
+     "ZInQ.PoleValuation",
+     "ZInQ.PrecisionAlgorithms",
+     "ZInQ.PrecisionArithmetic",
+     "ZInQ.RationalSeparation"
+    ],
+    "check_only_modules_compiled": [
+     "Frozen.BoundedIntegerPolynomial"
+    ],
+    "check_only_sorry_warnings": {
+     "Frozen.BoundedIntegerPolynomial": 1
+    },
+    "conclusion_spans": {
+     "CondZQ/Main.lean": {
+      "equals": "Frozen/BoundedIntegerPolynomial.lean",
+      "bytes": 355,
+      "sha256": "5406ba3e3d53ea3557819524f6150de802d9b8c8cf7c63c8cd38db805367935b"
+     }
+    },
+    "source_sha256": {
+     "Checks/ConditionalStatement.lean": "373c936074a6eddbf83cdca4b9f7ec71e96e083b93d248b16e98382b12fcf7ee",
+     "Checks/ContribAxioms.lean": "786b8308aaff4067b4a824af49c842550815c244d7f1b9f3a2f2d9909ff4ad1a",
+     "CondZQ/Assembly.lean": "3ce72259e8e7438aabb4ad335c02975cf88909bc422390292b586b8cf0b00a82",
+     "CondZQ/Basic.lean": "9e4efaf81df27f4708eb95350e0336e1f6b01837fb57e92e01eca89c57a980cc",
+     "CondZQ/Bridge.lean": "d4bcbcd1928a4ddd74f4136e65d98e666819df0e4446ae3b13e1d641bf079d7c",
+     "CondZQ/Cutoff.lean": "a5dacb9f989d748170d51fdb99da9d4f55b71a92e82a277c1248382bfdde996b",
+     "CondZQ/Hypotheses.lean": "aec39a26a981e88a0dfa5a8bb7ec93ad2373607cb6d8f3bb81ae89c019b53e0d",
+     "CondZQ/Main.lean": "d4c192662995dcc850a91eefef07ea8105452eaf576fa25fd8654c59a530b732",
+     "CondZQ/Model.lean": "d30f8af70d3500da6feeabe36fad19aa499fd4d1023a28d140f727b85253822a",
+     "CondZQ.lean": "24dbd857a0f9d50791f89a905b4e88823afdac8da9187e6aed92a6183b97d3d7",
+     "EllipticModel/Curve.lean": "4139d7f32b0d0947f32b9aee5b2e483705c537fe0bb78e3a29403b1f8987c703",
+     "EllipticModel/InfiniteOrder.lean": "2bf0ea74a8248d59dfff28e86dbaf76a02e58e3d4889617d20326de42d91929a",
+     "EllipticModel.lean": "6d708376476890ff8ef9744570a47520fb400fe3eb23bdabe1fa09fe9a3ffc40"
+    },
+    "contributed_declarations_axiom_checked": 241,
+    "contributed_modules_audited": 11,
+    "named_theorem_axioms": {
+     "EllipticModel.P0_addOrderOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "EllipticModel.P0_not_isOfFinAddOrder": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "CondZQChecks.statement_is_the_frozen_target": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    "statement_checks": [
+     "STATEMENT_CHECK_PASS theorem=CondZQ.exists_bounded_integer_polynomial_defining_integers_of_eight_hypotheses hypotheses=CondZQ.HypM,CondZQ.HypH,CondZQ.HypPC,CondZQ.HypC,CondZQ.HypLT,CondZQ.HypCC,CondZQ.HypH1,CondZQ.HypH2 conclusion=type_of% ZInQ.exists_bounded_integer_polynomial_defining_integers"
+    ],
+    "allowed_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "frozen_target": "Frozen/BoundedIntegerPolynomial.lean",
+    "frozen_target_sha256": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9",
+    "main_theorem_proved": false,
+    "dependency_libraries": "Prebuilt cache at verified source revisions; not rebuilt",
+    "project_artifact_reuse": false,
+    "seconds": 23.889
+   },
+   "leanchecker": {
+    "modules": [
+     "CondZQ",
+     "CondZQ.Assembly",
+     "CondZQ.Basic",
+     "CondZQ.Bridge",
+     "CondZQ.Cutoff",
+     "CondZQ.Hypotheses",
+     "CondZQ.Main",
+     "CondZQ.Model",
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "replayed": [
+     "CondZQ",
+     "CondZQ.Assembly",
+     "CondZQ.Basic",
+     "CondZQ.Bridge",
+     "CondZQ.Cutoff",
+     "CondZQ.Hypotheses",
+     "CondZQ.Main",
+     "CondZQ.Model",
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "exit": 0,
+    "paranoidReplayed": [
+     "CondZQ",
+     "CondZQ.Assembly",
+     "CondZQ.Basic",
+     "CondZQ.Bridge",
+     "CondZQ.Cutoff",
+     "CondZQ.Hypotheses",
+     "CondZQ.Main",
+     "CondZQ.Model",
+     "EllipticModel",
+     "EllipticModel.Curve",
+     "EllipticModel.InfiniteOrder"
+    ],
+    "paranoidExit": 0
+   },
+   "lakeBuildWithLocalLeanLib": {
+    "exit": 0,
+    "tail": "Build completed successfully (3303 jobs).",
+    "note": "lean_lib entries appended to lakefile.toml for this step only and restored after it; never committed"
+   },
+   "plants": {
+    "runs": 15,
+    "notAsPredicted": 0,
+    "rows": [
+     {
+      "plant": "control",
+      "what": "the unmodified tree",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 0,
+      "expected_text": null,
+      "as_predicted": true,
+      "seconds": 23.4
+     },
+     {
+      "plant": "Q1-conclusion-weakened",
+      "what": "the degree bound 2↑↑7 → 2↑↑8 under the theorem's name, PROVED from the real theorem, standard axioms",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "CondZQ/Main.lean",
+      "as_predicted": true,
+      "seconds": 0.2
+     },
+     {
+      "plant": "Q1-conclusion-weakened",
+      "what": "the degree bound 2↑↑7 → 2↑↑8 under the theorem's name, PROVED from the real theorem, standard axioms",
+      "layer": 1,
+      "patches": [
+       "PIN_SOURCES",
+       "SPANS"
+      ],
+      "exit_code": 1,
+      "expected_text": "Compilation failed for check-ConditionalStatement",
+      "as_predicted": true,
+      "seconds": 23.2
+     },
+     {
+      "plant": "Q2-extra-hypothesis",
+      "what": "a ninth hypothesis (hX : True) after hH2",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "sources differ from CONTRIB_EXPECTED.json",
+      "as_predicted": true,
+      "seconds": 0.2
+     },
+     {
+      "plant": "Q2-extra-hypothesis",
+      "what": "a ninth hypothesis (hX : True) after hH2",
+      "layer": 1,
+      "patches": [
+       "PIN_SOURCES"
+      ],
+      "exit_code": 1,
+      "expected_text": "Compilation failed for check-ConditionalStatement",
+      "as_predicted": true,
+      "seconds": 23.0
+     },
+     {
+      "plant": "Q3-binder-renamed",
+      "what": "the conclusion's bound variable q renamed r (alpha-equivalent, so type_of% still agrees)",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "CondZQ/Main.lean",
+      "as_predicted": true,
+      "seconds": 0.2
+     },
+     {
+      "plant": "Q3-binder-renamed",
+      "what": "the conclusion's bound variable q renamed r (alpha-equivalent, so type_of% still agrees)",
+      "layer": 1,
+      "patches": [
+       "PIN_SOURCES",
+       "SPANS"
+      ],
+      "exit_code": 1,
+      "expected_text": "the conclusion is not the frozen theorem's type",
+      "as_predicted": true,
+      "seconds": 23.0
+     },
+     {
+      "plant": "Q4-sorry",
+      "what": "one lemma of CondZQ.Main (exp_aux) closed by sorry",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "re.search(FORBIDDEN, code)",
+      "as_predicted": true,
+      "seconds": 0.2
+     },
+     {
+      "plant": "Q4-sorry",
+      "what": "one lemma of CondZQ.Main (exp_aux) closed by sorry",
+      "layer": 1,
+      "patches": [
+       "FORBIDDEN",
+       "PIN_SOURCES"
+      ],
+      "exit_code": 1,
+      "expected_text": "re.search(SORRY, logs[mod])",
+      "as_predicted": true,
+      "seconds": 20.4
+     },
+     {
+      "plant": "Q4-sorry",
+      "what": "one lemma of CondZQ.Main (exp_aux) closed by sorry",
+      "layer": 2,
+      "patches": [
+       "FORBIDDEN",
+       "PIN_SOURCES",
+       "SORRY"
+      ],
+      "exit_code": 1,
+      "expected_text": "Unexpected axiom sorryAx",
+      "as_predicted": true,
+      "seconds": 22.3
+     },
+     {
+      "plant": "Q5-axiom",
+      "what": "a new axiom in CondZQ.Basic, used to prove exp_aux",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "re.search(FORBIDDEN, code)",
+      "as_predicted": true,
+      "seconds": 0.1
+     },
+     {
+      "plant": "Q5-axiom",
+      "what": "a new axiom in CondZQ.Basic, used to prove exp_aux",
+      "layer": 1,
+      "patches": [
+       "FORBIDDEN",
+       "PIN_SOURCES"
+      ],
+      "exit_code": 1,
+      "expected_text": "Unexpected axiom CondZQ.planted_axiom",
+      "as_predicted": true,
+      "seconds": 21.1
+     },
+     {
+      "plant": "Q6-frozen-byte",
+      "what": "one byte appended to Frozen/BoundedIntegerPolynomial.lean",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "Frozen/BoundedIntegerPolynomial.lean",
+      "as_predicted": true,
+      "seconds": 0.1
+     },
+     {
+      "plant": "Q7-snapshot-edit",
+      "what": "a comment appended to the snapshot module ZInQ/NumericalTowerBounds.lean",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "ZInQ/NumericalTowerBounds.lean",
+      "as_predicted": true,
+      "seconds": 0.1
+     },
+     {
+      "plant": "Q8-hypothesis-changed",
+      "what": "HypH2 strengthened from N_s^10 to N_s^9 (the definition, not the theorem)",
+      "layer": 0,
+      "patches": [],
+      "exit_code": 1,
+      "expected_text": "sources differ from CONTRIB_EXPECTED.json",
+      "as_predicted": true,
+      "seconds": 0.2
+     }
+    ]
+   }
+  }
+ },
+ "notes": [
+  "No verdict word: these are build and check facts of branches the same operator prepared; the PR's own checks and Lean's own checker, not an independent decision.",
+  "Not run: leanchecker --fresh (34 min for the claimbox version in certs/zq-trackb.json), nanoda / con-ron / con-leche (all stopped on the claimbox version at tool limits), the repository's non-Lean CI jobs (odd-product, quartics, construction, paper), which read no file these branches add.",
+  "PR 2 removes HypG: G is no longer a hypothesis anywhere; CondZQ.iota_injective uses EllipticModel.P0_addOrderOf (PR 1). The claimbox nine-hypothesis theorem is not carried over.",
+  "Planted variants live only on the pod run (plants.py); they are described in the PR text, not committed to the branches.",
+  "His repository has no licence: none of his files left the pod or the local PR clone; this record holds only exit codes, timings, hashes and declaration names."
+ ],
+ "environment": {
+  "uname": "Linux 6.8.0-147-generic x86_64",
+  "nproc": "8",
+  "cpuset": "5,30,59,75,101,126,155,171",
+  "cgroupMemoryMax": "64000000000",
+  "elan": "elan 4.2.4 (227caca13 2026-08-25)",
+  "binarySha256": {
+   "lean": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+   "lake": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1",
+   "leanchecker": "12c38901cdbfab178f1bf6145dd30012e9a3b2c11ca695292a5884fa3cbaddb6",
+   "leanchecker-paranoid": "ca74d1e9a856149ed05acb600d8931a574dd9f465745beeaf93e3de7b7cbe274"
+  },
+  "python": "Python 3.12.3",
+  "inputsSha256": {
+   "zq-pr.bundle": "163ec161299d57dda96f2fdaee29610fe73d2785454ee4ff7e0b627ecd2c392d",
+   "zq-pr-run.sh": "5cb3b80d58b07275dbf1e47745661d8d3519f05f30312b28c50be5b10875f272",
+   "plants.py": "c62058480729c131061aa263b9824bc2653b049f26a0e386093c9775c2560380"
+  }
+ }
+}

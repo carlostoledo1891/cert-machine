@@ -1,0 +1,179 @@
+========================================================================================
+PART 1  The heptagon: Theorem 1 (lines 48-148), r symbolic
+========================================================================================
+points (j, y) and weights: [((0, 0), 2), ((1, y1), -2), ((1, -y1), -2), ((3, y3), 2), ((3, -y3), 2), ((4, y4), -1), ((4, -y4), -1)]
+
+1.0  P lies on the circle (x-r)^2 + y^2 = r^2 (line 54)
+  [CERTIFIED] circle: (x-r)^2+y^2 = r^2 for all seven points: (x-r)^2+y^2 == r^2
+     side condition (not an identity): r > 2 => j(2r-j) > 0 for j in {1,3,4} (2r-4 > 0), so every y_j is a nonzero real, the seven points are distinct, and R = (2r-1)(2r-3)(2r-4) != 0.
+
+1.1  The derivation D with D(r) = 1 (lines 77-91)
+     NON-FINITE step, quoted (lines 81-83): 'To obtain D(r)=1, include r in a transcendence basis of R/Q,' 'differentiate formally with respect to r on the resulting rational function field, and extend uniquely to its' 'algebraic extension R.'  -- needs r transcendental; not decided here.
+  [CERTIFIED] D(j(2r-j)) = 2j (so 2y D(y) = 2j, D(y) = j/y): D(j(2r-j)) == 2j
+  [CERTIFIED] j/y_j = y_j/(2r-j) under y_j^2 = j(2r-j): j/y_j == y_j/(2r-j)
+  [CERTIFIED] D respects the circle relation: D(y_j^2 - j(2r-j)) = 0: D(y_j^2 - j(2r-j)) == 0
+  [CERTIFIED] D(p) = (0, j/y) for p = (j, y): D(p) == (0, j/y)
+
+1.2  The multisets {0,3,3} and {1,1,4} (lines 94-96)
+  [CERTIFIED] {0,3,3} vs {1,1,4}: equal cardinality, sum, sum of squares: (3, 6, 18) == (3, 6, 18)
+  [CERTIFIED] sum lambda x^k = 2(sum_{0,3,3} x^k - sum_{1,1,4} x^k), k=0,1,2: sum lambda x^k == 2(S_A - S_B)
+
+1.3  Equation (2), lines 97-105: the five moment conditions
+  [CERTIFIED] (1) sum lambda = 0  [line 99]: sum lambda == 0
+  [CERTIFIED] (2) sum lambda p = 0 (both coordinates)  [line 100]: sum lambda p == (0,0)
+     sum lambda p p^T (normal form) = [[0, 0], [0, 0]]
+  [CERTIFIED] (3) sum lambda p p^T = 0 (the zero 2x2 matrix)  [line 101; Lemma A.1 line 267 requires = 0]: sum lambda p p^T == [[0,0],[0,0]]
+  [CERTIFIED] (3') sum lambda p p^T symmetric: S2 - S2^T == 0
+     The paper's requirement: Lemma A.1 (line 267) asks sum lambda p p^T = 0 (zero, not merely symmetric); the 'symmetric' condition of Lemma A.1 is on M = sum lambda D(p) p^T (line 270). Here BOTH are the zero matrix.
+  [CERTIFIED] (4a) sum lambda D(p) = 0  [line 102]: sum lambda D(p) == (0,0)
+     M = sum lambda D(p) p^T (normal form) = [[0, 0], [0, 0]]
+  [CERTIFIED] (4b) sum lambda D(p) p^T = 0 (the zero 2x2 matrix)  [line 103]: M == [[0,0],[0,0]]
+  [CERTIFIED] (4b') M symmetric (Lemma A.1's weaker condition, line 270): M - M^T == 0
+
+1.4  Equation (3), lines 107-112: the energy
+  [CERTIFIED] (5a) sum lambda ||D(p)||^2 = -4/(2r-1) + 12/(2r-3) - 8/(2r-4)  [line 110]: -12/(4*r**3 - 16*r**2 + 19*r - 6) == -4/(2*r - 1) + 12/(2*r - 3) - 8/(2*r - 4)
+  [CERTIFIED] (5b) sum lambda ||D(p)||^2 = -24/R, R = (2r-1)(2r-3)(2r-4)  [line 111]: -12/(4*r**3 - 16*r**2 + 19*r - 6) == -24/((2*r - 4)*(2*r - 3)*(2*r - 1))
+     numerator = -12, denominator = 4*r**3 - 16*r**2 + 19*r - 6 = (r - 2)*(2*r - 3)*(2*r - 1)
+  [CERTIFIED] (5c) R * sum lambda ||D(p)||^2 = -24: R*E == -24
+
+1.5  Invariance for a symbolic congruent copy p' = t + A p (lines 119-147), and Lemma A.1 (261-293)
+     Groebner basis (lex u>v>c>s) of (c^2+s^2-1, cu+sv): [c*u + s*v, -c*s*v + s**2*u - u, c**2 + s**2 - 1]
+  [CERTIFIED] D(c^2+s^2-1) = 2(cu+sv): the relation on (u,v) = (D(c),D(s)): D(c^2+s^2-1) == 2(cu+sv)
+
+     --- rotation A=[[c,-s],[s,c]] ---
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: A^T A = I under c^2+s^2=1: A^T A == I
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: D(A)^T A + A^T D(A) = 0 (so D(A)^T A is skew): D(A)^T A + A^T D(A) == 0
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: D(p') = D(t) + D(A)p + A D(p): D(t+Ap) == D(t)+D(A)p+AD(p)
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: sum lambda ||D(p')||^2 = T0+T1+T2+T3+T4 (the grouping of lines 126-136, no relation used): sum lambda ||D(p')||^2 == T0+T1+T2+T3+T4
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T0 = ||D(t)||^2 * sum lambda = 0  <- zeroth moment: T0 == 0
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0  <- first moment and derivative moment: T1 == 0
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T2 = sum lambda ||D(A)p||^2 = tr(D(A)^T D(A) sum lambda p p^T): T2 == tr(D(A)^T D(A) S2)
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T2 = 0  <- quadratic moment (S2 = 0): T2 == 0
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M)  [Lemma A.1 line 279-280]: T3 == 2 tr(D(A)^T A M)
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T3 = 0  <- mixed moment (M = 0 here; in Lemma A.1 M symmetric and D(A)^T A skew suffice): T3 == 0
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T4 = sum lambda ||A D(p)||^2 = tr(A^T A * sum lambda D(p)D(p)^T): T4 == tr(A^T A DD)
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: sum lambda D(p)D(p)^T = diag(0, -24/R): DD == [[0,0],[0,-24/R]]
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: T4 = (A^T A)_22 * E with (A^T A)_22 = c^2+s^2 = 1, so T4 = E  <- A isometric: T4 == E
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: sum lambda F(p') = R * sum lambda ||D(p')||^2 = -24 identically (u,v,w1,w2 free; c^2+s^2=1, cu+sv=0): sum lambda F(p') == -24
+  [CERTIFIED] rotation A=[[c,-s],[s,c]]: cross-check with D(A) = A omega J, i.e. (u,v) = omega(-s,c): sum lambda F(p') = -24: sum lambda F(p') == -24
+
+     --- reflection A=[[c,s],[s,-c]] ---
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: A^T A = I under c^2+s^2=1: A^T A == I
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: D(A)^T A + A^T D(A) = 0 (so D(A)^T A is skew): D(A)^T A + A^T D(A) == 0
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: D(p') = D(t) + D(A)p + A D(p): D(t+Ap) == D(t)+D(A)p+AD(p)
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: sum lambda ||D(p')||^2 = T0+T1+T2+T3+T4 (the grouping of lines 126-136, no relation used): sum lambda ||D(p')||^2 == T0+T1+T2+T3+T4
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T0 = ||D(t)||^2 * sum lambda = 0  <- zeroth moment: T0 == 0
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0  <- first moment and derivative moment: T1 == 0
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T2 = sum lambda ||D(A)p||^2 = tr(D(A)^T D(A) sum lambda p p^T): T2 == tr(D(A)^T D(A) S2)
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T2 = 0  <- quadratic moment (S2 = 0): T2 == 0
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M)  [Lemma A.1 line 279-280]: T3 == 2 tr(D(A)^T A M)
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T3 = 0  <- mixed moment (M = 0 here; in Lemma A.1 M symmetric and D(A)^T A skew suffice): T3 == 0
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T4 = sum lambda ||A D(p)||^2 = tr(A^T A * sum lambda D(p)D(p)^T): T4 == tr(A^T A DD)
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: sum lambda D(p)D(p)^T = diag(0, -24/R): DD == [[0,0],[0,-24/R]]
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: T4 = (A^T A)_22 * E with (A^T A)_22 = c^2+s^2 = 1, so T4 = E  <- A isometric: T4 == E
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: sum lambda F(p') = R * sum lambda ||D(p')||^2 = -24 identically (u,v,w1,w2 free; c^2+s^2=1, cu+sv=0): sum lambda F(p') == -24
+  [CERTIFIED] reflection A=[[c,s],[s,-c]]: cross-check with D(A) = A omega J, i.e. (u,v) = omega(-s,c): sum lambda F(p') = -24: sum lambda F(p') == -24
+
+     --- Lemma A.1 mechanism with a FREE n x 2 matrix A and free D(A) (n = 2, 3): T0..T3 vanish with no relation on A ---
+  [CERTIFIED] free 2x2 A: T1 = T2 = T3 = 0 with no relation on A or D(A): T1,T2,T3 == 0
+  [CERTIFIED] free 2x2 A: T4 = (A^T A)_22 * E, hence = E whenever A^T A = I: T4 == (A^T A)_22 * E
+  [CERTIFIED] free 3x2 A: T1 = T2 = T3 = 0 with no relation on A or D(A): T1,T2,T3 == 0
+  [CERTIFIED] free 3x2 A: T4 = (A^T A)_22 * E, hence = E whenever A^T A = I: T4 == (A^T A)_22 * E
+  [CERTIFIED] Lemma A.1: tr(K M) = 0 for K skew-symmetric and M symmetric (2x2 symbolic): tr(K M) == 0
+     NON-FINITE step in Lemma A.1 / Theorem 1, quoted (lines 69-73 / 288-292): 'By the inhomogeneous form of Rado's theorem [Satz XIII'], with the needed real-variable statement given in [EGMRSS, Lemma 15], there is a finite colouring chi of R with no monochromatic solution.' -- the colouring theorem; not decided here. The finite part 'sum lambda z = -24 has no constant solution' IS decided: with z_p = z, sum lambda z = z * sum lambda = 0 != -24.
+  [CERTIFIED] sum lambda z_p = -24 has no constant solution (z_p = z gives 0 = -24): z * sum lambda == 0 (never -24)
+
+========================================================================================
+PART 2  Theorem A.3 (lines 390-444): every finite identity of its proof, t1..t7 symbolic
+========================================================================================
+  [CERTIFIED] Q_i := V/H'(t_i) is the polynomial (-1)^i prod_{j<l; j,l != i}(t_j - t_l)  (tool identity): Q_i H'(t_i) == V
+
+2.1  Equation (A.2), lines 407-411: sum_i t_i^k/H'(t_i) = 0 (0<=k<=5), = 1 (k=6)
+  [CERTIFIED] (A.2) sum_i t_i^0/H'(t_i) = 0: sum t_i^0/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^1/H'(t_i) = 0: sum t_i^1/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^2/H'(t_i) = 0: sum t_i^2/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^3/H'(t_i) = 0: sum t_i^3/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^4/H'(t_i) = 0: sum t_i^4/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^5/H'(t_i) = 0: sum t_i^5/H'(t_i) == 0
+  [CERTIFIED] (A.2) sum_i t_i^6/H'(t_i) = 1: sum t_i^6/H'(t_i) == 1
+     (4.87 s)
+
+2.2  The derivation of the proof (lines 412-420)
+     NON-FINITE step, quoted (lines 412-414): 'Choose a derivation vanishing on $K$ with $D(t_i)=g(t_i)$ for $4\le i\le7$. Algebraic independence allows these prescriptions; extend to a transcendence basis and then algebraically to $\R$.' -- existence of a derivation with prescribed values on an algebraically independent set (and D|K = 0, with K = Q(t1,t2,t3)); not decided here.
+  [CERTIFIED] g(t_i) = 0 for i = 1,2,3, so D(t_i) = g(t_i) holds for all seven indices given D|K = 0  [line 415]: g(t_1), g(t_2), g(t_3) == 0
+  [CERTIFIED] g is a monic cubic: [T^3] g = 1, deg g = 3  [line 430-431]: LC(g), deg(g) == (1, 3)
+  [CERTIFIED] J(x,y) = (-y,x) as a matrix: J = [[0,-1],[1,0]]: J*(x,y) == (-y,x)
+  [CERTIFIED] D(p(t)) = b J p(t) with b = 2 D(t)/(1+t^2), for p(t) = ((1-t^2)/(1+t^2), 2t/(1+t^2))  [lines 416-420]: D(p(t)) == (2D(t)/(1+t^2)) J p(t)
+  [CERTIFIED] ||p(t)||^2 = 1 (unit circle), so D(p) is a multiple of J p  [line 304-307]: x^2+y^2 == 1
+
+2.3  The weights lambda_i = (1+t_i^2)^2/H'(t_i) (line 421) and the ordinary moments (lines 422-425)
+  [CERTIFIED] A.3 zeroth moment: sum lambda_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 first moment, x: sum lambda_i x_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 first moment, y: sum lambda_i y_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 quadratic moment xx: sum lambda_i x_i^2 = 0: sum f_i == 0
+  [CERTIFIED] A.3 quadratic moment xy: sum lambda_i x_i y_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 quadratic moment yy: sum lambda_i y_i^2 = 0: sum f_i == 0
+     (6.82 s)
+
+2.4  The remaining linear conditions (lines 425-430): sum lambda_i b_i (1, x_i, y_i) = 2 sum g(t_i)/H'(t_i) (1+t_i^2, 1-t_i^2, 2t_i) = 0
+  [CERTIFIED] lambda_i b_i (1, x_i, y_i) = 2 g(t_i)/H'(t_i) (1+t_i^2, 1-t_i^2, 2 t_i) termwise: lambda_i b_i (1,x_i,y_i) == 2g(t_i)/H'(t_i) (1+t_i^2, 1-t_i^2, 2t_i)
+  [CERTIFIED] A.3 (A.4) B(b,1) = sum lambda_i b_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 (A.4) B(b,x) = sum lambda_i b_i x_i = 0: sum f_i == 0
+  [CERTIFIED] A.3 (A.4) B(b,y) = sum lambda_i b_i y_i = 0: sum f_i == 0
+     (9.08 s)
+
+2.5  The energy (lines 430-435): E = sum lambda_i b_i^2 = 4 sum g(t_i)^2/H'(t_i) = 4
+  [CERTIFIED] lambda_i b_i^2 = 4 g(t_i)^2/H'(t_i) termwise: lambda_i b_i^2 == 4 g(t_i)^2/H'(t_i)
+  [CERTIFIED] A.3 energy: E = sum lambda_i b_i^2 = 4: sum f_i == 4
+  [CERTIFIED] E = 4 != 0 (Lemma A.1's hypothesis E != 0): E == 4 != 0
+     (6.43 s)
+
+2.6  Lemma A.1's conditions for A.3's data, decided directly (lines 264-271, 302-316)
+  [CERTIFIED] ||D(p_i)||^2 = b_i^2 ||J p_i||^2 = b_i^2: ||D(p_i)||^2 == b_i^2
+  [CERTIFIED] Lemma A.1 energy for A.3: sum lambda_i ||D(p_i)||^2 = 4: sum f_i == 4
+  [CERTIFIED] Lemma A.1 for A.3: (sum lambda_i D(p_i))_x = -sum lambda_i b_i y_i = 0: sum f_i == 0
+  [CERTIFIED] Lemma A.1 for A.3: (sum lambda_i D(p_i))_y = sum lambda_i b_i x_i = 0: sum f_i == 0
+  [CERTIFIED] M_21 - M_12 = sum lambda_i b_i (x_i^2+y_i^2) = sum lambda_i b_i termwise  [line 314]: (M_21-M_12)_i == lambda_i b_i
+  [CERTIFIED] Lemma A.1 for A.3: M = sum lambda_i D(p_i) p_i^T is SYMMETRIC (M_21 - M_12 = 0): sum f_i == 0
+  [CERTIFIED] tr M = sum lambda_i b_i (-x_i y_i + x_i y_i) = 0 termwise: tr M == 0
+     M at the exact rational point t = (0, 1, -1, 2, 3, 1/2, 5): [[-32/325, -56/325], [-56/325, 32/325]]
+  [CERTIFIED] A.3 data at t=(0,1,-1,2,3,1/2,5): M symmetric: M - M^T == 0
+  [CERTIFIED] A.3 data at t=(0,1,-1,2,3,1/2,5): M is NOT the zero matrix (Lemma A.1's general 'symmetric' form is needed, unlike the heptagon): M == != 0
+  [CERTIFIED] A.3 data at t=(0,1,-1,2,3,1/2,5): all Lemma A.1 conditions hold exactly and E = 4 (exact rational evaluation): conditions == hold, E=4
+     (2.58 s)
+     NON-FINITE steps in A.3's proof, quoted: (lines 436-437) 'Thus the circle criterion (A.4) and Lemma A.1 apply.' -- Lemma A.1's proof uses [EGMRSS, Lemma 15] (lines 288-292), the colouring theorem; (lines 439-443) 'Algebraic independence of all seven parameters over $\Q$ holds outside a countable union of polynomial zero sets, a set of Lebesgue measure zero. Stereographic parametrization transfers this conclusion to arc-length measure on the circle; similarities give the statement for any fixed circle.' -- the 'almost every' clause; measure theory, not decided here.
+     Also noted: A.3's statement fixes t1,t2,t3 distinct with t4..t7 algebraically independent over K = Q(t1,t2,t3); the finite identities above hold for ALL distinct t1..t7 (they are polynomial identities after multiplying by V != 0); only the derivation's existence uses the independence.
+
+========================================================================================
+PART 3  The twelve-colouring floor(F/4) mod 12 (lines 1168-1191): the finite arithmetic
+========================================================================================
+  [CERTIFIED] positive and negative weights both have total absolute weight 6  [line 1176]: (sum_{+} lambda, -sum_{-} lambda) == (6, 6)
+  [CERTIFIED] sum lambda (12k_p + c + theta_p) = 12 sum lambda k_p + sum lambda theta_p (c cancels since sum lambda = 0)  [line 1181]: sum lambda (12k+c+theta) == 12 sum lambda k + sum lambda theta
+  [CERTIFIED] sum lambda F(p')/4 = -24/4 = -6  [line 1181]: sum lambda F(p')/4 == -6
+  [CERTIFIED] -6 < sum lambda theta_p < 6 (strict: theta_p < 1)  [line 1182]: sum lambda theta == in (-6, 6)
+  [CERTIFIED] 12 sum lambda k_p in (-12, 0): contains no multiple of 12 -- contradiction, no monochromatic copy  [lines 1181-1184]: 12 sum lambda k_p == in (-12, 0), impossible
+  [CERTIFIED] general bound (lines 1184-1188): 2L sum lambda k_p in (0, 2L), so sum lambda k_p in (0,1): no integer -- 2L colours suffice: sum lambda k_p == in (0,1), impossible
+  [CERTIFIED] both sign conventions floor(+-F/4) mod 12 exclude a monochromatic copy: 12 sum lambda k == in (-12,0) or (0,12)
+     Not decided (not finite): that F(q) = R||D(q)||^2 is a well-defined real function on R^n (needs the derivation D, line 81-83) and the compactness remark (lines 1189-1191).
+
+========================================================================================
+PART 4  Negative controls: mutated inputs must FAIL the same tests (recorded as CONTROL, expected REFUTED)
+========================================================================================
+  [CONTROL-OK (mutant refuted)] weight at x=4 set to +1: sum lambda != 0: sum lambda = 4
+  [CONTROL-OK (mutant refuted)] weight at x=4 set to +1: sum lambda p p^T != 0: quadratic moment nonzero
+  [CONTROL-OK (mutant refuted)] weight at x=4 set to +1: energy != -24/R: energy = (32*r**2 - 64*r + 12)/(4*r**3 - 16*r**2 + 19*r - 6)
+  [CONTROL-OK (mutant refuted)] weight at x=4 set to +1: sum lambda F(p') = -24 fails for the symbolic rotation copy: R*sum lambda ||D(p')||^2 + 24 does not reduce to 0
+  [CONTROL-OK (mutant refuted)] point (1, y1) moved off the circle (y1^2 = 2r): sum lambda p p^T != 0: quadratic moment nonzero
+  [CONTROL-OK (mutant refuted)] point (1, y1) moved off the circle: D no longer respects the relation: D(y1^2 - 2r) != 0
+  [CONTROL-OK (mutant refuted)] wrong D(y3): D does not respect the circle relation: D(y3^2 - 3(2r-3)) != 0
+  [CONTROL-OK (mutant refuted)] wrong D(y3): energy != -24/R: energy = (60 - 48*r)/(4*r**3 - 12*r**2 + 9*r - 2)
+  [CONTROL-OK (mutant refuted)] A.3 with g replaced by 2g: E = 16 != 4: E = 16
+  [CONTROL-OK (mutant refuted)] (A.2) does not extend to k = 7: sum t_i^7/H'(t_i) != 0, != 1: sum t_i^7/H'(t_i) = sum of the t_i (not 0 or 1)
+  [CONTROL-OK (mutant refuted)] colouring with 6 colours (floor(F/4) mod 6): the interval (-12,0) contains the multiple -6, so the argument gives no contradiction: 6*(-1) = -6 in (-12, 0)
+
+CONTROLS  11 mutants: 11 refuted as expected, 0 wrongly accepted
+
+========================================================================================
+SUMMARY  97 identities decided: 97 CERTIFIED, 0 REFUTED   (135.5 s, sympy 1.14.0)
+========================================================================================
+wrote /Users/carlostoledo/Projects/cert-machine/corpus/heptagon/h1/decider-a/result-a.json

@@ -1,0 +1,11 @@
+NineStatement.lean: sha256 ab7692d4f32092bb… = the pin
+EuclideanRamseyNine.lean: sha256 ab8ee7f671e70ade… = the pin
+NineStatement.lean:
+  def literal vs literalCircleConfig: 67 tokens theirs, 67 ours; raw differences at #1 'literalCircleConfig'->'literal', #6 '9'->'7', #14 '9'->'7' -> equal after the declared replacements
+  theorem statement: 50 tokens theirs, 50 ours; raw differences at #1 'nine_circle_configuration'->'seven_circle_configuration', #6 '9'->'7', #22 'literalCircleConfig'->'literal', #32 'literalCircleConfig'->'literal', #44 'literalCircleConfig'->'literal' -> equal after the declared replacements
+EuclideanRamseyNine.lean:
+  def literal vs literalCircleConfig: 67 tokens theirs, 67 ours; raw differences at #1 'literalCircleConfig'->'literal', #6 '9'->'7', #14 '9'->'7' -> equal after the declared replacements
+  theorem statement: 50 tokens theirs, 50 ours; raw differences at #1 'nine_circle_configuration'->'seven_circle_configuration', #6 '9'->'7', #22 'literalCircleConfig'->'literal', #32 'literalCircleConfig'->'literal', #44 'literalCircleConfig'->'literal' -> equal after the declared replacements
+VERBATIM CHECK: PASS
+PLANTED (^2 -> ^3 in literal): FAIL, as required
+PLANTED (¬ dropped in the statement): FAIL, as required

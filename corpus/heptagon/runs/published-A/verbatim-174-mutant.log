@@ -1,0 +1,11 @@
+VERBATIM CHECK: FAIL — IsRamsey text differs from the pin:
+--- pin ---
+def IsRamsey {n : ℕ} (A : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  A.Finite ∧ ∀ k : ℕ, 1 ≤ k → ∃ d : ℕ, ∀ c : EuclideanSpace ℝ (Fin d) → Fin k,
+    ∃ p : A → EuclideanSpace ℝ (Fin d),
+      Congruent (fun a : A ↦ (a : EuclideanSpace ℝ (Fin n))) p ∧ ∃ i, ∀ a, c (p a) = i
+--- ours ---
+def IsRamsey {n : ℕ} (A : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  A.Finite ∧ ∀ k : ℕ, 2 ≤ k → ∃ d : ℕ, ∀ c : EuclideanSpace ℝ (Fin d) → Fin k,
+    ∃ p : A → EuclideanSpace ℝ (Fin d),
+      Congruent (fun a : A ↦ (a : EuclideanSpace ℝ (Fin n))) p ∧ ∃ i, ∀ a, c (p a) = i

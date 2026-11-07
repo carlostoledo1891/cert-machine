@@ -1,0 +1,23 @@
+	Command being timed: "bash -c rm -rf '/root/tools/nanoda_lib' && git clone -q https://github.com/ammkrn/nanoda_lib '/root/tools/nanoda_lib' && cd '/root/tools/nanoda_lib' && git checkout -q 8de7e0c4ed3052745a7f8725164efd9e76d84c56 && cargo build --release --locked -j 4 && sha256sum target/release/nanoda_bin"
+	User time (seconds): 36.50
+	System time (seconds): 3.89
+	Percent of CPU this job got: 160%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:25.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 381652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 101
+	Minor (reclaiming a frame) page faults: 849870
+	Voluntary context switches: 6565
+	Involuntary context switches: 2731
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 233656
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

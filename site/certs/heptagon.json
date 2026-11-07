@@ -1,0 +1,852 @@
+{
+ "what": "Pálvölgyi's heptagon and his appendix Theorem A.3 decided in Lean through OpenAI's classification, transported to formal-conjectures' statement of Graham's conjecture: the pre-registered questions H1–H6 and the corollary D, each read back from the runs.",
+ "undecided": "The heptagon and Theorem A.3 are Dömötör Pálvölgyi's, with ChatGPT (arXiv:2609.23327, 2026-09-20; the appendix labelled unchecked by its author); the classification that decides them is OpenAI's (openai/math). This record decides, in Lean's kernel and four independent kernels, that the heptagon is not Ramsey, that formal-conjectures' statement of Graham's conjecture is false, and that Theorem A.3 holds as printed. It does not decide the \"almost every\" clause of A.3, the appendix's other theorems, the six-point case (others' Lean), or that OpenAI's and formal-conjectures' definitions capture the informal notions.",
+ "generated": "2026-11-07",
+ "preregistration": "notes/heptagon-preregistration-2026-11-07.md",
+ "seals": [
+  {
+   "seal": 4,
+   "what": "the target note (with the notes of two other targets)",
+   "digest": "6f7a63388a5dad937e749982ad4ee2245b95508dc1b2eb0399a8678ba9cf92ce",
+   "anchors": "cert-machine seals/registry.jsonl @ 962083a8; OpenTimestamps: Bitcoin block 974909"
+  },
+  {
+   "seal": 5,
+   "what": "the rules: the pre-registration, its pins, the target and the prior-art review",
+   "digest": "33104efbe9f6f46a0ca28621277786f969c4cd47174661beab1b50e11e898ca7",
+   "anchors": "cert-machine seals/registry.jsonl @ f5e39857; OpenTimestamps: Bitcoin block 974909"
+  },
+  {
+   "seal": 6,
+   "what": "the results H1–H4 and the Lean modules (with another lane’s results)",
+   "digest": "d7583a2e1a0d6b004d8780864c703e68ed2bf4f073b80dd674db951af16e6175",
+   "anchors": "cert-machine seals/registry.jsonl @ 3b0a941b; OpenTimestamps: Bitcoin block 974909"
+  },
+  {
+   "seal": 7,
+   "what": "the corollary, the corrections, the drafts and the repository as published",
+   "digest": "aa185b76ac7863988ab7d16e6a7b7d4895e08c56d561cfc78f5a09b13bf1b201",
+   "anchors": "cert-machine seals/registry.jsonl @ 55e08e95; OpenTimestamps: Bitcoin block 974956"
+  }
+ ],
+ "pins": {
+  "lean": {
+   "repository": "https://github.com/carlostoledo1891/heptagon-ramsey-lean",
+   "commit": "914298f37e6f4c7096d924f22f7436cac2dff1e1",
+   "tag": "v1.0.0",
+   "license": "MIT"
+  },
+  "openai": {
+   "repository": "github.com/openai/math",
+   "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+   "toolchain": "leanprover/lean4:v4.34.1",
+   "mathlib": "d13f23b7"
+  },
+  "entry": {
+   "repository": "github.com/google-deepmind/formal-conjectures",
+   "commit": "2055e5a",
+   "path": "FormalConjectures/ErdosProblems/174.lean",
+   "sha256": "b6ac1bcd7d91",
+   "declaration": "Erdos174.erdos_174.variants.graham",
+   "pr": "https://github.com/google-deepmind/formal-conjectures/pull/7706",
+   "linkedAt": "81b7906812371c1674f333d71e18d84c0c57e613"
+  },
+  "paper": {
+   "arxiv": "2609.23327v1",
+   "author": "Dömötör Pálvölgyi (proofs by ChatGPT, per the paper)",
+   "title": "A cyclic non-Ramsey heptagon",
+   "date": "2026-09-20",
+   "tex": "spherical_non_ramsey.tex",
+   "texSha256": "681c953f883506f573a2c59435d0ddbfed061be7852ee2a3a96004d27852d0f1"
+  }
+ },
+ "code": {
+  "tools/record-heptagon.js": "b8813b965ead32dc8ad3a2134638100a0ee3f3c9bef91e1e75d7c9e2ff0c329b",
+  "corpus/heptagon/h1/decider-a/decide_a.py": "8832a7e29a5f2c493ace1b0ba253e8958f85f952a2641f56d449fecc840ce41b",
+  "corpus/heptagon/h1/decider-b/decider_b.py": "5ec49eb530aac97184341df1cee1f2e14ab8fc0e5b80091cc02a57f4973bb485",
+  "notes/heptagon-preregistration-2026-11-07.md": "257d5ecfefd804fc6e8b18099d83ce372ce56fa63c8b514018afcb6cf01bc009"
+ },
+ "sources": [
+  {
+   "file": "HeptagonRamsey.lean",
+   "sha256": "562f30b9bac2de93429ba15971fd64487b749ac547988956436a2f7528343ae0"
+  },
+  {
+   "file": "HeptagonRamsey/Generic/A3.lean",
+   "sha256": "9ecb501e95fd5013efd4d7b2b2731abf50ee3a1ebd4f8a99423fa77e3a52278e"
+  },
+  {
+   "file": "HeptagonRamsey/Generic/Derivation.lean",
+   "sha256": "7d5bdcbef2b7cd325d4df7d1c6bda3a34d89bec2abe9af680c09d15232f66fde"
+  },
+  {
+   "file": "HeptagonRamsey/Generic/LemmaA1.lean",
+   "sha256": "5209c3fbf68d8d7802216c51ccf901a1740c7a71281c8dff7d783a4937b51113"
+  },
+  {
+   "file": "HeptagonRamsey/Generic/Moments.lean",
+   "sha256": "8ed3b73f07d656ae243bd99fcf93ae2819b94607aed0bc339f9cab178265eb2f"
+  },
+  {
+   "file": "HeptagonRamsey/Generic/Seven.lean",
+   "sha256": "eed79f156121742078c1326acdd769e5ff48e6b745424871ec453ff7c59cc28f"
+  },
+  {
+   "file": "HeptagonRamsey/Heptagon/Criterion.lean",
+   "sha256": "c4a25c6d24e408b5b8a8a2918a83f367a5e65ec920f76f30f00f28df29c17a56"
+  },
+  {
+   "file": "HeptagonRamsey/Heptagon/NotRamsey.lean",
+   "sha256": "6d466d3797f60488e7e2b70f9ec73491b617c0bf4f0d464b8c050ffb3c03b3ae"
+  },
+  {
+   "file": "HeptagonRamsey/Heptagon/Pairing.lean",
+   "sha256": "3bb5632ebbf394b86c068f3f3faa98cc79b7ab252cbc65c62cf8640495a81f54"
+  },
+  {
+   "file": "HeptagonRamsey/Heptagon/Points.lean",
+   "sha256": "8c7a6f3e00affbc306d3d68893e8d9754eb82ea06960bba351e49331b479672a"
+  },
+  {
+   "file": "HeptagonRamsey/Heptagon/Transport.lean",
+   "sha256": "76905716ae8769504084f4adb8e9e581924ae721eb756aa2d10b2825e7882b3c"
+  }
+ ],
+ "verdict": "CERTIFIED",
+ "verdicts": {
+  "H1": "CERTIFIED",
+  "H2": "CERTIFIED",
+  "H3": "CERTIFIED",
+  "H4": "CERTIFIED",
+  "D": "CERTIFIED",
+  "H5": "READING",
+  "H6": "11/11 caught"
+ },
+ "theorems": {
+  "not_fieldCriterion": {
+   "name": "HeptagonRamsey.Heptagon.not_fieldCriterion",
+   "type": "∀ (r : ℝ), 2 < r → Transcendental ℚ r → ¬OAI.EuclideanRamsey.FieldCriterion (HeptagonRamsey.Heptagon.heptagon r)",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 29244,
+   "closureModules": 1075,
+   "ours": 78,
+   "module": "HeptagonRamsey.Heptagon.Criterion"
+  },
+  "not_ramsey": {
+   "name": "HeptagonRamsey.Heptagon.not_ramsey",
+   "type": "∀ (r : ℝ), 2 < r → Transcendental ℚ r → ¬OAI.EuclideanRamsey.Ramsey (HeptagonRamsey.Heptagon.heptagon r)",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 33335,
+   "closureModules": 1225,
+   "ours": 87,
+   "module": "HeptagonRamsey.Heptagon.NotRamsey"
+  },
+  "graham_false": {
+   "name": "HeptagonRamsey.Heptagon.graham_false",
+   "type": "¬Erdos174.erdos_174.variants.graham.statement",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 36731,
+   "closureModules": 1365,
+   "ours": 101,
+   "module": "HeptagonRamsey.Heptagon.Transport"
+  },
+  "graham_false2": {
+   "name": "HeptagonRamsey.Heptagon.graham_false'",
+   "type": "¬∀ {n : ℕ} (A : Set (EuclideanSpace ℝ (Fin n))), A.Finite → EuclideanGeometry.Cospherical A → Erdos174.IsRamsey A",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 36732,
+   "closureModules": 1365,
+   "ours": 102,
+   "module": "HeptagonRamsey.Heptagon.Transport"
+  },
+  "a3": {
+   "name": "HeptagonRamsey.Generic.generic_seven_not_ramsey",
+   "type": "∀ (t : Fin 7 → ℝ),\n  (Function.Injective fun i => t ⟨↑i, ⋯⟩) →\n    (AlgebraicIndependent ↥(HeptagonRamsey.Generic.baseField t) fun i => t ⟨↑i + 3, ⋯⟩) →\n      ¬OAI.EuclideanRamsey.Ramsey (HeptagonRamsey.Generic.circ t)",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 34080,
+   "closureModules": 1244,
+   "ours": 114,
+   "module": "HeptagonRamsey.Generic.A3"
+  },
+  "seven": {
+   "name": "HeptagonRamsey.Generic.seven_circle_configuration",
+   "type": "∀ (t : Fin 7 → ℝ),\n  AlgebraicIndependent ℚ t →\n    Function.Injective (HeptagonRamsey.Generic.literal t) ∧\n      (∀ (i : Fin 7), dist (HeptagonRamsey.Generic.literal t i) 0 = 1) ∧\n        ¬OAI.EuclideanRamsey.Ramsey (HeptagonRamsey.Generic.literal t)",
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "axiomsLean": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "closureConstants": 34515,
+   "closureModules": 1255,
+   "ours": 130,
+   "module": "HeptagonRamsey.Generic.Seven"
+  }
+ },
+ "H1": {
+  "A": {
+   "system": "python 3.9.6, sympy 1.14.0",
+   "identities": 97,
+   "certified": 97,
+   "refuted": 0,
+   "controls": 11,
+   "controlsRefused": 11,
+   "code": "corpus/heptagon/h1/decider-a/decide_a.py",
+   "patched": "one line, the private path of the pinned TeX it never reads (sha256 of the run copy 185ec9ee… → 8832a7e2…), re-run here on 2026-11-07"
+  },
+  "B": {
+   "system": "Python 3 standard library: fractions.Fraction + own sparse multivariate polynomial ring with relations y_j^2=j(2r-j), c^2=1-s^2 (normal form; coprime leading monomials => canonical); rational elements num/den with den univariate; equality by cross-multiplication; univariate gcd only for the reported reduced form",
+   "identities": 152,
+   "certified": 152,
+   "refuted": 0,
+   "mutants": [
+    {
+     "id": "weight",
+     "refuted": 23,
+     "caught": true
+    },
+    {
+     "id": "offcircle",
+     "refuted": 19,
+     "caught": true
+    },
+    {
+     "id": "generic-weight",
+     "refuted": 22,
+     "caught": true
+    }
+   ],
+   "code": "corpus/heptagon/h1/decider-b/decider_b.py"
+  },
+  "equation2": {
+   "heptagon": {
+    "M": "zero",
+    "verdict": "CERTIFIED",
+    "reading": "for the heptagon the main text's Equation (2) holds: M = Σλ D(p) pᵀ is the zero matrix"
+   },
+   "a3": {
+    "t": "(0, 1, 2, 3, 5, 7, 11)",
+    "M": [
+     [
+      "92/19825",
+      "-86/19825"
+     ],
+     [
+      "-86/19825",
+      "-92/19825"
+     ]
+    ],
+    "symmetric": true,
+    "zero": false,
+    "verdict": "CERTIFIED",
+    "reading": "for Theorem A.3's configuration M is symmetric and not zero: Equation (2) does not hold there, Lemma A.1's symmetric condition does, and the appendix's proof uses Lemma A.1"
+   }
+  },
+  "verdict": "CERTIFIED"
+ },
+ "H2": {
+  "theorems": [
+   "not_fieldCriterion",
+   "not_ramsey",
+   "graham_false",
+   "graham_false2"
+  ],
+  "build": {
+   "exit": 0,
+   "jobs": 8949
+  },
+  "verbatim": {
+   "exit": 0,
+   "pass": true,
+   "mutantRefused": true
+  },
+  "verdict": "CERTIFIED"
+ },
+ "H3": {
+  "published": {
+   "fresh": [
+    {
+     "root": "HeptagonRamsey.Heptagon.Transport",
+     "exit": 0,
+     "replayed": true,
+     "wall": "37:32.13",
+     "peakKB": 8538680,
+     "exitStatus": 0
+    },
+    {
+     "root": "HeptagonRamsey.Generic.A3",
+     "exit": 0,
+     "replayed": true,
+     "wall": "37:37.54",
+     "peakKB": 8539884,
+     "exitStatus": 0
+    },
+    {
+     "root": "HeptagonRamsey.Generic.Seven",
+     "exit": 0,
+     "replayed": true,
+     "wall": "35:55.63",
+     "peakKB": 8542676,
+     "exitStatus": 0
+    }
+   ],
+   "export": {
+    "sha256": "90763eca445e724fcd8b1641b7102a1287808424b687e56d34793b85c2cad1f6",
+    "bytes": 231046358,
+    "lines": 4305556,
+    "exporter": "lean4export 076e8e57 (format 3.1.0)"
+   },
+   "nanoda": {
+    "exit": 0,
+    "declarations": 38527,
+    "version": "nanoda_lib 0.4.31 (8de7e0c4)",
+    "hardAxiomError": true,
+    "permitted": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ]
+   },
+   "conron": {
+    "exit": 0,
+    "declarations": 36840,
+    "version": "con-ron 97eead2d --verified"
+   },
+   "forged": {
+    "what": "one record of the export changed: the theorem E_ne_zero given the type of E_mul, its proof unchanged",
+    "nanoda": {
+     "exitStatus": 101,
+     "rejected": true
+    },
+    "conron": {
+     "exitStatus": 1,
+     "rejected": true
+    }
+   }
+  },
+  "beforeRename": [
+   {
+    "kernel": "nanoda",
+    "on": "the heptagon closure",
+    "log": "nanoda",
+    "exit": 0,
+    "declarations": 37315,
+    "wall": "0:12.43",
+    "peakKB": 331652,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "nanoda",
+    "on": "the A.3 closure",
+    "log": "g-nanoda",
+    "exit": 0,
+    "declarations": 34626,
+    "wall": "0:05.70",
+    "peakKB": 278552,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "nanoda",
+    "on": "the corollary closure",
+    "log": "s-nanoda",
+    "exit": 0,
+    "declarations": 35062,
+    "wall": "0:07.58",
+    "peakKB": 283168,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "nanoda",
+    "on": "the whole environment of both",
+    "log": "nanoda-union-r2",
+    "exit": 0,
+    "declarations": 719017,
+    "wall": "5:28.16",
+    "peakKB": 6349092,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-ron",
+    "on": "the heptagon closure",
+    "log": "con-ron",
+    "exit": 0,
+    "declarations": 35642,
+    "wall": "0:06.68",
+    "peakKB": 502780,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-ron",
+    "on": "the A.3 closure",
+    "log": "g-con-ron",
+    "exit": 0,
+    "declarations": 33051,
+    "wall": "0:03.69",
+    "peakKB": 430808,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-ron",
+    "on": "the corollary closure",
+    "log": "s-con-ron",
+    "exit": 0,
+    "declarations": 33485,
+    "wall": "0:06.81",
+    "peakKB": 420088,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-ron",
+    "on": "the heptagon’s whole environment",
+    "log": "con-ron-env",
+    "exit": 0,
+    "declarations": 702354,
+    "wall": "2:31.91",
+    "peakKB": 6930416,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-ron",
+    "on": "the whole environment of both",
+    "log": "con-ron-union",
+    "exit": 0,
+    "declarations": 702480,
+    "wall": "2:27.85",
+    "peakKB": 6935296,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "lean4lean",
+    "on": "the heptagon closure",
+    "log": "lean4lean",
+    "exit": 0,
+    "declarations": 35639,
+    "wall": "0:52.59",
+    "peakKB": 453888,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "lean4lean",
+    "on": "the A.3 closure",
+    "log": "g-lean4lean",
+    "exit": 0,
+    "declarations": 33048,
+    "wall": "0:48.12",
+    "peakKB": 453716,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "lean4lean",
+    "on": "the corollary closure",
+    "log": "s-lean4lean",
+    "exit": 0,
+    "declarations": 33482,
+    "wall": "0:58.66",
+    "peakKB": 453724,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "lean4lean",
+    "on": "the heptagon’s whole environment",
+    "log": "lean4lean-env",
+    "exit": 0,
+    "declarations": 702351,
+    "wall": "51:25.93",
+    "peakKB": 12166460,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "lean4lean",
+    "on": "the whole environment of both",
+    "log": "lean4lean-union",
+    "exit": 0,
+    "declarations": 702477,
+    "wall": "48:30.92",
+    "peakKB": 12180492,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-leche",
+    "on": "the heptagon closure",
+    "log": "con-leche",
+    "exit": 0,
+    "declarations": 35642,
+    "wall": "0:10.76",
+    "peakKB": 334516,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-leche",
+    "on": "the A.3 closure",
+    "log": "g-con-leche",
+    "exit": 0,
+    "declarations": 33051,
+    "wall": "0:11.31",
+    "peakKB": 306376,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-leche",
+    "on": "the corollary closure",
+    "log": "s-con-leche",
+    "exit": 0,
+    "declarations": 33485,
+    "wall": "0:10.30",
+    "peakKB": 311984,
+    "exitStatus": 0
+   },
+   {
+    "kernel": "con-leche",
+    "on": "the whole environment of both",
+    "log": "con-leche-union",
+    "exit": 0,
+    "declarations": 702480,
+    "wall": "12:28.16",
+    "peakKB": 4583716,
+    "exitStatus": 0
+   }
+  ],
+  "versions": {
+   "nanoda": "nanoda_lib 8de7e0c4",
+   "con-ron": "con-ron 97eead2d --verified",
+   "lean4lean": "lean4lean arena bce34481",
+   "con-leche": "con-leche 701d72ae --verified"
+  },
+  "beforeRenameWhy": "run on the same proofs before the library’s namespace was renamed for publication; the rename substituted the name and nothing else (each renamed file equals its original after the reverse substitution, byte for byte). Only the verdict logs are kept here: the other logs carry the old name.",
+  "gaps": [
+   "leanchecker --paranoid does not exist in Lean v4.34.1 (its only flags are --verbose and --fresh); not run.",
+   "The four second kernels read lean4export’s output: what they check is what the exporter wrote.",
+   "nanoda on the whole environment accepted with the environment’s 15 axioms permitted (all declared in Lean’s core); with the hard error on it stops on core’s own Lean.trustCompiler. That the six theorems use only the three standard axioms rests on the audit and on the closure exports, checked with the hard error on.",
+   "On the published code two second kernels were re-run (nanoda, con-ron) on the closure, not all four, and not the whole environment."
+  ],
+  "verdict": "CERTIFIED"
+ },
+ "H4": {
+  "theorem": "a3",
+  "finiteContent": "H1, both deciders",
+  "verdict": "CERTIFIED"
+ },
+ "D": {
+  "theorem": "seven",
+  "verbatim": {
+   "exit": 0,
+   "pass": true,
+   "mutantsRefused": 2
+  },
+  "verdict": "CERTIFIED"
+ },
+ "H6": [
+  {
+   "id": "the audit: a sorry",
+   "caught": true
+  },
+  {
+   "id": "the audit: a new axiom",
+   "caught": true
+  },
+  {
+   "id": "the audit: native_decide",
+   "caught": true
+  },
+  {
+   "id": "the audit: Lean.trustCompiler",
+   "caught": true
+  },
+  {
+   "id": "the audit: @[implemented_by]",
+   "caught": true
+  },
+  {
+   "id": "the audit: @[extern]",
+   "caught": true
+  },
+  {
+   "id": "the audit: a definition given as the theorem",
+   "caught": true
+  },
+  {
+   "id": "a heptagon weight 2 → 1",
+   "caught": true
+  },
+  {
+   "id": "the copied statement, one token changed",
+   "caught": true
+  },
+  {
+   "id": "the nine-point shape, two tokens changed (two mutants)",
+   "caught": true
+  },
+  {
+   "id": "a forged export (both kernels)",
+   "caught": true
+  }
+ ],
+ "plantedAudit": [
+  {
+   "id": "planted_sorry",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_axiom",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_native",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_trust",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_implby",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_extern",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_def",
+   "verdict": "REFUSED"
+  },
+  {
+   "id": "planted_clean",
+   "verdict": "PASS"
+  }
+ ],
+ "predictions": [
+  {
+   "q": "H1 CERTIFIED",
+   "prior": 0.97,
+   "outcome": true
+  },
+  {
+   "q": "H2 CERTIFIED inside the three-week clock",
+   "prior": 0.5,
+   "outcome": true
+  },
+  {
+   "q": "someone else’s Lean proof of the heptagon appears first",
+   "prior": 0.35,
+   "outcome": false,
+   "how": "none found at the reveal, 19:24 UTC on 7 November: formal-conjectures, openai/math, the authors of the six-point Lean, a code search"
+  },
+  {
+   "q": "H3: every second kernel accepts",
+   "prior": 0.45,
+   "outcome": true
+  },
+  {
+   "q": "H4 read clean or better",
+   "prior": 0.8,
+   "outcome": true
+  },
+  {
+   "q": "H4 CERTIFIED (A.3 in Lean)",
+   "prior": 0.25,
+   "outcome": true
+  },
+  {
+   "q": "the corollary D CERTIFIED the same day",
+   "prior": 0.8,
+   "outcome": true
+  }
+ ],
+ "timeline": {
+  "seals": [
+   {
+    "k": "seal 4 · the target",
+    "at": "2026-11-07T04:20:11Z",
+    "source": "cert-machine 962083a8 (seals/registry.jsonl)"
+   },
+   {
+    "k": "seal 5 · the rules",
+    "at": "2026-11-07T04:29:29Z",
+    "source": "cert-machine f5e39857 (seals/registry.jsonl)"
+   },
+   {
+    "k": "seal 6 · the results",
+    "at": "2026-11-07T07:19:54Z",
+    "source": "cert-machine 3b0a941b (seals/registry.jsonl)"
+   },
+   {
+    "k": "seal 7 · the drafts and the repository",
+    "at": "2026-11-07T16:54:54Z",
+    "source": "cert-machine 55e08e95 (seals/registry.jsonl)"
+   }
+  ],
+  "written": [
+   {
+    "k": "the corollary's rules (amendment D)",
+    "at": "2026-11-07T12:06:33Z",
+    "source": "the commit of amendment D in the private plan; anchored later by seal 7"
+   }
+  ],
+  "run": [
+   {
+    "k": "H1–H4 and the four kernels",
+    "from": "2026-11-07T04:30:20Z",
+    "to": "2026-11-07T07:15:37Z",
+    "source": "the pod's creation and the commit recording H3 complete (private plan)"
+   },
+   {
+    "k": "the corollary",
+    "from": "2026-11-07T12:07:00Z",
+    "to": "2026-11-07T12:48:06Z",
+    "source": "the pod's creation and the commit recording the corollary complete (private plan)"
+   },
+   {
+    "k": "the published code, re-run",
+    "from": "2026-11-07T15:29:28Z",
+    "to": "2026-11-07T16:47:27Z",
+    "source": "runs/published-A/STATUS.txt"
+   }
+  ],
+  "published": [
+   {
+    "k": "the repository",
+    "at": "2026-11-07T19:25:10Z",
+    "source": "GitHub, carlostoledo1891/heptagon-ramsey-lean, created_at"
+   },
+   {
+    "k": "the comment",
+    "at": "2026-11-07T19:25:37Z",
+    "source": "GitHub, formal-conjectures #7706, issuecomment-6711953944"
+   },
+   {
+    "k": "linked by the PR's author",
+    "at": "2026-11-07T19:30:24Z",
+    "source": "GitHub, formal-conjectures commit 81b7906812371c1674f333d71e18d84c0c57e613, author date (committed again 19:47:09 after a force-push)"
+   }
+  ]
+ },
+ "deviations": [
+  {
+   "id": "provenance",
+   "text": "The prior-art review said Theorem A.3 had been checked by nobody. Read again before the reveal: wstrinz (Will Strinz) had certified one instance exactly on 16 October (three rational and four algebraically independent circle points, J2-F7 in wstrinz/spherical-ramsey) and uses A.3 by hand for half of a circle phase diagram. Corrected in a dated amendment: the first proof of A.3 as stated, and the first in Lean."
+  },
+  {
+   "id": "rename",
+   "text": "The library’s namespace was renamed for publication after the checks had run. The rename was checked to change the name and nothing else, and the build, the audit, Lean’s from-scratch check on all three roots, two second kernels, both verbatim checks and a planted variant were re-run on the published code."
+  },
+  {
+   "id": "export",
+   "text": "The first export of the published run was void: it named the root file, which is not a Lake module, so it came out empty and both kernels “accepted 0 declarations”. It was stopped and recorded; the script now exports the two leaf modules and refuses an empty export."
+  },
+  {
+   "id": "paranoid",
+   "text": "The rules name leanchecker --paranoid; Lean v4.34.1 has no such mode, so the check rests on leanchecker --fresh and the four independent kernels."
+  }
+ ],
+ "outcome": {
+  "pr": "https://github.com/google-deepmind/formal-conjectures/pull/7706",
+  "author": "anxkhn (Anas Khan), the pull request's author",
+  "at": "2026-11-07T19:30:24Z",
+  "commit": "81b7906812371c1674f333d71e18d84c0c57e613",
+  "what": "added the proof's pinned link as the entry's formal_proof, with the declaration-local Palomar opt-out; checked the linked source himself (IsRamsey byte-identical, the statement up to namespace and whitespace, no proof placeholders or custom axioms; his file builds); did not re-run our Lean 4.34.1 build or kernels; asked for a Palomar entry",
+  "state": "open, waiting on a maintainer"
+ },
+ "H5": {
+  "reading": "dated 2026-11-07, from the sources themselves",
+  "sources": [
+   {
+    "who": "fedja (MathOverflow)",
+    "date": "2018-05-20",
+    "what": "a field-automorphism construction for almost-monochromatic sets, which the paper names as where the author started",
+    "url": "https://mathoverflow.net/questions/300604/almost-monochromatic-point-sets#comment748363_300604"
+   },
+   {
+    "who": "Dömötör Pálvölgyi (proofs by ChatGPT)",
+    "date": "2026-09-20",
+    "what": "the heptagon (Theorem 1) and the appendix with Theorem A.3, labelled unchecked",
+    "url": "https://arxiv.org/abs/2609.23327"
+   },
+   {
+    "who": "OpenAI",
+    "date": "2026-09-23",
+    "what": "the classification of finite Euclidean Ramsey configurations, in Lean, with twelve- and nine-point counterexamples; cites the heptagon and says A.3 already implies its nine-point result",
+    "url": "https://github.com/openai/math"
+   },
+   {
+    "who": "JD Jones",
+    "date": "2026-10-07",
+    "what": "six concyclic points satisfy the criterion, in Lean; an exact certificate that the heptagon fails it, the argument on paper",
+    "url": "https://github.com/JD-Jones-ASES/six-concyclic-lean"
+   },
+   {
+    "who": "wstrinz (Will Strinz)",
+    "date": "2026-10-16",
+    "what": "six circle points are Ramsey, end to end in Lean; one instance of A.3 certified exactly (J2-F7); the circle phase diagram",
+    "url": "https://github.com/wstrinz/spherical-ramsey"
+   },
+   {
+    "who": "pw (byclaude)",
+    "date": "2026-10-22",
+    "what": "formal-conjectures issue #7517: OpenAI’s twelve-point theorem transported to formal-conjectures’ IsRamsey; an exact check of the heptagon’s identities",
+    "url": "https://github.com/google-deepmind/formal-conjectures/issues/7517"
+   },
+   {
+    "who": "anxkhn (Anas Khan)",
+    "date": "2026-10-31",
+    "what": "formal-conjectures pull request #7706: the entry re-tagged solved with the statement ¬ (∀ …), without a proof",
+    "url": "https://github.com/google-deepmind/formal-conjectures/pull/7706"
+   }
+  ]
+ }
+}

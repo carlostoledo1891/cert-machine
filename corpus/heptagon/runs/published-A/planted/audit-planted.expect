@@ -1,0 +1,9 @@
+as required planted_sorry: REFUSED ["forbidden constants in the closure: #[sorryAx]", "axioms outside propext/Classical.choice/Quot.sound: #[sorryAx]"]
+as required planted_axiom: REFUSED ["axioms outside propext/Classical.choice/Quot.sound: #[plantedAxiom]"]
+as required planted_native: REFUSED ["axioms outside propext/Classical.choice/Quot.sound: #[planted_native._native.native_decide.ax_1_1]"]
+as required planted_trust: REFUSED ["forbidden constants in the closure: #[Lean.trustCompiler]", "axioms outside propext/Classical.choice/Quot.sound: #[Lean.trustCompiler]"]
+as required planted_implby: REFUSED ["a constant of ours carries implemented_by or extern"]
+as required planted_extern: REFUSED ["a constant of ours carries implemented_by or extern"]
+as required planted_def: REFUSED ["target is a def, not a theorem"]
+as required planted_clean: PASS []
+PLANTED CONTROLS: all as required

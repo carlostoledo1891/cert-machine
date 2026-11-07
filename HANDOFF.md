@@ -35,8 +35,15 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      v1.0.0 — NEVER rewrite or delete the repo. OWED: the Palomar port (module system, Palomar's pin, Challenge.lean
      Mathlib-only, Comparator, formalization.yaml; on wstrinz's ported OAI closure, radian-ramsey, Apache-2.0, credited);
      the Palomar submission and the swap PR each on the operator's word. On the merge: pin anxkhn's credit in
-     corpus/recognition.json. NOT done, on purpose: no page, no wstrinz/JD Jones/Pálvölgyi texts, no X post — the
-     operator chose them 11-07 then deferred them behind Palomar. Say "the first proof of A.3 as stated, the first in Lean" — never
+     corpus/recognition.json. THE PAGE (built 11-07 evening on the operator's "build the page!"): /reports/heptagon.html
+     from certs/heptagon.json (tools/record-heptagon.js --check re-runs decider B + its 3 mutants; --full also decider A,
+     SymPy ~2–4 min; battery "heptagon + A.3 in Lean"), corpus/heptagon/ (the two H1 deciders — decide_a.py's one private
+     TeX path patched and declared, re-run here; run A/B on the published code; the forged export; the four kernels'
+     VERDICT logs before the rename, NOTE.md: s-con-leche.log omits one stats line naming the old namespace), the
+     pre-registration as sealed (notes/heptagon-preregistration-2026-11-07.md), light art card og-heptagon.png, the shelf
+     card (erdos lane, after #488), titles.json (audits). The shelf also gained the three records it had been missing
+     since 11-07 (c51-replay, zq-finite-v2, zq-pr-build), which had made every sync refuse. NOT done, on purpose: no
+     wstrinz/JD Jones/Pálvölgyi texts, no X post — the operator chose them 11-07 then deferred them behind Palomar. Say "the first proof of A.3 as stated, the first in Lean" — never
      "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only

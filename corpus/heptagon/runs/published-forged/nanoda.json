@@ -1,0 +1,15 @@
+{
+ "export_file_path": "/root/forged/forged.ndjson",
+ "use_stdin": false,
+ "permitted_axioms": [
+  "propext",
+  "Quot.sound",
+  "Classical.choice"
+ ],
+ "unpermitted_axiom_hard_error": true,
+ "nat_extension": true,
+ "string_extension": true,
+ "num_threads": 2,
+ "print_success_message": true,
+ "stack_size_bytes": 1073741824
+}

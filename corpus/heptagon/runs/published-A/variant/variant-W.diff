@@ -1,0 +1,20 @@
+--- /tmp/tmp.mHysRRaufj/HeptagonRamsey/Heptagon/Points.lean	2026-11-07 15:30:09.909768183 +0000
++++ HeptagonRamsey/Heptagon/Points.lean	2026-11-07 16:46:14.210378154 +0000
+@@ -32,7 +32,7 @@
+ def heptagon (r : ℝ) (i : Fin 7) : Space 2 := WithLp.toLp 2 ![hx i, hy r i]
+ 
+ /-- The weights `2, −2, −2, 2, 2, −1, −1`. -/
+-def lam : Fin 7 → ℝ := ![2, -2, -2, 2, 2, -1, -1]
++def lam : Fin 7 → ℝ := ![1, -2, -2, 2, 2, -1, -1]
+ 
+ @[simp] theorem heptagon_apply_zero (r : ℝ) (i : Fin 7) : heptagon r i 0 = hx i := rfl
+ @[simp] theorem heptagon_apply_one (r : ℝ) (i : Fin 7) : heptagon r i 1 = hy r i := rfl
+@@ -53,7 +53,7 @@
+ @[simp] theorem hy_5 (r : ℝ) : hy r 5 = Real.sqrt (4 * (2 * r - 4)) := rfl
+ @[simp] theorem hy_6 (r : ℝ) : hy r 6 = -Real.sqrt (4 * (2 * r - 4)) := rfl
+ 
+-@[simp] theorem lam_0 : lam 0 = 2 := rfl
++@[simp] theorem lam_0 : lam 0 = 1 := rfl
+ @[simp] theorem lam_1 : lam 1 = -2 := rfl
+ @[simp] theorem lam_2 : lam 2 = -2 := rfl
+ @[simp] theorem lam_3 : lam 3 = 2 := rfl

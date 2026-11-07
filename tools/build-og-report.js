@@ -114,6 +114,24 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/heptagon.html (2026-11-07): the heptagon itself on its circle, drawn at r = e as the page's
+     figure is; the paper's weights by sign alone (solid for the positive, hollow for the negative), no number */
+  heptagon: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Graham’s conjecture', path: '/reports/heptagon.html',
+    title: 'Pálvölgyi’s heptagon and the appendix theorem marked unchecked, decided in Lean',
+    alt: 'A circle with seven dots on it, the heptagon: one at the leftmost point of the circle and three mirrored pairs; four dots solid, three hollow.',
+    svgRaw: (() => {
+      const o = [], r = Math.E, s = 205 / r, cx = 600, cy = 322;
+      const at = (x, y) => [cx + (x - r) * s, cy - y * s];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A circle with seven dots on it, four solid and three hollow" style="position:absolute;left:0;top:0">');
+      o.push('<circle cx="' + cx + '" cy="' + cy + '" r="205" fill="none" stroke="var(--ink-3)" stroke-width="1.6"/>');
+      const pts = [[0, 0, 1]].concat([[1, -1], [3, 1], [4, -1]].flatMap(([j, w]) => { const y = Math.sqrt(j * (2 * r - j)); return [[j, y, w], [j, -y, w]]; }));
+      for (const [x, y, w] of pts) {
+        const [px, py] = at(x, y);
+        o.push('<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="13" ' + (w > 0 ? 'fill="var(--ink)" stroke="var(--ink)"' : 'fill="var(--surface)" stroke="var(--ink)"') + ' stroke-width="2.4"/>');
+      }
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',

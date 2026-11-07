@@ -1,0 +1,212 @@
+DECIDER B  --  python 3.9.6  --  standard library only (fractions.Fraction, own polynomial ring)
+paper: spherical_non_ramsey.tex, sha256 681c953f883506f573a2c59435d0ddbfed061be7852ee2a3a96004d27852d0f1
+
+====================================================================================================
+PART 1  The heptagon (Theorem 1, .tex 48-148): r a symbol; y_j formal with y_j^2 = j(2r-j); c^2+s^2=1
+====================================================================================================
+points and weights (paper lines 49-53, 93-94):
+   lambda=  2  p=O
+   lambda= -2  p=(1,+y1)
+   lambda= -2  p=(1,-y1)
+   lambda=  2  p=(3,+y3)
+   lambda=  2  p=(3,-y3)
+   lambda= -1  p=(4,+y4)
+   lambda= -1  p=(4,-y4)
+[CERTIFIED] on-circle O: (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (1,+y1): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (1,-y1): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (3,+y3): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (3,-y3): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (4,+y4): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] on-circle (4,-y4): (x-r)^2+y^2-r^2 = 0  (.tex 54)
+[CERTIFIED] multisets {0,3,3},{1,1,4}: equal cardinality  (.tex 94-96)
+[CERTIFIED] multisets {0,3,3},{1,1,4}: equal sums  (.tex 94-96)
+[CERTIFIED] multisets {0,3,3},{1,1,4}: equal sums of squares  (.tex 94-96)
+[CERTIFIED] D(1) = 0, hence D(j) = 0 for every integer j  (.tex 79-80)
+[CERTIFIED] D(y1) = 1/y1   (decided as y1*D(y1) = 1)  (.tex 85-91)
+[CERTIFIED] Leibniz consistency: D(y1^2) = D(1(2r-1)) = 2  (.tex 85-91)
+[CERTIFIED] D(y3) = 3/y3   (decided as y3*D(y3) = 3)  (.tex 85-91)
+[CERTIFIED] Leibniz consistency: D(y3^2) = D(3(2r-3)) = 6  (.tex 85-91)
+[CERTIFIED] D(y4) = 4/y4   (decided as y4*D(y4) = 4)  (.tex 85-91)
+[CERTIFIED] Leibniz consistency: D(y4^2) = D(4(2r-4)) = 8  (.tex 85-91)
+[CERTIFIED] D((1,+y1)) = (0, 1/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((1,+y1)) = (0, 1/y): y * second coordinate = 1  (.tex 90)
+[CERTIFIED] D((1,-y1)) = (0, 1/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((1,-y1)) = (0, 1/y): y * second coordinate = 1  (.tex 90)
+[CERTIFIED] D((3,+y3)) = (0, 3/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((3,+y3)) = (0, 3/y): y * second coordinate = 3  (.tex 90)
+[CERTIFIED] D((3,-y3)) = (0, 3/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((3,-y3)) = (0, 3/y): y * second coordinate = 3  (.tex 90)
+[CERTIFIED] D((4,+y4)) = (0, 4/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((4,+y4)) = (0, 4/y): y * second coordinate = 4  (.tex 90)
+[CERTIFIED] D((4,-y4)) = (0, 4/y): first coordinate 0  (.tex 90)
+[CERTIFIED] D((4,-y4)) = (0, 4/y): y * second coordinate = 4  (.tex 90)
+[CERTIFIED] (1) sum lambda = 0  (.tex 99 (eq (2), first))
+[CERTIFIED] (2) sum lambda p, x-coordinate = 0  (.tex 100 (eq (2), second))
+[CERTIFIED] (2) sum lambda p, y-coordinate = 0  (.tex 100 (eq (2), second))
+   sum lambda p p^T = [[(0) / (1), (0) / (1)], [(0) / (1), (0) / (1)]]
+[CERTIFIED] (3) sum lambda p p^T = 0 (the full 2x2 matrix)  (.tex 101 (eq (2), third))
+[CERTIFIED] (4) sum lambda D(p), x-coordinate = 0  (.tex 102 (eq (2), fourth))
+[CERTIFIED] (4) sum lambda D(p), y-coordinate = 0  (.tex 102 (eq (2), fourth))
+   M = sum lambda D(p) p^T = [[(0) / (1), (0) / (1)], [(0) / (64*r^6 - 512*r^5 + 1632*r^4 - 2624*r^3 + 2212*r^2 - 912*r + 144), (0) / (64*r^6 - 512*r^5 + 1632*r^4 - 2624*r^3 + 2212*r^2 - 912*r + 144)]]
+[CERTIFIED] (4) M = sum lambda D(p) p^T = 0 (the full 2x2 matrix, as the main text states)  (.tex 103 (eq (2), fifth))
+[CERTIFIED] (4) M symmetric (Lemma A.1's condition)  (.tex 270)
+   energy, reduced (monic denominator): (-3) / (r^3 - 4*r^2 + 19/4*r - 3/2)
+[CERTIFIED] (5) energy = -4/(2r-1) + 12/(2r-3) - 8/(2r-4)  (.tex 109-110 (eq (3)))
+[CERTIFIED] (5) energy = -24/R with R = (2r-1)(2r-3)(2r-4)  (.tex 107-111 (eq (3)))
+[CERTIFIED] (5) reduced form equals -3 / (R/8)  (.tex 107-111)
+[CERTIFIED] (extra) with D(r) = rho the energy is rho^2 * (-24/R) (the common-colouring subsection's D(r) = sqrt(R) gives -24 unscaled)  (.tex 1291-1299)
+[CERTIFIED] (6) c^2 + s^2 = 1 in the ring  (relation c^2 -> 1 - s^2)
+[CERTIFIED] (6) c*D(c) + s*D(s) = 0 under D(c) = -om*s, D(s) = om*c  (D(c^2+s^2) = D(1) = 0)
+[CERTIFIED] (6) rotation: D(A) = om * A J  (.tex 365-366)
+[CERTIFIED] (6) heptagon, rotation+translation: A^T A = I  (.tex 119-147)
+[CERTIFIED] (6) heptagon, rotation+translation: D(A) entrywise  (.tex 119-147)
+[CERTIFIED] (6) heptagon, rotation+translation: D(A)^T A + A^T D(A) = 0 (D(A)^T A skew)  (.tex 282-284)
+[CERTIFIED] (6) heptagon, rotation+translation: D(p') = D(t) + D(A)p + A D(p) (product rule, point 0)  (.tex 121-123)
+[CERTIFIED] (6) heptagon, rotation+translation: sum of the five groups = direct sum lambda ||D(p')||^2  (.tex 124-136)
+[CERTIFIED] (6) heptagon, rotation+translation: T0 = ||D(t)||^2 * sum lambda = 0   [killed by the zeroth moment]  (.tex 129, 137-138)
+[CERTIFIED] (6) heptagon, rotation+translation: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0   [killed by the first moment and the derivative first moment]  (.tex 130-131, 137-138)
+[CERTIFIED] (6) heptagon, rotation+translation: T2 = sum lambda ||D(A)p||^2 = 0   [killed by the quadratic moment sum lambda p p^T = 0]  (.tex 132, 138-139)
+[CERTIFIED] (6) heptagon, rotation+translation: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M) = 0   [killed by M symmetric and D(A)^T A skew]  (.tex 133, 138-139; A.1 278-284)
+[CERTIFIED] (6) heptagon, rotation+translation: T4 = sum lambda ||A D(p)||^2 = sum lambda ||D(p)||^2 (A isometric)  (.tex 134, 139-146)
+[CERTIFIED] (6) heptagon, rotation+translation: sum lambda ||D(p')||^2 = energy, identically in the free symbols  (.tex 141-146)
+[CERTIFIED] (6) heptagon, reflection+translation: A^T A = I  (.tex 119-147)
+[CERTIFIED] (6) heptagon, reflection+translation: D(A) entrywise  (.tex 119-147)
+[CERTIFIED] (6) heptagon, reflection+translation: D(A)^T A + A^T D(A) = 0 (D(A)^T A skew)  (.tex 282-284)
+[CERTIFIED] (6) heptagon, reflection+translation: D(p') = D(t) + D(A)p + A D(p) (product rule, point 0)  (.tex 121-123)
+[CERTIFIED] (6) heptagon, reflection+translation: sum of the five groups = direct sum lambda ||D(p')||^2  (.tex 124-136)
+[CERTIFIED] (6) heptagon, reflection+translation: T0 = ||D(t)||^2 * sum lambda = 0   [killed by the zeroth moment]  (.tex 129, 137-138)
+[CERTIFIED] (6) heptagon, reflection+translation: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0   [killed by the first moment and the derivative first moment]  (.tex 130-131, 137-138)
+[CERTIFIED] (6) heptagon, reflection+translation: T2 = sum lambda ||D(A)p||^2 = 0   [killed by the quadratic moment sum lambda p p^T = 0]  (.tex 132, 138-139)
+[CERTIFIED] (6) heptagon, reflection+translation: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M) = 0   [killed by M symmetric and D(A)^T A skew]  (.tex 133, 138-139; A.1 278-284)
+[CERTIFIED] (6) heptagon, reflection+translation: T4 = sum lambda ||A D(p)||^2 = sum lambda ||D(p)||^2 (A isometric)  (.tex 134, 139-146)
+[CERTIFIED] (6) heptagon, reflection+translation: sum lambda ||D(p')||^2 = energy, identically in the free symbols  (.tex 141-146)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): A^T A = I  (.tex 337-342)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): D(A) entrywise  (.tex 337-342)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): D(A)^T A + A^T D(A) = 0 (D(A)^T A skew)  (.tex 282-284)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): D(p') = D(t) + D(A)p + A D(p) (product rule, point 0)  (.tex 121-123)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): sum of the five groups = direct sum lambda ||D(p')||^2  (.tex 124-136)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): T0 = ||D(t)||^2 * sum lambda = 0   [killed by the zeroth moment]  (.tex 129, 137-138)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0   [killed by the first moment and the derivative first moment]  (.tex 130-131, 137-138)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): T2 = sum lambda ||D(A)p||^2 = 0   [killed by the quadratic moment sum lambda p p^T = 0]  (.tex 132, 138-139)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M) = 0   [killed by M symmetric and D(A)^T A skew]  (.tex 133, 138-139; A.1 278-284)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): T4 = sum lambda ||A D(p)||^2 = sum lambda ||D(p)||^2 (A isometric)  (.tex 134, 139-146)
+[CERTIFIED] (6) heptagon, tilt into R^3 (x,y)->(cx,y,sx) + translation (extra): sum lambda ||D(p')||^2 = energy, identically in the free symbols  (.tex 141-146)
+   F(q) = R ||D(q)||^2 (.tex 114-118): sum lambda F(p') = R * (-24/R) = -24
+[CERTIFIED] (6) sum lambda F(p') = R * sum lambda ||D(p')||^2 = -24 (rotation copy)  (.tex 141-147)
+
+====================================================================================================
+PART 2  Lemma A.1's expansion decided with abstract symbols (lambda_i, p_i, q_i=D(p_i), w=D(t), A, B=D(A) all free)
+====================================================================================================
+[CERTIFIED] A.1 expansion: sum lambda ||w + B p + A q||^2 = the five groups (abstract symbols)  (.tex 124-136, 275-277)
+[CERTIFIED] A.1: T0 = ||w||^2 * (sum lambda)  (.tex 129)
+[CERTIFIED] A.1: T1 = 2<w, B (sum lambda p) + A (sum lambda q)>  (.tex 130-131)
+[CERTIFIED] A.1: T2 = tr(B^T B * sum lambda p p^T)  (.tex 132)
+[CERTIFIED] A.1: T3 = 2 tr(B^T A M), M = sum lambda q p^T  (.tex 279-280)
+[CERTIFIED] A.1: tr(S K) = 0 for S skew, K symmetric (2x2 symbols)  (.tex 282-284)
+[CERTIFIED] A.1: ||A q||^2 = ||q||^2 for the rotation (c^2+s^2=1)  (.tex 139-144)
+[CERTIFIED] A.1: ||A q||^2 = ||q||^2 for the reflection (c^2+s^2=1)  (.tex 139-144)
+
+====================================================================================================
+PART 3  Theorem A.3 (.tex 390-444): p(t) = ((1-t^2)/(1+t^2), 2t/(1+t^2)), t_1..t_7 symbols
+====================================================================================================
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t1) * cof_1 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t2) * cof_2 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t3) * cof_3 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t4) * cof_4 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t5) * cof_5 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t6) * cof_6 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) Vandermonde cofactor: H'(t7) * cof_7 = V  (so cof_i = V / H'(t_i))  (.tex 404-411)
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^0 / H'(t_i) = 0  (decided as sum_i t_i^0 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^1 / H'(t_i) = 0  (decided as sum_i t_i^1 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^2 / H'(t_i) = 0  (decided as sum_i t_i^2 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^3 / H'(t_i) = 0  (decided as sum_i t_i^3 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^4 / H'(t_i) = 0  (decided as sum_i t_i^4 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^5 / H'(t_i) = 0  (decided as sum_i t_i^5 cof_i = 0 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^6 / H'(t_i) = 1  (decided as sum_i t_i^6 cof_i = 1 * V)  (.tex 407-411 (A.2))
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^7 / H'(t_i) = h_1(t)  (decided as sum_i t_i^7 cof_i = h_1(t) * V)  (classical extension (k>6, h_{k-6}); used only to bound degrees)
+[CERTIFIED] (A.3a) interpolation: sum_i t_i^8 / H'(t_i) = h_2(t)  (decided as sum_i t_i^8 cof_i = h_2(t) * V)  (classical extension (k>6, h_{k-6}); used only to bound degrees)
+   e_k := sum_i t_i^k/H'(t_i): 0<=k<=5 -> 0 ; k=6 -> 1; k=7 -> h_1, k=8 -> h_2 (for the degree audit)
+[CERTIFIED] (A.3) p(t) lies on the unit circle: x^2 + y^2 = 1  (.tex 391-394)
+[CERTIFIED] (A.3) g(t1) = 0, so D(t1) = 0 = g(t1) is consistent with D vanishing on K  (.tex 412-415)
+[CERTIFIED] (A.3) g(t2) = 0, so D(t2) = 0 = g(t2) is consistent with D vanishing on K  (.tex 412-415)
+[CERTIFIED] (A.3) g(t3) = 0, so D(t3) = 0 = g(t3) is consistent with D vanishing on K  (.tex 412-415)
+[CERTIFIED] (A.3) D(p(t)) = b J p(t), x-coordinate, with b = 2 g(t)/(1+t^2)  (.tex 416-420)
+[CERTIFIED] (A.3) D(p(t)) = b J p(t), y-coordinate  (.tex 416-420)
+[CERTIFIED] (A.3) ||J p||^2 = 1 hence ||D(p)||^2 = b^2  (.tex 304-307)
+      sum lambda: per-point numerator degree in t_i = 4; leading coefficient = 1
+[CERTIFIED] (A.3b) sum lambda_i = 0  (.tex 421-425)
+      sum lambda x: per-point numerator degree in t_i = 4; leading coefficient = -1
+[CERTIFIED] (A.3b) sum lambda_i x_i = 0  (.tex 421-425)
+      sum lambda y: per-point numerator degree in t_i = 3; leading coefficient = 2
+[CERTIFIED] (A.3b) sum lambda_i y_i = 0  (.tex 421-425)
+      sum lambda p_0p_0: per-point numerator degree in t_i = 4; leading coefficient = 1
+      sum lambda p_0p_1: per-point numerator degree in t_i = 3; leading coefficient = -2
+      sum lambda p_1p_0: per-point numerator degree in t_i = 3; leading coefficient = -2
+      sum lambda p_1p_1: per-point numerator degree in t_i = 2; leading coefficient = 4
+[CERTIFIED] (A.3b) sum lambda_i p_i p_i^T = 0 (full 2x2 matrix)  (.tex 421-425)
+      sum lambda b: per-point numerator degree in t_i = 5; leading coefficient = 2
+[CERTIFIED] (A.3c) sum lambda_i b_i = 0        (= 2 sum g(t_i)(1+t_i^2)/H'(t_i))  (.tex 425-430)
+      sum lambda b x: per-point numerator degree in t_i = 5; leading coefficient = -2
+[CERTIFIED] (A.3c) sum lambda_i b_i x_i = 0    (= 2 sum g(t_i)(1-t_i^2)/H'(t_i))  (.tex 425-430)
+      sum lambda b y: per-point numerator degree in t_i = 4; leading coefficient = 4
+[CERTIFIED] (A.3c) sum lambda_i b_i y_i = 0    (= 2 sum g(t_i) 2t_i/H'(t_i))  (.tex 425-430)
+      sum lambda D(p)_x: per-point numerator degree in t_i = 4; leading coefficient = -4
+      sum lambda D(p)_y: per-point numerator degree in t_i = 5; leading coefficient = -2
+[CERTIFIED] (A.3c) Lemma A.1: sum lambda_i D(p_i) = 0 (both coordinates)  (.tex 268)
+      M21 - M12: per-point numerator degree in t_i = 5; leading coefficient = 2
+[CERTIFIED] (A.3c) Lemma A.1: M = sum lambda_i D(p_i) p_i^T is symmetric  (M21 - M12 = sum lambda_i b_i = 0)  (.tex 270, 313-314)
+[CERTIFIED] (A.3c) witness: M evaluated at t = (0,1,2,3,5,7,11) is symmetric but NOT the zero matrix  (Lemma A.1 vs eq (2))
+      E = sum lambda b^2: per-point numerator degree in t_i = 6; leading coefficient = 4
+[CERTIFIED] (A.3d) E = sum lambda_i b_i^2 = 4 sum g(t_i)^2/H'(t_i) = 4  (g monic cubic => g^2 monic of degree 6)  (.tex 430-435)
+      E = sum lambda ||D(p)||^2: per-point numerator degree in t_i = 6; leading coefficient = 4
+[CERTIFIED] (A.3d) E = sum lambda_i ||D(p_i)||^2 = 4 (directly from D(p))  (.tex 271, 430-435)
+[CERTIFIED] (A.3d) E != 0 (Lemma A.1's last hypothesis)  (.tex 271)
+[CERTIFIED] (A.3e) generic, rotation+translation: A^T A = I  (.tex 274-286)
+[CERTIFIED] (A.3e) generic, rotation+translation: D(A) entrywise  (.tex 274-286)
+[CERTIFIED] (A.3e) generic, rotation+translation: D(A)^T A + A^T D(A) = 0 (D(A)^T A skew)  (.tex 282-284)
+[CERTIFIED] (A.3e) generic, rotation+translation: D(p') = D(t) + D(A)p + A D(p) (product rule, point 0)  (.tex 121-123)
+      invariance term: per-point numerator degree in t_i = 6; leading coefficient = 4
+      invariance term: per-point numerator degree in t_i = 4; leading coefficient = w1^2 + w2^2
+      invariance term: per-point numerator degree in t_i = 5; leading coefficient = -4*c*w2 + 4*s*w1
+      invariance term: per-point numerator degree in t_i = 4; leading coefficient = om^2
+      invariance term: per-point numerator degree in t_i = 5; leading coefficient = 4*om
+      invariance term: per-point numerator degree in t_i = 6; leading coefficient = 4
+[CERTIFIED] (A.3e) generic, rotation+translation: sum of the five groups = direct sum lambda ||D(p')||^2  (.tex 124-136)
+[CERTIFIED] (A.3e) generic, rotation+translation: T0 = ||D(t)||^2 * sum lambda = 0   [killed by the zeroth moment]  (.tex 129, 137-138)
+[CERTIFIED] (A.3e) generic, rotation+translation: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0   [killed by the first moment and the derivative first moment]  (.tex 130-131, 137-138)
+[CERTIFIED] (A.3e) generic, rotation+translation: T2 = sum lambda ||D(A)p||^2 = 0   [killed by the quadratic moment sum lambda p p^T = 0]  (.tex 132, 138-139)
+[CERTIFIED] (A.3e) generic, rotation+translation: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M) = 0   [killed by M symmetric and D(A)^T A skew]  (.tex 133, 138-139; A.1 278-284)
+[CERTIFIED] (A.3e) generic, rotation+translation: T4 = sum lambda ||A D(p)||^2 = sum lambda ||D(p)||^2 (A isometric)  (.tex 134, 139-146)
+[CERTIFIED] (A.3e) generic, rotation+translation: sum lambda ||D(p')||^2 = energy, identically in the free symbols  (.tex 141-146)
+[CERTIFIED] (A.3e) generic, reflection+translation: A^T A = I  (.tex 274-286)
+[CERTIFIED] (A.3e) generic, reflection+translation: D(A) entrywise  (.tex 274-286)
+[CERTIFIED] (A.3e) generic, reflection+translation: D(A)^T A + A^T D(A) = 0 (D(A)^T A skew)  (.tex 282-284)
+[CERTIFIED] (A.3e) generic, reflection+translation: D(p') = D(t) + D(A)p + A D(p) (product rule, point 0)  (.tex 121-123)
+      invariance term: per-point numerator degree in t_i = 6; leading coefficient = 4
+      invariance term: per-point numerator degree in t_i = 4; leading coefficient = w1^2 + w2^2
+      invariance term: per-point numerator degree in t_i = 5; leading coefficient = 4*c*w2 - 4*s*w1
+      invariance term: per-point numerator degree in t_i = 4; leading coefficient = om^2
+      invariance term: per-point numerator degree in t_i = 5; leading coefficient = -4*om
+      invariance term: per-point numerator degree in t_i = 6; leading coefficient = 4
+[CERTIFIED] (A.3e) generic, reflection+translation: sum of the five groups = direct sum lambda ||D(p')||^2  (.tex 124-136)
+[CERTIFIED] (A.3e) generic, reflection+translation: T0 = ||D(t)||^2 * sum lambda = 0   [killed by the zeroth moment]  (.tex 129, 137-138)
+[CERTIFIED] (A.3e) generic, reflection+translation: T1 = 2<D(t), D(A) sum lambda p + A sum lambda D(p)> = 0   [killed by the first moment and the derivative first moment]  (.tex 130-131, 137-138)
+[CERTIFIED] (A.3e) generic, reflection+translation: T2 = sum lambda ||D(A)p||^2 = 0   [killed by the quadratic moment sum lambda p p^T = 0]  (.tex 132, 138-139)
+[CERTIFIED] (A.3e) generic, reflection+translation: T3 = 2 sum lambda <D(A)p, A D(p)> = 2 tr(D(A)^T A M) = 0   [killed by M symmetric and D(A)^T A skew]  (.tex 133, 138-139; A.1 278-284)
+[CERTIFIED] (A.3e) generic, reflection+translation: T4 = sum lambda ||A D(p)||^2 = sum lambda ||D(p)||^2 (A isometric)  (.tex 134, 139-146)
+[CERTIFIED] (A.3e) generic, reflection+translation: sum lambda ||D(p')||^2 = energy, identically in the free symbols  (.tex 141-146)
+
+====================================================================================================
+PART 4  The twelve-colouring  floor(F/4) mod 12  (.tex 1168-1191): finite arithmetic
+====================================================================================================
+[CERTIFIED] (12) positive weights total 6  (.tex 1176)
+[CERTIFIED] (12) negative weights total -6  (.tex 1176)
+[CERTIFIED] (12) sum lambda = 0 (so the common class c drops out)  (.tex 1177-1181)
+[CERTIFIED] (12) sum lambda theta lies in the open interval (-6, 6), so 12K = -6 - sum lambda theta in (-12, 0)  (.tex 1177-1184)
+[CERTIFIED] (12) no integer K with -12 < 12K < 0  =>  a monochromatic copy is impossible  (.tex 1177-1184)
+[CERTIFIED] (12) colouring floor(F/4) mod 12: 12K in (-12, 0) has no integer solution  (.tex 1172-1188)
+[CERTIFIED] (12) colouring floor(-F/4) mod 12: 12K in (0, 12) has no integer solution  (.tex 1172-1188)
+[CERTIFIED] (12) 2L = 12 colours with L = 6  (.tex 1184-1188)
+
+TOTAL identities decided: 152   CERTIFIED: 152   REFUTED: 0   time 8.0s
