@@ -102,6 +102,11 @@ function build() {
     configurations: rows.length, hits: rows.filter((r) => r.hit).length, skippedOrEmpty: scan.filter((l) => /^(SKIP|EMPTY)/.test(l)).length,
     sieveLimit: 10000000, bestRatioAll: Math.max(...rows.map((r) => r.R)), bestRatioAtLeast10: Math.max(...rows.filter((r) => r.A >= 10).map((r) => r.R)),
     reading: 'no counterexample in the family of smooth bands (T, cT] with exact counts to 10^7; ratios approach 2 only for one to four generators, where an elementary bound keeps them below 2',
+    /* the figure's data: the best ratio in each quarter-decade of |A| (the ratios are doubles of exact counts: COMPUTED; the
+       2× test itself was exact integer cross-multiplication) */
+    envelope: (() => { const by = new Map(); for (const r of rows) { const b = Math.round(Math.log10(r.A) * 4) / 4; const c = by.get(b); if (!c || r.R > c.R) by.set(b, { bin: b, A: r.A, R: r.R }); }
+      return [...by.values()].sort((x, y) => x.bin - y.bin); })(),
+    liu: { A: 64844856, n: '6.7e13', ratio: 1.447, limit: 2.288, what: 'Liu (doi:10.5281/zenodo.23439872, §5): p = 61, Λ = 67, T = 10^12, the largest ratio by direct computation, against the limiting value 2.288 as T → ∞; read, not decided here' },
     verdict: 'NEGATIVE (no claim)',
   };
 

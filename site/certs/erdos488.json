@@ -41,7 +41,7 @@
   }
  },
  "code": {
-  "tools/record-erdos488.js": "8a1e8109beae11fbc6dd4233571ce24cf084c72abfd28aeb4ee89124834bb62c",
+  "tools/record-erdos488.js": "214fcba6d15994da4f8a807e5e3d5b76b7aa9843e87a26e0eb6b5d5f0f0d1322",
   "tools/erdos488-p4.js": "e4ad7d23ed6141a64087520a56e2f7c771dbb54dbf71552a9850e12ef02fe7ec",
   "tools/erdos488-p4.py": "aa95593a3932034137659bc5b67b83cc3eb94e76a6fcaaff2b6b6a193481b223",
   "tools/erdos488-search.c": "32afd42093dcdb07ed8027d0432e4de66252cab42eef0ba2b488957e53f8a777",
@@ -227,6 +227,105 @@
   "bestRatioAll": 1.999998,
   "bestRatioAtLeast10": 1.382718,
   "reading": "no counterexample in the family of smooth bands (T, cT] with exact counts to 10^7; ratios approach 2 only for one to four generators, where an elementary bound keeps them below 2",
+  "envelope": [
+   {
+    "bin": 0,
+    "A": 1,
+    "R": 1.999998
+   },
+   {
+    "bin": 0.25,
+    "A": 2,
+    "R": 1.920513
+   },
+   {
+    "bin": 0.5,
+    "A": 3,
+    "R": 1.851687
+   },
+   {
+    "bin": 0.75,
+    "A": 5,
+    "R": 1.59746
+   },
+   {
+    "bin": 1,
+    "A": 8,
+    "R": 1.387566
+   },
+   {
+    "bin": 1.25,
+    "A": 14,
+    "R": 1.367744
+   },
+   {
+    "bin": 1.5,
+    "A": 25,
+    "R": 1.341023
+   },
+   {
+    "bin": 1.75,
+    "A": 62,
+    "R": 1.298284
+   },
+   {
+    "bin": 2,
+    "A": 101,
+    "R": 1.279268
+   },
+   {
+    "bin": 2.25,
+    "A": 146,
+    "R": 1.262891
+   },
+   {
+    "bin": 2.5,
+    "A": 249,
+    "R": 1.252349
+   },
+   {
+    "bin": 2.75,
+    "A": 427,
+    "R": 1.24844
+   },
+   {
+    "bin": 3,
+    "A": 1103,
+    "R": 1.245437
+   },
+   {
+    "bin": 3.25,
+    "A": 2099,
+    "R": 1.245034
+   },
+   {
+    "bin": 3.5,
+    "A": 3832,
+    "R": 1.251042
+   },
+   {
+    "bin": 3.75,
+    "A": 5152,
+    "R": 1.250934
+   },
+   {
+    "bin": 4,
+    "A": 9587,
+    "R": 1.250726
+   },
+   {
+    "bin": 4.25,
+    "A": 14132,
+    "R": 1.250726
+   }
+  ],
+  "liu": {
+   "A": 64844856,
+   "n": "6.7e13",
+   "ratio": 1.447,
+   "limit": 2.288,
+   "what": "Liu (doi:10.5281/zenodo.23439872, §5): p = 61, Λ = 67, T = 10^12, the largest ratio by direct computation, against the limiting value 2.288 as T → ∞; read, not decided here"
+  },
   "verdict": "NEGATIVE (no claim)"
  },
  "P7": [
