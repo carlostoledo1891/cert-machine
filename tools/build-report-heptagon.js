@@ -151,6 +151,9 @@ O.push(C.section({
     role('Find the counterexample and A.3', C.esc('Dömötör Pálvölgyi, with ChatGPT (OpenAI).')),
     role('Classify the Ramsey sets, in Lean', C.esc('OpenAI.')),
     role('State the conjecture formally', C.esc('Google DeepMind, in its list of open problems in Lean (formal-conjectures); the solved statement, Anas Khan.')),
+    /* the translation line says plainly that claimbox was not used for the heptagon, as the #488 page does: the page must
+       never imply it was */
+    role('Turn a claim in words into a formal statement', C.esc('Not needed for Graham’s conjecture: DeepMind’s statement, copied byte for byte. Theorem A.3 was written in Lean by hand, with Claude, from the paper’s text; the corollary copies OpenAI’s nine-point statement token for token. When a claim arrives in words this is the job of ') + '<a href="../claimbox/">claimbox</a>' + C.esc(', which was not used for this claim.')),
     role('Write the Lean proofs', C.esc('Me, with Claude (Anthropic) writing the Lean, on OpenAI’s chain unchanged.')),
     role('Decide it, independently', C.esc('cert-machine: two exact deciders written from the paper alone, the axiom audit, the verbatim checks, the planted fakes.')),
     role('Check the proof', C.esc('Lean’s kernel from scratch, and nanoda, con-ron, lean4lean and con-leche, kernels written apart from Lean.')),

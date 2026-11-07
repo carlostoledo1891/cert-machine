@@ -43,7 +43,10 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      pre-registration as sealed (notes/heptagon-preregistration-2026-11-07.md), light art card og-heptagon.png, the shelf
      card (erdos lane, after #488), titles.json (audits). The shelf also gained the three records it had been missing
      since 11-07 (c51-replay, zq-finite-v2, zq-pr-build), which had made every sync refuse. NOT done, on purpose: no
-     wstrinz/JD Jones/Pálvölgyi texts, no X post — the operator chose them 11-07 then deferred them behind Palomar. Say "the first proof of A.3 as stated, the first in Lean" — never
+     X post yet. POSTED 11-07 ~21:30 UTC on the operator's word: wstrinz/spherical-ramsey#1, JD-Jones-ASES/six-concyclic-lean#1,
+     carlostoledo1891/heptagon-ramsey-lean#1 (@domotorp; the Equation (2) remark, M recomputed exactly before sending); texts
+     outreach/gh-{wstrinz,jdjones}-heptagon-2026-11-07.md, gh-heptagon-palvolgyi-2026-11-07.md; all three in the sweep. The page
+     gained the translation row (claimbox NOT used for the heptagon: A.3 written by hand with Claude), as #488's says. Say "the first proof of A.3 as stated, the first in Lean" — never
      "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only

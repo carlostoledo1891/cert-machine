@@ -389,6 +389,11 @@ let them choose. Do not argue for the long one.
 
 ## LANE 3 — already out, nothing to do
 
+- **The heptagon (Erdős #174 / Graham)** — REVEALED 2026-11-07 on the operator's word: the public Lean repository
+  carlostoledo1891/heptagon-ramsey-lean (v1.0.0 = 914298f3), formal-conjectures PR #7706 (our comment + reply; the author
+  linked the proof in 81b79068), /reports/heptagon.html; then, on "post all three": wstrinz/spherical-ramsey#1,
+  JD-Jones-ASES/six-concyclic-lean#1, carlostoledo1891/heptagon-ramsey-lean#1 (@domotorp). Owed: the Palomar entry and the
+  #7706 link swap (each on the word), the one X post (draft C, on the word).
 - **Glazer's Lean PRs** — OPENED 2026-11-07 on the operator's word ("re-check, then open both"), after the Issue 3 note
   re-check matched (certs/zq-finite-v2.json): elliotglazer/diophantine-z-q #5 (P0 has infinite order, no hypotheses) and #6
   (the frozen conclusion from eight explicit hypotheses, stacked on #5); fork carlostoledo1891/diophantine-z-q; texts
