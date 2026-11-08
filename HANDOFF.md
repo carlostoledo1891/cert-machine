@@ -22,6 +22,17 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ CLAIMS-INTAKE. THE FIRST FOUR CLAIM-FORM ISSUES (maximusrufus, cert-machine #3–#6, filed 11-06) DECIDED 11-08 and
+     merged (c4d8a80a): pre-registration notes/claims-intake-preregistration-2026-11-08.md (before any decider), record
+     certs/claims-intake-2026-11-08.json (tools/record-claims-intake.js --check, both implementations, ~11 s; battery
+     "claims intake #3-#6"), stock-Python certificates corpus/claims-intake/{circles,autocorr2,pnt}/check.py (re-run by the
+     orchestrating session: same outputs). #3 CERTIFIED (AlphaEvolve 26 circles, strict, Σr = 2.63586275641369812, rounds);
+     #4 REFUTED as filed (Q = 0.946897013157…, 2.99e-6 below 0.9469 — the paper prints a rounding; C2 ≥ 0.9468 CERTIFIED;
+     StrongInit 0.90528 vs Table 2's 0.9055 unresolved); #5 CERTIFIED at the source's 1e-6 (strictly: 58 pairs overlap,
+     worst 3.09e-7; a uniform shrink of 1.547e-7 repairs it); #6 REFUTED by the sealed rule (reading A: F(1) = f(1) =
+     1.0000999… > 1, and F = 73.395 at x = lcm − 1 − 299,856; reading B, the platform check made exhaustive, passes; the
+     score agrees). Replies DRAFTED, NOT POSTED: outreach/gh-cert-machine-claim-{3,4,5,6}-2026-11-08.md — each on the
+     operator's word (strip the first HTML-comment line when posting).
   ◆◆ R174. THE HEPTAGON (Erdős #174 / Graham), REVEALED 2026-11-07 19:25 UTC on the operator's word ("Reveal"; the bundle
      was narrowed to the repo + one comment): carlostoledo1891/heptagon-ramsey-lean at 914298f3 (public; Lean of Pálvölgyi's
      heptagon not Ramsey, formal-conjectures' erdos_174.variants.graham false, Theorem A.3 as printed and its ℚ-independence

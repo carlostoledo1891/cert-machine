@@ -1,4 +1,4 @@
-<!-- draft reply for carlostoledo1891/cert-machine#3 — NOT posted; posting is the operator's word. Replace {{COMMIT}} with the merge commit. -->
+<!-- draft reply for carlostoledo1891/cert-machine#3 — NOT posted; posting is the operator's word. Replace c4d8a80a with the merge commit. -->
 **CERTIFIED.** I decided this claim exactly, with Claude agents who wrote the two deciders under my direction. The `AlphaEvolve` entry of ThetaEvolve@7c12898 `Results/CirclePacking/data.json` is a packing of 26 circles in the unit square with no overlaps at zero tolerance, and its sum of radii rounds to 2.63586276.
 
 **What this does not say.**
@@ -21,7 +21,7 @@ Every constraint holds with at least 7·10⁻⁹ to spare. The 8-decimal centres
 
 **Re-run it** with stock Python, without cert-machine:
 ```
-git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout {{COMMIT}}
+git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout c4d8a80a
 python3 -I corpus/claims-intake/circles/check.py 3
 ```
 The input is held byte for byte in `corpus/claims-intake/inputs/` (Apache-2.0, ThetaEvolve's licence beside it). The checker refuses on a sha256 mismatch.

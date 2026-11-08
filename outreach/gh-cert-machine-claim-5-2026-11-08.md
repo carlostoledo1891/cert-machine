@@ -1,4 +1,4 @@
-<!-- draft reply for carlostoledo1891/cert-machine#5 — NOT posted; posting is the operator's word. Replace {{COMMIT}} with the merge commit. -->
+<!-- draft reply for carlostoledo1891/cert-machine#5 — NOT posted; posting is the operator's word. Replace c4d8a80a with the merge commit. -->
 **CERTIFIED at the source's tolerance; not a packing at zero tolerance.** I decided this claim exactly, with Claude agents who wrote the two deciders under my direction. With t = 10⁻⁶ read as arXiv:2511.23473 App. A.1 states it (OpenEvolve's absolute tolerance on the constraints), every constraint holds exactly, and Σr rounds to 2.6359857.
 
 **What this does not say (strictly).** At t = 0, 58 of the 325 pairs overlap and 2 circles cross a side. The worst overlap is pair (4, 9), with r₄ + r₉ − d₄₉ ∈ [3.09455143713 · 10⁻⁷, 3.09455143714 · 10⁻⁷]. The two side excesses are circles 20 (right) and 22 (top), the larger 1.2936 · 10⁻¹² exactly. The README's zero-tolerance construction is the separate `8B-w_RL@65-Formal` entry, which I did not decide. Nothing here bears on optimality.
@@ -21,7 +21,7 @@ The last row checks the Table 2 caption's remark: shrunk by 10⁻⁶, the packin
 
 **Re-run it** with stock Python, without cert-machine:
 ```
-git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout {{COMMIT}}
+git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout c4d8a80a
 python3 -I corpus/claims-intake/circles/check.py 5
 ```
 A second implementation (JavaScript BigInt, sharing no code with it) agrees on every number. Controls came back as predicted:

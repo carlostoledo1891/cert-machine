@@ -1,4 +1,4 @@
-<!-- draft reply for carlostoledo1891/cert-machine#6 — NOT posted; posting is the operator's word. Replace {{COMMIT}} with the merge commit. -->
+<!-- draft reply for carlostoledo1891/cert-machine#6 — NOT posted; posting is the operator's word. Replace c4d8a80a with the merge commit. -->
 **REFUTED: the constraint fails; the printed score is right.** I decided this claim exactly, with Claude agents who wrote the two deciders under my direction. The constraint Σ_k f(k)⌊x/k⌋ ≤ 1 fails at the very first point, x = 1. Even granting the platform's 10⁻⁴ tolerance, it fails by a factor of 73 at a point outside the sampled range. The score 0.9976572852677297 is the float64 value of the exact S.
 
 **What this does not say.**
@@ -25,7 +25,7 @@ Why the last F row: Σ f(k)/k = 0 makes F periodic with period L = lcm(keys), an
 
 **Re-run it** with stock Python, without cert-machine (about 7 s):
 ```
-git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout {{COMMIT}}
+git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout c4d8a80a
 python3 -I corpus/claims-intake/pnt/check.py
 ```
 The Python scans the range in exact integers. The second implementation (JavaScript BigInt, sharing no code with it) uses 10⁻⁶⁰ enclosures with an exact fallback, and the two agree on every number. The logarithms are checked against published digits and against Python's correctly rounded `decimal` ln. Controls came back as predicted:

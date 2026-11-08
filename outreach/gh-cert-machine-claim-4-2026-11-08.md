@@ -1,4 +1,4 @@
-<!-- draft reply for carlostoledo1891/cert-machine#4 — NOT posted; posting is the operator's word. Replace {{COMMIT}} with the merge commit. -->
+<!-- draft reply for carlostoledo1891/cert-machine#4 — NOT posted; posting is the operator's word. Replace c4d8a80a with the merge commit. -->
 **REFUTED as filed, by 2.99 · 10⁻⁶.** I decided this claim exactly, with Claude agents who wrote the two deciders under my direction. The step function is a valid witness: all 3072 values are ≥ 0. But it gives Q = ‖f∗f‖₂² / (‖f∗f‖₁ ‖f∗f‖∞) = 0.94689701315729654665…, which is below 0.9469. What these bytes prove is **C2 ≥ 0.9468970131** (rounded down).
 
 **What this does not say.**
@@ -27,7 +27,7 @@ A corrected claim, C2 ≥ 0.9468, is CERTIFIED (one of the controls).
 
 **Re-run it** with stock Python, without cert-machine:
 ```
-git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout {{COMMIT}}
+git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout c4d8a80a
 python3 -I corpus/claims-intake/autocorr2/check.py
 ```
 It prints Q and the falsifying margin. It computes c by one big-integer square (Kronecker substitution); the second implementation (JavaScript BigInt, sharing no code with it) uses the schoolbook sum, and the two agree to every digit. Controls came back as predicted:
