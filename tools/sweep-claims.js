@@ -202,7 +202,7 @@ for (const [repo, num, label] of [
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
-  ['google-deepmind/formal-conjectures', 7706, 'formal-conjectures PR #7706 (Erdős #174 Graham: our heptagon Lean linked by its author in 81b79068; waiting on a maintainer; we owe the Palomar entry + the link swap)'],
+  ['google-deepmind/formal-conjectures', 7706, 'formal-conjectures PR #7706 (Erdős #174 Graham: our heptagon Lean linked by its author in 81b79068; the Palomar entry PALOMAR-2026-11-08-000001 given 11-08 for the link swap; waiting on a maintainer)'],
   ['wstrinz/spherical-ramsey', 1, 'spherical-ramsey #1 (the heptagon and A.3 in Lean; the minimality row offered; opened 2026-11-07)'],
   ['JD-Jones-ASES/six-concyclic-lean', 1, 'six-concyclic-lean #1 (the heptagon fails the criterion, in Lean; opened 2026-11-07)'],
   ['carlostoledo1891/heptagon-ramsey-lean', 1, 'heptagon-ramsey-lean #1 (A.3 checked, for Pálvölgyi, @domotorp; the Equation (2) remark; opened 2026-11-07)'],

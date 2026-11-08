@@ -60,8 +60,8 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      id=PALOMAR-2026-11-08-000001), commit e33842e9, via Palomar's gh route (temporary tag + secret gist, deleted); Palomar's
      verification success 22:55 (run 42420345105), the automated review clean (codex:gpt-6-sol: no blocking problems, no
      warnings, review sha 7eca5efd…); facts corpus/heptagon/palomar.json, the page says it. The access token is in
-     ~/.config/cert-machine/palomar-*.json (0600, never in a repo). NEXT on the word: one comment on #7706 giving anxkhn the
-     Palomar link (he offered to swap it and drop the opt-out). Say "the first proof of A.3 as stated, the first in Lean" — never
+     ~/.config/cert-machine/palomar-*.json (0600, never in a repo). The Palomar link POSTED on #7706 11-08 on the operator's
+     word (#issuecomment-6715379991; outreach/gh-fc7706-palomar-2026-11-08.md): anxkhn to swap the link and drop the opt-out. Say "the first proof of A.3 as stated, the first in Lean" — never
      "nobody checked A.3" (wstrinz certified one instance, J2-F7, 10-16).
   ◆◆ R488. ERDŐS #488, AFTER THE REVEAL (all sends on the operator's word):
      (1) WATCH formal-conjectures #5297 (#pullrequestreview-5809293292): Gessel's answer to the rebased-PR offer; open ours only
