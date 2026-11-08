@@ -154,9 +154,8 @@ B.push(C.section({
   ].join('\n')
 }));
 
-/* a long identifier (a Lean name, a path) may break after its dots and slashes, so a table cell never forces the table wider
-   than its box: the text is escaped first and only <wbr> is added, inside words of 24 characters or more */
-const brk = (t) => C.esc(t).replace(/\S{24,}/g, (w) => w.replace(/([./_])(?=[^\s])/g, '$1<wbr>'));
+/* a long identifier may break after its dots and slashes (design/components.js breakable, the one rule for register tables) */
+const brk = C.breakable;
 {
   const rows = R.rows.map(r => [
     { raw: brk(r.claim) },

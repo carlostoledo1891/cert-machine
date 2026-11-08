@@ -26,6 +26,12 @@ function esc(s) {
 }
 /* attribute values only; same table, kept separate so intent reads at the call */
 const escAttr = esc;
+/* a long identifier (a Lean name, a path) may break after its dots, slashes and underscores, so a table cell never forces
+   the table wider than its box: the text is escaped first and only <wbr> is added, inside words of 24 characters or more.
+   One rule for every table that prints register text (the claims page, the monthly pages). */
+function breakable(s) {
+  return esc(s).replace(/\S{24,}/g, (w) => w.replace(/([./_])(?=[^\s])/g, '$1<wbr>'));
+}
 
 /* ------------------------------------------------------------------ atoms - */
 
@@ -476,7 +482,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption, record, source }) {
 
 module.exports = {
   VERDICT_KIND,
-  esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
+  esc, escAttr, breakable, m, tag, TAG_KINDS, categoryChart, legend,
   nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, tldr, quote,
   table, plainList, cards, picker, figure, flow,
   svgOpen, svgClose, numberLine, band, vmark, label,

@@ -74,8 +74,8 @@ for (const m of months) {
       cols: [{ h: 'recorded' }, { h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }, { h: 'what went wrong' }, { h: 'where' }],
       rows: rows.map((r) => [
         { raw: '<span class="mono">' + C.esc(r.recordedOn).replace(/-/g, '&#8209;') + '</span>' },
-        { raw: C.esc(r.claim) },
-        { raw: C.esc(r.claimant || '—') },
+        { raw: C.breakable(r.claim) },                    /* long Lean names and paths break at their dots, not past the box */
+        { raw: C.breakable(r.claimant || '—') },
         { raw: C.tag(r.verdict, tagOf(r.verdict)) },
         { raw: r.kind === 'none' ? C.esc('—') : '<span title="' + C.escAttr(R.kindsDefined[r.kind]) + '">' + C.esc(r.kind.replace(/-/g, ' ')) + '</span>' },
         { raw: '<a href="' + C.escAttr(r.page) + '">the record</a>' }
