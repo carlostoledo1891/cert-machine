@@ -206,6 +206,7 @@ for (const [repo, num, label] of [
   ['carlostoledo1891/cert-machine', 4, 'cert-machine #4 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
   ['carlostoledo1891/cert-machine', 5, 'cert-machine #5 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
   ['carlostoledo1891/cert-machine', 6, 'cert-machine #6 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
+  ['carlostoledo1891/cert-machine', 7, 'cert-machine #7 (claim form, maximusrufus, filed 2026-11-08: the zero-tolerance circles; CERTIFIED, our verdict posted 2026-11-08)'],
   ['google-deepmind/formal-conjectures', 7706, 'formal-conjectures PR #7706 (Erdős #174 Graham: our heptagon Lean linked by its author in 81b79068; the Palomar entry PALOMAR-2026-11-08-000001 given 11-08 for the link swap; waiting on a maintainer)'],
   ['wstrinz/spherical-ramsey', 1, 'spherical-ramsey #1 (the heptagon and A.3 in Lean; the minimality row offered; opened 2026-11-07)'],
   ['JD-Jones-ASES/six-concyclic-lean', 1, 'six-concyclic-lean #1 (the heptagon fails the criterion, in Lean; opened 2026-11-07)'],
