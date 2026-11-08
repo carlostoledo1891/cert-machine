@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ 11-08 NIGHT (the operator's answers, ~03:20 UTC): (1) the claims-desk X post HOLD — d21 stays unsent; (2) claimbox's
+     lift PROCEED — done in claimbox on a branch (below, CLAIMBOX-LIFT); (a)–(c) of OUT-NEXT PROCEED: (c) turned out ALREADY
+     POSTED — comment-41 on the 'Lean Replications' post, 2026-11-07 01:31 UTC, word for word the draft — now logged (row
+     ethdiscussion-lean-replications-2026-11-07, the About page re-synced); (b) the OEIS packs re-checked again 11-08 (OEIS
+     search: packs 1, 2, 4, 5 no match; A079007 31 terms, A078515/A079889 27; verify-record.js 263552821783 31 exact) —
+     still the operator's paste; (a) below.
   ◆◆ CLAIMS-INTAKE. THE FIRST FOUR CLAIM-FORM ISSUES (maximusrufus, cert-machine #3–#6, filed 11-06) DECIDED 11-08 and
      merged (c4d8a80a): pre-registration notes/claims-intake-preregistration-2026-11-08.md (before any decider), record
      certs/claims-intake-2026-11-08.json (tools/record-claims-intake.js --check, both implementations, ~11 s; battery
@@ -92,8 +98,8 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      on build, so preview first and publish on his word) and the open applications, with this week: complexitylib #2509/#2510
      MERGED, the #488 certification on DeepMind's PR, ℤ-in-ℚ (Version 4 quartic CERTIFIED), the C_89 author's credit — NOT
      started, no file touched; (b) the OEIS packs: re-checked 11-07, every pack still new (outreach/oeis-erdos290-pack.md,
-     oeis-erdos852h-extension.md), paste by hand; (c) the ETH "Lean Replications" comment (outreach/ethdiscussion-lean-
-     replications-2026-11-07.md) — the operator pastes it; log the link.
+     oeis-erdos852h-extension.md), paste by hand (re-checked again 11-08, still new); (c) DONE: the ETH "Lean Replications"
+     comment was posted 11-07 01:31 UTC (#comment-41), logged 11-08.
   ◆◆ STANDING RULES SAVED 11-07: every posted page gets its own LIGHT illustrated art card (tools/build-og-report.js CARDS +
      build-site.js's served list), never og-landing.png; the default X post is ONE post with one link (the page's), no
      labels, threads only on request. tools/x.js has `delete ID|URL [--send]`.
