@@ -28,13 +28,20 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      not a nanoda error; -6725661454). CLAIM #7 (maximusrufus, the zero-tolerance 8B-w_RL@65-Formal circles) pre-registered
      (b8ed1e1a), DECIDED CERTIFIED strictly (8c5f82e5: Σr = 2.63598307738811934, closest pair ≥ 9.9997·10⁻¹³ apart, 7/7
      controls; certs/claims-intake-7-2026-11-08.json, tools/record-claims-intake-7.js --check, battery "claims intake #7",
-     standalone corpus/claims-intake/issue-7/check.py) and the verdict POSTED (issuecomment-6725750747). NOT done: #7 is not
-     in the register — run-claims-ledger.js reads only the #3–#6 record; adding it is the register ripple (self-audit
-     re-pin, dReal re-run, claimbox lift), on the operator's word. Three outside confirmations PINNED in corpus/recognition.json
-     (arhancanli #232 and #246, HedonismJesse on lm_understand-logs#4), the queue and WSP pages rebuilt. Glazer PRs #5/#6:
-     the bodies redrafted to his new template (outreach/gh-zq-pr{5,6}-update-2026-11-08.md, untracked, NOT posted); both
-     rebase cleanly on 9c0b3aba with identical trees, but a rebase changes the ids certs/zq-pr-build.json pins and PR #14
-     links — prefer his "Update branch" (maintainer edits are on); his Protocol App check runs only on his dispatch.
+     standalone corpus/claims-intake/issue-7/check.py) and the verdict POSTED (issuecomment-6725750747). #7 IN THE REGISTER
+     on the operator's word (a7eca567): 146 rows, decided 145, submitted 5 — run-claims-ledger.js reads the #7 record beside
+     the #3–#6 one (the issue's code ticks dropped from the printed claim); /reports/claims.html reads any number of
+     submitted rows and each certificate from its own record; the November page; the rerun kit entry + run; the self-audit
+     amendment "later the same day" + inventory/re-pins/concord (all five selfaudit batteries PASS); the dReal re-run
+     42514638419 RECORDED (34/48 agree at both deltas, 0 contradictions, as before). Sept/Oct monthly pages restored to
+     their committed bytes again (their drift). claimbox: lifted again on its local branch lift-2026-11-08 (8a78589, corpus
+     146) — the prose re-decision, battery and web follow there (not pushed). Three outside confirmations PINNED in
+     corpus/recognition.json (arhancanli #232 and #246, HedonismJesse on lm_understand-logs#4), the queue and WSP pages
+     rebuilt. Glazer PRs #5/#6: the DESCRIPTIONS REPLACED on the operator's word with the template versions
+     (outreach/gh-zq-pr{5,6}-update-2026-11-08.md; heads unchanged, 6cf3c1d6 / 7663a196), including his audit-history
+     self-test, run here on the operator's word (exit 0 at 9c0b3aba and at main merged in locally, da1eb419 / 87d91bfc, not
+     pushed). The branches are LEFT for his "Update branch" (a rebase would move the ids certs/zq-pr-build.json pins and
+     PR #14 links); his Protocol App check runs only on his dispatch and likely wants a non-author agent review.
   ◆◆ 11-08 NIGHT (the operator's answers, ~03:20 UTC): (1) the claims-desk X post HOLD — d21 stays unsent; (2) claimbox's
      lift PROCEED — DONE in claimbox on local branch lift-2026-11-08 (5baa100 the lift: ledger re-pinned, corpus 141 → 145;
      83960ce after it: the prose record re-decided in 4,177 s, coverage re-written, make web; make test 617 pass, 0 fail,
