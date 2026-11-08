@@ -116,7 +116,7 @@ O.push(C.section({
     { b: 'The rest of the appendix.', text: 'Theorems A.7 and A.12 and every other appendix result except A.3.' },
     { b: 'That seven is the least.', text: 'Every six points on a circle are Ramsey: proved in Lean by JD Jones and by wstrinz (Will Strinz), not here.' },
     { b: 'The definitions.', text: 'The theorems are about OpenAI’s Ramsey and FieldCriterion and formal-conjectures’ IsRamsey. That these capture the informal notions is their authors’ formalization, taken as given; their proofs are inside what the kernels replay.' },
-    { b: 'Formal-conjectures’ own environment.', text: 'The proof builds inside openai/math (Lean v4.34.1), where formal-conjectures’ IsRamsey and statement are copied byte for byte and checked against the pinned file. It does not build in formal-conjectures’ repository; a registry entry that does is in preparation.' },
+    { b: 'Formal-conjectures’ own environment.', text: 'The proof builds inside openai/math (Lean v4.34.1) and, for its Palomar entry, as a standalone project on Lean v4.35.0-rc2; in both, formal-conjectures’ IsRamsey and statement are copied byte for byte and checked against the pinned file. Neither is formal-conjectures’ own repository.' },
     { b: 'What the second kernels see.', text: 'nanoda, con-ron, lean4lean and con-leche read an export of the environment: they check what the exporter wrote.' }
   ])
 }));
@@ -242,7 +242,7 @@ O.push(C.section({
 O.push(C.section({
   lab: 'the outcome', title: 'Linked from the pull request that marks the conjecture solved', id: 'outcome',
   bodyRaw: C.pRaw('I offered the proof on ' + a(R.outcome.pr, 'pull request #7706') + ', gaps first. Five minutes later its author, ' + C.esc(R.outcome.author.replace(/, the pull request's author$/, '')) + ', added the link as the entry’s formal proof. He checked the linked source himself: ' + m('IsRamsey') + ' byte-identical, the statement equal up to namespace and whitespace, no proof placeholders or custom axioms, his file building. He did not re-run the Lean 4.34.1 build or the kernels, and says so. The pull request is open, waiting on a maintainer.')
-    + C.pRaw('He asked for an entry in Palomar, the registry formal-conjectures prefers for research results. It is in preparation; the link will move to it when it is listed.')
+    + C.pRaw('He asked for an entry in Palomar, the registry formal-conjectures prefers for research results. It is registered as ' + a(R.palomar.url, R.palomar.id) + ' (8 November), after Palomar’s own verification, its sandboxed comparison with nanoda, Lean’s kernel and con-ron, and an automated editorial review that found no blocking problem. The entry compares four statements in Mathlib’s vocabulary: the heptagon itself, Graham’s conjecture as DeepMind states it, Theorem A.3 and its corollary. The link on the pull request moves to it when its author updates it.')
 }));
 
 O.push(C.section({

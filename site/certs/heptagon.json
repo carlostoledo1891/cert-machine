@@ -1,7 +1,7 @@
 {
  "what": "Pálvölgyi's heptagon and his appendix Theorem A.3 decided in Lean through OpenAI's classification, transported to formal-conjectures' statement of Graham's conjecture: the pre-registered questions H1–H6 and the corollary D, each read back from the runs.",
  "undecided": "The heptagon and Theorem A.3 are Dömötör Pálvölgyi's, with ChatGPT (arXiv:2609.23327, 2026-09-20; the appendix labelled unchecked by its author); the classification that decides them is OpenAI's (openai/math). This record decides, in Lean's kernel and four independent kernels, that the heptagon is not Ramsey, that formal-conjectures' statement of Graham's conjecture is false, and that Theorem A.3 holds as printed. It does not decide the \"almost every\" clause of A.3, the appendix's other theorems, the six-point case (others' Lean), or that OpenAI's and formal-conjectures' definitions capture the informal notions.",
- "generated": "2026-11-07",
+ "generated": "2026-11-08",
  "preregistration": "notes/heptagon-preregistration-2026-11-07.md",
  "seals": [
   {
@@ -61,7 +61,7 @@
   }
  },
  "code": {
-  "tools/record-heptagon.js": "b8813b965ead32dc8ad3a2134638100a0ee3f3c9bef91e1e75d7c9e2ff0c329b",
+  "tools/record-heptagon.js": "d2038dfd112d699dd2b2196c83bfea442ba9b36a4721652ead76b19d5d327fa1",
   "corpus/heptagon/h1/decider-a/decide_a.py": "8832a7e29a5f2c493ace1b0ba253e8958f85f952a2641f56d449fecc840ce41b",
   "corpus/heptagon/h1/decider-b/decider_b.py": "5ec49eb530aac97184341df1cee1f2e14ab8fc0e5b80091cc02a57f4973bb485",
   "notes/heptagon-preregistration-2026-11-07.md": "257d5ecfefd804fc6e8b18099d83ce372ce56fa63c8b514018afcb6cf01bc009"
@@ -794,6 +794,46 @@
    "text": "The rules name leanchecker --paranoid; Lean v4.34.1 has no such mode, so the check rests on leanchecker --fresh and the four independent kernels."
   }
  ],
+ "palomar": {
+  "what": "The Palomar registry entry of the heptagon proof (the formal-conjectures #7706 author's request), facts read from Palomar's submission API and public runs on 2026-11-08. No credential is recorded here.",
+  "id": "PALOMAR-2026-11-08-000001",
+  "version": 1,
+  "url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-08-000001",
+  "repository": "carlostoledo1891/heptagon-ramsey-lean",
+  "branch": "palomar",
+  "commit": "e33842e9d5842539a36bf90d1a6b13f887cc4462",
+  "toolchain": "leanprover/lean4:v4.35.0-rc2",
+  "compared": [
+   "HeptagonRamsey.Heptagon.heptagon_counterexample",
+   "HeptagonRamsey.Heptagon.graham_false'",
+   "HeptagonRamsey.Generic.generic_seven_not_isRamsey",
+   "HeptagonRamsey.Generic.seven_circle_configuration_isRamsey"
+  ],
+  "preflight": {
+   "run": "https://github.com/carlostoledo1891/heptagon-ramsey-lean/actions/runs/42417981488",
+   "status": "pass",
+   "pipeline": "PalomarRegistry/PalomarSubmission@14aa8d6b3c2f14a8540605e37144560b9a00e7e7",
+   "profile": "palomar-standard-v1"
+  },
+  "verification": {
+   "run": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/42420345105",
+   "conclusion": "success",
+   "at": "2026-11-07T22:55:42Z",
+   "kernels": "Palomar's sandboxed lake comparator: nanoda and Lean's default kernel accept; con-ron accepts 37,059 declarations"
+  },
+  "review": {
+   "at": "2026-11-08T00:06:32Z",
+   "reviewer": "codex:gpt-6-sol",
+   "blocking_problems_identified": false,
+   "has_nonblocking_warnings": false,
+   "requested_changes": [],
+   "comments": [],
+   "summary": "Mechanical verification succeeded, and the editorial checks identified no blocking problem with the selected results or their presentation.",
+   "review_sha256": "7eca5efd58ff264caaa106f4492256a049ebdefe7ea4f39d8a1c1cccd256da4f"
+  },
+  "registered": "2026-11-08T00:16:11Z",
+  "submitted_via": "Palomar's gh route (a temporary tag and a secret gist, both deleted), on the operator's word; Palomar records that this route proves write access, not the browser sign-in's identity"
+ },
  "outcome": {
   "pr": "https://github.com/google-deepmind/formal-conjectures/pull/7706",
   "author": "anxkhn (Anas Khan), the pull request's author",

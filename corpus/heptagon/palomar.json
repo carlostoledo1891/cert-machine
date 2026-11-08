@@ -1,0 +1,16 @@
+{
+ "what": "The Palomar registry entry of the heptagon proof (the formal-conjectures #7706 author's request), facts read from Palomar's submission API and public runs on 2026-11-08. No credential is recorded here.",
+ "id": "PALOMAR-2026-11-08-000001",
+ "version": 1,
+ "url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-08-000001",
+ "repository": "carlostoledo1891/heptagon-ramsey-lean",
+ "branch": "palomar",
+ "commit": "e33842e9d5842539a36bf90d1a6b13f887cc4462",
+ "toolchain": "leanprover/lean4:v4.35.0-rc2",
+ "compared": ["HeptagonRamsey.Heptagon.heptagon_counterexample", "HeptagonRamsey.Heptagon.graham_false'", "HeptagonRamsey.Generic.generic_seven_not_isRamsey", "HeptagonRamsey.Generic.seven_circle_configuration_isRamsey"],
+ "preflight": { "run": "https://github.com/carlostoledo1891/heptagon-ramsey-lean/actions/runs/42417981488", "status": "pass", "pipeline": "PalomarRegistry/PalomarSubmission@14aa8d6b3c2f14a8540605e37144560b9a00e7e7", "profile": "palomar-standard-v1" },
+ "verification": { "run": "https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/42420345105", "conclusion": "success", "at": "2026-11-07T22:55:42Z", "kernels": "Palomar's sandboxed lake comparator: nanoda and Lean's default kernel accept; con-ron accepts 37,059 declarations" },
+ "review": { "at": "2026-11-08T00:06:32Z", "reviewer": "codex:gpt-6-sol", "blocking_problems_identified": false, "has_nonblocking_warnings": false, "requested_changes": [], "comments": [], "summary": "Mechanical verification succeeded, and the editorial checks identified no blocking problem with the selected results or their presentation.", "review_sha256": "7eca5efd58ff264caaa106f4492256a049ebdefe7ea4f39d8a1c1cccd256da4f" },
+ "registered": "2026-11-08T00:16:11Z",
+ "submitted_via": "Palomar's gh route (a temporary tag and a secret gist, both deleted), on the operator's word; Palomar records that this route proves write access, not the browser sign-in's identity"
+}

@@ -204,6 +204,8 @@ function build(rerun) {
       { id: 'export', text: 'The first export of the published run was void: it named the root file, which is not a Lake module, so it came out empty and both kernels “accepted 0 declarations”. It was stopped and recorded; the script now exports the two leaf modules and refuses an empty export.' },
       { id: 'paranoid', text: 'The rules name leanchecker --paranoid; Lean v4.34.1 has no such mode, so the check rests on leanchecker --fresh and the four independent kernels.' },
     ],
+    /* the Palomar entry the PR's author asked for, read from corpus/heptagon/palomar.json (Palomar's API and public runs) */
+    palomar: (() => { const P = JSON.parse(fs.readFileSync(path.join(CORP, 'palomar.json'), 'utf8')); if (P.review.blocking_problems_identified !== false || P.verification.conclusion !== 'success' || !/^PALOMAR-\d{4}-\d{2}-\d{2}-\d{6}$/.test(P.id)) die('the Palomar facts do not say registered after a clean verification and review'); return P; })(),
     outcome: { pr: PIN.entry.pr, author: 'anxkhn (Anas Khan), the pull request\'s author', at: '2026-11-07T19:30:24Z', commit: PIN.entry.linkedAt, what: 'added the proof\'s pinned link as the entry\'s formal_proof, with the declaration-local Palomar opt-out; checked the linked source himself (IsRamsey byte-identical, the statement up to namespace and whitespace, no proof placeholders or custom axioms; his file builds); did not re-run our Lean 4.34.1 build or kernels; asked for a Palomar entry', state: 'open, waiting on a maintainer' },
     H5: {
       reading: 'dated 2026-11-07, from the sources themselves',
