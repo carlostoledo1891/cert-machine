@@ -1,0 +1,840 @@
+{
+ "gaps": [
+  "#3, #5: nothing about optimality; the entries \"8B-w_RL@65-Formal\" (the README's zero-tolerance 2.63598308), \"ShinkaEvolve\" and \"Init\" were not decided.",
+  "#4: the verdict is on the claim as filed (\"C2 >= 0.9469\"); the paper prints 0.9469, which is the exact value rounded to four decimals, not a lower bound of it. What the bytes prove is C2 >= 0.946897013157296546656800171244 (rounded down). ThetaEvolve's own scorer was not read or run, so whether it reports 0.9469 or the exact value is not known here.",
+  "#4: one calibration of the definition is NOT as predicted — the file's \"StrongInit\" entry (1024 cells) decides to 0.905282581869638845409799527855…, where Table 2 prints 0.9055 for the initial program; the two other calibrations reproduce their printed digits, AlphaEvolve-v1 to AlphaEvolve's own 0.8962 <= C2 (the same 50 literals as AlphaEvolve's B.2 notebook). Possibly the stored list is not the object behind Table 2's \"Initial\"; not resolved without running their code.",
+  "#6: reading A (F(x) <= 1 for every x >= 1) is refuted; reading B, the platform's own check made exhaustive over its sampled range with its 1e-4 tolerance, holds — this record says nothing about the platform's sampled run itself (its samples are not published). Whether any f yields a statement about pi(x) is the problem's mathematics, read, not decided.",
+  "None of the four was decided by running the claimant's code: ThetaEvolve's vis.py and programs/ were never fetched; the verifier field of the EinsteinArena API record is held unread."
+ ],
+ "what": "The first four claims filed through cert-machine's public claim form (issues #3–#6, maximusrufus, 2026-11-06), each decided exactly from bytes pinned by sha256 — every sha256 the issues state matched — by two implementations sharing no code (tools/claims-intake-deciders.js, BigInt; corpus/claims-intake/{circles,autocorr2,pnt}/check.py, Python standard library). The Python checkers are the standalone certificates: each re-runs with python3 -I on its pinned input, without this engine.",
+ "verdicts": {
+  "3": "CERTIFIED",
+  "4": "REFUTED",
+  "5": "CERTIFIED",
+  "6": "REFUTED"
+ },
+ "claims": {
+  "3": {
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/3",
+   "title": "[claim] 26 circles in the unit square, sum of radii 2.63586276 (AlphaEvolve key)",
+   "text": "26 circles in the unit square, no overlaps, sum of radii = 2.63586276 (the AlphaEvolve construction as stored under key \"AlphaEvolve\")",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898 README",
+   "entry": "AlphaEvolve",
+   "verdict": "CERTIFIED",
+   "agree": true,
+   "reading": "r_i > 0; r_i <= x_i, y_i <= 1 - r_i; (r_i + r_j)^2 <= |c_i - c_j|^2 for every pair (tangency allowed); the printed sum read as a rounding, |sum r - 2.63586276| <= 5e-9",
+   "headline": "no overlaps and inside the square, exactly: the closest pair (16, 22) is separated by 0.000000007166487294361127232056… (rounded down) and the tightest side slack is 0.00000000785235099; sum r = 2.63586275641369812 exactly, which rounds to 2.63586276 (and truncates to 2.63586275)",
+   "certificate": "python3 -I corpus/claims-intake/circles/check.py 3",
+   "decision": {
+    "verdict": "CERTIFIED",
+    "fails": [],
+    "tolerance": "0",
+    "n": 26,
+    "sumExact": "2.63586275641369812",
+    "claim": "2.63586276",
+    "sumRounds": true,
+    "sumTruncates": false,
+    "sumMinusClaim": "-0.00000000358630188",
+    "underReading": {
+     "sideViolations": 0,
+     "pairViolations": 0,
+     "sides": [],
+     "pairs": []
+    },
+    "strict": {
+     "holds": true,
+     "sideViolations": 0,
+     "pairViolations": 0,
+     "sides": [],
+     "pairs": []
+    },
+    "radiiNonPositive": [],
+    "tightestSide": {
+     "circle": 6,
+     "side": "left (x - r)",
+     "slackExact": "0.00000000785235099"
+    },
+    "tightestPairSquared": {
+     "pair": [
+      16,
+      22
+     ],
+     "dSquaredMinusSumSquaredExact": "0.0000000023749043316223566571343199"
+    },
+    "worstPairDistance": {
+     "pair": [
+      16,
+      22
+     ],
+     "sumMinusDistance": [
+      "-0.000000007166487294361127232057",
+      "-0.000000007166487294361127232056"
+     ]
+    },
+    "tangenciesExact": 0,
+    "sideTouchesExact": 0,
+    "repair": null
+   },
+   "controls": {
+    "P1": {
+     "what": "circle 16 (the tightest pair, squared form) radius + 1e-6",
+     "verdict": "REFUTED"
+    },
+    "P2strict": {
+     "what": "x_0 := r_0 - 2e-6, strict",
+     "verdict": "REFUTED"
+    },
+    "P2tol": {
+     "what": "x_0 := r_0 - 2e-6, tolerance 1e-6",
+     "verdict": "REFUTED"
+    },
+    "P3": {
+     "what": "circle 1's centre on circle 0's",
+     "verdict": "REFUTED"
+    },
+    "P4": {
+     "what": "the sum claim moved to 2.63586277",
+     "verdict": "REFUTED"
+    },
+    "P6": {
+     "what": "the first 25 circles only",
+     "verdict": "REFUSED"
+    }
+   }
+  },
+  "4": {
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/4",
+   "title": "[claim] Second autocorrelation inequality C2 >= 0.9469 (key 8B-w_RL@65)",
+   "text": "Second autocorrelation inequality: the step function stored under key \"8B-w_RL@65\" (3072 cells) gives C2 >= 0.9469",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898; arXiv:2511.23473 Sec. 4",
+   "entry": "8B-w_RL@65",
+   "verdict": "REFUTED",
+   "agree": true,
+   "reading": "C2 the least constant with ||f*f||_2^2 <= C2 ||f*f||_1 ||f*f||_inf for non-negative f (arXiv:2511.23473 A.3); for a step function Q = sum_m (c_{m-1}^2 + c_{m-1}c_m + c_m^2) / (3 (sum a)^2 max c), c the exact autoconvolution; the claim CERTIFIED iff every value >= 0 and Q >= 9469/10000",
+   "headline": "every value >= 0, so the function is in the inequality's domain, but Q = 0.946897013157296546656800171244… exactly, below 0.9469 by more than 0.0000029868427034 (a lower bound of the gap, cut down); the bytes prove C2 >= 0.9468970131 (cut down), and the paper's 0.9469 is Q rounded to four decimals",
+   "certificate": "python3 -I corpus/claims-intake/autocorr2/check.py (prints the exact Q and the falsifying margin)",
+   "decision": {
+    "verdict": "REFUTED",
+    "n": 3072,
+    "domain": true,
+    "negatives": 0,
+    "Q30": [
+     "0.946897013157296546656800171244",
+     "0.946897013157296546656800171245"
+    ],
+    "argmax": 5771,
+    "decimals": 20,
+    "Qnum": "1169924553654764100655677245114208261718893469065592338564181768319817850324531689805132741",
+    "Qden": "1235535161056019390514765492366225426939006965198109734226147022630638465036166850700000000",
+    "margin": [
+     "-0.000002986842703453343199828756",
+     "-0.000002986842703453343199828755"
+    ],
+    "printed0.9469": {
+     "rounds": true,
+     "truncates": false,
+     "atLeast": false
+    }
+   },
+   "controls": {
+    "Q1": {
+     "what": "cell 0 := -1e-6",
+     "verdict": "REFUTED"
+    },
+    "Q2up": {
+     "what": "the least 4-decimal threshold above Q: 0.9469",
+     "verdict": "REFUTED"
+    },
+    "Q2down": {
+     "what": "the greatest 4-decimal threshold at or below Q: 0.9468",
+     "verdict": "CERTIFIED"
+    },
+    "Q3": {
+     "what": "cell 368 (the largest) times 100",
+     "verdict": "REFUTED",
+     "Q30": [
+      "0.092327086277553357718574960793",
+      "0.092327086277553357718574960794"
+     ]
+    },
+    "Q4": {
+     "AlphaEvolve-v1": {
+      "cells": 50,
+      "printed": "0.8962",
+      "Q30": [
+       "0.896279944155407768892875359069",
+       "0.896279944155407768892875359070"
+      ],
+      "rounds": false,
+      "truncates": true,
+      "atLeast": true
+     },
+     "StrongInit": {
+      "cells": 1024,
+      "printed": "0.9055",
+      "Q30": [
+       "0.905282581869638845409799527855",
+       "0.905282581869638845409799527856"
+      ],
+      "rounds": false,
+      "truncates": false,
+      "atLeast": false
+     },
+     "8B-wo_RL@100": {
+      "cells": 2048,
+      "printed": "0.9434",
+      "Q30": [
+       "0.943374915461515169283532737353",
+       "0.943374915461515169283532737354"
+      ],
+      "rounds": true,
+      "truncates": false,
+      "atLeast": false
+     }
+    },
+    "Q5": {
+     "oneCell": true,
+     "twoEqualCells": true
+    }
+   }
+  },
+  "5": {
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/5",
+   "title": "[claim] 26 circles in the unit square, sum of radii 2.6359857 at overlap tolerance 1e-6 (key 8B-w_RL@65)",
+   "text": "26 circles in the unit square, no overlaps up to tolerance 1e-6 as stated in the source, sum of radii = 2.6359857 (key \"8B-w_RL@65\")",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898; arXiv:2511.23473 Table 2",
+   "entry": "8B-w_RL@65",
+   "verdict": "CERTIFIED",
+   "agree": true,
+   "reading": "with t = 1e-6 (arXiv:2511.23473 App. A.1, OpenEvolve's atol): r_i > 0; r_i - t <= x_i, y_i <= 1 - r_i + t; r_i + r_j - t <= |c_i - c_j| for every pair; the printed sum read as a rounding, |sum r - 2.6359857| <= 5e-8. The strict reading (t = 0) reported as a fact.",
+   "headline": "holds at the source's 1e-6 tolerance, exactly; strictly it does not — 58 of 325 pairs overlap and 2 circles cross a side, the worst overlap r_i + r_j - d_ij = 0.000000309455143713076269303989… (pair 4, 9, rounded up); sum r = 2.63598566124089912 exactly; every radius reduced by 0.00000015472757185654 gives an exact packing with sum 2.63598163832403084996",
+   "certificate": "python3 -I corpus/claims-intake/circles/check.py 5",
+   "decision": {
+    "verdict": "CERTIFIED",
+    "fails": [],
+    "tolerance": "0.000001",
+    "n": 26,
+    "sumExact": "2.63598566124089912",
+    "claim": "2.6359857",
+    "sumRounds": true,
+    "sumTruncates": false,
+    "sumMinusClaim": "-0.00000003875910088",
+    "underReading": {
+     "sideViolations": 0,
+     "pairViolations": 0,
+     "sides": [],
+     "pairs": []
+    },
+    "strict": {
+     "holds": false,
+     "sideViolations": 2,
+     "pairViolations": 58,
+     "sides": [
+      {
+       "i": 20,
+       "side": "right (1 - x - r)"
+      },
+      {
+       "i": 22,
+       "side": "top (1 - y - r)"
+      }
+     ],
+     "pairs": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       6
+      ],
+      [
+       0,
+       7
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       1,
+       7
+      ],
+      [
+       1,
+       12
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       7
+      ],
+      [
+       2,
+       8
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       2,
+       13
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       3,
+       14
+      ],
+      [
+       4,
+       5
+      ],
+      [
+       4,
+       9
+      ],
+      [
+       4,
+       10
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       5,
+       10
+      ],
+      [
+       6,
+       11
+      ],
+      [
+       6,
+       12
+      ],
+      [
+       7,
+       8
+      ],
+      [
+       8,
+       9
+      ],
+      [
+       10,
+       14
+      ],
+      [
+       10,
+       15
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       11,
+       16
+      ],
+      [
+       11,
+       17
+      ],
+      [
+       12,
+       13
+      ],
+      [
+       12,
+       17
+      ],
+      [
+       13,
+       14
+      ],
+      [
+       13,
+       17
+      ],
+      [
+       13,
+       18
+      ],
+      [
+       13,
+       19
+      ],
+      [
+       14,
+       15
+      ],
+      [
+       14,
+       19
+      ],
+      [
+       15,
+       19
+      ],
+      [
+       15,
+       20
+      ],
+      [
+       16,
+       17
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       16,
+       22
+      ],
+      [
+       17,
+       18
+      ],
+      [
+       17,
+       22
+      ],
+      [
+       18,
+       19
+      ],
+      [
+       18,
+       22
+      ],
+      [
+       18,
+       23
+      ],
+      [
+       18,
+       24
+      ],
+      [
+       19,
+       20
+      ],
+      [
+       20,
+       24
+      ],
+      [
+       20,
+       25
+      ],
+      [
+       21,
+       22
+      ],
+      [
+       22,
+       23
+      ],
+      [
+       23,
+       24
+      ],
+      [
+       24,
+       25
+      ]
+     ]
+    },
+    "radiiNonPositive": [],
+    "tightestSide": {
+     "circle": 22,
+     "side": "top (1 - y - r)",
+     "slackExact": "-0.0000000000012936"
+    },
+    "tightestPairSquared": {
+     "pair": [
+      18,
+      19
+     ],
+     "dSquaredMinusSumSquaredExact": "-0.0000001004316977542382409302310681"
+    },
+    "worstPairDistance": {
+     "pair": [
+      4,
+      9
+     ],
+     "sumMinusDistance": [
+      "0.000000309455143713076269303988",
+      "0.000000309455143713076269303989"
+     ]
+    },
+    "tangenciesExact": 0,
+    "sideTouchesExact": 0,
+    "repair": {
+     "deltaUpper": "0.000000154727571856538134651995",
+     "deltaBar": "0.00000015472757185654",
+     "repairedSum": "2.63598163832403084996",
+     "repairedStrictHolds": true
+    }
+   },
+   "controls": {
+    "P1": {
+     "what": "circle 18 (the tightest pair, squared form) radius + 3e-6",
+     "verdict": "REFUTED"
+    },
+    "P2strict": {
+     "what": "x_0 := r_0 - 2e-6, strict",
+     "verdict": "REFUTED"
+    },
+    "P2tol": {
+     "what": "x_0 := r_0 - 2e-6, tolerance 1e-6",
+     "verdict": "REFUTED"
+    },
+    "P3": {
+     "what": "circle 1's centre on circle 0's",
+     "verdict": "REFUTED"
+    },
+    "P4": {
+     "what": "the sum claim moved to 2.6359858",
+     "verdict": "REFUTED"
+    },
+    "P5": {
+     "what": "every radius - 0.00000015472757185654 (the repair), strict",
+     "verdict": "CERTIFIED"
+    },
+    "P6": {
+     "what": "the first 25 circles only",
+     "verdict": "REFUSED"
+    }
+   },
+   "shrunkBy1e6": {
+    "strictHolds": true,
+    "sumExact": "2.63595966124089912",
+    "sideViolations": 0,
+    "pairViolations": 0,
+    "aboveAlphaEvolveExactSum": true
+   }
+  },
+  "6": {
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/6",
+   "title": "[claim] Prime Number Theorem: EinsteinArena solution 2506 satisfies the stated constraint with printed score 0.9976572852677297",
+   "text": "EinsteinArena solution 2506 (agent \"CodexProLong\", created 2026-08-15) to the problem \"The Prime Number Theorem\": the submitted construction satisfies the problem's stated constraint and attains the score printed for it, 0.9976572852677297",
+   "source": "EinsteinArena, solution record 2506 (the platform's API record of the solution)",
+   "solution": 2506,
+   "verdict": "REFUTED",
+   "agree": true,
+   "reading": "the statement's steps 1–2 applied exactly (no value clipped; f(1) := -sum_{k>=2} f(k)/k, a rational); A, the constraint: F(x) = sum_k f(k) floor(x/k) <= 1 for every real x >= 1 (decides); B, the platform's check made exhaustive: F(n) <= 1 + 1e-4 for every integer 1 <= n < 10 max k (reported); the score S = -sum_k f(k) ln(k)/k enclosed and compared with the printed double within the platform's minImprovement 1e-6 (the house rule of tools/run-mc100-einstein.js)",
+   "headline": "the constraint fails at the first point: F(x) = f(1) = 1.00009998995223526404… > 1 for 1 <= x < 2 (f(1) is set by the platform's own normalisation); 3754 of the 1,278,489 integers of the sampled range exceed 1, none exceeds 1 + 1e-4 (the platform's check, made exhaustive, passes: the maximum, at n = 1254707, is below 1 + 1e-4 by more than 0.00000000992121); outside the range, at x = lcm(keys) - 1 - 299856 (a 2117-digit integer), F = 73.3952851…; the printed score agrees with the exact S = 0.99765728526772941072… (the double is 0.000000000000000289272677 above it)",
+   "certificate": "python3 -I corpus/claims-intake/pnt/check.py (evaluates sum_k f(k) floor(x/k) directly at each witness)",
+   "decision": {
+    "keys": 2000,
+    "maxKey": 127849,
+    "clipped": [],
+    "range": [
+     1,
+     1278489
+    ],
+    "lcmDigits": 2117,
+    "f1": [
+     "1.000099989952235264049134808633",
+     "1.000099989952235264049134808634"
+    ],
+    "f1AboveOne": true,
+    "readingA": {
+     "verdict": "REFUTED",
+     "witness1": {
+      "x": 1,
+      "F": [
+       "1.000099989952235264049134808633",
+       "1.000099989952235264049134808634"
+      ],
+      "aboveOne": true
+     },
+     "inRangeAboveOne": 3754,
+     "firstInRange": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ],
+     "mirror": {
+      "x": "lcm(keys) - 1 - 299856",
+      "xDigits": 2117,
+      "F": [
+       "73.395285198292887037143367021688",
+       "73.395285198292887037143367021689"
+      ],
+      "aboveOne": true,
+      "equalsPhiMinusF": true
+     }
+    },
+    "readingB": {
+     "holds": true,
+     "aboveTolerance": 0,
+     "firstAboveTolerance": []
+    },
+    "max": {
+     "n": 1254707,
+     "F": [
+      "1.000099990078786342030486544477",
+      "1.000099990078786342030486544478"
+     ],
+     "belowTolBy": [
+      "0.000000009921213657969513455522",
+      "0.000000009921213657969513455523"
+     ]
+    },
+    "min": {
+     "n": 299856,
+     "F": [
+      "-141.368894927385009543987767805373",
+      "-141.368894927385009543987767805372"
+     ]
+    },
+    "phi": [
+     "-67.973609729092122506844400783684",
+     "-67.973609729092122506844400783683"
+    ],
+    "score": {
+     "enclosure": [
+      "0.9976572852677294107273237586357332061824",
+      "0.9976572852677294107273237586357332061825"
+     ],
+     "printed": "0.9976572852677297",
+     "agreement": {
+      "agrees": true,
+      "distanceUp": "0.000000000000000289272677",
+      "printedSide": "above",
+      "tolerance": "0.000001"
+     }
+    },
+    "exactFallbacks": 0,
+    "verdict": "REFUTED"
+   },
+   "controls": {
+    "K1": {
+     "what": "the printed score + 2e-6",
+     "verdict": "REFUTED"
+    },
+    "K2": {
+     "what": "f scaled by 1.001",
+     "readingBHolds": false,
+     "aboveTolerance": 3755,
+     "first": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    "K3": {
+     "what": "f = mu on 1..2000, f(1) = 1, no normalization: F(n) = 1 for every n <= 2000",
+     "holds": true
+    },
+    "K4": {
+     "publishedDigits": true,
+     "ln6MeetsLn2PlusLn3": true
+    },
+    "K5": {
+     "what": "f(2) := 11",
+     "clipped": [
+      2
+     ],
+     "valueUsed": "10"
+    }
+   }
+  }
+ },
+ "python": {
+  "3": "CERTIFIED",
+  "4": "REFUTED",
+  "5": "CERTIFIED",
+  "6": "REFUTED",
+  "version": "3.9.6",
+  "selftests": {
+   "4": {
+    "oneCell": true,
+    "twoEqualCells": true,
+    "kroneckerEqualsSchoolbook": true,
+    "quadratureWithin1e-6": true
+   },
+   "6": {
+    "publishedDigits": true,
+    "ln6MeetsLn2PlusLn3": true,
+    "everyKeyAgainstDecimalLn": true
+   }
+  }
+ },
+ "allAgree": true,
+ "controlsAsPredicted": {
+  "#3 P1": true,
+  "#3 P2strict": true,
+  "#3 P2tol": true,
+  "#3 P3": true,
+  "#3 P4": true,
+  "#3 P6": true,
+  "#5 P1": true,
+  "#5 P2strict": true,
+  "#5 P2tol": true,
+  "#5 P3": true,
+  "#5 P4": true,
+  "#5 P5": true,
+  "#5 P6": true,
+  "#4 Q1": true,
+  "#4 Q2up": true,
+  "#4 Q2down": true,
+  "#4 Q3": true,
+  "#4 Q4 AlphaEvolve-v1": true,
+  "#4 Q4 StrongInit": false,
+  "#4 Q4 8B-wo_RL@100": true,
+  "#4 Q5 oneCell": true,
+  "#4 Q5 twoEqualCells": true,
+  "#4 Q5 kroneckerEqualsSchoolbook": true,
+  "#4 Q5 quadratureWithin1e-6": true,
+  "#6 K1": true,
+  "#6 K2": true,
+  "#6 K3": true,
+  "#6 K4 publishedDigits": true,
+  "#6 K4 ln6MeetsLn2PlusLn3": true,
+  "#6 K4 everyKeyAgainstDecimalLn": true,
+  "#6 K5": true
+ },
+ "notAsPredicted": [
+  "#4 Q4 StrongInit"
+ ],
+ "predictionsMet": {
+  "3": "CERTIFIED, the more likely of the registered outcomes (0.6)",
+  "4": "REFUTED with Q rounding to 0.9469, the registered 0.2 branch",
+  "5": "CERTIFIED under T with S failing, as registered (0.85 and 0.95)",
+  "6": "REFUTED by a witness inside the sampled range (x = 1), as registered (0.8); B holds, as registered (0.75); the score agrees (0.95)"
+ },
+ "pins": {
+  "thetaevolve": {
+   "repo": "github.com/ypwang61/ThetaEvolve",
+   "commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+   "files": {
+    "thetaevolve-7c12898-CirclePacking-data.json": {
+     "bytes": 14296,
+     "sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
+     "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json",
+     "licence": "Apache-2.0 (THETAEVOLVE-LICENSE, the repository's LICENSE at the same commit)",
+     "issues": [
+      3,
+      5
+     ]
+    },
+    "thetaevolve-7c12898-SecondAutoCorrIneq-data.json": {
+     "bytes": 71625,
+     "sha256": "3d453b729f5913e7f686e1386c5351fb90a2f434910604c6199ad39905a3cb4b",
+     "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/Results/SecondAutoCorrIneq/data.json",
+     "licence": "Apache-2.0 (THETAEVOLVE-LICENSE)",
+     "issues": [
+      4
+     ]
+    }
+   },
+   "licence": "Apache-2.0"
+  },
+  "einsteinArena": {
+   "solution": "corpus/einstein-arena/best-7.json",
+   "sha256": "5382b697a7920edd92edc8c4770441925042bde3d3719456e84f248fbb8bd333",
+   "statement": {
+    "bytes": 3360,
+    "sha256": "5e97cd89a653836230688934cdf92681e546ade47f0e2b2fad18b79ac3d2e20d",
+    "url": "https://einsteinarena.com/api/problems/prime-number-theorem",
+    "licence": "no licence stated; held verbatim as the published statement, for verification only",
+    "note": "only the description field (the statement) is read; the verifier field is held unread",
+    "issues": [
+     6
+    ]
+   }
+  },
+  "issueShaMatched": true,
+  "paper": {
+   "arxiv": "2511.23473v1",
+   "pdfSha256": "8e74933b2a4dddbf80a063fb88438c95b62b982a5167bbb77213ce1e3839715d",
+   "read": "§3.3 note (1), Table 2 and its caption, Appendix A.1–A.3"
+  }
+ },
+ "read": [
+  "the four issue bodies",
+  "ThetaEvolve README.md and LICENSE at the pin",
+  "arXiv:2511.23473v1 §3.3, Table 2, Appendix A",
+  "the description field of the EinsteinArena PNT statement",
+  "after the pre-registration, for the calibration Q4 only: AlphaEvolve's B.2 cells in corpus/sources/alphaevolve_mathematical_results.ipynb (the statement, the 50 heights, the verification formula)"
+ ],
+ "neverReadOrRun": [
+  "ThetaEvolve Results/*/vis.py",
+  "ThetaEvolve Results/*/programs/",
+  "every evaluator in the ThetaEvolve, OpenEvolve and ShinkaEvolve repositories",
+  "the verifier field of the EinsteinArena API record (held unread in the pinned file)",
+  "EinsteinArena's verifier sources for problem 7"
+ ],
+ "preregistration": {
+  "path": "notes/claims-intake-preregistration-2026-11-08.md",
+  "sha256": "5850c96db2235701d258e4feb3d9dc5129cb1f18e4561a9a1fa1c678dc69daa9",
+  "addedIn": "bcdc469fc808da6e1c6914bd43d9b1b60aa99850 2026-11-07T21:47:04-03:00",
+  "sha256AsRegistered": "fe76b47bd8fbd09c1f7df426bd9f653ccc91365ea2d81dfa14efcc653ccf8ad7",
+  "amendments": "A (2026-11-08, after the first run): see the note"
+ },
+ "deciders": {
+  "js": "049c3b9c77cc9d8ae7d7119b5285467319ac3ab8146a54a22c6d7373d009edd9",
+  "writer": "c37be4bea43784615837fe63362eba08ab3e9e47f15bc8ea659162be4ee211d3",
+  "py": {
+   "circles": "420ba58b5179d67a70ea3f1624cb0f560b745f844ff335b316bd8f95582f615e",
+   "autocorr2": "1440c2c35ccf162c5c079d50763e57ad7e774869a6e9a81ab02f54aede5314ce",
+   "pnt": "0bac2e8cc8f4cc07120456958784e029be1e4a3cd77f5e893b709a8f551a2085"
+  }
+ },
+ "generated": "2026-11-08T01:35:18Z",
+ "git": "bcdc469fc808da6e1c6914bd43d9b1b60aa99850",
+ "node": "v24.14.1",
+ "rederive": "node tools/record-claims-intake.js --check (offline, ~11 s); each claim alone: python3 -I corpus/claims-intake/circles/check.py 3 (or 5), .../autocorr2/check.py, .../pnt/check.py",
+ "seconds": 11.1
+}

@@ -1,0 +1,13 @@
+{
+ "what": "The inputs of the first four claims filed through the public claim form (cert-machine issues #3-#6), held byte for byte. Read by tools/record-claims-intake.js and by corpus/claims-intake/issue-<n>/check.py, each of which refuses on a sha256 mismatch. Pre-registration: notes/claims-intake-preregistration-2026-11-08.md.",
+ "fetched": "2026-11-08T00:40Z",
+ "files": {
+  "thetaevolve-7c12898-CirclePacking-data.json": { "bytes": 14296, "sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8", "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/Results/CirclePacking/data.json", "licence": "Apache-2.0 (THETAEVOLVE-LICENSE, the repository's LICENSE at the same commit)", "issues": [3, 5] },
+  "thetaevolve-7c12898-SecondAutoCorrIneq-data.json": { "bytes": 71625, "sha256": "3d453b729f5913e7f686e1386c5351fb90a2f434910604c6199ad39905a3cb4b", "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/Results/SecondAutoCorrIneq/data.json", "licence": "Apache-2.0 (THETAEVOLVE-LICENSE)", "issues": [4] },
+  "THETAEVOLVE-LICENSE": { "sha256": "bf917707c1e0ffdfe653d63aebc188a48f738f3faad9acc188c346d3618694af", "url": "https://raw.githubusercontent.com/ypwang61/ThetaEvolve/7c12898f5d7627af403e3aca643af76199fb5c20/LICENSE" },
+  "einstein-arena-api-problems-prime-number-theorem_2026-11-08.json": { "bytes": 3360, "sha256": "5e97cd89a653836230688934cdf92681e546ade47f0e2b2fad18b79ac3d2e20d", "url": "https://einsteinarena.com/api/problems/prime-number-theorem", "licence": "no licence stated; held verbatim as the published statement, for verification only", "note": "only the description field (the statement) is read; the verifier field is held unread", "issues": [6] }
+ },
+ "elsewhere": {
+  "corpus/einstein-arena/best-7.json": { "sha256": "5382b697a7920edd92edc8c4770441925042bde3d3719456e84f248fbb8bd333", "what": "EinsteinArena solution 2506 as the platform's API returned it on 2026-10-02 (corpus/einstein-arena/meta.json)", "issues": [6] }
+ }
+}

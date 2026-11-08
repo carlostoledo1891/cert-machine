@@ -208,6 +208,7 @@ test:
 	@printf "%-30s " "ZQ lane 3 finite suites"; $(NODE) tools/zq-finite.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ lane 3 v2 (Issue 3 note)"; $(NODE) tools/zq-finite-v2.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "C51 replay (PR #184)"; $(NODE) tools/c51-replay.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "claims intake #3-#6"; $(NODE) tools/record-claims-intake.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ H2 attempt"; $(NODE) tools/zq-h2.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ lane 4 Lean replay"; $(NODE) tools/record-zq-lean-replay.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ Track B decision"; $(NODE) tools/record-zq-trackb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
