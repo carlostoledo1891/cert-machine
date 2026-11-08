@@ -21,6 +21,7 @@ reason.**
   [report](https://carlostoledo.co/eth/)
   - Both proofs accepted by two kernels; the statements read against the textbook ETH by two independent readers; the
     textbook ETH written once in Lean and each lab's statement proved to refute it in its own machine model.
+  - Both chains then carried to the standard multitape machine in one Lean each; two results merged into complexitylib.
 - **The graders of mathematical benchmarks, measured against {{envs_n}} provably wrong answers** ·
   [report](https://carlostoledo.co/reports/envs.html)
   - Absolute-tolerance rules accept {{envs_k}} of them; a certificate grader accepts none and rejects nothing right.
@@ -37,24 +38,25 @@ reason.**
   - {{kiss_rows}} of {{kiss_rows}} announced bounds witnessed and every pair of {{kiss_pairs}} decided exactly; the claimant published its point
     sets at the audit's request and credits the check in its README. Also the first independent certification of K(18) ≥ {{k18_claimed}}
     ({{k18_pairs}} pairs, 0 violations).
-- **Registries of AI-generated certificates**: Terence Tao's optimization-constants registry removed {{asterisks}} "verification
-  minimal" asterisks on our exact replays, in four merged pull requests, and cites them as [T2026]
+- **Registries of AI-generated certificates**: Terence Tao's optimization-constants registry removed {{asterisks}} asterisks
+  on our exact replays (four merged pull requests) and cites [T2026]
   ([report](https://carlostoledo.co/reports/optimization-constants.html)); its PR queue {{optq_cert}} certified, {{optq_ref}} refused
   ([report](https://carlostoledo.co/reports/optconst-queue.html)); AlphaEvolve's community certificates {{aerp_cert}} certified,
-  {{aerp_ref}} refused ([report](https://carlostoledo.co/reports/alphaevolve-community.html)); Written on the Wall II {{wowii_cert}} of {{wowii_cert}}.
-- **Lean certificates read against their statements**: OpenAI's Navier–Stokes blowup, one clause of the theorem missing at
-  the announced commit and proved at the next ([report](https://carlostoledo.co/reports/navier-stokes.html)); the Qiushi Engine's
-  disproof of Bandeira's 0.2(a), the finite core re-decided and two gaps named ([report](https://carlostoledo.co/reports/bandeira.html)).
-- **Theorems that calibrate the instruments**: λ(4) for Chowla's cosine problem, re-certified by a third party with no
-  shared code ([report](https://carlostoledo.co/reports/lambda4.html)); δ₃ = 117/2192; bounds on Erdős #290 and #1038 (Zenodo).
+  {{aerp_ref}} refused ([report](https://carlostoledo.co/reports/alphaevolve-community.html)); Written on the Wall II {{wowii_cert}} of {{wowii_cert}}; C₈₉'s author thanked the replays.
+- **Erdős problems against DeepMind's statements**: #488, Gessel's GPT-6 Astra refutation certified by two
+  kernels and two deciders, all {{e488_planted}} planted fakes caught ([report](https://carlostoledo.co/reports/erdos-488.html)); #174, Pálvölgyi's
+  Theorem A.3 proved in Lean as stated, on Palomar ([report](https://carlostoledo.co/reports/heptagon.html)).
+- **“ℤ is Diophantine in ℚ” (Glazer, AI-produced)**: the {{zq_vars}}-variable count re-derived; the Version 4 quartic's
+  {{zq_v4_steps}} certificate steps replayed; the Lean target proved from eight named hypotheses ([report](https://carlostoledo.co/z-in-q/)).
+- **Also**: OpenAI's Navier–Stokes blowup, a clause missing at the announced commit ([report](https://carlostoledo.co/reports/navier-stokes.html)); Bandeira's
+  0.2(a), two gaps named ([report](https://carlostoledo.co/reports/bandeira.html)); λ(4), re-certified by a third party ([report](https://carlostoledo.co/reports/lambda4.html)); δ₃ = 117/2192.
 
 ## Financial model re-performance | October 2026
 
 - **PU Verificado — every Tesouro Direto price since 2004 re-decided from the Treasury's own rule table** ·
   [report](https://carlostoledo.co/reports/pu-verificado.html)
   - {{pu_total}} prices (2004–2026): {{pu_reproduced}} reproduced to the centavo, {{pu_consistent}} consistent with the printed rate's
-    precision, {{pu_off}} off with the exact value and the difference, {{pu_needs}} needing data the publisher kept; none refused.
-  - Two deciders sharing no code; conventions measured, never assumed: settlement on B3's calendar, centavos truncated.
+    precision, {{pu_off}} off with the exact value and the difference, {{pu_needs}} needing data the publisher kept; two deciders.
 
 ## RL environments, verifiers and the visual grammar | 2026
 
@@ -62,8 +64,7 @@ reason.**
   an answer key and an exact grader both extinguished abstention within ~10 steps, a ternary grader made the model abstain
   on everything. On the Environments Hub: `lattice-claims`, `blind-spot`, `break-the-grader`.
 - **WARRANT, a visual grammar in which every mark says what it rests on** · [the rules](https://carlostoledo.co/grammar/)
-  - The stroke says how a number was made (decided, computed, chosen, refused), words carry the verdict, a ladder how far
-    each premise was checked; the site refuses to build a page that breaks a rule and re-reads every number from its record.
+  - The stroke says how a number was made, words carry the verdict; the site refuses to build a page that breaks a rule.
 - **Writing:** cert-machine: independent exact certification of machine-generated mathematics (method paper, draft, not
   peer-reviewed) · [PDF](https://carlostoledo.co/paper/cert-machine-method.pdf). Outside re-derivations of the verdicts, all
   concordant, are on the record with their authors' names ([report](https://carlostoledo.co/reports/rerun.html)).

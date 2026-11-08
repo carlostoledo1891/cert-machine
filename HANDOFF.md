@@ -27,7 +27,13 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      POSTED — comment-41 on the 'Lean Replications' post, 2026-11-07 01:31 UTC, word for word the draft — now logged (row
      ethdiscussion-lean-replications-2026-11-07, the About page re-synced); (b) the OEIS packs re-checked again 11-08 (OEIS
      search: packs 1, 2, 4, 5 no match; A079007 31 terms, A078515/A079889 27; verify-record.js 263552821783 31 exact) —
-     still the operator's paste; (a) below.
+     still the operator's paste; (a) the CV REPUBLISHED on the operator's "trim to 2 pages, then publish" — apps/cv/cv.md
+     gained the complexitylib merges (ETH), C₈₉'s author's thanks, Erdős #488 + #174 (heptagon, Palomar) and ℤ-in-ℚ (the
+     recount, the Version 4 certificate's steps), three new figures read from certs/erdos488.json, zq-recount.json,
+     zq-v4.json; to hold 2 pages the Navier–Stokes / Bandeira / λ(4) / δ₃ items merged into one "Also" line (the #290/#1038
+     Zenodo mention dropped), PU's two bullets into one, WARRANT's into one line; the application one-liners (Prime FD,
+     Epoch, FAR.AI, Cohere; &Truth/Alignerr only on a reply) drafted in notes/job-updates-2026-11-08.md (git-ignored) —
+     the operator sends them by hand, as replies to the e-mails received.
   ◆◆ CLAIMS-INTAKE. THE FIRST FOUR CLAIM-FORM ISSUES (maximusrufus, cert-machine #3–#6, filed 11-06) DECIDED 11-08 and
      merged (c4d8a80a): pre-registration notes/claims-intake-preregistration-2026-11-08.md (before any decider), record
      certs/claims-intake-2026-11-08.json (tools/record-claims-intake.js --check, both implementations, ~11 s; battery
@@ -94,7 +100,7 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      (2) DONE 11-07 06:55 UTC: seals 0–3 upgraded to Bitcoin block 974877 and reopened CERTIFIED with both anchors (the
      private repo's seals/LEDGER.md); seals 4–7 likewise (blocks 974909, 974956). (3) Liu NOT contacted (no GitHub presence; no e-mail started). (4) claimbox was NOT used for #488 —
      the page says so ("who did what"); never claim otherwise.
-  ◆◆ OUT-NEXT. THE OPERATOR'S PICKS (11-07): (a) the job-funnel update — CV (apps/cv/cv.md via figure tokens; /cv/ publishes
+  ◆◆ OUT-NEXT. THE OPERATOR'S PICKS (11-07; (a) DONE 11-08 but the sends, see 11-08 NIGHT): (a) the job-funnel update — CV (apps/cv/cv.md via figure tokens; /cv/ publishes
      on build, so preview first and publish on his word) and the open applications, with this week: complexitylib #2509/#2510
      MERGED, the #488 certification on DeepMind's PR, ℤ-in-ℚ (Version 4 quartic CERTIFIED), the C_89 author's credit — NOT
      started, no file touched; (b) the OEIS packs: re-checked 11-07, every pack still new (outreach/oeis-erdos290-pack.md,
