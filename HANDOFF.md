@@ -23,7 +23,11 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
   ◆◆ 11-08 NIGHT (the operator's answers, ~03:20 UTC): (1) the claims-desk X post HOLD — d21 stays unsent; (2) claimbox's
-     lift PROCEED — done in claimbox on a branch (below, CLAIMBOX-LIFT); (a)–(c) of OUT-NEXT PROCEED: (c) turned out ALREADY
+     lift PROCEED — DONE in claimbox on local branch lift-2026-11-08 (5baa100 the lift: ledger re-pinned, corpus 141 → 145;
+     83960ce after it: the prose record re-decided in 4,177 s, coverage re-written, make web; make test 617 pass, 0 fail,
+     171/171 reds; drift 15/15). NOT pushed or merged (claimbox main is still bdf357e; the branch carries intake-2026-11-05
+     and zinq-2026-11-06 under it): the push, the merge and the zone republish (`node tools/publish-zone.js claimbox`) are
+     the operator's word; (a)–(c) of OUT-NEXT PROCEED: (c) turned out ALREADY
      POSTED — comment-41 on the 'Lean Replications' post, 2026-11-07 01:31 UTC, word for word the draft — now logged (row
      ethdiscussion-lean-replications-2026-11-07, the About page re-synced); (b) the OEIS packs re-checked again 11-08 (OEIS
      search: packs 1, 2, 4, 5 no match; A079007 31 terms, A078515/A079889 27; verify-record.js 263552821783 31 exact) —
