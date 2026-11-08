@@ -724,8 +724,8 @@
    "where": "RikiyaT/lm_understand-logs issue 4",
    "url": "https://github.com/RikiyaT/lm_understand-logs/issues/4",
    "sent": "2026-11-03",
-   "status": "posted, no reply",
-   "note": "outreach/wsp-authors-issue-2026-11-03.md; records certs/wsp-weights.json, wsp-regrade.json, wsp-baseline.json, wsp-side-claims.json; C2/C4 to be added to the same record. The thread reply and the X post wait for the window (the next morning, decided 14:45 UTC on 11-03)."
+   "status": "answered",
+   "note": "outreach/wsp-authors-issue-2026-11-03.md; records certs/wsp-weights.json, wsp-regrade.json, wsp-baseline.json, wsp-side-claims.json; C2/C4 to be added to the same record. The thread reply and the X post wait for the window (the next morning, decided 14:45 UTC on 11-03). ANSWERED 2026-11-07 07:03 UTC by a third party, not the authors: HedonismJesse (Human-AI-Evolution/weight-space-notes, issuecomment-6703692933) re-ran the post-trained model under a matched protocol (16K cap, thinking on, MATH-500 n=50): .08 accuracy / .98 cap-exhausted, our C1 cell almost exactly; the base model .40 / .36; reverting the MLP blocks to base gives .30 / .58 strict-loop. Their reading: the looping is a post-training regression carried by the MLPs. Read 2026-11-08."
   },
   {
    "id": "x-takehi-thread-reply-2026-11-03",
@@ -1318,8 +1318,8 @@
    "where": "github.com/ammkrn/nanoda_lib/issues/82, a comment",
    "url": "https://github.com/ammkrn/nanoda_lib/issues/82#issuecomment-6695924286",
    "sent": "2026-11-06",
-   "status": "posted, no reply",
-   "note": "outreach/gh-nanoda-82-reply-2026-11-06.md (untracked); facts corpus/zq/runs/nanoda-bisect-2026-11-06/ at 5191b511; tools/runpod-zq-nanoda-bisect.sh."
+   "status": "answered",
+   "note": "outreach/gh-nanoda-82-reply-2026-11-06.md (untracked); facts corpus/zq/runs/nanoda-bisect-2026-11-06/ at 5191b511; tools/runpod-zq-nanoda-bisect.sh. ANSWERED 2026-11-07 23:08 UTC by the maintainer (ammkrn, issuecomment-6714268308): likely downstream of how each checker infers let expressions rather than Nat reduction (Lean's kernel throws past its threshold rather than declining); no definitive kernel spec at this level; nanoda's let inference is 'technically closer to the ideal'; he is still deciding how to approach issues of the kind 'my code relies on implicit behavior in kernel X'. Read 2026-11-08; a reply drafted (outreach/gh-nanoda-82-ammkrn-reply-2026-11-08.md), not posted."
   },
   {
    "id": "gh-optq-279-c89check-2026-11-06",
