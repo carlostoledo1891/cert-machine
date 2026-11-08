@@ -22,6 +22,13 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ 11-08 EVENING (the second GitHub check, ~22:40 UTC): lean4#16290 — marleymcwilliams (not a maintainer) added Comparator
+     data on openai/math (9 nanoda stack overflows, 8 fixed by a 1 GiB stack); our cross-tab against certs/openai-math-kernel.json
+     POSTED on the operator's word (issuecomment-6728279336: they accept 9 of our 18 resource stops, both our stack overflows
+     among them; 9 stopped in both; we accept 2 that hit their memory; no kernel rejects anywhere) — a re-run of lane K's 18
+     with a 1 GiB nanoda stack is the obvious follow-up (not started). arhancanli's #226 replay of 16a lands on our 16 Oct digits:
+     PINNED (arhancanli-c16a-same-digits). complexitylib is now cslib-community/cslib-frontier (#3675, we were cc'd): links
+     redirect, the module root moves Complexity. → CslibFrontier. soon; our records pin commits; no wording change (operator).
   ◆◆ 11-08 DAY (the GitHub review, ~16:15 UTC, and the operator's four answers): POSTED on the word — the #275 reply to
      arhancanli (our ceiling 0.00071505073 is the same chain relaxed in three places, 5.1 + 3.7 + 2.5 ·10⁻⁷, their
      0.000713944 the tighter; issuecomment-6725661240) and the nanoda_lib#82 reply to ammkrn (a let-inference dependency,
