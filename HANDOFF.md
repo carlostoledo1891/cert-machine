@@ -31,8 +31,8 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      StrongInit 0.90528 vs Table 2's 0.9055 unresolved); #5 CERTIFIED at the source's 1e-6 (strictly: 58 pairs overlap,
      worst 3.09e-7; a uniform shrink of 1.547e-7 repairs it); #6 REFUTED by the sealed rule (reading A: F(1) = f(1) =
      1.0000999… > 1, and F = 73.395 at x = lcm − 1 − 299,856; reading B, the platform check made exhaustive, passes; the
-     score agrees). Replies DRAFTED, NOT POSTED: outreach/gh-cert-machine-claim-{3,4,5,6}-2026-11-08.md — each on the
-     operator's word (strip the first HTML-comment line when posting).
+     score agrees). Replies POSTED 11-08 on the operator's word (#issuecomment-6715780439, -621, -779, -978; texts
+     outreach/gh-cert-machine-claim-{3,4,5,6}-2026-11-08.md); the four threads in the sweep.
   ◆◆ R174. THE HEPTAGON (Erdős #174 / Graham), REVEALED 2026-11-07 19:25 UTC on the operator's word ("Reveal"; the bundle
      was narrowed to the repo + one comment): carlostoledo1891/heptagon-ramsey-lean at 914298f3 (public; Lean of Pálvölgyi's
      heptagon not Ramsey, formal-conjectures' erdos_174.variants.graham false, Theorem A.3 as printed and its ℚ-independence
