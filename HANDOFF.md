@@ -35,7 +35,7 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      amendment "later the same day" + inventory/re-pins/concord (all five selfaudit batteries PASS); the dReal re-run
      42514638419 RECORDED (34/48 agree at both deltas, 0 contradictions, as before). Sept/Oct monthly pages restored to
      their committed bytes again (their drift). claimbox: lifted again on its local branch lift-2026-11-08 (8a78589, corpus
-     146) — the prose re-decision, battery and web follow there (not pushed). Three outside confirmations PINNED in
+     146; 102553d the prose record re-decided, make test 617/0, 171/171 reds, drift 15/15; not pushed). Three outside confirmations PINNED in
      corpus/recognition.json (arhancanli #232 and #246, HedonismJesse on lm_understand-logs#4), the queue and WSP pages
      rebuilt. Glazer PRs #5/#6: the DESCRIPTIONS REPLACED on the operator's word with the template versions
      (outreach/gh-zq-pr{5,6}-update-2026-11-08.md; heads unchanged, 6cf3c1d6 / 7663a196), including his audit-history
