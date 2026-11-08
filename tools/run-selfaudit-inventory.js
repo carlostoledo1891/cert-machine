@@ -77,6 +77,7 @@ const CLASSES = {
   'certs/eth-cslib-d1.json': [null, 'a kernel replay of a Lean library at its pin on a pod; no exact object to mutate here — a mutant would be a changed tree on a pod'],
   'certs/eth-chain.json': [null, 'a kernel replay whose record carries the lane\'s own three planted variants (statement, sorry, axiom), each refused; no further object to mutate here'],
   'certs/eth-openai-chain.json': [null, 'a kernel replay (2026-11-05) whose record carries the lane\'s own three planted variants (statement, sorry, axiom), each refused, and the judge\'s planted statement rejected on the statement; no further object to mutate here'],
+  'certs/claims-intake-2026-11-08.json': [null, 'the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it'],
   'certs/wsp-baseline.json': [null, 'an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader\'s red controls are in its records']
 };
 

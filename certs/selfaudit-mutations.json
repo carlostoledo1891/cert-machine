@@ -13,17 +13,17 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c"
+  "sha256": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "176b4106215ee0dad733c475304ebf64e96d4f29c0109e20a8abcbeaf6a361e3"
+  "sha256": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "3558fcf5a4718a8a9c9017c5329bea56db497465354c8119d73bcaa350c18db4",
-   "rows": 141
+   "sha256": "03ac16fe081bd955cbcf8a6ff8887bb4f1bd22e689b526db7c2cfb31f79a4f39",
+   "rows": 145
   },
   "recordPins": {
    "certs/strassen-certificate.json": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
@@ -29784,6 +29784,34 @@
    "after": {
     "preregistration": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c",
     "inventory": "176b4106215ee0dad733c475304ebf64e96d4f29c0109e20a8abcbeaf6a361e3"
+   }
+  },
+  {
+   "at": "2026-11-08T02:21:13.157Z",
+   "git": "4a3e7b88",
+   "why": "Amendment 2026-11-08 in notes/selfaudit-preregistration-2026-10-20.md: the register grows from 141 to 145 rows (the first submitted claims); no mutant touched",
+   "before": {
+    "preregistration": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c",
+    "inventory": "176b4106215ee0dad733c475304ebf64e96d4f29c0109e20a8abcbeaf6a361e3",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f",
+    "inventory": "1dcb0298230ff93f2fa1c745b822975f1937557cd38f90dcfe30ded68f398fc1"
+   }
+  },
+  {
+   "at": "2026-11-08T02:52:13.670Z",
+   "git": "4a3e7b88",
+   "why": "Amendment 2026-11-08: the register at 145 rows; no mutant touched",
+   "before": {
+    "preregistration": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f",
+    "inventory": "1dcb0298230ff93f2fa1c745b822975f1937557cd38f90dcfe30ded68f398fc1",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f",
+    "inventory": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2"
    }
   }
  ]

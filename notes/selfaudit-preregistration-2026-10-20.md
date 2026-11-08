@@ -134,6 +134,22 @@
 > inventory and the concordance regenerated and the run and mutations records re-pinned with this amendment as the
 > reason; no measurement, mutant or decision touched. Nothing else changes.
 
+> **Amendment 2026-11-08 (the register grows from 141 to 145 rows; the first SUBMITTED rows; no definition moved).** Four
+> rows reached the register from one record decided the same day: certs/claims-intake-2026-11-08.json, the first four
+> claims anyone sent through the public claim form (cert-machine #3–#6, filed 2026-11-06 by maximusrufus) — ThetaEvolve's
+> two 26-circle packings (#3 CERTIFIED strict; #5 CERTIFIED at the source's 1e-6 tolerance, kind tolerance-witness) and its
+> second-autocorrelation bound (#4 REFUTED as filed, kind float-printed-as-exact), and EinsteinArena solution 2506 for the
+> Prime Number Theorem problem (#6 REFUTED, kind checker-wider-than-definition) — decided by two implementations sharing no
+> code under notes/claims-intake-preregistration-2026-11-08.md. Their ORIGIN is `submitted`, the first rows that are not
+> self-initiated; tools/run-claims-ledger.js now derives them from the intake record and refuses a submitted row that
+> record does not decide. The register moves from sha256 3558fcf5a471… (141 rows) to the 145-row file of this commit.
+> The rerun kit gains the record's re-derive command and its four standard-library checkers, run once with `--only` and
+> merged into certs/rerun-kit-run.json; the self-audit run gains its pairs by `--append --only`. The rows are not
+> mutated, with the reason in the inventory's class table (the record carries its own 31 planted controls, each decided
+> by both implementations; 30 as predicted, the one miss — a calibration — recorded in it). Mutable rows stay 119, now
+> of 145. The inventory and the concordance are regenerated and the run and mutations records re-pinned with this
+> amendment as the reason; no measurement, mutant or decision touched. Nothing else changes.
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a

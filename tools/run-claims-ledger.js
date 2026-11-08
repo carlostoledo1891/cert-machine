@@ -7,8 +7,8 @@
    list of things we remember doing.
 
    ORIGIN is tracked because it is the honest part: everything here so far is SELF-INITIATED — we
-   chose the claim. The submitted column is what an intake queue fills, and it is empty until
-   someone sends something. Publishing a decided-claims page while pretending the queue is busy
+   chose the claim. The submitted column is what an intake queue fills, and it was empty until
+   someone sent something (2026-11-06: the first four, cert-machine #3–#6, decided 2026-11-08). Publishing a decided-claims page while pretending the queue is busy
    would be the exact failure this lab exists to catch.
 
    THE REGISTER (2026-09-29, notes/attack-plan-2026-09-29.md, A5): one schema over every published-claim
@@ -559,6 +559,46 @@ const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? 
   });
 }
 
+/* THE INTAKE QUEUE (2026-11-08): the first claims anyone sent through the public claim form (.github/ISSUE_TEMPLATE/
+   claim.yml), cert-machine issues #3–#6, filed 2026-11-06 and decided by certs/claims-intake-2026-11-08.json (two
+   implementations sharing no code; a stock-Python certificate per claim). Their ORIGIN is submitted: the claimant chose the
+   claim, not us. The kind of each row is read from what the record decided, in the closed vocabulary below. */
+{
+  const I = J('certs/claims-intake-2026-11-08.json');
+  /* the register's scope column is read in a table, so each row's is composed short from the record's decision fields, every
+     enclosure rounded OUTWARD (its low end down, its high end up) and every exact value printed as the record holds it; the
+     record's full headline rides beside it in the row */
+  const out10 = ([lo, hi], d) => { const f = (x, up) => { const [i, fr = ''] = String(x).split('.'); const keep = fr.slice(0, d), rest = fr.slice(d);
+      if (!up || !/[1-9]/.test(rest)) return i + '.' + keep.padEnd(d, '0');
+      const n = (BigInt(i + keep.padEnd(d, '0')) + 1n).toString().padStart(i.length + d, '0'); return n.slice(0, n.length - d) + '.' + n.slice(n.length - d); };
+    return '[' + f(lo, false) + ', ' + f(hi, true) + ']'; };
+  const shortScope = (n, c) => { const D = c.decision;
+    if (n === '3') return 'no overlap and inside the square at zero tolerance (' + D.tangenciesExact + ' tangencies); the sum of radii is exactly ' + D.sumExact + ', which rounds to the printed ' + D.claim;
+    if (n === '5') return 'holds at the source\'s ' + D.tolerance + ' tolerance; strictly, ' + D.strict.pairViolations + ' of ' + (D.n * (D.n - 1) / 2) + ' pairs overlap and ' + D.strict.sideViolations + ' circles cross a side; the sum of radii is exactly ' + D.sumExact + ', which rounds to the printed ' + D.claim;
+    if (n === '4') return 'every one of the ' + D.n + ' values is non-negative; the exact ratio Q lies in ' + out10(D.Q30, 10) + ', below 0.9469' + (D['printed0.9469'].rounds ? '; the printed 0.9469 is Q rounded to four decimals' : '');
+    if (n === '6') return 'after the platform\'s normalisation f(1) lies in ' + out10(D.f1, 10) + ', so F(x) = f(1) > 1 for 1 ≤ x < 2; outside the sampled range F lies in ' + out10(D.readingA.mirror.F, 3) + ' at an exhibited point; the platform\'s own check, made exhaustive over its range, ' + (D.readingB.holds ? 'passes' : 'fails') + '; the printed score agrees';
+    die('no short scope for intake row #' + n); };
+  const by = /\((?:issues #3–#6, )?([A-Za-z0-9_-]+), \d{4}-\d{2}-\d{2}\)/.exec(I.what);
+  if (!by) die('the intake record no longer names who submitted the claims');
+  if (I.allAgree !== true) die('the intake record\'s two implementations do not agree');
+  for (const [n, c] of Object.entries(I.claims)) {
+    if (I.verdicts[n] !== c.verdict || I.python[n] !== c.verdict || c.agree !== true) die('the intake record disagrees with itself on #' + n);
+    const strictFails = /strictly it does not/.test(c.headline);
+    const kind = c.verdict === 'CERTIFIED' ? (strictFails ? 'tolerance-witness' : 'none')
+      /* a rounded printed value read as the bound: it rounds the exact quantity and is not at most it */
+      : (c.decision['printed0.9469'] || {}).rounds === true && c.decision['printed0.9469'].atLeast === false ? 'float-printed-as-exact'
+      /* the platform's checker, made exhaustive, passes while the definition it encodes is refuted */
+      : (c.decision.readingB || {}).holds === true && (c.decision.readingA || {}).verdict === 'REFUTED' ? 'checker-wider-than-definition' : null;
+    if (!kind) die('the intake row #' + n + ' has no kind this ledger can read from its record');
+    rows.push({
+      id: 'intake-' + n, claim: c.text,
+      claimant: (c.solution ? 'EinsteinArena solution ' + c.solution : 'ThetaEvolve, entry "' + c.entry + '"') + '; submitted by ' + by[1],
+      source: c.source, origin: 'submitted', submittedBy: by[1], issue: c.issue, verdict: c.verdict, scope: shortScope(n, c), headline: c.headline, kind,
+      key: '"issue": "' + c.issue + '"', decidedFrom: 'certs/claims-intake-2026-11-08.json', page: c.issue
+    });
+  }
+}
+
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';
@@ -577,7 +617,7 @@ const byVerdict = {};
 for (const r of rows) byVerdict[r.verdict] = (byVerdict[r.verdict] || 0) + 1;
 const byOrigin = {};
 for (const r of rows) byOrigin[r.origin] = (byOrigin[r.origin] || 0) + 1;
-if (byOrigin.submitted) die('a submitted row appeared but the intake queue has no record to derive it from');
+if ((byOrigin.submitted || 0) !== rows.filter((r) => r.decidedFrom === 'certs/claims-intake-2026-11-08.json').length) die('a submitted row appeared that the intake record does not decide');
 
 const out = {
   what: 'Externally published mathematical claims this machine has decided, one row per claim, each '
@@ -588,8 +628,9 @@ const out = {
     + 'certified. Each row names its defect kind from one closed vocabulary (kindsDefined); an aggregate '
     + 'row counts them. recordedOn is the first commit whose deciding record held the row.',
   honestCounting: 'Every row is DERIVED from a record; a claim with no record gets no row. ORIGIN is '
-    + 'tracked separately: everything here is self-initiated — we chose the claim. Nothing has been '
-    + 'submitted yet, and the submitted count stays zero until it is not.',
+    + 'tracked separately: a self-initiated row is a claim we chose; a submitted row is one someone sent through '
+    + 'the public claim form. The first submitted claims arrived on 2026-11-06 (cert-machine issues #3–#6) and '
+    + 'are decided from their intake record; every other row is self-initiated.',
   scope: 'What can be decided here: claims that come down to finitely many exact arithmetic facts — '
     + 'exhibit a witness, verify an identity, bound a quantity, decide a constant. Everything else is '
     + 'REFUSED as out of scope rather than guessed at.',
@@ -605,7 +646,7 @@ const out = {
      a key, a contour and a construction are not units of one another */
   byKind: rows.reduce((o, r) => { o[r.kind] = (o[r.kind] || 0) + 1; return o; }, {}),
   byMonth: rows.reduce((o, r) => { const m = r.recordedOn.slice(0, 7); o[m] = (o[m] || 0) + 1; return o; }, {}),
-  submitted: 0,
+  submitted: byOrigin.submitted || 0,
   /* the hundred pre-registered machine claims decided so far: rows of their own, plus those whose object the register already held */
   preregistered: { corpus: 'corpus/machine-claims-100.json', of: 100, decided: rows.filter((r) => r.preregistered).length,
     ownRows: rows.filter((r) => r.preregistered && r.id.startsWith('mc100-')).length, alreadyInRegister: mc100Same.map(({ r }) => r.id + ' = ' + r.sameClaimAs) },

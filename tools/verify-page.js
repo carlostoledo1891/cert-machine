@@ -150,7 +150,11 @@ module.exports = function verifyPage(X) {
   vg(HERO_STOP, msDates.every(Boolean) && msDates.length === Orel.stated.manuscripts && oCum[oCum.length - 1] === Orel.stated.manuscripts
     && Orel.counted.manuscriptLinks === Orel.stated.manuscripts
     && decided.every((r) => isDate(r.recordedOn)) && sAll[sAll.length - 1] === L.decided
-    && hmRec && hmOut > 0 && refuted.every((r) => r === hmRow || r.decidedFrom === 'certs/erdos852-certificate.json'));
+    && hmRec && hmOut > 0 && refuted.every((r) => r === hmRow || r.decidedFrom === 'certs/erdos852-certificate.json'
+      /* the claim desk's two refutations (2026-11-08, cert-machine #4 and #6) are counted on the curve and carry no ×, as
+         erdos852's: #4's breaking fact is a margin, not an object; whether #6's exhibited point earns a second × is a
+         design question left to the operator */
+      || r.decidedFrom === 'certs/claims-intake-2026-11-08.json'));
   vg('the release no longer marks its own formal review unchecked', Orel.stated.review === 'unchecked');
   const t0 = Date.parse([days[0], oDays[0]].sort()[0] + 'T00:00:00Z');
   const dn = (s) => Math.round((Date.parse(s + 'T00:00:00Z') - t0) / 864e5);

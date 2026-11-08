@@ -264,6 +264,14 @@
       "second": "node tools/wsp-grade-second.js --check",
       "needs": "python3 standard library; the cached generations under corpus/wsp/.cache/baseline-runs; node for the second grader",
       "note": "Stage 3 of the Weight-Space Programming verification: the unedited model under the pre-registered conditions, every text graded by the exact three-valued grader and the pre-registered reading applied as written; the JavaScript grader re-grades every pair."
+    },
+    {
+      "record": "certs/claims-intake-2026-11-08.json",
+      "rederive": "node tools/record-claims-intake.js --check",
+      "verifier": "python3 -I corpus/claims-intake/circles/check.py 3; python3 -I corpus/claims-intake/circles/check.py 5; python3 -I corpus/claims-intake/autocorr2/check.py; python3 -I corpus/claims-intake/pnt/check.py",
+      "second": null,
+      "needs": "node; python3 standard library; the pinned inputs under corpus/claims-intake/inputs (ThetaEvolve @ 7c12898, Apache-2.0) and corpus/einstein-arena/best-7.json",
+      "note": "The first four claims sent through the public claim form (cert-machine #3–#6, maximusrufus, 2026-11-06): ThetaEvolve's two 26-circle packings and its second-autocorrelation bound, and an EinsteinArena solution for the Prime Number Theorem problem, decided exactly by two implementations under the pre-registration notes/claims-intake-preregistration-2026-11-08.md. The four Python checkers (the verifier) are the second implementation of tools/claims-intake-deciders.js (JavaScript BigInt), sharing no code; the re-derive command runs both."
     }
   ]
 }

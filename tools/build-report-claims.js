@@ -14,6 +14,7 @@ const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const OG = require(path.join(ROOT, 'tools', 'build-og-report.js'));   /* the desk's own light art card (og-claims.png) */
 
 const die = (m) => { console.error('CLAIMS REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -49,12 +50,17 @@ B.push(C.header({
     + 'falls, and we never run the claimant\'s code.'
 }));
 
-B.push(C.scope('The queue is open and EMPTY: ' + R.submitted + ' claims have been submitted so far. Every '
-  + 'row in the ledger below was self-initiated — we chose the claim — and the page says so rather than '
-  + 'implying a busy desk. That distinction is the first thing this desk would want measured about itself.'));
+B.push(C.scope(R.submitted
+  ? R.submitted + ' claims have been submitted so far, beginning on 6 November 2026 (cert-machine #3–#6); they are '
+    + 'decided in the first section below. Every other row in the ledger was self-initiated — we chose the claim — and the '
+    + 'page says so rather than implying a busy desk. That distinction is the first thing this desk would want measured '
+    + 'about itself.'
+  : 'The queue is open and EMPTY: 0 claims have been submitted so far. Every '
+    + 'row in the ledger below was self-initiated — we chose the claim — and the page says so rather than '
+    + 'implying a busy desk. That distinction is the first thing this desk would want measured about itself.'));
 
 B.push(C.tldr({
-  findingRaw: '<b>' + R.decided + ' published claims decided</b> so far, all self-initiated: '
+  findingRaw: '<b>' + R.decided + ' published claims decided</b> so far, ' + (R.submitted ? R.submitted + ' of them sent to us through the claim form and the rest self-initiated' : 'all self-initiated') + ': '
     + Object.entries(R.byVerdict).filter(([k]) => k !== 'QUEUED').map(([k, v]) => v + ' ' + k).join(', ')
     + (R.pending ? ', with ' + R.pending + ' queued and not yet decided — queued is not decided, so it is counted separately' : '')
     + '. Each row is derived from the record that decided it — a claim with no record gets no row.',
@@ -74,10 +80,33 @@ B.push(C.stats([
   { k: 'claims decided', v: String(R.decided), n: 'Each derived from the record that decided it: '
     + Object.entries(R.byVerdict).filter(([k]) => k !== 'QUEUED').map(([k, v]) => v + ' ' + k).join(' · ')
     + (R.pending ? '. A further ' + R.pending + ' is queued and deliberately not counted as decided.' : '.') },
-  { k: 'submitted by others', v: String(R.submitted), n: 'The queue is open. Until this number moves, everything on this page is work we chose ourselves, and saying so is the point.' },
+  { k: 'submitted by others', v: String(R.submitted), n: R.submitted ? 'The first arrived on 6 November 2026, four claims through the form; everything else on this page is work we chose ourselves, and saying so is the point.' : 'The queue is open. Until this number moves, everything on this page is work we chose ourselves, and saying so is the point.' },
   { k: 'claimant code run', v: '0', n: 'Independence is from the CLAIMANT: their code is never in the trust path. Every decision is re-derived from the published statement and bytes.' },
   { k: 'verdicts available', v: '3', n: 'CERTIFIED · REFUTED · REFUSED. A claim outside the boundary is refused rather than guessed at, and the refusal is published.' }
 ]));
+
+/* the first submitted claims (2026-11-08): the rows whose origin is submitted, each linked to its issue, where the verdict,
+   the exact numbers and the stock-Python certificate are posted */
+{
+  const S = R.rows.filter((r) => r.origin === 'submitted');
+  if (S.length !== R.submitted) die('the submitted rows and the submitted count disagree');
+  if (S.length) {
+    const I = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-intake-2026-11-08.json'), 'utf8'));
+    B.push(C.section({
+      lab: 'the first submitted claims', title: 'Four claims sent to the desk, four verdicts', id: 'submitted',
+      bodyRaw: [
+        C.pRaw('On 6 November 2026 ' + C.esc(S[0].submittedBy) + ' sent the first four claims through the form: two '
+          + 'circle packings and an autocorrelation bound from ThetaEvolve (arXiv:2511.23473), and an EinsteinArena solution for the '
+          + 'Prime Number Theorem problem. The rules for reading each claim were written down before any code ran ('
+          + C.m('notes/claims-intake-preregistration-2026-11-08.md') + '); two implementations sharing no code decided each one, '
+          + 'and each verdict is posted on its issue with a certificate that re-runs on stock Python.'),
+        C.plainList(S.map((r) => ({ b: '#' + r.issue.split('/').pop() + ' · ' + r.verdict + '.', raw: '<a href="' + C.escAttr(r.issue) + '">' + C.esc(r.claim) + '</a> '
+          + C.esc('Decided: ' + (r.headline || r.scope) + '.') + (r.kind === 'none' ? '' : ' ' + C.esc('What went wrong: ' + r.kind.replace(/-/g, ' ') + ' (' + R.kindsDefined[r.kind] + ').'))
+          + ' Re-run: ' + C.m(I.claims[r.issue.split('/').pop()].certificate.split(' (')[0]) })))
+      ].join('\n')
+    }));
+  }
+}
 
 B.push(C.section({
   lab: '§1 · the boundary', title: 'What can be decided here, and what cannot',
@@ -118,12 +147,15 @@ B.push(C.section({
   ].join('\n')
 }));
 
+/* a long identifier (a Lean name, a path) may break after its dots and slashes, so a table cell never forces the table wider
+   than its box: the text is escaped first and only <wbr> is added, inside words of 24 characters or more */
+const brk = (t) => C.esc(t).replace(/\S{24,}/g, (w) => w.replace(/([./_])(?=[^\s])/g, '$1<wbr>'));
 {
   const rows = R.rows.map(r => [
-    { raw: C.esc(r.claim) },
-    { raw: C.esc(r.claimant || '—') },
+    { raw: brk(r.claim) },
+    { raw: brk(r.claimant || '—') },
     { raw: C.tag(r.verdict, tagOf(r.verdict)) },
-    { raw: C.esc(r.scope || '—') },
+    { raw: brk(r.scope || '—') },
     { raw: r.kind === 'none' ? C.esc('—') : '<span title="' + C.escAttr(R.kindsDefined[r.kind]) + '">' + C.esc(r.kind.replace(/-/g, ' ')) + '</span>' },
     { raw: '<a href="' + C.escAttr(r.page) + '">' + C.esc('the record') + '</a>' }
   ]);
@@ -160,6 +192,6 @@ fs.writeFileSync(path.join(ROOT, 'reports', 'claims.html'),
       + 'decided here — certified with a detachable certificate, refuted with the witness printed, or honestly '
       + 'refused. ' + R.decided + ' published claims decided so far, every row derived from the record that '
       + 'decided it, and the claimant\'s code never in the trust path.',
-    path: '/reports/claims.html'
+    path: '/reports/claims.html', og: { image: '/og-claims.png', alt: OG.alt('claims') }
   }));
 console.log('reports/claims.html written: ' + R.count + ' claims, ' + R.submitted + ' submitted @ git ' + git);

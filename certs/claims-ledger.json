@@ -1,6 +1,6 @@
 {
  "what": "Externally published mathematical claims this machine has decided, one row per claim, each derived from the record that decided it. The verdicts are the instrument's, not a summary: CERTIFIED and REFUTED are theorems, PARTIAL names the fragment that was reached, NEEDS DATA measures the claimant rather than the claim, MIXED means the row is an aggregate whose record holds both, and REPAIRED means the claim as printed is refuted and an object next to it is certified. Each row names its defect kind from one closed vocabulary (kindsDefined); an aggregate row counts them. recordedOn is the first commit whose deciding record held the row.",
- "honestCounting": "Every row is DERIVED from a record; a claim with no record gets no row. ORIGIN is tracked separately: everything here is self-initiated — we chose the claim. Nothing has been submitted yet, and the submitted count stays zero until it is not.",
+ "honestCounting": "Every row is DERIVED from a record; a claim with no record gets no row. ORIGIN is tracked separately: a self-initiated row is a claim we chose; a submitted row is one someone sent through the public claim form. The first submitted claims arrived on 2026-11-06 (cert-machine issues #3–#6) and are decided from their intake record; every other row is self-initiated.",
  "scope": "What can be decided here: claims that come down to finitely many exact arithmetic facts — exhibit a witness, verify an identity, bound a quantity, decide a constant. Everything else is REFUSED as out of scope rather than guessed at.",
  "rows": [
   {
@@ -2112,22 +2112,87 @@
    "alsoDecidedFrom": "certs/wsp-weights.json, certs/wsp-regrade.json, certs/wsp-grade-second.json",
    "page": "/reports/weight-space-programming.html",
    "recordedOn": "2026-11-03"
+  },
+  {
+   "id": "intake-3",
+   "claim": "26 circles in the unit square, no overlaps, sum of radii = 2.63586276 (the AlphaEvolve construction as stored under key \"AlphaEvolve\")",
+   "claimant": "ThetaEvolve, entry \"AlphaEvolve\"; submitted by maximusrufus",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898 README",
+   "origin": "submitted",
+   "submittedBy": "maximusrufus",
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/3",
+   "verdict": "CERTIFIED",
+   "scope": "no overlap and inside the square at zero tolerance (0 tangencies); the sum of radii is exactly 2.63586275641369812, which rounds to the printed 2.63586276",
+   "headline": "no overlaps and inside the square, exactly: the closest pair (16, 22) is separated by 0.000000007166487294361127232056… (rounded down) and the tightest side slack is 0.00000000785235099; sum r = 2.63586275641369812 exactly, which rounds to 2.63586276 (and truncates to 2.63586275)",
+   "kind": "none",
+   "decidedFrom": "certs/claims-intake-2026-11-08.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/3",
+   "recordedOn": "2026-11-07"
+  },
+  {
+   "id": "intake-4",
+   "claim": "Second autocorrelation inequality: the step function stored under key \"8B-w_RL@65\" (3072 cells) gives C2 >= 0.9469",
+   "claimant": "ThetaEvolve, entry \"8B-w_RL@65\"; submitted by maximusrufus",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898; arXiv:2511.23473 Sec. 4",
+   "origin": "submitted",
+   "submittedBy": "maximusrufus",
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/4",
+   "verdict": "REFUTED",
+   "scope": "every one of the 3072 values is non-negative; the exact ratio Q lies in [0.9468970131, 0.9468970132], below 0.9469; the printed 0.9469 is Q rounded to four decimals",
+   "headline": "every value >= 0, so the function is in the inequality's domain, but Q = 0.946897013157296546656800171244… exactly, below 0.9469 by more than 0.0000029868427034 (a lower bound of the gap, cut down); the bytes prove C2 >= 0.9468970131 (cut down), and the paper's 0.9469 is Q rounded to four decimals",
+   "kind": "float-printed-as-exact",
+   "decidedFrom": "certs/claims-intake-2026-11-08.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/4",
+   "recordedOn": "2026-11-07"
+  },
+  {
+   "id": "intake-5",
+   "claim": "26 circles in the unit square, no overlaps up to tolerance 1e-6 as stated in the source, sum of radii = 2.6359857 (key \"8B-w_RL@65\")",
+   "claimant": "ThetaEvolve, entry \"8B-w_RL@65\"; submitted by maximusrufus",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898; arXiv:2511.23473 Table 2",
+   "origin": "submitted",
+   "submittedBy": "maximusrufus",
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/5",
+   "verdict": "CERTIFIED",
+   "scope": "holds at the source's 0.000001 tolerance; strictly, 58 of 325 pairs overlap and 2 circles cross a side; the sum of radii is exactly 2.63598566124089912, which rounds to the printed 2.6359857",
+   "headline": "holds at the source's 1e-6 tolerance, exactly; strictly it does not — 58 of 325 pairs overlap and 2 circles cross a side, the worst overlap r_i + r_j - d_ij = 0.000000309455143713076269303989… (pair 4, 9, rounded up); sum r = 2.63598566124089912 exactly; every radius reduced by 0.00000015472757185654 gives an exact packing with sum 2.63598163832403084996",
+   "kind": "tolerance-witness",
+   "decidedFrom": "certs/claims-intake-2026-11-08.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/5",
+   "recordedOn": "2026-11-07"
+  },
+  {
+   "id": "intake-6",
+   "claim": "EinsteinArena solution 2506 (agent \"CodexProLong\", created 2026-08-15) to the problem \"The Prime Number Theorem\": the submitted construction satisfies the problem's stated constraint and attains the score printed for it, 0.9976572852677297",
+   "claimant": "EinsteinArena solution 2506; submitted by maximusrufus",
+   "source": "EinsteinArena, solution record 2506 (the platform's API record of the solution)",
+   "origin": "submitted",
+   "submittedBy": "maximusrufus",
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/6",
+   "verdict": "REFUTED",
+   "scope": "after the platform's normalisation f(1) lies in [1.0000999899, 1.0000999900], so F(x) = f(1) > 1 for 1 ≤ x < 2; outside the sampled range F lies in [73.395, 73.396] at an exhibited point; the platform's own check, made exhaustive over its range, passes; the printed score agrees",
+   "headline": "the constraint fails at the first point: F(x) = f(1) = 1.00009998995223526404… > 1 for 1 <= x < 2 (f(1) is set by the platform's own normalisation); 3754 of the 1,278,489 integers of the sampled range exceed 1, none exceeds 1 + 1e-4 (the platform's check, made exhaustive, passes: the maximum, at n = 1254707, is below 1 + 1e-4 by more than 0.00000000992121); outside the range, at x = lcm(keys) - 1 - 299856 (a 2117-digit integer), F = 73.3952851…; the printed score agrees with the exact S = 0.99765728526772941072… (the double is 0.000000000000000289272677 above it)",
+   "kind": "checker-wider-than-definition",
+   "decidedFrom": "certs/claims-intake-2026-11-08.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/6",
+   "recordedOn": "2026-11-07"
   }
  ],
- "count": 141,
- "decided": 140,
+ "count": 145,
+ "decided": 144,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 115,
+  "CERTIFIED": 117,
   "PARTIAL": 9,
-  "REFUTED": 2,
+  "REFUTED": 4,
   "QUEUED": 1,
   "MIXED": 6,
   "REPAIRED": 6,
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 141
+  "self-initiated": 141,
+  "submitted": 4
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -2146,26 +2211,26 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 116,
+  "none": 117,
   "narrower-scope": 8,
-  "float-printed-as-exact": 1,
+  "float-printed-as-exact": 2,
   "sign-slip": 1,
-  "tolerance-witness": 5,
+  "tolerance-witness": 6,
   "not-from-the-published-data": 1,
   "arithmetic-slip": 2,
   "not-the-optimum": 1,
   "wrong-quantity": 2,
   "data-not-public": 2,
   "depends-on-reading": 1,
-  "checker-wider-than-definition": 1
+  "checker-wider-than-definition": 2
  },
  "byMonth": {
   "2026-08": 18,
   "2026-09": 69,
   "2026-10": 48,
-  "2026-11": 6
+  "2026-11": 10
  },
- "submitted": 0,
+ "submitted": 4,
  "preregistered": {
   "corpus": "corpus/machine-claims-100.json",
   "of": 100,
@@ -2177,7 +2242,7 @@
   ]
  },
  "meta": {
-  "date": "2026-11-05",
-  "git": "adeb2603"
+  "date": "2026-11-08",
+  "git": "4a3e7b88"
  }
 }

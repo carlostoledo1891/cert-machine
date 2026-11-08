@@ -114,6 +114,22 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/claims.html (2026-11-08, the first submitted claims): one line arriving from the edge, the
+     queue, into four blocks, the four verdicts in the chip grammar's shapes (CERTIFIED filled, REFUTED outlined), no number */
+  claims: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the claims desk', path: '/reports/claims.html',
+    title: 'Send us a claim',
+    alt: 'A line arriving from the left edge into four blocks in a row: filled, outlined, filled, outlined.',
+    svgRaw: (() => {
+      const o = [], s = 104, gap = 30, x0 = 470, y = 263, ly = y + s / 2;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A line arriving from the left into four blocks, filled, outlined, filled, outlined" style="position:absolute;left:0;top:0">');
+      o.push('<line x1="140" y1="' + ly + '" x2="' + (x0 - 24) + '" y2="' + ly + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+      ['solid', 'hollow', 'solid', 'hollow'].forEach((k, i) => {
+        const x = x0 + i * (s + gap);
+        o.push('<rect x="' + x + '" y="' + y + '" width="' + s + '" height="' + s + '" rx="6" ' + (k === 'solid' ? 'fill="var(--ink)" stroke="var(--ink)"' : 'fill="var(--surface)" stroke="var(--ink)"') + ' stroke-width="2.4"/>');
+      });
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/heptagon.html (2026-11-07): the heptagon itself on its circle, drawn at r = e as the page's
      figure is; the paper's weights by sign alone (solid for the positive, hollow for the negative), no number */
   heptagon: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Graham’s conjecture', path: '/reports/heptagon.html',

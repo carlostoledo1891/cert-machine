@@ -2,81 +2,81 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-11-05T23:42:44.008Z",
- "git": "9d49de55",
+ "generated": "2026-11-08T02:52:13.508Z",
+ "git": "4a3e7b88",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "91a447ff6e3d7f2ba6709a2e9e1267264a6a0d7fe2f5d30e659487ff02d6f15c"
+  "sha256": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "3558fcf5a4718a8a9c9017c5329bea56db497465354c8119d73bcaa350c18db4",
-   "rows": 141,
+   "sha256": "03ac16fe081bd955cbcf8a6ff8887bb4f1bd22e689b526db7c2cfb31f79a4f39",
+   "rows": 145,
    "meta": {
-    "date": "2026-11-05",
-    "git": "adeb2603"
+    "date": "2026-11-08",
+    "git": "4a3e7b88"
    }
   },
   "kit": {
    "path": "corpus/rerun-kit.json",
-   "sha256": "b00a03170bd4073d68b4a2c317ce412faadfb66abc3168718adb79856452b037",
-   "entries": 33
+   "sha256": "d5249dfab964bf1d3037685f916f74e5f381bcf15565c4aacd45f6c43ca0c50a",
+   "entries": 34
   },
   "run": {
    "path": "certs/rerun-kit-run.json",
-   "sha256": "fb3e25637754ed4c9bc606f03ca9a6537d66f9b3dca3670ec9831dd44bbba0e8",
-   "date": "2026-11-05",
-   "git": "9d49de55",
+   "sha256": "e52c5bf107412acaff9a6ba912eb5b864e8af6a55b45d8a2ad9ddab7f7bda176",
+   "date": "2026-11-08",
+   "git": "4a3e7b88",
    "machine": {
     "os": "Darwin 27.0.0",
     "cpu": "Apple M2",
     "node": "v24.14.1",
     "python": "Python 3.9.6"
    },
-   "registerRows": 141
+   "registerRows": 145
   }
  },
  "totals": {
-  "records": 33,
-  "rows": 141,
-  "rowsDecided": 140,
+  "records": 34,
+  "rows": 145,
+  "rowsDecided": 144,
   "rowsPending": 1,
   "byVerdict": {
-   "CERTIFIED": 115,
+   "CERTIFIED": 117,
    "PARTIAL": 9,
-   "REFUTED": 2,
+   "REFUTED": 4,
    "QUEUED": 1,
    "MIXED": 6,
    "REPAIRED": 6,
    "NEEDS DATA": 2
   },
   "byKind": {
-   "none": 116,
+   "none": 117,
    "narrower-scope": 8,
-   "float-printed-as-exact": 1,
+   "float-printed-as-exact": 2,
    "sign-slip": 1,
-   "tolerance-witness": 5,
+   "tolerance-witness": 6,
    "not-from-the-published-data": 1,
    "arithmetic-slip": 2,
    "not-the-optimum": 1,
    "wrong-quantity": 2,
    "data-not-public": 2,
    "depends-on-reading": 1,
-   "checker-wider-than-definition": 1
+   "checker-wider-than-definition": 2
   },
-  "recordsWithRederive": 31,
-  "recordsWithVerifier": 7,
+  "recordsWithRederive": 32,
+  "recordsWithVerifier": 8,
   "recordsWithSecond": 2,
   "recordsWithoutRederive": [
    "certs/ai-claims-summary.json",
    "corpus/navier-stokes/audit.json"
   ],
-  "rowsWithRederive": 134,
-  "rowsWithVerifier": 50,
+  "rowsWithRederive": 138,
+  "rowsWithVerifier": 54,
   "rowsWithSecond": 2,
-  "commandsTimed": 40,
-  "recordsTimed": 31,
+  "commandsTimed": 42,
+  "recordsTimed": 32,
   "recordsUntimed": [],
   "portableWallSeconds": 60,
   "recordsOverPortable": [
@@ -121,7 +121,8 @@
    "certs/eth-tsavo-bridge.json",
    "certs/eth-hawkley-bridge.json",
    "certs/eth-hawkley-heavy.json",
-   "certs/wsp-baseline.json"
+   "certs/wsp-baseline.json",
+   "certs/claims-intake-2026-11-08.json"
   ],
   "rederiveWrites": [
    "certs/erdos852-certificate.json",
@@ -165,7 +166,7 @@
   ],
   "rowsWithPerRowTiming": 74,
   "rowsMutable": 119,
-  "rowsNotMutated": 22,
+  "rowsNotMutated": 26,
   "byFamily": {
    "erdos852": 1,
    "kissing": 11,
@@ -1263,6 +1264,42 @@
    "mutation": {
     "family": null,
     "classes": "an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader's red controls are in its records"
+   }
+  },
+  {
+   "record": "certs/claims-intake-2026-11-08.json",
+   "sha256": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076",
+   "rows": 4,
+   "byVerdict": {
+    "CERTIFIED": 2,
+    "REFUTED": 2
+   },
+   "rederive": "node tools/record-claims-intake.js --check",
+   "verifier": "python3 -I corpus/claims-intake/circles/check.py 3; python3 -I corpus/claims-intake/circles/check.py 5; python3 -I corpus/claims-intake/autocorr2/check.py; python3 -I corpus/claims-intake/pnt/check.py",
+   "second": null,
+   "needs": "node; python3 standard library; the pinned inputs under corpus/claims-intake/inputs (ThetaEvolve @ 7c12898, Apache-2.0) and corpus/einstein-arena/best-7.json",
+   "timed": {
+    "rederive": {
+     "seconds": 11.4,
+     "status": 0,
+     "sha256After": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076"
+    },
+    "verifier": {
+     "seconds": 4.3,
+     "status": 0,
+     "sha256After": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 11.4,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
    }
   }
  ],
@@ -2958,6 +2995,54 @@
    "mutable": false,
    "family": null,
    "notMutatedBecause": "an aggregate row (an LLM evaluation re-graded under pre-registered conditions); no exact object to mutate — the grader's red controls are in its records"
+  },
+  {
+   "id": "intake-3",
+   "record": "certs/claims-intake-2026-11-08.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/3",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
+  },
+  {
+   "id": "intake-4",
+   "record": "certs/claims-intake-2026-11-08.json",
+   "verdict": "REFUTED",
+   "kind": "float-printed-as-exact",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/4",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
+  },
+  {
+   "id": "intake-5",
+   "record": "certs/claims-intake-2026-11-08.json",
+   "verdict": "CERTIFIED",
+   "kind": "tolerance-witness",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/5",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
+  },
+  {
+   "id": "intake-6",
+   "record": "certs/claims-intake-2026-11-08.json",
+   "verdict": "REFUTED",
+   "kind": "checker-wider-than-definition",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/6",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
   }
  ]
 }

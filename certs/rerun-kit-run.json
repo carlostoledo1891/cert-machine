@@ -1,7 +1,7 @@
 {
  "what": "The rerun kit, executed: every command of corpus/rerun-kit.json run from this repository, timed, the register's rows (verdict, scope, kind) compared before and after. Written by tools/build-report-rerun.js --run; the page reads the runtimes from here and never types one.",
- "date": "2026-11-05",
- "git": "9d49de55",
+ "date": "2026-11-08",
+ "git": "4a3e7b88",
  "machine": {
   "os": "Darwin 27.0.0",
   "cpu": "Apple M2",
@@ -329,9 +329,25 @@
    "seconds": 0.1,
    "status": 0,
    "sha256After": "8fdc50bc1a14b073fa0f7e55a389490c836ea637fd49b12d43d89283aee1dbf1"
+  },
+  {
+   "record": "certs/claims-intake-2026-11-08.json",
+   "kind": "rederive",
+   "command": "node tools/record-claims-intake.js --check",
+   "seconds": 11.4,
+   "status": 0,
+   "sha256After": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076"
+  },
+  {
+   "record": "certs/claims-intake-2026-11-08.json",
+   "kind": "verifier",
+   "command": "python3 -I corpus/claims-intake/circles/check.py 3; python3 -I corpus/claims-intake/circles/check.py 5; python3 -I corpus/claims-intake/autocorr2/check.py; python3 -I corpus/claims-intake/pnt/check.py",
+   "seconds": 4.3,
+   "status": 0,
+   "sha256After": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076"
   }
  ],
- "registerRows": 141,
+ "registerRows": 145,
  "rowsMoved": [],
  "failed": []
 }
