@@ -2,19 +2,19 @@
  "what": "The self-audit of cert-machine, Phase 4 — concordance (M2 of the pre-registration): every register row whose record was decided by two or more programs, compared field by field — the word, the witness or count where one exists, the enclosure where one exists — read from the records, nothing re-run; and the hosted profile of M4: the 416 kernel challenges carried in as recorded. Written by tools/run-selfaudit-concord.js; --check regenerates and compares.",
  "name": "selfaudit",
  "phase": 4,
- "generated": "2026-11-08T02:52:13.736Z",
- "git": "4a3e7b88",
+ "generated": "2026-11-08T19:19:17.939Z",
+ "git": "dfb7c4d9",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f"
+  "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2"
+  "sha256": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
  },
  "register": {
   "path": "certs/claims-ledger.json",
-  "sha256": "03ac16fe081bd955cbcf8a6ff8887bb4f1bd22e689b526db7c2cfb31f79a4f39"
+  "sha256": "a256385796aff1601cff783aa2a44a00e092743c7bca26f23a5624efa66b1071"
  },
  "recordsRead": {
   "certs/gnnw-certificate.json": "3d53ef1378303a8a4dde462c92e8659b291f9e8c97a281d6dc4de1120a901116",
@@ -27,22 +27,22 @@
   "certs/mc100-einstein-arena.json": "2526c08b4a11f2aba4cec991e52685ba1434b3372e5f9fd93b665a8bcbb79b04",
   "certs/claimbox-decisions.json": "3d33dbc523f20f188441e0ba46a0a5503717a6b9f5ee23403ea568d63075191c",
   "certs/kissing-ledger.json": "5c823b21ac43b5bdb3ad4b91a46e909cbf86a192e4cf382e2d8c5be2b29f611f",
-  "corpus/rerun-kit.json": "d5249dfab964bf1d3037685f916f74e5f381bcf15565c4aacd45f6c43ca0c50a",
-  "certs/rerun-kit-run.json": "e52c5bf107412acaff9a6ba912eb5b864e8af6a55b45d8a2ad9ddab7f7bda176",
+  "corpus/rerun-kit.json": "4e6970575715f889f7ffedc176ad4e838912beb808f07244967c1d53114fe50e",
+  "certs/rerun-kit-run.json": "589a58e2b9460dde07a4cd145e4d6750dc7ad7229bdab7b040cf22555c27a8ed",
   "certs/openai-math-kernel.json": "3e41d20228fb965daac55b3b531d50f4f2fec87a431d0b822e32a88e7444b0d2"
  },
  "counts": {
-  "comparisons": 95,
-  "rowsWithTwoOrMore": 60,
-  "concordant": 95,
+  "comparisons": 96,
+  "rowsWithTwoOrMore": 61,
+  "concordant": 96,
   "disagreements": [],
   "byImplementationCount": {
-   "2": 93,
+   "2": 94,
    "3": 1,
    "4": 1
   },
   "fieldLevel": 39,
-  "wordLevelOnly": 53
+  "wordLevelOnly": 54
  },
  "rows": [
   {
@@ -2342,6 +2342,27 @@
    "concordant": true,
    "disagreements": [],
    "note": "a word-level concordance: the verifier certifies what the record certifies, read from certs/rerun-kit-run.json (4.3 s)"
+  },
+  {
+   "id": "intake-7",
+   "registerVerdict": "CERTIFIED",
+   "implementations": [
+    "the record's decider (node tools/record-claims-intake-7.js --check)",
+    "the standard-library verifier (python3 -I corpus/claims-intake/issue-7/check.py)"
+   ],
+   "fields": [
+    {
+     "field": "the verifier re-derives the record (exit)",
+     "values": [
+      "the record",
+      "exit 0: every entry verifies, the red control fired"
+     ],
+     "agree": true
+    }
+   ],
+   "concordant": true,
+   "disagreements": [],
+   "note": "a word-level concordance: the verifier certifies what the record certifies, read from certs/rerun-kit-run.json (0.1 s)"
   }
  ],
  "hosted": {

@@ -150,6 +150,18 @@
 > of 145. The inventory and the concordance are regenerated and the run and mutations records re-pinned with this
 > amendment as the reason; no measurement, mutant or decision touched. Nothing else changes.
 
+> **Amendment 2026-11-08, later the same day (the register grows from 145 to 146 rows; one more SUBMITTED row; no definition
+> moved).** One row reached the register from its own record, decided the same day: certs/claims-intake-7-2026-11-08.json,
+> the seventh issue of the public claim form (cert-machine #7, filed 2026-11-08 by maximusrufus) — ThetaEvolve's
+> zero-tolerance 26-circle packing (entry 8B-w_RL@65-Formal), CERTIFIED strictly (kind none) by two implementations sharing
+> no code under notes/claims-intake-7-preregistration-2026-11-08.md. The #3–#6 record is left as decided; a later filing
+> gets its own record, and tools/run-claims-ledger.js reads both, refusing a submitted row neither decides. The rerun kit
+> gains the record's re-derive command and its standard-library checker, run once with `--only` and merged into
+> certs/rerun-kit-run.json; the self-audit run gains its pairs by `--append --only`. The row is not mutated, with the
+> reason in the inventory's class table (the record carries its own 7 planted controls, each decided by both
+> implementations, all as predicted). The inventory and the concordance are regenerated and the run and mutations records
+> re-pinned with this amendment as the reason; no measurement, mutant or decision touched. Nothing else changes.
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a

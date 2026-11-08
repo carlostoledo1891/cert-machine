@@ -2176,13 +2176,29 @@
    "decidedFrom": "certs/claims-intake-2026-11-08.json",
    "page": "https://github.com/carlostoledo1891/cert-machine/issues/6",
    "recordedOn": "2026-11-07"
+  },
+  {
+   "id": "intake-7",
+   "claim": "26 circles in the unit square, sum of radii 2.63598308, as the source states it. README: \"* **Ours (R1-Qwen3-8B): 2.63598308**\", with the solution described as \"our best-known solution for circle packing (with zero tolerance) in Results/CirclePacking/figs/8B-w_RL@65-Formal.png\" and \"the formal one (without tolerance as AlphaEvolve)\" (key \"8B-w_RL@65-Formal\")",
+   "claimant": "ThetaEvolve, entry \"8B-w_RL@65-Formal\"; submitted by maximusrufus",
+   "source": "github.com/ypwang61/ThetaEvolve@7c12898 README.md (lines 45, 176, 187); arXiv:2511.23473",
+   "origin": "submitted",
+   "submittedBy": "maximusrufus",
+   "issue": "https://github.com/carlostoledo1891/cert-machine/issues/7",
+   "verdict": "CERTIFIED",
+   "scope": "no overlap and inside the square at zero tolerance (0 tangencies); the sum of radii is exactly 2.63598307738811934, which rounds to the printed 2.63598308",
+   "headline": "no overlaps and inside the square with no tolerance, exactly: the closest pair (18, 24) is separated by 0.000000000000999979473777892164… (rounded down), the tightest side slack is 0.00000000031012261 (circle 8, bottom (y - r)), and the exact sum 2.63598307738811934 rounds to 2.63598308",
+   "kind": "none",
+   "decidedFrom": "certs/claims-intake-7-2026-11-08.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/7",
+   "recordedOn": "2026-11-08"
   }
  ],
- "count": 145,
- "decided": 144,
+ "count": 146,
+ "decided": 145,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 117,
+  "CERTIFIED": 118,
   "PARTIAL": 9,
   "REFUTED": 4,
   "QUEUED": 1,
@@ -2192,7 +2208,7 @@
  },
  "byOrigin": {
   "self-initiated": 141,
-  "submitted": 4
+  "submitted": 5
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -2211,7 +2227,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 117,
+  "none": 118,
   "narrower-scope": 8,
   "float-printed-as-exact": 2,
   "sign-slip": 1,
@@ -2228,9 +2244,9 @@
   "2026-08": 18,
   "2026-09": 69,
   "2026-10": 48,
-  "2026-11": 10
+  "2026-11": 11
  },
- "submitted": 4,
+ "submitted": 5,
  "preregistered": {
   "corpus": "corpus/machine-claims-100.json",
   "of": 100,
@@ -2243,6 +2259,6 @@
  },
  "meta": {
   "date": "2026-11-08",
-  "git": "4a3e7b88"
+  "git": "dfb7c4d9"
  }
 }

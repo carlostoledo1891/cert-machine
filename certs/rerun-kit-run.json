@@ -1,7 +1,7 @@
 {
  "what": "The rerun kit, executed: every command of corpus/rerun-kit.json run from this repository, timed, the register's rows (verdict, scope, kind) compared before and after. Written by tools/build-report-rerun.js --run; the page reads the runtimes from here and never types one.",
  "date": "2026-11-08",
- "git": "4a3e7b88",
+ "git": "dfb7c4d9",
  "machine": {
   "os": "Darwin 27.0.0",
   "cpu": "Apple M2",
@@ -345,9 +345,25 @@
    "seconds": 4.3,
    "status": 0,
    "sha256After": "c5afbcacdf0b32f719bdbb11aa2c26a662d3153fadba2ba5b166fb1e7bbba076"
+  },
+  {
+   "record": "certs/claims-intake-7-2026-11-08.json",
+   "kind": "rederive",
+   "command": "node tools/record-claims-intake-7.js --check",
+   "seconds": 0.4,
+   "status": 0,
+   "sha256After": "c6efa76e70af3dcf32cf1b8029be4553c3570984dec4ab7e2262b5e7be0506a8"
+  },
+  {
+   "record": "certs/claims-intake-7-2026-11-08.json",
+   "kind": "verifier",
+   "command": "python3 -I corpus/claims-intake/issue-7/check.py",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "c6efa76e70af3dcf32cf1b8029be4553c3570984dec4ab7e2262b5e7be0506a8"
   }
  ],
- "registerRows": 145,
+ "registerRows": 146,
  "rowsMoved": [],
  "failed": []
 }

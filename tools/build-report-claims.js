@@ -51,7 +51,7 @@ B.push(C.header({
 }));
 
 B.push(C.scope(R.submitted
-  ? R.submitted + ' claims have been submitted so far, beginning on 6 November 2026 (cert-machine #3–#6); they are '
+  ? R.submitted + ' claims have been submitted so far, beginning on 6 November 2026 (cert-machine ' + (() => { const n = R.rows.filter((r) => r.origin === 'submitted').map((r) => Number(r.issue.split('/').pop())).sort((a, b) => a - b); return '#' + n[0] + '–#' + n[n.length - 1]; })() + '); they are '
     + 'decided in the first section below. Every other row in the ledger was self-initiated — we chose the claim — and the '
     + 'page says so rather than implying a busy desk. That distinction is the first thing this desk would want measured '
     + 'about itself.'
@@ -92,17 +92,24 @@ B.push(C.stats([
   if (S.length !== R.submitted) die('the submitted rows and the submitted count disagree');
   if (S.length) {
     const I = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-intake-2026-11-08.json'), 'utf8'));
+    /* a later filing has its own record (cert-machine #7 onward): each row's certificate is read from the record that decided it */
+    const certOf = (r) => { const n = r.issue.split('/').pop(); const rec = JSON.parse(fs.readFileSync(path.join(ROOT, r.decidedFrom), 'utf8'));
+      const c = rec.claims ? rec.claims[n] : rec.claim; if (!c || !c.certificate) die('no certificate for submitted row #' + n + ' in ' + r.decidedFrom); return c.certificate; };
+    const WORD = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    const later = S.filter((r) => r.decidedFrom !== 'certs/claims-intake-2026-11-08.json');
+    void I;
     B.push(C.section({
-      lab: 'the first submitted claims', title: 'Four claims sent to the desk, four verdicts', id: 'submitted',
+      lab: 'the first submitted claims', title: (WORD[S.length] || String(S.length)).replace(/^./, (c) => c.toUpperCase()) + ' claims sent to the desk, ' + (WORD[S.length] || String(S.length)) + ' verdicts', id: 'submitted',
       bodyRaw: [
         C.pRaw('On 6 November 2026 ' + C.esc(S[0].submittedBy) + ' sent the first four claims through the form: two '
           + 'circle packings and an autocorrelation bound from ThetaEvolve (arXiv:2511.23473), and an EinsteinArena solution for the '
           + 'Prime Number Theorem problem. The rules for reading each claim were written down before any code ran ('
           + C.m('notes/claims-intake-preregistration-2026-11-08.md') + '); two implementations sharing no code decided each one, '
-          + 'and each verdict is posted on its issue with a certificate that re-runs on stock Python.'),
+          + 'and each verdict is posted on its issue with a certificate that re-runs on stock Python.'
+          + (later.length ? ' Later filings follow the same rule, each with its own pre-registration and record: ' + later.map((r) => '#' + r.issue.split('/').pop() + ' (' + C.m(r.decidedFrom) + ')').join(', ') + '.' : '')),
         C.plainList(S.map((r) => ({ b: '#' + r.issue.split('/').pop() + ' · ' + r.verdict + '.', raw: '<a href="' + C.escAttr(r.issue) + '">' + C.esc(r.claim) + '</a> '
           + C.esc('Decided: ' + (r.headline || r.scope) + '.') + (r.kind === 'none' ? '' : ' ' + C.esc('What went wrong: ' + r.kind.replace(/-/g, ' ') + ' (' + R.kindsDefined[r.kind] + ').'))
-          + ' Re-run: ' + C.m(I.claims[r.issue.split('/').pop()].certificate.split(' (')[0]) })))
+          + ' Re-run: ' + C.m(certOf(r).split(' (')[0]) })))
       ].join('\n')
     }));
   }

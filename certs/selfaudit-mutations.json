@@ -13,17 +13,17 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f"
+  "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2"
+  "sha256": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "03ac16fe081bd955cbcf8a6ff8887bb4f1bd22e689b526db7c2cfb31f79a4f39",
-   "rows": 145
+   "sha256": "a256385796aff1601cff783aa2a44a00e092743c7bca26f23a5624efa66b1071",
+   "rows": 146
   },
   "recordPins": {
    "certs/strassen-certificate.json": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
@@ -29812,6 +29812,34 @@
    "after": {
     "preregistration": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f",
     "inventory": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2"
+   }
+  },
+  {
+   "at": "2026-11-08T19:15:38.914Z",
+   "git": "dfb7c4d9",
+   "why": "Amendment 2026-11-08, later the same day (notes/selfaudit-preregistration-2026-10-20.md): the register grows from 145 to 146 rows, one more SUBMITTED row (cert-machine #7, certs/claims-intake-7-2026-11-08.json); no definition moved",
+   "before": {
+    "preregistration": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f",
+    "inventory": "c0317a54972904394b1545a130bc4c51a7a5cd6f03330994204f4bd9e2ae25e2",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
+    "inventory": "ec56e1cdb3f13b82d879ec3b194e038ddc411f8019564332caa215ee77b77d76"
+   }
+  },
+  {
+   "at": "2026-11-08T19:19:17.879Z",
+   "git": "dfb7c4d9",
+   "why": "Amendment 2026-11-08, later the same day (notes/selfaudit-preregistration-2026-10-20.md): the register grows from 145 to 146 rows, one more SUBMITTED row (cert-machine #7, certs/claims-intake-7-2026-11-08.json); no definition moved",
+   "before": {
+    "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
+    "inventory": "ec56e1cdb3f13b82d879ec3b194e038ddc411f8019564332caa215ee77b77d76",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
+    "inventory": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
    }
   }
  ]

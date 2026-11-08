@@ -272,6 +272,14 @@
       "second": null,
       "needs": "node; python3 standard library; the pinned inputs under corpus/claims-intake/inputs (ThetaEvolve @ 7c12898, Apache-2.0) and corpus/einstein-arena/best-7.json",
       "note": "The first four claims sent through the public claim form (cert-machine #3–#6, maximusrufus, 2026-11-06): ThetaEvolve's two 26-circle packings and its second-autocorrelation bound, and an EinsteinArena solution for the Prime Number Theorem problem, decided exactly by two implementations under the pre-registration notes/claims-intake-preregistration-2026-11-08.md. The four Python checkers (the verifier) are the second implementation of tools/claims-intake-deciders.js (JavaScript BigInt), sharing no code; the re-derive command runs both."
+    },
+    {
+      "record": "certs/claims-intake-7-2026-11-08.json",
+      "rederive": "node tools/record-claims-intake-7.js --check",
+      "verifier": "python3 -I corpus/claims-intake/issue-7/check.py",
+      "second": null,
+      "needs": "node; python3 standard library; the pinned input under corpus/claims-intake/inputs (ThetaEvolve @ 7c12898, Apache-2.0)",
+      "note": "Claim #7 sent through the public claim form (cert-machine #7, maximusrufus, 2026-11-08): ThetaEvolve's zero-tolerance 26-circle packing (entry 8B-w_RL@65-Formal), decided exactly by two implementations under the pre-registration notes/claims-intake-7-preregistration-2026-11-08.md. The Python checker (the verifier) is the second implementation of tools/claims-intake-deciders.js (JavaScript BigInt), sharing no code; the re-derive command runs both."
     }
   ]
 }

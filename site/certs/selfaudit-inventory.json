@@ -2,48 +2,48 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-11-08T02:52:13.508Z",
- "git": "4a3e7b88",
+ "generated": "2026-11-08T19:19:17.732Z",
+ "git": "dfb7c4d9",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "aba73297936786d8a5177c8fcafe60beac9aad7820d05f51a8fb8970e83b2e3f"
+  "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "03ac16fe081bd955cbcf8a6ff8887bb4f1bd22e689b526db7c2cfb31f79a4f39",
-   "rows": 145,
+   "sha256": "a256385796aff1601cff783aa2a44a00e092743c7bca26f23a5624efa66b1071",
+   "rows": 146,
    "meta": {
     "date": "2026-11-08",
-    "git": "4a3e7b88"
+    "git": "dfb7c4d9"
    }
   },
   "kit": {
    "path": "corpus/rerun-kit.json",
-   "sha256": "d5249dfab964bf1d3037685f916f74e5f381bcf15565c4aacd45f6c43ca0c50a",
-   "entries": 34
+   "sha256": "4e6970575715f889f7ffedc176ad4e838912beb808f07244967c1d53114fe50e",
+   "entries": 35
   },
   "run": {
    "path": "certs/rerun-kit-run.json",
-   "sha256": "e52c5bf107412acaff9a6ba912eb5b864e8af6a55b45d8a2ad9ddab7f7bda176",
+   "sha256": "589a58e2b9460dde07a4cd145e4d6750dc7ad7229bdab7b040cf22555c27a8ed",
    "date": "2026-11-08",
-   "git": "4a3e7b88",
+   "git": "dfb7c4d9",
    "machine": {
     "os": "Darwin 27.0.0",
     "cpu": "Apple M2",
     "node": "v24.14.1",
     "python": "Python 3.9.6"
    },
-   "registerRows": 145
+   "registerRows": 146
   }
  },
  "totals": {
-  "records": 34,
-  "rows": 145,
-  "rowsDecided": 144,
+  "records": 35,
+  "rows": 146,
+  "rowsDecided": 145,
   "rowsPending": 1,
   "byVerdict": {
-   "CERTIFIED": 117,
+   "CERTIFIED": 118,
    "PARTIAL": 9,
    "REFUTED": 4,
    "QUEUED": 1,
@@ -52,7 +52,7 @@
    "NEEDS DATA": 2
   },
   "byKind": {
-   "none": 117,
+   "none": 118,
    "narrower-scope": 8,
    "float-printed-as-exact": 2,
    "sign-slip": 1,
@@ -65,18 +65,18 @@
    "depends-on-reading": 1,
    "checker-wider-than-definition": 2
   },
-  "recordsWithRederive": 32,
-  "recordsWithVerifier": 8,
+  "recordsWithRederive": 33,
+  "recordsWithVerifier": 9,
   "recordsWithSecond": 2,
   "recordsWithoutRederive": [
    "certs/ai-claims-summary.json",
    "corpus/navier-stokes/audit.json"
   ],
-  "rowsWithRederive": 138,
-  "rowsWithVerifier": 54,
+  "rowsWithRederive": 139,
+  "rowsWithVerifier": 55,
   "rowsWithSecond": 2,
-  "commandsTimed": 42,
-  "recordsTimed": 32,
+  "commandsTimed": 44,
+  "recordsTimed": 33,
   "recordsUntimed": [],
   "portableWallSeconds": 60,
   "recordsOverPortable": [
@@ -122,7 +122,8 @@
    "certs/eth-hawkley-bridge.json",
    "certs/eth-hawkley-heavy.json",
    "certs/wsp-baseline.json",
-   "certs/claims-intake-2026-11-08.json"
+   "certs/claims-intake-2026-11-08.json",
+   "certs/claims-intake-7-2026-11-08.json"
   ],
   "rederiveWrites": [
    "certs/erdos852-certificate.json",
@@ -166,7 +167,7 @@
   ],
   "rowsWithPerRowTiming": 74,
   "rowsMutable": 119,
-  "rowsNotMutated": 26,
+  "rowsNotMutated": 27,
   "byFamily": {
    "erdos852": 1,
    "kissing": 11,
@@ -1300,6 +1301,41 @@
    "mutation": {
     "family": null,
     "classes": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
+   }
+  },
+  {
+   "record": "certs/claims-intake-7-2026-11-08.json",
+   "sha256": "c6efa76e70af3dcf32cf1b8029be4553c3570984dec4ab7e2262b5e7be0506a8",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "node tools/record-claims-intake-7.js --check",
+   "verifier": "python3 -I corpus/claims-intake/issue-7/check.py",
+   "second": null,
+   "needs": "node; python3 standard library; the pinned input under corpus/claims-intake/inputs (ThetaEvolve @ 7c12898, Apache-2.0)",
+   "timed": {
+    "rederive": {
+     "seconds": 0.4,
+     "status": 0,
+     "sha256After": "c6efa76e70af3dcf32cf1b8029be4553c3570984dec4ab7e2262b5e7be0506a8"
+    },
+    "verifier": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "c6efa76e70af3dcf32cf1b8029be4553c3570984dec4ab7e2262b5e7be0506a8"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 0.4,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a submitted claim (2026-11-08, cert-machine #7): the record carries its own 7 planted controls (a radius raised, a centre pushed through a side, coincident centres, a moved digit, two malformed entries), each decided by two implementations sharing no code, all as predicted"
    }
   }
  ],
@@ -3043,6 +3079,18 @@
    "mutable": false,
    "family": null,
    "notMutatedBecause": "the first submitted claims (2026-11-08, cert-machine #3–#6): the record carries its own 31 planted controls (perturbed radii and centres, a moved digit, a negative cell, a scaled function, a planted clip), each decided by two implementations sharing no code; 30 as predicted, the one calibration miss recorded in it"
+  },
+  {
+   "id": "intake-7",
+   "record": "certs/claims-intake-7-2026-11-08.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/issues/7",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a submitted claim (2026-11-08, cert-machine #7): the record carries its own 7 planted controls (a radius raised, a centre pushed through a side, coincident centres, a moved digit, two malformed entries), each decided by two implementations sharing no code, all as predicted"
   }
  ]
 }

@@ -597,6 +597,21 @@ const arrivedBy = (campaign, file) => { const m = /the claim (arrived by [^;]+? 
       key: '"issue": "' + c.issue + '"', decidedFrom: 'certs/claims-intake-2026-11-08.json', page: c.issue
     });
   }
+  /* claim #7 (2026-11-08, the strict follow-up to #5) has its own record, certs/claims-intake-7-2026-11-08.json: the #3–#6
+     record is pinned as decided, so a later filing is decided and recorded on its own and read here the same way */
+  const I7 = J('certs/claims-intake-7-2026-11-08.json'), c7 = I7.claim;
+  const by7 = /\(([A-Za-z0-9_-]+), \d{4}-\d{2}-\d{2}\)/.exec(I7.what);
+  if (!by7) die('the #7 intake record no longer names who submitted the claim');
+  if (I7.allAgree !== true || I7.python.verdict !== c7.verdict || I7.verdict !== c7.verdict || c7.agree !== true) die('the #7 intake record disagrees with itself');
+  if (c7.verdict !== 'CERTIFIED' || !c7.decision.strict.holds) die('intake row #7 has no kind this ledger can read from its record');
+  rows.push({
+    /* the issue's markdown code ticks are formatting, not content: the register prints the claim without them */
+    id: 'intake-7', claim: c7.text.replace(/`/g, ''), claimant: 'ThetaEvolve, entry "' + c7.entry + '"; submitted by ' + by7[1],
+    source: c7.source, origin: 'submitted', submittedBy: by7[1], issue: c7.issue, verdict: c7.verdict,
+    scope: 'no overlap and inside the square at zero tolerance (' + c7.decision.tangenciesExact + ' tangencies); the sum of radii is exactly ' + c7.decision.sumExact + ', which rounds to the printed ' + c7.decision.claim,
+    headline: c7.headline, kind: 'none',
+    key: '"issue": "' + c7.issue + '"', decidedFrom: 'certs/claims-intake-7-2026-11-08.json', page: c7.issue
+  });
 }
 
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
@@ -617,7 +632,7 @@ const byVerdict = {};
 for (const r of rows) byVerdict[r.verdict] = (byVerdict[r.verdict] || 0) + 1;
 const byOrigin = {};
 for (const r of rows) byOrigin[r.origin] = (byOrigin[r.origin] || 0) + 1;
-if ((byOrigin.submitted || 0) !== rows.filter((r) => r.decidedFrom === 'certs/claims-intake-2026-11-08.json').length) die('a submitted row appeared that the intake record does not decide');
+if ((byOrigin.submitted || 0) !== rows.filter((r) => /^certs\/claims-intake-(7-)?2026-11-08\.json$/.test(r.decidedFrom)).length) die('a submitted row appeared that no intake record decides');
 
 const out = {
   what: 'Externally published mathematical claims this machine has decided, one row per claim, each '
