@@ -205,3 +205,30 @@ If our numbers disagree with a printed value, our code is suspected first; a dis
 - #6: whether this f yields any statement about π(x) (the reduction from the constraint to C^± is the problem's
   mathematics, read, not decided); reading B is a fact about the bytes, not about the platform's sampled run (whose
   samples are not published).
+
+## Amendment A (2026-11-08, after the first full run; no rule above changed, no prediction moved)
+
+- **Two defects in my own test code, fixed before the record was first written.** (1) The Python circles checker's
+  repair called the decider recursively; on the planted object P2 (a circle pushed through a side into its neighbours)
+  the repair itself fails, and the recursion did not stop. The repair is now computed once, as in the JavaScript.
+  (2) The Q5 quadrature self-test (#4, Python) failed on its first run because the test was badly built: its grid did
+  not contain the integer knots, so the grid maximum missed the peak of f∗f. The grid is now knot-aligned, with Simpson's
+  rule for ‖f∗f‖₂² (exact on each piecewise-quadratic panel up to rounding); it passes. Neither touches a decision.
+- **Read after this note, for the calibration Q4 only:** AlphaEvolve's B.2 cells in
+  `corpus/sources/alphaevolve_mathematical_results.ipynb` (pinned in corpus/sources/PINS.json): the statement
+  "0.8962 ≤ C2", the 50 heights, and the verification cell's ‖f∗f‖₂² formula, which is the piecewise-linear formula
+  registered above, with zero padding. ThetaEvolve's `AlphaEvolve-v1` list equals AlphaEvolve's `heights_sequence_2`
+  literal for literal; its exact Q = 0.896279944155407768892875359069… ≥ 0.8962. This confirms the definition decided.
+- **One calibration NOT as predicted:** `StrongInit` (1024 cells) decides to Q = 0.905282581869638845…, where Table 2
+  prints 0.9055 for "Initial" (Distill-Qwen3-8B). Neither rounding nor truncation gives 0.9055. The other two
+  calibrations reproduce their digits: AlphaEvolve-v1 by truncation (a lower bound), 8B-wo_RL@100 (0.943374915…) by
+  rounding to 0.9434. Not resolved: the stored list may not be the object behind "Initial", or the paper's scorer
+  may differ. Their code is not run, so this stays open. Reported as found; it does not bear on #4, whose object and
+  definition are pinned.
+- **#6, step (iii) was not run.** Step (i) found witnesses, the first at x = 1, so reading A was decided without the
+  residue search, as registered ("only if (i) and (ii) find no witness"). Step (ii) was decided anyway.
+- **Beyond the registration (additions, no rule changed):** the JavaScript also evaluates every #6 witness directly as
+  Σ_k f(k)⌊x/k⌋ with the exact f(1), as the Python does; the Python K4 also checks every key's ln enclosure against
+  Python's correctly rounded `decimal` ln at 80 digits. Control P1's "circle in the tightest exact constraint" is
+  implemented as the lower-index circle of the pair with the least exact d_ij² − (r_i + r_j)².
+- **Run time.** The record takes about 11 s and `--check` about 11 s (both implementations).
