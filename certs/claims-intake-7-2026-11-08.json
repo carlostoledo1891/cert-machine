@@ -1,0 +1,159 @@
+{
+ "gaps": [
+  "Nothing about optimality or the packing problem's value; nothing about how the source found or scored the entry; the figure 8B-w_RL@65-Formal.png was not looked at.",
+  "Decided from the bytes alone: ThetaEvolve's vis.py, its programs/ and every evaluator in that repository were never fetched or run."
+ ],
+ "what": "Claim #7 filed through cert-machine's public claim form (maximusrufus, 2026-11-08): ThetaEvolve's zero-tolerance 26-circle packing (entry \"8B-w_RL@65-Formal\"), decided exactly under the strict reading from the bytes pinned by sha256 (the sha256 the issue states matched) by two implementations sharing no code (tools/claims-intake-deciders.js, BigInt; corpus/claims-intake/issue-7/check.py, Python standard library — the standalone certificate, re-run with python3 -I without this engine).",
+ "verdict": "CERTIFIED",
+ "claim": {
+  "issue": "https://github.com/carlostoledo1891/cert-machine/issues/7",
+  "title": "[claim] 26 circles in the unit square, sum of radii 2.63598308 with zero tolerance (key 8B-w_RL@65-Formal)",
+  "text": "26 circles in the unit square, sum of radii 2.63598308, as the source states it. README: \"* **Ours (R1-Qwen3-8B): 2.63598308**\", with the solution described as \"our best-known solution for circle packing (with zero tolerance) in `Results/CirclePacking/figs/8B-w_RL@65-Formal.png`\" and \"the formal one (without tolerance as AlphaEvolve)\" (key \"8B-w_RL@65-Formal\")",
+  "source": "github.com/ypwang61/ThetaEvolve@7c12898 README.md (lines 45, 176, 187); arXiv:2511.23473",
+  "entry": "8B-w_RL@65-Formal",
+  "verdict": "CERTIFIED",
+  "agree": true,
+  "reading": "strict, as #3: r_i > 0; r_i <= x_i, y_i <= 1 - r_i; (r_i + r_j)^2 <= |c_i - c_j|^2 for every pair (tangency allowed); the printed sum read as a rounding, |sum r - 2.63598308| <= 5e-9 (truncation reported). The entry is 26 centres [x, y] followed by 26 radii.",
+  "headline": "no overlaps and inside the square with no tolerance, exactly: the closest pair (18, 24) is separated by 0.000000000000999979473777892164… (rounded down), the tightest side slack is 0.00000000031012261 (circle 8, bottom (y - r)), and the exact sum 2.63598307738811934 rounds to 2.63598308",
+  "certificate": "python3 -I corpus/claims-intake/issue-7/check.py",
+  "decision": {
+   "verdict": "CERTIFIED",
+   "fails": [],
+   "tolerance": "0",
+   "n": 26,
+   "sumExact": "2.63598307738811934",
+   "claim": "2.63598308",
+   "sumRounds": true,
+   "sumTruncates": false,
+   "sumMinusClaim": "-0.00000000261188066",
+   "underReading": {
+    "sideViolations": 0,
+    "pairViolations": 0,
+    "sides": [],
+    "pairs": []
+   },
+   "strict": {
+    "holds": true,
+    "sideViolations": 0,
+    "pairViolations": 0,
+    "sides": [],
+    "pairs": []
+   },
+   "radiiNonPositive": [],
+   "tightestSide": {
+    "circle": 8,
+    "side": "bottom (y - r)",
+    "slackExact": "0.00000000031012261"
+   },
+   "tightestPairSquared": {
+    "pair": [
+     18,
+     24
+    ],
+    "dSquaredMinusSumSquaredExact": "0.0000000000004956914031410987398916"
+   },
+   "worstPairDistance": {
+    "pair": [
+     18,
+     24
+    ],
+    "sumMinusDistance": [
+     "-0.000000000000999979473777892165",
+     "-0.000000000000999979473777892164"
+    ]
+   },
+   "tangenciesExact": 0,
+   "sideTouchesExact": 0,
+   "repair": null
+  },
+  "controls": {
+   "P1": {
+    "what": "circle 18 (the tightest pair, squared form) radius + 1e-6",
+    "verdict": "REFUTED"
+   },
+   "P2strict": {
+    "what": "x_0 := r_0 - 2e-6, strict",
+    "verdict": "REFUTED"
+   },
+   "P2tol": {
+    "what": "x_0 := r_0 - 2e-6, tolerance 1e-6",
+    "verdict": "REFUTED"
+   },
+   "P3": {
+    "what": "circle 1's centre on circle 0's",
+    "verdict": "REFUTED"
+   },
+   "P4": {
+    "what": "the sum claim moved to 2.63598309",
+    "verdict": "REFUTED"
+   },
+   "P6": {
+    "what": "the first 25 circles only",
+    "verdict": "REFUSED"
+   },
+   "P7": {
+    "what": "the radii block dropped",
+    "verdict": "REFUSED"
+   }
+  },
+  "atTolerance1e6": {
+   "sideViolations": 0,
+   "pairViolations": 0
+  },
+  "aboveAlphaEvolveExactSum": true,
+  "alphaEvolveExactSum": "2.63586275641369812"
+ },
+ "python": {
+  "verdict": "CERTIFIED",
+  "version": "3.9.6"
+ },
+ "allAgree": true,
+ "controlsAsPredicted": {
+  "P1": true,
+  "P2strict": true,
+  "P2tol": true,
+  "P3": true,
+  "P4": true,
+  "P6": true,
+  "P7": true
+ },
+ "notAsPredicted": [],
+ "pins": {
+  "thetaevolve": {
+   "repo": "github.com/ypwang61/ThetaEvolve",
+   "commit": "7c12898f5d7627af403e3aca643af76199fb5c20",
+   "file": "Results/CirclePacking/data.json",
+   "held": "corpus/claims-intake/inputs/thetaevolve-7c12898-CirclePacking-data.json",
+   "sha256": "c20023f5a4d3e1408a7ec29ee043dea3c2b8d9711dd21c806008b5a48646e7b8",
+   "licence": "Apache-2.0"
+  },
+  "issueShaMatched": true
+ },
+ "read": [
+  "the issue body",
+  "the pre-registration of #3–#6 (its pins, exactness rules and circle readings reused)",
+  "of the entry, its structure only before the pre-registration (two blocks; ~450 bytes printed while finding the boundary)"
+ ],
+ "neverReadOrRun": [
+  "ThetaEvolve Results/*/vis.py",
+  "ThetaEvolve Results/*/programs/",
+  "every evaluator in the ThetaEvolve, OpenEvolve and ShinkaEvolve repositories",
+  "the figure 8B-w_RL@65-Formal.png"
+ ],
+ "preregistration": {
+  "path": "notes/claims-intake-7-preregistration-2026-11-08.md",
+  "sha256": "31d17c35e0fbadf3251d21fa5147af407661176bcad86b30a268981a1fcefda2",
+  "addedIn": "b8ed1e1a2cd617a0bf50d56cdcdca5c22849ade8 2026-11-08T15:58:43-03:00",
+  "sha256AsRegistered": "31d17c35e0fbadf3251d21fa5147af407661176bcad86b30a268981a1fcefda2"
+ },
+ "deciders": {
+  "js": "049c3b9c77cc9d8ae7d7119b5285467319ac3ab8146a54a22c6d7373d009edd9",
+  "writer": "7119d7d44991ea3e64850ab707d67f9eca6010fc918ec206b96d48220ca34d20",
+  "py": "b021a4f61559d3db3b71d25bcf4dd3f61d69ec39367e98c609ba7e53d4535980"
+ },
+ "generated": "2026-11-08T19:00:20Z",
+ "git": "b8ed1e1a2cd617a0bf50d56cdcdca5c22849ade8",
+ "node": "v24.14.1",
+ "rederive": "node tools/record-claims-intake-7.js --check (offline, a few seconds); alone: python3 -I corpus/claims-intake/issue-7/check.py",
+ "seconds": 0.7
+}
