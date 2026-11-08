@@ -22,6 +22,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ 11-08 DAY (the GitHub review, ~16:15 UTC, and the operator's four answers): POSTED on the word — the #275 reply to
+     arhancanli (our ceiling 0.00071505073 is the same chain relaxed in three places, 5.1 + 3.7 + 2.5 ·10⁻⁷, their
+     0.000713944 the tighter; issuecomment-6725661240) and the nanoda_lib#82 reply to ammkrn (a let-inference dependency,
+     not a nanoda error; -6725661454). CLAIM #7 (maximusrufus, the zero-tolerance 8B-w_RL@65-Formal circles) pre-registered
+     (b8ed1e1a), DECIDED CERTIFIED strictly (8c5f82e5: Σr = 2.63598307738811934, closest pair ≥ 9.9997·10⁻¹³ apart, 7/7
+     controls; certs/claims-intake-7-2026-11-08.json, tools/record-claims-intake-7.js --check, battery "claims intake #7",
+     standalone corpus/claims-intake/issue-7/check.py) and the verdict POSTED (issuecomment-6725750747). NOT done: #7 is not
+     in the register — run-claims-ledger.js reads only the #3–#6 record; adding it is the register ripple (self-audit
+     re-pin, dReal re-run, claimbox lift), on the operator's word. Three outside confirmations PINNED in corpus/recognition.json
+     (arhancanli #232 and #246, HedonismJesse on lm_understand-logs#4), the queue and WSP pages rebuilt. Glazer PRs #5/#6:
+     the bodies redrafted to his new template (outreach/gh-zq-pr{5,6}-update-2026-11-08.md, untracked, NOT posted); both
+     rebase cleanly on 9c0b3aba with identical trees, but a rebase changes the ids certs/zq-pr-build.json pins and PR #14
+     links — prefer his "Update branch" (maintainer edits are on); his Protocol App check runs only on his dispatch.
   ◆◆ 11-08 NIGHT (the operator's answers, ~03:20 UTC): (1) the claims-desk X post HOLD — d21 stays unsent; (2) claimbox's
      lift PROCEED — DONE in claimbox on local branch lift-2026-11-08 (5baa100 the lift: ledger re-pinned, corpus 141 → 145;
      83960ce after it: the prose record re-decided in 4,177 s, coverage re-written, make web; make test 617 pass, 0 fail,
