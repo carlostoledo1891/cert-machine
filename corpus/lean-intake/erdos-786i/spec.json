@@ -1,0 +1,166 @@
+{
+ "id": "erdos-786i",
+ "what": "P3 of the Lean fidelity + intake plan (the operator's pick, 2026-11-09): one fresh outside claim end to end with the tool built in P1–P2, timed. The claim: google-deepmind/formal-conjectures PR #5299 (Declan Gessel with GPT-6 Astra in Codex, opened 2026-09-06, approved three times, unmerged), linking an external Lean refutation of Erdős #786(i). Its file states its OWN copies of IsMulCardSet and HasDensity; the PR says they match the module's. F1 decides that: the kernel must accept the proof against DeepMind's declaration as it stands on main today (the statement changed on 2026-10-14, after the PR: the `answer(sorry) ↔` wrapper was removed). This spec is the pre-registration, committed before any run.",
+ "polarity": "refutes",
+ "claim": {
+  "what": "Declan Gessel's refutation of Erdős #786(i), with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5299)",
+  "kind": "git",
+  "url": "https://github.com/WoshuaJolk/jig-verifier.git",
+  "commit": "f8b1f084d62fcfa81ae9c26000cd04da51a865a4",
+  "file": "Submissions/Erdos786DistinctDensityRefuted/BadPrimes.lean",
+  "sha256": "8dd8a0a60ffd4a53105529a5ef0c39953929e6bc13288f3154223352253cd200",
+  "decl": "Submissions.Erdos786DistinctDensityRefuted.BadPrimes.proof",
+  "license": "Apache-2.0 (the repository's); the file is still not copied into this repository — the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #786(i) on main",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "3afb9beda5bcb9933e6e10276e87f8ccfd851222",
+  "path": "FormalConjectures/ErdosProblems/786.lean",
+  "sha256": "dcab3e2ed5b6e7852acc96f4528ad413902e7245c46bf508bc594a92106330e7",
+  "module": "FormalConjectures.ErdosProblems.«786»",
+  "decl": "Erdos786.erdos_786.parts.i",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Erdos786.IntakeMut",
+ "expectF1": "CERTIFIED if the claimant's definitions unfold to DeepMind's (the PR's claim); REFUSED with the mismatch otherwise",
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: ε = 1/2",
+  "tactic": "intro h\n  exact h (1/2) (by norm_num) (by norm_num)",
+  "expect": "CERTIFIED"
+ },
+ "f2NotApplicable": "the statement quantifies over a real ε and over infinite sets A through a limit (natural density): no finite instance decides any of its parts, so F2 is refused, not run",
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the binder predicate written out: `∀ ε : ℝ, ε > 0 → …`",
+   "statement": "∀ ε : ℝ, ε > 0 → ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "every bound variable renamed (ε→e, A→S, δ→d)",
+   "statement": "∀ e > 0, e ≤ 1 →\n    ∃ (S : Set ℕ) (d : ℝ), 0 ∉ S ∧ 1 - e < d ∧ S.HasDensity d ∧ S.IsMulCardSet",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the claimant's own wording of the proposition: `0 < ε` and nested ∃ (GT.gt is reducible notation)",
+   "statement": "∀ ε : ℝ, 0 < ε → ε ≤ 1 →\n    ∃ A : Set ℕ, ∃ δ : ℝ, 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "W01",
+   "kind": "wrong",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W02",
+   "kind": "wrong",
+   "why": "`1 - ε < δ` made `1 - ε ≤ δ`",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - ε ≤ δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W03",
+   "kind": "wrong",
+   "why": "`ε ≤ 1` made strict, `ε < 1`",
+   "statement": "∀ ε > 0, ε < 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W04",
+   "kind": "wrong",
+   "why": "the bar `1 - ε` changed to `1 - 2 * ε`",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - 2 * ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W05",
+   "kind": "wrong",
+   "why": "the density `δ` replaced by `δ / 2`",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity (δ / 2) ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W06",
+   "kind": "wrong",
+   "why": "`0 ∉ A` replaced by `1 ∉ A`",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 1 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "E1",
+   "kind": "equivalent",
+   "why": "the first two conjuncts swapped: the same statement logically, not definitionally",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (A : Set ℕ) (δ : ℝ), 1 - ε < δ ∧ 0 ∉ A ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "E2",
+   "kind": "equivalent",
+   "why": "the existential quantifiers swapped, `∃ (δ : ℝ) (A : Set ℕ)`: the same logically, not definitionally",
+   "statement": "∀ ε > 0, ε ≤ 1 →\n    ∃ (δ : ℝ) (A : Set ℕ), 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ A.IsMulCardSet",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the witness ε = 1/16 changed to 1/2: the final step becomes false (δ > 1/2 does not contradict δ ≤ 7/8)",
+   "find": "h (1/16) (by norm_num)",
+   "replace": "h (1/2) (by norm_num)",
+   "all": false,
+   "expect": "the build fails"
+  },
+  {
+   "id": "R2",
+   "why": "the final step replaced by sorry",
+   "find": "  have := density_le_seven_eighths A h0 hA hδ\n  linarith",
+   "replace": "  sorry",
+   "all": false,
+   "expect": "sorryAx in the axioms"
+  },
+  {
+   "id": "R3",
+   "why": "the key lemma made an axiom (its proof kept under another name)",
+   "find": "theorem density_le_seven_eighths (A : Set ℕ) (h0 : 0 ∉ A) (hA : IsMulCardSet A)\n    {δ : ℝ} (hδ : HasDensity A δ) : δ ≤ 7/8 := by",
+   "replace": "axiom density_le_seven_eighths (A : Set ℕ) (h0 : 0 ∉ A) (hA : IsMulCardSet A)\n    {δ : ℝ} (hδ : HasDensity A δ) : δ ≤ 7/8\n\ntheorem intake_was_density_le_seven_eighths (A : Set ℕ) (h0 : 0 ∉ A) (hA : IsMulCardSet A)\n    {δ : ℝ} (hδ : HasDensity A δ) : δ ≤ 7/8 := by",
+   "all": false,
+   "expect": "the lemma in the axioms"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with 4.33.1)",
+  "nanoda 8de7e0c4 via lean4export (built here)"
+ ],
+ "notInScope": "F2 (refused: no finite instances); whether DeepMind's statement is Erdős's problem (a reading, F5); part (ii); the claim in its own 4.33.0 environment (Jig's run says it builds there).",
+ "timing": "the plan's P3 question: the time from this spec's commit to the record, against the hand run of #488 (2026-11-06: the pod's steps alone took 67 min, after hours of scripting)",
+ "success": "every expected outcome above met; the run on the Mac, US$0",
+ "amendments": []
+}
