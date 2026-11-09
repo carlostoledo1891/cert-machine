@@ -1536,6 +1536,15 @@
    "sent": "2026-11-08",
    "status": "live, no reply",
    "note": "outreach/gh-lean4-16290-marley-2026-11-08.md (untracked); certs/openai-math-kernel.json; their pilot/data/comparator-results.json (blob b7c25999) read 2026-11-08."
+  },
+  {
+   "id": "gh-lean4-16290-correction-2026-11-09",
+   "what": "A correction under our cross-tab on the comparator issue: our own 1 GiB-stack runs (October, nanoda 3a240721) were killed by the 16 GB runner on all 15 challenges that reached Comparator, well before the time limit; marleymcwilliams's pass used nanoda d0a02cc5 (31 commits later) in a 13 GB cgroup, so the newer nanoda, not the stack alone, may be what let their nine through; a side-by-side run of both commits announced. AI disclosed.",
+   "where": "GitHub, leanprover/lean4 issue #16290",
+   "url": "https://github.com/leanprover/lean4/issues/16290#issuecomment-6729496182",
+   "sent": "2026-11-09",
+   "status": "live, no reply",
+   "note": "outreach/gh-lean4-16290-correction-2026-11-09.md (untracked); corpus/openai-math/preregistration.json amendment 11; lane-K runs 38048720541, 38051470892, 38074618613. The side-by-side (amendment 18, branch lane-k-nanoda-pin-2026-11-09) is running."
   }
  ]
 }
