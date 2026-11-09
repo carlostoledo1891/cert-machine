@@ -15,6 +15,12 @@
    decided against that pin's census (release-<pin8>.json) — and never touches the audit pin's. A run whose title or
    whose jobs' env.txt name another pin is refused.
 
+   A LATER NANODA, BESIDE A CONTROL (pre-registration amendment 18, 2026-11-09): the runs of its two arms (named in
+   corpus/openai-math/kernel-runs/dispatch-order.json, entries a18 and a18c) are kept like any other, each with its arm,
+   its nanoda pin and its memory scope. A row's word moves ONLY on a run of the new arm (nanoda d0a02cc5 + 1 GiB),
+   which its why names; a control-arm run is recorded beside it and never decides a word. Each of the amendment's
+   challenges carries amendment18: its earlier word, the control arm's and the new arm's.
+
    usage: node tools/record-openai-math-kernel.js [--pin <sha>] <run-id> [<run-id> ...] [--partial]
           node tools/record-openai-math-kernel.js [--pin <sha>] --rebuild      (re-decide from the runs on disk) */
 'use strict';
@@ -39,6 +45,10 @@ const prereg = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math
 /* a later pin runs only the challenges its amendment lists (ADDED + CHANGED), fixed before any run */
 const AMEND = LATER ? prereg.amendments.find((a) => a.pin && a.pin.commit === PIN) : null;
 if (LATER && !AMEND) { console.error('no pre-registration amendment names the pin ' + PIN); process.exit(1); }
+/* amendment 18: the two arms and their members; nanoda's pin before it was an input */
+const A18 = prereg.amendments.find((a) => a.arms && a.arms.new && a.arms.control) || null;
+const A18_NO = A18 ? prereg.amendments.indexOf(A18) + 1 : null;
+const DEFAULT_NANODA_PIN = '3a2407216ee84a75f9e1aead6803d0578be06ae7';
 const REPO = 'carlostoledo1891/cert-machine';
 
 const args = argv.filter((a, i) => !(pinAt >= 0 && (i === pinAt || i === pinAt + 1)));
@@ -87,7 +97,9 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
         : 'the job ended (' + j.conclusion + ') in the step "' + step + '" without uploading a result: the runner terminated it' + (said ? ' (GitHub: ' + said + ')' : '') }, null, 1) + '\n');
   }
   n = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== '_run.json').length;
-  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify(Object.assign({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, LATER ? { mathPin: PIN } : {}), null, 1) + '\n');
+  /* the run's title names a nanoda pin and a memory scope when they are not the defaults (amendment 18) */
+  const named = /nanoda [0-9a-f]{40}|memory scope /.test(meta.displayTitle || '') ? { title: meta.displayTitle } : {};
+  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify(Object.assign({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, LATER ? { mathPin: PIN } : {}, named), null, 1) + '\n');
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log('run ' + run + ': ' + n + ' challenge results');
 }
@@ -137,6 +149,12 @@ function buildOfRun(meta) {
   buildCache.set(key, b);
   return b;
 }
+/* amendment 18: a run's arm and nanoda pin, from the dispatch record (entries with amendment: 18) */
+function armOfRun(meta) {
+  for (const v of Object.values(DISPATCH)) if (v && typeof v === 'object' && v.amendment === 18 && String(v.run) === String(meta.run)) return v;
+  return null;
+}
+const GiB = (bytes) => (Number(bytes) / 1073741824).toFixed(1) + ' GiB';
 /* GitHub runs (numeric ids) and RunPod runs (runpod-<pod>, amendment 14, tools/import-runpod-openai-math.js), in the
    order they were created — the latest run of a challenge decides its row */
 const created = (d) => { try { return JSON.parse(fs.readFileSync(path.join(RUNS, d, '_run.json'), 'utf8')).createdAt || ''; } catch (e) { return ''; } };
@@ -154,21 +172,50 @@ for (const d of runDirs) {
     /* which nanoda: the job prints its build (amendment 13); a job that left no facts, or ran before that line
        existed, takes it from the dispatch record (amendment-13 runs) or from the workflow at the run's commit */
     const printed = ((f.env || []).find((l) => /^nanoda build: /.test(l)) || '').replace(/^nanoda build: /, '') || null;
-    const nb = printed || buildOfRun(meta);
+    /* amendment 18: which nanoda commit (the job prints it; a job that left no facts takes its arm's), the arm, the scope */
+    const a18 = armOfRun(meta);
+    const printedPin = ((f.env || []).find((l) => /^nanoda pin: /.test(l)) || '').replace(/^nanoda pin: /, '') || null;
+    const pin = printedPin || (a18 && a18.nanodaPin) || DEFAULT_NANODA_PIN;
+    if (a18 && pin !== a18.nanodaPin) { console.error('run ' + meta.run + ', ' + ch.name + ': the job built nanoda ' + pin + ', not its arm\'s ' + a18.nanodaPin); process.exit(1); }
+    const nb0 = printed || (a18 && a18.nanodaBuild) || buildOfRun(meta);
+    const nb = nb0 && pin !== DEFAULT_NANODA_PIN ? nb0 + '@' + pin.slice(0, 8) : nb0;
     if (dec.word === 'CERTIFIED' && nb && /issue44/.test(nb)) dec.why = 'Comparator exit 0; Lean\'s kernel and nanoda with the ammkrn/nanoda_lib#44 patch (' + nb + ', amendment 13) both accept';
-    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, nanodaBuild: nb, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null });
+    if (dec.word === 'CERTIFIED' && pin !== DEFAULT_NANODA_PIN) dec.why = 'Comparator exit 0; Lean\'s kernel and ' + (A18 && pin === A18.arms.new.nanodaPin ? A18.arms.new.label : 'nanoda ' + pin.slice(0, 8)) + ' (amendment ' + (A18_NO || '?') + ') both accept';
+    /* a memory scope that stopped Comparator: still REFUSED, its stage named memory */
+    const scopeOf = (k) => ((f.scope || []).find((l) => l.startsWith(k + '=')) || '').slice(k.length + 1);
+    if (dec.word === 'REFUSED' && scopeOf('Result') === 'oom-kill') {
+      const peak = /^\d+$/.test(scopeOf('MemoryPeak')) ? ', peak ' + GiB(scopeOf('MemoryPeak')) : '';
+      /* where it was: the stage the rule reads from the log, and Comparator's last line (a kernel running, a build) */
+      const lastLine = String((f.logTail || []).slice(-1)[0] || 'nothing logged').slice(0, 160);
+      dec.why = 'the ' + ((a18 && a18.memoryScope) || 'memory') + ' memory scope stopped Comparator (systemd Result=oom-kill' + peak + ' after ' + f.seconds + ' s) in the ' + (/\] Built |^Building /.test(lastLine) ? 'build' : dec.stage) + ' stage; its last line: "' + lastLine + '"';
+      dec.stage = 'memory';
+    }
+    r.runs.push(Object.assign({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, nanodaBuild: nb },
+      a18 ? { arm: a18.arm, nanodaPin: pin, memoryScope: a18.memoryScope } : pin !== DEFAULT_NANODA_PIN ? { nanodaPin: pin } : {},
+      { exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels },
+      f.scope ? { scope: f.scope } : {},
+      { decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null }));
     rows.set(ch.name, r);
   }
 }
 for (const r of rows.values()) {
-  const ran = r.runs.filter((x) => x.decided.word !== 'NOT RUN');
+  /* amendment 18: a control-arm run is kept in the row and never decides its word */
+  const ran = r.runs.filter((x) => x.decided.word !== 'NOT RUN' && x.arm !== 'control');
   const last = ran.length ? ran[ran.length - 1] : r.runs[r.runs.length - 1];
   r.word = last.decided.word;
   if (r.word === 'REFUTED?') {
-    const agree = r.runs.filter((x) => x.decided.word === 'REFUTED?').length;
+    const agree = ran.filter((x) => x.decided.word === 'REFUTED?').length;
     r.word = agree >= 2 ? 'REFUTED' : 'REFUTED — TO REPRODUCE';
   }
   r.why = last.decided.why; r.stage = last.decided.stage || null; r.nanodaBuild = last.nanodaBuild || null;
+  /* amendment 18: the row's earlier word (its latest run before the amendment) beside each arm's latest run */
+  if (A18 && A18.challenges.order.includes(r.challenge) && r.runs.some((x) => x.arm)) {
+    const pre = r.runs.filter((x) => !x.arm && x.decided.word !== 'NOT RUN'), b = pre[pre.length - 1];
+    const arm = (a) => { const xs = r.runs.filter((x) => x.arm === a), x = xs[xs.length - 1];
+      return x ? { run: x.run, nanoda: A18.arms[a].label, word: x.decided.word, stage: x.decided.stage || null, why: x.decided.why, seconds: x.seconds, maxRssKB: x.maxRssKB } : null; };
+    r.amendment18 = { amendment: A18_NO, change: A18.arms.new.label + ' (the new arm decides the word; the control never does)',
+      before: b ? { run: b.run, word: b.decided.word, stage: b.decided.stage || null, nanodaBuild: b.nanodaBuild } : null, control: arm('control'), new: arm('new') };
+  }
   /* the latest run whose strict run reached a decision decides it (a cancelled job's absent strict run says nothing) */
   const st = r.runs.filter((x) => x.strict && x.strict.word !== 'NOT RUN'); r.strict = st.length ? st[st.length - 1].strict : last.strict;
   /* the latest run that ran the transfer check decides it */
@@ -187,17 +234,34 @@ const tally = (xs) => xs.reduce((o, x) => ((o[x] = (o[x] || 0) + 1), o), {});
 /* a later pin: only its amendment's challenges are members, and every one of them is listed, run or not */
 if (LATER) for (const r of list) if (!AMEND.challenges.order.includes(r.challenge)) { console.error(r.challenge + ' is not in the amendment\'s list for ' + PIN.slice(0, 8)); process.exit(1); }
 const members = LATER ? AMEND.challenges.order : release.challenges.map((c) => c.name);
+/* amendment 18's tallies, over its members, from the rows */
+const a18rows = list.filter((r) => r.amendment18);
+const a18counts = a18rows.length ? { amendment: A18_NO, members: A18.challenges.order.length, recorded: a18rows.length,
+  before: tally(a18rows.map((r) => r.amendment18.before ? r.amendment18.before.word : 'none')),
+  control: tally(a18rows.map((r) => r.amendment18.control ? r.amendment18.control.word : 'not recorded')),
+  new: tally(a18rows.map((r) => r.amendment18.new ? r.amendment18.new.word : 'not recorded')),
+  moved: a18rows.filter((r) => r.amendment18.before && r.word !== r.amendment18.before.word).length } : null;
 const ledger = {
   what: 'Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper\'s claim is proved: that is lane S.'
-    + (LATER ? ' THIS LEDGER IS THE SECOND PIN, ' + PIN + ' (pre-registration amendment ' + (prereg.amendments.indexOf(AMEND) + 1) + '): only the ' + members.length + ' challenges ADDED or CHANGED since ' + AUDIT_PIN.slice(0, 8) + ' are members; the ' + AMEND.challenges.unchanged + ' unchanged ones are not re-run, and the audit pin\'s ledger, certs/openai-math-kernel.json, stands as it was.' : ''),
+    + (LATER ? ' THIS LEDGER IS THE SECOND PIN, ' + PIN + ' (pre-registration amendment ' + (prereg.amendments.indexOf(AMEND) + 1) + '): only the ' + members.length + ' challenges ADDED or CHANGED since ' + AUDIT_PIN.slice(0, 8) + ' are members; the ' + AMEND.challenges.unchanged + ' unchanged ones are not re-run, and the audit pin\'s ledger, certs/openai-math-kernel.json, stands as it was.' : '')
+    + (a18counts ? ' Amendment ' + A18_NO + ' (2026-11-09): the ' + a18counts.members + ' resource stops that reach Comparator were re-run with ' + A18.arms.new.label + ' beside a control, ' + A18.arms.control.label + ', both inside a 13 GB memory scope; a row\'s word moved only on the new arm, whose why names it, and each of those rows keeps its earlier word and both arms in amendment18.' : ''),
   release: Object.assign({ commit: release.commit, challenges: release.challenges.length }, LATER ? { previous: AUDIT_PIN, members: members.length, unchangedNotRun: AMEND.challenges.unchanged, amendment: prereg.amendments.indexOf(AMEND) + 1 } : {}),
   decider: prereg.lanes.K.decider,
   declaredChanges: prereg.lanes.K.declaredChanges,
   trustBase: prereg.lanes.K.trustBase,
   notRunYet: LATER ? members.filter((m) => !list.find((r) => r.challenge === m)).sort() : notRun,
-  counts: { decided: list.length, of: members.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)), displayed: tally(list.filter((r) => r.displayed).map((r) => r.displayed.word)) },
+  counts: { decided: list.length, of: members.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)), displayed: tally(list.filter((r) => r.displayed).map((r) => r.displayed.word)),
+    /* amendment 18: which nanoda gave the second acceptance — as published, 1 GiB, the #44 patch, a later commit (never pooled) */
+    ...(a18counts ? { certifiedByNanoda: tally(list.filter((r) => r.word === 'CERTIFIED').map((r) => r.nanodaBuild || 'unrecorded')) } : {}) },
+  ...(a18counts ? { amendment18: a18counts } : {}),
   rows: list,
 };
 writeStable(OUT, ledger);
 console.log(path.relative(ROOT, OUT) + ': ' + list.length + ' of ' + members.length + ' challenges — ' + JSON.stringify(ledger.counts.words) + (Object.keys(ledger.counts.strict).length ? '; strict ' + JSON.stringify(ledger.counts.strict) : ''));
 for (const r of list) console.log('  ' + r.word.padEnd(22) + r.challenge.padEnd(34) + (r.strict ? '[' + r.strict.word + '] ' : '') + (r.word === 'CERTIFIED' ? '' : r.why));
+if (a18counts) {
+  const w = (x) => x ? x.word + (x.stage ? ' (' + x.stage + ')' : '') : '—';
+  console.log('amendment ' + A18_NO + ': ' + a18counts.recorded + ' of ' + a18counts.members + ' recorded; before ' + JSON.stringify(a18counts.before) + '; control ' + JSON.stringify(a18counts.control) + '; new ' + JSON.stringify(a18counts.new) + '; moved ' + a18counts.moved);
+  console.log('  ' + 'challenge'.padEnd(28) + 'before'.padEnd(22) + 'control (3a240721 + 1 GiB)'.padEnd(30) + 'new (d0a02cc5 + 1 GiB)');
+  for (const r of a18rows) console.log('  ' + r.challenge.padEnd(28) + w(r.amendment18.before).padEnd(22) + w(r.amendment18.control).padEnd(30) + w(r.amendment18.new));
+}

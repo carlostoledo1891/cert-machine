@@ -45,6 +45,10 @@ fact = {
     'logTail': [l for l in (log or '').splitlines() if l.strip()][-25:],
     'errTail': [l for l in (err or '').splitlines() if l.strip() and not l.lstrip().startswith(('Command being timed', 'User time', 'System time', 'Percent of CPU', 'Elapsed', 'Average', 'Maximum resident', 'Major', 'Minor', 'Voluntary', 'Involuntary', 'Swaps', 'File system', 'Socket', 'Signals', 'Page size', 'Exit status'))][-25:],
 }
+# amendment 18: how the memory scope Comparator ran in ended (systemctl show: Result, ActiveState, MemoryPeak, ...)
+scope = read('scope.txt')
+if scope is not None:
+    fact['scope'] = [l for l in scope.splitlines() if l.strip()]
 s_log, s_err, s_exit = read('strict.log'), read('strict.err'), read('strict-exit.txt')
 if s_exit is not None:
     s_both = (s_log or '') + '\n' + (s_err or '')

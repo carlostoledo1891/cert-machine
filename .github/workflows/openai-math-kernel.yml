@@ -27,8 +27,15 @@
 # (tools/pin-openai-math.js --pin) otherwise, and every byte check reads that census. The pin is
 # printed in the run's title and in each job's env.txt, so a ledger can refuse a run of another pin.
 #   gh workflow run openai-math-kernel.yml -f math_pin=<sha> -f challenges="LocalSmoothing"
+#
+# A LATER NANODA, BESIDE A CONTROL (2026-11-09, pre-registration amendment 18): nanoda_pin names the
+# ammkrn/nanoda_lib commit nanoda is built from (default 3a240721, the lane's pin), and memory_scope, when set
+# (13G for amendment 18), runs Comparator inside a systemd user scope with that MemoryMax and no swap, so a
+# memory stop kills Comparator's process tree and the job still uploads its facts. Both are printed in the
+# run's title (when not the default) and in each job's env.txt. With both defaults a job runs as before.
+#   gh workflow run openai-math-kernel.yml -f nanoda_pin=<sha> -f memory_scope=13G -f challenges="Catalan"
 name: openai-math-kernel
-run-name: openai-math-kernel @ ${{ inputs.math_pin }}
+run-name: openai-math-kernel @ ${{ inputs.math_pin }}${{ inputs.nanoda_pin != '3a2407216ee84a75f9e1aead6803d0578be06ae7' && format(' · nanoda {0}', inputs.nanoda_pin) || '' }}${{ inputs.memory_scope != '' && format(' · memory scope {0}', inputs.memory_scope) || '' }}
 on:
   workflow_dispatch:
     inputs:
@@ -47,6 +54,14 @@ on:
         description: 'nanoda as built: stack1g (amendment 11) | issue44 (amendment 13: the ammkrn/nanoda_lib#44 patch, the stock 16 MiB stack) | issue44-stack1g (both)'
         required: false
         default: 'stack1g'
+      nanoda_pin:
+        description: 'the ammkrn/nanoda_lib commit (full sha) nanoda is built from: 3a240721 (the lane''s pin, v0.4.19) | d0a02cc5defadd683f62f9d078f41688314fa31f (amendment 18, v0.4.30); the issue44 builds only at 3a240721'
+        required: false
+        default: '3a2407216ee84a75f9e1aead6803d0578be06ae7'
+      memory_scope:
+        description: 'empty (no limit, as every run before amendment 18) or a systemd MemoryMax such as 13G: Comparator runs in a user scope with that limit and no swap (amendment 18)'
+        required: false
+        default: ''
 permissions:
   contents: read
 env:
@@ -56,8 +71,11 @@ env:
   COMPARATOR_PIN: d03acab154d269c06e60e4de7e4cc85deebff94b   # tag v4.34.0, toolchain raised to v4.34.1 (the release's)
   LEAN4EXPORT_PIN: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest
   LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4      # Zouuup/landrun main, 2026-07-23
-  NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7       # ammkrn/nanoda_lib master, 2026-09-22 (v0.4.19)
+  # default 3a2407216ee84a75f9e1aead6803d0578be06ae7 = ammkrn/nanoda_lib master, 2026-09-22 (v0.4.19); amendment 18's new
+  # arm: d0a02cc5defadd683f62f9d078f41688314fa31f = master, 2026-10-27 (v0.4.30). Part of the tools cache key below.
+  NANODA_PIN: ${{ inputs.nanoda_pin }}
   NANODA_BUILD: ${{ inputs.nanoda_build }}
+  MEMORY_SCOPE: ${{ inputs.memory_scope }}
   # amendment 13: the patch posted in ammkrn/nanoda_lib#44 (2026-10-06), copied byte for byte from the issue
   ISSUE44_SHA256: 3939d228619a28d7437bad82c1d41fe1fd4597a7ea55b849840c0f7caa7d0ee5
 jobs:
@@ -81,9 +99,13 @@ jobs:
   tools:
     runs-on: ubuntu-24.04
     steps:
-      - name: the variant asked for is one of the three
+      - name: the variant asked for is one of the three, at a pin it applies to
         run: |
           case "$NANODA_BUILD" in stack1g|issue44|issue44-stack1g) ;; *) echo "unknown nanoda_build: $NANODA_BUILD"; exit 1;; esac
+          [[ "$NANODA_PIN" =~ ^[0-9a-f]{40}$ ]] || { echo "nanoda_pin must be a full 40-hex commit"; exit 1; }
+          # amendment 18: the #44 patch is against 3a240721, and upstream superseded it (#45, three-valued proof irrelevance)
+          case "$NANODA_BUILD" in issue44*) test "$NANODA_PIN" = 3a2407216ee84a75f9e1aead6803d0578be06ae7 || { echo "the #44 patch applies to nanoda 3a240721 only"; exit 1; };; esac
+          [[ -z "$MEMORY_SCOPE" || "$MEMORY_SCOPE" =~ ^[0-9]+[KMG]$ ]] || { echo "memory_scope must be empty or like 13G"; exit 1; }
       - uses: actions/checkout@v4
         with:
           sparse-checkout: corpus/openai-math/nanoda/issue44.patch
@@ -111,6 +133,7 @@ jobs:
           cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
           go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
           cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          test "$(git rev-parse HEAD)" = "$NANODA_PIN"; echo "$NANODA_PIN" > ~/kernel-tools/nanoda.pin
           # amendment 11 (stack1g): ONE change to nanoda — its worker threads' stack, a hard-coded 16 MiB (src/lib.rs),
           # raised to 1 GiB. Amendment 13 (issue44): the patch of ammkrn/nanoda_lib#44, src/tc.rs only — proof
           # irrelevance three-valued and lazy_delta_proj_reduction, both as Lean's reference kernel does them — on the
@@ -174,6 +197,25 @@ jobs:
           chmod +x ~/kernel-tools/bin/*
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
           echo "$HOME/kernel-tools/bin" >> "$GITHUB_PATH"
+      # amendment 18: the memory scope, only when memory_scope is set. A systemd user manager for the runner (linger),
+      # then a probe that the limit is in force — a 256M scope allocates 64M and is stopped at 512M — or no Comparator.
+      - name: the memory scope is in force
+        if: env.MEMORY_SCOPE != ''
+        run: |
+          set -euo pipefail
+          sudo loginctl enable-linger "$USER"
+          uid="$(id -u)"
+          for i in $(seq 1 60); do [ -S "/run/user/$uid/bus" ] && break; sleep 1; done
+          export XDG_RUNTIME_DIR="/run/user/$uid" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus"
+          echo "XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR" >> "$GITHUB_ENV"
+          echo "DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS" >> "$GITHUB_ENV"
+          systemctl --user is-system-running --wait || true
+          A='import sys; b = bytearray(int(sys.argv[1]) << 20); b[::4096] = b"x" * len(b[::4096])'
+          systemd-run --user --scope --quiet -p MemoryMax=256M -p MemorySwapMax=0 -- python3 -c "$A" 64
+          if systemd-run --user --scope --quiet -p MemoryMax=256M -p MemorySwapMax=0 -- python3 -c "$A" 512 2> /dev/null; then
+            echo "the memory limit is NOT in force: a 256M scope allocated 512M"; exit 1
+          fi
+          echo "memory scope: MemoryMax=$MEMORY_SCOPE MemorySwapMax=0 (systemd $(systemctl --version | head -1 | cut -d' ' -f2); probe: a 256M scope allocates 64M and is stopped at 512M)" | tee ~/scope-probe.txt
       - name: the release at its pin, the challenge checked against the census
         run: |
           set -euo pipefail
@@ -242,16 +284,25 @@ jobs:
             lean --version; comparator --version 2>/dev/null || true
             echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
             echo "nanoda build: $(cat ~/kernel-tools/nanoda.build 2>/dev/null || echo stack1g)"
+            echo "nanoda pin: $(cat ~/kernel-tools/nanoda.pin 2>/dev/null || echo "$NANODA_PIN")"
+            echo "runner image: ${ImageOS:-unknown} ${ImageVersion:-unknown}"
+            [ -f ~/scope-probe.txt ] && cat ~/scope-probe.txt
           } > ~/out/env.txt 2>&1
+          # amendment 18: with memory_scope set, Comparator and everything it starts run in one systemd user scope
+          # (MemoryMax, no swap); a memory stop then kills that tree, not the runner. Empty: the command as before.
+          SCOPE=()
+          if [ -n "$MEMORY_SCOPE" ]; then SCOPE=(systemd-run --user --scope --quiet --unit="omk-$CH" -p MemoryMax="$MEMORY_SCOPE" -p MemorySwapMax=0 --); fi
           # nanoda recurses deeply on some exports (9 jobs of run 38019899278 aborted with "stack overflow"): give the
           # main thread an unlimited stack and Rust's spawned threads 1 GiB
           ulimit -s unlimited || ulimit -s 4194304 || true
           export RUST_MIN_STACK=1073741824
           echo "stack: $(ulimit -s); RUST_MIN_STACK=$RUST_MIN_STACK" >> ~/out/env.txt
           start=$(date +%s)
-          /usr/bin/time -v lake env comparator audit-config.json > ~/out/comparator.log 2> ~/out/comparator.err
+          /usr/bin/time -v "${SCOPE[@]}" lake env comparator audit-config.json > ~/out/comparator.log 2> ~/out/comparator.err
           echo $? > ~/out/exit.txt
           echo $(( $(date +%s) - start )) > ~/out/seconds.txt
+          # how the scope ended (a scope the memory limit stopped stays loaded, failed, with Result=oom-kill)
+          if [ -n "$MEMORY_SCOPE" ]; then systemctl --user show "omk-$CH.scope" -p Result -p ActiveState -p MemoryPeak -p MemoryMax -p MemorySwapMax > ~/out/scope.txt 2>&1 || true; cat ~/out/scope.txt; fi
           tail -40 ~/out/comparator.log; tail -40 ~/out/comparator.err
           if [ -f audit-config-strict.json ]; then
             start=$(date +%s)
