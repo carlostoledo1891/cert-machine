@@ -35,7 +35,7 @@ NEXT SESSION, IN ORDER (handoff 2026-11-09 ~14:30 UTC; NOTHING BILLING — no po
      apps/z-in-q/build.js reads version13-tree-check.json, names Versions 9/12/13 by his counts (not checked) and Version 14
      (PR #21, 299/314, open, not checked); outreach.json's two Glazer #3 rows "answered" (he replied 11-07). (3) the sweep
      watches lean4#16290, con-leche#17, nanoda_lib#82, rpi-index#1, formal-math#36, cslib-frontier#739,
-     lm_understand-logs#4, formal-conjectures#5297. OPEN, THE OPERATOR'S WORD: post outreach/gh-lean4-16290-result-2026-11-09.md
+     lm_understand-logs#4, formal-conjectures#5297. POSTED 11-09 on the operator's word (issuecomment-6742344082): outreach/gh-lean4-16290-result-2026-11-09.md
      (untracked; its links point at main, pushed). WAIT: Freer #17–#20 unreviewed until he or Glazer reacts to the #8 review;
      #5297 our own PR on Gessel's yes or ~11-14; #7706 link swap; teorth #242/#249/#275/#277/#279; cert-machine #3–#7.
      Glazer's protocol (scout notes): if PR #21 merges, only his gpt-6-astra agents can give the required acceptance — our
