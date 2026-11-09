@@ -815,80 +815,258 @@ a.ccd-btn:hover{border-color:var(--ink)}
 <header class="col">
   <div class="eyebrow">cert-machine · report · generated from the records</div>
   <h1>Does an AI’s Lean proof prove the right statement? One command to check</h1>
-  <p class="deck">A Lean proof can be correct and still prove the wrong thing: a dropped hypothesis, a changed constant, a definition that is not the one in the problem list. Lean’s kernels settle the first question. This tool settles the second with exact checks instead of a reader’s opinion, and tests itself on every run with planted wrong statements. Two AI-written refutations of Erdős problems, both waiting as pull requests on Google DeepMind’s list of open problems, went through it.</p>
+  <p class="deck">A Lean proof can be correct and still prove the wrong thing. Lean’s kernels check the proof; this tool checks the statement, with exact tests instead of a reader’s opinion. Two AI-written refutations of Erdős problems, waiting on Google DeepMind’s list of open problems, went through it.</p>
 </header>
 
-<div class="col"><div class="note">
-  <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Both proofs refute Google DeepMind’s statements as they stand today, with only the standard axioms, under three kernels. On #786(i) the proof states its own copies of two definitions; the kernel accepts it against DeepMind’s, so they match. On #488 the formal statement agrees with Erdős’s sentence on every small case where the sentence is defined; where the two differ, at A = {0}, the sentence is false as written and the hypothesis DeepMind added excludes exactly those cases.</li><li><b>The mechanism.</b> The kernel is given the claimant’s proof and DeepMind’s statement, taken from DeepMind’s own declaration and never retyped; it accepts only if the two statements are the same after unfolding definitions. Planted wrong statements must be refused and rewordings accepted; the hypotheses must have a model; on finite cases, Lean and an exact program written from the problem’s sentence alone must agree.</li><li><b>Check it.</b> <span class="m">node tools/lean-intake.js record &lt;id&gt; --check</span> re-derives each record from its run’s facts; <span class="m">run &lt;id&gt;</span> repeats the run from the pre-registered spec.</li></ul>
-</div></div>
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+    <svg viewBox="0 0 900 300" role="img" aria-label="Two rows. The proof goes to question 1, is the proof correct: Lean, leanchecker and nanoda all accept, on both claims, with only the standard axioms. The statement goes to question 2, is it the right statement: the kernel accepts the proof against it exactly, 16 of 16 planted wrong statements are refused and 10 of 10 rewordings accepted, and on #488 2,205 small cases agree with Erdős’s sentence.">
+    <rect x="0" y="14" width="300" height="78" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="16.0" y="44" class="t-lab">the proof</text>
+    <text x="16.0" y="68" class="t-ax">the claimant’s Lean, pinned</text>
+    <line x1="306" y1="53" x2="352" y2="53" stroke="var(--ink-3)" stroke-width="1.6"/>    <path d="M352 53 l-9 -5 l0 10 z" fill="var(--ink-3)"/>
+    <rect x="358" y="14" width="542" height="104" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="376.0" y="44" class="t-lab">1 · is the proof correct?</text>
+    <text x="376.0" y="70" class="t-ax">Lean, leanchecker and nanoda all accept, on both claims</text>
+    <text x="376.0" y="92" class="t-ax">only the three standard axioms</text>
+    <rect x="0" y="164" width="300" height="78" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="16.0" y="194" class="t-lab">the statement</text>
+    <text x="16.0" y="218" class="t-ax">DeepMind’s, from its declaration</text>
+    <line x1="306" y1="203" x2="352" y2="203" stroke="var(--ink-3)" stroke-width="1.6"/>    <path d="M352 203 l-9 -5 l0 10 z" fill="var(--ink-3)"/>
+    <rect x="358" y="164" width="542" height="128" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="376.0" y="194" class="t-lab">2 · is it the right statement?</text>
+    <text x="376.0" y="220" class="t-ax">the kernel accepts the proof against it, exactly</text>
+    <text x="376.0" y="242" class="t-ax">16 of 16 wrong statements refused · 10 of 10 rewordings accepted</text>
+    <text x="376.0" y="264" class="t-ax">on #488, 2,205 small cases agree with Erdős’s sentence</text>
+    </svg>
+</div><div class="hv-n">
+    <svg viewBox="0 0 360 537" role="img" aria-label="Two rows. The proof goes to question 1, is the proof correct: Lean, leanchecker and nanoda all accept, on both claims, with only the standard axioms. The statement goes to question 2, is it the right statement: the kernel accepts the proof against it exactly, 16 of 16 planted wrong statements are refused and 10 of 10 rewordings accepted, and on #488 2,205 small cases agree with Erdős’s sentence.">
+    <rect x="0" y="4" width="360" height="66" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="14.0" y="30" class="t-lab">the proof</text>
+    <text x="14.0" y="52" class="t-ax">the claimant’s Lean, pinned</text>
+    <line x1="180" y1="74" x2="180" y2="102" stroke="var(--ink-3)" stroke-width="1.6"/>    <path d="M180 102 l-5 -9 l10 0 z" fill="var(--ink-3)"/>
+    <rect x="0" y="108" width="360" height="107" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="14.0" y="136" class="t-lab">1 · is the proof correct?</text>
+    <text x="14.0" y="160" class="t-ax">Lean, leanchecker and nanoda all accept, on</text>
+    <text x="14.0" y="181" class="t-ax">both claims</text>
+    <text x="14.0" y="202" class="t-ax">only the three standard axioms</text>
+    <rect x="0" y="259" width="360" height="66" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="14.0" y="285" class="t-lab">the statement</text>
+    <text x="14.0" y="307" class="t-ax">DeepMind’s, from its declaration</text>
+    <line x1="180" y1="329" x2="180" y2="357" stroke="var(--ink-3)" stroke-width="1.6"/>    <path d="M180 357 l-5 -9 l10 0 z" fill="var(--ink-3)"/>
+    <rect x="0" y="363" width="360" height="170" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="14.0" y="391" class="t-lab">2 · is it the right statement?</text>
+    <text x="14.0" y="415" class="t-ax">the kernel accepts the proof against it,</text>
+    <text x="14.0" y="436" class="t-ax">exactly</text>
+    <text x="14.0" y="457" class="t-ax">16 of 16 wrong statements refused · 10 of 10</text>
+    <text x="14.0" y="478" class="t-ax">rewordings accepted</text>
+    <text x="14.0" y="499" class="t-ax">on #488, 2,205 small cases agree with</text>
+    <text x="14.0" y="520" class="t-ax">Erdős’s sentence</text>
+    </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/lean-intake-erdos-488.json@3d55fa1fe80a certs/lean-intake-erdos-786i.json@98066cbd66c4">Lean’s kernels answer the first question. The second is the one this tool adds: the same statement, wrong ones refused, and the statement compared with the problem’s own words on small cases.<span class="fig-rec">Records: <span class="m">certs/lean-intake-erdos-488.json</span> · sha256 3d55fa1fe80a; <span class="m">certs/lean-intake-erdos-786i.json</span> · sha256 98066cbd66c4</span></figcaption>
+</figure></div>
 
 <div class="wide">
   <div class="stats" data-n="4">
-    <div class="stat"><div class="k">claims decided</div><div class="v">2</div><div class="n">Erdős #488 and #786(i), both open pull requests</div></div>
+    <div class="stat"><div class="k">claims checked</div><div class="v">2</div><div class="n">Erdős #488 and #786(i)</div></div>
     <div class="stat"><div class="k">planted wrong statements refused</div><div class="v">16 of 16</div><div class="n">and 10 of 10 rewordings accepted</div></div>
-    <div class="stat"><div class="k">planted defects in the proofs caught</div><div class="v">7 of 7</div><div class="n">a false step, a sorry, an axiom, native_decide</div></div>
-    <div class="stat"><div class="k">the fresh claim, rules to record</div><div class="v">51 min</div><div class="n">on a laptop, no rented machine</div></div>
+    <div class="stat"><div class="k">planted defects caught</div><div class="v">7 of 7</div><div class="n">a false step, a sorry, an axiom, native_decide</div></div>
+    <div class="stat"><div class="k">a fresh claim, rules to record</div><div class="v">51 min</div><div class="n">on a laptop</div></div>
   </div>
 </div>
 
-<p class="scope">The mathematics is the claimants’: Declan Gessel’s, with OpenAI’s GPT-6 Astra in Codex, for both refutations; the statements are Google DeepMind’s, in formal-conjectures. This page checks their proofs against those statements; it is not new mathematics. The tool is mine, written with Claude (Anthropic).</p>
+<p class="scope">The mathematics is the claimants’ (Declan Gessel’s, with OpenAI’s GPT-6 Astra, for both refutations); the statements are Google DeepMind’s. This page checks their proofs against those statements. The tool is mine, built with Claude (Anthropic).</p>
 
 <section class="col" id="limits">
   <div class="sec-head">
-    <div class="lab">first, the limits</div>
-    <h2>What these checks do not decide</h2>
+    <div class="lab">read this first</div>
+    <h2>What it does not decide</h2>
   </div>
-<ul class="plain"><li><b>Whether the formal statement is the problem.</b> That stays a reading. The instance check below is evidence on finitely many cases, not a proof that the statement is the right one.</li><li><b>“Same statement” means the same after unfolding definitions.</b> Two statements that are equivalent only by an argument are refused as different. The planted controls measure this: all 3 such statements were refused.</li><li><b>The instance check compares true and false on small cases.</b> A change that never flips an answer there is invisible to it: on #488, a statement that counts from 2 instead of 1 changes the counts whenever 1 is in A, and never an answer.</li><li><b>Not every statement has small cases.</b> #786(i) is about the density of infinite sets for a real ε; the instance check was refused there, as written down before the run.</li><li><b>Four of the checkers bundled with Lean 4.35 were not run.</b> Both claims are on Lean 4.33.1, which ships only leanchecker; leanchecker-paranoid, lean4lean, con-leche, con-ron come with Lean 4.35 and later. nanoda was built here.</li></ul>
+<ul class="plain"><li><b>Whether the formal statement is the problem.</b> That stays a reading; the small cases are evidence, not proof.</li><li><b>“The same” means the same after unfolding definitions.</b> Statements equivalent only by an argument are refused (all 3 planted ones were).</li><li><b>Small cases compare true and false.</b> A change that never flips an answer there is invisible to them.</li><li><b>Some statements have no small cases.</b> #786(i) is about densities of infinite sets: refused there, as planned.</li><li><b>Four of Lean 4.35’s bundled checkers were not run.</b> Both claims are on Lean 4.33.1; leanchecker-paranoid, lean4lean, con-leche, con-ron come later.</li></ul>
+</section>
+
+<section class="" id="planted">
+  <div class="col sec-head">
+    <div class="lab">does the check work?</div>
+    <h2>Every planted test came out as it should</h2>
+  </div>
+<div class="col"><p>Each run tests the check itself. Wrong versions of the statement are planted (a dropped hypothesis, a changed constant, a shifted interval) and must be refused; rewordings of the same statement must be accepted; broken copies of the proof must be caught. One square per test; hover for what it was.</p></div><figure>
+  <div class="figbox">
+    <svg viewBox="0 0 900 248" role="img" aria-label="Four rows of small squares, one per planted test. Wrong statements: 16 squares, all filled (refused). The same statement reworded: 10 squares, all hollow (accepted). Equivalent only by an argument: 3 squares, filled (refused, the stated limit). Defects planted in the proofs: 7 squares, all filled (caught). Within each row, #488 comes first, then a gap, then #786(i).">
+    <text x="0.0" y="26" class="t-lab">wrong statements</text>
+    <text x="0.0" y="43" class="t-ax">must be refused</text>
+    <rect x="250" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W01: the statement as it read before 2026-10-14: answer(sorry) ↔ … (the 11-06 run&#39;s Ctl1) — REFUSED by type mismatch</title></rect>
+    <rect x="279" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W02: the constant 2 changed to 3 (the 11-06 run&#39;s Ctl2) — REFUSED by type mismatch</title></rect>
+    <rect x="308" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W03: m &gt; n changed to m ≥ n (the 11-06 run&#39;s Ctl3) — REFUSED by type mismatch</title></rect>
+    <rect x="337" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W04: the strict &lt; of the conclusion made ≤ — REFUSED by type mismatch</title></rect>
+    <rect x="366" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W05: the hypothesis 1 ∉ A dropped — REFUSED by type mismatch</title></rect>
+    <rect x="395" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W06: the hypothesis 0 ∉ A dropped — REFUSED by type mismatch</title></rect>
+    <rect x="424" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W07: A.max ≤ n made strict, A.max &lt; n — REFUSED by type mismatch</title></rect>
+    <rect x="453" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W09: the set B starts at 2: n ≥ 2 for n ≥ 1 — REFUSED by type mismatch</title></rect>
+    <rect x="482" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W10: the left denominator m replaced by n — REFUSED by type mismatch</title></rect>
+    <rect x="511" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 W11: the left interval widened to Icc 1 (m + 1) (added by amendment 2, after the first run, to keep ten wrong controls) — REFUSED by type mismatch</title></rect>
+    <rect x="558" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W01: the hypothesis 0 ∉ A dropped — REFUSED by type mismatch</title></rect>
+    <rect x="587" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W02: 1 - ε &lt; δ made 1 - ε ≤ δ — REFUSED by type mismatch</title></rect>
+    <rect x="616" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W03: ε ≤ 1 made strict, ε &lt; 1 — REFUSED by type mismatch</title></rect>
+    <rect x="645" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W04: the bar 1 - ε changed to 1 - 2 * ε — REFUSED by type mismatch</title></rect>
+    <rect x="674" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W05: the density δ replaced by δ / 2 — REFUSED by type mismatch</title></rect>
+    <rect x="703" y="16" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) W06: 0 ∉ A replaced by 1 ∉ A — REFUSED by type mismatch</title></rect>
+    <text x="742.0" y="32" class="t-lab">16 of 16</text>
+    <text x="0.0" y="78" class="t-lab">the same, reworded</text>
+    <text x="0.0" y="95" class="t-ax">must be accepted</text>
+    <rect x="250" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 S0: the canonical statement copied verbatim (the baseline) — ACCEPTED</title></rect>
+    <rect x="279" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 S1: m &gt; n written as an explicit n &lt; m hypothesis (GT.gt is reducible notation for LT.lt) — ACCEPTED</title></rect>
+    <rect x="308" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 S2: every bound variable renamed (A→S, B→D, n→k, m→l, a→d) — ACCEPTED</title></rect>
+    <rect x="337" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 S3: the letI B inlined at both uses (zeta) — ACCEPTED</title></rect>
+    <rect x="366" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 S4: 0 ∉ A written ¬ (0 ∈ A) (the notation&#39;s own unfolding) — ACCEPTED</title></rect>
+    <rect x="395" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#488 W08: the interval Icc 1 m shifted to Icc 0 m (left side only) — RECLASSIFIED by amendment 2: 0 is not in B (n ≥ 1), so the two filtered intervals are definitionally equal (rfl, amendment-2/why.lean); the pre-registration&#39;s class was wrong, not the check — ACCEPTED</title></rect>
+    <rect x="442" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#786(i) S0: the canonical statement copied verbatim — ACCEPTED</title></rect>
+    <rect x="471" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#786(i) S1: the binder predicate written out: ∀ ε : ℝ, ε &gt; 0 → … — ACCEPTED</title></rect>
+    <rect x="500" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#786(i) S2: every bound variable renamed (ε→e, A→S, δ→d) — ACCEPTED</title></rect>
+    <rect x="529" y="68" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--surface)"><title>#786(i) S3: the claimant&#39;s own wording of the proposition: 0 &lt; ε and nested ∃ (GT.gt is reducible notation) — ACCEPTED</title></rect>
+    <text x="568.0" y="84" class="t-lab">10 of 10</text>
+    <text x="0.0" y="130" class="t-lab">equivalent by an argument</text>
+    <text x="0.0" y="147" class="t-ax">refused: the limit</text>
+    <rect x="250" y="120" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 E1: the left interval starts at 2: the same statement only because 1 ∉ A is a hypothesis, not by definition (added by amendment 2: a probe of F1&#39;s limit — identity up to definitional unfolding, not logical equivalence) — REFUSED by type mismatch</title></rect>
+    <rect x="297" y="120" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) E1: the first two conjuncts swapped: the same statement logically, not definitionally — REFUSED by type mismatch</title></rect>
+    <rect x="326" y="120" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) E2: the existential quantifiers swapped, ∃ (δ : ℝ) (A : Set ℕ): the same logically, not definitionally — REFUSED by type mismatch</title></rect>
+    <text x="365.0" y="136" class="t-lab">3 of 3</text>
+    <text x="0.0" y="182" class="t-lab">defects in the proofs</text>
+    <text x="0.0" y="199" class="t-ax">must be caught</text>
+    <rect x="250" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 R1: 4096 replaced by 1000 everywhere: a false arithmetic claim — caught: the build fails: Tactic decide proved that the proposition</title></rect>
+    <rect x="279" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 R2: a sorry in constant_ratio — caught: the axioms list sorryAx</title></rect>
+    <rect x="308" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 R3: an added axiom — caught: the axioms list Submissions.ErdosMultiplesSmoothRefuted.Counterexample.intakeRedAxiom</title></rect>
+    <rect x="337" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#488 R4: native_decide in endpoint_gap — caught: the axioms list Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1</title></rect>
+    <rect x="384" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) R1: the witness ε = 1/16 changed to 1/2: the final step becomes false (δ &gt; 1/2 does not contradict δ ≤ 7/8) — caught: the build fails: linarith failed to find a contradiction</title></rect>
+    <rect x="413" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) R2: the final step replaced by sorry — caught: the axioms list sorryAx</title></rect>
+    <rect x="442" y="172" width="22" height="22" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="var(--ink)"><title>#786(i) R3: the key lemma made an axiom (its proof kept under another name) — caught: the axioms list density_le_seven_eighths</title></rect>
+    <text x="481.0" y="188" class="t-lab">7 of 7</text>
+    <text x="250.0" y="238" class="t-ax">filled: refused or caught · hollow: accepted · in each row, #488 first, then #786(i)</text>
+    </svg>
+  </div>
+  <figcaption data-record="certs/lean-intake-erdos-488.json@3d55fa1fe80a certs/lean-intake-erdos-786i.json@98066cbd66c4" data-stop>The planted tests of both runs. The three filled squares in the third row are the stated limit: statements that are logically the same but differ by more than unfolding a definition are refused.<span class="fig-rec">Records: <span class="m">certs/lean-intake-erdos-488.json</span> · sha256 3d55fa1fe80a; <span class="m">certs/lean-intake-erdos-786i.json</span> · sha256 98066cbd66c4</span><span class="fig-stop">The build refuses this figure if a planted statement or defect is not as expected.</span></figcaption>
+</figure>
+</section>
+
+<section class="" id="erdos-488">
+  <div class="col sec-head">
+    <div class="lab">Erdős #488</div>
+    <h2>DeepMind’s statement against Erdős’s sentence</h2>
+  </div>
+<div class="col"><p>Erdős asked whether, for a finite set A and B the numbers with a divisor in A, <span class="m">|B ∩ [1,m]|/m &lt; 2|B ∩ [1,n]|/n</span> always holds for <span class="m">m &gt; n ≥ max(A)</span>. Gessel’s proof refutes DeepMind’s Lean version of it; this run reached the same verdicts as a separate hand-built check of 6 November.</p><p>Then the new check: Lean evaluated DeepMind’s statement part by part on 3,024 small cases (the kernel confirmed every value), and a program written from Erdős’s sentence alone evaluated the same cases.</p></div><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 206" role="img" aria-label="Two bars on a scale of 3,024 small cases. Each part: 2,205 cases where Erdős’s sentence is defined, all agreeing with DeepMind’s statement, then 819 hatched cases where the sentence divides by zero. Whole statements: a thin sliver of 20 cases where they differ, all with A = {0}.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="200.0" y1="16" x2="200.0" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="200.0" y="168.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="422.9" y1="16" x2="422.9" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="422.9" y="168.0" text-anchor="middle" class="t-ax">1,000</text>
+    <line x1="645.8" y1="16" x2="645.8" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="645.8" y="168.0" text-anchor="middle" class="t-ax">2,000</text>
+    <line x1="874.0" y1="16" x2="874.0" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="874.0" y="168.0" text-anchor="middle" class="t-ax">3,024</text>
+    <text x="188.0" y="42.0" text-anchor="end" class="t-ax">agree: 2,205</text>
+    <rect x="200.00" y="28" width="489.46" height="20" rx="3" fill="var(--c-1)" data-cm="Erdős’s sentence is defined" data-cmv="2,205 cases: every part of DeepMind’s statement agrees with it" tabindex="0"/>
+    <text x="188.0" y="86.0" text-anchor="end" class="t-ax">divide by zero: 819</text>
+    <rect x="691.46" y="72" width="180.54" height="20" rx="3" fill="url(#cmHatch)" data-cm="the sentence divides by zero" data-cmv="819 cases (n = 0 or m = 0): not compared" tabindex="0"/>
+    <rect x="691.46" y="72" width="180.54" height="20" rx="3" fill="none" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="188.0" y="130.0" text-anchor="end" class="t-ax">differ: 20</text>
+    <rect x="200.00" y="116" width="2.46" height="20" rx="3" fill="var(--ink)" data-cm="the whole statements differ" data-cmv="20 cases, all A = {0}" tabindex="0"/>
+    <line x1="211.1" y1="111" x2="211.1" y2="141" stroke="var(--ink)" stroke-width="2"/>
+    <text x="218.1" y="108.0" text-anchor="start" class="t-lab">all with A = {0}</text>
+    <text x="537.0" y="190.0" text-anchor="middle" class="t-note">small cases (A ⊆ {0, …, 5}, n below 6, m below 8)</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/lean-intake-erdos-488.json@3d55fa1fe80a instruments/intake/erdos-488.js@a2dc8058927b" data-stop>Every part agrees wherever Erdős’s sentence makes sense. The 20 cases where the whole statements differ all have A = {0}: B is empty there, the sentence reads 0 &lt; 0 and is false as written. DeepMind’s statement adds the hypothesis 0 ∉ A for exactly this (their pull request #256); the check found the reason without being told.<span class="fig-rec">Records: <span class="m">certs/lean-intake-erdos-488.json</span> · sha256 3d55fa1fe80a; <span class="m">instruments/intake/erdos-488.js</span> · sha256 a2dc8058927b</span><span class="fig-stop">The build refuses this figure if the cases stop adding up, or a disagreement is not one with A = {0}.</span></figcaption>
+</figure>
+</section>
+
+<section class="" id="erdos-786">
+  <div class="col sec-head">
+    <div class="lab">Erdős #786(i)</div>
+    <h2>A claim the tool had not seen</h2>
+  </div>
+<div class="col"><p>Part (i) asks whether some set of density above 1 − ε has all its equal products of equal length. Gessel’s refutation (<a href="https://github.com/google-deepmind/formal-conjectures/pull/5299">pull request #5299</a>, open since 6 September) states its own versions of the two definitions it needs. The kernel accepts it against DeepMind’s declaration as it stands today, so the definitions match.</p><p>It also turned up one thing for the pull request: DeepMind reworded this statement on 14 October, so the change no longer applies and GitHub reports a conflict. The proof still refutes the current statement.</p></div><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 206" role="img" aria-label="Three rows on one clock. Rules: the spec committed at 17:24, the tool fixed at 17:58. Runs: the full run from 17:24 to 17:57, the planted statements again from 17:58 to 18:15. Record: 18:15, 51 minutes after the spec.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="175.9" y1="16" x2="175.9" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="175.9" y="168.0" text-anchor="middle" class="t-ax">17:24</text>
+    <line x1="305.1" y1="16" x2="305.1" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="305.1" y="168.0" text-anchor="middle" class="t-ax">17:34</text>
+    <line x1="434.4" y1="16" x2="434.4" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="434.4" y="168.0" text-anchor="middle" class="t-ax">17:44</text>
+    <line x1="563.7" y1="16" x2="563.7" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="563.7" y="168.0" text-anchor="middle" class="t-ax">17:54</text>
+    <line x1="693.0" y1="16" x2="693.0" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="693.0" y="168.0" text-anchor="middle" class="t-ax">18:04</text>
+    <line x1="822.3" y1="16" x2="822.3" y2="148" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="822.3" y="168.0" text-anchor="middle" class="t-ax">18:14</text>
+    <text x="138.0" y="42.0" text-anchor="end" class="t-ax">rules</text>
+    <line x1="175.9" y1="23" x2="175.9" y2="53" stroke="var(--ink)" stroke-width="2"/>
+    <text x="182.9" y="20.0" text-anchor="start" class="t-lab">spec committed 17:24</text>
+    <line x1="615.0" y1="23" x2="615.0" y2="53" stroke="var(--ink)" stroke-width="2"/>
+    <text x="608.0" y="20.0" text-anchor="end" class="t-lab">tool fixed 17:58</text>
+    <text x="138.0" y="86.0" text-anchor="end" class="t-ax">runs</text>
+    <rect x="184.83" y="72" width="420.10" height="20" rx="3" fill="var(--c-1)" data-cm="the full run" data-cmv="17:24–17:57 UTC" tabindex="0"/>
+    <rect x="615.22" y="72" width="221.89" height="20" rx="3" fill="var(--c-1)" data-cm="the planted statements again" data-cmv="17:58–18:15 UTC" tabindex="0"/>
+    <text x="138.0" y="130.0" text-anchor="end" class="t-ax">record</text>
+    <line x1="839.1" y1="111" x2="839.1" y2="141" stroke="var(--ink)" stroke-width="2"/>
+    <text x="832.1" y="108.0" text-anchor="end" class="t-lab">recorded 18:15 · 51 min</text>
+    <text x="512.0" y="190.0" text-anchor="middle" class="t-note">time, UTC (9 November 2026)</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/lean-intake-erdos-786i.json@98066cbd66c4 corpus/lean-intake/erdos-786i/runs/2026-11-09/_status.txt@16a5b9f23555" data-stop>From the spec committed to the record, on a laptop. The first run found a defect in the tool (its test files missed one line of DeepMind’s file); it was fixed and the planted statements run again, with no statement or expectation changed.<span class="fig-rec">Records: <span class="m">certs/lean-intake-erdos-786i.json</span> · sha256 98066cbd66c4; <span class="m">corpus/lean-intake/erdos-786i/runs/2026-11-09/_status.txt</span> · sha256 16a5b9f23555</span><span class="fig-stop">The build refuses this figure if the clock falls out of order.</span></figcaption>
+</figure>
 </section>
 
 <section class="col" id="amendments">
   <div class="sec-head">
-    <div class="lab">also first</div>
-    <h2>Where the runs differed from the plan</h2>
+    <div class="lab">what I got wrong</div>
+    <h2>Four corrections, made in the open</h2>
   </div>
-<p>Each claim’s spec, with every planted statement and its expected outcome, was committed before any run. Four expectations or files were wrong, and each was amended in the open, with the first outcome kept beside the new one.</p><ul class="plain"><li><b>#488, a planted “wrong” statement was the same.</b> Counting from 0 instead of 1 changes nothing, because 0 is never in the set counted; the kernel saw it by reduction and accepted. The pre-registration’s label was wrong, not the check (14 of 15 as first written).</li><li><b>#488, the instance check found more than expected.</b> The pre-registration expected the formal statement and Erdős’s sentence to agree everywhere; they differ on 20 cases, all explained below.</li><li><b>#488, one planted statement was invisible to the instance check.</b> Counting from 2 changes counts, never answers: the limit above, now measured.</li><li><b>#786(i), a defect in the tool.</b> The generated test files lacked one line of DeepMind’s file (an open namespace), so the planted statements did not parse on the first run; fixed, and run again with no statement or expectation changed; then 12 of 12 came out as written.</li></ul>
+<ul class="plain"><li><b>#488: a “wrong” statement was the same.</b> Counting from 0 changes nothing, since 0 is never counted; the kernel saw it. My label was wrong (14 of 15 as first written).</li><li><b>#488: the small cases found more than I expected.</b> The 20 cases above, all explained.</li><li><b>#488: one planted statement was invisible to the small cases.</b> Counting from 2 changes counts, never answers: the limit, measured.</li><li><b>#786(i): a defect in the tool.</b> Fixed and re-run; then 12 of 12 came out as written.</li></ul><p>Each spec was committed before its run, and each correction is a dated amendment beside the first outcome.</p>
 </section>
 
-<section class="" id="checks">
-  <div class="col sec-head">
-    <div class="lab">the checks</div>
-    <h2>The checks, claim by claim</h2>
-  </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>question</th><th>Erdős #488</th><th>Erdős #786(i)</th></tr></thead><tbody><tr><td>Does the proof refute DeepMind’s statement, taken from its declaration?</td><td><span class="tag held">yes, the kernel accepts</span></td><td><span class="tag held">yes, the kernel accepts</span></td></tr><tr><td>Wrong statements planted: refused?</td><td>10 of 10</td><td>6 of 6</td></tr><tr><td>The same statement in other words: accepted?</td><td>6 of 6</td><td>4 of 4</td></tr><tr><td>Do the hypotheses have a model?</td><td>A = {2}, n = 2, m = 3</td><td>ε = 1/2</td></tr><tr><td>Small cases: Lean against the problem’s sentence?</td><td>agrees on all 2,205 defined cases; the kernel confirms</td><td><span class="tag open">no small cases</span></td></tr><tr><td>Defects planted in the proof: caught?</td><td>4 of 4</td><td>3 of 3</td></tr><tr><td>Kernels</td><td>3 accept</td><td>3 accept: Lean, leanchecker, nanoda (12,731 declarations)</td></tr><tr><td>Axioms</td><td>the three standard</td><td>the three standard</td></tr></tbody></table></div></div>
-</section>
-
-<section class="col" id="erdos-488">
-  <div class="sec-head">
-    <div class="lab">Erdős #488</div>
-    <h2>The formal statement against Erdős’s sentence, case by case</h2>
-  </div>
-<p>Erdős asked: for a finite set A and B the numbers n ≥ 1 with a divisor in A, is <span class="m">|B ∩ [1,m]|/m &lt; 2|B ∩ [1,n]|/n</span> for every <span class="m">m &gt; n ≥ max(A)</span>? Gessel’s proof refutes DeepMind’s Lean statement of it; this run reached the three verdicts a separate hand-written check of 6 November had reached, from a spec and one command.</p><p>The new check: Lean evaluated DeepMind’s statement, part by part, on 3,024 small cases (A a nonempty subset of {0, …, 5}, n below 6, m below 8), and the kernel confirmed every value. A program written from Erdős’s sentence alone, in exact integers, with no Lean, evaluated the same cases. Each part of the statement agrees with it on every case where the sentence is defined (2,205; the other 819 divide by zero).</p><p>The whole statements differ on 20 cases, all with A = {0}. There B is empty, the sentence reads 0 < 0, and it is false as written. DeepMind’s statement adds three hypotheses Erdős did not write; one of them, <span class="m">0 ∉ A</span>, excludes exactly these cases, and <a href="https://github.com/google-deepmind/formal-conjectures/pull/256">their pull request #256</a> gives the reason. The check found that reason without being told.</p>
-</section>
-
-<section class="col" id="erdos-786">
-  <div class="sec-head">
-    <div class="lab">Erdős #786(i)</div>
-    <h2>Its own definitions, checked against DeepMind’s</h2>
-  </div>
-<p>Part (i) asks whether, for every ε > 0, some set of density above 1 − ε has all its equal products of equal length. Gessel’s refutation (<a href="https://github.com/google-deepmind/formal-conjectures/pull/5299">pull request #5299</a>, open since 6 September) proves the density is at most 7/8. Its file states its own versions of the two definitions, and the pull request says they match the module’s. The kernel accepts the proof against DeepMind’s declaration as it stands today, so they do.</p><p>One thing the run turned up for the pull request: on 14 October DeepMind removed the <span class="m">answer(…)</span> wrapper from this statement, so the pull request’s change no longer applies to the file, and GitHub reports a conflict. The proof still refutes the statement on the current main branch.</p><p>This was the first claim the tool had not seen. From the spec’s commit at 17:24 UTC to the last step at 18:15: 51 minutes on a laptop, including the fix above. The hand-built check of #488 took hours of scripting and an hour on a rented machine.</p>
-</section>
-
-<section class="col" id="how">
-  <div class="sec-head">
-    <div class="lab">how it works</div>
-    <h2>What one command does</h2>
-  </div>
-<ul class="plain"><li><b>Pins.</b> Both repositories are fetched at fixed commits and the two files compared by sha256; nothing of the claimant’s is copied into this repository.</li><li><b>Identity.</b> A theorem whose statement is DeepMind’s declaration, read with type_of%, and whose proof is the claimant’s term: the kernel accepts it only if the statements match.</li><li><b>Controls.</b> Planted statements: wrong ones must be refused at the claimant’s proof and nowhere else; rewordings must be accepted.</li><li><b>Non-vacuity.</b> The statement’s hypotheses, read as written, must have a model the kernel checks.</li><li><b>Small cases.</b> Each hypothesis and the conclusion as a decision, evaluated by Lean, confirmed by the kernel, and compared with an exact program written from the problem’s sentence alone.</li><li><b>Planted defects.</b> Copies of the proof with a false step, a sorry, an axiom or native_decide; each must be caught by a failed build or an axiom outside the standard three.</li><li><b>Kernels.</b> Lean’s, leanchecker, and nanoda through an export; the ones not run are named in the record.</li></ul>
-</section>
+<div class="wide"><div class="cards"><a class="card" href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/lean-intake-erdos-488.json" target="_blank" rel="noopener"><span class="card-k">Erdős #488 · pull request #5297</span><span class="card-t">Gessel’s refutation, against DeepMind’s statement</span><span class="card-d">Identity, 10 of 10 wrong statements refused, the small cases, three kernels.</span><span class="card-n">the record</span></a>
+<a class="card" href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/lean-intake-erdos-786i.json" target="_blank" rel="noopener"><span class="card-k">Erdős #786(i) · pull request #5299</span><span class="card-t">Its own definitions, matched by the kernel</span><span class="card-d">6 of 6 wrong statements refused, 12,731 declarations checked by nanoda, 51 minutes on a laptop.</span><span class="card-n">the record</span></a></div></div>
 
 <section class="col" id="rerun">
   <div class="sec-head">
     <div class="lab">check it yourself</div>
-    <h2>How to re-run it</h2>
+    <h2>Re-run it</h2>
   </div>
-<ul class="plain"><li><b>The records.</b> <span class="m">node tools/lean-intake.js record erdos-488 --check</span> and <span class="m">node tools/lean-intake.js record erdos-786i --check</span> re-derive every verdict from <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake"><span class="m">corpus/lean-intake</span></a>.</li><li><b>The runs.</b> <span class="m">node tools/lean-intake.js run &lt;id&gt;</span> fetches the pins and repeats every step (Lean via elan; about 6 GB of Mathlib per claim).</li><li><b>The specs.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake/erdos-488/spec.json"><span class="m">corpus/lean-intake/erdos-488/spec.json</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake/erdos-786i/spec.json"><span class="m">corpus/lean-intake/erdos-786i/spec.json</span></a>, with their dated amendments.</li><li><b>The program for Erdős’s sentence.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/intake/erdos-488.js"><span class="m">instruments/intake/erdos-488.js</span></a>, standard library only.</li></ul>
-</section>
+<ul class="plain"><li><b>The verdicts.</b> <span class="m">node tools/lean-intake.js record &lt;id&gt; --check</span> re-derives each record from its run’s logs in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake"><span class="m">corpus/lean-intake</span></a>.</li><li><b>The runs.</b> <span class="m">node tools/lean-intake.js run &lt;id&gt;</span> fetches the pins and repeats every step (about 6 GB of Mathlib per claim).</li><li><b>The rules.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake/erdos-488/spec.json"><span class="m">corpus/lean-intake/erdos-488/spec.json</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/lean-intake/erdos-786i/spec.json"><span class="m">corpus/lean-intake/erdos-786i/spec.json</span></a>, with their dated amendments; Erdős’s sentence as a program: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/intake/erdos-488.js"><span class="m">instruments/intake/erdos-488.js</span></a>.</li></ul>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
 </div>
 

@@ -5,6 +5,8 @@
    Every number, statement and verdict word is read from certs/lean-intake-erdos-488.json and certs/lean-intake-erdos-786i.json
    (each re-derived from its run's facts by `tools/lean-intake.js record <id> --check`) and from their pre-registered specs;
    the build refuses when a verdict is not the one this page states. The limits and every amendment come before the results.
+   Redrawn 2026-11-09 on the operator's word ("our reports are too dense … the papers should be the dense element"): the
+   figures carry the argument, the prose is short, the rigor is unchanged.
 
    usage: node tools/build-report-lean-intake.js                                                                     MIT */
 'use strict';
@@ -14,6 +16,7 @@ const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const OG = require(path.join(ROOT, 'tools', 'build-og-report.js'));   /* the page's own light art card (og-lean-intake.png) */
 const die = (m) => { console.error('LEAN INTAKE REPORT REFUSED: ' + m); process.exit(1); };
 const J = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
@@ -58,112 +61,177 @@ const hhmm = (iso) => new Date(iso).toISOString().slice(11, 16);
 const ndec = (B.kernels.find((k) => /^nanoda/.test(k.name)) || {}).name ? (fs.readFileSync(path.join(ROOT, B.run.facts, 'nanoda.log'), 'utf8').match(/Checked (\d+) declarations/) || [])[1] : null;
 if (!ndec) die('the nanoda log of #786(i) does not print its declaration count');
 
+/* the two runs of the fresh claim on one clock: the spec's commit, the first run, the fix, the re-run of the planted statements */
+const done = status.map((l, i) => [l, i]).filter(([l]) => / done: /.test(l));
+if (done.length !== 2) die('the #786(i) status no longer shows the two runs this page draws');
+const t0 = Date.parse(specAt), mm = (iso) => (Date.parse(iso) - t0) / 60000, ts = (l) => l.split(' ')[0];
+const RUN1 = [ts(status[0]), ts(done[0][0])], RUN2 = [ts(status[done[0][1] + 1]), ts(done[1][0])];
+const fixAt = cp.execSync('git log --format=%cI -- corpus/lean-intake/erdos-786i/spec.json', { cwd: ROOT }).toString().trim().split('\n')[0];
+if (!(mm(RUN1[0]) >= 0 && mm(RUN1[1]) < mm(fixAt) && mm(fixAt) <= mm(RUN2[0]) + 2 && mm(RUN2[1]) === mm(endAt))) die('the #786(i) clock is out of order');
+
 const TITLE = 'Does an AI’s Lean proof prove the right statement? One command to check';
 const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the records',
   title: TITLE,
-  deck: 'A Lean proof can be correct and still prove the wrong thing: a dropped hypothesis, a changed constant, a definition that is not the one in the problem list. '
-    + 'Lean’s kernels settle the first question. This tool settles the second with exact checks instead of a reader’s opinion, and tests itself on every run with planted wrong statements. '
-    + 'Two AI-written refutations of Erdős problems, both waiting as pull requests on Google DeepMind’s list of open problems, went through it.'
+  deck: 'A Lean proof can be correct and still prove the wrong thing. Lean’s kernels check the proof; this tool checks the statement, with exact tests instead of a reader’s opinion. '
+    + 'Two AI-written refutations of Erdős problems, waiting on Google DeepMind’s list of open problems, went through it.'
 }));
 
-O.push(C.tldr({
-  findingRaw: 'Both proofs refute Google DeepMind’s statements as they stand today, with only the standard axioms, under three kernels. On #786(i) the proof states its own copies of two definitions; the kernel accepts it against DeepMind’s, so they match. '
-    + 'On #488 the formal statement agrees with Erdős’s sentence on every small case where the sentence is defined; where the two differ, at A = {0}, the sentence is false as written and the hypothesis DeepMind added excludes exactly those cases.',
-  mechanismRaw: 'The kernel is given the claimant’s proof and DeepMind’s statement, taken from DeepMind’s own declaration and never retyped; it accepts only if the two statements are the same after unfolding definitions. '
-    + 'Planted wrong statements must be refused and rewordings accepted; the hypotheses must have a model; on finite cases, Lean and an exact program written from the problem’s sentence alone must agree.',
-  checkRaw: m('node tools/lean-intake.js record <id> --check') + ' re-derives each record from its run’s facts; ' + m('run <id>') + ' repeats the run from the pre-registered spec.'
-}));
+/* figure 1 (the hero) — the two questions, drawn wide and, for a phone, stacked; every number read from the records */
+const k488 = A.kernels.length, k786 = B.kernels.length;
+if (k488 !== 3 || k786 !== 3) die('the drawing says three kernels per claim');
+const QS = [
+  { k: 'the proof', s: 'the claimant’s Lean, pinned', q: '1 · is the proof correct?', a: ['Lean, leanchecker and nanoda all accept, on both claims', 'only the three standard axioms'] },
+  { k: 'the statement', s: 'DeepMind’s, from its declaration', q: '2 · is it the right statement?', a: ['the kernel accepts the proof against it, exactly', wOk + ' of ' + wN + ' wrong statements refused · ' + sOk + ' of ' + sN + ' rewordings accepted', 'on #488, ' + N(F2c.conclusionCompared) + ' small cases agree with Erdős’s sentence'] }
+];
+const box = (x, y, w, h, fillRaw) => '    <rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="' + (fillRaw || 'var(--surface)') + '" stroke="var(--ink)" stroke-width="1.6"/>';
+const arrow = (x1, y1, x2, y2) => '    <line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="var(--ink-3)" stroke-width="1.6"/>'
+  + '    <path d="M' + x2 + ' ' + y2 + ' l' + (x2 > x1 ? '-9 -5 l0 10 z' : '-5 -9 l10 0 z') + '" fill="var(--ink-3)"/>';
+const QALT = 'Two rows. The proof goes to question 1, is the proof correct: Lean, leanchecker and nanoda all accept, on both claims, with only the standard axioms. The statement goes to question 2, is it the right statement: the kernel accepts the proof against it exactly, ' + wOk + ' of ' + wN + ' planted wrong statements are refused and ' + sOk + ' of ' + sN + ' rewordings accepted, and on #488 ' + N(F2c.conclusionCompared) + ' small cases agree with Erdős’s sentence.';
+const qWide = [C.svgOpen({ w: 900, h: 300, alt: QALT })];
+QS.forEach((q, r) => {
+  const y = 14 + r * 150, h = r ? 128 : 104;
+  qWide.push(box(0, y, 300, 78), C.label({ x: 16, y: y + 30, text: q.k, cls: 't-lab' }), C.label({ x: 16, y: y + 54, text: q.s, cls: 't-ax' }));
+  qWide.push(arrow(306, y + 39, 352, y + 39));
+  qWide.push(box(358, y, 542, h), C.label({ x: 376, y: y + 30, text: q.q, cls: 't-lab' }));
+  q.a.forEach((t, k) => qWide.push(C.label({ x: 376, y: y + 56 + k * 22, text: t, cls: 't-ax' })));
+});
+qWide.push('    </svg>');
+const qNarrow = [C.svgOpen({ w: 360, h: 610, alt: QALT })];
+let yy = 4;
+QS.forEach((q) => {
+  qNarrow.push(box(0, yy, 360, 66), C.label({ x: 14, y: yy + 26, text: q.k, cls: 't-lab' }), C.label({ x: 14, y: yy + 48, text: q.s, cls: 't-ax' }));
+  qNarrow.push(arrow(180, yy + 70, 180, yy + 98));
+  const lines = [].concat(...q.a.map((t) => C.fitLines ? [t] : [t]));
+  const wrap = (t) => { const out = [], ws = t.split(' '); let cur = ''; for (const w of ws) { if ((cur + ' ' + w).trim().length > 44) { out.push(cur.trim()); cur = w; } else cur += ' ' + w; } out.push(cur.trim()); return out; };
+  const al = lines.flatMap(wrap), h = 44 + al.length * 21;
+  qNarrow.push(box(0, yy + 104, 360, h), C.label({ x: 14, y: yy + 132, text: q.q, cls: 't-lab' }));
+  al.forEach((t, k) => qNarrow.push(C.label({ x: 14, y: yy + 156 + k * 21, text: t, cls: 't-ax' })));
+  yy += 104 + h + 44;
+});
+qNarrow.push('    </svg>');
+qNarrow[0] = C.svgOpen({ w: 360, h: yy - 40, alt: QALT });
+O.push(C.figure({ svgRaw: qWide.join('\n'), svgNarrowRaw: qNarrow.join('\n'), hero: true, record: ['certs/lean-intake-erdos-488.json', 'certs/lean-intake-erdos-786i.json'],
+  caption: 'Lean’s kernels answer the first question. The second is the one this tool adds: the same statement, wrong ones refused, and the statement compared with the problem’s own words on small cases.' }));
 
 O.push(C.stats([
-  { k: 'claims decided', v: '2', n: 'Erdős #488 and #786(i), both open pull requests' },
+  { k: 'claims checked', v: '2', n: 'Erdős #488 and #786(i)' },
   { k: 'planted wrong statements refused', v: wOk + ' of ' + wN, n: 'and ' + sOk + ' of ' + sN + ' rewordings accepted' },
-  { k: 'planted defects in the proofs caught', v: redsOk + ' of ' + redsN, n: 'a false step, a sorry, an axiom, native_decide' },
-  { k: 'the fresh claim, rules to record', v: minutes + ' min', n: 'on a laptop, no rented machine' }
+  { k: 'planted defects caught', v: redsOk + ' of ' + redsN, n: 'a false step, a sorry, an axiom, native_decide' },
+  { k: 'a fresh claim, rules to record', v: minutes + ' min', n: 'on a laptop' }
 ]));
 
-O.push(C.scope('The mathematics is the claimants’: Declan Gessel’s, with OpenAI’s GPT-6 Astra in Codex, for both refutations; the statements are Google DeepMind’s, in formal-conjectures. This page checks their proofs against those statements; it is not new mathematics. The tool is mine, written with Claude (Anthropic).'));
+O.push(C.scope('The mathematics is the claimants’ (Declan Gessel’s, with OpenAI’s GPT-6 Astra, for both refutations); the statements are Google DeepMind’s. This page checks their proofs against those statements. The tool is mine, built with Claude (Anthropic).'));
 
 O.push(C.section({
-  lab: 'first, the limits', title: 'What these checks do not decide', id: 'limits',
+  lab: 'read this first', title: 'What it does not decide', id: 'limits',
   bodyRaw: C.plainList([
-    { b: 'Whether the formal statement is the problem.', text: 'That stays a reading. The instance check below is evidence on finitely many cases, not a proof that the statement is the right one.' },
-    { b: '“Same statement” means the same after unfolding definitions.', text: 'Two statements that are equivalent only by an argument are refused as different. The planted controls measure this: all ' + eN + ' such statements were refused.' },
-    { b: 'The instance check compares true and false on small cases.', text: 'A change that never flips an answer there is invisible to it: on #488, a statement that counts from 2 instead of 1 changes the counts whenever 1 is in A, and never an answer.' },
-    { b: 'Not every statement has small cases.', text: '#786(i) is about the density of infinite sets for a real ε; the instance check was refused there, as written down before the run.' },
-    { b: 'Four of the checkers bundled with Lean 4.35 were not run.', text: 'Both claims are on Lean 4.33.1, which ships only leanchecker; ' + A.notRun.join(', ') + ' come with Lean 4.35 and later. nanoda was built here.' }
+    { b: 'Whether the formal statement is the problem.', text: 'That stays a reading; the small cases are evidence, not proof.' },
+    { b: '“The same” means the same after unfolding definitions.', text: 'Statements equivalent only by an argument are refused (all ' + eN + ' planted ones were).' },
+    { b: 'Small cases compare true and false.', text: 'A change that never flips an answer there is invisible to them.' },
+    { b: 'Some statements have no small cases.', text: '#786(i) is about densities of infinite sets: refused there, as planned.' },
+    { b: 'Four of Lean 4.35’s bundled checkers were not run.', text: 'Both claims are on Lean 4.33.1; ' + A.notRun.join(', ') + ' come later.' }
   ])
 }));
 
-O.push(C.section({
-  lab: 'also first', title: 'Where the runs differed from the plan', id: 'amendments',
-  bodyRaw: C.pRaw('Each claim’s spec, with every planted statement and its expected outcome, was committed before any run. Four expectations or files were wrong, and each was amended in the open, with the first outcome kept beside the new one.')
-    + C.plainList([
-      { b: '#488, a planted “wrong” statement was the same.', text: 'Counting from 0 instead of 1 changes nothing, because 0 is never in the set counted; the kernel saw it by reduction and accepted. The pre-registration’s label was wrong, not the check (' + A.words.F1controls.asPreregistered + ' as first written).' },
-      { b: '#488, the instance check found more than expected.', text: 'The pre-registration expected the formal statement and Erdős’s sentence to agree everywhere; they differ on ' + F2c.implicationDisagreements + ' cases, all explained below.' },
-      { b: '#488, one planted statement was invisible to the instance check.', text: 'Counting from 2 changes counts, never answers: the limit above, now measured.' },
-      { b: '#786(i), a defect in the tool.', text: 'The generated test files lacked one line of DeepMind’s file (an open namespace), so the planted statements did not parse on the first run; fixed, and run again with no statement or expectation changed; then ' + B.words.F1controls.asPreregistered + ' came out as written.' }
-    ])
-}));
-
-const row = (q, r488, r786) => [{ raw: C.esc(q) }, { raw: r488 }, { raw: r786 }];
-const t = (v, k) => C.tag(v, k || 'held');
-O.push(C.section({
-  lab: 'the checks', title: 'The checks, claim by claim', id: 'checks', wide: true,
-  bodyRaw: C.table({
-    cols: [{ h: 'question' }, { h: 'Erdős #488' }, { h: 'Erdős #786(i)' }],
-    rows: [
-      row('Does the proof refute DeepMind’s statement, taken from its declaration?', t('yes, the kernel accepts'), t('yes, the kernel accepts')),
-      row('Wrong statements planted: refused?', C.esc(ctl(A, 'wrong').join(' of ')), C.esc(ctl(B, 'wrong').join(' of '))),
-      row('The same statement in other words: accepted?', C.esc(ctl(A, 'same').join(' of ')), C.esc(ctl(B, 'same').join(' of '))),
-      row('Do the hypotheses have a model?', C.esc(A.F3.witness.replace(/^a model of the canonical statement's hypotheses: /, '')), C.esc(B.F3.witness.replace(/^a model of the canonical statement's hypotheses: /, ''))),
-      row('Small cases: Lean against the problem’s sentence?', C.esc('agrees on all ' + N(F2c.conclusionCompared) + ' defined cases; the kernel confirms'), t('no small cases', 'open')),
-      row('Defects planted in the proof: caught?', C.esc(A.words.plantedClaims.caught), C.esc(B.words.plantedClaims.caught)),
-      row('Kernels', C.esc(A.kernels.length + ' accept'), C.esc(B.kernels.length + ' accept: Lean, leanchecker, nanoda (' + N(ndec) + ' declarations)')),
-      row('Axioms', C.esc('the three standard'), C.esc('the three standard'))
-    ]
-  })
-}));
+/* figure 2 — every planted test, one square each: filled = refused or caught, hollow = accepted */
+const PLANT = [
+  { k: 'wrong statements', sub: 'must be refused', items: IDS.flatMap((id) => R[id].mutants.filter((x) => x.kind === 'wrong').map((x) => ({ id, x, filled: x.outcome !== 'ACCEPTED' }))) },
+  { k: 'the same, reworded', sub: 'must be accepted', items: IDS.flatMap((id) => R[id].mutants.filter((x) => x.kind === 'same').map((x) => ({ id, x, filled: x.outcome !== 'ACCEPTED' }))) },
+  { k: 'equivalent by an argument', sub: 'refused: the limit', items: IDS.flatMap((id) => R[id].mutants.filter((x) => x.kind === 'equivalent').map((x) => ({ id, x, filled: x.outcome !== 'ACCEPTED' }))) },
+  { k: 'defects in the proofs', sub: 'must be caught', items: IDS.flatMap((id) => R[id].reds.map((x) => ({ id, x: { id: x.id, why: x.why, outcome: x.caught ? 'caught: ' + x.how : 'NOT caught' }, filled: x.caught }))) }
+];
+const SQ = 22, GAP = 7, LX = 250, RW = 52, PW = 900;
+const sq = (it, x, y) => '    <rect x="' + x + '" y="' + y + '" width="' + SQ + '" height="' + SQ + '" rx="4" stroke="var(--ink)" stroke-width="1.6" fill="' + (it.filled ? 'var(--ink)' : 'var(--surface)') + '"><title>'
+  + C.esc(((it.id === 'erdos-488' ? '#488 ' : '#786(i) ') + it.x.id + ': ' + it.x.why + ' — ' + it.x.outcome).replace(/`/g, '')) + '</title></rect>';
+const plantSvg = [C.svgOpen({ w: PW, h: PLANT.length * RW + 40, alt: 'Four rows of small squares, one per planted test. Wrong statements: ' + wN + ' squares, all filled (refused). The same statement reworded: ' + sN + ' squares, all hollow (accepted). Equivalent only by an argument: ' + eN + ' squares, filled (refused, the stated limit). Defects planted in the proofs: ' + redsN + ' squares, all filled (caught). Within each row, #488 comes first, then a gap, then #786(i).' })];
+PLANT.forEach((row, r) => {
+  const y = 16 + r * RW;
+  plantSvg.push(C.label({ x: 0, y: y + 10, text: row.k, cls: 't-lab' }));
+  plantSvg.push(C.label({ x: 0, y: y + 27, text: row.sub, cls: 't-ax' }));
+  let x = LX, prev = null;
+  for (const it of row.items) { if (prev && prev !== it.id) x += 18; plantSvg.push(sq(it, x, y)); x += SQ + GAP; prev = it.id; }
+  const ok = row.items.filter((it) => it.filled === (row.k !== 'the same, reworded')).length;
+  plantSvg.push(C.label({ x: x + 10, y: y + 16, text: ok + ' of ' + row.items.length, cls: 't-lab' }));
+});
+plantSvg.push(C.label({ x: LX, y: PLANT.length * RW + 30, text: 'filled: refused or caught · hollow: accepted · in each row, #488 first, then #786(i)', cls: 't-ax' }));
+plantSvg.push('    </svg>');
 
 O.push(C.section({
-  lab: 'Erdős #488', title: 'The formal statement against Erdős’s sentence, case by case', id: 'erdos-488',
-  bodyRaw: C.pRaw('Erdős asked: for a finite set A and B the numbers n ≥ 1 with a divisor in A, is ' + m('|B ∩ [1,m]|/m < 2|B ∩ [1,n]|/n') + ' for every ' + m('m > n ≥ max(A)') + '? '
-      + 'Gessel’s proof refutes DeepMind’s Lean statement of it; this run reached the three verdicts a separate hand-written check of 6 November had reached, from a spec and one command.')
-    + C.pRaw('The new check: Lean evaluated DeepMind’s statement, part by part, on ' + N(F2.instances) + ' small cases (A a nonempty subset of {0, …, 5}, n below 6, m below 8), and the kernel confirmed every value. '
-      + 'A program written from Erdős’s sentence alone, in exact integers, with no Lean, evaluated the same cases. Each part of the statement agrees with it on every case where the sentence is defined (' + N(F2c.conclusionCompared) + '; the other ' + N(F2c.undefinedInInformal) + ' divide by zero).')
-    + C.pRaw('The whole statements differ on ' + F2c.implicationDisagreements + ' cases, all with A = {0}. There B is empty, the sentence reads 0 < 0, and it is false as written. DeepMind’s statement adds three hypotheses Erdős did not write; one of them, '
-      + m('0 ∉ A') + ', excludes exactly these cases, and ' + a('https://github.com/google-deepmind/formal-conjectures/pull/256', 'their pull request #256') + ' gives the reason. The check found that reason without being told.')
+  lab: 'does the check work?', title: 'Every planted test came out as it should', id: 'planted', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Each run tests the check itself. Wrong versions of the statement are planted (a dropped hypothesis, a changed constant, a shifted interval) and must be refused; rewordings of the same statement must be accepted; broken copies of the proof must be caught. One square per test; hover for what it was.') + '</div>'
+    + C.figure({ svgRaw: plantSvg.join('\n'), wide: false, record: ['certs/lean-intake-erdos-488.json', 'certs/lean-intake-erdos-786i.json'], stop: 'a planted statement or defect is not as expected',
+      caption: 'The planted tests of both runs. The three filled squares in the third row are the stated limit: statements that are logically the same but differ by more than unfolding a definition are refused.' })
+}));
+
+/* figure 3 — #488's 3,024 small cases in one bar */
+const CASES = F2.instances, DEF = F2c.conclusionCompared, UND = F2c.undefinedInInformal;
+if (DEF + UND !== CASES) die('the #488 cases no longer add up');
+const FIG_CASES = CH.segments({
+  w: 900, x0: 0, x1: CASES, padL: 200,
+  xTicks: [0, 1000, 2000, CASES].map((v) => ({ v, t: N(v) })), xLabel: 'small cases (A ⊆ {0, …, 5}, n below 6, m below 8)',
+  rows: [
+    { k: 'agree: ' + N(DEF), segs: [{ x0: 0, x1: DEF, token: 'var(--c-1)', k: 'Erdős’s sentence is defined', v: N(DEF) + ' cases: every part of DeepMind’s statement agrees with it' }], marks: [] },
+    { k: 'divide by zero: ' + N(UND), segs: [{ x0: DEF, x1: CASES, hatch: true, token: 'var(--c-ctx)', k: 'the sentence divides by zero', v: N(UND) + ' cases (n = 0 or m = 0): not compared' }], marks: [] },
+    { k: 'differ: ' + F2c.implicationDisagreements, segs: [{ x0: 0, x1: Math.max(F2c.implicationDisagreements, 12), token: 'var(--ink)', k: 'the whole statements differ', v: F2c.implicationDisagreements + ' cases, all A = {0}' }],
+      marks: [{ x: Math.max(F2c.implicationDisagreements, 12) + 30, t: 'all with A = {0}' }] }
+  ],
+  alt: 'Two bars on a scale of 3,024 small cases. Each part: ' + N(DEF) + ' cases where Erdős’s sentence is defined, all agreeing with DeepMind’s statement, then ' + N(UND) + ' hatched cases where the sentence divides by zero. Whole statements: a thin sliver of ' + F2c.implicationDisagreements + ' cases where they differ, all with A = {0}.'
+});
+
+O.push(C.section({
+  lab: 'Erdős #488', title: 'DeepMind’s statement against Erdős’s sentence', id: 'erdos-488', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Erdős asked whether, for a finite set A and B the numbers with a divisor in A, ' + m('|B ∩ [1,m]|/m < 2|B ∩ [1,n]|/n') + ' always holds for ' + m('m > n ≥ max(A)') + '. Gessel’s proof refutes DeepMind’s Lean version of it; this run reached the same verdicts as a separate hand-built check of 6 November.')
+    + C.pRaw('Then the new check: Lean evaluated DeepMind’s statement part by part on ' + N(CASES) + ' small cases (the kernel confirmed every value), and a program written from Erdős’s sentence alone evaluated the same cases.') + '</div>'
+    + C.figure({ svgRaw: FIG_CASES, wide: false, record: ['certs/lean-intake-erdos-488.json', 'instruments/intake/erdos-488.js'], stop: 'the cases stop adding up, or a disagreement is not one with A = {0}',
+      caption: 'Every part agrees wherever Erdős’s sentence makes sense. The 20 cases where the whole statements differ all have A = {0}: B is empty there, the sentence reads 0 < 0 and is false as written. DeepMind’s statement adds the hypothesis 0 ∉ A for exactly this (their pull request #256); the check found the reason without being told.' })
+}));
+
+/* figure 4 — the fresh claim on one clock */
+const hm = (min) => hhmm(new Date(t0 + min * 60000).toISOString());
+const FIG_CLOCK = CH.segments({
+  w: 900, x0: -2, x1: minutes + 3, padL: 150,
+  xTicks: [0, 10, 20, 30, 40, 50].filter((v) => v <= minutes).map((v) => ({ v, t: hm(v) })), xLabel: 'time, UTC (9 November 2026)',
+  rows: [
+    { k: 'rules', segs: [], marks: [{ x: 0, t: 'spec committed ' + hhmm(specAt) }, { x: mm(fixAt), t: 'tool fixed ' + hhmm(fixAt), anchor: 'end' }] },
+    { k: 'runs', segs: [
+      { x0: mm(RUN1[0]), x1: mm(RUN1[1]), token: 'var(--c-1)', k: 'the full run', v: hhmm(RUN1[0]) + '–' + hhmm(RUN1[1]) + ' UTC' },
+      { x0: mm(RUN2[0]), x1: mm(RUN2[1]), token: 'var(--c-1)', k: 'the planted statements again', v: hhmm(RUN2[0]) + '–' + hhmm(RUN2[1]) + ' UTC' }], marks: [] },
+    { k: 'record', segs: [], marks: [{ x: mm(endAt), t: 'recorded ' + hhmm(endAt) + ' · ' + minutes + ' min', anchor: 'end' }] }
+  ],
+  alt: 'Three rows on one clock. Rules: the spec committed at ' + hhmm(specAt) + ', the tool fixed at ' + hhmm(fixAt) + '. Runs: the full run from ' + hhmm(RUN1[0]) + ' to ' + hhmm(RUN1[1]) + ', the planted statements again from ' + hhmm(RUN2[0]) + ' to ' + hhmm(RUN2[1]) + '. Record: ' + hhmm(endAt) + ', ' + minutes + ' minutes after the spec.'
+});
+
+O.push(C.section({
+  lab: 'Erdős #786(i)', title: 'A claim the tool had not seen', id: 'erdos-786', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Part (i) asks whether some set of density above 1 − ε has all its equal products of equal length. Gessel’s refutation (' + a('https://github.com/google-deepmind/formal-conjectures/pull/5299', 'pull request #5299') + ', open since 6 September) states its own versions of the two definitions it needs. The kernel accepts it against DeepMind’s declaration as it stands today, so the definitions match.')
+    + C.pRaw('It also turned up one thing for the pull request: DeepMind reworded this statement on 14 October, so the change no longer applies and GitHub reports a conflict. The proof still refutes the current statement.') + '</div>'
+    + C.figure({ svgRaw: FIG_CLOCK, wide: false, record: ['certs/lean-intake-erdos-786i.json', B.run.facts + '/_status.txt'], stop: 'the clock falls out of order',
+      caption: 'From the spec committed to the record, on a laptop. The first run found a defect in the tool (its test files missed one line of DeepMind’s file); it was fixed and the planted statements run again, with no statement or expectation changed.' })
 }));
 
 O.push(C.section({
-  lab: 'Erdős #786(i)', title: 'Its own definitions, checked against DeepMind’s', id: 'erdos-786',
-  bodyRaw: C.pRaw('Part (i) asks whether, for every ε > 0, some set of density above 1 − ε has all its equal products of equal length. Gessel’s refutation (' + a('https://github.com/google-deepmind/formal-conjectures/pull/5299', 'pull request #5299') + ', open since 6 September) proves the density is at most 7/8. '
-      + 'Its file states its own versions of the two definitions, and the pull request says they match the module’s. The kernel accepts the proof against DeepMind’s declaration as it stands today, so they do.')
-    + C.pRaw('One thing the run turned up for the pull request: on 14 October DeepMind removed the ' + m('answer(…)') + ' wrapper from this statement, so the pull request’s change no longer applies to the file, and GitHub reports a conflict. The proof still refutes the statement on the current main branch.')
-    + C.pRaw('This was the first claim the tool had not seen. From the spec’s commit at ' + hhmm(specAt) + ' UTC to the last step at ' + hhmm(endAt) + ': ' + minutes + ' minutes on a laptop, including the fix above. The hand-built check of #488 took hours of scripting and an hour on a rented machine.')
-}));
-
-O.push(C.section({
-  lab: 'how it works', title: 'What one command does', id: 'how',
+  lab: 'what I got wrong', title: 'Four corrections, made in the open', id: 'amendments',
   bodyRaw: C.plainList([
-    { b: 'Pins.', text: 'Both repositories are fetched at fixed commits and the two files compared by sha256; nothing of the claimant’s is copied into this repository.' },
-    { b: 'Identity.', text: 'A theorem whose statement is DeepMind’s declaration, read with type_of%, and whose proof is the claimant’s term: the kernel accepts it only if the statements match.' },
-    { b: 'Controls.', text: 'Planted statements: wrong ones must be refused at the claimant’s proof and nowhere else; rewordings must be accepted.' },
-    { b: 'Non-vacuity.', text: 'The statement’s hypotheses, read as written, must have a model the kernel checks.' },
-    { b: 'Small cases.', text: 'Each hypothesis and the conclusion as a decision, evaluated by Lean, confirmed by the kernel, and compared with an exact program written from the problem’s sentence alone.' },
-    { b: 'Planted defects.', text: 'Copies of the proof with a false step, a sorry, an axiom or native_decide; each must be caught by a failed build or an axiom outside the standard three.' },
-    { b: 'Kernels.', text: 'Lean’s, leanchecker, and nanoda through an export; the ones not run are named in the record.' }
-  ])
+    { b: '#488: a “wrong” statement was the same.', text: 'Counting from 0 changes nothing, since 0 is never counted; the kernel saw it. My label was wrong (' + A.words.F1controls.asPreregistered + ' as first written).' },
+    { b: '#488: the small cases found more than I expected.', text: 'The 20 cases above, all explained.' },
+    { b: '#488: one planted statement was invisible to the small cases.', text: 'Counting from 2 changes counts, never answers: the limit, measured.' },
+    { b: '#786(i): a defect in the tool.', text: 'Fixed and re-run; then ' + B.words.F1controls.asPreregistered + ' came out as written.' }
+  ]) + C.pRaw('Each spec was committed before its run, and each correction is a dated amendment beside the first outcome.')
 }));
 
+O.push(C.cards([
+  { k: 'Erdős #488 · pull request #5297', title: 'Gessel’s refutation, against DeepMind’s statement', desc: 'Identity, ' + ctl(A, 'wrong').join(' of ') + ' wrong statements refused, the small cases, three kernels.', n: 'the record', href: GH + 'certs/lean-intake-erdos-488.json' },
+  { k: 'Erdős #786(i) · pull request #5299', title: 'Its own definitions, matched by the kernel', desc: ctl(B, 'wrong').join(' of ') + ' wrong statements refused, ' + N(ndec) + ' declarations checked by nanoda, ' + minutes + ' minutes on a laptop.', n: 'the record', href: GH + 'certs/lean-intake-erdos-786i.json' }
+]));
+
 O.push(C.section({
-  lab: 'check it yourself', title: 'How to re-run it', id: 'rerun',
+  lab: 'check it yourself', title: 'Re-run it', id: 'rerun',
   bodyRaw: C.plainList([
-    { b: 'The records.', raw: IDS.map((id) => m('node tools/lean-intake.js record ' + id + ' --check')).join(' and ') + ' re-derive every verdict from ' + rec('corpus/lean-intake') + '.' },
-    { b: 'The runs.', raw: m('node tools/lean-intake.js run <id>') + ' fetches the pins and repeats every step (Lean via elan; about 6 GB of Mathlib per claim).' },
-    { b: 'The specs.', raw: IDS.map((id) => rec('corpus/lean-intake/' + id + '/spec.json')).join(' and ') + ', with their dated amendments.' },
-    { b: 'The program for Erdős’s sentence.', raw: rec('instruments/intake/erdos-488.js') + ', standard library only.' }
+    { b: 'The verdicts.', raw: m('node tools/lean-intake.js record <id> --check') + ' re-derives each record from its run’s logs in ' + rec('corpus/lean-intake') + '.' },
+    { b: 'The runs.', raw: m('node tools/lean-intake.js run <id>') + ' fetches the pins and repeats every step (about 6 GB of Mathlib per claim).' },
+    { b: 'The rules.', raw: IDS.map((id) => rec('corpus/lean-intake/' + id + '/spec.json')).join(' and ') + ', with their dated amendments; Erdős’s sentence as a program: ' + rec('instruments/intake/erdos-488.js') + '.' }
   ])
 }));
 
@@ -171,6 +239,6 @@ const foot = '<p>' + C.esc('Generated by tools/build-report-lean-intake.js from 
   + '<p>' + C.esc('cert-machine · Carlos Toledo') + '</p>';
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'lean-intake.html'),
-  TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/lean-intake.html', og: { image: '/og-lean-intake.png', alt: OG.alt('lean-intake') },
+  TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/lean-intake.html', og: { image: '/og-lean-intake.png', alt: OG.alt('lean-intake') },
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims: two refutations of Erdős problems (#488, #786(i)) checked against Google DeepMind’s statements, with planted wrong statements refused, rewordings accepted, and the formal statement compared with Erdős’s sentence on small cases.' }));
 console.log('reports/lean-intake.html written · #488 ' + A.verdict + ' · #786(i) ' + B.verdict + ' · ' + wOk + '/' + wN + ' wrong refused · ' + minutes + ' min');
