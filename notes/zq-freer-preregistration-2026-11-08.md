@@ -370,3 +370,19 @@ are expected to be tight. B CERTIFIED, including #13's verbatim retention and bo
 copies byte-identical. All controls refused. A few seconds on the Mac. The main finding is still a gap: the residuals of
 every table, now six PRs deep, are unpublished, and #9 through #16's tables exist only in CI artifacts that expire on
 2027-02-06.
+
+## Amendment C (2026-11-08 local, 2026-11-09 UTC): after amendment B's first run, one control replaced
+
+The first run with amendment B (8.6 s on the Mac, not "a few seconds") gave every question of all six pull requests
+CERTIFIED: #13's and #16's T (all four tables), N, A (c1–c9, d1–d8, h1–h13, the four stated failures failing) and B (both
+source manifests, #13's verbatim retention), and #8–#12 as before, with #9, #11 and #12's extra CI copies byte-identical.
+31 of the 32 controls were refused. **CA8 was not.** The fault is in that control's design, not in the arithmetic or the
+claim: replacing a1 = −2/5 by −1/5 only halves a13 (−54756974/6936596275 becomes −27378487/6936596275), and a13's reduced
+denominator is odd, so the denominator, which is all d1 decides, does not move. CA8 could never be refused by d1. The
+same fact settles the reading amendment B fixed: d1 holds whether the ratio is read from j ≥ 2 or from j ≥ 1, so its
+verdict does not depend on that reading.
+
+CA8 is withdrawn as a control and kept in the record as a reading check (d1 holds with a1 := −1/5, computed by the same
+code). A new control takes its place: **CA14**, the displayed denominator with the factor 53 dropped (5²·7·17·29·37·41),
+must be refused by d1. No question, reading, value or other control changes. The re-run must give the same verdicts,
+with CA14 refused.
