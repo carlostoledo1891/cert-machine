@@ -1,0 +1,40 @@
+Intake/F2Eval.lean:1:0: warning: no problem file uses `answer( )` any more; see `CONTRIBUTING.md`
+'FormalConjecturesUtil.Deprecated.Answer' has been deprecated: please replace this import by
+
+import Lean.Elab.SyntheticMVars
+import Batteries.Lean.Expr
+Intake/F2Eval.lean:3:0: warning: This file has no module docstring (`/-! ... -/`). Add one after the imports to document the file.
+
+Note: This linter can be disabled with `set_option linter.style.moduleDocstring false`
+Intake/F2Eval.lean:13:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:25:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:37:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:49:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:60:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:72:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:80:0: error: failed to synthesize
+  Decidable
+    (True ↔
+      ∀ (A : Finset ℕ),
+        A.Nonempty →
+          0 ∉ A →
+            1 ∉ A →
+              ∀ (n m : ℕ),
+                m > n →
+                  A.max ≤ ↑n →
+                    ↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <
+                      2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Intake/F2Eval.lean:81:100: error(lean.unknownIdentifier): Unknown identifier `Intake.F2M.W01.comp`
+Intake/F2Eval.lean:84:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:96:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:108:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:120:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:132:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:144:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:156:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:168:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:180:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:192:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:204:8: warning: declaration uses `sorry`

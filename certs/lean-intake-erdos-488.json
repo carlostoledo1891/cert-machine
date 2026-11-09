@@ -1,10 +1,10 @@
 {
  "what": "The Lean intake of Declan Gessel's refutation, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297) against DeepMind's statement of Erdős #488, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of ¬ the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
- "notDecided": "Whether the canonical statement is the informal problem (a reading, F5); instance agreement with an exact decider (F2, phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2 tests it on finitely many instances, which is evidence, not proof); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
  "spec": {
   "path": "corpus/lean-intake/erdos-488/spec.json",
-  "sha256": "75db9fef46e640632373b4bfd8ef18757e0beb689b0faf3701e53ab88327d7af",
-  "amendments": 2
+  "sha256": "257addcced503947ac7cdece4e0a6c7ac147586a8756a5ca0d514a95c83a0277",
+  "amendments": 3
  },
  "run": {
   "day": "2026-11-09",
@@ -15,7 +15,7 @@
    "cpus": 8,
    "memGB": 16
   },
-  "stepSeconds": 2061.6,
+  "stepSeconds": 2286.9,
   "costUSD": 0
  },
  "pins": {
@@ -62,7 +62,14 @@
    "caught": "4 of 4",
    "word": "CERTIFIED"
   },
-  "kernels": "ACCEPT (3 run)"
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "CERTIFIED",
+   "canonical": "agrees with the informal decider on all 2205 instances where the informal statement is defined (819 undefined there: n = 0 or m = 0); the whole implication differs on 20, 20 of them explained by the added hypothesis 0 ∉ A (A = [0]: the informal sentence is false there)",
+   "kernel": "the kernel confirms all 16 chunks",
+   "planted": "17 of 17 as expected",
+   "asPreregistered": "canonical NOT as expected (20 implication disagreements, the pre-registration expected none); planted 16 of 17"
+  }
  },
  "F1": {
   "exit": "0",
@@ -78,9 +85,330 @@
   },
   "canonical": "∀ (A : Finset ℕ),\n  A.Nonempty →\n    0 ∉ A →\n      1 ∉ A →\n        ∀ (n m : ℕ),\n          m > n →\n            A.max ≤ ↑n →\n              ↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <\n                2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n",
   "claim": "¬Erdos488ExactAdapter.proposition",
-  "seconds": 3.8,
+  "seconds": 6.5,
   "word": "CERTIFIED",
   "how": "the kernel accepts the claimant's Erdos488ExactAdapter.refutation as a proof of ¬ Erdos488.erdos_488's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding"
+ },
+ "F2": {
+  "informal": "erdosproblems.com/488 as DeepMind's docstring quotes it: Let A be a finite set and B = {n ≥ 1 : a ∣ n for some a ∈ A}. Is it true that, for every m > n ≥ max(A), |B ∩ [1,m]|/m < 2|B ∩ [1,n]|/n?",
+  "decider": "instruments/intake/erdos-488.js",
+  "instances": 3024,
+  "sameEnumeration": true,
+  "canonicalParts": [
+   "A.Nonempty",
+   "0 ∉ A",
+   "1 ∉ A",
+   "m > n",
+   "A.max ≤ ↑n",
+   "↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <\n  2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n"
+  ],
+  "added": [
+   {
+    "part": "A.Nonempty",
+    "note": "added: A.Nonempty (not in the informal statement)"
+   },
+   {
+    "part": "0 ∉ A",
+    "note": "added: 0 ∉ A (not in the informal statement; DeepMind's PR #256 gives the reason)"
+   },
+   {
+    "part": "1 ∉ A",
+    "note": "added: 1 ∉ A (not in the informal statement; the same PR)"
+   }
+  ],
+  "canonical": {
+   "conclusionDisagreements": 0,
+   "conclusionCompared": 2205,
+   "undefinedInInformal": 819,
+   "implicationDisagreements": 20,
+   "implicationCompared": 3017,
+   "implicationExplained": 20,
+   "explainedBy": [
+    "0 ∉ A"
+   ],
+   "explainedInstances": [
+    "A = [0]"
+   ],
+   "hypotheses": [
+    {
+     "part": "m > n",
+     "informal": "m > n",
+     "disagreements": 0
+    },
+    {
+     "part": "A.max ≤ ↑n",
+     "informal": "n ≥ max(A)",
+     "disagreements": 0
+    }
+   ]
+  },
+  "limits": [
+   "F2 compares truth values on finitely many instances: a change that never flips one there is invisible to it (E1)",
+   "where the informal sentence divides by zero (n = 0 or m = 0) nothing is compared; Lean's x / 0 = 0 decides those instances by convention"
+  ],
+  "asPreregistered": {
+   "canonical": "NOT as expected (20 implication disagreements, the pre-registration expected none)",
+   "planted": "16 of 17"
+  },
+  "kernel": {
+   "confirmed": true,
+   "chunks": 16,
+   "seconds": 116.9
+  },
+  "mutants": [
+   {
+    "id": "S0",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "S1",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "S2",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "S3",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "S4",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W01",
+    "outcome": "REFUSED: not decidable on instances",
+    "why": "failed to synthesize",
+    "expect": "REFUSED: not decidable on instances (the statement is an `answer(sorry) ↔ …` with no instance binders)",
+    "asExpected": true
+   },
+   {
+    "id": "W02",
+    "outcome": "conclusion disagrees on 8 of 2205 instances",
+    "implicationDisagreements": 20,
+    "expect": "conclusion disagrees on at least one instance",
+    "asExpected": true,
+    "firstDisagreements": [
+     [
+      [
+       2,
+       5
+      ],
+      3,
+      6
+     ],
+     [
+      [
+       0,
+       2,
+       5
+      ],
+      3,
+      6
+     ],
+     [
+      [
+       3,
+       5
+      ],
+      4,
+      6
+     ]
+    ]
+   },
+   {
+    "id": "W03",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W04",
+    "outcome": "conclusion disagrees on 159 of 2205 instances",
+    "implicationDisagreements": 20,
+    "expect": "conclusion disagrees on at least one instance",
+    "asExpected": true,
+    "firstDisagreements": [
+     [
+      [
+       0
+      ],
+      1,
+      1
+     ],
+     [
+      [
+       0
+      ],
+      1,
+      2
+     ],
+     [
+      [
+       0
+      ],
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "id": "W05",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W06",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 0,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W07",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W08",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance",
+    "asExpected": true,
+    "firstDisagreements": []
+   },
+   {
+    "id": "W09",
+    "outcome": "conclusion disagrees on 224 of 2205 instances",
+    "implicationDisagreements": 20,
+    "expect": "conclusion disagrees on at least one instance",
+    "asExpected": true,
+    "firstDisagreements": [
+     [
+      [
+       1
+      ],
+      1,
+      1
+     ],
+     [
+      [
+       1
+      ],
+      1,
+      2
+     ],
+     [
+      [
+       1
+      ],
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "id": "W10",
+    "outcome": "conclusion disagrees on 558 of 2205 instances",
+    "implicationDisagreements": 36,
+    "expect": "conclusion disagrees on at least one instance",
+    "asExpected": true,
+    "firstDisagreements": [
+     [
+      [
+       1
+      ],
+      1,
+      2
+     ],
+     [
+      [
+       1
+      ],
+      1,
+      3
+     ],
+     [
+      [
+       1
+      ],
+      1,
+      4
+     ]
+    ]
+   },
+   {
+    "id": "W11",
+    "outcome": "conclusion disagrees on 264 of 2205 instances",
+    "implicationDisagreements": 20,
+    "expect": "conclusion disagrees on at least one instance",
+    "asExpected": true,
+    "firstDisagreements": [
+     [
+      [
+       1
+      ],
+      1,
+      1
+     ],
+     [
+      [
+       1
+      ],
+      2,
+      1
+     ],
+     [
+      [
+       1
+      ],
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "id": "E1",
+    "outcome": "conclusion agrees on every instance",
+    "implicationDisagreements": 20,
+    "expect": "conclusion agrees on every instance (amendment 3: the counts differ wherever 1 ∈ A, but with 1 ∈ A every n ≥ 1 is in B and the conclusion's truth value never flips in range)",
+    "asExpected": true,
+    "firstDisagreements": [],
+    "preregistered": "conclusion disagrees on at least one instance",
+    "asPreregistered": false
+   }
+  ],
+  "word": "CERTIFIED"
  },
  "F3": {
   "exit": "0",
@@ -382,7 +710,7 @@
   {
    "name": "Lean (the build of Intake.F1)",
    "word": "ACCEPTS",
-   "seconds": 3.8
+   "seconds": 6.5
   },
   {
    "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",

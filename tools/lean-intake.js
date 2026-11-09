@@ -36,7 +36,7 @@ const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const STD = ['Classical.choice', 'Quot.sound', 'propext'];
-const STAGES = ['pin', 'toolchain', 'cache', 'canonical', 'assemble', 'claim', 'f1', 'f3', 'mutants', 'reds', 'leanchecker', 'nanoda'];
+const STAGES = ['pin', 'toolchain', 'cache', 'canonical', 'assemble', 'claim', 'f1', 'f3', 'mutants', 'reds', 'leanchecker', 'nanoda', 'f2', 'f2eval', 'f2kernel'];
 const NANODA = { url: 'https://github.com/ammkrn/nanoda_lib.git', commit: '8de7e0c4ed3052745a7f8725164efd9e76d84c56' };
 const die = (m) => { console.error('lean-intake: ' + m); process.exit(1); };
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
@@ -79,6 +79,44 @@ def emit (j : Json) : IO Unit := do
   let p := (← IO.getEnv "INTAKE_OUT").getD "/dev/stdout"
   IO.FS.writeFile p (j.compress ++ "\\n")
 
+/-- One JSON line appended to \`INTAKE_OUT\`; nothing when it is unset (a module build). -/
+def emitLine (j : Json) : IO Unit := do
+  if let some p := (← IO.getEnv "INTAKE_OUT") then
+    IO.FS.withFile p .append fun h => h.putStrLn j.compress
+
+def bits (l : List Bool) : String := String.mk (l.map fun b => if b then '1' else '0')
+
+/-- F2: a statement's decidable parts. Its instance binders (the binders that are not propositions) become parameters,
+each hypothesis and the conclusion a \`decide\`, in order. Binders are opened as written, never unfolded; a hypothesis
+whose proof a later binder uses is refused. -/
+partial def components {α : Type} (e : Expr) (data props : Array Expr) (k : Array Expr → Array Expr → MetaM α) : MetaM α := do
+  match e with
+  | .forallE n d b bi =>
+    withLocalDecl n bi d fun x => do
+      let b' := b.instantiate1 x
+      if ← isProp d then
+        if b'.containsFVar x.fvarId! then throwError "intake: a later binder uses the proof of the hypothesis {d}"
+        components b' data (props.push d) k
+      else components b' (data.push x) props k
+  | .letE _ _ v b _ => components (b.instantiate1 v) data props k
+  | .mdata _ e => components e data props k
+  | _ =>
+    if e.isAppOfArity \`\`letFun 4 then components (e.appArg!.bindingBody!.instantiate1 (e.getArg! 2)) data props k
+    else k data (props.push e)
+
+elab "intake_components " src:ident " => " dst:ident : command => do
+  let some ci := (← getEnv).find? src.getId | throwError "intake: no declaration {src.getId}"
+  let (value, type, pps, ds) ← liftTermElabM do
+    components ci.type #[] #[] fun data props => do
+      let decs ← props.mapM mkDecide
+      let v ← mkLambdaFVars data (← mkListLit (mkConst \`\`Bool) decs.toList)
+      let pps ← props.mapM fun q => do pure s!"{← ppExpr q}"
+      let ds ← data.mapM fun x => do pure s!"{← ppExpr x} : {← ppExpr (← inferType x)}"
+      pure (v, ← inferType v, pps, ds)
+  let decl : DefinitionVal := { name := dst.getId, levelParams := ci.levelParams, type := type, value := value, hints := .abbrev, safety := .safe }
+  liftCoreM <| addAndCompile (.defnDecl decl)
+  emitLine <| Json.mkObj [("components", Json.str src.getId.toString), ("binders", toJson ds), ("parts", toJson pps)]
+
 end Intake
 `;
 function generated() {
@@ -103,7 +141,30 @@ function generated() {
     cLine[m.id] = (head + body).split('\n').length;
     files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${SPEC.claim.decl}\nend Intake.Mut.${m.id}\n`;
   }
+  if (SPEC.f2) {
+    const F2 = SPEC.f2, app = (c) => F2.apply.replace('COMP', c);
+    files['Intake/F2.lean'] = `import ${C.module}\nimport Intake.Meta\n\n/-! F2: the canonical statement's own parts, and the pre-registered instances. -/\nintake_components ${C.decl} => Intake.F2.can\n\n`
+      + `def Intake.F2.instances : List (${F2.instanceType}) :=\n  ${F2.instances}\n`;
+    const muts = SPEC.mutants;
+    files['Intake/F2Eval.lean'] = `import Intake.F2\n` + [...new Set(muts.flatMap((m) => m.imports || []))].map((i) => `import ${i}\n`).join('')
+      + `open Lean\n\n/-! F2, evaluated by the interpreter: the canonical statement and every planted one, part by part, on every instance. -/\n`
+      + `def Intake.F2.rows (f : ${F2.instanceType} → List Bool) : Json :=\n  Json.arr (Intake.F2.instances.map fun x => Json.arr #[(${F2.instanceJson}) x, Json.str (Intake.bits (f x))]).toArray\n\n`
+      + `intake_components ${C.decl} => Intake.F2E.can\n`
+      + `#eval Intake.emitLine (Json.mkObj [("statement", Json.str "canonical"), ("rows", Intake.F2.rows (${app('Intake.F2.can')}))])\n`
+      + muts.map((m) => `\nnamespace Intake.F2M.${m.id}\ntheorem s : ${m.statement} := by\n  sorry\nend Intake.F2M.${m.id}\n`
+        + `intake_components Intake.F2M.${m.id}.s => Intake.F2M.${m.id}.comp\n`
+        + `#eval Intake.emitLine (Json.mkObj [("statement", Json.str "${m.id}"), ("rows", Intake.F2.rows (${app(`Intake.F2M.${m.id}.comp`)}))])\n`).join('');
+  }
   return { files, cLine };
+}
+/* the kernel's confirmation of the canonical statement's values: one theorem per chunk, the values the interpreter gave */
+function f2KernelFile(rows) {
+  const F2 = SPEC.f2, k = F2.chunk, out = ['import Intake.F2', '', '/-! F2: the kernel evaluates the canonical statement\'s parts on every instance (decide +kernel). -/'];
+  for (let i = 0; i * k < rows.length; i++) {
+    const vals = rows.slice(i * k, (i + 1) * k).map((r) => '[' + r[1].split('').map((b) => (b === '1' ? 'true' : 'false')).join(', ') + ']');
+    out.push(`theorem Intake.f2_${i} : ((Intake.F2.instances.drop ${i * k}).take ${k}).map (${F2.apply.replace('COMP', 'Intake.F2.can')}) =\n    [${vals.join(',\n     ')}] := by\n  decide +kernel`);
+  }
+  return out.join('\n\n') + '\n';
 }
 function redBytes(claimText, r) {
   const n = claimText.split(r.find).length - 1;
@@ -185,6 +246,20 @@ function run() {
       for (const m of SPEC.mutants) step('mut-' + m.id, CAN, `lake build Intake.Mut.${m.id}`, 3600);
     } else if (s === 'reds') {
       for (const r of SPEC.claimReds || []) step('red-' + r.id, CAN, `lake build Intake.Red.${r.id}`, 3600);
+    } else if (s === 'f2') {
+      step('f2', CAN, 'lake build Intake.F2', 3600);
+    } else if (s === 'f2eval') {
+      if (!ok('f2')) { status('skip f2eval: Intake.F2 did not build'); continue; }
+      fs.rmSync(path.join(FACTS, 'f2eval.jsonl'), { force: true });
+      step('f2eval', CAN, 'lake env lean Intake/F2Eval.lean', 7200, { INTAKE_OUT: path.join(FACTS, 'f2eval.jsonl') });
+    } else if (s === 'f2kernel') {
+      const lines = fs.existsSync(path.join(FACTS, 'f2eval.jsonl')) ? fs.readFileSync(path.join(FACTS, 'f2eval.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l)) : [];
+      const can = lines.find((l) => l.statement === 'canonical');
+      if (!can) { status('skip f2kernel: no canonical rows from f2eval'); continue; }
+      const body = f2KernelFile(can.rows);
+      fs.writeFileSync(path.join(CAN, 'Intake', 'F2Kernel.lean'), body);
+      fs.writeFileSync(path.join(FACTS, 'f2kernel.sha256'), sha(body) + '\n');
+      step('f2kernel', CAN, 'lake build Intake.F2Kernel', 7200);
     } else if (s === 'leanchecker') {
       if (!ok('f1')) { status('skip leanchecker: f1 did not build'); continue; }
       step('leanchecker', CAN, `lake env "${binDir()}/leanchecker" --verbose Intake.F1`, 7200);
@@ -273,6 +348,76 @@ function decide() {
     const ex = has('export.log') ? rd('export.log').trim().split('\n') : [];
     kernels.push({ name: 'nanoda ' + NANODA.commit.slice(0, 8) + ' on the lean4export export of Intake.f1', word: exit('nanoda') === '0' && /checked|success/i.test(nl) ? 'ACCEPTS' : 'REJECTS OR STOPPED', export: { sha256: (ex.find((l) => /^[0-9a-f]{64}\s/.test(l)) || '').slice(0, 64) || null, bytes: Number(ex[ex.length - 1]) || null }, seconds: secs('nanoda') });
   }
+  /* F2: the canonical statement's parts against the informal decider, instance by instance */
+  let F2 = null;
+  if (SPEC.f2) {
+    const D = require(path.join(ROOT, SPEC.f2.decider));
+    const lines = has('f2eval.jsonl') ? rd('f2eval.jsonl').trim().split('\n').map((l) => JSON.parse(l)) : [];
+    const inst = D.instances(), can = lines.find((l) => l.statement === 'canonical');
+    const sameEnum = !!can && can.rows.length === inst.length && can.rows.every((r, i) => JSON.stringify(r[0]) === JSON.stringify(inst[i]));
+    const inf = inst.map((x) => D.informal(x));
+    const map = SPEC.f2.componentMap;
+    const cmp = (rows) => {
+      let concl = 0, conclN = 0, impl = 0, implN = 0, undefinedN = 0, explained = 0;
+      const where = [], why = new Set();
+      const added = Object.entries(map).filter(([, v]) => v.startsWith('added')).map(([i]) => Number(i));
+      rows.forEach((r, i) => {
+        const v = r[1].split('').map((b) => b === '1'), I = inf[i], c = v[v.length - 1];
+        if (I.conclusion === null) undefinedN++;
+        else { conclN++; if (c !== I.conclusion) { concl++; if (where.length < 3) where.push(r[0]); } }
+        const P = v.slice(0, -1).every(Boolean) ? c : true;
+        const Pi = I['m > n'] && I['n ≥ max(A)'] ? I.conclusion : true;
+        if (Pi !== null) {
+          implN++;
+          if (P !== Pi) {
+            impl++;
+            /* explained: the instance violates a hypothesis the formalization added, and the informal sentence is false there */
+            const off = added.filter((k) => k < v.length - 1 && !v[k]);
+            if (off.length && Pi === false) { explained++; off.forEach((k) => why.add(k)); }
+          }
+        }
+      });
+      return { concl, conclN, impl, implN, explained, explainedBy: [...why], undefinedN, firstDisagreements: where };
+    };
+    const C = can ? cmp(can.rows) : null;
+    const parts = (lines.find((l) => l.components === SPEC.canonical.decl) || {}).parts || null;
+    const mapped = Object.entries(map).filter(([, v]) => !v.startsWith('added'));
+    const partAgree = can ? mapped.filter(([i]) => i !== String(parts.length - 1)).map(([i, key]) => ({ part: parts[i], informal: key,
+      disagreements: can.rows.filter((r, j) => (r[1][Number(i)] === '1') !== inf[j][key]).length })) : [];
+    const kernelSha = has('f2kernel.sha256') ? rd('f2kernel.sha256').trim() : null;
+    const kernelOk = !!can && exit('f2kernel') === '0' && kernelSha === sha(f2KernelFile(can.rows));
+    const evalLog = has('f2eval.log') ? rd('f2eval.log') : '';
+    const muts = SPEC.mutants.map((m) => {
+      const L = lines.find((l) => l.statement === m.id), e = SPEC.f2.expect.mutants[m.id];
+      if (!L) {
+        const err = errors(evalLog, 'Intake/F2Eval.lean').find((x) => x.text) || {};
+        return { id: m.id, outcome: 'REFUSED: not decidable on instances', why: (err.text || '').slice(0, 120), expect: e, asExpected: /^REFUSED/.test(e || '') };
+      }
+      const r = cmp(L.rows);
+      const outcome = r.concl ? `conclusion disagrees on ${r.concl} of ${r.conclN} instances` : 'conclusion agrees on every instance';
+      const asExpected = e ? (/at least one/.test(e) ? r.concl > 0 : /agrees on every/.test(e) ? r.concl === 0 : false) : null;
+      return { id: m.id, outcome, implicationDisagreements: r.impl, expect: e, asExpected, firstDisagreements: r.firstDisagreements };
+    });
+    const base = !!C && sameEnum && parts && parts.length === Object.keys(map).length && C.concl === 0 && partAgree.every((p) => p.disagreements === 0) && kernelOk;
+    const canOk = base && C.impl === C.explained, canPre = base && C.impl === 0;
+    const preExp = SPEC.f2.preregisteredExpect || {};
+    for (const m of muts) if (preExp[m.id]) { m.preregistered = preExp[m.id]; m.asPreregistered = /at least one/.test(preExp[m.id]) ? !/agrees on every/.test(m.outcome) : /agrees on every/.test(m.outcome); }
+    F2 = {
+      informal: SPEC.f2.informal, decider: SPEC.f2.decider, instances: inst.length, sameEnumeration: sameEnum,
+      canonicalParts: parts, added: Object.entries(map).filter(([, v]) => v.startsWith('added')).map(([i, v]) => ({ part: parts && parts[i], note: v })),
+      canonical: C && { conclusionDisagreements: C.concl, conclusionCompared: C.conclN, undefinedInInformal: C.undefinedN, implicationDisagreements: C.impl, implicationCompared: C.implN,
+        implicationExplained: C.explained, explainedBy: C.explainedBy.map((k) => parts[k]), explainedInstances: [...new Set(can.rows.filter((r, i) => {
+          const v = r[1].split('').map((b) => b === '1'), I = inf[i], Pi = I['m > n'] && I['n ≥ max(A)'] ? I.conclusion : true;
+          return Pi === false && (v.slice(0, -1).every(Boolean) ? v[v.length - 1] : true) === true; }).map((r) => JSON.stringify(r[0][0])))].map((a) => 'A = ' + a),
+        hypotheses: partAgree },
+      limits: ['F2 compares truth values on finitely many instances: a change that never flips one there is invisible to it (E1)', 'where the informal sentence divides by zero (n = 0 or m = 0) nothing is compared; Lean\'s x / 0 = 0 decides those instances by convention'],
+      asPreregistered: { canonical: canPre ? 'as expected' : 'NOT as expected (' + C.impl + ' implication disagreements, the pre-registration expected none)', planted: muts.filter((m) => (m.preregistered ? m.asPreregistered : m.asExpected)).length + ' of ' + muts.length },
+      kernel: { confirmed: kernelOk, chunks: can ? Math.ceil(can.rows.length / SPEC.f2.chunk) : 0, seconds: secs('f2kernel') },
+      mutants: muts,
+      word: canOk && muts.every((m) => m.asExpected) ? 'CERTIFIED' : 'REFUSED',
+    };
+  }
+
   const binList = has('toolchain.log') ? rd('toolchain.log') : '';
   const notRun = ['leanchecker-paranoid', 'lean4lean', 'con-leche', 'con-ron'].filter((k) => !kernels.some((x) => x.name.startsWith(k)));
   const bundled = notRun.filter((k) => new RegExp('^' + k + '$', 'm').test(binList));
@@ -292,7 +437,16 @@ function decide() {
     plantedClaims: { caught: reds.filter((r) => r.caught).length + ' of ' + reds.length, word: reds.every((r) => r.caught) ? 'CERTIFIED' : 'REFUSED' },
     kernels: kernels.every((k) => k.word === 'ACCEPTS') ? 'ACCEPT (' + kernels.length + ' run)' : 'NOT ALL ACCEPT',
   };
-  const verdict = F1.word === 'CERTIFIED' && words.F1controls.word === 'CERTIFIED' && F3.word === 'CERTIFIED' && words.plantedClaims.word === 'CERTIFIED' && words.kernels.startsWith('ACCEPT') ? 'CERTIFIED' : 'REFUSED';
+  if (F2) {
+    const c = F2.canonical;
+    words.F2 = { word: F2.word,
+      canonical: !c ? 'no rows' : (c.conclusionDisagreements ? `DISAGREES with the informal decider on ${c.conclusionDisagreements} of ${c.conclusionCompared} instances` : `agrees with the informal decider on all ${c.conclusionCompared} instances where the informal statement is defined`) + ` (${c.undefinedInInformal} undefined there: n = 0 or m = 0)`
+        + (c.implicationDisagreements ? `; the whole implication differs on ${c.implicationDisagreements}, ${c.implicationExplained} of them explained by the added hypothesis ${c.explainedBy.join(', ')} (${c.explainedInstances.join(', ')}: the informal sentence is false there)` : ''),
+      kernel: F2.kernel.confirmed ? 'the kernel confirms all ' + F2.kernel.chunks + ' chunks' : 'NOT confirmed',
+      planted: F2.mutants.filter((m) => m.asExpected).length + ' of ' + F2.mutants.length + ' as expected',
+      asPreregistered: 'canonical ' + F2.asPreregistered.canonical + '; planted ' + F2.asPreregistered.planted };
+  }
+  const verdict = F1.word === 'CERTIFIED' && words.F1controls.word === 'CERTIFIED' && F3.word === 'CERTIFIED' && words.plantedClaims.word === 'CERTIFIED' && words.kernels.startsWith('ACCEPT') && (!F2 || F2.word === 'CERTIFIED') ? 'CERTIFIED' : 'REFUSED';
 
   /* a pilot's own question: does the intake reach the verdicts a hand run recorded (spec.reproduces: the record and
      which of its verdicts each intake word answers); a positive hand word is CERTIFIED or "n/n caught" */
@@ -308,12 +462,12 @@ function decide() {
   return {
     what: 'The Lean intake of ' + SPEC.claim.what + ' against ' + SPEC.canonical.what + ', decided from the run\'s facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). '
       + 'CERTIFIED here says: the kernels named accept the claimant\'s proof as a proof of ' + neg + 'the canonical declaration\'s own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant\'s file is caught.',
-    notDecided: 'Whether the canonical statement is the informal problem (a reading, F5); instance agreement with an exact decider (F2, phase P2); the kernels not run: ' + notRun.join(', ') + (bundled.length ? ' (bundled but not run: ' + bundled.join(', ') + ')' : ' (not bundled with ' + SPEC.canonical.toolchain.split(':')[1] + ')') + '.',
+    notDecided: 'Whether the canonical statement is the informal problem (a reading, F5' + (SPEC.f2 ? '; F2 tests it on finitely many instances, which is evidence, not proof' : '; F2, instance agreement, is phase P2') + '); the kernels not run: ' + notRun.join(', ') + (bundled.length ? ' (bundled but not run: ' + bundled.join(', ') + ')' : ' (not bundled with ' + SPEC.canonical.toolchain.split(':')[1] + ')') + '.',
     spec: { path: SPEC_PATH, sha256: sha(fs.readFileSync(path.join(ROOT, SPEC_PATH))), amendments: SPEC.amendments.length },
     run: { day, facts: path.relative(ROOT, F), machine: JSON.parse(rd('machine.json')), stepSeconds: Number(wall.toFixed(1)), costUSD: 0 },
     pins: { canonical: Object.assign({ url: SPEC.canonical.url, path: SPEC.canonical.path, decl: SPEC.canonical.decl }, pin.canonical), claim: Object.assign({ url: SPEC.claim.url, file: SPEC.claim.file, decl: SPEC.claim.decl }, pin.claim) },
     hazards: pin.hazards,
-    verdict, words, F1, F3, mutants, reds, kernels, notRun, reproduces,
+    verdict, words, F1, F2, F3, mutants, reds, kernels, notRun, reproduces,
   };
 }
 function record() {
@@ -321,7 +475,7 @@ function record() {
   if (process.argv.includes('--check')) {
     const old = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
     if (JSON.stringify(rec, null, 1) + '\n' !== old) die('certs/lean-intake-' + id + '.json differs from what the facts derive now');
-    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${rec.words.F1controls.wrongRefused} wrong refused, ${rec.words.F1controls.sameAccepted} same accepted; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels})`);
+    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${rec.words.F1controls.wrongRefused} wrong refused, ${rec.words.F1controls.sameAccepted} same accepted; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels}${rec.words.F2 ? '; F2 ' + rec.words.F2.word + ', ' + rec.words.F2.kernel : ''})`);
     return;
   }
   fs.writeFileSync(OUT, JSON.stringify(rec, null, 1) + '\n');
@@ -342,6 +496,7 @@ function review() {
     `- **The statement.** ${R.F1.how.charAt(0).toUpperCase() + R.F1.how.slice(1)}. Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`,
     `- **The hypotheses are satisfiable:** ${R.F3.witness}, checked by the kernel.`,
     `- **The kernels:** ${R.kernels.map((k) => k.name + ' ' + k.word.toLowerCase()).join('; ')}. Not run: ${R.notRun.join(', ')}.`,
+    ...(R.F2 ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances. ${R.words.F2.canonical.charAt(0).toUpperCase() + R.words.F2.canonical.slice(1)}. The kernel confirmed Lean's values.`] : []),
     `- **The axioms:** ${R.F1.axioms.join(', ')}. Planted defects in the proof file (${R.reds.map((r) => r.why).join('; ')}): ${R.words.plantedClaims.caught} caught.`,
     `- **Not checked here:** whether the formal statement is the informal problem, which is a reading.`,
     '',

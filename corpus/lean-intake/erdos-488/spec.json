@@ -225,6 +225,11 @@
    "date": "2026-11-09",
    "before": "after the first run (every other outcome as expected)",
    "what": "W08 (Icc 0 m for Icc 1 m) was ACCEPTED, against its pre-registered class. The kernel was right: 0 ∉ B by B's own definition, so the two statements are definitionally equal (corpus/lean-intake/erdos-488/amendment-2/why.lean: that equation holds by rfl; Icc 1 m vs Icc 2 m does not). W08 is reclassified as `same` with its pre-registered class kept beside it; W11 (a wrong statement, Icc 1 (m+1)) is added to keep ten wrong controls; E1 (Icc 2 m, equivalent only under the hypothesis 1 ∉ A) is added as a probe of F1's limit, expected REFUSED. The record reports both counts: as amended and as pre-registered."
+  },
+  {
+   "date": "2026-11-09",
+   "before": "after the first F2 run",
+   "what": "Two F2 expectations were wrong; the outcomes are kept as pre-registered beside the amended ones. (1) The canonical implication disagrees with the informal decider on 20 instances, ALL with A = {0}: B is empty there, the informal sentence reads 0 < 0 and is false, and DeepMind's added hypothesis 0 ∉ A (their PR #256) excludes exactly them — F2 found the reason for an added hypothesis unprompted. The amended rule: an implication disagreement is explained when its instance violates an added hypothesis and the informal sentence is false there; an unexplained one refuses. (2) E1 (Icc 2 m) changes the counts on 1,344 instances but never a truth value: F2 compares truth values on instances, so such a change is invisible to it (its limit, stated in the record)."
   }
  ],
  "reproduces": {
@@ -262,14 +267,14 @@
    "5": "conclusion"
   },
   "expect": {
-   "canonical": "6 components; conclusion and the informal hypotheses agree with the decider on every instance where the informal statement is defined (n ≥ 1, m ≥ 1); the implication agrees too; the kernel confirms every chunk; the three added hypotheses are listed, not compared",
+   "canonical": "6 components; the conclusion and the informal hypotheses agree with the decider wherever the informal statement is defined; every disagreement of the whole implication is EXPLAINED — each disagreeing instance violates a hypothesis the formalization added and the informal sentence is false there; the kernel confirms every chunk (amendment 3)",
    "mutants": {
     "W02": "conclusion disagrees on at least one instance",
     "W04": "conclusion disagrees on at least one instance",
     "W09": "conclusion disagrees on at least one instance",
     "W10": "conclusion disagrees on at least one instance",
     "W11": "conclusion disagrees on at least one instance",
-    "E1": "conclusion disagrees on at least one instance",
+    "E1": "conclusion agrees on every instance (amendment 3: the counts differ wherever 1 ∈ A, but with 1 ∈ A every n ≥ 1 is in B and the conclusion's truth value never flips in range)",
     "W03": "conclusion agrees on every instance",
     "W05": "conclusion agrees on every instance",
     "W06": "conclusion agrees on every instance",
@@ -283,6 +288,10 @@
     "W01": "REFUSED: not decidable on instances (the statement is an `answer(sorry) ↔ …` with no instance binders)"
    }
   },
-  "notInScope": "the mutants' values are the interpreter's (#eval), not kernel-confirmed; instances where the informal statement divides by zero (n = 0 or m = 0) are not compared — Lean's x/0 = 0 there is a convention, recorded as such"
+  "notInScope": "the mutants' values are the interpreter's (#eval), not kernel-confirmed; instances where the informal statement divides by zero (n = 0 or m = 0) are not compared — Lean's x/0 = 0 there is a convention, recorded as such",
+  "preregisteredExpect": {
+   "canonical": "6 components; conclusion and the informal hypotheses agree with the decider on every instance where the informal statement is defined (n ≥ 1, m ≥ 1); the implication agrees too; the kernel confirms every chunk; the three added hypotheses are listed, not compared",
+   "E1": "conclusion disagrees on at least one instance"
+  }
  }
 }
