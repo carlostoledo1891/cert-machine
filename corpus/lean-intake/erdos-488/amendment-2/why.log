@@ -1,0 +1,3 @@
+run 2026-11-09 on the Mac, Lean 4.33.1, in the canonical clone at 2055e5a (lake env lean):
+line 4 (Icc 0 m vs Icc 1 m, by rfl): no error — definitionally equal
+Intake/W08Why.lean:7:119: error: Type mismatch   (Icc 1 m vs Icc 2 m, by rfl): not definitional

@@ -72,8 +72,8 @@ partial def hypothesesToFalse (e : Expr) : MetaM Expr := do
 elab "intake_hypotheses " src:ident " => " dst:ident : command => do
   let some ci := (← getEnv).find? src.getId | throwError "intake: no declaration {src.getId}"
   let value ← liftTermElabM <| hypothesesToFalse ci.type
-  liftCoreM <| addDecl <| .defnDecl { name := dst.getId, levelParams := ci.levelParams, type := mkSort levelZero,
-    value, hints := .abbrev, safety := .safe }
+  let decl : DefinitionVal := { name := dst.getId, levelParams := ci.levelParams, type := mkSort levelZero, value := value, hints := .abbrev, safety := .safe }
+  liftCoreM <| addDecl (.defnDecl decl)
 
 def emit (j : Json) : IO Unit := do
   let p := (← IO.getEnv "INTAKE_OUT").getD "/dev/stdout"
@@ -178,7 +178,7 @@ function run() {
     } else if (s === 'claim') {
       step('claim', CAN, `lake build ${claimMod}`);
     } else if (s === 'f1') {
-      if (step('f1', CAN, 'lake build Intake.F1')) step('f1report', CAN, 'lake env lean Intake/F1Report.lean', 1800, { INTAKE_OUT: path.join(FACTS, 'f1report.json') });
+      if (step('f1', CAN, 'lake build Intake.F1')) step('f1report', CAN, 'lake build Intake.Meta && lake env lean Intake/F1Report.lean', 1800, { INTAKE_OUT: path.join(FACTS, 'f1report.json') });
     } else if (s === 'f3') {
       step('f3', CAN, 'lake build Intake.F3');
     } else if (s === 'mutants') {
@@ -254,7 +254,10 @@ function decide() {
     const n = 'mut-' + m.id, log = rd(n + '.log'), e = exit(n), errs = errors(log, `Intake/Mut/${m.id}.lean`);
     const atC = errs.length > 0 && errs.every((x) => x.line === cLine[m.id]) && errs.some((x) => /type mismatch/i.test(x.text));
     const outcome = e === '0' ? 'ACCEPTED' : atC ? 'REFUSED by type mismatch' : 'FAILED elsewhere';
-    return { id: m.id, kind: m.kind, why: m.why, expect: m.expect, outcome, asExpected: outcome === m.expect, errors: errs.slice(0, 3), seconds: secs(n) };
+    const row = { id: m.id, kind: m.kind, why: m.why, expect: m.expect, outcome, asExpected: outcome === m.expect, errors: errs.slice(0, 3), seconds: secs(n) };
+    if (m.amendment) row.amendment = m.amendment;
+    if (m.preregistered) Object.assign(row, { preregistered: m.preregistered, asPreregistered: outcome === m.preregistered.expect });
+    return row;
   });
   const reds = (SPEC.claimReds || []).map((r) => {
     const n = 'red-' + r.id, log = rd(n + '.log'), e = exit(n), ax = axioms(log, SPEC.claim.decl);
@@ -276,10 +279,15 @@ function decide() {
 
   const stepFiles = fs.readdirSync(F).filter((f) => f.endsWith('.seconds'));
   const wall = stepFiles.reduce((s, f) => s + Number(fs.readFileSync(path.join(F, f), 'utf8')), 0);
-  const wrong = mutants.filter((m) => m.kind === 'wrong'), same = mutants.filter((m) => m.kind === 'same');
+  const wrong = mutants.filter((m) => m.kind === 'wrong'), same = mutants.filter((m) => m.kind === 'same'), equiv = mutants.filter((m) => m.kind === 'equivalent');
+  /* as pre-registered: the controls that existed before any run, each against its original expectation */
+  const pre = mutants.filter((m) => !m.amendment || m.preregistered);
+  const preOk = pre.filter((m) => (m.preregistered ? m.asPreregistered : m.asExpected)).length;
   const words = {
     F1: F1.word,
-    F1controls: { wrongRefused: wrong.filter((m) => m.asExpected).length + ' of ' + wrong.length, sameAccepted: same.filter((m) => m.asExpected).length + ' of ' + same.length, word: mutants.every((m) => m.asExpected) ? 'CERTIFIED' : 'REFUSED' },
+    F1controls: { wrongRefused: wrong.filter((m) => m.asExpected).length + ' of ' + wrong.length, sameAccepted: same.filter((m) => m.asExpected).length + ' of ' + same.length,
+      equivalentRefused: equiv.length ? equiv.filter((m) => m.asExpected).length + ' of ' + equiv.length + ' (the limit: identity up to definitional unfolding, not logical equivalence)' : undefined,
+      asPreregistered: preOk + ' of ' + pre.length, word: mutants.every((m) => m.asExpected) ? 'CERTIFIED' : 'REFUSED' },
     F3: F3.word,
     plantedClaims: { caught: reds.filter((r) => r.caught).length + ' of ' + reds.length, word: reds.every((r) => r.caught) ? 'CERTIFIED' : 'REFUSED' },
     kernels: kernels.every((k) => k.word === 'ACCEPTS') ? 'ACCEPT (' + kernels.length + ' run)' : 'NOT ALL ACCEPT',

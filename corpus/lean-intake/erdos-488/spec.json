@@ -128,11 +128,16 @@
   },
   {
    "id": "W08",
-   "kind": "wrong",
-   "why": "the interval `Icc 1 m` shifted to `Icc 0 m` (left side only)",
+   "kind": "same",
+   "why": "the interval `Icc 1 m` shifted to `Icc 0 m` (left side only) — RECLASSIFIED by amendment 2: 0 is not in B (n ≥ 1), so the two filtered intervals are definitionally equal (rfl, amendment-2/why.lean); the pre-registration's class was wrong, not the check",
    "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 0 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
    "imports": [],
-   "expect": "REFUSED by type mismatch"
+   "expect": "ACCEPTED",
+   "preregistered": {
+    "kind": "wrong",
+    "expect": "REFUSED by type mismatch"
+   },
+   "amendment": 2
   },
   {
    "id": "W09",
@@ -149,6 +154,24 @@
    "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (n : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
    "imports": [],
    "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W11",
+   "kind": "wrong",
+   "why": "the left interval widened to `Icc 1 (m + 1)` (added by amendment 2, after the first run, to keep ten wrong controls)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 (m + 1)).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch",
+   "amendment": 2
+  },
+  {
+   "id": "E1",
+   "kind": "equivalent",
+   "why": "the left interval starts at 2: the same statement only because 1 ∉ A is a hypothesis, not by definition (added by amendment 2: a probe of F1's limit — identity up to definitional unfolding, not logical equivalence)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 2 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch",
+   "amendment": 2
   }
  ],
  "claimReds": [
@@ -197,6 +220,11 @@
    "date": "2026-11-09",
    "before": "any run",
    "what": "added `reproduces`, the map from the 11-06 record's verdicts (P1, P3, P7) to the intake's words, so the success line is computed rather than read by hand; no expected outcome changed"
+  },
+  {
+   "date": "2026-11-09",
+   "before": "after the first run (every other outcome as expected)",
+   "what": "W08 (Icc 0 m for Icc 1 m) was ACCEPTED, against its pre-registered class. The kernel was right: 0 ∉ B by B's own definition, so the two statements are definitionally equal (corpus/lean-intake/erdos-488/amendment-2/why.lean: that equation holds by rfl; Icc 1 m vs Icc 2 m does not). W08 is reclassified as `same` with its pre-registered class kept beside it; W11 (a wrong statement, Icc 1 (m+1)) is added to keep ten wrong controls; E1 (Icc 2 m, equivalent only under the hypothesis 1 ∉ A) is added as a probe of F1's limit, expected REFUSED. The record reports both counts: as amended and as pre-registered."
   }
  ],
  "reproduces": {
