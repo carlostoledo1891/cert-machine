@@ -389,6 +389,10 @@ const REPORTS = [
     title: 'Pálvölgyi’s heptagon and the appendix theorem marked unchecked',
     desc: 'Seven points on a circle that refute Graham’s conjecture, found by Dömötör Pálvölgyi with ChatGPT, and his appendix theorem that almost any seven points on a circle are not Ramsey, labelled unchecked by its author: both decided in Lean through OpenAI’s classification, the rules sealed before any code ran. The pull request that marks the conjecture solved in Google DeepMind’s list links the proof.',
     n: 'five kernels accept · only the standard axioms' },
+  { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
+    title: 'Does an AI’s Lean proof prove the right statement?',
+    desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',
+    n: 'two claims · every planted wrong statement refused' },
   { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
     desc: 'A GPT-published constant on Erdős #852, refuted at its ' + ORDINAL[csWrongAt] + ' decimal place (its ' + ORDINAL[csWrongSig] + ' significant digit) and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
@@ -2115,7 +2119,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

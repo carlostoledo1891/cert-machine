@@ -130,6 +130,22 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/lean-intake.html (2026-11-09): two statements of the same shape side by side, one outlined
+     and one solid, joined by an equals sign; beneath, the planted ones as a row of small squares, all hollow but the
+     matching pair's colour — refused. No number, no label */
+  'lean-intake': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Lean, the right statement', path: '/reports/lean-intake.html',
+    title: 'Does an AI’s Lean proof prove the right statement? One command to check',
+    alt: 'Two equal rectangles side by side, one outlined and one solid, joined by an equals sign; below them a row of ten small hollow squares.',
+    svgRaw: (() => {
+      const o = [], w = 250, h = 130, y = 205, x1 = 300, x2 = 650;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two equal rectangles joined by an equals sign, and a row of small hollow squares" style="position:absolute;left:0;top:0">');
+      o.push('<rect x="' + x1 + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.4"/>');
+      o.push('<rect x="' + x2 + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"/>');
+      for (const dy of [-11, 11]) o.push('<line x1="' + (x1 + w + 30) + '" y1="' + (y + h / 2 + dy) + '" x2="' + (x2 - 30) + '" y2="' + (y + h / 2 + dy) + '" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>');
+      for (let i = 0; i < 10; i++) o.push('<rect x="' + (x1 + 6 + i * 60) + '" y="' + (y + h + 70) + '" width="26" height="26" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="2"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/heptagon.html (2026-11-07): the heptagon itself on its circle, drawn at r = e as the page's
      figure is; the paper's weights by sign alone (solid for the positive, hollow for the negative), no number */
   heptagon: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · Graham’s conjecture', path: '/reports/heptagon.html',
