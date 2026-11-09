@@ -33,12 +33,20 @@ NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-
      nanoda may be what let their nine through; the side-by-side result to follow there). (4) FREER STACK decided as a
      non-author review (merged 53459a32): certs/zq-freer-2026-11-08.json (tools/zq-freer.js --check, ~2 s; battery "ZQ Freer
      stack (finite)"; tools/zq-freer-fetch.sh; inputs pinned in ~/Projects/zq-scout/freer-2026-11-08/, never vendored — no
-     licence), pre-registered (48e1b4a0) — #8, #9, #11, #12 each CERTIFIED on T (the table is what the PR states), N (a
+     licence), pre-registered (a984a568 on public main; the branch's 48e1b4a0 was rewritten by a rebase-pull) — #8, #9, #11, #12 each CERTIFIED on T (the table is what the PR states), N (a
      NECESSARY sum-of-squares condition, not the SOS itself), A (every displayed finite identity), B (bindings); 19 controls
      refused; amendment A (a negative-power bug of ours, caught by our red list). GAPS that lead every draft: the residuals
      (balanced/integer-ir.json) are unpublished, so the sum of squares is NOT decided; #9/#11/#12's tables live only in fork CI
      artifacts (expire 2027-02-06); upstream CI not run. Four review drafts outreach/gh-zq-pr{8,9,11,12}-review-2026-11-08.md
      (untracked), NOT posted; #13 (380 variables) and #16 opened since — unreviewed.
+     EXTENDED on the operator's word to #13 (31563264) and #16 (59c59e55) — amendment B before any code read them, amendment C
+     (control CA8 could never fail — it halved a13, whose denominator is odd — kept as a reading check, replaced by CA14,
+     committed alone before the re-run; THE OPERATOR'S ACCEPTANCE ASKED): all six PRs CERTIFIED on T/N/A/B, eight tables,
+     32 controls refused, ~9 s; no artifact anywhere carries the residuals (513 files checked). Heads unchanged at ~01:00Z;
+     a new #17 (380 variables, 644 digits, above #16) is out of scope. ONE stack review for #8
+     (outreach/gh-zq-pr8-stack-review-2026-11-08.md) + one-line pointers (outreach/gh-zq-stack-pointers-2026-11-08.md),
+     NOT posted; the four per-PR drafts superseded. LESSON: never `git pull --rebase` over a merge commit (it linearises and
+     renames the merged commits); push merges with `git pull --rebase=merges` or a plain merge.
   ◆◆ 11-08 EVENING (the second GitHub check, ~22:40 UTC): lean4#16290 — marleymcwilliams (not a maintainer) added Comparator
      data on openai/math (9 nanoda stack overflows, 8 fixed by a 1 GiB stack); our cross-tab against certs/openai-math-kernel.json
      POSTED on the operator's word (issuecomment-6728279336: they accept 9 of our 18 resource stops, both our stack overflows
