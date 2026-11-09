@@ -198,3 +198,175 @@ Three checks were added beyond the procedure above, written before the first run
 turn one into CERTIFIED: B's b0, that the saved PR metadata (`gh pr view`) names the pinned head and base and that its body states the table sha256;
 in B's b4, that EXPECTED.json also states the coordinates, monomials and residual count of the PR body; and an input
 guard, that each proof still contains the displayed statements A decides, verbatim (the decider stops otherwise).
+
+## Amendment B (2026-11-08 local, 2026-11-09 UTC): #13 and #16, written before any code reads their values
+
+The operator's word: before anything is posted, extend this review to Cameron Freer's two newest pull requests, #13
+("Reduce the conditional quartic to 380 variables (above #12)") and #16 ("Sharpen conditional quartic coefficients to
+679/644 digits (above #13)"), by the same method; then post ONE COMMENT review on #8 covering the whole stack, with a
+one-line pointer on each of the others. Nothing is posted by this session.
+
+### The heads, re-checked
+
+`gh pr list` and `git ls-remote` (about 01:00Z on 2026-11-09): main `9c0b3aba60d90fdcac82115f0582a6f52f1054f7`, #8
+`ad7fc756`, #9 `51111cc9`, #11 `e8654b2c`, #12 `772fe96a`, #13 `31563264ba3dfbc3f00b4b08c099e9380caacd42`: **none
+moved**, so the decisions above bind the same heads. New: #16 `59c59e5589d86036ee41994c82a2b900fce85c2d` (base main
+9c0b3aba, parent #13). Also observed and NOT in scope: #17 (cameronfreer, `eb00b7c9`, "Reach 380 variables with 644-digit
+coefficients (above #16)", opened 00:16:54Z); only its title, head, base and date were read. No PR of the six has a review
+or a comment; every upstream run of #8's, #13's and #16's heads is `action_required`.
+
+### The claims, at their pins
+
+Both PRs carry two tables each, an order-45 default and an order-47 optional route. All four are CI artifacts only (not
+committed; their packets commit a generator and EXPECTED.json).
+
+| PR | head, parent | packet, workflow | table: variables, residuals, monomials, max (digits / bits), bytes, sha256 |
+| --- | --- | --- | --- |
+| #13 | `31563264`, #12 `772fe96a` | `research/detector-cube-reuse/`, `.github/workflows/detector-cube-reuse.yml` | order 45: 380, 349, 26,025, `28902*3^1420` (682 / 2,266), 1,025,480, `373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5`; order 47: 383, 352, 26,043, `28902*3^1344` (646 / 2,146), 1,022,041, `8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc` |
+| #16 | `59c59e55`, #13 `31563264` | `research/height-consumer-refinement/`, `.github/workflows/height-consumer-refinement.yml` | order 45: 380, 349, 26,025, `28902*3^1412` (679 / 2,253), 1,025,094, `a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6`; order 47: 383, 352, 26,043, `28902*3^1340` (644 / 2,139), 1,021,849, `d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f` |
+
+Values from the PR bodies, the READMEs, the PROOF.md tables and EXPECTED.json (#13 blob a07ec459, #16 blob 6914d708; the
+byte counts are EXPECTED.json's `tableBytes`). Each table: degree 4, content 1, x0^4 coefficient 1, every variable occurs.
+Proof texts: #13 `research/detector-cube-reuse/PROOF.md` (blob ad66650d) and its retained order-47 argument
+`references/precision51_PROOF.md` (blob 1adf0ca5) with `references/ORIGIN.json` (blob abe76e7f: fork commit
+`bc51100fd3ada82df0dac55d6f1d235219430c74`, path `research/higher-detector-precision/PROOF.md`, a sha256); #16
+`research/height-consumer-refinement/PROOF.md` (blob 1a435aa2). Source manifests: #13 `SOURCE_BINDINGS.json` (blob
+fd4201d7) with `SOURCE_BINDINGS_SHA256.txt` (blob 0400ed29); #16 `SOURCE_BINDINGS.json` (blob c5e41a42) with
+`SOURCE_BINDINGS_SHA256.txt` (blob d8334f07), whose value the PR body states with "binds 85 files".
+
+The CI artifacts (fork cameronfreer/diophantine-z-q; every one expires 2027-02-06; metadata saved with `gh api`):
+
+| run (event) at head | artifacts read (id, name, zip digest prefix) | tables read from them |
+| --- | --- | --- |
+| 42501591301 (push) at #13 | 13625523752 cubic-reuse-order-45 `9449925e`; 13625249620 cubic-reuse-order-47 `b64df95e` | #13: `quartic-380-balanced-decimal.txt`, `quartic-383-balanced-decimal.txt` |
+| 42502112522 (pull_request) at #13 | 13625698927 order-45 `acf6d65c`; 13626330627 order-47 `2d1b2e26` | #13, both |
+| 42537804191 (push) at #16 | 13639254217 cubic-reuse-order-45 `f7329436`; 13639793760 order-47 `ad6b9f8f` | #13, both (the parent's tables at #16's head) |
+| 42537807736 (pull_request) at #16 | 13639747706 order-45 `c00b3fb4`; 13639624776 order-47 `28d6f631` | #13, both |
+| 42537804182 (push) at #16 | 13639782567 height-consumers-order-45 `a55ef08e`; 13640605459 height-consumers-order-47 `010a219b` | #16: `quartic-380-balanced-decimal.txt`, `quartic-383-balanced-decimal.txt` |
+| 42537807726 (pull_request) at #16 | 13640360615 order-45 `c1694af9`; 13640171921 order-47 `74d6212e` | #16, both |
+| 42501591246 (push) and 42502112489 (pull_request) at #13; 42537804236 (push) and 42537807727 (pull_request) at #16 | conditional-quartic-389-385-chain-receipts 13626170175 `5941f62a`, 13625971972 `b110809d`, 13640750036 `e4ea3d0a`, 13640431221 `0270b826` | #9 (`quartic-385/candidate385/…`) and #11 (`scalar-chain/factored/…`), the same paths as before |
+| 42501591237 (push) and 42502112560 (pull_request) at #13; 42537804187 (push) and 42537807728 (pull_request) at #16 | scalar-preparation-zero-receipts 13625548867 `0aac1852`, 13625812996 `38f6185d`, 13639903235 `7f5e8ca4`, 13640386140 `cd0c40ae` | #12 (`factored/quartic-383-balanced-decimal.txt`) |
+
+The full digests go into the decider's pins. No artifact carries the residuals: each new one holds the table,
+`balanced/summary.json`, `MEASURED.json`, check JSONs and a replay log; EXPECTED.json pins `balanced/polynomial.json`,
+`final/integer-candidate-ir.json` and `raw-translated-ir.json` by hash, and none is committed or uploaded.
+
+### What was looked at before this amendment (structure inspection, stated exactly)
+
+- `gh pr list` (all PRs: numbers, authors, heads, dates, titles); `gh pr view` of #13 (body, commit list, file list with
+  line counts, reviews, comments) and #16 (body, commit list, reviews, comments); #17's head, base, date and title; reviews
+  and comments of #8, #9, #11, #12; the upstream run lists at #8's, #13's and #16's heads (`action_required`).
+- `git ls-remote` of main and the PR heads; fetches of the six heads and of the fork commit bc51100f into the bare clone;
+  `git ls-tree -l` of bc51100f's `research/higher-detector-precision/`, which showed its PROOF.md with git blob id
+  1adf0ca5, the same blob id as #13's `references/precision51_PROOF.md` (so the byte equality B decides was visible at the
+  git-object level; no sha256 was computed).
+- `git diff --name-status` #12..#13 (14 paths, every one added) and #13..#16 (19 paths, every one added); `git ls-tree -l`
+  of both packets (sizes).
+- Read in full: #13's README.md, EXPECTED.json, PROOF.md, references/precision51_PROOF.md, references/ORIGIN.json,
+  SOURCE_BINDINGS_SHA256.txt; #16's README.md, EXPECTED.json, PROOF.md, SOURCE_BINDINGS_SHA256.txt. The first 700 bytes
+  of #13's and 1,500 bytes of #16's SOURCE_BINDINGS.json (the format: `files`, a list of `{path, sha256}`). PROTOCOL.md
+  lines 150–200, 280–310 and a grep (main).
+- The fork's run lists at both heads and their artifact lists (ids, names, sizes, digests, expiry); the twenty artifacts
+  above downloaded into the scout folder and their file names and sizes listed: so the four new tables' byte counts
+  (1,025,480, 1,022,041, 1,025,094, 1,021,849, equal to EXPECTED.json's) and the parent tables' byte counts at the new heads
+  were seen; no sha256 was computed. The three header comment lines of the four new tables (same format as before:
+  `# Variables: <n>; input: x0; degree: 4; monomials: <m>.`); no data row was printed.
+- A timing check of BigInt powers on unrelated numbers (a 4.85-million-bit power: 0.07 s).
+- By hand, while fixing the readings below (no code): the reduced denominator of a13 under the reading stated in A, which
+  agrees with the displayed one; the triangle bound P(B) and the coefficients 4712/4775 and 4616/4775 of #16; rough
+  base-2 logarithms of the anchor margins (the order-47 scalar margins at anchors 2004/2010 looked tight). No code of ours
+  has parsed, hashed or evaluated anything of #13 or #16.
+
+### The questions for #13 and #16 (the same T, N, A, B; nothing above changes)
+
+- **T** and **N**, exactly as above, on each of the four tables (two per PR), against the values in the table above. A
+  PR's T (N) is CERTIFIED when both its tables are.
+- **A, #13** (`PROOF.md`), each an exact identity over ℚ (Laurent polynomials in named symbols) or an integer statement:
+  c1 F(t) = t(t−1/49)(t−1/50)(t−1/2450)(t−32/1225) is a monic quintic with c0 = 0 (its c4…c1 recorded); c2 with t2 = t²,
+  M = t2(t+c4) + c3·t + c2 = t³ + c4t² + c3t + c2 and t3 = M − c4·t2 − c3·t − c2 = t³, for F's actual coefficients;
+  c3 delta3 = 98³·t3 − 3·98²·t2 + 3·98·t − 1 = (98t − 1)³; c4 the old segment, with q1 = e/delta and E = q1·delta²:
+  E = e·delta, mixC = E³q1³ = e⁶, mixD = mixC² = e¹², q12 = mixD²/E = e²³/delta; c5 the new segment, with
+  q1cube = q1³ and delta3 = delta³: e3 = q1cube·delta3 = e³, e6 = e3² = e⁶, e12 = e6² = e¹², q12 = e12²/E, the same
+  q12 as c4; c6 the reverse map: the restored mixC = E³q1³ and mixD = mixC² equal e6 and e12; c7 downstream, in both
+  chains: mixedHigh = q12² and q45 = mixedHigh²/q1cube agree, and the optional highLift = mixedHigh·E,
+  q47 = highLift²/q1 agree; c8 the stated counts agree: three detectors × (four old gate rows deleted, three new added,
+  one q12 row changed) = 12, 9, 3, and 12 − 9 = 3 = 383 − 380 = 352 − 349 (the residual rows themselves are unpublished,
+  so only the arithmetic of the stated counts is decided); and the retained reference's 386 − 3 = 383, 355 − 3 = 352;
+  c9 EXPECTED.json's anchor and c exponents: 2130 = 6·355, 2016 = 6·336.
+- **A, #13's retained order-47 argument** (`references/precision51_PROOF.md`): d1 with a0 = 1, a1 = −2/5 and
+  a_j/a_(j−1) = (4j−5)/(4j+1) **for j ≥ 2** (the reading under which the three are consistent: at j = 1 the ratio would
+  give −1/5), the reduced denominator of a13 is 5²·7·17·29·37·41·53; d2 hence v_p(a13) ≥ −1 for every prime p outside
+  {2,3,5,7,13,17}; d3 for every integer j ≥ 14, 4j − 51 − ⌊(4j+1)/10⌋ ≥ 0, with 0 at j = 14 and each step adding at
+  least three (the step decided over a complete residue system j mod 5); d4 at p = 53: v_53(a13) = −1, so the j = 13 term
+  has valuation 4·13 − 1 = 51, and 4j − ⌊(4j+1)/52⌋ ≥ 55 for every j ≥ 14 (base case and steps, j mod 13); d5 with
+  E = q1·delta²: q12 = E¹¹q1¹², mixedHigh = E²²q1²⁴, q46 = (mixedHigh·delta)²/q1 = E⁴⁵q1⁴⁶,
+  q47 = (mixedHigh·E)²/q1 = E⁴⁶q1⁴⁷, and E^(m−1)q1^m = e^(2m−1)/delta with e = q1·delta for m = 12, 46, 47; d6 with
+  c* = 2·3^1007, b* = 3^1007 and the same H: c*^415 > (4H)^992; b*^(16m−577) > (24H)^(8m) for every 46 ≤ m ≤ 51;
+  40H < 2^670; b* > 67000; b* > 152; d7 for 46 ≤ m ≤ 51: α/m < 1/2, 2 − 4α/m = (16m−577)/(8m), and
+  7H·5^(α/m) + 6 < 24H (as 5^577·(7H)^(32m) < (24H − 6)^(32m)); d8 the two stated failures: at anchor 2010
+  (c* = 2·3^1004) c*^415 ≤ (4H)^992, and at anchor 2016 for order 45 (3^1007)^143 ≤ (24H)^360.
+- **A, #16** (`PROOF.md`): h1 β = 2401 + 2754(2X+1)² has β − 2401 = 2754(2X+1)², so β ≥ 2401 for real X with equality
+  only at X = −1/2, and 2401 > 1 > 0 > −343/32; h2 with U = C0 + C1: C0 + C1·ρ = (1 − ρ)C0 + ρU; h3 at ρ = √2 and
+  ρ = −√2, |1 − ρ| + |ρ| is 2√2 − 1 and 2√2 + 1 (signs decided exactly in ℚ(√2)), and their product is 7; h4 log 50 < 4,
+  log 7 < 2 and log 2 < 1 (natural logarithms), decided as 50 < e⁴, 7 < e², 2 < e with the rational lower bound
+  Σ_{k≤12} 1/k! < e; h5 K0 = (3H + 14)/2 < 7H and (3/2)(H + 4) + 2/2 = (3H + 14)/2; h6 c* = 2·3^(E/2−1): 1058 for E = 2118,
+  1004 for E = 2010, 1064 for 2130, 1007 for 2016; 1058 ≤ 1064 and 1004 ≤ 1007; 2118 = 6·353 and 2010 = 6·335 (EXPECTED.json's
+  c exponents); h7 the triangle bound: B² + B(B+2)·B·B + (B+2)²B² + 1 = 2B⁴ + 6B³ + 5B² + 1 = P(B); h8
+  P(B) = B⁴(2 + 6B⁻¹ + 5B⁻² + B⁻⁴), B² − 6 = B²(1 − 6B⁻²), 4·577 = 2308, 64m − 2308 > 0 for m = 45, 47, 32α = 577,
+  2K0 = 3H + 14, and b*² > 6 (the monotonicity of the three factors for B > √6 is read, not decided); h9 the endpoint test
+  [2(b*² − 6)]^(32m) > (3H + 14)^(32m)·P(b*)^577 at (E, m) = (2118, 45) and (2010, 47), b* = c* − 1; h10 order 45 at
+  E = 2118: c*^415 > (4H)^992 and 1 − α/31 = 415/992; order 47 at E = 2010: 8^992·c*^415 > (25H)^992; 1/4 < 8/25; h11 the
+  final input: 24 − α = 191/32, 12/(24−α) = 384/191, α/(24−α) = 577/191, α/12 < 2, 7H·2^(α/12) + 6 < 40H (as a15),
+  40H < 2^670, b* > 67000 at both anchors, (384/191)/100 + (577/191)(8/25) = 4712/4775 with (577/191)(8/25) = 4616/4775,
+  and (4712/4775)x + 4616/4775 < x − 3 for every real x ≥ 301, with 301 ≤ b*; h12 11016 = 2³·3⁴·17; h13 the two stated
+  failures: the endpoint test fails at (2112, 45), [2(b*² − 6)]^1440 ≤ (3H+14)^1440·P(b*)^577 with b* = 2·3^1055 − 1, and
+  the order-47 scalar test fails at E = 2004, 8^992·c*^415 ≤ (25H)^992 with c* = 2·3^1001.
+- **New kinds of displayed statement**, each decided exactly: stated failures (decided as the non-strict reverse
+  inequality); inequalities with log (through a rational lower bound for e, so they can only be confirmed, never accepted
+  falsely); signs in ℚ(√2) (a + b√2 > 0 decided by squares); statements over every integer j ≥ 14 (a base case and a
+  complete residue system for the step); the reduced denominator of a recurrence-defined rational; comparisons of up to
+  about 4.9 million bits; and the arithmetic of stated row counts. Before the run the decider checks that each proof
+  still contains, verbatim, a phrase of each statement group it decides (as amendment A's input guard).
+- **B, #13 and #16:** b0 the saved PR metadata names the head and base 9c0b3aba and the body states both table sha256s;
+  b1 the parent's head is an ancestor of the head; b2 the diff parent..head only adds files, all under the packet or its
+  workflow; b3 for #13, `references/precision51_PROOF.md` has the sha256 ORIGIN.json states and is byte-identical to
+  `research/higher-detector-precision/PROOF.md` at bc51100f; for both, `SOURCE_BINDINGS.json` has the sha256 its
+  `SOURCE_BINDINGS_SHA256.txt` states (and, for #16, the PR body; #16's lists 85 files), and every file it lists has its
+  listed sha256 at the head; b4 EXPECTED.json states, for orders 45 and 47, the PR body's table sha256s and the stated
+  coordinates, residuals, monomials, digits and bits; b5 every CI copy listed above has exactly the stated bytes, its
+  artifact the pinned digest, its run's metadata the listed head_sha and a success conclusion. With b2 along the chain
+  #8 → #9 → #11 → #12 → #13 → #16, every earlier packet is unchanged at #16's head.
+- **#9, #11, #12's b5 is extended** to the copies at #13's and #16's heads listed above (four each). Their other questions
+  and every value are unchanged; the record of #8–#12 changes only by these copies, by the texts that name the scope, and
+  by the decider's hash.
+- **Not decided, added:** for #13 and #16, the 349/352 residuals and the compiled IR (unpublished), the gate and raw-row
+  comparisons, the cubic's presence as affine aliases in the actual builder, the omission of the two unused preparation
+  slots, the four conic transports, the diagonal maps; the valuation, CRT, completeness and pole arguments of the order-47
+  reference; #16's projective-height transfer and varying-anchor equivalence beyond the displayed finite statements, its
+  monotonicity step, the reevaluated private anchor gate and its conic witnesses; the application contracts; #17.
+
+Verdict rule unchanged: a PR's scope is CERTIFIED when each of its questions is; the record's verdict is CERTIFIED when all
+six scopes are and every control came out as pre-registered.
+
+### Controls added (each must be refused by the same code)
+
+- **CT7** #13's order-45 table offered as #16's order-45 claim, sha256 off (same variables and monomials; refused by the
+  maximum); **CT8** #16's order-47 table offered as #13's order-47 claim, sha256 off (refused by the maximum).
+- **CN4** on #13's order-45 table, −10^800·x_i²·x_j² added for a degree-2 variable: refused by N with an exact point.
+- **CA7** #13's delta3 with 3·98 replaced by 2·98; **CA8** the a-recurrence applied from j = 1 (a1 := −1/5); **CA9** the
+  j ≥ 14 base case moved to j = 13; **CA10** #16's endpoint test offered as passing at (2112, 45); **CA11** the order-47
+  scalar test offered as passing at E = 2004; **CA12** log 50 < 3.9; **CA13** the ℚ(√2) operator bound at ρ = √2 offered
+  as 2√2 + 1: each refused by A.
+- **CB4** #16's order-47 CI copy checked against #13's stated order-47 sha256; **CB5** #13's file rule applied to the diff
+  #12..#16; **CB6** one hex digit of ORIGIN.json's sha256 changed: each refused by B.
+- **CR** extended: e-bounds (2 < e and 7 < e² accepted, e³ > 21 refused as unproved), ℚ(√2) signs (√2 − 1 > 0 and
+  3/2 − √2 > 0 accepted, 7/5 − √2 > 0 refused), a residue-system step on a known false case refused.
+
+### Predictions
+
+T CERTIFIED for the four new tables (their byte counts were seen and equal EXPECTED.json's). N CERTIFIED. A CERTIFIED for
+#13, its retained reference and #16, including the four stated failures holding as failures; the order-47 scalar margins
+are expected to be tight. B CERTIFIED, including #13's verbatim retention and both source manifests. #9, #11, #12's extra
+copies byte-identical. All controls refused. A few seconds on the Mac. The main finding is still a gap: the residuals of
+every table, now six PRs deep, are unpublished, and #9 through #16's tables exist only in CI artifacts that expire on
+2027-02-06.
