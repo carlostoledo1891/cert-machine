@@ -1214,5 +1214,63 @@
    "outcome": "terminated after ~5 min: its anonymous clone of PatrickMassot/checkdecls was refused (\"could not read Username\") and the script did not stop on the failure; no challenge ran"
   },
   "outcome": "TERMINATED 2026-10-11 ~03:15 UTC after RunPod reported Out of Memory: four challenges at once exhausted the 256 GB pod (status page dark from ~01:05 UTC; last seen: MUBSix built, Catalan in nanoda, ErdosReciprocal building, PlanarPacking crashed Lean with 139). No result was recovered (the facts lived on the container disk). About 6.3 h at $1.76/h, ~$11; plus the first pod, ~5 min."
+ },
+ "a18": {
+  "run": 42542204488,
+  "amendment": 18,
+  "arm": "new",
+  "nanodaBuild": "stack1g",
+  "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+  "memoryScope": "13G",
+  "dispatched": "2026-11-09T00:48:51Z",
+  "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+  "maxParallel": 10,
+  "why": "amendment 18, the new arm: nanoda d0a02cc5 (v0.4.30) + 1 GiB, Comparator in a 13 GB user scope, on the 15 resource stops that reach Comparator",
+  "challenges": [
+   "DirectedFeedback",
+   "MinUncut",
+   "VertexCover",
+   "OptimalMaxCut",
+   "UniqueGamesTheorem",
+   "Catalan",
+   "SquareDifference",
+   "CycleCliqueRamsey",
+   "IndependentSets",
+   "UniversalTensorSquares",
+   "PerfectCompleteness",
+   "NuclearUltrapower",
+   "BinPackingGap",
+   "ContinuumCoulombHardness",
+   "CoarseAssembly"
+  ]
+ },
+ "a18c": {
+  "run": 42542206797,
+  "amendment": 18,
+  "arm": "control",
+  "nanodaBuild": "stack1g",
+  "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+  "memoryScope": "13G",
+  "dispatched": "2026-11-09T00:48:53Z",
+  "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+  "maxParallel": 10,
+  "why": "amendment 18, the control arm: nanoda 3a240721 (v0.4.19) + 1 GiB, the same scope, the same 15, dispatched two seconds after the new arm from the same commit",
+  "challenges": [
+   "DirectedFeedback",
+   "MinUncut",
+   "VertexCover",
+   "OptimalMaxCut",
+   "UniqueGamesTheorem",
+   "Catalan",
+   "SquareDifference",
+   "CycleCliqueRamsey",
+   "IndependentSets",
+   "UniversalTensorSquares",
+   "PerfectCompleteness",
+   "NuclearUltrapower",
+   "BinPackingGap",
+   "ContinuumCoulombHardness",
+   "CoarseAssembly"
+  ]
  }
 }
