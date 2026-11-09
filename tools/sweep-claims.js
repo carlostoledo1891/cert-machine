@@ -221,6 +221,7 @@ for (const [repo, num, label] of [
   ['anthropics/formal-math', 36, 'formal-math #36 (the OpenAI ETH bridge theorem; posted 2026-11-05)'],
   ['cslib-community/cslib-frontier', 739, 'cslib-frontier #739 (the TM ⇒ RAM PRs offered; #2509/#2510 merged 11-06)'],
   ['RikiyaT/lm_understand-logs', 4, 'lm_understand-logs #4 (the MATH-500 re-run under Qwen\'s settings)'],
+  ['google-deepmind/formal-conjectures', 5299, 'formal-conjectures PR #5299 (Gessel\'s Erdős #786(i) refutation; our lean-intake review posted 2026-11-09, issuecomment-6748286567; a rebased PR only on his yes or ~11-16)'],
   ['google-deepmind/formal-conjectures', 5297, 'formal-conjectures PR #5297 (Gessel\'s Erdős #488 refutation; our review 2026-11-07, pullrequestreview-5809293292; our rebased PR only on his yes or ~11-14)'],
   ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
   ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
