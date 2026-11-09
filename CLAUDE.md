@@ -165,7 +165,9 @@ from a claim's text and the claimant's bytes to the claimbox objects this reposi
 keep seeing each other. Here, `instruments/claimbox` is the RECEIVER: the object format (its SCHEMA.md), the two
 checkers, the exact decider, the ten hand-written objects claimbox calibrates against, the three primitive ones.
 claimbox reads this repository read-only and pins `instruments/claimbox/check.py`, `check.js`, `SCHEMA.md`, the ten
-objects and `certs/claims-ledger.json` in its PROVENANCE.json: a change to any of them shows up there as drift, so
+objects and `certs/claims-ledger.json` in its PROVENANCE.json — and, since 2026-11-09, the Lean intake's #488 answers its
+spec writer and reader calibrate against (`corpus/lean-intake/erdos-488/spec.json`, `certs/lean-intake-erdos-488.json`, that
+run's `f2eval.jsonl`, `instruments/intake/erdos-488.js`): a change to any of them shows up there as drift, so
 a receiver change is followed by `make lift` in claimbox. Nothing here reads or writes claimbox; the translator, the
 readers, the grammar and the recall are its work, done in its folder. The operator's rule that made the split, in
 their words: build what is asked, never substitute a design. The one exception (operator-approved 2026-10-22): `LIFT-claimbox.json` copies claimbox's
