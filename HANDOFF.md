@@ -22,6 +22,23 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ 11-08 NIGHT 2 (the operator's four answers on the suggestions): (1) claimbox MERGED and PUSHED (main = 102553d, ff from
+     lift-2026-11-08; the branch pushed too) and its zone REPUBLISHED (650d08b1, publish-zone --check ok). (2) the monthly drift
+     FIXED in the builder: design/components.js breakable (Lean names and paths break at dots — the one rule for register tables)
+     + design/base.js .cap (the claimant column 15rem); Sept/Oct/Nov rebuilt from the register (October's stale 45 → 48), all
+     at 1440 spines 7 / clipped 0, 110 pages re-gated green, the baselines locked (ef076fce). (3) LANE K: an agent found 1 GiB
+     already ran (see the 11-08 EVENING correction); the operator chose B (their nanoda d0a02cc5 beside a 3a240721 control, both
+     1 GiB, free runners, no pod) — the agent is running it on branch lane-k-nanoda-pin-2026-11-09 (amendment 18 first); the
+     lean4#16290 CORRECTION posted on the word (issuecomment-6729496182: our October 1 GiB runs were killed on 16 GB; the newer
+     nanoda may be what let their nine through; the side-by-side result to follow there). (4) FREER STACK decided as a
+     non-author review (merged 53459a32): certs/zq-freer-2026-11-08.json (tools/zq-freer.js --check, ~2 s; battery "ZQ Freer
+     stack (finite)"; tools/zq-freer-fetch.sh; inputs pinned in ~/Projects/zq-scout/freer-2026-11-08/, never vendored — no
+     licence), pre-registered (48e1b4a0) — #8, #9, #11, #12 each CERTIFIED on T (the table is what the PR states), N (a
+     NECESSARY sum-of-squares condition, not the SOS itself), A (every displayed finite identity), B (bindings); 19 controls
+     refused; amendment A (a negative-power bug of ours, caught by our red list). GAPS that lead every draft: the residuals
+     (balanced/integer-ir.json) are unpublished, so the sum of squares is NOT decided; #9/#11/#12's tables live only in fork CI
+     artifacts (expire 2027-02-06); upstream CI not run. Four review drafts outreach/gh-zq-pr{8,9,11,12}-review-2026-11-08.md
+     (untracked), NOT posted; #13 (380 variables) and #16 opened since — unreviewed.
   ◆◆ 11-08 EVENING (the second GitHub check, ~22:40 UTC): lean4#16290 — marleymcwilliams (not a maintainer) added Comparator
      data on openai/math (9 nanoda stack overflows, 8 fixed by a 1 GiB stack); our cross-tab against certs/openai-math-kernel.json
      POSTED on the operator's word (issuecomment-6728279336: they accept 9 of our 18 resource stops, both our stack overflows

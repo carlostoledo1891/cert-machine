@@ -214,6 +214,7 @@ test:
 	@printf "%-30s " "ZQ lane 4 Lean replay"; $(NODE) tools/record-zq-lean-replay.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ Track B decision"; $(NODE) tools/record-zq-trackb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ Version 4 quartic"; $(NODE) tools/zq-v4.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ZQ Freer stack (finite)"; $(NODE) tools/zq-freer.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Erdős #488 certification"; $(NODE) tools/record-erdos488.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "heptagon + A.3 in Lean"; $(NODE) tools/record-heptagon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

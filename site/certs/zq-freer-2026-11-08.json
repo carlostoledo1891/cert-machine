@@ -1,0 +1,1069 @@
+{
+ "what": "The finite facts of Cameron Freer's conditional quartic stack on github.com/elliotglazer/diophantine-z-q (#8, #9, #11, #12), decided by a non-author reviewer with code of its own (Node, BigInt, exact rationals; none of the repository's .py or .cjs run, read or ported): T the tables, N a necessary condition for a sum of squares, A the finite statements the proofs display, B the bindings of the published bytes, V13 #8's comparison rows.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here, and so is the conditional claim of each pull request (that the rational zero projection of its quartic is Z, given the inherited arithmetic inputs). This decides finite facts only: what the published coefficient tables are, a necessary condition for each to be a sum of squares, the finite integer inequalities and polynomial identities the proofs display, and how the published bytes are bound to the pull requests. The 357/353/353/352 quadratic residuals whose squares are said to give each table are not among the published bytes, so that the table is their sum of squares, and that they are the compiled source system, is not decided.",
+ "notDecided": [
+  "the theorem, and each pull request's conditional claim that the rational zero projection of its quartic is Z",
+  "the eleven inherited inputs of PR_DEPENDENCIES.md: G_curve, G_formal, G_quaternion, G_height_geometry, G_pole, G_one_place, G_product_height, G_prime_pattern, G_reductions, G_progression, G_lucas",
+  "the local proofs (detector promotion, height reapplication, factored poles, scalar chain, preparation zero) beyond the finite statements in A; the application contracts and their nine obligations",
+  "that the table is the sum of the squares of its quadratic residuals, that these are the compiled source system, that the compiler and the diagonal change preserve the input projection, that the source system expresses the arithmetic predicate: the residuals (balanced/integer-ir.json) are neither committed nor uploaded",
+  "the 391/392/393-variable variants of #8, and #13"
+ ],
+ "generated": "2026-11-09",
+ "preregistration": "notes/zq-freer-preregistration-2026-11-08.md",
+ "reviewer": {
+  "name": "Carlos Toledo",
+  "github": "carlostoledo1891",
+  "with": "Claude agents: Anthropic Claude Opus 5.5 (claude-opus-5-5) in Claude Code, one agent session",
+  "role": "non-author review decision under PROTOCOL.md v1.2 (main 9c0b3aba); contributor-written, so it neither is nor authorizes the \"Protocol / independent agent audit\" App check that ruleset 26781429 requires"
+ },
+ "repository": "github.com/elliotglazer/diophantine-z-q",
+ "base": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+ "inputs": {
+  "#8 table": {
+   "commit": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "path": "research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt",
+   "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573"
+  },
+  "#9 table": {
+   "run": 42500725633,
+   "artifact": 13625113430,
+   "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+   "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf"
+  },
+  "#11 table": {
+   "run": 42500730137,
+   "artifact": 13624594135,
+   "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+   "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb"
+  },
+  "#12 table": {
+   "run": 42500725217,
+   "artifact": 13625182045,
+   "path": "factored/quartic-383-balanced-decimal.txt",
+   "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d"
+  },
+  "#8 proof": {
+   "commit": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
+   "sha256": "826523050c2f0d315561ae064124b420862ff09eeafaa63437e0339ce7c22f7b"
+  },
+  "#9 proof": {
+   "commit": "51111cc97d0f42d50338ae378268700c457497f9",
+   "path": "research/factored-pole-reduction/PROOF.md",
+   "sha256": "364309a61432b4de3615852175cab0faa7a3aeb9d5d251f4da521454277198d4"
+  },
+  "#11 proof": {
+   "commit": "e8654b2ca24a424cead6b62f3f790136a170d953",
+   "path": "research/scalar-chain-reduction/PROOF.md",
+   "sha256": "710088f6d9517c966a55a54e9d6adb383a335d705b7b4ca5a0f1dbde16f6be4d"
+  },
+  "#12 proof": {
+   "commit": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+   "path": "research/scalar-preparation-zero/PROOF.md",
+   "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
+  },
+  "#8 PR_DEPENDENCIES.md": {
+   "commit": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "path": "research/conditional-quartic-reduction/PR_DEPENDENCIES.md",
+   "sha256": "08d91f384f10c423af0df12ad9567e2159eda67541c2012850998d23a8f33501"
+  }
+ },
+ "code": {
+  "tools/zq-freer.js": "19f5d1c462e383669f70469c9bbb8a3ad914b162fda8c4802c4761b3647cc34a"
+ },
+ "verdict": "CERTIFIED",
+ "reason": "for each of #8, #9, #11, #12: the table is what the PR states (variables, degree, monomials, the exact largest coefficient, content, x0^4), it passes the necessary sum-of-squares condition for every variable, every finite statement its proof displays holds, and the published bytes are bound to the PR as stated; #8's Version 13 comparison rows hold; every control refused",
+ "prs": {
+  "#8": {
+   "title": "Add conditional 389-variable quartic research construction",
+   "head": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "parent": "main 9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+   "claim": {
+    "variables": 389,
+    "residuals": 357,
+    "monomials": 26295,
+    "maxAbsCoefficient": "28902*3^1576",
+    "digits": 757,
+    "bits": 2513,
+    "tableBytes": 1050826,
+    "tableSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+    "tableLocation": "committed: research/conditional-quartic-reduction/tables/quartic-389-balanced-decimal.txt"
+   },
+   "V13": {
+    "verdict": "CERTIFIED",
+    "tables": {
+     "ordinary": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "sha256": "30d039965a0c90c2c22a7a239024ee42b53a372efee4396dcc627063a4fe24a2",
+       "bytes": 214957,
+       "monomials": 6388,
+       "variables": 411,
+       "maxIndex": 411,
+       "everyCExponentZero": true,
+       "maxAbsCoefficientBits": 3247
+      }
+     },
+     "symbolic": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "sha256": "652b594a94f6f7e8d5b905439fabc5c2a6f271564d4dcaeb99287451f0c58abe",
+       "bytes": 212067,
+       "monomials": 6338,
+       "variables": 394,
+       "maxIndex": 394,
+       "coefficientsFarBelowC": true,
+       "maxAbs": "16·C^2",
+       "monomialsAttainingMax": 1
+      }
+     }
+    },
+    "claim": "#8 body: Version 13 decimal 411 variables, 6,388 monomials, 3,247 bits (214,957 bytes); symbolic 394 variables, 6,338 monomials, 16*3^(2^26). 411 - 389 = 22 and 394 - 389 = 5.",
+    "savings": {
+     "versusDecimal": 22,
+     "versusSymbolic": 5
+    }
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED",
+    "V13": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "differs": [],
+    "numbers": {
+     "sha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+     "bytes": 1050826,
+     "dataRows": 26295,
+     "repeatedMonomialRows": 0,
+     "zeroCoefficientRows": 0,
+     "monomials": 26295,
+     "degree": 4,
+     "variables": 389,
+     "maxIndex": 388,
+     "maxAbsCoefficientDigits": 757,
+     "maxAbsCoefficientBits": 2513,
+     "maxEqualsStated": true,
+     "content": "1",
+     "x0FourthCoefficient": "1",
+     "header": {
+      "variables": 389,
+      "degree": 4,
+      "monomials": 26295
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "numbers": {
+     "variables": 389,
+     "degree4Variables": 270,
+     "degree2Variables": 119,
+     "gramMatrices": 119,
+     "largestGram": 21,
+     "totalGramDimension": 683
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "a1",
+      "text": "the displayed list is exactly the primes below 53",
+      "holds": true
+     },
+     {
+      "id": "a2",
+      "text": "(p+1)^192 > p^193 for each displayed p",
+      "holds": true
+     },
+     {
+      "id": "a3",
+      "text": "54^192 < 53^193",
+      "holds": true
+     },
+     {
+      "id": "a4",
+      "text": "(9·Π(p+1))^192 < 32^192·(Πp)^193",
+      "holds": true
+     },
+     {
+      "id": "a5",
+      "text": "13000000/6 + 2 < 2^22",
+      "holds": true
+     },
+     {
+      "id": "a6",
+      "text": "2^32·46410 < 3^32",
+      "holds": true
+     },
+     {
+      "id": "a7",
+      "text": "H = 3·2^106·C^6·46410^18 + 128 (C = 2^32·3^9) has bit length 665 and H < 3·2^663",
+      "holds": true
+     },
+     {
+      "id": "a8",
+      "text": "247520·(H − 128) + 128 has bit length 683",
+      "holds": true
+     },
+     {
+      "id": "a9",
+      "text": "3^53 > 2^84",
+      "holds": true
+     },
+     {
+      "id": "a10",
+      "text": "319 + (319·1181 − 896)·84/53 − 665·896 = 8199/53 > 0",
+      "holds": true
+     },
+     {
+      "id": "a11",
+      "text": "c*^319 > (4H)^896, c* = 2·3^1181",
+      "holds": true
+     },
+     {
+      "id": "a12",
+      "text": "(143·1181 − 720)·84/53 − 666·360 = 1418412/53 > 0",
+      "holds": true
+     },
+     {
+      "id": "a13",
+      "text": "b*^143 > (24H)^360, b* = c* − 1",
+      "holds": true
+     },
+     {
+      "id": "a14",
+      "text": "24H < 9·2^666",
+      "holds": true
+     },
+     {
+      "id": "a15",
+      "text": "7H·2^(α/12) + 6 < 40H, α = 577/32 (as 2^577·(7H)^384 < (40H − 6)^384)",
+      "holds": true
+     },
+     {
+      "id": "a16",
+      "text": "40H < 2^670 and 100·670 < b*",
+      "holds": true
+     },
+     {
+      "id": "a17",
+      "text": "12/(24 − α) < 12/5 and α/(24 − α) < 19/5",
+      "holds": true
+     },
+     {
+      "id": "a18",
+      "text": "(12/5)/100 + (19/5)/4 = 487/500 and (19/5)·(1/4) = 19/20",
+      "holds": true
+     },
+     {
+      "id": "a19",
+      "text": "487/500·a + 19/20 < a − 3 for every real a > 152",
+      "holds": true
+     },
+     {
+      "id": "a20",
+      "text": "α = 18 + 1/32 = 577/32; 1 − α/28 = 319/896; 2 − 4α/45 = 143/360",
+      "holds": true
+     },
+     {
+      "id": "a21",
+      "text": "11016 = 2^3·3^4·17",
+      "holds": true
+     },
+     {
+      "id": "a22",
+      "text": "2401 + 2754(2X+1)^2 = 11016X^2 + 11016X + 5155",
+      "holds": true
+     },
+     {
+      "id": "a23",
+      "text": "3^2364 = (3^394)^6",
+      "holds": true
+     }
+    ]
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states the table sha256",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "main 9c0b3aba is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff main..head touches only the package, the two review folders and research-checks.yml, deleting no line",
+      "holds": true,
+      "detail": {
+       "paths": 194,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3",
+      "text": "the package holds exactly 156 files",
+      "holds": true,
+      "detail": {
+       "files": 156
+      }
+     },
+     {
+      "id": "b4",
+      "text": "the package and docs/reviews/quartic389-import are identical at 490d14ef (before the protocol merge) and at the head",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "the committed table has the stated sha256 and bytes",
+      "holds": true
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 357 residuals are not published"
+  },
+  "#9": {
+   "title": "Reduce the conditional quartic to 385 variables (stacked on #8)",
+   "head": "51111cc97d0f42d50338ae378268700c457497f9",
+   "parent": "#8 ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "claim": {
+    "variables": 385,
+    "residuals": 353,
+    "monomials": 26235,
+    "maxAbsCoefficient": "28902*3^1576",
+    "digits": 757,
+    "bits": 2513,
+    "tableBytes": 1048785,
+    "tableSha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+    "tableLocation": "CI artifacts only (fork cameronfreer/diophantine-z-q), not committed; they expire 2027-02-06"
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "differs": [],
+    "numbers": {
+     "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+     "bytes": 1048785,
+     "dataRows": 26235,
+     "repeatedMonomialRows": 0,
+     "zeroCoefficientRows": 0,
+     "monomials": 26235,
+     "degree": 4,
+     "variables": 385,
+     "maxIndex": 384,
+     "maxAbsCoefficientDigits": 757,
+     "maxAbsCoefficientBits": 2513,
+     "maxEqualsStated": true,
+     "content": "1",
+     "x0FourthCoefficient": "1",
+     "header": {
+      "variables": 385,
+      "degree": 4,
+      "monomials": 26235
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "numbers": {
+     "variables": 385,
+     "degree4Variables": 266,
+     "degree2Variables": 119,
+     "gramMatrices": 119,
+     "largestGram": 21,
+     "totalGramDimension": 683
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "p1",
+      "text": "C_old(H=sv, q2=s²Q2, s2=s²) = s²·C_new",
+      "holds": true
+     },
+     {
+      "id": "p2",
+      "text": "(q2 − q²)(q=sQ, q2=s²Q2) = s²(Q2 − Q²)",
+      "holds": true
+     },
+     {
+      "id": "p3",
+      "text": "(s2 − s²)(s2=s²) = 0",
+      "holds": true
+     },
+     {
+      "id": "p4",
+      "text": "(H − E(17−T))(H=sv) = −(E(17−T) − sv)",
+      "holds": true
+     },
+     {
+      "id": "p5",
+      "text": "C_old(s2=0, q2=q²) = 17bq² + 3H²",
+      "holds": true
+     },
+     {
+      "id": "p6",
+      "text": "C_old(H=17F) = 17bq2 + 867F² − 34s2·F − s2² (the Version 13 normalization)",
+      "holds": true
+     }
+    ]
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states the table sha256",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "the parent PR #8's head is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff parent..head touches only research/factored-pole-reduction/ and .github/workflows/research-checks.yml",
+      "holds": true,
+      "detail": {
+       "paths": 8,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3",
+      "text": "the packet is identical at the pre-protocol commit 6fd131e7 and at the head",
+      "holds": true
+     },
+     {
+      "id": "b4",
+      "text": "EXPECTED.json states the same table sha256 and bytes, 385 coordinates, 26235 monomials",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "every CI copy of the table has exactly the stated bytes, and each run's metadata names the listed commit",
+      "holds": true,
+      "detail": {
+       "copies": [
+        {
+         "run": 42500725633,
+         "headSha": "51111cc97d0f42d50338ae378268700c457497f9",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13625113430,
+         "digest": "sha256:08d5314b67e1e013f59508d8437ad3ec939b6bda3facec46074d3e14443669c7",
+         "expires": "2027-02-06T16:36:07Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42440965320,
+         "headSha": "6fd131e7ca150d7a023bcb6ac4f1971912705fab",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13600674808,
+         "digest": "sha256:e056ae060e79ca6a6eeb452b1b44fd0bf950f7101858eda3088fdf22dfaf78cd",
+         "expires": "2027-02-06T03:01:50Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42500730137,
+         "headSha": "e8654b2ca24a424cead6b62f3f790136a170d953",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13624594135,
+         "digest": "sha256:3b2e816e3c7d9894761ccd3008f27fbc74bb8881e642b3d950e4b40ff359b24f",
+         "expires": "2027-02-06T16:36:10Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42500725279,
+         "headSha": "e8654b2ca24a424cead6b62f3f790136a170d953",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13624668724,
+         "digest": "sha256:ae7878303ae67c5972d2c4d0065f905554ff39c254d5e1eb7bc17d76e77433cb",
+         "expires": "2027-02-06T16:36:07Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42446323061,
+         "headSha": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13604070400,
+         "digest": "sha256:5290a080aeaf94c8ad78ce1eb4ef041935e1c12081e51518b240e31a7a5b4e2a",
+         "expires": "2027-02-06T04:19:13Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42500728544,
+         "headSha": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625203191,
+         "digest": "sha256:089a26e062565a5bb7fddd7312d5b9fc6ecf4eef72a674ac4b857ce12fdca413",
+         "expires": "2027-02-06T16:36:09Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 353 residuals are not published"
+  },
+  "#11": {
+   "title": "Reduce conditional 385-variable quartic coefficients to 682 digits (above #9)",
+   "head": "e8654b2ca24a424cead6b62f3f790136a170d953",
+   "parent": "#9 51111cc97d0f42d50338ae378268700c457497f9",
+   "claim": {
+    "variables": 385,
+    "residuals": 353,
+    "monomials": 26200,
+    "maxAbsCoefficient": "28902*3^1420",
+    "digits": 682,
+    "bits": 2266,
+    "tableBytes": 1038398,
+    "tableSha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+    "tableLocation": "CI artifacts only (fork cameronfreer/diophantine-z-q), not committed; they expire 2027-02-06"
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "differs": [],
+    "numbers": {
+     "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+     "bytes": 1038398,
+     "dataRows": 26200,
+     "repeatedMonomialRows": 0,
+     "zeroCoefficientRows": 0,
+     "monomials": 26200,
+     "degree": 4,
+     "variables": 385,
+     "maxIndex": 384,
+     "maxAbsCoefficientDigits": 682,
+     "maxAbsCoefficientBits": 2266,
+     "maxEqualsStated": true,
+     "content": "1",
+     "x0FourthCoefficient": "1",
+     "header": {
+      "variables": 385,
+      "degree": 4,
+      "monomials": 26200
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "numbers": {
+     "variables": 385,
+     "degree4Variables": 268,
+     "degree2Variables": 117,
+     "gramMatrices": 117,
+     "largestGram": 21,
+     "totalGramDimension": 663
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "q1",
+      "text": "c*^415 > (4H)^992, c* = 2·3^1064",
+      "holds": true
+     },
+     {
+      "id": "q2",
+      "text": "b*^143 > (24H)^360, b* = 3^1064",
+      "holds": true
+     },
+     {
+      "id": "q3",
+      "text": "100·670 < b*, b* > 152, c* − 1 ≥ b*",
+      "holds": true
+     },
+     {
+      "id": "q4",
+      "text": "1 − α/31 = 415/992 and 2 − 4α/45 = 143/360",
+      "holds": true
+     },
+     {
+      "id": "q5",
+      "text": "963/32 = 30 + 3/32",
+      "holds": true
+     },
+     {
+      "id": "q6",
+      "text": "40H < 2^670",
+      "holds": true
+     },
+     {
+      "id": "q7",
+      "text": "2130 = 6·355 and 3^2130 = (3^355)^6",
+      "holds": true
+     },
+     {
+      "id": "q8",
+      "text": "(A² + r^−15·J1²)/r = A²/r + r^−16·J1²",
+      "holds": true
+     },
+     {
+      "id": "q9",
+      "text": "2401 + 2754(2X+1)^2 = 11016X^2 + 11016X + 5155",
+      "holds": true
+     }
+    ]
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states the table sha256",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "the parent PR #9's head is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff parent..head touches only research/scalar-chain-reduction/ and .github/workflows/research-checks.yml",
+      "holds": true,
+      "detail": {
+       "paths": 11,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3",
+      "text": "the packet is identical at the pre-protocol commit e3444641 and at the head",
+      "holds": true
+     },
+     {
+      "id": "b4",
+      "text": "EXPECTED.json states the same table sha256 and bytes, 385 coordinates, 26200 monomials",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "every CI copy of the table has exactly the stated bytes, and each run's metadata names the listed commit",
+      "holds": true,
+      "detail": {
+       "copies": [
+        {
+         "run": 42500730137,
+         "headSha": "e8654b2ca24a424cead6b62f3f790136a170d953",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13624594135,
+         "digest": "sha256:3b2e816e3c7d9894761ccd3008f27fbc74bb8881e642b3d950e4b40ff359b24f",
+         "expires": "2027-02-06T16:36:10Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42500725279,
+         "headSha": "e8654b2ca24a424cead6b62f3f790136a170d953",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13624668724,
+         "digest": "sha256:ae7878303ae67c5972d2c4d0065f905554ff39c254d5e1eb7bc17d76e77433cb",
+         "expires": "2027-02-06T16:36:07Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42446323061,
+         "headSha": "e3444641dffc2d1cf5a9791111d584110e5dd111",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13604070400,
+         "digest": "sha256:5290a080aeaf94c8ad78ce1eb4ef041935e1c12081e51518b240e31a7a5b4e2a",
+         "expires": "2027-02-06T04:19:13Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42500728544,
+         "headSha": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625203191,
+         "digest": "sha256:089a26e062565a5bb7fddd7312d5b9fc6ecf4eef72a674ac4b857ce12fdca413",
+         "expires": "2027-02-06T16:36:09Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 353 residuals are not published"
+  },
+  "#12": {
+   "title": "Reduce the conditional quartic to 383 variables (above #11)",
+   "head": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+   "parent": "#11 e8654b2ca24a424cead6b62f3f790136a170d953",
+   "claim": {
+    "variables": 383,
+    "residuals": 352,
+    "monomials": 26019,
+    "maxAbsCoefficient": "28902*3^1420",
+    "digits": 682,
+    "bits": 2266,
+    "tableBytes": 1025272,
+    "tableSha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+    "tableLocation": "CI artifacts only (fork cameronfreer/diophantine-z-q), not committed; they expire 2027-02-06"
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "differs": [],
+    "numbers": {
+     "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+     "bytes": 1025272,
+     "dataRows": 26019,
+     "repeatedMonomialRows": 0,
+     "zeroCoefficientRows": 0,
+     "monomials": 26019,
+     "degree": 4,
+     "variables": 383,
+     "maxIndex": 382,
+     "maxAbsCoefficientDigits": 682,
+     "maxAbsCoefficientBits": 2266,
+     "maxEqualsStated": true,
+     "content": "1",
+     "x0FourthCoefficient": "1",
+     "header": {
+      "variables": 383,
+      "degree": 4,
+      "monomials": 26019
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "numbers": {
+     "variables": 383,
+     "degree4Variables": 264,
+     "degree2Variables": 119,
+     "gramMatrices": 119,
+     "largestGram": 21,
+     "totalGramDimension": 681
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "r1",
+      "text": "ρ ≡ 4 (mod 32) for every integer X (X mod 32)",
+      "holds": true
+     },
+     {
+      "id": "r2",
+      "text": "ρ ≡ 81 (mod 243) for every integer X (X mod 243)",
+      "holds": true
+     },
+     {
+      "id": "r3",
+      "text": "ρ ≡ 13 (mod 17) for every integer X (X mod 17)",
+      "holds": true
+     },
+     {
+      "id": "r4",
+      "text": "implied by r1 and r2, and confirmed on the representatives: v₂(ρ) = 2 with ρ/4 ≡ 1 (mod 8), v₃(ρ) = 4 with ρ/81 ≡ 1 (mod 3)",
+      "holds": true
+     },
+     {
+      "id": "r5",
+      "text": "13 ≡ 8² (mod 17)",
+      "holds": true
+     }
+    ]
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states the table sha256",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "the parent PR #11's head is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff parent..head touches only research/scalar-preparation-zero/ and .github/workflows/scalar-preparation-zero.yml",
+      "holds": true,
+      "detail": {
+       "paths": 11,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3",
+      "text": "the packet is identical at the pre-protocol commit a1f92330 and at the head",
+      "holds": true
+     },
+     {
+      "id": "b4",
+      "text": "EXPECTED.json states the same table sha256 and bytes, 383 coordinates, 26019 monomials",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "every CI copy of the table has exactly the stated bytes, and each run's metadata names the listed commit",
+      "holds": true,
+      "detail": {
+       "copies": [
+        {
+         "run": 42500725217,
+         "headSha": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13625182045,
+         "digest": "sha256:96197cca2331fb602b91046d9f8fe5aca7ce82771ad2e1452488e8f70bb93bd3",
+         "expires": "2027-02-06T16:36:07Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        },
+        {
+         "run": 42500728630,
+         "headSha": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13624639044,
+         "digest": "sha256:20053d2c73d9d044045ac722b847bde11d1b1cf788d097d28dda7ee2ee94a9b4",
+         "expires": "2027-02-06T16:36:09Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        },
+        {
+         "run": 42447547426,
+         "headSha": "a1f9233049cc0f8aeb2a6ccd7e7b613cec3c1ec0",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13603872835,
+         "digest": "sha256:0f406ceec27e0ce221344f20430f13f7f4b1bf0261cc3b3a22b5ebfb6ca5f5f6",
+         "expires": "2027-02-06T04:37:10Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 352 residuals are not published"
+  }
+ },
+ "controls": [
+  {
+   "id": "CT1",
+   "what": "one coefficient changed by one (the sha256 refuses)",
+   "refused": true,
+   "refusal": "sha256 dc52c935d301db56acc672a83cd7e4df5ee63093735e7c7c942403e8a8cbd8ed (stated 1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573)",
+   "passed": true
+  },
+  {
+   "id": "CT2",
+   "what": "sha256 off: the x0^4 coefficient set to 2",
+   "refused": true,
+   "refusal": "x0^4 coefficient 2",
+   "passed": true
+  },
+  {
+   "id": "CT3",
+   "what": "sha256 off: every coefficient doubled",
+   "refused": true,
+   "refusal": "max |coefficient| is not 28902*3^1576 (757 digits, 2514 bits); content 2; x0^4 coefficient 2",
+   "passed": true
+  },
+  {
+   "id": "CT4",
+   "what": "sha256 off: the row of the largest coefficient removed",
+   "refused": true,
+   "refusal": "monomials 26294 (stated 26295); max |coefficient| is not 28902*3^1576 (757 digits, 2513 bits)",
+   "passed": true
+  },
+  {
+   "id": "CT5",
+   "what": "sha256 off: a row 1 TAB x389 added (a 390th variable)",
+   "refused": true,
+   "refusal": "monomials 26296 (stated 26295); variables 390, largest index 389 (stated 389, x0..x388)",
+   "passed": true
+  },
+  {
+   "id": "CT6",
+   "what": "sha256 off: a row 1 TAB x1^5 added (degree 5)",
+   "refused": true,
+   "refusal": "monomials 26296 (stated 26295); degree 5",
+   "passed": true
+  },
+  {
+   "id": "CN1",
+   "what": "the x0^4 coefficient negated",
+   "refused": true,
+   "refusal": "the x0^4 coefficient is -1 — P < 0 at {\"x0\":\"10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "passed": true
+  },
+  {
+   "id": "CN2",
+   "what": "a term x121^3·x0 planted (x121 has degree 2)",
+   "refused": true,
+   "refusal": "x121 has degree 3 (odd) — P < 0 at {\"x0\":\"1\",\"x121\":\"-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "passed": true
+  },
+  {
+   "id": "CN3",
+   "what": "−10^800·x121^2·x0^2 added",
+   "refused": true,
+   "refusal": "the coefficient of x121^2 is not positive semidefinite — P < 0 at {\"x0\":\"1\",\"x121\":\"1\"}",
+   "passed": true
+  },
+  {
+   "id": "CA1",
+   "what": "b* := 2 in #8's Lucas margin",
+   "refused": true,
+   "refusal": "refused: a13 (b*^143 > (24H)^360, b* = c* − 1) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA2",
+   "what": "the bit length of H claimed to be 10",
+   "refused": true,
+   "refusal": "refused: a7 (H = 3·2^106·C^6·46410^18 + 128 (C = 2^32·3^9) has bit length 665 and H < 3·2^663) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA3",
+   "what": "(9·Π(p+1))^192 < 9^192·(Πp)^192",
+   "refused": true,
+   "refusal": "refused: a4 ((9·Π(p+1))^192 < 32^192·(Πp)^193) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA4",
+   "what": "#9's conic with 3H² replaced by 4H²",
+   "refused": true,
+   "refusal": "refused: p1 (C_old(H=sv, q2=s²Q2, s2=s²) = s²·C_new) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA5",
+   "what": "ρ + 1 ≡ 4 (mod 32)",
+   "refused": true,
+   "refusal": "refused: r1 (ρ ≡ 4 (mod 32) for every integer X (X mod 32)) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA6",
+   "what": "13 ≡ 7² (mod 17)",
+   "refused": true,
+   "refusal": "refused: r5 (13 ≡ 8² (mod 17)) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CB1",
+   "what": "one hex digit of #9's stated table sha256 changed",
+   "refused": true,
+   "refusal": "b4: EXPECTED.json states the same table sha256 and bytes, 385 coordinates, 26235 monomials",
+   "passed": true
+  },
+  {
+   "id": "CB2",
+   "what": "#12's head offered as an ancestor of #8's",
+   "refused": true,
+   "refusal": "refused: 772fe96a is not an ancestor of ad7fc756",
+   "passed": true
+  },
+  {
+   "id": "CB3",
+   "what": "#9's file rule applied to the diff #8..#11",
+   "refused": true,
+   "refusal": "b2: the diff parent..head touches only research/factored-pole-reduction/ and .github/workflows/research-checks.yml",
+   "passed": true
+  },
+  {
+   "id": "CR",
+   "what": "our arithmetic: four PSD matrices accepted, three refused with a checked witness, digit/bit/gcd counts, identities and a planted non-identity",
+   "refused": true,
+   "refusal": "every planted fault was seen",
+   "passed": true
+  }
+ ],
+ "readings": {
+  "T": "the header's format: comment lines first; each data line a signed decimal integer, a TAB, a monomial (\"1\" or x<i>, x<i>^<e> joined by \"*\"); all data rows summed; numbers read from the sum.",
+  "N": "if P = Σ R_j² with deg R_j ≤ 2 over Q, every occurring x_i has degree 2 or 4 in P; degree 4 forces a positive x_i^4 coefficient; degree 2 forces the coefficient of x_i² (Σ L_j², L_j affine) to have a PSD Gram matrix over (1, y). Necessary, not sufficient: CERTIFIED does not mean the table is a sum of squares.",
+  "A": "each statement exactly as the proof displays it (arithmetic_round8.tex; PROOF.md of #9, #11, #12), checked by BigInt and exact rationals; the surrounding inferences are read, not decided.",
+  "B": "git ancestry, name-status/numstat diffs and tree ids by commit; CI copies by sha256 against the stated value, with the saved run and artifact metadata (gh api) binding each copy to its commit."
+ }
+}
