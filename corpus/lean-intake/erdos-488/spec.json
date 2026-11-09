@@ -1,0 +1,196 @@
+{
+ "id": "erdos-488",
+ "what": "P1 of the Lean fidelity + intake plan (notes/lean-fidelity-plan-2026-11-09.md, the operator's go 2026-11-09): the intake run end to end on a case whose answers are already on record (certs/erdos488.json, decided 2026-11-06). This spec is the pre-registration: it is committed before any intake code runs, and every planted statement carries its expected outcome. A change after the first run is an amendment, dated and kept below.",
+ "polarity": "refutes",
+ "claim": {
+  "what": "Declan Gessel's refutation, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297)",
+  "kind": "git",
+  "url": "https://gist.github.com/d8e15e5ff1b6c7e99e3d86d7c66f1d08.git",
+  "commit": "034be67a5c958e55505bb357f9e4ef3015788465",
+  "file": "Erdos488.lean",
+  "sha256": "f2a7dcfde9689e00db7b697c22eb6436c1b02d834555a28a476d9e5e606e9ca0",
+  "decl": "Erdos488ExactAdapter.refutation",
+  "license": "none stated: no byte of the file is copied into this repository; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #488",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "2055e5a",
+  "path": "FormalConjectures/ErdosProblems/488.lean",
+  "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+  "module": "FormalConjectures.ErdosProblems.«488»",
+  "decl": "Erdos488.erdos_488",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: A = {2}, n = 2, m = 3",
+  "tactic": "intro h\n  exact h {2} (Finset.singleton_nonempty 2) (by decide) (by decide) 2 3 (by decide) (by first | decide | simp)",
+  "expect": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (the baseline)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "`m > n` written as an explicit `n < m` hypothesis (GT.gt is reducible notation for LT.lt)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ (n m : ℕ), n < m → A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "every bound variable renamed (A→S, B→D, n→k, m→l, a→d)",
+   "statement": "∀ (S : Finset ℕ), S.Nonempty →\n    0 ∉ S → 1 ∉ S →\n    letI D := {k ≥ 1 | ∃ d ∈ S, d ∣ k}\n    ∀ᵉ (k : ℕ) (l > k), S.max ≤ k →\n      ((Finset.Icc 1 l).filter (· ∈ D)).card / (l : ℚ) <\n        2 * ((Finset.Icc 1 k).filter (· ∈ D)).card / k",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the `letI B` inlined at both uses (zeta)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ {x ≥ 1 | ∃ a ∈ A, a ∣ x})).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ {x ≥ 1 | ∃ a ∈ A, a ∣ x})).card / n",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S4",
+   "kind": "same",
+   "why": "`0 ∉ A` written `¬ (0 ∈ A)` (the notation's own unfolding)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    ¬ (0 ∈ A) → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "W01",
+   "kind": "wrong",
+   "why": "the statement as it read before 2026-10-14: `answer(sorry) ↔ …` (the 11-06 run's Ctl1)",
+   "statement": "answer(sorry) ↔ ∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [
+    "FormalConjecturesUtil.Deprecated.Answer"
+   ],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W02",
+   "kind": "wrong",
+   "why": "the constant 2 changed to 3 (the 11-06 run's Ctl2)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        3 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W03",
+   "kind": "wrong",
+   "why": "`m > n` changed to `m ≥ n` (the 11-06 run's Ctl3)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m ≥ n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W04",
+   "kind": "wrong",
+   "why": "the strict `<` of the conclusion made `≤`",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) ≤\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W05",
+   "kind": "wrong",
+   "why": "the hypothesis `1 ∉ A` dropped",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W06",
+   "kind": "wrong",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W07",
+   "kind": "wrong",
+   "why": "`A.max ≤ n` made strict, `A.max < n`",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max < n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W08",
+   "kind": "wrong",
+   "why": "the interval `Icc 1 m` shifted to `Icc 0 m` (left side only)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 0 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W09",
+   "kind": "wrong",
+   "why": "the set B starts at 2: `n ≥ 2` for `n ≥ 1`",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 2 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W10",
+   "kind": "wrong",
+   "why": "the left denominator `m` replaced by `n`",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (n : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "4096 replaced by 1000 everywhere: a false arithmetic claim",
+   "find": "4096",
+   "replace": "1000",
+   "all": true,
+   "expect": "the build fails"
+  },
+  {
+   "id": "R2",
+   "why": "a sorry in constant_ratio",
+   "find": "lemma constant_ratio : 3 * Q < 16 * phiOdd := by decide",
+   "replace": "lemma constant_ratio : 3 * Q < 16 * phiOdd := by sorry",
+   "all": false,
+   "expect": "sorryAx in the axioms"
+  },
+  {
+   "id": "R3",
+   "why": "an added axiom",
+   "find": "lemma constant_ratio : 3 * Q < 16 * phiOdd := by decide",
+   "replace": "axiom intakeRedAxiom : 3 * Q < 16 * phiOdd\nlemma constant_ratio : 3 * Q < 16 * phiOdd := intakeRedAxiom",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms"
+  },
+  {
+   "id": "R4",
+   "why": "native_decide in endpoint_gap",
+   "find": "theorem endpoint_gap : 2 ^ 4096 * (8 * 4096 + 1) ^ 53 < 3 ^ 4096 := by\n  decide",
+   "replace": "theorem endpoint_gap : 2 ^ 4096 * (8 * 4096 + 1) ^ 53 < 3 ^ 4096 := by\n  native_decide",
+   "all": false,
+   "expect": "a native_decide axiom in the axioms"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with 4.33.1)",
+  "nanoda 8de7e0c4 via lean4export (built here)"
+ ],
+ "notInScope": "F2 (instance agreement) is phase P2; F5 (whether DeepMind's statement is Erdős's problem) stays a reading; leanchecker --fresh (36 min on 11-06) and the claim in its own 4.33.0 environment are not re-run by the pilot.",
+ "success": "every expected outcome above met, the 11-06 verdicts P1 (statement), P3 (kernels) and P7 (planted, 4/4) reproduced, under 2 h of wall time, at most US$5 (the Mac: US$0)",
+ "amendments": []
+}
