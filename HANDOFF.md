@@ -22,6 +22,21 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-07 ~03:00 UTC; NOTHING BILLING — list-pods empty):
+  ◆◆ SESSION CLOSED 2026-11-09 ~02:00 UTC (the operator: no more open-ended tasks). THE ONE THING LEFT RUNNING: lane K's
+     amendment-18 side-by-side (nanoda 3a240721 control vs d0a02cc5, both 1 GiB, 13 GB scope) — GitHub runs 42542206797
+     (control) and 42542204488 (d0a02cc5), 3 jobs each still running at 01:55 UTC (Catalan, ContinuumCoulombHardness, and
+     CoarseAssembly / PerfectCompleteness); they end by ~06:40 UTC at the latest (the 350-min job limit). The agent driving
+     it was STOPPED to end the churn; its work is in worktree .claude/worktrees/lane-k-nanoda-pin, branch
+     lane-k-nanoda-pin-2026-11-09 (pushed: 4d264742 amendment 18, e08b6d78 the workflow inputs, 38483eeb the recorder),
+     with UNCOMMITTED partial recording (certs/openai-math-kernel.json, tools/record-openai-math-kernel.js, the two
+     kernel-runs/ folders). NEXT SESSION, in order: (1) once both runs are complete, in that worktree run
+     `node tools/record-openai-math-kernel.js 42542206797` and `... 42542204488` (then `--rebuild` must reproduce), commit,
+     merge into main with a plain merge (NOT a rebase-pull), wire nothing new (the battery exists); (2) post the 15-row
+     result on lean4#16290 on the operator's word (draft first); (3) remove the worktree. Everything else is HOLD/WAIT as listed
+     below — do not open new lanes without the operator's pick.
+     POSTED at close on the operator's word: the Freer stack review on #8 (pullrequestreview-5820763632) + pointers on #9,
+     #11, #12, #13, #16; amendment C ACCEPTED by the operator. Samuel Schlesinger's #3675 updates (the rename landed as
+     83901892d; queue held ~2 h) need nothing from us — no open PRs there.
   ◆◆ 11-08 NIGHT 2 (the operator's four answers on the suggestions): (1) claimbox MERGED and PUSHED (main = 102553d, ff from
      lift-2026-11-08; the branch pushed too) and its zone REPUBLISHED (650d08b1, publish-zone --check ok). (2) the monthly drift
      FIXED in the builder: design/components.js breakable (Lean names and paths break at dots — the one rule for register tables)

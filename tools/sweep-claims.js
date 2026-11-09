@@ -202,6 +202,7 @@ for (const [repo, num, label] of [
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
+  ['elliotglazer/diophantine-z-q', 8, 'ZQ PR #8 (Freer\'s conditional quartic; our stack review of #8-#16 posted 2026-11-09, pullrequestreview-5820763632)'],
   ['carlostoledo1891/cert-machine', 3, 'cert-machine #3 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
   ['carlostoledo1891/cert-machine', 4, 'cert-machine #4 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
   ['carlostoledo1891/cert-machine', 5, 'cert-machine #5 (claim form, maximusrufus; our verdict posted 2026-11-08)'],
