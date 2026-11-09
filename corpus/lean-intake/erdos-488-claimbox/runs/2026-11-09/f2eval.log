@@ -1,0 +1,77 @@
+Intake/F2Eval.lean:2:0: warning: This file has no module docstring (`/-! ... -/`). Add one after the imports to document the file.
+
+Note: This linter can be disabled with `set_option linter.style.moduleDocstring false`
+Intake/F2Eval.lean:13:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:26:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:39:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:52:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:65:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:78:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:90:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:103:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:116:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:129:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:142:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:155:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:168:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:181:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:194:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:207:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:220:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:233:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:246:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:259:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:272:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:285:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:298:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:311:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:324:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:337:8: warning: declaration uses `sorry`
+Intake/F2Eval.lean:354:7: error: Application type mismatch: The argument
+  Finset.Icc 1 m
+has type
+  Finset ℕ
+but is expected to have type
+  Finset ℤ
+in the application
+  {x ∈ Finset.Icc 1 m | x ∈ B}
+Intake/F2Eval.lean:355:13: error: Application type mismatch: The argument
+  Finset.Icc 1 n
+has type
+  Finset ℕ
+but is expected to have type
+  Finset ℤ
+in the application
+  {x ∈ Finset.Icc 1 n | x ∈ B}
+Intake/F2Eval.lean:358:0: warning: declaration uses `sorry`
+Intake/F2Eval.lean:359:118: error: Application type mismatch: The argument
+  x.1
+has type
+  Finset ℕ
+but is expected to have type
+  Finset ℤ
+in the application
+  Intake.F2M.N1.comp x.1
+Intake/F2Eval.lean:366:32: error: Type mismatch
+  n
+has type
+  ℤ
+but is expected to have type
+  WithBot ℕ
+Intake/F2Eval.lean:367:7: error: Application type mismatch: The argument
+  Finset.Icc 1 m
+has type
+  Finset ℤ
+but is expected to have type
+  Finset ℕ
+in the application
+  {x ∈ Finset.Icc 1 m | x ∈ B}
+Intake/F2Eval.lean:368:13: error: Application type mismatch: The argument
+  Finset.Icc 1 n
+has type
+  Finset ℤ
+but is expected to have type
+  Finset ℕ
+in the application
+  {x ∈ Finset.Icc 1 n | x ∈ B}
+Intake/F2Eval.lean:371:0: warning: declaration uses `sorry`

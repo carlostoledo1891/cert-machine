@@ -1,0 +1,1303 @@
+{
+ "what": "The Lean intake of Declan Gessel's refutation, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297) against DeepMind's statement of Erdős #488, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of ¬ the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/erdos-488/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2 tests it on finitely many instances, which is evidence, not proof); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-488-claimbox/spec.json",
+  "sha256": "b8aab856725a5132499bb7beddeab0621bffae317300eb04e196a49ff0f1098c",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-09",
+  "facts": "corpus/lean-intake/erdos-488-claimbox/runs/2026-11-09",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 2840.8,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/488.lean",
+   "decl": "Erdos488.erdos_488",
+   "head": "2055e5adadae0b2e392365938faa82ef6f1464f0",
+   "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://gist.github.com/d8e15e5ff1b6c7e99e3d86d7c66f1d08.git",
+   "file": "Erdos488.lean",
+   "decl": "Erdos488ExactAdapter.refutation",
+   "head": "034be67a5c958e55505bb357f9e4ef3015788465",
+   "sha256": "f2a7dcfde9689e00db7b697c22eb6436c1b02d834555a28a476d9e5e606e9ca0",
+   "toolchain": "leanprover/lean4:v4.33.0"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "6 of 6 accepted (predicted)",
+   "type": "2 of 2 not accepted (predicted)",
+   "changed": "18 refused, 2 accepted, of 20 (kernel decides: no outcome predicted) — accepted: C16, C20 (the rule's change is definitionally invisible there)",
+   "certain": "8 of 8 certain predictions met",
+   "f2ImpliesF1": "holds: 11 aligned statements with a differing part, all refused",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "CERTIFIED",
+   "readings": [
+    "A: finite set of positive integers; n, m: positive integer: AGREES — conclusion 0 disagreements of 1085 (1939 undefined in the reading); implication 0 disagreements; added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of positive integers; n, m: natural: AGREES — conclusion 0 disagreements of 1085 (1939 undefined in the reading); implication 0 disagreements; added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of positive integers; n, m: integer: AGREES — conclusion 0 disagreements of 1085 (1939 undefined in the reading); implication 0 disagreements; added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of naturals; n, m: positive integer: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of naturals; n, m: natural: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of naturals; n, m: integer: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of integers; n, m: positive integer: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of integers; n, m: natural: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A",
+    "A: finite set of integers; n, m: integer: AGREES — conclusion 0 disagreements of 2205 (819 undefined in the reading); implication 20 disagreements, 20 explained by 0 ∉ A (A = [0]); added by the formalization: A.Nonempty, 0 ∉ A, 1 ∉ A"
+   ],
+   "kernel": "the kernel confirms all 16 chunks",
+   "f2ImpliesF1": "holds (11 must-refuse)"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "∀ (A : Finset ℕ),\n  A.Nonempty →\n    0 ∉ A →\n      1 ∉ A →\n        ∀ (n m : ℕ),\n          m > n →\n            A.max ≤ ↑n →\n              ↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <\n                2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n",
+  "claim": "¬Erdos488ExactAdapter.proposition",
+  "seconds": 69.3,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's Erdos488ExactAdapter.refutation as a proof of ¬ Erdos488.erdos_488's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding"
+ },
+ "F2": {
+  "informal": "Let $A$ be a finite set and\\[B=\\{ n \\geq 1 : a\\mid n\\textrm{ for some }a\\in A\\}.\\]Is it true that, for every $m>n\\geq \\max(A)$,\\[\\frac{\\lvert B\\cap [1,m]\\rvert }{m}< 2\\frac{\\lvert B\\cap [1,n]\\rvert}{n}?\\]",
+  "reading": {
+   "path": "corpus/intake/erdos-488/erdos-488.reading",
+   "sha256": "16cb7a6b90e377a8e4bf721ead8ba0c54f909a6bdb6611da6945b4c4ee22c521",
+   "proposed": "model:claude-opus-5-5 (blind: given only the sentence and lean/READING.md)",
+   "readings": [
+    "A: finite set of positive integers; n, m: positive integer",
+    "A: finite set of positive integers; n, m: natural",
+    "A: finite set of positive integers; n, m: integer",
+    "A: finite set of naturals; n, m: positive integer",
+    "A: finite set of naturals; n, m: natural",
+    "A: finite set of naturals; n, m: integer",
+    "A: finite set of integers; n, m: positive integer",
+    "A: finite set of integers; n, m: natural",
+    "A: finite set of integers; n, m: integer"
+   ]
+  },
+  "table": {
+   "path": "records/intake/erdos-488-reading.json",
+   "sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc"
+  },
+  "instances": 3024,
+  "sameEnumeration": true,
+  "canonicalParts": [
+   "A.Nonempty",
+   "0 ∉ A",
+   "1 ∉ A",
+   "m > n",
+   "A.max ≤ ↑n",
+   "↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <\n  2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n"
+  ],
+  "readings": [
+   {
+    "reading": "A: finite set of positive integers; n, m: positive integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 1085,
+     "disagreements": 0,
+     "undefinedInReading": 1939,
+     "first": []
+    },
+    "implication": {
+     "compared": 1085,
+     "disagreements": 0,
+     "explained": 0,
+     "explainedBy": [],
+     "explainedInstances": []
+    }
+   },
+   {
+    "reading": "A: finite set of positive integers; n, m: natural",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 1085,
+     "disagreements": 0,
+     "undefinedInReading": 1939,
+     "first": []
+    },
+    "implication": {
+     "compared": 1488,
+     "disagreements": 0,
+     "explained": 0,
+     "explainedBy": [],
+     "explainedInstances": []
+    }
+   },
+   {
+    "reading": "A: finite set of positive integers; n, m: integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 1085,
+     "disagreements": 0,
+     "undefinedInReading": 1939,
+     "first": []
+    },
+    "implication": {
+     "compared": 1488,
+     "disagreements": 0,
+     "explained": 0,
+     "explainedBy": [],
+     "explainedInstances": []
+    }
+   },
+   {
+    "reading": "A: finite set of naturals; n, m: positive integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 2205,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   },
+   {
+    "reading": "A: finite set of naturals; n, m: natural",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 3017,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   },
+   {
+    "reading": "A: finite set of naturals; n, m: integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 3017,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   },
+   {
+    "reading": "A: finite set of integers; n, m: positive integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 2205,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   },
+   {
+    "reading": "A: finite set of integers; n, m: natural",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 3017,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   },
+   {
+    "reading": "A: finite set of integers; n, m: integer",
+    "word": "AGREES",
+    "map": {
+     "A.Nonempty": "added",
+     "0 ∉ A": "added",
+     "1 ∉ A": "added",
+     "m > n": [
+      "m > n"
+     ],
+     "A.max ≤ ↑n": [
+      "n ≥ max(A)"
+     ]
+    },
+    "added": [
+     "A.Nonempty",
+     "0 ∉ A",
+     "1 ∉ A"
+    ],
+    "missing": [],
+    "conclusion": {
+     "compared": 2205,
+     "disagreements": 0,
+     "undefinedInReading": 819,
+     "first": []
+    },
+    "implication": {
+     "compared": 3017,
+     "disagreements": 20,
+     "explained": 20,
+     "explainedBy": [
+      "0 ∉ A"
+     ],
+     "explainedInstances": [
+      "A = [0]"
+     ]
+    }
+   }
+  ],
+  "kernel": {
+   "confirmed": true,
+   "chunks": 16,
+   "seconds": 120.7
+  },
+  "f1": {
+   "mustRefuse": 11,
+   "holds": true,
+   "alignmentMisses": []
+  },
+  "planted": [
+   {
+    "id": "S0",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "S1",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "S2",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "S3",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "S4",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "S5",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C01",
+    "rows": true,
+    "aligned": false,
+    "alignedInLean": false,
+    "instancesWithADifferingPart": 3024,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C02",
+    "rows": true,
+    "aligned": false,
+    "alignedInLean": false,
+    "instancesWithADifferingPart": 3024,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C03",
+    "rows": true,
+    "aligned": false,
+    "alignedInLean": false,
+    "instancesWithADifferingPart": 3024,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C04",
+    "rows": true,
+    "aligned": false,
+    "alignedInLean": false,
+    "instancesWithADifferingPart": 3024,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C05",
+    "rows": true,
+    "aligned": false,
+    "alignedInLean": false,
+    "instancesWithADifferingPart": 3024,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C06",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 256,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C07",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 378,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C08",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 504,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C09",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 338,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C10",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 1536,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C11",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 1536,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C12",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 1536,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C13",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 256,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C14",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C15",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C16",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "C17",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 8,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C18",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 1480,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C19",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 480,
+    "outcome": "REFUSED by type mismatch",
+    "mustRefuse": true,
+    "holds": true
+   },
+   {
+    "id": "C20",
+    "rows": true,
+    "aligned": true,
+    "alignedInLean": true,
+    "instancesWithADifferingPart": 0,
+    "outcome": "ACCEPTED",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "N1",
+    "rows": false,
+    "aligned": false,
+    "outcome": "FAILED elsewhere",
+    "mustRefuse": false,
+    "holds": true
+   },
+   {
+    "id": "N2",
+    "rows": false,
+    "aligned": false,
+    "outcome": "FAILED elsewhere",
+    "mustRefuse": false,
+    "holds": true
+   }
+  ],
+  "limits": [
+   "F2 compares truth values on finitely many instances: a change that never flips one there is invisible to it",
+   "where the reading is undefined (a division by zero, an instance outside a given's type) nothing is compared; Lean's conventions decide those instances"
+  ],
+  "word": "CERTIFIED"
+ },
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "witness": "a model of the canonical statement's hypotheses: A = {2}, n = 2, m = 3",
+  "seconds": 64.7,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 64.9,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (A→A₀, B→B₀, a→a₀, m→m₀, n→n₀): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 72.8,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "the binder predicates of `∀ᵉ (n : ℕ) (m > n),` written out as hypotheses (n < m): notation, and > / ≥ are reducible to < / ≤",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 71.1,
+   "rule": "same:binder-pred",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "`0 ∉ A` written `¬ (0 ∈ A)` (the notation's own unfolding), line 2",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 68.1,
+   "rule": "same:not-mem",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S4",
+   "kind": "same",
+   "why": "`1 ∉ A` written `¬ (1 ∈ A)` (the notation's own unfolding), line 2",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 68.3,
+   "rule": "same:not-mem",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S5",
+   "kind": "same",
+   "why": "`letI B := …` inlined at its 2 uses (zeta)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 66.1,
+   "rule": "same:zeta",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the hypothesis `A.Nonempty` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 66,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 62.8,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the hypothesis `1 ∉ A` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 64.4,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the binder predicate `m > n` dropped (`(m : ℕ)`)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 63.3,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "the hypothesis `A.max ≤ n` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 62.6,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "why": "`≥` made `>` (`{ n ≥ 1 |` → `{ n > 1 |`, line 3)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 66.4,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "why": "`>` made `≥` (`( m > n )` → `( m ≥ n )`, line 4)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 67,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C08",
+   "kind": "changed",
+   "why": "`≤` made `<` (`A.max ≤ n` → `A.max < n`, line 4)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 68,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C09",
+   "kind": "changed",
+   "why": "`<` made `≤` (`ℚ ) < 2 *` → `ℚ ) ≤ 2 *`, line 5)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 75.6,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "why": "the numeral 0 made 1 (`A.Nonempty → 0 ∉ A` → `A.Nonempty → 1 ∉ A`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 78.3,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`A → 1 ∉ A` → `A → 2 ∉ A`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 68.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C12",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`A → 1 ∉ A` → `A → 0 ∉ A`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 64.9,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C13",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`n ≥ 1 | ∃` → `n ≥ 2 | ∃`, line 3)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 64.7,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C14",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`n ≥ 1 | ∃` → `n ≥ 0 | ∃`, line 3)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 67.1,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C15",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`( Finset.Icc 1 m )` → `( Finset.Icc 2 m )`, line 5)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 64.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C16",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`( Finset.Icc 1 m )` → `( Finset.Icc 0 m )`, line 5)",
+   "expect": "kernel decides",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 70.4,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C17",
+   "kind": "changed",
+   "why": "the numeral 2 made 3 (`< 2 *` → `< 3 *`, line 6)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 64.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C18",
+   "kind": "changed",
+   "why": "the numeral 2 made 1 (`< 2 *` → `< 1 *`, line 6)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 65.4,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C19",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`( Finset.Icc 1 n )` → `( Finset.Icc 2 n )`, line 6)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 72.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C20",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`( Finset.Icc 1 n )` → `( Finset.Icc 0 n )`, line 6)",
+   "expect": "kernel decides",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 67.5,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "why": "`ℕ` made `ℤ` in the type of A: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Application type mismatch: The argument"
+    },
+    {
+     "line": 12,
+     "text": "Application type mismatch: The argument"
+    }
+   ],
+   "seconds": 61.9,
+   "rule": "type:nat-int",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "N2",
+   "kind": "type",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    },
+    {
+     "line": 11,
+     "text": "Application type mismatch: The argument"
+    },
+    {
+     "line": 12,
+     "text": "Application type mismatch: The argument"
+    }
+   ],
+   "seconds": 76.8,
+   "rule": "type:nat-int",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of refutation replaced by sorry (the original kept as intake_was_refutation)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 16.9
+  },
+  {
+   "id": "R2",
+   "why": "refutation proved by an added axiom (the original kept as intake_was_refutation)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "Erdos488ExactAdapter.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list Erdos488ExactAdapter.intakeRedAxiom",
+   "seconds": 12.4
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 69.3
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 51.3
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "1341655864cc8d543a5167cee09e34d6a2140211b87774917a167e9086f0fa67",
+    "bytes": 39709969
+   },
+   "seconds": 3.6
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}
