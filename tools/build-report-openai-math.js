@@ -62,7 +62,9 @@ const kOverflowed = K.rows.filter((r) => r.runs.some(isOverflow));
 const kOverflowLean = kOverflowed.filter((r) => r.runs.some((x) => isOverflow(x) && (x.kernels || []).some((l) => /^Lean default kernel accepts/.test(l))));
 const kStack = kRefused.filter((r) => /stack overflow/.test(r.why || '')), kKilled = kRefused.filter((r) => /the runner terminated it/.test(r.why || ''));
 const kStopped = kRefused.filter((r) => /stopped before Comparator|was cancelled in the step/.test(r.why || ''));
-const kOther = kRefused.length - kStack.length - kKilled.length - kStopped.length;
+const kMemory = kRefused.filter((r) => /memory scope stopped Comparator/.test(r.why || ''));
+const kMemoryBuild = kMemory.filter((r) => /in the build stage/.test(r.why || ''));
+const kOther = kRefused.length - kStack.length - kKilled.length - kStopped.length - kMemory.length;
 /* amendment 13: the re-runs with nanoda patched as ammkrn/nanoda_lib#44 proposes (the build each run printed) */
 const isI44 = (x) => /issue44/.test(x.nanodaBuild || '');
 const kI44 = K.rows.filter((r) => r.runs.some(isI44));
@@ -72,6 +74,11 @@ const kI44Stock = kI44.filter((r) => r.runs.some((x) => x.nanodaBuild === 'issue
 const isPod = (x) => /^runpod-/.test(String(x.run));
 const kPod = K.rows.filter((r) => r.runs.some(isPod));
 const kPodCert = kPod.filter((r) => r.word === 'CERTIFIED' && isPod(r.runs[r.runs.length - 1]));
+/* amendment 18: a later nanoda (arm new) beside the pinned one (arm control), both 1 GiB, both in one memory scope */
+const isA18 = (x) => x.arm === 'new';
+const A18K = K.amendment18 || null;
+const a18Pin = (arm) => ((K.rows.find((r) => r.amendment18) || { runs: [] }).runs.find((x) => x.arm === arm) || {}).nanodaPin || '';
+const a18Scope = (((K.rows.find((r) => r.amendment18) || { runs: [] }).runs.find((x) => x.arm) || {}).memoryScope || '').replace(/^(\d+)G$/, '$1 GB');
 const fCert = F.rows.filter((r) => r.word === 'CERTIFIED'), fWhole = fCert.filter((r) => /^the whole headline/.test(r.decides || ''));
 const fNeeds = F.rows.filter((r) => r.word === 'NEEDS DATA'), fOpen = F.rows.filter((r) => r.word === 'NOT YET DECIDED');
 const fRefuted = F.rows.filter((r) => r.word === 'REFUTED'), fRefused = F.rows.filter((r) => r.word === 'REFUSED');
@@ -423,7 +430,9 @@ B.push(C.section({
 const kRows = K.rows.slice().sort((a, b) => (a.word === b.word ? a.challenge.localeCompare(b.challenge) : a.word === 'CERTIFIED' ? 1 : -1));
 const refusedWhy = [kStack.length ? kStack.length + ' nanoda stack overflow' + (kStack.length > 1 ? 's' : '') + ' (16 MiB thread stack)' : '',
   kKilled.length ? kKilled.length + ' job' + (kKilled.length > 1 ? 's' : '') + ' the runner terminated in Comparator (1 GiB stack, 16 GB machine)' : '',
-  kStopped.length ? kStopped.length + ' job' + (kStopped.length > 1 ? 's' : '') + ' that hit the runner\'s time limit' : '', kOther ? kOther + ' other' : ''].filter(Boolean).join(', ') || 'none';
+  kStopped.length ? kStopped.length + ' job' + (kStopped.length > 1 ? 's' : '') + ' that hit the runner\'s time limit' : '',
+  kMemory.length ? kMemory.length + ' job' + (kMemory.length > 1 ? 's' : '') + ' stopped by a ' + (a18Scope || 'memory') + ' memory limit (' + kMemoryBuild.length + ' while Lean was still building, ' + (kMemory.length - kMemoryBuild.length) + ' while nanoda ran)' : '',
+  kOther ? kOther + ' other' : ''].filter(Boolean).join(', ') || 'none';
 B.push(C.section({
   lab: '§4 · the kernel lane', title: kAll ? 'What holds: two kernels, every challenge' : 'What holds: two kernels, every challenge run so far', wide: true,
   bodyRaw: [
@@ -433,13 +442,17 @@ B.push(C.section({
       + 'on GitHub\'s Linux runners (4 vCPU, 16 GB; the sandbox is Linux-only). A CERTIFIED here says the Lean theorem is proved; whether that theorem is the paper\'s claim is §2.'),
     C.pRaw('<b>' + n(kCert) + ' of ' + n(kDecided) + ' CERTIFIED</b>, ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + (kAll ? '' : ', ' + n(R.counted.challenges - kDecided) + ' still running') + '. The ' + kRefused.length + ' REFUSED are ' + refusedWhy
       + '. Every one of the ' + kOverflowed.length + ' exports that overflowed nanoda\'s stack had already been accepted by Lean\'s kernel in the same run (' + kOverflowLean.length + ' of ' + kOverflowed.length + '); with the stack raised to 1 GiB (pre-registration amendment 11), '
-      + kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length + ' were then accepted by nanoda as well.'
+      + kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1]) && !r.runs.some((x) => isA18(x) && (x.decided || {}).word === 'CERTIFIED')).length + ' were then accepted by nanoda as well.'
       + (G.lanekNote ? ' ' + C.esc(G.lanekNote) : '')
       + (kI44.length ? ' The overflows and the memory exhaustion are the two symptoms traced in ammkrn/nanoda_lib#44 (open since 2026-10-06, with a patch that makes nanoda\'s definitional-equality checks follow Lean\'s reference kernel); re-run with that patch (pre-registration amendment 13), ' + kI44Cert.length + ' of the ' + kI44.length + ' refused challenges are accepted by both kernels' + (kI44Stock.length ? ', ' + kI44Stock.length + ' of them on nanoda\'s stock 16 MiB stack' : '') + '; every row accepted that way says so in the ledger.' : '')
-      + (kPod.length ? ' The ' + kPod.length + ' that GitHub\'s 16 GB runners still could not finish were run on one RunPod CPU pod (32 vCPU, 256 GB; pre-registration amendment 14: the same steps at the same pins, only the hardware changed): ' + kPodCert.length + ' of ' + kPod.length + ' accepted by both kernels there.' : '')),
+      + (kPod.length ? ' The ' + kPod.length + ' that GitHub\'s 16 GB runners still could not finish were run on one RunPod CPU pod (32 vCPU, 256 GB; pre-registration amendment 14: the same steps at the same pins, only the hardware changed): ' + kPodCert.length + ' of ' + kPod.length + ' accepted by both kernels there.' : '')
+      + (A18K ? ' A later nanoda beside the pinned one (pre-registration amendment 18): the ' + A18K.members + ' refused challenges that reach Comparator were run again with nanoda ' + a18Pin('new').slice(0, 8)
+        + ' and, as a control, the pinned ' + a18Pin('control').slice(0, 8) + ', both with the 1 GiB stack and inside a ' + (a18Scope || 'fixed') + ' memory limit. ' + n((A18K.new || {}).CERTIFIED || 0) + ' were accepted by both kernels on the later nanoda and '
+        + ((A18K.control || {}).CERTIFIED ? n(A18K.control.CERTIFIED) : 'none') + ' on the control'
+        + (!(A18K.control || {}).CERTIFIED && (A18K.new || {}).CERTIFIED ? ', so the later nanoda, not the stack, is what let them through' : '') + '; each row accepted that way names it in the ledger.' : '')),
     kRows.some((r) => r.word !== 'CERTIFIED') ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'why' }],
       rows: kRows.filter((r) => r.word !== 'CERTIFIED').map((r) => [{ raw: C.tag(r.word, r.word === 'REFUSED' ? 'open' : 'dep') }, { raw: C.m(r.challenge) },
-        { raw: C.esc(r.families.join(', ')) }, { raw: C.esc(short(r.why || '', 200)) }]) }) : '',
+        { raw: C.esc(r.families.join(', ')) }, { raw: C.esc(short((r.why || '').replace(/; its last line: .*$/, ''), 200)) }]) }) : '',
     kDecided ? C.pRaw('CERTIFIED, each by Lean\'s kernel and nanoda: ' + kRows.filter((r) => r.word === 'CERTIFIED').map((r) => C.m(r.challenge)).join(' ') + '.') : C.pRaw('No job has been recorded yet.'),
     C.pRaw('The trust base, as the pre-registration states it: ' + C.esc(P.lanes.K.trustBase))
   ].join('\n')

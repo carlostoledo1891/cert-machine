@@ -212,6 +212,16 @@ for (const [repo, num, label] of [
   ['wstrinz/spherical-ramsey', 1, 'spherical-ramsey #1 (the heptagon and A.3 in Lean; the minimality row offered; opened 2026-11-07)'],
   ['JD-Jones-ASES/six-concyclic-lean', 1, 'six-concyclic-lean #1 (the heptagon fails the criterion, in Lean; opened 2026-11-07)'],
   ['carlostoledo1891/heptagon-ramsey-lean', 1, 'heptagon-ramsey-lean #1 (A.3 checked, for Pálvölgyi, @domotorp; the Equation (2) remark; opened 2026-11-07)'],
+  /* the sends of 2026-11-03 → 11-09 that were watched by hand until 2026-11-09 (the sweep counts comments, not reviews:
+     #5297's own activity is a review, so read `gh api notifications` beside it) */
+  ['leanprover/lean4', 16290, 'lean4 #16290 (Comparator on a 2.45 GB export; our cross-tab 11-08 and correction 11-09; the amendment-18 side-by-side result drafted 11-09)'],
+  ['leanprover/con-leche', 17, 'con-leche #17 (both masters overflow their stacks on the Track B export; opened 2026-11-06)'],
+  ['ammkrn/nanoda_lib', 82, 'nanoda_lib #82 (the num-bigint pow panic; our bisection 11-06, our reply 11-08)'],
+  ['thinkthoughts/rpi-index', 1, 'rpi-index #1 (RPI-ETH-010 and -008 replayed; posted 2026-11-05)'],
+  ['anthropics/formal-math', 36, 'formal-math #36 (the OpenAI ETH bridge theorem; posted 2026-11-05)'],
+  ['cslib-community/cslib-frontier', 739, 'cslib-frontier #739 (the TM ⇒ RAM PRs offered; #2509/#2510 merged 11-06)'],
+  ['RikiyaT/lm_understand-logs', 4, 'lm_understand-logs #4 (the MATH-500 re-run under Qwen\'s settings)'],
+  ['google-deepmind/formal-conjectures', 5297, 'formal-conjectures PR #5297 (Gessel\'s Erdős #488 refutation; our review 2026-11-07, pullrequestreview-5809293292; our rebased PR only on his yes or ~11-14)'],
   ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
   ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
   ['subroy13/awesome-ai-proofs', 2, 'awesome-ai-proofs #2 (audit records)'],

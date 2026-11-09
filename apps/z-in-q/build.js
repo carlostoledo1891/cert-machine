@@ -54,15 +54,15 @@ if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: 
 const GM = J(GAPMAP);
 function PIN_EARLY() { return L1.pins.commit; }
 const TB = J(RB);
-/* Versions 3 to 7 (2026-11-06): the repository moved on; the comparison of the decided files at the pin and at the
-   latest head checked, and of the Version 4 quartic's package at its own pin and that head (tools/zq-tree-check.js;
-   corpus/zq/version3- and version4-tree-check.json are the earlier ones) */
-const VREC = 'corpus/zq/version7-tree-check.json';
+/* Versions 3 to 13 (2026-11-06 → 11-08): the repository moved on; the comparison of the decided files at the pin and at
+   the latest head checked, and of the Version 4 quartic's package at its own pin and that head (tools/zq-tree-check.js;
+   corpus/zq/version3-, version4- and version7-tree-check.json are the earlier ones) */
+const VREC = 'corpus/zq/version13-tree-check.json';
 const V4 = J(VREC);
-if (V4.pin !== PIN_EARLY()) die('the Version 7 comparison starts from another pin than the records');
+if (V4.pin !== PIN_EARLY()) die('the Version 13 comparison starts from another pin than the records');
 const QP = V4.quartic4973;
 if (!QP || QP.unchanged !== QP.files || QP.removed.length || QP.changed.length) die('the Version 4 quartic\'s package is not the same bytes at the head: the page must say what no longer applies');
-if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 7 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
+if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 13 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
 if (V4.frozenTarget.blobPin !== V4.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
 const README_DIFF = V4.changed.length === 1 ? 'the one difference a README' : 'the ' + (['', 'one', 'two', 'three', 'four'][V4.changed.length] || N(V4.changed.length)) + ' differences READMEs';
 
@@ -221,13 +221,15 @@ B.push(C.header({
     + 'with exact arithmetic and code that shares nothing with his. The theorem itself is undecided.'
 }));
 
-/* Versions 3 to 7, dated: what moved and what still applies */
+/* Versions 3 to 13, dated: what moved and what still applies */
 B.push(C.section({
-  lab: 'since these checks', title: 'Versions 3 to 7 appeared the same day', id: 'version-3',
-  bodyRaw: C.pRaw('<b>What changed.</b> On 6 November the repository moved five times, from Version 3 to Version 7, each a new manuscript with its collaborators named and a new, far smaller explicit polynomial (a quartic) with its own package of checks. '
-      + 'Version 7 presents three final polynomials: the original large one, the Version 4 quartic, decided in <a href="#version-4">its own section</a> below, its package the same bytes at the head (' + N(QP.unchanged) + ' of ' + N(QP.files) + ' files), and a newer, smaller quartic first published in Version 6, not checked here. The quartics of Versions 3 and 5 are superseded and not checked.')
-    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes in the current repository: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
-      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for any quartic, none of which has a Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it today (' + rec(VREC) + ').')
+  lab: 'since these checks', title: 'Versions 3 to 13 appeared in three days', id: 'version-3',
+  bodyRaw: C.pRaw('<b>What changed.</b> Between 6 and 8 November the repository moved from Version 3 to Version 13. Versions 3 to 7 (6 November) each brought a new manuscript and a far smaller explicit polynomial (a quartic) with its own package of checks. '
+      + 'Versions 9, 12 and 13 brought smaller quartics again (by his counts 523, 498 and 394 variables, each with a companion that writes every coefficient in decimal: 540, 514 and 411); Versions 8, 10 and 11 changed the text and repaired proofs, Version 10 answering an outside review. '
+      + 'Version 13 keeps the original large polynomial and the Version 4 quartic, decided in <a href="#version-4">its own section</a> below, its package the same bytes at the Version 13 head (' + N(QP.unchanged) + ' of ' + N(QP.files) + ' files). The quartics of Versions 3, 5, 6, 9, 12 and 13 are not checked here. '
+      + 'A Version 14 (299 and 314 variables, by his counts) is proposed in an open pull request, not merged and not checked here.')
+    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes at the Version 13 head: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
+      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for any quartic, none of which has a Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it at Version 13 (' + rec(VREC) + ').')
 }));
 
 /* the story in one minute: first person for the author, the AI help said in the same sentence */
@@ -361,7 +363,7 @@ B.push(C.section({
     { b: 'The Lean replay.', raw: 'It ran on a rented machine with ' + rec('tools/runpod-zq-lane4.sh') + '; the facts of the run are in ' + recDir(L4.run.facts) + '. The recorder’s ' + m('--check') + ' derives again from your clone what can be derived on a laptop (the census, the re-hash, the reconciliation with his ' + N(THEIRS) + ' declarations) and refuses if a script that ran on that machine has changed since.' },
     { b: 'The Lean gap.', raw: 'claimbox’s proof is public on its branch ' + m(TB.pins.claimbox.branch) + '. It was decided on a rented machine with ' + rec('tools/runpod-zq-trackb.sh') + ', the facts in ' + recDir(TB.run.facts) + '; ' + m('node tools/record-zq-trackb.js --check') + ' derives the record again from those facts and the manuscript’s numbers, and refuses if a script that ran there has changed since. Its pre-registration: ' + rec(PREREG_B) + '.' },
     { b: 'The Version 4 quartic.', raw: 'A sparse clone of his repository at ' + m(Q4.pins.commit.slice(0, 8)) + ' (the package ' + m('quartics/quartic-4973/') + ' and ' + m('quartic_4973.tex') + '), then ' + m('ZQ_V4_REPO=<clone> node tools/zq-v4.js --check') + ', about three seconds on a laptop.' },
-    { b: 'Nothing of his is copied here.', text: 'His repository has no licence (its README: licences for original project material are awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
+    { b: 'Nothing of his is copied here.', text: 'His repository has no licence (no licence file at Version 13; the README of the 5 November release said licences for original project material were awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
     { b: 'Read the pre-registration.', raw: rec(PREREG) + ': what each lane would decide and what would make it fail, written before any code ran on his data, with its dated amendments.' }
   ])
 }));

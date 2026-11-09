@@ -1,5 +1,5 @@
 {
- "what": "Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper's claim is proved: that is lane S.",
+ "what": "Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper's claim is proved: that is lane S. Amendment 18 (2026-11-09): the 15 resource stops that reach Comparator were re-run with nanoda d0a02cc5 + 1 GiB beside a control, nanoda 3a240721 + 1 GiB (control), both inside a 13 GB memory scope; a row's word moved only on the new arm, whose why names it, and each of those rows keeps its earlier word and both arms in amendment18.",
  "release": {
   "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
   "challenges": 416
@@ -9,7 +9,8 @@
   "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
   "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
   "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11",
-  "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so"
+  "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so",
+  "for the runs of amendment 18 only: nanoda built from ammkrn/nanoda_lib d0a02cc5 (v0.4.30, 31 commits after the lane's 3a240721) with amendment 11's stack change, beside a control arm built from 3a240721 with the same change; in both arms Comparator runs inside a systemd user scope with MemoryMax=13G and no swap. A row CERTIFIED by the new arm says \"nanoda d0a02cc5 + 1 GiB\"; a control-arm run never moves a word"
  ],
  "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
  "notRunYet": [],
@@ -18,8 +19,8 @@
   "of": 416,
   "cancelledBeforeComparator": 0,
   "words": {
-   "CERTIFIED": 398,
-   "REFUSED": 18
+   "CERTIFIED": 407,
+   "REFUSED": 9
   },
   "strict": {
    "SAME BODIES": 7,
@@ -33,7 +34,29 @@
   "displayed": {
    "PROVED": 9,
    "OPEN": 1
+  },
+  "certifiedByNanoda": {
+   "stock": 267,
+   "stack1g": 127,
+   "stack1g@d0a02cc5": 9,
+   "issue44": 4
   }
+ },
+ "amendment18": {
+  "amendment": 18,
+  "members": 15,
+  "recorded": 15,
+  "before": {
+   "REFUSED": 15
+  },
+  "control": {
+   "REFUSED": 15
+  },
+  "new": {
+   "CERTIFIED": 9,
+   "REFUSED": 6
+  },
+  "moved": 9
  },
  "rows": [
   {
@@ -1038,12 +1061,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 1174,
+     "cacheSeconds": 199,
+     "maxRssKB": 7794364,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1058,
+     "cacheSeconds": 176,
+     "maxRssKB": 852556,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1058 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074613260,
+     "word": "REFUSED",
+     "stage": "export or replay",
+     "nanodaBuild": "issue44"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1058 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1058,
+     "maxRssKB": 852556
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 1174,
+     "maxRssKB": 7794364
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -1802,12 +1911,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 6352,
+     "cacheSeconds": 190,
+     "maxRssKB": 7281452,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 3095,
+     "cacheSeconds": 194,
+     "maxRssKB": 852428,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=[not set]",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=failed"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill after 3095 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill after 3095 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 3095,
+     "maxRssKB": 852428
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 6352,
+     "maxRssKB": 7281452
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -2196,12 +2391,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1268,
+     "cacheSeconds": 181,
+     "maxRssKB": 852256,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1268 s) in the build stage; its last line: \"✔ [9188/9270] Built OAI.Topology.CoarseAssembly.RipsEmbeddingIndependence (35s)\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1720,
+     "cacheSeconds": 193,
+     "maxRssKB": 852232,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1720 s) in the build stage; its last line: \"✔ [9188/9270] Built OAI.Topology.CoarseAssembly.RipsEmbeddingIndependence (50s)\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1268 s) in the build stage; its last line: \"✔ [9188/9270] Built OAI.Topology.CoarseAssembly.RipsEmbeddingIndependence (35s)\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074613260,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1720 s) in the build stage; its last line: \"✔ [9188/9270] Built OAI.Topology.CoarseAssembly.RipsEmbeddingIndependence (50s)\"",
+     "seconds": 1720,
+     "maxRssKB": 852232
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1268 s) in the build stage; its last line: \"✔ [9188/9270] Built OAI.Topology.CoarseAssembly.RipsEmbeddingIndependence (35s)\"",
+     "seconds": 1268,
+     "maxRssKB": 852256
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -2646,12 +2925,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 4661,
+     "cacheSeconds": 201,
+     "maxRssKB": 852244,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 4661 s) in the build stage; its last line: \"✔ [10800/10870] Built OAI.MathematicalPhysics.ContinuumCoulomb.Nuclei.EulerApproximation (5.9s)\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 4733,
+     "cacheSeconds": 185,
+     "maxRssKB": 852476,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 4733 s) in the build stage; its last line: \"✔ [10801/10868] Built OAI.MathematicalPhysics.ContinuumCoulomb.Nuclei.EulerApproximation (6.6s)\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 4661 s) in the build stage; its last line: \"✔ [10800/10870] Built OAI.MathematicalPhysics.ContinuumCoulomb.Nuclei.EulerApproximation (5.9s)\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074613260,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 4733 s) in the build stage; its last line: \"✔ [10801/10868] Built OAI.MathematicalPhysics.ContinuumCoulomb.Nuclei.EulerApproximation (6.6s)\"",
+     "seconds": 4733,
+     "maxRssKB": 852476
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 4661 s) in the build stage; its last line: \"✔ [10800/10870] Built OAI.MathematicalPhysics.ContinuumCoulomb.Nuclei.EulerApproximation (5.9s)\"",
+     "seconds": 4661,
+     "maxRssKB": 852244
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -3361,12 +3724,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 896,
+     "cacheSeconds": 204,
+     "maxRssKB": 852176,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 896 s) in the build stage; its last line: \"✔ [9099/9189] Built OAI.Combinatorics.Ramsey.CycleClique.ColouredPaths (10s)\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 833,
+     "cacheSeconds": 183,
+     "maxRssKB": 7288324,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 833 s) in the build stage; its last line: \"✔ [9098/9202] Built OAI.Combinatorics.Ramsey.CycleClique.PathSystems (7.6s)\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 896 s) in the build stage; its last line: \"✔ [9099/9189] Built OAI.Combinatorics.Ramsey.CycleClique.ColouredPaths (10s)\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 833 s) in the build stage; its last line: \"✔ [9098/9202] Built OAI.Combinatorics.Ramsey.CycleClique.PathSystems (7.6s)\"",
+     "seconds": 833,
+     "maxRssKB": 7288324
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 896 s) in the build stage; its last line: \"✔ [9099/9189] Built OAI.Combinatorics.Ramsey.CycleClique.ColouredPaths (10s)\"",
+     "seconds": 896,
+     "maxRssKB": 852176
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -4099,12 +4546,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 1669,
+     "cacheSeconds": 300,
+     "maxRssKB": 12597952,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1901,
+     "cacheSeconds": 188,
+     "maxRssKB": 852228,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1901 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1901 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1901,
+     "maxRssKB": 852228
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 1669,
+     "maxRssKB": 12597952
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -7295,12 +7828,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 999,
+     "cacheSeconds": 177,
+     "maxRssKB": 12094132,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1269,
+     "cacheSeconds": 193,
+     "maxRssKB": 852404,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1269 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1269 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1269,
+     "maxRssKB": 852404
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 999,
+     "maxRssKB": 12094132
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -9813,12 +10432,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 1179,
+     "cacheSeconds": 162,
+     "maxRssKB": 11904404,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1220,
+     "cacheSeconds": 177,
+     "maxRssKB": 852392,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1220 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1220 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1220,
+     "maxRssKB": 852392
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 1179,
+     "maxRssKB": 11904404
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -10208,12 +10913,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1267,
+     "cacheSeconds": 190,
+     "maxRssKB": 852268,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1267 s) in the build stage; its last line: \"✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (1023s)\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1108,
+     "cacheSeconds": 202,
+     "maxRssKB": 852236,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1108 s) in the build stage; its last line: \"✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (980s)\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1267 s) in the build stage; its last line: \"✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (1023s)\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074613260,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1108 s) in the build stage; its last line: \"✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (980s)\"",
+     "seconds": 1108,
+     "maxRssKB": 852236
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1267 s) in the build stage; its last line: \"✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (1023s)\"",
+     "seconds": 1267,
+     "maxRssKB": 852268
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -10547,12 +11336,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 1585,
+     "cacheSeconds": 195,
+     "maxRssKB": 11769284,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1766,
+     "cacheSeconds": 180,
+     "maxRssKB": 852368,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1766 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1766 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1766,
+     "maxRssKB": 852368
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 1585,
+     "maxRssKB": 11769284
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -10967,12 +11842,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 2036,
+     "cacheSeconds": 187,
+     "maxRssKB": 11657672,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1849,
+     "cacheSeconds": 169,
+     "maxRssKB": 852272,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1849 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074613260,
+     "word": "REFUSED",
+     "stage": "export or replay",
+     "nanodaBuild": "issue44"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1849 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1849,
+     "maxRssKB": 852272
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 2036,
+     "maxRssKB": 11657672
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -14287,12 +15248,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 749,
+     "cacheSeconds": 193,
+     "maxRssKB": 852200,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 749 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 562,
+     "cacheSeconds": 199,
+     "maxRssKB": 852428,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 562 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 749 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 562 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 562,
+     "maxRssKB": 852428
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 749 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 749,
+     "maxRssKB": 852200
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -16479,12 +17524,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 1637,
+     "cacheSeconds": 180,
+     "maxRssKB": 11708068,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 1539,
+     "cacheSeconds": 199,
+     "maxRssKB": 852392,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1539 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 1539 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 1539,
+     "maxRssKB": 852392
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 1637,
+     "maxRssKB": 11708068
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -16572,12 +17703,96 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 871,
+     "cacheSeconds": 186,
+     "maxRssKB": 852068,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 871 s) in the build stage; its last line: \"✔ [9107/9496] Built OAI.RepresentationTheory.UniversalSquare.Finite.DegreeEight (17s)\""
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 727,
+     "cacheSeconds": 195,
+     "maxRssKB": 852300,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 727 s) in the build stage; its last line: \"✔ [9108/9496] Built OAI.RepresentationTheory.UniversalSquare.Support.ResidualTrees (5.6s)\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 871 s) in the build stage; its last line: \"✔ [9107/9496] Built OAI.RepresentationTheory.UniversalSquare.Finite.DegreeEight (17s)\"",
+   "stage": "memory",
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 727 s) in the build stage; its last line: \"✔ [9108/9496] Built OAI.RepresentationTheory.UniversalSquare.Support.ResidualTrees (5.6s)\"",
+     "seconds": 727,
+     "maxRssKB": 852300
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 871 s) in the build stage; its last line: \"✔ [9107/9496] Built OAI.RepresentationTheory.UniversalSquare.Finite.DegreeEight (17s)\"",
+     "seconds": 871,
+     "maxRssKB": 852068
+    }
+   },
    "strict": null,
    "transfer": null
   },
@@ -16766,12 +17981,98 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 42542204488,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:42:08Z",
+     "nanodaBuild": "stack1g@d0a02cc5",
+     "arm": "new",
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "memoryScope": "13G",
+     "exit": 0,
+     "seconds": 945,
+     "cacheSeconds": 195,
+     "maxRssKB": 11819608,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "scope": [
+      "Result=success",
+      "MemoryPeak=[not set]",
+      "MemoryMax=infinity",
+      "MemorySwapMax=infinity",
+      "ActiveState=inactive"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 42542206797,
+     "workflowSha": "e08b6d78444fc63103a43294acf07283d421bc13",
+     "at": "2026-11-09T02:35:12Z",
+     "nanodaBuild": "stack1g",
+     "arm": "control",
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "memoryScope": "13G",
+     "exit": 143,
+     "seconds": 960,
+     "cacheSeconds": 204,
+     "maxRssKB": 852272,
+     "kernels": [],
+     "scope": [
+      "Result=oom-kill",
+      "MemoryPeak=13958643712",
+      "MemoryMax=13958643712",
+      "MemorySwapMax=0",
+      "ActiveState=deactivating"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "memory",
+      "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 960 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\""
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": "issue44-stack1g",
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+   "stage": null,
+   "nanodaBuild": "stack1g@d0a02cc5",
+   "amendment18": {
+    "amendment": 18,
+    "change": "nanoda d0a02cc5 + 1 GiB (the new arm decides the word; the control never does)",
+    "before": {
+     "run": 38074618613,
+     "word": "REFUSED",
+     "stage": "not run",
+     "nanodaBuild": "issue44-stack1g"
+    },
+    "control": {
+     "run": 42542206797,
+     "nanoda": "nanoda 3a240721 + 1 GiB (control)",
+     "word": "REFUSED",
+     "stage": "memory",
+     "why": "the 13G memory scope stopped Comparator (systemd Result=oom-kill, peak 13.0 GiB after 960 s) in the export or replay stage; its last line: \"Running nanoda kernel on solution\"",
+     "seconds": 960,
+     "maxRssKB": 852272
+    },
+    "new": {
+     "run": 42542204488,
+     "nanoda": "nanoda d0a02cc5 + 1 GiB",
+     "word": "CERTIFIED",
+     "stage": null,
+     "why": "Comparator exit 0; Lean's kernel and nanoda d0a02cc5 + 1 GiB (amendment 18) both accept",
+     "seconds": 945,
+     "maxRssKB": 11819608
+    }
+   },
    "strict": null,
    "transfer": null
   },

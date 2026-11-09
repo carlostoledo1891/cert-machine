@@ -2,8 +2,8 @@
  "what": "The self-audit of cert-machine, Phase 4 — concordance (M2 of the pre-registration): every register row whose record was decided by two or more programs, compared field by field — the word, the witness or count where one exists, the enclosure where one exists — read from the records, nothing re-run; and the hosted profile of M4: the 416 kernel challenges carried in as recorded. Written by tools/run-selfaudit-concord.js; --check regenerates and compares.",
  "name": "selfaudit",
  "phase": 4,
- "generated": "2026-11-08T19:19:17.939Z",
- "git": "dfb7c4d9",
+ "generated": "2026-11-09T13:14:31.331Z",
+ "git": "4b9d8d08",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
   "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
@@ -29,7 +29,7 @@
   "certs/kissing-ledger.json": "5c823b21ac43b5bdb3ad4b91a46e909cbf86a192e4cf382e2d8c5be2b29f611f",
   "corpus/rerun-kit.json": "4e6970575715f889f7ffedc176ad4e838912beb808f07244967c1d53114fe50e",
   "certs/rerun-kit-run.json": "589a58e2b9460dde07a4cd145e4d6750dc7ad7229bdab7b040cf22555c27a8ed",
-  "certs/openai-math-kernel.json": "3e41d20228fb965daac55b3b531d50f4f2fec87a431d0b822e32a88e7444b0d2"
+  "certs/openai-math-kernel.json": "6a88f2389fb868fdcc1a6544cd81bcb58eafe9eb5612b6a0807a81a1b21439d5"
  },
  "counts": {
   "comparisons": 96,
@@ -2369,32 +2369,32 @@
   "record": "certs/openai-math-kernel.json",
   "machine": "GitHub-hosted Linux runners (.github/workflows/openai-math-kernel.yml), one job per challenge; the decider Comparator (leanprover/comparator d03acab1 = tag v4.34.0, built with the release's toolchain v4.34.1), lean4export 076e8e57, landrun 811cfff5, nanoda_lib 3a2407…",
   "challenges": 416,
-  "runs": 500,
+  "runs": 530,
   "words": {
-   "CERTIFIED": 398,
-   "REFUSED": 18
+   "CERTIFIED": 407,
+   "REFUSED": 9
   },
-  "runsWithBothKernels": 414,
+  "runsWithBothKernels": 423,
   "seconds": {
-   "n": 437,
+   "n": 467,
    "min": 18,
-   "median": 587,
+   "median": 630,
    "max": 12453
   },
   "cacheSeconds": {
-   "n": 463,
+   "n": 493,
    "min": 158,
-   "median": 194,
-   "max": 240
+   "median": 193,
+   "max": 300
   },
   "maxRssKB": {
-   "n": 437,
-   "min": 1690240,
-   "median": 7121828,
+   "n": 467,
+   "min": 852068,
+   "median": 7119124,
    "max": 14044332
   },
-  "overPortableWall": 435,
-  "overPortableMemory": 413,
+  "overPortableWall": 465,
+  "overPortableMemory": 423,
   "rule": "carried in as recorded; never merged into the laptop table (the portable and extended profiles of certs/selfaudit-run.json), never re-run; the 18 REFUSED are refusals for resources on the runner, kept"
  }
 }

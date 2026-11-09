@@ -1,0 +1,30 @@
+{
+ "what": "Whether the parts of the 11/5 release decided here are unchanged in Glazer et al.'s repository after Version 13: every file under construction/ and lean/, compared by git blob id at the pin and at the head.",
+ "checked": "2026-11-09",
+ "repository": "github.com/elliotglazer/diophantine-z-q",
+ "pin": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+ "head": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+ "method": "node tools/zq-tree-check.js: git ls-tree -r at the pin in the read-only clone; GitHub API git/trees/<head>?recursive=1 at the head; blob ids compared path by path",
+ "files": 88,
+ "unchanged": 86,
+ "changed": [
+  "construction/README.md",
+  "lean/README.md"
+ ],
+ "removed": [],
+ "added": [],
+ "frozenTarget": {
+  "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+  "blobPin": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "blobHead": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "sha256Head": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+ },
+ "quartic4973": {
+  "base": "5cb2c1997dde6e358f3c2fe9bbdb4b8f4c23bac6",
+  "files": 353,
+  "unchanged": 353,
+  "changed": [],
+  "removed": [],
+  "added": []
+ }
+}
