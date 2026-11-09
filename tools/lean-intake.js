@@ -337,9 +337,9 @@ function review() {
   const R = JSON.parse(fs.readFileSync(OUT, 'utf8'));
   const lines = [
     `<!-- DRAFT from certs/lean-intake-${id}.json (tools/lean-intake.js review); untracked; posted only on the operator's word. -->`,
-    `I checked ${SPEC.claim.what} against ${SPEC.canonical.what} (\`${SPEC.canonical.decl}\` at \`${SPEC.canonical.commit}\`).`,
+    `I checked ${SPEC.claim.what}, against ${SPEC.canonical.what} (\`${SPEC.canonical.decl}\` at \`${SPEC.canonical.commit}\`).`,
     '',
-    `- **The statement.** ${R.F1.how}. Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`,
+    `- **The statement.** ${R.F1.how.charAt(0).toUpperCase() + R.F1.how.slice(1)}. Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`,
     `- **The hypotheses are satisfiable:** ${R.F3.witness}, checked by the kernel.`,
     `- **The kernels:** ${R.kernels.map((k) => k.name + ' ' + k.word.toLowerCase()).join('; ')}. Not run: ${R.notRun.join(', ')}.`,
     `- **The axioms:** ${R.F1.axioms.join(', ')}. Planted defects in the proof file (${R.reds.map((r) => r.why).join('; ')}): ${R.words.plantedClaims.caught} caught.`,

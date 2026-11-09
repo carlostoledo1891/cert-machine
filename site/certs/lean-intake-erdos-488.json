@@ -1,0 +1,428 @@
+{
+ "what": "The Lean intake of Declan Gessel's refutation, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297) against DeepMind's statement of Erdős #488, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of ¬ the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5); instance agreement with an exact decider (F2, phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-488/spec.json",
+  "sha256": "75db9fef46e640632373b4bfd8ef18757e0beb689b0faf3701e53ab88327d7af",
+  "amendments": 2
+ },
+ "run": {
+  "day": "2026-11-09",
+  "facts": "corpus/lean-intake/erdos-488/runs/2026-11-09",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 2061.6,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/488.lean",
+   "decl": "Erdos488.erdos_488",
+   "head": "2055e5adadae0b2e392365938faa82ef6f1464f0",
+   "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://gist.github.com/d8e15e5ff1b6c7e99e3d86d7c66f1d08.git",
+   "file": "Erdos488.lean",
+   "decl": "Erdos488ExactAdapter.refutation",
+   "head": "034be67a5c958e55505bb357f9e4ef3015788465",
+   "sha256": "f2a7dcfde9689e00db7b697c22eb6436c1b02d834555a28a476d9e5e606e9ca0",
+   "toolchain": "leanprover/lean4:v4.33.0"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "wrongRefused": "10 of 10",
+   "sameAccepted": "6 of 6",
+   "equivalentRefused": "1 of 1 (the limit: identity up to definitional unfolding, not logical equivalence)",
+   "asPreregistered": "14 of 15",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "4 of 4",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)"
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "∀ (A : Finset ℕ),\n  A.Nonempty →\n    0 ∉ A →\n      1 ∉ A →\n        ∀ (n m : ℕ),\n          m > n →\n            A.max ≤ ↑n →\n              ↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <\n                2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n",
+  "claim": "¬Erdos488ExactAdapter.proposition",
+  "seconds": 3.8,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's Erdos488ExactAdapter.refutation as a proof of ¬ Erdos488.erdos_488's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding"
+ },
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "witness": "a model of the canonical statement's hypotheses: A = {2}, n = 2, m = 3",
+  "seconds": 75.2,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (the baseline)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 9.4
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "`m > n` written as an explicit `n < m` hypothesis (GT.gt is reducible notation for LT.lt)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 3.2
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "every bound variable renamed (A→S, B→D, n→k, m→l, a→d)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 3
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the `letI B` inlined at both uses (zeta)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 3
+  },
+  {
+   "id": "S4",
+   "kind": "same",
+   "why": "`0 ∉ A` written `¬ (0 ∈ A)` (the notation's own unfolding)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 3
+  },
+  {
+   "id": "W01",
+   "kind": "wrong",
+   "why": "the statement as it read before 2026-10-14: `answer(sorry) ↔ …` (the 11-06 run's Ctl1)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 108.9
+  },
+  {
+   "id": "W02",
+   "kind": "wrong",
+   "why": "the constant 2 changed to 3 (the 11-06 run's Ctl2)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 138.6
+  },
+  {
+   "id": "W03",
+   "kind": "wrong",
+   "why": "`m > n` changed to `m ≥ n` (the 11-06 run's Ctl3)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 106.6
+  },
+  {
+   "id": "W04",
+   "kind": "wrong",
+   "why": "the strict `<` of the conclusion made `≤`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 102.4
+  },
+  {
+   "id": "W05",
+   "kind": "wrong",
+   "why": "the hypothesis `1 ∉ A` dropped",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 111.4
+  },
+  {
+   "id": "W06",
+   "kind": "wrong",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 107.6
+  },
+  {
+   "id": "W07",
+   "kind": "wrong",
+   "why": "`A.max ≤ n` made strict, `A.max < n`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 104.1
+  },
+  {
+   "id": "W08",
+   "kind": "same",
+   "why": "the interval `Icc 1 m` shifted to `Icc 0 m` (left side only) — RECLASSIFIED by amendment 2: 0 is not in B (n ≥ 1), so the two filtered intervals are definitionally equal (rfl, amendment-2/why.lean); the pre-registration's class was wrong, not the check",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 116.5,
+   "amendment": 2,
+   "preregistered": {
+    "kind": "wrong",
+    "expect": "REFUSED by type mismatch"
+   },
+   "asPreregistered": false
+  },
+  {
+   "id": "W09",
+   "kind": "wrong",
+   "why": "the set B starts at 2: `n ≥ 2` for `n ≥ 1`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 109
+  },
+  {
+   "id": "W10",
+   "kind": "wrong",
+   "why": "the left denominator `m` replaced by `n`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 101.4
+  },
+  {
+   "id": "W11",
+   "kind": "wrong",
+   "why": "the left interval widened to `Icc 1 (m + 1)` (added by amendment 2, after the first run, to keep ten wrong controls)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 107.4,
+   "amendment": 2
+  },
+  {
+   "id": "E1",
+   "kind": "equivalent",
+   "why": "the left interval starts at 2: the same statement only because 1 ∉ A is a hypothesis, not by definition (added by amendment 2: a probe of F1's limit — identity up to definitional unfolding, not logical equivalence)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 101.8,
+   "amendment": 2
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "4096 replaced by 1000 everywhere: a false arithmetic claim",
+   "expect": "the build fails",
+   "exit": "1",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the build fails: Tactic `decide` proved that the proposition",
+   "seconds": 16.9
+  },
+  {
+   "id": "R2",
+   "why": "a sorry in constant_ratio",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 11
+  },
+  {
+   "id": "R3",
+   "why": "an added axiom",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "Submissions.ErdosMultiplesSmoothRefuted.Counterexample.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list Submissions.ErdosMultiplesSmoothRefuted.Counterexample.intakeRedAxiom",
+   "seconds": 10.5
+  },
+  {
+   "id": "R4",
+   "why": "native_decide in endpoint_gap",
+   "expect": "a native_decide axiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1"
+   ],
+   "caught": true,
+   "how": "the axioms list Submissions.ErdosMultiplesSmoothRefuted.Counterexample.FiniteGrowth.endpoint_gap._native.native_decide.ax_1_1",
+   "seconds": 12.6
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 3.8
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 61.5
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "1341655864cc8d543a5167cee09e34d6a2140211b87774917a167e9086f0fa67",
+    "bytes": 39709969
+   },
+   "seconds": 3.5
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": {
+  "record": "certs/erdos488.json",
+  "rows": [
+   {
+    "hand": "P1: CERTIFIED",
+    "intake": "F1: CERTIFIED",
+    "same": true
+   },
+   {
+    "hand": "P3: CERTIFIED",
+    "intake": "kernels: ACCEPT (3 run)",
+    "same": true
+   },
+   {
+    "hand": "P7: 4/4 caught",
+    "intake": "plantedClaims.word: CERTIFIED",
+    "same": true
+   }
+  ]
+ }
+}

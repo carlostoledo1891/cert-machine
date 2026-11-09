@@ -1,0 +1,45 @@
+✖ [1329/1329] Building Intake.Red.R1 (13s)
+trace: .> LEAN_PATH=/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/Cli/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/batteries/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/Qq/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/aesop/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/importGraph/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/plausible/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/packages/mathlib/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/build/lib/lean /Users/carlostoledo/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/Intake/Red/R1.lean -o /Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/build/lib/lean/Intake/Red/R1.olean -i /Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/build/lib/lean/Intake/Red/R1.ilean -c /Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/build/ir/Intake/Red/R1.c --setup /Users/carlostoledo/Projects/lean-intake-work/erdos-488/canonical/.lake/build/ir/Intake/Red/R1.setup.json --json
+warning: Intake/Red/R1.lean:128:68: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Red/R1.lean:128:87: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Red/R1.lean:130:42: This simp argument is unused:
+  pow_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Red/R1.lean:132:72: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Red/R1.lean:139:2: exponent 1000 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+error: Intake/Red/R1.lean:139:2: Tactic `decide` proved that the proposition
+  2 ^ 1000 * (8 * 1000 + 1) ^ 53 < 3 ^ 1000
+is false
+info: Intake/Red/R1.lean:509:0: 'Submissions.ErdosMultiplesSmoothRefuted.Counterexample.proof' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+warning: Intake/Red/R1.lean:551:36: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+info: Intake/Red/R1.lean:561:0: 'Erdos488ExactAdapter.refutation' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: Intake/Red/R1.lean:563:0: 'Erdos488ExactAdapter.refutation' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- Intake.Red.R1
+error: build failed
