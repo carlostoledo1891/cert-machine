@@ -184,3 +184,17 @@ including "byte-identical to the earlier reviewed version". V13 CERTIFIED. Secon
 finding is expected to be a gap, not a refutation: the residuals behind "sum of squares of 357 quadratics" are not
 published, and the tables of #9, #11 and #12 live only in CI artifacts that expire on 2027-02-06. A REFUTED would be a
 finding, sent to the author on the operator's word only.
+
+## Amendment A (2026-11-08, after the first run, before any change to a question or a reading)
+
+The first run (about 2 s on the Mac) gave T, N and B CERTIFIED for all four pull requests, A CERTIFIED for #8, #9 and
+#12, V13 CERTIFIED, and two stops: #11's A REFUTED at q8, `(A² + r^−15·J1²)/r = A²/r + r^−16·J1²`, and the red-list
+control CR not refused. Both had one cause, in our arithmetic: the Laurent-polynomial power of a negative exponent inverted
+the monomial but ignored the exponent's size, so r^−15 was computed as r^−1; CR's planted identity r^−3·r^3 = 1 failed for
+the same reason, which is what the red list is for. The power is now the inverse monomial raised to |e|. That REFUTED was
+ours, not the claim's; q8 holds. No question, reading, value or control changed.
+
+Three checks were added beyond the procedure above, written before the first run; each can only add a refusal, never
+turn one into CERTIFIED: B's b0, that the saved PR metadata (`gh pr view`) names the pinned head and base and that its body states the table sha256;
+in B's b4, that EXPECTED.json also states the coordinates, monomials and residual count of the PR body; and an input
+guard, that each proof still contains the displayed statements A decides, verbatim (the decider stops otherwise).
