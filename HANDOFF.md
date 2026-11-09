@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-09 ~14:30 UTC; NOTHING BILLING — no pods, no runs in flight):
+  ◆◆ 11-09 NIGHT (the open items, on the operator's picks): two arhancanli replays PINNED (recognition.json:
+     arhancanli-84b-ceiling-reproduced on #275, arhancanli-c3c-second-replay on #221, agreeing with ours); thanks POSTED on
+     #275 (issuecomment-6749629140) and on lm_understand-logs #4 (-6749629741, an outside thinking-off data point: 41.2%,
+     36.2% cut at 8,192 tokens); claimbox LIFTED (PROVENANCE.json: SCHEMA.md's new sha), make test 617/0, 171/171 reds,
+     drift clean, MERGED into claimbox main and PUSHED (4b15165); its page bytes unchanged, so the zone needs no republish
+     (publish-zone: nothing to publish). The X draft d21 DROPPED (deleted). lean4#16290: nomeata (Lean FRO) commented on the
+     two disclosed Claudes ("quite amusing, carry on") — no reply needed. /reports/lean-intake.html REDRAWN (four figures,
+     short prose; the operator's rule: reports visual, papers dense) and the CV rebuilt (407/416, 145). The work dir deleted.
   ◆◆ LEAN FIDELITY + INTAKE (the operator's lead A + C, 11-09; plan notes/lean-fidelity-plan-2026-11-09.md, untracked; scout row
      lean-fidelity-intake-2026-11, OPEN as a combination). P0 DONE (scout + plan). P1 DONE on "Go P1": tools/lean-intake.js
      (run · record [--check] · review) on Erdős #488 from a spec committed BEFORE any run (corpus/lean-intake/erdos-488/spec.json,
