@@ -136,10 +136,11 @@ function generated() {
   };
   const cLine = {};
   for (const m of SPEC.mutants) {
-    const head = imp + (m.imports || []).map((i) => `import ${i}\n`).join('') + `\n/-! ${m.id} (${m.kind}): ${m.why.replace(/-\//g, '- /')} -/\nnamespace Intake.Mut.${m.id}\n`;
+    const ns = (SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id;   /* inside the canonical namespace, its dot notation resolves */
+    const head = imp + (m.imports || []).map((i) => `import ${i}\n`).join('') + `\n/-! ${m.id} (${m.kind}): ${m.why.replace(/-\//g, '- /')} -/\nnamespace ${ns}\n`;
     const body = `theorem s : ${m.statement} := by\n  sorry\n`;
     cLine[m.id] = (head + body).split('\n').length;
-    files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${SPEC.claim.decl}\nend Intake.Mut.${m.id}\n`;
+    files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${SPEC.claim.decl}\nend ${ns}\n`;
   }
   if (SPEC.f2) {
     const F2 = SPEC.f2, app = (c) => F2.apply.replace('COMP', c);
@@ -437,6 +438,7 @@ function decide() {
     plantedClaims: { caught: reds.filter((r) => r.caught).length + ' of ' + reds.length, word: reds.every((r) => r.caught) ? 'CERTIFIED' : 'REFUSED' },
     kernels: kernels.every((k) => k.word === 'ACCEPTS') ? 'ACCEPT (' + kernels.length + ' run)' : 'NOT ALL ACCEPT',
   };
+  if (!F2 && SPEC.f2NotApplicable) words.F2 = { word: 'REFUSED (not run)', why: SPEC.f2NotApplicable };
   if (F2) {
     const c = F2.canonical;
     words.F2 = { word: F2.word,
