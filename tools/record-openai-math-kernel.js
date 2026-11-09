@@ -185,8 +185,10 @@ for (const d of runDirs) {
     const scopeOf = (k) => ((f.scope || []).find((l) => l.startsWith(k + '=')) || '').slice(k.length + 1);
     if (dec.word === 'REFUSED' && scopeOf('Result') === 'oom-kill') {
       const peak = /^\d+$/.test(scopeOf('MemoryPeak')) ? ', peak ' + GiB(scopeOf('MemoryPeak')) : '';
+      /* where it was: the stage the rule reads from the log, and Comparator's last line (a kernel running, a build) */
+      const lastLine = String((f.logTail || []).slice(-1)[0] || 'nothing logged').slice(0, 160);
+      dec.why = 'the ' + ((a18 && a18.memoryScope) || 'memory') + ' memory scope stopped Comparator (systemd Result=oom-kill' + peak + ' after ' + f.seconds + ' s) in the ' + (/\] Built |^Building /.test(lastLine) ? 'build' : dec.stage) + ' stage; its last line: "' + lastLine + '"';
       dec.stage = 'memory';
-      dec.why = 'the ' + ((a18 && a18.memoryScope) || 'memory') + ' memory scope stopped Comparator (systemd Result=oom-kill' + peak + ' after ' + f.seconds + ' s): ' + dec.why;
     }
     r.runs.push(Object.assign({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, nanodaBuild: nb },
       a18 ? { arm: a18.arm, nanodaPin: pin, memoryScope: a18.memoryScope } : pin !== DEFAULT_NANODA_PIN ? { nanodaPin: pin } : {},
