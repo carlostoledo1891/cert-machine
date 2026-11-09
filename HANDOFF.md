@@ -34,6 +34,12 @@ NEXT SESSION, IN ORDER (handoff 2026-11-10 ~01:30 UTC; NOTHING BILLING — no po
      wait for reactions to #5299 and the page first); Navier–Stokes through the intake (the strongest next claim: re-run at
      openai/NavierStokesAndEuler's newer commit with every checker, F1 against DeepMind's Clay statement, the energy clause
      made exact; see the chat analysis of 11-09); Freer's evidence PR #23 (WAIT; if ordered: amendment D, #8–#16 only).
+     VERIFIED AT CLOSE: make test 212 pass, 2 fail — "wiring" (build-report-lean-intake.js was not in `make reports`: FIXED,
+     check-wiring green) and "measure" (transient under the parallel run: check-measure alone 7/7, 0 failed); working tree
+     clean, main = origin/main. LATE DATA POINT (no reply needed): lm_understand-logs #4, the replayer regraded his 500
+     thinking-off answers with math-verify — 43.0% (was 41.2% under is_equiv), the edit 48.2%, gap −5.2 points (95% CI −9.4
+     to −1.2); his own limits stated (one pass, MLX community weights, 8,192 vs 32,768 tokens). Consistent with our 11-03 WSP
+     finding (the untouched model 44–52% under Qwen's settings).
      THE CLAIMBOX + LEAN LANE (proposed 11-09, the operator to pick where to start; recommended 1 + 2 together, built in
      claimbox): (1) claimbox WRITES the intake spec from a PR/claim — pins, the claimant's theorem, the canonical declaration,
      planted statements by fixed rules (drop a hypothesis, < ↔ ≤, shift a constant, swap quantifiers, ℕ ↔ ℤ), each with a

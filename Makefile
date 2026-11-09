@@ -400,6 +400,7 @@ reports:
 	@$(NODE) tools/build-report-erdos852.js
 	@$(NODE) tools/build-report-erdos-488.js
 	@$(NODE) tools/build-report-heptagon.js
+	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js
 	@$(NODE) tools/build-report-lemniscate.js
