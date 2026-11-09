@@ -159,7 +159,7 @@ const brk = C.breakable;
 {
   const rows = R.rows.map(r => [
     { raw: brk(r.claim) },
-    { raw: brk(r.claimant || '—') },
+    { raw: '<div class="cap">' + brk(r.claimant || '—') + '</div>' },   /* base.js .cap: a long claimant wraps in its column */
     { raw: C.tag(r.verdict, tagOf(r.verdict)) },
     { raw: brk(r.scope || '—') },
     { raw: r.kind === 'none' ? C.esc('—') : '<span title="' + C.escAttr(R.kindsDefined[r.kind]) + '">' + C.esc(r.kind.replace(/-/g, ' ')) + '</span>' },

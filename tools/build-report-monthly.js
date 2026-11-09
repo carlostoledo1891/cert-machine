@@ -75,7 +75,7 @@ for (const m of months) {
       rows: rows.map((r) => [
         { raw: '<span class="mono">' + C.esc(r.recordedOn).replace(/-/g, '&#8209;') + '</span>' },
         { raw: C.breakable(r.claim) },                    /* long Lean names and paths break at their dots, not past the box */
-        { raw: C.breakable(r.claimant || '—') },
+        { raw: '<div class="cap">' + C.breakable(r.claimant || '—') + '</div>' },   /* base.js .cap: a long claimant wraps in its column */
         { raw: C.tag(r.verdict, tagOf(r.verdict)) },
         { raw: r.kind === 'none' ? C.esc('—') : '<span title="' + C.escAttr(R.kindsDefined[r.kind]) + '">' + C.esc(r.kind.replace(/-/g, ' ')) + '</span>' },
         { raw: '<a href="' + C.escAttr(r.page) + '">the record</a>' }
