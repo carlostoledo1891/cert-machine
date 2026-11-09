@@ -477,7 +477,7 @@ function record() {
   if (process.argv.includes('--check')) {
     const old = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
     if (JSON.stringify(rec, null, 1) + '\n' !== old) die('certs/lean-intake-' + id + '.json differs from what the facts derive now');
-    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${rec.words.F1controls.wrongRefused} wrong refused, ${rec.words.F1controls.sameAccepted} same accepted; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels}${rec.words.F2 ? '; F2 ' + rec.words.F2.word + ', ' + rec.words.F2.kernel : ''})`);
+    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${rec.words.F1controls.wrongRefused} wrong refused, ${rec.words.F1controls.sameAccepted} same accepted; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels}${rec.words.F2 ? '; F2 ' + rec.words.F2.word + (rec.words.F2.kernel ? ', ' + rec.words.F2.kernel : '') : ''})`);
     return;
   }
   fs.writeFileSync(OUT, JSON.stringify(rec, null, 1) + '\n');

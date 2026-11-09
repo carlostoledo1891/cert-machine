@@ -1,0 +1,25 @@
+✖ [3008/3008] Building Intake.Red.R1 (12s)
+trace: .> LEAN_PATH=/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/Cli/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/batteries/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/Qq/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/aesop/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/importGraph/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/plausible/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/packages/mathlib/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/build/lib/lean /Users/carlostoledo/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/Intake/Red/R1.lean -o /Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/build/lib/lean/Intake/Red/R1.olean -i /Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/build/lib/lean/Intake/Red/R1.ilean -c /Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/build/ir/Intake/Red/R1.c --setup /Users/carlostoledo/Projects/lean-intake-work/erdos-786i/canonical/.lake/build/ir/Intake/Red/R1.setup.json --json
+error: Intake/Red/R1.lean:410:2: linarith failed to find a contradiction
+h : ∀ (ε : ℝ), 0 < ε → ε ≤ 1 → ∃ A δ, 0 ∉ A ∧ 1 - ε < δ ∧ HasDensity A δ ∧ IsMulCardSet A
+A : Set ℕ
+δ : ℝ
+h0 : 0 ∉ A
+hd : 1 - 1 / 2 < δ
+hδ : HasDensity A δ
+hA : IsMulCardSet A
+this : δ ≤ 7 / 8
+⊢ False
+failed
+info: Intake/Red/R1.lean:412:0: 'Submissions.Erdos786DistinctDensityRefuted.BadPrimes.proof' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+info: Intake/Red/R1.lean:416:0: 'Submissions.Erdos786DistinctDensityRefuted.BadPrimes.proof' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- Intake.Red.R1
+error: build failed

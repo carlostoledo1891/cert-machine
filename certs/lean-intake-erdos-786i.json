@@ -1,0 +1,329 @@
+{
+ "what": "The Lean intake of Declan Gessel's refutation of Erdős #786(i), with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5299) against DeepMind's statement of Erdős #786(i) on main, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of ¬ the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-786i/spec.json",
+  "sha256": "4c2e036842d10f41aca38f3ce12b7e4187bcd52ef9d4d1b4d927bbe770a52270",
+  "amendments": 1
+ },
+ "run": {
+  "day": "2026-11-09",
+  "facts": "corpus/lean-intake/erdos-786i/runs/2026-11-09",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1727.3,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/786.lean",
+   "decl": "Erdos786.erdos_786.parts.i",
+   "head": "3afb9beda5bcb9933e6e10276e87f8ccfd851222",
+   "sha256": "dcab3e2ed5b6e7852acc96f4528ad413902e7245c46bf508bc594a92106330e7",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/WoshuaJolk/jig-verifier.git",
+   "file": "Submissions/Erdos786DistinctDensityRefuted/BadPrimes.lean",
+   "decl": "Submissions.Erdos786DistinctDensityRefuted.BadPrimes.proof",
+   "head": "f8b1f084d62fcfa81ae9c26000cd04da51a865a4",
+   "sha256": "8dd8a0a60ffd4a53105529a5ef0c39953929e6bc13288f3154223352253cd200",
+   "toolchain": "leanprover/lean4:v4.33.0"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "wrongRefused": "6 of 6",
+   "sameAccepted": "4 of 4",
+   "equivalentRefused": "2 of 2 (the limit: identity up to definitional unfolding, not logical equivalence)",
+   "asPreregistered": "12 of 12",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "3 of 3",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "the statement quantifies over a real ε and over infinite sets A through a limit (natural density): no finite instance decides any of its parts, so F2 is refused, not run"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "∀ ε > 0, ε ≤ 1 → ∃ A δ, 0 ∉ A ∧ 1 - ε < δ ∧ A.HasDensity δ ∧ Erdos786.Set.IsMulCardSet A",
+  "claim": "¬∀ (ε : ℝ),\n    0 < ε →\n      ε ≤ 1 →\n        ∃ A δ,\n          0 ∉ A ∧\n            1 - ε < δ ∧\n              Submissions.Erdos786DistinctDensityRefuted.BadPrimes.HasDensity A δ ∧\n                Submissions.Erdos786DistinctDensityRefuted.BadPrimes.IsMulCardSet A",
+  "seconds": 79.7,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's Submissions.Erdos786DistinctDensityRefuted.BadPrimes.proof as a proof of ¬ Erdos786.erdos_786.parts.i's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "witness": "a model of the canonical statement's hypotheses: ε = 1/2",
+  "seconds": 74.7,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 92.5
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the binder predicate written out: `∀ ε : ℝ, ε > 0 → …`",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 83.7
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "every bound variable renamed (ε→e, A→S, δ→d)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 86.7
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the claimant's own wording of the proposition: `0 < ε` and nested ∃ (GT.gt is reducible notation)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 90.4
+  },
+  {
+   "id": "W01",
+   "kind": "wrong",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 84.6
+  },
+  {
+   "id": "W02",
+   "kind": "wrong",
+   "why": "`1 - ε < δ` made `1 - ε ≤ δ`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 82
+  },
+  {
+   "id": "W03",
+   "kind": "wrong",
+   "why": "`ε ≤ 1` made strict, `ε < 1`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 79.6
+  },
+  {
+   "id": "W04",
+   "kind": "wrong",
+   "why": "the bar `1 - ε` changed to `1 - 2 * ε`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 76.8
+  },
+  {
+   "id": "W05",
+   "kind": "wrong",
+   "why": "the density `δ` replaced by `δ / 2`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 81.7
+  },
+  {
+   "id": "W06",
+   "kind": "wrong",
+   "why": "`0 ∉ A` replaced by `1 ∉ A`",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 105.4
+  },
+  {
+   "id": "E1",
+   "kind": "equivalent",
+   "why": "the first two conjuncts swapped: the same statement logically, not definitionally",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 93.6
+  },
+  {
+   "id": "E2",
+   "kind": "equivalent",
+   "why": "the existential quantifiers swapped, `∃ (δ : ℝ) (A : Set ℕ)`: the same logically, not definitionally",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 82.1
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the witness ε = 1/16 changed to 1/2: the final step becomes false (δ > 1/2 does not contradict δ ≤ 7/8)",
+   "expect": "the build fails",
+   "exit": "1",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the build fails: linarith failed to find a contradiction",
+   "seconds": 15.7
+  },
+  {
+   "id": "R2",
+   "why": "the final step replaced by sorry",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 7.9
+  },
+  {
+   "id": "R3",
+   "why": "the key lemma made an axiom (its proof kept under another name)",
+   "expect": "the lemma in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "density_le_seven_eighths"
+   ],
+   "caught": true,
+   "how": "the axioms list density_le_seven_eighths",
+   "seconds": 7
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 79.7
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 61.5
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "f049f120dd1c23828b8b969387198f77be3d06feea52ad51d680424f0e9155f7",
+    "bytes": 51806643
+   },
+   "seconds": 1.2
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

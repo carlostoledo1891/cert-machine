@@ -1,0 +1,86 @@
+2026-11-09T17:24:48.619Z start pin-canonical
+2026-11-09T17:24:52.143Z end pin-canonical exit 0
+2026-11-09T17:24:52.143Z start pin-claim
+2026-11-09T17:24:54.472Z end pin-claim exit 0
+2026-11-09T17:24:54.475Z start toolchain
+2026-11-09T17:24:54.498Z end toolchain exit 0
+2026-11-09T17:24:54.498Z start cache
+2026-11-09T17:26:15.286Z end cache exit 0
+2026-11-09T17:26:15.305Z start canonical
+2026-11-09T17:28:33.219Z end canonical exit 0
+2026-11-09T17:28:33.246Z assembled 20 files
+2026-11-09T17:28:33.246Z start claim
+2026-11-09T17:28:51.279Z end claim exit 0
+2026-11-09T17:28:51.281Z start f1
+2026-11-09T17:30:11.007Z end f1 exit 0
+2026-11-09T17:30:11.013Z start f1report
+2026-11-09T17:31:21.465Z end f1report exit 0
+2026-11-09T17:31:21.466Z start f3
+2026-11-09T17:32:36.202Z end f3 exit 0
+2026-11-09T17:32:36.203Z start mut-S0
+2026-11-09T17:33:57.160Z end mut-S0 exit 1
+2026-11-09T17:33:57.161Z start mut-S1
+2026-11-09T17:35:25.292Z end mut-S1 exit 1
+2026-11-09T17:35:25.293Z start mut-S2
+2026-11-09T17:36:47.917Z end mut-S2 exit 1
+2026-11-09T17:36:47.923Z start mut-S3
+2026-11-09T17:38:08.586Z end mut-S3 exit 1
+2026-11-09T17:38:08.587Z start mut-W01
+2026-11-09T17:39:32.605Z end mut-W01 exit 1
+2026-11-09T17:39:32.606Z start mut-W02
+2026-11-09T17:40:55.409Z end mut-W02 exit 1
+2026-11-09T17:40:55.410Z start mut-W03
+2026-11-09T17:46:58.042Z end mut-W03 exit 1
+2026-11-09T17:46:58.046Z start mut-W04
+2026-11-09T17:48:28.435Z end mut-W04 exit 1
+2026-11-09T17:48:28.436Z start mut-W05
+2026-11-09T17:49:45.207Z end mut-W05 exit 1
+2026-11-09T17:49:45.208Z start mut-W06
+2026-11-09T17:51:02.475Z end mut-W06 exit 1
+2026-11-09T17:51:02.476Z start mut-E1
+2026-11-09T17:52:26.856Z end mut-E1 exit 1
+2026-11-09T17:52:26.857Z start mut-E2
+2026-11-09T17:53:46.774Z end mut-E2 exit 1
+2026-11-09T17:53:46.775Z start red-R1
+2026-11-09T17:54:02.438Z end red-R1 exit 1
+2026-11-09T17:54:02.438Z start red-R2
+2026-11-09T17:54:10.361Z end red-R2 exit 0
+2026-11-09T17:54:10.361Z start red-R3
+2026-11-09T17:54:17.355Z end red-R3 exit 0
+2026-11-09T17:54:17.361Z start leanchecker
+2026-11-09T17:55:18.817Z end leanchecker exit 0
+2026-11-09T17:55:18.819Z start lean4export-build
+2026-11-09T17:55:29.989Z end lean4export-build exit 0
+2026-11-09T17:55:29.989Z start nanoda-build
+2026-11-09T17:55:45.007Z end nanoda-build exit 0
+2026-11-09T17:55:45.007Z start export
+2026-11-09T17:57:26.345Z end export exit 0
+2026-11-09T17:57:26.346Z start nanoda
+2026-11-09T17:57:27.539Z end nanoda exit 0
+2026-11-09T17:57:27.543Z done: pin,toolchain,cache,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda
+2026-11-09T17:58:06.045Z assembled 20 files
+2026-11-09T17:58:06.046Z start mut-S0
+2026-11-09T17:59:38.541Z end mut-S0 exit 0
+2026-11-09T17:59:38.543Z start mut-S1
+2026-11-09T18:01:02.290Z end mut-S1 exit 0
+2026-11-09T18:01:02.293Z start mut-S2
+2026-11-09T18:02:28.950Z end mut-S2 exit 0
+2026-11-09T18:02:28.951Z start mut-S3
+2026-11-09T18:03:59.364Z end mut-S3 exit 0
+2026-11-09T18:03:59.365Z start mut-W01
+2026-11-09T18:05:23.919Z end mut-W01 exit 1
+2026-11-09T18:05:23.920Z start mut-W02
+2026-11-09T18:06:45.888Z end mut-W02 exit 1
+2026-11-09T18:06:45.889Z start mut-W03
+2026-11-09T18:08:05.504Z end mut-W03 exit 1
+2026-11-09T18:08:05.505Z start mut-W04
+2026-11-09T18:09:22.279Z end mut-W04 exit 1
+2026-11-09T18:09:22.280Z start mut-W05
+2026-11-09T18:10:43.944Z end mut-W05 exit 1
+2026-11-09T18:10:43.946Z start mut-W06
+2026-11-09T18:12:29.368Z end mut-W06 exit 1
+2026-11-09T18:12:29.369Z start mut-E1
+2026-11-09T18:14:02.972Z end mut-E1 exit 1
+2026-11-09T18:14:02.973Z start mut-E2
+2026-11-09T18:15:25.092Z end mut-E2 exit 1
+2026-11-09T18:15:25.101Z done: assemble,mutants
