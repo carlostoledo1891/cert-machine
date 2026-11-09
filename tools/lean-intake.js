@@ -137,7 +137,7 @@ function generated() {
   const cLine = {};
   for (const m of SPEC.mutants) {
     const ns = (SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id;   /* inside the canonical namespace, its dot notation resolves */
-    const head = imp + (m.imports || []).map((i) => `import ${i}\n`).join('') + `\n/-! ${m.id} (${m.kind}): ${m.why.replace(/-\//g, '- /')} -/\nnamespace ${ns}\n`;
+    const head = imp + (m.imports || []).map((i) => `import ${i}\n`).join('') + `\n/-! ${m.id} (${m.kind}): ${m.why.replace(/-\//g, '- /')} -/\nnamespace ${ns}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('');
     const body = `theorem s : ${m.statement} := by\n  sorry\n`;
     cLine[m.id] = (head + body).split('\n').length;
     files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${SPEC.claim.decl}\nend ${ns}\n`;
