@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-09 ~14:30 UTC; NOTHING BILLING — no pods, no runs in flight):
+  ◆◆ 11-09 AFTERNOON: Freer replied on ZQ #8 (issuecomment-6742341294, "drafted by Opus, reviewed by Astra"): thanks for the
+     review; gaps 1–3 answered by his evidence PR #23 (a4502814; research/stack-public-evidence/ above #20's 75e76303: all 12
+     tables of #8–#20 with balanced integer rows, IRs, maps, certificates, a stdlib check_evidence.py; no certificates for the
+     route-changing layers #11/#12/#16/#17/#19/#20; raw→compiled IR not replayed); CI approval asked of Glazer; our j ≥ 2 note
+     taken as ERRATA.md. THE OPERATOR: WAIT (no reply, no check now). If a check is ordered later: amendment D, #8–#16 only,
+     our own expansion of #23's rows pinned by hash (no licence: never vendored). claimbox's make lift: later, claimbox's job.
   ◆◆ 11-09 DAY (the GitHub review, then the operator's four picks). DONE: (1) LANE K amendment 18 recorded (runs 42542204488
      nanoda d0a02cc5, 42542206797 the 3a240721 control; both 1 GiB, a 13 GiB systemd scope): the new arm CERTIFIED the 9
      marleymcwilliams accepts, the control none (10 of its 15 ran out of memory while nanoda ran), the other 6 REFUSED on
