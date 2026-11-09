@@ -243,5 +243,46 @@
     "intake": "plantedClaims.word"
    }
   ]
+ },
+ "f2": {
+  "what": "P2 (the operator's 'Proceed the plan', 2026-11-09): instance agreement. Lean evaluates the CANONICAL statement's own components (its instance binders become parameters, each hypothesis and the conclusion a `decide`, nothing restated) on every instance below; an independent exact decider written here from the INFORMAL statement only (instruments/intake/erdos-488.js, no Lean, no DeepMind code read) evaluates the same instances; the two must agree wherever the informal statement is defined. The canonical statement's values are confirmed by the kernel (decide +kernel, in chunks). Pre-registered here before any F2 code runs.",
+  "informal": "erdosproblems.com/488 as DeepMind's docstring quotes it: Let A be a finite set and B = {n ≥ 1 : a ∣ n for some a ∈ A}. Is it true that, for every m > n ≥ max(A), |B ∩ [1,m]|/m < 2|B ∩ [1,n]|/n?",
+  "decider": "instruments/intake/erdos-488.js",
+  "instanceType": "Finset ℕ × ℕ × ℕ",
+  "instances": "(List.range 64).filter (· ≠ 0) |>.flatMap fun mask => (List.range 6).flatMap fun n => (List.range 8).map fun m => ((Finset.range 6).filter (fun i => mask.testBit i), n, m)",
+  "apply": "fun x => COMP x.1 x.2.1 x.2.2",
+  "instanceJson": "fun x => Lean.Json.arr #[Lean.toJson (x.1.sort (· ≤ ·)), Lean.toJson x.2.1, Lean.toJson x.2.2]",
+  "chunk": 200,
+  "componentMap": {
+   "0": "added: A.Nonempty (not in the informal statement)",
+   "1": "added: 0 ∉ A (not in the informal statement; DeepMind's PR #256 gives the reason)",
+   "2": "added: 1 ∉ A (not in the informal statement; the same PR)",
+   "3": "m > n",
+   "4": "n ≥ max(A)",
+   "5": "conclusion"
+  },
+  "expect": {
+   "canonical": "6 components; conclusion and the informal hypotheses agree with the decider on every instance where the informal statement is defined (n ≥ 1, m ≥ 1); the implication agrees too; the kernel confirms every chunk; the three added hypotheses are listed, not compared",
+   "mutants": {
+    "W02": "conclusion disagrees on at least one instance",
+    "W04": "conclusion disagrees on at least one instance",
+    "W09": "conclusion disagrees on at least one instance",
+    "W10": "conclusion disagrees on at least one instance",
+    "W11": "conclusion disagrees on at least one instance",
+    "E1": "conclusion disagrees on at least one instance",
+    "W03": "conclusion agrees on every instance",
+    "W05": "conclusion agrees on every instance",
+    "W06": "conclusion agrees on every instance",
+    "W07": "conclusion agrees on every instance",
+    "S0": "conclusion agrees on every instance",
+    "S1": "conclusion agrees on every instance",
+    "S2": "conclusion agrees on every instance",
+    "S3": "conclusion agrees on every instance",
+    "S4": "conclusion agrees on every instance",
+    "W08": "conclusion agrees on every instance",
+    "W01": "REFUSED: not decidable on instances (the statement is an `answer(sorry) ↔ …` with no instance binders)"
+   }
+  },
+  "notInScope": "the mutants' values are the interpreter's (#eval), not kernel-confirmed; instances where the informal statement divides by zero (n = 0 or m = 0) are not compared — Lean's x/0 = 0 there is a convention, recorded as such"
  }
 }
