@@ -318,6 +318,7 @@ drift:
 	@$(NODE) tools/lift.js --check
 	@$(NODE) tools/lift.js --check --manifest LIFT-claimbox.json
 	@$(NODE) tools/lift.js --check --manifest LIFT-cryptids.json
+	@$(NODE) tools/lift.js --check --manifest LIFT-claimbox-intake.json
 	@$(NODE) playground/pins.js
 
 lift:
@@ -328,6 +329,9 @@ lift-claimbox:
 
 lift-cryptids:
 	@$(NODE) tools/lift.js --manifest LIFT-cryptids.json
+
+lift-claimbox-intake:
+	@$(NODE) tools/lift.js --manifest LIFT-claimbox-intake.json
 
 clean:
 	@rm -f index.html ledger.json

@@ -152,7 +152,7 @@ function generated() {
       + `def Intake.F2.rows (f : ${F2.instanceType} → List Bool) : Json :=\n  Json.arr (Intake.F2.instances.map fun x => Json.arr #[(${F2.instanceJson}) x, Json.str (Intake.bits (f x))]).toArray\n\n`
       + `intake_components ${C.decl} => Intake.F2E.can\n`
       + `#eval Intake.emitLine (Json.mkObj [("statement", Json.str "canonical"), ("rows", Intake.F2.rows (${app('Intake.F2.can')}))])\n`
-      + muts.map((m) => `\nnamespace Intake.F2M.${m.id}\ntheorem s : ${m.statement} := by\n  sorry\nend Intake.F2M.${m.id}\n`
+      + muts.map((m) => `\nnamespace Intake.F2M.${m.id}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('') + `theorem s : ${m.statement} := by\n  sorry\nend Intake.F2M.${m.id}\n`
         + `intake_components Intake.F2M.${m.id}.s => Intake.F2M.${m.id}.comp\n`
         + `#eval Intake.emitLine (Json.mkObj [("statement", Json.str "${m.id}"), ("rows", Intake.F2.rows (${app(`Intake.F2M.${m.id}.comp`)}))])\n`).join('');
   }
@@ -330,7 +330,11 @@ function decide() {
     const n = 'mut-' + m.id, log = rd(n + '.log'), e = exit(n), errs = errors(log, `Intake/Mut/${m.id}.lean`);
     const atC = errs.length > 0 && errs.every((x) => x.line === cLine[m.id]) && errs.some((x) => /type mismatch/i.test(x.text));
     const outcome = e === '0' ? 'ACCEPTED' : atC ? 'REFUSED by type mismatch' : 'FAILED elsewhere';
-    const row = { id: m.id, kind: m.kind, why: m.why, expect: m.expect, outcome, asExpected: outcome === m.expect, errors: errs.slice(0, 3), seconds: secs(n) };
+    /* claimbox's words (its spec's `vocabulary`): "kernel decides" predicts nothing — the outcome is recorded, never a miss;
+       "NOT ACCEPTED" is met by a refusal or by a statement that does not elaborate */
+    const asExp = m.expect === 'kernel decides' ? true : m.expect === 'NOT ACCEPTED' ? outcome !== 'ACCEPTED' : outcome === m.expect;
+    const row = { id: m.id, kind: m.kind, why: m.why, expect: m.expect, outcome, asExpected: asExp, errors: errs.slice(0, 3), seconds: secs(n) };
+    if (m.rule) Object.assign(row, { rule: m.rule, predicted: m.expect !== 'kernel decides', aligned: !!m.aligned });
     if (m.amendment) row.amendment = m.amendment;
     if (m.preregistered) Object.assign(row, { preregistered: m.preregistered, asPreregistered: outcome === m.preregistered.expect });
     return row;
@@ -351,7 +355,67 @@ function decide() {
   }
   /* F2: the canonical statement's parts against the informal decider, instance by instance */
   let F2 = null;
-  if (SPEC.f2) {
+  if (SPEC.f2 && SPEC.f2.table) {
+    /* F2 against claimbox's reading: its table (one row per instance and reading, each part T, F or -, the claim last),
+       copied beside the spec by LIFT-claimbox-intake.json and held to the sha256 the spec names. Each canonical hypothesis
+       is the reading's assumption whose values it equals wherever the assumption is defined (truth table), or "added";
+       an assumption no hypothesis equals is "missing"; the conclusion is compared with the claim where the claim is
+       defined; a disagreement of the whole implication is explained when an added hypothesis is false there and the
+       sentence is false there. Then F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's
+       on an instance is not definitionally equal to it, so F1 must have refused it. */
+    const tb = fs.readFileSync(path.join(ROOT, path.dirname(SPEC_PATH), 'reading.json'));
+    if (sha(tb) !== SPEC.f2.table.sha256) die('the reading table beside the spec is not the bytes the spec names');
+    const T = JSON.parse(tb.toString('utf8'));
+    const lines = has('f2eval.jsonl') ? rd('f2eval.jsonl').trim().split('\n').map((l) => JSON.parse(l)) : [];
+    const can = lines.find((l) => l.statement === 'canonical');
+    const parts = (lines.find((l) => l.components === SPEC.canonical.decl) || {}).parts || null;
+    const key = (x) => JSON.stringify(x);
+    const sameEnum = !!can && T.readings.every((r) => r.rows.length === can.rows.length && r.rows.every((x, i) => key(x[0]) === key(can.rows[i][0])));
+    const compare = (rows, rr, assumes) => {
+      const k = rows[0][1].length - 1, val = rr.map((r) => r[1].split('').map((c) => (c === '-' ? null : c === 'T')));
+      const match = [];
+      for (let j = 0; j < k; j++) match.push(assumes.map((_, i) => i).filter((i) => val.some((v) => v[i] !== null) && val.every((v, q) => v[i] === null || v[i] === (rows[q][1][j] === '1'))));
+      const added = [...Array(k).keys()].filter((j) => !match[j].length);
+      const missing = assumes.filter((_, i) => !match.some((mj) => mj.includes(i)));
+      let cc = 0, cd = 0, und = 0, ic = 0, idis = 0, ex = 0;
+      const why = new Set(), inst = new Set(), first = [];
+      val.forEach((v, q) => {
+        const bits = rows[q][1].split('').map((b) => b === '1'), c = v[v.length - 1];
+        if (c === null) und++; else { cc++; if (c !== bits[k]) { cd++; if (first.length < 3) first.push(rows[q][0]); } }
+        const li = bits.slice(0, k).every(Boolean) ? bits[k] : true;
+        const hs = v.slice(0, -1), ri = hs.some((h) => h === false) ? true : hs.some((h) => h === null) ? null : c;
+        if (ri !== null) {
+          ic++;
+          if (li !== ri) { idis++; const off = added.filter((j) => !bits[j]); if (off.length && ri === false) { ex++; off.forEach((j) => why.add(j)); inst.add((Object.keys(SPEC.f2.binders || {})[0] || 'x') + ' = ' + JSON.stringify(rows[q][0][0])); } }
+        }
+      });
+      const nm = (j) => (parts ? parts[j] : String(j));
+      return { map: Object.fromEntries([...Array(k).keys()].map((j) => [nm(j), match[j].length ? match[j].map((i) => assumes[i]) : 'added'])), added: added.map(nm), missing,
+        conclusion: { compared: cc, disagreements: cd, undefinedInReading: und, first }, implication: { compared: ic, disagreements: idis, explained: ex, explainedBy: [...why].sort((a, b) => a - b).map(nm), explainedInstances: [...inst].sort() } };
+    };
+    const readings = can && parts ? T.readings.map((r) => {
+      const c = compare(can.rows, r.rows, r.parts.slice(0, -1));
+      const ok = !c.missing.length && c.conclusion.disagreements === 0 && c.implication.disagreements === c.implication.explained;
+      return Object.assign({ reading: r.reading, word: ok ? 'AGREES' : 'DISAGREES' }, c);
+    }) : [];
+    const kernelSha = has('f2kernel.sha256') ? rd('f2kernel.sha256').trim() : null;
+    const kernelOk = !!can && exit('f2kernel') === '0' && kernelSha === sha(f2KernelFile(can.rows));
+    const f1of = Object.fromEntries(mutants.map((m) => [m.id, m.outcome]));
+    const planted = SPEC.mutants.map((m) => {
+      const L = lines.find((l) => l.statement === m.id);
+      if (!L) return { id: m.id, rows: false, aligned: !!m.aligned, outcome: f1of[m.id], mustRefuse: false, holds: true };
+      const alignedInLean = !!m.aligned && L.rows[0][1].length === can.rows[0][1].length;
+      const diff = L.rows.filter((r, i) => r[1] !== can.rows[i][1]).length;
+      const must = alignedInLean && diff > 0;
+      return { id: m.id, rows: true, aligned: !!m.aligned, alignedInLean, instancesWithADifferingPart: diff, outcome: f1of[m.id], mustRefuse: must, holds: !must || f1of[m.id] !== 'ACCEPTED' };
+    });
+    const f1 = { mustRefuse: planted.filter((p) => p.mustRefuse).length, holds: planted.every((p) => p.holds), alignmentMisses: planted.filter((p) => p.rows && p.aligned && !p.alignedInLean).map((p) => p.id) };
+    const ok = sameEnum && !!parts && readings.length > 0 && readings.every((r) => r.word === 'AGREES') && kernelOk && f1.holds;
+    F2 = { informal: SPEC.f2.informal, reading: SPEC.f2.reading, table: SPEC.f2.table, instances: can ? can.rows.length : 0, sameEnumeration: sameEnum, canonicalParts: parts,
+      readings, kernel: { confirmed: kernelOk, chunks: can ? Math.ceil(can.rows.length / SPEC.f2.chunk) : 0, seconds: secs('f2kernel') },
+      f1, planted, limits: ['F2 compares truth values on finitely many instances: a change that never flips one there is invisible to it', 'where the reading is undefined (a division by zero, an instance outside a given\'s type) nothing is compared; Lean\'s conventions decide those instances'],
+      word: ok ? 'CERTIFIED' : 'REFUSED' };
+  } else if (SPEC.f2) {
     const D = require(path.join(ROOT, SPEC.f2.decider));
     const lines = has('f2eval.jsonl') ? rd('f2eval.jsonl').trim().split('\n').map((l) => JSON.parse(l)) : [];
     const inst = D.instances(), can = lines.find((l) => l.statement === 'canonical');
@@ -429,17 +493,38 @@ function decide() {
   /* as pre-registered: the controls that existed before any run, each against its original expectation */
   const pre = mutants.filter((m) => !m.amendment || m.preregistered);
   const preOk = pre.filter((m) => (m.preregistered ? m.asPreregistered : m.asExpected)).length;
+  /* claimbox's spec (kinds changed / type): only certain predictions count; the controls show the check discriminates when
+     some changed or retyped statement is refused and some rewording accepted; F2 ⇒ F1 must hold where F2 ran */
+  const cbx = mutants.some((m) => m.kind === 'changed' || m.kind === 'type');
+  const changed = mutants.filter((m) => m.kind === 'changed'), typ = mutants.filter((m) => m.kind === 'type'), certain = mutants.filter((m) => m.expect !== 'kernel decides');
+  const F1controls = cbx ? {
+    same: same.filter((m) => m.outcome === 'ACCEPTED').length + ' of ' + same.length + ' accepted (predicted)',
+    type: typ.filter((m) => m.outcome !== 'ACCEPTED').length + ' of ' + typ.length + ' not accepted (predicted)',
+    changed: changed.filter((m) => m.outcome !== 'ACCEPTED').length + ' refused, ' + changed.filter((m) => m.outcome === 'ACCEPTED').length + ' accepted, of ' + changed.length + ' (kernel decides: no outcome predicted)'
+      + (changed.some((m) => m.outcome === 'ACCEPTED') ? ' — accepted: ' + changed.filter((m) => m.outcome === 'ACCEPTED').map((m) => m.id).join(', ') + ' (the rule\'s change is definitionally invisible there)' : ''),
+    equivalent: equiv.length ? equiv.filter((m) => m.outcome !== 'ACCEPTED').length + ' of ' + equiv.length + ' refused (kernel decides)' : undefined,
+    certain: certain.filter((m) => m.asExpected).length + ' of ' + certain.length + ' certain predictions met',
+    f2ImpliesF1: F2 && F2.f1 ? (F2.f1.holds ? 'holds: ' + F2.f1.mustRefuse + ' aligned statements with a differing part, all refused' : 'FAILS') : undefined,
+    word: certain.every((m) => m.asExpected) && changed.concat(typ, equiv).some((m) => m.outcome !== 'ACCEPTED') && same.some((m) => m.outcome === 'ACCEPTED') && (!F2 || !F2.f1 || F2.f1.holds) ? 'CERTIFIED' : 'REFUSED',
+  } : { wrongRefused: wrong.filter((m) => m.asExpected).length + ' of ' + wrong.length, sameAccepted: same.filter((m) => m.asExpected).length + ' of ' + same.length,
+    equivalentRefused: equiv.length ? equiv.filter((m) => m.asExpected).length + ' of ' + equiv.length + ' (the limit: identity up to definitional unfolding, not logical equivalence)' : undefined,
+    asPreregistered: preOk + ' of ' + pre.length, word: mutants.every((m) => m.asExpected) ? 'CERTIFIED' : 'REFUSED' };
   const words = {
     F1: F1.word,
-    F1controls: { wrongRefused: wrong.filter((m) => m.asExpected).length + ' of ' + wrong.length, sameAccepted: same.filter((m) => m.asExpected).length + ' of ' + same.length,
-      equivalentRefused: equiv.length ? equiv.filter((m) => m.asExpected).length + ' of ' + equiv.length + ' (the limit: identity up to definitional unfolding, not logical equivalence)' : undefined,
-      asPreregistered: preOk + ' of ' + pre.length, word: mutants.every((m) => m.asExpected) ? 'CERTIFIED' : 'REFUSED' },
+    F1controls,
     F3: F3.word,
     plantedClaims: { caught: reds.filter((r) => r.caught).length + ' of ' + reds.length, word: reds.every((r) => r.caught) ? 'CERTIFIED' : 'REFUSED' },
     kernels: kernels.every((k) => k.word === 'ACCEPTS') ? 'ACCEPT (' + kernels.length + ' run)' : 'NOT ALL ACCEPT',
   };
   if (!F2 && SPEC.f2NotApplicable) words.F2 = { word: 'REFUSED (not run)', why: SPEC.f2NotApplicable };
-  if (F2) {
+  if (F2 && F2.readings) {
+    words.F2 = { word: F2.word,
+      readings: F2.readings.map((r) => `${r.reading}: ${r.word} — conclusion ${r.conclusion.disagreements} disagreements of ${r.conclusion.compared} (${r.conclusion.undefinedInReading} undefined in the reading); `
+        + `implication ${r.implication.disagreements} disagreements` + (r.implication.disagreements ? `, ${r.implication.explained} explained by ${r.implication.explainedBy.join(', ')} (${r.implication.explainedInstances.join(', ')})` : '')
+        + (r.added.length ? '; added by the formalization: ' + r.added.join(', ') : '') + (r.missing.length ? '; MISSING from it: ' + r.missing.join(', ') : '')),
+      kernel: F2.kernel.confirmed ? 'the kernel confirms all ' + F2.kernel.chunks + ' chunks' : 'NOT confirmed',
+      f2ImpliesF1: F2.f1.holds ? 'holds (' + F2.f1.mustRefuse + ' must-refuse)' : 'FAILS' };
+  } else if (F2) {
     const c = F2.canonical;
     words.F2 = { word: F2.word,
       canonical: !c ? 'no rows' : (c.conclusionDisagreements ? `DISAGREES with the informal decider on ${c.conclusionDisagreements} of ${c.conclusionCompared} instances` : `agrees with the informal decider on all ${c.conclusionCompared} instances where the informal statement is defined`) + ` (${c.undefinedInInformal} undefined there: n = 0 or m = 0)`
@@ -463,7 +548,8 @@ function decide() {
   }
   return {
     what: 'The Lean intake of ' + SPEC.claim.what + ' against ' + SPEC.canonical.what + ', decided from the run\'s facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). '
-      + 'CERTIFIED here says: the kernels named accept the claimant\'s proof as a proof of ' + neg + 'the canonical declaration\'s own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant\'s file is caught.',
+      + 'CERTIFIED here says: the kernels named accept the claimant\'s proof as a proof of ' + neg + 'the canonical declaration\'s own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant\'s file is caught.'
+      + (SPEC.writer ? ' The spec was written by claimbox (' + SPEC.writer.by + ': every planted statement by a fixed rule, only certain outcomes predicted — "kernel decides" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.' : ''),
     notDecided: 'Whether the canonical statement is the informal problem (a reading, F5' + (SPEC.f2 ? '; F2 tests it on finitely many instances, which is evidence, not proof' : '; F2, instance agreement, is phase P2') + '); the kernels not run: ' + notRun.join(', ') + (bundled.length ? ' (bundled but not run: ' + bundled.join(', ') + ')' : ' (not bundled with ' + SPEC.canonical.toolchain.split(':')[1] + ')') + '.',
     spec: { path: SPEC_PATH, sha256: sha(fs.readFileSync(path.join(ROOT, SPEC_PATH))), amendments: SPEC.amendments.length },
     run: { day, facts: path.relative(ROOT, F), machine: JSON.parse(rd('machine.json')), stepSeconds: Number(wall.toFixed(1)), costUSD: 0 },
@@ -477,7 +563,8 @@ function record() {
   if (process.argv.includes('--check')) {
     const old = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
     if (JSON.stringify(rec, null, 1) + '\n' !== old) die('certs/lean-intake-' + id + '.json differs from what the facts derive now');
-    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${rec.words.F1controls.wrongRefused} wrong refused, ${rec.words.F1controls.sameAccepted} same accepted; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels}${rec.words.F2 ? '; F2 ' + rec.words.F2.word + (rec.words.F2.kernel ? ', ' + rec.words.F2.kernel : '') : ''})`);
+    const fc = rec.words.F1controls;
+    console.log(`lean-intake ${id} --check: OK — ${rec.verdict} (F1 ${rec.words.F1}; controls ${fc.wrongRefused ? fc.wrongRefused + ' wrong refused, ' + fc.sameAccepted + ' same accepted' : fc.certain + '; changed ' + fc.changed.split(' (')[0]}; F3 ${rec.words.F3}; planted claims ${rec.words.plantedClaims.caught}; kernels ${rec.words.kernels}${rec.words.F2 ? '; F2 ' + rec.words.F2.word + (rec.words.F2.kernel ? ', ' + rec.words.F2.kernel : '') : ''})`);
     return;
   }
   fs.writeFileSync(OUT, JSON.stringify(rec, null, 1) + '\n');
@@ -495,10 +582,12 @@ function review() {
     `<!-- DRAFT from certs/lean-intake-${id}.json (tools/lean-intake.js review); untracked; posted only on the operator's word. -->`,
     `I checked ${SPEC.claim.what}, against ${SPEC.canonical.what} (\`${SPEC.canonical.decl}\` at \`${SPEC.canonical.commit}\`).`,
     '',
-    `- **The statement.** ${R.F1.how.charAt(0).toUpperCase() + R.F1.how.slice(1)}. Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`,
+    `- **The statement.** ${R.F1.how.charAt(0).toUpperCase() + R.F1.how.slice(1)}. ` + (R.words.F1controls.wrongRefused ? `Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`
+      : `Of the planted statements (written by fixed rules): rewordings ${R.words.F1controls.same}; changed ones ${R.words.F1controls.changed.split(' (')[0]}; retyped ${R.words.F1controls.type}.`),
     `- **The hypotheses are satisfiable:** ${R.F3.witness}, checked by the kernel.`,
     `- **The kernels:** ${R.kernels.map((k) => k.name + ' ' + k.word.toLowerCase()).join('; ')}. Not run: ${R.notRun.join(', ')}.`,
-    ...(R.F2 ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances. ${R.words.F2.canonical.charAt(0).toUpperCase() + R.words.F2.canonical.slice(1)}. The kernel confirmed Lean's values.`] : []),
+    ...(R.F2 && R.F2.readings ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances, under each reading of the sentence: ${R.words.F2.readings.join('; ')}. The kernel confirmed Lean's values.`] : []),
+    ...(R.F2 && !R.F2.readings ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances. ${R.words.F2.canonical.charAt(0).toUpperCase() + R.words.F2.canonical.slice(1)}. The kernel confirmed Lean's values.`] : []),
     `- **The axioms:** ${R.F1.axioms.join(', ')}. Planted defects in the proof file (${R.reds.map((r) => r.why).join('; ')}): ${R.words.plantedClaims.caught} caught.`,
     `- **Not checked here:** whether the formal statement is the informal problem, which is a reading.`,
     '',

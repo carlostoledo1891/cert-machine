@@ -1,0 +1,19 @@
+{
+ "source_root": "~/Projects/claimbox",
+ "policy": "READ-ONLY. claimbox writes the Lean intake's spec and its reading's table (claimbox/intake, lean/INTAKE.md §7–§8); this manifest copies them OUT into corpus/lean-intake/<id>-claimbox/, where tools/lean-intake.js reads them as it reads a hand-written spec, and never writes back. The copy is committed before the run (the pre-registration); PROVENANCE-claimbox-intake.json names the claimbox commit and every sha256; `make drift` re-hashes both ends. A separate manifest from LIFT-claimbox.json so that a lift here never re-copies the Riemann or x^x files. Extends the one exception to CLAUDE.md's 'nothing here reads claimbox' on the operator's go for the lane's L1 + L2 (2026-11-09).",
+ "items": [
+  {
+   "src": "records/intake/erdos-488-spec.json",
+   "dst": "corpus/lean-intake/erdos-488-claimbox/spec.json",
+   "note": "claimbox's intake spec for Erdős #488 (28 planted statements by fixed rules), written from corpus/intake/erdos-488/target.json",
+   "exclude": []
+  },
+  {
+   "src": "records/intake/erdos-488-reading.json",
+   "dst": "corpus/lean-intake/erdos-488-claimbox/reading.json",
+   "note": "the blind reading of Erdős #488's sentence evaluated on the spec's 3,024 instances, its nine readings (F2's independent side)",
+   "exclude": []
+  }
+ ],
+ "patches": []
+}

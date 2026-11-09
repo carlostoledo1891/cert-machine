@@ -173,6 +173,9 @@ readers, the grammar and the recall are its work, done in its folder. The operat
 their words: build what is asked, never substitute a design. The one exception (operator-approved 2026-10-22): `LIFT-claimbox.json` copies claimbox's
 pinned Riemann records and corpus OUT into `corpus/claimbox-riemann` for the companion paper `riemann-finite-layer`, with the claimbox commit and every
 sha256 in `PROVENANCE-claimbox.json`; the build reads the copies, never claimbox; `make drift` re-hashes both ends and `make lift-claimbox` refreshes them.
+The same exception, extended for the Lean intake lane (the operator's go on L1 + L2, 2026-11-09): `LIFT-claimbox-intake.json` copies claimbox's
+intake specs and reading tables OUT into `corpus/lean-intake/<id>-claimbox/` (`make lift-claimbox-intake`, provenance `PROVENANCE-claimbox-intake.json`),
+committed before the run as its pre-registration; `tools/lean-intake.js` reads the copies.
 
 ## The backlog
 

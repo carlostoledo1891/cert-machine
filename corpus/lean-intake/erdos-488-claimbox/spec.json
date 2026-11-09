@@ -1,0 +1,447 @@
+{
+ "id": "erdos-488",
+ "what": "Declan Gessel's refutation of Erdős #488, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297), against DeepMind's statement: claimbox's calibration case, its answers already recorded by cert-machine (certs/lean-intake-erdos-488.json, 2026-11-09). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/erdos-488/target.json",
+  "target": {
+   "path": "corpus/intake/erdos-488/target.json",
+   "sha256": "92ea4bc2bfc1650addb63f51d627c94e5f44e4a533b1c47b66e14004289451ee"
+  },
+  "pins": {
+   "path": "corpus/intake/erdos-488/pins.json",
+   "sha256": "4d240a344e820440199076e6447f4b79ece48504e9c48b9494b360b13635652a"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/erdos-488/canonical.lean",
+   "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+   "statementLines": [
+    38,
+    44
+   ]
+  }
+ },
+ "polarity": "refutes",
+ "claim": {
+  "what": "Declan Gessel's refutation, with OpenAI's GPT-6 Astra in Codex (google-deepmind/formal-conjectures PR #5297)",
+  "kind": "git",
+  "url": "https://gist.github.com/d8e15e5ff1b6c7e99e3d86d7c66f1d08.git",
+  "commit": "034be67a5c958e55505bb357f9e4ef3015788465",
+  "file": "Erdos488.lean",
+  "sha256": "f2a7dcfde9689e00db7b697c22eb6436c1b02d834555a28a476d9e5e606e9ca0",
+  "decl": "Erdos488ExactAdapter.refutation",
+  "license": "none stated: no byte of the file is kept here or in the spec but its declaration's header line; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #488",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "2055e5adadae0b2e392365938faa82ef6f1464f0",
+  "path": "FormalConjectures/ErdosProblems/488.lean",
+  "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+  "module": "FormalConjectures.ErdosProblems.«488»",
+  "decl": "Erdos488.erdos_488",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Erdos488.IntakeMut",
+ "mutantOpen": [
+  "Erdos488"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: A = {2}, n = 2, m = 3",
+  "tactic": "intro h\n  exact h {2} (by first | decide | simp | norm_num) (by first | decide | simp | norm_num) (by first | decide | simp | norm_num) 2 3 (by first | decide | simp | norm_num) (by first | decide | simp | norm_num)",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (A→A₀, B→B₀, a→a₀, m→m₀, n→n₀): alpha-equivalent",
+   "statement": "∀ (A₀ : Finset ℕ), A₀.Nonempty →\n    0 ∉ A₀ → 1 ∉ A₀ →\n    letI B₀ := {n₀ ≥ 1 | ∃ a₀ ∈ A₀, a₀ ∣ n₀}\n    ∀ᵉ (n₀ : ℕ) (m₀ > n₀), A₀.max ≤ n₀ →\n      ((Finset.Icc 1 m₀).filter (· ∈ B₀)).card / (m₀ : ℚ) <\n        2 * ((Finset.Icc 1 n₀).filter (· ∈ B₀)).card / n₀",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "rule": "same:binder-pred",
+   "why": "the binder predicates of `∀ᵉ (n : ℕ) (m > n),` written out as hypotheses (n < m): notation, and > / ≥ are reducible to < / ≤",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ (n m : ℕ), n < m → A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "rule": "same:not-mem",
+   "why": "`0 ∉ A` written `¬ (0 ∈ A)` (the notation's own unfolding), line 2",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    ¬ (0 ∈ A) → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S4",
+   "kind": "same",
+   "rule": "same:not-mem",
+   "why": "`1 ∉ A` written `¬ (1 ∈ A)` (the notation's own unfolding), line 2",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → ¬ (1 ∈ A) →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S5",
+   "kind": "same",
+   "rule": "same:zeta",
+   "why": "`letI B := …` inlined at its 2 uses (zeta)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ {n ≥ 1 | ∃ a ∈ A, a ∣ n})).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ {n ≥ 1 | ∃ a ∈ A, a ∣ n})).card / n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `A.Nonempty` dropped",
+   "statement": "∀ (A : Finset ℕ),\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `0 ∉ A` dropped",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `1 ∉ A` dropped",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the binder predicate `m > n` dropped (`(m : ℕ)`)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m : ℕ), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `A.max ≤ n` dropped",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n),\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`≥` made `>` (`{ n ≥ 1 |` → `{ n > 1 |`, line 3)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n > 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`>` made `≥` (`( m > n )` → `( m ≥ n )`, line 4)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m ≥ n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C08",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`≤` made `<` (`A.max ≤ n` → `A.max < n`, line 4)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max < n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C09",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`<` made `≤` (`ℚ ) < 2 *` → `ℚ ) ≤ 2 *`, line 5)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) ≤\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 0 made 1 (`A.Nonempty → 0 ∉ A` → `A.Nonempty → 1 ∉ A`, line 2)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    1 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`A → 1 ∉ A` → `A → 2 ∉ A`, line 2)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 2 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C12",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`A → 1 ∉ A` → `A → 0 ∉ A`, line 2)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 0 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C13",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`n ≥ 1 | ∃` → `n ≥ 2 | ∃`, line 3)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 2 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C14",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`n ≥ 1 | ∃` → `n ≥ 0 | ∃`, line 3)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 0 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C15",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`( Finset.Icc 1 m )` → `( Finset.Icc 2 m )`, line 5)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 2 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C16",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`( Finset.Icc 1 m )` → `( Finset.Icc 0 m )`, line 5)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 0 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C17",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`< 2 *` → `< 3 *`, line 6)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        3 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C18",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`< 2 *` → `< 1 *`, line 6)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        1 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C19",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`( Finset.Icc 1 n )` → `( Finset.Icc 2 n )`, line 6)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 2 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C20",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`( Finset.Icc 1 n )` → `( Finset.Icc 0 n )`, line 6)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 0 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of A: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "statement": "∀ (A : Finset ℤ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  },
+  {
+   "id": "N2",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "statement": "∀ (A : Finset ℕ), A.Nonempty →\n    0 ∉ A → 1 ∉ A →\n    letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}\n    ∀ᵉ (n : ℤ) (m > n), A.max ≤ n →\n      ((Finset.Icc 1 m).filter (· ∈ B)).card / (m : ℚ) <\n        2 * ((Finset.Icc 1 n).filter (· ∈ B)).card / n",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of refutation replaced by sorry (the original kept as intake_was_refutation)",
+   "find": "theorem refutation : ¬ proposition :=",
+   "replace": "theorem refutation : ¬ proposition := sorry\n\ntheorem intake_was_refutation : ¬ proposition :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "refutation proved by an added axiom (the original kept as intake_was_refutation)",
+   "find": "theorem refutation : ¬ proposition :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem refutation : ¬ proposition := intakeRedAxiom\n\ntheorem intake_was_refutation : ¬ proposition :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2": {
+  "what": "F2, instance agreement: Lean evaluates the canonical statement's own parts on every instance below; the reading — an exact program claimbox states from the informal sentence, written without the Lean — evaluates the same instances; cert-machine compares them part by part. Every rule below is fixed before the run.",
+  "informal": "Let $A$ be a finite set and\\[B=\\{ n \\geq 1 : a\\mid n\\textrm{ for some }a\\in A\\}.\\]Is it true that, for every $m>n\\geq \\max(A)$,\\[\\frac{\\lvert B\\cap [1,m]\\rvert }{m}< 2\\frac{\\lvert B\\cap [1,n]\\rvert}{n}?\\]",
+  "reading": {
+   "path": "corpus/intake/erdos-488/erdos-488.reading",
+   "sha256": "16cb7a6b90e377a8e4bf721ead8ba0c54f909a6bdb6611da6945b4c4ee22c521",
+   "proposed": "model:claude-opus-5-5 (blind: given only the sentence and lean/READING.md)",
+   "readings": [
+    "A: finite set of positive integers; n, m: positive integer",
+    "A: finite set of positive integers; n, m: natural",
+    "A: finite set of positive integers; n, m: integer",
+    "A: finite set of naturals; n, m: positive integer",
+    "A: finite set of naturals; n, m: natural",
+    "A: finite set of naturals; n, m: integer",
+    "A: finite set of integers; n, m: positive integer",
+    "A: finite set of integers; n, m: natural",
+    "A: finite set of integers; n, m: integer"
+   ]
+  },
+  "table": {
+   "path": "records/intake/erdos-488-reading.json",
+   "sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc"
+  },
+  "binders": {
+   "A": "A",
+   "n": "n",
+   "m": "m"
+  },
+  "instanceType": "Finset ℕ × ℕ × ℕ",
+  "instances": "(List.range 64).filter (· ≠ 0) |>.flatMap fun mask => (List.range 6).flatMap fun n => (List.range 8).map fun m => ((Finset.range 6).filter (fun i => mask.testBit i), n, m)",
+  "apply": "fun x => COMP x.1 x.2.1 x.2.2",
+  "instanceJson": "fun x => Lean.Json.arr #[Lean.toJson (x.1.sort (· ≤ ·)), Lean.toJson x.2.1, Lean.toJson x.2.2]",
+  "chunk": 200,
+  "componentMap": "truth-table: a hypothesis of the canonical statement is the reading's assumption whose values it equals on every instance where the assumption is defined; one equal to none is \"added\" by the formalization; an assumption equal to none is \"missing\" from it; the conclusion is compared with the claim",
+  "expect": {
+   "canonical": "for every reading: every hypothesis either equal to an assumption or added; no assumption missing; the conclusion agrees with the claim wherever the claim is defined; every disagreement of the whole implication explained (an added hypothesis false there and the sentence false there); the kernel confirms every chunk. A reading for which this fails is named, with its instances.",
+   "planted": "F2 ⇒ F1: an aligned planted statement (the canonical's binder types and number of hypotheses) with a part whose value differs from the canonical's on an instance is not definitionally equal to it — F1 must refuse it; for every other planted statement F2 reports and F1 decides"
+  }
+ },
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 8,
+  "kernelDecides": 20,
+  "byRule": {
+   "changed:constant": 11,
+   "changed:drop-hypothesis": 5,
+   "changed:strictness": 4,
+   "same:binder-pred": 1,
+   "same:not-mem": 2,
+   "same:rename": 1,
+   "same:zeta": 1,
+   "type:nat-int": 2,
+   "verbatim": 1
+  },
+  "aligned": 21
+ }
+}
