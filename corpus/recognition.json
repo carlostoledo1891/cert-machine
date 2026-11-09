@@ -343,6 +343,32 @@
    "pages": [
     "reports/optconst-queue.html"
    ]
+  },
+  {
+   "id": "arhancanli-84b-ceiling-reproduced",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "arhancanli on GitHub, an independent replayer of the optimization-constants registry's certificates (quantavane-replays), with no connection to their authors",
+   "what": "Reproduced, with their own code and a red control, the ceiling our #275 prints for the 84b row (0.0007150508): with the record's three relaxations their chain gives 0.00071505073368…, which the pull request rounds up.",
+   "quote": "So this pull request's $0.0007150508$ is that value rounded up, as it says",
+   "source": "recognition/teorth__optimizationproblems__pr-275_comment-6743535883_2026-11-09.json",
+   "url": "https://github.com/teorth/optimizationproblems/pull/275#issuecomment-6743535883",
+   "pages": [
+    "reports/optimization-constants.html"
+   ]
+  },
+  {
+   "id": "arhancanli-c3c-second-replay",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "arhancanli on GitHub, an independent replayer of the optimization-constants registry's certificates (quantavane-replays), with no connection to their authors",
+   "what": "Replayed, with their own code, the C₃c lower bound of #221 (two digit laws in base 55): the ratio 1.674894211307116228…, agreeing with our check of 15 October on the same pull request.",
+   "quote": "the second replay after carlostoledo1891's above, and it agrees with it",
+   "source": "recognition/teorth__optimizationproblems__pr-221_comment-6743337697_2026-11-09.json",
+   "url": "https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6743337697",
+   "pages": [
+    "reports/optconst-queue.html"
+   ]
   }
  ]
 }
