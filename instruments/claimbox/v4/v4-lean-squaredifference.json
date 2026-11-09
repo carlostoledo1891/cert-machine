@@ -1,0 +1,58 @@
+{
+ "id": "v4-lean-squaredifference",
+ "format": 4,
+ "text": "the openai/math release at fd4aeeb2 proves its Comparator challenge SquareDifference (theorem OAI.SquareDifference.power_saving): the solution states the challenge's theorem, uses only the permitted axioms, and Lean's kernel and nanoda both replay it",
+ "source": {
+  "what": "github.com/openai/math lean/ComparatorChallenges/SquareDifference.json at fd4aeeb2, pinned in corpus/openai-math/release (its sha256 is the census's configSha256)",
+  "path": "corpus/openai-math/release/lean__ComparatorChallenges__SquareDifference.json",
+  "sha256": "cea78397dc598f89823100ef5ab75bc9eab1d9c35c885e34784a937e4fcfb76f",
+  "quote": "  \"solution_module\": \"OAI.Combinatorics.SquareDifference.Main\",\n  \"theorem_names\": [\n    \"OAI.SquareDifference.power_saving\""
+ },
+ "reading": "universal",
+ "readings": {
+  "source": "text",
+  "domain": "lean",
+  "record": "text"
+ },
+ "standing": {
+  "source": "COMPUTED",
+  "domain": "REFUSED",
+  "record": "REFUSED"
+ },
+ "domain": {
+  "kind": "lean",
+  "repository": "github.com/openai/math",
+  "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "lane": ".github/workflows/openai-math-kernel.yml"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "Comparator accepts the challenge SquareDifference: the solution's theorem is the challenge's statement, only the permitted axioms, Lean's kernel and nanoda both accept",
+    "where": ".github/workflows/openai-math-kernel.yml",
+    "args": []
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the claim is the release's own: the Comparator challenge SquareDifference as the release ships it; the statement's fidelity to the manuscript is a reading, not decided here",
+ "hypotheses": [
+  "the challenge file states the manuscript's main result (a reading of the statement, not decided by the kernels)"
+ ],
+ "falsifier": [
+  "a kernel rejects the solution in the lane's run",
+  "the lane row prints fewer than the two kernels accepting",
+  "the lane built another commit"
+ ],
+ "record": {
+  "path": "certs/openai-math-kernel.json",
+  "row": "SquareDifference",
+  "key": "challenge",
+  "value": null,
+  "verdict": "REFUSED"
+ },
+ "notes": [
+  "the refusing calibration object: the lane REFUSED this challenge (the 13 GiB memory limit stopped Comparator while nanoda ran, on both nanoda builds of amendment 18; no kernel printed), so the object is admitted and decided REFUSED, never CERTIFIED",
+  "replaced v4-lean-binpackinggap on 2026-11-09, when amendment 18 made BinPackingGap CERTIFIED"
+ ]
+}

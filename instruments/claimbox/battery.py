@@ -471,7 +471,7 @@ EXPECT4 = {   # word, kind, decisions against the record, the meet of the standi
     'v4-int64-sum-integers': (B.ADMITTED, None, [], 'COMPUTED'),
     'v4-int64-sum-int64': (B.ADMITTED, None, [], 'COMPUTED'),
     'v4-lean-abhyankarsathaye': (B.ADMITTED, None, [C], 'COMPUTED'),
-    'v4-lean-binpackinggap': (B.ADMITTED, None, [F], 'REFUSED'),
+    'v4-lean-squaredifference': (B.ADMITTED, None, [F], 'REFUSED'),
     'v4-mutant-lean-other-commit': (B.REFUSED_WORD, 'record-pin-mismatch', None, None),
     'v4-mutant-two-on-one-bar': (B.REFUSED_WORD, 'canonical', None, None),
 }
@@ -521,8 +521,8 @@ ok(ri['fromObject'][0] and ri['fromObject'][0]['word'] == C and ri['fromObject']
    and any('int64 reading' in n and 'does not hold' in n for n in r64['notes']),
    'the same pinned integers: CERTIFIED under the integers reading (the sum is 2^63), undecided under int64 (the partial sum leaves int64)', str(r64['notes'][:1])[:100])
 # the Lean objects: decided from the kernel lane's pinned record, never by a Lean run here
-ok(res4['v4-lean-abhyankarsathaye']['inputs'][1]['path'] == 'github.com/openai/math@fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb' and res4['v4-lean-binpackinggap']['decided'] == [F],
-   'Lean: AbhyankarSathaye CERTIFIED (both kernels in the lane row), BinPackingGap REFUSED (one kernel; the lane refused) — the refusing calibration object')
+ok(res4['v4-lean-abhyankarsathaye']['inputs'][1]['path'] == 'github.com/openai/math@fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb' and res4['v4-lean-squaredifference']['decided'] == [F],
+   'Lean: AbhyankarSathaye CERTIFIED (both kernels in the lane row), SquareDifference REFUSED (no kernel printed; the lane refused) — the refusing calibration object')
 
 # the canonical form: prose, paths of nothing decision-bearing, and predicate order do not move the digest; a bar does
 base1d = json.load(open(os.path.join(V4, 'v4-1d-cert2026.json'), encoding='utf-8'))
@@ -555,7 +555,7 @@ try:
     def drop(k):
         return lambda o: o.pop(k)
     lean_ok = json.load(open(os.path.join(V4, 'v4-lean-abhyankarsathaye.json'), encoding='utf-8'))
-    lean_no = json.load(open(os.path.join(V4, 'v4-lean-binpackinggap.json'), encoding='utf-8'))
+    lean_no = json.load(open(os.path.join(V4, 'v4-lean-squaredifference.json'), encoding='utf-8'))
     int64o = json.load(open(os.path.join(V4, 'v4-int64-sum-int64.json'), encoding='utf-8'))
     prim1d = json.load(open(os.path.join(PRIM, 'prim-1d-cert2026.json'), encoding='utf-8'))
     r4('schema', base1d, lambda o: o.__setitem__('format', 5), 'format 5')

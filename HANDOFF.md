@@ -45,7 +45,7 @@ NEXT SESSION, IN ORDER (handoff 2026-11-09 ~14:30 UTC; NOTHING BILLING — no po
      instruments/claimbox/v4/v4-lean-binpackinggap.json declares REFUSED, and amendment 18 made BinPackingGap CERTIFIED. A
      replacement needs a still-refused challenge with a verbatim quote in a pinned OpenAI file, and none of the nine remaining
      REFUSED is named in the pinned lean__formalization.yaml (it lists 200 of 416). The fix touches SCHEMA.md, which claimbox
-     pins (→ claimbox make lift). THE OPERATOR'S CHOICE.
+     pins (→ claimbox make lift). FIXED 11-09 on the operator's pick: v4-lean-squaredifference (SquareDifference's config pinned in corpus/openai-math/release/, sha = the census's configSha256); battery green; claimbox needs its make lift (SCHEMA.md changed).
   ◆◆ SESSION CLOSED 2026-11-09 ~02:00 UTC (the operator: no more open-ended tasks). [ALL DONE 11-09 — the 11-09 DAY block above.] THE ONE THING LEFT RUNNING: lane K's
      amendment-18 side-by-side (nanoda 3a240721 control vs d0a02cc5, both 1 GiB, 13 GB scope) — GitHub runs 42542206797
      (control) and 42542204488 (d0a02cc5), 3 jobs each still running at 01:55 UTC (Catalan, ContinuumCoulombHardness, and

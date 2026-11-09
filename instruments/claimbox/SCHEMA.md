@@ -261,7 +261,7 @@ commit the lane built (the row's `commit`, else the record's `release.commit` or
 | v4-ea-542-circle-packing | the `resolution` input (its quoted resolution CHOSEN by the platform) | ADMITTED, the primitive's six decisions, meet CHOSEN |
 | v4-int64-sum-integers / -int64 | one pinned byte string (2⁶² and 2⁶², a synthetic fixture in `v4/data/`), two declared readings | `integers`: CERTIFIED from the object (the sum is 2⁶³); `int64`: admitted, not decided (the partial sum leaves int64) |
 | v4-lean-abhyankarsathaye | the Lean kind: openai/math's challenge at fd4aeeb2, the lane's row | ADMITTED, CERTIFIED (both kernels) |
-| v4-lean-binpackinggap | the refusing one: the lane refused this challenge (nanoda overflowed its stack; one kernel printed) | ADMITTED, REFUSED; standings REFUSED |
+| v4-lean-squaredifference | the refusing one: the lane refused this challenge (the memory limit stopped Comparator while nanoda ran; no kernel printed; replaced v4-lean-binpackinggap 2026-11-09, which amendment 18 made CERTIFIED) | ADMITTED, REFUSED; standings REFUSED |
 | v4-mutant-lean-other-commit | a mutant that must not certify: the certified object pointed at the later release 7ef5c0cc | REFUSED, record-pin-mismatch |
 | v4-mutant-two-on-one-bar | a mutant: the C_1d bar, printed once, carrying two inequalities | REFUSED, canonical |
 
