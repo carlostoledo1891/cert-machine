@@ -24,7 +24,8 @@
     "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
     "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
     "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11",
-    "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so"
+    "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so",
+    "for the runs of amendment 18 only: nanoda built from ammkrn/nanoda_lib d0a02cc5 (v0.4.30, 31 commits after the lane's 3a240721) with amendment 11's stack change, beside a control arm built from 3a240721 with the same change; in both arms Comparator runs inside a systemd user scope with MemoryMax=13G and no swap. A row CERTIFIED by the new arm says \"nanoda d0a02cc5 + 1 GiB\"; a control-arm run never moves a word"
    ],
    "words": {
     "CERTIFIED": "Comparator exits 0 and prints 'Your solution is okay!', with 'nanoda kernel accepts the solution' and 'Lean default kernel accepts the solution' both printed: every listed theorem states exactly the challenge's statement, uses no axiom beyond propext, Quot.sound, Classical.choice, and is accepted by two kernels written independently. It says nothing about whether the Lean statement is the paper's claim — that is lane S.",
@@ -307,6 +308,103 @@
     }
    ],
    "why": "release.note: a later commit is a new pin, re-censused, never silently followed. The commit message says some Comparator configurations were fixed; 9 configs emptied their definition_names (Comparator then compares those definitions body and all, which is what the audit's strict run did) and three statements changed, so the audit's fd4aeeb2 rows do not decide them at the new pin."
+  },
+  {
+   "date": "2026-11-09",
+   "before": "any run under it: both arms are dispatched only after this amendment is committed",
+   "operatorGo": "2026-11-09, option B of the 2026-11-08 finding, relayed by the orchestrating session: nanoda d0a02cc5 beside a 3a240721 control, both with the 1 GiB stack (stack1g), on free GitHub runners; no pod",
+   "what": "A LATER NANODA COMMIT, RUN BESIDE A CONTROL. The 15 of the 18 resource stops that reach Comparator are run in two arms, dispatched together on the same day from the same workflow commit on GitHub's hosted ubuntu-24.04 runners (each job prints the runner image, ImageOS and ImageVersion, in env.txt). THE DECLARED CHANGE is the independent kernel's commit: the NEW ARM builds nanoda from ammkrn/nanoda_lib d0a02cc5 (master 2026-10-27, v0.4.30), 31 commits after the 3a240721 (v0.4.19) every earlier run built — a TRUST-BASE CHANGE, since the kernel that gives the second acceptance is a later version of nanoda, with commits by its author and by contributors (#45 three-valued proof irrelevance, #46 errors for invalid checker configurations, #48 projection type-name check, #51/#52 Nat literal arithmetic, #54, #58, #59 a quick alpha-equivalence check, #63/#65 nested-inductive and recursor validation, #66/#67 whnf and telescope rewrites, #75 Quot and temp-name hardening; 15 files). The CONTROL ARM builds 3a240721 as before. BOTH arms apply amendment 11's one-line stack change (stack1g: src/lib.rs STACK_SIZE 16_777_216 -> 1_073_741_824, the line identical at both commits, the build refusing any other diff) and nothing else to nanoda; Comparator d03acab1, lean4export 076e8e57, landrun 811cfff5, Lean v4.34.1, the census byte checks, lake update and its dependency check, enable_nanoda: true and the result script are unchanged. A MEMORY SCOPE in both arms: Comparator runs inside a systemd user scope with MemoryMax=13G and MemorySwapMax=0, below the runner's 16 GB, as in marleymcwilliams's run; a probe before Comparator must show the limit in force (a 256 MB scope allocates 64 MB and is stopped at 512 MB) or the job does not run Comparator. The scope decides nothing: it makes a memory stop kill only Comparator's process tree, so the job uploads its facts (exit, seconds, peak RSS, the scope's Result) instead of dying with the runner, and it lowers the memory available from the runner's 16 GB plus 4 GB of swap to 13 GB, in both arms equally. Comparator's README guard (AF_UNIX restricted) stays unapplied: RestrictAddressFamilies is a property of a service, which a scope cannot carry, so lanes.K.trustBase stands. THE MECHANISM: two workflow inputs, nanoda_pin (default 3a2407216ee84a75f9e1aead6803d0578be06ae7; part of the tools cache key; checked against the clone's HEAD; printed in env.txt as 'nanoda pin:'; the issue44 builds refused on any other pin, the #44 patch being against 3a240721 and superseded upstream by #45) and memory_scope (default empty: no scope). With both defaults a job runs exactly as before, so every earlier run reproduces.",
+   "arms": {
+    "new": {
+     "nanodaPin": "d0a02cc5defadd683f62f9d078f41688314fa31f",
+     "nanodaVersion": "0.4.30",
+     "nanodaBuild": "stack1g",
+     "memoryScope": "13G",
+     "label": "nanoda d0a02cc5 + 1 GiB"
+    },
+    "control": {
+     "nanodaPin": "3a2407216ee84a75f9e1aead6803d0578be06ae7",
+     "nanodaVersion": "0.4.19",
+     "nanodaBuild": "stack1g",
+     "memoryScope": "13G",
+     "label": "nanoda 3a240721 + 1 GiB (control)"
+    }
+   },
+   "challenges": {
+    "order": [
+     "DirectedFeedback",
+     "MinUncut",
+     "VertexCover",
+     "OptimalMaxCut",
+     "UniqueGamesTheorem",
+     "Catalan",
+     "SquareDifference",
+     "CycleCliqueRamsey",
+     "IndependentSets",
+     "UniversalTensorSquares",
+     "PerfectCompleteness",
+     "NuclearUltrapower",
+     "BinPackingGap",
+     "ContinuumCoulombHardness",
+     "CoarseAssembly"
+    ],
+    "excluded": {
+     "names": [
+      "ErdosReciprocal",
+      "MUBSix",
+      "PlanarPacking"
+     ],
+     "why": "they stop in the solution's build, before Comparator reaches either kernel: GitHub's 350-minute limit (runs 38019899278, 38060237164); on the 64 GB pod of amendment 16, MUBSix's build was SIGKILLed at 9,399 of 12,304 modules and ErdosReciprocal built for 9 h without finishing; PlanarPacking's build crashed Lean (exit 139) on the 256 GB pod. marleymcwilliams's 13 GB runs stopped them the same way (5 h limit, out of memory). No nanoda commit can reach them; they stay REFUSED (resources) as recorded."
+    }
+   },
+   "recording": "Both runs are recorded into the audit pin's store (corpus/openai-math/kernel-runs/) and ledger (certs/openai-math-kernel.json) by tools/record-openai-math-kernel.js; corpus/openai-math/kernel-runs/dispatch-order.json names each run's arm. Every earlier run stays in its row, and the row's earlier word (REFUSED, with its stage and its latest earlier run) stays visible beside the two arms. A row's word moves ONLY on a run of the new arm, and it names that arm ('nanoda d0a02cc5 + 1 GiB'); a control-arm run is recorded beside it and never decides a word, whatever it says. The words of lanes.K are unchanged: CERTIFIED needs Comparator exit 0, 'Your solution is okay!' and both acceptance lines; a job that cannot finish (the 13 GB scope, the 350-minute limit, the runner) stays REFUSED with its stage, never REFUTED; a kernel rejection or a Comparator mismatch is stated REFUTED only when a second run agrees. The ledger states the new arm's CERTIFIED rows apart from those of nanoda 3a240721 (as published, stack1g, issue44).",
+   "predictions": {
+    "new": {
+     "CERTIFIED": [
+      "BinPackingGap",
+      "Catalan",
+      "DirectedFeedback",
+      "IndependentSets",
+      "MinUncut",
+      "OptimalMaxCut",
+      "PerfectCompleteness",
+      "UniqueGamesTheorem",
+      "VertexCover"
+     ],
+     "REFUSED": [
+      "CoarseAssembly",
+      "ContinuumCoulombHardness",
+      "CycleCliqueRamsey",
+      "NuclearUltrapower",
+      "SquareDifference",
+      "UniversalTensorSquares"
+     ],
+     "why": "marleymcwilliams's comparator-results.json (openai/math 7ef5c0cc, nanoda d0a02cc5 + 1 GiB, 13 GB cgroups on GitHub-hosted runners) accepts the 9 and stops the 6 at their memory limit, Lean holding the memory (their samples: 6.5 to 11.5 GB anonymous in Lean, 0 in nanoda); amendment 17's census lists none of the 15 as changed between fd4aeeb2 and 7ef5c0cc"
+    },
+    "control": {
+     "REFUSED": [
+      "DirectedFeedback",
+      "MinUncut",
+      "VertexCover",
+      "OptimalMaxCut",
+      "UniqueGamesTheorem",
+      "Catalan",
+      "SquareDifference",
+      "CycleCliqueRamsey",
+      "IndependentSets",
+      "UniversalTensorSquares",
+      "PerfectCompleteness",
+      "NuclearUltrapower",
+      "BinPackingGap",
+      "ContinuumCoulombHardness",
+      "CoarseAssembly"
+     ],
+     "why": "every 1 GiB run of 3a240721 here was killed by the runner's memory in October, 17 to 86 minutes into the job"
+    },
+    "both": "no kernel rejects and no Comparator mismatch in either arm",
+    "ifTheyHold": "lane K at fd4aeeb2: 407 CERTIFIED, 9 REFUSED of 416"
+   },
+   "why": "On 2026-11-08 marleymcwilliams (leanprover/lean4#16290, issuecomment-6724824285) reported that changing nanoda's STACK_SIZE from 16 MiB to 1 GiB let 8 of 9 nanoda stack overflows pass both kernels, inside 13 GB cgroups on GitHub-hosted runners; their nanoda was d0a02cc5 (their scripts/build-comparator-tools.sh). This lane made the same stack change in October (amendment 11) and ran it on all 15 (runs 38048720541 and 38051470892, stack1g at 3a240721; 10 again with the #44 patch, run 38074618613), and the runner's memory killed every job. The stack is not what differs; the nanoda commit is. The control arm, on the same day and runner image, is what lets a word that moves be read as the commit's and not the runner's."
   }
  ]
 }
