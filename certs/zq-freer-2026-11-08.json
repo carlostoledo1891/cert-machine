@@ -1,12 +1,15 @@
 {
- "what": "The finite facts of Cameron Freer's conditional quartic stack on github.com/elliotglazer/diophantine-z-q (#8, #9, #11, #12), decided by a non-author reviewer with code of its own (Node, BigInt, exact rationals; none of the repository's .py or .cjs run, read or ported): T the tables, N a necessary condition for a sum of squares, A the finite statements the proofs display, B the bindings of the published bytes, V13 #8's comparison rows.",
- "undecided": "The theorem (Z is Diophantine in Q) is undecided here, and so is the conditional claim of each pull request (that the rational zero projection of its quartic is Z, given the inherited arithmetic inputs). This decides finite facts only: what the published coefficient tables are, a necessary condition for each to be a sum of squares, the finite integer inequalities and polynomial identities the proofs display, and how the published bytes are bound to the pull requests. The 357/353/353/352 quadratic residuals whose squares are said to give each table are not among the published bytes, so that the table is their sum of squares, and that they are the compiled source system, is not decided.",
+ "what": "The finite facts of Cameron Freer's conditional quartic stack on github.com/elliotglazer/diophantine-z-q (#8, #9, #11, #12, #13, #16), decided by a non-author reviewer with code of its own (Node, BigInt, exact rationals; none of the repository's .py or .cjs run, read or ported): T the tables, N a necessary condition for a sum of squares, A the finite statements the proofs display, B the bindings of the published bytes, V13 #8's comparison rows.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here, and so is the conditional claim of each pull request (that the rational zero projection of its quartic is Z, given the inherited arithmetic inputs). This decides finite facts only: what the published coefficient tables are, a necessary condition for each to be a sum of squares, the finite integer inequalities and polynomial identities the proofs display, and how the published bytes are bound to the pull requests. The quadratic residuals whose squares are said to give each table (357, 353, 353 and 352 for #8, #9, #11 and #12; 349 and 352 for each of the two tables of #13 and of #16) are not among the published bytes, so that the table is their sum of squares, and that they are the compiled source system, is not decided.",
  "notDecided": [
   "the theorem, and each pull request's conditional claim that the rational zero projection of its quartic is Z",
   "the eleven inherited inputs of PR_DEPENDENCIES.md: G_curve, G_formal, G_quaternion, G_height_geometry, G_pole, G_one_place, G_product_height, G_prime_pattern, G_reductions, G_progression, G_lucas",
-  "the local proofs (detector promotion, height reapplication, factored poles, scalar chain, preparation zero) beyond the finite statements in A; the application contracts and their nine obligations",
-  "that the table is the sum of the squares of its quadratic residuals, that these are the compiled source system, that the compiler and the diagonal change preserve the input projection, that the source system expresses the arithmetic predicate: the residuals (balanced/integer-ir.json) are neither committed nor uploaded",
-  "the 391/392/393-variable variants of #8, and #13"
+  "the local proofs (detector promotion, height reapplication, factored poles, scalar chain, preparation zero, cubic reuse, height-consumer refinement) beyond the finite statements in A; the application contracts and their nine obligations",
+  "that the table is the sum of the squares of its quadratic residuals, that these are the compiled source system, that the compiler and the diagonal change preserve the input projection, that the source system expresses the arithmetic predicate: the residuals (balanced/integer-ir.json; for #13 and #16 also balanced/polynomial.json, final/integer-candidate-ir.json and raw-translated-ir.json, pinned by hash in EXPECTED.json) are neither committed nor uploaded",
+  "for #13 and #16: the gate and raw-row comparisons, the cubic's presence as affine aliases in the actual builder, the omission of the two unused preparation slots, the four conic transports, the diagonal maps",
+  "in #13's retained order-47 argument: the valuation, CRT, completeness and pole arguments beyond its displayed finite statements",
+  "in #16: the projective-height transfer and the varying-anchor equivalence beyond the displayed finite statements, the monotonicity step of the Lucas endpoint test, the reevaluated private anchor gate and its conic witnesses",
+  "the 391/392/393-variable variants of #8, and #17 (above #16)"
  ],
  "generated": "2026-11-09",
  "preregistration": "notes/zq-freer-preregistration-2026-11-08.md",
@@ -42,6 +45,30 @@
    "path": "factored/quartic-383-balanced-decimal.txt",
    "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d"
   },
+  "#13 table, order 45": {
+   "run": 42501591301,
+   "artifact": 13625523752,
+   "path": "quartic-380-balanced-decimal.txt",
+   "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5"
+  },
+  "#13 table, order 47": {
+   "run": 42501591301,
+   "artifact": 13625249620,
+   "path": "quartic-383-balanced-decimal.txt",
+   "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc"
+  },
+  "#16 table, order 45": {
+   "run": 42537804182,
+   "artifact": 13639782567,
+   "path": "quartic-380-balanced-decimal.txt",
+   "sha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6"
+  },
+  "#16 table, order 47": {
+   "run": 42537804182,
+   "artifact": 13640605459,
+   "path": "quartic-383-balanced-decimal.txt",
+   "sha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f"
+  },
   "#8 proof": {
    "commit": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
    "path": "research/conditional-quartic-reduction/proofs/arithmetic_round8.tex",
@@ -62,17 +89,32 @@
    "path": "research/scalar-preparation-zero/PROOF.md",
    "sha256": "79bb5a8c5ce16c6b4559848739aeb78b7d23eb4a90f2ff0ad8ccf97a3674280a"
   },
+  "#13 proof": {
+   "commit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "path": "research/detector-cube-reuse/PROOF.md",
+   "sha256": "e91bffcf999c5862b04903beac1e28675ecbfc5eb92c2921c68576af09989aa6"
+  },
+  "#16 proof": {
+   "commit": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+   "path": "research/height-consumer-refinement/PROOF.md",
+   "sha256": "5a4ff818479f28dfb988526cbcac89b9f6fdb264fe7e9f999123fe0547d45029"
+  },
   "#8 PR_DEPENDENCIES.md": {
    "commit": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
    "path": "research/conditional-quartic-reduction/PR_DEPENDENCIES.md",
    "sha256": "08d91f384f10c423af0df12ad9567e2159eda67541c2012850998d23a8f33501"
+  },
+  "#13 retained order-47 proof (references/precision51_PROOF.md)": {
+   "commit": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "path": "research/detector-cube-reuse/references/precision51_PROOF.md",
+   "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c"
   }
  },
  "code": {
-  "tools/zq-freer.js": "19f5d1c462e383669f70469c9bbb8a3ad914b162fda8c4802c4761b3647cc34a"
+  "tools/zq-freer.js": "457725fde72b9e62e5a601c2dbc734fb2dd8b68354724210c175dbc2c748e41c"
  },
  "verdict": "CERTIFIED",
- "reason": "for each of #8, #9, #11, #12: the table is what the PR states (variables, degree, monomials, the exact largest coefficient, content, x0^4), it passes the necessary sum-of-squares condition for every variable, every finite statement its proof displays holds, and the published bytes are bound to the PR as stated; #8's Version 13 comparison rows hold; every control refused",
+ "reason": "for each of #8, #9, #11, #12, #13 and #16: each table (two for #13 and for #16, an order-45 default and an order-47 optional route) is what the PR states (variables, degree, monomials, the exact largest coefficient, content, x0^4), it passes the necessary sum-of-squares condition for every variable, every finite statement its proof displays holds (for #13 also those of its retained order-47 argument; the four stated failures fail), and the published bytes are bound to the PR as stated; #8's Version 13 comparison rows hold; every control refused",
  "prs": {
   "#8": {
    "title": "Add conditional 389-variable quartic research construction",
@@ -538,6 +580,54 @@
          "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
          "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
          "bindsHead": true
+        },
+        {
+         "run": 42501591246,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13626170175,
+         "digest": "sha256:5941f62a65b363ea6316ee020aa341c6226f1cd550ecfc9a4d70b4eb3a16309e",
+         "expires": "2027-02-06T16:46:29Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42502112489,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625971972,
+         "digest": "sha256:b110809d40cad152c149b8dec23f251eef0fd5a4f2d092785cf08f5ea7bab3e9",
+         "expires": "2027-02-06T16:52:46Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42537804236,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13640750036,
+         "digest": "sha256:e4ea3d0a82527c881be45b281e36f411b78b7f38924011b6c3ebe84868888929",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
+        },
+        {
+         "run": 42537807727,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13640431221,
+         "digest": "sha256:0270b8268f0e9a1cc01d7132568d81e86f9caf58ccb5d9ecacd015356994b514",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "quartic-385/candidate385/quartic-385-balanced-decimal.txt",
+         "sha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+         "bindsHead": true
         }
        ]
       }
@@ -742,6 +832,54 @@
          "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
          "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
          "bindsHead": true
+        },
+        {
+         "run": 42501591246,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13626170175,
+         "digest": "sha256:5941f62a65b363ea6316ee020aa341c6226f1cd550ecfc9a4d70b4eb3a16309e",
+         "expires": "2027-02-06T16:46:29Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42502112489,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625971972,
+         "digest": "sha256:b110809d40cad152c149b8dec23f251eef0fd5a4f2d092785cf08f5ea7bab3e9",
+         "expires": "2027-02-06T16:52:46Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42537804236,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13640750036,
+         "digest": "sha256:e4ea3d0a82527c881be45b281e36f411b78b7f38924011b6c3ebe84868888929",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
+        },
+        {
+         "run": 42537807727,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13640431221,
+         "digest": "sha256:0270b8268f0e9a1cc01d7132568d81e86f9caf58ccb5d9ecacd015356994b514",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "scalar-chain/factored/quartic-385-balanced-decimal.txt",
+         "sha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+         "bindsHead": true
         }
        ]
       }
@@ -914,6 +1052,54 @@
          "path": "factored/quartic-383-balanced-decimal.txt",
          "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
          "bindsHead": true
+        },
+        {
+         "run": 42501591237,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13625548867,
+         "digest": "sha256:0aac185245421fb4446346f7017d1984a5115066c29e44d4384c425cdef205aa",
+         "expires": "2027-02-06T16:46:29Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        },
+        {
+         "run": 42502112560,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625812996,
+         "digest": "sha256:38f6185d62434257d8adb6799d5745b6fe6f1cc3969e0f383eb34b54198d2407",
+         "expires": "2027-02-06T16:52:46Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        },
+        {
+         "run": 42537804187,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13639903235,
+         "digest": "sha256:7f5e8ca4f846771fd3285aaf8974b3291deba07c70c60b0ee33c8741b1a10906",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
+        },
+        {
+         "run": 42537807728,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13640386140,
+         "digest": "sha256:cd0c40aee7f16a7648d8f2775693dcc55ea8f26568199eaa6741c90642695580",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "factored/quartic-383-balanced-decimal.txt",
+         "sha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+         "bindsHead": true
         }
        ]
       }
@@ -923,6 +1109,683 @@
    "decidedScope": "CERTIFIED",
    "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
    "residualsCount": "not decided: the 352 residuals are not published"
+  },
+  "#13": {
+   "title": "Reduce the conditional quartic to 380 variables (above #12)",
+   "head": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "parent": "#12 772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+   "claim": {
+    "variants": {
+     "order 45 (default)": {
+      "variables": 380,
+      "residuals": 349,
+      "monomials": 26025,
+      "maxAbsCoefficient": "28902*3^1420",
+      "digits": 682,
+      "bits": 2266,
+      "tableBytes": 1025480,
+      "tableSha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5"
+     },
+     "order 47 (optional)": {
+      "variables": 383,
+      "residuals": 352,
+      "monomials": 26043,
+      "maxAbsCoefficient": "28902*3^1344",
+      "digits": 646,
+      "bits": 2146,
+      "tableBytes": 1022041,
+      "tableSha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc"
+     }
+    },
+    "tableLocation": "CI artifacts only (fork cameronfreer/diophantine-z-q), not committed; they expire 2027-02-06"
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "tables": {
+     "order 45": {
+      "verdict": "CERTIFIED",
+      "differs": [],
+      "numbers": {
+       "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+       "bytes": 1025480,
+       "dataRows": 26025,
+       "repeatedMonomialRows": 0,
+       "zeroCoefficientRows": 0,
+       "monomials": 26025,
+       "degree": 4,
+       "variables": 380,
+       "maxIndex": 379,
+       "maxAbsCoefficientDigits": 682,
+       "maxAbsCoefficientBits": 2266,
+       "maxEqualsStated": true,
+       "content": "1",
+       "x0FourthCoefficient": "1",
+       "header": {
+        "variables": 380,
+        "degree": 4,
+        "monomials": 26025
+       }
+      }
+     },
+     "order 47": {
+      "verdict": "CERTIFIED",
+      "differs": [],
+      "numbers": {
+       "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+       "bytes": 1022041,
+       "dataRows": 26043,
+       "repeatedMonomialRows": 0,
+       "zeroCoefficientRows": 0,
+       "monomials": 26043,
+       "degree": 4,
+       "variables": 383,
+       "maxIndex": 382,
+       "maxAbsCoefficientDigits": 646,
+       "maxAbsCoefficientBits": 2146,
+       "maxEqualsStated": true,
+       "content": "1",
+       "x0FourthCoefficient": "1",
+       "header": {
+        "variables": 383,
+        "degree": 4,
+        "monomials": 26043
+       }
+      }
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "tables": {
+     "order 45": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "variables": 380,
+       "degree4Variables": 267,
+       "degree2Variables": 113,
+       "gramMatrices": 113,
+       "largestGram": 21,
+       "totalGramDimension": 657
+      }
+     },
+     "order 47": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "variables": 383,
+       "degree4Variables": 267,
+       "degree2Variables": 116,
+       "gramMatrices": 116,
+       "largestGram": 21,
+       "totalGramDimension": 675
+      }
+     }
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "c1",
+      "text": "F(t) = t(t−1/49)(t−1/50)(t−1/2450)(t−32/1225) is a monic quintic with c0 = 0",
+      "holds": true
+     },
+     {
+      "id": "c2",
+      "text": "with t2 = t²: M = t2(t+c4) + c3·t + c2 = t³ + c4t² + c3t + c2 and t3 = M − c4·t2 − c3·t − c2 = t³ (F's coefficients)",
+      "holds": true
+     },
+     {
+      "id": "c3",
+      "text": "delta3 = 98³·t3 − 3·98²·t2 + 3·98·t − 1 = (98t − 1)³, with t3 the affine alias above and t2 = t²",
+      "holds": true
+     },
+     {
+      "id": "c4",
+      "text": "old segment (q1 = e/delta, E = q1·delta²): E = e·delta, mixC = E³q1³ = e⁶, mixD = mixC² = e¹², q12 = mixD²/E = e²³/delta",
+      "holds": true
+     },
+     {
+      "id": "c5",
+      "text": "new segment (q1cube = q1³, delta3 = delta³): e3 = q1cube·delta3 = e³, e6 = e3² = e⁶, e12 = e6² = e¹², q12 = e12²/E, the same q12",
+      "holds": true
+     },
+     {
+      "id": "c6",
+      "text": "the reverse map: the restored mixC = E³q1³ and mixD = mixC² equal e6 and e12",
+      "holds": true
+     },
+     {
+      "id": "c7",
+      "text": "downstream, both chains: mixedHigh = q12², q45 = mixedHigh²/q1cube, and the optional highLift = mixedHigh·E, q47 = highLift²/q1 agree",
+      "holds": true
+     },
+     {
+      "id": "c8",
+      "text": "the stated counts: 3 detectors × (4 old rows deleted, 3 added, 1 q12 row changed) = 12, 9, 3; 12 − 9 = 3 = 383 − 380 = 352 − 349 (#12 to #13's default); the reference's 386 − 3 = 383 and 355 − 3 = 352 (the optional)",
+      "holds": true
+     },
+     {
+      "id": "c9",
+      "text": "EXPECTED.json's anchor and c exponents: 2130 = 6·355 (order 45), 2016 = 6·336 (order 47)",
+      "holds": true
+     },
+     {
+      "id": "d1",
+      "text": "a0 = 1, a1 = −2/5, a_j/a_(j−1) = (4j−5)/(4j+1) for j ≥ 2: the reduced denominator of a13 is 5²·7·17·29·37·41·53",
+      "holds": true
+     },
+     {
+      "id": "d2",
+      "text": "v_p(a13) ≥ −1 for every prime p outside {2,3,5,7,13,17}",
+      "holds": true
+     },
+     {
+      "id": "d3",
+      "text": "for every integer j ≥ 14: 4j − 51 − ⌊(4j+1)/10⌋ ≥ 0, = 0 at j = 14, each step adding at least 3 (j mod 5)",
+      "holds": true
+     },
+     {
+      "id": "d4",
+      "text": "at p = 53: v(a13) = −1, so the j = 13 term has valuation 4·13 − 1 = 51; 4j − ⌊(4j+1)/52⌋ ≥ 55 for every j ≥ 14 (= 55 at 14; steps j mod 13)",
+      "holds": true
+     },
+     {
+      "id": "d5",
+      "text": "E = q1·delta²: mixedHigh = q12² = E²²q1²⁴ for q12 = E¹¹q1¹²; q46 = (mixedHigh·delta)²/q1 = E⁴⁵q1⁴⁶; q47 = (mixedHigh·E)²/q1 = E⁴⁶q1⁴⁷; E^(m−1)q1^m = e^(2m−1)/delta (e = q1·delta) for m = 12, 46, 47",
+      "holds": true
+     },
+     {
+      "id": "d6",
+      "text": "anchor 3^2016, c* = 2·3^1007, b* = 3^1007: c*^415 > (4H)^992; b*^(16m−577) > (24H)^(8m) for every 46 ≤ m ≤ 51; 40H < 2^670; b* > 67000; b* > 152",
+      "holds": true
+     },
+     {
+      "id": "d7",
+      "text": "for 46 ≤ m ≤ 51: α/m < 1/2, 2 − 4α/m = (16m−577)/(8m), and 7H·5^(α/m) + 6 < 24H (as 5^577·(7H)^(32m) < (24H − 6)^(32m))",
+      "holds": true
+     },
+     {
+      "id": "d8",
+      "text": "the stated failures: at anchor 2010 (c* = 2·3^1004) c*^415 ≤ (4H)^992; at anchor 2016 for order 45, (3^1007)^143 ≤ (24H)^360",
+      "holds": true
+     }
+    ],
+    "values": {
+     "F": {
+      "c4": "-82/1225",
+      "c3": "8949/6002500",
+      "c2": "-82793/7353062500",
+      "c1": "8/1838265625",
+      "c0": "0"
+     },
+     "a13": "-54756974/6936596275"
+    }
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states both table sha256s",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "the parent PR #12's head is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff parent..head only adds files, all under research/detector-cube-reuse/ or .github/workflows/detector-cube-reuse.yml",
+      "holds": true,
+      "detail": {
+       "paths": 14,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3",
+      "text": "references/precision51_PROOF.md has the sha256 references/ORIGIN.json states, and is byte-identical to research/higher-detector-precision/PROOF.md at the fork commit ORIGIN.json names (bc51100f)",
+      "holds": true,
+      "detail": {
+       "sha256": "e6a825c3b85a9c56a6a2678ad0fa411ecedec53a005a0464efb45677f056054c",
+       "bytes": 11405
+      }
+     },
+     {
+      "id": "b3m",
+      "text": "SOURCE_BINDINGS.json has the sha256 SOURCE_BINDINGS_SHA256.txt states, and every file it lists has its listed sha256 at the head",
+      "holds": true,
+      "detail": {
+       "files": 62,
+       "sha256": "23462ef0798ba6f9cb73bc7ccf1b21184fc9b98356c1a834dd154937841ed8d7",
+       "mismatched": []
+      }
+     },
+     {
+      "id": "b4",
+      "text": "EXPECTED.json states, for orders 45 and 47, the PR body's table sha256s and the stated bytes, coordinates, residuals, monomials, digits and bits",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "every CI copy of each table has exactly the stated bytes, its artifact the pinned digest, and its run's metadata names the listed commit with a success conclusion",
+      "holds": true,
+      "detail": {
+       "copies": [
+        {
+         "order": 45,
+         "run": 42501591301,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13625523752,
+         "digest": "sha256:9449925e3eff12a86ced43243945f4b4f3c443e53acaf842281c8467bd5237e9",
+         "expires": "2027-02-06T16:46:29Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+         "bindsHead": true
+        },
+        {
+         "order": 45,
+         "run": 42502112522,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13625698927,
+         "digest": "sha256:acf6d65cafe098544fab064075182c3458237c8d23db1920e833fa25a9026b41",
+         "expires": "2027-02-06T16:52:46Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+         "bindsHead": true
+        },
+        {
+         "order": 45,
+         "run": 42537804191,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13639254217,
+         "digest": "sha256:f73294360d04abc7a54a41559f15f8df58b2f692d20bae741fa8c8bd32a8da7e",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+         "bindsHead": true
+        },
+        {
+         "order": 45,
+         "run": 42537807736,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13639747706,
+         "digest": "sha256:c00b3fb49aba45a97b705a6980011217c48c5005b299eae66590b3be533591b6",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42501591301,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13625249620,
+         "digest": "sha256:b64df95e105a65889d60f0d376f2c4ee5a0abf7f710afc6012d7c10898551816",
+         "expires": "2027-02-06T16:46:29Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42502112522,
+         "headSha": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13626330627,
+         "digest": "sha256:2d1b2e261c80159512721ab1f825b433142ea0916c86c3280d7108c02e4b08b9",
+         "expires": "2027-02-06T16:52:46Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42537804191,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13639793760,
+         "digest": "sha256:ad6b9f8fd697e24935d7c1e754edd70e2c04de38a802f0c911ee0c005be0bcac",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42537807736,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13639624776,
+         "digest": "sha256:28d6f63119736de3557b2f0f353c41fc3359c04c0f1c73afd541dff6d7d87681",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+         "bindsHead": true
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 349 and 352 residuals are not published"
+  },
+  "#16": {
+   "title": "Sharpen conditional quartic coefficients to 679/644 digits (above #13)",
+   "head": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+   "parent": "#13 31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "claim": {
+    "variants": {
+     "order 45 (default)": {
+      "variables": 380,
+      "residuals": 349,
+      "monomials": 26025,
+      "maxAbsCoefficient": "28902*3^1412",
+      "digits": 679,
+      "bits": 2253,
+      "tableBytes": 1025094,
+      "tableSha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6"
+     },
+     "order 47 (optional)": {
+      "variables": 383,
+      "residuals": 352,
+      "monomials": 26043,
+      "maxAbsCoefficient": "28902*3^1340",
+      "digits": 644,
+      "bits": 2139,
+      "tableBytes": 1021849,
+      "tableSha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f"
+     }
+    },
+    "tableLocation": "CI artifacts only (fork cameronfreer/diophantine-z-q), not committed; they expire 2027-02-06"
+   },
+   "verdicts": {
+    "T": "CERTIFIED",
+    "N": "CERTIFIED",
+    "A": "CERTIFIED",
+    "B": "CERTIFIED"
+   },
+   "T": {
+    "verdict": "CERTIFIED",
+    "tables": {
+     "order 45": {
+      "verdict": "CERTIFIED",
+      "differs": [],
+      "numbers": {
+       "sha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+       "bytes": 1025094,
+       "dataRows": 26025,
+       "repeatedMonomialRows": 0,
+       "zeroCoefficientRows": 0,
+       "monomials": 26025,
+       "degree": 4,
+       "variables": 380,
+       "maxIndex": 379,
+       "maxAbsCoefficientDigits": 679,
+       "maxAbsCoefficientBits": 2253,
+       "maxEqualsStated": true,
+       "content": "1",
+       "x0FourthCoefficient": "1",
+       "header": {
+        "variables": 380,
+        "degree": 4,
+        "monomials": 26025
+       }
+      }
+     },
+     "order 47": {
+      "verdict": "CERTIFIED",
+      "differs": [],
+      "numbers": {
+       "sha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+       "bytes": 1021849,
+       "dataRows": 26043,
+       "repeatedMonomialRows": 0,
+       "zeroCoefficientRows": 0,
+       "monomials": 26043,
+       "degree": 4,
+       "variables": 383,
+       "maxIndex": 382,
+       "maxAbsCoefficientDigits": 644,
+       "maxAbsCoefficientBits": 2139,
+       "maxEqualsStated": true,
+       "content": "1",
+       "x0FourthCoefficient": "1",
+       "header": {
+        "variables": 383,
+        "degree": 4,
+        "monomials": 26043
+       }
+      }
+     }
+    }
+   },
+   "N": {
+    "verdict": "CERTIFIED",
+    "tables": {
+     "order 45": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "variables": 380,
+       "degree4Variables": 267,
+       "degree2Variables": 113,
+       "gramMatrices": 113,
+       "largestGram": 21,
+       "totalGramDimension": 657
+      }
+     },
+     "order 47": {
+      "verdict": "CERTIFIED",
+      "numbers": {
+       "variables": 383,
+       "degree4Variables": 267,
+       "degree2Variables": 116,
+       "gramMatrices": 116,
+       "largestGram": 21,
+       "totalGramDimension": 675
+      }
+     }
+    }
+   },
+   "A": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "statements": [
+     {
+      "id": "h1",
+      "text": "β − 2401 = 2754(2X+1)², so β ≥ 2401 for real X with equality only at X = −1/2; 2401 > 1 > 0 > −343/32",
+      "holds": true
+     },
+     {
+      "id": "h2",
+      "text": "with U = C0 + C1: C0 + C1·ρ = (1 − ρ)C0 + ρU",
+      "holds": true
+     },
+     {
+      "id": "h3",
+      "text": "at ρ = √2 and ρ = −√2, |1 − ρ| + |ρ| = 2√2 − 1 and 2√2 + 1 (exact in Q(√2)), whose product is 7",
+      "holds": true
+     },
+     {
+      "id": "h4",
+      "text": "log 50 < 4, log 7 < 2 and log 2 < 1 (natural logarithms; as 50 < e⁴, 7 < e², 2 < e with Σ_{k≤12} 1/k! < e)",
+      "holds": true
+     },
+     {
+      "id": "h5",
+      "text": "K0 = (3H + 14)/2 < 7H, and (3/2)(H + 4) + 2/2 = (3H + 14)/2",
+      "holds": true
+     },
+     {
+      "id": "h6",
+      "text": "c* = 2·3^(E/2−1): 1058 (E = 2118), 1004 (2010), 1064 (2130), 1007 (2016); 1058 ≤ 1064 and 1004 ≤ 1007; EXPECTED.json: 2118 = 6·353, 2010 = 6·335",
+      "holds": true
+     },
+     {
+      "id": "h7",
+      "text": "the triangle bound: B² + B(B+2)·B·B + (B+2)²B² + 1 = 2B⁴ + 6B³ + 5B² + 1 = P(B)",
+      "holds": true
+     },
+     {
+      "id": "h8",
+      "text": "P(B) = B⁴(2 + 6/B + 5/B² + B⁻⁴), B² − 6 = B²(1 − 6/B²), 4·577 = 2308, 64m − 2308 > 0 (m = 45, 47), 32α = 577, 2K0 = 3H + 14, b*² > 6 at E = 2118, 2010",
+      "holds": true
+     },
+     {
+      "id": "h9",
+      "text": "the Lucas endpoint test [2(b*² − 6)]^(32m) > (3H + 14)^(32m)·P(b*)^577 at (E, m) = (2118, 45) and (2010, 47), b* = 2·3^(E/2−1) − 1",
+      "holds": true
+     },
+     {
+      "id": "h10",
+      "text": "order 45 at E = 2118: c*^415 > (4H)^992, 1 − α/31 = 415/992; order 47 at E = 2010: 8^992·c*^415 > (25H)^992; 1/4 < 8/25",
+      "holds": true
+     },
+     {
+      "id": "h11",
+      "text": "the final input: 24 − α = 191/32, 12/(24−α) = 384/191, α/(24−α) = 577/191, α/12 < 2, 7H·2^(α/12) + 6 < 40H, 40H < 2^670, b* > 67000 (E = 2118, 2010), (384/191)/100 + (577/191)(8/25) = 4712/4775, (577/191)(8/25) = 4616/4775, (4712/4775)x + 4616/4775 < x − 3 for every real x ≥ 301, 301 ≤ b*",
+      "holds": true
+     },
+     {
+      "id": "h12",
+      "text": "11016 = 2³·3⁴·17",
+      "holds": true
+     },
+     {
+      "id": "h13",
+      "text": "the stated failures: the Lucas endpoint test fails at (E, m) = (2112, 45); the order-47 scalar test 8^992·c*^415 > (25H)^992 fails at E = 2004",
+      "holds": true
+     }
+    ]
+   },
+   "B": {
+    "verdict": "CERTIFIED",
+    "failedFirst": null,
+    "checks": [
+     {
+      "id": "b0",
+      "text": "the saved PR metadata names this head and base, and its body states both table sha256s",
+      "holds": true
+     },
+     {
+      "id": "b1",
+      "text": "the parent PR #13's head is an ancestor of the head",
+      "holds": true
+     },
+     {
+      "id": "b2",
+      "text": "the diff parent..head only adds files, all under research/height-consumer-refinement/ or .github/workflows/height-consumer-refinement.yml",
+      "holds": true,
+      "detail": {
+       "paths": 19,
+       "outside": []
+      }
+     },
+     {
+      "id": "b3m",
+      "text": "SOURCE_BINDINGS.json has the sha256 SOURCE_BINDINGS_SHA256.txt states (and the PR body, with 85 files), and every file it lists has its listed sha256 at the head",
+      "holds": true,
+      "detail": {
+       "files": 85,
+       "sha256": "32f6e616fa457bb60405e3491817ecd8f0ce34f081040e746509bcbf52405e93",
+       "mismatched": []
+      }
+     },
+     {
+      "id": "b4",
+      "text": "EXPECTED.json states, for orders 45 and 47, the PR body's table sha256s and the stated bytes, coordinates, residuals, monomials, digits and bits",
+      "holds": true
+     },
+     {
+      "id": "b5",
+      "text": "every CI copy of each table has exactly the stated bytes, its artifact the pinned digest, and its run's metadata names the listed commit with a success conclusion",
+      "holds": true,
+      "detail": {
+       "copies": [
+        {
+         "order": 45,
+         "run": 42537804182,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13639782567,
+         "digest": "sha256:a55ef08ec41c3e5575d09de278d1439d78d42043d9b25cdcbd6229794688fed6",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+         "bindsHead": true
+        },
+        {
+         "order": 45,
+         "run": 42537807726,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13640360615,
+         "digest": "sha256:c1694af9c6e57880985a02108c0f2bfabac88dfa207ded5895649a996fd92757",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "quartic-380-balanced-decimal.txt",
+         "sha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42537804182,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "push",
+         "artifact": 13640605459,
+         "digest": "sha256:010a219bee5a19d13b6f11b5c66a52d59eb7a05c8693cb6697470838af726461",
+         "expires": "2027-02-06T23:59:47Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+         "bindsHead": true
+        },
+        {
+         "order": 47,
+         "run": 42537807726,
+         "headSha": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+         "conclusion": "success",
+         "event": "pull_request",
+         "artifact": 13640171921,
+         "digest": "sha256:74d6212efb8e5777c0a4026e3e2ba5f9cb503b55bab48dddca696b129e874dc6",
+         "expires": "2027-02-06T23:59:50Z",
+         "path": "quartic-383-balanced-decimal.txt",
+         "sha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+         "bindsHead": true
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "decidedScope": "CERTIFIED",
+   "protocolOutcome": "Incomplete review: the finite scope below is decided; the proofs, the application contracts and the inherited inputs are not reviewed",
+   "residualsCount": "not decided: the 349 and 352 residuals are not published"
   }
  },
  "controls": [
@@ -969,6 +1832,20 @@
    "passed": true
   },
   {
+   "id": "CT7",
+   "what": "sha256 off: #13's order-45 table offered as #16's order-45 claim",
+   "refused": true,
+   "refusal": "max |coefficient| is not 28902*3^1412 (682 digits, 2266 bits)",
+   "passed": true
+  },
+  {
+   "id": "CT8",
+   "what": "sha256 off: #16's order-47 table offered as #13's order-47 claim",
+   "refused": true,
+   "refusal": "max |coefficient| is not 28902*3^1344 (644 digits, 2139 bits)",
+   "passed": true
+  },
+  {
    "id": "CN1",
    "what": "the x0^4 coefficient negated",
    "refused": true,
@@ -987,6 +1864,13 @@
    "what": "−10^800·x121^2·x0^2 added",
    "refused": true,
    "refusal": "the coefficient of x121^2 is not positive semidefinite — P < 0 at {\"x0\":\"1\",\"x121\":\"1\"}",
+   "passed": true
+  },
+  {
+   "id": "CN4",
+   "what": "on #13's order-45 table: −10^800·x119^2·x0^2 added (x119 has degree 2)",
+   "refused": true,
+   "refusal": "the coefficient of x119^2 is not positive semidefinite — P < 0 at {\"x0\":\"1\",\"x119\":\"1\"}",
    "passed": true
   },
   {
@@ -1032,6 +1916,55 @@
    "passed": true
   },
   {
+   "id": "CA7",
+   "what": "#13's delta3 with 3·98 replaced by 2·98",
+   "refused": true,
+   "refusal": "refused: c3 (delta3 = 98³·t3 − 3·98²·t2 + 3·98·t − 1 = (98t − 1)³, with t3 the affine alias above and t2 = t²) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA9",
+   "what": "the j ≥ 14 base case moved to j = 13",
+   "refused": true,
+   "refusal": "refused: d3 (for every integer j ≥ 14: 4j − 51 − ⌊(4j+1)/10⌋ ≥ 0, = 0 at j = 14, each step adding at least 3 (j mod 5)) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA10",
+   "what": "#16's Lucas endpoint test offered as passing at (E, m) = (2112, 45)",
+   "refused": true,
+   "refusal": "refused: h9 (the Lucas endpoint test [2(b*² − 6)]^(32m) > (3H + 14)^(32m)·P(b*)^577 at (E, m) = (2118, 45) and (2010, 47), b* = 2·3^(E/2−1) − 1) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA11",
+   "what": "#16's order-47 scalar test offered as passing at E = 2004",
+   "refused": true,
+   "refusal": "refused: h10 (order 45 at E = 2118: c*^415 > (4H)^992, 1 − α/31 = 415/992; order 47 at E = 2010: 8^992·c*^415 > (25H)^992; 1/4 < 8/25) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA12",
+   "what": "log 50 < 3.9",
+   "refused": true,
+   "refusal": "refused: h4 (log 50 < 4, log 7 < 2 and log 2 < 1 (natural logarithms; as 50 < e⁴, 7 < e², 2 < e with Σ_{k≤12} 1/k! < e)) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA13",
+   "what": "the Q(√2) operator bound at ρ = √2 offered as 2√2 + 1",
+   "refused": true,
+   "refusal": "refused: h3 (at ρ = √2 and ρ = −√2, |1 − ρ| + |ρ| = 2√2 − 1 and 2√2 + 1 (exact in Q(√2)), whose product is 7) fails with the planted change",
+   "passed": true
+  },
+  {
+   "id": "CA14",
+   "what": "the displayed denominator of a13 with the factor 53 dropped (5²·7·17·29·37·41)",
+   "refused": true,
+   "refusal": "refused: d1 (a0 = 1, a1 = −2/5, a_j/a_(j−1) = (4j−5)/(4j+1) for j ≥ 2: the reduced denominator of a13 is 5²·7·17·29·37·41·53) fails with the planted change",
+   "passed": true
+  },
+  {
    "id": "CB1",
    "what": "one hex digit of #9's stated table sha256 changed",
    "refused": true,
@@ -1053,17 +1986,47 @@
    "passed": true
   },
   {
+   "id": "CB4",
+   "what": "#16's order-47 copies checked against #13's stated order-47 sha256",
+   "refused": true,
+   "refusal": "b4: EXPECTED.json states, for orders 45 and 47, the PR body's table sha256s and the stated bytes, coordinates, residuals, monomials, digits and bits",
+   "passed": true
+  },
+  {
+   "id": "CB5",
+   "what": "#13's file rule applied to the diff #12..#16",
+   "refused": true,
+   "refusal": "b2: the diff parent..head only adds files, all under research/detector-cube-reuse/ or .github/workflows/detector-cube-reuse.yml",
+   "passed": true
+  },
+  {
+   "id": "CB6",
+   "what": "one hex digit of ORIGIN.json's sha256 changed",
+   "refused": true,
+   "refusal": "b3: references/precision51_PROOF.md has the sha256 references/ORIGIN.json states, and is byte-identical to research/higher-detector-precision/PROOF.md at the fork commit ORIGIN.json names (bc51100f)",
+   "passed": true
+  },
+  {
    "id": "CR",
-   "what": "our arithmetic: four PSD matrices accepted, three refused with a checked witness, digit/bit/gcd counts, identities and a planted non-identity",
+   "what": "our arithmetic: four PSD matrices accepted, three refused with a checked witness, digit/bit/gcd counts, identities and a planted non-identity; e-bounds (2 < e, 7 < e² accepted, 21 < e³ refused), Q(√2) signs (√2 − 1, 3/2 − √2 > 0 accepted, 7/5 − √2 > 0 refused), a false residue-system step refused",
    "refused": true,
    "refusal": "every planted fault was seen",
    "passed": true
   }
  ],
+ "readingChecks": [
+  {
+   "id": "CA8 (withdrawn as a control by amendment C)",
+   "what": "#13's retained recurrence read from j = 1 (a1 := −1/5) instead of j ≥ 2",
+   "d1Holds": true,
+   "a13": "-27378487/6936596275",
+   "note": "a1 := −1/5 only halves a13, whose reduced denominator is odd; d1 (the denominator) holds under either reading, so its verdict does not depend on the reading"
+  }
+ ],
  "readings": {
   "T": "the header's format: comment lines first; each data line a signed decimal integer, a TAB, a monomial (\"1\" or x<i>, x<i>^<e> joined by \"*\"); all data rows summed; numbers read from the sum.",
   "N": "if P = Σ R_j² with deg R_j ≤ 2 over Q, every occurring x_i has degree 2 or 4 in P; degree 4 forces a positive x_i^4 coefficient; degree 2 forces the coefficient of x_i² (Σ L_j², L_j affine) to have a PSD Gram matrix over (1, y). Necessary, not sufficient: CERTIFIED does not mean the table is a sum of squares.",
-  "A": "each statement exactly as the proof displays it (arithmetic_round8.tex; PROOF.md of #9, #11, #12), checked by BigInt and exact rationals; the surrounding inferences are read, not decided.",
-  "B": "git ancestry, name-status/numstat diffs and tree ids by commit; CI copies by sha256 against the stated value, with the saved run and artifact metadata (gh api) binding each copy to its commit."
+  "A": "each statement exactly as the proof displays it (arithmetic_round8.tex; PROOF.md of #9, #11, #12, #13, #16; #13's references/precision51_PROOF.md), checked by BigInt and exact rationals; the surrounding inferences are read, not decided. Amendment B: a stated failure is decided as the non-strict reverse inequality; log bounds through the rational lower bound Σ_{k≤12} 1/k! < e (they can only be confirmed); signs in Q(√2) by squares; the operator bound at a real embedding read as |1 − ρ| + |ρ| for C = (1 − ρ)C0 + ρU; statements over every integer j ≥ 14 by a base case and a complete residue system for the step; the a-recurrence of the order-47 argument read for j ≥ 2 (with a1 = −2/5 given).",
+  "B": "git ancestry, name-status/numstat diffs and tree ids by commit; CI copies by sha256 against the stated value, with the saved run and artifact metadata (gh api) binding each copy to its commit. Amendment B: #13's retained proof against ORIGIN.json and the fork commit it names; each SOURCE_BINDINGS.json against its stated sha256 and every listed file against its blob at the head."
  }
 }
