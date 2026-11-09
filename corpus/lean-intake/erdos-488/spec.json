@@ -192,5 +192,28 @@
  ],
  "notInScope": "F2 (instance agreement) is phase P2; F5 (whether DeepMind's statement is Erdős's problem) stays a reading; leanchecker --fresh (36 min on 11-06) and the claim in its own 4.33.0 environment are not re-run by the pilot.",
  "success": "every expected outcome above met, the 11-06 verdicts P1 (statement), P3 (kernels) and P7 (planted, 4/4) reproduced, under 2 h of wall time, at most US$5 (the Mac: US$0)",
- "amendments": []
+ "amendments": [
+  {
+   "date": "2026-11-09",
+   "before": "any run",
+   "what": "added `reproduces`, the map from the 11-06 record's verdicts (P1, P3, P7) to the intake's words, so the success line is computed rather than read by hand; no expected outcome changed"
+  }
+ ],
+ "reproduces": {
+  "record": "certs/erdos488.json",
+  "map": [
+   {
+    "hand": "P1",
+    "intake": "F1"
+   },
+   {
+    "hand": "P3",
+    "intake": "kernels"
+   },
+   {
+    "hand": "P7",
+    "intake": "plantedClaims.word"
+   }
+  ]
+ }
 }
