@@ -24,6 +24,29 @@
    alone and writes certs/lean-intake-<id>.json; `--check` re-derives it and refuses on any difference. `review` drafts
    a review in outreach/ (untracked; sent only on the operator's word).
 
+   SELF-CONTAINED FILES (2026-11-10). A claim often ships as a pair — a statement file and a solution file — that declare
+   the SAME names (a Comparator Challenge/Solution pair; a results file that restates the canonical definitions in the
+   canonical namespace). The two cannot be loaded into one environment, so F1 as above cannot even be written. With
+   `canonical.selfContained: true` the run builds, beside the canonical module, a COPY of the canonical file with one
+   line added after its imports (`namespace IntakeCanon`): every declaration of the copy is IntakeCanon.<its name>,
+   and it loads beside the claimant's file. Then:
+     the copy is the canonical file: each declaration F1 uses is compared with the original's, constant by constant
+         (types, definitions' values, inductive types), through everything the canonical file itself declares
+         (Intake/WrapCheck.lean; a difference REFUSES);
+     F1 is the same kernel check against the copy's declaration: the claimant's restated definitions must UNFOLD to
+         the canonical ones (identity up to definitional unfolding, as always; a restated structure or inductive type
+         is not definitionally the canonical one and is REFUSED);
+     `canonical.axioms`: axioms the canonical file itself declares. The claimant's proof may rest on its own axioms of
+         the same names only if each is the canonical one — the statement and every definition under it identical,
+         name for name (Intake/Same.lean; structural, so a deep numerical definition is never unfolded). The verdict
+         is then CONDITIONAL on those axioms, and says so; nothing here proves them;
+     the planted statements are written in the copy's namespace, so their names are the canonical file's, and the
+         claimant's term is named from the root.
+   `claim.module` names the claimant's file when it is already a module of the canonical repository at the same
+   commit: it is built in place, never copied. `LEAN_INTAKE_ROOT` reads specs and writes facts and records under
+   another root than this repository (a claim not yet public); `LEAN_INTAKE_KEEP=1` keeps a checkout already at the
+   pinned commit (several declarations of one repository, one build).
+
    usage: node tools/lean-intake.js run <id> [--day YYYY-MM-DD] [--stages pin,toolchain,...]
           node tools/lean-intake.js record <id> [--check]
           node tools/lean-intake.js review <id>                                                                MIT */
@@ -34,7 +57,7 @@ const os = require('os');
 const cp = require('child_process');
 const crypto = require('crypto');
 
-const ROOT = path.resolve(__dirname, '..');
+const ROOT = process.env.LEAN_INTAKE_ROOT ? path.resolve(process.env.LEAN_INTAKE_ROOT) : path.resolve(__dirname, '..');
 const STD = ['Classical.choice', 'Quot.sound', 'propext'];
 const STAGES = ['pin', 'toolchain', 'cache', 'canonical', 'assemble', 'claim', 'f1', 'f3', 'mutants', 'reds', 'leanchecker', 'nanoda', 'f2', 'f2eval', 'f2kernel'];
 const NANODA = { url: 'https://github.com/ammkrn/nanoda_lib.git', commit: '8de7e0c4ed3052745a7f8725164efd9e76d84c56' };
@@ -51,7 +74,18 @@ const OUT = path.join(ROOT, 'certs', 'lean-intake-' + id + '.json');
 
 /* ---- the Lean the run generates (from the spec alone) ---------------------------------------------------------- */
 const claimStem = SPEC.claim.file.replace(/\.lean$/, '').replace(/[^A-Za-z0-9_]/g, '_');
-const claimMod = 'Intake.Claim.' + claimStem;
+/* the identity mode for self-contained files: every name below is the old one when the spec does not ask for it */
+const WRAP = !!SPEC.canonical.selfContained, WRAP_NS = 'IntakeCanon';
+const IN_PLACE = !!SPEC.claim.module;
+if (IN_PLACE && (SPEC.claim.url !== SPEC.canonical.url || SPEC.claim.commit !== SPEC.canonical.commit)) die('claim.module needs the claimant\'s file in the canonical repository at the same commit');
+const claimMod = IN_PLACE ? SPEC.claim.module : 'Intake.Claim.' + claimStem;
+const canonStem = 'C_' + path.basename(SPEC.canonical.path, '.lean').replace(/[^A-Za-z0-9_]/g, '_');
+const canonMod = WRAP ? 'Intake.Canon.' + canonStem : SPEC.canonical.module;
+const canonDecl = (WRAP ? WRAP_NS + '.' : '') + SPEC.canonical.decl;
+const claimRef = (WRAP ? '_root_.' : '') + SPEC.claim.decl;
+const AXIOMS = (SPEC.canonical.axioms || []).map((a) => (typeof a === 'string' ? { canonical: a, claim: a } : a));
+if (AXIOMS.length && !WRAP) die('canonical.axioms needs canonical.selfContained (the comparison is name for name)');
+const PERMITTED = AXIOMS.map((a) => a.claim);
 const neg = SPEC.polarity === 'refutes' ? '¬ ' : SPEC.polarity === 'proves' ? '' : die('polarity is proves or refutes');
 const META = `import Lean
 open Lean Meta Elab Command
@@ -119,28 +153,144 @@ elab "intake_components " src:ident " => " dst:ident : command => do
 
 end Intake
 `;
+const IDENT = `import Lean
+import Intake.Meta
+open Lean Meta Elab Command
+
+namespace Intake
+
+/-- The name a constant of one file has in the other: the prefix added (the canonical file → its copy) or removed (the
+copy → the claimant's file). A private name is rebuilt for the other module. -/
+def counterpart (pre : Name) (add : Bool) (modB : Name) (c : Name) : Name :=
+  let f := fun (u : Name) => if add then pre ++ u else u.replacePrefix pre Name.anonymous
+  match privateToUserName? c with
+  | some u => mkPrivateNameCore modB (f u)
+  | none => f c
+
+structure Same where
+  env : Environment
+  modA : ModuleIdx
+  tr : Name → Name
+
+def Same.inA (S : Same) (n : Name) : Bool := S.env.getModuleIdxFor? n == some S.modA
+
+partial def Same.rename (S : Same) (e : Expr) : Expr :=
+  e.replace fun
+    | .const n ls => if S.inA n then some (.const (S.tr n) ls) else none
+    | .proj s i b => if S.inA s then some (.proj (S.tr s) i (S.rename b)) else none
+    | _ => none
+
+/-- \`a\` and \`b\` are the same declaration, name for name: equal universe parameters, equal types and (for
+definitions) equal values once every constant of \`a\`'s own module is given its counterpart's name, and the same for
+every such constant in turn. Binder names are not compared. A theorem's proof is not part of what it says. -/
+partial def Same.visit (S : Same) (top : Bool) (a b : Name) : StateT NameSet (Except String) Unit := do
+  if (← get).contains a then return
+  modify fun s => s.insert a
+  let some x := S.env.find? a | throw s!"no constant {a}"
+  let some y := S.env.find? b | throw s!"{a} has no counterpart {b}"
+  unless x.levelParams == y.levelParams do throw s!"{a} and {b}: the universe parameters differ"
+  unless S.rename x.type == y.type do throw s!"{a} and {b}: the types differ"
+  let mut deps := x.type.getUsedConstants
+  match x, y with
+  | .defnInfo u, .defnInfo v =>
+    unless S.rename u.value == v.value do throw s!"{a} and {b}: the definitions differ"
+    deps := deps ++ u.value.getUsedConstants
+  | .opaqueInfo u, .opaqueInfo v =>
+    unless S.rename u.value == v.value do throw s!"{a} and {b}: the opaque definitions differ"
+    deps := deps ++ u.value.getUsedConstants
+  | .thmInfo _, .thmInfo _ => pure ()
+  | .axiomInfo _, .axiomInfo _ => pure ()
+  | .quotInfo _, .quotInfo _ => pure ()
+  | .inductInfo u, .inductInfo v =>
+    unless u.numParams == v.numParams && u.numIndices == v.numIndices && u.ctors.map S.tr == v.ctors && u.all.map S.tr == v.all do
+      throw s!"{a} and {b}: the inductive types differ"
+    deps := deps ++ u.ctors.toArray
+  | .ctorInfo u, .ctorInfo v =>
+    unless S.tr u.induct == v.induct && u.cidx == v.cidx && u.numParams == v.numParams && u.numFields == v.numFields do
+      throw s!"{a} and {b}: the constructors differ"
+    deps := deps.push u.induct
+  | .recInfo u, .recInfo v =>
+    unless u.all.map S.tr == v.all do throw s!"{a} and {b}: the recursors differ"
+    deps := deps ++ u.all.toArray
+  | _, _ => unless top do throw s!"{a} and {b}: different kinds of declaration"
+  for d in deps do
+    if S.inA d then S.visit false d (S.tr d)
+
+/-- One JSON line: whether \`a\` and \`b\` are the same declaration (\`Same.visit\`), and through how many constants. -/
+elab "intake_same " label:str mode:ident pre:ident a:ident " => " b:ident : command => do
+  let env ← getEnv
+  let an := a.getId
+  let bn := b.getId
+  let res : Except String Nat := do
+    let some ma := env.getModuleIdxFor? an | throw s!"{an} is not an imported constant"
+    let some ib := env.getModuleIdxFor? bn | throw s!"{bn} is not an imported constant"
+    let some mb := env.header.moduleNames.find? (fun m => env.getModuleIdx? m == some ib) | throw s!"{bn}: no module"
+    let S : Same := { env := env, modA := ma, tr := counterpart pre.getId (mode.getId == \`add) mb }
+    let (_, seen) ← (S.visit true an bn).run {}
+    pure seen.size
+  let fields := match res with
+    | .ok n => [("identical", Json.bool true), ("constants", toJson n)]
+    | .error m => [("identical", Json.bool false), ("difference", Json.str m)]
+  emitLine <| Json.mkObj ([("same", Json.str label.getString), ("a", Json.str an.toString), ("b", Json.str bn.toString)] ++ fields)
+
+end Intake
+`;
+/* the copy of the canonical file: one line added after its last import, nothing else (comments are skipped to find it) */
+function wrapCanonical(text) {
+  const lines = text.split('\n');
+  let depth = 0, last = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    let out = '';
+    for (let j = 0; j < l.length; j++) {
+      if (l.startsWith('/-', j)) { depth++; j++; continue; }
+      if (depth && l.startsWith('-/', j)) { depth--; j++; continue; }
+      if (!depth && l.startsWith('--', j)) break;
+      if (!depth) out += l[j];
+    }
+    const t = out.trim();
+    if (!t) continue;
+    if (/^((public|private|meta)\s+)*import(\s+all)?\s+\S/.test(t)) { last = i; continue; }
+    if (/^(module|prelude)$/.test(t)) continue;
+    break;
+  }
+  if (last < 0) die('the canonical file has no import line to add the namespace after');
+  const out = lines.slice(0, last + 1).concat(['namespace ' + WRAP_NS], lines.slice(last + 1));
+  if (out.filter((_, i) => i !== last + 1).join('\n') !== text) die('the copy is not the canonical file plus one line');
+  return { text: out.join('\n'), line: last + 2 };
+}
 function generated() {
-  const C = SPEC.canonical, imp = `import ${C.module}\nimport ${claimMod}\n`;
+  const C = SPEC.canonical, imp = `import ${canonMod}\nimport ${claimMod}\n`;
   const files = {
     'Intake/Meta.lean': META,
-    'Intake/F1.lean': imp + `\n/-! F1: the canonical statement, taken from its declaration by type_of%, and the claimant's proof. -/\ntheorem Intake.f1 : ${neg}(type_of% @${C.decl}) := ${SPEC.claim.decl}\n\n#print axioms Intake.f1\n`,
+    'Intake/F1.lean': imp + `\n/-! F1: the canonical statement, taken from its declaration by type_of%, and the claimant's proof. -/\ntheorem Intake.f1 : ${neg}(type_of% @${canonDecl}) := ${claimRef}\n\n#print axioms Intake.f1\n`,
     'Intake/F1Report.lean': `import Intake.F1\nimport Intake.Meta\nopen Lean Meta\n\n#eval show MetaM Unit from do\n  let env ← getEnv\n`
-      + `  let some can := env.find? "${C.decl}".toName | throwError "intake: no canonical declaration"\n`
+      + `  let some can := env.find? "${canonDecl}".toName | throwError "intake: no canonical declaration"\n`
       + `  let some cl := env.find? "${SPEC.claim.decl}".toName | throwError "intake: no claimant declaration"\n`
       + `  let target := ${neg ? 'mkNot can.type' : 'can.type'}\n  let defeq ← isDefEq cl.type target\n`
       + `  Intake.emit <| Json.mkObj [("canonical", Json.str s!"{← ppExpr can.type}"), ("claim", Json.str s!"{← ppExpr cl.type}"),\n`
       + `    ("equal", Json.bool (cl.type.equal target)), ("eqv", Json.bool (cl.type.eqv target)), ("defeq", Json.bool defeq),\n`
       + `    ("canonicalLevelParams", toJson can.levelParams.toArray), ("claimLevelParams", toJson cl.levelParams.toArray)]\n`,
-    'Intake/F3.lean': `import ${C.module}\nimport Intake.Meta\n\n/-! F3: the canonical statement's hypotheses have a model. -/\nintake_hypotheses ${C.decl} => Intake.F3.target\n\n`
+    'Intake/F3.lean': (WRAP && SPEC.f3.withClaim ? imp : `import ${C.module}\n`) + `import Intake.Meta\n\n/-! F3: the canonical statement's hypotheses have a model. -/\nintake_hypotheses ${WRAP && SPEC.f3.withClaim ? canonDecl : C.decl} => Intake.F3.target\n\n`
       + `theorem Intake.f3 : ¬ Intake.F3.target := by\n  ${SPEC.f3.tactic}\n\n#print axioms Intake.f3\n`,
   };
   const cLine = {};
   for (const m of SPEC.mutants) {
-    const ns = (SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id;   /* inside the canonical namespace, its dot notation resolves */
+    const ns = (WRAP ? WRAP_NS + '.' : '') + (SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id;   /* inside the canonical namespace, its dot notation resolves */
     const head = imp + (m.imports || []).map((i) => `import ${i}\n`).join('') + `\n/-! ${m.id} (${m.kind}): ${m.why.replace(/-\//g, '- /')} -/\nnamespace ${ns}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('');
     const body = `theorem s : ${m.statement} := by\n  sorry\n`;
     cLine[m.id] = (head + body).split('\n').length;
-    files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${SPEC.claim.decl}\nend ${ns}\n`;
+    files[`Intake/Mut/${m.id}.lean`] = head + body + `theorem c : ${neg}(type_of% @s) := ${claimRef}\nend ${ns}\n`;
+  }
+  if (WRAP) {
+    /* the copy against the original (the two load together: the copy's names are prefixed), and the copy against the claimant's file */
+    const pairs = [C.decl].concat(AXIOMS.map((a) => a.canonical));
+    files['Intake/Ident.lean'] = IDENT;
+    files['Intake/WrapCheck.lean'] = `import ${C.module}\nimport ${canonMod}\nimport Intake.Ident\n\n/-! The copy of the canonical file is the canonical file: each declaration F1 uses, constant by constant. -/\n`
+      + pairs.map((d) => `intake_same "wrap" add ${WRAP_NS} ${d} => ${WRAP_NS}.${d}\n`).join('');
+    files['Intake/Same.lean'] = imp + `import Intake.Ident\n\n/-! The claimant's declarations against the canonical copy's, name for name (no unfolding). -/\n`
+      + (neg ? '' : `intake_same "statement" strip ${WRAP_NS} ${canonDecl} => ${SPEC.claim.decl}\n`)
+      + AXIOMS.map((a) => `intake_same "axiom" strip ${WRAP_NS} ${WRAP_NS}.${a.canonical} => ${a.claim}\n`).join('');
   }
   if (SPEC.f2) {
     const F2 = SPEC.f2, app = (c) => F2.apply.replace('COMP', c);
@@ -181,7 +331,7 @@ function run() {
   const FACTS = path.join(RUNS, day); fs.mkdirSync(FACTS, { recursive: true });
   const WORK = process.env.LEAN_INTAKE_WORK || path.join(os.homedir(), 'Projects', 'lean-intake-work', id);
   fs.mkdirSync(WORK, { recursive: true });
-  const CAN = path.join(WORK, 'canonical'), CLM = path.join(WORK, 'claim'), TOOLS = path.join(WORK, 'tools');
+  const CAN = path.join(WORK, 'canonical'), CLM = IN_PLACE ? CAN : path.join(WORK, 'claim'), TOOLS = path.join(WORK, 'tools');
   const status = (s) => { fs.appendFileSync(path.join(FACTS, '_status.txt'), new Date().toISOString() + ' ' + s + '\n'); console.log(s); };
   const step = (name, cwd, command, seconds = 7200, env = {}) => {
     status('start ' + name);
@@ -199,8 +349,11 @@ function run() {
   const C = SPEC.canonical;
   for (const s of want) {
     if (s === 'pin') {
-      step('pin-canonical', WORK, `rm -rf canonical && git clone -q --filter=blob:none ${C.url} canonical && git -C canonical checkout -q ${C.commit} && git -C canonical rev-parse HEAD`);
-      step('pin-claim', WORK, `rm -rf claim && git clone -q ${SPEC.claim.url} claim && git -C claim checkout -q ${SPEC.claim.commit} && git -C claim rev-parse HEAD`);
+      /* LEAN_INTAKE_KEEP=1: a checkout already at the pinned commit is kept (its build with it); the file's bytes are checked below either way */
+      const keep = process.env.LEAN_INTAKE_KEEP === '1' ? `[ "$(git -C canonical rev-parse HEAD 2>/dev/null)" = "${C.commit}" ] || ` : '';
+      step('pin-canonical', WORK, `${keep}(rm -rf canonical && git clone -q --filter=blob:none ${C.url} canonical && git -C canonical checkout -q ${C.commit}) && git -C canonical rev-parse HEAD`);
+      if (IN_PLACE) step('pin-claim', WORK, 'git -C canonical rev-parse HEAD');
+      else step('pin-claim', WORK, `rm -rf claim && git clone -q ${SPEC.claim.url} claim && git -C claim checkout -q ${SPEC.claim.commit} && git -C claim rev-parse HEAD`);
       const pin = {
         canonical: { head: fs.readFileSync(path.join(FACTS, 'pin-canonical.log'), 'utf8').trim().split('\n').pop(), sha256: sha(fs.readFileSync(path.join(CAN, C.path))), toolchain: fs.readFileSync(path.join(CAN, 'lean-toolchain'), 'utf8').trim() },
         claim: { head: fs.readFileSync(path.join(FACTS, 'pin-claim.log'), 'utf8').trim().split('\n').pop(), sha256: sha(fs.readFileSync(path.join(CLM, SPEC.claim.file))), toolchain: fs.existsSync(path.join(CLM, 'lean-toolchain')) ? fs.readFileSync(path.join(CLM, 'lean-toolchain'), 'utf8').trim() : null },
@@ -227,20 +380,32 @@ function run() {
       fs.rmSync(lib, { recursive: true, force: true });
       fs.mkdirSync(path.join(lib, 'Claim'), { recursive: true }); fs.mkdirSync(path.join(lib, 'Mut'), { recursive: true }); fs.mkdirSync(path.join(lib, 'Red'), { recursive: true });
       const claimText = fs.readFileSync(path.join(CLM, SPEC.claim.file), 'utf8');
-      fs.copyFileSync(path.join(CLM, SPEC.claim.file), path.join(lib, 'Claim', claimStem + '.lean'));
+      if (!IN_PLACE) fs.copyFileSync(path.join(CLM, SPEC.claim.file), path.join(lib, 'Claim', claimStem + '.lean'));
+      let wrap = null;
+      if (WRAP) {
+        const canText = fs.readFileSync(path.join(CAN, C.path), 'utf8'), w = wrapCanonical(canText);
+        fs.mkdirSync(path.join(lib, 'Canon'), { recursive: true });
+        fs.writeFileSync(path.join(lib, 'Canon', canonStem + '.lean'), w.text);
+        wrap = { canonicalSha256: sha(Buffer.from(canText, 'utf8')), copy: 'Intake/Canon/' + canonStem + '.lean', copySha256: sha(Buffer.from(w.text, 'utf8')), addedLine: w.line, added: 'namespace ' + WRAP_NS, check: 'the copy without that line is the canonical file, byte for byte' };
+      }
       for (const [f, b] of Object.entries(files)) fs.writeFileSync(path.join(CAN, f), b);
       for (const r of SPEC.claimReds || []) fs.writeFileSync(path.join(lib, 'Red', r.id + '.lean'), redBytes(claimText, r));
       const toml = path.join(CAN, 'lakefile.toml');
       if (!fs.existsSync(toml)) die('the canonical repository has no lakefile.toml (a lakefile.lean is not handled yet)');
       if (!/name = "Intake"/.test(fs.readFileSync(toml, 'utf8'))) fs.appendFileSync(toml, '\n[[lean_lib]]\nname = "Intake"\n');
       const shas = {};
-      for (const f of ['Claim/' + claimStem + '.lean'].concat(Object.keys(files).map((f) => f.slice('Intake/'.length)), (SPEC.claimReds || []).map((r) => 'Red/' + r.id + '.lean'))) shas[f] = sha(fs.readFileSync(path.join(lib, f)));
-      fs.writeFileSync(path.join(FACTS, 'assemble.json'), JSON.stringify({ files: shas }, null, 1) + '\n');
+      for (const f of (IN_PLACE ? [] : ['Claim/' + claimStem + '.lean']).concat(WRAP ? ['Canon/' + canonStem + '.lean'] : [], Object.keys(files).map((f) => f.slice('Intake/'.length)), (SPEC.claimReds || []).map((r) => 'Red/' + r.id + '.lean'))) shas[f] = sha(fs.readFileSync(path.join(lib, f)));
+      fs.writeFileSync(path.join(FACTS, 'assemble.json'), JSON.stringify(wrap ? { files: shas, wrap } : { files: shas }, null, 1) + '\n');
       status('assembled ' + Object.keys(shas).length + ' files');
     } else if (s === 'claim') {
       step('claim', CAN, `lake build ${claimMod}`);
     } else if (s === 'f1') {
+      if (WRAP) {
+        fs.rmSync(path.join(FACTS, 'wrapcheck.jsonl'), { force: true }); fs.rmSync(path.join(FACTS, 'same.jsonl'), { force: true });
+        step('wrapcheck', CAN, `lake build Intake.Ident ${canonMod} && lake env lean Intake/WrapCheck.lean`, 3600, { INTAKE_OUT: path.join(FACTS, 'wrapcheck.jsonl') });
+      }
       if (step('f1', CAN, 'lake build Intake.F1')) step('f1report', CAN, 'lake build Intake.Meta && lake env lean Intake/F1Report.lean', 1800, { INTAKE_OUT: path.join(FACTS, 'f1report.json') });
+      if (WRAP) step('same', CAN, `lake build Intake.Ident ${canonMod} ${claimMod} && lake env lean Intake/Same.lean`, 3600, { INTAKE_OUT: path.join(FACTS, 'same.jsonl') });
     } else if (s === 'f3') {
       step('f3', CAN, 'lake build Intake.F3');
     } else if (s === 'mutants') {
@@ -267,13 +432,13 @@ function run() {
     } else if (s === 'nanoda') {
       if (!ok('f1')) { status('skip nanoda: f1 did not build'); continue; }
       const ver = C.toolchain.split(':')[1];
-      step('lean4export-build', WORK, `rm -rf tools/lean4export && mkdir -p tools && git clone -q https://github.com/leanprover/lean4export tools/lean4export && cd tools/lean4export && (git checkout -q ${ver} 2>/dev/null || git checkout -q "$(git tag --list '${ver.replace(/\.\d+$/, '')}*' | tail -1)") && git log --oneline -1 && echo ${C.toolchain} > lean-toolchain && lake build && ls .lake/build/bin`, 3600);
+      step('lean4export-build', WORK, `rm -rf tools/lean4export && mkdir -p tools && git clone -q https://github.com/leanprover/lean4export tools/lean4export && cd tools/lean4export && (git checkout -q ${(SPEC.tools && SPEC.tools.lean4export) || ver} 2>/dev/null || git checkout -q "$(git tag --list '${ver.replace(/\.\d+$/, '')}*' | tail -1)") && git log --oneline -1 && echo ${C.toolchain} > lean-toolchain && lake build && ls .lake/build/bin`, 3600);
       step('nanoda-build', WORK, `rm -rf tools/nanoda_lib && mkdir -p tools && git clone -q ${NANODA.url} tools/nanoda_lib && cd tools/nanoda_lib && git checkout -q ${NANODA.commit} && cargo build --release --locked -q && shasum -a 256 target/release/nanoda_bin`, 3600);
       if (!ok('lean4export-build') || !ok('nanoda-build')) continue;
       const exp = path.join(WORK, 'f1.export');
       step('export', CAN, `lake env "${TOOLS}/lean4export/.lake/build/bin/lean4export" Intake.F1 -- Intake.f1 > "${exp}" && shasum -a 256 "${exp}" && wc -c < "${exp}"`, 7200);
       if (!ok('export')) continue;
-      fs.writeFileSync(path.join(WORK, 'nanoda.json'), JSON.stringify({ export_file_path: exp, use_stdin: false, permitted_axioms: ['propext', 'Quot.sound', 'Classical.choice'], unpermitted_axiom_hard_error: false, nat_extension: true, string_extension: true, num_threads: 8, print_success_message: true, stack_size_bytes: 1073741824 }) + '\n');
+      fs.writeFileSync(path.join(WORK, 'nanoda.json'), JSON.stringify({ export_file_path: exp, use_stdin: false, permitted_axioms: ['propext', 'Quot.sound', 'Classical.choice'].concat(PERMITTED), unpermitted_axiom_hard_error: false, nat_extension: true, string_extension: true, num_threads: 8, print_success_message: true, stack_size_bytes: 1073741824 }) + '\n');
       step('nanoda', WORK, `"${TOOLS}/nanoda_lib/target/release/nanoda_bin" nanoda.json`, 7200);
     }
   }
@@ -313,15 +478,35 @@ function decide() {
   const { cLine } = generated();
   const gen = generated().files;
   for (const [f, b] of Object.entries(gen)) if (asm.files[f.slice('Intake/'.length)] !== sha(b)) die('the run built another ' + f + ' than this spec generates');
-  if (asm.files['Claim/' + claimStem + '.lean'] !== SPEC.claim.sha256) die('the run built another claimant file than the pin');
+  if (IN_PLACE ? pin.claim.sha256 !== SPEC.claim.sha256 : asm.files['Claim/' + claimStem + '.lean'] !== SPEC.claim.sha256) die('the run built another claimant file than the pin');
 
   const f1log = rd('f1.log'), f1ax = axioms(f1log, 'Intake.f1');
   const rep = has('f1report.json') ? JSON.parse(rd('f1report.json')) : null;
   const F1 = { exit: exit('f1'), axioms: f1ax, report: rep && { equal: rep.equal, eqv: rep.eqv, defeq: rep.defeq }, canonical: rep && rep.canonical, claim: rep && rep.claim, seconds: secs('f1') };
-  F1.word = F1.exit === '0' && f1ax && f1ax.every((a) => STD.includes(a)) && rep && rep.defeq ? 'CERTIFIED' : 'REFUSED';
+  /* self-contained files: the copy is the canonical file, and each axiom the proof rests on is the canonical file's own */
+  let SC = null;
+  if (WRAP) {
+    const jl = (n) => (has(n) ? rd(n).trim().split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
+    const wc = jl('wrapcheck.jsonl'), sm = jl('same.jsonl');
+    const row = (L, label, a, b) => { const l = L.find((x) => x.same === label && x.a === a && x.b === b); return { identical: !!(l && l.identical === true), constants: l && l.constants !== undefined ? l.constants : null, difference: l ? l.difference || null : 'not compared' }; };
+    const copy = [SPEC.canonical.decl].concat(AXIOMS.map((a) => a.canonical)).map((d) => Object.assign({ decl: d }, row(wc, 'wrap', d, WRAP_NS + '.' + d)));
+    const axs = AXIOMS.map((a) => Object.assign({ canonical: a.canonical, claim: a.claim }, row(sm, 'axiom', WRAP_NS + '.' + a.canonical, a.claim)));
+    const bytes = !!asm.wrap && asm.wrap.canonicalSha256 === SPEC.canonical.sha256 && asm.files['Canon/' + canonStem + '.lean'] === asm.wrap.copySha256;
+    SC = { copy: asm.wrap || null, copyIsCanonical: { bytes, exit: exit('wrapcheck'), declarations: copy, word: bytes && exit('wrapcheck') === '0' && copy.every((r) => r.identical) ? 'CERTIFIED' : 'REFUSED' },
+      statementAsWritten: neg ? null : row(sm, 'statement', canonDecl, SPEC.claim.decl),
+      axioms: { exit: exit('same'), pairs: axs, word: !AXIOMS.length ? 'none declared' : exit('same') === '0' && axs.every((r) => r.identical) ? 'CERTIFIED' : 'REFUSED' },
+      conditionalOn: AXIOMS.map((a) => a.canonical) };
+  }
+  const f1std = !!f1ax && f1ax.every((a) => STD.includes(a) || PERMITTED.includes(a));
+  F1.word = F1.exit === '0' && f1std && rep && rep.defeq && (!SC || (SC.copyIsCanonical.word === 'CERTIFIED' && SC.axioms.word !== 'REFUSED')) ? 'CERTIFIED' : 'REFUSED';
   F1.how = F1.word === 'CERTIFIED' ? `the kernel accepts the claimant's ${SPEC.claim.decl} as a proof of ${neg}${SPEC.canonical.decl}'s own type (taken by type_of%); `
     + (rep.equal ? 'the two types are equal as expressions' : rep.eqv ? 'the two types are equal up to binder names' : 'the two types differ as written and agree after definitional unfolding') : 'see the log';
 
+  if (SC) {
+    F1.selfContained = SC;
+    if (F1.word === 'CERTIFIED') F1.how += `; the statement is read from a copy of the canonical file with one line added after its imports (\`namespace ${WRAP_NS}\`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (${SC.copyIsCanonical.declarations.map((r) => r.constants).join(', ')} constants)`
+      + (AXIOMS.length ? `; CONDITIONAL on the canonical file's own axioms ${SC.conditionalOn.join(', ')}: the claimant's proof rests on its axioms of those names, and each is the canonical one, its statement and every definition under it identical name for name (${SC.axioms.pairs.map((r) => r.constants).join(', ')} constants)` : '');
+  }
   const f3log = rd('f3.log'), f3ax = axioms(f3log, 'Intake.f3');
   const F3 = { exit: exit('f3'), axioms: f3ax, witness: SPEC.f3.what, seconds: secs('f3') };
   F3.word = F3.exit === '0' && f3ax && f3ax.every((a) => STD.includes(a)) ? 'CERTIFIED' : 'REFUSED';
@@ -341,7 +526,7 @@ function decide() {
   });
   const reds = (SPEC.claimReds || []).map((r) => {
     const n = 'red-' + r.id, log = rd(n + '.log'), e = exit(n), ax = axioms(log, SPEC.claim.decl);
-    const extra = ax ? ax.filter((a) => !STD.includes(a)) : null;
+    const extra = ax ? ax.filter((a) => !STD.includes(a) && !PERMITTED.includes(a)) : null;
     const caught = e !== '0' || (extra && extra.length > 0);
     return { id: r.id, why: r.why, expect: r.expect, exit: e, nonstandardAxioms: extra, caught, how: e !== '0' ? 'the build fails: ' + ((errors(log, `Intake/Red/${r.id}.lean`)[0] || {}).text || 'see the log') : caught ? 'the axioms list ' + extra.join(', ') : 'NOT CAUGHT', seconds: secs(n) };
   });
@@ -556,6 +741,7 @@ function decide() {
     pins: { canonical: Object.assign({ url: SPEC.canonical.url, path: SPEC.canonical.path, decl: SPEC.canonical.decl }, pin.canonical), claim: Object.assign({ url: SPEC.claim.url, file: SPEC.claim.file, decl: SPEC.claim.decl }, pin.claim) },
     hazards: pin.hazards,
     verdict, words, F1, F2, F3, mutants, reds, kernels, notRun, reproduces,
+    ...(AXIOMS.length ? { conditionalOn: { axioms: AXIOMS.map((a) => a.canonical), note: 'CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them.' } } : {}),
   };
 }
 function record() {

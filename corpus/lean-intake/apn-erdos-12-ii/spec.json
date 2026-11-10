@@ -1,0 +1,114 @@
+{
+ "id": "apn-erdos-12-ii",
+ "what": "The identity mode for self-contained files (tools/lean-intake.js, 2026-11-10), tested on a recorded case: AlphaProof Nexus's proof of Erdős #12, part (ii), against DeepMind's statement in formal-conjectures at the commit the results repository builds against. The results file restates the canonical definition IsGood in the canonical namespace Erdos12, so the two files cannot be loaded into one environment (the L3 scout's finding, corpus/targets.json lean-intake-apn-statement-layer-2026-11). The proof itself is already decided: certs/apn-kernel.json (2026-10-20) records it CERTIFIED by Comparator with nanoda, against the same statement, on a hosted runner. The question here is the tool's: does the new mode reach that answer, and does it still refuse a wrong statement and a planted defect. This spec is hand-written and is the pre-registration, committed before the run.",
+ "polarity": "proves",
+ "claim": {
+  "what": "AlphaProof Nexus's proof of Erdős #12, part (ii) (google-deepmind/alphaproof-nexus-results)",
+  "kind": "git",
+  "url": "https://github.com/google-deepmind/alphaproof-nexus-results.git",
+  "commit": "0647711a71183c1ea492ad60860776617ce1ea88",
+  "file": "APNOutputs/ErdosProblems/erdos_12.parts.ii.lean",
+  "sha256": "f155135c1e845cb3041abe20edce22e660c407b48620d696ea6325c75ae91b66",
+  "decl": "Erdos12.target_theorem_0",
+  "license": "Apache-2.0 (the repository's); a pinned copy is already in corpus/alphaproof-nexus/apn/ with its licence; the run fetches the file at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #12, part (ii), at formal-conjectures 7862bf6a",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "7862bf6a6976c26acb086b6b2cec12ad1d92ce5d",
+  "path": "FormalConjectures/ErdosProblems/12.lean",
+  "sha256": "e8d45d2110214c142e2dfd6be267a21729faba79f7c3189a53cdf1bb1294c825",
+  "module": "FormalConjectures.ErdosProblems.«12»",
+  "decl": "Erdos12.erdos_12.parts.ii",
+  "toolchain": "leanprover/lean4:v4.27.0",
+  "selfContained": true
+ },
+ "mutantNamespace": "Erdos12.IntakeMut",
+ "mutantOpen": [
+  "Erdos12",
+  "Classical Filter Set"
+ ],
+ "expectF1": "CERTIFIED: the results file's IsGood is the canonical abbrev restated word for word, so it unfolds to the canonical one; the copy of the canonical file is the canonical file; no axioms beyond the standard three",
+ "f3": {
+  "what": "the statement has no hypotheses",
+  "tactic": "intro h\n  exact h",
+  "expect": "CERTIFIED"
+ },
+ "f2NotApplicable": "answer(False) ↔ a statement about every infinite set A of naturals and infinitely many N: no finite instance decides any of its parts, so F2 is refused, not run",
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim",
+   "statement": "answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A →\n    {N : ℕ| (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the claimant's own wording (one line, a space before the bar)",
+   "statement": "answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite",
+   "imports": [],
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "W1",
+   "kind": "wrong",
+   "why": "the answer flipped: answer(True) for answer(False)",
+   "statement": "answer(True) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A →\n    {N : ℕ| (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W2",
+   "kind": "wrong",
+   "why": "c > 0 weakened to c ≥ 0",
+   "statement": "answer(False) ↔ ∃ c ≥ (0 : ℝ), ∀ (A : Set ℕ), IsGood A →\n    {N : ℕ| (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W3",
+   "kind": "wrong",
+   "why": "the exponent 1 - c made 1 + c",
+   "statement": "answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A →\n    {N : ℕ| (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 + c)}.Infinite",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "W4",
+   "kind": "wrong",
+   "why": "the hypothesis IsGood A dropped",
+   "statement": "answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), {N : ℕ| (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite",
+   "imports": [],
+   "expect": "REFUSED by type mismatch"
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of target_theorem_0 replaced by sorry (the original kept as intake_was_target_theorem_0)",
+   "find": "theorem target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite :=",
+   "replace": "theorem target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite := sorry\n\ntheorem intake_was_target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite :=",
+   "all": false,
+   "expect": "sorryAx in the axioms"
+  },
+  {
+   "id": "R2",
+   "why": "target_theorem_0 proved by an added axiom (the original kept as intake_was_target_theorem_0)",
+   "find": "theorem target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite := intakeRedAxiom\n\ntheorem intake_was_target_theorem_0\n  : answer(False) ↔ ∃ c > (0 : ℝ), ∀ (A : Set ℕ), IsGood A → {N : ℕ | (A ∩ Icc 1 N).ncard < (N : ℝ) ^ (1 - c)}.Infinite :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain, if it is)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "notInScope": "F2 (refused: no finite instances); whether DeepMind's statement is Erdős's problem (a reading, F5); the other eight results files; anything about the proof beyond what certs/apn-kernel.json already records.",
+ "success": "F1 CERTIFIED with the copy shown to be the canonical file; S0 and S1 accepted; W1–W4 refused by a type mismatch at the claimant's term; R1 and R2 caught; the existing eleven records unchanged byte for byte (record --check).",
+ "amendments": []
+}
