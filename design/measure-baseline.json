@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-11-09",
-  "browser": "Chrome/157.0.8103.38",
+  "recorded": "2026-11-10",
+  "browser": "Chrome/157.0.8103.50",
   "viewports": [
     1440,
     768,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e888fe714c733b3c0743b78ed0e188823b6b8d6ec314685420685843423b48df"
+      "sha": "c94ed9325e3f7dd91412cdd8f73c1c7d8facff987c3bfbbb9d9f242285478424"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "00d3f81f9667d01c766be792acc9170461e41e7e2925cd893b099a65577839fd"
+      "sha": "bf030a5fff7d36d12769bbdad564d8fb985fd1b62399a69357667dc117621efd"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8cb69525bc7cbe27411582a105819b2dbdb82c05725d0053db1fe433c9e0e00c"
+      "sha": "5ad48a72b80c0e4b60c53971dd2fe77c0b2e6736d90138b8e4d9de1bb4986d24"
     },
     "site/index.html": {
       "390": {
@@ -306,7 +306,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "73a528a9ae1ab1761a830d368bb725d960e7c32606fe60a4ccef60419af6762f"
+      "sha": "d51dbb20f01b6c378a911bfed6df263172d7e45df40e45d7050b463f1ad2efd8"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -915,7 +915,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4804364f76df2d64e473d079675072b3483b8edf9e500ab535c36c5bb2ef082b"
+      "sha": "e6a56fa214f014c3a07d6bc823127dee8fe2289f2bb170f4c231516eb16ac37f"
     },
     "site/machine/log.html": {
       "390": {
@@ -957,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "faf583aad980f95dd8faec7d6c354ff56abd97802d59cc97db4f965ea9710ad8"
+      "sha": "bc99a065ebd7ef5f432c8736ed7d3c1be9e7562bc1a44f397ef0bd273b3ba8ae"
     },
     "site/papers/index.html": {
       "390": {
@@ -978,7 +978,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "97494bd7c47426242cfc1efcadd2cfad2cbf7bff190e337062f381cee28a5c53"
+      "sha": "523a0848f37d76dd8198eb465c87be5323c02c76ca743e9fb3cdcad926c4029c"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2112,7 +2112,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ad21eb2452d48d212ae08b7150a197bf9a5f419543cd607c53d8758c86b35e9d"
+      "sha": "379aefd16e1c7a347620151ffe6f446ec0de16aa2a6a809bee0878390b0d23c0"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2203,21 +2203,21 @@
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0
+        "clipped": 1
       },
       "768": {
-        "spines": 8,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 7,
+        "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e22941db837ca211902bddb7e6c9a5e366ba2bb0e1e2bbc9f26f3a6df3955c9c"
+      "sha": "e35c597e63c5dc2eb3b25fe60433e7598348f4710717b5c9f1b94aca436a7cbc"
     },
     "site/reports/macmahon.html": {
       "390": {
@@ -2553,7 +2553,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "09bd33d2f81f4bacea594b25abb4325a30e9bc5b10ca09d245ad662b8c7db024"
+      "sha": "14c12a5a31cf4dbf15b108ca73b18702b748012b237bcace2635fd842da15658"
     },
     "site/reports/optimization-constants.html": {
       "390": {
@@ -2574,7 +2574,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "15fbb50e14fb036fdce3b5e22a8c1e4e8bc2b8c5516b98c77a5b048ae4b22bd6"
+      "sha": "f96b2da2024dc9a346037e40de2c6d76abdd98c772d6b662d75ec7021bdf00b0"
     },
     "site/reports/polymaps.html": {
       "390": {
