@@ -219,6 +219,14 @@ test:
 	@printf "%-30s " "Lean intake: Erdős #488"; $(NODE) tools/lean-intake.js record erdos-488 --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: Erdős #786(i)"; $(NODE) tools/lean-intake.js record erdos-786i --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: #488 (claimbox)"; $(NODE) tools/lean-intake.js record erdos-488-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: erdos-902"; $(NODE) tools/lean-intake.js record erdos-902-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: erdos-123"; $(NODE) tools/lean-intake.js record erdos-123-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: erdos-652"; $(NODE) tools/lean-intake.js record erdos-652-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: erdos-669"; $(NODE) tools/lean-intake.js record erdos-669-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: mo-75792"; $(NODE) tools/lean-intake.js record mo-75792-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: giuga-weak"; $(NODE) tools/lean-intake.js record giuga-weak-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: giuga-strong"; $(NODE) tools/lean-intake.js record giuga-strong-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: sqtuples"; $(NODE) tools/lean-intake.js record sqtuples-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "heptagon + A.3 in Lean"; $(NODE) tools/record-heptagon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

@@ -1,0 +1,281 @@
+{
+ "what": "The Lean intake of Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's statement from arXiv:1609.08688 (s-increasing r-tuples), the square case, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/sqtuples/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/sqtuples-claimbox/spec.json",
+  "sha256": "8e65c8f41f4398a7897479b4e99f4b2c3928bc36e770efe3f5e4e4ed7a829701",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/sqtuples-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1067.4,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
+   "decl": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
+   "head": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+   "sha256": "6736c6f6aef12154ab51b382f5e741bab9b0324e8e3d61a0de4d8c57ad46aed5",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+   "file": "Solution.lean",
+   "decl": "increasing_triples_square",
+   "head": "3c85c7da2cf51edc3b6b9ba13adcf395e7f1a3f5",
+   "sha256": "2e1b569f5411eedeea4a01cd70acd6e9756c330592521b8c55754841ff781925",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "REFUSED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "0 of 2 accepted (predicted)",
+   "type": "1 of 1 not accepted (predicted)",
+   "changed": "4 refused, 0 accepted, of 4 (kernel decides: no outcome predicted)",
+   "certain": "1 of 3 certain predictions met",
+   "word": "REFUSED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "F n (maximalLength) is a supremum over all s-increasing sequences: noncomputable, so no part is decidable on instances"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ Arxiv.«1609.08688».maximalLength n",
+  "claim": "∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ Arxiv.«1609.08688».maximalLength n",
+  "seconds": 59.3,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's increasing_triples_square as a proof of Arxiv.«1609.08688».maximalLength_ge_of_isSquare's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "propext"
+  ],
+  "witness": "a model of the canonical statement's hypotheses: n = 4",
+  "seconds": 54.5,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": false,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 58.4,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (h→h₀, n→n₀): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": false,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 55.3,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the hypothesis `(h : IsSquare n)` dropped",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 52,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "`≤` made `<` (`^ 3 ≤ F n` → `^ 3 < F n`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 50.1,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 3 made 4 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 4 ≤ F`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 61.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 3 made 2 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 2 ≤ F`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 59.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Unknown identifier `F`"
+    }
+   ],
+   "seconds": 61,
+   "rule": "type:nat-int",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of increasing_triples_square replaced by sorry (the original kept as intake_was_increasing_triples_square)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 62
+  },
+  {
+   "id": "R2",
+   "why": "increasing_triples_square proved by an added axiom (the original kept as intake_was_increasing_triples_square)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list intakeRedAxiom",
+   "seconds": 63.3
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 59.3
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 44.1
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "ecf9052ef67483937a814da028d1c96dce23b9eaf81fb3d9db1c4df3d517e4a2",
+    "bytes": 25031934
+   },
+   "seconds": 0.9
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

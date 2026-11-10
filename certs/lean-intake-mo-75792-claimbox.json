@@ -1,0 +1,287 @@
+{
+ "what": "The Lean intake of Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's statement of MathOverflow 75792 (integer complexity of 3^n), decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/mo-75792/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/mo-75792-claimbox/spec.json",
+  "sha256": "2711756be836013418d1b15c4bfcc6baa53cdb9518ba700091027cb730927dde",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/mo-75792-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1194.9,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/Mathoverflow/75792.lean",
+   "decl": "Mathoverflow75792.complexity_three_pow",
+   "head": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+   "sha256": "c8c0eb6b64d95628b77839bebb37deaca06da6d9cdc32f6123e65812998b119d",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+   "file": "Solution.lean",
+   "decl": "complexity_of_three_pow",
+   "head": "de04e5150a5bddb5fb73497af753ef7f81442695",
+   "sha256": "ff81a863f2872247053d646560350e8dc98cb3c38e0928594964ffda0ef29f65",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "2 of 2 accepted (predicted)",
+   "type": "0 of 0 not accepted (predicted)",
+   "changed": "6 refused, 0 accepted, of 6 (kernel decides: no outcome predicted)",
+   "certain": "2 of 2 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "the statement is `answer(True) ↔ ∀ n, …`: no instance binder at its top level (the ∀ sits inside the iff); and the reading language cannot yet state integer complexity (a least number of ones over expressions)"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "True ↔ ∀ (n : ℕ), 0 < n → Mathoverflow75792.complexity (3 ^ n) = 3 * n",
+  "claim": "True ↔ ∀ (n : ℕ), 0 < n → Mathoverflow75792.complexity (3 ^ n) = 3 * n",
+  "seconds": 62.6,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's complexity_of_three_pow as a proof of Mathoverflow75792.complexity_three_pow's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: ",
+  "seconds": 65.1,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 60.6,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (n→n₀): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 61.9,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "`<` made `≤` (`0 < n` → `0 ≤ n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 63,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the numeral 0 made 1 (`ℕ , 0 < n` → `ℕ , 1 < n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 58.1,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 3 made 4 (`complexity ( 3 ^ n` → `complexity ( 4 ^ n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 57.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 3 made 2 (`complexity ( 3 ^ n` → `complexity ( 2 ^ n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 60.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "the numeral 3 made 4 (`= 3 * n` → `= 4 * n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 55.1,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "why": "the numeral 3 made 2 (`= 3 * n` → `= 2 * n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 9,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 62.2,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of complexity_of_three_pow replaced by sorry (the original kept as intake_was_complexity_of_three_pow)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 68.4
+  },
+  {
+   "id": "R2",
+   "why": "complexity_of_three_pow proved by an added axiom (the original kept as intake_was_complexity_of_three_pow)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list intakeRedAxiom",
+   "seconds": 69.2
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 62.6
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 45.2
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "3bd43195f165d586bf24a5bfb67b80e9ead2df9bc9cb48eaf1189f1a61758292",
+    "bytes": 14235435
+   },
+   "seconds": 0.8
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

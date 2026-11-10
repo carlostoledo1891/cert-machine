@@ -1,0 +1,299 @@
+{
+ "what": "The Lean intake of Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's characterization of weak Giuga numbers (Wikipedia: Agoh–Giuga), decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/giuga-weak/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/giuga-weak-claimbox/spec.json",
+  "sha256": "fb25df1ac7d6f95c24bb51f497fcd29a663bc54127c6c6e493735a4a2a4c0868",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/giuga-weak-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1160.9,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/Wikipedia/AgohGiuga.lean",
+   "decl": "AgohGiuga.isWeakGiuga_iff_sum_primeFactors",
+   "head": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+   "sha256": "52e8369680d4ece29ff12cb6e55254b66db397f249f933366fd2af76cdc7d8f1",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+   "file": "Solution.lean",
+   "decl": "weak_giuga_iff_sum",
+   "head": "d4e112619d3d00a40b39ccb50b8fdf9cf46db2ab",
+   "sha256": "fb94a5943de5a6ca8fd08b88558ea1010a5647245cde307799ddf6736ee9bcff",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "2 of 2 accepted (predicted)",
+   "type": "1 of 1 not accepted (predicted)",
+   "changed": "5 refused, 0 accepted, of 5 (kernel decides: no outcome predicted)",
+   "certain": "3 of 3 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "the conclusion has an unbounded ∃ m : ℕ: not decidable on instances"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "∀ {n : ℕ}, n.Composite → (AgohGiuga.IsWeakGiuga n ↔ ∃ m, ∑ p ∈ n.primeFactors, 1 / ↑p - 1 / ↑n = ↑m)",
+  "claim": "∀ {n : ℕ}, n.Composite → (AgohGiuga.IsWeakGiuga n ↔ ∃ m, ∑ p ∈ n.primeFactors, 1 / ↑p - 1 / ↑n = ↑m)",
+  "seconds": 51.5,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's weak_giuga_iff_sum as a proof of AgohGiuga.isWeakGiuga_iff_sum_primeFactors's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "witness": "a model of the canonical statement's hypotheses: n = 4",
+  "seconds": 65.7,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 61.7,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (hn→hn₀, m→m₀, n→n₀): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 61.6,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the hypothesis `(hn : n.Composite)` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 56.5,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`( 1 / p` → `( 2 / p`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 59.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`( 1 / p` → `( 0 / p`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 60,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`- 1 / n` → `- 2 / n`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 60.1,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`- 1 / n` → `- 0 / n`, line 2)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 59.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 8,
+     "text": "Invalid field `Composite`: The environment does not contain `Int.Composite`, so it is not possible to project the field `Composite` from an expression"
+    },
+    {
+     "line": 9,
+     "text": "Application type mismatch: The argument"
+    },
+    {
+     "line": 9,
+     "text": "Invalid field `primeFactors`: The environment does not contain `Int.primeFactors`, so it is not possible to project the field `primeFactors` from an expression"
+    }
+   ],
+   "seconds": 62.9,
+   "rule": "type:nat-int",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of weak_giuga_iff_sum replaced by sorry (the original kept as intake_was_weak_giuga_iff_sum)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 64.4
+  },
+  {
+   "id": "R2",
+   "why": "weak_giuga_iff_sum proved by an added axiom (the original kept as intake_was_weak_giuga_iff_sum)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list intakeRedAxiom",
+   "seconds": 63.5
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 51.5
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 42.9
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "63712565459f72c53cd74a6f9023c912085e4da89fc46b82b3cf93c7b7e29e72",
+    "bytes": 65119241
+   },
+   "seconds": 1.8
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

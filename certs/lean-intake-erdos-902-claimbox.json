@@ -1,0 +1,238 @@
+{
+ "what": "The Lean intake of Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #902, variant f_two, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/erdos-902/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-902-claimbox/spec.json",
+  "sha256": "d1bb6ba46873c28f5f9ecbfb9b7ad62e6ff8f41d7e5348b2ed014a10b95bc628",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/erdos-902-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1250.6,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/902.lean",
+   "decl": "Erdos902.erdos_902.variants.f_two",
+   "head": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+   "sha256": "28d16aaaec2a87aacdb5ba8b554ac799b3b6e168a1a1ff9a80431058fcb757e8",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/stokes/erdos-proofs.git",
+   "file": "ErdosProofs/Erdos902.lean",
+   "decl": "ErdosProofs.Problem902.f_two",
+   "head": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+   "sha256": "ac435d7e55b34809818763c5faa735e88a07792d1310e503e1a0cbd7b9ea401b",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "1 of 1 accepted (predicted)",
+   "type": "0 of 0 not accepted (predicted)",
+   "changed": "4 refused, 0 accepted, of 4 (kernel decides: no outcome predicted)",
+   "certain": "1 of 1 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "a closed statement (f 2 = 7, an infimum over tournaments): no instance binder to evaluate"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "Erdos902.f 2 = 7",
+  "claim": "Erdos902.f 2 = 7",
+  "seconds": 67.5,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's ErdosProofs.Problem902.f_two as a proof of Erdos902.erdos_902.variants.f_two's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: ",
+  "seconds": 74.4,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 80.7,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the numeral 2 made 3 (`f 2 = 7` → `f 3 = 7`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 81.4,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the numeral 2 made 1 (`f 2 = 7` → `f 1 = 7`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 86.7,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 7 made 8 (`2 = 7` → `2 = 8`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 83.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 7 made 6 (`2 = 7` → `2 = 6`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 78.5,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of f_two replaced by sorry (the original kept as intake_was_f_two)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 78.8
+  },
+  {
+   "id": "R2",
+   "why": "f_two proved by an added axiom (the original kept as intake_was_f_two)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "ErdosProofs.Problem902.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list ErdosProofs.Problem902.intakeRedAxiom",
+   "seconds": 84.9
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 67.5
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 54.6
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "bb53a67058a1e36df178c1d060b72e4d93e29527f3cf7c952c95313583f0de93",
+    "bytes": 27132850
+   },
+   "seconds": 0.8
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

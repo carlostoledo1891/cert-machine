@@ -1,0 +1,48 @@
+2026-11-10T01:11:12.577Z start pin-canonical
+2026-11-10T01:11:16.772Z end pin-canonical exit 0
+2026-11-10T01:11:16.772Z start pin-claim
+2026-11-10T01:11:17.546Z end pin-claim exit 0
+2026-11-10T01:11:17.548Z start toolchain
+2026-11-10T01:11:17.563Z end toolchain exit 0
+2026-11-10T01:11:17.563Z start cache
+2026-11-10T01:12:40.587Z end cache exit 0
+2026-11-10T01:12:40.592Z start canonical
+2026-11-10T01:14:29.356Z end canonical exit 0
+2026-11-10T01:14:29.372Z assembled 12 files
+2026-11-10T01:14:29.372Z start claim
+2026-11-10T01:15:43.072Z end claim exit 0
+2026-11-10T01:15:43.073Z start f1
+2026-11-10T01:16:53.555Z end f1 exit 0
+2026-11-10T01:16:53.556Z start f1report
+2026-11-10T01:18:04.626Z end f1report exit 0
+2026-11-10T01:18:04.627Z start f3
+2026-11-10T01:19:17.869Z end f3 exit 0
+2026-11-10T01:19:17.870Z start mut-S0
+2026-11-10T01:20:23.279Z end mut-S0 exit 0
+2026-11-10T01:20:23.280Z start mut-C01
+2026-11-10T01:21:23.184Z end mut-C01 exit 1
+2026-11-10T01:21:23.186Z start mut-C02
+2026-11-10T01:22:50.200Z end mut-C02 exit 1
+2026-11-10T01:22:50.207Z start mut-C03
+2026-11-10T01:23:58.961Z end mut-C03 exit 1
+2026-11-10T01:23:58.962Z start mut-C04
+2026-11-10T01:25:04.602Z end mut-C04 exit 1
+2026-11-10T01:25:04.603Z start red-R1
+2026-11-10T01:26:20.913Z end red-R1 exit 0
+2026-11-10T01:26:20.914Z start red-R2
+2026-11-10T01:27:26.632Z end red-R2 exit 0
+2026-11-10T01:27:26.639Z start leanchecker
+2026-11-10T01:28:07.755Z end leanchecker exit 0
+2026-11-10T01:28:07.757Z start lean4export-build
+2026-11-10T01:28:17.887Z end lean4export-build exit 0
+2026-11-10T01:28:17.887Z start nanoda-build
+2026-11-10T01:28:33.400Z end nanoda-build exit 0
+2026-11-10T01:28:33.400Z start export
+2026-11-10T01:29:36.067Z end export exit 0
+2026-11-10T01:29:36.068Z start nanoda
+2026-11-10T01:29:36.933Z end nanoda exit 0
+2026-11-10T01:29:36.933Z start f2
+2026-11-10T01:29:39.153Z end f2 exit 1
+2026-11-10T01:29:39.154Z skip f2eval: Intake.F2 did not build
+2026-11-10T01:29:39.154Z skip f2kernel: no canonical rows from f2eval
+2026-11-10T01:29:39.157Z done: pin,toolchain,cache,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda,f2,f2eval,f2kernel

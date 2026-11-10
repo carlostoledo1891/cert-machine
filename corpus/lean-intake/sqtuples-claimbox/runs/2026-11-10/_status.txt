@@ -1,0 +1,52 @@
+2026-11-10T03:18:45.316Z start pin-canonical
+2026-11-10T03:18:50.569Z end pin-canonical exit 0
+2026-11-10T03:18:50.569Z start pin-claim
+2026-11-10T03:18:55.206Z end pin-claim exit 0
+2026-11-10T03:18:55.208Z start toolchain
+2026-11-10T03:18:55.223Z end toolchain exit 0
+2026-11-10T03:18:55.223Z start cache
+2026-11-10T03:20:04.687Z end cache exit 0
+2026-11-10T03:20:04.692Z start canonical
+2026-11-10T03:21:32.010Z end canonical exit 0
+2026-11-10T03:21:32.021Z assembled 14 files
+2026-11-10T03:21:32.021Z start claim
+2026-11-10T03:22:38.606Z end claim exit 0
+2026-11-10T03:22:38.607Z start f1
+2026-11-10T03:23:37.940Z end f1 exit 0
+2026-11-10T03:23:37.941Z start f1report
+2026-11-10T03:24:26.412Z end f1report exit 0
+2026-11-10T03:24:26.413Z start f3
+2026-11-10T03:25:20.914Z end f3 exit 0
+2026-11-10T03:25:20.919Z start mut-S0
+2026-11-10T03:26:19.332Z end mut-S0 exit 1
+2026-11-10T03:26:19.333Z start mut-S1
+2026-11-10T03:27:14.650Z end mut-S1 exit 1
+2026-11-10T03:27:14.650Z start mut-C01
+2026-11-10T03:28:06.698Z end mut-C01 exit 1
+2026-11-10T03:28:06.698Z start mut-C02
+2026-11-10T03:28:56.843Z end mut-C02 exit 1
+2026-11-10T03:28:56.844Z start mut-C03
+2026-11-10T03:29:58.473Z end mut-C03 exit 1
+2026-11-10T03:29:58.473Z start mut-C04
+2026-11-10T03:30:58.258Z end mut-C04 exit 1
+2026-11-10T03:30:58.259Z start mut-N1
+2026-11-10T03:31:59.234Z end mut-N1 exit 1
+2026-11-10T03:31:59.237Z start red-R1
+2026-11-10T03:33:01.244Z end red-R1 exit 0
+2026-11-10T03:33:01.244Z start red-R2
+2026-11-10T03:34:04.511Z end red-R2 exit 0
+2026-11-10T03:34:04.512Z start leanchecker
+2026-11-10T03:34:48.590Z end leanchecker exit 0
+2026-11-10T03:34:48.591Z start lean4export-build
+2026-11-10T03:34:58.056Z end lean4export-build exit 0
+2026-11-10T03:34:58.056Z start nanoda-build
+2026-11-10T03:35:12.805Z end nanoda-build exit 0
+2026-11-10T03:35:12.805Z start export
+2026-11-10T03:36:28.857Z end export exit 0
+2026-11-10T03:36:28.858Z start nanoda
+2026-11-10T03:36:29.766Z end nanoda exit 0
+2026-11-10T03:36:29.766Z start f2
+2026-11-10T03:36:32.726Z end f2 exit 1
+2026-11-10T03:36:32.726Z skip f2eval: Intake.F2 did not build
+2026-11-10T03:36:32.726Z skip f2kernel: no canonical rows from f2eval
+2026-11-10T03:36:32.728Z done: pin,toolchain,cache,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda,f2,f2eval,f2kernel

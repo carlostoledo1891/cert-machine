@@ -1,0 +1,238 @@
+{
+ "what": "The Lean intake of Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #123, variant powers_2_3, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/erdos-123/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-123-claimbox/spec.json",
+  "sha256": "ef154d3597a9eba7b0112bc4ca797ade14107dc19bde62d4f4c14a088cbe0c0d",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/erdos-123-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1106.5,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/123.lean",
+   "decl": "Erdos123.erdos_123.variants.powers_2_3",
+   "head": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+   "sha256": "7f44089dc13ace9ec24f7a7efbeb64c4a75dfc3087ae5f7b29663fea05329a2b",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/stokes/erdos-proofs.git",
+   "file": "ErdosProofs/Erdos123.lean",
+   "decl": "ErdosProofs.Problem123.powers_2_3",
+   "head": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+   "sha256": "82f0f8fbf379cc1079744d7df7e112f8811b7429f17598e65e9992d7b9c95dbe",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "1 of 1 accepted (predicted)",
+   "type": "0 of 0 not accepted (predicted)",
+   "changed": "4 refused, 0 accepted, of 4 (kernel decides: no outcome predicted)",
+   "certain": "1 of 1 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "a closed statement about an infinite set (the d-completeness of the numbers 2^a·3^b): no instance binder to evaluate"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "Erdos123.IsDComplete (↑(Submonoid.powers 2) * ↑(Submonoid.powers 3))",
+  "claim": "Erdos123.IsDComplete (↑(Submonoid.powers 2) * ↑(Submonoid.powers 3))",
+  "seconds": 70.5,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's ErdosProofs.Problem123.powers_2_3 as a proof of Erdos123.erdos_123.variants.powers_2_3's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: ",
+  "seconds": 73.2,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 65.4,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the numeral 2 made 3 (`( powers 2 ) *` → `( powers 3 ) *`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 12,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 59.9,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the numeral 2 made 1 (`( powers 2 ) *` → `( powers 1 ) *`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 12,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 87,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 3 made 4 (`( powers 3 ) )` → `( powers 4 ) )`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 12,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 68.8,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 3 made 2 (`( powers 3 ) )` → `( powers 2 ) )`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 12,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 65.6,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of powers_2_3 replaced by sorry (the original kept as intake_was_powers_2_3)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 76.3
+  },
+  {
+   "id": "R2",
+   "why": "powers_2_3 proved by an added axiom (the original kept as intake_was_powers_2_3)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "ErdosProofs.Problem123.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list ErdosProofs.Problem123.intakeRedAxiom",
+   "seconds": 65.7
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 70.5
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 41.1
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "13b199c4a9c980295998f0035dc025337edb36cbba2acfc819b93f4d84a040a1",
+    "bytes": 25516616
+   },
+   "seconds": 0.9
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

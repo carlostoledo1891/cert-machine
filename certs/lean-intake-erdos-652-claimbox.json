@@ -1,0 +1,305 @@
+{
+ "what": "The Lean intake of Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #652, variant first, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/erdos-652/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-652-claimbox/spec.json",
+  "sha256": "9528735213d16b28419fcda5e0d91205f5a5b55fe30eb74e29daab65e227cc93",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/erdos-652-claimbox/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1467.9,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/652.lean",
+   "decl": "Erdos652.erdos_652.variants.first",
+   "head": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+   "sha256": "b6c6a870edf38eb27918f200fd5778eb508a22cd32fe7c1dfd4baf1621bfb1f8",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/stokes/erdos-proofs.git",
+   "file": "ErdosProofs/Erdos652.lean",
+   "decl": "ErdosProofs.Problem652.first",
+   "head": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+   "sha256": "a4f7c742bfda166f0fb64cd253e0a79e6ca268394b3df63ad226bf4e2deecbcd",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "2 of 2 accepted (predicted)",
+   "type": "1 of 1 not accepted (predicted)",
+   "changed": "6 refused, 0 accepted, of 6 (kernel decides: no outcome predicted)",
+   "certain": "3 of 3 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "points of the real plane: the parts are not decidable on instances"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "∀ (n : ℕ), 2 ≤ n → ∃ points, points.card = n ∧ ∃ point ∈ points, distinctDistancesFrom points point = 1",
+  "claim": "∀ (n : ℕ), 2 ≤ n → ∃ points, points.card = n ∧ ∃ point ∈ points, distinctDistancesFrom points point = 1",
+  "seconds": 81.5,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's ErdosProofs.Problem652.first as a proof of Erdos652.erdos_652.variants.first's own type (taken by type_of%); the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: n = 2",
+  "seconds": 65.1,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 64.6,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (hn→hn₀, n→n₀, point→point₀, points→points₀): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 74.8,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the hypothesis `(hn : 2 ≤ n)` dropped",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 78.7,
+   "rule": "changed:drop-hypothesis",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "`≤` made `<` (`: 2 ≤ n )` → `: 2 < n )`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 80.4,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 2 made 3 (`hn : 2 ≤ n` → `hn : 3 ≤ n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 73.7,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the numeral 2 made 1 (`hn : 2 ≤ n` → `hn : 1 ≤ n`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 70,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "the numeral 1 made 2 (`point = 1` → `point = 2`, line 3)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 69.9,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "why": "the numeral 1 made 0 (`point = 1` → `point = 0`, line 3)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 70.4,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 71.6,
+   "rule": "type:nat-int",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of first replaced by sorry (the original kept as intake_was_first)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 74.5
+  },
+  {
+   "id": "R2",
+   "why": "first proved by an added axiom (the original kept as intake_was_first)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "ErdosProofs.Problem652.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list ErdosProofs.Problem652.intakeRedAxiom",
+   "seconds": 81.2
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 81.5
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 54.6
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "f48aba048eacbd929884af1e95fe076d496eacc1286fc25db0630ad163a6840d",
+    "bytes": 79800368
+   },
+   "seconds": 1.8
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}
