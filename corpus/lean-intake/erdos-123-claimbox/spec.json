@@ -1,0 +1,152 @@
+{
+ "id": "erdos-123",
+ "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #123, variant powers_2_3: the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/erdos-123/target.json",
+  "target": {
+   "path": "corpus/intake/erdos-123/target.json",
+   "sha256": "0cc0e9a1c1112d38cf808272e05b4332d5db893eccce614362d4e24302653c9c"
+  },
+  "pins": {
+   "path": "corpus/intake/erdos-123/pins.json",
+   "sha256": "04567729bb7e346d4a25ecf865c0b2a9cd34429cdc9809f808d6566cecf14b6d"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/erdos-123/canonical.lean",
+   "sha256": "7f44089dc13ace9ec24f7a7efbeb64c4a75dfc3087ae5f7b29663fea05329a2b",
+   "statementLines": [
+    111,
+    111
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/stokes/erdos-proofs.git",
+  "commit": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+  "file": "ErdosProofs/Erdos123.lean",
+  "sha256": "82f0f8fbf379cc1079744d7df7e112f8811b7429f17598e65e9992d7b9c95dbe",
+  "decl": "ErdosProofs.Problem123.powers_2_3",
+  "license": "none stated: no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #123, variant powers_2_3",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+  "path": "FormalConjectures/ErdosProblems/123.lean",
+  "sha256": "7f44089dc13ace9ec24f7a7efbeb64c4a75dfc3087ae5f7b29663fea05329a2b",
+  "module": "FormalConjectures.ErdosProblems.«123»",
+  "decl": "Erdos123.erdos_123.variants.powers_2_3",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Erdos123.erdos_123.variants.IntakeMut",
+ "mutantOpen": [
+  "Erdos123.erdos_123.variants",
+  "Filter",
+  "Submonoid",
+  "scoped Pointwise"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: ",
+  "tactic": "intro h\n  exact h",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "IsDComplete (↑(powers 2) * ↑(powers 3))",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`( powers 2 ) *` → `( powers 3 ) *`, line 1)",
+   "statement": "IsDComplete (↑(powers 3) * ↑(powers 3))",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`( powers 2 ) *` → `( powers 1 ) *`, line 1)",
+   "statement": "IsDComplete (↑(powers 1) * ↑(powers 3))",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 4 (`( powers 3 ) )` → `( powers 4 ) )`, line 1)",
+   "statement": "IsDComplete (↑(powers 2) * ↑(powers 4))",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 2 (`( powers 3 ) )` → `( powers 2 ) )`, line 1)",
+   "statement": "IsDComplete (↑(powers 2) * ↑(powers 2))",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of powers_2_3 replaced by sorry (the original kept as intake_was_powers_2_3)",
+   "find": "theorem powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) :=",
+   "replace": "theorem powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) := sorry\n\ntheorem intake_was_powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "powers_2_3 proved by an added axiom (the original kept as intake_was_powers_2_3)",
+   "find": "theorem powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) := intakeRedAxiom\n\ntheorem intake_was_powers_2_3 : Erdos123.IsDComplete (↑(powers 2) * ↑(powers 3)) :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "a closed statement about an infinite set (the d-completeness of the numbers 2^a·3^b): no instance binder to evaluate",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 1,
+  "kernelDecides": 4,
+  "byRule": {
+   "changed:constant": 4,
+   "verbatim": 1
+  },
+  "aligned": 5
+ }
+}

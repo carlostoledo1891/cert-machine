@@ -1,0 +1,219 @@
+{
+ "id": "erdos-669",
+ "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #669, variant k_two: the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/erdos-669/target.json",
+  "target": {
+   "path": "corpus/intake/erdos-669/target.json",
+   "sha256": "951dfb3a59a04cdc6ac000aa8c44039f972c8d209a26eaf318a95d4cfed0ed0a"
+  },
+  "pins": {
+   "path": "corpus/intake/erdos-669/pins.json",
+   "sha256": "c5e36bd16c8c7387d540f2a76817d7473b14b747a9c35aea2c3208e1a64ce137"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/erdos-669/canonical.lean",
+   "sha256": "18af5af86d1308eed70ba8ac9ad6c30685c4325fb593384c44d9525fc8614587",
+   "statementLines": [
+    191,
+    192
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/stokes/erdos-proofs.git",
+  "commit": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+  "file": "ErdosProofs/Erdos669.lean",
+  "sha256": "4553bc18397295107ae03d79e3c4e0dc47194ade7c17024d6c79f17fa5d4ea70",
+  "decl": "ErdosProofs.Problem669.k_two",
+  "license": "none stated: no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #669, variant k_two",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+  "path": "FormalConjectures/ErdosProblems/669.lean",
+  "sha256": "18af5af86d1308eed70ba8ac9ad6c30685c4325fb593384c44d9525fc8614587",
+  "module": "FormalConjectures.ErdosProblems.«669»",
+  "decl": "Erdos669.erdos_669.variants.k_two",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Erdos669.erdos_669.variants.IntakeMut",
+ "mutantOpen": [
+  "Erdos669.erdos_669.variants",
+  "Filter",
+  "scoped Topology EuclideanGeometry"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: n = 0",
+  "tactic": "intro h\n  exact h 0",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (n→n₀): alpha-equivalent",
+   "statement": "∀ (n₀ : ℕ),\n    maxLinesExactly 2 n₀ = n₀.choose 2 ∧ maxLinesAtLeast 2 n₀ = n₀.choose 2",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`maxLinesExactly 2 n =` → `maxLinesExactly 3 n =`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 3 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`maxLinesExactly 2 n =` → `maxLinesExactly 1 n =`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 1 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`= n.choose 2 ∧ maxLinesAtLeast` → `= n.choose 3 ∧ maxLinesAtLeast`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 3 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`= n.choose 2 ∧ maxLinesAtLeast` → `= n.choose 1 ∧ maxLinesAtLeast`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 1 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`∧ maxLinesAtLeast 2 n =` → `∧ maxLinesAtLeast 3 n =`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 3 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`∧ maxLinesAtLeast 2 n =` → `∧ maxLinesAtLeast 1 n =`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 1 n = n.choose 2",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`= n.choose 2` → `= n.choose 3`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 3",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C08",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`= n.choose 2` → `= n.choose 1`, line 2)",
+   "statement": "∀ (n : ℕ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 1",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "statement": "∀ (n : ℤ),\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of k_two replaced by sorry (the original kept as intake_was_k_two)",
+   "find": "theorem k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 :=",
+   "replace": "theorem k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 := sorry\n\ntheorem intake_was_k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "k_two proved by an added axiom (the original kept as intake_was_k_two)",
+   "find": "theorem k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 := intakeRedAxiom\n\ntheorem intake_was_k_two (n : ℕ) :\n    maxLinesExactly 2 n = n.choose 2 ∧ maxLinesAtLeast 2 n = n.choose 2 :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "configurations of points in the real plane: the parts are not decidable on instances",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 3,
+  "kernelDecides": 8,
+  "byRule": {
+   "changed:constant": 8,
+   "same:rename": 1,
+   "type:nat-int": 1,
+   "verbatim": 1
+  },
+  "aligned": 10
+ }
+}

@@ -1,10 +1,10 @@
 {
  "source_root": "~/Projects/claimbox",
- "source_commit": "bad0bfbb0e63b98988211e1615234865c331a0d2",
- "lifted_at_utc": "2026-11-09T23:03:39.242Z",
+ "source_commit": "21094c3a4517811ae5d995eee39800b3458716f2",
+ "lifted_at_utc": "2026-11-10T00:49:36.039Z",
  "policy": "READ-ONLY. claimbox writes the Lean intake's spec and its reading's table (claimbox/intake, lean/INTAKE.md §7–§8); this manifest copies them OUT into corpus/lean-intake/<id>-claimbox/, where tools/lean-intake.js reads them as it reads a hand-written spec, and never writes back. The copy is committed before the run (the pre-registration); PROVENANCE-claimbox-intake.json names the claimbox commit and every sha256; `make drift` re-hashes both ends. A separate manifest from LIFT-claimbox.json so that a lift here never re-copies the Riemann or x^x files. Extends the one exception to CLAUDE.md's 'nothing here reads claimbox' on the operator's go for the lane's L1 + L2 (2026-11-09).",
  "counts": {
-  "files": 2,
+  "files": 10,
   "patched": 0,
   "missing_in_source": 0
  },
@@ -22,6 +22,62 @@
    "src_sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc",
    "patched": false,
    "local_sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc"
+  },
+  {
+   "src": "records/intake/erdos-123-spec.json",
+   "dst": "corpus/lean-intake/erdos-123-claimbox/spec.json",
+   "src_sha256": "ef154d3597a9eba7b0112bc4ca797ade14107dc19bde62d4f4c14a088cbe0c0d",
+   "patched": false,
+   "local_sha256": "ef154d3597a9eba7b0112bc4ca797ade14107dc19bde62d4f4c14a088cbe0c0d"
+  },
+  {
+   "src": "records/intake/erdos-652-spec.json",
+   "dst": "corpus/lean-intake/erdos-652-claimbox/spec.json",
+   "src_sha256": "9528735213d16b28419fcda5e0d91205f5a5b55fe30eb74e29daab65e227cc93",
+   "patched": false,
+   "local_sha256": "9528735213d16b28419fcda5e0d91205f5a5b55fe30eb74e29daab65e227cc93"
+  },
+  {
+   "src": "records/intake/erdos-669-spec.json",
+   "dst": "corpus/lean-intake/erdos-669-claimbox/spec.json",
+   "src_sha256": "00b2ae57cc29ae8f990539a01c5560dd26726e279904daa24c9f605efb662494",
+   "patched": false,
+   "local_sha256": "00b2ae57cc29ae8f990539a01c5560dd26726e279904daa24c9f605efb662494"
+  },
+  {
+   "src": "records/intake/erdos-902-spec.json",
+   "dst": "corpus/lean-intake/erdos-902-claimbox/spec.json",
+   "src_sha256": "d1bb6ba46873c28f5f9ecbfb9b7ad62e6ff8f41d7e5348b2ed014a10b95bc628",
+   "patched": false,
+   "local_sha256": "d1bb6ba46873c28f5f9ecbfb9b7ad62e6ff8f41d7e5348b2ed014a10b95bc628"
+  },
+  {
+   "src": "records/intake/mo-75792-spec.json",
+   "dst": "corpus/lean-intake/mo-75792-claimbox/spec.json",
+   "src_sha256": "2711756be836013418d1b15c4bfcc6baa53cdb9518ba700091027cb730927dde",
+   "patched": false,
+   "local_sha256": "2711756be836013418d1b15c4bfcc6baa53cdb9518ba700091027cb730927dde"
+  },
+  {
+   "src": "records/intake/giuga-weak-spec.json",
+   "dst": "corpus/lean-intake/giuga-weak-claimbox/spec.json",
+   "src_sha256": "fb25df1ac7d6f95c24bb51f497fcd29a663bc54127c6c6e493735a4a2a4c0868",
+   "patched": false,
+   "local_sha256": "fb25df1ac7d6f95c24bb51f497fcd29a663bc54127c6c6e493735a4a2a4c0868"
+  },
+  {
+   "src": "records/intake/giuga-strong-spec.json",
+   "dst": "corpus/lean-intake/giuga-strong-claimbox/spec.json",
+   "src_sha256": "6d1649c862a75785042b6e5a2192f03334c856f420095c7d5b36cfffc8222ce7",
+   "patched": false,
+   "local_sha256": "6d1649c862a75785042b6e5a2192f03334c856f420095c7d5b36cfffc8222ce7"
+  },
+  {
+   "src": "records/intake/sqtuples-spec.json",
+   "dst": "corpus/lean-intake/sqtuples-claimbox/spec.json",
+   "src_sha256": "8e65c8f41f4398a7897479b4e99f4b2c3928bc36e770efe3f5e4e4ed7a829701",
+   "patched": false,
+   "local_sha256": "8e65c8f41f4398a7897479b4e99f4b2c3928bc36e770efe3f5e4e4ed7a829701"
   }
  ]
 }

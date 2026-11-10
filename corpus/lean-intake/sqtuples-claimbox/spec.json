@@ -1,0 +1,175 @@
+{
+ "id": "sqtuples",
+ "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's statement from arXiv:1609.08688 (s-increasing r-tuples), the square case: the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/sqtuples/target.json",
+  "target": {
+   "path": "corpus/intake/sqtuples/target.json",
+   "sha256": "e99ddebbf2f37d4b89f2cf8b72b33dd6ba7a8d1a6e2d3d48b4044fdfce4521d5"
+  },
+  "pins": {
+   "path": "corpus/intake/sqtuples/pins.json",
+   "sha256": "efbac76fc9bdf9785ca70a3af923da5f6a7dc4207e638a3ad274f9a4a35928fc"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/sqtuples/canonical.lean",
+   "sha256": "6736c6f6aef12154ab51b382f5e741bab9b0324e8e3d61a0de4d8c57ad46aed5",
+   "statementLines": [
+    217,
+    218
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+  "commit": "3c85c7da2cf51edc3b6b9ba13adcf395e7f1a3f5",
+  "file": "Solution.lean",
+  "sha256": "2e1b569f5411eedeea4a01cd70acd6e9756c330592521b8c55754841ff781925",
+  "decl": "increasing_triples_square",
+  "license": "MIT (the repository's); still no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement from arXiv:1609.08688 (s-increasing r-tuples), the square case",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+  "path": "FormalConjectures/Arxiv/1609.08688/sIncreasingrTuples.lean",
+  "sha256": "6736c6f6aef12154ab51b382f5e741bab9b0324e8e3d61a0de4d8c57ad46aed5",
+  "module": "FormalConjectures.Arxiv.«1609.08688».sIncreasingrTuples",
+  "decl": "Arxiv.«1609.08688».maximalLength_ge_of_isSquare",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Arxiv.«1609.08688».IntakeMut",
+ "mutantOpen": [
+  "Arxiv.«1609.08688»"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: n = 4",
+  "tactic": "intro h\n  exact @h 4 (by first | decide | simp | norm_num)",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "∀ {n : ℕ} (h : IsSquare n),\n    n.sqrt ^ 3 ≤ F n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (h→h₀, n→n₀): alpha-equivalent",
+   "statement": "∀ {n₀ : ℕ} (h₀ : IsSquare n₀),\n    n₀.sqrt ^ 3 ≤ F n₀",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `(h : IsSquare n)` dropped",
+   "statement": "∀ {n : ℕ} ,\n    n.sqrt ^ 3 ≤ F n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`≤` made `<` (`^ 3 ≤ F n` → `^ 3 < F n`, line 2)",
+   "statement": "∀ {n : ℕ} (h : IsSquare n),\n    n.sqrt ^ 3 < F n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 4 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 4 ≤ F`, line 2)",
+   "statement": "∀ {n : ℕ} (h : IsSquare n),\n    n.sqrt ^ 4 ≤ F n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 2 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 2 ≤ F`, line 2)",
+   "statement": "∀ {n : ℕ} (h : IsSquare n),\n    n.sqrt ^ 2 ≤ F n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of n: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "statement": "∀ {n : ℤ} (h : IsSquare n),\n    n.sqrt ^ 3 ≤ F n",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of increasing_triples_square replaced by sorry (the original kept as intake_was_increasing_triples_square)",
+   "find": "theorem increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare :=",
+   "replace": "theorem increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare := sorry\n\ntheorem intake_was_increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "increasing_triples_square proved by an added axiom (the original kept as intake_was_increasing_triples_square)",
+   "find": "theorem increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare := intakeRedAxiom\n\ntheorem intake_was_increasing_triples_square : type_of% @Arxiv.«1609.08688».maximalLength_ge_of_isSquare :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "F n (maximalLength) is a supremum over all s-increasing sequences: noncomputable, so no part is decidable on instances",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 3,
+  "kernelDecides": 4,
+  "byRule": {
+   "changed:constant": 2,
+   "changed:drop-hypothesis": 1,
+   "changed:strictness": 1,
+   "same:rename": 1,
+   "type:nat-int": 1,
+   "verbatim": 1
+  },
+  "aligned": 5
+ }
+}

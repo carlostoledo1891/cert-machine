@@ -1,0 +1,186 @@
+{
+ "id": "giuga-strong",
+ "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's characterization of strong Giuga numbers (Wikipedia: Agoh–Giuga): the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/giuga-strong/target.json",
+  "target": {
+   "path": "corpus/intake/giuga-strong/target.json",
+   "sha256": "fd62e0fb8728fef16a9a6b2bea33b095be9db09541459b645e4e7ef7d5bd1530"
+  },
+  "pins": {
+   "path": "corpus/intake/giuga-strong/pins.json",
+   "sha256": "1d9faf8cdd2deb7e54796a078a284bc6e5083c644605b890bb618a5cee3cfa1f"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/giuga-strong/canonical.lean",
+   "sha256": "52e8369680d4ece29ff12cb6e55254b66db397f249f933366fd2af76cdc7d8f1",
+   "statementLines": [
+    206,
+    207
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+  "commit": "9e79333b40ff376cb761f200d9989193113387bf",
+  "file": "Solution.lean",
+  "sha256": "b1bcef10e2ec457608938a0117e1120eb174ff2ed2bb281fd0750544bc12ffb0",
+  "decl": "strong_giuga_iff",
+  "license": "MIT (the repository's); still no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's characterization of strong Giuga numbers (Wikipedia: Agoh–Giuga)",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+  "path": "FormalConjectures/Wikipedia/AgohGiuga.lean",
+  "sha256": "52e8369680d4ece29ff12cb6e55254b66db397f249f933366fd2af76cdc7d8f1",
+  "module": "FormalConjectures.Wikipedia.AgohGiuga",
+  "decl": "AgohGiuga.isStrongGiuga_iff",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "AgohGiuga.IntakeMut",
+ "mutantOpen": [
+  "AgohGiuga",
+  "scoped Nat"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: a = 4",
+  "tactic": "intro h\n  exact @h 4 (by first | decide | simp | norm_num)",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "∀ {a : ℕ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (1 / p : ℚ) - 1 / a = n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (a→a₀, ha→ha₀, n→n₀): alpha-equivalent",
+   "statement": "∀ {a₀ : ℕ} (ha₀ : a₀.Composite),\n    IsStrongGiuga a₀ ↔ IsCarmichael a₀ ∧ ∃ n₀ : ℕ, ∑ p ∈ a₀.primeFactors, (1 / p : ℚ) - 1 / a₀ = n₀",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `(ha : a.Composite)` dropped",
+   "statement": "∀ {a : ℕ} ,\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (1 / p : ℚ) - 1 / a = n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`( 1 / p` → `( 2 / p`, line 2)",
+   "statement": "∀ {a : ℕ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (2 / p : ℚ) - 1 / a = n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`( 1 / p` → `( 0 / p`, line 2)",
+   "statement": "∀ {a : ℕ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (0 / p : ℚ) - 1 / a = n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 2 (`- 1 / a` → `- 2 / a`, line 2)",
+   "statement": "∀ {a : ℕ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (1 / p : ℚ) - 2 / a = n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 1 made 0 (`- 1 / a` → `- 0 / a`, line 2)",
+   "statement": "∀ {a : ℕ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (1 / p : ℚ) - 0 / a = n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of a: another type, never definitionally equal (refused, or the statement does not elaborate)",
+   "statement": "∀ {a : ℤ} (ha : a.Composite),\n    IsStrongGiuga a ↔ IsCarmichael a ∧ ∃ n : ℕ, ∑ p ∈ a.primeFactors, (1 / p : ℚ) - 1 / a = n",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of strong_giuga_iff replaced by sorry (the original kept as intake_was_strong_giuga_iff)",
+   "find": "theorem strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff :=",
+   "replace": "theorem strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff := sorry\n\ntheorem intake_was_strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "strong_giuga_iff proved by an added axiom (the original kept as intake_was_strong_giuga_iff)",
+   "find": "theorem strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff := intakeRedAxiom\n\ntheorem intake_was_strong_giuga_iff : type_of% @AgohGiuga.isStrongGiuga_iff :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "the conclusion has an unbounded ∃ n : ℕ (and Carmichael numbers over all bases): not decidable on instances",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 3,
+  "kernelDecides": 5,
+  "byRule": {
+   "changed:constant": 4,
+   "changed:drop-hypothesis": 1,
+   "same:rename": 1,
+   "type:nat-int": 1,
+   "verbatim": 1
+  },
+  "aligned": 6
+ }
+}

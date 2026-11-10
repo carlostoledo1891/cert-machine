@@ -1,0 +1,184 @@
+{
+ "id": "mo-75792",
+ "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet) against DeepMind's statement of MathOverflow 75792 (integer complexity of 3^n): the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/mo-75792/target.json",
+  "target": {
+   "path": "corpus/intake/mo-75792/target.json",
+   "sha256": "6033bf339649257fff83c93db63f27ff4b5c559a37a82ecbedaabf249d483fa1"
+  },
+  "pins": {
+   "path": "corpus/intake/mo-75792/pins.json",
+   "sha256": "3b460ee8af802071154d41cc5b88050d932596ecbc75dcfbc01947dc3cc44026"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/mo-75792/canonical.lean",
+   "sha256": "c8c0eb6b64d95628b77839bebb37deaca06da6d9cdc32f6123e65812998b119d",
+   "statementLines": [
+    214,
+    214
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Daniel Puri's proof (danielpuri1901/erdos-lean-formalization; formal-conjectures PR #7660, open since 2026-10-28, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/danielpuri1901/erdos-lean-formalization.git",
+  "commit": "de04e5150a5bddb5fb73497af753ef7f81442695",
+  "file": "Solution.lean",
+  "sha256": "ff81a863f2872247053d646560350e8dc98cb3c38e0928594964ffda0ef29f65",
+  "decl": "complexity_of_three_pow",
+  "license": "MIT (the repository's); still no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of MathOverflow 75792 (integer complexity of 3^n)",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "df3f12d7bd06feb3f71ae37abae0ca7cb798d9b1",
+  "path": "FormalConjectures/Mathoverflow/75792.lean",
+  "sha256": "c8c0eb6b64d95628b77839bebb37deaca06da6d9cdc32f6123e65812998b119d",
+  "module": "FormalConjectures.Mathoverflow.«75792»",
+  "decl": "Mathoverflow75792.complexity_three_pow",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Mathoverflow75792.IntakeMut",
+ "mutantOpen": [
+  "Mathoverflow75792"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: ",
+  "tactic": "intro h\n  exact h",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 < n → complexity (3 ^ n) = 3 * n",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (n→n₀): alpha-equivalent",
+   "statement": "answer(True) ↔ ∀ n₀ : ℕ, 0 < n₀ → complexity (3 ^ n₀) = 3 * n₀",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`<` made `≤` (`0 < n` → `0 ≤ n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 ≤ n → complexity (3 ^ n) = 3 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 0 made 1 (`ℕ , 0 < n` → `ℕ , 1 < n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 1 < n → complexity (3 ^ n) = 3 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 4 (`complexity ( 3 ^ n` → `complexity ( 4 ^ n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 < n → complexity (4 ^ n) = 3 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 2 (`complexity ( 3 ^ n` → `complexity ( 2 ^ n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 < n → complexity (2 ^ n) = 3 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 4 (`= 3 * n` → `= 4 * n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 < n → complexity (3 ^ n) = 4 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 3 made 2 (`= 3 * n` → `= 2 * n`, line 1)",
+   "statement": "answer(True) ↔ ∀ n : ℕ, 0 < n → complexity (3 ^ n) = 2 * n",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of complexity_of_three_pow replaced by sorry (the original kept as intake_was_complexity_of_three_pow)",
+   "find": "theorem complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow :=",
+   "replace": "theorem complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow := sorry\n\ntheorem intake_was_complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "complexity_of_three_pow proved by an added axiom (the original kept as intake_was_complexity_of_three_pow)",
+   "find": "theorem complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow := intakeRedAxiom\n\ntheorem intake_was_complexity_of_three_pow : type_of% @Mathoverflow75792.complexity_three_pow :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "the statement is `answer(True) ↔ ∀ n, …`: no instance binder at its top level (the ∀ sits inside the iff); and the reading language cannot yet state integer complexity (a least number of ones over expressions)",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 2,
+  "kernelDecides": 6,
+  "byRule": {
+   "changed:constant": 5,
+   "changed:strictness": 1,
+   "same:rename": 1,
+   "verbatim": 1
+  },
+  "aligned": 8
+ }
+}

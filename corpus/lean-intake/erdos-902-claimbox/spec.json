@@ -1,0 +1,150 @@
+{
+ "id": "erdos-902",
+ "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet) against DeepMind's statement of Erdős #902, variant f_two: the formal-conjectures solved-PR batch (L3(c) of the claimbox + Lean lane, 2026-11-10). Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v1 (2026-11-09). Beyond the receiver's v1 words: kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (refused by type mismatch, or the statement does not elaborate); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/erdos-902/target.json",
+  "target": {
+   "path": "corpus/intake/erdos-902/target.json",
+   "sha256": "31775d559d60407ea33d3b2c42657e21818fc4365db3be5a17a5d03fe5b2e5fd"
+  },
+  "pins": {
+   "path": "corpus/intake/erdos-902/pins.json",
+   "sha256": "d228fe35dd9606a5ebfb22f72b08bd132317354ae0a4f1d8deff04b8dc812722"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/erdos-902/canonical.lean",
+   "sha256": "28d16aaaec2a87aacdb5ba8b554ac799b3b6e168a1a1ff9a80431058fcb757e8",
+   "statementLines": [
+    130,
+    130
+   ]
+  }
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "Matt Stokes's proof (stokes/erdos-proofs; formal-conjectures PR #7678, open since 2026-10-29, metadata only, no review yet)",
+  "kind": "git",
+  "url": "https://github.com/stokes/erdos-proofs.git",
+  "commit": "2a9eb1a1bdd869f09f9fad2c654db8508c6ad7fc",
+  "file": "ErdosProofs/Erdos902.lean",
+  "sha256": "ac435d7e55b34809818763c5faa735e88a07792d1310e503e1a0cbd7b9ea401b",
+  "decl": "ErdosProofs.Problem902.f_two",
+  "license": "none stated: no byte of the file is kept here or in the spec but its declaration's header; the run fetches it at the pin"
+ },
+ "canonical": {
+  "what": "DeepMind's statement of Erdős #902, variant f_two",
+  "url": "https://github.com/google-deepmind/formal-conjectures.git",
+  "commit": "5a2fb85045c86e4a184b15ce7531ba199a3c4580",
+  "path": "FormalConjectures/ErdosProblems/902.lean",
+  "sha256": "28d16aaaec2a87aacdb5ba8b554ac799b3b6e168a1a1ff9a80431058fcb757e8",
+  "module": "FormalConjectures.ErdosProblems.«902»",
+  "decl": "Erdos902.erdos_902.variants.f_two",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "mutantNamespace": "Erdos902.erdos_902.variants.IntakeMut",
+ "mutantOpen": [
+  "Erdos902.erdos_902.variants",
+  "Filter Asymptotics"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: ",
+  "tactic": "intro h\n  exact h",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "f 2 = 7",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`f 2 = 7` → `f 3 = 7`, line 1)",
+   "statement": "f 3 = 7",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`f 2 = 7` → `f 1 = 7`, line 1)",
+   "statement": "f 1 = 7",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 7 made 8 (`2 = 7` → `2 = 8`, line 1)",
+   "statement": "f 2 = 8",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 7 made 6 (`2 = 7` → `2 = 6`, line 1)",
+   "statement": "f 2 = 6",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of f_two replaced by sorry (the original kept as intake_was_f_two)",
+   "find": "theorem f_two : f 2 = 7 :=",
+   "replace": "theorem f_two : f 2 = 7 := sorry\n\ntheorem intake_was_f_two : f 2 = 7 :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "f_two proved by an added axiom (the original kept as intake_was_f_two)",
+   "find": "theorem f_two : f 2 = 7 :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem f_two : f 2 = 7 := intakeRedAxiom\n\ntheorem intake_was_f_two : f 2 = 7 :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "a closed statement (f 2 = 7, an infimum over tournaments): no instance binder to evaluate",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "every certain prediction met (ACCEPTED, NOT ACCEPTED, the F2 ⇒ F1 rule), every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 1,
+  "kernelDecides": 4,
+  "byRule": {
+   "changed:constant": 4,
+   "verbatim": 1
+  },
+  "aligned": 5
+ }
+}
