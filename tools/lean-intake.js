@@ -42,6 +42,9 @@
          is then CONDITIONAL on those axioms, and says so; nothing here proves them;
      the planted statements are written in the copy's namespace, so their names are the canonical file's, and the
          claimant's term is named from the root.
+   `intakeImports` (a list of modules) is imported first by the generated meta-programs, which otherwise import only
+   Lean: a package that sets an option defined in a library for every module (Mathlib's linter set, say) cannot build
+   a file that does not load that library.
    `claim.module` names the claimant's file when it is already a module of the canonical repository at the same
    commit: it is built in place, never copied. `LEAN_INTAKE_ROOT` reads specs and writes facts and records under
    another root than this repository (a claim not yet public); `LEAN_INTAKE_KEEP=1` keeps a checkout already at the
@@ -86,6 +89,7 @@ const claimRef = (WRAP ? '_root_.' : '') + SPEC.claim.decl;
 const AXIOMS = (SPEC.canonical.axioms || []).map((a) => (typeof a === 'string' ? { canonical: a, claim: a } : a));
 if (AXIOMS.length && !WRAP) die('canonical.axioms needs canonical.selfContained (the comparison is name for name)');
 const PERMITTED = AXIOMS.map((a) => a.claim);
+const INTAKE_IMPORTS = (SPEC.intakeImports || []).map((i) => `import ${i}\n`).join('');
 const neg = SPEC.polarity === 'refutes' ? '¬ ' : SPEC.polarity === 'proves' ? '' : die('polarity is proves or refutes');
 const META = `import Lean
 open Lean Meta Elab Command
@@ -262,7 +266,7 @@ function wrapCanonical(text) {
 function generated() {
   const C = SPEC.canonical, imp = `import ${canonMod}\nimport ${claimMod}\n`;
   const files = {
-    'Intake/Meta.lean': META,
+    'Intake/Meta.lean': INTAKE_IMPORTS + META,
     'Intake/F1.lean': imp + `\n/-! F1: the canonical statement, taken from its declaration by type_of%, and the claimant's proof. -/\ntheorem Intake.f1 : ${neg}(type_of% @${canonDecl}) := ${claimRef}\n\n#print axioms Intake.f1\n`,
     'Intake/F1Report.lean': `import Intake.F1\nimport Intake.Meta\nopen Lean Meta\n\n#eval show MetaM Unit from do\n  let env ← getEnv\n`
       + `  let some can := env.find? "${canonDecl}".toName | throwError "intake: no canonical declaration"\n`
