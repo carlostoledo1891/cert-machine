@@ -3,8 +3,8 @@
  "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.33.1).",
  "spec": {
   "path": "corpus/lean-intake/sqtuples-claimbox/spec.json",
-  "sha256": "8e65c8f41f4398a7897479b4e99f4b2c3928bc36e770efe3f5e4e4ed7a829701",
-  "amendments": 0
+  "sha256": "c1de41bec4f1283eb8b3cc0288e4e70b0049e8bfc9b19d5c7d5c4cb27cbda907",
+  "amendments": 1
  },
  "run": {
   "day": "2026-11-10",
@@ -15,7 +15,7 @@
    "cpus": 8,
    "memGB": 16
   },
-  "stepSeconds": 1067.4,
+  "stepSeconds": 1120.2,
   "costUSD": 0
  },
  "pins": {
@@ -47,15 +47,15 @@
   "skipKernelTC": [],
   "opaque": []
  },
- "verdict": "REFUSED",
+ "verdict": "CERTIFIED",
  "words": {
   "F1": "CERTIFIED",
   "F1controls": {
-   "same": "0 of 2 accepted (predicted)",
+   "same": "2 of 2 accepted (predicted)",
    "type": "1 of 1 not accepted (predicted)",
    "changed": "4 refused, 0 accepted, of 4 (kernel decides: no outcome predicted)",
-   "certain": "1 of 3 certain predictions met",
-   "word": "REFUSED"
+   "certain": "3 of 3 certain predictions met",
+   "word": "CERTIFIED"
   },
   "F3": "CERTIFIED",
   "plantedClaims": {
@@ -82,7 +82,7 @@
   },
   "canonical": "∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ Arxiv.«1609.08688».maximalLength n",
   "claim": "∀ {n : ℕ}, IsSquare n → n.sqrt ^ 3 ≤ Arxiv.«1609.08688».maximalLength n",
-  "seconds": 59.3,
+  "seconds": 62.5,
   "word": "CERTIFIED",
   "how": "the kernel accepts the claimant's increasing_triples_square as a proof of Arxiv.«1609.08688».maximalLength_ge_of_isSquare's own type (taken by type_of%); the two types are equal as expressions"
  },
@@ -93,24 +93,19 @@
    "propext"
   ],
   "witness": "a model of the canonical statement's hypotheses: n = 4",
-  "seconds": 54.5,
+  "seconds": 54.9,
   "word": "CERTIFIED"
  },
  "mutants": [
   {
    "id": "S0",
    "kind": "same",
-   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "why": "the canonical statement copied verbatim (comments dropped; its local notation written out: F as maximalLength): the baseline",
    "expect": "ACCEPTED",
-   "outcome": "FAILED elsewhere",
-   "asExpected": false,
-   "errors": [
-    {
-     "line": 8,
-     "text": "Unknown identifier `F`"
-    }
-   ],
-   "seconds": 58.4,
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 64.2,
    "rule": "verbatim",
    "predicted": true,
    "aligned": true
@@ -120,15 +115,10 @@
    "kind": "same",
    "why": "every bound variable renamed (h→h₀, n→n₀): alpha-equivalent",
    "expect": "ACCEPTED",
-   "outcome": "FAILED elsewhere",
-   "asExpected": false,
-   "errors": [
-    {
-     "line": 8,
-     "text": "Unknown identifier `F`"
-    }
-   ],
-   "seconds": 55.3,
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 62.8,
    "rule": "same:rename",
    "predicted": true,
    "aligned": true
@@ -138,15 +128,15 @@
    "kind": "changed",
    "why": "the hypothesis `(h : IsSquare n)` dropped",
    "expect": "kernel decides",
-   "outcome": "FAILED elsewhere",
+   "outcome": "REFUSED by type mismatch",
    "asExpected": true,
    "errors": [
     {
-     "line": 8,
-     "text": "Unknown identifier `F`"
+     "line": 10,
+     "text": "Type mismatch"
     }
    ],
-   "seconds": 52,
+   "seconds": 72.2,
    "rule": "changed:drop-hypothesis",
    "predicted": false,
    "aligned": false
@@ -154,17 +144,17 @@
   {
    "id": "C02",
    "kind": "changed",
-   "why": "`≤` made `<` (`^ 3 ≤ F n` → `^ 3 < F n`, line 2)",
+   "why": "`≤` made `<` (`^ 3 ≤ maximalLength n` → `^ 3 < maximalLength n`, line 2)",
    "expect": "kernel decides",
-   "outcome": "FAILED elsewhere",
+   "outcome": "REFUSED by type mismatch",
    "asExpected": true,
    "errors": [
     {
-     "line": 8,
-     "text": "Unknown identifier `F`"
+     "line": 10,
+     "text": "Type mismatch"
     }
    ],
-   "seconds": 50.1,
+   "seconds": 62.9,
    "rule": "changed:strictness",
    "predicted": false,
    "aligned": true
@@ -172,17 +162,17 @@
   {
    "id": "C03",
    "kind": "changed",
-   "why": "the numeral 3 made 4 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 4 ≤ F`, line 2)",
+   "why": "the numeral 3 made 4 (`n.sqrt ^ 3 ≤ maximalLength` → `n.sqrt ^ 4 ≤ maximalLength`, line 2)",
    "expect": "kernel decides",
-   "outcome": "FAILED elsewhere",
+   "outcome": "REFUSED by type mismatch",
    "asExpected": true,
    "errors": [
     {
-     "line": 8,
-     "text": "Unknown identifier `F`"
+     "line": 10,
+     "text": "Type mismatch"
     }
    ],
-   "seconds": 61.6,
+   "seconds": 59.5,
    "rule": "changed:constant",
    "predicted": false,
    "aligned": true
@@ -190,17 +180,17 @@
   {
    "id": "C04",
    "kind": "changed",
-   "why": "the numeral 3 made 2 (`n.sqrt ^ 3 ≤ F` → `n.sqrt ^ 2 ≤ F`, line 2)",
+   "why": "the numeral 3 made 2 (`n.sqrt ^ 3 ≤ maximalLength` → `n.sqrt ^ 2 ≤ maximalLength`, line 2)",
    "expect": "kernel decides",
-   "outcome": "FAILED elsewhere",
+   "outcome": "REFUSED by type mismatch",
    "asExpected": true,
    "errors": [
     {
-     "line": 8,
-     "text": "Unknown identifier `F`"
+     "line": 10,
+     "text": "Type mismatch"
     }
    ],
-   "seconds": 59.8,
+   "seconds": 60.1,
    "rule": "changed:constant",
    "predicted": false,
    "aligned": true
@@ -215,10 +205,10 @@
    "errors": [
     {
      "line": 8,
-     "text": "Unknown identifier `F`"
+     "text": "Application type mismatch: The argument"
     }
    ],
-   "seconds": 61,
+   "seconds": 60,
    "rule": "type:nat-int",
    "predicted": true,
    "aligned": false
@@ -235,7 +225,7 @@
    ],
    "caught": true,
    "how": "the axioms list sorryAx",
-   "seconds": 62
+   "seconds": 63.6
   },
   {
    "id": "R2",
@@ -247,19 +237,19 @@
    ],
    "caught": true,
    "how": "the axioms list intakeRedAxiom",
-   "seconds": 63.3
+   "seconds": 63.1
   }
  ],
  "kernels": [
   {
    "name": "Lean (the build of Intake.F1)",
    "word": "ACCEPTS",
-   "seconds": 59.3
+   "seconds": 62.5
   },
   {
    "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
    "word": "ACCEPTS",
-   "seconds": 44.1
+   "seconds": 44
   },
   {
    "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
@@ -268,7 +258,7 @@
     "sha256": "ecf9052ef67483937a814da028d1c96dce23b9eaf81fb3d9db1c4df3d517e4a2",
     "bytes": 25031934
    },
-   "seconds": 0.9
+   "seconds": 1.1
   }
  ],
  "notRun": [

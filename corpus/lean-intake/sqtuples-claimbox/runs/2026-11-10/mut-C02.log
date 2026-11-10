@@ -326,7 +326,7 @@ limitations under the License.
 -/
 
 Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
-✖ [8936/8936] Building Intake.Mut.C02 (44s)
+✖ [8936/8936] Building Intake.Mut.C02 (56s)
 trace: .> LEAN_PATH=/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/Cli/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/batteries/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/Qq/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/aesop/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/importGraph/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/plausible/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/packages/mathlib/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/build/lib/lean /Users/carlostoledo/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/Intake/Mut/C02.lean -o /Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/build/lib/lean/Intake/Mut/C02.olean -i /Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/build/lib/lean/Intake/Mut/C02.ilean -c /Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/build/ir/Intake/Mut/C02.c --setup /Users/carlostoledo/Projects/lean-intake-work/sqtuples-claimbox/canonical/.lake/build/ir/Intake/Mut/C02.setup.json --json
 warning: Intake/Mut/C02.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
 /-
@@ -382,9 +382,7 @@ limitations under the License.
 -/
 
 Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
-error: Intake/Mut/C02.lean:8:17: Unknown identifier `F`
-
-Note: It is not possible to treat `F` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.
+warning: Intake/Mut/C02.lean:7:8: declaration uses `sorry`
 warning: Intake/Mut/C02.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
 /-
 Copyright 2026 The Formal Conjectures Authors.
@@ -403,7 +401,12 @@ limitations under the License.
 -/
 
 Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
-warning: Intake/Mut/C02.lean:10:8: declaration uses `sorry`
+error: Intake/Mut/C02.lean:10:29: Type mismatch
+  increasing_triples_square
+has type
+  IsSquare ?m.1 → Nat.sqrt ?m.1 ^ 3 ≤ maximalLength ?m.1
+but is expected to have type
+  IsSquare n✝ → n✝.sqrt ^ 3 < maximalLength n✝
 warning: Intake/Mut/C02.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
 /-
 Copyright 2026 The Formal Conjectures Authors.
