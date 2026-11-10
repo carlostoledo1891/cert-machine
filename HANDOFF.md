@@ -41,8 +41,8 @@ NEXT SESSION, IN ORDER (handoff 2026-11-10 ~01:30 UTC; NOTHING BILLING — no po
      Work dir ~/Projects/lean-intake-work/erdos-488-claimbox (8.3 GB) DELETED after the record (a re-run fetches). VERIFIED: `make test` 215 pass, 0 fail (the three Lean intake records among them); claimbox `make test` 643 pass, 0 fail, 186/186 reds. NEXT: L3, the AlphaProof Nexus scout (its 9
      Erdős solutions: finite parts, pins, toolchains, closures; each reading blind); claimbox L5 (consistent retyping) first if
      the scout's statements have ℕ binders worth retyping; the operator's reading of #488 when written (claimbox L6).
-     THE OPERATOR'S ANSWERS (11-10 ~00:20 UTC): #4 WATCH ONLY; #221 thanks DRAFTED for approval
-     (outreach/gh-tp221-thanks-2026-11-09.md, untracked, not posted); L3 scout NOW; aether-os IGNORE. L3 SCOUTED (corpus/targets.json
+     THE OPERATOR'S ANSWERS (11-10 ~00:20 UTC): #4 WATCH ONLY; #221 thanks POSTED on the operator's word as
+     drafted (issuecomment-6755416136; corpus/outreach.json row; /about/ re-synced; the new record's shelf row in certs-shelf.js); L3 scout NOW; aether-os IGNORE. L3 SCOUTED (corpus/targets.json
      row lean-intake-apn-statement-layer-2026-11, OPEN, NOT RUNNABLE AS IS): AlphaProof Nexus's results files are self-contained
      (namespace ErdosN, the canonical definitions restated, target_theorem_0), so lean-intake.js's F1 (both modules imported in one
      file) collides — a namespace port or a Comparator-backed F1 mode is needed; all nine statements are `answer(x) ↔ P` over
