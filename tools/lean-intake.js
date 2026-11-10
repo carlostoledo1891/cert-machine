@@ -532,7 +532,9 @@ function decide() {
   });
 
   const kernels = [{ name: 'Lean (the build of Intake.F1)', word: F1.exit === '0' ? 'ACCEPTS' : 'REJECTS OR STOPPED', seconds: secs('f1') }];
-  if (exit('leanchecker') !== null) kernels.push({ name: 'leanchecker --verbose Intake.F1 (bundled with ' + SPEC.canonical.toolchain.split(':')[1] + ')', word: exit('leanchecker') === '0' ? 'ACCEPTS' : 'REJECTS OR STOPPED', seconds: secs('leanchecker') });
+  /* a toolchain that ships no leanchecker (v4.27.0): the step could not start — not run, never a kernel that did not accept */
+  const lcAbsent = has('leanchecker.log') && /could not execute external process/.test(rd('leanchecker.log'));
+  if (exit('leanchecker') !== null && !lcAbsent) kernels.push({ name: 'leanchecker --verbose Intake.F1 (bundled with ' + SPEC.canonical.toolchain.split(':')[1] + ')', word: exit('leanchecker') === '0' ? 'ACCEPTS' : 'REJECTS OR STOPPED', seconds: secs('leanchecker') });
   if (exit('nanoda') !== null) {
     const nl = rd('nanoda.log');
     const ex = has('export.log') ? rd('export.log').trim().split('\n') : [];
@@ -669,7 +671,7 @@ function decide() {
   }
 
   const binList = has('toolchain.log') ? rd('toolchain.log') : '';
-  const notRun = ['leanchecker-paranoid', 'lean4lean', 'con-leche', 'con-ron'].filter((k) => !kernels.some((x) => x.name.startsWith(k)));
+  const notRun = (lcAbsent ? ['leanchecker (the toolchain does not ship it)'] : []).concat(['leanchecker-paranoid', 'lean4lean', 'con-leche', 'con-ron'].filter((k) => !kernels.some((x) => x.name.startsWith(k))));
   const bundled = notRun.filter((k) => new RegExp('^' + k + '$', 'm').test(binList));
 
   const stepFiles = fs.readdirSync(F).filter((f) => f.endsWith('.seconds'));

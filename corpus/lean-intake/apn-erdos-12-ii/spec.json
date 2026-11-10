@@ -110,5 +110,11 @@
  ],
  "notInScope": "F2 (refused: no finite instances); whether DeepMind's statement is Erdős's problem (a reading, F5); the other eight results files; anything about the proof beyond what certs/apn-kernel.json already records.",
  "success": "F1 CERTIFIED with the copy shown to be the canonical file; S0 and S1 accepted; W1–W4 refused by a type mismatch at the claimant's term; R1 and R2 caught; the existing eleven records unchanged byte for byte (record --check).",
- "amendments": []
+ "amendments": [
+  {
+   "date": "2026-11-10",
+   "before": "after the run, before the record",
+   "what": "The toolchain of this case, v4.27.0, ships no leanchecker: the step could not start (\"could not execute external process\"), and the tool recorded that as a kernel that did not accept, which made the whole verdict REFUSED. A tool defect, not the claim's and not the new mode's: the record now lists a checker the toolchain does not ship as not run. No planted statement and no expected outcome changed; nothing was re-run. Every pre-registered success condition was met in the one run."
+  }
+ ]
 }
