@@ -1653,6 +1653,24 @@
    "sent": "2026-11-09",
    "status": "posted, no reply",
    "note": "outreach/gh-lmu-4-thanks-2026-11-09.md (untracked)."
+  },
+  {
+   "id": "gh-fc7678-review-2026-11-10",
+   "what": "A review comment on google-deepmind/formal-conjectures PR #7678 (Matt Stokes: links to four external Lean proofs — Erdős #902 f_two, #123 powers_2_3, #652 first, #669 k_two): all four hold against the statements here; the kernel accepts each linked theorem as a proof of the declaration's own type at the commit the proofs build against; the four statements read the same on main (three files byte-identical, 123.lean differs by a linter-option line; re-checked the day of posting); standard axioms; Lean, leanchecker, nanoda accept; changed statements refused 4/4, 4/4, 6/6, 8/8; two planted defects per proof file caught. First person, Claude disclosed. Posted with gh on Carlos's word (\"review and publish the items ready\").",
+   "where": "github.com/google-deepmind/formal-conjectures/pull/7678, a comment",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7678#issuecomment-6777423898",
+   "sent": "2026-11-10",
+   "status": "posted, no reply",
+   "note": "outreach/gh-fc7678-review-2026-11-10.md (untracked); records certs/lean-intake-erdos-{902,123,652,669}-claimbox.json; the page /reports/lean-intake.html (the batch table). The PR had one approval (bocowgill, 10-30) and no other comment when posted."
+  },
+  {
+   "id": "gh-fc7660-review-2026-11-10",
+   "what": "A review comment on google-deepmind/formal-conjectures PR #7660 (Daniel Puri: links to Lean proofs of 22 solved statements): four of the 22 checked, the four that are a single file importing the repository's own module — MathOverflow 75792 complexity_three_pow, the two Agoh–Giuga statements, the square case of s-increasing triples; all four hold at the commit they were built against; standard axioms; Lean, leanchecker, nanoda accept; changed statements refused 6/6, 5/5, 5/5, 4/4; planted defects caught. One finding for the PR: #6762 (14 October) removed answer(True) ↔ from complexity_three_pow, so the linked proof is of the earlier form and no longer matches main; .mp trivial should adapt it (not run). The s-increasing triples first run failed on a defect of our tool, said so in the comment. First person, Claude disclosed. Posted with gh on Carlos's word (\"review and publish the items ready\").",
+   "where": "github.com/google-deepmind/formal-conjectures/pull/7660, a comment",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7660#issuecomment-6777424638",
+   "sent": "2026-11-10",
+   "status": "posted, no reply",
+   "note": "outreach/gh-fc7660-review-2026-11-10.md (untracked); records certs/lean-intake-{mo-75792,giuga-weak,giuga-strong,sqtuples}-claimbox.json; the page /reports/lean-intake.html (the batch table). The other 18 links were not checked. The PR had only the CLA exchange when posted."
   }
  ]
 }

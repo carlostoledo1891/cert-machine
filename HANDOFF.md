@@ -80,7 +80,9 @@ NEXT SESSION, IN ORDER (handoff 2026-11-10 ~04:35 UTC; NOTHING BILLING — no po
          LIFT-claimbox-intake.json), commit + push BEFORE the run, `node tools/lean-intake.js run erdos-488-r2-claimbox` (~45 min,
          ~8 GB work dir, delete after), record, wire (Makefile, build-control.js, tools/certs-shelf.js). It tests consistent
          ℕ → ℤ retyping (on #488 the single-place retyping did not elaborate; in the batch 3 of 4 did not) and the answer flip.
-     (2) THE TWO REVIEWS, BOTH DRAFTED, posted only on the operator's word: outreach/gh-fc7678-review-2026-11-10.md (Stokes's four,
+     (2) THE TWO REVIEWS — POSTED 2026-11-10 ~19:40 UTC on the operator's word ("review and publish the items ready"), each re-checked
+         against main (2f91d251) the same hour: #7678 issuecomment-6777423898, #7660 issuecomment-6777424638; corpus/outreach.json
+         rows gh-fc7678-review-2026-11-10 and gh-fc7660-review-2026-11-10; both threads in the sweep. Before the posting they were: outreach/gh-fc7678-review-2026-11-10.md (Stokes's four,
          all CERTIFIED, statements unchanged on main) and outreach/gh-fc7660-review-2026-11-10.md (Puri's four of the PR's 22 — it says so; the finding that
          MathOverflow 75792's statement lost `answer(True) ↔` in #6762 on 10-14, so the linked proof (built at df3f12d7) proves
          the older form; a one-line `.mp trivial` adapts it; the other three unchanged on main; and s-increasing triples'
