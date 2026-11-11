@@ -164,6 +164,26 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/prime-gaps-186.html (2026-11-10): three hollow rings, the assumptions, not proved; each joined
+     by a dashed line (a premise, as on the ℤ-in-ℚ card) to one solid block, the Lean proof, checked; from it one line to a row of ticks on which two solid dots sit close
+     together, two primes a bounded gap apart. No number, no label */
+  'prime-gaps-186': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · prime gaps', path: '/reports/prime-gaps-186.html',
+    title: 'OpenAI’s prime-gap bound of 186, checked from every side we could reach',
+    alt: 'Three hollow rings on the left, each joined by a dashed line to one solid block; from the block a line runs to a row of small ticks on which two solid dots sit close together.',
+    svgRaw: (() => {
+      const o = [], bx = 430, by = 255, bw = 170, bh = 120, my = by + bh / 2, x0 = 700, x1 = 1070;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Three hollow rings joined to one solid block, and a row of ticks with two solid dots close together" style="position:absolute;left:0;top:0">');
+      for (const y of [195, 315, 435]) {
+        o.push('<line x1="208" y1="' + y + '" x2="' + (bx - 12) + '" y2="' + (my + (y - 315) * 0.28) + '" stroke="var(--ink-3)" stroke-width="1.6" stroke-dasharray="5 7" stroke-linecap="round"/>');
+        o.push('<circle cx="180" cy="' + y + '" r="24" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.4"/>');
+      }
+      o.push('<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="8" fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"/>');
+      o.push('<line x1="' + (bx + bw + 14) + '" y1="' + my + '" x2="' + x1 + '" y2="' + my + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+      for (let x = x0; x <= x1; x += 37) o.push('<line x1="' + x + '" y1="' + (my - 9) + '" x2="' + x + '" y2="' + (my + 9) + '" stroke="var(--ink-3)" stroke-width="1.6" stroke-linecap="round"/>');
+      for (const x of [x0 + 5 * 37, x0 + 7 * 37]) o.push('<circle cx="' + x + '" cy="' + my + '" r="13" fill="var(--ink)" stroke="var(--surface)" stroke-width="3"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',
