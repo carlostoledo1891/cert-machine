@@ -54,16 +54,28 @@ if (!fs.existsSync(path.join(ROOT, PREREG))) die('the pre-registration is gone: 
 const GM = J(GAPMAP);
 function PIN_EARLY() { return L1.pins.commit; }
 const TB = J(RB);
-/* Versions 3 to 13 (2026-11-06 → 11-08): the repository moved on; the comparison of the decided files at the pin and at
-   the latest head checked, and of the Version 4 quartic's package at its own pin and that head (tools/zq-tree-check.js;
-   corpus/zq/version3-, version4- and version7-tree-check.json are the earlier ones) */
-const VREC = 'corpus/zq/version13-tree-check.json';
-const V4 = J(VREC);
-if (V4.pin !== PIN_EARLY()) die('the Version 13 comparison starts from another pin than the records');
+/* Versions 3 to 16 (2026-11-06 → 11-11): the repository moved on; the comparison of the decided files at the pin and at
+   the latest head of main checked (Version 15), and of the Version 4 quartic's package at its own pin and that head
+   (tools/zq-tree-check.js; corpus/zq/version3-, version4-, version7- and version13-tree-check.json are the earlier
+   ones). Version 16 was an open pull request when checked (#31): its head is compared the same way, in its own record.
+   Each record also says what its head calls itself and what was added since the head before it (none of it decided). */
+const VREC = 'corpus/zq/version15-tree-check.json', VREC16 = 'corpus/zq/version16-tree-check.json', VREC13 = 'corpus/zq/version13-tree-check.json';
+const V4 = J(VREC), V16 = J(VREC16), V13 = J(VREC13);
+const VN = { 'Version 15': V4, 'Version 16': V16 };
+for (const [name, V] of Object.entries(VN)) {
+  if (V.pin !== PIN_EARLY()) die('the ' + name + ' comparison starts from another pin than the records');
+  const Q = V.quartic4973;
+  if (!Q || Q.unchanged !== Q.files || Q.removed.length || Q.changed.length) die('the Version 4 quartic\'s package is not the same bytes at the ' + name + ' head: the page must say what no longer applies');
+  if (V.removed.length || V.unchanged + V.changed.length !== V.files || V.changed.some((f) => !/README\.md$/.test(f))) die('the ' + name + ' comparison found a changed or removed file beyond a README: the page must say what no longer applies');
+  if (V.frozenTarget.blobPin !== V.frozenTarget.blobHead) die('the frozen Lean target changed at the ' + name + ' head');
+  if (!V.readme || V.readme.heading !== name) die('the head compared as ' + name + ' calls itself ' + (V.readme && V.readme.heading) + ' in its README');
+  if (!V.since || V.since.removed !== 0 || V.since.addedUnderDecidedParts !== 0) die('the ' + name + ' record does not say what is new since the head before it, or something was removed or added under the decided parts');
+}
+/* the chain of heads: Version 13's head, then main at Version 15, then the pull request's head on top of it */
+if (V4.since.head !== V13.head || V16.since.head !== V4.head) die('the Version 15 and Version 16 comparisons do not follow one another from the Version 13 head');
+if (JSON.stringify(V4.changed) !== JSON.stringify(V16.changed) || JSON.stringify(V4.changed) !== JSON.stringify(V13.changed) || V16.unchanged !== V4.unchanged || V16.files !== V4.files
+  || V16.quartic4973.files !== V4.quartic4973.files) die('the Version 15 and Version 16 heads do not compare alike: the page states one count for both');
 const QP = V4.quartic4973;
-if (!QP || QP.unchanged !== QP.files || QP.removed.length || QP.changed.length) die('the Version 4 quartic\'s package is not the same bytes at the head: the page must say what no longer applies');
-if (V4.removed.length || V4.unchanged + V4.changed.length !== V4.files || V4.changed.some((f) => !/README\.md$/.test(f))) die('the Version 13 comparison found a changed or removed file beyond a README: the page must say what no longer applies');
-if (V4.frozenTarget.blobPin !== V4.frozenTarget.blobHead) die('the frozen Lean target changed at the head');
 const README_DIFF = V4.changed.length === 1 ? 'the one difference a README' : 'the ' + (['', 'one', 'two', 'three', 'four'][V4.changed.length] || N(V4.changed.length)) + ' differences READMEs';
 
 /* the Version 4 quartic, decided (tools/zq-v4.js; notes/zq-v4-preregistration-2026-11-06.md, amendments A-D) */
@@ -221,15 +233,21 @@ B.push(C.header({
     + 'with exact arithmetic and code that shares nothing with his. The theorem itself is undecided.'
 }));
 
-/* Versions 3 to 13, dated: what moved and what still applies */
+/* Versions 3 to 16, dated. What is new and not checked comes first (the house rule: gaps first), then the earlier
+   versions, then what still applies */
 B.push(C.section({
-  lab: 'since these checks', title: 'Versions 3 to 13 appeared in three days', id: 'version-3',
-  bodyRaw: C.pRaw('<b>What changed.</b> Between 6 and 8 November the repository moved from Version 3 to Version 13. Versions 3 to 7 (6 November) each brought a new manuscript and a far smaller explicit polynomial (a quartic) with its own package of checks. '
+  lab: 'since these checks', title: 'Versions 3 to 16: what moved, and what is not checked', id: 'version-3',
+  bodyRaw: C.pRaw('<b>New, and not checked here.</b> Versions 14 and 15 were merged on 10 November. Version 14 gives quartics in 299 variables, with symbolic coefficients, and in 314 variables, with every coefficient in decimal (his counts). '
+      + 'Version 15 selects a family of quartics in 222 variables; its README says the family’s defining threshold remains ineffective, that is, asserted to exist with no value given. '
+      + 'Version 16 is an open pull request, not merged when this was checked on 11 November: by its description, three corrections to the manuscript after a further audit, with the constructions unchanged. '
+      + 'None of this is checked here: not the quartics of Versions 14 and 15, not their manuscripts and review archives (' + N(V4.since.added) + ' files added to the repository since the Version 13 head), not the corrections of Version 16 (' + N(V16.since.added) + ' more files).')
+    + C.pRaw('<b>Before that.</b> Between 6 and 8 November the repository moved from Version 3 to Version 13. Versions 3 to 7 (6 November) each brought a new manuscript and a far smaller explicit polynomial (a quartic) with its own package of checks. '
       + 'Versions 9, 12 and 13 brought smaller quartics again (by his counts 523, 498 and 394 variables, each with a companion that writes every coefficient in decimal: 540, 514 and 411); Versions 8, 10 and 11 changed the text and repaired proofs, Version 10 answering an outside review. '
-      + 'Version 13 keeps the original large polynomial and the Version 4 quartic, decided in <a href="#version-4">its own section</a> below, its package the same bytes at the Version 13 head (' + N(QP.unchanged) + ' of ' + N(QP.files) + ' files). The quartics of Versions 3, 5, 6, 9, 12 and 13 are not checked here. '
-      + 'A Version 14 (299 and 314 variables, by his counts) is proposed in an open pull request, not merged and not checked here.')
-    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Two parts of it are the same bytes at the Version 13 head: the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '. '
-      + 'The Lean README now says what the frozen target is: the statement for the original polynomial, not for any quartic, none of which has a Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it at Version 13 (' + rec(VREC) + ').')
+      + 'The repository keeps the original large polynomial and the Version 4 quartic, decided in <a href="#version-4">its own section</a> below. The quartics of Versions 3, 5, 6, 9, 12 and 13 are not checked here either.')
+    + C.pRaw('<b>What still applies.</b> Everything below was decided on the 5 November release. Three parts of the repository are the same bytes at the Version 15 head of its main branch and at the head of the Version 16 pull request: '
+      + 'the original large construction and the whole Lean formalization, ' + N(V4.unchanged) + ' of ' + N(V4.files) + ' files compared one by one, ' + README_DIFF + '; and the Version 4 quartic’s package, ' + N(QP.unchanged) + ' of ' + N(QP.files) + ' files. '
+      + 'The Lean README says what the frozen target is: the statement for the original polynomial, not for any quartic, none of which has a Lean statement yet. So the Lean replay, Track B and the bookkeeping of the original construction apply to the original polynomial as the repository holds it at Version 15, '
+      + 'and would still apply if Version 16 is merged as it stands (' + rec(VREC) + ', ' + rec(VREC16) + ').')
 }));
 
 /* the story in one minute: first person for the author, the AI help said in the same sentence */
@@ -363,7 +381,7 @@ B.push(C.section({
     { b: 'The Lean replay.', raw: 'It ran on a rented machine with ' + rec('tools/runpod-zq-lane4.sh') + '; the facts of the run are in ' + recDir(L4.run.facts) + '. The recorder’s ' + m('--check') + ' derives again from your clone what can be derived on a laptop (the census, the re-hash, the reconciliation with his ' + N(THEIRS) + ' declarations) and refuses if a script that ran on that machine has changed since.' },
     { b: 'The Lean gap.', raw: 'claimbox’s proof is public on its branch ' + m(TB.pins.claimbox.branch) + '. It was decided on a rented machine with ' + rec('tools/runpod-zq-trackb.sh') + ', the facts in ' + recDir(TB.run.facts) + '; ' + m('node tools/record-zq-trackb.js --check') + ' derives the record again from those facts and the manuscript’s numbers, and refuses if a script that ran there has changed since. Its pre-registration: ' + rec(PREREG_B) + '.' },
     { b: 'The Version 4 quartic.', raw: 'A sparse clone of his repository at ' + m(Q4.pins.commit.slice(0, 8)) + ' (the package ' + m('quartics/quartic-4973/') + ' and ' + m('quartic_4973.tex') + '), then ' + m('ZQ_V4_REPO=<clone> node tools/zq-v4.js --check') + ', about three seconds on a laptop.' },
-    { b: 'Nothing of his is copied here.', text: 'His repository has no licence (no licence file at Version 13; the README of the 5 November release said licences for original project material were awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
+    { b: 'Nothing of his is copied here.', text: 'His repository has no licence (no licence file at Version 15; the README of the 5 November release said licences for original project material were awaiting the maintainer’s selection), so no file of it is in this repository or on this site. Every tool reads his files from your clone; the page quotes his statement only.' },
     { b: 'Read the pre-registration.', raw: rec(PREREG) + ': what each lane would decide and what would make it fail, written before any code ran on his data, with its dated amendments.' }
   ])
 }));
