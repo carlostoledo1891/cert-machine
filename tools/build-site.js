@@ -1099,24 +1099,20 @@ const paperStatus = (() => {
   return String(p.status).split('·')[0].trim();
 })();
 
-/* ---- THE LANDING, the operator's approach of 2026-10-28 ("Not so begging for work. Do not add cv-hire links. Add the
-   method pre paper like the artifact"): the sentence, three ways in, three numbers that each link to the record that
-   decided them, what came back from outside in the outsiders' own words, the grammar every mark obeys, the work, the
-   register, and documents with an address. No role-seeking prose and no CV link. Colours: the grammar's only (WARRANT
-   v2.2; the mock's amber is rule 6's "no yellow"). */
-const regCited = outside.credits.filter((r) => r.kind === 'registry' && /^\[T2026b?\]/.test(OUTSIDE.plain(r.quote)));
-const regCorrection = outside.credits.find((r) => r.kind === 'registry' && /^\S+ corrected on our check/.test(r.what));
-guard('the pinned credits stop holding a registry page that cites our replays as [T2026], or the row the registry corrected on our check',
-  regCited.length > 0 && !!regCorrection);
-const regCorrected = /^(\S+) corrected on our check/.exec(regCorrection.what)[1];
+/* ---- THE HOME PAGE AND /how-it-works/ (2026-11-11, the operator's draft: "Looks right? Zoom in."). Several readers
+   had called the site almost unreadable, so the home page is now tools/home-page.js: one idea per section, plain words,
+   a figure a reader can turn, every number read from its record. The dense parts of the landing it replaces moved one
+   click down, to /how-it-works/, built below by the code that built them on the landing (moved, not rewritten): how a
+   verdict is made, the register's latest decisions, the three lines of work, and the conditions the build refuses on.
+   The landing's other blocks (the four numbers, the outside cards, the grammar paragraph, the documents) are the home
+   page's own sections now, and their old markup is in the history before this date. The values both pages and
+   /verify/ share are still computed once, here, with their guards. */
 const regQuote = outside.credits.find((r) => r.kind === 'registry' && /no code shared/.test(OUTSIDE.plain(r.quote)));
 const qiushi = outside.credits.find((r) => r.kind === 'credit' && r.landing);
 const peer = outside.credits.find((r) => r.kind === 'peer' && r.landing);
-const listing = outside.credits.find((r) => r.kind === 'listing' && r.landing);
-guard('one of the four outside voices quoted on this page is no longer in the pinned credits (corpus/recognition.json)', !!(regQuote && qiushi && peer && listing));
+guard('one of the three outside voices quoted on the home page is no longer in the pinned credits (corpus/recognition.json)', !!(regQuote && qiushi && peer));
 const rerunParties = [...new Set(externalReruns.map((r) => r.who.replace(/\s*\(.*$/, '')))];
 guard('an outside re-derivation on record came back with a verdict other than ours', externalReruns.every((r) => /same verdict|identical/.test(r.outcome)));
-const firstDate = (rows) => rows.map((r) => r.date).sort()[0], lastDate = (rows) => rows.map((r) => r.date).sort().slice(-1)[0];
 /* WHERE THE ASTERISKS CAME OFF (2026-10-28, the operator: "the link on the homepage '10 constants' are '5 constants' in
    the report copy"). The landing's ten was right and its one link was not: reports/optimization-constants.html replays
    the FIRST five asterisked bounds (three removed), and the other seven removals are on reports/optconst-queue.html. The
@@ -1150,88 +1146,48 @@ guard('the register\'s count of decided claims is not its number of rows that ar
   claimsLedger.decided === regDecided.length && regDecided.every((r) => r.decidedFrom), claimsLedger.decided + ' vs ' + regDecided.length);
 guard('a register row carries a verdict word the method page does not define',
   claimsLedger.rows.every((r) => REGISTER_WORDS.some(([w]) => w === r.verdict)), [...new Set(claimsLedger.rows.map((r) => r.verdict))].join(', '));
-const refusalKinds = REGISTER_WORDS.filter(([w, of]) => w === 'REFUSED' || /\brefused\b/.test(of))
-  .map(([w, of]) => ({ w, of: w === 'REFUSED' ? 'the whole claim declined by the instrument' : of, n: regDecided.filter((r) => r.verdict === w).length }));
-const refusalShown = refusalKinds.filter((k) => k.n > 0);
-const asterNote = asterRounds.map((r) => r.n).join(' + ') + ' in ' + numword(asterRounds.length) + ' merged pull requests ('
-  + asterRounds.map((r) => '#' + r.pr).join(', ') + ')';
 
+/* /how-it-works/: the landing's own deck (it says how a verdict is made, in three sentences), then the four sections,
+   in the order a reader asking "how does it work" needs them. The sections below are the landing's, moved whole; their
+   links are written from the site's root, as they were, and rebased for this page where it is put. */
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · independent certification',
-  title: D1.head,
+  title: 'How it works',
   deck: 'AI systems now announce records, constants and proofs faster than anyone reads them, and most checks compare '
     + 'decimals. Each claim here is re-decided from its published bytes in exact arithmetic, without running the '
     + 'claimant’s code, and comes back as one of three words: CERTIFIED, REFUTED with the object that breaks it, or '
     + 'REFUSED with the reason. Nothing asks for trust: every page is built from records that re-run, and refuses to '
     + 'build when a record stops supporting a sentence.'
 }));
-B.push(C.pRaw('<b>Verify</b>: graders that cannot be gamed and independent audits, for teams that need AI claims checked. <a href="verify/">See Verify →</a>'));   /* the one link to /verify/ (the operator, 2026-10-31: "Landing, one line") */
-/* the landing's Contact button (the operator, 2026-11-01): it opens the contact card (design/contact.js), or is a mailto:
-   while the module holds no Web3Forms key */
-B.push(C.pRaw(require(path.join(ROOT, 'design', 'contact.js')).trigger({ raw: 'Contact', cls: 'ccd-btn' })));
-B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href="reports/index.html#audits">The audits →</a> · '
-  + '<a href="eth/">The two claimed refutations of ETH, decided and read →</a> · '
-  + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));
-B.push(C.stats([
-  /* D10 (2026-10-29): the count is READ from the register through its address and re-read by tools/check-marks.js */
-  { k: 'machine-generated claims decided', vRaw: W.val({ rec: { path: 'certs/claims-ledger.json', ptr: '/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the register\'s count of decided rows, read from certs/claims-ledger.json' }),
-    nRaw: 'since ' + C.esc(registerSince) + ', each with its verdict and the record that decided it · <a href="certs/claims-ledger.json">the register</a>' },
-  { k: 'asterisks removed from a registry', v: String(asterisksOff),
-    nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays: ' + asterNote + ', cited as [T2026] · '
-      + '<a href="reports/optimization-constants.html">the first round</a> · <a href="reports/optconst-queue.html">the later rounds</a>' },
-  { k: 'provably wrong answers a tolerance grader admits', vRaw: tolPct,
-    nRaw: 'an absolute-tolerance grader: ' + fmt(tolAdmit.k) + ' of ' + fmt(tolAdmit.n) + ' answers minted wrong from certificates, in a mix '
-      + 'picked here (dotted: chosen); a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' },
-  { k: 'claims refused, whole or in part, by kind', v: refusalShown.length ? refusalShown.map((k) => fmt(k.n)).join(' · ') : '0',
-    nRaw: 'of ' + fmt(regDecided.length) + ' decided: ' + refusalShown.map((k) => fmt(k.n) + ' ' + k.w + ' (' + C.esc(k.of) + ')').join(' · ')
-      + refusalKinds.filter((k) => !k.n).map((k) => ' · none ' + k.w + (k.w === 'REFUSED' ? ' outright' : '')).join('')
-      + '; never summed · <a href="reports/claims.html">every claim, with its verdict</a>' }
-]));
 
-/* WHERE A CARD GOES (2026-10-28, the operator: "always send to report and/or external link (github). If external, open
-   in a blank page"). A credit card goes to the pinned source its quote is read from; the re-derivations, which no one
-   source holds, go to the report that records them. A card that would send a reader to the about page refuses. */
-const outsideCards = [
-  { href: regQuote.url, k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
-    title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
-    desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (' + regCorrected + '); constant pages cite the replays as [T2026].',
-    quote: { text: '“' + OUTSIDE.plain(regQuote.quote) + '”' } },
-  { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
-    title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',
-    desc: 'The authors published the point sets behind ' + KW.atRequest.length + ' of ' + KW.rows + ' bounds at the audit’s request; every pair of ' + sci15(KW.pairs) + ' was then decided exactly.',
-    quote: { text: '“' + OUTSIDE.plain(qiushi.quote) + '”' } },
-  { href: 'reports/rerun.html#reruns', k: 'outside re-derivations · ' + longDate(firstDate(externalReruns)) + ' – ' + longDate(lastDate(externalReruns)),
-    title: numword(rerunParties.length).replace(/^./, (c) => c.toUpperCase()) + ' outside replayers, ' + numword(externalReruns.length) + ' re-derivations, no disagreement',
-    desc: rerunsOwn + ' with their own code, ' + rerunsTools + ' with the tools that wrote the record; the same verdict on every row. ' + rerunParties.join(', ') + '.',
-    quote: { text: '“' + OUTSIDE.plain(peer.quote) + '”', cite: peer.who.replace(/,.*$/, '') } },
-  { href: listing.url, k: 'listed · ' + longDate(listing.date),
-    title: OUTSIDE.cap(listing.who),
-    desc: listing.what,
-    quote: { text: '“' + OUTSIDE.plain(listing.quote) + '”' } }
-];
-/* the quotations are the pinned quotes themselves (design/outside.js), set as quotations (components.cards `quote`) */
-guard('an outside card would send a reader anywhere but a report on this site or GitHub',
-  outsideCards.every((c) => /^https:\/\/github\.com\/|^reports\/[\w.-]+\.html(#[\w-]+)?$/.test(c.href) && c.quote && /^“.+”$/.test(c.quote.text)),
-  outsideCards.map((c) => c.href).join(' '));
 B.push(C.section({
-  lab: 'outside the building', title: 'What has come back, in their words', wide: true, id: 'outside',
-  bodyRaw: C.cards(outsideCards) + '<div class="col after-fig">' + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
-    + 'Nothing here has been peer-reviewed; the pages ship their own falsifiers rather than asking for trust.') + '</div>'
+  lab: 'the method', title: 'How a verdict is made',
+  bodyRaw: C.p('A claim is read as a predicate over a declared box of inputs and decided in exact rational arithmetic or in '
+      + 'outward-rounded interval arithmetic; the claimant’s program is never run in the trust path. A red control, a '
+      + 'deliberately wrong input, must be rejected before its check counts, and the control build refuses on any red '
+      + 'battery. The rerun kit gives the command that re-derives each record of the register (' + kitRederive + ' of ' + kitN
+      + ' in one line, ' + kitVerifier + ' with a verifier in the standard library alone).')
+    + C.plainList([
+      { raw: '<a href="machine/index.html">How a claim becomes a certificate</a> — the machine, its batteries and its errata' },
+      { raw: '<a href="reports/rerun.html">The rerun kit</a> · <a href="reports/refusals.html">refusals, by kind</a> · <a href="reports/methods-note.html">how the bugs were found</a>' }
+    ])
 }));
 
 B.push(C.section({
-  lab: 'the visual grammar', title: 'Every mark says what it rests on', wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('A line is solid only where an exact decision backs it, dashed where float arithmetic or a printed '
-      + 'number stands unverified, dotted where something other than the data chose it, and absent where the instrument '
-      + 'refused. A mark’s standing is the weakest one on its path to the pixel. Where a number rests on a model, it also '
-      + 'names its premises and how far each was checked:') + '</div>'
-    + W.legendHtml()
-    + '<div class="col">' + C.pRaw([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join(' · ')
-      + ' — a conclusion is as checked as its weakest premise (<a href="swell/">Swell</a> and <a href="janela/">Janela</a> show the chain; '
-      + 'the same arithmetic runs in the browser on <a href="instruments/index.html">the instruments</a>).') + '</div>'
-    + '<div class="col after-fig">' + C.pRaw('<a href="grammar/index.html">The visual grammar in full</a>: the marks drawn live, the rules with the finding on one of these pages that taught each, the colour law, and how to use it in figures of your own.') + '</div>'
+  lab: 'the register', title: 'Decided recently', wide: true,
+  bodyRaw: C.table({
+    cols: [{ h: 'recorded' }, { h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }],
+    rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '‑'),
+      { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
+      claimantLabel(r.claimant), r.verdict])
+  }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: '
+    /* every month on disk, read rather than typed (it listed September and October by hand) */
+    + fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort()
+      .map((f) => '<a href="reports/' + f + '">' + MONTHS[Number(f.slice(13, 15)) - 1] + (f.slice(8, 12) === registerSince.slice(-4) ? '' : ' ' + f.slice(8, 12)) + '</a>').join(', ') + '. '
+    + '<a href="reports/refusals.html">What was refused, by kind.</a>') + '</div>'
 }));
+
 
 B.push(C.section({
   lab: 'three lines of work', title: 'The audits are the work; the theorems are the calibration', wide: true,
@@ -1250,49 +1206,9 @@ B.push(C.section({
 guard('the δ₃ ledger stops verifying the theorem δ₃ = 117/2192 with all of its certificates',
   d3.theorem.verdict === 'VERIFIED' && d3.theorem.delta3LowerBound === '117/2192' && d3.cover.complete && d3.certificates.every((c) => c.verdict === 'VERIFIED'));
 
-B.push(C.section({
-  lab: 'the register', title: 'Decided recently', wide: true,
-  bodyRaw: C.table({
-    cols: [{ h: 'recorded' }, { h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }],
-    rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '‑'),
-      { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
-      claimantLabel(r.claimant), r.verdict])
-  }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: '
-    /* every month on disk, read rather than typed (it listed September and October by hand) */
-    + fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort()
-      .map((f) => '<a href="reports/' + f + '">' + MONTHS[Number(f.slice(13, 15)) - 1] + (f.slice(8, 12) === registerSince.slice(-4) ? '' : ' ' + f.slice(8, 12)) + '</a>').join(', ') + '. '
-    + '<a href="reports/refusals.html">What was refused, by kind.</a>') + '</div>'
-}));
-
-B.push(C.section({
-  lab: 'the method', title: 'How a verdict is made',
-  bodyRaw: C.p('A claim is read as a predicate over a declared box of inputs and decided in exact rational arithmetic or in '
-      + 'outward-rounded interval arithmetic; the claimant’s program is never run in the trust path. A red control, a '
-      + 'deliberately wrong input, must be rejected before its check counts, and the control build refuses on any red '
-      + 'battery. The rerun kit gives the command that re-derives each record of the register (' + kitRederive + ' of ' + kitN
-      + ' in one line, ' + kitVerifier + ' with a verifier in the standard library alone).')
-    + C.plainList([
-      { raw: '<a href="machine/index.html">How a claim becomes a certificate</a> — the machine, its batteries and its errata' },
-      { raw: '<a href="reports/rerun.html">The rerun kit</a> · <a href="reports/refusals.html">refusals, by kind</a> · <a href="reports/methods-note.html">how the bugs were found</a>' }
-    ])
-}));
 /* the guard block's place; it is written last, from LANDING_GUARDS, once every guard below has run (see put('index.html')) */
 const GUARD_SLOT = '<!-- the conditions this page refuses on -->';
 B.push(GUARD_SLOT);
-
-B.push(C.section({
-  lab: 'documents', title: 'Documents and address', id: 'about',
-  bodyRaw: C.plainList([
-      { raw: '<a href="paper/cert-machine-method.pdf">The method paper</a> — ' + C.esc(paperStatus) + ', not peer-reviewed · <a href="papers/index.html">all papers</a>' },
-      { raw: '<a href="' + GITHUB + '">The repository</a> — MIT; every record pinned by path and SHA-256' },
-      { raw: '<a href="https://doi.org/10.5281/zenodo.22225860">The archive</a> — concept DOI 10.5281/zenodo.22225860' },
-      { raw: '<a href="reports/envs.html">Three verifier-soundness environments</a> on the Prime Intellect Hub' }
-    ])
-    + C.p('Carlos Toledo, independent, Brazil. The mathematics, the design of every check and the decision about what may '
-      + 'be claimed are the author’s; the writing and much of the implementation are done with AI assistance under the '
-      + 'discipline above.')
-    + C.pRaw('<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> · <a href="about/index.html">About →</a>')
-}));
 
 const foot = '<p>Built from the records at git ' + git + ' by tools/build-site.js; a record that stops supporting a sentence refuses the page. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
 
@@ -2065,25 +1981,51 @@ const OG_LANDING = (() => {
   const isPng = buf.length > 24 && buf.toString('latin1', 1, 4) === 'PNG' && buf.toString('latin1', 12, 16) === 'IHDR';
   const w = isPng ? buf.readUInt32BE(16) : 0, h = isPng ? buf.readUInt32BE(20) : 0;
   const sha = require('crypto').createHash('sha256').update(buf).digest('hex');
-  guard('its share card is missing, is not a 1200 × 630 PNG under 300 KB, is not the image its receipt names, or sets words other than this page\'s title and the one description',
+  guard('the site\'s default share card is missing, is not a 1200 × 630 PNG under 300 KB, is not the image its receipt names, or sets words other than the head of the one description and the description whole',
     ok && w === 1200 && h === 630 && buf.length < 300 * 1024 && R.sha256 === sha && R.title === D1.head && R.description === D1.text,
     'design/assets/og-landing.png: ' + w + ' × ' + h + ', ' + buf.length + ' bytes; run node tools/build-og-landing.js');
   return buf;
 })();
 put('og-landing.png', OG_LANDING);
-guard('its title is not the head of the one description in CLAUDE.md, word for word', D1.text.startsWith(D1.head + ' — ') && B[0].includes('<h1>' + C.esc(D1.head) + '</h1>'));
-/* the guard block, written now that every guard on this page has run: the list is LANDING_GUARDS itself */
+/* THE HOME PAGE (tools/home-page.js, 2026-11-11). It is built here, after every value it shares with the hubs has been
+   guarded; its own refusals are in its builder. The one description keeps the two places the operator ruled: the
+   browser title, as it has been, and one line on the page, word for word (the builder refuses on any other count). */
+const HOME = require(path.join(__dirname, 'home-page.js'))({ ROOT, C, W, fmt, fail, GITHUB, numword, D1, registerSince, tolAdmit, asterisksOff,
+  externalReruns, rerunParties, regQuote, qiushi, peer, OUTSIDE, KW, sci15, INSTR, paperStatus, rmPrinted, rmSurvive });
+const HOME_TITLE = 'Carlos Toledo · ' + D1.head.charAt(0).toLowerCase() + D1.head.slice(1);
+guard('the home page\'s browser title is not the head of the one description in CLAUDE.md, or the page does not print the description once, word for word',
+  D1.text.startsWith(D1.head + ' — ') && HOME_TITLE.toLowerCase().endsWith(D1.head.toLowerCase()) && HOME.body.split(C.esc(D1.text)).length === 2);
+/* the home page's own share card (tools/build-og-report.js `home`: light, illustrated with the circles it opens on); the
+   alt is the card's own words, read from its receipt */
+const OG_HOME = (() => {
+  const png = path.join(ROOT, 'design', 'assets', 'og-home.png'), rec = path.join(ROOT, 'design', 'assets', 'og-home.json');
+  const ok = fs.existsSync(png) && fs.existsSync(rec);
+  const buf = ok ? fs.readFileSync(png) : Buffer.alloc(0), R = ok ? JSON.parse(fs.readFileSync(rec, 'utf8')) : {};
+  guard('the home page\'s own share card is missing, is not the image its receipt names, or does not set the page\'s headline',
+    ok && R.sha256 === require('crypto').createHash('sha256').update(buf).digest('hex') && HOME.body.includes('<span>' + C.esc(String(R.title).split('? ')[0]) + '?</span>'),
+    'design/assets/og-home.png; run node tools/build-og-report.js home');
+  return { buf, alt: R.title + ' — ' + R.description };
+})();
+put('og-home.png', OG_HOME.buf);
+/* the guard block, written now that every guard has run: the list is LANDING_GUARDS itself. It moved to /how-it-works/
+   with the landing's dense sections; the conditions are those of the one build that writes the home page, /verify/ and
+   this page, so any one of them stops all three. */
 B[B.indexOf(GUARD_SLOT)] = C.section({
   lab: 'what stops this page', title: 'This page refuses to build if …', id: 'refuses',
-  bodyRaw: C.p('Every number and quotation above is read from a record when the page is built, and the build checks that the '
+  bodyRaw: C.p('Every number and quotation above, on the home page and on Verify is read from a record when the pages are built, and the build checks that the '
       + 'record still says it. Below are the ' + numword(LANDING_GUARDS.length) + ' conditions it refuses on, written out by the checks '
-      + 'that test them; if any one becomes true, nothing is written and the last good page stays up.')
+      + 'that test them; if any one becomes true, nothing is written and the last good pages stay up.')
     + '<details class="more"><summary>The ' + numword(LANDING_GUARDS.length) + ' conditions</summary>'
     + C.plainList(LANDING_GUARDS.map((g) => ({ text: '… ' + g + '.' }))) + '</details>'
 });
-put('index.html', Buffer.from(TPL.render({ title: 'Carlos Toledo · ' + D1.head.charAt(0).toLowerCase() + D1.head.slice(1), bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
-  og: { image: '/og-landing.png', alt: D1.text },
+put('index.html', Buffer.from(TPL.render({ title: HOME_TITLE, bodyRaw: HOME.body, footRaw: HOME.foot, cssRaw: HOME.css, scriptRaw: HOME.script, path: '/',
+  og: { image: '/og-home.png', alt: OG_HOME.alt },
   desc: D1.text + ' Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
+/* /how-it-works/ (2026-11-11): the landing's dense sections, one click down. They were written for the site's root, so
+   every link that starts at the root is rebased one level up for this page; nothing else in them changes. */
+const rebase = (html) => html.replace(/href="(?![a-z][a-z0-9+.-]*:|#|\/|\.\.\/)/g, 'href="../');
+put('how-it-works/index.html', Buffer.from(TPL.render({ title: 'How it works', bodyRaw: rebase(B.join('\n\n')), footRaw: foot, path: '/how-it-works/',
+  desc: 'How a verdict is made here: a claim read as a predicate over a declared box and decided in exact arithmetic, the register’s latest decisions, the three lines of work, and every condition the build of these pages refuses on.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'Every report in five series — audits of machine-generated mathematics, evaluation whose ground truth is a proof, theorems and exact values, certified decisions for operations, the record — each title naming the object and what was decided.' })));
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',

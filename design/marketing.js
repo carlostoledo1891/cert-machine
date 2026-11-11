@@ -21,6 +21,14 @@ const PAGES = {
     ruled: '2026-10-31',
     quote: 'No need to pin everything on Verify LP, this is a mkt touchpoint and the focus now is content and visuals.',
   },
+  /* the home page (2026-11-11). The operator's decisions for the new home page reached its builder through the session
+     that briefed it; the sentence below is that brief's, relaying him, and waits for his own words. */
+  'index.html': {
+    url: '/',
+    ruled: '2026-11-11',
+    quote: 'The homepage is marketing in the sense of /verify/: no visible pins, hashes or stop lines on it; no commit links typed into the copy.',
+    relayed: 'the session brief of 2026-11-11, relaying the operator\'s decisions for the home page',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',

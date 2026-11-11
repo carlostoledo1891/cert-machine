@@ -467,3 +467,22 @@ behind disclosures. Two additions to the machinery, both said on the figure:
 
 A "usual" panel beside a WARRANT one is the same data through the same frame, every mark in one ink at one weight and
 unclassed, so no check reads it as a mark of the grammar.
+
+## Dashed also means quoted (2026-11-11)
+
+Ruled by the operator on 2026-11-11, for the home page: a claimant's printed number that has not been decided here takes
+the dashed stroke, as a line in a figure and as the underline of a value in text, so "dashed means someone printed it, or
+it was computed and not proved"; no new colour and no new stroke.
+
+## The home page's hero (2026-11-11)
+
+The home page was redrawn on the operator's draft ("Looks right? Zoom in.") and has a hero again: the zoom, a published
+packing of 26 circles drawn on a canvas from the pinned coordinates and zoomed onto the pair its record names
+(design/heroes.json; the section of 2026-10-30 above describes the page before this date). Rule 5 as applied there: the
+overlap is filled in ink, never in the red; the one red mark is the witness × on it (`W.witnessMark`, an SVG over the
+canvas), the first × a reader meets; in the register field under it a refuted claim's cell is a × in ink, because a
+cell's shape is a verdict. The draft drew the overlap, its sentence and every refuted cell in the red; widening rule 5
+to allow that is the operator's ruling to make, and was not made here. One more red × stands in the hero, on the
+operator's word of the same day as it reached the builder: the small × beside "Refuted" in the three words under the
+headline, drawn by `W.witnessMark` as the KEY of the witness mark, beside the words "the thing that breaks it" (as a
+legend shows a mark without being an instance of it). It comes after the figure in the markup.
