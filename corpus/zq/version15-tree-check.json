@@ -1,0 +1,57 @@
+{
+ "what": "Whether the parts of the 11/5 release decided here are unchanged in Glazer et al.'s repository after Version 15: every file under construction/ and lean/, compared by git blob id at the pin and at the head.",
+ "checked": "2026-11-11",
+ "repository": "github.com/elliotglazer/diophantine-z-q",
+ "pin": "97cec7fdd757d9a8e4f468151a47a6d3610fb2f2",
+ "head": "511529bbe9d635194f0c9d925709e77a5d3afa64",
+ "method": "node tools/zq-tree-check.js: git ls-tree -r at the pin in the read-only clone; GitHub API git/trees/<head>?recursive=1 at the head; blob ids compared path by path",
+ "files": 88,
+ "unchanged": 86,
+ "changed": [
+  "construction/README.md",
+  "lean/README.md"
+ ],
+ "removed": [],
+ "added": [],
+ "frozenTarget": {
+  "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+  "blobPin": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "blobHead": "8b7b555e2c6aa620001dac21a33386039a45a76f",
+  "sha256Head": "0889579ae56e75eca811af520eb4e18c9f697e163db408771b93fdbc651a95b9"
+ },
+ "quartic4973": {
+  "base": "5cb2c1997dde6e358f3c2fe9bbdb4b8f4c23bac6",
+  "files": 353,
+  "unchanged": 353,
+  "changed": [],
+  "removed": [],
+  "added": []
+ },
+ "readme": {
+  "sha256Head": "e0fafead310dfa84996e5258c5467dc498c1a352e95b7ab724ff249e604fc7a7",
+  "heading": "Version 15"
+ },
+ "since": {
+  "head": "9c0b3aba60d90fdcac82115f0582a6f52f1054f7",
+  "filesThen": 2774,
+  "filesNow": 11639,
+  "added": 8865,
+  "addedBytes": 1253947962,
+  "changed": 37,
+  "removed": 0,
+  "addedByFolder": {
+   "research/version14": 6244,
+   "research/version15": 1673,
+   "quartics/quartic-299-314": 520,
+   "docs/manuscript-revisions": 309,
+   "docs/research-review": 105,
+   "build": 3,
+   "manuscripts": 3,
+   "quartics": 3,
+   "scripts": 3,
+   ".github": 2
+  },
+  "addedUnderDecidedParts": 0
+ },
+ "reading": "The head of main on 2026-11-11 (511529bb, committed 2026-11-10 20:42 UTC) calls itself Version 15. Versions 14 and 15 are new constructions with their own manuscripts and review archives (by the README at this head: quartics in 299 and 314 variables, then a family of quartics in 222 variables whose defining threshold N0 it says remains ineffective); 8,865 files were added since the Version 13 head and none of them is checked here. The original large construction, the whole Lean formalization and the Version 4 quartic's package are the same bytes as at the Version 13 head (the two changed READMEs are the same blobs there and here, c639f4b8 and 16b5d30b, read from GitHub's tree listings), so lanes 1, 2 and 4, Track B and the Version 4 decision apply to the repository as it stands at this head."
+}
