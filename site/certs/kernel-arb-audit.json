@@ -1,7 +1,7 @@
 {
  "what": "The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.",
- "generated": "2026-10-21T20:57:53+00:00",
- "seconds": 211.2,
+ "generated": "2026-11-11T20:22:38+00:00",
+ "seconds": 93.9,
  "seed": 20261018,
  "perOp": 50000,
  "node": "v24.14.1",
@@ -17,7 +17,7 @@
   "instruments/hseva/fit.js": "032e9b039b6e44cee2b7f977e68f4f2379ed6b84c5718ebb7927adae084a2b75",
   "instruments/hseva/special.js": "be98f1c495adcca04b3624bef64f1b52d81318976a7e7f5622ac08f8d75b624b",
   "instruments/hseva/families.js": "703d26d8f29d651522ebc7aa15ae157d3e9a475c625f9c75ec9f83dd1252f039",
-  "instruments/ivspecial/ivspecial.js": "4fc16f7e5ae0ba3d1565d72ce1ebdc34eda46c96997375986f6da8cd68cc3af5"
+  "instruments/ivspecial/ivspecial.js": "0610150bf646891a481d59dfd9eda8e8ed1effa38859cd748b86783228310a40"
  },
  "counts": {
   "cases": 1012121,

@@ -287,6 +287,18 @@ for (const [k, p, q, label] of [[-1, 27n, 16n, 'J_{−1/2}(27/16)'], [0, 27n, 16
   threw = false;
   try { S.besselJIv(iv(-0.7, 0.5), iv(1)); } catch (e) { threw = /-0\.6/.test(e.message); }
   ok(threw, 'RED: fat order [−0.7, 0.5] is REFUSED at the door — width does not bypass the domain');
+
+  /* R7 (2026-11-11): at a 0-containing x the ν = 0 branch returns J_0's bound [1 − x²/4, 1]. It is J_0's only: an order
+     box [ν0, 0] with ν0 < 0 holds negative orders, and J_ν(t) → +∞ as t → 0⁺ for −1 < ν < 0. The guard tested the box's
+     UPPER end alone, so [−0.3, 0] × [0, 0.5] was answered [0.9375, 1], which J_{−0.3}(0.1) ≈ 1.886 is outside of. Both
+     ends must be 0; the box is REFUSED like every other 0-containing order at a 0-containing x. */
+  threw = false;
+  let got = null;
+  try { got = S.besselJIv(iv(-0.3, 0), iv(0, 0.5)); } catch (e) { threw = /0-containing x with 0-containing nu/.test(e.message); }
+  ok(threw, 'RED: order box [−0.3, 0] at x ∈ [0, 0.5] is REFUSED, not given J_0\'s bound' + (got ? ' (answered [' + got + '])' : ''));
+  ok(S.besselJIv(iv(-0.3), iv(0.1))[0] > 1, 'J_{−0.3}(0.1) > 1: a member of that box lies above J_0\'s bound, so the old answer was not an enclosure');
+  const j0 = S.besselJIv(I.ZERO, iv(0, 0.5));
+  ok(j0[1] === 1 && j0[0] <= 0.9375 && j0[0] > 0.93, 'the order [0, 0] exactly keeps J_0\'s bound at x ∈ [0, 0.5]');
 }
 
 console.log('');

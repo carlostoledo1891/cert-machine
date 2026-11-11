@@ -181,7 +181,9 @@ function besselJIv(nu, x, terms) {
     // alternating series with decreasing terms — needs x ≤ √(4(ν+1)) which
     // x ≤ 1 guarantees for every ν ≥ 0.
     if (x[1] > 1) throw new Error('besselJIv: 0-containing x wider than 1');
-    if (nu[1] === 0) {
+    // ν = 0 EXACTLY (both ends): a box [ν0, 0] with ν0 < 0 holds negative orders, unbounded at 0⁺, and is
+    // refused two lines down (2026-11-11: the test read the upper end alone)
+    if (nu[0] === 0 && nu[1] === 0) {
       const lo2 = I.nextDown(1 - x[1] * x[1] / 4);  // J0 ≥ 1 − x²/4
       return [Math.max(0, lo2), 1];
     }
