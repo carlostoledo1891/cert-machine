@@ -482,4 +482,7 @@ packing of 26 circles drawn on a canvas from the pinned coordinates and zoomed o
 overlap is filled in ink, never in the red; the one red mark is the witness × on it (`W.witnessMark`, an SVG over the
 canvas), the first × a reader meets; in the register field under it a refuted claim's cell is a × in ink, because a
 cell's shape is a verdict. The draft drew the overlap, its sentence and every refuted cell in the red; widening rule 5
-to allow that is the operator's ruling to make, and was not made here.
+to allow that is the operator's ruling to make, and was not made here. One more red × stands in the hero, on the
+operator's word of the same day as it reached the builder: the small × beside "Refuted" in the three words under the
+headline, drawn by `W.witnessMark` as the KEY of the witness mark, beside the words "the thing that breaks it" (as a
+legend shows a mark without being an instance of it). It comes after the figure in the markup.

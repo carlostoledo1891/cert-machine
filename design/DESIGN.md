@@ -258,13 +258,13 @@ uses them, and a rule in the template is re-baked into every page on the site.
 
 | component | data | use |
 |---|---|---|
-| `hero({lines,ledeRaw,ctasRaw,scopeRaw})` | | the first screen: the headline in two lines, the lede, the calls to action, the zoom beside them |
+| `hero({lines,ledeRaw,ctasRaw,scopeRaw,wordsRaw})` | | the first screen: the headline in two lines, the lede, the calls to action, the zoom beside them, and the three words at the foot of the left column, ending where the figure's card ends |
 | `scope({caption,alt,circles,pair,saysRaw,chipsRaw,record,sliderLabel})` | `circles: [[x,y,r]]`, `pair: [i,j]`, five sentences, two chips | THE ZOOM: a published configuration on a canvas, zoomed by a slider, a mouse drag or a pinch onto the pair its record names; the witness × is `W.witnessMark` in an SVG over the canvas; `alt` is required and states the finding |
-| `words(items)` | three `{word,text}` | three verdict words, each with its shape: filled, ×, ∅ |
+| `words({label,items})` | three `{word,text}` | three verdict words, compact (a label line, then one row; three rows on a phone), each with its small shape: filled, the witness × as its key (`W.witnessMark`), ∅ |
 | `field({months,rows,legend,first,label,record})` | one row per decided claim | THE REGISTER FIELD: one cell per claim, by month; the cell's SHAPE is its verdict (`CELL`), the readout has a fixed height, the arrow keys move; the legend is the figure's caption |
 | `pairs(items)` | `{k,href,wasRaw,isRaw,smallRaw,textRaw}` | what was printed (dashed: quoted) above what was decided (plain) |
 | `chain({nodes,links,alt})` | `links: [{decided,word}]` | statements joined by decided links; a link nobody decided has no line, only ∅ and its word |
-| `voices(items)` | `{quote,byRaw}` | quotations, each with who said it |
+| `voices(items)` | `{quote,byRaw,href,go}` | quotations, each with who said it and a link to where it was said, at the foot of its column |
 | `strokes(say)` | `{decided:{k,g},…}` | the house standing legend (`W.legendHtml`) as a plate, in the page's plain words; the swatches and `data-s` stay the renderer's |
 | `doors(items)`, `head`, `section`, `btn`, `more` | | three ways in; a section's head; a button-shaped link; a small mono link |
 

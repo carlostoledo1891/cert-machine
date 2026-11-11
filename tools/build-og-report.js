@@ -185,9 +185,11 @@ const CARDS = {
       return o.join('');
     })() },
   /* the home page's own card (2026-11-11, the operator's headline "Looks right? Zoom in."): LIGHT, the headline and one
-     sentence beside the figure the page opens on, the 26 published circles drawn from the pinned bytes (the same file
-     tools/home-page.js reads, refused there on a sha256 mismatch), with the witness × where the record's worst pair
-     overlaps and a guide ring around it. No number on it. */
+     sentence beside the two circles at the overlap. The two circles are the pair the claims record names, drawn at
+     their true places and sizes from the pinned bytes (the same file tools/home-page.js reads, refused there on a
+     sha256 mismatch), touching to the eye; a loupe beside them shows what the zoom shows, the two edges crossed, the
+     overlap filled in ink and marked with the witness ×. The loupe's magnification is a picture, and no number is on
+     the card. The source of the circles is not named on it (it is credited in the page's footer). */
   home: { theme: 'light', eyebrow: 'Carlos Toledo · independent exact certification', path: '/',
     title: 'Looks right? Zoom in.',
     deck: 'I check published results exactly, whoever printed them, and answer in one word: certified, refuted or refused.',
@@ -198,13 +200,27 @@ const CARDS = {
       const IN = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-intake-2026-11-08.json'), 'utf8')).claims['5'];
       const list = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'claims-intake', 'inputs', 'thetaevolve-7c12898-CirclePacking-data.json'), 'utf8')).find((e) => e.name === IN.entry).list;
       const [i, j] = IN.decision.worstPairDistance.pair, A = list[i], B = list[j];
-      const d = Math.hypot(B[0] - A[0], B[1] - A[1]), t = (A[2] - (A[2] + B[2] - d) / 2) / d;
-      const K = 430, M = 20, X = (v) => (M + v * K).toFixed(2), px = M + (A[0] + (B[0] - A[0]) * t) * K, py = M + (A[1] + (B[1] - A[1]) * t) * K;
-      const o = ['<svg viewBox="0 0 470 470" width="470" height="470" role="img" aria-label="Twenty-six circles packed in a square; a red cross marks the one pair to zoom in on">'];
-      o.push('<rect x="' + M + '" y="' + M + '" width="' + K + '" height="' + K + '" fill="none" stroke="var(--rule-strong)" stroke-width="1"/>');
-      for (const c of list) o.push('<circle cx="' + X(c[0]) + '" cy="' + X(c[1]) + '" r="' + (c[2] * K).toFixed(2) + '" fill="var(--band-fill)" stroke="var(--ink)" stroke-width="1.6"/>');
-      o.push('<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="26" fill="none" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="' + G.GUIDE + '"/>');
-      o.push(W.witnessMark(px, py, { size: 8, width: 3.2, casing: 'var(--paper)' }));
+      const d = Math.hypot(B[0] - A[0], B[1] - A[1]), ux = (B[0] - A[0]) / d, uy = (B[1] - A[1]) / d, t = A[2] - (A[2] + B[2] - d) / 2;
+      /* the pair at its true geometry, fitted into the upper left of the drawing */
+      const x0 = Math.min(A[0] - A[2], B[0] - B[2]), y0 = Math.min(A[1] - A[2], B[1] - B[2]);
+      const K = 270 / Math.max(Math.max(A[0] + A[2], B[0] + B[2]) - x0, Math.max(A[1] + A[2], B[1] + B[2]) - y0);
+      const X = (v) => 14 + (v - x0) * K, Y = (v) => 14 + (v - y0) * K, f = (v) => v.toFixed(2);
+      const px = X(A[0] + ux * t), py = Y(A[1] + uy * t);
+      /* the loupe: what the zoom shows at the point, turned as the pair is turned */
+      const lx = 356, ly = 352, lr = 106, gap = 40, ang = Math.atan2(uy, ux) * 180 / Math.PI, a2 = Math.atan2(ly - py, lx - px);
+      const o = ['<svg viewBox="0 0 470 470" width="470" height="470" role="img" aria-label="Two circles that look as if they touch; a loupe on the point where they meet shows that they overlap, the overlap marked with a red cross">'];
+      o.push('<defs><clipPath id="og-loupe"><circle cx="' + lx + '" cy="' + ly + '" r="' + lr + '"/></clipPath></defs>');
+      for (const c of [A, B]) o.push('<circle cx="' + f(X(c[0])) + '" cy="' + f(Y(c[1])) + '" r="' + f(c[2] * K) + '" fill="var(--band-fill)" stroke="var(--ink)" stroke-width="1.8"/>');
+      o.push('<circle cx="' + f(px) + '" cy="' + f(py) + '" r="13" fill="none" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="' + G.GUIDE + '"/>');
+      o.push('<line x1="' + f(px + 13 * Math.cos(a2)) + '" y1="' + f(py + 13 * Math.sin(a2)) + '" x2="' + f(lx - lr * Math.cos(a2)) + '" y2="' + f(ly - lr * Math.sin(a2)) + '" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="' + G.GUIDE + '"/>');
+      o.push('<circle cx="' + lx + '" cy="' + ly + '" r="' + lr + '" fill="var(--paper)"/>');
+      o.push('<g clip-path="url(#og-loupe)"><g transform="translate(' + lx + ' ' + ly + ') rotate(' + f(ang) + ')">');
+      o.push('<rect x="-300" y="-300" width="' + (300 + gap / 2) + '" height="600" fill="var(--band-fill)"/><rect x="' + (-gap / 2) + '" y="-300" width="' + (300 + gap / 2) + '" height="600" fill="var(--band-fill)"/>');
+      o.push('<rect x="' + (-gap / 2) + '" y="-300" width="' + gap + '" height="600" fill="var(--ink)" opacity="0.26"/>');
+      o.push('<line x1="' + (gap / 2) + '" y1="-300" x2="' + (gap / 2) + '" y2="300" stroke="var(--ink)" stroke-width="1.8"/><line x1="' + (-gap / 2) + '" y1="-300" x2="' + (-gap / 2) + '" y2="300" stroke="var(--ink)" stroke-width="1.8"/>');
+      o.push('</g></g>');
+      o.push('<circle cx="' + lx + '" cy="' + ly + '" r="' + lr + '" fill="none" stroke="var(--ink)" stroke-width="1.8"/>');
+      o.push(W.witnessMark(lx, ly, { size: 10, width: 3.6 }));
       o.push('</svg>');
       return o.join('');
     })() },

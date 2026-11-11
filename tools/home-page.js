@@ -19,6 +19,8 @@
      · the overlap and the sentence under it in the witness red: WARRANT rule 5 keeps the red to a × beside words, so
        the overlap is filled in ink and the × marks it.
      · every refuted cell a red ×: a cell's shape is its verdict, and the red never marks a verdict; the cells are ink.
+       (The × beside "Refuted" in the hero's three words is red on the operator's word of 2026-11-11: it is the key of
+       the witness mark, beside "the thing that breaks it".)
      · "Everything re-runs": the rerun kit re-derives most records in one line, not all, so the footer does not say it.
    The register's own sentence for the Ramanujan Machine row says "52 printed rows"; the ledger holds 51 printed rows
    and our correction, and this page counts the printed ones (the house rule since 2026-08-27).                    MIT */
@@ -88,7 +90,10 @@ module.exports = function homePage(X) {
     alt: Cap(numword(dec.n)) + ' circles packed in a unit square, drawn from the published coordinates. From afar each touches its neighbours. '
       + 'Zoomed in about a million times on one pair, the two circles overlap, by ' + overlapLo + ' of the side. With no tolerance, '
       + dec.strict.pairViolations + ' of the ' + pairsAll + ' pairs overlap; at the tolerance the authors state, ' + tolWord + ', the packing is certified.',
-    circles, pair: [wi, wj], record: [INTAKE, DATA],
+    /* the figure names its record, the claims record, which pins the published file by sha256; the file's own path is
+       not written into the figure (the operator, 2026-11-11: the source is unnamed in the figure and credited, with
+       its licence, in the footer) */
+    circles, pair: [wi, wj], record: INTAKE,
     sliderLabel: 'Zoom, from one to about a million and a half times',
     saysRaw: ['They touch.', 'Still touching.', 'Still touching?', 'They overlap.', 'They overlap, by ' + overlap + '.'],
     chipsRaw: [
@@ -98,20 +103,20 @@ module.exports = function homePage(X) {
         + val(INTAKE, P5 + 'strict/pairViolations', W.DECIDED) + ' of ' + value(String(pairsAll), W.DECIDED, { derived: A5 + 'n' }) + ' pairs overlap</span>'
     ]
   });
+  hg('the figure names the source of its circles (it is credited in the footer, with its licence, and nowhere in the figure)', !/thetaevolve/i.test(scope));
   const hero = H.hero({
     lines: ['Looks right?', 'Zoom in.'],
     ledeRaw: 'I’m Carlos. I check published results <b>exactly</b>, whoever printed them: an AI lab, a journal, a simulation, a spreadsheet. '
       + 'You get one word back, and a file you can run.',
     ctasRaw: H.btn({ href: '#register', raw: 'See what I’ve checked', solid: true }) + H.btn({ href: '#doors', raw: 'Work with me' }),
-    scopeRaw: scope
+    scopeRaw: scope,
+    /* the three words, compact, at the foot of the left column (the operator, 2026-11-11: the section was too big) */
+    wordsRaw: H.words({ label: 'Three words. That’s the whole product.', items: [
+      { word: 'Certified', text: 'It holds. Here’s the file that proves it.' },
+      { word: 'Refuted', text: 'It fails. Here’s the thing that breaks it.' },
+      { word: 'Refused', text: 'I can’t decide it, and here’s why. No guessing.' }
+    ] })
   });
-
-  /* ---- three words ------------------------------------------------------------------------------------------ */
-  const three = H.section({ bodyRaw: H.head({ title: 'Three words. That’s the whole product.' }) + H.words([
-    { word: 'Certified', text: 'It holds. Here’s the file that proves it.' },
-    { word: 'Refuted', text: 'It fails. Here’s the thing that breaks it.' },
-    { word: 'Refused', text: 'I can’t decide it, and here’s why. No guessing.' }
-  ]) });
 
   /* ---- THE REGISTER: one cell per decided row of certs/claims-ledger.json, by month ------------------------------ */
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -233,10 +238,16 @@ module.exports = function homePage(X) {
     && OUTSIDE.plain(peer.quote).startsWith(qPeer) && /^It covers much of the same ground, carefully$/.test(qPeer) && /^maximusrufus, an independent replayer/.test(peer.who));
   hg('an outside re-run on record came back with a verdict other than mine, or the one quoted is not among the replayers',
     externalReruns.length > 0 && externalReruns.every((r) => /same verdict|identical/.test(r.outcome)) && rerunParties.includes(peer.who.replace(/,.*$/, '')));
+  /* each quotation links to where it was said: the public source its credit pins (the `url` of its row in
+     corpus/recognition.json), read here and never typed; the label says what kind of place the address is */
+  hg('a quotation\'s credit no longer gives the public address where it was said, or the address is no longer the registry\'s README, the Qiushi Engine\'s README and the thread on cert-machine',
+    [regQuote, qiushi, peer].every((r) => /^https:\/\/github\.com\//.test(String(r.url || '')))
+    && /\/teorth\/optimizationproblems\/blob\/[0-9a-f]+\/README\.md$/.test(regQuote.url) && /\/Oxelra-AI\/[^/]+\/blob\/[0-9a-f]+\/README\.md$/.test(qiushi.url)
+    && /\/carlostoledo1891\/cert-machine\/issues\/\d+$/.test(peer.url));
   const voices = H.section({ bodyRaw: H.head({ title: 'Other people ran it again.' }) + H.voices([
-    { quote: qReg, byRaw: 'The optimization-constants registry of Davis, Ivanisvili and Tao. ' + Cap(numword(asterisksOff)) + ' asterisks came off on my replays.' },
-    { quote: qQiu[0], byRaw: 'The Qiushi Engine authors, after I asked for their data and checked every pair. All ' + C.esc(sci15(KW.pairs)).replace(/ /g, '\u00a0') + ' of them.' },
-    { quote: qPeer, byRaw: C.esc(peer.who.replace(/,.*$/, '')) + ', an outside replayer. ' + Cap(numword(rerunParties.length)) + ' of them have re-run my work '
+    { href: regQuote.url, go: 'In the registry’s README', quote: qReg, byRaw: 'The optimization-constants registry of Davis, Ivanisvili and Tao. ' + Cap(numword(asterisksOff)) + ' asterisks came off on my replays.' },
+    { href: qiushi.url, go: 'In their README', quote: qQiu[0], byRaw: 'The Qiushi Engine authors, after I asked for their data and checked every pair. All ' + C.esc(sci15(KW.pairs)).replace(/ /g, '\u00a0') + ' of them.' },
+    { href: peer.url, go: 'On the thread', quote: qPeer, byRaw: C.esc(peer.who.replace(/,.*$/, '')) + ', an outside replayer. ' + Cap(numword(rerunParties.length)) + ' of them have re-run my work '
       + numword(externalReruns.length) + ' times. Same verdict every time.' }
   ]) });
 
@@ -265,11 +276,12 @@ module.exports = function homePage(X) {
     + H.more({ href: GITHUB, text: 'The code · MIT' }) + H.more({ href: 'paper/cert-machine-method.pdf', text: 'The method paper · ' + paperStatus })
     + H.more({ href: CT.PILOT, text: 'Submit a claim in public' }) + '</div>' });
 
-  const body = [hero, three, register, printed, eth, voices, grammar, doors, contact].join('\n\n');
+  const body = [hero, register, printed, eth, voices, grammar, doors, contact].join('\n\n');
   hg('the one description is not printed on it exactly once, word for word', body.split(C.esc(D1.text)).length === 2);
   hg('a value on it keeps a reason the page does not print', [...body.matchAll(/<span class="w-val[^>]*title="([^"]*)"/g)].every((m) => Object.values(WHY).includes(m[1].replace(/&quot;/g, '"'))));
   const foot = '<p>Carlos Toledo, independent, Brazil. I work with AI agents; the statements, the checks and what may be claimed are mine. '
     + 'The circles are the entry “' + C.esc(c5.entry) + '” of ThetaEvolve’s published data (' + C.esc(IN.pins.thetaevolve.licence) + '), drawn from its own coordinates. '
     + 'Nothing here is peer-reviewed. <a href="how-it-works/">How it works</a>.</p>';
+  hg('the footer no longer credits the circles\' source with its licence', /ThetaEvolve’s published data \(Apache-2\.0\)/.test(foot));
   return { body, foot, css: H.css(), script: H.script() };
 };

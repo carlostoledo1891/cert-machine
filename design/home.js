@@ -10,7 +10,7 @@
      scope      THE ZOOM. A published configuration drawn on a canvas from its own coordinates, zoomed by a slider
                 (or a mouse drag, or a pinch) onto the pair its record names. The sentence under it, the scale bar,
                 the zoom word and the two chips all keep their boxes while their content changes.
-     words      three verdict words, each with its shape
+     words      three verdict words, compact, at the foot of the hero's left column, each with its small shape
      field      THE REGISTER FIELD. One cell per decided claim, grouped by month; the cell's SHAPE is its verdict
                 (never colour alone), a readout of fixed height names the claim under the pointer or the focus, and
                 the arrow keys move.
@@ -89,21 +89,27 @@ function scope({ caption, alt, circles, pair, saysRaw, chipsRaw, record, sliderL
     + '<script type="application/json" id="hm-scope-data">' + JSON.stringify(data).replace(/</g, '\\u003c') + '</script>';
 }
 
-/* the page's first screen: the headline in two lines, the lede, the calls to action, and the zoom beside them */
-function hero({ lines, ledeRaw, ctasRaw, scopeRaw }) {
+/* the page's first screen: the headline in two lines, the lede and the calls to action; the zoom beside them; and, at the
+   foot of the left column (the operator, 2026-11-11: "too big" as a section of its own), the three words. The words
+   come after the figure in the markup: on a phone they read after it, and the figure's own × stays the first on the
+   page (tools/check-wiring.js reads the order). */
+function hero({ lines, ledeRaw, ctasRaw, scopeRaw, wordsRaw }) {
   return '<div class="hm-hero">\n<div class="hm-hero-t">\n'
     + '  <h1>' + lines.map((l) => '<span>' + esc(l) + '</span>').join(' ') + '</h1>\n'
     + '  <p class="hm-lede">' + ledeRaw + '</p>\n'
     + '  <div class="hm-cta">' + ctasRaw + '</div>\n'
-    + '</div>\n' + scopeRaw + '\n</div>';
+    + '</div>\n' + scopeRaw + '\n' + (wordsRaw || '') + '\n</div>';
 }
 
-/* ---- three words, each with its shape: filled (it holds), × (it fails), ∅ (no mark: refused) -------------------- */
+/* ---- three words, compact, each with its small shape: filled (it holds), the witness × (the thing that breaks it),
+   ∅ (no mark: refused). The × is the KEY of the witness mark, drawn by W.witnessMark as the figure draws it. -------- */
 const WORD_SHAPE = ['c', 'x', 'n'];
-function words(items) {
+function words({ label, items }) {
   if (items.length !== 3) throw new Error('home.words: three words');
-  return '<div class="hm-three">' + items.map((it, i) => '<div class="hm-word ' + WORD_SHAPE[i] + '"><div class="hm-glyph" aria-hidden="true">' + (WORD_SHAPE[i] === 'n' ? '∅' : '') + '</div>'
-    + '<b>' + esc(it.word) + '</b><p>' + esc(it.text) + '</p></div>').join('') + '</div>';
+  const glyph = (k) => (k === 'x' ? '<svg class="hm-w3-g" viewBox="-14 -14 28 28" aria-hidden="true">' + W.witnessMark(0, 0, { size: 9, width: 3.4 }) + '</svg>'
+    : '<span class="hm-w3-g ' + k + '" aria-hidden="true">' + (k === 'n' ? '∅' : '') + '</span>');
+  return '<div class="hm-w3"><p class="lab">' + esc(label) + '</p><div class="hm-w3-row">'
+    + items.map((it, i) => '<div class="hm-w3-i">' + glyph(WORD_SHAPE[i]) + '<b>' + esc(it.word) + '</b><p>' + esc(it.text) + '</p></div>').join('') + '</div></div>';
 }
 
 /* ---- THE REGISTER FIELD ----------------------------------------------------------------------------------------
@@ -165,8 +171,12 @@ function chain({ nodes, links, alt }) {
 }
 
 /* ---- quotations, each with who said it ----------------------------------------------------------------------- */
+/* `href` is where it was said (the public source its record pins) and `go` the link's plain words; the link sits at the
+   foot of its column, so the three stand on one line */
 function voices(items) {
-  return '<div class="hm-voices">' + items.map((it) => '<div class="hm-voice"><blockquote>“' + esc(it.quote) + '”</blockquote><p>' + it.byRaw + '</p></div>').join('') + '</div>';
+  for (const it of items) if (!/^https:\/\//.test(String(it.href || '')) || !it.go) throw new Error('home.voices: a quotation links to where it was said');
+  return '<div class="hm-voices">' + items.map((it) => '<div class="hm-voice"><blockquote>“' + esc(it.quote) + '”</blockquote><p>' + it.byRaw + '</p>'
+    + more({ href: it.href, text: it.go }) + '</div>').join('') + '</div>';
 }
 
 /* ---- the standing legend as a plate: the house renderer's marks, the page's plain words -------------------------
@@ -210,7 +220,12 @@ a.hm-more{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing
   color:var(--ink);white-space:nowrap}
 
 /* the first screen */
-.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-7);align-items:center;padding-top:var(--s-5)}
+/* two columns, two rows: the headline block is centred in the room above the three words, the three words end where
+   the figure's card ends, and the figure takes both rows, so the page is no taller for them */
+.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr auto;gap:var(--s-6) var(--s-7);padding-top:var(--s-5)}
+.hm-hero-t{grid-column:1;grid-row:1;align-self:center}
+.hm-scope{grid-column:2;grid-row:1 / span 2}
+.hm-w3{grid-column:1;grid-row:2;align-self:end}
 .hm-hero h1{margin:0}
 .hm-hero h1 span{display:block}
 .hm-hero h1 span:first-child{color:var(--ink-4)}
@@ -239,7 +254,7 @@ figcaption.hm-scope-top .lab{display:block;line-height:var(--leading-snug)}
   color:var(--ink);font-variant-numeric:tabular-nums}
 .hm-say-t span[data-k]{position:absolute;left:0;top:0;white-space:nowrap;visibility:hidden}
 .hm-say-t span[data-k].on{visibility:visible}
-.hm-bar{position:absolute;left:var(--s-3);bottom:var(--s-3);display:flex;align-items:center;gap:var(--s-2);padding:var(--s-1) var(--s-2);
+.hm-bar{position:absolute;left:var(--s-1);bottom:var(--s-1);display:flex;align-items:center;gap:var(--s-2);padding:var(--s-1) var(--s-2);
   background:var(--paper);border-radius:var(--radius-s);pointer-events:none}
 .hm-bar-track{display:block;width:calc(var(--s-10) - var(--s-4));flex:none}
 .hm-bar-track i{--f:1;display:block;height:2px;background:var(--ink-3);transform-origin:left center;transform:scaleX(var(--f))}
@@ -261,18 +276,19 @@ figcaption.hm-scope-top .lab{display:block;line-height:var(--leading-snug)}
 .hm-twist > div{display:grid;gap:var(--s-2);justify-items:start;align-content:start;font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-3)}
 .hm-twist .hm-chip{display:inline-flex;align-items:center;gap:var(--s-2)}
 
-/* three words */
-.hm-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-7)}
-.hm-word{display:grid;gap:var(--s-4);align-content:start}
-.hm-glyph{position:relative;width:var(--s-9);height:var(--s-9);display:grid;place-items:center;border-radius:var(--radius-m)}
-.hm-word.c .hm-glyph{background:var(--ink)}
-.hm-word.x .hm-glyph::before,.hm-word.x .hm-glyph::after{content:"";position:absolute;width:118%;height:9%;background:var(--ink);
-  border-radius:var(--radius-pill);transform:rotate(45deg)}
-.hm-word.x .hm-glyph::after{transform:rotate(-45deg)}
-.hm-word.n .hm-glyph{font-family:var(--f-mono);font-weight:var(--weight-mono);font-size:var(--s-9);line-height:var(--leading-tight);color:var(--ink-4)}
-.hm-word b{font-family:var(--f-display);font-size:calc(var(--text-1) * .85);line-height:var(--leading-tight);letter-spacing:var(--track-display);
-  font-weight:var(--weight-display);color:var(--ink)}
-.hm-word p{margin:0;color:var(--ink-3);font-size:var(--text-3);max-width:calc(var(--read) * .34)}
+/* three words, compact, at the foot of the hero's left column: quiet beside the figure. The sentences' two lines are
+   reserved, so the block ends on the card's bottom edge whichever face is loaded */
+.hm-w3{display:grid;gap:var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--rule)}
+.hm-w3 .lab{margin:0;line-height:var(--leading-snug)}
+.hm-w3-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5)}
+.hm-w3-i{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-2) var(--s-3);align-items:center;align-content:start}
+.hm-w3-g{display:grid;place-items:center;width:var(--s-6);height:var(--s-6);border-radius:var(--radius-s)}
+.hm-w3-g.c{background:var(--ink)}
+.hm-w3-g.n{font-family:var(--f-mono);font-weight:var(--weight-mono);font-size:var(--s-6);line-height:var(--leading-tight);color:var(--ink-4)}
+.hm-w3-i b{font-family:var(--f-display);font-size:var(--text-3);line-height:var(--leading-snug);letter-spacing:var(--track-title);
+  font-weight:var(--weight-display);color:var(--ink);justify-self:start}
+.hm-w3-i p{grid-column:1 / -1;margin:0;height:calc(var(--text-small) * var(--leading-snug) * 2);color:var(--ink-3);font-size:var(--text-small);
+  line-height:var(--leading-snug)}
 
 /* the register field: one cell per decided claim, its shape the verdict */
 .hm-field{margin:0;padding:var(--s-5);display:grid;gap:var(--s-5);background:var(--sunk);border-radius:var(--radius-l);
@@ -330,11 +346,11 @@ a.hm-pair:hover{border-top-color:var(--ink)}
 
 /* the chain */
 .hm-chain{display:grid;grid-template-columns:minmax(0,1fr) var(--s-9) minmax(0,1fr) var(--s-9) minmax(0,1fr) var(--s-9) minmax(0,1fr);align-items:stretch}
-.hm-node{display:grid;gap:var(--s-2);align-content:start;min-height:calc(var(--s-10) - var(--s-4));padding:var(--s-4);border:1.5px solid var(--ink);
+.hm-node{display:grid;gap:var(--s-2);align-content:start;min-height:calc(var(--s-10) - var(--s-4));padding:var(--s-4);outline:1.5px solid var(--ink);outline-offset:-1.5px;
   border-radius:var(--radius-m)}
 .hm-node b{color:var(--ink);font-weight:var(--weight-display);font-size:var(--text-3);line-height:var(--leading-snug)}
 .hm-node span{color:var(--ink-3);font-size:var(--text-small);line-height:var(--leading-snug)}
-.hm-node.read{border-color:var(--rule-strong)}
+.hm-node.read{outline-color:var(--rule-strong)}
 .hm-link{display:grid;gap:var(--s-2);justify-items:center;align-content:center;text-align:center}
 .hm-link i{display:block;width:100%;border-top:2px solid var(--ink)}
 .hm-link small{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);
@@ -344,7 +360,8 @@ a.hm-pair:hover{border-top-color:var(--ink)}
 
 /* voices */
 .hm-voices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-7)}
-.hm-voice{display:grid;gap:var(--s-4);align-content:start;padding-top:var(--s-4);border-top:2px solid var(--ink)}
+.hm-voice{display:grid;grid-template-rows:auto 1fr auto;gap:var(--s-4);padding-top:var(--s-4);border-top:2px solid var(--ink)}
+.hm-voice .hm-more{justify-self:start;align-self:end}
 .hm-voice blockquote{margin:0;padding:0;border:0;color:var(--ink);font-size:var(--text-2);line-height:var(--leading-snug);letter-spacing:var(--track-title);
   font-weight:var(--weight-medium)}
 .hm-voice p{margin:0;color:var(--ink-3);font-size:var(--text-body)}
@@ -377,7 +394,8 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
 .hm-docs{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-6);margin-top:var(--s-5)}
 
 @media (max-width:900px){
-  .hm-hero{grid-template-columns:minmax(0,1fr)}
+  .hm-hero{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .hm-hero-t,.hm-scope,.hm-w3{grid-column:auto;grid-row:auto}
   .hm-pairs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hm-voices,.hm-doors,.hm-gram{grid-template-columns:minmax(0,1fr)}
   .hm-gram{gap:var(--s-6)}
@@ -398,10 +416,9 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
   .hm-ctrl{grid-template-columns:minmax(0,1fr) auto;height:calc(var(--s-8) + var(--s-2));align-content:space-between}
   .hm-ctrl input{grid-column:1 / -1;grid-row:2}
   .hm-twist{grid-template-columns:minmax(0,1fr)}
-  .hm-three{grid-template-columns:minmax(0,1fr);gap:var(--s-6)}
-  .hm-word{grid-template-columns:var(--s-8) minmax(0,1fr);column-gap:var(--s-5);row-gap:var(--s-2);align-items:center}
-  .hm-glyph{grid-row:span 2;width:var(--s-8);height:var(--s-8)}
-  .hm-word.n .hm-glyph{font-size:var(--s-8)}
+  /* on a phone the three stand one under another; each sentence keeps the page's left edge under its glyph and word */
+  .hm-w3-row{grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
+  .hm-w3-i p{height:auto}
   .hm-month{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
   .hm-month-l{justify-content:flex-start;gap:var(--s-3)}
   .hm-readout{grid-template-columns:minmax(0,1fr);align-content:start;height:calc(var(--s-10) + var(--s-8))}
@@ -439,33 +456,35 @@ function client() {
     var sup = function (n) { return String(n).split('').map(function (c) { return SUP[c]; }).join(''); };
     function size() { dpr = Math.min(window.devicePixelRatio || 1, 2); S = stage.clientWidth; cv.width = Math.round(S * dpr); cv.height = Math.round(S * dpr); draw(); }
     /* a circle as a path: whole while it is small on the screen, the arc near the point once it is not */
-    function path(c, Z, k, cx, cy) {
+    function path(c, Z, k, cx, cy, my) {
       var d = Math.sqrt((P[0] - c[0]) * (P[0] - c[0]) + (P[1] - c[1]) * (P[1] - c[1])), R = c[2] * Z * k, view = S * 1.6, p = new Path2D();
-      if (R < view * 3) { p.arc((c[0] - cx) * Z * k + S / 2, (c[1] - cy) * Z * k + S / 2, R, 0, Math.PI * 2); return p; }
+      if (R < view * 3) { p.arc((c[0] - cx) * Z * k + S / 2, (c[1] - cy) * Z * k + my, R, 0, Math.PI * 2); return p; }
       if (Math.abs(d - c[2]) * Z * k > view) { if (d < c[2]) { p.rect(-9, -9, S + 18, S + 18); return p; } return null; }
       var t0 = Math.atan2(P[1] - c[1], P[0] - c[0]), h = Math.min(Math.PI, view / R), n = 64, i, th, x, y, fx, fy;
-      for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + S / 2; if (i) p.lineTo(x, y); else p.moveTo(x, y); }
+      for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my; if (i) p.lineTo(x, y); else p.moveTo(x, y); }
       fx = -Math.cos(t0) * view * 2; fy = -Math.sin(t0) * view * 2;
       p.lineTo(x + fx, y + fy);
-      th = t0 - h; p.lineTo(((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2 + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + S / 2 + fy);
+      th = t0 - h; p.lineTo(((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2 + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my + fy);
       p.closePath(); return p;
     }
     function draw() {
       if (!S) return;
       var Z = Math.pow(10, s), k = S * 0.86, f = Math.pow(Z, -1.5);
       var cx = P[0] + (0.5 - P[0]) * f, cy = P[1] + (0.5 - P[1]) * f;
+      /* at ×1 the square sits a little high, clear of the scale in the corner; zoomed in, the point is at the centre */
+      var my = S / 2 - 14 * Math.min(1, f);
       var ink = tok('--ink'), ink4 = tok('--ink-4'), rule = tok('--rule-strong'), band = tok('--band-fill');
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, S, S);
-      if (Z < 400) { ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.strokeRect((0 - cx) * Z * k + S / 2, (0 - cy) * Z * k + S / 2, Z * k, Z * k); }
+      if (Z < 400) { ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.strokeRect((0 - cx) * Z * k + S / 2, (0 - cy) * Z * k + my, Z * k, Z * k); }
       var paths = [], i, p;
-      for (i = 0; i < C.length; i++) { p = path(C[i], Z, k, cx, cy); paths[i] = p; if (p) { ctx.fillStyle = band; ctx.fill(p); } }
+      for (i = 0; i < C.length; i++) { p = path(C[i], Z, k, cx, cy, my); paths[i] = p; if (p) { ctx.fillStyle = band; ctx.fill(p); } }
       /* where the two overlap: filled in ink (a decided extent), never in the witness red */
       var gap = depth * Z * k, pa = paths[D.pair[0]], pb = paths[D.pair[1]];
       if (gap > 0.6 && pa && pb) { ctx.save(); ctx.clip(pa); ctx.fillStyle = ink; ctx.globalAlpha = Math.min(0.3, 0.1 + gap / 500); ctx.fill(pb); ctx.restore(); }
       ctx.strokeStyle = ink; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
       for (i = 0; i < C.length; i++) if (paths[i]) ctx.stroke(paths[i]);
       /* where to look: a guide, in the guide's pattern */
-      var px = (P[0] - cx) * Z * k + S / 2, py = (P[1] - cy) * Z * k + S / 2;
+      var px = (P[0] - cx) * Z * k + S / 2, py = (P[1] - cy) * Z * k + my;
       if (Z < 3e4) { ctx.strokeStyle = ink4; ctx.lineWidth = 1; ctx.setLineDash(D.guide); ctx.beginPath(); ctx.arc(px, py, Math.max(9, 14 - s * 1.2), 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
       /* the words around the figure: each in a box of fixed size, written only when it changes */
       var z = '×' + (Z < 1e3 ? Math.round(Z) : Z < 1e6 ? (Math.round(Z / 100) / 10) + ' thousand' : (Math.round(Z / 1e5) / 10) + ' million');
