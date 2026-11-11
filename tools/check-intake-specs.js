@@ -45,7 +45,7 @@ function rules(S, file, out) {
     if (!S.mutants.some((m) => m.kind === 'same')) out.push('format 2: no rewording planted (the controls need one accepted)');
     if (!S.mutants.some((m) => m.kind !== 'same')) out.push('format 2: no changed statement planted (the controls need one refused)');
     /* no path of a home directory anywhere in the spec: a public record would carry it */
-    const walk = (v, at) => { if (typeof v === 'string') { if (/(^|[\s"'=:(])(\/Users\/|\/home\/|~\/)/.test(v)) out.push(`${at}: a home-directory path`); } else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, at + '.' + k); };
+    const walk = (v, at) => { if (typeof v === 'string') { if (/(^|[\s"'=:(])(\/Users\/|\/home\/|~\/)/.test(v)) out.push(`${at}: a home-directory path`); if (/\.path$|\.record$|\.decider$/.test(at) && (v.startsWith('/') || v.split('/').includes('..'))) out.push(`${at}: a path that leaves its repository`); } else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, at + '.' + k); };
     walk(S, '$');
   }
 }

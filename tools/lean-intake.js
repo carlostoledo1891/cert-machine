@@ -422,7 +422,8 @@ function run() {
     } else if (s === 'toolchain') {
       step('toolchain', WORK, `elan toolchain install ${C.toolchain} && ls "${binDir()}"`, 1800);
     } else if (s === 'cache') {
-      step('cache', CAN, 'lake exe cache get', 3600);
+      /* a failed cache download must stop the run: the next stage would compile Mathlib from source, for hours */
+      if (!step('cache', CAN, 'lake exe cache get', 3600)) die('lake exe cache get failed (see cache.log): stopped before the canonical build; run the stage again');
     } else if (s === 'canonical') {
       step('canonical', CAN, `lake build '${C.module}'`);
     } else if (s === 'assemble') {
@@ -740,8 +741,8 @@ function decide() {
   const preOk = pre.filter((m) => (m.preregistered ? m.asPreregistered : m.asExpected)).length;
   /* claimbox's spec (kinds changed / type): only certain predictions count; the controls show the check discriminates when
      some changed or retyped statement is refused and some rewording accepted; F2 ⇒ F1 must hold where F2 ran */
-  const cbx = mutants.some((m) => m.kind === 'changed' || m.kind === 'type');
-  const changed = mutants.filter((m) => m.kind === 'changed'), typ = mutants.filter((m) => m.kind === 'type'), certain = mutants.filter((m) => m.expect !== 'kernel decides');
+  const cbx = mutants.some((m) => m.kind === 'changed' || m.kind === 'type' || m.kind === 'answer');
+  const changed = mutants.filter((m) => m.kind === 'changed'), typ = mutants.filter((m) => m.kind === 'type'), ans = mutants.filter((m) => m.kind === 'answer'), certain = mutants.filter((m) => m.expect !== 'kernel decides');
   /* format 2: only the statements that reached the check are counted; the others are named */
   const REF = 'REFUSED by type mismatch';
   const T = (l) => l.filter((m) => m.tested), untested = mutants.filter((m) => m.tested === false);
@@ -752,11 +753,12 @@ function decide() {
     changed: T(changed).filter((m) => m.outcome === REF).length + ' refused, ' + T(changed).filter((m) => m.outcome === 'ACCEPTED').length + ' accepted, of ' + T(changed).length + ' (kernel decides: no outcome predicted)'
       + (changed.some((m) => m.outcome === 'ACCEPTED') ? ' — accepted: ' + changed.filter((m) => m.outcome === 'ACCEPTED').map((m) => m.id).join(', ') + ' (the rule\'s change is definitionally invisible there)' : ''),
     equivalent: equiv.length ? T(equiv).filter((m) => m.outcome === REF).length + ' of ' + T(equiv).length + ' refused (kernel decides)' : undefined,
+    answer: ans.length ? T(ans).filter((m) => m.outcome === REF).length + ' of ' + T(ans).length + ' refused (the answer flipped)' : undefined,
     certain: T(certain).filter((m) => m.asExpected).length + ' of ' + T(certain).length + ' certain predictions met',
     reachedTheCheck: T(mutants).length + ' of ' + mutants.length,
     notTested,
     f2ImpliesF1: F2 && F2.f1 ? (F2.f1.holds ? 'holds: ' + F2.f1.mustRefuse + ' aligned statements with a differing part, all refused' : 'FAILS') : undefined,
-    word: T(certain).every((m) => m.asExpected) && T(changed.concat(typ, equiv)).some((m) => m.outcome === REF) && T(same).some((m) => m.outcome === 'ACCEPTED') && (!F2 || !F2.f1 || F2.f1.holds) ? 'CERTIFIED' : 'REFUSED',
+    word: T(certain).every((m) => m.asExpected) && T(changed.concat(typ, equiv, ans)).some((m) => m.outcome === REF) && T(same).some((m) => m.outcome === 'ACCEPTED') && (!F2 || !F2.f1 || F2.f1.holds) ? 'CERTIFIED' : 'REFUSED',
   } : V2 ? { wrongRefused: T(wrong).filter((m) => m.asExpected).length + ' of ' + T(wrong).length, sameAccepted: T(same).filter((m) => m.asExpected).length + ' of ' + T(same).length,
     equivalentRefused: equiv.length ? T(equiv).filter((m) => m.asExpected).length + ' of ' + T(equiv).length + ' (the limit: identity up to definitional unfolding, not logical equivalence)' : undefined,
     reachedTheCheck: T(mutants).length + ' of ' + mutants.length,

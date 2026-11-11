@@ -36,7 +36,7 @@ write this.
 | `amendments` | yes | dated changes after the first commit of the spec: `date`, `what`, `before`. Empty when there are none |
 | `reproduces` | | a hand record this intake is compared with: `record`, `map` |
 | `tools.lean4export` | | the lean4export revision, when the toolchain's tag is not the one to use |
-| `writer`, `vocabulary`, `predictions` | | claimbox's: the command and the pinned inputs it wrote the spec from, its words, its counts. **[2]** every path is relative to its repository, never a home directory |
+| `writer`, `vocabulary`, `predictions` | | claimbox's: the command and the pinned inputs it wrote the spec from, its words, its counts. **[2]** every path is relative to its repository: no home directory, no leading `/`, no `..` |
 | `kernels`, `notInScope`, `success`, `timing`, `expectF1` | | notes for the reader; the tool does not read them |
 
 ## A planted statement
@@ -46,7 +46,8 @@ write this.
 `amendment`, `preregistered`.
 
 - `kind`: `same` (the same statement in other words), `wrong`, `equivalent` (logically equivalent, not
-  definitionally), `changed` (a rule that can change the meaning), `type` (a type changed).
+  definitionally), `changed` (a rule that can change the meaning), `type` (a type changed), `answer` (claimbox's rule set 2:
+  `answer(True)` for `answer(False)` or the reverse; format 2 only).
 - `expect`: `ACCEPTED`, `REFUSED by type mismatch`, `NOT ACCEPTED`, or `kernel decides` (nothing predicted; the
   outcome is recorded and is never a miss).
 
@@ -69,7 +70,8 @@ rewording is accepted.
 
 Two shapes. With a JS decider written from the informal sentence: `decider`, `componentMap`, `expect`. With
 claimbox's blind reading: `reading` (path, sha256, who proposed it, the readings) and `table` (path and sha256 of
-`reading.json` beside the spec). Both: `informal`, `instanceType`, `instances`, `instanceJson`, `apply`, `chunk`,
+`reading.json` beside the spec; a spec may name a table recorded for another target of the same sentence and
+instances — the lift copies those bytes beside it and the sha256 holds them). Both: `informal`, `instanceType`, `instances`, `instanceJson`, `apply`, `chunk`,
 `binders`, `what`.
 
 ## What a run writes, and the record **[2]**
