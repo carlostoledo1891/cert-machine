@@ -1,0 +1,3734 @@
+{
+ "what": "An outside check of OpenAI’s conditional Lean proof that prime gaps are at most 186, re-derived from the facts in corpus/prime-gaps-186 by tools/record-prime-gaps-186.js.",
+ "undecided": "The bound liminf (p_{n+1} − p_n) ≤ 186, its proof, the Lean development and the numerical certificate are OpenAI’s (GPT-6 Astra; openai/PrimeGaps186, 30 August 2026). The Lean proof is conditional on three axioms it declares. This record does not verify the bound 186 and proves none of the three axioms.",
+ "gaps": [
+  {
+   "id": "conditional",
+   "b": "This does not verify the bound 186.",
+   "text": "The Lean proof shows: if three assumptions hold, then 186. Nothing here proves the assumptions."
+  },
+  {
+   "id": "finite",
+   "b": "Two assumptions are theorems quoted from the literature.",
+   "text": "A bound on a rank-three Kloosterman sum, after Deligne and Katz, and a correlation bound of Fouvry, Kowalski and Michel. In Lean they are assumed for every prime. Every instance was decided for the primes below 2,000, and nothing above."
+  },
+  {
+   "id": "majorant",
+   "b": "The third assumption is about integrals; every program computes estimates.",
+   "text": "It asserts 149 upper bounds for integrals and three more bounds. OpenAI’s certificate, and the recomputation here, evaluate upper estimates of the 149 integrals. That each integral is at most its estimate is argued in OpenAI’s note and re-derived by hand in four AI sessions here; it is not in Lean. Its base is: OpenAI’s Lean proves that the underlying law is a probability measure with the expected density. The chain from each integral to its estimate is what is missing."
+  },
+  {
+   "id": "reading",
+   "b": "One reading choice.",
+   "text": "For 61 of the 149 rows the note picks an ingredient by a test whose outcome it does not print. The reading was fixed before anything was compared; under the other reading two rows would exceed their printed bound. The values match OpenAI’s own intervals under the reading taken."
+  },
+  {
+   "id": "sessions",
+   "b": "The recomputation and its review were done by AI sessions.",
+   "text": "Under one person’s direction, with the rules sealed first. No human referee has read the hand derivations."
+  },
+  {
+   "id": "tools",
+   "b": "Two defects of our own statement-checking tool surfaced on the way.",
+   "text": "An absent checker was counted as a kernel that did not accept, and two generated files did not build under the release’s linter option. Both were fixed in public before the records they touched were derived; neither changed a prediction."
+  }
+ ],
+ "pins": {
+  "repository": "https://github.com/openai/PrimeGaps186",
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "statementFile": "Challenge.lean",
+  "statementSha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "paper": "https://cdn.openai.com/pdf/51126fac-1b68-4128-9666-c908bcc16033/short_gaps.pdf"
+ },
+ "verdicts": {
+  "build": "builds as shipped",
+  "comparator": "CONCORDANT",
+  "kernels": "three accept",
+  "statementLayer": "CERTIFIED",
+  "axiom1": "CERTIFIED on the instances",
+  "axiom2": "CERTIFIED on the instances",
+  "certificate": "REPRODUCED",
+  "recomputed": "152 of 152",
+  "margin": "CERTIFIED on our numbers",
+  "axioms": "ASSUMED, all three"
+ },
+ "lean": {
+  "build": {
+   "exit": 0,
+   "seconds": 669,
+   "peakGB": 28.1,
+   "warnings": 0
+  },
+  "comparator": {
+   "exit": 0,
+   "seconds": 1542,
+   "says": "the three theorems and the three axioms match the statement file; nanoda and Lean’s kernel accept"
+  },
+  "comparatorControls": [
+   {
+    "id": "K1",
+    "planted": "186 made 185 in the statement file",
+    "exit": 1,
+    "rejects": "PrimeGap186.primeGapLiminf_le_186"
+   },
+   {
+    "id": "K2",
+    "planted": "the constant 3 made 2 in the first axiom",
+    "exit": 1,
+    "rejects": "PrimeGap186.kloosterman3_bound"
+   }
+  ],
+  "audit": {
+   "verdict": "PASS",
+   "axioms": [
+    "Classical.choice",
+    "PrimeGap186.kloosterman2_correlation_bound",
+    "PrimeGap186.kloosterman3_bound",
+    "PrimeGap186.physical_integral_bounds",
+    "Quot.sound",
+    "propext"
+   ],
+   "theorems": [
+    {
+     "name": "PrimeGap186.dhl_40_2",
+     "closureConstants": 98116,
+     "closureModules": 2813
+    },
+    {
+     "name": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+     "closureConstants": 98111,
+     "closureModules": 2813
+    },
+    {
+     "name": "PrimeGap186.primeGapLiminf_le_186",
+     "closureConstants": 98213,
+     "closureModules": 2814
+    }
+   ]
+  },
+  "kernels": [
+   {
+    "name": "Lean (the build)",
+    "word": "accepts"
+   },
+   {
+    "name": "leanchecker",
+    "word": "accepts",
+    "seconds": 143
+   },
+   {
+    "name": "leanchecker --fresh",
+    "word": "accepts",
+    "seconds": 1548,
+    "note": "every import replayed from an empty environment"
+   },
+   {
+    "name": "nanoda",
+    "word": "accepts",
+    "declarations": 99189,
+    "seconds": 69
+   },
+   {
+    "name": "lean4lean",
+    "word": "accepts",
+    "declarations": 96354,
+    "seconds": 511
+   },
+   {
+    "name": "con-ron",
+    "word": "declines: a proof that declares axioms is not supported"
+   },
+   {
+    "name": "con-leche",
+    "word": "declines: a proof that declares axioms is not supported"
+   }
+  ],
+  "statementLayer": {
+   "declarations": 6,
+   "verdict": "CERTIFIED",
+   "conditionalOn": [
+    "PrimeGap186.kloosterman3_bound",
+    "PrimeGap186.kloosterman2_correlation_bound",
+    "PrimeGap186.physical_integral_bounds"
+   ],
+   "planted": [
+    {
+     "of": "dhl",
+     "id": "S0",
+     "kind": "same",
+     "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "dhl",
+     "id": "S1",
+     "kind": "same",
+     "why": "every bound variable renamed (H→H₀, a→a₀, h→h₀, hadm→hadm₀, hcard→hcard₀, n→n₀, p→p₀): alpha-equivalent",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "dhl",
+     "id": "C01",
+     "kind": "changed",
+     "why": "the hypothesis `(hcard : H.card = 40)` dropped",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C02",
+     "kind": "changed",
+     "why": "the hypothesis `(hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a)` dropped",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C03",
+     "kind": "changed",
+     "why": "`≤` made `<` (`| 2 ≤ ( H.filter` → `| 2 < ( H.filter`, line 3)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C04",
+     "kind": "changed",
+     "why": "the numeral 40 made 41 (`H.card = 40 )` → `H.card = 41 )`, line 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C05",
+     "kind": "changed",
+     "why": "the numeral 40 made 39 (`H.card = 40 )` → `H.card = 39 )`, line 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C06",
+     "kind": "changed",
+     "why": "the numeral 2 made 3 (`ℤ | 2 ≤` → `ℤ | 3 ≤`, line 3)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "C07",
+     "kind": "changed",
+     "why": "the numeral 2 made 1 (`ℤ | 2 ≤` → `ℤ | 1 ≤`, line 3)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "dhl",
+     "id": "N1",
+     "kind": "type",
+     "why": "`ℤ` made `ℕ` in the type of H: another type, never definitionally equal (refused, or the statement does not elaborate)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "dhl",
+     "id": "N2",
+     "kind": "type",
+     "why": "`ℕ` made `ℤ` in the type of hadm: another type, never definitionally equal (refused, or the statement does not elaborate)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "dhl",
+     "id": "Q1",
+     "kind": "equivalent",
+     "why": "the binders hcard and hadm swapped: the same logically",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "tuple",
+     "id": "S0",
+     "kind": "same",
+     "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "tuple",
+     "id": "S1",
+     "kind": "same",
+     "why": "every bound variable renamed (h→h₀, n→n₀): alpha-equivalent",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "tuple",
+     "id": "C01",
+     "kind": "changed",
+     "why": "`≤` made `<` (`| 2 ≤ ( admissibleTuple.filter` → `| 2 < ( admissibleTuple.filter`, line 2)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "tuple",
+     "id": "C02",
+     "kind": "changed",
+     "why": "the numeral 2 made 3 (`ℕ | 2 ≤` → `ℕ | 3 ≤`, line 2)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "tuple",
+     "id": "C03",
+     "kind": "changed",
+     "why": "the numeral 2 made 1 (`ℕ | 2 ≤` → `ℕ | 1 ≤`, line 2)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "liminf",
+     "id": "S0",
+     "kind": "same",
+     "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "liminf",
+     "id": "C01",
+     "kind": "changed",
+     "why": "`≤` made `<` (`primeGapLiminf ≤ ( 186` → `primeGapLiminf < ( 186`, line 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "liminf",
+     "id": "C02",
+     "kind": "changed",
+     "why": "the numeral 186 made 187 (`≤ ( 186 : EReal` → `≤ ( 187 : EReal`, line 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "liminf",
+     "id": "C03",
+     "kind": "changed",
+     "why": "the numeral 186 made 185 (`≤ ( 186 : EReal` → `≤ ( 185 : EReal`, line 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "S0",
+     "kind": "same",
+     "why": "the axiom's statement copied verbatim",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "ax1",
+     "id": "S1",
+     "kind": "same",
+     "why": "bound variables renamed (p→q, c→d)",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "ax1",
+     "id": "W1",
+     "kind": "wrong",
+     "why": "phase A's R1: the 1/p normalization undone (the raw sum bounded by 3)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "W2",
+     "kind": "wrong",
+     "why": "phase A's R3: the constant 3 made 2",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "W3",
+     "kind": "wrong",
+     "why": "the hypothesis c ≠ 0 dropped",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "W4",
+     "kind": "wrong",
+     "why": "≤ made <",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "W5",
+     "kind": "wrong",
+     "why": "the bound made 3 * p",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax1",
+     "id": "N1",
+     "kind": "wrong",
+     "why": "ℕ made ℤ in the type of p: another type (refused, or the statement does not elaborate)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "ax2",
+     "id": "S0",
+     "kind": "same",
+     "why": "the axiom's statement copied verbatim",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "ax2",
+     "id": "S1",
+     "kind": "same",
+     "why": "the bound variable t renamed s",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "ax2",
+     "id": "W1",
+     "kind": "wrong",
+     "why": "phase A's R2: 8√p for 8p√p",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "W2",
+     "kind": "wrong",
+     "why": "phase A's R4: the constant 8 made 4",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "W3",
+     "kind": "wrong",
+     "why": "the pole t = -1 not excluded",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "W4",
+     "kind": "wrong",
+     "why": "the shift dropped: B / t for B / (t + 1)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "W5",
+     "kind": "wrong",
+     "why": "the hypothesis A ≠ 0 dropped",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "W6",
+     "kind": "wrong",
+     "why": "the two sums added, not multiplied",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "ax2",
+     "id": "N1",
+     "kind": "wrong",
+     "why": "ℕ made ℤ in the type of p: another type (refused, or the statement does not elaborate)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "tuple-x",
+     "id": "S0",
+     "kind": "same",
+     "why": "the canonical statement copied verbatim",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "tuple-x",
+     "id": "S1",
+     "kind": "same",
+     "why": "the definition written out: the forty numbers of Challenge.lean, in its order",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "of": "tuple-x",
+     "id": "C01",
+     "kind": "changed",
+     "why": "the last number 186 made 188 (the diameter)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "tuple-x",
+     "id": "C02",
+     "kind": "changed",
+     "why": "the second number 2 made 4",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "tuple-x",
+     "id": "C03",
+     "kind": "changed",
+     "why": "the number 98 made 96 (the middle)",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "of": "tuple-x",
+     "id": "C04",
+     "kind": "changed",
+     "why": "the last number dropped (39 numbers)",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "of": "tuple-x",
+     "id": "C05",
+     "kind": "changed",
+     "why": "the first two numbers swapped (the same set, another term)",
+     "outcome": "REFUSED by type mismatch"
+    }
+   ],
+   "rewordingsAccepted": 11,
+   "rewordings": 11,
+   "alterationsAccepted": 0,
+   "alterations": 34,
+   "alterationsRefusedByMismatch": 28,
+   "alterationsNotElaborating": 6,
+   "defects": [
+    {
+     "of": "dhl",
+     "id": "R1",
+     "why": "the proof of dhl_40_2 replaced by sorry (the original kept as intake_was_dhl_40_2)",
+     "caught": true,
+     "how": "the axioms list sorryAx"
+    },
+    {
+     "of": "dhl",
+     "id": "R2",
+     "why": "dhl_40_2 proved by an added axiom (the original kept as intake_was_dhl_40_2)",
+     "caught": true,
+     "how": "the axioms list PrimeGap186.intakeRedAxiom"
+    },
+    {
+     "of": "tuple",
+     "id": "R1",
+     "why": "the proof of infinite_two_prime_translates_admissibleTuple replaced by sorry (the original kept as intake_was_infinite_two_prime_translates_admissibleTuple)",
+     "caught": true,
+     "how": "the axioms list sorryAx"
+    },
+    {
+     "of": "tuple",
+     "id": "R2",
+     "why": "infinite_two_prime_translates_admissibleTuple proved by an added axiom (the original kept as intake_was_infinite_two_prime_translates_admissibleTuple)",
+     "caught": true,
+     "how": "the axioms list PrimeGap186.intakeRedAxiom"
+    },
+    {
+     "of": "liminf",
+     "id": "R1",
+     "why": "the proof of primeGapLiminf_le_186 replaced by sorry (the original kept as intake_was_primeGapLiminf_le_186)",
+     "caught": true,
+     "how": "the axioms list sorryAx"
+    },
+    {
+     "of": "liminf",
+     "id": "R2",
+     "why": "primeGapLiminf_le_186 proved by an added axiom (the original kept as intake_was_primeGapLiminf_le_186)",
+     "caught": true,
+     "how": "the axioms list PrimeGap186.intakeRedAxiom"
+    }
+   ],
+   "defectsCaught": 6
+  },
+  "anchors": {
+   "theorems": 9,
+   "at": "p = 2 and 3",
+   "axioms": "the three standard ones"
+  }
+ },
+ "finite": {
+  "primesBelow": 2000,
+  "axiom1": {
+   "primes": 303,
+   "largestPrime": 1999,
+   "instances": 276747,
+   "holdInBoth": 276747,
+   "fails": 0,
+   "undecided": 0,
+   "bound": 3,
+   "closest": {
+    "p": 887,
+    "value": 2.8081
+   },
+   "perPrimeDisplayOnly": [
+    [
+     2,
+     0.5
+    ],
+    [
+     3,
+     0.8819
+    ],
+    [
+     5,
+     1.2692
+    ],
+    [
+     7,
+     1.4214
+    ],
+    [
+     11,
+     1.582
+    ],
+    [
+     13,
+     1.4361
+    ],
+    [
+     17,
+     2.0335
+    ],
+    [
+     19,
+     1.743
+    ],
+    [
+     23,
+     1.6764
+    ],
+    [
+     29,
+     1.8521
+    ],
+    [
+     31,
+     1.9389
+    ],
+    [
+     37,
+     1.7996
+    ],
+    [
+     41,
+     2.0699
+    ],
+    [
+     43,
+     2.1407
+    ],
+    [
+     47,
+     2.144
+    ],
+    [
+     53,
+     1.9893
+    ],
+    [
+     59,
+     2.1748
+    ],
+    [
+     61,
+     2.3513
+    ],
+    [
+     67,
+     1.7645
+    ],
+    [
+     71,
+     2.0004
+    ],
+    [
+     73,
+     2.0916
+    ],
+    [
+     79,
+     2.1373
+    ],
+    [
+     83,
+     2.0147
+    ],
+    [
+     89,
+     1.9694
+    ],
+    [
+     97,
+     2.0497
+    ],
+    [
+     101,
+     2.1014
+    ],
+    [
+     103,
+     2.0981
+    ],
+    [
+     107,
+     2.6654
+    ],
+    [
+     109,
+     1.8767
+    ],
+    [
+     113,
+     2.3853
+    ],
+    [
+     127,
+     2.5616
+    ],
+    [
+     131,
+     2.2725
+    ],
+    [
+     137,
+     2.2971
+    ],
+    [
+     139,
+     2.1972
+    ],
+    [
+     149,
+     2.2719
+    ],
+    [
+     151,
+     1.9656
+    ],
+    [
+     157,
+     2.2602
+    ],
+    [
+     163,
+     2.1839
+    ],
+    [
+     167,
+     2.225
+    ],
+    [
+     173,
+     1.9797
+    ],
+    [
+     179,
+     2.2775
+    ],
+    [
+     181,
+     2.1988
+    ],
+    [
+     191,
+     2.2823
+    ],
+    [
+     193,
+     2.3545
+    ],
+    [
+     197,
+     1.9679
+    ],
+    [
+     199,
+     2.2699
+    ],
+    [
+     211,
+     2.2876
+    ],
+    [
+     223,
+     2.3636
+    ],
+    [
+     227,
+     2.3398
+    ],
+    [
+     229,
+     2.3034
+    ],
+    [
+     233,
+     2.2471
+    ],
+    [
+     239,
+     2.4183
+    ],
+    [
+     241,
+     2.2245
+    ],
+    [
+     251,
+     2.2907
+    ],
+    [
+     257,
+     2.361
+    ],
+    [
+     263,
+     2.5333
+    ],
+    [
+     269,
+     2.5367
+    ],
+    [
+     271,
+     2.1466
+    ],
+    [
+     277,
+     2.3216
+    ],
+    [
+     281,
+     2.1917
+    ],
+    [
+     283,
+     2.1787
+    ],
+    [
+     293,
+     2.1429
+    ],
+    [
+     307,
+     2.3862
+    ],
+    [
+     311,
+     2.197
+    ],
+    [
+     313,
+     2.5937
+    ],
+    [
+     317,
+     2.5322
+    ],
+    [
+     331,
+     2.4375
+    ],
+    [
+     337,
+     2.3606
+    ],
+    [
+     347,
+     2.339
+    ],
+    [
+     349,
+     2.5634
+    ],
+    [
+     353,
+     2.266
+    ],
+    [
+     359,
+     2.496
+    ],
+    [
+     367,
+     2.2473
+    ],
+    [
+     373,
+     2.2868
+    ],
+    [
+     379,
+     2.4758
+    ],
+    [
+     383,
+     2.6198
+    ],
+    [
+     389,
+     2.5332
+    ],
+    [
+     397,
+     2.3337
+    ],
+    [
+     401,
+     2.2745
+    ],
+    [
+     409,
+     2.6003
+    ],
+    [
+     419,
+     2.5277
+    ],
+    [
+     421,
+     2.2234
+    ],
+    [
+     431,
+     2.2351
+    ],
+    [
+     433,
+     2.7314
+    ],
+    [
+     439,
+     2.271
+    ],
+    [
+     443,
+     2.4302
+    ],
+    [
+     449,
+     2.4623
+    ],
+    [
+     457,
+     2.4783
+    ],
+    [
+     461,
+     2.515
+    ],
+    [
+     463,
+     2.5508
+    ],
+    [
+     467,
+     2.2667
+    ],
+    [
+     479,
+     2.2796
+    ],
+    [
+     487,
+     2.3284
+    ],
+    [
+     491,
+     2.5086
+    ],
+    [
+     499,
+     2.5092
+    ],
+    [
+     503,
+     2.3114
+    ],
+    [
+     509,
+     2.6361
+    ],
+    [
+     521,
+     2.5147
+    ],
+    [
+     523,
+     2.5237
+    ],
+    [
+     541,
+     2.2741
+    ],
+    [
+     547,
+     2.8079
+    ],
+    [
+     557,
+     2.4336
+    ],
+    [
+     563,
+     2.2941
+    ],
+    [
+     569,
+     2.21
+    ],
+    [
+     571,
+     2.5854
+    ],
+    [
+     577,
+     2.3132
+    ],
+    [
+     587,
+     2.5048
+    ],
+    [
+     593,
+     2.2895
+    ],
+    [
+     599,
+     2.3421
+    ],
+    [
+     601,
+     2.5232
+    ],
+    [
+     607,
+     2.4514
+    ],
+    [
+     613,
+     2.3616
+    ],
+    [
+     617,
+     2.7411
+    ],
+    [
+     619,
+     2.4711
+    ],
+    [
+     631,
+     2.2795
+    ],
+    [
+     641,
+     2.4001
+    ],
+    [
+     643,
+     2.4745
+    ],
+    [
+     647,
+     2.6404
+    ],
+    [
+     653,
+     2.4868
+    ],
+    [
+     659,
+     2.6042
+    ],
+    [
+     661,
+     2.2954
+    ],
+    [
+     673,
+     2.4022
+    ],
+    [
+     677,
+     2.3716
+    ],
+    [
+     683,
+     2.637
+    ],
+    [
+     691,
+     2.5599
+    ],
+    [
+     701,
+     2.4967
+    ],
+    [
+     709,
+     2.6409
+    ],
+    [
+     719,
+     2.5283
+    ],
+    [
+     727,
+     2.3894
+    ],
+    [
+     733,
+     2.5788
+    ],
+    [
+     739,
+     2.3544
+    ],
+    [
+     743,
+     2.3205
+    ],
+    [
+     751,
+     2.4456
+    ],
+    [
+     757,
+     2.2968
+    ],
+    [
+     761,
+     2.5825
+    ],
+    [
+     769,
+     2.4441
+    ],
+    [
+     773,
+     2.2714
+    ],
+    [
+     787,
+     2.3897
+    ],
+    [
+     797,
+     2.3455
+    ],
+    [
+     809,
+     2.4716
+    ],
+    [
+     811,
+     2.634
+    ],
+    [
+     821,
+     2.5277
+    ],
+    [
+     823,
+     2.5035
+    ],
+    [
+     827,
+     2.3696
+    ],
+    [
+     829,
+     2.3797
+    ],
+    [
+     839,
+     2.7112
+    ],
+    [
+     853,
+     2.6701
+    ],
+    [
+     857,
+     2.4791
+    ],
+    [
+     859,
+     2.4441
+    ],
+    [
+     863,
+     2.3882
+    ],
+    [
+     877,
+     2.5413
+    ],
+    [
+     881,
+     2.5524
+    ],
+    [
+     883,
+     2.4659
+    ],
+    [
+     887,
+     2.8081
+    ],
+    [
+     907,
+     2.5413
+    ],
+    [
+     911,
+     2.3726
+    ],
+    [
+     919,
+     2.3965
+    ],
+    [
+     929,
+     2.5718
+    ],
+    [
+     937,
+     2.2186
+    ],
+    [
+     941,
+     2.5886
+    ],
+    [
+     947,
+     2.4464
+    ],
+    [
+     953,
+     2.5691
+    ],
+    [
+     967,
+     2.4962
+    ],
+    [
+     971,
+     2.6484
+    ],
+    [
+     977,
+     2.467
+    ],
+    [
+     983,
+     2.6156
+    ],
+    [
+     991,
+     2.556
+    ],
+    [
+     997,
+     2.2834
+    ],
+    [
+     1009,
+     2.4261
+    ],
+    [
+     1013,
+     2.636
+    ],
+    [
+     1019,
+     2.5688
+    ],
+    [
+     1021,
+     2.6617
+    ],
+    [
+     1031,
+     2.5606
+    ],
+    [
+     1033,
+     2.5772
+    ],
+    [
+     1039,
+     2.5596
+    ],
+    [
+     1049,
+     2.5161
+    ],
+    [
+     1051,
+     2.4505
+    ],
+    [
+     1061,
+     2.5745
+    ],
+    [
+     1063,
+     2.5118
+    ],
+    [
+     1069,
+     2.4608
+    ],
+    [
+     1087,
+     2.3348
+    ],
+    [
+     1091,
+     2.6007
+    ],
+    [
+     1093,
+     2.6067
+    ],
+    [
+     1097,
+     2.4721
+    ],
+    [
+     1103,
+     2.4764
+    ],
+    [
+     1109,
+     2.6179
+    ],
+    [
+     1117,
+     2.5038
+    ],
+    [
+     1123,
+     2.4886
+    ],
+    [
+     1129,
+     2.4293
+    ],
+    [
+     1151,
+     2.4677
+    ],
+    [
+     1153,
+     2.6612
+    ],
+    [
+     1163,
+     2.5663
+    ],
+    [
+     1171,
+     2.324
+    ],
+    [
+     1181,
+     2.516
+    ],
+    [
+     1187,
+     2.687
+    ],
+    [
+     1193,
+     2.4714
+    ],
+    [
+     1201,
+     2.393
+    ],
+    [
+     1213,
+     2.3677
+    ],
+    [
+     1217,
+     2.3196
+    ],
+    [
+     1223,
+     2.399
+    ],
+    [
+     1229,
+     2.6872
+    ],
+    [
+     1231,
+     2.5446
+    ],
+    [
+     1237,
+     2.6997
+    ],
+    [
+     1249,
+     2.565
+    ],
+    [
+     1259,
+     2.545
+    ],
+    [
+     1277,
+     2.5884
+    ],
+    [
+     1279,
+     2.4672
+    ],
+    [
+     1283,
+     2.7012
+    ],
+    [
+     1289,
+     2.4119
+    ],
+    [
+     1291,
+     2.5149
+    ],
+    [
+     1297,
+     2.7611
+    ],
+    [
+     1301,
+     2.8015
+    ],
+    [
+     1303,
+     2.5657
+    ],
+    [
+     1307,
+     2.5648
+    ],
+    [
+     1319,
+     2.3736
+    ],
+    [
+     1321,
+     2.4593
+    ],
+    [
+     1327,
+     2.6229
+    ],
+    [
+     1361,
+     2.7978
+    ],
+    [
+     1367,
+     2.6498
+    ],
+    [
+     1373,
+     2.5271
+    ],
+    [
+     1381,
+     2.443
+    ],
+    [
+     1399,
+     2.5023
+    ],
+    [
+     1409,
+     2.409
+    ],
+    [
+     1423,
+     2.7309
+    ],
+    [
+     1427,
+     2.7221
+    ],
+    [
+     1429,
+     2.5054
+    ],
+    [
+     1433,
+     2.6268
+    ],
+    [
+     1439,
+     2.7058
+    ],
+    [
+     1447,
+     2.4435
+    ],
+    [
+     1451,
+     2.5406
+    ],
+    [
+     1453,
+     2.6265
+    ],
+    [
+     1459,
+     2.5888
+    ],
+    [
+     1471,
+     2.5187
+    ],
+    [
+     1481,
+     2.4757
+    ],
+    [
+     1483,
+     2.6632
+    ],
+    [
+     1487,
+     2.5976
+    ],
+    [
+     1489,
+     2.4374
+    ],
+    [
+     1493,
+     2.6771
+    ],
+    [
+     1499,
+     2.6503
+    ],
+    [
+     1511,
+     2.4439
+    ],
+    [
+     1523,
+     2.4181
+    ],
+    [
+     1531,
+     2.4759
+    ],
+    [
+     1543,
+     2.5837
+    ],
+    [
+     1549,
+     2.6757
+    ],
+    [
+     1553,
+     2.6299
+    ],
+    [
+     1559,
+     2.6633
+    ],
+    [
+     1567,
+     2.3138
+    ],
+    [
+     1571,
+     2.5644
+    ],
+    [
+     1579,
+     2.6566
+    ],
+    [
+     1583,
+     2.7996
+    ],
+    [
+     1597,
+     2.5658
+    ],
+    [
+     1601,
+     2.7096
+    ],
+    [
+     1607,
+     2.6861
+    ],
+    [
+     1609,
+     2.7035
+    ],
+    [
+     1613,
+     2.4922
+    ],
+    [
+     1619,
+     2.4497
+    ],
+    [
+     1621,
+     2.736
+    ],
+    [
+     1627,
+     2.454
+    ],
+    [
+     1637,
+     2.5324
+    ],
+    [
+     1657,
+     2.6148
+    ],
+    [
+     1663,
+     2.4569
+    ],
+    [
+     1667,
+     2.5213
+    ],
+    [
+     1669,
+     2.4173
+    ],
+    [
+     1693,
+     2.4643
+    ],
+    [
+     1697,
+     2.542
+    ],
+    [
+     1699,
+     2.5333
+    ],
+    [
+     1709,
+     2.5493
+    ],
+    [
+     1721,
+     2.5361
+    ],
+    [
+     1723,
+     2.5864
+    ],
+    [
+     1733,
+     2.5254
+    ],
+    [
+     1741,
+     2.6287
+    ],
+    [
+     1747,
+     2.6852
+    ],
+    [
+     1753,
+     2.4423
+    ],
+    [
+     1759,
+     2.3798
+    ],
+    [
+     1777,
+     2.6069
+    ],
+    [
+     1783,
+     2.6789
+    ],
+    [
+     1787,
+     2.5907
+    ],
+    [
+     1789,
+     2.5173
+    ],
+    [
+     1801,
+     2.7866
+    ],
+    [
+     1811,
+     2.6892
+    ],
+    [
+     1823,
+     2.5444
+    ],
+    [
+     1831,
+     2.401
+    ],
+    [
+     1847,
+     2.6745
+    ],
+    [
+     1861,
+     2.6385
+    ],
+    [
+     1867,
+     2.5221
+    ],
+    [
+     1871,
+     2.7174
+    ],
+    [
+     1873,
+     2.7327
+    ],
+    [
+     1877,
+     2.4908
+    ],
+    [
+     1879,
+     2.6552
+    ],
+    [
+     1889,
+     2.5677
+    ],
+    [
+     1901,
+     2.4809
+    ],
+    [
+     1907,
+     2.5333
+    ],
+    [
+     1913,
+     2.6533
+    ],
+    [
+     1931,
+     2.5975
+    ],
+    [
+     1933,
+     2.5483
+    ],
+    [
+     1949,
+     2.4438
+    ],
+    [
+     1951,
+     2.8073
+    ],
+    [
+     1973,
+     2.4366
+    ],
+    [
+     1979,
+     2.6195
+    ],
+    [
+     1987,
+     2.4823
+    ],
+    [
+     1993,
+     2.5207
+    ],
+    [
+     1997,
+     2.479
+    ],
+    [
+     1999,
+     2.58
+    ]
+   ]
+  },
+  "axiom2": {
+   "primes": 303,
+   "largestPrime": 1999,
+   "instances": 359158973,
+   "holdInBoth": 359158973,
+   "fails": 0,
+   "undecided": 0,
+   "bound": 8,
+   "closest": {
+    "p": 1283,
+    "value": 5.247
+   },
+   "perPrimeDisplayOnly": [
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0.7698
+    ],
+    [
+     5,
+     1.5155
+    ],
+    [
+     7,
+     1.7614
+    ],
+    [
+     11,
+     2.2946
+    ],
+    [
+     13,
+     2.6362
+    ],
+    [
+     17,
+     2.7383
+    ],
+    [
+     19,
+     2.6898
+    ],
+    [
+     23,
+     3.2648
+    ],
+    [
+     29,
+     3.6216
+    ],
+    [
+     31,
+     3.2489
+    ],
+    [
+     37,
+     3.2589
+    ],
+    [
+     41,
+     3.0841
+    ],
+    [
+     43,
+     2.9916
+    ],
+    [
+     47,
+     3.4437
+    ],
+    [
+     53,
+     3.1545
+    ],
+    [
+     59,
+     3.662
+    ],
+    [
+     61,
+     3.5602
+    ],
+    [
+     67,
+     3.2392
+    ],
+    [
+     71,
+     3.6623
+    ],
+    [
+     73,
+     3.5623
+    ],
+    [
+     79,
+     3.9893
+    ],
+    [
+     83,
+     4.0437
+    ],
+    [
+     89,
+     3.4424
+    ],
+    [
+     97,
+     3.4055
+    ],
+    [
+     101,
+     3.8225
+    ],
+    [
+     103,
+     3.6762
+    ],
+    [
+     107,
+     3.9663
+    ],
+    [
+     109,
+     3.5394
+    ],
+    [
+     113,
+     3.6742
+    ],
+    [
+     127,
+     3.8534
+    ],
+    [
+     131,
+     3.6641
+    ],
+    [
+     137,
+     4.0616
+    ],
+    [
+     139,
+     3.7553
+    ],
+    [
+     149,
+     3.6885
+    ],
+    [
+     151,
+     3.4576
+    ],
+    [
+     157,
+     3.9352
+    ],
+    [
+     163,
+     4.1809
+    ],
+    [
+     167,
+     3.8261
+    ],
+    [
+     173,
+     3.8111
+    ],
+    [
+     179,
+     4.1627
+    ],
+    [
+     181,
+     3.6471
+    ],
+    [
+     191,
+     4.148
+    ],
+    [
+     193,
+     4.0572
+    ],
+    [
+     197,
+     3.9062
+    ],
+    [
+     199,
+     3.855
+    ],
+    [
+     211,
+     3.8536
+    ],
+    [
+     223,
+     4.0757
+    ],
+    [
+     227,
+     4.0373
+    ],
+    [
+     229,
+     4.0615
+    ],
+    [
+     233,
+     4.0373
+    ],
+    [
+     239,
+     4.3198
+    ],
+    [
+     241,
+     4.2556
+    ],
+    [
+     251,
+     3.9176
+    ],
+    [
+     257,
+     4.4383
+    ],
+    [
+     263,
+     4.4483
+    ],
+    [
+     269,
+     4.4395
+    ],
+    [
+     271,
+     4.1498
+    ],
+    [
+     277,
+     4.1248
+    ],
+    [
+     281,
+     3.899
+    ],
+    [
+     283,
+     4.1914
+    ],
+    [
+     293,
+     4.2075
+    ],
+    [
+     307,
+     4.5037
+    ],
+    [
+     311,
+     4.0211
+    ],
+    [
+     313,
+     4.4352
+    ],
+    [
+     317,
+     4.4869
+    ],
+    [
+     331,
+     4.2284
+    ],
+    [
+     337,
+     3.9878
+    ],
+    [
+     347,
+     4.1283
+    ],
+    [
+     349,
+     4.262
+    ],
+    [
+     353,
+     4.2965
+    ],
+    [
+     359,
+     4.5232
+    ],
+    [
+     367,
+     4.1268
+    ],
+    [
+     373,
+     4.2375
+    ],
+    [
+     379,
+     4.233
+    ],
+    [
+     383,
+     4.2763
+    ],
+    [
+     389,
+     4.0793
+    ],
+    [
+     397,
+     4.4149
+    ],
+    [
+     401,
+     4.7255
+    ],
+    [
+     409,
+     4.2371
+    ],
+    [
+     419,
+     4.474
+    ],
+    [
+     421,
+     4.2473
+    ],
+    [
+     431,
+     3.9879
+    ],
+    [
+     433,
+     4.9789
+    ],
+    [
+     439,
+     3.9242
+    ],
+    [
+     443,
+     4.9324
+    ],
+    [
+     449,
+     4.3602
+    ],
+    [
+     457,
+     4.0715
+    ],
+    [
+     461,
+     4.3372
+    ],
+    [
+     463,
+     4.3928
+    ],
+    [
+     467,
+     4.3591
+    ],
+    [
+     479,
+     4.2167
+    ],
+    [
+     487,
+     4.3335
+    ],
+    [
+     491,
+     4.3257
+    ],
+    [
+     499,
+     4.2979
+    ],
+    [
+     503,
+     4.9466
+    ],
+    [
+     509,
+     4.9939
+    ],
+    [
+     521,
+     4.3735
+    ],
+    [
+     523,
+     4.3574
+    ],
+    [
+     541,
+     4.2664
+    ],
+    [
+     547,
+     4.2484
+    ],
+    [
+     557,
+     4.8437
+    ],
+    [
+     563,
+     4.3304
+    ],
+    [
+     569,
+     4.3791
+    ],
+    [
+     571,
+     4.4467
+    ],
+    [
+     577,
+     4.3065
+    ],
+    [
+     587,
+     4.4517
+    ],
+    [
+     593,
+     4.3386
+    ],
+    [
+     599,
+     4.1588
+    ],
+    [
+     601,
+     4.2742
+    ],
+    [
+     607,
+     4.3442
+    ],
+    [
+     613,
+     4.6298
+    ],
+    [
+     617,
+     4.2441
+    ],
+    [
+     619,
+     4.665
+    ],
+    [
+     631,
+     4.1533
+    ],
+    [
+     641,
+     4.4553
+    ],
+    [
+     643,
+     4.2506
+    ],
+    [
+     647,
+     4.38
+    ],
+    [
+     653,
+     4.0768
+    ],
+    [
+     659,
+     4.2177
+    ],
+    [
+     661,
+     4.1245
+    ],
+    [
+     673,
+     4.5984
+    ],
+    [
+     677,
+     4.5261
+    ],
+    [
+     683,
+     4.7249
+    ],
+    [
+     691,
+     4.3108
+    ],
+    [
+     701,
+     4.1782
+    ],
+    [
+     709,
+     4.5354
+    ],
+    [
+     719,
+     4.8765
+    ],
+    [
+     727,
+     4.3863
+    ],
+    [
+     733,
+     4.3711
+    ],
+    [
+     739,
+     4.2248
+    ],
+    [
+     743,
+     4.9037
+    ],
+    [
+     751,
+     4.3832
+    ],
+    [
+     757,
+     4.3718
+    ],
+    [
+     761,
+     5.0777
+    ],
+    [
+     769,
+     4.4163
+    ],
+    [
+     773,
+     4.2109
+    ],
+    [
+     787,
+     4.1776
+    ],
+    [
+     797,
+     4.7119
+    ],
+    [
+     809,
+     4.4582
+    ],
+    [
+     811,
+     4.4369
+    ],
+    [
+     821,
+     4.8204
+    ],
+    [
+     823,
+     4.5718
+    ],
+    [
+     827,
+     4.3525
+    ],
+    [
+     829,
+     4.5322
+    ],
+    [
+     839,
+     4.4345
+    ],
+    [
+     853,
+     4.1613
+    ],
+    [
+     857,
+     4.4578
+    ],
+    [
+     859,
+     4.6542
+    ],
+    [
+     863,
+     4.5089
+    ],
+    [
+     877,
+     4.4024
+    ],
+    [
+     881,
+     4.6578
+    ],
+    [
+     883,
+     4.8549
+    ],
+    [
+     887,
+     4.8239
+    ],
+    [
+     907,
+     5.0365
+    ],
+    [
+     911,
+     4.6158
+    ],
+    [
+     919,
+     4.6748
+    ],
+    [
+     929,
+     4.6567
+    ],
+    [
+     937,
+     4.2457
+    ],
+    [
+     941,
+     4.6376
+    ],
+    [
+     947,
+     4.8873
+    ],
+    [
+     953,
+     4.5946
+    ],
+    [
+     967,
+     4.7188
+    ],
+    [
+     971,
+     4.6296
+    ],
+    [
+     977,
+     4.6093
+    ],
+    [
+     983,
+     4.6621
+    ],
+    [
+     991,
+     4.4931
+    ],
+    [
+     997,
+     4.3882
+    ],
+    [
+     1009,
+     4.9306
+    ],
+    [
+     1013,
+     4.6498
+    ],
+    [
+     1019,
+     4.9026
+    ],
+    [
+     1021,
+     4.7918
+    ],
+    [
+     1031,
+     5.0606
+    ],
+    [
+     1033,
+     4.6621
+    ],
+    [
+     1039,
+     4.4713
+    ],
+    [
+     1049,
+     4.5186
+    ],
+    [
+     1051,
+     4.5364
+    ],
+    [
+     1061,
+     4.5654
+    ],
+    [
+     1063,
+     4.5758
+    ],
+    [
+     1069,
+     4.7402
+    ],
+    [
+     1087,
+     4.3619
+    ],
+    [
+     1091,
+     4.6249
+    ],
+    [
+     1093,
+     4.6574
+    ],
+    [
+     1097,
+     4.4457
+    ],
+    [
+     1103,
+     4.5311
+    ],
+    [
+     1109,
+     4.6901
+    ],
+    [
+     1117,
+     4.3918
+    ],
+    [
+     1123,
+     4.535
+    ],
+    [
+     1129,
+     4.4978
+    ],
+    [
+     1151,
+     4.7567
+    ],
+    [
+     1153,
+     4.4588
+    ],
+    [
+     1163,
+     4.6304
+    ],
+    [
+     1171,
+     4.4867
+    ],
+    [
+     1181,
+     4.808
+    ],
+    [
+     1187,
+     4.3075
+    ],
+    [
+     1193,
+     4.4333
+    ],
+    [
+     1201,
+     4.5297
+    ],
+    [
+     1213,
+     4.5501
+    ],
+    [
+     1217,
+     4.6839
+    ],
+    [
+     1223,
+     4.5017
+    ],
+    [
+     1229,
+     4.4335
+    ],
+    [
+     1231,
+     4.5576
+    ],
+    [
+     1237,
+     4.6629
+    ],
+    [
+     1249,
+     4.6894
+    ],
+    [
+     1259,
+     4.6123
+    ],
+    [
+     1277,
+     4.423
+    ],
+    [
+     1279,
+     4.8739
+    ],
+    [
+     1283,
+     5.247
+    ],
+    [
+     1289,
+     4.6413
+    ],
+    [
+     1291,
+     4.553
+    ],
+    [
+     1297,
+     4.6397
+    ],
+    [
+     1301,
+     4.962
+    ],
+    [
+     1303,
+     4.6592
+    ],
+    [
+     1307,
+     4.5585
+    ],
+    [
+     1319,
+     4.4919
+    ],
+    [
+     1321,
+     4.4445
+    ],
+    [
+     1327,
+     4.4284
+    ],
+    [
+     1361,
+     4.3517
+    ],
+    [
+     1367,
+     4.9917
+    ],
+    [
+     1373,
+     4.9182
+    ],
+    [
+     1381,
+     4.8748
+    ],
+    [
+     1399,
+     4.5748
+    ],
+    [
+     1409,
+     4.4229
+    ],
+    [
+     1423,
+     4.6308
+    ],
+    [
+     1427,
+     4.6722
+    ],
+    [
+     1429,
+     4.8522
+    ],
+    [
+     1433,
+     4.4501
+    ],
+    [
+     1439,
+     4.6452
+    ],
+    [
+     1447,
+     4.5275
+    ],
+    [
+     1451,
+     4.6541
+    ],
+    [
+     1453,
+     4.4493
+    ],
+    [
+     1459,
+     4.7625
+    ],
+    [
+     1471,
+     4.7224
+    ],
+    [
+     1481,
+     4.8486
+    ],
+    [
+     1483,
+     4.7616
+    ],
+    [
+     1487,
+     4.8112
+    ],
+    [
+     1489,
+     4.4824
+    ],
+    [
+     1493,
+     4.6781
+    ],
+    [
+     1499,
+     4.9381
+    ],
+    [
+     1511,
+     4.7102
+    ],
+    [
+     1523,
+     4.5948
+    ],
+    [
+     1531,
+     5.106
+    ],
+    [
+     1543,
+     4.4396
+    ],
+    [
+     1549,
+     4.5886
+    ],
+    [
+     1553,
+     4.8137
+    ],
+    [
+     1559,
+     4.722
+    ],
+    [
+     1567,
+     4.5026
+    ],
+    [
+     1571,
+     4.865
+    ],
+    [
+     1579,
+     4.6966
+    ],
+    [
+     1583,
+     4.7754
+    ],
+    [
+     1597,
+     4.4386
+    ],
+    [
+     1601,
+     4.6982
+    ],
+    [
+     1607,
+     4.7639
+    ],
+    [
+     1609,
+     4.8019
+    ],
+    [
+     1613,
+     4.8125
+    ],
+    [
+     1619,
+     4.5758
+    ],
+    [
+     1621,
+     4.7882
+    ],
+    [
+     1627,
+     4.4992
+    ],
+    [
+     1637,
+     4.5456
+    ],
+    [
+     1657,
+     4.6836
+    ],
+    [
+     1663,
+     4.6793
+    ],
+    [
+     1667,
+     4.6669
+    ],
+    [
+     1669,
+     4.7289
+    ],
+    [
+     1693,
+     4.5849
+    ],
+    [
+     1697,
+     4.6405
+    ],
+    [
+     1699,
+     4.8069
+    ],
+    [
+     1709,
+     5.0135
+    ],
+    [
+     1721,
+     4.7565
+    ],
+    [
+     1723,
+     4.9459
+    ],
+    [
+     1733,
+     4.5232
+    ],
+    [
+     1741,
+     4.9017
+    ],
+    [
+     1747,
+     4.6614
+    ],
+    [
+     1753,
+     4.7149
+    ],
+    [
+     1759,
+     4.4762
+    ],
+    [
+     1777,
+     4.6511
+    ],
+    [
+     1783,
+     4.7348
+    ],
+    [
+     1787,
+     4.8035
+    ],
+    [
+     1789,
+     4.5179
+    ],
+    [
+     1801,
+     4.5601
+    ],
+    [
+     1811,
+     4.6368
+    ],
+    [
+     1823,
+     4.8343
+    ],
+    [
+     1831,
+     4.9562
+    ],
+    [
+     1847,
+     4.7505
+    ],
+    [
+     1861,
+     4.7671
+    ],
+    [
+     1867,
+     4.9193
+    ],
+    [
+     1871,
+     4.7462
+    ],
+    [
+     1873,
+     4.5832
+    ],
+    [
+     1877,
+     5.0975
+    ],
+    [
+     1879,
+     4.8304
+    ],
+    [
+     1889,
+     4.719
+    ],
+    [
+     1901,
+     4.8409
+    ],
+    [
+     1907,
+     4.6601
+    ],
+    [
+     1913,
+     4.8554
+    ],
+    [
+     1931,
+     4.6844
+    ],
+    [
+     1933,
+     4.7136
+    ],
+    [
+     1949,
+     4.8844
+    ],
+    [
+     1951,
+     4.8405
+    ],
+    [
+     1973,
+     4.5984
+    ],
+    [
+     1979,
+     4.6294
+    ],
+    [
+     1987,
+     4.8182
+    ],
+    [
+     1993,
+     4.5943
+    ],
+    [
+     1997,
+     4.991
+    ],
+    [
+     1999,
+     4.6572
+    ]
+   ]
+  },
+  "planted": [
+   {
+    "id": "R1",
+    "planted": "|S3(c)| <= 3",
+    "refutedAt": 5
+   },
+   {
+    "id": "R2",
+    "planted": "|sum| <= 8 sqrt(p)",
+    "refutedAt": 7
+   },
+   {
+    "id": "R3",
+    "planted": "|Kl3| <= 2",
+    "refutedAt": 17
+   },
+   {
+    "id": "R4",
+    "planted": "|sum| <= 4 p sqrt(p)",
+    "refutedAt": 83
+   }
+  ],
+  "readings": {
+   "katz": "MATCH",
+   "fkm": "MATCH"
+  },
+  "printedNumbers": {
+   "verdict": "MATCH",
+   "coefficients": 77,
+   "tableCells": 298,
+   "bounds": [
+    104,
+    45,
+    3
+   ]
+  }
+ },
+ "certificate": {
+  "onReleasedLibrary": "stops at its own startup check (python-flint 0.9.0 with FLINT 3.6.0, and 0.8.0)",
+  "fix": {
+   "where": "flintlib/flint#2790",
+   "by": "Fredrik Johansson",
+   "url": "https://github.com/flintlib/flint/pull/2790",
+   "note": "a commit of 10 August 2026, merged the next day; on FLINT’s main branch and in no release; OpenAI’s numerics note cites it"
+  },
+  "run": {
+   "exit": 0,
+   "minutes": 65,
+   "status": "PASS_FRESH_NUMERICAL_CERTIFICATE",
+   "passed": true
+  },
+  "word": "REPRODUCED",
+  "integersEqual": 152,
+  "integers": 152,
+  "totalLoss": 696075110,
+  "margin": 0.000023360452297,
+  "marginExact": "69162467338708766984467/2960664736250000000000000000",
+  "required": "1/50000"
+ },
+ "recomputed": {
+  "caps": {
+   "inequalities": 3,
+   "quantities": 2,
+   "decided": "all three hold",
+   "digits": 42,
+   "marginsInUnits": [
+    37.33,
+    36.67,
+    531.71
+   ],
+   "insideTheCertificatesInterval": [
+    {
+     "name": "trialIH",
+     "inside": true,
+     "position": 0.5
+    },
+    {
+     "name": "trialJLambdaH",
+     "inside": true,
+     "position": 0.5
+    }
+   ]
+  },
+  "rows": {
+   "rankTwo": {
+    "integers": 48,
+    "atOrBelowPrinted": 48
+   },
+   "high": {
+    "integers": 8,
+    "atOrBelowPrinted": 8
+   },
+   "low": {
+    "integers": 93,
+    "atOrBelowPrinted": 93,
+    "reading": "literal acceptance test: renewal for L <= 9753, delay for L >= 11704"
+   }
+  },
+  "integers": 152,
+  "againstTheCertificatesIntervals": {
+   "rows": 149,
+   "insideAsFirstComputed": 147,
+   "belowAsFirstComputed": 2,
+   "belowExplained": "both are inside, at the middle, once the note’s recurrence (2.1) is used as its (2.9) writes it",
+   "printedIsCeilingOfUpperEnd": 149,
+   "positions": [
+    [
+     "P",
+     0.104
+    ],
+    [
+     "P",
+     0.1
+    ],
+    [
+     "P",
+     0.297
+    ],
+    [
+     "P",
+     0.325
+    ],
+    [
+     "P",
+     0.364
+    ],
+    [
+     "P",
+     0.391
+    ],
+    [
+     "P",
+     0.392
+    ],
+    [
+     "P",
+     0.416
+    ],
+    [
+     "P",
+     0.402
+    ],
+    [
+     "P",
+     0.427
+    ],
+    [
+     "P",
+     0.405
+    ],
+    [
+     "P",
+     0.431
+    ],
+    [
+     "P",
+     0.405
+    ],
+    [
+     "P",
+     0.433
+    ],
+    [
+     "P",
+     0.402
+    ],
+    [
+     "P",
+     0.433
+    ],
+    [
+     "P",
+     0.399
+    ],
+    [
+     "P",
+     0.427
+    ],
+    [
+     "P",
+     0.391
+    ],
+    [
+     "P",
+     0.425
+    ],
+    [
+     "P",
+     0.381
+    ],
+    [
+     "P",
+     0.423
+    ],
+    [
+     "P",
+     0.37
+    ],
+    [
+     "P",
+     0.419
+    ],
+    [
+     "P",
+     0.457
+    ],
+    [
+     "P",
+     0.467
+    ],
+    [
+     "P",
+     0.458
+    ],
+    [
+     "P",
+     0.473
+    ],
+    [
+     "P",
+     0.453
+    ],
+    [
+     "P",
+     0.473
+    ],
+    [
+     "P",
+     0.447
+    ],
+    [
+     "P",
+     0.471
+    ],
+    [
+     "P",
+     0.44
+    ],
+    [
+     "P",
+     0.467
+    ],
+    [
+     "P",
+     0.431
+    ],
+    [
+     "P",
+     0.458
+    ],
+    [
+     "P",
+     -0.036
+    ],
+    [
+     "P",
+     0.126
+    ],
+    [
+     "P",
+     0.133
+    ],
+    [
+     "P",
+     0.27
+    ],
+    [
+     "P",
+     0.265
+    ],
+    [
+     "P",
+     0.248
+    ],
+    [
+     "P",
+     0.178
+    ],
+    [
+     "P",
+     -0.64
+    ],
+    [
+     "P",
+     0.125
+    ],
+    [
+     "P",
+     0.165
+    ],
+    [
+     "P",
+     0.196
+    ],
+    [
+     "P",
+     0.183
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.282
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "H",
+     0.5
+    ],
+    [
+     "L root",
+     0.347
+    ],
+    [
+     "L face",
+     0.065
+    ],
+    [
+     "L root",
+     0.4
+    ],
+    [
+     "L face",
+     0.066
+    ],
+    [
+     "L root",
+     0.442
+    ],
+    [
+     "L face",
+     0.066
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.099
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.151
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.261
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.415
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.456
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.478
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.487
+    ],
+    [
+     "L root",
+     0.384
+    ],
+    [
+     "L face",
+     0.004
+    ],
+    [
+     "L root",
+     0.109
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0.066
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0.139
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0.283
+    ],
+    [
+     "L face",
+     0
+    ],
+    [
+     "L root",
+     0.371
+    ],
+    [
+     "L face",
+     0.065
+    ],
+    [
+     "L root",
+     0.428
+    ],
+    [
+     "L face",
+     0.066
+    ],
+    [
+     "L root",
+     0.453
+    ],
+    [
+     "L face",
+     0.066
+    ],
+    [
+     "L root",
+     0.493
+    ],
+    [
+     "L face",
+     0.068
+    ],
+    [
+     "L root",
+     0.499
+    ],
+    [
+     "L face",
+     0.072
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.085
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.102
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.161
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.283
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.34
+    ],
+    [
+     "L root",
+     0.5
+    ],
+    [
+     "L face",
+     0.402
+    ],
+    [
+     "L inner",
+     0.439
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0
+    ],
+    [
+     "L inner",
+     0.464
+    ],
+    [
+     "L inner",
+     0.491
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.493
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.381
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.346
+    ],
+    [
+     "L inner",
+     0.366
+    ],
+    [
+     "L inner",
+     0.358
+    ],
+    [
+     "L inner",
+     0.486
+    ],
+    [
+     "L inner",
+     0.498
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ],
+    [
+     "L inner",
+     0.5
+    ]
+   ]
+  }
+ },
+ "margin": {
+  "word": "MARGIN CERTIFIED (on our numbers)",
+  "totalLossOurs": 696075106,
+  "totalLossPrinted": 696075110,
+  "marginOurs": 0.0000233678944448,
+  "marginPrinted": 0.000023360452297,
+  "stated": "1/50000",
+  "roomToPositivityPercent": 12.8,
+  "roomToStatedPercent": 1.8,
+  "budgetsReproduced": 97
+ },
+ "review": {
+  "links": 33,
+  "hold": 28,
+  "holdUnderACheckedCondition": 3,
+  "notRederived": 2,
+  "foundWrong": 0,
+  "by": "a separate AI session told to look for errors; not a human referee"
+ },
+ "replays": {
+  "word": "every clean-room program re-run from a clean copy on a second machine; every recorded number came back",
+  "formOnly": "for the 32 outer low rows the author’s row files differ from the committed program’s output in form only (one diagnostic field absent; in 7, one field written as integers, not strings)"
+ },
+ "method": {
+  "rentedMachineDays": [
+   "2026-11-10"
+  ],
+  "rentedMachines": 4,
+  "rentedUSD": 9.61,
+  "rules": [
+   "corpus/prime-gaps-186/PREREG-PG186.md",
+   "corpus/prime-gaps-186/PREREG-PG186-A2-C0.md",
+   "corpus/prime-gaps-186/PREREG-PG186-B.md",
+   "corpus/prime-gaps-186/PREREG-PG186-C.md"
+  ]
+ },
+ "note": {
+  "published": false
+ },
+ "provenance": {
+  "file": "corpus/prime-gaps-186/PROVENANCE.json",
+  "files": 71
+ }
+}
