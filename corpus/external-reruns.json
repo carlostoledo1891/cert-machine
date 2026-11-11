@@ -111,5 +111,21 @@
   "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
   "hash": null,
   "outcome": "the same verdict on all 15; R(10,12) and R(7,13), which they could not finish, decided here; R(8,18) unfinished on both sides"
+ },
+ {
+  "who": "arhancanli (GitHub)",
+  "date": "2026-11-11",
+  "what": "R(3, 33) ≥ 241, JeetuSK0808’s circulant certificate, which we re-decided on 2026-10-27 (the outside row of certs/ramsey-ledger.json): replayed with their own code from the certificate data alone, none of the deposit’s programs read or run. The file’s graph is the Cayley graph of Z₂₄₀ on a symmetric set of 32 residues (3,840 edges), triangle-free by two routes, and it has no independent 33-set: the eight multipliers fixing 0 split its 207 non-neighbours into 31 orbits, and their own bitset branch and bound closed all 31 searches (19,242,156,924 nodes, 7,262 s of CPU on one core). Three red controls: with K = 32 the search finds an independent 32-set, with ±14 removed from the set it finds an independent 33-set, and on 60 random small circulants it agrees with brute force.",
+  "kind": "own-code",
+  "records": [
+   "certs/ramsey-ledger.json"
+  ],
+  "pages": [
+   "reports/ramsey-graphs.html"
+  ],
+  "where": "https://github.com/arhancanli/quantavane-replays/tree/bd6c6756a6d277b75f0415a710d0e501e2b71c1e/c17b",
+  "posted": "https://github.com/teorth/optimizationproblems/pull/252#issuecomment-6794307196",
+  "hash": null,
+  "outcome": "the same verdict: no triangle and no independent 33-set, through the same eight multipliers and the same 31 orbits"
  }
 ]
