@@ -1,0 +1,181 @@
+⚠ [8975/8976] Replayed Intake.Claim.Erdos488
+warning: Intake/Claim/Erdos488.lean:128:68: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Claim/Erdos488.lean:128:87: This simp argument is unused:
+  Nat.mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_left_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Claim/Erdos488.lean:130:42: This simp argument is unused:
+  pow_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Claim/Erdos488.lean:132:72: This simp argument is unused:
+  Nat.mul_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pow_succ, Nat.mul_comm, Nat.mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Intake/Claim/Erdos488.lean:139:2: exponent 4096 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+info: Intake/Claim/Erdos488.lean:509:0: 'Submissions.ErdosMultiplesSmoothRefuted.Counterexample.proof' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: Intake/Claim/Erdos488.lean:551:36: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+info: Intake/Claim/Erdos488.lean:561:0: 'Erdos488ExactAdapter.refutation' depends on axioms: [propext, Classical.choice, Quot.sound]
+✖ [8976/8976] Building Intake.Mut.C01 (90s)
+trace: .> LEAN_PATH=/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/Cli/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/batteries/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/Qq/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/aesop/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/importGraph/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/plausible/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/packages/mathlib/.lake/build/lib/lean:/Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/build/lib/lean /Users/carlostoledo/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/Intake/Mut/C01.lean -o /Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/build/lib/lean/Intake/Mut/C01.olean -i /Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/build/lib/lean/Intake/Mut/C01.ilean -c /Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/build/ir/Intake/Mut/C01.c --setup /Users/carlostoledo/Projects/lean-intake-work/erdos-488-r2-claimbox/canonical/.lake/build/ir/Intake/Mut/C01.setup.json --json
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+warning: Intake/Mut/C01.lean:7:8: declaration uses `sorry`
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+error: Intake/Mut/C01.lean:14:31: Type mismatch
+  Erdos488ExactAdapter.refutation
+has type
+  ¬Erdos488ExactAdapter.proposition
+but is expected to have type
+  ¬∀ (A : Finset ℕ),
+      0 ∉ A →
+        1 ∉ A →
+          ∀ (n m : ℕ),
+            m > n →
+              A.max ≤ ↑n →
+                ↑{x ∈ Finset.Icc 1 m | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑m <
+                  2 * ↑{x ∈ Finset.Icc 1 n | x ∈ {n | n ≥ 1 ∧ ∃ a ∈ A, a ∣ n}}.card / ↑n
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+warning: Intake/Mut/C01.lean:1:0: The copyright header is incorrect. Please copy and paste the following one:
+/-
+Copyright 2026 The Formal Conjectures Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-/
+
+Note: This linter can be disabled with `set_option linter.style.copyright.formalConjectures false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- Intake.Mut.C01
+error: build failed

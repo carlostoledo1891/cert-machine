@@ -229,6 +229,7 @@ test:
 	@printf "%-30s " "Lean intake: giuga-strong"; $(NODE) tools/lean-intake.js record giuga-strong-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: sqtuples"; $(NODE) tools/lean-intake.js record sqtuples-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: APN #12 (ii)"; $(NODE) tools/lean-intake.js record apn-erdos-12-ii --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: #488, rule set 2"; $(NODE) tools/lean-intake.js record erdos-488-r2-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "heptagon + A.3 in Lean"; $(NODE) tools/record-heptagon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "prime gaps 186, checked"; $(NODE) tools/record-prime-gaps-186.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
