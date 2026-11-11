@@ -1671,6 +1671,24 @@
    "sent": "2026-11-10",
    "status": "posted, no reply",
    "note": "outreach/gh-fc7660-review-2026-11-10.md (untracked); records certs/lean-intake-{mo-75792,giuga-weak,giuga-strong,sqtuples}-claimbox.json; the page /reports/lean-intake.html (the batch table). The other 18 links were not checked. The PR had only the CLA exchange when posted."
+  },
+  {
+   "id": "gh-registry-pr360-88a-2026-11-11",
+   "what": "A pull request to teorth/optimizationproblems on constants/88a.md (the bounded prime gap constant): one paragraph added to the page's own formalization bullet for OpenAI's 186, with one reference and one contribution note — an outside re-run of the Lean build and of the numerical certificate (builds as shipped; Comparator reproduces and rejects two altered statement files; three kernels; the certificate stops on every released FLINT and passes with flintlib/flint#2790, all 152 integers matching; the 152 quantities recomputed with no shared code), and what stays open (the three axioms remain axioms; integral-to-estimate is argued by hand, not in Lean; no human referee). Not an asterisk removal; no table or README change. First person, Claude disclosed. Filed with gh on Carlos's word (\"proceed all\").",
+   "where": "github.com/teorth/optimizationproblems, pull request #360",
+   "url": "https://github.com/teorth/optimizationproblems/pull/360",
+   "sent": "2026-11-11",
+   "status": "open, no comments",
+   "note": "outreach/gh-registry-pr360-88a-2026-11-11.md (untracked); the page /reports/prime-gaps-186.html; the note doi:10.5281/zenodo.24122214; the record certs/prime-gaps-186.json."
+  },
+  {
+   "id": "gh-python-flint-450-2026-11-11",
+   "what": "An issue on flintlib/python-flint: the released wheels (0.9.0 with FLINT 3.6.0, 0.8.0 with FLINT 3.3.1) return a wrong fmpz_poly product in a rare case already fixed on FLINT's main branch (flintlib/flint#2790) and in no release; a three-line witness, the cause, and the statement that nothing needs fixing in python-flint itself. A note for wheel users, not a bug report against FLINT. The witness re-run on both wheels the hour it was filed. First person, Claude disclosed. Filed with gh on Carlos's word (\"proceed all\").",
+   "where": "github.com/flintlib/python-flint, issue #450",
+   "url": "https://github.com/flintlib/python-flint/issues/450",
+   "sent": "2026-11-11",
+   "status": "open, no comments",
+   "note": "outreach/gh-python-flint-450-2026-11-11.md (untracked); met while replaying the certificate of OpenAI's prime-gap 186 release (/reports/prime-gaps-186.html)."
   }
  ]
 }

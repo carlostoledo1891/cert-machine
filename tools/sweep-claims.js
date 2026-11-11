@@ -223,6 +223,8 @@ for (const [repo, num, label] of [
   ['RikiyaT/lm_understand-logs', 4, 'lm_understand-logs #4 (the MATH-500 re-run under Qwen\'s settings)'],
   ['google-deepmind/formal-conjectures', 7678, 'formal-conjectures PR #7678 (Stokes\'s four linked proofs; our lean-intake review posted 2026-11-10, issuecomment-6777423898)'],
   ['google-deepmind/formal-conjectures', 7660, 'formal-conjectures PR #7660 (Puri\'s 22 linked proofs; our review of four posted 2026-11-10, issuecomment-6777424638: MO 75792\'s statement changed on main)'],
+  ['teorth/optimizationproblems', 360, 'optimizationproblems PR #360 (ours, 2026-11-11: an outside re-run paragraph on constants/88a.md for OpenAI\'s 186; not an asterisk removal)'],
+  ['flintlib/python-flint', 450, 'python-flint issue #450 (ours, 2026-11-11: released wheels carry the fmpz_poly_mul_SS wrong-result case fixed in flint#2790)'],
   ['google-deepmind/formal-conjectures', 5299, 'formal-conjectures PR #5299 (Gessel\'s Erdős #786(i) refutation; our lean-intake review posted 2026-11-09, issuecomment-6748286567; a rebased PR only on his yes or ~11-16)'],
   ['google-deepmind/formal-conjectures', 5297, 'formal-conjectures PR #5297 (Gessel\'s Erdős #488 refutation; our review 2026-11-07, pullrequestreview-5809293292; our rebased PR only on his yes or ~11-14)'],
   ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
