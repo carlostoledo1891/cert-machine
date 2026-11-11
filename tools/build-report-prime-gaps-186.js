@@ -45,7 +45,7 @@ if (SL.planted.length !== SL.rewordings + SL.alterations || SL.alterations !== S
 if (A1.instances !== A1.holdInBoth || A2.instances !== A2.holdInBoth || A1.primes !== A2.primes) die('an instance of a quoted assumption does not hold in both deciders');
 if (RC.integers !== 152 || CE.integersEqual !== 152 || IV.rows !== 149 || IV.insideAsFirstComputed + IV.belowAsFirstComputed !== 149) die('the 152 numbers no longer add up');
 if (!(MG.marginOurs > 1 / 50000) || MG.totalLossOurs > MG.totalLossPrinted) die('the margin on our numbers is not what the page states');
-const TITLE = 'OpenAI’s prime-gap bound of 186, checked from every side we could reach';
+const TITLE = 'OpenAI’s prime-gap bound of 186, checked from every side I could reach';
 const PRIMES = A1.primes, CASES = A1.instances + A2.instances;
 
 /* figure 1 (the hero) — the proof as a chain: three assumptions, the Lean proof, the conclusion; under each, what was

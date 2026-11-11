@@ -168,7 +168,7 @@ const CARDS = {
      by a dashed line (a premise, as on the ℤ-in-ℚ card) to one solid block, the Lean proof, checked; from it one line to a row of ticks on which two solid dots sit close
      together, two primes a bounded gap apart. No number, no label */
   'prime-gaps-186': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · prime gaps', path: '/reports/prime-gaps-186.html',
-    title: 'OpenAI’s prime-gap bound of 186, checked from every side we could reach',
+    title: 'OpenAI’s prime-gap bound of 186, checked from every side I could reach',
     alt: 'Three hollow rings on the left, each joined by a dashed line to one solid block; from the block a line runs to a row of small ticks on which two solid dots sit close together.',
     svgRaw: (() => {
       const o = [], bx = 430, by = 255, bw = 170, bh = 120, my = by + bh / 2, x0 = 700, x1 = 1070;

@@ -390,7 +390,7 @@ const REPORTS = [
     desc: 'Seven points on a circle that refute Graham’s conjecture, found by Dömötör Pálvölgyi with ChatGPT, and his appendix theorem that almost any seven points on a circle are not Ramsey, labelled unchecked by its author: both decided in Lean through OpenAI’s classification, the rules sealed before any code ran. The pull request that marks the conjecture solved in Google DeepMind’s list links the proof.',
     n: 'five kernels accept · only the standard axioms' },
   { g: 'ai', f: 'prime-gaps-186.html', k: 'prime gaps · a Lean proof with three assumptions',
-    title: 'OpenAI’s prime-gap bound of 186, checked from every side we could reach',
+    title: 'OpenAI’s prime-gap bound of 186, checked from every side I could reach',
     desc: 'OpenAI’s GPT-6 Astra proved that prime gaps are at most 186 infinitely often, with a Lean proof that rests on three stated assumptions. The release checked as far as an outside party can: the Lean proof holds as written, the two quoted assumptions hold on every case for the primes below 2,000, and the 152 numerical inputs reproduce and were recomputed with no shared code. What stays open first: the three assumptions remain assumptions.',
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gaps-186.json'), 'utf8'));
       if (P.verdicts.axioms !== 'ASSUMED, all three' || P.verdicts.recomputed !== '152 of 152' || P.verdicts.kernels !== 'three accept') fail('the prime-gaps-186 card would misstate its record');
