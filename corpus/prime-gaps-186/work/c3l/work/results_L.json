@@ -1,0 +1,2574 @@
+{
+ "program": "pg186_c3l.py",
+ "object": "ideal value of the note's computational forms (2.17) root, (2.21) face, (2.19) inner for the low rows; units 10^-18 relative to 23685317816/10^24; m_minus rounded down, m_plus rounded up at 6 decimals",
+ "precision_bits": {
+  "engine_B": 288,
+  "kernels_P1": 448,
+  "W_and_erased_sums_B0": 352,
+  "marginal_rows_PV": 320,
+  "Z_and_cells_from_C2": 384
+ },
+ "reading": "literal acceptance test: renewal for L <= 9753, delay for L >= 11704",
+ "integers_decided": 93,
+ "words": {
+  "AGREES": 93,
+  "UNDECIDED": 0,
+  "DIFFERS": 0
+ },
+ "rows_literal_reading": [
+  {
+   "group": "O2",
+   "row": "L1",
+   "lean": "g=0 j=0",
+   "branch": "renewal",
+   "L": 2331,
+   "theta": "189",
+   "products": 603,
+   "seconds": 1259.8,
+   "root": {
+    "m_minus": "10.396040",
+    "m_plus": "10.396041",
+    "printed": 11,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.603",
+    "relative_margin": "5.491e-02",
+    "relative_width": "1.93e-36"
+   },
+   "face": {
+    "m_minus": "2.513204",
+    "m_plus": "2.513205",
+    "printed": 10,
+    "word": "AGREES",
+    "printed_minus_m_plus": "7.486",
+    "relative_margin": "7.487e-01",
+    "relative_width": "1.93e-36"
+   },
+   "record": "row_g0_j0_renewal.json",
+   "record_sha256": "58472e61b6939da17f63d5e9e91e27ce2c176fb277d32317261c398244de8dbb",
+   "window_r": [
+    94919,
+    95638
+   ],
+   "H": 3498,
+   "K": 49152,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 260,
+    "W": 352
+   },
+   "tail_factor_minus_1": "1.928e-36"
+  },
+  {
+   "group": "O2",
+   "row": "L2",
+   "lean": "g=0 j=1",
+   "branch": "renewal",
+   "L": 3497,
+   "theta": "140",
+   "products": 603,
+   "seconds": 1194.7,
+   "root": {
+    "m_minus": "2284.962701",
+    "m_plus": "2284.962702",
+    "printed": 2285,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.037",
+    "relative_margin": "1.632e-05",
+    "relative_width": "4.82e-37"
+   },
+   "face": {
+    "m_minus": "548.917567",
+    "m_plus": "548.917568",
+    "printed": 577,
+    "word": "AGREES",
+    "printed_minus_m_plus": "28.082",
+    "relative_margin": "4.867e-02",
+    "relative_width": "4.82e-37"
+   },
+   "record": "row_g0_j1_renewal.json",
+   "record_sha256": "ad0cd160a025a213003f9e15d73a47792328998ef020affaec0a7e9e753fb2b0",
+   "window_r": [
+    93607,
+    95638
+   ],
+   "H": 4704,
+   "K": 49152,
+   "Jeul": 28,
+   "relative_width_bits": {
+    "arrays": 259,
+    "W": 352
+   },
+   "tail_factor_minus_1": "4.820e-37"
+  },
+  {
+   "group": "O2",
+   "row": "L3",
+   "lean": "g=0 j=2",
+   "branch": "renewal",
+   "L": 4703,
+   "theta": "120",
+   "products": 603,
+   "seconds": 1324.9,
+   "root": {
+    "m_minus": "11432059.672778",
+    "m_plus": "11432059.672779",
+    "printed": 11432060,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.327",
+    "relative_margin": "2.862e-08",
+    "relative_width": "6.94e-65"
+   },
+   "face": {
+    "m_minus": "2643040.051869",
+    "m_plus": "2643040.051870",
+    "printed": 2670744,
+    "word": "AGREES",
+    "printed_minus_m_plus": "27703.948",
+    "relative_margin": "1.037e-02",
+    "relative_width": "1.30e-57"
+   },
+   "record": "row_g0_j2_renewal.json",
+   "record_sha256": "fe62661f7b94c005e2d6ac933d5f39b33693d65b370791b4c182fa84bd600aa7",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 9754,
+   "K": 49152,
+   "Jeul": 20,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 353
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L4",
+   "lean": "g=0 j=3",
+   "branch": "renewal",
+   "L": 9753,
+   "theta": "57",
+   "products": 603,
+   "seconds": 1359.0,
+   "root": {
+    "m_minus": "3056104724.068721",
+    "m_plus": "3056104724.068722",
+    "printed": 3056104728,
+    "word": "AGREES",
+    "printed_minus_m_plus": "3.931",
+    "relative_margin": "1.286e-09",
+    "relative_width": "1.30e-65"
+   },
+   "face": {
+    "m_minus": "915663277.343266",
+    "m_plus": "915663277.343267",
+    "printed": 915663654,
+    "word": "AGREES",
+    "printed_minus_m_plus": "376.656",
+    "relative_margin": "4.113e-07",
+    "relative_width": "1.72e-58"
+   },
+   "record": "row_g0_j3_renewal.json",
+   "record_sha256": "d4b8dd2cb6c49883d44de1e75db81e91dad4a456ccfadf267a55295591964db6",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 11705,
+   "K": 49152,
+   "Jeul": 10,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 354
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L5",
+   "lean": "g=0 j=4",
+   "branch": "delay",
+   "L": 11704,
+   "theta": "47",
+   "products": 603,
+   "seconds": 1318.3,
+   "root": {
+    "m_minus": "37877639956.439705",
+    "m_plus": "37877639956.439706",
+    "printed": 37877639997,
+    "word": "AGREES",
+    "printed_minus_m_plus": "40.560",
+    "relative_margin": "1.071e-09",
+    "relative_width": "1.07e-65"
+   },
+   "face": {
+    "m_minus": "12045112081.092002",
+    "m_plus": "12045112081.092003",
+    "printed": 12045112668,
+    "word": "AGREES",
+    "printed_minus_m_plus": "586.907",
+    "relative_margin": "4.873e-08",
+    "relative_width": "1.30e-58"
+   },
+   "record": "row_g0_j4_delay.json",
+   "record_sha256": "fefb2377f4aa98aed740ac74ced0cad439509f6b839e4ee7eebee1947818fe47",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 14046,
+   "K": 49152,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 355
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L6",
+   "lean": "g=0 j=5",
+   "branch": "delay",
+   "L": 14045,
+   "theta": "40",
+   "products": 603,
+   "seconds": 1298.0,
+   "root": {
+    "m_minus": "300901046465.094778",
+    "m_plus": "300901046465.094779",
+    "printed": 300901046806,
+    "word": "AGREES",
+    "printed_minus_m_plus": "340.905",
+    "relative_margin": "1.133e-09",
+    "relative_width": "7.77e-66"
+   },
+   "face": {
+    "m_minus": "102336787313.784772",
+    "m_plus": "102336787313.784773",
+    "printed": 102336788484,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1170.215",
+    "relative_margin": "1.143e-08",
+    "relative_width": "8.36e-59"
+   },
+   "record": "row_g0_j5_delay.json",
+   "record_sha256": "ebf0e5996a8662b47b63ae10844429ca73936114ff0f3a90f54bdcc9496b5bb3",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 16855,
+   "K": 49152,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 356
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L7",
+   "lean": "g=0 j=6",
+   "branch": "delay",
+   "L": 16854,
+   "theta": "33",
+   "products": 603,
+   "seconds": 1439.3,
+   "root": {
+    "m_minus": "2682803910919.667582",
+    "m_plus": "2682803910919.667583",
+    "printed": 2682803914309,
+    "word": "AGREES",
+    "printed_minus_m_plus": "3389.332",
+    "relative_margin": "1.263e-09",
+    "relative_width": "6.72e-66"
+   },
+   "face": {
+    "m_minus": "980771895622.941599",
+    "m_plus": "980771895622.941600",
+    "printed": 980771899210,
+    "word": "AGREES",
+    "printed_minus_m_plus": "3587.058",
+    "relative_margin": "3.657e-09",
+    "relative_width": "6.41e-59"
+   },
+   "record": "row_g0_j6_delay.json",
+   "record_sha256": "57df5b2c1b9426a13abb81dc85a455b328bb8be7e8366b65adf575ec895fc4bd",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 20226,
+   "K": 49152,
+   "Jeul": 5,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 357
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L8",
+   "lean": "g=0 j=7",
+   "branch": "delay",
+   "L": 20225,
+   "theta": "30",
+   "products": 603,
+   "seconds": 1283.9,
+   "root": {
+    "m_minus": "3338737760699.545376",
+    "m_plus": "3338737760699.545377",
+    "printed": 3338737765461,
+    "word": "AGREES",
+    "printed_minus_m_plus": "4761.454",
+    "relative_margin": "1.426e-09",
+    "relative_width": "3.66e-66"
+   },
+   "face": {
+    "m_minus": "1286194294213.016532",
+    "m_plus": "1286194294213.016533",
+    "printed": 1286194297547,
+    "word": "AGREES",
+    "printed_minus_m_plus": "3333.983",
+    "relative_margin": "2.592e-09",
+    "relative_width": "2.74e-59"
+   },
+   "record": "row_g0_j7_delay.json",
+   "record_sha256": "87ebff537429134c4cd2654d91f3f973670d6e18110b2063bed304b51bfd9448",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 22248,
+   "K": 49152,
+   "Jeul": 4,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 358
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L9",
+   "lean": "g=0 j=8",
+   "branch": "delay",
+   "L": 22247,
+   "theta": "28",
+   "products": 603,
+   "seconds": 1405.9,
+   "root": {
+    "m_minus": "7260461032195.482186",
+    "m_plus": "7260461032195.482187",
+    "printed": 7260461043003,
+    "word": "AGREES",
+    "printed_minus_m_plus": "10807.517",
+    "relative_margin": "1.489e-09",
+    "relative_width": "2.84e-66"
+   },
+   "face": {
+    "m_minus": "2875471607914.126739",
+    "m_plus": "2875471607914.126740",
+    "printed": 2875471614189,
+    "word": "AGREES",
+    "printed_minus_m_plus": "6274.873",
+    "relative_margin": "2.182e-09",
+    "relative_width": "1.89e-59"
+   },
+   "record": "row_g0_j8_delay.json",
+   "record_sha256": "fa0e5cf3be5d0b725263b2007afeca7588cf77cd570888b7ceec9cbb9b5793f0",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 24271,
+   "K": 49152,
+   "Jeul": 4,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 358
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L10",
+   "lean": "g=0 j=9",
+   "branch": "delay",
+   "L": 24270,
+   "theta": "27",
+   "products": 603,
+   "seconds": 1295.5,
+   "root": {
+    "m_minus": "1211995035021.641562",
+    "m_plus": "1211995035021.641563",
+    "printed": 1211995036896,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1874.358",
+    "relative_margin": "1.547e-09",
+    "relative_width": "2.05e-66"
+   },
+   "face": {
+    "m_minus": "489032600144.768477",
+    "m_plus": "489032600144.768478",
+    "printed": 489032601185,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1040.231",
+    "relative_margin": "2.127e-09",
+    "relative_width": "1.21e-59"
+   },
+   "record": "row_g0_j9_delay.json",
+   "record_sha256": "3e84433312a6c27e31a30d7d4a91571c65ff5c2d09b478158b7a54019d4eadaf",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 24576,
+   "K": 49152,
+   "Jeul": 4,
+   "relative_width_bits": {
+    "arrays": 259,
+    "W": 358
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L1",
+   "lean": "g=1 j=0",
+   "branch": "renewal",
+   "L": 3,
+   "theta": "104124",
+   "products": 603,
+   "seconds": 1267.0,
+   "root": {
+    "m_minus": "26.995593",
+    "m_plus": "26.995594",
+    "printed": 27,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.004",
+    "relative_margin": "1.632e-04",
+    "relative_width": "9.87e-34"
+   },
+   "face": {
+    "m_minus": "5.333632",
+    "m_plus": "5.333633",
+    "printed": 1426,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1420.666",
+    "relative_margin": "9.963e-01",
+    "relative_width": "9.87e-34"
+   },
+   "record": "row_g1_j0_renewal.json",
+   "record_sha256": "7aee264285e5cba910c8c20a7f2bc5b475bfe9829641100c7684591ab68ddad1",
+   "window_r": [
+    98259,
+    98263
+   ],
+   "H": 7,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 360
+   },
+   "tail_factor_minus_1": "9.870e-34"
+  },
+  {
+   "group": "O5/2",
+   "row": "L2",
+   "lean": "g=1 j=1",
+   "branch": "renewal",
+   "L": 6,
+   "theta": "52062",
+   "products": 603,
+   "seconds": 1218.2,
+   "root": {
+    "m_minus": "0.000058",
+    "m_plus": "0.000059",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "9.999e-01",
+    "relative_width": "9.87e-34"
+   },
+   "face": {
+    "m_minus": "0.000011",
+    "m_plus": "0.000012",
+    "printed": 821,
+    "word": "AGREES",
+    "printed_minus_m_plus": "820.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "9.87e-34"
+   },
+   "record": "row_g1_j1_renewal.json",
+   "record_sha256": "0f581758daeb2542ef1b94594ce704bbfaa609565c15a37d581bfe55bda90bd7",
+   "window_r": [
+    98256,
+    98263
+   ],
+   "H": 13,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 361
+   },
+   "tail_factor_minus_1": "9.870e-34"
+  },
+  {
+   "group": "O5/2",
+   "row": "L3",
+   "lean": "g=1 j=2",
+   "branch": "renewal",
+   "L": 12,
+   "theta": "26031",
+   "products": 603,
+   "seconds": 1290.5,
+   "root": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "4.94e-34"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1392,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1391.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "4.94e-34"
+   },
+   "record": "row_g1_j2_renewal.json",
+   "record_sha256": "39e7811719dd67a0aba52b13befb6edebc64fac4a39d84b53d757b3306b43845",
+   "window_r": [
+    98241,
+    98263
+   ],
+   "H": 26,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 358
+   },
+   "tail_factor_minus_1": "4.935e-34"
+  },
+  {
+   "group": "O5/2",
+   "row": "L4",
+   "lean": "g=1 j=3",
+   "branch": "renewal",
+   "L": 25,
+   "theta": "13016",
+   "products": 603,
+   "seconds": 1342.3,
+   "root": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "2.47e-34"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1765,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1764.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "2.47e-34"
+   },
+   "record": "row_g1_j3_renewal.json",
+   "record_sha256": "2a217f2a6477defc7943761186f70002b7cf9bafbca30ce7411606172a859f59",
+   "window_r": [
+    98226,
+    98263
+   ],
+   "H": 51,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 359
+   },
+   "tail_factor_minus_1": "2.468e-34"
+  },
+  {
+   "group": "O5/2",
+   "row": "L5",
+   "lean": "g=1 j=4",
+   "branch": "renewal",
+   "L": 50,
+   "theta": "6508",
+   "products": 603,
+   "seconds": 1277.0,
+   "root": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "1.23e-34"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 3334,
+    "word": "AGREES",
+    "printed_minus_m_plus": "3333.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "1.23e-34"
+   },
+   "record": "row_g1_j4_renewal.json",
+   "record_sha256": "94f7502a379d7be2880ec0af9dd91e425453310517c68956c9c787fc504380b5",
+   "window_r": [
+    98166,
+    98263
+   ],
+   "H": 102,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 357
+   },
+   "tail_factor_minus_1": "1.234e-34"
+  },
+  {
+   "group": "O5/2",
+   "row": "L6",
+   "lean": "g=1 j=5",
+   "branch": "renewal",
+   "L": 101,
+   "theta": "3254",
+   "products": 603,
+   "seconds": 1328.7,
+   "root": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "6.17e-35"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 5753,
+    "word": "AGREES",
+    "printed_minus_m_plus": "5752.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "6.17e-35"
+   },
+   "record": "row_g1_j5_renewal.json",
+   "record_sha256": "aae3c407f9a9c167cf15bdcf515497beee9f24b8c37e92e519f61d5d18c4522a",
+   "window_r": [
+    98106,
+    98263
+   ],
+   "H": 203,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 359
+   },
+   "tail_factor_minus_1": "6.169e-35"
+  },
+  {
+   "group": "O5/2",
+   "row": "L7",
+   "lean": "g=1 j=6",
+   "branch": "renewal",
+   "L": 202,
+   "theta": "1627",
+   "products": 603,
+   "seconds": 1368.6,
+   "root": {
+    "m_minus": "0.000001",
+    "m_plus": "0.000002",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "3.08e-35"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 10303,
+    "word": "AGREES",
+    "printed_minus_m_plus": "10302.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "3.08e-35"
+   },
+   "record": "row_g1_j6_renewal.json",
+   "record_sha256": "07a44a610e1a0f2407f79e4ed04c85ffc2ba96966ff8b96664f99060bde39fd6",
+   "window_r": [
+    98011,
+    98263
+   ],
+   "H": 405,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 360
+   },
+   "tail_factor_minus_1": "3.084e-35"
+  },
+  {
+   "group": "O5/2",
+   "row": "L8",
+   "lean": "g=1 j=7",
+   "branch": "renewal",
+   "L": 404,
+   "theta": "814",
+   "products": 603,
+   "seconds": 1285.2,
+   "root": {
+    "m_minus": "0.001321",
+    "m_plus": "0.001322",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.998",
+    "relative_margin": "9.987e-01",
+    "relative_width": "1.54e-35"
+   },
+   "face": {
+    "m_minus": "0.000249",
+    "m_plus": "0.000250",
+    "printed": 18815,
+    "word": "AGREES",
+    "printed_minus_m_plus": "18814.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "1.54e-35"
+   },
+   "record": "row_g1_j7_renewal.json",
+   "record_sha256": "9ce908e97c5a6f1b3e7ce3ed33b6f6906bdd4bec186e05b2fcdaf6198d9c8c47",
+   "window_r": [
+    97614,
+    98263
+   ],
+   "H": 810,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 263,
+    "W": 359
+   },
+   "tail_factor_minus_1": "1.542e-35"
+  },
+  {
+   "group": "O5/2",
+   "row": "L9",
+   "lean": "g=1 j=8",
+   "branch": "renewal",
+   "L": 809,
+   "theta": "700",
+   "products": 603,
+   "seconds": 1348.1,
+   "root": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "1.54e-35"
+   },
+   "face": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 2089,
+    "word": "AGREES",
+    "printed_minus_m_plus": "2088.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "1.54e-35"
+   },
+   "record": "row_g1_j8_renewal.json",
+   "record_sha256": "302b8b23f659eeab334f1d60aaa3d89e52352c09cb9b41c59879ae671af99c19",
+   "window_r": [
+    97614,
+    98263
+   ],
+   "H": 941,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 263,
+    "W": 360
+   },
+   "tail_factor_minus_1": "1.542e-35"
+  },
+  {
+   "group": "O5/2",
+   "row": "L10",
+   "lean": "g=1 j=9",
+   "branch": "renewal",
+   "L": 940,
+   "theta": "467",
+   "products": 603,
+   "seconds": 1240.8,
+   "root": {
+    "m_minus": "0.016925",
+    "m_plus": "0.016926",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.983",
+    "relative_margin": "9.831e-01",
+    "relative_width": "7.71e-36"
+   },
+   "face": {
+    "m_minus": "0.002871",
+    "m_plus": "0.002872",
+    "printed": 11427,
+    "word": "AGREES",
+    "printed_minus_m_plus": "11426.997",
+    "relative_margin": "1.000e+00",
+    "relative_width": "7.71e-36"
+   },
+   "record": "row_g1_j9_renewal.json",
+   "record_sha256": "3bb20a94714b504a230b54a80251738ce00c9fa25963c41447445d03ce29ecdf",
+   "window_r": [
+    96994,
+    98263
+   ],
+   "H": 1412,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 262,
+    "W": 358
+   },
+   "tail_factor_minus_1": "7.711e-36"
+  },
+  {
+   "group": "O5/2",
+   "row": "L11",
+   "lean": "g=1 j=10",
+   "branch": "renewal",
+   "L": 1411,
+   "theta": "312",
+   "products": 603,
+   "seconds": 1188.5,
+   "root": {
+    "m_minus": "15.433008",
+    "m_plus": "15.433009",
+    "printed": 16,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.566",
+    "relative_margin": "3.544e-02",
+    "relative_width": "3.86e-36"
+   },
+   "face": {
+    "m_minus": "2.441083",
+    "m_plus": "2.441084",
+    "printed": 16011,
+    "word": "AGREES",
+    "printed_minus_m_plus": "16008.558",
+    "relative_margin": "9.998e-01",
+    "relative_width": "3.86e-36"
+   },
+   "record": "row_g1_j10_renewal.json",
+   "record_sha256": "c94f2abe209bba0b43e77eac3276d1bdbf74ec73085e2c2ceaccbc39971021e8",
+   "window_r": [
+    96599,
+    98263
+   ],
+   "H": 2117,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 359
+   },
+   "tail_factor_minus_1": "3.856e-36"
+  },
+  {
+   "group": "O5/2",
+   "row": "L12",
+   "lean": "g=1 j=11",
+   "branch": "renewal",
+   "L": 2116,
+   "theta": "208",
+   "products": 603,
+   "seconds": 1182.3,
+   "root": {
+    "m_minus": "14360.994596",
+    "m_plus": "14360.994597",
+    "printed": 14362,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1.005",
+    "relative_margin": "7.000e-05",
+    "relative_width": "1.93e-36"
+   },
+   "face": {
+    "m_minus": "2139.955549",
+    "m_plus": "2139.955550",
+    "printed": 24579,
+    "word": "AGREES",
+    "printed_minus_m_plus": "22439.044",
+    "relative_margin": "9.129e-01",
+    "relative_width": "1.93e-36"
+   },
+   "record": "row_g1_j11_renewal.json",
+   "record_sha256": "7c42209eed4fadacfab6f52a102b850c1ec1fd410486c6433210edf890d3a27b",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 3176,
+   "K": 46580,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 260,
+    "W": 358
+   },
+   "tail_factor_minus_1": "1.928e-36"
+  },
+  {
+   "group": "O5/2",
+   "row": "L13",
+   "lean": "g=1 j=12",
+   "branch": "renewal",
+   "L": 3175,
+   "theta": "140",
+   "products": 603,
+   "seconds": 1215.8,
+   "root": {
+    "m_minus": "7065760.197986",
+    "m_plus": "7065760.197987",
+    "printed": 7065761,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.802",
+    "relative_margin": "1.135e-07",
+    "relative_width": "9.64e-37"
+   },
+   "face": {
+    "m_minus": "1026039.916827",
+    "m_plus": "1026039.916828",
+    "printed": 1054524,
+    "word": "AGREES",
+    "printed_minus_m_plus": "28484.083",
+    "relative_margin": "2.701e-02",
+    "relative_width": "9.64e-37"
+   },
+   "record": "row_g1_j12_renewal.json",
+   "record_sha256": "478dd7b32f67c106be95fafdafba6b69236f3b6984e3b7b9b55c0d1a9f451ea6",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 4704,
+   "K": 46580,
+   "Jeul": 30,
+   "relative_width_bits": {
+    "arrays": 259,
+    "W": 361
+   },
+   "tail_factor_minus_1": "9.639e-37"
+  },
+  {
+   "group": "O5/2",
+   "row": "L14",
+   "lean": "g=1 j=13",
+   "branch": "renewal",
+   "L": 4703,
+   "theta": "117",
+   "products": 603,
+   "seconds": 1239.7,
+   "root": {
+    "m_minus": "17914114.166326",
+    "m_plus": "17914114.166327",
+    "printed": 17914115,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.833",
+    "relative_margin": "4.654e-08",
+    "relative_width": "5.06e-65"
+   },
+   "face": {
+    "m_minus": "2491780.578357",
+    "m_plus": "2491780.578358",
+    "printed": 2503735,
+    "word": "AGREES",
+    "printed_minus_m_plus": "11954.421",
+    "relative_margin": "4.775e-03",
+    "relative_width": "7.75e-58"
+   },
+   "record": "row_g1_j13_renewal.json",
+   "record_sha256": "d3f053523408322febba8901bdd3526ece3a91eef937602107f09a8f70119874",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 5645,
+   "K": 46580,
+   "Jeul": 20,
+   "relative_width_bits": {
+    "arrays": 259,
+    "W": 362
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L15",
+   "lean": "g=1 j=14",
+   "branch": "renewal",
+   "L": 5644,
+   "theta": "98",
+   "products": 603,
+   "seconds": 1254.1,
+   "root": {
+    "m_minus": "260216686.698968",
+    "m_plus": "260216686.698969",
+    "printed": 260216687,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.301",
+    "relative_margin": "1.157e-09",
+    "relative_width": "3.16e-65"
+   },
+   "face": {
+    "m_minus": "37145283.595605",
+    "m_plus": "37145283.595606",
+    "printed": 37159538,
+    "word": "AGREES",
+    "printed_minus_m_plus": "14254.404",
+    "relative_margin": "3.836e-04",
+    "relative_width": "4.20e-58"
+   },
+   "record": "row_g1_j14_renewal.json",
+   "record_sha256": "44fc09940c6ffc0d2ab30322a93032249259c84cbaf12815a52c7c960b96e491",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 6774,
+   "K": 46580,
+   "Jeul": 17,
+   "relative_width_bits": {
+    "arrays": 259,
+    "W": 363
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L16",
+   "lean": "g=1 j=15",
+   "branch": "renewal",
+   "L": 6773,
+   "theta": "82",
+   "products": 603,
+   "seconds": 1148.5,
+   "root": {
+    "m_minus": "3305952374.943114",
+    "m_plus": "3305952374.943115",
+    "printed": 3305952377,
+    "word": "AGREES",
+    "printed_minus_m_plus": "2.056",
+    "relative_margin": "6.222e-10",
+    "relative_width": "2.15e-65"
+   },
+   "face": {
+    "m_minus": "490355367.470690",
+    "m_plus": "490355367.470691",
+    "printed": 490372043,
+    "word": "AGREES",
+    "printed_minus_m_plus": "16675.529",
+    "relative_margin": "3.401e-05",
+    "relative_width": "2.44e-58"
+   },
+   "record": "row_g1_j15_renewal.json",
+   "record_sha256": "f3906741b449de47971fdb3277519c96a6ec2648d8a53173e7f6bc7c5e8b1fa5",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 8129,
+   "K": 46580,
+   "Jeul": 14,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 363
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L17",
+   "lean": "g=1 j=16",
+   "branch": "renewal",
+   "L": 8128,
+   "theta": "68",
+   "products": 603,
+   "seconds": 1145.5,
+   "root": {
+    "m_minus": "38054077502.585929",
+    "m_plus": "38054077502.585930",
+    "printed": 38054077523,
+    "word": "AGREES",
+    "printed_minus_m_plus": "20.414",
+    "relative_margin": "5.364e-10",
+    "relative_width": "1.64e-65"
+   },
+   "face": {
+    "m_minus": "5937762034.519492",
+    "m_plus": "5937762034.519493",
+    "printed": 5937779759,
+    "word": "AGREES",
+    "printed_minus_m_plus": "17724.480",
+    "relative_margin": "2.985e-06",
+    "relative_width": "1.58e-58"
+   },
+   "record": "row_g1_j16_renewal.json",
+   "record_sha256": "3b65d9f06da3f7bd999553cbd822091e54d5e91ad93089daad47067408e4d7c7",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 9754,
+   "K": 46580,
+   "Jeul": 12,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 364
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L18",
+   "lean": "g=1 j=17",
+   "branch": "renewal",
+   "L": 9753,
+   "theta": "57",
+   "products": 603,
+   "seconds": 1150.8,
+   "root": {
+    "m_minus": "352112118918.970467",
+    "m_plus": "352112118918.970468",
+    "printed": 352112119115,
+    "word": "AGREES",
+    "printed_minus_m_plus": "196.029",
+    "relative_margin": "5.567e-10",
+    "relative_width": "1.26e-65"
+   },
+   "face": {
+    "m_minus": "57993602243.890204",
+    "m_plus": "57993602243.890205",
+    "printed": 57993623042,
+    "word": "AGREES",
+    "printed_minus_m_plus": "20798.109",
+    "relative_margin": "3.586e-07",
+    "relative_width": "1.02e-58"
+   },
+   "record": "row_g1_j17_renewal.json",
+   "record_sha256": "a758176d104e1b326fb6140a9b58d0f3a9ca810689ed77d291b7d98085be11dd",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 11705,
+   "K": 46580,
+   "Jeul": 10,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L19",
+   "lean": "g=1 j=18",
+   "branch": "delay",
+   "L": 11704,
+   "theta": "47",
+   "products": 603,
+   "seconds": 1146.1,
+   "root": {
+    "m_minus": "3006707962469.348530",
+    "m_plus": "3006707962469.348531",
+    "printed": 3006707964277,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1807.651",
+    "relative_margin": "6.012e-10",
+    "relative_width": "1.12e-65"
+   },
+   "face": {
+    "m_minus": "529135124379.247300",
+    "m_plus": "529135124379.247301",
+    "printed": 529135146833,
+    "word": "AGREES",
+    "printed_minus_m_plus": "22453.752",
+    "relative_margin": "4.243e-08",
+    "relative_width": "7.49e-59"
+   },
+   "record": "row_g1_j18_delay.json",
+   "record_sha256": "b8e59c128285ab9d5041e9be90df7df2d0b6496d0f2a737d764d86e37d2a59ca",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 14046,
+   "K": 46580,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L20",
+   "lean": "g=1 j=19",
+   "branch": "delay",
+   "L": 14045,
+   "theta": "40",
+   "products": 603,
+   "seconds": 1143.7,
+   "root": {
+    "m_minus": "19352692634775.883702",
+    "m_plus": "19352692634775.883703",
+    "printed": 19352692647427,
+    "word": "AGREES",
+    "printed_minus_m_plus": "12651.116",
+    "relative_margin": "6.537e-10",
+    "relative_width": "9.12e-66"
+   },
+   "face": {
+    "m_minus": "3611707917092.393855",
+    "m_plus": "3611707917092.393856",
+    "printed": 3611707956032,
+    "word": "AGREES",
+    "printed_minus_m_plus": "38939.606",
+    "relative_margin": "1.078e-08",
+    "relative_width": "4.92e-59"
+   },
+   "record": "row_g1_j19_delay.json",
+   "record_sha256": "1cdc54311f9d78d354002a34d155dca73b1030e8ead2e2bb459bcf2e0b9a2971",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 16855,
+   "K": 46580,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L21",
+   "lean": "g=1 j=20",
+   "branch": "delay",
+   "L": 16854,
+   "theta": "37",
+   "products": 603,
+   "seconds": 1144.0,
+   "root": {
+    "m_minus": "14498518457995.574849",
+    "m_plus": "14498518457995.574850",
+    "printed": 14498518468563,
+    "word": "AGREES",
+    "printed_minus_m_plus": "10567.425",
+    "relative_margin": "7.289e-10",
+    "relative_width": "4.97e-66"
+   },
+   "face": {
+    "m_minus": "2872865667076.718092",
+    "m_plus": "2872865667076.718093",
+    "printed": 2872865686933,
+    "word": "AGREES",
+    "printed_minus_m_plus": "19856.281",
+    "relative_margin": "6.912e-09",
+    "relative_width": "2.00e-59"
+   },
+   "record": "row_g1_j20_delay.json",
+   "record_sha256": "90292a81c78c01d36c5bf2f40e75abdf80c4a397b09fadf722a855b9a9142183",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 18258,
+   "K": 46580,
+   "Jeul": 5,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 366
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O5/2",
+   "row": "L22",
+   "lean": "g=1 j=21",
+   "branch": "delay",
+   "L": 18257,
+   "theta": "34",
+   "products": 603,
+   "seconds": 1148.8,
+   "root": {
+    "m_minus": "28197429938216.297266",
+    "m_plus": "28197429938216.297267",
+    "printed": 28197429960534,
+    "word": "AGREES",
+    "printed_minus_m_plus": "22317.702",
+    "relative_margin": "7.915e-10",
+    "relative_width": "5.00e-66"
+   },
+   "face": {
+    "m_minus": "5897287425471.407835",
+    "m_plus": "5897287425471.407836",
+    "printed": 5897287451435,
+    "word": "AGREES",
+    "printed_minus_m_plus": "25963.592",
+    "relative_margin": "4.403e-09",
+    "relative_width": "1.76e-59"
+   },
+   "record": "row_g1_j21_delay.json",
+   "record_sha256": "3e0426ea5754f3d3141e4c86fcb620d1ebb86e413220424e6e0c38757a5a69ea",
+   "window_r": [
+    95599,
+    98263
+   ],
+   "H": 19660,
+   "K": 46580,
+   "Jeul": 5,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L1",
+   "lean": "g=2 j=0",
+   "branch": "renewal",
+   "L": 2331,
+   "theta": "140",
+   "products": 449,
+   "seconds": 916.3,
+   "inner": {
+    "m_minus": "25776.802058",
+    "m_plus": "25776.802059",
+    "printed": 25777,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.197",
+    "relative_margin": "7.679e-06",
+    "relative_width": "1.93e-36"
+   },
+   "record": "row_g2_j0_renewal.json",
+   "record_sha256": "4a206b60b90716d88276200f57cf855f06121edfa322491bc4d5225fb3a10dbb",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 4704,
+   "K": 44781,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 352
+   },
+   "tail_factor_minus_1": "1.928e-36"
+  },
+  {
+   "group": "I2old",
+   "row": "L2",
+   "lean": "g=2 j=1",
+   "branch": "renewal",
+   "L": 4703,
+   "theta": "68",
+   "products": 449,
+   "seconds": 906.8,
+   "inner": {
+    "m_minus": "1511410892.285037",
+    "m_plus": "1511410892.285038",
+    "printed": 1511410893,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.714",
+    "relative_margin": "4.730e-10",
+    "relative_width": "4.49e-65"
+   },
+   "record": "row_g2_j1_renewal.json",
+   "record_sha256": "15abd7e904ab6e004e0e35536f52aa4d17d0925f94be0fcf93ebcd73d62d7b94",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 9754,
+   "K": 44781,
+   "Jeul": 20,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 357
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L3",
+   "lean": "g=2 j=2",
+   "branch": "renewal",
+   "L": 9753,
+   "theta": "47",
+   "products": 449,
+   "seconds": 840.7,
+   "inner": {
+    "m_minus": "18120016646.671416",
+    "m_plus": "18120016646.671417",
+    "printed": 18120016651,
+    "word": "AGREES",
+    "printed_minus_m_plus": "4.328",
+    "relative_margin": "2.389e-10",
+    "relative_width": "9.79e-67"
+   },
+   "record": "row_g2_j2_renewal.json",
+   "record_sha256": "7948ff25362e1bb26530af2488bf265806e608184a87b6f35e843c2d8c8fd2f2",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 14046,
+   "K": 44781,
+   "Jeul": 10,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 358
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L4",
+   "lean": "g=2 j=3",
+   "branch": "delay",
+   "L": 14045,
+   "theta": "33",
+   "products": 449,
+   "seconds": 903.2,
+   "inner": {
+    "m_minus": "903601037891.512449",
+    "m_plus": "903601037891.512450",
+    "printed": 903601038105,
+    "word": "AGREES",
+    "printed_minus_m_plus": "213.487",
+    "relative_margin": "2.363e-10",
+    "relative_width": "6.08e-67"
+   },
+   "record": "row_g2_j3_delay.json",
+   "record_sha256": "5550042c88e3817b86214e1c4c36b034f6d684c075dce26e7ae0c5065f372425",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 20226,
+   "K": 44781,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 359
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L5",
+   "lean": "g=2 j=4",
+   "branch": "delay",
+   "L": 20225,
+   "theta": "30",
+   "products": 449,
+   "seconds": 901.5,
+   "inner": {
+    "m_minus": "425243194760.644766",
+    "m_plus": "425243194760.644767",
+    "printed": 425243194887,
+    "word": "AGREES",
+    "printed_minus_m_plus": "126.355",
+    "relative_margin": "2.971e-10",
+    "relative_width": "1.02e-67"
+   },
+   "record": "row_g2_j4_delay.json",
+   "record_sha256": "fc771513f4d64cb1aee86c85a11749f28c708ad84620bceef952291da417fa51",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 22390,
+   "K": 44781,
+   "Jeul": 4,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 360
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L1",
+   "lean": "g=3 j=0",
+   "branch": "renewal",
+   "L": 93,
+   "theta": "3520",
+   "products": 449,
+   "seconds": 893.3,
+   "inner": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "2.47e-34"
+   },
+   "record": "row_g3_j0_renewal.json",
+   "record_sha256": "7455a34327b247a6768d146174a5fab9b8a7fe8702335f3351188144785c427a",
+   "window_r": [
+    89431,
+    89524
+   ],
+   "H": 188,
+   "K": 35265,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 362
+   },
+   "tail_factor_minus_1": "2.468e-34"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L2",
+   "lean": "g=3 j=1",
+   "branch": "renewal",
+   "L": 187,
+   "theta": "700",
+   "products": 449,
+   "seconds": 880.7,
+   "inner": {
+    "m_minus": "3229103.491985",
+    "m_plus": "3229103.491986",
+    "printed": 3229104,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.508",
+    "relative_margin": "1.573e-07",
+    "relative_width": "3.08e-35"
+   },
+   "record": "row_g3_j1_renewal.json",
+   "record_sha256": "fc8d57bff2def41384c1080ff61ab8b8f5ca246efcad902239f8c68ef963ecf9",
+   "window_r": [
+    88961,
+    89524
+   ],
+   "H": 941,
+   "K": 35265,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "3.084e-35"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L3",
+   "lean": "g=3 j=2",
+   "branch": "renewal",
+   "L": 940,
+   "theta": "208",
+   "products": 449,
+   "seconds": 885.7,
+   "inner": {
+    "m_minus": "29825525.309992",
+    "m_plus": "29825525.309993",
+    "printed": 29825526,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.690",
+    "relative_margin": "2.313e-08",
+    "relative_width": "7.71e-36"
+   },
+   "record": "row_g3_j2_renewal.json",
+   "record_sha256": "e85ab39b240b3b37905803b5dfab5dbce5eaa6fec4dd2fc5721a09ce22f0e27a",
+   "window_r": [
+    87195,
+    89524
+   ],
+   "H": 3176,
+   "K": 35265,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 260,
+    "W": 359
+   },
+   "tail_factor_minus_1": "7.711e-36"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L4",
+   "lean": "g=3 j=3",
+   "branch": "renewal",
+   "L": 3175,
+   "theta": "82",
+   "products": 449,
+   "seconds": 878.3,
+   "inner": {
+    "m_minus": "77797373069.927837",
+    "m_plus": "77797373069.927838",
+    "printed": 77797373079,
+    "word": "AGREES",
+    "printed_minus_m_plus": "9.072",
+    "relative_margin": "1.166e-10",
+    "relative_width": "1.93e-36"
+   },
+   "record": "row_g3_j3_renewal.json",
+   "record_sha256": "eef7255fbbbb110715b018c5fad433c4b225a0073fb865f14580bf195333e1d8",
+   "window_r": [
+    87195,
+    89524
+   ],
+   "H": 8129,
+   "K": 35265,
+   "Jeul": 30,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 364
+   },
+   "tail_factor_minus_1": "1.928e-36"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L5",
+   "lean": "g=3 j=4",
+   "branch": "renewal",
+   "L": 8128,
+   "theta": "57",
+   "products": 449,
+   "seconds": 835.8,
+   "inner": {
+    "m_minus": "131978724871.630149",
+    "m_plus": "131978724871.630150",
+    "printed": 131978724894,
+    "word": "AGREES",
+    "printed_minus_m_plus": "22.369",
+    "relative_margin": "1.695e-10",
+    "relative_width": "9.20e-67"
+   },
+   "record": "row_g3_j4_renewal.json",
+   "record_sha256": "95a9ef6569f96a8991bde2a9b9a157712be25043d829383ad1db063dec6aa427",
+   "window_r": [
+    87195,
+    89524
+   ],
+   "H": 11705,
+   "K": 35265,
+   "Jeul": 12,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L6",
+   "lean": "g=3 j=5",
+   "branch": "delay",
+   "L": 11704,
+   "theta": "47",
+   "products": 449,
+   "seconds": 982.8,
+   "inner": {
+    "m_minus": "292684783672.058871",
+    "m_plus": "292684783672.058872",
+    "printed": 292684783730,
+    "word": "AGREES",
+    "printed_minus_m_plus": "57.941",
+    "relative_margin": "1.980e-10",
+    "relative_width": "2.78e-67"
+   },
+   "record": "row_g3_j5_delay.json",
+   "record_sha256": "ffbf40a1340f04736f92060faf70fe0c9f9fa232510763c7817ca5a2443a5b1f",
+   "window_r": [
+    87195,
+    89524
+   ],
+   "H": 14046,
+   "K": 35265,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L7",
+   "lean": "g=3 j=6",
+   "branch": "delay",
+   "L": 14045,
+   "theta": "37",
+   "products": 449,
+   "seconds": 835.2,
+   "inner": {
+    "m_minus": "5548294544361.007737",
+    "m_plus": "5548294544361.007738",
+    "printed": 5548294545493,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1131.992",
+    "relative_margin": "2.040e-10",
+    "relative_width": "3.54e-67"
+   },
+   "record": "row_g3_j6_delay.json",
+   "record_sha256": "742d292d82e50c64d0b85c2ceea6537874db8fb264e6a7554913c3754145d463",
+   "window_r": [
+    87195,
+    89524
+   ],
+   "H": 17912,
+   "K": 35265,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 365
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2new",
+   "row": "L1",
+   "lean": "g=4 j=0",
+   "branch": "renewal",
+   "L": 2667,
+   "theta": "117",
+   "products": 449,
+   "seconds": 960.8,
+   "inner": {
+    "m_minus": "467788.558503",
+    "m_plus": "467788.558504",
+    "printed": 467789,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.441",
+    "relative_margin": "9.438e-07",
+    "relative_width": "9.64e-37"
+   },
+   "record": "row_g4_j0_renewal.json",
+   "record_sha256": "80b517e4ce2fd34114ee66faf3343f6aa505de1f371955817c8bf658d34676c2",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 5645,
+   "K": 44976,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 353
+   },
+   "tail_factor_minus_1": "9.639e-37"
+  },
+  {
+   "group": "I2new",
+   "row": "L2",
+   "lean": "g=4 j=1",
+   "branch": "renewal",
+   "L": 5644,
+   "theta": "68",
+   "products": 449,
+   "seconds": 987.9,
+   "inner": {
+    "m_minus": "381747796.031854",
+    "m_plus": "381747796.031855",
+    "printed": 381747797,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.968",
+    "relative_margin": "2.536e-09",
+    "relative_width": "8.91e-66"
+   },
+   "record": "row_g4_j1_renewal.json",
+   "record_sha256": "387bd9db8caee2deeae1077272d44894a19658f9fca618976d7d780b1030bae7",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 9754,
+   "K": 44976,
+   "Jeul": 17,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 357
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2new",
+   "row": "L3",
+   "lean": "g=4 j=2",
+   "branch": "renewal",
+   "L": 9753,
+   "theta": "57",
+   "products": 449,
+   "seconds": 834.7,
+   "inner": {
+    "m_minus": "386210859.785072",
+    "m_plus": "386210859.785073",
+    "printed": 386210860,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.214",
+    "relative_margin": "5.565e-10",
+    "relative_width": "3.70e-67"
+   },
+   "record": "row_g4_j2_renewal.json",
+   "record_sha256": "a744aacf698a190d11b978d592a70c9e57a088ba1bdcaec12186fcfa01f357b2",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 11705,
+   "K": 44976,
+   "Jeul": 10,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 358
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2new",
+   "row": "L4",
+   "lean": "g=4 j=3",
+   "branch": "delay",
+   "L": 11704,
+   "theta": "40",
+   "products": 449,
+   "seconds": 836.1,
+   "inner": {
+    "m_minus": "99885644255.301786",
+    "m_plus": "99885644255.301787",
+    "printed": 99885644276,
+    "word": "AGREES",
+    "printed_minus_m_plus": "20.698",
+    "relative_margin": "2.072e-10",
+    "relative_width": "7.67e-67"
+   },
+   "record": "row_g4_j3_delay.json",
+   "record_sha256": "3bf627471db60373e231c39193295dcbfbdefcd22e4b03f4e219ee0ac9fb2425",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 16855,
+   "K": 44976,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 359
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2new",
+   "row": "L5",
+   "lean": "g=4 j=4",
+   "branch": "delay",
+   "L": 16854,
+   "theta": "33",
+   "products": 449,
+   "seconds": 832.2,
+   "inner": {
+    "m_minus": "247732012999.594144",
+    "m_plus": "247732012999.594145",
+    "printed": 247732013063,
+    "word": "AGREES",
+    "printed_minus_m_plus": "63.405",
+    "relative_margin": "2.559e-10",
+    "relative_width": "2.13e-67"
+   },
+   "record": "row_g4_j4_delay.json",
+   "record_sha256": "74d52ba98b3efd83256b8f9a5b4d04ed0273c3521129503564f984bc445aaaf2",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 20226,
+   "K": 44976,
+   "Jeul": 5,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 359
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2new",
+   "row": "L6",
+   "lean": "g=4 j=5",
+   "branch": "delay",
+   "L": 20225,
+   "theta": "30",
+   "products": 449,
+   "seconds": 836.2,
+   "inner": {
+    "m_minus": "381057139885.541330",
+    "m_plus": "381057139885.541331",
+    "printed": 381057139991,
+    "word": "AGREES",
+    "printed_minus_m_plus": "105.458",
+    "relative_margin": "2.768e-10",
+    "relative_width": "1.13e-67"
+   },
+   "record": "row_g4_j5_delay.json",
+   "record_sha256": "842d203eef7f246e776d198bd7be196a0cf5eaa1e94423ea7409fce562d4cf5e",
+   "window_r": [
+    85162,
+    87288
+   ],
+   "H": 22488,
+   "K": 44976,
+   "Jeul": 4,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 360
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L1",
+   "lean": "g=5 j=0",
+   "branch": "renewal",
+   "L": 3,
+   "theta": "133874",
+   "products": 449,
+   "seconds": 884.9,
+   "inner": {
+    "m_minus": "1.522173",
+    "m_plus": "1.522174",
+    "printed": 2,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.477",
+    "relative_margin": "2.389e-01",
+    "relative_width": "3.95e-33"
+   },
+   "record": "row_g5_j0_renewal.json",
+   "record_sha256": "7200f759dda0f7a71b3c4308e68d783a86ecf01c81ccc6e82093ba556ab71060",
+   "window_r": [
+    89910,
+    89914
+   ],
+   "H": 7,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 363
+   },
+   "tail_factor_minus_1": "3.948e-33"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L2",
+   "lean": "g=5 j=1",
+   "branch": "renewal",
+   "L": 6,
+   "theta": "16735",
+   "products": 449,
+   "seconds": 915.6,
+   "inner": {
+    "m_minus": "107126908275.949385",
+    "m_plus": "107126908275.949386",
+    "printed": 107126908277,
+    "word": "AGREES",
+    "printed_minus_m_plus": "1.050",
+    "relative_margin": "9.807e-12",
+    "relative_width": "9.87e-34"
+   },
+   "record": "row_g5_j1_renewal.json",
+   "record_sha256": "bd5358b84c8b42417d20379525b9b4004e82ffed94ad6bcdce44bec368cbbea1",
+   "window_r": [
+    89877,
+    89914
+   ],
+   "H": 51,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "9.870e-34"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L3",
+   "lean": "g=5 j=2",
+   "branch": "renewal",
+   "L": 50,
+   "theta": "4184",
+   "products": 449,
+   "seconds": 878.1,
+   "inner": {
+    "m_minus": "0.451456",
+    "m_plus": "0.451457",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.548",
+    "relative_margin": "5.485e-01",
+    "relative_width": "2.47e-34"
+   },
+   "record": "row_g5_j2_renewal.json",
+   "record_sha256": "fd989df8fd0ba15799031ef073a27f0721689603a745a2fe77c690ef4eec1422",
+   "window_r": [
+    89757,
+    89914
+   ],
+   "H": 203,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "2.468e-34"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L4",
+   "lean": "g=5 j=3",
+   "branch": "renewal",
+   "L": 202,
+   "theta": "1046",
+   "products": 449,
+   "seconds": 873.5,
+   "inner": {
+    "m_minus": "60.522710",
+    "m_plus": "60.522711",
+    "printed": 61,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.477",
+    "relative_margin": "7.824e-03",
+    "relative_width": "6.17e-35"
+   },
+   "record": "row_g5_j3_renewal.json",
+   "record_sha256": "5d52fd8734ecf5362083fa79a6291f5589e21c0243cee275cf7ac3194177d5ce",
+   "window_r": [
+    89265,
+    89914
+   ],
+   "H": 810,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "6.169e-35"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L5",
+   "lean": "g=5 j=4",
+   "branch": "renewal",
+   "L": 809,
+   "theta": "400",
+   "products": 449,
+   "seconds": 884.5,
+   "inner": {
+    "m_minus": "136.803178",
+    "m_plus": "136.803179",
+    "printed": 137,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.196",
+    "relative_margin": "1.437e-03",
+    "relative_width": "1.54e-35"
+   },
+   "record": "row_g5_j4_renewal.json",
+   "record_sha256": "a1a82aecb63fe688e9432141ed4af7a9e5b20c2bc003b63f1a295e554258ca86",
+   "window_r": [
+    88250,
+    89914
+   ],
+   "H": 2117,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "1.542e-35"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L6",
+   "lean": "g=5 j=5",
+   "branch": "renewal",
+   "L": 2116,
+   "theta": "150",
+   "products": 449,
+   "seconds": 906.7,
+   "inner": {
+    "m_minus": "177471602.235536",
+    "m_plus": "177471602.235537",
+    "printed": 177471603,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.764",
+    "relative_margin": "4.308e-09",
+    "relative_width": "7.71e-36"
+   },
+   "record": "row_g5_j5_renewal.json",
+   "record_sha256": "33b117a3e817ecbae4709617adf7f23c7b364bf96d8b947f8f62ff6ad45fd4b3",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 5645,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 365
+   },
+   "tail_factor_minus_1": "7.711e-36"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L7",
+   "lean": "g=5 j=6",
+   "branch": "renewal",
+   "L": 5644,
+   "theta": "105",
+   "products": 449,
+   "seconds": 844.7,
+   "inner": {
+    "m_minus": "327802575.107956",
+    "m_plus": "327802575.107957",
+    "printed": 327802576,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.892",
+    "relative_margin": "2.721e-09",
+    "relative_width": "6.90e-67"
+   },
+   "record": "row_g5_j6_renewal.json",
+   "record_sha256": "78518687a2af2c090826ce3fde07650dda882f8467c5bc9d778d95881bdb6126",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 8129,
+   "K": 35419,
+   "Jeul": 17,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 367
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L8",
+   "lean": "g=5 j=7",
+   "branch": "renewal",
+   "L": 8128,
+   "theta": "73",
+   "products": 449,
+   "seconds": 903.2,
+   "inner": {
+    "m_minus": "50667881708.658794",
+    "m_plus": "50667881708.658795",
+    "printed": 50667881720,
+    "word": "AGREES",
+    "printed_minus_m_plus": "11.341",
+    "relative_margin": "2.238e-10",
+    "relative_width": "3.66e-67"
+   },
+   "record": "row_g5_j7_renewal.json",
+   "record_sha256": "7ab3e62df7bcb668378a017d646ebe614f1dc25cc598c2af2337e6f55eb57843",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 11705,
+   "K": 35419,
+   "Jeul": 12,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 368
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L9",
+   "lean": "g=5 j=8",
+   "branch": "delay",
+   "L": 11704,
+   "theta": "61",
+   "products": 449,
+   "seconds": 853.8,
+   "inner": {
+    "m_minus": "143104919723.572205",
+    "m_plus": "143104919723.572206",
+    "printed": 143104919759,
+    "word": "AGREES",
+    "printed_minus_m_plus": "35.427",
+    "relative_margin": "2.476e-10",
+    "relative_width": "1.53e-67"
+   },
+   "record": "row_g5_j8_delay.json",
+   "record_sha256": "f3cf2f4fc96e9afc03b30b94cad8a7211489a56db40ca497a5cfd0cabbe8b768",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 14046,
+   "K": 35419,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 369
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L10",
+   "lean": "g=5 j=9",
+   "branch": "delay",
+   "L": 14045,
+   "theta": "51",
+   "products": 449,
+   "seconds": 849.4,
+   "inner": {
+    "m_minus": "1323952422530.081786",
+    "m_plus": "1323952422530.081787",
+    "printed": 1323952422879,
+    "word": "AGREES",
+    "printed_minus_m_plus": "348.918",
+    "relative_margin": "2.635e-10",
+    "relative_width": "1.27e-67"
+   },
+   "record": "row_g5_j9_delay.json",
+   "record_sha256": "b1dfcd70e3437ef7c31bb5bbf6f127a04f2b64aeea067a250312c1e69cf7ecfd",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 16855,
+   "K": 35419,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 369
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L11",
+   "lean": "g=5 j=10",
+   "branch": "delay",
+   "L": 16854,
+   "theta": "48",
+   "products": 449,
+   "seconds": 828.1,
+   "inner": {
+    "m_minus": "697854132550.182522",
+    "m_plus": "697854132550.182523",
+    "printed": 697854132745,
+    "word": "AGREES",
+    "printed_minus_m_plus": "194.817",
+    "relative_margin": "2.792e-10",
+    "relative_width": "9.67e-68"
+   },
+   "record": "row_g5_j10_delay.json",
+   "record_sha256": "81fed3d65a1a14c48ce3bf89be3df57f5f9d3aeeee04c397f8fa76e962bd90ba",
+   "window_r": [
+    87250,
+    89914
+   ],
+   "H": 17990,
+   "K": 35419,
+   "Jeul": 5,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 369
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  }
+ ],
+ "rows_other_branch_reading": [
+  {
+   "group": "O2",
+   "row": "L4",
+   "lean": "g=0 j=3",
+   "branch": "delay",
+   "L": 9753,
+   "theta": "57",
+   "products": 603,
+   "seconds": 1154.9,
+   "root": {
+    "m_minus": "3056104584.907699",
+    "m_plus": "3056104584.907700",
+    "printed": 3056104728,
+    "word": "AGREES",
+    "printed_minus_m_plus": "143.092",
+    "relative_margin": "4.682e-08",
+    "relative_width": "1.30e-65"
+   },
+   "face": {
+    "m_minus": "915663236.639856",
+    "m_plus": "915663236.639857",
+    "printed": 915663654,
+    "word": "AGREES",
+    "printed_minus_m_plus": "417.360",
+    "relative_margin": "4.558e-07",
+    "relative_width": "1.72e-58"
+   },
+   "record": "row_g0_j3_delay.json",
+   "record_sha256": "68cedb314658a3648d06b7e44f4bbcf1ec482d780a12b9d0cff77d127377b7d1",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 11705,
+   "K": 49152,
+   "Jeul": 10,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 354
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "O2",
+   "row": "L5",
+   "lean": "g=0 j=4",
+   "branch": "renewal",
+   "L": 11704,
+   "theta": "47",
+   "products": 603,
+   "seconds": 1154.6,
+   "root": {
+    "m_minus": "37877641409.451526",
+    "m_plus": "37877641409.451527",
+    "printed": 37877639997,
+    "word": "DIFFERS",
+    "printed_minus_m_plus": "-1412.452",
+    "relative_margin": "-3.729e-08",
+    "relative_width": "1.07e-65"
+   },
+   "face": {
+    "m_minus": "12045112521.858735",
+    "m_plus": "12045112521.858736",
+    "printed": 12045112668,
+    "word": "AGREES",
+    "printed_minus_m_plus": "146.141",
+    "relative_margin": "1.213e-08",
+    "relative_width": "1.30e-58"
+   },
+   "record": "row_g0_j4_renewal.json",
+   "record_sha256": "758fbf55e7bf6db725ee90a6d7c9a3cc8cd8c00242e6c2feceed9e2c58cf7e71",
+   "window_r": [
+    89197,
+    95638
+   ],
+   "H": 14046,
+   "K": 49152,
+   "Jeul": 8,
+   "relative_width_bits": {
+    "arrays": 257,
+    "W": 355
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L1",
+   "lean": "g=2 j=0",
+   "branch": "delay",
+   "L": 2331,
+   "theta": "140",
+   "products": 449,
+   "seconds": 859.3,
+   "inner": {
+    "m_minus": "25776.592918",
+    "m_plus": "25776.592919",
+    "printed": 25777,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.407",
+    "relative_margin": "1.579e-05",
+    "relative_width": "4.50e-64"
+   },
+   "record": "row_g2_j0_delay.json",
+   "record_sha256": "448034c20917d98067ba6620309607eac66697592343d81dce1800ee2ff88fdc",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 4704,
+   "K": 44781,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 258,
+    "W": 352
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I2old",
+   "row": "L4",
+   "lean": "g=2 j=3",
+   "branch": "renewal",
+   "L": 14045,
+   "theta": "33",
+   "products": 449,
+   "seconds": 827.6,
+   "inner": {
+    "m_minus": "903601104662.408312",
+    "m_plus": "903601104662.408313",
+    "printed": 903601038105,
+    "word": "DIFFERS",
+    "printed_minus_m_plus": "-66557.409",
+    "relative_margin": "-7.366e-08",
+    "relative_width": "6.08e-67"
+   },
+   "record": "row_g2_j3_renewal.json",
+   "record_sha256": "8252d04625a2fb3d57ce40bc98b7db76329f04a10fffd8bfd5e80d3bcb46ae36",
+   "window_r": [
+    84931,
+    87233
+   ],
+   "H": 20226,
+   "K": 44781,
+   "Jeul": 6,
+   "relative_width_bits": {
+    "arrays": 256,
+    "W": 359
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  },
+  {
+   "group": "I5/2old",
+   "row": "L1",
+   "lean": "g=3 j=0",
+   "branch": "delay",
+   "L": 93,
+   "theta": "3520",
+   "products": 449,
+   "seconds": 979.4,
+   "inner": {
+    "m_minus": "0.000000",
+    "m_plus": "0.000001",
+    "printed": 1,
+    "word": "AGREES",
+    "printed_minus_m_plus": "0.999",
+    "relative_margin": "1.000e+00",
+    "relative_width": "3.07e-58"
+   },
+   "record": "row_g3_j0_delay.json",
+   "record_sha256": "3f987182e41d99539d3f012fc9732ff6376788f0b612c7e0b9cf949f57c5731a",
+   "window_r": [
+    89431,
+    89524
+   ],
+   "H": 188,
+   "K": 35265,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 362
+   },
+   "tail_factor_minus_1": "0.000e+00"
+  }
+ ],
+ "controls": [
+  {
+   "group": "I5/2new",
+   "row": "L2",
+   "lean": "g=5 j=1",
+   "branch": "renewal",
+   "L": 6,
+   "theta": "16735",
+   "products": 449,
+   "seconds": 916.9,
+   "inner": {
+    "m_minus": "106207196722.878713",
+    "m_plus": "106207196722.878714",
+    "printed": 107126908277,
+    "word": "AGREES",
+    "printed_minus_m_plus": "919711554.121",
+    "relative_margin": "8.585e-03",
+    "relative_width": "9.87e-34"
+   },
+   "record": "row_g5_j1_renewal_ctlHminus.json",
+   "record_sha256": "b93f5685392b98cbcb3e4a4ac3e9e8cc533a80ee330420d033e6d9ed37394eb7",
+   "window_r": [
+    89877,
+    89914
+   ],
+   "H": 51,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "9.870e-34"
+  },
+  {
+   "group": "I5/2new",
+   "row": "L2",
+   "lean": "g=5 j=1",
+   "branch": "renewal",
+   "L": 6,
+   "theta": "16735",
+   "products": 449,
+   "seconds": 902.4,
+   "inner": {
+    "m_minus": "108027124136.276572",
+    "m_plus": "108027124136.276573",
+    "printed": 107126908277,
+    "word": "DIFFERS",
+    "printed_minus_m_plus": "-900215859.277",
+    "relative_margin": "-8.403e-03",
+    "relative_width": "9.87e-34"
+   },
+   "record": "row_g5_j1_renewal_ctlHplus.json",
+   "record_sha256": "8a26659b4b5f35adb3f5af9bc330d02c85b490365e33134ba80e124073169b5e",
+   "window_r": [
+    89877,
+    89914
+   ],
+   "H": 51,
+   "K": 35419,
+   "Jeul": 32,
+   "relative_width_bits": {
+    "arrays": 261,
+    "W": 361
+   },
+   "tail_factor_minus_1": "9.870e-34"
+  }
+ ]
+}

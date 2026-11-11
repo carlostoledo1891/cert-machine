@@ -1,0 +1,328 @@
+{
+ "what": "The Lean intake of OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms against the release's own statement file, Challenge.lean, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.34.0-rc2).",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-ax2/spec.json",
+  "sha256": "3afce705079a20c7d8f4c6562651baa905d6ca8845beab530a0ba539ffe835d7",
+  "amendments": 1
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/pg186-ax2/runs/2026-11-10",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 48,
+   "memGB": 377
+  },
+  "stepSeconds": 337.1,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "path": "Challenge.lean",
+   "decl": "PrimeGap186.kloosterman2_correlation_bound",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  },
+  "claim": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "file": "PrimeGaps186.lean",
+   "decl": "PrimeGap186.kloosterman2_correlation_bound",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [
+   75648,
+   75665
+  ],
+  "native_decide": [],
+  "axiom": [
+   147,
+   159,
+   1055
+  ],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "wrongRefused": "7 of 7",
+   "sameAccepted": "2 of 2",
+   "asPreregistered": "9 of 9",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "0 of 0",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "an axiom about every prime: phases A and A′ decided its instances for every prime below 2,000 with two exact deciders; the kernel cannot evaluate complex exponentials on instances"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "∀ (p : ℕ) [inst : Fact (Nat.Prime p)] (A B : ZMod p),\n  A ≠ 0 →\n    B ≠ 0 →\n      ‖∑ t,\n            if t ≠ 0 ∧ t ≠ -1 then\n              IntakeCanon.PrimeGap186.unnormalizedKloosterman2 p (A / t) *\n                IntakeCanon.PrimeGap186.unnormalizedKloosterman2 p (B / (t + 1))\n            else 0‖ ≤\n        8 * ↑p * √↑p",
+  "claim": "∀ (p : ℕ) [inst : Fact (Nat.Prime p)] (A B : ZMod p),\n  A ≠ 0 →\n    B ≠ 0 →\n      ‖∑ t,\n            if t ≠ 0 ∧ t ≠ -1 then\n              PrimeGap186.unnormalizedKloosterman2 p (A / t) * PrimeGap186.unnormalizedKloosterman2 p (B / (t + 1))\n            else 0‖ ≤\n        8 * ↑p * √↑p",
+  "seconds": 10.2,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's PrimeGap186.kloosterman2_correlation_bound as a proof of PrimeGap186.kloosterman2_correlation_bound's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding; the statement is read from a copy of the canonical file with one line added after its imports (`namespace IntakeCanon`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (3, 3 constants); CONDITIONAL on the canonical file's own axioms PrimeGap186.kloosterman2_correlation_bound: the claimant's proof rests on its axioms of those names, and each is the canonical one, its statement and every definition under it identical name for name (3 constants)",
+  "selfContained": {
+   "copy": {
+    "canonicalSha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+    "copy": "Intake/Canon/C_Challenge.lean",
+    "copySha256": "a5c66a43bdc71c1879197dcd57a9168456bfd567bb4a740179e55424a24415cb",
+    "addedLine": 2,
+    "added": "namespace IntakeCanon",
+    "check": "the copy without that line is the canonical file, byte for byte"
+   },
+   "copyIsCanonical": {
+    "bytes": true,
+    "exit": "0",
+    "declarations": [
+     {
+      "decl": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "statementAsWritten": {
+    "identical": true,
+    "constants": 3,
+    "difference": null
+   },
+   "axioms": {
+    "exit": "0",
+    "pairs": [
+     {
+      "canonical": "PrimeGap186.kloosterman2_correlation_bound",
+      "claim": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "conditionalOn": [
+    "PrimeGap186.kloosterman2_correlation_bound"
+   ]
+  }
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "witness": "a model of the hypotheses: p = 3, A = 1, B = 1",
+  "seconds": 32.9,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the axiom's statement copied verbatim",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 9
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the bound variable t renamed s",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 9
+  },
+  {
+   "id": "W1",
+   "kind": "wrong",
+   "why": "phase A's R2: 8√p for 8p√p",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.6
+  },
+  {
+   "id": "W2",
+   "kind": "wrong",
+   "why": "phase A's R4: the constant 8 made 4",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.7
+  },
+  {
+   "id": "W3",
+   "kind": "wrong",
+   "why": "the pole t = -1 not excluded",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 12.4
+  },
+  {
+   "id": "W4",
+   "kind": "wrong",
+   "why": "the shift dropped: B / t for B / (t + 1)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 19.6
+  },
+  {
+   "id": "W5",
+   "kind": "wrong",
+   "why": "the hypothesis A ≠ 0 dropped",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 16.1
+  },
+  {
+   "id": "W6",
+   "kind": "wrong",
+   "why": "the two sums added, not multiplied",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 17,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 20
+  },
+  {
+   "id": "N1",
+   "kind": "wrong",
+   "why": "ℕ made ℤ in the type of p: another type (refused, or the statement does not elaborate)",
+   "expect": "NOT ACCEPTED",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Invalid field `Prime`: The environment does not contain `Int.Prime`, so it is not possible to project the field `Prime` from an expression"
+    },
+    {
+     "line": 10,
+     "text": "Application type mismatch: The argument"
+    },
+    {
+     "line": 10,
+     "text": "Application type mismatch: The argument"
+    }
+   ],
+   "seconds": 10.7
+  }
+ ],
+ "reds": [],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 10.2
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.34.0-rc2)",
+   "word": "ACCEPTS",
+   "seconds": 17.8
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "9f8e2928587810d64314d9ed09e3bde4573584f92378584d418ff021419d8a8b",
+    "bytes": 74149609
+   },
+   "seconds": 1.7
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null,
+ "conditionalOn": {
+  "axioms": [
+   "PrimeGap186.kloosterman2_correlation_bound"
+  ],
+  "note": "CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them."
+ }
+}

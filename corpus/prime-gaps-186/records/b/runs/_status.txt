@@ -1,0 +1,107 @@
+2026-11-10T12:28:34Z start cache-w0 (dir /root/b/w0/PrimeGaps186, timeout 3600s, rss limit 16 GB)
+2026-11-10T12:30:16Z end cache-w0 exit 0 wall 102s maxRSS(time -v) 1011592 KB peak-session-RSS 1773028 KB
+2026-11-10T12:30:16Z start cache-wc (dir /root/b/wc/PrimeGaps186, timeout 3600s, rss limit 16 GB)
+2026-11-10T12:31:11Z start b1-build (dir /root/b/w0/PrimeGaps186, timeout 21600s, rss limit 100 GB)
+2026-11-10T12:31:11Z start t-go (dir /root/b/src, timeout 1800s, rss limit 4 GB)
+2026-11-10T12:31:15Z end t-go exit 0 wall 4s maxRSS(time -v) 21180 KB peak-session-RSS 11556 KB
+2026-11-10T12:31:15Z start t-landrun (dir /root/b/src, timeout 1800s, rss limit 4 GB)
+2026-11-10T12:31:21Z end t-landrun exit 0 wall 6s maxRSS(time -v) 220660 KB peak-session-RSS 155116 KB
+2026-11-10T12:31:21Z start t-rustup (dir /root/b, timeout 1800s, rss limit 4 GB)
+2026-11-10T12:31:31Z end t-rustup exit 0 wall 10s maxRSS(time -v) 649852 KB peak-session-RSS 655752 KB
+2026-11-10T12:31:31Z start t-nanoda (dir /root/b/src, timeout 1800s, rss limit 8 GB)
+2026-11-10T12:31:40Z start wa-cache (dir /root/b/wa, timeout 3600s, rss limit 16 GB)
+2026-11-10T12:31:46Z end cache-wc exit 0 wall 90s maxRSS(time -v) 1010108 KB peak-session-RSS 1746692 KB
+2026-11-10T12:31:51Z end t-nanoda exit 0 wall 20s maxRSS(time -v) 383840 KB peak-session-RSS 751412 KB
+2026-11-10T12:31:51Z start t-lean4export (dir /root/b/src, timeout 1800s, rss limit 8 GB)
+2026-11-10T12:32:02Z end t-lean4export exit 0 wall 11s maxRSS(time -v) 1686836 KB peak-session-RSS 1807384 KB
+2026-11-10T12:32:02Z start t-conron (dir /root/b/src, timeout 1800s, rss limit 12 GB)
+2026-11-10T12:32:06Z start b2-landrun-probe (dir /root/b/wc/PrimeGaps186, timeout 120s, rss limit 2 GB)
+2026-11-10T12:32:08Z end b2-landrun-probe exit 0 wall 2s maxRSS(time -v) 6128 KB peak-session-RSS 1608 KB
+2026-11-10T12:32:08Z start b2-comparator (dir /root/b/wc/PrimeGaps186, timeout 28800s, rss limit 100 GB)
+2026-11-10T12:32:26Z end t-conron exit 0 wall 24s maxRSS(time -v) 403156 KB peak-session-RSS 719136 KB
+2026-11-10T12:32:26Z start t-lean4lean (dir /root/b/src, timeout 1800s, rss limit 12 GB)
+2026-11-10T12:33:25Z end wa-cache exit 0 wall 105s maxRSS(time -v) 1006900 KB peak-session-RSS 1740100 KB
+2026-11-10T12:33:25Z start wa-challenge (dir /root/b/wa, timeout 3600s, rss limit 32 GB)
+2026-11-10T12:33:26Z end t-lean4lean exit 0 wall 60s maxRSS(time -v) 1724596 KB peak-session-RSS 3501816 KB
+2026-11-10T12:33:26Z start t-conleche (dir /root/b/src, timeout 1800s, rss limit 16 GB)
+2026-11-10T12:33:53Z end wa-challenge exit 0 wall 28s maxRSS(time -v) 6927792 KB peak-session-RSS 7919028 KB
+2026-11-10T12:36:51Z start b7-anchors-wa (dir /root/b/wa, timeout 1800s, rss limit 32 GB)
+2026-11-10T12:37:05Z end b7-anchors-wa exit 0 wall 14s maxRSS(time -v) 6883812 KB peak-session-RSS 7662684 KB
+2026-11-10T12:37:21Z start b8-venv-0.9.0 (dir /root/b/c0, timeout 1800s, rss limit 8 GB)
+2026-11-10T12:37:28Z end t-conleche exit 0 wall 242s maxRSS(time -v) 1362756 KB peak-session-RSS 3050880 KB
+2026-11-10T12:37:28Z tools: done
+2026-11-10T12:37:29Z end b8-venv-0.9.0 exit 0 wall 8s maxRSS(time -v) 104116 KB peak-session-RSS 94056 KB
+2026-11-10T12:37:29Z start b8-c0a-0.9.0 (dir /root/b/c0, timeout 600s, rss limit 8 GB)
+2026-11-10T12:37:31Z end b8-c0a-0.9.0 exit 1 wall 2s maxRSS(time -v) 23356 KB peak-session-RSS 1584 KB
+2026-11-10T12:37:31Z start b8-diag-0.9.0 (dir /root/b/c0, timeout 600s, rss limit 8 GB)
+2026-11-10T12:37:33Z end b8-diag-0.9.0 exit 0 wall 2s maxRSS(time -v) 24192 KB peak-session-RSS 10024 KB
+2026-11-10T12:37:33Z start b8-venv-0.8.0 (dir /root/b/c0, timeout 1800s, rss limit 8 GB)
+2026-11-10T12:37:47Z end b8-venv-0.8.0 exit 0 wall 14s maxRSS(time -v) 104984 KB peak-session-RSS 95912 KB
+2026-11-10T12:37:47Z start b8-c0a-0.8.0 (dir /root/b/c0, timeout 600s, rss limit 8 GB)
+2026-11-10T12:37:49Z end b8-c0a-0.8.0 exit 1 wall 2s maxRSS(time -v) 22320 KB peak-session-RSS 3628 KB
+2026-11-10T12:37:49Z start b8-diag-0.8.0 (dir /root/b/c0, timeout 600s, rss limit 8 GB)
+2026-11-10T12:37:51Z end b8-diag-0.8.0 exit 1 wall 2s maxRSS(time -v) 23088 KB peak-session-RSS 12644 KB
+2026-11-10T12:37:51Z b8: done
+2026-11-10T12:42:20Z end b1-build exit 0 wall 669s maxRSS(time -v) 28117584 KB peak-session-RSS 29171556 KB
+2026-11-10T12:42:20Z start b1-challenge (dir /root/b/w0/PrimeGaps186, timeout 3600s, rss limit 32 GB)
+2026-11-10T12:42:30Z end b1-challenge exit 0 wall 10s maxRSS(time -v) 6934748 KB peak-session-RSS 7849340 KB
+2026-11-10T12:42:31Z b1: done
+2026-11-10T12:42:47Z start b3-audit (dir /root/b/w0/PrimeGaps186, timeout 3600s, rss limit 32 GB)
+2026-11-10T12:42:47Z start b7-anchors-w0 (dir /root/b/w0/PrimeGaps186, timeout 1800s, rss limit 32 GB)
+2026-11-10T12:42:47Z start b5-names (dir /root/b/w0/PrimeGaps186, timeout 1800s, rss limit 32 GB)
+2026-11-10T12:42:47Z start intake pg186-tuple-x (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:42:47Z start intake pg186-ax1 (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:42:47Z start intake pg186-liminf (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:42:47Z start intake pg186-ax2 (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:42:55Z end b7-anchors-w0 exit 0 wall 8s maxRSS(time -v) 6884560 KB peak-session-RSS 7468544 KB
+2026-11-10T12:42:55Z end b5-names exit 0 wall 8s maxRSS(time -v) 6964596 KB peak-session-RSS 7670496 KB
+2026-11-10T12:42:55Z start b5-export (dir /root/b/w0/PrimeGaps186, timeout 14400s, rss limit 64 GB)
+2026-11-10T12:43:15Z end b3-audit exit 0 wall 28s maxRSS(time -v) 7613116 KB peak-session-RSS 8460572 KB
+2026-11-10T12:43:15Z start b3-audit-planted (dir /root/b/w0/PrimeGaps186, timeout 3600s, rss limit 32 GB)
+2026-11-10T12:43:23Z end b3-audit-planted exit 1 wall 8s maxRSS(time -v) 7307156 KB peak-session-RSS 6385460 KB
+2026-11-10T12:43:23Z b3: done
+2026-11-10T12:43:53Z end b5-export exit 0 wall 58s maxRSS(time -v) 7935456 KB peak-session-RSS 8786908 KB
+2026-11-10T12:43:53Z start b5-nanoda (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T12:45:02Z end b5-nanoda exit 0 wall 69s maxRSS(time -v) 4014096 KB peak-session-RSS 3948032 KB
+2026-11-10T12:45:02Z start b5-con-ron (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T12:45:14Z end b5-con-ron exit 2 wall 12s maxRSS(time -v) 1629768 KB peak-session-RSS 1598544 KB
+2026-11-10T12:45:14Z start b5-lean4lean (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T12:46:07Z end intake pg186-ax1 exit 0
+2026-11-10T12:46:21Z end intake pg186-ax2 exit 0
+2026-11-10T12:47:25Z start intake pg186-dhl (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:47:25Z start intake pg186-tuple (pin,toolchain,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda)
+2026-11-10T12:48:29Z end intake pg186-tuple-x exit 0
+2026-11-10T12:49:40Z start intake re-run pg186-ax1 (assemble,f1,f3; amendment B)
+2026-11-10T12:51:16Z end intake re-run pg186-ax1 exit 0
+2026-11-10T12:51:16Z start intake re-run pg186-ax2 (assemble,f1,f3; amendment B)
+2026-11-10T12:53:19Z end intake re-run pg186-ax2 exit 0
+2026-11-10T12:53:33Z start intake re-run pg186-tuple-x (assemble,f1,f3; amendment B)
+2026-11-10T12:53:45Z end b5-lean4lean exit 0 wall 511s maxRSS(time -v) 4719352 KB peak-session-RSS 4725428 KB
+2026-11-10T12:53:46Z start b5-con-leche (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T12:56:36Z end intake re-run pg186-tuple-x exit 0
+2026-11-10T12:57:50Z end b2-comparator exit 0 wall 1542s maxRSS(time -v) 28096584 KB peak-session-RSS 30570088 KB
+2026-11-10T12:57:50Z start b2-K1 (dir /root/b/wc/PrimeGaps186, timeout 14400s, rss limit 100 GB)
+2026-11-10T13:02:41Z end b2-K1 exit 1 wall 291s maxRSS(time -v) 7931932 KB peak-session-RSS 11029192 KB
+2026-11-10T13:02:41Z start b2-K2 (dir /root/b/wc/PrimeGaps186, timeout 14400s, rss limit 100 GB)
+2026-11-10T13:03:39Z end b5-con-leche exit 2 wall 593s maxRSS(time -v) 4977516 KB peak-session-RSS 4982220 KB
+2026-11-10T13:03:39Z b5: done
+2026-11-10T13:03:39Z start b4-leanchecker (dir /root/b/w0/PrimeGaps186, timeout 14400s, rss limit 64 GB)
+2026-11-10T13:05:14Z end b2-K2 exit 1 wall 153s maxRSS(time -v) 7934468 KB peak-session-RSS 11045188 KB
+2026-11-10T13:05:14Z b2: done
+2026-11-10T13:06:02Z end b4-leanchecker exit 0 wall 143s maxRSS(time -v) 9838192 KB peak-session-RSS 10686868 KB
+2026-11-10T13:06:02Z start b4-fresh (dir /root/b/w0/PrimeGaps186, timeout 14400s, rss limit 64 GB)
+2026-11-10T13:10:26Z start b5-con-ron-trusted (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T13:10:48Z end b5-con-ron-trusted exit 2 wall 22s maxRSS(time -v) 1569872 KB peak-session-RSS 1335108 KB
+2026-11-10T13:10:48Z start b5-con-leche-trusted (dir /root/b/export, timeout 14400s, rss limit 64 GB)
+2026-11-10T13:14:00Z end intake pg186-liminf exit 0
+2026-11-10T13:14:03Z start intake re-run pg186-liminf (assemble,f1,f3; amendment B)
+2026-11-10T13:14:54Z end intake re-run pg186-liminf exit 0
+2026-11-10T13:15:41Z end b5-con-leche-trusted exit 2 wall 293s maxRSS(time -v) 4978024 KB peak-session-RSS 4982828 KB
+2026-11-10T13:17:47Z end intake pg186-tuple exit 0
+2026-11-10T13:17:49Z start intake re-run pg186-tuple (assemble,f1,f3; amendment B)
+2026-11-10T13:18:35Z end intake re-run pg186-tuple exit 0
+2026-11-10T13:19:27Z end intake pg186-dhl exit 0
+2026-11-10T13:19:29Z start intake re-run pg186-dhl (assemble,f1,f3; amendment B)
+2026-11-10T13:20:15Z end intake re-run pg186-dhl exit 0
+2026-11-10T13:31:50Z end b4-fresh exit 0 wall 1548s maxRSS(time -v) 10613108 KB peak-session-RSS 11463252 KB
+2026-11-10T13:31:50Z b4: done

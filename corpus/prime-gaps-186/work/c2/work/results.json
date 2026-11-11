@@ -1,0 +1,1637 @@
+{
+ "program": "pg186_c2.py",
+ "precision_bits": {
+  "B": 288,
+  "P": 384,
+  "PV": 320
+ },
+ "Z_enclosure": [
+  "1996.0917645506627956129079033542078748037282",
+  "1996.0917645506627956129079033542078748037283"
+ ],
+ "trialIH": {
+  "lower_in_1e-24_rounded_down": "23685317853.330202720169676610805381440399621412",
+  "upper_in_1e-24_rounded_up": "23685317853.330202720169676610805381440399637335",
+  "width_in_1e-24_rounded_up": "0.000000000000000000000000000000015922283770916064290616829062031675",
+  "lower_exact": "(see decimal)",
+  "shell_parts_approx": [
+   "2.166191927715e-14",
+   "1.654372106890e-15",
+   "3.690264692909e-16"
+  ],
+  "distance_to_lower_bound_in_1e-24": "37.330202720169",
+  "distance_to_upper_bound_in_1e-24": "36.669797279830"
+ },
+ "decision_1  23685317816e-24 <= trialIH": "DECIDED TRUE",
+ "decision_2  trialIH <= 23685317890e-24": "DECIDED TRUE",
+ "trialJ0": {
+  "lower_in_1e-24_rounded_down": "90060540791.740341238328695387463249031222271895",
+  "upper_in_1e-24_rounded_up": "90060540791.740341238328695387463249031222337172",
+  "width_in_1e-24_rounded_up": "0.000000000000000000000000000000065275671045152842489541131095304233",
+  "lower_exact": "(see decimal)"
+ },
+ "trialJPlus": {
+  "lower_in_1e-24_rounded_down": "191277150.412476587600941829083396074334263209",
+  "upper_in_1e-24_rounded_up": "191277150.412476587600941829083396074334263210",
+  "width_in_1e-24_rounded_up": "0.000000000000000000000000000000000000000000123633663728799046916851",
+  "lower_exact": "(see decimal)"
+ },
+ "trialJTail": {
+  "lower_in_1e-24_rounded_down": "1616693161.164125301039292311683126999404736557",
+  "upper_in_1e-24_rounded_up": "1616693161.164125301039292311683126999404736558",
+  "width_in_1e-24_rounded_up": "0.000000000000000000000000000000000000000001782785673599203007350426",
+  "lower_exact": "(see decimal)"
+ },
+ "trialJLambdaH": {
+  "lower_in_1e-24_rounded_down": "90248755654.713130346416300956888370046870733480",
+  "upper_in_1e-24_rounded_up": "90248755654.713130346416300956888370046870798757",
+  "width_in_1e-24_rounded_up": "0.000000000000000000000000000000065275671045276881127213528816805809",
+  "lower_exact": "(see decimal)",
+  "distance_to_lower_bound_in_1e-24": "531.713130346416"
+ },
+ "decision_3  90248755123e-24 <= trialJLambdaH": "DECIDED TRUE",
+ "sanity_rho*J/IH": [
+  "1.000206086843799",
+  "1.000206086843800"
+ ],
+ "control_a_coefficient": {
+  "designated": {
+   "change": "trialCoefficientInteger 0 0: 10000000000 -> 10000000001",
+   "trialIH": {
+    "lower_in_1e-24_rounded_down": "23685317852.488484233263673442715931390018571764",
+    "upper_in_1e-24_rounded_up": "23685317852.488484233263673442715931390018587687",
+    "width_in_1e-24_rounded_up": "0.000000000000000000000000000000015922283770916064290616483296163243",
+    "lower_exact": "(see decimal)"
+   },
+   "status": "INSIDE the window"
+  },
+  "scan_all_77_entries_plus_minus_one": {
+   "count_leaving_window": 0,
+   "count_total": 154,
+   "rows": [
+    {
+     "entry": [
+      0,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317852.488484",
+     "trialIH_upper_1e-24": "23685317852.488485",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317854.171921",
+     "trialIH_upper_1e-24": "23685317854.171922",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.347090",
+     "trialIH_upper_1e-24": "23685317853.347091",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.313314",
+     "trialIH_upper_1e-24": "23685317853.313315",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.319021",
+     "trialIH_upper_1e-24": "23685317853.319022",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.341383",
+     "trialIH_upper_1e-24": "23685317853.341384",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.331923",
+     "trialIH_upper_1e-24": "23685317853.331924",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.328482",
+     "trialIH_upper_1e-24": "23685317853.328483",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329604",
+     "trialIH_upper_1e-24": "23685317853.329605",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330801",
+     "trialIH_upper_1e-24": "23685317853.330802",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330377",
+     "trialIH_upper_1e-24": "23685317853.330378",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330027",
+     "trialIH_upper_1e-24": "23685317853.330028",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330140",
+     "trialIH_upper_1e-24": "23685317853.330141",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      0,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330265",
+     "trialIH_upper_1e-24": "23685317853.330266",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.253828",
+     "trialIH_upper_1e-24": "23685317853.253829",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.406577",
+     "trialIH_upper_1e-24": "23685317853.406578",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329135",
+     "trialIH_upper_1e-24": "23685317853.329136",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.331270",
+     "trialIH_upper_1e-24": "23685317853.331271",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329484",
+     "trialIH_upper_1e-24": "23685317853.329485",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330920",
+     "trialIH_upper_1e-24": "23685317853.330921",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330240",
+     "trialIH_upper_1e-24": "23685317853.330241",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330164",
+     "trialIH_upper_1e-24": "23685317853.330165",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330179",
+     "trialIH_upper_1e-24": "23685317853.330180",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330225",
+     "trialIH_upper_1e-24": "23685317853.330226",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330207",
+     "trialIH_upper_1e-24": "23685317853.330208",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330198",
+     "trialIH_upper_1e-24": "23685317853.330199",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330201",
+     "trialIH_upper_1e-24": "23685317853.330202",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      1,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330204",
+     "trialIH_upper_1e-24": "23685317853.330205",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.315314",
+     "trialIH_upper_1e-24": "23685317853.315315",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.345090",
+     "trialIH_upper_1e-24": "23685317853.345091",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329762",
+     "trialIH_upper_1e-24": "23685317853.329763",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330642",
+     "trialIH_upper_1e-24": "23685317853.330643",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330076",
+     "trialIH_upper_1e-24": "23685317853.330077",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330329",
+     "trialIH_upper_1e-24": "23685317853.330330",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330199",
+     "trialIH_upper_1e-24": "23685317853.330200",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330205",
+     "trialIH_upper_1e-24": "23685317853.330206",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      2,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.326262",
+     "trialIH_upper_1e-24": "23685317853.326263",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.334142",
+     "trialIH_upper_1e-24": "23685317853.334143",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330038",
+     "trialIH_upper_1e-24": "23685317853.330039",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330366",
+     "trialIH_upper_1e-24": "23685317853.330367",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330170",
+     "trialIH_upper_1e-24": "23685317853.330171",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330234",
+     "trialIH_upper_1e-24": "23685317853.330235",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330201",
+     "trialIH_upper_1e-24": "23685317853.330202",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      3,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.328948",
+     "trialIH_upper_1e-24": "23685317853.328949",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.331456",
+     "trialIH_upper_1e-24": "23685317853.331457",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330138",
+     "trialIH_upper_1e-24": "23685317853.330139",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330267",
+     "trialIH_upper_1e-24": "23685317853.330268",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330192",
+     "trialIH_upper_1e-24": "23685317853.330193",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330212",
+     "trialIH_upper_1e-24": "23685317853.330213",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      4,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329749",
+     "trialIH_upper_1e-24": "23685317853.329750",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330655",
+     "trialIH_upper_1e-24": "23685317853.330656",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330175",
+     "trialIH_upper_1e-24": "23685317853.330176",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330229",
+     "trialIH_upper_1e-24": "23685317853.330230",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330198",
+     "trialIH_upper_1e-24": "23685317853.330199",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330206",
+     "trialIH_upper_1e-24": "23685317853.330207",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      5,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.321745",
+     "trialIH_upper_1e-24": "23685317853.321746",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.338659",
+     "trialIH_upper_1e-24": "23685317853.338660",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329880",
+     "trialIH_upper_1e-24": "23685317853.329881",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330525",
+     "trialIH_upper_1e-24": "23685317853.330526",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330133",
+     "trialIH_upper_1e-24": "23685317853.330134",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330272",
+     "trialIH_upper_1e-24": "23685317853.330273",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330200",
+     "trialIH_upper_1e-24": "23685317853.330201",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330204",
+     "trialIH_upper_1e-24": "23685317853.330205",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330201",
+     "trialIH_upper_1e-24": "23685317853.330202",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330204",
+     "trialIH_upper_1e-24": "23685317853.330205",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      6,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.328222",
+     "trialIH_upper_1e-24": "23685317853.328223",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.332183",
+     "trialIH_upper_1e-24": "23685317853.332184",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330104",
+     "trialIH_upper_1e-24": "23685317853.330105",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330300",
+     "trialIH_upper_1e-24": "23685317853.330301",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330186",
+     "trialIH_upper_1e-24": "23685317853.330187",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330218",
+     "trialIH_upper_1e-24": "23685317853.330219",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330201",
+     "trialIH_upper_1e-24": "23685317853.330202",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      7,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329585",
+     "trialIH_upper_1e-24": "23685317853.329586",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330819",
+     "trialIH_upper_1e-24": "23685317853.330820",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330166",
+     "trialIH_upper_1e-24": "23685317853.330167",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330238",
+     "trialIH_upper_1e-24": "23685317853.330239",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330197",
+     "trialIH_upper_1e-24": "23685317853.330198",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330207",
+     "trialIH_upper_1e-24": "23685317853.330208",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      8,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329644",
+     "trialIH_upper_1e-24": "23685317853.329645",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330760",
+     "trialIH_upper_1e-24": "23685317853.330761",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330170",
+     "trialIH_upper_1e-24": "23685317853.330171",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330235",
+     "trialIH_upper_1e-24": "23685317853.330236",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330198",
+     "trialIH_upper_1e-24": "23685317853.330199",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330207",
+     "trialIH_upper_1e-24": "23685317853.330208",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      9,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      0
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.329067",
+     "trialIH_upper_1e-24": "23685317853.329068",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      0
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.331338",
+     "trialIH_upper_1e-24": "23685317853.331339",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      1
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330139",
+     "trialIH_upper_1e-24": "23685317853.330140",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      1
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330266",
+     "trialIH_upper_1e-24": "23685317853.330267",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      2
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330193",
+     "trialIH_upper_1e-24": "23685317853.330194",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      2
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330212",
+     "trialIH_upper_1e-24": "23685317853.330213",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      3
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      3
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330203",
+     "trialIH_upper_1e-24": "23685317853.330204",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      4
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      4
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      5
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      5
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      6
+     ],
+     "delta": 1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    },
+    {
+     "entry": [
+      10,
+      6
+     ],
+     "delta": -1,
+     "trialIH_lower_1e-24": "23685317853.330202",
+     "trialIH_upper_1e-24": "23685317853.330203",
+     "status": "INSIDE the window"
+    }
+   ]
+  }
+ },
+ "control_b_mesh_98305": {
+  "trialIH": {
+   "lower_in_1e-24_rounded_down": "23690795402.073913494858750726402272375690961801",
+   "upper_in_1e-24_rounded_up": "23690795402.073913494858750726402272375690977725",
+   "width_in_1e-24_rounded_up": "0.000000000000000000000000000000015922445976734004639995645794297606",
+   "lower_exact": "(see decimal)"
+  },
+  "status": "OUTSIDE the window (leaves it)"
+ },
+ "verified_big_products": 1764,
+ "timings_seconds": {
+  "measure_main": 5.4,
+  "vec_main": 426.2,
+  "ih_sums_main": 21.0,
+  "vrows_main": 10.2,
+  "jcap_main": 51.0,
+  "total_main": 513.9,
+  "measure_ctlb": 2.0,
+  "vec_ctlb": 228.6,
+  "ih_sums_ctlb": 21.5,
+  "total": 767.9
+ }
+}

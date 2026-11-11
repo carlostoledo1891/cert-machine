@@ -1,0 +1,340 @@
+{
+ "what": "The Lean intake of OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms against the release's own statement file, Challenge.lean, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.34.0-rc2).",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-tuple-x/spec.json",
+  "sha256": "07549f321bbbfb0c04d6a9fdb1d0200a83e28011d45d6302605a518e9c4cb8d1",
+  "amendments": 1
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/pg186-tuple-x/runs/2026-11-10",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 48,
+   "memGB": 377
+  },
+  "stepSeconds": 524.5,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "path": "Challenge.lean",
+   "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  },
+  "claim": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "file": "PrimeGaps186.lean",
+   "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [
+   75648,
+   75665
+  ],
+  "native_decide": [],
+  "axiom": [
+   147,
+   159,
+   1055
+  ],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "2 of 2 accepted (predicted)",
+   "type": "0 of 0 not accepted (predicted)",
+   "changed": "5 refused, 0 accepted, of 5 (kernel decides: no outcome predicted)",
+   "certain": "2 of 2 certain predictions met",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "0 of 0",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "a closed statement about an infinite set of n: no instance binder to evaluate"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.physical_integral_bounds",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "{n | 2 ≤ {h ∈ IntakeCanon.PrimeGap186.admissibleTuple | Nat.Prime (n + h)}.card}.Infinite",
+  "claim": "{n | 2 ≤ {h ∈ PrimeGap186.admissibleTuple | Nat.Prime (n + h)}.card}.Infinite",
+  "seconds": 20.3,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's PrimeGap186.infinite_two_prime_translates_admissibleTuple as a proof of PrimeGap186.infinite_two_prime_translates_admissibleTuple's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding; the statement is read from a copy of the canonical file with one line added after its imports (`namespace IntakeCanon`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (2, 3, 3, 105 constants); CONDITIONAL on the canonical file's own axioms PrimeGap186.kloosterman3_bound, PrimeGap186.kloosterman2_correlation_bound, PrimeGap186.physical_integral_bounds: the claimant's proof rests on its axioms of those names, and each is the canonical one, its statement and every definition under it identical name for name (3, 3, 105 constants)",
+  "selfContained": {
+   "copy": {
+    "canonicalSha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+    "copy": "Intake/Canon/C_Challenge.lean",
+    "copySha256": "a5c66a43bdc71c1879197dcd57a9168456bfd567bb4a740179e55424a24415cb",
+    "addedLine": 2,
+    "added": "namespace IntakeCanon",
+    "check": "the copy without that line is the canonical file, byte for byte"
+   },
+   "copyIsCanonical": {
+    "bytes": true,
+    "exit": "0",
+    "declarations": [
+     {
+      "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+      "identical": true,
+      "constants": 2,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "statementAsWritten": {
+    "identical": true,
+    "constants": 2,
+    "difference": null
+   },
+   "axioms": {
+    "exit": "0",
+    "pairs": [
+     {
+      "canonical": "PrimeGap186.kloosterman3_bound",
+      "claim": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.kloosterman2_correlation_bound",
+      "claim": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.physical_integral_bounds",
+      "claim": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "conditionalOn": [
+    "PrimeGap186.kloosterman3_bound",
+    "PrimeGap186.kloosterman2_correlation_bound",
+    "PrimeGap186.physical_integral_bounds"
+   ]
+  }
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "the statement has no hypotheses",
+  "seconds": 33,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 8.6,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the definition written out: the forty numbers of Challenge.lean, in its order",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 8.6,
+   "rule": "hand:tuple",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "the last number 186 made 188 (the diameter)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.9,
+   "rule": "hand:tuple",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the second number 2 made 4",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.6,
+   "rule": "hand:tuple",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the number 98 made 96 (the middle)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 16.4,
+   "rule": "hand:tuple",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "the last number dropped (39 numbers)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 18.1,
+   "rule": "hand:tuple",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "the first two numbers swapped (the same set, another term)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17.5,
+   "rule": "hand:tuple",
+   "predicted": false,
+   "aligned": false
+  }
+ ],
+ "reds": [],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 20.3
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.34.0-rc2)",
+   "word": "ACCEPTS",
+   "seconds": 17.4
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "c8b1827d84e1928288c9fb8c187ef2f85603b1f7015c73916b2ed19c07d74fae",
+    "bytes": 1241381495
+   },
+   "seconds": 83.9
+  }
+ ],
+ "notRun": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null,
+ "conditionalOn": {
+  "axioms": [
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.physical_integral_bounds"
+  ],
+  "note": "CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them."
+ }
+}

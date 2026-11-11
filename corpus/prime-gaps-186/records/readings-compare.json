@@ -1,0 +1,33 @@
+{
+ "fkm": {
+  "primes": 95,
+  "vectors_compared": 21536,
+  "vectors_differing": [],
+  "index_sets_differing": [],
+  "argument_maps_differing": [],
+  "i_elementary_sums_identical": true,
+  "ii_index_set_and_arguments_identical": true,
+  "ii_normalization": "reading: |S| <= 8 p^(1/2) with S = (1/p) * (the plain sum), i.e. |plain sum| <= 8 p^(3/2); Lean: norm of the plain sum <= 8 * p * sqrt(p). Equal: p * p^(1/2) = p^(3/2).",
+  "iii_scope": {
+   "reading": "any prime p (no restriction printed); alpha, beta in F_p^x, equal allowed; u = 0 and u = -1 excluded; prime field",
+   "lean": "every p with Fact p.Prime; A != 0, B != 0 in ZMod p (A = B allowed); t = 0 and t = -1 excluded",
+   "lean_scope_inside_reading_scope": true
+  },
+  "verdict": "MATCH"
+ },
+ "katz": {
+  "primes_literal": 15,
+  "vectors_compared": 313,
+  "vectors_differing": [],
+  "literal_up_to": 47,
+  "beyond_literal": "for larger p the two sums coincide by one step (u*v*w = c != 0 forces u, v, w != 0, and w is then determined), so nothing separate is computed",
+  "i_elementary_sums_identical": true,
+  "ii_normalization": "reading: |plain sum| <= 3p (a deduction from rank 3 and weight 2; no inequality is printed in the theorem); Lean: norm of (1/p) * (the plain sum) <= 3. Equal.",
+  "iii_scope": {
+   "reading": "every prime p; every a in F_p^x; psi non-trivial",
+   "lean": "every p with Fact p.Prime; c != 0 in ZMod p; psi = stdAddChar",
+   "lean_scope_inside_reading_scope": true
+  },
+  "verdict": "MATCH"
+ }
+}
