@@ -108,9 +108,18 @@ function powIv(x, p) {
 
 /* ---------- Γ via Spouge, a = 20 ---------- */
 const SPOUGE_A = 20;
-/* Spouge's bound |ε_a(w)| ≤ a^{-1/2} (2π)^{-(a+1/2)} for Re w ≥ 0 (Spouge 1994), widened tenfold as a margin; the margin's value
-   is itself an upper end computed in interval arithmetic from the enclosure of π (2026-10-21: it was a float with Math.PI) */
-const SPOUGE_EPS = div(mul(iv(10), T.exp(neg(mul(iv(SPOUGE_A + 0.5), T.log(T.TWO_PI))))), sqrtIv(iv(SPOUGE_A)))[1];
+/* Spouge's bound is on the RELATIVE error (Spouge 1994; the theorem's number and exact hypotheses are still to be read
+   against the paper itself). Write Γ(w+1) = (w+a)^{w+1/2} e^{−(w+a)} V(w) and V = S + ε_a, S being the sum bracketed in
+   gammaIvRaw. Then |ε_a(w)| ≤ r·|V(w)| for a > 2 and Re w > 0, with r = a^{−1/2} (2π)^{−(a+1/2)} < 9.71e-18 < 2^−56 at
+   a = 20, so V lies in [S/(1+r), S/(1−r)]. The double next to a positive double y is at least 2^−53·y away, so ONE
+   STEP OUTWARD on each end of the sum's enclosure [s0, s1] contains V (if s0 ≤ 0 the stepped end is below 0 < V): that
+   step is what covers the truncation. SPOUGE_EPS, the upper end of r computed in interval arithmetic from the
+   enclosure of π, is subtracted and added before the step; it can only widen, and it vanishes in the rounding
+   whenever the end has magnitude at least 2.
+   2026-10-21: it was a float with Math.PI. 2026-11-11: it carried a factor ten "as a margin" and this comment read the
+   bound as an absolute one; the factor is gone. It changed no enclosure at a point argument; on a narrow box whose
+   sum has an end of magnitude below 2 it lowered the lower end by a few doubles, nothing more. */
+const SPOUGE_EPS = div(T.exp(neg(mul(iv(SPOUGE_A + 0.5), T.log(T.TWO_PI)))), sqrtIv(iv(SPOUGE_A)))[1];
 let spougeC = null;
 function spougeCoeffs() {
   if (spougeC) return spougeC;
@@ -160,7 +169,7 @@ function gammaIvRaw(z) {
   const cs = spougeCoeffs();
   let s = cs[0];
   for (let k = 1; k < a; k++) s = add(s, div(cs[k], add(w, iv(k))));
-  // Spouge's error, tenfold, enclosed (SPOUGE_EPS above)
+  // Spouge's relative error: one double outward on each end (the comment at SPOUGE_EPS)
   s = [I.nextDown(s[0] - SPOUGE_EPS), I.nextUp(s[1] + SPOUGE_EPS)];
   const wpa = add(w, iv(a));
   const pref = mul(powIv(wpa, add(w, iv(0.5))), T.exp(neg(wpa)));
