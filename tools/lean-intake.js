@@ -461,7 +461,14 @@ function run() {
       step('toolchain', WORK, `elan toolchain install ${C.toolchain} && ls "${binDir()}"`, 1800);
     } else if (s === 'cache') {
       /* a failed cache download must stop the run: the next stage would compile Mathlib from source, for hours */
-      if (!step('cache', CAN, 'lake exe cache get', 3600)) die('lake exe cache get failed (see cache.log): stopped before the canonical build; run the stage again');
+      /* the download clones the package's dependencies from GitHub, which refuses a clone now and then (the run pod of
+         2026-11-11 died here on "could not read Username"): four tries, a minute apart, each kept in its own log */
+      let got = false;
+      for (let t = 1; t <= 4 && !got; t++) {
+        got = step('cache', CAN, 'lake exe cache get', 3600);
+        if (!got && t < 4) { fs.copyFileSync(path.join(FACTS, 'cache.log'), path.join(FACTS, 'cache-try' + t + '.log')); status('cache: try ' + t + ' failed, waiting 60 s'); cp.spawnSync('sleep', ['60']); }
+      }
+      if (!got) die('lake exe cache get failed four times (see cache.log): stopped before the canonical build; run the stage again');
     } else if (s === 'canonical') {
       step('canonical', CAN, `lake build '${C.module}'`);
     } else if (s === 'assemble') {
