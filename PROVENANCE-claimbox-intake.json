@@ -1,10 +1,10 @@
 {
  "source_root": "~/Projects/claimbox",
- "source_commit": "a8741e9d8d48b8792f0e6c404da8c4b3749f7585",
- "lifted_at_utc": "2026-11-11T16:05:15.451Z",
+ "source_commit": "5b86b1f58ad811fc66ebb04c1fd8924ba63f51a0",
+ "lifted_at_utc": "2026-11-11T21:41:59.934Z",
  "policy": "READ-ONLY. claimbox writes the Lean intake's spec and its reading's table (claimbox/intake, lean/INTAKE.md §7–§8); this manifest copies them OUT into corpus/lean-intake/<id>-claimbox/, where tools/lean-intake.js reads them as it reads a hand-written spec, and never writes back. The copy is committed before the run (the pre-registration); PROVENANCE-claimbox-intake.json names the claimbox commit and every sha256; `make drift` re-hashes both ends. A separate manifest from LIFT-claimbox.json so that a lift here never re-copies the Riemann or x^x files. Extends the one exception to CLAUDE.md's 'nothing here reads claimbox' on the operator's go for the lane's L1 + L2 (2026-11-09).",
  "counts": {
-  "files": 12,
+  "files": 18,
   "patched": 0,
   "missing_in_source": 0
  },
@@ -92,6 +92,48 @@
    "src_sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc",
    "patched": false,
    "local_sha256": "b085a550befbc38029a8e761f77d538278ea5a9e35b60424f2f96fdc7781f7dc"
+  },
+  {
+   "src": "records/intake/pg186-dhl-spec.json",
+   "dst": "corpus/lean-intake/pg186-dhl-claimbox/spec.json",
+   "src_sha256": "15eb1d52474d72dcbe7a3994615b2fc9a9a5c1f00485241d3f17803d45de8ab1",
+   "patched": false,
+   "local_sha256": "15eb1d52474d72dcbe7a3994615b2fc9a9a5c1f00485241d3f17803d45de8ab1"
+  },
+  {
+   "src": "records/intake/pg186-tuple-spec.json",
+   "dst": "corpus/lean-intake/pg186-tuple-claimbox/spec.json",
+   "src_sha256": "2bae854c74e6bec006bf9a368b82dae0a03ac59844853e4809b76ee3fb154ab6",
+   "patched": false,
+   "local_sha256": "2bae854c74e6bec006bf9a368b82dae0a03ac59844853e4809b76ee3fb154ab6"
+  },
+  {
+   "src": "records/intake/pg186-liminf-spec.json",
+   "dst": "corpus/lean-intake/pg186-liminf-claimbox/spec.json",
+   "src_sha256": "8fcf2ff146361bf9bf9beb5c0dd8f4e6c20e6732726e67272f3f6b76b2cf971e",
+   "patched": false,
+   "local_sha256": "8fcf2ff146361bf9bf9beb5c0dd8f4e6c20e6732726e67272f3f6b76b2cf971e"
+  },
+  {
+   "src": "records/intake/pg186-ax1-spec.json",
+   "dst": "corpus/lean-intake/pg186-ax1-claimbox/spec.json",
+   "src_sha256": "f776b6e5b86c7d0e403d5a0cc8290c837728d9851837957a34ecd896bdc682f0",
+   "patched": false,
+   "local_sha256": "f776b6e5b86c7d0e403d5a0cc8290c837728d9851837957a34ecd896bdc682f0"
+  },
+  {
+   "src": "records/intake/pg186-ax2-spec.json",
+   "dst": "corpus/lean-intake/pg186-ax2-claimbox/spec.json",
+   "src_sha256": "b1090e459d87470dfff744762e5b5ff097c369ff0e2bb58860ec588b3fa0f1c1",
+   "patched": false,
+   "local_sha256": "b1090e459d87470dfff744762e5b5ff097c369ff0e2bb58860ec588b3fa0f1c1"
+  },
+  {
+   "src": "records/intake/pg186-tuple-x-spec.json",
+   "dst": "corpus/lean-intake/pg186-tuple-x-claimbox/spec.json",
+   "src_sha256": "14ed5d41e38c5361b5b8b4c6f5dff6ece9b0c0dd7b8b7dd83cadb08191bb7600",
+   "patched": false,
+   "local_sha256": "14ed5d41e38c5361b5b8b4c6f5dff6ece9b0c0dd7b8b7dd83cadb08191bb7600"
   }
  ]
 }

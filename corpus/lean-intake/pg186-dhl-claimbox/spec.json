@@ -1,0 +1,249 @@
+{
+ "format": 2,
+ "id": "pg186-dhl",
+ "what": "OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms, against the statement file of the same release, Challenge.lean: DHL[40,2] for every admissible integer 40-tuple (Theorem 1.1). The statement layer of the prime-gap 186 audit: checked on 2026-11-10 from a spec that was written by claimbox and completed by a bridge script (the identity-mode fields, and for this declaration F3's proof) (cert-machine's record corpus/prime-gaps-186/intake/lean-intake-pg186-dhl.json); this target asks for the same check with every planted statement written by claimbox's fixed rules, in the receiver's format 2. Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v2 (2026-11-11), in the receiver's format 2 (cert-machine instruments/intake/SPEC.md). Kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (met only by the outcome \"REFUSED by type mismatch\", a refusal at the claimant's term; a planted statement that does not elaborate has the outcome \"DID NOT ELABORATE\": it never reached the check, it is not tested, and it is counted neither as a met prediction nor as a miss); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/pg186-dhl/target.json",
+  "target": {
+   "path": "corpus/intake/pg186-dhl/target.json",
+   "sha256": "ea70ba6ff0ac53ba0c4d1d2b0d20f058103d69f9dfeb0b5a330e3d0da20cebd1"
+  },
+  "pins": {
+   "path": "corpus/intake/pg186-dhl/pins.json",
+   "sha256": "1abcba10f9dbabf6607d5d1c29b877311dd2783d113b21e73b9f6ad48faba4be"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/pg186-dhl/canonical.lean",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "statementLines": [
+    950,
+    953
+   ]
+  },
+  "rules": 2
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms",
+  "kind": "git",
+  "url": "https://github.com/openai/PrimeGaps186.git",
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "file": "PrimeGaps186.lean",
+  "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+  "decl": "PrimeGap186.dhl_40_2",
+  "license": "Apache-2.0 (the repository's); no byte of the file is kept in the spec but its declaration's header; the run fetches it at the pin",
+  "module": "PrimeGaps186"
+ },
+ "canonical": {
+  "what": "the release's own statement file, Challenge.lean: DHL[40,2] for every admissible integer 40-tuple (Theorem 1.1)",
+  "url": "https://github.com/openai/PrimeGaps186.git",
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "path": "Challenge.lean",
+  "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "module": "Challenge",
+  "decl": "PrimeGap186.dhl_40_2",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "selfContained": true,
+  "axioms": [
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.physical_integral_bounds"
+  ]
+ },
+ "intakeImports": [
+  "Mathlib"
+ ],
+ "mutantNamespace": "PrimeGap186.IntakeMut",
+ "mutantOpen": [
+  "PrimeGap186",
+  "scoped BigOperators ENNReal NNReal Topology BoundedContinuousFunction",
+  "scoped MeasureTheory.BoundedContinuousFunction Pointwise",
+  "MeasureTheory AddChar Filter Metric",
+  "Classical in",
+  "Set"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: H = (PrimeGap186.admissibleTuple.map ⟨((↑) : ℕ → ℤ), Nat.cast_injective⟩)",
+  "tactic": "intro h\n  refine h (_root_.PrimeGap186.admissibleTuple.map ⟨((↑) : ℕ → ℤ), Nat.cast_injective⟩)\n    (by rw [Finset.card_map]; exact _root_.PrimeGap186.admissibleTuple_card) ?_\n  intro p hp\n  haveI : NeZero p := ⟨hp.ne_zero⟩\n  obtain ⟨a, ha, hnot⟩ := _root_.PrimeGap186.admissibleTuple_admissible p hp\n  refine ⟨(a : ZMod p), ?_⟩\n  intro z hz heq\n  obtain ⟨n, hn, rfl⟩ := Finset.mem_map.mp hz\n  apply hnot\n  refine Finset.mem_image.mpr ⟨n, hn, ?_⟩\n  have h2 : (n : ZMod p) = (a : ZMod p) := by simpa using heq\n  have h3 := (ZMod.natCast_eq_natCast_iff' n a p).mp h2\n  rwa [Nat.mod_eq_of_lt (Finset.mem_range.mp ha)] at h3",
+  "expect": "kernel decides (the witness is a proposal; the tactic is the target's, not generated)",
+  "withClaim": true
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (H→H₀, a→a₀, h→h₀, hadm→hadm₀, hcard→hcard₀, n→n₀, p→p₀): alpha-equivalent",
+   "statement": "∀ (H₀ : Finset ℤ) (hcard₀ : H₀.card = 40)\n    (hadm₀ : ∀ p₀ : ℕ, p₀.Prime → ∃ a₀ : ZMod p₀, ∀ h₀ ∈ H₀, (h₀ : ZMod p₀) ≠ a₀),\n    Set.Infinite {n₀ : ℤ | 2 ≤ (H₀.filter (fun h₀ => (n₀ + h₀).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `(hcard : H.card = 40)` dropped",
+   "statement": "∀ (H : Finset ℤ)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "why": "the hypothesis `(hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a)` dropped",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    ,\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": false,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`≤` made `<` (`| 2 ≤ ( H.filter` → `| 2 < ( H.filter`, line 3)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 < (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 40 made 41 (`H.card = 40 )` → `H.card = 41 )`, line 1)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 41)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 40 made 39 (`H.card = 40 )` → `H.card = 39 )`, line 1)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 39)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`ℤ | 2 ≤` → `ℤ | 3 ≤`, line 3)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 3 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`ℤ | 2 ≤` → `ℤ | 1 ≤`, line 3)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 1 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℤ` made `ℕ` in the type of H: another type, never definitionally equal (refused by type mismatch if it elaborates; if it does not, it is not tested)",
+   "statement": "∀ (H : Finset ℕ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  },
+  {
+   "id": "N2",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "why": "`ℕ` made `ℤ` in the type of hadm: another type, never definitionally equal (refused by type mismatch if it elaborates; if it does not, it is not tested)",
+   "statement": "∀ (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℤ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "NOT ACCEPTED",
+   "aligned": false,
+   "certain": true
+  },
+  {
+   "id": "Q1",
+   "kind": "equivalent",
+   "rule": "equivalent:swap-binders",
+   "why": "the binders hcard and hadm swapped: the same logically",
+   "statement": "∀ (H : Finset ℤ) (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a)\n    (hcard : H.card = 40),\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of dhl_40_2 replaced by sorry (the original kept as intake_was_dhl_40_2)",
+   "find": "theorem dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} :=",
+   "replace": "theorem dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} := sorry\n\ntheorem intake_was_dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "dhl_40_2 proved by an added axiom (the original kept as intake_was_dhl_40_2)",
+   "find": "theorem dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} := intakeRedAxiom\n\ntheorem intake_was_dhl_40_2\n    (H : Finset ℤ) (hcard : H.card = 40)\n    (hadm : ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a) :\n    Set.Infinite {n : ℤ | 2 ≤ (H.filter (fun h => (n + h).toNat.Prime)).card} :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "a statement about every admissible 40-set of integers and infinitely many translates: no finite instance decides its conclusion",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "among the planted statements that reach the check, every certain prediction met (ACCEPTED; NOT ACCEPTED, met only by a refusal by type mismatch; the F2 ⇒ F1 rule), at least one changed or retyped statement refused and one rewording accepted; a statement that does not elaborate is not tested and is counted neither way; every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 4,
+  "kernelDecides": 8,
+  "byRule": {
+   "changed:constant": 4,
+   "changed:drop-hypothesis": 2,
+   "changed:strictness": 1,
+   "equivalent:swap-binders": 1,
+   "same:rename": 1,
+   "type:nat-int": 2,
+   "verbatim": 1
+  },
+  "aligned": 8
+ }
+}

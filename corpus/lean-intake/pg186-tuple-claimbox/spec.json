@@ -1,0 +1,168 @@
+{
+ "format": 2,
+ "id": "pg186-tuple",
+ "what": "OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms, against the statement file of the same release, Challenge.lean: infinitely many two-prime translates of the explicit 40-tuple. The statement layer of the prime-gap 186 audit: checked on 2026-11-10 from a spec that was written by claimbox and completed by a bridge script (the identity-mode fields) (cert-machine's record corpus/prime-gaps-186/intake/lean-intake-pg186-tuple.json); this target asks for the same check with every planted statement written by claimbox's fixed rules, in the receiver's format 2. Written by claimbox (claimbox/intake/spec.py) from the target and its pins: every planted statement by a fixed rule, each with the class its rule guarantees or \"kernel decides\". A pre-registration once committed in cert-machine before any run.",
+ "vocabulary": "lean-intake spec, claimbox v2 (2026-11-11), in the receiver's format 2 (cert-machine instruments/intake/SPEC.md). Kind \"changed\" (a rule that can change the meaning; the kernel decides whether it does) and \"type\"; expect \"kernel decides\" (no outcome predicted: the outcome is recorded, never a miss) and \"NOT ACCEPTED\" (met only by the outcome \"REFUSED by type mismatch\", a refusal at the claimant's term; a planted statement that does not elaborate has the outcome \"DID NOT ELABORATE\": it never reached the check, it is not tested, and it is counted neither as a met prediction nor as a miss); \"aligned\" (F2 ⇒ F1: an aligned planted statement with a part that differs from the canonical's on an instance must be refused); f2.reading and f2.table in place of f2.decider; f2.componentMap \"truth-table\"",
+ "writer": {
+  "by": "python3 -m claimbox intake spec corpus/intake/pg186-tuple/target.json",
+  "target": {
+   "path": "corpus/intake/pg186-tuple/target.json",
+   "sha256": "caf9a95f92ca5be841f5378e870ac14501ad2e8e3023498e2b79907f2d9fcab9"
+  },
+  "pins": {
+   "path": "corpus/intake/pg186-tuple/pins.json",
+   "sha256": "98a8e98d71cb8bcf75dc1abc10490e465574988e0b7240951c088478c9d6ca16"
+  },
+  "canonicalBytes": {
+   "path": "corpus/intake/pg186-tuple/canonical.lean",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "statementLines": [
+    957,
+    959
+   ]
+  },
+  "rules": 2
+ },
+ "polarity": "proves",
+ "claim": {
+  "what": "OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms",
+  "kind": "git",
+  "url": "https://github.com/openai/PrimeGaps186.git",
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "file": "PrimeGaps186.lean",
+  "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+  "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+  "license": "Apache-2.0 (the repository's); no byte of the file is kept in the spec but its declaration's header; the run fetches it at the pin",
+  "module": "PrimeGaps186"
+ },
+ "canonical": {
+  "what": "the release's own statement file, Challenge.lean: infinitely many two-prime translates of the explicit 40-tuple",
+  "url": "https://github.com/openai/PrimeGaps186.git",
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "path": "Challenge.lean",
+  "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "module": "Challenge",
+  "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "selfContained": true,
+  "axioms": [
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.physical_integral_bounds"
+  ]
+ },
+ "intakeImports": [
+  "Mathlib"
+ ],
+ "mutantNamespace": "PrimeGap186.IntakeMut",
+ "mutantOpen": [
+  "PrimeGap186",
+  "scoped BigOperators ENNReal NNReal Topology BoundedContinuousFunction",
+  "scoped MeasureTheory.BoundedContinuousFunction Pointwise",
+  "MeasureTheory AddChar Filter Metric",
+  "Classical in",
+  "Set"
+ ],
+ "f3": {
+  "what": "a model of the canonical statement's hypotheses: ",
+  "tactic": "intro h\n  exact h",
+  "expect": "kernel decides (the witness is a proposal; the tactic is generated)"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "statement": "Set.Infinite {n : ℕ |\n      2 ≤ (admissibleTuple.filter (fun h => (n + h).Prime)).card}",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (h→h₀, n→n₀): alpha-equivalent",
+   "statement": "Set.Infinite {n₀ : ℕ |\n      2 ≤ (admissibleTuple.filter (fun h₀ => (n₀ + h₀).Prime)).card}",
+   "imports": [],
+   "expect": "ACCEPTED",
+   "aligned": true,
+   "certain": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "`≤` made `<` (`| 2 ≤ ( admissibleTuple.filter` → `| 2 < ( admissibleTuple.filter`, line 2)",
+   "statement": "Set.Infinite {n : ℕ |\n      2 < (admissibleTuple.filter (fun h => (n + h).Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 3 (`ℕ | 2 ≤` → `ℕ | 3 ≤`, line 2)",
+   "statement": "Set.Infinite {n : ℕ |\n      3 ≤ (admissibleTuple.filter (fun h => (n + h).Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numeral 2 made 1 (`ℕ | 2 ≤` → `ℕ | 1 ≤`, line 2)",
+   "statement": "Set.Infinite {n : ℕ |\n      1 ≤ (admissibleTuple.filter (fun h => (n + h).Prime)).card}",
+   "imports": [],
+   "expect": "kernel decides",
+   "aligned": true,
+   "certain": false
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "why": "the proof of infinite_two_prime_translates_admissibleTuple replaced by sorry (the original kept as intake_was_infinite_two_prime_translates_admissibleTuple)",
+   "find": "theorem infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} :=",
+   "replace": "theorem infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} := sorry\n\ntheorem intake_was_infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} :=",
+   "all": false,
+   "expect": "sorryAx in the axioms",
+   "rule": "sorry"
+  },
+  {
+   "id": "R2",
+   "why": "infinite_two_prime_translates_admissibleTuple proved by an added axiom (the original kept as intake_was_infinite_two_prime_translates_admissibleTuple)",
+   "find": "theorem infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} :=",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} := intakeRedAxiom\n\ntheorem intake_was_infinite_two_prime_translates_admissibleTuple :\n    Set.Infinite {n : ℕ |\n      2 ≤ (PrimeGap186.admissibleTuple.filter (fun h => (n + h).Prime)).card} :=",
+   "all": false,
+   "expect": "intakeRedAxiom in the axioms",
+   "rule": "axiom"
+  }
+ ],
+ "kernels": [
+  "lean (the build)",
+  "leanchecker (bundled with the toolchain)",
+  "nanoda 8de7e0c4 via lean4export (built in the run)"
+ ],
+ "f2NotApplicable": "a closed statement about an infinite set of n: no instance binder to evaluate",
+ "notInScope": "whether the canonical statement is the informal problem (a reading, F5): F2 tests it on finitely many instances, which is evidence, not proof; the planted statements marked \"kernel decides\" carry no prediction; the claimant's file is never copied",
+ "success": "among the planted statements that reach the check, every certain prediction met (ACCEPTED; NOT ACCEPTED, met only by a refusal by type mismatch; the F2 ⇒ F1 rule), at least one changed or retyped statement refused and one rewording accepted; a statement that does not elaborate is not tested and is counted neither way; every planted defect of the claimant's file caught, F3 and F2 as their rules say",
+ "amendments": [],
+ "predictions": {
+  "certain": 2,
+  "kernelDecides": 3,
+  "byRule": {
+   "changed:constant": 2,
+   "changed:strictness": 1,
+   "same:rename": 1,
+   "verbatim": 1
+  },
+  "aligned": 5
+ }
+}
