@@ -22,7 +22,7 @@ write this.
 | `format` | | absent, or `2` |
 | `id`, `what` | yes | the id (the folder's name) and one sentence saying what is checked |
 | `polarity` | yes | `proves` or `refutes`: the claimant's term proves the canonical statement or its negation |
-| `canonical` | yes | the statement someone else wrote: `url`, `commit`, `path`, `sha256` (of the file), `module`, `decl`, `toolchain`, `what` |
+| `canonical` | yes | the statement someone else wrote: `url`, `commit`, `path`, `sha256` (of the file), `module`, `decl`, `toolchain`, `what`. `decl` may be a theorem, a definition's use or an axiom; an axiom checked as a claim is also listed in `canonical.axioms` |
 | `canonical.selfContained` | | `true`: the claimant's file declares the same names, so F1 reads a copy of the canonical file with one line added (`namespace IntakeCanon`), shown to be the original constant by constant |
 | `canonical.axioms` | | axioms the canonical file itself declares and the proof may rest on (names, or `{canonical, claim}` pairs). Needs `selfContained`. The verdict is then conditional on them |
 | `claim` | yes | the claimant's proof: `url`, `commit`, `file`, `sha256`, `decl`, `what`; `kind` and `license` are notes |
@@ -31,7 +31,7 @@ write this.
 | `f3` | yes | non-vacuity: `tactic` proves the canonical hypotheses have a model, `what` says the witness; `withClaim` (self-contained files) reads the hypotheses from the copy |
 | `mutants` | yes | the planted statements (next section) |
 | `mutantNamespace`, `mutantOpen` | | the namespace the planted statements are written in, and what they open |
-| `claimReds` | | planted defects of the claimant's file: `id`, `why`, `find`, `replace`, `all`, `expect`, `rule`. Each must be caught by a failed build or a non-standard axiom |
+| `claimReds` | | planted defects of the claimant's file: `id`, `why`, `find`, `replace`, `all`, `expect`, `rule`. Each must be caught by a failed build or a non-standard axiom. A spec with none says why in `notInScope` (an axiom has no proof to break) |
 | `f2` | | instance agreement (below). Without it, `f2NotApplicable` gives the reason in words |
 | `amendments` | yes | dated changes after the first commit of the spec: `date`, `what`, `before`. Empty when there are none |
 | `reproduces` | | a hand record this intake is compared with: `record`, `map` |
@@ -58,9 +58,9 @@ The outcome of a planted statement is one of:
 | `ACCEPTED` | the claimant's term is accepted as a proof of it |
 | `REFUSED by type mismatch` | every error is a type mismatch at the claimant's term |
 | `DID NOT ELABORATE` **[2]** | an error in the planted statement itself: it never reached the check |
-| `FAILED elsewhere` | anything else (a timeout, another error at the claimant's term). In the first format this also covers a statement that did not elaborate |
+| `FAILED elsewhere` | anything else: a timeout, a recursion limit or another error at the claimant's term. The statement may have reached the check, but the check gave no verdict. In the first format this also covers a statement that did not elaborate |
 
-**[2]** A statement that did not reach the check has `tested: false` and `asExpected: null`. It is named under
+**[2]** A statement the check gave no verdict on (it did not elaborate, or it failed elsewhere) has `tested: false` and `asExpected: null`. It is named under
 `words.F1controls.notTested` and counted neither as a refusal nor as a miss. `NOT ACCEPTED` is met only by
 `REFUSED by type mismatch`. The controls are CERTIFIED when, among the statements that reached the check, every
 predicted outcome is met, at least one changed, retyped, wrong or equivalent statement is refused, and at least one
@@ -111,12 +111,16 @@ commit share one build. A network volume mounted at `/cache` keeps toolchains an
 The twelve records in this repository written from 9 to 11 November 2026, and the six records of the prime-gap 186
 audit made with the same tool, are kept byte for byte. Read them with these corrections:
 
-1. **A planted statement that did not reach the identity check was counted as if it had been refused.** Its outcome
-   in the record is `FAILED elsewhere`. Twelve statements in nine records:
-   - counted as a met prediction "NOT ACCEPTED" (ten): N1 and N2 of Erdős #488 from claimbox's spec — its "8 of 8
-     certain predictions met" is 6 of 6 tested and 2 not tested; N1 of erdos-669, giuga-weak, giuga-strong and
-     sqtuples; N1 of pg186-ax1 and pg186-ax2; N1 and N2 of pg186-dhl;
-   - counted as "refused" among the changed statements (two): C01 and C04 of pg186-tuple-x.
+1. **A planted statement that got no verdict from the identity check was counted as if it had been refused.** Its
+   outcome in the record is `FAILED elsewhere`. Twelve statements in nine records:
+   - ten did not elaborate (the error is in the planted statement itself, so the check never saw it), and each was
+     counted as a met prediction "NOT ACCEPTED": N1 and N2 of Erdős #488 from claimbox's spec — its "8 of 8 certain
+     predictions met" is 6 of 6 tested and 2 not tested; N1 of erdos-669, giuga-weak, giuga-strong and sqtuples; N1
+     of pg186-ax1 and pg186-ax2; N1 and N2 of pg186-dhl;
+   - two elaborated and reached the claimant's term, where the check stopped at a recursion limit without accepting
+     or refusing: C01 and C04 of pg186-tuple-x, counted as "refused" among the changed statements. (Corrected
+     2026-11-11, the same day: this erratum first said these two "never reached the check"; claimbox's reading of the
+     record showed their only error is at the claimant's term.)
 
    No verdict changes: counted on the tested statements alone, each of the eighteen records still has every
    prediction met, at least three refusals and at least one accepted rewording.
