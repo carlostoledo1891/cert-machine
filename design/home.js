@@ -9,7 +9,9 @@
 
      scope      THE ZOOM. A published configuration drawn on a canvas from its own coordinates, zoomed by a slider
                 (or a mouse drag, or a pinch) onto the pair its record names. The sentence under it, the scale bar,
-                the zoom word and the two chips all keep their boxes while their content changes.
+                the zoom word and the two chips all keep their boxes while their content changes. Under the
+                controls, THE STILL: the last frame of the zoom, small, drawn in the build from the same geometry
+                (zoomKit), so the finding is on the page before anything moves and for a reader who asked for no motion.
      words      three verdict words, compact, at the foot of the hero's left column, each with its small shape
      field      THE REGISTER FIELD. One cell per decided claim, grouped by month; the cell's SHAPE is its verdict
                 (never colour alone), a readout of fixed height names the claim under the pointer or the focus, and
@@ -25,13 +27,15 @@
    box of fixed height and only their visibility changes; the scale bar is a fixed track whose bar is scaled by a
    transform; the zoom word and the scale's label are boxes of fixed width, set left; the two chips are there from the
    start and only their opacity changes; the witness × is moved by a transform; the readout has a fixed height at each
-   breakpoint and clamps its lines; a cell under the pointer is outlined and scaled, never resized. tools/check-home.js
-   drives the page in Chrome and refuses a layout shift above zero under any of those controls.
+   breakpoint and clamps its lines; a cell under the pointer is outlined and scaled, never resized; the still is markup
+   in a row of fixed height, and no script touches it. tools/check-home.js drives the page in Chrome and refuses a
+   layout shift above zero under any of those controls.
 
    THE ONE RED (WARRANT rule 5). The witness red is on one mark here: the × drawn where the two circles overlap, at the
-   figure's scale, and the same glyph beside its words under the figure. A refuted claim's cell is a × in ink: a cell's
-   shape is a verdict, and the red never marks a verdict. The overlap itself is filled in ink, never in red: the red
-   never fills a region.
+   figure's scale, the same × on the same point in the still (the operator, 2026-11-11), and the same glyph beside its
+   words under the figure. A refuted claim's cell is a × in ink: a cell's shape is a verdict, and the red never marks a
+   verdict. The overlap itself is filled in ink, never in red, in the figure and in the still: the red never fills a
+   region.
 
    The rules use the template's tokens only (no literal spacing, size, weight, leading or duration: tools/check-style.js
    counts those), and a frame is drawn with an outline, never a border, so a framed block and its content share one
@@ -56,17 +60,96 @@ const btn = ({ href, raw, solid }) => '<a class="hm-btn' + (solid ? ' solid' : '
 /* a small link in the mono voice; one that leaves the site opens a new tab (the operator, 2026-10-28) */
 const more = ({ href, text }) => '<a class="hm-more" href="' + C.escAttr(href) + '"' + (/^https?:\/\//.test(href) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(text) + '</a>';
 
+/* ---- THE ZOOM'S GEOMETRY, ONCE --------------------------------------------------------------------------------
+   Where the pair's point is, how a zoom frames it, which part of a circle falls in the frame, how dark the overlap is
+   filled and how a zoom is said in words. The canvas draws with these in the browser and the still is drawn with them
+   in the build: the same source, inlined into the page's script (as readoutHtml is), so the two cannot differ. ES5, no
+   closure.
+     at(C, pair)        the point the zoom ends on, midway across the overlap on the line of centres, and the overlap's
+                        depth (the two radii less the distance between the centres)
+     view(P, S, s)      the frame of a square of side S px at zoom 10^s: the magnification, the scale, the centre
+     arc(c, P, V, n)    a circle in that frame: { o: [x, y, R] } whole while it is small on the screen; once it is not,
+                        { p: [[x, y], …] } the arc near the point in n chords, closed far outside the frame;
+                        { all: 1 } when the frame is inside it; null when it is nowhere near
+     word(Z)            the magnification in words
+     OVER               the overlap's fill at full strength (ink, at this opacity) */
+function zoomKit() {
+  var K = { OVER: 0.3 };
+  K.at = function (C, pair) {
+    var A = C[pair[0]], B = C[pair[1]];
+    var dx = B[0] - A[0], dy = B[1] - A[1], dist = Math.sqrt(dx * dx + dy * dy), ux = dx / dist, uy = dy / dist;
+    var depth = (A[2] + B[2]) - dist, mid = A[2] - depth / 2;
+    return { P: [A[0] + ux * mid, A[1] + uy * mid], depth: depth };
+  };
+  /* at ×1 the square sits a little high, clear of the scale in the corner; zoomed in, the point is at the centre */
+  K.view = function (P, S, s) {
+    var Z = Math.pow(10, s), f = Math.pow(Z, -1.5);
+    return { S: S, Z: Z, k: S * 0.86, f: f, cx: P[0] + (0.5 - P[0]) * f, cy: P[1] + (0.5 - P[1]) * f, my: S / 2 - 14 * Math.min(1, f) };
+  };
+  K.arc = function (c, P, V, n) {
+    var S = V.S, Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, my = V.my;
+    var d = Math.sqrt((P[0] - c[0]) * (P[0] - c[0]) + (P[1] - c[1]) * (P[1] - c[1])), R = c[2] * Z * k, view = S * 1.6;
+    if (R < view * 3) return { o: [(c[0] - cx) * Z * k + S / 2, (c[1] - cy) * Z * k + my, R] };
+    if (Math.abs(d - c[2]) * Z * k > view) return d < c[2] ? { all: 1 } : null;
+    var t0 = Math.atan2(P[1] - c[1], P[0] - c[0]), h = Math.min(Math.PI, view / R), p = [], i, th, x, y, fx, fy;
+    for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my; p.push([x, y]); }
+    fx = -Math.cos(t0) * view * 2; fy = -Math.sin(t0) * view * 2;
+    p.push([x + fx, y + fy]);
+    th = t0 - h; p.push([((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2 + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my + fy]);
+    return { p: p };
+  };
+  K.word = function (Z) { return '×' + (Z < 1e3 ? Math.round(Z) : Z < 1e6 ? (Math.round(Z / 100) / 10) + ' thousand' : (Math.round(Z / 1e5) / 10) + ' million'); };
+  return K;
+}
+const ZK = zoomKit();
+/* the slider's end, as a power of ten: the still is the frame at this zoom, and its label is this zoom in words */
+const ZMAX = 6.2;
+
+/* ---- THE STILL: the zoom's last frame, small, as markup --------------------------------------------------------
+   The frame the slider ends on, drawn in the build by the kit the canvas draws with, at the still's own size: each
+   circle's ground, the overlap filled in ink at the figure's own strength, the two edges in ink, and the witness × on
+   the point (W.witnessMark, no thinner than the edges). Nothing here is drawn by hand and no script touches it, so it
+   is on the page at first paint, with motion or without. `alt` states what it shows; `textRaw` is the figure's own
+   sentence for this frame. */
+const STILL = { side: 48, line: 1.5, chords: 8 };
+function still({ circles, pair, alt, textRaw }) {
+  if (!alt) throw new Error('home.still: the still needs a text alternative that states the finding');
+  const T = STILL.side, g = ZK.at(circles, pair), V = ZK.view(g.P, T, ZMAX), f = (v) => String(Math.round(v * 100) / 100);
+  const shape = (a, attrs) => (a.o ? '<circle cx="' + f(a.o[0]) + '" cy="' + f(a.o[1]) + '" r="' + f(a.o[2]) + '"' + attrs + '/>'
+    : a.all ? '<rect x="-9" y="-9" width="' + (T + 18) + '" height="' + (T + 18) + '"' + attrs + '/>'
+      : '<path d="' + a.p.map((q, i) => (i ? 'L' : 'M') + f(q[0]) + ',' + f(q[1])).join('') + 'Z"' + attrs + '/>');
+  const arcs = circles.map((c) => ZK.arc(c, g.P, V, STILL.chords)), drawn = arcs.map((a, i) => i).filter((i) => arcs[i]);
+  const gap = g.depth * V.Z * V.k;
+  /* the test the figure makes before it says "They overlap": the two edges stand apart on the screen */
+  if (!arcs[pair[0]] || !arcs[pair[1]] || !(gap > 3)) throw new Error('home.still: at the slider\'s end the two circles do not overlap on the screen, so the still would show nothing');
+  const px = (g.P[0] - V.cx) * V.Z * V.k + T / 2, py = (g.P[1] - V.cy) * V.Z * V.k + V.my;
+  /* each circle's shape is written once and used three times: as a ground, as the clip of the overlap, as an edge */
+  const use = (i, attrs) => '<use href="#hm-still-' + i + '"' + attrs + '/>';
+  return '<div class="hm-still">'
+    + '<svg viewBox="0 0 ' + T + ' ' + T + '" role="img" aria-label="' + C.escAttr(alt) + '">'
+    + '<defs>' + drawn.map((i) => shape(arcs[i], ' id="hm-still-' + i + '"')).join('') + '<clipPath id="hm-still-clip">' + use(pair[0], '') + '</clipPath></defs>'
+    + drawn.map((i) => use(i, ' class="hm-still-g"')).join('')
+    + use(pair[1], ' class="hm-still-o" fill-opacity="' + ZK.OVER + '" clip-path="url(#hm-still-clip)"')
+    + drawn.map((i) => use(i, ' class="hm-still-l" stroke-width="' + STILL.line + '"')).join('')
+    + W.witnessMark(px, py, { size: 5, width: 2.4 })
+    + '</svg>'
+    + '<p class="hm-still-t"><span class="lab">At ' + esc(ZK.word(Math.pow(10, ZMAX))) + '</span><span>' + textRaw + '</span></p>'
+    + '</div>';
+}
+
 /* ---- THE ZOOM ------------------------------------------------------------------------------------------------
    circles   [[x, y, r], …] as the decimal literals of the published file (strings), so the page draws the bytes
    pair      [i, j]: the pair the record names; the zoom ends on the point between them
    says      five sentences, in order: the three before the overlap resolves, the overlap, the overlap with its size
              (markup the builder made: the size is a value read from its record)
    chipsRaw  two cells of markup: the verdict as the claimant stated the claim, and what the strict reading finds
-   record    the files the figure is drawn from (the figcaption carries them in data-record; nothing is printed) */
-function scope({ caption, alt, circles, pair, saysRaw, chipsRaw, record, sliderLabel }) {
+   record    the files the figure is drawn from (the figcaption carries them in data-record; nothing is printed)
+   stillAlt  (the slider's end in words) -> what the still shows, in words; the still says the fourth sentence */
+function scope({ caption, alt, circles, pair, saysRaw, chipsRaw, record, sliderLabel, stillAlt }) {
   if (!Array.isArray(saysRaw) || saysRaw.length !== 5) throw new Error('home.scope: five sentences, in order');
   if (!Array.isArray(chipsRaw) || chipsRaw.length !== 2) throw new Error('home.scope: two chips');
   if (!alt) throw new Error('home.scope: the canvas needs a text alternative that states the finding');
+  if (typeof stillAlt !== 'function') throw new Error('home.scope: the still needs its text alternative');
   const data = { c: circles.map((t) => t.map(Number)), pair, guide: G.dash.guide };
   return '<figure class="hm-scope" data-hero>\n'
     + '  <figcaption class="hm-scope-top"' + C.recordLine(record).attr + '><span class="lab">' + esc(caption) + '</span></figcaption>\n'
@@ -80,9 +163,11 @@ function scope({ caption, alt, circles, pair, saysRaw, chipsRaw, record, sliderL
     + '  </div>\n'
     + '  <p class="hm-say-t" id="hm-say">' + saysRaw.map((s, i) => '<span data-k="' + i + '"' + (i === 0 ? ' class="on"' : '') + '>' + s + '</span>').join('') + '</p>\n'
     + '  <div class="hm-ctrl">\n'
-    + '    <span class="lab hm-zw">Zoom <b class="hm-zl" id="hm-zl">×1</b></span>\n'
-    + '    <input id="hm-zoom" type="range" min="0" max="6.2" step="0.01" value="0" aria-label="' + C.escAttr(sliderLabel) + '">\n'
+    /* the still, where the zoom ends, on the page from the first paint; beside it the button that plays the way there */
+    + '    ' + still({ circles: data.c, pair, alt: stillAlt(ZK.word(Math.pow(10, ZMAX)).replace(/^×/, '')), textRaw: saysRaw[3] }) + '\n'
     + '    <button class="hm-btn sm" id="hm-replay" type="button">Replay</button>\n'
+    + '    <span class="lab hm-zw">Zoom <b class="hm-zl" id="hm-zl">×1</b></span>\n'
+    + '    <input id="hm-zoom" type="range" min="0" max="' + ZMAX + '" step="0.01" value="0" aria-label="' + C.escAttr(sliderLabel) + '">\n'
     + '  </div>\n'
     + '  <div class="hm-twist off" id="hm-twist">' + chipsRaw.map((c) => '<div>' + c + '</div>').join('') + '</div>\n'
     + '</figure>\n'
@@ -259,17 +344,31 @@ figcaption.hm-scope-top .lab{display:block;line-height:var(--leading-snug)}
 .hm-bar-track{display:block;width:calc(var(--s-10) - var(--s-4));flex:none}
 .hm-bar-track i{--f:1;display:block;height:2px;background:var(--ink-3);transform-origin:left center;transform:scaleX(var(--f))}
 .hm-bar-l{display:block;width:calc(var(--s-10) - var(--s-2));flex:none;white-space:nowrap;color:var(--ink-3);letter-spacing:var(--track-loose)}
-.hm-ctrl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-4);align-items:center;height:var(--s-6)}
-.hm-zw{white-space:nowrap}
+/* two rows of fixed height: the still with Replay beside it (where the zoom ends, and the button that plays the way
+   there), and under them the zoom's word and its slider */
+.hm-ctrl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:var(--s-7) var(--s-6);gap:var(--s-4);align-items:center}
+.hm-ctrl .hm-btn{grid-column:3;grid-row:1}
+.hm-zw{grid-column:1;grid-row:2;white-space:nowrap}
 .hm-zl{display:inline-block;width:calc(var(--s-10) + var(--s-3));margin-left:var(--s-2);color:var(--ink);font-weight:var(--weight-strong);
   font-variant-numeric:tabular-nums;white-space:nowrap}
-.hm-ctrl input{width:100%;height:var(--s-5);margin:0;background:transparent;cursor:pointer;appearance:none;-webkit-appearance:none}
+.hm-ctrl input{grid-column:2 / -1;grid-row:2;width:100%;height:var(--s-5);margin:0;background:transparent;cursor:pointer;appearance:none;-webkit-appearance:none}
 .hm-ctrl input::-webkit-slider-runnable-track{height:2px;background:var(--rule-strong)}
 .hm-ctrl input::-moz-range-track{height:2px;background:var(--rule-strong)}
 .hm-ctrl input::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border:0;border-radius:var(--radius-pill);
   background:var(--ink);margin-top:calc(var(--s-2) * -1)}
 .hm-ctrl input::-moz-range-thumb{width:18px;height:18px;border:0;border-radius:var(--radius-pill);background:var(--ink)}
 .hm-ctrl input:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:var(--radius-s)}
+/* the still: the zoom's last frame, small, on the stage's own ground; markup of fixed size that no script touches */
+.hm-still{grid-column:1 / 3;grid-row:1;display:grid;grid-template-columns:var(--s-7) auto;justify-content:start;align-items:center;gap:var(--s-3);
+  height:var(--s-7)}
+.hm-still svg{display:block;width:var(--s-7);height:var(--s-7);overflow:hidden;background:var(--paper);border-radius:var(--radius-s);
+  outline:1px solid var(--rule);outline-offset:-1px}
+.hm-still-g{fill:var(--band-fill)}
+.hm-still-o{fill:var(--ink)}
+.hm-still-l{fill:none;stroke:var(--ink);stroke-linejoin:round}
+.hm-still-t{display:grid;gap:var(--s-1);margin:0}
+.hm-still-t span{display:block;line-height:var(--leading-snug);white-space:nowrap}
+.hm-still-t span:last-child{color:var(--ink);font-size:var(--text-small);font-weight:var(--weight-title)}
 .hm-twist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--rule);
   transition:opacity var(--dur-slow) var(--ease-out)}
 .hm-twist.off{opacity:.3}
@@ -413,15 +512,24 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
   .hm-scope,.hm-field{padding:var(--s-4)}
   .hm-plate{padding:var(--s-1) var(--s-4)}
   .hm-node,.hm-link{padding-left:var(--s-4)}
-  .hm-ctrl{grid-template-columns:minmax(0,1fr) auto;height:calc(var(--s-8) + var(--s-2));align-content:space-between}
-  .hm-ctrl input{grid-column:1 / -1;grid-row:2}
+  .hm-ctrl{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:var(--s-7) var(--s-5) var(--s-5)}
+  .hm-ctrl .hm-btn{grid-column:2}
+  /* beside Replay the still takes the room there is; on the narrowest phones its label wraps before it reaches the button */
+  .hm-still{grid-column:1;grid-template-columns:var(--s-7) minmax(0,1fr)}
+  .hm-still-t span{white-space:normal}
+  .hm-zw{grid-column:1 / -1}
+  .hm-ctrl input{grid-column:1 / -1;grid-row:3}
   .hm-twist{grid-template-columns:minmax(0,1fr)}
   /* on a phone the three stand one under another; each sentence keeps the page's left edge under its glyph and word */
   .hm-w3-row{grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
   .hm-w3-i p{height:auto}
   .hm-month{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
   .hm-month-l{justify-content:flex-start;gap:var(--s-3)}
-  .hm-readout{grid-template-columns:minmax(0,1fr);align-content:start;height:calc(var(--s-10) + var(--s-8))}
+  /* on a phone the readout sits above the cells (the operator, 2026-11-11): the cells are many rows there, and under
+     them the readout was a screen away from a touched cell. Order only: the same element at its reserved height, its
+     rule at its foot; the legend stays under the cells */
+  .hm-readout{order:-1;grid-template-columns:minmax(0,1fr);align-content:start;height:calc(var(--s-10) + var(--s-8));
+    padding:0 0 var(--s-4);border-top:0;border-bottom:1px solid var(--rule)}
   .hm-ro-meta{display:flex;align-items:center;gap:var(--s-3)}
   .hm-readout .hm-more{justify-self:start}
   .hm-ro-who{-webkit-line-clamp:2}
@@ -444,9 +552,7 @@ function client() {
   (function () {
     var src = document.getElementById('hm-scope-data'), cv = document.getElementById('hm-cv');
     if (!src || !cv || !cv.getContext) return;
-    var D = JSON.parse(src.textContent), C = D.c, A = C[D.pair[0]], B = C[D.pair[1]];
-    var dx = B[0] - A[0], dy = B[1] - A[1], dist = Math.sqrt(dx * dx + dy * dy), ux = dx / dist, uy = dy / dist;
-    var depth = (A[2] + B[2]) - dist, mid = A[2] - depth / 2, P = [A[0] + ux * mid, A[1] + uy * mid];
+    var D = JSON.parse(src.textContent), C = D.c, at = ZK.at(C, D.pair), depth = at.depth, P = at.P;
     var ctx = cv.getContext('2d'), stage = document.getElementById('hm-stage'), zin = document.getElementById('hm-zoom');
     var zl = document.getElementById('hm-zl'), bar = document.getElementById('hm-bar'), barl = document.getElementById('hm-bar-l');
     var twist = document.getElementById('hm-twist'), wx = document.getElementById('hm-wx');
@@ -455,39 +561,34 @@ function client() {
     var SUP = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
     var sup = function (n) { return String(n).split('').map(function (c) { return SUP[c]; }).join(''); };
     function size() { dpr = Math.min(window.devicePixelRatio || 1, 2); S = stage.clientWidth; cv.width = Math.round(S * dpr); cv.height = Math.round(S * dpr); draw(); }
-    /* a circle as a path: whole while it is small on the screen, the arc near the point once it is not */
-    function path(c, Z, k, cx, cy, my) {
-      var d = Math.sqrt((P[0] - c[0]) * (P[0] - c[0]) + (P[1] - c[1]) * (P[1] - c[1])), R = c[2] * Z * k, view = S * 1.6, p = new Path2D();
-      if (R < view * 3) { p.arc((c[0] - cx) * Z * k + S / 2, (c[1] - cy) * Z * k + my, R, 0, Math.PI * 2); return p; }
-      if (Math.abs(d - c[2]) * Z * k > view) { if (d < c[2]) { p.rect(-9, -9, S + 18, S + 18); return p; } return null; }
-      var t0 = Math.atan2(P[1] - c[1], P[0] - c[0]), h = Math.min(Math.PI, view / R), n = 64, i, th, x, y, fx, fy;
-      for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my; if (i) p.lineTo(x, y); else p.moveTo(x, y); }
-      fx = -Math.cos(t0) * view * 2; fy = -Math.sin(t0) * view * 2;
-      p.lineTo(x + fx, y + fy);
-      th = t0 - h; p.lineTo(((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2 + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my + fy);
+    /* a circle as a path, from the kit's reading of it in the frame (zoomKit): whole, the arc near the point, or all */
+    function path(c, V) {
+      var a = ZK.arc(c, P, V, 64), p, i;
+      if (!a) return null;
+      p = new Path2D();
+      if (a.o) { p.arc(a.o[0], a.o[1], a.o[2], 0, Math.PI * 2); return p; }
+      if (a.all) { p.rect(-9, -9, S + 18, S + 18); return p; }
+      for (i = 0; i < a.p.length; i++) { if (i) p.lineTo(a.p[i][0], a.p[i][1]); else p.moveTo(a.p[i][0], a.p[i][1]); }
       p.closePath(); return p;
     }
     function draw() {
       if (!S) return;
-      var Z = Math.pow(10, s), k = S * 0.86, f = Math.pow(Z, -1.5);
-      var cx = P[0] + (0.5 - P[0]) * f, cy = P[1] + (0.5 - P[1]) * f;
-      /* at ×1 the square sits a little high, clear of the scale in the corner; zoomed in, the point is at the centre */
-      var my = S / 2 - 14 * Math.min(1, f);
+      var V = ZK.view(P, S, s), Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, my = V.my;
       var ink = tok('--ink'), ink4 = tok('--ink-4'), rule = tok('--rule-strong'), band = tok('--band-fill');
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, S, S);
       if (Z < 400) { ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.strokeRect((0 - cx) * Z * k + S / 2, (0 - cy) * Z * k + my, Z * k, Z * k); }
       var paths = [], i, p;
-      for (i = 0; i < C.length; i++) { p = path(C[i], Z, k, cx, cy, my); paths[i] = p; if (p) { ctx.fillStyle = band; ctx.fill(p); } }
+      for (i = 0; i < C.length; i++) { p = path(C[i], V); paths[i] = p; if (p) { ctx.fillStyle = band; ctx.fill(p); } }
       /* where the two overlap: filled in ink (a decided extent), never in the witness red */
       var gap = depth * Z * k, pa = paths[D.pair[0]], pb = paths[D.pair[1]];
-      if (gap > 0.6 && pa && pb) { ctx.save(); ctx.clip(pa); ctx.fillStyle = ink; ctx.globalAlpha = Math.min(0.3, 0.1 + gap / 500); ctx.fill(pb); ctx.restore(); }
+      if (gap > 0.6 && pa && pb) { ctx.save(); ctx.clip(pa); ctx.fillStyle = ink; ctx.globalAlpha = Math.min(ZK.OVER, 0.1 + gap / 500); ctx.fill(pb); ctx.restore(); }
       ctx.strokeStyle = ink; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
       for (i = 0; i < C.length; i++) if (paths[i]) ctx.stroke(paths[i]);
       /* where to look: a guide, in the guide's pattern */
       var px = (P[0] - cx) * Z * k + S / 2, py = (P[1] - cy) * Z * k + my;
       if (Z < 3e4) { ctx.strokeStyle = ink4; ctx.lineWidth = 1; ctx.setLineDash(D.guide); ctx.beginPath(); ctx.arc(px, py, Math.max(9, 14 - s * 1.2), 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
       /* the words around the figure: each in a box of fixed size, written only when it changes */
-      var z = '×' + (Z < 1e3 ? Math.round(Z) : Z < 1e6 ? (Math.round(Z / 100) / 10) + ' thousand' : (Math.round(Z / 1e5) / 10) + ' million');
+      var z = ZK.word(Z);
       if (z !== zText) { zText = z; zl.textContent = z; zin.setAttribute('aria-valuetext', z); }
       var e = Math.floor(Math.log(110 / (Z * k)) / Math.LN10), len = Math.pow(10, e) * Z * k;
       bar.style.setProperty('--f', (len / 112).toFixed(4));
@@ -551,6 +652,6 @@ function client() {
     if (hook && cells[+hook[1]]) show(+hook[1]);
   })();
 }
-const script = () => '<script>(function(){var readoutHtml=' + readoutHtml.toString() + ';(' + client.toString() + ')();})();</script>';
+const script = () => '<script>(function(){var readoutHtml=' + readoutHtml.toString() + ',ZK=(' + zoomKit.toString() + ')();(' + client.toString() + ')();})();</script>';
 
-module.exports = { head, section, btn, more, hero, scope, words, field, pairs, chain, voices, strokes, doors, css, script, CELL, readoutHtml };
+module.exports = { head, section, btn, more, hero, scope, still, words, field, pairs, chain, voices, strokes, doors, css, script, CELL, readoutHtml, zoomKit, ZMAX };

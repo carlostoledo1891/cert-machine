@@ -486,3 +486,10 @@ to allow that is the operator's ruling to make, and was not made here. One more 
 operator's word of the same day as it reached the builder: the small × beside "Refuted" in the three words under the
 headline, drawn by `W.witnessMark` as the KEY of the witness mark, beside the words "the thing that breaks it" (as a
 legend shows a mark without being an instance of it). It comes after the figure in the markup.
+
+The still (approved by the operator, 2026-11-11): under the figure, beside Replay, the frame the zoom ends on is drawn
+once more, small, as an inline SVG made in the build from the same geometry the canvas draws with, so the finding is on
+the page before anything moves and for a reader who asked for no motion (for whom nothing plays and the figure stays at
+×1). It follows the figure's rule 5 exactly: the edges in ink, the overlap filled in ink at the figure's strength, and
+the witness × on the same point, the same witness at the still's scale, no thinner than the edges. It comes after the
+figure's own × in the markup, so that one is still the first a reader meets.

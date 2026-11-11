@@ -95,6 +95,9 @@ module.exports = function homePage(X) {
        its licence, in the footer) */
     circles, pair: [wi, wj], record: INTAKE,
     sliderLabel: 'Zoom, from one to about a million and a half times',
+    /* the still under the controls: the frame the slider ends on, said in words (the zoom's own word for its end) */
+    stillAlt: (z) => 'The end of the zoom as a still: the same pair about ' + z + ' times closer. The two edges have crossed and the circles overlap, by '
+      + overlapLo + ' of the side; a cross marks the overlap.',
     saysRaw: ['They touch.', 'Still touching.', 'Still touching?', 'They overlap.', 'They overlap, by ' + overlap + '.'],
     chipsRaw: [
       '<span class="hm-chip">' + C.tag(c5.verdict) + '</span><span>as the authors stated it, with a tolerance of '
@@ -137,9 +140,15 @@ module.exports = function homePage(X) {
   const rows = decided.map((r) => ({ d: dateWords(r.recordedOn), verdict: r.verdict, w: cut(r.claimant, 60), t: cut(r.claim, 132), h: hrefOf(r.page) }));
   const months = [];
   decided.forEach((r, i) => { const k = r.recordedOn.slice(0, 7); if (!months.length || months[months.length - 1].key !== k) months.push({ key: k, label: MON[Number(k.slice(5)) - 1], rows: [] }); months[months.length - 1].rows.push(i); });
-  const first = decided.findIndex((r) => /weight-space-programming/.test(r.page));
-  hg('the register no longer starts in ' + registerSince + ', one year\'s months in order, or holds no row for the Weights audit to show first',
-    first >= 0 && months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
+  /* THE ROW THE REGISTER OPENS ON (the operator, 2026-11-11): a clear verdict, never a mixed one, found in the ledger by
+     a rule and never by a row's id, which goes stale. THE RULE: the most recent row whose verdict is REFUTED (the last
+     one in the register's own order: by date, then by its place in the ledger). The other rule tried, the most recent
+     CERTIFIED row whose page is a report here, opened that day on a row a reader has to know Lean to read; a refuted
+     row says what the page is for in one word. No refuted row, no page. */
+  const first = decided.map((r) => r.verdict).lastIndexOf('REFUTED');
+  hg('the register holds no refuted row for it to open on', first >= 0 && decided[first].verdict === 'REFUTED' && (L.byVerdict.REFUTED || 0) > 0);
+  hg('the register no longer starts in ' + registerSince + ', or its months are no longer one year\'s, in order',
+    months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
     && registerSince === ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(months[0].key.slice(5)) - 1] + ' ' + months[0].key.slice(0, 4));
   const register = H.section({ id: 'register', bodyRaw:
     H.head({ titleRaw: val(REG, '/decided', W.DECIDED) + ' results checked since ' + C.esc(registerSince.replace(/\s+\d{4}$/, '')) + '. Touch one.' })
@@ -152,11 +161,11 @@ module.exports = function homePage(X) {
   const OREL = 'corpus/openai-math/release.json', OK_ = 'certs/openai-math-kernel.json', OST = 'certs/openai-math-statements.json';
   const Wb = J(WSPB), Pg = J(PG), Gs = J(GSM), En = J(ENV), Orel = J(OREL), Ok = J(OK_), S = J(OST);
   /* 1 · the Weights audit */
-  const wspBest = Wb.reading && Wb.reading.best_no_edit_arm, wspRow = decided[first];
+  const wspBest = Wb.reading && Wb.reading.best_no_edit_arm, wspRow = decided.find((r) => /weight-space-programming/.test(r.page));
   const wspPrinted = Wb.post_printed.unedited_math500_printed * 100;
-  hg('the Weights record no longer holds the post\'s printed score with no edit, a best no-edit arm, and the reading "mostly a settings effect"; or the register no longer quotes the post\'s "6×"',
+  hg('the Weights record no longer holds the post\'s printed score with no edit, a best no-edit arm, and the reading "mostly a settings effect"; or the register no longer holds the Weights audit\'s row, quoting the post\'s "6×"',
     wspBest && typeof wspBest.percent === 'number' && wspPrinted > 0 && wspPrinted < wspBest.percent && /settings effect/i.test(String(Wb.reading.verdict || ''))
-    && /\(6×\)/.test(wspRow.claim) && /MIT CSAIL/.test(wspRow.claimant) && wspBest.percent > 0.9 * Wb.reading.target_percent);
+    && wspRow && /\(6×\)/.test(wspRow.claim) && /MIT CSAIL/.test(wspRow.claimant) && wspBest.percent > 0.9 * Wb.reading.target_percent);
   /* 2 · prime gaps */
   const pgAxioms = Pg.lean.audit.axioms.filter((a) => /^PrimeGap186\./.test(a));
   const pgBound = (/_le_(\d+)$/.exec((Pg.lean.audit.theorems.find((t) => /primeGapLiminf_le_\d+$/.test(t.name)) || {}).name || '') || [])[1];
