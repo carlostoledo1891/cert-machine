@@ -61,6 +61,18 @@
    "dst": "corpus/lean-intake/sqtuples-claimbox/spec.json",
    "note": "claimbox's intake spec, the solved-PR batch: Daniel Puri's s-increasing triples, the square case (PR #7660)",
    "exclude": []
+  },
+  {
+   "src": "records/intake/erdos-488-r2-spec.json",
+   "dst": "corpus/lean-intake/erdos-488-r2-claimbox/spec.json",
+   "note": "claimbox's intake spec for Erdős #488 under rule set 2, the first spec in format 2 (29 planted statements: rule set 1's 28 and N3, every ℕ made ℤ at once)",
+   "exclude": []
+  },
+  {
+   "src": "records/intake/erdos-488-reading.json",
+   "dst": "corpus/lean-intake/erdos-488-r2-claimbox/reading.json",
+   "note": "the blind reading's table recorded for erdos-488, named by the r2 spec's f2.table (the same sentence and instances; the same bytes as erdos-488-claimbox/reading.json)",
+   "exclude": []
   }
  ],
  "patches": []

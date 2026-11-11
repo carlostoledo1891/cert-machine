@@ -1,0 +1,242 @@
+{
+ "what": "Preflight of the spec at corpus/lean-intake/erdos-488-r2-claimbox/spec.json: each planted statement elaborated alone (its theorem s with sorry, without the claimant's term) against the pinned canonical file. It shows which statements can test anything; it runs no identity check and reveals no outcome of one.",
+ "spec": {
+  "path": "corpus/lean-intake/erdos-488-r2-claimbox/spec.json",
+  "sha256": "11f6f4909ae14c1d1b953b7f10b40ddb77de9635de71b53b0cdc7711f5fe9730"
+ },
+ "day": "2026-11-11",
+ "canonical": {
+  "commit": "2055e5adadae0b2e392365938faa82ef6f1464f0",
+  "sha256": "8eedda95f84b4a04e4615065059ac9dc584678b97e5a6b9df1a3c4812d5eecbe",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "statements": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "rule": "same:binder-pred",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "rule": "same:not-mem",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S4",
+   "kind": "same",
+   "rule": "same:not-mem",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S5",
+   "kind": "same",
+   "rule": "same:zeta",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C08",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C09",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C12",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C13",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C14",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C15",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C16",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C17",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C18",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C19",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C20",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "elaborates": false,
+   "errors": [
+    "8:7: error: Application type mismatch: The argument",
+    "9:13: error: Application type mismatch: The argument"
+   ]
+  },
+  {
+   "id": "N2",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "elaborates": false,
+   "errors": [
+    "7:32: error: Type mismatch",
+    "8:7: error: Application type mismatch: The argument",
+    "9:13: error: Application type mismatch: The argument"
+   ]
+  },
+  {
+   "id": "N3",
+   "kind": "type",
+   "rule": "type:nat-int-all",
+   "elaborates": true,
+   "errors": []
+  }
+ ],
+ "elaborate": "27 of 29",
+ "doNotElaborate": [
+  "N1",
+  "N2"
+ ],
+ "plantedDefects": [
+  {
+   "id": "R1",
+   "occurrences": 1,
+   "ok": true
+  },
+  {
+   "id": "R2",
+   "occurrences": 1,
+   "ok": true
+  }
+ ]
+}
