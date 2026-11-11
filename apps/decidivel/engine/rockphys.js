@@ -74,14 +74,72 @@ function dec(s) {
   if (r && Q.cmp(Q.fromDouble(d), r) === 0) return [d, d];
   return [nextDown(d), nextUp(d)];
 }
+/* B AND B⁺ (2026-11-11). box() returns the DOUBLE HULL B⁺ of the declared box B: each declared decimal that is not a
+   double is widened to the double beside it, outward. That is what a BOUND needs (B⁺ ⊇ B, so a bound over B⁺ holds
+   over B). A WITNESS needs the opposite: a point of B itself, and an end of B⁺ is one double outside B wherever the
+   decimal is not a double. So box() also remembers, for the box it returns, what was declared: per dimension the two
+   ends as exact rationals (lo, hi), the thin enclosure dec() of each (tlo, thi: the decimal itself when it is a
+   double, else the two doubles around it), and the least and the greatest double inside B (loIn, hiIn, found with
+   rational comparisons here, once, so that the search can test a coordinate with one float comparison).
+   A box that did not come from box() declares its own doubles. */
+const DECLARED = new WeakMap();
+function declaredEnd(s) {
+  const d = Number(s), t = dec(s);
+  return { q: ratOf(s) || Q.fromDouble(d), t };
+}
 function box(b) {
-  const o = {};
+  const o = {}, D = {};
   for (const k of DIMS) {
     if (!b[k]) throw new Error('rockphys: the box needs ' + k);
-    o[k] = [dec(b[k][0])[0], dec(b[k][1])[1]];
+    const a = declaredEnd(b[k][0]), c = declaredEnd(b[k][1]);
+    o[k] = [a.t[0], c.t[1]];
     if (!(o[k][0] <= o[k][1])) throw new Error('rockphys: empty ' + k);
+    if (Q.cmp(a.q, c.q) > 0) throw new Error('rockphys: empty ' + k);
+    let loIn = a.t[0]; while (Q.cmp(Q.fromDouble(loIn), a.q) < 0) loIn = nextUp(loIn);
+    let hiIn = c.t[1]; while (Q.cmp(Q.fromDouble(hiIn), c.q) > 0) hiIn = nextDown(hiIn);
+    D[k] = { lo: a.q, hi: c.q, tlo: a.t, thi: c.t, loIn, hiIn };
   }
+  DECLARED.set(o, D);
   return o;
+}
+function declaredOf(B) {
+  const D = DECLARED.get(B); if (D) return D;
+  const o = {};
+  for (const k of DIMS) o[k] = { lo: Q.fromDouble(B[k][0]), hi: Q.fromDouble(B[k][1]), tlo: [B[k][0], B[k][0]], thi: [B[k][1], B[k][1]], loIn: B[k][0], hiIn: B[k][1] };
+  return o;
+}
+/* A WITNESS PLACED IN B. A point coordinate below the least double of B (it can only be the widened lower end, or the
+   double nearest a declared end that lies just outside it) becomes the thin enclosure of the declared lower end;
+   above the greatest, that of the upper end. The value is then enclosed over the thin box, which holds the exact
+   declared end, so it is proved at a point of B (as the gate's corners are, flowline.js corners()). Every other
+   coordinate is a double inside B, or the thin enclosure of a single declared value, and stays. */
+function intoDeclared(W, D) {
+  let o = null;
+  for (const k of DIMS) {
+    const a = W[k][0];
+    if (a !== W[k][1]) continue;
+    const t = a < D[k].loIn ? D[k].tlo : a > D[k].hiIn ? D[k].thi : null;
+    if (t) { if (!o) o = Object.assign({}, W); o[k] = t; }
+  }
+  return o || W;
+}
+/* THE EXACT MEMBERSHIP CHECK. A witness is a point or a two-double box per dimension; it holds a point of the declared
+   box iff every one of them meets [lo, hi], the doubles and the declared ends compared as exact rationals. Returns
+   null when it does, else the reason. extreme() applies it to the witness it returns and REFUSES (throws) otherwise;
+   witnessInBox() applies it to a stored witness against declared strings. */
+function outsideDeclared(W, D) {
+  for (const k of DIMS) {
+    const w = W[k];
+    if (!w || !(Number.isFinite(w[0]) && Number.isFinite(w[1]) && w[0] <= w[1])) return k + ' is not a point or a box';
+    if (!(w[0] === w[1] || nextUp(nextUp(w[0])) >= w[1])) return k + ' = [' + w[0] + ', ' + w[1] + '] is wider than two doubles: not a witness';
+    if (Q.cmp(Q.fromDouble(w[0]), D[k].hi) > 0 || Q.cmp(Q.fromDouble(w[1]), D[k].lo) < 0) return k + ' = ' + (w[0] === w[1] ? w[0] : '[' + w[0] + ', ' + w[1] + ']') + ' is outside the declared [' + Q.toDouble(D[k].lo) + ', ' + Q.toDouble(D[k].hi) + ']';
+  }
+  return null;
+}
+function witnessInBox(decl, at) {
+  const D = {};
+  for (const k of DIMS) { if (!decl[k]) throw new Error('rockphys: the box needs ' + k); D[k] = { lo: declaredEnd(decl[k][0]).q, hi: declaredEnd(decl[k][1]).q }; }
+  return outsideDeclared(at, D);
 }
 /* the verified square root: bounds accepted only after squaring back */
 function isqrt(X) {
@@ -198,7 +256,9 @@ function extreme(B0, dir, opts) {
   const T = opts && opts.stop !== undefined ? opts.stop : null;
   /* the function searched: r by default, or one of its factors (attributes) */
   const F = (opts && opts.fn) || changeD, FP = (opts && opts.fp) || pointR;
-  let evals = 0, best = null;
+  let evals = 0, wevals = 0, best = null;
+  /* what was declared, exactly: every witness is placed in it (intoDeclared) and checked against it (outsideDeclared) */
+  const DB = declaredOf(B0);
   const better = (v, w) => (dir > 0 ? v > w : v < w);
   const span = {}; for (const k of DIMS) span[k] = (B0[k][1] - B0[k][0]) || 1;
   /* the natural enclosure, intersected with the MEAN-VALUE form
@@ -259,8 +319,12 @@ function extreme(B0, dir, opts) {
     const free = DIMS.filter((k) => !thin(B, k)).length;
     if (!r) { push({ B, r: null, edge: dir > 0 ? Infinity : -Infinity, free }); return; }
     const edge = dir > 0 ? hi(r.v) : lo(r.v);
-    /* every box that reaches here offers a witness at its centre */
-    const W = free ? thinAt(B) : B, rw = free ? point(W) : r;
+    /* every box that reaches here offers a witness at its centre, placed in the DECLARED box: a pinned coordinate
+       sits at an end of B⁺, which is outside B wherever the declared decimal is not a double. A fully pinned box
+       that had to be moved is enclosed again, on its own counter: the search's budget is spent as before */
+    const W0 = free ? thinAt(B) : B, W = intoDeclared(W0, DB);
+    let rw;
+    if (free) rw = point(W); else if (W === B) rw = r; else { rw = F(W); wevals++; }
     if (rw) { const iw = dir > 0 ? lo(rw.v) : hi(rw.v); if (!best || better(iw, best.inner)) best = { B: W, r: rw.v, inner: iw }; }
     push({ B, r, edge, free });
   }
@@ -281,7 +345,8 @@ function extreme(B0, dir, opts) {
       }
       if (!moved) break;
     }
-    const W = {}; for (const k of DIMS) W[k] = thin(B0, k) ? B0[k] : [P[k], P[k]];
+    const W0 = {}; for (const k of DIMS) W0[k] = thin(B0, k) ? B0[k] : [P[k], P[k]];
+    const W = intoDeclared(W0, DB);                    /* the candidate's ends are ends of B⁺: placed in B before it is enclosed */
     const rw = F(W); evals++;
     if (rw) best = { B: W, r: rw.v, inner: dir > 0 ? lo(rw.v) : hi(rw.v) };
   }
@@ -301,7 +366,9 @@ function extreme(B0, dir, opts) {
   if (bound === null) bound = best ? (dir > 0 ? hi(best.r) : lo(best.r)) : (dir > 0 ? Infinity : -Infinity);
   /* the bound can never sit inside the witness: it is at least as far out */
   if (best) bound = dir > 0 ? Math.max(bound, hi(best.r)) : Math.min(bound, lo(best.r));
-  return { bound, witness: best, evals, open: H.length };
+  /* THE EXACT CHECK: a witness that holds no point of the declared box is refused, never returned */
+  if (best) { const why = outsideDeclared(best.B, DB); if (why) throw new Error('rockphys: RECUSADO, a witness outside the declared box: ' + why); }
+  return { bound, witness: best, evals: evals + wevals, open: H.length };
 }
 function thinAt(B) { const o = {}; for (const k of DIMS) { if (thin(B, k)) { o[k] = B[k]; continue; } const m = (B[k][0] + B[k][1]) / 2; o[k] = [m, m]; } return o; }
 
@@ -398,7 +465,7 @@ const MEASURABLE = {
   dSw: 'a saturação de água injetada (perfil de saturação)'
 };
 const br = (x, d) => x.toFixed(d).replace('.', ',');
-function words(B, k) { const [a, b] = B[k]; return a === b ? br(a, 3) : br(a, 3) + '–' + br(b, 3); }
+function words(B, k) { const [a, b] = B[k]; return a === b || br(a, 3) === br(b, 3) ? br(a, 3) : br(a, 3) + '–' + br(b, 3); }
 function witnessText(W) {
   const B = W.B;
   return 'φ = ' + words(B, 'phi') + ', rigidez s = ' + words(B, 's') + ', Sg injetado = ' + words(B, 'dSg') + ', mistura w = ' + words(B, 'w') + ', Kgás = ' + words(B, 'Kg') + ' GPa';
@@ -530,4 +597,4 @@ function pointR(p) {
   return (rho2 * M(K2)) / (rho1 * M(K1));
 }
 
-module.exports = { decide, decideBox, range, absRange, attrRange, absFromRange, factorD, signDensity, classifyAbs, extreme, map, box, dec, domain, changeD, coreD, isqrt, pointR, pointParts, priceOfInformation, pctOf, DIMS, MEASURABLE, ATTR, PROVADO, REFUTADO, RECUSADO };
+module.exports = { decide, decideBox, range, absRange, attrRange, absFromRange, factorD, signDensity, classifyAbs, extreme, map, box, dec, witnessInBox, domain, changeD, coreD, isqrt, pointR, pointParts, priceOfInformation, pctOf, DIMS, MEASURABLE, ATTR, PROVADO, REFUTADO, RECUSADO };

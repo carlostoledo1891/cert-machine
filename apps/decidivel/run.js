@@ -9,6 +9,16 @@
 
    usage: node apps/decidivel/run.js            writes data/decidivel-ledger.json
           node apps/decidivel/run.js --check    re-derives it and refuses on any difference
+          node apps/decidivel/run.js --out data/<name>.json [--check]    the same, on a record beside it (a path under apps/decidivel)
+
+   THE SUBMITTED RECORD (2026-11-11). data/decidivel-ledger.json is the record the submitted page was built from
+   (site/decidivel/, kept exactly as submitted to Petrobras: the operator, 2026-10-28), written by the engine whose
+   sha256 it pins and whose bytes that page inlines. When the engine on disk is no longer that one, a plain run
+   REFUSES to overwrite it: a corrected record goes beside it with --out, and replacing the submitted one (--replace)
+   is the operator's word, with the page's rebuild. A plain --check then checks the record this engine did write (the
+   last data/decidivel-ledger-*.json that pins the engine on disk), names it, and counts the leaves in which it differs
+   from the submitted one; with no such record it refuses before computing anything.
+   A ledger is written only if its headline witnesses pass the engine's exact membership check (R.witnessInBox).
    apps/decidivel · cert-machine                                             MIT */
 'use strict';
 const fs = require('fs');
@@ -19,7 +29,10 @@ const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
 const R = require('./engine/rockphys.js');
 
 const APP = __dirname, ROOT = path.join(APP, '..', '..');
-const OUT = path.join(APP, 'data', 'decidivel-ledger.json');
+const SUBMITTED = path.join(APP, 'data', 'decidivel-ledger.json');
+const outArg = (() => { const i = process.argv.indexOf('--out'); return i > 0 ? process.argv[i + 1] : null; })();
+const OUT = outArg ? path.resolve(APP, outArg) : SUBMITTED;
+if (isMainThread && outArg && !(OUT.startsWith(path.join(APP, 'data') + path.sep) && OUT.endsWith('.json'))) { console.error('decidivel ledger REFUSED: --out must be a .json file under apps/decidivel/data'); process.exit(1); }
 const BUDGET = 12000;
 const r6 = (x) => (x === null ? null : Math.round(x * 1e6) / 1e6);
 const four = (A) => [Math.floor(A.lo * 1e6) / 1e6, A.loA === null ? null : r6(A.loA), A.hiA === null ? null : r6(A.hiA), Math.ceil(A.hi * 1e6) / 1e6, A.sign];
@@ -75,6 +88,21 @@ function unionFour(vs) {
 if (!isMainThread) {
   parentPort.postMessage(workerData.tasks.map((t) => [t.i, t.kind === 'sign' ? signTask(t) : cellTask(t)]));
 } else {
+  /* the submitted record is not overwritten by another engine without the operator's word, and --check checks the
+     record the engine on disk wrote (the header) */
+  const shaNow = (f) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, f))).digest('hex');
+  const otherEngine = (file) => { const was = JSON.parse(fs.readFileSync(file, 'utf8')).engine || {}; return Object.keys(was).filter((f) => shaNow(f) !== was[f]); };
+  let TARGET = OUT;
+  if (OUT === SUBMITTED && fs.existsSync(SUBMITTED) && !process.argv.includes('--replace')) {
+    const moved = otherEngine(SUBMITTED);
+    if (moved.length && !process.argv.includes('--check')) { console.error('decidivel ledger REFUSED: ' + path.relative(ROOT, SUBMITTED) + ' is the record of the submitted page and was written by another ' + moved.join(', ') + '; write the new record beside it (--out data/decidivel-ledger-<date>.json), or replace it on the operator\'s word (--replace) and rebuild the page'); process.exit(1); }
+    if (moved.length) {
+      const beside = fs.readdirSync(path.dirname(SUBMITTED)).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort().map((x) => path.join(path.dirname(SUBMITTED), x)).filter((x) => otherEngine(x).length === 0);
+      if (!beside.length) { console.error('decidivel ledger REFUSED: ' + path.relative(ROOT, SUBMITTED) + ' was written by another ' + moved.join(', ') + ' (the submitted page\'s) and no record beside it pins the engine on disk; write one with --out data/decidivel-ledger-<date>.json'); process.exit(1); }
+      TARGET = beside[beside.length - 1];
+      console.log(path.relative(ROOT, SUBMITTED) + ' is the submitted page\'s record, written by another ' + moved.join(', ') + '; checking the record of the engine on disk, ' + path.relative(ROOT, TARGET));
+    }
+  }
   const D = JSON.parse(fs.readFileSync(path.join(APP, 'declared.json'), 'utf8'));
   const G = D.grid;
   const phis = [], sgs = [];
@@ -149,15 +177,27 @@ if (!isMainThread) {
       cover,
       headline: { box: hbox, theta: H.theta, receipt, table, attributes, correlated, mc, mc15, price }
     };
+    /* the headline's witnesses hold a point of the declared box, exactly, or nothing is written */
+    for (const [name, w] of Object.entries(receipt.witnesses || {})) {
+      const why = w ? R.witnessInBox(hbox, w.at) : null;
+      if (why) { console.error('decidivel ledger REFUSED: the ' + name + ' witness is outside the declared box: ' + why); process.exit(1); }
+    }
     const text = JSON.stringify(ledger) + '\n';
     if (process.argv.includes('--check')) {
-      const old = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-      if (old !== text) { console.error('decidivel ledger DEVIATES from ' + path.relative(ROOT, OUT)); process.exit(1); }
-      console.log('decidivel ledger re-derived identical (' + tasks.length + ' tasks, ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s)');
+      const old = fs.existsSync(TARGET) ? fs.readFileSync(TARGET, 'utf8') : '';
+      if (old !== text) { console.error('decidivel ledger DEVIATES from ' + path.relative(ROOT, TARGET)); process.exit(1); }
+      console.log('decidivel ledger re-derived identical (' + tasks.length + ' tasks, ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s)' + (TARGET !== OUT ? ': ' + path.relative(ROOT, TARGET) : ''));
+      if (TARGET !== OUT) {
+        /* how the checked record differs from the submitted one, leaf by leaf */
+        const leaves = []; const walk = (a, b, p) => { if (a && b && typeof a === 'object' && typeof b === 'object') { for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) walk(a[k], b[k], p + '/' + k); } else if (a !== b) leaves.push(p); };
+        walk(JSON.parse(fs.readFileSync(OUT, 'utf8')), ledger, '');
+        const where = (pre) => leaves.filter((p) => p.startsWith(pre)).length;
+        console.log('against ' + path.relative(ROOT, OUT) + ' it differs in ' + leaves.length + ' leaves: ' + where('/engine') + ' in the engine pins, ' + where('/headline/receipt/witnesses') + ' in the headline witnesses, ' + (leaves.length - where('/engine') - where('/headline/receipt/witnesses')) + ' elsewhere');
+      }
       return;
     }
     fs.mkdirSync(path.dirname(OUT), { recursive: true });
     fs.writeFileSync(OUT, text);
-    console.log('data/decidivel-ledger.json: ' + tasks.length + ' tasks in ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s on ' + n + ' threads; headline ' + receipt.verdict);
+    console.log(path.relative(APP, OUT) + ': ' + tasks.length + ' tasks in ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s on ' + n + ' threads; headline ' + receipt.verdict);
   }).catch((e) => { console.error(e); process.exit(1); });
 }

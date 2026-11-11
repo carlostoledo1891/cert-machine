@@ -4,7 +4,9 @@
    value of reference.py, and its two factors (density, modulus) the reference's parts (Python decimal at 50 digits, the textbook Gassmann
    form, the ratio taken directly — no shared code, no difference form); the
    proved extremes of 24 random sub-boxes contain the reference at every one of
-   12 points drawn inside each; every witness lies in its box and its interval
+   12 points drawn inside each; every witness holds a point of its DECLARED box
+   (the decimals as exact rationals, compared with the witness's doubles as
+   exact rationals, in arithmetic of this file's own) and its interval
    contains the reference there; a soft, porous, gas-rich box is PROVADO, a
    tight stiff one REFUTADO, the headline RECUSADO with a proved witness on
    each side; decide() is deterministic.
@@ -14,7 +16,10 @@
    box centre passed off as "the change" is caught by the witnesses; porosity
    above the critical porosity and an oil saturation driven negative are
    refused as outside the domain; a threshold one hundredth of a percent above
-   a proved upper bound is REFUTADO, one below a proved lower bound PROVADO.
+   a proved upper bound is REFUTADO, one below a proved lower bound PROVADO; a
+   witness with one coordinate at the widened double beside a declared end (one
+   double outside the declared box, where the witnesses sat until 2026-11-11)
+   is refused by the engine's exact membership check, and so is a fat box.
 
    usage: node apps/decidivel/engine/battery.js                            MIT */
 'use strict';
@@ -32,6 +37,20 @@ const BASE = Object.assign({}, D.box, { phi: ['0.02', '0.30'], dSg: ['0.02', '0.
 const draw = (b) => { const p = {}; for (const k of R.DIMS) { const a = Number(b[k][0]), c = Number(b[k][1]); p[k] = (a + (c - a) * rnd()).toPrecision(12); } return p; };
 const thin = (p) => { const B = {}; for (const k of R.DIMS) B[k] = R.dec(p[k]); return B; };
 const refOf = (pts) => JSON.parse(cp.execFileSync('python3', [path.join(__dirname, 'reference.py')], { input: JSON.stringify(pts), encoding: 'utf8' })).map(Number);
+
+/* ---- exact arithmetic of this file's own (BigInt pairs), sharing nothing with the engine: a declared decimal and a
+   double, each as the rational it is ---- */
+const ratDec = (s) => { const m = /^(-?)(\d+)(?:\.(\d+))?$/.exec(String(s)); if (!m) throw new Error('battery: not a plain decimal: ' + s); const f = m[3] || ''; return [BigInt(m[2] + f) * (m[1] ? -1n : 1n), 10n ** BigInt(f.length)]; };
+const ratDbl = (x) => {
+  const dv = new DataView(new ArrayBuffer(8)); dv.setFloat64(0, x);
+  const bits = dv.getBigUint64(0), neg = bits >> 63n, e = Number((bits >> 52n) & 0x7ffn), f = bits & ((1n << 52n) - 1n);
+  if (e === 0x7ff) throw new Error('battery: not a finite double');
+  const m = (e === 0 ? f : f | (1n << 52n)) * (neg ? -1n : 1n), ex = (e === 0 ? 1 : e) - 1075;
+  return ex >= 0 ? [m * (1n << BigInt(ex)), 1n] : [m, 1n << BigInt(-ex)];
+};
+const rcmp = (a, b) => { const l = a[0] * b[1], r = b[0] * a[1]; return l < r ? -1 : l > r ? 1 : 0; };
+/* the coordinates at which a witness (a point or a thin box per dimension) holds NO point of the declared box */
+const outsideB = (decl, at) => R.DIMS.filter((k) => !(rcmp(ratDbl(at[k][0]), ratDec(decl[k][1])) <= 0 && rcmp(ratDbl(at[k][1]), ratDec(decl[k][0])) >= 0));
 
 /* ---- green: the second implementation, point by point ---- */
 const pts = Array.from({ length: 200 }, () => draw(BASE));
@@ -58,10 +77,11 @@ inner.forEach((p, j) => { const g = G[owners[j]]; if (!(g.L <= refIn[j] && refIn
 boxesOk = sub.length - bad.size;
 ok(boxesOk === sub.length, 'proved extremes contain the reference inside ' + boxesOk + ' of ' + sub.length + ' random boxes');
 const wpts = [], wr = [];
-G.forEach((g, b) => { for (const w of [g.wmin, g.wmax]) { if (!w) continue; const p = {}; for (const k of R.DIMS) p[k] = String((w.B[k][0] + w.B[k][1]) / 2); const B = R.box(sub[b]); const inBox = R.DIMS.every((k) => B[k][0] <= w.B[k][0] && w.B[k][1] <= B[k][1]); wpts.push(p); wr.push({ r: w.r, inBox }); } });
+let coordsOut = 0;
+G.forEach((g, b) => { for (const w of [g.wmin, g.wmax]) { if (!w) continue; const p = {}; for (const k of R.DIMS) p[k] = String((w.B[k][0] + w.B[k][1]) / 2); const out = outsideB(sub[b], w.B).length; coordsOut += out; wpts.push(p); wr.push({ r: w.r, inBox: out === 0 }); } });
 const refW = refOf(wpts);
 refW.forEach((v, i) => { if (wr[i].inBox && wr[i].r[0] <= v * (1 + 1e-12) && v * (1 - 1e-12) <= wr[i].r[1]) witOk++; });
-ok(witOk === wpts.length, 'witnesses lie in their box and enclose the reference: ' + witOk + ' of ' + wpts.length);
+ok(witOk === wpts.length, 'witnesses hold a point of their DECLARED box (exact rationals) and enclose the reference: ' + witOk + ' of ' + wpts.length + (coordsOut ? ' — ' + coordsOut + ' coordinates outside the declared box' : ''));
 
 /* ---- green: the attributes — the density factor and the modulus factor, against the reference's parts ---- */
 {
@@ -83,6 +103,13 @@ const H = Object.assign({}, D.box, { phi: D.headline.phi, dSg: D.headline.dSg })
 const hr = R.decide(H, { theta: D.headline.theta }, { noPrice: true });
 ok(hr.verdict === R.RECUSADO && hr.witnesses.det && hr.witnesses.und, 'the headline is RECUSADO with a proved witness on each side');
 ok(JSON.stringify(R.decide(H, { theta: D.headline.theta }, { noPrice: true })) === JSON.stringify(hr), 'decide() is deterministic');
+{
+  /* the headline's two witnesses hold a point of the declared box, exactly; so do the witnesses of its proved range */
+  const A = R.absRange(R.box(H), { budget: 12000 });
+  const ws = [['detectable', hr.witnesses.det && hr.witnesses.det.at], ['undetectable', hr.witnesses.und && hr.witnesses.und.at], ['range, smallest', A.wmin && A.wmin.B], ['range, largest', A.wmax && A.wmax.B]];
+  const outs = ws.map(([n, at]) => [n, at ? outsideB(H, at) : ['absent']]);
+  ok(outs.every(([, o]) => o.length === 0), 'the headline witnesses hold a point of the declared box, exactly' + outs.filter(([, o]) => o.length).map(([n, o]) => ' — ' + n + ': ' + o.length + ' of ' + R.DIMS.length + ' coordinates outside (' + o.join(', ') + ')').join(''));
+}
 
 /* ---- red: Monte Carlo feasibility, refused ---- */
 {
@@ -110,6 +137,39 @@ ok(JSON.stringify(R.decide(H, { theta: D.headline.theta }, { noPrice: true })) =
   const lightest = Number(D.box.rhoo[0]);
   /* "gas replacing oil always softens": refused — at a gas density the declared range admits, a proved model GAINS impedance; and never below the lightest admissible oil */
   red(S.rhoFlip !== null && S.witness && S.witness.r[0] > 1 && S.rhoFlip >= lightest, 'a proved model gains impedance at gas density ' + S.rhoFlip + ' g/cm³ (≥ the lightest oil, ' + lightest + '): the sign is not guaranteed');
+}
+/* ---- green: a record written beside the submitted one is this engine's ----
+   data/decidivel-ledger.json is the record of the submitted page and is gated by build.js; it may pin an earlier engine.
+   Every other ledger in data/ (run.js --out) must pin the engine and the declared ranges on disk, its headline receipt
+   must re-decide identically, and its witnesses must hold a point of the declared box, exactly. */
+{
+  const crypto = require('crypto');
+  const ROOT = path.join(__dirname, '..', '..', '..'), DATA = path.join(__dirname, '..', 'data');
+  const shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  for (const f of fs.readdirSync(DATA).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort()) {
+    const L = JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
+    const pinned = Object.entries(L.engine).every(([rel, h]) => shaOf(rel) === h) && shaOf(L.declared.file) === L.declared.sha256;
+    const again = pinned && JSON.stringify(R.decide(L.headline.box, { theta: L.headline.theta }, { noPrice: true, budget: L.budget })) === JSON.stringify(L.headline.receipt);
+    const ws = Object.values(L.headline.receipt.witnesses || {}).filter(Boolean);
+    const inB = ws.length > 0 && ws.every((w) => outsideB(L.headline.box, w.at).length === 0 && R.witnessInBox(L.headline.box, w.at) === null);
+    ok(pinned && again && inB, 'data/' + f + ': ' + (pinned ? 'pins the engine and the ranges on disk' : 'DOES NOT pin the engine or the ranges on disk (run apps/decidivel/run.js --out data/' + f + ')') + '; headline receipt ' + (again ? 're-decided identical' : 'NOT re-decided identical') + '; witnesses ' + (inB ? 'inside' : 'NOT inside') + ' the declared box');
+  }
+}
+/* ---- red: a witness outside the declared box ---- */
+{
+  const has = typeof R.witnessInBox === 'function';
+  const at = hr.witnesses.und ? hr.witnesses.und.at : null, Bp = R.box(H);
+  /* the declared ends that are not doubles: there the double hull's end is one double outside the declared box */
+  const widened = R.DIMS.filter((k) => rcmp(ratDbl(Bp[k][1]), ratDec(H[k][1])) > 0);
+  const k = widened[0];
+  /* that end, as a point coordinate: where the engine's witnesses sat before 2026-11-11 */
+  const moved = at && k ? Object.assign({}, at, { [k]: [Bp[k][1], Bp[k][1]] }) : null;
+  const why = has && moved ? R.witnessInBox(H, moved) : null;
+  red(has && at && R.witnessInBox(H, at) === null && moved && outsideB(H, moved).join() === k && typeof why === 'string' && why.includes(k),
+    'a witness with ' + k + ' at the widened double ' + (k ? Bp[k][1] : '') + ' (declared end ' + (k ? H[k][1] : '') + ') is refused by the exact membership check' + (why ? ': ' + why : ''));
+  /* a fat box meets the declared box but is no witness: refused for its width */
+  const fat = at && k ? Object.assign({}, at, { [k]: [Number(H[k][0]), Number(H[k][1])] }) : null;
+  red(has && fat && typeof R.witnessInBox(H, fat) === 'string', 'a "witness" that is a whole interval of ' + k + ' is refused: a witness is a point or a two-double box');
 }
 /* ---- red: outside the domain ---- */
 red(R.decide(Object.assign({}, H, { phi: ['0.38', '0.42'] }), { theta: '0.015' }, { noPrice: true }).checks[0].id === 'dominio' && R.decide(Object.assign({}, H, { phi: ['0.38', '0.42'] }), { theta: '0.015' }, { noPrice: true }).verdict === R.RECUSADO, 'porosity reaching the critical porosity is refused');
