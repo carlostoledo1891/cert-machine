@@ -96,6 +96,16 @@ claimant's term) against the pinned canonical file and writes
 statement that cannot elaborate is rewritten or kept knowingly. It runs no identity check and reveals no outcome of
 one.
 
+## On a rented machine
+
+A lab's release often cannot be built on a desk machine. `tools/runpod-lean-intake.sh` runs the same tool on one RunPod
+CPU pod with no credential on it: the pod's start command fetches the script at a pinned commit of this repository
+(`AUDIT_SHA`, pushed first), runs `lean-intake.js run` for each id in `INTAKE_IDS` under a memory watchdog, and serves the
+run's facts read-only. `node tools/import-runpod-intake.js <pod-id> <id>` unpacks them into
+`corpus/lean-intake/<id>/runs/<day>/` (never over an existing day). The pod is then deleted, its cost written with the
+`cost` command, and `record` decides on the desk from the imported facts. Several ids on one canonical repository at one
+commit share one build. A network volume mounted at `/cache` keeps toolchains and cache downloads between pods.
+
 ## What the first format's records misstate (erratum, 2026-11-11)
 
 The twelve records in this repository written from 9 to 11 November 2026, and the six records of the prime-gap 186
