@@ -5,7 +5,9 @@ The quick claims (G, F4, F5, the 14- and 18-dimensional fields, the cubic Phi) a
 half) are left to the ledger. RED controls: one coefficient of G moved by 1e-6 (the determinant stops being constant);
 a term of X14 moved from one component to the next (the nilpotency fails); a coefficient of X14 moved by 1e-6; a
 collision witness moved by 1/1000 (the images part); a printed zero moved (it stops being a zero); Phi with one
-coefficient moved (det J Phi stops being constant).
+coefficient moved (det J Phi stops being constant); THE DOOR: a term whose exponent tuple is short by one entry, a
+polynomial holding such a term when it is only evaluated (the partial path), a witness point short by one coordinate,
+a map with a component missing and a coefficient given as a float are each REFUSED.
 
 Prints: "polymaps battery: N pass, 0 fail, R/R red controls fired". """
 import hashlib
@@ -19,7 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, HERE)
 import decide as D  # noqa: E402
-from poly import P, det, jac  # noqa: E402
+from poly import P, det, jac, from_object, points_from  # noqa: E402
 
 passed = failed = reds = fired = 0
 
@@ -86,6 +88,33 @@ q = P(11, dict(Phi[4].t))
 k1 = next(iter(q.t))
 q.t[k1] += 1
 red(det(jac(Phi[:4] + [q] + Phi[5:], 11)).const_value() != -2, 'RED: Phi with one coefficient moved by 1: det J Phi is no longer -2')
+
+
+
+# ---- THE DOOR (2026-11-11): a malformed object is refused before anything reads it, on the path that only evaluates too
+def refused(f):
+    try:
+        f()
+    except ValueError as e:
+        return str(e).startswith('REFUSED')
+    return False
+
+
+raw = json.load(open(os.path.join(corpus, 'maps.json')))['F4']['comps']
+ok([f.t for f in from_object(4, raw)] == [f.t for f in F4], 'GREEN: the door builds F4 as the ledger reads it')
+short = json.loads(json.dumps(raw))
+short[0][0][0] = short[0][0][0][:-1]
+red(refused(lambda: from_object(4, short)), 'RED: a term whose exponent tuple is short by one entry is REFUSED at the door')
+held = P(4, dict(F4[0].t))
+k2 = next(iter(held.t))
+held.t[k2[:-1]] = held.t.pop(k2)
+p0 = tuple(Fr(x) for x in W['collisions']['F4'][0])
+red(refused(lambda: held.ev(p0)), 'RED: a polynomial holding a short exponent tuple is REFUSED when it is only evaluated (zip read the missing exponent as 0: the partial path)')
+red(refused(lambda: F4[0].ev(p0[:-1])) and refused(lambda: points_from(4, [W['collisions']['F4'][0][:-1]])), 'RED: a witness point short by one coordinate is REFUSED')
+red(refused(lambda: from_object(4, raw[:-1])), 'RED: a map with a component missing is REFUSED (its Jacobian would not be square)')
+asfloat = json.loads(json.dumps(raw))
+asfloat[0][0][1] = 0.5
+red(refused(lambda: from_object(4, asfloat)), 'RED: a coefficient given as a float is REFUSED (not an exact rational)')
 
 print(f'polymaps battery: {passed} pass, {failed} fail, {fired}/{reds} red controls fired')
 sys.exit(1 if failed else 0)

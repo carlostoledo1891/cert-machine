@@ -4,7 +4,7 @@
  "wave": 1,
  "manifest": "corpus/machine-claims-100.json",
  "registered": "2026-10-02",
- "decider": "instruments/polymaps/decide.py (keller: det JF expanded symbolically over Q; the witnesses only evaluated) + poly.py; code sha256 decide.py c9f9cfac98bc, poly.py 3a9ec0288bf8",
+ "decider": "instruments/polymaps/decide.py (keller: det JF expanded symbolically over Q; the witnesses only evaluated) + poly.py; code sha256 decide.py 0cf3a9941daf, poly.py a67000984a59",
  "rows": [
   {
    "id": "st-jacobian",
@@ -193,7 +193,7 @@
       "detail": "a = 6"
      }
     ],
-    "seconds": 0.003,
+    "seconds": 0.001,
     "jacobianDeterminant": "-6",
     "commonImage": [
      "1",
@@ -219,7 +219,7 @@
     ],
     "notDecided": "family_checks for a = 1, 2, -3, 3 (a3_transfer): points and images of maps the file does not print (no object to decide)"
    },
-   "ms": 4.0
+   "ms": 1.6
   }
  ],
  "count": 1,
@@ -268,9 +268,9 @@
   }
  ],
  "timing": {
-  "runMs": 5.9
+  "runMs": 1.7
  },
- "generated": "2026-10-05T00:15:19",
- "git": "3e80be6",
+ "generated": "2026-11-11T20:08:39",
+ "git": "de3004df",
  "python": "3.9.6"
 }

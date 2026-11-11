@@ -24,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, 'corpus', 'polymaps'))
-from poly import P, det, jac  # noqa: E402
+from poly import P, det, jac, from_object, points_from  # noqa: E402
 from extract import parse_tex, lines  # noqa: E402
 
 CORPUS = os.path.join(ROOT, 'corpus', 'polymaps')
@@ -35,7 +35,7 @@ def load_maps():
     out = {}
     for k, m in M.items():
         n = len(m['vars'])
-        out[k] = [P(n, {tuple(e): Fr(c) for e, c in comp}) for comp in m['comps']]
+        out[k] = from_object(n, m['comps'])   # the door: a malformed map is refused before anything reads it
     return out, M
 
 
@@ -56,7 +56,7 @@ def keller(F, n, expect_det, expect_degs, collide, label):
                    'detail': ('constant %s' % cv) if cv is not None else 'not constant: %d terms' % len(D.t), 'seconds': round(time.time() - t0, 2)})
     degs = [f.deg() for f in F]
     checks.append({'name': 'component degrees are the printed %s' % expect_degs, 'ok': degs == expect_degs, 'detail': str(degs)})
-    pts = [pt(p) for p in collide]
+    pts = points_from(n, collide)
     imgs = [ev(F, p) for p in pts]
     checks.append({'name': '%d distinct rational points with one image: F is not injective' % len(pts),
                    'ok': len(set(pts)) == len(pts) >= 2 and all(i == imgs[0] for i in imgs), 'detail': 'image (' + ', '.join(str(v) for v in imgs[0]) + ')'})
@@ -82,7 +82,7 @@ def my_field(X, n, zeros, label):
     k = nilpotent(X, n)
     checks.append({'name': '(JX + I)^k = 0 identically (k = %s <= %d): every eigenvalue of JX is -1 at every point' % (k, n), 'ok': k is not None and k <= n,
                    'seconds': round(time.time() - t0, 2)})
-    zs = [pt(z) for z in zeros]
+    zs = points_from(n, zeros)
     checks.append({'name': '%d distinct zeros of X' % len(zs), 'ok': len(set(zs)) == len(zs) >= 2 and all(all(v == 0 for v in ev(X, z)) for z in zs)})
     return checks, k
 
@@ -174,7 +174,7 @@ def decide(full=True, log=None):
         pr, (H3, H4) = f7_parts()
         F7, X7, detS7, detStage7, first7 = gao_build(**pr)
         dH = det([[H3.diff(1), H3.diff(2)], [H4.diff(1), H4.diff(2)]])
-        pts = [pt(p) for p in W['collisions']['F7']]
+        pts = points_from(5, W['collisions']['F7'])
         imgs = [ev(F7, p) for p in pts]
         ch = [{'name': 'the rebuild reproduces the printed F7,1', 'ok': first7},
               {'name': 'rebuilt sizes', 'ok': True, 'detail': 'terms %s, degrees %s' % ([len(f.t) for f in F7], [f.deg() for f in F7])},
@@ -189,7 +189,7 @@ def decide(full=True, log=None):
         'arXiv 2608.05392, Thm 5.1', 'CERTIFIED' if all(c['ok'] for c in ch) else 'REFUTED', ch, {'nilpotencyIndex': k14})
     Phi = maps['Phi']
     D = det(jac(Phi, 11))
-    us = [pt(u) for u in W['zeros']['Phi_points']]
+    us = points_from(11, W['zeros']['Phi_points'])
     im = [ev(Phi, u) for u in us]
     ch = [{'name': 'det J Phi is identically -2 (11 x 11, expanded directly)', 'ok': D.const_value() == -2},
           {'name': 'three distinct points with one image', 'ok': len(set(us)) == 3 and im[0] == im[1] == im[2]}]

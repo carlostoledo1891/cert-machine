@@ -28,7 +28,7 @@ from fractions import Fraction as Fr
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 sys.path.insert(0, os.path.join(ROOT, 'instruments', 'polymaps'))
 import decide as D  # noqa: E402
-from poly import P  # noqa: E402
+from poly import from_object  # noqa: E402
 
 POOL = 'station-v2'
 OUT = os.path.join(ROOT, 'certs', 'mc100-station-v2.json')
@@ -58,7 +58,7 @@ def git():
 
 
 def to_map(polys):
-    return [P(3, {tuple(t['powers']): Fr(t['coefficient']) for t in comp}) for comp in polys]
+    return from_object(3, [[[t['powers'], t['coefficient']] for t in comp] for comp in polys])   # the door: shape checked before anything reads it
 
 
 def decide_jacobian(C):
