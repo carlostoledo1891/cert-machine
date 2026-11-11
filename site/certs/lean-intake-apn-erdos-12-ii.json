@@ -1,0 +1,262 @@
+{
+ "what": "The Lean intake of AlphaProof Nexus's proof of Erdős #12, part (ii) (google-deepmind/alphaproof-nexus-results) against DeepMind's statement of Erdős #12, part (ii), at formal-conjectures 7862bf6a, decided from the run's facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant's file is caught.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, is phase P2); the kernels not run: leanchecker (the toolchain does not ship it), leanchecker-paranoid, lean4lean, con-leche, con-ron (not bundled with v4.27.0).",
+ "spec": {
+  "path": "corpus/lean-intake/apn-erdos-12-ii/spec.json",
+  "sha256": "24a2e379f0bc940dd4e76956346da98f8eafc6d4b79956a7b968fd52299d8523",
+  "amendments": 1
+ },
+ "run": {
+  "day": "2026-11-10",
+  "facts": "corpus/lean-intake/apn-erdos-12-ii/runs/2026-11-10",
+  "machine": {
+   "platform": "darwin",
+   "arch": "arm64",
+   "cpus": 8,
+   "memGB": 16
+  },
+  "stepSeconds": 1031.6,
+  "costUSD": 0
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/google-deepmind/formal-conjectures.git",
+   "path": "FormalConjectures/ErdosProblems/12.lean",
+   "decl": "Erdos12.erdos_12.parts.ii",
+   "head": "7862bf6a6976c26acb086b6b2cec12ad1d92ce5d",
+   "sha256": "e8d45d2110214c142e2dfd6be267a21729faba79f7c3189a53cdf1bb1294c825",
+   "toolchain": "leanprover/lean4:v4.27.0"
+  },
+  "claim": {
+   "url": "https://github.com/google-deepmind/alphaproof-nexus-results.git",
+   "file": "APNOutputs/ErdosProblems/erdos_12.parts.ii.lean",
+   "decl": "Erdos12.target_theorem_0",
+   "head": "0647711a71183c1ea492ad60860776617ce1ea88",
+   "sha256": "f155135c1e845cb3041abe20edce22e660c407b48620d696ea6325c75ae91b66",
+   "toolchain": "leanprover/lean4:v4.27.0"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "wrongRefused": "4 of 4",
+   "sameAccepted": "2 of 2",
+   "asPreregistered": "6 of 6",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (2 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "answer(False) ↔ a statement about every infinite set A of naturals and infinitely many N: no finite instance decides any of its parts, so F2 is refused, not run"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "False ↔ ∃ c > 0, ∀ (A : Set ℕ), IntakeCanon.Erdos12.IsGood A → {N | ↑(A ∩ Set.Icc 1 N).ncard < ↑N ^ (1 - c)}.Infinite",
+  "claim": "False ↔ ∃ c > 0, ∀ (A : Set ℕ), Erdos12.IsGood A → {N | ↑(A ∩ Set.Icc 1 N).ncard < ↑N ^ (1 - c)}.Infinite",
+  "seconds": 45.7,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's Erdos12.target_theorem_0 as a proof of Erdos12.erdos_12.parts.ii's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding; the statement is read from a copy of the canonical file with one line added after its imports (`namespace IntakeCanon`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (2 constants)",
+  "selfContained": {
+   "copy": {
+    "canonicalSha256": "e8d45d2110214c142e2dfd6be267a21729faba79f7c3189a53cdf1bb1294c825",
+    "copy": "Intake/Canon/C_12.lean",
+    "copySha256": "20a3db08c70aa384e296f599940141a732433fdf4971d399c50e9b8cccc6c29d",
+    "addedLine": 18,
+    "added": "namespace IntakeCanon",
+    "check": "the copy without that line is the canonical file, byte for byte"
+   },
+   "copyIsCanonical": {
+    "bytes": true,
+    "exit": "0",
+    "declarations": [
+     {
+      "decl": "Erdos12.erdos_12.parts.ii",
+      "identical": true,
+      "constants": 2,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "statementAsWritten": {
+    "identical": true,
+    "constants": 2,
+    "difference": null
+   },
+   "axioms": {
+    "exit": "0",
+    "pairs": [],
+    "word": "none declared"
+   },
+   "conditionalOn": []
+  }
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "the statement has no hypotheses",
+  "seconds": 49.6,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 44.8
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the claimant's own wording (one line, a space before the bar)",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 40.9
+  },
+  {
+   "id": "W1",
+   "kind": "wrong",
+   "why": "the answer flipped: answer(True) for answer(False)",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 40.2
+  },
+  {
+   "id": "W2",
+   "kind": "wrong",
+   "why": "c > 0 weakened to c ≥ 0",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 40.5
+  },
+  {
+   "id": "W3",
+   "kind": "wrong",
+   "why": "the exponent 1 - c made 1 + c",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 54.3
+  },
+  {
+   "id": "W4",
+   "kind": "wrong",
+   "why": "the hypothesis IsGood A dropped",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 45.7
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of target_theorem_0 replaced by sorry (the original kept as intake_was_target_theorem_0)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 79.1
+  },
+  {
+   "id": "R2",
+   "why": "target_theorem_0 proved by an added axiom (the original kept as intake_was_target_theorem_0)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "Erdos12.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list Erdos12.intakeRedAxiom",
+   "seconds": 49.2
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 45.7
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "ea36ffdba48c5376800f4dae1d4dbc0e1d768121f49f10badbe4bd544c5d5e2b",
+    "bytes": 182745143
+   },
+   "seconds": 4.6
+  }
+ ],
+ "notRun": [
+  "leanchecker (the toolchain does not ship it)",
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}
