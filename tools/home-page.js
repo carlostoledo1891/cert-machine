@@ -145,15 +145,15 @@ module.exports = function homePage(X) {
   const rows = decided.map((r) => ({ d: dateWords(r.recordedOn), verdict: r.verdict, w: cut(r.claimant, 60), t: cut(r.claim, 132), h: hrefOf(r.page) }));
   const months = [];
   decided.forEach((r, i) => { const k = r.recordedOn.slice(0, 7); if (!months.length || months[months.length - 1].key !== k) months.push({ key: k, label: MON[Number(k.slice(5)) - 1], rows: [] }); months[months.length - 1].rows.push(i); });
-  /* THE ROW THE REGISTER OPENS ON (the operator, 2026-11-11): the hero's own record. The reader has just watched that
-     claim in the figure above, its verdict is a clear one and its sentence is plain. THE RULE is read from the records:
-     the hero's claim (claim 5 of the claims record) -> its register row (row5 above, the row the hero's chip already
-     reads), never a typed row id. No such row among the decided ones, or a verdict that is neither CERTIFIED nor
-     REFUTED, and there is no page. (Tried and dropped the same day: the most recent REFUTED row, which that day set
-     "REFUTED" beside "The Prime Number Theorem" and invited the reading that the theorem was refuted.) */
-  const first = decided.indexOf(row5);
-  hg('the row of the claim its figure draws is not among the register\'s decided rows, or its verdict is neither certified nor refuted, so the register has no clear row to open on',
-    first >= 0 && ['CERTIFIED', 'REFUTED'].includes(decided[first].verdict) && decided[first].verdict === c5.verdict);
+  /* THE ROW THE REGISTER OPENS ON (the operator's ruling, 2026-11-11): its first row, the first cell in the register's
+     own order (by date, then by its place in the ledger), top left. THE RULE names no row: the first decided row, and
+     the build refuses when that row's verdict is neither CERTIFIED nor REFUTED, so the register never opens on a mixed
+     word. (Tried and dropped the same day: the most recent REFUTED row, which set "REFUTED" beside "The Prime Number
+     Theorem"; and the hero's own record, whose readout named the circles' source right under the figure that leaves
+     it unnamed.) */
+  const first = 0;
+  hg('the register\'s first row has a verdict that is neither certified nor refuted, so the register has no clear row to open on',
+    decided.length > 0 && ['CERTIFIED', 'REFUTED'].includes(decided[first].verdict));
   hg('the register no longer starts in ' + registerSince + ', or its months are no longer one year\'s, in order',
     months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
     && registerSince === ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(months[0].key.slice(5)) - 1] + ' ' + months[0].key.slice(0, 4));

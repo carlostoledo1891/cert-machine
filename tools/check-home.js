@@ -42,6 +42,11 @@
    the hero card is as tall as it was before the still: CARD below holds the two heights measured on the page as it
    stood before the still, and the card must measure exactly that, at load, after every control and with reduced motion.
 
+   THE REGISTER OPENS ON ITS FIRST ROW (the operator's ruling, 2026-11-11): at load, before any control, the selected
+   cell is the first cell of the register, it is the one cell in the tab order, and its shape is a clear verdict
+   (certified or refuted). The passes below start from there: the keys walk on from the first cell, and the phone's
+   sticky pass selects the first cell (the opening one), the middle and the last.
+
    THE PHONE'S READOUT STAYS IN VIEW. While it measures the sticky pass it also reads where things are: each time, the
    whole readout is on the screen under the nav, and the selected cell is on the screen and not under the readout.
 
@@ -134,6 +139,10 @@ async function home(send, view) {
     const CARD_H = 'document.querySelector("figure[data-hero]").getBoundingClientRect().height';
     out.card = await ev(CARD_H);
     out.dim = Number(await ev('getComputedStyle(document.getElementById("hm-twist")).opacity'));   /* with motion the two verdicts wait for the zoom */
+    /* the register as it opens: which cell is selected, which cells are in the tab order, and the selected cell's shape */
+    out.opens = JSON.parse(await ev('(function(){var c=[].slice.call(document.querySelectorAll("#hm-months .hm-cell")),on=c.filter(function(b){return b.classList.contains("on")}),tab=c.filter(function(b){return b.tabIndex===0});'
+      + 'return JSON.stringify({on:on.map(function(b){return c.indexOf(b)}),tab:tab.map(function(b){return c.indexOf(b)}),clear:on.length===1&&(on[0].classList.contains("c")||on[0].classList.contains("x")),'
+      + 'chip:(document.querySelector("#hm-readout .tag")||{}).textContent||""})})()'));
     /* autoplay: wait for the zoom to reach its end */
     const say0 = await ev('document.querySelector("#hm-say .on").textContent');
     for (let k = 0; k < 40 && Number(await ev('document.getElementById("hm-zoom").value')) < 6; k++) await settle(300);
@@ -294,6 +303,8 @@ async function main() {
       if (lo.chips !== 1) so.push('with reduced motion the two verdicts under the figure stand at ' + lo.chips + ', not at full strength');
       so.push(...cardOffences(v, 'with reduced motion', lo.card));
     }
+    if (!(out.opens.on.length === 1 && out.opens.on[0] === 0 && out.opens.tab.length === 1 && out.opens.tab[0] === 0 && out.opens.clear && /^(CERTIFIED|REFUTED)$/.test(out.opens.chip)))
+      so.push('the register does not open on its first cell with a clear verdict: selected ' + JSON.stringify(out.opens.on) + ', in the tab order ' + JSON.stringify(out.opens.tab) + ', its readout says "' + out.opens.chip + '"');
     if (!(out.dim < 1)) so.push('with motion the two verdicts are at full strength before the zoom, so their reading with reduced motion says nothing');
     so.push(...cardOffences(v, 'at load', out.card), ...cardOffences(v, 'after the controls', out.cardAfter));
     for (const o of so) { bad++; console.log('  FAIL  @' + v.w + '  the still: ' + o); }
@@ -309,6 +320,7 @@ async function main() {
       + '  [' + parts.map((k) => k + ' ' + f(out[k].v)).join(' · ') + ']  · ' + out.hoverCells + ' cells under the pointer, 24 under the keys'
       + (still.first ? ' · the still ' + still.first.w + ' × ' + still.first.h + ' px at the first moment' + (so.length ? '' : ', unmoved by the load and by every control, labelled "' + still.first.label + '"') : ' · no still')
       + ' · the card ' + out.card + ' px tall (' + CARD[v.w] + ' before the still)'
+      + ' · the register opens on its first cell, ' + out.opens.chip
       + (v.mobile ? ' · the readout stuck under the nav through ' + out.stuck + ' scroll steps, on the screen with the first, the middle and the last cell' : '')
       + ' · reduced motion: zoom ' + ZK_WORD(lo.zoom) + ', verdicts at ' + lo.chips + ' (' + out.dim + ' with motion), shift ' + f(lo.shift.v) + ' (load ' + f(lo.load.v) + ')');
   }
