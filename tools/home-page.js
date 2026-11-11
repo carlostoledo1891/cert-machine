@@ -67,7 +67,12 @@ module.exports = function homePage(X) {
     !!pin && crypto.createHash('sha256').update(raw).digest('hex') === pin.sha256 && raw.length === pin.bytes);
   const entry = JSON.parse(raw.toString('utf8')).find((e) => e.name === c5.entry);
   const circles = entry ? entry.list : [];
-  const row5 = L.rows.find((r) => r.id === 'intake-5');
+  /* the hero's row in the register, found from the records and never by a typed row id: the one row decided from this
+     claims record whose public filing is the claim's own (both name the issue), saying the claim's own sentence */
+  const rows5 = c5 ? L.rows.filter((r) => r.decidedFrom === INTAKE && r.issue && r.issue === c5.issue) : [];
+  const row5 = rows5[0];
+  hg('the register no longer holds exactly one row for the claim its figure draws, decided from the claims record and saying the claim\'s own sentence',
+    rows5.length === 1 && row5.claim === c5.text);
   hg('the claims record no longer certifies that entry at the tolerance its authors state, with the strict reading failing on the pairs it counts',
     c5 && c5.verdict === 'CERTIFIED' && dec.verdict === 'CERTIFIED' && c5.agree === true && row5 && row5.verdict === 'CERTIFIED' && row5.decidedFrom === INTAKE
     && circles.length === dec.n && circles.every((t) => Array.isArray(t) && t.length === 3 && t.every((v) => typeof v === 'number'))
@@ -95,6 +100,9 @@ module.exports = function homePage(X) {
        its licence, in the footer) */
     circles, pair: [wi, wj], record: INTAKE,
     sliderLabel: 'Zoom, from one to about a million and a half times',
+    /* the still under the controls: the frame the slider ends on, said in words (the zoom's own word for its end) */
+    stillAlt: (z) => 'The end of the zoom as a still: the same pair about ' + z + ' times closer. The two edges have crossed and the circles overlap, by '
+      + overlapLo + ' of the side; a cross marks the overlap.',
     saysRaw: ['They touch.', 'Still touching.', 'Still touching?', 'They overlap.', 'They overlap, by ' + overlap + '.'],
     chipsRaw: [
       '<span class="hm-chip">' + C.tag(c5.verdict) + '</span><span>as the authors stated it, with a tolerance of '
@@ -137,9 +145,17 @@ module.exports = function homePage(X) {
   const rows = decided.map((r) => ({ d: dateWords(r.recordedOn), verdict: r.verdict, w: cut(r.claimant, 60), t: cut(r.claim, 132), h: hrefOf(r.page) }));
   const months = [];
   decided.forEach((r, i) => { const k = r.recordedOn.slice(0, 7); if (!months.length || months[months.length - 1].key !== k) months.push({ key: k, label: MON[Number(k.slice(5)) - 1], rows: [] }); months[months.length - 1].rows.push(i); });
-  const first = decided.findIndex((r) => /weight-space-programming/.test(r.page));
-  hg('the register no longer starts in ' + registerSince + ', one year\'s months in order, or holds no row for the Weights audit to show first',
-    first >= 0 && months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
+  /* THE ROW THE REGISTER OPENS ON (the operator's ruling, 2026-11-11): its first row, the first cell in the register's
+     own order (by date, then by its place in the ledger), top left. THE RULE names no row: the first decided row, and
+     the build refuses when that row's verdict is neither CERTIFIED nor REFUTED, so the register never opens on a mixed
+     word. (Tried and dropped the same day: the most recent REFUTED row, which set "REFUTED" beside "The Prime Number
+     Theorem"; and the hero's own record, whose readout named the circles' source right under the figure that leaves
+     it unnamed.) */
+  const first = 0;
+  hg('the register\'s first row has a verdict that is neither certified nor refuted, so the register has no clear row to open on',
+    decided.length > 0 && ['CERTIFIED', 'REFUTED'].includes(decided[first].verdict));
+  hg('the register no longer starts in ' + registerSince + ', or its months are no longer one year\'s, in order',
+    months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
     && registerSince === ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(months[0].key.slice(5)) - 1] + ' ' + months[0].key.slice(0, 4));
   const register = H.section({ id: 'register', bodyRaw:
     H.head({ titleRaw: val(REG, '/decided', W.DECIDED) + ' results checked since ' + C.esc(registerSince.replace(/\s+\d{4}$/, '')) + '. Touch one.' })
@@ -152,11 +168,11 @@ module.exports = function homePage(X) {
   const OREL = 'corpus/openai-math/release.json', OK_ = 'certs/openai-math-kernel.json', OST = 'certs/openai-math-statements.json';
   const Wb = J(WSPB), Pg = J(PG), Gs = J(GSM), En = J(ENV), Orel = J(OREL), Ok = J(OK_), S = J(OST);
   /* 1 · the Weights audit */
-  const wspBest = Wb.reading && Wb.reading.best_no_edit_arm, wspRow = decided[first];
+  const wspBest = Wb.reading && Wb.reading.best_no_edit_arm, wspRow = decided.find((r) => /weight-space-programming/.test(r.page));
   const wspPrinted = Wb.post_printed.unedited_math500_printed * 100;
-  hg('the Weights record no longer holds the post\'s printed score with no edit, a best no-edit arm, and the reading "mostly a settings effect"; or the register no longer quotes the post\'s "6×"',
+  hg('the Weights record no longer holds the post\'s printed score with no edit, a best no-edit arm, and the reading "mostly a settings effect"; or the register no longer holds the Weights audit\'s row, quoting the post\'s "6×"',
     wspBest && typeof wspBest.percent === 'number' && wspPrinted > 0 && wspPrinted < wspBest.percent && /settings effect/i.test(String(Wb.reading.verdict || ''))
-    && /\(6×\)/.test(wspRow.claim) && /MIT CSAIL/.test(wspRow.claimant) && wspBest.percent > 0.9 * Wb.reading.target_percent);
+    && wspRow && /\(6×\)/.test(wspRow.claim) && /MIT CSAIL/.test(wspRow.claimant) && wspBest.percent > 0.9 * Wb.reading.target_percent);
   /* 2 · prime gaps */
   const pgAxioms = Pg.lean.audit.axioms.filter((a) => /^PrimeGap186\./.test(a));
   const pgBound = (/_le_(\d+)$/.exec((Pg.lean.audit.theorems.find((t) => /primeGapLiminf_le_\d+$/.test(t.name)) || {}).name || '') || [])[1];

@@ -259,21 +259,31 @@ uses them, and a rule in the template is re-baked into every page on the site.
 | component | data | use |
 |---|---|---|
 | `hero({lines,ledeRaw,ctasRaw,scopeRaw,wordsRaw})` | | the first screen: the headline in two lines, the lede, the calls to action, the zoom beside them, and the three words at the foot of the left column, ending where the figure's card ends |
-| `scope({caption,alt,circles,pair,saysRaw,chipsRaw,record,sliderLabel})` | `circles: [[x,y,r]]`, `pair: [i,j]`, five sentences, two chips | THE ZOOM: a published configuration on a canvas, zoomed by a slider, a mouse drag or a pinch onto the pair its record names; the witness × is `W.witnessMark` in an SVG over the canvas; `alt` is required and states the finding |
+| `scope({caption,alt,circles,pair,saysRaw,chipsRaw,record,sliderLabel,stillAlt})` | `circles: [[x,y,r]]`, `pair: [i,j]`, five sentences, two chips | THE ZOOM: a published configuration on a canvas, zoomed by a slider, a mouse drag or a pinch onto the pair its record names; the witness × is `W.witnessMark` in an SVG over the canvas; `alt` is required and states the finding |
+| `still({circles,pair,alt,textRaw})` (inside `scope`) | the same circles and pair | THE STILL: the frame the slider ends on, as a small inline SVG beside Replay, drawn in the build by `zoomKit()`, the geometry the canvas draws with in the browser (one source, inlined into the page's script); labelled with the zoom's own word for its end ("At ×1.6 million") and the figure's fourth sentence; `alt` is required; no script touches it |
 | `words({label,items})` | three `{word,text}` | three verdict words, compact (a label line, then one row; three rows on a phone), each with its small shape: filled, the witness × as its key (`W.witnessMark`), ∅ |
-| `field({months,rows,legend,first,label,record})` | one row per decided claim | THE REGISTER FIELD: one cell per claim, by month; the cell's SHAPE is its verdict (`CELL`), the readout has a fixed height, the arrow keys move; the legend is the figure's caption |
+| `field({months,rows,legend,first,label,record})` | one row per decided claim | THE REGISTER FIELD: one cell per claim, by month; the cell's SHAPE is its verdict (`CELL`), the readout has a fixed height, the arrow keys move; the legend is the figure's caption. `first` is found by a rule in tools/home-page.js, never a typed row id: the register's first row, the first decided row in its own order (the operator's ruling, 2026-11-11); the build refuses when that row's verdict is neither CERTIFIED nor REFUTED, and tools/check-home.js reads the opening cell from the built page. On a phone the readout is first in the figure and sticks under the fixed nav, on the card's own ground, while the cells pass beneath it |
 | `pairs(items)` | `{k,href,wasRaw,isRaw,smallRaw,textRaw}` | what was printed (dashed: quoted) above what was decided (plain) |
 | `chain({nodes,links,alt})` | `links: [{decided,word}]` | statements joined by decided links; a link nobody decided has no line, only ∅ and its word |
 | `voices(items)` | `{quote,byRaw,href,go}` | quotations, each with who said it and a link to where it was said, at the foot of its column |
 | `strokes(say)` | `{decided:{k,g},…}` | the house standing legend (`W.legendHtml`) as a plate, in the page's plain words; the swatches and `data-s` stay the renderer's |
 | `doors(items)`, `head`, `section`, `btn`, `more` | | three ways in; a section's head; a button-shaped link; a small mono link |
 
-**No layout shift.** Every element whose content changes keeps its box: the canvas has a fixed aspect, the sentences
+**No layout shift.** Every element whose content changes keeps its box: the stage has a height the stylesheet fixes
+from its width (the card's width less the still's row, so the card is no taller for the still; the packing is fitted to
+the stage's smaller side and centred, a square in a stage wider than it is tall), the sentences
 are stacked in one box and only their visibility changes, the scale bar is a fixed track scaled by a transform, the
 zoom word and the scale's label are boxes of fixed width, the two chips only change opacity, the × is moved by a
-transform, the readout has a fixed height at each breakpoint and clamps its lines. `tools/check-home.js` drives the
-page in Chrome at 1440 and 390 and refuses a Layout Instability entry above zero under any control (the autoplay, the
-slider, Replay, 24 cells under the pointer, 24 under the keys, the theme), with a red control; `make page` runs it.
+transform, the readout has a fixed height at each breakpoint and clamps its lines, the still is markup in a row of
+fixed height. `tools/check-home.js` drives the page in Chrome at 1440 and 390 and refuses a Layout Instability entry
+above zero under any control (the autoplay, the slider, Replay, 24 cells under the pointer, 24 under the keys, the
+theme), with red controls; `make page` runs it. It also holds the still to its place: in the page's bytes and named by
+no script, its box the same when the document has just been parsed, after the fonts and after every control, its label
+the word the zoom control shows at its end; and it loads the page once more with `prefers-reduced-motion`, where
+nothing plays, the figure stays at ×1, the still carries the finding and the two verdicts under the figure stand at
+full strength from the first paint. The gate also holds the hero card to the height it had before the still (two
+measured heights, at 1440 and 390), and on the phone it scrolls the register past the sticky readout and selects the
+first, the middle and the last cell: 0 shift, the readout on the screen each time.
 
 **A frame is an outline, never a border**, so a framed block and its content share one left edge (the ruler counts
 left edges and does not count an outline). **A measure that must not move when a webfont lands is a length, not `ch`.**
