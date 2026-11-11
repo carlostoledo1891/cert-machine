@@ -1,0 +1,122 @@
+{
+ "what": "Preflight of the spec at corpus/lean-intake/pg186-dhl-claimbox/spec.json: each planted statement elaborated alone (its theorem s with sorry, without the claimant's term) against the pinned canonical file. It shows which statements can test anything; it runs no identity check and reveals no outcome of one.",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-dhl-claimbox/spec.json",
+  "sha256": "15eb1d52474d72dcbe7a3994615b2fc9a9a5c1f00485241d3f17803d45de8ab1"
+ },
+ "day": "2026-11-11",
+ "canonical": {
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2"
+ },
+ "statements": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:drop-hypothesis",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "N1",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "elaborates": false,
+   "errors": [
+    "11:31: error: Application type mismatch: The argument"
+   ]
+  },
+  {
+   "id": "N2",
+   "kind": "type",
+   "rule": "type:nat-int",
+   "elaborates": false,
+   "errors": [
+    "10:23: error(lean.invalidField): Invalid field `Prime`: The environment does not contain `Int.Prime`, so it is not possible to project the field `Prime` from an expression",
+    "10:42: error: Application type mismatch: The argument",
+    "10:64: error: Application type mismatch: The argument"
+   ]
+  },
+  {
+   "id": "Q1",
+   "kind": "equivalent",
+   "rule": "equivalent:swap-binders",
+   "elaborates": true,
+   "errors": []
+  }
+ ],
+ "elaborate": "10 of 12",
+ "doNotElaborate": [
+  "N1",
+  "N2"
+ ],
+ "plantedDefects": [
+  {
+   "id": "R1",
+   "occurrences": 1,
+   "ok": true
+  },
+  {
+   "id": "R2",
+   "occurrences": 1,
+   "ok": true
+  }
+ ]
+}

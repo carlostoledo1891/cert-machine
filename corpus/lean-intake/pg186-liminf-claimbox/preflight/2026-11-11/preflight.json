@@ -1,0 +1,57 @@
+{
+ "what": "Preflight of the spec at corpus/lean-intake/pg186-liminf-claimbox/spec.json: each planted statement elaborated alone (its theorem s with sorry, without the claimant's term) against the pinned canonical file. It shows which statements can test anything; it runs no identity check and reveals no outcome of one.",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-liminf-claimbox/spec.json",
+  "sha256": "8fcf2ff146361bf9bf9beb5c0dd8f4e6c20e6732726e67272f3f6b76b2cf971e"
+ },
+ "day": "2026-11-11",
+ "canonical": {
+  "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2"
+ },
+ "statements": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "elaborates": true,
+   "errors": []
+  }
+ ],
+ "elaborate": "4 of 4",
+ "doNotElaborate": [],
+ "plantedDefects": [
+  {
+   "id": "R1",
+   "occurrences": 1,
+   "ok": true
+  },
+  {
+   "id": "R2",
+   "occurrences": 1,
+   "ok": true
+  }
+ ]
+}
