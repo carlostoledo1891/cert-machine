@@ -47,7 +47,10 @@ EOF
 chmod 644 /results/_status.json; }
 fail() { status _phase "FAILED: $1"; sleep infinity; }
 status _audit "$AUDIT_SHA"; status _ids "$INTAKE_IDS"; status _day "$DAY"; status _started "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-status _machine "$(nproc) processors seen; cgroup cpu.max $(cat /sys/fs/cgroup/cpu.max 2>/dev/null); memory.max $(cat /sys/fs/cgroup/memory.max 2>/dev/null); declared ${DECL_CPUS:-?} vCPU, ${DECL_MEM:-?} GB"
+# the container's memory: cgroup v2, else cgroup v1 (RunPod's CPU pods, first trial of 2026-11-11), else nothing
+mem_max() { local v; v=$(cat /sys/fs/cgroup/memory.max 2>/dev/null); case "$v" in ''|max) v=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null);; esac; echo "${v:-0}"; }
+mem_cur() { cat /sys/fs/cgroup/memory.current 2>/dev/null || cat /sys/fs/cgroup/memory/memory.usage_in_bytes 2>/dev/null || echo 0; }
+status _machine "$(nproc) processors seen; cgroup memory limit $(( $(mem_max) / 1048576 )) MiB; declared ${DECL_CPUS:-?} vCPU, ${DECL_MEM:-?} GB"
 
 # ---- the cache volume, when one is mounted at /cache ---------------------------------------------------------------
 if mountpoint -q /cache 2>/dev/null || [ -d /cache ]; then
@@ -81,9 +84,11 @@ runuser -u $U -- env -i HOME=$H bash /tmp/P1.sh > $R/P1.out 2> $R/P1.err; echo $
 status P1 "exit 0"
 
 # ---- the memory watchdog: one sample a minute; the run's process group is stopped before the kernel's killer acts ----
-MAX=$(cat /sys/fs/cgroup/memory.max 2>/dev/null); case "$MAX" in ''|max) MAX=$(( $(awk '/MemTotal/{print $2}' /proc/meminfo) * 1024 ));; esac
+MAX=$(mem_max); HOSTMEM=$(( $(awk '/MemTotal/{print $2}' /proc/meminfo) * 1024 ))
+# a limit the cgroup does not give (0) or gives as the host's whole memory falls back to the declared size, then to the host's
+if [ "$MAX" -le 0 ] || [ "$MAX" -ge "$HOSTMEM" ]; then if [ -n "$DECL_MEM" ]; then MAX=$(( DECL_MEM * 1073741824 )); else MAX=$HOSTMEM; fi; fi
 ( while sleep 60; do
-    CUR=$(cat /sys/fs/cgroup/memory.current 2>/dev/null || echo 0)
+    CUR=$(mem_cur)
     echo "$(date -u +%H:%M:%S) $(( CUR / 1048576 )) MiB of $(( MAX / 1048576 ))" >> $R/_memory.txt
     if [ "$CUR" -gt $(( MAX / 100 * 93 )) ] && [ -s /tmp/run.pid ]; then
       echo "$(date -u +%H:%M:%S) STOPPED the run at 93% of the memory limit" >> $R/_memory.txt
