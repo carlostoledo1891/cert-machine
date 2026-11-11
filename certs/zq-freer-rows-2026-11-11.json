@@ -1,0 +1,1126 @@
+{
+ "what": "Cameron Freer's published rows for the conditional quartic stack on github.com/elliotglazer/diophantine-z-q (pull request #23, open when decided; twelve tables of #8 to #20), decided by a non-author with code of its own (Node, BigInt and exact rationals; the packet's checker and tools not fetched, read or run): F the files, T each table and its stated counts, R the rows (text and JSON), S that the table is the sum of the squares of the rows.",
+ "undecided": "The theorem (Z is Diophantine in Q) is undecided here, and so is the conditional claim of each pull request of the stack (that the rational zero projection of its quartic is Z, given the inherited arithmetic inputs). This decides one finite identity per table: that the published decimal table is, coefficient by coefficient, the sum of the squares of the published balanced integer rows, with the counts the packet states. That the rows are the compiled source system, and every arithmetic argument, are not decided.",
+ "notDecided": [
+  "the step from the raw representation to the compiled one (the gate identities, reduction-certificate.json), which the pull request itself says is not replayed",
+  "the diagonal maps, the factored-pole transports, the compiled-to-next comparisons and the exact-rewrite certificates of #13 and #18 (the packet checker's items 5 to 8): not replayed here",
+  "the bindings of the packet's files to hashes published at other commits (75e76303, 452c8620); of INDEX.json's 216 copied files, 132 bound and 84 not, only the count of its own flags is read",
+  "whether the rows are a faithful encoding of each PROOF.md; every positivity, domain, zero-branch, valuation, completeness, height or prime-selection argument; the eleven inherited inputs",
+  "anything in #30 (the 214-variable family opened on 2026-11-11, when #8 to #20 were closed as archived research, #23 staying open), and the Version 14 to 16 material of the repository",
+  "check_evidence.py and tools/*.py: not fetched, read or run, and their sha256 in MANIFEST.json not compared (their sizes are, against the tree); CHECK_OUTPUT.txt is not used",
+  "the conditional claim of any pull request, and the theorem"
+ ],
+ "generated": "2026-11-11",
+ "preregistration": "notes/zq-freer-rows-preregistration-2026-11-11.md",
+ "reviewer": {
+  "name": "Carlos Toledo",
+  "github": "carlostoledo1891",
+  "with": "Claude agents: Anthropic Claude (claude-fable-5-2) in Claude Code, one agent session",
+  "role": "a non-author check of published rows; not a review under that repository's protocol, and neither is nor stands in for its \"Protocol / independent agent audit\" check"
+ },
+ "repository": "github.com/elliotglazer/diophantine-z-q",
+ "pullRequest": {
+  "number": 23,
+  "title": "Publish quadratic rows and durable tables for the quartic stack (evidence above #20)",
+  "head": "a4502814c0a1b8c6f2fb31b97ba9e6ea7b5322ea",
+  "directory": "research/stack-public-evidence"
+ },
+ "follows": {
+  "record": "certs/zq-freer-2026-11-08.json",
+  "leftOpenThere": "the sum of squares (the residual rows were not published)",
+  "sameTables": 8
+ },
+ "inputs": {
+  "README.md": {
+   "sha256": "47f9fd3cdd8fee6a05a212a51c8e22845f316a323d16348761845ed46e7b34bd",
+   "bytes": 27567,
+   "gitBlob": "5df2eca60e746a11c3ff7fccc2e78197348772b7",
+   "blobInTree": true
+  },
+  "FORMATS.md": {
+   "sha256": "f3948dbe304032ab1c74ccb24cb8ba80312e932e5dbc78c6d8635184c7c91a49",
+   "bytes": 6775,
+   "gitBlob": "2774f6f7d9c0743609a14b2a08dd9fa6d4eb333b",
+   "blobInTree": true
+  },
+  "INDEX.json": {
+   "sha256": "180473a8f4ecc33e67527254231b90228c957c82602b68a94cff164823c3f90e",
+   "bytes": 234398,
+   "gitBlob": "d02d08a74b2c2cde7821a1e10804e4b565fbc3ad",
+   "blobInTree": true
+  },
+  "MANIFEST.json": {
+   "sha256": "9e898ec85c2cf3fa4c1bd72080314f7c5598525fea46fa415dc3d3f35b1d1301",
+   "bytes": 40424,
+   "gitBlob": "cc23fbfb841cab7374f25b55598484d026fdc49f",
+   "blobInTree": true
+  },
+  "tables/pr08-389/quartic-389-balanced-decimal.txt.gz": {
+   "sha256": "6f4cc4363459b5c4a583cf7acecc4f81d38571d6705f7ae998bd7c963b83eefc",
+   "bytes": 222718,
+   "gitBlob": "ae509db866fabb2c11d379f9df5ceaca9acf2bed",
+   "blobInTree": true,
+   "inflatedSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+   "inflatedBytes": 1050826
+  },
+  "tables/pr08-389/rows-389.txt.gz": {
+   "sha256": "79e561380a19e4209df22fda6819f0fab8a76b81c8c48f3462da279bd2952737",
+   "bytes": 23118,
+   "gitBlob": "66777eb4f792f0611f7b80c95005299fd6efb9b3",
+   "blobInTree": true,
+   "inflatedSha256": "80ddbba1e6c6b601fbab2a8f54cae922e8f831377e4c5b8f161362159d06f391",
+   "inflatedBytes": 84872
+  },
+  "tables/pr08-389/balanced/integer-ir.json.gz": {
+   "sha256": "11c40750b4ae58b9f6e14daf5037904c0bd949a94773f405cb9454a097f9c115",
+   "bytes": 28529,
+   "gitBlob": "d5571c9496568db3f0759a43e92f3a178ee9c964",
+   "blobInTree": true,
+   "inflatedSha256": "fc0a1412f1463762994207e0ed55a311095c5079180d28bc48f0e984c516619f",
+   "inflatedBytes": 507379
+  },
+  "tables/pr08-389/balanced/diagonal-certificate.json.gz": {
+   "sha256": "00b04ee94e12bcaa72decb437ef3218cf88486031aa576b576e8994621a2a28a",
+   "bytes": 4846,
+   "gitBlob": "ae0c1812cac9a45cf90e15fe90d78058804a611e",
+   "blobInTree": true,
+   "inflatedSha256": "82f4e4a0b3c86eacbeded815f97ef0e46df3a553c82e9d8243ef671788ca0b24",
+   "inflatedBytes": 48248
+  },
+  "tables/pr08-389/balanced/summary.json": {
+   "sha256": "cd53a62432df98a531e0f5799835ba54fefe18d914aefbc1416c8d544aa0af1b",
+   "bytes": 552,
+   "gitBlob": "3f2c558a4c943ca09eb245e90dc62007e0512059",
+   "blobInTree": true
+  },
+  "tables/pr09-385/quartic-385-balanced-decimal.txt.gz": {
+   "sha256": "e2a1ab90f7035b48ec31822ff1a788e96d99e7977a7382c9d90395fe70a69a4f",
+   "bytes": 221709,
+   "gitBlob": "118531020ed3eb7020514921dda25677ef6e2665",
+   "blobInTree": true,
+   "inflatedSha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+   "inflatedBytes": 1048785
+  },
+  "tables/pr09-385/rows-385.txt.gz": {
+   "sha256": "98d81ea91d19e4028b77fc62bf74ef02bc4d8570b9dd995e0c1f28f8590e10a6",
+   "bytes": 22933,
+   "gitBlob": "23c2f04b46b9ed63adb317482ed8c573b3160c4f",
+   "blobInTree": true,
+   "inflatedSha256": "f16b0d20b01971cf14558bbdac478c4188fe31872b79b9f2f99d38400bfe4db8",
+   "inflatedBytes": 84347
+  },
+  "tables/pr09-385/balanced/integer-ir.json.gz": {
+   "sha256": "6e18568c04be314f15e8eb867e5a69a421d7e631b91afd3ce30963a6ad1a6867",
+   "bytes": 28321,
+   "gitBlob": "ae1295b459ed026a87576880bccc53ef0073a45c",
+   "blobInTree": true,
+   "inflatedSha256": "102af204937f709defb6725eaedc7e8d97bb01fdb635a27d91eba9a89c949c85",
+   "inflatedBytes": 503852
+  },
+  "tables/pr09-385/balanced/diagonal-certificate.json.gz": {
+   "sha256": "6ff9a20bef38b78689563fd63d87695dc658402a3fddf715732c7a3646f9b147",
+   "bytes": 4831,
+   "gitBlob": "1b25746e40a13763f9a1b187ca2d833b13fe081e",
+   "blobInTree": true,
+   "inflatedSha256": "091a90bfb52ad7090796d1f910607bf2ad15a3b070961c6c0a8aac0b0c8c12f0",
+   "inflatedBytes": 47764
+  },
+  "tables/pr09-385/balanced/summary.json": {
+   "sha256": "3e78b7cd547fcd0165fb9385211fe863259503ee8c41b4406edcca2dba6dc5ac",
+   "bytes": 552,
+   "gitBlob": "b11a80322a03ce329120cb9d077f2fd8eb847df8",
+   "blobInTree": true
+  },
+  "tables/pr11-385/factored/quartic-385-balanced-decimal.txt.gz": {
+   "sha256": "fa43c51a1c8f7b6302e0c886ba35696643233070c76363309d66f6b5409bf97a",
+   "bytes": 218356,
+   "gitBlob": "f9d530f977aa26db97906939b393f1e07019ace2",
+   "blobInTree": true,
+   "inflatedSha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+   "inflatedBytes": 1038398
+  },
+  "tables/pr11-385/rows-385.txt.gz": {
+   "sha256": "52b71b5761b6a90c0dda71c4de85d5f2298e90e628d0b744f2edfc584048089b",
+   "bytes": 22584,
+   "gitBlob": "a74f6476703a0a2a3631ad333f6e1af9cfefe676",
+   "blobInTree": true,
+   "inflatedSha256": "2629916be466004a10e783f6ae8e46e9f7f1df9796f6955e250a593bda388594",
+   "inflatedBytes": 82916
+  },
+  "tables/pr11-385/factored/balanced/integer-ir.json.gz": {
+   "sha256": "b0f3ad6a159b69a591feb1fd34fc4011e2a7e2f0f58ea7bf5c3e0bcbdd31849e",
+   "bytes": 27755,
+   "gitBlob": "a69e0e90c053cae1a7491ebea7b4e22fe64ddc8d",
+   "blobInTree": true,
+   "inflatedSha256": "95250ff77fd9094c8069a64a44e5c1cb62d67b0ca91a3052eb3b09054d8ef759",
+   "inflatedBytes": 501651
+  },
+  "tables/pr11-385/factored/balanced/diagonal-certificate.json.gz": {
+   "sha256": "ca513a5e3657b4a4f9ced888ca6d9df0b603c3b1978d89d2177cb4790880d569",
+   "bytes": 4634,
+   "gitBlob": "993828c157507351466eab18774d143617e1b546",
+   "blobInTree": true,
+   "inflatedSha256": "df7105bae753fd2d860d29ff60905f3357a66bc3353081d5405e5b7210f86176",
+   "inflatedBytes": 47394
+  },
+  "tables/pr11-385/factored/balanced/summary.json": {
+   "sha256": "dfa82f10a8f46da145b30b21415bfd628a41fc1f1fefbb01bd830c2d28f28bfe",
+   "bytes": 552,
+   "gitBlob": "fbfd28874aacf11f24c887a5135c041f7e2e3962",
+   "blobInTree": true
+  },
+  "tables/pr12-383/factored/quartic-383-balanced-decimal.txt.gz": {
+   "sha256": "0d5d53c242ed7a6543d17c371d09baa8d2b0c406159fc0286f92f25e0a01bc10",
+   "bytes": 212962,
+   "gitBlob": "6f7666827e26721406d5d7019610c3412d617160",
+   "blobInTree": true,
+   "inflatedSha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+   "inflatedBytes": 1025272
+  },
+  "tables/pr12-383/rows-383.txt.gz": {
+   "sha256": "346343edc48b5ee071126f94b5d1a2603a5ea9dcacb4901bd425241432bb59c0",
+   "bytes": 22197,
+   "gitBlob": "03e4d4def60a82985b99f72cef1ade0b77e26116",
+   "blobInTree": true,
+   "inflatedSha256": "6a7d5e61c3b1dddf3a352e2c0cbb675709e1011cf8121d987dd5e68f44dfbb17",
+   "inflatedBytes": 81712
+  },
+  "tables/pr12-383/factored/balanced/integer-ir.json.gz": {
+   "sha256": "77c97ff0785372ce1d00b563176d5c85c9ac7fc59981980158e1e37ae7b575c6",
+   "bytes": 27264,
+   "gitBlob": "67d75bf3ac7c3d5ad93bf447b0eb4a425c4aced7",
+   "blobInTree": true,
+   "inflatedSha256": "b4f9115fb15b451aa6b0677b4971e5f0fc2fed43b5c4523decc5b4efc279220f",
+   "inflatedBytes": 496099
+  },
+  "tables/pr12-383/factored/balanced/diagonal-certificate.json.gz": {
+   "sha256": "88ee03a81492c7962c54f206d33d152f5065ac019d9a92819fe77da6b19a9700",
+   "bytes": 4624,
+   "gitBlob": "e4be4623dacfeea9dea17737c3f8fed8821bb722",
+   "blobInTree": true,
+   "inflatedSha256": "4e1be023150792472c095a5b15a81dd6e421aaa569261a12ce5f9baaee8a4262",
+   "inflatedBytes": 47249
+  },
+  "tables/pr12-383/factored/balanced/summary.json": {
+   "sha256": "585b6e758a9a169cad8a581405f6f52d7f9986b64acc5c404099eafcf3c0d61a",
+   "bytes": 552,
+   "gitBlob": "08361381674e6a86fcc4212a87caa377bf75ea80",
+   "blobInTree": true
+  },
+  "tables/pr13-380/quartic-380-balanced-decimal.txt.gz": {
+   "sha256": "c861291c8b37f0e062be4fd7e0d2b2023e135b9bc318660bced22a5f348b3fd3",
+   "bytes": 212698,
+   "gitBlob": "2186c407e199d430d18496e12d521ab0f50e76ca",
+   "blobInTree": true,
+   "inflatedSha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+   "inflatedBytes": 1025480
+  },
+  "tables/pr13-380/rows-380.txt.gz": {
+   "sha256": "04c850f37c265583f932061fcb2b4285fc686531520e41a0f9495d5db8ac78f4",
+   "bytes": 22168,
+   "gitBlob": "af87587c7c9bb4c4c838a362a142af232ae2a853",
+   "blobInTree": true,
+   "inflatedSha256": "811a84d6e64a340f7e3e408b387e6046d708caa8e7dbccfb552786fccf553bef",
+   "inflatedBytes": 81541
+  },
+  "tables/pr13-380/balanced/integer-ir.json.gz": {
+   "sha256": "efabcd39c6128be76788e6d75100fad6dd9178f0baa0052ed4f86da612f6cd13",
+   "bytes": 27281,
+   "gitBlob": "ded19aed8f5f42266292327a39a7e34d6def21d6",
+   "blobInTree": true,
+   "inflatedSha256": "7097f5dd8bf34d7913e5d19acd2c0a375a3d674f12f88bf56f8cd210bde35e06",
+   "inflatedBytes": 494872
+  },
+  "tables/pr13-380/balanced/diagonal-certificate.json.gz": {
+   "sha256": "8b75d012ea79b2c30157172fde08650f9ac4b52eb70d16e935124a380012c792",
+   "bytes": 4606,
+   "gitBlob": "b4add7f0c0de6444e7bdebd5c478ea18810aa2d0",
+   "blobInTree": true,
+   "inflatedSha256": "df3f0d0cc50e7e7435032f2c4d06b55d331f6bf1d9322311216428e2394eec26",
+   "inflatedBytes": 46886
+  },
+  "tables/pr13-380/balanced/summary.json": {
+   "sha256": "e86837e97b243386c8ab596d0a6e1911ef8d2eb5dd36354c6742734cde09c191",
+   "bytes": 552,
+   "gitBlob": "b51fe7a922f8572a0247ac46ad731d513e73de1f",
+   "blobInTree": true
+  },
+  "tables/pr13-383-order47/quartic-383-balanced-decimal.txt.gz": {
+   "sha256": "3741839e8c38e31f518d421102465d15e5a910f3bb8cb7b25d1fe356c9a3c49a",
+   "bytes": 212089,
+   "gitBlob": "3e0c3197b136782fa5206168053de30e8aef2551",
+   "blobInTree": true,
+   "inflatedSha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+   "inflatedBytes": 1022041
+  },
+  "tables/pr13-383-order47/rows-383.txt.gz": {
+   "sha256": "7795479c1e5ee4706e77c7a4ee2db01f0cd42482aa7631adbc0b5b7e9c255dd5",
+   "bytes": 22099,
+   "gitBlob": "72172d58bc708a9856cba9e156aeacea2ad4d4c0",
+   "blobInTree": true,
+   "inflatedSha256": "15830116188ffb9a9c8aee8072e6ca7a3df5eb9e47d3559f4551bd75dca54e72",
+   "inflatedBytes": 81238
+  },
+  "tables/pr13-383-order47/balanced/integer-ir.json.gz": {
+   "sha256": "ccceb9e6ca5a7b420798945a51eee2bfd47477d232918a971d467f4b12611f96",
+   "bytes": 27172,
+   "gitBlob": "2f60ccf78c63f6c52fd5e3bbf79cd6d4476cd859",
+   "blobInTree": true,
+   "inflatedSha256": "3734a369b42c8a7a4ab80f98b74796b7ca9b7ebf2a637203b7bbc842f3b3a7d1",
+   "inflatedBytes": 496403
+  },
+  "tables/pr13-383-order47/balanced/diagonal-certificate.json.gz": {
+   "sha256": "18d21b57a36365b1cb7372ac662700b1679ea9b22eddb89a1e018a8865aebced",
+   "bytes": 4535,
+   "gitBlob": "49bbb5653664538b838d29c331ceb4253f014141",
+   "blobInTree": true,
+   "inflatedSha256": "9d3b601eb1919a6fc6893c0968d311b88bdff35130a453bc1efb343157a20c87",
+   "inflatedBytes": 47067
+  },
+  "tables/pr13-383-order47/balanced/summary.json": {
+   "sha256": "91520d3ca204b03a3cf90c94b392ca5b89f9a6968a88d2835b1539d4efc9f061",
+   "bytes": 552,
+   "gitBlob": "a0de944036f9d9182e9bd683e0085d3bc99dc19a",
+   "blobInTree": true
+  },
+  "tables/pr16-380/quartic-380-balanced-decimal.txt.gz": {
+   "sha256": "f18cb460d655f7f3ac444a475b8b93d477a71dac6c0f73d4243ec257457303e3",
+   "bytes": 212625,
+   "gitBlob": "8afb1991f2eee57e12c25fed7c0692cc044ffabd",
+   "blobInTree": true,
+   "inflatedSha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+   "inflatedBytes": 1025094
+  },
+  "tables/pr16-380/rows-380.txt.gz": {
+   "sha256": "69043867e90660a023344c9e828b60cab5bb5eb131b1148ba42a6f02b5b4da6e",
+   "bytes": 22155,
+   "gitBlob": "a37aa0633d8b4e13f974e6cac77cda4f6e986660",
+   "blobInTree": true,
+   "inflatedSha256": "e82c1f343fa5d397316c824d51a6c3a5b70eb38444f3572ccef9216f53d3c218",
+   "inflatedBytes": 81471
+  },
+  "tables/pr16-380/balanced/integer-ir.json.gz": {
+   "sha256": "688aaaa49bdf1bd90aa41fce25b0e1be14ce381824a073c46c6fa8a9f1a390f9",
+   "bytes": 27252,
+   "gitBlob": "4f693e6be14f462b0f7acc646e0978b3e7d0d05e",
+   "blobInTree": true,
+   "inflatedSha256": "b8bce45e6b0d34d7dff73ee2844e02c83d8215e99462f8c93f162839fcd8dbb3",
+   "inflatedBytes": 494802
+  },
+  "tables/pr16-380/balanced/diagonal-certificate.json.gz": {
+   "sha256": "37a0b3a81160e1f87e2a261259efe021a240b3d4d17bcca95f39f7a53b5a9938",
+   "bytes": 4611,
+   "gitBlob": "418cdef688cc94547f21c67f7fe5072e5f5f1b5f",
+   "blobInTree": true,
+   "inflatedSha256": "e78c09f11779fca009e35a39e43f3d545d578502e484a8130b1a1015e41f8e6f",
+   "inflatedBytes": 46866
+  },
+  "tables/pr16-380/balanced/summary.json": {
+   "sha256": "4fe6e31b6d1954420c3a3fa785b408299157411c7b5b22dd725fef83c11ad87e",
+   "bytes": 552,
+   "gitBlob": "b9e5b3ac3ca0a79196dfb88565af1317cbdbdf24",
+   "blobInTree": true
+  },
+  "tables/pr16-383-order47/quartic-383-balanced-decimal.txt.gz": {
+   "sha256": "457a4ba6e9d671031efd458f4a4b2196c443f3f8b309759d1f860cc00d4219a8",
+   "bytes": 212076,
+   "gitBlob": "122bd587181ec4f5b13d27f21574d8020670da18",
+   "blobInTree": true,
+   "inflatedSha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+   "inflatedBytes": 1021849
+  },
+  "tables/pr16-383-order47/rows-383.txt.gz": {
+   "sha256": "b03d63762fb4d0ec9f093a024b221385af17c6600ffdaa11ea5f980821dd3890",
+   "bytes": 22107,
+   "gitBlob": "a68de7dafcf6b5bbce1e83c3795a1f6cbc8b7c84",
+   "blobInTree": true,
+   "inflatedSha256": "0439eab99d01558e7a22b0b9ba83d84d599e76a5427a84df8b42f26e9bfb61cc",
+   "inflatedBytes": 81205
+  },
+  "tables/pr16-383-order47/balanced/integer-ir.json.gz": {
+   "sha256": "c59ede9ba58f62e0d2a2f9f8534bb4a5b808e94cdbabe724d16ac647c8d76b2e",
+   "bytes": 27183,
+   "gitBlob": "b2a207d9bda78d3aa43fa40c29f18df2e3c4333f",
+   "blobInTree": true,
+   "inflatedSha256": "eb5584946352f84ea794455680929323cdf7a79b89a590a8d411a81b313d4614",
+   "inflatedBytes": 496370
+  },
+  "tables/pr16-383-order47/balanced/diagonal-certificate.json.gz": {
+   "sha256": "427ee00d6bd630b5b368b0d05a5d8997dbdf917d8bbb170cb36e2445e6b1e74f",
+   "bytes": 4521,
+   "gitBlob": "bac6ba35d4eaa26d75ca48f89659de6ab48831f4",
+   "blobInTree": true,
+   "inflatedSha256": "17b6a0a550f83d2ca7e06da288b6c045f28e23dc3bb04cf100ae4a1b38f391e9",
+   "inflatedBytes": 47057
+  },
+  "tables/pr16-383-order47/balanced/summary.json": {
+   "sha256": "8b5421dc6ad35494ad5d90a80ab8e28807cef5641f825c0ea219f87c5ea3772f",
+   "bytes": 552,
+   "gitBlob": "c6cbd4780153cb04f64ee284d70e0f133991c6e1",
+   "blobInTree": true
+  },
+  "tables/pr17-380/quartic-380-balanced-decimal.txt.gz": {
+   "sha256": "3cbc4b3f3c4256de3fdfef3136530984bb88b15c4414a461fb2693124c0659b7",
+   "bytes": 211618,
+   "gitBlob": "1501487606e90e654b137e99576dcbb3ba098165",
+   "blobInTree": true,
+   "inflatedSha256": "995c84c33620e8a407a4d83b5c79fb864187874460a218e18ce25c5f8877e796",
+   "inflatedBytes": 1021524
+  },
+  "tables/pr17-380/rows-380.txt.gz": {
+   "sha256": "8554fac2a725b244355d310ff7737050b67196f0bb4998598a9861541e252827",
+   "bytes": 22006,
+   "gitBlob": "cfba276ca6f72154962c3256d1d3e2454c8a3402",
+   "blobInTree": true,
+   "inflatedSha256": "e1de98a2738cd96616d2563b8344d72d47f5d91df128cf1d2715ad03b7430d2c",
+   "inflatedBytes": 80855
+  },
+  "tables/pr17-380/balanced/integer-ir.json.gz": {
+   "sha256": "95ff732b1d8a96ebdcc6bcce3fa13667fe02e5fa657bcfa9aedbaeb6f8c84607",
+   "bytes": 27088,
+   "gitBlob": "d8c026203d46e083c6f673ed6db9d6c65f64bfe4",
+   "blobInTree": true,
+   "inflatedSha256": "8b7faa7eaf48ee5d3e52300842afed0f1fa8111acf552bf68d088c26d6da87cb",
+   "inflatedBytes": 494186
+  },
+  "tables/pr17-380/balanced/diagonal-certificate.json.gz": {
+   "sha256": "3109d411f558c34bb4a9cbb421290fa74ac301dbb8e04f8db2f3ecb8bb1585b8",
+   "bytes": 4514,
+   "gitBlob": "789a69480e749f21aab20d5670bd8fa25e34975a",
+   "blobInTree": true,
+   "inflatedSha256": "32dc6b40983fb1f9f805ce81c54e7b810d9906495096e29c4211956ada36e6f1",
+   "inflatedBytes": 46694
+  },
+  "tables/pr17-380/balanced/summary.json": {
+   "sha256": "1e5a8c882bf842bb91b508af6a1003d5461d2f79bab96cc24667cc44ae58e10f",
+   "bytes": 552,
+   "gitBlob": "f63b99f65a153f2095977bdcad82bd390380f8a3",
+   "blobInTree": true
+  },
+  "tables/pr18-379/quartic-379-balanced-decimal.txt.gz": {
+   "sha256": "30d5f3b64cfd501ec83e5ac6419e8c7702c39c36b3e4d50948289835469f75f1",
+   "bytes": 233063,
+   "gitBlob": "35e50c43a4a49f3d0660c59f4fa715f9c0358220",
+   "blobInTree": true,
+   "inflatedSha256": "50167c7f2873a2022c5c1c7dbff735eec097e9c7f60c6624c7abb0ff34cd37ec",
+   "inflatedBytes": 1074014
+  },
+  "tables/pr18-379/rows-379.txt.gz": {
+   "sha256": "275ae7ef99e205caa968056cdb3eb43e47d745d5e65df603a8d7ddeafb41455b",
+   "bytes": 25382,
+   "gitBlob": "72040a3066c71b99fee0c85f0f8da5e044fe96e4",
+   "blobInTree": true,
+   "inflatedSha256": "492f019ce821eab5f50c1703e6e43ff4f8894048dc4b9879157a54991a7fcb5f",
+   "inflatedBytes": 89393
+  },
+  "tables/pr18-379/balanced/integer-ir.json.gz": {
+   "sha256": "051dcba6428700b9b7bb21a71851fb6d14bc2755aa10e149ffebab74bebcfbc5",
+   "bytes": 30761,
+   "gitBlob": "2cbbabca67bb4f738772e89b43c8c8e595ac3e99",
+   "blobInTree": true,
+   "inflatedSha256": "1ac6b6fc27b496f4375b61a59f62f6cbefd5e3da2853b092eaac74b30aba3a6e",
+   "inflatedBytes": 502172
+  },
+  "tables/pr18-379/balanced/diagonal-certificate.json.gz": {
+   "sha256": "db19aba680f61db32d234396d9c9994fa0ffcd3104f8cfcba306ca6b5e04434d",
+   "bytes": 8793,
+   "gitBlob": "24802e5c488a9dff9d557c78640734bae02bc5da",
+   "blobInTree": true,
+   "inflatedSha256": "7cfd907bf6b08a0bf30cef9e0b84f42c3892c2756fcfef51f3a258bef0cf5470",
+   "inflatedBytes": 54617
+  },
+  "tables/pr18-379/balanced/summary.json": {
+   "sha256": "cb38c935b3e26681a4ae8c37052478684622dd313bddb64cf7d67befa5476afe",
+   "bytes": 553,
+   "gitBlob": "137edcad0f8e2ee4889bee4a1b640a1b7d459d34",
+   "blobInTree": true
+  },
+  "tables/pr19-376/quartic-376-balanced-decimal.txt.gz": {
+   "sha256": "4a0935bccb26a5bee54599b32105b8986453201ae913e3511ad2aeef08b5969f",
+   "bytes": 233630,
+   "gitBlob": "47d3c23da8a8b48b9331fa252ec77559187c1fc1",
+   "blobInTree": true,
+   "inflatedSha256": "b2fe4f569707a9b548a3b9a8221e0b060bce83a2c03cd38f83791a30ed48b9c1",
+   "inflatedBytes": 1072788
+  },
+  "tables/pr19-376/rows-376.txt.gz": {
+   "sha256": "8a1ee45d9bef7cd66cc24564888ab0401887df7bf16d748d5b47bf404ca8b8d4",
+   "bytes": 25196,
+   "gitBlob": "5129851cfce41caeccb391d216f57162e813ae40",
+   "blobInTree": true,
+   "inflatedSha256": "90ac42573967751c28a78be77d92efe985513b5e25cddcf800fda288acb4e2a5",
+   "inflatedBytes": 88884
+  },
+  "tables/pr19-376/balanced/integer-ir.json.gz": {
+   "sha256": "2bb77d377ae79fa58196a90de04645e0cda1b02381c8afb6e4ccd0e46cdec126",
+   "bytes": 30387,
+   "gitBlob": "f5abda897b9e5eb72065c9c93ac320db91aa88d3",
+   "blobInTree": true,
+   "inflatedSha256": "76b3ca12226f842d88626fe7fb721d1ebc2dcb15d144033d32fcfe6106d7711e",
+   "inflatedBytes": 498240
+  },
+  "tables/pr19-376/balanced/diagonal-certificate.json.gz": {
+   "sha256": "a6e712c01929521b62ef193abe44aa64bb90f9e01655597c5ac535a410eb16d9",
+   "bytes": 8762,
+   "gitBlob": "596ec49d634127b8b9f70217a6fc546f5f3a8425",
+   "blobInTree": true,
+   "inflatedSha256": "674f168be8dfde4a54af19310a22b59cf34bf3fa2c370a7b261748d55ae2dbe4",
+   "inflatedBytes": 54255
+  },
+  "tables/pr19-376/balanced/summary.json": {
+   "sha256": "afe83469b699705382176aae82057241b339150694d9587c40e4cd660103bd7a",
+   "bytes": 553,
+   "gitBlob": "77d69de401b71f41ce21ab11a0d9aa247f4ef69b",
+   "blobInTree": true
+  },
+  "tables/pr20-377/quartic-377-balanced-decimal.txt.gz": {
+   "sha256": "c36cb87b3a7b9cebb9915ac16e2ceb4e74225d885a15b5aed82288975a6aadaa",
+   "bytes": 227673,
+   "gitBlob": "6995bc53f202311aa56b06032cf729de2528dec6",
+   "blobInTree": true,
+   "inflatedSha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+   "inflatedBytes": 1051175
+  },
+  "tables/pr20-377/rows-377.txt.gz": {
+   "sha256": "2a3f9afda6fff621a8f716b119bbcdad8f7d643f7bf4b503474449829467f747",
+   "bytes": 24460,
+   "gitBlob": "0a1a044c2035f32edaf614fb781e2a7407d869f6",
+   "blobInTree": true,
+   "inflatedSha256": "87ae2fc145fb5a087c6c2a129d68d9fc5b4b0853fc8aebbd26231b3afce6dd4a",
+   "inflatedBytes": 85428
+  },
+  "tables/pr20-377/balanced/integer-ir.json.gz": {
+   "sha256": "0e60e0dd56f16586cc00eaf97404a66448fb2fb9be1df4666a7da09bff2ac4da",
+   "bytes": 29456,
+   "gitBlob": "e5c5917c3a0b29409d4a27bc71d04d15cea54082",
+   "blobInTree": true,
+   "inflatedSha256": "e3855917a1dcd8cb06cebb5888c9a9c495707941272494044f35daa0087ad07a",
+   "inflatedBytes": 495656
+  },
+  "tables/pr20-377/balanced/diagonal-certificate.json.gz": {
+   "sha256": "7c6c90fbbf7b6edb076dc3ae531646289c6b1fca107edc215f5f0bac3db5532a",
+   "bytes": 7407,
+   "gitBlob": "9f13413cbf8c3a54df9161551f5eeb4ea0e8cf24",
+   "blobInTree": true,
+   "inflatedSha256": "570ae84f45bd8e4abbb1df747433cba8f179afbc63fb1c7651d987d835b5837b",
+   "inflatedBytes": 51687
+  },
+  "tables/pr20-377/balanced/summary.json": {
+   "sha256": "99010364b61b6f1ccc757b7efd6292dc6acead38c49e2d19a0cac931efd31e37",
+   "bytes": 553,
+   "gitBlob": "6c6cb59a0992a50e1cf11ee89bfd9f5d5ac41bac",
+   "blobInTree": true
+  }
+ },
+ "code": {
+  "tools/zq-freer-rows.js": "3492066776d31b2469d2bcf8d1f362ab2c8462a053f2349ca9c250a7e8409dfa"
+ },
+ "verdict": "CERTIFIED",
+ "reason": "for each of the twelve tables (#8, #9, #11, #12, #13 at orders 45 and 47, #16 at orders 45 and 47, #17, #18, #19, #20): the files are the blobs of the pinned commit with the hashes the packet's manifest, index and README give; the table has the stated variables, monomials and largest-coefficient digits, degree 4, content 1 and x0^4 coefficient 1; the rows text and the rows JSON are the same integral, primitive rows of degree at most 2, in the stated number; and the sum of their squares, expanded in exact integers from the text and in exact rationals from the JSON, is the table coefficient by coefficient; every control came out as pre-registered",
+ "packet": {
+  "tables": 12,
+  "filesInTree": 241,
+  "bytesInTree": 5985911,
+  "bytesListedInManifest": 5945487,
+  "megabytes": "5.9",
+  "manifestListsEveryOtherFileAtItsSize": true,
+  "filesReadAndHashed": 64,
+  "pythonFilesNotFetched": [
+   "check_evidence.py",
+   "tools/assemble.py",
+   "tools/derive.py",
+   "tools/write_manifest.py"
+  ],
+  "indexCopiedFiles": 216,
+  "indexBound": 132,
+  "indexUnbound": 84,
+  "pullRequestStates": {
+   "12 selected tables": true,
+   "The packet is 5.9 MB": true,
+   "Of 216 copied files, 132 are bound by previously published hashes and 84 have no prior published binding": true
+  },
+  "topFileProblems": []
+ },
+ "tables": [
+  {
+   "label": "pr08-389",
+   "pr": "#8",
+   "head": "ad7fc75610fb325313a1afd73b2bfbc4ba5a0d71",
+   "stated": {
+    "variables": 389,
+    "rows": 357,
+    "monomials": 26295,
+    "maxCoefficientDigits": 757
+   },
+   "files": {
+    "table": "tables/pr08-389/quartic-389-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr08-389/rows-389.txt.gz",
+    "rowsJson": "tables/pr08-389/balanced/integer-ir.json.gz",
+    "tableSha256": "1c612d20915667dfd81a7895f8d93231d5efeaf86ecfaa15194408d298d35573",
+    "rowsTextSha256": "80ddbba1e6c6b601fbab2a8f54cae922e8f831377e4c5b8f161362159d06f391",
+    "rowsJsonSha256": "fc0a1412f1463762994207e0ed55a311095c5079180d28bc48f0e984c516619f",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 389,
+    "rows": 357,
+    "rowTerms": 2565,
+    "rowMaxDegree": 2,
+    "monomials": 26295,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 757,
+    "maxCoefficientBits": 2513,
+    "maxAbsCoefficient": "28902*3^1576",
+    "monomialsCompared": 26295,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr09-385",
+   "pr": "#9",
+   "head": "51111cc97d0f42d50338ae378268700c457497f9",
+   "stated": {
+    "variables": 385,
+    "rows": 353,
+    "monomials": 26235,
+    "maxCoefficientDigits": 757
+   },
+   "files": {
+    "table": "tables/pr09-385/quartic-385-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr09-385/rows-385.txt.gz",
+    "rowsJson": "tables/pr09-385/balanced/integer-ir.json.gz",
+    "tableSha256": "47da004230ff7a20c7a0824738422eb9c29c4a6e6de92455e3d956e979161ecf",
+    "rowsTextSha256": "f16b0d20b01971cf14558bbdac478c4188fe31872b79b9f2f99d38400bfe4db8",
+    "rowsJsonSha256": "102af204937f709defb6725eaedc7e8d97bb01fdb635a27d91eba9a89c949c85",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 385,
+    "rows": 353,
+    "rowTerms": 2549,
+    "rowMaxDegree": 2,
+    "monomials": 26235,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 757,
+    "maxCoefficientBits": 2513,
+    "maxAbsCoefficient": "28902*3^1576",
+    "monomialsCompared": 26235,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr11-385",
+   "pr": "#11",
+   "head": "e8654b2ca24a424cead6b62f3f790136a170d953",
+   "stated": {
+    "variables": 385,
+    "rows": 353,
+    "monomials": 26200,
+    "maxCoefficientDigits": 682
+   },
+   "files": {
+    "table": "tables/pr11-385/factored/quartic-385-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr11-385/rows-385.txt.gz",
+    "rowsJson": "tables/pr11-385/factored/balanced/integer-ir.json.gz",
+    "tableSha256": "c9e3e65c64c360c1cbf22c44704776c000294a1a7028e6f3f80bbe500243bdfb",
+    "rowsTextSha256": "2629916be466004a10e783f6ae8e46e9f7f1df9796f6955e250a593bda388594",
+    "rowsJsonSha256": "95250ff77fd9094c8069a64a44e5c1cb62d67b0ca91a3052eb3b09054d8ef759",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 385,
+    "rows": 353,
+    "rowTerms": 2543,
+    "rowMaxDegree": 2,
+    "monomials": 26200,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 682,
+    "maxCoefficientBits": 2266,
+    "maxAbsCoefficient": "28902*3^1420",
+    "monomialsCompared": 26200,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr12-383",
+   "pr": "#12",
+   "head": "772fe96a0e65bee76db500d8ef3a7a6b5e884d1f",
+   "stated": {
+    "variables": 383,
+    "rows": 352,
+    "monomials": 26019,
+    "maxCoefficientDigits": 682
+   },
+   "files": {
+    "table": "tables/pr12-383/factored/quartic-383-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr12-383/rows-383.txt.gz",
+    "rowsJson": "tables/pr12-383/factored/balanced/integer-ir.json.gz",
+    "tableSha256": "8faea54ef4a9d8cf155205a50c956df20d36e3eec4183b50b39b2c0b87183b0d",
+    "rowsTextSha256": "6a7d5e61c3b1dddf3a352e2c0cbb675709e1011cf8121d987dd5e68f44dfbb17",
+    "rowsJsonSha256": "b4f9115fb15b451aa6b0677b4971e5f0fc2fed43b5c4523decc5b4efc279220f",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 383,
+    "rows": 352,
+    "rowTerms": 2512,
+    "rowMaxDegree": 2,
+    "monomials": 26019,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 682,
+    "maxCoefficientBits": 2266,
+    "maxAbsCoefficient": "28902*3^1420",
+    "monomialsCompared": 26019,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr13-380",
+   "pr": "#13",
+   "head": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "stated": {
+    "variables": 380,
+    "rows": 349,
+    "monomials": 26025,
+    "maxCoefficientDigits": 682
+   },
+   "files": {
+    "table": "tables/pr13-380/quartic-380-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr13-380/rows-380.txt.gz",
+    "rowsJson": "tables/pr13-380/balanced/integer-ir.json.gz",
+    "tableSha256": "373c624d3b1293809e521ab8113052ff473f1b14ea1cde2facb361979515f6e5",
+    "rowsTextSha256": "811a84d6e64a340f7e3e408b387e6046d708caa8e7dbccfb552786fccf553bef",
+    "rowsJsonSha256": "7097f5dd8bf34d7913e5d19acd2c0a375a3d674f12f88bf56f8cd210bde35e06",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 380,
+    "rows": 349,
+    "rowTerms": 2509,
+    "rowMaxDegree": 2,
+    "monomials": 26025,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 682,
+    "maxCoefficientBits": 2266,
+    "maxAbsCoefficient": "28902*3^1420",
+    "monomialsCompared": 26025,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr13-383-order47",
+   "pr": "#13",
+   "head": "31563264ba3dfbc3f00b4b08c099e9380caacd42",
+   "stated": {
+    "variables": 383,
+    "rows": 352,
+    "monomials": 26043,
+    "maxCoefficientDigits": 646
+   },
+   "files": {
+    "table": "tables/pr13-383-order47/quartic-383-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr13-383-order47/rows-383.txt.gz",
+    "rowsJson": "tables/pr13-383-order47/balanced/integer-ir.json.gz",
+    "tableSha256": "8ac84ab634f1636110d9c33df9613612110b44b6e9a044469873b51ef0e91ebc",
+    "rowsTextSha256": "15830116188ffb9a9c8aee8072e6ca7a3df5eb9e47d3559f4551bd75dca54e72",
+    "rowsJsonSha256": "3734a369b42c8a7a4ab80f98b74796b7ca9b7ebf2a637203b7bbc842f3b3a7d1",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 383,
+    "rows": 352,
+    "rowTerms": 2518,
+    "rowMaxDegree": 2,
+    "monomials": 26043,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 646,
+    "maxCoefficientBits": 2146,
+    "maxAbsCoefficient": "28902*3^1344",
+    "monomialsCompared": 26043,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr16-380",
+   "pr": "#16",
+   "head": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+   "stated": {
+    "variables": 380,
+    "rows": 349,
+    "monomials": 26025,
+    "maxCoefficientDigits": 679
+   },
+   "files": {
+    "table": "tables/pr16-380/quartic-380-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr16-380/rows-380.txt.gz",
+    "rowsJson": "tables/pr16-380/balanced/integer-ir.json.gz",
+    "tableSha256": "a194dd94682d4e458d0e03407e39aea056a6626014210c384b3a9c80f19a43e6",
+    "rowsTextSha256": "e82c1f343fa5d397316c824d51a6c3a5b70eb38444f3572ccef9216f53d3c218",
+    "rowsJsonSha256": "b8bce45e6b0d34d7dff73ee2844e02c83d8215e99462f8c93f162839fcd8dbb3",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 380,
+    "rows": 349,
+    "rowTerms": 2509,
+    "rowMaxDegree": 2,
+    "monomials": 26025,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 679,
+    "maxCoefficientBits": 2253,
+    "maxAbsCoefficient": "28902*3^1412",
+    "monomialsCompared": 26025,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr16-383-order47",
+   "pr": "#16",
+   "head": "59c59e5589d86036ee41994c82a2b900fce85c2d",
+   "stated": {
+    "variables": 383,
+    "rows": 352,
+    "monomials": 26043,
+    "maxCoefficientDigits": 644
+   },
+   "files": {
+    "table": "tables/pr16-383-order47/quartic-383-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr16-383-order47/rows-383.txt.gz",
+    "rowsJson": "tables/pr16-383-order47/balanced/integer-ir.json.gz",
+    "tableSha256": "d2e9856dcbd752a156548e37545f48ed8e1e8d263c5b374aad5a19f44f8eab6f",
+    "rowsTextSha256": "0439eab99d01558e7a22b0b9ba83d84d599e76a5427a84df8b42f26e9bfb61cc",
+    "rowsJsonSha256": "eb5584946352f84ea794455680929323cdf7a79b89a590a8d411a81b313d4614",
+    "sameTableAsDecided20261108": true
+   },
+   "numbers": {
+    "variables": 383,
+    "rows": 352,
+    "rowTerms": 2518,
+    "rowMaxDegree": 2,
+    "monomials": 26043,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 644,
+    "maxCoefficientBits": 2139,
+    "maxAbsCoefficient": "28902*3^1340",
+    "monomialsCompared": 26043,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr17-380",
+   "pr": "#17",
+   "head": "eb00b7c9c5be2e8666c0403c750c6c780cf78563",
+   "stated": {
+    "variables": 380,
+    "rows": 349,
+    "monomials": 26025,
+    "maxCoefficientDigits": 644
+   },
+   "files": {
+    "table": "tables/pr17-380/quartic-380-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr17-380/rows-380.txt.gz",
+    "rowsJson": "tables/pr17-380/balanced/integer-ir.json.gz",
+    "tableSha256": "995c84c33620e8a407a4d83b5c79fb864187874460a218e18ce25c5f8877e796",
+    "rowsTextSha256": "e1de98a2738cd96616d2563b8344d72d47f5d91df128cf1d2715ad03b7430d2c",
+    "rowsJsonSha256": "8b7faa7eaf48ee5d3e52300842afed0f1fa8111acf552bf68d088c26d6da87cb"
+   },
+   "numbers": {
+    "variables": 380,
+    "rows": 349,
+    "rowTerms": 2509,
+    "rowMaxDegree": 2,
+    "monomials": 26025,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 644,
+    "maxCoefficientBits": 2139,
+    "maxAbsCoefficient": "28902*3^1340",
+    "monomialsCompared": 26025,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr18-379",
+   "pr": "#18",
+   "head": "ce15e8ece219a2bb000075a5a79f6ffd9bea6dfd",
+   "stated": {
+    "variables": 379,
+    "rows": 348,
+    "monomials": 26021,
+    "maxCoefficientDigits": 425
+   },
+   "files": {
+    "table": "tables/pr18-379/quartic-379-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr18-379/rows-379.txt.gz",
+    "rowsJson": "tables/pr18-379/balanced/integer-ir.json.gz",
+    "tableSha256": "50167c7f2873a2022c5c1c7dbff735eec097e9c7f60c6624c7abb0ff34cd37ec",
+    "rowsTextSha256": "492f019ce821eab5f50c1703e6e43ff4f8894048dc4b9879157a54991a7fcb5f",
+    "rowsJsonSha256": "1ac6b6fc27b496f4375b61a59f62f6cbefd5e3da2853b092eaac74b30aba3a6e"
+   },
+   "numbers": {
+    "variables": 379,
+    "rows": 348,
+    "rowTerms": 2506,
+    "rowMaxDegree": 2,
+    "monomials": 26021,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 425,
+    "maxCoefficientBits": 1410,
+    "monomialsCompared": 26021,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr19-376",
+   "pr": "#19",
+   "head": "32abb654ec295e28b51f92a51d7f12d4c5a626ec",
+   "stated": {
+    "variables": 376,
+    "rows": 345,
+    "monomials": 25964,
+    "maxCoefficientDigits": 425
+   },
+   "files": {
+    "table": "tables/pr19-376/quartic-376-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr19-376/rows-376.txt.gz",
+    "rowsJson": "tables/pr19-376/balanced/integer-ir.json.gz",
+    "tableSha256": "b2fe4f569707a9b548a3b9a8221e0b060bce83a2c03cd38f83791a30ed48b9c1",
+    "rowsTextSha256": "90ac42573967751c28a78be77d92efe985513b5e25cddcf800fda288acb4e2a5",
+    "rowsJsonSha256": "76b3ca12226f842d88626fe7fb721d1ebc2dcb15d144033d32fcfe6106d7711e"
+   },
+   "numbers": {
+    "variables": 376,
+    "rows": 345,
+    "rowTerms": 2485,
+    "rowMaxDegree": 2,
+    "monomials": 25964,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 425,
+    "maxCoefficientBits": 1410,
+    "monomialsCompared": 25964,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "label": "pr20-377",
+   "pr": "#20",
+   "head": "75e7630341e0722aca7bca414e10b6ff003ba498",
+   "stated": {
+    "variables": 377,
+    "rows": 346,
+    "monomials": 25979,
+    "maxCoefficientDigits": 327
+   },
+   "files": {
+    "table": "tables/pr20-377/quartic-377-balanced-decimal.txt.gz",
+    "rowsText": "tables/pr20-377/rows-377.txt.gz",
+    "rowsJson": "tables/pr20-377/balanced/integer-ir.json.gz",
+    "tableSha256": "1e02fbc1675c9474c3fcc754aae2edece6493f2fb67ec1909d57ac387269690b",
+    "rowsTextSha256": "87ae2fc145fb5a087c6c2a129d68d9fc5b4b0853fc8aebbd26231b3afce6dd4a",
+    "rowsJsonSha256": "e3855917a1dcd8cb06cebb5888c9a9c495707941272494044f35daa0087ad07a"
+   },
+   "numbers": {
+    "variables": 377,
+    "rows": 346,
+    "rowTerms": 2490,
+    "rowMaxDegree": 2,
+    "monomials": 25979,
+    "degree": 4,
+    "content": "1",
+    "x0FourthCoefficient": "1",
+    "maxCoefficientDigits": 327,
+    "maxCoefficientBits": 1084,
+    "monomialsCompared": 25979,
+    "differingFromTextRows": 0,
+    "differingFromJsonRows": 0
+   },
+   "verdicts": {
+    "F": "CERTIFIED",
+    "T": "CERTIFIED",
+    "R": "CERTIFIED",
+    "S": "CERTIFIED"
+   },
+   "verdict": "CERTIFIED"
+  }
+ ],
+ "controls": [
+  {
+   "id": "C1",
+   "what": "one coefficient of one row raised by one (row ⌊r/2⌋, its first term)",
+   "expect": "S fails",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "row 178 (symmetric.45.group1.co3.0.definition): 12 monomial(s) of the sum differ from the table"
+  },
+  {
+   "id": "C2",
+   "what": "one coefficient of the table raised by one (data line ⌊m/2⌋)",
+   "expect": "S fails",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "at x263^2: 1 monomial differs"
+  },
+  {
+   "id": "C3",
+   "what": "one row dropped (row ⌊r/2⌋)",
+   "expect": "S fails",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "without row 178 (symmetric.45.group1.co3.0.definition): 78 monomial(s) differ"
+  },
+  {
+   "id": "C4",
+   "what": "two neighbouring rows of the text exchanged (the first pair from ⌊r/2⌋ on that differ)",
+   "expect": "S still holds (a sum does not see order); R fails (the text no longer matches the JSON row by row)",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "rows 178 and 179: sum of squares unchanged; row 178 (symmetric.45.group1.co3.0.definition) differs at x221"
+  },
+  {
+   "id": "C5",
+   "what": "one row of the text multiplied by −1 (row ⌊r/2⌋)",
+   "expect": "S still holds (a square does not see sign); R fails",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "row 178: sum of squares unchanged; row 178 (symmetric.45.group1.co3.0.definition) differs at x220"
+  },
+  {
+   "id": "C6",
+   "what": "one byte of the stored table changed (the middle byte, its lowest bit)",
+   "expect": "F refuses",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "sha256 b30f59dc97691f80… (MANIFEST.json 6f4cc4363459b5c4…)"
+  },
+  {
+   "id": "C7",
+   "what": "the stated number of variables raised by one",
+   "expect": "T fails",
+   "tables": 12,
+   "asExpected": 12,
+   "passed": true,
+   "example": "header variables 389, stated 390"
+  }
+ ],
+ "readings": {
+  "F": "every file read is hashed (sha256, size) and its git blob id compared with the tree GitHub lists for the commit (meta/tree.json, saved by --fetch); stored bytes against MANIFEST.json, stored and decompressed bytes against INDEX.json; the README's shortened hashes; the diagonal certificate's newIrSha256 against the rows JSON (a name, not a replay of the map); for the eight tables of #8 to #16, the table's sha256 against certs/zq-freer-2026-11-08.json.",
+  "T": "FORMATS.md: three header lines, then \"<integer> TAB <monomial>\" lines; a monomial is 1 or factors xi / xi^e (e in 2..4) joined by *, indices strictly increasing; no repeated monomial, no zero coefficient. The numbers are read from the parsed polynomial and held to the README's row and INDEX.json's publishedSummary; with a cExponent, the largest |coefficient| is 28902·3^(4·cExponent).",
+  "R": "FORMATS.md: # comments; V<TAB>k<TAB>id<TAB>name for k = 0..n−1 with increasing ids; R<TAB>k<TAB>id<TAB>name starts row k; each following \"<integer> TAB <monomial>\" line a term of degree at most 2. The JSON rows (coordinates, residuals, terms {monomial, coefficient, sPower}) are compacted by increasing id and compared with the text row by row, as maps from monomial to coefficient, ids and names included.",
+  "S": "Σ_k (row k)² expanded term by term (squares and doubled cross products) into a map from monomial to an exact integer (BigInt) from the text rows, and to an exact rational from the JSON rows; compared with the table both ways: every monomial of either side must be on the other with the same coefficient."
+ }
+}

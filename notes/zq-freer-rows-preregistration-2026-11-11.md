@@ -105,3 +105,14 @@ A control that does not come out this way makes the record REFUSED.
 - Anything in #30 (the 214-variable family opened on 2026-11-11, when #8 to #20 were closed "as archived research,
   with their branches retained", #23 staying open), and the Version 14 to 16 material.
 - The conditional claim of any pull request, and the theorem.
+
+## Amendment A (2026-11-11, written with the recorder and before its first run)
+
+"The packet is 5.9 MB" is read as the manifest's total: every file of the directory but `MANIFEST.json` itself
+(`totalBytes` 5,945,487; the tree's listing gives the same sum). With the manifest the directory holds 5,985,911 bytes,
+which would print as 6.0. A reading of his sentence, not a result.
+
+## The run (2026-11-11)
+
+First run of `tools/zq-freer-rows.js`, no rule changed after it: CERTIFIED, twelve of twelve tables on F, T, R and S,
+312,874 coefficients compared, the seven controls as written on every table; `certs/zq-freer-rows-2026-11-11.json`.

@@ -215,6 +215,7 @@ test:
 	@printf "%-30s " "ZQ Track B decision"; $(NODE) tools/record-zq-trackb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ Version 4 quartic"; $(NODE) tools/zq-v4.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ZQ Freer stack (finite)"; $(NODE) tools/zq-freer.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ZQ Freer rows (sum of squares)"; $(NODE) tools/zq-freer-rows.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Erdős #488 certification"; $(NODE) tools/record-erdos488.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: the spec format"; $(NODE) tools/check-intake-specs.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: Erdős #488"; $(NODE) tools/lean-intake.js record erdos-488 --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
