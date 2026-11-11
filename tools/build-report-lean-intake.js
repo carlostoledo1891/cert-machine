@@ -211,25 +211,33 @@ O.push(C.section({
       caption: 'From the spec committed to the record, on a laptop. The first run found a defect in the tool (its test files missed one line of DeepMind’s file); it was fixed and the planted statements run again, with no statement or expectation changed.' })
 }));
 
-O.push(C.section({
-  lab: 'what I got wrong', title: 'Four corrections, made in the open', id: 'amendments',
-  bodyRaw: C.plainList([
-    { b: '#488: a “wrong” statement was the same.', text: 'Counting from 0 changes nothing, since 0 is never counted; the kernel saw it. My label was wrong (' + A.words.F1controls.asPreregistered + ' as first written).' },
-    { b: '#488: the small cases found more than I expected.', text: 'The 20 cases above, all explained.' },
-    { b: '#488: one planted statement was invisible to the small cases.', text: 'Counting from 2 changes counts, never answers: the limit, measured.' },
-    { b: '#786(i): a defect in the tool.', text: 'Fixed and re-run; then ' + B.words.F1controls.asPreregistered + ' came out as written.' }
-  ]) + C.pRaw('Each spec was committed before its run, and each correction is a dated amendment beside the first outcome.')
-}));
-
 /* the batch (2026-11-10): specs written by claimbox, every row read from its record */
 const BATCH = [['erdos-488', 'Erdős #488', 'Declan Gessel', '#5297'], ['erdos-902', 'Erdős #902 · f(2) = 7', 'Matt Stokes', '#7678'], ['erdos-123', 'Erdős #123 · powers 2, 3', 'Matt Stokes', '#7678'],
   ['erdos-652', 'Erdős #652 · first', 'Matt Stokes', '#7678'], ['erdos-669', 'Erdős #669 · k = 2', 'Matt Stokes', '#7678'], ['mo-75792', 'MathOverflow 75792', 'Daniel Puri', '#7660'],
   ['giuga-weak', 'Weak Giuga numbers', 'Daniel Puri', '#7660'], ['giuga-strong', 'Strong Giuga numbers', 'Daniel Puri', '#7660'], ['sqtuples', 's-increasing triples', 'Daniel Puri', '#7660']]
   .map(([id, what, who, pr]) => ({ id, what, who, pr, r: J('certs/lean-intake-' + id + '-claimbox.json') }));
+/* the correction of 2026-11-11: a planted statement whose outcome is neither ACCEPTED nor a refusal at the claimant's term never
+   reached the check (instruments/intake/SPEC.md, the erratum); the records of the first format counted it as a met prediction */
+const reached = (x) => x.outcome === 'ACCEPTED' || x.outcome === 'REFUSED by type mismatch';
+const NT = BATCH.flatMap((b) => b.r.mutants.filter((x) => !reached(x)).map((x) => ({ claim: b.what, id: x.id, kind: x.kind, expect: x.expect, counted: x.asExpected })));
+if (!NT.length || !NT.every((x) => x.kind === 'type' && x.expect === 'NOT ACCEPTED' && x.counted === true)) throw new Error('build-report-lean-intake: the statements that did not reach the check are no longer the retyped ones the correction describes');
+if (IDS.some((id) => R[id].mutants.some((x) => !reached(x)))) throw new Error('build-report-lean-intake: a hand-written planted statement did not reach the check');
+const NTclaims = [...new Set(NT.map((x) => x.claim))].length;
+O.push(C.section({
+  lab: 'what I got wrong', title: 'Five corrections, made in the open', id: 'amendments',
+  bodyRaw: C.plainList([
+    { b: '#488: a “wrong” statement was the same.', text: 'Counting from 0 changes nothing, since 0 is never counted; the kernel saw it. My label was wrong (' + A.words.F1controls.asPreregistered + ' as first written).' },
+    { b: '#488: the small cases found more than I expected.', text: 'The 20 cases above, all explained.' },
+    { b: '#488: one planted statement was invisible to the small cases.', text: 'Counting from 2 changes counts, never answers: the limit, measured.' },
+    { b: '#786(i): a defect in the tool.', text: 'Fixed and re-run; then ' + B.words.F1controls.asPreregistered + ' came out as written.' },
+    { b: 'The batch: ' + NT.length + ' planted statements tested nothing (11 November 2026).', raw: 'In ' + NTclaims + ' of the nine claims below, a planted statement that swaps a number type did not compile, so the proof was never tried against it. My records counted each as a prediction met. The table now counts only statements that reached the check. No verdict changes. The records stay as written; the tool no longer counts this way, and ' + rec('instruments/intake/SPEC.md') + ' lists what else those records misstate (their cost, machine and checker lines).' }
+  ]) + C.pRaw('Each spec was committed before its run, and each correction is dated beside the first outcome.')
+}));
+
 const bRow = (b) => {
-  const ch = b.r.mutants.filter((x) => x.kind === 'changed'), cert = b.r.mutants.filter((x) => x.expect !== 'kernel decides');
+  const ch = b.r.mutants.filter((x) => x.kind === 'changed'), all = b.r.mutants.filter((x) => x.expect !== 'kernel decides'), cert = all.filter(reached), nt = all.length - cert.length;
   return [{ raw: a(GH + 'certs/lean-intake-' + b.id + '-claimbox.json', b.what) }, b.who + ' · PR ' + b.pr, b.r.verdict,
-    cert.filter((x) => x.asExpected).length + ' of ' + cert.length, ch.filter((x) => x.outcome === 'REFUSED by type mismatch').length + ' of ' + ch.length,
+    cert.filter((x) => x.asExpected).length + ' of ' + cert.length + (nt ? ' · ' + nt + ' not tested' : ''), ch.filter((x) => x.outcome === 'REFUSED by type mismatch').length + ' of ' + ch.length,
     String(Math.round(b.r.run.stepSeconds / 60))];
 };
 const bAll = BATCH.reduce((s, b) => { const ch = b.r.mutants.filter((x) => x.kind === 'changed'); return [s[0] + ch.length, s[1] + ch.filter((x) => x.outcome === 'REFUSED by type mismatch').length]; }, [0, 0]);

@@ -50,7 +50,26 @@
    another root than this repository (a claim not yet public); `LEAN_INTAKE_KEEP=1` keeps a checkout already at the
    pinned commit (several declarations of one repository, one build).
 
-   usage: node tools/lean-intake.js run <id> [--day YYYY-MM-DD] [--stages pin,toolchain,...]
+   RECORD FORMAT 2 (2026-11-11; a spec asks for it with `"format": 2`, written down in instruments/intake/SPEC.md).
+   A spec without the field is decided exactly as before, so every earlier record re-derives byte for byte. What the
+   first format got wrong, and format 2 changes:
+     a planted statement that does not ELABORATE never reached the identity check, so it tests nothing: its outcome is
+         DID NOT ELABORATE (an error in the statement itself) or FAILED elsewhere, it is shown, and it is counted
+         neither as a refusal nor as a miss. "NOT ACCEPTED" is met only by a refusal at the claimant's term. The
+         controls are CERTIFIED only on statements that reached the check, and only if one of them was refused;
+     the cost is a fact (`cost <id> --usd … --what …` writes cost.json beside the run), never a constant; absent, the
+         record says null;
+     the machine is the container's limits where there are any (cgroup, the provider's declared size), beside the host's;
+     the kernels this run did not run are named as this run's (another record may have run them);
+     step seconds are summed over the steps the spec names, not over every file in the folder;
+     no text names a plan or a phase.
+   `preflight <id>` elaborates every planted statement ALONE (its `theorem s`, without the claimant's term) against
+   the pinned canonical file, before the registered run: a statement that does not elaborate is found before the
+   pre-registration, not inside it. It reveals no outcome of the identity check.
+
+   usage: node tools/lean-intake.js preflight <id> [--day YYYY-MM-DD]
+          node tools/lean-intake.js run <id> [--day YYYY-MM-DD] [--stages pin,toolchain,...]
+          node tools/lean-intake.js cost <id> --usd 0.42 --what "RunPod cpu5c-16-32, 52 min" [--day YYYY-MM-DD]
           node tools/lean-intake.js record <id> [--check]
           node tools/lean-intake.js review <id>                                                                MIT */
 'use strict';
@@ -68,12 +87,40 @@ const die = (m) => { console.error('lean-intake: ' + m); process.exit(1); };
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const [cmd, id] = process.argv.slice(2);
 const opt = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
-if (!cmd || !id) die('usage: run|record|review <id>');
+if (!cmd || !id) die('usage: preflight|run|cost|record|review <id>');
 const SPEC_PATH = path.join('corpus', 'lean-intake', id, 'spec.json');
 if (!fs.existsSync(path.join(ROOT, SPEC_PATH))) die('no spec ' + SPEC_PATH);
 const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, SPEC_PATH), 'utf8'));
 const RUNS = path.join(ROOT, 'corpus', 'lean-intake', id, 'runs');
 const OUT = path.join(ROOT, 'certs', 'lean-intake-' + id + '.json');
+if (SPEC.format !== undefined && SPEC.format !== 2) die('spec.format is absent (the first format) or 2');
+const V2 = SPEC.format === 2;
+/* the steps a spec names: what a run writes and what format 2 sums */
+const STEP_NAMES = () => ['pin-canonical', 'pin-claim', 'toolchain', 'cache', 'canonical', 'claim', 'wrapcheck', 'f1', 'f1report', 'same', 'f3']
+  .concat(SPEC.mutants.map((m) => 'mut-' + m.id), (SPEC.claimReds || []).map((r) => 'red-' + r.id), ['leanchecker', 'lean4export-build', 'nanoda-build', 'export', 'nanoda'], SPEC.f2 ? ['f2', 'f2eval', 'f2kernel'] : []);
+/* the machine a run had: the host's numbers, and the container's limits where there are any (cgroup v2, then v1; a
+   provider's declared size). cpus and memGB are the smallest of what applies */
+function machineFacts() {
+  const rdn = (f) => { try { return fs.readFileSync(f, 'utf8').trim(); } catch (e) { return null; } };
+  const host = { cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) };
+  let lc = null, lm = null, source = null;
+  const v2 = rdn('/sys/fs/cgroup/cpu.max'), m2 = rdn('/sys/fs/cgroup/memory.max');
+  if (v2 || m2) {
+    source = 'cgroup v2';
+    if (v2 && !v2.startsWith('max')) { const [q, per] = v2.split(/\s+/).map(Number); if (q > 0 && per > 0) lc = q / per; }
+    if (m2 && m2 !== 'max') lm = Number(m2) / 2 ** 30;
+  } else {
+    const q = Number(rdn('/sys/fs/cgroup/cpu/cpu.cfs_quota_us')), per = Number(rdn('/sys/fs/cgroup/cpu/cpu.cfs_period_us')), m1 = Number(rdn('/sys/fs/cgroup/memory/memory.limit_in_bytes'));
+    if (q > 0 && per > 0) { lc = q / per; source = 'cgroup v1'; }
+    if (m1 > 0 && m1 < os.totalmem()) { lm = m1 / 2 ** 30; source = 'cgroup v1'; }
+  }
+  const num = (v) => (v !== undefined && v !== '' && Number.isFinite(Number(v)) ? Number(v) : null);
+  const declared = { cpus: num(process.env.RUNPOD_CPU_COUNT), memGB: num(process.env.RUNPOD_MEM_GB) };
+  const least = (...xs) => Math.min(...xs.filter((x) => x !== null && x > 0));
+  const r1 = (x) => (x === null ? null : Math.round(x * 10) / 10);
+  return { platform: process.platform, arch: process.arch, cpus: r1(least(host.cpus, lc, declared.cpus, typeof os.availableParallelism === 'function' ? os.availableParallelism() : null)), memGB: r1(least(host.memGB, lm, declared.memGB)),
+    host, limit: lc !== null || lm !== null ? { cpus: r1(lc), memGB: r1(lm), source } : null, declared: declared.cpus !== null || declared.memGB !== null ? Object.assign({ source: 'RUNPOD_CPU_COUNT / RUNPOD_MEM_GB' }, declared) : null };
+}
 
 /* ---- the Lean the run generates (from the spec alone) ---------------------------------------------------------- */
 const claimStem = SPEC.claim.file.replace(/\.lean$/, '').replace(/[^A-Za-z0-9_]/g, '_');
@@ -416,6 +463,8 @@ function run() {
       for (const m of SPEC.mutants) step('mut-' + m.id, CAN, `lake build Intake.Mut.${m.id}`, 3600);
     } else if (s === 'reds') {
       for (const r of SPEC.claimReds || []) step('red-' + r.id, CAN, `lake build Intake.Red.${r.id}`, 3600);
+    } else if ((s === 'f2' || s === 'f2eval' || s === 'f2kernel') && !SPEC.f2) {
+      continue;   /* a spec without F2 has no Intake.F2 to build (the first runs built it anyway and recorded a failing step) */
     } else if (s === 'f2') {
       step('f2', CAN, 'lake build Intake.F2', 3600);
     } else if (s === 'f2eval') {
@@ -446,7 +495,7 @@ function run() {
       step('nanoda', WORK, `"${TOOLS}/nanoda_lib/target/release/nanoda_bin" nanoda.json`, 7200);
     }
   }
-  fs.writeFileSync(path.join(FACTS, 'machine.json'), JSON.stringify({ platform: process.platform, arch: process.arch, cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, null, 1) + '\n');
+  fs.writeFileSync(path.join(FACTS, 'machine.json'), JSON.stringify(V2 ? machineFacts() : { platform: process.platform, arch: process.arch, cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, null, 1) + '\n');
   status('done: ' + want.join(','));
 }
 
@@ -518,11 +567,15 @@ function decide() {
   const mutants = SPEC.mutants.map((m) => {
     const n = 'mut-' + m.id, log = rd(n + '.log'), e = exit(n), errs = errors(log, `Intake/Mut/${m.id}.lean`);
     const atC = errs.length > 0 && errs.every((x) => x.line === cLine[m.id]) && errs.some((x) => /type mismatch/i.test(x.text));
-    const outcome = e === '0' ? 'ACCEPTED' : atC ? 'REFUSED by type mismatch' : 'FAILED elsewhere';
+    /* format 2: an error before the claimant's term is an error in the planted statement itself — it did not elaborate */
+    const outcome = e === '0' ? 'ACCEPTED' : atC ? 'REFUSED by type mismatch' : V2 && errs.some((x) => x.line < cLine[m.id]) ? 'DID NOT ELABORATE' : 'FAILED elsewhere';
+    const tested = outcome === 'ACCEPTED' || outcome === 'REFUSED by type mismatch';
     /* claimbox's words (its spec's `vocabulary`): "kernel decides" predicts nothing — the outcome is recorded, never a miss;
-       "NOT ACCEPTED" is met by a refusal or by a statement that does not elaborate */
-    const asExp = m.expect === 'kernel decides' ? true : m.expect === 'NOT ACCEPTED' ? outcome !== 'ACCEPTED' : outcome === m.expect;
+       "NOT ACCEPTED" is met by a refusal or (the first format only) by a statement that does not elaborate. Format 2: a
+       statement that did not reach the check is not tested — its prediction is neither met nor missed (null) */
+    const asExp = m.expect === 'kernel decides' ? true : V2 && !tested ? null : m.expect === 'NOT ACCEPTED' ? (V2 ? outcome === 'REFUSED by type mismatch' : outcome !== 'ACCEPTED') : outcome === m.expect;
     const row = { id: m.id, kind: m.kind, why: m.why, expect: m.expect, outcome, asExpected: asExp, errors: errs.slice(0, 3), seconds: secs(n) };
+    if (V2) row.tested = tested;
     if (m.rule) Object.assign(row, { rule: m.rule, predicted: m.expect !== 'kernel decides', aligned: !!m.aligned });
     if (m.amendment) row.amendment = m.amendment;
     if (m.preregistered) Object.assign(row, { preregistered: m.preregistered, asPreregistered: outcome === m.preregistered.expect });
@@ -678,7 +731,8 @@ function decide() {
   const notRun = (lcAbsent ? ['leanchecker (the toolchain does not ship it)'] : []).concat(['leanchecker-paranoid', 'lean4lean', 'con-leche', 'con-ron'].filter((k) => !kernels.some((x) => x.name.startsWith(k))));
   const bundled = notRun.filter((k) => new RegExp('^' + k + '$', 'm').test(binList));
 
-  const stepFiles = fs.readdirSync(F).filter((f) => f.endsWith('.seconds'));
+  /* format 2 sums the steps the spec names (a copy kept from a retried step is not a step) */
+  const stepFiles = V2 ? STEP_NAMES().map((n) => n + '.seconds').filter((f) => has(f)) : fs.readdirSync(F).filter((f) => f.endsWith('.seconds'));
   const wall = stepFiles.reduce((s, f) => s + Number(fs.readFileSync(path.join(F, f), 'utf8')), 0);
   const wrong = mutants.filter((m) => m.kind === 'wrong'), same = mutants.filter((m) => m.kind === 'same'), equiv = mutants.filter((m) => m.kind === 'equivalent');
   /* as pre-registered: the controls that existed before any run, each against its original expectation */
@@ -688,7 +742,28 @@ function decide() {
      some changed or retyped statement is refused and some rewording accepted; F2 ⇒ F1 must hold where F2 ran */
   const cbx = mutants.some((m) => m.kind === 'changed' || m.kind === 'type');
   const changed = mutants.filter((m) => m.kind === 'changed'), typ = mutants.filter((m) => m.kind === 'type'), certain = mutants.filter((m) => m.expect !== 'kernel decides');
-  const F1controls = cbx ? {
+  /* format 2: only the statements that reached the check are counted; the others are named */
+  const REF = 'REFUSED by type mismatch';
+  const T = (l) => l.filter((m) => m.tested), untested = mutants.filter((m) => m.tested === false);
+  const notTested = untested.length ? { count: untested.length, statements: untested.map((m) => m.id + ' (' + m.outcome + ')'), note: 'these planted statements never reached the identity check: shown, counted neither as refusals nor as misses' } : undefined;
+  const F1controls = V2 && cbx ? {
+    same: T(same).filter((m) => m.outcome === 'ACCEPTED').length + ' of ' + T(same).length + ' accepted (predicted)',
+    type: T(typ).filter((m) => m.outcome === REF).length + ' of ' + T(typ).length + ' refused (predicted)',
+    changed: T(changed).filter((m) => m.outcome === REF).length + ' refused, ' + T(changed).filter((m) => m.outcome === 'ACCEPTED').length + ' accepted, of ' + T(changed).length + ' (kernel decides: no outcome predicted)'
+      + (changed.some((m) => m.outcome === 'ACCEPTED') ? ' — accepted: ' + changed.filter((m) => m.outcome === 'ACCEPTED').map((m) => m.id).join(', ') + ' (the rule\'s change is definitionally invisible there)' : ''),
+    equivalent: equiv.length ? T(equiv).filter((m) => m.outcome === REF).length + ' of ' + T(equiv).length + ' refused (kernel decides)' : undefined,
+    certain: T(certain).filter((m) => m.asExpected).length + ' of ' + T(certain).length + ' certain predictions met',
+    reachedTheCheck: T(mutants).length + ' of ' + mutants.length,
+    notTested,
+    f2ImpliesF1: F2 && F2.f1 ? (F2.f1.holds ? 'holds: ' + F2.f1.mustRefuse + ' aligned statements with a differing part, all refused' : 'FAILS') : undefined,
+    word: T(certain).every((m) => m.asExpected) && T(changed.concat(typ, equiv)).some((m) => m.outcome === REF) && T(same).some((m) => m.outcome === 'ACCEPTED') && (!F2 || !F2.f1 || F2.f1.holds) ? 'CERTIFIED' : 'REFUSED',
+  } : V2 ? { wrongRefused: T(wrong).filter((m) => m.asExpected).length + ' of ' + T(wrong).length, sameAccepted: T(same).filter((m) => m.asExpected).length + ' of ' + T(same).length,
+    equivalentRefused: equiv.length ? T(equiv).filter((m) => m.asExpected).length + ' of ' + T(equiv).length + ' (the limit: identity up to definitional unfolding, not logical equivalence)' : undefined,
+    reachedTheCheck: T(mutants).length + ' of ' + mutants.length,
+    notTested,
+    asPreregistered: T(pre).filter((m) => (m.preregistered ? m.asPreregistered : m.asExpected)).length + ' of ' + T(pre).length,
+    word: T(mutants).every((m) => m.asExpected) && T(mutants).some((m) => m.outcome === REF) && T(same).some((m) => m.outcome === 'ACCEPTED') ? 'CERTIFIED' : 'REFUSED',
+  } : cbx ? {
     same: same.filter((m) => m.outcome === 'ACCEPTED').length + ' of ' + same.length + ' accepted (predicted)',
     type: typ.filter((m) => m.outcome !== 'ACCEPTED').length + ' of ' + typ.length + ' not accepted (predicted)',
     changed: changed.filter((m) => m.outcome !== 'ACCEPTED').length + ' refused, ' + changed.filter((m) => m.outcome === 'ACCEPTED').length + ' accepted, of ' + changed.length + ' (kernel decides: no outcome predicted)'
@@ -737,6 +812,25 @@ function decide() {
       return { hand: r.hand + ': ' + hw, intake: r.intake + ': ' + iw, same: pos(hw) === pos(String(iw)) };
     }) };
   }
+  if (V2) {
+    const cost = has('cost.json') ? JSON.parse(rd('cost.json')) : null;
+    const known = ['leanchecker', 'leanchecker-paranoid', 'lean4lean', 'nanoda', 'con-leche', 'con-ron'];
+    const ranHere = kernels.map((k) => k.name);
+    const notRunHere = known.filter((k) => !ranHere.some((n) => n.startsWith(k + ' '))).map((k) => (k === 'leanchecker' && lcAbsent ? 'leanchecker (the toolchain does not ship it)' : k));
+    return {
+      format: 2,
+      what: 'The Lean intake of ' + SPEC.claim.what + ' against ' + SPEC.canonical.what + ', decided from the run\'s facts by tools/lean-intake.js (record format 2, instruments/intake/SPEC.md). '
+        + 'CERTIFIED here says: the kernels named accept the claimant\'s proof as a proof of ' + neg + 'the canonical declaration\'s own statement; of the planted statements that reached the identity check, every one with a predicted outcome has it, at least one is refused and at least one rewording is accepted; the canonical hypotheses have a model; and every planted defect in the claimant\'s file is caught. A planted statement that did not elaborate tested nothing and is named, not counted.'
+        + (SPEC.writer ? ' The spec was written by claimbox (' + SPEC.writer.by + ': every planted statement by a fixed rule, only certain outcomes predicted — "kernel decides" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.' : ''),
+      notDecided: 'Whether the canonical statement is the informal problem (a reading, F5' + (SPEC.f2 ? '; F2 tests it on finitely many instances, which is evidence, not proof' : '; F2, instance agreement, was not run') + '). Kernels THIS RUN did not run: ' + (notRunHere.join(', ') || 'none of the six it knows') + ' — another record of the same proof may have run them; this record speaks for its own run only.',
+      spec: { path: SPEC_PATH, sha256: sha(fs.readFileSync(path.join(ROOT, SPEC_PATH))), amendments: SPEC.amendments.length },
+      run: { day, facts: path.relative(ROOT, F), machine: JSON.parse(rd('machine.json')), stepSeconds: Number(wall.toFixed(1)), cost: cost || null, ...(cost ? {} : { costNote: 'not recorded (no cost.json beside the run)' }) },
+      pins: { canonical: Object.assign({ url: SPEC.canonical.url, path: SPEC.canonical.path, decl: SPEC.canonical.decl }, pin.canonical), claim: Object.assign({ url: SPEC.claim.url, file: SPEC.claim.file, decl: SPEC.claim.decl }, pin.claim) },
+      hazards: pin.hazards,
+      verdict, words, F1, F2, F3, mutants, reds, kernels, notRunHere, reproduces,
+      ...(AXIOMS.length ? { conditionalOn: { axioms: AXIOMS.map((a) => a.canonical), note: 'CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them.' } } : {}),
+    };
+  }
   return {
     what: 'The Lean intake of ' + SPEC.claim.what + ' against ' + SPEC.canonical.what + ', decided from the run\'s facts by tools/lean-intake.js (phase P1 of notes/lean-fidelity-plan-2026-11-09.md). '
       + 'CERTIFIED here says: the kernels named accept the claimant\'s proof as a proof of ' + neg + 'the canonical declaration\'s own statement, the check refuses every planted wrong statement and accepts every planted paraphrase, the canonical hypotheses have a model, and every planted defect in the claimant\'s file is caught.'
@@ -762,7 +856,7 @@ function record() {
   fs.writeFileSync(OUT, JSON.stringify(rec, null, 1) + '\n');
   console.log(`wrote certs/lean-intake-${id}.json — ${rec.verdict}`);
   console.log(JSON.stringify(rec.words, null, 1));
-  for (const m of rec.mutants) console.log(`  ${m.asExpected ? 'ok  ' : 'MISS'} ${m.id} ${m.kind.padEnd(5)} ${m.outcome}${m.asExpected ? '' : ' (expected ' + m.expect + ')'}`);
+  for (const m of rec.mutants) console.log(`  ${m.tested === false ? 'n/t ' : m.asExpected ? 'ok  ' : 'MISS'} ${m.id} ${m.kind.padEnd(5)} ${m.outcome}${m.asExpected || m.tested === false ? '' : ' (expected ' + m.expect + ')'}`);
   for (const r of rec.reds) console.log(`  ${r.caught ? 'ok  ' : 'MISS'} ${r.id} ${r.how}`);
 }
 
@@ -777,7 +871,7 @@ function review() {
     `- **The statement.** ${R.F1.how.charAt(0).toUpperCase() + R.F1.how.slice(1)}. ` + (R.words.F1controls.wrongRefused ? `Of the planted statements, ${R.words.F1controls.wrongRefused} wrong ones were refused and ${R.words.F1controls.sameAccepted} rewordings of the same statement were accepted.`
       : `Of the planted statements (written by fixed rules): rewordings ${R.words.F1controls.same}; changed ones ${R.words.F1controls.changed.split(' (')[0]}; retyped ${R.words.F1controls.type}.`),
     `- **The hypotheses are satisfiable:** ${R.F3.witness}, checked by the kernel.`,
-    `- **The kernels:** ${R.kernels.map((k) => k.name + ' ' + k.word.toLowerCase()).join('; ')}. Not run: ${R.notRun.join(', ')}.`,
+    `- **The kernels:** ${R.kernels.map((k) => k.name + ' ' + k.word.toLowerCase()).join('; ')}. Not run here: ${(R.notRunHere || R.notRun).join(', ')}.`,
     ...(R.F2 && R.F2.readings ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances, under each reading of the sentence: ${R.words.F2.readings.join('; ')}. The kernel confirmed Lean's values.`] : []),
     ...(R.F2 && !R.F2.readings ? [`- **The statement against the informal problem, on ${R.F2.instances} small instances:** Lean evaluated DeepMind's statement part by part, and a separate exact program written from the informal sentence alone evaluated the same instances. ${R.words.F2.canonical.charAt(0).toUpperCase() + R.words.F2.canonical.slice(1)}. The kernel confirmed Lean's values.`] : []),
     `- **The axioms:** ${R.F1.axioms.join(', ')}. Planted defects in the proof file (${R.reds.map((r) => r.why).join('; ')}): ${R.words.plantedClaims.caught} caught.`,
@@ -790,4 +884,48 @@ function review() {
   console.log('drafted ' + path.relative(ROOT, f) + ' (untracked)');
 }
 
-if (cmd === 'run') run(); else if (cmd === 'record') record(); else if (cmd === 'review') review(); else die('unknown command ' + cmd);
+/* ---- cost: a fact of the run, written by whoever paid --------------------------------------------------------------- */
+function cost() {
+  const day = opt('--day') || latestRun(), usd = Number(opt('--usd')), what = opt('--what');
+  if (opt('--usd') === null || !Number.isFinite(usd) || usd < 0 || !what) die('cost <id> --usd <number ≥ 0> --what "<the machine, the time, the rate>"');
+  fs.writeFileSync(path.join(RUNS, day, 'cost.json'), JSON.stringify({ usd, what }, null, 1) + '\n');
+  console.log(`wrote ${path.relative(ROOT, path.join(RUNS, day, 'cost.json'))} — US$${usd}`);
+}
+
+/* ---- preflight: does every planted statement elaborate, alone? ------------------------------------------------------ */
+function preflight() {
+  const day = opt('--day') || new Date().toISOString().slice(0, 10);
+  const PRE = path.join(ROOT, 'corpus', 'lean-intake', id, 'preflight', day); fs.mkdirSync(PRE, { recursive: true });
+  const WORK = process.env.LEAN_INTAKE_WORK || path.join(os.homedir(), 'Projects', 'lean-intake-work', id);
+  const CAN = path.join(WORK, 'canonical'), C = SPEC.canonical;
+  if (!fs.existsSync(path.join(CAN, '.lake')) || cp.spawnSync('git', ['-C', CAN, 'rev-parse', 'HEAD']).stdout.toString().trim() !== C.commit) die('preflight needs the canonical repository built at its pin in ' + CAN + ': run --stages pin,toolchain,cache,canonical first (LEAN_INTAKE_KEEP=1 keeps the build for the run)');
+  if (sha(fs.readFileSync(path.join(CAN, C.path))) !== C.sha256) die('the canonical file is not the pinned bytes');
+  const lean = (name, body, deps) => {
+    const f = path.join(CAN, 'IntakePre_' + name + '.lean'); fs.writeFileSync(f, body);
+    const r = cp.spawnSync('bash', ['-c', (deps ? `lake build ${deps} >/dev/null 2>&1; ` : '') + `lake env lean ${path.basename(f)} 2>&1`], { cwd: CAN, timeout: 1800 * 1000, maxBuffer: 1 << 28 });
+    fs.rmSync(f, { force: true });
+    const out = (r.stdout || '').toString();
+    return { exit: r.status === null ? 'timeout' : r.status, errors: out.split('\n').filter((l) => /error/.test(l)).map((l) => l.replace(/^.*IntakePre_[^:]*:/, '').slice(0, 200)).slice(0, 3) };
+  };
+  /* the statement alone: the header the run writes, `theorem s`, and no claimant's term — so no outcome of F1 is seen */
+  const head = (m) => `import ${C.module}\n` + (m.imports || []).map((i) => `import ${i}\n`).join('') + `namespace ${(SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('');
+  const rows = SPEC.mutants.map((m) => {
+    const r = lean(m.id, head(m) + `theorem s : ${m.statement} := by\n  sorry\n`);
+    console.log(`  ${r.exit === 0 ? 'ok  ' : 'FAIL'} ${m.id} ${m.kind}${r.exit === 0 ? '' : ' — ' + (r.errors[0] || 'exit ' + r.exit)}`);
+    return { id: m.id, kind: m.kind, rule: m.rule, elaborates: r.exit === 0, errors: r.errors };
+  });
+  /* the planted defects need the claimant's file (their text must occur in it): checked when a run has cloned it */
+  const CLM = IN_PLACE ? CAN : path.join(WORK, 'claim');
+  let reds = null;
+  if (fs.existsSync(path.join(CLM, SPEC.claim.file))) {
+    const text = fs.readFileSync(path.join(CLM, SPEC.claim.file), 'utf8');
+    reds = (SPEC.claimReds || []).map((r) => ({ id: r.id, occurrences: text.split(r.find).length - 1, ok: r.all ? text.includes(r.find) : text.split(r.find).length === 2 }));
+  }
+  const out = { what: 'Preflight of the spec at ' + SPEC_PATH + ': each planted statement elaborated alone (its theorem s with sorry, without the claimant\'s term) against the pinned canonical file. It shows which statements can test anything; it runs no identity check and reveals no outcome of one.',
+    spec: { path: SPEC_PATH, sha256: sha(fs.readFileSync(path.join(ROOT, SPEC_PATH))) }, day, canonical: { commit: C.commit, sha256: C.sha256, toolchain: C.toolchain },
+    statements: rows, elaborate: rows.filter((r) => r.elaborates).length + ' of ' + rows.length, doNotElaborate: rows.filter((r) => !r.elaborates).map((r) => r.id), plantedDefects: reds };
+  fs.writeFileSync(path.join(PRE, 'preflight.json'), JSON.stringify(out, null, 1) + '\n');
+  console.log(`preflight ${id}: ${out.elaborate} planted statements elaborate` + (out.doNotElaborate.length ? ' — NOT: ' + out.doNotElaborate.join(', ') : '') + (reds ? `; planted defects ${reds.filter((r) => r.ok).length} of ${reds.length} find their text` : ''));
+}
+
+if (cmd === 'run') run(); else if (cmd === 'record') record(); else if (cmd === 'review') review(); else if (cmd === 'cost') cost(); else if (cmd === 'preflight') preflight(); else die('unknown command ' + cmd);

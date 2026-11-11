@@ -1,0 +1,598 @@
+{
+ "$comment": "The Lean intake spec (instruments/intake/SPEC.md). A subset of JSON Schema read by tools/check-intake-specs.js: type, properties, required, additionalProperties, items, enum, pattern.",
+ "type": "object",
+ "properties": {
+  "format": {
+   "type": "integer",
+   "enum": [
+    2
+   ]
+  },
+  "id": {
+   "type": "string",
+   "pattern": "^[a-z0-9][a-z0-9-]*$"
+  },
+  "what": {
+   "type": "string"
+  },
+  "polarity": {
+   "type": "string",
+   "enum": [
+    "proves",
+    "refutes"
+   ]
+  },
+  "canonical": {
+   "type": "object",
+   "properties": {
+    "url": {
+     "type": "string"
+    },
+    "commit": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "path": {
+     "type": "string"
+    },
+    "sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "module": {
+     "type": "string"
+    },
+    "decl": {
+     "type": "string"
+    },
+    "toolchain": {
+     "type": "string",
+     "pattern": "^leanprover/lean4:"
+    },
+    "what": {
+     "type": "string"
+    },
+    "selfContained": {
+     "type": "boolean"
+    },
+    "axioms": {
+     "type": "array",
+     "items": {
+      "type": [
+       "string",
+       "object"
+      ],
+      "properties": {
+       "canonical": {
+        "type": "string"
+       },
+       "claim": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "canonical",
+       "claim"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "url",
+    "commit",
+    "path",
+    "sha256",
+    "module",
+    "decl",
+    "toolchain",
+    "what"
+   ],
+   "additionalProperties": false
+  },
+  "claim": {
+   "type": "object",
+   "properties": {
+    "url": {
+     "type": "string"
+    },
+    "commit": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "file": {
+     "type": "string"
+    },
+    "sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "decl": {
+     "type": "string"
+    },
+    "what": {
+     "type": "string"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "license": {
+     "type": "string"
+    },
+    "module": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "url",
+    "commit",
+    "file",
+    "sha256",
+    "decl",
+    "what"
+   ],
+   "additionalProperties": false
+  },
+  "intakeImports": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "f3": {
+   "type": "object",
+   "properties": {
+    "tactic": {
+     "type": "string"
+    },
+    "what": {
+     "type": "string"
+    },
+    "expect": {
+     "type": "string"
+    },
+    "withClaim": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "tactic",
+    "what"
+   ],
+   "additionalProperties": false
+  },
+  "mutants": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "same",
+       "wrong",
+       "equivalent",
+       "changed",
+       "type"
+      ]
+     },
+     "statement": {
+      "type": "string"
+     },
+     "why": {
+      "type": "string"
+     },
+     "expect": {
+      "type": "string",
+      "enum": [
+       "ACCEPTED",
+       "REFUSED by type mismatch",
+       "NOT ACCEPTED",
+       "kernel decides"
+      ]
+     },
+     "imports": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "rule": {
+      "type": "string"
+     },
+     "aligned": {
+      "type": "boolean"
+     },
+     "certain": {
+      "type": "boolean"
+     },
+     "amendment": {
+      "type": "integer"
+     },
+     "preregistered": {
+      "type": "object",
+      "properties": {
+       "expect": {
+        "type": "string"
+       },
+       "kind": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "expect"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "required": [
+     "id",
+     "kind",
+     "statement",
+     "why",
+     "expect"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "mutantNamespace": {
+   "type": "string"
+  },
+  "mutantOpen": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "claimReds": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+     },
+     "why": {
+      "type": "string"
+     },
+     "find": {
+      "type": "string"
+     },
+     "replace": {
+      "type": "string"
+     },
+     "all": {
+      "type": "boolean"
+     },
+     "expect": {
+      "type": "string"
+     },
+     "rule": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "why",
+     "find",
+     "replace",
+     "expect"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "f2": {
+   "type": "object",
+   "properties": {
+    "what": {
+     "type": "string"
+    },
+    "informal": {
+     "type": "string"
+    },
+    "instanceType": {
+     "type": "string"
+    },
+    "instances": {
+     "type": "string"
+    },
+    "instanceJson": {
+     "type": "string"
+    },
+    "apply": {
+     "type": "string"
+    },
+    "chunk": {
+     "type": "integer"
+    },
+    "binders": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    },
+    "decider": {
+     "type": "string"
+    },
+    "componentMap": {
+     "type": [
+      "object",
+      "string"
+     ],
+     "additionalProperties": {
+      "type": "string"
+     }
+    },
+    "expect": {
+     "type": "object",
+     "properties": {
+      "canonical": {
+       "type": "string"
+      },
+      "planted": {
+       "type": "string"
+      },
+      "mutants": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "string"
+       }
+      }
+     },
+     "required": [],
+     "additionalProperties": false
+    },
+    "preregisteredExpect": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "string"
+     }
+    },
+    "reading": {
+     "type": "object",
+     "properties": {
+      "path": {
+       "type": "string"
+      },
+      "sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      },
+      "proposed": {
+       "type": "string"
+      },
+      "readings": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     },
+     "required": [
+      "path",
+      "sha256"
+     ],
+     "additionalProperties": false
+    },
+    "table": {
+     "type": "object",
+     "properties": {
+      "path": {
+       "type": "string"
+      },
+      "sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      }
+     },
+     "required": [
+      "path",
+      "sha256"
+     ],
+     "additionalProperties": false
+    },
+    "notInScope": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "informal",
+    "instanceType",
+    "instances",
+    "instanceJson",
+    "apply",
+    "chunk"
+   ],
+   "additionalProperties": false
+  },
+  "f2NotApplicable": {
+   "type": "string"
+  },
+  "amendments": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}"
+     },
+     "what": {
+      "type": "string"
+     },
+     "before": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "date",
+     "what"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "reproduces": {
+   "type": "object",
+   "properties": {
+    "record": {
+     "type": "string"
+    },
+    "map": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "hand": {
+        "type": "string"
+       },
+       "intake": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "hand",
+       "intake"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "record",
+    "map"
+   ],
+   "additionalProperties": false
+  },
+  "tools": {
+   "type": "object",
+   "properties": {
+    "lean4export": {
+     "type": "string"
+    }
+   },
+   "required": [],
+   "additionalProperties": false
+  },
+  "writer": {
+   "type": "object",
+   "properties": {
+    "by": {
+     "type": "string"
+    },
+    "rules": {
+     "type": "integer"
+    },
+    "target": {
+     "type": "object",
+     "properties": {
+      "path": {
+       "type": "string"
+      },
+      "sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      }
+     },
+     "required": [
+      "path",
+      "sha256"
+     ],
+     "additionalProperties": false
+    },
+    "pins": {
+     "type": "object",
+     "properties": {
+      "path": {
+       "type": "string"
+      },
+      "sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      }
+     },
+     "required": [
+      "path",
+      "sha256"
+     ],
+     "additionalProperties": false
+    },
+    "canonicalBytes": {
+     "type": "object",
+     "properties": {
+      "path": {
+       "type": "string"
+      },
+      "sha256": {
+       "type": "string",
+       "pattern": "^[0-9a-f]{64}$"
+      },
+      "statementLines": {
+       "type": "array",
+       "items": {
+        "type": "integer"
+       }
+      }
+     },
+     "required": [
+      "path",
+      "sha256"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "by"
+   ],
+   "additionalProperties": false
+  },
+  "vocabulary": {
+   "type": "string"
+  },
+  "predictions": {
+   "type": "object",
+   "additionalProperties": {
+    "type": [
+     "string",
+     "integer",
+     "object",
+     "array",
+     "boolean"
+    ]
+   }
+  },
+  "kernels": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "notInScope": {
+   "type": "string"
+  },
+  "success": {
+   "type": "string"
+  },
+  "timing": {
+   "type": "string"
+  },
+  "expectF1": {
+   "type": "string"
+  }
+ },
+ "required": [
+  "id",
+  "what",
+  "polarity",
+  "canonical",
+  "claim",
+  "f3",
+  "mutants",
+  "amendments"
+ ],
+ "additionalProperties": false
+}
