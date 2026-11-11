@@ -124,6 +124,32 @@
     "mc100-ea-best-kissing-number-d11-605/coordinate-missing",
     "mc100-ea-best-kissing-number-d12-842/coordinate-missing"
    ]
+  },
+  {
+   "id": "polymaps-door",
+   "finding": "the polynomial maps' partial path (F7: the collision is evaluated, the determinant rests on the paper's lemma) read a term whose exponent tuple is short by one entry as if the missing exponent were 0 — P.ev (instruments/polymaps/poly.py) paired the point with the tuple by zip, which stops at the shorter, and nothing checked a tuple's length when a map was built — and answered PARTIAL where the pre-registration requires REFUSED for a malformed object. The paths that expand the determinant refused the same term only by accident (diff() indexes every variable). Kept open on the record at the freeze (the pre-registration's amendment of 2026-10-22, point 2) and in DEBT.md until 2026-11-11.",
+   "found": {
+    "record": "certs/selfaudit-mutations.json",
+    "commit": "1be1b28c",
+    "date": "2026-10-21",
+    "outcome": "not as required (PARTIAL)",
+    "count": 1
+   },
+   "fix": {
+    "date": "2026-11-11",
+    "what": "the shape is checked at the door, before any arithmetic reads the object: poly.from_object(n, comps) and poly.points_from(n, points) refuse (ValueError 'REFUSED: …') a map without n components, a term that is not a pair, an exponent tuple that is not exactly n non-negative integers, a coefficient or coordinate that is not an integer or a rational written as text, a point without n coordinates; decide.py (load_maps, keller, my_field, the F7 and Phi blocks), tools/run-mc100-station.py and the harness instruments/selfaudit/polymaps.js (every branch) go through them, and P.ev itself refuses a short tuple or a short point, so the zip cannot truncate however a P was built. Five red controls in instruments/polymaps/battery.py. No row of the pinned records changes word; certs/polymaps-ledger.json and certs/mc100-station-v2.json were re-derived (the decider's sha256 and the stamps). The mutant was re-decided in place by tools/run-selfaudit-mutations.js --amend (the record's amended entry keeps the first decision), the nine polymaps rows re-decided in a dry run beside it: every other word identical.",
+    "files": [
+     "instruments/polymaps/poly.py",
+     "instruments/polymaps/decide.py",
+     "instruments/polymaps/battery.py",
+     "tools/run-mc100-station.py",
+     "instruments/selfaudit/polymaps.js",
+     "tools/run-selfaudit-mutations.js"
+    ]
+   },
+   "mutants": [
+    "polymaps-gao-f7/exponent-missing"
+   ]
   }
  ]
 }

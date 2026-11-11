@@ -41,7 +41,26 @@
           node tools/run-selfaudit-mutations.js --out p --only strassen-1969      a dry run on rows whose id contains the text
           node tools/run-selfaudit-mutations.js --repin --why "…"  re-pin the record against the pre-registration and the inventory as
                                                                    they are NOW (a dated amendment, the inventory regenerated), a dated
-                                                                   repinned entry kept, no mutant or decision touched                MIT */
+                                                                   repinned entry kept, no mutant or decision touched
+          node tools/run-selfaudit-mutations.js --amend id[,id] --why "…"   AFTER A RECORDED FIX (2026-11-11): re-decide the named mutants
+                                                                   in place and keep the first decision. A whole run (about 17 minutes)
+                                                                   would re-time every row and drop the record's repinned history for
+                                                                   the sake of one decision, so the amendment touches that decision
+                                                                   only: each named mutant must be covered by an entry of fixes.json;
+                                                                   it is regenerated from the pinned record by its class and must be
+                                                                   the object the record pinned (same sha256, same bytes); the witness
+                                                                   and the float check are re-run on it and must say what the record
+                                                                   holds; the decider is run and must give ANOTHER word than the
+                                                                   record's (nothing to amend otherwise). The mutant's decision and
+                                                                   outcome are replaced and marked (fixedFrom / fix / foundAt as a
+                                                                   whole run would mark it, and amended); the totals, the findings
+                                                                   and the fixes re-derive; a dated `amended` entry keeps the first
+                                                                   decision and outcome beside the new ones and the totals before and
+                                                                   after. Every other byte of the record is as the whole run wrote it.
+                                                                   --check re-derives the totals BEFORE each amendment from the first
+                                                                   decisions it kept, and carries three red controls of its own (the
+                                                                   record un-amended behind the entry's back, the entry removed, the
+                                                                   kept first decision forged: each must refuse)                    MIT */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -66,6 +85,7 @@ const argv = process.argv.slice(2);
 const CHECK = argv.includes('--check');
 const REPIN = argv.includes('--repin');
 const arg = (k) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : null; };
+const AMEND = arg('--amend') ? arg('--amend').split(',') : null;
 const outArg = arg('--out');
 const ONLY = arg('--only') ? arg('--only').split(',') : null;
 const die = (m) => { console.error('SELF-AUDIT MUTATIONS REFUSED: ' + m); process.exit(1); };
@@ -75,6 +95,7 @@ const sha = (rel) => shaBuf(fs.readFileSync(path.join(ROOT, rel)));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const log = (s) => process.stderr.write(s + '\n');
 if (ONLY && !outArg && !REPIN) die('--only is for dry runs: give --out');
+if (AMEND && (CHECK || REPIN)) die('--amend is a mode of its own: not with --check or --repin');
 
 /* ---- inputs and their pins -------------------------------------------------------------------------------------- */
 const INVENTORY = J(INV);
@@ -161,6 +182,23 @@ const derive = (families) => {
   return { totals, all, killSwitch, findings, fixes, covered };
 };
 
+/* ---- the amendments (2026-11-11): a mutant re-decided in place after a recorded fix, its first decision kept ------------ */
+const PICK = ['byOutcome', 'falseCertifications', 'falseRefutations', 'refusalsOnFalse', 'refusalsOnTrue', 'discards', 'malformedNotRefused'];
+const pick = (all) => Object.fromEntries(PICK.map((k) => [k, all[k]]));
+const findMutant = (families, id) => { for (const [fam, F] of Object.entries(families)) for (const row of F.rows) for (const m of row.mutants || []) if (m.id === id) return { fam, row, m }; return null; };
+/* a mutant with another decision, in the runner's own key order; `mark` (fixedFrom / fix / foundAt, amended) goes where a whole run puts it */
+const MARKS = ['fixedFrom', 'fix', 'foundAt', 'amended'];
+const withDecision = (m, decided, outcome, mark) => {
+  const o = {};
+  for (const [k, v] of Object.entries(m)) {
+    if (MARKS.includes(k)) continue;
+    if (k === 'witness') Object.assign(o, mark);
+    o[k] = k === 'decided' ? decided : k === 'outcome' ? outcome : v;
+  }
+  return o;
+};
+const setMutant = (families, id, f) => { const hit = findMutant(families, id); hit.row.mutants = hit.row.mutants.map((m) => (m.id === id ? f(m) : m)); };
+
 /* ---- --repin: the pins moved to the pre-registration and the inventory as they are now (the freeze) ---------------- */
 if (REPIN) {
   const why = arg('--why');
@@ -182,41 +220,102 @@ if (REPIN) {
 }
 
 /* ---- --check ------------------------------------------------------------------------------------------------------- */
+const fail = (m) => { throw new Error(m); };
+/* the record's own consistency, as a function that throws: --check runs it on the record, then on three forged copies */
+const verify = (have) => {
+  if (have.preregistration.sha256 !== pins.note) fail('the record was made against another pre-registration');
+  if (have.inventory.sha256 !== sha(INV)) fail('the record was made against another inventory');
+  for (const [rec, h] of Object.entries(have.inputs.recordPins)) if (pins.records[rec] !== h) fail('the record pins another ' + rec);
+  for (const [fam, F] of Object.entries(have.families)) {
+    if (!built.includes(fam)) fail('the record holds a family with no module: ' + fam);
+    if (F.redControl !== MODS[fam].redControl) fail('the witness red control of ' + fam + ' is not the module\'s');
+    for (const row of F.rows) {
+      if (row.noObject) { if (row.mutants.length || row.original) fail('a row with no object carries mutants: ' + row.rowId); continue; }
+      if (F.redControl === null && !(row.controlsFired && row.controlsFired.length) && !(row.excluded || []).some((x) => /prints no value/.test(x.reason))) fail('a row of a family without a red-control class fired no witness control: ' + row.rowId);
+      if (row.original.asRequired !== (row.original.decided.verdict === row.original.required)) fail('an original\'s asRequired does not re-derive: ' + row.rowId);
+      if (row.verdict === 'CERTIFIED' && row.original.witness && row.original.witness.violated) fail('the witness found a violation on a CERTIFIED original: ' + row.rowId);
+      if (row.verdict === 'REFUTED' && !(row.original.witness && row.original.witness.violated)) fail('the witness found no violation on a REFUTED original: ' + row.rowId);
+      for (const m of row.mutants) {
+        if (m.required !== requiredOf(m, row.verdict)) fail('a required word does not re-derive: ' + m.id);
+        if (m.outcome !== outcomeOf(m.truth, m.witness ? m.witness.violated : null, m.decided.verdict, m.required)) fail('an outcome does not re-derive: ' + m.id);
+        if (m.truth === 'TRUE' && m.witness && m.witness.violated && !(m.preservesOriginal && row.verdict !== 'CERTIFIED')) fail('the witness found a violation on a TRUE mutant of a CERTIFIED row: ' + m.id);
+        if (m.class === F.redControl && !(m.witness && m.witness.violated)) fail('the witness red control did not fire: ' + m.id);
+      }
+    }
+  }
+  if (!have.partial && pending.length) fail('the record says it is whole but a family has no module: ' + pending.join(', '));
+  const d = derive(have.families);
+  if (JSON.stringify(d.totals) !== JSON.stringify(have.totals) || JSON.stringify(d.all) !== JSON.stringify(have.all) || JSON.stringify(d.killSwitch) !== JSON.stringify(have.killSwitch) || JSON.stringify(d.findings) !== JSON.stringify(have.findings)) fail('the totals or the findings do not re-derive from the rows');
+  if (!have.fixesTable || have.fixesTable.sha256 !== sha(FIXES)) fail('the record was made against another fixes table');
+  if (JSON.stringify(d.fixes) !== JSON.stringify(have.fixes)) fail('the fixes do not re-derive from the rows');
+  for (const F of Object.values(have.families)) for (const row of F.rows) for (const m of row.mutants || []) {
+    const fid = d.covered.get(m.id);
+    if ((m.fixedFrom !== undefined) !== (!!fid && m.outcome === 'as required')) fail('fixedFrom does not re-derive: ' + m.id);
+  }
+  /* the amendments: every entry names a mutant the record holds, covered by the fix it names; both outcomes re-derive; the
+     mutant holds the decision its last amendment recorded and carries its date; and the totals BEFORE each amendment
+     re-derive from the first decisions it kept (undone from the last to the first) */
+  const amended = have.amended || [];
+  const firstOf = new Map(), lastOf = new Map();
+  for (const a of amended) {
+    if (!a.at || !a.why || !Array.isArray(a.mutants) || !a.mutants.length || !a.before || !a.after) fail('an amended entry is malformed');
+    for (const x of a.mutants) {
+      const hit = findMutant(have.families, x.id);
+      if (!hit) fail('an amended entry names a mutant the record does not hold: ' + x.id);
+      if (hit.m.sha256 !== x.sha256) fail('an amended entry names another object than the record pinned: ' + x.id);
+      if (d.covered.get(x.id) !== x.fix) fail('an amended mutant is not covered by the fix its amendment names: ' + x.id);
+      if (x.before.decided.verdict === x.after.decided.verdict) fail('an amendment that changes no word: ' + x.id);
+      for (const side of ['before', 'after']) if (x[side].outcome !== outcomeOf(hit.m.truth, hit.m.witness ? hit.m.witness.violated : null, x[side].decided.verdict, hit.m.required)) fail('the outcome ' + side + ' an amendment does not re-derive: ' + x.id);
+      if (!firstOf.has(x.id)) firstOf.set(x.id, x);
+      lastOf.set(x.id, { a, x });
+    }
+  }
+  for (const F of Object.values(have.families)) for (const row of F.rows) for (const m of row.mutants || []) {
+    const l = lastOf.get(m.id);
+    if ((m.amended !== undefined) !== !!l) fail('the amended mark and the amended entries disagree: ' + m.id);
+    if (!l) continue;
+    if (m.amended !== l.a.at) fail('the amended mark is not the date of the last amendment: ' + m.id);
+    if (JSON.stringify(m.decided) !== JSON.stringify(l.x.after.decided) || m.outcome !== l.x.after.outcome) fail('an amended mutant does not hold the decision its amendment recorded: ' + m.id);
+    if (m.fixedFrom !== undefined && m.fixedFrom !== firstOf.get(m.id).before.outcome) fail('fixedFrom is not the first outcome the amendment kept: ' + m.id);
+  }
+  let state = have.families;
+  for (let i = amended.length - 1; i >= 0; i--) {
+    const a = amended[i];
+    if (JSON.stringify(pick(derive(state).all)) !== JSON.stringify(a.after.all)) fail('the totals after the amendment of ' + a.at + ' do not re-derive');
+    state = JSON.parse(JSON.stringify(state));
+    for (const x of a.mutants) setMutant(state, x.id, (m) => withDecision(m, x.before.decided, x.before.outcome, {}));
+    if (JSON.stringify(pick(derive(state).all)) !== JSON.stringify(a.before.all)) fail('the totals before the amendment of ' + a.at + ' do not re-derive from the first decisions it kept');
+  }
+  return d;
+};
 if (CHECK) {
   const checkPath = outArg ? path.resolve(outArg) : path.join(ROOT, OUT);
   if (!fs.existsSync(checkPath)) die('no mutations record on disk to check: ' + checkPath);
   if (stale.length) die('an input is not at its Phase 1 pin: ' + stale.join(', '));
   const have = JSON.parse(fs.readFileSync(checkPath, 'utf8'));
-  if (have.preregistration.sha256 !== pins.note) die('the record was made against another pre-registration');
-  if (have.inventory.sha256 !== sha(INV)) die('the record was made against another inventory');
-  for (const [rec, h] of Object.entries(have.inputs.recordPins)) if (pins.records[rec] !== h) die('the record pins another ' + rec);
-  for (const [fam, F] of Object.entries(have.families)) {
-    if (!built.includes(fam)) die('the record holds a family with no module: ' + fam);
-    if (F.redControl !== MODS[fam].redControl) die('the witness red control of ' + fam + ' is not the module\'s');
-    for (const row of F.rows) {
-      if (row.noObject) { if (row.mutants.length || row.original) die('a row with no object carries mutants: ' + row.rowId); continue; }
-      if (F.redControl === null && !(row.controlsFired && row.controlsFired.length) && !(row.excluded || []).some((x) => /prints no value/.test(x.reason))) die('a row of a family without a red-control class fired no witness control: ' + row.rowId);
-      if (row.original.asRequired !== (row.original.decided.verdict === row.original.required)) die('an original\'s asRequired does not re-derive: ' + row.rowId);
-      if (row.verdict === 'CERTIFIED' && row.original.witness && row.original.witness.violated) die('the witness found a violation on a CERTIFIED original: ' + row.rowId);
-      if (row.verdict === 'REFUTED' && !(row.original.witness && row.original.witness.violated)) die('the witness found no violation on a REFUTED original: ' + row.rowId);
-      for (const m of row.mutants) {
-        if (m.required !== requiredOf(m, row.verdict)) die('a required word does not re-derive: ' + m.id);
-        if (m.outcome !== outcomeOf(m.truth, m.witness ? m.witness.violated : null, m.decided.verdict, m.required)) die('an outcome does not re-derive: ' + m.id);
-        if (m.truth === 'TRUE' && m.witness && m.witness.violated && !(m.preservesOriginal && row.verdict !== 'CERTIFIED')) die('the witness found a violation on a TRUE mutant of a CERTIFIED row: ' + m.id);
-        if (m.class === F.redControl && !(m.witness && m.witness.violated)) die('the witness red control did not fire: ' + m.id);
-      }
+  try { verify(have); } catch (e) { die(e.message); }
+  /* RED CONTROLS of the amendments, on forged copies of the record in memory, every --check: each must be refused, and
+     by a check of the amendments (a refusal for another reason is not the control firing) */
+  const amended = have.amended || [];
+  let reds = 0;
+  if (amended.length) {
+    const last = amended[amended.length - 1], x0 = last.mutants[0];
+    const rederive = (c) => { const dd = derive(c.families); c.totals = dd.totals; c.all = dd.all; c.killSwitch = dd.killSwitch; c.findings = dd.findings; c.fixes = dd.fixes; };
+    const forged = [
+      ['the record un-amended behind the entry\'s back (the first decision put back, the marks removed, the totals re-derived)', (c) => { setMutant(c.families, x0.id, (m) => withDecision(m, x0.before.decided, x0.before.outcome, {})); rederive(c); }],
+      ['the amended entry removed while the mutant keeps the new decision', (c) => { c.amended = c.amended.slice(0, -1); if (!c.amended.length) delete c.amended; }],
+      ['the kept first decision forged to the word the mutant has now', (c) => { const x = c.amended[c.amended.length - 1].mutants[0]; x.before = JSON.parse(JSON.stringify(x.after)); }]
+    ];
+    for (const [name, f] of forged) {
+      const c = JSON.parse(JSON.stringify(have)); f(c);
+      let refusal = null;
+      try { verify(c); } catch (e) { refusal = e.message; }
+      if (!refusal || !/amend/.test(refusal)) die('RED CONTROL did not fire — ' + name + ': ' + (refusal ? 'refused, but for another reason (' + refusal + ')' : 'accepted'));
+      reds++;
     }
   }
-  if (!have.partial && pending.length) die('the record says it is whole but a family has no module: ' + pending.join(', '));
-  const d = derive(have.families);
-  if (JSON.stringify(d.totals) !== JSON.stringify(have.totals) || JSON.stringify(d.all) !== JSON.stringify(have.all) || JSON.stringify(d.killSwitch) !== JSON.stringify(have.killSwitch) || JSON.stringify(d.findings) !== JSON.stringify(have.findings)) die('the totals or the findings do not re-derive from the rows');
-  if (!have.fixesTable || have.fixesTable.sha256 !== sha(FIXES)) die('the record was made against another fixes table');
-  if (JSON.stringify(d.fixes) !== JSON.stringify(have.fixes)) die('the fixes do not re-derive from the rows');
-  for (const F of Object.values(have.families)) for (const row of F.rows) for (const m of row.mutants || []) {
-    const fid = d.covered.get(m.id);
-    if ((m.fixedFrom !== undefined) !== (!!fid && m.outcome === 'as required')) die('fixedFrom does not re-derive: ' + m.id);
-  }
-  console.log('selfaudit mutations hold: ' + Object.keys(have.families).join(', ') + (have.partial ? ' (PARTIAL; pending ' + have.pending.join(', ') + ')' : '') + ' — ' + have.all.rows + ' rows, ' + have.all.mutants + ' mutants, false certifications ' + have.all.falseCertifications + ', false refutations ' + have.all.falseRefutations + ', refusals ' + (have.all.refusalsOnFalse + have.all.refusalsOnTrue) + ', discards ' + have.all.discards + ', malformed not refused ' + have.all.malformedNotRefused + ', rows with a witnessed FALSE ' + have.all.rowsWithWitnessedFalse + ' of ' + MUTABLE_ROWS);
+  console.log('selfaudit mutations hold: ' + Object.keys(have.families).join(', ') + (have.partial ? ' (PARTIAL; pending ' + have.pending.join(', ') + ')' : '') + ' — ' + have.all.rows + ' rows, ' + have.all.mutants + ' mutants, false certifications ' + have.all.falseCertifications + ', false refutations ' + have.all.falseRefutations + ', refusals ' + (have.all.refusalsOnFalse + have.all.refusalsOnTrue) + ', discards ' + have.all.discards + ', malformed not refused ' + have.all.malformedNotRefused + ', rows with a witnessed FALSE ' + have.all.rowsWithWitnessedFalse + ' of ' + MUTABLE_ROWS
+    + (amended.length ? '; amended ' + amended.reduce((n, a) => n + a.mutants.length, 0) + ' mutant(s) in ' + amended.length + ' dated amendment(s), the first decisions kept, ' + reds + '/3 red controls fired' : ''));
   process.exit(0);
 }
 
@@ -235,6 +334,67 @@ const runPy = (script, items, label) => {
   return Object.fromEntries(out.map((x) => [x.id, x]));
 };
 const canonical = (claim) => Buffer.from(JSON.stringify(claim));
+
+/* ---- --amend: after a recorded fix, the named mutants re-decided in place, the first decision kept ----------------------- */
+if (AMEND) {
+  const why = arg('--why');
+  if (!why) die('--amend needs --why "…"');
+  if (outArg || ONLY) die('--amend takes the mutant ids and --why, nothing else: it amends the record on disk');
+  if (new Set(AMEND).size !== AMEND.length) die('--amend: a mutant is named twice');
+  const recPath = path.join(ROOT, OUT);
+  if (!fs.existsSync(recPath)) die('no mutations record on disk to amend: ' + recPath);
+  const bytes0 = fs.readFileSync(recPath, 'utf8');
+  const have = JSON.parse(bytes0);
+  if (JSON.stringify(have, null, 1) + '\n' !== bytes0) die('the record on disk is not this runner\'s own serialisation: an amendment could not keep its other bytes');
+  if (have.partial) die('the record on disk is partial: an amendment is of a whole record');
+  if (have.preregistration.sha256 !== pins.note || have.inventory.sha256 !== sha(INV) || Object.entries(have.inputs.recordPins).some(([rec, h]) => pins.records[rec] !== h)) die('the record is not pinned to the pre-registration, the inventory and the records as they are now: run --repin first');
+  const allBefore = pick(derive(have.families).all);
+  if (JSON.stringify(allBefore) !== JSON.stringify(pick(have.all))) die('the record\'s totals do not re-derive from its rows: nothing to amend from');
+  const coveredBy = new Map(); for (const f of J(FIXES).fixes) for (const id of f.mutants) coveredBy.set(id, f);
+  const at = new Date().toISOString();
+  const regenerated = {}, entries = [];
+  for (const id of AMEND) {
+    const hit = findMutant(have.families, id);
+    if (!hit) die('the record holds no mutant ' + id);
+    const fixOf = coveredBy.get(id);
+    if (!fixOf) die('no entry of ' + FIXES + ' covers ' + id + ': an amendment re-decides a mutant after a RECORDED fix — record the fix first');
+    const F = MODS[hit.fam];
+    regenerated[hit.fam] = regenerated[hit.fam] || F.rows(R, J);
+    const row = regenerated[hit.fam].find((r) => r.rowId === hit.row.rowId);
+    if (!row || !row.entry) die('the family module no longer builds the row of ' + id);
+    const gen = F.mutants(row.entry).find((m) => m.class === hit.m.class && !m.excluded);
+    if (!gen) die('the class table no longer generates ' + id);
+    const bytes = canonical(gen.claim), origClaim = F.claimOf(row.entry);
+    if (shaBuf(bytes) !== hit.m.sha256 || bytes.length !== hit.m.bytes) die('RED CONTROL: the mutant regenerated from the pinned record is not the object the record pinned (' + id + ': sha256 ' + shaBuf(bytes).slice(0, 12) + '…, the record ' + hit.m.sha256.slice(0, 12) + '…): an amendment re-decides the same object, never another');
+    if (shaBuf(canonical(origClaim)) !== hit.row.original.sha256) die('RED CONTROL: the original regenerated from the pinned record is not the object the record pinned: ' + hit.row.rowId);
+    log('amending ' + id + ' (the object regenerated: sha256 ' + hit.m.sha256.slice(0, 12) + '…, ' + bytes.length + ' bytes) — the witness and the float check re-run, then the decider');
+    /* the truth side must not have moved: the witness and the float check re-run on the same object, compared with the stored fields */
+    const items = [{ id: 'original', ...origClaim, layout: row.entry.layout }, { id: gen.class, ...gen.claim, layout: row.entry.layout }];
+    const label = row.rowId.replace(/[^a-z0-9-]/gi, '_');
+    const w = runPy(F.witness, items, label + '-w')[gen.class], fl = runPy(F.floatcheck, items, label + '-f')[gen.class];
+    const witnessNow = { violated: w.violated, malformed: w.malformed, reason: w.reason || null, firstViolation: w.layouts || w.violation || null, ...(w.exact !== undefined ? { exact: w.exact } : {}), ...(w.constraintsWitnessed === false ? { constraintsWitnessed: false } : {}) };
+    if (JSON.stringify(witnessNow) !== JSON.stringify(hit.m.witness)) die('the witness no longer says of ' + id + ' what the record holds: an amendment replaces a decision, nothing else');
+    if (JSON.stringify((({ id: _id, ...rest }) => rest)(fl)) !== JSON.stringify(hit.m.float)) die('the float check no longer says of ' + id + ' what the record holds: an amendment replaces a decision, nothing else');
+    const required = requiredOf(hit.m, hit.row.verdict);
+    if (required !== hit.m.required) die('the required word of ' + id + ' does not re-derive');
+    const d = F.decide(row.entryId + '/' + gen.class, gen.claim);
+    if (d.verdict === hit.m.decided.verdict) die('RED CONTROL: the decider gives ' + id + ' the word the record already holds (' + d.verdict + '): nothing to amend');
+    const outcome = outcomeOf(hit.m.truth, w.violated, d.verdict, required);
+    entries.push({ id, sha256: hit.m.sha256, fix: fixOf.id, before: { decided: hit.m.decided, outcome: hit.m.outcome }, after: { decided: d, outcome } });
+    const mark = { ...(outcome === 'as required' ? { fixedFrom: fixOf.found.outcome, fix: fixOf.id, foundAt: fixOf.found.commit } : {}), amended: at };
+    setMutant(have.families, id, (m) => withDecision(m, d, outcome, mark));
+    log('  ' + id + ': ' + hit.m.decided.verdict + ' → ' + d.verdict + ' (required ' + required + '); outcome ' + hit.m.outcome + ' → ' + outcome);
+  }
+  fs.rmSync(tmp, { recursive: true, force: true });
+  const dd = derive(have.families), tableBefore = have.fixesTable ? have.fixesTable.sha256 : null;
+  have.totals = dd.totals; have.all = dd.all; have.killSwitch = dd.killSwitch; have.findings = dd.findings; have.fixes = dd.fixes; have.fixesTable = { path: FIXES, sha256: sha(FIXES) };
+  have.amended = (have.amended || []).concat([{ at, git, why, machine, fixesTable: { before: tableBefore, after: sha(FIXES) }, mutants: entries, before: { all: allBefore }, after: { all: pick(dd.all) },
+    kept: 'every other mutant, decision, witness, float check and timing is as the whole run wrote it (generated ' + have.generated + ', git ' + have.git + ', ' + have.seconds + ' s); only the named mutants were re-decided, each on the object the record pinned' }]);
+  try { verify(have); } catch (e) { die('the amended record would not pass its own --check (' + e.message + '); nothing written'); }
+  fs.writeFileSync(recPath, JSON.stringify(have, null, 1) + '\n');
+  log('amended ' + recPath + ': ' + entries.map((x) => x.id + ' ' + x.before.decided.verdict + ' → ' + x.after.decided.verdict).join(', ') + '; outcomes ' + JSON.stringify(allBefore.byOutcome) + ' → ' + JSON.stringify(dd.all.byOutcome) + '; malformed not refused ' + allBefore.malformedNotRefused + ' → ' + dd.all.malformedNotRefused + '; no other mutant or decision touched');
+  process.exit(0);
+}
 const t00 = Date.now();
 const FIXED_BY = new Map(); for (const f of J(FIXES).fixes) for (const id of f.mutants) FIXED_BY.set(id, f);
 const families = {};

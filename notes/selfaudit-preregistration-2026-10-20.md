@@ -162,6 +162,34 @@
 > implementations, all as predicted). The inventory and the concordance are regenerated and the run and mutations records
 > re-pinned with this amendment as the reason; no measurement, mutant or decision touched. Nothing else changes.
 
+> **Amendment 2026-11-11 (the finding left open at the freeze is fixed; one mutant re-decided, its first decision kept; no
+> definition moved).** Point (2) of the amendment of 2026-10-22 left one finding open on the record: the polynomial maps'
+> partial path (F7: the collision evaluated, the determinant resting on the paper's lemma) read a term with a missing
+> exponent silently. P.ev (instruments/polymaps/poly.py) paired the point with a term's exponent tuple by zip, which stops
+> at the shorter, and nothing checked a tuple's length when a map was built, so the MALFORMED mutant
+> polymaps-gao-f7/exponent-missing was decided PARTIAL where this note requires REFUSED. On the operator's word
+> (2026-11-11) it is fixed by M1's own rule — fixed, the fix recorded beside the mutant, the mutant kept, the count
+> reported: the shape is now checked at the door (poly.from_object, poly.points_from, and P.ev itself) on every path —
+> decide.py, tools/run-mc100-station.py, the harness instruments/selfaudit/polymaps.js — with five red controls in the
+> polymaps battery, and instruments/selfaudit/fixes.json gains its third entry, polymaps-door. certs/polymaps-ledger.json
+> and certs/mc100-station-v2.json move (the decider's sha256 in each, and their stamps); no row, check or verdict of
+> either moves, and the register rebuilt from them differs only at its date stamp. The nine polymaps rows were re-decided
+> under the new decider in a dry run (`--out`, `--only polymaps-,mc100-st-jacobian`: 9 originals, 35 mutants): 43 words
+> identical to the record's, one changed, that mutant, PARTIAL → REFUSED. The mutations record is AMENDED IN PLACE, not
+> re-run — a whole run would re-time 572 mutants and drop the record's re-pin history for the sake of one decision — by
+> the runner's new `--amend` mode: the mutant is regenerated from the pinned record by its class and must be the object
+> the record pinned (the same sha256), the witness and the float check are re-run on it and must say what the record
+> holds, the decider must give another word than the record's; its decision and outcome are replaced and marked
+> (fixedFrom, fix, foundAt, amended), the totals, the findings and the fixes re-derive (as required 520 → 521, malformed
+> not refused 1 → 0; every other count as it was), and a dated `amended` entry keeps the first decision and outcome
+> beside the new ones with the totals before and after. Every other byte of the record is as the whole run of 2026-10-21
+> wrote it: the eight other exponent-missing mutants keep their word (REFUSED) and the reason recorded then (the
+> determinant's accident), though the door now refuses them first. `--check` re-derives the totals before the amendment
+> from the first decision it kept and refuses three forged copies of the record (un-amended behind the entry's back, the
+> entry removed, the first decision forged). The inventory is regenerated, the run and mutations records re-pinned with
+> this amendment as the reason, the concordance regenerated (pins only). Still open, and outside the class table: a
+> repeated exponent tuple within one component is read last-wins (DEBT.md). Nothing else changes.
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a
