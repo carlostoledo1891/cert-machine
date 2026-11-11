@@ -489,7 +489,8 @@ legend shows a mark without being an instance of it). It comes after the figure 
 
 The still (approved by the operator, 2026-11-11): under the figure, beside Replay, the frame the zoom ends on is drawn
 once more, small, as an inline SVG made in the build from the same geometry the canvas draws with, so the finding is on
-the page before anything moves and for a reader who asked for no motion (for whom nothing plays and the figure stays at
-×1). It follows the figure's rule 5 exactly: the edges in ink, the overlap filled in ink at the figure's strength, and
+the page before anything moves and for a reader who asked for no motion (for whom nothing plays, the figure stays at
+×1 and the two verdicts under it stand at full strength from the first paint). The stage gave up the still's row, so
+the card is no taller: it is wider than it is tall, and the packing is fitted to its smaller side, a square, centred. It follows the figure's rule 5 exactly: the edges in ink, the overlap filled in ink at the figure's strength, and
 the witness × on the same point, the same witness at the still's scale, no thinner than the edges. It comes after the
 figure's own × in the markup, so that one is still the first a reader meets.

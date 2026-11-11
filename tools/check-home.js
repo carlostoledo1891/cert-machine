@@ -16,6 +16,9 @@
      hover       the pointer moved over 24 register cells                                                        0
      keys        the arrow keys moved through 24 cells from the focused one                                      0
      theme       the theme pill switched to light and back (the canvas repaints)                                 0
+     sticky      on the phone only, where the readout sticks under the fixed nav: the register scrolled from above
+                 its head to past its foot, then the first, the middle and the last cell each brought to the foot
+                 of the screen and selected                                                                      0
 
    It also checks that the controls did what they claim while it measured (the zoom reached its end and the sentence
    changed; the readout changed under the pointer and under the keys), so a control that silently did nothing cannot
@@ -32,11 +35,20 @@
                  size the stylesheet reserves, inside the figure
      after       its box after the fonts and after every control above: the same size, at the same place in the figure
      label       the zoom its label names is the word the zoom control itself shows at the slider's end
-     reduced     the page loaded again with prefers-reduced-motion: nothing plays, the still is there, 0 shift
+     reduced     the page loaded again with prefers-reduced-motion: nothing plays, the still is there, the two
+                 verdicts under the figure stand at full strength (with motion they are dim until the zoom ends), 0 shift
+
+   THE CARD IS NO TALLER FOR THE STILL (the operator, 2026-11-11). The still's row is taken out of the stage's height, so
+   the hero card is as tall as it was before the still: CARD below holds the two heights measured on the page as it
+   stood before the still, and the card must measure exactly that, at load, after every control and with reduced motion.
+
+   THE PHONE'S READOUT STAYS IN VIEW. While it measures the sticky pass it also reads where things are: each time, the
+   whole readout is on the screen under the nav, and the selected cell is on the screen and not under the readout.
 
    RED CONTROLS: a planted page whose button grows a paragraph above a block must measure a shift above zero by the same
    probe, and the still's probe must find no still on it; the page's own bytes with the still's alternative stripped,
-   and with a script that names it, must be refused; and the still's readings with one of them a pixel lower must be
+   and with a script that names it, must be refused; the still's readings with one of them a pixel lower must be
+   refused; a card one pixel taller must be refused; and a sticky reading whose cell lies under the readout must be
    refused. Or the run fails.
 
      node tools/check-home.js            gate; exit 1 on any interaction shift, a load shift above LOAD_MAX, a dead control,
@@ -51,6 +63,12 @@ const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
 const PAGE = path.join(ROOT, 'site', 'index.html');
 const LOAD_MAX = 0.01;   /* a tenth of the "good" bound browsers use for a whole page (0.1); the measured value is printed */
 const VIEWS = [{ w: 1440, h: 900, mobile: false }, { w: 390, h: 844, mobile: true }];
+/* the hero card's height in px at each view, measured in this Chrome on site/index.html as it stood at commit 590a0c95,
+   the last one before the still: the height the card keeps */
+const CARD = { 1440: 751.75, 390: 663 };
+const cardOffences = (view, at, h) => (Math.abs(h - CARD[view.w]) < 0.01 ? [] : ['the hero card is ' + h + ' px tall ' + at + ', and before the still it was ' + CARD[view.w]]);
+/* a sticky reading: the whole readout on the screen under the nav, the selected cell on the screen and not under it */
+const stickyOk = (r) => r.on && r.roTop >= r.nav - 1.5 && r.roBottom <= r.vh && r.cTop >= r.roBottom - 0.5 && r.cBottom <= r.vh;
 
 /* THE STILL'S BOX, as the page measures it: its size, its place inside the hero figure, the height of its row, whether it
    is shown, whether its edges and its × have an extent, and its words. One expression, asked at the first moment, after
@@ -113,6 +131,9 @@ async function home(send, view) {
     still.first = JSON.parse(await ev('JSON.stringify(window.__still0||null)'));
     still.loaded = await stillNow(ev);
     still.before = Number(await ev('document.getElementById("hm-zoom").value'));
+    const CARD_H = 'document.querySelector("figure[data-hero]").getBoundingClientRect().height';
+    out.card = await ev(CARD_H);
+    out.dim = Number(await ev('getComputedStyle(document.getElementById("hm-twist")).opacity'));   /* with motion the two verdicts wait for the zoom */
     /* autoplay: wait for the zoom to reach its end */
     const say0 = await ev('document.querySelector("#hm-say .on").textContent');
     for (let k = 0; k < 40 && Number(await ev('document.getElementById("hm-zoom").value')) < 6; k++) await settle(300);
@@ -141,7 +162,8 @@ async function home(send, view) {
     /* the register: bring it into view (a scroll is not a shift), then the pointer over 24 cells */
     await ev('document.getElementById("hm-months").scrollIntoView({block:"center"}),0');
     await settle(400); t = await now();
-    const cells = JSON.parse(await ev('JSON.stringify([].slice.call(document.querySelectorAll("#hm-months .hm-cell")).map(function(b){var r=b.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2,r.top>=60&&r.bottom<=innerHeight]}))'));
+    const cells = JSON.parse(await ev('(function(){var ro=document.getElementById("hm-readout"),top=getComputedStyle(ro).position==="sticky"?ro.getBoundingClientRect().bottom:60;'
+      + 'return JSON.stringify([].slice.call(document.querySelectorAll("#hm-months .hm-cell")).map(function(b){var r=b.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2,r.top>=top&&r.bottom<=innerHeight]}))})()'));
     const pick = cells.map((c, i) => ({ c, i })).filter((x) => x.c[2]).filter((x, k, a) => k % Math.max(1, Math.floor(a.length / 24)) === 0).slice(0, 24);
     const texts = new Set();
     for (const p of pick) {
@@ -165,6 +187,24 @@ async function home(send, view) {
     }
     alive.keys = ktexts.size >= 12 && (await ev('document.activeElement.getAttribute("data-i")')) === '24';
     out.keys = await sum(t); t = await now();
+    /* the phone's readout sticks under the nav: the whole register scrolled past, then three cells, each brought to the
+       foot of the screen (as far from the readout as a cell can be) and selected */
+    if (view.mobile) {
+      await ev('scrollTo({top:0,behavior:"instant"}),0'); await settle(300); t = await now();
+      const st = JSON.parse(await ev('new Promise(function(done){var ro=document.getElementById("hm-readout"),cells=document.querySelectorAll("#hm-months .hm-cell"),'
+        + 'nav=document.querySelector(".topnav").getBoundingClientRect().bottom,fb=ro.closest("figure").getBoundingClientRect(),y=Math.max(0,fb.top+scrollY-innerHeight),end=fb.bottom+scrollY,'
+        + 'pick=[0,Math.floor(cells.length/2),cells.length-1],k=0,rows=[],stuck=0,raf=function(f){requestAnimationFrame(function(){requestAnimationFrame(f)})};'
+        + 'function sweep(){y+=48;scrollTo({top:y,behavior:"instant"});if(Math.abs(ro.getBoundingClientRect().top-(nav-1))<1.5)stuck++;if(y<end)raf(sweep);else raf(select)}'
+        + 'function select(){if(k>=pick.length)return done(JSON.stringify({position:getComputedStyle(ro).position,stuck:stuck,rows:rows}));var b=cells[pick[k]],r0=b.getBoundingClientRect();'
+        + 'scrollTo({top:r0.top+scrollY-(innerHeight-r0.height-24),behavior:"instant"});raf(function(){b.click();raf(function(){var r=ro.getBoundingClientRect(),c=b.getBoundingClientRect();'
+        + 'rows.push({i:pick[k],roTop:r.top,roBottom:r.bottom,nav:nav,vh:innerHeight,cTop:c.top,cBottom:c.bottom,on:b.classList.contains("on"),text:ro.textContent});k++;select()})})}'
+        + 'raf(sweep)})', true));
+      await settle(200);
+      out.stickyRows = st.rows.map((r) => ({ i: r.i, roTop: r.roTop, roBottom: r.roBottom, cTop: r.cTop, cBottom: r.cBottom, vh: r.vh, nav: r.nav, on: r.on }));
+      out.stuck = st.stuck;
+      alive.sticky = st.position === 'sticky' && st.stuck >= 8 && st.rows.length === 3 && st.rows.every(stickyOk) && new Set(st.rows.map((r) => r.text)).size === 3;
+      out.sticky = await sum(t); t = await now();
+    }
     /* the theme, there and back */
     await ev('document.querySelector(".theme-pill [data-t=light]").click(),0'); await settle(300);
     alive.theme = (await ev('document.documentElement.getAttribute("data-theme")')) === 'light';
@@ -172,6 +212,7 @@ async function home(send, view) {
     out.theme = await sum(t);
     out.overflow = await ev('document.documentElement.scrollWidth-document.documentElement.clientWidth');
     still.after = await stillNow(ev);
+    out.cardAfter = await ev(CARD_H);
     return { out, alive, still };
   });
 }
@@ -184,7 +225,8 @@ async function reduced(send, view) {
     const t = await now();
     await settle(2200);   /* with motion, the autoplay starts 900 ms after the script ran and would be well under way */
     return { asked: await ev('matchMedia("(prefers-reduced-motion: reduce)").matches'), zoom: Number(await ev('document.getElementById("hm-zoom").value')),
-      still: await stillNow(ev), shift: await sum(t), load: await sum(0) };
+      still: await stillNow(ev), shift: await sum(t), load: await sum(0),
+      chips: Number(await ev('getComputedStyle(document.getElementById("hm-twist")).opacity')), card: await ev('document.querySelector("figure[data-hero]").getBoundingClientRect().height') };
   });
 }
 
@@ -232,6 +274,9 @@ async function main() {
     ['a still whose text alternative is stripped is refused', stillBytes(html.replace(/(<div class="hm-still"><svg\b[^>]*?)\saria-label="[^"]*"/, '$1')).length > 0],
     ['a still one pixel lower after the controls is refused', (() => { const s = res[VIEWS[0].w].still;
       return !!(s.first && s.after) && stillOffences(Object.assign({}, s, { after: Object.assign({}, s.after, { dy: s.after.dy + 1 }) })).length === stillOffences(s).length + 1; })()],
+    ['a card one pixel taller is refused', cardOffences(VIEWS[0], 'planted', CARD[VIEWS[0].w] + 1).length === 1 && cardOffences(VIEWS[0], 'planted', CARD[VIEWS[0].w]).length === 0],
+    ['a selected cell under the sticky readout is refused', (() => { const r = ((res[390] || {}).out || {}).stickyRows;
+      return !!(r && r.length) && stickyOk(r[r.length - 1]) && !stickyOk(Object.assign({}, r[r.length - 1], { cTop: r[r.length - 1].roBottom - 20 })); })()],
     ['a still that a script names is refused',stillBytes(html.replace('</body>', '<script>document.querySelector(".hm-still").hidden=true</script></body>')).length > 0]
   ];
   for (const [name, fired] of reds) { if (fired) console.log('       RED ok    ' + name); else { bad++; console.log('       RED FAIL  ' + name); } }
@@ -246,9 +291,13 @@ async function main() {
       if (!lo.still || !lo.still.shown || !(lo.still.edges > 0) || !still.loaded || lo.still.w !== still.loaded.w || lo.still.h !== still.loaded.h) so.push('with reduced motion the still is missing, hidden or another size');
       if (lo.shift.v > 0) so.push('with reduced motion the layout shifted by ' + f(lo.shift.v) + ' after the load');
       if (lo.load.v > LOAD_MAX) so.push('with reduced motion the load shifted by ' + f(lo.load.v) + ', above ' + LOAD_MAX);
+      if (lo.chips !== 1) so.push('with reduced motion the two verdicts under the figure stand at ' + lo.chips + ', not at full strength');
+      so.push(...cardOffences(v, 'with reduced motion', lo.card));
     }
+    if (!(out.dim < 1)) so.push('with motion the two verdicts are at full strength before the zoom, so their reading with reduced motion says nothing');
+    so.push(...cardOffences(v, 'at load', out.card), ...cardOffences(v, 'after the controls', out.cardAfter));
     for (const o of so) { bad++; console.log('  FAIL  @' + v.w + '  the still: ' + o); }
-    const parts = ['autoplay', 'zoom', 'replay', 'hover', 'keys', 'theme'];
+    const parts = ['autoplay', 'zoom', 'replay', 'hover', 'keys'].concat(v.mobile ? ['sticky'] : [], ['theme']);
     const inter = parts.reduce((a, k) => a + out[k].v, 0);
     for (const k of parts) {
       if (!alive[k]) { bad++; console.log('  FAIL  @' + v.w + '  ' + k + ': the control did not do what it claims while it was measured'); }
@@ -259,10 +308,12 @@ async function main() {
     console.log('  ' + (inter === 0 && parts.every((k) => alive[k]) && !so.length ? 'ok  ' : 'FAIL') + '  @' + v.w + '  load ' + f(out.load.v) + ' (' + out.load.n + ' entries) · interactions ' + f(inter)
       + '  [' + parts.map((k) => k + ' ' + f(out[k].v)).join(' · ') + ']  · ' + out.hoverCells + ' cells under the pointer, 24 under the keys'
       + (still.first ? ' · the still ' + still.first.w + ' × ' + still.first.h + ' px at the first moment' + (so.length ? '' : ', unmoved by the load and by every control, labelled "' + still.first.label + '"') : ' · no still')
-      + ' · reduced motion: zoom ' + ZK_WORD(lo.zoom) + ', shift ' + f(lo.shift.v) + ' (load ' + f(lo.load.v) + ')');
+      + ' · the card ' + out.card + ' px tall (' + CARD[v.w] + ' before the still)'
+      + (v.mobile ? ' · the readout stuck under the nav through ' + out.stuck + ' scroll steps, on the screen with the first, the middle and the last cell' : '')
+      + ' · reduced motion: zoom ' + ZK_WORD(lo.zoom) + ', verdicts at ' + lo.chips + ' (' + out.dim + ' with motion), shift ' + f(lo.shift.v) + ' (load ' + f(lo.load.v) + ')');
   }
   if (json) console.log(JSON.stringify({ red: redV, views: Object.fromEntries(VIEWS.map((v) => [v.w, Object.assign({}, res[v.w].out, { still: res[v.w].still, reduced: low[v.w] })])) }));
-  console.log(bad ? 'check-home: FAIL — ' + bad + ' refusal(s)' : 'check-home: PASS — no control moves the layout at 1440 or 390; the still is on the page from the first moment, with motion and without; ' + (1 + reds.length) + '/' + (1 + reds.length) + ' red controls fired');
+  console.log(bad ? 'check-home: FAIL — ' + bad + ' refusal(s)' : 'check-home: PASS — no control moves the layout at 1440 or 390; the still is on the page from the first moment, with motion and without, in a card no taller than before it; the phone\'s readout stays in view; ' + (1 + reds.length) + '/' + (1 + reds.length) + ' red controls fired');
   return bad ? 1 : 0;
 }
 

@@ -15,7 +15,8 @@
      words      three verdict words, compact, at the foot of the hero's left column, each with its small shape
      field      THE REGISTER FIELD. One cell per decided claim, grouped by month; the cell's SHAPE is its verdict
                 (never colour alone), a readout of fixed height names the claim under the pointer or the focus, and
-                the arrow keys move.
+                the arrow keys move. On a phone the readout is first in the figure and sticks under the nav, so it
+                is on the screen with whichever cell is touched.
      pairs      what was printed (dashed: quoted, not decided here) above what was decided (plain), six to a grid
      chain      a row of statements joined by decided links; a link nobody decided has no line, only its word
      voices     quotations, each with who said it
@@ -23,7 +24,7 @@
      doors      three ways in
 
    NO LAYOUT SHIFT (the operator, 2026-11-11: "No layout shift, anywhere, when a control changes a chart"). Every
-   element whose content changes has its size reserved: the canvas has a fixed aspect; the sentences are stacked in one
+   element whose content changes has its size reserved: the stage has a height the stylesheet fixes from its width; the sentences are stacked in one
    box of fixed height and only their visibility changes; the scale bar is a fixed track whose bar is scaled by a
    transform; the zoom word and the scale's label are boxes of fixed width, set left; the two chips are there from the
    start and only their opacity changes; the witness × is moved by a transform; the readout has a fixed height at each
@@ -67,7 +68,11 @@ const more = ({ href, text }) => '<a class="hm-more" href="' + C.escAttr(href) +
    closure.
      at(C, pair)        the point the zoom ends on, midway across the overlap on the line of centres, and the overlap's
                         depth (the two radii less the distance between the centres)
-     view(P, S, s)      the frame of a square of side S px at zoom 10^s: the magnification, the scale, the centre
+     view(P, W, H, s, foot)   the frame W px by H px at zoom 10^s: the magnification, the scale and the centre. The
+                        unit square is fitted to the frame's smaller side and centred, so it stays a square in a
+                        stage that is wider than it is tall; `foot` is the room a frame keeps under the square at
+                        ×1 for the scale in its corner (the stage has one, the still has none), so on the narrowest
+                        phone the square is a little smaller rather than cut
      arc(c, P, V, n)    a circle in that frame: { o: [x, y, R] } whole while it is small on the screen; once it is not,
                         { p: [[x, y], …] } the arc near the point in n chords, closed far outside the frame;
                         { all: 1 } when the frame is inside it; null when it is nowhere near
@@ -81,21 +86,22 @@ function zoomKit() {
     var depth = (A[2] + B[2]) - dist, mid = A[2] - depth / 2;
     return { P: [A[0] + ux * mid, A[1] + uy * mid], depth: depth };
   };
-  /* at ×1 the square sits a little high, clear of the scale in the corner; zoomed in, the point is at the centre */
-  K.view = function (P, S, s) {
-    var Z = Math.pow(10, s), f = Math.pow(Z, -1.5);
-    return { S: S, Z: Z, k: S * 0.86, f: f, cx: P[0] + (0.5 - P[0]) * f, cy: P[1] + (0.5 - P[1]) * f, my: S / 2 - 14 * Math.min(1, f) };
+  /* at ×1 the square sits a little high, clear of the scale in the corner, and never against the top edge; zoomed in,
+     the point is at the centre */
+  K.view = function (P, W, H, s, foot) {
+    var Z = Math.pow(10, s), f = Math.pow(Z, -1.5), k = Math.min(Math.min(W, H) * 0.86, H - (foot || 0) - 2), lift = Math.min(14, Math.max(0, (H - k) / 2 - 2));
+    return { W: W, H: H, Z: Z, k: k, f: f, cx: P[0] + (0.5 - P[0]) * f, cy: P[1] + (0.5 - P[1]) * f, mx: W / 2, my: H / 2 - lift * Math.min(1, f) };
   };
   K.arc = function (c, P, V, n) {
-    var S = V.S, Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, my = V.my;
-    var d = Math.sqrt((P[0] - c[0]) * (P[0] - c[0]) + (P[1] - c[1]) * (P[1] - c[1])), R = c[2] * Z * k, view = S * 1.6;
-    if (R < view * 3) return { o: [(c[0] - cx) * Z * k + S / 2, (c[1] - cy) * Z * k + my, R] };
+    var Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, mx = V.mx, my = V.my;
+    var d = Math.sqrt((P[0] - c[0]) * (P[0] - c[0]) + (P[1] - c[1]) * (P[1] - c[1])), R = c[2] * Z * k, view = Math.max(V.W, V.H) * 1.6;
+    if (R < view * 3) return { o: [(c[0] - cx) * Z * k + mx, (c[1] - cy) * Z * k + my, R] };
     if (Math.abs(d - c[2]) * Z * k > view) return d < c[2] ? { all: 1 } : null;
     var t0 = Math.atan2(P[1] - c[1], P[0] - c[0]), h = Math.min(Math.PI, view / R), p = [], i, th, x, y, fx, fy;
-    for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my; p.push([x, y]); }
+    for (i = 0; i <= n; i++) { th = t0 - h + 2 * h * i / n; x = ((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + mx; y = ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my; p.push([x, y]); }
     fx = -Math.cos(t0) * view * 2; fy = -Math.sin(t0) * view * 2;
     p.push([x + fx, y + fy]);
-    th = t0 - h; p.push([((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + S / 2 + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my + fy]);
+    th = t0 - h; p.push([((c[0] - cx) + c[2] * Math.cos(th)) * Z * k + mx + fx, ((c[1] - cy) + c[2] * Math.sin(th)) * Z * k + my + fy]);
     return { p: p };
   };
   K.word = function (Z) { return '×' + (Z < 1e3 ? Math.round(Z) : Z < 1e6 ? (Math.round(Z / 100) / 10) + ' thousand' : (Math.round(Z / 1e5) / 10) + ' million'); };
@@ -114,7 +120,7 @@ const ZMAX = 6.2;
 const STILL = { side: 48, line: 1.5, chords: 8 };
 function still({ circles, pair, alt, textRaw }) {
   if (!alt) throw new Error('home.still: the still needs a text alternative that states the finding');
-  const T = STILL.side, g = ZK.at(circles, pair), V = ZK.view(g.P, T, ZMAX), f = (v) => String(Math.round(v * 100) / 100);
+  const T = STILL.side, g = ZK.at(circles, pair), V = ZK.view(g.P, T, T, ZMAX, 0), f = (v) => String(Math.round(v * 100) / 100);
   const shape = (a, attrs) => (a.o ? '<circle cx="' + f(a.o[0]) + '" cy="' + f(a.o[1]) + '" r="' + f(a.o[2]) + '"' + attrs + '/>'
     : a.all ? '<rect x="-9" y="-9" width="' + (T + 18) + '" height="' + (T + 18) + '"' + attrs + '/>'
       : '<path d="' + a.p.map((q, i) => (i ? 'L' : 'M') + f(q[0]) + ',' + f(q[1])).join('') + 'Z"' + attrs + '/>');
@@ -122,7 +128,7 @@ function still({ circles, pair, alt, textRaw }) {
   const gap = g.depth * V.Z * V.k;
   /* the test the figure makes before it says "They overlap": the two edges stand apart on the screen */
   if (!arcs[pair[0]] || !arcs[pair[1]] || !(gap > 3)) throw new Error('home.still: at the slider\'s end the two circles do not overlap on the screen, so the still would show nothing');
-  const px = (g.P[0] - V.cx) * V.Z * V.k + T / 2, py = (g.P[1] - V.cy) * V.Z * V.k + V.my;
+  const px = (g.P[0] - V.cx) * V.Z * V.k + V.mx, py = (g.P[1] - V.cy) * V.Z * V.k + V.my;
   /* each circle's shape is written once and used three times: as a ground, as the clip of the overlap, as an edge */
   const use = (i, attrs) => '<use href="#hm-still-' + i + '"' + attrs + '/>';
   return '<div class="hm-still">'
@@ -328,7 +334,10 @@ a.hm-more{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing
    tall as whichever faces had loaded, half a pixel that moved everything under it when the webfont arrived */
 figcaption.hm-scope-top{margin:0;font-size:var(--text-eyebrow);line-height:var(--leading-snug)}
 figcaption.hm-scope-top .lab{display:block;line-height:var(--leading-snug)}
-.hm-stage{position:relative;aspect-ratio:1 / 1;overflow:hidden;cursor:ns-resize;touch-action:pan-y;background:var(--paper);
+/* the stage is as wide as the card and shorter than a square by what the still's row costs under it (the operator,
+   2026-11-11: the card is no taller for the still): a height the stylesheet knows before anything loads, as a foot of
+   padding (a percentage of padding is a share of the width). The packing is fitted to the smaller side and centred */
+.hm-stage{position:relative;height:0;padding-bottom:calc(100% - var(--s-8));overflow:hidden;cursor:ns-resize;touch-action:pan-y;background:var(--paper);
   border-radius:var(--radius-m);outline:1px solid var(--rule);outline-offset:-1px}
 .hm-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hm-wx{--x:0px;--y:0px;--w:calc(var(--s-6) + var(--s-2));position:absolute;left:0;top:0;width:var(--w);height:var(--w);margin:calc(var(--w) / -2) 0 0 calc(var(--w) / -2);
@@ -513,6 +522,7 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
   .hm-plate{padding:var(--s-1) var(--s-4)}
   .hm-node,.hm-link{padding-left:var(--s-4)}
   .hm-ctrl{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:var(--s-7) var(--s-5) var(--s-5)}
+  .hm-stage{padding-bottom:calc(100% - var(--s-7) - var(--s-2))}
   .hm-ctrl .hm-btn{grid-column:2}
   /* beside Replay the still takes the room there is; on the narrowest phones its label wraps before it reaches the button */
   .hm-still{grid-column:1;grid-template-columns:var(--s-7) minmax(0,1fr)}
@@ -525,11 +535,16 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
   .hm-w3-i p{height:auto}
   .hm-month{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
   .hm-month-l{justify-content:flex-start;gap:var(--s-3)}
-  /* on a phone the readout sits above the cells (the operator, 2026-11-11): the cells are many rows there, and under
-     them the readout was a screen away from a touched cell. Order only: the same element at its reserved height, its
-     rule at its foot; the legend stays under the cells */
-  .hm-readout{order:-1;grid-template-columns:minmax(0,1fr);align-content:start;height:calc(var(--s-10) + var(--s-8));
-    padding:0 0 var(--s-4);border-top:0;border-bottom:1px solid var(--rule)}
+  /* on a phone the readout sits above the cells and stays in view (the operator, 2026-11-11): the cells are many rows
+     there, and under them the readout was a screen away from a touched cell; above them and still, it was a screen
+     away from the newest. So it is first in the figure and sticks under the fixed nav while the cells pass beneath:
+     the same element at its reserved height, on the card's own ground so no cell shows through, its rule at its foot.
+     It reaches up over the card's top padding (the margin takes back what the padding adds), so nothing shows between
+     it and the nav; there it lies over the card's top edge, so it draws that hairline itself (when it sticks, the
+     line is behind the nav's own). The legend stays under the cells */
+  .hm-readout{order:-1;position:sticky;top:var(--nav-h);z-index:1;grid-template-columns:minmax(0,1fr);align-content:start;
+    height:calc(var(--s-10) + var(--s-8) + var(--s-4));margin-top:calc(var(--s-4) * -1);padding:var(--s-4) 0;
+    border-top:0;border-bottom:1px solid var(--rule);background:var(--sunk);box-shadow:inset 0 1px 0 var(--rule)}
   .hm-ro-meta{display:flex;align-items:center;gap:var(--s-3)}
   .hm-readout .hm-more{justify-self:start}
   .hm-ro-who{-webkit-line-clamp:2}
@@ -538,7 +553,9 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
 @media (max-width:560px){
   .hm-pairs{grid-template-columns:minmax(0,1fr);gap:var(--s-6)}
 }
-@media (prefers-reduced-motion:reduce){.hm-cell,.hm-twist{transition:none}}
+/* a reader who asked for no motion: nothing plays, the still carries the finding, and the two verdicts under the figure
+   stand at full strength from the first paint */
+@media (prefers-reduced-motion:reduce){.hm-cell,.hm-twist{transition:none}.hm-twist.off{opacity:1}}
 `.trim();
 }
 
@@ -557,26 +574,26 @@ function client() {
     var zl = document.getElementById('hm-zl'), bar = document.getElementById('hm-bar'), barl = document.getElementById('hm-bar-l');
     var twist = document.getElementById('hm-twist'), wx = document.getElementById('hm-wx');
     var says = document.getElementById('hm-say').querySelectorAll('[data-k]');
-    var MAX = parseFloat(zin.max), s = 0, S = 0, dpr = 1, raf = 0, playing = false, said = 0, zText = '', bText = '';
+    var MAX = parseFloat(zin.max), s = 0, W = 0, H = 0, dpr = 1, raf = 0, playing = false, said = 0, zText = '', bText = '';
     var SUP = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
     var sup = function (n) { return String(n).split('').map(function (c) { return SUP[c]; }).join(''); };
-    function size() { dpr = Math.min(window.devicePixelRatio || 1, 2); S = stage.clientWidth; cv.width = Math.round(S * dpr); cv.height = Math.round(S * dpr); draw(); }
+    function size() { dpr = Math.min(window.devicePixelRatio || 1, 2); W = stage.clientWidth; H = stage.clientHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); draw(); }
     /* a circle as a path, from the kit's reading of it in the frame (zoomKit): whole, the arc near the point, or all */
     function path(c, V) {
       var a = ZK.arc(c, P, V, 64), p, i;
       if (!a) return null;
       p = new Path2D();
       if (a.o) { p.arc(a.o[0], a.o[1], a.o[2], 0, Math.PI * 2); return p; }
-      if (a.all) { p.rect(-9, -9, S + 18, S + 18); return p; }
+      if (a.all) { p.rect(-9, -9, W + 18, H + 18); return p; }
       for (i = 0; i < a.p.length; i++) { if (i) p.lineTo(a.p[i][0], a.p[i][1]); else p.moveTo(a.p[i][0], a.p[i][1]); }
       p.closePath(); return p;
     }
     function draw() {
-      if (!S) return;
-      var V = ZK.view(P, S, s), Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, my = V.my;
+      if (!W || !H) return;
+      var V = ZK.view(P, W, H, s, 32), Z = V.Z, k = V.k, cx = V.cx, cy = V.cy, mx = V.mx, my = V.my;
       var ink = tok('--ink'), ink4 = tok('--ink-4'), rule = tok('--rule-strong'), band = tok('--band-fill');
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, S, S);
-      if (Z < 400) { ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.strokeRect((0 - cx) * Z * k + S / 2, (0 - cy) * Z * k + my, Z * k, Z * k); }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      if (Z < 400) { ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.strokeRect((0 - cx) * Z * k + mx, (0 - cy) * Z * k + my, Z * k, Z * k); }
       var paths = [], i, p;
       for (i = 0; i < C.length; i++) { p = path(C[i], V); paths[i] = p; if (p) { ctx.fillStyle = band; ctx.fill(p); } }
       /* where the two overlap: filled in ink (a decided extent), never in the witness red */
@@ -585,7 +602,7 @@ function client() {
       ctx.strokeStyle = ink; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
       for (i = 0; i < C.length; i++) if (paths[i]) ctx.stroke(paths[i]);
       /* where to look: a guide, in the guide's pattern */
-      var px = (P[0] - cx) * Z * k + S / 2, py = (P[1] - cy) * Z * k + my;
+      var px = (P[0] - cx) * Z * k + mx, py = (P[1] - cy) * Z * k + my;
       if (Z < 3e4) { ctx.strokeStyle = ink4; ctx.lineWidth = 1; ctx.setLineDash(D.guide); ctx.beginPath(); ctx.arc(px, py, Math.max(9, 14 - s * 1.2), 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
       /* the words around the figure: each in a box of fixed size, written only when it changes */
       var z = ZK.word(Z);

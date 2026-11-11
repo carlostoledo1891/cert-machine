@@ -67,7 +67,12 @@ module.exports = function homePage(X) {
     !!pin && crypto.createHash('sha256').update(raw).digest('hex') === pin.sha256 && raw.length === pin.bytes);
   const entry = JSON.parse(raw.toString('utf8')).find((e) => e.name === c5.entry);
   const circles = entry ? entry.list : [];
-  const row5 = L.rows.find((r) => r.id === 'intake-5');
+  /* the hero's row in the register, found from the records and never by a typed row id: the one row decided from this
+     claims record whose public filing is the claim's own (both name the issue), saying the claim's own sentence */
+  const rows5 = c5 ? L.rows.filter((r) => r.decidedFrom === INTAKE && r.issue && r.issue === c5.issue) : [];
+  const row5 = rows5[0];
+  hg('the register no longer holds exactly one row for the claim its figure draws, decided from the claims record and saying the claim\'s own sentence',
+    rows5.length === 1 && row5.claim === c5.text);
   hg('the claims record no longer certifies that entry at the tolerance its authors state, with the strict reading failing on the pairs it counts',
     c5 && c5.verdict === 'CERTIFIED' && dec.verdict === 'CERTIFIED' && c5.agree === true && row5 && row5.verdict === 'CERTIFIED' && row5.decidedFrom === INTAKE
     && circles.length === dec.n && circles.every((t) => Array.isArray(t) && t.length === 3 && t.every((v) => typeof v === 'number'))
@@ -140,13 +145,15 @@ module.exports = function homePage(X) {
   const rows = decided.map((r) => ({ d: dateWords(r.recordedOn), verdict: r.verdict, w: cut(r.claimant, 60), t: cut(r.claim, 132), h: hrefOf(r.page) }));
   const months = [];
   decided.forEach((r, i) => { const k = r.recordedOn.slice(0, 7); if (!months.length || months[months.length - 1].key !== k) months.push({ key: k, label: MON[Number(k.slice(5)) - 1], rows: [] }); months[months.length - 1].rows.push(i); });
-  /* THE ROW THE REGISTER OPENS ON (the operator, 2026-11-11): a clear verdict, never a mixed one, found in the ledger by
-     a rule and never by a row's id, which goes stale. THE RULE: the most recent row whose verdict is REFUTED (the last
-     one in the register's own order: by date, then by its place in the ledger). The other rule tried, the most recent
-     CERTIFIED row whose page is a report here, opened that day on a row a reader has to know Lean to read; a refuted
-     row says what the page is for in one word. No refuted row, no page. */
-  const first = decided.map((r) => r.verdict).lastIndexOf('REFUTED');
-  hg('the register holds no refuted row for it to open on', first >= 0 && decided[first].verdict === 'REFUTED' && (L.byVerdict.REFUTED || 0) > 0);
+  /* THE ROW THE REGISTER OPENS ON (the operator, 2026-11-11): the hero's own record. The reader has just watched that
+     claim in the figure above, its verdict is a clear one and its sentence is plain. THE RULE is read from the records:
+     the hero's claim (claim 5 of the claims record) -> its register row (row5 above, the row the hero's chip already
+     reads), never a typed row id. No such row among the decided ones, or a verdict that is neither CERTIFIED nor
+     REFUTED, and there is no page. (Tried and dropped the same day: the most recent REFUTED row, which that day set
+     "REFUTED" beside "The Prime Number Theorem" and invited the reading that the theorem was refuted.) */
+  const first = decided.indexOf(row5);
+  hg('the row of the claim its figure draws is not among the register\'s decided rows, or its verdict is neither certified nor refuted, so the register has no clear row to open on',
+    first >= 0 && ['CERTIFIED', 'REFUTED'].includes(decided[first].verdict) && decided[first].verdict === c5.verdict);
   hg('the register no longer starts in ' + registerSince + ', or its months are no longer one year\'s, in order',
     months.length > 0 && new Set(months.map((m) => m.key.slice(0, 4))).size === 1
     && registerSince === ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(months[0].key.slice(5)) - 1] + ' ' + months[0].key.slice(0, 4));
