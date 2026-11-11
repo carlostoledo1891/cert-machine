@@ -85,6 +85,8 @@ step('sync site/', 'tools/build-site.js', [], 1);
 step('copy census', 'tools/check-copy.js', [], 1);
 step('style', 'tools/check-style.js', [], 1);
 step('marks (pointed numbers re-read)', 'tools/check-marks.js', [], 1);
+/* the home page's controls move nothing (2026-11-11): its layout shift under every control, measured in Chrome */
+step('home (no layout shift under any control)', 'tools/check-home.js', [], 3);
 const now = hashes();
 const last = (() => { try { return JSON.parse(fs.readFileSync(GATED, 'utf8')); } catch (e) { return null; } })();
 const scope = process.env.ALL === '1' ? null : reached(last, now);
