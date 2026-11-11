@@ -274,6 +274,8 @@ function p2() {
   const enc = (e) => '[' + dec(e[0], 1) + ', ' + dec(e[1], 1) + ']';
   W.def('GLeadEnclosure', enc(lead.enclosure)); W.def('GLeadLo', dec(lead.enclosure[0], 1)); W.def('GLeadHi', dec(lead.enclosure[1], 1)); W.def('GLeadClaim', lead.claim); W.def('GLeadEvals', int(lead.evals)); W.def('GLeadProved', String(lead.proved)); W.def('GLeadOf', String(lead.of));
   W.def('GFixedEnclosure', enc(fixed.enclosure)); W.def('GFixedClaim', fixed.claim); W.def('GFixedEvals', int(fixed.evals));
+  /* \GFlipEps is in MICROMETRES: the receipt's flip.eps is in millimetres (flowline.js prints it with ' mm'), times 1,000 here.
+     The text beside the macro says micrometres (2026-11-11: two P2 sentences printed it with "mm", 27.000 mm for 0.027 mm). */
   W.def('GFlipGreen', dec(lead.flip.pdGreen, 1)); W.def('GFlipRed', dec(lead.flip.pdRed, 1)); W.def('GFlipEps', dec(lead.flip.eps * 1000, 3));
   const limit = lead.checks.find((c) => c.id === 'limite'); need(limit && limit.verdict === 'RECUSADO', 'the rule check is no longer the refusal');
   const corner = /Viola: ε = ([\d,]+) mm, μ = ([\d,]+) mPa·s, D = ([\d,]+) mm, ρ = ([\d.]+) kg\/m³, Δz = ([\d.]+) m, L = ([\d.]+) m → P_wh ≥ ([\d,]+) bar\. Respeita: ε = ([\d,]+) mm, μ = ([\d,]+) mPa·s, D = ([\d,]+) mm, ρ = ([\d.]+) kg\/m³, Δz = ([\d.]+) m, L = ([\d.]+) m → P_wh ≤ ([\d,]+) bar/.exec(limit.text);
