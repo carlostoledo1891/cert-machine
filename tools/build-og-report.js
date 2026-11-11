@@ -184,6 +184,30 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* the home page's own card (2026-11-11, the operator's headline "Looks right? Zoom in."): LIGHT, the headline and one
+     sentence beside the figure the page opens on, the 26 published circles drawn from the pinned bytes (the same file
+     tools/home-page.js reads, refused there on a sha256 mismatch), with the witness × where the record's worst pair
+     overlaps and a guide ring around it. No number on it. */
+  home: { theme: 'light', eyebrow: 'Carlos Toledo · independent exact certification', path: '/',
+    title: 'Looks right? Zoom in.',
+    deck: 'I check published results exactly, whoever printed them, and answer in one word: certified, refuted or refused.',
+    css: 'h1{font-size:64px}',
+    svgRaw: (() => {
+      const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+      const G = require(path.join(ROOT, 'design', 'grammar.js'));
+      const IN = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'claims-intake-2026-11-08.json'), 'utf8')).claims['5'];
+      const list = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'claims-intake', 'inputs', 'thetaevolve-7c12898-CirclePacking-data.json'), 'utf8')).find((e) => e.name === IN.entry).list;
+      const [i, j] = IN.decision.worstPairDistance.pair, A = list[i], B = list[j];
+      const d = Math.hypot(B[0] - A[0], B[1] - A[1]), t = (A[2] - (A[2] + B[2] - d) / 2) / d;
+      const K = 430, M = 20, X = (v) => (M + v * K).toFixed(2), px = M + (A[0] + (B[0] - A[0]) * t) * K, py = M + (A[1] + (B[1] - A[1]) * t) * K;
+      const o = ['<svg viewBox="0 0 470 470" width="470" height="470" role="img" aria-label="Twenty-six circles packed in a square; a red cross marks the one pair to zoom in on">'];
+      o.push('<rect x="' + M + '" y="' + M + '" width="' + K + '" height="' + K + '" fill="none" stroke="var(--rule-strong)" stroke-width="1"/>');
+      for (const c of list) o.push('<circle cx="' + X(c[0]) + '" cy="' + X(c[1]) + '" r="' + (c[2] * K).toFixed(2) + '" fill="var(--band-fill)" stroke="var(--ink)" stroke-width="1.6"/>');
+      o.push('<circle cx="' + px.toFixed(2) + '" cy="' + py.toFixed(2) + '" r="26" fill="none" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="' + G.GUIDE + '"/>');
+      o.push(W.witnessMark(px, py, { size: 8, width: 3.2, casing: 'var(--paper)' }));
+      o.push('</svg>');
+      return o.join('');
+    })() },
   wsp: { eyebrow: 'Carlos Toledo · independent certification · Weight-Space Programming (MIT CSAIL)',
     title: 'Weight-Space Programming, decided from its bytes',
     deck: 'The edit is real and exactly as released. Run under its maker’s own recommended settings, the untouched model already reaches the edited one’s score: the gain is termination, the multiplier mostly a settings effect. Every answer graded exactly, every input pinned.',

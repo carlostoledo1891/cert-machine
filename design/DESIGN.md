@@ -249,6 +249,35 @@ wrong three pages later; a component with no row gets reinvented by the next bui
 The red controls inject a hand-typed number, a clock, a stray hex and a stripped `aria-label`
 and confirm each is detected. A check nobody has seen go red is decoration.
 
+## The home page's components (design/home.js, 2026-11-11)
+
+The home page (`/`, tools/home-page.js, on the operator's draft of 2026-11-11) needed seven pieces the system did not
+have. They live in `design/home.js`, each `(data) -> string`, with their rules (`css()`, tokens only, passed as the
+page's `cssRaw`) and the page's one script (`script()`). They are kept out of `template.css()` on purpose: one page
+uses them, and a rule in the template is re-baked into every page on the site.
+
+| component | data | use |
+|---|---|---|
+| `hero({lines,ledeRaw,ctasRaw,scopeRaw})` | | the first screen: the headline in two lines, the lede, the calls to action, the zoom beside them |
+| `scope({caption,alt,circles,pair,saysRaw,chipsRaw,record,sliderLabel})` | `circles: [[x,y,r]]`, `pair: [i,j]`, five sentences, two chips | THE ZOOM: a published configuration on a canvas, zoomed by a slider, a mouse drag or a pinch onto the pair its record names; the witness × is `W.witnessMark` in an SVG over the canvas; `alt` is required and states the finding |
+| `words(items)` | three `{word,text}` | three verdict words, each with its shape: filled, ×, ∅ |
+| `field({months,rows,legend,first,label,record})` | one row per decided claim | THE REGISTER FIELD: one cell per claim, by month; the cell's SHAPE is its verdict (`CELL`), the readout has a fixed height, the arrow keys move; the legend is the figure's caption |
+| `pairs(items)` | `{k,href,wasRaw,isRaw,smallRaw,textRaw}` | what was printed (dashed: quoted) above what was decided (plain) |
+| `chain({nodes,links,alt})` | `links: [{decided,word}]` | statements joined by decided links; a link nobody decided has no line, only ∅ and its word |
+| `voices(items)` | `{quote,byRaw}` | quotations, each with who said it |
+| `strokes(say)` | `{decided:{k,g},…}` | the house standing legend (`W.legendHtml`) as a plate, in the page's plain words; the swatches and `data-s` stay the renderer's |
+| `doors(items)`, `head`, `section`, `btn`, `more` | | three ways in; a section's head; a button-shaped link; a small mono link |
+
+**No layout shift.** Every element whose content changes keeps its box: the canvas has a fixed aspect, the sentences
+are stacked in one box and only their visibility changes, the scale bar is a fixed track scaled by a transform, the
+zoom word and the scale's label are boxes of fixed width, the two chips only change opacity, the × is moved by a
+transform, the readout has a fixed height at each breakpoint and clamps its lines. `tools/check-home.js` drives the
+page in Chrome at 1440 and 390 and refuses a Layout Instability entry above zero under any control (the autoplay, the
+slider, Replay, 24 cells under the pointer, 24 under the keys, the theme), with a red control; `make page` runs it.
+
+**A frame is an outline, never a border**, so a framed block and its content share one left edge (the ruler counts
+left edges and does not count an outline). **A measure that must not move when a webfont lands is a length, not `ch`.**
+
 ## The full-row rule (2026-09-02, standing)
 
 **A grid never exposes an empty track.** The fused stats grid paints its 1px rules with the

@@ -484,7 +484,7 @@ module.exports = {
   VERDICT_KIND,
   esc, escAttr, breakable, m, tag, TAG_KINDS, categoryChart, legend,
   nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, tldr, quote,
-  table, plainList, cards, picker, figure, flow,
+  table, plainList, cards, picker, figure, flow, recordLine,
   svgOpen, svgClose, numberLine, band, vmark, label,
   tokens: T
 };
