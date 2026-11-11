@@ -601,7 +601,9 @@ const REPORTS = [
     title: 'The instrument, measured by its own rules',
     desc: 'A pre-registered self-measurement of this machine on its frozen register: planted false, true and malformed claims on every mutable row, '
       + 'each false one witnessed by code that shares nothing with the decider; the cost of every re-derivation under an enforced wall; two implementations '
-      + 'compared wherever two decided a row; and what a double-precision check would have admitted on the same objects. Two defects found, fixed and kept.',
+      + 'compared wherever two decided a row; and what a double-precision check would have admitted on the same objects. '
+      /* the count of defects is the fixes table's as the mutations record pins it (it was typed "Two" until the third fix of 2026-11-11) */
+      + (() => { const n = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'selfaudit-mutations.json'), 'utf8')).fixes.length, w = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'][n]; if (!w) fail('the self-audit card has no word for ' + n + ' defects'); return w + ' defects found, fixed and kept.'; })(),
     n: (() => { const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'selfaudit-mutations.json'), 'utf8')), K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'selfaudit-concord.json'), 'utf8'));
       return M.all.mutants + ' mutants · ' + M.all.falseCertifications + ' false certifications · ' + M.killSwitch.rowsWithWitnessedFalse + ' of ' + M.killSwitch.mutableRows + ' rows witnessed · ' + K.counts.comparisons + ' comparisons, ' + K.counts.disagreements.length + ' disagreements'; })() },
   { g: 'ai', f: 'rerun.html', k: 'the rerun kit',

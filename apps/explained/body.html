@@ -81,7 +81,7 @@
         <div class="stat"><div class="k">false refutations</div><div class="v">{{SA_FALSE_REF}}</div><div class="n">a true claim called false</div></div>
         <div class="stat"><div class="k">witnessed rows</div><div class="v">{{SA_ROWS_WITNESSED}}<span class="num sub">/{{SA_ROWS}}</span></div><div class="n">the switch at {{SA_KILL_HALF}} did not trip</div></div>
       </div></div>
-      <p>The benchmark found {{SA_FIXES_WORD}} defects of the machine's own on the way, both fixed on the record, and {{SA_MALFORMED_NOT_REFUSED_WORD}} malformed mutant that a partial decider read silently, recorded and not hidden. That is what the exercise is for.</p>
+      <p>The benchmark found {{SA_FIXES_WORD}} defects of the machine's own on the way, all fixed on the record. The last was a malformed mutant that a partial decider read silently: recorded, not hidden, and fixed later with its first verdict kept. That is what the exercise is for.</p>
       <h3>What a tolerance costs</h3>
       <p>The same mutants were also checked the way most code checks numbers: compare in floating point, allow a tolerance. Loosen it and you accept more lies; tighten it and you start rejecting the truth. There is no setting that does both jobs. Exact arithmetic has no setting.</p>
       <div class="bars" id="flbars">

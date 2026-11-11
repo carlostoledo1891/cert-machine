@@ -13,11 +13,11 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
+  "sha256": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
+  "sha256": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
  },
  "inputs": {
   "register": {
@@ -34,8 +34,8 @@
    "certs/easota-ledger.json": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b",
    "certs/mc100-einstein-arena.json": "2526c08b4a11f2aba4cec991e52685ba1434b3372e5f9fd93b665a8bcbb79b04",
    "certs/erdos852-certificate.json": "13cfc7fa212a4355139a45cba78450ed371db78d2c980b3faec09a121c024ad1",
-   "certs/polymaps-ledger.json": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
-   "certs/mc100-station-v2.json": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+   "certs/polymaps-ledger.json": "b6fbd6aad035e3de029b0373965710a3691a8e87c5346261973d25d185c5993e",
+   "certs/mc100-station-v2.json": "07eb6c0f63784e1e88e68a0a209e4079b19edcc39084d6b3852bff7225f09321",
    "certs/countex-ledger.json": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc",
    "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
@@ -289,15 +289,14 @@
     "MALFORMED": 9
    },
    "byOutcome": {
-    "as required": 34,
-    "not as required (PARTIAL)": 1
+    "as required": 35
    },
    "falseCertifications": 0,
    "falseRefutations": 0,
    "refusalsOnFalse": 0,
    "refusalsOnTrue": 0,
    "discards": 0,
-   "malformedNotRefused": 1,
+   "malformedNotRefused": 0,
    "rowsWithWitnessedFalse": 9,
    "float": {
     "1e-6": {
@@ -616,19 +615,18 @@
    "MALFORMED": 97
   },
   "byOutcome": {
-   "as required": 520,
+   "as required": 521,
    "refused": 6,
    "DISCARDED": 27,
    "not as required (REPAIRED)": 17,
-   "not as required (UNWITNESSED)": 1,
-   "not as required (PARTIAL)": 1
+   "not as required (UNWITNESSED)": 1
   },
   "falseCertifications": 0,
   "falseRefutations": 0,
   "refusalsOnFalse": 6,
   "refusalsOnTrue": 0,
   "discards": 27,
-  "malformedNotRefused": 1,
+  "malformedNotRefused": 0,
   "rowsWithWitnessedFalse": 94,
   "float": {
    "1e-6": {
@@ -798,17 +796,6 @@
     "mc100-ea-best-kissing-number-d12-842"
    ],
    "example": "f ≥ 0 at all 65536 values, exactly: C1 ≤ 1.50274364923261637372… exactly (the maximum of the autoconvolution decided at 16684 candidate indexes the float screen could not separate; the printed 1.5027436492326164 agrees, above)"
-  },
-  {
-   "family": "polymaps",
-   "class": "exponent-missing",
-   "truth": "MALFORMED",
-   "outcome": "not as required (PARTIAL)",
-   "count": 1,
-   "rows": [
-    "polymaps-gao-f7"
-   ],
-   "example": "2 distinct rational points with one image: ok · det J constant: rests on the paper's lemma: rests on the lemma"
   }
  ],
  "fixes": [
@@ -862,11 +849,38 @@
    "asRequiredNow": 49,
    "notAsRequired": [],
    "notInThisRun": 0
+  },
+  {
+   "id": "polymaps-door",
+   "finding": "the polynomial maps' partial path (F7: the collision is evaluated, the determinant rests on the paper's lemma) read a term whose exponent tuple is short by one entry as if the missing exponent were 0 — P.ev (instruments/polymaps/poly.py) paired the point with the tuple by zip, which stops at the shorter, and nothing checked a tuple's length when a map was built — and answered PARTIAL where the pre-registration requires REFUSED for a malformed object. The paths that expand the determinant refused the same term only by accident (diff() indexes every variable). Kept open on the record at the freeze (the pre-registration's amendment of 2026-10-22, point 2) and in DEBT.md until 2026-11-11.",
+   "found": {
+    "record": "certs/selfaudit-mutations.json",
+    "commit": "1be1b28c",
+    "date": "2026-10-21",
+    "outcome": "not as required (PARTIAL)",
+    "count": 1
+   },
+   "fix": {
+    "date": "2026-11-11",
+    "what": "the shape is checked at the door, before any arithmetic reads the object: poly.from_object(n, comps) and poly.points_from(n, points) refuse (ValueError 'REFUSED: …') a map without n components, a term that is not a pair, an exponent tuple that is not exactly n non-negative integers, a coefficient or coordinate that is not an integer or a rational written as text, a point without n coordinates; decide.py (load_maps, keller, my_field, the F7 and Phi blocks), tools/run-mc100-station.py and the harness instruments/selfaudit/polymaps.js (every branch) go through them, and P.ev itself refuses a short tuple or a short point, so the zip cannot truncate however a P was built. Five red controls in instruments/polymaps/battery.py. No row of the pinned records changes word; certs/polymaps-ledger.json and certs/mc100-station-v2.json were re-derived (the decider's sha256 and the stamps). The mutant was re-decided in place by tools/run-selfaudit-mutations.js --amend (the record's amended entry keeps the first decision), the nine polymaps rows re-decided in a dry run beside it: every other word identical.",
+    "files": [
+     "instruments/polymaps/poly.py",
+     "instruments/polymaps/decide.py",
+     "instruments/polymaps/battery.py",
+     "tools/run-mc100-station.py",
+     "instruments/selfaudit/polymaps.js",
+     "tools/run-selfaudit-mutations.js"
+    ]
+   },
+   "mutants": 1,
+   "asRequiredNow": 1,
+   "notAsRequired": [],
+   "notInThisRun": 0
   }
  ],
  "fixesTable": {
   "path": "instruments/selfaudit/fixes.json",
-  "sha256": "8072ab6d5523385866145d3660a05769404024c271fa6bd6028ccb5c8606d31f"
+  "sha256": "2a175e90f01cb583f80b00c8c394c55e0dfa4a4eac9a3a707c4f0532cdd45f0b"
  },
  "families": {
   "tensor": {
@@ -27845,6 +27859,10 @@
        "transformation": "the first term's exponent tuple short by one entry",
        "sha256": "2485b4f527e6d7903e960ed083a5fa7aa71780c43b94a4b33bd6cdd812cd66cb",
        "bytes": 5076802,
+       "fixedFrom": "not as required (PARTIAL)",
+       "fix": "polymaps-door",
+       "foundAt": "1be1b28c",
+       "amended": "2026-11-11T23:22:46.076Z",
        "witness": {
         "violated": null,
         "malformed": true,
@@ -27852,12 +27870,12 @@
         "firstViolation": null
        },
        "decided": {
-        "verdict": "PARTIAL",
-        "why": "2 distinct rational points with one image: ok · det J constant: rests on the paper's lemma: rests on the lemma",
-        "ms": 19559.3
+        "verdict": "REFUSED",
+        "why": "the decider threw: rm whose exponent tuple does not have %d non-negative integer entries: %r' % (i, j, n, e))\nValueError: REFUSED: component 0, term 0: a term whose exponent tuple does not have 5 non-negative integer entries: [2, 1, 0, 0]\n",
+        "ms": 137.3
        },
        "required": "REFUSED",
-       "outcome": "not as required (PARTIAL)",
+       "outcome": "as required",
        "float": {
         "error": "a term whose exponent tuple does not have n entries",
         "accept": {
@@ -29841,6 +29859,107 @@
     "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
     "inventory": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
    }
+  },
+  {
+   "at": "2026-11-11T23:22:29.420Z",
+   "git": "03bd8bd8",
+   "why": "Amendment 2026-11-11 (notes/selfaudit-preregistration-2026-10-20.md): the polynomial maps' door — instruments/polymaps/poly.py and decide.py check an object's shape before anything reads it (the finding left open at the freeze, fixed); certs/polymaps-ledger.json and certs/mc100-station-v2.json re-derived by their tools (the decider's sha256 and the stamps; no row, check or verdict moved); this re-pin touches no mutant or decision — the one mutant the fix changes, polymaps-gao-f7/exponent-missing, is re-decided by --amend and recorded in the amended entry of the same date",
+   "before": {
+    "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
+    "inventory": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6",
+    "recordsMoved": [
+     {
+      "record": "certs/polymaps-ledger.json",
+      "from": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
+      "to": "b6fbd6aad035e3de029b0373965710a3691a8e87c5346261973d25d185c5993e"
+     },
+     {
+      "record": "certs/mc100-station-v2.json",
+      "from": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+      "to": "07eb6c0f63784e1e88e68a0a209e4079b19edcc39084d6b3852bff7225f09321"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
+    "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
+   }
+  }
+ ],
+ "amended": [
+  {
+   "at": "2026-11-11T23:22:46.076Z",
+   "git": "03bd8bd8",
+   "why": "Amendment 2026-11-11 (notes/selfaudit-preregistration-2026-10-20.md): the finding left open at the freeze is fixed (the polynomial maps' door, fixes.json polymaps-door: the shape of an object is checked before anything reads it, on the path that only evaluates too); the one mutant the fix changes is re-decided on the object the record pinned, its first decision kept here; the nine polymaps rows were re-decided beside it in a dry run (9 originals, 35 mutants): the 43 other words identical to the record's",
+   "machine": {
+    "os": "Darwin 27.0.0",
+    "cpu": "Apple M2",
+    "node": "v24.14.1",
+    "python": "Python 3.9.6"
+   },
+   "fixesTable": {
+    "before": "8072ab6d5523385866145d3660a05769404024c271fa6bd6028ccb5c8606d31f",
+    "after": "2a175e90f01cb583f80b00c8c394c55e0dfa4a4eac9a3a707c4f0532cdd45f0b"
+   },
+   "mutants": [
+    {
+     "id": "polymaps-gao-f7/exponent-missing",
+     "sha256": "2485b4f527e6d7903e960ed083a5fa7aa71780c43b94a4b33bd6cdd812cd66cb",
+     "fix": "polymaps-door",
+     "before": {
+      "decided": {
+       "verdict": "PARTIAL",
+       "why": "2 distinct rational points with one image: ok · det J constant: rests on the paper's lemma: rests on the lemma",
+       "ms": 19559.3
+      },
+      "outcome": "not as required (PARTIAL)"
+     },
+     "after": {
+      "decided": {
+       "verdict": "REFUSED",
+       "why": "the decider threw: rm whose exponent tuple does not have %d non-negative integer entries: %r' % (i, j, n, e))\nValueError: REFUSED: component 0, term 0: a term whose exponent tuple does not have 5 non-negative integer entries: [2, 1, 0, 0]\n",
+       "ms": 137.3
+      },
+      "outcome": "as required"
+     }
+    }
+   ],
+   "before": {
+    "all": {
+     "byOutcome": {
+      "as required": 520,
+      "refused": 6,
+      "DISCARDED": 27,
+      "not as required (REPAIRED)": 17,
+      "not as required (UNWITNESSED)": 1,
+      "not as required (PARTIAL)": 1
+     },
+     "falseCertifications": 0,
+     "falseRefutations": 0,
+     "refusalsOnFalse": 6,
+     "refusalsOnTrue": 0,
+     "discards": 27,
+     "malformedNotRefused": 1
+    }
+   },
+   "after": {
+    "all": {
+     "byOutcome": {
+      "as required": 521,
+      "refused": 6,
+      "DISCARDED": 27,
+      "not as required (REPAIRED)": 17,
+      "not as required (UNWITNESSED)": 1
+     },
+     "falseCertifications": 0,
+     "falseRefutations": 0,
+     "refusalsOnFalse": 6,
+     "refusalsOnTrue": 0,
+     "discards": 27,
+     "malformedNotRefused": 0
+    }
+   },
+   "kept": "every other mutant, decision, witness, float check and timing is as the whole run wrote it (generated 2026-10-21T17:33:07.956Z, git 2311ac2c, 1015.7 s); only the named mutants were re-decided, each on the object the record pinned"
   }
  ]
 }

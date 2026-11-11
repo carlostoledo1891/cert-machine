@@ -28,6 +28,13 @@ if (sha(NOTE) !== INV.preregistration.sha256) die('the pre-registration is not t
 for (const [name, rec] of [['run', RUN], ['mutations', MUT], ['concordance', CON]]) if (rec.preregistration.sha256 !== INV.preregistration.sha256) die('the ' + name + ' record pins another pre-registration');
 if (MUT.partial) die('the mutations record is partial: ' + (MUT.pending || []).join(', ') + ' pending');
 const FIX = J('instruments/selfaudit/fixes.json');
+/* the page's sentences name each fix; a fixes table that is not these three refuses rather than print a sentence about another */
+if (FIX.fixes.map((f) => f.id).join(',') !== 'easota-word,malformed-word,polymaps-door') die('the fixes table is not the three fixes this page describes: ' + FIX.fixes.map((f) => f.id).join(', '));
+/* the dated amendments of the mutations record (tools/run-selfaudit-mutations.js --amend): a mutant re-decided in place after a recorded fix, the first decision kept */
+const AMENDED = MUT.amended || [];
+const COUNT_WORD = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const countWord = (n) => COUNT_WORD[n] || String(n);
+const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 const NOTE_DATE = (/(\d{4}-\d{2}-\d{2})/.exec(NOTE) || [])[1] || 'its date';
 
 const pct = (a, b) => (b ? Math.round(1000 * a / b) / 10 + ' %' : '—');
@@ -64,7 +71,7 @@ B.push(C.scope('Published, not peer-reviewed. Every decider and every witness sc
 B.push(C.tldr({
   findingRaw: '<b>' + A.mutants + ' mutants on ' + rowsWithObject + ' of the ' + K.mutableRows + ' mutable rows: ' + A.falseCertifications + ' false certifications, ' + A.falseRefutations + ' false refutations</b> — after the campaign found '
     + FIX.fixes.map((f) => f.found.count).reduce((a, b) => a + b, 0) + ' defects (' + fix('easota-word').found.count + ' printed values moved past the bytes still certified; '
-    + fix('malformed-word').found.count + ' malformed inputs refuted instead of refused), both fixed and kept on the record with the commit each was found at. '
+    + fix('malformed-word').found.count + ' malformed inputs refuted instead of refused; ' + countWord(fix('polymaps-door').found.count) + ' malformed polynomial map decided where it had to be refused), all fixed and kept on the record with the commit each was found at. '
     + K.rowsWithWitnessedFalse + ' of ' + K.mutableRows + ' rows carry a witnessed false mutant (the kill switch\'s bar was ' + K.half + '). '
     + CC.comparisons + ' comparisons between two or more implementations, ' + CC.disagreements.length + ' disagreements. '
     + 'The conventional check accepts ' + pct(f6.witnessedFalseAccepted, f6.witnessedFalse) + ' of the witnessed false claims at 10⁻⁶ and confirms only '
@@ -128,8 +135,8 @@ const famTable = famRows.map(([fam, t]) => {
     ex ? '—' : String(t.falseCertifications), ex ? '—' : String(t.falseRefutations), ex ? '—' : (t.refusalsOnFalse + t.refusalsOnTrue) + ' · ' + t.discards,
     ex ? '—' : t.rowsWithWitnessedFalse + ' of ' + t.rows, ex ? '—' : pct(fl.witnessedFalseAccepted, fl.witnessedFalse) + ' · ' + pct(t.float['1e-9'].witnessedFalseAccepted, t.float['1e-9'].witnessedFalse) + ' · ' + pct(t.float['1e-12'].witnessedFalseAccepted, t.float['1e-12'].witnessedFalse)];
 });
-const fixRows = MUT.fixes.map((f) => [f.id, String(f.found.count), f.found.commit, f.found.outcome, f.asRequiredNow + ' of ' + f.mutants, C.esc(f.fix.what).slice(0, 220) + (f.fix.what.length > 220 ? '…' : '')]);
-const exclRows = excludedFams.map(([fam, t]) => { const row = MUT.families[fam].rows[0]; return [fam, String(t.rows), C.esc(row.noObject)]; });
+const fixRows = MUT.fixes.map((f) => [f.id, String(f.found.count), f.found.commit, f.found.outcome, f.asRequiredNow + ' of ' + f.mutants, f.fix.what.slice(0, 220) + (f.fix.what.length > 220 ? '…' : '')]);   /* C.table escapes a string cell: escaping here too printed &#39; for an apostrophe (fixed 2026-11-11) */
+const exclRows = excludedFams.map(([fam, t]) => { const row = MUT.families[fam].rows[0]; return [fam, String(t.rows), row.noObject]; });
 const classExcl = builtFams.flatMap(([fam]) => MUT.families[fam].rows.flatMap((r) => (r.excluded || []).map((x) => [fam, r.rowId, x.class, x.reason])));
 const exclByReason = {};
 for (const [fam, , cls, reason] of classExcl) { const k = fam + ' · ' + cls; (exclByReason[k] = exclByReason[k] || { n: 0, reason }).n++; }
@@ -140,9 +147,15 @@ B.push(C.section({
     + 're-derive path with the mutant in place of the pinned bytes; required words: FALSE → REFUTED, TRUE → CERTIFIED (an invariance keeps the original\'s own word, so a REPAIRED row\'s rigid motion is REPAIRED again), MALFORMED → REFUSED. '
     + 'The witness carries red controls every run: no violation on a CERTIFIED original or a TRUE mutant, one on the REFUTED original and on every family\'s control class.')
     + C.table({ cols: [{ h: 'family' }, { h: 'rows' }, { h: 'mutants' }, { h: 'FALSE · TRUE · MALFORMED' }, { h: 'false certifications' }, { h: 'false refutations' }, { h: 'refusals · discards' }, { h: 'rows with a witnessed FALSE' }, { h: 'float check accepts the FALSE at 10⁻⁶ · 10⁻⁹ · 10⁻¹²' }], rows: famTable })
-    + C.pRaw('<b>Two defects, found and fixed.</b> The campaign\'s first whole run came back with ' + fix('easota-word').found.count + ' false certifications and ' + fix('malformed-word').found.count + ' malformed inputs answered REFUTED. '
-      + 'The note\'s rule applied: fixed, recorded beside each mutant with the commit it was found at, the mutant kept, the count reported.')
+    + C.pRaw('<b>' + cap(countWord(FIX.fixes.length)) + ' defects, found and fixed.</b> The campaign\'s first whole run came back with ' + fix('easota-word').found.count + ' false certifications and ' + fix('malformed-word').found.count + ' malformed inputs answered REFUTED. '
+      + 'The last family built added ' + countWord(fix('polymaps-door').found.count) + ' malformed object decided PARTIAL: the partial decision of a polynomial map read a term with a missing exponent silently (the evaluation zipped the point against a short tuple). '
+      + 'It stayed open on the record from ' + C.esc(fix('polymaps-door').found.date) + ' until its fix of ' + C.esc(fix('polymaps-door').fix.date) + ', a shape check before anything reads the object. '
+      + 'The note\'s rule applied each time: fixed, recorded beside each mutant with the commit it was found at, the mutant kept, the count reported.')
     + C.table({ cols: [{ h: 'defect' }, { h: 'found' }, { h: 'at commit' }, { h: 'the word then' }, { h: 'as required now' }, { h: 'the fix' }], rows: fixRows })
+    + (AMENDED.length ? C.pRaw('<b>Amended, dated, the first decision kept.</b> ' + AMENDED.map((a) => 'On ' + C.esc(a.at.slice(0, 10)) + ', after the fix ' + a.mutants.map((x) => C.esc(x.fix)).filter((v, i, xs) => xs.indexOf(v) === i).join(', ') + ', '
+        + a.mutants.map((x) => m(x.id) + ' was re-decided on the object the record pinned: ' + C.esc(x.before.decided.verdict) + ' → ' + C.esc(x.after.decided.verdict) + ' (' + C.esc(x.before.outcome) + ' → ' + C.esc(x.after.outcome) + ')').join('; ')
+        + '. Malformed objects decided instead of refused: ' + a.before.all.malformedNotRefused + ' → ' + a.after.all.malformedNotRefused + '; as required: ' + a.before.all.byOutcome['as required'] + ' → ' + a.after.all.byOutcome['as required'] + '.').join(' ')
+      + ' Nothing else was re-run: every other mutant, decision and timing is the whole run\'s of ' + C.esc(MUT.generated.slice(0, 10)) + ', the first decision stays in the record beside the new one, and the record\'s check re-derives the totals before the amendment from it.') : '')
     + C.pRaw('<b>Still open, on the record:</b> ' + (findingOpen.length ? findingOpen.map((f) => C.esc(f.family + ' · ' + f.class + ' → ' + f.outcome + ' × ' + f.count)).join('; ')
       + ' — a partial decision that reads a term with a missing exponent silently (the evaluation zips the point against a short tuple); recorded, not yet fixed.' : 'nothing.')
       + ' The other outcomes that are not the required word are compositions, each listed in the record: ' + Object.entries(A.byOutcome).filter(([k]) => !['as required'].includes(k)).map(([k, v]) => C.esc(k) + ' ' + v).join(', ') + '.')
@@ -195,7 +208,7 @@ B.push(C.section({
 B.push(C.section({
   lab: '§6 · what is claimed, and what is not', title: 'The limits, from the note',
   bodyRaw: C.plainList([
-    { b: 'Claimed.', text: 'The counts above, per family, on this frozen set of ' + INV.inputs.register.rows + ' rows, on this machine, under the definitions fixed on paper first — and two defects found by those definitions, fixed and kept.' },
+    { b: 'Claimed.', text: 'The counts above, per family, on this frozen set of ' + INV.inputs.register.rows + ' rows, on this machine, under the definitions fixed on paper first — and ' + countWord(FIX.fixes.length) + ' defects found by those definitions, fixed and kept.' },
     { b: 'Not claimed.', text: 'A ranking of verification systems; independence from the author (every decider and every witness script is written here); anything about the ' + (INV.inputs.register.rows - K.mutableRows) + ' aggregate and reading rows; that passing M1 shows soundness beyond the classes listed.' },
     { b: 'Held.', text: 'The LLM-judge baseline (a spend); outside reruns (a send); the claim-to-statement track (two outside reviewers who did not build the benchmark); the register gap (a register change); the 54 undecided pre-registered claims (another front).' }
   ])
@@ -205,7 +218,7 @@ const foot = '<p>' + C.esc('Generated by tools/build-report-selfaudit.js from th
   + '<p>' + C.esc('git ' + git) + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'selfaudit.html'), TPL.render({
   title: 'The instrument, measured by its own rules · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
-  desc: 'The self-audit of cert-machine: a pre-registered self-measurement on its frozen register — ' + A.mutants + ' planted mutants with exact witnesses, ' + A.falseCertifications + ' false certifications after two defects found and fixed, ' + CC.comparisons + ' concordance comparisons, the cost of every re-derivation under an enforced wall, and what a double-precision check would have admitted.',
+  desc: 'The self-audit of cert-machine: a pre-registered self-measurement on its frozen register — ' + A.mutants + ' planted mutants with exact witnesses, ' + A.falseCertifications + ' false certifications after ' + countWord(FIX.fixes.length) + ' defects found and fixed, ' + CC.comparisons + ' concordance comparisons, the cost of every re-derivation under an enforced wall, and what a double-precision check would have admitted.',
   path: '/reports/selfaudit.html'
 }));
 console.log('reports/selfaudit.html written: ' + A.mutants + ' mutants on ' + rowsWithObject + ' rows, ' + A.falseCertifications + ' false certifications, ' + CC.comparisons + ' comparisons, ' + P.recordsCovered.length + '/' + T.records + ' records under portable @ git ' + git);

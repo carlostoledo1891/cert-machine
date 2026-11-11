@@ -142,9 +142,14 @@ const numword = (n) => { need(Number.isInteger(n) && n >= 0 && n < NUMWORD.lengt
 V.REG_DECIDED = get(REG, 'RegDecided');
 need(intOf(V.REG_HOLDS) + intOf(V.REG_DEFECTS) === intOf(V.REG_DECIDED), 'the register\'s holds and defects do not sum to its decided rows');
 { const CL = J('certs/claims-ledger.json'); need(CL.decided === intOf(V.REG_DECIDED) && CL.count === intOf(V.REG_ROWS), 'paper/tex/register-numbers.tex is behind certs/claims-ledger.json (' + V.REG_DECIDED + '/' + V.REG_ROWS + ' against ' + CL.decided + '/' + CL.count + ') — rebuild the paper numbers'); }
-/* the self-audit's own defects ("two, both fixed on the record") and the malformed mutant read silently ("one") */
-V.SA_FIXES_WORD = numword(SA.fixes.length); V.SA_MALFORMED_NOT_REFUSED_WORD = numword(A.malformedNotRefused);
-need(SA.fixes.length >= 1 && A.malformedNotRefused >= 1, 'the self-audit no longer records the defects and the silent read the pages describe');
+/* the self-audit's own defects ("three, all fixed on the record"). Until 2026-11-11 the pages said "two, both fixed, and one
+   malformed mutant that a partial decider read silently, recorded and not hidden": that mutant's defect was fixed that day
+   (the polynomial maps' door) and the mutant re-decided in place with its first verdict kept (the record's amended entry).
+   The pages say "all fixed" and "its first verdict kept" only while the record says both */
+V.SA_FIXES_WORD = numword(SA.fixes.length);
+need(SA.fixes.length === 3 && SA.fixes.every((f) => f.asRequiredNow === f.mutants && f.notAsRequired.length === 0) && A.malformedNotRefused === 0
+  && (SA.amended || []).some((a) => a.mutants.some((x) => x.fix === 'polymaps-door' && x.before.decided.verdict !== x.after.decided.verdict && x.after.outcome === 'as required')),
+  'the self-audit no longer records the three defects, all fixed, and the malformed mutant re-decided with its first verdict kept that the pages describe');
 /* the Riemann layer's finite claims, as a word ("the ten sentences a machine can check") */
 V.RF_SHAPED_WORD = numword(intOf(V.RfShaped));
 /* the wave as a number word: 9.75·10¹⁵ is NEARLY ten quadrillion, never "ten quadrillion" */

@@ -200,7 +200,7 @@ hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
         <div class="stat"><span class="big" style="color:var(--c)">{{SA_FALSE_REF}}</span><span class="lbl">false refutations</span></div>
         <div class="stat"><span class="big">{{SA_ROWS_WITNESSED}}<span style="font-size:.5em;color:var(--mute)">/{{SA_ROWS}}</span></span><span class="lbl">rows with a witnessed false mutant; the switch at {{SA_KILL_HALF}} did not trip</span></div>
       </div>
-      <p class="rv d2">The benchmark found two defects of the machine's own on the way, both fixed on the record, and one malformed mutant that a partial decider read silently, recorded and not hidden. That is what the exercise is for.</p>
+      <p class="rv d2">The benchmark found {{SA_FIXES_WORD}} defects of the machine's own on the way, all fixed on the record. The last was a malformed mutant that a partial decider read silently: recorded, not hidden, and fixed later with its first verdict kept. That is what the exercise is for.</p>
       <h3 class="rv d2" style="margin-top:1.4rem">What a tolerance costs</h3>
       <p class="rv d2">The same mutants were also checked the way most code checks numbers: compare in floating point, allow a tolerance. The bars show what a tolerance accepts among the mutants known to be false, and how many of the {{SA_OBJECTS}} true originals it still manages to confirm.</p>
       <div class="bars rv d3" id="flbars">

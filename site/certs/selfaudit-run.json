@@ -6,11 +6,11 @@
  "git": "dfb7c4d9",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f"
+  "sha256": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
+  "sha256": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
  },
  "inputs": {
   "register": {
@@ -43,12 +43,12 @@
    "certs/countex-ledger.json": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc",
    "certs/horizonmath-ledger.json": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a",
    "certs/gnnw-certificate.json": "3d53ef1378303a8a4dde462c92e8659b291f9e8c97a281d6dc4de1120a901116",
-   "certs/polymaps-ledger.json": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
+   "certs/polymaps-ledger.json": "b6fbd6aad035e3de029b0373965710a3691a8e87c5346261973d25d185c5993e",
    "certs/mc100-alphatensor-q.json": "753485444a3e4498c15cfa47e8e1a48ff40d66ca2cebd5d55349216f3902d9f7",
    "certs/mc100-alphatensor-f2.json": "0222c5552b7c24f38f1231508bce613876eafce4e161325ef1b0bf3817d90a77",
    "certs/mc100-alphaevolve-nb-matmul.json": "50183f3ffba87bd2964ae6c0e32a8d985c8f0176f420728f8b19d826df4ea12a",
    "certs/mc100-einstein-arena.json": "2526c08b4a11f2aba4cec991e52685ba1434b3372e5f9fd93b665a8bcbb79b04",
-   "certs/mc100-station-v2.json": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+   "certs/mc100-station-v2.json": "07eb6c0f63784e1e88e68a0a209e4079b19edcc39084d6b3852bff7225f09321",
    "certs/eth-kernel.json": "09302f11bbae643e60fa3f67dba8721b3a736a6c18115ca2e01b7f61e65791f0",
    "certs/eth-tsavo-bridge.json": "9349d0dfa43cdffc9a497d463c4839c707f5a52e90be1a1eeaad15175a8ce236",
    "certs/eth-hawkley-bridge.json": "8d00cca0cdc5f8165dff67462b6030d975c4f89d9eab0d7aa4fa76c4e631cd0d",
@@ -11386,6 +11386,31 @@
    "after": {
     "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
     "inventory": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6"
+   }
+  },
+  {
+   "at": "2026-11-11T23:22:29.274Z",
+   "git": "03bd8bd8",
+   "why": "Amendment 2026-11-11 (notes/selfaudit-preregistration-2026-10-20.md): the polynomial maps' door — instruments/polymaps/poly.py and decide.py check an object's shape before anything reads it (the finding left open at the freeze, fixed); certs/polymaps-ledger.json and certs/mc100-station-v2.json re-derived by their tools (the decider's sha256 and the stamps; no row, check or verdict moved); no measurement touched",
+   "before": {
+    "preregistration": "4c20184400549e4911961b9ee2b2d1c233460754bfe10d84606e558b4aeab95f",
+    "inventory": "25a22e92e213f63c3cf2dddd6605c9320668d59ccd2747e1152028d841c5f7c6",
+    "recordsMoved": [
+     {
+      "record": "certs/polymaps-ledger.json",
+      "from": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
+      "to": "b6fbd6aad035e3de029b0373965710a3691a8e87c5346261973d25d185c5993e"
+     },
+     {
+      "record": "certs/mc100-station-v2.json",
+      "from": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+      "to": "07eb6c0f63784e1e88e68a0a209e4079b19edcc39084d6b3852bff7225f09321"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
+    "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
    }
   }
  ],
