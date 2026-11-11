@@ -229,6 +229,7 @@ test:
 	@printf "%-30s " "Lean intake: sqtuples"; $(NODE) tools/lean-intake.js record sqtuples-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: APN #12 (ii)"; $(NODE) tools/lean-intake.js record apn-erdos-12-ii --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "heptagon + A.3 in Lean"; $(NODE) tools/record-heptagon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "prime gaps 186, checked"; $(NODE) tools/record-prime-gaps-186.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "warrant-mpl (print kit)"; { [ -x kits/warrant-mpl/.venv/bin/python ] || $(MAKE) -s warrant-mpl-venv >/dev/null 2>&1; } && kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -414,6 +415,7 @@ reports:
 	@$(NODE) tools/build-report-erdos852.js
 	@$(NODE) tools/build-report-erdos-488.js
 	@$(NODE) tools/build-report-heptagon.js
+	@$(NODE) tools/build-report-prime-gaps-186.js
 	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js

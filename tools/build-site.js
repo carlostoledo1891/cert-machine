@@ -389,6 +389,12 @@ const REPORTS = [
     title: 'Pálvölgyi’s heptagon and the appendix theorem marked unchecked',
     desc: 'Seven points on a circle that refute Graham’s conjecture, found by Dömötör Pálvölgyi with ChatGPT, and his appendix theorem that almost any seven points on a circle are not Ramsey, labelled unchecked by its author: both decided in Lean through OpenAI’s classification, the rules sealed before any code ran. The pull request that marks the conjecture solved in Google DeepMind’s list links the proof.',
     n: 'five kernels accept · only the standard axioms' },
+  { g: 'ai', f: 'prime-gaps-186.html', k: 'prime gaps · a Lean proof with three assumptions',
+    title: 'OpenAI’s prime-gap bound of 186, checked from every side we could reach',
+    desc: 'OpenAI’s GPT-6 Astra proved that prime gaps are at most 186 infinitely often, with a Lean proof that rests on three stated assumptions. The release checked as far as an outside party can: the Lean proof holds as written, the two quoted assumptions hold on every case for the primes below 2,000, and the 152 numerical inputs reproduce and were recomputed with no shared code. What stays open first: the three assumptions remain assumptions.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gaps-186.json'), 'utf8'));
+      if (P.verdicts.axioms !== 'ASSUMED, all three' || P.verdicts.recomputed !== '152 of 152' || P.verdicts.kernels !== 'three accept') fail('the prime-gaps-186 card would misstate its record');
+      return 'three kernels accept · 152 of 152 numbers · 0 of 3 assumptions proved'; })() },
   { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
     title: 'Does an AI’s Lean proof prove the right statement?',
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',
@@ -2119,7 +2125,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
