@@ -9,6 +9,10 @@
 #   env             AUDIT_SHA    the cert-machine commit that holds the tool and the specs (required; pushed before the pod)
 #                   INTAKE_IDS   one or several spec ids, space separated (required): corpus/lean-intake/<id>/spec.json
 #                   INTAKE_STAGES  optional, passed to `run --stages`
+#                   INTAKE_JOBS    optional: planted statements elaborated at once (default: half the declared vCPUs)
+#                   INTAKE_MODE    optional: `preflight` builds the canonical module and elaborates each planted statement
+#                                  ALONE (no claimant's term, no outcome of the identity check), serving <id>.preflight.json;
+#                                  the specs it reads are not yet a pre-registration
 #
 #   P1 prepare   packages, an unprivileged user, node, rust; the repository at AUDIT_SHA (the tool, the specs)
 #   P2 <id>      for each id: `node tools/lean-intake.js run <id>` as that user — pin, toolchain, cache, canonical, the
@@ -31,6 +35,7 @@ REPO=https://github.com/carlostoledo1891/cert-machine.git
 NODE_VERSION=v22.11.0
 R=/results U=tester H=/home/tester A=/home/tester/audit
 DAY=$(date -u +%F)
+JOBS=${INTAKE_JOBS:-$(( ${DECL_CPUS:-2} / 2 ))}; [ "$JOBS" -ge 1 ] 2>/dev/null || JOBS=1
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq && apt-get install -y -qq git python3 curl ca-certificates time tar xz-utils zstd build-essential procps util-linux < /dev/null > /dev/null
 id $U > /dev/null 2>&1 || useradd -m -s /bin/bash $U
@@ -46,7 +51,7 @@ json.dump(s, open(p + '.tmp', 'w'), indent=1); os.replace(p + '.tmp', p)
 EOF
 chmod 644 /results/_status.json; }
 fail() { status _phase "FAILED: $1"; sleep infinity; }
-status _audit "$AUDIT_SHA"; status _ids "$INTAKE_IDS"; status _day "$DAY"; status _started "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+status _audit "$AUDIT_SHA"; status _ids "$INTAKE_IDS"; status _day "$DAY"; status _mode "${INTAKE_MODE:-run}, $JOBS planted statements at once"; status _started "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 # the container's memory: cgroup v2, else cgroup v1 (RunPod's CPU pods, first trial of 2026-11-11), else nothing
 mem_max() { local v; v=$(cat /sys/fs/cgroup/memory.max 2>/dev/null); case "$v" in ''|max) v=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null);; esac; echo "${v:-0}"; }
 mem_cur() { cat /sys/fs/cgroup/memory.current 2>/dev/null || cat /sys/fs/cgroup/memory/memory.usage_in_bytes 2>/dev/null || echo 0; }
@@ -101,12 +106,14 @@ for ID in $INTAKE_IDS; do
   KEY=$(python3 -c "import json,sys; print(json.load(open('$A/corpus/lean-intake/$ID/spec.json'))['canonical']['commit'][:12])")
   status _phase "P2 $ID running"; date +%s > $R/$ID.start
   setsid runuser -u $U -- env -i HOME=$H PATH="$H/.elan/bin:$H/.cargo/bin:/usr/local/bin:/usr/bin:/bin" \
-    LEAN_INTAKE_KEEP=1 LEAN_INTAKE_WORK=$H/work/$KEY RUNPOD_CPU_COUNT="$DECL_CPUS" RUNPOD_MEM_GB="$DECL_MEM" \
-    bash -c "cd $A && ulimit -s unlimited 2>/dev/null; exec node tools/lean-intake.js run $ID --day $DAY ${INTAKE_STAGES:+--stages $INTAKE_STAGES}" > $R/$ID.out 2> $R/$ID.err &
+    LEAN_INTAKE_KEEP=1 LEAN_INTAKE_WORK=$H/work/$KEY LEAN_INTAKE_JOBS=$JOBS RUNPOD_CPU_COUNT="$DECL_CPUS" RUNPOD_MEM_GB="$DECL_MEM" \
+    bash -c "cd $A && ulimit -s unlimited 2>/dev/null; if [ '${INTAKE_MODE:-run}' = preflight ]; then node tools/lean-intake.js run $ID --day $DAY --stages pin,toolchain,cache,canonical && exec node tools/lean-intake.js preflight $ID --day $DAY; else exec node tools/lean-intake.js run $ID --day $DAY ${INTAKE_STAGES:+--stages $INTAKE_STAGES}; fi" > $R/$ID.out 2> $R/$ID.err &
   echo $! > /tmp/run.pid; wait $!; echo $? > $R/$ID.exit; : > /tmp/run.pid; date +%s > $R/$ID.end
   status "$ID" "run exit $(cat $R/$ID.exit) after $(( $(cat $R/$ID.end) - $(cat $R/$ID.start) )) s"
   F=$A/corpus/lean-intake/$ID/runs
-  if [ -d "$F/$DAY" ]; then
+  if [ "${INTAKE_MODE:-run}" = preflight ]; then
+    cp $A/corpus/lean-intake/$ID/preflight/$DAY/preflight.json $R/$ID.preflight.json 2>/dev/null && chmod 644 $R/$ID.preflight.json
+  elif [ -d "$F/$DAY" ]; then
     tar -czf $R/$ID.tar.gz -C "$F" "$DAY" && (cd $R && sha256sum $ID.tar.gz > $ID.tar.gz.sha256)
     runuser -u $U -- env -i HOME=$H PATH="/usr/local/bin:/usr/bin:/bin" bash -c "cd $A && node tools/lean-intake.js record $ID" > $R/$ID.record.out 2>&1 \
       && cp $A/certs/lean-intake-$ID.json $R/$ID.record.json

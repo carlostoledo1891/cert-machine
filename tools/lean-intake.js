@@ -374,6 +374,44 @@ function redBytes(claimText, r) {
   return (r.all ? claimText.split(r.find).join(r.replace) : claimText.replace(r.find, r.replace)) + `\n#print axioms ${SPEC.claim.decl}\n`;
 }
 
+/* ---- several independent files at once ---------------------------------------------------------------------------
+   LEAN_INTAKE_JOBS=N (default 1): the planted statements, each a file that imports only modules already built, are
+   elaborated N at a time by `lake env lean <file>` instead of one `lake build` after another. Each still writes its
+   own log, exit and seconds; the seconds are then per file under load, and their sum is processor time, not the clock's.
+   The pool runs in a child of this same file (`__pool`), because the run itself is synchronous. */
+const JOBS = Math.max(1, Math.floor(Number(process.env.LEAN_INTAKE_JOBS || 1)) || 1);
+function runPool(tasks, outDir, jobs) {
+  const f = path.join(os.tmpdir(), 'lean-intake-pool-' + process.pid + '.json');
+  fs.writeFileSync(f, JSON.stringify({ tasks, outDir, jobs }));
+  const r = cp.spawnSync(process.execPath, [__filename, '__pool', id, f], { stdio: 'inherit' });
+  fs.rmSync(f, { force: true });
+  if (r.status !== 0) die('the pool of ' + tasks.length + ' files did not finish');
+}
+function pool() {
+  const { tasks, outDir, jobs } = JSON.parse(fs.readFileSync(process.argv[4], 'utf8'));
+  const status = (m) => { fs.appendFileSync(path.join(outDir, '_status.txt'), new Date().toISOString() + ' ' + m + '\n'); console.log(m); };
+  let next = 0, live = 0, done = 0;
+  const one = () => {
+    if (next >= tasks.length) { if (!live) process.exit(0); return; }
+    const t = tasks[next++]; live++;
+    status('start ' + t.name);
+    const t0 = Date.now(), chunks = [];
+    const c = cp.spawn('bash', ['-c', t.command + ' 2>&1'], { cwd: t.cwd, env: process.env });
+    const killer = setTimeout(() => c.kill('SIGKILL'), (t.seconds || 3600) * 1000);
+    c.stdout.on('data', (d) => chunks.push(d));
+    c.on('close', (code, signal) => {
+      clearTimeout(killer);
+      const exit = code === null ? (signal || 'timeout') : code;
+      fs.writeFileSync(path.join(outDir, t.name + '.log'), Buffer.concat(chunks));
+      fs.writeFileSync(path.join(outDir, t.name + '.exit'), String(exit) + '\n');
+      fs.writeFileSync(path.join(outDir, t.name + '.seconds'), ((Date.now() - t0) / 1000).toFixed(1) + '\n');
+      status('end ' + t.name + ' exit ' + exit + ' (' + (++done) + ' of ' + tasks.length + ')');
+      live--; one();
+    });
+  };
+  for (let i = 0; i < Math.min(jobs, tasks.length); i++) one();
+}
+
 /* ---- run ------------------------------------------------------------------------------------------------------- */
 function run() {
   const day = opt('--day') || new Date().toISOString().slice(0, 10);
@@ -461,7 +499,13 @@ function run() {
     } else if (s === 'f3') {
       step('f3', CAN, 'lake build Intake.F3');
     } else if (s === 'mutants') {
-      for (const m of SPEC.mutants) step('mut-' + m.id, CAN, `lake build Intake.Mut.${m.id}`, 3600);
+      if (JOBS === 1) for (const m of SPEC.mutants) step('mut-' + m.id, CAN, `lake build Intake.Mut.${m.id}`, 3600);
+      else {
+        /* everything a planted file imports is built first, once; then the files alone, JOBS at a time */
+        const deps = [...new Set([canonMod, claimMod].concat(SPEC.mutants.flatMap((m) => m.imports || [])))];
+        if (!step('mut-imports', CAN, `lake build ${deps.join(' ')}`, 7200)) die('the planted statements\' imports did not build');
+        runPool(SPEC.mutants.map((m) => ({ name: 'mut-' + m.id, cwd: CAN, command: `lake env lean Intake/Mut/${m.id}.lean`, seconds: 3600 })), FACTS, JOBS);
+      }
     } else if (s === 'reds') {
       for (const r of SPEC.claimReds || []) step('red-' + r.id, CAN, `lake build Intake.Red.${r.id}`, 3600);
     } else if ((s === 'f2' || s === 'f2eval' || s === 'f2kernel') && !SPEC.f2) {
@@ -496,7 +540,7 @@ function run() {
       step('nanoda', WORK, `"${TOOLS}/nanoda_lib/target/release/nanoda_bin" nanoda.json`, 7200);
     }
   }
-  fs.writeFileSync(path.join(FACTS, 'machine.json'), JSON.stringify(V2 ? machineFacts() : { platform: process.platform, arch: process.arch, cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, null, 1) + '\n');
+  fs.writeFileSync(path.join(FACTS, 'machine.json'), JSON.stringify(V2 ? Object.assign(machineFacts(), JOBS > 1 ? { plantedStatementsAtOnce: JOBS } : {}) : { platform: process.platform, arch: process.arch, cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, null, 1) + '\n');
   status('done: ' + want.join(','));
 }
 
@@ -902,19 +946,30 @@ function preflight() {
   const CAN = path.join(WORK, 'canonical'), C = SPEC.canonical;
   if (!fs.existsSync(path.join(CAN, '.lake')) || cp.spawnSync('git', ['-C', CAN, 'rev-parse', 'HEAD']).stdout.toString().trim() !== C.commit) die('preflight needs the canonical repository built at its pin in ' + CAN + ': run --stages pin,toolchain,cache,canonical first (LEAN_INTAKE_KEEP=1 keeps the build for the run)');
   if (sha(fs.readFileSync(path.join(CAN, C.path))) !== C.sha256) die('the canonical file is not the pinned bytes');
-  const lean = (name, body, deps) => {
-    const f = path.join(CAN, 'IntakePre_' + name + '.lean'); fs.writeFileSync(f, body);
-    const r = cp.spawnSync('bash', ['-c', (deps ? `lake build ${deps} >/dev/null 2>&1; ` : '') + `lake env lean ${path.basename(f)} 2>&1`], { cwd: CAN, timeout: 1800 * 1000, maxBuffer: 1 << 28 });
-    fs.rmSync(f, { force: true });
-    const out = (r.stdout || '').toString();
-    return { exit: r.status === null ? 'timeout' : r.status, errors: out.split('\n').filter((l) => /error/.test(l)).map((l) => l.replace(/^.*IntakePre_[^:]*:/, '').slice(0, 200)).slice(0, 3) };
-  };
-  /* the statement alone: the header the run writes, `theorem s`, and no claimant's term — so no outcome of F1 is seen */
-  const head = (m) => `import ${C.module}\n` + (m.imports || []).map((i) => `import ${i}\n`).join('') + `namespace ${(SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('');
+  /* the statement alone: the header the run writes, `theorem s`, and no claimant's term — so no outcome of F1 is seen.
+     Self-contained files: the statement is written in the copy's namespace, so the copy is built here first. */
+  const pre = WRAP ? `import ${canonMod}\n` : `import ${C.module}\n`;
+  const ns = (m) => (WRAP ? WRAP_NS + '.' : '') + (SPEC.mutantNamespace || 'Intake.Mut') + '.' + m.id;
+  const head = (m) => pre + (m.imports || []).map((i) => `import ${i}\n`).join('') + `namespace ${ns(m)}\n` + (SPEC.mutantOpen || []).map((o) => `open ${o}\n`).join('');
+  if (WRAP) {
+    const canText = fs.readFileSync(path.join(CAN, C.path), 'utf8'), w = wrapCanonical(canText);
+    fs.mkdirSync(path.join(CAN, 'Intake', 'Canon'), { recursive: true });
+    fs.writeFileSync(path.join(CAN, 'Intake', 'Canon', canonStem + '.lean'), w.text);
+    const toml = path.join(CAN, 'lakefile.toml');
+    if (!fs.existsSync(toml)) die('the canonical repository has no lakefile.toml');
+    if (!/name = "Intake"/.test(fs.readFileSync(toml, 'utf8'))) fs.appendFileSync(toml, '\n[[lean_lib]]\nname = "Intake"\n');
+  }
+  const deps = [...new Set([WRAP ? canonMod : C.module].concat(SPEC.mutants.flatMap((m) => m.imports || [])))];
+  const built = cp.spawnSync('bash', ['-c', `lake build ${deps.join(' ')} 2>&1`], { cwd: CAN, timeout: 7200 * 1000, maxBuffer: 1 << 28 });
+  if (built.status !== 0) { fs.writeFileSync(path.join(PRE, 'imports.log'), built.stdout || ''); die('the modules the planted statements import did not build (see preflight/' + day + '/imports.log)'); }
+  for (const m of SPEC.mutants) fs.writeFileSync(path.join(CAN, 'IntakePre_' + m.id + '.lean'), head(m) + `theorem s : ${m.statement} := by\n  sorry\n`);
+  runPool(SPEC.mutants.map((m) => ({ name: 'pre-' + m.id, cwd: CAN, command: `lake env lean IntakePre_${m.id}.lean`, seconds: 1800 })), PRE, JOBS);
   const rows = SPEC.mutants.map((m) => {
-    const r = lean(m.id, head(m) + `theorem s : ${m.statement} := by\n  sorry\n`);
-    console.log(`  ${r.exit === 0 ? 'ok  ' : 'FAIL'} ${m.id} ${m.kind}${r.exit === 0 ? '' : ' — ' + (r.errors[0] || 'exit ' + r.exit)}`);
-    return { id: m.id, kind: m.kind, rule: m.rule, elaborates: r.exit === 0, errors: r.errors };
+    fs.rmSync(path.join(CAN, 'IntakePre_' + m.id + '.lean'), { force: true });
+    const exit = fs.readFileSync(path.join(PRE, 'pre-' + m.id + '.exit'), 'utf8').trim(), out = fs.readFileSync(path.join(PRE, 'pre-' + m.id + '.log'), 'utf8');
+    const errs = out.split('\n').filter((l) => /error/.test(l)).map((l) => l.replace(/^.*IntakePre_[^:]*:/, '').slice(0, 200)).slice(0, 3);
+    console.log(`  ${exit === '0' ? 'ok  ' : 'FAIL'} ${m.id} ${m.kind}${exit === '0' ? '' : ' — ' + (errs[0] || 'exit ' + exit)}`);
+    return { id: m.id, kind: m.kind, rule: m.rule, elaborates: exit === '0', errors: errs };
   });
   /* the planted defects need the claimant's file (their text must occur in it): checked when a run has cloned it */
   const CLM = IN_PLACE ? CAN : path.join(WORK, 'claim');
@@ -930,4 +985,4 @@ function preflight() {
   console.log(`preflight ${id}: ${out.elaborate} planted statements elaborate` + (out.doNotElaborate.length ? ' — NOT: ' + out.doNotElaborate.join(', ') : '') + (reds ? `; planted defects ${reds.filter((r) => r.ok).length} of ${reds.length} find their text` : ''));
 }
 
-if (cmd === 'run') run(); else if (cmd === 'record') record(); else if (cmd === 'review') review(); else if (cmd === 'cost') cost(); else if (cmd === 'preflight') preflight(); else die('unknown command ' + cmd);
+if (cmd === '__pool') pool(); else if (cmd === 'run') run(); else if (cmd === 'record') record(); else if (cmd === 'review') review(); else if (cmd === 'cost') cost(); else if (cmd === 'preflight') preflight(); else die('unknown command ' + cmd);

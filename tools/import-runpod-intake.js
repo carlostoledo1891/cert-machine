@@ -5,6 +5,7 @@
    the facts, on the desk. An existing day's folder is never overwritten.
 
    usage: node tools/import-runpod-intake.js <pod-id> <id> [--partial]
+          node tools/import-runpod-intake.js <pod-id> <id> --preflight      (a pod started with INTAKE_MODE=preflight)
           LEAN_INTAKE_ROOT=<dir> reads and writes under another root (a spec not yet public, or a trial)
 
    then:  delete the pod, confirm it is gone, and write what it cost —
@@ -25,6 +26,17 @@ const st = JSON.parse(get('_status.json') || 'null');
 if (!st) die('the pod serves no _status.json at ' + BASE);
 if (st._phase !== 'complete' && !process.argv.includes('--partial')) die('the pod is at "' + st._phase + '"; import when complete, or pass --partial');
 if (!String(st._ids || '').split(/\s+/).includes(id)) die('the pod ran ' + st._ids + ', not ' + id);
+/* a preflight pod (INTAKE_MODE=preflight) serves one file per id: which planted statements elaborate alone */
+if (process.argv.includes('--preflight')) {
+  const pf = get(id + '.preflight.json');
+  if (!pf) die('the pod serves no ' + id + '.preflight.json (see ' + BASE + id + '.err)');
+  const J = JSON.parse(pf), dir = path.join(ROOT, 'corpus', 'lean-intake', id, 'preflight', J.day);
+  const here = require('crypto').createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'corpus', 'lean-intake', id, 'spec.json'))).digest('hex');
+  if (J.spec.sha256 !== here) die('the pod pre-flighted another spec than the one on this desk');
+  fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(path.join(dir, 'preflight.json'), pf);
+  console.log(`preflight ${id}: ${J.elaborate} planted statements elaborate` + (J.doNotElaborate.length ? ' — NOT: ' + J.doNotElaborate.join(', ') : '') + ` (pod ${pod}; ${st[id] || ''})`);
+  process.exit(0);
+}
 const tgz = get(id + '.tar.gz', 'buffer'), shaLine = get(id + '.tar.gz.sha256');
 if (!tgz || !shaLine) die('the pod serves no ' + id + '.tar.gz (did the run reach its facts? see ' + BASE + id + '.err)');
 const sha = crypto.createHash('sha256').update(tgz).digest('hex');
