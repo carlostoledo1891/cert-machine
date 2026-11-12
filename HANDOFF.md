@@ -21,13 +21,35 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-◆◆ IN FLIGHT AGAIN, 2026-11-12 ~18:45 UTC (the charger went in; the operator: restart BOTH runs). TWO PODS ARE BILLING — if
-   this block is still here, LIST THE PODS FIRST: tfoyaqjnilw62w (p-182b, US$0.64/h, created 18:41 UTC: the 182's numerical
-   package again; `ssh -i ~/.ssh/id_ed25519_runpod -p 35232 root@38.80.152.147`, /root/s, detached, status in
-   /root/s/runs/_status.txt, ends with "chain done"; import /root/s/runs and /root/s/work/evidence before deleting) and
-   fwwcomdlxq6mqc (p-perc-one-b, US$1.28/h, created 18:41 UTC: the orchestrator's replay of the one-Lean port; port 40872,
-   /root/one, detached, /root/one/runs/TIMELINE ends with "REPLAY DONE"). The closing handoff replaces this block; the
-   block below describes the state BEFORE these two restarts.
+◆◆ IN FLIGHT, 2026-11-12 ~19:55 UTC (the charger went in at ~18:35; the operator: restart BOTH runs). ONE POD IS BILLING —
+   if this block is still here, LIST THE PODS FIRST: tfoyaqjnilw62w (p-182b, US$0.64/h, created 18:41 UTC: the 182's
+   numerical package replayed from the start; `ssh -i ~/.ssh/id_ed25519_runpod -p 35232 root@38.80.152.147`, /root/s,
+   detached, status in /root/s/runs/_status.txt, ends with "chain done"; import /root/s/runs and /root/s/work/evidence,
+   then delete). The other pod of the restart (the one-Lean replay) is DELETED, 404.
+   SINCE THE 18:20 BLOCK BELOW (which describes the state before the restart):
+   - 3b IS DECIDED: THE ONE-LEAN PORT IS CERTIFIED (one Lean), by the orchestrator's own replay on a fresh pod — one
+     environment (Lean v4.32.0, Anthropic's pin) holding OpenAI's ℤ³ closure ported to it (22 of 34 files changed, renames),
+     both labs' statement files byte-identical, the sealed statement, both bridges and both theorems: clean build exit 0,
+     the standard three axioms, Comparator with OUR statement as the challenge (nanoda and Lean's kernel), Comparator of
+     OpenAI's own theorem against its unchanged challenge file, leanchecker --fresh exit 0, red controls R1 and R4 refused
+     with the refutation building beside R4. The replay's FIRST attempt failed its clean build on 34 AppleDouble files
+     from the orchestrator's own macOS tar; kept on record, the second attempt started from an empty build. Private
+     records, results sealed (registry a028fe35). NOT PUBLIC YET: /reports/percolation-critical.html, the Zenodo note and
+     the posted Kalai comment still say "two Lean versions … a careful reading, not a proof" — true when written. A page
+     change, a note version and a follow-up comment are each the operator's word.
+   - 4b: THE QUESTION TO AXIOM IS FILED, AxiomMath/BGP212 #2 (outreach row gh-bgp212-2-certificate-witness-2026-11-12).
+   - 5: THE SECOND TEXTBOOK PAGE IS BUILT, GATED AND NOT COMMITTED (the working tree holds it: playground/textbook-machine/
+     claim-verdict.js, claims.*.js, claims.css, tools/check-textbook-claims.js, the wiring in Makefile + build-control.js,
+     the rebuilt site/ with /instruments/textbook-machine/claims/ and several hub pages). `make page R=playground` exit 0,
+     run by the orchestrator. The operator's rulings in it: strictest word wins; register replays = objects carrying a
+     record. THREE shapes are live, not four: the only finite-counterexample object and one interval-bound object need
+     files with no licence (EinsteinArena; Épi) and are HELD out of the served bundle. Waiting on the operator: publish
+     it or not; the four Apache-2.0 upstream files kept in the bundle; two edge cases of the rule (nothing decided →
+     REFUSED; some parts certified and one undecided → REFUSED); the registry's commit prefix visible inside the claim
+     object one click down.
+   - corpus/outreach.json: three record fixes (4abb95ba) that the site sync and the copy census had refused.
+   - The claims sweep shows new comments since 11-09 on older threads (registry #221, #255, #252, lm_understand-logs #4,
+     others): NOT read this session; its state file was restored so they still show.
 
 NEXT SESSION, IN ORDER (handoff 2026-11-12 ~18:20 UTC, WRITTEN AT 11% ON BATTERY: THE SESSION WAS CUT SHORT BY THE DESK'S
 BATTERY, NOT BY ITS WORK. NOTHING BILLING: the two pods of the session were deleted at ~18:10 UTC, each 404 on get-pod,
