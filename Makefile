@@ -241,6 +241,7 @@ test:
 	@printf "%-30s " "prime gaps 186, checked"; $(NODE) tools/record-prime-gaps-186.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "textbook machine (the counts)"; $(NODE) playground/textbook-machine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "warrant-mpl (print kit)"; { [ -x kits/warrant-mpl/.venv/bin/python ] || $(MAKE) -s warrant-mpl-venv >/dev/null 2>&1; } && kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -294,6 +295,7 @@ test:
 	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "marks (pointed numbers)"; $(NODE) tools/check-marks.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "home (no layout shift)"; $(NODE) tools/check-home.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "textbook machine (no shift)"; $(NODE) tools/check-textbook-machine.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "stylesheet re-bake at sync"; $(NODE) design/sheet.js --selftest >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "style (the stylesheet gate)"; $(NODE) tools/check-style.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

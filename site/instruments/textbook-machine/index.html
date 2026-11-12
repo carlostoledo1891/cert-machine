@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The textbook machine · Carlos Toledo</title>
+<meta name="description" content="A Turing machine you run in your browser: one tape, one head, a few rules. Five machines up a ladder of ideas, each step said in words; checking a setting stays one pass while finding one more than doubles with every switch; and the question running cannot answer.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/textbook-machine/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/textbook-machine/">
+<meta property="og:title" content="The textbook machine · Carlos Toledo">
+<meta property="og:description" content="A Turing machine you run in your browser: one tape, one head, a few rules. Five machines up a ladder of ideas, each step said in words; checking a setting stays one pass while finding one more than doubles with every switch; and the question running cannot answer.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The textbook machine · Carlos Toledo">
+<meta name="twitter:description" content="A Turing machine you run in your browser: one tape, one head, a few rules. Five machines up a ladder of ideas, each step said in words; checking a setting stays one pass while finding one more than doubles with every switch; and the question running cannot answer.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=own grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+/* @/site-css */
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+/* THE FOUNDATION IS design/base.js (2026-09-15) — the reset, the ground, the
+   type, the selection colour, the eyebrow and the table wrapper, shared with
+   the report sheet because they were two descriptions of the same four
+   things and they had already diverged. What is left here is this section's
+   own: the container and the two tracks. */
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+
+/* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
+   bench.css AND in five page sheets — six copies of three rules, and the
+   reason /instruments/graph once shipped in Times was exactly this kind of
+   foundation living everywhere and therefore nowhere. ---- */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display);
+  letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+/* .eyebrow is design/base.js's now — one rule for both sheets (2026-09-15) */
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
+   The unit graph and the contact sheet are drawn by instruments/cert-unit, and
+   FOUR pages inline them: /instruments/graph, /instruments/rewire,
+   /instruments/lattice-claims and the gathering page. Each art carried its own
+   <style>, so each of those pages shipped a second stylesheet. The rules live
+   in instruments/cert-unit/art-css.js — one source, read here and by the
+   renderers — and embedArt() below strips the copy when a page inlines the
+   art. Same rule as the figure primitives above: a vocabulary used by more
+   than one page is a shared component.                                    */
+
+.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
+.ug .nd.inst { stroke-opacity:.45; }
+.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
+.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink); }
+.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
+.ug .pt.idle { stroke-opacity:.28; }
+.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
+.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
+.ug .w.solid { stroke-opacity:.75; }
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */
+
+.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
+.cg .cs.fired { fill-opacity:.92; }
+/* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
+   with no fill is the answer it missed. */
+.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
+.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
+.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
+.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
+.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
+.cg .cr { stroke:var(--ink); stroke-width:1.6; }
+.cg .cr.solid { stroke-opacity:.55; }
+.cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }
+/* the pqc card's two marks, for the same reason: the gathering page inlines
+   that art and carries no page stylesheet of pqc's. */
+.pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
+.pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
+
+
+/* page.css — /instruments/textbook-machine/. Tokens only; no new colour. The red is the witness and nothing else: the
+   cell where a palindrome or a lock check failed, and the × beside No.
+   RESERVED HEIGHTS: every element whose content a control changes has its size fixed here (the description, the
+   sentence, the input row, the hint, the rule table, the verdict, the readout, the claim results), so switching a
+   machine, playing, stepping or deciding moves nothing (tools/check-textbook-machine.js measures it). */
+:root { --tm-cell: 52px; --x: 0px; }
+@media (max-width: 700px) { :root { --tm-cell: 42px; } }
+
+.tm-hero h1 span { display: block; }
+.tm-hero h1 span:first-child { color: var(--ink-4); }
+.tm-sec { padding-block: var(--s-7); border-top: 1px solid var(--rule); }
+.tm-sec:first-of-type { border-top: 0; padding-top: 0; }
+.tm-sec h2 { font-size: var(--text-1); line-height: 1.08; letter-spacing: -.02em; max-width: 22ch; }
+.tm-sec .prose { margin-top: var(--s-4); color: var(--ink-3); max-width: 62ch; }
+
+/* the ladder: five ideas, one after the other */
+.tm-ladder { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.tm-step { display: grid; grid-template-rows: auto auto auto; gap: 2px; text-align: left; font: inherit; color: var(--ink-3);
+  background: none; border: 1px solid var(--rule-strong); border-radius: var(--radius-m); padding: 10px 12px; cursor: pointer; min-width: 0; }
+.tm-step .n { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; color: var(--ink-4); }
+.tm-step .idea { color: var(--ink); font-weight: 550; font-size: .9375rem; line-height: 1.25; }
+.tm-step .nm { font-size: .8125rem; line-height: 1.3; color: var(--ink-4); }
+.tm-step:hover { border-color: var(--ink-3); }
+.tm-step[aria-selected="true"] { background: var(--ink); border-color: var(--ink); }
+.tm-step[aria-selected="true"] .n, .tm-step[aria-selected="true"] .idea, .tm-step[aria-selected="true"] .nm { color: var(--paper); }
+@media (max-width: 760px) {
+  .tm-ladder { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 9.5rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .tm-ladder::-webkit-scrollbar { display: none; }
+}
+
+/* the machine */
+.tm-machine { margin-top: var(--s-4); border: 1px solid var(--rule); border-radius: var(--radius-l); background: var(--sunk); overflow: hidden; }
+.tm-top { display: grid; grid-template-columns: minmax(0, 1fr) 7.5rem; gap: 8px 24px; align-items: start; padding: 16px clamp(16px, 2.4vw, 28px); border-bottom: 1px solid var(--rule); }
+.tm-top p { margin: 0; color: var(--ink); font-weight: 530; font-size: 1.0625rem; line-height: 1.35; height: 2.7em; overflow: hidden; }
+@media (max-width: 700px) { .tm-top p { height: 4.05em; } }
+.tm-verdict { justify-self: stretch; height: 1.7rem; display: flex; align-items: center; justify-content: flex-end; }
+.tm-ans { display: inline-flex; align-items: center; gap: .45em; font-family: var(--f-mono); font-size: .6875rem; letter-spacing: .1em; font-weight: 600;
+  text-transform: uppercase; padding: 3px 9px; border-radius: var(--radius-s); border: 1px solid var(--ink); color: var(--ink); white-space: nowrap; line-height: 1.5; }
+.tm-ans.yes { background: var(--ink); color: var(--paper); }
+.tm-ans.run { border-color: var(--rule-strong); color: var(--ink-4); }
+.tm-x { color: var(--witness); font-weight: 700; }
+.tm-tapewrap { position: relative; padding: 54px 0 30px; overflow: hidden; }
+.tm-tape { position: relative; height: var(--tm-cell); }
+.tm-tape-in { position: absolute; inset: 0; }
+.tm-c { position: absolute; top: 0; left: calc(50% + var(--x)); width: calc(var(--tm-cell) - 6px); height: var(--tm-cell); margin-left: 3px; border-radius: 8px; display: grid; place-items: center;
+  font: 600 1.35rem/1 var(--f-mono); color: var(--ink); border: 1.5px solid var(--ink); }
+.tm-c.blank { border: 1px solid var(--rule); color: transparent; }
+.tm-c.one { background: var(--ink); color: var(--paper); }
+.tm-c.bad { border-color: var(--witness); color: var(--witness); }
+.tm-c.one.bad { background: none; }
+.tm-head { position: absolute; left: 50%; top: 44px; width: var(--tm-cell); height: calc(var(--tm-cell) + 20px); transform: translateX(-50%); border: 2.5px solid var(--ink); border-radius: 12px; pointer-events: none; }
+.tm-head::after { content: ""; position: absolute; left: 50%; top: -11px; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--ink); border-bottom: 0; }
+.tm-head.bad { border-color: var(--witness); }
+.tm-head.bad::after { border-top-color: var(--witness); }
+.tm-state { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); white-space: nowrap; font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); }
+.tm-state b { color: var(--ink); font-weight: 600; text-transform: none; letter-spacing: .02em; font-size: .8125rem; }
+.tm-fade { position: absolute; top: 0; bottom: 0; width: 18%; pointer-events: none; }
+.tm-fade.l { left: 0; background: linear-gradient(90deg, var(--sunk), transparent); }
+.tm-fade.r { right: 0; background: linear-gradient(-90deg, var(--sunk), transparent); }
+/* the sentence: two lines reserved, three on a phone */
+.tm-say { margin: 0; padding: 0 clamp(16px, 2.4vw, 28px) 18px; font-size: 1rem; line-height: 1.45; color: var(--ink-2); height: calc(2 * 1.45em + 18px); overflow: hidden; }
+@media (max-width: 700px) { .tm-say { height: calc(3 * 1.45em + 18px); font-size: .9375rem; } }
+.tm-dash { display: grid; grid-template-columns: auto 1fr; gap: 16px clamp(1.5rem, 4vw, 3.5rem); align-items: center; padding: 18px clamp(16px, 2.4vw, 28px); border-top: 1px solid var(--rule); background: var(--bg); }
+.tm-count { display: grid; gap: 2px; }
+.tm-count b { font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem); line-height: 1; letter-spacing: -.04em; font-weight: 550; color: var(--ink); font-variant-numeric: tabular-nums; min-width: 6ch; }
+.tm-ctl { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: flex-end; }
+.tm-btn { display: inline-flex; align-items: center; justify-content: center; font: 530 .9375rem var(--f-sans); padding: 11px 20px; border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-strong); color: var(--ink); background: none; cursor: pointer; min-width: 5.4rem; }
+.tm-btn:hover { border-color: var(--ink); }
+.tm-btn.solid { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tm-btn:disabled { opacity: .35; cursor: default; }
+.tm-btn.sm { padding: 5px 12px; min-width: 0; font-size: .8125rem; }
+.tm-speed { display: flex; align-items: center; gap: 10px; }
+.tm-speed input[type=range] { appearance: none; -webkit-appearance: none; width: 120px; height: 22px; background: transparent; margin: 0; cursor: pointer; }
+.tm-speed input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--rule-strong); }
+.tm-speed input[type=range]::-moz-range-track { height: 2px; background: var(--rule-strong); }
+.tm-speed input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); margin-top: -7px; }
+.tm-speed input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--ink); border: 0; }
+@media (max-width: 700px) { .tm-dash { grid-template-columns: 1fr; } .tm-ctl { justify-content: flex-start; } .tm-c { font-size: 1.1rem; } }
+
+.tm-lower { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); }
+.tm-lower > div { background: var(--bg); padding: 20px clamp(16px, 2.4vw, 28px); }
+.tm-lower .eyebrow { display: block; margin-bottom: 12px; }
+.tm-inp { display: flex; gap: 10px; align-items: center; height: 44px; }
+.tm-inp input[type=text] { font: 600 1.25rem var(--f-mono); letter-spacing: .14em; background: transparent; color: var(--ink); border: 0; border-bottom: 1.5px solid var(--ink);
+  padding: 6px 2px; width: min(100%, 16ch); border-radius: 0; }
+.tm-inp input[type=text]:focus { outline: none; border-bottom-color: var(--ink); box-shadow: 0 1px 0 var(--ink); }
+.tm-fixed { font-family: var(--f-mono); font-size: .875rem; color: var(--ink-3); }
+.tm-stepper { display: inline-flex; align-items: center; gap: 14px; }
+.tm-stepper button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--rule-strong); background: none; color: var(--ink); font: 500 1.25rem var(--f-mono); cursor: pointer; }
+.tm-stepper button:hover { border-color: var(--ink); }
+.tm-stepper b { font-size: 2rem; letter-spacing: -.03em; color: var(--ink); font-weight: 550; min-width: 2ch; text-align: center; font-variant-numeric: tabular-nums; }
+/* the hint: four lines reserved, five on a phone */
+.tm-hint { color: var(--ink-3); font-size: .9375rem; line-height: 1.45; margin: 12px 0 0; max-width: 36ch; height: calc(4 * 1.45em); overflow: hidden; }
+@media (max-width: 820px) { .tm-lower { grid-template-columns: 1fr; } .tm-hint { height: calc(3 * 1.45em); max-width: none; } }
+@media (max-width: 480px) { .tm-hint { height: calc(4 * 1.45em); } }
+/* the rule table: the largest machine has six states, so a header and six rows are reserved */
+.tm-rules-box { overflow-x: auto; height: calc(30px + 6 * 33px); }
+.tm-rules { border-collapse: collapse; font-family: var(--f-mono); font-size: .8125rem; min-width: 0; width: 100%; }
+.tm-rules th { height: 30px; box-sizing: border-box; font-weight: 500; color: var(--ink-4); text-align: left; padding: 6px 10px; font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; border-bottom: 0; white-space: nowrap; }
+.tm-rules td { height: 33px; box-sizing: border-box; padding: 6px 10px; border-top: 1px solid var(--rule); border-bottom: 0; color: var(--ink-3); white-space: nowrap; }
+.tm-rules td.st { color: var(--ink); }
+.tm-rules td.none { color: var(--ink-5); }
+.tm-rules td.fire { background: var(--ink); color: var(--paper); }
+.tm-rules tbody tr:hover { background: none; }
+
+/* check and find */
+.tm-grow { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+@media (max-width: 900px) { .tm-grow { grid-template-columns: 1fr; } }
+.tm-fig { margin: 0; min-width: 0; }
+.tm-fig figcaption { margin-top: var(--s-3); font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); }
+.tm-key { display: flex; gap: 18px; font-size: .8125rem; color: var(--ink-3); margin-bottom: 6px; }
+.tm-key .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+.tm-key .sw.find { background: var(--ink-4); }
+.tm-key .sw.check { background: var(--ink); width: 5px; }
+.tm-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.tm-chart .tm-hit { fill: transparent; }
+.tm-chart .tm-find { fill: var(--ink-4); }
+.tm-chart .tm-check { fill: var(--ink); }
+.tm-chart .tm-col.on .tm-find { fill: var(--ink-2); }
+.tm-chart .tm-col { cursor: pointer; outline: none; }
+.tm-chart .tm-col:focus-visible .tm-hit { stroke: var(--ink); stroke-width: 1.5; }
+.tm-chart .tm-base { stroke: var(--ink); stroke-width: 1.5; }
+.tm-chart text { font-family: var(--f-mono); font-size: 12px; fill: var(--ink-4); }
+.tm-chart .tm-xl { text-anchor: middle; }
+.tm-chart .tm-col.on .tm-xl { fill: var(--ink); font-weight: 600; }
+.tm-chart .tm-dl { fill: var(--ink-2); font-size: 13px; }
+.tm-chart .tm-dl.dim { fill: var(--ink-3); }
+.tm-ro { margin: 8px 0 0; font-family: var(--f-mono); font-size: .8125rem; color: var(--ink); line-height: 1.5; height: 3em; overflow: hidden; }
+@media (max-width: 700px) { .tm-ro { height: 4.5em; } }
+.tm-t { border-collapse: collapse; font-size: 13px; width: 100%; margin-top: var(--s-4); }
+.tm-t th, .tm-t td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--rule); }
+.tm-t th { font-family: var(--f-mono); font-size: 11px; letter-spacing: .02em; color: var(--ink-3); font-weight: 500; }
+.tm-t td { color: var(--ink-2); }
+.tm-t td.k { color: var(--ink); white-space: nowrap; }
+.tm-series td, .tm-series th { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; padding: 6px 6px; }
+.tm-series td.k, .tm-series th:first-child { text-align: left; }
+.tm-series { min-width: 520px; }
+
+/* will it stop? */
+.tm-stfig { display: grid; justify-items: center; }
+.tm-st { display: block; width: auto; height: 380px; max-width: 100%; color: var(--ink); }
+.tm-stfig figcaption { max-width: 40ch; text-align: left; }
+.tm-bb td.v { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+.tm-bb td.run { white-space: nowrap; width: 20rem; }
+.tm-bb { min-width: 720px; }
+.tm-bbout { display: inline-block; margin-left: 10px; font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); width: 15rem; white-space: normal; vertical-align: middle; min-height: 2.6em; line-height: 1.3; }
+.tm-bbout.dim { color: var(--ink-5); margin-left: 0; }
+.tm-unk { font-family: var(--f-mono); color: var(--ink-3); }
+.tm-src { color: var(--ink-3); font-size: 12px; text-underline-offset: .2em; }
+
+/* the claims */
+.tm-claims { list-style: none; margin: var(--s-5) 0 0; padding: 0; border-top: 1px solid var(--rule); max-width: 900px; }
+.tm-claim { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 24px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.tm-claim p { margin: 0; color: var(--ink); }
+.tm-cact { display: flex; align-items: center; gap: 12px; }
+.tm-cout { display: inline-flex; align-items: center; gap: 8px; width: 17rem; height: 1.6rem; font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); white-space: nowrap; overflow: hidden; }
+.tm-watch { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); background: none; border: 0; padding: 4px 0; cursor: pointer; text-decoration: underline; text-underline-offset: .3em; }
+.tm-watch:hover { color: var(--ink); }
+@media (max-width: 700px) { .tm-claim { grid-template-columns: 1fr; } .tm-cact { flex-wrap: wrap; } .tm-cout { width: auto; flex: 1 1 12rem; height: 2.8em; white-space: normal; line-height: 1.3; flex-wrap: wrap; align-content: center; } }
+
+/* the verdict chips, in the shapes the site's sheet gives them (design/template.js): filled, outlined, dim */
+.tag { display: inline-flex; align-items: center; gap: .45em; font-family: var(--f-mono); font-size: .625rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .35em .8em; border-radius: var(--radius-pill); white-space: nowrap; }
+.tag.held { background: var(--ink); color: var(--paper); }
+.tag.open { border: 1px solid var(--ink-4); border-radius: 4px; color: var(--ink-3); background: transparent; }
+.tag.dep { border: 1px solid var(--rule-strong); color: var(--ink-3); background: transparent; }
+@media (prefers-reduced-motion: reduce) { .tm-tape-in { transition: none !important; } }
+
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+
+<header class="hero tm-hero"><div class="wrap">
+  <div class="eyebrow">Carlos Toledo &middot; instruments &middot; the textbook machine</div>
+  <h1><span>One tape. One head.</span> <span>A few rules.</span></h1>
+  <p class="lede">Everything a computer can do, this can do. Slower, but you can watch. Five machines, each one idea past the last; every step is said in words as it happens.</p>
+</div></header>
+
+<section class="wrap tm-sec" id="machine">
+  <div class="tm-ladder" role="tablist" aria-label="Five machines, each one idea past the last"><button type="button" role="tab" class="tm-step" data-k="count" aria-selected="false"><span class="n">1</span><span class="idea">Follow the rules</span><span class="nm">Count in binary</span></button><button type="button" role="tab" class="tm-step" data-k="palindrome" aria-selected="false"><span class="n">2</span><span class="idea">Answer yes or no</span><span class="nm">Spot a palindrome</span></button><button type="button" role="tab" class="tm-step" data-k="check" aria-selected="false"><span class="n">3</span><span class="idea">Check a setting</span><span class="nm">The lock checker</span></button><button type="button" role="tab" class="tm-step" data-k="find" aria-selected="false"><span class="n">4</span><span class="idea">Find a setting</span><span class="nm">The lock finder</span></button><button type="button" role="tab" class="tm-step" data-k="beaver" aria-selected="false"><span class="n">5</span><span class="idea">Will it stop?</span><span class="nm">Busy beaver</span></button></div>
+  <div class="tm-machine">
+    <div class="tm-top"><p id="tm-what"></p><span class="tm-verdict" id="tm-verdict"></span></div>
+    <div class="tm-tapewrap" id="tm-tapewrap">
+      <div class="tm-state">state <b id="tm-state"></b></div>
+      <div class="tm-tape"><div class="tm-tape-in" id="tm-tape"></div></div>
+      <div class="tm-head" id="tm-head"></div>
+      <div class="tm-fade l"></div><div class="tm-fade r"></div>
+    </div>
+    <p class="tm-say" id="tm-say" aria-live="off"></p>
+    <div class="tm-dash">
+      <div class="tm-count"><span class="eyebrow">steps</span><b id="tm-steps">0</b></div>
+      <div class="tm-ctl">
+        <label class="tm-speed"><span class="eyebrow">speed</span><input id="tm-speedr" type="range" min="0" max="100" value="38" aria-label="Speed"></label>
+        <button class="tm-btn" id="tm-reset" type="button">Reset</button>
+        <button class="tm-btn" id="tm-stepb" type="button">Step</button>
+        <button class="tm-btn solid" id="tm-play" type="button">Play</button>
+      </div>
+    </div>
+    <div class="tm-lower">
+      <div>
+        <span class="eyebrow" id="tm-inlab">Input</span>
+        <div class="tm-inp" id="tm-inp"></div>
+        <p class="tm-hint" id="tm-hint"></p>
+      </div>
+      <div>
+        <span class="eyebrow">the rules &middot; the bright one just fired</span>
+        <div class="tm-rules-box"><table class="tm-rules" id="tm-rules"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap tm-sec" id="check-find">
+  <div class="tm-grow">
+    <div>
+      <h2>Checking is one pass. Finding more than doubles.</h2>
+      <p class="prose">The lock opens only when every switch is on. Checking a setting walks along it once: 2 steps for one switch, 11 for ten, one more for each switch added. Finding the setting by trying them in order, checking each, more than doubles with every switch: 6 steps for one switch, 22,517 for ten.</p>
+      <p class="prose">The lock is simple on purpose, so you can see the answer before the machine does. What it shows is the gap: checking a proposed answer stays cheap while finding one grows out of reach. That gap is why checking someone else&rsquo;s proof is feasible at all: the checker never has to find the proof, only follow it.</p>
+      <p class="prose">For a whole family of such puzzles, 3-SAT, the Exponential Time Hypothesis (Impagliazzo and Paturi, 1999) says no machine, however clever, can keep the work from multiplying by some fixed factor above one with each switch added. In October 2026 OpenAI and Anthropic each published a Lean proof meant to show that it is false. <a href="/reports/eth-chain.html">What I checked in those proofs</a>.</p>
+    </div>
+    <figure class="tm-fig">
+      <div class="tm-key"><span><i class="sw find"></i>finding a setting</span><span><i class="sw check"></i>checking one</span></div>
+      <svg class="tm-chart" viewBox="0 0 640 300" role="group" aria-label="Steps to check the setting that opens the lock and to find it by trying every setting, for 1 to 10 switches. Checking grows by one step per switch; finding more than doubles with every switch."><g class="tm-col" data-i="0" tabindex="-1" role="button" aria-label="1 switch: checking 2 steps, finding 6 steps"><rect class="tm-hit" x="8.0" y="8" width="62.4" height="292"/><path class="tm-find" d="M17.1 266.0V267.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="52.6" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="39.2" y="284">1</text></g><g class="tm-col" data-i="1" tabindex="-1" role="button" aria-label="2 switches: checking 3 steps, finding 21 steps"><rect class="tm-hit" x="70.4" y="8" width="62.4" height="292"/><path class="tm-find" d="M79.5 266.0V267.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="115.0" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="101.6" y="284">2</text></g><g class="tm-col" data-i="2" tabindex="-1" role="button" aria-label="3 switches: checking 4 steps, finding 60 steps"><rect class="tm-hit" x="132.8" y="8" width="62.4" height="292"/><path class="tm-find" d="M141.9 266.0V267.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="177.4" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="164.0" y="284">3</text></g><g class="tm-col" data-i="3" tabindex="-1" role="button" aria-label="4 switches: checking 5 steps, finding 155 steps"><rect class="tm-hit" x="195.2" y="8" width="62.4" height="292"/><path class="tm-find" d="M204.3 266.0V267.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="239.8" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="226.4" y="284">4</text></g><g class="tm-col" data-i="4" tabindex="-1" role="button" aria-label="5 switches: checking 6 steps, finding 378 steps"><rect class="tm-hit" x="257.6" y="8" width="62.4" height="292"/><path class="tm-find" d="M266.7 266.0V265.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="302.2" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="288.8" y="284">5</text></g><g class="tm-col" data-i="5" tabindex="-1" role="button" aria-label="6 switches: checking 7 steps, finding 889 steps"><rect class="tm-hit" x="320.0" y="8" width="62.4" height="292"/><path class="tm-find" d="M329.1 266.0V259.6q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="364.6" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="351.2" y="284">6</text></g><g class="tm-col" data-i="6" tabindex="-1" role="button" aria-label="7 switches: checking 8 steps, finding 2,040 steps"><rect class="tm-hit" x="382.4" y="8" width="62.4" height="292"/><path class="tm-find" d="M391.5 266.0V247.4q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="427.0" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="413.6" y="284">7</text></g><g class="tm-col" data-i="7" tabindex="-1" role="button" aria-label="8 switches: checking 9 steps, finding 4,599 steps"><rect class="tm-hit" x="444.8" y="8" width="62.4" height="292"/><path class="tm-find" d="M453.9 266.0V220.4q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="489.4" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="476.0" y="284">8</text></g><g class="tm-col" data-i="8" tabindex="-1" role="button" aria-label="9 switches: checking 10 steps, finding 10,230 steps"><rect class="tm-hit" x="507.2" y="8" width="62.4" height="292"/><path class="tm-find" d="M516.3 266.0V160.9q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="551.8" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="538.4" y="284">9</text></g><g class="tm-col" data-i="9" tabindex="0" role="button" aria-label="10 switches: checking 11 steps, finding 22,517 steps"><rect class="tm-hit" x="569.6" y="8" width="62.4" height="292"/><path class="tm-find" d="M578.7 266.0V31.0q0 -3 3 -3h26.4q3 0 3 3V266.0Z"/><rect class="tm-check" x="614.2" y="264.0" width="8.7" height="2.0"/><text class="tm-xl" x="600.8" y="284">10</text></g><line class="tm-base" x1="8" x2="632" y1="266" y2="266"/><text class="tm-dl" x="584.6" y="20.0" text-anchor="end">finding: 22,517</text><text class="tm-dl dim" x="8" y="256.0">checking: 2 to 11, the short bars</text><text class="tm-xt" x="632" y="299" text-anchor="end">switches</text></svg>
+      <p class="tm-ro" id="tm-ro" aria-live="polite">10 switches: checking 11 steps, finding 22,517, which is 2.20 times the count for 9.</p>
+      <figcaption>Every count is a run of the two machines above, to the last step, made when this page was built. <span id="tm-rerun">Your tab runs all twenty again when the page opens.</span></figcaption>
+      <div class="tw"><table class="tm-t tm-series"><thead><tr><th>switches</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody>
+        <tr><td class="k">checking</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+        <tr><td class="k">finding</td><td>6</td><td>21</td><td>60</td><td>155</td><td>378</td><td>889</td><td>2,040</td><td>4,599</td><td>10,230</td><td>22,517</td></tr></tbody></table></div>
+    </figure>
+  </div>
+</section>
+
+<section class="wrap tm-sec" id="stop">
+  <div class="tm-grow">
+    <div>
+      <h2>Some questions running cannot answer.</h2>
+      <p class="prose">Running a machine can show that it stops: you watch it stop. Running can never show that it does not, because at every step it might still stop at the next one. So a checker that only runs things needs a third answer besides yes and no. On this site that answer is REFUSED: not false, only not decided by this check.</p>
+      <p class="prose">The busy beaver question asks it at full strength: of all the machines with n states that stop on a blank tape, which runs longest? Answering it means settling every other machine of that size, including each one that never stops, and each of those needs an argument, not a run.</p>
+    </div>
+    <figure class="tm-fig tm-stfig">
+      <svg class="tm-st" viewBox="0 0 98.0 367.2" role="img" aria-label="The four-state champion's run, one row per step from the blank tape at the top to the stop at the bottom: 107 steps, 13 ones left."><path d="M70.0 3.4h6.2v2.8h-6.2ZM70.0 6.8h6.2v2.8h-6.2ZM77.0 6.8h6.2v2.8h-6.2ZM70.0 10.2h6.2v2.8h-6.2ZM77.0 10.2h6.2v2.8h-6.2ZM63.0 13.6h6.2v2.8h-6.2ZM70.0 13.6h6.2v2.8h-6.2ZM77.0 13.6h6.2v2.8h-6.2ZM56.0 17.0h6.2v2.8h-6.2ZM63.0 17.0h6.2v2.8h-6.2ZM70.0 17.0h6.2v2.8h-6.2ZM77.0 17.0h6.2v2.8h-6.2ZM56.0 20.4h6.2v2.8h-6.2ZM70.0 20.4h6.2v2.8h-6.2ZM77.0 20.4h6.2v2.8h-6.2ZM56.0 23.8h6.2v2.8h-6.2ZM70.0 23.8h6.2v2.8h-6.2ZM77.0 23.8h6.2v2.8h-6.2ZM49.0 27.2h6.2v2.8h-6.2ZM56.0 27.2h6.2v2.8h-6.2ZM70.0 27.2h6.2v2.8h-6.2ZM77.0 27.2h6.2v2.8h-6.2ZM49.0 30.6h6.2v2.8h-6.2ZM70.0 30.6h6.2v2.8h-6.2ZM77.0 30.6h6.2v2.8h-6.2ZM49.0 34.0h6.2v2.8h-6.2ZM63.0 34.0h6.2v2.8h-6.2ZM70.0 34.0h6.2v2.8h-6.2ZM77.0 34.0h6.2v2.8h-6.2ZM49.0 37.4h6.2v2.8h-6.2ZM63.0 37.4h6.2v2.8h-6.2ZM77.0 37.4h6.2v2.8h-6.2ZM49.0 40.8h6.2v2.8h-6.2ZM63.0 40.8h6.2v2.8h-6.2ZM77.0 40.8h6.2v2.8h-6.2ZM49.0 44.2h6.2v2.8h-6.2ZM56.0 44.2h6.2v2.8h-6.2ZM63.0 44.2h6.2v2.8h-6.2ZM77.0 44.2h6.2v2.8h-6.2ZM49.0 47.6h6.2v2.8h-6.2ZM56.0 47.6h6.2v2.8h-6.2ZM77.0 47.6h6.2v2.8h-6.2ZM49.0 51.0h6.2v2.8h-6.2ZM56.0 51.0h6.2v2.8h-6.2ZM70.0 51.0h6.2v2.8h-6.2ZM77.0 51.0h6.2v2.8h-6.2ZM49.0 54.4h6.2v2.8h-6.2ZM56.0 54.4h6.2v2.8h-6.2ZM70.0 54.4h6.2v2.8h-6.2ZM49.0 57.8h6.2v2.8h-6.2ZM56.0 57.8h6.2v2.8h-6.2ZM70.0 57.8h6.2v2.8h-6.2ZM49.0 61.2h6.2v2.8h-6.2ZM56.0 61.2h6.2v2.8h-6.2ZM63.0 61.2h6.2v2.8h-6.2ZM70.0 61.2h6.2v2.8h-6.2ZM49.0 64.6h6.2v2.8h-6.2ZM56.0 64.6h6.2v2.8h-6.2ZM63.0 64.6h6.2v2.8h-6.2ZM49.0 68.0h6.2v2.8h-6.2ZM56.0 68.0h6.2v2.8h-6.2ZM63.0 68.0h6.2v2.8h-6.2ZM77.0 68.0h6.2v2.8h-6.2ZM49.0 71.4h6.2v2.8h-6.2ZM56.0 71.4h6.2v2.8h-6.2ZM63.0 71.4h6.2v2.8h-6.2ZM77.0 71.4h6.2v2.8h-6.2ZM84.0 71.4h6.2v2.8h-6.2ZM49.0 74.8h6.2v2.8h-6.2ZM56.0 74.8h6.2v2.8h-6.2ZM63.0 74.8h6.2v2.8h-6.2ZM77.0 74.8h6.2v2.8h-6.2ZM84.0 74.8h6.2v2.8h-6.2ZM49.0 78.2h6.2v2.8h-6.2ZM56.0 78.2h6.2v2.8h-6.2ZM63.0 78.2h6.2v2.8h-6.2ZM70.0 78.2h6.2v2.8h-6.2ZM77.0 78.2h6.2v2.8h-6.2ZM84.0 78.2h6.2v2.8h-6.2ZM49.0 81.6h6.2v2.8h-6.2ZM56.0 81.6h6.2v2.8h-6.2ZM63.0 81.6h6.2v2.8h-6.2ZM70.0 81.6h6.2v2.8h-6.2ZM77.0 81.6h6.2v2.8h-6.2ZM84.0 81.6h6.2v2.8h-6.2ZM49.0 85.0h6.2v2.8h-6.2ZM63.0 85.0h6.2v2.8h-6.2ZM70.0 85.0h6.2v2.8h-6.2ZM77.0 85.0h6.2v2.8h-6.2ZM84.0 85.0h6.2v2.8h-6.2ZM49.0 88.4h6.2v2.8h-6.2ZM63.0 88.4h6.2v2.8h-6.2ZM70.0 88.4h6.2v2.8h-6.2ZM77.0 88.4h6.2v2.8h-6.2ZM84.0 88.4h6.2v2.8h-6.2ZM42.0 91.8h6.2v2.8h-6.2ZM49.0 91.8h6.2v2.8h-6.2ZM63.0 91.8h6.2v2.8h-6.2ZM70.0 91.8h6.2v2.8h-6.2ZM77.0 91.8h6.2v2.8h-6.2ZM84.0 91.8h6.2v2.8h-6.2ZM42.0 95.2h6.2v2.8h-6.2ZM63.0 95.2h6.2v2.8h-6.2ZM70.0 95.2h6.2v2.8h-6.2ZM77.0 95.2h6.2v2.8h-6.2ZM84.0 95.2h6.2v2.8h-6.2ZM42.0 98.6h6.2v2.8h-6.2ZM56.0 98.6h6.2v2.8h-6.2ZM63.0 98.6h6.2v2.8h-6.2ZM70.0 98.6h6.2v2.8h-6.2ZM77.0 98.6h6.2v2.8h-6.2ZM84.0 98.6h6.2v2.8h-6.2ZM42.0 102.0h6.2v2.8h-6.2ZM56.0 102.0h6.2v2.8h-6.2ZM70.0 102.0h6.2v2.8h-6.2ZM77.0 102.0h6.2v2.8h-6.2ZM84.0 102.0h6.2v2.8h-6.2ZM42.0 105.4h6.2v2.8h-6.2ZM56.0 105.4h6.2v2.8h-6.2ZM70.0 105.4h6.2v2.8h-6.2ZM77.0 105.4h6.2v2.8h-6.2ZM84.0 105.4h6.2v2.8h-6.2ZM42.0 108.8h6.2v2.8h-6.2ZM49.0 108.8h6.2v2.8h-6.2ZM56.0 108.8h6.2v2.8h-6.2ZM70.0 108.8h6.2v2.8h-6.2ZM77.0 108.8h6.2v2.8h-6.2ZM84.0 108.8h6.2v2.8h-6.2ZM42.0 112.2h6.2v2.8h-6.2ZM49.0 112.2h6.2v2.8h-6.2ZM70.0 112.2h6.2v2.8h-6.2ZM77.0 112.2h6.2v2.8h-6.2ZM84.0 112.2h6.2v2.8h-6.2ZM42.0 115.6h6.2v2.8h-6.2ZM49.0 115.6h6.2v2.8h-6.2ZM63.0 115.6h6.2v2.8h-6.2ZM70.0 115.6h6.2v2.8h-6.2ZM77.0 115.6h6.2v2.8h-6.2ZM84.0 115.6h6.2v2.8h-6.2ZM42.0 119.0h6.2v2.8h-6.2ZM49.0 119.0h6.2v2.8h-6.2ZM63.0 119.0h6.2v2.8h-6.2ZM77.0 119.0h6.2v2.8h-6.2ZM84.0 119.0h6.2v2.8h-6.2ZM42.0 122.4h6.2v2.8h-6.2ZM49.0 122.4h6.2v2.8h-6.2ZM63.0 122.4h6.2v2.8h-6.2ZM77.0 122.4h6.2v2.8h-6.2ZM84.0 122.4h6.2v2.8h-6.2ZM42.0 125.8h6.2v2.8h-6.2ZM49.0 125.8h6.2v2.8h-6.2ZM56.0 125.8h6.2v2.8h-6.2ZM63.0 125.8h6.2v2.8h-6.2ZM77.0 125.8h6.2v2.8h-6.2ZM84.0 125.8h6.2v2.8h-6.2ZM42.0 129.2h6.2v2.8h-6.2ZM49.0 129.2h6.2v2.8h-6.2ZM56.0 129.2h6.2v2.8h-6.2ZM77.0 129.2h6.2v2.8h-6.2ZM84.0 129.2h6.2v2.8h-6.2ZM42.0 132.6h6.2v2.8h-6.2ZM49.0 132.6h6.2v2.8h-6.2ZM56.0 132.6h6.2v2.8h-6.2ZM70.0 132.6h6.2v2.8h-6.2ZM77.0 132.6h6.2v2.8h-6.2ZM84.0 132.6h6.2v2.8h-6.2ZM42.0 136.0h6.2v2.8h-6.2ZM49.0 136.0h6.2v2.8h-6.2ZM56.0 136.0h6.2v2.8h-6.2ZM70.0 136.0h6.2v2.8h-6.2ZM84.0 136.0h6.2v2.8h-6.2ZM42.0 139.4h6.2v2.8h-6.2ZM49.0 139.4h6.2v2.8h-6.2ZM56.0 139.4h6.2v2.8h-6.2ZM70.0 139.4h6.2v2.8h-6.2ZM84.0 139.4h6.2v2.8h-6.2ZM42.0 142.8h6.2v2.8h-6.2ZM49.0 142.8h6.2v2.8h-6.2ZM56.0 142.8h6.2v2.8h-6.2ZM63.0 142.8h6.2v2.8h-6.2ZM70.0 142.8h6.2v2.8h-6.2ZM84.0 142.8h6.2v2.8h-6.2ZM42.0 146.2h6.2v2.8h-6.2ZM49.0 146.2h6.2v2.8h-6.2ZM56.0 146.2h6.2v2.8h-6.2ZM63.0 146.2h6.2v2.8h-6.2ZM84.0 146.2h6.2v2.8h-6.2ZM42.0 149.6h6.2v2.8h-6.2ZM49.0 149.6h6.2v2.8h-6.2ZM56.0 149.6h6.2v2.8h-6.2ZM63.0 149.6h6.2v2.8h-6.2ZM77.0 149.6h6.2v2.8h-6.2ZM84.0 149.6h6.2v2.8h-6.2ZM42.0 153.0h6.2v2.8h-6.2ZM49.0 153.0h6.2v2.8h-6.2ZM56.0 153.0h6.2v2.8h-6.2ZM63.0 153.0h6.2v2.8h-6.2ZM77.0 153.0h6.2v2.8h-6.2ZM42.0 156.4h6.2v2.8h-6.2ZM49.0 156.4h6.2v2.8h-6.2ZM56.0 156.4h6.2v2.8h-6.2ZM63.0 156.4h6.2v2.8h-6.2ZM77.0 156.4h6.2v2.8h-6.2ZM42.0 159.8h6.2v2.8h-6.2ZM49.0 159.8h6.2v2.8h-6.2ZM56.0 159.8h6.2v2.8h-6.2ZM63.0 159.8h6.2v2.8h-6.2ZM70.0 159.8h6.2v2.8h-6.2ZM77.0 159.8h6.2v2.8h-6.2ZM42.0 163.2h6.2v2.8h-6.2ZM49.0 163.2h6.2v2.8h-6.2ZM56.0 163.2h6.2v2.8h-6.2ZM63.0 163.2h6.2v2.8h-6.2ZM70.0 163.2h6.2v2.8h-6.2ZM42.0 166.6h6.2v2.8h-6.2ZM49.0 166.6h6.2v2.8h-6.2ZM56.0 166.6h6.2v2.8h-6.2ZM63.0 166.6h6.2v2.8h-6.2ZM70.0 166.6h6.2v2.8h-6.2ZM84.0 166.6h6.2v2.8h-6.2ZM42.0 170.0h6.2v2.8h-6.2ZM49.0 170.0h6.2v2.8h-6.2ZM56.0 170.0h6.2v2.8h-6.2ZM63.0 170.0h6.2v2.8h-6.2ZM70.0 170.0h6.2v2.8h-6.2ZM84.0 170.0h6.2v2.8h-6.2ZM91.0 170.0h6.2v2.8h-6.2ZM42.0 173.4h6.2v2.8h-6.2ZM49.0 173.4h6.2v2.8h-6.2ZM56.0 173.4h6.2v2.8h-6.2ZM63.0 173.4h6.2v2.8h-6.2ZM70.0 173.4h6.2v2.8h-6.2ZM84.0 173.4h6.2v2.8h-6.2ZM91.0 173.4h6.2v2.8h-6.2ZM42.0 176.8h6.2v2.8h-6.2ZM49.0 176.8h6.2v2.8h-6.2ZM56.0 176.8h6.2v2.8h-6.2ZM63.0 176.8h6.2v2.8h-6.2ZM70.0 176.8h6.2v2.8h-6.2ZM77.0 176.8h6.2v2.8h-6.2ZM84.0 176.8h6.2v2.8h-6.2ZM91.0 176.8h6.2v2.8h-6.2ZM42.0 180.2h6.2v2.8h-6.2ZM49.0 180.2h6.2v2.8h-6.2ZM56.0 180.2h6.2v2.8h-6.2ZM63.0 180.2h6.2v2.8h-6.2ZM70.0 180.2h6.2v2.8h-6.2ZM77.0 180.2h6.2v2.8h-6.2ZM84.0 180.2h6.2v2.8h-6.2ZM91.0 180.2h6.2v2.8h-6.2ZM42.0 183.6h6.2v2.8h-6.2ZM49.0 183.6h6.2v2.8h-6.2ZM56.0 183.6h6.2v2.8h-6.2ZM70.0 183.6h6.2v2.8h-6.2ZM77.0 183.6h6.2v2.8h-6.2ZM84.0 183.6h6.2v2.8h-6.2ZM91.0 183.6h6.2v2.8h-6.2ZM42.0 187.0h6.2v2.8h-6.2ZM49.0 187.0h6.2v2.8h-6.2ZM56.0 187.0h6.2v2.8h-6.2ZM70.0 187.0h6.2v2.8h-6.2ZM77.0 187.0h6.2v2.8h-6.2ZM84.0 187.0h6.2v2.8h-6.2ZM91.0 187.0h6.2v2.8h-6.2ZM42.0 190.4h6.2v2.8h-6.2ZM56.0 190.4h6.2v2.8h-6.2ZM70.0 190.4h6.2v2.8h-6.2ZM77.0 190.4h6.2v2.8h-6.2ZM84.0 190.4h6.2v2.8h-6.2ZM91.0 190.4h6.2v2.8h-6.2ZM42.0 193.8h6.2v2.8h-6.2ZM56.0 193.8h6.2v2.8h-6.2ZM70.0 193.8h6.2v2.8h-6.2ZM77.0 193.8h6.2v2.8h-6.2ZM84.0 193.8h6.2v2.8h-6.2ZM91.0 193.8h6.2v2.8h-6.2ZM42.0 197.2h6.2v2.8h-6.2ZM49.0 197.2h6.2v2.8h-6.2ZM56.0 197.2h6.2v2.8h-6.2ZM70.0 197.2h6.2v2.8h-6.2ZM77.0 197.2h6.2v2.8h-6.2ZM84.0 197.2h6.2v2.8h-6.2ZM91.0 197.2h6.2v2.8h-6.2ZM42.0 200.6h6.2v2.8h-6.2ZM49.0 200.6h6.2v2.8h-6.2ZM56.0 200.6h6.2v2.8h-6.2ZM70.0 200.6h6.2v2.8h-6.2ZM77.0 200.6h6.2v2.8h-6.2ZM84.0 200.6h6.2v2.8h-6.2ZM91.0 200.6h6.2v2.8h-6.2ZM35.0 204.0h6.2v2.8h-6.2ZM42.0 204.0h6.2v2.8h-6.2ZM49.0 204.0h6.2v2.8h-6.2ZM56.0 204.0h6.2v2.8h-6.2ZM70.0 204.0h6.2v2.8h-6.2ZM77.0 204.0h6.2v2.8h-6.2ZM84.0 204.0h6.2v2.8h-6.2ZM91.0 204.0h6.2v2.8h-6.2ZM28.0 207.4h6.2v2.8h-6.2ZM35.0 207.4h6.2v2.8h-6.2ZM42.0 207.4h6.2v2.8h-6.2ZM49.0 207.4h6.2v2.8h-6.2ZM56.0 207.4h6.2v2.8h-6.2ZM70.0 207.4h6.2v2.8h-6.2ZM77.0 207.4h6.2v2.8h-6.2ZM84.0 207.4h6.2v2.8h-6.2ZM91.0 207.4h6.2v2.8h-6.2ZM28.0 210.8h6.2v2.8h-6.2ZM42.0 210.8h6.2v2.8h-6.2ZM49.0 210.8h6.2v2.8h-6.2ZM56.0 210.8h6.2v2.8h-6.2ZM70.0 210.8h6.2v2.8h-6.2ZM77.0 210.8h6.2v2.8h-6.2ZM84.0 210.8h6.2v2.8h-6.2ZM91.0 210.8h6.2v2.8h-6.2ZM28.0 214.2h6.2v2.8h-6.2ZM42.0 214.2h6.2v2.8h-6.2ZM49.0 214.2h6.2v2.8h-6.2ZM56.0 214.2h6.2v2.8h-6.2ZM70.0 214.2h6.2v2.8h-6.2ZM77.0 214.2h6.2v2.8h-6.2ZM84.0 214.2h6.2v2.8h-6.2ZM91.0 214.2h6.2v2.8h-6.2ZM21.0 217.6h6.2v2.8h-6.2ZM28.0 217.6h6.2v2.8h-6.2ZM42.0 217.6h6.2v2.8h-6.2ZM49.0 217.6h6.2v2.8h-6.2ZM56.0 217.6h6.2v2.8h-6.2ZM70.0 217.6h6.2v2.8h-6.2ZM77.0 217.6h6.2v2.8h-6.2ZM84.0 217.6h6.2v2.8h-6.2ZM91.0 217.6h6.2v2.8h-6.2ZM21.0 221.0h6.2v2.8h-6.2ZM42.0 221.0h6.2v2.8h-6.2ZM49.0 221.0h6.2v2.8h-6.2ZM56.0 221.0h6.2v2.8h-6.2ZM70.0 221.0h6.2v2.8h-6.2ZM77.0 221.0h6.2v2.8h-6.2ZM84.0 221.0h6.2v2.8h-6.2ZM91.0 221.0h6.2v2.8h-6.2ZM21.0 224.4h6.2v2.8h-6.2ZM35.0 224.4h6.2v2.8h-6.2ZM42.0 224.4h6.2v2.8h-6.2ZM49.0 224.4h6.2v2.8h-6.2ZM56.0 224.4h6.2v2.8h-6.2ZM70.0 224.4h6.2v2.8h-6.2ZM77.0 224.4h6.2v2.8h-6.2ZM84.0 224.4h6.2v2.8h-6.2ZM91.0 224.4h6.2v2.8h-6.2ZM21.0 227.8h6.2v2.8h-6.2ZM35.0 227.8h6.2v2.8h-6.2ZM49.0 227.8h6.2v2.8h-6.2ZM56.0 227.8h6.2v2.8h-6.2ZM70.0 227.8h6.2v2.8h-6.2ZM77.0 227.8h6.2v2.8h-6.2ZM84.0 227.8h6.2v2.8h-6.2ZM91.0 227.8h6.2v2.8h-6.2ZM21.0 231.2h6.2v2.8h-6.2ZM35.0 231.2h6.2v2.8h-6.2ZM49.0 231.2h6.2v2.8h-6.2ZM56.0 231.2h6.2v2.8h-6.2ZM70.0 231.2h6.2v2.8h-6.2ZM77.0 231.2h6.2v2.8h-6.2ZM84.0 231.2h6.2v2.8h-6.2ZM91.0 231.2h6.2v2.8h-6.2ZM21.0 234.6h6.2v2.8h-6.2ZM28.0 234.6h6.2v2.8h-6.2ZM35.0 234.6h6.2v2.8h-6.2ZM49.0 234.6h6.2v2.8h-6.2ZM56.0 234.6h6.2v2.8h-6.2ZM70.0 234.6h6.2v2.8h-6.2ZM77.0 234.6h6.2v2.8h-6.2ZM84.0 234.6h6.2v2.8h-6.2ZM91.0 234.6h6.2v2.8h-6.2ZM21.0 238.0h6.2v2.8h-6.2ZM28.0 238.0h6.2v2.8h-6.2ZM49.0 238.0h6.2v2.8h-6.2ZM56.0 238.0h6.2v2.8h-6.2ZM70.0 238.0h6.2v2.8h-6.2ZM77.0 238.0h6.2v2.8h-6.2ZM84.0 238.0h6.2v2.8h-6.2ZM91.0 238.0h6.2v2.8h-6.2ZM21.0 241.4h6.2v2.8h-6.2ZM28.0 241.4h6.2v2.8h-6.2ZM42.0 241.4h6.2v2.8h-6.2ZM49.0 241.4h6.2v2.8h-6.2ZM56.0 241.4h6.2v2.8h-6.2ZM70.0 241.4h6.2v2.8h-6.2ZM77.0 241.4h6.2v2.8h-6.2ZM84.0 241.4h6.2v2.8h-6.2ZM91.0 241.4h6.2v2.8h-6.2ZM21.0 244.8h6.2v2.8h-6.2ZM28.0 244.8h6.2v2.8h-6.2ZM42.0 244.8h6.2v2.8h-6.2ZM56.0 244.8h6.2v2.8h-6.2ZM70.0 244.8h6.2v2.8h-6.2ZM77.0 244.8h6.2v2.8h-6.2ZM84.0 244.8h6.2v2.8h-6.2ZM91.0 244.8h6.2v2.8h-6.2ZM21.0 248.2h6.2v2.8h-6.2ZM28.0 248.2h6.2v2.8h-6.2ZM42.0 248.2h6.2v2.8h-6.2ZM56.0 248.2h6.2v2.8h-6.2ZM70.0 248.2h6.2v2.8h-6.2ZM77.0 248.2h6.2v2.8h-6.2ZM84.0 248.2h6.2v2.8h-6.2ZM91.0 248.2h6.2v2.8h-6.2ZM21.0 251.6h6.2v2.8h-6.2ZM28.0 251.6h6.2v2.8h-6.2ZM35.0 251.6h6.2v2.8h-6.2ZM42.0 251.6h6.2v2.8h-6.2ZM56.0 251.6h6.2v2.8h-6.2ZM70.0 251.6h6.2v2.8h-6.2ZM77.0 251.6h6.2v2.8h-6.2ZM84.0 251.6h6.2v2.8h-6.2ZM91.0 251.6h6.2v2.8h-6.2ZM21.0 255.0h6.2v2.8h-6.2ZM28.0 255.0h6.2v2.8h-6.2ZM35.0 255.0h6.2v2.8h-6.2ZM56.0 255.0h6.2v2.8h-6.2ZM70.0 255.0h6.2v2.8h-6.2ZM77.0 255.0h6.2v2.8h-6.2ZM84.0 255.0h6.2v2.8h-6.2ZM91.0 255.0h6.2v2.8h-6.2ZM21.0 258.4h6.2v2.8h-6.2ZM28.0 258.4h6.2v2.8h-6.2ZM35.0 258.4h6.2v2.8h-6.2ZM49.0 258.4h6.2v2.8h-6.2ZM56.0 258.4h6.2v2.8h-6.2ZM70.0 258.4h6.2v2.8h-6.2ZM77.0 258.4h6.2v2.8h-6.2ZM84.0 258.4h6.2v2.8h-6.2ZM91.0 258.4h6.2v2.8h-6.2ZM21.0 261.8h6.2v2.8h-6.2ZM28.0 261.8h6.2v2.8h-6.2ZM35.0 261.8h6.2v2.8h-6.2ZM49.0 261.8h6.2v2.8h-6.2ZM70.0 261.8h6.2v2.8h-6.2ZM77.0 261.8h6.2v2.8h-6.2ZM84.0 261.8h6.2v2.8h-6.2ZM91.0 261.8h6.2v2.8h-6.2ZM21.0 265.2h6.2v2.8h-6.2ZM28.0 265.2h6.2v2.8h-6.2ZM35.0 265.2h6.2v2.8h-6.2ZM49.0 265.2h6.2v2.8h-6.2ZM70.0 265.2h6.2v2.8h-6.2ZM77.0 265.2h6.2v2.8h-6.2ZM84.0 265.2h6.2v2.8h-6.2ZM91.0 265.2h6.2v2.8h-6.2ZM21.0 268.6h6.2v2.8h-6.2ZM28.0 268.6h6.2v2.8h-6.2ZM35.0 268.6h6.2v2.8h-6.2ZM42.0 268.6h6.2v2.8h-6.2ZM49.0 268.6h6.2v2.8h-6.2ZM70.0 268.6h6.2v2.8h-6.2ZM77.0 268.6h6.2v2.8h-6.2ZM84.0 268.6h6.2v2.8h-6.2ZM91.0 268.6h6.2v2.8h-6.2ZM21.0 272.0h6.2v2.8h-6.2ZM28.0 272.0h6.2v2.8h-6.2ZM35.0 272.0h6.2v2.8h-6.2ZM42.0 272.0h6.2v2.8h-6.2ZM70.0 272.0h6.2v2.8h-6.2ZM77.0 272.0h6.2v2.8h-6.2ZM84.0 272.0h6.2v2.8h-6.2ZM91.0 272.0h6.2v2.8h-6.2ZM21.0 275.4h6.2v2.8h-6.2ZM28.0 275.4h6.2v2.8h-6.2ZM35.0 275.4h6.2v2.8h-6.2ZM42.0 275.4h6.2v2.8h-6.2ZM56.0 275.4h6.2v2.8h-6.2ZM70.0 275.4h6.2v2.8h-6.2ZM77.0 275.4h6.2v2.8h-6.2ZM84.0 275.4h6.2v2.8h-6.2ZM91.0 275.4h6.2v2.8h-6.2ZM21.0 278.8h6.2v2.8h-6.2ZM28.0 278.8h6.2v2.8h-6.2ZM35.0 278.8h6.2v2.8h-6.2ZM42.0 278.8h6.2v2.8h-6.2ZM56.0 278.8h6.2v2.8h-6.2ZM63.0 278.8h6.2v2.8h-6.2ZM70.0 278.8h6.2v2.8h-6.2ZM77.0 278.8h6.2v2.8h-6.2ZM84.0 278.8h6.2v2.8h-6.2ZM91.0 278.8h6.2v2.8h-6.2ZM21.0 282.2h6.2v2.8h-6.2ZM28.0 282.2h6.2v2.8h-6.2ZM35.0 282.2h6.2v2.8h-6.2ZM42.0 282.2h6.2v2.8h-6.2ZM56.0 282.2h6.2v2.8h-6.2ZM63.0 282.2h6.2v2.8h-6.2ZM70.0 282.2h6.2v2.8h-6.2ZM77.0 282.2h6.2v2.8h-6.2ZM84.0 282.2h6.2v2.8h-6.2ZM91.0 282.2h6.2v2.8h-6.2ZM21.0 285.6h6.2v2.8h-6.2ZM28.0 285.6h6.2v2.8h-6.2ZM35.0 285.6h6.2v2.8h-6.2ZM42.0 285.6h6.2v2.8h-6.2ZM49.0 285.6h6.2v2.8h-6.2ZM56.0 285.6h6.2v2.8h-6.2ZM63.0 285.6h6.2v2.8h-6.2ZM70.0 285.6h6.2v2.8h-6.2ZM77.0 285.6h6.2v2.8h-6.2ZM84.0 285.6h6.2v2.8h-6.2ZM91.0 285.6h6.2v2.8h-6.2ZM21.0 289.0h6.2v2.8h-6.2ZM28.0 289.0h6.2v2.8h-6.2ZM35.0 289.0h6.2v2.8h-6.2ZM42.0 289.0h6.2v2.8h-6.2ZM49.0 289.0h6.2v2.8h-6.2ZM56.0 289.0h6.2v2.8h-6.2ZM63.0 289.0h6.2v2.8h-6.2ZM70.0 289.0h6.2v2.8h-6.2ZM77.0 289.0h6.2v2.8h-6.2ZM84.0 289.0h6.2v2.8h-6.2ZM91.0 289.0h6.2v2.8h-6.2ZM21.0 292.4h6.2v2.8h-6.2ZM28.0 292.4h6.2v2.8h-6.2ZM42.0 292.4h6.2v2.8h-6.2ZM49.0 292.4h6.2v2.8h-6.2ZM56.0 292.4h6.2v2.8h-6.2ZM63.0 292.4h6.2v2.8h-6.2ZM70.0 292.4h6.2v2.8h-6.2ZM77.0 292.4h6.2v2.8h-6.2ZM84.0 292.4h6.2v2.8h-6.2ZM91.0 292.4h6.2v2.8h-6.2ZM21.0 295.8h6.2v2.8h-6.2ZM28.0 295.8h6.2v2.8h-6.2ZM42.0 295.8h6.2v2.8h-6.2ZM49.0 295.8h6.2v2.8h-6.2ZM56.0 295.8h6.2v2.8h-6.2ZM63.0 295.8h6.2v2.8h-6.2ZM70.0 295.8h6.2v2.8h-6.2ZM77.0 295.8h6.2v2.8h-6.2ZM84.0 295.8h6.2v2.8h-6.2ZM91.0 295.8h6.2v2.8h-6.2ZM28.0 299.2h6.2v2.8h-6.2ZM42.0 299.2h6.2v2.8h-6.2ZM49.0 299.2h6.2v2.8h-6.2ZM56.0 299.2h6.2v2.8h-6.2ZM63.0 299.2h6.2v2.8h-6.2ZM70.0 299.2h6.2v2.8h-6.2ZM77.0 299.2h6.2v2.8h-6.2ZM84.0 299.2h6.2v2.8h-6.2ZM91.0 299.2h6.2v2.8h-6.2ZM28.0 302.6h6.2v2.8h-6.2ZM42.0 302.6h6.2v2.8h-6.2ZM49.0 302.6h6.2v2.8h-6.2ZM56.0 302.6h6.2v2.8h-6.2ZM63.0 302.6h6.2v2.8h-6.2ZM70.0 302.6h6.2v2.8h-6.2ZM77.0 302.6h6.2v2.8h-6.2ZM84.0 302.6h6.2v2.8h-6.2ZM91.0 302.6h6.2v2.8h-6.2ZM21.0 306.0h6.2v2.8h-6.2ZM28.0 306.0h6.2v2.8h-6.2ZM42.0 306.0h6.2v2.8h-6.2ZM49.0 306.0h6.2v2.8h-6.2ZM56.0 306.0h6.2v2.8h-6.2ZM63.0 306.0h6.2v2.8h-6.2ZM70.0 306.0h6.2v2.8h-6.2ZM77.0 306.0h6.2v2.8h-6.2ZM84.0 306.0h6.2v2.8h-6.2ZM91.0 306.0h6.2v2.8h-6.2ZM14.0 309.4h6.2v2.8h-6.2ZM21.0 309.4h6.2v2.8h-6.2ZM28.0 309.4h6.2v2.8h-6.2ZM42.0 309.4h6.2v2.8h-6.2ZM49.0 309.4h6.2v2.8h-6.2ZM56.0 309.4h6.2v2.8h-6.2ZM63.0 309.4h6.2v2.8h-6.2ZM70.0 309.4h6.2v2.8h-6.2ZM77.0 309.4h6.2v2.8h-6.2ZM84.0 309.4h6.2v2.8h-6.2ZM91.0 309.4h6.2v2.8h-6.2ZM14.0 312.8h6.2v2.8h-6.2ZM28.0 312.8h6.2v2.8h-6.2ZM42.0 312.8h6.2v2.8h-6.2ZM49.0 312.8h6.2v2.8h-6.2ZM56.0 312.8h6.2v2.8h-6.2ZM63.0 312.8h6.2v2.8h-6.2ZM70.0 312.8h6.2v2.8h-6.2ZM77.0 312.8h6.2v2.8h-6.2ZM84.0 312.8h6.2v2.8h-6.2ZM91.0 312.8h6.2v2.8h-6.2ZM14.0 316.2h6.2v2.8h-6.2ZM28.0 316.2h6.2v2.8h-6.2ZM42.0 316.2h6.2v2.8h-6.2ZM49.0 316.2h6.2v2.8h-6.2ZM56.0 316.2h6.2v2.8h-6.2ZM63.0 316.2h6.2v2.8h-6.2ZM70.0 316.2h6.2v2.8h-6.2ZM77.0 316.2h6.2v2.8h-6.2ZM84.0 316.2h6.2v2.8h-6.2ZM91.0 316.2h6.2v2.8h-6.2ZM7.0 319.6h6.2v2.8h-6.2ZM14.0 319.6h6.2v2.8h-6.2ZM28.0 319.6h6.2v2.8h-6.2ZM42.0 319.6h6.2v2.8h-6.2ZM49.0 319.6h6.2v2.8h-6.2ZM56.0 319.6h6.2v2.8h-6.2ZM63.0 319.6h6.2v2.8h-6.2ZM70.0 319.6h6.2v2.8h-6.2ZM77.0 319.6h6.2v2.8h-6.2ZM84.0 319.6h6.2v2.8h-6.2ZM91.0 319.6h6.2v2.8h-6.2ZM7.0 323.0h6.2v2.8h-6.2ZM28.0 323.0h6.2v2.8h-6.2ZM42.0 323.0h6.2v2.8h-6.2ZM49.0 323.0h6.2v2.8h-6.2ZM56.0 323.0h6.2v2.8h-6.2ZM63.0 323.0h6.2v2.8h-6.2ZM70.0 323.0h6.2v2.8h-6.2ZM77.0 323.0h6.2v2.8h-6.2ZM84.0 323.0h6.2v2.8h-6.2ZM91.0 323.0h6.2v2.8h-6.2ZM7.0 326.4h6.2v2.8h-6.2ZM21.0 326.4h6.2v2.8h-6.2ZM28.0 326.4h6.2v2.8h-6.2ZM42.0 326.4h6.2v2.8h-6.2ZM49.0 326.4h6.2v2.8h-6.2ZM56.0 326.4h6.2v2.8h-6.2ZM63.0 326.4h6.2v2.8h-6.2ZM70.0 326.4h6.2v2.8h-6.2ZM77.0 326.4h6.2v2.8h-6.2ZM84.0 326.4h6.2v2.8h-6.2ZM91.0 326.4h6.2v2.8h-6.2ZM7.0 329.8h6.2v2.8h-6.2ZM21.0 329.8h6.2v2.8h-6.2ZM42.0 329.8h6.2v2.8h-6.2ZM49.0 329.8h6.2v2.8h-6.2ZM56.0 329.8h6.2v2.8h-6.2ZM63.0 329.8h6.2v2.8h-6.2ZM70.0 329.8h6.2v2.8h-6.2ZM77.0 329.8h6.2v2.8h-6.2ZM84.0 329.8h6.2v2.8h-6.2ZM91.0 329.8h6.2v2.8h-6.2ZM7.0 333.2h6.2v2.8h-6.2ZM21.0 333.2h6.2v2.8h-6.2ZM42.0 333.2h6.2v2.8h-6.2ZM49.0 333.2h6.2v2.8h-6.2ZM56.0 333.2h6.2v2.8h-6.2ZM63.0 333.2h6.2v2.8h-6.2ZM70.0 333.2h6.2v2.8h-6.2ZM77.0 333.2h6.2v2.8h-6.2ZM84.0 333.2h6.2v2.8h-6.2ZM91.0 333.2h6.2v2.8h-6.2ZM7.0 336.6h6.2v2.8h-6.2ZM14.0 336.6h6.2v2.8h-6.2ZM21.0 336.6h6.2v2.8h-6.2ZM42.0 336.6h6.2v2.8h-6.2ZM49.0 336.6h6.2v2.8h-6.2ZM56.0 336.6h6.2v2.8h-6.2ZM63.0 336.6h6.2v2.8h-6.2ZM70.0 336.6h6.2v2.8h-6.2ZM77.0 336.6h6.2v2.8h-6.2ZM84.0 336.6h6.2v2.8h-6.2ZM91.0 336.6h6.2v2.8h-6.2ZM7.0 340.0h6.2v2.8h-6.2ZM14.0 340.0h6.2v2.8h-6.2ZM42.0 340.0h6.2v2.8h-6.2ZM49.0 340.0h6.2v2.8h-6.2ZM56.0 340.0h6.2v2.8h-6.2ZM63.0 340.0h6.2v2.8h-6.2ZM70.0 340.0h6.2v2.8h-6.2ZM77.0 340.0h6.2v2.8h-6.2ZM84.0 340.0h6.2v2.8h-6.2ZM91.0 340.0h6.2v2.8h-6.2ZM7.0 343.4h6.2v2.8h-6.2ZM14.0 343.4h6.2v2.8h-6.2ZM28.0 343.4h6.2v2.8h-6.2ZM42.0 343.4h6.2v2.8h-6.2ZM49.0 343.4h6.2v2.8h-6.2ZM56.0 343.4h6.2v2.8h-6.2ZM63.0 343.4h6.2v2.8h-6.2ZM70.0 343.4h6.2v2.8h-6.2ZM77.0 343.4h6.2v2.8h-6.2ZM84.0 343.4h6.2v2.8h-6.2ZM91.0 343.4h6.2v2.8h-6.2ZM7.0 346.8h6.2v2.8h-6.2ZM14.0 346.8h6.2v2.8h-6.2ZM28.0 346.8h6.2v2.8h-6.2ZM35.0 346.8h6.2v2.8h-6.2ZM42.0 346.8h6.2v2.8h-6.2ZM49.0 346.8h6.2v2.8h-6.2ZM56.0 346.8h6.2v2.8h-6.2ZM63.0 346.8h6.2v2.8h-6.2ZM70.0 346.8h6.2v2.8h-6.2ZM77.0 346.8h6.2v2.8h-6.2ZM84.0 346.8h6.2v2.8h-6.2ZM91.0 346.8h6.2v2.8h-6.2ZM7.0 350.2h6.2v2.8h-6.2ZM14.0 350.2h6.2v2.8h-6.2ZM28.0 350.2h6.2v2.8h-6.2ZM35.0 350.2h6.2v2.8h-6.2ZM42.0 350.2h6.2v2.8h-6.2ZM49.0 350.2h6.2v2.8h-6.2ZM56.0 350.2h6.2v2.8h-6.2ZM63.0 350.2h6.2v2.8h-6.2ZM70.0 350.2h6.2v2.8h-6.2ZM77.0 350.2h6.2v2.8h-6.2ZM84.0 350.2h6.2v2.8h-6.2ZM91.0 350.2h6.2v2.8h-6.2ZM7.0 353.6h6.2v2.8h-6.2ZM14.0 353.6h6.2v2.8h-6.2ZM21.0 353.6h6.2v2.8h-6.2ZM28.0 353.6h6.2v2.8h-6.2ZM35.0 353.6h6.2v2.8h-6.2ZM42.0 353.6h6.2v2.8h-6.2ZM49.0 353.6h6.2v2.8h-6.2ZM56.0 353.6h6.2v2.8h-6.2ZM63.0 353.6h6.2v2.8h-6.2ZM70.0 353.6h6.2v2.8h-6.2ZM77.0 353.6h6.2v2.8h-6.2ZM84.0 353.6h6.2v2.8h-6.2ZM91.0 353.6h6.2v2.8h-6.2ZM7.0 357.0h6.2v2.8h-6.2ZM14.0 357.0h6.2v2.8h-6.2ZM21.0 357.0h6.2v2.8h-6.2ZM28.0 357.0h6.2v2.8h-6.2ZM35.0 357.0h6.2v2.8h-6.2ZM42.0 357.0h6.2v2.8h-6.2ZM49.0 357.0h6.2v2.8h-6.2ZM56.0 357.0h6.2v2.8h-6.2ZM63.0 357.0h6.2v2.8h-6.2ZM70.0 357.0h6.2v2.8h-6.2ZM77.0 357.0h6.2v2.8h-6.2ZM84.0 357.0h6.2v2.8h-6.2ZM91.0 357.0h6.2v2.8h-6.2ZM14.0 360.4h6.2v2.8h-6.2ZM21.0 360.4h6.2v2.8h-6.2ZM28.0 360.4h6.2v2.8h-6.2ZM35.0 360.4h6.2v2.8h-6.2ZM42.0 360.4h6.2v2.8h-6.2ZM49.0 360.4h6.2v2.8h-6.2ZM56.0 360.4h6.2v2.8h-6.2ZM63.0 360.4h6.2v2.8h-6.2ZM70.0 360.4h6.2v2.8h-6.2ZM77.0 360.4h6.2v2.8h-6.2ZM84.0 360.4h6.2v2.8h-6.2ZM91.0 360.4h6.2v2.8h-6.2ZM0.0 363.8h6.2v2.8h-6.2ZM14.0 363.8h6.2v2.8h-6.2ZM21.0 363.8h6.2v2.8h-6.2ZM28.0 363.8h6.2v2.8h-6.2ZM35.0 363.8h6.2v2.8h-6.2ZM42.0 363.8h6.2v2.8h-6.2ZM49.0 363.8h6.2v2.8h-6.2ZM56.0 363.8h6.2v2.8h-6.2ZM63.0 363.8h6.2v2.8h-6.2ZM70.0 363.8h6.2v2.8h-6.2ZM77.0 363.8h6.2v2.8h-6.2ZM84.0 363.8h6.2v2.8h-6.2ZM91.0 363.8h6.2v2.8h-6.2Z" fill="currentColor" opacity="0.9"/><path d="M73.5 1.7L80.5 5.1L73.5 8.5L66.5 11.9L59.5 15.3L66.5 18.7L59.5 22.1L52.5 25.5L59.5 28.9L66.5 32.3L73.5 35.7L66.5 39.1L59.5 42.5L66.5 45.9L73.5 49.3L80.5 52.7L73.5 56.1L66.5 59.5L73.5 62.9L80.5 66.3L87.5 69.7L80.5 73.1L73.5 76.5L66.5 79.9L59.5 83.3L52.5 86.7L45.5 90.1L52.5 93.5L59.5 96.9L66.5 100.3L59.5 103.7L52.5 107.1L59.5 110.5L66.5 113.9L73.5 117.3L66.5 120.7L59.5 124.1L66.5 127.5L73.5 130.9L80.5 134.3L73.5 137.7L66.5 141.1L73.5 144.5L80.5 147.9L87.5 151.3L80.5 154.7L73.5 158.1L80.5 161.5L87.5 164.9L94.5 168.3L87.5 171.7L80.5 175.1L73.5 178.5L66.5 181.9L59.5 185.3L52.5 188.7L59.5 192.1L52.5 195.5L45.5 198.9L38.5 202.3L31.5 205.7L38.5 209.1L31.5 212.5L24.5 215.9L31.5 219.3L38.5 222.7L45.5 226.1L38.5 229.5L31.5 232.9L38.5 236.3L45.5 239.7L52.5 243.1L45.5 246.5L38.5 249.9L45.5 253.3L52.5 256.7L59.5 260.1L52.5 263.5L45.5 266.9L52.5 270.3L59.5 273.7L66.5 277.1L59.5 280.5L52.5 283.9L45.5 287.3L38.5 290.7L31.5 294.1L24.5 297.5L31.5 300.9L24.5 304.3L17.5 307.7L24.5 311.1L17.5 314.5L10.5 317.9L17.5 321.3L24.5 324.7L31.5 328.1L24.5 331.5L17.5 334.9L24.5 338.3L31.5 341.7L38.5 345.1L31.5 348.5L24.5 351.9L17.5 355.3L10.5 358.7L3.5 362.1L10.5 365.5" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/></svg>
+      <figcaption>The four-state champion, one row per step, time running down: 107 steps from a blank tape, and 13 ones left when it stops. The faint line is the head.</figcaption>
+    </figure>
+  </div>
+  <div class="tw"><table class="tm-t tm-bb"><thead><tr><th>states</th><th>the longest run that stops</th><th>how it is known</th><th>in your tab</th></tr></thead><tbody><tr><td class="k">2</td><td class="v">6</td><td>Radó, 1962 <a class="tm-src" href="https://bbchallenge.org/story">source</a></td><td class="run"><button type="button" class="tm-btn sm" data-bb="2">Run it</button><span class="tm-bbout" id="tm-bb2" aria-live="polite"></span></td></tr><tr><td class="k">3</td><td class="v">21</td><td>Lin and Radó, 1963 <a class="tm-src" href="https://bbchallenge.org/story">source</a></td><td class="run"><button type="button" class="tm-btn sm" data-bb="3">Run it</button><span class="tm-bbout" id="tm-bb3" aria-live="polite"></span></td></tr><tr><td class="k">4</td><td class="v">107</td><td>Brady, 1983; formalized by the bbchallenge project in 2024 <a class="tm-src" href="https://wiki.bbchallenge.org/wiki/BB(4)">source</a></td><td class="run"><button type="button" class="tm-btn sm" data-bb="4">Run it</button><span class="tm-bbout" id="tm-bb4" aria-live="polite"></span></td></tr><tr><td class="k">5</td><td class="v">47,176,870</td><td>the bbchallenge Collaboration, 2024, proved in the Coq proof assistant (now Rocq): 181,385,789 machines settled <a class="tm-src" href="https://arxiv.org/abs/2509.12337">source</a></td><td class="run"><button type="button" class="tm-btn sm" data-bb="5">Run it</button><span class="tm-bbout" id="tm-bb5" aria-live="polite"></span></td></tr><tr><td class="k">6</td><td class="v"><span class="tag open">Refused</span> <span class="tm-unk">not known</span></td><td>unknown; the best lower bound, found by mxdys in June 2025, is more than 10↑↑10↑↑10↑↑8, and since Antihydra (June 2024) settling it means solving a problem like Collatz’s <a class="tm-src" href="https://wiki.bbchallenge.org/wiki/BB(6)">source</a></td><td class="run"><span class="tm-bbout dim">no champion to run</span></td></tr></tbody></table></div>
+  <p class="prose">Your tab runs each champion and confirms that it stops after exactly that many steps. That no other machine of its size runs longer is what the cited proofs establish; a run cannot.</p>
+</section>
+
+<section class="wrap tm-sec" id="claims">
+  <h2>Give it a claim.</h2>
+  <p class="prose">Each claim names a machine and what it is given. Decide runs it in your tab with a budget of 1,000,000 steps: <span class="tag held">Certified</span> when the run ends the way the claim says, <span class="tag dep">Refuted</span> when it ends the other way, <span class="tag open">Refused</span> when the budget runs out first.</p>
+  <ul class="tm-claims"><li class="tm-claim" data-claim="abba"><p>abba reads the same both ways.</p><div class="tm-cact"><button type="button" class="tm-btn" data-decide="abba">Decide</button><span class="tm-cout" id="tm-c-abba" aria-live="polite"></span><button type="button" class="tm-watch" data-watch="abba">watch it</button></div></li><li class="tm-claim" data-claim="abab"><p>abab reads the same both ways.</p><div class="tm-cact"><button type="button" class="tm-btn" data-decide="abab">Decide</button><span class="tm-cout" id="tm-c-abab" aria-live="polite"></span><button type="button" class="tm-watch" data-watch="abab">watch it</button></div></li><li class="tm-claim" data-claim="lock10"><p>Some setting of 10 switches opens the lock.</p><div class="tm-cact"><button type="button" class="tm-btn" data-decide="lock10">Decide</button><span class="tm-cout" id="tm-c-lock10" aria-live="polite"></span><button type="button" class="tm-watch" data-watch="lock10">watch it</button></div></li><li class="tm-claim" data-claim="beaver"><p>The four-state champion stops on a blank tape.</p><div class="tm-cact"><button type="button" class="tm-btn" data-decide="beaver">Decide</button><span class="tm-cout" id="tm-c-beaver" aria-live="polite"></span><button type="button" class="tm-watch" data-watch="beaver">watch it</button></div></li><li class="tm-claim" data-claim="count"><p>Counting in binary stops.</p><div class="tm-cact"><button type="button" class="tm-btn" data-decide="count">Decide</button><span class="tm-cout" id="tm-c-count" aria-live="polite"></span><button type="button" class="tm-watch" data-watch="count">watch it</button></div></li></ul>
+</section>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>A single-tape teaching machine. The Lean chain on the ETH page uses the multitape machine of cslib, which is a different object. Every step count here was counted by running the machine, once when the page was built and again in your tab; the busy beaver values are as their sources print them.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+<script id="tm-spec" type="application/json">{"series":{"n":[1,2,3,4,5,6,7,8,9,10],"check":[2,3,4,5,6,7,8,9,10,11],"find":[6,21,60,155,378,889,2040,4599,10230,22517]},"champions":[{"states":2,"steps":6,"ones":4},{"states":3,"steps":21,"ones":5},{"states":4,"steps":107,"ones":13},{"states":5,"steps":47176870,"ones":4098}],"claims":[{"id":"abba","verdict":"CERTIFIED","steps":15},{"id":"abab","verdict":"REFUTED","steps":6},{"id":"lock10","verdict":"CERTIFIED","steps":22517},{"id":"beaver","verdict":"CERTIFIED","steps":107},{"id":"count","verdict":"REFUSED","steps":1000000}]}</script>
+<script>/* machines.js — the textbook machine: one tape, one head, a table of rules. THE ONE MODULE.
+   playground/textbook-machine/ · cert-machine · 2026-11-12
+
+   The builder requires it, the battery requires it, and the page inlines this same file, so the step counts printed on
+   the page, the ones the battery re-derives and the ones the reader's tab runs come from one definition (a rule written
+   twice diverges). Nothing in here is a float.
+
+   A machine: { start, syms, rules: { state: { symbol: [write, move, next] } } }. move is 1 (right), -1 (left) or 0
+   (stay); next is a state, or one of the three ends: HALT (it stops), YES, NO (it answers). The blank is '_'. A step is
+   one rule firing, the last one included, the convention of Radó's busy beaver and of the bbchallenge project.
+
+   The busy beaver champions are kept in the bbchallenge's standard text format ("1RB1LB_1LA0LC_1RZ1LD_1RD0RA": per
+   state, what it does on 0 and on 1; Z is the halt) and parsed here, so each is the string its source prints. */
+(function (root) {
+  'use strict';
+  var ENDS = { HALT: 1, YES: 1, NO: 1 };
+
+  /* the ladder, in the order the ideas build on each other */
+  var M = {
+    count: {
+      name: 'Count in binary', idea: 'Follow the rules',
+      what: 'Counts forever in binary: 1, 10, 11, 100, and on.',
+      syms: ['0', '1', '_'], start: 'right', input: function () { return '0'; },
+      rules: {
+        right: { '0': ['0', 1, 'right'], '1': ['1', 1, 'right'], '_': ['_', -1, 'carry'] },
+        carry: { '0': ['1', 1, 'right'], '1': ['0', -1, 'carry'], '_': ['1', 1, 'right'] }
+      },
+      hint: 'Two states and six rules. Nothing in the table says stop, so it never does: pause it when you like.'
+    },
+    palindrome: {
+      name: 'Spot a palindrome', idea: 'Answer yes or no',
+      what: 'Does the word read the same both ways?',
+      syms: ['a', 'b', '_'], start: 'start', text: 'abba', input: function () { return this.text; },
+      rules: {
+        start: { a: ['_', 1, 'carry a'], b: ['_', 1, 'carry b'], _: ['_', 1, 'YES'] },
+        'carry a': { a: ['a', 1, 'carry a'], b: ['b', 1, 'carry a'], _: ['_', -1, 'match a'] },
+        'carry b': { a: ['a', 1, 'carry b'], b: ['b', 1, 'carry b'], _: ['_', -1, 'match b'] },
+        'match a': { a: ['_', -1, 'rewind'], b: ['b', 0, 'NO'], _: ['_', 1, 'YES'] },
+        'match b': { b: ['_', -1, 'rewind'], a: ['a', 0, 'NO'], _: ['_', 1, 'YES'] },
+        rewind: { a: ['a', -1, 'rewind'], b: ['b', -1, 'rewind'], _: ['_', 1, 'start'] }
+      },
+      hint: 'It rubs out the first letter, carries it to the far end and compares. Type any mix of a and b; try abab.'
+    },
+    check: {
+      name: 'The lock checker', idea: 'Check a setting',
+      what: 'The lock opens only when every switch is on. Does this setting open it?',
+      syms: ['0', '1', '_'], start: 'check', text: '1111', input: function () { return this.text; },
+      rules: { check: { '0': ['0', 0, 'NO'], '1': ['1', 1, 'check'], '_': ['_', 0, 'YES'] } },
+      hint: 'One pass along the switches: a setting of n switches takes at most n + 1 steps. Type 0s and 1s.'
+    },
+    find: {
+      name: 'The lock finder', idea: 'Find a setting',
+      what: 'Try every setting in order, checking each, until one opens the lock.',
+      syms: ['0', '1', '_'], start: 'check', n: 4, input: function () { return new Array(this.n + 1).join('0'); },
+      rules: {
+        check: { '0': ['0', 1, 'to end'], '1': ['1', 1, 'check'], '_': ['_', 0, 'YES'] },
+        'to end': { '0': ['0', 1, 'to end'], '1': ['1', 1, 'to end'], '_': ['_', -1, 'next'] },
+        next: { '0': ['1', -1, 'back'], '1': ['0', -1, 'next'], '_': ['_', 1, 'NO'] },
+        back: { '0': ['0', -1, 'back'], '1': ['1', -1, 'back'], '_': ['_', 1, 'check'] }
+      },
+      hint: 'Its first row is the checker, with one change: a failed check walks on to the next setting instead of answering no.'
+    },
+    beaver: {
+      name: 'Busy beaver', idea: 'Will it stop?',
+      what: 'Four states, a blank tape. Does it ever stop?',
+      std: '1RB1LB_1LA0LC_1RZ1LD_1RD0RA', input: function () { return ''; },
+      hint: 'Of all the four-state machines of this kind that stop, none runs longer than this one.'
+    }
+  };
+  var ORDER = ['count', 'palindrome', 'check', 'find', 'beaver'];
+
+  /* the standard text format: per state (A, B, ...), what it does on 0 and on 1; '---' is no rule; Z (or H) halts */
+  function parseStd(s) {
+    var groups = s.split('_'), names = groups.map(function (g, i) { return String.fromCharCode(65 + i); }), rules = {};
+    groups.forEach(function (g, i) {
+      if (g.length !== 6) throw new Error('machines.js: not a two-symbol state: ' + g);
+      var r = {};
+      [0, 1].forEach(function (sym) {
+        var t = g.substr(3 * sym, 3);
+        if (t === '---') return;
+        var nx = t[2] === 'Z' || t[2] === 'H' ? 'HALT' : t[2];
+        if (nx !== 'HALT' && names.indexOf(nx) < 0) throw new Error('machines.js: no state ' + nx + ' in ' + s);
+        r[sym ? '1' : '_'] = [t[0] === '1' ? '1' : '_', t[1] === 'R' ? 1 : t[1] === 'L' ? -1 : 0, nx];
+      });
+      rules[names[i]] = r;
+    });
+    return { start: 'A', syms: ['_', '1'], rules: rules };
+  }
+  ORDER.forEach(function (k) { var m = M[k]; if (m.std) { var p = parseStd(m.std); m.start = p.start; m.syms = p.syms; m.rules = p.rules; } });
+
+  /* the champions the busy beaver table runs, each the string its source prints */
+  var CHAMPIONS = [
+    { states: 2, std: '1RB1LB_1LA1RZ' },
+    { states: 3, std: '1RB1RZ_1LB0RC_1LC1LA' },
+    { states: 4, std: '1RB1LB_1LA0LC_1RZ1LD_1RD0RA' },
+    { states: 5, std: '1RB1LC_1RC1RB_1RD0LE_1LA1LD_1RZ0LA' }
+  ];
+
+  /* one step on a sparse tape (the page's machine): returns the fired rule, or null when no rule applies */
+  function step(m, s) {
+    var sym = s.tape[s.pos] === undefined ? '_' : s.tape[s.pos], r = m.rules[s.state] && m.rules[s.state][sym];
+    if (!r) { s.end = 'HALT'; return null; }
+    var fired = { state: s.state, read: sym, write: r[0], move: r[1], next: r[2], at: s.pos };
+    if (r[0] === '_') delete s.tape[s.pos]; else s.tape[s.pos] = r[0];
+    s.pos += r[1]; s.steps++;
+    if (ENDS[r[2]]) s.end = r[2]; else s.state = r[2];
+    return fired;
+  }
+  function begin(m, input) {
+    var t = {}, i;
+    for (i = 0; i < input.length; i++) if (input[i] !== '_') t[i] = input[i];
+    return { tape: t, pos: 0, state: m.start, steps: 0, end: '' };
+  }
+
+  /* the fast run, for long ones (the five-state champion's 47 million steps): states and symbols as small integers, the
+     tape a byte array that grows in both directions. It can be resumed: run(m, input, cap) returns a job; job.go(n)
+     takes up to n more steps and returns the job. job.end is '' while it has neither stopped nor answered. */
+  function compile(m) {
+    var names = Object.keys(m.rules), syms = m.syms.slice(), S = names.length, Y = syms.length;
+    var W = new Int16Array(S * Y), D = new Int8Array(S * Y), N = new Int16Array(S * Y), i, j;
+    for (i = 0; i < S; i++) for (j = 0; j < Y; j++) {
+      var r = m.rules[names[i]][syms[j]], k = i * Y + j;
+      if (!r) { N[k] = -1; continue; }
+      W[k] = syms.indexOf(r[0]); D[k] = r[1];
+      N[k] = r[2] === 'HALT' ? -4 : r[2] === 'YES' ? -2 : r[2] === 'NO' ? -3 : names.indexOf(r[2]);
+      if (W[k] < 0) throw new Error('machines.js: writes a symbol it does not list: ' + r[0]);
+      if (N[k] === -1) throw new Error('machines.js: no state ' + r[2]);
+    }
+    return { names: names, syms: syms, S: S, Y: Y, W: W, D: D, N: N, blank: syms.indexOf('_') };
+  }
+  function run(m, input, cap) {
+    var c = compile(m), size = 1024, tape = new Uint8Array(size), off = size >> 1, pos = 0, st = c.names.indexOf(m.start), i;
+    tape.fill(c.blank);
+    for (i = 0; i < input.length; i++) tape[off + i] = c.syms.indexOf(input[i]);
+    var job = { steps: 0, end: '', cap: cap, ones: 0, cells: 0 };
+    job.go = function (n) {
+      var lim = Math.min(job.cap, job.steps + (n || Infinity)), steps = job.steps, Y = c.Y, W = c.W, D = c.D, N = c.N;
+      while (!job.end && steps < lim) {
+        var p = off + pos;
+        if (p < 0 || p >= size) {                                      /* grow both ways, keep the head's cell */
+          var nt = new Uint8Array(size * 2); nt.fill(c.blank); nt.set(tape, size >> 1); off += size >> 1; size *= 2; tape = nt; p = off + pos;
+        }
+        var k = st * Y + tape[p], nx = N[k];
+        if (nx === -1) { job.end = 'HALT'; break; }                    /* no rule: it stops without a step */
+        tape[p] = W[k]; pos += D[k]; steps++;
+        if (nx < 0) { job.end = nx === -4 ? 'HALT' : nx === -2 ? 'YES' : 'NO'; break; }
+        st = nx;
+      }
+      job.steps = steps;
+      {                                                                /* what it has left so far: the 1s, the cells it wrote */
+        var one = c.syms.indexOf('1'), ones = 0, lo = -1, hi = -1;
+        for (i = 0; i < size; i++) if (tape[i] !== c.blank) { if (lo < 0) lo = i; hi = i; if (tape[i] === one) ones++; }
+        job.ones = ones; job.cells = lo < 0 ? 0 : hi - lo + 1;
+      }
+      return job;
+    };
+    return job;
+  }
+  /* the whole run at once, for the short ones */
+  function runAll(m, input, cap) { return run(m, input, cap).go(); }
+
+  /* a step said as a sentence */
+  var SAY = { '_': 'blank' };
+  function word(s) { return SAY[s] || s; }
+  function sentence(f, steps) {
+    if (!f) return 'No rule for this state and symbol, so it stops.';
+    var mv = f.move > 0 ? 'move right' : f.move < 0 ? 'move left' : 'stay put';
+    var wr = f.write === f.read ? 'leave the ' + word(f.read) : 'write ' + word(f.write);
+    var nx = f.next === 'HALT' ? 'and stop' : f.next === 'YES' ? 'and answer yes' : f.next === 'NO' ? 'and answer no'
+      : f.next === f.state ? 'stay in ' + f.state : 'go to ' + f.next;
+    return 'Step ' + steps.toLocaleString('en-US') + '. In state ' + f.state + ', reading ' + word(f.read) + ': ' + wr + ', ' + mv + ', ' + nx + '.';
+  }
+
+  /* the claims the machine itself decides: each names a machine, its input and the answer that would make it true.
+     CERTIFIED when the run ends with that answer, REFUTED when it ends with the other, REFUSED when the budget runs out
+     first: a run that has not stopped yet says nothing about whether it ever will. */
+  var CLAIMS = [
+    { id: 'abba', text: 'abba reads the same both ways.', machine: 'palindrome', input: 'abba', holds: 'YES' },
+    { id: 'abab', text: 'abab reads the same both ways.', machine: 'palindrome', input: 'abab', holds: 'YES' },
+    { id: 'lock10', text: 'Some setting of 10 switches opens the lock.', machine: 'find', input: '0000000000', holds: 'YES' },
+    { id: 'beaver', text: 'The four-state champion stops on a blank tape.', machine: 'beaver', input: '', holds: 'HALT' },
+    { id: 'count', text: 'Counting in binary stops.', machine: 'count', input: '0', holds: 'HALT' }
+  ];
+  var BUDGET = 1000000;
+  function decide(cl, cap) {
+    var j = runAll(M[cl.machine], cl.input, cap || BUDGET);
+    return { verdict: !j.end ? 'REFUSED' : j.end === cl.holds ? 'CERTIFIED' : 'REFUTED', steps: j.steps, end: j.end };
+  }
+
+  /* the two series: checking the setting that opens the lock, and finding it, for 1 to 10 switches */
+  var NMAX = 10;
+  function series() {
+    var out = { n: [], check: [], find: [] }, n;
+    for (n = 1; n <= NMAX; n++) {
+      out.n.push(n);
+      out.check.push(runAll(M.check, new Array(n + 1).join('1'), 1e9).steps);
+      out.find.push(runAll(M.find, new Array(n + 1).join('0'), 1e9).steps);
+    }
+    return out;
+  }
+
+  var TM = { M: M, ORDER: ORDER, ENDS: ENDS, CHAMPIONS: CHAMPIONS, CLAIMS: CLAIMS, BUDGET: BUDGET, NMAX: NMAX,
+    parseStd: parseStd, begin: begin, step: step, run: run, runAll: runAll, sentence: sentence, decide: decide, series: series };
+  if (typeof module !== 'undefined' && module.exports) module.exports = TM; else root.TM = TM;
+})(this);
+</script>
+<script>/* app.js — the textbook machine in the tab. playground/textbook-machine/ · cert-machine · 2026-11-12
+   Runs machines.js (inlined before this file, window.TM). Every element whose content changes has its size reserved in
+   page.css, so no control moves the layout (tools/check-textbook-machine.js measures it). */
+(function () {
+  'use strict';
+  var TM = window.TM, SPEC = JSON.parse(document.getElementById('tm-spec').textContent);
+  var $ = function (id) { return document.getElementById(id); };
+  var root = document.documentElement, tapeEl = $('tm-tape'), headEl = $('tm-head'), wrapEl = $('tm-tapewrap');
+  var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var cur, m, s, fired = null, timer = 0, playing = false, acc = 0, last = 0;
+  var fmt = function (x) { return Number(x).toLocaleString('en-US'); };
+  var END_WORD = { HALT: 'stopped', YES: 'answered yes', NO: 'answered no' };
+
+  function load() {
+    stop(); s = TM.begin(m, m.input()); fired = null; rules(); paint(0);
+  }
+  function tick() {
+    if (s.end) return 0;
+    fired = TM.step(m, s);
+    return fired ? fired.move : 0;
+  }
+  function cellPx() { return parseFloat(getComputedStyle(root).getPropertyValue('--tm-cell')) || 52; }
+  function paint(dir, quick) {
+    var cell = cellPx(), w = wrapEl.clientWidth, K = Math.ceil(w / cell / 2) + 2, h = '', i, v, c;
+    for (i = s.pos - K; i <= s.pos + K; i++) {
+      v = s.tape[i]; c = v === undefined ? 'blank' : (v === '1' ? 'one' : '');
+      if (s.end === 'NO' && i === s.pos) c += ' bad';
+      h += '<div class="tm-c ' + c + '" style="--x:' + ((i - s.pos) * cell - cell / 2) + 'px">' + (v === undefined ? '' : v) + '</div>';
+    }
+    tapeEl.innerHTML = h;
+    if (dir && !quick && !reduce) {
+      tapeEl.style.transition = 'none'; tapeEl.style.transform = 'translateX(' + (dir * cell) + 'px)'; void tapeEl.offsetWidth;
+      tapeEl.style.transition = 'transform ' + Math.min(220, delay() * 0.8) + 'ms cubic-bezier(.2,.7,.2,1)'; tapeEl.style.transform = 'none';
+    } else { tapeEl.style.transition = 'none'; tapeEl.style.transform = 'none'; }
+    headEl.className = 'tm-head' + (s.end === 'NO' ? ' bad' : '');
+    $('tm-state').textContent = s.end ? END_WORD[s.end] : s.state;
+    $('tm-steps').textContent = fmt(s.steps);
+    $('tm-say').textContent = fired ? TM.sentence(fired, s.steps)
+      : s.end ? TM.sentence(null, s.steps)
+      : 'Step 0. The head is on the first cell, in state ' + s.state + '. Press Step to fire the first rule, or Play.';
+    $('tm-verdict').innerHTML = s.end === 'YES' ? '<span class="tm-ans yes">Yes</span>'
+      : s.end === 'NO' ? '<span class="tm-ans no"><span class="tm-x">&times;</span>No</span>'
+      : s.end === 'HALT' ? '<span class="tm-ans yes">Stopped</span>'
+      : '<span class="tm-ans run">' + (playing ? 'Running' : 'Ready') + '</span>';
+    $('tm-play').textContent = playing ? 'Pause' : 'Play'; $('tm-play').disabled = !!s.end; $('tm-stepb').disabled = !!s.end;
+    var f = document.querySelector('.tm-rules td.fire'); if (f) f.classList.remove('fire');
+    if (fired) { f = document.querySelector('.tm-rules td[data-k="' + cssq(fired.state + '|' + fired.read) + '"]'); if (f) f.classList.add('fire'); }
+  }
+  function cssq(x) { return x.replace(/["\\]/g, '\\$&'); }
+  function rules() {
+    var h = '<tr><th>state</th>' + m.syms.map(function (y) { return '<th>reads ' + (y === '_' ? 'blank' : y) + '</th>'; }).join('') + '</tr>';
+    Object.keys(m.rules).forEach(function (st) {
+      h += '<tr><td class="st">' + st + '</td>' + m.syms.map(function (y) {
+        var r = m.rules[st][y];
+        if (!r) return '<td class="none">&middot;</td>';
+        var nx = r[2] === 'HALT' ? 'stop' : r[2] === 'YES' ? 'yes' : r[2] === 'NO' ? 'no' : r[2];
+        return '<td data-k="' + st + '|' + y + '">' + (r[0] === '_' ? '&#9633;' : r[0]) + ' ' + (r[1] > 0 ? '&rarr;' : r[1] < 0 ? '&larr;' : '&middot;') + ' ' + nx + '</td>';
+      }).join('') + '</tr>';
+    });
+    $('tm-rules').innerHTML = h;
+  }
+  function delay() { var v = +$('tm-speedr').value; return 700 * Math.pow(0.0016, v / 100); }   /* 700 ms to about 1 ms a step */
+  function stop() { playing = false; cancelAnimationFrame(timer); }
+  function loop(t) {
+    if (!playing) return;
+    var d = delay(), n = 0, dir = 0; acc += t - last; last = t;
+    while (acc >= d && n < 400) { dir = tick(); acc -= d; n++; if (s.end) break; }
+    if (acc > d * 400) acc = 0;
+    if (n) paint(dir, n > 1 || d < 60);
+    if (s.end) { playing = false; paint(0); } else timer = requestAnimationFrame(loop);
+  }
+  function play() { if (s.end) return; playing = true; acc = 0; last = performance.now(); paint(0); timer = requestAnimationFrame(loop); }
+  $('tm-play').addEventListener('click', function () { if (playing) { stop(); paint(0); } else play(); });
+  $('tm-stepb').addEventListener('click', function () { stop(); paint(tick()); });
+  $('tm-reset').addEventListener('click', load);
+
+  function inputs() {
+    var box = $('tm-inp'); box.innerHTML = ''; $('tm-hint').textContent = m.hint;
+    if (cur === 'palindrome' || cur === 'check') {
+      var pal = cur === 'palindrome';
+      $('tm-inlab').textContent = pal ? 'your word' : 'your setting';
+      var i = document.createElement('input'); i.type = 'text'; i.value = m.text; i.maxLength = pal ? 16 : 12; i.id = 'tm-word';
+      i.setAttribute('aria-label', pal ? 'A word made of a and b' : 'A setting made of 0 and 1'); i.autocapitalize = 'off'; i.spellcheck = false;
+      i.addEventListener('input', function () { i.value = i.value.toLowerCase().replace(pal ? /[^ab]/g : /[^01]/g, ''); m.text = i.value; load(); });
+      box.appendChild(i);
+    } else if (cur === 'find') {
+      $('tm-inlab').textContent = 'switches';
+      box.innerHTML = '<span class="tm-stepper"><button type="button" aria-label="One switch fewer">&minus;</button><b id="tm-n">' + m.n + '</b><button type="button" aria-label="One switch more">+</button></span>';
+      var bs = box.querySelectorAll('button');
+      bs[0].addEventListener('click', function () { setN(m.n - 1); }); bs[1].addEventListener('click', function () { setN(m.n + 1); });
+    } else { $('tm-inlab').textContent = 'input'; box.innerHTML = '<span class="tm-fixed">' + (cur === 'beaver' ? 'a blank tape' : 'starts at 0') + '</span>'; }
+  }
+  function setN(n) { TM.M.find.n = Math.max(1, Math.min(TM.NMAX, n)); if (cur === 'find') { inputs(); load(); } }
+  function pick(k, nohash) {
+    cur = TM.M[k] ? k : 'count'; m = TM.M[cur];
+    document.querySelectorAll('.tm-step').forEach(function (t) { var on = t.getAttribute('data-k') === cur; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+    $('tm-what').textContent = m.what; inputs(); load();
+    if (!nohash) { try { history.replaceState(null, '', '#' + cur); } catch (e) { /* a file:// page may refuse */ } }
+  }
+  var steps = [].slice.call(document.querySelectorAll('.tm-step'));
+  steps.forEach(function (b, i) {
+    b.addEventListener('click', function () { pick(b.getAttribute('data-k')); });
+    b.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      if (!d) return; e.preventDefault(); var nb = steps[(i + d + steps.length) % steps.length]; nb.focus(); nb.click();
+    });
+  });
+
+  /* the chart: the readout follows the pointer and the keys; the tab counts all twenty again */
+  var cols = [].slice.call(document.querySelectorAll('.tm-col')), S = SPEC.series, sel = S.n.length - 1;
+  function show(i, keep) {
+    cols.forEach(function (c, k) { c.classList.toggle('on', k === i); if (keep) c.tabIndex = k === i ? 0 : -1; });
+    $('tm-ro').textContent = S.n[i] + (S.n[i] === 1 ? ' switch' : ' switches') + ': checking ' + fmt(S.check[i]) + ' steps, finding ' + fmt(S.find[i])
+      + (i ? ', which is ' + (S.find[i] / S.find[i - 1]).toFixed(2) + ' times the count for ' + S.n[i - 1] + '.' : '.');
+  }
+  cols.forEach(function (c, i) {
+    c.addEventListener('mouseenter', function () { show(i); });
+    c.addEventListener('mouseleave', function () { show(sel); });
+    c.addEventListener('focus', function () { sel = i; show(i, true); });
+    c.addEventListener('click', function () { sel = i; show(i, true); });
+    c.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return;
+      e.preventDefault(); cols[Math.max(0, Math.min(cols.length - 1, i + d))].focus();
+    });
+  });
+  show(sel, true);
+  setTimeout(function () {
+    var got = TM.series(), same = ['check', 'find'].every(function (k) { return got[k].every(function (v, i) { return v === S[k][i]; }); });
+    $('tm-rerun').textContent = same ? 'Your tab ran all twenty again just now and counted the same steps.' : 'Your tab ran all twenty again and counted different steps: this page is not what its record says.';
+  }, 50);
+
+  /* the busy beaver champions, run in the tab in slices so the page stays live (the five-state one is 47 million steps) */
+  document.querySelectorAll('[data-bb]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = +b.getAttribute('data-bb'), c = TM.CHAMPIONS.filter(function (x) { return x.states === k; })[0], want = SPEC.champions.filter(function (x) { return x.states === k; })[0];
+      var out = $('tm-bb' + k), job = TM.run(TM.parseStd(c.std), '', 1e9), t0 = performance.now();
+      b.disabled = true; out.textContent = 'running';
+      (function slice() {
+        job.go(4000000);
+        if (!job.end) { out.textContent = 'running, ' + fmt(job.steps) + ' steps'; setTimeout(slice, 0); return; }
+        var ok = job.end === 'HALT' && job.steps === want.steps && job.ones === want.ones;
+        out.textContent = (ok ? 'stopped after ' + fmt(job.steps) + ' steps, ' + fmt(job.ones) + ' ones' : 'did not match: ' + fmt(job.steps) + ' steps')
+          + ' (' + Math.max(1, Math.round(performance.now() - t0)) + ' ms)';
+        b.disabled = false;
+      })();
+    });
+  });
+
+  /* the claims */
+  var VK = { CERTIFIED: 'held', REFUTED: 'dep', REFUSED: 'open' }, WORD = { CERTIFIED: 'Certified', REFUTED: 'Refuted', REFUSED: 'Refused' };
+  TM.CLAIMS.forEach(function (cl) {
+    var out = $('tm-c-' + cl.id), btn = document.querySelector('[data-decide="' + cl.id + '"]');
+    btn.addEventListener('click', function () {
+      var r = TM.decide(cl);
+      var tail = r.verdict === 'REFUSED' ? 'no end in ' + fmt(r.steps) + ' steps' : (r.end === 'HALT' ? 'stopped' : r.end === 'YES' ? 'yes' : 'no') + ' after ' + fmt(r.steps) + ' steps';
+      out.innerHTML = '<span class="tag ' + VK[r.verdict] + '">' + WORD[r.verdict] + '</span> <span class="tm-ctail">' + tail + '</span>';
+    });
+    document.querySelector('[data-watch="' + cl.id + '"]').addEventListener('click', function () {
+      if (cl.machine === 'palindrome' || cl.machine === 'check') TM.M[cl.machine].text = cl.input;
+      if (cl.machine === 'find') TM.M.find.n = cl.input.length;
+      pick(cl.machine);
+      $('machine').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  window.addEventListener('resize', function () { paint(0); });
+  window.addEventListener('hashchange', function () { pick(location.hash.slice(1), true); });
+  pick(location.hash.slice(1) || 'count', true);
+  if (!reduce) setTimeout(function () { if (!s.steps && !playing) play(); }, 900);
+  window.__tm = { TM: TM, spec: SPEC };
+})();
+</script>
+</body>
+</html>

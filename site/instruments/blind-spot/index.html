@@ -262,7 +262,11 @@ img{max-width:100%}
    something past that edge. A box that hides a column without saying so is
    the same defect as a number without its units. This shipped on
    /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
-   chose.                                                                  */
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
   border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
   background:
@@ -273,6 +277,7 @@ img{max-width:100%}
     var(--sunk)}
 .tw > table{margin:0}
 .tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
 
 /* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
    playground/design/shell.css's body padding and design/template.js's .page
