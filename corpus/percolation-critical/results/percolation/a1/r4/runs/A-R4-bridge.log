@@ -1,0 +1,121 @@
+✔ [8903/8905] Built Textbook (6.0s)
+✖ [8904/8905] Building Bridge (7.8s)
+trace: .> LEAN_PATH=/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/Bridge.lean -o /root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean/Bridge.olean -i /root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean/Bridge.ilean -c /root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/ir/Bridge.c --setup /root/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/ir/Bridge.setup.json --json
+error: Bridge.lean:266:19: Application type mismatch: The argument
+  hZne
+has type
+  Z.Nonempty
+but is expected to have type
+  {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩}.Nonempty
+in the application
+  csSup_le hZne
+error: Bridge.lean:266:57: Application type mismatch: The argument
+  hz
+has type
+  z ∈ {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩}
+but is expected to have type
+  z ∈ Z
+in the application
+  hZQ z hz
+error: Bridge.lean:271:63: linarith failed to find a contradiction
+d : ℕ
+f : ↑unitInterval → ℝ := BondPercolation.theta (BondPercolation.zdGraph d) 0
+hf : f = BondPercolation.theta (BondPercolation.zdGraph d) 0
+hmono : Monotone f
+hnn : ∀ (q : ↑unitInterval), 0 ≤ f q
+hf0 : f 0 = 0
+Z : Set ℝ := {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+hZ : Z = {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+Q : Set ℝ := {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+hQ : Q = {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+h0Z : 0 ∈ Z
+hZne : Z.Nonempty
+hZbdd : BddAbove Z
+hQne : Q.Nonempty
+hQbdd : BddBelow Q
+hZQ : ∀ z ∈ Z, ∀ q ∈ Q, z ≤ q
+hlt : sSup {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩} < sInf Q
+ha0 : 0 ≤ sSup Z
+hb1 : sInf Q ≤ 1
+a✝ : (sSup Z + sInf Q) / 2 < 0
+⊢ False
+failed
+error: Bridge.lean:271:76: linarith failed to find a contradiction
+d : ℕ
+f : ↑unitInterval → ℝ := BondPercolation.theta (BondPercolation.zdGraph d) 0
+hf : f = BondPercolation.theta (BondPercolation.zdGraph d) 0
+hmono : Monotone f
+hnn : ∀ (q : ↑unitInterval), 0 ≤ f q
+hf0 : f 0 = 0
+Z : Set ℝ := {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+hZ : Z = {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+Q : Set ℝ := {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+hQ : Q = {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+h0Z : 0 ∈ Z
+hZne : Z.Nonempty
+hZbdd : BddAbove Z
+hQne : Q.Nonempty
+hQbdd : BddBelow Q
+hZQ : ∀ z ∈ Z, ∀ q ∈ Q, z ≤ q
+hlt : sSup {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩} < sInf Q
+ha0 : 0 ≤ sSup Z
+hb1 : sInf Q ≤ 1
+a✝ : 1 < (sSup Z + sInf Q) / 2
+⊢ False
+failed
+error: Bridge.lean:274:6: linarith failed to find a contradiction
+d : ℕ
+f : ↑unitInterval → ℝ := BondPercolation.theta (BondPercolation.zdGraph d) 0
+hf : f = BondPercolation.theta (BondPercolation.zdGraph d) 0
+hmono : Monotone f
+hnn : ∀ (q : ↑unitInterval), 0 ≤ f q
+hf0 : f 0 = 0
+Z : Set ℝ := {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+hZ : Z = {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+Q : Set ℝ := {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+hQ : Q = {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+h0Z : 0 ∈ Z
+hZne : Z.Nonempty
+hZbdd : BddAbove Z
+hQne : Q.Nonempty
+hQbdd : BddBelow Q
+hZQ : ∀ z ∈ Z, ∀ q ∈ Q, z ≤ q
+hlt : sSup {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩} < sInf Q
+ha0 : 0 ≤ sSup Z
+hb1 : sInf Q ≤ 1
+hm : (sSup Z + sInf Q) / 2 ∈ Set.Icc 0 1
+hmZ : (sSup Z + sInf Q) / 2 ∈ Z
+this : (sSup Z + sInf Q) / 2 ≤ sSup Z
+⊢ False
+failed
+error: Bridge.lean:277:4: linarith failed to find a contradiction
+case a
+d : ℕ
+f : ↑unitInterval → ℝ := BondPercolation.theta (BondPercolation.zdGraph d) 0
+hf : f = BondPercolation.theta (BondPercolation.zdGraph d) 0
+hmono : Monotone f
+hnn : ∀ (q : ↑unitInterval), 0 ≤ f q
+hf0 : f 0 = 0
+Z : Set ℝ := {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+hZ : Z = {p | ∃ (h : p ∈ Set.Icc 0 1), f ⟨p, h⟩ = 0}
+Q : Set ℝ := {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+hQ : Q = {p | ∃ (h : p ∈ unitInterval), 0 < f ⟨p, h⟩} ∪ {1}
+h0Z : 0 ∈ Z
+hZne : Z.Nonempty
+hZbdd : BddAbove Z
+hQne : Q.Nonempty
+hQbdd : BddBelow Q
+hZQ : ∀ z ∈ Z, ∀ q ∈ Q, z ≤ q
+hlt : sSup {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < f ⟨p, ⋯⟩} < sInf Q
+ha0 : 0 ≤ sSup Z
+hb1 : sInf Q ≤ 1
+hm : (sSup Z + sInf Q) / 2 ∈ Set.Icc 0 1
+hmZ : (sSup Z + sInf Q) / 2 ∉ Z
+hpos : 0 < f ⟨(sSup Z + sInf Q) / 2, hm⟩
+this : sInf Q ≤ (sSup Z + sInf Q) / 2
+⊢ False
+failed
+error: Lean exited with code 1
+Some required targets logged failures:
+- Bridge
+error: build failed

@@ -1,0 +1,13 @@
+diff --git a/lean/lakefile.lean b/lean/lakefile.lean
+index cd24ca2ee..b65edbd09 100644
+--- a/lean/lakefile.lean
++++ b/lean/lakefile.lean
+@@ -360,3 +360,8 @@ post_update pkg do
+       logInfo s!"{label}: applied compatibility patch {patchName}"
+     else
+       logInfo s!"{label}: compatibility patch already applied: {patchName}"
++
++-- Added for the 2026-11-12 bridge check: the hand-written statement and the bridge (new files only).
++lean_lib TextbookBridge where
++  srcDir := "bridge"
++  roots := #[`Textbook, `Bridge]

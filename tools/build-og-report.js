@@ -184,6 +184,26 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/percolation-critical.html (2026-11-12): a hollow ring (the textbook) joined by a dashed line
+     to one solid block (the statement written from it); two hollow rings on the right (the two labs' Lean proofs), each
+     with a solid arrow into the block (the bridges). LIGHT theme, no number, no title text. */
+  'percolation-critical': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · critical percolation', path: '/reports/percolation-critical.html',
+    title: 'Two AI proofs of critical percolation, checked against the textbook statement I wrote',
+    alt: 'A hollow ring on the left joined by a dashed line to one solid block; two hollow rings on the right, each with an arrow into the block.',
+    svgRaw: (() => {
+      const o = [], bx = 500, by = 255, bw = 200, bh = 120, my = by + bh / 2;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A hollow ring joined by a dashed line to a solid block, and two hollow rings with arrows into the block" style="position:absolute;left:0;top:0">');
+      o.push('<line x1="232" y1="' + my + '" x2="' + (bx - 14) + '" y2="' + my + '" stroke="var(--ink-3)" stroke-width="1.6" stroke-dasharray="5 7" stroke-linecap="round"/>');
+      o.push('<circle cx="200" cy="' + my + '" r="28" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.4"/>');
+      o.push('<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="8" fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"/>');
+      for (const [cy, ty] of [[205, my - 30], [425, my + 30]]) {
+        o.push('<line x1="972" y1="' + cy + '" x2="' + (bx + bw + 22) + '" y2="' + ty + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+        o.push('<path d="M' + (bx + bw + 10) + ' ' + ty + ' l16 -8 l0 16 z" fill="var(--ink)" transform="rotate(' + (Math.atan2(cy - ty, 972 - (bx + bw + 22)) * 180 / Math.PI) + ' ' + (bx + bw + 10) + ' ' + ty + ')"/>');
+        o.push('<circle cx="1000" cy="' + cy + '" r="28" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.4"/>');
+      }
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a

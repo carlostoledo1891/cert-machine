@@ -1,0 +1,57 @@
+def MeasureTheory.Measure.infinitePi.{u_1, u_2} : {ι : Type u_1} →
+  {X : ι → Type u_2} →
+    {mX : (i : ι) → MeasurableSpace (X i)} →
+      ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure ((i : ι) → X i) :=
+fun {ι} {X} {mX} μ =>
+  if h : ∀ (i : ι), MeasureTheory.IsProbabilityMeasure (μ i) then (MeasureTheory.piContent μ).measure ⋯ ⋯ ⋯ else 0
+def MeasureTheory.Measure.infinitePiNat.{u_1} : {X : ℕ → Type u_1} →
+  {mX : (n : ℕ) → MeasurableSpace (X n)} →
+    (μ : (n : ℕ) → MeasureTheory.Measure (X n)) →
+      [hμ : ∀ (n : ℕ), MeasureTheory.IsProbabilityMeasure (μ n)] → MeasureTheory.Measure ((n : ℕ) → X n) :=
+fun {X} {mX} μ [∀ (n : ℕ), MeasureTheory.IsProbabilityMeasure (μ n)] =>
+  (MeasureTheory.Measure.pi fun i => μ ↑i).bind
+    ⇑(ProbabilityTheory.Kernel.traj (fun n => ProbabilityTheory.Kernel.const ((i : ↥(Finset.Iic n)) → X ↑i) (μ (n + 1)))
+        0)
+def ProbabilityTheory.bernoulliMeasure.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → X → X → ↑unitInterval → MeasureTheory.Measure X :=
+fun {X} [MeasurableSpace X] x y p =>
+  unitInterval.toNNReal p • MeasureTheory.Measure.dirac x +
+    unitInterval.toNNReal (unitInterval.symm p) • MeasureTheory.Measure.dirac y
+@[reducible] def unitInterval : Set ℝ :=
+Set.Icc 0 1
+protected def Set.Infinite.{u} : {α : Type u} → Set α → Prop :=
+fun {α} s => ¬s.Finite
+protected def Set.Finite.{u} : {α : Type u} → Set α → Prop :=
+fun {α} s => Finite ↑s
+@[reducible] def Sym2.{u} : Type u → Type u :=
+fun α => Quot (Sym2.Rel α)
+inductive Sym2.Rel.{u} : (α : Type u) → α × α → α × α → Prop
+number of parameters: 1
+constructors:
+Sym2.Rel.refl : ∀ {α : Type u} (x y : α), Sym2.Rel α (x, y) (x, y)
+Sym2.Rel.swap : ∀ {α : Type u} (x y : α), Sym2.Rel α (x, y) (y, x)
+def Sym2.lift.{u_1, u_2} : {α : Type u_1} → {β : Type u_2} → { f // ∀ (a₁ a₂ : α), f a₁ a₂ = f a₂ a₁ } ≃ (Sym2 α → β) :=
+fun {α} {β} =>
+  { toFun := fun f => Quot.lift (Function.uncurry ↑f) ⋯, invFun := fun F => ⟨fun a b => F s(a, b), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+inductive Relation.ReflTransGen.{u_1} : {α : Type u_1} → (α → α → Prop) → α → α → Prop
+number of parameters: 3
+constructors:
+Relation.ReflTransGen.refl : ∀ {α : Type u_1} {r : α → α → Prop} {a : α}, Relation.ReflTransGen r a a
+Relation.ReflTransGen.tail : ∀ {α : Type u_1} {r : α → α → Prop} {a b c : α},
+  Relation.ReflTransGen r a b → r b c → Relation.ReflTransGen r a c
+@[implicit_reducible] def Real.instSupSet : SupSet ℝ :=
+{ sSup := fun s => if h : s.Nonempty ∧ BddAbove s then Classical.choose ⋯ else 0 }
+@[defeq] theorem Real.sSup_def : ∀ (s : Set ℝ),
+  SupSet.sSup s = if h : s.Nonempty ∧ BddAbove s then Classical.choose ⋯ else 0 :=
+⋯
+Seam.lean:17:7: error(lean.unknownIdentifier): Unknown constant `MeasureTheory.Measure.toReal`
+protected def ENNReal.toReal : ENNReal → ℝ :=
+fun a => ↑a.toNNReal
+@[implicit_reducible] def MeasurableSpace.pi.{u_4, u_6} : {δ : Type u_4} →
+  {X : δ → Type u_6} → [m : (a : δ) → MeasurableSpace (X a)] → MeasurableSpace ((a : δ) → X a) :=
+fun {δ} {X} [m : (a : δ) → MeasurableSpace (X a)] => ⨆ a, MeasurableSpace.comap (fun b => b a) (m a)
+@[implicit_reducible] def Bool.instMeasurableSpace : MeasurableSpace Bool :=
+⊤
+protected def Finset.sum.{u_1, u_3} : {ι : Type u_1} → {M : Type u_3} → [AddCommMonoid M] → Finset ι → (ι → M) → M :=
+fun {ι} {M} [AddCommMonoid M] s f => (Multiset.map f s.val).sum

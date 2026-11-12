@@ -1,0 +1,4 @@
+65c65
+<   ∀ d : ℕ, 2 ≤ d → ∃ h : pc d ∈ Set.Icc (0 : ℝ) 1, θ d ⟨pc d, h⟩ = 0
+---
+>   ∀ d : ℕ, 1 ≤ d → ∃ h : pc d ∈ Set.Icc (0 : ℝ) 1, θ d ⟨pc d, h⟩ = 0

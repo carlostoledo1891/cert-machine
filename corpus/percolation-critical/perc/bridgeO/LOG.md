@@ -1,0 +1,20 @@
+# bridgeO LOG
+- 2026-11-12T06:18:12Z start; pin 4eaee87548250b2682affda7d05d947c05554bae (HEAD of openai/math main)
+- 2026-11-12T06:20:07Z lake update started
+- 2026-11-12T06:25:30Z lake update EXIT=0 (4m48s); manifest diff: 
+- 2026-11-12T06:27:08Z lake exe cache get EXIT=0 (42s, no files to download; post_update hook had fetched 8908)
+- 2026-11-12T06:27:08Z started lake build OAI.Probability.CriticalZ3.Main ComparatorChallenges.CriticalZ3
+- 2026-11-12T06:33:55Z lake build OAI.Probability.CriticalZ3.Main ComparatorChallenges.CriticalZ3 EXIT=0 (6m20s, 8958 jobs; ComparatorChallenges.CriticalZ3 is a module and builds with its sorry warning)
+- 2026-11-12T06:38:49Z added lean_lib TextbookBridge (srcDir bridge, roots Textbook, Bridge) to lakefile.lean; bridge/Textbook.lean copied from /root/Textbook.lean (sha256 4dc732f5...641ae)
+- build-bridge-1: lake build Bridge EXIT=1 (1m04s): omega timeout in adjacent_iff (abs via max), measurable_pi_lambda signature, infinitePi_map_pi explicit mu, ReflTransGen.mono explicit endpoints, pull needs noncomputable
+- build-bridge-2: lake build Bridge EXIT=0 (28s) after fixes (integer lemma abs_sum_three, eq_step_of, Measurable.of_eval); 2 deprecation warnings
+- build-bridge-3: lake build Bridge EXIT=0 (29s), no warnings; print axioms bridgeO and statement3_from_openai = [propext, Classical.choice, Quot.sound]
+- monotonicity: NOT in the CriticalZ3 library (searched Monotone/mono/coupling); proved in Bridge.lean by the uniform-label coupling (thr, map_thr, labels, thrConfig, bondLaw_eq_map, bondOpen_mono, bondCluster_mono, thr_mono, parameter_mono, bondLaw_infinite_mono). OpenAI's UnimodularPercolation/BenjaminiSchramm library has the same coupling for a general BondGraph on Set-valued configurations (percolationProbability_mono); not used.
+- 2026-11-12T06:39:57Z red control R1: lake build Bridge EXIT=1 (38s); first error: error: bridge/Bridge.lean:297:27: Application type mismatch: The argument
+- 2026-11-12T06:40:34Z red control R2: lake build Bridge EXIT=1 (37s); first error: error: bridge/Bridge.lean:296:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+- 2026-11-12T06:41:11Z red control R3: lake build Bridge EXIT=1 (37s); first error: error: bridge/Bridge.lean:271:2: Tactic `apply` failed: could not unify the conclusion of `@IsGreatest.csSup_eq`
+- 2026-11-12T06:41:48Z Textbook.lean restored, sha256 4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae; lake build Bridge EXIT=0 (37s)
+- 2026-11-12T06:42:14Z final: git status = lakefile.lean modified (lean_lib entry appended) + bridge/ untracked; lake-manifest.json unchanged from the pin; df 41G free
+- note: the empty "manifest diff:" above means lake update left lake-manifest.json byte-identical to the pin (git diff --quiet confirms).
+- note on R3: with sInf over {0 < θ} the mutated pc 3 is exactly OpenAI's bondCritical, so the mutated Statement3 is still TRUE; R3 fails only because the proof is written for the sSup encoding (IsGreatest.csSup_eq). R1 (θ = 1) and R2 (θ_3 at pc 1 = 1) are false statements.
+- note: Model.lean (the definitions the solution module uses) is byte-identical to lines 1-55 of ComparatorChallenges/CriticalZ3.lean (diff shows only the theorem vs the closing lines).

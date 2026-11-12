@@ -239,6 +239,7 @@ test:
 	@printf "%-30s " "Lean intake: pg186-tuple-x"; $(NODE) tools/lean-intake.js record pg186-tuple-x-claimbox --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "heptagon + A.3 in Lean"; $(NODE) tools/record-heptagon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "prime gaps 186, checked"; $(NODE) tools/record-prime-gaps-186.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "critical percolation, bridged"; $(NODE) tools/record-percolation-critical.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "textbook machine (the counts)"; $(NODE) playground/textbook-machine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -428,6 +429,7 @@ reports:
 	@$(NODE) tools/build-report-erdos-488.js
 	@$(NODE) tools/build-report-heptagon.js
 	@$(NODE) tools/build-report-prime-gaps-186.js
+	@$(NODE) tools/build-report-percolation-critical.js
 	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js

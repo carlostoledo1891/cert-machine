@@ -1,0 +1,18 @@
+diff --git a/lean/lakefile.lean b/lean/lakefile.lean
+index cd24ca2ee..952f79b21 100644
+--- a/lean/lakefile.lean
++++ b/lean/lakefile.lean
+@@ -360,3 +360,13 @@ post_update pkg do
+       logInfo s!"{label}: applied compatibility patch {patchName}"
+     else
+       logInfo s!"{label}: compatibility patch already applied: {patchName}"
++
++-- Added for the 2026-11-12 bridge check: the hand-written statement and the bridge (new files only).
++lean_lib TextbookBridge where
++  srcDir := "bridge"
++  roots := #[`Textbook, `Bridge, `ThetaAnchors, `Anchors, `CorollaryO]
++
++-- Amendment A1 (2026-11-12): the R4 refutation, built only against the planted file.
++lean_lib TextbookPlanted where
++  srcDir := "bridge"
++  roots := #[`PlantedFalse]

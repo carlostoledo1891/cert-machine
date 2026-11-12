@@ -1,0 +1,3 @@
+import PlantedFalse
+#print axioms TextbookPercolation.planted_statement_false
+#print axioms TextbookPercolation.planted_statement3_false

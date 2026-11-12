@@ -1,0 +1,12 @@
+43c43
+< @[implicit_reducible] def Real.instSupSet : SupSet ℝ :=
+---
+> @[instance_reducible] def Real.instSupSet : SupSet ℝ :=
+51c51
+< @[implicit_reducible] def MeasurableSpace.pi.{u_4, u_6} : {δ : Type u_4} →
+---
+> @[instance_reducible] def MeasurableSpace.pi.{u_4, u_6} : {δ : Type u_4} →
+54c54
+< @[implicit_reducible] def Bool.instMeasurableSpace : MeasurableSpace Bool :=
+---
+> @[instance_reducible] def Bool.instMeasurableSpace : MeasurableSpace Bool :=

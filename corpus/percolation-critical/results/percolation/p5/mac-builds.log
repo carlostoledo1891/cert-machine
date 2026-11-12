@@ -1,0 +1,43 @@
+60c60
+<   sSup {p : ℝ | ∃ h : p ∈ Set.Icc (0 : ℝ) 1, θ d ⟨p, h⟩ = 0}
+---
+>   sSup {p : ℝ | ∃ h : p ∈ Set.Icc (0 : ℝ) 1, 0 < θ d ⟨p, h⟩}
+1
+name = "ThetaAnchors"
+
+[[lean_lib]]
+name = "PlantedFalse"
+== p5-432
+✔ [8656/8658] Built ThetaAnchors (67s)
+✔ [8657/8658] Built Anchors (55s)
+Build completed successfully (8658 jobs).
+'TextbookPercolation.theta_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.theta_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc_lt_one_of_statement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc3_lt_one_of_statement3' depends on axioms: [propext, Classical.choice, Quot.sound]
+== p5-4341
+✔ [8925/8927] Built ThetaAnchors (72s)
+✔ [8926/8927] Built Anchors (65s)
+Build completed successfully (8927 jobs).
+'TextbookPercolation.theta_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.theta_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc_lt_one_of_statement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.pc3_lt_one_of_statement3' depends on axioms: [propext, Classical.choice, Quot.sound]
+== r4-432
+✔ [8655/8658] Built Textbook (68s)
+✔ [8656/8658] Built ThetaAnchors (56s)
+✔ [8657/8658] Built PlantedFalse (56s)
+Build completed successfully (8658 jobs).
+'TextbookPercolation.planted_statement_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.planted_statement3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+== r4-4341
+✔ [8924/8927] Built Textbook (76s)
+✔ [8925/8927] Built ThetaAnchors (61s)
+✔ [8926/8927] Built PlantedFalse (55s)
+Build completed successfully (8927 jobs).
+'TextbookPercolation.planted_statement_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TextbookPercolation.planted_statement3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+[exited with code 0]

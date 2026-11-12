@@ -1,0 +1,37 @@
+✖ [8904/8905] Building Bridge (9.6s)
+trace: .> LEAN_PATH=/root/bridgeA/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/bridgeA/percolation/Bridge.lean -o /root/bridgeA/percolation/.lake/build/lib/lean/Bridge.olean -i /root/bridgeA/percolation/.lake/build/lib/lean/Bridge.ilean -c /root/bridgeA/percolation/.lake/build/ir/Bridge.c --setup /root/bridgeA/percolation/.lake/build/ir/Bridge.setup.json --json
+error: Bridge.lean:176:4: Tactic `rfl` failed: The left-hand side
+  Ber(True, False, p) (t ↑j)
+is not definitionally equal to the right-hand side
+  (ν p ↑j) (t ↑j)
+
+case pos
+d : ℕ
+p : ↑unitInterval
+s : Finset (Sym2 (Vertex d))
+t : Sym2 (Vertex d) → Set Prop
+ht : ∀ (i : Sym2 (Vertex d)), MeasurableSet (t i)
+C : ∀ i ∈ s, ¬IsEdge i → False ∈ t i
+s' : Finset (Edge d)
+hs' : s' = Finset.subtype IsEdge s
+hmem : ∀ (j : Edge d), j ∈ s' ↔ ↑j ∈ s
+hpre : toProp ⁻¹' (↑s).pi t = (↑s').pi fun j => (fun b => b = true) ⁻¹' t ↑j
+hnon : ∏ i ∈ s with ¬IsEdge i, (ν p i) (t i) = 1
+hprod : ∏ i ∈ s with IsEdge i, (ν p i) (t i) = ∏ j ∈ s', (ν p ↑j) (t ↑j)
+j : Edge d
+x✝ : j ∈ s'
+hb : MeasurableSet (t ↑j)
+hT : (true = true) = (↑j ∈ (BondPercolation.zdGraph d).edgeSet)
+hF : (false = true) = False
+⊢ Ber(True, False, p) (t ↑j) = (ν p ↑j) (t ↑j)
+warning: Bridge.lean:175:15: This simp argument is unused:
+  hT
+
+Hint: Omit it from the simp argument list.
+  simp only [hT̵,̵ ̵h̵F]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- Bridge
+error: build failed

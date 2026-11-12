@@ -1,0 +1,1031 @@
+{
+ "what": "The percolation lane (theta(p_c) = 0, two labs' Lean proofs bridged to one hand-written statement), copied byte for byte from the private working repository at its commit 7bcd7700d8bc0c474ee97c72c73935f88ddb856d on 2026-11-12, except pods.txt: the three lines of its pod log that belong to this lane.",
+ "source_commit": "7bcd7700d8bc0c474ee97c72c73935f88ddb856d",
+ "files": [
+  {
+   "path": "PINS-PERCOLATION.txt",
+   "sha256": "c1b57ab73f3219b88c89d3181788afdfef72120c118dd751a7c7480634b4a989",
+   "bytes": 924
+  },
+  {
+   "path": "PREREG-PERCOLATION.md",
+   "sha256": "74e6fe769a359d4b57b74ab1a1a92e6ca410e30ba8361db5bb2cefbbc1ab7e07",
+   "bytes": 6841
+  },
+  {
+   "path": "TARGET-PERCOLATION.md",
+   "sha256": "ec6255cb15e22c090dbaa334ecf1df5a5eae11a61fe04c7ef8f3165cd62b12cf",
+   "bytes": 6159
+  },
+  {
+   "path": "perc/Check.lean",
+   "sha256": "904e636ff6acb301d0078cc22782a80700083d4eb6cb88de54279d2c42ab6ceb",
+   "bytes": 392
+  },
+  {
+   "path": "perc/Textbook.lean",
+   "sha256": "4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae",
+   "bytes": 3607
+  },
+  {
+   "path": "perc/anchors/Anchors.lean",
+   "sha256": "32e48954e971898f1a16ed0b4423a332cc37859ba309d94b8970f4042977970a",
+   "bytes": 1854
+  },
+  {
+   "path": "perc/anchors/AxA.lean",
+   "sha256": "b56d8206c4e9bf20b5c9f623166cf49f1ecbdd4976070b7b155d42525a8d6239",
+   "bytes": 248
+  },
+  {
+   "path": "perc/anchors/AxO.lean",
+   "sha256": "1215ee8bfe160bb5c5f1f656fb2602a850950fa67b4012233c3534da31535a0a",
+   "bytes": 260
+  },
+  {
+   "path": "perc/anchors/AxP.lean",
+   "sha256": "1b9c0fe61297dcda3f3d4cb0cb7a85f20a0a8774542ea6d98ea1c7dc5ace4e9a",
+   "bytes": 137
+  },
+  {
+   "path": "perc/anchors/CorollaryA.lean",
+   "sha256": "66621bcf8d8afe63d486b29db9ce061ec8c5f6a1140aea2bea9a83ef81f3f309",
+   "bytes": 310
+  },
+  {
+   "path": "perc/anchors/CorollaryO.lean",
+   "sha256": "4ce10bff5ffb3ce24b527532613cf4d2bac521d3e3f4c638021661ae149ff430",
+   "bytes": 267
+  },
+  {
+   "path": "perc/anchors/INPUTS.sha256",
+   "sha256": "bc62f2de3ee2bd966ea289c2eeb64d8809ae5d58e1d09871837bf19a6c9254f5",
+   "bytes": 1271
+  },
+  {
+   "path": "perc/anchors/PlantedFalse.lean",
+   "sha256": "f3d5e8e5300ee3fea05f7606e8511deeaff4696f2a623fcc529f965356a9bad7",
+   "bytes": 1856
+  },
+  {
+   "path": "perc/anchors/Textbook.R4.lean",
+   "sha256": "0f170c62fda642d569d49b39026f554283f7a571b1635dc17297255728880962",
+   "bytes": 3607
+  },
+  {
+   "path": "perc/anchors/ThetaAnchors.lean",
+   "sha256": "46d9ffff2cceff61a2883252f2c8d97e49b3fb87ab8b8904c0b960f67f24937c",
+   "bytes": 3894
+  },
+  {
+   "path": "perc/anchors/pod-r4.sh",
+   "sha256": "9b0b7c89da7a753bbb40cf3a887ea063d6e32259ebe3fae779e0dbfe542ffcc3",
+   "bytes": 4380
+  },
+  {
+   "path": "perc/bridgeA/Axioms.lean",
+   "sha256": "9d85293947b4c059f54a941fd1abcf092de386a40ce6e490b74dfd7026dedcfd",
+   "bytes": 76
+  },
+  {
+   "path": "perc/bridgeA/Bridge.lean",
+   "sha256": "ab8be23fcdec9c211bad2d44bc0b44ab22e26ea4bdf9111309670f2d78cae00a",
+   "bytes": 13943
+  },
+  {
+   "path": "perc/bridgeA/LOG.md",
+   "sha256": "007432cb84a6957adff88211d14ba9e5f720d4528905a6c2cf3cddb4d4f52c72",
+   "bytes": 4743
+  },
+  {
+   "path": "perc/bridgeA/axioms.out",
+   "sha256": "b7a7c23a692df425e9167b0601074a1ef88c9f481cbe3b4c06fed7ebe5c77a40",
+   "bytes": 155
+  },
+  {
+   "path": "perc/bridgeA/build-logs/build-bridge-1.log",
+   "sha256": "b081fca055eaeaea51e2e8ad9f0b45f760e8269dce76f82a022ea968f2ec3273",
+   "bytes": 2642
+  },
+  {
+   "path": "perc/bridgeA/build-logs/build-bridge-2.log",
+   "sha256": "3a2fd261d42f7f8f64cf88fa5c1d88adc284bd2e7549d8e5de6671be71b4fdd6",
+   "bytes": 1343
+  },
+  {
+   "path": "perc/bridgeA/build-logs/build-bridge-3.log",
+   "sha256": "0dc97538738302f05aaa4bdfe606262a3ad46333b23b8985d9c44c8db111040f",
+   "bytes": 2327
+  },
+  {
+   "path": "perc/bridgeA/build-logs/build-bridge-4.log",
+   "sha256": "b43049a76fa1c1b68e0885498300710ef97338e54cc7daddaa89aa0aae93b3f5",
+   "bytes": 78
+  },
+  {
+   "path": "perc/bridgeA/build-logs/build-textbook.log",
+   "sha256": "e56a938a86a7efdc61f2d96533f41291a304560bb43e5cb5c05b81d83a1ab39a",
+   "bytes": 79
+  },
+  {
+   "path": "perc/bridgeA/lakefile.toml",
+   "sha256": "851c27e89e21270746c1edd5a859b6d7ee512d6b66ea3fd0a052f37ab4620f3d",
+   "bytes": 1022
+  },
+  {
+   "path": "perc/bridgeA/red/R1.diff",
+   "sha256": "109228778195cc4ac55e495718e43cbea69569fdc4a4a7b42ca8aaaba82dcfb3",
+   "bytes": 190
+  },
+  {
+   "path": "perc/bridgeA/red/R1.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "perc/bridgeA/red/R1.log",
+   "sha256": "c8ca181276079784dd08a67d02cd255427fde4d8a480e30b4feed851cbdd34c7",
+   "bytes": 1456
+  },
+  {
+   "path": "perc/bridgeA/red/R1.seconds",
+   "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53",
+   "bytes": 3
+  },
+  {
+   "path": "perc/bridgeA/red/R2.diff",
+   "sha256": "e3e9bb915ba14523103f908ab317c2c51e8f348a7e2b116ac3b3db11a2648d47",
+   "bytes": 190
+  },
+  {
+   "path": "perc/bridgeA/red/R2.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "perc/bridgeA/red/R2.log",
+   "sha256": "365d9497925d7940e199ae14110dfbad1321885a7deafd99bac4d8513c93b24d",
+   "bytes": 1393
+  },
+  {
+   "path": "perc/bridgeA/red/R2.seconds",
+   "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53",
+   "bytes": 3
+  },
+  {
+   "path": "perc/bridgeA/red/R3.diff",
+   "sha256": "ca746ae0d5ee7a25e3b24331eb2c8fa6bde997784537ef9415999f3ebc991739",
+   "bytes": 162
+  },
+  {
+   "path": "perc/bridgeA/red/R3.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "perc/bridgeA/red/R3.log",
+   "sha256": "bbaf4b3999da2a9d44bfb78501fe7df9aba9fbb411cabe73e6f00e2c6b02a5db",
+   "bytes": 5111
+  },
+  {
+   "path": "perc/bridgeA/red/R3.seconds",
+   "sha256": "20d2add851bf39edcc6b5e830930f962db7e19dffa2cab8610eed551eda6c302",
+   "bytes": 3
+  },
+  {
+   "path": "perc/bridgeA/red/Textbook.R1.lean",
+   "sha256": "6d19104db328e16fdbe4860ba69b29d287e666913033cd0a68948cb4982285e7",
+   "bytes": 3607
+  },
+  {
+   "path": "perc/bridgeA/red/Textbook.R2.lean",
+   "sha256": "decbce6665b66ed7e2f55976090cf26ab49db2fb98a461c31dc826ef634f203f",
+   "bytes": 3607
+  },
+  {
+   "path": "perc/bridgeA/red/Textbook.R3.lean",
+   "sha256": "54bede7327b93a76c7e2c62834410d2812ae93e6f62b7d44cb755a8e0a15b2e9",
+   "bytes": 3607
+  },
+  {
+   "path": "perc/bridgeA/red/axioms-after-restore.out",
+   "sha256": "b7a7c23a692df425e9167b0601074a1ef88c9f481cbe3b4c06fed7ebe5c77a40",
+   "bytes": 155
+  },
+  {
+   "path": "perc/bridgeA/red/red.out",
+   "sha256": "e1e12b894278b61ecf5c3903529a4c9d6ade7a79021fcd64a98727469371ba9c",
+   "bytes": 722
+  },
+  {
+   "path": "perc/bridgeA/red/red.sh",
+   "sha256": "b820889fa8bef3b702714ab9b5588a6d10e24c2e2b566a657dc83509d87e7018",
+   "bytes": 2236
+  },
+  {
+   "path": "perc/bridgeA/red/restore.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "perc/bridgeA/red/restore.log",
+   "sha256": "5d5894317a4f6924e40470cbb0d96f7b0c123db8983229c66ceb1823ac094166",
+   "bytes": 115
+  },
+  {
+   "path": "perc/bridgeA/red/sha256-after.txt",
+   "sha256": "685f9359d399762e217d2f11671d6397eb00b3d76d7f02a83c06ec6f6cbd1a2b",
+   "bytes": 80
+  },
+  {
+   "path": "perc/bridgeO/Bridge.lean",
+   "sha256": "030bf61f10890c31d35a63b6d7b8919d9a3a85aadf34d8945edc7799d559e9a6",
+   "bytes": 13729
+  },
+  {
+   "path": "perc/bridgeO/LOG.md",
+   "sha256": "f7e58c2f59dacf2ae1fca0608dd4b3d40d20d8dd9ba621a37791f24c8c4a95d4",
+   "bytes": 3258
+  },
+  {
+   "path": "perc/bridgeO/axioms.txt",
+   "sha256": "07850ab1a8a43bcf8ef45c7f6bc305799214c131000a046be7039a8a0add86ae",
+   "bytes": 233
+  },
+  {
+   "path": "perc/bridgeO/build-bridge-final.log",
+   "sha256": "fefa8b1295e14c6bd8c4ad2228ce4cdae5b3698271ed6a5edfcb5d21da0f57b4",
+   "bytes": 2792
+  },
+  {
+   "path": "perc/bridgeO/lake-manifest.json",
+   "sha256": "cf6105a25d9dca2f166b241d9191bd12c7e13305890dc9c4d0952351cccc0794",
+   "bytes": 14622
+  },
+  {
+   "path": "perc/bridgeO/lakefile.diff",
+   "sha256": "0d511e44eeb66bf42ad436a1f605398cac4a9e7e70dc01576f4aa7258958b646",
+   "bytes": 523
+  },
+  {
+   "path": "perc/bridgeO/red/R1.diff",
+   "sha256": "e8e5a92232c246be3546f299469b9bab91262c85c49b1fa86ceacf9e89ad1368",
+   "bytes": 140
+  },
+  {
+   "path": "perc/bridgeO/red/R1.log",
+   "sha256": "74c6a1865c3a2e0031ef85fb2c7df857d5cabc02afa91a5e397d7347ac7ec5ad",
+   "bytes": 6692
+  },
+  {
+   "path": "perc/bridgeO/red/R2.diff",
+   "sha256": "a4cf5bc017be1e27f56c5b3b0ec0d1b25766bc2305fd0bf8b9fe18602e38a37d",
+   "bytes": 140
+  },
+  {
+   "path": "perc/bridgeO/red/R2.log",
+   "sha256": "763b6453a735dfe2b618719cc69de60be227a4db75113ea250b3ee57d289f3fb",
+   "bytes": 6803
+  },
+  {
+   "path": "perc/bridgeO/red/R3.diff",
+   "sha256": "ca746ae0d5ee7a25e3b24331eb2c8fa6bde997784537ef9415999f3ebc991739",
+   "bytes": 162
+  },
+  {
+   "path": "perc/bridgeO/red/R3.log",
+   "sha256": "f314a2083502a993763691e614abc9e8721ffd67f55590516964f259a5cbd329",
+   "bytes": 6831
+  },
+  {
+   "path": "perc/bridgeO/red/summary.txt",
+   "sha256": "5d1b9deed5c5ebff8275f969277c86fca32c0bc1c93a0daa9ae888dba7f25f9e",
+   "bytes": 1940
+  },
+  {
+   "path": "perc/lakefile-v4.32.0.toml",
+   "sha256": "14c56aeef5bba97e0dc1ba1d718862731aacc5e249e7484b70266a0544a8a5e2",
+   "bytes": 219
+  },
+  {
+   "path": "perc/lakefile-v4.34.1.toml",
+   "sha256": "0ead685db51d94597c4ea186ece15bb49f16a83dcc1dde0ffbefbcbd193f9970",
+   "bytes": 220
+  },
+  {
+   "path": "perc/pod-p1.sh",
+   "sha256": "fe2f6ac08f4f70bfcf2282a433e489f3d70c3af86a66376d4f1b059c2addf493",
+   "bytes": 2439
+  },
+  {
+   "path": "perc/pod-p6.sh",
+   "sha256": "df6e4365ee5d4e25738c394d538fab75fb96867942c0ff735a43336c1e109332",
+   "bytes": 3012
+  },
+  {
+   "path": "perc/pod-p6o.sh",
+   "sha256": "b754f320637607eb77be6b059fa235670125b25a4b167c07601e6a43578f5c7b",
+   "bytes": 1991
+  },
+  {
+   "path": "perc/seam/Deep.lean",
+   "sha256": "ecb4826d4d111f6b9ff5df59aafebb51abdba5d6d6f89b33d12102d9e6ec1140",
+   "bytes": 1744
+  },
+  {
+   "path": "perc/seam/READING.md",
+   "sha256": "346fcd39c02c8de88c606cfabf2251876bf785547db6f5a0b2bfbb1a789cf75c",
+   "bytes": 2278
+  },
+  {
+   "path": "perc/seam/Seam.lean",
+   "sha256": "b724e89c699a11f2cf2a38d685203a55e377d68dd254fe888e23ac4e4143d6ca",
+   "bytes": 534
+  },
+  {
+   "path": "perc/seam/deep-432.txt",
+   "sha256": "90260d64f08e782dfc25fcded523a0641cbf90c62492dfa33a80ee5b96ae3ce9",
+   "bytes": 114480
+  },
+  {
+   "path": "perc/seam/deep-4341.txt",
+   "sha256": "4e3851d5fb60a4833b08453e60687c1299e77cea3d90faeb70e75d3e15ff7adb",
+   "bytes": 114119
+  },
+  {
+   "path": "perc/seam/diff.txt",
+   "sha256": "4eeac636e9826d120f42a105edf34a51a5e834a67d0006f3867862ed4ea79e66",
+   "bytes": 468
+  },
+  {
+   "path": "perc/seam/seam-432.txt",
+   "sha256": "b9a5496eb148895a87378c760170001732ea62dcc5bcd3cc53ef506611d897a9",
+   "bytes": 3646
+  },
+  {
+   "path": "perc/seam/seam-4341.txt",
+   "sha256": "8cb4760f3ba5ac5c6661f2105f732182f50e36d525315a312d2470f36fc4d86f",
+   "bytes": 3646
+  },
+  {
+   "path": "pods.txt",
+   "sha256": "92faf9a5e71ae908b6b59be20f6362c5c86a957ddac9a457dfe7217f37640c41",
+   "bytes": 1585
+  },
+  {
+   "path": "results/percolation/VERDICT.md",
+   "sha256": "29d170feb09f9b8e61c4ffc92c1a520dea62b3dd4684157dc481dc8ebd161b82",
+   "bytes": 7606
+  },
+  {
+   "path": "results/percolation/a1/r4/main.log",
+   "sha256": "e3f8748250c29ee8da761b90dfbb27ff46f93ff6f44077e81960ce6622e72e5d",
+   "bytes": 833
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-axioms.log",
+   "sha256": "18d43b506ecc58a895505eb06708ae7b48ce223daca627edb13b4c4bfe41bea9",
+   "bytes": 211
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-axioms.seconds",
+   "sha256": "aa67a169b0bba217aa0aa88a65346920c84c42447c36ba5f7ea65f422c1fe5d8",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-bridge.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-bridge.log",
+   "sha256": "b6a901a7c5e94953d4d09425b236e4dabdde712c3613438dcc9bc9861d9e0f96",
+   "bytes": 6031
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-bridge.seconds",
+   "sha256": "5378796307535df3ec8d8b15a2e2dc5641419c3d3060cfe32238c0fa973f7aa3",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-plantedfalse.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-plantedfalse.log",
+   "sha256": "c45538d6926881f5e62f020fdf22b96fd1cedc3d959a133e8f73392eb4ac1a7b",
+   "bytes": 126
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-R4-plantedfalse.seconds",
+   "sha256": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-axioms.log",
+   "sha256": "8098e650f7565f89db6b8615d01a076434f07c63a159fc8e31837742fb61116f",
+   "bytes": 512
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-axioms.seconds",
+   "sha256": "2e6d31a5983a91251bfae5aefa1c0a19d8ba3cf601d0e8a706b4cfa9661a6b8a",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-cache.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-cache.log",
+   "sha256": "5ae942277409ef25071c4f070c8e8841ed114a5c58a74ea5c24586525ac0dbee",
+   "bytes": 13693
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-cache.seconds",
+   "sha256": "77a60c200656e08ac5403f38b58657ecec155293323bd5313290399b75cf1c3d",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-green.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-green.log",
+   "sha256": "aba466fa7e12ab267c871f326ff84886372a065ca98bb881536a1a42dc63356e",
+   "bytes": 17547
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-green.seconds",
+   "sha256": "0f7ce971e0a28c8ad3db0a91d9173340b7dbf0e754ccf05a004a3bc3de6e5957",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore-axioms.log",
+   "sha256": "8098e650f7565f89db6b8615d01a076434f07c63a159fc8e31837742fb61116f",
+   "bytes": 512
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore-axioms.seconds",
+   "sha256": "2e6d31a5983a91251bfae5aefa1c0a19d8ba3cf601d0e8a706b4cfa9661a6b8a",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore-sha.log",
+   "sha256": "b4d6f1e3aa1ef0558f9bd3b22feaf915cf91e356206b12aa1d7e69b7c9c28c2f",
+   "bytes": 18
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore.log",
+   "sha256": "34b84c40110f0d5991d68c14bb0aa6518d78a8698559ded6a41dea6dda946f82",
+   "bytes": 158
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/A-restore.seconds",
+   "sha256": "5378796307535df3ec8d8b15a2e2dc5641419c3d3060cfe32238c0fa973f7aa3",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-axioms.log",
+   "sha256": "66b04f9c77409b745ab89b9f52b64360add0360b98d6ff6fc126ed1706f0b209",
+   "bytes": 2402
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-axioms.seconds",
+   "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-bridge.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-bridge.log",
+   "sha256": "066eb41646a939b0223ec12edbbe556b87842b9b5e49bb802c9f68102439c90c",
+   "bytes": 6172
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-bridge.seconds",
+   "sha256": "2115cdb6bfcfb008eb2bab2bb79347cb064a48e4e7c4115ccbe4469c787bb6c4",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-plantedfalse.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-plantedfalse.log",
+   "sha256": "d6d3977c69d665845b21200edb5b6db361df26256cbe06cf9c8d5c9ba92d4cb4",
+   "bytes": 2317
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-R4-plantedfalse.seconds",
+   "sha256": "32c2643e0dc65524c9f1f6f9f00937322fd68d59986bc381d9ff2285d23e353d",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-axioms.log",
+   "sha256": "23ec73f589ada301b82bbfe623af9a66b924b92161373e90ca4f416aafdf37e7",
+   "bytes": 2715
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-axioms.seconds",
+   "sha256": "076320a2a08267b4c026d06573bba408ea68841e73cdc20e62cce59de165ece3",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-cache.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-cache.log",
+   "sha256": "ecc8dab2002eeb83c5b5af7fae85a25a0af7cd43b1415610b6aa7de67259af0e",
+   "bytes": 2329
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-cache.seconds",
+   "sha256": "040316eca5e77dbb2212c1efe8b81cb23bc67ce0ac8cb5c9d902d98bd45ddfa1",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-green.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-green.log",
+   "sha256": "ad1ade3999bee12b74f09ea8668aa38f66c037cdd57a0684a2ec02e7a7a7e9f6",
+   "bytes": 4994
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-green.seconds",
+   "sha256": "61e524c097da910d3987cffec4e63ce8d477ab819c436e1d1fd23dc7a300f8fb",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-head.txt",
+   "sha256": "3ea84048686641e68f848ad11c184cd4d9e5e7f4f26926631046de0010fe49d9",
+   "bytes": 41
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-lakefile.diff",
+   "sha256": "c10bf8ea2cd3020a23f04abeadc694b77f42a1e265b710d43ab5fcd7f358e487",
+   "bytes": 734
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-manifest.diff",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore-axioms.log",
+   "sha256": "23ec73f589ada301b82bbfe623af9a66b924b92161373e90ca4f416aafdf37e7",
+   "bytes": 2715
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore-axioms.seconds",
+   "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore-sha.log",
+   "sha256": "5222172a06c6d53bb43fe8984e6f7b55cb4aa3a073869d01c1c38e039752fa8b",
+   "bytes": 25
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore.log",
+   "sha256": "f2aa5b3400c11990f7b3f779f69ae3e3a2f98b7878c7e678bc98d7dc2aa4ec04",
+   "bytes": 2582
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-restore.seconds",
+   "sha256": "19b8d5c59e421f037fe563007c7254eb8d98bc221b278c3db3e5fdbbfd52e273",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-update.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-update.log",
+   "sha256": "7117ee2f6d6c3d7a862c45be3e7182216c37a1a5496dc26feb090491eaf743c7",
+   "bytes": 17799
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/O-update.seconds",
+   "sha256": "935c13c9dd91be5099b33b68eb3e7bae188757853dfdff01ac9e0fda758e8552",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/inputs-sha.log",
+   "sha256": "8111262612fb1c1472971be5dde65ac2ba87c86d4f034cbe0b51041b2e5af8ea",
+   "bytes": 341
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/tools.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/tools.log",
+   "sha256": "fb229458183f1d00674584f46a12dc44ce81a31231357e8ee1bb76bd74e311bb",
+   "bytes": 314
+  },
+  {
+   "path": "results/percolation/a1/r4/runs/tools.seconds",
+   "sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p1/p1.out",
+   "sha256": "30e5d75923f672aa70eded1b363a10a6cc0530740d6d1bda7e1375e202036f71",
+   "bytes": 358
+  },
+  {
+   "path": "results/percolation/p1/runs/axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/axioms.log",
+   "sha256": "a56fbbc143fb7805de8dd586a8b9b5af2adfeb15c22fc33abddc786f41e162aa",
+   "bytes": 1890
+  },
+  {
+   "path": "results/percolation/p1/runs/axioms.seconds",
+   "sha256": "25d4f2a86deb5e2574bb3210b67bb24fcc4afb19f93a7b65a057daa874a9d18e",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p1/runs/build-challenge.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/build-challenge.log",
+   "sha256": "14ba6c27f16c90bf49355db78aa8fda4f9fc5bb3887e2a6be4204e76f5f2d5ad",
+   "bytes": 193
+  },
+  {
+   "path": "results/percolation/p1/runs/build-challenge.seconds",
+   "sha256": "1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p1/runs/build.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/build.log",
+   "sha256": "24f569528bbaf009b79dcc751f2253abddea279cc4ad5822bbb58060823da375",
+   "bytes": 17390
+  },
+  {
+   "path": "results/percolation/p1/runs/build.seconds",
+   "sha256": "0a89b7b23893a92fab7b7389613e298c06681ccfcd9253bc6517c671892f2589",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p1/runs/cache.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/cache.log",
+   "sha256": "edcf05f0bbc459b0dc080d672e41a4715c0543260989883ee16b6e7446a58e36",
+   "bytes": 13856
+  },
+  {
+   "path": "results/percolation/p1/runs/cache.seconds",
+   "sha256": "181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p1/runs/comparator.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/comparator.log",
+   "sha256": "8ca54c80d01799f177398425cf5b72ed1ecbde2af9f07670477bec55e6f00cca",
+   "bytes": 3406
+  },
+  {
+   "path": "results/percolation/p1/runs/comparator.seconds",
+   "sha256": "def320d779b5e2a5a6e071146cebcb70465b32dc57beef2a22059aabb0f0c8fb",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p1/runs/fresh.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/fresh.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "results/percolation/p1/runs/fresh.seconds",
+   "sha256": "9a839fc81e708d44bb82fa0b3abe6fe52258cc3b7c23291b8edbb9ae91921381",
+   "bytes": 5
+  },
+  {
+   "path": "results/percolation/p1/runs/red-d1.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/red-d1.log",
+   "sha256": "b8c83a79d43a0be14ad716fd6ecf3b5c6965a563977b41646e3ed08cac283c7f",
+   "bytes": 1937
+  },
+  {
+   "path": "results/percolation/p1/runs/red-d1.seconds",
+   "sha256": "76b84d4652a721eefa07441c62707a4c198447f3d24dded57828f869f3c44546",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p1/runs/red-theta1.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/red-theta1.log",
+   "sha256": "735500b720f08907b1c96a2eeca5391633f73fa7bce5bc65c992d3f387dddad3",
+   "bytes": 1931
+  },
+  {
+   "path": "results/percolation/p1/runs/red-theta1.seconds",
+   "sha256": "76b84d4652a721eefa07441c62707a4c198447f3d24dded57828f869f3c44546",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p1/runs/sha256.txt",
+   "sha256": "f9d28adc49316713fac8fd9d6172783946988a6ee11c757d6c69d68185d0296c",
+   "bytes": 161
+  },
+  {
+   "path": "results/percolation/p1/runs/tools.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p1/runs/tools.log",
+   "sha256": "37ca7a77b4452a94ddd188f71757402bb41e9b0f63b1a7b4bb9ceebbee98523a",
+   "bytes": 2272
+  },
+  {
+   "path": "results/percolation/p1/runs/tools.seconds",
+   "sha256": "9961d158a7e0e2f990765971a9e490af826c0743b7d603020f34cc8944319fcb",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p5/mac-builds.log",
+   "sha256": "a329ab21d2cd89b37146f92a9a462fd52bc1b8e991ac905849d5ad8f1967f1f7",
+   "bytes": 2230
+  },
+  {
+   "path": "results/percolation/p6/O-cmp.json",
+   "sha256": "dfa9c7195dccc31bfcf4d735a307f2bf0983e4578bcbe4161682c8f274fdfa0a",
+   "bytes": 272
+  },
+  {
+   "path": "results/percolation/p6/OurChallenge.lean",
+   "sha256": "1441cb2d593026833ff18f566df9dab0fa1deecb61e4ac231bdf51c234a61f5a",
+   "bytes": 90
+  },
+  {
+   "path": "results/percolation/p6/OurChallenge3.lean",
+   "sha256": "ec758a32758fb665e982860ecd384383018a0349e397bf6e04f002149a9d213f",
+   "bytes": 119
+  },
+  {
+   "path": "results/percolation/p6/p6.out",
+   "sha256": "77afbad504b2396640c2062d872c2fcb8851feed8cc159356f543bae16e6ea98",
+   "bytes": 160
+  },
+  {
+   "path": "results/percolation/p6/p6o-cmp2.sh",
+   "sha256": "0334d34b540b7484aa1d61748854ca2dc8f1c5213b5879135d4150103eea99b8",
+   "bytes": 1468
+  },
+  {
+   "path": "results/percolation/p6/p6o.out",
+   "sha256": "224a70f397b4c09ecae4eea081f8260eee7c072673b914e036f5afeb92c6c223",
+   "bytes": 113
+  },
+  {
+   "path": "results/percolation/p6/pod-p6o.sh",
+   "sha256": "b754f320637607eb77be6b059fa235670125b25a4b167c07601e6a43578f5c7b",
+   "bytes": 1991
+  },
+  {
+   "path": "results/percolation/p6/runs/A-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/A-axioms.log",
+   "sha256": "9f4163985dbcd3a5b73945f7643b39302b00955c5eef78f059dffd0bed45de67",
+   "bytes": 212
+  },
+  {
+   "path": "results/percolation/p6/runs/A-axioms.seconds",
+   "sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p6/runs/A-build.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/A-build.log",
+   "sha256": "27ab334ed30d23e366cbdb54cd0c5b2a9785ec3fbd8ba9b3443f0499e647b190",
+   "bytes": 182
+  },
+  {
+   "path": "results/percolation/p6/runs/A-build.seconds",
+   "sha256": "076320a2a08267b4c026d06573bba408ea68841e73cdc20e62cce59de165ece3",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p6/runs/A-comparator.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/A-comparator.log",
+   "sha256": "966bfacbc3a80cb77b155812a87047712a2f636fcc58f90de89986ac1fcd3b2c",
+   "bytes": 1695
+  },
+  {
+   "path": "results/percolation/p6/runs/A-comparator.seconds",
+   "sha256": "876342450d68e8053064f0d832687e79651136d149bc0c0eaa058f2459129bc1",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p6/runs/A-fresh.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/A-fresh.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "results/percolation/p6/runs/A-fresh.seconds",
+   "sha256": "60174dd2ea0c0708c6b216fdd0672d8e9dd97790eb5fcb07e0185cdfb1684940",
+   "bytes": 5
+  },
+  {
+   "path": "results/percolation/p6/runs/A-sha.log",
+   "sha256": "85658a2c955793e816bec45bda435f2d977a2f9f17750761b380713b20f68ba1",
+   "bytes": 257
+  },
+  {
+   "path": "results/percolation/p6/runs/O-axioms.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-axioms.log",
+   "sha256": "6638d85f2ff25bcf81ca4b1c4ae71499756ca23e1e74995095f122e80df7a966",
+   "bytes": 2677
+  },
+  {
+   "path": "results/percolation/p6/runs/O-axioms.seconds",
+   "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p6/runs/O-build.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-build.log",
+   "sha256": "d24c0a587561ada7e7527dfd4ba42829342ca99ba8300a309267d4275ca2a088",
+   "bytes": 2793
+  },
+  {
+   "path": "results/percolation/p6/runs/O-build.seconds",
+   "sha256": "19b8d5c59e421f037fe563007c7254eb8d98bc221b278c3db3e5fdbbfd52e273",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator.log",
+   "sha256": "ff2cea3ccbd8ab2e3ce363cfadbb26adc3416cd5957b9308d4cc736d922be9db",
+   "bytes": 92
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator.seconds",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator2.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator2.log",
+   "sha256": "4d5d610a94cab3ef09d2e4a3dd90c0b6a2bf36cf7e892f82ead8dd1e9d7f1430",
+   "bytes": 1256
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator2.seconds",
+   "sha256": "ea243e5457028e97f9bc93b37a72f8e80ea61ae081911bb037765590ee6aa435",
+   "bytes": 3
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator3.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator3.log",
+   "sha256": "ce96ddb682f96fc1ed2940e23e52828be7d76a82a41c540071dc9ae80070cded",
+   "bytes": 9731
+  },
+  {
+   "path": "results/percolation/p6/runs/O-comparator3.seconds",
+   "sha256": "53b9b4635b8c55a53ce4bddfb2e54713eead42cd0445e2b94ad3baa8b3facd2b",
+   "bytes": 4
+  },
+  {
+   "path": "results/percolation/p6/runs/O-fresh.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "results/percolation/p6/runs/O-fresh.log",
+   "sha256": "a1857f752904a7cf42b726f90d3537f514849bdb967b4591b1c12234138036ac",
+   "bytes": 2444
+  },
+  {
+   "path": "results/percolation/p6/runs/O-fresh.seconds",
+   "sha256": "f64aea5420813ea124ba561a245340a569237709e47ddbb6b023774370ab6ed2",
+   "bytes": 5
+  },
+  {
+   "path": "results/percolation/p6/runs/O-sha.log",
+   "sha256": "7aabc99d7af7a9382f63d35d2587967d6e9116f307b8c27fa80ce468b70bfe67",
+   "bytes": 218
+  }
+ ]
+}

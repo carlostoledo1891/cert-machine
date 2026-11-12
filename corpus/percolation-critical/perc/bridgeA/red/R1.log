@@ -1,0 +1,13 @@
+✔ [8903/8905] Built Textbook (7.5s)
+✖ [8904/8905] Building Bridge (9.1s)
+trace: .> LEAN_PATH=/root/bridgeA/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/bridgeA/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/bridgeA/percolation/Bridge.lean -o /root/bridgeA/percolation/.lake/build/lib/lean/Bridge.olean -i /root/bridgeA/percolation/.lake/build/lib/lean/Bridge.ilean -c /root/bridgeA/percolation/.lake/build/ir/Bridge.c --setup /root/bridgeA/percolation/.lake/build/ir/Bridge.setup.json --json
+error: Bridge.lean:295:2: Type mismatch
+  h d hd
+has type
+  BondPercolation.PercolationContinuity d
+but is expected to have type
+  BondPercolation.theta (BondPercolation.zdGraph d) 0 (BondPercolation.criticalProbI d) = 1
+error: Lean exited with code 1
+Some required targets logged failures:
+- Bridge
+error: build failed

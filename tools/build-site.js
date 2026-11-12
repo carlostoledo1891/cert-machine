@@ -395,6 +395,12 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gaps-186.json'), 'utf8'));
       if (P.verdicts.axioms !== 'ASSUMED, all three' || P.verdicts.recomputed !== '152 of 152' || P.verdicts.kernels !== 'three accept') fail('the prime-gaps-186 card would misstate its record');
       return 'three kernels accept · 152 of 152 numbers · 0 of 3 assumptions proved'; })() },
+  { g: 'ai', f: 'percolation-critical.html', k: 'critical percolation · two labs’ Lean proofs',
+    title: 'Two AI proofs of critical percolation, checked against the textbook statement I wrote',
+    desc: 'Anthropic and OpenAI each released a Lean proof that bond percolation on ℤ^d has no infinite cluster at the critical point. Before reading either, I wrote the statement myself from Grimmett’s textbook; both proofs prove it, by bridges that two kernels accept. What stays a reading is said first.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'percolation-critical.json'), 'utf8'));
+      if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.seam !== 'READ, NOT DECIDED') fail('the percolation-critical card would misstate its record');
+      return '2 of 2 proofs reach my statement · 2 kernels each · the seam a reading'; })() },
   { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
     title: 'Does an AI’s Lean proof prove the right statement?',
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',
@@ -2069,7 +2075,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'percolation-critical']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

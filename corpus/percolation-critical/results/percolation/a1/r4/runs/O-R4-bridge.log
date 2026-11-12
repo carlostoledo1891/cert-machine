@@ -1,0 +1,47 @@
+warning: PrimeNumberTheoremAnd: repository '/root/O/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/root/O/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/root/O/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/root/O/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/root/O/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/root/O/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/root/O/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/root/O/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/root/O/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/root/O/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/root/O/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/root/O/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/root/O/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/root/O/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/root/O/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/root/O/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/root/O/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/root/O/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/root/O/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/root/O/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/root/O/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/root/O/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/root/O/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8958/8959] Built Textbook (8.1s)
+✖ [8959/8959] Building Bridge (9.2s)
+trace: .> LEAN_PATH=/root/O/lean/.lake/packages/MD4Lean/.lake/build/lib/lean:/root/O/lean/.lake/packages/BibtexQuery/.lake/build/lib/lean:/root/O/lean/.lake/packages/UnicodeBasic/.lake/build/lib/lean:/root/O/lean/.lake/packages/Cli/.lake/build/lib/lean:/root/O/lean/.lake/packages/leansqlite/.lake/build/lib/lean:/root/O/lean/.lake/packages/batteries/.lake/build/lib/lean:/root/O/lean/.lake/packages/Qq/.lake/build/lib/lean:/root/O/lean/.lake/packages/aesop/.lake/build/lib/lean:/root/O/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/O/lean/.lake/packages/importGraph/.lake/build/lib/lean:/root/O/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/O/lean/.lake/packages/plausible/.lake/build/lib/lean:/root/O/lean/.lake/packages/fixed-point-theorems/.lake/build/lib/lean:/root/O/lean/.lake/packages/Zeta3Irrational/.lake/build/lib/lean:/root/O/lean/.lake/packages/rellich-kondrachov/.lake/build/lib/lean:/root/O/lean/.lake/packages/carleson/.lake/build/lib/lean:/root/O/lean/.lake/packages/StrongPNT/.lake/build/lib/lean:/root/O/lean/.lake/packages/AbsorptionCutoff/.lake/build/lib/lean:/root/O/lean/.lake/packages/AINTLIB/.lake/build/lib/lean:/root/O/lean/.lake/packages/ClassFieldTheory/.lake/build/lib/lean:/root/O/lean/.lake/packages/schoenflies-lean/.lake/build/lib/lean:/root/O/lean/.lake/packages/SphereEversion/.lake/build/lib/lean:/root/O/lean/.lake/packages/TauCeti/.lake/build/lib/lean:/root/O/lean/.lake/packages/gromov/.lake/build/lib/lean:/root/O/lean/.lake/packages/iut/.lake/build/lib/lean:/root/O/lean/.lake/packages/tate-curves-theta/.lake/build/lib/lean:/root/O/lean/.lake/packages/genl/.lake/build/lib/lean:/root/O/lean/.lake/packages/heights/.lake/build/lib/lean:/root/O/lean/.lake/packages/pi1/.lake/build/lib/lean:/root/O/lean/.lake/packages/orbicurve-cores/.lake/build/lib/lean:/root/O/lean/.lake/packages/oka/.lake/build/lib/lean:/root/O/lean/.lake/packages/tempered-fundamental-groups/.lake/build/lib/lean:/root/O/lean/.lake/packages/elliptic-curves/.lake/build/lib/lean:/root/O/lean/.lake/packages/formal-schemes/.lake/build/lib/lean:/root/O/lean/.lake/packages/belyi/.lake/build/lib/lean:/root/O/lean/.lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean:/root/O/lean/.lake/packages/leancert/.lake/build/lib/lean:/root/O/lean/.lake/packages/LeanArchitect/.lake/build/lib/lean:/root/O/lean/.lake/packages/PrimeCert/.lake/build/lib/lean:/root/O/lean/.lake/packages/doc-gen4/.lake/build/lib/lean:/root/O/lean/.lake/packages/checkdecls/.lake/build/lib/lean:/root/O/lean/.lake/packages/mathlib/.lake/build/lib/lean:/root/O/lean/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean /root/O/lean/bridge/Bridge.lean -o /root/O/lean/.lake/build/lib/lean/Bridge.olean -i /root/O/lean/.lake/build/lib/lean/Bridge.ilean -c /root/O/lean/.lake/build/ir/Bridge.c --setup /root/O/lean/.lake/build/ir/Bridge.setup.json --json
+error: bridge/Bridge.lean:273:29: Application type mismatch: The argument
+  (theta_zero_iff ⟨bondCritical, bondCritical_mem⟩).mpr hcrit
+has type
+  TextbookPercolation.θ 3 ⟨bondCritical, bondCritical_mem⟩ = 0
+but is expected to have type
+  0 < TextbookPercolation.θ 3 ⟨bondCritical, bondCritical_mem⟩
+in the application
+  Exists.intro bondCritical_mem ((theta_zero_iff ⟨bondCritical, bondCritical_mem⟩).mpr hcrit)
+error: bridge/Bridge.lean:278:79: Application type mismatch: The argument
+  h0
+has type
+  0 < TextbookPercolation.θ 3 ⟨p, hp⟩
+but is expected to have type
+  TextbookPercolation.θ 3 ⟨p, hp⟩ = 0
+in the application
+  (theta_zero_iff ⟨p, hp⟩).mp h0
+info: bridge/Bridge.lean:305:0: 'BridgeO.bridgeO' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: bridge/Bridge.lean:306:0: 'BridgeO.statement3_from_openai' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+Some required targets logged failures:
+- Bridge
+error: build failed

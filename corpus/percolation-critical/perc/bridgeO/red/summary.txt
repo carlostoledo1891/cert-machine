@@ -1,0 +1,33 @@
+R1 EXIT=1 (38s)
+error: bridge/Bridge.lean:297:27: Application type mismatch: The argument
+  (theta_zero_iff ⟨bondCritical, bondCritical_mem⟩).mpr hcrit
+has type
+  TextbookPercolation.θ 3 ⟨bondCritical, bondCritical_mem⟩ = 0
+but is expected to have type
+  TextbookPercolation.θ 3 ⟨bondCritical, bondCritical_mem⟩ = 1
+in the application
+  Exists.intro bondCritical_mem ((theta_zero_iff ⟨bondCritical, bondCritical_mem⟩).mpr hcrit)
+info: bridge/Bridge.lean:305:0: 'BridgeO.bridgeO' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+R2 EXIT=1 (37s)
+error: bridge/Bridge.lean:296:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  TextbookPercolation.pc 3
+in the target expression
+  ∃ (h : TextbookPercolation.pc 1 ∈ Set.Icc 0 1), TextbookPercolation.θ 3 ⟨TextbookPercolation.pc 1, h⟩ = 0
+
+h : ∀ᵐ (ω : BondConfig) ∂bondLaw bondCritical, ∀ (x : Vertex), (bondCluster ω x).Finite
+hcrit : (bondLaw bondCritical) (bondInfiniteAt 0) = 0
+⊢ ∃ (h : TextbookPercolation.pc 1 ∈ Set.Icc 0 1), TextbookPercolation.θ 3 ⟨TextbookPercolation.pc 1, h⟩ = 0
+info: bridge/Bridge.lean:305:0: 'BridgeO.bridgeO' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+R3 EXIT=1 (37s)
+error: bridge/Bridge.lean:271:2: Tactic `apply` failed: could not unify the conclusion of `@IsGreatest.csSup_eq`
+  sSup ?s = ?a
+with the goal
+  sInf {p | ∃ (h : p ∈ Set.Icc 0 1), 0 < TextbookPercolation.θ 3 ⟨p, h⟩} = bondCritical
+
+Note: The full type of `@IsGreatest.csSup_eq` is
+  ∀ {α : Type ?u.10} [inst : ConditionallyCompletePartialOrderSup α] {s : Set α} {a : α}, IsGreatest s a → sSup s = a
+
+hcrit : (bondLaw bondCritical) (bondInfiniteAt 0) = 0
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  bridge/Textbook.lean
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  /root/Textbook.lean
+restored: lake build Bridge EXIT=0 (37s)

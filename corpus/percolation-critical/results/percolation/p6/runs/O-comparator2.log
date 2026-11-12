@@ -1,0 +1,22 @@
+project /root/bridgeO/math/lean, toolchain leanprover/lean4:v4.34.1, configurations: comparator-ours.json
+== comparator @ d03acab154d269c06e60e4de7e4cc85deebff94b
+info: downloading https://releases.lean-lang.org/lean4/v4.34.0/lean-4.34.0-linux.tar.zst
+info: installing /root/.elan/toolchains/leanprover--lean4---v4.34.0
+info: lean4export: cloning https://github.com/leanprover/lean4export
+info: lean4export: checking out revision '076e8e57707e813375e8f9da8bf989799ace9680'
+✔ [1/4] Built Comparator.Util (492ms)
+✔ [5/16] Built Comparator.Util:c.o (147ms)
+✔ [6/16] Built Export.Parse (1.9s)
+✔ [7/16] Built Comparator.Axioms (766ms)
+✔ [8/16] Built Comparator.Axioms:c.o (358ms)
+✔ [9/16] Built Comparator.Compare (786ms)
+✔ [10/16] Built Comparator.Compare:c.o (476ms)
+✔ [11/16] Built Comparator (528ms)
+✔ [12/16] Built Comparator:c.o (76ms)
+✔ [13/16] Built Export.Parse:c.o (3.9s)
+✔ [14/16] Built Main (2.2s)
+✔ [15/16] Built Main:c.o (1.1s)
+✔ [16/16] Built comparator:exe (1.1s)
+Build completed successfully (16 jobs).
+== lean4export @ 076e8e57707e813375e8f9da8bf989799ace9680 (release v4.34.1)
+error: lean4export 076e8e57707e813375e8f9da8bf989799ace9680 targets leanprover/lean4:v4.34.0 but the project uses leanprover/lean4:v4.34.1

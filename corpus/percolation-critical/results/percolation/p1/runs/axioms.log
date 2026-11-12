@@ -1,0 +1,25 @@
+Percolation.Continuity.CSH.percolationContinuity_allDimensions : ∀ (d : ℕ),
+  2 ≤ d → Percolation.Literature.PercolationContinuity d
+'Percolation.Continuity.CSH.percolationContinuity_allDimensions' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Percolation.Continuity.CSH.percolationContinuity_three : Percolation.Literature.PercolationContinuity 3
+'Percolation.Continuity.CSH.percolationContinuity_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+Percolation.Continuity.CSH.kozmaNitzan_conjecture3_holds : Percolation.Literature.KozmaNitzan2024_conjecture3
+'Percolation.Continuity.CSH.kozmaNitzan_conjecture3_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+Percolation.Continuity.CSH.additiveGluing_holds : Percolation.Continuity.Statements.AdditiveGluing
+'Percolation.Continuity.CSH.additiveGluing_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Percolation.Continuity.CSH.cshHolds : ∀ {V : Type u_1} [Fintype V] (w : Sym2 V → ↑unitInterval),
+  (∀ (e : Sym2 V), 0 < w e ∧ w e < 1) →
+    ∀ (x : V) (Y : Set V) (D : List V) (o v : V),
+      x ∉ Y →
+        o ∉ Insert.insert x Y →
+          v ∉ Insert.insert x Y →
+            o ≠ v →
+              D.Nodup →
+                (∀ d ∈ D, d ∉ Insert.insert x Y ∧ d ≠ o ∧ d ≠ v) → Percolation.Continuity.CSH.CSHHolds w x Y D o v
+'Percolation.Continuity.CSH.cshHolds' depends on axioms: [propext, Classical.choice, Quot.sound]
+BondPercolation.percolation_continuity : ∀ (d : ℕ), 2 ≤ d → BondPercolation.PercolationContinuity d
+'BondPercolation.percolation_continuity' depends on axioms: [propext, Classical.choice, Quot.sound]
+BondPercolation.percolation_continuity_Z3 : BondPercolation.PercolationContinuity 3
+'BondPercolation.percolation_continuity_Z3' depends on axioms: [propext, Classical.choice, Quot.sound]

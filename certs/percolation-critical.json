@@ -1,0 +1,118 @@
+{
+ "undecided": "The proofs are Anthropic’s (J. Leder with Claude, anthropics/formal-math 795efb86, unmerged) and OpenAI’s (openai/math, family 213, CriticalZ3). This record checks that their Lean theorems prove a statement written independently from Grimmett (1999, §1.3–1.4); it checks neither informal paper nor Kozma–Nitzan’s reduction as printed.",
+ "statement": {
+  "file": "perc/Textbook.lean",
+  "sha256": "4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae",
+  "lines": 71,
+  "source": "G. Grimmett, Percolation, 2nd ed., Springer 1999, §1.3–1.4",
+  "pc": "sup {p : θ(p) = 0}"
+ },
+ "anthropic": {
+  "pins": {
+   "repository": "https://github.com/anthropics/formal-math",
+   "commit": "795efb86f191735c5481675763537cfb4ff37e55",
+   "tarballSha256": "10f3e6b94b9584799670bfd842e3cadb2287fa9e9f50b9fb6b5ec9a2756955c4",
+   "toolchain": "v4.32.0",
+   "mathlib": "81a5d257"
+  },
+  "replay": {
+   "buildSeconds": 547,
+   "audited": 7,
+   "comparator": "accepts (Lean, nanoda)",
+   "redControls": 2,
+   "freshSeconds": 2163
+  },
+  "bridge": {
+   "lines": 299,
+   "sha256": "ab8be23fcdec9c211bad2d44bc0b44ab22e26ea4bdf9111309670f2d78cae00a",
+   "dims": "every d ≥ 2",
+   "uses": "theta_mono_holds",
+   "comparatorSeconds": 264,
+   "freshSeconds": 1892
+  }
+ },
+ "openai": {
+  "pins": {
+   "repository": "https://github.com/openai/math",
+   "commit": "4eaee87548250b2682affda7d05d947c05554bae",
+   "toolchain": "v4.34.1",
+   "mathlib": "d13f23b7"
+  },
+  "bridge": {
+   "lines": 306,
+   "sha256": "030bf61f10890c31d35a63b6d7b8919d9a3a85aadf34d8945edc7799d559e9a6",
+   "dims": "d = 3",
+   "monotonicityLines": 79,
+   "comparatorSeconds": 176,
+   "freshSeconds": 2164
+  }
+ },
+ "anchors": {
+  "theorems": [
+   "θ_d(0) = 0",
+   "θ_d(1) = 1 (d ≥ 1)",
+   "p_c(d) ∈ [0, 1]",
+   "Statement ⇒ p_c(d) < 1"
+  ],
+  "pins": 2,
+  "inBothLabsEnvironments": true
+ },
+ "planted": [
+  {
+   "id": "R1",
+   "what": "θ(p_c) = 1",
+   "false": true,
+   "refusedA": true,
+   "refusedO": true
+  },
+  {
+   "id": "R2",
+   "what": "the statement at d = 1 (A) / p_c of ℤ¹ (O)",
+   "false": true,
+   "refusedA": true,
+   "refusedO": true
+  },
+  {
+   "id": "R3",
+   "what": "p_c as inf {θ > 0}",
+   "false": false,
+   "refusedA": true,
+   "refusedO": true,
+   "note": "still true: shows dependence on how p_c is written, not a refusal of a false claim"
+  },
+  {
+   "id": "R4",
+   "what": "p_c as sup {θ > 0}",
+   "false": true,
+   "provedFalse": true,
+   "refusedA": true,
+   "refusedO": true
+  }
+ ],
+ "seam": {
+  "common": 2488,
+  "identical": 2032,
+  "word": "a reading"
+ },
+ "money": {
+  "pods": 3,
+  "usd": 3.06
+ },
+ "seals": [
+  18,
+  19,
+  20,
+  21
+ ],
+ "provenance": {
+  "files": 205,
+  "sourceCommit": "7bcd7700d8bc0c474ee97c72c73935f88ddb856d"
+ },
+ "verdicts": {
+  "bridgeA": "CERTIFIED",
+  "bridgeO": "CERTIFIED",
+  "replayA": "REPLAYED",
+  "anchors": "CERTIFIED",
+  "seam": "READ, NOT DECIDED"
+ }
+}

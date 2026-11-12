@@ -1,0 +1,14 @@
+Textbook.lean: OK
+R1: planted lines changed = 1
+R1: exit 1 (24 s); first error: error: Bridge.lean:295:2: Type mismatch
+R2: planted lines changed = 1
+R2: exit 1 (24 s); first error: error: Bridge.lean:295:12: Application type mismatch: The argument
+R3: planted lines changed = 1
+R3: exit 1 (26 s); first error: error: Bridge.lean:266:4: Type mismatch
+Textbook.lean: OK
+restore build: exit 0 (25 s); Build completed successfully (8905 jobs).
+axioms after restore exit 0
+'bridgeA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'statement_from_anthropic' depends on axioms: [propext, Classical.choice, Quot.sound]
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  Textbook.lean
+red controls done
