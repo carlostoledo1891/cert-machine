@@ -1,0 +1,95 @@
+{
+  "reader": "B (independent second reader), 2026-11-12, model:claude-opus-5-5",
+  "status": "readings, not decisions; nothing here is verified",
+  "branch": "phase2-readings-b-2026-11-12 (local, from 097d268)",
+  "pins": {
+    "lean": {
+      "repo": "github.com/AxiomMath/BGP212",
+      "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+      "path": "Gap212Challenge/Basic.lean",
+      "sha256": "0658163beaefecd4a851565d9e9ee7a2a8065ae5a3eb9a003091436c93b242fb"
+    },
+    "[1]": {
+      "arxiv": "1402.0811v3",
+      "eprint_sha256": "4db2b22532e291782aaed923170de165e0392e49e83b3436163996503f6e13bf",
+      "tex_sha256": "fdffe1dfb7b820d8a45ecc0e07e2f7e17404e6e10b63db110c2d44afe42013ea",
+      "pdf_sha256": "f4b4556f9451ea0524b974376b9dbe4478faf3734847897460274f6bae98b65c",
+      "why_v3": "Theorem 2.8 / 2.9 numbering; v1 and v2 number them 2.23 / 2.24"
+    },
+    "[2]": {
+      "arxiv": "2608.31126v1",
+      "eprint_sha256": "77b09473ece2a81fc0dc144ca604eadc3d876dd9125f9e095d3ef7ec6ff442a5",
+      "tex_sha256": "c0d5d2317c77f4de7eacdef6e1d4b1eb6433e6240b5c09273b3d4eee99e6c3ba",
+      "pdf_sha256": "4296e63a3028fcff62725c7e751811679cbfea78e4d4213486b2f9a3e81ee994"
+    }
+  },
+  "commits": {
+    "step1_sources": "829d8b2",
+    "step2_readings": "fe5588e",
+    "step3_summary": "this commit (see git log)"
+  },
+  "counts": {
+    "MATCH": 0,
+    "MISMATCH": 7,
+    "CANNOT READ": 0
+  },
+  "common_finding": "the Lean consistently uses [1]'s all-n discrepancy with [2]'s moduli sets and parameter conditions; [2] states its lemmas and Proposition 2 with the [x,2x] discrepancy. The [x,2x] helper sumErrorDyadic exists in the file and is unused.",
+  "hypotheses": [
+    {
+      "name": "TypeIIPolymath",
+      "cites": "[2] Lemma 3; [1] Thm 2.8(iv)",
+      "reading": "MISMATCH",
+      "clause": "conclusion HasEquidistribution -> sumError sums over all n in N (l.142-150); [2] Definition 7 sums over n in [x,2x] (sumErrorDyadic, l.135, is defined and unused). Not made irrelevant by support: for general K the support of the convolution is [scaleLo^2 asympLo x, scaleHi^2 asympHi x]. Against [1] 2.8(iv): different statement (the Lean follows [2]'s moduli and conditions).",
+      "direction": "incomparable: Lean => [2] needs the x<=mk<=2x cut separated (Perron / finer-than-dyadic, keeping SW); [2] => Lean needs applying [2] at y ~ x, which changes D(y), the residue condition and (Lemmas 3,4,6) N <= y^{1/2}; neither is literal",
+      "also": "omega in (0,1/4): Lean weaker (excludes omega <= 0); other conventions harmless (conventions.reading.md H1-H12)"
+    },
+    {
+      "name": "TypeIbPolymath",
+      "cites": "[2] Lemma 4; [1] Thm 2.8(ii)",
+      "reading": "MISMATCH",
+      "clause": "conclusion HasEquidistribution -> sumError sums over all n in N (l.142-150); [2] Definition 7 sums over n in [x,2x] (sumErrorDyadic, l.135, is defined and unused). Not made irrelevant by support: for general K the support of the convolution is [scaleLo^2 asympLo x, scaleHi^2 asympHi x]. Against [1] 2.8(ii): different statement (Type_I^(2), doubly densely divisible moduli, 56w+16d+4s<1).",
+      "direction": "incomparable: Lean => [2] needs the x<=mk<=2x cut separated (Perron / finer-than-dyadic, keeping SW); [2] => Lean needs applying [2] at y ~ x, which changes D(y), the residue condition and (Lemmas 3,4,6) N <= y^{1/2}; neither is literal",
+      "also": "omega in (0,1/4): Lean weaker; moduliIIb exact"
+    },
+    {
+      "name": "TypeIBakerIrving",
+      "cites": "[2] Lemma 5",
+      "reading": "MISMATCH",
+      "clause": "conclusion HasEquidistribution -> sumError sums over all n in N (l.142-150); [2] Definition 7 sums over n in [x,2x] (sumErrorDyadic, l.135, is defined and unused). Not made irrelevant by support: for general K the support of the convolution is [scaleLo^2 asympLo x, scaleHi^2 asympHi x].",
+      "direction": "incomparable: Lean => [2] needs the x<=mk<=2x cut separated (Perron / finer-than-dyadic, keeping SW); [2] => Lean needs applying [2] at y ~ x, which changes D(y), the residue condition and (Lemmas 3,4,6) N <= y^{1/2}; neither is literal",
+      "also": "three branches, the eps-dependent boundary and the conditions exact; omega in (0,1/4): Lean weaker"
+    },
+    {
+      "name": "TypeIStadlmann",
+      "cites": "[2] Lemma 6",
+      "reading": "MISMATCH",
+      "clause": "conclusion HasEquidistribution -> sumError sums over all n in N (l.142-150); [2] Definition 7 sums over n in [x,2x] (sumErrorDyadic, l.135, is defined and unused). Not made irrelevant by support: for general K the support of the convolution is [scaleLo^2 asympLo x, scaleHi^2 asympHi x].",
+      "direction": "incomparable: Lean => [2] needs the x<=mk<=2x cut separated (Perron / finer-than-dyadic, keeping SW); [2] => Lean needs applying [2] at y ~ x, which changes D(y), the residue condition and (Lemmas 3,4,6) N <= y^{1/2}; neither is literal",
+      "also": "moduliIIc exact incl. d^-1, d^-4; omega in (0,1/4): Lean weaker"
+    },
+    {
+      "name": "TypeIIIPolymath",
+      "cites": "[2] Lemma 7; [1] Thm 2.8(v)",
+      "reading": "MISMATCH",
+      "clause": "conclusion HasEquidistribution -> sumError sums over all n in N (l.142-150); [2] Definition 7 sums over n in [x,2x] (sumErrorDyadic, l.135, is defined and unused). Not made irrelevant by support: for general K the support of the convolution is [scaleLo^2 asympLo x, scaleHi^2 asympHi x]. Against [1] 2.8(v): different statement ([1] gives 28w+9k+2d<4 and densely divisible moduli; the Lean has [2]'s 8d and D_III).",
+      "direction": "incomparable: Lean => [2] needs the x<=mk<=2x cut separated (Perron / finer-than-dyadic, keeping SW); [2] => Lean needs applying [2] at y ~ x, which changes D(y), the residue condition and (Lemmas 3,4,6) N <= y^{1/2}; neither is literal",
+      "also": "ranges omega<1/12, kappa<1/2, delta<1/4+omega imported from [1]: Lean weaker, harmless except excluding omega <= 0"
+    },
+    {
+      "name": "Gap212HarmanReduction",
+      "cites": "[2] Prop. 2, Def. 9",
+      "reading": "MISMATCH",
+      "clause": "antecedent HasEquidistributionOverQstar -> sumError over all n for every f in HarmanClass; [2] Prop. 2's hypothesis (inequ:harmrequ) sums over n in [x,2x]. The conclusion (primeInterval) is in [2]'s [x,2x] convention. Conclusion keeps only property (2), for rho = 1_P (exact at xi2 = 2/5: both exceptional sums empty, c1 = c2 = 0); (1),(3),(4) not stated.",
+      "direction": "incomparable as implications (the antecedents P_U and P_R are incomparable for the class H); on the conclusion side Lean weaker (drops (1),(3),(4))",
+      "also": "classes TypeI/II/III, slack, Qgen/Qstar, instance xi = (19/50,2/5,2/5) and gap212Params all match/admissible; residue p <= x vs [2]'s P(x) = prod_{p<x} p differs only at prime x, harmless"
+    },
+    {
+      "name": "BilinearBombieriVinogradov",
+      "cites": "[1] Thm 2.9",
+      "reading": "MISMATCH",
+      "clause": "added hypothesis `x ^ xi <= M` (l.675); [1] Thm 2.9 asks only M >> 1 with N >= x^eps for the SW factor. Given it, 'SW on alpha or beta' is equivalent to [1]'s SW on beta by commutativity of dconv. Discrepancy over all n and sup over primitive a inside the q-sum match [1] exactly.",
+      "direction": "Lean weaker (a proper special case of [1] Thm 2.9)",
+      "also": ""
+    }
+  ]
+}

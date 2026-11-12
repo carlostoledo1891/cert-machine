@@ -1,0 +1,184 @@
+{
+ "what": "blind reading of the seven quoted analytic premises of Axiom's BGP212 development against the papers they cite (step 3 of the plan sealed 2026-11-12). Readings, not decisions.",
+ "reader": "model:claude-opus-5-5",
+ "date": "2026-11-12",
+ "branch": "phase2-readings-2026-11-12 (local, not pushed)",
+ "lean": {
+  "repo": "github.com/AxiomMath/BGP212",
+  "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+  "path": "Gap212Challenge/Basic.lean",
+  "license": "Apache-2.0",
+  "sha256": "0658163beaefecd4a851565d9e9ee7a2a8065ae5a3eb9a003091436c93b242fb",
+  "git_blob": "428215260c5baf99fa07b1202cf99a0de6a966c8",
+  "lines": 718,
+  "names_versions": false,
+  "says_about_its_sources": [
+   "'The declarations, rather than their source descriptions, specify the exact hypotheses of the challenge.' (l. 22-24)",
+   "'The bound 212 does not appear in [1] or [2]; [2, Theorem 1] states H1 <= 240 at k = 49.' (l. 697)",
+   "'The dimension k = 45 is specific to this certificate; [2, Theorem 1] is proved at k = 49.' (l. 514)",
+   "gap212Cap: the cap values are specific to this datum; [2] takes B = 0.15, 0.15, 0.17... at delta = 0.028, eps = 0.0075, k = 49 (l. 443-445)",
+   "Kregion departs from the printed region of [2] Definition 5 (l. 402-403; Gap212Certificate out of scope)",
+   "CoprimeBelow's docstring equates p <= x with [2]'s (a, P(x)) = 1, but [2] defines P(y) over p < y; and cites [1] Definition 2.2 for the primitive class of [1] Definition 2.6 (docstring slips only)"
+  ]
+ },
+ "sources": {
+  "[1]": {
+   "arxiv": "1402.0811",
+   "version": "v3",
+   "why": "latest; the only version numbering the theorems 2.8/2.9; the Lean names no version",
+   "note": "the brief's title for [1], 'Variants of the Selberg sieve...', is Polymath 8b = arXiv 1407.4897; the Lean file titles [1] correctly"
+  },
+  "[2]": {
+   "arxiv": "2608.31126",
+   "version": "v1",
+   "why": "the only version"
+  },
+  "pins": "sources.json"
+ },
+ "commits": {
+  "sources_first": "c777708734c857c43085655aff29407289fdd757",
+  "readings": "d34a89fa788165846c08030e7a145c842e53d146"
+ },
+ "counts": {
+  "MATCH": 0,
+  "MISMATCH": 7,
+  "CANNOT_READ": 0
+ },
+ "premises": [
+  {
+   "name": "TypeIIPolymath",
+   "cited": [
+    "[2] Lemma 3",
+    "[1] Theorem 2.8(iv)"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)",
+    "arXiv 1402.0811v3 (Polymath, New equidistribution estimates of Zhang type)"
+   ],
+   "lean_lines": "222-238",
+   "reading": "MISMATCH",
+   "per_source": {
+    "[2] Lemma 3": {
+     "reading": "MISMATCH",
+     "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used",
+     "stronger_or_weaker": "incomparable"
+    },
+    "[1] Theorem 2.8(iv)": {
+     "reading": "MISMATCH",
+     "clause": "states [2]'s variant: moduli with one divisor in a window instead of densely divisible q with primes in I; N anywhere in [x^g1, x^(1/2)] instead of N >~ x^(1/2-2w-c); 24w+7d-5g<-2 and 8w+3d-g<0 instead of 68w+14d<1; level x^(1/2+2w) exactly; residue for one I",
+     "stronger_or_weaker": "stronger on the decisive clauses (moduli, N-range, numerics near g=1/2); weaker on level o(1) and choice of I"
+    }
+   },
+   "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used",
+   "stronger_or_weaker": "incomparable (vs [2]); stronger (vs [1])"
+  },
+  {
+   "name": "TypeIbPolymath",
+   "cited": [
+    "[2] Lemma 4",
+    "[1] Theorem 2.8(ii)"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)",
+    "arXiv 1402.0811v3 (Polymath, New equidistribution estimates of Zhang type)"
+   ],
+   "lean_lines": "240-256",
+   "reading": "MISMATCH",
+   "per_source": {
+    "[2] Lemma 4": {
+     "reading": "MISMATCH",
+     "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used; minor: omega restricted to (0, 1/4), and omega moves the u-window, so omega <= 0 is not recovered",
+     "stronger_or_weaker": "incomparable; weaker in omega's sign"
+    },
+    "[1] Theorem 2.8(ii)": {
+     "reading": "MISMATCH",
+     "clause": "states [2]'s variant (the docstring says so): two divisor windows instead of doubly densely divisible q; 24w+7d-3g<-1 and 8w+3d-g<0 instead of 56w+16d+4s<1; N <= x^(1/2) instead of N <~ x^(1/2-2w-c)",
+     "stronger_or_weaker": "incomparable"
+    }
+   },
+   "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used",
+   "stronger_or_weaker": "incomparable"
+  },
+  {
+   "name": "TypeIBakerIrving",
+   "cited": [
+    "[2] Lemma 5"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)"
+   ],
+   "lean_lines": "258-275",
+   "reading": "MISMATCH",
+   "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used; minor: omega restricted to (0, 1/4), and omega moves the case boundary x^(1/2+2w+eps)",
+   "stronger_or_weaker": "incomparable; weaker in omega's sign"
+  },
+  {
+   "name": "TypeIStadlmann",
+   "cited": [
+    "[2] Lemma 6"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)"
+   ],
+   "lean_lines": "277-294",
+   "reading": "MISMATCH",
+   "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used (the only difference found)",
+   "stronger_or_weaker": "incomparable"
+  },
+  {
+   "name": "TypeIIIPolymath",
+   "cited": [
+    "[2] Lemma 7",
+    "[1] Theorem 2.8(v)"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)",
+    "arXiv 1402.0811v3 (Polymath, New equidistribution estimates of Zhang type)"
+   ],
+   "lean_lines": "296-322",
+   "reading": "MISMATCH",
+   "per_source": {
+    "[2] Lemma 7": {
+     "reading": "MISMATCH",
+     "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used; minor: omega restricted to (0, 1/12), and omega moves the r-window; [1]'s ranges for kappa, delta harmless",
+     "stronger_or_weaker": "incomparable; weaker in omega's sign"
+    },
+    "[1] Theorem 2.8(v)": {
+     "reading": "MISMATCH",
+     "clause": "28w+9k+8d<4 where [1] gives 28w+9k+2d<4 (with k = 1/2 - sigma); moduli with one divisor in a window instead of densely divisible q; level x^(1/2+2w) exactly; scale hypotheses with constant slack instead of x^o(1)",
+     "stronger_or_weaker": "incomparable (weaker on 8d, level, slack; stronger on moduli)"
+    }
+   },
+   "clause": "discrepancy summed over all n (sumError, [1] (1.1)) where [2] Definition 7 sums over n in [x, 2x]; sumErrorDyadic is defined and never used",
+   "stronger_or_weaker": "incomparable"
+  },
+  {
+   "name": "Gap212HarmanReduction",
+   "cited": [
+    "[2] Proposition 2",
+    "[2] Definition 9"
+   ],
+   "source_version": [
+    "arXiv 2608.31126v1 (Stadlmann, Bounded gaps between primes)"
+   ],
+   "lean_lines": "533-650",
+   "reading": "MISMATCH",
+   "clause": "the antecedent bounds the unrestricted discrepancy of the class members where [2] (4.1) sums over n in [x, 2x] (the conclusion, via primeInterval, is cut to [x, 2x]); minor: only conclusion (2) carried, the others trivial at xi2 = 2/5 where rho = 1_P by the source's own note; negligible: antecedent residues p <= x vs (a, P(x)) = 1, p < x. Definition 9's classes, Q and Q*, and the five xi inequalities at (19/50, 2/5, 2/5) read as matching",
+   "stronger_or_weaker": "incomparable (an instance of Prop. 2 composed with an unstated passage between the two discrepancies)"
+  },
+  {
+   "name": "BilinearBombieriVinogradov",
+   "cited": [
+    "[1] Theorem 2.9"
+   ],
+   "source_version": [
+    "arXiv 1402.0811v3 (Polymath, New equidistribution estimates of Zhang type)"
+   ],
+   "lean_lines": "664-679",
+   "reading": "MISMATCH",
+   "clause": "adds x^xi <= M (the factor without the Siegel-Walfisz property must also be >= x^xi); [1] asks only N >= x^eps and M >> 1. The 'SW on alpha or beta' disjunction is only the symmetric closure. Moduli, sup inside the sum, level x^(1/2)/log^B, unrestricted discrepancy, A -> B order match",
+   "stronger_or_weaker": "weaker"
+  }
+ ],
+ "not_in_scope": "Gap212Certificate"
+}

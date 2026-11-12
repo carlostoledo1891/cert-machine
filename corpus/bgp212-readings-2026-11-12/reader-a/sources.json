@@ -1,0 +1,32 @@
+{
+  "what": "the pinned sources of the blind reading of BGP212's seven analytic premises (step 3 of the plan sealed 2026-11-12); written before the Lean file was opened",
+  "read_on": "2026-11-12",
+  "reader": "model:claude-opus-5-5",
+  "sources": {
+    "[1]": {
+      "arxiv": "1402.0811",
+      "version_read": "v3",
+      "version_why": "latest (v1 4 Feb 2014, v2 12 Jul 2014, v3 3 Sep 2014). The numbering the premises cite (Theorem 2.8(ii),(iv),(v), Theorem 2.9) exists only in v3: in v1 and v2 (the long version, Section 2 'Outline of the key steps of the proof') the same two theorems are the 23rd and 24th numbered environments of Section 2 (Theorem 2.23 and 2.24 by my count). Whether the Lean file names a version is checked only after this commit.",
+      "title_on_arxiv": "New equidistribution estimates of Zhang type",
+      "published": "Algebra & Number Theory 8(9) (2014) 2067-2199 (as [2] cites it, key Polymath:2014:EDZ)",
+      "title_mismatch": "The brief gives [1] the title 'Variants of the Selberg sieve, and bounded intervals containing many primes'. That is the title of a different paper, Polymath 8b, arXiv 1407.4897 (Res. Math. Sci. 1 (2014)), whose Theorem 2.8 is the generalized Bombieri-Vinogradov theorem (Motohashi) and which has no Theorem 2.8(ii)/(iv)/(v). The cited content (Type I/II/III estimates, the bilinear Bombieri-Vinogradov theorem) is in 1402.0811, so the arXiv id is read as authoritative and the title as a mislabel. Whether the mislabel is in the Lean file or only in the brief is checked after this commit.",
+      "eprint_sha256_v3": "4db2b22532e291782aaed923170de165e0392e49e83b3436163996503f6e13bf",
+      "pdf_sha256_v3": "f4b4556f9451ea0524b974376b9dbe4478faf3734847897460274f6bae98b65c",
+      "eprint_sha256_v2": "c86f0da474858594aeaed1713d65f467fa141e06d8c5ca23305abcf3a1015b0b",
+      "eprint_sha256_v1": "7aecd9601d5edfb876b87bebe6ef97d137cd745f83139e9a4798572d6724977a",
+      "tex_file_read": "newgap.tex (v3, 411980 bytes)"
+    },
+    "[2]": {
+      "arxiv": "2608.31126",
+      "version_read": "v1",
+      "version_why": "the only version (submitted Mon 31 Aug 2026 17:39:30 UTC)",
+      "title_on_arxiv": "Bounded gaps between primes",
+      "author": "Julia Stadlmann",
+      "eprint_sha256_v1": "77b09473ece2a81fc0dc144ca604eadc3d876dd9125f9e095d3ef7ec6ff442a5",
+      "pdf_sha256_v1": "4296e63a3028fcff62725c7e751811679cbfea78e4d4213486b2f9a3e81ee994",
+      "tex_file_read": "Bounded_Gaps_2.0.tex (180202 bytes)",
+      "numbering_checked": "Lemma 3-7, Proposition 2, Definition 9 confirmed in the compiled PDF (pdftotext): Lemma 3 Polymath Type II, Lemma 4 Polymath Type I(ii), Lemma 5 Baker-Irving Type I, Lemma 6 S. Type I, Lemma 7 Polymath Type III, Definition 9 (Decomposition), Proposition 2 (the Harman minorant)."
+    }
+  },
+  "lean_file": "not opened before the commit that holds this file"
+}

@@ -1,0 +1,75 @@
+{
+  "reader": "B (second, independent reader), 2026-11-12",
+  "papers": {
+    "[1]": {
+      "title": "New equidistribution estimates of Zhang type",
+      "authors": "D. H. J. Polymath",
+      "arxiv": "1402.0811",
+      "version_used": "v3",
+      "version_submitted": "2014-09-03 19:30:03 UTC",
+      "why_v3": "Section 2 of v3 numbers 'New Type I, II, III estimates' Theorem 2.8 (parts (i)-(v)) and the bilinear Bombieri-Vinogradov theorem Theorem 2.9, as cited; in v1 and v2 the same theorems are 2.23 and 2.24 (shared theorem counter counted in each source and confirmed in each PDF).",
+      "eprint_url": "https://arxiv.org/e-print/1402.0811v3",
+      "eprint_sha256": "4db2b22532e291782aaed923170de165e0392e49e83b3436163996503f6e13bf",
+      "tex_file": "main.tex (single gzip, original name newgap.tex)",
+      "tex_sha256": "fdffe1dfb7b820d8a45ecc0e07e2f7e17404e6e10b63db110c2d44afe42013ea",
+      "pdf_url": "https://arxiv.org/pdf/1402.0811v3",
+      "pdf_sha256": "f4b4556f9451ea0524b974376b9dbe4478faf3734847897460274f6bae98b65c",
+      "cited_locations_v3": {
+        "Theorem 2.8": "main.tex lines 1023-1037",
+        "Theorem 2.9": "main.tex lines 1043-1049",
+        "Definition 2.6 (Type I/II/III)": "lines 920-991",
+        "Definition 2.5 (coefficient sequences)": "lines 882-912",
+        "Definition 2.1 (dense divisibility)": "lines 797-821",
+        "discrepancy eq. (disc-def)": "lines 658-666",
+        "Definition 1.2 (asymptotic notation)": "lines 606-608"
+      },
+      "other_versions_checked": {
+        "v1": {
+          "eprint_sha256": "7aecd9601d5edfb876b87bebe6ef97d137cd745f83139e9a4798572d6724977a",
+          "pdf_sha256": "c61191759d544a9f8aa6407732936cdd2d1c991c9eea7532ee984a96e91c994a",
+          "numbering": "Theorem 2.23 / 2.24"
+        },
+        "v2": {
+          "eprint_sha256": "c86f0da474858594aeaed1713d65f467fa141e06d8c5ca23305abcf3a1015b0b",
+          "pdf_sha256": "96d81bb4ae91345f29dfd889f3bf77b0b9b4f4f14017d9d1f7b0601d92e40503",
+          "numbering": "Theorem 2.23 / 2.24"
+        }
+      }
+    },
+    "[2]": {
+      "title": "Bounded gaps between primes",
+      "authors": "Julia Stadlmann",
+      "arxiv": "2608.31126",
+      "version_used": "v1",
+      "version_submitted": "2026-08-31 17:39:30 UTC (only version listed on 2026-11-12)",
+      "eprint_url": "https://arxiv.org/e-print/2608.31126v1",
+      "eprint_sha256": "77b09473ece2a81fc0dc144ca604eadc3d876dd9125f9e095d3ef7ec6ff442a5",
+      "tex_file": "Bounded_Gaps_2.0.tex",
+      "tex_sha256": "c0d5d2317c77f4de7eacdef6e1d4b1eb6433e6240b5c09273b3d4eee99e6c3ba",
+      "pdf_url": "https://arxiv.org/pdf/2608.31126v1",
+      "pdf_sha256": "4296e63a3028fcff62725c7e751811679cbfea78e4d4213486b2f9a3e81ee994",
+      "numbering": "separate counters per environment: Lemmas 3-7 = tex lines 572-671; Proposition 2 = lines 1118-1162; Definition 9 = lines 1104-1115; Definitions 1,2,3 = lines 140-186; Definitions 6,7 = lines 532-563",
+      "note": "the paper's Theorem 1 states H_1 <= 240, not 212"
+    }
+  },
+  "lean": {
+    "repo": "github.com/AxiomMath/BGP212",
+    "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+    "path": "Gap212Challenge/Basic.lean",
+    "raw_url": "https://raw.githubusercontent.com/AxiomMath/BGP212/6641780bb6bab050fd400a348ba759d233e34fad/Gap212Challenge/Basic.lean",
+    "sha256": "0658163beaefecd4a851565d9e9ee7a2a8065ae5a3eb9a003091436c93b242fb",
+    "bytes": 38947,
+    "lines": 718,
+    "fetched": "2026-11-12, after the step-1 commit",
+    "hypothesis_lines": {
+      "TypeIIPolymath": "222-238",
+      "TypeIbPolymath": "240-256",
+      "TypeIBakerIrving": "258-275",
+      "TypeIStadlmann": "277-294",
+      "TypeIIIPolymath": "296-322",
+      "Gap212HarmanReduction": "631-650 (HarmanReduction 635-642)",
+      "BilinearBombieriVinogradov": "664-679"
+    },
+    "helpers_read": "ConstantBundle 44-63, IsCoefficientSequence 75-80, LocatedAtScale 84-89, IsSmoothAtScale 95-103, dconv 106-107, dyadic 111, CoprimeBelow 116, HasSiegelWalfisz 123-131, sumErrorDyadic 135-137 (unused), sumError 142-144, HasEquidistribution 149-150, moduli sets 159-207, SupportParams 337-352, gap212Cap/gap212Params 446-508, TypeI/TypeII/TypeIII/HarmanClass 540-585, Qgen/Qstar 598-613, HasEquidistributionOverQstar 618-620, primeIndicator/primeInterval 623-629"
+  }
+}
