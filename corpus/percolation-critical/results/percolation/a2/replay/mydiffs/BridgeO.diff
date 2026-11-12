@@ -1,0 +1,29 @@
+--- /root/one/in/bridgeO/Bridge.lean	2026-11-12 18:42:13.799509504 +0000
++++ BridgeO.lean	2026-11-12 18:44:25.376584709 +0000
+@@ -117,7 +117,7 @@
+ noncomputable def pull (ω : TextbookPercolation.Edge 3 → Bool) : BondConfig := fun b => ω (bondEquiv b)
+ 
+ theorem measurable_pull : Measurable pull :=
+-  Measurable.of_eval fun b => measurable_pi_apply (bondEquiv b)
++  measurable_pi_lambda _ fun b => measurable_pi_apply (bondEquiv b)
+ 
+ theorem openEdge_iff (ω : TextbookPercolation.Edge 3 → Bool) (x y : Vertex) :
+     TextbookPercolation.OpenEdge ω x y ↔ BondOpen (pull ω) x y := by
+@@ -225,7 +225,7 @@
+   fun b => thr p (u b)
+ 
+ theorem measurable_thrConfig (p : unitInterval) : Measurable (thrConfig p) :=
+-  Measurable.of_eval fun b => (measurable_thr p).comp (measurable_pi_apply b)
++  measurable_pi_lambda _ fun b => (measurable_thr p).comp (measurable_pi_apply b)
+ 
+ theorem bondLaw_eq_map (p : ℝ) : bondLaw p = labels.map (thrConfig (parameter p)) := by
+   unfold bondLaw labels thrConfig
+@@ -289,7 +289,7 @@
+     rw [ae_iff] at h
+     apply measure_mono_null _ h
+     intro ω hω
+-    simp only [Set.mem_ofPred_eq]
++    simp only [Set.mem_setOf_eq]
+     intro hall
+     exact (show (bondCluster ω 0).Infinite from hω) (hall 0)
+   unfold TextbookPercolation.Statement3

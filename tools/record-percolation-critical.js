@@ -3,7 +3,9 @@
    (Anthropic's, every d >= 2; OpenAI's, d = 3) bridged to one statement written independently from Grimmett. Re-derived
    from corpus/percolation-critical (the lane's records copied byte for byte, each pinned in PROVENANCE.json) and refused
    on any difference: every exit code, every axiom list, every kernel's line, the planted statements, the seam's counts,
-   the money. Rules sealed before each stage (seals 18 and 20), results after (19 and 21). `--check` compares.     MIT */
+   the money. Rules sealed before each stage (seals 18, 20 and 24), results after (19, 21 and 25). Amendment A2
+   (2026-11-12, evening): the statement proved false at d = 1, and both labs' proofs, both bridges and the statement in
+   ONE Lean, by the orchestrator's replay. `--check` compares.     MIT */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -70,14 +72,53 @@ for (const s of ['A-R4-axioms', 'O-R4-axioms']) axiomsOK(a1 + s + '.log', ['Text
 const mac = rd('results/percolation/p5/mac-builds.log');
 if ((mac.match(/Build completed successfully/g) || []).length !== 4) die('the Mac anchor builds are not four successes');
 
+/* A2 — the statement's body false at d = 1 (the orchestrator's replay at both pins) */
+const d1 = 'results/percolation/a2/dimone-replay/';
+const D1 = ['TextbookPercolation.theta_dim_one_eq_zero', 'TextbookPercolation.pc_dim_one', 'TextbookPercolation.statement_body_false_at_dim_one'];
+for (const pin of ['p432', 'p4341']) {
+  const b = rd(d1 + pin + '-build.log');
+  if (!/Build completed successfully/.test(b) || /^(error|warning)/m.test(b) || /sorry/.test(b)) die('the d = 1 build at ' + pin + ' is not a clean success');
+  axiomsOK(d1 + pin + '-axioms.txt', D1);
+  if (!rd('results/percolation/a2/dimone/' + pin + '-DimOne.sha256').includes(sha('perc/anchors/DimOne.lean'))) die('the d = 1 file built at ' + pin + ' is not perc/anchors/DimOne.lean');
+}
+if (/\bsorry\b|^\s*axiom\b|native_decide/m.test(rd('perc/anchors/DimOne.lean').replace(/\/-[\s\S]*?-\//g, ''))) die('perc/anchors/DimOne.lean holds a forbidden token');
+
+/* A2 — one Lean: the orchestrator's replay, attempt 2 (attempt 1 is on record and must have failed as recorded) */
+const a2 = 'results/percolation/a2/replay/';
+const E3 = ['E-clean-build', 'E-build-statement-files', 'E-axioms', 'E-comparator-ours', 'E-comparator-openai', 'E-comparator-anthropic', 'E-fresh'];
+for (const st of E3) if (ex(a2 + 'runs/' + st) !== 0) die('one Lean: ' + st + ' did not exit 0');
+const cb = rd(a2 + 'runs/E-clean-build.log');
+if (!/Build completed successfully \(8948 jobs\)/.test(cb) || /^error|✖/m.test(cb) || /^warning/m.test(cb) || rd(a2 + 'runs/E-clean-build.sorry.txt').trim() !== '') die('one Lean: the clean build is not a clean success without sorry');
+for (const c of ['ours', 'openai', 'anthropic']) accepts(a2 + 'runs/E-comparator-' + c + '.log');
+if (!rd(a2 + 'runs/E-comparator-ours.log').includes('configurations: comparator-ours.json') || !rd(a2 + 'runs/E-comparator-openai.log').includes('configurations: comparator-openai.json')) die('one Lean: a Comparator run did not use the configuration it is named for');
+axiomsOK(a2 + 'runs/E-axioms.log', ['OneLean.statement_from_anthropic', 'OneLean.statement3_from_openai', 'OAI.CriticalZ3.critical_no_infinite', 'BondPercolation.percolation_continuity']);
+const REDS = ['R1A-BridgeA', 'R1A-OneLean', 'R1O-BridgeO', 'R1O-OneLean', 'R1-OneLean', 'R4-BridgeA', 'R4-BridgeO', 'R4-OneLean'];
+for (const r of REDS) {
+  if (ex(a2 + 'runs/' + r) === 0) die('one Lean: the planted statement ' + r + ' was accepted');
+  if (!/^error: Bridge[AO]\.lean:\d+:\d+: (Application t|T)ype mismatch/m.test(rd(a2 + 'runs/' + r + '.log'))) die('one Lean: ' + r + ' is not refused by a type mismatch inside a bridge');
+}
+for (const st of ['R4-plantedfalse', 'R4-axioms', 'restore-build', 'restore-axioms']) if (ex(a2 + 'runs/' + st) !== 0) die('one Lean: ' + st + ' did not exit 0');
+axiomsOK(a2 + 'runs/R4-axioms.log', ['TextbookPercolation.planted_statement_false', 'TextbookPercolation.planted_statement3_false']);
+axiomsOK(a2 + 'runs/restore-axioms.log', ['OneLean.statement_from_anthropic', 'OneLean.statement3_from_openai']);
+if (rd(a2 + 'runs/E-oleans-before.sha256') !== rd(a2 + 'runs/E-oleans-after.sha256')) die('one Lean: the oleans after the restore are not the ones the kernels were shown');
+if (sha(a2 + 'E/Textbook.lean') !== TEXTBOOK || sha(a2 + 'E/BridgeA.lean') !== sha('perc/bridgeA/Bridge.lean')) die('one Lean: the statement or bridge A in the environment is not the sealed file');
+const ck = rd(a2 + 'runs/CHECKS.txt'), ck2 = rd(a2 + 'runs/CHECKS-attempt2.txt');
+const port = /OpenAI closure: (\d+) pinned files, (\d+) in the port; byte-identical (\d+), changed (\d+)/.exec(ck) || die('one Lean: the port counts are missing');
+const moved = /lines removed \/ added over the changed files: (\d+) \/ (\d+)/.exec(ck) || die('one Lean: the changed-line counts are missing');
+if (!ck.includes('OpenAI statement file, E vs the pinned checkout: BYTE-IDENTICAL') || !/forbidden tokens on ADDED lines \([^)]*\): 0\n/.test(ck)) die('one Lean: the statement file is not byte-identical, or an added line holds a forbidden token');
+if (!ck2.includes('AppleDouble files left anywhere in E outside .lake: 0') || !ck2.includes('the same 35 paths, the same sha256 each')) die('one Lean: attempt 2 did not start from the manifest\'s tree');
+if (ex(a2 + 'runs-attempt1/E-clean-build') !== 1 || !rd(a2 + 'runs-attempt1/E-clean-build.log').includes('OAI: some modules have bad imports')) die('one Lean: attempt 1 is not the failed run on record');
+
 /* the seam, as measured */
 const seam = rd('perc/seam/READING.md');
 const sm = /2,488 in common, of\s*which \*\*2,032 identical\*\*/.exec(seam) || die('the seam counts moved');
 
 /* money: the lane's pod rows */
-const pod = rd('pods.txt').split('\n').filter((l) => /DELETED/.test(l) && /percolation|p-perc|flb0x16odc1310|xim7c7qjmugr39|rli0cel1sleq5l/.test(l));
-const usd = pod.map((l) => Number((/≈ US\$([0-9.]+)\)/.exec(l) || [0, NaN])[1])).filter((x) => !Number.isNaN(x));
-if (usd.length !== 3) die('expected three deleted percolation pods, found ' + usd.length);
+const pod = rd('pods.txt').split('\n').filter((l) => /^\S+ \S+ DELETED /.test(l) && /flb0x16odc1310|xim7c7qjmugr39|rli0cel1sleq5l|l9a01mpxra4o4q|fwwcomdlxq6mqc/.test(l));
+const usd = pod.map((l) => Number((/≈ US\$([0-9.]+)[) ]/.exec(l) || [0, NaN])[1])).filter((x) => !Number.isNaN(x));
+if (usd.length !== 5) die('expected five deleted percolation pods, found ' + usd.length);
+const podMin = pod.map((l) => { const m = /≈ (?:(\d+) h )?(\d+) min/.exec(l); return m ? Number(m[1] || 0) * 60 + Number(m[2]) : NaN; });
+if (podMin.some((x) => Number.isNaN(x))) die('a pod line does not state its minutes');
 
 const R = {
   undecided: 'The proofs are Anthropic’s (J. Leder with Claude, anthropics/formal-math 795efb86, unmerged) and OpenAI’s (openai/math, family 213, CriticalZ3). This record checks that their Lean theorems prove a statement written independently from Grimmett (1999, §1.3–1.4); it checks neither informal paper nor Kozma–Nitzan’s reduction as printed.',
@@ -94,16 +135,23 @@ const R = {
   anchors: { theorems: ['θ_d(0) = 0', 'θ_d(1) = 1 (d ≥ 1)', 'p_c(d) ∈ [0, 1]', 'Statement ⇒ p_c(d) < 1'], pins: 2, inBothLabsEnvironments: true },
   planted: [
     { id: 'R1', what: 'θ(p_c) = 1', false: true, refusedA: true, refusedO: true },
-    { id: 'R2', what: 'the statement at d = 1 (A) / p_c of ℤ¹ (O)', false: true, refusedA: true, refusedO: true },
+    { id: 'R2', what: 'the statement at d = 1 (A) / p_c of ℤ¹ (O)', false: true, refusedA: true, refusedO: true, provedFalseAtDimOne: true },
     { id: 'R3', what: 'p_c as inf {θ > 0}', false: false, refusedA: true, refusedO: true, note: 'still true: shows dependence on how p_c is written, not a refusal of a false claim' },
     { id: 'R4', what: 'p_c as sup {θ > 0}', false: true, provedFalse: true, refusedA: true, refusedO: true }
   ],
-  seam: { common: 2488, identical: 2032, word: 'a reading' },
-  money: { pods: usd.length, usd: Math.round(usd.reduce((a, b) => a + b, 0) * 100) / 100 },
-  seals: [18, 19, 20, 21],
+  seam: { common: 2488, identical: 2032, word: 'a reading', supersededBy: 'oneLean' },
+  dimOne: { file: 'perc/anchors/DimOne.lean', sha256: sha('perc/anchors/DimOne.lean'), lines: lines('perc/anchors/DimOne.lean'), theorems: ['θ₁(p) = 0 for every p < 1', 'p_c(1) = 1', 'the statement’s body at d = 1 is false'], pins: 2 },
+  oneLean: {
+    toolchain: 'v4.32.0', mathlib: '81a5d257', ported: 'OpenAI’s ℤ³ proof, to Anthropic’s version',
+    port: { files: Number(port[1]), identical: Number(port[3]), changed: Number(port[4]), linesOut: Number(moved[1]), linesIn: Number(moved[2]), statementFile: 'byte-identical', bridgeOLinesChanged: 3 },
+    cleanBuildSeconds: secs(a2 + 'runs/E-clean-build'), comparators: 3, comparatorOursSeconds: secs(a2 + 'runs/E-comparator-ours'), freshSeconds: secs(a2 + 'runs/E-fresh'),
+    planted: REDS.length, attempts: 2, firstAttempt: 'its build failed on 34 stray files from the checker’s own archive; kept on record'
+  },
+  money: { pods: usd.length, usd: Math.round(usd.reduce((a, b) => a + b, 0) * 100) / 100, minutes: podMin.reduce((a, b) => a + b, 0) },
+  seals: [18, 19, 20, 21, 24, 25],
   provenance: { files: PROV.files.length, sourceCommit: PROV.source_commit },
   note: (() => { const n = JSON.parse(rd('note.json')); if (n.published && !/^10\.5281\/zenodo\.\d+$/.test(n.doi)) die('note.json: a published note needs a Zenodo DOI'); return { doi: n.doi, published: !!n.published }; })(),
-  verdicts: { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED' }
+  verdicts: { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED', oneLean: 'CERTIFIED', dimOne: 'CERTIFIED' }
 };
 const out = path.join(ROOT, 'certs', 'percolation-critical.json');
 const text = JSON.stringify(R, null, 1) + '\n';

@@ -1,0 +1,8 @@
+OneLean.statement_from_anthropic : TextbookPercolation.Statement
+OneLean.statement3_from_openai : TextbookPercolation.Statement3
+'OneLean.statement_from_anthropic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OneLean.statement3_from_openai' depends on axioms: [propext, Classical.choice, Quot.sound]
+'statement_from_anthropic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BridgeO.statement3_from_openai' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CriticalZ3.critical_no_infinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BondPercolation.percolation_continuity' depends on axioms: [propext, Classical.choice, Quot.sound]

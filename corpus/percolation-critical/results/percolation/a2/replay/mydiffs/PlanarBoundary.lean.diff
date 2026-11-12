@@ -1,0 +1,33 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/PlanarBoundary.lean	2026-11-12 18:44:18.757383616 +0000
++++ OAI/Probability/CriticalZ3/PlanarBoundary.lean	2026-11-12 18:44:25.354584041 +0000
+@@ -220,10 +220,10 @@
+   · obtain ⟨i,_,hi⟩ := Finset.exists_ne_zero_of_sum_ne_zero hw
+     refine ⟨i,?_,hi⟩
+     by_contra! hh
+-    exact hi (by rw [rayFlux_eq_lineFlux (hedge i),ite_eq_right (not_lt.mpr hh)])
++    exact hi (by rw [rayFlux_eq_lineFlux (hedge i),if_neg (not_lt.mpr hh)])
+   · by_contra! hh
+     have he : (∑ i, rayFlux (v i) (v (FiniteTrails.next hn i))) = 0 := by
+-      simp_rw [rayFlux_eq_lineFlux (hedge _),ite_eq_left (hh _)]
++      simp_rw [rayFlux_eq_lineFlux (hedge _),if_pos (hh _)]
+       exact lineFlux_sum_zero hn v
+     exact hw he
+ 
+@@ -264,7 +264,7 @@
+       ∃ i, 0 < (tail (e i)).1 ∧ (tail (e i)).1 < 2*(n : ℤ) ∧
+         rayFlux (tail (e i)) (head (e i)) ≠ 0 := by
+   have hw : (∑ e : Boundary X, rayFlux (tail e) (head e)) ≠ 0 := by
+-    rw [boundary_flux,ite_eq_left hX]
++    rw [boundary_flux,if_pos hX]
+     norm_num
+   obtain ⟨n,hn,e,he,hnext,hsum⟩ :=
+     FiniteTrails.exists_closed_trail tail head (fun v => by
+@@ -319,7 +319,7 @@
+     | succ k ih =>
+       have hkn : k < n := Nat.lt_trans (Nat.lt_succ_self _) hk
+       rw [trace_succ,ih hkn]
+-      simp only [wordAt,dite_eq_left hkn,hword,displacement]
++      simp only [wordAt,dif_pos hkn,hword,displacement]
+       have hx := he ⟨k,hkn⟩
+       have hnxt : FiniteTrails.next hn ⟨k,hkn⟩ = (⟨k+1,hk⟩ : Fin n) := by
+         ext

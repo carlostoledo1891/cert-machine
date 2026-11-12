@@ -1,0 +1,13 @@
+✔ [8903/8905] Built Textbook (5.5s)
+✖ [8904/8905] Building BridgeA (6.9s)
+trace: .> LEAN_PATH=/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/BridgeA.lean -o /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean/BridgeA.olean -i /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/lib/lean/BridgeA.ilean -c /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/ir/BridgeA.c --setup /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/.lake/build/ir/BridgeA.setup.json --json
+error: BridgeA.lean:295:2: Type mismatch
+  h d hd
+has type
+  BondPercolation.PercolationContinuity d
+but is expected to have type
+  BondPercolation.theta (BondPercolation.zdGraph d) 0 (BondPercolation.criticalProbI d) = 1
+error: Lean exited with code 1
+Some required targets logged failures:
+- BridgeA
+error: build failed

@@ -1,0 +1,154 @@
+--- a/OAI/Probability/CriticalZ3/Conditioning.lean
++++ b/OAI/Probability/CriticalZ3/Conditioning.lean
+@@ -26,14 +26,14 @@
+ 
+ omit [Countable E] in
+ theorem measurable_replace (J : Finset E) (ξ : E → Bool) : Measurable (replace J ξ) := by
+-  apply Measurable.of_eval
++  apply measurable_pi_lambda
+   intro e
+   by_cases he : e ∈ J
+-  · simp only [replace, ite_eq_left he]; exact measurable_const
+-  · simp only [replace, ite_eq_right he]; exact measurable_pi_apply e
++  · simp only [replace, if_pos he]; exact measurable_const
++  · simp only [replace, if_neg he]; exact measurable_pi_apply e
+ 
+ theorem measurableSet_pattern (J : Finset E) (ξ : E → Bool) : MeasurableSet (pattern J ξ) := by
+-  simp only [pattern, Set.ofPred_forall]
++  simp only [pattern, Set.setOf_forall]
+   exact MeasurableSet.iInter (fun e => MeasurableSet.iInter (fun _ =>
+     measurableSet_eq_fun (measurable_pi_apply e) measurable_const))
+ 
+@@ -42,8 +42,8 @@
+     replace J ξ ω = ω := by
+   funext e
+   by_cases he : e ∈ J
+-  · exact (ite_eq_left he).trans (h e he).symm
+-  · exact ite_eq_right he
++  · exact (if_pos he).trans (h e he).symm
++  · exact if_neg he
+ 
+ omit [Countable E] in
+ theorem map_replace (p : E → Set.Icc (0 : ℝ) 1) (J : Finset E) (ξ : E → Bool) :
+@@ -69,16 +69,16 @@
+ private theorem measurable_replace_compl (J : Finset E) (ξ : E → Bool) :
+     @Measurable (E → Bool) (E → Bool) (⨆ e ∈ (J : Set E)ᶜ, bitSigma e)
+       inferInstance (replace J ξ) := by
+-  apply @Measurable.of_eval (E → Bool) E (fun _ => Bool) (⨆ e ∈ (J : Set E)ᶜ, bitSigma e) _ (replace J ξ)
++  apply @measurable_pi_lambda (E → Bool) E (fun _ => Bool) (⨆ e ∈ (J : Set E)ᶜ, bitSigma e) _ (replace J ξ)
+   intro e
+   by_cases he : e ∈ J
+-  · simp only [replace,ite_eq_left he]; exact measurable_const
+-  · simp only [replace,ite_eq_right he]
++  · simp only [replace,if_pos he]; exact measurable_const
++  · simp only [replace,if_neg he]
+     exact Measurable.of_comap_le (le_iSup_of_le e (le_iSup_of_le he le_rfl))
+ 
+ private theorem measurable_pattern_sigma (J : Finset E) (ξ : E → Bool) :
+     MeasurableSet[⨆ e ∈ (J : Set E), bitSigma e] (pattern J ξ) := by
+-  simp only [pattern,Set.ofPred_forall]
++  simp only [pattern,Set.setOf_forall]
+   apply MeasurableSet.iInter
+   intro e
+   apply MeasurableSet.iInter
+@@ -121,10 +121,10 @@
+     ω ∈ pattern J (ProductCylinder.extend J a) ↔ J.restrict ω = a := by
+   constructor
+   · intro h; funext e
+-    simpa only [Finset.restrict,ProductCylinder.extend,dite_eq_left e.2] using h e e.2
++    simpa only [Finset.restrict,ProductCylinder.extend,dif_pos e.2] using h e e.2
+   · intro h e he
+     have hh := congrFun h ⟨e,he⟩
+-    simpa only [Finset.restrict,ProductCylinder.extend,dite_eq_left he] using hh
++    simpa only [Finset.restrict,ProductCylinder.extend,dif_pos he] using hh
+ 
+ /-- Partition a finite reveal without conditioning on any unrevealed event. -/
+ theorem measure_select (p : E → Set.Icc (0 : ℝ) 1) (J : Finset E)
+@@ -135,7 +135,7 @@
+   have heq : {ω | ω ∈ A (J.restrict ω)} =
+       ⋃ a : J → Bool, pattern J (ProductCylinder.extend J a) ∩ A a := by
+     ext ω
+-    simp only [Set.mem_ofPred_eq,Set.mem_iUnion,Set.mem_inter_iff,pattern_extend_iff]
++    simp only [Set.mem_setOf_eq,Set.mem_iUnion,Set.mem_inter_iff,pattern_extend_iff]
+     exact ⟨fun h => ⟨J.restrict ω,rfl,h⟩, fun ⟨a,ha,h⟩ => ha.symm ▸ h⟩
+   rw [heq,measureReal_iUnion_fintype]
+   · exact Finset.sum_congr rfl (fun a _ => pattern_inter_real p J _ _ (hA a))
+@@ -148,7 +148,7 @@
+ 
+ theorem sum_pattern_real (p : E → Set.Icc (0 : ℝ) 1) (J : Finset E) :
+     ∑ a : J → Bool, (ProductCylinder.law p).real (pattern J (ProductCylinder.extend J a)) = 1 := by
+-  simpa only [Set.mem_univ,Set.ofPred_true,probReal_univ,mul_one] using
++  simpa only [Set.mem_univ,Set.setOf_true,probReal_univ,mul_one] using
+     (measure_select p J (fun _ => Set.univ) (fun _ => MeasurableSet.univ)).symm
+ 
+ omit [Countable E] in
+@@ -166,7 +166,7 @@
+   have heq : {ω | ω ∈ A (J.restrict ω)} =
+       ⋃ a : J → Bool, pattern J (ProductCylinder.extend J a) ∩ A a := by
+     ext ω
+-    simp only [Set.mem_ofPred_eq,Set.mem_iUnion,Set.mem_inter_iff,pattern_extend_iff]
++    simp only [Set.mem_setOf_eq,Set.mem_iUnion,Set.mem_inter_iff,pattern_extend_iff]
+     exact ⟨fun h => ⟨J.restrict ω,rfl,h⟩, fun ⟨a,ha,h⟩ => ha.symm ▸ h⟩
+   rw [heq]
+   exact MeasurableSet.iUnion (fun a => (measurableSet_pattern _ _).inter (hA a))
+@@ -183,12 +183,12 @@
+   let M := ⨆ e ∈ (J : Set E), bitSigma e
+   let mask : (E → Bool) → (E → Bool) := fun ω e => if e ∈ J then ω e else false
+   have hm : @Measurable (E → Bool) (E → Bool) M MeasurableSpace.pi mask := by
+-    apply @Measurable.of_eval (E → Bool) E (fun _ => Bool) M _ mask
++    apply @measurable_pi_lambda (E → Bool) E (fun _ => Bool) M _ mask
+     intro e
+     by_cases he : e ∈ J
+-    · simp only [mask,ite_eq_left he]
++    · simp only [mask,if_pos he]
+       exact Measurable.of_comap_le (le_iSup_of_le e (le_iSup_of_le he le_rfl))
+-    · simp only [mask,ite_eq_right he]; exact measurable_const
++    · simp only [mask,if_neg he]; exact measurable_const
+   have heq : mask ⁻¹' A = A := by
+     ext ω
+     exact eq_iff_iff.mp (hA ω (mask ω) (fun e he => by simp [mask,he]))
+@@ -220,7 +220,7 @@
+       ∏ i ∈ s, (ProductCylinder.law p).real (A i) := by
+   classical
+   induction s using Finset.induction_on with
+-  | empty => simp only [Finset.notMem_empty,false_implies,implies_true,Set.ofPred_true,
++  | empty => simp only [Finset.notMem_empty,false_implies,implies_true,Set.setOf_true,
+       probReal_univ,Finset.prod_empty]
+   | @insert i s hi ih =>
+     have hdis : Disjoint (J i) (s.biUnion J) := by
+@@ -238,7 +238,7 @@
+     have hh := (indepSet_determined p (J i) (s.biUnion J) hdis (A i)
+       {ω | ∀ j ∈ s, ω ∈ A j} (hA i) hdet).measure_inter_eq_mul
+     have heq : {ω | ∀ j ∈ insert i s, ω ∈ A j} = A i ∩ {ω | ∀ j ∈ s, ω ∈ A j} := by
+-      ext ω; simp only [Finset.mem_insert,forall_eq_or_imp,Set.mem_ofPred_eq,Set.mem_inter_iff]
++      ext ω; simp only [Finset.mem_insert,forall_eq_or_imp,Set.mem_setOf_eq,Set.mem_inter_iff]
+     rw [heq,Measure.real_def,hh,ENNReal.toReal_mul]
+     change (ProductCylinder.law p).real (A i) *
+       (ProductCylinder.law p).real {ω | ∀ j ∈ s, ω ∈ A j} = _
+@@ -279,7 +279,7 @@
+     rw [h e (Finset.mem_singleton_self e)]
+   have h := disjoint_blocks_probability p (fun e : E => {e}) hd
+     (fun e => {ω | ω e = ξ e}) hdet J
+-  simpa only [pattern,Set.mem_ofPred_eq,single_probability] using h
++  simpa only [pattern,Set.mem_setOf_eq,single_probability] using h
+ 
+ def allValue (J : Finset E) (b : Bool) : Set (E → Bool) := {ω | ∀ e ∈ J, ω e = b}
+ 
+@@ -318,7 +318,7 @@
+     ext ω
+     apply eq_iff_iff.mp (hA ω (replace J ξ ω) ?_)
+     intro e he
+-    apply ite_eq_right
++    apply if_neg
+     exact fun heJ => Finset.disjoint_left.mp hJK heJ he
+   rw [heq]
+   rfl
+@@ -330,7 +330,7 @@
+   rw [←map_replace]
+   apply (ae_map_iff (measurable_replace J ξ).aemeasurable
+     (measurableSet_pattern J ξ)).mpr
+-  exact Filter.Eventually.of_forall (fun ω e he => ite_eq_left he)
++  exact Filter.Eventually.of_forall (fun ω e he => if_pos he)
+ 
+ /-- On a fixed revealed pattern, every J-determined quantity is constant. -/
+ theorem ae_fixed_determined {F : Sort uF} (p : E → Set.Icc (0 : ℝ) 1)

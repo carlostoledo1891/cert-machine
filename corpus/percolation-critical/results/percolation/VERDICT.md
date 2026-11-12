@@ -12,6 +12,69 @@
 - Nothing here checks the labs' informal papers, nor that Kozma–Nitzan's conjectures as printed are what either Lean states.
 - Anthropic's development is not on formal-math's main branch; its commit is reachable only by hash (pinned here by sha256).
 
+## A2 — the statement is false at d = 1 (P5′) and the one-Lean port (P4′) (2026-11-12 evening; amendment A2, seal 24)
+
+**P5′ — PROVED, at both pins, the same bytes** (perc/anchors/DimOne.lean, 202 lines, sha256 5722a128…acea; written by an
+agent on the pod in about 12 minutes; Mathlib only, importing ThetaAnchors over the sealed Textbook.lean 4dc732f5…41ae):
+`theta_dim_one_eq_zero` (θ₁(p) = 0 for every p < 1), `pc_dim_one` (p_c(1) = 1) and `statement_body_false_at_dim_one`
+(¬ ∃ h : pc 1 ∈ [0, 1], θ 1 ⟨pc 1, h⟩ = 0 — the body of `Statement` at d = 1, word for word). No `sorry`, no axiom, no
+`native_decide`. The orchestrator's replay on the pod (results/percolation/a2/dimone-replay/; the three files' hashes
+checked first, their build products deleted): v4.32.0 / 81a5d257 build exit 0 (26 s), v4.34.1 / d13f23b7 exit 0 (27 s),
+no warning; `#print axioms` of the three: [propext, Classical.choice, Quot.sound] at both. The agent's own final run:
+results/percolation/a2/dimone/. So `2 ≤ d` in our statement is load-bearing, and red control R2 (`1 ≤ d`) planted a
+statement that is now PROVED false, not only refused by the bridges. Route: in ℤ¹ an open path from 0 to m crosses every
+edge between them; an infinite cluster forces, for every n, n consecutive open edges to the right or to the left; each
+cylinder has probability pⁿ, so θ₁(p) ≤ 2pⁿ.
+
+**P4′ — one Lean: CERTIFIED (one Lean)**, by the orchestrator's replay of 2026-11-12 19:44 UTC (results/percolation/a2/replay,
+194 files, every sha256 re-checked at home; pod fwwcomdlxq6mqc, deleted, 404).
+
+ONE environment — Anthropic's project from the pinned tarball (10f3e6b9…), Lean v4.32.0, Mathlib 81a5d257, its tree
+unchanged except lakefile.toml (the default targets line and nine appended libraries) — now also holds OpenAI's ℤ³ closure
+ported to that pin, OpenAI's statement file, the sealed Textbook.lean, both bridges and
+`OneLean.statement_from_anthropic : TextbookPercolation.Statement` and
+`OneLean.statement3_from_openai : TextbookPercolation.Statement3`, about the same constants.
+
+| A2 "Passes when" | the orchestrator's replay (attempt 2) |
+|---|---|
+| a clean `lake build` | exit 0 (524 s): "Build completed successfully (8948 jobs)", 0 errors, 0 warnings, 0 `sorry` |
+| `#print axioms` of the two theorems | [propext, Classical.choice, Quot.sound] both; the same for bridge A's and bridge O's theorems, OpenAI's `critical_no_infinite` and Anthropic's `percolation_continuity` in that environment |
+| Comparator, OUR statement as the challenge (both theorems `sorry`), OneLean the solution | "nanoda kernel accepts", "Lean default kernel accepts", "Your solution is okay!" (274 s; nanoda 68d5ca9d, Palomar pins) |
+| Comparator, the ported lab's own theorem against ITS unchanged challenge file | OpenAI's own CriticalZ3.json from the pinned checkout, challenge ComparatorChallenges.CriticalZ3 (git blob 56e93b89… = the pin), solution the ported Main: both kernels accept (120 s; the script forces nanoda on) |
+| (extra) Anthropic's own configuration | both kernels accept (266 s) |
+| leanchecker --fresh OneLean | exit 0 (1,990 s), no output |
+| R1 (θ = 1), one planted line each | REFUSED: `Statement` planted — BridgeA.lean:295 type mismatch, OneLean does not build; `Statement3` planted — BridgeO.lean:297, OneLean does not build; both planted — OneLean does not build |
+| R4 (p_c = sup of the supercritical set), one planted line | REFUSED: BridgeA.lean:266, BridgeO.lean:273, OneLean does not build; `PlantedFalse` builds beside it, exit 0, `planted_statement_false` and `planted_statement3_false` on the standard three |
+| the sealed file restored | sha256 4dc732f5…41ae OK; rebuild exit 0; axioms unchanged; the four .olean files identical to the ones the kernels were shown |
+
+**The port, checked by the orchestrator against the pinned originals before any build** (runs/CHECKS.txt, CHECKS-attempt2.txt):
+direction OpenAI → Anthropic's pin, not the default, chosen by the agent after measuring both (Anthropic's library at the
+newer Mathlib: 5 of the first 21 modules fail with proof-level errors, 228 not reached; OpenAI's closure at the older one:
+names that only the newer Mathlib has). 34 of 34 files; 12 byte-identical, 22 changed, 124 lines out / 125 in, almost all
+renames (diffs in mydiffs/, equal line for line to the agent's); 0 forbidden tokens on an added line. STATEMENT SIDE:
+OpenAI's ComparatorChallenges/CriticalZ3.lean byte-identical to the pin; Anthropic's Challenge.lean and whole library
+untouched; Textbook.lean and bridge A the sealed bytes; bridge O three lines (two `Measurable.of_eval` →
+`measurable_pi_lambda _`, one `Set.mem_ofPred_eq` → `Set.mem_setOf_eq`; 030bf61f… → ec3f9dba…).
+
+**What this closes, and what it does not.** P4's seam — that our statement means the same in the two Leans where the
+two bridges ran — no longer carries the result: in one Lean, two kernels accept our statement for every d ≥ 2 from
+Anthropic's development and for d = 3 from OpenAI's. It does NOT say OpenAI's proof was run unchanged: it is OpenAI's
+proof PORTED BY US (an agent's port, 22 files of renames), accepted against OpenAI's unchanged statement file at
+v4.32.0; OpenAI's own build at v4.34.1 is the separate record of 10-10. Everything PREREG says the result will not say
+still stands.
+
+**Deviations (dated 2026-11-12; the sealed file is not edited).** (1) The first pod (l9a01mpxra4o4q) was deleted at 12% of
+the desk's battery after the agent's port and incremental build and before any acceptance check; the agent never ran
+them. The orchestrator ran them on a second pod from the agent's saved files and the sealed inputs, hash-checked
+(replay/INPUTS.sha256). (2) Replay attempt 1: the clean build exited 1, "OAI: some modules have bad imports" — the
+orchestrator's own macOS tar had written 34 AppleDouble files (._X.lean) that the OAI library's glob took for modules;
+its first check counted with `*.lean`, which hides dotfiles, and missed them. Logs kept whole (replay/runs-attempt1).
+Attempt 2 removed them, compared the tree with the manifest file by file (35 paths, the same sha256 each) and started
+every check again from `rm -rf .lake/build`. (3) The orchestrator killed its own remote shell once while stopping attempt
+1 (a `pkill -f` pattern matched it); nothing ran in between that is not in the logs. (4) Predictions: "the port
+completes" (0.55) met; "inside US$10" (0.45) met — about US$2.3 for the amendment (44 + 65 pod-minutes at US$1.28/h, by
+the clock).
+
 ## A1 — the anchors (P5) and red control R4 (2026-11-12; amendment A1, seal 20; the pod run results/percolation/a1/)
 
 **P5, on the Mac, Mathlib only, the same bytes at both pins** (perc/anchors/; results/percolation/p5/mac-builds.log): θ_d(0) = 0

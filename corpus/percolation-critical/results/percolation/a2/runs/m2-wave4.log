@@ -1,0 +1,46 @@
+⚠ [8661/8691] Replayed ComparatorChallenges.CriticalZ3
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+✔ [8663/8691] Built OAI.Probability.CriticalZ3.HyperedgeComparison (9.5s)
+✔ [8664/8691] Built OAI.Probability.CriticalZ3.LatticeGraph (7.1s)
+✔ [8665/8691] Built OAI.Probability.CriticalZ3.BoxGeometry (7.6s)
+✔ [8666/8691] Built OAI.Probability.CriticalZ3.LatticePaths (6.5s)
+✔ [8667/8691] Built OAI.Probability.CriticalZ3.EntryLayers (6.8s)
+✔ [8668/8691] Built OAI.Probability.CriticalZ3.SeedTrials (6.8s)
+✔ [8669/8691] Built OAI.Probability.CriticalZ3.Conditioning (7.1s)
+✔ [8670/8691] Built OAI.Probability.CriticalZ3.ConditionalQuality (6.7s)
+✔ [8671/8691] Built OAI.Probability.CriticalZ3.TrialCounts (6.8s)
+✔ [8672/8691] Built OAI.Probability.CriticalZ3.ShellProbability (6.9s)
+✔ [8673/8691] Built OAI.Probability.CriticalZ3.SeedQuality (6.8s)
+✔ [8674/8691] Built OAI.Probability.CriticalZ3.Extension (7.1s)
+✔ [8675/8691] Built OAI.Probability.CriticalZ3.Scales (10s)
+✔ [8676/8691] Built OAI.Probability.CriticalZ3.Relay (8.4s)
+✔ [8677/8691] Built OAI.Probability.CriticalZ3.RelayProbability (7.6s)
+✔ [8678/8691] Built OAI.Probability.CriticalZ3.FiniteTrails (7.2s)
+✔ [8679/8691] Built OAI.Probability.CriticalZ3.PlanarBoundary (14s)
+✔ [8680/8691] Built OAI.Probability.CriticalZ3.Matching (7.0s)
+✔ [8681/8691] Built OAI.Probability.CriticalZ3.Peierls (8.1s)
+✔ [8682/8691] Built OAI.Probability.CriticalZ3.Coarse (8.6s)
+✖ [8683/8691] Building OAI.Probability.CriticalZ3.AdaptiveReveals (7.5s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/AdaptiveReveals.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/AdaptiveReveals.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/AdaptiveReveals.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/AdaptiveReveals.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/AdaptiveReveals.setup.json --json
+error: OAI/Probability/CriticalZ3/AdaptiveReveals.lean:253:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  h.freeze ω
+in the target expression
+  {ω | h.freeze ω ∈ A} ω = A ω
+
+E : Type
+inst✝ : Countable E
+h : History E
+q : ↑(Set.Icc 0 1)
+A : Set (E → Bool)
+ω : E → Bool
+hω : h.freeze ω = ω
+⊢ {ω | h.freeze ω ∈ A} ω = A ω
+
+Note: The target expression is not type-correct under the `instances` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    {ω | h.freeze ω ∈ A} ω
+error: Lean exited with code 1
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.AdaptiveReveals
+error: build failed

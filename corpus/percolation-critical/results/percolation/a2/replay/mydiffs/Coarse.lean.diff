@@ -1,0 +1,29 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/Coarse.lean	2026-11-12 18:44:18.752383464 +0000
++++ OAI/Probability/CriticalZ3/Coarse.lean	2026-11-12 18:44:25.358584162 +0000
+@@ -97,7 +97,7 @@
+ theorem internal_pair_bond (r : ℕ) (v w : Point) (e : Bond) :
+     Model.Internal .bond (PairRegion r v w) e ↔
+       e ∈ (Q r v).bonds ∪ (Q r w).bonds ∪ interface r v w := by
+-  simp only [Model.Internal,PairRegion,Set.mem_ofPred_eq,Finset.mem_union,Box.mem_bonds,mem_interface]
++  simp only [Model.Internal,PairRegion,Set.mem_setOf_eq,Finset.mem_union,Box.mem_bonds,mem_interface]
+   tauto
+ 
+ def frame (r : ℕ) (v : Point) (d : Direction) : SignedSymmetry where
+@@ -181,7 +181,7 @@
+   have he : (10:ℤ)*r = (10*r:ℕ) := by push_cast; rfl
+   rw [he,relay_cube_eq,relay_cube_eq,image_cube,image_cube,frame_zero,frame_next]
+   ext x
+-  simp only [Set.mem_union,PairRegion,Set.mem_ofPred_eq,Q,Box.contains_cube_iff]
++  simp only [Set.mem_union,PairRegion,Set.mem_setOf_eq,Q,Box.contains_cube_iff]
+ 
+ theorem neighboring_relay {model : Model} (s : ScaleData model) (G : LatticeGraph)
+     (p : model.Bit → Set.Icc (0:ℝ) 1) (v : Point) (d : Direction)
+@@ -192,7 +192,7 @@
+       ¬G.Meets model ω o {x | (B s.r (v+outward d)).Contains x}} ≤ 13*s.η := by
+   have h := s.relay_in_frame G p (frame s.r v d) (by rwa [frame_prism]) (by rwa [frame_prism]) o
+     (by rwa [frame_prism])
+-  simpa only [frame_zero,frame_next,B,Box.contains_cube_iff,Set.ofPred_mem_eq] using h
++  simpa only [frame_zero,frame_next,B,Box.contains_cube_iff,Set.setOf_mem_eq] using h
+ end Coarse
+ end CriticalZ3
+ 

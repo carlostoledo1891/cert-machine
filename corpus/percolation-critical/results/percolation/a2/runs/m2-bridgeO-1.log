@@ -1,0 +1,13 @@
+✔ [8689/8692] Built Textbook (8.7s)
+✖ [8691/8692] Building BridgeO (9.2s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/BridgeO.lean -o /root/one/m2/.lake/build/lib/lean/BridgeO.olean -i /root/one/m2/.lake/build/lib/lean/BridgeO.ilean -c /root/one/m2/.lake/build/ir/BridgeO.c --setup /root/one/m2/.lake/build/ir/BridgeO.setup.json --json
+error: BridgeO.lean:120:2: Unknown constant `Measurable.of_eval`
+error: BridgeO.lean:228:2: Unknown constant `Measurable.of_eval`
+error: BridgeO.lean:292:15: Unknown constant `Set.mem_ofPred_eq`
+error: BridgeO.lean:292:4: `simp` made no progress
+info: BridgeO.lean:305:0: 'BridgeO.bridgeO' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: BridgeO.lean:306:0: 'BridgeO.statement3_from_openai' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- BridgeO
+error: build failed

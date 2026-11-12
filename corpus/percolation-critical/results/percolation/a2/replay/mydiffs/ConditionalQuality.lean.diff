@@ -1,0 +1,18 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/ConditionalQuality.lean	2026-11-12 18:44:18.752383464 +0000
++++ OAI/Probability/CriticalZ3/ConditionalQuality.lean	2026-11-12 18:44:25.354584041 +0000
+@@ -46,13 +46,13 @@
+     have hc := ProductCylinder.determinedBy_eq_extend (conditionalProbability_determined p J C) ω
+     change conditionalProbability p J C ω = conditionalProbability p J C (ξ (J.restrict ω)) at hc
+     change (ω ∈ H) = (ξ (J.restrict ω) ∈ H) at hh
+-    simp only [Set.mem_ofPred_eq,A,hh,hc]
++    simp only [Set.mem_setOf_eq,A,hh,hc]
+     split_ifs <;> simp_all
+   have heB : H ∩ Cᶜ = {ω | ω ∈ B (J.restrict ω)} := by
+     ext ω
+     have hh := ProductCylinder.determinedBy_eq_extend hH ω
+     change (ω ∈ H) = (ξ (J.restrict ω) ∈ H) at hh
+-    simp only [Set.mem_inter_iff,Set.mem_ofPred_eq,B,hh]
++    simp only [Set.mem_inter_iff,Set.mem_setOf_eq,B,hh]
+     split_ifs <;> simp_all
+   rw [heA,heB,measure_select p J A hA,measure_select p J B hB,Finset.mul_sum]
+   apply Finset.sum_le_sum

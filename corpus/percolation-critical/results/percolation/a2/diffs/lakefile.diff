@@ -1,0 +1,61 @@
+--- a/lakefile.toml
++++ b/lakefile.toml
+@@ -1,6 +1,6 @@
+ name = "PercolationContinuity"
+ version = "0.1.0"
+-defaultTargets = ["Percolation", "Solution"]
++defaultTargets = ["Percolation", "Solution", "OAI", "Textbook", "BridgeA", "BridgeO", "OneLean"]
+ 
+ [leanOptions]
+ autoImplicit = false
+@@ -24,3 +24,50 @@
+ [[lean_lib]]
+ name = "Solution"
+ roots = ["Solution"]
++
++# ---- Amendment A2 (2026-11-12), the one Lean. Everything below is added; nothing above is changed except the
++# defaultTargets line (now every proved library of the one environment; the statement files with their deliberate
++# `sorry` — Challenge, ComparatorChallenges, OurChallenge — and the R4 refutation are built explicitly).
++# OpenAI's Z3 closure (openai/math 4eaee875, lean/OAI/Probability/CriticalZ3/), ported to this pin.
++[[lean_lib]]
++name = "OAI"
++roots = ["OAI"]
++globs = ["OAI.+"]
++
++# OpenAI's statement file for it, unchanged bytes (deliberate `sorry`).
++[[lean_lib]]
++name = "ComparatorChallenges"
++roots = ["ComparatorChallenges"]
++globs = ["ComparatorChallenges.+"]
++
++# The sealed hand-written statement (sha256 4dc732f5…41ae).
++[[lean_lib]]
++name = "Textbook"
++roots = ["Textbook"]
++
++# Bridge A (the sealed bytes, ab8be23f…) and bridge O (three lines changed for this Mathlib).
++[[lean_lib]]
++name = "BridgeA"
++roots = ["BridgeA"]
++
++[[lean_lib]]
++name = "BridgeO"
++roots = ["BridgeO"]
++
++[[lean_lib]]
++name = "OneLean"
++roots = ["OneLean"]
++
++# Our statement as a Comparator challenge (deliberate `sorry`).
++[[lean_lib]]
++name = "OurChallenge"
++roots = ["OurChallenge"]
++
++# Red control R4: the anchors and the refutation of the planted statement (PlantedFalse builds only against the plant).
++[[lean_lib]]
++name = "ThetaAnchors"
++roots = ["ThetaAnchors"]
++
++[[lean_lib]]
++name = "PlantedFalse"
++roots = ["PlantedFalse"]

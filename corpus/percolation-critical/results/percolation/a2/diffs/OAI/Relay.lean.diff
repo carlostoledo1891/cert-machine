@@ -1,0 +1,11 @@
+--- a/OAI/Probability/CriticalZ3/Relay.lean
++++ b/OAI/Probability/CriticalZ3/Relay.lean
+@@ -56,7 +56,7 @@
+   refine ⟨x,by simp [x],?_⟩
+   intro i hi
+   dsimp [x]
+-  rw [ite_eq_right hi]
++  rw [if_neg hi]
+   cases signs i <;> simp [DirectedInterval] <;> omega
+ 
+ /-- Generic form of one of the three contraction steps. -/

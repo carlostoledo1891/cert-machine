@@ -1,0 +1,11 @@
+--- a/OAI/Probability/CriticalZ3/ExplorationProbability.lean
++++ b/OAI/Probability/CriticalZ3/ExplorationProbability.lean
+@@ -118,7 +118,7 @@
+         have hna : ¬s.Accept q δ t ω := by
+           intro ha
+           have hg : t.vertex ∈ (s.advance q δ ω).good := by
+-            simp only [advance,hq,ite_eq_left ha]; exact Finset.mem_insert_self _ _
++            simp only [advance,hq,if_pos ha]; exact Finset.mem_insert_self _ _
+           have hg' := run_good_mono q δ (s.advance q δ ω) ω (Nat.zero_le n) hg
+           exact Finset.disjoint_left.mp (run_colored hs hc (n+1) ω).disjoint hg' (hU hv)
+         simpa only [markedBad,hq,decide_eq_true_eq] using hna

@@ -1,0 +1,29 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/EntryLayers.lean	2026-11-12 18:44:18.752383464 +0000
++++ OAI/Probability/CriticalZ3/EntryLayers.lean	2026-11-12 18:44:25.358584162 +0000
+@@ -16,7 +16,7 @@
+   intro i j h
+   by_contra hij
+   have hh := congrFun h i
+-  simp only [step,ite_true,ite_eq_right (Ne.symm hij),add_zero] at hh
++  simp only [step,ite_true,if_neg (Ne.symm hij),add_zero] at hh
+   omega
+ 
+ theorem step_no_reverse (x y : Vertex) (i j : Fin 3)
+@@ -47,7 +47,7 @@
+ 
+ theorem neighborBond_incidence {x y : Vertex} (h : NearestNeighbor x y) :
+     Incidence (neighborBond x y) x y := by
+-  simp only [neighborBond,dite_eq_left h]
++  simp only [neighborBond,dif_pos h]
+   exact (LatticeGraph.neighbor_incidence h).choose_spec
+ 
+ theorem neighborBond_eq {e : Bond} {x y : Vertex} (he : Incidence e x y) :
+@@ -63,7 +63,7 @@
+ 
+ theorem entry_spec {C : Box} {y : Vertex} (h : C.Exterior y) :
+     C.Contains (C.entry y) ∧ NearestNeighbor y (C.entry y) := by
+-  simp only [entry,dite_eq_left h]
++  simp only [entry,dif_pos h]
+   exact h.2.choose_spec
+ 
+ theorem entry_eq {C : Box} {y z : Vertex} (hy : ¬C.Contains y)

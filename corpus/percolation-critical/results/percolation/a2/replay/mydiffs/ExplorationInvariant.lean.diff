@@ -1,0 +1,60 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/ExplorationInvariant.lean	2026-11-12 18:44:18.753383495 +0000
++++ OAI/Probability/CriticalZ3/ExplorationInvariant.lean	2026-11-12 18:44:25.355584071 +0000
+@@ -18,8 +18,8 @@
+   congr 1
+   funext e
+   by_cases hr : e ∈ s.reveal
+-  · simp only [replace,ite_eq_left hr,he e hr]
+-  · simp only [replace,ite_eq_right hr]
++  · simp only [replace,if_pos hr,he e hr]
++  · simp only [replace,if_neg hr]
+ 
+ theorem markedBad_determined (s : Exploration m r) (q : Set.Icc (0:ℝ) 1) (δ : ℝ) :
+     ProductCylinder.DeterminedBy s.reveal (s.markedBad q δ) := by
+@@ -77,7 +77,7 @@
+   have hfresh : m.UniformOn (s.history.parameter sc.q) sc.q
+       (PairRegion sc.r t.vertex (t.vertex+outward d)) := by
+     intro e he
+-    apply ite_eq_right
++    apply if_neg
+     intro hk
+     exact internal_pair_not_exposed m sc.r hs.root_processed hv hxD he (hs.exposed hk)
+   have hrelay := neighboring_relay sc (t.child (t.vertex+outward d)).graph
+@@ -108,7 +108,7 @@
+     (scheme (r := sc.r) sc.q sc.δ).badMass s ≤ CriticalScales.contourError := by
+   rw [badMass_eq]
+   cases hq : s.queue with
+-  | nil => simpa only [markedBad,hq,Bool.false_eq_true,Set.ofPred_false,measureReal_empty] using
++  | nil => simpa only [markedBad,hq,Bool.false_eq_true,Set.setOf_false,measureReal_empty] using
+       CriticalScales.contourError_pos.le
+   | cons t ts =>
+     let μ := ProductCylinder.law (s.history.parameter sc.q)
+@@ -136,16 +136,16 @@
+         have he : T d = {ω | ω ∈ H ∧ conditionalProbability (s.history.parameter sc.q)
+             s.reveal ((t.child (t.vertex+outward d)).event m) ω ≤ 1-sc.δ} := by
+           ext ω
+-          simp only [T,hx,not_false_eq_true,true_and,Set.mem_ofPred_eq,after,History.parameter_observe,
++          simp only [T,hx,not_false_eq_true,true_and,Set.mem_setOf_eq,after,History.parameter_observe,
+             conditionalProbability]
+         rwa [he]
+-      · have he : T d = ∅ := by ext ω; simp only [T,hx,false_and,and_false,Set.mem_ofPred_eq,Set.mem_empty_iff_false]
++      · have he : T d = ∅ := by ext ω; simp only [T,hx,false_and,and_false,Set.mem_setOf_eq,Set.mem_empty_iff_false]
+         rw [he,measureReal_empty]
+         exact div_nonneg (mul_nonneg (by norm_num) sc.η_range.1.le) sc.δ_range.1.le
+     have hb : {ω | s.markedBad sc.q sc.δ ω = true} ⊆ Hᶜ ∪ ⋃ d, T d := by
+       intro ω hω
+       have hn : ¬s.Accept sc.q sc.δ t ω := by
+-        simpa only [Set.mem_ofPred_eq,markedBad,hq,decide_eq_true_eq] using hω
++        simpa only [Set.mem_setOf_eq,markedBad,hq,decide_eq_true_eq] using hω
+       by_cases hh : ω ∈ H
+       · right
+         have hcur := (accept_current_iff hs hq ω).mpr hh
+@@ -323,7 +323,7 @@
+       · exact Or.inr ⟨u,s.good_advance_mono q δ ω hu,d,he⟩
+     · right
+       refine ⟨t.vertex,?_,d,rfl⟩
+-      simp only [advance,hq,ite_eq_left ha]
++      simp only [advance,hq,if_pos ha]
+       exact Finset.mem_insert_self _ _
+ 
+ noncomputable def run (q : Set.Icc (0:ℝ) 1) (δ : ℝ) : ℕ → Exploration m r → m.Config → Exploration m r

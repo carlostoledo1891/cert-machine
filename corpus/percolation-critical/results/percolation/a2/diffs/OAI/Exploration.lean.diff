@@ -1,0 +1,20 @@
+--- a/OAI/Probability/CriticalZ3/Exploration.lean
++++ b/OAI/Probability/CriticalZ3/Exploration.lean
+@@ -153,7 +153,7 @@
+     cases history
+     simp_all only [advance,after,reveal,History.observe,Finset.union_empty,Exploration.mk.injEq,History.mk.injEq,true_and,and_true]
+     funext e
+-    exact ite_eq_right (Finset.notMem_empty e)
++    exact if_neg (Finset.notMem_empty e)
+ 
+ theorem current_support {q : Set.Icc (0:ℝ) 1} {δ : ℝ} {s : Exploration m r}
+     (hs : s.Valid q δ) {t : Packet r} {ts : List (Packet r)} (hq : s.queue = t::ts) :
+@@ -194,7 +194,7 @@
+   apply ProductCylinder.probability_congr_parameters (u.graph.bits m) _ _ _ _ (u.event_determined m)
+   intro e he
+   rw [after,History.parameter_observe]
+-  exact ite_eq_right (fun hh => Finset.disjoint_left.mp (later_disjoint hs hq hu) hh he)
++  exact if_neg (fun hh => Finset.disjoint_left.mp (later_disjoint hs hq hu) hh he)
+ 
+ theorem valid_advance {q : Set.Icc (0:ℝ) 1} {δ : ℝ} {s : Exploration m r}
+     (hs : s.Valid q δ) (ω : m.Config) : (s.advance q δ ω).Valid q δ := by

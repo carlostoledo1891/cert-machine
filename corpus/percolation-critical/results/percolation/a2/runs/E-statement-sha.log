@@ -1,0 +1,26 @@
+# sha256, original (pinned checkout / sealed input) then in E
+34ea3ff4648b6ea92c3e7d94bcb7b66047a9d0fbd1f583c461c34636cbb854d8  /root/one/O/lean/ComparatorChallenges/CriticalZ3.lean
+34ea3ff4648b6ea92c3e7d94bcb7b66047a9d0fbd1f583c461c34636cbb854d8  ComparatorChallenges/CriticalZ3.lean
+4ac9398d56276a4cab4a95770e1dc529936651ec97f8dba05e4f77b2025e2d2e  /root/one/O/lean/OAI/Probability/CriticalZ3/Model.lean
+4ac9398d56276a4cab4a95770e1dc529936651ec97f8dba05e4f77b2025e2d2e  OAI/Probability/CriticalZ3/Model.lean
+git blob of the challenge file in E: 56e93b89a55e098ad924270cd85ec9f5754fd57f (pin 56e93b89a55e098ad924270cd85ec9f5754fd57f)
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  /root/one/in/Textbook.lean
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  Textbook.lean
+ab8be23fcdec9c211bad2d44bc0b44ab22e26ea4bdf9111309670f2d78cae00a  /root/one/in/bridgeA/Bridge.lean
+ab8be23fcdec9c211bad2d44bc0b44ab22e26ea4bdf9111309670f2d78cae00a  BridgeA.lean
+030bf61f10890c31d35a63b6d7b8919d9a3a85aadf34d8945edc7799d559e9a6  /root/one/in/bridgeO/Bridge.lean
+ec3f9dba061a04e5adacbf12483fdc7c7b8ad056cba1cf627744c7d0a8716a8d  BridgeO.lean
+5578f9b4d6ae573fc5443a2e236298194f3f2c4a48cd2028435ebba02bd7a19c  Challenge.lean
+a915e2dfd066e29a652a988297859e3af5004ec3c475bc822bacd66b27454a0d  Solution.lean
+652ee2bd228eaaad0f155f1bfca88e6b702671c0e8726f6cd6335455ac8664f6  comparator.json
+# Anthropic's tree in E against a fresh unpack of the pinned tarball (diff -rq, .lake excluded):
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: BridgeA.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: BridgeO.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: ComparatorChallenges
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OAI
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OneLean.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OurChallenge.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: PlantedFalse.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: Textbook.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: ThetaAnchors.lean
+Files /root/one/A-ref/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml and /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml differ

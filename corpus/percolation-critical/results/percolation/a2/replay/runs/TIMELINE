@@ -1,0 +1,52 @@
+2026-11-12T18:43:10Z start tools
+2026-11-12T18:43:35Z tools exit 0 (25 s)
+2026-11-12T18:44:26Z start A-cache
+2026-11-12T18:46:02Z A-cache exit 0 (96 s)
+2026-11-12T18:46:02Z start E-clean-build
+2026-11-12T18:54:45Z E-clean-build exit 1 (523 s)
+2026-11-12T18:54:45Z start E-build-statement-files
+2026-11-12T18:54:57Z E-build-statement-files exit 0 (12 s)
+2026-11-12T18:54:57Z start E-axioms
+2026-11-12T18:55:06Z E-axioms exit 0 (9 s)
+2026-11-12T18:55:06Z start E-fresh
+2026-11-12T18:55:06Z start E-comparator-ours
+2026-11-12T18:57:57Z ATTEMPT 2 starts (attempt 1: E-clean-build exit 1, AppleDouble files of the orchestrator's tar; logs in runs-attempt1)
+2026-11-12T18:57:57Z start E-clean-build
+2026-11-12T19:06:41Z E-clean-build exit 0 (524 s)
+2026-11-12T19:06:41Z start E-build-statement-files
+2026-11-12T19:06:53Z E-build-statement-files exit 0 (12 s)
+2026-11-12T19:06:53Z start E-axioms
+2026-11-12T19:07:02Z E-axioms exit 0 (8 s)
+2026-11-12T19:07:02Z start E-fresh
+2026-11-12T19:07:02Z start E-comparator-ours
+2026-11-12T19:11:36Z E-comparator-ours exit 0 (274 s)
+2026-11-12T19:11:36Z start E-comparator-openai
+2026-11-12T19:13:36Z E-comparator-openai exit 0 (120 s)
+2026-11-12T19:13:36Z start E-comparator-anthropic
+2026-11-12T19:18:02Z E-comparator-anthropic exit 0 (266 s)
+2026-11-12T19:40:12Z E-fresh exit 0 (1990 s)
+2026-11-12T19:40:12Z start R1A-BridgeA
+2026-11-12T19:40:30Z R1A-BridgeA exit 1 (18 s)
+2026-11-12T19:40:30Z start R1A-OneLean
+2026-11-12T19:40:43Z R1A-OneLean exit 1 (13 s)
+2026-11-12T19:40:43Z start R1O-BridgeO
+2026-11-12T19:41:00Z R1O-BridgeO exit 1 (17 s)
+2026-11-12T19:41:00Z start R1O-OneLean
+2026-11-12T19:41:14Z R1O-OneLean exit 1 (14 s)
+2026-11-12T19:41:14Z start R1-OneLean
+2026-11-12T19:41:32Z R1-OneLean exit 1 (18 s)
+2026-11-12T19:41:32Z start R4-BridgeA
+2026-11-12T19:41:50Z R4-BridgeA exit 1 (18 s)
+2026-11-12T19:41:50Z start R4-BridgeO
+2026-11-12T19:42:02Z R4-BridgeO exit 1 (12 s)
+2026-11-12T19:42:02Z start R4-OneLean
+2026-11-12T19:42:15Z R4-OneLean exit 1 (13 s)
+2026-11-12T19:42:15Z start R4-plantedfalse
+2026-11-12T19:42:31Z R4-plantedfalse exit 0 (16 s)
+2026-11-12T19:42:31Z start R4-axioms
+2026-11-12T19:42:39Z R4-axioms exit 0 (8 s)
+2026-11-12T19:42:39Z start restore-build
+2026-11-12T19:42:58Z restore-build exit 0 (19 s)
+2026-11-12T19:42:58Z start restore-axioms
+2026-11-12T19:43:06Z restore-axioms exit 0 (8 s)
+2026-11-12T19:43:06Z REPLAY DONE

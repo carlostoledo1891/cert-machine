@@ -1,0 +1,15 @@
+⚠ [8681/8691] Replayed ComparatorChallenges.CriticalZ3
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+✔ [8683/8691] Built OAI.Probability.CriticalZ3.AdaptiveReveals (6.9s)
+✔ [8684/8691] Built OAI.Probability.CriticalZ3.Exploration (6.9s)
+✔ [8685/8691] Built OAI.Probability.CriticalZ3.ExplorationInvariant (7.1s)
+✔ [8686/8691] Built OAI.Probability.CriticalZ3.ExplorationProbability (6.7s)
+✔ [8687/8691] Built OAI.Probability.CriticalZ3.ExplorationConnectivity (8.4s)
+✔ [8688/8691] Built OAI.Probability.CriticalZ3.ExplorationSurvival (7.1s)
+✖ [8689/8691] Building OAI.Probability.CriticalZ3.Subunit (6.6s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/Subunit.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Subunit.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Subunit.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Subunit.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Subunit.setup.json --json
+error: OAI/Probability/CriticalZ3/Subunit.lean:102:8: Unknown constant `Finset.prod_le_prod₀`
+error: Lean exited with code 1
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.Subunit
+error: build failed

@@ -1,0 +1,120 @@
+# THE ORCHESTRATOR'S OWN CHECKS OF THE PORT (2026-11-12T18:44:25Z)
+Textbook.lean in E: 4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae (sealed 4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae)
+BridgeA.lean in E:  ab8be23fcdec9c211bad2d44bc0b44ab22e26ea4bdf9111309670f2d78cae00a (sealed ab8be23f…)
+BridgeO.lean in E:  ec3f9dba061a04e5adacbf12483fdc7c7b8ad056cba1cf627744c7d0a8716a8d (sealed original 030bf61f10890c31d35a63b6d7b8919d9a3a85aadf34d8945edc7799d559e9a6)
+saved env's Textbook / BridgeA equal the sealed ones: yes / yes
+OpenAI statement file, E vs the pinned checkout: BYTE-IDENTICAL; git blob 56e93b89a55e098ad924270cd85ec9f5754fd57f (pin 56e93b89a55e098ad924270cd85ec9f5754fd57f)
+OpenAI closure: 34 pinned files, 34 in the port; byte-identical 12, changed 22
+files in the port that the pinned directory does not have: 
+lines removed / added over the changed files: 124 / 125
+bridge O lines removed / added: 3 / 3
+forbidden tokens on ADDED lines (sorry|axiom|native_decide|implemented_by|unsafe|extern|admit|opaque): 0
+the same tokens anywhere in the ported closure, the bridges, OneLean (whole files, comments included):
+OAI/Probability/CriticalZ3/FiniteTrails.lean:11:/-! Finite balanced directed boundaries admit closed edge-simple trails.
+(end of list)
+the agent's saved diffs equal the orchestrator's (changed-line multiset per file):
+  (compared 23 files)
+Anthropic's tree in E vs a fresh unpack of the pinned tarball (diff -rq, .lake excluded):
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: BridgeA.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: BridgeO.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: ComparatorChallenges
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OAI
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OneLean.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: OurChallenge.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: PlantedFalse.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: Textbook.lean
+Only in /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation: ThetaAnchors.lean
+Files /root/one/A-ref/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml and /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml differ
+lakefile diff vs the tarball's:
+3c3
+< defaultTargets = ["Percolation", "Solution"]
+---
+> defaultTargets = ["Percolation", "Solution", "OAI", "Textbook", "BridgeA", "BridgeO", "OneLean"]
+26a27,73
+> 
+> # ---- Amendment A2 (2026-11-12), the one Lean. Everything below is added; nothing above is changed except the
+> # defaultTargets line (now every proved library of the one environment; the statement files with their deliberate
+> # `sorry` — Challenge, ComparatorChallenges, OurChallenge — and the R4 refutation are built explicitly).
+> # OpenAI's Z3 closure (openai/math 4eaee875, lean/OAI/Probability/CriticalZ3/), ported to this pin.
+> [[lean_lib]]
+> name = "OAI"
+> roots = ["OAI"]
+> globs = ["OAI.+"]
+> 
+> # OpenAI's statement file for it, unchanged bytes (deliberate `sorry`).
+> [[lean_lib]]
+> name = "ComparatorChallenges"
+> roots = ["ComparatorChallenges"]
+> globs = ["ComparatorChallenges.+"]
+> 
+> # The sealed hand-written statement (sha256 4dc732f5…41ae).
+> [[lean_lib]]
+> name = "Textbook"
+> roots = ["Textbook"]
+> 
+> # Bridge A (the sealed bytes, ab8be23f…) and bridge O (three lines changed for this Mathlib).
+> [[lean_lib]]
+> name = "BridgeA"
+> roots = ["BridgeA"]
+> 
+> [[lean_lib]]
+> name = "BridgeO"
+> roots = ["BridgeO"]
+> 
+> [[lean_lib]]
+> name = "OneLean"
+> roots = ["OneLean"]
+> 
+> # Our statement as a Comparator challenge (deliberate `sorry`).
+> [[lean_lib]]
+> name = "OurChallenge"
+> roots = ["OurChallenge"]
+> 
+> # Red control R4: the anchors and the refutation of the planted statement (PlantedFalse builds only against the plant).
+> [[lean_lib]]
+> name = "ThetaAnchors"
+> roots = ["ThetaAnchors"]
+> 
+> [[lean_lib]]
+> name = "PlantedFalse"
+> roots = ["PlantedFalse"]
+lean-toolchain: leanprover/lean4:v4.32.0; mathlib rev in the manifest: "rev": "81a5d257c8e410db227a6665ed08f64fea08e997"
+OneLean.lean:
+import Textbook
+import BridgeA
+import BridgeO
+
+/-!
+# One Lean (amendment A2 of PREREG-PERCOLATION.md, item P4′; 2026-11-12)
+
+One environment — Lean v4.32.0, Mathlib 81a5d257 — holding the sealed hand-written statement `Textbook.lean`
+(sha256 4dc732f5…41ae, unchanged), Anthropic's development (anthropics/formal-math 795efb86, unchanged), OpenAI's ℤ³
+closure (openai/math 4eaee875, `OAI/Probability/CriticalZ3/`, ported from Mathlib d13f23b7 to this pin; its statement
+file `ComparatorChallenges/CriticalZ3.lean` unchanged) and both bridges (`BridgeA.lean`: the sealed bridge A, unchanged
+bytes; `BridgeO.lean`: bridge O with three lines changed as the older Mathlib forces).
+
+The two theorems below are about the SAME constants `TextbookPercolation.Statement` / `Statement3`, `θ`, `pc`, `P`:
+there is one `Textbook` module in this environment and both bridges import it.
+-/
+
+namespace OneLean
+
+/-- θ(p_c) = 0 for every d ≥ 2, our statement, from Anthropic's theorem through bridge A. -/
+theorem statement_from_anthropic : TextbookPercolation.Statement :=
+  _root_.statement_from_anthropic
+
+/-- θ(p_c) = 0 at d = 3, our statement, from OpenAI's ℤ³ theorem through bridge O. -/
+theorem statement3_from_openai : TextbookPercolation.Statement3 :=
+  BridgeO.statement3_from_openai
+
+end OneLean
+OurChallenge.lean:
+import Textbook
+
+namespace OneLean
+
+theorem statement_from_anthropic : TextbookPercolation.Statement := sorry
+
+theorem statement3_from_openai : TextbookPercolation.Statement3 := sorry
+
+end OneLean

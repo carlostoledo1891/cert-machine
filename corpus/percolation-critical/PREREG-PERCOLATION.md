@@ -102,3 +102,43 @@ Written after P5's anchors were proved on the Mac and before any pod run of what
   the tarball 10f3e6b9…), checked on the pod before anything runs; the script perc/anchors/pod-r4.sh. One pod, 32 vCPU
   cpu3g, about US$1.28 an hour, expected under an hour; deleted with a 404 confirmed. Everything else in this file
   stands, including what the result will not say.
+
+### A2 — 2026-11-12 (evening), after seal 21 and after the reveal
+
+On the operator's word of 2026-11-12 ("Proceed on your suggested order. Focus is to close the open items"): the two
+items NEXT.md left open, both attempted now. This replaces A1's sentence "the one-Lean port (P4 decided) is NOT
+attempted" and P5's "Optional, recorded as such". Written before any pod of this amendment exists and before a line of
+either build is written. Everything the sealed file says the result will NOT say still stands.
+
+- **P5′ — the statement is false at d = 1** (`perc/anchors/DimOne.lean`, Mathlib only, importing the sealed
+  Textbook.lean unchanged, sha256 4dc732f5…41ae; the same bytes at both pins). To prove:
+  `theta_dim_one_eq_zero : ∀ p : unitInterval, (p : ℝ) < 1 → θ 1 p = 0`, `pc_dim_one : pc 1 = 1`, and
+  `statement_body_false_at_dim_one : ¬ ∃ h : pc 1 ∈ Set.Icc (0 : ℝ) 1, θ 1 ⟨pc 1, h⟩ = 0` (the body of `Statement`
+  at d = 1, word for word). **Passes** when the file builds at both pins with no `sorry`, no warning, and
+  `#print axioms` of the three is exactly [propext, Classical.choice, Quot.sound]. It shows that `2 ≤ d` in our
+  statement is load-bearing: red control R2 (`1 ≤ d`) planted a statement that is now PROVED false, not only refused.
+  If only part is proved, the part is named and the word is PARTIAL. Prediction: all three proved (0.7).
+
+- **P4′ — one Lean.** Goal: ONE environment (one toolchain, one Mathlib commit) holding the sealed Textbook.lean
+  (unchanged bytes), both labs' developments and both bridges, with one module `OneLean.lean` stating
+  `statement_from_anthropic : TextbookPercolation.Statement` and `statement3_from_openai :
+  TextbookPercolation.Statement3` about the SAME constants. Route: one lab's development is ported to the other's pin;
+  the direction is chosen after measuring both (the default: Anthropic's library to v4.34.1 / Mathlib d13f23b7, inside
+  openai/math at 4eaee875) and recorded with the reason.
+  **Rules of the port.** Proofs may change where the newer (or older) Mathlib requires. The ported lab's STATEMENT
+  files — Anthropic's Challenge.lean and every definition it reaches in its own library; OpenAI's
+  ComparatorChallenges/CriticalZ3.lean and what it reaches — stay byte-identical, or every changed line is listed with
+  its reason and the word becomes CERTIFIED (statement edited: listed). No `sorry`, no new axiom, no `native_decide`
+  added. The bridges may be edited only as the changed Mathlib forces; their diffs are kept.
+  **Passes** when, in the one environment: a clean `lake build` exits 0; `#print axioms` of both theorems of
+  OneLean.lean is exactly the standard three; Comparator accepts with OUR statement as the challenge (both theorems
+  as `sorry`) and OneLean as the solution — nanoda and Lean's kernel both; Comparator accepts the ported lab's own
+  compared theorem against ITS unchanged challenge file in the new environment; leanchecker --fresh on OneLean exits
+  0; and red controls R1 (θ = 1) and R4 (the planted false p_c, with PlantedFalse building next to it) are refused
+  there. **Words**: CERTIFIED (one Lean): all of it. PARTIAL: the modules not ported are counted and named, and the
+  seam stays a reading. REFUSED (resources): the amendment's spend reaches US$15.
+  Prediction: the port completes (0.55); inside US$10 (0.45).
+
+- **Money and machines.** One pod at a time, the runpod image, 32 vCPU, about US$1.3–1.5 an hour, quoted before it is
+  created; deleted with a 404 confirmed. The lane's cap stays US$25 (≈ US$3.06 spent); this amendment stops at US$15.
+  P5′ needs no pod if the Mac's Mathlib caches at both pins are still on disk.

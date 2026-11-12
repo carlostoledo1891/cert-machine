@@ -1,0 +1,160 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/Basic.lean	2026-11-12 18:44:18.751383434 +0000
++++ OAI/Probability/CriticalZ3/Basic.lean	2026-11-12 18:44:25.352583980 +0000
+@@ -78,15 +78,15 @@
+     induction n generalizing x y with
+     | zero => simp only [PathLength]; exact MeasurableSet.const _
+     | succ n ih =>
+-      simp only [PathLength, Set.ofPred_exists]
++      simp only [PathLength, Set.setOf_exists]
+       exact MeasurableSet.iUnion (fun z => (ih x z).inter (hr z y))
+-  simp only [rtg_iff_exists_pathLength, Set.ofPred_exists]
++  simp only [rtg_iff_exists_pathLength, Set.setOf_exists]
+   exact MeasurableSet.iUnion (fun n => hpath n x y)
+ 
+ theorem measurableSet_bondOpen (x y : Vertex) :
+     MeasurableSet {ω : BondConfig | BondOpen ω x y} := by
+   unfold BondOpen
+-  simp only [Set.ofPred_or, Set.ofPred_exists, Set.ofPred_and]
++  simp only [Set.setOf_or, Set.setOf_exists, Set.setOf_and]
+   apply MeasurableSet.union
+   · exact MeasurableSet.iUnion (fun i => (MeasurableSet.const _).inter
+       (measurableSet_eq_fun (measurable_pi_apply (x, i)) measurable_const))
+@@ -120,11 +120,11 @@
+ theorem measurableSet_infinite_fiber {Ω : Type uOmega} {V : Type uV} [MeasurableSpace Ω] [Countable V]
+     (r : Ω → V → Prop) (hr : ∀ y, MeasurableSet {ω | r ω y}) :
+     MeasurableSet {ω | {y | r ω y}.Infinite} := by
+-  simp only [infinite_iff_escape_finset, Set.mem_ofPred_eq]
+-  rw [Set.ofPred_forall]
++  simp only [infinite_iff_escape_finset, Set.mem_setOf_eq]
++  rw [Set.setOf_forall]
+   apply MeasurableSet.iInter
+   intro t
+-  rw [Set.ofPred_exists]
++  rw [Set.setOf_exists]
+   exact MeasurableSet.iUnion (fun y => (hr y).inter (MeasurableSet.const _))
+ 
+ theorem measurableSet_bondInfiniteAt (x : Vertex) : MeasurableSet (bondInfiniteAt x) :=
+@@ -209,21 +209,21 @@
+ 
+ theorem bond_supercritical_nonempty :
+     {p : ℝ | p ∈ Set.Icc (0 : ℝ) 1 ∧ 0 < bondLaw p (bondInfiniteAt 0)}.Nonempty :=
+-  ⟨1, by norm_num only [Set.mem_ofPred_eq, Set.mem_Icc, bondLaw_one_infinite]; trivial⟩
++  ⟨1, by norm_num only [Set.mem_setOf_eq, Set.mem_Icc, bondLaw_one_infinite]; trivial⟩
+ 
+ theorem site_supercritical_nonempty :
+     {p : ℝ | p ∈ Set.Icc (0 : ℝ) 1 ∧ 0 < siteLaw p (siteInfiniteAt 0)}.Nonempty :=
+-  ⟨1, by norm_num only [Set.mem_ofPred_eq, Set.mem_Icc, siteLaw_one_infinite]; trivial⟩
++  ⟨1, by norm_num only [Set.mem_setOf_eq, Set.mem_Icc, siteLaw_one_infinite]; trivial⟩
+ 
+ theorem bondCritical_mem : bondCritical ∈ Set.Icc (0 : ℝ) 1 := by
+   constructor
+   · exact le_csInf bond_supercritical_nonempty (fun _ hp => hp.1.1)
+-  · exact csInf_le ⟨0, fun _ hp => hp.1.1⟩ (by norm_num only [Set.mem_ofPred_eq, Set.mem_Icc, bondLaw_one_infinite]; trivial)
++  · exact csInf_le ⟨0, fun _ hp => hp.1.1⟩ (by norm_num only [Set.mem_setOf_eq, Set.mem_Icc, bondLaw_one_infinite]; trivial)
+ 
+ theorem siteCritical_mem : siteCritical ∈ Set.Icc (0 : ℝ) 1 := by
+   constructor
+   · exact le_csInf site_supercritical_nonempty (fun _ hp => hp.1.1)
+-  · exact csInf_le ⟨0, fun _ hp => hp.1.1⟩ (by norm_num only [Set.mem_ofPred_eq, Set.mem_Icc, siteLaw_one_infinite]; trivial)
++  · exact csInf_le ⟨0, fun _ hp => hp.1.1⟩ (by norm_num only [Set.mem_setOf_eq, Set.mem_Icc, siteLaw_one_infinite]; trivial)
+ 
+ theorem bond_subcritical_origin {p : ℝ} (hp : p ∈ Set.Icc (0 : ℝ) 1)
+     (hlt : p < bondCritical) : bondLaw p (bondInfiniteAt 0) = 0 := by
+@@ -305,11 +305,11 @@
+ def siteExistsInfinite : Set SiteConfig := {ω | ∃ x, (siteCluster ω x).Infinite}
+ 
+ theorem measurableSet_bondExistsInfinite : MeasurableSet bondExistsInfinite := by
+-  simpa only [bondExistsInfinite,bondInfiniteAt,Set.iUnion_ofPred] using
++  simpa only [bondExistsInfinite,bondInfiniteAt,Set.iUnion_setOf] using
+     (MeasurableSet.iUnion (fun x => measurableSet_bondInfiniteAt x))
+ 
+ theorem measurableSet_siteExistsInfinite : MeasurableSet siteExistsInfinite := by
+-  simpa only [siteExistsInfinite,siteInfiniteAt,Set.iUnion_ofPred] using
++  simpa only [siteExistsInfinite,siteInfiniteAt,Set.iUnion_setOf] using
+     (MeasurableSet.iUnion (fun x => measurableSet_siteInfiniteAt x))
+ 
+ theorem bondExistsInfinite_of_finite_alteration {ω ω' : BondConfig}
+@@ -404,19 +404,19 @@
+     have hc : sᶜ.Finite := Filter.mem_cofinite.mp hs
+     let f : (E → Bool) → (E → Bool) := fun ω e => if e ∈ s then ω e else false
+     have hf : @Measurable (E → Bool) (E → Bool) (⨆ e ∈ s, M e) inferInstance f := by
+-      apply @Measurable.of_eval (E → Bool) E (fun _ => Bool) (⨆ e ∈ s, M e) _ f
++      apply @measurable_pi_lambda (E → Bool) E (fun _ => Bool) (⨆ e ∈ s, M e) _ f
+       intro e
+       by_cases he : e ∈ s
+-      · simp only [f,ite_eq_left he]
++      · simp only [f,if_pos he]
+         exact Measurable.of_comap_le (le_iSup_of_le e (le_iSup_of_le he le_rfl))
+-      · simp only [f,ite_eq_right he]
++      · simp only [f,if_neg he]
+         exact measurable_const
+     have heq : f ⁻¹' A = A := by
+       ext ω
+       apply hinv hc.toFinset ω (f ω)
+       intro e he
+       have hes : e ∈ s := by simpa only [Set.Finite.mem_toFinset,Set.mem_compl_iff,not_not] using he
+-      simp only [f,ite_eq_left hes]
++      simp only [f,if_pos hes]
+     rw [← heq]
+     exact hf hA
+   apply measure_zero_or_one_of_measurableSet_limsup hM hmi
+@@ -502,25 +502,25 @@
+ 
+ theorem measurableSet_bondSeedInfinite (c : Vertex) (n : ℕ) :
+     MeasurableSet (bondSeedInfinite c n) := by
+-  simp only [bondSeedInfinite,Set.ofPred_exists,Set.ofPred_and]
++  simp only [bondSeedInfinite,Set.setOf_exists,Set.setOf_and]
+   apply MeasurableSet.iUnion
+   intro x
+   by_cases hx : x ∈ cube c n
+-  · simpa only [hx,Set.ofPred_true,Set.univ_inter,Set.ofPred_mem_eq] using measurableSet_bondInfiniteAt x
+-  · simp only [hx,Set.ofPred_false,Set.empty_inter,MeasurableSet.empty]
++  · simpa only [hx,Set.setOf_true,Set.univ_inter,Set.setOf_mem_eq] using measurableSet_bondInfiniteAt x
++  · simp only [hx,Set.setOf_false,Set.empty_inter,MeasurableSet.empty]
+ theorem measurableSet_siteSeedInfinite (c : Vertex) (n : ℕ) :
+     MeasurableSet (siteSeedInfinite c n) := by
+-  simp only [siteSeedInfinite,Set.ofPred_exists,Set.ofPred_and]
++  simp only [siteSeedInfinite,Set.setOf_exists,Set.setOf_and]
+   apply MeasurableSet.iUnion
+   intro x
+   by_cases hx : x ∈ cube c n
+-  · simpa only [hx,Set.ofPred_true,Set.univ_inter,Set.ofPred_mem_eq] using measurableSet_siteInfiniteAt x
+-  · simp only [hx,Set.ofPred_false,Set.empty_inter,MeasurableSet.empty]
++  · simpa only [hx,Set.setOf_true,Set.univ_inter,Set.setOf_mem_eq] using measurableSet_siteInfiniteAt x
++  · simp only [hx,Set.setOf_false,Set.empty_inter,MeasurableSet.empty]
+ 
+ theorem iUnion_bondSeedInfinite (c : Vertex) :
+     (⋃ n, bondSeedInfinite c n) = bondExistsInfinite := by
+   ext ω
+-  simp only [Set.mem_iUnion,bondSeedInfinite,bondExistsInfinite,Set.mem_ofPred_eq]
++  simp only [Set.mem_iUnion,bondSeedInfinite,bondExistsInfinite,Set.mem_setOf_eq]
+   constructor
+   · rintro ⟨n,x,_,hx⟩; exact ⟨x,hx⟩
+   · rintro ⟨x,hx⟩
+@@ -529,7 +529,7 @@
+ theorem iUnion_siteSeedInfinite (c : Vertex) :
+     (⋃ n, siteSeedInfinite c n) = siteExistsInfinite := by
+   ext ω
+-  simp only [Set.mem_iUnion,siteSeedInfinite,siteExistsInfinite,Set.mem_ofPred_eq]
++  simp only [Set.mem_iUnion,siteSeedInfinite,siteExistsInfinite,Set.mem_setOf_eq]
+   constructor
+   · rintro ⟨n,x,_,hx⟩; exact ⟨x,hx⟩
+   · rintro ⟨x,hx⟩
+@@ -588,7 +588,7 @@
+       simp only [step,ite_true] at hi
+       omega
+     · have hxi := hx i
+-      simp only [step,ite_eq_right hki,add_zero] at hi
++      simp only [step,if_neg hki,add_zero] at hi
+       omega
+   · subst x
+     by_cases hki : k = i
+@@ -598,7 +598,7 @@
+       simp only [step,ite_true] at hxi ⊢
+       omega
+     · have hxi := hx i
+-      simp only [step,ite_eq_right hki,add_zero] at hxi
++      simp only [step,if_neg hki,add_zero] at hxi
+       omega
+ 
+ theorem bondOpen_neighbor {ω : BondConfig} {x y : Vertex} (h : BondOpen ω x y) :

@@ -1,0 +1,41 @@
+Textbook.lean: OK
+R1A: planted lines = 1
+R1O: planted lines = 1
+R1: planted lines = 2
+R4: planted lines = 1
+2026-11-12T19:40:30Z R1A-BridgeA exit 1 (18 s)
+  first error: error: BridgeA.lean:295:2: Type mismatch
+2026-11-12T19:40:43Z R1A-OneLean exit 1 (13 s)
+  first error: error: BridgeA.lean:295:2: Type mismatch
+2026-11-12T19:41:00Z R1O-BridgeO exit 1 (17 s)
+  first error: error: BridgeO.lean:297:27: Application type mismatch: The argument
+2026-11-12T19:41:14Z R1O-OneLean exit 1 (14 s)
+  first error: error: BridgeO.lean:297:27: Application type mismatch: The argument
+2026-11-12T19:41:32Z R1-OneLean exit 1 (18 s)
+  first error: error: BridgeO.lean:297:27: Application type mismatch: The argument
+2026-11-12T19:41:50Z R4-BridgeA exit 1 (18 s)
+  first error: error: BridgeA.lean:266:19: Application type mismatch: The argument
+2026-11-12T19:42:02Z R4-BridgeO exit 1 (12 s)
+  first error: error: BridgeO.lean:273:29: Application type mismatch: The argument
+2026-11-12T19:42:15Z R4-OneLean exit 1 (13 s)
+  first error: error: BridgeO.lean:273:29: Application type mismatch: The argument
+2026-11-12T19:42:31Z R4-plantedfalse exit 0 (16 s)
+2026-11-12T19:42:39Z R4-axioms exit 0 (8 s)
+restore sha: Textbook.lean: OK
+2026-11-12T19:42:58Z restore-build exit 0 (19 s)
+2026-11-12T19:43:06Z restore-axioms exit 0 (8 s)
+oleans after restore: identical to the checked ones
+4dc732f55e6a2d87a19f3e62c175fdb738abebeaf1abc91f7b0e52c8c1e641ae  Textbook.lean
+red done
+R1-OneLean: 1 (18 s)
+R1A-BridgeA: 1 (18 s)
+R1A-OneLean: 1 (13 s)
+R1O-BridgeO: 1 (17 s)
+R1O-OneLean: 1 (14 s)
+R4-BridgeA: 1 (18 s)
+R4-BridgeO: 1 (12 s)
+R4-OneLean: 1 (13 s)
+R4-axioms: 0 (8 s)
+R4-plantedfalse: 0 (16 s)
+restore-axioms: 0 (8 s)
+restore-build: 0 (19 s)

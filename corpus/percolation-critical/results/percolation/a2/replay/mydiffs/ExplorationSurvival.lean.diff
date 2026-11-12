@@ -1,0 +1,14 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/ExplorationSurvival.lean	2026-11-12 18:44:18.753383495 +0000
++++ OAI/Probability/CriticalZ3/ExplorationSurvival.lean	2026-11-12 18:44:25.358584162 +0000
+@@ -17,9 +17,9 @@
+   intro e he
+   change ω e = replace R ω h.values e
+   by_cases heR : e ∈ R
+-  · simp only [replace,ite_eq_left heR]
++  · simp only [replace,if_pos heR]
+   · have heK : e ∈ h.known := (Finset.mem_union.mp he).resolve_right heR
+-    simpa only [replace,ite_eq_right heR] using hω e heK
++    simpa only [replace,if_neg heR] using hω e heK
+ end InfiniteConditioning.History
+ 
+ namespace CriticalZ3

@@ -1,0 +1,15 @@
+AppleDouble files in E: 34
+# ATTEMPT 2 — the tree, file by file (2026-11-12T18:57:57Z)
+AppleDouble files left anywhere in E outside .lake: 0
+files under OAI/ and ComparatorChallenges/ (find): 35 (expected 34 + 1)
+the port's files in E equal the home manifest: the same 35 paths, the same sha256 each
+pinned OpenAI directory (find): 34 files; names equal to the port's: yes
+top level of E against a fresh unpack of the tarball (names only in E):
+> BridgeA.lean > BridgeO.lean > ComparatorChallenges > OAI > OneLean.lean > OurChallenge.lean > PlantedFalse.lean > Textbook.lean > ThetaAnchors.lean 
+Anthropic's own files, E vs the fresh unpack (diff -rq, .lake and the nine added names excluded):
+Files /root/one/A-ref/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml and /root/one/A/formal-math-795efb86f191735c5481675763537cfb4ff37e55/percolation/lakefile.toml differ
+(end)
+sha256: Textbook 4dc732f55e6a2d87… BridgeA ab8be23fcdec9c21… BridgeO ec3f9dba061a04e5… comparator.json equal to the tarball's: yes
+e3 exit 0
+e4 exit 0
+2026-11-12T19:43:06Z REPLAY DONE

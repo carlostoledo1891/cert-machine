@@ -1,0 +1,95 @@
+--- a/OAI/Probability/CriticalZ3/HyperedgeComparison.lean
++++ b/OAI/Probability/CriticalZ3/HyperedgeComparison.lean
+@@ -200,7 +200,7 @@
+   classical
+   have hsU : s ∉ U := fun hs => hsU' (hUU hs)
+   by_cases hs : s ∈ clusters H ω U S
+-  · rw [residualSample, ite_eq_left hs]
++  · rw [residualSample, if_pos hs]
+     exact residualSample_nonneg hsU' hF
+   · have hs' : s ∉ clusters H ω U' S :=
+       fun h => hs (clusters_mono_delete hUU h)
+@@ -220,7 +220,7 @@
+         (residual_cluster_union_mem_domain hs hsU)
+       rw [heq, heq']
+       exact cluster_mono_delete hUU s
+-    simp only [residualSample, ite_eq_right hs, ite_eq_right hs']
++    simp only [residualSample, if_neg hs, if_neg hs']
+     exact sub_le_sub hfirst hsecond
+ 
+ /-- Bits on deleted hyperedges are irrelevant to the surviving clusters. -/
+@@ -319,9 +319,9 @@
+   classical
+   obtain ⟨k, hk, huniq⟩ := exists_unique_firstRoot H x ω D i
+   rw [Finset.sum_eq_single k]
+-  · rw [ite_eq_left hk, cluster_eq_of_connected hk.2]
++  · rw [if_pos hk, cluster_eq_of_connected hk.2]
+   · intro j _ hj
+-    rw [ite_eq_right (fun h => hj (huniq j h))]
++    rw [if_neg (fun h => hj (huniq j h))]
+   · simp
+ 
+ section FiniteLaw
+@@ -857,7 +857,7 @@
+         (∫ ω, if P j ω then c ω else 0 ∂law p) -
+           ∫ ω, if P j ω then f ω else 0 ∂law p := by
+     by_cases hkj : k < j
+-    · rw [ite_eq_left hkj, column_residual H p x k j i hkj F]
++    · rw [if_pos hkj, column_residual H p x k j i hkj F]
+       rw [← integral_indicator_sub p (P j) c f]
+       apply integral_congr_ae
+       apply Filter.Eventually.of_forall
+@@ -1049,7 +1049,7 @@
+   exact (ne_of_lt hj) (hx heq)
+ 
+ theorem baseMatrix_lowerTriangular {n : ℕ} (H : Hypergraph V E)
+-    (p : E → Set.Icc (0 : ℝ) 1) (x : Fin n → V) : (baseMatrix H p x).IsLowerTriangular := by
++    (p : E → Set.Icc (0 : ℝ) 1) (x : Fin n → V) : (baseMatrix H p x).BlockTriangular OrderDual.toDual := by
+   intro i j hij
+   have hf (ω : E → Bool) : ¬firstRoot H x ω ∅ j i := by
+     intro hf
+@@ -1084,7 +1084,7 @@
+     (p : E → Set.Icc (0 : ℝ) 1) (hp : ∀ e, (p e : ℝ) < 1)
+     (x : Fin n → V) (hx : Function.Injective x) :
+     (baseMatrix H p x).det ≠ 0 := by
+-  rw [Matrix.det_of_isLowerTriangular _ (baseMatrix_lowerTriangular H p x)]
++  rw [Matrix.det_of_lowerTriangular _ (baseMatrix_lowerTriangular H p x)]
+   exact Finset.prod_ne_zero_iff.mpr (fun k _ => ne_of_gt (baseMatrix_diag_pos H p hp x hx k))
+ 
+ /-- Coordinates in the basis of unnormalized cluster columns. -/
+@@ -1252,7 +1252,7 @@
+       rw [cluster_all_closed] at this
+       exact hj (hx this)
+     dsimp only
+-    rw [ite_eq_left hf]
++    rw [if_pos hf]
+     simp
+   · simp only [hc, ite_false]
+     split_ifs <;> norm_num
+@@ -1280,7 +1280,7 @@
+     · have hy : ∀ j, j ≠ k → ¬Connected H ω ∅ (x k) (x j) := by
+         intro j hj hc
+         exact ho ⟨j, hj, hc⟩
+-      simp only [hitsOther, ite_eq_right ho, ite_eq_left hy, ite_eq_left (isolated_firstRoot hy)]
++      simp only [hitsOther, if_neg ho, if_pos hy, if_pos (isolated_firstRoot hy)]
+       norm_num
+   · simp only [Pi.single_eq_of_ne hik, sub_zero]
+     unfold column
+@@ -1315,7 +1315,7 @@
+     unfold coeff
+     rw [column_hitsOther, Matrix.mulVec_sub]
+     change coeff H p x k (fun _ => 1) i - _ = _
+-    rw [coeff_const H p hp x hx, ite_eq_right hik]
++    rw [coeff_const H p hp x hx, if_neg hik]
+     rw [Matrix.mulVec_single]
+     simp
+   rw [heq] at hc
+@@ -1415,7 +1415,7 @@
+         intro j _
+         by_cases hj : j = l
+         · subst j; simp
+-        · rw [ite_eq_right hj]
++        · rw [if_neg hj]
+           exact mul_nonpos_of_nonpos_of_nonneg
+             (inverse_offdiag_nonpos H p hp x hx (Ne.symm hj)) (sub_nonneg.mpr (hb j hj))
+       _ = _ := by simp

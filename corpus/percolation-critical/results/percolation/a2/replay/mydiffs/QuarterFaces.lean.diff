@@ -1,0 +1,38 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/QuarterFaces.lean	2026-11-12 18:44:18.757383616 +0000
++++ OAI/Probability/CriticalZ3/QuarterFaces.lean	2026-11-12 18:44:25.349583889 +0000
+@@ -122,7 +122,7 @@
+ theorem quarterFace_preimage (c : Vertex) (n : ℕ) (f : FaceIndex) :
+     (faceSymmetry c f).vertex ⁻¹' QuarterFace c n f = QuarterFace 0 n canonicalFace := by
+   ext x
+-  simp only [Set.mem_preimage,QuarterFace,Set.mem_ofPred_eq,canonicalFace,
++  simp only [Set.mem_preimage,QuarterFace,Set.mem_setOf_eq,canonicalFace,
+     Pi.zero_apply,zero_add,ite_true]
+   have hn : (faceSymmetry c f).vertex x f.1 =
+       c f.1 + if f.2 f.1 then x 0 else -x 0 := by
+@@ -169,7 +169,7 @@
+ theorem reindex_probability {E : Type uE} (e : E ≃ E) (p : Set.Icc (0 : ℝ) 1)
+     (A : Set (E → Bool)) (hA : MeasurableSet A) :
+     law (fun _ => p) ((fun ω i => ω (e i)) ⁻¹' A) = law (fun _ => p) A := by
+-  rw [←Measure.map_apply (Measurable.of_eval (fun i => measurable_pi_apply (e i))) hA,
++  rw [←Measure.map_apply (measurable_pi_lambda _ (fun i => measurable_pi_apply (e i))) hA,
+     map_reindex]
+ 
+ end ProductCylinder
+@@ -230,7 +230,7 @@
+ theorem bondBoundary_eq_union_reachesFaces (c : Vertex) (m n : ℕ) :
+     bondSeedReaches c m n (cubeBoundary c n) = ⋃ f : FaceIndex, bondSeedReaches c m n (QuarterFace c n f) := by
+   ext ω
+-  simp only [bondSeedReaches,boundary_eq_union_quarterFace,Set.mem_iUnion,Set.mem_ofPred_eq]
++  simp only [bondSeedReaches,boundary_eq_union_quarterFace,Set.mem_iUnion,Set.mem_setOf_eq]
+   constructor
+   · rintro ⟨x,hx,y,⟨f,hf⟩,hp⟩
+     exact ⟨f,x,hx,y,hf,hp⟩
+@@ -240,7 +240,7 @@
+ theorem siteBoundary_eq_union_reachesFaces (c : Vertex) (m n : ℕ) :
+     siteSeedReaches c m n (cubeBoundary c n) = ⋃ f : FaceIndex, siteSeedReaches c m n (QuarterFace c n f) := by
+   ext ω
+-  simp only [siteSeedReaches,boundary_eq_union_quarterFace,Set.mem_iUnion,Set.mem_ofPred_eq]
++  simp only [siteSeedReaches,boundary_eq_union_quarterFace,Set.mem_iUnion,Set.mem_setOf_eq]
+   constructor
+   · rintro ⟨x,hx,hw,y,⟨f,hf⟩,hp⟩
+     exact ⟨f,x,hx,hw,y,hf,hp⟩

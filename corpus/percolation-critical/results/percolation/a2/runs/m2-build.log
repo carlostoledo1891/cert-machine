@@ -1,0 +1,136 @@
+⚠ [8655/8691] Replayed ComparatorChallenges.CriticalZ3
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+✔ [8657/8691] Built OAI.Probability.CriticalZ3.Model (7.8s)
+✖ [8658/8691] Building OAI.Probability.CriticalZ3.Basic (8.0s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/Basic.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Basic.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Basic.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Basic.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Basic.setup.json --json
+error: OAI/Probability/CriticalZ3/Basic.lean:81:29: Unknown constant `Set.ofPred_exists`
+error: OAI/Probability/CriticalZ3/Basic.lean:82:6: Type mismatch
+  MeasurableSet.iUnion fun z => MeasurableSet.inter (ih x z) (hr z y)
+has type
+  MeasurableSet (⋃ b, {ω | PathLength (r ω) n x b} ∩ {ω | r ω b y})
+but is expected to have type
+  MeasurableSet {ω | ∃ z, PathLength (r ω) n x z ∧ r ω z y}
+error: OAI/Probability/CriticalZ3/Basic.lean:83:40: Unknown constant `Set.ofPred_exists`
+error: OAI/Probability/CriticalZ3/Basic.lean:84:2: Type mismatch
+  MeasurableSet.iUnion fun n => hpath n x y
+has type
+  MeasurableSet (⋃ b, {ω | PathLength (r ω) b x y})
+but is expected to have type
+  MeasurableSet {ω | ∃ n, PathLength (r ω) n x y}
+error: OAI/Probability/CriticalZ3/Basic.lean:89:13: Unknown constant `Set.ofPred_or`
+error: OAI/Probability/CriticalZ3/Basic.lean:89:28: Unknown constant `Set.ofPred_exists`
+error: OAI/Probability/CriticalZ3/Basic.lean:89:47: Unknown constant `Set.ofPred_and`
+error: OAI/Probability/CriticalZ3/Basic.lean:89:2: `simp` made no progress
+error: OAI/Probability/CriticalZ3/Basic.lean:123:41: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:124:6: Unknown constant `Set.ofPred_forall`
+error: OAI/Probability/CriticalZ3/Basic.lean:122:48: unsolved goals
+Ω : Type uOmega
+V : Type uV
+inst✝¹ : MeasurableSpace Ω
+inst✝ : Countable V
+r : Ω → V → Prop
+hr : ∀ (y : V), MeasurableSet {ω | r ω y}
+⊢ MeasurableSet {ω | ∀ (t : Finset V), ∃ y ∈ {y | r ω y}, y ∉ t}
+error: OAI/Probability/CriticalZ3/Basic.lean:212:24: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:212:79: Tactic `assumption` failed
+
+⊢ 1 ∈ {p | (0 ≤ p ∧ p ≤ 1) ∧ 0 < (bondLaw p) (bondInfiniteAt 0)}
+error: OAI/Probability/CriticalZ3/Basic.lean:216:24: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:216:79: Tactic `assumption` failed
+
+⊢ 1 ∈ {p | (0 ≤ p ∧ p ≤ 1) ∧ 0 < (siteLaw p) (siteInfiniteAt 0)}
+error: OAI/Probability/CriticalZ3/Basic.lean:221:62: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:221:117: Tactic `assumption` failed
+
+⊢ 1 ∈ {p | (0 ≤ p ∧ p ≤ 1) ∧ 0 < (bondLaw p) (bondInfiniteAt 0)}
+error: OAI/Probability/CriticalZ3/Basic.lean:226:62: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:226:117: Tactic `assumption` failed
+
+⊢ 1 ∈ {p | (0 ≤ p ∧ p ≤ 1) ∧ 0 < (siteLaw p) (siteInfiniteAt 0)}
+error: OAI/Probability/CriticalZ3/Basic.lean:308:48: Unknown constant `Set.iUnion_ofPred`
+error: OAI/Probability/CriticalZ3/Basic.lean:308:2: Type mismatch: After simplification, term
+  MeasurableSet.iUnion fun x => measurableSet_bondInfiniteAt x
+ has type
+  MeasurableSet (⋃ b, {ω | (bondCluster ω b).Infinite})
+but is expected to have type
+  MeasurableSet {ω | ∃ x, (bondCluster ω x).Infinite}
+error: OAI/Probability/CriticalZ3/Basic.lean:312:48: Unknown constant `Set.iUnion_ofPred`
+error: OAI/Probability/CriticalZ3/Basic.lean:312:2: Type mismatch: After simplification, term
+  MeasurableSet.iUnion fun x => measurableSet_siteInfiniteAt x
+ has type
+  MeasurableSet (⋃ b, {ω | (siteCluster ω b).Infinite})
+but is expected to have type
+  MeasurableSet {ω | ∃ x, (siteCluster ω x).Infinite}
+error: OAI/Probability/CriticalZ3/Basic.lean:407:13: Unknown constant `Measurable.of_eval`
+error: OAI/Probability/CriticalZ3/Basic.lean:408:12: No goals to be solved
+error: OAI/Probability/CriticalZ3/Basic.lean:419:19: Unknown identifier `ite_eq_left`
+error: OAI/Probability/CriticalZ3/Basic.lean:414:30: unsolved goals
+E : Type uE
+μ : Measure (E → Bool)
+hi : iIndepFun (fun e ω => ω e) μ
+A : Set (E → Bool)
+hA : MeasurableSet A
+hinv : ∀ (J : Finset E) (ω ω' : E → Bool), (∀ e ∉ J, ω' e = ω e) → (ω' ∈ A ↔ ω ∈ A)
+M : E → MeasurableSpace (E → Bool) := fun e => MeasurableSpace.comap (fun ω => ω e) inferInstance
+hM : ∀ (e : E), M e ≤ inferInstance
+hmi : iIndep M μ
+s : Set E
+hs : s ∈ cofinite
+hc : sᶜ.Finite
+f : (E → Bool) → E → Bool := fun ω e => if e ∈ s then ω e else false
+hf : Measurable f
+ω : E → Bool
+e : E
+he : e ∉ hc.toFinset
+hes : e ∈ s
+⊢ (if e ∈ s then ω e else false) = ω e
+error: OAI/Probability/CriticalZ3/Basic.lean:505:30: Unknown constant `Set.ofPred_exists`
+error: OAI/Probability/CriticalZ3/Basic.lean:505:48: Unknown constant `Set.ofPred_and`
+error: OAI/Probability/CriticalZ3/Basic.lean:506:2: Tactic `apply` failed: could not unify the conclusion of `@MeasurableSet.iUnion`
+  MeasurableSet (⋃ b, ?f b)
+with the goal
+  MeasurableSet {ω | ∃ x ∈ cube c n, ω ∈ bondInfiniteAt x}
+
+Note: The full type of `@MeasurableSet.iUnion` is
+  ∀ {α : Type ?u.10} {ι : Sort ?u.9} {m : MeasurableSpace α} [Countable ι] ⦃f : ι → Set α⦄,
+    (∀ (b : ι), MeasurableSet (f b)) → MeasurableSet (⋃ b, f b)
+
+c : Vertex
+n : ℕ
+⊢ MeasurableSet {ω | ∃ x ∈ cube c n, ω ∈ bondInfiniteAt x}
+error: OAI/Probability/CriticalZ3/Basic.lean:513:30: Unknown constant `Set.ofPred_exists`
+error: OAI/Probability/CriticalZ3/Basic.lean:513:48: Unknown constant `Set.ofPred_and`
+error: OAI/Probability/CriticalZ3/Basic.lean:514:2: Tactic `apply` failed: could not unify the conclusion of `@MeasurableSet.iUnion`
+  MeasurableSet (⋃ b, ?f b)
+with the goal
+  MeasurableSet {ω | ∃ x ∈ cube c n, ω ∈ siteInfiniteAt x}
+
+Note: The full type of `@MeasurableSet.iUnion` is
+  ∀ {α : Type ?u.10} {ι : Sort ?u.9} {m : MeasurableSpace α} [Countable ι] ⦃f : ι → Set α⦄,
+    (∀ (b : ι), MeasurableSet (f b)) → MeasurableSet (⋃ b, f b)
+
+c : Vertex
+n : ℕ
+⊢ MeasurableSet {ω | ∃ x ∈ cube c n, ω ∈ siteInfiniteAt x}
+error: OAI/Probability/CriticalZ3/Basic.lean:523:64: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:532:64: Unknown constant `Set.mem_ofPred_eq`
+error: OAI/Probability/CriticalZ3/Basic.lean:591:22: Unknown identifier `ite_eq_right`
+error: OAI/Probability/CriticalZ3/Basic.lean:601:22: Unknown identifier `ite_eq_right`
+warning: OAI/Probability/CriticalZ3/Basic.lean:591:39: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵s̵t̵e̵p̵,̵i̵t̵e̵_̵e̵q̵_̵r̵i̵g̵h̵t̵ ̵h̵k̵i̵,̵a̵d̵d̵_̵z̵e̵r̵o̵]̵[̲s̲t̲e̲p̲,̲ ̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲ ̲h̲k̲i̲]̲ at hi
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OAI/Probability/CriticalZ3/Basic.lean:601:39: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵s̵t̵e̵p̵,̵i̵t̵e̵_̵e̵q̵_̵r̵i̵g̵h̵t̵ ̵h̵k̵i̵,̵a̵d̵d̵_̵z̵e̵r̵o̵]̵[̲s̲t̲e̲p̲,̲ ̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲ ̲h̲k̲i̲]̲ at hxi
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.Basic
+error: build failed

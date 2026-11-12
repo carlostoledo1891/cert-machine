@@ -397,10 +397,10 @@ const REPORTS = [
       return 'three kernels accept · 152 of 152 numbers · 0 of 3 assumptions proved'; })() },
   { g: 'ai', f: 'percolation-critical.html', k: 'critical percolation · two labs’ Lean proofs',
     title: 'Two AI proofs of critical percolation, checked against the textbook statement I wrote',
-    desc: 'Anthropic and OpenAI each released a Lean proof that bond percolation on ℤ^d has no infinite cluster at the critical point. Before reading either, I wrote the statement myself from Grimmett’s textbook; both proofs prove it, by bridges that two kernels accept. What stays a reading is said first.',
+    desc: 'Anthropic and OpenAI each released a Lean proof that bond percolation on ℤ^d has no infinite cluster at the critical point. Before reading either, I wrote the statement myself from Grimmett’s textbook; both proofs prove it, by bridges that two kernels accept, and both are checked together in a single Lean. What stays open is said first.',
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'percolation-critical.json'), 'utf8'));
-      if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.seam !== 'READ, NOT DECIDED') fail('the percolation-critical card would misstate its record');
-      return '2 of 2 proofs reach my statement · 2 kernels each · the seam a reading'; })() },
+      if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.oneLean !== 'CERTIFIED') fail('the percolation-critical card would misstate its record');
+      return '2 of 2 proofs reach my statement · 2 kernels each · both in one Lean'; })() },
   { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
     title: 'Does an AI’s Lean proof prove the right statement?',
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',

@@ -1,0 +1,18 @@
+--- a/OAI/Probability/CriticalZ3/Symmetry.lean
++++ b/OAI/Probability/CriticalZ3/Symmetry.lean
+@@ -49,13 +49,13 @@
+     ∀ ω ω', (∀ e ∈ internalBonds (cube c n) (cube_finite c n), ω' e = ω e) →
+       (ω' ∈ bondSeedReaches c m n T ↔ ω ∈ bondSeedReaches c m n T) := by
+   intro ω ω' hω
+-  simp only [bondSeedReaches,Set.mem_ofPred_eq,bondWithin_congr hω]
++  simp only [bondSeedReaches,Set.mem_setOf_eq,bondWithin_congr hω]
+ 
+ theorem siteSeedReaches_determined (c : Vertex) (m n : ℕ) (hmn : m ≤ n) (T : Set Vertex) :
+     ∀ ω ω', (∀ e ∈ (cube_finite c n).toFinset, ω' e = ω e) →
+       (ω' ∈ siteSeedReaches c m n T ↔ ω ∈ siteSeedReaches c m n T) := by
+   intro ω ω' hω
+-  simp only [siteSeedReaches,Set.mem_ofPred_eq,siteWithin_congr hω]
++  simp only [siteSeedReaches,Set.mem_setOf_eq,siteWithin_congr hω]
+   apply exists_congr
+   intro x
+   by_cases hx : x ∈ cube c m

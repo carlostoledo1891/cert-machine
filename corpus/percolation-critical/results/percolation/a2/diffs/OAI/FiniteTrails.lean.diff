@@ -1,0 +1,11 @@
+--- a/OAI/Probability/CriticalZ3/FiniteTrails.lean
++++ b/OAI/Probability/CriticalZ3/FiniteTrails.lean
+@@ -38,7 +38,7 @@
+       _ = _ := by
+         apply Finset.sum_congr rfl
+         intro e _
+-        exact (Finset.sum_ite_eq Finset.univ (q e) (fun _ => w e)).trans (ite_eq_left (Finset.mem_univ _))
++        exact (Finset.sum_ite_eq Finset.univ (q e) (fun _ => w e)).trans (if_pos (Finset.mem_univ _))
+   by_contra! h
+   have hz : (∑ c : Q, ∑ e : D, if q e = c then w e else 0) = 0 := by
+     apply Finset.sum_eq_zero

@@ -1,0 +1,14 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/ProductCylinder.lean	2026-11-12 18:44:18.757383616 +0000
++++ OAI/Probability/CriticalZ3/ProductCylinder.lean	2026-11-12 18:44:25.352583980 +0000
+@@ -252,9 +252,9 @@
+ theorem extend_mono (J : Finset E) : Monotone (extend J) := by
+   intro ξ ζ h e
+   by_cases he : e ∈ J
+-  · simp only [extend, dite_eq_left he]
++  · simp only [extend, dif_pos he]
+     exact h ⟨e,he⟩
+-  · simp only [extend, dite_eq_right he, le_refl]
++  · simp only [extend, dif_neg he, le_refl]
+ 
+ /-- Harris's finite-family inequality, applied to actual infinite-product cylinder events. -/
+ theorem decreasing_forall {I : Type uI} [Fintype I] (J : Finset E)

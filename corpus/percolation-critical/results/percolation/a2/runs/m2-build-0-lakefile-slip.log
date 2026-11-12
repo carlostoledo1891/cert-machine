@@ -1,0 +1,9 @@
+✖ [1109/1380] Building OAI.Probability.CriticalZ3.Main (442ms)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/Main.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Main.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Main.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Main.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/Main.setup.json --json
+error: OAI/Probability/CriticalZ3/Main.lean:1:0: object file '/root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/Subunit.olean' of module OAI.Probability.CriticalZ3.Subunit does not exist
+error: Lean exited with code 1
+⚠ [8657/8658] Built ComparatorChallenges.CriticalZ3 (6.5s)
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.Main
+error: build failed

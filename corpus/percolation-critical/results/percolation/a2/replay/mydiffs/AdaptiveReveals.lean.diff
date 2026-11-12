@@ -1,0 +1,91 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/AdaptiveReveals.lean	2026-11-12 18:44:18.751383434 +0000
++++ OAI/Probability/CriticalZ3/AdaptiveReveals.lean	2026-11-12 18:44:25.351583950 +0000
+@@ -63,7 +63,7 @@
+       by_cases h : v ∈ U → P.bad s a = true
+       · convert ih (P.child s a) (U.erase v) using 1
+         ext ω; exact and_iff_right h
+-      · simp only [h,false_and,Set.ofPred_false]; exact MeasurableSet.empty
++      · simp only [h,false_and,Set.setOf_false]; exact MeasurableSet.empty
+ 
+ omit [Countable E] in
+ theorem hit_empty (n : ℕ) (s : S) : P.hit n s ∅ = Set.univ := by
+@@ -84,14 +84,14 @@
+   | zero =>
+     by_cases hu : U = ∅
+     · simp [hit,hu,probReal_univ]
+-    · simp only [hit,ite_eq_right hu,measureReal_empty]
++    · simp only [hit,if_neg hu,measureReal_empty]
+       exact pow_nonneg hf _
+   | succ n ih =>
+     cases hv : P.vertex s with
+     | none =>
+       by_cases hu : U = ∅
+       · simp [hit,hv,hu,probReal_univ]
+-      · simp only [hit,hv,ite_eq_right hu,measureReal_empty]
++      · simp only [hit,hv,if_neg hu,measureReal_empty]
+         exact pow_nonneg hf _
+     | some v =>
+       let A : (P.reveal s → Bool) → Set (E → Bool) :=
+@@ -100,7 +100,7 @@
+         by_cases ha : v ∈ U → P.bad s a = true
+         · convert P.measurableSet_hit n (P.child s a) (U.erase v) using 1
+           ext ω; exact and_iff_right ha
+-        · simp only [A,ha,false_and,Set.ofPred_false]; exact MeasurableSet.empty
++        · simp only [A,ha,false_and,Set.setOf_false]; exact MeasurableSet.empty
+       simp only [hit,hv]
+       change (ProductCylinder.law (P.parameter s)).real
+         {ω | ω ∈ A ((P.reveal s).restrict ω)} ≤ _
+@@ -118,10 +118,10 @@
+         by_cases ha : v ∈ U → P.bad s a = true
+         · have heqA : A a = P.hit n (P.child s a) (U.erase v) := by
+             ext ω; exact and_iff_right ha
+-          rw [heqA,ite_eq_left ha]
++          rw [heqA,if_pos ha]
+           exact mul_le_mul_of_nonneg_left (ih (P.child s a) (hchild s hs a hpos) (U.erase v))
+             (P.weight_nonneg s a)
+-        · simp only [A,ha,false_and,Set.ofPred_false,measureReal_empty,ite_false,mul_zero,zero_mul]
++        · simp only [A,ha,false_and,Set.setOf_false,measureReal_empty,ite_false,mul_zero,zero_mul]
+           exact le_rfl
+       apply (Finset.sum_le_sum (fun a _ => hterm a)).trans
+       rw [←Finset.sum_mul]
+@@ -157,7 +157,7 @@
+   | zero =>
+     by_cases hU : U = ∅
+     · subst U; rw [P.hit_empty,P.hit_empty]
+-    · simp only [hit,ite_eq_right hU]; exact Set.empty_subset _
++    · simp only [hit,if_neg hU]; exact Set.empty_subset _
+   | succ n ih =>
+     cases hv : P.vertex s with
+     | none => simp only [hit,hv]; exact Set.Subset.rfl
+@@ -222,9 +222,9 @@
+   apply hf
+   intro e heJ
+   by_cases hk : e ∈ h.known
+-  · simp only [freeze,replace,ite_eq_left hk]
++  · simp only [freeze,replace,if_pos hk]
+   · have hr := (Finset.mem_union.mp (hJ heJ)).resolve_left hk
+-    simp only [freeze,replace,ite_eq_right hk,he e hr]
++    simp only [freeze,replace,if_neg hk,he e hr]
+ 
+ omit [Countable E] in
+ theorem observe_outcome (h : History E) {J R : Finset E} {F : Sort uF}
+@@ -235,9 +235,9 @@
+   intro e he
+   rcases Finset.mem_union.mp (hJ he) with hk|hr
+   · have hn : e ∉ R := fun hh => Finset.disjoint_left.mp hR hh hk
+-    simp only [observe,freeze,replace,ite_eq_right hn,ite_eq_left hk]
++    simp only [observe,freeze,replace,if_neg hn,if_pos hk]
+   · have hn : e ∉ h.known := fun hh => Finset.disjoint_left.mp hR hr hh
+-    simp only [observe,freeze,replace,ite_eq_right hn,ite_eq_left hr]
++    simp only [observe,freeze,replace,if_neg hn,if_pos hr]
+ 
+ theorem ae_freeze (h : History E) (q : Set.Icc (0:ℝ) 1) :
+     ∀ᵐ ω ∂ProductCylinder.law (h.parameter q), h.freeze ω = ω := by
+@@ -250,6 +250,7 @@
+   apply congrArg ENNReal.toReal
+   apply measure_congr
+   filter_upwards [h.ae_freeze q] with ω hω
++  show (h.freeze ω ∈ A) = (ω ∈ A)
+   rw [hω]
+ end History
+ end InfiniteConditioning

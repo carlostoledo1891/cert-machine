@@ -1,0 +1,33 @@
+⚠ [8656/8691] Replayed ComparatorChallenges.CriticalZ3
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+✔ [8658/8691] Built OAI.Probability.CriticalZ3.Basic (7.1s)
+✖ [8659/8691] Building OAI.Probability.CriticalZ3.ProductCylinder (6.9s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/ProductCylinder.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/ProductCylinder.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/ProductCylinder.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/ProductCylinder.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/ProductCylinder.setup.json --json
+error: OAI/Probability/CriticalZ3/ProductCylinder.lean:255:23: Unknown identifier `dite_eq_left`
+error: OAI/Probability/CriticalZ3/ProductCylinder.lean:256:4: Type mismatch
+  h ⟨e, he⟩
+has type
+  ξ ⟨e, he⟩ ≤ ζ ⟨e, he⟩
+but is expected to have type
+  (if h : e ∈ J then ξ ⟨e, h⟩ else false) ≤ if h : e ∈ J then ζ ⟨e, h⟩ else false
+error: OAI/Probability/CriticalZ3/ProductCylinder.lean:257:23: Unknown identifier `dite_eq_right`
+error: OAI/Probability/CriticalZ3/ProductCylinder.lean:257:2: unsolved goals
+case neg
+E : Type uE
+J : Finset E
+ξ ζ : ↥J → Bool
+h : ξ ≤ ζ
+e : E
+he : e ∉ J
+⊢ (if h : e ∈ J then ξ ⟨e, h⟩ else false) ≤ if h : e ∈ J then ζ ⟨e, h⟩ else false
+warning: OAI/Probability/CriticalZ3/ProductCylinder.lean:257:41: This simp argument is unused:
+  le_refl
+
+Hint: Omit it from the simp argument list.
+  simp only [extend, dite_eq_right he,̵ ̵l̵e̵_̵r̵e̵f̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lean exited with code 1
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.ProductCylinder
+error: build failed

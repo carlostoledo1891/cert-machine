@@ -26,16 +26,17 @@ const a = (href, text) => '<a href="' + C.escAttr(href) + '">' + C.esc(text) + '
 const N = (x) => Number(x).toLocaleString('en-US');
 const mins = (s) => Math.round(s / 60);
 
-const SAYS = { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED' };
+const SAYS = { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED', oneLean: 'CERTIFIED', dimOne: 'CERTIFIED' };
 for (const [k, v] of Object.entries(SAYS)) if (R.verdicts[k] !== v) die(k + ' is ' + R.verdicts[k] + ' in the record, and this page states ' + v);
 if (!/^The proofs are Anthropic’s .* and OpenAI’s/.test(R.undecided)) die('the record no longer says first whose proofs these are');
 const falsePl = R.planted.filter((p) => p.false), refusedBoth = falsePl.filter((p) => p.refusedA && p.refusedO);
 if (refusedBoth.length !== falsePl.length) die('a false planted statement was not refused by both bridges');
-const A = R.anthropic, O = R.openai;
+const A = R.anthropic, O = R.openai, ONE = R.oneLean;
+if (ONE.port.statementFile !== 'byte-identical' || ONE.toolchain !== A.pins.toolchain) die('the one-Lean check is no longer on Anthropic’s version with OpenAI’s statement file unchanged');
 
 /* figure 1 (the hero): the book, our statement, and the two proofs that reach it, each by a bridge we wrote */
 const box = (x, y, w, h, solid) => '    <rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="' + (solid ? 2.4 : 1.6) + '"/>';
-const line = (x1, y1, x2, y2, dash) => '    <line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="var(--ink-3)" stroke-width="1.6"' + (dash ? ' stroke-dasharray="5 4"' : '') + '/>';
+const line = (x1, y1, x2, y2, dash) => '    <line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="var(--ink-3)" stroke-width="1.6"' + (dash ? ' stroke-dasharray="5 4" data-w="computed"' : '') + '/>';
 const head = (x, y, dir) => '    <path d="M' + x + ' ' + y + ' l' + (dir * -9) + ' -5 l0 10 z" fill="var(--ink-3)"/>';
 const L = (x, y, text, cls) => C.label({ x, y, text, cls });
 const HALT = 'Left, a box for Grimmett’s textbook, joined by a dashed line to a central box for the statement written from it. On the right, two boxes for the two labs’ Lean proofs, Anthropic’s for every dimension from 2 and OpenAI’s for dimension 3; an arrow runs from each into the statement, labelled with the length of the bridge that proves it.';
@@ -75,12 +76,12 @@ O_.push(C.stats([
   { k: 'labs’ proofs that prove my statement', v: '2 of 2', n: 'Anthropic: every d ≥ 2 · OpenAI: d = 3' },
   { k: 'kernels that accept each bridge', v: '2', n: 'Lean’s and nanoda, plus a full replay' },
   { k: 'false statements planted', v: refusedBoth.length + ' of ' + falsePl.length, n: 'refused by both bridges' },
-  { k: 'rented computer time', v: 'US$' + R.money.usd.toFixed(2), sm: true, n: R.money.pods + ' machines, under 3 hours' }
+  { k: 'rented computer time', v: 'US$' + R.money.usd.toFixed(2), sm: true, n: R.money.pods + ' machines, under ' + Math.ceil(R.money.minutes / 60) + ' hours' }
 ]));
 O_.push(C.scope('The proofs are Anthropic’s (Justin Leder with Claude) and OpenAI’s. This page checks that their Lean theorems prove a statement written independently from the textbook; it is not new mathematics, and it does not check either informal paper. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs and the two bridges under my direction.'));
 
 O_.push(C.section({ lab: 'read this first', title: 'What is still open', id: 'limits', bodyRaw: C.plainList([
-  { b: 'Two Lean versions.', text: 'The bridge to Anthropic’s proof runs on Lean ' + A.pins.toolchain + ', the one to OpenAI’s on ' + O.pins.toolchain + '. My statement is the same file in both, byte for byte. Of the ' + N(R.seam.common) + ' definitions it reaches in both, ' + N(R.seam.identical) + ' are identical; the rest differ by Mathlib’s own changes between the versions. That the statement means the same in both is a careful reading, not a kernel check.' },
+  { b: 'In the single-Lean check, OpenAI’s proof is a port.', text: 'To put both proofs in one Lean (section 4), OpenAI’s ℤ³ proof was moved to the version Anthropic’s uses: ' + ONE.port.changed + ' of its ' + ONE.port.files + ' files changed, almost all of them renamed library lemmas. Its statement file is unchanged, byte for byte, and the moved proof is accepted against it. It is still not OpenAI’s proof as shipped; that one was checked on its own version.' },
   { b: 'Not the papers.', text: 'This checks the Lean statements against the textbook’s definitions. It does not check either lab’s informal argument, or Kozma and Nitzan’s reduction as printed.' },
   { b: 'Anthropic’s proof is not on its repository’s main branch.', text: 'It is reachable only by its commit hash (the pull request was closed the same day); I pinned that commit by its hash.' },
   { b: 'The same model family.', text: 'The bridge to Anthropic’s proof was written by Claude, Anthropic’s model. The kernels decide, not the model; you should still know.' },
@@ -114,15 +115,23 @@ O_.push(C.section({ lab: '3 · OpenAI’s proof', title: 'Bridged at d = 3, with
   { b: 'Checked with my statement as the target.', text: 'Comparator accepts on Lean’s kernel and on nanoda; Lean’s checker replays the whole environment from scratch in ' + mins(O.bridge.freshSeconds) + ' minutes.' }
 ]) }));
 
-O_.push(C.section({ lab: '4 · planted errors', title: 'What would have caught a wrong statement', id: 'planted', bodyRaw: C.plainList(R.planted.map((p) => ({
+O_.push(C.section({ lab: '4 · one Lean', title: 'Both proofs and my statement in a single Lean', id: 'one-lean', bodyRaw: C.plainList([
+  { b: 'Why.', text: 'The two bridges first ran on two Lean versions: Anthropic’s on ' + A.pins.toolchain + ', OpenAI’s on ' + O.pins.toolchain + '. My statement was the same file in both, but of the ' + N(R.seam.common) + ' library definitions it reaches, only ' + N(R.seam.identical) + ' are identical across the two. That it meant the same thing in both was a careful reading. This section replaces the reading with a check.' },
+  { b: 'The port.', text: 'OpenAI’s ℤ³ proof was moved to Lean ' + ONE.toolchain + ': ' + ONE.port.changed + ' of ' + ONE.port.files + ' files changed (' + ONE.port.linesOut + ' lines out, ' + ONE.port.linesIn + ' in), ' + ONE.port.identical + ' untouched. OpenAI’s statement file and all of Anthropic’s library are unchanged; my statement and the bridge to Anthropic’s proof are the sealed files; the bridge to OpenAI’s proof changed in ' + ONE.port.bridgeOLinesChanged + ' lines.' },
+  { b: 'What was checked there.', text: 'One environment now holds both proofs, both bridges and my statement. It builds from empty with no error and no warning. Comparator, given my file as the statement to be proved, accepts both results on Lean’s kernel and on nanoda: every d ≥ 2 from Anthropic’s proof, d = 3 from OpenAI’s. It also accepts the moved proof against OpenAI’s own unchanged statement file. Lean’s checker replays the whole environment from scratch in ' + mins(ONE.freshSeconds) + ' minutes.' },
+  { b: 'Planted errors, again.', text: 'In that environment, ' + ONE.planted + ' builds against a false statement (θ(p_c) = 1, and the false p_c of R4 below) all fail, each inside a bridge.' },
+  { b: 'The first run failed, by my own packaging.', text: 'My archive of the inputs carried 34 stray files from macOS into the library, and the build stopped on them. I removed them, compared the tree with its list file by file, and ran every check again from an empty build. Both runs are in the records.' }
+]) }));
+
+O_.push(C.section({ lab: '5 · planted errors', title: 'What would have caught a wrong statement', id: 'planted', bodyRaw: C.plainList(R.planted.map((p) => ({
   b: p.id + ' · ' + p.what + '.',
-  text: p.false ? (p.provedFalse ? 'False, and proved false in Lean in the same environment. Both bridges fail on it.' : 'False. Both bridges fail on it.')
+  text: p.false ? (p.provedFalse ? 'False, and proved false in Lean in the same environment. Both bridges fail on it.' : (p.provedFalseAtDimOne ? 'False. Both bridges fail on it. The d = 1 statement is also proved false in Lean, in a ' + R.dimOne.lines + '-line file that uses Mathlib only, at both Lean versions: in one dimension p_c = 1 and θ(1) = 1, so the condition d ≥ 2 in my statement is needed.' : 'False. Both bridges fail on it.'))
     : 'Still true, as it turned out, so its failure shows only that the bridges depend on how p_c is written. Not counted as a refusal; R4 replaced it.'
 }))) }));
 
 O_.push(C.section({ lab: 'the method', title: 'How it was done', id: 'method', bodyRaw: C.plainList([
   { b: 'Rules first.', text: 'The rules for each stage were written and sealed before the stage ran: a salted fingerprint of the private work, posted to a public registry and to Bitcoin, which proves the date without showing the content (' + R.seals.length + ' seals). Each departure from the rules is listed in the records.' },
-  { b: 'Written by agents, checked by me.', text: 'Claude agents wrote the two bridges on a rented machine. I rebuilt both, listed their axioms and ran both kernels and the full replays myself.' },
+  { b: 'Written by agents, checked by me.', text: 'Claude agents wrote the two bridges, the port and the d = 1 proof on rented machines. I rebuilt each, listed their axioms and ran both kernels and the full replays myself; the single-Lean check is my own run, from the agent’s saved files.' },
   { b: 'Size.', text: 'One day, 12 November 2026: a laptop and ' + R.money.pods + ' rented machines, about US$' + R.money.usd.toFixed(2) + '.' }
 ]) }));
 
@@ -144,5 +153,5 @@ const foot = '<p>' + C.esc('Generated by tools/build-report-percolation-critical
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'percolation-critical.html'), TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O_.join('\n\n'), footRaw: foot, path: '/reports/percolation-critical.html',
   og: { image: '/og-percolation-critical.png', alt: OG.alt('percolation-critical') },
-  desc: 'Anthropic’s and OpenAI’s Lean proofs that critical bond percolation on ℤ^d has no infinite cluster, checked against a statement written independently from Grimmett’s textbook: both prove it, by bridges checked on two kernels.' }));
+  desc: 'Anthropic’s and OpenAI’s Lean proofs that critical bond percolation on ℤ^d has no infinite cluster, checked against a statement written independently from Grimmett’s textbook: both prove it, by bridges checked on two kernels, and both are checked together in a single Lean.' }));
 console.log('reports/percolation-critical.html written · ' + Object.entries(R.verdicts).map(([k, v]) => k + ' ' + v).join(' · '));

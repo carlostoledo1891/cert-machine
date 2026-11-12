@@ -1,0 +1,25 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/Extension.lean	2026-11-12 18:44:18.753383495 +0000
++++ OAI/Probability/CriticalZ3/Extension.lean	2026-11-12 18:44:25.351583950 +0000
+@@ -54,11 +54,11 @@
+   have hy (y : t) : C.Exterior y.1 := G.entrant_exterior m (ht y.2)
+   have hF (y : t) : ProductCylinder.DeterminedBy (F := Prop) (C.bits m) (fun ω => ω ∈ F y) := by
+     intro ω ω' h
+-    simp only [F,Set.mem_ofPred_eq,conditionalProbability_determined p (C.bits m) _ ω ω' h]
++    simp only [F,Set.mem_setOf_eq,conditionalProbability_determined p (C.bits m) _ ω ω' h]
+   have hfresh (y : t) : ∀ e ∈ C.successBits r m y.1, pf e = q := by
+     intro e he
+     change fixedParameter p (G.outsideBits m C) ξ e = q
+-    rw [fixedParameter,ite_eq_right (Finset.disjoint_left.mp (G.successBits_disjoint_outside m C r hw (hy y)) he)]
++    rw [fixedParameter,if_neg (Finset.disjoint_left.mp (G.successBits_disjoint_outside m C r hw (hy y)) he)]
+     exact hp e (C.successBits_contained r m hw (hy y) he)
+   have hmass (y : t) : μ.real (A y) = c := by
+     rw [allValue_probability_constant pf _ q (hfresh y)]
+@@ -107,7 +107,7 @@
+     MeasurableSet {ω | L ≤ (G.entrants m C ω o).card} := by
+   apply ProductCylinder.measurableSet_determined (G.outsideBits m C)
+   intro ω ω' h
+-  simp only [Set.mem_ofPred_eq,G.entrants_determined m C o ω ω' h]
++  simp only [Set.mem_setOf_eq,G.entrants_determined m C o ω ω' h]
+ 
+ /-- Integrating the exact separated-trial estimate, including histories with
+ fewer than L entries. -/

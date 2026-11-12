@@ -70,7 +70,8 @@
    "what": "the statement at d = 1 (A) / p_c of ℤ¹ (O)",
    "false": true,
    "refusedA": true,
-   "refusedO": true
+   "refusedO": true,
+   "provedFalseAtDimOne": true
   },
   {
    "id": "R3",
@@ -92,21 +93,57 @@
  "seam": {
   "common": 2488,
   "identical": 2032,
-  "word": "a reading"
+  "word": "a reading",
+  "supersededBy": "oneLean"
+ },
+ "dimOne": {
+  "file": "perc/anchors/DimOne.lean",
+  "sha256": "5722a12862025d2c1fb146a802214975a53293b003b2c82c49a1d4cfdfdfacea",
+  "lines": 202,
+  "theorems": [
+   "θ₁(p) = 0 for every p < 1",
+   "p_c(1) = 1",
+   "the statement’s body at d = 1 is false"
+  ],
+  "pins": 2
+ },
+ "oneLean": {
+  "toolchain": "v4.32.0",
+  "mathlib": "81a5d257",
+  "ported": "OpenAI’s ℤ³ proof, to Anthropic’s version",
+  "port": {
+   "files": 34,
+   "identical": 12,
+   "changed": 22,
+   "linesOut": 124,
+   "linesIn": 125,
+   "statementFile": "byte-identical",
+   "bridgeOLinesChanged": 3
+  },
+  "cleanBuildSeconds": 524,
+  "comparators": 3,
+  "comparatorOursSeconds": 274,
+  "freshSeconds": 1990,
+  "planted": 8,
+  "attempts": 2,
+  "firstAttempt": "its build failed on 34 stray files from the checker’s own archive; kept on record"
  },
  "money": {
-  "pods": 3,
-  "usd": 3.06
+  "pods": 5,
+  "usd": 5.38,
+  "minutes": 251
  },
  "seals": [
   18,
   19,
   20,
-  21
+  21,
+  24,
+  25
  ],
  "provenance": {
-  "files": 205,
-  "sourceCommit": "7bcd7700d8bc0c474ee97c72c73935f88ddb856d"
+  "files": 588,
+  "sourceCommit": "62dba2522e978d32224642894e1072a17e505976"
  },
  "note": {
   "doi": "10.5281/zenodo.24168179",
@@ -117,6 +154,8 @@
   "bridgeO": "CERTIFIED",
   "replayA": "REPLAYED",
   "anchors": "CERTIFIED",
-  "seam": "READ, NOT DECIDED"
+  "seam": "READ, NOT DECIDED",
+  "oneLean": "CERTIFIED",
+  "dimOne": "CERTIFIED"
  }
 }

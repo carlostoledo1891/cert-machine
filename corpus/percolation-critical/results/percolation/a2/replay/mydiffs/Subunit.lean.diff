@@ -1,0 +1,20 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/Subunit.lean	2026-11-12 18:44:18.759383677 +0000
++++ OAI/Probability/CriticalZ3/Subunit.lean	2026-11-12 18:44:25.349583889 +0000
+@@ -70,7 +70,7 @@
+     (ProductCylinder.law (fun _ : E => p)).real (Bad J v) ≤ (J v).card*(1-(p : ℝ)) := by
+   have he : Bad J v = ⋃ e : J v, {ω | ω e.1 = false} := by
+     ext ω
+-    simp only [Bad,active,Set.mem_ofPred_eq,Set.mem_iUnion]
++    simp only [Bad,active,Set.mem_setOf_eq,Set.mem_iUnion]
+     constructor
+     · intro h
+       push Not at h
+@@ -99,7 +99,7 @@
+     rw [InfiniteConditioning.disjoint_blocks_probability (fun _ : E => p) J hJ (Bad J) (bad_determined J) s]
+     calc
+       _ ≤ ∏ _v ∈ s, CriticalScales.contourError :=
+-        Finset.prod_le_prod₀ (fun _ _ => measureReal_nonneg) (fun v _ => hb v)
++        Finset.prod_le_prod (fun _ _ => measureReal_nonneg) (fun v _ => hb v)
+       _ = _ := by simp
+   have hf := PlanarBoundary.finite_good_bound μ (cluster J) (Bad J)
+     (fun ω _ x hx d hy => outside_bad J ω x hx d hy) hbad

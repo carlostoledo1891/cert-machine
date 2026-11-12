@@ -1,0 +1,20 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/SeedQuality.lean	2026-11-12 18:44:18.758383647 +0000
++++ OAI/Probability/CriticalZ3/SeedQuality.lean	2026-11-12 18:44:25.351583950 +0000
+@@ -187,7 +187,7 @@
+     have he : allValue (C.successBits r .bond y) true ∩ F =
+         allValue {C.entryBit .bond y} true ∩ (allValue (C.seedBox r y).bonds true ∩ F) := by
+       ext ω
+-      simp only [Box.successBits,allValue,Set.mem_inter_iff,Set.mem_ofPred_eq,
++      simp only [Box.successBits,allValue,Set.mem_inter_iff,Set.mem_setOf_eq,
+         Finset.mem_insert,Finset.mem_singleton,forall_eq_or_imp,forall_eq]
+       tauto
+     have hcross := hp (C.entryBit .bond y)
+@@ -209,7 +209,7 @@
+   refine ProductCylinder.measurableSet_determined (G.bits m ∪ J) _ ?_
+   intro ω ω' h
+   have hg := G.goodRelays_determined m p J T τ ω ω' (fun e he => h e (Finset.mem_union_right _ he))
+-  simp only [Set.mem_ofPred_eq,hg]
++  simp only [Set.mem_setOf_eq,hg]
+   exact eq_iff_iff.mp (G.meets_determined m o _ ω ω' (fun e he => h e (Finset.mem_union_left _ he)))
+ 
+ /-- Outside reveals preserve joint seed/quality statistics, as quality is an

@@ -1,0 +1,53 @@
+--- a/OAI/Probability/CriticalZ3/ShellProbability.lean
++++ b/OAI/Probability/CriticalZ3/ShellProbability.lean
+@@ -31,12 +31,12 @@
+       ProductCylinder.determinedBy_eq_extend (G.entryBits_determined m C o) ω
+     have heP : {ω | P (J.restrict ω)} =
+         {ω | 0 < (G.entrants m C ω o).card ∧ (G.entrants m C ω o).card < L} := by
+-      ext ω; simp only [P,Set.mem_ofPred_eq]; rw [←hY ω]
++      ext ω; simp only [P,Set.mem_setOf_eq]; rw [←hY ω]
+     have heA : {ω | P (J.restrict ω) ∧ ω ∈ A (J.restrict ω)} =
+         {ω | 0 < (G.entrants m C ω o).card ∧ (G.entrants m C ω o).card < L ∧
+           G.Blocked m C ω o} := by
+       ext ω
+-      simp only [P,A,allValue,Blocked,Set.mem_ofPred_eq]
++      simp only [P,A,allValue,Blocked,Set.mem_setOf_eq]
+       rw [←hY ω,←hK ω]
+       exact and_assoc
+     rwa [heP,heA] at h
+@@ -74,7 +74,7 @@
+     have hK := ProductCylinder.determinedBy_eq_extend (G.entryBits_determined m C o) ω
+     change G.entrants m C ω o = G.entrants m C (ξ (J.restrict ω)) o at hY
+     change G.entryBits m C ω o = G.entryBits m C (ξ (J.restrict ω)) o at hK
+-    simp only [A,←hY,←hK,Set.mem_ofPred_eq,Blocked,allValue]
++    simp only [A,←hY,←hK,Set.mem_setOf_eq,Blocked,allValue]
+     split_ifs with hh
+     · tauto
+     · simp only [Set.mem_empty_iff_false]; tauto
+@@ -224,7 +224,7 @@
+     MeasurableSet {ω | conditionalProbability p J C ω ≤ a} := by
+   refine ProductCylinder.measurableSet_determined J _ ?_
+   intro ω ω' h
+-  simp only [Set.mem_ofPred_eq,conditionalProbability_determined p J C ω ω' h]
++  simp only [Set.mem_setOf_eq,conditionalProbability_determined p J C ω ω' h]
+ end InfiniteConditioning
+ 
+ namespace CriticalZ3.LatticeGraph
+@@ -261,7 +261,7 @@
+     (T : Set Vertex) (τ : ℝ) : ProductCylinder.DeterminedBy J (G.goodRelays m p J T τ) := by
+   intro ω ω' h
+   ext v
+-  simp only [goodRelays,Set.mem_ofPred_eq,conditionalProbability_determined p J _ ω ω' h]
++  simp only [goodRelays,Set.mem_setOf_eq,conditionalProbability_determined p J _ ω ω' h]
+ 
+ theorem random_relay_failure (p : m.Bit → Set.Icc (0 : ℝ) 1) (J : Finset m.Bit)
+     (o : G.Node) (T : Set Vertex) {τ : ℝ} (hτ : 0 ≤ τ) :
+@@ -272,7 +272,7 @@
+   have he : {ω | G.Meets m ω o (G.goodRelays m p J T τ ω) ∧ ¬G.Meets m ω o T} =
+       {ω | ω ∈ A (J.restrict ω)} := by
+     ext ω
+-    simp only [A,Set.mem_ofPred_eq,
++    simp only [A,Set.mem_setOf_eq,
+       ProductCylinder.determinedBy_eq_extend (G.goodRelays_determined m p J T τ) ω]
+   rw [he]
+   apply select_probability_le p J A

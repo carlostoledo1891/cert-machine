@@ -1,0 +1,11 @@
+--- /root/one/O/lean/OAI/Probability/CriticalZ3/Relay.lean	2026-11-12 18:44:18.757383616 +0000
++++ OAI/Probability/CriticalZ3/Relay.lean	2026-11-12 18:44:25.355584071 +0000
+@@ -56,7 +56,7 @@
+   refine ⟨x,by simp [x],?_⟩
+   intro i hi
+   dsimp [x]
+-  rw [ite_eq_right hi]
++  rw [if_neg hi]
+   cases signs i <;> simp [DirectedInterval] <;> omega
+ 
+ /-- Generic form of one of the three contraction steps. -/

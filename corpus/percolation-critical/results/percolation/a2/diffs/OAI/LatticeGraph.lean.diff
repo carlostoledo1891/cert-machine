@@ -1,0 +1,33 @@
+--- a/OAI/Probability/CriticalZ3/LatticeGraph.lean
++++ b/OAI/Probability/CriticalZ3/LatticeGraph.lean
+@@ -173,7 +173,7 @@
+   ext ξ
+   have he : (fun x : G.Node => ProductCylinder.extend G.vertices ξ x.1) = ξ := by
+     funext x; simp [ProductCylinder.extend,x.2]
+-  simp only [SiteMeets,SiteConn,he,HyperedgeComparison.Site.Meets,Set.mem_ofPred_eq]
++  simp only [SiteMeets,SiteConn,he,HyperedgeComparison.Site.Meets,Set.mem_setOf_eq]
+ 
+ /-- Any observable of the finite graph's connections is a finite cylinder. -/
+ theorem bondObservable_probability (p : Bond → Set.Icc (0 : ℝ) 1)
+@@ -199,8 +199,8 @@
+     funext o T
+     apply propext
+     simp only [BondMeets,G.bondConn_iff_hypergraph,he,
+-      HyperedgeComparison.Meets,Set.mem_ofPred_eq]
+-  simp only [Set.mem_ofPred_eq,hm]
++      HyperedgeComparison.Meets,Set.mem_setOf_eq]
++  simp only [Set.mem_setOf_eq,hm]
+ 
+ theorem siteObservable_probability (p : Vertex → Set.Icc (0 : ℝ) 1)
+     (φ : (G.Node → Set Vertex → Prop) → Prop) :
+@@ -224,8 +224,8 @@
+       fun o T => HyperedgeComparison.Site.Meets G.graph ξ o {y | y.1 ∈ T} := by
+     funext o T
+     apply propext
+-    simp only [SiteMeets,SiteConn,he,HyperedgeComparison.Site.Meets,Set.mem_ofPred_eq]
+-  simp only [Set.mem_ofPred_eq,hm]
++    simp only [SiteMeets,SiteConn,he,HyperedgeComparison.Site.Meets,Set.mem_setOf_eq]
++  simp only [Set.mem_setOf_eq,hm]
+ 
+ /-- The comparison is now attached to actual finite lattice bond paths and
+ arbitrary independent laws on the entire lattice, not an assumed interface. -/

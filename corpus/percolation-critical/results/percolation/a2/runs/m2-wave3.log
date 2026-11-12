@@ -1,0 +1,38 @@
+⚠ [8657/8691] Replayed ComparatorChallenges.CriticalZ3
+warning: ComparatorChallenges/CriticalZ3.lean:56:8: declaration uses `sorry`
+✔ [8659/8691] Built OAI.Probability.CriticalZ3.ProductCylinder (7.2s)
+✔ [8660/8691] Built OAI.Probability.CriticalZ3.Symmetry (6.9s)
+✔ [8661/8691] Built OAI.Probability.CriticalZ3.QuarterFaces (7.4s)
+✔ [8662/8691] Built OAI.Probability.CriticalZ3.Resampling (6.8s)
+✖ [8663/8691] Building OAI.Probability.CriticalZ3.HyperedgeComparison (8.8s)
+trace: .> LEAN_PATH=/root/one/m2/.lake/packages/Cli/.lake/build/lib/lean:/root/one/m2/.lake/packages/batteries/.lake/build/lib/lean:/root/one/m2/.lake/packages/Qq/.lake/build/lib/lean:/root/one/m2/.lake/packages/aesop/.lake/build/lib/lean:/root/one/m2/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/one/m2/.lake/packages/importGraph/.lake/build/lib/lean:/root/one/m2/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/one/m2/.lake/packages/plausible/.lake/build/lib/lean:/root/one/m2/.lake/packages/mathlib/.lake/build/lib/lean:/root/one/m2/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/one/m2/OAI/Probability/CriticalZ3/HyperedgeComparison.lean -o /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/HyperedgeComparison.olean -i /root/one/m2/.lake/build/lib/lean/OAI/Probability/CriticalZ3/HyperedgeComparison.ilean -c /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/HyperedgeComparison.c --setup /root/one/m2/.lake/build/ir/OAI/Probability/CriticalZ3/HyperedgeComparison.setup.json --json
+error: OAI/Probability/CriticalZ3/HyperedgeComparison.lean:1052:69: Invalid field `IsLowerTriangular`: The environment does not contain `Function.IsLowerTriangular`, so it is not possible to project the field `IsLowerTriangular` from an expression
+  baseMatrix H p x
+of type `Fin n → Fin n → ℝ`
+error: OAI/Probability/CriticalZ3/HyperedgeComparison.lean:1053:8: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+V : Type uV
+E : Type uE
+inst✝ : Fintype E
+n : ℕ
+H : Hypergraph V E
+p : E → ↑(Set.Icc 0 1)
+x : Fin n → V
+⊢ sorry
+error: OAI/Probability/CriticalZ3/HyperedgeComparison.lean:1087:6: Unknown constant `Matrix.det_of_isLowerTriangular`
+error: OAI/Probability/CriticalZ3/HyperedgeComparison.lean:1086:34: unsolved goals
+V : Type uV
+E : Type uE
+inst✝ : Fintype E
+n : ℕ
+H : Hypergraph V E
+p : E → ↑(Set.Icc 0 1)
+hp : ∀ (e : E), ↑(p e) < 1
+x : Fin n → V
+hx : Function.Injective x
+⊢ (baseMatrix H p x).det ≠ 0
+warning: OAI/Probability/CriticalZ3/HyperedgeComparison.lean:1376:8: declaration uses `sorry`
+error: Lean exited with code 1
+Some required targets logged failures:
+- OAI.Probability.CriticalZ3.HyperedgeComparison
+error: build failed

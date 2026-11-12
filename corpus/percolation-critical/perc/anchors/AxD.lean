@@ -1,0 +1,4 @@
+import DimOne
+#print axioms TextbookPercolation.theta_dim_one_eq_zero
+#print axioms TextbookPercolation.pc_dim_one
+#print axioms TextbookPercolation.statement_body_false_at_dim_one
