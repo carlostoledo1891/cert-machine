@@ -72,10 +72,7 @@ RESULTS of this session are NOT sealed):
        objects carrying a record); only one light finite-counterexample object exists; the bundle embeds third-party
        corpus bytes (licences to resolve before it is served); a lookbehind regex at check.js:498 fails on Safari
        before 16.4.
-    6. THE ZULIP ROW: the audit thread is leanprover.zulipchat.com, channel "Machine Learning for Theorem Proving",
-       topic "Audit of OpenAI #378 & #003 repos" (message 637348605, 3 Nov). A logged-out reader sees ONLY that first
-       post: the operator's reply of 11-12 is not visible there. The operator checks that it was posted; the row's
-       url stays null.
+    6. DROPPED 2026-11-12 on the operator's word: the Zulip row's link (the row keeps url null; nothing owed).
     7. On hold, unchanged: the method paper (waits on Pedro).
   LATER ITEMS, FOUND AND NOT ACTED ON: `node tools/check-wiring.js` reports 1 FAILED — check 7, two container radii
   off the shape scale (8px, 12px) on site/instruments/textbook-machine/index.html; not caused by this session.
