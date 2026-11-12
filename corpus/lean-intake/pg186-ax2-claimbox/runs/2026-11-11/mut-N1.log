@@ -1,0 +1,67 @@
+Intake/Mut/N1.lean:6:5: warning: Ambiguous namespace `PrimeGap186`: it is interpreted as `_root_.IntakeCanon.PrimeGap186` because this `open` occurs inside `namespace IntakeCanon.PrimeGap186.IntakeMut.N1`, while `_root_.PrimeGap186` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.IntakeCanon.PrimeGap186`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+Intake/Mut/N1.lean:11:30: error(lean.invalidField): Invalid field `Prime`: The environment does not contain `Int.Prime`, so it is not possible to project the field `Prime` from an expression
+  p
+of type `ℤ`
+Intake/Mut/N1.lean:11:49: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  ZMod p
+Intake/Mut/N1.lean:11:49: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  ZMod p
+Intake/Mut/N1.lean:13:18: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  ZMod p
+Intake/Mut/N1.lean:14:45: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  @unnormalizedKloosterman2 p
+Intake/Mut/N1.lean:15:47: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  @unnormalizedKloosterman2 p
+Intake/Mut/N1.lean:13:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Intake/Mut/N1.lean:18:29: error: Type mismatch
+  _root_.PrimeGap186.kloosterman2_correlation_bound
+has type
+  ∀ (p : ℕ) [inst : Fact (Nat.Prime p)] (A B : ZMod p),
+    A ≠ 0 →
+      B ≠ 0 →
+        ‖∑ t,
+              if t ≠ 0 ∧ t ≠ -1 then
+                _root_.PrimeGap186.unnormalizedKloosterman2 p (A / t) *
+                  _root_.PrimeGap186.unnormalizedKloosterman2 p (B / (t + 1))
+              else 0‖ ≤
+          8 * ↑p * √↑p
+of sort `Prop` but is expected to have type
+  x✝
+of sort `Sort u_1`
+Intake/Mut/N1.lean:18:0: error: type of theorem `IntakeCanon.PrimeGap186.IntakeMut.N1.c` is not a proposition
+  {x : Sort u_1} → {s : x} → x

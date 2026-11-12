@@ -1,0 +1,30 @@
+{
+ "canonical": {
+  "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2"
+ },
+ "claim": {
+  "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+  "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2"
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [
+   75648,
+   75665
+  ],
+  "native_decide": [],
+  "axiom": [
+   147,
+   159,
+   1055
+  ],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ }
+}

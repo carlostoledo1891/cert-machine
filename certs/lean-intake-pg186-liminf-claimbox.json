@@ -1,0 +1,340 @@
+{
+ "format": 2,
+ "what": "The Lean intake of OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms against the release's own statement file, Challenge.lean: the liminf of consecutive prime gaps is at most 186 (Corollary 1.2), decided from the run's facts by tools/lean-intake.js (record format 2, instruments/intake/SPEC.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement; of the planted statements that reached the identity check, every one with a predicted outcome has it, at least one is refused and at least one rewording is accepted; the canonical hypotheses have a model; and every planted defect in the claimant's file is caught. A planted statement that did not elaborate tested nothing and is named, not counted. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/pg186-liminf/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, was not run). Kernels THIS RUN did not run: leanchecker-paranoid, lean4lean, con-leche, con-ron — another record of the same proof may have run them; this record speaks for its own run only.",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-liminf-claimbox/spec.json",
+  "sha256": "8fcf2ff146361bf9bf9beb5c0dd8f4e6c20e6732726e67272f3f6b76b2cf971e",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-11",
+  "facts": "corpus/lean-intake/pg186-liminf-claimbox/runs/2026-11-11",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 16,
+   "memGB": 119.2,
+   "host": {
+    "cpus": 128,
+    "memGB": 503
+   },
+   "limit": {
+    "cpus": null,
+    "memGB": 119.2,
+    "source": "cgroup v2"
+   },
+   "declared": {
+    "source": "RUNPOD_CPU_COUNT / RUNPOD_MEM_GB",
+    "cpus": 16,
+    "memGB": 128
+   },
+   "plantedStatementsAtOnce": 8
+  },
+  "stepSeconds": 1573.7,
+  "cost": {
+   "usd": 0.47,
+   "what": "a share by run seconds (1559 of 6440) of one RunPod pod, yvo73dwrl1lw7d: cpu5m 16 vCPU / 128 GB at US$1.04/h, 2026-11-11 23:16 to 2026-11-12 01:08 UTC, US$1.95 billed for the six prime-gap ids"
+  }
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "path": "Challenge.lean",
+   "decl": "PrimeGap186.primeGapLiminf_le_186",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  },
+  "claim": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "file": "PrimeGaps186.lean",
+   "decl": "PrimeGap186.primeGapLiminf_le_186",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [
+   75648,
+   75665
+  ],
+  "native_decide": [],
+  "axiom": [
+   147,
+   159,
+   1055
+  ],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "1 of 1 accepted (predicted)",
+   "type": "0 of 0 refused (predicted)",
+   "changed": "3 refused, 0 accepted, of 3 (kernel decides: no outcome predicted)",
+   "certain": "1 of 1 certain predictions met",
+   "reachedTheCheck": "4 of 4",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "2 of 2",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "a closed statement about a liminf over all primes: no instance binder to evaluate"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.physical_integral_bounds",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "IntakeCanon.PrimeGap186.primeGapLiminf ≤ 186",
+  "claim": "PrimeGap186.primeGapLiminf ≤ 186",
+  "seconds": 9,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's PrimeGap186.primeGapLiminf_le_186 as a proof of PrimeGap186.primeGapLiminf_le_186's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding; the statement is read from a copy of the canonical file with one line added after its imports (`namespace IntakeCanon`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (2, 3, 3, 105 constants); CONDITIONAL on the canonical file's own axioms PrimeGap186.kloosterman3_bound, PrimeGap186.kloosterman2_correlation_bound, PrimeGap186.physical_integral_bounds: the claimant's proof rests on its axioms of those names, and each is the canonical one, its statement and every definition under it identical name for name (3, 3, 105 constants)",
+  "selfContained": {
+   "copy": {
+    "canonicalSha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+    "copy": "Intake/Canon/C_Challenge.lean",
+    "copySha256": "a5c66a43bdc71c1879197dcd57a9168456bfd567bb4a740179e55424a24415cb",
+    "addedLine": 2,
+    "added": "namespace IntakeCanon",
+    "check": "the copy without that line is the canonical file, byte for byte"
+   },
+   "copyIsCanonical": {
+    "bytes": true,
+    "exit": "0",
+    "declarations": [
+     {
+      "decl": "PrimeGap186.primeGapLiminf_le_186",
+      "identical": true,
+      "constants": 2,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "statementAsWritten": {
+    "identical": true,
+    "constants": 2,
+    "difference": null
+   },
+   "axioms": {
+    "exit": "0",
+    "pairs": [
+     {
+      "canonical": "PrimeGap186.kloosterman3_bound",
+      "claim": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.kloosterman2_correlation_bound",
+      "claim": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.physical_integral_bounds",
+      "claim": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "conditionalOn": [
+    "PrimeGap186.kloosterman3_bound",
+    "PrimeGap186.kloosterman2_correlation_bound",
+    "PrimeGap186.physical_integral_bounds"
+   ]
+  }
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: ",
+  "seconds": 10.9,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 6.9,
+   "tested": true,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "`≤` made `<` (`primeGapLiminf ≤ ( 186` → `primeGapLiminf < ( 186`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 5.9,
+   "tested": true,
+   "rule": "changed:strictness",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "the numeral 186 made 187 (`≤ ( 186 : EReal` → `≤ ( 187 : EReal`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "the numeral 186 made 185 (`≤ ( 186 : EReal` → `≤ ( 185 : EReal`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 14,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.2,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of primeGapLiminf_le_186 replaced by sorry (the original kept as intake_was_primeGapLiminf_le_186)",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 667.9
+  },
+  {
+   "id": "R2",
+   "why": "primeGapLiminf_le_186 proved by an added axiom (the original kept as intake_was_primeGapLiminf_le_186)",
+   "expect": "intakeRedAxiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "PrimeGap186.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list PrimeGap186.intakeRedAxiom",
+   "seconds": 674.5
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 9
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.34.0-rc2)",
+   "word": "ACCEPTS",
+   "seconds": 5.7
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "36aa5112eabd42778624fdd4bd9e9a077bd632f3b1dbde9e34a9a9eb0eea3669",
+    "bytes": 1242891049
+   },
+   "seconds": 60.4
+  }
+ ],
+ "notRunHere": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null,
+ "conditionalOn": {
+  "axioms": [
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.physical_integral_bounds"
+  ],
+  "note": "CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them."
+ }
+}

@@ -1,0 +1,1809 @@
+{
+ "format": 2,
+ "what": "The Lean intake of OpenAI's Lean proof (GPT-6 Astra in Codex; openai/PrimeGaps186 at 61340d0b), conditional on three declared axioms against the release's own statement file, Challenge.lean: infinitely many two-prime translates of the explicit 40-tuple, decided from the run's facts by tools/lean-intake.js (record format 2, instruments/intake/SPEC.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement; of the planted statements that reached the identity check, every one with a predicted outcome has it, at least one is refused and at least one rewording is accepted; the canonical hypotheses have a model; and every planted defect in the claimant's file is caught. A planted statement that did not elaborate tested nothing and is named, not counted. The spec was written by claimbox (python3 -m claimbox intake spec corpus/intake/pg186-tuple-x/target.json: every planted statement by a fixed rule, only certain outcomes predicted — \"kernel decides\" otherwise), copied here by LIFT-claimbox-intake.json and committed before the run.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, was not run). Kernels THIS RUN did not run: leanchecker-paranoid, lean4lean, con-leche, con-ron — another record of the same proof may have run them; this record speaks for its own run only.",
+ "spec": {
+  "path": "corpus/lean-intake/pg186-tuple-x-claimbox/spec.json",
+  "sha256": "14ed5d41e38c5361b5b8b4c6f5dff6ece9b0c0dd7b8b7dd83cadb08191bb7600",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-11",
+  "facts": "corpus/lean-intake/pg186-tuple-x-claimbox/runs/2026-11-11",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 16,
+   "memGB": 119.2,
+   "host": {
+    "cpus": 128,
+    "memGB": 503
+   },
+   "limit": {
+    "cpus": null,
+    "memGB": 119.2,
+    "source": "cgroup v2"
+   },
+   "declared": {
+    "source": "RUNPOD_CPU_COUNT / RUNPOD_MEM_GB",
+    "cpus": 16,
+    "memGB": 128
+   },
+   "plantedStatementsAtOnce": 8
+  },
+  "stepSeconds": 836.6,
+  "cost": {
+   "usd": 0.09,
+   "what": "a share by run seconds (282 of 6440) of one RunPod pod, yvo73dwrl1lw7d: cpu5m 16 vCPU / 128 GB at US$1.04/h, 2026-11-11 23:16 to 2026-11-12 01:08 UTC, US$1.95 billed for the six prime-gap ids"
+  }
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "path": "Challenge.lean",
+   "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  },
+  "claim": {
+   "url": "https://github.com/openai/PrimeGaps186.git",
+   "file": "PrimeGaps186.lean",
+   "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+   "head": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "sha256": "fd7d9296871d276f7cd950ebf88d38627ff326abdf214a1facabc52fb6794d27",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [
+   75648,
+   75665
+  ],
+  "native_decide": [],
+  "axiom": [
+   147,
+   159,
+   1055
+  ],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "2 of 2 accepted (predicted)",
+   "type": "0 of 0 refused (predicted)",
+   "changed": "49 refused, 0 accepted, of 49 (kernel decides: no outcome predicted)",
+   "certain": "2 of 2 certain predictions met",
+   "reachedTheCheck": "51 of 81",
+   "notTested": {
+    "count": 30,
+    "statements": [
+     "C50 (FAILED elsewhere)",
+     "C51 (FAILED elsewhere)",
+     "C52 (FAILED elsewhere)",
+     "C53 (FAILED elsewhere)",
+     "C54 (FAILED elsewhere)",
+     "C55 (FAILED elsewhere)",
+     "C56 (FAILED elsewhere)",
+     "C57 (FAILED elsewhere)",
+     "C58 (FAILED elsewhere)",
+     "C59 (FAILED elsewhere)",
+     "C60 (FAILED elsewhere)",
+     "C61 (FAILED elsewhere)",
+     "C62 (FAILED elsewhere)",
+     "C63 (FAILED elsewhere)",
+     "C64 (FAILED elsewhere)",
+     "C65 (FAILED elsewhere)",
+     "C66 (FAILED elsewhere)",
+     "C67 (FAILED elsewhere)",
+     "C68 (FAILED elsewhere)",
+     "C69 (FAILED elsewhere)",
+     "C70 (FAILED elsewhere)",
+     "C71 (FAILED elsewhere)",
+     "C72 (FAILED elsewhere)",
+     "C73 (FAILED elsewhere)",
+     "C74 (FAILED elsewhere)",
+     "C75 (FAILED elsewhere)",
+     "C76 (FAILED elsewhere)",
+     "C77 (FAILED elsewhere)",
+     "C78 (FAILED elsewhere)",
+     "C79 (FAILED elsewhere)"
+    ],
+    "note": "these planted statements never reached the identity check: shown, counted neither as refusals nor as misses"
+   },
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "0 of 0",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "a closed statement about an infinite set of n: no instance binder to evaluate"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.physical_integral_bounds",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "{n | 2 ≤ {h ∈ IntakeCanon.PrimeGap186.admissibleTuple | Nat.Prime (n + h)}.card}.Infinite",
+  "claim": "{n | 2 ≤ {h ∈ PrimeGap186.admissibleTuple | Nat.Prime (n + h)}.card}.Infinite",
+  "seconds": 6.9,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's PrimeGap186.infinite_two_prime_translates_admissibleTuple as a proof of PrimeGap186.infinite_two_prime_translates_admissibleTuple's own type (taken by type_of%); the two types differ as written and agree after definitional unfolding; the statement is read from a copy of the canonical file with one line added after its imports (`namespace IntakeCanon`: the two files declare the same names and cannot be loaded together), and each declaration used is the original's, constant by constant (2, 3, 3, 105 constants); CONDITIONAL on the canonical file's own axioms PrimeGap186.kloosterman3_bound, PrimeGap186.kloosterman2_correlation_bound, PrimeGap186.physical_integral_bounds: the claimant's proof rests on its axioms of those names, and each is the canonical one, its statement and every definition under it identical name for name (3, 3, 105 constants)",
+  "selfContained": {
+   "copy": {
+    "canonicalSha256": "b99a403b1946547ef1926cd43ebce717640f7f76fa7e1f8f5a4b19ac2e53e1f0",
+    "copy": "Intake/Canon/C_Challenge.lean",
+    "copySha256": "a5c66a43bdc71c1879197dcd57a9168456bfd567bb4a740179e55424a24415cb",
+    "addedLine": 2,
+    "added": "namespace IntakeCanon",
+    "check": "the copy without that line is the canonical file, byte for byte"
+   },
+   "copyIsCanonical": {
+    "bytes": true,
+    "exit": "0",
+    "declarations": [
+     {
+      "decl": "PrimeGap186.infinite_two_prime_translates_admissibleTuple",
+      "identical": true,
+      "constants": 2,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "decl": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "statementAsWritten": {
+    "identical": true,
+    "constants": 2,
+    "difference": null
+   },
+   "axioms": {
+    "exit": "0",
+    "pairs": [
+     {
+      "canonical": "PrimeGap186.kloosterman3_bound",
+      "claim": "PrimeGap186.kloosterman3_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.kloosterman2_correlation_bound",
+      "claim": "PrimeGap186.kloosterman2_correlation_bound",
+      "identical": true,
+      "constants": 3,
+      "difference": null
+     },
+     {
+      "canonical": "PrimeGap186.physical_integral_bounds",
+      "claim": "PrimeGap186.physical_integral_bounds",
+      "identical": true,
+      "constants": 105,
+      "difference": null
+     }
+    ],
+    "word": "CERTIFIED"
+   },
+   "conditionalOn": [
+    "PrimeGap186.kloosterman3_bound",
+    "PrimeGap186.kloosterman2_correlation_bound",
+    "PrimeGap186.physical_integral_bounds"
+   ]
+  }
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "a model of the canonical statement's hypotheses: ",
+  "seconds": 8.2,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the canonical statement copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "the definition admissibleTuple written out at its 1 use, its body under its type `(… : Finset ℕ)` (delta): definitionally the same",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 6.7,
+   "tested": true,
+   "rule": "same:unfold",
+   "predicted": true,
+   "aligned": true
+  },
+  {
+   "id": "C01",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 0 made 1 (`{ 0 , 2` → `{ 1 , 2`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C02",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 2 made 3 (`0 , 2 , 6` → `0 , 3 , 6`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C03",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 2 made 1 (`0 , 2 , 6` → `0 , 1 , 6`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C04",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 6 made 7 (`2 , 6 , 12` → `2 , 7 , 12`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C05",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 6 made 5 (`2 , 6 , 12` → `2 , 5 , 12`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C06",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 12 made 13 (`6 , 12 , 20` → `6 , 13 , 20`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C07",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 12 made 11 (`6 , 12 , 20` → `6 , 11 , 20`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C08",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 20 made 21 (`12 , 20 , 26` → `12 , 21 , 26`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C09",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 20 made 19 (`12 , 20 , 26` → `12 , 19 , 26`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 26 made 27 (`20 , 26 , 30` → `20 , 27 , 30`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 26 made 25 (`20 , 26 , 30` → `20 , 25 , 30`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C12",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 30 made 31 (`26 , 30 , 32` → `26 , 31 , 32`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.1,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C13",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 30 made 29 (`26 , 30 , 32` → `26 , 29 , 32`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.1,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C14",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 32 made 33 (`30 , 32 , 36` → `30 , 33 , 36`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.9,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C15",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 32 made 31 (`30 , 32 , 36` → `30 , 31 , 36`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 5.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C16",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 36 made 37 (`32 , 36 , 42` → `32 , 37 , 42`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.6,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C17",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 36 made 35 (`32 , 36 , 42` → `32 , 35 , 42`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.4,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C18",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 42 made 43 (`36 , 42 , 48` → `36 , 43 , 48`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C19",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 42 made 41 (`36 , 42 , 48` → `36 , 41 , 48`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C20",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 48 made 49 (`42 , 48 , 50` → `42 , 49 , 50`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.3,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C21",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 48 made 47 (`42 , 48 , 50` → `42 , 47 , 50`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C22",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 50 made 51 (`48 , 50 , 56` → `48 , 51 , 56`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.2,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C23",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 50 made 49 (`48 , 50 , 56` → `48 , 49 , 56`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 5.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C24",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 56 made 57 (`50 , 56 , 60` → `50 , 57 , 60`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C25",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 56 made 55 (`50 , 56 , 60` → `50 , 55 , 60`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.6,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C26",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 60 made 61 (`56 , 60 , 68` → `56 , 61 , 68`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C27",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 60 made 59 (`56 , 60 , 68` → `56 , 59 , 68`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C28",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 68 made 69 (`60 , 68 , 72` → `60 , 69 , 72`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C29",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 68 made 67 (`60 , 68 , 72` → `60 , 67 , 72`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.2,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C30",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 72 made 73 (`68 , 72 , 78` → `68 , 73 , 78`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C31",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 72 made 71 (`68 , 72 , 78` → `68 , 71 , 78`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 6.9,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C32",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 78 made 79 (`72 , 78 , 86` → `72 , 79 , 86`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.4,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C33",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 78 made 77 (`72 , 78 , 86` → `72 , 77 , 86`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.5,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C34",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 86 made 87 (`78 , 86 , 90` → `78 , 87 , 90`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C35",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 86 made 85 (`78 , 86 , 90` → `78 , 85 , 90`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 7.9,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C36",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 90 made 91 (`86 , 90 , 92` → `86 , 91 , 92`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C37",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 90 made 89 (`86 , 90 , 92` → `86 , 89 , 92`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C38",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 92 made 93 (`90 , 92 , 98` → `90 , 93 , 98`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 8.4,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C39",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 92 made 91 (`90 , 92 , 98` → `90 , 91 , 98`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 9.1,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C40",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 98 made 99 (`92 , 98 , 102` → `92 , 99 , 102`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 9.4,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C41",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 98 made 97 (`92 , 98 , 102` → `92 , 97 , 102`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 9.7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C42",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 102 made 103 (`98 , 102 , 110` → `98 , 103 , 110`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 11.6,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C43",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 102 made 101 (`98 , 102 , 110` → `98 , 101 , 110`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 11.1,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C44",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 110 made 111 (`102 , 110 , 116` → `102 , 111 , 116`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 12.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C45",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 110 made 109 (`102 , 110 , 116` → `102 , 109 , 116`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 13.2,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C46",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 116 made 117 (`110 , 116 , 120` → `110 , 117 , 120`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 12.3,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C47",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 116 made 115 (`110 , 116 , 120` → `110 , 115 , 120`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 12.4,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C48",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 120 made 121 (`116 , 120 , 126` → `116 , 121 , 126`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 14.7,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C49",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 120 made 119 (`116 , 120 , 126` → `116 , 119 , 126`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 13,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C50",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 126 made 127 (`120 , 126 , 132` → `120 , 127 , 132`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 5.7,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C51",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 126 made 125 (`120 , 126 , 132` → `120 , 125 , 132`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C52",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 132 made 133 (`126 , 132 , 138` → `126 , 133 , 138`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.6,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C53",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 132 made 131 (`126 , 132 , 138` → `126 , 131 , 138`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C54",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 138 made 139 (`132 , 138 , 140` → `132 , 139 , 140`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C55",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 138 made 137 (`132 , 138 , 140` → `132 , 137 , 140`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.3,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C56",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 140 made 141 (`138 , 140 , 146` → `138 , 141 , 146`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 5.8,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C57",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 140 made 139 (`138 , 140 , 146` → `138 , 139 , 146`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.5,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C58",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 146 made 147 (`140 , 146 , 152` → `140 , 147 , 152`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 6.7,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C59",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 146 made 145 (`140 , 146 , 152` → `140 , 145 , 152`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C60",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 152 made 153 (`146 , 152 , 156` → `146 , 153 , 156`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.5,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C61",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 152 made 151 (`146 , 152 , 156` → `146 , 151 , 156`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.5,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C62",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 156 made 157 (`152 , 156 , 158` → `152 , 157 , 158`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.6,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C63",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 156 made 155 (`152 , 156 , 158` → `152 , 155 , 158`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.3,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C64",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 158 made 159 (`156 , 158 , 162` → `156 , 159 , 162`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.6,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C65",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 158 made 157 (`156 , 158 , 162` → `156 , 157 , 162`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C66",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 162 made 163 (`158 , 162 , 168` → `158 , 163 , 168`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.9,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C67",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 162 made 161 (`158 , 162 , 168` → `158 , 161 , 168`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.1,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C68",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 168 made 169 (`162 , 168 , 170` → `162 , 169 , 170`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.8,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C69",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 168 made 167 (`162 , 168 , 170` → `162 , 167 , 170`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C70",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 170 made 171 (`168 , 170 , 176` → `168 , 171 , 176`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 9.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C71",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 170 made 169 (`168 , 170 , 176` → `168 , 169 , 176`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.9,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C72",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 176 made 177 (`170 , 176 , 180` → `170 , 177 , 180`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.4,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C73",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 176 made 175 (`170 , 176 , 180` → `170 , 175 , 180`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.9,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C74",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 180 made 181 (`176 , 180 , 182` → `176 , 181 , 182`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 7.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C75",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 180 made 179 (`176 , 180 , 182` → `176 , 179 , 182`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C76",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 182 made 183 (`180 , 182 , 186` → `180 , 183 , 186`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.8,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C77",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 182 made 181 (`180 , 182 , 186` → `180 , 181 , 186`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.7,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C78",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 186 made 187 (`182 , 186 }` → `182 , 187 }`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.3,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  },
+  {
+   "id": "C79",
+   "kind": "changed",
+   "why": "inside the definition admissibleTuple, written out: the numeral 186 made 185 (`182 , 186 }` → `182 , 185 }`, line 1)",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 15,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 8.2,
+   "tested": false,
+   "rule": "changed:constant",
+   "predicted": false,
+   "aligned": true
+  }
+ ],
+ "reds": [],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 6.9
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.34.0-rc2)",
+   "word": "ACCEPTS",
+   "seconds": 6.3
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "c8b1827d84e1928288c9fb8c187ef2f85603b1f7015c73916b2ed19c07d74fae",
+    "bytes": 1241381495
+   },
+   "seconds": 59.8
+  }
+ ],
+ "notRunHere": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null,
+ "conditionalOn": {
+  "axioms": [
+   "PrimeGap186.kloosterman3_bound",
+   "PrimeGap186.kloosterman2_correlation_bound",
+   "PrimeGap186.physical_integral_bounds"
+  ],
+  "note": "CERTIFIED is conditional on these axioms, which the canonical file itself declares. Nothing here proves them."
+ }
+}

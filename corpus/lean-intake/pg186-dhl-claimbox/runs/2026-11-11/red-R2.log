@@ -1,0 +1,15 @@
+⚠ [8803/8803] Built Intake.Red.R2 (804s)
+warning: Intake/Red/R2.lean:210615:20: Variable name `hcard` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hcard
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Intake/Red/R2.lean:210616:5: Variable name `hadm` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hadm
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: Intake/Red/R2.lean:210646:0: 'PrimeGap186.dhl_40_2' depends on axioms: [propext, Classical.choice, PrimeGap186.intakeRedAxiom, Quot.sound]
+Build completed successfully (8803 jobs).

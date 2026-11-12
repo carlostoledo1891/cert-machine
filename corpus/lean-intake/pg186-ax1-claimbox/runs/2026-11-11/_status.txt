@@ -1,0 +1,52 @@
+2026-11-12T00:55:40.366Z start pin-canonical
+2026-11-12T00:55:40.372Z end pin-canonical exit 0
+2026-11-12T00:55:40.372Z start pin-claim
+2026-11-12T00:55:40.375Z end pin-claim exit 0
+2026-11-12T00:55:40.615Z start toolchain
+2026-11-12T00:55:40.621Z end toolchain exit 0
+2026-11-12T00:55:40.621Z start cache
+2026-11-12T00:55:43.857Z end cache exit 0
+2026-11-12T00:55:43.858Z start canonical
+2026-11-12T00:55:48.255Z end canonical exit 0
+2026-11-12T00:55:48.287Z assembled 16 files
+2026-11-12T00:55:48.287Z start claim
+2026-11-12T00:55:52.776Z end claim exit 0
+2026-11-12T00:55:52.776Z start wrapcheck
+2026-11-12T00:56:02.145Z end wrapcheck exit 0
+2026-11-12T00:56:02.145Z start f1
+2026-11-12T00:56:10.514Z end f1 exit 0
+2026-11-12T00:56:10.514Z start f1report
+2026-11-12T00:56:21.342Z end f1report exit 0
+2026-11-12T00:56:21.343Z start same
+2026-11-12T00:56:32.099Z end same exit 0
+2026-11-12T00:56:32.099Z start f3
+2026-11-12T00:56:41.351Z end f3 exit 0
+2026-11-12T00:56:41.352Z start mut-imports
+2026-11-12T00:56:45.753Z end mut-imports exit 0
+2026-11-12T00:56:45.775Z start mut-S0
+2026-11-12T00:56:45.778Z start mut-S1
+2026-11-12T00:56:45.780Z start mut-C01
+2026-11-12T00:56:45.782Z start mut-C02
+2026-11-12T00:56:45.784Z start mut-C03
+2026-11-12T00:56:45.786Z start mut-C04
+2026-11-12T00:56:45.788Z start mut-C05
+2026-11-12T00:56:45.790Z start mut-N1
+2026-11-12T00:56:53.078Z end mut-C01 exit 1 (1 of 8)
+2026-11-12T00:56:53.159Z end mut-C05 exit 1 (2 of 8)
+2026-11-12T00:56:53.179Z end mut-S0 exit 0 (3 of 8)
+2026-11-12T00:56:53.500Z end mut-C03 exit 1 (4 of 8)
+2026-11-12T00:56:53.591Z end mut-N1 exit 1 (5 of 8)
+2026-11-12T00:56:53.593Z end mut-C04 exit 1 (6 of 8)
+2026-11-12T00:56:54.426Z end mut-C02 exit 1 (7 of 8)
+2026-11-12T00:56:54.607Z end mut-S1 exit 0 (8 of 8)
+2026-11-12T00:56:54.613Z start leanchecker
+2026-11-12T00:57:01.652Z end leanchecker exit 0
+2026-11-12T00:57:01.652Z start lean4export-build
+2026-11-12T00:57:09.031Z end lean4export-build exit 0
+2026-11-12T00:57:09.031Z start nanoda-build
+2026-11-12T00:57:25.887Z end nanoda-build exit 0
+2026-11-12T00:57:25.887Z start export
+2026-11-12T00:57:33.289Z end export exit 0
+2026-11-12T00:57:33.289Z start nanoda
+2026-11-12T00:57:34.770Z end nanoda exit 0
+2026-11-12T00:57:34.773Z done: pin,toolchain,cache,canonical,assemble,claim,f1,f3,mutants,reds,leanchecker,nanoda,f2,f2eval,f2kernel

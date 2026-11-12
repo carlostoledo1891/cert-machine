@@ -1,0 +1,24 @@
+Intake/Mut/C04.lean:6:5: warning: Ambiguous namespace `PrimeGap186`: it is interpreted as `_root_.IntakeCanon.PrimeGap186` because this `open` occurs inside `namespace IntakeCanon.PrimeGap186.IntakeMut.C04`, while `_root_.PrimeGap186` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.IntakeCanon.PrimeGap186`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+Intake/Mut/C04.lean:11:8: warning: declaration uses `sorry`
+Intake/Mut/C04.lean:18:29: error: Type mismatch
+  _root_.PrimeGap186.kloosterman2_correlation_bound
+has type
+  ∀ (p : ℕ) [inst : Fact (Nat.Prime p)] (A B : ZMod p),
+    A ≠ 0 →
+      B ≠ 0 →
+        ‖∑ t,
+              if t ≠ 0 ∧ t ≠ -1 then
+                _root_.PrimeGap186.unnormalizedKloosterman2 p (A / t) *
+                  _root_.PrimeGap186.unnormalizedKloosterman2 p (B / (t + 1))
+              else 0‖ ≤
+          8 * ↑p * √↑p
+but is expected to have type
+  ∀ (p : ℕ) [inst : Fact (Nat.Prime p)] (A B : ZMod p),
+    A ≠ 1 →
+      B ≠ 0 →
+        ‖∑ t,
+              if t ≠ 0 ∧ t ≠ -1 then unnormalizedKloosterman2 p (A / t) * unnormalizedKloosterman2 p (B / (t + 1))
+              else 0‖ ≤
+          8 * ↑p * √↑p

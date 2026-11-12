@@ -1,0 +1,21 @@
+{
+ "platform": "linux",
+ "arch": "x64",
+ "cpus": 16,
+ "memGB": 119.2,
+ "host": {
+  "cpus": 128,
+  "memGB": 503
+ },
+ "limit": {
+  "cpus": null,
+  "memGB": 119.2,
+  "source": "cgroup v2"
+ },
+ "declared": {
+  "source": "RUNPOD_CPU_COUNT / RUNPOD_MEM_GB",
+  "cpus": 16,
+  "memGB": 128
+ },
+ "plantedStatementsAtOnce": 8
+}

@@ -1,0 +1,20 @@
+⚠ [8803/8805] Replayed Intake.Canon.C_Challenge
+warning: Intake/Canon/C_Challenge.lean:951:8: declaration uses `sorry`
+warning: Intake/Canon/C_Challenge.lean:958:8: declaration uses `sorry`
+warning: Intake/Canon/C_Challenge.lean:964:8: declaration uses `sorry`
+warning: Intake/Canon/C_Challenge.lean:968:0: unclosed sections or namespaces; expected: '
+
+end IntakeCanon'
+
+Note: This linter can be disabled with `set_option linter.style.missingEnd false`
+⚠ [8805/8805] Built Intake.F1 (5.9s)
+warning: Intake/F1.lean:4:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+info: Intake/F1.lean:7:0: 'Intake.f1' depends on axioms: [propext,
+ Classical.choice,
+ PrimeGap186.kloosterman2_correlation_bound,
+ PrimeGap186.kloosterman3_bound,
+ PrimeGap186.physical_integral_bounds,
+ Quot.sound]
+Build completed successfully (8805 jobs).

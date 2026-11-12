@@ -1,0 +1,12 @@
+Intake/Mut/N1.lean:6:5: warning: Ambiguous namespace `PrimeGap186`: it is interpreted as `_root_.IntakeCanon.PrimeGap186` because this `open` occurs inside `namespace IntakeCanon.PrimeGap186.IntakeMut.N1`, while `_root_.PrimeGap186` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.IntakeCanon.PrimeGap186`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+Intake/Mut/N1.lean:14:31: error: Application type mismatch: The argument
+  H
+has type
+  Finset ℕ
+but is expected to have type
+  Finset ℤ
+in the application
+  {h ∈ H | Nat.Prime (n + h).toNat}
+Intake/Mut/N1.lean:16:8: warning: declaration uses `sorry`

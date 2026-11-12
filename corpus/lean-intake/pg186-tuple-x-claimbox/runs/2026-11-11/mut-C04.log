@@ -1,0 +1,15 @@
+Intake/Mut/C04.lean:6:5: warning: Ambiguous namespace `PrimeGap186`: it is interpreted as `_root_.IntakeCanon.PrimeGap186` because this `open` occurs inside `namespace IntakeCanon.PrimeGap186.IntakeMut.C04`, while `_root_.PrimeGap186` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.IntakeCanon.PrimeGap186`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+Intake/Mut/C04.lean:12:8: warning: declaration uses `sorry`
+Intake/Mut/C04.lean:15:29: error: Type mismatch
+  _root_.PrimeGap186.infinite_two_prime_translates_admissibleTuple
+has type
+  {n | 2 ≤ {h ∈ _root_.PrimeGap186.admissibleTuple | Nat.Prime (n + h)}.card}.Infinite
+but is expected to have type
+  {n |
+      2 ≤
+        {h ∈
+              {0, 2, 7, 12, 20, 26, 30, 32, 36, 42, 48, 50, 56, 60, 68, 72, 78, 86, 90, 92, 98, 102, 110, 116, 120, 126,
+                132, 138, 140, 146, 152, 156, 158, 162, 168, 170, 176, 180, 182, 186} |
+            Nat.Prime (n + h)}.card}.Infinite

@@ -1,0 +1,23 @@
+Intake/Mut/N2.lean:6:5: warning: Ambiguous namespace `PrimeGap186`: it is interpreted as `_root_.IntakeCanon.PrimeGap186` because this `open` occurs inside `namespace IntakeCanon.PrimeGap186.IntakeMut.N2`, while `_root_.PrimeGap186` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.IntakeCanon.PrimeGap186`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+Intake/Mut/N2.lean:13:23: error(lean.invalidField): Invalid field `Prime`: The environment does not contain `Int.Prime`, so it is not possible to project the field `Prime` from an expression
+  p
+of type `ℤ`
+Intake/Mut/N2.lean:13:42: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  ZMod p
+Intake/Mut/N2.lean:13:64: error: Application type mismatch: The argument
+  p
+has type
+  ℤ
+but is expected to have type
+  ℕ
+in the application
+  ZMod p
+Intake/Mut/N2.lean:16:8: warning: declaration uses `sorry`
