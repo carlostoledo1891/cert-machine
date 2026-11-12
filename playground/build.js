@@ -45,6 +45,7 @@ const SR = require(path.join(HERE, 'stereo-reach', 'build.js'));
 const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
 const BH = require(path.join(HERE, 'black-hole', 'build.js'));
 const TXM = require(path.join(HERE, 'textbook-machine', 'build.js'));
+const TXC = require(path.join(HERE, 'textbook-machine', 'claims.build.js'));   /* its second page: real claims decided in the tab */
 const RLC = require(path.join(HERE, 'return-level-check', 'build.js'));
 const PUI = require(path.join(HERE, 'pu', 'build.js'));
 const RLA = require(path.join(HERE, 'return-level-atlas', 'build.js'));
@@ -540,11 +541,13 @@ const sr = SR.build(OUT);
 const ns = NS.build(OUT);
 const bh = BH.build(OUT);
 const txm = TXM.build(OUT);
+const txc = TXC.build(OUT);
 const rlc = RLC.build(OUT);
 const pui = PUI.build(OUT);
 const rla = RLA.build(OUT);
 
 console.log(`site/instruments/textbook-machine/  ${(txm.bytes / 1024).toFixed(0)} KB  ·  ${TXM.facts.n} switches: ${fmt(TXM.facts.find10)} steps to find, ${TXM.facts.check10} to check`);
+console.log(`site/instruments/textbook-machine/claims/  ${(txc.bytes / 1024).toFixed(0)} KB + ${(txc.bundleBytes / 1024).toFixed(0)} KB checker  ·  ${txc.claims} claims in ${txc.shapes} shapes decided in the tab over ${txc.files} embedded files, ${txc.held} held out of the bundle`);
 console.log(`site/instruments/black-hole/        ${(bh.bytes / 1024).toFixed(0)} KB  ·  ${bh.views} views, ${bh.maps} map files beside it (${(bh.mapBytes / 1048576).toFixed(1)} MB)`);
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();

@@ -172,6 +172,7 @@ const body = `
   <h2>Give it a claim.</h2>
   <p class="prose">Each claim names a machine and what it is given. Decide runs it in your tab with a budget of ${fmt(F.budget)} steps: <span class="tag held">Certified</span> when the run ends the way the claim says, <span class="tag dep">Refuted</span> when it ends the other way, <span class="tag open">Refused</span> when the budget runs out first.</p>
   <ul class="tm-claims">${claims}</ul>
+  <p class="prose">These claims are about the toy machines above. <a href="claims/">Real claims, decided in your tab</a>: published numbers and bounds, checked by the claim checker itself.</p>
 </section>`;
 
 const FOOT = '<p>A single-tape teaching machine. The Lean chain on the ETH page uses the multitape machine of cslib, which is a different object. Every step count here was counted by running the machine, once when the page was built and again in your tab; the busy beaver values are as their sources print them.</p>';

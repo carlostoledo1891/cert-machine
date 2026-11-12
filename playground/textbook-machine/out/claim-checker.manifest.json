@@ -1,0 +1,366 @@
+{
+ "what": "The browser bundle of the claim checker: instruments/claimbox/check.js wrapped byte for byte, with the files the listed claim objects make it read, each embedded from the file on disk. Written by playground/textbook-machine/checker-web.build.js; held to Node by playground/textbook-machine/checker-web.battery.js.",
+ "bundle": {
+  "path": "playground/textbook-machine/out/claim-checker.js",
+  "sha256": "9f80e9b3e462b3cc21340aa51a7efaeba28f33a9d56b83741846b248cdcdef22",
+  "bytes": 339763
+ },
+ "checker": {
+  "path": "instruments/claimbox/check.js",
+  "sha256": "4a577ec6511003e9c00e7914b90b1446635d7f6ad23ed96e2bddff376fc5ae1c",
+  "bytes": 61082
+ },
+ "modules": [],
+ "objects": [
+  {
+   "path": "instruments/claimbox/v4/v4-int64-sum-integers.json",
+   "shape": "number facts",
+   "sha256": "b6b7a45fc05392e4719c7bec778e28c9d917df75d78cf2ae43389ae4975ff502",
+   "bytes": 1655,
+   "needs": [
+    "certs/kernel-arb-audit.json",
+    "instruments/claimbox/v4/data/int64-accumulator.json",
+    "instruments/claimbox/v4/data/int64-accumulator.md",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "ADMITTED",
+    "kind": null
+   }
+  },
+  {
+   "path": "playground/textbook-machine/mutants/tm-mutant-json-number.json",
+   "shape": "number facts",
+   "sha256": "dfe930cb09ac5af3c47c5da37bb15d81b8b9ea8a028d3f0cefce480cdb23c34b",
+   "bytes": 1651,
+   "needs": [
+    "certs/kernel-arb-audit.json",
+    "instruments/claimbox/v4/data/int64-accumulator.json",
+    "instruments/claimbox/v4/data/int64-accumulator.md",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "REFUSED",
+    "kind": "json-number"
+   }
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-82-epi.json",
+   "shape": "interval bounds",
+   "sha256": "ead9dbcd5615c43bfd22e2fcc2d3780ad6eaa07353bf3abacf5824d20740e399",
+   "bytes": 1782,
+   "needs": [
+    "certs/c82-replay.json",
+    "certs/kernel-arb-audit.json",
+    "corpus/optconst-queue/c82-2026-10-19/epi/construction.json",
+    "corpus/optconst-queue/c82-2026-10-19/upstream/82a.md",
+    "instruments/optq/c82.py",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "ADMITTED",
+    "kind": null
+   }
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-82-pinho.json",
+   "shape": "interval bounds",
+   "sha256": "12548045a503ec847dee7a7447ba6171d7c0ff3597c4f5e03d1e2f80becc83a6",
+   "bytes": 2128,
+   "needs": [
+    "certs/c82-replay.json",
+    "certs/kernel-arb-audit.json",
+    "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json",
+    "corpus/optconst-queue/c82-2026-10-19/upstream/README.md",
+    "instruments/optq/c82.py",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "ADMITTED",
+    "kind": null
+   }
+  },
+  {
+   "path": "instruments/claimbox/v4/v4-ea-542-circle-packing.json",
+   "shape": "finite counterexamples",
+   "sha256": "2db00e8df72d604081ed6318f029f946092de165eb101f20a6c1f5fc9e675acc",
+   "bytes": 6766,
+   "needs": [
+    "certs/kernel-arb-audit.json",
+    "corpus/einstein-arena/best-14.json",
+    "corpus/einstein-arena/problems.json",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "ADMITTED",
+    "kind": null
+   }
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-1d-cert2026.json",
+   "shape": "register replays",
+   "sha256": "037d993408f1cc4a1e5e0400e49549b99645138d16c2d6af96dbff440a810c6d",
+   "bytes": 2308,
+   "needs": [
+    "certs/autocorr-replay.json",
+    "certs/kernel-arb-audit.json",
+    "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+    "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+    "instruments/optq/autocorr.py",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "ADMITTED",
+    "kind": null
+   }
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-1c-rozetyp-k3072.json",
+   "shape": "register replays",
+   "sha256": "66b38d4843e3c923699d90b0c985f4db487e756cb7ef52fa5396e82799dda396",
+   "bytes": 2269,
+   "needs": [
+    "certs/autocorr-replay.json",
+    "certs/kernel-arb-audit.json",
+    "corpus/optconst-queue/next-2026-10-18/rozetyp/README.md",
+    "corpus/optconst-queue/next-2026-10-18/rozetyp/previous/certificate_K3072.json",
+    "instruments/optq/autocorr.py",
+    "instruments/verdict.js",
+    "playground/warrant.js"
+   ],
+   "node": {
+    "word": "REFUSED",
+    "kind": "record-bar-mismatch"
+   }
+  }
+ ],
+ "files": [
+  {
+   "path": "certs/autocorr-replay.json",
+   "sha256": "244f8378f010094cf21bcd05b46b611f9136145882b1030f4d579e2a2c7a10f7",
+   "bytes": 5739,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 0
+  },
+  {
+   "path": "certs/c82-replay.json",
+   "sha256": "6456d94e87fc56a2dbd40887342cb85edf75466c20a36270d09f1623f8878866",
+   "bytes": 25156,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 1
+  },
+  {
+   "path": "certs/kernel-arb-audit.json",
+   "sha256": "96c9ea8dad42517a81f74771c7711a06a61c5769d8e81c7946a201c84e6d4704",
+   "bytes": 6739,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 2
+  },
+  {
+   "path": "corpus/einstein-arena/best-14.json",
+   "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+   "bytes": 1689,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 3
+  },
+  {
+   "path": "corpus/einstein-arena/problems.json",
+   "sha256": "cc2b707bd244f24543646f3299a07c063a46920b3caed5e281fa4db0ea9b81f7",
+   "bytes": 4637,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 4
+  },
+  {
+   "path": "corpus/optconst-queue/c82-2026-10-19/epi/construction.json",
+   "sha256": "e85e26fa7122a2e68b19b2fa01e27e78bbd802450bce2a0d45717f09b930e559",
+   "bytes": 1609,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 5
+  },
+  {
+   "path": "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json",
+   "sha256": "b33626f367b6f52922746c0fee7bb008449cd0bb18efcb983ab20ff073350fce",
+   "bytes": 21158,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 6
+  },
+  {
+   "path": "corpus/optconst-queue/c82-2026-10-19/upstream/82a.md",
+   "sha256": "46734d1a56833c045f362f6505aefc6d9ab4e30e9115207521800768b967f7e1",
+   "bytes": 5356,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 7
+  },
+  {
+   "path": "corpus/optconst-queue/c82-2026-10-19/upstream/README.md",
+   "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+   "bytes": 41168,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 8
+  },
+  {
+   "path": "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c",
+   "bytes": 7996,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 9
+  },
+  {
+   "path": "corpus/optconst-queue/next-2026-10-18/rozetyp/README.md",
+   "sha256": "cf8c2e87183005967040b3f0dbb3f9bc9fd1029c28cb14fda4c5a89dad2e0d37",
+   "bytes": 4095,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 10
+  },
+  {
+   "path": "corpus/optconst-queue/next-2026-10-18/rozetyp/previous/certificate_K3072.json",
+   "sha256": "788527a6237837e8d5d441cfab3f8b39080165fc207ae6a69678cc5f3a0fdf58",
+   "bytes": 23216,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 11
+  },
+  {
+   "path": "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+   "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+   "bytes": 41168,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 8
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-1c-rozetyp-k3072.json",
+   "sha256": "66b38d4843e3c923699d90b0c985f4db487e756cb7ef52fa5396e82799dda396",
+   "bytes": 2269,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 12
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-1d-cert2026.json",
+   "sha256": "037d993408f1cc4a1e5e0400e49549b99645138d16c2d6af96dbff440a810c6d",
+   "bytes": 2308,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 13
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-82-epi.json",
+   "sha256": "ead9dbcd5615c43bfd22e2fcc2d3780ad6eaa07353bf3abacf5824d20740e399",
+   "bytes": 1782,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 14
+  },
+  {
+   "path": "instruments/claimbox/claims/optq-82-pinho.json",
+   "sha256": "12548045a503ec847dee7a7447ba6171d7c0ff3597c4f5e03d1e2f80becc83a6",
+   "bytes": 2128,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 15
+  },
+  {
+   "path": "instruments/claimbox/v4/data/int64-accumulator.json",
+   "sha256": "03688aa0da346b62ec3ad19c6be8613c7d01975ca58bdf25197ba61dc72dd46d",
+   "bytes": 232,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 16
+  },
+  {
+   "path": "instruments/claimbox/v4/data/int64-accumulator.md",
+   "sha256": "b55cdf64e237c98f962bda65416b999a1de5c1fbf8775d87489d409e44aadf6c",
+   "bytes": 174,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 17
+  },
+  {
+   "path": "instruments/claimbox/v4/v4-ea-542-circle-packing.json",
+   "sha256": "2db00e8df72d604081ed6318f029f946092de165eb101f20a6c1f5fc9e675acc",
+   "bytes": 6766,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 18
+  },
+  {
+   "path": "instruments/claimbox/v4/v4-int64-sum-integers.json",
+   "sha256": "b6b7a45fc05392e4719c7bec778e28c9d917df75d78cf2ae43389ae4975ff502",
+   "bytes": 1655,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 19
+  },
+  {
+   "path": "instruments/optq/autocorr.py",
+   "sha256": "07ac0527af37d1e25d372764d71542d276c2c7f8b2ee8c597e073f922db8cc86",
+   "bytes": 3605,
+   "use": "probed",
+   "encoding": "utf8",
+   "blob": 20
+  },
+  {
+   "path": "instruments/optq/c82.py",
+   "sha256": "dcea81f835666ff57073c26d5ed1f06406f369b39a7e280dba13af0e71a57f1f",
+   "bytes": 26955,
+   "use": "probed",
+   "encoding": "utf8",
+   "blob": 21
+  },
+  {
+   "path": "instruments/verdict.js",
+   "sha256": "b791f9d813a2d8208a9d9afb86a07ea79f8368293cfa6c00ca7d6aeb0ed07e18",
+   "bytes": 5430,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 22
+  },
+  {
+   "path": "playground/textbook-machine/mutants/tm-mutant-json-number.json",
+   "sha256": "dfe930cb09ac5af3c47c5da37bb15d81b8b9ea8a028d3f0cefce480cdb23c34b",
+   "bytes": 1651,
+   "use": "object",
+   "encoding": "utf8",
+   "blob": 23
+  },
+  {
+   "path": "playground/warrant.js",
+   "sha256": "3efc92e1a23bf534a79f23866840bff244f609782ac6320b545b3402e37320f6",
+   "bytes": 36076,
+   "use": "read",
+   "encoding": "utf8",
+   "blob": 24
+  }
+ ],
+ "dirs": [],
+ "totals": {
+  "files": 26,
+  "embeddedBytes": 280757,
+  "carriedOnceBytes": 239589,
+  "bytesByUse": {
+   "read": 231638,
+   "object": 18559,
+   "probed": 30560
+  },
+  "base64Files": 0,
+  "bundleBytes": 339763
+ }
+}

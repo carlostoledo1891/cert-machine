@@ -225,6 +225,30 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /instruments/textbook-machine/claims/ (2026-11-12): the page's claims as it serves them, one line each,
+     read from the page's own set (playground/textbook-machine/claims.set.js): the line is as long as the claim's sentence,
+     and it ends in the shape of the word the claim wears as it stands, in the chip grammar (filled: certified; outlined:
+     refuted; hollow and square: refused). Shapes only: LIGHT theme, no number, no word, no title text. */
+  'textbook-machine-claims': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the textbook machine · claims', path: '/instruments/textbook-machine/claims/',
+    title: 'Real claims, decided in your tab',
+    alt: 'A column of lines, one for each claim, each ending in one of three shapes: a filled pill for certified, an outlined pill for refuted, a hollow square-cornered box for refused.',
+    svgRaw: (() => {
+      const SET = require(path.join(ROOT, 'playground', 'textbook-machine', 'claims.set.js'));
+      const V = require(path.join(ROOT, 'instruments', 'verdict.js'));
+      const rows = SET.served().map((c) => ({ len: c.variants[0].say.replace(/<[^>]+>/g, '').length, word: c.variants[0].expect }));
+      const max = Math.max(...rows.map((r) => r.len)), x0 = 170, x1 = 830, gap = Math.min(80, 330 / rows.length), y0 = 315 - (gap * (rows.length - 1)) / 2;
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="One line for each claim, each ending in the shape of its word" style="position:absolute;left:0;top:0">'];
+      rows.forEach((r, i) => {
+        const y = y0 + i * gap, w = (x1 - x0) * r.len / max;
+        o.push('<line x1="' + x0 + '" y1="' + y.toFixed(1) + '" x2="' + (x0 + w).toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="var(--ink)" stroke-width="10" stroke-linecap="round"/>');
+        o.push('<line x1="' + (x0 + w + 24).toFixed(1) + '" y1="' + y.toFixed(1) + '" x2="868" y2="' + y.toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1.4"/>');
+        o.push(r.word === V.CERTIFIED ? '<rect x="884" y="' + (y - 23).toFixed(1) + '" width="146" height="46" rx="23" fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"/>'
+          : r.word === V.REFUTED ? '<rect x="884" y="' + (y - 23).toFixed(1) + '" width="146" height="46" rx="23" fill="none" stroke="var(--ink)" stroke-width="2.4"/>'
+          : '<rect x="884" y="' + (y - 23).toFixed(1) + '" width="146" height="46" rx="4" fill="none" stroke="var(--ink-3)" stroke-width="2"/>');
+      });
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* the home page's own card (2026-11-11, the operator's headline "Looks right? Zoom in."): LIGHT, the headline and one
      sentence beside the two circles at the overlap. The two circles are the pair the claims record names, drawn at
      their true places and sizes from the pinned bytes (the same file tools/home-page.js reads, refused there on a

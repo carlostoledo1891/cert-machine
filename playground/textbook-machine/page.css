@@ -42,13 +42,13 @@
 .tm-tapewrap { position: relative; padding: 54px 0 30px; overflow: hidden; }
 .tm-tape { position: relative; height: var(--tm-cell); }
 .tm-tape-in { position: absolute; inset: 0; }
-.tm-c { position: absolute; top: 0; left: calc(50% + var(--x)); width: calc(var(--tm-cell) - 6px); height: var(--tm-cell); margin-left: 3px; border-radius: 8px; display: grid; place-items: center;
+.tm-c { position: absolute; top: 0; left: calc(50% + var(--x)); width: calc(var(--tm-cell) - 6px); height: var(--tm-cell); margin-left: 3px; border-radius: var(--radius-s); display: grid; place-items: center;
   font: 600 1.35rem/1 var(--f-mono); color: var(--ink); border: 1.5px solid var(--ink); }
 .tm-c.blank { border: 1px solid var(--rule); color: transparent; }
 .tm-c.one { background: var(--ink); color: var(--paper); }
 .tm-c.bad { border-color: var(--witness); color: var(--witness); }
 .tm-c.one.bad { background: none; }
-.tm-head { position: absolute; left: 50%; top: 44px; width: var(--tm-cell); height: calc(var(--tm-cell) + 20px); transform: translateX(-50%); border: 2.5px solid var(--ink); border-radius: 12px; pointer-events: none; }
+.tm-head { position: absolute; left: 50%; top: 44px; width: var(--tm-cell); height: calc(var(--tm-cell) + 20px); transform: translateX(-50%); border: 2.5px solid var(--ink); border-radius: var(--radius-m); pointer-events: none; }
 .tm-head::after { content: ""; position: absolute; left: 50%; top: -11px; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--ink); border-bottom: 0; }
 .tm-head.bad { border-color: var(--witness); }
 .tm-head.bad::after { border-top-color: var(--witness); }

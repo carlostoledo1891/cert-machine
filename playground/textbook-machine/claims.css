@@ -1,0 +1,66 @@
+/* claims.css — /instruments/textbook-machine/claims/. Tokens only; no new colour; every radius is the shape scale's.
+   The verdict chips (.tag) are page one's rules, read from page.css by the builder and appended to this sheet.
+   RESERVED HEIGHTS: the sentence, the word, the reason and the status line are the only elements a control changes,
+   and each has its size fixed here for the longest text it can hold, so a change, a reset or the theme moves nothing
+   (tools/check-textbook-claims.js measures it, and refuses a reserved box that clips its text). The layer one click
+   down is a <dialog>: out of the flow. */
+.tc-hero h1 span { display: block; }
+.tc-hero h1 span:first-child { color: var(--ink-4); }
+.tc-hero .eyebrow a { color: inherit; text-decoration: underline; text-underline-offset: .3em; }
+.tc-sec { padding-block: var(--s-7); border-top: 1px solid var(--rule); }
+.tc-sec.tc-first { border-top: 0; padding-top: 0; }
+.tc-sec h2 { font-size: var(--text-1); line-height: 1.08; letter-spacing: -.02em; max-width: 22ch; }
+.tc-sec .prose { margin-top: var(--s-4); color: var(--ink-3); max-width: 62ch; }
+
+/* the three words, each beside what it means */
+.tc-key { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px; max-width: 900px; }
+.tc-key li { display: grid; gap: 8px; justify-items: start; align-content: start; color: var(--ink-2); font-size: .9375rem; line-height: 1.45; }
+@media (max-width: 700px) { .tc-key { grid-template-columns: 1fr; } .tc-key li { grid-template-columns: 6.5rem minmax(0, 1fr); gap: 12px; align-items: start; } }
+.tc-status { margin: var(--s-4) 0 0; font-family: var(--f-mono); font-size: .8125rem; line-height: 1.5; color: var(--ink-3); max-width: 62ch; height: 3em; overflow: hidden; }
+@media (max-width: 700px) { .tc-status { height: 6em; } }
+
+/* a claim: the sentence, the changes, the word and why */
+.tc-claims { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: grid; gap: var(--s-4); max-width: 900px; }
+.tc-claim { display: grid; gap: 14px; border: 1px solid var(--rule); border-radius: var(--radius-l); background: var(--sunk); padding: 20px clamp(16px, 2.4vw, 28px); min-width: 0; }
+.tc-who { margin: 0; font-size: .8125rem; line-height: 1.45; color: var(--ink-3); }
+.tc-say { margin: 0; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.01em; color: var(--ink-2); height: calc(2 * 1.35em); overflow: hidden; overflow-wrap: anywhere; }
+.tc-say b { color: var(--ink); font-weight: 600; }
+.tc-say sub, .tc-dlg-say sub, .foot sub { font-size: .7em; line-height: 0; }
+@media (max-width: 700px) { .tc-say { font-size: 1.0625rem; height: calc(4 * 1.35em); } }
+.tc-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tc-edit .eyebrow { margin-right: 6px; }
+.tc-btn { display: inline-flex; align-items: center; justify-content: center; font: 530 .875rem var(--f-sans); padding: 8px 16px; border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-strong); color: var(--ink); background: none; cursor: pointer; white-space: nowrap; }
+.tc-btn:hover { border-color: var(--ink); }
+.tc-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tc-reset, .tc-trust { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); background: none; border: 0;
+  padding: 8px 0; cursor: pointer; text-decoration: underline; text-underline-offset: .3em; white-space: nowrap; }
+.tc-reset { margin-left: 6px; }
+.tc-reset:hover, .tc-trust:hover { color: var(--ink); }
+.tc-reset:disabled { color: var(--ink-5); cursor: default; text-decoration: none; }
+.tc-out { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 8px 16px; align-items: start; border-top: 1px solid var(--rule); padding-top: 14px; }
+.tc-word { display: flex; align-items: center; height: 1.7rem; white-space: nowrap; overflow: hidden; }
+.tc-none { font-family: var(--f-mono); font-size: .6875rem; letter-spacing: .06em; color: var(--ink-3); }
+.tc-why { margin: 0; font-size: .9375rem; line-height: 1.45; color: var(--ink-2); height: calc(3 * 1.45em); overflow: hidden; padding-top: .15rem; box-sizing: content-box; }
+.tc-trust { padding-top: 5px; }
+@media (max-width: 700px) { .tc-out { grid-template-columns: minmax(0, 1fr) auto; } .tc-why { grid-column: 1 / -1; grid-row: 2; height: calc(5 * 1.45em); } }
+
+/* one click down */
+.tc-dlg { width: min(calc(100vw - 2 * var(--gutter)), 46rem); max-width: none; max-height: calc(100dvh - 2 * var(--s-4)); padding: 0; margin: auto;
+  border: 1px solid var(--rule-strong); border-radius: var(--radius-l); background: var(--bg); color: var(--ink); overflow: hidden; }
+.tc-dlg::backdrop { background: var(--paper); opacity: .82; }
+.tc-dlg[open] { display: flex; }
+.tc-dlg-in { display: flex; flex-direction: column; min-height: 0; width: 100%; }
+.tc-dlg-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px clamp(16px, 2.4vw, 28px); border-bottom: 1px solid var(--rule); }
+.tc-dlg-head h2 { font-size: 1.125rem; line-height: 1.2; letter-spacing: -.01em; margin: 0; max-width: none; }
+.tc-dlg-body { overflow-y: auto; padding: 18px clamp(16px, 2.4vw, 28px) 24px; display: grid; gap: 16px; min-height: 0; }
+.tc-dlg-say { margin: 0; font-size: 1.0625rem; line-height: 1.4; color: var(--ink-2); }
+.tc-dlg-say b { color: var(--ink); font-weight: 600; }
+.tc-row { display: grid; gap: 6px; min-width: 0; font-size: .9375rem; line-height: 1.5; color: var(--ink-2); }
+.tc-row code, .tc-val { font-family: var(--f-mono); font-size: .75rem; color: var(--ink-3); overflow-wrap: anywhere; }
+.tc-val { display: block; }
+.tc-parts, .tc-notes, .tc-files { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.tc-files { list-style: none; padding-left: 0; }
+.tc-pre { margin: 0; padding: 12px 14px; border: 1px solid var(--rule); border-radius: var(--radius-m); background: var(--sunk); color: var(--ink-2);
+  font-family: var(--f-mono); font-size: .75rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tc-obj { max-height: 18rem; overflow-y: auto; }

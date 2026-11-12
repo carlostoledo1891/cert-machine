@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real claims, decided in your tab · Carlos Toledo</title>
+<meta name="description" content="Published claims decided in your browser by the claim checker itself, with no server: number facts, interval bounds and replays of my public record, each answered CERTIFIED, REFUTED or REFUSED, each one you can change and decide again.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/textbook-machine/claims/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/textbook-machine/claims/">
+<meta property="og:title" content="Real claims, decided in your tab · Carlos Toledo">
+<meta property="og:description" content="Published claims decided in your browser by the claim checker itself, with no server: number facts, interval bounds and replays of my public record, each answered CERTIFIED, REFUTED or REFUSED, each one you can change and decide again.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-textbook-machine-claims.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Real claims, decided in your tab — A column of lines, one for each claim, each ending in one of three shapes: a filled pill for certified, an outlined pill for refuted, a hollow square-cornered box for refused.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Real claims, decided in your tab · Carlos Toledo">
+<meta name="twitter:description" content="Published claims decided in your browser by the claim checker itself, with no server: number facts, interval bounds and replays of my public record, each answered CERTIFIED, REFUTED or REFUSED, each one you can change and decide again.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-textbook-machine-claims.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=own grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+/* @/site-css */
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+/* THE FOUNDATION IS design/base.js (2026-09-15) — the reset, the ground, the
+   type, the selection colour, the eyebrow and the table wrapper, shared with
+   the report sheet because they were two descriptions of the same four
+   things and they had already diverged. What is left here is this section's
+   own: the container and the two tracks. */
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+
+/* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
+   bench.css AND in five page sheets — six copies of three rules, and the
+   reason /instruments/graph once shipped in Times was exactly this kind of
+   foundation living everywhere and therefore nowhere. ---- */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display);
+  letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+/* .eyebrow is design/base.js's now — one rule for both sheets (2026-09-15) */
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
+   The unit graph and the contact sheet are drawn by instruments/cert-unit, and
+   FOUR pages inline them: /instruments/graph, /instruments/rewire,
+   /instruments/lattice-claims and the gathering page. Each art carried its own
+   <style>, so each of those pages shipped a second stylesheet. The rules live
+   in instruments/cert-unit/art-css.js — one source, read here and by the
+   renderers — and embedArt() below strips the copy when a page inlines the
+   art. Same rule as the figure primitives above: a vocabulary used by more
+   than one page is a shared component.                                    */
+
+.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
+.ug .nd.inst { stroke-opacity:.45; }
+.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
+.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink); }
+.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
+.ug .pt.idle { stroke-opacity:.28; }
+.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
+.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
+.ug .w.solid { stroke-opacity:.75; }
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */
+
+.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
+.cg .cs.fired { fill-opacity:.92; }
+/* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
+   with no fill is the answer it missed. */
+.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
+.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
+.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
+.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
+.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
+.cg .cr { stroke:var(--ink); stroke-width:1.6; }
+.cg .cr.solid { stroke-opacity:.55; }
+.cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }
+/* the pqc card's two marks, for the same reason: the gathering page inlines
+   that art and carries no page stylesheet of pqc's. */
+.pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
+.pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
+
+
+/* claims.css — /instruments/textbook-machine/claims/. Tokens only; no new colour; every radius is the shape scale's.
+   The verdict chips (.tag) are page one's rules, read from page.css by the builder and appended to this sheet.
+   RESERVED HEIGHTS: the sentence, the word, the reason and the status line are the only elements a control changes,
+   and each has its size fixed here for the longest text it can hold, so a change, a reset or the theme moves nothing
+   (tools/check-textbook-claims.js measures it, and refuses a reserved box that clips its text). The layer one click
+   down is a <dialog>: out of the flow. */
+.tc-hero h1 span { display: block; }
+.tc-hero h1 span:first-child { color: var(--ink-4); }
+.tc-hero .eyebrow a { color: inherit; text-decoration: underline; text-underline-offset: .3em; }
+.tc-sec { padding-block: var(--s-7); border-top: 1px solid var(--rule); }
+.tc-sec.tc-first { border-top: 0; padding-top: 0; }
+.tc-sec h2 { font-size: var(--text-1); line-height: 1.08; letter-spacing: -.02em; max-width: 22ch; }
+.tc-sec .prose { margin-top: var(--s-4); color: var(--ink-3); max-width: 62ch; }
+
+/* the three words, each beside what it means */
+.tc-key { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px; max-width: 900px; }
+.tc-key li { display: grid; gap: 8px; justify-items: start; align-content: start; color: var(--ink-2); font-size: .9375rem; line-height: 1.45; }
+@media (max-width: 700px) { .tc-key { grid-template-columns: 1fr; } .tc-key li { grid-template-columns: 6.5rem minmax(0, 1fr); gap: 12px; align-items: start; } }
+.tc-status { margin: var(--s-4) 0 0; font-family: var(--f-mono); font-size: .8125rem; line-height: 1.5; color: var(--ink-3); max-width: 62ch; height: 3em; overflow: hidden; }
+@media (max-width: 700px) { .tc-status { height: 6em; } }
+
+/* a claim: the sentence, the changes, the word and why */
+.tc-claims { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: grid; gap: var(--s-4); max-width: 900px; }
+.tc-claim { display: grid; gap: 14px; border: 1px solid var(--rule); border-radius: var(--radius-l); background: var(--sunk); padding: 20px clamp(16px, 2.4vw, 28px); min-width: 0; }
+.tc-who { margin: 0; font-size: .8125rem; line-height: 1.45; color: var(--ink-3); }
+.tc-say { margin: 0; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.01em; color: var(--ink-2); height: calc(2 * 1.35em); overflow: hidden; overflow-wrap: anywhere; }
+.tc-say b { color: var(--ink); font-weight: 600; }
+.tc-say sub, .tc-dlg-say sub, .foot sub { font-size: .7em; line-height: 0; }
+@media (max-width: 700px) { .tc-say { font-size: 1.0625rem; height: calc(4 * 1.35em); } }
+.tc-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tc-edit .eyebrow { margin-right: 6px; }
+.tc-btn { display: inline-flex; align-items: center; justify-content: center; font: 530 .875rem var(--f-sans); padding: 8px 16px; border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-strong); color: var(--ink); background: none; cursor: pointer; white-space: nowrap; }
+.tc-btn:hover { border-color: var(--ink); }
+.tc-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tc-reset, .tc-trust { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); background: none; border: 0;
+  padding: 8px 0; cursor: pointer; text-decoration: underline; text-underline-offset: .3em; white-space: nowrap; }
+.tc-reset { margin-left: 6px; }
+.tc-reset:hover, .tc-trust:hover { color: var(--ink); }
+.tc-reset:disabled { color: var(--ink-5); cursor: default; text-decoration: none; }
+.tc-out { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 8px 16px; align-items: start; border-top: 1px solid var(--rule); padding-top: 14px; }
+.tc-word { display: flex; align-items: center; height: 1.7rem; white-space: nowrap; overflow: hidden; }
+.tc-none { font-family: var(--f-mono); font-size: .6875rem; letter-spacing: .06em; color: var(--ink-3); }
+.tc-why { margin: 0; font-size: .9375rem; line-height: 1.45; color: var(--ink-2); height: calc(3 * 1.45em); overflow: hidden; padding-top: .15rem; box-sizing: content-box; }
+.tc-trust { padding-top: 5px; }
+@media (max-width: 700px) { .tc-out { grid-template-columns: minmax(0, 1fr) auto; } .tc-why { grid-column: 1 / -1; grid-row: 2; height: calc(5 * 1.45em); } }
+
+/* one click down */
+.tc-dlg { width: min(calc(100vw - 2 * var(--gutter)), 46rem); max-width: none; max-height: calc(100dvh - 2 * var(--s-4)); padding: 0; margin: auto;
+  border: 1px solid var(--rule-strong); border-radius: var(--radius-l); background: var(--bg); color: var(--ink); overflow: hidden; }
+.tc-dlg::backdrop { background: var(--paper); opacity: .82; }
+.tc-dlg[open] { display: flex; }
+.tc-dlg-in { display: flex; flex-direction: column; min-height: 0; width: 100%; }
+.tc-dlg-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px clamp(16px, 2.4vw, 28px); border-bottom: 1px solid var(--rule); }
+.tc-dlg-head h2 { font-size: 1.125rem; line-height: 1.2; letter-spacing: -.01em; margin: 0; max-width: none; }
+.tc-dlg-body { overflow-y: auto; padding: 18px clamp(16px, 2.4vw, 28px) 24px; display: grid; gap: 16px; min-height: 0; }
+.tc-dlg-say { margin: 0; font-size: 1.0625rem; line-height: 1.4; color: var(--ink-2); }
+.tc-dlg-say b { color: var(--ink); font-weight: 600; }
+.tc-row { display: grid; gap: 6px; min-width: 0; font-size: .9375rem; line-height: 1.5; color: var(--ink-2); }
+.tc-row code, .tc-val { font-family: var(--f-mono); font-size: .75rem; color: var(--ink-3); overflow-wrap: anywhere; }
+.tc-val { display: block; }
+.tc-parts, .tc-notes, .tc-files { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.tc-files { list-style: none; padding-left: 0; }
+.tc-pre { margin: 0; padding: 12px 14px; border: 1px solid var(--rule); border-radius: var(--radius-m); background: var(--sunk); color: var(--ink-2);
+  font-family: var(--f-mono); font-size: .75rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tc-obj { max-height: 18rem; overflow-y: auto; }
+
+.tag { display: inline-flex; align-items: center; gap: .45em; font-family: var(--f-mono); font-size: .625rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .35em .8em; border-radius: var(--radius-pill); white-space: nowrap; }
+.tag.held { background: var(--ink); color: var(--paper); }
+.tag.open { border: 1px solid var(--ink-4); border-radius: 4px; color: var(--ink-3); background: transparent; }
+.tag.dep { border: 1px solid var(--rule-strong); color: var(--ink-3); background: transparent; }
+
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../../reports/index.html">Reports</a><a href="../../../instruments/index.html" aria-current="page">Instruments</a><a href="../../../machine/index.html">Method</a><a href="../../../grammar/index.html">Grammar</a><a href="../../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+
+<header class="hero tc-hero"><div class="wrap">
+  <div class="eyebrow">Carlos Toledo &middot; instruments &middot; <a href="../">the textbook machine</a> &middot; claims</div>
+  <h1><span>Real claims.</span> <span>Decided in your tab.</span></h1>
+  <p class="lede">Someone printed each claim below. Your browser checks it against the files it cites, in exact arithmetic, and answers in one word. There is no server: the checker is in this page.</p>
+</div></header>
+
+<section class="wrap tc-sec tc-first" id="words">
+  <ul class="tc-key">
+    <li><span class="tag held">CERTIFIED</span><span>Every part of the claim was decided, and every part holds.</span></li>
+    <li><span class="tag dep">REFUTED</span><span>Some part is false, and the checker can show which.</span></li>
+    <li><span class="tag open">REFUSED</span><span>The checker would not decide it, and says why. Not false: not decided.</span></li>
+  </ul>
+  <p class="prose">Each claim has small changes you can make. Make one and the claim is decided again, here, as you watch: the word can turn, and it turns back when you reset. The strictest word wins, so one false part refutes a claim however many parts hold.</p>
+  <p class="tc-status" id="tc-status" aria-live="polite">The checker is loading.</p>
+  <noscript><p class="tc-status">This page decides its claims with JavaScript. Without it, nothing here is decided.</p></noscript>
+</section>
+
+<section class="wrap tc-sec" id="number-facts">
+  <h2>Number facts</h2>
+  <p class="prose">A claim that a quantity is exactly some number. The checker computes the quantity from the file the claim cites, in whole numbers with no rounding, and compares.</p>
+  <ul class="tc-claims"><li class="tc-claim" data-claim="v4-int64-sum-integers">
+      <p class="tc-who">A two-number test file, written to try the checker on a sum too large for ordinary arithmetic.</p>
+      <p class="tc-say" id="tc-say-v4-int64-sum-integers">The two whole numbers in the file add up to <b>exactly 9223372036854775808</b>.</p>
+      <div class="tc-edit" role="group" aria-label="Change this claim">
+        <span class="eyebrow">change it</span>
+        <button type="button" class="tc-btn" data-v="0" aria-pressed="true">as printed</button><button type="button" class="tc-btn" data-v="1" aria-pressed="false">say less than</button><button type="button" class="tc-btn" data-v="2" aria-pressed="false">state one less</button>
+        <button type="button" class="tc-reset" data-reset disabled>Reset</button>
+      </div>
+      <div class="tc-out">
+        <span class="tc-word" id="tc-word-v4-int64-sum-integers" aria-live="polite"><span class="tc-none">not decided yet</span></span>
+        <p class="tc-why" id="tc-why-v4-int64-sum-integers"></p>
+        <button type="button" class="tc-trust" data-trust="v4-int64-sum-integers">why you can trust this</button>
+      </div>
+    </li>
+<li class="tc-claim" data-claim="tm-mutant-json-number">
+      <p class="tc-who">The same claim, damaged on purpose in one place.</p>
+      <p class="tc-say" id="tc-say-tm-mutant-json-number">The same sum, with 9223372036854775808 <b>written bare, without quotes</b>.</p>
+      <div class="tc-edit" role="group" aria-label="Change this claim">
+        <span class="eyebrow">change it</span>
+        <button type="button" class="tc-btn" data-v="0" aria-pressed="true">as written</button><button type="button" class="tc-btn" data-v="1" aria-pressed="false">put the quotes back</button>
+        <button type="button" class="tc-reset" data-reset disabled>Reset</button>
+      </div>
+      <div class="tc-out">
+        <span class="tc-word" id="tc-word-tm-mutant-json-number" aria-live="polite"><span class="tc-none">not decided yet</span></span>
+        <p class="tc-why" id="tc-why-tm-mutant-json-number"></p>
+        <button type="button" class="tc-trust" data-trust="tm-mutant-json-number">why you can trust this</button>
+      </div>
+    </li></ul>
+</section>
+
+<section class="wrap tc-sec" id="interval-bounds">
+  <h2>Interval bounds</h2>
+  <p class="prose">A claim that a constant sits below a bar. Nobody knows the constant exactly, so a computation traps the bound between two exact endpoints, and the whole interval has to clear the bar.</p>
+  <ul class="tc-claims"><li class="tc-claim" data-claim="optq-82-pinho">
+      <p class="tc-who">Printed by the public registry of optimization constants, from a certificate by R. Pinho.</p>
+      <p class="tc-say" id="tc-say-optq-82-pinho">A constant from number theory, C<sub>82</sub>, is <b>below 0.2534449</b>.</p>
+      <div class="tc-edit" role="group" aria-label="Change this claim">
+        <span class="eyebrow">change it</span>
+        <button type="button" class="tc-btn" data-v="0" aria-pressed="true">as printed</button><button type="button" class="tc-btn" data-v="1" aria-pressed="false">two digits fewer</button><button type="button" class="tc-btn" data-v="2" aria-pressed="false">say above</button>
+        <button type="button" class="tc-reset" data-reset disabled>Reset</button>
+      </div>
+      <div class="tc-out">
+        <span class="tc-word" id="tc-word-optq-82-pinho" aria-live="polite"><span class="tc-none">not decided yet</span></span>
+        <p class="tc-why" id="tc-why-optq-82-pinho"></p>
+        <button type="button" class="tc-trust" data-trust="optq-82-pinho">why you can trust this</button>
+      </div>
+    </li></ul>
+</section>
+
+<section class="wrap tc-sec" id="register-replays">
+  <h2>Register replays</h2>
+  <p class="prose">A claim I decided before and keep in a public record. Your tab decides it again, and the claim, the record and the new answer all have to agree.</p>
+  <ul class="tc-claims"><li class="tc-claim" data-claim="optq-1d-cert2026">
+      <p class="tc-who">Printed by the public registry of optimization constants, from a step function with 300 steps.</p>
+      <p class="tc-say" id="tc-say-optq-1d-cert2026">A constant called C<sub>1d</sub> is <b>at most 1.463071582607559</b>.</p>
+      <div class="tc-edit" role="group" aria-label="Change this claim">
+        <span class="eyebrow">change it</span>
+        <button type="button" class="tc-btn" data-v="0" aria-pressed="true">as printed</button><button type="button" class="tc-btn" data-v="1" aria-pressed="false">state the repaired bound</button>
+        <button type="button" class="tc-reset" data-reset disabled>Reset</button>
+      </div>
+      <div class="tc-out">
+        <span class="tc-word" id="tc-word-optq-1d-cert2026" aria-live="polite"><span class="tc-none">not decided yet</span></span>
+        <p class="tc-why" id="tc-why-optq-1d-cert2026"></p>
+        <button type="button" class="tc-trust" data-trust="optq-1d-cert2026">why you can trust this</button>
+      </div>
+    </li>
+<li class="tc-claim" data-claim="optq-1c-rozetyp-k3072">
+      <p class="tc-who">Printed in the claimant’s own README, from a certificate of 3,584 whole numbers.</p>
+      <p class="tc-say" id="tc-say-optq-1c-rozetyp-k3072">A constant called C<sub>1c</sub> is <b>at least 0.41030211724</b>.</p>
+      <div class="tc-edit" role="group" aria-label="Change this claim">
+        <span class="eyebrow">change it</span>
+        <button type="button" class="tc-btn" data-v="0" aria-pressed="true">as printed</button><button type="button" class="tc-btn" data-v="1" aria-pressed="false">state 0.4103021</button>
+        <button type="button" class="tc-reset" data-reset disabled>Reset</button>
+      </div>
+      <div class="tc-out">
+        <span class="tc-word" id="tc-word-optq-1c-rozetyp-k3072" aria-live="polite"><span class="tc-none">not decided yet</span></span>
+        <p class="tc-why" id="tc-why-optq-1c-rozetyp-k3072"></p>
+        <button type="button" class="tc-trust" data-trust="optq-1c-rozetyp-k3072">why you can trust this</button>
+      </div>
+    </li></ul>
+</section>
+
+<section class="wrap tc-sec" id="how">
+  <h2>What runs in your tab.</h2>
+  <p class="prose">The checker is the same program I run on my own machine, carried into this page unchanged, with the 20 files these 5 claims make it read: 258,918 bytes in all. It hashes every file before it trusts one, it does its arithmetic in exact whole numbers and fractions, and it refuses a number it would have to round.</p>
+  <p class="prose">A browser cannot rebuild the long computations behind the bounds, so for those it replays my published record of each one and holds the claim, the record and its own answer to each other. Where they disagree it refuses. <a href="../">The textbook machine</a> shows why checking stays cheap while finding does not.</p>
+</section>
+
+<dialog class="tc-dlg" id="tc-dlg" aria-labelledby="tc-dlg-title">
+  <div class="tc-dlg-in">
+    <div class="tc-dlg-head"><h2 id="tc-dlg-title">Why you can trust this</h2><button type="button" class="tc-btn" data-close>Close</button></div>
+    <div class="tc-dlg-body" id="tc-dlg-body" tabindex="0"></div>
+  </div>
+</dialog>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every word on this page is decided in your tab by the claim checker, the same file the command line runs. The files it reads stay under their sources’ licences: the C<sub>82</sub> certificate is R. Pinho’s (MIT); the registry pages are teorth/optimizationproblems (Apache-2.0); the step function is the body of that registry’s pull request 224; the C<sub>1c</sub> certificate and its README are rozetyp’s (MIT). The rest is this repository’s own, MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../../index.html">home</a><a href="../../../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+<script id="tc-spec" type="application/json">{"words":{"CERTIFIED":"CERTIFIED","REFUTED":"REFUTED","REFUSED":"REFUSED"},"bundle":"claim-checker.js","claims":[{"id":"v4-int64-sum-integers","path":"instruments/claimbox/v4/v4-int64-sum-integers.json","file":"v4-int64-sum-integers.json","shape":"number facts","variants":[{"label":"as printed","say":"The two whole numbers in the file add up to \u003cb>exactly 9223372036854775808\u003c/b>.","edits":[]},{"label":"say less than","say":"The two whole numbers in the file add up to \u003cb>less than 9223372036854775808\u003c/b>.","edits":[["\"rel\": \"eq\"","\"rel\": \"lt\""]]},{"label":"state one less","say":"The two whole numbers in the file add up to \u003cb>exactly 9223372036854775807\u003c/b>.","edits":[["\"printed\": \"9223372036854775808\"","\"printed\": \"9223372036854775807\""],["\"c\": \"9223372036854775808\"","\"c\": \"9223372036854775807\""]]}]},{"id":"tm-mutant-json-number","path":"playground/textbook-machine/mutants/tm-mutant-json-number.json","file":"tm-mutant-json-number.json","shape":"number facts","variants":[{"label":"as written","say":"The same sum, with 9223372036854775808 \u003cb>written bare, without quotes\u003c/b>.","edits":[]},{"label":"put the quotes back","say":"The same sum, with 9223372036854775808 \u003cb>written in quotes, as text\u003c/b>.","edits":[["\"c\": 9223372036854775808","\"c\": \"9223372036854775808\""]]}]},{"id":"optq-82-pinho","path":"instruments/claimbox/claims/optq-82-pinho.json","file":"optq-82-pinho.json","shape":"interval bounds","variants":[{"label":"as printed","say":"A constant from number theory, C\u003csub>82\u003c/sub>, is \u003cb>below 0.2534449\u003c/b>.","edits":[]},{"label":"two digits fewer","say":"A constant from number theory, C\u003csub>82\u003c/sub>, is \u003cb>below 0.25344\u003c/b>.","edits":[["\"printed\": \"0.2534449\"","\"printed\": \"0.25344\""],["\"c\": \"2534449/10000000\"","\"c\": \"25344/100000\""]]},{"label":"say above","say":"A constant from number theory, C\u003csub>82\u003c/sub>, is \u003cb>above 0.2534449\u003c/b>.","edits":[["\"rel\": \"lt\"","\"rel\": \"gt\""]]}]},{"id":"optq-1d-cert2026","path":"instruments/claimbox/claims/optq-1d-cert2026.json","file":"optq-1d-cert2026.json","shape":"register replays","variants":[{"label":"as printed","say":"A constant called C\u003csub>1d\u003c/sub> is \u003cb>at most 1.463071582607559\u003c/b>.","edits":[]},{"label":"state the repaired bound","say":"A constant called C\u003csub>1d\u003c/sub> is \u003cb>at most 1.4630715826075594\u003c/b>.","edits":[["\"printed\": \"1.463071582607559\"","\"printed\": \"1.4630715826075594\""],["\"c\": \"1463071582607559/1000000000000000\"","\"c\": \"14630715826075594/10000000000000000\""]]}]},{"id":"optq-1c-rozetyp-k3072","path":"instruments/claimbox/claims/optq-1c-rozetyp-k3072.json","file":"optq-1c-rozetyp-k3072.json","shape":"register replays","variants":[{"label":"as printed","say":"A constant called C\u003csub>1c\u003c/sub> is \u003cb>at least 0.41030211724\u003c/b>.","edits":[]},{"label":"state 0.4103021","say":"A constant called C\u003csub>1c\u003c/sub> is \u003cb>at least 0.4103021\u003c/b>.","edits":[["\"printed\": \"0.41030211724\"","\"printed\": \"0.4103021\""],["\"c\": \"41030211724/100000000000\"","\"c\": \"4103021/10000000\""]]}]}]}</script>
+<script src="claim-checker.js"></script>
+<script>/* claim-verdict.js — ONE verdict per claim: the strictest word wins.
+   playground/textbook-machine/ · cert-machine · 2026-11-12
+
+   THE ONE MODULE that turns what the claim checker returned into the one word a claim wears. The page's builder
+   (claims.build.js), the battery (claims.battery.js) and the tab (claims.app.js) all run THIS text: the builder inlines
+   the file byte for byte, so the rule is written once. It runs in Node (module.exports) and in a page with nothing
+   but its own text (one global, ClaimVerdict).
+
+   THE RULE (the operator, 2026-11-12):
+     REFUSED    the checker refuses the claim (or gives no line at all)
+     REFUTED    any part of the claim, or the claim's record, is REFUTED
+     CERTIFIED  only when everything that was decided is CERTIFIED
+   and two cases the rule's words leave open, both settled here on the careful side and both named in what is returned,
+   so a reader of the code or of the page can see which one fired:
+     nothing decided   a claim the checker admits with no word on any part              -> REFUSED, "nothing was decided"
+     a part undecided  some parts decided and certified, another left without a word    -> REFUSED, never CERTIFIED:
+                       a conjunction with an undecided part is not established
+   A part that carries the word REFUSED refuses the claim unless another part refutes it: the composition of
+   instruments/verdict.js (REFUTED if any, else REFUSED if any, else CERTIFIED), which the battery holds this module to.
+
+   WHAT IT READS. `got` is what ClaimChecker.decide returns (checker-web.build.js), or the same fields from Node:
+     got.line     the checker's own line, or null when it printed none
+     got.exit     its exit code: 0 exactly when the claim was admitted
+     got.kind     its refusal kind
+     got.result   what check() returned: decided (one word per part when a record is attached, then "repair:<word>"
+                  when the object carries the record's repair), fromObject (one entry per part: null, or the word the
+                  object's own exact arithmetic gives, with its value and witness), msg, notes
+   THE THREE WORDS are never typed here: the caller hands them in, { CERTIFIED, REFUTED, REFUSED }, read from
+   instruments/verdict.js (Node requires it; the builder prints what it read there into the page).
+
+   WHAT IT RETURNS: { verdict, reason, why, admitted, kind, msg, parts: [{ index, word, by, value, witness, violations }],
+   repair }. `why` is one of WHY's keys, `reason` its plain sentence; `by` is 'record', 'object' or null; `repair` is the
+   word the record's repair was re-decided to, kept beside the verdict and never part of it.
+   MIT */
+(function (root, factory) {
+  if (typeof module === 'object' && module && module.exports) module.exports = factory();
+  else root.ClaimVerdict = factory();
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  var REPAIR = 'repair:';
+
+  /* why the word is what it is, in plain words: the page prints these */
+  var WHY = {
+    'silent': 'The checker gave no answer, so nothing is decided.',
+    'checker-refused': 'The checker refused the claim before deciding it.',
+    'unreadable': 'The checker answered in a shape this page does not read, so nothing is decided.',
+    'nothing-decided': 'The claim is well formed, but nothing was decided.',
+    'part-undecided': 'A part of the claim was not decided.',
+    'part-refused': 'A part of the claim was refused.',
+    'refuted': 'A part of the claim is false.',
+    'certified': 'Every part of the claim was decided, and every part holds.'
+  };
+
+  /* the checker's refusal kinds that a visitor of the page can reach, in plain words; any other kind keeps WHY's line */
+  var KIND = {
+    'json-number': 'A number in the claim is written without quotes. A program would read it as a rounded double, so the checker refuses to read it at all.',
+    'printed-not-in-quote': 'The claim states a number that its own source does not print.',
+    'printed-mismatch': 'The number the claim decides is not the number it says the source prints.',
+    'canonical': 'The claim states a number that its own source does not print as a whole number.',
+    'record-bar-mismatch': 'The record decided a different number than the one this claim states.',
+    'record-decision-mismatch': 'Deciding the claim again gives a different word than the record holds, so the record does not speak for it.',
+    'record-verdict-word': 'The claim declares a word its record does not give.',
+    'record-missing': 'The claim names a record this page does not carry.',
+    'record-row-missing': 'The claim names a row its record does not hold.',
+    'pin-mismatch': 'A file the claim cites is not the file it pinned.',
+    'pin-unresolved': 'The claim cites a file this page does not carry.',
+    'quote-not-verbatim': 'The claim quotes words its source does not contain.',
+    'data': 'The claim describes its data differently from what the pinned file holds.',
+    'schema': 'The claim is not written in the form the checker reads.'
+  };
+
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function three(W) {
+    if (!W || typeof W !== 'object') throw new Error('claim-verdict: pass the three words, read from instruments/verdict.js');
+    var w = [W.CERTIFIED, W.REFUTED, W.REFUSED], i;
+    for (i = 0; i < 3; i++) if (typeof w[i] !== 'string' || !w[i] || w.indexOf(w[i]) !== i) throw new Error('claim-verdict: the three words must be three different strings');
+    return w;
+  }
+
+  function claimVerdict(got, W) {
+    var words = three(W);
+    var out = { verdict: W.REFUSED, why: 'silent', reason: WHY.silent, admitted: false, kind: null, msg: '', parts: [], repair: null };
+    var settle = function (verdict, why, reason) { out.verdict = verdict; out.why = why; out.reason = reason || WHY[why]; return out; };
+    if (!got || typeof got !== 'object' || typeof got.line !== 'string' || !got.result || typeof got.result !== 'object') return out;
+    var r = got.result;
+    if (got.exit !== 0 || r.word === W.REFUSED) {
+      out.kind = typeof got.kind === 'string' ? got.kind : typeof r.kind === 'string' ? r.kind : null;
+      out.msg = typeof r.msg === 'string' ? r.msg : '';
+      return settle(W.REFUSED, 'checker-refused', out.kind !== null && has(KIND, out.kind) ? KIND[out.kind] : WHY['checker-refused']);
+    }
+    out.admitted = true;
+    if (!Array.isArray(r.decided) || !Array.isArray(r.fromObject)) return settle(W.REFUSED, 'unreadable');
+
+    /* the record's words, one per part, and the repair's word beside them */
+    var rec = [], i, d;
+    for (i = 0; i < r.decided.length; i++) {
+      d = r.decided[i];
+      if (typeof d !== 'string') return settle(W.REFUSED, 'unreadable');
+      if (d.indexOf(REPAIR) === 0) out.repair = d.slice(REPAIR.length); else rec.push(d);
+    }
+    if (out.repair !== null && words.indexOf(out.repair) < 0) return settle(W.REFUSED, 'unreadable');
+    if (rec.length && rec.length !== r.fromObject.length) return settle(W.REFUSED, 'unreadable');
+
+    var n = r.fromObject.length, any = false, undecided = false, refused = false, refuted = false, fo, word;
+    for (i = 0; i < n; i++) {
+      fo = r.fromObject[i];
+      word = rec.length ? rec[i] : (fo && typeof fo === 'object' ? fo.word : null);
+      if (word !== null && words.indexOf(word) < 0) return settle(W.REFUSED, 'unreadable');
+      out.parts.push({ index: i, word: word, by: word === null ? null : rec.length ? 'record' : 'object',
+        value: fo && typeof fo.value === 'string' ? fo.value : null,
+        witness: fo && fo.witness ? fo.witness : null, violations: fo && fo.violations !== undefined ? fo.violations : null });
+      if (word === null) undecided = true; else any = true;
+      if (word === W.REFUTED) refuted = true;
+      if (word === W.REFUSED) refused = true;
+    }
+    if (refuted) return settle(W.REFUTED, 'refuted');
+    if (!any) return settle(W.REFUSED, 'nothing-decided');
+    if (undecided) return settle(W.REFUSED, 'part-undecided');
+    if (refused) return settle(W.REFUSED, 'part-refused');
+    return settle(W.CERTIFIED, 'certified');
+  }
+
+  return { claimVerdict: claimVerdict, WHY: WHY, KIND: KIND, REPAIR: REPAIR };
+});
+</script>
+<script>/* claims.app.js — the claims page in the tab. playground/textbook-machine/ · cert-machine · 2026-11-12
+   Runs after the page's bundle (window.ClaimChecker: instruments/claimbox/check.js, wrapped) and after
+   claim-verdict.js (window.ClaimVerdict: the one rule), both loaded before this file. Nothing here decides anything:
+   it hands a claim's text to the checker, hands what came back to the rule, and prints the word.
+   Every element whose content changes has its size reserved in claims.css, and the layer one click down is a native
+   <dialog>, which is out of the page's flow: no control moves the layout (tools/check-textbook-claims.js measures it).
+   A claim that cannot be decided here (no checker in this browser, the checker gave no line, a change that does not
+   apply) says so in plain words and wears no verdict. */
+(function () {
+  'use strict';
+  var SPEC = JSON.parse(document.getElementById('tc-spec').textContent), W = SPEC.words;
+  var $ = function (id) { return document.getElementById(id); };
+  var CHIP = {}; CHIP[W.CERTIFIED] = 'held'; CHIP[W.REFUTED] = 'dep'; CHIP[W.REFUSED] = 'open';
+  var NO_CHECKER = 'This browser could not run the checker (it needs exact big-number arithmetic and current regular expressions), so nothing is decided here.';
+  var NO_CHANGE = 'This change does not apply to the claim as the page carries it, so nothing is decided.';
+  var state = {};
+  var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  var fmt = function (x) { return Number(x).toLocaleString('en-US'); };
+  var chip = function (w) { return '<span class="tag ' + CHIP[w] + '">' + esc(w) + '</span>'; };
+  var checker = function () { return window.ClaimChecker; };
+
+  /* a claim's text with one declared change applied: each edit must match exactly once, or there is no text */
+  function textOf(c, vi) {
+    var t = checker().text(c.path), e = c.variants[vi].edits, i;
+    for (i = 0; i < e.length; i++) { if (t.split(e[i][0]).length !== 2) return null; t = t.split(e[i][0]).join(e[i][1]); }
+    return t;
+  }
+  function decide(c, vi) {
+    var st = { v: vi, text: null, got: null, res: null, fail: '' };
+    try {
+      if (!checker() || !window.ClaimVerdict) { st.fail = NO_CHECKER; return st; }
+      st.text = textOf(c, vi);
+      if (st.text === null) { st.fail = NO_CHANGE; return st; }
+      st.got = checker().decide(st.text, c.file);
+      st.res = window.ClaimVerdict.claimVerdict(st.got, W);
+      if (st.res.why === 'silent') st.fail = st.res.reason;
+    } catch (e) { st.fail = 'The checker stopped on this claim, so nothing is decided.'; st.error = String(e && e.message || e); }
+    return st;
+  }
+  function paint(c) {
+    var st = state[c.id], li = document.querySelector('[data-claim="' + c.id + '"]');
+    $('tc-say-' + c.id).innerHTML = c.variants[st.v].say;
+    [].forEach.call(li.querySelectorAll('[data-v]'), function (b) { b.setAttribute('aria-pressed', String(+b.getAttribute('data-v') === st.v)); });
+    li.querySelector('[data-reset]').disabled = st.v === 0;
+    if (st.fail) {
+      li.setAttribute('data-verdict', '');
+      $('tc-word-' + c.id).innerHTML = '<span class="tc-none">Not decided</span>';
+      $('tc-why-' + c.id).textContent = st.fail;
+    } else {
+      li.setAttribute('data-verdict', st.res.verdict);
+      $('tc-word-' + c.id).innerHTML = chip(st.res.verdict);
+      $('tc-why-' + c.id).textContent = st.res.reason;
+    }
+  }
+  function set(c, vi) { state[c.id] = decide(c, vi); paint(c); }
+
+  /* ---- one click down: the checker's own line, the word of each part, the claim object as decided, the files ---- */
+  var dlg = $('tc-dlg'), opener = null;
+  function row(k, v) { return '<div class="tc-row"><span class="eyebrow">' + k + '</span><div>' + v + '</div></div>'; }
+  function trust(c) {
+    var st = state[c.id], r = st.res, h = '', i, p, M, files, obj;
+    h += '<p class="tc-dlg-say">' + c.variants[st.v].say + '</p>';
+    if (st.fail) h += row('the word', '<span class="tc-none">Not decided</span> ' + esc(st.fail) + (st.error ? ' <code>' + esc(st.error) + '</code>' : ''));
+    else {
+      h += row('the word', chip(r.verdict) + ' ' + esc(r.reason));
+      if (!r.admitted) h += row('the checker says', '<code>' + esc(r.kind || '') + '</code> ' + esc(r.msg || ''));
+      else {
+        var parts = '';
+        for (i = 0; i < r.parts.length; i++) {
+          p = r.parts[i];
+          parts += '<li>' + (p.word === null ? '<span class="tc-none">Not decided</span> here: this part names a computation a browser does not run, and no record is attached'
+            : chip(p.word) + (p.by === 'record' ? ' decided against the record' : ' computed from the claim’s own data')
+              + (p.witness ? ', which fails at ' + esc(JSON.stringify(p.witness.at)) + (p.violations ? ' (' + fmt(p.violations) + ' failing in all)' : '') : '')
+              + (p.value ? '<span class="tc-val">value ' + esc(p.value.length > 64 ? p.value.slice(0, 64) + '…' : p.value) + '</span>' : '')) + '</li>';
+        }
+        h += row(r.parts.length === 1 ? 'its one part' : 'its ' + r.parts.length + ' parts', '<ol class="tc-parts">' + parts + '</ol>');
+        if (r.repair !== null) h += row('the record’s repair', chip(r.repair) + ' The record also holds a repaired form of this claim, decided again here. It stays beside the verdict and is no part of it.');
+        if (st.got.result.notes && st.got.result.notes.length) h += row('the checker notes', '<ul class="tc-notes">' + st.got.result.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>');
+      }
+    }
+    if (st.got) h += row('the checker’s own line', '<pre class="tc-pre">' + esc(st.got.line !== null ? st.got.line : (st.got.stderr || st.got.error || 'no line')) + '</pre>');
+    if (st.text !== null) h += row('the claim, as decided', '<pre class="tc-pre tc-obj">' + esc(st.text) + '</pre>');
+    if (checker()) {
+      M = checker().manifest; obj = M.objects.filter(function (o) { return o.path === c.path; })[0];
+      files = (obj ? obj.needs : []).map(function (f) { return '<li><code>' + esc(f) + '</code><span class="tc-val">sha256 ' + esc(M.files[f][1].slice(0, 16)) + '… · ' + fmt(M.files[f][2]) + ' bytes</span></li>'; }).join('');
+      h += row('the files it read', '<ul class="tc-files">' + files + '</ul>');
+      h += row('what ran', 'The claim checker <code>' + esc(M.checker.path) + '</code>, byte for byte, <span class="tc-val">sha256 ' + esc(M.checker.sha256.slice(0, 16)) + '…</span> Every file above is inside this page and was hashed in your tab before it was read.');
+    }
+    $('tc-dlg-body').innerHTML = h;
+  }
+  function open(c, from) {
+    trust(c); opener = from;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    $('tc-dlg-body').scrollTop = 0;
+  }
+  function close() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  dlg.addEventListener('close', function () { if (opener && opener.focus) opener.focus(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  dlg.querySelector('[data-close]').addEventListener('click', close);
+
+  SPEC.claims.forEach(function (c) {
+    var li = document.querySelector('[data-claim="' + c.id + '"]');
+    [].forEach.call(li.querySelectorAll('[data-v]'), function (b) { b.addEventListener('click', function () { set(c, +b.getAttribute('data-v')); }); });
+    li.querySelector('[data-reset]').addEventListener('click', function () { set(c, 0); });
+    li.querySelector('[data-trust]').addEventListener('click', function (e) { open(c, e.currentTarget); });
+    set(c, 0);
+  });
+
+  /* the page's own files, hashed in the tab */
+  (function () {
+    var s = $('tc-status'), v = null;
+    if (!checker()) { s.textContent = NO_CHECKER; return; }
+    try { v = checker().verify(); } catch (e) { v = null; }
+    s.textContent = v && v.ok ? 'Your tab hashed the ' + v.files + ' files this page carries and each one matches its pin. The words below were decided here, just now.'
+      : 'A file this page carries does not match its pin in your tab: do not trust the words below.';
+  })();
+
+  window.__tc = { spec: SPEC, state: state, set: function (id, vi) { var c = SPEC.claims.filter(function (x) { return x.id === id; })[0]; set(c, vi); return state[id]; } };
+})();
+</script>
+</body>
+</html>
