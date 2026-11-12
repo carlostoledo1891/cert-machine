@@ -1,4 +1,4 @@
-# Reply to Woett on teorth/erdosproblems#164 — DRAFT, operator-gated, NOT SENT
+# Reply to Woett on teorth/erdosproblems#164 — SUPERSEDED DRAFT. The reply that went is item 6 of outreach/github-p2a-2026-10-06.md, POSTED 2026-10-06 02:53 UTC: https://github.com/teorth/erdosproblems/issues/164#issuecomment-6008360059
 
 Context (2026-09-08 16:49 UTC): Woett (Wouter van Doorn) answered our three
 comments: "Thanks for the effort! I only just saw your comments. Worth

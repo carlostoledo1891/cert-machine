@@ -12,6 +12,55 @@ here on request.
 
 ---
 
+## CLEARED 2026-11-12 — the queue reconciled against the record and decided, item by item
+
+Every draft in `outreach/` and `notes/x/` (245 files) was read against `corpus/outreach.json` and the live threads on
+2026-11-12: 158 had been sent, 25 were superseded by a later version. Carlos decided the rest the same day. THIS SECTION
+SUPERSEDES the lines below wherever they still say READY; the older lanes are kept as written.
+
+**Sent on 2026-11-12:** AxiomMath/BGP212 #2 (is the certificate's witness published?); the X post for the textbook
+machine's claims page; a reply closing pull request #1 on our ℤ-in-ℚ fork in favour of upstream #29; Zenodo version 1.1 of
+the percolation note. Posted by Carlos by hand: the comment on Gil Kalai's percolation post.
+
+**Dropped, and why:**
+- The second-party comments for teorth/optimizationproblems #261, #247, #248 (`outreach/optq-second-party-2026-11-02.md`):
+  others have since replayed all three rows (the registry's #247, #292, #326), and #292 and #357 already ask for the
+  asterisks to come off. Our page's §13 no longer says "as the second party".
+- Both OEIS submissions (`outreach/oeis-erdos852h-extension.md`, `outreach/oeis-erdos290-pack.md`): OEIS does not accept
+  AI-written text in its editor, and the reply on teorth/erdosproblems #164 says no entry will be submitted. The verified
+  numbers stay in the records.
+- Both erdosproblems.com forum comments (thread 1186, the k = 4 comment of `outreach/delta3-forum.md`; thread 510, the
+  λ(4) follow-up of `outreach/lambda4-announcements.md`): the forum froze new problem comments on 2026-10-06.
+- The note to the Tesouro (`outreach/tesouro-nota-2026-10-16.md`): a first contact through a form, with month-old counts.
+- The link for the Lean Zulip reply (the row keeps no url).
+
+- Eleven stale drafts and five older X drafts (the files stay where they are; nothing here is to be sent):
+- `notes/x/drops/d04-round-down.txt` (X): an aphorism with no link, from the 10-29 series that the one-link form replaced.
+- `notes/x/drops/d05-refusal-price.txt` (X): "131 decided, 11 refused" is stale, and it has no link.
+- `notes/x/drops/d07-second-party.txt` and `notes/x/08-reruns.txt` (X, one message in two wordings): "three outsiders, seven verdicts" is stale; `corpus/external-reruns.json` now holds eight reruns.
+- `outreach/erdos1-mastodon.md` (Mathstodon): two months old, on a channel the account has never used.
+- `outreach/openai-math-2026-10-10.md`, parts B and C (Mathstodon, LinkedIn): the same channels; part D, an e-mail we would start, is off by the channel rule.
+- `outreach/brasil-eth-comments-2026-11-04.md`, section C2 (a comment on a Substack issue): never posted, and its text is behind the record.
+- `outreach/three-campaigns-2026-10-15.md`, block A5 (google-deepmind/alphaevolve_repository_of_problems #4, one optional line): our four sibling comments there have had no reply.
+- `outreach/outreach-plan-2026-10-15.md`, AE-PR (a pull request to the same repository): its last push was 2026-07-11 and outside pull requests sit unmerged.
+- `outreach/outreach-plan-2026-10-15.md`, POST (Mathstodon / LinkedIn, 500 characters): overtaken by the X account and by newer results.
+- `outreach/github-p3b-2026-10-06.md`, item 24 (jackburrus/awesome-breakthroughs, a pull request): it waited on a reply on HorizonMath #10 that never came.
+- `outreach/github-p3b-2026-10-06.md`, item 23 (benchflow-ai/awesome-evals, a one-line pull request): held on the list's traction bar, which we do not meet.
+- `notes/x/drops/d10-ramsey-post.txt` (X; its first wording is `notes/x/05-ramsey.txt`): dropped by Carlos; "is still searching" was stale (R(8,18) is parked).
+- `notes/x/drops/d11-selfaudit-post.txt` (X): dropped by Carlos; its defect count was one behind the page.
+- `notes/x/drops/d09-blackhole-post.txt` (X): dropped by Carlos; the page has no share card of its own.
+- `outreach/openai-math-2026-10-10.md`, part A (X): dropped by Carlos; with parts B, C and D above, nothing in lane O's posts remains to send.
+- `notes/x/06-metr.txt` (X): dropped by Carlos; it had no link and no card.
+
+**Waiting:** the rebased pull request for Erdős #488 opens on 2026-11-14 if formal-conjectures #5297 is still silent (its
+description is shown to Carlos first).
+
+**Already done, though the lanes below still read otherwise:** lane E — E1 is visible on the blog, E3 went as
+complexitylib #2509 and #2510 (both merged 2026-11-06), E4 was posted on 2026-11-04; R1's repository moved to
+yuanzhu-lab/erdos510-lambda4-audit.
+
+---
+
 ## LANE E — ETH C2 (2026-11-04)
 ### E1. ethdiscussion.blog reply under comment-24 — POSTED by Carlos by hand 2026-11-04 (awaiting moderation)
 ### E2. anthropics/formal-math #36 — POSTED 2026-11-04 (issuecomment-6641391967)
