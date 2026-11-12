@@ -102,6 +102,7 @@ const R = {
   money: { pods: usd.length, usd: Math.round(usd.reduce((a, b) => a + b, 0) * 100) / 100 },
   seals: [18, 19, 20, 21],
   provenance: { files: PROV.files.length, sourceCommit: PROV.source_commit },
+  note: (() => { const n = JSON.parse(rd('note.json')); if (n.published && !/^10\.5281\/zenodo\.\d+$/.test(n.doi)) die('note.json: a published note needs a Zenodo DOI'); return { doi: n.doi, published: !!n.published }; })(),
   verdicts: { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED' }
 };
 const out = path.join(ROOT, 'certs', 'percolation-critical.json');
