@@ -21,19 +21,67 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-◆◆ IN FLIGHT, 2026-11-12 ~17:50 UTC (written while the work runs, because the Mac was at 20% on battery; the session's
-   closing handoff replaces this block). TWO PODS ARE BILLING — if this block is still here, LIST THE PODS FIRST and
-   delete what is left: 874meuy9jrpwo7 (p-182, US$0.64/h, created 17:27 UTC: the 182's numerical package replayed on
-   FLINT built from source; `ssh -i ~/.ssh/id_ed25519_runpod -p 16616 root@154.54.102.101`; everything under /root/s,
-   the run detached, its status in /root/s/runs/_status.txt; import /root/s/runs and /root/s/work/evidence before deleting)
-   and l9a01mpxra4o4q (p-perc-one, US$1.28/h, created 17:27 UTC: the percolation one-Lean port, an agent; port 45063
-   at 38.80.152.147; /root/one). On the operator's "Proceed on your suggested order. Focus is to close the open items":
-   the rules of both were sealed first (registry bb29b980, 08753c58). Done so far: the three threads read (no reply);
-   the percolation statement PROVED false at d = 1 at both pins (private records); the 212's certificate scouted (no
-   witness published; a question to Axiom drafted, not sent); the Zulip thread found, the operator's reply not visible
-   to a logged-out reader.
+NEXT SESSION, IN ORDER (handoff 2026-11-12 ~18:20 UTC, WRITTEN AT 11% ON BATTERY: THE SESSION WAS CUT SHORT BY THE DESK'S
+BATTERY, NOT BY ITS WORK. NOTHING BILLING: the two pods of the session were deleted at ~18:10 UTC, each 404 on get-pod,
+the pod list empty; about US$1.4 by the clock (42 min at US$0.64/h + 44 min at US$1.28/h; not a billing read).
+main = origin/main. On the operator's "Proceed on your suggested order. Focus is to close the open items"; the rules of
+both pod runs were sealed before anything was built — registry bb29b980 and 08753c58, OpenTimestamps upgrades OWED; the
+RESULTS of this session are NOT sealed):
+  ★ 0. PLUG IN THE CHARGER before any pod: two runs were cut off at 12% and both have to be run again.
+  ★ 1. THE THREADS, read 17:20 UTC: no reply on anthropics/formal-math #48, anadim/AdderBoard #97, AxiomMath/BGP212 #1.
+  ★ 2. THE KALAI COMMENT, still the operator's to paste (the post: gilkalai.wordpress.com/2026/09/03/amazing-there-is-no-
+       percolation-at-the-critical-probability-in-all-dimensions-solved-by-ai-via-a-conjecture-of-gady-kozma-and-shahaf-
+       nitzan/; our notes date the quoted sentence 6 Sep, so it may sit in a comment below the post). ITS LAST CAVEAT
+       ("two different Lean versions … a careful reading, not a proof") STILL STANDS: see 3b.
+    3. CRITICAL PERCOLATION (private records; nothing on the page, a page change is the operator's word):
+       (a) DONE — the body of our statement is PROVED FALSE AT d = 1 (θ₁(p) = 0 for p < 1, p_c(1) = 1, so θ₁(p_c) = 1):
+           one file, Mathlib only, the same bytes at both pins, [propext, Classical.choice, Quot.sound]; written by an
+           agent, rebuilt and its axioms printed by the orchestrator at both pins. `2 ≤ d` is load-bearing.
+       (b) NOT DECIDED, CUT OFF — the one-Lean port. What exists: an agent's port of OpenAI's ℤ³ closure (34 modules,
+           22 files changed, almost all renames to older Mathlib names) to Anthropic's pin (v4.32.0), chosen after
+           measuring both directions; both labs' statement files reported byte-identical; an incremental build of the
+           one environment with both bridges and both theorems, exit 0 (its log pulled and hash-checked). What does
+           NOT exist: any of the sealed acceptance checks — the clean build was at 8,926 of 8,948 jobs when the pod
+           went; `#print axioms`, the three Comparator runs, leanchecker --fresh and the red controls never ran — and
+           the orchestrator has replayed NOTHING of the port. It is not a verdict and the seam is still a reading.
+           TO FINISH: one 32-vCPU pod, about an hour (≈ US$1.3), from the saved environment and its two scripts; the
+           port's log says how. On the operator's go.
+    4. LEAN INTAKE PHASE 2, the open premises (private, notes/lean-intake-phase2-2026-11-12; amendment A1):
+       (a) the 182's 262 numerical bounds — NOT DECIDED, CUT OFF. The claimant's package (release sha256 2960729e…,
+           checked) was being REPLAYED on Linux on FLINT v3.6.0 + 7ad753d5 built from source, no byte of the package
+           changed (step5/DEVIATIONS.md: six environment-side deviations; the first attempt died at `import flint`).
+           Passed there: the package's integrity checks, its 14 audits, its 4 rejection tests (one by a declared
+           substitution: the stock wheel). Production: `affines` PASS (476 s), `cap` cut off mid-run, 12 stages not
+           started. Our own comparison against the Lean literals (step5/compare182.py, hashed on the pod before
+           production) was dry-run on the PUBLISHED record only: 262 of 262, both red controls fire. A FINDING FROM
+           THAT DRY RUN: every one of the 262 published values EQUALS its Lean literal — the literals carry no slack,
+           so a replay must reproduce each number exactly or below. TO FINISH: setup182.sh then run182.sh on a
+           16-vCPU pod, about 2–4 h (≈ US$1.5–2.5). A clean-room recomputation is the step after and is not started.
+       (b) the 212's certificate — SCOUTED, stays NOT DECIDED: no witness F is published, not in AxiomMath/BGP212 at
+           6641780b, not in PrimeGapsLib at its pin (whose PrimeGapsCert/ holds the witnesses for 246 and 600). A
+           question to the authors is DRAFTED (issue-bgp212-certificate-DRAFT.md), not sent: the operator's word.
+       The ledger generator carries (b); `python3 ledger.py` was not re-run and the private page not rebuilt.
+    5. THE TEXTBOOK MACHINE'S SECOND PAGE: THE BLOCKER IS GONE, THE PAGE IS NOT BUILT. 4786e5c9: playground/textbook-
+       machine/checker-web.build.js wraps instruments/claimbox/check.js byte for byte (no receiver file edited) with
+       shims over 26 embedded files; checker-web.battery.js — 38 checks, 9 red controls, the same line, word and refusal
+       kind as Node in a bare vm context (re-run by the orchestrator: PASS; the agent also ran it in headless Chrome).
+       NOT wired into make test or build-control.js (the two lines are in the commit's battery header / the agent's
+       report), the generated bundle (out/claim-checker.js, 340 kB) is on disk and NOT committed. FOR THE OPERATOR
+       BEFORE THE PAGE: check.js says ADMITTED / REFUSED, the three words live per predicate — the page needs a rule
+       for ONE verdict per claim; "register replays" has no object that replays a ledger row (the agent read it as
+       objects carrying a record); only one light finite-counterexample object exists; the bundle embeds third-party
+       corpus bytes (licences to resolve before it is served); a lookbehind regex at check.js:498 fails on Safari
+       before 16.4.
+    6. THE ZULIP ROW: the audit thread is leanprover.zulipchat.com, channel "Machine Learning for Theorem Proving",
+       topic "Audit of OpenAI #378 & #003 repos" (message 637348605, 3 Nov). A logged-out reader sees ONLY that first
+       post: the operator's reply of 11-12 is not visible there. The operator checks that it was posted; the row's
+       url stays null.
+    7. On hold, unchanged: the method paper (waits on Pedro).
+  LATER ITEMS, FOUND AND NOT ACTED ON: `node tools/check-wiring.js` reports 1 FAILED — check 7, two container radii
+  off the shape scale (8px, 12px) on site/instruments/textbook-machine/index.html; not caused by this session.
+  claimbox: unchanged from the block below (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
 
-NEXT SESSION, IN ORDER (handoff 2026-11-12 ~15:45 UTC; NOTHING BILLING — no pods, no runs in flight; main = origin/main;
+NEXT SESSION, IN ORDER (handoff 2026-11-12 ~15:45 UTC; SUPERSEDED BY THE BLOCK ABOVE; NOTHING BILLING — no pods, no runs in flight; main = origin/main;
 every seal of the day confirmed on both anchors):
   ★ 1. READ THE THREADS: anthropics/formal-math #48 (critical percolation), anadim/AdderBoard #97 (the all-pairs
        confirmation), AxiomMath/BGP212 #1 (two blind readings, all seven MISMATCH). A reply is an input; an answer goes out
