@@ -29,10 +29,10 @@ both pod runs were sealed before anything was built — registry bb29b980 and 08
 RESULTS of this session are NOT sealed):
   ★ 0. PLUG IN THE CHARGER before any pod: two runs were cut off at 12% and both have to be run again.
   ★ 1. THE THREADS, read 17:20 UTC: no reply on anthropics/formal-math #48, anadim/AdderBoard #97, AxiomMath/BGP212 #1.
-  ★ 2. THE KALAI COMMENT, still the operator's to paste (the post: gilkalai.wordpress.com/2026/09/03/amazing-there-is-no-
-       percolation-at-the-critical-probability-in-all-dimensions-solved-by-ai-via-a-conjecture-of-gady-kozma-and-shahaf-
-       nitzan/; our notes date the quoted sentence 6 Sep, so it may sit in a comment below the post). ITS LAST CAVEAT
-       ("two different Lean versions … a careful reading, not a proof") STILL STANDS: see 3b.
+  ★ 2. THE KALAI COMMENT IS POSTED, by the operator by hand (~18:25 UTC; read back on the public page: comment-100346,
+       the drafted text word for word; corpus/outreach.json blog-kalai-percolation-comment-2026-11-12). Not on GitHub:
+       the sweep does not watch it, read the page for replies. ITS LAST CAVEAT ("two different Lean versions … a
+       careful reading, not a proof") STILL STANDS and is true as posted: see 3b.
     3. CRITICAL PERCOLATION (private records; nothing on the page, a page change is the operator's word):
        (a) DONE — the body of our statement is PROVED FALSE AT d = 1 (θ₁(p) = 0 for p < 1, p_c(1) = 1, so θ₁(p_c) = 1):
            one file, Mathlib only, the same bytes at both pins, [propext, Classical.choice, Quot.sound]; written by an
