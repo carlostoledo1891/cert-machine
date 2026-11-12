@@ -21,6 +21,18 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+◆◆ IN FLIGHT, 2026-11-12 ~17:50 UTC (written while the work runs, because the Mac was at 20% on battery; the session's
+   closing handoff replaces this block). TWO PODS ARE BILLING — if this block is still here, LIST THE PODS FIRST and
+   delete what is left: 874meuy9jrpwo7 (p-182, US$0.64/h, created 17:27 UTC: the 182's numerical package replayed on
+   FLINT built from source; `ssh -i ~/.ssh/id_ed25519_runpod -p 16616 root@154.54.102.101`; everything under /root/s,
+   the run detached, its status in /root/s/runs/_status.txt; import /root/s/runs and /root/s/work/evidence before deleting)
+   and l9a01mpxra4o4q (p-perc-one, US$1.28/h, created 17:27 UTC: the percolation one-Lean port, an agent; port 45063
+   at 38.80.152.147; /root/one). On the operator's "Proceed on your suggested order. Focus is to close the open items":
+   the rules of both were sealed first (registry bb29b980, 08753c58). Done so far: the three threads read (no reply);
+   the percolation statement PROVED false at d = 1 at both pins (private records); the 212's certificate scouted (no
+   witness published; a question to Axiom drafted, not sent); the Zulip thread found, the operator's reply not visible
+   to a logged-out reader.
+
 NEXT SESSION, IN ORDER (handoff 2026-11-12 ~15:45 UTC; NOTHING BILLING — no pods, no runs in flight; main = origin/main;
 every seal of the day confirmed on both anchors):
   ★ 1. READ THE THREADS: anthropics/formal-math #48 (critical percolation), anadim/AdderBoard #97 (the all-pairs
