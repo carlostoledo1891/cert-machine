@@ -35,11 +35,8 @@ site: playground control
 	@# Their built bytes in site/ are kept as they are; run their build.js by hand only on the operator's word.
 	@$(NODE) apps/janela/build.js
 	@$(NODE) apps/swell/build.js
-	@$(NODE) apps/explained/build.js
 	@$(NODE) apps/eleicoes2026/build.js
 	@$(NODE) apps/eth/build.js
-	@$(NODE) apps/explained-v1/build.js
-	@$(NODE) apps/uirapuru/build.js
 	@$(NODE) apps/extremos/build.js
 	@$(NODE) apps/cv/build.js
 	@$(NODE) apps/z-in-q/build.js

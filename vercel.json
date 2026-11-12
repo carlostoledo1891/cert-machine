@@ -528,6 +528,26 @@
       "source": "/reports/eth-anthropic-chain.html",
       "destination": "/reports/eth-chain.html",
       "statusCode": 301
+    },
+    {
+      "source": "/explained/:path*",
+      "destination": "/how-it-works/",
+      "statusCode": 301
+    },
+    {
+      "source": "/uirapuru/:path*",
+      "destination": "/how-it-works/",
+      "statusCode": 301
+    },
+    {
+      "source": "/explained",
+      "destination": "/how-it-works/",
+      "statusCode": 301
+    },
+    {
+      "source": "/uirapuru",
+      "destination": "/how-it-works/",
+      "statusCode": 301
     }
   ],
   "headers": [

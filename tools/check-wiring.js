@@ -259,7 +259,6 @@ if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.ht
    outline, a dotted window, the toy's dotted numbers, a hatched toy — and were in no walk, so their legend and palette
    were checked by nobody. The round-one easy read (site/explained/v1/) is kept in its own palette beside them for
    comparison, a second language on purpose, and is not walked. */
-for (const f of ['site/explained/index.html', 'site/uirapuru/index.html']) if (fs.existsSync(path.join(ROOT, f))) pages.push(f);
 /* AND THE PAGES WHOSE BUILDERS WRITE STRAIGHT INTO site/ (2026-10-29, walked on the operator's word): /eth/, /papers/, /eleicoes2026/, and the two apps /janela/ (with /janela/metodo/) and /swell/. Each
    builder writes its page in place, so what is read here is current when the batteries run. /cv/ is not a page — the
    URL redirects to site/cv/carlos-toledo-cv.pdf — so there is nothing of it to walk. */

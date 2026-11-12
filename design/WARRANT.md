@@ -169,7 +169,7 @@ every use is `--witness`, and its wash is `--witness-soft` (design/app-shell.js,
 
 ## The site pass (2026-10-28)
 
-- **Tier 1, the pages people land on:** the home page and Method; Janela, Swell, explained, Uirapuru and the eleições
+- **Tier 1, the pages people land on:** the home page and Method; Janela, Swell and the eleições
   dossier; and the eight reports most linked from GitHub (optconst-queue, optimization-constants, kissing,
   openai-math, gsm8k-audit, alphaevolve-community, time-horizon, curve-seeds).
 - **Tier 2:** every other report, converted when it is next edited for another reason, never in a sweep.

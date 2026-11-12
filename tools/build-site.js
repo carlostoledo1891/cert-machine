@@ -2116,7 +2116,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    batteries and drift gates. site/contraprova/ and site/decidivel/ are the same
    arrangement at top-level paths (apps/contraprova/build.js,
    apps/decidivel/build.js; the URLs chosen by the operator, 2026-09-29/30), and so is
-   site/janela/ (apps/janela/build.js, 2026-10-06), and site/explained/ (apps/explained/build.js, 2026-10-23: the easy read) and site/uirapuru/ (apps/uirapuru/build.js, 2026-10-23: the story).
+   site/janela/ (apps/janela/build.js, 2026-10-06). The story pages (site/explained/, site/explained/v1/, site/uirapuru/) were deleted on 2026-11-12 on the operator's word; their old addresses redirect to /how-it-works/ (vercel.json).
    The site sync neither generates nor prunes under them — two builders
    writing one tree is how files get eaten. */
 /* site/machinidae/ is a FOREIGN ZONE (2026-10-23 as site/clade-code/; renamed 2026-10-27): a byte copy of another repository's build
@@ -2147,7 +2147,7 @@ for (const [rel, buf] of desired) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/abatimento/', '/janela/', '/janela/metodo/', '/eth/', '/z-in-q/'];   /* /eth/ listed 2026-10-29 on the operator's word; /z-in-q/ 2026-11-06, after the report to the claimant; /explained/ and /uirapuru/ are built but not yet listed: the operator decides whether to link them (2026-10-23) */
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/abatimento/', '/janela/', '/janela/metodo/', '/eth/', '/z-in-q/'];   /* /eth/ listed 2026-10-29 on the operator's word; /z-in-q/ 2026-11-06, after the report to the claimant */
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
@@ -2201,7 +2201,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
   /* swell/ joined the app zones 2026-10-08 and was missing from this list: a bare `node tools/build-site.js`
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('eleicoes2026/') || rel.startsWith('uirapuru/') || rel.startsWith('extremos/') || rel.startsWith('eth/') || rel.startsWith('cv/') || rel.startsWith('z-in-q/')) continue;   /* cv/: the public CV's PDF (apps/cv/build.js, 2026-10-29) — the first sync after it was built pruned it; z-in-q/: the unlisted ℤ-in-ℚ page (apps/z-in-q/build.js, 2026-11-06) */
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('eleicoes2026/') || rel.startsWith('extremos/') || rel.startsWith('eth/') || rel.startsWith('cv/') || rel.startsWith('z-in-q/')) continue;   /* cv/: the public CV's PDF (apps/cv/build.js, 2026-10-29) — the first sync after it was built pruned it; z-in-q/: the unlisted ℤ-in-ℚ page (apps/z-in-q/build.js, 2026-11-06) */
   if (isForeign(rel)) continue;   /* machinidae/: owned by Machinidae's page engine (design/zones.js) */
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
