@@ -21,6 +21,14 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+◆◆ IN FLIGHT AGAIN, 2026-11-12 ~18:45 UTC (the charger went in; the operator: restart BOTH runs). TWO PODS ARE BILLING — if
+   this block is still here, LIST THE PODS FIRST: tfoyaqjnilw62w (p-182b, US$0.64/h, created 18:41 UTC: the 182's numerical
+   package again; `ssh -i ~/.ssh/id_ed25519_runpod -p 35232 root@38.80.152.147`, /root/s, detached, status in
+   /root/s/runs/_status.txt, ends with "chain done"; import /root/s/runs and /root/s/work/evidence before deleting) and
+   fwwcomdlxq6mqc (p-perc-one-b, US$1.28/h, created 18:41 UTC: the orchestrator's replay of the one-Lean port; port 40872,
+   /root/one, detached, /root/one/runs/TIMELINE ends with "REPLAY DONE"). The closing handoff replaces this block; the
+   block below describes the state BEFORE these two restarts.
+
 NEXT SESSION, IN ORDER (handoff 2026-11-12 ~18:20 UTC, WRITTEN AT 11% ON BATTERY: THE SESSION WAS CUT SHORT BY THE DESK'S
 BATTERY, NOT BY ITS WORK. NOTHING BILLING: the two pods of the session were deleted at ~18:10 UTC, each 404 on get-pod,
 the pod list empty; about US$1.4 by the clock (42 min at US$0.64/h + 44 min at US$1.28/h; not a billing read).
