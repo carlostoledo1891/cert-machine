@@ -184,6 +184,27 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
+     instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
+     one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a
+     decided run, so every mark is solid. LIGHT theme, no number, no title text. */
+  'textbook-machine': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the textbook machine', path: '/instruments/textbook-machine/',
+    title: 'The textbook machine',
+    alt: 'The whole run of a four-state Turing machine, time running left to right: a staircase of solid cells that grows and shifts as the head sweeps back and forth, a faint line tracing the head.',
+    svgRaw: (() => {
+      const F = JSON.parse(fs.readFileSync(path.join(ROOT, 'playground', 'textbook-machine', 'out', 'facts.json'), 'utf8')).spacetime;
+      const T = F.rows.length, H = F.rows[0].length, x0 = 140, x1 = 1060, cw = (x1 - x0) / T, ch = 17, y0 = 315 - (H * ch) / 2, f = (v) => v.toFixed(1);
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="The four-state champion’s run, time left to right" style="position:absolute;left:0;top:0">'];
+      let d = '';
+      F.rows.forEach((row, t) => { for (let i = 0; i < H; i++) if (row[i] === '1') d += 'M' + f(x0 + t * cw) + ' ' + f(y0 + (H - 1 - i) * ch) + 'h' + f(cw - 1.2) + 'v' + (ch - 1.6) + 'h-' + f(cw - 1.2) + 'Z'; });
+      o.push('<path d="' + d + '" fill="var(--ink)"/>');
+      let h = '';
+      F.heads.forEach((p, t) => { h += (t ? 'L' : 'M') + f(x0 + t * cw + cw / 2) + ' ' + f(y0 + (H - 1 - (p - F.lo)) * ch + ch / 2); });
+      o.push('<path d="' + h + '" fill="none" stroke="var(--ink-3)" stroke-width="1.6" stroke-linejoin="round"/>');
+      o.push('<line x1="' + x0 + '" y1="' + f(y0 + H * ch + 14) + '" x2="' + x1 + '" y2="' + f(y0 + H * ch + 14) + '" stroke="var(--ink-4)" stroke-width="1.2"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* the home page's own card (2026-11-11, the operator's headline "Looks right? Zoom in."): LIGHT, the headline and one
      sentence beside the two circles at the overlap. The two circles are the pair the claims record names, drawn at
      their true places and sizes from the pinned bytes (the same file tools/home-page.js reads, refused there on a

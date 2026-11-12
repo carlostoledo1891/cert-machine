@@ -21,6 +21,7 @@ const PG = path.join(HERE, '..');
 const { page, esc } = require(path.join(PG, 'design', 'shell.js'));
 const BAT = require(path.join(HERE, 'battery.js'));
 const TM = require(path.join(HERE, 'machines.js'));
+const OG = require(path.join(PG, '..', 'tools', 'build-og-report.js'));   /* the page's own light art card (og-textbook-machine.png) */
 const die = (m) => { throw new Error('textbook machine: ' + m); };
 
 const F = JSON.parse(fs.readFileSync(BAT.REC, 'utf8'));
@@ -181,7 +182,7 @@ function build(OUT) {
   const html = page({
     title: 'The textbook machine',
     desc: 'A Turing machine you run in your browser: one tape, one head, a few rules. Five machines up a ladder of ideas, each step said in words; checking a setting stays one pass while finding one more than doubles with every switch; and the question running cannot answer.',
-    path: '/instruments/textbook-machine/', body, css: CSS, foot: FOOT,
+    path: '/instruments/textbook-machine/', body, css: CSS, foot: FOOT, og: { image: '/og-textbook-machine.png', alt: OG.alt('textbook-machine') },
     script: `<script id="tm-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script>${MACHINES}</script>\n<script>${APP}</script>`
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

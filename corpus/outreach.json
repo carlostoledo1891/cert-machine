@@ -1707,6 +1707,15 @@
    "sent": "2026-11-11",
    "status": "posted, no reply",
    "note": "notes/x/drops/d23b-prime-gaps-186-post-punch.txt; the page /reports/prime-gaps-186.html. Read back with tools/x.js recent."
+  },
+  {
+   "id": "zulip-ultari-eth-threshold-2026-11-12",
+   "what": "A reply on the Lean Zulip to an audit post on OpenAI's #378 (ETH) and #003 releases (gilheumpark-bit/ultari-proof-anatomy): the time bound of exact_count_and_sat in SqrtLogSpace/Final.lean (openai/math 7ef5c0cc, byte-identical in our port) holds for every n, the cutoff at line 41 being a case split inside the proof (NativeLargeEntry.run) whose fallback the constants absorb, so the threshold says the speed-up is galactic, not that the theorem is weaker; the Appendix D / Corollary 1.4 gap called real; the eth-chain report linked. Drafted with Claude; posted by Carlos by hand.",
+   "where": "Lean Zulip",
+   "url": null,
+   "sent": "2026-11-12",
+   "status": "posted, no reply",
+   "note": "The post's link to be added when Carlos gives it. The audit's 2^33,554,431 value for the cutoff was not checked (in our copy it is max 20 (max Nleaf Ns), not printed)."
   }
  ]
 }

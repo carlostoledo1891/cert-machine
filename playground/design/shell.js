@@ -13,7 +13,9 @@
    URL — REQUIRED), body, css (its own rules, no <style> tags), script (its
    own <script> tags, emitted after the footer), foot (its own footer
    paragraphs, nothing for the section's default line, or null for a viewport
-   page that carries its own closing line and cannot show a document footer). */
+   page that carries its own closing line and cannot show a document footer), and
+   og ({ image, alt }: the page's own share card, tools/build-og-report.js; none
+   for the site's default card). */
 'use strict';
 
 const fs = require('fs');
@@ -33,11 +35,11 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 const DEFAULT_FOOT = '<p>nothing here is gated · every number came out of the record beside the page</p>';
 
-function page({ title, desc = '', path: served, body, css = '', script = '', bodyClass = '', foot }) {
+function page({ title, desc = '', path: served, body, css = '', script = '', bodyClass = '', foot, og }) {
   if (!served || !/^\/instruments\//.test(served)) throw new Error('page(): pass the served path (/instruments/<id>/) — ' + title);
   if (/<style[\s>]/i.test(css)) throw new Error('page(): `css` takes rules, not a <style> element — ' + title);
   return TPL.render({ title, desc, path: served, bodyRaw: body, footRaw: foot === undefined ? DEFAULT_FOOT : foot,
-    cssRaw: BASE + '\n' + css, scriptRaw: script, sheet: 'own', bodyClass });
+    cssRaw: BASE + '\n' + css, scriptRaw: script, sheet: 'own', bodyClass, og });
 }
 
 module.exports = { page, esc };
