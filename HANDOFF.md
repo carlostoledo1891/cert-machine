@@ -46,15 +46,18 @@ On the operator's "Proceed on your suggested order. Focus is to close the open i
     fixed in 8e729f76 (the census passes); A FULL make test ON THE FINAL TREE IS OWED.
   OPEN, IN ORDER:
   ★ 1. The pages he picked, one at a time (they share the tree and the baselines): MACMAHON CUBES (the page + a note to
-       the author for his approval), THE PREMISES PAGE (from the private ledger; quote the 182, never copy: it carries
-       no licence), THE STORY PAGES (/explained/, /explained/v1/, /uirapuru/ still say two defects; tied to the paper
-       branch's register-numbers.tex — reconcile without touching that branch).
+       the author for his approval) and THE PREMISES PAGE (from the private ledger; quote the 182, never copy: it carries
+       no licence). THE STORY PAGES ARE DELETED on his word (930bb3a0, 1fe07e6e): /explained/, /explained/v1/ and
+       /uirapuru/ with their sources; the three addresses redirect to /how-it-works/ (read back: 301). The paper branch
+       no longer has a story-page reader to reconcile with.
   ★ 2. 2026-11-14: THE ERDŐS #488 REBASED PR, if formal-conjectures #5297 is still silent; show him the description first.
     3. `make test` on the final tree; `ots upgrade` of the day's five seals (two rules, three results).
     4. Small, found and not acted on: two replies under @RichardSSutton (11-07) have no outreach row; whose comment the
        antihype article now counts is unconfirmed (one look in a browser); `tools/replay-c82.js --check` notes a decider
        changed since its record; the recognition record has no battery of its own (only design/outside.js's load);
        the private project's folder name sits in two lines of the published percolation records (left on his word).
+       A redirect that does not work, found while adding the story pages': /playground/<name>/ returns 404 (the
+       pattern `/playground/:path*` does not match a trailing slash; /playground/ itself redirects). Not changed.
     5. On hold, unchanged: the method paper (waits on Pedro); Leadline's three items (his).
   claimbox: unchanged from the 15:45 block (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
 
