@@ -21,6 +21,24 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
+NEXT SESSION, IN ORDER (handoff 2026-11-12 ~15:45 UTC; NOTHING BILLING — no pods, no runs in flight; main = origin/main;
+every seal of the day confirmed on both anchors):
+  ★ 1. READ THE THREADS: anthropics/formal-math #48 (critical percolation), anadim/AdderBoard #97 (the all-pairs
+       confirmation), AxiomMath/BGP212 #1 (two blind readings, all seven MISMATCH). A reply is an input; an answer goes out
+       only on the operator's word.
+  ★ 2. THE KALAI COMMENT is the operator's to paste by hand (a WordPress form asks for his name and e-mail); its text is §3
+       of the private reveal drafts. Then its outreach row, with the URL.
+    3. Critical percolation, optional: the one-Lean port (closes the two-version seam; not attempted, the operator's
+       choice); the statement refuted at d = 1.
+    4. Lean intake Phase 2, open premises: the 182's PhysicalSourceBounds182 (262 inequalities; rigorous numerics) and the
+       212's certificate (existential). The ledger and the rank-four decision stay private (notes/lean-intake-phase2-
+       2026-11-12); publishing them is the operator's word.
+    5. On hold, unchanged: the textbook machine's second page (check.js needs a browser port); the method paper (waits on
+       Pedro); the Zulip post's URL owed to its outreach row.
+  DROPPED 2026-11-12: the organ-transplant idea and the further AdderBoard entries (reopen only on a reply on #97).
+  claimbox: three LOCAL branches (phase1-readings, phase2-readings, phase2-readings-b-2026-11-12), none pushed; its working
+  copy is on phase2-readings-2026-11-12 — switch back to its main line before any claimbox work.
+
 NEXT SESSION, IN ORDER (handoff 2026-11-10 ~04:35 UTC; NOTHING BILLING — no pods, no runs in flight; main = origin/main):
   ◆◆ 2026-11-10 ~13:45 UTC, THE IDENTITY MODE FOR SELF-CONTAINED FILES — BUILT, the operator's first order of the 13:00
      handoff. tools/lean-intake.js (68dfe1b8): `canonical.selfContained: true` builds a COPY of the canonical file with one
