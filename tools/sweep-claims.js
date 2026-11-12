@@ -261,6 +261,7 @@ for (const [repo, num, label] of [
   ['teorth/optimizationproblems', 255, 'optimizationproblems PR #255 (C_89, the K4 graphon: our second-party confirmation)'],
   ['teorth/optimizationproblems', 252, 'optimizationproblems PR #252 (C_17b; our R(3,33) re-decision)'],
   ['teorth/optimizationproblems', 279, 'optimizationproblems PR #279 (C_89c, the K6 graphon: our second-party confirmation)'],
+  ['teorth/optimizationproblems', 276, 'optimizationproblems PR #276 (JeetuSK0808\'s, open 2026-11-12: the C_89 asterisks off the two rows replayed in #255, ours of 27 October one of the two [SK2026] replays; its description pinned as a credit, a merge would be a registry row)'],
   ['carlostoledo1891/cert-machine', 1, 'cert-machine #1 (maximusrufus: the N(6) re-run note we owe, the Ramsey graphs)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }

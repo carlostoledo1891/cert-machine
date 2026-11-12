@@ -393,6 +393,71 @@
    "source": "recognition/elliotglazer__diophantine-z-q__pr-8_comment-6742341294_2026-11-09.json",
    "url": "https://github.com/elliotglazer/diophantine-z-q/pull/8#issuecomment-6742341294",
    "pages": []
+  },
+  {
+   "id": "arhancanli-c71-second-replay",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "arhancanli on GitHub, an independent replayer of the optimization-constants registry's certificates (quantavane-replays), with no connection to their authors",
+   "what": "Replayed, with their own code and from the certificate's data alone, the C₇₁ lower bound that pull request #130 added (an 18-variable function, C₇₁ > 6.521845710923046575): it holds, and the stated gain of exactly 1/133 over the 17-variable row is confirmed. They call theirs the second replay, after ours, which the 71a page cites as [T2026], and say the two agree.",
+   "quote": "As far as we can see this is the second replay, after Toledo's [T2026] cited on the 71a page, and the two agree.",
+   "source": "recognition/teorth__optimizationproblems__pr-130_comment-6743340671_2026-11-09.json",
+   "url": "https://github.com/teorth/optimizationproblems/pull/130#issuecomment-6743340671",
+   "pages": [
+    "reports/optimization-constants.html"
+   ]
+  },
+  {
+   "id": "arhancanli-c3b-second-replay",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "arhancanli on GitHub, an independent replayer of the optimization-constants registry's certificates (quantavane-replays), with no connection to their authors",
+   "what": "Replayed, with their own code and from the certificate's law alone, the C₃b lower bound that pull request #92 added (the 13-point law, C₃b ≥ 1.77898884): it holds. They call theirs the second replay, after ours, which the 3b page cites as [T2026], and say the two agree.",
+   "quote": "As far as we can see this is the second replay, after Toledo's [T2026] cited on the 3b page, and the two agree.",
+   "source": "recognition/teorth__optimizationproblems__pr-92_comment-6743341704_2026-11-09.json",
+   "url": "https://github.com/teorth/optimizationproblems/pull/92#issuecomment-6743341704",
+   "pages": [
+    "reports/optimization-constants.html"
+   ]
+  },
+  {
+   "id": "hedonismjesse-wsp-c3-reference",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "HedonismJesse on GitHub (Human-AI-Evolution/weight-space-notes), commenting in the weight-space-programming authors' log repository; not one of its authors",
+   "what": "Used the per-sample token counts of our public record (wsp-baseline.json, the non-thinking condition C3) as the reference for another commenter's thinking-off run, without a new run: at that run's 8,192-token limit, 255 of our 500 first samples would be cut and 150 would be correct. The next day he paired his own 500 problems with the same rows. One part of that paired reading (that his generations run longer where ours were short) he withdrew a few hours later, after a defect was found in his own token counts; it is not credited here. A use of the record as a reference, not a re-run of it.",
+   "quote": "carries per-sample token counts for C3, so the length distribution under his exact settings (vLLM, temp 1.0 / top_p 1.0 / presence 2.0, official weights) is already public.",
+   "source": "recognition/RikiyaT__lm_understand-logs__issue-4_comment-6753818497_2026-11-09.json",
+   "url": "https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-6753818497",
+   "pages": [
+    "reports/weight-space-programming.html"
+   ]
+  },
+  {
+   "id": "condon-wsp-thanks",
+   "date": "2026-11-09",
+   "kind": "peer",
+   "who": "Jared Condon (buzzedaldrinx86-creator on GitHub), an outside commenter in the weight-space-programming authors' log repository",
+   "what": "Thanked the record, then added a data point of his own: the unedited model with thinking off under the authors' own non-thinking settings, one pass over the 500 problems, 41.2% correct with 36.2% of the answers cut at an 8,192-token limit. A thank-you and a separate run, not a re-run of ours: by his own account it differs from our C3 in temperature, top_p, presence penalty, token limit and engine at once.",
+   "quote": "Thanks for this record, Carlos.",
+   "source": "recognition/RikiyaT__lm_understand-logs__issue-4_comment-6745300426_2026-11-09.json",
+   "url": "https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-6745300426",
+   "pages": [
+    "reports/weight-space-programming.html"
+   ]
+  },
+  {
+   "id": "jeetu-c89-asterisks-pr-description",
+   "date": "2026-11-12",
+   "kind": "credit",
+   "who": "JeetuSK0808 on GitHub, submitter of the [SK2026] step-graphon row for C₈₉ in the optimization-constants registry",
+   "what": "The description of his pull request #276, which proposes taking the asterisks off two C₈₉ rows, names our replay of 27 October as one of the two replays of [SK2026] by people other than its submitter (the other is arhancanli's), and says the removal for that row rests on those two replays, not on his own checks. This is the description of an open pull request as it read on 12 November 2026, and it can be edited; it is not a merge.",
+   "quote": "The [VSJ2026] and [SK2026] rows have now been replayed exactly by people other than their submitters, with separate code, in the thread of #255: A. Canli replayed both step graphons ([comment](https://github.com/teorth/optimizationproblems/pull/255#issuecomment-6709271364), 7 Nov), and C. Toledo replayed [SK2026] ([comment](https://github.com/teorth/optimizationproblems/pull/255#issuecomment-6450361795), 27 Oct).",
+   "source": "recognition/teorth__optimizationproblems__pr-276_description_2026-11-12.json",
+   "url": "https://github.com/teorth/optimizationproblems/pull/276",
+   "pages": [
+    "reports/optconst-queue.html"
+   ]
   }
  ]
 }
