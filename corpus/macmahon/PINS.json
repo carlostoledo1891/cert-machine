@@ -1,5 +1,5 @@
 {
- "what": "The MacMahon minimum-universal-sets claim (Jason Davies), pinned: the repository github.com/jasondavies/macmahon-min-universal-sets at the commit below (the Palomar entry PALOMAR-2026-11-01-000019 names d8856c9; HEAD on 2026-11-03 is the paper-date commit after it), the files read here. The claimant's verifier (scripts/verify_cubes.py) and search (src/cubes.cpp) are READ, never run.",
+ "what": "The MacMahon minimum-universal-sets claim (Jason Davies), pinned: the repository github.com/jasondavies/macmahon-min-universal-sets at the commit below (the Palomar entry PALOMAR-2026-11-01-000019 names d8856c9; HEAD on 2026-11-03 is two commits after it), the files read here. The claimant's verifier (scripts/verify_cubes.py) and search (src/cubes.cpp) are READ, never run.",
  "repo": "https://github.com/jasondavies/macmahon-min-universal-sets",
  "commit": "7561f6d63b64f705824d05443050d0b8f532f2e3",
  "registered_commit": "d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8",
@@ -29,5 +29,5 @@
   "validation/Axioms.lean": "41a76460151c3969f52c92f6690edb006049d1f0408c715a2caa0f3428293ca1",
   "validation/axioms.txt": "110e1e4da52dfde6ffae47ca45dff8abe5bd6c47bf1c287a45cfcdf6d34d3635"
  },
- "lean_files_identical_at_registered_commit": "the diff d8856c9..HEAD touches only paper/ and scripts/generate_cube_figure.py: every .lean, comparator.json, lakefile.toml and lake-manifest.json are the registered bytes"
+ "lean_files_identical_at_registered_commit": "the diff d8856c9..HEAD (two commits) touches README.md, formalization.yaml, paper/ and scripts/generate_cube_figure.py, and nothing else: every .lean, comparator.json, lakefile.toml and lake-manifest.json are the registered bytes (corrected 2026-11-13: this line first left out README.md and formalization.yaml)"
 }

@@ -204,6 +204,26 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/macmahon.html (2026-11-12): the thirty cubes as Conway's table, a six-by-six grid with its
+     diagonal left empty, the twelve cubes of one minimum set (ABC | DEF) solid and the other eighteen hollow; beside it the
+     six letters as a hexagon with the set's two triangles, one filled and one open. LIGHT theme, no number, no label. */
+  macmahon: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · MacMahon cubes', path: '/reports/macmahon.html',
+    title: 'The ten minimum universal sets of MacMahon cubes: a classification decided twice',
+    alt: 'A six-by-six grid of small squares with its diagonal left empty: twelve squares, in two blocks of six, are solid and the other eighteen are hollow. Beside it, a hexagon of six dots joined into two triangles, one filled and one open.',
+    svgRaw: (() => {
+      const o = [], gx = 250, gy = 143, cell = 46, pitch = 60, cx = 880, cy = 322, r = 128;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A grid of squares with an empty diagonal, twelve solid and eighteen hollow, and a hexagon of six dots joined into two triangles" style="position:absolute;left:0;top:0">');
+      for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) {
+        if (i === j) continue;
+        const on = (i < 3) === (j < 3);
+        o.push('<rect x="' + (gx + j * pitch) + '" y="' + (gy + i * pitch) + '" width="' + cell + '" height="' + cell + '" rx="6" fill="var(' + (on ? '--ink' : '--surface') + ')" stroke="var(' + (on ? '--ink' : '--ink-3') + ')" stroke-width="2.4"/>');
+      }
+      const at = (k) => [cx + r * Math.cos(-Math.PI / 2 + k * Math.PI / 3), cy + r * Math.sin(-Math.PI / 2 + k * Math.PI / 3)];
+      [[0, 1, 2], [3, 4, 5]].forEach((tri, n) => o.push('<polygon points="' + tri.map((k) => at(k).map((v) => v.toFixed(1)).join(',')).join(' ') + '" fill="' + (n ? 'none' : 'var(--ink)') + '"' + (n ? '' : ' fill-opacity="0.16"') + ' stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round"/>'));
+      for (let k = 0; k < 6; k++) { const [x, y] = at(k); o.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="13" fill="var(' + (k < 3 ? '--ink' : '--surface') + ')" stroke="var(--ink)" stroke-width="2.4"/>'); }
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a

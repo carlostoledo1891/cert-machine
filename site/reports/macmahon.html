@@ -4,25 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The ten minimum universal sets of MacMahon cubes: a classification decided twice · Carlos Toledo</title>
-<meta name="description" content="Jason Davies&#39;s classification of the minimum universal sets of MacMahon cubes (GPT-6 Astra + Lean 4, 1 November 2026; the Johnson–Roldán conjectures) decided twice with no code shared with the claimant: the 300 released constructions re-built with our own geometry, and the ten theorems replayed through Lean&#39;s kernel and nanoda with our own axiom report; the gaps first.">
+<meta name="description" content="Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ten collections of twelve MacMahon cubes can build all thirty, checked two ways: his 300 released constructions rebuilt by an independent program, and his ten theorems accepted by two kernels. What stays open is said first.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/macmahon.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/macmahon.html">
 <meta property="og:title" content="The ten minimum universal sets of MacMahon cubes: a classification decided twice · Carlos Toledo">
-<meta property="og:description" content="Jason Davies&#39;s classification of the minimum universal sets of MacMahon cubes (GPT-6 Astra + Lean 4, 1 November 2026; the Johnson–Roldán conjectures) decided twice with no code shared with the claimant: the 300 released constructions re-built with our own geometry, and the ten theorems replayed through Lean&#39;s kernel and nanoda with our own axiom report; the gaps first.">
+<meta property="og:description" content="Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ten collections of twelve MacMahon cubes can build all thirty, checked two ways: his 300 released constructions rebuilt by an independent program, and his ten theorems accepted by two kernels. What stays open is said first.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
-<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image" content="https://carlostoledo.co/og-macmahon.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta property="og:image:alt" content="The ten minimum universal sets of MacMahon cubes: a classification decided twice — A six-by-six grid of small squares with its diagonal left empty: twelve squares, in two blocks of six, are solid and the other eighteen are hollow. Beside it, a hexagon of six dots joined into two triangles, one filled and one open.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The ten minimum universal sets of MacMahon cubes: a classification decided twice · Carlos Toledo">
-<meta name="twitter:description" content="Jason Davies&#39;s classification of the minimum universal sets of MacMahon cubes (GPT-6 Astra + Lean 4, 1 November 2026; the Johnson–Roldán conjectures) decided twice with no code shared with the claimant: the 300 released constructions re-built with our own geometry, and the ten theorems replayed through Lean&#39;s kernel and nanoda with our own axiom report; the gaps first.">
-<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The ten minimum universal sets of MacMahon cubes: a classification decided twice","description":"Jason Davies's classification of the minimum universal sets of MacMahon cubes (GPT-6 Astra + Lean 4, 1 November 2026; the Johnson–Roldán conjectures) decided twice with no code shared with the claimant: the 300 released constructions re-built with our own geometry, and the ten theorems replayed through Lean's kernel and nanoda with our own axiom report; the gaps first.","url":"https://carlostoledo.co/reports/macmahon.html","image":"https://carlostoledo.co/og-landing.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<meta name="twitter:description" content="Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ten collections of twelve MacMahon cubes can build all thirty, checked two ways: his 300 released constructions rebuilt by an independent program, and his ten theorems accepted by two kernels. What stays open is said first.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-macmahon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The ten minimum universal sets of MacMahon cubes: a classification decided twice","description":"Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ten collections of twelve MacMahon cubes can build all thirty, checked two ways: his 300 released constructions rebuilt by an independent program, and his ten theorems accepted by two kernels. What stays open is said first.","url":"https://carlostoledo.co/reports/macmahon.html","image":"https://carlostoledo.co/og-macmahon.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -813,176 +813,369 @@ a.ccd-btn:hover{border-color:var(--ink)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">cert-machine · a classification by an AI, decided twice</div>
+  <div class="eyebrow">cert-machine · report · generated from the records</div>
   <h1>The ten minimum universal sets of MacMahon cubes: a classification decided twice</h1>
-  <p class="deck">A MacMahon cube is coloured with six colours, one per side; thirty varieties exist up to rotation. A collection is universal when, for every variety, eight of its cubes assemble into a 2×2×2 model with that variety&#39;s exterior. Haraguchi proved twelve cubes are the minimum; Johnson and Roldán conjectured in 2024 that exactly ten collections attain it. On 1 November 2026 Jason Davies published a proof, written by GPT-6 Astra and checked in Lean 4, with the witnesses and the search released. It was decided here twice, at commit d8856c97e43e…, with no code shared with the claimant: the sufficiency half from the 300 released constructions with our own geometry, and the whole classification through two independent kernels. The gaps come first.</p>
+  <p class="deck">On 1 November 2026 Jason Davies published a proof, developed with OpenAI’s GPT-6 Astra and written in Lean, that exactly ten collections of twelve MacMahon cubes can build every one of the thirty cubes as a 2×2×2 model. It settles two conjectures of Johnson and Roldán from 2024. The result and the proof are his. With Claude (Anthropic’s AI model), I checked his release two ways that share no code with each other: my own program rebuilt all 300 of his released constructions, and two independent proof checkers accepted his ten Lean theorems.</p>
 </header>
 
-<p class="scope">Published, not peer-reviewed. The theorems are the kernel&#39;s: the lane below re-checks the build, that the ten stated theorems are the proved ones, and the axioms, under Lean&#39;s kernel and nanoda; the mathematics beyond what a kernel checks is not claimed here. The sufficiency check uses the claimant&#39;s table of thirty colourings as the labelling convention, after deciding that it lists every variety exactly once; everything else in it is ours. The claimant was told after this page was built.</p>
-
-<div class="col"><div class="note">
-  <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <b>The classification holds, twice over.</b> Every one of the 300 released constructions builds its target under our rotations and slots, the ten witnessed sets are exactly the ten two-triangle sets, and the label table lists all 30 varieties once (sufficiency, from the bytes). The repository at the commit the Palomar registry names builds with its own toolchain, Comparator finds each of the ten theorems stating what the Mathlib-only challenge states, both kernels accept the proofs, and our own axiom report names nothing beyond propext, Classical.choice and Quot.sound (the whole theorem, through the kernels). The statement reads as the paper's Theorem 1.</li><li><b>The mechanism.</b> Our own 24 proper rotations from signed axis permutations of determinant +1, our own eight corner slots, a perfect matching of cubes to slots searched here; the claimant's rotation indices, slot order, verifier and search ignored or read, never run. Then leanprover/comparator v4.35.0 with nanoda switched on, on the configuration the repository ships, on a hosted runner; the axioms printed from our file.</li><li><b>Check it.</b> <span class="m">python3 instruments/macmahon/check.py --check</span> re-derives the sufficiency record from the pinned witnesses; <span class="m">node tools/record-macmahon-kernel.js --check</span> re-reads the kernel record from the run's artifact; <span class="m">gh workflow run macmahon-kernel.yml</span> runs the lane again.</li></ul>
-</div></div>
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+    <svg viewBox="0 0 900 356" role="img" aria-label="Left, a grid with rows A to F and columns a to f. Its 30 cells off the diagonal are the 30 cubes; 12 of them, two blocks of six, are filled: the set ABC | DEF. Right, 10 small hexagons with corners A to F; in each, two triangles join one triple of letters and the other triple: the 10 sets.">
+    <text x="0.0" y="18" class="t-lab">the 30 cubes, each named by two letters</text>
+    <text x="20.0" y="83" text-anchor="middle" class="t-ax">A</text>
+    <text x="49.0" y="54" text-anchor="middle" class="t-ax">a</text>
+    <rect x="70" y="64" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="106" y="64" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="142" y="64" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="178" y="64" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="214" y="64" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="20.0" y="119" text-anchor="middle" class="t-ax">B</text>
+    <text x="85.0" y="54" text-anchor="middle" class="t-ax">b</text>
+    <rect x="34" y="100" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="106" y="100" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="142" y="100" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="178" y="100" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="214" y="100" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="20.0" y="155" text-anchor="middle" class="t-ax">C</text>
+    <text x="121.0" y="54" text-anchor="middle" class="t-ax">c</text>
+    <rect x="34" y="136" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="70" y="136" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="142" y="136" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="178" y="136" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="214" y="136" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="20.0" y="191" text-anchor="middle" class="t-ax">D</text>
+    <text x="157.0" y="54" text-anchor="middle" class="t-ax">d</text>
+    <rect x="34" y="172" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="70" y="172" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="172" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="178" y="172" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="214" y="172" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="20.0" y="227" text-anchor="middle" class="t-ax">E</text>
+    <text x="193.0" y="54" text-anchor="middle" class="t-ax">e</text>
+    <rect x="34" y="208" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="70" y="208" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="208" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="142" y="208" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="214" y="208" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="20.0" y="263" text-anchor="middle" class="t-ax">F</text>
+    <text x="229.0" y="54" text-anchor="middle" class="t-ax">f</text>
+    <rect x="34" y="244" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="70" y="244" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="244" width="30" height="30" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="142" y="244" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="178" y="244" width="30" height="30" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="0.0" y="304" class="t-ax">filled: one set of 12, ABC | DEF</text>
+    <text x="0.0" y="326" class="t-ax">hollow: the other 18 cubes</text>
+    <text x="330.0" y="18" class="t-lab">the 10 sets of 12: every split of six letters into two triples</text>
+    <polygon points="387.0,62.0 416.4,79.0 416.4,113.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="387.0,130.0 357.6,113.0 357.6,79.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="387.0" y="53" text-anchor="middle" class="t-ax">A</text>
+    <text x="427.7" y="76.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="427.7" y="123.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="387.0" y="147" text-anchor="middle" class="t-ax">D</text>
+    <text x="346.3" y="123.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="346.3" y="76.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="387.0" y="166" text-anchor="middle" class="t-ax">ABC | DEF</text>
+    <polygon points="501.0,62.0 530.4,79.0 501.0,130.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="530.4,113.0 471.6,113.0 471.6,79.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="501.0" y="53" text-anchor="middle" class="t-ax">A</text>
+    <text x="541.7" y="76.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="541.7" y="123.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="501.0" y="147" text-anchor="middle" class="t-ax">D</text>
+    <text x="460.3" y="123.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="460.3" y="76.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="501.0" y="166" text-anchor="middle" class="t-ax">ABD | CEF</text>
+    <polygon points="615.0,62.0 644.4,79.0 585.6,113.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="644.4,113.0 615.0,130.0 585.6,79.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="615.0" y="53" text-anchor="middle" class="t-ax">A</text>
+    <text x="655.7" y="76.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="655.7" y="123.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="615.0" y="147" text-anchor="middle" class="t-ax">D</text>
+    <text x="574.3" y="123.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="574.3" y="76.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="615.0" y="166" text-anchor="middle" class="t-ax">ABE | CDF</text>
+    <polygon points="729.0,62.0 758.4,79.0 699.6,79.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="758.4,113.0 729.0,130.0 699.6,113.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="729.0" y="53" text-anchor="middle" class="t-ax">A</text>
+    <text x="769.7" y="76.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="769.7" y="123.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="729.0" y="147" text-anchor="middle" class="t-ax">D</text>
+    <text x="688.3" y="123.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="688.3" y="76.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="729.0" y="166" text-anchor="middle" class="t-ax">ABF | CDE</text>
+    <polygon points="843.0,62.0 872.4,113.0 843.0,130.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="872.4,79.0 813.6,113.0 813.6,79.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="843.0" y="53" text-anchor="middle" class="t-ax">A</text>
+    <text x="883.7" y="76.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="883.7" y="123.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="843.0" y="147" text-anchor="middle" class="t-ax">D</text>
+    <text x="802.3" y="123.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="802.3" y="76.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="843.0" y="166" text-anchor="middle" class="t-ax">ACD | BEF</text>
+    <polygon points="387.0,198.0 416.4,249.0 357.6,249.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="416.4,215.0 387.0,266.0 357.6,215.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="387.0" y="189" text-anchor="middle" class="t-ax">A</text>
+    <text x="427.7" y="212.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="427.7" y="259.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="387.0" y="283" text-anchor="middle" class="t-ax">D</text>
+    <text x="346.3" y="259.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="346.3" y="212.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="387.0" y="302" text-anchor="middle" class="t-ax">ACE | BDF</text>
+    <polygon points="501.0,198.0 530.4,249.0 471.6,215.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="530.4,215.0 501.0,266.0 471.6,249.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="501.0" y="189" text-anchor="middle" class="t-ax">A</text>
+    <text x="541.7" y="212.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="541.7" y="259.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="501.0" y="283" text-anchor="middle" class="t-ax">D</text>
+    <text x="460.3" y="259.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="460.3" y="212.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="501.0" y="302" text-anchor="middle" class="t-ax">ACF | BDE</text>
+    <polygon points="615.0,198.0 615.0,266.0 585.6,249.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="644.4,215.0 644.4,249.0 585.6,215.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="615.0" y="189" text-anchor="middle" class="t-ax">A</text>
+    <text x="655.7" y="212.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="655.7" y="259.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="615.0" y="283" text-anchor="middle" class="t-ax">D</text>
+    <text x="574.3" y="259.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="574.3" y="212.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="615.0" y="302" text-anchor="middle" class="t-ax">ADE | BCF</text>
+    <polygon points="729.0,198.0 729.0,266.0 699.6,215.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="758.4,215.0 758.4,249.0 699.6,249.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="729.0" y="189" text-anchor="middle" class="t-ax">A</text>
+    <text x="769.7" y="212.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="769.7" y="259.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="729.0" y="283" text-anchor="middle" class="t-ax">D</text>
+    <text x="688.3" y="259.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="688.3" y="212.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="729.0" y="302" text-anchor="middle" class="t-ax">ADF | BCE</text>
+    <polygon points="843.0,198.0 813.6,249.0 813.6,215.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="872.4,215.0 872.4,249.0 843.0,266.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="843.0" y="189" text-anchor="middle" class="t-ax">A</text>
+    <text x="883.7" y="212.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="883.7" y="259.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="843.0" y="283" text-anchor="middle" class="t-ax">D</text>
+    <text x="802.3" y="259.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="802.3" y="212.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="843.0" y="302" text-anchor="middle" class="t-ax">AEF | BCD</text>
+    <text x="330.0" y="326" class="t-ax">10 sets × 30 cubes to build = 300 constructions, 300 rebuilt</text>
+    </svg>
+</div><div class="hv-n">
+    <svg viewBox="0 0 360 972" role="img" aria-label="Left, a grid with rows A to F and columns a to f. Its 30 cells off the diagonal are the 30 cubes; 12 of them, two blocks of six, are filled: the set ABC | DEF. Right, 10 small hexagons with corners A to F; in each, two triangles join one triple of letters and the other triple: the 10 sets.">
+    <text x="0.0" y="18" class="t-lab">the 30 cubes, each named by two letters</text>
+    <text x="50.0" y="84" text-anchor="middle" class="t-ax">A</text>
+    <text x="82.0" y="52" text-anchor="middle" class="t-ax">a</text>
+    <rect x="106" y="62" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="148" y="62" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="190" y="62" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="232" y="62" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="274" y="62" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="50.0" y="126" text-anchor="middle" class="t-ax">B</text>
+    <text x="124.0" y="52" text-anchor="middle" class="t-ax">b</text>
+    <rect x="64" y="104" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="148" y="104" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="190" y="104" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="232" y="104" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="274" y="104" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="50.0" y="168" text-anchor="middle" class="t-ax">C</text>
+    <text x="166.0" y="52" text-anchor="middle" class="t-ax">c</text>
+    <rect x="64" y="146" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="106" y="146" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="190" y="146" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="232" y="146" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="274" y="146" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <text x="50.0" y="210" text-anchor="middle" class="t-ax">D</text>
+    <text x="208.0" y="52" text-anchor="middle" class="t-ax">d</text>
+    <rect x="64" y="188" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="188" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="148" y="188" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="232" y="188" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="274" y="188" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="50.0" y="252" text-anchor="middle" class="t-ax">E</text>
+    <text x="250.0" y="52" text-anchor="middle" class="t-ax">e</text>
+    <rect x="64" y="230" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="230" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="148" y="230" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="190" y="230" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="274" y="230" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="50.0" y="294" text-anchor="middle" class="t-ax">F</text>
+    <text x="292.0" y="52" text-anchor="middle" class="t-ax">f</text>
+    <rect x="64" y="272" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="106" y="272" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="148" y="272" width="36" height="36" rx="4" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>
+    <rect x="190" y="272" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="232" y="272" width="36" height="36" rx="4" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6"/>
+    <text x="0.0" y="338" class="t-ax">filled: one set of 12, ABC | DEF</text>
+    <text x="0.0" y="358" class="t-ax">hollow: the other 18 cubes</text>
+    <text x="0.0" y="398" class="t-lab">the 10 sets of 12: six letters, two triples</text>
+    <polygon points="62.0,438.0 86.2,452.0 86.2,480.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="62.0,494.0 37.8,480.0 37.8,452.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="62.0" y="429" text-anchor="middle" class="t-ax">A</text>
+    <text x="97.5" y="449.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="97.5" y="490.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="62.0" y="511" text-anchor="middle" class="t-ax">D</text>
+    <text x="26.5" y="490.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="26.5" y="449.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="62.0" y="530" text-anchor="middle" class="t-ax">ABC | DEF</text>
+    <polygon points="180.0,438.0 204.2,452.0 180.0,494.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="204.2,480.0 155.8,480.0 155.8,452.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="180.0" y="429" text-anchor="middle" class="t-ax">A</text>
+    <text x="215.5" y="449.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="215.5" y="490.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="180.0" y="511" text-anchor="middle" class="t-ax">D</text>
+    <text x="144.5" y="490.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="144.5" y="449.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="180.0" y="530" text-anchor="middle" class="t-ax">ABD | CEF</text>
+    <polygon points="298.0,438.0 322.2,452.0 273.8,480.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="322.2,480.0 298.0,494.0 273.8,452.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="298.0" y="429" text-anchor="middle" class="t-ax">A</text>
+    <text x="333.5" y="449.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="333.5" y="490.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="298.0" y="511" text-anchor="middle" class="t-ax">D</text>
+    <text x="262.5" y="490.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="262.5" y="449.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="298.0" y="530" text-anchor="middle" class="t-ax">ABE | CDF</text>
+    <polygon points="62.0,564.0 86.2,578.0 37.8,578.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="86.2,606.0 62.0,620.0 37.8,606.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="62.0" y="555" text-anchor="middle" class="t-ax">A</text>
+    <text x="97.5" y="575.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="97.5" y="616.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="62.0" y="637" text-anchor="middle" class="t-ax">D</text>
+    <text x="26.5" y="616.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="26.5" y="575.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="62.0" y="656" text-anchor="middle" class="t-ax">ABF | CDE</text>
+    <polygon points="180.0,564.0 204.2,606.0 180.0,620.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="204.2,578.0 155.8,606.0 155.8,578.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="180.0" y="555" text-anchor="middle" class="t-ax">A</text>
+    <text x="215.5" y="575.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="215.5" y="616.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="180.0" y="637" text-anchor="middle" class="t-ax">D</text>
+    <text x="144.5" y="616.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="144.5" y="575.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="180.0" y="656" text-anchor="middle" class="t-ax">ACD | BEF</text>
+    <polygon points="298.0,564.0 322.2,606.0 273.8,606.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="322.2,578.0 298.0,620.0 273.8,578.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="298.0" y="555" text-anchor="middle" class="t-ax">A</text>
+    <text x="333.5" y="575.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="333.5" y="616.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="298.0" y="637" text-anchor="middle" class="t-ax">D</text>
+    <text x="262.5" y="616.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="262.5" y="575.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="298.0" y="656" text-anchor="middle" class="t-ax">ACE | BDF</text>
+    <polygon points="62.0,690.0 86.2,732.0 37.8,704.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="86.2,704.0 62.0,746.0 37.8,732.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="62.0" y="681" text-anchor="middle" class="t-ax">A</text>
+    <text x="97.5" y="701.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="97.5" y="742.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="62.0" y="763" text-anchor="middle" class="t-ax">D</text>
+    <text x="26.5" y="742.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="26.5" y="701.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="62.0" y="782" text-anchor="middle" class="t-ax">ACF | BDE</text>
+    <polygon points="180.0,690.0 180.0,746.0 155.8,732.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="204.2,704.0 204.2,732.0 155.8,704.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="180.0" y="681" text-anchor="middle" class="t-ax">A</text>
+    <text x="215.5" y="701.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="215.5" y="742.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="180.0" y="763" text-anchor="middle" class="t-ax">D</text>
+    <text x="144.5" y="742.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="144.5" y="701.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="180.0" y="782" text-anchor="middle" class="t-ax">ADE | BCF</text>
+    <polygon points="298.0,690.0 298.0,746.0 273.8,704.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="322.2,704.0 322.2,732.0 273.8,732.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="298.0" y="681" text-anchor="middle" class="t-ax">A</text>
+    <text x="333.5" y="701.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="333.5" y="742.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="298.0" y="763" text-anchor="middle" class="t-ax">D</text>
+    <text x="262.5" y="742.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="262.5" y="701.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="298.0" y="782" text-anchor="middle" class="t-ax">ADF | BCE</text>
+    <polygon points="62.0,816.0 37.8,858.0 37.8,830.0" fill="var(--ink)" fill-opacity="0.16" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="86.2,830.0 86.2,858.0 62.0,872.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+    <text x="62.0" y="807" text-anchor="middle" class="t-ax">A</text>
+    <text x="97.5" y="827.5" text-anchor="middle" class="t-ax">B</text>
+    <text x="97.5" y="868.5" text-anchor="middle" class="t-ax">C</text>
+    <text x="62.0" y="889" text-anchor="middle" class="t-ax">D</text>
+    <text x="26.5" y="868.5" text-anchor="middle" class="t-ax">E</text>
+    <text x="26.5" y="827.5" text-anchor="middle" class="t-ax">F</text>
+    <text x="62.0" y="908" text-anchor="middle" class="t-ax">AEF | BCD</text>
+    <text x="0.0" y="940" class="t-ax">10 sets × 30 cubes to build =</text>
+    <text x="0.0" y="960" class="t-ax">300 constructions, 300 rebuilt</text>
+    </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/macmahon-witnesses.json@4627cdbad9d0 corpus/macmahon/results/universal_witnesses.json@18ded406ca9a" data-stop>The claim, drawn. A MacMahon cube has six colours, one on each side; there are 30 of them, and Conway’s table names each by two different letters from A to F. Split the six letters into two triples and take the cubes whose two letters fall in the same triple: a set of 12. There are 10 splits, so 10 sets. Davies’s theorem says these 10, and no other collection of 12 cubes or fewer, can build every one of the 30 cubes. The sets drawn are the ones in his released file.<span class="fig-rec">Records: <span class="m">certs/macmahon-witnesses.json</span> · sha256 4627cdbad9d0; <span class="m">corpus/macmahon/results/universal_witnesses.json</span> · sha256 18ded406ca9a</span><span class="fig-stop">The build refuses this figure if a released set is not a split of the six letters into two triples, the sets are not 10 different ones, or a released construction is not rebuilt.</span></figcaption>
+</figure></div>
 
 <div class="wide">
-  <div class="stats" data-n="5">
-    <div class="stat"><div class="k">constructions built</div><div class="v">300 of 300</div><div class="n">ten sets × thirty targets, each a perfect matching under our 24 rotations and 8 slots</div></div>
-    <div class="stat"><div class="k">varieties in the table</div><div class="v">30 of 30</div><div class="n">six distinct colours each; pairwise inequivalent under rotation; every class once</div></div>
-    <div class="stat"><div class="k">minimum sets</div><div class="v">10</div><div class="n">the ten partitions of six labels into two triples, exactly</div></div>
-    <div class="stat"><div class="k">theorems through two kernels</div><div class="v">10</div><div class="n">Lean default kernel accepts the solution; nanoda kernel accepts the solution; axioms the three standard ones</div></div>
-    <div class="stat"><div class="k">red controls</div><div class="v">3</div><div class="n">a cube from outside the set, a target with two faces exchanged, reflections admitted: each refused</div></div>
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">released constructions rebuilt</div><div class="v">300 of 300</div><div class="n">by my own program, with its own rotations and corner positions</div></div>
+    <div class="stat"><div class="k">Lean theorems accepted</div><div class="v">10 of 10</div><div class="n">by two kernels: Lean’s own and nanoda</div></div>
+    <div class="stat"><div class="k">planted errors caught</div><div class="v">3 of 3</div><div class="n">all on the first route</div></div>
+    <div class="stat"><div class="k">the Lean statement against the paper</div><div class="v sm">matches</div><div class="n">a reading, not a machine check</div></div>
   </div>
 </div>
 
-<section class="col">
+<p class="scope">The result and the proof are Jason Davies’s; his disclosure says GPT-6 Astra (OpenAI) developed the argument, the code, the Lean proofs and the manuscript under his direction. The conjectures are Inga Johnson and Erika Roldán’s. This page checks his release; it is not new mathematics. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs under my direction.</p>
+
+<section class="col" id="limits">
   <div class="sec-head">
-    <div class="lab">§1 · the gaps</div>
-    <h2>What is taken on the paper&#39;s word, and what is not decided here</h2>
+    <div class="lab">read this first</div>
+    <h2>What is still open</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>gap</th><th>status</th><th>where it is decided, if anywhere</th></tr></thead><tbody><tr><td>The physical cubes are modelled discretely: six face directions, rotations as signed-axis permutations of determinant +1, a model&#39;s exterior as the outward faces of eight corner slots. That this is what &quot;building a 2×2×2 model, exteriors only&quot; means is the paper&#39;s declaration, and the reader&#39;s.</td><td>read, not decided</td><td>the challenge&#39;s own theorems certify the tables against that model (proper_rotation_iff, exposed_face_rule); the model itself is a convention</td></tr><tr><td>The necessity half — no other 12-multiset and no 11-multiset is universal — rests on the Lean proof: here it is decided through two kernels, not by an independent search.</td><td>decided by the kernel lane only</td><td>certs/macmahon-kernel.json (an independent exhaustive search is the stage not run)</td></tr><tr><td>The Palomar registry entry names commit d8856c9; the repository&#39;s HEAD on 3 November is one commit later, changing only the paper&#39;s date, its PDF and a figure script.</td><td>read</td><td>corpus/macmahon/PINS.json: every Lean and configuration file identical at both commits</td></tr><tr><td>Priority beyond the cited sources is not established by the claimant (formalization.yaml says so) and not examined here.</td><td>not examined</td><td>—</td></tr></tbody></table></div></div>
+<ul class="plain"><li><b>My own program checks one half only.</b> It shows that the 10 sets work. That no other collection of 12 works, and none of 11, rests on the Lean proof. Here that half was checked by the two kernels only; I ran no independent search for other sets.</li><li><b>The second route repeats a check that had already been run.</b> The author’s own automated checks and the Palomar registry (entry PALOMAR-2026-11-01-000019) had checked the same commit. Mine is a second party’s run on a separate machine, with my own report of the axioms. It agrees with theirs; it is not a different kind of evidence.</li><li><b>The first route uses his table of names.</b> My program takes his table of the 30 colourings as the naming of the cubes, after checking that it lists every cube exactly once, and it takes his lists of which eight cubes to use. How to turn and place them it works out itself.</li><li><b>The cubes are a model.</b> The Lean statement is about six directions and a table of 24 rotations, not about solid cubes in space. That this is what building a 2×2×2 model means is the paper’s declaration, and I take it on the paper’s word.</li><li><b>Not the paper’s written proof.</b> The Lean statement was read against the paper’s main theorem and matches; that is a reading. The paper’s written argument was not checked, and the author’s disclosure says the Lean proof takes a different route from it. The paper’s other computations (counts of how many cubes sets of eight to thirteen can build) are not Lean theorems, and I did not re-run them: his search and his verifier were read, never run.</li><li><b>Two commits.</b> The kernels ran on commit <span class="m">d8856c97</span>, the one the registry names. The constructions, and the author’s disclosure quoted on this page, were read at a later commit, <span class="m">7561f6d6</span>, the newest on 3 November 2026. Every Lean and configuration file pinned here is the same bytes at both: the kernel run holds each one to the digest pinned at the later commit.</li><li><b>AI models on both sides.</b> The proof was developed by GPT-6 Astra (OpenAI). My programs were written by Claude (Anthropic), and the author’s disclosure says a Claude model also reviewed his manuscript. An exact program and two kernels decide here, not a model; you should still know.</li><li><b>Lean and Mathlib are trusted,</b> as in any check of this kind, and so is Comparator’s matching of the statements.</li><li><b>Review and priority.</b> The author’s disclosure calls the work self-assessed and not independently reviewed by a human expert, and says priority beyond the sources it cites has not been established. Neither was examined here.</li></ul>
 </section>
 
-<section class="col">
+<section class="col" id="claim">
   <div class="sec-head">
-    <div class="lab">§2 · the claim</div>
+    <div class="lab">the claim</div>
     <h2>Thirty cubes, twelve at a time</h2>
   </div>
-<p>Conway's tableau names each variety by an ordered pair of distinct labels from A to F; the labels are not colours. The claim: a collection of twelve cubes is universal exactly when it is one copy of each variety whose two labels lie in the same triple of a partition of the six labels into two triples — the two disjoint triangles below — and there are ten such partitions, so ten minimum collections, none with a repeated variety, even when repeats are allowed.</p><div class="wide"><figure>
-  <div class="figbox">
-<svg viewBox="0 0 1000 250" width="100%" role="img" aria-label="Ten small hexagons of the labels A to F; in each, two disjoint triangles join one triple of labels and its complement: the ten minimum universal collections of MacMahon cubes." style="font-family:var(--f-mono);font-size:12px">
-<polygon points="60.0,92.0 91.2,110.0 91.2,146.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="60.0,164.0 28.8,146.0 28.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="60.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="60.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="91.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="91.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="91.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="91.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="60.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="60.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="28.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="28.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="28.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="28.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="60" y="204" text-anchor="middle" fill="var(--ink-3)">ABC | DEF</text>
-<polygon points="158.0,92.0 189.2,110.0 158.0,164.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="189.2,146.0 126.8,146.0 126.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="158.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="158.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="189.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="189.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="189.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="189.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="158.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="158.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="126.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="126.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="126.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="126.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="158" y="204" text-anchor="middle" fill="var(--ink-3)">ABD | CEF</text>
-<polygon points="256.0,92.0 287.2,110.0 224.8,146.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="287.2,146.0 256.0,164.0 224.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="256.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="256.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="287.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="287.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="287.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="287.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="256.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="256.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="224.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="224.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="224.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="224.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="256" y="204" text-anchor="middle" fill="var(--ink-3)">ABE | CDF</text>
-<polygon points="354.0,92.0 385.2,110.0 322.8,110.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="385.2,146.0 354.0,164.0 322.8,146.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="354.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="354.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="385.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="385.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="385.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="385.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="354.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="354.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="322.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="322.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="322.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="322.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="354" y="204" text-anchor="middle" fill="var(--ink-3)">ABF | CDE</text>
-<polygon points="452.0,92.0 483.2,146.0 452.0,164.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="483.2,110.0 420.8,146.0 420.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="452.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="452.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="483.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="483.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="483.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="483.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="452.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="452.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="420.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="420.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="420.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="420.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="452" y="204" text-anchor="middle" fill="var(--ink-3)">ACD | BEF</text>
-<polygon points="550.0,92.0 581.2,146.0 518.8,146.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="581.2,110.0 550.0,164.0 518.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="550.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="550.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="581.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="581.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="581.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="581.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="550.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="550.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="518.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="518.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="518.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="518.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="550" y="204" text-anchor="middle" fill="var(--ink-3)">ACE | BDF</text>
-<polygon points="648.0,92.0 679.2,146.0 616.8,110.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="679.2,110.0 648.0,164.0 616.8,146.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="648.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="648.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="679.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="679.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="679.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="679.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="648.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="648.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="616.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="616.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="616.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="616.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="648" y="204" text-anchor="middle" fill="var(--ink-3)">ACF | BDE</text>
-<polygon points="746.0,92.0 746.0,164.0 714.8,146.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="777.2,110.0 777.2,146.0 714.8,110.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="746.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="746.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="777.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="777.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="777.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="777.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="746.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="746.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="714.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="714.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="714.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="714.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="746" y="204" text-anchor="middle" fill="var(--ink-3)">ADE | BCF</text>
-<polygon points="844.0,92.0 844.0,164.0 812.8,110.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="875.2,110.0 875.2,146.0 812.8,146.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="844.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="844.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="875.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="875.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="875.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="875.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="844.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="844.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="812.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="812.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="812.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="812.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="844" y="204" text-anchor="middle" fill="var(--ink-3)">ADF | BCE</text>
-<polygon points="942.0,92.0 910.8,146.0 910.8,110.0" fill="var(--c-1)" fill-opacity="0.14" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
-<polygon points="973.2,110.0 973.2,146.0 942.0,164.0" fill="var(--c-3)" fill-opacity="0.14" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="942.0" cy="92.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="942.0" y="96.0" text-anchor="middle" fill="var(--ink)">A</text>
-<circle cx="973.2" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="973.2" y="114.0" text-anchor="middle" fill="var(--ink)">B</text>
-<circle cx="973.2" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="973.2" y="150.0" text-anchor="middle" fill="var(--ink)">C</text>
-<circle cx="942.0" cy="164.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="942.0" y="168.0" text-anchor="middle" fill="var(--ink)">D</text>
-<circle cx="910.8" cy="146.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="910.8" y="150.0" text-anchor="middle" fill="var(--ink)">E</text>
-<circle cx="910.8" cy="110.0" r="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.2"/><text x="910.8" y="114.0" text-anchor="middle" fill="var(--ink)">F</text>
-<text x="942" y="204" text-anchor="middle" fill="var(--ink-3)">AEF | BCD</text>
-<text x="60" y="24" fill="var(--ink-4)">each triangle: the six varieties whose two tableau labels both lie in that triple; twelve cubes, every variety buildable</text>
-</svg>
-  </div>
-  <figcaption data-record="certs/macmahon-witnesses.json@4627cdbad9d0" data-stop>The ten minimum universal collections, one per partition of the six labels into two triples. Each triangle stands for the six ordered pairs inside its triple; the twelve cubes build every one of the thirty varieties.<span class="fig-rec">Record: <span class="m">certs/macmahon-witnesses.json</span> · sha256 4627cdbad9d0</span><span class="fig-stop">The build refuses this figure if the ten witnessed sets are no longer the ten two-triangle sets, or a construction fails to build its target.</span></figcaption>
-</figure></div>
+<p>Paint the six sides of a cube with six colours, one each. Up to turning the cube in the hand there are 30 ways, mirror images counted apart: the MacMahon cubes. A collection of cubes is universal if, for every one of the 30, eight cubes of the collection can be stacked into a 2×2×2 block whose outside is that cube, twice as large; the hidden sides need not match. </p><p><a href="https://arxiv.org/abs/1408.3696">Kazuya Haraguchi</a> showed that a universal collection needs at least 12 cubes and gave one of that size. In 2024 <a href="https://arxiv.org/abs/2407.13208">Inga Johnson and Erika Roldán</a> conjectured that exactly 10 sets of 12 different cubes are universal (their Conjectures 4 and 8), and described them: the two-triple splits drawn above. Davies’s theorem is that the conjecture is right, and stays right when a collection may hold the same cube more than once: no collection with a repeat reaches the minimum.</p>
 </section>
 
-<section class="col">
+<section class="col" id="constructions">
   <div class="sec-head">
-    <div class="lab">§3 · sufficiency, from the bytes</div>
-    <h2>The 300 released constructions, re-decided with our own geometry</h2>
+    <div class="lab">1 · my own program</div>
+    <h2>All 300 released constructions, rebuilt</h2>
   </div>
-<p>The claimant releases, for each of the ten sets and each of the thirty targets, the eight cubes used. <span class="m">instruments/macmahon/check.py</span> (standard library) ignores his rotation indices and slot order: it builds the 24 proper rotations from the signed axis permutations of determinant +1, the eight corner slots as the sign patterns of three axes, and asks whether the eight cubes admit rotations and a one-to-one assignment to slots with every exposed face the target's colour, by a backtracking match. First it decides that the label table is a table of all thirty varieties: six distinct colours on every entry, thirty rotation classes, the same thirty as the 720 colourings of a cube give.</p><div class="wide"><div class="tw"><table><thead><tr><th>fact</th><th>decided</th><th>word</th></tr></thead><tbody><tr><td>T1 · the label table</td><td>30 labelled colourings; 30 rotation classes, equal to the 30 classes of all colourings</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>T2 · the ten sets</td><td>10 witnessed sets, 10 distinct, 10 two-triangle sets of the 10 partitions</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>T3 · the constructions</td><td>300 of 300 build their target</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p><b>Red controls.</b> a witness with one cube swapped for a cube outside the set is NOT built (fired). the same eight cubes against the target with two faces exchanged are NOT built (fired). a rotation table that admits reflections (48 maps) merges the 30 varieties into 15, so T1 would fail under it (fired).</p>
+<ul class="plain"><li><b>What he released.</b> For each of the 10 sets and each of the 30 cubes to build, the eight cubes that build it: 300 constructions.</li><li><b>What the program does.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/macmahon/check.py"><span class="m">instruments/macmahon/check.py</span></a> was written from the definitions by Claude (Anthropic’s AI model) under my direction, in Python’s standard library. It makes its own 24 rotations of a cube and its own eight corner positions. For each construction it searches for a way to turn the eight cubes and put one in each corner so that every outside side shows the right colour. It ignores the rotations and positions his file suggests, and runs none of his code.</li><li><b>First, the names.</b> His table gives 30 colourings, six different colours on each, and no rotation takes one to another. They are the same 30 classes that all 720 colourings of a cube fall into, so the table lists every cube once. <span class="tag held">CERTIFIED</span></li><li><b>Then the sets.</b> The released sets are 10 different sets of 12 cubes, and they are exactly the 10 splits of six letters into two triples. <span class="tag held">CERTIFIED</span></li><li><b>Then the constructions.</b> 300 of 300 build their cube. <span class="tag held">CERTIFIED</span></li><li><b>What that decides.</b> That each of the 10 sets can build all 30 cubes. It says nothing about whether other sets can.</li></ul>
 </section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">§4 · the kernel lane</div>
-    <h2>The ten theorems, under two kernels</h2>
+<section class="" id="kernels">
+  <div class="col sec-head">
+    <div class="lab">2 · two kernels</div>
+    <h2>His 10 Lean theorems, accepted by two independent checkers</h2>
   </div>
-<p>The repository ships a Comparator challenge: <span class="m">Challenge.lean</span> states the ten theorems with sorry and imports only Mathlib; <span class="m">Solution.lean</span> proves them. On a hosted runner (<span class="m">.github/workflows/macmahon-kernel.yml</span>, run 41729708954) the repository at d8856c97e43e… was built with its own toolchain (Lean v4.35.0, Mathlib v4.35.0; cache 116 s, build 207 s) and audited by leanprover/comparator v4.35.0 with nanoda on, in 347 s. Comparator checks that each named theorem states exactly what the challenge states and replays the proofs; then <span class="m">#print axioms</span> of the ten, from our own file.</p><div class="wide"><div class="tw"><table><thead><tr><th>theorem</th><th>axioms (our report)</th></tr></thead><tbody><tr><td>minimum_size</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>physical_minimum</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>physical_exactly_ten</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>physical_iff_two_triangles</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>physical_minimum_has_no_repeats</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>proper_rotation_iff</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>exposed_face_rule</td><td>propext</td></tr><tr><td>face_colours_valid</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>face_assignment_coverage</td><td>Classical.choice, Quot.sound, propext</td></tr><tr><td>face_assignment_unique</td><td>Classical.choice, Quot.sound, propext</td></tr></tbody></table></div></div><p><b>What the kernels said.</b> Lean default kernel accepts the solution; nanoda kernel accepts the solution; Comparator: each of the ten named theorems states what Challenge.lean states, uses only the permitted axioms, and its proof replays through Lean&#39;s kernel and through nanoda; our own #print axioms names only propext, Classical.choice, Quot.sound (exposed_face_rule: propext alone).</p>
+<div class="col"><ul class="plain"><li><b>What was run.</b> On a machine hosted by GitHub (<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/.github/workflows/macmahon-kernel.yml"><span class="m">.github/workflows/macmahon-kernel.yml</span></a>, run <span class="m">41729708954</span>), with Claude writing the workflow under my direction: his repository at the commit the Palomar registry names, built with its own Lean 4.35.0 and Mathlib 4.35.0. Then Comparator 4.35.0, in the configuration his repository ships, with one change: nanoda, a kernel written in Rust apart from Lean, switched on beside Lean’s own.</li><li><b>What Comparator checks.</b> That each of the 10 theorems proved is exactly the one stated in a separate file that imports only Mathlib, so a proof cannot quietly change what it proves; that only the three standard axioms are used; and that the proofs replay.</li><li><b>What came back.</b> Both kernels accept all 10. A report of the axioms, printed from a file of mine, names nothing beyond <span class="m">propext, Classical.choice, Quot.sound</span>; one theorem needs <span class="m">propext</span> alone. The library’s cache took 116 s, the build 207 s and the comparison 347 s. <span class="tag held">CERTIFIED</span></li><li><b>One declared change to nanoda.</b> Its working memory per thread (the stack) was raised to 1 GiB. Nothing else in it was touched.</li><li><b>The statement, read.</b> With Claude, I read the Lean statement file against the paper’s main theorem, sentence by sentence. It matches: a collection counts copies, so repeats are in the statement; a construction needs eight distinct physical cubes; only the outside sides are constrained; all 30 cubes must be built. This is a reading, kept apart from what the kernels decided.</li></ul></div><div class="wide"><details class="more"><summary>The 10 theorems and their axioms</summary><div class="col"><ul class="plain"><li><span class="m">minimum_size</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">physical_minimum</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">physical_exactly_ten</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">physical_iff_two_triangles</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">physical_minimum_has_no_repeats</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">proper_rotation_iff</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">exposed_face_rule</span> · propext</li><li><span class="m">face_colours_valid</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">face_assignment_coverage</span> · Classical.choice, Quot.sound, propext</li><li><span class="m">face_assignment_unique</span> · Classical.choice, Quot.sound, propext</li></ul></div></details></div><div class="wide"><details class="more"><summary>The reading, in 6 points</summary><div class="col"><p>Challenge.lean (imports only Mathlib) read against the paper&#39;s Theorem 1 (&quot;The minimum size of a universal collection is twelve. Exactly ten labelled collections attain that size, even when repeated varieties are permitted. Each unordered partition of the six labels into triples gives one; these are all; none has repeats.&quot;) — a reading, not a decision.</p><ul class="plain"><li><b>1.</b> An Inventory is Pair → ℕ: multiplicities allowed, so &quot;repeated varieties permitted&quot; is in the statement; DiagonalZero removes the thirty diagonal non-varieties; total is the collection size.</li><li><b>2.</b> PhysicalBuilds a t asks for an INJECTION of the eight slots into the stock (eight distinct physical copies) with a rotation each, and FaceFits constrains only the three exposed faces of each slot: &quot;exteriors only, internal faces free&quot; as the paper says.</li><li><b>3.</b> PhysicalUniversal quantifies over every ordered pair i ≠ j: all thirty varieties, each labelled by Conway&#39;s tableau; &quot;labelled&quot; (colours fixed, no quotient by colour permutations) is the statement&#39;s own frame, as the paper&#39;s Theorem 1 says.</li><li><b>4.</b> minimum_size (IsLeast … 12) and physical_minimum are the first sentence; physical_exactly_ten (Nat.card = 10) the second; physical_iff_two_triangles the third (twoTriangles s for a 3-subset s); physical_minimum_has_no_repeats the last.</li><li><b>5.</b> The five auxiliary theorems (proper_rotation_iff, exposed_face_rule, face_colours_valid, face_assignment_coverage, face_assignment_unique) certify the tables the statement rests on: the 24 rotations are exactly the proper ones, the slots expose the outward faces, and the faceColours table lists every six-distinct-colour colouring exactly once up to rotation — the same facts certs/macmahon-witnesses.json decided independently (T1).</li><li><b>6.</b> Not in the Lean statement: the physical cubes themselves (the model is the discrete one the paper declares: six face directions, signed-axis permutations of determinant +1). The paper says so; this is the one step a reader takes on the paper&#39;s word.</li></ul></div></details></div>
 </section>
 
-<section class="col">
+<section class="col" id="planted">
   <div class="sec-head">
-    <div class="lab">§5 · the statement, read</div>
-    <h2>Does the Lean statement say what the paper says?</h2>
+    <div class="lab">3 · planted errors</div>
+    <h2>What would have caught a wrong construction</h2>
   </div>
-<p>Challenge.lean (imports only Mathlib) read against the paper&#39;s Theorem 1 (&quot;The minimum size of a universal collection is twelve. Exactly ten labelled collections attain that size, even when repeated varieties are permitted. Each unordered partition of the six labels into triples gives one; these are all; none has repeats.&quot;) — a reading, not a decision. Word: MATCHES.</p><ul class="plain"><li><b>1.</b> An Inventory is Pair → ℕ: multiplicities allowed, so &quot;repeated varieties permitted&quot; is in the statement; DiagonalZero removes the thirty diagonal non-varieties; total is the collection size.</li><li><b>2.</b> PhysicalBuilds a t asks for an INJECTION of the eight slots into the stock (eight distinct physical copies) with a rotation each, and FaceFits constrains only the three exposed faces of each slot: &quot;exteriors only, internal faces free&quot; as the paper says.</li><li><b>3.</b> PhysicalUniversal quantifies over every ordered pair i ≠ j: all thirty varieties, each labelled by Conway&#39;s tableau; &quot;labelled&quot; (colours fixed, no quotient by colour permutations) is the statement&#39;s own frame, as the paper&#39;s Theorem 1 says.</li><li><b>4.</b> minimum_size (IsLeast … 12) and physical_minimum are the first sentence; physical_exactly_ten (Nat.card = 10) the second; physical_iff_two_triangles the third (twoTriangles s for a 3-subset s); physical_minimum_has_no_repeats the last.</li><li><b>5.</b> The five auxiliary theorems (proper_rotation_iff, exposed_face_rule, face_colours_valid, face_assignment_coverage, face_assignment_unique) certify the tables the statement rests on: the 24 rotations are exactly the proper ones, the slots expose the outward faces, and the faceColours table lists every six-distinct-colour colouring exactly once up to rotation — the same facts certs/macmahon-witnesses.json decided independently (T1).</li><li><b>6.</b> Not in the Lean statement: the physical cubes themselves (the model is the discrete one the paper declares: six face directions, signed-axis permutations of determinant +1). The paper says so; this is the one step a reader takes on the paper&#39;s word.</li></ul>
+<ul class="plain"><li><b>A cube from outside the set.</b> In one released construction, one of the eight cubes is swapped for a cube that is not in the set. The program refuses it.</li><li><b>A wrong cube to build.</b> The same eight cubes are asked to build a cube with two of its sides exchanged. The program refuses it.</li><li><b>Mirror images allowed.</b> If turning a cube could include mirror reflections (48 maps in place of 24), the 30 cubes would merge into 15 and the check of the names would fail. Under that table it does.</li><li><b>None on the second route.</b> I planted no false theorem in the kernel run. What guards the statement there is Comparator’s own comparison with the separate statement file.</li></ul>
 </section>
 
-<section class="col">
+<section class="col" id="roles">
   <div class="sec-head">
-    <div class="lab">§6 · what is claimed, and what is not</div>
-    <h2>The limits</h2>
+    <div class="lab">who did what</div>
+    <h2>Each step is a separate job</h2>
   </div>
-<ul class="plain"><li><b>Claimed.</b> That the ten released sets are universal, decided from the bytes with our own geometry; that the repository builds at the named commit, that its ten theorems are the ones proved, that two kernels accept the proofs under the three standard axioms; that the Lean statement reads as the paper&#39;s theorem.</li><li><b>Used, not re-proved.</b> The discrete model of the cubes the paper declares; Lean&#39;s kernel and nanoda; Comparator&#39;s statement matching; the claimant&#39;s label table as the naming convention, after deciding it lists every variety once.</li><li><b>Not claimed.</b> Any independent proof of necessity; priority; anything about how the proof was found.</li><li><b>Independence.</b> From the claimant: his verifier and search were read, never run, and no code here derives from them. Not from the operator (one).</li></ul>
+<ul class="plain"><li><b>The result and the proof.</b> Jason Davies, with GPT-6 Astra (OpenAI), which his disclosure says developed the argument, the code, the Lean proofs and the manuscript under his direction.</li><li><b>The conjectures.</b> Inga Johnson and Erika Roldán. The minimum of 12: Kazuya Haraguchi. The cubes are MacMahon’s; the table of names is Conway’s.</li><li><b>The checkers.</b> Lean, Mathlib, Comparator and nanoda: their authors. The earlier mechanical check of the same commit: the Palomar registry.</li><li><b>The checks on this page.</b> Carlos Toledo, with Claude (Anthropic), which wrote the program and the workflow under my direction. Both ran on 3 November 2026.</li></ul>
+</section>
+
+<section class="col" id="rerun">
+  <div class="sec-head">
+    <div class="lab">check it yourself</div>
+    <h2>How to re-run it</h2>
+  </div>
+<ul class="plain"><li><b>The constructions.</b> <span class="m">python3 instruments/macmahon/check.py --check</span> rebuilds all 300 from the pinned files and refuses on any difference from <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/macmahon-witnesses.json"><span class="m">certs/macmahon-witnesses.json</span></a>.</li><li><b>The kernels.</b> <span class="m">node tools/record-macmahon-kernel.js --check</span> re-reads <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/macmahon-kernel.json"><span class="m">certs/macmahon-kernel.json</span></a> from the run’s saved output; <span class="m">gh workflow run macmahon-kernel.yml</span> on a copy of this repository runs the build and both kernels again.</li><li><b>The pinned files.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/macmahon/PINS.json"><span class="m">corpus/macmahon/PINS.json</span></a>: 23 files of his repository, each with its sha256, copied in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/macmahon"><span class="m">corpus/macmahon</span></a>.</li><li><b>What was checked.</b> <a href="https://github.com/jasondavies/macmahon-min-universal-sets/tree/d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8">jasondavies/macmahon-min-universal-sets at d8856c97</a> (the kernels) and <a href="https://github.com/jasondavies/macmahon-min-universal-sets/tree/7561f6d63b64f705824d05443050d0b8f532f2e3">jasondavies/macmahon-min-universal-sets at 7561f6d6</a> (the constructions).</li></ul>
 </section>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-macmahon.js from certs/macmahon-witnesses.json (2026-11-03, sha256 4627cdbad9d0…) and certs/macmahon-kernel.json (2026-11-03, sha256 0b70fb2555b8…), both re-checked at build; the repository pinned at d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8 (corpus/macmahon/PINS.json, 23 files).</p><p>git a40129f7</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-macmahon.js from certs/macmahon-witnesses.json and certs/macmahon-kernel.json, both re-checked as the page is built, and corpus/macmahon/PINS.json. I did this with Claude (Anthropic); Claude wrote the programs under my direction.</p><p>git 8d8cdd46 · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
 
 </body>
 </html>
