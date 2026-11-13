@@ -9,9 +9,19 @@
 # claimant's scripts are never run. Nothing here pushes. The artifact macmahon-kernel (result.json + logs) is read by
 # tools/record-macmahon-kernel.js, which writes certs/macmahon-kernel.json.
 #   gh workflow run macmahon-kernel.yml
+#   gh workflow run macmahon-kernel.yml -f plant=exactly-nine     the red control C6 of corpus/macmahon-necessity/RULES.md: its
+#     artifact is macmahon-kernel-plant-exactly-nine and is never read by tools/record-macmahon-kernel.js
 name: macmahon-kernel
 on:
   workflow_dispatch:
+    inputs:
+      plant:
+        description: 'red control (corpus/macmahon-necessity/RULES.md, C6): exactly-nine changes physical_exactly_ten in Challenge.lean to = 9, the Solution unchanged; Comparator must refuse'
+        type: choice
+        default: none
+        options:
+          - none
+          - exactly-nine
 permissions:
   contents: read
 env:
@@ -107,6 +117,26 @@ jobs:
           print('held to the desk digests:', held, 'Lean/config files; not compared (paper, results, scripts):', len(skipped))
           PY
           cat comparator.json
+      - name: the red control, when asked for (a planted false theorem in the challenge; the default run plants nothing)
+        if: inputs.plant == 'exactly-nine'
+        working-directory: claim
+        run: |
+          set -euo pipefail
+          mkdir -p ~/out
+          cp Challenge.lean ~/out/Challenge.before.lean
+          python3 - <<'PY'
+          p = 'Challenge.lean'
+          s = open(p, encoding='utf-8').read()
+          old = 'theorem physical_exactly_ten : Nat.card MinimumPhysicalInventory = 10 := by sorry'
+          new = 'theorem physical_exactly_ten : Nat.card MinimumPhysicalInventory = 9 := by sorry'
+          assert s.count(old) == 1, 'the line to plant is not there exactly once'
+          open(p, 'w', encoding='utf-8').write(s.replace(old, new))
+          PY
+          diff ~/out/Challenge.before.lean Challenge.lean > ~/out/plant.diff || true
+          test "$(grep -c '^[<>]' ~/out/plant.diff)" = "2"
+          cat ~/out/plant.diff
+          echo "exactly-nine" > ~/out/plant.txt
+          sha256sum Challenge.lean Solution.lean >> ~/out/plant.txt
       - name: dependencies and the Mathlib cache
         working-directory: claim
         run: |
@@ -176,6 +206,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: macmahon-kernel
+          name: macmahon-kernel${{ inputs.plant == 'exactly-nine' && '-plant-exactly-nine' || '' }}
           path: ~/out
           retention-days: 30
