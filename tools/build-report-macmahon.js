@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 /* build-report-macmahon.js — reports/macmahon.html: Jason Davies's classification of the minimum universal sets of
-   MacMahon cubes (2026-11-01; developed with GPT-6 Astra, in Lean 4; the Johnson–Roldán conjectures), checked here two
+   MacMahon cubes (2026-11-01; developed with GPT-6 Astra, in Lean 4; the Johnson–Roldán conjectures), checked here three
    ways that share no code with each other: the 300 released constructions rebuilt by our own program
-   (certs/macmahon-witnesses.json, instruments/macmahon/check.py) and the ten Lean theorems accepted by two kernels on a
-   hosted runner (certs/macmahon-kernel.json, .github/workflows/macmahon-kernel.yml).
+   (certs/macmahon-witnesses.json, instruments/macmahon/check.py), the ten Lean theorems accepted by two kernels on a
+   hosted runner (certs/macmahon-kernel.json, .github/workflows/macmahon-kernel.yml), and, since 2026-11-13, the
+   NECESSITY half (no other collection of twelve, none of eleven) by two exhaustive searches under rules sealed first
+   (certs/macmahon-necessity.json, tools/record-macmahon-necessity.py, corpus/macmahon-necessity/RULES.md).
 
    THE MATHEMATICS IS NOT OURS. The result and the proof are Jason Davies's; the conjectures are Johnson and Roldán's.
-   What stays open comes first. Every number, verdict word, date, count and name on the page is read from the two
+   What stays open comes first. Every number, verdict word, date, count and name on the page is read from the three
    records, the pins (corpus/macmahon/PINS.json) or the pinned files they name (the author's formalization.yaml, his
-   released witnesses), and the build refuses when one of them stops saying what the page states. Both records are
+   released witnesses), and the build refuses when one of them stops saying what the page states. All three records are
    re-checked before a word is written.
 
    usage: node tools/build-report-macmahon.js                                                                       MIT */
@@ -29,12 +31,12 @@ const m = (s) => '<span class="m">' + C.esc(s) + '</span>';
 const a = (href, text) => '<a href="' + C.escAttr(href) + '">' + C.esc(text) + '</a>';
 const N = (x) => Number(x).toLocaleString('en-US');
 const sha = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
-const WREC = 'certs/macmahon-witnesses.json', KREC = 'certs/macmahon-kernel.json', PREC = 'corpus/macmahon/PINS.json';
+const WREC = 'certs/macmahon-witnesses.json', KREC = 'certs/macmahon-kernel.json', NREC = 'certs/macmahon-necessity.json', PREC = 'corpus/macmahon/PINS.json';
 const day = (iso) => { const d = new Date(iso + 'T00:00:00Z'); return d.getUTCDate() + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getUTCMonth()] + ' ' + d.getUTCFullYear(); };
 
-/* both records re-checked first: the sufficiency record re-derived from the pinned witnesses, the kernel record re-read
-   from the run's saved output */
-for (const [cmd, args] of [['python3', ['-I', 'instruments/macmahon/check.py', '--check']], ['node', ['tools/record-macmahon-kernel.js', '--check']]]) {
+/* the three records re-checked first: the sufficiency record re-derived from the pinned witnesses, the kernel record
+   re-read from the run's saved output, the necessity record re-derived with our own search re-run */
+for (const [cmd, args] of [['python3', ['-I', 'instruments/macmahon/check.py', '--check']], ['node', ['tools/record-macmahon-kernel.js', '--check']], ['python3', ['-I', 'tools/record-macmahon-necessity.py', '--check']]]) {
   let out = '';
   try { out = cp.execFileSync(cmd, args, { cwd: ROOT, encoding: 'utf8' }); } catch (e) { die(args.join(' ') + ' refused: ' + (e.stdout || '') + (e.stderr || '')); }
   need(/^PASS/.test(out), args.join(' ') + ' did not pass: ' + out.trim());
@@ -42,6 +44,7 @@ for (const [cmd, args] of [['python3', ['-I', 'instruments/macmahon/check.py', '
 const W = JSON.parse(fs.readFileSync(path.join(ROOT, WREC), 'utf8'));
 const K = JSON.parse(fs.readFileSync(path.join(ROOT, KREC), 'utf8'));
 const P = JSON.parse(fs.readFileSync(path.join(ROOT, PREC), 'utf8'));
+const NEC = JSON.parse(fs.readFileSync(path.join(ROOT, NREC), 'utf8'));
 
 /* ---- the words this page states, each read back from a record ---- */
 need(W.verdict === 'CERTIFIED' && K.verdict === 'CERTIFIED', 'a record is not CERTIFIED, and this page says both are');
@@ -139,6 +142,29 @@ const SETS = JSON.parse(pinned('results/universal_witnesses.json')).map((w) => {
 need(SETS.length === T.T2.sets && new Set(SETS.map((s) => s.name)).size === T.T2.sets, 'the released sets are no longer ' + T.T2.sets + ' different splits');
 const SIZE = SETS[0].cubes.size;
 need(SETS.every((s) => s.cubes.size === SIZE) && /12-cube collections/.test(W.claim) && SIZE === 12, 'a released set does not have twelve cubes');
+/* ---- the necessity record: every number the page states about the two searches and their planted errors ---- */
+need(NEC.verdict === 'CERTIFIED' && NEC.decided.necessity === 'CERTIFIED' && /not a kernel proof/.test(NEC.decided.how) && NEC.failed.length === 0 && NEC.reds_dead.length === 0, 'the necessity record is not CERTIFIED, or no longer says it is not a kernel proof');
+const NI = NEC.items, NA = NEC.route_A.variants, NR = NEC.route_R.variants;
+const NKEYS = ['R1', 'R2', 'R3', 'R4', 'R5', 'A1', 'A2', 'X1', 'X2', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6'];
+need(Object.keys(NI).join() === NKEYS.join() && NKEYS.every((k) => NI[k].pass === true), 'a rule item of the necessity record does not pass, or the items moved');
+const NREDS = NKEYS.filter((k) => /^C/.test(k));
+need(NREDS.length === 6, 'the necessity record no longer has six red controls');
+need(NA.base.m_star === SIZE && NA.base.count === T.T2.sets && NR.base.m_star === SIZE && NR.base.count === T.T2.sets && NA.base.list_sha256 === NR.base.list_sha256, 'the two searches no longer both find the ten sets at twelve');
+need(Object.keys(NA.base.levels).length === SIZE + 1 && Object.entries(NA.base.levels).every(([t, c]) => c === (Number(t) === SIZE ? T.T2.sets : 0)), 'our search no longer finds nothing below twelve');
+need(Object.entries(NR.base.leaves_by_cap).every(([t, c]) => c === (Number(t) === SIZE ? T.T2.sets : 0)), 'the reader\'s search no longer finds nothing below twelve');
+const HALL = (/constraints raw (\d+) kept (\d+)/.exec(NR.base.gen_line) || [])[1];
+need(HALL && NEC.route_R.unchanged_run['dfs (cc -O2)'] === 'nodes ' + NR.base.nodes_by_cap[String(SIZE)] + ' leaves ' + T.T2.sets && /^byte-identical to the shipped leaves\.txt/.test(NEC.route_R.unchanged_run['leaves.txt written']), 'the replay of the reader\'s search no longer prints what the page states');
+need(/unnamed/.test(NEC.route_R.who) && /not copied here/.test(NEC.route_R.who) && Object.keys(NEC.route_R.files_sha256).length === 5, 'the record no longer says the reader is unnamed and the five files are not copied');
+need(NEC.the_ten.length === T.T2.sets && NEC.the_ten.every((t) => SETS.some((x) => x.name === t.split && t.cubes.length === SIZE && t.cubes.every((c) => x.cubes.has(c)))), 'the ten sets of the necessity record are no longer the ten released sets, name for name');
+for (const v of ['reflections', 'shared', 'useless', 'required']) need(NA[v].m_star === NR[v].m_star && NA[v].count === NR[v].count && NA[v].list_sha256 === NR[v].list_sha256, 'the two searches no longer agree under the planted change: ' + v);
+need(NA.reflections.m_star < SIZE && NA.shared.m_star < NA.reflections.m_star && NA.useless.m_star === SIZE && NA.required.m_star === SIZE && NA.useless.count + NA.required.count === T.T2.sets, 'the planted changes no longer give what the page states');
+const UNP = NEC.beyond_the_rules;
+need(UNP && UNP.same_ten_as_the_pruned_run === true && UNP.m_star === SIZE && UNP.count === T.T2.sets && UNP.nodes > NA.base.nodes, 'the run with the pruning switched off is no longer in the record with the same ten');
+need(NEC.kernel_plant.okay === false && NEC.kernel_plant.exit !== 0 && NEC.kernel_plant.input === 'plant=exactly-nine' && /Comparator exit/.test(NI.C6.what), 'the planted false theorem is no longer refused in the record');
+need(NEC.rules.file === 'corpus/macmahon-necessity/RULES.md' && sha(NEC.rules.file) === NEC.rules.sha256 && NEC.rules.sealed && NEC.rules.sealed.rules_commit, 'the sealed rules moved');
+const SEARCHED = day(NEC.route_R.ran);
+need(NEC.route_A.program === 'instruments/macmahon/necessity.py', 'our search moved');
+
 const SHOWN = SETS.find((s) => s.name === 'ABC | DEF');
 need(SHOWN, 'the set ABC | DEF is not among the released sets');
 
@@ -193,7 +219,7 @@ O.push(C.header({
   title: TITLE,
   /* "sides", not the census word, in the lead */
   deck: 'On ' + day(CLAIMED) + ' Jason Davies published a proof, developed with OpenAI’s GPT-6 Astra and written in Lean, that exactly ' + word(T.T2.sets) + ' collections of ' + word(SIZE) + ' MacMahon cubes can build every one of the ' + word(T.T1.labels) + ' cubes as a 2×2×2 model. It settles two conjectures of Johnson and Roldán from 2024. The result and the proof are his. '
-    + 'With Claude (Anthropic’s AI model), I checked his release two ways that share no code with each other: my own program rebuilt all ' + T.T3.constructions + ' of his released constructions, and two independent proof checkers accepted his ' + word(K.theorems.length) + ' Lean theorems.'
+    + 'With Claude (Anthropic’s AI model), I checked his release three ways that share no code with each other: my own program rebuilt all ' + T.T3.constructions + ' of his released constructions, two independent proof checkers accepted his ' + word(K.theorems.length) + ' Lean theorems, and two exhaustive searches, a reader’s and mine, found the same ' + word(T.T2.sets) + ' sets and no other collection of ' + word(SIZE) + ' cubes or fewer.'
 }));
 O.push(C.figure({ hero: true, svgRaw: HW.join('\n'), svgNarrowRaw: HN.join('\n'), record: [WREC, 'corpus/macmahon/results/universal_witnesses.json'],
   caption: 'The claim, drawn. A MacMahon cube has six colours, one on each side; there are ' + T.T1.labels + ' of them, and Conway’s table names each by two different letters from A to F. Split the six letters into two triples and take the cubes whose two letters fall in the same triple: a set of ' + SIZE + '. There are ' + T.T2.sets + ' splits, so ' + T.T2.sets + ' sets. Davies’s theorem says these ' + T.T2.sets + ', and no other collection of ' + SIZE + ' cubes or fewer, can build every one of the ' + T.T1.labels + ' cubes. The sets drawn are the ones in his released file.',
@@ -201,21 +227,19 @@ O.push(C.figure({ hero: true, svgRaw: HW.join('\n'), svgNarrowRaw: HN.join('\n')
 O.push(C.stats([
   { k: 'released constructions rebuilt', v: T.T3.built + ' of ' + T.T3.constructions, n: 'by my own program, with its own rotations and corner positions' },
   { k: 'Lean theorems accepted', v: K.theorems.length + ' of ' + K.theorems.length, n: 'by two kernels: Lean’s own and nanoda' },
-  { k: 'planted errors caught', v: REDS.filter((r) => r.fired).length + ' of ' + REDS.length, n: 'all on the first route' },
-  { k: 'the Lean statement against the paper', v: K.reading.word === 'MATCHES' ? 'matches' : die('reading'), sm: true, n: 'a reading, not a machine check' }
+  { k: 'collections of ' + SIZE + ' cubes or fewer that work', v: String(NA.base.count), n: 'found by two searches that share no code; none smaller' },
+  { k: 'planted errors caught', v: (REDS.filter((r) => r.fired).length + NREDS.length) + ' of ' + (REDS.length + NREDS.length), n: 'on all three routes' }
 ]));
 O.push(C.scope('The result and the proof are Jason Davies’s; his disclosure says GPT-6 Astra (OpenAI) developed the argument, the code, the Lean proofs and the manuscript under his direction. The conjectures are Inga Johnson and Erika Roldán’s. This page checks his release; it is not new mathematics. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs under my direction.'));
 
+/* what is still open, regrouped on 2026-11-13 from nine items to five. None was dropped: each earlier item is a sentence
+   of one of these. The commit detail (which commit each route read) is in the records and the pins, not on the page. */
 O.push(C.section({ lab: 'read this first', title: 'What is still open', id: 'limits', bodyRaw: C.plainList([
-  { b: 'My own program checks one half only.', text: 'It shows that the ' + T.T2.sets + ' sets work. That no other collection of ' + SIZE + ' works, and none of ' + (SIZE - 1) + ', rests on the Lean proof. Here that half was checked by the two kernels only; I ran no independent search for other sets.' },
-  { b: 'The second route repeats a check that had already been run.', text: 'The author’s own automated checks and the Palomar registry (entry ' + PALOMAR + ') had checked the same commit. Mine is a second party’s run on a separate machine, with my own report of the axioms. It agrees with theirs; it is not a different kind of evidence.' },
-  { b: 'The first route uses his table of names.', text: 'My program takes his table of the ' + T.T1.labels + ' colourings as the naming of the cubes, after checking that it lists every cube exactly once, and it takes his lists of which eight cubes to use. How to turn and place them it works out itself.' },
-  { b: 'The cubes are a model.', text: 'The Lean statement is about six directions and a table of ' + ROTS + ' rotations, not about solid cubes in space. That this is what building a 2×2×2 model means is the paper’s declaration, and I take it on the paper’s word.' },
-  { b: 'Not the paper’s written proof.', text: 'The Lean statement was read against the paper’s main theorem and matches; that is a reading. The paper’s written argument was not checked, and the author’s disclosure says the Lean proof takes a different route from it. The paper’s other computations (counts of how many cubes sets of eight to thirteen can build) are not Lean theorems, and I did not re-run them: his search and his verifier were read, never run.' },
-  { b: 'Two commits.', raw: C.esc('The kernels ran on commit ') + m(P.registered_commit.slice(0, 8)) + C.esc(', the one the registry names. The constructions, and the author’s disclosure quoted on this page, were read at a later commit, ') + m(P.commit.slice(0, 8)) + C.esc(', the newest on ' + day(P.pinned) + '. Every Lean and configuration file pinned here is the same bytes at both: the kernel run holds each one to the digest pinned at the later commit.') },
-  { b: 'AI models on both sides.', text: 'The proof was developed by GPT-6 Astra (OpenAI). My programs were written by Claude (Anthropic), and the author’s disclosure says a Claude model also reviewed his manuscript. An exact program and two kernels decide here, not a model; you should still know.' },
-  { b: 'Lean and Mathlib are trusted,', text: 'as in any check of this kind, and so is Comparator’s matching of the statements.' },
-  { b: 'Review and priority.', text: 'The author’s disclosure calls the work self-assessed and not independently reviewed by a human expert, and says priority beyond the sources it cites has not been established. Neither was examined here.' }
+  { b: 'The second half is decided by search, not by a second proof.', text: 'That no other collection of ' + SIZE + ' works, and none of ' + (SIZE - 1) + ', is now decided here by two exhaustive searches that agree. Each search is complete by a written argument and a program; neither is machine-checked, and the Lean proof stays the only formal proof. The reader’s search is named by the sha256 of its files, which carry no licence line and are not published here: anyone can re-run my search, not the reader’s.' },
+  { b: 'The kernels repeat a check that had already been run.', text: 'The author’s own automated checks and the Palomar registry (entry ' + PALOMAR + ') had checked the same commit. Mine is a second party’s run on a separate machine, with my own report of the axioms. It agrees with theirs; it is not a different kind of evidence. Lean and Mathlib are trusted, as in any check of this kind, and so is Comparator’s matching of the statements.' },
+  { b: 'What is taken from the author.', text: 'My programs take his table of the ' + T.T1.labels + ' colourings as the naming of the cubes, after checking that it lists every cube exactly once, and the first one takes his lists of which eight cubes to use; how to turn and place them it works out itself. The kernels ran on the commit the registry names, and the constructions and his disclosure were read at a later one; every Lean and configuration file is the same bytes at both, and the kernel run holds each to its pinned digest.' },
+  { b: 'The cubes are a model, and the paper was read, not checked.', text: 'The Lean statement is about six directions and a table of ' + ROTS + ' rotations, not about solid cubes in space; that this is what building a 2×2×2 model means is the paper’s declaration, and I take it on the paper’s word. The Lean statement was read against the paper’s main theorem and matches; that is a reading. The paper’s written argument was not checked, and the author’s disclosure says the Lean proof takes a different route from it. The paper’s other computations (counts of how many cubes sets of eight to thirteen can build) are not Lean theorems, and I did not re-run them: his search and his verifier were read, never run. Nothing here was compared with Johnson and Roldán’s own wording of their conjectures.' },
+  { b: 'AI models on every side, and no human referee.', text: 'The proof was developed by GPT-6 Astra (OpenAI). My programs, the second search among them, were written by Claude (Anthropic), and the author’s disclosure says a Claude model also reviewed his manuscript. Exact programs and two kernels decide here, not a model; you should still know. The author’s disclosure calls the work self-assessed and not independently reviewed by a human expert, and says priority beyond the sources it cites has not been established. Neither was examined here.' }
 ]) }));
 
 O.push(C.section({ lab: 'the claim', title: word(T.T1.labels).replace(/^t/, 'T') + ' cubes, ' + word(SIZE) + ' at a time', id: 'claim', bodyRaw:
@@ -250,31 +274,47 @@ O.push(C.section({ lab: '2 · two kernels', title: 'His ' + K.theorems.length + 
   + '</div></details></div>'
 }));
 
-O.push(C.section({ lab: '3 · planted errors', title: 'What would have caught a wrong construction', id: 'planted', bodyRaw: C.plainList([
+O.push(C.section({ lab: '3 · two searches', title: 'No other collection of ' + word(SIZE) + ', and none of ' + (SIZE - 1) + ': searched twice', id: 'searches', bodyRaw: C.plainList([
+  { b: 'What was missing.', text: 'Until ' + SEARCHED + ' this page rested the second half of the theorem on the Lean proof alone: my program showed that the ' + T.T2.sets + ' sets work, not that nothing else does. A reader pointed that out and sent an exhaustive search for the missing half. I replayed that search and, with Claude, wrote a second one that shares no code and no method with it.' },
+  { b: 'The rules came first.', raw: rec(NEC.rules.file) + C.esc(' was written, sealed and published before either search was run here: what would pass, what would refuse, and ' + NREDS.length + ' planted errors.') },
+  { b: 'The reader’s search.', text: 'It turns “eight different cubes can fill the eight corners” into counting conditions (Hall’s theorem; ' + N(HALL) + ' of them over the ' + T.T1.labels + ' cubes to build), then tries, one cube at a time, every way to meet them with at most ' + SIZE + ' cubes: ' + N(NR.base.nodes_by_cap[String(SIZE)]) + ' steps. Replayed unchanged, it finds ' + NR.base.count + ' collections, each of ' + SIZE + ' different cubes, none smaller, and writes the same result file its author sent, byte for byte.' },
+  { b: 'My search.', raw: rec(NEC.route_A.program) + C.esc(' was written by Claude under my direction, in a session that had seen neither the reader’s files nor Davies’s search, proof files or paper. It does not use Hall’s theorem. It lists collections cube by cube, tests each by actually matching cubes to corners, and gives up on a branch only when even the most generous way to finish it cannot build some cube. After ' + N(NA.base.nodes) + ' steps: no collection of 0 to ' + (SIZE - 1) + ' cubes works, and exactly ' + NA.base.count + ' of ' + SIZE + ' do. ') + tag(NI.A1.pass ? 'CERTIFIED' : die('A1')) },
+  { b: 'With the shortcut switched off.', text: 'Run once without that one shortcut, the same program visits every collection of up to ' + SIZE + ' cubes and judges each, in ' + N(UNP.nodes) + ' steps: the same ' + word(UNP.count) + '. This run is outside the sealed rules and is kept as an extra.' },
+  { b: 'The two against each other.', raw: C.esc('The two lists are the same ' + word(T.T2.sets) + ' collections, and they are the ' + word(T.T2.sets) + ' released sets, name for name through his table. ') + tag(NEC.verdict) },
+  { b: 'What that decides.', text: 'In the model the Lean statement declares: no collection of ' + (SIZE - 1) + ' cubes or fewer can build all ' + T.T1.labels + ', and the only collections of ' + SIZE + ' that can are the ' + word(T.T2.sets) + ' sets, even when a collection may hold the same cube more than once. By search, not by a second proof.' }
+]) }));
+
+O.push(C.section({ lab: '4 · planted errors', title: 'What would have caught a wrong result', id: 'planted', bodyRaw: C.plainList([
   { b: 'A cube from outside the set.', text: 'In one released construction, one of the eight cubes is swapped for a cube that is not in the set. The program refuses it.' },
   { b: 'A wrong cube to build.', text: 'The same eight cubes are asked to build a cube with two of its sides exchanged. The program refuses it.' },
   { b: 'Mirror images allowed.', text: 'If turning a cube could include mirror reflections (' + REFL[1] + ' maps in place of ' + ROTS + '), the ' + REFL[2] + ' cubes would merge into ' + REFL[3] + ' and the check of the names would fail. Under that table it does.' },
-  { b: 'None on the second route.', text: 'I planted no false theorem in the kernel run. What guards the statement there is Comparator’s own comparison with the separate statement file.' }
+  { b: 'A false theorem for the kernels.', text: 'In the statement file, “exactly ten” was changed to “exactly nine” and his proof left as it is. Comparator refuses it: the theorem stated and the theorem proved no longer match.' },
+  { b: 'Mirror images allowed, in both searches.', text: 'If a cube may also be placed mirrored, ' + NA.reflections.m_star + ' cubes are enough and ' + N(NA.reflections.count) + ' collections of ' + NA.reflections.m_star + ' work. Both searches report exactly that, with the same list.' },
+  { b: 'One cube in several corners.', text: 'If one physical cube may fill several corners, ' + NA.shared.m_star + ' cubes are enough, in ' + NA.shared.count + ' ways. Both searches agree.' },
+  { b: 'One cube made useless, then required.', text: 'With the cube Ab declared to fit nowhere, both searches keep exactly the ' + NA.useless.count + ' sets without it; with Ab required, exactly the ' + NA.required.count + ' sets with it. These two numbers follow from the theorem, so they show that the searches respond to the model; they are not evidence for the theorem by themselves.' },
+  { b: 'At most ' + (SIZE - 1) + ' cubes.', text: 'Both searches find nothing.' }
 ]) }));
 
 O.push(C.section({ lab: 'who did what', title: 'Each step is a separate job', id: 'roles', bodyRaw: C.plainList([
   { b: 'The result and the proof.', text: 'Jason Davies, with GPT-6 Astra (OpenAI), which his disclosure says developed the argument, the code, the Lean proofs and the manuscript under his direction.' },
   { b: 'The conjectures.', text: 'Inga Johnson and Erika Roldán. The minimum of ' + SIZE + ': Kazuya Haraguchi. The cubes are MacMahon’s; the table of names is Conway’s.' },
   { b: 'The checkers.', text: 'Lean, Mathlib, Comparator and nanoda: their authors. The earlier mechanical check of the same commit: the Palomar registry.' },
-  { b: 'The checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the program and the workflow under my direction. Both ran on ' + CHECKED + '.' }
+  { b: 'The first search for the other half.', text: 'A reader of this page, who pointed out that it decided one half only and sent the search. The reader is not named here; the files are named in the record by their sha256.' },
+  { b: 'The checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs and the workflow under my direction. The constructions and the kernels ran on ' + CHECKED + ', the searches on ' + SEARCHED + '.' }
 ]) }));
 
 O.push(C.section({ lab: 'check it yourself', title: 'How to re-run it', id: 'rerun', bodyRaw: C.plainList([
   { b: 'The constructions.', raw: m('python3 instruments/macmahon/check.py --check') + C.esc(' rebuilds all ' + T.T3.constructions + ' from the pinned files and refuses on any difference from ') + rec(WREC) + '.' },
   { b: 'The kernels.', raw: m('node tools/record-macmahon-kernel.js --check') + C.esc(' re-reads ') + rec(KREC) + C.esc(' from the run’s saved output; ') + m('gh workflow run macmahon-kernel.yml') + C.esc(' on a copy of this repository runs the build and both kernels again.') },
+  { b: 'The searches.', raw: m('python3 tools/record-macmahon-necessity.py --check') + C.esc(' runs my search again and refuses on any difference from ') + rec(NREC) + C.esc('; add ') + m('--full') + C.esc(' for the mirror-image run too. The reader’s search cannot be re-run from this repository: what it printed here is in ') + rec('corpus/macmahon-necessity/route-r/replay.json') + '.' },
   { b: 'The pinned files.', raw: rec(PREC) + C.esc(': ' + Object.keys(P.files).length + ' files of his repository, each with its sha256, copied in ') + rec('corpus/macmahon') + '.' },
   { b: 'What was checked.', raw: repoAt(P.registered_commit) + C.esc(' (the kernels) and ') + repoAt(P.commit) + C.esc(' (the constructions).') }
 ]) }));
 
-const foot = '<p>' + C.esc('Generated by tools/build-report-macmahon.js from ' + WREC + ' and ' + KREC + ', both re-checked as the page is built, and ' + PREC + '. I did this with Claude (Anthropic); Claude wrote the programs under my direction.') + '</p>'
+const foot = '<p>' + C.esc('Generated by tools/build-report-macmahon.js from ' + WREC + ', ' + KREC + ' and ' + NREC + ', all three re-checked as the page is built, and ' + PREC + '. I did this with Claude (Anthropic); Claude wrote the programs under my direction.') + '</p>'
   + '<p>' + C.esc('git ' + (cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim() || '—') + ' · cert-machine · Carlos Toledo') + '</p>';
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'macmahon.html'), TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/macmahon.html',
   og: { image: '/og-macmahon.png', alt: OG.alt('macmahon') },
-  desc: 'Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ' + word(T.T2.sets) + ' collections of ' + word(SIZE) + ' MacMahon cubes can build all ' + word(T.T1.labels) + ', checked two ways: his ' + T.T3.constructions + ' released constructions rebuilt by an independent program, and his ' + word(K.theorems.length) + ' theorems accepted by two kernels. What stays open is said first.' }));
-console.log('reports/macmahon.html written · constructions ' + T.T3.built + '/' + T.T3.constructions + ' ' + W.verdict + ' · ' + K.theorems.length + ' theorems, two kernels ' + K.verdict + ' · reading ' + K.reading.word);
+  desc: 'Jason Davies’s proof, developed with GPT-6 Astra and written in Lean, that exactly ' + word(T.T2.sets) + ' collections of ' + word(SIZE) + ' MacMahon cubes can build all ' + word(T.T1.labels) + ', checked three ways: his ' + T.T3.constructions + ' released constructions rebuilt by an independent program, his ' + word(K.theorems.length) + ' theorems accepted by two kernels, and two exhaustive searches that find the same ' + word(T.T2.sets) + ' sets and no others. What stays open is said first.' }));
+console.log('reports/macmahon.html written · necessity ' + NEC.verdict + ' (two searches) · constructions ' + T.T3.built + '/' + T.T3.constructions + ' ' + W.verdict + ' · ' + K.theorems.length + ' theorems, two kernels ' + K.verdict + ' · reading ' + K.reading.word);

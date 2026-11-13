@@ -1,0 +1,591 @@
+{
+ "what": "The MacMahon minimum-universal-sets claim (Jason Davies, 2026-11-01), the NECESSITY half: in the model of the pinned Challenge.lean, every universal inventory of total at most 12 has total exactly 12 and no repeated variety, and there are exactly ten, the ten released two-triangle sets. Decided by exhaustive search twice with no shared code and two different methods, under rules written, sealed and pushed before either search was run here: route R, a reader's search (Hall's theorem as counting constraints, a depth-first search over violated constraints), replayed unchanged from five files named by sha256 and not published; route A, our own program written clean-room (instruments/macmahon/necessity.py: an explicit matching of slots to physical cubes, pruning by monotonicity only), run by this recorder. Not a proof in the kernel's sense: each search is complete by a written argument and a program, and neither is machine-checked; the Lean proof (certs/macmahon-kernel.json) stays the only formal route.",
+ "claim": "no collection of 11 MacMahon cubes or fewer is universal, and the only universal collections of 12, repeats allowed, are the ten two-triangle sets",
+ "rules": {
+  "file": "corpus/macmahon-necessity/RULES.md",
+  "sha256": "d671fa64e4831614f3fc8a7e0d1dc43c8ddb13c9b74bc98b802d034dfaebc618",
+  "brief": "corpus/macmahon-necessity/BRIEF-clean-room.md",
+  "brief_sha256": "33366d6fb6bdca10d938efe5a59ef0bd7fc5897b696f05b4c894ff87da4641d0",
+  "sealed": {
+   "digest": "c428510e70d371808f75f3aaaf8cc02be8d14189aabd761da6cff5acddd9d5f5",
+   "registry_commit": "77d9855b36b99468e512e1d116fba77adc3ced08",
+   "rules_commit": "603e093a81c61ba272fd85fcf2ade55380d5d108"
+  }
+ },
+ "source": {
+  "repo": "https://github.com/jasondavies/macmahon-min-universal-sets",
+  "registered_commit": "d8856c97e43e6fa66383c81b8ac4f5bd1c285bc8",
+  "commit": "7561f6d63b64f705824d05443050d0b8f532f2e3",
+  "pins": {
+   "Challenge.lean": "7bfd58397db1135e0ff5233e94792fa1da3dcbec27a2b219f1e284f309c0c313",
+   "Solution.lean": "9eb99bff2e12cb3658257c74d312a2e3728d859126d001467553b567bc9f890c",
+   "results/universal_witnesses.json": "18ded406ca9a70f2a8a6ca0bf006433a7cff691ea912d3f4af9cc1b0b67e341a"
+  }
+ },
+ "generated": "2026-11-13T02:53:03Z",
+ "route_R": {
+  "who": "a reader (unnamed; the files carry no licence line and are not copied here)",
+  "files_sha256": {
+   "README.md": "dbd83c1599e1709341b99e85db233ed982e1c0b47035e63f168de97560b0c482",
+   "gen.py": "aeb04fb942cbbf9b18912ad84847ca1655f7f1611d0e51138aee3732e820ff03",
+   "dfs.c": "4cee536cb41e330e702f3e4bb9c32e2a376d3ff29a4bf5162fba5a1d318277c1",
+   "describe.py": "99d5ec3ebdf2dfa11c86d98a4401309336302497f6cc5824d8801d67fa54fb09",
+   "leaves.txt": "5b605839b4beec94ecf3cf3302145c0125c2b850ef2b7d8bedb6a62905572ba2"
+  },
+  "archive_sha256": "2b33347f2db8d1c72db06f4d23746efc20b03b800211b9a51d96cd07147b2f5e",
+  "facts": "corpus/macmahon-necessity/route-r/replay.json",
+  "facts_sha256": "3e0d8de6e0e880b9c733b4e05c8f6147506fcafd87fa7f7bcb0b94eabb399dc4",
+  "ran": "2026-11-13",
+  "machine": "Apple clang 21.0.0 (cc -O2), Python 3.9.6 (python3 -I), macOS arm64",
+  "unchanged_run": {
+   "gen.py": "types 30 signatures 40 constraints raw 6290 kept 6290",
+   "dfs (cc -O2)": "nodes 156751 leaves 10",
+   "leaves.txt written": "byte-identical to the shipped leaves.txt (sha256 5b605839b4beec94ecf3cf3302145c0125c2b850ef2b7d8bedb6a62905572ba2)",
+   "describe.py": "leaves: 10 | all of size 12 with no repeats | distinct splits matched: 10 of 10",
+   "dfs (cc -O0 -g -fsanitize=address,undefined)": "nodes 156751 leaves 10, no sanitizer report, leaves.txt byte-identical"
+  },
+  "cap_patch": "dfs.c in every variant: '#define LIM 12' wrapped in #ifndef so the cap comes from the command line (-DLIM=k); nothing else changed. Each variant is run at caps 0, 1, 2, ... until the first cap with a leaf (the base at every cap 0..12): m* is that cap and the leaves at it are all universal inventories of that total.",
+  "variants": {
+   "base": {
+    "patch": "nothing changed in gen.py",
+    "gen_line": "types 30 signatures 40 constraints raw 6290 kept 6290",
+    "m_star": 12,
+    "count": 10,
+    "list_sha256": "3927b5ecb404bcbb220a491e4877ccf1f2b872cb890dc0a4e56065e2d0ff1b5c",
+    "leaves_by_cap": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 10
+    },
+    "nodes_by_cap": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 1,
+     "7": 1,
+     "8": 7,
+     "9": 43,
+     "10": 498,
+     "11": 7286,
+     "12": 156751
+    }
+   },
+   "reflections": {
+    "patch": "gen.py: a type also serves every corner signature of its mirror image (the colouring with +x and -x exchanged), i.e. it may be placed under any of the 48 signed axis permutations; the count asserted per signature becomes 12; the 30 types and the targets are unchanged",
+    "gen_line": "types 30 signatures 40 constraints raw 116 kept 116",
+    "m_star": 8,
+    "count": 672000,
+    "list_sha256": "9c283d679f2520bd14c755a45ef4a86569c38b8b0fa1efa4d1c54a0936e400da",
+    "leaves_by_cap": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 672000
+    },
+    "nodes_by_cap": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 1,
+     "7": 1,
+     "8": 1419520
+    }
+   },
+   "shared": {
+    "patch": "gen.py: only single corners give a constraint (each corner of each target needs one type able to serve it), i.e. one physical cube may fill several slots",
+    "gen_line": "types 30 signatures 40 constraints raw 40 kept 40",
+    "m_star": 5,
+    "count": 12,
+    "list_sha256": "d9714eba77f49ffa31bf686bd985cf7199389a458f2b15fd9bfcbd8cdb11e2bb",
+    "leaves_by_cap": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 12
+    },
+    "nodes_by_cap": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 48,
+     "5": 373
+    }
+   },
+   "useless": {
+    "patch": "gen.py: the type c0 is removed from every serve mask (it fits no slot); the per-signature count assertion is dropped",
+    "gen_line": "types 30 signatures 40 constraints raw 6110 kept 6110",
+    "m_star": 12,
+    "count": 6,
+    "list_sha256": "b755de85df144e95a131ca3044312c0735f2c8c514d8e23c172f398941b76cae",
+    "leaves_by_cap": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 6
+    },
+    "nodes_by_cap": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 1,
+     "7": 1,
+     "8": 6,
+     "9": 39,
+     "10": 351,
+     "11": 4878,
+     "12": 99636
+    }
+   },
+   "required": {
+    "patch": "gen.py: one constraint added after the reduction: at least one cube of type c0",
+    "gen_line": "types 30 signatures 40 constraints raw 6290 kept 6291",
+    "m_star": 12,
+    "count": 4,
+    "list_sha256": "87e6c32af32300141f4818cb7d1e70869c5fa62f561565d7e50112298e22aec7",
+    "leaves_by_cap": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 4
+    },
+    "nodes_by_cap": {
+     "0": 1,
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "4": 1,
+     "5": 1,
+     "6": 1,
+     "7": 1,
+     "8": 2,
+     "9": 8,
+     "10": 94,
+     "11": 1857,
+     "12": 53410
+    }
+   }
+  }
+ },
+ "route_A": {
+  "program": "instruments/macmahon/necessity.py",
+  "sha256": {
+   "necessity.c": "70492b7e3331e462492e4c80d8b79efb3a270227e4b0320a0961c4e947717dba",
+   "necessity.py": "28abb1bea79621d9e29a879e245260a1a762ce0323aae1698689500172a087f1"
+  },
+  "variants": {
+   "base": {
+    "m_star": 12,
+    "count": 10,
+    "list_sha256": "3927b5ecb404bcbb220a491e4877ccf1f2b872cb890dc0a4e56065e2d0ff1b5c",
+    "levels": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 10
+    },
+    "nodes": 7563891,
+    "seconds": 10.7
+   },
+   "reflections": {
+    "m_star": 8,
+    "count": 672000,
+    "list_sha256": "9c283d679f2520bd14c755a45ef4a86569c38b8b0fa1efa4d1c54a0936e400da",
+    "levels": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 672000
+    },
+    "nodes": 2222158,
+    "seconds": 49.9
+   },
+   "shared": {
+    "m_star": 5,
+    "count": 12,
+    "list_sha256": "d9714eba77f49ffa31bf686bd985cf7199389a458f2b15fd9bfcbd8cdb11e2bb",
+    "levels": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 12
+    },
+    "nodes": 151555,
+    "seconds": 0.3
+   },
+   "useless": {
+    "m_star": 12,
+    "count": 6,
+    "list_sha256": "b755de85df144e95a131ca3044312c0735f2c8c514d8e23c172f398941b76cae",
+    "levels": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 6
+    },
+    "nodes": 6018483,
+    "seconds": 7.7
+   },
+   "required": {
+    "m_star": 12,
+    "count": 4,
+    "list_sha256": "87e6c32af32300141f4818cb7d1e70869c5fa62f561565d7e50112298e22aec7",
+    "levels": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 0,
+     "10": 0,
+     "11": 0,
+     "12": 4
+    },
+    "nodes": 7563891,
+    "seconds": 10.6
+   }
+  }
+ },
+ "the_ten": [
+  {
+   "split": "ABC | DEF",
+   "cubes": [
+    "Ab",
+    "Ac",
+    "Ba",
+    "Bc",
+    "Ca",
+    "Cb",
+    "De",
+    "Df",
+    "Ed",
+    "Ef",
+    "Fd",
+    "Fe"
+   ]
+  },
+  {
+   "split": "ABD | CEF",
+   "cubes": [
+    "Ab",
+    "Ad",
+    "Ba",
+    "Bd",
+    "Ce",
+    "Cf",
+    "Da",
+    "Db",
+    "Ec",
+    "Ef",
+    "Fc",
+    "Fe"
+   ]
+  },
+  {
+   "split": "ABE | CDF",
+   "cubes": [
+    "Ab",
+    "Ae",
+    "Ba",
+    "Be",
+    "Cd",
+    "Cf",
+    "Dc",
+    "Df",
+    "Ea",
+    "Eb",
+    "Fc",
+    "Fd"
+   ]
+  },
+  {
+   "split": "ABF | CDE",
+   "cubes": [
+    "Ab",
+    "Af",
+    "Ba",
+    "Bf",
+    "Cd",
+    "Ce",
+    "Dc",
+    "De",
+    "Ec",
+    "Ed",
+    "Fa",
+    "Fb"
+   ]
+  },
+  {
+   "split": "ACD | BEF",
+   "cubes": [
+    "Ac",
+    "Ad",
+    "Be",
+    "Bf",
+    "Ca",
+    "Cd",
+    "Da",
+    "Dc",
+    "Eb",
+    "Ef",
+    "Fb",
+    "Fe"
+   ]
+  },
+  {
+   "split": "ACE | BDF",
+   "cubes": [
+    "Ac",
+    "Ae",
+    "Bd",
+    "Bf",
+    "Ca",
+    "Ce",
+    "Db",
+    "Df",
+    "Ea",
+    "Ec",
+    "Fb",
+    "Fd"
+   ]
+  },
+  {
+   "split": "ACF | BDE",
+   "cubes": [
+    "Ac",
+    "Af",
+    "Bd",
+    "Be",
+    "Ca",
+    "Cf",
+    "Db",
+    "De",
+    "Eb",
+    "Ed",
+    "Fa",
+    "Fc"
+   ]
+  },
+  {
+   "split": "ADE | BCF",
+   "cubes": [
+    "Ad",
+    "Ae",
+    "Bc",
+    "Bf",
+    "Cb",
+    "Cf",
+    "Da",
+    "De",
+    "Ea",
+    "Ed",
+    "Fb",
+    "Fc"
+   ]
+  },
+  {
+   "split": "ADF | BCE",
+   "cubes": [
+    "Ad",
+    "Af",
+    "Bc",
+    "Be",
+    "Cb",
+    "Ce",
+    "Da",
+    "Df",
+    "Eb",
+    "Ec",
+    "Fa",
+    "Fd"
+   ]
+  },
+  {
+   "split": "AEF | BCD",
+   "cubes": [
+    "Ae",
+    "Af",
+    "Bc",
+    "Bd",
+    "Cb",
+    "Cd",
+    "Db",
+    "Dc",
+    "Ea",
+    "Ef",
+    "Fa",
+    "Fe"
+   ]
+  }
+ ],
+ "kernel_plant": {
+  "workflow": ".github/workflows/macmahon-kernel.yml",
+  "input": "plant=exactly-nine",
+  "run": "43349033633",
+  "kept": "corpus/macmahon-necessity/kernel-plant-run",
+  "exit": 1,
+  "okay": false,
+  "kernels": [],
+  "seconds": 29,
+  "buildSeconds": 233
+ },
+ "items": {
+  "R1": {
+   "pass": true,
+   "what": "the five files and the archive have the sha256 the rules name"
+  },
+  "R2": {
+   "pass": true,
+   "what": "gen.py, unchanged, printed: types 30 signatures 40 constraints raw 6290 kept 6290"
+  },
+  "R3": {
+   "pass": true,
+   "what": "dfs, unchanged, printed \"nodes 156751 leaves 10\"; the leaves.txt it wrote is byte-identical to the shipped leaves.txt (sha256 5b605839b4beec94ecf3cf3302145c0125c2b850ef2b7d8bedb6a62905572ba2)"
+  },
+  "R4": {
+   "pass": true,
+   "what": "describe.py passed its assertions and printed: leaves: 10 | all of size 12 with no repeats | distinct splits matched: 10 of 10"
+  },
+  "R5": {
+   "pass": true,
+   "what": "the sanitizer build: nodes 156751 leaves 10, no sanitizer report, leaves.txt byte-identical"
+  },
+  "A1": {
+   "pass": true,
+   "what": "route A: no universal inventory at totals 0 to 11, exactly 10 at total 12, every count 1 (7,563,891 search nodes)"
+  },
+  "A2": {
+   "pass": true,
+   "what": "route A states in its header why the search is exhaustive, with its one pruning rule and why that rule can never discard a universal inventory (READ, not machine-checked)"
+  },
+  "X1": {
+   "pass": true,
+   "what": "route R's ten leaves and route A's ten inventories are the same ten sets"
+  },
+  "X2": {
+   "pass": true,
+   "what": "the ten are twoTriangles s for the ten splits, and are the ten released sets of the pinned universal_witnesses.json, set for set"
+  },
+  "C1": {
+   "pass": true,
+   "what": "reflections allowed (48 signed axis permutations): both routes report m* = 8 with 672,000 universal inventories (the same list, by its sha256); the base result is m* = 12 with 10"
+  },
+  "C2": {
+   "pass": true,
+   "what": "the distinct-cubes rule dropped: both routes report m* = 5 with 12 universal inventories (the same list, by its sha256); the base result is m* = 12 with 10"
+  },
+  "C3": {
+   "pass": true,
+   "what": "variety (A, b) made useless: both routes report m* = 12 and exactly the six two-triangle sets without it"
+  },
+  "C4": {
+   "pass": true,
+   "what": "variety (A, b) required: both routes report m* = 12 and exactly the four two-triangle sets with it"
+  },
+  "C5": {
+   "pass": true,
+   "what": "the cap at 11: route R built with every cap 0 to 11 prints 0 leaves; route A's totals 0 to 11 are empty"
+  },
+  "C6": {
+   "pass": true,
+   "what": "a planted false theorem (physical_exactly_ten changed to \"= 9\" in Challenge.lean, the Solution the pinned bytes): Comparator exit 1, \"Your solution is okay!\" not printed (run 43349033633)"
+  }
+ },
+ "beyond_the_rules": {
+  "what": "beyond the rules: route A run once with its pruning rule switched off (python3 instruments/macmahon/necessity.py base --unpruned), so every inventory of every total 0 to 12 is visited and judged by the explicit matching; the argument that nothing is missed is then the enumeration alone",
+  "kept": "corpus/macmahon-necessity/route-a/base-unpruned.json",
+  "sha256": "7a9b3c25e0b46fd586a2ba63f784c7794d16c6377064d73d0e2dc89636721076",
+  "nodes": 15338678264,
+  "seconds": 399.016,
+  "m_star": 12,
+  "count": 10,
+  "same_ten_as_the_pruned_run": true
+ },
+ "decided": {
+  "necessity": "CERTIFIED",
+  "how": "exhaustive search, twice, no shared code; not a kernel proof"
+ },
+ "verdict": "CERTIFIED",
+ "failed": [],
+ "reds_dead": [],
+ "not_said": [
+  "Not a proof in the kernel's sense: each search is complete by a written argument and a program, and neither is machine-checked.",
+  "Not that the public can re-run route R: its bytes are not published. Route A and this recorder are.",
+  "Not more than the model: physical cubes enter through the discrete model the paper declares.",
+  "Nothing about Johnson and Roldán's own wording: a statement written by hand from their paper is a later item.",
+  "The numbers six and four in C3 and C4 are consequences of the claim: they test that each search responds to the model, and are not evidence for the claim by themselves."
+ ]
+}
