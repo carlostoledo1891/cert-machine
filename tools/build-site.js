@@ -401,6 +401,12 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'percolation-critical.json'), 'utf8'));
       if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.oneLean !== 'CERTIFIED') fail('the percolation-critical card would misstate its record');
       return '2 of 2 proofs reach my statement · 2 kernels each · both in one Lean'; })() },
+  { g: 'ai', f: 'prime-gap-premises.html', k: 'prime gaps · the premises of three Lean proofs',
+    title: 'Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check',
+    desc: 'OpenAI’s 186, the 182 and Axiom Math’s 212 are Lean proofs that start from premises Lean does not check. The list of all of them and what could be checked about each: some decided on every instance below 2,000, some reproduced with the authors’ own programs, some read against the papers they cite, some not decided. No premise is proved, and none of the three bounds is verified. What stays open is said first.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gap-premises.json'), 'utf8')), S = P.ledger.byStatus;
+      if (P.ledger.rows !== 16 || P.words.premisesProved !== 0 || S['DECIDED ON INSTANCES below 2000'] + S.REPRODUCED + S['READ: MISMATCH'] + S['NOT DECIDED'] !== P.ledger.rows) fail('the prime-gap-premises card would misstate its record');
+      return P.ledger.rows + ' premises · ' + P.words.premisesProved + ' proved here · ' + S['DECIDED ON INSTANCES below 2000'] + ' decided on instances · ' + S['NOT DECIDED'] + ' not decided'; })() },
   { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
     title: 'Does an AI’s Lean proof prove the right statement?',
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',
@@ -2075,7 +2081,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

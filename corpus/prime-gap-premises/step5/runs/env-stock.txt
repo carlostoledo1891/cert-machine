@@ -1,0 +1,14 @@
++ /root/s/venv-stock/bin/python -I -c 'import flint, numpy, sys, platform; print(sys.version); print(platform.platform()); print("python-flint", flint.__version__, "numpy", numpy.__version__); print(flint.__file__)'
+3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]
+Linux-6.8.0-147-generic-x86_64-with-glibc2.39
+python-flint 0.9.0 numpy 2.3.5
+/root/s/venv-stock/lib/python3.12/site-packages/flint/__init__.py
++ grep -i flint
+++ /root/s/venv-stock/bin/python -I -c 'import flint.types.fmpz_poly as m; print(m.__file__)'
++ ldd /root/s/venv-stock/lib/python3.12/site-packages/flint/types/fmpz_poly.abi3.so
+	libflint-6839011d.so.24.0.0 => /root/s/venv-stock/lib/python3.12/site-packages/flint/types/../../python_flint.libs/libflint-6839011d.so.24.0.0 (0x00007356d8979000)
+	libmpfr-be332c05.so.6.2.2 => /root/s/venv-stock/lib/python3.12/site-packages/flint/types/../../python_flint.libs/libmpfr-be332c05.so.6.2.2 (0x00007356d869e000)
+	libgmp-e0c82b6b.so.10.5.0 => /root/s/venv-stock/lib/python3.12/site-packages/flint/types/../../python_flint.libs/libgmp-e0c82b6b.so.10.5.0 (0x00007356d85f7000)
++ /root/s/venv-stock/bin/pip freeze
+numpy==2.3.5
+python-flint==0.9.0

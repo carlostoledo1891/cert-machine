@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check · Carlos Toledo</title>
+<meta name="description" content="Three Lean proofs of bounded gaps between primes, with the bounds 186, 182 and 212, each rest on premises that Lean does not check. The list of all 16, and what could be checked about each: 5 decided on every instance below 2,000, 2 reproduced, 7 read and found to differ from the papers they cite, 2 not decided. No premise is proved here.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/prime-gap-premises.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/prime-gap-premises.html">
+<meta property="og:title" content="Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check · Carlos Toledo">
+<meta property="og:description" content="Three Lean proofs of bounded gaps between primes, with the bounds 186, 182 and 212, each rest on premises that Lean does not check. The list of all 16, and what could be checked about each: 5 decided on every instance below 2,000, 2 reproduced, 7 read and found to differ from the papers they cite, 2 not decided. No premise is proved here.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-prime-gap-premises.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check — Three rows of squares, one row per proof and one square per premise: solid squares, dashed squares and hatched squares.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check · Carlos Toledo">
+<meta name="twitter:description" content="Three Lean proofs of bounded gaps between primes, with the bounds 186, 182 and 212, each rest on premises that Lean does not check. The list of all 16, and what could be checked about each: 5 decided on every instance below 2,000, 2 reproduced, 7 read and found to differ from the papers they cite, 2 not decided. No premise is proved here.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-prime-gap-premises.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check","description":"Three Lean proofs of bounded gaps between primes, with the bounds 186, 182 and 212, each rest on premises that Lean does not check. The list of all 16, and what could be checked about each: 5 decided on every instance below 2,000, 2 reproduced, 7 read and found to differ from the papers they cite, 2 not decided. No premise is proved here.","url":"https://carlostoledo.co/reports/prime-gap-premises.html","image":"https://carlostoledo.co/og-prime-gap-premises.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=1 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* @/site-css */
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the records</div>
+  <h1>Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check</h1>
+  <p class="deck">Three Lean proofs bound the gaps between primes: OpenAI’s (186), one whose repository credits “GPT-6 Astra (OpenAI), prompted by Romyar Sharifi.” (182), and Axiom Math’s (212). The proofs are theirs, and nothing on this page proves a premise or verifies any of the three bounds. Each proof starts from statements it takes as given, which Lean does not check. Here is the list, 16 in all, and what I could check about each, with Claude.</p>
+</header>
+
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+    <svg viewBox="0 0 900 316" role="img" aria-label="A grid of small squares, one per premise: three columns for the three proofs and four rows for what was done. OpenAI, bound 186, 3 premises: 2 DECIDED ON INSTANCES below 2000, 1 REPRODUCED. The proof with the bound 182, 5 premises: 3 DECIDED ON INSTANCES below 2000, 1 REPRODUCED, 1 NOT DECIDED. Axiom Math, bound 212, 8 premises: 7 READ: MISMATCH, 1 NOT DECIDED. Solid squares are decided on instances; dashed squares are reproduced or, with a not-equal sign, read as a mismatch; hatched squares are not decided.">
+    <defs><pattern id="pgpHatchW" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1"/></pattern></defs>
+    <text x="0.0" y="18" class="t-ax">what was done to it</text>
+    <text x="330.0" y="18" class="t-lab">OpenAI · 186</text>
+    <text x="330.0" y="38" class="t-ax">3 premises</text>
+    <text x="480.0" y="18" class="t-lab">the 182</text>
+    <text x="480.0" y="38" class="t-ax">5 premises</text>
+    <text x="630.0" y="18" class="t-lab">Axiom Math · 212</text>
+    <text x="630.0" y="38" class="t-ax">8 premises</text>
+    <line x1="0" y1="54" x2="900" y2="54" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="78" class="t-lab">DECIDED ON INSTANCES below 2000</text>
+    <text x="0.0" y="98" class="t-ax">every case at the primes below 2,000</text>
+    <rect x="330" y="66" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A bound on a rank-three Kloosterman sum — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="368" y="66" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A correlation bound for Kloosterman sums — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="480" y="66" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>The 186’s first premise, again — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="518" y="66" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>The 186’s second premise, again — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="556" y="66" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A bound on a rank-four Kloosterman sum — DECIDED ON INSTANCES below 2000</title></rect>
+    <line x1="0" y1="116" x2="900" y2="116" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="140" class="t-lab">REPRODUCED</text>
+    <text x="0.0" y="160" class="t-ax">the authors’ own programs, run again</text>
+    <rect x="330" y="128" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>152 numerical bounds on integrals — REPRODUCED</title></rect>
+    <rect x="480" y="128" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>262 numerical bounds on integrals — REPRODUCED</title></rect>
+    <line x1="0" y1="178" x2="900" y2="178" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="202" class="t-lab">READ: MISMATCH</text>
+    <text x="0.0" y="222" class="t-ax">differs from the paper it cites</text>
+    <rect x="630" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type II estimate — READ: MISMATCH</title></rect>
+    <text x="645.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="668" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="683.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="706" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="721.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="744" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="759.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="782" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type III estimate — READ: MISMATCH</title></rect>
+    <text x="797.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="820" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A reduction step — READ: MISMATCH</title></rect>
+    <text x="835.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="858" y="190" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A bilinear Bombieri–Vinogradov theorem — READ: MISMATCH</title></rect>
+    <text x="873.0" y="210" text-anchor="middle" class="t-lab">≠</text>
+    <line x1="0" y1="240" x2="900" y2="240" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="264" class="t-lab">NOT DECIDED</text>
+    <text x="0.0" y="284" class="t-ax">∅ · nothing here could decide it</text>
+    <rect x="480" y="252" width="30" height="30" rx="4" class="w-void" fill="url(#pgpHatchW)" stroke="var(--ink-4)" stroke-width="1"><title>A local Fourier hypothesis with free constants — NOT DECIDED</title></rect>
+    <rect x="630" y="252" width="30" height="30" rx="4" class="w-void" fill="url(#pgpHatchW)" stroke="var(--ink-4)" stroke-width="1"><title>A certificate: a function with a stated property exists — NOT DECIDED</title></rect>
+    </svg>
+</div><div class="hv-n">
+    <svg viewBox="0 0 360 596" role="img" aria-label="A grid of small squares, one per premise: three columns for the three proofs and four rows for what was done. OpenAI, bound 186, 3 premises: 2 DECIDED ON INSTANCES below 2000, 1 REPRODUCED. The proof with the bound 182, 5 premises: 3 DECIDED ON INSTANCES below 2000, 1 REPRODUCED, 1 NOT DECIDED. Axiom Math, bound 212, 8 premises: 7 READ: MISMATCH, 1 NOT DECIDED. Solid squares are decided on instances; dashed squares are reproduced or, with a not-equal sign, read as a mismatch; hatched squares are not decided.">
+    <defs><pattern id="pgpHatchN" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1"/></pattern></defs>
+    <text x="0.0" y="16" class="t-lab">OpenAI · 186 · 3 premises</text>
+    <text x="0.0" y="44" class="t-ax">DECIDED ON INSTANCES below 2000</text>
+    <rect x="1" y="52" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A bound on a rank-three Kloosterman sum — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="39" y="52" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A correlation bound for Kloosterman sums — DECIDED ON INSTANCES below 2000</title></rect>
+    <text x="0.0" y="112" class="t-ax">REPRODUCED</text>
+    <rect x="1" y="120" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>152 numerical bounds on integrals — REPRODUCED</title></rect>
+    <line x1="0" y1="168" x2="360" y2="168" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="196" class="t-lab">the 182 · 5 premises</text>
+    <text x="0.0" y="224" class="t-ax">DECIDED ON INSTANCES below 2000</text>
+    <rect x="1" y="232" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>The 186’s first premise, again — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="39" y="232" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>The 186’s second premise, again — DECIDED ON INSTANCES below 2000</title></rect>
+    <rect x="77" y="232" width="30" height="30" rx="4" class="w-decided" fill="none" stroke-width="2"><title>A bound on a rank-four Kloosterman sum — DECIDED ON INSTANCES below 2000</title></rect>
+    <text x="0.0" y="292" class="t-ax">REPRODUCED</text>
+    <rect x="1" y="300" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>262 numerical bounds on integrals — REPRODUCED</title></rect>
+    <text x="0.0" y="360" class="t-ax">NOT DECIDED · ∅</text>
+    <rect x="1" y="368" width="30" height="30" rx="4" class="w-void" fill="url(#pgpHatchN)" stroke="var(--ink-4)" stroke-width="1"><title>A local Fourier hypothesis with free constants — NOT DECIDED</title></rect>
+    <line x1="0" y1="416" x2="360" y2="416" stroke="var(--rule)" stroke-width="1"/>
+    <text x="0.0" y="444" class="t-lab">Axiom Math · 212 · 8 premises</text>
+    <text x="0.0" y="472" class="t-ax">READ: MISMATCH</text>
+    <rect x="1" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type II estimate — READ: MISMATCH</title></rect>
+    <text x="16.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="39" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="54.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="77" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="92.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="115" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type I estimate — READ: MISMATCH</title></rect>
+    <text x="130.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="153" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A Type III estimate — READ: MISMATCH</title></rect>
+    <text x="168.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="191" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A reduction step — READ: MISMATCH</title></rect>
+    <text x="206.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <rect x="229" y="480" width="30" height="30" rx="4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"><title>A bilinear Bombieri–Vinogradov theorem — READ: MISMATCH</title></rect>
+    <text x="244.0" y="500" text-anchor="middle" class="t-lab">≠</text>
+    <text x="0.0" y="540" class="t-ax">NOT DECIDED · ∅</text>
+    <rect x="1" y="548" width="30" height="30" rx="4" class="w-void" fill="url(#pgpHatchN)" stroke="var(--ink-4)" stroke-width="1"><title>A certificate: a function with a stated property exists — NOT DECIDED</title></rect>
+    </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/prime-gap-premises.json@e11e704a7b30 corpus/prime-gap-premises/ledger.jsonl@3c1384fe2474" data-stop>One square per premise. Solid: every case at the primes below 2,000 was decided in exact arithmetic, which is not a proof for all primes. Dashed: the authors’ numbers, reproduced with their own programs, or (≠) a quoted theorem that two readers found to differ from its source. Hatched: nothing here could decide it. No square is a proof of a premise.<span class="fig-rec">Records: <span class="m">certs/prime-gap-premises.json</span> · sha256 e11e704a7b30; <span class="m">corpus/prime-gap-premises/ledger.jsonl</span> · sha256 3c1384fe2474</span><span class="fig-stop">The build refuses this figure if a premise’s status is not the one its evidence gives, or a premise has no cell.</span></figcaption>
+</figure></div>
+
+<div class="col"><div class="w-legend compact" data-n="3" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item" data-s="refused"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">proofs</div><div class="v">3</div><div class="n">with the bounds 186, 182 and 212</div></div>
+    <div class="stat"><div class="k">premises proved here</div><div class="v">0 of 16</div><div class="n">they remain premises</div></div>
+    <div class="stat"><div class="k">decided on instances</div><div class="v">5</div><div class="n">every case at the 303 primes below 2,000</div></div>
+    <div class="stat"><div class="k">reproduced</div><div class="v">2</div><div class="n">the authors’ numbers, with their own programs</div></div>
+    <div class="stat"><div class="k">read: mismatch</div><div class="v">7</div><div class="n">against the papers they cite, by two readers</div></div>
+    <div class="stat"><div class="k">not decided</div><div class="v">2</div><div class="n">nothing here could decide them</div></div>
+  </div>
+</div>
+
+<p class="scope">The three proofs, their Lean developments and their numerical packages belong to their authors. This page lists what they assume and what could be checked about it; it is not new mathematics. The checks are mine, done with Claude (Anthropic’s AI model), which wrote the programs under my direction; the readings of the 212 were made by AI readers working blind.</p>
+
+<section class="col" id="limits">
+  <div class="sec-head">
+    <div class="lab">read this first</div>
+    <h2>What is still open</h2>
+  </div>
+<ul class="plain"><li><b>Nothing here proves a premise, and nothing here verifies 186, 182 or 212.</b> Each proof says: if its premises hold, then its bound. This page is about the premises, not about the proofs.</li><li><b>Instances are not a proof.</b> The rank-four bound was decided at every prime below 2,000 and at none above. A finite check can refute a premise that was written down wrongly; it cannot prove one. For all primes the bound is Deligne’s theorem, not this run’s.</li><li><b>The 182’s 262 numbers were reproduced, not decided.</b> They came out of the authors’ own programs, run again by me. A replay of a claimant’s programs is never an independent decision. And the step from each computed bound to the integral it stands for is argued in the package’s comments: it is in no program and not in Lean.</li><li><b>Which number belongs to which Lean row is the package’s own assignment.</b> My comparison re-derives that key from the Lean row and requires it to be equal, which checks the pairing against Lean’s own fields and no further.</li><li><b>The readings of the 212 are readings.</b> Two AI readers compared each quoted premise with the paper it cites. A reading is not a decision, and neither reader is a human referee.</li><li><b>Not decided: the 182’s local Fourier hypothesis.</b> Its constants are free, so no finite test can refute it: a larger threshold or a larger constant escapes any instance.</li><li><b>Not decided: the 212’s certificate.</b> It asserts that a certain function exists, and no such function is published. The question is open with the authors as issue #2 of their repository.</li><li><b>Two of the 182’s premises are the 186’s, taken over.</b> The 182 carries a copy of the 186’s Lean file that is byte-identical, so its two shared premises inherit the checks of the 186. That its names resolve to those definitions is my reading of the file; I did not ask Lean.</li><li><b>The replay ran on my own build of FLINT, on Linux.</b> The package is tested by its authors on macOS with its bundled libraries. No byte of the package was changed; six things in the environment around it were, and each is listed in the records.</li><li><b>A recomputation of the 262 numbers by programs of mine has not been started.</b> That is what would turn “reproduced” into something stronger for that row.</li></ul>
+</section>
+
+<section class="" id="ledger">
+  <div class="col sec-head">
+    <div class="lab">the ledger</div>
+    <h2>The 16 premises, proof by proof</h2>
+  </div>
+<div class="col"><p>Each row is one statement a proof takes as given. The third column quotes or summarises it, as the ledger does: the Lean text, shortened, or for the 212 the theorem it cites. The status is in the ledger’s own words, and none of the four is a proof of the premise.</p><ul class="plain"><li><b>The bound 186.</b> OpenAI’s. <a href="https://github.com/openai/PrimeGaps186/tree/61340d0b74163003b32756bb16e91d9209a5e330">openai/PrimeGaps186 at 61340d0b</a> · 3 premises.</li><li><b>The bound 182.</b> Its repository’s notice reads: “Project attribution: GPT-6 Astra (OpenAI), prompted by Romyar Sharifi.” It carries no licence for its own material, so it is quoted and linked here, never copied. <a href="https://github.com/romyar1/prime-gaps-lean/tree/b77bf175bdedc5123027b3fcf0abc38427975770">romyar1/prime-gaps-lean at b77bf175</a> · 5 premises.</li><li><b>The bound 212.</b> Axiom Math’s. In its quoted rows, [1] is a Polymath paper and [2] a paper of Stadlmann. <a href="https://github.com/AxiomMath/BGP212/tree/6641780bb6bab050fd400a348ba759d233e34fad">AxiomMath/BGP212 at 6641780b</a> · 8 premises.</li></ul></div><div class="wide"><div class="tw"><table><thead><tr><th>proof</th><th>premise</th><th>as quoted</th><th>status</th></tr></thead><tbody><tr><td><b>186</b></td><td><b>A bound on a rank-three Kloosterman sum</b><br><span class="small"><span class="m">PrimeGap186.<wbr>kloosterman3_<wbr>bound</span> · finite-field bound</span></td><td><span class="m">∀ p [Fact p.Prime] (c : ZMod p), c ≠ 0 → ‖normalizedKloosterman3 p c‖ ≤ 3</span></td><td><b>DECIDED ON INSTANCES below 2000</b><br><span class="small">Every case at the 303 primes below 2,000 holds, in two programs that share no code: 276,747 cases. From the earlier check of the 186.</span></td></tr><tr><td><b>186</b></td><td><b>A correlation bound for Kloosterman sums</b><br><span class="small"><span class="m">PrimeGap186.<wbr>kloosterman2_<wbr>correlation_<wbr>bound</span> · finite-field bound</span></td><td><span class="m">∀ p [Fact p.Prime] (A B : ZMod p), A ≠ 0 → B ≠ 0 → ‖∑ t ≠ 0, −1, K2(A/t) K2(B/(t+1))‖ ≤ 8 p √p</span></td><td><b>DECIDED ON INSTANCES below 2000</b><br><span class="small">Every case at the same primes holds, in two programs that share no code: 359,158,973 cases. From the earlier check of the 186.</span></td></tr><tr><td><b>186</b></td><td><b>152 numerical bounds on integrals</b><br><span class="small"><span class="m">PrimeGap186.<wbr>physical_<wbr>integral_<wbr>bounds</span> · real-inequality bundle</span></td><td><span class="m">104 outer + 45 inner + 3 cap bounds, rationals / 10^18</span></td><td><b>REPRODUCED</b><br><span class="small">OpenAI’s program was run again and its 152 numbers were recomputed with no shared code. That each integral is at most its estimate is argued on paper.</span></td></tr><tr><td><b>182</b></td><td><b>The 186’s first premise, again</b><br><span class="small"><span class="m">PublicPrimeLocalBounds182 (first conjunct)</span> · finite-field bound</span></td><td><span class="m">∀ p [Fact p.Prime] (c : ZMod p), c ≠ 0 → ‖normalizedKloosterman3 p c‖ ≤ 3</span></td><td><b>DECIDED ON INSTANCES below 2000</b><br><span class="small">Taken over from the 186: the 182 carries a byte-identical copy of that Lean file and states the same sum, so it inherits that check. That its names resolve to that file’s definitions is a reading.</span></td></tr><tr><td><b>182</b></td><td><b>The 186’s second premise, again</b><br><span class="small"><span class="m">PublicPrimeLocalBounds182 (second conjunct)</span> · finite-field bound</span></td><td><span class="m">∀ p [Fact p.Prime] (A B : ZMod p), A ≠ 0 → B ≠ 0 → ‖∑ t ≠ 0, −1, K2(A/t) K2(B/(t+1))‖ ≤ 8 p √p</span></td><td><b>DECIDED ON INSTANCES below 2000</b><br><span class="small">Taken over from the 186: the 182 carries a byte-identical copy of that Lean file and states the same sum, so it inherits that check. That its names resolve to that file’s definitions is a reading.</span></td></tr><tr><td><b>182</b></td><td><b>A bound on a rank-four Kloosterman sum</b><br><span class="small"><span class="m">AllIncidenceRankFourBounds / IncidenceRankFourBound</span> · finite-field bound</span></td><td><span class="m">∀ c : ZMod p, c ≠ 0 → ‖∑ u v w : (ZMod p)ˣ, stdAddChar (u + v + w + c / (u v w))‖ ≤ 4 p √p</span></td><td><b>DECIDED ON INSTANCES below 2000</b><br><span class="small">New in this work. Every case at the 303 primes below 2,000 holds, in two programs that share no code: 276,747 cases, none failing, none left undecided.</span></td></tr><tr><td><b>182</b></td><td><b>262 numerical bounds on integrals</b><br><span class="small"><span class="m">PhysicalSourceBounds182</span> · real-inequality bundle</span></td><td><span class="m">cap (5) + outerRoot, outerFace (∀ j : Fin 60) + innerMass (∀ j : Fin 137): 262 inequalities between integrals and rationals</span></td><td><b>REPRODUCED</b><br><span class="small">The authors’ own numerical package, run again by me: it accepts its own run, and all 262 fresh values equal the numbers written in Lean. A replay, not an independent decision.</span></td></tr><tr><td><b>182</b></td><td><b>A local Fourier hypothesis with free constants</b><br><span class="small"><span class="m">LocalFourierHypothesis C D p₀</span> · free constants</span></td><td><span class="m">∀ p, p₀ &lt; p → ∀ α m m′ n n′ : ZMod p, … Finite/CurveExceptionalFourierBound p C D …</span></td><td><b>NOT DECIDED</b><br><span class="small">No finite test can refute it: a larger threshold or a larger constant escapes any instance.</span></td></tr><tr><td><b>212</b></td><td><b>A Type II estimate</b><br><span class="small"><span class="m">TypeIIPolymath</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Lemma 3, [1] Thm 2.8(iv)</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A Type I estimate</b><br><span class="small"><span class="m">TypeIbPolymath</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Lemma 4, [1] 2.8(ii)</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A Type I estimate</b><br><span class="small"><span class="m">TypeIBakerIrving</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Lemma 5</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A Type I estimate</b><br><span class="small"><span class="m">TypeIStadlmann</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Lemma 6</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A Type III estimate</b><br><span class="small"><span class="m">TypeIIIPolymath</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Lemma 7, [1] 2.8(v)</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A reduction step</b><br><span class="small"><span class="m">Gap212HarmanReduction</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [2] Prop. 2, Def. 9</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text bounds the error over all n, where the paper it cites sums over n between x and 2x.</span></td></tr><tr><td><b>212</b></td><td><b>A bilinear Bombieri–Vinogradov theorem</b><br><span class="small"><span class="m">BilinearBombieriVinogradov</span> · quoted asymptotic theorem</span></td><td><span class="m">cited: [1] Thm 2.9</span></td><td><b>READ: MISMATCH</b><br><span class="small">Read twice, blind. Both readers: the Lean text adds a condition that the theorem it cites does not have.</span></td></tr><tr><td><b>212</b></td><td><b>A certificate: a function with a stated property exists</b><br><span class="small"><span class="m">Gap212Certificate</span> · real-inequality bundle</span></td><td><span class="m">Certificate gap212Params 44 0 0: ∃ F, symmetric, L², 0 &lt; I(F) &lt; k·J(F)</span></td><td><b>NOT DECIDED</b><br><span class="small">It needs a witness, and none is published. The question is open with the authors.</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="" id="rank-four">
+  <div class="col sec-head">
+    <div class="lab">1 · the 182’s rank-four premise</div>
+    <h2>Every case for the primes below 2,000</h2>
+  </div>
+<div class="col"><p>The 182 adds a premise the 186 does not have: a bound on a sum over a finite field, one for every prime p and every nonzero c. Its size is to be at most 4 times p√p. It is Deligne’s bound for the rank-four Kloosterman sum, taken as a hypothesis. A computer can decide it prime by prime, which proves nothing about all primes and still tests whether the Lean statement says something false.</p><ul class="plain"><li><b>All hold.</b> 276,747 cases, for the 303 primes below 2,000, each decided by two programs that share no code: one in exact integers, one in interval arithmetic. None fails; none is left undecided.</li><li><b>The two programs agree case by case.</b> On all 276,747 cases their enclosures of the sum overlap. A third program, a direct triple sum, recomputed the 149 cases at the primes up to 31 and landed inside both.</li><li><b>Wrong versions are caught.</b> With 4 replaced by 3, 496 cases fail in both programs, the same 496, the earliest at p = 73. With 4 replaced by 2, 13,696 fail in both, the same number at every prime.</li><li><b>How close it comes.</b> The sum reaches 3.6085 times p√p against the assumed 4, at p = 1,493 and c = 689.</li></ul></div><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="A jagged line over the 303 primes below 2,000: for each prime, the largest size of the rank-four sum divided by p times the square root of p. It rises quickly to about 2.5 and then wanders between about 2.8 and 3.6, never reaching the horizontal line at the assumed bound 4. Its highest point is 3.6085, at p = 1493.">
+    <line x1="62" y1="250.0" x2="878" y2="250.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="254.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="197.3" x2="878" y2="197.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="201.3" text-anchor="end" class="t-ax">1</text>
+    <line x1="62" y1="144.5" x2="878" y2="144.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="148.5" text-anchor="end" class="t-ax">2</text>
+    <line x1="62" y1="91.8" x2="878" y2="91.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="95.8" text-anchor="end" class="t-ax">3</text>
+    <line x1="62" y1="39.1" x2="878" y2="39.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="43.1" text-anchor="end" class="t-ax">4</text>
+    <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="266.0" y1="250" x2="266.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="270.0" text-anchor="middle" class="t-ax">500</text>
+    <line x1="470.0" y1="250" x2="470.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="270.0" text-anchor="middle" class="t-ax">1,000</text>
+    <line x1="674.0" y1="250" x2="674.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="270.0" text-anchor="middle" class="t-ax">1,500</text>
+    <line x1="878.0" y1="250" x2="878.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">2,000</text>
+    <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="292.0" text-anchor="middle" class="t-note">the prime p</text>
+    <line x1="62" y1="39.1" x2="878" y2="39.1" stroke="var(--c-ctx)" stroke-width="1.5"/>
+    <text x="872.0" y="33.1" text-anchor="end" class="t-lab">the assumed bound, 4</text>
+    <path d="M62.8 231.4 L63.2 199.3 L64.0 174.5 L64.9 154.0 L66.5 138.6 L67.3 129.3 L68.9 151.1 L69.8 152.7 L71.4 121.2 L73.8 115.9 L74.6 124.8 L77.1 147.9 L78.7 108.4 L79.5 129.4 L81.2 120.2 L83.6 116.7 L86.1 120.4 L86.9 99.5 L89.3 106.5 L91.0 122.9 L91.8 84.0 L94.2 118.2 L95.9 118.8 L98.3 129.0 L101.6 93.5 L103.2 113.5 L104.0 101.0 L105.7 110.0 L106.5 115.6 L108.1 126.3 L113.8 98.8 L115.4 87.5 L117.9 80.7 L118.7 101.7 L122.8 109.6 L123.6 99.5 L126.1 91.8 L128.5 86.8 L130.1 122.7 L132.6 96.4 L135.0 92.1 L135.8 124.3 L139.9 114.2 L140.7 102.7 L142.4 112.2 L143.2 78.0 L148.1 89.8 L153.0 70.6 L154.6 100.8 L155.4 97.3 L157.1 110.4 L159.5 83.1 L160.3 100.7 L164.4 107.1 L166.9 94.4 L169.3 98.9 L171.8 91.1 L172.6 73.8 L175.0 97.3 L176.6 83.1 L177.5 89.9 L181.5 104.2 L187.3 90.4 L188.9 107.0 L189.7 98.0 L191.3 102.3 L197.0 81.1 L199.5 75.0 L203.6 85.6 L204.4 98.4 L206.0 82.5 L208.5 87.4 L211.7 89.2 L214.2 98.8 L216.6 101.9 L218.3 72.7 L220.7 96.5 L224.0 104.4 L225.6 91.0 L228.9 102.4 L233.0 68.9 L233.8 95.7 L237.8 96.4 L238.7 75.6 L241.1 100.6 L242.7 89.8 L245.2 75.6 L248.5 91.0 L250.1 96.6 L250.9 81.5 L252.5 101.3 L257.4 96.0 L260.7 97.3 L262.3 101.9 L265.6 59.8 L267.2 84.1 L269.7 115.4 L274.6 86.0 L275.4 82.2 L282.7 88.6 L285.2 87.0 L289.3 92.9 L291.7 87.2 L294.2 92.0 L295.0 93.7 L297.4 75.2 L301.5 82.1 L303.9 94.3 L306.4 87.2 L307.2 107.6 L309.7 88.3 L312.1 90.6 L313.7 69.3 L314.6 97.4 L319.4 82.6 L323.5 91.8 L324.3 76.9 L326.0 72.2 L328.4 79.7 L330.9 95.0 L331.7 71.5 L336.6 90.4 L338.2 80.4 L340.7 94.5 L343.9 100.4 L348.0 97.3 L351.3 98.2 L355.4 96.8 L358.6 102.1 L361.1 75.9 L363.5 79.5 L365.1 95.1 L368.4 75.7 L370.9 81.7 L372.5 88.9 L375.8 63.3 L377.4 66.0 L383.1 75.8 L387.2 95.2 L392.1 83.1 L392.9 89.3 L397.0 93.7 L397.8 80.1 L399.4 77.2 L400.2 87.9 L404.3 85.4 L410.0 82.5 L411.7 84.7 L412.5 82.8 L414.1 78.4 L419.8 93.5 L421.4 92.4 L422.3 80.8 L423.9 64.2 L432.1 79.4 L433.7 91.3 L437.0 91.1 L441.0 80.4 L444.3 88.9 L445.9 82.2 L448.4 68.3 L450.8 79.2 L456.5 77.9 L458.2 97.8 L460.6 87.4 L463.1 87.5 L466.3 85.6 L468.8 86.0 L473.7 95.2 L475.3 87.7 L477.8 85.7 L478.6 81.4 L482.6 86.6 L483.5 78.7 L485.9 84.5 L490.0 65.2 L490.8 73.6 L494.9 69.0 L495.7 86.8 L498.2 88.8 L505.5 80.0 L507.1 79.7 L507.9 79.0 L509.6 74.0 L512.0 79.2 L514.5 86.3 L517.7 84.1 L520.2 67.0 L522.6 79.3 L531.6 77.5 L532.4 81.5 L536.5 96.6 L539.8 78.3 L543.8 85.9 L546.3 91.6 L548.7 67.0 L552.0 84.0 L556.9 82.1 L558.5 69.6 L561.0 61.3 L563.4 88.7 L564.2 89.7 L566.7 82.3 L571.6 76.7 L575.7 78.3 L583.0 88.1 L583.8 78.3 L585.5 91.6 L587.9 68.1 L588.7 80.6 L591.2 72.3 L592.8 84.6 L593.6 81.3 L595.3 72.7 L600.2 91.8 L601.0 83.6 L603.4 78.5 L617.3 74.5 L619.7 74.4 L622.2 76.4 L625.4 81.6 L632.8 64.2 L636.9 83.0 L642.6 72.9 L644.2 65.4 L645.0 83.5 L646.7 75.4 L649.1 80.0 L652.4 98.2 L654.0 64.5 L654.8 76.7 L657.3 74.2 L662.2 73.0 L666.2 86.3 L667.1 87.6 L668.7 82.4 L669.5 64.5 L671.1 59.7 L673.6 73.5 L678.5 61.9 L683.4 78.7 L686.6 70.7 L691.5 82.5 L694.0 87.2 L695.6 82.3 L698.1 64.7 L701.3 93.5 L703.0 66.5 L706.2 84.9 L707.9 65.8 L713.6 75.8 L715.2 78.1 L717.7 76.3 L718.5 79.2 L720.1 84.0 L722.6 85.7 L723.4 86.3 L725.8 100.9 L729.9 71.0 L738.1 82.2 L740.5 75.4 L742.1 72.4 L743.0 74.6 L752.7 62.1 L754.4 65.5 L755.2 77.1 L759.3 71.6 L764.2 75.7 L765.0 82.8 L769.1 74.8 L772.3 68.7 L774.8 78.8 L777.2 89.6 L779.7 61.0 L787.0 67.1 L789.5 80.4 L791.1 84.7 L791.9 70.9 L796.8 84.1 L800.9 79.2 L805.8 76.4 L809.0 77.2 L815.6 74.1 L821.3 79.5 L823.7 81.3 L825.4 74.2 L826.2 84.4 L827.8 81.4 L828.6 69.4 L832.7 73.5 L837.6 88.3 L840.1 83.6 L842.5 67.9 L849.8 89.3 L850.7 85.9 L857.2 88.9 L858.0 73.5 L867.0 70.6 L869.4 87.6 L872.7 67.1 L875.1 67.5 L876.8 82.3 L877.6 66.9" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="671.1" cy="59.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="the closest approach" data-cmv="3.6085 at p = 1493" tabindex="0"/>
+  </svg>
+  </div>
+  <figcaption data-record="certs/prime-gap-premises.json@e11e704a7b30 corpus/prime-gap-premises/out/decider-b.jsonl@1eaa3c9b3857" data-stop>The rank-four premise: the largest size of the sum at each prime, divided by p√p, against the assumed bound 4. Each point is the upper end of an interval enclosure, rounded up.<span class="fig-rec">Records: <span class="m">certs/prime-gap-premises.json</span> · sha256 e11e704a7b30; <span class="m">corpus/prime-gap-premises/out/decider-b.jsonl</span> · sha256 1eaa3c9b3857</span><span class="fig-stop">The build refuses this figure if a prime’s largest value reaches the bound, or the two programs disagree.</span></figcaption>
+</figure>
+</section>
+
+<section class="col" id="replay">
+  <div class="sec-head">
+    <div class="lab">2 · the 182’s numbers</div>
+    <h2>The authors’ numerical package, run again</h2>
+  </div>
+<p>Another premise of the 182 is a list of 262 inequalities between integrals and fractions: 5 cap bounds, 120 outer and 137 inner. Its authors support them with a numerical package, released as an archive. I ran it again.</p><ul class="plain"><li><b>What was run.</b> The release archive, pinned by its hash, and the repository at its pinned commit, on a rented Linux machine. The arithmetic library is FLINT v3.6.0 with one upstream correction (<span class="m">7ad753d5</span>), built from source. No byte of the package was changed.</li><li><b>The package accepts its own run.</b> Its 14 audits pass, its 4 rejection tests all reject, and all 14 production stages pass, in 2 h 52 min. Its acceptance step reports a complete recomputation of the 262 inequalities.</li><li><b>My comparison.</b> A script of mine, with its hash logged before production started, compares the 262 fresh values with the fractions it parses from the Lean files at the pinned commit, not with the package’s own targets. 262 of 262 are on the right side.</li><li><b>There is no slack.</b> All 262 fresh values are equal to the numbers written in Lean, and equal to the published values. The Lean numbers are exactly what the package computes, so nothing separates a computed bound from the bound Lean assumes.</li><li><b>The comparison catches a wrong number.</b> With one Lean number tightened past its value, it fails and names the row. With one row removed, it fails on the count.</li></ul>
+</section>
+
+<section class="col" id="readings">
+  <div class="sec-head">
+    <div class="lab">3 · the 212’s quoted theorems</div>
+    <h2>Seven quoted premises, read blind twice</h2>
+  </div>
+<p>7 of the 8 premises of the 212 are theorems quoted from two papers. For these the question is whether the Lean text says what the paper says.</p><ul class="plain"><li><b>How they were read.</b> By two AI readers. Each read the cited paper and recorded what it states before opening the Lean file; the second reader did not see the other’s work.</li><li><b>What both found.</b> All 7 differ from the statements they cite. In 6, the Lean text bounds an error over all n, where the paper sums over n between x and 2x; a helper for the paper’s version is defined in the file and never used. The other one adds a condition its source does not have.</li><li><b>Already public.</b> The readings, hypothesis by hypothesis, are in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/bgp212-readings-2026-11-12"><span class="m">corpus/bgp212-readings-2026-11-12</span></a>, and the main difference is reported to the authors as <a href="https://github.com/AxiomMath/BGP212/issues/1">issue #1</a> of their repository.</li><li><b>Readings, not decisions.</b> A reading compares two texts. Neither reader is a human referee, and no program decided anything in this section.</li></ul>
+</section>
+
+<section class="col" id="certificate">
+  <div class="sec-head">
+    <div class="lab">4 · the 212’s certificate</div>
+    <h2>A certificate with no published witness</h2>
+  </div>
+<ul class="plain"><li><b>What it asks for.</b> The remaining premise of the 212 says that a function with a stated property exists. To check it, one needs the function.</li><li><b>None is published.</b> I looked in the repository at its pinned commit, whose own README says the certificate is assumed, and in the library it depends on, which holds such functions for two other bounds. Finding one myself would be a research computation, and was not attempted.</li><li><b>Asked.</b> The question is open with the authors as <a href="https://github.com/AxiomMath/BGP212/issues/2">issue #2</a> of their repository. The row stays NOT DECIDED.</li></ul>
+</section>
+
+<section class="col" id="method">
+  <div class="sec-head">
+    <div class="lab">the method</div>
+    <h2>How it was done</h2>
+  </div>
+<ul class="plain"><li><b>Rules before results.</b> The rules for each stage, with its verdict words and its predictions, were written and sealed before the stage ran: a salted fingerprint of the private work, posted to a public registry, which proves the date without showing the content. There are 4 fingerprints (the rules; the results; amendment A1, the rules; amendment A1, the results), and the rules are now public: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/prime-gap-premises/PREREGISTRATION.md"><span class="m">corpus/prime-gap-premises/PREREGISTRATION.md</span></a>.</li><li><b>A wrong version on every check.</b> A bound made too small, a number tightened, a row removed: each check had to catch its own.</li><li><b>Departures are listed.</b> Among them: the first rented machine was deleted partway through the long run, and the whole step was run again from the start on a second one.</li><li><b>Size.</b> One day, 12 November 2026: a laptop and 2 rented machines, about US$2.50 by the clock.</li></ul>
+</section>
+
+<section class="col" id="roles">
+  <div class="sec-head">
+    <div class="lab">who did what</div>
+    <h2>Each step is a separate job</h2>
+  </div>
+<ul class="plain"><li><b>The three proofs.</b> OpenAI (186); “GPT-6 Astra (OpenAI), prompted by Romyar Sharifi.”, in the words of that repository’s notice (182); Axiom Math (212).</li><li><b>The theorems the premises quote.</b> Deligne and Katz, and Fouvry, Kowalski and Michel, for the sums over finite fields; Polymath and Stadlmann, for the 212’s estimates.</li><li><b>The numerical package of the 182, and FLINT.</b> Their authors.</li><li><b>The checks on this page.</b> I did them, with Claude, Anthropic’s AI model, which wrote the programs under my direction.</li><li><b>The readings of the 212.</b> Two AI readers that I ran, each working blind.</li></ul>
+</section>
+
+<section class="col" id="rerun">
+  <div class="sec-head">
+    <div class="lab">check it yourself</div>
+    <h2>How to re-run it</h2>
+  </div>
+<ul class="plain"><li><b>The record.</b> <span class="m">node tools/record-prime-gap-premises.js --check</span> re-derives every number on this page from <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/prime-gap-premises"><span class="m">corpus/prime-gap-premises</span></a> (45 files, each pinned by its hash) and refuses on any difference.</li><li><b>The two deciders.</b> In that folder, <span class="m">python3 decider_a.py</span> (it needs NumPy; about 109 minutes) and <span class="m">node decider_b.js</span> (about 3 minutes) decide the rank-four premise again; a smaller bound on the command line makes a shorter run. Given <span class="m">--values</span> and a file name, each also writes its value for every case, and <span class="m">compare.py</span> compares the two files and runs the direct triple sum.</li><li><b>The comparison script.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/prime-gap-premises/step5/compare182.py"><span class="m">corpus/prime-gap-premises/step5/compare182.py</span></a> needs a run of the authors’ package and a copy of their repository at the pinned commit.</li><li><b>What is withheld, and why.</b> The package’s own output from my run is not published, because the 182 repository carries no licence: what I read from it is published, with the hashes of the files. Two large files of per-case values are given by hash; the deciders write them again. <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/prime-gap-premises/PUBLICATION-NOTES.md"><span class="m">corpus/prime-gap-premises/PUBLICATION-NOTES.md</span></a> says what differs from the private files.</li><li><b>What was checked.</b> <a href="https://github.com/openai/PrimeGaps186/tree/61340d0b74163003b32756bb16e91d9209a5e330">openai/PrimeGaps186 at 61340d0b</a>, <a href="https://github.com/romyar1/prime-gaps-lean/tree/b77bf175bdedc5123027b3fcf0abc38427975770">romyar1/prime-gaps-lean at b77bf175</a>, <a href="https://github.com/AxiomMath/BGP212/tree/6641780bb6bab050fd400a348ba759d233e34fad">AxiomMath/BGP212 at 6641780b</a>. The earlier check of the 186: <a href="/reports/prime-gaps-186.html">its report</a>.</li><li><b>The results as written.</b> With what stays open at the top: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/prime-gap-premises/RESULT-2026-11-12.md"><span class="m">corpus/prime-gap-premises/RESULT-2026-11-12.md</span></a>.</li></ul>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-prime-gap-premises.js from certs/prime-gap-premises.json (tools/record-prime-gap-premises.js --check). I did this with Claude (Anthropic); Claude wrote the programs under my direction.</p><p>git d1fb9b3f · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+
+</body>
+</html>

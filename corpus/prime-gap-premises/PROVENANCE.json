@@ -1,0 +1,232 @@
+{
+ "what": "The premises of three conditional Lean proofs of bounded prime gaps (OpenAI's 186, the 182 of romyar1/prime-gaps-lean, Axiom Math's 212): the ledger of their 16 premises and what was checked about each, done privately on 2026-11-12 and published on 2026-11-13. The private folder's files, byte for byte, except the four listed in PUBLICATION-NOTES.md (three one- or two-line path changes and one phrase), and PUBLICATION-NOTES.md itself, which was written for the publication. What is withheld, and why, is said there. Nothing of the 182 repository is copied: it carries no licence, so it is quoted and linked at its commit.",
+ "published": "2026-11-13",
+ "work_date": "2026-11-12",
+ "files": [
+  {
+   "path": "PREREGISTRATION.md",
+   "sha256": "0e140784374952fe749d8e3c6461c12ae896ae20840530001f974685b989e82f",
+   "bytes": 10838
+  },
+  {
+   "path": "PUBLICATION-NOTES.md",
+   "sha256": "2972e98a52c1173fb8e6feb671f632e716b7089bf0e145ea5d37eadc24600175",
+   "bytes": 3403
+  },
+  {
+   "path": "RESULT-2026-11-12.md",
+   "sha256": "72a14e6b61af1d39a5e68202cb11e76eebbac70305a63ecb87f507d13bb025aa",
+   "bytes": 7454
+  },
+  {
+   "path": "compare.py",
+   "sha256": "c656dfe53b50ae6faf3650d576fb9b05c63858962b63425c07c9ba1893d330a2",
+   "bytes": 2312
+  },
+  {
+   "path": "decider_a.py",
+   "sha256": "bee776098c244c417d764227b33220d0ac511fd599f0324598386a0ac39a0329",
+   "bytes": 5716
+  },
+  {
+   "path": "decider_b.js",
+   "sha256": "cf4be526a33d16ed95ff1edac7051a31115893c8aeb5105d7f3a5a5011c6c0f9",
+   "bytes": 4469
+  },
+  {
+   "path": "ledger.jsonl",
+   "sha256": "3c1384fe24749796d4b0333b98acc95cc65e44fb8a4545c71381b451014c0941",
+   "bytes": 15044
+  },
+  {
+   "path": "ledger.py",
+   "sha256": "69989a318c4926fd14305bc60b72f0a97f7026cc8f1908166e8a3edc2ab9e34c",
+   "bytes": 9876
+  },
+  {
+   "path": "out/VALUES-NOT-PUBLISHED.sha256",
+   "sha256": "2f36b4094aeeb78deaf1c8ba1bcebf8079b8d83585f99fa61265f72877eb9276",
+   "bytes": 186
+  },
+  {
+   "path": "out/compare.json",
+   "sha256": "68739dddeeb05e7788e5651416a769c02b9616b455ed0cc7b8bf2461e1aec2a9",
+   "bytes": 157
+  },
+  {
+   "path": "out/decider-a.jsonl",
+   "sha256": "df5df4cd66a7fdb295eeda58dc5970c38f43ad8561648962917e20eca441ca8f",
+   "bytes": 79735
+  },
+  {
+   "path": "out/decider-b.jsonl",
+   "sha256": "1eaa3c9b3857866dd80c0f1f4d2e22cac657da39294b7da3f764406252008b1a",
+   "bytes": 52755
+  },
+  {
+   "path": "out/planted3-sets.txt",
+   "sha256": "d09ec7706dba87bfbc37aeb02eab9bf8f12d76ebb02c2777afe1ff613c1c78bb",
+   "bytes": 237
+  },
+  {
+   "path": "pg186a_decide.py",
+   "sha256": "ba27c07aa1d24a7fa2aff6f550eb8807fd9e9e75d31c8e7a37ada0c3903e9b35",
+   "bytes": 16265
+  },
+  {
+   "path": "step5/DEVIATIONS.md",
+   "sha256": "158b56d248b23d4bcda6abb3dba1e8d969ed116e25228db7ef21f6a7c58bdfd4",
+   "bytes": 2332
+  },
+  {
+   "path": "step5/SHA256SUMS.step5",
+   "sha256": "4322520dc87ea842fc12e43474c57a57c7ec31223176fba4e904175bc529df21",
+   "bytes": 15925
+  },
+  {
+   "path": "step5/acceptance-read.json",
+   "sha256": "15b52f38dcb5a5693cb351e4279bafbc977f33ee44eb4f6865f4318ed3d80272",
+   "bytes": 2096
+  },
+  {
+   "path": "step5/chain182.sh",
+   "sha256": "16dd24f43ebd07126cf78f385b1847b44f442f6aa17cbf6792e514d4b5c5d885",
+   "bytes": 1791
+  },
+  {
+   "path": "step5/compare182.py",
+   "sha256": "9819087519c2845f3577f92d3567216532f5aef92421060d5fba2e7afc4d6077",
+   "bytes": 7513
+  },
+  {
+   "path": "step5/run182.sh",
+   "sha256": "efb76e7db40dd5c7dcd0de1f02de33822783fb13c17b0539fdca49f0197f2993",
+   "bytes": 2918
+  },
+  {
+   "path": "step5/runs/_status.txt",
+   "sha256": "dfba28b265c06fc6017d6b6af9065621b912d038b4743dc177f2d79cb7b1dbdb",
+   "bytes": 1290
+  },
+  {
+   "path": "step5/runs/archive.sha256",
+   "sha256": "838caaa6b258566133d4a1a440d5afacda97a9eef00de6f6cf7f1d57782738e9",
+   "bytes": 76
+  },
+  {
+   "path": "step5/runs/audit.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/compare.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/compare182.at-run.sha256",
+   "sha256": "6f9664ccf4fb8ac2b1834fc828bd268c1d01ed30d015a719c7e9ead22eff579f",
+   "bytes": 88
+  },
+  {
+   "path": "step5/runs/compare182.json",
+   "sha256": "563989bbae13c04813d619153d21e2fd1dee22abd7f31fd173d1fccea97f74d3",
+   "bytes": 39020
+  },
+  {
+   "path": "step5/runs/compare182.sha256",
+   "sha256": "e63a2ab06330cb93c7df968854ed78324124d0511972f50066d70442c947d8ce",
+   "bytes": 80
+  },
+  {
+   "path": "step5/runs/cp-wrapper.sh",
+   "sha256": "23c1bc813815df1a169f3c997bee11e9cad8639c25bb7e579cd3b71bd0e36b2a",
+   "bytes": 215
+  },
+  {
+   "path": "step5/runs/env-fixed.txt",
+   "sha256": "f5828746d8a23779ddb79dda153f6ae4a121b3e28e6cee20ed890ab59490f88e",
+   "bytes": 802
+  },
+  {
+   "path": "step5/runs/env-stock.txt",
+   "sha256": "b733a5361bfc67db071572ea7f46f31f5f5fcd4acd14ec5d2c90e272cbd44d6e",
+   "bytes": 1159
+  },
+  {
+   "path": "step5/runs/finish.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/libraries.sha256",
+   "sha256": "82a1157656efa3497544ee34e5392774dde0890e5d518262fc0236f797d95ff0",
+   "bytes": 282
+  },
+  {
+   "path": "step5/runs/negative.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/red-drop.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/red-drop.log",
+   "sha256": "2266dbcd29a76def94b8ab6e5bda1e334b9ef254f39f129201e1dcc7d27f5f8f",
+   "bytes": 526
+  },
+  {
+   "path": "step5/runs/red-tighten.exit",
+   "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/red-tighten.log",
+   "sha256": "a6bc2c05509caffdd49942afb65a6ec4c19e908ca5ac48dc83222719af24e26d",
+   "bytes": 837
+  },
+  {
+   "path": "step5/runs/repo.head",
+   "sha256": "8d18012f027b2c12d78ea082dd43b94ae8af9080135bb58a15f61b8b61e62f50",
+   "bytes": 41
+  },
+  {
+   "path": "step5/runs/repro-fixed.log",
+   "sha256": "7e2f3d4789a88a1598d8e9db1227d51b81ca8a101104729832e22d49eb8ea947",
+   "bytes": 50
+  },
+  {
+   "path": "step5/runs/repro-stock.log",
+   "sha256": "b86c48ad57f66fa008d459011833fc95843146301b135986bd6abd38adeb5c1f",
+   "bytes": 50
+  },
+  {
+   "path": "step5/runs/verify.exit",
+   "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+   "bytes": 2
+  },
+  {
+   "path": "step5/runs/verify.seconds",
+   "sha256": "a41755eccf821ef3fe52c059068b3fe3552d689e9e341dd66970976496814ad0",
+   "bytes": 6
+  },
+  {
+   "path": "step5/setup182.sh",
+   "sha256": "8befca63abeb44fb47880ffdbf481dcbf82e6059972bfdaf362cd5c6a0e68c07",
+   "bytes": 3760
+  },
+  {
+   "path": "step5/step5_flint_shim.py",
+   "sha256": "37db67279f408a397a9c4c5eaddf77b8964650c1733c5363e419696c3c64cd43",
+   "bytes": 704
+  },
+  {
+   "path": "timing-screen.py",
+   "sha256": "a58d68ff6c9f2fd16af60672c15e90a02bfe9cac53a44c462b6a7a47a992a2ce",
+   "bytes": 1407
+  }
+ ]
+}

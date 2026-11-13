@@ -1,0 +1,12 @@
++ /root/s/venv-fixed/bin/python -I -c 'import flint, numpy, sys, platform; print(sys.version); print(platform.platform()); print("python-flint", flint.__version__, "numpy", numpy.__version__); print(flint.__file__)'
+3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]
+Linux-6.8.0-147-generic-x86_64-with-glibc2.39
+python-flint 0.9.0 numpy 2.3.5
+/root/s/venv-fixed/lib/python3.12/site-packages/flint/__init__.py
++ grep -i flint
+++ /root/s/venv-fixed/bin/python -I -c 'import flint.types.fmpz_poly as m; print(m.__file__)'
++ ldd /root/s/venv-fixed/lib/python3.12/site-packages/flint/types/fmpz_poly.cpython-312-x86_64-linux-gnu.so
+	libflint.so.24 => /root/s/flint-fixed/lib/libflint.so.24 (0x00007abd36e34000)
++ /root/s/venv-fixed/bin/pip freeze
+numpy==2.3.5
+python-flint @ file:///root/s/src/python-flint

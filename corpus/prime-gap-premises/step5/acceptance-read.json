@@ -1,0 +1,87 @@
+{
+ "what": "Read by us from the package's own acceptance receipt and coverage record of our run (the files themselves are the claimant's package output and are not published; the 182 repository carries no licence).",
+ "verification_json_sha256": "62c8a6fa1d9c5bb57d3bc653623545c31107765146f988c05e37979307ec386e",
+ "coverage_json_sha256": "ddf0197181f6fa6f24c78b2a96f2ccc0232d9fd3e6cae404e5569bee3358e31f",
+ "published_coverage_json_sha256": "ddf0197181f6fa6f24c78b2a96f2ccc0232d9fd3e6cae404e5569bee3358e31f",
+ "read": {
+  "status": "PASS_COMPLETE_EXTERNAL_NUMERICAL_RECOMPUTATION",
+  "completed_utc": "2026-11-12T21:38:42.098620+00:00",
+  "production_stages": 14,
+  "audit_stages": 14,
+  "target_inequalities": 262,
+  "source_geometry_equalities": 328936,
+  "all_262_recomputed": true,
+  "historical_production_outputs_read": false,
+  "fresh_affine_arrays_equal": 20,
+  "mathematical_payloads_match_reference": true,
+  "recorded_production_seconds": 21751.700014405884
+ },
+ "audits": {
+  "passed": 14,
+  "of": 14
+ },
+ "rejections": {
+  "negative_denominator": true,
+  "missing_inner_bin": true,
+  "changed_trial": true,
+  "obsolete_fft_runtime": true
+ },
+ "stages": {
+  "affines": {
+   "status": "PASS",
+   "seconds": 301
+  },
+  "cap": {
+   "status": "PASS",
+   "seconds": 4715
+  },
+  "outer-high": {
+   "status": "PASS",
+   "seconds": 389
+  },
+  "outer-rank-roots": {
+   "status": "PASS",
+   "seconds": 1181
+  },
+  "outer-rank-faces": {
+   "status": "PASS",
+   "seconds": 1394
+  },
+  "outer-G2-low-0": {
+   "status": "PASS",
+   "seconds": 263
+  },
+  "outer-G2-low-1-5": {
+   "status": "PASS",
+   "seconds": 1147
+  },
+  "outer-G2-low-6-10": {
+   "status": "PASS",
+   "seconds": 1104
+  },
+  "outer-G1-low": {
+   "status": "PASS",
+   "seconds": 3371
+  },
+  "outer-G2-low-11-21": {
+   "status": "PASS",
+   "seconds": 1742
+  },
+  "inner-G4-low": {
+   "status": "PASS",
+   "seconds": 1138
+  },
+  "inner-G3-G5-G6-low": {
+   "status": "PASS",
+   "seconds": 1791
+  },
+  "inner-rank-high": {
+   "status": "PASS",
+   "seconds": 3015
+  },
+  "inner-C-low": {
+   "status": "PASS",
+   "seconds": 201
+  }
+ }
+}

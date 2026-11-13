@@ -224,6 +224,25 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/prime-gap-premises.html (2026-11-13): the ledger as three rows of squares, one row per proof
+     and one square per premise, each drawn by what was done to it: solid (decided on instances), dashed (reproduced, or
+     read), hatched (not decided). LIGHT theme, no number, no label. */
+  'prime-gap-premises': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · prime gaps, the premises', path: '/reports/prime-gap-premises.html',
+    title: 'Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check',
+    alt: 'Three rows of squares, one row per proof and one square per premise: solid squares, dashed squares and hatched squares.',
+    svgRaw: (() => {
+      const o = [], x0 = 316, pitch = 72, cell = 52, rows = [['s', 's', 'd'], ['s', 's', 's', 'd', 'v'], ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'v']];
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Three rows of squares: solid, dashed and hatched" style="position:absolute;left:0;top:0">');
+      o.push('<defs><pattern id="og-void" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="var(--surface)"/><path d="M0,9 l9,-9 M-2.25,2.25 l4.5,-4.5 M6.75,11.25 l4.5,-4.5" stroke="var(--ink-5)" stroke-width="0.9" fill="none"/></pattern></defs>');
+      rows.forEach((row, r) => row.forEach((k, i) => {
+        const at = 'x="' + (x0 + i * pitch) + '" y="' + (186 + r * 96) + '" width="' + cell + '" height="' + cell + '" rx="6"';
+        o.push('<rect ' + at + ' ' + (k === 's' ? 'fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"'
+          : k === 'd' ? 'fill="var(--surface)" stroke="var(--ink-2)" stroke-width="2.4" stroke-dasharray="5 4"'
+          : 'fill="url(#og-void)" stroke="var(--ink-4)" stroke-width="1.2"') + '/>');
+      }));
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a

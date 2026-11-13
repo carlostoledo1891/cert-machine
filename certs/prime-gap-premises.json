@@ -1,0 +1,1848 @@
+{
+ "undecided": "The proofs are OpenAI’s (the bound 186), those of the 182’s authors (its repository’s NOTICE says: “GPT-6 Astra (OpenAI), prompted by Romyar Sharifi.”) and Axiom Math’s (the bound 212). This record lists the premises their Lean theorems take as hypotheses and what was checked about each. It proves no premise and does not verify any of the three bounds.",
+ "dates": {
+  "work": "2026-11-12",
+  "published": "2026-11-13"
+ },
+ "proofs": [
+  {
+   "id": "186",
+   "bound": 186,
+   "by": "OpenAI",
+   "repository": "https://github.com/openai/PrimeGaps186",
+   "name": "openai/PrimeGaps186",
+   "commit": "61340d0b74163003b32756bb16e91d9209a5e330",
+   "licence": "Apache-2.0",
+   "premises": 3
+  },
+  {
+   "id": "182",
+   "bound": 182,
+   "repository": "https://github.com/romyar1/prime-gaps-lean",
+   "name": "romyar1/prime-gaps-lean",
+   "commit": "b77bf175bdedc5123027b3fcf0abc38427975770",
+   "licence": "none: quoted and linked, never copied",
+   "premises": 5,
+   "attribution": {
+    "quote": "GPT-6 Astra (OpenAI), prompted by Romyar Sharifi.",
+    "file": "NOTICE.md",
+    "blob": "46b1a5936cab532f246f95d2cdb7b83c7a8dd1ce"
+   }
+  },
+  {
+   "id": "212",
+   "bound": 212,
+   "by": "Axiom Math",
+   "repository": "https://github.com/AxiomMath/BGP212",
+   "name": "AxiomMath/BGP212",
+   "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+   "licence": "Apache-2.0",
+   "premises": 8
+  }
+ ],
+ "ledger": {
+  "file": "corpus/prime-gap-premises/ledger.jsonl",
+  "sha256": "3c1384fe24749796d4b0333b98acc95cc65e44fb8a4545c71381b451014c0941",
+  "rows": 16,
+  "byStatus": {
+   "DECIDED ON INSTANCES below 2000": 5,
+   "REPRODUCED": 2,
+   "NOT DECIDED": 2,
+   "READ: MISMATCH": 7
+  },
+  "premises": [
+   {
+    "id": "186-1",
+    "proof": "186",
+    "file": "PrimeGaps186.lean",
+    "lean": "PrimeGap186.kloosterman3_bound",
+    "shape": "finite-field bound",
+    "statement": "∀ p [Fact p.Prime] (c : ZMod p), c ≠ 0 → ‖normalizedKloosterman3 p c‖ ≤ 3",
+    "status": "DECIDED ON INSTANCES below 2000",
+    "evidence": [
+     {
+      "path": "certs/prime-gaps-186.json",
+      "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d"
+     }
+    ]
+   },
+   {
+    "id": "186-2",
+    "proof": "186",
+    "file": "PrimeGaps186.lean",
+    "lean": "PrimeGap186.kloosterman2_correlation_bound",
+    "shape": "finite-field bound",
+    "statement": "∀ p [Fact p.Prime] (A B : ZMod p), A ≠ 0 → B ≠ 0 → ‖∑ t ≠ 0, −1, K2(A/t) K2(B/(t+1))‖ ≤ 8 p √p",
+    "status": "DECIDED ON INSTANCES below 2000",
+    "evidence": [
+     {
+      "path": "certs/prime-gaps-186.json",
+      "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d"
+     }
+    ]
+   },
+   {
+    "id": "186-3",
+    "proof": "186",
+    "file": "PrimeGaps186.lean",
+    "lean": "PrimeGap186.physical_integral_bounds",
+    "shape": "real-inequality bundle",
+    "statement": "104 outer + 45 inner + 3 cap bounds, rationals / 10^18",
+    "status": "REPRODUCED",
+    "evidence": [
+     {
+      "path": "certs/prime-gaps-186.json",
+      "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d"
+     }
+    ]
+   },
+   {
+    "id": "182-1",
+    "proof": "182",
+    "file": "formal/PrimeSourcePublic182.lean",
+    "lean": "PublicPrimeLocalBounds182 (first conjunct)",
+    "shape": "finite-field bound",
+    "statement": "∀ p [Fact p.Prime] (c : ZMod p), c ≠ 0 → ‖normalizedKloosterman3 p c‖ ≤ 3",
+    "status": "DECIDED ON INSTANCES below 2000",
+    "evidence": [
+     {
+      "path": "certs/prime-gaps-186.json",
+      "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d"
+     }
+    ]
+   },
+   {
+    "id": "182-2",
+    "proof": "182",
+    "file": "formal/PrimeSourcePublic182.lean",
+    "lean": "PublicPrimeLocalBounds182 (second conjunct)",
+    "shape": "finite-field bound",
+    "statement": "∀ p [Fact p.Prime] (A B : ZMod p), A ≠ 0 → B ≠ 0 → ‖∑ t ≠ 0, −1, K2(A/t) K2(B/(t+1))‖ ≤ 8 p √p",
+    "status": "DECIDED ON INSTANCES below 2000",
+    "evidence": [
+     {
+      "path": "certs/prime-gaps-186.json",
+      "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d"
+     }
+    ]
+   },
+   {
+    "id": "182-3",
+    "proof": "182",
+    "file": "formal/IncidenceRankFour.lean",
+    "lean": "AllIncidenceRankFourBounds / IncidenceRankFourBound",
+    "shape": "finite-field bound",
+    "statement": "∀ c : ZMod p, c ≠ 0 → ‖∑ u v w : (ZMod p)ˣ, stdAddChar (u + v + w + c / (u v w))‖ ≤ 4 p √p",
+    "status": "DECIDED ON INSTANCES below 2000",
+    "evidence": [
+     {
+      "path": "corpus/prime-gap-premises/out/decider-a.jsonl",
+      "sha256": "df5df4cd66a7fdb295eeda58dc5970c38f43ad8561648962917e20eca441ca8f"
+     },
+     {
+      "path": "corpus/prime-gap-premises/out/decider-b.jsonl",
+      "sha256": "1eaa3c9b3857866dd80c0f1f4d2e22cac657da39294b7da3f764406252008b1a"
+     },
+     {
+      "path": "corpus/prime-gap-premises/out/compare.json",
+      "sha256": "68739dddeeb05e7788e5651416a769c02b9616b455ed0cc7b8bf2461e1aec2a9"
+     }
+    ]
+   },
+   {
+    "id": "182-4",
+    "proof": "182",
+    "file": "formal/PrimeGaps182Analytic.lean",
+    "lean": "PhysicalSourceBounds182",
+    "shape": "real-inequality bundle",
+    "statement": "cap (5) + outerRoot, outerFace (∀ j : Fin 60) + innerMass (∀ j : Fin 137): 262 inequalities between integrals and rationals",
+    "status": "REPRODUCED",
+    "evidence": [
+     {
+      "withheld": true,
+      "sha256": "62c8a6fa1d9c5bb57d3bc653623545c31107765146f988c05e37979307ec386e"
+     },
+     {
+      "withheld": true,
+      "sha256": "ddf0197181f6fa6f24c78b2a96f2ccc0232d9fd3e6cae404e5569bee3358e31f"
+     },
+     {
+      "path": "corpus/prime-gap-premises/step5/runs/compare182.json",
+      "sha256": "563989bbae13c04813d619153d21e2fd1dee22abd7f31fd173d1fccea97f74d3"
+     }
+    ]
+   },
+   {
+    "id": "182-5",
+    "proof": "182",
+    "file": "formal/PrimeGaps182Analytic.lean",
+    "lean": "LocalFourierHypothesis C D p₀",
+    "shape": "free constants",
+    "statement": "∀ p, p₀ < p → ∀ α m m′ n n′ : ZMod p, … Finite/CurveExceptionalFourierBound p C D …",
+    "status": "NOT DECIDED",
+    "evidence": []
+   },
+   {
+    "id": "212-TypeIIPolymath",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "TypeIIPolymath",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Lemma 3, [1] Thm 2.8(iv)",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/TypeIIPolymath.reading.md",
+      "sha256": "ae80537dac115359454002b6c3d49d7538c8be85eaafe50b96e907383c08a513"
+     }
+    ]
+   },
+   {
+    "id": "212-TypeIbPolymath",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "TypeIbPolymath",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Lemma 4, [1] 2.8(ii)",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/TypeIbPolymath.reading.md",
+      "sha256": "636bac64031bac3269de2b7a5a85d6b86a89ad73abd5c54395f1a9de8a518bc5"
+     }
+    ]
+   },
+   {
+    "id": "212-TypeIBakerIrving",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "TypeIBakerIrving",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Lemma 5",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/TypeIBakerIrving.reading.md",
+      "sha256": "62a6f9423cf36c94ef490fa9d05da37a3ca8d85cc02199bc5d482bb35bd3974e"
+     }
+    ]
+   },
+   {
+    "id": "212-TypeIStadlmann",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "TypeIStadlmann",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Lemma 6",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/TypeIStadlmann.reading.md",
+      "sha256": "89f04a7a8344fd35f9aa645d85536f9745aa7b5b66923c23bedc748b9fe650be"
+     }
+    ]
+   },
+   {
+    "id": "212-TypeIIIPolymath",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "TypeIIIPolymath",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Lemma 7, [1] 2.8(v)",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/TypeIIIPolymath.reading.md",
+      "sha256": "56cc3167d2fcc6a9cd3ecfcdb8cba3cb8c68469ea08e0dbc338ca1467786747c"
+     }
+    ]
+   },
+   {
+    "id": "212-Gap212HarmanReduction",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "Gap212HarmanReduction",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [2] Prop. 2, Def. 9",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/Gap212HarmanReduction.reading.md",
+      "sha256": "82ef7034ab01b2e2a7709e16de287a1f0d82066e0e549748cad8af3559025e50"
+     }
+    ]
+   },
+   {
+    "id": "212-BilinearBombieriVinogradov",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "BilinearBombieriVinogradov",
+    "shape": "quoted asymptotic theorem",
+    "statement": "cited: [1] Thm 2.9",
+    "status": "READ: MISMATCH",
+    "evidence": [
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/summary.json",
+      "sha256": "576dd7c3f8d4342686f16e58b608767b074d16d5ed8a5a7bfef2332bb2d07b04"
+     },
+     {
+      "path": "corpus/bgp212-readings-2026-11-12/reader-a/BilinearBombieriVinogradov.reading.md",
+      "sha256": "dd6e94ad40511ba3b1a994a241ef01257d313db6c9b5fa506552d6a52a69e8f4"
+     }
+    ]
+   },
+   {
+    "id": "212-Gap212Certificate",
+    "proof": "212",
+    "file": "Gap212Challenge/Basic.lean",
+    "lean": "Gap212Certificate",
+    "shape": "real-inequality bundle",
+    "statement": "Certificate gap212Params 44 0 0: ∃ F, symmetric, L², 0 < I(F) < k·J(F)",
+    "status": "NOT DECIDED",
+    "evidence": []
+   }
+  ]
+ },
+ "inherited186": {
+  "record": "certs/prime-gaps-186.json",
+  "sha256": "5d2c84f356d35a05ab742974693635ae5b44d95d4ed767e80a3cdd7e47e9716d",
+  "primes": 303,
+  "primesBelow": 2000,
+  "axiom1Instances": 276747,
+  "axiom2Instances": 359158973,
+  "axiom1": "CERTIFIED on the instances",
+  "axiom2": "CERTIFIED on the instances",
+  "certificate": "REPRODUCED",
+  "numbers": 152,
+  "recomputed": "152 of 152",
+  "vendoredBy182": "byte-identical file (as the ledger states); that the 182’s names resolve to its definitions is a reading"
+ },
+ "rankFour": {
+  "premise": "IncidenceRankFourBound",
+  "bound": 4,
+  "primesBelow": 2000,
+  "primes": 303,
+  "largestPrime": 1999,
+  "instances": 276747,
+  "holdInBoth": 276747,
+  "fails": 0,
+  "undecided": 0,
+  "deciderA": {
+   "file": "corpus/prime-gap-premises/decider_a.py",
+   "kind": "exact integers",
+   "seconds": 6557.2,
+   "raisedPrecision": 0,
+   "ranAsSha256": "90faff57cd56c8ed038d95709902f031a416193add1c0fc6eb89488deab6bb78",
+   "publishedSha256": "bee776098c244c417d764227b33220d0ac511fd599f0324598386a0ac39a0329"
+  },
+  "deciderB": {
+   "file": "corpus/prime-gap-premises/decider_b.js",
+   "kind": "interval arithmetic",
+   "seconds": 166.7,
+   "ranAsSha256": "ffd084f5792fe65ef0e34f2ef5d021cb05e4fe07678a763efc9147630ead6898",
+   "publishedSha256": "cf4be526a33d16ed95ff1edac7051a31115893c8aeb5105d7f3a5a5011c6c0f9"
+  },
+  "agreement": {
+   "instancesCompared": 276747,
+   "disjoint": 0,
+   "bruteForcePrimesUpTo": 31,
+   "bruteForceInstances": 149,
+   "bruteForceOutside": 0
+  },
+  "planted": [
+   {
+    "bound": 3,
+    "failInA": 496,
+    "failInB": 496,
+    "equalAtEveryPrime": true,
+    "sameSet": true,
+    "atFirstPrecisionInA": 488,
+    "neededHigherPrecisionInA": 8,
+    "firstPrime": 73
+   },
+   {
+    "bound": 2,
+    "failInA": 13696,
+    "failInB": 13696,
+    "equalAtEveryPrime": true,
+    "firstPrime": 11
+   }
+  ],
+  "largest": {
+   "p": 1493,
+   "c": 689,
+   "ratio": "3.6085",
+   "deciderAValue": 3.608507513585195,
+   "deciderBUpperEnd": 3.6084523700623645
+  },
+  "withheld": [
+   {
+    "file": "out/decider-a-values.jsonl",
+    "sha256": "b1dc5a08fb92a9f01370b0428898285de2a524e48ffa7f62b17f1dac62e40366"
+   },
+   {
+    "file": "out/decider-b-values.jsonl",
+    "sha256": "c7bf72385c0445ea94b9f8dcb61ba00e690f331c54dd2d8ae2152f7bab8a9973"
+   }
+  ],
+  "perPrimeDisplayOnly": [
+   [
+    2,
+    0.3536
+   ],
+   [
+    3,
+    0.9623
+   ],
+   [
+    5,
+    1.4311
+   ],
+   [
+    7,
+    1.8214
+   ],
+   [
+    11,
+    2.1126
+   ],
+   [
+    13,
+    2.2898
+   ],
+   [
+    17,
+    1.8762
+   ],
+   [
+    19,
+    1.8455
+   ],
+   [
+    23,
+    2.4422
+   ],
+   [
+    29,
+    2.5439
+   ],
+   [
+    31,
+    2.3752
+   ],
+   [
+    37,
+    1.9371
+   ],
+   [
+    41,
+    2.6861
+   ],
+   [
+    43,
+    2.2871
+   ],
+   [
+    47,
+    2.4615
+   ],
+   [
+    53,
+    2.528
+   ],
+   [
+    59,
+    2.4585
+   ],
+   [
+    61,
+    2.8552
+   ],
+   [
+    67,
+    2.7209
+   ],
+   [
+    71,
+    2.4109
+   ],
+   [
+    73,
+    3.1483
+   ],
+   [
+    79,
+    2.4998
+   ],
+   [
+    83,
+    2.4884
+   ],
+   [
+    89,
+    2.2943
+   ],
+   [
+    97,
+    2.9687
+   ],
+   [
+    101,
+    2.5883
+   ],
+   [
+    103,
+    2.8254
+   ],
+   [
+    107,
+    2.6552
+   ],
+   [
+    109,
+    2.5497
+   ],
+   [
+    113,
+    2.346
+   ],
+   [
+    127,
+    2.8683
+   ],
+   [
+    131,
+    3.0817
+   ],
+   [
+    137,
+    3.2117
+   ],
+   [
+    139,
+    2.8135
+   ],
+   [
+    149,
+    2.6628
+   ],
+   [
+    151,
+    2.8551
+   ],
+   [
+    157,
+    3.0004
+   ],
+   [
+    163,
+    3.0951
+   ],
+   [
+    167,
+    2.4139
+   ],
+   [
+    173,
+    2.9125
+   ],
+   [
+    179,
+    2.994
+   ],
+   [
+    181,
+    2.3836
+   ],
+   [
+    191,
+    2.5749
+   ],
+   [
+    193,
+    2.7931
+   ],
+   [
+    197,
+    2.6138
+   ],
+   [
+    199,
+    3.262
+   ],
+   [
+    211,
+    3.0379
+   ],
+   [
+    223,
+    3.4015
+   ],
+   [
+    227,
+    2.8305
+   ],
+   [
+    229,
+    2.8965
+   ],
+   [
+    233,
+    2.6477
+   ],
+   [
+    239,
+    3.1651
+   ],
+   [
+    241,
+    2.8317
+   ],
+   [
+    251,
+    2.7096
+   ],
+   [
+    257,
+    2.9506
+   ],
+   [
+    263,
+    2.8666
+   ],
+   [
+    269,
+    3.0141
+   ],
+   [
+    271,
+    3.3425
+   ],
+   [
+    277,
+    2.8963
+   ],
+   [
+    281,
+    3.1659
+   ],
+   [
+    283,
+    3.0359
+   ],
+   [
+    293,
+    2.7645
+   ],
+   [
+    307,
+    3.0269
+   ],
+   [
+    311,
+    2.7121
+   ],
+   [
+    313,
+    2.8824
+   ],
+   [
+    317,
+    2.8012
+   ],
+   [
+    331,
+    3.2039
+   ],
+   [
+    337,
+    3.3186
+   ],
+   [
+    347,
+    3.1176
+   ],
+   [
+    349,
+    2.8754
+   ],
+   [
+    353,
+    3.1765
+   ],
+   [
+    359,
+    3.084
+   ],
+   [
+    367,
+    3.0496
+   ],
+   [
+    373,
+    2.8669
+   ],
+   [
+    379,
+    2.8083
+   ],
+   [
+    383,
+    3.3626
+   ],
+   [
+    389,
+    2.9117
+   ],
+   [
+    397,
+    2.7616
+   ],
+   [
+    401,
+    3.0151
+   ],
+   [
+    409,
+    2.8
+   ],
+   [
+    419,
+    3.4356
+   ],
+   [
+    421,
+    2.9271
+   ],
+   [
+    431,
+    2.9131
+   ],
+   [
+    433,
+    3.3084
+   ],
+   [
+    439,
+    2.8337
+   ],
+   [
+    443,
+    3.0376
+   ],
+   [
+    449,
+    3.3072
+   ],
+   [
+    457,
+    3.0147
+   ],
+   [
+    461,
+    2.9102
+   ],
+   [
+    463,
+    3.1965
+   ],
+   [
+    467,
+    2.8203
+   ],
+   [
+    479,
+    2.9212
+   ],
+   [
+    487,
+    2.8968
+   ],
+   [
+    491,
+    2.8083
+   ],
+   [
+    499,
+    3.6072
+   ],
+   [
+    503,
+    3.1455
+   ],
+   [
+    509,
+    2.5521
+   ],
+   [
+    521,
+    3.1098
+   ],
+   [
+    523,
+    3.1825
+   ],
+   [
+    541,
+    3.0608
+   ],
+   [
+    547,
+    3.0911
+   ],
+   [
+    557,
+    2.9787
+   ],
+   [
+    563,
+    3.0874
+   ],
+   [
+    569,
+    2.9968
+   ],
+   [
+    571,
+    2.9642
+   ],
+   [
+    577,
+    3.3157
+   ],
+   [
+    587,
+    3.1839
+   ],
+   [
+    593,
+    2.9535
+   ],
+   [
+    599,
+    3.0869
+   ],
+   [
+    601,
+    2.7003
+   ],
+   [
+    607,
+    3.0671
+   ],
+   [
+    613,
+    3.0237
+   ],
+   [
+    617,
+    3.4267
+   ],
+   [
+    619,
+    2.8946
+   ],
+   [
+    631,
+    3.1749
+   ],
+   [
+    641,
+    3.0008
+   ],
+   [
+    643,
+    3.2827
+   ],
+   [
+    647,
+    3.3723
+   ],
+   [
+    653,
+    3.2303
+   ],
+   [
+    659,
+    2.9406
+   ],
+   [
+    661,
+    3.3857
+   ],
+   [
+    673,
+    3.0274
+   ],
+   [
+    677,
+    3.2172
+   ],
+   [
+    683,
+    2.9497
+   ],
+   [
+    691,
+    2.8373
+   ],
+   [
+    701,
+    2.8953
+   ],
+   [
+    709,
+    2.8785
+   ],
+   [
+    719,
+    2.9059
+   ],
+   [
+    727,
+    2.805
+   ],
+   [
+    733,
+    3.3018
+   ],
+   [
+    739,
+    3.2342
+   ],
+   [
+    743,
+    2.9375
+   ],
+   [
+    751,
+    3.3055
+   ],
+   [
+    757,
+    3.1924
+   ],
+   [
+    761,
+    3.0559
+   ],
+   [
+    769,
+    3.5401
+   ],
+   [
+    773,
+    3.4899
+   ],
+   [
+    787,
+    3.3029
+   ],
+   [
+    797,
+    2.9368
+   ],
+   [
+    809,
+    3.1654
+   ],
+   [
+    811,
+    3.047
+   ],
+   [
+    821,
+    2.9634
+   ],
+   [
+    823,
+    3.2221
+   ],
+   [
+    827,
+    3.2772
+   ],
+   [
+    829,
+    3.0735
+   ],
+   [
+    839,
+    3.1218
+   ],
+   [
+    853,
+    3.1776
+   ],
+   [
+    857,
+    3.1351
+   ],
+   [
+    859,
+    3.1711
+   ],
+   [
+    863,
+    3.2538
+   ],
+   [
+    877,
+    2.9677
+   ],
+   [
+    881,
+    2.9894
+   ],
+   [
+    883,
+    3.2093
+   ],
+   [
+    887,
+    3.5243
+   ],
+   [
+    907,
+    3.236
+   ],
+   [
+    911,
+    3.0093
+   ],
+   [
+    919,
+    3.0133
+   ],
+   [
+    929,
+    3.2157
+   ],
+   [
+    937,
+    3.0544
+   ],
+   [
+    941,
+    3.1831
+   ],
+   [
+    947,
+    3.4457
+   ],
+   [
+    953,
+    3.2394
+   ],
+   [
+    967,
+    3.264
+   ],
+   [
+    971,
+    2.8862
+   ],
+   [
+    977,
+    3.0844
+   ],
+   [
+    983,
+    3.0816
+   ],
+   [
+    991,
+    3.1174
+   ],
+   [
+    997,
+    3.1096
+   ],
+   [
+    1009,
+    2.9366
+   ],
+   [
+    1013,
+    3.079
+   ],
+   [
+    1019,
+    3.1158
+   ],
+   [
+    1021,
+    3.1983
+   ],
+   [
+    1031,
+    3.0991
+   ],
+   [
+    1033,
+    3.2483
+   ],
+   [
+    1039,
+    3.1394
+   ],
+   [
+    1049,
+    3.5041
+   ],
+   [
+    1051,
+    3.3456
+   ],
+   [
+    1061,
+    3.4319
+   ],
+   [
+    1063,
+    3.0944
+   ],
+   [
+    1069,
+    3.0567
+   ],
+   [
+    1087,
+    3.2247
+   ],
+   [
+    1091,
+    3.2305
+   ],
+   [
+    1093,
+    3.2427
+   ],
+   [
+    1097,
+    3.3381
+   ],
+   [
+    1103,
+    3.2384
+   ],
+   [
+    1109,
+    3.1043
+   ],
+   [
+    1117,
+    3.146
+   ],
+   [
+    1123,
+    3.4702
+   ],
+   [
+    1129,
+    3.2375
+   ],
+   [
+    1151,
+    3.2717
+   ],
+   [
+    1153,
+    3.1958
+   ],
+   [
+    1163,
+    2.9098
+   ],
+   [
+    1171,
+    3.2567
+   ],
+   [
+    1181,
+    3.1129
+   ],
+   [
+    1187,
+    3.0038
+   ],
+   [
+    1193,
+    3.4711
+   ],
+   [
+    1201,
+    3.1482
+   ],
+   [
+    1213,
+    3.1839
+   ],
+   [
+    1217,
+    3.4206
+   ],
+   [
+    1223,
+    3.579
+   ],
+   [
+    1229,
+    3.0583
+   ],
+   [
+    1231,
+    3.04
+   ],
+   [
+    1237,
+    3.1814
+   ],
+   [
+    1249,
+    3.2859
+   ],
+   [
+    1259,
+    3.2569
+   ],
+   [
+    1277,
+    3.0702
+   ],
+   [
+    1279,
+    3.257
+   ],
+   [
+    1283,
+    3.0047
+   ],
+   [
+    1289,
+    3.4493
+   ],
+   [
+    1291,
+    3.2134
+   ],
+   [
+    1297,
+    3.3709
+   ],
+   [
+    1301,
+    3.1364
+   ],
+   [
+    1303,
+    3.1987
+   ],
+   [
+    1307,
+    3.3628
+   ],
+   [
+    1319,
+    3.0002
+   ],
+   [
+    1321,
+    3.1554
+   ],
+   [
+    1327,
+    3.2534
+   ],
+   [
+    1361,
+    3.3279
+   ],
+   [
+    1367,
+    3.33
+   ],
+   [
+    1373,
+    3.2918
+   ],
+   [
+    1381,
+    3.1947
+   ],
+   [
+    1399,
+    3.5247
+   ],
+   [
+    1409,
+    3.1664
+   ],
+   [
+    1423,
+    3.3586
+   ],
+   [
+    1427,
+    3.5016
+   ],
+   [
+    1429,
+    3.1586
+   ],
+   [
+    1433,
+    3.3116
+   ],
+   [
+    1439,
+    3.2247
+   ],
+   [
+    1447,
+    2.8794
+   ],
+   [
+    1451,
+    3.5185
+   ],
+   [
+    1453,
+    3.2866
+   ],
+   [
+    1459,
+    3.3336
+   ],
+   [
+    1471,
+    3.3575
+   ],
+   [
+    1481,
+    3.1051
+   ],
+   [
+    1483,
+    3.0808
+   ],
+   [
+    1487,
+    3.1782
+   ],
+   [
+    1489,
+    3.518
+   ],
+   [
+    1493,
+    3.6085
+   ],
+   [
+    1499,
+    3.3473
+   ],
+   [
+    1511,
+    3.5666
+   ],
+   [
+    1523,
+    3.2487
+   ],
+   [
+    1531,
+    3.4014
+   ],
+   [
+    1543,
+    3.1765
+   ],
+   [
+    1549,
+    3.087
+   ],
+   [
+    1553,
+    3.1805
+   ],
+   [
+    1559,
+    3.5148
+   ],
+   [
+    1567,
+    2.9687
+   ],
+   [
+    1571,
+    3.481
+   ],
+   [
+    1579,
+    3.1313
+   ],
+   [
+    1583,
+    3.4938
+   ],
+   [
+    1597,
+    3.3038
+   ],
+   [
+    1601,
+    3.2598
+   ],
+   [
+    1607,
+    3.2936
+   ],
+   [
+    1609,
+    3.2397
+   ],
+   [
+    1613,
+    3.1482
+   ],
+   [
+    1619,
+    3.116
+   ],
+   [
+    1621,
+    3.1044
+   ],
+   [
+    1627,
+    2.8271
+   ],
+   [
+    1637,
+    3.395
+   ],
+   [
+    1657,
+    3.1817
+   ],
+   [
+    1663,
+    3.3122
+   ],
+   [
+    1667,
+    3.3691
+   ],
+   [
+    1669,
+    3.3257
+   ],
+   [
+    1693,
+    3.5627
+   ],
+   [
+    1697,
+    3.4982
+   ],
+   [
+    1699,
+    3.2787
+   ],
+   [
+    1709,
+    3.3839
+   ],
+   [
+    1721,
+    3.305
+   ],
+   [
+    1723,
+    3.1708
+   ],
+   [
+    1733,
+    3.3221
+   ],
+   [
+    1741,
+    3.4382
+   ],
+   [
+    1747,
+    3.247
+   ],
+   [
+    1753,
+    3.0417
+   ],
+   [
+    1759,
+    3.585
+   ],
+   [
+    1777,
+    3.4681
+   ],
+   [
+    1783,
+    3.2166
+   ],
+   [
+    1787,
+    3.1358
+   ],
+   [
+    1789,
+    3.397
+   ],
+   [
+    1801,
+    3.1457
+   ],
+   [
+    1811,
+    3.2388
+   ],
+   [
+    1823,
+    3.2917
+   ],
+   [
+    1831,
+    3.2765
+   ],
+   [
+    1847,
+    3.3362
+   ],
+   [
+    1861,
+    3.2336
+   ],
+   [
+    1867,
+    3.2001
+   ],
+   [
+    1871,
+    3.3335
+   ],
+   [
+    1873,
+    3.1416
+   ],
+   [
+    1877,
+    3.1984
+   ],
+   [
+    1879,
+    3.4255
+   ],
+   [
+    1889,
+    3.3472
+   ],
+   [
+    1901,
+    3.0658
+   ],
+   [
+    1907,
+    3.1551
+   ],
+   [
+    1913,
+    3.4527
+   ],
+   [
+    1931,
+    3.0481
+   ],
+   [
+    1933,
+    3.1124
+   ],
+   [
+    1949,
+    3.0554
+   ],
+   [
+    1951,
+    3.3471
+   ],
+   [
+    1973,
+    3.4033
+   ],
+   [
+    1979,
+    3.0804
+   ],
+   [
+    1987,
+    3.4683
+   ],
+   [
+    1993,
+    3.4603
+   ],
+   [
+    1997,
+    3.1796
+   ],
+   [
+    1999,
+    3.4725
+   ]
+  ]
+ },
+ "replay182": {
+  "premise": "PhysicalSourceBounds182",
+  "inequalities": 262,
+  "split": {
+   "cap": 5,
+   "outer": 120,
+   "inner": 137
+  },
+  "archive": {
+   "sha256": "2960729efa8996538731820ce6cadc202831c8e98b2c0bdb14cfd19f33726f3b",
+   "bytes": 244843318
+  },
+  "repositoryHead": "b77bf175bdedc5123027b3fcf0abc38427975770",
+  "stack": {
+   "flintRelease": "v3.6.0",
+   "flintCorrection": "7ad753d5",
+   "builtFromSource": true,
+   "pythonFlint": "0.9.0",
+   "python": "3.12.3",
+   "platform": "Linux x86-64",
+   "departures": 6
+  },
+  "acceptance": {
+   "status": "PASS_COMPLETE_EXTERNAL_NUMERICAL_RECOMPUTATION",
+   "stages": 14,
+   "stagesPassed": 14,
+   "audits": 14,
+   "auditsOf": 14,
+   "rejections": 4,
+   "rejected": 4,
+   "targetInequalities": 262,
+   "geometryEqualities": 328936,
+   "completedUtc": "2026-11-12T21:38:42.098620+00:00",
+   "wallSeconds": 10339,
+   "summedStageSeconds": 21752
+  },
+  "comparison": {
+   "script": "corpus/prime-gap-premises/step5/compare182.py",
+   "sha256": "9819087519c2845f3577f92d3567216532f5aef92421060d5fba2e7afc4d6077",
+   "loggedBeforeProduction": true,
+   "verdict": "PASS",
+   "passed": 262,
+   "of": 262,
+   "equalToLeanLiteral": 262,
+   "equalToPublishedValue": 262,
+   "strictRows": 0,
+   "leanBlobs": {
+    "TrialData182.lean": "9caf00df6ae7267602395ab8659a1a566f385443",
+    "SourceData182.lean": "45d4b55d8a5781a300d07d0a4d198aef68eb651d"
+   }
+  },
+  "exits": {
+   "compare": 0,
+   "redTighten": 1,
+   "redDrop": 1
+  },
+  "redControls": [
+   {
+    "what": "one Lean literal tightened past its value",
+    "outcome": "FAIL",
+    "names": "outer row 17, rootUpper"
+   },
+   {
+    "what": "one row dropped",
+    "outcome": "FAIL",
+    "names": "the count, 261 rows"
+   }
+  ],
+  "withheld": [
+   {
+    "file": "the package’s acceptance receipt (verification.json)",
+    "sha256": "62c8a6fa1d9c5bb57d3bc653623545c31107765146f988c05e37979307ec386e"
+   },
+   {
+    "file": "the package’s coverage record (coverage.json)",
+    "sha256": "ddf0197181f6fa6f24c78b2a96f2ccc0232d9fd3e6cae404e5569bee3358e31f",
+    "byteIdenticalToPublished": true
+   }
+  ],
+  "importedFiles": 154
+ },
+ "readings212": {
+  "folder": "corpus/bgp212-readings-2026-11-12",
+  "lean": {
+   "file": "Gap212Challenge/Basic.lean",
+   "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+   "sha256": "0658163beaefecd4a851565d9e9ee7a2a8065ae5a3eb9a003091436c93b242fb"
+  },
+  "readers": 2,
+  "premises": 7,
+  "mismatchA": 7,
+  "mismatchB": 7,
+  "sources": [
+   "[1] Polymath, arXiv 1402.0811v3",
+   "[2] Stadlmann, arXiv 2608.31126v1"
+  ],
+  "allNDiscrepancy": 6,
+  "addedHypothesis": 1,
+  "issue": {
+   "repository": "AxiomMath/BGP212",
+   "number": 1,
+   "url": "https://github.com/AxiomMath/BGP212/issues/1"
+  },
+  "word": "readings, not decisions"
+ },
+ "certificate212": {
+  "status": "NOT DECIDED",
+  "reason": "no witness is published",
+  "issue": {
+   "repository": "AxiomMath/BGP212",
+   "number": 2,
+   "url": "https://github.com/AxiomMath/BGP212/issues/2"
+  },
+  "ledgerNote": "the ledger’s note was written before the question was filed and still says “drafted, not sent”"
+ },
+ "gaps": [
+  {
+   "id": "conditional",
+   "b": "Nothing here proves a premise, and nothing here verifies 186, 182 or 212.",
+   "text": "Each proof says: if its premises hold, then its bound. This page is about the premises, not about the proofs."
+  },
+  {
+   "id": "instances",
+   "b": "Instances are not a proof.",
+   "text": "The rank-four bound was decided at every prime below 2,000 and at none above. A finite check can refute a premise that was written down wrongly; it cannot prove one. For all primes the bound is Deligne’s theorem, not this run’s."
+  },
+  {
+   "id": "replay",
+   "b": "The 182’s 262 numbers were reproduced, not decided.",
+   "text": "They came out of the authors’ own programs, run again by me. A replay of a claimant’s programs is never an independent decision. And the step from each computed bound to the integral it stands for is argued in the package’s comments: it is in no program and not in Lean."
+  },
+  {
+   "id": "pairing",
+   "b": "Which number belongs to which Lean row is the package’s own assignment.",
+   "text": "My comparison re-derives that key from the Lean row and requires it to be equal, which checks the pairing against Lean’s own fields and no further."
+  },
+  {
+   "id": "readings",
+   "b": "The readings of the 212 are readings.",
+   "text": "Two AI readers compared each quoted premise with the paper it cites. A reading is not a decision, and neither reader is a human referee."
+  },
+  {
+   "id": "fourier",
+   "b": "Not decided: the 182’s local Fourier hypothesis.",
+   "text": "Its constants are free, so no finite test can refute it: a larger threshold or a larger constant escapes any instance."
+  },
+  {
+   "id": "certificate",
+   "b": "Not decided: the 212’s certificate.",
+   "text": "It asserts that a certain function exists, and no such function is published. The question is open with the authors as issue #2 of their repository."
+  },
+  {
+   "id": "inherited",
+   "b": "Two of the 182’s premises are the 186’s, taken over.",
+   "text": "The 182 carries a copy of the 186’s Lean file that is byte-identical, so its two shared premises inherit the checks of the 186. That its names resolve to those definitions is my reading of the file; I did not ask Lean."
+  },
+  {
+   "id": "platform",
+   "b": "The replay ran on my own build of FLINT, on Linux.",
+   "text": "The package is tested by its authors on macOS with its bundled libraries. No byte of the package was changed; six things in the environment around it were, and each is listed in the records."
+  },
+  {
+   "id": "cleanroom",
+   "b": "A recomputation of the 262 numbers by programs of mine has not been started.",
+   "text": "That is what would turn “reproduced” into something stronger for that row."
+  }
+ ],
+ "method": {
+  "rules": [
+   "corpus/prime-gap-premises/PREREGISTRATION.md"
+  ],
+  "result": "corpus/prime-gap-premises/RESULT-2026-11-12.md",
+  "notes": "corpus/prime-gap-premises/PUBLICATION-NOTES.md",
+  "registry": "seals/registry.jsonl"
+ },
+ "money": {
+  "pods": 2,
+  "minutes": 234,
+  "usdPerHour": 0.64,
+  "usd": 2.5,
+  "word": "by the clock, not a billing read"
+ },
+ "seals": [
+  {
+   "what": "the rules",
+   "digest": "6f1e6d11e41bc92d8a0d86b98b0dae22a375adee90c96839bf4b4bb1e506d93a",
+   "posted": "2026-11-12"
+  },
+  {
+   "what": "the results",
+   "digest": "15c5abca6d642f4183e6fe619cba54f715f72341439e624e219a0724f9501dd6",
+   "posted": "2026-11-12"
+  },
+  {
+   "what": "amendment A1, the rules",
+   "digest": "f18e88c4626a13562d4cdb713e5b96f83382fb35a4c7f498fcced6dd8b22aaa8",
+   "posted": "2026-11-12"
+  },
+  {
+   "what": "amendment A1, the results",
+   "digest": "d1c8fe7db09beb548b43b23dd57a0ef59a7956a75a777e5cc048791c3dcad2c6",
+   "posted": "2026-11-12"
+  }
+ ],
+ "provenance": {
+  "file": "corpus/prime-gap-premises/PROVENANCE.json",
+  "files": 45
+ },
+ "words": {
+  "186": [
+   "DECIDED ON INSTANCES below 2000",
+   "DECIDED ON INSTANCES below 2000",
+   "REPRODUCED"
+  ],
+  "rankFour": "DECIDED ON INSTANCES below 2000",
+  "replay182": "REPRODUCED",
+  "readings212": "READ: MISMATCH",
+  "fourier182": "NOT DECIDED",
+  "certificate212": "NOT DECIDED",
+  "premisesProved": 0
+ }
+}
