@@ -1,0 +1,28 @@
+/root/replay/red/Red5.lean:485:15: error: Function expected at
+  h₂
+but this term has type
+  ∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ
+
+Note: Expected a function because this term is being applied to the argument
+  (e.symm a)
+/root/replay/red/Red5.lean:500:11: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+case refine_2
+h : Planted5_existsInsteadOfForall
+ε : ℝ
+hε : 0 < ε
+δ : ℝ
+hδ : 0 < δ
+H :
+  ∀ (V : Type) [Finite V] (G : SimpleGraph V) (p : ↑G.edgeSet → ↑(Set.Icc 0 1)) (A : Set V) (o b : V),
+    prob G p (connSetEvent G o A) > 1 - δ →
+      (∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+n : ℕ
+w : Sym2 (Fin n) → ↑unitInterval
+A : Finset (Fin n)
+o b : Fin n
+h₁ : 1 - δ < (setLaw w).real (⋃ a ∈ A, conn o a)
+h₂ : ∀ a ∈ A, 1 - δ < (setLaw w).real (conn a b)
+hr : Function.LeftInverse id id
+⊢ ∃ a ∈ id '' ↑A,
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) a b) > 1 - δ

@@ -1,0 +1,401 @@
+⚠ [3308/3360] Replayed KNConjectures.AvoidedDefs
+warning: KNConjectures/AvoidedDefs.lean:44:0: automatically included section variable(s) unused in theorem `KNAll.surplusMarginY_nil`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: KNConjectures/AvoidedDefs.lean:72:0: automatically included section variable(s) unused in theorem `KNAll.surplusY_empty`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [3316/3360] Replayed KNConjectures.Conjectures
+info: KNConjectures/Conjectures.lean:291:0: 'KNAll.conjecture4Fixed_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:292:0: 'KNAll.conjecture4_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:293:0: 'KNAll.conjecture2Strong_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:294:0: 'KNAll.conjecture2_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:295:0: 'KNAll.question7_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:296:0: 'KNAll.conjecture1_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:297:0: 'KNAll.conjecture3_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3317/3360] Built Hypergraph.SiteStatements (4.6s)
+✔ [3318/3360] Built Hypergraph.BondRepresentation (4.6s)
+✔ [3319/3360] Built Hypergraph.HyperCore (4.6s)
+✔ [3320/3360] Built Hypergraph.SiteRepresentation (4.8s)
+✔ [3321/3360] Built Hypergraph.HyperUpper (4.8s)
+✔ [3322/3360] Built Hypergraph.HyperImplA (4.7s)
+✔ [3323/3360] Built Hypergraph.HyperTrace (4.7s)
+✔ [3324/3360] Built Hypergraph.PinnedGluing (4.6s)
+✔ [3325/3360] Built Hypergraph.HyperImplB (5.0s)
+✔ [3326/3360] Built Hypergraph.HyperGluingTail (4.6s)
+✔ [3327/3360] Built Hypergraph.ProdBernoulliFKG (4.7s)
+✔ [3328/3360] Built Hypergraph.HyperAvoid (4.9s)
+✔ [3329/3360] Built Hypergraph.HyperImplC (4.9s)
+✔ [3330/3360] Built Hypergraph.HyperPartition (4.3s)
+✔ [3331/3360] Built Hypergraph.HyperExchange (4.9s)
+✔ [3332/3360] Built Hypergraph.HyperTransfer (5.6s)
+✔ [3333/3360] Built Hypergraph.HyperOneCluster (6.2s)
+ℹ [3334/3360] Built Hypergraph.HyperPeel (7.0s)
+info: Hypergraph/HyperPeel.lean:744:0: 'KNAll.Site.surplusMarginY_nonneg_of_csh' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperPeel.lean:745:0: 'KNAll.Site.surplusTransferY_of_surplusMarginY_nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperPeel.lean:746:0: 'KNAll.Site.surplusY_erase_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperPeel.lean:747:0: 'KNAll.Site.kappaY_le_surplusY' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperPeel.lean:748:0: 'KNAll.Site.covD_psiIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperPeel.lean:749:0: 'KNAll.Site.sum_measureReal_avoid_firstRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3335/3360] Built Hypergraph.HyperFibre (4.7s)
+✔ [3336/3360] Built Hypergraph.HyperExpose (5.3s)
+✔ [3337/3360] Built Hypergraph.HyperDecisionTree (4.7s)
+✔ [3338/3360] Built Hypergraph.HyperTwoCluster (5.3s)
+✔ [3339/3360] Built Hypergraph.HyperLabelled (5.1s)
+⚠ [3340/3360] Built Hypergraph.HyperTwoClusterClosed (4.1s)
+warning: Hypergraph/HyperTwoClusterClosed.lean:30:0: automatically included section variable(s) unused in theorem `KNAll.Site.avoid_cluster_association'`:
+  [DecidableEq V]
+  [DecidableEq E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq V] [DecidableEq E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [3341/3360] Built Hypergraph.HyperProjGen (6.3s)
+info: Hypergraph/HyperProjGen.lean:461:0: 'KNAll.Site.monotone_projFun' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:462:0: 'KNAll.Site.setIntegral_clusterFamily_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:463:0: 'KNAll.Site.setIntegral_sub_eq_projFun' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:464:0: 'KNAll.Site.setIntegral_sub_eq_projFun_conn' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:465:0: 'KNAll.Site.setIntegral_projFun_avoid' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:466:0: 'KNAll.Site.projFun_eq_deleteHyper' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:467:0: 'KNAll.Site.sum_measureReal_avoid_firstPattern' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:468:0: 'KNAll.Site.oneCluster_contact_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:469:0: 'KNAll.Site.genY_of_surplusTransferY' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperProjGen.lean:470:0: 'KNAll.Site.sum_le_setIntegral_of_genY' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3342/3360] Built Hypergraph.HyperAGBase (9.2s)
+✔ [3343/3360] Built Hypergraph.HyperCTBase (7.1s)
+ℹ [3344/3360] Built Hypergraph.HyperAGOne (8.8s)
+info: Hypergraph/HyperAGOne.lean:678:0: 'KNAll.Site.AGOne.sum_measureReal_firstPattern' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:679:0: 'KNAll.Site.AGOne.condMeanY_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:680:0: 'KNAll.Site.AGOne.sum_le_setIntegral_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:681:0: 'KNAll.Site.AGOne.agloc_firstRank_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:682:0: 'KNAll.Site.AGOne.additiveGluing_of_agloc_firstRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:683:0: 'KNAll.Site.AGOne.additiveGluing_card_of_agloc_firstRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:684:0: 'KNAll.Site.AGOne.hyperAdditiveGluing_of_agloc_firstRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:685:0: 'KNAll.Site.AGOne.hyperAdditiveGluingSuffices' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:686:0: 'KNAll.Site.AGOne.surplusTransfer_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:687:0: 'KNAll.Site.AGOne.gen_triple_of_surplusTransfer_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:688:0: 'KNAll.Site.AGOne.additiveGluing_of_surplusTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:689:0: 'KNAll.Site.AGOne.additiveGluing_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:690:0: 'KNAll.Site.AGOne.surplusTransfer_single_indicator' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:691:0: 'KNAll.Site.AGOne.additiveGluing_of_hyperAdditiveGluing' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperAGOne.lean:692:0: 'KNAll.Site.AGOne.nearOneGluing_of_hyperNearOneGluing' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3345/3360] Built Hypergraph.HyperCSHDefs (4.9s)
+info: Hypergraph/HyperCSHDefs.lean:462:0: 'KNAll.Site.CSHDefs.phiFun_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:463:0: 'KNAll.Site.CSHDefs.phiFun_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:464:0: 'KNAll.Site.CSHDefs.hyperClusterSet_off_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:465:0: 'KNAll.Site.CSHDefs.surplusMargin_nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:466:0: 'KNAll.Site.CSHDefs.surplusTransfer_of_surplusMargin_nil' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:467:0: 'KNAll.Site.CSHDefs.surplusTransfer_of_csh' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:468:0: 'KNAll.Site.CSHDefs.integral_off_le_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:469:0: 'KNAll.Site.CSHDefs.phiFun_reachMarker' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:470:0: 'KNAll.Site.CSHDefs.phiFun_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHDefs.lean:471:0: 'KNAll.Site.CSHDefs.phiFun_pos_twoPoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3346/3360] Built Hypergraph.HyperTreeHK (5.2s)
+✔ [3347/3360] Built Hypergraph.HyperCTOne (6.5s)
+ℹ [3348/3360] Built Hypergraph.HyperCSHTwoA (9.5s)
+info: Hypergraph/HyperCSHTwoA.lean:1459:0: 'KNAll.Site.CSHTwoA.map_fst_decoyList' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1460:0: 'KNAll.Site.CSHTwoA.cshMargin_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1461:0: 'KNAll.Site.CSHTwoA.slForm_jn_reachable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1462:0: 'KNAll.Site.CSHTwoA.covDF_eq_withinF_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1463:0: 'KNAll.Site.CSHTwoA.gibbsT_iterate_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1464:0: 'KNAll.Site.CSHTwoA.real_regen_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1465:0: 'KNAll.Site.CSHTwoA.clusterCov_nonneg_of_within' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1466:0: 'KNAll.Site.CSHTwoA.multiMarkerCov_nonneg_of_within' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1467:0: 'KNAll.Site.CSHTwoA.cshMargin_nonneg_of_within' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1468:0: 'KNAll.Site.CSHTwoA.cshHolds_of_within' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1469:0: 'KNAll.Site.CSHTwoA.covD_nonneg_of_within_harris' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1470:0: 'KNAll.Site.CSHTwoA.gen_firstRank_of_surplusTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1471:0: 'KNAll.Site.CSHTwoA.hyperAdditiveGluing_of_surplusTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1472:0: 'KNAll.Site.CSHTwoA.hyperAdditiveGluingGlue_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1473:0: 'KNAll.Site.CSHTwoA.surplusTransfer_pair_of_covTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1474:0: 'KNAll.Site.CSHTwoA.surplusTransfer_pair_of_covTau' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1475:0: 'KNAll.Site.CSHTwoA.gen_triple_of_covTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1476:0: 'KNAll.Site.CSHTwoA.gen_triple_of_covTau' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1477:0: 'KNAll.Site.CSHTwoA.gen_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHTwoA.lean:1478:0: 'KNAll.Site.CSHTwoA.surplusTransfer_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3349/3360] Built Hypergraph.HyperCSHTwoB (6.4s)
+ℹ [3350/3360] Built Hypergraph.HyperLabelClusterBHK (4.8s)
+info: Hypergraph/HyperLabelClusterBHK.lean:282:0: 'KNAll.Site.LabelClusterBHK.bhk14_memberFunctional' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3351/3360] Built Hypergraph.HyperCSHThree (7.4s)
+ℹ [3352/3360] Built Hypergraph.HyperStarH (10s)
+info: Hypergraph/HyperStarH.lean:527:0: 'KNAll.Site.HyperStarH.bhk14_memberFunctional_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperStarH.lean:528:0: 'KNAll.Site.HyperStarH.yH_totalCovariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperStarH.lean:529:0: 'KNAll.Site.HyperStarH.yH_le_covH_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperStarH.lean:530:0: 'KNAll.Site.HyperStarH.starH_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3353/3360] Built Hypergraph.HyperStarBridgeS (4.6s)
+info: Hypergraph/HyperStarBridgeS.lean:70:0: 'KNAll.Site.HyperStarBridgeS.integral_one_sub_nr_eq_real_avoid' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Hypergraph/HyperStarBridgeS.lean:71:0: 'KNAll.Site.HyperStarBridgeS.integral_two_one_sub_nr_eq_real_avoid_union' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Hypergraph/HyperStarBridgeS.lean:72:0: 'KNAll.Site.HyperStarBridgeS.starH_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3354/3360] Built Hypergraph.HyperFixedFromCSH (5.6s)
+info: Hypergraph/HyperFixedFromCSH.lean:222:0: 'KNAll.Site.HyperFixedFromCSH.surplusTransferY_of_cshInterior' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Hypergraph/HyperFixedFromCSH.lean:223:0: 'KNAll.Site.HyperFixedFromCSH.genY_of_cshInterior' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperFixedFromCSH.lean:224:0: 'KNAll.Site.HyperFixedFromCSH.hyperFixedClusterComparison_of_cshInterior' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Hypergraph/HyperFixedFromCSH.lean:225:0: 'KNAll.Site.HyperFixedFromCSH.hyperedgeGluing_of_cshInterior' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperFixedFromCSH.lean:226:0: 'KNAll.Site.HyperFixedFromCSH.pinnedSiteGluing_of_cshInterior' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [3355/3360] Built Hypergraph.HyperMetaA2Defs (5.2s)
+warning: Hypergraph/HyperMetaA2Defs.lean:155:9: Variable name `omega` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: Hypergraph/HyperMetaA2Defs.lean:332:0: 'KNAll.Site.HyperMetaA2.rAvoid_eq_of_agree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:333:0: 'KNAll.Site.HyperMetaA2.Eav_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:334:0: 'KNAll.Site.HyperMetaA2.Eav_le_Mav' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:335:0: 'KNAll.Site.HyperMetaA2.Xw_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:336:0: 'KNAll.Site.HyperMetaA2.Eav_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:337:0: 'KNAll.Site.HyperMetaA2.Mav_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperMetaA2Defs.lean:338:0: 'KNAll.Site.HyperMetaA2.Eav_eq_inter' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3356/3360] Built Hypergraph.HyperMetaA2 (8.2s)
+warning: Hypergraph/HyperMetaA2.lean:29:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperMetaA2.metaA2_of_star`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+info: Hypergraph/HyperMetaA2.lean:273:0: 'KNAll.Site.HyperMetaA2.metaA2_of_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3357/3360] Built Hypergraph.HyperA2H (4.7s)
+warning: Hypergraph/HyperA2H.lean:66:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperA2H.nr_inter_labelsIn_mono`:
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperA2H.lean:108:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperA2H.nr_inter_labelsIn_eq_zero_of_not_mem`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperA2H.lean:146:8: automatically included section variable(s) unused in theorem `KNAll.Site.HyperA2H.mem_offF`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperA2H.lean:177:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperA2H.rCluster_coe_eq`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperA2H.lean:381:14: Variable name `he` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Hypergraph/HyperA2H.lean:383:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperA2H.integral_cubeProb_eq_ED`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperA2H.lean:383:33: Variable name `H` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: Hypergraph/HyperA2H.lean:554:0: 'KNAll.Site.HyperA2H.BfS_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:555:0: 'KNAll.Site.HyperA2H.BfS_eq_zero_of_not_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:556:0: 'KNAll.Site.HyperA2H.noninjective_trace_inter_regression' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:557:0: 'KNAll.Site.HyperA2H.starED' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:558:0: 'KNAll.Site.HyperA2H.yS_mul_mS_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:559:0: 'KNAll.Site.HyperA2H.a2H' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperA2H.lean:560:0: 'KNAll.Site.HyperA2H.p1H_univ' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3358/3360] Built Hypergraph.HyperCSHHtwBridge (6.2s)
+warning: Hypergraph/HyperCSHHtwBridge.lean:34:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Hypergraph/HyperCSHHtwBridge.lean:29:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.connTo_eq_compl_avoid`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:37:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.connTo_comm`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:48:8: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.connTo_singleton`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:59:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.connTo_isUpper`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:67:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.avoidEvent_set_singleton_comm`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:149:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.inter_labelsIn_rest_univ`:
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHHtwBridge.lean:430:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHHtw.covH_deleteHyper_empty_eq`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+info: Hypergraph/HyperCSHHtwBridge.lean:567:0: 'KNAll.Site.HyperCSHHtw.BfS_univ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHHtwBridge.lean:568:0: 'KNAll.Site.HyperCSHHtw.htw_world' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHHtwBridge.lean:569:0: 'KNAll.Site.HyperCSHHtw.covTransfer_relaySet' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHHtwBridge.lean:570:0: 'KNAll.Site.HyperCSHHtw.hpart_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3359/3360] Built Hypergraph.HyperCSHUnfold (5.8s)
+warning: Hypergraph/HyperCSHUnfold.lean:32:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.hyperClusterSet_off_cut_of_avoid`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:54:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.reachable_off_cut_iff_of_dead`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:105:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.wcovOff_eq_sum`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:188:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.setIntegral_eq_sum_ind`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:199:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.integral_world_eq_wmeanOff`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:397:6: 'change _' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: Hypergraph/HyperCSHUnfold.lean:414:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.chi_reachable_eq_ind`:
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:425:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.av_reachable_eq_ind`:
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:436:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.jn_reachable_eq_ind`:
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:590:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.ind_avoid_eq_ite_cluster`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:600:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.ind_hyperConn_eq_ite_cluster`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:770:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.ind_avoid_mul_union`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:784:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.one_sub_ind_avoid_eq_cluster`:
+  [Fintype V]
+  [Fintype E]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] [Fintype E] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:944:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.phiS_prob_eq_phiFun`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/HyperCSHUnfold.lean:951:0: automatically included section variable(s) unused in theorem `KNAll.Site.HyperCSHUnfold.real_eq_sum_ind`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+info: Hypergraph/HyperCSHUnfold.lean:1128:0: 'KNAll.Site.HyperCSHUnfold.hyperClusterSet_off_cut_of_avoid' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHUnfold.lean:1129:0: 'KNAll.Site.HyperCSHUnfold.wcovOff_affine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHUnfold.lean:1130:0: 'KNAll.Site.HyperCSHUnfold.world_cov_eq_wcovOff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHUnfold.lean:1131:0: 'KNAll.Site.HyperCSHUnfold.markov_merge_Y' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/HyperCSHUnfold.lean:1132:0: 'KNAll.Site.HyperCSHUnfold.residual_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3360/3360] Built Hypergraph.FiniteHyperGluingClosed (5.6s)
+warning: Hypergraph/FiniteHyperGluingClosed.lean:33:0: automatically included section variable(s) unused in theorem `KNAll.Site.FiniteHyperGluingClosed.psiIso_eq_sdiff_nonempty`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Hypergraph/FiniteHyperGluingClosed.lean:242:0: automatically included section variable(s) unused in theorem `KNAll.Site.FiniteHyperGluingClosed.subT_comb_nonneg`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+info: Hypergraph/FiniteHyperGluingClosed.lean:513:0: 'KNAll.Site.FiniteHyperGluingClosed.world_cov_eq_covH' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:514:0: 'KNAll.Site.FiniteHyperGluingClosed.corrected_fk_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:515:0: 'KNAll.Site.FiniteHyperGluingClosed.within_unfold' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:516:0: 'KNAll.Site.FiniteHyperGluingClosed.subT_comb_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:517:0: 'KNAll.Site.FiniteHyperGluingClosed.within_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:518:0: 'KNAll.Site.FiniteHyperGluingClosed.cshMargin_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:519:0: 'KNAll.Site.FiniteHyperGluingClosed.hyperCSHInterior' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:520:0: 'KNAll.Site.FiniteHyperGluingClosed.hyperedgeGluing' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Hypergraph/FiniteHyperGluingClosed.lean:521:0: 'KNAll.Site.FiniteHyperGluingClosed.pinnedSiteGluing' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (3360 jobs).

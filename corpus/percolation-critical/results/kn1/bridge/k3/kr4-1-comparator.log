@@ -1,0 +1,67 @@
+project /root/kn1/third, toolchain leanprover/lean4:v4.32.0, configurations: comparator-kn1-kr4.json
+== comparator @ 575674928e239f5bc452aab72d1dd7b0f1326494
+Build completed successfully (15 jobs).
+== lean4export @ 4e7915201d3f9f04470d9eae002fa695f7cdc589 (release v4.32.0)
+Build completed successfully (6 jobs).
+== nanoda_lib @ 68d5ca9db226849b41a6fff59d796ff19d0a8840
+== landrun @ 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+== comparator comparator-kn1-kr4.json  (log: /root/kn1/k3/comparator-logs-kr4-1/comparator-kn1-kr4.log)
+Building OurChallengeKR4_1
+⚠ [8658/8659] Replayed OurChallengeKR4_1
+warning: OurChallengeKR4_1.lean:2:8: declaration uses `sorry`
+Build completed successfully (8659 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, conjecture1_as_printed, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from OurChallengeKR4_1
+Building KN1.Proved
+⚠ [3307/3316] Replayed KNConjectures.AvoidedDefs
+warning: KNConjectures/AvoidedDefs.lean:44:0: automatically included section variable(s) unused in theorem `KNAll.surplusMarginY_nil`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: KNConjectures/AvoidedDefs.lean:72:0: automatically included section variable(s) unused in theorem `KNAll.surplusY_empty`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [3315/3316] Replayed KNConjectures.Conjectures
+info: KNConjectures/Conjectures.lean:291:0: 'KNAll.conjecture4Fixed_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:292:0: 'KNAll.conjecture4_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:293:0: 'KNAll.conjecture2Strong_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:294:0: 'KNAll.conjecture2_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:295:0: 'KNAll.question7_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:296:0: 'KNAll.conjecture1_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:297:0: 'KNAll.conjecture3_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8914/8922] Replayed KN1.K0.Frag
+info: KN1/K0/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN1/K0/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN1/K0/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN1/K0/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN1/K0/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN1/K0/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN1/K0/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN1/K0/Frag.lean:37:0: Conjecture3 : Prop
+info: KN1/K0/Frag.lean:38:0: Conjecture3_readingB : Prop
+info: KN1/K0/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8922 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, conjecture1_as_printed, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from KN1.Proved
+uncaught exception: Challenge and solution theorem statement do not match: 'conjecture1_as_printed'
+::error::comparator did not accept comparator-kn1-kr4.json (exit status 1)
+error: 1 comparator configuration(s) not accepted

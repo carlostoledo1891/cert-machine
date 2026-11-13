@@ -1,0 +1,25 @@
+kn1walk KN1Cheat.cheat_T1_via_T2: 32811 constants reached through types and values
+  by kind: 3 axiom, 844 constructor, 7106 def, 751 inductive, 27 opaque, 4 quot, 187 recursor, 23889 theorem
+  axioms reached: [Classical.choice, Quot.sound, propext]
+  reached constants presented as axioms other than the three standard ones: 0
+  names not found in the environment: []
+  declared in our own files: 16
+  declared outside Mathlib (and its dependencies) and outside our own files: 1208
+  of which theorems, axioms or opaque constants: 979
+    (not listed: 1208 constants; the first is KN1Corollary.gen_all  (theorem)  [KNConjectures.KozmaNitzanConjecture1])
+  forbidden names: 44, of which not in this environment: []
+  forbidden statements: 22, of which not in this environment: []
+  test of the types up to definitional equality: not made (already FLAGGED; 1223 candidates)
+  flags:
+    KN1Corollary.kozmaNitzan_conjecture1 has for type the statement KNAll.Conjecture1: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1]
+    KN1Corollary.kozmaNitzan_conjecture1 has for type the statement KN1Compare.T3: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1]
+    KN1Statement.multiplicativeGluing_holds has for type the statement KN1Statement.MultiplicativeGluing: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds]
+    forbidden KN1Statement.multiplicativeGluing_holds is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds]
+    forbidden KN1Corollary.kozmaNitzan_conjecture1 is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1]
+    forbidden KN1Corollary.multiplicativeGluing_all is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1, KN1Corollary.multiplicativeGluing_all]
+    forbidden KN1Corollary.gen_all is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1, KN1Corollary.multiplicativeGluing_all, KN1Corollary.gen_all]
+    forbidden KN1Corollary.surplusTransfer_all is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1, KN1Corollary.multiplicativeGluing_all, KN1Corollary.gen_all, KN1Corollary.surplusTransfer_all]
+    forbidden Percolation.Continuity.CSH.cshHolds is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1, KN1Corollary.multiplicativeGluing_all, KN1Corollary.gen_all, KN1Corollary.surplusTransfer_all, Percolation.Continuity.CSH.cshAll, Percolation.Continuity.CSH.cshHolds]
+    forbidden Percolation.Continuity.CSH.cshAll is reached: [KN1Cheat.cheat_T1_via_T2, KN1Statement.multiplicativeGluing_holds, KN1Corollary.kozmaNitzan_conjecture1, KN1Corollary.multiplicativeGluing_all, KN1Corollary.gen_all, KN1Corollary.surplusTransfer_all, Percolation.Continuity.CSH.cshAll]
+  verdict: FLAGGED
+/root/replay-kn1/red/KR2_expect_clean_cheat_T1_via_T2.lean:3:0: error: kn1walk: expected CLEAN, got FLAGGED

@@ -1,0 +1,61 @@
+/root/replay-kn1/red/K2_P11.lean:56:17: error: Application type mismatch: The argument
+  mul_le_mul_of_nonneg_left hm measureReal_nonneg
+has type
+  Measure.real ?m.232 ?m.233 * m ≤
+    Measure.real ?m.232 ?m.233 * {i | e.symm i ∈ A}.inf' hne fun a => (setLaw (weightOf G p ⇑e)).real (conn a (e b))
+but is expected to have type
+  min ((setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a)) m ≤
+    (setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a) *
+      {i | e.symm i ∈ A}.inf' hne fun a => (setLaw (weightOf G p ⇑e)).real (conn a (e b))
+in the application
+  le_trans (mul_le_mul_of_nonneg_left hm measureReal_nonneg)
+/root/replay-kn1/red/K2_P11.lean:77:2: error: Type mismatch
+  H
+has type
+  prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b) ≥
+    min (prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connSetEvent (completeOn id) o (id '' ↑A)))
+      (A.inf' hA fun a => (setLaw w).real (conn a b))
+but is expected to have type
+  (prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connSetEvent (completeOn id) o (id '' ↑A)) *
+      A.inf' hA fun a => (setLaw w).real (conn a b)) ≤
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b)
+/root/replay-kn1/red/K2_P11.lean:163:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted11_minOfTheTwoFactors
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_existsForm.mp (T1_to_R0 h)
+/root/replay-kn1/red/K2_P11.lean:164:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_existsForm.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted11_minOfTheTwoFactors
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_existsForm.mpr h)
+/root/replay-kn1/red/K2_P11.lean:167:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted11_minOfTheTwoFactors
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_lowerBound.mp (T1_to_R0 h)
+/root/replay-kn1/red/K2_P11.lean:168:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_lowerBound.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted11_minOfTheTwoFactors
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_lowerBound.mpr h)
+/root/replay-kn1/red/K2_P11.lean:171:29: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted11_minOfTheTwoFactors
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.onFin_of_conjecture1 (T1_to_R0 h)

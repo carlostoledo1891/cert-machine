@@ -1,0 +1,19 @@
+project /root/creplay/percolation, toolchain leanprover/lean4:v4.32.0, configurations: comparator-ours.json
+== comparator @ 575674928e239f5bc452aab72d1dd7b0f1326494
+Build completed successfully (15 jobs).
+== lean4export @ 4e7915201d3f9f04470d9eae002fa695f7cdc589 (release v4.32.0)
+Build completed successfully (6 jobs).
+== nanoda_lib @ 68d5ca9db226849b41a6fff59d796ff19d0a8840
+== landrun @ 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+== comparator comparator-ours.json  (log: /root/creplay/percolation/.lake/comparator-logs/comparator-ours.log)
+Building ContChallenge
+⚠ [8657/8658] Replayed ContChallenge
+warning: ContChallenge.lean:2:8: declaration uses `sorry`
+Build completed successfully (8658 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, theta_continuous, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ContChallenge
+Building ContProof
+Build completed successfully (8908 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, theta_continuous, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ContProof
+uncaught exception: Challenge and solution theorem statement do not match: 'theta_continuous'
+::error::comparator did not accept comparator-ours.json (exit status 1)
+error: 1 comparator configuration(s) not accepted

@@ -1,0 +1,60 @@
+✔ [8655/8657] Built Printed (18s)
+ℹ [8656/8657] Built KN3.Frag (8.7s)
+info: KN3/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN3/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN3/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN3/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN3/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN3/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN3/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN3/Frag.lean:37:0: Conjecture3 : Prop
+info: KN3/Frag.lean:38:0: Conjecture3_readingB : Prop
+info: KN3/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+✖ [8657/8657] Building KN3.Transport (6.6s)
+trace: .> LEAN_PATH=/root/kn3/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/kn3/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/kn3/percolation/KN3/Transport.lean -o /root/kn3/percolation/.lake/build/lib/lean/KN3/Transport.olean -i /root/kn3/percolation/.lake/build/lib/lean/KN3/Transport.ilean -c /root/kn3/percolation/.lake/build/ir/KN3/Transport.c --setup /root/kn3/percolation/.lake/build/ir/KN3/Transport.setup.json --json
+warning: KN3/Transport.lean:154:16: Variable name `i'` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: KN3/Transport.lean:378:9: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  r (g x)
+in the target expression
+  Function.onFun (Relation.ReflTransGen (SimpleGraph.fromEdgeSet ω).Adj) r (g x) (g y)
+
+case mp
+W V : Type
+g : W → V
+r : V → W
+hr : Function.LeftInverse r g
+ω : Set (Sym2 W)
+x y : W
+h1 :
+  ∀ (u v : W),
+    (SimpleGraph.fromEdgeSet ω).Adj u v → OpenStep (completeOn g) (pull (edgeMap (completeOn g) r) ω) (g u) (g v)
+h2 :
+  ∀ (a b : V),
+    OpenStep (completeOn g) (pull (edgeMap (completeOn g) r) ω) a b → (SimpleGraph.fromEdgeSet ω).Adj (r a) (r b)
+h : Relation.ReflTransGen (OpenStep (completeOn g) (pull (edgeMap (completeOn g) r) ω)) (g x) (g y)
+h' : Function.onFun (Relation.ReflTransGen (SimpleGraph.fromEdgeSet ω).Adj) r (g x) (g y)
+⊢ Relation.ReflTransGen (SimpleGraph.fromEdgeSet ω).Adj x y
+error: Lean exited with code 1
+Some required targets logged failures:
+- KN3.Transport
+error: build failed

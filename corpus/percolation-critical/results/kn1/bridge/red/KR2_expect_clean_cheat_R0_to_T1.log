@@ -1,0 +1,25 @@
+kn1walk KN1Cheat.cheat_R0_to_T1: 32820 constants reached through types and values
+  by kind: 3 axiom, 844 constructor, 7104 def, 751 inductive, 27 opaque, 4 quot, 187 recursor, 23900 theorem
+  axioms reached: [Classical.choice, Quot.sound, propext]
+  reached constants presented as axioms other than the three standard ones: 0
+  names not found in the environment: []
+  declared in our own files: 10
+  declared outside Mathlib (and its dependencies) and outside our own files: 1219
+  of which theorems, axioms or opaque constants: 988
+    (not listed: 1219 constants; the first is KNAll.Conjecture1  (def)  [KNConjectures.Statements])
+  forbidden names: 44, of which not in this environment: []
+  forbidden statements: 22, of which not in this environment: []
+  test of the types up to definitional equality: not made (already FLAGGED; 1228 candidates)
+  flags:
+    KNAll.conjecture1_holds has for type the statement KNAll.Conjecture1: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds]
+    KNAll.conjecture2Strong_holds has for type the statement KNAll.Conjecture2Strong: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds]
+    KNAll.conjecture4Fixed_holds has for type the statement KNAll.Conjecture4Fixed: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds, KNAll.conjecture4Fixed_holds]
+    KNAll.conjecture4_holds has for type the statement KNAll.Conjecture4: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds]
+    forbidden KNAll.conjecture1_holds is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds]
+    forbidden KNAll.conjecture4Fixed_holds is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds, KNAll.conjecture4Fixed_holds]
+    forbidden KNAll.conjecture4_holds is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds]
+    forbidden KNAll.conjecture2Strong_holds is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds]
+    forbidden KNAll.genY_all is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds, KNAll.conjecture4Fixed_holds, KNAll.genY_all]
+    forbidden Percolation.Continuity.CSH.cshHolds is reached: [KN1Cheat.cheat_R0_to_T1, KNAll.conjecture1_holds, KNAll.conjecture2Strong_holds, KNAll.conjecture4_holds, KNAll.conjecture4Fixed_holds, KNAll.genY_all, KNAll.surplusTransferY_nondegenerate, Percolation.Continuity.CSH.cshHolds]
+  verdict: FLAGGED
+/root/kn1/red/KR2_expect_clean_cheat_R0_to_T1.lean:3:0: error: kn1walk: expected CLEAN, got FLAGGED

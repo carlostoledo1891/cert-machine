@@ -1,0 +1,55 @@
+/root/kn1/red/K2_P1.lean:53:4: error: Type mismatch
+  h₃
+has type
+  (setLaw (weightOf G p ⇑e)).real (conn a (e b)) ≤ m
+but is expected to have type
+  m ≤ (setLaw (weightOf G p ⇑e)).real (conn a (e b))
+/root/kn1/red/K2_P1.lean:75:68: error: Application type mismatch: The argument
+  hY a
+has type
+  (setLaw w).real (conn a b) =
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) a b)
+but is expected to have type
+  ?m.192 = A.inf' hA fun a => (setLaw w).real (conn a b)
+in the application
+  le_of_le_of_eq ?m.206 (hY a)
+/root/kn1/red/K2_P1.lean:163:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted1_maxInPlaceOfMin
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_existsForm.mp (T1_to_R0 h)
+/root/kn1/red/K2_P1.lean:164:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_existsForm.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted1_maxInPlaceOfMin
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_existsForm.mpr h)
+/root/kn1/red/K2_P1.lean:167:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted1_maxInPlaceOfMin
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_lowerBound.mp (T1_to_R0 h)
+/root/kn1/red/K2_P1.lean:168:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_lowerBound.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted1_maxInPlaceOfMin
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_lowerBound.mpr h)
+/root/kn1/red/K2_P1.lean:171:29: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted1_maxInPlaceOfMin
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.onFin_of_conjecture1 (T1_to_R0 h)

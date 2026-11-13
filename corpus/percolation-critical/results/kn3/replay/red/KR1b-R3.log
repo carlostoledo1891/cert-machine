@@ -1,0 +1,12 @@
+/root/replay/red/Red3.lean:480:2: error: Type mismatch
+  H n (weightOf G p ⇑e) {i | e.symm i ∈ A} (e o) (e b) ?m.109 ?m.110
+has type
+  1 - ε < (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b))
+but is expected to have type
+  (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b)) < 1 - ε
+/root/replay/red/Red3.lean:498:2: error: Type mismatch
+  H (Fin n) (completeOn id) ?m.69 (id '' ↑A) o b ?m.73 ?m.74
+has type
+  prob (completeOn id) ?m.69 (connEvent (completeOn id) o b) < 1 - ε
+but is expected to have type
+  1 - ε < prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) (id o) (id b))

@@ -397,9 +397,10 @@ const REPORTS = [
       return 'three kernels accept · 152 of 152 numbers · 0 of 3 assumptions proved'; })() },
   { g: 'ai', f: 'percolation-critical.html', k: 'critical percolation · two labs’ Lean proofs',
     title: 'Two AI proofs of critical percolation, checked against the textbook statement I wrote',
-    desc: 'Anthropic and OpenAI each released a Lean proof that bond percolation on ℤ^d has no infinite cluster at the critical point. Before reading either, I wrote the statement myself from Grimmett’s textbook; both proofs prove it, by bridges that two kernels accept, and both are checked together in a single Lean. What stays open is said first.',
+    desc: 'Anthropic and OpenAI each released a Lean proof that bond percolation on ℤ^d has no infinite cluster at the critical point. Before reading either, I wrote the statement myself from Grimmett’s textbook; both proofs prove it, by bridges that two kernels accept, and both are checked together in a single Lean. Three follow-ups: θ proved continuous on [0, 1] in Lean, on Anthropic’s library, and Kozma and Nitzan’s Conjectures 3 and 1 compared, as printed, with the Lean statements that were proved. What stays open is said first.',
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'percolation-critical.json'), 'utf8'));
-      if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.oneLean !== 'CERTIFIED') fail('the percolation-critical card would misstate its record');
+      if (P.verdicts.bridgeA !== 'CERTIFIED' || P.verdicts.bridgeO !== 'CERTIFIED' || P.verdicts.oneLean !== 'CERTIFIED'
+        || P.verdicts.continuity !== 'PROVED' || P.verdicts.conjecture3 !== 'CERTIFIED, as printed under reading R0' || P.verdicts.conjecture1 !== 'CERTIFIED, as printed') fail('the percolation-critical card would misstate its record');
       return '2 of 2 proofs reach my statement · 2 kernels each · both in one Lean'; })() },
   { g: 'ai', f: 'prime-gap-premises.html', k: 'prime gaps · the premises of three Lean proofs',
     title: 'Three Lean proofs of bounded prime gaps, and the 16 premises Lean does not check',

@@ -1,0 +1,27 @@
+/root/replay/red/Red4.lean:475:25: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+h : LabForm
+ε : ℝ
+hε : 0 < ε
+δ : ℝ
+hδ : 0 < δ
+H :
+  ∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)) (o b : Fin n),
+    1 - δ < (setLaw w).real (⋃ a ∈ A, conn o a) →
+      (∀ a ∈ A, 1 - δ < (setLaw w).real (conn a b)) → 1 - ε < (setLaw w).real (conn o b)
+V : Type
+inst✝ : Finite V
+G : SimpleGraph V
+p : ↑G.edgeSet → ↑(Set.Icc 0 1)
+A : Set V
+o b : V
+h₁ : prob G p (connSetEvent G o A) > 1 - δ
+⊢ prob G p (connEvent G o b) > 1 - ε
+/root/replay/red/Red4.lean:498:9: error: Function expected at
+  H (Fin n) (completeOn id) ?m.69 (id '' ↑A) o b ?m.73
+but this term has type
+  prob (completeOn id) ?m.69 (connEvent (completeOn id) o b) > 1 - ε
+
+Note: Expected a function because this term is being applied to the argument
+  ?_
+/root/replay/red/Red4.lean:499:2: error: No goals to be solved

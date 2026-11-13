@@ -1,0 +1,12 @@
+import ContProof
+import ContPlanted
+
+#print axioms theta_continuous
+#print axioms theta_right_continuous
+#print axioms theta_left_continuous_above_pc
+#print axioms theta_continuous_iff_critical
+#print axioms TextbookPercolation.not_planted_dimOne
+#print axioms TextbookPercolation.not_planted_constant
+#print axioms Percolation.Literature.Grimmett1999_numInfiniteClusters_le_one_holds
+#print axioms Percolation.Literature.Grimmett1999_prob_exists_percolatesAt_holds
+#print axioms BondPercolation.percolation_continuity

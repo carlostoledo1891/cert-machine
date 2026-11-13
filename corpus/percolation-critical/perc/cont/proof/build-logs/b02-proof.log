@@ -1,0 +1,13 @@
+✖ [8907/8908] Building ContProof (7.4s)
+trace: .> LEAN_PATH=/root/cont/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/cont/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/cont/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/cont/percolation/ContProof.lean -o /root/cont/percolation/.lake/build/lib/lean/ContProof.olean -i /root/cont/percolation/.lake/build/lib/lean/ContProof.ilean -c /root/cont/percolation/.lake/build/ir/ContProof.c --setup /root/cont/percolation/.lake/build/ir/ContProof.setup.json --json
+error: ContProof.lean:127:88: Function expected at
+  zero_le
+but this term has type
+  0 ≤ ?m.83
+
+Note: Expected a function because this term is being applied to the argument
+  _
+error: Lean exited with code 1
+Some required targets logged failures:
+- ContProof
+error: build failed

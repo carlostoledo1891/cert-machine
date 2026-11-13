@@ -1,0 +1,26 @@
+@Config : {V : Type} → SimpleGraph V → Type
+coin : ↑(Set.Icc 0 1) → Measure Bool
+@percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+@Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+@connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+@connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+@prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+Conjecture3 : Prop
+Conjecture3_readingB : Prop
+'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]

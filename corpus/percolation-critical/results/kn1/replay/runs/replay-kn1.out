@@ -1,0 +1,31 @@
+inputs exit 0 (0 s)
+tools exit 0 (2 s)
+copy exit 0 (31 s)
+setup exit 0 (1 s)
+build exit 0 (70 s)
+axioms exit 0 (13 s)
+walk exit 0 (401 s)
+tokens exit 0 (0 s)
+imports exit 0 (0 s)
+k3 exit 0 (1712 s)
+red exit 0 (55 s)
+REPLAY done 16:02:06Z
+axioms: 0
+build: 0
+copy: 0
+imports: 0
+inputs: 0
+k3: 0
+red: 0
+setup: 0
+tokens: 0
+tools: 0
+walk: 0
+K3 Comparator (our challenge, nanoda on): ACCEPTED
+leanchecker --fresh KN1.Proved: ACCEPTED (exit 0)
+KR4 Planted3_inequalityReversed: REFUSED by Comparator (exit 1)
+KR4 Planted1_maxInPlaceOfMin: REFUSED by Comparator (exit 1)
+KR4 Planted4_strictInequality: REFUSED by Comparator (exit 1)
+third party's files against the pristine tree (our added files and lakefile.toml set apart): 0 difference(s) 
+lakefile.toml: the third party's bytes, unchanged, followed by 700 bytes of our [[lean_lib]] entries
+red.sh done 2026-11-13T16:02:06Z: ALL RED CONTROLS REFUSED AS THEY MUST

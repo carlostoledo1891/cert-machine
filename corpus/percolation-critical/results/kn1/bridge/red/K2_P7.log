@@ -1,0 +1,75 @@
+/root/kn1/red/K2_P7.lean:55:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  prob G p (connSetEvent G o A)
+in the target expression
+  (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b)) ≥ m
+
+h : LabForm1
+V : Type
+inst✝ : Finite V
+G : SimpleGraph V
+p : ↑G.edgeSet → ↑(Set.Icc 0 1)
+A : Set V
+o b : V
+m : ℝ
+hlow : ∀ a ∈ A, m ≤ prob G p (connEvent G a b)
+n : ℕ
+e : V ≃ Fin n
+a₀ : V
+ha₀ : a₀ ∈ A
+hA : ∀ (a : V), e a ∈ {i | e.symm i ∈ A} ↔ a ∈ A
+hne : {i | e.symm i ∈ A}.Nonempty
+H :
+  ((setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a) *
+      {i | e.symm i ∈ A}.inf' hne fun a => (setLaw (weightOf G p ⇑e)).real (conn a (e b))) ≤
+    (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b))
+hm : m ≤ {i | e.symm i ∈ A}.inf' hne fun a => (setLaw (weightOf G p ⇑e)).real (conn a (e b))
+⊢ (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b)) ≥ m
+/root/kn1/red/K2_P7.lean:77:2: error: Type mismatch
+  H
+has type
+  prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b) ≥
+    A.inf' hA fun a => (setLaw w).real (conn a b)
+but is expected to have type
+  (prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connSetEvent (completeOn id) o (id '' ↑A)) *
+      A.inf' hA fun a => (setLaw w).real (conn a b)) ≤
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b)
+/root/kn1/red/K2_P7.lean:163:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted7_factorDropped
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_existsForm.mp (T1_to_R0 h)
+/root/kn1/red/K2_P7.lean:164:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_existsForm.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted7_factorDropped
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_existsForm.mpr h)
+/root/kn1/red/K2_P7.lean:167:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted7_factorDropped
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_lowerBound.mp (T1_to_R0 h)
+/root/kn1/red/K2_P7.lean:168:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_lowerBound.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted7_factorDropped
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_lowerBound.mpr h)
+/root/kn1/red/K2_P7.lean:171:29: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted7_factorDropped
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.onFin_of_conjecture1 (T1_to_R0 h)

@@ -1,0 +1,92 @@
+@Config : {V : Type} → SimpleGraph V → Type
+coin : ↑(Set.Icc 0 1) → Measure Bool
+@percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+@Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+@connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+@connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+@prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+Conjecture3 : Prop
+Conjecture3_readingB : Prop
+'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+Scratch.lean:1697:12: error: Function expected at
+  zero_le
+but this term has type
+  0 ≤ ?m.73
+
+Note: Expected a function because this term is being applied to the argument
+  _
+Scratch.lean:1702:23: warning: `mul_le_mul_left'` has been deprecated: Use `mul_le_mul_right` instead
+Scratch.lean:1715:64: warning: `mul_le_mul_left'` has been deprecated: Use `mul_le_mul_right` instead
+Scratch.lean:1854:84: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.69 = ?m.69
+but is expected to have type
+  ?m.59 ⟨s(v, w), hvw⟩ = true
+in the application
+  Exists.intro hvw rfl
+'KN1K0.prob_connSetEvent_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.exists_minimiser' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.prob_connSetEvent_bot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_existsForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_lowerBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.onFin_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.existsForm_iff_sealedNeighbour1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted1_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted2_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted6_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted7_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted8_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted9_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.prob_connEvent_of_adj_of_one' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'KN1K0.planted10_false' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'KN1K0.planted12_iInf_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted12_iInf_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted12_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_minimiser' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_emptyMinIs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_distinct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_properSubset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_isLeast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_sInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.iInf_subtype_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_iInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_iff_ennreal' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'KN1K0.planted13_of_harris' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted15_of_harris' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture3_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.harris_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted13_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted15_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted16_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour8_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour9_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour10_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour11_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour12_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.planted17_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.conjecture1_of_neighbour7' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KN1K0.neighbour2_of_neighbour3' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m12.167s
+user	0m15.513s
+sys	0m6.217s

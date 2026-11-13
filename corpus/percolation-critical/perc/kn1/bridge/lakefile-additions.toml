@@ -1,0 +1,18 @@
+
+# KN1 (added 2026-11-13, K0 of PREREG-KN1.md): the sealed hand-written statements (Kozma-Nitzan Conjecture 3's
+# Printed.lean, imported by Conjecture 1's Printed1.lean and Planted1.lean) and the K0 proofs about them.
+[[lean_lib]]
+name = "KN3Printed"
+roots = ["Printed"]
+
+[[lean_lib]]
+name = "KN1Printed"
+roots = ["Printed1"]
+
+[[lean_lib]]
+name = "KN1Planted"
+roots = ["Planted1"]
+
+[[lean_lib]]
+name = "KN1"
+globs = ["KN1.+"]

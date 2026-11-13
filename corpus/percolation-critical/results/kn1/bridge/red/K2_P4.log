@@ -1,0 +1,58 @@
+/root/kn1/red/K2_P4.lean:56:2: error: Type mismatch
+  le_trans (mul_le_mul_of_nonneg_left hm measureReal_nonneg) H
+has type
+  (setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a) * m ≤
+    (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b))
+but is expected to have type
+  (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b)) >
+    (setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a) * m
+/root/kn1/red/K2_P4.lean:77:2: error: Type mismatch
+  H
+has type
+  prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b) >
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connSetEvent (completeOn id) o (id '' ↑A)) *
+      A.inf' hA fun a => (setLaw w).real (conn a b)
+but is expected to have type
+  (prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connSetEvent (completeOn id) o (id '' ↑A)) *
+      A.inf' hA fun a => (setLaw w).real (conn a b)) ≤
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o b)
+/root/kn1/red/K2_P4.lean:163:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted4_strictInequality
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_existsForm.mp (T1_to_R0 h)
+/root/kn1/red/K2_P4.lean:164:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_existsForm.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted4_strictInequality
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_existsForm.mpr h)
+/root/kn1/red/K2_P4.lean:167:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted4_strictInequality
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_lowerBound.mp (T1_to_R0 h)
+/root/kn1/red/K2_P4.lean:168:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_lowerBound.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted4_strictInequality
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_lowerBound.mpr h)
+/root/kn1/red/K2_P4.lean:171:29: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted4_strictInequality
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.onFin_of_conjecture1 (T1_to_R0 h)

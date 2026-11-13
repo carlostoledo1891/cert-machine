@@ -1,0 +1,84 @@
+⚠ [3307/3316] Replayed KNConjectures.AvoidedDefs
+warning: KNConjectures/AvoidedDefs.lean:44:0: automatically included section variable(s) unused in theorem `KNAll.surplusMarginY_nil`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: KNConjectures/AvoidedDefs.lean:72:0: automatically included section variable(s) unused in theorem `KNAll.surplusY_empty`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [3315/3487] Replayed KNConjectures.Conjectures
+info: KNConjectures/Conjectures.lean:291:0: 'KNAll.conjecture4Fixed_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:292:0: 'KNAll.conjecture4_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:293:0: 'KNAll.conjecture2Strong_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:294:0: 'KNAll.conjecture2_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:295:0: 'KNAll.question7_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:296:0: 'KNAll.conjecture1_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:297:0: 'KNAll.conjecture3_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8911/8927] Replayed KNConjectures.KozmaNitzanConjecture1
+info: KNConjectures/KozmaNitzanConjecture1.lean:106:0: 'KN1Corollary.gen_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/KozmaNitzanConjecture1.lean:107:0: 'KN1Corollary.multiplicativeGluing_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/KozmaNitzanConjecture1.lean:108:0: 'KN1Corollary.kozmaNitzan_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8914/8927] Replayed KNConjectures.KN1Bridge
+info: KNConjectures/KN1Bridge.lean:13:0: 'KN1Statement.multiplicativeGluing_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8916/8927] Replayed KN1.K0.Frag
+info: KN1/K0/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN1/K0/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN1/K0/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN1/K0/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN1/K0/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN1/K0/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN1/K0/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN1/K0/Frag.lean:37:0: Conjecture3 : Prop
+info: KN1/K0/Frag.lean:38:0: Conjecture3_readingB : Prop
+info: KN1/K0/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/K0/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8925/8927] Built KN1.Bridge.Cheat (8.1s)
+ℹ [8926/8927] Built KN1.Bridge.Targets (8.3s)
+info: KN1/Bridge/Targets.lean:28:0: type of KNAll.conjecture1_holds is the constant KNAll.Conjecture1 (syntactic): true
+type of KN1Statement.multiplicativeGluing_holds is the constant KN1Statement.MultiplicativeGluing (syntactic): true
+type of KN1Corollary.kozmaNitzan_conjecture1 is the body of KN1Compare.T3 (syntactic): true
+type of KN1Corollary.kozmaNitzan_conjecture1 is the body of KNAll.Conjecture1 (syntactic): true
+ℹ [8927/8927] Built KN1.Bridge.Axioms (7.1s)
+info: KN1/Bridge/Axioms.lean:8:0: 'conjecture1_as_printed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:9:0: 'KN1Transport.conjecture1_of_labForm1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:10:0: 'KN1Transport.labForm1_of_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:11:0: 'KN1Compare.prodBernoulli_eq_setLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:12:0: 'KN1Compare.openConn_eq_conn' depends on axioms: [propext, Quot.sound]
+info: KN1/Bridge/Axioms.lean:13:0: 'KN1Compare.kn1_prodBernoulli_eq_setLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:14:0: 'KN1Compare.kn1_openConn_eq_conn' depends on axioms: [propext, Quot.sound]
+info: KN1/Bridge/Axioms.lean:15:0: 'KN1Compare.T1_iff_mirror' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:16:0: 'KN1Compare.T2_iff_mirror' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:17:0: 'KN1Compare.T3_iff_mirror' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:18:0: 'KN1Compare.T1_to_R0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:19:0: 'KN1Compare.R0_to_T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:20:0: 'KN1Compare.T2_to_R0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:21:0: 'KN1Compare.R0_to_T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:22:0: 'KN1Compare.T3_to_R0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:23:0: 'KN1Compare.R0_to_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:24:0: 'KN1Compare.T1_iff_RE' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:25:0: 'KN1Compare.T1_iff_RL' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:26:0: 'KN1Compare.T1_to_RF' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:27:0: 'KN1Targets.T1_is_the_type' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:28:0: 'KN1Targets.T2_is_the_type' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN1/Bridge/Axioms.lean:29:0: 'KN1Targets.T3_is_the_type' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8927 jobs).

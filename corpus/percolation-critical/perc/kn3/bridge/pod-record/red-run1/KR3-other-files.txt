@@ -1,0 +1,44 @@
+KN3/Frag.lean:11:What is proved (all without `sorry`, axioms printed at the end):
+KN3/Frag.lean:240:#print axioms Conjecture3
+KN3/Frag.lean:241:#print axioms Conjecture3_readingB
+KN3/Frag.lean:242:#print axioms coin_isProbabilityMeasure
+KN3/Frag.lean:243:#print axioms percolationMeasure_singleton
+KN3/Frag.lean:244:#print axioms joined_iff_reflTransGen
+KN3/Frag.lean:245:#print axioms joined_symm
+KN3/Frag.lean:246:#print axioms measurableSet_connSetEvent
+KN3/Frag.lean:247:#print axioms conjecture3_of_readingB
+KN3/Frag.lean:248:#print axioms conjecture3_singleton
+KN3/Frag.lean:517:#print axioms conjecture3_iff_neighbour4
+KN3/Frag.lean:518:#print axioms planted2_true
+KN3/Frag.lean:519:#print axioms planted3_false
+KN3/Frag.lean:520:#print axioms planted4_false
+KN3/Frag.lean:521:#print axioms planted5_false
+KN3/Frag.lean:522:#print axioms planted1_of_conjecture3
+KN3/Frag.lean:523:#print axioms neighbour2_of_conjecture3
+KN3/Frag.lean:524:#print axioms neighbour3_of_conjecture3
+KN3/Axioms.lean:3:#print axioms conjecture3_as_printed
+KN3/Axioms.lean:4:#print axioms conjecture3_readingB_as_printed
+KN3/Axioms.lean:5:#print axioms KN3Compare.lab_iff_nearOneGluing
+KN3/Axioms.lean:6:#print axioms KN3Compare.lab_iff_labForm
+KN3/Axioms.lean:7:#print axioms KN3Compare.lab_to_R0
+KN3/Axioms.lean:8:#print axioms KN3Compare.R0_to_lab
+KN3/Axioms.lean:9:#print axioms KN3Compare.lab_to_RB
+KN3/Axioms.lean:10:#print axioms KN3Compare.RB_to_lab
+KN3/Axioms.lean:11:#print axioms KN3Compare.lab_to_N2
+KN3/Axioms.lean:12:#print axioms KN3Compare.lab_to_N3
+KN3/Axioms.lean:13:#print axioms KN3Compare.N3_to_lab
+KN3/Axioms.lean:14:#print axioms KN3Compare.lab_to_N4
+KN3/Axioms.lean:15:#print axioms KN3Compare.N4_to_lab
+KN3/DepWalk.lean:14:  `Quot.sound` (the walk cannot look inside an axiom; a theorem whose proof term were hidden from this file would
+KN3/DepWalk.lean:15:  show up here, and so does `sorryAx`). In a plain (non-`module`) file such as this one, Mathlib's proof terms
+KN3/DepWalk.lean:19:* the axioms reached;
+KN3/DepWalk.lean:37:  | .axiomInfo _ => "axiom"
+KN3/DepWalk.lean:57:  | .axiomInfo _ => t
+KN3/DepWalk.lean:122:  let mut axioms : Array Name := #[]
+KN3/DepWalk.lean:130:      if k == "axiom" then axioms := axioms.push n
+KN3/DepWalk.lean:137:        if k == "theorem" || k == "axiom" || k == "opaque" then prefixTheorems := prefixTheorems + 1
+KN3/DepWalk.lean:142:  -- constants the environment presents as axioms, other than the three standard ones
+KN3/DepWalk.lean:143:  for a in axioms do
+KN3/DepWalk.lean:154:  out := out ++ s!"  axioms reached: {axioms.toList}\n"
+KN3/DepWalk.lean:155:  out := out ++ s!"  reached constants presented as axioms other than the three standard ones: {noProof}\n"
+KN3/DepWalk.lean:158:  out := out ++ s!"  of which theorems, axioms or opaque constants: {prefixTheorems}\n"

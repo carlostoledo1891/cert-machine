@@ -1,0 +1,26 @@
+Printed.lean:1:import Mathlib
+Printed1.lean:1:import Mathlib
+Printed1.lean:2:import Printed
+Planted1.lean:1:import Mathlib
+Planted1.lean:2:import Printed
+Planted1.lean:3:import Printed1
+KN1/K0/Frag.lean:1:import Mathlib
+KN1/K0/Frag.lean:2:import Printed
+KN1/K0/Frag.lean:8:import a file that was never built). `combine.sh` writes `tmp/PrintedCheck.lean = Printed.lean ++ Check.lean`,
+KN1/K0/Basic.lean:1:import KN1.K0.Frag
+KN1/K0/Basic.lean:2:import Printed1
+KN1/K0/Basic.lean:3:import Planted1
+KN1/K0/Required.lean:1:import KN1.K0.Basic
+KN1/Bridge/Transport3.lean:1:import KN1.K0.Frag
+KN1/Bridge/Transport1.lean:1:import KN1.Bridge.Transport3
+KN1/Bridge/Transport1.lean:2:import Printed1
+KN1/Bridge/Transport1.lean:8:import line: the measure transports and the dictionary of connections between our encoding and the lab's, proved
+KN1/Bridge/Compare.lean:1:import KNConjectures.Statements
+KN1/Bridge/Compare.lean:2:import KNConjectures.KN1Statement
+KN1/Bridge/Compare.lean:3:import KN1.Bridge.Transport1
+KN1/Bridge/Compare.lean:4:import KN1.K0.Required
+KN1/Bridge/Targets.lean:1:import KNConjectures.Conjectures
+KN1/Bridge/Targets.lean:2:import KNConjectures.KN1Bridge
+KN1/Bridge/Targets.lean:3:import KN1.Bridge.Compare
+KN1/Proved.lean:1:import KNConjectures.Conjectures
+KN1/Proved.lean:2:import KN1.Bridge.Compare

@@ -1,0 +1,23 @@
+KN1/K0/Frag.lean:11:What is proved (all without `sorry`, axioms printed at the end):
+KN1/K0/Axioms.lean:10:# KN1.K0.Axioms — `#print axioms` for every K0 theorem (no proof in this file)
+KN1/Bridge/Axioms.lean:5:# KN1.Bridge.Axioms — `#print axioms` for K3 and for every theorem of K2 (no proof in this file)
+KN1/Bridge/DepWalk.lean:14:  `Quot.sound` (the walk cannot look inside an axiom; a theorem whose proof term were hidden from this file would
+KN1/Bridge/DepWalk.lean:15:  show up here, and so does `sorryAx`). In a plain (non-`module`) file such as this one, Mathlib's proof terms
+KN1/Bridge/DepWalk.lean:19:* the axioms reached;
+KN1/Bridge/DepWalk.lean:37:  | .axiomInfo _ => "axiom"
+KN1/Bridge/DepWalk.lean:57:  | .axiomInfo _ => t
+KN1/Bridge/DepWalk.lean:122:  let mut axioms : Array Name := #[]
+KN1/Bridge/DepWalk.lean:130:      if k == "axiom" then axioms := axioms.push n
+KN1/Bridge/DepWalk.lean:137:        if k == "theorem" || k == "axiom" || k == "opaque" then prefixTheorems := prefixTheorems + 1
+KN1/Bridge/DepWalk.lean:142:  -- constants the environment presents as axioms, other than the three standard ones
+KN1/Bridge/DepWalk.lean:143:  for a in axioms do
+KN1/Bridge/DepWalk.lean:154:  out := out ++ s!"  axioms reached: {axioms.toList}\n"
+KN1/Bridge/DepWalk.lean:155:  out := out ++ s!"  reached constants presented as axioms other than the three standard ones: {noProof}\n"
+KN1/Bridge/DepWalk.lean:158:  out := out ++ s!"  of which theorems, axioms or opaque constants: {prefixTheorems}\n"
+KN1/Bridge/Walk.lean:113:  let mut axioms : Array Name := #[]
+KN1/Bridge/Walk.lean:122:      if k == "axiom" then axioms := axioms.push n
+KN1/Bridge/Walk.lean:126:        if k == "theorem" || k == "axiom" || k == "opaque" then libThms := libThms.push n
+KN1/Bridge/Walk.lean:156:  for a in axioms do
+KN1/Bridge/Walk.lean:164:  out := out ++ s!"  axioms reached: {axioms.toList}\n"
+KN1/Bridge/Walk.lean:165:  out := out ++ s!"  reached constants presented as axioms other than the three standard ones: {noProof}\n"
+KN1/Bridge/Walk.lean:169:  out := out ++ s!"  of which theorems, axioms or opaque constants: {libThms.size}\n"

@@ -1,0 +1,106 @@
+✔ [8666/8670] Built Printed (6.7s)
+✖ [8667/8670] Building KN3.Frag (7.0s)
+trace: .> LEAN_PATH=/root/kn3/percolation/.lake/packages/Cli/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/batteries/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/Qq/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/aesop/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/importGraph/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/plausible/.lake/build/lib/lean:/root/kn3/percolation/.lake/packages/mathlib/.lake/build/lib/lean:/root/kn3/percolation/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.32.0/bin/lean /root/kn3/percolation/KN3/Frag.lean -o /root/kn3/percolation/.lake/build/lib/lean/KN3/Frag.olean -i /root/kn3/percolation/.lake/build/lib/lean/KN3/Frag.ilean -c /root/kn3/percolation/.lake/build/ir/KN3/Frag.c --setup /root/kn3/percolation/.lake/build/ir/KN3/Frag.setup.json --json
+info: KN3/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN3/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN3/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN3/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN3/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN3/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN3/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN3/Frag.lean:37:0: Conjecture3 : Prop
+info: KN3/Frag.lean:38:0: Conjecture3_readingB : Prop
+error: KN3/Frag.lean:213:60: Application type mismatch: The argument
+  h₂
+has type
+  ∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ
+but is expected to have type
+  ∀ a ∈ A, prob G p (connEvent G a b) > 1 - δ
+in the application
+  H V G p A o b h₁ h₂
+info: KN3/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+error: KN3/Frag.lean:482:16: Application type mismatch: The argument
+  H V G p A o b
+has type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+but is expected to have type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∀ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+in the application
+  ⟨hδ, H V G p A o b⟩
+error: KN3/Frag.lean:488:37: Type mismatch
+  H V G (fun x => q) A o b
+has type
+  prob G (fun x => q) (connSetEvent G o A) > 1 - δ →
+    (∃ a ∈ A, prob G (fun x => q) (connEvent G a b) > 1 - δ) → prob G (fun x => q) (connEvent G o b) > 1 - ε
+but is expected to have type
+  prob G (fun x => q) (connSetEvent G o A) > 1 - δ →
+    (∀ a ∈ A, prob G (fun x => q) (connEvent G a b) > 1 - δ) → prob G (fun x => q) (connEvent G o b) > 1 - ε
+error: KN3/Frag.lean:494:39: Type mismatch
+  H V G p A o b
+has type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+but is expected to have type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∀ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+error: KN3/Frag.lean:501:41: Type mismatch
+  H V G p A o b
+has type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∃ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+but is expected to have type
+  prob G p (connSetEvent G o A) > 1 - δ →
+    (∀ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+error: KN3/Frag.lean:515:67: Function expected at
+  h₂
+but this term has type
+  ∃ a ∈ A, prob G p (connEvent G a b) > 1 - min δ 1
+
+Note: Expected a function because this term is being applied to the argument
+  a
+error: KN3/Frag.lean:515:56: unsolved goals
+h : Neighbour4_nonemptyA
+ε : ℝ
+hε : 0 < ε
+δ : ℝ
+hδ : 0 < δ
+H :
+  ∀ (V : Type) [Finite V] (G : SimpleGraph V) (p : ↑G.edgeSet → ↑(Set.Icc 0 1)) (A : Set V) (o b : V),
+    A.Nonempty →
+      prob G p (connSetEvent G o A) > 1 - δ →
+        (∀ a ∈ A, prob G p (connEvent G a b) > 1 - δ) → prob G p (connEvent G o b) > 1 - ε
+V : Type
+inst✝ : Finite V
+G : SimpleGraph V
+p : ↑G.edgeSet → ↑(Set.Icc 0 1)
+A : Set V
+o b : V
+h₁ : prob G p (connSetEvent G o A) > 1 - min δ 1
+h₂ : ∃ a ∈ A, prob G p (connEvent G a b) > 1 - min δ 1
+hδ' : min δ 1 ≤ δ
+hA : A.Nonempty
+a : V
+ha : a ∈ A
+⊢ prob G p (connEvent G a b) > 1 - δ
+info: KN3/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- KN3.Frag
+error: build failed

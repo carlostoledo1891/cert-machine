@@ -1,0 +1,73 @@
+project /root/replay/percolation, toolchain leanprover/lean4:v4.32.0, configurations: comparator-ours.json
+== comparator @ 575674928e239f5bc452aab72d1dd7b0f1326494
+Build completed successfully (15 jobs).
+== lean4export @ 4e7915201d3f9f04470d9eae002fa695f7cdc589 (release v4.32.0)
+Build completed successfully (6 jobs).
+== nanoda_lib @ 68d5ca9db226849b41a6fff59d796ff19d0a8840
+== landrun @ 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+== comparator comparator-ours.json  (log: /root/replay/percolation/.lake/comparator-logs/comparator-ours.log)
+Building OurChallenge
+ℹ [8656/8658] Replayed KN3.Frag
+info: KN3/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN3/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN3/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN3/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN3/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN3/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN3/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN3/Frag.lean:37:0: Conjecture3 : Prop
+info: KN3/Frag.lean:38:0: Conjecture3_readingB : Prop
+info: KN3/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [8657/8658] Replayed OurChallenge
+warning: OurChallenge.lean:2:8: declaration uses `sorry`
+Build completed successfully (8658 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, conjecture3_as_printed, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from OurChallenge
+Building KN3.Proved
+ℹ [8903/8907] Replayed KN3.Frag
+info: KN3/Frag.lean:30:0: @Config : {V : Type} → SimpleGraph V → Type
+info: KN3/Frag.lean:31:0: coin : ↑(Set.Icc 0 1) → Measure Bool
+info: KN3/Frag.lean:32:0: @percolationMeasure : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Measure (Config G)
+info: KN3/Frag.lean:33:0: @Joined : {V : Type} → (G : SimpleGraph V) → Config G → V → V → Prop
+info: KN3/Frag.lean:34:0: @connEvent : {V : Type} → (G : SimpleGraph V) → V → V → Set (Config G)
+info: KN3/Frag.lean:35:0: @connSetEvent : {V : Type} → (G : SimpleGraph V) → V → Set V → Set (Config G)
+info: KN3/Frag.lean:36:0: @prob : {V : Type} → (G : SimpleGraph V) → (↑G.edgeSet → ↑(Set.Icc 0 1)) → Set (Config G) → ℝ
+info: KN3/Frag.lean:37:0: Conjecture3 : Prop
+info: KN3/Frag.lean:38:0: Conjecture3_readingB : Prop
+info: KN3/Frag.lean:240:0: 'KN3Printed.Conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:241:0: 'KN3Printed.Conjecture3_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:242:0: 'KN3Printed.coin_isProbabilityMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:243:0: 'KN3Printed.percolationMeasure_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:244:0: 'KN3Printed.joined_iff_reflTransGen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:245:0: 'KN3Printed.joined_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:246:0: 'KN3Printed.measurableSet_connSetEvent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:247:0: 'KN3Printed.conjecture3_of_readingB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:248:0: 'KN3Printed.conjecture3_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:517:0: 'KN3Planted.conjecture3_iff_neighbour4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:518:0: 'KN3Planted.planted2_true' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:519:0: 'KN3Planted.planted3_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:520:0: 'KN3Planted.planted4_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:521:0: 'KN3Planted.planted5_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:522:0: 'KN3Planted.planted1_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:523:0: 'KN3Planted.neighbour2_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KN3/Frag.lean:524:0: 'KN3Planted.neighbour3_of_conjecture3' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8907 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, conjecture3_as_printed, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from KN3.Proved
+uncaught exception: Challenge and solution theorem statement do not match: 'conjecture3_as_printed'
+::error::comparator did not accept comparator-ours.json (exit status 1)
+error: 1 comparator configuration(s) not accepted

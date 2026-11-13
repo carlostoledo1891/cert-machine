@@ -4,7 +4,10 @@
    against a statement written independently from Grimmett's textbook.
 
    THE MATHEMATICS IS NOT OURS. The proofs are the labs'; ours are the statement, the two bridges and the checks. What
-   stays open comes first. Every number and verdict word is read from certs/percolation-critical.json
+   stays open comes first. Sections 6 to 8 are the three follow-ups of 2026-11-13 (record: followUps): theta continuous
+   on [0, 1] for d >= 2, proved on Anthropic's library (classical mathematics, their heavy ingredients, never "first");
+   Kozma-Nitzan's Conjecture 3 as printed against Anthropic's Lean statement; Conjecture 1 as printed against Ahmed
+   Bou-Rabee's Lean proof (independent by procedure only). Every number and verdict word is read from certs/percolation-critical.json
    (tools/record-percolation-critical.js, which re-derives it from corpus/percolation-critical with --check). The build
    refuses when a verdict is not the one this page states.
 
@@ -26,13 +29,31 @@ const a = (href, text) => '<a href="' + C.escAttr(href) + '">' + C.esc(text) + '
 const N = (x) => Number(x).toLocaleString('en-US');
 const mins = (s) => Math.round(s / 60);
 
-const SAYS = { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED', oneLean: 'CERTIFIED', dimOne: 'CERTIFIED' };
+const SAYS = { bridgeA: 'CERTIFIED', bridgeO: 'CERTIFIED', replayA: 'REPLAYED', anchors: 'CERTIFIED', seam: 'READ, NOT DECIDED', oneLean: 'CERTIFIED', dimOne: 'CERTIFIED',
+  continuity: 'PROVED', conjecture3: 'CERTIFIED, as printed under reading R0', conjecture3Proved: 'PROVED', conjecture3Blind: 'FOUND BLIND',
+  conjecture1: 'CERTIFIED, as printed', conjecture1Proved: 'PROVED', conjecture1Blind: 'NOTHING TO FIND' };
 for (const [k, v] of Object.entries(SAYS)) if (R.verdicts[k] !== v) die(k + ' is ' + R.verdicts[k] + ' in the record, and this page states ' + v);
 if (!/^The proofs are Anthropic’s .* and OpenAI’s/.test(R.undecided)) die('the record no longer says first whose proofs these are');
 const falsePl = R.planted.filter((p) => p.false), refusedBoth = falsePl.filter((p) => p.refusedA && p.refusedO);
 if (refusedBoth.length !== falsePl.length) die('a false planted statement was not refused by both bridges');
 const A = R.anthropic, O = R.openai, ONE = R.oneLean;
 if (ONE.port.statementFile !== 'byte-identical' || ONE.toolchain !== A.pins.toolchain) die('the one-Lean check is no longer on Anthropic’s version with OpenAI’s statement file unchanged');
+
+/* the three follow-ups (2026-11-13): what the page says first about them must still be what the record says */
+const F = R.followUps, CT = F.continuity, K3 = F.conjecture3, K1 = F.conjecture1;
+if (!/^Three follow-ups .*None is a first/.test(F.undecided) || CT.claimsFirst !== false || K1.claimsFirst !== false || CT.priorArtSearch !== 'partial' || CT.priorArt.found !== 0) die('the record no longer says that no follow-up is a first');
+if (K1.independence !== 'by procedure only' || CT.ingredients.whose !== 'Anthropic’s' || CT.on.commit !== A.pins.commit || CT.labOwnListingCoversThem !== false || CT.labListsItAsNotClaimed !== true) die('the record no longer says whose the ingredients are, or how far the independence goes');
+const rd3 = (id) => K3.readings.find((x) => x.id === id) || die('the record lacks reading ' + id);
+const same3 = (id) => rd3(id).labImpliesIt === 'PROVED' && rd3(id).itImpliesLab === 'PROVED';
+if (!same3('R0') || !same3('RB') || !same3('N3') || !same3('N4') || rd3('N2').labImpliesIt !== 'PROVED' || rd3('N2').itImpliesLab !== 'NOT PROVED') die('the readings of Conjecture 3 are not as this page states them');
+if (K3.red.letterRefusalsReachBridge !== false || K3.red.scriptRefusalsAddedAfterSeal !== true || K3.red.tokenRuleMetToTheLetter !== false || K3.amendments !== 2) die('the two departures of the Conjecture 3 item are not as this page states them');
+if (K1.targets.length !== 3 || K1.targets.some((x) => x.toOurs !== 'PROVED' || x.fromOurs !== 'PROVED') || !K1.oneSentence || K1.k0.repaired !== 0 || K1.k0.elaborated !== K1.k0.definitions || K1.k0.thirdPartyBytesPresent !== false) die('the Conjecture 1 comparison is not as this page states it');
+if (K1.nonempty.printed !== false || K1.nonempty.onHisNotLiteralList !== false || K1.nonempty.immaterial !== 'PROVED' || K1.thirdParty.madeWith !== 'Claude and ChatGPT') die('the record no longer carries the facts about the unprinted “nonempty”, or how the third party’s Lean was made');
+if (!K1.accidents.sessionRestartedBeforeHandBack || K1.accidents.verdictRestsOn !== 'the replay') die('the accidents of the Conjecture 1 item are not as this page states them');
+const day = (iso) => { const [y, mo, d] = iso.split('-').map(Number); return d + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][mo - 1] + ' ' + y; };
+const KN = a(K3.source.url, 'arXiv:2401.12397');
+const TPR = K1.thirdParty.repository.replace('https://github.com/', '');
+const USD = R.money.usd + F.money.usd, PODS = R.money.pods + F.money.pods, MINUTES = R.money.minutes + F.money.minutes;
 
 /* figure 1 (the hero): the book, our statement, and the two proofs that reach it, each by a bridge we wrote */
 const box = (x, y, w, h, solid) => '    <rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="' + (solid ? 2.4 : 1.6) + '"/>';
@@ -67,7 +88,8 @@ O_.push(C.header({
   eyebrow: 'cert-machine · report · generated from the records',
   title: TITLE,
   deck: 'In August and September 2026, Anthropic and OpenAI released Lean proofs that bond percolation on ℤ^d has no infinite cluster at the critical point, θ(p_c) = 0, open from dimension 3 up to 10 until then. The proofs are theirs. '
-    + 'Before reading either, I wrote the statement myself from Grimmett’s textbook, and checked, with Claude, that both proofs prove it: Anthropic’s for every dimension from 2 up, OpenAI’s for dimension 3.'
+    + 'Before reading either, I wrote the statement myself from Grimmett’s textbook, and checked, with Claude, that both proofs prove it: Anthropic’s for every dimension from 2 up, OpenAI’s for dimension 3. '
+    + 'A day later, with Claude agents, I added three follow-ups (sections 6 to 8): a Lean proof that θ is continuous on [0, 1], and Kozma and Nitzan’s Conjectures 3 and 1, as printed, compared with their statements in Lean.'
 }));
 O_.push(C.figure({ hero: true, svgRaw: W.join('\n'), svgNarrowRaw: NW.join('\n'), record: ['certs/percolation-critical.json'],
   caption: 'What was checked. Each arrow is a Lean proof, which I call a bridge, that the lab’s theorem implies my statement. Both bridges are checked by two independent kernels, and both fail when the statement is changed to a false one.',
@@ -76,16 +98,22 @@ O_.push(C.stats([
   { k: 'labs’ proofs that prove my statement', v: '2 of 2', n: 'Anthropic: every d ≥ 2 · OpenAI: d = 3' },
   { k: 'kernels that accept each bridge', v: '2', n: 'Lean’s and nanoda, plus a full replay' },
   { k: 'false statements planted', v: refusedBoth.length + ' of ' + falsePl.length, n: 'refused by both bridges' },
-  { k: 'rented computer time', v: 'US$' + R.money.usd.toFixed(2), sm: true, n: R.money.pods + ' machines, under ' + Math.ceil(R.money.minutes / 60) + ' hours' }
+  { k: 'rented computer time', v: 'US$' + USD.toFixed(2), sm: true, n: PODS + ' machines, under ' + Math.ceil(MINUTES / 60) + ' hours, follow-ups included' }
 ]));
-O_.push(C.scope('The proofs are Anthropic’s (Justin Leder with Claude) and OpenAI’s. This page checks that their Lean theorems prove a statement written independently from the textbook; it is not new mathematics, and it does not check either informal paper. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs and the two bridges under my direction.'));
+O_.push(C.scope('The proofs are Anthropic’s (Justin Leder with Claude) and OpenAI’s. This page checks that their Lean theorems prove a statement written independently from the textbook; it is not new mathematics, and it does not check either informal paper. The one theorem proved here, the continuity of θ (section 6), follows from θ(p_c) = 0 by a classical step, and its hard ingredients are Anthropic’s. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs and the two bridges under my direction.'));
 
 O_.push(C.section({ lab: 'read this first', title: 'What is still open', id: 'limits', bodyRaw: C.plainList([
   { b: 'In the single-Lean check, OpenAI’s proof is a port.', text: 'To put both proofs in one Lean (section 4), OpenAI’s ℤ³ proof was moved to the version Anthropic’s uses: ' + ONE.port.changed + ' of its ' + ONE.port.files + ' files changed, almost all of them renamed library lemmas. Its statement file is unchanged, byte for byte, and the moved proof is accepted against it. It is still not OpenAI’s proof as shipped; that one was checked on its own version.' },
-  { b: 'Not the papers.', text: 'This checks the Lean statements against the textbook’s definitions. It does not check either lab’s informal argument, or Kozma and Nitzan’s reduction as printed.' },
+  { b: 'Not the papers.', text: 'This checks the Lean statements against the textbook’s definitions. It does not check either lab’s informal argument, or Kozma and Nitzan’s reduction as printed. Of their paper, only the sentences of Conjectures 3 and 1 are compared with Lean statements (sections 7 and 8); the step from Conjecture 3 to θ(p_c) = 0 is not.' },
   { b: 'Anthropic’s proof is not on its repository’s main branch.', text: 'It is reachable only by its commit hash (the pull request was closed the same day); I pinned that commit by its hash.' },
   { b: 'The same model family.', text: 'The bridge to Anthropic’s proof was written by Claude, Anthropic’s model. The kernels decide, not the model; you should still know.' },
   { b: 'Lean and Mathlib are trusted,', text: 'as in any check of this kind.' }
+]) + C.p('And on the three follow-ups, sections 6 to 8:') + C.plainList([
+  { b: 'None of them is a first.', text: 'Ahmed Bou-Rabee’s repository has held his own restatement of Conjecture 1 since ' + day(K1.thirdParty.restatementSince) + '. For continuity, my search for an earlier formal proof was partial: ' + CT.priorArt.read.slice(0, -1).join(', ') + ' and ' + CT.priorArt.read[CT.priorArt.read.length - 1] + ' do not have it, and ' + CT.priorArt.unfinished + ' did not finish. I do not claim there is none.' },
+  { b: 'The hard parts are not mine.', text: 'The continuity proof stands on Anthropic’s library at one commit: the uniqueness of the infinite cluster, the zero–one law and θ(p_c) = 0 itself are their theorems. The proof of Conjecture 3 is Anthropic’s and the proof of Conjecture 1 is Ahmed Bou-Rabee’s. For those two I checked what the theorems say, not how they are proved.' },
+  { b: '“As printed” is my reading.', text: 'CERTIFIED, as printed, means that the Lean sentence and my reading of the printed sentence are the same statement, by a proof that does not use the conjecture. It does not mean that Kozma and Nitzan endorse either one. The printed sentences leave choices (' + K3.statement.choices + ' for Conjecture 3, ' + K1.statement.choices + ' for Conjecture 1); each is listed in the records, and another reader may choose otherwise.' },
+  { b: 'On Conjecture 1, the independence is by procedure only.', text: 'Bou-Rabee’s Lean files say they were produced with ' + K1.thirdParty.madeWith + '; my statement, my bridge and my replay were made with Claude agents. What is independent is the order of work: my statement was written from the paper, with his files unread, and sealed before any of them was opened.' },
+  { b: 'Not everything was attempted, and two controls did not fit their wording.', text: 'For Conjecture 3, the version with one common p follows from Anthropic’s statement; the converse was not attempted. Two of that item’s controls did not match the wording I had sealed; both departures are stated in section 7. The blind control on Conjecture 1 had nothing to find, so it does not count as a pass.' }
 ]) }));
 
 O_.push(C.section({ lab: '1 · the statement', title: 'The statement, written from the book', id: 'statement', bodyRaw:
@@ -129,29 +157,68 @@ O_.push(C.section({ lab: '5 · planted errors', title: 'What would have caught a
     : 'Still true, as it turned out, so its failure shows only that the bridges depend on how p_c is written. Not counted as a refusal; R4 replaced it.'
 }))) }));
 
+O_.push(C.section({ lab: '6 · continuity', title: 'θ is continuous on [0, 1], proved in Lean for every d ≥ 2', id: 'continuity', bodyRaw:
+  C.pRaw(C.esc('The day after the checks above, I added one theorem in the same encoding, with a Claude agent writing the Lean under rules I had sealed first: in every dimension d ≥ 2, the percolation probability θ is a continuous function of p on all of [0, 1]. The step from θ(p_c) = 0 to continuity is classical (Grimmett’s ') + '<em>Percolation</em>' + C.esc(', §8.3; van den Berg and Keane, 1984), and the hard ingredients, θ(p_c) = 0 among them, are Anthropic’s Lean theorems. Anthropic’s README lists the continuity of θ on [0, 1], as a formal statement, among the things it does not claim.'))
+  + C.code(['def ContinuityStatement : Prop :=', '  ' + CT.statement.text, '', 'theorem theta_continuous :', '  TextbookPercolation.ContinuityStatement'].join('\n'))
+  + C.plainList([
+    { b: 'What is proved.', text: CT.theorems.length + ' theorems, each about the θ of section 1: ' + CT.theorems.map((x) => x.says).join('; ') + '.' },
+    { b: 'Whose it is.', text: 'The proof file is ' + CT.proof.lines + ' lines, with a ' + CT.proof.helperLines + '-line helper, written in ' + CT.proof.compileAttempts + ' compile attempts. It joins Anthropic’s theorems: ' + CT.ingredients.list.join('; ') + '. Mine are the statement, the bridge of section 2 and the joining steps.' },
+    { b: 'Checked like the bridges.', text: 'It builds on Anthropic’s library, at the commit of section 2, with no error and no warning. The ' + CT.theorems.length + ' theorems rest on the three standard axioms of Lean only; so do Anthropic’s uniqueness theorem and its zero–one law, which Anthropic’s own axiom listing does not cover. Comparator, given my statement file as the statement to be proved, accepts on Lean’s kernel and on nanoda. Lean’s checker replays the whole environment from scratch in ' + mins(CT.freshSeconds) + ' minutes.' },
+    { b: 'Planted errors.', text: CT.planted.provedFalse.length + ' false variants (' + CT.planted.provedFalse.join('; ') + ') are proved false in Lean. The proof, pointed at each of them in two forms, fails to compile all ' + CT.planted.scriptRefusals + ' times, and Comparator refuses the planted statement.' },
+    { b: 'What it does not say.', text: 'It adds no new mathematics: given θ(p_c) = 0, continuity is a textbook consequence. It is not claimed as the first formal proof. It is not independent of Anthropic: it stands on their library at one commit, and on the kernels. In dimension one θ is not continuous (it is 0 below p = 1 and 1 at p = 1), so the condition d ≥ 2 is needed here too.' }
+  ]) }));
+
+O_.push(C.section({ lab: '7 · Conjecture 3', title: 'Kozma and Nitzan’s Conjecture 3: is the Lean statement the printed one?', id: 'conjecture-3', bodyRaw:
+  C.pRaw(C.esc('Both labs’ proofs build on a reduction by Gady Kozma and Shahaf Nitzan (') + KN + C.esc('). Its Conjecture 3 (' + K3.source.where + ') reads: “' + K3.printed + '” Anthropic’s README calls its Lean statement of this conjecture “verbatim”. I had a Claude agent write the sentence in Lean from the paper alone, with no formalization open, and sealed that file before I or the agent that wrote the comparison opened Anthropic’s statement of it. One caveat: the file’s encoding style follows my statement of section 1, which was written after reading the two labs’ statement files for θ(p_c) = 0.'))
+  + C.plainList([
+    { b: 'The word: CERTIFIED, as printed, under one reading.', text: 'Read “any graph G” as any finite graph with a probability on each edge. Under that reading Anthropic’s Lean statement and mine are the same statement: each implies the other, by proofs that use definitions only and never the conjecture itself. A program walks everything each proof depends on, about ' + N(Math.round(K3.walks.constantsMax / 1000) * 1000) + ' constants, to confirm that: the ' + K3.walks.clean + ' comparison proofs come out clean, and ' + K3.walks.cheatsFlagged + ' proofs written to cheat are caught.' },
+    { b: 'It is not the printed sentence letter for letter.', text: 'In Anthropic’s statement ' + K3.encoding.join('; ') + '. Each difference is bridged by proof, in a ' + K3.method.lines + '-line file that uses Mathlib only.' },
+    { b: 'Other readings.', text: 'The same holds when “any graph” is taken literally, as any countable graph (one direction needs a real argument, an exhaustion over finite subgraphs, ' + K3.method.exhaustionLines + ' lines), and when A is required to be nonempty or a proper subset. With one common p on all edges, Anthropic’s statement implies that version; the converse was not attempted.' },
+    { b: 'The conjecture as I wrote it is proved.', text: 'My statement follows from Anthropic’s theorem. It rests on the three standard axioms; Comparator, given my file as the statement to be proved, accepts on Lean’s kernel and on nanoda; Lean’s checker replays the whole environment from scratch in ' + mins(K3.freshSeconds) + ' minutes. The proof of the conjecture is Anthropic’s. The step to my sentence is mine.' },
+    { b: 'Planted errors, and two controls that did not fit.', text: K3.red.plantedProvedFalse + ' false variants of the sentence are proved false; the comparison’s own proof fails against each of them, and Comparator refuses a planted statement. Two departures from the rules I had sealed, both written into the rules as dated amendments. First, the control I had worded as “put the planted text into the statement file” was refused ' + K3.red.letterRefusals + ' times, but in my own sanity lemmas, before the build reached the comparison; the form that does test it, the proof against each planted statement, was added after the seal. Second, the search for forbidden words is empty over the files that carry proofs, but not over every file of mine as the sealed wording asked: ' + K3.red.tokenLinesElsewhere + ' lines elsewhere, all of them commands that print axioms, the walking program’s own source, or prose.' },
+    { b: 'The blind control: found.', text: 'One difference had already been published, by Ahmed Bou-Rabee: Anthropic’s Lean statement allows the set A to be empty, where his restatement takes A nonempty. The agent that found his passage took no further part, and neither I nor the agents that wrote my statement and the comparison read it until my results were sealed. The same point was already in my sealed reading sheet, and one of the proofs above decides it: with A nonempty or not, the statement is the same. The remark and its priority are his. Under my primary reading it is not a difference at all, because the printed sentence does not exclude the empty set.' }
+  ]) }));
+
+O_.push(C.section({ lab: '8 · Conjecture 1', title: 'Kozma and Nitzan’s Conjecture 1, against a third party’s Lean proof', id: 'conjecture-1', bodyRaw:
+  C.pRaw(C.esc('Conjecture 1 of the same paper (' + K1.source.where + ') is the stronger inequality: “' + K1.printed + '” ') + a(K1.thirdParty.repository, 'Ahmed Bou-Rabee’s repository') + C.esc(' proves a Lean statement of it (') + m(K1.thirdParty.theorem) + C.esc('), on top of Anthropic’s library. With Claude agents, I had the printed sentence written in Lean from the paper alone, without a compiler and with his files unread, and sealed it before I or either agent that wrote for me opened any of his statements. A separate scouting agent had seen his file names, his declaration names and one passage of his README; it took no further part.'))
+  + C.plainList([
+    { b: 'My own files first.', text: 'All ' + K1.k0.definitions + ' definitions I had sealed (the statement, other readings of it, planted wrong variants and neighbouring statements) compiled unchanged the first time Lean saw them. Before any file of his repository reached the machine, ' + K1.k0.plantedProvedFalse + ' planted variants were proved false and ' + K1.k0.readingsProvedEquivalent + ' other readings were proved equivalent to my primary one, with Mathlib only.' },
+    { b: 'The word: CERTIFIED, as printed.', text: 'His repository states the conjecture ' + K1.targets.length + ' times, and the ' + K1.targets.length + ' are one sentence. That sentence and mine are the same statement: each implies the other, by proofs that use definitions only. The dependency walk finds all ' + K1.walks.clean + ' comparison proofs clean and catches ' + K1.walks.cheatsFlagged + ' proofs written to cheat.' },
+    { b: 'It is not the printed sentence letter for letter.', text: 'In his Lean statement ' + K1.encoding.join('; ') + '. None of this changes what is claimed, and each difference is bridged by proof.' },
+    { b: 'The unprinted “nonempty”.', text: 'The paper says “a set of vertices”. His restatement and his Lean statement take A nonempty, and his list of correspondences that are not literal does not name it. It makes no difference: my statement admits the empty set, where it holds vacuously, and is proved equivalent to the nonempty form.' },
+    { b: 'The conjecture as I wrote it is proved,', text: 'from his theorem: the three standard axioms, Comparator on Lean’s kernel and on nanoda with my file as the statement to be proved, and a replay of the whole environment from scratch in ' + mins(K1.freshSeconds) + ' minutes. The proof is his. Of it I checked the axioms, and that two kernels accept the theorem built on it; nothing more.' },
+    { b: 'Planted errors.', text: 'The ' + K1.red.plantedProvedFalse + ' false variants are each refused: the comparison proofs and the final proof fail to compile against every one, and Comparator refuses ' + K1.red.comparatorRefusals + ' planted statements.' },
+    { b: 'The blind control: nothing to find.', text: 'His published list of non-literal correspondences names nothing for Conjecture 1, so this control could not test whether I would have found a known difference. It is recorded as that, not as a pass. The list of differences above was also not made blind: the comments in his Lean files name the encoding and the nonempty A, and the agent that wrote the comparison read them.' },
+    { b: 'Accidents.', text: 'My session restarted before the agent handed its work back, so its own summary has ' + K1.accidents.authorSummaryUnfilledSections + ' unfilled sections and the verdict rests on my replay. The rented machine stood idle for about ' + K1.accidents.idleMinutes + ' minutes, and one upload hung for ' + K1.accidents.uploadHungMinutes + ' minutes and was redone.' }
+  ]) }));
+
 O_.push(C.section({ lab: 'the method', title: 'How it was done', id: 'method', bodyRaw: C.plainList([
   { b: 'Rules first.', text: 'The rules for each stage were written and sealed before the stage ran: a salted fingerprint of the private work, posted to a public registry and to Bitcoin, which proves the date without showing the content (' + R.seals.length + ' seals). Each departure from the rules is listed in the records.' },
   { b: 'Written by agents, checked by me.', text: 'Claude agents wrote the two bridges, the port and the d = 1 proof on rented machines. I rebuilt each, listed their axioms and ran both kernels and the full replays myself; the single-Lean check is my own run, from the agent’s saved files.' },
-  { b: 'Size.', text: 'One day, 12 November 2026: a laptop and ' + R.money.pods + ' rented machines, about US$' + R.money.usd.toFixed(2) + '.' }
+  { b: 'Size.', text: 'One day, 12 November 2026: a laptop and ' + R.money.pods + ' rented machines, about US$' + R.money.usd.toFixed(2) + '.' },
+  { b: 'The follow-ups.', text: 'One more day, ' + day(F.date) + ': ' + F.money.pods + ' rented machines, about US$' + F.money.usd.toFixed(2) + ' by the clock. Claude agents wrote the three statements, the continuity proof and the two comparisons; I replayed every check from their saved files before a verdict was written. Their rules and their results have ' + F.seals.length + ' more seals in the same public registry, the rules before each stage ran.' }
 ]) }));
 
 O_.push(C.section({ lab: 'who did what', title: 'Each step is a separate job', id: 'roles', bodyRaw: C.plainList([
   { b: 'The proofs.', text: 'Anthropic (Justin Leder with Claude) and OpenAI. Both build on Kozma and Nitzan’s reduction.' },
+  { b: 'The conjectures.', raw: C.esc('Gady Kozma and Shahaf Nitzan, ') + KN + C.esc('. The proof of Conjecture 3 is Anthropic’s.') },
+  { b: 'The proof of Conjecture 1.', raw: C.esc(K1.thirdParty.author + ', ') + a(K1.thirdParty.repository, TPR) + C.esc(' (' + K1.thirdParty.licence + '); his Lean files say they were produced with ' + K1.thirdParty.madeWith + '.') },
   { b: 'The statement.', text: 'Geoffrey Grimmett’s textbook; written in Lean by me.' },
   { b: 'The checkers.', text: 'Lean, Mathlib, Comparator and nanoda: their authors.' },
-  { b: 'The bridges and the checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs and the Lean under my direction.' }
+  { b: 'The bridges, the continuity proof and the checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs and the Lean under my direction. The continuity proof joins Anthropic’s theorems.' }
 ]) }));
 
 O_.push(C.section({ lab: 'check it yourself', title: 'How to re-run it', id: 'rerun', bodyRaw: C.plainList([
-  { b: 'The record.', raw: m('node tools/record-percolation-critical.js --check') + C.esc(' re-derives every number on this page from ') + rec('corpus/percolation-critical') + C.esc(' (' + R.provenance.files + ' files, each pinned by its hash) and refuses on any difference.') },
+  { b: 'The record.', raw: m('node tools/record-percolation-critical.js --check') + C.esc(' re-derives every number on this page from ') + rec('corpus/percolation-critical') + C.esc(' (' + N(R.provenance.files) + ' files, each pinned by its hash) and refuses on any difference.') },
   { b: 'The records as written.', raw: C.esc('The rules sealed before each stage, every run’s log, the bridges and the statement, gaps first: ') + rec('corpus/percolation-critical/results/percolation/VERDICT.md') + '.' },
-  { b: 'What was checked.', raw: a(A.pins.repository + '/tree/' + A.pins.commit, 'anthropics/formal-math at ' + A.pins.commit.slice(0, 8)) + C.esc(' and ') + a(O.pins.repository + '/tree/' + O.pins.commit, 'openai/math at ' + O.pins.commit.slice(0, 8)) + '.' }
-].concat(R.note.published ? [{ b: 'The note.', raw: C.esc('The report and the records, deposited: ') + a('https://doi.org/' + R.note.doi, 'doi:' + R.note.doi) + '.' }] : [])) }));
+  { b: 'The follow-ups as written.', raw: C.esc('Each verdict, with what it does not say: ') + rec('corpus/percolation-critical/results/cont/VERDICT.md') + ', ' + rec('corpus/percolation-critical/results/kn3/VERDICT.md') + ', ' + rec('corpus/percolation-critical/results/kn1/VERDICT.md') + C.esc('. The rules sealed before each are beside them (') + m('PREREG-CONT.md') + ', ' + m('PREREG-KN3.md') + ', ' + m('PREREG-KN1.md') + C.esc('), with my statements, the reading sheets and the proofs. Anthropic’s and Ahmed Bou-Rabee’s own files are not copied with them: a replay fetches both repositories at the commits below.') },
+  { b: 'What was checked.', raw: a(A.pins.repository + '/tree/' + A.pins.commit, 'anthropics/formal-math at ' + A.pins.commit.slice(0, 8)) + ', ' + a(O.pins.repository + '/tree/' + O.pins.commit, 'openai/math at ' + O.pins.commit.slice(0, 8)) + C.esc(' and ') + a(K1.thirdParty.repository + '/tree/' + K1.thirdParty.commit, TPR + ' at ' + K1.thirdParty.commit.slice(0, 8)) + '.' }
+].concat(R.note.published ? [{ b: 'The note.', raw: C.esc(R.note.holdsFollowUps ? 'The report and the records, deposited (version ' + R.note.version.replace(/^v/, '') + '): ' : 'The report and the records as of 12 November (version ' + R.note.version.replace(/^v/, '') + ', before the follow-ups), deposited: ') + a('https://doi.org/' + R.note.doi, 'doi:' + R.note.doi) + '.' }] : [])) }));
 
-const foot = '<p>' + C.esc('Generated by tools/build-report-percolation-critical.js from certs/percolation-critical.json (tools/record-percolation-critical.js --check). I did this with Claude agents (Anthropic); Claude wrote the programs and the bridges under my direction.') + '</p>'
+const foot = '<p>' + C.esc('Generated by tools/build-report-percolation-critical.js from certs/percolation-critical.json (tools/record-percolation-critical.js --check). I did this with Claude agents (Anthropic); Claude wrote the programs, the bridges and the continuity proof under my direction.') + '</p>'
   + '<p>' + C.esc('git ' + (cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim() || '—') + ' · cert-machine · Carlos Toledo') + '</p>';
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'percolation-critical.html'), TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O_.join('\n\n'), footRaw: foot, path: '/reports/percolation-critical.html',
   og: { image: '/og-percolation-critical.png', alt: OG.alt('percolation-critical') },
-  desc: 'Anthropic’s and OpenAI’s Lean proofs that critical bond percolation on ℤ^d has no infinite cluster, checked against a statement written independently from Grimmett’s textbook: both prove it, by bridges checked on two kernels, and both are checked together in a single Lean.' }));
+  desc: 'Anthropic’s and OpenAI’s Lean proofs that critical bond percolation on ℤ^d has no infinite cluster, checked against a statement written independently from Grimmett’s textbook: both prove it, by bridges checked on two kernels, and both are checked together in a single Lean. Three follow-ups: θ proved continuous on [0, 1] in Lean on Anthropic’s library, and Kozma and Nitzan’s Conjectures 3 and 1 compared, as printed, with the Lean statements that were proved.' }));
 console.log('reports/percolation-critical.html written · ' + Object.entries(R.verdicts).map(([k, v]) => k + ' ' + v).join(' · '));

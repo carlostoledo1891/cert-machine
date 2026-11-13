@@ -142,12 +142,385 @@
   25
  ],
  "provenance": {
-  "files": 588,
-  "sourceCommit": "62dba2522e978d32224642894e1072a17e505976"
+  "files": 2198,
+  "sourceCommit": "62dba2522e978d32224642894e1072a17e505976",
+  "followUpsCommit": "3834f5ecaa1025560a9739f5f0b41b68ff913474",
+  "followUpsFiles": 1610
  },
  "note": {
   "doi": "10.5281/zenodo.24175228",
-  "published": true
+  "published": true,
+  "version": "v1.1",
+  "holdsFollowUps": false
+ },
+ "followUps": {
+  "date": "2026-11-13",
+  "undecided": "Three follow-ups on the same development. None is a first: a restatement of Conjecture 1 by the third party exists since 2026-09-05, and the search for an earlier formal proof of continuity was partial. The heavy ingredients of the continuity proof are Anthropic’s (uniqueness of the infinite cluster, the zero–one law, θ(p_c) = 0); the proofs of Conjectures 3 and 1 are Anthropic’s and Ahmed Bou-Rabee’s. “CERTIFIED, as printed” says the Lean sentence and our reading of the printed sentence are the same statement, by proof; it does not say the paper’s authors endorse either. On Conjecture 1 the independence is by procedure only.",
+  "continuity": {
+   "verdict": "PROVED",
+   "says": "θ is continuous on [0, 1] for every d ≥ 2, in Lean, on top of Anthropic’s library",
+   "statement": {
+    "file": "perc/cont/Continuity.lean",
+    "sha256": "d012845f1f04304e82a9de0059d2373ed144460b4a5171061dc6a2009cff8243",
+    "lines": 42,
+    "text": "∀ d : ℕ, 2 ≤ d → Continuous (θ d)",
+    "encoding": "the definitions of perc/Textbook.lean, unchanged"
+   },
+   "theorems": [
+    {
+     "name": "theta_continuous",
+     "says": "θ_d is continuous on [0, 1], every d ≥ 2"
+    },
+    {
+     "name": "theta_right_continuous",
+     "says": "θ_d is right-continuous, every d"
+    },
+    {
+     "name": "theta_left_continuous_above_pc",
+     "says": "θ_d is left-continuous above p_c, every d (van den Berg–Keane)"
+    },
+    {
+     "name": "theta_continuous_iff_critical",
+     "says": "θ_d continuous ⇔ θ_d(p_c) = 0, every d ≥ 1"
+    }
+   ],
+   "proof": {
+    "file": "perc/cont/proof/ContProof.lean",
+    "sha256": "629738ef9a0b9df1be3f69ec19e53d6862fcd8fce7efd78990ae319c78a588a5",
+    "lines": 340,
+    "helperLines": 29,
+    "compileAttempts": 2
+   },
+   "on": {
+    "commit": "795efb86f191735c5481675763537cfb4ff37e55",
+    "toolchain": "v4.32.0",
+    "mathlib": "81a5d257"
+   },
+   "buildSeconds": 49,
+   "axiomsStandard": 6,
+   "labTheoremsAlsoOnStandardAxioms": 2,
+   "labOwnListingCoversThem": false,
+   "freshSeconds": 1778,
+   "comparatorSeconds": 246,
+   "comparator": "accepts (Lean, nanoda), our statement as the challenge",
+   "planted": {
+    "provedFalse": [
+     "the same statement from d ≥ 1",
+     "θ constant"
+    ],
+    "scriptRefusals": 4,
+    "comparatorRefused": true
+   },
+   "ingredients": {
+    "whose": "Anthropic’s",
+    "list": [
+     "uniqueness of the infinite cluster, every d and p",
+     "the zero–one law",
+     "the uniform-label coupling and monotonicity",
+     "θ as a limit of finite-box probabilities, continuous in p",
+     "θ(p_c) = 0"
+    ]
+   },
+   "mathematics": "the step from θ(p_c) = 0 to continuity is classical (Grimmett, Percolation, §8.3; van den Berg and Keane 1984); θ(p_c) = 0 is the lab’s theorem",
+   "labListsItAsNotClaimed": true,
+   "claimsFirst": false,
+   "priorArtSearch": "partial",
+   "priorArt": {
+    "read": [
+     "Mathlib",
+     "Isabelle AFP",
+     "Coq",
+     "formal-conjectures",
+     "Anthropic’s own README"
+    ],
+    "found": 0,
+    "unfinished": "a code search of openai/math"
+   },
+   "amendments": 0
+  },
+  "conjecture3": {
+   "verdict": "CERTIFIED, as printed under reading R0",
+   "proved": "PROVED",
+   "source": {
+    "paper": "G. Kozma and S. Nitzan, arXiv:2401.12397v1",
+    "where": "§4, p. 15",
+    "url": "https://arxiv.org/abs/2401.12397"
+   },
+   "claim": "Anthropic’s README calls its Lean statement the conjecture “verbatim”",
+   "printed": "For every ε > 0 there exists δ > 0 such that for any graph G, any A ⊂ G, and any 0, b ∈ G which satisfy P(0 ↔ A) > 1 − δ and P(a ↔ b) > 1 − δ for all a ∈ A, we have P(0 ↔ b) > 1 − ε.",
+   "statement": {
+    "file": "perc/kn3/Printed.lean",
+    "sha256": "161411bd3a703971c05bbbe10554841612bbb97f0f23eaae9988468b1a98def8",
+    "lines": 132,
+    "reading": "perc/kn3/READING.md",
+    "choices": 9,
+    "writtenFrom": "the paper alone; no formalization opened",
+    "caveat": "its encoding style follows perc/Textbook.lean, which was written after reading the labs’ θ(p_c) statement files (not this conjecture)",
+    "sealedBefore": "the lab’s statement of the conjecture was opened by the orchestrator or by the bridge’s author"
+   },
+   "lab": {
+    "statement": "Percolation.Literature.KozmaNitzan2024_conjecture3",
+    "theorem": "kozmaNitzan_conjecture3_holds",
+    "k1BuildSeconds": 521
+   },
+   "method": {
+    "file": "perc/kn3/bridge/Transport.lean",
+    "lines": 523,
+    "exhaustionLines": 239,
+    "what": "a Mathlib-only mirror of the lab’s definitions, proved equivalent to our statement; in the lab’s environment the mirror is the lab’s statement by Iff.rfl"
+   },
+   "readings": [
+    {
+     "id": "R0",
+     "what": "every finite graph, a probability on each edge (the primary)",
+     "labImpliesIt": "PROVED",
+     "itImpliesLab": "PROVED"
+    },
+    {
+     "id": "RB",
+     "what": "every countable graph (“any graph G” taken literally)",
+     "labImpliesIt": "PROVED",
+     "itImpliesLab": "PROVED",
+     "note": "one direction is an exhaustion over finite subgraphs: more than a re-encoding"
+    },
+    {
+     "id": "N2",
+     "what": "finite graphs, one common p",
+     "labImpliesIt": "PROVED",
+     "itImpliesLab": "NOT PROVED",
+     "note": "the converse was not attempted"
+    },
+    {
+     "id": "N3",
+     "what": "A a proper subset",
+     "labImpliesIt": "PROVED",
+     "itImpliesLab": "PROVED"
+    },
+    {
+     "id": "N4",
+     "what": "A nonempty",
+     "labImpliesIt": "PROVED",
+     "itImpliesLab": "PROVED"
+    }
+   ],
+   "walks": {
+    "clean": 11,
+    "constantsMin": 28717,
+    "constantsMax": 29073,
+    "cheatsFlagged": 3,
+    "seconds": 177
+   },
+   "buildSeconds": 63,
+   "axiomsStandard": 13,
+   "freshSeconds": 1764,
+   "comparatorSeconds": 196,
+   "red": {
+    "plantedProvedFalse": 3,
+    "scriptRefusals": 3,
+    "scriptRefusalsAddedAfterSeal": true,
+    "letterRefusals": 3,
+    "letterRefusalsReachBridge": false,
+    "cheatsFlagged": 3,
+    "comparatorRefused": true,
+    "tokenLinesInProofFiles": 0,
+    "tokenLinesElsewhere": 44,
+    "tokenRuleMetToTheLetter": false
+   },
+   "amendments": 2,
+   "encoding": [
+    "there is no graph, only a weight in [0, 1] on every unordered pair of Fin n, weight 0 meaning “no edge”",
+    "the diagonal pairs carry weights too, which change nothing",
+    "A is a finite set (Finset), and may be empty"
+   ],
+   "blind": {
+    "verdict": "FOUND BLIND",
+    "closedTo": "the orchestrator, the statement’s author and the bridge’s author, until the results were sealed",
+    "scoutThatFoundItSetAside": true,
+    "point": "the Lean statement allows A = ∅, where the third party’s restatement takes A nonempty",
+    "whose": "Ahmed Bou-Rabee’s manuscript (nitromannitol/percolation-after-anthropic)",
+    "ours": "choice A4 of the reading sheet and the sealed neighbour N4, decided immaterial by proof",
+    "caution": "under the primary reading the point is not a divergence: the printed sentence does not exclude A = ∅"
+   }
+  },
+  "conjecture1": {
+   "verdict": "CERTIFIED, as printed",
+   "proved": "PROVED",
+   "source": {
+    "paper": "G. Kozma and S. Nitzan, arXiv:2401.12397v1",
+    "where": "p. 3",
+    "url": "https://arxiv.org/abs/2401.12397"
+   },
+   "printed": "Let G be a finite graph with arbitrary probabilities on its edges, let 0, b ∈ G be two vertices and let A ⊂ G be a set of vertices. Then P(0 ↔ b) ≥ P(0 ↔ A) min{P(a ↔ b) : a ∈ A}.",
+   "thirdParty": {
+    "author": "Ahmed Bou-Rabee",
+    "repository": "https://github.com/nitromannitol/percolation-after-anthropic",
+    "commit": "a5cc72bd7627f313abbb00bcb47616678abbeb35",
+    "tarballSha256": "7bb1df4cb7c5572e6279f5bdbc3007ef59ce1ff111c7afb989e393368d89adab",
+    "licence": "Apache-2.0",
+    "toolchain": "v4.32.0",
+    "dependsOn": "anthropics/formal-math 795efb86",
+    "theorem": "KNAll.conjecture1_holds",
+    "restatementSince": "2026-09-05",
+    "madeWith": "Claude and ChatGPT",
+    "k1BuildSeconds": 543
+   },
+   "statement": {
+    "file": "perc/kn1/Printed1.lean",
+    "sha256": "f168a013573ae665753ee73ce2adf5192a03bb5bd14b8d4c00b5e75f7df6aacb",
+    "lines": 235,
+    "reading": "perc/kn1/READING1.md",
+    "choices": 18,
+    "writtenFrom": "the paper alone, with no compiler; the third party’s files unread",
+    "sealedBefore": "any statement of the third party was opened by the orchestrator, the statement’s author or the bridge’s author",
+    "scout": "a scouting agent saw file and declaration names and one passage of the README, and was not used again",
+    "text": "for every finite graph, every p on its edges, every set A of vertices, every o, b and every real m: if m is the least of the P(a ↔ b), a ∈ A, then P(o ↔ b) ≥ P(o ↔ A) · m"
+   },
+   "k0": {
+    "authorRunAgrees": true,
+    "definitions": 41,
+    "elaborated": 41,
+    "repaired": 0,
+    "theorems": 58,
+    "readingsProvedEquivalent": 10,
+    "oneWayOnly": "the form on Fin n: ours implies it; the converse was not attempted",
+    "plantedProvedFalse": 11,
+    "plantedRequired": 3,
+    "planted12": "PROVED TRUE",
+    "notProved": [
+     "RF → R0 (not attempted)",
+     "the truth of planted variants 13 to 15 (they need Harris–FKG)"
+    ],
+    "thirdPartyBytesPresent": false
+   },
+   "targets": [
+    {
+     "id": "T1",
+     "what": "KNAll.Conjecture1, the type of KNAll.conjecture1_holds",
+     "toOurs": "PROVED",
+     "fromOurs": "PROVED",
+     "decidesTheWord": true
+    },
+    {
+     "id": "T2",
+     "what": "KN1Statement.MultiplicativeGluing, his own Mathlib-only statement",
+     "toOurs": "PROVED",
+     "fromOurs": "PROVED"
+    },
+    {
+     "id": "T3",
+     "what": "the type of KN1Corollary.kozmaNitzan_conjecture1",
+     "toOurs": "PROVED",
+     "fromOurs": "PROVED"
+    }
+   ],
+   "oneSentence": true,
+   "method": {
+    "file": "perc/kn1/bridge/Transport1.lean",
+    "lines": 76,
+    "what": "a Mathlib-only mirror of his sentence, proved equivalent to our statement on top of the Conjecture 3 transport; in his environment three Iff.rfl say the mirror is each target"
+   },
+   "walks": {
+    "clean": 15,
+    "cheatsFlagged": 5,
+    "forbiddenNames": 44,
+    "forbiddenStatements": 22,
+    "seconds": 401,
+    "libraryTheoremReached": "prodBernoulli._proof_1 (an auxiliary proof inside the measure’s definition; its own walk is clean)"
+   },
+   "buildSeconds": 70,
+   "bridgeTheorems": 22,
+   "freshSeconds": 1712,
+   "comparatorSeconds": 96,
+   "red": {
+    "plantedProvedFalse": 11,
+    "scriptRefusals": 11,
+    "cheatsFlagged": 5,
+    "comparatorRefusals": 3,
+    "proofFiles": 13,
+    "tokenLinesInProofFiles": 0
+   },
+   "amendments": 1,
+   "encoding": [
+    "the vertices are Fin n",
+    "there is no graph, only a weight on every unordered pair, weight 0 meaning “no edge”",
+    "the diagonal pairs carry weights too, which change nothing",
+    "the measure lives on sets of pairs",
+    "A is a nonempty Finset, where the printed sentence says “a set of vertices”",
+    "the minimum is Finset.inf', where the hand-written statement has a number m with two hypotheses"
+   ],
+   "nonempty": {
+    "printed": false,
+    "inHisRestatement": true,
+    "inHisLean": true,
+    "onHisNotLiteralList": false,
+    "ours": "choice B8 of the reading sheet",
+    "immaterial": "PROVED"
+   },
+   "independence": "by procedure only",
+   "claimsFirst": false,
+   "blind": {
+    "verdict": "NOTHING TO FIND",
+    "why": "his list of non-literal correspondences names no divergence for Conjecture 1, so the control could not test recall; recorded as that, not as a pass",
+    "notBlind": "the comments in his Lean files name the encoding and the nonempty A, and the bridge’s author read them with the statements"
+   },
+   "accidents": {
+    "sessionRestartedBeforeHandBack": true,
+    "authorSummaryUnfilledSections": 3,
+    "verdictRestsOn": "the replay",
+    "idleMinutes": 43,
+    "uploadHungMinutes": 19
+   }
+  },
+  "money": {
+   "pods": 2,
+   "usd": 6.81,
+   "minutes": 319,
+   "read": "by the clock, not a billing read"
+  },
+  "seals": [
+   {
+    "n": 26,
+    "holds": "rules",
+    "of": "Conjecture 3",
+    "digest": "105de558483fb0e8ff1538a77fadf134d6f3a72e4779077590d62723a45bce97",
+    "registryCommit": "13a09d7fa016f8e1cacb3a8bd2998010bf3a2b84"
+   },
+   {
+    "n": 27,
+    "holds": "rules",
+    "of": "continuity",
+    "digest": "21795e77232429d0e3abca298c7fe09e43e64a63a0450db300a5793875db5b58",
+    "registryCommit": "cb1364e17fa4fbcbdc90d6924ad9b6574e06ccf1"
+   },
+   {
+    "n": 28,
+    "holds": "results",
+    "of": "Conjecture 3",
+    "digest": "3c8a6ea00e5f51e8d1aab40e9dc70ae149156d8ac382f329b5bab7fe62a2167e",
+    "registryCommit": "1db4e4beb946e70a6cef27f2522cf8860c200c6f"
+   },
+   {
+    "n": 29,
+    "holds": "results",
+    "of": "continuity",
+    "digest": "4b8f539a75d63dfb408538017931952b321da9ae0e48667a2d5d6de572e575bc",
+    "registryCommit": "99ccf9c5f8a5258cb5a4629120b9fa10ecd6533c"
+   },
+   {
+    "n": 30,
+    "holds": "rules",
+    "of": "Conjecture 1",
+    "digest": "36f447178d25d7d2154c72310884479117691ca9de37a6f22e5c6963c6402656",
+    "registryCommit": "eb94af991d7eef9a9fae45c7590fb490ea6a0a5f"
+   },
+   {
+    "n": 31,
+    "holds": "results",
+    "of": "Conjecture 1",
+    "digest": "0e9f26ea5937efc33012bf79c5a2ccb827ec4413faed9f829895cbda04a045ed",
+    "registryCommit": "60897e26f446eebd8157c2a64ebbf488efc2a6da"
+   }
+  ]
  },
  "verdicts": {
   "bridgeA": "CERTIFIED",
@@ -156,6 +529,13 @@
   "anchors": "CERTIFIED",
   "seam": "READ, NOT DECIDED",
   "oneLean": "CERTIFIED",
-  "dimOne": "CERTIFIED"
+  "dimOne": "CERTIFIED",
+  "continuity": "PROVED",
+  "conjecture3": "CERTIFIED, as printed under reading R0",
+  "conjecture3Proved": "PROVED",
+  "conjecture3Blind": "FOUND BLIND",
+  "conjecture1": "CERTIFIED, as printed",
+  "conjecture1Proved": "PROVED",
+  "conjecture1Blind": "NOTHING TO FIND"
  }
 }

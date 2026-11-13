@@ -1,0 +1,89 @@
+/root/replay-kn1/red/K2_P8.lean:52:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  prob G p (connEvent G (e.symm a) b)
+in the target expression
+  m ≤ prob G p (connEvent G o (e.symm a))
+
+h : LabForm1
+V : Type
+inst✝ : Finite V
+G : SimpleGraph V
+p : ↑G.edgeSet → ↑(Set.Icc 0 1)
+A : Set V
+o b : V
+m : ℝ
+hlow : ∀ a ∈ A, m ≤ prob G p (connEvent G o a)
+n : ℕ
+e : V ≃ Fin n
+a₀ : V
+ha₀ : a₀ ∈ A
+hA : ∀ (a : V), e a ∈ {i | e.symm i ∈ A} ↔ a ∈ A
+hne : {i | e.symm i ∈ A}.Nonempty
+H :
+  ((setLaw (weightOf G p ⇑e)).real (⋃ a ∈ {i | e.symm i ∈ A}, conn (e o) a) *
+      {i | e.symm i ∈ A}.inf' hne fun a => (setLaw (weightOf G p ⇑e)).real (conn a (e b))) ≤
+    (setLaw (weightOf G p ⇑e)).real (conn (e o) (e b))
+a : Fin n
+ha : a ∈ {i | e.symm i ∈ A}
+ha' : e.symm a ∈ A
+h₃ : m ≤ prob G p (connEvent G o (e.symm a))
+⊢ m ≤ (setLaw (weightOf G p ⇑e)).real (conn a (e b))
+/root/replay-kn1/red/K2_P8.lean:72:42: error: Application type mismatch: The argument
+  Eq.trans (Eq.symm (hY a₀)) (Eq.symm hinf)
+has type
+  prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) a₀ b) =
+    A.inf' hA fun a => (setLaw w).real (conn a b)
+but is expected to have type
+  prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o a₀) =
+    A.inf' hA fun a => (setLaw w).real (conn a b)
+in the application
+  ⟨Exists.intro a₀ ⟨Finset.mem_coe.mpr ha₀, rfl⟩, Eq.trans (Eq.symm (hY a₀)) (Eq.symm hinf)⟩
+/root/replay-kn1/red/K2_P8.lean:75:68: error: Application type mismatch: The argument
+  hY a
+has type
+  (setLaw w).real (conn a b) =
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) a b)
+but is expected to have type
+  (setLaw w).real (conn a b) =
+    prob (completeOn id) (fun i => w (edgeMap (completeOn id) id i)) (connEvent (completeOn id) o (id a))
+in the application
+  le_of_le_of_eq (Finset.inf'_le (fun a => (setLaw w).real (conn a b)) (Finset.mem_coe.mp ha)) (hY a)
+/root/replay-kn1/red/K2_P8.lean:163:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted8_minOverWrongEvent
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_existsForm.mp (T1_to_R0 h)
+/root/replay-kn1/red/K2_P8.lean:164:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_existsForm.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted8_minOverWrongEvent
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_existsForm.mpr h)
+/root/replay-kn1/red/K2_P8.lean:167:47: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted8_minOverWrongEvent
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.conjecture1_iff_lowerBound.mp (T1_to_R0 h)
+/root/replay-kn1/red/K2_P8.lean:168:22: error: Application type mismatch: The argument
+  KN1K0.conjecture1_iff_lowerBound.mpr h
+has type
+  KN1Printed.Conjecture1
+but is expected to have type
+  KN1Planted.Planted8_minOverWrongEvent
+in the application
+  R0_to_T1 (KN1K0.conjecture1_iff_lowerBound.mpr h)
+/root/replay-kn1/red/K2_P8.lean:171:29: error: Application type mismatch: The argument
+  T1_to_R0 h
+has type
+  KN1Planted.Planted8_minOverWrongEvent
+but is expected to have type
+  KN1Printed.Conjecture1
+in the application
+  KN1K0.onFin_of_conjecture1 (T1_to_R0 h)

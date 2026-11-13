@@ -1,0 +1,203 @@
+⚠ [3307/3466] Replayed KNConjectures.AvoidedDefs
+warning: KNConjectures/AvoidedDefs.lean:44:0: automatically included section variable(s) unused in theorem `KNAll.surplusMarginY_nil`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: KNConjectures/AvoidedDefs.lean:72:0: automatically included section variable(s) unused in theorem `KNAll.surplusY_empty`:
+  [Fintype V]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype V] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+ℹ [3315/3466] Replayed KNConjectures.Conjectures
+info: KNConjectures/Conjectures.lean:291:0: 'KNAll.conjecture4Fixed_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:292:0: 'KNAll.conjecture4_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:293:0: 'KNAll.conjecture2Strong_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:294:0: 'KNAll.conjecture2_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:295:0: 'KNAll.question7_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:296:0: 'KNAll.conjecture1_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjectures.lean:297:0: 'KNAll.conjecture3_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8911/8944] Replayed KNConjectures.KozmaNitzanConjecture1
+info: KNConjectures/KozmaNitzanConjecture1.lean:106:0: 'KN1Corollary.gen_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/KozmaNitzanConjecture1.lean:107:0: 'KN1Corollary.multiplicativeGluing_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/KozmaNitzanConjecture1.lean:108:0: 'KN1Corollary.kozmaNitzan_conjecture1' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8914/8944] Replayed KNConjectures.KN1Bridge
+info: KNConjectures/KN1Bridge.lean:13:0: 'KN1Statement.multiplicativeGluing_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8915/8944] Built KNConjectures.Statements6 (9.8s)
+ℹ [8916/8944] Built KNConjectures.ClusterProperty (10s)
+info: KNConjectures/ClusterProperty.lean:157:0: 'KNAll.conjecture4_clusterProperty_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/ClusterProperty.lean:158:0: 'KNAll.conjecture4_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/ClusterProperty.lean:159:0: 'KNAll.conjecture4_sizeGE' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8917/8944] Built KNConjectures.Question5Dual (7.3s)
+info: KNConjectures/Question5Dual.lean:82:0: 'KNAll.question5_dual' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8918/8944] Built KNConjectures.Question8Defs (7.5s)
+info: KNConjectures/Question8Defs.lean:117:0: 'KNAll.q8_total_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Defs.lean:118:0: def KNAll.Question8EveryMin : Prop :=
+∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)) (o b a : Fin n),
+  KNAll.IsQ8Min w A o b a → KNAll.q8L w A o b a ≤ KNAll.q8R w A o b
+info: KNConjectures/Question8Defs.lean:119:0: def KNAll.Question8Strict : Prop :=
+∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)) (o b a : Fin n),
+  KNAll.IsQ8StrictMin w A o b a → KNAll.q8L w A o b a ≤ KNAll.q8R w A o b
+info: KNConjectures/Question8Defs.lean:120:0: def KNAll.Question8Positive : Prop :=
+∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)) (o b a : Fin n),
+  0 < (Percolation.Literature.LatticeModels.prodBernoulli w).real (KNAll.U A o)ᶜ →
+    KNAll.IsQ8Min w A o b a → KNAll.q8L w A o b a ≤ KNAll.q8R w A o b
+info: KNConjectures/Question8Defs.lean:121:0: def KNAll.Question8ExistsGoodMin : Prop :=
+∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)),
+  A.Nonempty → ∀ (o b : Fin n), ∃ a, KNAll.IsQ8Min w A o b a ∧ KNAll.q8L w A o b a ≤ KNAll.q8R w A o b
+info: KNConjectures/Question8Defs.lean:122:0: def KNAll.Question8Bridge : Prop :=
+∀ (n : ℕ) (w : Sym2 (Fin n) → ↑unitInterval) (A : Finset (Fin n)) (o b a : Fin n) (r : Fin n → ℕ),
+  (∀ (e : Sym2 (Fin n)), 0 < ↑(w e) ∧ ↑(w e) < 1) →
+    2 ≤ A.card →
+      0 < (Percolation.Literature.LatticeModels.prodBernoulli w).real (KNAll.U A o)ᶜ →
+        0 < KNAll.q8Score w A o b a →
+          KNAll.IsQ8StrictMin w A o b a →
+            Set.InjOn r ↑(A.erase a) →
+              (∀ x ∈ A.erase a,
+                  ∀ y ∈ A.erase a,
+                    r x < r y →
+                      (KNAll.q8Score w A o b x - KNAll.q8Score w A o b a) /
+                          (Percolation.Literature.LatticeModels.prodBernoulli w).real
+                            (Percolation.Literature.openConn x a)ᶜ ≤
+                        (KNAll.q8Score w A o b y - KNAll.q8Score w A o b a) /
+                          (Percolation.Literature.LatticeModels.prodBernoulli w).real
+                            (Percolation.Literature.openConn y a)ᶜ) →
+                ∑ x ∈ A.erase a,
+                    (Percolation.Literature.LatticeModels.prodBernoulli w).real
+                        ((Percolation.Literature.openConn o a)ᶜ ∩
+                          (Percolation.Literature.openConn o x ∩
+                            ⋂ y ∈ {y ∈ A.erase a | r y < r x}, (Percolation.Literature.openConn o y)ᶜ)) *
+                      ((KNAll.q8Score w A o b x - KNAll.q8Score w A o b a) /
+                        (Percolation.Literature.LatticeModels.prodBernoulli w).real
+                          (Percolation.Literature.openConn x a)ᶜ) ≤
+                  KNAll.q8R w A o b - KNAll.q8L w A o b a
+✔ [8919/8944] Built KNConjectures.PairSource (10s)
+ℹ [8920/8944] Built KNConjectures.Conjecture6Reduction (4.9s)
+info: KNConjectures/Conjecture6Reduction.lean:102:0: 'KNAll.conjecture6Strong_of_forceOpen_min' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjecture6Reduction.lean:103:0: 'KNAll.conjecture6_of_conjecture6Strong' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjecture6Reduction.lean:104:0: 'KNAll.conjecture6_hypotheses_vacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8921/8944] Built KNConjectures.Question8Interior (4.9s)
+info: KNConjectures/Question8Interior.lean:81:0: 'KNAll.q8Strict_of_interior' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8922/8944] Built KNConjectures.Question5 (5.5s)
+info: KNConjectures/Question5.lean:150:0: 'KNAll.question5_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8923/8944] Built KNConjectures.Question8Cases (5.4s)
+info: KNConjectures/Question8Cases.lean:274:0: 'KNAll.q8_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Cases.lean:275:0: 'KNAll.q8_bEqO' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Cases.lean:276:0: 'KNAll.q8_degenerate_allMin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Cases.lean:277:0: 'KNAll.q8_support_atom_pos_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Cases.lean:278:0: 'KNAll.q8Support_compl_null' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Cases.lean:279:0: 'KNAll.q8_zeroScore' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8924/8944] Built KNConjectures.Question8Sufficient (5.5s)
+info: KNConjectures/Question8Sufficient.lean:335:0: 'KNAll.q8_target_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Sufficient.lean:336:0: 'KNAll.q8_of_firstRelayCriterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8925/8944] Built KNConjectures.GuardedDefs (4.9s)
+ℹ [8926/8944] Built KNConjectures.Question8Counterexample (5.2s)
+info: KNConjectures/Question8Counterexample.lean:368:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_support_subset' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:369:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8_color_invariant' does not depend on any axioms
+info: KNConjectures/Question8Counterexample.lean:370:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_color_adj' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:371:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_e01_of_reach' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:372:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_e12_of_reach' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:373:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_e23_of_reach' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:374:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_adj_reach' depends on axioms: [propext, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:375:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_U_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:376:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_conn03_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:377:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_conn13_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:378:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_conn23_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:379:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_real_eq_of_support' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:380:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_prob_X' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:381:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_prob_XYZ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:382:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_prob_XZ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:383:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_prob_notXYZ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:384:0: '_private.KNConjectures.Question8Counterexample.0.KNAll.q8Path_prob_notXZ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:390:0: 'KNAll.q8_path_U' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:391:0: 'KNAll.q8_path_R' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:392:0: 'KNAll.q8_path_L_a1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:393:0: 'KNAll.q8_path_L_a2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:394:0: 'KNAll.q8_path_score_a1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:395:0: 'KNAll.q8_path_score_a2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Counterexample.lean:396:0: 'KNAll.not_question8EveryMin' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8927/8944] Built KNConjectures.Question8Equivalence (6.1s)
+info: KNConjectures/Question8Equivalence.lean:825:0: 'KNAll.q8PendantWeight_map_castSucc' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:826:0: 'KNAll.q8PendantWeight_pendant' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:827:0: 'KNAll.q8PendantWeight_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:828:0: 'KNAll.q8_pendant_rhoa' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:829:0: 'KNAll.q8_pendant_rhox' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:830:0: 'KNAll.q8_pendant_L' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:831:0: 'KNAll.q8_pendant_R' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:832:0: 'KNAll.q8_pendant_strictMin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question8Equivalence.lean:833:0: 'KNAll.q8Strict_iff_q8Positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8928/8944] Built KNConjectures.Statements9 (4.6s)
+✔ [8929/8944] Built KNConjectures.GuardedBasic (5.0s)
+ℹ [8930/8944] Built KNConjectures.Question9Reduction (5.3s)
+info: KNConjectures/Question9Reduction.lean:446:0: 'KNAll.question9_of_setSourceFixedMin' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8931/8944] Built KNConjectures.GuardedKernel (10s)
+✔ [8932/8944] Built KNConjectures.GuardedDecoy (7.0s)
+✔ [8933/8944] Built KNConjectures.GuardedTwoCluster (6.4s)
+ℹ [8934/8944] Built KNConjectures.PairGuardedCSH (5.5s)
+info: KNConjectures/PairGuardedCSH.lean:145:0: 'KNAll.Guarded.guardLevelTest_antitone_second' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:146:0: 'KNAll.Guarded.guardCSHMargin_eq_twoClusterCov' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:147:0: 'KNAll.Guarded.twoClusterCov_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:148:0: 'KNAll.Guarded.twoClusterCov_nonneg_of_withinFirst' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:149:0: 'KNAll.Guarded.pair_guardGlobal_of_within' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:150:0: 'KNAll.Guarded.pair_guardJoint_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/PairGuardedCSH.lean:151:0: 'KNAll.Guarded.pair_guardCSH_nondegenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8935/8944] Built KNConjectures.SourceGeneralCSH (5.8s)
+info: KNConjectures/SourceGeneralCSH.lean:177:0: 'KNAll.Guarded.source_guardCSH_nondegenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [8936/8944] Built KNConjectures.PairSurplus (8.0s)
+warning: KNConjectures/PairSurplus.lean:513:5: Variable name `hmax` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8937/8944] Built KNConjectures.PairSurplusClosure (4.6s)
+✔ [8938/8944] Built KNConjectures.PairFixedMin (5.5s)
+ℹ [8939/8944] Built KNConjectures.SourceSurplus (7.3s)
+info: KNConjectures/SourceSurplus.lean:764:0: 'KNAll.Guarded.sourceSurplusMarginY_nondegenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceSurplus.lean:765:0: 'KNAll.Guarded.sourceSurplusTransfer_nondegenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceSurplus.lean:766:0: 'KNAll.Guarded.sourceTopRelay' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceSurplus.lean:767:0: 'KNAll.Guarded.sourceSurplusY_nondegenerate_nonsingleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceSurplus.lean:768:0: 'KNAll.Guarded.sourceSurplusY_all_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8940/8944] Built KNConjectures.Conjecture6Proof (5.4s)
+info: KNConjectures/Conjecture6Proof.lean:377:0: 'KNAll.Guarded.conjecture6Strong_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Conjecture6Proof.lean:378:0: 'KNAll.Guarded.conjecture6_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8941/8944] Built KNConjectures.SourceProjection (5.0s)
+info: KNConjectures/SourceProjection.lean:588:0: 'KNAll.Guarded.setIntegral_sub_eq_projFunA_source_conn' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceProjection.lean:589:0: 'KNAll.Guarded.source_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/SourceProjection.lean:590:0: 'KNAll.Guarded.source_fixedMin' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8942/8944] Built KNConjectures.Question9 (4.7s)
+info: KNConjectures/Question9.lean:37:0: 'KNAll.setSourceFixedMin_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KNConjectures/Question9.lean:38:0: 'KNAll.question9_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [8943/8944] Built KNConjectures (14s)
+Build completed successfully (8944 jobs).

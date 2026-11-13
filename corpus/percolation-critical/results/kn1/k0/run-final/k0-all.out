@@ -1,0 +1,70 @@
+/root/sealed/Printed.lean: OK
+/root/sealed/Printed1.lean: OK
+/root/sealed/Planted1.lean: OK
+/root/sealed-kn3/Check.lean: OK
+/root/sealed-kn3/Planted.lean: OK
+/root/sealed-kn3/PlantedCheck.lean: OK
+PASTE BYTE-EXACT: Frag.lean = 31-byte header ++ Check ++ Planted ++ PlantedCheck; Planted.lean (sha256 70b4f0bd68319005ce4250fc4a42fec93e885f393e6da2b250ab16c6b0357848) at offset 11456, 8826 bytes; the three statement files in the tree are the sealed bytes
+build lib-KN3Printed (KN3Printed): exit 0, 13 s
+build lib-KN1Printed (KN1Printed): exit 0, 13 s
+build lib-KN1Planted (KN1Planted): exit 0, 12 s
+/root/sealed/Printed1.lean: 12 definitions, namespace KN1Printed, lossless
+/root/sealed/Planted1.lean: 29 definitions, namespace KN1Planted, lossless
+file	#	definition	sealed lines	verdict (alone)	exit	log bytes
+Printed1.lean	01	Conjecture1	44-66	ELABORATES	0	0
+Printed1.lean	02	Conjecture1_existsForm	70-86	ELABORATES	0	0
+Printed1.lean	03	Conjecture1_minimiser	88-99	ELABORATES	0	0
+Printed1.lean	04	Conjecture1_lowerBound	101-114	ELABORATES	0	0
+Printed1.lean	05	Conjecture1_emptyMinIs	116-130	ELABORATES	0	0
+Printed1.lean	06	Conjecture1_distinct	132-141	ELABORATES	0	0
+Printed1.lean	07	Conjecture1_properSubset	143-153	ELABORATES	0	0
+Printed1.lean	08	Conjecture1_onFin	155-167	ELABORATES	0	0
+Printed1.lean	09	Conjecture1_isLeast	171-182	ELABORATES	0	0
+Printed1.lean	10	Conjecture1_sInf	184-198	ELABORATES	0	0
+Printed1.lean	11	Conjecture1_iInf	200-218	ELABORATES	0	0
+Printed1.lean	12	Conjecture1_ennreal	220-233	ELABORATES	0	0
+Planted1.lean	01	Planted1_maxInPlaceOfMin	44-59	ELABORATES	0	0
+Planted1.lean	02	Planted2_forAllAInPlaceOfMin	61-71	ELABORATES	0	0
+Planted1.lean	03	Planted3_inequalityReversed	73-83	ELABORATES	0	0
+Planted1.lean	04	Planted4_strictInequality	85-94	ELABORATES	0	0
+Planted1.lean	05	Planted5_sumInPlaceOfMin	96-107	ELABORATES	0	0
+Planted1.lean	06	Planted6_existsWithoutNonempty	109-116	ELABORATES	0	0
+Planted1.lean	07	Planted7_factorDropped	118-127	ELABORATES	0	0
+Planted1.lean	08	Planted8_minOverWrongEvent	129-138	ELABORATES	0	0
+Planted1.lean	09	Planted9_constantTwo	140-149	ELABORATES	0	0
+Planted1.lean	10	Planted10_sumInPlaceOfSetEvent	151-166	ELABORATES	0	0
+Planted1.lean	11	Planted11_minOfTheTwoFactors	168-184	ELABORATES	0	0
+Planted1.lean	12	Planted12_realIInfOverMembership	188-204	ELABORATES	0	0
+Planted1.lean	13	Planted13_pointInPlaceOfSet	206-215	ELABORATES	0	0
+Planted1.lean	14	Planted14_productInPlaceOfMin	217-230	ELABORATES	0	0
+Planted1.lean	15	Planted15_connectedToAllOfA	232-242	ELABORATES	0	0
+Planted1.lean	16	Planted16_oneCommonProbability	246-259	ELABORATES	0	0
+Planted1.lean	17	Planted17_constantHalf	261-271	ELABORATES	0	0
+Planted1.lean	18	Neighbour1_HarrisFKG	275-282	ELABORATES	0	0
+Planted1.lean	19	Neighbour2_Conjecture2_preFKG	284-295	ELABORATES	0	0
+Planted1.lean	20	Neighbour3_inequality3	297-307	ELABORATES	0	0
+Planted1.lean	21	Neighbour4_Question7	309-320	ELABORATES	0	0
+Planted1.lean	22	Neighbour5_Conjecture6_gluing	322-345	ELABORATES	0	0
+Planted1.lean	23	Neighbour6_Conjecture3	347-353	ELABORATES	0	0
+Planted1.lean	24	Neighbour7_countableGraph	355-366	ELABORATES	0	0
+Planted1.lean	25	Neighbour8_probabilitiesStrictlyInside	368-381	ELABORATES	0	0
+Planted1.lean	26	Neighbour9_allEdgesHalf	383-394	ELABORATES	0	0
+Planted1.lean	27	Neighbour10_sideConditions	396-407	ELABORATES	0	0
+Planted1.lean	28	Neighbour11_notAdjacent	409-419	ELABORATES	0	0
+Planted1.lean	29	Neighbour12_levelSets	421-431	ELABORATES	0	0
+ELABORATES: 41   FAILS: 0
+build k0-Frag (KN1.K0.Frag): exit 0, 14 s
+build k0-Basic (KN1.K0.Basic): exit 0, 12 s
+build k0-Required (KN1.K0.Required): exit 0, 12 s
+build k0-PlantedFalse (KN1.K0.PlantedFalse): exit 0, 13 s
+build k0-Planted12 (KN1.K0.Planted12): exit 0, 12 s
+build k0-Readings (KN1.K0.Readings): exit 0, 13 s
+build k0-Weakenings (KN1.K0.Weakenings): exit 0, 13 s
+build k0-PlantedFalse10 (KN1.K0.PlantedFalse10): exit 0, 13 s
+build k0-PlantedFalse11 (KN1.K0.PlantedFalse11): exit 0, 14 s
+build k0-Axioms (KN1.K0.Axioms): exit 0, 12 s
+Axioms.lean: 58 #print commands, 58 printed, 0 outside [propext, Classical.choice, Quot.sound], 0 using no axiom at all
+every theorem of our proof files is printed: 58 of 58
+grep over our proof files (Basic, Required, PlantedFalse, Planted12, …): 0 matching lines
+grep over the other files (Frag, Axioms, the three statement files): 77 matching lines (listed in grep-other-files.txt)
+k0-all.sh all: done 13:54:29Z
