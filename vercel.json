@@ -55,6 +55,11 @@
       "statusCode": 301
     },
     {
+      "source": "/playground/:path*/",
+      "destination": "/instruments/:path*/",
+      "statusCode": 301
+    },
+    {
       "source": "/playground/:path*",
       "destination": "/instruments/:path*",
       "statusCode": 301
