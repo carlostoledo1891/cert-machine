@@ -21,47 +21,62 @@ make drift     re-hash the lift against the source lab
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER (state at 2026-11-12 ~23:05 UTC, the session still open on three page jobs; NOTHING BILLING — the
-four pods of the day are deleted, each 404, the pod list empty; about US$6.1 by the clock; main = origin/main at 85cbe428.
-On the operator's "Proceed on your suggested order. Focus is to close the open items", then his answers in dialogs):
-  DONE TODAY, each on his word:
-  - CRITICAL PERCOLATION IS CLOSED IN ONE LEAN AND PUBLIC: both labs' proofs, both bridges and the statement in one
-    environment (OpenAI's ℤ³ proof ported to v4.32.0, 22 of 34 files, its statement file byte-identical), CERTIFIED by the
-    orchestrator's replay (attempt 2; attempt 1 failed on its own AppleDouble files, on record); the statement proved false
-    at d = 1. /reports/percolation-critical.html has section 4 and the d = 1 line (8e729f76); the note is at version 1.1,
-    doi:10.5281/zenodo.24175228 (5e2ef0a6). THE OPERATOR'S: the follow-up reply under his Kalai comment (comment-100346
-    still carries the two-Lean caveat; the text was handed to him, DRAFTS §5 of the private drafts).
-  - THE 182's 262 NUMERICAL BOUNDS: REPRODUCED (private, notes/lean-intake-phase2-2026-11-12, amendment A1): the claimant's
-    package replayed on Linux on FLINT built from source, no package byte changed — its acceptance PASS on 14 stages and
-    OUR comparison with the Lean literals 262 of 262, both red controls fired; every fresh value equals its literal. A
-    replay, not an independent decision; a clean-room recomputation is the next step, not started. The 212's certificate:
-    no witness published; the question is filed, AxiomMath/BGP212 #2. The ledger: 5 decided on instances, 2 reproduced,
-    7 read mismatch, 2 not decided. Results sealed (registry 166a67df). THE PREMISES PAGE IS TO BE PUBLISHED (his pick).
-  - THE TEXTBOOK MACHINE'S SECOND PAGE IS LIVE: /instruments/textbook-machine/claims/ (b1fcc10b), three shapes; the X post
-    sent (version A). A fourth shape needs a finite-counterexample object on licensed or own data (claimbox's work).
-  - /reports/lean-intake.html: the identity mode and AlphaProof Nexus's #12 (ii) (0b05fa37).
-  - FIVE CREDITS PINNED (79c8ca58); THE OUTREACH QUEUE CLEARED (85cbe428): outreach/SEND-QUEUE.md's section "CLEARED
-    2026-11-12" says what was sent, what was dropped and why. The reply closing pull request #1 on our ℤ-in-ℚ fork posted.
-  - make test on b1fcc10b: 240 PASS, 1 FAIL (the dash census, on the percolation hero's dashed line of the morning);
-    fixed in 8e729f76 (the census passes); A FULL make test ON THE FINAL TREE IS OWED.
-  OPEN, IN ORDER:
-  ★ 1. The pages he picked, one at a time (they share the tree and the baselines): MACMAHON CUBES (the page + a note to
-       the author for his approval) and THE PREMISES PAGE (from the private ledger; quote the 182, never copy: it carries
-       no licence). THE STORY PAGES ARE DELETED on his word (930bb3a0, 1fe07e6e): /explained/, /explained/v1/ and
-       /uirapuru/ with their sources; the three addresses redirect to /how-it-works/ (read back: 301). The paper branch
-       no longer has a story-page reader to reconcile with.
-  ★ 2. 2026-11-14: THE ERDŐS #488 REBASED PR, if formal-conjectures #5297 is still silent; show him the description first.
-    3. `make test` on the final tree; `ots upgrade` of the day's five seals (two rules, three results).
-    4. Small, found and not acted on: two replies under @RichardSSutton (11-07) have no outreach row; whose comment the
-       antihype article now counts is unconfirmed (one look in a browser); `tools/replay-c82.js --check` notes a decider
-       changed since its record; the recognition record has no battery of its own (only design/outside.js's load);
-       the private project's folder name sits in two lines of the published percolation records (left on his word).
-       A redirect that does not work, found while adding the story pages': /playground/<name>/ returns 404 (the
-       pattern `/playground/:path*` does not match a trailing slash; /playground/ itself redirects). Not changed.
-    5. On hold, unchanged: the method paper (waits on Pedro); Leadline's three items (his).
-  claimbox: unchanged from the 15:45 block (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
+NEXT SESSION: START TWO FRONTS IN PARALLEL (handoff 2026-11-13 ~01:15 UTC; the operator: "I want both fronts, Percolate and
+MacMahon. Handoff to the next session to start both fronts in parallel". NOTHING BILLING: no pod exists (the four of
+2026-11-12 deleted, each 404; about US$6.1 by the clock). `make test` on 0199d5c2: 241 PASS, 0 FAIL, exit 0; the commits
+since went through `make page`. The two fronts do not share a tree: MacMahon is desk work in this repository, the
+percolation front lives in the private working repository and on a pod.)
 
-NEXT SESSION, IN ORDER (handoff 2026-11-12 ~18:20 UTC, WRITTEN AT 11% ON BATTERY: THE SESSION WAS CUT SHORT BY THE DESK'S
+  ★ FRONT A — MACMAHON, THE NECESSITY HALF (targets row macmahon-necessity-search-2026-11-13; desk only, no pod).
+    WHY: /reports/macmahon.html is titled "decided twice", but our program decides only that the ten sets work; that no
+    other collection of 12 works, and none of 11, rests on the Lean proof through two kernels. A reader sent an exhaustive
+    search for the other half (~/Downloads/macmahon-search and its .tar.gz; five files, their sha256 in the targets row):
+    exactly 10 universal collections of size ≤ 12, all of size 12, none with a repeat. READ here, NOT RUN: the session's
+    permission layer refused to run downloaded code, so the operator allows it at the prompt or runs it himself. On
+    reading, its model is the Lean statement's and its completeness argument holds (the row says how).
+    DO, IN ORDER: (1) the rules, written and sealed first; (2) the search as a third route, plus a SECOND implementation of
+    ours that shares no code with it; (3) red controls: reflections allowed, the distinct-cubes rule dropped, a planted
+    false constraint, the limit at 11 (must find nothing); (4) the ten leaves tied to the released sets by name through
+    the pinned table; (5) one planted false theorem ("exactly nine") on the kernel route — one run of
+    .github/workflows/macmahon-kernel.yml; (6) the record, then the page: the title true for both halves, the open list
+    regrouped to about five (none deleted: every gap first is the house rule), the two-commit detail moved to the record.
+    Optional, the reader's last point: a statement written by hand from Johnson and Roldán's paper, as for percolation.
+  ★ FRONT B — PERCOLATION, THREE FOLLOW-UPS (targets row percolation-follow-ups-2026-11-13; the plan with file names is
+    in the private working repository's NEXT file). Private until the operator says reveal; rules sealed before any build.
+    (1) FIRST: Kozma–Nitzan's Conjecture 3 AS PRINTED, against Anthropic's Lean (its README calls its statement the
+    conjecture "verbatim"). Write the conjecture from arXiv:2401.12397 by hand BEFORE opening their statement file, then a
+    bridge with red controls. A separate claim, not a gap in the θ(p_c) = 0 check; a mismatch is a result. Anthropic's
+    development only: OpenAI's ℤ³ files name neither Kozma nor Nitzan.
+    (2) SCOUT, THEN DECIDE: θ continuous on [0, 1]. Anthropic's library has uniqueness of the infinite cluster and lists
+    continuity as NOT CLAIMED; read how uniqueness is stated before sizing it. Proving, not certifying.
+    (3) UPSTREAM: not openai/math (staff-only pull requests) and not anthropics/formal-math yet (0 of 3 outside pull
+    requests merged, the development off main, #48 unanswered); read google-deepmind/formal-conjectures for this problem.
+    THE OPERATOR'S, still: the follow-up reply under his Kalai comment (comment-100346 carries the old two-Lean caveat).
+
+  IN FLIGHT AT THIS HANDOFF: THE PREMISES PAGE (/reports/prime-gap-premises.html, his pick). An agent is building it in
+    this tree from a scrubbed staging copy; if this line is still here, the tree holds its UNCOMMITTED work
+    (corpus/prime-gap-premises/, certs/prime-gap-premises.json, tools/record-… and build-report-prime-gap-premises.js,
+    the hub card, baselines). Review it, run its gates, SHOW THE OPERATOR BEFORE PUSHING (it publishes work that was
+    private), then commit file by file. Never copy the claimant's package output or anything else from notes/; the 182
+    carries no licence: quoted, never copied. The 182's 262 bounds are REPRODUCED (a replay, not an independent decision).
+  DATED: 2026-11-14 — the Erdős #488 rebased pull request, if formal-conjectures #5297 is still silent; show him the
+    description first.
+  DONE ON 2026-11-12/13, each on his word (details in the commits): critical percolation in ONE Lean and public (page
+    section 4, the d = 1 line, Zenodo v1.1 doi:10.5281/zenodo.24175228); the textbook machine's claims page live, three
+    shapes, the X post sent; /reports/lean-intake.html with the identity mode and #12 (ii); /reports/macmahon.html
+    REBUILT (it had been live since 11-03 and its note to the author sent then — an earlier line of this file and the
+    memory index said otherwise; corrected) with gaps first and its own card; five credits pinned; the outreach queue
+    reconciled and cleared (outreach/SEND-QUEUE.md, "CLEARED 2026-11-12"); AxiomMath/BGP212 #2 filed; the reply closing
+    pull request #1 on our ℤ-in-ℚ fork; the story pages deleted with redirects; the /playground/<name>/ redirects repaired.
+  SMALL, FOUND AND NOT ACTED ON: `ots upgrade` of the day's six seals; two replies under @RichardSSutton (11-07) have no
+    outreach row; whose comment the antihype article now counts is unconfirmed; `tools/replay-c82.js --check` notes a
+    decider changed since its record; the recognition record has no battery of its own; the private project's folder name
+    sits in two lines of the published percolation records (left on his word); the textbook claims page's fourth shape
+    needs a finite-counterexample object on licensed or own data (claimbox's work).
+  ON HOLD, unchanged: the method paper (waits on Pedro); Leadline's three items (his).
+  claimbox: unchanged (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
+
+NEXT SESSION, IN ORDER (handoff 2026-11-12 ~18:20 UTC, SUPERSEDED BY THE BLOCK ABOVE; WRITTEN AT 11% ON BATTERY: THE SESSION WAS CUT SHORT BY THE DESK'S
 BATTERY, NOT BY ITS WORK. NOTHING BILLING: the two pods of the session were deleted at ~18:10 UTC, each 404 on get-pod,
 the pod list empty; about US$1.4 by the clock (42 min at US$0.64/h + 44 min at US$1.28/h; not a billing read).
 main = origin/main. On the operator's "Proceed on your suggested order. Focus is to close the open items"; the rules of
