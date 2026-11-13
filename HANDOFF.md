@@ -137,7 +137,16 @@ local on his word.)
     recorder's first run printed 14 of 15 because ITS OWN header check looked for the wrong word (fixed before the
     record was written; said here so nobody reads a failed item into the logs); `caffeinate` (pid at launch 30105)
     ends by itself at 08:00 local.
-  ON HOLD, unchanged: the method paper (waits on Pedro); Leadline's three items (his).
+  THE METHOD PAPER — ROUND r4-CT BUILT 2026-11-13, THE SEND IS THE OPERATOR'S (the package of 11-11 was never sent and
+    is now stale). On the local branch paper-v011 (head 2e0c0332, NOT pushed): after a cold referee read and a package
+    check, the record-settled defects fixed; the co-author's method text restored to his own r3 sentences, our new
+    method material offered as ten proposals in blue notes beside his orange ones; the three use cases kept (the
+    operator defines them, by the co-author's word); a script holds the list of the 46 remaining differences
+    (tools/check-paper-r4.py on the branch, residue 0). The delivery mirrors the co-author's folder: sources, both
+    PDFs, two marked-changes PDFs against his copy, a change log in Portuguese, the referee report, in a folder and
+    a zip named r4-CT in the operator's Downloads. NEXT: his send; then the co-author's answers on the proposals and
+    the open points listed in that change log.
+  ON HOLD, unchanged: Leadline's three items (his).
   claimbox: unchanged (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
 
 NEXT SESSION: START TWO FRONTS IN PARALLEL — SUPERSEDED BY THE BLOCK ABOVE (handoff 2026-11-13 ~01:15 UTC; the operator: "I want both fronts, Percolate and
