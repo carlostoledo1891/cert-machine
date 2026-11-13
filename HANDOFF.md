@@ -24,7 +24,7 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 NEXT SESSION: START TWO FRONTS IN PARALLEL (handoff 2026-11-13 ~01:15 UTC; the operator: "I want both fronts, Percolate and
 MacMahon. Handoff to the next session to start both fronts in parallel". NOTHING BILLING: no pod exists (the four of
 2026-11-12 deleted, each 404; about US$6.1 by the clock). `make test` on 0199d5c2: 241 PASS, 0 FAIL, exit 0; the commits
-since went through `make page`. The two fronts do not share a tree: MacMahon is desk work in this repository, the
+since went through `make page`. main = origin/main at this commit; the tree is clean. The two fronts do not share a tree: MacMahon is desk work in this repository, the
 percolation front lives in the private working repository and on a pod.)
 
   ★ FRONT A — MACMAHON, THE NECESSITY HALF (targets row macmahon-necessity-search-2026-11-13; desk only, no pod).
@@ -53,12 +53,12 @@ percolation front lives in the private working repository and on a pod.)
     requests merged, the development off main, #48 unanswered); read google-deepmind/formal-conjectures for this problem.
     THE OPERATOR'S, still: the follow-up reply under his Kalai comment (comment-100346 carries the old two-Lean caveat).
 
-  IN FLIGHT AT THIS HANDOFF: THE PREMISES PAGE (/reports/prime-gap-premises.html, his pick). An agent is building it in
-    this tree from a scrubbed staging copy; if this line is still here, the tree holds its UNCOMMITTED work
-    (corpus/prime-gap-premises/, certs/prime-gap-premises.json, tools/record-… and build-report-prime-gap-premises.js,
-    the hub card, baselines). Review it, run its gates, SHOW THE OPERATOR BEFORE PUSHING (it publishes work that was
-    private), then commit file by file. Never copy the claimant's package output or anything else from notes/; the 182
-    carries no licence: quoted, never copied. The 182's 262 bounds are REPRODUCED (a replay, not an independent decision).
+  THE PREMISES PAGE IS PUBLISHED (c6f4a823, on his word "publish now"): /reports/prime-gap-premises.html, its record
+    certs/prime-gap-premises.json and corpus/prime-gap-premises (45 files; PUBLICATION-NOTES.md says what was edited for
+    publication and what is withheld). Its battery pins certs/prime-gaps-186.json by hash: a change to that record
+    refuses it until the ledger is amended. The private folder notes/lean-intake-phase2-2026-11-12 stays the source.
+    NOT RE-RUN since 0199d5c2: the full `make test` (the MacMahon rebuild and this page went through `make page`, and the
+    new battery passes alone) — run it first next session.
   DATED: 2026-11-14 — the Erdős #488 rebased pull request, if formal-conjectures #5297 is still silent; show him the
     description first.
   DONE ON 2026-11-12/13, each on his word (details in the commits): critical percolation in ONE Lean and public (page
@@ -71,7 +71,9 @@ percolation front lives in the private working repository and on a pod.)
   SMALL, FOUND AND NOT ACTED ON: `ots upgrade` of the day's six seals; two replies under @RichardSSutton (11-07) have no
     outreach row; whose comment the antihype article now counts is unconfirmed; `tools/replay-c82.js --check` notes a
     decider changed since its record; the recognition record has no battery of its own; the private project's folder name
-    sits in two lines of the published percolation records (left on his word); the textbook claims page's fourth shape
+    sits in two lines of the published percolation records (left on his word); the same name also shows in four outreach
+    notes on the About page (rows gh-fc-5297-review, x-erdos488-thread, gh-formal-math-48, gh-adderboard-97) and in many
+    pinned files of the #488 and 186 records — not changed, his to rule; the textbook claims page's fourth shape
     needs a finite-counterexample object on licensed or own data (claimbox's work).
   ON HOLD, unchanged: the method paper (waits on Pedro); Leadline's three items (his).
   claimbox: unchanged (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
