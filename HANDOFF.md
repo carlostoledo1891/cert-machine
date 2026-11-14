@@ -154,6 +154,15 @@ local on his word.)
     PDFs, two marked-changes PDFs against his copy, a change log in Portuguese, the referee report, in a folder and
     a zip named r4-CT in the operator's Downloads. NEXT: his send; then the co-author's answers on the proposals and
     the open points listed in that change log.
+    2026-11-14: r4-CT corrected on the benchmark's three runs (branch head now 84897317; the 14/11 section of its
+    change log). ROUND r5-CT BUILT, to go WITH r4-CT in one send (the operator's choice, all eight proposals):
+    ~/Downloads/r5-CT(.zip) = the proposals P11–P18 in Portuguese (references re-pointed to the sent r4, the three
+    runs, every quote re-read at its source: Kodiak's verified algorithm vs its unverified C++, SV-COMP's witness
+    "partly", the CODECHECK phrase is the website's, CakeLPR21's volume is 12652; per-class table and BibTeX annexed)
+    + certs/paper-r5-checks.json (on the branch: Eq. (A.1)'s division read to the letter misses the exact quotient in
+    2,552 of 200,000 seeded pairs, counted twice with no shared code; x ** 2 = x * x on 2,000,000) + its standalone
+    Python check. The branch stays LOCAL (operator, 11-14); a bundle of it (prerequisites on origin/main) is in iCloud
+    Drive, Safe-copies-2026-11-14/paper-v011.bundle.
   ON HOLD, unchanged: Leadline's three items (his).
   claimbox: unchanged (three LOCAL branches; its working copy on phase2-readings-2026-11-12).
 
