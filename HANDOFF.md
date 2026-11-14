@@ -128,6 +128,14 @@ local on his word.)
     repository, the port from Lean 4.33 to ≥ 4.35-rc2 on a small pod, about 3–5 hours and US$1–2 by the scout's
     estimate, the challenge and solution pair against the statement at HEAD, the metadata; the submission and the
     register click need his explicit yes each). WE ALREADY HAVE ONE ENTRY (the heptagon, PALOMAR-2026-11-08-000001).
+    2026-11-14: GESSEL SAID YES (00:45 UTC). THE PACKAGE WAS BUILT on a small pod (deleted, 404; about US$1.37 of the
+    US$5 the operator set) and MADE PUBLIC on the operator's word: github.com/carlostoledo1891/erdos-488-lean (his proof
+    ported to Lean v4.35.0, header only; statement = formal-conjectures' text with ¬; six kernels accept; six planted
+    variants refused; CHECKS.md). Issue #1 there lists the FIVE POINTS he must confirm, the licence of his 50-line
+    adapter first (NOTICE: his, all rights reserved, until he says so). Reply posted on #5297 (issuecomment-6875400327).
+    NEXT, only after his answer: tag a commit, run the repository's Palomar preflight workflow (manual trigger; the
+    sandboxed Comparator could not run on the pod), submit with his and the operator's explicit yes, then the
+    formal-conjectures link. The working folder with the decisions list is ~/Projects/erdos488-palomar-work.
   THREADS READ 2026-11-13 01:48 UTC: no reply on anthropics/formal-math #48, anadim/AdderBoard #97, AxiomMath/BGP212
     #1 and #2, jasondavies/macmahon-min-universal-sets #1.
   SMALL, FOUND AND NOT ACTED ON: `ots upgrade` DONE at ~12:40 UTC for every seal up to that hour (the three bundles here
