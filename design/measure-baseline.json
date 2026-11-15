@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-11-12",
+  "recorded": "2026-11-15",
   "browser": "Chrome/157.0.8103.52",
   "viewports": [
     1440,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "90facb7a7659a2c4f75f3a51fcef67ea01abfcaff4558755314e3459f36b1cf6"
+      "sha": "1c73d370911a26802cb9a572bb6b6fc5ac7fdbf565d4f080002875e3502a8f25"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ab11fd6d030ee53ecf7c529c1154638d5db620dc56886a8b62ec12ed22ad3f7f"
+      "sha": "eafc6d9a3bd8e19d8c2ee40089d39bd336f58dc5f7516b781abc6e448668f9f9"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -118,6 +118,27 @@
         "clipped": 0
       },
       "sha": "8cce2dc8bf58b32f1351f66e6611c4944d61e3587755fe41dc3b5a96cae5cf8a"
+    },
+    "site/atalaia/index.html": {
+      "390": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "768": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 15,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "049c1510f28b15d2718ddee6b82031dd23662301fc4d580c5120d65929cf6bdf"
     },
     "site/contraprova/index.html": {
       "390": {
@@ -243,7 +264,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1e6ced597d42ff18d746543a405e04dc5637803912156cf18bf0008ba46fc49d"
+      "sha": "7b8468201be78483a934152d097423056b6d2327c44fe922b4343b1b2dcbb338"
     },
     "site/how-it-works/index.html": {
       "390": {
@@ -264,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b8ecc905430b0c086f4d438166da6f686e9944df289e3c9942e7ff4a5645d724"
+      "sha": "fb1404fbdd1816244678ad7fe11d55a798991cd7e62f74f54d5a5cbdace2934a"
     },
     "site/index.html": {
       "390": {
@@ -852,7 +873,7 @@
         "escapes": 0,
         "clipped": 3
       },
-      "sha": "399eaf0ce02941a4db47965e2c5943f884da3f33c8d518381aaa79decee5560e"
+      "sha": "e7e7be0ff4964488fc4d705d708d1091acaa158ec33015ace5df48d84e97d590"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -936,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "cbb94ee796fd937145958a0007dc5c033d9ff6d8b347cc4ddec80066f2fccabb"
+      "sha": "df0369503911edf32c5b4dbb453f63277c7ce967ee0a9e12584bdfc6e45fa8b6"
     },
     "site/machine/log.html": {
       "390": {
@@ -957,7 +978,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "70effd7b292c42bd43e4adb1c7885c1ea22f935c51bba60d962445b89832ff59"
+      "sha": "58c437a3971ef94873e1931c1cb5b33237cf6736c9d5952a2d7bd42a98b869c4"
     },
     "site/oracle/index.html": {
       "390": {
@@ -978,7 +999,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a23fe76dd0d25b17c6ade7a2d55295d973df0cdc5df0814683b4df39971630f1"
+      "sha": "108b64a961cc5529bd12c66d158d22924c4e5b2176323830c62b4e58aad9ae58"
     },
     "site/papers/index.html": {
       "390": {
@@ -999,7 +1020,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dd6f4944c2b7b0efec9285c5f6136c978ff3bde8ec761332fc129a492828cdb6"
+      "sha": "a0ae409c7a2201222e9da36f3f3eac4d35be2978fffea5408cbf4962c844a756"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2133,7 +2154,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "539c0eb9cf976b7bdb5ee7abd89802fffa3a2ce885cb425e9bd4fb8bd253d1a9"
+      "sha": "fc3ba19ad28e8d5df8bc072937e50a50c066662f95a51c6f32b5e06ba8ab8e0c"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2238,28 +2259,28 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "86082a1aaaf9d0ce0d3ca7e1358813687ca15dcedf11d8b3588885cf1c0178df"
+      "sha": "54030e2875c97e70c9d7f6d8f1adc7cea1077b31e283b7a167cf20fcc6a2f67a"
     },
     "site/reports/macmahon.html": {
       "390": {
-        "spines": 7,
+        "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3
+        "clipped": 0
       },
       "768": {
-        "spines": 11,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 13,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "970142418f0be787f912516c3244914d31d8e26c4e4eae5815ab197cf164e289"
+      "sha": "3260d3265a8264c5f218e697d035c6d86c639e66f68704bcbc834e63ab718308"
     },
     "site/reports/mathbench.html": {
       "390": {
@@ -2574,7 +2595,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "14c12a5a31cf4dbf15b108ca73b18702b748012b237bcace2635fd842da15658"
+      "sha": "a04605d2fc5acb9b8f5907e411d98ae1471d467e0fc016aa55eb6ec1e0e496d8"
     },
     "site/reports/optimization-constants.html": {
       "390": {
@@ -2595,7 +2616,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f96b2da2024dc9a346037e40de2c6d76abdd98c772d6b662d75ec7021bdf00b0"
+      "sha": "64cf1c61f1a48b78769115991774580e853c1715785659c120b8fc4037cbc8a9"
     },
     "site/reports/percolation-critical.html": {
       "390": {
@@ -2616,7 +2637,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ad1d81deba240c503a2757e25714498d897ec159c8b57d95cdeb7254fbfbd341"
+      "sha": "7f3391fd7d8bafa0b0ec3d55d4870d841be931ba237bc181607ff94120889aa2"
     },
     "site/reports/polymaps.html": {
       "390": {
@@ -2700,7 +2721,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a0fdd944422574fc50877a4872685c507d653145dea2dfc931266b50ff0085df"
+      "sha": "74fdd03b223575337122f0b09ec1b2715bd6f5d2b1efd493aa918b5e8f27c13c"
     },
     "site/reports/prime-gaps-186.html": {
       "390": {
@@ -3099,7 +3120,7 @@
         "escapes": 0,
         "clipped": 2
       },
-      "sha": "8883dbcffa2acde5a55442ae2a095577688f2b487586116fcdbb491144b6b97a"
+      "sha": "77c9089cfbf9f0b364b57fe02b0b196611c28d1cc9f44eed9fccd97e0c825464"
     },
     "site/reports/wowii-counterexamples.html": {
       "390": {

@@ -40,6 +40,7 @@ site: playground control
 	@$(NODE) apps/extremos/build.js
 	@$(NODE) apps/cv/build.js
 	@$(NODE) apps/z-in-q/build.js
+	@$(NODE) apps/atalaia/build.js
 
 playground:
 	@$(NODE) playground/build.js
