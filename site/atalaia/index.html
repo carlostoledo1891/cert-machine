@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atalaia: drones que sabem o que conseguem garantir · Carlos Toledo</title>
-<meta name="description" content="Atalaia v0.4, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
+<meta name="description" content="Atalaia v0.4.1, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://carlostoledo.co/atalaia/">
 <meta property="og:url" content="https://carlostoledo.co/atalaia/">
 <meta property="og:title" content="Atalaia: drones que sabem o que conseguem garantir · Carlos Toledo">
-<meta property="og:description" content="Atalaia v0.4, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
+<meta property="og:description" content="Atalaia v0.4.1, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og-landing.png">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Atalaia: drones que sabem o que conseguem garantir · Carlos Toledo">
-<meta name="twitter:description" content="Atalaia v0.4, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
+<meta name="twitter:description" content="Atalaia v0.4.1, proposta de protocolo para drones com a navegação por satélite (GNSS) degradada: replays de missões sintéticas na ilha de Florianópolis e no Vale do Itajaí.">
 <meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -816,18 +816,18 @@ a.ccd-btn:hover{border-color:var(--ink)}
 <div class="page">
 
 <header class="col">
-  <div class="eyebrow">Proposta de protocolo · versão 0.4 · 16/11/2026 · testes sintéticos em Santa Catarina</div>
+  <div class="eyebrow">Proposta de protocolo · versão 0.4.1 · 16/11/2026 · testes sintéticos em Santa Catarina</div>
   <h1>Atalaia: drones que sabem o que conseguem garantir</h1>
   <p class="deck">Quando a navegação por satélite de um drone falha ou é falsificada (o GPS e os sistemas parecidos, que juntos se chamam GNSS), o Atalaia não promete que ele nunca se perca. Ele calcula o que dá para garantir sobre onde o drone está, só deixa a missão seguir quando isso pode ser demonstrado, e registra cada decisão para quem quiser conferir depois.</p>
 </header>
 
-<div class="col"><p class="scope">Tudo nesta página é simulação, sobre o relevo real da ilha de Florianópolis e do Vale do Itajaí. Nada voou. O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia. Esta é a apresentação curta da versão 0.4 da minuta, de 16/11/2026; o documento técnico completo, com o histórico de versões, está em /atalaia/doutrina/.</p></div>
+<div class="col"><p class="scope">Tudo nesta página é simulação, sobre o relevo real da ilha de Florianópolis e do Vale do Itajaí. Nada voou. O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia. Esta é a apresentação curta da versão 0.4.1 da minuta, de 16/11/2026; o documento técnico completo, com o histórico de versões, está em /atalaia/doutrina/.</p></div>
 
 <div class="wide"><figure>
   <div class="figbox">
-<video class="lp-v" src="filmes/ilha-morros.mp4" poster="filmes/ilha-morros.jpg" muted loop playsinline preload="metadata" aria-label="Um posto nos morros, com o GPS falsificado no caminho"></video>
+<video class="lp-v" src="filmes/ilha-morros.mp4" poster="filmes/ilha-morros.jpg" muted loop playsinline preload="metadata" aria-label="Um posto nos morros, com o GNSS falsificado no caminho"></video>
   </div>
-  <figcaption data-record="apps/atalaia/data/filmes/ilha-morros.mp4@8e9247c26624">Um posto nos morros, com o GPS falsificado no caminho. A 4,5 km da base, no norte da ilha. No meio do caminho, o GPS passa a mentir: o trecho fica vermelho, o drone segue pela região onde certamente está, entrega e volta com reserva. Simulação.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/filmes/ilha-morros.mp4</span> · sha256 8e9247c26624</span></figcaption>
+  <figcaption data-record="apps/atalaia/data/filmes/ilha-morros.mp4@8e9247c26624">Um posto nos morros, com o GNSS falsificado no caminho. A 4,5 km da base, no norte da ilha. No meio do caminho, o GNSS passa a mentir: o trecho fica vermelho, o drone segue pela região de proteção, calculada sem o GNSS, entrega e volta com reserva. Simulação.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/filmes/ilha-morros.mp4</span> · sha256 8e9247c26624</span></figcaption>
 </figure></div>
 
 <section class="col">
@@ -835,7 +835,7 @@ a.ccd-btn:hover{border-color:var(--ink)}
     <div class="lab">A ideia</div>
     <h2>Três mudanças na forma de operar</h2>
   </div>
-<p>Resiliência, aqui, não é garantir que o drone nunca perca a referência de navegação. É garantir que quem opera continue tomando decisões justificáveis e verificáveis quando essa referência deixa de ser confiável. Serve a quem precisa chegar a um lugar difícil: comunidades isoladas, a defesa civil numa enchente, a inspeção de linhas e encostas; e, mais tarde, às Forças.</p><ul class="plain"><li><b>A posição é uma área, não um ponto.</b> O drone sabe a região onde certamente está, calculada com os próprios sensores e o relevo. Uma posição de satélite que aponta para fora dela é declarada falsa.</li><li><b>Antes de decolar, quatro perguntas.</b> A missão é viável, resiliente, segura e auditável? Cada uma responde passa, não passa ou falta dado, e o falta dado diz que medida decidiria.</li><li><b>Depois do voo, um registro que se confere.</b> Cada decisão fica assinada e encadeada, para que outra instituição, com outro programa, refaça as contas.</li></ul>
+<p>Resiliência, aqui, não é garantir que o drone nunca perca a referência de navegação. É garantir que quem opera continue tomando decisões justificáveis e verificáveis quando essa referência deixa de ser confiável. Serve a quem precisa chegar a um lugar difícil: comunidades isoladas, a defesa civil numa enchente, a inspeção de linhas e encostas; e, mais tarde, às Forças.</p><ul class="plain"><li><b>A posição é uma área, não um ponto.</b> O drone calcula, com os próprios sensores e o relevo, a região de proteção: a região que contém a posição real se os limites de erro declarados dos sensores valerem. Uma posição de satélite que aponta para fora dela é declarada falsa.</li><li><b>Antes de decolar, quatro perguntas.</b> A missão é viável, resiliente, segura e auditável? Cada uma responde passa, não passa ou falta dado, e o falta dado diz que medida decidiria.</li><li><b>Depois do voo, um registro que se confere.</b> Cada decisão fica assinada e encadeada, para que outra instituição, com outro programa, refaça as contas.</li></ul>
 </section>
 
 <section class="col">
@@ -857,7 +857,7 @@ a.ccd-btn:hover{border-color:var(--ink)}
   <div class="figbox">
 <video class="lp-v" src="filmes/ilha-barco.mp4" poster="filmes/ilha-barco.jpg" muted loop playsinline preload="metadata" aria-label="Um barco a 4 km da praia: o caso que o protocolo recusa"></video>
   </div>
-  <figcaption data-record="apps/atalaia/data/filmes/ilha-barco.mp4@9105296b96fa">Um barco a 4 km da praia: o caso que o protocolo recusa. Sobre o mar, sem GPS, nem o relevo nem a imagem devolvem a posição. Quando o GPS falha, a região cresce além do limite e o drone se declara perdido. É por isso que a Central não libera esta missão. Simulação.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/filmes/ilha-barco.mp4</span> · sha256 9105296b96fa</span></figcaption>
+  <figcaption data-record="apps/atalaia/data/filmes/ilha-barco.mp4@9105296b96fa">Um barco a 4 km da praia: o caso que o protocolo recusa. Sobre o mar, sem GNSS, nem o relevo nem a imagem devolvem a posição. Quando o GNSS falha, a região cresce além do limite e o drone se declara perdido. É por isso que a Central não libera esta missão. Simulação.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/filmes/ilha-barco.mp4</span> · sha256 9105296b96fa</span></figcaption>
 </figure></div>
 
 <div class="wide"><figure>

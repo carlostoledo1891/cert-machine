@@ -1,11 +1,17 @@
 #!/usr/bin/env node
-/* build.js — site/atalaia/doutrina/index.html: Atalaia, a proposed mission protocol (minuta, v0.4) and the technical
+/* build.js — site/atalaia/doutrina/index.html: Atalaia, a proposed mission protocol (minuta, v0.4.1) and the technical
    basis of an applied-research programme, for operating drones when satellite navigation (GNSS) is degraded, jammed or
    spoofed, civil use first and military later, with worked missions simulated in Santa Catarina. Unlisted
    (noindex, in no index or sitemap) on the operator's word of 2026-11-15 ("páginas live não listadas", hosted here,
    the unit not named until it agrees). Written in Portuguese: the operator ruled "Pt-BR for this project"
    (2026-11-14), after the site-wide English rule of 2026-10-30, for this audience.
 
+   v0.4.1 (2026-11-16, D31, after an outside review of v0.4): a terminology and consistency pass, not a v0.5 — the
+   position region is the "região de proteção", defined at once in its two levels (deterministic under declared bounds,
+   probabilistic under the declared noise model), "região garantida" kept only as the name it had up to v0.4; the IBGE
+   result says it ran on recorded data from fixed stations with synthetic drags, and what it needed (a motion
+   constraint); an environment matrix in section 12; the embedded box named an engineering hypothesis in section 11;
+   the test results and the records read once, in registros.js, which the landing and /atalaia/eb/ read too.
    v0.4 (2026-11-16, D30, after an outside review of v0.3): GNSS vocabulary; four quantitative claims restated with their
    model and limits (the 6e-8 integrity bound, the 24,300 correlated checks, OSNMA on test vectors, energy without
    temperature and ageing); sensor independence a hypothesis to measure; the cost of caution a named metric; landing
@@ -30,48 +36,18 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const OUT = path.join(ROOT, 'site', 'atalaia', 'doutrina');   /* v0.3: the minuta moved here; /atalaia/ is the landing (landing.js) */
 const DATA = path.join(__dirname, 'data');
 const die = (m) => { console.error('ATALAIA PAGE REFUSED: ' + m); process.exit(1); };
-const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 
-/* ---- the records, checked against their pins */
-const PROV = JSON.parse(fs.readFileSync(path.join(DATA, 'PROVENANCE.json'), 'utf8'));
-for (const [f, h] of Object.entries(PROV.registros)) if (sha(path.join(DATA, f)) !== h) die(f + ' does not match its pin in PROVENANCE.json');
-const CJ = JSON.parse(fs.readFileSync(path.join(DATA, 'central.json'), 'utf8'));
-const MJ = JSON.parse(fs.readFileSync(path.join(DATA, 'missao.json'), 'utf8'));
-/* v0.3 (D28): the Florianópolis island's RESULTS, written by the private generator (the instruments stay private, D27) */
-const IL = JSON.parse(fs.readFileSync(path.join(DATA, 'ilha.json'), 'utf8'));
-const ILM = Object.fromEntries(IL.missoes.map((m) => [m.id, m]));
-if (!IL.caso_ctr || IL.caso_ctr.espaco.verdict !== 'FALTA DADO' || !IL.caso_ctr.espaco.volumes.length) die('the airport-zone case is missing from ilha.json, or its airspace verdict changed');
-const CTRV = IL.caso_ctr.espaco.volumes[0];
-if (ILM.morros.energia12.verdict !== 'PASSA' || ILM['costa-rv'].energia12.verdict !== 'FALTA DADO' || ILM['costa-base'].energia12.verdict !== 'NAO PASSA' || ILM.agua.rota.verdict !== 'NAO PASSA')
-  die('an island verdict the page states has changed: re-read ilha.json before re-wording');
-const AV = CJ.avancado, DI = CJ.direto, AL = CJ.alcance, SI = CJ.sintetico, FR = CJ.frota, KG = CJ.carga_padrao_kg;
-const R12 = AV.rows[KG], R30 = AV.rows[30], RS = DI.rows[KG];
-if (R12.verdict !== 'PASSA') die('the mission load no longer passes: ' + R12.verdict);
-if (R30.verdict !== 'FALTA DADO') die('30 kg is no longer FALTA DADO: ' + R30.verdict);
-if (RS.verdict !== 'NAO PASSA') die('the serra no longer refuses: ' + RS.verdict);
-if (MJ.posto.laudo.verdict !== 'PASSA') die('the route laudo to the post no longer passes');
-if (CJ.clima.verdict !== 'PASSA' || CJ.gps.verdict !== 'PASSA') die('the weather or GNSS laudo no longer passes');
-const V = SI.voos;
-const pa = V.filter((v) => v[2] === 'P'), fa = V.filter((v) => v[2] === 'F'), na = V.filter((v) => v[2] === 'N');
-const paMiss = pa.filter((v) => v[4]).length, faOk = fa.filter((v) => v[3]).length;
-const naOk = na.filter((v) => v[3]).length;
-const CAP = FR.capacidade.quente;
-const zPost = Math.round(MJ.profile.reduce((b, p) => Math.abs(p[0] - AV.post_km) < Math.abs(b[0] - AV.post_km) ? p : b)[1]);
-const zSerra = Math.round(MJ.profile[MJ.profile.length - 1][1]);
-const zBase = Math.round(MJ.profile[0][1]);
-const RES_MIN = CJ.premissas.reserva_min;
-
-/* pt-BR numbers */
-const n = (x, d = 0) => Number(x).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+/* ---- the records: read, pinned and asserted ONCE, in registros.js (v0.4.1), which landing.js and eb.js read too */
+const R = require('./registros.js');
+const { VERSAO, CJ, MJ, IL, ILM, AV, AL, SI, FR, KG, R12, R30, RS, pa, fa, na, paMiss, faOk, naOk, CAP, zPost, zSerra, zBase, RES_MIN, CTRV, n } = R;
 const esc = C.esc;
-const vword = { 'PASSA': ['✓ PASSA', 'held'], 'NAO PASSA': ['× NÃO PASSA', 'dep'], 'FALTA DADO': ['∅ FALTA DADO', 'open'] };
+const vword = R.VWORD;
 const vt = (v) => C.tag(vword[v][0], vword[v][1]);
 
 /* THE MATURITY CONVENTION (v0.2): every claim on the page carries one of three levels, and the stat strip counts the
@@ -289,12 +265,12 @@ if('IntersectionObserver'in window){var io=new IntersectionObserver(function(es)
 
 /* ---------------------------------------------------------------- the page */
 const B = [];
-B.push(C.header({ eyebrow: 'Minuta de trabalho para revisão técnica · versão 0.4 · 16/11/2026',
+B.push(C.header({ eyebrow: 'Minuta de trabalho para revisão técnica · versão ' + VERSAO.n + ' · ' + VERSAO.data,
   title: 'Atalaia: operar drones quando a navegação por satélite deixa de ser confiável',
   deck: 'Proposta de protocolo de missão e base técnica de um programa de pesquisa aplicada, para drones com o GNSS degradado ou negado: uso civil primeiro, militar depois. A tese é que resiliência não é garantir que o drone nunca perca a referência de navegação; é garantir que a organização continue tomando decisões justificáveis e verificáveis quando essa referência deixa de ser confiável.' }));
 B.push('<div class="col">' + C.scope('Esta minuta é a base técnica de um programa de pesquisa aplicada: separa princípios, responsabilidades, procedimentos, requisitos técnicos, critérios de validação e governança, e mostra o protocolo em testes sintéticos na ilha de Florianópolis e no Médio Vale do Itajaí (SC). A avaliação militar vem depois, com resultados documentados. Não é doutrina aprovada, nem certificação de prontidão, nem proposta comercial. Nada aqui voou: cada afirmação traz o seu nível de maturidade. Hoje o Atalaia já pode ser avaliado como proposta metodológica; ainda precisa mostrar que pode ser implementado como sistema e validado como capacidade.') + '</div>');
 B.push('<div class="col">' + C.note({ lab: 'Versão vigente', bodyRaw: C.plainList([
-  { b: 'Versão 0.4, de 16/11/2026.', text: 'Substitui a 0.3 do mesmo dia; o histórico está na seção 13.' },
+  { b: 'Versão ' + VERSAO.n + ', de ' + VERSAO.data + '.', text: 'Revisão de terminologia e de consistência da 0.4 do mesmo dia: a região de proteção, definida nos seus dois níveis; cada resultado com o tipo de dado em que foi obtido; uma matriz de ambientes para a pesquisa; a caixa embarcada como hipótese de engenharia. O histórico está na seção 13.' },
   { b: 'Finalidade.', text: 'Base técnica de um programa de pesquisa aplicada e minuta de protocolo para revisão técnica.' },
   { b: 'Público.', text: 'Engenharia, pesquisa aplicada e quem opera drones em logística, defesa civil e inspeção; mais tarde, avaliadores militares.' },
   { b: 'Situação experimental.', text: 'Simulação e bancada. Nenhum voo real.' },
@@ -312,7 +288,7 @@ B.push(C.section({ lab: '1 · A tese', title: 'Saber o que se pode garantir, nã
   + C.p('A resposta comum é dar ao drone sensores melhores, para que ele nunca se perca. O Atalaia parte de outra pergunta. Em vez de “onde o drone está?”, pergunta “o que a operação consegue garantir sobre onde o drone está?”, e só deixa a missão prosseguir quando as condições de segurança podem ser demonstradas dentro de limites combinados antes do voo. A confiança deixa de estar num sensor isolado e passa a estar num conjunto de evidências que precisam concordar.')
   + C.table({ cols: [{ h: '' }, { h: 'A abordagem comum, e a do Atalaia' }], rows: [
     [c1('A pergunta'), c2([['Comum:', 'onde o drone está?'], ['Atalaia:', 'o que se pode garantir sobre onde o drone está?']])],
-    [c1('A posição'), c2([['Comum:', 'um ponto, a melhor estimativa disponível.'], ['Atalaia:', 'uma região onde o drone certamente está, se as hipóteses declaradas valerem.']])],
+    [c1('A posição'), c2([['Comum:', 'um ponto, a melhor estimativa disponível.'], ['Atalaia:', 'uma região de proteção, que contém a posição real se as hipóteses declaradas valerem.']])],
     [c1('A confiança'), c2([['Comum:', 'no sensor principal, em geral o GNSS.'], ['Atalaia:', 'no acordo entre evidências de física diferente; nenhuma fonte vale sozinha, e a independência entre elas é medida, não suposta.']])],
     [c1('Quando faltam evidências'), c2([['Comum:', 'o sistema responde mesmo assim.'], ['Atalaia:', 'o laudo pode dizer “falta dado” e nomear o dado que decidiria.']])],
     [c1('Quando a missão termina'), c2([['Comum:', 'no pouso.'], ['Atalaia:', 'quando o registro permite reconstruir e conferir cada decisão.']])],
@@ -327,7 +303,7 @@ B.push(C.section({ lab: '2 · O que já existe', title: 'Uma tradição que já 
   + C.p('O que o Atalaia acrescenta é a organização dessas peças num protocolo que se pode conferir: quatro perguntas com veredito antes do voo, a posição como região com limite por fase, estados da missão com ação e autoridade combinadas antes, e um registro que outra instituição refaz. Em uma frase, levar o PNT assegurado até a execução assegurada da missão.')
   + C.table({ cols: [{ h: 'Dimensão' }, { h: 'A tradição, e o que o Atalaia acrescenta' }], rows: [
     [c1('Integridade', mt('D', 'simulação')), c2([['Hoje:', 'fontes confiáveis e redundantes; na aviação, nível de proteção e limite de alerta.'], ['Atalaia:', 'um teste explícito: a posição do GNSS precisa caber na região calculada com evidências independentes.']])],
-    [c1('Navegação', mt('D', 'simulação')), c2([['Hoje:', 'fusão de sensores, que entrega a melhor estimativa.'], ['Atalaia:', 'a região garantida ao lado da melhor estimativa; quando as duas discordam, vale a região.']])],
+    [c1('Navegação', mt('D', 'simulação')), c2([['Hoje:', 'fusão de sensores, que entrega a melhor estimativa.'], ['Atalaia:', 'a região de proteção ao lado da melhor estimativa; quando as duas discordam, vale a região.']])],
     [c1('Planejamento', mt('D', 'simulação')), c2([['Hoje:', 'avaliação de disponibilidade e de risco.'], ['Atalaia:', 'quatro perguntas com veredito (passa, não passa, falta dado) e o dado que mudaria cada um.']])],
     [c1('Segurança', mt('P')), c2([['Hoje:', 'proteções e procedimentos de contingência.'], ['Atalaia:', 'seis estados da missão, com ação e autoridade combinadas antes do voo.']])],
     [c1('Pós-missão', mt('D', 'bancada')), c2([['Hoje:', 'registros de voo e avaliação.'], ['Atalaia:', 'registro assinado a bordo, encadeado e refeito por um verificador independente.']])],
@@ -338,7 +314,7 @@ B.push(C.section({ lab: '2 · O que já existe', title: 'Uma tradição que já 
 const PH = [
   ['1', 'Planejar', 'As quatro perguntas', 'Antes de decolar, a Central responde as quatro perguntas da seção 6. A viabilidade passa: rota, energia, clima e GNSS passam no pior caso. As outras três dizem falta dado, e a seção 6 mostra por quê.', 'Procedimento antes do voo (seção 6).', mt('D', 'simulação') + ' Laudos calculados sobre o relevo de Blumenau e a ficha da DJI.'],
   ['2', 'Decolar', 'Estado 0: o GNSS é conferido antes de sair', 'A caixa a bordo compara o GNSS com os próprios sensores de movimento e confere a assinatura digital que o satélite europeu Galileo coloca nas mensagens. São dois testes separados: a assinatura diz que os dados vêm do Galileo; a comparação diz se a posição faz sentido.', 'Princípios 1 e 4; estado 0 (seção 7).', mt('D', 'vetores oficiais') + ' A conferência da assinatura passou nos vetores de teste oficiais do Galileo: 193.887 conferências, nenhuma falha. Isso mostra que a conferência funciona nesses vetores, não que um receptor resista a falsificação ou retransmissão; ainda não foi feita com sinal ao vivo.'],
-  ['3', 'Ataque', 'Estados 1 e 2: alguém falsifica o GNSS', 'No meio do caminho, um aparelho passa a imitar o GNSS e a puxar o drone devagar para o lado. A posição informada encosta na borda da região (estado 1) e depois sai dela (estado 2): a caixa declara o GNSS falso e avisa o piloto, apontando o culpado.', 'Estados 1 e 2 (seção 7).', mt('D', 'simulação') + ' Numa viagem simulada de caminhão na BR-040, o alarme veio 3 segundos depois de a posição real sair da estrada. Com dados reais da rede de estações do IBGE, desvios lentos assim passaram despercebidos sem a caixa em 24 de 24 tentativas.'],
+  ['3', 'Ataque', 'Estados 1 e 2: alguém falsifica o GNSS', 'No meio do caminho, um aparelho passa a imitar o GNSS e a puxar o drone devagar para o lado. A posição informada encosta na borda da região (estado 1) e depois sai dela (estado 2): a caixa declara o GNSS falso e avisa o piloto, apontando o culpado.', 'Estados 1 e 2 (seção 7).', mt('D', 'simulação') + ' Numa viagem simulada de caminhão na BR-040, o alarme veio 3 segundos depois de a posição real sair da estrada. Em dados GNSS reais gravados em estações fixas do IBGE, desvios lentos sintéticos foram detectados em 24 de 24 tentativas quando o teste sabia que a estação estava parada, e em nenhuma sem essa restrição de movimento: num drone, ela viria do sensor de movimento da caixa, e isso ainda não foi testado com dados de voo.'],
   ['4', 'Sem GNSS', 'Estado 2: segue pela região', 'A caixa deixa o GNSS de lado e continua com a região: o movimento a faz crescer, o relevo e a imagem a estreitam. Em Blumenau o relevo ajuda em todo o caminho, que é o caso favorável. Num DJI de hoje, a caixa não pode guiar o drone: avisa, e o piloto manda parar ou pousar.', 'Estado 2 e o limite do DJI (seção 7).', mt('D', 'simulação') + ' Em 45 voos simulados de 45 minutos sobre relevo e imagens reais de Minas Gerais, a posição real ficou dentro da região em todas as 24.300 verificações. São instantes de 45 trajetórias, correlacionados dentro de cada voo: não são 24.300 experimentos independentes.'],
   ['5', 'Chegada', 'A descida só sobre o marcador de quem recebe', 'Perto do posto, a câmera compara o chão com o mapa, e a região se estreita. No ponto final, a caixa reconhece o painel com o código de uso único, e o piloto vê o marcador e autoriza a descida. Sem enlace não há autorização, e sem autorização não há descida de precisão: valem os estados 3 e 4.', 'Procedimento na chegada (seção 7).', mt('P') + ' O marcador e a descida de precisão são proposta. Em simulação, a comparação entre câmera e mapa errou até cerca de 10 m em 95% dos casos, de alturas maiores que a de uma entrega.'],
   ['6', 'Entrega', 'O registro é lacrado', 'O registro do voo é lacrado a bordo: onde a entrega aconteceu, quando aconteceu cada etapa, em que estado a missão esteve e as contas da carga, com o pedido, o embarcado e o entregue.', 'Governança (seção 10).', mt('D', 'bancada') + ' O laudo e o lacre foram testados em bancada no Veto, o nosso instrumento de perícia: 53 erros plantados de propósito, todos pegos.'],
@@ -375,7 +351,7 @@ B.push(C.section({ lab: '3 · Os testes', title: 'Testes sintéticos: a ilha pri
 /* 4 · principles */
 const PRINC = [
   ['Confiança proporcional à evidência.', 'Nenhuma fonte de posição é aceita sozinha, nem o GNSS nem a alternativa a ele. A posição vale quando fontes de natureza física diferente concordam, e vale só na medida em que concordam. Física diferente não garante erros independentes: a independência é uma hipótese, medida na qualificação.'],
-  ['A posição é uma região.', 'O protocolo trabalha com a região onde o drone certamente está, se as hipóteses declaradas valerem, e cada fase da missão tem um tamanho máximo de região que tolera. Um ponto sem região não autoriza nada.'],
+  ['A posição é uma região.', 'O protocolo trabalha com a região de proteção, que contém a posição do drone se as hipóteses declaradas valerem, e cada fase da missão tem um tamanho máximo de região que tolera. Um ponto sem região não autoriza nada.'],
   ['Desconfiar também da alternativa.', 'O sistema precisa perceber quando a própria estimativa deixou de valer. Quando duas evidências que deveriam valer juntas se contradizem, a região fica vazia: isso é um alarme, e prova que alguma hipótese falhou.'],
   ['Autenticar não é garantir a posição.', 'Uma assinatura válida no sinal do satélite prova de onde vieram os dados, não que o sinal chegou direto do satélite ao drone. A autenticação da mensagem e a integridade da posição são dois controles, conferidos em separado.'],
   ['O direito de não decidir.', 'Toda pergunta tem três respostas: passa, não passa e falta dado. Falta dado nunca vira passa por pressa; vira o pedido do dado que decidiria.'],
@@ -396,7 +372,7 @@ B.push(C.section({ lab: '5 · Responsabilidades', title: 'O drone é uma parte; 
     [c1('Comando e controle'), c2([['Quem:', 'quem responde pela missão na organização que opera (na defesa civil, a coordenação da operação; numa Força, o comandante), e a cadeia acima.'], ['Responde por:', 'autorizar a missão, aceitar por escrito o risco que sobra, interromper.']])],
     [c1('Central de operações'), c2([['Quem:', 'o operador da Central, junto ao planejamento.'], ['Responde por:', 'calcular as quatro perguntas, acompanhar o voo, receber e guardar os registros (Atalaia Central).']])],
     [c1('Piloto'), c2([['Quem:', 'o piloto remoto responsável.'], ['Responde por:', 'conduzir o voo, agir pelo procedimento, autorizar a descida.']])],
-    [c1('Plataforma aérea'), c2([['Quem:', 'o drone e a caixa a bordo (Atalaia Bordo).'], ['Responde por:', 'sensores, região garantida, energia, registro assinado a bordo.']])],
+    [c1('Plataforma aérea'), c2([['Quem:', 'o drone e a caixa a bordo (Atalaia Bordo).'], ['Responde por:', 'sensores, região de proteção, energia, registro assinado a bordo.']])],
     [c1('Apoio'), c2([['Quem:', 'manutenção, cartografia e calibração.'], ['Responde por:', 'mapas e suas datas, calibração dos sensores, baterias, chaves da caixa.']])],
     [c1('Verificação independente'), c2([['Quem:', 'outra instituição: na pesquisa, um laboratório de universidade; numa avaliação militar, o IME ou o CTEx.'], ['Responde por:', 'refazer cada decisão a partir do registro, com um programa próprio.']])]] })
   + C.p('A resiliência também tem cinco dimensões, e cada uma pede uma resposta diferente.')
@@ -434,7 +410,7 @@ B.push(C.section({ lab: '6 · Procedimento: antes do voo', title: 'Quatro pergun
   + C.figure({ svgRaw: twin(energia(false), energia(true)), record: 'apps/atalaia/data/central.json',
     caption: 'A margem de energia, que é a bateria menos o gasto menos a reserva, do pior ao melhor caso, para três missões a partir da mesma base. Inteira à direita do zero, passa; cruzando o zero, falta dado; inteira à esquerda, não passa.' })
   + C.p('Todo laudo diz o que mudaria o resultado, para que o planejador saiba o que ajustar e a organização saiba que dado vale a pena medir. Com 30 kg, o laudo não decide: no pior caso o drone pousaria abaixo da reserva; no melhor, sobraria energia. O instrumento não chuta e diz o que decidiria: nenhuma medida sozinha basta, e juntas decidem as de um programa de voos de calibração (consumo com carga, subida, saúde das baterias e tempo de pouso). Já um posto na serra, a 15 km, não passa nem com o drone vazio, porque ida e volta somam 30 km e a ficha da DJI dá ' + n(CJ.ficha.alcance_vazio_km) + ' km ao FlyCart 30 sem carga.')
-  + C.p('Com ' + KG + ' kg, a distância garantida hoje é de ' + n(AL.passa_ate_km) + ' km. Entre ' + n(AL.passa_ate_km + 0.5, 1) + ' e ' + n(AL.nao_passa_de_km - 0.5, 1) + ' km falta dado, e a partir de ' + n(AL.nao_passa_de_km) + ' km não passa. Cada voo de calibração estreita as faixas, e a distância garantida cresce.')
+  + C.p('Com ' + KG + ' kg, a distância que passa no pior caso, dentro das premissas, é hoje de ' + n(AL.passa_ate_km) + ' km. Entre ' + n(AL.passa_ate_km + 0.5, 1) + ' e ' + n(AL.nao_passa_de_km - 0.5, 1) + ' km falta dado, e a partir de ' + n(AL.nao_passa_de_km) + ' km não passa. Cada voo de calibração estreita as faixas, e essa distância cresce.')
   + C.note({ lab: 'De onde vêm as contas de energia', bodyRaw: C.plainList([
     { b: 'Da ficha da DJI.', text: 'Duas baterias de ' + n(CJ.ficha.bateria_wh, 1) + ' Wh; ' + n(CJ.ficha.alcance_vazio_km) + ' km sem carga e ' + n(CJ.ficha.alcance_cheio_km) + ' km com 30 kg; ' + n(CJ.ficha.pairar_vazio_min) + ' e ' + n(CJ.ficha.pairar_cheio_min) + ' minutos pairando; vento máximo de ' + n(CJ.ficha.vento_max_ms) + ' m/s (dji.com, lida em 15/11/2026).' },
     { b: 'Premissas declaradas.', text: 'A ficha usou de 85% a 100% da bateria; a bateria tem de 90% a 100% da saúde; o ar fica mais fino com a altitude; o vento é o da previsão; decolagem, pouso e descarga levam de ' + n(CJ.premissas.paira_min[0]) + ' a ' + n(CJ.premissas.paira_min[1]) + ' minutos; a reserva é de ' + n(RES_MIN) + ' minutos pairando.' },
@@ -461,13 +437,17 @@ B.push(C.section({ lab: '7 · Procedimento: durante o voo', title: 'Seis estados
   + C.p('Na chegada, a descida de precisão só acontece sobre o painel que o posto estende no chão, com um código de uso único recebido junto com a missão, e só depois que o piloto confirma. Sem o marcador de quem recebe a função não existe: ela não serve para apontar um ponto qualquer do terreno. E, sem enlace, não há confirmação; vale o estado 3 ou 4.')
   + C.p('O voo sintético abaixo mostra os estados 0 e 2 numa missão inteira. O drone sai da base, sofre o ataque ao GNSS no meio do caminho, segue pela região, entrega e volta, e a cada instante a Central acompanha quanta energia sobra, do pior ao melhor caso.')
   + C.figure({ svgRaw: voo(), record: 'apps/atalaia/data/central.json',
-    caption: 'O voo sintético da missão, com ' + KG + ' kg. A faixa cinza é a energia que sobra, do pior caso (linha forte) ao melhor; a linha tracejada é a reserva. O círculo em volta do drone é a área garantida, e fica vermelho enquanto o GNSS é falso. Seguir pela região supõe um autopiloto que aceite a posição da caixa; num DJI de hoje, a ação no estado 2 seria pousar. Simulação; não foi voado.' }) }));
+    caption: 'O voo sintético da missão, com ' + KG + ' kg. A faixa cinza é a energia que sobra, do pior caso (linha forte) ao melhor; a linha tracejada é a reserva. O círculo em volta do drone é a região de proteção, e fica vermelho enquanto o GNSS é falso. Seguir pela região supõe um autopiloto que aceite a posição da caixa; num DJI de hoje, a ação no estado 2 seria pousar. Simulação; não foi voado.' }) }));
 
 /* 8 · technical requirements */
-B.push(C.section({ lab: '8 · Requisitos técnicos', title: 'O que a área garantida garante, e sob que hipóteses', bodyRaw:
-  C.p('A área garantida é o centro técnico do protocolo e a expressão mais forte da minuta, por isso precisa ser lida com cuidado. Ela é a região onde o drone não pode deixar de estar se cada erro de cada sensor ficar dentro do limite declarado. É uma consequência matemática, calculada com aritmética de intervalos: dentro das hipóteses, vale por construção. Fora delas, não vale, e o protocolo exige perceber quando se saiu delas.')
+B.push(C.section({ lab: '8 · Requisitos técnicos', title: 'O que a região de proteção garante, e sob que hipóteses', bodyRaw:
+  C.p('A região de proteção é o centro técnico do protocolo e a sua afirmação mais forte, por isso precisa ser lida com cuidado. Ela garante em dois níveis, e nenhum dos dois é absoluto.')
   + C.plainList([
-    { b: 'O que está provado.', raw: esc('Se os erros ficam dentro dos limites, a posição real está dentro da região. O limite da deriva inercial tem demonstração escrita. Para o ruído dos sensores, a prova vale dentro de um modelo declarado: se o ruído de cada sensor for gaussiano, com a densidade declarada na ficha, a chance de a sua soma acumulada sair do envelope de seis desvios num voo de 45 minutos é no máximo de 6 em 100 milhões por componente (o princípio da reflexão, somado sobre cerca de 15 intervalos do voo). Esse é o risco de integridade da garantia, no sentido em que a aviação usa o termo, e vale só dentro do modelo: caudas mais pesadas que a gaussiana, sensores com erros correlacionados ou uma densidade declarada errada não estão cobertos. É isso que a bancada mede.') + ' ' + mt('D', 'prova escrita') },
+    { b: 'Garantia determinística, sob limites declarados.', text: 'Se cada erro de cada sensor ficar dentro do limite declarado na ficha de calibração, a posição real está dentro da região. É uma consequência matemática, calculada com aritmética de intervalos: dentro dessas hipóteses, vale por construção.' },
+    { b: 'Garantia probabilística, sob um modelo de ruído declarado.', text: 'A chance de o ruído dos sensores sair desses limites durante o voo é limitada dentro de um modelo estatístico declarado (abaixo). Fora do modelo, o número não vale.' }])
+  + C.p('Fora das hipóteses, a região não vale, e o protocolo exige perceber quando se saiu delas. O nome vem da aviação, onde o nível de proteção de um receptor certificado é a região que deve conter a posição com um risco declarado (seção 2); usar o nome não sugere equivalência com um sistema aeronáutico certificado. Até a versão 0.4, esta minuta a chamava de região garantida.')
+  + C.plainList([
+    { b: 'O que está provado.', raw: esc('Se os erros ficam dentro dos limites, a posição real está dentro da região. O limite da deriva inercial tem demonstração escrita. Para o ruído dos sensores, a prova vale dentro de um modelo declarado: se o ruído de cada sensor for gaussiano, com a densidade declarada na ficha, a chance de a sua soma acumulada sair do envelope de seis desvios num voo de 45 minutos é no máximo de 6 em 100 milhões por componente (o princípio da reflexão, somado sobre cerca de 15 intervalos do voo). Esse é o risco de integridade da região de proteção, no sentido em que a aviação usa o termo, e vale só dentro do modelo: caudas mais pesadas que a gaussiana, sensores com erros correlacionados ou uma densidade declarada errada não estão cobertos. É isso que a bancada mede.') + ' ' + mt('D', 'prova escrita') },
     { b: 'O que foi testado.', raw: esc('Em 45 voos simulados de 45 minutos sobre relevo e imagens reais de Minas Gerais, a posição real ficou dentro da região em todas as 24.300 verificações; são instantes de 45 trajetórias, correlacionados dentro de cada voo, e não 24.300 experimentos independentes. Com sensor inercial de classe tática e câmera, a melhor estimativa errou até 12 m em 95% do tempo, e a região teve raio típico de 200 m. Um sensor inercial seis vezes pior que o declarado quebrou o limite, como deveria.') + ' ' + mt('D', 'simulação') },
     { b: 'O que ainda não se sabe.', raw: esc('Se os sensores reais respeitam os limites declarados. Na simulação, cada erro foi sorteado dentro do seu limite; por isso o teste confere a matemática e o programa, não o equipamento. Só voos reais respondem, na etapa de calibração da seção 9.') + ' ' + mt('P') }])
   + C.p('Cada hipótese da garantia pode falhar de um jeito próprio. A tabela diz o que acontece e como o protocolo detecta ou limita cada falha.')
@@ -504,14 +484,7 @@ B.push(C.section({ lab: '9 · Critérios de validação', title: 'Como um result
   + C.p('A primeira etapa já foi feita para a missão de referência. Uma semana sintética da frota: ' + SI.n + ' saídas da base de Blumenau, com o posto a uma distância de 2 a 11 km, carga de 5 a 30 kg e previsão de vento sorteadas. A Central decidiu cada saída antes do voo: liberou ' + pa.length + ', esperou dado em ' + fa.length + ' e recusou ' + na.length + '. Depois, um simulador voou cada uma com um drone e um vento sorteados, e em uma de cada vinte o vento real passou da previsão. O padrão é o do mapa de alcance da seção 3: perto e leve passa, longe e pesado não passa, e no meio o instrumento não chuta.')
   + C.p('Nenhuma das ' + pa.length + ' saídas liberadas pousou abaixo da reserva, ' + (paMiss === 1 ? 'nem a única' : 'nem as ' + paMiss) + ' em que o vento passou da previsão. Das ' + fa.length + ' que esperaram dado, ' + faOk + ' teriam chegado com reserva: é o preço de não chutar, e ele cai quando um voo de calibração mede o consumo real. Das ' + na.length + ' recusadas, ' + (naOk === 0 ? 'nenhuma teria chegado' : naOk + ' teriam chegado') + '. Dentro das premissas, uma saída liberada não falha por construção, porque é aritmética: o teste confere as contas e mede o custo da cautela, e o comportamento do drone, da bateria e do vento reais só se mede em campo.')
   + C.pRaw(esc('O custo da cautela é uma métrica central da pesquisa, não um efeito colateral. Uma tecnologia de segurança se mede pelas situações perigosas que evita e também pela indisponibilidade que causa: nesta semana sintética, ' + faOk + ' das ' + fa.length + ' saídas retidas por falta de dado teriam chegado. Cada etapa da qualificação relata as duas coisas, e os voos de calibração são avaliados pelo quanto reduzem esse custo sem liberar nenhuma saída que não chegaria.') + ' ' + mt('D', 'simulação'))
-  + C.table({ cols: [{ h: 'Resultado' }, { h: 'O que mostra' }], rows: [
-    [c1('24.300 de 24.300', mt('D', 'simulação')), c2([['', 'verificações em que a posição real ficou dentro da região, em 45 voos simulados sobre relevo e imagens reais de Minas Gerais; instantes correlacionados de 45 trajetórias, não experimentos independentes.']])],
-    [c1(faOk + ' de ' + fa.length, mt('D', 'simulação')), c2([['', 'saídas retidas por falta de dado que teriam chegado com reserva, na semana sintética de Blumenau: o custo da cautela.']])],
-    [c1('12 m', mt('D', 'simulação')), c2([['', 'erro da melhor estimativa em 95% do tempo, com sensor inercial tático e câmera, nos mesmos voos.']])],
-    [c1('3 s', mt('D', 'simulação')), c2([['', 'até o alarme, com o GNSS apontado como culpado, numa viagem simulada de caminhão na BR-040.']])],
-    [c1('24 de 24', mt('D', 'dados reais gravados')), c2([['', 'desvios lentos que passariam despercebidos sem a caixa, com dados reais da rede de estações do IBGE.']])],
-    [c1('0 de 193.887', mt('D', 'vetores oficiais')), c2([['', 'falhas na conferência da assinatura do Galileo, nos vetores de teste oficiais; não mede resistência a falsificação ou retransmissão.']])],
-    [c1('53 de 53', mt('D', 'bancada')), c2([['', 'erros plantados no laudo e no lacre que foram pegos, em bancada no Veto.']])]] }) }));
+  + C.table({ cols: [{ h: 'Resultado' }, { h: 'O que mostra' }], rows: R.EVID.map((e) => [c1(e.k, mt(e.l, e.det)), c2([['', e.t]])]) }) }));
 
 /* 10 · governance */
 B.push(C.section({ lab: '10 · Governança', title: 'A missão termina quando pode ser conferida', bodyRaw:
@@ -536,7 +509,8 @@ B.push(C.section({ lab: '11 · Limites', title: 'O que ainda não está demonstr
     { b: 'A ilha está sob espaço aéreo controlado.', text: 'O aeroporto Hercílio Luz controla o espaço aéreo da ilha. Lá, os testes são só sintéticos; voo real, só em campo autorizado.' },
     { b: 'Num DJI, hoje, a caixa avisa e manda parar ou pousar.', text: 'Seguir a rota com a posição da caixa depende de um modo que a DJI documentou e ainda não liberou, ou de um autopiloto aberto.' },
     { b: 'As contas de energia começam como premissas.', text: 'Até os voos de calibração, muitas missões vão dar falta dado. É o comportamento certo, e tem um custo: missões retidas que teriam chegado. A pesquisa mede os dois lados.' },
-    { b: 'As garantias valem dentro de modelos.', text: 'A região garantida vale se os limites declarados valerem; o risco de integridade, se o ruído seguir o modelo gaussiano declarado; a concordância entre fontes, se os erros delas forem independentes. Nenhuma dessas hipóteses foi medida em sensores reais.' },
+    { b: 'A caixa embarcada ainda é uma hipótese de engenharia.', text: 'Ela ainda não existe. Precisa mostrar que recebe os dados do drone, mantém a sincronização, calcula a região, registra os eventos e cabe nos limites de energia, peso e processamento da plataforma. É um problema de engenharia embarcada, não só de matemática ou de programa, e é o maior salto entre a maturidade de hoje e uma demonstração experimental.' },
+    { b: 'As garantias valem dentro de modelos.', text: 'A região de proteção vale se os limites declarados valerem; o risco de integridade, se o ruído seguir o modelo gaussiano declarado; a concordância entre fontes, se os erros delas forem independentes. Nenhuma dessas hipóteses foi medida em sensores reais.' },
     { b: 'A minuta não está completa.', text: 'Faltam a cadeia de autorização da organização que opera, o programa de adestramento, a aprovação dos estados e dos limites por fase, e a revisão técnica e, depois, a militar.' },
     { b: 'Não emite, não guia armas, não rastreia pessoas.', text: 'Não bloqueia nem falsifica sinal fora de área autorizada, não faz guerra eletrônica de ataque e não decodifica comunicações. A descida de precisão só existe sobre o marcador de quem recebe, e quem está em terra recebe alertas por área, sem identificação.' }])
   + C.table({ cols: [{ h: 'Aspecto' }, { h: 'Estado nesta versão' }], rows: [
@@ -553,12 +527,22 @@ B.push(C.section({ lab: '12 · Próximo passo', title: 'Pesquisa aplicada primei
   C.p('O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia, antes de qualquer avaliação militar: engenharia embarcada, experimento controlado e validação independente, com critérios escritos antes de cada teste e os resultados ruins relatados junto com os bons. O programa tem cinco pacotes de trabalho.')
   + C.plainList([
     { b: 'Ameaças e falhas.', raw: esc('Bloqueio, falsificação, retransmissão, multicaminho em vale, perda de enlace, falhas de sensor e erro de causa comum, cada um com um modelo e um conjunto de falhas gravadas para injetar.') + ' ' + mt('P') },
-    { b: 'Arquitetura de integridade.', raw: esc('A região garantida, o teste do GNSS contra a região, a conferência do Galileo em separado e os estados da missão, integrados numa caixa de bancada.') + ' ' + mt('P') },
-    { b: 'Ambiente experimental.', raw: esc('Simulação reproduzível e bancada com sinais gravados, na ilha e no Vale, e voos de calibração em campo autorizado.') + ' ' + mt('P') },
+    { b: 'Arquitetura de integridade.', raw: esc('A região de proteção, o teste do GNSS contra a região, a conferência do Galileo em separado e os estados da missão, integrados numa caixa de bancada.') + ' ' + mt('P') },
+    { b: 'Ambiente experimental.', raw: esc('Simulação reproduzível e bancada com sinais gravados, na ilha e no Vale, e voos de calibração em campo autorizado, percorrendo a matriz de ambientes abaixo.') + ' ' + mt('P') },
     { b: 'Validação independente.', raw: esc('Contenção da posição real pela região, tempo até o alarme, falsos alarmes por hora de voo, disponibilidade, custo da cautela e erro da melhor estimativa, medidos contra critérios escritos antes, por quem não desenvolveu o sistema.') + ' ' + mt('P') },
     { b: 'Revisão da doutrina.', raw: esc('O que os resultados sustentarem sobe de nível nesta minuta; o que não sustentarem é rebaixado.') + ' ' + mt('P') }])
+  + '<h3 class="at-h3">Uma matriz de ambientes</h3>'
+  + C.p('A navegação pelo relevo e pela imagem depende do terreno, e os casos de hoje são, em boa parte, favoráveis. O objetivo da matriz é descobrir em que ambientes a arquitetura mantém utilidade, não demonstrar que ela funciona em todo lugar. Onde ela não ajudar, o resultado esperado é o laudo dizer falta dado ou não passa, e nomear o que decidiria.')
+  + C.table({ cols: [{ h: 'Ambiente' }, { h: 'Onde, e o que se sabe hoje' }], rows: [
+    [c1('Relevo montanhoso', mt('D', 'simulação')), c2([['Onde:', 'o Médio Vale do Itajaí e os morros do norte da ilha.'], ['Hoje:', 'o relevo devolve a posição em todo o caminho das missões simuladas. É o caso favorável.']])],
+    [c1('Relevo plano', mt('D', 'simulação')), c2([['Onde:', 'uma rota de ' + n(MJ.amazonia.km) + ' km a partir de Tabatinga, na fronteira amazônica.'], ['Hoje:', 'o relevo não ajuda em nenhum ponto; sem GNSS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado.']])],
+    [c1('Área costeira', mt('D', 'simulação')), c2([['Onde:', 'o norte da ilha: morros, praias, dunas e a lagoa em poucos quilômetros.'], ['Hoje:', 'nas missões simuladas, o relevo devolve a posição, e quem decide é a energia.']])],
+    [c1('Ambiente marítimo', mt('D', 'simulação')), c2([['Onde:', 'um barco a 4 km da praia.'], ['Hoje:', 'nem o relevo nem a imagem devolvem a posição no fim da perna, e a rota não passa sem o GNSS íntegro.']])],
+    [c1('Ambiente urbano', mt('P')), c2([['Onde:', 'nenhuma missão simulada ainda.'], ['Hoje:', 'prédios refletem o sinal de satélite, e o modelo de elevação mede o topo deles. Não testado.']])],
+    [c1('Vegetação densa', mt('P')), c2([['Onde:', 'nenhuma missão simulada ainda.'], ['Hoje:', 'o modelo de elevação mede o topo da mata, e o limite do altímetro sobre mata alta precisa ser medido antes de valer. Não testado.']])]] })
   + C.p('A sequência pretendida tem três momentos. Primeiro, a pesquisa aplicada com um instituto de engenharia, para obter validação externa, engenharia experimental e evidência reproduzível; ali o interlocutor é técnico. Depois, uma demonstração a uma organização usuária, com resultados, limitações e custos, pedindo uma avaliação de interesse, não a adoção. Só então, se houver interesse, o encaminhamento a um escalão técnico, para discutir experimentação doutrinária e requisitos específicos. Um resultado favorável não precisa ser a adoção: um parecer técnico independente e uma experimentação autorizada já seriam resultados.')
   + C.p('O Exército entra depois, como avaliador, com os resultados documentados e requisitos operacionais específicos. Até lá, a minuta serve de referência para quem opera drones e quer discutir os requisitos.')
+  + C.pRaw(esc('Para interlocutores militares, um resumo do que se propõe ao Exército, do que já foi demonstrado e do que ainda não foi está em ') + '<a href="/atalaia/eb/">/atalaia/eb/</a>.')
   + C.p('Quando chegar a hora da avaliação militar, a proposta tem caminho conhecido no Exército. A doutrina é produzida pelo Sistema de Doutrina Militar Terrestre, o SIDOMT, e o COTER, por intermédio do Centro de Doutrina do Exército, prepara a diretriz de cada produto doutrinário, de um manual de campanha a um caderno de instrução. Antes de virar manual, uma ideia passa pela sistemática de experimentação doutrinária. E a Doutrina Militar Terrestre mede uma capacidade por sete fatores inseparáveis, o DOAMEPI. A tabela diz o que cada fator pediria do Atalaia; nenhum deles é atendido só com equipamento.')
   + C.table({ cols: [{ h: 'Fator' }, { h: 'O que o protocolo pediria' }], rows: [
     [c1('Doutrina', mt('P')), c2([['', 'Esta minuta, revista e transformada no produto que o COTER indicar: princípios, estados da missão, critérios de validação.']])],
@@ -572,7 +556,8 @@ B.push(C.section({ lab: '12 · Próximo passo', title: 'Pesquisa aplicada primei
   + C.p('As perguntas que a pesquisa responde:')
   + C.plainList([
     { b: 'Os limites de erro declarados se mantêm em sensores reais,', text: 'na bancada e em voo: o inercial, o altímetro, a câmera e o relógio?' },
-    { b: 'A região garantida contém a posição real em todas as épocas,', text: 'e qual o tamanho dela na prática?' },
+    { b: 'A região de proteção contém a posição real em todas as épocas,', text: 'e qual o tamanho dela na prática?' },
+    { b: 'Em que ambientes a arquitetura mantém utilidade,', text: 'na matriz acima, e onde ela só consegue dizer falta dado?' },
     { b: 'Os sensores erram de modo independente,', text: 'e o risco de integridade medido fica abaixo do que o modelo gaussiano prevê?' },
     { b: 'Quanto custa a cautela:', text: 'quantas missões retidas teriam chegado, e quanto os voos de calibração reduzem esse número?' },
     { b: 'Como medir o risco no solo', text: 'de pousar onde está, trecho por trecho da rota?' },
@@ -580,9 +565,10 @@ B.push(C.section({ lab: '12 · Próximo passo', title: 'Pesquisa aplicada primei
     { b: 'A arquitetura cabe num módulo embarcado', text: 'ligado a drones de fabricantes diferentes?' },
     { b: 'Que mudanças nesta minuta', text: 'os resultados exigem?' }]) }));
 
-/* 13 · versions (v0.4, D30) */
+/* 13 · versions (v0.4, D30; v0.4.1, D31) */
 B.push(C.section({ lab: '13 · Versões', title: 'Histórico desta minuta', bodyRaw:
   C.plainList([
+    { b: 'v0.4.1, 16/11/2026.', text: 'Revisão de terminologia e de consistência, sem mudar a proposta: a região garantida passa a se chamar região de proteção, definida logo na seção 8 nos seus dois níveis, o determinístico, sob limites declarados, e o probabilístico, sob o modelo de ruído declarado; o resultado com as estações do IBGE diz que foram dados gravados em estações fixas, com desvios sintéticos, e o que o teste precisou saber; a matriz de ambientes na seção 12; a caixa embarcada como hipótese de engenharia na seção 11; um resumo para interlocutores militares, com a comparação com a simulação da ESAO de 2025, em /atalaia/eb/.' },
     { b: 'v0.4, 16/11/2026.', text: 'Depois de uma revisão externa da v0.3: vocabulário GNSS; quatro afirmações quantitativas reescritas com o modelo e os limites (o risco de integridade, as 24.300 verificações, a conferência do Galileo nos vetores de teste, a energia sem temperatura nem envelhecimento); a independência entre sensores como hipótese a medir; o custo da cautela como métrica; o risco no solo de pousar onde está; papéis de pesquisa antes dos militares; os três momentos; o caso da zona de controle do aeroporto; esta seção.' },
     { b: 'v0.3, 16/11/2026.', text: 'Base técnica de um programa de pesquisa aplicada, uso civil primeiro: a ilha de Florianópolis como área principal de testes sintéticos, o Médio Vale do Itajaí como referência operacional; a minuta passa a viver em /atalaia/doutrina/, e /atalaia/ vira a página de entrada.' },
     { b: 'v0.2, 15/11/2026.', text: 'Minuta doutrinária: princípios, responsabilidades, procedimentos, requisitos, critérios de validação e governança separados; cada afirmação com o seu nível de maturidade.' },
@@ -596,22 +582,11 @@ B[STATS_AT] = C.stats([
   { k: 'Áreas de teste', v: '2', n: 'a ilha de Florianópolis e o Médio Vale do Itajaí (SC)' }]);
 if (TALLY.V !== 0) die('a claim is marked field-validated, and nothing has flown');
 
-const foot = '<p>' + esc('Minuta v0.4, 16/11/2026. Preparada por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho para revisão: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão. Os números das missões vêm de apps/atalaia/data (relevo Copernicus GLO-90 e GLO-30, ficha da DJI; cada registro fixado por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto, cada um com o seu nível de maturidade.') + '</p>';
+const foot = '<p>' + esc('Minuta v' + VERSAO.n + ', ' + VERSAO.data + '. Preparada por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho para revisão: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão. Os números das missões vêm de apps/atalaia/data (relevo Copernicus GLO-90 e GLO-30, ficha da DJI; cada registro fixado por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto, cada um com o seu nível de maturidade.') + '</p>';
 
-const css = `
-.at-src{font-size:var(--text-small);color:var(--ink-4)}
+const css = R.CSS_BASE + `
 .at-nw{display:none}
 @media (max-width:640px){.at-w{display:none}.at-nw{display:block}}
-.at-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin:var(--s-2) 0 0}
-.at-h3{margin:var(--s-6) 0 var(--s-3)}
-.at-cl{display:block}
-.at-cl+.at-cl{margin-top:var(--s-2)}
-table{table-layout:fixed}
-th:first-child,td:first-child{width:30%}
-@media (max-width:640px){.tw{border:0;border-radius:0;background:none}table{min-width:0}thead{display:none}tr{display:block;border-top:1px solid var(--rule)}td{display:block;border-bottom:0;padding:var(--s-1) 0}.tw td:first-child{width:auto;position:static;background:none;padding-top:var(--s-4)}td:last-child{padding-bottom:var(--s-4)}.at-st{white-space:normal}}
-.at-st{display:inline-block;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-slight);color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:1px var(--s-2);white-space:nowrap}
-.at-st.p{border-style:dashed;border-color:var(--ink-4)}
-.at-st.v{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .at-rules ol{margin:0;padding-left:1.6em;display:flex;flex-direction:column;gap:var(--s-4)}
 .at-rules li::marker{font-family:var(--f-mono);color:var(--ink-4)}
 .at-rules li p{margin:0}
@@ -681,7 +656,7 @@ th:first-child,td:first-child{width:30%}
 
 let html = TPL.render({ title: 'Atalaia: operar drones quando a navegação por satélite deixa de ser confiável', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
   cssRaw: css, scriptRaw: vooScript(),
-  desc: 'Atalaia v0.4: minuta de protocolo de missão e base técnica de um programa de pesquisa aplicada para drones com o GNSS degradado ou negado, civil primeiro e militar depois; princípios, estados da missão, requisitos, critérios de validação e governança, com testes sintéticos em Santa Catarina.',
+  desc: 'Atalaia v' + VERSAO.n + ': minuta de protocolo de missão e base técnica de um programa de pesquisa aplicada para drones com o GNSS degradado ou negado, civil primeiro e militar depois; princípios, estados da missão, requisitos, critérios de validação e governança, com testes sintéticos em Santa Catarina.',
   path: '/atalaia/doutrina/' });
 html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
 if (!/name="robots" content="noindex/.test(html)) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
@@ -689,7 +664,8 @@ fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.copyFileSync(path.join(DATA, 'relevo.webp'), path.join(OUT, 'relevo.webp'));
 fs.copyFileSync(path.join(DATA, 'relevo-ilha.webp'), path.join(OUT, 'relevo-ilha.webp'));
-console.log('site/atalaia/doutrina/index.html written (unlisted, minuta v0.4): posto ' + AV.post_km + ' km, ' + KG + ' kg ' + R12.verdict + '; 30 kg ' + R30.verdict + '; serra ' + RS.verdict
+console.log('site/atalaia/doutrina/index.html written (unlisted, minuta v' + VERSAO.n + '): posto ' + AV.post_km + ' km, ' + KG + ' kg ' + R12.verdict + '; 30 kg ' + R30.verdict + '; serra ' + RS.verdict
   + '; synthetic ' + pa.length + '/' + fa.length + '/' + na.length + '; maturity D ' + TALLY.D + ' · V ' + TALLY.V + ' · P ' + TALLY.P);
 
 require('./landing.js');                          /* the landing page, from the same records (v0.4) */
+require('./eb.js');                               /* the page for military interlocutors, /atalaia/eb/ (v0.4.1, D31) */

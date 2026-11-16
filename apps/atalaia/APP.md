@@ -32,5 +32,14 @@ page.
 - The test results in §5 are LOCUS and Veto records (frontier-apps), each with its stage; nothing on the page has flown.
 - Red lines (receive-only, no weapon guidance, no tracking of people) are on the page and do not change.
 
-**Rebuild.** `make page R=apps/atalaia`. To change the scenario, regenerate `data/` from `~/Projects/atalaia`
+**Three pages, one reading of the records (v0.4.1, 2026-11-16, D31).** `/atalaia/` (landing.js, the short story and
+four pre-rendered replays), `/atalaia/doutrina/` (build.js, the minuta) and `/atalaia/eb/` (eb.js, for military
+interlocutors: an independent proposal with no Army endorsement, no coat of arms or Army visual identity, zero flights
+validated, and one ask — a preliminary technical evaluation with no commitment; it compares the protocol with the 2025
+ESAO constructive simulation the minuta cites, Souza e Burity, in the study's own words). All three are unlisted and read
+`registros.js`: the pins, the verdicts the pages state, the version, and each test result written once (`EVID`), so the
+pages cannot state one result two ways. The position region is the "região de proteção" since v0.4.1, defined in §8
+at its two levels (deterministic under declared bounds, probabilistic under the declared noise model).
+
+**Rebuild.** `make page R=apps/atalaia` (build.js also writes the landing and the EB page). To change the scenario, regenerate `data/` from `~/Projects/atalaia`
 (`ferramentas/missao.py` → `central.py` → `missao.py`, scenario `ferramentas/cenarios/blumenau.json`) and re-pin.
