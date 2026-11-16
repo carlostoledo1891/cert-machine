@@ -164,27 +164,10 @@ const CITY_TEXT = {
    (design/print/tokens.js): on paper the land is the page, the water a step down, the roads and the parks a step or two
    down from the land, the labels in the guide and ink-3 grades. No tile is fetched and no new colour is made; a grey this
    table does not name refuses the build, so a re-vendored style cannot slip a dark value onto the light map. The sprite
-   (shields, arrows, town dots) stays the dark flavour's: a light sprite would be a new unpinned asset. */
-const LIGHT_GREY = {
-  '#141414': '--paper', '#101010': '--paper', '#111111': '--paper',                   /* the land, its halos and casings */
-  '#0a0a0a': '--o-1', '#161616': '--o-1', '#181818': '--o-1', '#191919': '--o-1',      /* buildings, parks, sand, zoo, aerodrome */
-  '#1a1a1a': '--o-1', '#1c1c1c': '--o-1', '#1d1d1d': '--o-1',                          /* wood, grass, hospital */
-  '#1f1f1f': '--grid', '#2b2b2b': '--grid', '#333333': '--grid',                       /* minor roads; the sea and the water */
-  '#292929': '--o-3', '#323232': '--o-3',                                              /* major roads, rail, runways */
-  '#3d3d3d': '--guide', '#525252': '--guide', '#5c5c5c': '--guide', '#707070': '--guide', /* labels, boundaries */
-  '#999999': '--ink-3',                                                                /* the places' names */
-};
-function lightStyle(style) {
-  const PR = require(path.join(ROOT, 'design/print/tokens.js'));
-  const out = JSON.parse(JSON.stringify(style)), bad = new Set();
-  const walk = (v) => (typeof v === 'string' && /^#[0-9a-f]{3,8}$/i.test(v)
-    ? (LIGHT_GREY[v.toLowerCase()] ? PR.hex(LIGHT_GREY[v.toLowerCase()]) : (bad.add(v), v))
-    : Array.isArray(v) ? v.map(walk) : v);
-  for (const l of out.layers) for (const k of Object.keys(l.paint || {})) if (/color/.test(k)) l.paint[k] = walk(l.paint[k]);
-  if (bad.size) throw new Error('REFUSED: the light basemap has no print-register value for ' + [...bad].join(' ') + ' (apps/skyaudit/build.js LIGHT_GREY)');
-  out.name = (out.name || 'basemap') + ' (light: print register)';
-  return out;
-}
+   (shields, arrows, town dots) stays the dark flavour's: a light sprite would be a new unpinned asset.
+   The table and the function moved to design/basemap-style.js on 2026-11-16 (a second map app, Atalaia's Mission
+   Control, needed them); the output is byte-identical. */
+const { lightStyle } = require(path.join(ROOT, 'design/basemap-style.js'));
 
 /* ---- emit both cities ---- */
 const { renderApp } = require(path.join(ROOT, 'design/app-shell.js'));
