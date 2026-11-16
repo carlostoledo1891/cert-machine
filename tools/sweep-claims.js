@@ -199,6 +199,8 @@ for (const [repo, num, label] of [
   ['teorth/erdosproblems', 179, '#179 (our #1038 correction)'],
   ['teorth/erdosproblems', 164, '#164 (Woett, the #290 bracket)'],
   ['teorth/optimizationproblems', 184, 'PR #184 (our C42 review; the C51 replay posted 2026-11-07, issuecomment-6707059155)'],
+  ['AxiomMath/BGP212', 1, 'BGP212 #1 (the seven quoted premises read MISMATCH; opened 2026-11-12)'],
+  ['AxiomMath/BGP212', 2, 'BGP212 #2 (is the Gap212Certificate witness published?; opened 2026-11-12; pruzze posted an independent witness 11-14)'],
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
