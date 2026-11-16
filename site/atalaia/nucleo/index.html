@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atalaia Núcleo: a camada de integridade · Carlos Toledo</title>
+<meta name="description" content="Atalaia Núcleo, o lado técnico do Atalaia: uma região de proteção que o GNSS nunca encolhe, um portão, e o limite de erro que vale contra qualquer atacante; o modelo da autonomia certificada sem GNSS, as alavancas, os resultados de fronteira, portões e preços.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://carlostoledo.co/atalaia/nucleo/">
+<meta property="og:url" content="https://carlostoledo.co/atalaia/nucleo/">
+<meta property="og:title" content="Atalaia Núcleo: a camada de integridade · Carlos Toledo">
+<meta property="og:description" content="Atalaia Núcleo, o lado técnico do Atalaia: uma região de proteção que o GNSS nunca encolhe, um portão, e o limite de erro que vale contra qualquer atacante; o modelo da autonomia certificada sem GNSS, as alavancas, os resultados de fronteira, portões e preços.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atalaia Núcleo: a camada de integridade · Carlos Toledo">
+<meta name="twitter:description" content="Atalaia Núcleo, o lado técnico do Atalaia: uma região de proteção que o GNSS nunca encolhe, um portão, e o limite de erro que vale contra qualquer atacante; o modelo da autonomia certificada sem GNSS, as alavancas, os resultados de fronteira, portões e preços.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+/* @/site-css */
+
+.at-src{font-size:var(--text-small);color:var(--ink-4)}
+.at-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin:var(--s-2) 0 0}
+.at-h3{margin:var(--s-6) 0 var(--s-3)}
+.at-cl{display:block}
+.at-cl+.at-cl{margin-top:var(--s-2)}
+table{table-layout:fixed}
+th:first-child,td:first-child{width:30%}
+@media (max-width:640px){.tw{border:0;border-radius:0;background:none}table{min-width:0}thead{display:none}tr{display:block;border-top:1px solid var(--rule)}td{display:block;border-bottom:0;padding:var(--s-1) 0}.tw td:first-child{width:auto;position:static;background:none;padding-top:var(--s-4)}td:last-child{padding-bottom:var(--s-4)}.at-st{white-space:normal}}
+.at-st{display:inline-block;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-slight);color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:1px var(--s-2);white-space:nowrap}
+.at-st.p{border-style:dashed;border-color:var(--ink-4)}
+.at-st.v{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.at-steps ol{margin:var(--s-4) 0;padding-left:1.6em;display:flex;flex-direction:column;gap:var(--s-2)}
+.at-steps li::marker{font-family:var(--f-mono);color:var(--ink-4)}
+.at-steps li p{margin:0}
+.nu-svg{display:block;width:100%;height:auto}
+.nu-svg text{font-family:var(--f-sans)}
+.nu-chart{aspect-ratio:720/340}
+.nu-grid{stroke:var(--rule);stroke-width:1}
+.nu-ax{font-family:var(--f-mono)!important;font-size:12px;fill:var(--ink-3)}
+.nu-axl{font-size:13px;fill:var(--ink-3)}
+.nu-lim{stroke:var(--ink);stroke-width:1.5}
+.nu-c0{fill:none;stroke:var(--ink-3);stroke-width:2;stroke-dasharray:5 4}
+.nu-c1{fill:none;stroke:var(--ink);stroke-width:3.5;stroke-dasharray:5 4}
+.nu-mk{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+.nu-lb{font-size:13px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.nu-box{fill:var(--sunk);stroke:var(--rule-strong);stroke-width:1.2}
+.nu-box.nu-key{stroke:var(--ink);stroke-width:2}
+.nu-bt{font-size:14px;fill:var(--ink)}
+.nu-arr{stroke:var(--ink-3);stroke-width:1.6}
+.nu-ahp{fill:var(--ink-3)}
+.nu-ctl{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-5);align-items:center;margin:var(--s-4) 0 var(--s-2);font-size:var(--text-small);color:var(--ink-2)}
+.nu-ctl label{display:inline-flex;align-items:center;gap:var(--s-2)}
+.nu-ctl select{font:inherit;color:var(--ink);background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:2px var(--s-2)}
+.nu-ctl output{font-family:var(--f-mono);min-width:5.5em}
+.nu-read{font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink);min-height:1.5em}
+
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">Atalaia · Núcleo · a camada de integridade · documento de trabalho · versão 0.1 · 16/11/2026</div>
+  <h1>Atalaia Núcleo: quanto a posição pode estar errada agora</h1>
+  <p class="deck">Todo navegador de drone responde “onde estou?”. O Núcleo responde à pergunta que fica em aberto: quanto a posição pode estar errada agora, mesmo com alguém atacando o GNSS, numa forma que outra parte consegue recalcular.</p>
+</header>
+
+<div class="col"><p class="pull">erro não detectado ≤ diam(Rₜ) + ε</p><p>Rₜ é a região onde o drone tem de estar, calculada sem GNSS; ε é a tolerância do GNSS. O limite vale para qualquer atacante. Tudo no Núcleo existe para encolher Rₜ sem trapacear.</p><p class="scope">Proposta de pesquisa: o lado técnico do Atalaia (a entrada é /atalaia/; a minuta, /atalaia/doutrina/). Cada número diz se é proposto, calculado por um modelo, medido (em simulação ou em dados, e onde) ou provado em Lean. Nada voou.</p></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">Resultados de fronteira</div><div class="v">6</div><div class="n">R1 a R6, todos com varredura de anterioridade antes de qualquer afirmação</div></div>
+    <div class="stat"><div class="k">Provados em Lean</div><div class="v">5</div><div class="n">R1, R4, R4 por satélite, a camada probabilística e o núcleo de solidez do R2</div></div>
+    <div class="stat"><div class="k">Medidos</div><div class="v">2</div><div class="n">em simulação ou em dados já no disco</div></div>
+    <div class="stat"><div class="k">Voos reais</div><div class="v">0</div><div class="n">nenhum ainda</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">1 · A fronteira em aberto</div>
+    <h2>Onde ninguém está ainda</h2>
+  </div>
+<p>A aviação resolveu a integridade do GNSS com níveis de proteção e um risco declarado. Três partes do mesmo problema continuam em aberto para drones que voam sem um GNSS em que se possa confiar.</p><ul class="plain"><li><b>Sem GNSS, não há um quadro de integridade para visão, relevo ou inércia.</b> Uma revisão de 2022 sobre a integridade da navegação visual diz: <q>However, for camera-based navigation techniques, a common agreement on framework is still missing.</q> (Zhu, Meurer e Günther, NAVIGATION).</li><li><b>Contra um adversário, a integridade da aviação não se aplica.</b> Ela supõe falhas aleatórias com probabilidade conhecida. Um falsificador não é uma falha aleatória: escolhe o pior momento, e um número como 10⁻⁷ não diz nada sobre ele. Contra um adversário, só um limite de pior caso é honesto.</li><li><b>Os limites publicados, quando existem, são do próprio fornecedor.</b> Calculados dentro de caixas fechadas, sem que outra parte possa refazê-los. Na aviação, os métodos formais chegaram à detecção e desvio de tráfego (o DAIDALUS da NASA, verificado em PVS); na integridade da navegação, não os encontramos ainda.</li></ul><p>O que mais se aproxima, nas buscas desta varredura: Mina, Kanhere, Kousik e Gao (NAVIGATION, 2023) conferem o GPS contra o conjunto alcançável de uma IMU, com um limite probabilístico; as patentes da Rockwell Collins US 12,704,640 (detecção de falsificador com soluções inerciais de reserva e limite de erro) e US 11,168,986 (o &quot;tempo até o alerta&quot; de uma navegação inercial de reserva, calculado com estatística gaussiana) são o análogo industrial do portão e da autonomia; Tanil, Khanafseh, Joerger e Pervan (IEEE TAES, 2018) analisam um falsificador de pior caso, em termos de risco de integridade. Em todas, o GNSS volta a ancorar ou a contrair a referência. Não encontramos uma região sem GNSS que o GNSS nunca possa encolher, um limite determinístico de conjunto válido contra qualquer atacante, nem a autonomia calculada como grandeza certificada; isso é ausência nas buscas, não prova de que não exista.</p><div class="wide"><div class="tw"><table><thead><tr><th>Quem</th><th>O que oferece, e o que não aparece no que publica</th></tr></thead><tbody><tr><td><b>DJI</b></td><td><span class="at-cl"><b>Oferece:</b> um navegador fechado, que avisa.</span><span class="at-cl"><b>Não aparece:</b> posição externa (o modo ADN está declarado no PSDK 3.18.0 e marcado como indisponível); auditoria.</span></td></tr><tr><td><b>Navegação visual</b></td><td><span class="at-cl"><b>Oferece:</b> seguir voando sem GNSS.</span><span class="at-cl"><b>Não aparece:</b> um limite de integridade publicado para a visão aprendida.</span></td></tr><tr><td><b>Aviônica (por exemplo, Rockwell Collins)</b></td><td><span class="at-cl"><b>Oferece:</b> integridade GNSS com inércia; detecção de falsificação com soluções inerciais de reserva e limite de erro; o tempo até o alerta de uma navegação de reserva: a anterioridade mais próxima.</span><span class="at-cl"><b>Não aparece:</b> um limite de pior caso contra um atacante (os limites são estatísticos, e o GNSS volta a ancorar a reserva); recálculo por terceiros; preço de drone.</span></td></tr><tr><td><b>Antenas anti-interferência</b></td><td><span class="at-cl"><b>Oferece:</b> manter o sinal.</span><span class="at-cl"><b>Não aparece:</b> o erro de posição; e têm controle de exportação (7A005.b).</span></td></tr><tr><td><b>Atalaia Núcleo</b></td><td><span class="at-cl"><b>Propõe:</b> um juiz sobre qualquer navegador: um limite de pior caso, válido contra qualquer atacante, provado, e recalculável por um verificador de fora.</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">2 · O produto</div>
+    <h2>Uma camada de integridade, não um navegador</h2>
+  </div>
+<p>O Núcleo recebe a saída de qualquer navegador como proposta (o EKF3 do ArduPilot, um produto de navegação visual, a posição da DJI) e decide, com um limite que consegue provar, se aquela posição pode ser usada. Os concorrentes viram entradas. Ele vive em três lugares.</p><ul class="plain"><li><b>A bordo · Atalaia Bordo.</b> Roda a região sem GNSS, o portão e a troca de fonte. No ArduPilot, conduz pela própria posição; num DJI, avisa e manda pairar ou pousar. <span class="at-st d">Medido · simulação: a fatia SITL</span></li><li><b>Antes do voo · Atalaia Central.</b> Um quinto laudo, o de integridade, ao lado de rota, energia, clima e GNSS: quanto tempo cada perna continua certificável se o GNSS morrer no pior momento, contra o limite de alerta da fase. Veredito por perna: passa, não passa ou falta dado. <span class="at-st p">Proposto</span></li><li><b>Depois do voo · Perícia.</b> O registro lacrado refaz o EKF3 e o portão bit a bit; um verificador escrito por outra parte chega às mesmas decisões ou diz onde não chegou. <span class="at-st p">Proposto</span></li></ul><div class="wide"><figure>
+  <div class="figbox">
+<svg class="nu-svg" viewBox="0 0 720 250" role="img" aria-label="Arquitetura: inércia, relevo e imagem alimentam a região Rₜ; o GNSS só vai ao portão, que o compara com Rₜ; o portão decide se a posição pode ser usada; não há seta do GNSS para Rₜ"><defs><marker id="nu-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="nu-ahp" d="M0 0L10 5L0 10z"/></marker></defs><rect class="nu-box" x="20" y="20" width="150" height="40" rx="6"/><text class="nu-bt" x="95" y="45" text-anchor="middle">inércia</text><rect class="nu-box" x="20" y="80" width="150" height="40" rx="6"/><text class="nu-bt" x="95" y="105" text-anchor="middle">relevo</text><rect class="nu-box" x="20" y="140" width="150" height="40" rx="6"/><text class="nu-bt" x="95" y="165" text-anchor="middle">imagem</text><rect class="nu-box nu-key" x="250" y="80" width="170" height="40" rx="6"/><text class="nu-bt" x="335" y="105" text-anchor="middle">região Rₜ</text><rect class="nu-box" x="250" y="190" width="170" height="40" rx="6"/><text class="nu-bt" x="335" y="215" text-anchor="middle">GNSS (receptor)</text><rect class="nu-box nu-key" x="500" y="135" width="200" height="40" rx="6"/><text class="nu-bt" x="600" y="160" text-anchor="middle">portão: g ∈ Rₜ ⊕ ε ?</text><line class="nu-arr" x1="170" y1="40" x2="250" y2="92" marker-end="url(#nu-ah)"/><line class="nu-arr" x1="170" y1="100" x2="250" y2="100" marker-end="url(#nu-ah)"/><line class="nu-arr" x1="170" y1="160" x2="250" y2="108" marker-end="url(#nu-ah)"/><line class="nu-arr" x1="420" y1="100" x2="520" y2="135" marker-end="url(#nu-ah)"/><line class="nu-arr" x1="420" y1="210" x2="510" y2="170" marker-end="url(#nu-ah)"/><text class="nu-lb" x="335" y="170" text-anchor="middle">sem seta: o GNSS nunca entra em Rₜ</text><text class="nu-lb" x="600" y="200" text-anchor="middle">aceita, ou declara o GNSS falso</text></svg>
+  </div>
+  <figcaption data-source="built">A arquitetura. A correção do GNSS nunca toca Rₜ: essa seta que falta é o que faz o limite valer contra um falsificador paciente. A troca segue o padrão de garantia em tempo de execução da ASTM F3269-21 (monitor de segurança, função de recuperação, chave).<span class="fig-rec">Record: none — o diagrama da arquitetura proposta.</span></figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>Quando o GNSS é atacado</th><th>Via ArduPilot (segunda via, D35) e via DJI (demo no que as unidades voam)</th></tr></thead><tbody><tr><td><b>O que a caixa pode fazer</b></td><td><span class="at-cl"><b>ArduPilot:</b> trocar a fonte de posição do EKF3 para a sua (GPS_INPUT ou navegação externa) e seguir a rota.</span><span class="at-cl"><b>DJI:</b> avisar e mandar pairar ou pousar pelo PSDK.</span></td></tr><tr><td><b>Dados que a caixa vê</b></td><td><span class="at-cl"><b>ArduPilot:</b> sensores brutos na taxa do laço, relógio comum, o receptor que ela escolhe.</span><span class="at-cl"><b>DJI:</b> FlyCart: 50 Hz, sem PPS; M350/M300: 400 Hz com sincronização por hardware.</span></td></tr><tr><td><b>Manobras para o Núcleo</b></td><td><span class="at-cl"><b>ArduPilot:</b> carrossel de guinada e manobras de prova por comando.</span><span class="at-cl"><b>DJI:</b> só comandos de velocidade tipo joystick, a confirmar em bancada.</span></td></tr><tr><td><b>Auditoria</b></td><td><span class="at-cl"><b>ArduPilot:</b> firmware aberto, imagens assinadas, reprodução determinística.</span><span class="at-cl"><b>DJI:</b> controlador fechado; o registro o cita.</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">3 · Resultado R1</div>
+    <h2>A desigualdade central</h2>
+  </div>
+<p>Duas estimativas correm lado a lado: a fundida de sempre, para a precisão, e Rₜ, que o GNSS nunca pode encolher. O portão aceita uma correção do GNSS só se ela cai dentro de Rₜ alargada por ε. Então nenhum atacante consegue esconder mais erro que o diâmetro da região mais ε.</p><div class="at-steps"><ol><li><p>Se cada fonte sem GNSS fica dentro do seu limite declarado, a posição verdadeira xₜ está em Rₜ.</p></li><li><p>O portão aceita gₜ só se algum ponto p de Rₜ está a no máximo ε dele.</p></li><li><p>|gₜ − xₜ| ≤ |gₜ − p| + |p − xₜ| ≤ ε + diam(Rₜ). Nada sobre o atacante foi usado.</p></li></ol></div><p>O limite é justo: um atacante que conhece Rₜ pode pôr a correção na borda oposta. Cada metro tirado de Rₜ é um metro a menos que qualquer atacante consegue esconder. <span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></p><p>Em Lean: num espaço pseudométrico, se R é limitado, x ∈ R e existe p ∈ R com dist g p ≤ ε, então dist g x ≤ diam R + ε; e a igualdade num exemplo em ℝ. Toolchain Lean 4.35.0, Mathlib v4.35.0 (56a00585); axiomas: só propext, Classical.choice e Quot.sound.</p><p>A camada probabilística: a chance de uma correção aceita com erro acima de diam(R) + ε é no máximo a soma, sobre as fontes e as épocas, das chances de cada limite declarado falhar; sem supor independência entre fontes ou épocas. A inclusão vem do próprio R1. <span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></p><div class="note">
+  <span class="lab">A regra de projeto que isso impõe</span>
+<p>Uma correção que só parece consistente nunca pode alimentar Rₜ. Se alimentasse, o passo 1 dependeria de o GNSS ser honesto, e um falsificador poderia arrastar a região aos poucos (o ataque do sapo na água morna). A precisão vem da estimativa fundida; a integridade vem só de Rₜ.</p>
+</div><p>Veredito por fase: limite abaixo do limite de alerta <span class="tag held">✓ PASSA</span> · acima <span class="tag dep">× NÃO PASSA</span> · uma fonte sem limite declarado <span class="tag open">∅ FALTA DADO</span>.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">4 · O número do produto</div>
+    <h2>Autonomia certificada sem GNSS</h2>
+  </div>
+<p>Quanto tempo o drone continua certificável depois de perder o GNSS: o tempo até diam(Rₜ) + ε cruzar o limite de alerta da fase. As curvas abaixo vêm de números de ficha e de leis de crescimento simples; são calculadas, por isso tracejadas. O livro de larguras da fatia de simulação substitui este modelo.</p><div class="nu-ctl"><label>Sensor inercial <select id="nu-imu"><option value="hg">HG4930-S</option><option value="ep">Epson M-G370</option></select></label><label><input type="checkbox" id="nu-car" checked> carrossel, 1 volta/min</label><label><input type="checkbox" id="nu-arr"> modelo de arrasto</label><label>variação do vento <input type="range" id="nu-dv" min="0.5" max="3" step="0.5" value="1"> <output id="nu-dvo">±1,0 m/s</output></label><label>limite de alerta <input type="range" id="nu-L" min="50" max="400" step="10" value="200"> <output id="nu-Lo">200 m</output></label></div><p class="nu-read" id="nu-read" aria-live="polite">Só inercial: 5:47 · com as alavancas: 12:17 · ganho ×2,1</p>
+</section>
+
+<div class="wide"><figure>
+  <div class="figbox">
+<div class="nu-chart" id="nu-chart"><svg class="nu-svg" viewBox="0 0 720 340" role="img" aria-label="Largura da região de proteção mais ε, em metros, ao longo dos minutos sem GNSS, para o HG4930-S: só inercial e com as alavancas escolhidas; linha tracejada: calculada pelo modelo"><line class="nu-grid" x1="58" x2="58" y1="16" y2="294"/><text class="nu-ax" x="58" y="312" text-anchor="middle">0</text><line class="nu-grid" x1="186.8" x2="186.8" y1="16" y2="294"/><text class="nu-ax" x="186.8" y="312" text-anchor="middle">3</text><line class="nu-grid" x1="315.6" x2="315.6" y1="16" y2="294"/><text class="nu-ax" x="315.6" y="312" text-anchor="middle">6</text><line class="nu-grid" x1="444.4" x2="444.4" y1="16" y2="294"/><text class="nu-ax" x="444.4" y="312" text-anchor="middle">9</text><line class="nu-grid" x1="573.2" x2="573.2" y1="16" y2="294"/><text class="nu-ax" x="573.2" y="312" text-anchor="middle">12</text><line class="nu-grid" x1="702" x2="702" y1="16" y2="294"/><text class="nu-ax" x="702" y="312" text-anchor="middle">15</text><line class="nu-grid" x1="58" x2="702" y1="294" y2="294"/><text class="nu-ax" x="50" y="298" text-anchor="end">0</text><line class="nu-grid" x1="58" x2="702" y1="224.5" y2="224.5"/><text class="nu-ax" x="50" y="228.5" text-anchor="end">75</text><line class="nu-grid" x1="58" x2="702" y1="155" y2="155"/><text class="nu-ax" x="50" y="159" text-anchor="end">150</text><line class="nu-grid" x1="58" x2="702" y1="85.5" y2="85.5"/><text class="nu-ax" x="50" y="89.5" text-anchor="end">225</text><line class="nu-grid" x1="58" x2="702" y1="16" y2="16"/><text class="nu-ax" x="50" y="20" text-anchor="end">300</text><text class="nu-axl" x="380" y="332" text-anchor="middle">minutos sem GNSS</text><text class="nu-axl" x="14" y="155" text-anchor="middle" transform="rotate(-90 14 155)">largura da região + ε (m)</text><line class="nu-lim" x1="58" x2="702" y1="108.66666666666666" y2="108.66666666666666"/><text class="nu-lb" x="64" y="100.66666666666666">limite de alerta, 200 m</text><path class="nu-c0" d="M58.0 289.4L60.1 289.4L62.3 289.4L64.4 289.3L66.6 289.3L68.7 289.3L70.9 289.3L73.0 289.2L75.2 289.2L77.3 289.1L79.5 289.1L81.6 289.0L83.8 288.9L85.9 288.8L88.1 288.7L90.2 288.6L92.3 288.4L94.5 288.3L96.6 288.1L98.8 287.9L100.9 287.8L103.1 287.5L105.2 287.3L107.4 287.1L109.5 286.8L111.7 286.5L113.8 286.2L116.0 285.9L118.1 285.6L120.3 285.2L122.4 284.8L124.5 284.4L126.7 284.0L128.8 283.6L131.0 283.1L133.1 282.6L135.3 282.1L137.4 281.5L139.6 281.0L141.7 280.4L143.9 279.8L146.0 279.1L148.2 278.4L150.3 277.7L152.5 277.0L154.6 276.2L156.7 275.4L158.9 274.6L161.0 273.7L163.2 272.8L165.3 271.9L167.5 270.9L169.6 269.9L171.8 268.9L173.9 267.8L176.1 266.7L178.2 265.5L180.4 264.4L182.5 263.1L184.7 261.9L186.8 260.6L188.9 259.3L191.1 257.9L193.2 256.5L195.4 255.0L197.5 253.5L199.7 252.0L201.8 250.4L204.0 248.7L206.1 247.1L208.3 245.3L210.4 243.6L212.6 241.8L214.7 239.9L216.9 238.0L219.0 236.0L221.1 234.0L223.3 232.0L225.4 229.9L227.6 227.7L229.7 225.5L231.9 223.3L234.0 221.0L236.2 218.6L238.3 216.2L240.5 213.7L242.6 211.2L244.8 208.6L246.9 206.0L249.1 203.3L251.2 200.5L253.3 197.7L255.5 194.9L257.6 191.9L259.8 189.0L261.9 185.9L264.1 182.8L266.2 179.7L268.4 176.4L270.5 173.1L272.7 169.8L274.8 166.4L277.0 162.9L279.1 159.4L281.3 155.7L283.4 152.1L285.5 148.3L287.7 144.5L289.8 140.6L292.0 136.7L294.1 132.7L296.3 128.6L298.4 124.4L300.6 120.2L302.7 115.9L304.9 111.6L307.0 107.1L309.2 102.6L311.3 98.0L313.5 93.4L315.6 88.6L317.7 83.8L319.9 78.9L322.0 74.0L324.2 68.9L326.3 63.8L328.5 58.6L330.6 53.3L332.8 48.0L334.9 42.5L337.1 37.0L339.2 31.4L341.4 25.7L343.5 20.0L345.7 16.0"/><path class="nu-c1" d="M58.0 289.4L60.1 289.4L62.3 289.4L64.4 289.3L66.6 289.3L68.7 289.3L70.9 289.3L73.0 289.2L75.2 289.2L77.3 289.1L79.5 289.1L81.6 289.0L83.8 288.9L85.9 288.9L88.1 288.8L90.2 288.7L92.3 288.6L94.5 288.5L96.6 288.4L98.8 288.3L100.9 288.2L103.1 288.0L105.2 287.9L107.4 287.8L109.5 287.6L111.7 287.5L113.8 287.3L116.0 287.2L118.1 287.0L120.3 286.9L122.4 286.7L124.5 286.5L126.7 286.3L128.8 286.1L131.0 285.9L133.1 285.7L135.3 285.5L137.4 285.3L139.6 285.0L141.7 284.8L143.9 284.6L146.0 284.3L148.2 284.1L150.3 283.8L152.5 283.6L154.6 283.3L156.7 283.0L158.9 282.8L161.0 282.5L163.2 282.2L165.3 281.9L167.5 281.6L169.6 281.3L171.8 281.0L173.9 280.6L176.1 280.3L178.2 280.0L180.4 279.6L182.5 279.3L184.7 279.0L186.8 278.6L188.9 278.2L191.1 277.9L193.2 277.5L195.4 277.1L197.5 276.7L199.7 276.3L201.8 275.9L204.0 275.5L206.1 275.1L208.3 274.7L210.4 274.3L212.6 273.9L214.7 273.4L216.9 273.0L219.0 272.5L221.1 272.1L223.3 271.6L225.4 271.2L227.6 270.7L229.7 270.2L231.9 269.7L234.0 269.3L236.2 268.8L238.3 268.3L240.5 267.8L242.6 267.2L244.8 266.7L246.9 266.2L249.1 265.7L251.2 265.1L253.3 264.6L255.5 264.0L257.6 263.5L259.8 262.9L261.9 262.4L264.1 261.8L266.2 261.2L268.4 260.6L270.5 260.0L272.7 259.5L274.8 258.9L277.0 258.2L279.1 257.6L281.3 257.0L283.4 256.4L285.5 255.8L287.7 255.1L289.8 254.5L292.0 253.8L294.1 253.2L296.3 252.5L298.4 251.8L300.6 251.2L302.7 250.5L304.9 249.8L307.0 249.1L309.2 248.4L311.3 247.7L313.5 247.0L315.6 246.3L317.7 245.6L319.9 244.8L322.0 244.1L324.2 243.4L326.3 242.6L328.5 241.9L330.6 241.1L332.8 240.4L334.9 239.6L337.1 238.8L339.2 238.0L341.4 237.2L343.5 236.5L345.7 235.7L347.8 234.9L349.9 234.0L352.1 233.2L354.2 232.4L356.4 231.6L358.5 230.7L360.7 229.9L362.8 229.1L365.0 228.2L367.1 227.3L369.3 226.5L371.4 225.6L373.6 224.7L375.7 223.8L377.9 223.0L380.0 222.1L382.1 221.2L384.3 220.3L386.4 219.3L388.6 218.4L390.7 217.5L392.9 216.6L395.0 215.6L397.2 214.7L399.3 213.7L401.5 212.8L403.6 211.8L405.8 210.9L407.9 209.9L410.1 208.9L412.2 207.9L414.3 206.9L416.5 205.9L418.6 204.9L420.8 203.9L422.9 202.9L425.1 201.9L427.2 200.9L429.4 199.8L431.5 198.8L433.7 197.8L435.8 196.7L438.0 195.7L440.1 194.6L442.3 193.5L444.4 192.4L446.5 191.4L448.7 190.3L450.8 189.2L453.0 188.1L455.1 187.0L457.3 185.9L459.4 184.8L461.6 183.6L463.7 182.5L465.9 181.4L468.0 180.2L470.2 179.1L472.3 177.9L474.5 176.8L476.6 175.6L478.7 174.5L480.9 173.3L483.0 172.1L485.2 170.9L487.3 169.7L489.5 168.5L491.6 167.3L493.8 166.1L495.9 164.9L498.1 163.7L500.2 162.4L502.4 161.2L504.5 160.0L506.7 158.7L508.8 157.5L510.9 156.2L513.1 154.9L515.2 153.7L517.4 152.4L519.5 151.1L521.7 149.8L523.8 148.5L526.0 147.2L528.1 145.9L530.3 144.6L532.4 143.3L534.6 141.9L536.7 140.6L538.9 139.3L541.0 137.9L543.1 136.6L545.3 135.2L547.4 133.9L549.6 132.5L551.7 131.1L553.9 129.7L556.0 128.4L558.2 127.0L560.3 125.6L562.5 124.2L564.6 122.8L566.8 121.3L568.9 119.9L571.1 118.5L573.2 117.1L575.3 115.6L577.5 114.2L579.6 112.7L581.8 111.3L583.9 109.8L586.1 108.3L588.2 106.9L590.4 105.4L592.5 103.9L594.7 102.4L596.8 100.9L599.0 99.4L601.1 97.9L603.3 96.4L605.4 94.9L607.5 93.3L609.7 91.8L611.8 90.3L614.0 88.7L616.1 87.2L618.3 85.6L620.4 84.0L622.6 82.5L624.7 80.9L626.9 79.3L629.0 77.7L631.2 76.1L633.3 74.5L635.5 72.9L637.6 71.3L639.7 69.7L641.9 68.1L644.0 66.4L646.2 64.8L648.3 63.1L650.5 61.5L652.6 59.8L654.8 58.2L656.9 56.5L659.1 54.8L661.2 53.2L663.4 51.5L665.5 49.8L667.7 48.1L669.8 46.4L671.9 44.7L674.1 43.0L676.2 41.3L678.4 39.5L680.5 37.8L682.7 36.1L684.8 34.3L687.0 32.6L689.1 30.8L691.3 29.0L693.4 27.3L695.6 25.5L697.7 23.7L699.9 21.9L702.0 20.1"/><circle class="nu-mk" cx="306.3" cy="108.7" r="5"/><text class="nu-lb" x="316.3" y="130.7" text-anchor="start">só inercial 5:47</text><circle class="nu-mk" cx="585.6" cy="108.7" r="5"/><text class="nu-lb" x="575.6" y="148.7" text-anchor="end">com as alavancas 12:17</text></svg></div>
+  </div>
+  <figcaption data-source="built">A largura da região mais ε ao longo dos minutos sem GNSS, para o sensor escolhido: só inercial (tracejado fino) e com as alavancas (tracejado grosso). Linhas tracejadas são calculadas pelo modelo, não medidas.<span class="fig-rec">Record: none — o modelo de nucleo-modelo.js, calculado ao abrir a página.</span></figcaption>
+</figure></div>
+
+<div class="col"><div class="wide"><div class="tw"><table><thead><tr><th>Sensor, a 200 m</th><th>Autonomia certificada no modelo</th></tr></thead><tbody><tr><td><b>HG4930-S</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>Só inercial:</b> 5:47</span><span class="at-cl"><b>Com carrossel:</b> 12:17</span></td></tr><tr><td><b>Epson M-G370</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>Só inercial:</b> 4:03</span><span class="at-cl"><b>Com carrossel:</b> 9:31</span></td></tr></tbody></table></div></div><p>Um sensor MEMS com o carrossel poderia superar o sensor tático sem ele: é uma hipótese para o R3, não um resultado.</p><div class="note">
+  <span class="lab">O que o modelo supõe</span>
+<ul class="plain"><li>Os números de viés são a instabilidade de viés das fichas, tratada como limite constante (HG4930-S: 0,25 °/h e 0,025 mg; Epson M-G370: 0,8 °/h e 24 µg). Os vieses reais de pior caso são maiores e derivam.</li><li>Nenhum erro de posição, velocidade ou atitude no instante em que o GNSS se perde; ε = 5 m, escolhido. Desenhado: 2 × o limite + ε.</li><li>Só inercial: g·ω·t³/6 + ½·a·t². Carrossel: a guinada alternada tira o viés horizontal constante do giroscópio e deixa ½·g·(ω/Ω)·t² na pior fase. O viés do giroscópio vertical, que faz o rumo derivar, não é modulado por um giro em guinada; ele, a modulação do acelerômetro e o fator de escala não estão no modelo, que por isso é otimista.</li><li>Arrasto: a região é a menor entre o limite inercial e a variação do vento vezes o tempo. A fusão real faz melhor; o trabalho com modelo do veículo da EPFL relata uma a duas ordens de grandeza (estocástico, asa fixa, testado em voo).</li></ul>
+</div></div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">5 · As alavancas</div>
+    <h2>O que encolhe Rₜ</h2>
+  </div>
+<p>Cada alavanca vale pelos metros certificados que tira de Rₜ. O livro de larguras (metros por fonte, por fase, medidos em simulação) decide qual atacar primeiro; o modelo acima aposta no termo t³ do giroscópio.</p><div class="wide"><div class="tw"><table><thead><tr><th>Alavanca</th><th>O que ataca, como, e onde está</th></tr></thead><tbody><tr><td><b>Navegação inercial garantida num grupo de Lie (R2)</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl"><b>Ataca:</b> o acúmulo de pessimismo no núcleo inercial.</span><span class="at-cl"><b>Como:</b> para sistemas afins no grupo, o erro segue uma equação exatamente linear (Barrau e Bonnabel); o conjunto de erro se propaga ali, com ruído, viés e restos da rotação da Terra limitados de forma rigorosa.</span><span class="at-cl"><b>Onde está:</b> o núcleo de solidez está provado em Lean (as operações do conjunto e o invariante de contenção); a log-linearidade e a exponencial de volta à posição, não.</span></td></tr><tr><td><b>As incógnitas como símbolos</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> as correlações perdidas entre estados.</span><span class="at-cl"><b>Como:</b> zonotopos com restrições mantêm um símbolo de viés através de inclinação, velocidade e posição, de modo que uma correção de relevo também encolhe o viés; os geradores são o livro de larguras.</span><span class="at-cl"><b>Onde está:</b> método conhecido (Scott e outros, 2016), uso novo.</span></td></tr><tr><td><b>Conjuntos invariantes certificados</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> a sobreaproximação por caixas.</span><span class="at-cl"><b>Como:</b> conjuntos de nível polinomiais que envolvem a dinâmica do erro, certificados por soma de quadrados em racionais exatos.</span><span class="at-cl"><b>Onde está:</b> método conhecido.</span></td></tr><tr><td><b>Carrossel da aeronave (R3)</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> o termo t³ dos vieses horizontais do giroscópio.</span><span class="at-cl"><b>Como:</b> giros lentos e alternados de guinada transformam os vieses horizontais em sinais periódicos que se cancelam a cada volta. Um giro em torno de um eixo não modula o viés ao longo desse eixo: o carrossel de guinada não tira o viés do giroscópio vertical, o que faz o rumo derivar.</span><span class="at-cl"><b>Onde está:</b> a rotação da IMU foi publicada para veículos terrestres, na roda (Collin, 2015); em multirrotores, não encontramos um teste em voo.</span></td></tr><tr><td><b>O veículo como sensor (R5)</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> a deriva da velocidade.</span><span class="at-cl"><b>Como:</b> uma lei de arrasto com caixas de parâmetros certificadas limita a velocidade, e o crescimento vira linear.</span><span class="at-cl"><b>Onde está:</b> versão estocástica testada em voo (EPFL); a versão garantida está em aberto.</span></td></tr><tr><td><b>O relógio contra a retransmissão (R4)</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl"><b>Ataca:</b> a retransmissão com o OSNMA ligado.</span><span class="at-cl"><b>Como:</b> uma retransmissão só acrescenta atraso; com o relógio conhecido a ±δ, o retransmissor fica a no máximo c·δ.</span><span class="at-cl"><b>Onde está:</b> provado para o atraso comum; com atrasos por satélite, provado que o relógio sozinho pode não limitar nada (abaixo). O teste do relógio é de 2008 (Papadimitratos e Jovanovic); ataques que adiantam o código continuam em aberto.</span></td></tr><tr><td><b>Erro do relevo certificado</b><span class="at-cl"><span class="at-st d">Medido · dados</span></span></td><td><span class="at-cl"><b>Ataca:</b> o erro de altura do mapa, δh.</span><span class="at-cl"><b>Como:</b> uma correção de relevo vale cerca de δh / |∇h|: metade de δh, metade da correção.</span><span class="at-cl"><b>Onde está:</b> Medido no corredor do Médio Vale (134.378 células de 30 m): o Copernicus GLO-30 difere da superfície do levantamento de SC de 2010–12 em até 6,5 m em 95% das células e 9,5 m em 99% (10,7 m nas encostas acima de 30°; máximo de 37 m); na ilha, 4,1 m e 6,6 m (13,9 m em 99% nas encostas). É uma comparação contra um levantamento que não é a verdade, com o datum vertical não declarado (o deslocamento medido fica em ±0,25 m) e anos de diferença entre os dois: não é um limite certificado.</span></td></tr><tr><td><b>Casadores aprendidos sob cobertura</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> o erro da visão sem modelo.</span><span class="at-cl"><b>Como:</b> a cobertura conforme fixa o limite declarado; um casador que perde a cobertura perde a admissão.</span><span class="at-cl"><b>Onde está:</b> responde à lacuna da revisão de 2022.</span></td></tr><tr><td><b>Rota ótima em integridade (R6)</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Ataca:</b> pernas que terminam em falta dado.</span><span class="at-cl"><b>Como:</b> escolher a rota, e onde fazer o carrossel, que minimiza diam(Rₜ) na chegada.</span><span class="at-cl"><b>Onde está:</b> em aberto.</span></td></tr></tbody></table></div></div><h3 class="at-h3">A largura de uma correção de relevo, pela inclinação</h3><div class="wide"><div class="tw"><table><thead><tr><th>Inclinação</th><th>δh / |∇h| para δh de 10, 5 e 2 m</th></tr></thead><tbody><tr><td><b>5 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 200 m</span><span class="at-cl"><b>5 m:</b> 100 m</span><span class="at-cl"><b>2 m:</b> 40 m</span></td></tr><tr><td><b>10 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 100 m</span><span class="at-cl"><b>5 m:</b> 50 m</span><span class="at-cl"><b>2 m:</b> 20 m</span></td></tr><tr><td><b>15 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 67 m</span><span class="at-cl"><b>5 m:</b> 33 m</span><span class="at-cl"><b>2 m:</b> 13 m</span></td></tr><tr><td><b>20 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 50 m</span><span class="at-cl"><b>5 m:</b> 25 m</span><span class="at-cl"><b>2 m:</b> 10 m</span></td></tr><tr><td><b>30 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 33 m</span><span class="at-cl"><b>5 m:</b> 17 m</span><span class="at-cl"><b>2 m:</b> 7 m</span></td></tr><tr><td><b>40 %</b><span class="at-cl"><span class="at-st p">Calculado</span></span></td><td><span class="at-cl"><b>10 m:</b> 25 m</span><span class="at-cl"><b>5 m:</b> 13 m</span><span class="at-cl"><b>2 m:</b> 5 m</span></td></tr></tbody></table></div></div><h3 class="at-h3">O que uma retransmissão com atraso comum consegue, pela qualidade do relógio</h3><div class="wide"><div class="tw"><table><thead><tr><th>Relógio conhecido a</th><th>Limite do erro da retransmissão, c·δ</th></tr></thead><tbody><tr><td><b>±10 ns</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl">≤ 3,0 m</span></td></tr><tr><td><b>±100 ns</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl">≤ 30 m</span></td></tr><tr><td><b>±1 µs</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl">≤ 300 m</span></td></tr></tbody></table></div></div><p>Com o OSNMA bloqueando dados de navegação forjados, um falsificador precisa retransmitir, e uma retransmissão só acrescenta atraso; se o atraso é o mesmo para todos os satélites, um receptor cuja solução de tempo precisa ficar a ±δ do relógio da caixa limita a distância do retransmissor a c·δ. Fora da cobertura: ataques que adiantam o código público e retransmitem só os bits de dados. O δ do relógio da caixa sob vibração é um número de bancada.</p><div class="note">
+  <span class="lab">Com atrasos diferentes por satélite (provado em Lean)</span>
+<p>Com atrasos diferentes por satélite (no modelo linearizado de mínimos quadrados): um atraso comum não desloca a posição e vai todo para o relógio; com cada atraso entre 0 e τmax, o erro de posição fica abaixo de ‖K_pos‖·c·τmax/2, e a constante não melhora; mas, se os pesos de relógio da geometria têm sinais opostos, existem atrasos causais que passam em qualquer teste de relógio e deslocam a posição sem limite. Em três geometrias de exemplo (cálculo à parte, não provado), os satélites altos tiveram peso de relógio negativo: o teste do relógio sozinho, em geral, não limita a retransmissão por satélite, e o teto τmax precisa vir de outra parte.</p><p><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></p>
+</div><p>Em Lean: se L ≤ c·τ (causalidade) e τ ≤ δ (o teste do relógio), então L ≤ c·δ; com δ = 100 ns, menos de 30 m. Vale para a retransmissão com atraso comum. Toolchain Lean 4.35.0, Mathlib v4.35.0 (56a00585); axiomas: só propext, Classical.choice e Quot.sound.</p><p>A variação do vento em 5 a 10 minutos não se mede com os dados no disco, que são horários. Os substitutos, nas estações de Indaial, Itajaí e Navegantes (2021 a 2025): a média muda de uma hora para a outra no máximo 2,8 a 3,6 m/s em 99% das horas, e a rajada passa a média em até cerca de 7 m/s em 99% das horas. A proposta é planejar uma perna curta com a média mais cerca de 7 m/s, e tratar trovoada como decisão de voar ou não, não como margem. Estações a 10 m do chão; o drone voa de 30 a 120 m. <span class="at-st d">Medido · dados</span></p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">6 · Uma missão</div>
+    <h2>Ressuprimento na ilha, fase a fase (sintético)</h2>
+  </div>
+<ul class="plain"><li><b>Antes do voo.</b> A Central emite cinco laudos por perna: rota, energia, clima, GNSS e o novo laudo de integridade, a autonomia certificada sem GNSS contra o limite de alerta da perna. Uma perna sobre a água dá falta dado: sem relevo, e o limite do arrasto ainda não foi medido; decidem os voos de calibração.</li><li><b>Cruzeiro com o GNSS honesto.</b> A estimativa fundida dá a precisão; Rₜ corre em paralelo sem GNSS; cada correção passa pelo portão.</li><li><b>O ataque começa.</b> Uma correção cai fora de Rₜ ⊕ ε; o alarme vem dentro do tempo declarado; o Vigia aponta a fonte provável; o limite do relógio limita o que uma retransmissão esconde.</li><li><b>Voar pela região.</b> Na via ArduPilot, a caixa troca a fonte do EKF3 e segue a rota; carrossel e correções de relevo mantêm o limite abaixo do de alerta. Na via DJI, pairar ou pousar.</li><li><b>Se o limite cruzar o de alerta.</b> A ação segura daquela perna: esperar, ou pousar numa zona avaliada antes. Nunca voltar para casa sob falsificação.</li><li><b>Chegada.</b> Descida de precisão só sobre um marcador cooperativo, com código de uso único e a confirmação do piloto (D16).</li><li><b>Depois do voo.</b> O registro lacrado vai à Perícia; o EKF3 e o portão se refazem bit a bit, e o verificador de fora recalcula cada decisão.</li></ul><p>A fatia de simulação já voou a primeira versão disso com o ArduPilot de verdade: sem a caixa, o falsificador levou o drone a pousar a 584 m do posto; com a caixa (emulada), o GNSS saiu da região de 100 m, foi declarado falso, a fonte do estimador foi trocada e o pouso ficou a 1,6 m. Simulação; a caixa ali não tem o seu próprio estimador.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">7 · A máquina</div>
+    <h2>A IA propõe, os métodos exatos decidem, o campo dá a última palavra</h2>
+  </div>
+<p>A mesma forma do cert-machine: gerar em escala, filtrar em ponto flutuante, certificar com exatidão. A IA nunca vira autoridade: ela propõe, e só sobrevive o que é certificado ou medido em voos registrados antes.</p><div class="wide"><div class="tw"><table><thead><tr><th>Ferramenta</th><th>O trabalho dela no Núcleo</th></tr></thead><tbody><tr><td><b>o motor do cert-machine</b></td><td><span class="at-cl">famílias de modelos candidatos (formas do erro inercial, leis de arrasto, modelos de erro do relevo, calendários de carrossel) enumeradas, filtradas nos dados e certificadas; caça a limites fechados compactos.</span></td></tr><tr><td><b>intervalos, Taylor, racionais exatos</b></td><td><span class="at-cl">restos rigorosos para as partes não lineares (a exponencial do grupo, a lei de arrasto), arredondamento para fora em toda parte.</span></td></tr><tr><td><b>soma de quadrados</b></td><td><span class="at-cl">conjuntos invariantes certificados para a dinâmica do erro.</span></td></tr><tr><td><b>dReal</b></td><td><span class="at-cl">limites não lineares conferidos em faixas inteiras de parâmetros.</span></td></tr><tr><td><b>Lean</b></td><td><span class="at-cl">R1 e R4 primeiro (pequenos); a log-linearidade do R2 depois (grande, num pod).</span></td></tr><tr><td><b>claimbox</b></td><td><span class="at-cl">cada número de ficha e cada afirmação de concorrente vira uma caixa decidida contra dados medidos; o orçamento de erro vira um livro de afirmações decididas.</span></td></tr><tr><td><b>agentes de IA e busca de programas</b></td><td><span class="at-cl">propõem modelos, código de redução de conjuntos, ataques, roteiros de prova e rotas; um candidato fica só se continua correto sob um verificador fixo e sai mais estreito em registros separados.</span></td></tr></tbody></table></div></div><p>A certificação garante a matemática. Só voos registrados antes confirmam a física, e qualquer escape rebaixa a fonte que o causou.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">8 · Resultados de fronteira</div>
+    <h2>O que poria o Atalaia na fronteira</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>Resultado</th><th>Enunciado, e como se mostra</th></tr></thead><tbody><tr><td><b>R1 · limite independente do atacante</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl"><b>Enunciado:</b> com Rₜ livre de GNSS, erro não detectado ≤ diam(Rₜ) + ε.</span><span class="at-cl"><b>Como:</b> Lean; dias.</span></td></tr><tr><td><b>R2 · navegação inercial garantida em SE₂(3)</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl"><b>Enunciado:</b> os conjuntos de erro se propagam exatamente na álgebra de Lie, com restos certificados.</span><span class="at-cl"><b>Como:</b> métodos de intervalos e Lean, num pod; meses.</span></td></tr><tr><td><b>R3 · deriva certificada com carrossel</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Enunciado:</b> um limite fechado e certificado da deriva sob guinada alternada num multirrotor.</span><span class="at-cl"><b>Como:</b> caça a forma fechada e bancada; semanas e bancada.</span></td></tr><tr><td><b>R4 · limite da retransmissão</b><span class="at-cl"><span class="at-st d">Provado em Lean · Mathlib v4.35.0</span></span></td><td><span class="at-cl"><b>Enunciado:</b> OSNMA e um relógio conhecido a ±δ ⇒ erro da retransmissão ≤ c·δ.</span><span class="at-cl"><b>Como:</b> Lean e um modelo de relógio; dias.</span></td></tr><tr><td><b>R5 · navegação garantida pelo modelo do veículo</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Enunciado:</b> uma lei de arrasto com caixas de parâmetros certificadas limita a velocidade.</span><span class="at-cl"><b>Como:</b> dReal e voos; meses.</span></td></tr><tr><td><b>R6 · rota ótima em integridade</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Enunciado:</b> a rota que minimiza diam(Rₜ) na chegada, sob relevo, textura e vento.</span><span class="at-cl"><b>Como:</b> branch-and-bound com intervalos; semanas.</span></td></tr></tbody></table></div></div><p>R1 e R4, como enunciados acima, são passos curtos: valem como alicerce. O núcleo matemático tem quatro frentes. Três estão provadas em Lean: a solidez do R2 (cada operação do estimador leva um conjunto que contém o erro verdadeiro a outro que ainda o contém), o R4 com atrasos por satélite (que mostrou que o relógio sozinho não basta) e a camada probabilística. A quarta, o R3 provado com a medida de quão justo é Rₜ, está em andamento.</p><p>O núcleo de solidez do R2: com zonotopos com restrições, a imagem por um mapa linear, a soma com o ruído e o corte por uma faixa de medida são exatos, e a soma de um resto limitado é segura; daí o invariante de contenção, época a época, e o limite da posição pela soma dos geradores, separado por fonte (o livro de larguras), instanciado no estado de 15 dimensões. Não provados aqui: a log-linearidade do erro do INS em SE₂(3), a exponencial de volta à posição, a redução de ordem e a verdade de cada limite declarado.</p><p>Cada um passa por uma varredura de anterioridade antes de qualquer afirmação, e nenhum é anunciado como o primeiro.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">9 · Caminho, portões e preços</div>
+    <h2>Nada se compra antes de um portão passar</h2>
+  </div>
+<ul class="plain"><li><b>G0 · simulação, US$ 0.</b> O ArduPilot em SITL sobre a ilha, um modelo multirrotor, um caso de falsificação, a caixa trocando a fonte do EKF3; o livro de larguras; R1 e R4 em Lean. Pods com teto de US$ 10.</li><li><b>G1 · bancada, cerca de US$ 1,1 mil.</b> Conjunto Cube Orange+, Jetson Orin Nano, receptor u-blox ZED-X20P, antena HC977. O hardware no laço precisa chegar às mesmas decisões do SITL.</li><li><b>G2 · aeronave aberta de desenvolvimento, cerca de US$ 3,5 a 5,5 mil, mais baterias e o sensor inercial.</b> Holybro X650 com Pixhawk 6X, a caixa de voo, rádio de telemetria homologado na Anatel. Carrossel e arrasto em voos reais num campo autorizado.</li><li><b>G3 · plataforma pesada, numa fase posterior, US$ 29 a 46 mil.</b> IF1200A (ArduPilot) ou Alta X Gen2, ou um DJI emprestado. A demo DJI usa o que a unidade voa.</li></ul><div class="wide"><div class="tw"><table><thead><tr><th>Conjunto</th><th>O que, e o preço</th></tr></thead><tbody><tr><td><b>Simulação</b></td><td><span class="at-cl">ArduPilot SITL, o software da caixa e os cenários da Central: US$ 0.</span></td></tr><tr><td><b>Bancada</b></td><td><span class="at-cl">Cube Orange+ US$ 349,90 · Orin Nano US$ 399 · X20P US$ 187 · HC977 US$ 203: cerca de US$ 1,1 mil.</span></td></tr><tr><td><b>Aeronave aberta</b></td><td><span class="at-cl">kit X650 US$ 899 (versões com Pixhawk 6X de US$ 1,4 a 1,85 mil; 3,1 kg de carga com 10 Ah) · Herelink 1.1 de US$ 0,9 a 1,5 mil · caixa de voo sem o sensor tático cerca de US$ 1,4 mil: cerca de US$ 3,5 a 5,5 mil.</span></td></tr><tr><td><b>Aberta pesada</b></td><td><span class="at-cl">IF1200A (ArduPilot, 8,7 kg, 43 min) de US$ 29 a 40 mil · Alta X Gen2 (15,9 kg) US$ 39.650, versão NDAA US$ 45.650.</span></td></tr><tr><td><b>DJI de desenvolvimento</b></td><td><span class="at-cl">M400 de US$ 10,3 a 10,45 mil + Manifold 3 · M350 RTK descontinuado: de US$ 9,1 a 11,1 mil em estoque, US$ 7,5 mil usado.</span></td></tr><tr><td><b>DJI de carga, no Brasil</b></td><td><span class="at-cl">FlyCart 30 de R$ 171 a 313 mil · FlyCart 100 combo de R$ 261 a 291 mil, em anúncios de revendas.</span></td></tr></tbody></table></div></div><p>Preços de revenda nos EUA antes de frete e impostos brasileiros; estimativa de planejamento, não cotação: peças pequenas pelo Remessa Conforme chegam a cerca do dobro do preço nos EUA. O Herelink ainda não está homologado na Anatel, e a classificação de exportação das plataformas pesadas precisa vir por escrito antes de qualquer pedido.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">10 · Já decidido</div>
+    <h2>As decisões do operador</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>Questão</th><th>Decisão</th></tr></thead><tbody><tr><td><b>Piloto automático aberto</b></td><td><span class="at-cl">segunda via; a DJI fica para a demo</span></td></tr><tr><td><b>Qual</b></td><td><span class="at-cl">ArduPilot</span></td></tr><tr><td><b>Fatia SITL antes da reunião</b></td><td><span class="at-cl">feita, privada</span></td></tr><tr><td><b>Valores dos portões</b></td><td><span class="at-cl">como escritos, rotulados como estimativas</span></td></tr><tr><td><b>Plataforma pesada</b></td><td><span class="at-cl">fase posterior</span></td></tr><tr><td><b>Regras e licenças</b></td><td><span class="at-cl">verificadas, em privado</span></td></tr><tr><td><b>GPLv3</b></td><td><span class="at-cl">nos pontos para o jurídico</span></td></tr><tr><td><b>Dados públicos</b></td><td><span class="at-cl">sim, lida a licença de cada um</span></td></tr><tr><td><b>Pods</b></td><td><span class="at-cl">permitidos, teto de US$ 10</span></td></tr><tr><td><b>O Núcleo</b></td><td><span class="at-cl">background IP; R1 a R6 entram na proposta dentro dos pacotes de arquitetura e de validação</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">11 · Limites</div>
+    <h2>O que não é a nossa luta, e os riscos</h2>
+  </div>
+<ul class="plain"><li><b>Não é a nossa luta.</b> Autonomia e pilotos de IA; corridas de precisão da navegação visual; drones baratos descartáveis; hardware anti-interferência e guerra eletrônica.</li><li><b>Linhas vermelhas.</b> Só recepção: nunca emitir, bloquear ou falsificar; nenhuma antena CRPA (7A005.b); nenhum rastreamento de alvo e nenhuma guiagem a um ponto qualquer do solo (D16); um piloto sempre no comando, como o RBAC nº 100 exige.</li><li><b>Riscos.</b> O limite de pior caso pode sair largo demais para voar, e o livro de larguras responde isso primeiro. Os modelos físicos são onde entra a falsa confiança: limites a partir de dados com cobertura, rebaixados a cada escape. A instabilidade de viés não é um limite, então o modelo acima é otimista. A certificação exata prova a matemática, não a física. O carrossel gasta energia e balança uma carga pendurada.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">12 · Fontes</div>
+    <h2>Lidas no rascunho e na verificação</h2>
+  </div>
+<ul class="plain"><li><a href="https://navi.ion.org/content/69/2/navi.518" target="_blank" rel="noopener">Zhu, Meurer e Günther, integridade da navegação visual (NAVIGATION, 2022)</a></li><li><a href="https://arxiv.org/pdf/1904.09251" target="_blank" rel="noopener">Hartley e outros, EKF invariante com contato (erro log-linear)</a></li><li><a href="https://arxiv.org/pdf/2208.03427.pdf" target="_blank" rel="noopener">Chang e Luo, modelo de erro log-linear do INS</a></li><li><a href="https://portal.mardi4nfdi.de/wiki/Publication:2288615" target="_blank" rel="noopener">zonotopos com restrições para estimação de conjuntos não linear (Automatica, 2020)</a></li><li><a href="https://isprs-archives.copernicus.org/articles/XL-3-W4/117/2016/" target="_blank" rel="noopener">Khaghani e Skaloud, navegação pelo modelo dinâmico do veículo (ISPRS, 2016)</a></li><li><a href="https://www.gpsworld.com/research-mems-imu-carouseling-for-ground-vehicles/" target="_blank" rel="noopener">Collin, carrossel de IMU MEMS em veículos terrestres (a IMU na roda)</a></li><li><a href="https://store.astm.org/f3269-21.html" target="_blank" rel="noopener">ASTM F3269-21, garantia em tempo de execução</a></li><li><a href="https://gps.mae.cornell.edu/Paper_F5_8_ION_GNSS_2013b.pdf" target="_blank" rel="noopener">Cornell, detecção de falsificação por movimento forçado da antena (ION GNSS 2013)</a></li><li><a href="https://par.nsf.gov/servlets/purl/10314805" target="_blank" rel="noopener">SemperFi, manobra de verificação ativa para VANTs</a></li><li><a href="https://patents.google.com/patent/US12704640B2/en" target="_blank" rel="noopener">Rockwell Collins, US 12,704,640, detecção de falsificador com limite de erro de alta integridade</a></li><li><a href="https://patents.google.com/patent/US11168986B2/en" target="_blank" rel="noopener">Rockwell Collins, US 11,168,986, navegação inercial de reserva e tempo até o alerta</a></li><li><a href="https://navi.ion.org/content/70/4/navi.616" target="_blank" rel="noopener">Mina, Kanhere, Kousik e Gao, o GPS conferido contra o conjunto alcançável da IMU (NAVIGATION, 2023)</a></li><li><a href="https://experts.arizona.edu/en/publications/an-ins-monitor-to-detect-gnss-spoofers-capable-of-tracking-vehicl/" target="_blank" rel="noopener">Tanil, Khanafseh, Joerger e Pervan, monitor inercial contra falsificadores (IEEE TAES, 2018)</a></li><li><a href="https://arxiv.org/abs/1001.0025" target="_blank" rel="noopener">Papadimitratos e Jovanovic, proteção do GNSS por relógio (2008)</a></li><li><a href="https://ardupilot.org/copter/docs/airspeed-estimation.html" target="_blank" rel="noopener">ArduPilot, estimação do vento pelo arrasto</a></li><li><a href="https://ardupilot.org/sub/docs/common-ekf-sources.html" target="_blank" rel="noopener">ArduPilot, seleção de fontes do EKF</a></li><li><a href="https://ardupilot.org/dev/docs/secure-firmware.html" target="_blank" rel="noopener">ArduPilot, firmware assinado</a></li><li><a href="https://docs.px4.io/main/en/dev_log/flight_log_analysis_statistical" target="_blank" rel="noopener">PX4, logs públicos (CC BY)</a></li><li><a href="https://www.caa.cz/wp-content/uploads/2024/12/SORA-v2.5-Main-Body-Release-JAR_doc_25.pdf" target="_blank" rel="noopener">JARUS SORA 2.5</a></li><li><a href="https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" target="_blank" rel="noopener">ANAC, RBAC nº 100</a></li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Atalaia Núcleo, versão 0.1, 16/11/2026. Preparado por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho: não é doutrina aprovada nem proposta comercial. Linhas tracejadas são calculadas a partir de fórmulas e de números de ficha; preços são anúncios de revendas; os resultados medidos e provados vêm de apps/atalaia/data/nucleo.json, escrito a partir dos registros privados do projeto.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+<script>/* nucleo-modelo.js — the idealized "certified endurance without GNSS" model of the Atalaia Núcleo page, ONCE: the
+   builder (nucleo.js) evaluates it in Node to write and check the page's numbers, and inlines this very file into the
+   page so the interactive chart runs the same code. apps/atalaia · cert-machine · 2026-11-16                      MIT
+
+   A MODEL, NOT A MEASUREMENT. The spec sheets' bias instability is treated as a constant bound (it is not one), there is
+   no position, velocity or attitude error at the moment GNSS is lost, and ε = 5 m is chosen. Inertial only: a constant
+   gyro bias ω gives g·ω·t³/6 of horizontal error and an accelerometer bias a gives ½·a·t². The carousel (alternating
+   yaw, one turn per minute) is modelled as leaving ½·g·(ω/Ω)·t² at the worst phase. The drag lever caps the region at
+   the wind-change bound times t. The plotted quantity is 2·r(t) + ε, the region's diameter plus the gate tolerance, and
+   the certified endurance is the time it takes to reach the phase's alert limit.                                   */
+var NUCLEO = (function () {
+  'use strict';
+  var G = 9.80665, DEG = Math.PI / 180, OMC = 2 * Math.PI / 60, EPS = 5, TMAX = 900;
+  var IMU = {
+    hg: { nome: 'Honeywell HG4930-S', curto: 'HG4930-S', gyro: 0.25, acc: 0.025e-3 },   /* °/h; g (bias instability, spec sheets) */
+    ep: { nome: 'Epson M-G370', curto: 'Epson M-G370', gyro: 0.8, acc: 24e-6 } };
+  function raio(imu, t, o) {                                     /* r(t), metres */
+    var w = imu.gyro * DEG / 3600, a = imu.acc * G;
+    var gy = o.carrossel ? 0.5 * G * (w / OMC) * t * t : G * w * t * t * t / 6;
+    var r = gy + 0.5 * a * t * t;
+    if (o.arrasto) r = Math.min(r, o.dv * t);
+    return r;
+  }
+  function largura(imu, t, o) { return 2 * raio(imu, t, o) + EPS; }
+  function autonomia(imu, L, o) {                                /* seconds until 2r + ε reaches L, or null past TMAX */
+    var f = function (t) { return largura(imu, t, o); };
+    if (f(0) >= L) return 0;
+    if (f(TMAX) < L) return null;
+    var lo = 0, hi = TMAX;
+    for (var i = 0; i < 60; i++) { var m = (lo + hi) / 2; if (f(m) >= L) hi = m; else lo = m; }
+    return hi;
+  }
+  function relogio(s) { if (s == null) return 'mais de 15:00'; var T = Math.round(s); return Math.floor(T / 60) + ':' + String(T % 60).padStart(2, '0'); }
+  /* the chart, as SVG markup (the builder writes the first one, the page redraws on input): computed curves are
+     dashed (the house grammar); the alert limit is a solid rule; one viewBox, so nothing moves when it redraws */
+  function grafico(o) {
+    var W = 720, H = 340, l = 58, r = 18, t = 16, b = 46, imu = IMU[o.imu];
+    var ymax = Math.max(100, Math.ceil(o.L * 1.5 / 50) * 50);
+    var X = function (s) { return l + (W - l - r) * s / TMAX; }, Y = function (m) { return H - b - (H - b - t) * Math.min(m, ymax) / ymax; };
+    var path = function (opt) { var d = ''; for (var s = 0; s <= TMAX; s += 3) { var v = largura(imu, s, opt); d += (s ? 'L' : 'M') + X(s).toFixed(1) + ' ' + Y(v).toFixed(1); if (v >= ymax) break; } return d; };   /* stops at the top: no false plateau */
+    var so = { carrossel: false, arrasto: false }, com = { carrossel: o.carrossel, arrasto: o.arrasto, dv: o.dv };
+    var a0 = autonomia(imu, o.L, so), a1 = autonomia(imu, o.L, com), out = '';
+    for (var m = 0; m <= 15; m += 3) out += '<line class="nu-grid" x1="' + X(m * 60) + '" x2="' + X(m * 60) + '" y1="' + t + '" y2="' + (H - b) + '"/><text class="nu-ax" x="' + X(m * 60) + '" y="' + (H - b + 18) + '" text-anchor="middle">' + m + '</text>';
+    for (var k = 0; k <= 4; k++) { var v = ymax * k / 4; out += '<line class="nu-grid" x1="' + l + '" x2="' + (W - r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text class="nu-ax" x="' + (l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + Math.round(v) + '</text>'; }
+    out += '<text class="nu-axl" x="' + ((l + W - r) / 2) + '" y="' + (H - 8) + '" text-anchor="middle">minutos sem GNSS</text>';
+    out += '<text class="nu-axl" x="14" y="' + ((t + H - b) / 2) + '" text-anchor="middle" transform="rotate(-90 14 ' + ((t + H - b) / 2) + ')">largura da região + ε (m)</text>';
+    out += '<line class="nu-lim" x1="' + l + '" x2="' + (W - r) + '" y1="' + Y(o.L) + '" y2="' + Y(o.L) + '"/><text class="nu-lb" x="' + (l + 6) + '" y="' + (Y(o.L) - 8) + '">limite de alerta, ' + o.L + ' m</text>';
+    out += '<path class="nu-c0" d="' + path(so) + '"/><path class="nu-c1" d="' + path(com) + '"/>';
+    [[a0, 'só inercial'], [a1, 'com as alavancas']].forEach(function (p, i) { if (p[0] == null) return; var x = X(p[0]), right = x > (l + W - r) / 2;
+      out += '<circle class="nu-mk" cx="' + x.toFixed(1) + '" cy="' + Y(o.L).toFixed(1) + '" r="5"/><text class="nu-lb" x="' + (x + (right ? -10 : 10)).toFixed(1) + '" y="' + (Y(o.L) + 22 + 18 * i).toFixed(1) + '" text-anchor="' + (right ? 'end' : 'start') + '">' + p[1] + ' ' + relogio(p[0]) + '</text>'; });
+    return { svg: '<svg class="nu-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Largura da região de proteção mais ε, em metros, ao longo dos minutos sem GNSS, para o ' + imu.curto + ': só inercial e com as alavancas escolhidas; linha tracejada: calculada pelo modelo">' + out + '</svg>', a0: a0, a1: a1 };
+  }
+  return { G: G, EPS: EPS, TMAX: TMAX, IMU: IMU, raio: raio, largura: largura, autonomia: autonomia, relogio: relogio, grafico: grafico };
+})();
+if (typeof module !== 'undefined') module.exports = NUCLEO;
+
+(function(){var $=function(i){return document.getElementById(i)};
+function fmt(v){return '±'+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' m/s'}
+function draw(){var o={imu:$('nu-imu').value,carrossel:$('nu-car').checked,arrasto:$('nu-arr').checked,dv:+$('nu-dv').value,L:+$('nu-L').value};
+$('nu-dvo').textContent=fmt(o.dv);$('nu-Lo').textContent=o.L+' m';var g=NUCLEO.grafico(o);$('nu-chart').innerHTML=g.svg;
+$('nu-read').textContent='Só inercial: '+NUCLEO.relogio(g.a0)+' · com as alavancas: '+NUCLEO.relogio(g.a1)+(g.a0&&g.a1?' · ganho ×'+(g.a1/g.a0).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}):'')}
+['nu-imu','nu-car','nu-arr','nu-dv','nu-L'].forEach(function(i){$(i).addEventListener('input',draw);$(i).addEventListener('change',draw)})})();
+</script>
+</body>
+</html>

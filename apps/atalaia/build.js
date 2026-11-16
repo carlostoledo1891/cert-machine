@@ -670,3 +670,4 @@ console.log('site/atalaia/doutrina/index.html written (unlisted, minuta v' + VER
 require('./landing.js');                          /* the landing page, from the same records (v0.4) */
 require('./eb.js');                               /* the page for military interlocutors, /atalaia/eb/ (v0.4.1, D31) */
 require('./central.js');                          /* the Central behind a simple password, /atalaia/central/ (D34) */
+require('./nucleo.js');                           /* the technical-details page, /atalaia/nucleo/ (D36) */

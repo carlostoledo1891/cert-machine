@@ -1,0 +1,59 @@
+{
+ "o_que_e": "o estado dos resultados do Núcleo que a página /atalaia/nucleo/ mostra; escrito à mão a partir dos registros privados do Atalaia (cada entrada diz de onde veio); um resultado sem registro fica como 'em andamento'",
+ "versao": "0.1",
+ "data": "16/11/2026",
+ "r1": {
+  "toolchain": "Lean 4.35.0",
+  "mathlib": "v4.35.0 (56a00585)",
+  "axiomas": "só propext, Classical.choice e Quot.sound",
+  "estado": "provado",
+  "fonte": "atalaia/nucleo/lean (Nucleo/R1.lean)",
+  "enunciado": "num espaço pseudométrico, se R é limitado, x ∈ R e existe p ∈ R com dist g p ≤ ε, então dist g x ≤ diam R + ε; e a igualdade num exemplo em ℝ."
+ },
+ "r4": {
+  "toolchain": "Lean 4.35.0",
+  "mathlib": "v4.35.0 (56a00585)",
+  "axiomas": "só propext, Classical.choice e Quot.sound",
+  "estado": "provado",
+  "fonte": "atalaia/nucleo/lean (Nucleo/R4.lean)",
+  "enunciado": "se L ≤ c·τ (causalidade) e τ ≤ δ (o teste do relógio), então L ≤ c·δ; com δ = 100 ns, menos de 30 m. Vale para a retransmissão com atraso comum."
+ },
+ "dem": {
+  "fonte": "atalaia/nucleo/dados/dem_erro.json (S46), 16/11/2026",
+  "resumo": "Medido no corredor do Médio Vale (134.378 células de 30 m): o Copernicus GLO-30 difere da superfície do levantamento de SC de 2010–12 em até 6,5 m em 95% das células e 9,5 m em 99% (10,7 m nas encostas acima de 30°; máximo de 37 m); na ilha, 4,1 m e 6,6 m (13,9 m em 99% nas encostas). É uma comparação contra um levantamento que não é a verdade, com o datum vertical não declarado (o deslocamento medido fica em ±0,25 m) e anos de diferença entre os dois: não é um limite certificado."
+ },
+ "vento": {
+  "fonte": "atalaia/nucleo/dados/vento.json (S46), 16/11/2026",
+  "resumo": "A variação do vento em 5 a 10 minutos não se mede com os dados no disco, que são horários. Os substitutos, nas estações de Indaial, Itajaí e Navegantes (2021 a 2025): a média muda de uma hora para a outra no máximo 2,8 a 3,6 m/s em 99% das horas, e a rajada passa a média em até cerca de 7 m/s em 99% das horas. A proposta é planejar uma perna curta com a média mais cerca de 7 m/s, e tratar trovoada como decisão de voar ou não, não como margem. Estações a 10 m do chão; o drone voa de 30 a 120 m."
+ },
+ "carrossel": null,
+ "anterioridade": {
+  "fonte": "varredura de anterioridade de 16/11/2026 (S42), leitura nas fontes; a nota completa é privada",
+  "zhu_citacao": "However, for camera-based navigation techniques, a common agreement on framework is still missing.",
+  "resumo": "O que mais se aproxima, nas buscas desta varredura: Mina, Kanhere, Kousik e Gao (NAVIGATION, 2023) conferem o GPS contra o conjunto alcançável de uma IMU, com um limite probabilístico; as patentes da Rockwell Collins US 12,704,640 (detecção de falsificador com soluções inerciais de reserva e limite de erro) e US 11,168,986 (o \"tempo até o alerta\" de uma navegação inercial de reserva, calculado com estatística gaussiana) são o análogo industrial do portão e da autonomia; Tanil, Khanafseh, Joerger e Pervan (IEEE TAES, 2018) analisam um falsificador de pior caso, em termos de risco de integridade. Em todas, o GNSS volta a ancorar ou a contrair a referência. Não encontramos uma região sem GNSS que o GNSS nunca possa encolher, um limite determinístico de conjunto válido contra qualquer atacante, nem a autonomia calculada como grandeza certificada; isso é ausência nas buscas, não prova de que não exista."
+ },
+ "r4g": {
+  "toolchain": "Lean 4.35.0",
+  "mathlib": "v4.35.0 (56a00585)",
+  "axiomas": "só propext, Classical.choice e Quot.sound",
+  "estado": "provado",
+  "fonte": "atalaia/nucleo/lean (Nucleo/R4g.lean)",
+  "resumo": "Com atrasos diferentes por satélite (no modelo linearizado de mínimos quadrados): um atraso comum não desloca a posição e vai todo para o relógio; com cada atraso entre 0 e τmax, o erro de posição fica abaixo de ‖K_pos‖·c·τmax/2, e a constante não melhora; mas, se os pesos de relógio da geometria têm sinais opostos, existem atrasos causais que passam em qualquer teste de relógio e deslocam a posição sem limite. Em três geometrias de exemplo (cálculo à parte, não provado), os satélites altos tiveram peso de relógio negativo: o teste do relógio sozinho, em geral, não limita a retransmissão por satélite, e o teto τmax precisa vir de outra parte."
+ },
+ "p": {
+  "toolchain": "Lean 4.35.0",
+  "mathlib": "v4.35.0 (56a00585)",
+  "axiomas": "só propext, Classical.choice e Quot.sound",
+  "estado": "provado",
+  "fonte": "atalaia/nucleo/lean (Nucleo/P.lean)",
+  "resumo": "A camada probabilística: a chance de uma correção aceita com erro acima de diam(R) + ε é no máximo a soma, sobre as fontes e as épocas, das chances de cada limite declarado falhar; sem supor independência entre fontes ou épocas. A inclusão vem do próprio R1."
+ },
+ "r2": {
+  "toolchain": "Lean 4.35.0",
+  "mathlib": "v4.35.0 (56a00585)",
+  "axiomas": "só propext, Classical.choice e Quot.sound",
+  "estado": "provado (núcleo de solidez)",
+  "fonte": "atalaia/nucleo/lean-r2",
+  "resumo": "O núcleo de solidez do R2: com zonotopos com restrições, a imagem por um mapa linear, a soma com o ruído e o corte por uma faixa de medida são exatos, e a soma de um resto limitado é segura; daí o invariante de contenção, época a época, e o limite da posição pela soma dos geradores, separado por fonte (o livro de larguras), instanciado no estado de 15 dimensões. Não provados aqui: a log-linearidade do erro do INS em SE₂(3), a exponencial de volta à posição, a redução de ordem e a verdade de cada limite declarado."
+ }
+}
