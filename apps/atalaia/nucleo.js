@@ -48,11 +48,11 @@ const leanChip = (r) => r && /^provado/.test(r.estado) ? chip('L', r.mathlib ? '
 const n = R.n;
 
 const B = [];
-B.push(C.header({ eyebrow: 'Atalaia · Núcleo · a camada de integridade · documento de trabalho · versão ' + NJ.versao + ' · ' + NJ.data,
+B.push(C.header({ eyebrow: 'Atalaia Núcleo · ' + R.MARCA.lema + ' · documento de trabalho · versão ' + NJ.versao + ' · ' + NJ.data,
   title: 'Atalaia Núcleo: quanto a posição pode estar errada agora',
   deck: 'Todo navegador de drone responde “onde estou?”. O Núcleo responde à pergunta que fica em aberto: quanto a posição pode estar errada agora, mesmo com alguém atacando o GNSS, numa forma que outra parte consegue recalcular.' }));
 B.push('<div class="col">' + C.pull(esc('erro não detectado ≤ diam(Rₜ) + ε')) + C.p('Rₜ é a região onde o drone tem de estar, calculada sem GNSS; ε é a tolerância do GNSS. O limite vale para qualquer atacante. Tudo no Núcleo existe para encolher Rₜ sem trapacear.')
-  + C.scope('Proposta de pesquisa: o lado técnico do Atalaia (a entrada é /atalaia/; a minuta, /atalaia/doutrina/). Cada número diz se é proposto, calculado por um modelo, medido (em simulação ou em dados, e onde) ou provado em Lean. Nada voou.') + '</div>');
+  + C.scope(R.MARCA.familia + ' O Núcleo é a camada de integridade comum aos quatro; os resultados desta página são do ar. Proposta de pesquisa: o lado técnico do Atalaia (a entrada é /atalaia/; a minuta, /atalaia/doutrina/). Cada número diz se é proposto, calculado por um modelo, medido (em simulação ou em dados, e onde) ou provado em Lean. Nada voou.') + '</div>');
 const prov = ['r1', 'r4', 'r4g', 'p', 'r2'].filter((k) => NJ[k] && /^provado/.test(NJ[k].estado)).length;
 const med = ['dem', 'vento', 'carrossel'].filter((k) => NJ[k]).length;
 B.push(C.stats([
@@ -63,7 +63,7 @@ B.push(C.stats([
 
 /* 1 · the open frontier */
 const ZQ = NJ.anterioridade && NJ.anterioridade.zhu_citacao;
-B.push(C.section({ lab: '1 · A fronteira em aberto', title: 'Onde ninguém está ainda', bodyRaw:
+B.push(C.section({ lab: '1 · A fronteira em aberto', title: 'O que já existe, e o que ainda não encontramos', bodyRaw:
   C.p('A aviação resolveu a integridade do GNSS com níveis de proteção e um risco declarado. Três partes do mesmo problema continuam em aberto para drones que voam sem um GNSS em que se possa confiar.')
   + C.plainList([
     { b: 'Sem GNSS, não há um quadro de integridade para visão, relevo ou inércia.', raw: ZQ ? esc('Uma revisão de 2022 sobre a integridade da navegação visual diz: ') + '<q>' + esc(ZQ) + '</q>' + esc(' (Zhu, Meurer e Günther, NAVIGATION).') : esc('O ponto de partida é a revisão de Zhu, Meurer e Günther sobre a integridade da navegação visual (NAVIGATION, 2022).') },
@@ -75,6 +75,7 @@ B.push(C.section({ lab: '1 · A fronteira em aberto', title: 'Onde ninguém est�
     [c1('Navegação visual'), c2([['Oferece:', 'seguir voando sem GNSS.'], ['Não aparece:', 'um limite de integridade publicado para a visão aprendida.']])],
     [c1('Aviônica (por exemplo, Rockwell Collins)'), c2([['Oferece:', 'integridade GNSS com inércia; detecção de falsificação com soluções inerciais de reserva e limite de erro; o tempo até o alerta de uma navegação de reserva: a anterioridade mais próxima.'], ['Não aparece:', 'um limite de pior caso contra um atacante (os limites são estatísticos, e o GNSS volta a ancorar a reserva); recálculo por terceiros; preço de drone.']])],
     [c1('Antenas anti-interferência'), c2([['Oferece:', 'manter o sinal.'], ['Não aparece:', 'o erro de posição; e têm controle de exportação (7A005.b).']])],
+    [c1('Métodos por conjuntos (pesquisa)'), c2([['Oferece:', 'limites determinísticos sob erros limitados; a região vazia que acusa uma fonte falsa; níveis de proteção com zonotopos; navegação inercial por intervalos (os trabalhos estão no parágrafo acima e nas fontes).'], ['Não aparece:', 'os vieses da IMU dentro do estado da região, uma prova verificada por máquina, um registro que outra parte refaz, um portão que só aceita o GNSS dentro de uma região construída sem ele.']])],
     [c1('Atalaia Núcleo'), c2([['Propõe:', 'um juiz sobre qualquer navegador: um limite de pior caso, válido contra qualquer atacante, provado, e recalculável por um verificador de fora.']])]] }) }));
 
 /* 2 · the product */
@@ -201,7 +202,7 @@ B.push(C.section({ lab: '8 · Resultados de fronteira', title: 'O que poria o At
 /* 9 · path, gates and prices */
 B.push(C.section({ lab: '9 · Caminho, portões e preços', title: 'Nada se compra antes de um portão passar', bodyRaw:
   C.plainList([
-    { b: 'G0 · simulação, US$ 0.', text: 'O ArduPilot em SITL sobre a ilha, um modelo multirrotor, um caso de falsificação, a caixa trocando a fonte do EKF3; o livro de larguras; R1 e R4 em Lean. Pods com teto de US$ 10.' },
+    { b: 'G0 · simulação, US$ 0.', text: 'O ArduPilot em SITL sobre a ilha, um modelo multirrotor, um caso de falsificação, a caixa trocando a fonte do EKF3; o livro de larguras; R1 e R4 em Lean. Passa quando o protótipo do estimador de conjunto (R2) mostrar, em todos os voos simulados, a posição verdadeira dentro da região e um controle com o viés subdeclarado recusado.' },
     { b: 'G1 · bancada, cerca de US$ 1,1 mil.', text: 'Conjunto Cube Orange+, Jetson Orin Nano, receptor u-blox ZED-X20P, antena HC977. O hardware no laço precisa chegar às mesmas decisões do SITL.' },
     { b: 'G2 · aeronave aberta de desenvolvimento, cerca de US$ 3,5 a 5,5 mil, mais baterias e o sensor inercial.', text: 'Holybro X650 com Pixhawk 6X, a caixa de voo, rádio de telemetria homologado na Anatel. Carrossel e arrasto em voos reais num campo autorizado.' },
     { b: 'G3 · plataforma pesada, numa fase posterior, US$ 29 a 46 mil.', text: 'IF1200A (ArduPilot) ou Alta X Gen2, ou um DJI emprestado. A demo DJI usa o que a unidade voa.' }])
@@ -216,22 +217,15 @@ B.push(C.section({ lab: '9 · Caminho, portões e preços', title: 'Nada se comp
     [c1('DJI de carga, no Brasil'), c2([['', 'FlyCart 30 de R$ 171 a 313 mil · FlyCart 100 combo de R$ 261 a 291 mil, em anúncios de revendas.']])]] })
   + C.p('Preços de revenda nos EUA antes de frete e impostos brasileiros; estimativa de planejamento, não cotação: peças pequenas pelo Remessa Conforme chegam a cerca do dobro do preço nos EUA. O Herelink ainda não está homologado na Anatel, e a classificação de exportação das plataformas pesadas precisa vir por escrito antes de qualquer pedido.') }));
 
-/* 10 · decided */
-B.push(C.section({ lab: '10 · Já decidido', title: 'As decisões do operador', bodyRaw:
-  C.table({ cols: [{ h: 'Questão' }, { h: 'Decisão' }], rows: [
-    ['Piloto automático aberto', 'segunda via; a DJI fica para a demo'], ['Qual', 'ArduPilot'], ['Fatia SITL antes da reunião', 'feita, privada'],
-    ['Valores dos portões', 'como escritos, rotulados como estimativas'], ['Plataforma pesada', 'fase posterior'], ['Regras e licenças', 'verificadas, em privado'],
-    ['GPLv3', 'nos pontos para o jurídico'], ['Dados públicos', 'sim, lida a licença de cada um'], ['Pods', 'permitidos, teto de US$ 10'],
-    ['O Núcleo', 'background IP; R1 a R6 entram na proposta dentro dos pacotes de arquitetura e de validação']].map((r) => [c1(r[0]), c2([['', r[1]]])]) }) }));
 
 /* 11 · limits */
-B.push(C.section({ lab: '11 · Limites', title: 'O que não é a nossa luta, e os riscos', bodyRaw:
+B.push(C.section({ lab: '10 · Limites', title: 'O que não é a nossa luta, e os riscos', bodyRaw:
   C.plainList([
     { b: 'Não é a nossa luta.', text: 'Autonomia e pilotos de IA; corridas de precisão da navegação visual; drones baratos descartáveis; hardware anti-interferência e guerra eletrônica.' },
     { b: 'Linhas vermelhas.', text: 'Só recepção: nunca emitir, bloquear ou falsificar; nenhuma antena CRPA (7A005.b); nenhum rastreamento de alvo e nenhuma guiagem a um ponto qualquer do solo (D16); um piloto sempre no comando, como o RBAC nº 100 exige.' },
     { b: 'Riscos.', text: 'O limite de pior caso pode sair largo demais para voar, e o livro de larguras responde isso primeiro. Os modelos físicos são onde entra a falsa confiança: limites a partir de dados com cobertura, rebaixados a cada escape. A instabilidade de viés não é um limite, então o modelo acima é otimista. A certificação exata prova a matemática, não a física. O carrossel gasta energia e balança uma carga pendurada.' }]) }));
 
-/* 12 · sources */
+/* 11 · sources */
 const SRC = [
   ['https://navi.ion.org/content/69/2/navi.518', 'Zhu, Meurer e Günther, integridade da navegação visual (NAVIGATION, 2022)'],
   ['https://arxiv.org/pdf/1904.09251', 'Hartley e outros, EKF invariante com contato (erro log-linear)'],
@@ -245,6 +239,12 @@ const SRC = [
   ['https://patents.google.com/patent/US12704640B2/en', 'Rockwell Collins, US 12,704,640, detecção de falsificador com limite de erro de alta integridade'],
   ['https://patents.google.com/patent/US11168986B2/en', 'Rockwell Collins, US 11,168,986, navegação inercial de reserva e tempo até o alerta'],
   ['https://navi.ion.org/content/70/4/navi.616', 'Mina, Kanhere, Kousik e Gao, o GPS conferido contra o conjunto alcançável da IMU (NAVIGATION, 2023)'],
+  ['https://hal-ensta-bretagne.archives-ouvertes.fr/hal-00449524', 'Jaulin, estimação de estado robusta por conjuntos, com medidas falsas toleradas (Automatica, 2009)'],
+  ['https://doi.org/10.1109/TRO.2013.2262776', 'Drevelle e Bonnifait, domínios de confiança da localização por inversão de conjuntos (IEEE T-RO, 2013)'],
+  ['https://su-jingyao.github.io/publication/plans-2023/', 'Su, Schön e Joerger, um detector por conjuntos para a integridade GNSS (PLANS 2023)'],
+  ['https://doi.org/10.1007/s10291-023-01447-z', 'Liu, Wang e Abel, níveis de proteção com zonotopos em GNSS/INS (GPS Solutions, 2023)'],
+  ['https://www.frontiersin.org/articles/10.3389/fcteg.2021.786188', 'Le Bars, Sanchez, Jaulin, Rohou e Rauh, navegação inercial por intervalos num barco autônomo (Frontiers in Control Engineering, 2022)'],
+  ['https://arxiv.org/abs/2605.09383', 'Zhu e outros, nível de proteção determinístico por conjuntos para odometria LiDAR-inercial (arXiv, 2026)'],
   ['https://experts.arizona.edu/en/publications/an-ins-monitor-to-detect-gnss-spoofers-capable-of-tracking-vehicl/', 'Tanil, Khanafseh, Joerger e Pervan, monitor inercial contra falsificadores (IEEE TAES, 2018)'],
   ['https://arxiv.org/abs/1001.0025', 'Papadimitratos e Jovanovic, proteção do GNSS por relógio (2008)'],
   ['https://ardupilot.org/copter/docs/airspeed-estimation.html', 'ArduPilot, estimação do vento pelo arrasto'],
@@ -253,7 +253,7 @@ const SRC = [
   ['https://docs.px4.io/main/en/dev_log/flight_log_analysis_statistical', 'PX4, logs públicos (CC BY)'],
   ['https://www.caa.cz/wp-content/uploads/2024/12/SORA-v2.5-Main-Body-Release-JAR_doc_25.pdf', 'JARUS SORA 2.5'],
   ['https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf', 'ANAC, RBAC nº 100']];
-B.push(C.section({ lab: '12 · Fontes', title: 'Lidas no rascunho e na verificação', bodyRaw:
+B.push(C.section({ lab: '11 · Fontes', title: 'Lidas no rascunho e na verificação', bodyRaw:
   C.plainList(SRC.map(([u, t]) => ({ raw: a(u, esc(t)) }))) }));
 
 const foot = '<p>' + esc('Atalaia Núcleo, versão ' + NJ.versao + ', ' + NJ.data + '. Preparado por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho: não é doutrina aprovada nem proposta comercial. Linhas tracejadas são calculadas a partir de fórmulas e de números de ficha; preços são anúncios de revendas; os resultados medidos e provados vêm de apps/atalaia/data/nucleo.json, escrito a partir dos registros privados do projeto.') + '</p>';

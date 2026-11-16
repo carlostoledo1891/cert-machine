@@ -49,7 +49,7 @@ const FILM = { f: 'ilha-morros', t: 'Um posto nos morros, com o GNSS falsificado
 if (!R.PROV.registros['filmes/' + FILM.f + '.mp4']) die('the film ' + FILM.f + ' is not pinned in PROVENANCE.json');
 
 const B = [];
-B.push(C.header({ eyebrow: 'Atalaia · proposta independente de pesquisa aplicada · SARP e resiliência de PNT · versão ' + VERSAO.n + ' · ' + VERSAO.data,
+B.push(C.header({ eyebrow: 'Atalaia · ' + R.MARCA.lema + ' · proposta independente · versão ' + VERSAO.n + ' · ' + VERSAO.data,
   title: 'Quando a navegação deixa de ser confiável, a decisão precisa continuar justificável',
   deck: 'Atalaia é uma proposta de protocolo para avaliar a integridade da navegação, a segurança da missão e a auditabilidade no emprego de sistemas de aeronaves remotamente pilotadas (SARP). Não é uma aeronave nem um sistema pronto: é um método para decidir, com critérios escritos antes do voo, quando uma missão pode continuar, quando precisa ser interrompida e quando não há dados suficientes para decidir.' }));
 B.push('<div class="col">' + C.scope('Proposta em pesquisa: resultados de simulação e de bancada, nenhum voo real validado. Iniciativa independente de Carlos Toledo, sem vínculo com o Exército Brasileiro e sem endosso dele: não é documento do Exército, não foi submetida ao Sistema de Doutrina Militar Terrestre (SIDOMT) e não é doutrina aprovada.') + '</div>');

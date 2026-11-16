@@ -22,6 +22,11 @@ const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest
 /* the version every page prints (the minuta's version block and section 13 say what changed) */
 const VERSAO = { n: '0.4.1', data: '16/11/2026' };
 
+/* the brand (2026-11-16): one tagline and one family line, written once here and printed by every page */
+const MARCA = {
+  lema: 'integridade verificável para sistemas autônomos e infraestrutura crítica',
+  familia: 'Atalaia: integridade verificável para sistemas autônomos e infraestrutura crítica, em quatro domínios (ar, terra, mar e offshore) sobre o mesmo núcleo de integridade. O primeiro é o ar: drones que operam sem um GNSS em que se possa confiar.' };
+
 /* ---- the records, checked against their pins */
 const PROV = JSON.parse(fs.readFileSync(path.join(DATA, 'PROVENANCE.json'), 'utf8'));
 for (const [f, h] of Object.entries(PROV.registros)) if (sha(path.join(DATA, f)) !== h) die(f + ' does not match its pin in PROVENANCE.json');
@@ -100,5 +105,5 @@ const FILM_SCRIPT = `<script>(function(){var vs=document.querySelectorAll('video
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.play().catch(function(){})}else{e.target.pause()}})},{threshold:.4});
 vs.forEach(function(v){io.observe(v)})})();</script>`;
 
-module.exports = { VERSAO, PROV, CJ, MJ, IL, ILM, AV, DI, AL, SI, FR, KG, R12, R30, RS, V, pa, fa, na, paMiss, faOk, naOk,
+module.exports = { VERSAO, MARCA, PROV, CJ, MJ, IL, ILM, AV, DI, AL, SI, FR, KG, R12, R30, RS, V, pa, fa, na, paMiss, faOk, naOk,
   CAP, zPost, zSerra, zBase, RES_MIN, CTRV, n, EVID, CSS_BASE, VWORD, filme, FILM_CSS, FILM_SCRIPT };

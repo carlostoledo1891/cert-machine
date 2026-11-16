@@ -22,7 +22,7 @@ const esc = C.esc;
 
 /* the records, read, pinned and asserted once (registros.js, v0.4.1): the island verdicts the films are captioned with
    (morros passes, the Rio Vermelho base needs data, the sea leg refuses) are among the ones it asserts */
-const { PROV, VERSAO, filme, FILM_CSS, FILM_SCRIPT } = require('./registros.js');
+const { PROV, VERSAO, MARCA, filme, FILM_CSS, FILM_SCRIPT } = require('./registros.js');
 
 const FILMS = [
   { f: 'ilha-morros', t: 'Um posto nos morros, com o GNSS falsificado no caminho',
@@ -39,10 +39,10 @@ const video = (F) => filme(F.f, F.t, 'filmes/');
 const fig = (F) => C.figure({ svgRaw: video(F), caption: F.t + '. ' + F.c, record: ['apps/atalaia/data/filmes/' + F.f + '.mp4'] });
 
 const B = [];
-B.push(C.header({ eyebrow: 'Proposta de protocolo · versão ' + VERSAO.n + ' · ' + VERSAO.data + ' · testes sintéticos em Santa Catarina',
+B.push(C.header({ eyebrow: 'Atalaia · ' + MARCA.lema + ' · versão ' + VERSAO.n + ' · ' + VERSAO.data,
   title: 'Atalaia: drones que sabem o que conseguem garantir',
   deck: 'Quando a navegação por satélite de um drone falha ou é falsificada (o GPS e os sistemas parecidos, que juntos se chamam GNSS), o Atalaia não promete que ele nunca se perca. Ele calcula o que dá para garantir sobre onde o drone está, só deixa a missão seguir quando isso pode ser demonstrado, e registra cada decisão para quem quiser conferir depois.' }));
-B.push('<div class="col">' + C.scope('Tudo nesta página é simulação, sobre o relevo real da ilha de Florianópolis e do Vale do Itajaí. Nada voou. O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia. Esta é a apresentação curta da versão ' + VERSAO.n + ' da minuta, de ' + VERSAO.data + '; o documento técnico completo, com o histórico de versões, está em /atalaia/doutrina/.') + '</div>');
+B.push('<div class="col">' + C.scope(MARCA.familia + ' Esta página é a proposta de protocolo para o ar. Tudo nela é simulação, sobre o relevo real da ilha de Florianópolis e do Vale do Itajaí. Nada voou. O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia. Esta é a apresentação curta da versão ' + VERSAO.n + ' da minuta, de ' + VERSAO.data + '; o documento técnico completo, com o histórico de versões, está em /atalaia/doutrina/.') + '</div>');
 B.push(fig(FILMS[0]));
 B.push(C.section({ lab: 'A ideia', title: 'Três mudanças na forma de operar', bodyRaw:
   C.p('Resiliência, aqui, não é garantir que o drone nunca perca a referência de navegação. É garantir que quem opera continue tomando decisões justificáveis e verificáveis quando essa referência deixa de ser confiável. Serve a quem precisa chegar a um lugar difícil: comunidades isoladas, a defesa civil numa enchente, a inspeção de linhas e encostas; e, mais tarde, às Forças.')
