@@ -4,8 +4,9 @@
 
    WHY. The operator, 2026-11-16, after outside reviews of v0.4: "create the EB html page". A short page for officers
    of the Brazilian Army (EB) that translates the minuta into a command question — when the navigation can no longer be
-   trusted, the decision must stay justifiable — and asks for ONE thing: a preliminary technical evaluation, with no
-   commitment. It does not imitate an official document: no coat of arms, no Army visual identity, no "approved",
+   trusted, the decision must stay justifiable — and states ONE thing: the partnership is open for testing in a
+   battalion's context, with no commitment (the operator, later the same day: "we are asking too many things on the
+   page. I have the contact"; the list of asks and the mail link were removed, the battalion stays unnamed). It does not imitate an official document: no coat of arms, no Army visual identity, no "approved",
    "COTER project" or "doctrine of the Army"; it says on its face that it is an independent initiative with no
    endorsement and that nothing has flown. The landing (/atalaia/) and the minuta (/atalaia/doutrina/) stay the other
    two doors.
@@ -28,7 +29,6 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
-const CT = require(path.join(ROOT, 'design', 'contact.js'));
 const R = require('./registros.js');
 const { VERSAO, AV, FR, KG, R12, R30, CAP, EVID, fa, faOk, n } = R;
 const OUT = path.join(ROOT, 'site', 'atalaia', 'eb');
@@ -57,7 +57,7 @@ B.push(C.stats([
   { k: 'Voos reais validados', v: '0', n: 'nenhum ainda; o primeiro é a etapa de calibração' },
   { k: 'Resultados documentados', v: String(EVID.length), n: 'simulação, bancada, dados gravados e vetores oficiais' },
   { k: 'Áreas de teste sintético', v: '2', n: 'a ilha de Florianópolis e o Médio Vale do Itajaí (SC)' },
-  { k: 'Compromisso pedido', v: 'nenhum', n: 'de adoção, aquisição ou mudança de procedimento' }]));
+  { k: 'Parceria', v: 'aberta', n: 'para testes no contexto de um batalhão' }]));
 
 /* 1 · the command problem */
 B.push(C.section({ lab: '1 · O problema de comando', title: 'Decidir sobre uma posição que pode estar errada', bodyRaw:
@@ -141,31 +141,25 @@ B.push(C.section({ lab: '5 · Evidências e limites', title: 'O que já foi demo
     { b: 'Validação em campo.', text: 'Nenhum voo real. O primeiro é a etapa de calibração, em campo autorizado.' },
     { b: 'Desempenho em plataformas reais.', text: 'Os limites de erro dos sensores e a independência entre eles são hipóteses a medir; num DJI de hoje, a caixa só alerta e manda parar ou pousar.' },
     { b: 'Generalidade.', text: 'Os casos de hoje são, em boa parte, favoráveis: o relevo do Vale e dos morros ajuda. Numa rota plana a partir de Tabatinga não ajuda, e o laudo diz falta dado; ambiente urbano e mata densa ainda não foram testados.' },
-    { b: 'Adequação operacional militar.', text: 'Não avaliada. É o que uma avaliação técnica preliminar começaria a examinar.' }])
+    { b: 'Adequação operacional militar.', text: 'Não avaliada. É o que os testes no contexto de um batalhão começariam a examinar.' }])
   + C.pRaw(esc('As hipóteses, os modelos e os critérios de validação estão na minuta técnica, seções 8 a 11: ') + '<a href="/atalaia/doutrina/">/atalaia/doutrina/</a>.') }));
 
-/* 6 · the ask */
-B.push(C.section({ lab: '6 · O que se propõe ao Exército', title: 'Uma avaliação técnica preliminar, sem compromisso de adoção', bodyRaw:
-  C.p('O pedido é pequeno de propósito. Não pede que uma doutrina seja adotada: pede que pessoas tecnicamente qualificadas examinem se o problema é relevante para a organização e se a abordagem merece ser estudada.')
-  + C.table({ cols: [{ h: '' }, { h: 'O pedido' }], rows: [
-    [c1('Pede'), c2([['', 'uma apresentação técnica, de 15 minutos mais perguntas; um interlocutor para discutir requisitos; orientação sobre o processo institucional adequado; uma avaliação da relevância do problema para a organização.']])],
-    [c1('Não pede'), c2([['', 'a adoção da doutrina; aeronaves; financiamento; reconhecimento institucional do Atalaia; encaminhamento ao escalão superior.']])],
-    [c1('Quem participaria'), c2([['', 'um grupo pequeno, conforme o escopo: alguém de operações, alguém que conheça os meios SARP e, se for o caso, comunicações e logística.']])],
-    [c1('O que fica com a organização'), c2([['', 'a decisão de continuar, de pedir mais evidência ou de encerrar a conversa. Uma eventual avaliação pelo Exército depende dos resultados e das autoridades competentes.']])]] })
-  + C.p('Uma das perguntas que a proposta quer investigar junto com quem opera: se isto for demonstrado de forma independente, em que tipo de missão ou situação haveria benefício concreto? Ela não tem resposta pronta; depende de requisitos que só a organização usuária conhece.')
+/* 6 · the partnership (the operator, 2026-11-16: "we are asking too many things on the page. I have the contact and we
+   should cite the partnership is open for testing in the Batalhão context"): one statement, no list of asks, no contact
+   form — the battalion stays unnamed (atalaia/CLAUDE.md, rule 3) */
+B.push(C.section({ lab: '6 · A parceria', title: 'Aberta a testes no contexto de um batalhão', bodyRaw:
+  C.p('A parceria está aberta para testes no contexto de um batalhão, sem compromisso de adoção, de aquisição ou de mudança de procedimento. Os testes seguem as quatro etapas da minuta (seção 9), cada uma com o critério de aceitação escrito antes:')
+  + C.plainList([
+    { b: 'Simulação sobre o terreno da área de emprego.', text: 'As missões que o batalhão de fato voaria, calculadas sobre o relevo real, com os laudos e os replays.' },
+    { b: 'Bancada, com a aeronave em solo.', text: 'Ataques gravados injetados na caixa, sem emitir sinal, e o lacre do registro conferido.' },
+    { b: 'Calibração em campo autorizado.', text: 'Voos curtos que medem o consumo com carga e o erro real de cada sensor.' },
+    { b: 'Exercício.', text: 'A missão com a equipe que opera, num exercício já previsto, e o verificador independente reconstruindo o voo pelo registro.' }])
+  + C.p('Uma das perguntas dos testes: se isto for demonstrado de forma independente, em que tipo de missão haveria benefício concreto? A resposta depende de requisitos que só quem opera conhece.')
   + '<h3 class="at-h3">Aderência potencial ao processo de evolução doutrinária</h3>'
   + C.p('Se houver avaliação militar, a proposta tem caminho conhecido no Exército. A doutrina é produzida pelo Sistema de Doutrina Militar Terrestre, o SIDOMT; o COTER, por intermédio do Centro de Doutrina do Exército, prepara a diretriz de cada produto doutrinário; uma ideia passa pela sistemática de experimentação doutrinária antes de virar manual; e a Doutrina Militar Terrestre mede uma capacidade pelos sete fatores do DOAMEPI. A seção 12 da minuta diz o que cada fator pediria do Atalaia.')
   + C.p('Esta proposta não foi submetida, enquadrada ou aceita por esse sistema: não é projeto do COTER, não é doutrina do Exército e não está em experimentação doutrinária.')
-  + src('Fontes: Exército Brasileiro, EB20-MF-10.102, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/11768/1/EB20MF10102.pdf', '<em>Doutrina Militar Terrestre</em>') + ', 3ª ed., 2022 (§ 3.3.4, DOAMEPI); COTER, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/14389/1/PDDMT2025.pdf', 'Plano de Desenvolvimento da Doutrina Militar Terrestre 2025') + ' (§ 4 e § 5); Instruções Reguladoras da Sistemática de Experimentação Doutrinária (EB70-IR-10.002), 2018.') }));
-
-/* 7 · the next step: three doors */
-const mail = 'mailto:' + CT.MAIL + '?subject=' + encodeURIComponent('Atalaia: pedido de apresentação técnica');
-B.push(C.section({ lab: '7 · Próximo passo', title: 'Uma reunião técnica de apresentação', bodyRaw:
-  C.p('O próximo passo proposto é uma reunião técnica: apresentar o protocolo, mostrar os replays e os resultados com as suas limitações, e ouvir que requisitos importam para a organização. Em paralelo, a pesquisa aplicada segue com um instituto de engenharia: bancada, voos de calibração em campo autorizado e validação independente.')
-  + C.plainList([
-    { b: 'Entender a proposta.', raw: '<a href="/atalaia/">' + esc('A apresentação curta, com quatro replays sintéticos') + '</a>' + esc(', em três minutos de leitura.') },
-    { b: 'Examinar as evidências.', raw: '<a href="/atalaia/doutrina/">' + esc('A minuta técnica') + '</a>' + esc(': princípios, estados da missão, requisitos, hipóteses, critérios de validação, limites e o histórico de versões.') },
-    { b: 'Solicitar uma avaliação técnica.', raw: '<a href="' + esc(mail) + '">' + esc('Escrever para Carlos Toledo') + '</a>' + esc('. Bastam nome, organização, função e assunto; não envie informação operacional, de unidade ou sensível.') }]) }));
+  + src('Fontes: Exército Brasileiro, EB20-MF-10.102, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/11768/1/EB20MF10102.pdf', '<em>Doutrina Militar Terrestre</em>') + ', 3ª ed., 2022 (§ 3.3.4, DOAMEPI); COTER, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/14389/1/PDDMT2025.pdf', 'Plano de Desenvolvimento da Doutrina Militar Terrestre 2025') + ' (§ 4 e § 5); Instruções Reguladoras da Sistemática de Experimentação Doutrinária (EB70-IR-10.002), 2018.')
+  + C.pRaw(esc('Para ler mais: ') + '<a href="/atalaia/">' + esc('a apresentação curta, com quatro replays sintéticos') + '</a>' + esc(', e ') + '<a href="/atalaia/doutrina/">' + esc('a minuta técnica') + '</a>' + esc(', com princípios, estados da missão, requisitos, hipóteses, critérios de validação, limites e o histórico de versões.')) }));
 
 const foot = '<p>' + esc('Atalaia v' + VERSAO.n + ', ' + VERSAO.data + '. Preparado por Carlos Toledo, autor da proposta, com ajuda de IA (Claude) na pesquisa e na redação. Iniciativa independente: não é documento do Exército Brasileiro nem tem o endosso dele, e não usa marca, brasão ou identidade visual da Força. Documento de trabalho, não doutrina aprovada nem proposta comercial. Os números das missões vêm de apps/atalaia/data (cada registro fixado por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto.') + '</p>';
 const css = R.CSS_BASE + R.FILM_CSS + `
