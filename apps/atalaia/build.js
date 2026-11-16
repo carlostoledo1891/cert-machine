@@ -46,6 +46,9 @@ const die = (m) => { console.error('ATALAIA PAGE REFUSED: ' + m); process.exit(1
 /* ---- the records: read, pinned and asserted ONCE, in registros.js (v0.4.1), which landing.js and eb.js read too */
 const R = require('./registros.js');
 const { VERSAO, CJ, MJ, IL, ILM, AV, AL, SI, FR, KG, R12, R30, RS, pa, fa, na, paMiss, faOk, naOk, CAP, zPost, zSerra, zBase, RES_MIN, CTRV, n } = R;
+/* the Amazon route's length, read once from the record (the last profile row); the minuta printed MJ.amazonia.km, a field the record never had (NaN on the page until 2026-11-17) */
+const AMZ_KM = MJ.amazonia.rows[MJ.amazonia.rows.length - 1].km;
+if (!(AMZ_KM > 0)) die('the Amazon route has no length in missao.json');
 const esc = C.esc;
 const vword = R.VWORD;
 const vt = (v) => C.tag(vword[v][0], vword[v][1]);
@@ -505,7 +508,7 @@ B.push(C.section({ lab: '10 · Governança', title: 'A missão termina quando po
 B.push(C.section({ lab: '11 · Limites', title: 'O que ainda não está demonstrado', bodyRaw:
   C.plainList([
     { b: 'Ainda não voou.', text: 'Tudo nesta minuta é simulação ou teste de bancada. O primeiro voo real é a etapa de calibração.' },
-    { b: 'Os casos favoráveis vêm primeiro.', text: 'No Vale do Itajaí e nos morros da ilha, o relevo ajuda em todo o caminho; sobre a água, não ajuda, e a ilha já mostra isso. Numa rota de 15 km a partir de Tabatinga, na fronteira amazônica, o relevo plano não ajuda em nenhum ponto; sem GNSS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado. O laudo nomeia o que decidiria: o mapa magnético do Serviço Geológico do Brasil, imagens do INPE ou um voo de reconhecimento. Os resultados de Blumenau e da ilha não são uma capacidade geral: ainda não há evidência de que o protocolo funcione igual em outros terrenos.' },
+    { b: 'Os casos favoráveis vêm primeiro.', text: 'No Vale do Itajaí e nos morros da ilha, o relevo ajuda em todo o caminho; sobre a água, não ajuda, e a ilha já mostra isso. Numa rota de ' + n(AMZ_KM) + ' km a partir de Tabatinga, na fronteira amazônica, o relevo plano não ajuda em nenhum ponto; sem GNSS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado. O laudo nomeia o que decidiria: o mapa magnético do Serviço Geológico do Brasil, imagens do INPE ou um voo de reconhecimento. Os resultados de Blumenau e da ilha não são uma capacidade geral: ainda não há evidência de que o protocolo funcione igual em outros terrenos.' },
     { b: 'A ilha está sob espaço aéreo controlado.', text: 'O aeroporto Hercílio Luz controla o espaço aéreo da ilha. Lá, os testes são só sintéticos; voo real, só em campo autorizado.' },
     { b: 'Num DJI, hoje, a caixa avisa e manda parar ou pousar.', text: 'Seguir a rota com a posição da caixa depende de um modo que a DJI documentou e ainda não liberou, ou de um autopiloto aberto.' },
     { b: 'As contas de energia começam como premissas.', text: 'Até os voos de calibração, muitas missões vão dar falta dado. É o comportamento certo, e tem um custo: missões retidas que teriam chegado. A pesquisa mede os dois lados.' },
@@ -535,7 +538,7 @@ B.push(C.section({ lab: '12 · Próximo passo', title: 'Pesquisa aplicada primei
   + C.p('A navegação pelo relevo e pela imagem depende do terreno, e os casos de hoje são, em boa parte, favoráveis. O objetivo da matriz é descobrir em que ambientes a arquitetura mantém utilidade, não demonstrar que ela funciona em todo lugar. Onde ela não ajudar, o resultado esperado é o laudo dizer falta dado ou não passa, e nomear o que decidiria.')
   + C.table({ cols: [{ h: 'Ambiente' }, { h: 'Onde, e o que se sabe hoje' }], rows: [
     [c1('Relevo montanhoso', mt('D', 'simulação')), c2([['Onde:', 'o Médio Vale do Itajaí e os morros do norte da ilha.'], ['Hoje:', 'o relevo devolve a posição em todo o caminho das missões simuladas. É o caso favorável.']])],
-    [c1('Relevo plano', mt('D', 'simulação')), c2([['Onde:', 'uma rota de ' + n(MJ.amazonia.km) + ' km a partir de Tabatinga, na fronteira amazônica.'], ['Hoje:', 'o relevo não ajuda em nenhum ponto; sem GNSS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado.']])],
+    [c1('Relevo plano', mt('D', 'simulação')), c2([['Onde:', 'uma rota de ' + n(AMZ_KM) + ' km a partir de Tabatinga, na fronteira amazônica.'], ['Hoje:', 'o relevo não ajuda em nenhum ponto; sem GNSS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado.']])],
     [c1('Área costeira', mt('D', 'simulação')), c2([['Onde:', 'o norte da ilha: morros, praias, dunas e a lagoa em poucos quilômetros.'], ['Hoje:', 'nas missões simuladas, o relevo devolve a posição, e quem decide é a energia.']])],
     [c1('Ambiente marítimo', mt('D', 'simulação')), c2([['Onde:', 'um barco a 4 km da praia.'], ['Hoje:', 'nem o relevo nem a imagem devolvem a posição no fim da perna, e a rota não passa sem o GNSS íntegro.']])],
     [c1('Ambiente urbano', mt('P')), c2([['Onde:', 'nenhuma missão simulada ainda.'], ['Hoje:', 'prédios refletem o sinal de satélite, e o modelo de elevação mede o topo deles. Não testado.']])],

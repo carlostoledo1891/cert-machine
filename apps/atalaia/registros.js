@@ -76,7 +76,7 @@ const EVID = [
   { k: '12 m', l: 'D', det: 'simulação', t: 'erro da melhor estimativa em 95% do tempo, com sensor inercial tático e câmera, nos mesmos voos.' },
   { k: '3 s', l: 'D', det: 'simulação', t: 'até o alarme, com o GNSS apontado como culpado, numa viagem simulada de caminhão na BR-040.' },
   { k: '24 de 24', l: 'D', det: 'dados reais gravados', t: 'desvios lentos sintéticos, aplicados a dados GNSS reais gravados em estações fixas do IBGE, detectados em cada uma das três velocidades testadas quando o teste sabia que a estação estava parada; sem essa restrição de movimento, nenhum dos 24. Não é voo: num drone, a restrição viria do sensor de movimento da caixa.' },
-  { k: '0 de 193.887', l: 'D', det: 'vetores oficiais', t: 'falhas na conferência da assinatura do Galileo, nos vetores de teste oficiais; não mede resistência a falsificação ou retransmissão.' },
+  { k: '0 de 193.887', l: 'D', det: 'vetores oficiais', t: 'falhas na conferência das marcas de autenticação (tags) do Galileo, nos vetores de teste oficiais; não mede resistência a falsificação ou retransmissão.' },
   { k: '53 de 53', l: 'D', det: 'bancada', t: 'erros plantados no laudo e no lacre que foram pegos, em bancada no Veto.' }];
 
 /* ---- the stylesheet the Atalaia text pages share (the two-column rows that turn into blocks on a phone, the maturity
