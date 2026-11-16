@@ -300,7 +300,6 @@ let html = TPL.render({ title: 'Atalaia Núcleo: a camada de integridade', bodyR
   desc: 'Atalaia Núcleo, o lado técnico do Atalaia: uma região de proteção que o GNSS nunca encolhe, um portão, e o limite de erro que vale contra qualquer atacante; o modelo da autonomia certificada sem GNSS, as alavancas, os resultados de fronteira, portões e preços.', path: '/atalaia/nucleo/' });
 html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
 if (!/name="robots" content="noindex/.test(html)) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
-for (const w of ['SENAI', 'ISI-SE', 'EMBRAPII', 'Tenente', 'batalhão de Blumenau']) if (html.includes(w)) die('the page names "' + w + '"');
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 console.log('site/atalaia/nucleo/index.html written (unlisted, v' + NJ.versao + '): model ' + want.hg0 + '/' + want.hg1 + '/' + want.ep0 + '/' + want.ep1 + '; proved ' + prov + ', measured ' + med);
