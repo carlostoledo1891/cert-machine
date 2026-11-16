@@ -1786,8 +1786,17 @@
    "where": "github.com/AxiomMath/BGP212, issue #2",
    "url": "https://github.com/AxiomMath/BGP212/issues/2",
    "sent": "2026-11-12",
+   "status": "answered",
+   "note": "Answered 2026-11-15 by pruzze (Fredrik Prüzelius) with an independent witness; our re-check posted 2026-11-16 (row gh-bgp212-2-pruzze-witness-check-2026-11-16). Re-checked the same hour before filing: BGP212 main still 6641780b with one issue (#1, ours, no comment); PrimeGapsLib main = the pin 1faa7b14, PrimeGapsCert/ = Gap246 and Gap600 only. A question, not a finding: nothing is decided about the certificate."
+  },
+  {
+   "id": "gh-bgp212-2-pruzze-witness-check-2026-11-16",
+   "what": "A reply on BGP212 #2 to Fredrik Prüzelius (pruzze), who answered our question with an independent witness: thanks, and our re-check of both his witnesses with code written from scratch (his src/ never opened): for the degree-21 F, 0 < I(F) < 45·J(F) as exact rationals and his exact fraction equal to ours digit for digit (it is the dilated value; the physical 45·J/I = 1.00109602458… is it divided by 4); the degree-20 F gives 1.00060034… exactly, all 39 digits he printed agreeing; the method, the checks, the link to instruments/bgp212-witness; not a Lean proof, not the authors' own F. First person, Claude disclosed. Posted with gh on Carlos's word (\"post it\").",
+   "where": "github.com/AxiomMath/BGP212, issue #2",
+   "url": "https://github.com/AxiomMath/BGP212/issues/2#issuecomment-6918984119",
+   "sent": "2026-11-16",
    "status": "live, no reply",
-   "note": "Re-checked the same hour before filing: BGP212 main still 6641780b with one issue (#1, ours, no comment); PrimeGapsLib main = the pin 1faa7b14, PrimeGapsCert/ = Gap246 and Gap600 only. A question, not a finding: nothing is decided about the certificate."
+   "note": "certs/bgp212-witness.json (CERTIFIED), cert-machine dcdee9bf; the draft outreach/gh-bgp212-2-pruzze-thanks-2026-11-16.md."
   },
   {
    "id": "x-textbook-claims-2026-11-12",
