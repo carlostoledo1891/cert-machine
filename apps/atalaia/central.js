@@ -2,7 +2,7 @@
 /* central.js — site/atalaia/central/: the Atalaia Central (Mission Control) behind a simple password (D34, 2026-11-16).
    apps/atalaia · cert-machine · 2026-11-16                                                                          MIT
 
-   WHY. The operator, 2026-11-16: "I want a central most to SENAI but also EB secondary"; "a simple password system and no
+   WHY. The operator, 2026-11-16: a Central for the engineering partner first and military readers second; "a simple password system and no
    integrations or API". The Central's code and mission data stay private (D27), so what this repository holds and serves
    is CIPHER TEXT: data/central/site/central.bin is the app's page, its two scripts and the area data, encrypted by the
    private ~/Projects/atalaia/central/publicar-central.js (PBKDF2-SHA256, 600,000 iterations, AES-256-GCM). This page is a
