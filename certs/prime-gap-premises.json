@@ -1737,7 +1737,19 @@
    "number": 2,
    "url": "https://github.com/AxiomMath/BGP212/issues/2"
   },
-  "ledgerNote": "the ledger’s note was written before the question was filed and still says “drafted, not sent”"
+  "ledgerNote": "the ledger’s note was written before the question was filed and still says “drafted, not sent”",
+  "later": {
+   "record": "certs/bgp212-witness.json",
+   "sha256": "88d45c0a5262af00e831877c72f491f9753be8af07e0c44cdc26571e39f190e8",
+   "verdict": "CERTIFIED",
+   "decided": "2026-11-16",
+   "witnessBy": "Fredrik Prüzelius (pruzze)",
+   "witnessPosted": "2026-11-15",
+   "witnessRepository": "https://github.com/pruzze/bounded-gaps-witnesses",
+   "ratio": "1.00109602458365033006",
+   "equalsHis": true,
+   "authorsWitness": "still unpublished"
+  }
  },
  "gaps": [
   {
@@ -1772,8 +1784,8 @@
   },
   {
    "id": "certificate",
-   "b": "Not decided: the 212’s certificate.",
-   "text": "It asserts that a certain function exists, and no such function is published. The question is open with the authors as issue #2 of their repository."
+   "b": "Not decided in this ledger: the 212’s certificate.",
+   "text": "It asserts that a certain function exists. When the ledger was sealed none was published, and the question went to the authors as issue #2 of their repository. On 2026-11-15 Fredrik Prüzelius (pruzze) published one there; it was decided on 2026-11-16 in a record of its own (certs/bgp212-witness.json): CERTIFIED. The authors’ own function is still unpublished."
   },
   {
    "id": "inherited",

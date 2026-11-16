@@ -82,7 +82,7 @@ const PLAIN = {
   '212-TypeIIIPolymath': { k: 'A Type III estimate', s: allN },
   '212-Gap212HarmanReduction': { k: 'A reduction step', s: allN },
   '212-BilinearBombieriVinogradov': { k: 'A bilinear Bombieri–Vinogradov theorem', s: 'Read twice, blind. Both readers: the Lean text adds a condition that the theorem it cites does not have.' },
-  '212-Gap212Certificate': { k: 'A certificate: a function with a stated property exists', s: 'It needs a witness, and none is published. The question is open with the authors.' }
+  '212-Gap212Certificate': { k: 'A certificate: a function with a stated property exists', s: 'It needs a witness. When this ledger was sealed none was published; one published later by a third party is decided in its own record (section 4).' }
 };
 for (const r of L.premises) if (!PLAIN[r.id]) die('the ledger holds a row this page has no sentence for: ' + r.id);
 if (Object.keys(PLAIN).length !== L.rows) die('this page has a sentence for a row the ledger does not hold');
@@ -243,11 +243,12 @@ O.push(C.section({
 }));
 
 O.push(C.section({
-  lab: '4 · the ' + P212.bound + '’s certificate', title: 'A certificate with no published witness', id: 'certificate',
+  lab: '4 · the ' + P212.bound + '’s certificate', title: 'A certificate, and a witness published later', id: 'certificate',
   bodyRaw: C.plainList([
     { b: 'What it asks for.', text: 'The remaining premise of the ' + P212.bound + ' says that a function with a stated property exists. To check it, one needs the function.' },
-    { b: 'None is published.', text: 'I looked in the repository at its pinned commit, whose own README says the certificate is assumed, and in the library it depends on, which holds such functions for two other bounds. Finding one myself would be a research computation, and was not attempted.' },
-    { b: 'Asked.', raw: C.esc('The question is open with the authors as ') + a(CT.issue.url, 'issue #' + CT.issue.number) + C.esc(' of their repository. The row stays ' + CT.status + '.') }
+    { b: 'None was published.', text: 'When this ledger was sealed, I had looked in the repository at its pinned commit, whose own README says the certificate is assumed, and in the library it depends on, which holds such functions for two other bounds. Finding one myself would have been a research computation, and was not attempted.' },
+    { b: 'Asked.', raw: C.esc('The question went to the authors as ') + a(CT.issue.url, 'issue #' + CT.issue.number) + C.esc(' of their repository. In this ledger, as sealed, the row is ' + CT.status + '.') },
+    { b: 'Later.', raw: C.esc('On ' + CT.later.witnessPosted + ', ' + CT.later.witnessBy + ' published a witness on that issue (') + a(CT.later.witnessRepository, 'his repository') + C.esc('). On ' + CT.later.decided + ' I decided it with code written from scratch, which shares nothing with his but the input: ' + CT.later.verdict + ', 45·J/I = ' + CT.later.ratio + '…, and his exact fraction equals mine digit for digit. That decision is a record of its own, ') + rec(CT.later.record) + C.esc('; the sealed row above is not rewritten. It decides his function, not the authors’ own, which is still unpublished, and it is computer algebra, not a Lean proof.') }
   ])
 }));
 

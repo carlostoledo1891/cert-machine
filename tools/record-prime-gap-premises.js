@@ -278,7 +278,12 @@ function build(read) {
       sources: ['[1] Polymath, arXiv ' + SA.sources['[1]'].arxiv + SA.sources['[1]'].version, '[2] Stadlmann, arXiv ' + SA.sources['[2]'].arxiv + SA.sources['[2]'].version],
       allNDiscrepancy: allN, addedHypothesis: 1, issue: { repository: 'AxiomMath/BGP212', number: 1, url: 'https://github.com/AxiomMath/BGP212/issues/1' }, word: 'readings, not decisions' },
     certificate212: { status: cert.status, reason: 'no witness is published', issue: { repository: 'AxiomMath/BGP212', number: Number(iss[1]), url: 'https://github.com/AxiomMath/BGP212/issues/' + iss[1] },
-      ledgerNote: 'the ledger’s note was written before the question was filed and still says “drafted, not sent”' },
+      ledgerNote: 'the ledger’s note was written before the question was filed and still says “drafted, not sent”',
+      /* LATER (2026-11-16): a witness published by a third party, decided in a record of its own. The sealed ledger is
+         not rewritten: this row stays as it was sealed, and the later decision is pointed at, with its pin. */
+      later: (function () { const f = 'certs/bgp212-witness.json'; const W = json(f); need(W.verdict === 'CERTIFIED' && W.checks.his_fraction_equals_our_dilated_45J_over_I === true, f + ' does not say what this record points at');
+        return { record: f, sha256: sha(f), verdict: W.verdict, decided: W.dates.decided, witnessBy: W.claim.witness.by, witnessPosted: W.claim.witness.posted,
+          witnessRepository: W.claim.witness.repository, ratio: W.result.ratio_45J_over_I.slice(0, 22), equalsHis: true, authorsWitness: 'still unpublished' }; })() },
     gaps: null,
     method: { rules: [c('PREREGISTRATION.md')], result: c('RESULT-2026-11-12.md'), notes: c('PUBLICATION-NOTES.md'), registry: 'seals/registry.jsonl' },
     money: { pods: 2, minutes, usdPerHour: Number(mm[4]), usd: Number(mm[5]), word: 'by the clock, not a billing read' },
@@ -294,7 +299,7 @@ function build(read) {
     { id: 'pairing', b: 'Which number belongs to which Lean row is the package’s own assignment.', text: 'My comparison re-derives that key from the Lean row and requires it to be equal, which checks the pairing against Lean’s own fields and no further.' },
     { id: 'readings', b: 'The readings of the 212 are readings.', text: 'Two AI readers compared each quoted premise with the paper it cites. A reading is not a decision, and neither reader is a human referee.' },
     { id: 'fourier', b: 'Not decided: the 182’s local Fourier hypothesis.', text: 'Its constants are free, so no finite test can refute it: a larger threshold or a larger constant escapes any instance.' },
-    { id: 'certificate', b: 'Not decided: the 212’s certificate.', text: 'It asserts that a certain function exists, and no such function is published. The question is open with the authors as issue #' + R.certificate212.issue.number + ' of their repository.' },
+    { id: 'certificate', b: 'Not decided in this ledger: the 212’s certificate.', text: 'It asserts that a certain function exists. When the ledger was sealed none was published, and the question went to the authors as issue #' + R.certificate212.issue.number + ' of their repository. On ' + R.certificate212.later.witnessPosted + ' ' + R.certificate212.later.witnessBy + ' published one there; it was decided on ' + R.certificate212.later.decided + ' in a record of its own (' + R.certificate212.later.record + '): ' + R.certificate212.later.verdict + '. The authors’ own function is still unpublished.' },
     { id: 'inherited', b: 'Two of the 182’s premises are the 186’s, taken over.', text: 'The 182 carries a copy of the 186’s Lean file that is byte-identical, so its two shared premises inherit the checks of the 186. That its names resolve to those definitions is my reading of the file; I did not ask Lean.' },
     { id: 'platform', b: 'The replay ran on my own build of FLINT, on Linux.', text: 'The package is tested by its authors on macOS with its bundled libraries. No byte of the package was changed; ' + ['zero', 'one', 'two', 'three', 'four', 'five', 'six'][deviations] + ' things in the environment around it were, and each is listed in the records.' },
     { id: 'cleanroom', b: 'A recomputation of the ' + replay182.inequalities + ' numbers by programs of mine has not been started.', text: 'That is what would turn “reproduced” into something stronger for that row.' }

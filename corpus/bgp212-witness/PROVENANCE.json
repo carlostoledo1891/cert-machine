@@ -1,0 +1,46 @@
+{
+ "what": "pins for certs/bgp212-witness.json: the witness files (copied unchanged from pruzze/bounded-gaps-witnesses, CC BY 4.0), the decider outputs, and the decider code",
+ "external": {
+  "lean": {
+   "repository": "https://github.com/AxiomMath/BGP212",
+   "commit": "6641780bb6bab050fd400a348ba759d233e34fad",
+   "file": "Gap212Challenge/Basic.lean",
+   "sha256": "0658163beaefecd4a851565d9e9ee7a2a8065ae5a3eb9a003091436c93b242fb"
+  },
+  "witness": {
+   "repository": "https://github.com/pruzze/bounded-gaps-witnesses",
+   "commit": "92000064b5e983761dd751a3e0a62ce83f6d2c7b",
+   "licence": "CC BY 4.0 (witness files)"
+  }
+ },
+ "files": {
+  "corpus/bgp212-witness/witnesses/NOTICE.md": "42a9a65c8ecddc5ba321f36fba65aa5b774ed28c3371b5e890fe6679fea9ec98",
+  "corpus/bgp212-witness/witnesses/axiom212_k45_d20.json": "8bba683c63d3eddc45cbfd0d0618ec31ec5527527aab54fcdbf3812e8a996331",
+  "corpus/bgp212-witness/witnesses/axiom212_k45_d21.json": "8a73c548f6a0e4ddb83839d391e4d805b8eb85cb0883ee972ed9d053047c78b2",
+  "corpus/bgp212-witness/witnesses/axiom212_k45_d21_exact_ratio.txt": "ec09876998e1142690aec8ab253b2e70fc3dd65ee1486368586916d741cc6ef5",
+  "corpus/bgp212-witness/out/decider-results.json": "2993e4fccd7243d1d32ca0cb4ded0228064b0e65af18fc4ce5a339fdeb2f7a94",
+  "corpus/bgp212-witness/out/replay-d21-crt_result.json": "9494267db486626313b7312f298f43e0d096388b2dab29d836eeef609b612374",
+  "instruments/bgp212-witness/README.md": "64efe5898236b0630b2e40df98ba32fc3b81ec3c71e4ece01bbd6c590cc0bcad",
+  "instruments/bgp212-witness/core.py": "7450c0151cf276899618e206142bd270f1922ee02c8176ecf992792d4f172ebd",
+  "instruments/bgp212-witness/crt.py": "8d24d6aa09736d6b0a8fd960375a10eba0aabc9ef335823eb5de162bc43cb51a",
+  "instruments/bgp212-witness/decomp.py": "20d2a02754affae5f8a8d833462568e90820dfec0865d469d5dd63c5f1b00238",
+  "instruments/bgp212-witness/kernel.c": "75e02cfee4b20e576ecd6ab846cffbfe649c144044ea1016122b1f692c13a10f",
+  "instruments/bgp212-witness/make_final.py": "c316a44d962c40c39c7da4cd010a40e1b2f4979cfe57638aaedb163f74993ec1",
+  "instruments/bgp212-witness/make_results.py": "4d3a78e422cfd1badfe1a76970eba0a1826dfe9a53f355ba565ce9758b42aeae",
+  "instruments/bgp212-witness/mc_check.py": "0fd81eb3fed95572aee3ecfbfc102d7abbeffda8e0fb4ee10aeeec2db6d93d5f",
+  "instruments/bgp212-witness/mc_corr.py": "f9c2cfac1999de80c09a0688e9d3ad024a3f6c73e2ee3fdad4224db117e1046e",
+  "instruments/bgp212-witness/mc_radial.py": "dc6e1a3672828e3ea72f7c652b58458b07ebb642a93064658d53008e719b7464",
+  "instruments/bgp212-witness/mc_strat.py": "3a0fb83167a846479ca915c73f248b294281b486fca0711b20624cbb1ef9e585",
+  "instruments/bgp212-witness/pipeline.py": "399b500caa540ab12114daf3f339810d3cbea8b7f1354dfda8d883619e17d7b9",
+  "instruments/bgp212-witness/polytope_check.py": "434d79141f5b1fc3520e39a7dd37fb55c754b1fd3066ef09d8788099c2ca96cb",
+  "instruments/bgp212-witness/prep.py": "bc4380eb2c2fb9538f5dbedc6ef7403e3efce4b314ec00fb9deb1c95403d658e",
+  "instruments/bgp212-witness/run_kernel.sh": "36d5ca90918337d36b3dceffa3430127e6bddac86e0d4113ea8cdf61d656c127",
+  "instruments/bgp212-witness/run_real.py": "312b1bfdcc93e21a9d97d443e6d4fda63ba7f9f4345cdf2ebdac1f734ddbf897",
+  "instruments/bgp212-witness/test_core.py": "c0b3d77f672448bc4a5f5d533eec9fa85b3a85a9c3fc92b1aefa1fd93040ed97",
+  "instruments/bgp212-witness/test_kernel.py": "9809eb633247565f7a7f2934fcbad874a69395ac2d4e422f90981c711d468e65",
+  "instruments/bgp212-witness/test_mc.py": "fcf1fb298099fb47a9b3cedae110d61c8436fe4187dcc5796c8802287baffad6",
+  "instruments/bgp212-witness/test_mc45.py": "5933b904f639bf55ddf71a167a426f2ddaf4b2363401c08d0624667dc189cc57",
+  "instruments/bgp212-witness/test_small_exact.py": "4a0785da03d0172b37e596ddce3ede212fec7af6fa58132aec8cd946beb5f3ce",
+  "instruments/bgp212-witness/test_units.py": "814072df88f097cd17ce385e79344316fb914488ee9159f41db18665a8059a8e"
+ }
+}
