@@ -78,26 +78,15 @@ B.push(C.section({ lab: '1 · A fronteira em aberto', title: 'Onde ninguém est�
     [c1('Atalaia Núcleo'), c2([['Propõe:', 'um juiz sobre qualquer navegador: um limite de pior caso, válido contra qualquer atacante, provado, e recalculável por um verificador de fora.']])]] }) }));
 
 /* 2 · the product */
-const arq = (() => {
-  const box = (x, y, w, t, cls) => '<rect class="nu-box' + (cls ? ' ' + cls : '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="40" rx="6"/><text class="nu-bt" x="' + (x + w / 2) + '" y="' + (y + 25) + '" text-anchor="middle">' + esc(t) + '</text>';
-  const arr = (x1, y1, x2, y2, cls) => '<line class="nu-arr' + (cls ? ' ' + cls : '') + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" marker-end="url(#nu-ah)"/>';
-  return '<svg class="nu-svg" viewBox="0 0 720 250" role="img" aria-label="Arquitetura: inércia, relevo e imagem alimentam a região Rₜ; o GNSS só vai ao portão, que o compara com Rₜ; o portão decide se a posição pode ser usada; não há seta do GNSS para Rₜ">'
-    + '<defs><marker id="nu-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="nu-ahp" d="M0 0L10 5L0 10z"/></marker></defs>'
-    + box(20, 20, 150, 'inércia') + box(20, 80, 150, 'relevo') + box(20, 140, 150, 'imagem')
-    + box(250, 80, 170, 'região Rₜ', 'nu-key') + box(250, 190, 170, 'GNSS (receptor)')
-    + box(500, 135, 200, 'portão: g ∈ Rₜ ⊕ ε ?', 'nu-key')
-    + arr(170, 40, 250, 92) + arr(170, 100, 250, 100) + arr(170, 160, 250, 108)
-    + arr(420, 100, 520, 135) + arr(420, 210, 510, 170)
-    + '<text class="nu-lb" x="335" y="170" text-anchor="middle">sem seta: o GNSS nunca entra em Rₜ</text>'
-    + '<text class="nu-lb" x="600" y="200" text-anchor="middle">aceita, ou declara o GNSS falso</text></svg>';
-})();
+const E = require('./nucleo-esquemas.js');
+const twin = (w, nw) => '<div class="nu-w">' + w + '</div><div class="nu-nw">' + nw + '</div>';
 B.push(C.section({ lab: '2 · O produto', title: 'Uma camada de integridade, não um navegador', bodyRaw:
   C.p('O Núcleo recebe a saída de qualquer navegador como proposta (o EKF3 do ArduPilot, um produto de navegação visual, a posição da DJI) e decide, com um limite que consegue provar, se aquela posição pode ser usada. Os concorrentes viram entradas. Ele vive em três lugares.')
   + C.plainList([
     { b: 'A bordo · Atalaia Bordo.', raw: esc('Roda a região sem GNSS, o portão e a troca de fonte. No ArduPilot, conduz pela própria posição; num DJI, avisa e manda pairar ou pousar.') + ' ' + chip('M', 'simulação: a fatia SITL') },
     { b: 'Antes do voo · Atalaia Central.', raw: esc('Um quinto laudo, o de integridade, ao lado de rota, energia, clima e GNSS: quanto tempo cada perna continua certificável se o GNSS morrer no pior momento, contra o limite de alerta da fase. Veredito por perna: passa, não passa ou falta dado.') + ' ' + chip('P') },
     { b: 'Depois do voo · Perícia.', raw: esc('O registro lacrado refaz o EKF3 e o portão bit a bit; um verificador escrito por outra parte chega às mesmas decisões ou diz onde não chegou.') + ' ' + chip('P') }])
-  + C.figure({ svgRaw: arq, source: 'built: o diagrama da arquitetura proposta', caption: 'A arquitetura. A correção do GNSS nunca toca Rₜ: essa seta que falta é o que faz o limite valer contra um falsificador paciente. A troca segue o padrão de garantia em tempo de execução da ASTM F3269-21 (monitor de segurança, função de recuperação, chave).' })
+  + C.figure({ svgRaw: twin(E.arquitetura(false), E.arquitetura(true)), source: 'built: o diagrama da arquitetura proposta', caption: 'A arquitetura. A correção do GNSS nunca toca Rₜ: essa seta que falta é o que faz o limite valer contra um falsificador paciente. A troca segue o padrão de garantia em tempo de execução da ASTM F3269-21 (monitor de segurança, função de recuperação, chave).' })
   + C.table({ cols: [{ h: 'Quando o GNSS é atacado' }, { h: 'Via ArduPilot (segunda via, D35) e via DJI (demo no que as unidades voam)' }], rows: [
     [c1('O que a caixa pode fazer'), c2([['ArduPilot:', 'trocar a fonte de posição do EKF3 para a sua (GPS_INPUT ou navegação externa) e seguir a rota.'], ['DJI:', 'avisar e mandar pairar ou pousar pelo PSDK.']])],
     [c1('Dados que a caixa vê'), c2([['ArduPilot:', 'sensores brutos na taxa do laço, relógio comum, o receptor que ela escolhe.'], ['DJI:', 'FlyCart: 50 Hz, sem PPS; M350/M300: 400 Hz com sincronização por hardware.']])],
@@ -108,6 +97,7 @@ B.push(C.section({ lab: '2 · O produto', title: 'Uma camada de integridade, nã
 const r1 = NJ.r1 || {};
 B.push(C.section({ lab: '3 · Resultado R1', title: 'A desigualdade central', bodyRaw:
   C.p('Duas estimativas correm lado a lado: a fundida de sempre, para a precisão, e Rₜ, que o GNSS nunca pode encolher. O portão aceita uma correção do GNSS só se ela cai dentro de Rₜ alargada por ε. Então nenhum atacante consegue esconder mais erro que o diâmetro da região mais ε.')
+  + C.figure({ svgRaw: twin(E.desigualdade(false), E.desigualdade(true)), source: 'built: o desenho do R1', caption: 'A geometria do R1. A posição verdadeira xₜ está em algum ponto de Rₜ; o portão aceitou gₜ porque ela está a no máximo ε de Rₜ; logo o erro que o atacante esconde, de xₜ a gₜ, não passa do diâmetro de Rₜ mais ε, e esse caso, com xₜ e gₜ em lados opostos, é o pior.' })
   + '<div class="at-steps"><ol>'
   + '<li><p>' + esc('Se cada fonte sem GNSS fica dentro do seu limite declarado, a posição verdadeira xₜ está em Rₜ.') + '</p></li>'
   + '<li><p>' + esc('O portão aceita gₜ só se algum ponto p de Rₜ está a no máximo ε dele.') + '</p></li>'
@@ -158,6 +148,7 @@ B.push(C.section({ lab: '5 · As alavancas', title: 'O que encolhe Rₜ', bodyRa
     [c1('Casadores aprendidos sob cobertura', chip('P')), c2([['Ataca:', 'o erro da visão sem modelo.'], ['Como:', 'a cobertura conforme fixa o limite declarado; um casador que perde a cobertura perde a admissão.'], ['Onde está:', 'responde à lacuna da revisão de 2022.']])],
     [c1('Rota ótima em integridade (R6)', chip('P')), c2([['Ataca:', 'pernas que terminam em falta dado.'], ['Como:', 'escolher a rota, e onde fazer o carrossel, que minimiza diam(Rₜ) na chegada.'], ['Onde está:', 'em aberto.']])]] })
   + '<h3 class="at-h3">A largura de uma correção de relevo, pela inclinação</h3>'
+  + C.figure({ svgRaw: twin(E.relevo(false, NJ.dem ? 'δh medido em 95% das células: 4,1 m na ilha, 6,5 m no Médio Vale' : ''), E.relevo(true, '')), source: 'built: δh / |∇h|, calculado', caption: 'A largura de uma correção de relevo, δh / |∇h|, para erros de altura de 10, 5 e 2 m, pela inclinação do terreno. Calculada, por isso tracejada. Certificar δh localmente leva a ilha da curva de cima para a de baixo, onde o levantamento disser.' })
   + C.table({ cols: [{ h: 'Inclinação' }, { h: 'δh / |∇h| para δh de 10, 5 e 2 m' }], rows: terr.map((r) => [c1(r[0], chip('C')), c2([['10 m:', r[1]], ['5 m:', r[2]], ['2 m:', r[3]]])]) })
   + '<h3 class="at-h3">O que uma retransmissão com atraso comum consegue, pela qualidade do relógio</h3>'
   + C.table({ cols: [{ h: 'Relógio conhecido a' }, { h: 'Limite do erro da retransmissão, c·δ' }], rows: [['±10 ns', '≤ 3,0 m'], ['±100 ns', '≤ 30 m'], ['±1 µs', '≤ 300 m']].map((r) => [c1(r[0], leanChip(r4)), c2([['', r[1]]])]) })
@@ -181,6 +172,7 @@ B.push(C.section({ lab: '6 · Uma missão', title: 'Ressuprimento na ilha, fase 
 /* 7 · the machine */
 B.push(C.section({ lab: '7 · A máquina', title: 'A IA propõe, os métodos exatos decidem, o campo dá a última palavra', bodyRaw:
   C.p('A mesma forma do cert-machine: gerar em escala, filtrar em ponto flutuante, certificar com exatidão. A IA nunca vira autoridade: ela propõe, e só sobrevive o que é certificado ou medido em voos registrados antes.')
+  + C.figure({ svgRaw: twin(E.maquina(false), E.maquina(true)), source: 'built: o diagrama da máquina', caption: 'A máquina. Muitos candidatos entram à esquerda; saem poucos, sólidos e voáveis. O falsificador ataca cada limite certificado, e um escape em campo rebaixa a fonte que o causou, que volta a ser proposta.' })
   + C.table({ cols: [{ h: 'Ferramenta' }, { h: 'O trabalho dela no Núcleo' }], rows: [
     [c1('o motor do cert-machine'), c2([['', 'famílias de modelos candidatos (formas do erro inercial, leis de arrasto, modelos de erro do relevo, calendários de carrossel) enumeradas, filtradas nos dados e certificadas; caça a limites fechados compactos.']])],
     [c1('intervalos, Taylor, racionais exatos'), c2([['', 'restos rigorosos para as partes não lineares (a exponencial do grupo, a lei de arrasto), arredondamento para fora em toda parte.']])],
@@ -212,6 +204,8 @@ B.push(C.section({ lab: '9 · Caminho, portões e preços', title: 'Nada se comp
     { b: 'G1 · bancada, cerca de US$ 1,1 mil.', text: 'Conjunto Cube Orange+, Jetson Orin Nano, receptor u-blox ZED-X20P, antena HC977. O hardware no laço precisa chegar às mesmas decisões do SITL.' },
     { b: 'G2 · aeronave aberta de desenvolvimento, cerca de US$ 3,5 a 5,5 mil, mais baterias e o sensor inercial.', text: 'Holybro X650 com Pixhawk 6X, a caixa de voo, rádio de telemetria homologado na Anatel. Carrossel e arrasto em voos reais num campo autorizado.' },
     { b: 'G3 · plataforma pesada, numa fase posterior, US$ 29 a 46 mil.', text: 'IF1200A (ArduPilot) ou Alta X Gen2, ou um DJI emprestado. A demo DJI usa o que a unidade voa.' }])
+  + '<h3 class="at-h3">O plano de 12 meses</h3>'
+  + C.figure({ svgRaw: twin(E.plano(false, { r1r4: 'provados', larguras: 'em andamento', r2: 'núcleo provado' }), E.plano(true, { r1r4: 'provados', larguras: 'em andamento', r2: 'núcleo provado' })), source: 'built: o cronograma indicativo da proposta e a trilha proposta do Núcleo', caption: 'Barras cheias: o cronograma indicativo da proposta. Barras tracejadas: a trilha do Núcleo, proposta aqui. O que já foi feito está dito ao lado do nome.' })
   + C.table({ cols: [{ h: 'Conjunto' }, { h: 'O que, e o preço' }], rows: [
     [c1('Simulação'), c2([['', 'ArduPilot SITL, o software da caixa e os cenários da Central: US$ 0.']])],
     [c1('Bancada'), c2([['', 'Cube Orange+ US$ 349,90 · Orin Nano US$ 399 · X20P US$ 187 · HC977 US$ 203: cerca de US$ 1,1 mil.']])],
@@ -267,7 +261,27 @@ const css = R.CSS_BASE + `
 .at-steps li::marker{font-family:var(--f-mono);color:var(--ink-4)}
 .at-steps li p{margin:0}
 .nu-svg{display:block;width:100%;height:auto}
-.nu-svg text{font-family:var(--f-sans)}
+.nu-nw{display:none}
+@media (max-width:640px){.nu-w{display:none}.nu-nw{display:block}}
+.nu-bs{font-size:var(--text-small);fill:var(--ink-3)}
+.nu-sec{font-family:var(--f-mono)!important;font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}
+.nu-sec2{font-family:var(--f-mono)!important;font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-4)}
+.nu-reg{fill:var(--band-fill);stroke:var(--ink);stroke-width:2}
+.nu-eps{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+.nu-err{stroke:var(--ink);stroke-width:2.2}
+.nu-x{fill:var(--ink);stroke:var(--paper);stroke-width:2}
+.nu-g{fill:var(--paper);stroke:var(--ink);stroke-width:2.2}
+.nu-dim{stroke:var(--ink-3);stroke-width:1.2}
+.nu-forbid{stroke:var(--ink-3);stroke-width:1.6;stroke-dasharray:2 3}
+.nu-rule{stroke:var(--ink-4);stroke-width:1}
+.nu-fb{fill:none;stroke:var(--ink-3);stroke-width:1.4;stroke-dasharray:5 4}
+.nu-t10{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+.nu-t5{fill:none;stroke:var(--ink-2);stroke-width:2;stroke-dasharray:5 4}
+.nu-t2{fill:none;stroke:var(--ink);stroke-width:2.75;stroke-dasharray:5 4}
+.nu-bar{fill:var(--ink-3);stroke:none}
+.nu-bar.prop{fill:var(--band-fill);stroke:var(--ink);stroke-width:1.4;stroke-dasharray:5 4}
+.nu-gl{font-size:var(--text-small);fill:var(--ink-2)}
+.nu-svg text{font-family:var(--f-sans)!important}
 .nu-chart{aspect-ratio:720/340}
 .nu-grid{stroke:var(--rule);stroke-width:1}
 .nu-ax{font-family:var(--f-mono)!important;font-size:12px;fill:var(--ink-3)}
