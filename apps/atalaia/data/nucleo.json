@@ -1,6 +1,6 @@
 {
  "o_que_e": "o estado dos resultados do Núcleo que a página /atalaia/nucleo/ mostra; escrito à mão a partir dos registros privados do Atalaia (cada entrada diz de onde veio); um resultado sem registro fica como 'em andamento'",
- "versao": "0.3",
+ "versao": "0.4",
  "data": "16/11/2026",
  "r1": {
   "toolchain": "Lean 4.35.0",
@@ -62,5 +62,15 @@
  "livro": {
   "fonte": "atalaia/sitl/livro.json (S45), 16/11/2026",
   "resumo": "O livro de larguras da missão do posto nos morros (um modelo com os pontos medidos ao lado, não o estimador certificado): com uma correção de relevo a cada 0,5 km e o limite declarado de 124 m para cada correção (metade da diagonal da célula do teste de relevo), a correção domina o cruzeiro e o diâmetro da região não desce de cerca de 267 m; o carrossel não muda nenhuma fase, porque não completa uma volta útil entre duas correções. Esse diâmetro é maior que os 200 m da caixa emulada na fatia: a fatia mostrou o protocolo com uma região mais estreita que a que o limite declarado sustenta."
+ },
+ "r2p": {
+  "estado": "medido em simulação",
+  "fonte": "atalaia/nucleo/r2-prototipo (resultados.json; resultados-vermelho-forte.json; NOTA_R2_PROTOTIPO.md), 16–17/11/2026",
+  "voos": 8,
+  "contencao": "8 de 8 voos; todas as épocas; modelos R, I1 e SG; janela principal e 80 janelas de varredura",
+  "justeza_R": "0,94 a 1,00",
+  "justeza_SG_300s": "0,32 a 0,86",
+  "resumo": "O protótipo do estimador de conjunto (zonotopos com restrições, em Python, fora de linha) rodou sobre o sensor inercial de 8 voos simulados no SITL do ArduPilot. Com os limites declarados corretos, a posição verdadeira ficou dentro da região em todas as épocas dos 8 voos, nos três modelos de ruído (o rígido, de pior caso, e dois sub-gaussianos com chance de falha de 1 em um bilhão por janela). Quão justo é Rₜ: contra uma caixa de intervalos com os mesmos limites, o raio do zonotopo é de 0,94 a 1,00 no modelo rígido (quase nenhum ganho) e de 0,32 a 0,86 no sub-gaussiano a 300 s (até 3 vezes mais justo). Um controle vermelho escrito antes de rodar (viés declarado zero, ruído à metade) saiu da região em 6 dos 8 voos; os 2 que o contiveram simulam a física a 1,2 kHz, em que o resto das amostras que faltam fica largo demais, e as suas repetições a 1 kHz saíram em 9 e 11 s. É simulação, e o protótipo não é o código provado em Lean.",
+  "g0": "Passou em 17/11/2026 por uma emenda datada, feita depois de ler os números: no critério, os dois voos a 1,2 kHz foram trocados pelas suas repetições a 1 kHz. Apertar o resto das amostras que faltam continua em aberto."
  }
 }

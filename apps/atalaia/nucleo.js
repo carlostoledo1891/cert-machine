@@ -54,7 +54,7 @@ B.push(C.header({ eyebrow: 'Atalaia Núcleo · ' + R.MARCA.lema + ' · documento
 B.push('<div class="col">' + C.pull(esc('erro não detectado ≤ diam(Rₜ) + ε')) + C.p('Rₜ é a região onde o drone tem de estar, calculada sem GNSS; ε é a tolerância do GNSS. O limite vale para qualquer atacante. Tudo no Núcleo existe para encolher Rₜ sem trapacear.')
   + C.scope(R.MARCA.familia + ' O Núcleo é a camada de integridade comum aos quatro; os resultados desta página são do ar. Proposta de pesquisa: o lado técnico do Atalaia (a entrada é /atalaia/; a minuta, /atalaia/doutrina/). Cada número diz se é proposto, calculado por um modelo, medido (em simulação ou em dados, e onde) ou provado em Lean. Nada voou.') + '</div>');
 const prov = ['r1', 'r4', 'r4g', 'p', 'r2'].filter((k) => NJ[k] && /^provado/.test(NJ[k].estado)).length;
-const med = ['dem', 'vento', 'carrossel'].filter((k) => NJ[k]).length;
+const med = ['dem', 'vento', 'carrossel', 'r2p'].filter((k) => NJ[k]).length;
 B.push(C.stats([
   { k: 'Resultados de fronteira', v: '6', n: 'R1 a R6, todos com varredura de anterioridade antes de qualquer afirmação' },
   { k: 'Provados em Lean', v: String(prov), n: 'R1, R4, R4 por satélite, a camada probabilística e o núcleo de solidez do R2' },
@@ -195,14 +195,15 @@ B.push(C.section({ lab: '8 · Resultados de fronteira', title: 'O que poria o At
     [c1('R4 · limite da retransmissão', est('r4')), c2([['Enunciado:', 'OSNMA e um relógio conhecido a ±δ ⇒ erro da retransmissão ≤ c·δ.'], ['Como:', 'Lean e um modelo de relógio; dias.']])],
     [c1('R5 · navegação garantida pelo modelo do veículo', chip('P')), c2([['Enunciado:', 'uma lei de arrasto com caixas de parâmetros certificadas limita a velocidade.'], ['Como:', 'dReal e voos; meses.']])],
     [c1('R6 · rota ótima em integridade', chip('P')), c2([['Enunciado:', 'a rota que minimiza diam(Rₜ) na chegada, sob relevo, textura e vento.'], ['Como:', 'branch-and-bound com intervalos; semanas.']])]] })
-  + C.p('R1 e R4, como enunciados acima, são passos curtos: valem como alicerce. O núcleo matemático tem quatro frentes. Três estão provadas em Lean: a solidez do R2 (cada operação do estimador leva um conjunto que contém o erro verdadeiro a outro que ainda o contém), o R4 com atrasos por satélite (que mostrou que o relógio sozinho não basta) e a camada probabilística. A quarta, o R3 provado com a medida de quão justo é Rₜ, está em andamento.')
+  + C.p('R1 e R4, como enunciados acima, são passos curtos: valem como alicerce. O núcleo matemático tem quatro frentes. Três estão provadas em Lean: a solidez do R2 (cada operação do estimador leva um conjunto que contém o erro verdadeiro a outro que ainda o contém), o R4 com atrasos por satélite (que mostrou que o relógio sozinho não basta) e a camada probabilística. A quarta, o R3 provado com a medida de quão justo é Rₜ: o R3 tem um limite fechado conferido em simulação, e a sua prova em Lean vem depois; a medida de quão justo é Rₜ está abaixo.')
   + (NJ.r2 ? C.p(NJ.r2.resumo) : '')
+  + (NJ.r2p ? '<h3 class="at-h3">O protótipo do R2, medido em simulação</h3>' + C.pRaw(esc(NJ.r2p.resumo) + ' ' + chip('M', 'simulação')) : '')
   + C.p('Cada um passa por uma varredura de anterioridade antes de qualquer afirmação, e nenhum é anunciado como o primeiro.') }));
 
 /* 9 · path, gates and prices */
 B.push(C.section({ lab: '9 · Caminho, portões e preços', title: 'Nada se compra antes de um portão passar', bodyRaw:
   C.plainList([
-    { b: 'G0 · simulação, US$ 0.', text: 'O ArduPilot em SITL sobre a ilha, um modelo multirrotor, um caso de falsificação, a caixa trocando a fonte do EKF3; o livro de larguras; R1 e R4 em Lean. Passa quando o protótipo do estimador de conjunto (R2) mostrar, em todos os voos simulados, a posição verdadeira dentro da região e um controle com o viés subdeclarado recusado.' },
+    { b: 'G0 · simulação, US$ 0.', text: 'O ArduPilot em SITL sobre a ilha, um modelo multirrotor, um caso de falsificação, a caixa trocando a fonte do EKF3; o livro de larguras; R1 e R4 em Lean. Passa quando o protótipo do estimador de conjunto (R2) mostrar, em todos os voos simulados, a posição verdadeira dentro da região e um controle com o viés subdeclarado recusado.' + (NJ.r2p ? ' ' + NJ.r2p.g0 : '') },
     { b: 'G1 · bancada, cerca de US$ 1,1 mil.', text: 'Conjunto Cube Orange+, Jetson Orin Nano, receptor u-blox ZED-X20P, antena HC977. O hardware no laço precisa chegar às mesmas decisões do SITL.' },
     { b: 'G2 · aeronave aberta de desenvolvimento, cerca de US$ 3,5 a 5,5 mil, mais baterias e o sensor inercial.', text: 'Holybro X650 com Pixhawk 6X, a caixa de voo, rádio de telemetria homologado na Anatel. Carrossel e arrasto em voos reais num campo autorizado.' },
     { b: 'G3 · plataforma pesada, numa fase posterior, US$ 29 a 46 mil.', text: 'IF1200A (ArduPilot) ou Alta X Gen2, ou um DJI emprestado. A demo DJI usa o que a unidade voa.' }])
