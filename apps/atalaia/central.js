@@ -24,7 +24,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
-const { VERSAO } = require('./registros.js');
+const { VERSAO, MARCA } = require('./registros.js');
 const SRC = path.join(__dirname, 'data', 'central');
 const OUT = path.join(ROOT, 'site', 'atalaia', 'central');
 const die = (m) => { console.error('ATALAIA CENTRAL PAGE REFUSED: ' + m); process.exit(1); };
@@ -40,7 +40,7 @@ if (bin.kdf !== 'PBKDF2-SHA256' || bin.cifra !== 'AES-256-GCM' || bin.iter < 600
 for (const f of Object.keys(PINS.arquivos)) if (/^(index\.html|app\.js|instruments\.js|data\/)/.test(f)) die('a plain copy of the app is in data/central/site: ' + f);
 
 const B = [];
-B.push(C.header({ eyebrow: 'Atalaia · Central de operações · acesso com senha · versão ' + VERSAO.n,
+B.push(C.header({ eyebrow: 'Atalaia · ' + MARCA.lema + ' · Central de operações · acesso com senha · versão ' + VERSAO.n,
   title: 'A Central do Atalaia',
   deck: 'O ambiente experimental do Atalaia, em simulação: as quatro perguntas antes de decolar, o mapa de alcance, os estados da missão e o treino de falhas. A ilha de Florianópolis é a área principal de testes da pesquisa aplicada com um instituto de engenharia; o Médio Vale do Itajaí é a referência operacional, defesa civil primeiro e uso militar depois.' }));
 B.push('<div class="col">'

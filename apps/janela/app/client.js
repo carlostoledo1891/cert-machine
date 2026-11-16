@@ -1763,7 +1763,11 @@ function start(today) {
   var late = $('jn-late');
   if (late && ageH > 36) {
     late.hidden = false;
-    late.innerHTML = '<b>Forecast of ' + esc(run) + ', ' + Math.floor(ageH / 24) + ' day' + (ageH >= 48 ? 's' : '') + ' old.</b> Today\'s run did not arrive (the daily fetch failed or is late). The windows below are decided on the older forecast, with the measured band for its lead: check before deciding.';
+    /* the daily feed is PAUSED on the operator's word since 2026-11-11 (the build stamps the date on #jn-late): say so,
+       rather than call a decision a failed fetch */
+    late.innerHTML = late.dataset.paused
+      ? '<b>The daily feed is paused since ' + esc(late.dataset.paused) + '.</b> The forecast shown is the run of ' + esc(run) + ', ' + Math.floor(ageH / 24) + ' days old, and the windows below are decided on it: they document the method, they are not today\'s windows.'
+      : '<b>Forecast of ' + esc(run) + ', ' + Math.floor(ageH / 24) + ' day' + (ageH >= 48 ? 's' : '') + ' old.</b> Today\'s run did not arrive (the daily fetch failed or is late). The windows below are decided on the older forecast, with the measured band for its lead: check before deciding.';
     $('jn-run').classList.add('late');
   }
   tieField();

@@ -204,7 +204,7 @@ function panel(M, N) {
     <div id="jn-edit"></div>
   </div>
   <div class="jn-answer" id="jn-answer">
-    <p class="jn-late" id="jn-late" role="note" hidden></p>
+    <p class="jn-late" id="jn-late" role="note" data-paused="2026-11-11" hidden></p>
     <div id="jn-ansl" aria-live="polite"><p class="jn-ans">The operating window of every offshore unit in Brazil, decided against the published limit.</p>
     <p class="jn-sub"><noscript>This app decides in your browser and needs JavaScript. The method and the published decisions are at <a href="/janela/metodo/">/janela/metodo/</a>.</noscript><span id="jn-load">loading today's forecast…</span></p></div>
     <div class="jn-seg jn-crit" id="jn-crit" role="radiogroup" aria-label="Criterion">${seg('data-crit', CRIT)}</div>
