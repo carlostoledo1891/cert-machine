@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável · Carlos Toledo</title>
+<meta name="description" content="Minuta de protocolo doutrinário para operar drones militares com o GPS degradado ou negado: princípios, responsabilidades, estados da missão, requisitos, critérios de validação e governança, com uma missão simulada em Blumenau (SC).">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://carlostoledo.co/atalaia/doutrina/">
+<meta property="og:url" content="https://carlostoledo.co/atalaia/doutrina/">
+<meta property="og:title" content="Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável · Carlos Toledo">
+<meta property="og:description" content="Minuta de protocolo doutrinário para operar drones militares com o GPS degradado ou negado: princípios, responsabilidades, estados da missão, requisitos, critérios de validação e governança, com uma missão simulada em Blumenau (SC).">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável · Carlos Toledo">
+<meta name="twitter:description" content="Minuta de protocolo doutrinário para operar drones militares com o GPS degradado ou negado: princípios, responsabilidades, estados da missão, requisitos, critérios de validação e governança, com uma missão simulada em Blumenau (SC).">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+/* @/site-css */
+
+.at-src{font-size:var(--text-small);color:var(--ink-4)}
+.at-nw{display:none}
+@media (max-width:640px){.at-w{display:none}.at-nw{display:block}}
+.at-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);margin:var(--s-2) 0 0}
+.at-h3{margin:var(--s-6) 0 var(--s-3)}
+.at-cl{display:block}
+.at-cl+.at-cl{margin-top:var(--s-2)}
+table{table-layout:fixed}
+th:first-child,td:first-child{width:30%}
+@media (max-width:640px){.tw{border:0;border-radius:0;background:none}table{min-width:0}thead{display:none}tr{display:block;border-top:1px solid var(--rule)}td{display:block;border-bottom:0;padding:var(--s-1) 0}.tw td:first-child{width:auto;position:static;background:none;padding-top:var(--s-4)}td:last-child{padding-bottom:var(--s-4)}.at-st{white-space:normal}}
+.at-st{display:inline-block;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-slight);color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:1px var(--s-2);white-space:nowrap}
+.at-st.p{border-style:dashed;border-color:var(--ink-4)}
+.at-st.v{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.at-rules ol{margin:0;padding-left:1.6em;display:flex;flex-direction:column;gap:var(--s-4)}
+.at-rules li::marker{font-family:var(--f-mono);color:var(--ink-4)}
+.at-rules li p{margin:0}
+.at-svg{display:block;width:100%;height:auto}
+.at-svg text{font-family:var(--f-sans)}
+.at-ground{fill:var(--sunk)}
+.at-route{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.at-halo{stroke:var(--paper);stroke-width:11;stroke-linecap:round}
+.at-beyond{stroke:var(--ink-4);stroke-width:2.5;stroke-dasharray:2 3}
+.at-leg-open{stroke:var(--ink);stroke-width:3;stroke-dasharray:5 4}
+.at-ring-pass{fill:var(--band-fill);stroke:var(--ink-2);stroke-width:1.5}
+.at-ring-open{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+.at-base{fill:var(--ink);stroke:var(--paper);stroke-width:4}
+.at-post{fill:var(--paper);stroke:var(--ink);stroke-width:4.5}
+.at-serra{fill:var(--paper);stroke:var(--ink-4);stroke-width:3}
+.at-mk{fill:var(--paper);stroke:var(--ink-2);stroke-width:2}
+.at-mkt{font-family:var(--f-mono)!important;font-size:15px;font-weight:600;fill:var(--ink)}
+.at-lb{font-size:26px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:6px;stroke-linejoin:round}
+.at-lbd{font-size:24px;font-weight:500;fill:var(--ink-3);paint-order:stroke;stroke:var(--paper);stroke-width:6px;stroke-linejoin:round}
+.at-lbs{font-family:var(--f-mono)!important;font-size:19px;fill:var(--ink-3);paint-order:stroke;stroke:var(--paper);stroke-width:5px;stroke-linejoin:round}
+.at-lbz{font-size:13px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+.at-lbm{font-size:15px;font-weight:600;fill:var(--ink)}
+.at-scale{stroke:var(--ink);stroke-width:5}
+.at-zero{stroke:var(--ink);stroke-width:2}
+.at-ax{font-family:var(--f-mono)!important;font-size:13px;fill:var(--ink-3)}
+.at-axl{font-size:14px;fill:var(--ink-3)}
+.at-rowl{font-size:15px;font-weight:600;fill:var(--ink)}
+.at-roww{font-family:var(--f-mono)!important;font-size:12px;letter-spacing:.08em;fill:var(--ink-3)}
+.at-node{fill:var(--paper);stroke:var(--ink-3);stroke-width:1.5}
+.at-node.s1{stroke:var(--ink-2);stroke-width:2.5}
+.at-node.s2{stroke:var(--ink);stroke-width:4}
+.at-node.s5{fill:none;stroke:var(--ink);stroke-width:2.5}
+.at-edge{stroke:var(--ink-3);stroke-width:1.5}
+.at-arrow{fill:var(--ink-3)}
+.at-band{stroke:var(--ink-2);stroke-width:1.5}
+.at-band.go{fill:var(--ink-2)}
+.at-band.na{fill:var(--band-fill);stroke-dasharray:5 4}
+.at-band.no{fill:none}
+.at-grid{stroke:var(--rule);stroke-width:1}
+.at-dot.go{fill:var(--held)}
+.at-dot.na{fill:none;stroke:var(--warn);stroke-width:1.8}
+.at-dot.no{fill:none;stroke:var(--ink-3);stroke-width:2}
+.at-ring{fill:none;stroke:var(--ink);stroke-width:2}
+.at-rp{display:flex;flex-direction:column;gap:var(--s-3)}
+.at-rpmap{position:relative;border:1px solid var(--rule);border-radius:var(--radius-s);overflow:hidden;background:var(--sunk);aspect-ratio:2/1;max-width:100%}
+.at-rpmap svg{position:absolute;inset:0;width:100%;height:100%}
+.at-now{position:absolute;left:10px;top:10px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-slight);text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:3px var(--s-2);max-width:calc(100% - 20px)}
+.at-area{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:1.5 2}
+.at-area.falso{stroke:var(--witness)}
+.at-dr{fill:var(--ink);stroke:var(--paper);stroke-width:2}
+.at-strip{position:relative;height:84px;border-bottom:1px solid var(--rule)}
+.at-strip svg{position:absolute;inset:0;width:100%;height:100%}
+.at-sl{position:absolute;left:0;transform:translateY(-50%);font-family:var(--f-mono);font-size:.625rem;color:var(--ink-4);background:var(--paper);padding-right:var(--s-1)}
+.at-slr{left:auto;right:0;padding:0 0 0 var(--s-1)}
+.at-fill{fill:var(--band-fill)}
+.at-best{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+.at-worst{fill:none;stroke:var(--ink);stroke-width:2.5}
+.at-resl{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:5 4}
+.at-midl{stroke:var(--rule-strong);stroke-width:1;stroke-dasharray:2 3}
+.at-cur{stroke:var(--ink);stroke-width:1.5}
+.at-bar{display:flex;align-items:center;gap:var(--s-4)}
+.at-bar button{font:600 var(--text-small) var(--f-sans);color:var(--paper);background:var(--ink);border:0;border-radius:var(--radius-pill);padding:9px 18px;cursor:pointer}
+.at-bar button[disabled]{opacity:.5;cursor:default}
+.at-bar button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.at-clock{font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">Minuta para revisão técnica · versão 0.3 · 16/11/2026</div>
+  <h1>Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável</h1>
+  <p class="deck">Proposta de protocolo doutrinário para a operação resiliente de drones com o GPS degradado ou negado, de uso civil primeiro e militar depois. A tese é que resiliência não é garantir que o drone nunca perca a referência de navegação; é garantir que a organização continue tomando decisões justificáveis, e conferíveis depois, quando essa referência deixa de ser confiável.</p>
+</header>
+
+<div class="col"><p class="scope">Esta minuta é a base técnica de um programa de pesquisa aplicada: separa princípios, responsabilidades, procedimentos, requisitos técnicos, critérios de validação e governança, e mostra o protocolo em testes sintéticos na ilha de Florianópolis e no Médio Vale do Itajaí (SC). A avaliação militar vem depois, com resultados documentados. Não é doutrina aprovada, nem certificação de prontidão, nem proposta comercial. Nada aqui voou: cada afirmação traz o seu nível de maturidade.</p></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">Demonstrado</div><div class="v">29</div><div class="n">afirmações marcadas, em simulação ou bancada</div></div>
+    <div class="stat"><div class="k">Validado em campo</div><div class="v">0</div><div class="n">nenhum voo real ainda</div></div>
+    <div class="stat"><div class="k">Proposto</div><div class="v">41</div><div class="n">à espera de teste ou de decisão da Força</div></div>
+    <div class="stat"><div class="k">Áreas de teste</div><div class="v">2</div><div class="n">a ilha de Florianópolis e o Médio Vale do Itajaí (SC)</div></div>
+  </div>
+</div>
+
+<div class="col"><div class="note">
+  <span class="lab">Como ler esta minuta: três níveis de maturidade</span>
+<ul class="plain"><li><span class="at-st d">Demonstrado</span> Resultado obtido em teste documentado, em simulação ou em bancada, com registro que pode ser entregue a quem avalia, para refazer o teste. Demonstrado não é validado: a simulação confere as contas e o programa, não o equipamento.</li><li><span class="at-st v">Validado em campo</span> Resultado observado em equipamento e ambiente reais. Nesta versão, nenhum item chegou a esse nível.</li><li><span class="at-st p">Proposto</span> Requisito, regra ou comportamento ainda não demonstrado, ou decisão que cabe à Força. A minuta diz o que precisa acontecer para que ele suba de nível.</li></ul>
+</div></div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">1 · A tese</div>
+    <h2>Saber o que se pode garantir, não só onde se está</h2>
+  </div>
+<p>Todo drone moderno usa o GPS para saber onde está. O sinal chega do espaço muito fraco e, por isso, é fácil de abafar ou de imitar. Em janeiro de 2025, um bloqueador escondido em Belo Horizonte fez 21 aeronaves perderem o GPS na aproximação do aeroporto da Pampulha, e a Anatel só achou o aparelho rastreando o sinal em campo. Na guerra da Ucrânia, um estudo do RUSI de 2023 estimou em cerca de 10 mil por mês as perdas de drones ucranianos, num trecho dedicado à guerra eletrônica russa. Um drone que confia cegamente no GPS pode ser desviado devagar, sem que o piloto perceba, ou simplesmente se perder.</p><p>O Exército já estuda drones para levar suprimento a tropas isoladas. Em 2025, oficiais da Escola de Aperfeiçoamento de Oficiais simularam um drone de carga DJI FlyCart 30 abastecendo um pelotão na montanha. O drone fez até 89% das entregas, e o estudo registra uma variação considerável do GPS em áreas montanhosas e recomenda ensaios práticos.</p><p>A resposta comum é dar ao drone sensores melhores, para que ele nunca se perca. O Atalaia parte de outra pergunta. Em vez de “onde o drone está?”, pergunta “o que a operação consegue garantir sobre onde o drone está?”, e só deixa a missão prosseguir quando as condições de segurança podem ser demonstradas dentro de limites combinados antes do voo. A confiança deixa de estar num sensor isolado e passa a estar num conjunto de evidências que precisam concordar.</p><div class="wide"><div class="tw"><table><thead><tr><th></th><th>A abordagem comum, e a do Atalaia</th></tr></thead><tbody><tr><td><b>A pergunta</b></td><td><span class="at-cl"><b>Comum:</b> onde o drone está?</span><span class="at-cl"><b>Atalaia:</b> o que se pode garantir sobre onde o drone está?</span></td></tr><tr><td><b>A posição</b></td><td><span class="at-cl"><b>Comum:</b> um ponto, a melhor estimativa disponível.</span><span class="at-cl"><b>Atalaia:</b> uma região onde o drone certamente está, se as hipóteses declaradas valerem.</span></td></tr><tr><td><b>A confiança</b></td><td><span class="at-cl"><b>Comum:</b> no sensor principal, em geral o GPS.</span><span class="at-cl"><b>Atalaia:</b> no acordo entre evidências independentes; nenhuma fonte vale sozinha.</span></td></tr><tr><td><b>Quando faltam evidências</b></td><td><span class="at-cl"><b>Comum:</b> o sistema responde mesmo assim.</span><span class="at-cl"><b>Atalaia:</b> o laudo pode dizer “falta dado” e nomear o dado que decidiria.</span></td></tr><tr><td><b>Quando a missão termina</b></td><td><span class="at-cl"><b>Comum:</b> no pouso.</span><span class="at-cl"><b>Atalaia:</b> quando o registro permite reconstruir e conferir cada decisão.</span></td></tr><tr><td><b>Quando muda o fabricante</b></td><td><span class="at-cl"><b>Comum:</b> muda a forma de operar.</span><span class="at-cl"><b>Atalaia:</b> muda a ficha técnica; o protocolo fica.</span></td></tr></tbody></table></div></div><p class="pull">A resiliência não está em garantir que o equipamento nunca perca a referência de navegação, mas em garantir que a organização continue tomando decisões justificáveis quando essa referência deixa de ser confiável.</p><p><span class="at-src">Fontes: Anatel e Polícia Militar, apreensão do bloqueador (Convergência Digital, 24/01/2025); J. Watling e N. Reynolds, <a href="https://rusi.org/explore-our-research/publications/special-resources/meatgrinder-russian-tactics-second-year-its-invasion-ukraine" target="_blank" rel="noopener"><em>Meatgrinder</em></a>, RUSI, 19/05/2023; Souza e Burity, <em>Revista Agulhas Negras</em> v. 9, n. 14 (2025), <a href="https://doi.org/10.70545/ran.v9i14.13519" target="_blank" rel="noopener">doi:10.70545/ran.v9i14.13519</a>.</span></p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">2 · O que já existe</div>
+    <h2>Uma tradição que já existe: o PNT assegurado</h2>
+  </div>
+<p>Navegação resiliente não é uma ideia nova, e o Atalaia não a reivindica. O Exército dos Estados Unidos trata há anos o GPS como um serviço que pode faltar, sob o nome de PNT assegurado (posição, navegação e tempo). O manual FM 3-14, de 2019, lembra que uma brigada típica tem mais de 2.500 equipamentos que dependem de PNT, pede que as operações considerem a interferência no GPS e ajudem os comandantes a entender quanto dependem dele, e diz que as unidades treinam também para operar num ambiente espacial negado, degradado ou interrompido. O centro de lições aprendidas daquele exército publicou em 2018 um manual inteiro sobre esse ambiente, com um exercício-padrão de reação à interferência. E a arquitetura que ele adota hoje combina o GPS com sensores inerciais, odômetros e relógios atômicos em chip, que servem para conferir a integridade do sinal recebido.</p><p>Um estudo do Belfer Center, de Harvard, publicado em junho de 2026, resume o problema para sistemas autônomos: sem PNT resiliente, eles podem falhar, e quando nenhuma fonte devolve a posição, o sistema passa a estimá-la pelo próprio movimento, com um erro que cresce sem limite. A aviação civil formalizou a mesma preocupação com outro vocabulário. Um receptor certificado não informa só a posição: informa um nível de proteção, a região que deve conter a posição verdadeira com um risco declarado, e cada fase do voo tem um limite de alerta, de 40 m na horizontal numa aproximação de precisão. Se o nível de proteção passa do limite, a navegação é declarada indisponível para aquela fase.</p><p>O que o Atalaia acrescenta é a organização dessas peças num protocolo que se pode conferir: quatro perguntas com veredito antes do voo, a posição como região com limite por fase, estados da missão com ação e autoridade combinadas antes, e um registro que outra instituição refaz. Em uma frase, levar o PNT assegurado até a execução assegurada da missão.</p><div class="wide"><div class="tw"><table><thead><tr><th>Dimensão</th><th>A tradição, e o que o Atalaia acrescenta</th></tr></thead><tbody><tr><td><b>Integridade</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Hoje:</b> fontes confiáveis e redundantes; na aviação, nível de proteção e limite de alerta.</span><span class="at-cl"><b>Atalaia:</b> um teste explícito: a posição do GPS precisa caber na região calculada com evidências independentes.</span></td></tr><tr><td><b>Navegação</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Hoje:</b> fusão de sensores, que entrega a melhor estimativa.</span><span class="at-cl"><b>Atalaia:</b> a região garantida ao lado da melhor estimativa; quando as duas discordam, vale a região.</span></td></tr><tr><td><b>Planejamento</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Hoje:</b> avaliação de disponibilidade e de risco.</span><span class="at-cl"><b>Atalaia:</b> quatro perguntas com veredito (passa, não passa, falta dado) e o dado que mudaria cada um.</span></td></tr><tr><td><b>Segurança</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Hoje:</b> proteções e procedimentos de contingência.</span><span class="at-cl"><b>Atalaia:</b> seis estados da missão, com ação e autoridade combinadas antes do voo.</span></td></tr><tr><td><b>Pós-missão</b><span class="at-cl"><span class="at-st d">Demonstrado · bancada</span></span></td><td><span class="at-cl"><b>Hoje:</b> registros de voo e avaliação.</span><span class="at-cl"><b>Atalaia:</b> registro assinado a bordo, encadeado e refeito por um verificador independente.</span></td></tr><tr><td><b>Aprendizado</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Hoje:</b> atualização de capacidades.</span><span class="at-cl"><b>Atalaia:</b> cada voo estreita as faixas dos laudos; um laudo que erra mais do que declarou é suspenso.</span></td></tr></tbody></table></div></div><p><span class="at-src">Fontes: Exército dos EUA, FM 3-14, <em>Army Space Operations</em>, 30/10/2019 (cap. 1; §2-29, §2-30, §3-4); Center for Army Lessons Learned, <a href="https://api.army.mil/e2/c/downloads/2023/01/19/7f7281ee/18-28-operating-in-a-denied-degraded-and-disrupted-space-operational-environment-handbook-jun-18-public.pdf" target="_blank" rel="noopener">Handbook 18-28</a>, jun. 2018; <a href="https://www.army.mil/article/262096" target="_blank" rel="noopener">army.mil</a>, 18/11/2022, e <a href="https://insidegnss.com/u-s-army-taking-a-layered-approach-to-pnt/" target="_blank" rel="noopener">Inside GNSS</a>, 03/06/2025 (a arquitetura em camadas); C. Mignone, <a href="https://www.belfercenter.org/research-analysis/navigating-without-gps-cascading-alt-pnt-architecture-american-defense" target="_blank" rel="noopener"><em>Navigating Without GPS</em></a>, Belfer Center, 29/06/2026; FAA, <a href="https://www.nstb.tc.faa.gov/Terms.html" target="_blank" rel="noopener">WAAS/GPS Terms and Definitions</a> (nível de proteção horizontal; limite de alerta LPV).</span></p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">3 · Os testes</div>
+    <h2>Testes sintéticos: a ilha primeiro, o Vale como referência</h2>
+  </div>
+<div class="col"><p>Os testes começam em simulação, em duas áreas de Santa Catarina. A primeira é o norte da ilha de Florianópolis, ao lado de um instituto de engenharia: em poucos quilômetros estão morros, praias, dunas, a lagoa, o mar e o espaço aéreo controlado do aeroporto Hercílio Luz. Lá os testes são só sintéticos; voo real, só em campo autorizado.</p><p>O mapa mostra a base, até onde o drone de exemplo vai e volta com 12 kg e quatro missões calculadas, cada uma desenhada pelo pior dos seus vereditos. A comunidade da Costa da Lagoa só é acessível por barco ou por trilha, e é o caso civil que motiva o protocolo.</p></div><div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+<svg class="at-svg" viewBox="0.0 0.0 1400.0 1085.0" role="img" aria-label="Mapa de relevo do norte da ilha de Florianópolis: a base, o alcance com 12 kg e as quatro missões sintéticas, cada uma desenhada pelo seu pior veredito"><rect width="1400" height="1085" class="at-ground"/><image href="relevo-ilha.webp" width="1400" height="1085" preserveAspectRatio="none"/><polygon points="732.5,-50.9 775.0,-49.0 817.1,-43.4 858.6,-34.3 899.1,-21.5 938.4,-5.2 976.1,14.5 1012.0,37.3 1045.8,63.2 1077.1,91.9 1105.8,123.3 1131.8,157.0 1154.6,192.9 1174.3,230.7 1190.6,270.0 1203.4,310.5 1212.7,352.1 1218.3,394.2 1220.1,436.8 1218.3,479.3 1212.8,521.5 1203.6,563.1 1190.9,603.7 1174.6,643.0 1155.0,680.8 1132.2,716.7 1089.3,736.2 1061.9,766.2 1031.9,793.7 999.7,818.4 965.4,840.3 929.4,859.0 891.8,874.6 853.1,886.8 813.4,895.6 773.1,900.9 732.5,902.7 690.0,923.0 647.8,917.5 606.2,908.2 573.2,874.6 535.6,859.0 499.6,840.3 452.6,836.6 418.9,810.6 387.5,781.9 358.8,750.5 332.8,716.7 310.0,680.8 290.4,643.0 274.1,603.7 261.4,563.1 252.2,521.5 246.7,479.3 244.9,436.8 246.7,394.2 252.3,352.1 261.6,310.5 274.4,270.0 290.7,230.7 310.4,192.9 333.2,157.0 359.2,123.3 387.9,91.9 419.3,63.2 453.0,37.3 488.9,14.5 526.6,-5.2 565.9,-21.5 606.4,-34.3 647.9,-43.4 690.0,-49.0" class="at-ring-open"/><polygon points="732.5,215.2 751.8,216.1 771.0,218.6 789.9,222.8 808.3,228.6 826.1,236.0 843.3,245.0 859.6,255.3 875.0,267.1 889.2,280.2 902.3,294.4 914.0,309.8 924.4,326.1 933.4,343.3 940.8,361.1 946.6,379.6 950.8,398.4 953.3,417.6 954.1,437.0 953.3,456.3 950.8,475.5 946.6,494.4 940.8,512.8 933.4,530.7 924.5,547.9 914.1,564.2 902.3,579.5 889.3,593.8 860.8,589.9 847.0,600.5 843.4,629.1 826.2,638.0 808.3,645.4 789.9,651.2 771.0,655.4 751.8,657.9 732.5,658.8 713.2,657.9 694.0,655.4 675.1,651.2 656.7,645.4 638.8,638.0 621.6,629.1 605.3,618.6 590.0,606.9 575.7,593.8 562.7,579.5 550.9,564.2 540.5,547.9 531.6,530.7 524.2,512.8 518.4,494.4 514.2,475.5 511.7,456.3 510.9,437.0 511.7,417.6 514.2,398.4 518.4,379.6 524.3,361.1 531.6,343.3 540.6,326.1 551.0,309.8 562.8,294.4 575.8,280.2 590.1,267.1 605.4,255.3 621.7,245.0 638.9,236.0 656.7,228.6 675.1,222.8 694.0,218.6 713.2,216.1" class="at-ring-pass"/><line x1="732.5" y1="437.0" x2="695.6" y2="977.0" class="at-beyond"/><circle cx="695.6" cy="977.0" r="10.0" class="at-serra"/><line x1="920.5" y1="684.5" x2="695.6" y2="977.0" class="at-leg-open"/><circle cx="920.5" cy="684.5" r="7.0" class="at-base"/><circle cx="695.6" cy="977.0" r="10.0" class="at-post"/><line x1="732.5" y1="437.0" x2="847.0" y2="600.5" class="at-halo"/><line x1="732.5" y1="437.0" x2="847.0" y2="600.5" class="at-route"/><circle cx="847.0" cy="600.5" r="10.0" class="at-post"/><line x1="838.7" y1="261.9" x2="838.7" y2="84.5" class="at-beyond"/><circle cx="838.7" cy="261.9" r="7.0" class="at-base"/><circle cx="838.7" cy="84.5" r="10.0" class="at-serra"/><circle cx="732.5" cy="437.0" r="11.0" class="at-base"/><text class="at-lb" x="711.6" y="985.0">Costa da Lagoa</text><text class="at-lb" x="865.0" y="608.5">Posto nos morros</text><text class="at-lb" x="854.7" y="78.5">Barco ao largo</text><text class="at-lb" x="714.5" y="423.0" text-anchor="end">Base</text><text class="at-lbs" x="934.5" y="674.5">Rio Vermelho</text></svg>
+</div><div class="hv-n">
+<svg class="at-svg at-n" viewBox="545.6 4.5 844.9 1052.5" role="img" aria-label="Mapa de relevo do norte da ilha de Florianópolis: a base, o alcance com 12 kg e as quatro missões sintéticas, cada uma desenhada pelo seu pior veredito"><rect width="1400" height="1085" class="at-ground"/><image href="relevo-ilha.webp" width="1400" height="1085" preserveAspectRatio="none"/><polygon points="732.5,-50.9 775.0,-49.0 817.1,-43.4 858.6,-34.3 899.1,-21.5 938.4,-5.2 976.1,14.5 1012.0,37.3 1045.8,63.2 1077.1,91.9 1105.8,123.3 1131.8,157.0 1154.6,192.9 1174.3,230.7 1190.6,270.0 1203.4,310.5 1212.7,352.1 1218.3,394.2 1220.1,436.8 1218.3,479.3 1212.8,521.5 1203.6,563.1 1190.9,603.7 1174.6,643.0 1155.0,680.8 1132.2,716.7 1089.3,736.2 1061.9,766.2 1031.9,793.7 999.7,818.4 965.4,840.3 929.4,859.0 891.8,874.6 853.1,886.8 813.4,895.6 773.1,900.9 732.5,902.7 690.0,923.0 647.8,917.5 606.2,908.2 573.2,874.6 535.6,859.0 499.6,840.3 452.6,836.6 418.9,810.6 387.5,781.9 358.8,750.5 332.8,716.7 310.0,680.8 290.4,643.0 274.1,603.7 261.4,563.1 252.2,521.5 246.7,479.3 244.9,436.8 246.7,394.2 252.3,352.1 261.6,310.5 274.4,270.0 290.7,230.7 310.4,192.9 333.2,157.0 359.2,123.3 387.9,91.9 419.3,63.2 453.0,37.3 488.9,14.5 526.6,-5.2 565.9,-21.5 606.4,-34.3 647.9,-43.4 690.0,-49.0" class="at-ring-open"/><polygon points="732.5,215.2 751.8,216.1 771.0,218.6 789.9,222.8 808.3,228.6 826.1,236.0 843.3,245.0 859.6,255.3 875.0,267.1 889.2,280.2 902.3,294.4 914.0,309.8 924.4,326.1 933.4,343.3 940.8,361.1 946.6,379.6 950.8,398.4 953.3,417.6 954.1,437.0 953.3,456.3 950.8,475.5 946.6,494.4 940.8,512.8 933.4,530.7 924.5,547.9 914.1,564.2 902.3,579.5 889.3,593.8 860.8,589.9 847.0,600.5 843.4,629.1 826.2,638.0 808.3,645.4 789.9,651.2 771.0,655.4 751.8,657.9 732.5,658.8 713.2,657.9 694.0,655.4 675.1,651.2 656.7,645.4 638.8,638.0 621.6,629.1 605.3,618.6 590.0,606.9 575.7,593.8 562.7,579.5 550.9,564.2 540.5,547.9 531.6,530.7 524.2,512.8 518.4,494.4 514.2,475.5 511.7,456.3 510.9,437.0 511.7,417.6 514.2,398.4 518.4,379.6 524.3,361.1 531.6,343.3 540.6,326.1 551.0,309.8 562.8,294.4 575.8,280.2 590.1,267.1 605.4,255.3 621.7,245.0 638.9,236.0 656.7,228.6 675.1,222.8 694.0,218.6 713.2,216.1" class="at-ring-pass"/><line x1="732.5" y1="437.0" x2="695.6" y2="977.0" class="at-beyond"/><circle cx="695.6" cy="977.0" r="16.0" class="at-serra"/><line x1="920.5" y1="684.5" x2="695.6" y2="977.0" class="at-leg-open"/><circle cx="920.5" cy="684.5" r="11.2" class="at-base"/><circle cx="695.6" cy="977.0" r="16.0" class="at-post"/><line x1="732.5" y1="437.0" x2="847.0" y2="600.5" class="at-halo"/><line x1="732.5" y1="437.0" x2="847.0" y2="600.5" class="at-route"/><circle cx="847.0" cy="600.5" r="16.0" class="at-post"/><line x1="838.7" y1="261.9" x2="838.7" y2="84.5" class="at-beyond"/><circle cx="838.7" cy="261.9" r="11.2" class="at-base"/><circle cx="838.7" cy="84.5" r="16.0" class="at-serra"/><circle cx="732.5" cy="437.0" r="17.6" class="at-base"/><g transform="translate(721.2 989.8) scale(1.6)"><text class="at-lb" x="0.0" y="0.0">Costa da Lagoa</text></g><g transform="translate(875.8 613.3) scale(1.6)"><text class="at-lb" x="0.0" y="0.0">Posto nos morros</text></g><g transform="translate(864.3 74.9) scale(1.6)"><text class="at-lb" x="0.0" y="0.0">Barco ao largo</text></g><g transform="translate(703.7 414.6) scale(1.6)"><text class="at-lb" x="0.0" y="0.0" text-anchor="end">Base</text></g><g transform="translate(942.9 668.5) scale(1.6)"><text class="at-lbs" x="0.0" y="0.0">Rio Vermelho</text></g></svg>
+</div>
+  </div>
+  <figcaption data-record="apps/atalaia/data/ilha.json@b205799416d6">O norte da ilha de Florianópolis sobre o relevo Copernicus GLO-30. O anel cheio é até onde o drone vai e volta com 12 kg no pior caso (4,5 a 5,0 km); o tracejado longo, até onde falta dado. Linha cheia: a missão passa; tracejado longo: falta dado; tracejado curto: não passa. Simulação; nada voou.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/ilha.json</span> · sha256 b205799416d6</span></figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>Missão</th><th>Rota e energia, com 12 kg</th></tr></thead><tbody><tr><td><b>Costa da Lagoa, direto da base · 12,2 km</b><span class="at-cl"><span class="tag dep">× NÃO PASSA</span></span></td><td><span class="at-cl"><b>Energia:</b> ida e volta de 24,4 km passam do alcance, mesmo com 5 kg.</span><span class="at-cl"><b>Rota:</b> sem GPS, o relevo devolve a posição em 100% do caminho.</span></td></tr><tr><td><b>Costa da Lagoa, de uma base avançada no Rio Vermelho · 8,3 km</b><span class="at-cl"><span class="tag open">∅ FALTA DADO</span></span></td><td><span class="at-cl"><b>Energia:</b> entre -1.213 e +722 Wh: decide o consumo real com carga, num voo de calibração.</span><span class="at-cl"><b>Rota:</b> sem GPS, o relevo devolve a posição em 100% do caminho.</span></td></tr><tr><td><b>Posto nos morros · 4,5 km</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>Energia:</b> com 12 kg, sobram ao menos 180 Wh além da reserva.</span><span class="at-cl"><b>Rota:</b> sem GPS, o relevo devolve a posição em 100% do caminho.</span></td></tr><tr><td><b>Barco ao largo, 4 km mar adentro</b><span class="at-cl"><span class="tag dep">× NÃO PASSA</span></span></td><td><span class="at-cl"><b>Energia:</b> com 12 kg, sobram ao menos 534 Wh além da reserva.</span><span class="at-cl"><b>Rota:</b> sem GPS, sobre a água nem o relevo nem a imagem devolvem a posição no fim da perna. Decide: voar só com o GPS íntegro e voltar ao primeiro alarme, ou um marcador no destino.</span></td></tr></tbody></table></div></div><div class="col"><p>A mesma lição aparece duas vezes: a missão que não passa direto da base pode passar de uma base mais perto, e o que decide o resto é medido, não suposto. Um quinto caso, uma rota dentro do espaço aéreo do aeroporto, espera o laudo de espaço aéreo, ainda em construção.</p><p>A segunda área é o Médio Vale do Itajaí, o cenário operacional de referência. A base fica em Blumenau, a 20 m de altitude; o posto avançado fica a 5 km, nos morros a sudoeste, a 189 m, e recebe 12 kg por saída: 5 saídas cobrem os 57 kg por dia que o estudo da ESAO usou para um pelotão. É também onde as enchentes isolam comunidades.</p><p>O drone dos exemplos é o DJI FlyCart 30, porque a DJI publica a ficha dele e as contas de energia precisam dela. O protocolo não depende do modelo: com outro drone, troca-se a ficha e refazem-se as contas. As bases e os destinos são pontos escolhidos sobre o relevo real; nenhuma instalação real é indicada.</p></div><div class="wide"><figure>
+  <div class="figbox">
+<div class="at-w"><svg class="at-svg" viewBox="0.0 0.0 1300.0 937.0" role="img" aria-label="Mapa de relevo do Vale do Itajaí: a rota do drone de Blumenau ao posto avançado, a 5 km, e a linha tracejada até a serra, a 15 km"><rect width="1300" height="937" class="at-ground"/><image href="relevo.webp" width="1300" height="937" preserveAspectRatio="none"/><line x1="689.91" y1="392.3219" x2="478.4" y2="758.8762999999999" class="at-beyond"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-halo"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-route"/><circle cx="758.6" cy="273.1" r="13.0" class="at-mk"/><text class="at-mkt" x="758.6" y="278.1" text-anchor="middle">3</text><circle cx="730.1" cy="322.6" r="13.0" class="at-mk"/><text class="at-mkt" x="730.1" y="327.6" text-anchor="middle">4</text><circle cx="700.5" cy="374.0" r="13.0" class="at-mk"/><text class="at-mkt" x="700.5" y="379.0" text-anchor="middle">5</text><circle cx="795.6" cy="208.951" r="11.0" class="at-base"/><circle cx="689.91" cy="392.3219" r="12.0" class="at-post"/><circle cx="478.4" cy="758.8762999999999" r="8.0" class="at-serra"/><text class="at-lb" x="817.6" y="217.0">Base · Blumenau</text><text class="at-lbs" x="817.6" y="245.0">20 m</text><text class="at-lb" x="713.9" y="400.3">Posto avançado · 5 km</text><text class="at-lbs" x="713.9" y="428.3">189 m</text><text class="at-lbd" x="496.4" y="766.9">Serra · 15 km, fora do alcance</text><text class="at-lbs" x="496.4" y="794.9">668 m</text><line x1="30.0" y1="907.0" x2="124.9" y2="907.0" class="at-scale"/><text class="at-lbs" x="30.0" y="891.0">2 km</text></svg></div><div class="at-nw"><svg class="at-svg at-n" viewBox="388.4 119.0 787.2 759.9" role="img" aria-label="Mapa de relevo do Vale do Itajaí: a rota do drone de Blumenau ao posto avançado, a 5 km, e a linha tracejada até a serra, a 15 km"><rect width="1300" height="937" class="at-ground"/><image href="relevo.webp" width="1300" height="937" preserveAspectRatio="none"/><line x1="689.91" y1="392.3219" x2="478.4" y2="758.8762999999999" class="at-beyond"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-halo"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-route"/><circle cx="758.6" cy="273.1" r="18.8" class="at-mk"/><g transform="translate(758.6 280.4) scale(1.45)"><text class="at-mkt" x="0.0" y="0.0" text-anchor="middle">3</text></g><circle cx="730.1" cy="322.6" r="18.8" class="at-mk"/><g transform="translate(730.1 329.9) scale(1.45)"><text class="at-mkt" x="0.0" y="0.0" text-anchor="middle">4</text></g><circle cx="700.5" cy="374.0" r="18.8" class="at-mk"/><g transform="translate(700.5 381.2) scale(1.45)"><text class="at-mkt" x="0.0" y="0.0" text-anchor="middle">5</text></g><circle cx="795.6" cy="208.951" r="15.9" class="at-base"/><circle cx="689.91" cy="392.3219" r="17.4" class="at-post"/><circle cx="478.4" cy="758.8762999999999" r="11.6" class="at-serra"/><g transform="translate(827.5 220.6) scale(1.45)"><text class="at-lb" x="0.0" y="0.0">Base · Blumenau</text></g><g transform="translate(827.5 261.2) scale(1.45)"><text class="at-lbs" x="0.0" y="0.0">20 m</text></g><g transform="translate(724.7 403.9) scale(1.45)"><text class="at-lb" x="0.0" y="0.0">Posto avançado</text></g><g transform="translate(724.7 444.5) scale(1.45)"><text class="at-lbs" x="0.0" y="0.0">5 km · 189 m</text></g><g transform="translate(504.5 770.5) scale(1.45)"><text class="at-lbd" x="0.0" y="0.0">Serra · 15 km</text></g><g transform="translate(504.5 811.1) scale(1.45)"><text class="at-lbs" x="0.0" y="0.0">668 m</text></g><line x1="418.4" y1="848.9" x2="513.3" y2="848.9" class="at-scale"/><g transform="translate(418.4 825.7) scale(1.45)"><text class="at-lbs" x="0.0" y="0.0">2 km</text></g></svg></div>
+  </div>
+  <figcaption data-record="apps/atalaia/data/missao.json@d846f14c4f3a apps/atalaia/data/central.json@7e27cede02be">A missão de referência sobre o relevo do Vale do Itajaí (Copernicus GLO-90). A linha cheia é o voo, da base ao posto avançado; os números marcam onde, na simulação, começa o ataque ao GPS (3), onde o drone segue sem GPS (4) e onde acha o marcador do posto (5). A linha tracejada continua até a serra: ali a bateria não leva e traz o drone.<span class="fig-rec">Records: <span class="m">apps/atalaia/data/missao.json</span> · sha256 d846f14c4f3a; <span class="m">apps/atalaia/data/central.json</span> · sha256 7e27cede02be</span></figcaption>
+</figure></div><div class="col"><p class="at-k">A missão de referência fase a fase</p></div><div class="wide"><div class="picker">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-0" checked>
+<input class="pk-r" type="radio" name="fase" id="pk-fase-1">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-2">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-3">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-4">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-5">
+<input class="pk-r" type="radio" name="fase" id="pk-fase-6">
+<div class="pk-tabs">
+<label class="pk-t" for="pk-fase-0"><span class="pk-k">1</span><span class="pk-n">Planejar</span></label>
+<label class="pk-t" for="pk-fase-1"><span class="pk-k">2</span><span class="pk-n">Decolar</span></label>
+<label class="pk-t" for="pk-fase-2"><span class="pk-k">3</span><span class="pk-n">Ataque</span></label>
+<label class="pk-t" for="pk-fase-3"><span class="pk-k">4</span><span class="pk-n">Sem GPS</span></label>
+<label class="pk-t" for="pk-fase-4"><span class="pk-k">5</span><span class="pk-n">Chegada</span></label>
+<label class="pk-t" for="pk-fase-5"><span class="pk-k">6</span><span class="pk-n">Entrega</span></label>
+<label class="pk-t" for="pk-fase-6"><span class="pk-k">7</span><span class="pk-n">Retorno</span></label>
+</div>
+<div class="pk-panes">
+<div class="pk-p"><div class="pk-head"><h3>As quatro perguntas</h3></div><p>Antes de decolar, a Central responde as quatro perguntas da seção 6. A viabilidade passa: rota, energia, clima e GPS passam no pior caso. As outras três dizem falta dado, e a seção 6 mostra por quê.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Procedimento antes do voo (seção 6).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · simulação</span> Laudos calculados sobre o relevo de Blumenau e a ficha da DJI.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>Estado 0: o GPS é conferido antes de sair</h3></div><p>A caixa a bordo compara o GPS com os próprios sensores de movimento e confere a assinatura digital que o satélite europeu Galileo coloca nas mensagens. São dois testes separados: a assinatura diz que os dados vêm do Galileo; a comparação diz se a posição faz sentido.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Princípios 1 e 4; estado 0 (seção 7).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · vetores oficiais</span> A conferência da assinatura passou nos vetores de teste oficiais do Galileo: 193.887 conferências, nenhuma falha. Ainda não foi feita com sinal ao vivo.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>Estados 1 e 2: alguém falsifica o GPS</h3></div><p>No meio do caminho, um aparelho passa a imitar o GPS e a puxar o drone devagar para o lado. A posição informada encosta na borda da região (estado 1) e depois sai dela (estado 2): a caixa declara o GPS falso e avisa o piloto, apontando o culpado.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Estados 1 e 2 (seção 7).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · simulação</span> Numa viagem simulada de caminhão na BR-040, o alarme veio 3 segundos depois de a posição real sair da estrada. Com dados reais da rede de estações do IBGE, desvios lentos assim passaram despercebidos sem a caixa em 24 de 24 tentativas.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>Estado 2: segue pela região</h3></div><p>A caixa deixa o GPS de lado e continua com a região: o movimento a faz crescer, o relevo e a imagem a estreitam. Em Blumenau o relevo ajuda em todo o caminho, que é o caso favorável. Num DJI de hoje, a caixa não pode guiar o drone: avisa, e o piloto manda parar ou pousar.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Estado 2 e o limite do DJI (seção 7).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · simulação</span> Em 45 voos simulados de 45 minutos sobre relevo e imagens reais de Minas Gerais, a posição real ficou dentro da região em 24.300 de 24.300 verificações.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>A descida só sobre o marcador de quem recebe</h3></div><p>Perto do posto, a câmera compara o chão com o mapa, e a região se estreita. No ponto final, a caixa reconhece o painel com o código de uso único, e o piloto vê o marcador e autoriza a descida. Sem enlace não há autorização, e sem autorização não há descida de precisão: valem os estados 3 e 4.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Procedimento na chegada (seção 7).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st p">Proposto</span> O marcador e a descida de precisão são proposta. Em simulação, a comparação entre câmera e mapa errou até cerca de 10 m em 95% dos casos, de alturas maiores que a de uma entrega.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>O registro é lacrado</h3></div><p>O registro do voo é lacrado a bordo: onde a entrega aconteceu, quando aconteceu cada etapa, em que estado a missão esteve e as contas da carga, com o pedido, o embarcado e o entregue.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Governança (seção 10).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · bancada</span> O laudo e o lacre foram testados em bancada no Veto, o nosso instrumento de perícia: 53 erros plantados de propósito, todos pegos.</p></div></div></div>
+<div class="pk-p"><div class="pk-head"><h3>A frota aponta a região do ataque</h3></div><p>Cada drone que passa pela área registra onde perdeu e onde manteve o GPS. Juntos, apontam a região do aparelho que atacou, só escutando. O que o voo mediu volta para os laudos da próxima missão.</p><div class="pk-grid"><div class="pk-box"><span class="lab">Onde está na minuta</span><p>Princípio 10; governança (seção 10).</p></div><div class="pk-box"><span class="lab">Maturidade</span><p><span class="at-st d">Demonstrado · simulação</span> Em simulação, com 10 receptores a região do aparelho ficou com 26 km; com 250, 6 km; com três postos fixos em terra, 350 m. Os receptores do teste eram aviões; com drones, falta validar.</p></div></div></div>
+</div>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">4 · Princípios</div>
+    <h2>Dez princípios que não mudam com o equipamento</h2>
+  </div>
+<p>Os princípios são a parte da minuta que deve sobreviver à troca de drone, de sensor e de fornecedor. As responsabilidades, os procedimentos e os requisitos das seções seguintes derivam deles, e cada um pode ser cobrado de qualquer equipamento.</p><div class="at-rules"><ol><li><p><b>Confiança proporcional à evidência.</b> Nenhuma fonte de posição é aceita sozinha, nem o GPS nem a alternativa a ele. A posição vale quando fontes de natureza física diferente concordam, e vale só na medida em que concordam.</p></li><li><p><b>A posição é uma região.</b> O protocolo trabalha com a região onde o drone certamente está, se as hipóteses declaradas valerem, e cada fase da missão tem um tamanho máximo de região que tolera. Um ponto sem região não autoriza nada.</p></li><li><p><b>Desconfiar também da alternativa.</b> O sistema precisa perceber quando a própria estimativa deixou de valer. Quando duas evidências que deveriam valer juntas se contradizem, a região fica vazia: isso é um alarme, e prova que alguma hipótese falhou.</p></li><li><p><b>Autenticar não é garantir a posição.</b> Uma assinatura válida no sinal do satélite prova de onde vieram os dados, não que o sinal chegou direto do satélite ao drone. A autenticação da mensagem e a integridade da posição são dois controles, conferidos em separado.</p></li><li><p><b>O direito de não decidir.</b> Toda pergunta tem três respostas: passa, não passa e falta dado. Falta dado nunca vira passa por pressa; vira o pedido do dado que decidiria.</p></li><li><p><b>Interromper é sempre permitido; continuar exige evidência.</b> Qualquer elo da cadeia pode interromper uma missão sem justificar antes. Continuar, ou retomar depois de um alarme, exige os laudos e a autorização de quem responde.</p></li><li><p><b>Responsabilidade humana.</b> Toda missão tem quem a autoriza e um piloto que responde pelo voo. O sistema calcula, alerta e registra; as decisões são de pessoas com função definida, e ficam no registro.</p></li><li><p><b>Quem executa não é quem verifica.</b> Os registros são conferidos por outra instituição, com um programa escrito por ela. Um sistema que só pode ser conferido por quem o fez não serve à defesa.</p></li><li><p><b>Independência de fabricante.</b> O protocolo exige evidências e comportamentos, não um modelo de drone. Um equipamento entra quando passa na qualificação da seção 9, e a doutrina não muda quando o fornecedor muda.</p></li><li><p><b>Cada voo ensina, e só escutar.</b> O que o voo mede estreita os laudos do voo seguinte, e um laudo que erra mais do que declarou é suspenso. E o Atalaia só recebe sinais: não bloqueia nem falsifica GPS fora de área autorizada, não guia armas, não designa alvos e não rastreia pessoas.</p></li></ol></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">5 · Responsabilidades</div>
+    <h2>O drone é uma parte; a resiliência é da organização</h2>
+  </div>
+<p>Uma doutrina centrada no drone deixa de fora quem autoriza, quem supervisiona e quem mantém os mapas e as calibrações de que o drone depende. O protocolo cobre cinco camadas e uma verificação de fora, e cada uma responde por uma parte da decisão.</p><div class="wide"><div class="tw"><table><thead><tr><th>Camada</th><th>Quem, e por que responde</th></tr></thead><tbody><tr><td><b>Comando e controle</b></td><td><span class="at-cl"><b>Quem:</b> quem comanda a missão, e a cadeia acima.</span><span class="at-cl"><b>Responde por:</b> autorizar a missão, aceitar por escrito o risco que sobra, interromper.</span></td></tr><tr><td><b>Central de operações</b></td><td><span class="at-cl"><b>Quem:</b> o operador da Central, junto ao planejamento.</span><span class="at-cl"><b>Responde por:</b> calcular as quatro perguntas, acompanhar o voo, receber e guardar os registros (Atalaia Central).</span></td></tr><tr><td><b>Piloto</b></td><td><span class="at-cl"><b>Quem:</b> o piloto remoto responsável.</span><span class="at-cl"><b>Responde por:</b> conduzir o voo, agir pelo procedimento, autorizar a descida.</span></td></tr><tr><td><b>Plataforma aérea</b></td><td><span class="at-cl"><b>Quem:</b> o drone e a caixa a bordo (Atalaia Bordo).</span><span class="at-cl"><b>Responde por:</b> sensores, região garantida, energia, registro assinado a bordo.</span></td></tr><tr><td><b>Apoio</b></td><td><span class="at-cl"><b>Quem:</b> manutenção, cartografia e calibração.</span><span class="at-cl"><b>Responde por:</b> mapas e suas datas, calibração dos sensores, baterias, chaves da caixa.</span></td></tr><tr><td><b>Verificação independente</b></td><td><span class="at-cl"><b>Quem:</b> outra instituição; a proposta é o IME ou o CTEx.</span><span class="at-cl"><b>Responde por:</b> refazer cada decisão a partir do registro, com um programa próprio.</span></td></tr></tbody></table></div></div><p>A resiliência também tem cinco dimensões, e cada uma pede uma resposta diferente.</p><div class="wide"><div class="tw"><table><thead><tr><th>Dimensão</th><th>A pergunta, e a resposta do protocolo</th></tr></thead><tbody><tr><td><b>Técnica</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>O sistema depende de uma fonte só?</b> O GPS é conferido contra inércia, relevo e imagem, e a posição é uma região.</span></td></tr><tr><td><b>Operacional</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>A unidade cumpre ou interrompe a missão de modo controlado?</b> Seis estados da missão, com ação e autoridade combinadas antes (seção 7).</span></td></tr><tr><td><b>Organizacional</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Quem faz o quê está definido e treinado antes?</b> As camadas acima, adestramento com ataques gravados e qualificação dos pilotos em cada estado.</span></td></tr><tr><td><b>Informacional</b><span class="at-cl"><span class="at-st d">Demonstrado · bancada</span></span></td><td><span class="at-cl"><b>Os registros continuam confiáveis sem conexão?</b> Assinatura e encadeamento a bordo, sem depender do enlace; uma lacuna na corrente fica visível.</span></td></tr><tr><td><b>Institucional</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Quem não fez o equipamento consegue conferir?</b> Um verificador independente e registros em formato aberto.</span></td></tr></tbody></table></div></div><p>Uma doutrina, ao contrário de uma tecnologia, precisa responder também a perguntas de organização. As respostas abaixo são propostas; a cadeia exata de cada uma é decisão da Força.</p><ul class="plain"><li><b>Quem autoriza a missão?</b> Quem a comanda, com as quatro perguntas da Central em mãos. A autorização entra no registro com a função de quem autorizou e a hora. <span class="at-st p">Proposto</span></li><li><b>Quem pode interromper?</b> Qualquer um: quem comanda, o operador da Central, o piloto, e a própria caixa, por alarme. Ninguém precisa justificar uma interrupção antes de fazê-la. <span class="at-st p">Proposto</span></li><li><b>Quem responde quando o equipamento diverge do procedimento?</b> O piloto segue o procedimento, não o equipamento. A divergência fica no registro, o equipamento é suspenso até ser conferido, e o caso é tratado primeiro como investigação técnica. <span class="at-st p">Proposto</span></li><li><b>Como a unidade treina para a degradação?</b> Com ataques gravados injetados na caixa com o drone em solo, sem emitir sinal; depois, com exercícios em área autorizada. Cada piloto se qualifica em cada estado da missão. <span class="at-st p">Proposto</span></li><li><b>Como o sistema age quando as próprias evidências não bastam?</b> Antes do voo, a pergunta dá falta dado e a missão espera. Em voo, a região vazia ou grande demais leva ao estado 5 e à ação mais conservadora já autorizada. <span class="at-st d">Demonstrado · simulação</span></li><li><b>Como a instituição aprende?</b> Cada voo lacrado alimenta os laudos do voo seguinte, e uma mudança na minuta passa pelo canal de doutrina da Força, com versão e motivo escritos. <span class="at-st p">Proposto</span></li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">6 · Procedimento: antes do voo</div>
+    <h2>Quatro perguntas antes de decolar</h2>
+  </div>
+<p>Antes de cada missão, a Central responde quatro perguntas, cada uma com veredito próprio: passa, não passa ou falta dado. Uma missão pode ser viável e, ainda assim, não estar pronta, e separar as perguntas deixa isso à vista.</p><div class="wide"><div class="tw"><table><thead><tr><th>Pergunta</th><th>O que se confere, e nesta missão</th></tr></thead><tbody><tr><td><b>Viabilidade</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>A missão pode ser feita nas condições conhecidas?</b> </span><span class="at-cl"><b>Confere:</b> os quatro laudos, no pior caso: rota, energia, clima e GPS.</span><span class="at-cl"><b>Nesta missão:</b> os quatro passam (abaixo).</span></td></tr><tr><td><b>Resiliência</b><span class="at-cl"><span class="tag open">∅ FALTA DADO</span></span></td><td><span class="at-cl"><b>Se o GPS e o enlace caírem no pior ponto, há uma saída segura já autorizada?</b> </span><span class="at-cl"><b>Confere:</b> a energia para esperar o enlace e chegar a uma zona de pouso de contingência levantada no terreno.</span><span class="at-cl"><b>Nesta missão:</b> a reserva dá 5 minutos de espera; nenhuma zona de contingência foi levantada.</span></td></tr><tr><td><b>Segurança</b><span class="at-cl"><span class="tag open">∅ FALTA DADO</span></span></td><td><span class="at-cl"><b>Os estados da missão, os limites e as ações estão aprovados?</b> </span><span class="at-cl"><b>Confere:</b> a tabela de estados (seção 7), o limite de região por fase e o risco que sobra, aceito por escrito.</span><span class="at-cl"><b>Nesta missão:</b> definidos nesta minuta; a aprovação cabe à Força.</span></td></tr><tr><td><b>Auditabilidade</b><span class="at-cl"><span class="tag open">∅ FALTA DADO</span></span></td><td><span class="at-cl"><b>O voo vai poder ser reconstruído?</b> </span><span class="at-cl"><b>Confere:</b> a chave da caixa guardada em hardware, o relógio, a corrente de registros, o verificador.</span><span class="at-cl"><b>Nesta missão:</b> a caixa ainda não existe; o lacre foi testado só em bancada.</span></td></tr></tbody></table></div></div><p>Pelo próprio protocolo, a missão de exemplo hoje não seria liberada. Ela é viável, mas faltam a zona de pouso de contingência, a aprovação dos estados pela Força e a caixa que lacra o registro. É o comportamento pedido: a Central não libera o que não consegue demonstrar, e diz o que falta.</p><h3 class="at-h3">A viabilidade, laudo por laudo</h3><p>Cada laudo de viabilidade responde a uma pergunta. O de energia usa o método do SkyAudit, que decidiu um dia real de voos de helicóptero em Nova York: cada número entra como uma faixa, do pior ao melhor caso, e a missão só passa se a bateria cobrir o gasto e a reserva na faixa inteira. A reserva é uma regra da Força, não uma escolha do piloto no momento; até que a Força a fixe, a minuta propõe 5 minutos pairando.</p><div class="wide"><div class="tw"><table><thead><tr><th>Laudo</th><th>A pergunta, e nesta missão</th></tr></thead><tbody><tr><td><b>Rota</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>Sem GPS, o relevo devolve a posição do drone a tempo?</b> </span><span class="at-cl"><b>Nesta missão:</b> o relevo ajuda em 100% do caminho.</span></td></tr><tr><td><b>Energia</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>A bateria leva e traz, com a reserva intacta, no pior caso?</b> </span><span class="at-cl"><b>Nesta missão:</b> com 12 kg, sobram ao menos 41 Wh além da reserva. Passa até 13 kg.</span></td></tr><tr><td><b>Clima</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>O vento e a temperatura previstos estão dentro do que o fabricante garante?</b> </span><span class="at-cl"><b>Nesta missão:</b> vento previsto de 0 a 5 m/s; o limite é 12 m/s. Previsão simulada.</span></td></tr><tr><td><b>GPS</b><span class="at-cl"><span class="tag held">✓ PASSA</span></span></td><td><span class="at-cl"><b>Há alerta de interferência na área?</b> </span><span class="at-cl"><b>Nesta missão:</b> nenhum nas últimas 24 h. Leitura simulada.</span></td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+<div class="at-w"><svg class="at-svg" viewBox="0 0 900 226" role="img" aria-label="Margem de energia, do pior ao melhor caso: o posto avançado com 12 kg fica inteiro à direita do zero; com 30 kg cruza o zero; a serra fica inteira à esquerda"><line x1="590" y1="22" x2="590" y2="208" class="at-zero"/><text class="at-ax" x="590.0" y="16.0" text-anchor="middle">0</text><text class="at-ax" x="300.0" y="16.0">− 4.300</text><text class="at-ax" x="880.0" y="16.0" text-anchor="end">+ 4.300 Wh</text><text class="at-rowl" x="0.0" y="54.0">Posto avançado, 12 kg</text><text class="at-roww" x="0.0" y="76.0">✓ PASSA</text><rect x="592.8" y="37" width="108.1" height="22" class="at-band go"/><text class="at-ax" x="584.8" y="53.0" text-anchor="end">41</text><text class="at-ax" x="708.9" y="53.0">+1.643</text><text class="at-rowl" x="0.0" y="112.0">Posto avançado, 30 kg</text><text class="at-roww" x="0.0" y="134.0">∅ FALTA DADO</text><rect x="549.2" y="95" width="125.5" height="22" class="at-band na"/><text class="at-ax" x="541.2" y="111.0" text-anchor="end">-604</text><text class="at-ax" x="682.8" y="111.0">+1.256</text><text class="at-rowl" x="0.0" y="170.0">Serra a 15 km, 12 kg</text><text class="at-roww" x="0.0" y="192.0">× NÃO PASSA</text><rect x="316.4" y="153" width="189.4" height="22" class="at-band no"/><text class="at-ax" x="308.4" y="169.0" text-anchor="end">-4.054</text><text class="at-ax" x="513.8" y="169.0">-1.247</text></svg></div><div class="at-nw"><svg class="at-svg at-n" viewBox="0 0 420 322" role="img" aria-label="Margem de energia, do pior ao melhor caso: o posto avançado com 12 kg fica inteiro à direita do zero; com 30 kg cruza o zero; a serra fica inteira à esquerda"><line x1="210" y1="24" x2="210" y2="314" class="at-zero"/><text class="at-ax" x="210.0" y="16.0" text-anchor="middle">0</text><text class="at-ax" x="10.0" y="16.0">− 4.300</text><text class="at-ax" x="410.0" y="16.0" text-anchor="end">+ 4.300 Wh</text><text class="at-rowl" x="10.0" y="50.0">Posto avançado, 12 kg</text><text class="at-roww" x="410.0" y="50.0" text-anchor="end">✓ PASSA</text><rect x="211.9" y="64" width="74.6" height="20" class="at-band go"/><text class="at-ax" x="211.9" y="106.0" text-anchor="middle">41</text><text class="at-ax" x="286.5" y="106.0" text-anchor="middle">+1.643</text><text class="at-rowl" x="10.0" y="146.0">Posto avançado, 30 kg</text><text class="at-roww" x="410.0" y="146.0" text-anchor="end">∅ FALTA DADO</text><rect x="181.9" y="160" width="86.6" height="20" class="at-band na"/><text class="at-ax" x="181.9" y="202.0" text-anchor="middle">-604</text><text class="at-ax" x="268.5" y="202.0" text-anchor="middle">+1.256</text><text class="at-rowl" x="10.0" y="242.0">Serra a 15 km, 12 kg</text><text class="at-roww" x="410.0" y="242.0" text-anchor="end">× NÃO PASSA</text><rect x="21.3" y="256" width="130.6" height="20" class="at-band no"/><text class="at-ax" x="21.3" y="298.0" text-anchor="start">-4.054</text><text class="at-ax" x="152.0" y="298.0" text-anchor="middle">-1.247</text></svg></div>
+  </div>
+  <figcaption data-record="apps/atalaia/data/central.json@7e27cede02be">A margem de energia, que é a bateria menos o gasto menos a reserva, do pior ao melhor caso, para três missões a partir da mesma base. Inteira à direita do zero, passa; cruzando o zero, falta dado; inteira à esquerda, não passa.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/central.json</span> · sha256 7e27cede02be</span></figcaption>
+</figure></div><p>Todo laudo diz o que mudaria o resultado, para que o planejador saiba o que ajustar e a Força saiba que dado vale a pena medir. Com 30 kg, o laudo não decide: no pior caso o drone pousaria abaixo da reserva; no melhor, sobraria energia. O instrumento não chuta e diz o que decidiria: o consumo real com carga, medido num voo de calibração. Já um posto na serra, a 15 km, não passa nem com o drone vazio, porque ida e volta somam 30 km e a ficha da DJI dá 28 km ao FlyCart 30 sem carga.</p><p>Com 12 kg, a distância garantida hoje é de 5 km. Entre 5,5 e 10,5 km falta dado, e a partir de 11 km não passa. Cada voo de calibração estreita as faixas, e a distância garantida cresce.</p><div class="note">
+  <span class="lab">De onde vêm as contas de energia</span>
+<ul class="plain"><li><b>Da ficha da DJI.</b> Duas baterias de 1.984,4 Wh; 28 km sem carga e 16 km com 30 kg; 29 e 18 minutos pairando; vento máximo de 12 m/s (dji.com, lida em 15/11/2026).</li><li><b>Premissas declaradas.</b> A ficha usou de 85% a 100% da bateria; a bateria tem de 90% a 100% da saúde; o ar fica mais fino com a altitude; o vento é o da previsão; decolagem, pouso e descarga levam de 2 a 5 minutos; a reserva é de 5 minutos pairando.</li><li><b>O que substitui cada premissa.</b> Uma leitura da bateria, um voo de calibração ou uma previsão melhor. Cada uma estreita a faixa e pode virar um falta dado em passa.</li></ul>
+</div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">7 · Procedimento: durante o voo</div>
+    <h2>Seis estados da missão, combinados antes do voo</h2>
+  </div>
+<p>O que fazer quando o GPS mente, quando o enlace com a estação cai, ou quando as duas coisas acontecem juntas, não pode ser decidido no ar. O protocolo define seis estados. Para cada um, combina antes do voo o que o drone faz sozinho, o que o piloto decide e quanto tempo a situação pode durar. Não basta o sistema saber que está perdido: a organização precisa saber, antes, o que fazer quando isso acontece.</p><p>As regras de voo já pedem essa preparação, sem dizer como cumpri-la com o GPS falso. A ICA 100-40 do DECEA, na edição de 2026, vale também para drones militares fora da circulação operacional militar, exige no planejamento uma alternativa para o caso de o voo não poder ser completado e um plano de terminação de voo antes do pedido de acesso ao espaço aéreo. O RBAC nº 100 da ANAC, que em junho de 2026 substituiu o RBAC-E 94 para o uso civil, exige que o piloto remoto possa intervir em qualquer fase do voo. Nas publicações abertas do Exército que lemos, não encontramos uma regra de enlace perdido para drones. Os estados abaixo são a proposta de como preencher essas exigências quando a referência de navegação deixa de ser confiável.</p><div class="wide"><figure>
+  <div class="figbox">
+<div class="at-w"><svg class="at-svg" viewBox="0 0 900 290" role="img" aria-label="Os seis estados da missão: do normal, a missão passa a GPS em dúvida ou a enlace perdido; daí a GPS falso ou negado e a GPS e enlace perdidos; dos dois, a estimativa não confiável"><defs><marker id="at-arw-w" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" class="at-arrow"/></marker></defs><line x1="170.0" y1="123.0" x2="241.0" y2="79.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="170.0" y1="167.0" x2="241.0" y2="211.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="413.0" y1="57.0" x2="484.0" y2="57.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="413.0" y1="233.0" x2="484.0" y2="233.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="571.0" y1="94.0" x2="571.0" y2="194.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="656.0" y1="79.0" x2="728.0" y2="123.0" class="at-edge" marker-end="url(#at-arw-w)"/><line x1="656.0" y1="211.0" x2="728.0" y2="167.0" class="at-edge" marker-end="url(#at-arw-w)"/><rect x="0" y="108" width="170" height="74" rx="6" class="at-node"/><text class="at-roww" x="14.0" y="130.0">ESTADO 0</text><text class="at-rowl" x="14.0" y="152.0">Normal</text><rect x="243" y="20" width="170" height="74" rx="6" class="at-node s1"/><text class="at-roww" x="257.0" y="42.0">ESTADO 1</text><text class="at-rowl" x="257.0" y="64.0">GPS em dúvida</text><rect x="486" y="20" width="170" height="74" rx="6" class="at-node s2"/><text class="at-roww" x="500.0" y="42.0">ESTADO 2</text><text class="at-rowl" x="500.0" y="64.0">GPS falso</text><text class="at-rowl" x="500.0" y="83.0">ou negado</text><rect x="243" y="196" width="170" height="74" rx="6" class="at-node s1"/><text class="at-roww" x="257.0" y="218.0">ESTADO 3</text><text class="at-rowl" x="257.0" y="240.0">Enlace perdido</text><rect x="486" y="196" width="170" height="74" rx="6" class="at-node s2"/><text class="at-roww" x="500.0" y="218.0">ESTADO 4</text><text class="at-rowl" x="500.0" y="240.0">GPS e enlace</text><text class="at-rowl" x="500.0" y="259.0">perdidos</text><rect x="730" y="108" width="170" height="74" rx="6" class="at-node s5"/><rect x="735" y="113" width="160" height="64" rx="3" class="at-node s5"/><text class="at-roww" x="744.0" y="130.0">ESTADO 5</text><text class="at-rowl" x="744.0" y="152.0">Estimativa</text><text class="at-rowl" x="744.0" y="171.0">não confiável</text></svg></div><div class="at-nw"><svg class="at-svg at-n" viewBox="0 0 420 496" role="img" aria-label="Os seis estados da missão: do normal, a missão passa a GPS em dúvida ou a enlace perdido; daí a GPS falso ou negado e a GPS e enlace perdidos; dos dois, a estimativa não confiável"><defs><marker id="at-arw-n" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" class="at-arrow"/></marker></defs><line x1="181.8" y1="96.0" x2="125.3" y2="134.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="238.3" y1="96.0" x2="294.8" y2="134.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="97.0" y1="228.0" x2="97.0" y2="266.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="323.0" y1="228.0" x2="323.0" y2="266.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="190.0" y1="314.0" x2="228.0" y2="314.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="125.3" y1="360.0" x2="181.8" y2="398.0" class="at-edge" marker-end="url(#at-arw-n)"/><line x1="294.8" y1="360.0" x2="238.3" y2="398.0" class="at-edge" marker-end="url(#at-arw-n)"/><rect x="117" y="4" width="186" height="92" rx="6" class="at-node"/><g transform="translate(131.0 32.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 0</text></g><g transform="translate(131.0 61.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">Normal</text></g><rect x="4" y="136" width="186" height="92" rx="6" class="at-node s1"/><g transform="translate(18.0 164.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 1</text></g><g transform="translate(18.0 193.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">GPS em dúvida</text></g><rect x="4" y="268" width="186" height="92" rx="6" class="at-node s2"/><g transform="translate(18.0 296.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 2</text></g><g transform="translate(18.0 325.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">GPS falso</text></g><g transform="translate(18.0 349.9) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">ou negado</text></g><rect x="230" y="136" width="186" height="92" rx="6" class="at-node s1"/><g transform="translate(244.0 164.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 3</text></g><g transform="translate(244.0 193.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">Enlace perdido</text></g><rect x="230" y="268" width="186" height="92" rx="6" class="at-node s2"/><g transform="translate(244.0 296.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 4</text></g><g transform="translate(244.0 325.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">GPS e enlace</text></g><g transform="translate(244.0 349.9) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">perdidos</text></g><rect x="117" y="400" width="186" height="92" rx="6" class="at-node s5"/><rect x="122" y="405" width="176" height="82" rx="3" class="at-node s5"/><g transform="translate(131.0 428.6) scale(1.3)"><text class="at-roww" x="0.0" y="0.0">ESTADO 5</text></g><g transform="translate(131.0 457.2) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">Estimativa</text></g><g transform="translate(131.0 481.9) scale(1.3)"><text class="at-rowl" x="0.0" y="0.0">não confiável</text></g></svg></div>
+  </div>
+  <figcaption data-source="built">Os seis estados. A missão sai do normal por uma de duas portas: o GPS entra em dúvida ou o enlace cai. Os dois caminhos podem se juntar no estado 4, e qualquer um termina no estado 5 quando a própria estimativa deixa de valer. Em qualquer estado, interromper é permitido; voltar ao normal exige que a causa tenha sumido e a palavra do piloto.<span class="fig-rec">Record: none — a tabela de estados desta minuta.</span></figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>Estado</th><th>Quando, o que o drone faz e quem decide</th></tr></thead><tbody><tr><td><b>0 · Normal</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Quando:</b> O GPS cabe na região e o enlace está ativo.</span><span class="at-cl"><b>O drone:</b> Segue o plano.</span><span class="at-cl"><b>Decide:</b> o piloto.</span></td></tr><tr><td><b>1 · GPS em dúvida</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Quando:</b> A assinatura do Galileo falha, ou o GPS encosta na borda da região.</span><span class="at-cl"><b>O drone:</b> Avisa o piloto e passa a navegar pela região, sem descartar o GPS ainda.</span><span class="at-cl"><b>Decide:</b> o piloto: continuar ou interromper.</span></td></tr><tr><td><b>2 · GPS falso ou negado</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Quando:</b> O GPS sai da região, ou some.</span><span class="at-cl"><b>O drone:</b> Declara o GPS falso; segue pela região se a rota permitir e a região couber no corredor da fase; senão, para e pousa. Nunca volta para casa guiado pelo GPS.</span><span class="at-cl"><b>Decide:</b> o piloto, dentro do que foi autorizado.</span></td></tr><tr><td><b>3 · Enlace perdido</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Quando:</b> Sem contato com a estação, com o GPS confiável.</span><span class="at-cl"><b>O drone:</b> Executa a ação de enlace perdido escolhida no planejamento e conferida na pergunta de segurança.</span><span class="at-cl"><b>Decide:</b> ninguém em voo: a decisão foi tomada antes.</span></td></tr><tr><td><b>4 · GPS e enlace perdidos</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Quando:</b> As duas coisas ao mesmo tempo.</span><span class="at-cl"><b>O drone:</b> Espera o enlace dentro da região até o limite da reserva; se ele não voltar, vai à zona de contingência que contém a região com folga; se não houver nenhuma, pousa onde está. Esse risco foi aceito por escrito antes do voo.</span><span class="at-cl"><b>Decide:</b> ninguém em voo: a decisão foi tomada antes.</span></td></tr><tr><td><b>5 · Estimativa não confiável</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação: o alarme</span></span></td><td><span class="at-cl"><b>Quando:</b> A região fica vazia, ou maior que o limite da fase.</span><span class="at-cl"><b>O drone:</b> Declara-se perdido, registra o motivo e executa a ação mais conservadora já autorizada, em geral pousar.</span><span class="at-cl"><b>Decide:</b> o piloto, se houver enlace; senão, a regra.</span></td></tr></tbody></table></div></div><p>Num drone DJI de hoje, a caixa a bordo avisa e pode mandar parar e pousar, mas não pode guiar o drone pela região: isso depende de um modo que a DJI documentou e ainda não liberou, ou de um autopiloto aberto, como PX4 ou ArduPilot. Por isso, num DJI, a ação autorizada nos estados 2, 4 e 5 é pousar. E a ação de enlace perdido precisa ser conferida no planejamento: se ela for voltar para casa, depende do GPS, e voltar para casa guiado por um GPS falso é exatamente o que um atacante quer.</p><p><span class="at-src">Fontes: DECEA, <a href="https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento/arquivos/2026/ica-100-40-publicada-port-2094-dnor8-18-03-2026-bca-058-30-03-2026.pdf" target="_blank" rel="noopener">ICA 100-40</a>, Portaria nº 2.094/DNOR8, 18/03/2026 (art. 33, art. 73, V, e art. 74); ANAC, <a href="https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" target="_blank" rel="noopener">RBAC nº 100</a>, Resolução nº 805, 15/06/2026 (§ 100.19(c)).</span></p><p>Na chegada, a descida de precisão só acontece sobre o painel que o posto estende no chão, com um código de uso único recebido junto com a missão, e só depois que o piloto confirma. Sem o marcador da tropa amiga a função não existe: ela não serve para apontar um ponto qualquer do terreno. E, sem enlace, não há confirmação; vale o estado 3 ou 4.</p><p>O voo sintético abaixo mostra os estados 0 e 2 numa missão inteira. O drone sai da base, sofre o ataque ao GPS no meio do caminho, segue pela região, entrega e volta, e a cada instante a Central acompanha quanta energia sobra, do pior ao melhor caso.</p><div class="wide"><figure>
+  <div class="figbox">
+<div class="at-rp" id="at-rp"><div class="at-rpmap"><svg class="at-svg" id="at-rpmap" viewBox="467.7 163.1 550.1 275.1" role="img" aria-label="Voo sintético: o drone vai da base ao posto avançado e volta; no meio do caminho o GPS é falsificado e o drone segue pela área garantida"><image href="relevo.webp" width="1300" height="937" preserveAspectRatio="none"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-halo"/><line x1="795.6" y1="208.951" x2="689.91" y2="392.3219" class="at-route"/><circle cx="795.6" cy="208.951" r="6" class="at-base"/><circle cx="689.91" cy="392.3219" r="6.5" class="at-post"/><text class="at-lbz" x="807.6" y="214.0">Base</text><text class="at-lbz" x="701.9" y="397.3">Posto</text><g id="at-drone" style="display:none"><circle id="at-area" r="6" class="at-area"/><circle r="4.5" class="at-dr"/></g></svg><span class="at-now" id="at-now">pronto para decolar</span></div><div class="at-strip"><svg id="at-strip" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"></svg><span class="at-sl" style="top:2%">3.969 Wh</span><span class="at-sl at-slr" id="at-res">reserva</span></div><div class="at-bar"><button type="button" id="at-go">▶ Ver o voo sintético</button><span class="at-clock" id="at-clock">08:40</span></div></div>
+  </div>
+  <figcaption data-record="apps/atalaia/data/central.json@7e27cede02be">O voo sintético da missão, com 12 kg. A faixa cinza é a energia que sobra, do pior caso (linha forte) ao melhor; a linha tracejada é a reserva. O círculo em volta do drone é a área garantida, e fica vermelho enquanto o GPS é falso. Seguir pela região supõe um autopiloto que aceite a posição da caixa; num DJI de hoje, a ação no estado 2 seria pousar. Simulação; não foi voado.<span class="fig-rec">Record: <span class="m">apps/atalaia/data/central.json</span> · sha256 7e27cede02be</span></figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">8 · Requisitos técnicos</div>
+    <h2>O que a área garantida garante, e sob que hipóteses</h2>
+  </div>
+<p>A área garantida é o centro técnico do protocolo e a expressão mais forte da minuta, por isso precisa ser lida com cuidado. Ela é a região onde o drone não pode deixar de estar se cada erro de cada sensor ficar dentro do limite declarado. É uma consequência matemática, calculada com aritmética de intervalos: dentro das hipóteses, vale por construção. Fora delas, não vale, e o protocolo exige perceber quando se saiu delas.</p><ul class="plain"><li><b>O que está provado.</b> Se os erros ficam dentro dos limites, a posição real está dentro da região. O limite da deriva inercial tem demonstração escrita; o ruído dos sensores fica dentro do envelope declarado com probabilidade de falha de 6 em 100 milhões por componente e por voo. Esse é o risco de integridade da garantia, no mesmo sentido em que a aviação usa o termo. <span class="at-st d">Demonstrado · prova escrita</span></li><li><b>O que foi testado.</b> Em 45 voos simulados de 45 minutos sobre relevo e imagens reais de Minas Gerais, a posição real ficou dentro da região em 24.300 de 24.300 verificações. Com sensor inercial de classe tática e câmera, a melhor estimativa errou até 12 m em 95% do tempo, e a região teve raio típico de 200 m. Um sensor inercial seis vezes pior que o declarado quebrou o limite, como deveria. <span class="at-st d">Demonstrado · simulação</span></li><li><b>O que ainda não se sabe.</b> Se os sensores reais respeitam os limites declarados. Na simulação, cada erro foi sorteado dentro do seu limite; por isso o teste confere a matemática e o programa, não o equipamento. Só voos reais respondem, na etapa de calibração da seção 9. <span class="at-st p">Proposto</span></li></ul><p>Cada hipótese da garantia pode falhar de um jeito próprio. A tabela diz o que acontece e como o protocolo detecta ou limita cada falha.</p><div class="wide"><div class="tw"><table><thead><tr><th>Hipótese</th><th>O que pode dar errado, e como o protocolo detecta ou limita</th></tr></thead><tbody><tr><td><b>Erros independentes entre sensores</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Risco:</b> duas fontes que erram juntas parecem concordar, e a região encolhe sem razão.</span><span class="at-cl"><b>Controle:</b> fontes de física diferente: inércia, relevo pelo altímetro radar, imagem. Na qualificação, um teste de erro comum para cada par de fontes.</span></td></tr><tr><td><b>Deriva inercial dentro do limite</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Risco:</b> o erro do sensor de movimento cresce com o tempo.</span><span class="at-cl"><b>Controle:</b> a região cresce pelo limite escrito do sensor. Com sensor de consumo, o limite se perde em cerca de 3 minutos; por isso o protocolo exige classe tática.</span></td></tr><tr><td><b>Sincronização de tempo</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Risco:</b> uma medida com atraso desconhecido desloca a posição.</span><span class="at-cl"><b>Controle:</b> relógio comum entre a caixa e o drone, ou o atraso entra como faixa na região. Nos FlyCart, a porta não tem relógio comum; nos Matrice 350 e 300, tem.</span></td></tr><tr><td><b>Imagem comparável com o mapa</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Risco:</b> iluminação, vegetação, estação do ano e nuvens fazem a câmera errar.</span><span class="at-cl"><b>Controle:</b> a câmera só propõe: uma comparação entra na região só se for única e cair dentro dela. Em simulação, com imagens de duas estações, 1.412 comparações aceitas e nenhuma falsa.</span></td></tr><tr><td><b>Mapa atual</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Risco:</b> obra, desmatamento ou enchente mudam o terreno.</span><span class="at-cl"><b>Controle:</b> o laudo de rota registra a data de cada mapa e dá falta dado quando ela passa do limite da fase.</span></td></tr><tr><td><b>Terreno distinto</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Risco:</b> relevo plano ou repetitivo não distingue um lugar do outro.</span><span class="at-cl"><b>Controle:</b> a região guarda todas as posições possíveis e nunca escolhe a mais provável. Em relevo plano, o laudo de rota dá falta dado (Tabatinga, seção 11).</span></td></tr><tr><td><b>Altitude e modelo de elevação</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Risco:</b> o modelo Copernicus erra menos de 4 m em 90% dos pontos, segundo a própria especificação, e é um modelo de superfície: sobre mata e prédios, mede o topo.</span><span class="at-cl"><b>Controle:</b> o erro do modelo e o do altímetro entram na conta como faixas; sobre mata alta, o limite precisa ser medido antes de valer.</span></td></tr><tr><td><b>Cada limite declarado está certo</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Risco:</b> um limite errado deixa a região errada sem aviso, se nenhuma outra fonte o contradisser.</span><span class="at-cl"><b>Controle:</b> só a contradição entre fontes revela um limite errado; por isso a calibração em campo mede cada limite antes de ele valer.</span></td></tr></tbody></table></div></div><p>Quando duas evidências se contradizem, a região fica vazia, e o sistema sabe que alguma hipótese falhou. Retirar uma fonte de cada vez mostra qual. Numa simulação, uma falha de 80 m num satélite esvaziou a região, e o satélite foi apontado; em outra, uma comparação de câmera plantada 1,5 km fora do lugar deu um alarme, e a câmera foi apontada. Uma mentira pequena, dentro dos limites declarados, desloca a região sem esvaziá-la; por isso os limites são medidos, e não supostos.</p><h3 class="at-h3">Autenticar a mensagem não é garantir a posição</h3><p>O Galileo, o sistema europeu de navegação por satélite, assina digitalmente parte das mensagens que transmite, num serviço chamado OSNMA, declarado em operação em 24 de julho de 2025. A caixa confere essa assinatura: nos vetores de teste oficiais, foram 193.887 conferências sem nenhuma falha. Mas a assinatura prova que os dados vieram do Galileo e não foram alterados; não prova que o sinal chegou direto do satélite ao drone. A própria agência europeia avisa que o serviço aumenta a capacidade de detectar uma falsificação, mas não a impede, nem protege contra bloqueio, e a autenticação do sinal em si fica para um serviço futuro. Um aparelho que grava o sinal verdadeiro e o retransmite com poucos segundos de atraso entrega dados genuínos, que passam na assinatura, e ainda assim desloca a posição. E o serviço exige que o receptor já saiba a hora certa, com erro de até 30 segundos, antes de conferir qualquer assinatura: um relógio acertado por um GPS já falso desarma a regra.</p><p>Por isso o protocolo trata os dois controles em separado. A autenticação diz se a mensagem é genuína. A integridade diz se a posição que resulta dela cabe na região calculada sem o GPS, e se o relógio do receptor concorda com um relógio independente. Uma posição precisa passar nos dois.</p><p><span class="at-src">Fontes: a garantia sob limites declarados e a região vazia como prova de erro são resultados conhecidos da estimação por conjuntos (L. Jaulin, M. Kieffer, O. Didrit e É. Walter, <em>Applied Interval Analysis</em>, Springer, 2001; D. Meizel e outros, <a href="https://webperso.ensta.fr/jaulin/paper_meizel_ieee.pdf" target="_blank" rel="noopener">IEEE Trans. Robotics and Automation</a> 18(6), 2002; B. Desrochers e outros, <a href="https://webperso.ensta.fr/jaulin/paper_desrochers_iros15.pdf" target="_blank" rel="noopener">IROS 2015</a>); Copernicus, <a href="https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM" target="_blank" rel="noopener">COP-DEM</a>; EUSPA, <a href="https://www.euspa.europa.eu/newsroom-events/news/galileo-open-service-navigation-message-authentication-adds-another-layer" target="_blank" rel="noopener">OSNMA</a>, 22/07/2025, e <a href="https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo_OSNMA_Receiver_Guidelines_v1.3.pdf" target="_blank" rel="noopener">Receiver Guidelines 1.3</a> (§ 2.1), e <a href="https://www.euspa.europa.eu/galileo-osnma" target="_blank" rel="noopener">a página do serviço</a>; os resultados de simulação, registros do LOCUS (voos de 6 graus de liberdade, GNSS e OSNMA).</span></p><h3 class="at-h3">O que se exige do drone</h3><p>As regras não dependem do modelo. O que muda de um drone para outro é a ficha que alimenta o laudo de energia e a forma de ligar a caixa. O mínimo que o protocolo pede de qualquer equipamento:</p><ul class="plain"><li><b>Dados de voo e comandos de parar e pousar</b> por uma porta oficial do fabricante. Nos DJI, a porta entrega os dados e recebe esses comandos; nos autopilotos abertos, como PX4 e ArduPilot, a caixa também pode fornecer a posição para o drone seguir a rota. <span class="at-st p">Proposto</span></li><li><b>Ação de enlace perdido que não dependa do GPS,</b> configurável no planejamento. <span class="at-st p">Proposto</span></li><li><b>Um sensor inercial de classe tática, um altímetro radar e uma câmera voltada para baixo</b> na caixa ou no drone, cada um com o limite de erro declarado na ficha de calibração. <span class="at-st p">Proposto</span></li><li><b>Relógio comum com a caixa, de preferência;</b> sem ele, o atraso entra como faixa e a região fica maior. Os Matrice 350 e 300 têm; os FlyCart 30 e 100 não. <span class="at-st p">Proposto</span></li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">9 · Critérios de validação</div>
+    <h2>Como um resultado sobe de nível</h2>
+  </div>
+<p>O protocolo é qualificado em quatro etapas, e cada etapa tem critério de aceitação escrito antes do teste. Um item só passa de proposto a demonstrado, e de demonstrado a validado em campo, quando cumpre o critério da etapa. Um equipamento novo, de qualquer fabricante, passa pelas mesmas quatro etapas com a própria ficha; é assim que a doutrina fica independente do fornecedor.</p><div class="wide"><div class="tw"><table><thead><tr><th>Etapa</th><th>O que se testa, e o critério de aceitação</th></tr></thead><tbody><tr><td><b>1. Simulação</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl"><b>Testa:</b> o protocolo inteiro, sobre o relevo real da área de emprego.</span><span class="at-cl"><b>Aceita se:</b> nenhuma saída liberada pousa abaixo da reserva, e a posição real fica dentro da região em todas as verificações.</span></td></tr><tr><td><b>2. Bancada</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Testa:</b> a caixa ligada ao drone em solo, no quartel; ataques gravados injetados; o lacre.</span><span class="at-cl"><b>Aceita se:</b> o alarme vem dentro do tempo declarado em todos os ataques injetados, e todo erro plantado no registro é detectado.</span></td></tr><tr><td><b>3. Calibração em campo</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Testa:</b> voos curtos que medem o consumo com carga e o erro real de cada sensor.</span><span class="at-cl"><b>Aceita se:</b> cada erro medido cabe no limite declarado. Um único escape suspende aquele limite até ele ser recalibrado.</span></td></tr><tr><td><b>4. Exercício</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl"><b>Testa:</b> a missão com a tropa; o ataque reproduzido sem emitir, por injeção na caixa, ou em área autorizada pela Anatel.</span><span class="at-cl"><b>Aceita se:</b> cada estado acionado leva à ação combinada, e o verificador independente reconstrói o voo pelo registro.</span></td></tr></tbody></table></div></div><p>A primeira etapa já foi feita para a missão de referência. Uma semana sintética da frota: 210 saídas da base de Blumenau, com o posto a uma distância de 2 a 11 km, carga de 5 a 30 kg e previsão de vento sorteadas. A Central decidiu cada saída antes do voo: liberou 75, esperou dado em 111 e recusou 24. Depois, um simulador voou cada uma com um drone e um vento sorteados, e em uma de cada vinte o vento real passou da previsão. O padrão é o do mapa de alcance da seção 3: perto e leve passa, longe e pesado não passa, e no meio o instrumento não chuta.</p><p>Nenhuma das 75 saídas liberadas pousou abaixo da reserva, nem a única em que o vento passou da previsão. Das 111 que esperaram dado, 56 teriam chegado com reserva: é o preço de não chutar, e ele cai quando um voo de calibração mede o consumo real. Das 24 recusadas, nenhuma teria chegado. Dentro das premissas, uma saída liberada não falha por construção, porque é aritmética: o teste confere as contas e mede o custo da cautela, e o comportamento do drone, da bateria e do vento reais só se mede em campo.</p><div class="wide"><div class="tw"><table><thead><tr><th>Resultado</th><th>O que mostra</th></tr></thead><tbody><tr><td><b>24.300 de 24.300</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl">vezes em que a posição real ficou dentro da região, em 45 voos simulados sobre relevo e imagens reais de Minas Gerais.</span></td></tr><tr><td><b>12 m</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl">erro da melhor estimativa em 95% do tempo, com sensor inercial tático e câmera, nos mesmos voos.</span></td></tr><tr><td><b>3 s</b><span class="at-cl"><span class="at-st d">Demonstrado · simulação</span></span></td><td><span class="at-cl">até o alarme, com o GPS apontado como culpado, numa viagem simulada de caminhão na BR-040.</span></td></tr><tr><td><b>24 de 24</b><span class="at-cl"><span class="at-st d">Demonstrado · dados reais gravados</span></span></td><td><span class="at-cl">desvios lentos que passariam despercebidos sem a caixa, com dados reais da rede de estações do IBGE.</span></td></tr><tr><td><b>0 de 193.887</b><span class="at-cl"><span class="at-st d">Demonstrado · vetores oficiais</span></span></td><td><span class="at-cl">falhas na conferência da assinatura do Galileo, nos vetores de teste oficiais.</span></td></tr><tr><td><b>53 de 53</b><span class="at-cl"><span class="at-st d">Demonstrado · bancada</span></span></td><td><span class="at-cl">erros plantados no laudo e no lacre que foram pegos, em bancada no Veto.</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">10 · Governança</div>
+    <h2>A missão termina quando pode ser conferida</h2>
+  </div>
+<p>A missão não termina no pouso. Termina quando existe evidência suficiente para reconstruir e conferir cada decisão tomada, por quem não escreveu o sistema. Por isso cada registro passa por cinco etapas, e todas acontecem a bordo, sem depender do enlace.</p><ul class="plain"><li><b>Assina.</b> Cada leitura e cada foto são assinadas pela caixa no momento em que são feitas, com uma chave guardada em hardware.</li><li><b>Encadeia.</b> Cada registro carrega a impressão digital do anterior: apagar ou trocar um deles quebra a corrente, e uma lacuna fica visível.</li><li><b>Carimba.</b> O tempo do voo é carimbado por uma autoridade da própria Força nas missões, e pela ICP-Brasil nos laudos que vão a terceiros.</li><li><b>Guarda a custódia.</b> Cada passagem do registro, do drone à base e da base ao perito, é anotada na ordem que o Código de Processo Penal exige.</li><li><b>Refaz.</b> Um verificador escrito à parte, de preferência pelo IME ou pelo CTEx, refaz cada decisão a partir do registro. Se discordar da caixa, o caso é investigado.</li></ul><p>As peças já existem e foram testadas em bancada no Veto, o nosso instrumento de perícia de evidências. Montá-las na caixa do drone é trabalho da etapa de bancada.</p><ul class="plain"><li><b>Atualização.</b> Cada voo alimenta os laudos: onde o GPS falhou, quanto a bateria gastou, quanto o vento real se afastou da previsão. Uma previsão ou um limite que erra mais do que declarou deixa de ser usado até ser recalibrado. <span class="at-st p">Proposto</span></li><li><b>Versões.</b> A minuta tem número de versão e registro de mudanças. Uma mudança proposta por uma unidade segue o sistema de doutrina do Exército, com o motivo escrito e o teste que a sustenta, e o que os voos ensinam entra pela sistemática de lições aprendidas do COTER. <span class="at-st p">Proposto</span></li><li><b>Certificação.</b> Quem qualifica um equipamento não deve ser quem o desenvolveu. A proposta é que a qualificação da seção 9 e o verificador fiquem com uma instituição da Força. <span class="at-st p">Proposto</span></li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">11 · Limites</div>
+    <h2>O que ainda não está demonstrado</h2>
+  </div>
+<ul class="plain"><li><b>Ainda não voou.</b> Tudo nesta minuta é simulação ou teste de bancada. O primeiro voo real é a etapa de calibração.</li><li><b>Os casos favoráveis vêm primeiro.</b> No Vale do Itajaí e nos morros da ilha, o relevo ajuda em todo o caminho; sobre a água, não ajuda, e a ilha já mostra isso. Numa rota de 15 km a partir de Tabatinga, na fronteira amazônica, o relevo plano não ajuda em nenhum ponto; sem GPS, o drone chegaria com até 3,6 km de dúvida, e o laudo de rota diz falta dado. O laudo nomeia o que decidiria: o mapa magnético do Serviço Geológico do Brasil, imagens do INPE ou um voo de reconhecimento. Os resultados de Blumenau e da ilha não são uma capacidade geral: ainda não há evidência de que o protocolo funcione igual em outros terrenos.</li><li><b>A ilha está sob espaço aéreo controlado.</b> O aeroporto Hercílio Luz controla o espaço aéreo da ilha. Lá, os testes são só sintéticos; voo real, só em campo autorizado.</li><li><b>Num DJI, hoje, a caixa avisa e manda parar ou pousar.</b> Seguir a rota com a posição da caixa depende de um modo que a DJI documentou e ainda não liberou, ou de um autopiloto aberto.</li><li><b>As contas de energia começam como premissas.</b> Até os voos de calibração, muitas missões vão dar falta dado. É o comportamento certo: a Central não chuta.</li><li><b>A minuta não está completa.</b> Faltam a cadeia de autorização da Força, o programa de adestramento, a aprovação dos estados e dos limites por fase, e a revisão técnica e, depois, a militar.</li><li><b>Não emite, não guia armas, não rastreia pessoas.</b> Não bloqueia nem falsifica sinal fora de área autorizada, não faz guerra eletrônica de ataque e não decodifica comunicações. A descida de precisão só existe sobre o marcador de quem recebe, e a tropa recebe alertas por área, sem identificação.</li></ul><div class="wide"><div class="tw"><table><thead><tr><th>Aspecto</th><th>Estado nesta versão</th></tr></thead><tbody><tr><td>Arquitetura do protocolo</td><td>proposta, para revisão</td></tr><tr><td>Tratamento da incerteza</td><td>demonstrado em simulação</td></tr><tr><td>Verificação independente</td><td>proposta; um programa de pesquisa aplicada com um instituto de engenharia em preparação</td></tr><tr><td>Maturidade experimental</td><td>inicial: simulação e bancada</td></tr><tr><td>Completude doutrinária</td><td>minuta: faltam autorização, adestramento e aprovação</td></tr><tr><td>Prontidão operacional</td><td>não demonstrada</td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">12 · Próximo passo</div>
+    <h2>Pesquisa aplicada primeiro, avaliação militar depois</h2>
+  </div>
+<p>O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia, antes de qualquer avaliação militar: engenharia embarcada, experimento controlado e validação independente, com critérios escritos antes de cada teste e os resultados ruins relatados junto com os bons. O programa tem cinco pacotes de trabalho.</p><ul class="plain"><li><b>Ameaças e falhas.</b> Bloqueio, falsificação, retransmissão, multicaminho em vale, perda de enlace, falhas de sensor e erro de causa comum, cada um com um modelo e um conjunto de falhas gravadas para injetar. <span class="at-st p">Proposto</span></li><li><b>Arquitetura de integridade.</b> A região garantida, o teste do GPS contra a região, a conferência do Galileo em separado e os estados da missão, integrados numa caixa de bancada. <span class="at-st p">Proposto</span></li><li><b>Ambiente experimental.</b> Simulação reproduzível e bancada com sinais gravados, na ilha e no Vale, e voos de calibração em campo autorizado. <span class="at-st p">Proposto</span></li><li><b>Validação independente.</b> Contenção da posição real pela região, tempo até o alarme, falsos alarmes por hora de voo, disponibilidade e erro da melhor estimativa, medidos contra critérios escritos antes. <span class="at-st p">Proposto</span></li><li><b>Revisão da doutrina.</b> O que os resultados sustentarem sobe de nível nesta minuta; o que não sustentarem é rebaixado. <span class="at-st p">Proposto</span></li></ul><p>O Exército entra depois, como avaliador, com os resultados documentados e requisitos operacionais específicos. Até lá, a minuta serve de referência para quem opera drones e quer discutir os requisitos.</p><p>Quando chegar a hora da avaliação militar, a proposta tem caminho conhecido no Exército. A doutrina é produzida pelo Sistema de Doutrina Militar Terrestre, o SIDOMT, e o COTER, por intermédio do Centro de Doutrina do Exército, prepara a diretriz de cada produto doutrinário, de um manual de campanha a um caderno de instrução. Antes de virar manual, uma ideia passa pela sistemática de experimentação doutrinária. E a Doutrina Militar Terrestre mede uma capacidade por sete fatores inseparáveis, o DOAMEPI. A tabela diz o que cada fator pediria do Atalaia; nenhum deles é atendido só com equipamento.</p><div class="wide"><div class="tw"><table><thead><tr><th>Fator</th><th>O que o protocolo pediria</th></tr></thead><tbody><tr><td><b>Doutrina</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">Esta minuta, revista e transformada no produto que o COTER indicar: princípios, estados da missão, critérios de validação.</span></td></tr><tr><td><b>Organização</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">As camadas da seção 5 e as quatro perguntas como processo de autorização, com quem assina cada uma.</span></td></tr><tr><td><b>Adestramento</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">Ataques gravados injetados com o drone em solo, exercícios por estado da missão e qualificação de pilotos e operadores da Central.</span></td></tr><tr><td><b>Material</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">A caixa a bordo e a Central, com qualquer drone que passe na qualificação da seção 9; os instrumentos foram testados em simulação e bancada, a caixa ainda não existe.</span></td></tr><tr><td><b>Educação</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">O que um piloto e um oficial de operações precisam entender: a posição como região, o falta dado, a diferença entre autenticar a mensagem e confiar na posição.</span></td></tr><tr><td><b>Pessoal</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">O piloto remoto, o operador da Central, o responsável pela calibração e, fora da unidade, quem verifica.</span></td></tr><tr><td><b>Infraestrutura</b><span class="at-cl"><span class="at-st p">Proposto</span></span></td><td><span class="at-cl">Mapas com data, zonas de pouso de contingência levantadas, o carimbo de tempo da Força, carregadores e geração na base.</span></td></tr></tbody></table></div></div><p><span class="at-src">Fontes: Exército Brasileiro, EB20-MF-10.102, <a href="https://bdex.eb.mil.br/jspui/bitstream/123456789/11768/1/EB20MF10102.pdf" target="_blank" rel="noopener"><em>Doutrina Militar Terrestre</em></a>, 3ª ed., 2022 (§ 3.3.4, DOAMEPI); COTER, <a href="https://bdex.eb.mil.br/jspui/bitstream/123456789/14389/1/PDDMT2025.pdf" target="_blank" rel="noopener">Plano de Desenvolvimento da Doutrina Militar Terrestre 2025</a> (§ 4 e § 5); Instruções Reguladoras da Sistemática de Experimentação Doutrinária (EB70-IR-10.002), 2018.</span></p><p>As perguntas que a pesquisa responde:</p><ul class="plain"><li><b>Os limites de erro declarados se mantêm em sensores reais,</b> na bancada e em voo: o inercial, o altímetro, a câmera e o relógio?</li><li><b>A região garantida contém a posição real em todas as épocas,</b> e qual o tamanho dela na prática?</li><li><b>Em quanto tempo e com quantos falsos alarmes</b> a falsificação, a retransmissão e o bloqueio são detectados?</li><li><b>A arquitetura cabe num módulo embarcado</b> ligado a drones de fabricantes diferentes?</li><li><b>Que mudanças nesta minuta</b> os resultados exigem?</li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Minuta v0.3, 16/11/2026. Preparada por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho para revisão: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão. Os números das missões vêm de apps/atalaia/data (relevo Copernicus GLO-90 e GLO-30, ficha da DJI; cada registro fixado por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto, cada um com o seu nível de maturidade.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+<script>(function(){var D={"B":[795.6,208.951],"Q":[689.91,392.3219],"mpx":0.0474296763836696,"usable":[3572,3969],"res":[582,695],"voo":18,"pts":[[0,0,3816,3248,0,124],[0.0167,0.0333,3790,3213,0,124],[0.0333,0.0667,3764,3178,0,124],[0.05,0.1,3739,3143,0,124],[0.0667,0.1333,3713,3107,0,124],[0.0833,0.1667,3687,3072,0,124],[0.1,0.2,3661,3037,0,124],[0.1167,0.2333,3636,3002,0,124],[0.1333,0.2667,3610,2967,0,124],[0.15,0.3,3584,2932,0,124],[0.1667,0.3333,3558,2897,0,124],[0.1833,0.3667,3532,2862,1,124],[0.2,0.4,3507,2827,1,124],[0.2167,0.4333,3481,2792,1,124],[0.2333,0.4667,3455,2756,1,124],[0.25,0.5,3429,2721,1,124],[0.2667,0.5333,3404,2686,1,124],[0.2833,0.5667,3378,2651,1,124],[0.3,0.6,3352,2616,1,124],[0.3167,0.6333,3326,2581,1,124],[0.3333,0.6667,3300,2546,1,124],[0.35,0.7,3275,2511,1,124],[0.3667,0.7333,3249,2476,1,124],[0.3833,0.7667,3223,2441,1,124],[0.4,0.8,3197,2405,1,124],[0.4167,0.8333,3172,2370,1,124],[0.4333,0.8667,3146,2335,1,124],[0.45,0.9,3120,2300,1,124],[0.4667,0.9333,3094,2265,1,124],[0.4833,0.9667,3068,2230,1,124],[0.5,1,3043,2195,1,124],[0.5167,0.9667,2850,1649,1,124],[0.5333,0.9333,2830,1622,1,124],[0.55,0.9,2810,1595,1,124],[0.5667,0.8667,2790,1568,1,124],[0.5833,0.8333,2770,1541,1,124],[0.6,0.8,2749,1514,1,124],[0.6167,0.7667,2729,1487,1,124],[0.6333,0.7333,2709,1460,0,124],[0.65,0.7,2689,1433,0,124],[0.6667,0.6667,2669,1406,0,124],[0.6833,0.6333,2649,1379,0,124],[0.7,0.6,2629,1352,0,124],[0.7167,0.5667,2609,1325,0,124],[0.7333,0.5333,2589,1298,0,124],[0.75,0.5,2569,1271,0,124],[0.7667,0.4667,2549,1244,0,124],[0.7833,0.4333,2529,1217,0,124],[0.8,0.4,2508,1190,0,124],[0.8167,0.3667,2488,1163,0,124],[0.8333,0.3333,2468,1136,0,124],[0.85,0.3,2448,1109,0,124],[0.8667,0.2667,2428,1082,0,124],[0.8833,0.2333,2408,1055,0,124],[0.9,0.2,2388,1028,0,124],[0.9167,0.1667,2368,1001,0,124],[0.9333,0.1333,2348,974,0,124],[0.95,0.1,2328,947,0,124],[0.9667,0.0667,2308,920,0,124],[0.9833,0.0333,2288,893,0,124],[1,0,2224,736,0,124]]};
+var NS='http://www.w3.org/2000/svg',$=function(i){return document.getElementById(i)};
+var strip=$('at-strip'),dr=$('at-drone'),ar=$('at-area'),now=$('at-now'),btn=$('at-go'),clk=$('at-clock');if(!strip)return;
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+var P=D.pts,ymax=D.usable[1]*1.04,y=function(v){return 100-100*v/ymax};
+var top=P.map(function(p){return p[0]*1000+','+y(p[2]).toFixed(2)}),bot=P.slice().reverse().map(function(p){return p[0]*1000+','+y(p[3]).toFixed(2)});
+var cl=el('clipPath',{id:'at-clip'},el('defs',{},strip)),rv=el('rect',{x:0,y:-10,width:1000,height:120},cl),g=el('g',{'clip-path':'url(#at-clip)'},strip);
+el('polygon',{points:top.concat(bot).join(' '),'class':'at-fill'},g);
+el('polyline',{points:top.join(' '),'class':'at-best','vector-effect':'non-scaling-stroke'},g);
+el('polyline',{points:P.map(function(p){return p[0]*1000+','+y(p[3]).toFixed(2)}).join(' '),'class':'at-worst','vector-effect':'non-scaling-stroke'},g);
+el('line',{x1:0,x2:1000,y1:y(D.res[1]),y2:y(D.res[1]),'class':'at-resl','vector-effect':'non-scaling-stroke'},strip);
+el('line',{x1:500,x2:500,y1:0,y2:100,'class':'at-midl','vector-effect':'non-scaling-stroke'},strip);
+var cur=el('line',{x1:0,x2:0,y1:0,y2:100,'class':'at-cur','vector-effect':'non-scaling-stroke',style:'display:none'},strip);
+$('at-res').style.top=y(D.res[1])+'%';
+function at(s){var f=s*(P.length-1),i=Math.max(0,Math.min(P.length-2,Math.floor(f))),u=f-i,a=P[i],b=P[i+1];return a.map(function(v,k){return k===4?(u<.5?a[4]:b[4]):v+(b[k]-v)*u})}
+function ph(s,p){if(s<.04)return'decolagem · estado 0';if(s<.47)return p[4]?'estado 2: GPS falso, segue pela região':'ida ao posto · estado 0';if(s<.56)return'chegada: marcador e entrega';if(s<.97)return p[4]?'volta, GPS ainda falso · estado 2':'volta à base · estado 0';return'pouso'}
+function draw(s){var p=at(s),x=D.B[0]+(D.Q[0]-D.B[0])*p[1],yy=D.B[1]+(D.Q[1]-D.B[1])*p[1];
+dr.style.display='';dr.setAttribute('transform','translate('+x.toFixed(1)+','+yy.toFixed(1)+')');
+ar.setAttribute('r',Math.max(p[5]*D.mpx,6).toFixed(1));ar.setAttribute('class','at-area'+(p[4]?' falso':''));
+rv.setAttribute('width',(s*1000).toFixed(1));cur.style.display='';cur.setAttribute('x1',s*1000);cur.setAttribute('x2',s*1000);
+var m=40+s*D.voo;clk.textContent='08:'+String(Math.floor(m)).padStart(2,'0');
+now.textContent=s>=1?'pousou com reserva: no pior caso, '+Math.round(p[3]-D.res[1]).toLocaleString('pt-BR')+' Wh além dela':ph(s,p)}
+var raf=0,busy=false;
+function play(){if(busy)return;if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw(1);return}
+busy=true;btn.disabled=true;var t0=performance.now();
+function step(t){var s=Math.max(0,Math.min(1,(t-t0)/14000));draw(s);if(s<1)raf=requestAnimationFrame(step);else{busy=false;btn.disabled=false;btn.textContent='↺ Ver de novo'}}
+raf=requestAnimationFrame(step)}
+btn.addEventListener('click',play);
+if('IntersectionObserver'in window){var io=new IntersectionObserver(function(es){if(es.some(function(e){return e.isIntersecting})){io.disconnect();play()}},{threshold:.6});io.observe($('at-rpmap'))}
+})();</script>
+</body>
+</html>

@@ -5,6 +5,10 @@
    the unit not named until it agrees). Written in Portuguese: the operator ruled "Pt-BR for this project"
    (2026-11-14), after the site-wide English rule of 2026-10-30, for this audience.
 
+   v0.3 (2026-11-16, D27/D28): the research basis — the Florianópolis island first (its results from the private
+   generator, ilha.json; the instruments stay private), the Médio Vale as the operational reference, the next step an
+   applied research programme before any military evaluation; the carga x distância scatter dropped (the reach map
+   replaces it).
    v0.2 (2026-11-15, the operator: "follow this way … dig even more"): the page became a minuta that keeps apart
    principles, responsibilities, procedures, technical requirements and validation criteria, with a governance part;
    every claim carries one of three maturity levels (Demonstrado / Validado em campo / Proposto) and the stat strip
@@ -24,7 +28,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
-const OUT = path.join(ROOT, 'site', 'atalaia');
+const OUT = path.join(ROOT, 'site', 'atalaia', 'doutrina');   /* v0.3: the minuta moved here; /atalaia/ is the landing (landing.js) */
 const DATA = path.join(__dirname, 'data');
 const die = (m) => { console.error('ATALAIA PAGE REFUSED: ' + m); process.exit(1); };
 const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
@@ -34,6 +38,11 @@ const PROV = JSON.parse(fs.readFileSync(path.join(DATA, 'PROVENANCE.json'), 'utf
 for (const [f, h] of Object.entries(PROV.registros)) if (sha(path.join(DATA, f)) !== h) die(f + ' does not match its pin in PROVENANCE.json');
 const CJ = JSON.parse(fs.readFileSync(path.join(DATA, 'central.json'), 'utf8'));
 const MJ = JSON.parse(fs.readFileSync(path.join(DATA, 'missao.json'), 'utf8'));
+/* v0.3 (D28): the Florianópolis island's RESULTS, written by the private generator (the instruments stay private, D27) */
+const IL = JSON.parse(fs.readFileSync(path.join(DATA, 'ilha.json'), 'utf8'));
+const ILM = Object.fromEntries(IL.missoes.map((m) => [m.id, m]));
+if (ILM.morros.energia12.verdict !== 'PASSA' || ILM['costa-rv'].energia12.verdict !== 'FALTA DADO' || ILM['costa-base'].energia12.verdict !== 'NAO PASSA' || ILM.agua.rota.verdict !== 'NAO PASSA')
+  die('an island verdict the page states has changed: re-read ilha.json before re-wording');
 const AV = CJ.avancado, DI = CJ.direto, AL = CJ.alcance, SI = CJ.sintetico, FR = CJ.frota, KG = CJ.carga_padrao_kg;
 const R12 = AV.rows[KG], R30 = AV.rows[30], RS = DI.rows[KG];
 if (R12.verdict !== 'PASSA') die('the mission load no longer passes: ' + R12.verdict);
@@ -107,6 +116,40 @@ function mapa(narrow) {
     + '<line x1="' + bx.toFixed(1) + '" y1="' + by.toFixed(1) + '" x2="' + (bx + bar).toFixed(1) + '" y2="' + by.toFixed(1) + '" class="at-scale"/>' + lblk(k, bx, by - 16 * k, '2 km', 'at-lbs')
     + '</svg>';
 }
+/* THE ISLAND (v0.3, D28): the relief of the north of the Florianópolis island, the reach at the mission load from the
+   base, and the four computed missions, each drawn by its worst verdict (route or energy): solid passes, the claim dash
+   is undecided, the guide dash does not pass. Equirectangular on the relief's own frame (relevo-ilha.json). */
+function ilhaMapa(narrow) {
+  const F = IL.quadro, [W0, E0, S0, N0] = F.bounds;
+  const X = (p) => (p[0] - W0) / (E0 - W0) * F.w, Y = (p) => (N0 - p[1]) / (N0 - S0) * F.h;
+  const k = narrow ? 1.6 : 1;
+  const worst = (m) => [m.rota.verdict, m.energia12.verdict].includes('NAO PASSA') ? 'NAO PASSA' : [m.rota.verdict, m.energia12.verdict].includes('FALTA DADO') ? 'FALTA DADO' : 'PASSA';
+  const poly = (pts, cls) => '<polygon points="' + pts.map((p) => X(p).toFixed(1) + ',' + Y(p).toFixed(1)).join(' ') + '" class="' + cls + '"/>';
+  const B = IL.base;
+  let g = '<rect width="' + F.w + '" height="' + F.h + '" class="at-ground"/><image href="relevo-ilha.webp" width="' + F.w + '" height="' + F.h + '" preserveAspectRatio="none"/>'
+    + poly(IL.alcance.falta, 'at-ring-open') + poly(IL.alcance.passa, 'at-ring-pass');
+  const lab = [];
+  for (const m of IL.missoes) {
+    const v = worst(m), cls = v === 'PASSA' ? 'at-route' : v === 'FALTA DADO' ? 'at-leg-open' : 'at-beyond';
+    const o = [X(m.origem), Y(m.origem)], d = [X(m.destino), Y(m.destino)];
+    if (v === 'PASSA') g += '<line x1="' + o[0].toFixed(1) + '" y1="' + o[1].toFixed(1) + '" x2="' + d[0].toFixed(1) + '" y2="' + d[1].toFixed(1) + '" class="at-halo"/>';
+    g += '<line x1="' + o[0].toFixed(1) + '" y1="' + o[1].toFixed(1) + '" x2="' + d[0].toFixed(1) + '" y2="' + d[1].toFixed(1) + '" class="' + cls + '"/>';
+    if (o[0] !== X(B) || o[1] !== Y(B)) g += '<circle cx="' + o[0].toFixed(1) + '" cy="' + o[1].toFixed(1) + '" r="' + (7 * k).toFixed(1) + '" class="at-base"/>';
+    g += '<circle cx="' + d[0].toFixed(1) + '" cy="' + d[1].toFixed(1) + '" r="' + (10 * k).toFixed(1) + '" class="' + (v === 'NAO PASSA' ? 'at-serra' : 'at-post') + '"/>';
+    lab.push([d, m.id]);
+  }
+  g += '<circle cx="' + X(B).toFixed(1) + '" cy="' + Y(B).toFixed(1) + '" r="' + (11 * k).toFixed(1) + '" class="at-base"/>';
+  const T = { 'costa-base': 'Costa da Lagoa', 'costa-rv': '', morros: 'Posto nos morros', agua: 'Barco ao largo' };
+  const off = { 'costa-base': [16, 8], morros: [18, 8], agua: [16, -6] };
+  for (const [d, id] of lab) if (T[id]) g += lblk(k, d[0] + off[id][0] * k, d[1] + off[id][1] * k, T[id], 'at-lb');
+  g += lblk(k, X(B) - 18 * k, Y(B) - 14 * k, 'Base', 'at-lb', 'end');
+  const rv = ILM['costa-rv'].origem;
+  g += lblk(k, X(rv) + 14 * k, Y(rv) - 10 * k, 'Rio Vermelho', 'at-lbs');
+  const vb = narrow ? (() => { const xs = IL.missoes.flatMap((m) => [X(m.origem), X(m.destino)]).concat([X(B)]), ys = IL.missoes.flatMap((m) => [Y(m.origem), Y(m.destino)]).concat([Y(B)]);
+    const x0 = Math.min(...xs) - 150, x1 = Math.max(...xs) + 470, y0 = Math.min(...ys) - 80, y1 = Math.max(...ys) + 80; return [x0, y0, x1 - x0, y1 - y0]; })() : [0, 0, F.w, F.h];
+  return '<svg class="at-svg' + (narrow ? ' at-n' : '') + '" viewBox="' + vb.map((v) => v.toFixed(1)).join(' ') + '" role="img" aria-label="Mapa de relevo do norte da ilha de Florianópolis: a base, o alcance com ' + IL.carga_kg + ' kg e as quatro missões sintéticas, cada uma desenhada pelo seu pior veredito">' + g + '</svg>';
+}
+
 /* a figure that draws differently on a phone: both drawings ship, the stylesheet shows one (no script, no layout shift) */
 const twin = (wide, narrow) => '<div class="at-w">' + wide + '</div><div class="at-nw">' + narrow + '</div>';
 
@@ -139,27 +182,6 @@ function energia(narrow) {
       + lbl(lo - 8, y + 5, n(w), 'at-ax', 'end') + lbl(hi + 8, y + 5, (b > 0 ? '+' : '') + n(b), 'at-ax');
   });
   return '<svg class="at-svg" viewBox="0 0 ' + W + ' ' + H + '"' + aria + g + '</svg>';
-}
-
-function semana(narrow) {
-  const W = narrow ? 420 : 900, H = narrow ? 410 : 500, L = narrow ? 40 : 70, R = W - (narrow ? 10 : 20), T = narrow ? 14 : 24, Bt = narrow ? 336 : 430;
-  const sx = (km) => L + (km - 2) / 9.6 * (R - L), sy = (kg) => Bt - (kg - 5) / 25 * (Bt - T);
-  let g = '';
-  for (const kg of [5, 10, 15, 20, 25, 30]) g += '<line x1="' + L + '" x2="' + R + '" y1="' + sy(kg) + '" y2="' + sy(kg) + '" class="at-grid"/>' + lbl(L - 12, sy(kg) + 5, String(kg), 'at-ax', 'end');
-  for (const km of [2, 4, 6, 8, 10]) g += '<line y1="' + T + '" y2="' + Bt + '" x1="' + sx(km) + '" x2="' + sx(km) + '" class="at-grid"/>' + lbl(sx(km), Bt + 26, String(km), 'at-ax', 'middle');
-  g += lbl((L + R) / 2, Bt + (narrow ? 54 : 58), 'distância do posto à base, km', 'at-axl', 'middle');
-  g += '<text class="at-axl" text-anchor="middle" transform="translate(' + (narrow ? 12 : 18) + ' ' + ((T + Bt) / 2) + ') rotate(-90)">carga, kg</text>';
-  V.forEach(([kg, km, v], i) => {
-    const jx = ((i * 37) % 11 - 5) / 5 * 0.13, jy = ((i * 53) % 11 - 5) / 5 * 0.42;
-    const X = sx(km + jx), Y = sy(kg + jy);
-    const r = narrow ? 3.6 : 5.5;
-    if (v === 'P') g += '<circle cx="' + X.toFixed(1) + '" cy="' + Y.toFixed(1) + '" r="' + r + '" class="at-dot go"/>';
-    else if (v === 'F') g += '<circle cx="' + X.toFixed(1) + '" cy="' + Y.toFixed(1) + '" r="' + (r - 0.4) + '" class="at-dot na"/>';
-    else g += '<path d="M' + (X - r * 0.8).toFixed(1) + ' ' + (Y - r * 0.8).toFixed(1) + 'l' + (r * 1.6).toFixed(1) + ' ' + (r * 1.6).toFixed(1) + 'm0 -' + (r * 1.6).toFixed(1) + 'l-' + (r * 1.6).toFixed(1) + ' ' + (r * 1.6).toFixed(1) + '" class="at-dot no"/>';
-  });
-  const mx = sx(AV.post_km), my = sy(KG);
-  g += '<circle cx="' + mx + '" cy="' + my + '" r="' + (narrow ? 11 : 15) + '" class="at-ring"/>' + lbl(mx + (narrow ? 15 : 22), my - (narrow ? 11 : 14), 'a missão', 'at-lbm');
-  return '<svg class="at-svg' + (narrow ? ' at-n' : '') + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Semana sintética: ' + V.length + ' saídas por distância e carga. Passam as saídas perto e leves; não passam as longe e pesadas; no meio, falta dado">' + g + '</svg>';
 }
 
 /* THE MISSION STATES (v0.2): six states, drawn as the protocol defines them. Severity is drawn by weight, never by
@@ -259,13 +281,13 @@ if('IntersectionObserver'in window){var io=new IntersectionObserver(function(es)
 
 /* ---------------------------------------------------------------- the page */
 const B = [];
-B.push(C.header({ eyebrow: 'Minuta para revisão militar e de engenharia · versão 0.2 · 15/11/2026',
+B.push(C.header({ eyebrow: 'Minuta para revisão técnica · versão 0.3 · 16/11/2026',
   title: 'Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável',
-  deck: 'Proposta de protocolo doutrinário para a operação resiliente de drones militares com o GPS degradado ou negado. A tese é que resiliência não é garantir que o drone nunca perca a referência de navegação; é garantir que a organização continue tomando decisões justificáveis, e conferíveis depois, quando essa referência deixa de ser confiável.' }));
-B.push('<div class="col">' + C.scope('Esta minuta separa princípios, responsabilidades, procedimentos, requisitos técnicos, critérios de validação e governança, e mostra o protocolo numa missão simulada em Blumenau (SC). Não é doutrina aprovada, nem certificação de prontidão, nem proposta comercial. Nada aqui voou: cada afirmação traz o seu nível de maturidade.') + '</div>');
+  deck: 'Proposta de protocolo doutrinário para a operação resiliente de drones com o GPS degradado ou negado, de uso civil primeiro e militar depois. A tese é que resiliência não é garantir que o drone nunca perca a referência de navegação; é garantir que a organização continue tomando decisões justificáveis, e conferíveis depois, quando essa referência deixa de ser confiável.' }));
+B.push('<div class="col">' + C.scope('Esta minuta é a base técnica de um programa de pesquisa aplicada: separa princípios, responsabilidades, procedimentos, requisitos técnicos, critérios de validação e governança, e mostra o protocolo em testes sintéticos na ilha de Florianópolis e no Médio Vale do Itajaí (SC). A avaliação militar vem depois, com resultados documentados. Não é doutrina aprovada, nem certificação de prontidão, nem proposta comercial. Nada aqui voou: cada afirmação traz o seu nível de maturidade.') + '</div>');
 const STATS_AT = B.push('') - 1;                  /* the strip is written last, from the tally of marked claims */
 B.push('<div class="col">' + C.note({ lab: 'Como ler esta minuta: três níveis de maturidade', bodyRaw: C.plainList([
-  { raw: chip('D') + ' Resultado obtido em teste documentado, em simulação ou em bancada, com registro que pode ser entregue à Força para refazer o teste. Demonstrado não é validado: a simulação confere as contas e o programa, não o equipamento.' },
+  { raw: chip('D') + ' Resultado obtido em teste documentado, em simulação ou em bancada, com registro que pode ser entregue a quem avalia, para refazer o teste. Demonstrado não é validado: a simulação confere as contas e o programa, não o equipamento.' },
   { raw: chip('V') + ' Resultado observado em equipamento e ambiente reais. Nesta versão, nenhum item chegou a esse nível.' },
   { raw: chip('P') + ' Requisito, regra ou comportamento ainda não demonstrado, ou decisão que cabe à Força. A minuta diz o que precisa acontecer para que ele suba de nível.' }]) }) + '</div>');
 
@@ -307,14 +329,32 @@ const PH = [
   ['5', 'Chegada', 'A descida só sobre o marcador de quem recebe', 'Perto do posto, a câmera compara o chão com o mapa, e a região se estreita. No ponto final, a caixa reconhece o painel com o código de uso único, e o piloto vê o marcador e autoriza a descida. Sem enlace não há autorização, e sem autorização não há descida de precisão: valem os estados 3 e 4.', 'Procedimento na chegada (seção 7).', mt('P') + ' O marcador e a descida de precisão são proposta. Em simulação, a comparação entre câmera e mapa errou até cerca de 10 m em 95% dos casos, de alturas maiores que a de uma entrega.'],
   ['6', 'Entrega', 'O registro é lacrado', 'O registro do voo é lacrado a bordo: onde a entrega aconteceu, quando aconteceu cada etapa, em que estado a missão esteve e as contas da carga, com o pedido, o embarcado e o entregue.', 'Governança (seção 10).', mt('D', 'bancada') + ' O laudo e o lacre foram testados em bancada no Veto, o nosso instrumento de perícia: 53 erros plantados de propósito, todos pegos.'],
   ['7', 'Retorno', 'A frota aponta a região do ataque', 'Cada drone que passa pela área registra onde perdeu e onde manteve o GPS. Juntos, apontam a região do aparelho que atacou, só escutando. O que o voo mediu volta para os laudos da próxima missão.', 'Princípio 10; governança (seção 10).', mt('D', 'simulação') + ' Em simulação, com 10 receptores a região do aparelho ficou com 26 km; com 250, 6 km; com três postos fixos em terra, 350 m. Os receptores do teste eram aviões; com drones, falta validar.']];
-B.push(C.section({ lab: '3 · O exemplo', title: 'Uma missão de ressuprimento em Blumenau', wide: true, bodyRaw:
+const vIl = (m) => ([m.rota.verdict, m.energia12.verdict].includes('NAO PASSA') ? 'NAO PASSA' : [m.rota.verdict, m.energia12.verdict].includes('FALTA DADO') ? 'FALTA DADO' : 'PASSA');
+const enTxt = (m) => (m.energia12.verdict === 'PASSA' ? 'com ' + IL.carga_kg + ' kg, sobram ao menos ' + n(m.energia12.margin_wh[0]) + ' Wh além da reserva.'
+  : m.energia12.verdict === 'FALTA DADO' ? 'entre ' + n(m.energia12.margin_wh[0]) + ' e +' + n(m.energia12.margin_wh[1]) + ' Wh: decide o consumo real com carga, num voo de calibração.'
+  : 'ida e volta de ' + n(2 * m.km, 1) + ' km passam do alcance' + (m.energia5.verdict === 'NAO PASSA' ? ', mesmo com 5 kg.' : '.'));
+const roTxt = (m) => (m.rota.verdict === 'PASSA' ? 'sem GPS, o relevo devolve a posição em ' + Math.round(m.rota.ajuda * 100) + '% do caminho.'
+  : 'sem GPS, sobre a água nem o relevo nem a imagem devolvem a posição no fim da perna. Decide: voar só com o GPS íntegro e voltar ao primeiro alarme, ou um marcador no destino.');
+B.push(C.section({ lab: '3 · Os testes', title: 'Testes sintéticos: a ilha primeiro, o Vale como referência', wide: true, bodyRaw:
   '<div class="col">'
-  + C.p('Para ver o protocolo funcionando, montamos uma missão hipotética no Vale do Itajaí. A base fica em Blumenau, a ' + zBase + ' m de altitude. O posto avançado fica a ' + n(AV.post_km) + ' km, nos morros a sudoeste da cidade, a ' + zPost + ' m, e recebe ' + KG + ' kg de suprimento por saída: ' + CAP.saidas_precisa + ' saídas cobrem os ' + FR.pedido_kg_dia + ' kg por dia que o estudo da ESAO usou para um pelotão.')
-  + C.p('O drone do exemplo é o DJI FlyCart 30, o mesmo do estudo, porque a DJI publica a ficha dele e as contas de energia precisam dela. O protocolo não depende do modelo: com outro drone, troca-se a ficha e refazem-se as contas. A base e o posto são pontos escolhidos sobre o relevo real; nenhuma instalação real é indicada.')
+  + C.p('Os testes começam em simulação, em duas áreas de Santa Catarina. A primeira é o norte da ilha de Florianópolis, ao lado de um instituto de engenharia: em poucos quilômetros estão morros, praias, dunas, a lagoa, o mar e o espaço aéreo controlado do aeroporto Hercílio Luz. Lá os testes são só sintéticos; voo real, só em campo autorizado.')
+  + C.p('O mapa mostra a base, até onde o drone de exemplo vai e volta com ' + IL.carga_kg + ' kg e quatro missões calculadas, cada uma desenhada pelo pior dos seus vereditos. A comunidade da Costa da Lagoa só é acessível por barco ou por trilha, e é o caso civil que motiva o protocolo.')
   + '</div>'
-  + C.figure({ hero: true, svgRaw: mapa(false), svgNarrowRaw: mapa(true), record: ['apps/atalaia/data/missao.json', 'apps/atalaia/data/central.json'],
-    caption: 'A missão sobre o relevo real do Vale do Itajaí (modelo Copernicus GLO-90). A linha cheia é o voo do drone, da base ao posto avançado; os números marcam onde, na simulação, começa o ataque ao GPS (3), onde o drone segue sem GPS (4) e onde acha o marcador do posto (5). A linha tracejada continua até a serra: ali a bateria não leva e traz o drone.' })
-  + '<div class="col"><p class="at-k">A missão fase a fase</p></div>'
+  + C.figure({ hero: true, svgRaw: ilhaMapa(false), svgNarrowRaw: ilhaMapa(true), record: ['apps/atalaia/data/ilha.json'],
+    caption: 'O norte da ilha de Florianópolis sobre o relevo Copernicus GLO-30. O anel cheio é até onde o drone vai e volta com ' + IL.carga_kg + ' kg no pior caso (' + n(IL.alcance.passa_km[0], 1) + ' a ' + n(IL.alcance.passa_km[1], 1) + ' km); o tracejado longo, até onde falta dado. Linha cheia: a missão passa; tracejado longo: falta dado; tracejado curto: não passa. Simulação; nada voou.' })
+  + C.table({ cols: [{ h: 'Missão' }, { h: 'Rota e energia, com ' + IL.carga_kg + ' kg' }], rows: [
+    [c1('Costa da Lagoa, direto da base · ' + n(ILM['costa-base'].km, 1) + ' km', vt(vIl(ILM['costa-base']))), c2([['Energia:', enTxt(ILM['costa-base'])], ['Rota:', roTxt(ILM['costa-base'])]])],
+    [c1('Costa da Lagoa, de uma base avançada no Rio Vermelho · ' + n(ILM['costa-rv'].km, 1) + ' km', vt(vIl(ILM['costa-rv']))), c2([['Energia:', enTxt(ILM['costa-rv'])], ['Rota:', roTxt(ILM['costa-rv'])]])],
+    [c1('Posto nos morros · ' + n(ILM.morros.km, 1) + ' km', vt(vIl(ILM.morros))), c2([['Energia:', enTxt(ILM.morros)], ['Rota:', roTxt(ILM.morros)]])],
+    [c1('Barco ao largo, 4 km mar adentro', vt(vIl(ILM.agua))), c2([['Energia:', enTxt(ILM.agua)], ['Rota:', roTxt(ILM.agua)]])]] })
+  + '<div class="col">'
+  + C.p('A mesma lição aparece duas vezes: a missão que não passa direto da base pode passar de uma base mais perto, e o que decide o resto é medido, não suposto. Um quinto caso, uma rota dentro do espaço aéreo do aeroporto, espera o laudo de espaço aéreo, ainda em construção.')
+  + C.p('A segunda área é o Médio Vale do Itajaí, o cenário operacional de referência. A base fica em Blumenau, a ' + zBase + ' m de altitude; o posto avançado fica a ' + n(AV.post_km) + ' km, nos morros a sudoeste, a ' + zPost + ' m, e recebe ' + KG + ' kg por saída: ' + CAP.saidas_precisa + ' saídas cobrem os ' + FR.pedido_kg_dia + ' kg por dia que o estudo da ESAO usou para um pelotão. É também onde as enchentes isolam comunidades.')
+  + C.p('O drone dos exemplos é o DJI FlyCart 30, porque a DJI publica a ficha dele e as contas de energia precisam dela. O protocolo não depende do modelo: com outro drone, troca-se a ficha e refazem-se as contas. As bases e os destinos são pontos escolhidos sobre o relevo real; nenhuma instalação real é indicada.')
+  + '</div>'
+  + C.figure({ svgRaw: twin(mapa(false), mapa(true)), record: ['apps/atalaia/data/missao.json', 'apps/atalaia/data/central.json'],
+    caption: 'A missão de referência sobre o relevo do Vale do Itajaí (Copernicus GLO-90). A linha cheia é o voo, da base ao posto avançado; os números marcam onde, na simulação, começa o ataque ao GPS (3), onde o drone segue sem GPS (4) e onde acha o marcador do posto (5). A linha tracejada continua até a serra: ali a bateria não leva e traz o drone.' })
+  + '<div class="col"><p class="at-k">A missão de referência fase a fase</p></div>'
   + C.picker({ name: 'fase', items: PH.map(([k, t, title, lead, onde, mat]) => ({ k, t, title, leadRaw: esc(lead),
     boxes: [{ lab: 'Onde está na minuta', bodyRaw: esc(onde) }, { lab: 'Maturidade', bodyRaw: mat }] })) }) }));
 
@@ -445,9 +485,7 @@ B.push(C.section({ lab: '9 · Critérios de validação', title: 'Como um result
     [c1('2. Bancada', mt('P')), c2([['Testa:', 'a caixa ligada ao drone em solo, no quartel; ataques gravados injetados; o lacre.'], ['Aceita se:', 'o alarme vem dentro do tempo declarado em todos os ataques injetados, e todo erro plantado no registro é detectado.']])],
     [c1('3. Calibração em campo', mt('P')), c2([['Testa:', 'voos curtos que medem o consumo com carga e o erro real de cada sensor.'], ['Aceita se:', 'cada erro medido cabe no limite declarado. Um único escape suspende aquele limite até ele ser recalibrado.']])],
     [c1('4. Exercício', mt('P')), c2([['Testa:', 'a missão com a tropa; o ataque reproduzido sem emitir, por injeção na caixa, ou em área autorizada pela Anatel.'], ['Aceita se:', 'cada estado acionado leva à ação combinada, e o verificador independente reconstrói o voo pelo registro.']])]] })
-  + C.p('A primeira etapa já foi feita para a missão de exemplo. Uma semana sintética da frota: ' + SI.n + ' saídas da base, com o posto a uma distância de 2 a 11 km, carga de 5 a 30 kg e previsão de vento sorteadas. A Central decidiu cada saída antes do voo. Depois, um simulador voou cada uma com um drone e um vento sorteados, e em uma de cada vinte o vento real passou da previsão.')
-  + C.figure({ svgRaw: twin(semana(false), semana(true)), record: 'apps/atalaia/data/central.json',
-    caption: 'Cada ponto é uma saída. Ponto cheio: a Central liberou (' + pa.length + '). Anel: faltou dado, e a saída esperou (' + fa.length + '). Xis: não passa (' + na.length + '). As saídas perto e leves passam; as longe e pesadas não passam; no meio, o instrumento não chuta.' })
+  + C.p('A primeira etapa já foi feita para a missão de referência. Uma semana sintética da frota: ' + SI.n + ' saídas da base de Blumenau, com o posto a uma distância de 2 a 11 km, carga de 5 a 30 kg e previsão de vento sorteadas. A Central decidiu cada saída antes do voo: liberou ' + pa.length + ', esperou dado em ' + fa.length + ' e recusou ' + na.length + '. Depois, um simulador voou cada uma com um drone e um vento sorteados, e em uma de cada vinte o vento real passou da previsão. O padrão é o do mapa de alcance da seção 3: perto e leve passa, longe e pesado não passa, e no meio o instrumento não chuta.')
   + C.p('Nenhuma das ' + pa.length + ' saídas liberadas pousou abaixo da reserva, ' + (paMiss === 1 ? 'nem a única' : 'nem as ' + paMiss) + ' em que o vento passou da previsão. Das ' + fa.length + ' que esperaram dado, ' + faOk + ' teriam chegado com reserva: é o preço de não chutar, e ele cai quando um voo de calibração mede o consumo real. Das ' + na.length + ' recusadas, ' + (naOk === 0 ? 'nenhuma teria chegado' : naOk + ' teriam chegado') + '. Dentro das premissas, uma saída liberada não falha por construção, porque é aritmética: o teste confere as contas e mede o custo da cautela, e o comportamento do drone, da bateria e do vento reais só se mede em campo.')
   + C.table({ cols: [{ h: 'Resultado' }, { h: 'O que mostra' }], rows: [
     [c1('24.300 de 24.300', mt('D', 'simulação')), c2([['', 'vezes em que a posição real ficou dentro da região, em 45 voos simulados sobre relevo e imagens reais de Minas Gerais.']])],
@@ -476,23 +514,31 @@ B.push(C.section({ lab: '10 · Governança', title: 'A missão termina quando po
 B.push(C.section({ lab: '11 · Limites', title: 'O que ainda não está demonstrado', bodyRaw:
   C.plainList([
     { b: 'Ainda não voou.', text: 'Tudo nesta minuta é simulação ou teste de bancada. O primeiro voo real é a etapa de calibração.' },
-    { b: 'Blumenau é o caso favorável.', text: 'O relevo do Vale do Itajaí ajuda em todo o caminho. Numa rota de 15 km a partir de Tabatinga, na fronteira amazônica, o relevo plano não ajuda em nenhum ponto; sem GPS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado. O laudo nomeia o que decidiria: o mapa magnético do Serviço Geológico do Brasil, imagens do INPE ou um voo de reconhecimento. O resultado de Blumenau não é uma capacidade geral: ainda não há evidência de que o protocolo funcione igual em outros terrenos.' },
+    { b: 'Os casos favoráveis vêm primeiro.', text: 'No Vale do Itajaí e nos morros da ilha, o relevo ajuda em todo o caminho; sobre a água, não ajuda, e a ilha já mostra isso. Numa rota de 15 km a partir de Tabatinga, na fronteira amazônica, o relevo plano não ajuda em nenhum ponto; sem GPS, o drone chegaria com até ' + n(MJ.amazonia.laudo.err_max_m / 1000, 1) + ' km de dúvida, e o laudo de rota diz falta dado. O laudo nomeia o que decidiria: o mapa magnético do Serviço Geológico do Brasil, imagens do INPE ou um voo de reconhecimento. Os resultados de Blumenau e da ilha não são uma capacidade geral: ainda não há evidência de que o protocolo funcione igual em outros terrenos.' },
+    { b: 'A ilha está sob espaço aéreo controlado.', text: 'O aeroporto Hercílio Luz controla o espaço aéreo da ilha. Lá, os testes são só sintéticos; voo real, só em campo autorizado.' },
     { b: 'Num DJI, hoje, a caixa avisa e manda parar ou pousar.', text: 'Seguir a rota com a posição da caixa depende de um modo que a DJI documentou e ainda não liberou, ou de um autopiloto aberto.' },
     { b: 'As contas de energia começam como premissas.', text: 'Até os voos de calibração, muitas missões vão dar falta dado. É o comportamento certo: a Central não chuta.' },
-    { b: 'A minuta não está completa.', text: 'Faltam a cadeia de autorização da Força, o programa de adestramento, a aprovação dos estados e dos limites por fase, e a revisão militar e de engenharia.' },
+    { b: 'A minuta não está completa.', text: 'Faltam a cadeia de autorização da Força, o programa de adestramento, a aprovação dos estados e dos limites por fase, e a revisão técnica e, depois, a militar.' },
     { b: 'Não emite, não guia armas, não rastreia pessoas.', text: 'Não bloqueia nem falsifica sinal fora de área autorizada, não faz guerra eletrônica de ataque e não decodifica comunicações. A descida de precisão só existe sobre o marcador de quem recebe, e a tropa recebe alertas por área, sem identificação.' }])
   + C.table({ cols: [{ h: 'Aspecto' }, { h: 'Estado nesta versão' }], rows: [
     ['Arquitetura do protocolo', 'proposta, para revisão'],
     ['Tratamento da incerteza', 'demonstrado em simulação'],
-    ['Verificação independente', 'proposta; nenhuma instituição foi consultada ainda'],
+    ['Verificação independente', 'proposta; um programa de pesquisa aplicada com um instituto de engenharia em preparação'],
     ['Maturidade experimental', 'inicial: simulação e bancada'],
     ['Completude doutrinária', 'minuta: faltam autorização, adestramento e aprovação'],
     ['Prontidão operacional', 'não demonstrada']] }) }));
 
 /* 12 · next step */
-B.push(C.section({ lab: '12 · Próximo passo', title: 'Revisão militar e de engenharia, e o primeiro teste', bodyRaw:
-  C.p('O próximo passo é submeter esta minuta a uma revisão militar e de engenharia, com uma unidade que opere drones, sem confundir o que já foi demonstrado com o que ainda precisa ser desenvolvido. O primeiro teste é em simulação, com a ficha do drone que a unidade já usa; nenhuma compra de equipamento é necessária para começar.')
-  + C.p('No Exército, uma proposta como esta tem caminho conhecido. A doutrina é produzida pelo Sistema de Doutrina Militar Terrestre, o SIDOMT, e o COTER, por intermédio do Centro de Doutrina do Exército, prepara a diretriz de cada produto doutrinário, de um manual de campanha a um caderno de instrução. Antes de virar manual, uma ideia passa pela sistemática de experimentação doutrinária. E a Doutrina Militar Terrestre mede uma capacidade por sete fatores inseparáveis, o DOAMEPI. A tabela diz o que cada fator pediria do Atalaia; nenhum deles é atendido só com equipamento.')
+B.push(C.section({ lab: '12 · Próximo passo', title: 'Pesquisa aplicada primeiro, avaliação militar depois', bodyRaw:
+  C.p('O próximo passo é um programa de pesquisa aplicada com um instituto de engenharia, antes de qualquer avaliação militar: engenharia embarcada, experimento controlado e validação independente, com critérios escritos antes de cada teste e os resultados ruins relatados junto com os bons. O programa tem cinco pacotes de trabalho.')
+  + C.plainList([
+    { b: 'Ameaças e falhas.', raw: esc('Bloqueio, falsificação, retransmissão, multicaminho em vale, perda de enlace, falhas de sensor e erro de causa comum, cada um com um modelo e um conjunto de falhas gravadas para injetar.') + ' ' + mt('P') },
+    { b: 'Arquitetura de integridade.', raw: esc('A região garantida, o teste do GPS contra a região, a conferência do Galileo em separado e os estados da missão, integrados numa caixa de bancada.') + ' ' + mt('P') },
+    { b: 'Ambiente experimental.', raw: esc('Simulação reproduzível e bancada com sinais gravados, na ilha e no Vale, e voos de calibração em campo autorizado.') + ' ' + mt('P') },
+    { b: 'Validação independente.', raw: esc('Contenção da posição real pela região, tempo até o alarme, falsos alarmes por hora de voo, disponibilidade e erro da melhor estimativa, medidos contra critérios escritos antes.') + ' ' + mt('P') },
+    { b: 'Revisão da doutrina.', raw: esc('O que os resultados sustentarem sobe de nível nesta minuta; o que não sustentarem é rebaixado.') + ' ' + mt('P') }])
+  + C.p('O Exército entra depois, como avaliador, com os resultados documentados e requisitos operacionais específicos. Até lá, a minuta serve de referência para quem opera drones e quer discutir os requisitos.')
+  + C.p('Quando chegar a hora da avaliação militar, a proposta tem caminho conhecido no Exército. A doutrina é produzida pelo Sistema de Doutrina Militar Terrestre, o SIDOMT, e o COTER, por intermédio do Centro de Doutrina do Exército, prepara a diretriz de cada produto doutrinário, de um manual de campanha a um caderno de instrução. Antes de virar manual, uma ideia passa pela sistemática de experimentação doutrinária. E a Doutrina Militar Terrestre mede uma capacidade por sete fatores inseparáveis, o DOAMEPI. A tabela diz o que cada fator pediria do Atalaia; nenhum deles é atendido só com equipamento.')
   + C.table({ cols: [{ h: 'Fator' }, { h: 'O que o protocolo pediria' }], rows: [
     [c1('Doutrina', mt('P')), c2([['', 'Esta minuta, revista e transformada no produto que o COTER indicar: princípios, estados da missão, critérios de validação.']])],
     [c1('Organização', mt('P')), c2([['', 'As camadas da seção 5 e as quatro perguntas como processo de autorização, com quem assina cada uma.']])],
@@ -502,23 +548,23 @@ B.push(C.section({ lab: '12 · Próximo passo', title: 'Revisão militar e de en
     [c1('Pessoal', mt('P')), c2([['', 'O piloto remoto, o operador da Central, o responsável pela calibração e, fora da unidade, quem verifica.']])],
     [c1('Infraestrutura', mt('P')), c2([['', 'Mapas com data, zonas de pouso de contingência levantadas, o carimbo de tempo da Força, carregadores e geração na base.']])]] })
   + src('Fontes: Exército Brasileiro, EB20-MF-10.102, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/11768/1/EB20MF10102.pdf', '<em>Doutrina Militar Terrestre</em>') + ', 3ª ed., 2022 (§ 3.3.4, DOAMEPI); COTER, ' + a('https://bdex.eb.mil.br/jspui/bitstream/123456789/14389/1/PDDMT2025.pdf', 'Plano de Desenvolvimento da Doutrina Militar Terrestre 2025') + ' (§ 4 e § 5); Instruções Reguladoras da Sistemática de Experimentação Doutrinária (EB70-IR-10.002), 2018.')
-  + C.p('As perguntas que a minuta leva para a primeira conversa:')
+  + C.p('As perguntas que a pesquisa responde:')
   + C.plainList([
-    { b: 'Que drones a unidade usa hoje,', text: 'e para quais missões: reconhecimento, ligação, entrega?' },
-    { b: 'Onde o GPS já falhou', text: 'em exercício ou em operação, e o que a tropa fez quando isso aconteceu?' },
-    { b: 'Que regras de voo, de reserva e de enlace perdido', text: 'a unidade já segue, para a minuta partir delas e não de uma folha em branco?' },
-    { b: 'Quem autoriza hoje uma missão de drone,', text: 'e quem aceitaria por escrito o risco de uma missão sem zona de pouso de contingência?' },
-    { b: 'Onde testar', text: 'a calibração e o exercício, e com que autorizações?' }]) }));
+    { b: 'Os limites de erro declarados se mantêm em sensores reais,', text: 'na bancada e em voo: o inercial, o altímetro, a câmera e o relógio?' },
+    { b: 'A região garantida contém a posição real em todas as épocas,', text: 'e qual o tamanho dela na prática?' },
+    { b: 'Em quanto tempo e com quantos falsos alarmes', text: 'a falsificação, a retransmissão e o bloqueio são detectados?' },
+    { b: 'A arquitetura cabe num módulo embarcado', text: 'ligado a drones de fabricantes diferentes?' },
+    { b: 'Que mudanças nesta minuta', text: 'os resultados exigem?' }]) }));
 
 /* the stat strip, from the tally (the levels were counted as the sections were written) */
 B[STATS_AT] = C.stats([
   { k: 'Demonstrado', v: String(TALLY.D), n: 'afirmações marcadas, em simulação ou bancada' },
   { k: 'Validado em campo', v: String(TALLY.V), n: 'nenhum voo real ainda' },
   { k: 'Proposto', v: String(TALLY.P), n: 'à espera de teste ou de decisão da Força' },
-  { k: 'A missão de exemplo', v: n(AV.post_km) + ' km', n: KG + ' kg por saída, em Blumenau (SC)' }]);
+  { k: 'Áreas de teste', v: '2', n: 'a ilha de Florianópolis e o Médio Vale do Itajaí (SC)' }]);
 if (TALLY.V !== 0) die('a claim is marked field-validated, and nothing has flown');
 
-const foot = '<p>' + esc('Minuta v0.2, 15/11/2026. Preparada por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho para revisão: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão. Os números da missão vêm de apps/atalaia/data (relevo Copernicus GLO-90 e ficha da DJI, cada entrada fixada por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto, cada um com o seu nível de maturidade.') + '</p>';
+const foot = '<p>' + esc('Minuta v0.3, 16/11/2026. Preparada por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho para revisão: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão. Os números das missões vêm de apps/atalaia/data (relevo Copernicus GLO-90 e GLO-30, ficha da DJI; cada registro fixado por sha256 em PROVENANCE.json); os resultados de teste, dos registros do LOCUS e do Veto, cada um com o seu nível de maturidade.') + '</p>';
 
 const css = `
 .at-src{font-size:var(--text-small);color:var(--ink-4)}
@@ -543,6 +589,9 @@ th:first-child,td:first-child{width:30%}
 .at-route{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
 .at-halo{stroke:var(--paper);stroke-width:11;stroke-linecap:round}
 .at-beyond{stroke:var(--ink-4);stroke-width:2.5;stroke-dasharray:2 3}
+.at-leg-open{stroke:var(--ink);stroke-width:3;stroke-dasharray:5 4}
+.at-ring-pass{fill:var(--band-fill);stroke:var(--ink-2);stroke-width:1.5}
+.at-ring-open{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
 .at-base{fill:var(--ink);stroke:var(--paper);stroke-width:4}
 .at-post{fill:var(--paper);stroke:var(--ink);stroke-width:4.5}
 .at-serra{fill:var(--paper);stroke:var(--ink-4);stroke-width:3}
@@ -601,11 +650,14 @@ th:first-child,td:first-child{width:30%}
 let html = TPL.render({ title: 'Atalaia: um protocolo para operar drones quando o GPS deixa de ser confiável', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
   cssRaw: css, scriptRaw: vooScript(),
   desc: 'Minuta de protocolo doutrinário para operar drones militares com o GPS degradado ou negado: princípios, responsabilidades, estados da missão, requisitos, critérios de validação e governança, com uma missão simulada em Blumenau (SC).',
-  path: '/atalaia/' });
+  path: '/atalaia/doutrina/' });
 html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
 if (!/name="robots" content="noindex/.test(html)) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.copyFileSync(path.join(DATA, 'relevo.webp'), path.join(OUT, 'relevo.webp'));
-console.log('site/atalaia/index.html written (unlisted, minuta v0.2): posto ' + AV.post_km + ' km, ' + KG + ' kg ' + R12.verdict + '; 30 kg ' + R30.verdict + '; serra ' + RS.verdict
+fs.copyFileSync(path.join(DATA, 'relevo-ilha.webp'), path.join(OUT, 'relevo-ilha.webp'));
+console.log('site/atalaia/doutrina/index.html written (unlisted, minuta v0.3): posto ' + AV.post_km + ' km, ' + KG + ' kg ' + R12.verdict + '; 30 kg ' + R30.verdict + '; serra ' + RS.verdict
   + '; synthetic ' + pa.length + '/' + fa.length + '/' + na.length + '; maturity D ' + TALLY.D + ' · V ' + TALLY.V + ' · P ' + TALLY.P);
+
+require('./landing.js');                          /* the landing page, from the same records (v0.3) */

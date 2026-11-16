@@ -1,8 +1,9 @@
 {
   "note": "Ink coverage per figure: the share of pixels brighter than the page ground, measured from a screenshot of the figure's own box. A figure that gets THINNER than its record fails check-render. Only the author can say whether a sparse drawing is empty or exact, so this ratchets rather than setting a bar.",
-  "recorded": "2026-11-15",
+  "recorded": "2026-11-16",
   "figures": {
-    "site/atalaia/index.html :: figbox": 5.85,
+    "site/atalaia/doutrina/index.html :: figbox": 5.49,
+    "site/atalaia/index.html :: figbox": 68.15,
     "site/contraprova/index.html :: figbox": 4.37,
     "site/decidivel/index.html :: figbox dv-mapbox": 35.92,
     "site/eleicoes2026/index.html :: figbox": 2.98,
@@ -14,7 +15,7 @@
     "site/instruments/exact-geometry/index.html :: figure": 0.41,
     "site/instruments/graph/index.html :: fig": 4.33,
     "site/instruments/index.html :: Navier–Stokes blowup: the certified proo": 10.16,
-    "site/instruments/index.html :: PU Verificado: a Tesouro Direto price un": 6.27,
+    "site/instruments/index.html :: PU Verificado: a Tesouro Direto price un": 6.28,
     "site/instruments/index.html :: The black-hole image: the set of skies t": 2.9,
     "site/instruments/index.html :: M87*: a black hole where every line says": 3.49,
     "site/instruments/index.html :: The textbook machine: a Turing machine i": 7.6,
@@ -121,9 +122,8 @@
   },
   "faintNote": "Marks that paint but sit under 1.35:1 against their own ground. A recessive grid is a legitimate drawing and only the author can price it, so this RATCHETS: the list may shrink, never grow. A mark with no paint at all, or one pointing at a paint server that is not on the page, is not here — that hard-fails, because it needs no threshold.",
   "faint": [
-    "atalaia/index.html: 1 × at-ground <rect> — 1.00:1 against its ground",
-    "atalaia/index.html: 2 × at-halo <line> — 1.11:1 against its ground",
-    "atalaia/index.html: 11 × at-grid <line> — 1.12:1 against its ground",
+    "atalaia/doutrina/index.html: 4 × at-ground <rect> — 1.00:1 against its ground",
+    "atalaia/doutrina/index.html: 5 × at-halo <line> — 1.11:1 against its ground",
     "decidivel/index.html: 360 × bg <rect> — 1.21:1 against its ground",
     "decidivel/index.html: 1 × ax <line> — 1.33:1 against its ground",
     "instruments/curveset/index.html: 35 × cs-grid <line> — 1.12:1 against its ground",

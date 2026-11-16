@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-11-15",
+  "recorded": "2026-11-16",
   "browser": "Chrome/157.0.8103.52",
   "viewports": [
     1440,
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "eafc6d9a3bd8e19d8c2ee40089d39bd336f58dc5f7516b781abc6e448668f9f9"
+      "sha": "8aa9291458dbf2a2a7281b2385ad7926ad5031eb87650eda9cf197d26b733145"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -119,26 +119,47 @@
       },
       "sha": "8cce2dc8bf58b32f1351f66e6611c4944d61e3587755fe41dc3b5a96cae5cf8a"
     },
-    "site/atalaia/index.html": {
+    "site/atalaia/doutrina/index.html": {
       "390": {
-        "spines": 7,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2
+        "clipped": 0
       },
       "768": {
-        "spines": 14,
+        "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 15,
+        "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "049c1510f28b15d2718ddee6b82031dd23662301fc4d580c5120d65929cf6bdf"
+      "sha": "6f885a8d007ad4e24eeab6077e4035efae2c704efb3184a745a3a8cb8e4ed5d3"
+    },
+    "site/atalaia/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "81b18cad27dfb76b7d3aca7c9a9e849ffa2cf1770d39077165a02b746d0d82f1"
     },
     "site/contraprova/index.html": {
       "390": {
@@ -264,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7b8468201be78483a934152d097423056b6d2327c44fe922b4343b1b2dcbb338"
+      "sha": "177d807a6dd520cb39c9dfe40c1600ae012bfc7734ba6757d9bfdb2bc95e9cf0"
     },
     "site/how-it-works/index.html": {
       "390": {
@@ -285,7 +306,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fb1404fbdd1816244678ad7fe11d55a798991cd7e62f74f54d5a5cbdace2934a"
+      "sha": "b96e2dfc032f49dbaf68ccb6578179384c13062671470c996411191814c6f599"
     },
     "site/index.html": {
       "390": {
@@ -856,7 +877,7 @@
     },
     "site/instruments/textbook-machine/index.html": {
       "390": {
-        "spines": 5,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 8
@@ -957,7 +978,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "df0369503911edf32c5b4dbb453f63277c7ce967ee0a9e12584bdfc6e45fa8b6"
+      "sha": "03685d4b67abdeeb18a7b83b09f9dfca0e1eac705d405c431238690f107c82cd"
     },
     "site/machine/log.html": {
       "390": {
@@ -999,7 +1020,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "108b64a961cc5529bd12c66d158d22924c4e5b2176323830c62b4e58aad9ae58"
+      "sha": "99efefc5814e99d1f174a467bac733ee67df130c81657bbc2f60ac67f27a92ca"
     },
     "site/papers/index.html": {
       "390": {
@@ -1020,7 +1041,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a0ae409c7a2201222e9da36f3f3eac4d35be2978fffea5408cbf4962c844a756"
+      "sha": "e40751748aaa0fdeeb46b722310a2c64d03d1850ccf8b6abf8da1b82be9c8a3a"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2154,7 +2175,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fc3ba19ad28e8d5df8bc072937e50a50c066662f95a51c6f32b5e06ba8ab8e0c"
+      "sha": "33989fc5e32559918f9b3fc4713a7d950a393ef1c7aae6988c780b0162c45fb8"
     },
     "site/reports/keller.html": {
       "390": {
