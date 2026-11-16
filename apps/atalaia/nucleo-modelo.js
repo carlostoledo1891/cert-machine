@@ -5,18 +5,22 @@
    A MODEL, NOT A MEASUREMENT. The spec sheets' bias instability is treated as a constant bound (it is not one), there is
    no position, velocity or attitude error at the moment GNSS is lost, and ε = 5 m is chosen. Inertial only: a constant
    gyro bias ω gives g·ω·t³/6 of horizontal error and an accelerometer bias a gives ½·a·t². The carousel (alternating
-   yaw, one turn per minute) is modelled as leaving ½·g·(ω/Ω)·t² at the worst phase. The drag lever caps the region at
+   yaw, one turn per minute) is modelled as leaving ½·g·(ω/Ω)·t² at the worst phase, PLUS the vertical-gyro leak
+   g·ω·sin θ·t³/6 at the cruise tilt θ (v0.2, after the SITL measurement showed the plain formula 3–7× optimistic). The drag lever caps the region at
    the wind-change bound times t. The plotted quantity is 2·r(t) + ε, the region's diameter plus the gate tolerance, and
    the certified endurance is the time it takes to reach the phase's alert limit.                                   */
 var NUCLEO = (function () {
   'use strict';
   var G = 9.80665, DEG = Math.PI / 180, OMC = 2 * Math.PI / 60, EPS = 5, TMAX = 900;
+  /* the cruise tilt: a multirotor can only yaw about its thrust axis, tilted ~30° at 10 m/s (measured in the SITL slice,
+     sitl/carrossel.json); the vertical-gyro bias leaks into the horizontal as b_z·sin θ and keeps growing like t³ */
+  var INCL = 30;
   var IMU = {
     hg: { nome: 'Honeywell HG4930-S', curto: 'HG4930-S', gyro: 0.25, acc: 0.025e-3 },   /* °/h; g (bias instability, spec sheets) */
     ep: { nome: 'Epson M-G370', curto: 'Epson M-G370', gyro: 0.8, acc: 24e-6 } };
   function raio(imu, t, o) {                                     /* r(t), metres */
     var w = imu.gyro * DEG / 3600, a = imu.acc * G;
-    var gy = o.carrossel ? 0.5 * G * (w / OMC) * t * t : G * w * t * t * t / 6;
+    var gy = o.carrossel ? 0.5 * G * (w / OMC) * t * t + G * w * Math.sin(INCL * DEG) * t * t * t / 6 : G * w * t * t * t / 6;
     var r = gy + 0.5 * a * t * t;
     if (o.arrasto) r = Math.min(r, o.dv * t);
     return r;
@@ -50,6 +54,6 @@ var NUCLEO = (function () {
       out += '<circle class="nu-mk" cx="' + x.toFixed(1) + '" cy="' + Y(o.L).toFixed(1) + '" r="5"/><text class="nu-lb" x="' + (x + (right ? -10 : 10)).toFixed(1) + '" y="' + (Y(o.L) + 22 + 18 * i).toFixed(1) + '" text-anchor="' + (right ? 'end' : 'start') + '">' + p[1] + ' ' + relogio(p[0]) + '</text>'; });
     return { svg: '<svg class="nu-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Largura da região de proteção mais ε, em metros, ao longo dos minutos sem GNSS, para o ' + imu.curto + ': só inercial e com as alavancas escolhidas; linha tracejada: calculada pelo modelo">' + out + '</svg>', a0: a0, a1: a1 };
   }
-  return { G: G, EPS: EPS, TMAX: TMAX, IMU: IMU, raio: raio, largura: largura, autonomia: autonomia, relogio: relogio, grafico: grafico };
+  return { G: G, EPS: EPS, TMAX: TMAX, INCL: INCL, IMU: IMU, raio: raio, largura: largura, autonomia: autonomia, relogio: relogio, grafico: grafico };
 })();
 if (typeof module !== 'undefined') module.exports = NUCLEO;

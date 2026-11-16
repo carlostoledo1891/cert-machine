@@ -125,7 +125,7 @@ function relevo(narrow, medidos) {
 /* ---- 5 · the 12-month plan */
 function plano(narrow, feitos) {
   const G = [['A proposta (indicativa)', false, [['WP1 ameaças · WP2 especificação', 1, 3], ['WP3 ambiente · bancada', 2, 8], ['WP4 validação independente', 6, 11], ['WP5 doutrina v1.0', 10, 12]]],
-    ['A trilha do Núcleo (proposta)', true, [['Livro de larguras no SITL (G0)', 1, 2, 'larguras'], ['R1 e R4 em Lean', 1, 2, 'r1r4'], ['R3 carrossel: bancada, depois voos', 3, 8], ['R2 estimador num grupo de Lie', 3, 11, 'r2'], ['R5 modelo do veículo', 6, 11], ['R6 rota', 8, 12]]]];
+    ['A trilha do Núcleo (proposta)', true, [['Livro de larguras no SITL (G0)', 1, 2, 'larguras'], ['R1 e R4 em Lean', 1, 2, 'r1r4'], ['R3 carrossel: bancada, depois voos', 3, 8, 'r3'], ['R2 estimador num grupo de Lie', 3, 11, 'r2'], ['R5 modelo do veículo', 6, 11], ['R6 rota', 8, 12]]]];
   const W = narrow ? 360 : 1000, lw = narrow ? 0 : 300, rowH = narrow ? 44 : 30, top = 34;
   const X = (m) => (narrow ? 12 : lw + 10) + ((narrow ? W - 24 : W - lw - 20) * (m - 1) / 12);
   let y = top, o = '';
