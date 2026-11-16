@@ -4,14 +4,28 @@
 operator's word ("páginas live não listadas", hosted here; the Atalaia front's sources stay private in
 `~/Projects/atalaia`). Written in Portuguese because the operator ruled "Pt-BR for this project" (2026-11-14).
 
-**What it is.** A doctrine page, not a product page: ten rules for planning, flying and checking a drone mission under
-GPS jamming or spoofing (four pre-flight laudos in the worst case, a guaranteed area in flight, precision descent only
-on the receiver's one-time marker with the pilot's authorization, a sealed record anyone can re-check, receive-only),
-shown on a hypothetical resupply mission in Blumenau (SC) and tested in simulation first.
+**What it is.** A doctrine page, not a product page. Since v0.2 (2026-11-15, on the operator's word) it is a
+*minuta*, a draft doctrinal protocol for review. It keeps six parts apart:
+- principles (ten);
+- responsibilities (five layers plus outside verification, five resilience dimensions);
+- procedures: four questions before flight (viability, resilience, safety, auditability) and six mission states with
+  action and authority agreed before flight;
+- technical requirements: what the guaranteed area guarantees and under which hypotheses, and why message
+  authentication is not position integrity;
+- validation criteria (four qualification stages);
+- governance.
+
+Every claim carries one of three maturity levels (Demonstrado / Validado em campo / Proposto). The stat strip counts
+them as the page is built. The build refuses any claim marked field-validated, because nothing has flown. The worked
+mission is a hypothetical resupply in Blumenau (SC), in simulation first. Every outside fact (FM 3-14, CALL 18-28,
+Belfer 2026, FAA, OSNMA, ICA 100-40 of 2026, RBAC nº 100, EB20-MF-10.102, PDDMT 2025) is cited with a link on the
+page.
 
 **Rules that bind this page.**
-- The battalion the operator is talking to is **not named** until it agrees; the scenario says only "Blumenau (SC)".
-  No installation is plotted: base and post are points chosen on the relief.
+- The battalion the operator is talking to is **not named** until it agrees; the scenario says only "Blumenau (SC)",
+  and the page says "a unidade", never "o batalhão". No person from the unit is named anywhere in this repository
+  (page, data, code, commit messages). No installation is plotted: base and post are points chosen on the relief.
+- The page does not mention the outside review that shaped v0.2.
 - Every mission number is read from `data/` (written by the private generators over the Copernicus GLO-90 relief and the
   DJI FlyCart 30 spec sheet); `data/PROVENANCE.json` pins inputs and records by sha256 and the build refuses a drifted
   record. The build also refuses if a stated verdict (12 kg passes, 30 kg needs data, the serra refuses) stops holding.
