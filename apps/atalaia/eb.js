@@ -85,7 +85,7 @@ B.push(C.section({ lab: '2 · A proposta', title: 'Quatro perguntas antes do voo
   + C.note({ lab: 'Quem decide', bodyRaw: C.plainList([
     { b: 'O Atalaia não decide pela cadeia de comando.', text: 'Calcula, alerta e registra. Quem autoriza a missão, quem pode interrompê-la e quem responde pelo voo continuam sendo quem comanda e o piloto, com função definida e registrada.' },
     { b: 'Interromper é sempre permitido; continuar exige evidência.', text: 'Qualquer elo pode interromper sem justificar antes. Continuar, ou retomar depois de um alarme, exige os laudos e a autorização de quem responde.' },
-    { b: 'Só recebe sinais.', text: 'Não bloqueia nem falsifica sinal fora de área autorizada, não guia armamento, não designa alvos e não rastreia pessoas.' }]) })
+    { b: 'Silencioso por padrão.', text: R.MARCA.sinais + ' Não guia armamento, não designa alvos e não rastreia pessoas.' }]) })
   + '<h3 class="at-h3">O que complementa e o que não substitui</h3>'
   + C.table({ cols: [{ h: '' }, { h: 'A relação com o que já existe' }], rows: [
     [c1('Complementa'), c2([['', 'o planejamento tático e o método de emprego da organização: acrescenta uma camada de garantia da missão, sem mudar a manobra.']])],

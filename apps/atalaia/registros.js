@@ -20,12 +20,15 @@ const die = (m) => { console.error('ATALAIA RECORDS REFUSED: ' + m); process.exi
 const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 
 /* the version every page prints (the minuta's version block and section 13 say what changed) */
-const VERSAO = { n: '0.4.1', data: '16/11/2026' };
+const VERSAO = { n: '0.5', data: '16/11/2026' };
 
 /* the brand (2026-11-16): one tagline and one family line, written once here and printed by every page */
 const MARCA = {
   lema: 'integridade verificável para sistemas autônomos e infraestrutura crítica',
-  familia: 'Atalaia: integridade verificável para sistemas autônomos e infraestrutura crítica, em quatro domínios (ar, terra, mar e offshore) sobre o mesmo núcleo de integridade. O primeiro é o ar: drones que operam sem um GNSS em que se possa confiar.' };
+  familia: 'Atalaia: integridade verificável para sistemas autônomos e infraestrutura crítica, em quatro domínios (ar, terra, mar e offshore) sobre o mesmo núcleo de integridade. O primeiro é o ar: drones que operam sem um GNSS em que se possa confiar.',
+  /* the signals line (v0.5, 2026-11-16): receive-only became silent-by-default with an optional, PROPOSED active module;
+     what never changes is stated here once and every page prints it */
+  sinais: 'O Atalaia recebe sinais e fica em silêncio por padrão. Um módulo ativo opcional, proposto, liga só dentro de um envelope aprovado antes da missão, com equipamento homologado de baixa potência, e cada acionamento fica no registro. Em nenhum modo bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS.' };
 
 /* ---- the records, checked against their pins */
 const PROV = JSON.parse(fs.readFileSync(path.join(DATA, 'PROVENANCE.json'), 'utf8'));

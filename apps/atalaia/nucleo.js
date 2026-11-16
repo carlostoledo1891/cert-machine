@@ -222,7 +222,7 @@ B.push(C.section({ lab: '9 · Caminho, portões e preços', title: 'Nada se comp
 B.push(C.section({ lab: '10 · Limites', title: 'O que não é a nossa luta, e os riscos', bodyRaw:
   C.plainList([
     { b: 'Não é a nossa luta.', text: 'Autonomia e pilotos de IA; corridas de precisão da navegação visual; drones baratos descartáveis; hardware anti-interferência e guerra eletrônica.' },
-    { b: 'Linhas vermelhas.', text: 'Só recepção: nunca emitir, bloquear ou falsificar; nenhuma antena CRPA (7A005.b); nenhum rastreamento de alvo e nenhuma guiagem a um ponto qualquer do solo (D16); um piloto sempre no comando, como o RBAC nº 100 exige.' },
+    { b: 'Linhas vermelhas.', text: R.MARCA.sinais + ' Nenhuma antena CRPA (7A005.b); nenhum rastreamento de alvo e nenhuma guiagem a um ponto qualquer do solo (D16); um piloto sempre no comando, como o RBAC nº 100 exige.' },
     { b: 'Riscos.', text: 'O limite de pior caso pode sair largo demais para voar, e o livro de larguras responde isso primeiro. Os modelos físicos são onde entra a falsa confiança: limites a partir de dados com cobertura, rebaixados a cada escape. A instabilidade de viés não é um limite, então o modelo acima é otimista. A certificação exata prova a matemática, não a física. O carrossel gasta energia e balança uma carga pendurada.' }]) }));
 
 /* 11 · sources */
