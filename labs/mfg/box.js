@@ -55,11 +55,12 @@
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory(require('../../legacy/core/interval/interval.js'),
-                             require('../../legacy/core/mfg/mfg1d.js'));
+                             require('../../legacy/core/mfg/mfg1d.js'),
+                             require('../../instruments/interval/transcendental.js'));
   } else {
-    root.MFGBox = factory(root.EqInterval, root.MFG1D);
+    root.MFGBox = factory(root.EqInterval, root.MFG1D, root.EqTranscendental);
   }
-})(typeof self !== 'undefined' ? self : this, function (I, M1D) {
+})(typeof self !== 'undefined' ? self : this, function (I, M1D, T) {
 
 const { iv, add, sub, mul, div, neg, abs, mag, mig, ZERO, ONE } = I;
 const TWO_PI = 2 * Math.PI;
@@ -431,20 +432,48 @@ function validateBox(xFloat, box, opts) {
    below for every parameter in the cell. min mbar is bounded by sampling and
    paying the modulus of continuity with L = sum_k 2 (2 pi k) |b_k| -- no
    sampling argument is left unquantified. m > 0 is a HYPOTHESIS of the model,
-   so it is certified, never assumed. At zero width this reproduces
-   validate.js's certifyPositivity exactly (gate G2).                        */
+   so it is certified, never assumed. At zero width this agrees with
+   validate.js's certifyPositivity on L, G and the verdict, and on minMbar to
+   within the old pad (gate G2): validate.js still pads the platform's cosine,
+   this file no longer does.
+
+   THE COSINES ARE PROVED (2026-11-16). Until this date each cos(2 pi k t) was
+   Math.cos of the float angle TWO_PI*k*t widened by a derived pad (the kernel's
+   encloseCos, now retired): ECMAScript gives Math.cos no accuracy bound, so the
+   pad rested on an unwritten contract. Now every cosine is transcendental.js's
+   series enclosure (Lemma S1.3: reduction by an enclosure of pi/2, a remainder
+   bound), at the angle 2 pi (j/G) enclosed outward, with j = (k g) mod G:
+   cos(2 pi k g/G) = cos(2 pi j/G) exactly, because k g - j is a multiple of G.
+   One table per grid size serves every mode and every call (cosGrid below);
+   the reduced angle lies in [0, 2 pi), which also keeps it tight.           */
+const COS_GRID = new Map();
+function cosGrid(G) {
+  let tab = COS_GRID.get(G);
+  if (!tab) {
+    const lo = new Float64Array(G), hi = new Float64Array(G), Gi = iv(G);
+    for (let j = 0; j < G; j++) {
+      const c = T.cos(mul(T.TWO_PI, div(iv(j), Gi)));
+      lo[j] = c[0]; hi[j] = c[1];
+    }
+    tab = { lo, hi };
+    COS_GRID.set(G, tab);
+  }
+  return tab;
+}
 function boxPositivity(bI, N, r, G) {
   let L = 0;
   for (let k = 1; k <= N; k++) L = I.nextUp(L + 2 * TWO_PI_HI * k * mag(bI[k]));
   G = G || 4096;
+  if (!(Number.isInteger(G) && G > 0 && N * G < 2 ** 53)) throw new Error('boxPositivity: the grid size must be a positive integer, got ' + G);
   let lo = Infinity, guard = 0;
   for (;;) {
     lo = Infinity;
+    const tab = cosGrid(G);
     for (let g = 0; g < G; g++) {
-      const t = g / G;
       let m = iv(1);
       for (let k = 1; k <= N; k++) {
-        const ci = I.encloseCos(TWO_PI * k * t);
+        const j = (k * g) % G;                                 /* exact: k g < 2^53 */
+        const ci = [tab.lo[j], tab.hi[j]];
         m = add(m, mul([2 * bI[k][0], 2 * bI[k][1]], ci));   /* doubling is exact */
       }
       if (m[0] < lo) lo = m[0];
@@ -702,7 +731,7 @@ function cStarBox(sigmaBox) {
   return neg(mul(mul(S, S), mul(TWO_PI_I, TWO_PI_I)));
 }
 
-return { validateBox, boxPositivity, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
+return { validateBox, boxPositivity, cosGrid, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
          separationBox, separationNu, cStarBox,
          midProblem, VboxI, normNu, IDX, wNuI, mid, half, buildPhiI, convI };
 });

@@ -327,11 +327,12 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   def('MtArbRedAdd', int(AR.redControls['red:add'].violationsCaught)); def('MtArbRedAddOf', int(AR.redControls['red:add'].cases));
   def('MtArbRedExp', int(AR.redControls['red:exp'].violationsCaught)); def('MtArbRedExpOf', int(AR.redControls['red:exp'].cases));
   const NAMES = { add: '$x + y$', sub: '$x - y$', mul: '$x \\times y$', div: '$x / y$', sqr: '$x^2$', abs: '$|x|$', pow: '$x^k$', exp: '$\\exp$', log: '$\\log$', sin: '$\\sin$', cos: '$\\cos$', tanh: '$\\tanh$',
-    encloseCos: 'the platform\'s $\\cos$, padded', encloseSin: 'the platform\'s $\\sin$, padded', lgamma: '$\\ln\\Gamma$', digamma: '$\\psi$', trigamma: '$\\psi\'$', gammaP: '$P(a, z)$', Phi: '$\\Phi$',
+    lgamma: '$\\ln\\Gamma$', digamma: '$\\psi$', trigamma: '$\\psi\'$', gammaP: '$P(a, z)$', Phi: '$\\Phi$',
     gamma: '$\\Gamma$ (Spouge)', besselJ: '$J_\\nu$', PhiInv: '$\\Phi^{-1}$', gammaPinv: '$P^{-1}$', sum2: 'Sum2, $n$ terms' };
-  const ORDER = ['add', 'sub', 'mul', 'div', 'sqr', 'abs', 'pow', 'exp', 'log', 'sin', 'cos', 'tanh', 'encloseCos', 'encloseSin', 'lgamma', 'digamma', 'trigamma', 'gammaP', 'Phi',
+  /* the platform's cos and sin, padded (encloseCos, encloseSin) left the table on 2026-11-16, retired from the kernel */
+  const ORDER = ['add', 'sub', 'mul', 'div', 'sqr', 'abs', 'pow', 'exp', 'log', 'sin', 'cos', 'tanh', 'lgamma', 'digamma', 'trigamma', 'gammaP', 'Phi',
     'gamma', 'besselJ', 'PhiInv', 'gammaPinv', 'sum2'];   /* the five of 2026-10-21 */
-  need(ORDER.every((k) => AR.byOp[k]) && ORDER.length === Object.keys(AR.byOp).length, 'the Arb audit\'s operations are not the twenty-four the table lists');
+  need(ORDER.every((k) => AR.byOp[k]) && ORDER.length === Object.keys(AR.byOp).length, 'the Arb audit\'s operations are not the twenty-two the table lists');
   const med = (x) => (x === null ? '---' : x < 10 ? String(x) : int(x));
   def('MtArbTableRows', ORDER.map((k) => { const r = AR.byOp[k]; return NAMES[k] + ' & ' + int(r.cases) + ' & ' + int(r.contained) + ' & ' + r.violations + ' & ' + int(r.refused) + ' & ' + med(r.thinWidthUlps.median); }).join(' \\\\\n'));
   const P = EV.planted; need(P.falseAccepted === 0 && P.trueRejected === 0 && P.malformedDecided === 0, 'a planted claim was decided wrongly');

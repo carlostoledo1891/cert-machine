@@ -65,6 +65,7 @@
 
 const path = require('path');
 const IV = require(path.join(__dirname, '..', '..', 'instruments', 'interval', 'interval.js'));
+const TR = require(path.join(__dirname, '..', '..', 'instruments', 'interval', 'transcendental.js'));
 const { iv, add, sub, mul, div, neg, sqr, nextUp, nextDown } = IV;
 
 /* ---------- units ---------------------------------------------------------- */
@@ -81,29 +82,15 @@ function isqrt(x) {
 }
 
 /* ---------- sound cos/sin over an ANGLE INTERVAL --------------------------
-   Endpoints plus the interior extrema: cos attains +1 at 2kπ and −1 at
-   (2k+1)π; sin attains ±1 at (2k±1/2)π. Detected by counting whether such a
-   point lies inside [a,b], which is exact in float for our magnitudes.      */
-function hitsMultiple(a, b, period, offset) {
-  const k0 = Math.ceil((a - offset) / period);
-  return (k0 * period + offset) <= b;
-}
-function cosHull(a, b) {
-  if (b - a >= 2 * Math.PI) return [-1, 1];
-  const ca = IV.encloseCos(a), cb = IV.encloseCos(b);
-  let lo = Math.min(ca[0], cb[0]), hi = Math.max(ca[1], cb[1]);
-  if (hitsMultiple(a, b, 2 * Math.PI, 0)) hi = 1;
-  if (hitsMultiple(a, b, 2 * Math.PI, Math.PI)) lo = -1;
-  return [nextDown(lo), nextUp(hi)];
-}
-function sinHull(a, b) {
-  if (b - a >= 2 * Math.PI) return [-1, 1];
-  const sa = IV.encloseSin(a), sb = IV.encloseSin(b);
-  let lo = Math.min(sa[0], sb[0]), hi = Math.max(sa[1], sb[1]);
-  if (hitsMultiple(a, b, 2 * Math.PI, Math.PI / 2)) hi = 1;
-  if (hitsMultiple(a, b, 2 * Math.PI, -Math.PI / 2)) lo = -1;
-  return [nextDown(lo), nextUp(hi)];
-}
+   transcendental.js's proved series over the box [a, b]: the endpoints by a
+   series with a remainder after reduction by an enclosure of π/2, and the
+   interior extrema (cos = ±1 at kπ, sin = ±1 at (k+1/2)π) found against an
+   ENCLOSED π, so a critical point near an end can only widen the answer.
+   Until 2026-11-16 this was the platform's Math.cos / Math.sin at the two
+   ends, widened by the kernel's retired pad, with the extrema tested against
+   multiples of the double Math.PI.                                          */
+function cosHull(a, b) { return TR.cos([a, b]); }
+function sinHull(a, b) { return TR.sin([a, b]); }
 
 /* ---------- geodesy (H3) --------------------------------------------------
    Haversine in double, then enclosed by the earth-radius interval and a

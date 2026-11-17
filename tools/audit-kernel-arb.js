@@ -96,8 +96,8 @@ for (let i = 0; i < N; i++) {
   /* sin, cos: the range over the box, critical points included; tanh */
   const T = box(pick([dbl('unit'), (Math.floor(rnd() * 2000) - 1000) * Math.PI / 2 + (rnd() - 0.5) * 1e-9, dbl('unit') * 300]));
   run('sin', [T], () => TR.sin(T)); run('cos', [T], () => TR.cos(T)); run('tanh', [T], () => TR.tanh(T));
-  /* the older helpers that enclose the platform's cosine and sine by a derived pad (a point argument) */
-  const t = T[0]; run('encloseCos', [t], () => IV.encloseCos(t)); run('encloseSin', [t], () => IV.encloseSin(t));
+  /* the older helpers that enclosed the platform's cosine and sine by a derived pad (encloseCos, encloseSin) were audited
+     here until 2026-11-16, when they were retired from the kernel and every caller moved to the proved sin and cos above */
   /* the special functions the likelihood certifier uses */
   const G = pos(0.05, 1e5); run('lgamma', [G], () => OPS.lgamma(G)); run('digamma', [G], () => OPS.digamma(G)); run('trigamma', [G], () => OPS.trigamma(G));
   const a = pos(0.2, 60), z = pos(0.01, 120); run('gammaP', [a, z], () => OPS.gammaP(a, z));

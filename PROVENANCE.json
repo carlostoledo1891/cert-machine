@@ -4,7 +4,7 @@
  "policy": "READ-ONLY. The lift copies OUT of sin-mfg and never writes back. `make drift` re-hashes both ends and names what moved.",
  "counts": {
   "files": 137,
-  "patched": 7,
+  "patched": 12,
   "missing_in_source": 0
  },
  "files": [
@@ -159,8 +159,8 @@
    "src": "core/interval/certificate.js",
    "dst": "instruments/interval/certificate.js",
    "src_sha256": "494232ca25dc10a6fd0d602e26aeb8069da89161b206814524c644f6ae6b41f4",
-   "patched": false,
-   "local_sha256": "494232ca25dc10a6fd0d602e26aeb8069da89161b206814524c644f6ae6b41f4"
+   "patched": true,
+   "local_sha256": "6c67927bb2e28477774030abc442ec9f01da57c0f7b0eba12c3917d72bb6a109"
   },
   {
    "src": "core/interval/index.js",
@@ -173,15 +173,15 @@
    "src": "core/interval/interval.js",
    "dst": "instruments/interval/interval.js",
    "src_sha256": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5",
-   "patched": false,
-   "local_sha256": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5"
+   "patched": true,
+   "local_sha256": "5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e"
   },
   {
    "src": "core/interval/radii.js",
    "dst": "instruments/interval/radii.js",
    "src_sha256": "38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b",
-   "patched": false,
-   "local_sha256": "38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b"
+   "patched": true,
+   "local_sha256": "2d89926b8ee9e655a555d0cb9d4a9422a2c60fdcbed074a53d27ae769e428669"
   },
   {
    "src": "core/interval/rational.js",
@@ -208,15 +208,15 @@
    "src": "core/interval/tests/test-eqcert.js",
    "dst": "instruments/interval/tests/test-eqcert.js",
    "src_sha256": "aea1ef4c45907600043b5c0cf8422166ad75341319b5920a1f31621acf58bfe8",
-   "patched": false,
-   "local_sha256": "aea1ef4c45907600043b5c0cf8422166ad75341319b5920a1f31621acf58bfe8"
+   "patched": true,
+   "local_sha256": "65b621431fea93c37ab70ef489ca2e4601895ae3e32331e47274884ebd0d9cea"
   },
   {
    "src": "core/interval/tests/test-interval.js",
    "dst": "instruments/interval/tests/test-interval.js",
    "src_sha256": "016331cb82c112c435071155d041482c0719c3e916c7a23a765c7954c56d9b98",
    "patched": true,
-   "local_sha256": "3ce65c6eace6e39440de2eecca0dd033548b36109c264cac23db4d52a7bdd755"
+   "local_sha256": "db6f09ed786fb32f77c1d020fecd63eace7e813eef0a308e07d94fe1a686b354"
   },
   {
    "src": "core/interval/tests/test-transcendental-enclosure.js",
@@ -236,8 +236,8 @@
    "src": "core/interval/transcendental.js",
    "dst": "instruments/interval/transcendental.js",
    "src_sha256": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
-   "patched": false,
-   "local_sha256": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
+   "patched": true,
+   "local_sha256": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79"
   },
   {
    "src": "research/probes/chowla-cosine/certify-min.js",

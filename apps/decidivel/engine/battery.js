@@ -140,20 +140,34 @@ ok(JSON.stringify(R.decide(H, { theta: D.headline.theta }, { noPrice: true })) =
 }
 /* ---- green: a record written beside the submitted one is this engine's ----
    data/decidivel-ledger.json is the record of the submitted page and is gated by build.js; it may pin an earlier engine.
-   Every other ledger in data/ (run.js --out) must pin the engine and the declared ranges on disk, its headline receipt
-   must re-decide identically, and its witnesses must hold a point of the declared box, exactly. */
+   Every other ledger in data/ (run.js --out) must pin the engine and the declared ranges — on disk, or, for a record
+   frozen as written (decidivel-ledger-2026-11-11.json, the operator's ruling of 2026-11-16), as they were at the commit
+   the record was made at (tools/pinned-at.js: git show <commit>:<file>, hashed; a pin that holds at neither is refused).
+   Its headline receipt must re-decide identically with the engine on disk, and its witnesses must hold a point of the
+   declared box, exactly. */
 {
-  const crypto = require('crypto');
   const ROOT = path.join(__dirname, '..', '..', '..'), DATA = path.join(__dirname, '..', 'data');
-  const shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  const PIN = require(path.join(ROOT, 'tools', 'pinned-at.js'));
   for (const f of fs.readdirSync(DATA).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort()) {
     const L = JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
-    const pinned = Object.entries(L.engine).every(([rel, h]) => shaOf(rel) === h) && shaOf(L.declared.file) === L.declared.sha256;
+    const P = PIN.check('apps/decidivel/data/' + f, Object.assign({}, L.engine, { [L.declared.file]: L.declared.sha256 }));
+    const pinned = P.ok;
     const again = pinned && JSON.stringify(R.decide(L.headline.box, { theta: L.headline.theta }, { noPrice: true, budget: L.budget })) === JSON.stringify(L.headline.receipt);
     const ws = Object.values(L.headline.receipt.witnesses || {}).filter(Boolean);
     const inB = ws.length > 0 && ws.every((w) => outsideB(L.headline.box, w.at).length === 0 && R.witnessInBox(L.headline.box, w.at) === null);
-    ok(pinned && again && inB, 'data/' + f + ': ' + (pinned ? 'pins the engine and the ranges on disk' : 'DOES NOT pin the engine or the ranges on disk (run apps/decidivel/run.js --out data/' + f + ')') + '; headline receipt ' + (again ? 're-decided identical' : 'NOT re-decided identical') + '; witnesses ' + (inB ? 'inside' : 'NOT inside') + ' the declared box');
+    ok(pinned && again && inB, 'data/' + f + ': ' + (pinned ? PIN.describe(P) : 'DOES NOT pin the engine or the ranges: ' + PIN.describe(P) + ' (run apps/decidivel/run.js --out data/' + f + ')') + '; headline receipt ' + (again ? 're-decided identical by the engine on disk' : 'NOT re-decided identical') + '; witnesses ' + (inB ? 'inside' : 'NOT inside') + ' the declared box');
   }
+}
+/* ---- red: a beside record whose kernel pin holds nowhere is refused ----
+   the history check above must not accept any hash: the same record with its interval.js pin replaced by the lift-time
+   kernel (59556ef9…, a real historical version, but not the one the record was committed with) holds nowhere */
+{
+  const ROOT = path.join(__dirname, '..', '..', '..'), DATA = path.join(__dirname, '..', 'data');
+  const PIN = require(path.join(ROOT, 'tools', 'pinned-at.js'));
+  const f = fs.readdirSync(DATA).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort().pop();
+  const L = f ? JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8')) : null;
+  const forged = L ? PIN.check('apps/decidivel/data/' + f, Object.assign({}, L.engine, { 'instruments/interval/interval.js': '59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5' })) : null;
+  red(!!forged && !forged.ok && forged.pins.find((x) => x.file === 'instruments/interval/interval.js').holds === null, 'data/' + f + ' with its kernel pin set to another historical kernel (the lift-time 59556ef9…) is refused: ' + (forged ? PIN.describe(forged) : 'no beside record'));
 }
 /* ---- red: a witness outside the declared box ---- */
 {

@@ -39,6 +39,7 @@
  */
 'use strict';
 const I = require('../interval/interval.js');
+const TR = require('../interval/transcendental.js');
 const { nextUp, nextDown } = I;
 
 /* --- interval primitives eqcert does not carry (acos, sqrt) ------------------
@@ -116,25 +117,23 @@ function zOf(dt, aR, b, P) {
   return Math.sqrt(aR * aR * s * s + b * b * c * c);
 }
 function zIv(DT, AR, B, P) {
-  const TH = I.div(I.mul([2 * Math.PI, 2 * Math.PI], DT), [P, P]);
-  const S = I.encloseSin(0), C = I.encloseCos(0);   /* placeholders, replaced below */
-  void S; void C;
+  /* theta = 2 pi dt / P with 2 pi ENCLOSED (transcendental.js's T.TWO_PI; until 2026-11-16 the thin
+     [2*Math.PI, 2*Math.PI], which does not contain the real 2 pi) */
+  const TH = I.div(I.mul(TR.TWO_PI, DT), [P, P]);
   const sinT = encloseSinIv(TH), cosT = encloseCosIv(TH);
   return isqrt(I.add(I.mul(I.sqr(AR), I.sqr(sinT)), I.mul(I.sqr(B), I.sqr(cosT))));
 }
-/* sin/cos over an interval. Near mid-transit |th| is far below pi/2, where both
-   are monotone, so the endpoints suffice; anything wider is refused rather than
-   handled wrongly, because this front never looks outside the transit. */
+/* sin/cos over an interval: transcendental.js's proved series (2026-11-16; until then the platform's Math.sin /
+   Math.cos at the two ends, widened by the kernel's retired pad, on the monotone branch). The series encloses the
+   extrema inside a box itself; the branch guard stays, because this front never looks outside the transit and a
+   theta that large is a wrong input, not a wider answer. */
 function encloseSinIv(TH) {
   if (TH[0] < -1.5 || TH[1] > 1.5) throw new Error('encloseSinIv: |theta| too large for the monotone branch');
-  const a = I.encloseSin(TH[0]), b = I.encloseSin(TH[1]);
-  return [Math.min(a[0], b[0]), Math.max(a[1], b[1])];
+  return TR.sin(TH);
 }
 function encloseCosIv(TH) {
   if (TH[0] < -1.5 || TH[1] > 1.5) throw new Error('encloseCosIv: |theta| too large for the monotone branch');
-  const lo = Math.max(Math.abs(TH[0]), Math.abs(TH[1])), hi = TH[0] <= 0 && TH[1] >= 0 ? 0 : Math.min(Math.abs(TH[0]), Math.abs(TH[1]));
-  const a = I.encloseCos(lo), b = I.encloseCos(hi);
-  return [Math.min(a[0], b[0]), Math.max(a[1], b[1])];
+  return TR.cos(TH);
 }
 
 /* --- known answers, used by the tests and by the reds -------------------- *

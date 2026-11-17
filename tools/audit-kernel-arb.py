@@ -19,7 +19,7 @@ from flint import arb, ctx, fmpq
 ctx.prec = 256
 XSTAR_DIGITS = '1.4616321449683623412626595423257213284681962040064463512959884085987864403538'   # the minimum of Γ on (0, ∞)
 PRECS = (256, 1024, 4096)   # a case Arb cannot separate from an end at one precision is retried at the next
-BOUNDED = ('tanh', 'sin', 'cos', 'encloseCos', 'encloseSin')
+BOUNDED = ('tanh', 'sin', 'cos')   # encloseCos, encloseSin: retired from the kernel 2026-11-16
 
 
 def A(s):
@@ -146,10 +146,6 @@ def truth(op, args):
     if op in ('sin', 'cos'):
         a0, a1 = [A(x) for x in args[0]]
         return trig_range(arb.sin if op == 'sin' else arb.cos, a0, a1)
-    if op in ('encloseCos', 'encloseSin'):
-        x = A(args[0])
-        v = x.cos() if op == 'encloseCos' else x.sin()
-        return v, v
     raise ValueError('unknown op ' + op)
 
 

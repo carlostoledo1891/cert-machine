@@ -4,6 +4,10 @@
    (site/contraprova/index.html) and the deck (site/contraprova/
    contraprova-apresentacao.pdf, re-printed only when its HTML changes).
 
+   FROZEN (2026-11-16): data/gate-ledger.json is frozen as submitted and pins the interval kernel of its date (the
+   kernel changed on 2026-11-16); its pins are verified at the commit the record was made at (tools/pinned-at.js),
+   and site/contraprova/ is not rebuilt.
+
    usage: node apps/contraprova/build.js [--accept]
      --accept   write a changed ledger instead of refusing (a deliberate change
                 to the gate or the scenarios; say why in the commit)
@@ -62,6 +66,19 @@ ledger.mc = (() => {
 })();
 if (ledger.mc.cornerAbove === null || ledger.mc.cornerAbove <= ledger.mc.limit || ledger.mc.cornerBelow > ledger.mc.limit) die('the lead receipt no longer names a proved corner on each side of the limit');
 const fresh = JSON.stringify(ledger, null, 1) + '\n';
+/* THE FROZEN RECORD (2026-11-16, the operator's ruling): the ledger is the submitted page's and keeps pinning the code
+   that wrote it, the interval kernel included, after the kernel changed that day. Its module pins are verified on disk
+   or at the commit the record was made at (tools/pinned-at.js); a pin that holds nowhere is refused. When every other
+   byte is what this code writes but a pin holds only at that commit, the record is the frozen one, re-decided
+   identically, and the build still refuses: the page inlines the code it was built with and stays as submitted. */
+if (fs.existsSync(LEDGER) && fs.readFileSync(LEDGER, 'utf8') !== fresh && !ACCEPT) {
+  const old = JSON.parse(fs.readFileSync(LEDGER, 'utf8'));
+  const P = require(path.join(ROOT, 'tools', 'pinned-at.js')).check(path.relative(ROOT, LEDGER), old.modules || {});
+  const sameButPins = JSON.stringify(Object.assign({}, ledger, { modules: old.modules })) === JSON.stringify(old);
+  const nowhere = P.pins.filter((x) => !x.holds).map((x) => x.file), atCommit = P.pins.filter((x) => x.holds === 'commit').map((x) => x.file);
+  if (nowhere.length) die(path.relative(ROOT, LEDGER) + ' pins ' + nowhere.join(', ') + ' as no version on disk or at the commit it was made at (the record is untouched)');
+  if (sameButPins && atCommit.length) die('the ledger is the FROZEN record of the submitted page: its nine receipts re-decide identically, and it pins ' + atCommit.join(', ') + ' as at ' + P.commit.slice(0, 8) + ' (' + P.date + '), not the code on disk; the page stays as submitted (a rebuild is the operator\'s word, with --accept)');
+}
 if (fs.existsSync(LEDGER) && fs.readFileSync(LEDGER, 'utf8') !== fresh) {
   if (!ACCEPT) die('the receipts or the gate\'s code deviate from ' + path.relative(ROOT, LEDGER) + ' (the record is untouched; --accept writes the new one)');
   console.log('gate: ledger changed, written (--accept)');

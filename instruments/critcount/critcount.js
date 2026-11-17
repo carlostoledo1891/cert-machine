@@ -20,8 +20,9 @@
        (encloseFloat(2*Math.PI) contains the real 2pi: Math.PI is correctly
        rounded), lambda = 2pi k and every product is interval arithmetic, the
        Lipschitz constants are interval sums taken at their upper bound, and
-       the trig argument's own rounding chain is bounded and added to the
-       enclosure (sin and cos are 1-Lipschitz).
+       sin and cos are taken over the INTERVAL angle by the proved series of
+       transcendental.js (2026-11-16; before, the platform's Math.sin/Math.cos
+       at the float angle, padded, plus the angle's rounding chain).
 
    (c) THE BALL'S HIGHER DERIVATIVE IS FOLDED INTO THE CELL PAD.  A cell of
        width h is certified from its midpoint; the extension must use the
@@ -51,6 +52,7 @@
 'use strict';
 
 const I = require('../interval/interval.js');
+const T = require('../interval/transcendental.js');
 const { iv, add, mul, ZERO } = I;
 const TWO_PI = 2 * Math.PI;                       /* float mirror, proposer only */
 const TWO_PI_I = I.encloseFloat(2 * Math.PI);     /* contains the real 2pi */
@@ -103,16 +105,16 @@ function certifiedCount(coefs, pads, label, opts) {
   }
   const L1 = L1I[1], L2 = L2I[1];
 
-  /* (b) interval evaluation of f^(deriv) with the full rounding chain enclosed */
+  /* (b) interval evaluation of f^(deriv) with the full rounding chain enclosed: the angle is the interval
+     2pi k t (2pi enclosed), and sin / cos over it are transcendental.js's proved series (2026-11-16; until then
+     the platform's Math.sin / Math.cos at the float angle, widened by the kernel's retired pad and by the float
+     angle's distance to the interval angle) */
   const iEval = (deriv, t) => {
     let s = ZERO;
     for (let k = 1; k <= n; k++) {
       const lamI = mul(TWO_PI_I, iv(k));
-      const angF = TWO_PI * k * t;
       const angI = mul(lamI, iv(t));
-      const dev = I.nextUp(Math.max(Math.abs(angI[0] - angF), Math.abs(angI[1] - angF)));
-      let trig = deriv === 1 ? I.encloseSin(angF) : I.encloseCos(angF);
-      trig = [I.nextDown(trig[0] - dev), I.nextUp(trig[1] + dev)];   /* sin,cos 1-Lipschitz */
+      const trig = deriv === 1 ? T.sin(angI) : T.cos(angI);
       const coefI = deriv === 1
         ? mul(iv(-2 * coefs[k]), lamI)
         : mul(iv(-2 * coefs[k]), I.pow(lamI, 2));

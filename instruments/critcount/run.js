@@ -66,7 +66,7 @@ const out = {
   peaksExceedWells: excess,
   rigor: {
     countFrom: 'certified region signs only (float is the proposer, never the authority)',
-    coefficientProducts: 'outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded',
+    coefficientProducts: 'outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js',
     cellPad: '(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in',
   },
   meta: {

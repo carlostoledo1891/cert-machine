@@ -6,6 +6,8 @@
 
        legacy/core/interval/interval.js     outward-rounded interval arithmetic
        legacy/core/mfg/mfg1d.js             the model and its Newton solver
+       instruments/interval/interval.js,    the proved series cos the positivity
+         rational.js, transcendental.js     bound reads (2026-11-16)
        labs/mfg/box.js                      the box certifier and the decision
 
    — wrapped in an explicit CommonJS shim, with nothing retyped. If a byte of
@@ -26,15 +28,24 @@ const path = require('path');
 const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 
+/* 2026-11-16: box.js's positivity cosines are transcendental.js's proved series (the padded platform cosine is
+   retired), so the bundle carries the proved trig module and what it requires — the current kernel
+   (instruments/interval/interval.js, which transcendental.js requires as ./interval.js) and rational.js — beside the
+   lifted kernel box.js itself is written against. Order is definition order. */
 const SRC = [
   { name: 'EqInterval', file: path.join(ROOT, 'legacy', 'core', 'interval', 'interval.js') },
   { name: 'MFG1D', file: path.join(ROOT, 'legacy', 'core', 'mfg', 'mfg1d.js') },
+  { name: 'EqKernel', file: path.join(ROOT, 'instruments', 'interval', 'interval.js') },
+  { name: 'EqRational', file: path.join(ROOT, 'instruments', 'interval', 'rational.js') },
+  { name: 'EqTranscendental', file: path.join(ROOT, 'instruments', 'interval', 'transcendental.js') },
   { name: 'MFGBox', file: path.join(ROOT, 'labs', 'mfg', 'box.js') }
 ];
 
 /* the shim: each file gets its own module/exports, and require() resolves only
-   the three names this bundle actually contains — anything else throws rather
-   than silently returning undefined. */
+   the names this bundle actually contains, each by the path its requirer writes
+   (box.js names the lifted kernel by its legacy path; transcendental.js names
+   the current one as ./interval.js) — anything else throws rather than silently
+   returning undefined. */
 function bundle() {
   let out = '/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */\n';
   const shas = [];
@@ -43,7 +54,10 @@ function bundle() {
     shas.push({ file: path.relative(ROOT, s.file), sha256: crypto.createHash('sha256').update(code).digest('hex') });
     out += 'var ' + s.name + ' = (function(){var module={exports:{}};var exports=module.exports;'
          + 'var require=function(p){'
-         + 'if(/interval\\.js$/.test(p))return EqInterval;'
+         + 'if(/legacy\\/core\\/interval\\/interval\\.js$/.test(p))return EqInterval;'
+         + 'if(p==="./interval.js")return EqKernel;'
+         + 'if(/rational\\.js$/.test(p))return EqRational;'
+         + 'if(/transcendental\\.js$/.test(p))return EqTranscendental;'
          + 'if(/mfg1d\\.js$/.test(p))return MFG1D;'
          + 'throw new Error("the bundle does not carry "+p);};'
          + 'var self=undefined;\n' + code + '\nreturn module.exports;})();\n';
