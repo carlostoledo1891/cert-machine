@@ -408,6 +408,14 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gap-premises.json'), 'utf8')), S = P.ledger.byStatus;
       if (P.ledger.rows !== 16 || P.words.premisesProved !== 0 || S['DECIDED ON INSTANCES below 2000'] + S.REPRODUCED + S['READ: MISMATCH'] + S['NOT DECIDED'] !== P.ledger.rows) fail('the prime-gap-premises card would misstate its record');
       return P.ledger.rows + ' premises · ' + P.words.premisesProved + ' proved here · ' + S['DECIDED ON INSTANCES below 2000'] + ' decided on instances · ' + S['NOT DECIDED'] + ' not decided'; })() },
+  /* the physics answer key (2026-11-17): the counts are read from the two records and the card refuses if either holds a
+     REFUSED or says its two deciders disagree */
+  { g: 'applied', f: 'physics-key.html', k: 'simulators · recorded runs decided exactly',
+    title: 'The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic',
+    desc: 'A physics engine writes its state as floating-point numbers, and each of those is an exact fraction, so whether a recorded run kept its energy or its angular momentum can be decided with whole numbers. One hundred recorded runs of MuJoCo and Newton on three motions with a known answer, decided by two programs that share no code. None of it is a fault report: MuJoCo’s documentation describes what is measured, and Newton’s angular damping is a documented argument with a documented default. What stays open is said first.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'physics-key.json'), 'utf8')), N = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'physics-key-newton.json'), 'utf8'));
+      if (P.count.REFUSED !== 0 || N.count.REFUSED !== 0 || !P.deciders.agree || !N.deciders.agree || P.runs.length + N.runs.length !== 100) fail('the physics-key card would misstate its records');
+      return (P.runs.length + N.runs.length) + ' recorded runs · ' + fmt(P.count.CERTIFIED + N.count.CERTIFIED) + ' CERTIFIED · ' + fmt(P.count.REFUTED + N.count.REFUTED) + ' REFUTED · two deciders agree'; })() },
   { g: 'erdos', f: 'lean-intake.html', k: 'lean · the right statement',
     title: 'Does an AI’s Lean proof prove the right statement?',
     desc: 'A one-command check that an AI-written Lean proof proves the statement it claims, with exact checks instead of a reader’s opinion and planted wrong statements on every run: two refutations of Erdős problems checked against Google DeepMind’s statements, and the formal statement of #488 compared with Erdős’s sentence case by case.',
@@ -2082,7 +2090,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

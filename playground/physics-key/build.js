@@ -24,6 +24,7 @@ const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { page, esc } = require(path.join(PG, 'design', 'shell.js'));
+const OG = require(path.join(ROOT, 'tools', 'build-og-report.js'));   /* the page's own light art card (og-physics-key-instrument.png) */
 const K = require(path.join(HERE, 'facts.js'));      /* the one reading of the record; it refuses when a sentence below stops being true */
 const { REC, RECN, MAN, MANN, F, SCENES, INTEGRATORS, STEPS, NAME, N_CONFIGS, N_NAME, N_OF, run, top, need, sha } = K;
 const fmt = (x) => Number(x).toLocaleString('en-US');
@@ -204,7 +205,7 @@ function build(OUT) {
   const html = page({
     title: 'The physics answer key',
     desc: 'Every number a physics engine writes is an exact fraction, so whether a recorded run conserved energy can be decided with whole numbers. One hundred runs of MuJoCo and Newton on three scenes with a known answer, decided again in your tab.',
-    path: '/instruments/physics-key/', body, css: CSS, foot: FOOT,
+    path: '/instruments/physics-key/', body, css: CSS, foot: FOOT, og: { image: '/og-physics-key-instrument.png', alt: OG.alt('physics-key-instrument') },
     script: `<script id="pk-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="pk-decide">${DECIDE}</script>\n<script>${FMT}</script>\n<script>${APP}</script>`
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

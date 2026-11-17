@@ -1,0 +1,6267 @@
+{
+ "calibration": {
+  "C0": 60,
+  "C1max": 6.8833911086057394e-15,
+  "C1plantedMin": 2.236495502737295,
+  "C2max": 8.148425868808488e-16,
+  "runs": 60
+ },
+ "count": {
+  "CERTIFIED": 304,
+  "REFUSED": 0,
+  "REFUTED": 536
+ },
+ "deciders": {
+  "agree": true,
+  "comparedRuns": 72,
+  "one": {
+   "language": "JavaScript, BigInt",
+   "path": "instruments/physicskey/decide.js",
+   "sha256": "4a72ef562c5b3826f0d6ee5bbdb3d6d17e8bb5022b3b93f31cdee756ff9f1d48"
+  },
+  "two": {
+   "language": "Python, fractions",
+   "path": "instruments/physicskey/decide2.py",
+   "sha256": "822ca8f96b8f40828e93dd1ce1f5801a0fe8e83ce4d0b82cda5ec7ebea4b5cce"
+  }
+ },
+ "engine": {
+  "engineBinaries": {
+   "mujoco/_batch.cpython-312-darwin.so": "04e882775f6c5ebcf020eccb69940852051e4856d70b3640dff7794024d8ba2a",
+   "mujoco/_callbacks.cpython-312-darwin.so": "657d8116129490922530fd32c17ad5685ff291f03f76659e07b920e88a0bf159",
+   "mujoco/_constants.cpython-312-darwin.so": "820fa8434804d9bb9081e0e9e42dc9e1d3b8cffef8b20f36479fa9df9517f540",
+   "mujoco/_enums.cpython-312-darwin.so": "ea0968f411271db5e22146b173d802b7d686a4c09dc03db2e560581ba3f6fc1e",
+   "mujoco/_errors.cpython-312-darwin.so": "cdebe1812ab074118220c9aa6197153ab77114f2c89c0ac04c07b9cf977ccf9e",
+   "mujoco/_functions.cpython-312-darwin.so": "2fa039a02773203a3590e9cfee091f2f46381ed4b778b5e89e4fe1fb039ff17a",
+   "mujoco/_render.cpython-312-darwin.so": "77c0fbf327cfa9db63090bd26b60460f9a95fc8da8f8251d4d00e805d69cf208",
+   "mujoco/_rollout.cpython-312-darwin.so": "672713a1793dc2afe874c2822c353395fd3410324664c00a7044c936893cc57e",
+   "mujoco/_simulate.cpython-312-darwin.so": "90eef68487382ef3400186e0665add889cb94f9e4cd68264e5d45ae4b396bcba",
+   "mujoco/_specs.cpython-312-darwin.so": "a7df310348666f46546450f69fd296d7c35f880b946ad8bae8545049ac7d4e60",
+   "mujoco/_structs.cpython-312-darwin.so": "753105784c7a5583ab1bc01ec69164cacecb88e6b48de0d6f2c4fd9d4cf25bea",
+   "mujoco/libmujoco.4.0.1.dylib": "d65df28e21dc265ece277b0258bf9027f694c0a71f4a7506a85f0906ea796fd1",
+   "mujoco/plugin/libactuator.dylib": "38acf1293933d3c125cc8959d5025fe1b606e1b73e566b04193bee97d623c48b",
+   "mujoco/plugin/libsdf_plugin.dylib": "1a8f279087e253f0abbd45426cb03907f2caf69434b3dda9dcdb14b108c540f8",
+   "mujoco/plugin/libsensor.dylib": "46761883cdae17373abbfb3751bc8820a183574292d95a447085abbcc8c5af6a",
+   "mujoco/studio/_studio.cpython-312-darwin.so": "edea3cb537ebc408261acca478edaa1d997baf9c16adbede66a281c1b0cd2d09",
+   "mujoco/studio/dear_imgui/dear_imgui.cpython-312-darwin.so": "1f52c3fbba9951c84f4e882bd47690ee96bc48cecacfce6e4a349ea4d416476d",
+   "mujoco/studio/implot/implot.cpython-312-darwin.so": "7f631d9eb04b2056b5452d3dea860593f4f623b61b78c1e35d3e635312c069d4"
+  },
+  "machine": "arm64",
+  "mujoco": "4.0.1",
+  "mujocoVersionString": "4.0.1",
+  "numpy": "2.5.5",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "python": "3.12.13",
+  "scenes": {
+   "fall": "97b468c5e732df28e6fbbac74cd21ed5970d644b9c93ebc5532b71e30d507bba",
+   "pendulum": "acd5a9df590b939f4f1298d59156e91c06030e521384c94decabd776e1177767",
+   "top": "5e9ee23b9ade6b39d869f1cb881283a5f7dc74202121e3dadae69a0c903060eb"
+  }
+ },
+ "manifest": {
+  "notRun": [],
+  "path": "corpus/physics-key/runs/runs.json",
+  "runs": 60,
+  "sha256": "ce6c74334c90282a5c5bd26ee0d83cbf4926055061c321f824515d1182bf7b81"
+ },
+ "name": "physics-key",
+ "planted": {
+  "files": [
+   {
+    "asExpected": true,
+    "expected": {
+     "F-POS": {
+      "1e-12": "CERTIFIED"
+     },
+     "F-VEL": {
+      "1e-12": "CERTIFIED"
+     }
+    },
+    "id": "rc1-fall-exact",
+    "scene": "fall"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "T-ENERGY": {
+      "0": "CERTIFIED"
+     },
+     "T-LMAG": {
+      "0": "CERTIFIED"
+     },
+     "T-LVEC": {
+      "0": "CERTIFIED"
+     },
+     "T-MONO": {
+      "0": "CERTIFIED"
+     }
+    },
+    "id": "rc2a-top-constant",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "T-ENERGY": {
+      "1e-4": "CERTIFIED",
+      "1e-6": [
+       "REFUTED",
+       700
+      ]
+     },
+     "T-LMAG": {
+      "1e-4": "CERTIFIED",
+      "1e-6": [
+       "REFUTED",
+       700
+      ]
+     },
+     "T-LVEC": {
+      "1e-6": "CERTIFIED",
+      "1e-9": [
+       "REFUTED",
+       700
+      ]
+     }
+    },
+    "id": "rc2b-top-bump",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "all": "REFUSED",
+     "nonFiniteStep": 5,
+     "status": "nonfinite"
+    },
+    "id": "rc3-top-nan",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "all": "REFUSED",
+     "status": "malformed"
+    },
+    "id": "rc4a-top-truncated",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "all": "REFUSED",
+     "status": "malformed"
+    },
+    "id": "rc4b-top-wrong-sha",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "P-ENERGY": {
+      "0": "CERTIFIED"
+     }
+    },
+    "id": "rc5a-pendulum-return",
+    "scene": "pendulum"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "P-ENERGY": {
+      "0": [
+       "REFUTED",
+       6
+      ],
+      "1e-12": [
+       "REFUTED",
+       6
+      ],
+      "1e-9": "CERTIFIED"
+     }
+    },
+    "id": "rc5b-pendulum-speed",
+    "scene": "pendulum"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "P-ENERGY": {
+      "0": [
+       "REFUTED",
+       3
+      ],
+      "1e-12": "CERTIFIED"
+     }
+    },
+    "id": "rc5c-pendulum-angle",
+    "scene": "pendulum"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "T-MONO": {
+      "0": [
+       "REFUTED",
+       400
+      ],
+      "1e-4": "CERTIFIED",
+      "1e-9": [
+       "REFUTED",
+       400
+      ]
+     }
+    },
+    "id": "rc6-top-one-rise",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "T-ENERGY": {
+      "0": "CERTIFIED"
+     },
+     "T-LMAG": {
+      "0": "CERTIFIED"
+     },
+     "T-LVEC": {
+      "0": [
+       "REFUTED",
+       1
+      ],
+      "1e-12": [
+       "REFUTED",
+       1
+      ],
+      "1e-2": [
+       "REFUTED",
+       1
+      ],
+      "1e-4": [
+       "REFUTED",
+       1
+      ],
+      "1e-6": [
+       "REFUTED",
+       1
+      ],
+      "1e-9": [
+       "REFUTED",
+       1
+      ]
+     },
+     "T-MONO": {
+      "0": "CERTIFIED"
+     }
+    },
+    "id": "rc7a-top-world",
+    "scene": "top"
+   },
+   {
+    "asExpected": true,
+    "expected": {
+     "T-ENERGY": {
+      "0": [
+       "REFUTED",
+       1
+      ],
+      "1e-12": [
+       "REFUTED",
+       1
+      ],
+      "1e-2": [
+       "REFUTED",
+       1
+      ],
+      "1e-4": [
+       "REFUTED",
+       1
+      ],
+      "1e-6": [
+       "REFUTED",
+       1
+      ],
+      "1e-9": [
+       "REFUTED",
+       1
+      ]
+     }
+    },
+    "id": "rc7b-top-world-misread",
+    "scene": "top"
+   }
+  ],
+  "path": "corpus/physics-key/controls/runs.json",
+  "sha256": "03257ef4b2a38660e47e74797d62af5cda31fc666ef10cbc754c107db7d4a6ee"
+ },
+ "rules": {
+  "path": "corpus/physics-key/RULES.md",
+  "sha256": "4f007d493897c8f16872b31285e22b18ba05f13a4a78d6732d8cc4db320d5262"
+ },
+ "runs": [
+  {
+   "id": "fall-euler-h0.01",
+   "integrator": "euler",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.80999999999e-2",
+      "lo": "-9.81000000000e-2"
+     },
+     "max": {
+      "hi": "9.81000000000e-2",
+      "lo": "9.80999999999e-2",
+      "step": 200
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 21,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "3.08331138399e-14",
+      "lo": "3.08331138398e-14"
+     },
+     "max": {
+      "hi": "3.16630277553e-14",
+      "lo": "3.16630277552e-14",
+      "step": 199
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "1fbba4867974ade526edf0aa89fbff7529ef57a33b945a1f96a35ae249214ccc",
+   "status": "ok",
+   "steps": 200,
+   "timestep": "0.01"
+  },
+  {
+   "id": "fall-euler-h0.005",
+   "integrator": "euler",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-4.90500000003e-2",
+      "lo": "-4.90500000004e-2"
+     },
+     "max": {
+      "hi": "4.90500000004e-2",
+      "lo": "4.90500000003e-2",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 82,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 9,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.99025240732e-13",
+      "lo": "-1.99025240733e-13"
+     },
+     "max": {
+      "hi": "1.99025240733e-13",
+      "lo": "1.99025240732e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "9ef9b48cffaf01e1401b7150690b708a71b98999097a8c1e7f0ad077aadde656",
+   "status": "ok",
+   "steps": 400,
+   "timestep": "0.005"
+  },
+  {
+   "id": "fall-euler-h0.002",
+   "integrator": "euler",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-1.96199999998e-2",
+      "lo": "-1.96199999999e-2"
+     },
+     "max": {
+      "hi": "1.96199999999e-2",
+      "lo": "1.96199999998e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 510,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 51,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "1.94257943065e-13",
+      "lo": "1.94257943064e-13"
+     },
+     "max": {
+      "hi": "1.96166531908e-13",
+      "lo": "1.96166531907e-13",
+      "step": 999
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "50f3ab10d193e2258e50ea5feca22b7c910117c4f86cb09a14340d017e56a4a6",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "fall-euler-h0.001",
+   "integrator": "euler",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.81000000209e-3",
+      "lo": "-9.81000000210e-3"
+     },
+     "max": {
+      "hi": "9.81000000210e-3",
+      "lo": "9.81000000209e-3",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": 204,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.51441748030e-12",
+      "lo": "-1.51441748031e-12"
+     },
+     "max": {
+      "hi": "1.51441748031e-12",
+      "lo": "1.51441748030e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1812,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "57d1015ae97ef8b0302d80f4d2321b56a07de87be4ed3fadd466a8822857d3a4",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "fall-rk4-h0.01",
+   "integrator": "rk4",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "1.90336635342e-14",
+      "lo": "1.90336635341e-14"
+     },
+     "max": {
+      "hi": "2.34770389796e-14",
+      "lo": "2.34770389795e-14",
+      "step": 196
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "3.08331138399e-14",
+      "lo": "3.08331138398e-14"
+     },
+     "max": {
+      "hi": "3.16630277553e-14",
+      "lo": "3.16630277552e-14",
+      "step": 199
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "3148a88f70bffc8021b95ea3b39ebdfd50cb0bb34c195385ed788dd24ad8a8cf",
+   "status": "ok",
+   "steps": 200,
+   "timestep": "0.01"
+  },
+  {
+   "id": "fall-rk4-h0.005",
+   "integrator": "rk4",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-3.58970630998e-13",
+      "lo": "-3.58970630999e-13"
+     },
+     "max": {
+      "hi": "3.58970630999e-13",
+      "lo": "3.58970630998e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.99025240732e-13",
+      "lo": "-1.99025240733e-13"
+     },
+     "max": {
+      "hi": "1.99025240733e-13",
+      "lo": "1.99025240732e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "8c92cb7052ada849a50563801ca137d1532024e3237e1b07484d480dab940c83",
+   "status": "ok",
+   "steps": 400,
+   "timestep": "0.005"
+  },
+  {
+   "id": "fall-rk4-h0.002",
+   "integrator": "rk4",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "1.61142210687e-13",
+      "lo": "1.61142210686e-13"
+     },
+     "max": {
+      "hi": "1.66805122462e-13",
+      "lo": "1.66805122461e-13",
+      "step": 996
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "1.94257943065e-13",
+      "lo": "1.94257943064e-13"
+     },
+     "max": {
+      "hi": "1.96166531908e-13",
+      "lo": "1.96166531907e-13",
+      "step": 999
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "4dfb6befc0d76fe714652819a9c58e452d7136e1f285f0022992d8561c6863d6",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "fall-rk4-h0.001",
+   "integrator": "rk4",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-2.08026040837e-12",
+      "lo": "-2.08026040838e-12"
+     },
+     "max": {
+      "hi": "2.08026040838e-12",
+      "lo": "2.08026040837e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1638,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.51441748030e-12",
+      "lo": "-1.51441748031e-12"
+     },
+     "max": {
+      "hi": "1.51441748031e-12",
+      "lo": "1.51441748030e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1812,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "8792cf66d09f938a1e0c38c470781f2dcd5e5119563aeaea68faa71b62a44c06",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "fall-implicit-h0.01",
+   "integrator": "implicit",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.80999999999e-2",
+      "lo": "-9.81000000000e-2"
+     },
+     "max": {
+      "hi": "9.81000000000e-2",
+      "lo": "9.80999999999e-2",
+      "step": 200
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 21,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "3.08331138399e-14",
+      "lo": "3.08331138398e-14"
+     },
+     "max": {
+      "hi": "3.16630277553e-14",
+      "lo": "3.16630277552e-14",
+      "step": 199
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "1fbba4867974ade526edf0aa89fbff7529ef57a33b945a1f96a35ae249214ccc",
+   "status": "ok",
+   "steps": 200,
+   "timestep": "0.01"
+  },
+  {
+   "id": "fall-implicit-h0.005",
+   "integrator": "implicit",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-4.90500000003e-2",
+      "lo": "-4.90500000004e-2"
+     },
+     "max": {
+      "hi": "4.90500000004e-2",
+      "lo": "4.90500000003e-2",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 82,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 9,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.99025240732e-13",
+      "lo": "-1.99025240733e-13"
+     },
+     "max": {
+      "hi": "1.99025240733e-13",
+      "lo": "1.99025240732e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "9ef9b48cffaf01e1401b7150690b708a71b98999097a8c1e7f0ad077aadde656",
+   "status": "ok",
+   "steps": 400,
+   "timestep": "0.005"
+  },
+  {
+   "id": "fall-implicit-h0.002",
+   "integrator": "implicit",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-1.96199999998e-2",
+      "lo": "-1.96199999999e-2"
+     },
+     "max": {
+      "hi": "1.96199999999e-2",
+      "lo": "1.96199999998e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 510,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 51,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "1.94257943065e-13",
+      "lo": "1.94257943064e-13"
+     },
+     "max": {
+      "hi": "1.96166531908e-13",
+      "lo": "1.96166531907e-13",
+      "step": 999
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "50f3ab10d193e2258e50ea5feca22b7c910117c4f86cb09a14340d017e56a4a6",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "fall-implicit-h0.001",
+   "integrator": "implicit",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.81000000209e-3",
+      "lo": "-9.81000000210e-3"
+     },
+     "max": {
+      "hi": "9.81000000210e-3",
+      "lo": "9.81000000209e-3",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": 204,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.51441748030e-12",
+      "lo": "-1.51441748031e-12"
+     },
+     "max": {
+      "hi": "1.51441748031e-12",
+      "lo": "1.51441748030e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1812,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "57d1015ae97ef8b0302d80f4d2321b56a07de87be4ed3fadd466a8822857d3a4",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "fall-implicitfast-h0.01",
+   "integrator": "implicitfast",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.80999999999e-2",
+      "lo": "-9.81000000000e-2"
+     },
+     "max": {
+      "hi": "9.81000000000e-2",
+      "lo": "9.80999999999e-2",
+      "step": 200
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 21,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "3.08331138399e-14",
+      "lo": "3.08331138398e-14"
+     },
+     "max": {
+      "hi": "3.16630277553e-14",
+      "lo": "3.16630277552e-14",
+      "step": 199
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "1fbba4867974ade526edf0aa89fbff7529ef57a33b945a1f96a35ae249214ccc",
+   "status": "ok",
+   "steps": 200,
+   "timestep": "0.01"
+  },
+  {
+   "id": "fall-implicitfast-h0.005",
+   "integrator": "implicitfast",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-4.90500000003e-2",
+      "lo": "-4.90500000004e-2"
+     },
+     "max": {
+      "hi": "4.90500000004e-2",
+      "lo": "4.90500000003e-2",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 82,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 9,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.99025240732e-13",
+      "lo": "-1.99025240733e-13"
+     },
+     "max": {
+      "hi": "1.99025240733e-13",
+      "lo": "1.99025240732e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "9ef9b48cffaf01e1401b7150690b708a71b98999097a8c1e7f0ad077aadde656",
+   "status": "ok",
+   "steps": 400,
+   "timestep": "0.005"
+  },
+  {
+   "id": "fall-implicitfast-h0.002",
+   "integrator": "implicitfast",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-1.96199999998e-2",
+      "lo": "-1.96199999999e-2"
+     },
+     "max": {
+      "hi": "1.96199999999e-2",
+      "lo": "1.96199999998e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 510,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 51,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "1.94257943065e-13",
+      "lo": "1.94257943064e-13"
+     },
+     "max": {
+      "hi": "1.96166531908e-13",
+      "lo": "1.96166531907e-13",
+      "step": 999
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "50f3ab10d193e2258e50ea5feca22b7c910117c4f86cb09a14340d017e56a4a6",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "fall-implicitfast-h0.001",
+   "integrator": "implicitfast",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.81000000209e-3",
+      "lo": "-9.81000000210e-3"
+     },
+     "max": {
+      "hi": "9.81000000210e-3",
+      "lo": "9.81000000209e-3",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": 204,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.51441748030e-12",
+      "lo": "-1.51441748031e-12"
+     },
+     "max": {
+      "hi": "1.51441748031e-12",
+      "lo": "1.51441748030e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1812,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "57d1015ae97ef8b0302d80f4d2321b56a07de87be4ed3fadd466a8822857d3a4",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "fall-discrete-h0.01",
+   "integrator": "discrete",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.80999999999e-2",
+      "lo": "-9.81000000000e-2"
+     },
+     "max": {
+      "hi": "9.81000000000e-2",
+      "lo": "9.80999999999e-2",
+      "step": 200
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 21,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "3.08331138399e-14",
+      "lo": "3.08331138398e-14"
+     },
+     "max": {
+      "hi": "3.16630277553e-14",
+      "lo": "3.16630277552e-14",
+      "step": 199
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "1fbba4867974ade526edf0aa89fbff7529ef57a33b945a1f96a35ae249214ccc",
+   "status": "ok",
+   "steps": 200,
+   "timestep": "0.01"
+  },
+  {
+   "id": "fall-discrete-h0.005",
+   "integrator": "discrete",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-4.90500000003e-2",
+      "lo": "-4.90500000004e-2"
+     },
+     "max": {
+      "hi": "4.90500000004e-2",
+      "lo": "4.90500000003e-2",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 82,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 9,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.99025240732e-13",
+      "lo": "-1.99025240733e-13"
+     },
+     "max": {
+      "hi": "1.99025240733e-13",
+      "lo": "1.99025240732e-13",
+      "step": 400
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "9ef9b48cffaf01e1401b7150690b708a71b98999097a8c1e7f0ad077aadde656",
+   "status": "ok",
+   "steps": 400,
+   "timestep": "0.005"
+  },
+  {
+   "id": "fall-discrete-h0.002",
+   "integrator": "discrete",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-1.96199999998e-2",
+      "lo": "-1.96199999999e-2"
+     },
+     "max": {
+      "hi": "1.96199999999e-2",
+      "lo": "1.96199999998e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 510,
+       "verdict": "REFUTED"
+      },
+      "1e-3": {
+       "firstStep": 51,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "1.94257943065e-13",
+      "lo": "1.94257943064e-13"
+     },
+     "max": {
+      "hi": "1.96166531908e-13",
+      "lo": "1.96166531907e-13",
+      "step": 999
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "50f3ab10d193e2258e50ea5feca22b7c910117c4f86cb09a14340d017e56a4a6",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "fall-discrete-h0.001",
+   "integrator": "discrete",
+   "laws": {
+    "F-POS": {
+     "last": {
+      "hi": "-9.81000000209e-3",
+      "lo": "-9.81000000210e-3"
+     },
+     "max": {
+      "hi": "9.81000000210e-3",
+      "lo": "9.81000000209e-3",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": 204,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "F-VEL": {
+     "last": {
+      "hi": "-1.51441748030e-12",
+      "lo": "-1.51441748031e-12"
+     },
+     "max": {
+      "hi": "1.51441748031e-12",
+      "lo": "1.51441748030e-12",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1812,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-3": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "fall",
+   "sha256": "57d1015ae97ef8b0302d80f4d2321b56a07de87be4ed3fadd466a8822857d3a4",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "pendulum-euler-h0.01",
+   "integrator": "euler",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-5.81724161169e-3",
+      "lo": "-5.81724161170e-3"
+     },
+     "max": {
+      "hi": "1.84485822094e-2",
+      "lo": "1.84485822093e-2",
+      "step": 893
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 23,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "4840b1b7144361d2f628d6577867523a40f9a480c1cf839a5e271aff2f144793",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "pendulum-euler-h0.005",
+   "integrator": "euler",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-3.02500446402e-3",
+      "lo": "-3.02500446403e-3"
+     },
+     "max": {
+      "hi": "9.19107154537e-3",
+      "lo": "9.19107154536e-3",
+      "step": 179
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "d5aa6903841ad8041f9d1c43ce2ca66a9c004d2de4f8e424d014437c9bf5659b",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "pendulum-euler-h0.002",
+   "integrator": "euler",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-1.23896309154e-3",
+      "lo": "-1.23896309155e-3"
+     },
+     "max": {
+      "hi": "3.66848750338e-3",
+      "lo": "3.66848750337e-3",
+      "step": 448
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 7,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "78519a150742165099c65b413d30053f317f4b454565dd098891e52c79b26106",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "pendulum-euler-h0.001",
+   "integrator": "euler",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-6.24393698337e-4",
+      "lo": "-6.24393698338e-4"
+     },
+     "max": {
+      "hi": "1.83292784871e-3",
+      "lo": "1.83292784870e-3",
+      "step": 7594
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 25,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "7dbcb1f0555a22accfc0315ce5ba2127009699a82496f40928f11a59c12cf77e",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "pendulum-rk4-h0.01",
+   "integrator": "rk4",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-5.75812103292e-9",
+      "lo": "-5.75812103293e-9"
+     },
+     "max": {
+      "hi": "1.51312734005e-8",
+      "lo": "1.51312734004e-8",
+      "step": 980
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": 17,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "3dcdbf8f22c13b062c4a26c46927143b6c0d1bd44b2dad13b70770b4150c20e8",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "pendulum-rk4-h0.005",
+   "integrator": "rk4",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-6.87715605938e-11",
+      "lo": "-6.87715605939e-11"
+     },
+     "max": {
+      "hi": "6.67763607108e-10",
+      "lo": "6.67763607107e-10",
+      "step": 1960
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 5,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "7eb94736b1325b5a008874d7cb761283ef66dfb8d5081fc5e59144344b8316d6",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "pendulum-rk4-h0.002",
+   "integrator": "rk4",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "2.71130601709e-12",
+      "lo": "2.71130601708e-12"
+     },
+     "max": {
+      "hi": "1.28279978625e-11",
+      "lo": "1.28279978624e-11",
+      "step": 4899
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 66,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "65c77490c8853f8ce7e53487ec4811bc8935fe07ada2dec78df253d8fdd01495",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "pendulum-rk4-h0.001",
+   "integrator": "rk4",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "2.60688198722e-13",
+      "lo": "2.60688198721e-13"
+     },
+     "max": {
+      "hi": "7.17112624520e-13",
+      "lo": "7.17112624519e-13",
+      "step": 9795
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "1cefb6de81033814b03ae12f5f0ca25b576c7783fbfa7fd883b6c55de88a396b",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "pendulum-implicit-h0.01",
+   "integrator": "implicit",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-5.81724161169e-3",
+      "lo": "-5.81724161170e-3"
+     },
+     "max": {
+      "hi": "1.84485822094e-2",
+      "lo": "1.84485822093e-2",
+      "step": 893
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 23,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "16fc23ebda4f8a179505b660b0e748bf9bd84d9810893b87b2c2d625d5252f35",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "pendulum-implicit-h0.005",
+   "integrator": "implicit",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-3.02500446402e-3",
+      "lo": "-3.02500446403e-3"
+     },
+     "max": {
+      "hi": "9.19107154537e-3",
+      "lo": "9.19107154536e-3",
+      "step": 179
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "98db6b0fd54cc0685fa7e75999bafe254cebf5c6407d1720ca5dcca3ec7b1f21",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "pendulum-implicit-h0.002",
+   "integrator": "implicit",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-1.23896309154e-3",
+      "lo": "-1.23896309155e-3"
+     },
+     "max": {
+      "hi": "3.66848750338e-3",
+      "lo": "3.66848750337e-3",
+      "step": 448
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 7,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "db1d57cc1b131ef61c3f5eeb82bd290c93c9e75781c5567925998e54f6c3170d",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "pendulum-implicit-h0.001",
+   "integrator": "implicit",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-6.24393698337e-4",
+      "lo": "-6.24393698338e-4"
+     },
+     "max": {
+      "hi": "1.83292784871e-3",
+      "lo": "1.83292784870e-3",
+      "step": 7594
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 25,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "e537969cc3a5d6c5ef15b4bdd329d08d00b8b67d9f272a0f73642f59219844d9",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "pendulum-implicitfast-h0.01",
+   "integrator": "implicitfast",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-5.81724161169e-3",
+      "lo": "-5.81724161170e-3"
+     },
+     "max": {
+      "hi": "1.84485822094e-2",
+      "lo": "1.84485822093e-2",
+      "step": 893
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 23,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "4840b1b7144361d2f628d6577867523a40f9a480c1cf839a5e271aff2f144793",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "pendulum-implicitfast-h0.005",
+   "integrator": "implicitfast",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-3.02500446402e-3",
+      "lo": "-3.02500446403e-3"
+     },
+     "max": {
+      "hi": "9.19107154537e-3",
+      "lo": "9.19107154536e-3",
+      "step": 179
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "d5aa6903841ad8041f9d1c43ce2ca66a9c004d2de4f8e424d014437c9bf5659b",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "pendulum-implicitfast-h0.002",
+   "integrator": "implicitfast",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-1.23896309154e-3",
+      "lo": "-1.23896309155e-3"
+     },
+     "max": {
+      "hi": "3.66848750338e-3",
+      "lo": "3.66848750337e-3",
+      "step": 448
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 7,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "78519a150742165099c65b413d30053f317f4b454565dd098891e52c79b26106",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "pendulum-implicitfast-h0.001",
+   "integrator": "implicitfast",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-6.24393698337e-4",
+      "lo": "-6.24393698338e-4"
+     },
+     "max": {
+      "hi": "1.83292784871e-3",
+      "lo": "1.83292784870e-3",
+      "step": 7594
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 25,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "7dbcb1f0555a22accfc0315ce5ba2127009699a82496f40928f11a59c12cf77e",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "pendulum-discrete-h0.01",
+   "integrator": "discrete",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-5.81724161169e-3",
+      "lo": "-5.81724161170e-3"
+     },
+     "max": {
+      "hi": "1.84485822094e-2",
+      "lo": "1.84485822093e-2",
+      "step": 893
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 23,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "4840b1b7144361d2f628d6577867523a40f9a480c1cf839a5e271aff2f144793",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "pendulum-discrete-h0.005",
+   "integrator": "discrete",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-3.02500446402e-3",
+      "lo": "-3.02500446403e-3"
+     },
+     "max": {
+      "hi": "9.19107154537e-3",
+      "lo": "9.19107154536e-3",
+      "step": 179
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "d5aa6903841ad8041f9d1c43ce2ca66a9c004d2de4f8e424d014437c9bf5659b",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "pendulum-discrete-h0.002",
+   "integrator": "discrete",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-1.23896309154e-3",
+      "lo": "-1.23896309155e-3"
+     },
+     "max": {
+      "hi": "3.66848750338e-3",
+      "lo": "3.66848750337e-3",
+      "step": 448
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 7,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "78519a150742165099c65b413d30053f317f4b454565dd098891e52c79b26106",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "pendulum-discrete-h0.001",
+   "integrator": "discrete",
+   "laws": {
+    "P-ENERGY": {
+     "last": {
+      "hi": "-6.24393698337e-4",
+      "lo": "-6.24393698338e-4"
+     },
+     "max": {
+      "hi": "1.83292784871e-3",
+      "lo": "1.83292784870e-3",
+      "step": 7594
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 25,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "pendulum",
+   "sha256": "7dbcb1f0555a22accfc0315ce5ba2127009699a82496f40928f11a59c12cf77e",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "top-euler-h0.01",
+   "integrator": "euler",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "9.92431989935e-2",
+      "lo": "9.92431989934e-2"
+     },
+     "max": {
+      "hi": "9.92431989935e-2",
+      "lo": "9.92431989934e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 229,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 122,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 5,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "9.91856448586e-2",
+      "lo": "9.91856448585e-2"
+     },
+     "max": {
+      "hi": "9.91856448586e-2",
+      "lo": "9.91856448585e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 229,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 124,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.46039156445e-3",
+      "lo": "2.46039156444e-3"
+     },
+     "max": {
+      "hi": "2.54488200127e-3",
+      "lo": "2.54488200126e-3",
+      "step": 786
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 212,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "1.27276929700e-6",
+      "lo": "1.27276929699e-6"
+     },
+     "max": {
+      "hi": "6.14550326232e-4",
+      "lo": "6.14550326231e-4",
+      "step": 709
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 193,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 90,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "afc50ed8f69bd45eaa4e47fed03e10e0a0dc86f76ce450025dd75e04a84aba27",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "top-euler-h0.005",
+   "integrator": "euler",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "4.78684308536e-2",
+      "lo": "4.78684308535e-2"
+     },
+     "max": {
+      "hi": "4.78684308536e-2",
+      "lo": "4.78684308535e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 498,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 273,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 19,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "4.78378519400e-2",
+      "lo": "4.78378519399e-2"
+     },
+     "max": {
+      "hi": "4.78378519400e-2",
+      "lo": "4.78378519399e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 498,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 275,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 29,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "5.93399737396e-4",
+      "lo": "5.93399737395e-4"
+     },
+     "max": {
+      "hi": "6.17614348017e-4",
+      "lo": "6.17614348016e-4",
+      "step": 1575
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 583,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 23,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "3.74505951530e-7",
+      "lo": "3.74505951529e-7"
+     },
+     "max": {
+      "hi": "1.43066093392e-4",
+      "lo": "1.43066093391e-4",
+      "step": 1412
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 462,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 238,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "9b28dbcd9c465ab55d62785f2563bf518730fad670e9e322f7718a3bd06eca88",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "top-euler-h0.002",
+   "integrator": "euler",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "1.87470636007e-2",
+      "lo": "1.87470636006e-2"
+     },
+     "max": {
+      "hi": "1.87470636007e-2",
+      "lo": "1.87470636006e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3250,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 781,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 147,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "1.87343675038e-2",
+      "lo": "1.87343675037e-2"
+     },
+     "max": {
+      "hi": "1.87343675038e-2",
+      "lo": "1.87343675037e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3251,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 783,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 254,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "9.29487542427e-5",
+      "lo": "9.29487542426e-5"
+     },
+     "max": {
+      "hi": "9.70339751383e-5",
+      "lo": "9.70339751382e-5",
+      "step": 3943
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 169,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 2,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "6.58266856147e-8",
+      "lo": "6.58266856146e-8"
+     },
+     "max": {
+      "hi": "2.19459929203e-5",
+      "lo": "2.19459929202e-5",
+      "step": 3523
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": 792,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "c7d1bb236bc2a1a0232b74e8aafcea5ce55c6bd40f4bdc9585f88bd725344769",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "top-euler-h0.001",
+   "integrator": "euler",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "9.30843409441e-3",
+      "lo": "9.30843409440e-3"
+     },
+     "max": {
+      "hi": "9.30843409441e-3",
+      "lo": "9.30843409440e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1712,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 580,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "9.30200593354e-3",
+      "lo": "9.30200593353e-3"
+     },
+     "max": {
+      "hi": "9.30200593354e-3",
+      "lo": "9.30200593353e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1715,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 709,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.30742146151e-5",
+      "lo": "2.30742146150e-5"
+     },
+     "max": {
+      "hi": "2.41093379395e-5",
+      "lo": "2.41093379394e-5",
+      "step": 7891
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1173,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "1.69702246010e-8",
+      "lo": "1.69702246009e-8"
+     },
+     "max": {
+      "hi": "5.41055640677e-6",
+      "lo": "5.41055640676e-6",
+      "step": 7042
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": 1899,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "d9505fddc4d3db509bc5eb4c628fc4095471495c2a790f0a44eea8fd60e2826e",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "top-rk4-h0.01",
+   "integrator": "rk4",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-4.54505182342e-10",
+      "lo": "-4.54505182343e-10"
+     },
+     "max": {
+      "hi": "1.90895826914e-9",
+      "lo": "1.90895826913e-9",
+      "step": 742
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 12,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": 194,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-4.54245450391e-10",
+      "lo": "-4.54245450392e-10"
+     },
+     "max": {
+      "hi": "1.90839537427e-9",
+      "lo": "1.90839537426e-9",
+      "step": 742
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 12,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": 194,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "1.27718173265e-15",
+      "lo": "1.27718173264e-15"
+     },
+     "max": {
+      "hi": "1.51816038732e-15",
+      "lo": "1.51816038731e-15",
+      "step": 726
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 2,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": 199,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-8.55380116878e-13",
+      "lo": "-8.55380116879e-13"
+     },
+     "max": {
+      "hi": "6.05787279548e-11",
+      "lo": "6.05787279547e-11",
+      "step": 688
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 217,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "719b3a75e516a83aaffa87a4cb115a5be4e3055721f2e58ead73de31a1360593",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "top-rk4-h0.005",
+   "integrator": "rk4",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.47275748512e-11",
+      "lo": "-1.47275748513e-11"
+     },
+     "max": {
+      "hi": "1.05914577421e-10",
+      "lo": "1.05914577420e-10",
+      "step": 1484
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 199,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.47204431538e-11",
+      "lo": "-1.47204431539e-11"
+     },
+     "max": {
+      "hi": "1.05886922234e-10",
+      "lo": "1.05886922233e-10",
+      "step": 1484
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 199,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "4.98976809818e-18",
+      "lo": "4.98976809817e-18"
+     },
+     "max": {
+      "hi": "5.93253379625e-18",
+      "lo": "5.93253379624e-18",
+      "step": 1451
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 56,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": 513,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-2.71612412191e-14",
+      "lo": "-2.71612412192e-14"
+     },
+     "max": {
+      "hi": "1.94084145464e-12",
+      "lo": "1.94084145463e-12",
+      "step": 475
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 450,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "38d6d00597b4896e3d16b951d2c838fa3c445ee33721d252695f7bf3d8159472",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "top-rk4-h0.002",
+   "integrator": "rk4",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.66358990250e-13",
+      "lo": "-1.66358990251e-13"
+     },
+     "max": {
+      "hi": "2.50263357439e-12",
+      "lo": "2.50263357438e-12",
+      "step": 3709
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 896,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.66482999458e-13",
+      "lo": "-1.66482999459e-13"
+     },
+     "max": {
+      "hi": "2.50222060086e-12",
+      "lo": "2.50222060085e-12",
+      "step": 3709
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 896,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "3.26865088643e-21",
+      "lo": "3.26865088642e-21"
+     },
+     "max": {
+      "hi": "3.88732396642e-21",
+      "lo": "3.88732396641e-21",
+      "step": 3628
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 950,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-1.79932092694e-16",
+      "lo": "-1.79932092695e-16"
+     },
+     "max": {
+      "hi": "2.02312665868e-14",
+      "lo": "2.02312665867e-14",
+      "step": 3438
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "5c1e0ff0cfa0978d2d0956b21b5c474236eb8cf942c1daa422f533447f6a35a7",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "top-rk4-h0.001",
+   "integrator": "rk4",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.46120827558e-14",
+      "lo": "-1.46120827559e-14"
+     },
+     "max": {
+      "hi": "1.61478115829e-13",
+      "lo": "1.61478115828e-13",
+      "step": 7417
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.46742889752e-14",
+      "lo": "-1.46742889753e-14"
+     },
+     "max": {
+      "hi": "1.61639772403e-13",
+      "lo": "1.61639772402e-13",
+      "step": 7417
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "1.27588544780e-23",
+      "lo": "1.27588544779e-23"
+     },
+     "max": {
+      "hi": "1.51833108178e-23",
+      "lo": "1.51833108177e-23",
+      "step": 7254
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 2418,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-3.91838726876e-17",
+      "lo": "-3.91838726877e-17"
+     },
+     "max": {
+      "hi": "7.28950571678e-16",
+      "lo": "7.28950571677e-16",
+      "step": 2370
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "ee808af8b6876b2dac198a4e4af907bf2acce9ed25ec0fdff5ad5184d87946a3",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "top-implicit-h0.01",
+   "integrator": "implicit",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-8.64147471669e-2",
+      "lo": "-8.64147471670e-2"
+     },
+     "max": {
+      "hi": "8.64147471670e-2",
+      "lo": "8.64147471669e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 120,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 5,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-8.63407518887e-2",
+      "lo": "-8.63407518888e-2"
+     },
+     "max": {
+      "hi": "8.63407518888e-2",
+      "lo": "8.63407518887e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 121,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3"
+     },
+     "max": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 222,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 15,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-2.14042698130e-6",
+      "lo": "-2.14042698131e-6"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "7fdc1b400f30e36e1f53af8c5809a0e3064917f32a51950c6e5469ab799533e3",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "top-implicit-h0.005",
+   "integrator": "implicit",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-4.46693566599e-2",
+      "lo": "-4.46693566600e-2"
+     },
+     "max": {
+      "hi": "4.46693566600e-2",
+      "lo": "4.46693566599e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 270,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 18,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-4.46346696952e-2",
+      "lo": "-4.46346696953e-2"
+     },
+     "max": {
+      "hi": "4.46346696953e-2",
+      "lo": "4.46346696952e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 272,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 29,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4"
+     },
+     "max": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 522,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 164,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-4.84858356865e-7",
+      "lo": "-4.84858356866e-7"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "38c07c43de5129082221d2b05456d6cdb185913ddfbb7ac50029fde4d31e2198",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "top-implicit-h0.002",
+   "integrator": "implicit",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.82355737171e-2",
+      "lo": "-1.82355737172e-2"
+     },
+     "max": {
+      "hi": "1.82355737172e-2",
+      "lo": "1.82355737171e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3266,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 778,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 147,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.82222204698e-2",
+      "lo": "-1.82222204699e-2"
+     },
+     "max": {
+      "hi": "1.82222204699e-2",
+      "lo": "1.82222204698e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3267,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 780,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 253,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "9.17508576130e-5",
+      "lo": "9.17508576129e-5"
+     },
+     "max": {
+      "hi": "9.17590962363e-5",
+      "lo": "9.17590962362e-5",
+      "step": 4980
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 508,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-7.29652269811e-8",
+      "lo": "-7.29652269812e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "f2830e2b7425a69cf3a827908a16d0b7d8a6d869a2550357330e45124bb59ecd",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "top-implicit-h0.001",
+   "integrator": "implicit",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-9.18057478761e-3",
+      "lo": "-9.18057478762e-3"
+     },
+     "max": {
+      "hi": "9.18057478762e-3",
+      "lo": "9.18057478761e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1709,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 579,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-9.17398234756e-3",
+      "lo": "-9.17398234757e-3"
+     },
+     "max": {
+      "hi": "9.17398234757e-3",
+      "lo": "9.17398234756e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1712,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 708,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.30849350661e-5",
+      "lo": "2.30849350660e-5"
+     },
+     "max": {
+      "hi": "2.30886971788e-5",
+      "lo": "2.30886971787e-5",
+      "step": 9946
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1225,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 12,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-1.78657725544e-8",
+      "lo": "-1.78657725545e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "3a2ff45922c0883c4d6568d797bc749797988d92b561267f756d4759f9772a5c",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "top-implicitfast-h0.01",
+   "integrator": "implicitfast",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-8.64147471669e-2",
+      "lo": "-8.64147471670e-2"
+     },
+     "max": {
+      "hi": "8.64147471670e-2",
+      "lo": "8.64147471669e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 120,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 5,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-8.63407518887e-2",
+      "lo": "-8.63407518888e-2"
+     },
+     "max": {
+      "hi": "8.63407518888e-2",
+      "lo": "8.63407518887e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 121,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3"
+     },
+     "max": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 222,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 15,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-2.14042698123e-6",
+      "lo": "-2.14042698124e-6"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "07635eb4b72f48cf5209d6e3f8c4a27326a93d243066c2620c29f6e0098087c8",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "top-implicitfast-h0.005",
+   "integrator": "implicitfast",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-4.46693566599e-2",
+      "lo": "-4.46693566600e-2"
+     },
+     "max": {
+      "hi": "4.46693566600e-2",
+      "lo": "4.46693566599e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 270,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 18,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-4.46346696952e-2",
+      "lo": "-4.46346696953e-2"
+     },
+     "max": {
+      "hi": "4.46346696953e-2",
+      "lo": "4.46346696952e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 272,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 29,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4"
+     },
+     "max": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 522,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 164,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-4.84858356883e-7",
+      "lo": "-4.84858356884e-7"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "5f137edb49e8ca2a72a7e5613ce937f5a0acbfb1b6a5eda3fc2c17d8b64763a0",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "top-implicitfast-h0.002",
+   "integrator": "implicitfast",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.82355737171e-2",
+      "lo": "-1.82355737172e-2"
+     },
+     "max": {
+      "hi": "1.82355737172e-2",
+      "lo": "1.82355737171e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3266,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 778,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 147,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.82222204698e-2",
+      "lo": "-1.82222204699e-2"
+     },
+     "max": {
+      "hi": "1.82222204699e-2",
+      "lo": "1.82222204698e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3267,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 780,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 253,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "9.17508576130e-5",
+      "lo": "9.17508576129e-5"
+     },
+     "max": {
+      "hi": "9.17590962363e-5",
+      "lo": "9.17590962362e-5",
+      "step": 4980
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 508,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-7.29652269059e-8",
+      "lo": "-7.29652269060e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "509f1404df5f3e1c8f45ebe052f73ebb8f977476dbaf595d39b5ede37cead18e",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "top-implicitfast-h0.001",
+   "integrator": "implicitfast",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-9.18057478760e-3",
+      "lo": "-9.18057478761e-3"
+     },
+     "max": {
+      "hi": "9.18057478761e-3",
+      "lo": "9.18057478760e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1709,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 579,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-9.17398234755e-3",
+      "lo": "-9.17398234756e-3"
+     },
+     "max": {
+      "hi": "9.17398234756e-3",
+      "lo": "9.17398234755e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1712,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 708,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.30849350660e-5",
+      "lo": "2.30849350659e-5"
+     },
+     "max": {
+      "hi": "2.30886971787e-5",
+      "lo": "2.30886971786e-5",
+      "step": 9946
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1225,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 12,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-1.78657725399e-8",
+      "lo": "-1.78657725400e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "dd7296e44046559efc44dee9136c36401823b67a5c20f6bd3124ec98254ed5d5",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  },
+  {
+   "id": "top-discrete-h0.01",
+   "integrator": "discrete",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-8.64147471669e-2",
+      "lo": "-8.64147471670e-2"
+     },
+     "max": {
+      "hi": "8.64147471670e-2",
+      "lo": "8.64147471669e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 120,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 5,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-8.63407518887e-2",
+      "lo": "-8.63407518888e-2"
+     },
+     "max": {
+      "hi": "8.63407518888e-2",
+      "lo": "8.63407518887e-2",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 225,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 121,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 6,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3"
+     },
+     "max": {
+      "hi": "2.17684966617e-3",
+      "lo": "2.17684966616e-3",
+      "step": 1000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 222,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 15,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-2.14042698123e-6",
+      "lo": "-2.14042698124e-6"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "07635eb4b72f48cf5209d6e3f8c4a27326a93d243066c2620c29f6e0098087c8",
+   "status": "ok",
+   "steps": 1000,
+   "timestep": "0.01"
+  },
+  {
+   "id": "top-discrete-h0.005",
+   "integrator": "discrete",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-4.46693566599e-2",
+      "lo": "-4.46693566600e-2"
+     },
+     "max": {
+      "hi": "4.46693566600e-2",
+      "lo": "4.46693566599e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 270,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 18,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-4.46346696952e-2",
+      "lo": "-4.46346696953e-2"
+     },
+     "max": {
+      "hi": "4.46346696953e-2",
+      "lo": "4.46346696952e-2",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 495,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 272,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 29,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4"
+     },
+     "max": {
+      "hi": "5.62461283773e-4",
+      "lo": "5.62461283772e-4",
+      "step": 2000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 522,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 164,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-4.84858356883e-7",
+      "lo": "-4.84858356884e-7"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "5f137edb49e8ca2a72a7e5613ce937f5a0acbfb1b6a5eda3fc2c17d8b64763a0",
+   "status": "ok",
+   "steps": 2000,
+   "timestep": "0.005"
+  },
+  {
+   "id": "top-discrete-h0.002",
+   "integrator": "discrete",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-1.82355737171e-2",
+      "lo": "-1.82355737172e-2"
+     },
+     "max": {
+      "hi": "1.82355737172e-2",
+      "lo": "1.82355737171e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3266,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 778,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 147,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-1.82222204698e-2",
+      "lo": "-1.82222204699e-2"
+     },
+     "max": {
+      "hi": "1.82222204699e-2",
+      "lo": "1.82222204698e-2",
+      "step": 5000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": 3267,
+       "verdict": "REFUTED"
+      },
+      "1e-4": {
+       "firstStep": 780,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 253,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "9.17508576130e-5",
+      "lo": "9.17508576129e-5"
+     },
+     "max": {
+      "hi": "9.17590962363e-5",
+      "lo": "9.17590962362e-5",
+      "step": 4980
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 508,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 3,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-7.29652269059e-8",
+      "lo": "-7.29652269060e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "509f1404df5f3e1c8f45ebe052f73ebb8f977476dbaf595d39b5ede37cead18e",
+   "status": "ok",
+   "steps": 5000,
+   "timestep": "0.002"
+  },
+  {
+   "id": "top-discrete-h0.001",
+   "integrator": "discrete",
+   "laws": {
+    "T-ENERGY": {
+     "last": {
+      "hi": "-9.18057478760e-3",
+      "lo": "-9.18057478761e-3"
+     },
+     "max": {
+      "hi": "9.18057478761e-3",
+      "lo": "9.18057478760e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1709,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 579,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LMAG": {
+     "last": {
+      "hi": "-9.17398234755e-3",
+      "lo": "-9.17398234756e-3"
+     },
+     "max": {
+      "hi": "9.17398234756e-3",
+      "lo": "9.17398234755e-3",
+      "step": 10000
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1712,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 708,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-LVEC": {
+     "last": {
+      "hi": "2.30849350660e-5",
+      "lo": "2.30849350659e-5"
+     },
+     "max": {
+      "hi": "2.30886971787e-5",
+      "lo": "2.30886971786e-5",
+      "step": 9946
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-12": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": 1225,
+       "verdict": "REFUTED"
+      },
+      "1e-6": {
+       "firstStep": 12,
+       "verdict": "REFUTED"
+      },
+      "1e-9": {
+       "firstStep": 1,
+       "verdict": "REFUTED"
+      }
+     }
+    },
+    "T-MONO": {
+     "last": {
+      "hi": "-1.78657725399e-8",
+      "lo": "-1.78657725400e-8"
+     },
+     "max": {
+      "hi": "0",
+      "lo": "0",
+      "step": 0
+     },
+     "tolerances": {
+      "0": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-12": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-2": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-4": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-6": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      },
+      "1e-9": {
+       "firstStep": null,
+       "verdict": "CERTIFIED"
+      }
+     }
+    }
+   },
+   "nonFiniteStep": null,
+   "scene": "top",
+   "sha256": "dd7296e44046559efc44dee9136c36401823b67a5c20f6bd3124ec98254ed5d5",
+   "status": "ok",
+   "steps": 10000,
+   "timestep": "0.001"
+  }
+ ],
+ "sameBytes": {
+  "fall 0.001": [
+   "euler = implicit = implicitfast = discrete",
+   "rk4"
+  ],
+  "fall 0.002": [
+   "euler = implicit = implicitfast = discrete",
+   "rk4"
+  ],
+  "fall 0.005": [
+   "euler = implicit = implicitfast = discrete",
+   "rk4"
+  ],
+  "fall 0.01": [
+   "euler = implicit = implicitfast = discrete",
+   "rk4"
+  ],
+  "pendulum 0.001": [
+   "euler = implicitfast = discrete",
+   "rk4",
+   "implicit"
+  ],
+  "pendulum 0.002": [
+   "euler = implicitfast = discrete",
+   "rk4",
+   "implicit"
+  ],
+  "pendulum 0.005": [
+   "euler = implicitfast = discrete",
+   "rk4",
+   "implicit"
+  ],
+  "pendulum 0.01": [
+   "euler = implicitfast = discrete",
+   "rk4",
+   "implicit"
+  ],
+  "top 0.001": [
+   "euler",
+   "rk4",
+   "implicit",
+   "implicitfast = discrete"
+  ],
+  "top 0.002": [
+   "euler",
+   "rk4",
+   "implicit",
+   "implicitfast = discrete"
+  ],
+  "top 0.005": [
+   "euler",
+   "rk4",
+   "implicit",
+   "implicitfast = discrete"
+  ],
+  "top 0.01": [
+   "euler",
+   "rk4",
+   "implicit",
+   "implicitfast = discrete"
+  ]
+ },
+ "subject": "Each verdict is about one pinned file of bytes (one recorded run), never about the engine as such.",
+ "what": "The physics answer key, v0: conservation laws decided in exact arithmetic on the recorded output of a physics engine"
+}

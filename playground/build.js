@@ -46,6 +46,7 @@ const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
 const BH = require(path.join(HERE, 'black-hole', 'build.js'));
 const TXM = require(path.join(HERE, 'textbook-machine', 'build.js'));
 const TXC = require(path.join(HERE, 'textbook-machine', 'claims.build.js'));   /* its second page: real claims decided in the tab */
+const PK = require(path.join(HERE, 'physics-key', 'build.js'));   /* the physics answer key (2026-11-17): recorded simulator runs decided again in the tab */
 const RLC = require(path.join(HERE, 'return-level-check', 'build.js'));
 const PUI = require(path.join(HERE, 'pu', 'build.js'));
 const RLA = require(path.join(HERE, 'return-level-atlas', 'build.js'));
@@ -121,13 +122,15 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { 'black-hole': 'tools/run-bh-maps.js', 'textbook-machine': 'playground/textbook-machine/battery.js', pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js', pu: 'instruments/pu/battery.js' };
+const BATTERY_FOR = { 'physics-key': 'tools/record-physics-key.js', 'black-hole': 'tools/run-bh-maps.js', 'textbook-machine': 'playground/textbook-machine/battery.js', pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js', pu: 'instruments/pu/battery.js' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
   { id: 'interferometer', title: 'Not the picture. The set of pictures.', blurb: 'The black-hole image is one sky chosen by a prior from the many the data allow. This draws the set, and brackets the source without any prior at all.', backing: 'float', art: () => UV.svg, scale: `longest baseline ${n(UV.maxUV, 2)} Gλ` },
   { id: 'black-hole', title: 'Every line says what it rests on.', blurb: 'M87*\u2019s black hole with each element\u2019s standing drawn: the shadow\u2019s edge decided in interval arithmetic and solid, the image computed by rays traced through the Kerr metric, the thin disk assumed and turning on M87*\u2019s own clock.', backing: 'certificate', art: () => BH.cardArt(), scale: `${BH.facts.spins} spins \u00b7 ${BH.facts.views - BH.facts.spins + 1} views` },
   { id: 'textbook-machine', title: 'One tape. One head. A few rules.', blurb: 'A Turing machine you run in your tab, five machines up a ladder of ideas with every step said in words: checking a setting stays one pass while finding one more than doubles with every switch, and the busy beaver shows the question running cannot answer.', backing: 'exact', art: () => TXM.cardArt(), scale: `${fmt(TXM.facts.find10)} steps to find, ${TXM.facts.check10} to check` },
+  /* physics-key (2026-11-17): the card's words are the operator's (the page's own headline and one sentence); the counts are read from the two records */
+  { id: 'physics-key', title: 'Every number a simulator writes is an exact fraction.', blurb: 'One hundred recorded runs of MuJoCo and Newton, decided again in your tab.', backing: 'exact', art: () => PK.cardArt(), scale: `${PK.facts.runs} runs · ${fmt(PK.facts.verdicts)} verdicts` },
   { id: 'curveset', title: 'The line they published, and the lines that fit.', blurb: 'A calibration used backwards comes off a fitted curve. This prices the fit: what the standards allow, assuming only monotone.', backing: 'float', art: () => CS.cardArt(), scale: `${n(CS.monoR(CS.pontius), 0)}× the reported ±` },
   { id: 'plates', title: 'Manifolds we are handed.', blurb: 'Eight stated manifolds drawn from their rule; two of them are certificates rendered at their own resolution.', backing: 'certificate', art: () => PL.cardArt(), scale: `plate I of ${PL.counts.plates}` },
   { id: 'affect', title: 'The geometry of feeling, and the control that catches it.', blurb: 'Twelve feelings under six moods, and twelve clock hours through the same pipeline as the control that must not move.', backing: 'float', art: () => AF.cardArt(), scale: 'twelve feelings, pairwise' },
@@ -155,7 +158,7 @@ const MANIFEST = [
    lead (the Navier–Stokes object, the Treasury's price), then the widest audiences (the black-hole image, a grader's
    blind spot, a return level certified in your tab), then the rest, the geometry studies last. One list; the cards and
    the manifest the homepage reads follow it, and a card missing from it refuses the page. */
-const INSTRUMENT_ORDER = ['navier-stokes', 'pu', 'interferometer', 'black-hole', 'textbook-machine', 'blind-spot', 'return-level-check', 'pqc', 'lattice-claims', 'rewire',
+const INSTRUMENT_ORDER = ['navier-stokes', 'pu', 'interferometer', 'black-hole', 'physics-key', 'textbook-machine', 'blind-spot', 'return-level-check', 'pqc', 'lattice-claims', 'rewire',
   'shape-hunt', 'contours', 'occultation', 'transit', 'curveset', 'stereo-reach', 'census', 'return-level-atlas', 'simplex', 'graph',
   'plates', 'answer-shape', 'neural-geometry', 'exact-geometry', 'affect'];
 for (const m of MANIFEST) if (!INSTRUMENT_ORDER.includes(m.id)) { console.error('instruments: ' + m.id + ' has no place in INSTRUMENT_ORDER'); process.exit(1); }
@@ -229,6 +232,17 @@ const body = `
     </div>
   </a>
 
+
+  <a class="card" href="physics-key/index.html">
+    <figure class="card-art">
+      ${plate(PK.cardArt(), `${PK.facts.runs} runs &middot; ${fmt(PK.facts.verdicts)} verdicts`)}
+    </figure>
+    <div class="card-body">
+      <h2>Every number a simulator writes is an exact fraction.</h2>
+      <p class="sub">One hundred recorded runs of MuJoCo and Newton, decided again in your tab.</p>
+      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
 
   <a class="card" href="textbook-machine/index.html">
     <figure class="card-art">
@@ -542,12 +556,14 @@ const ns = NS.build(OUT);
 const bh = BH.build(OUT);
 const txm = TXM.build(OUT);
 const txc = TXC.build(OUT);
+const pk = PK.build(OUT);
 const rlc = RLC.build(OUT);
 const pui = PUI.build(OUT);
 const rla = RLA.build(OUT);
 
 console.log(`site/instruments/textbook-machine/  ${(txm.bytes / 1024).toFixed(0)} KB  ·  ${TXM.facts.n} switches: ${fmt(TXM.facts.find10)} steps to find, ${TXM.facts.check10} to check`);
 console.log(`site/instruments/textbook-machine/claims/  ${(txc.bytes / 1024).toFixed(0)} KB + ${(txc.bundleBytes / 1024).toFixed(0)} KB checker  ·  ${txc.claims} claims in ${txc.shapes} shapes decided in the tab over ${txc.files} embedded files, ${txc.held} held out of the bundle`);
+console.log(`site/instruments/physics-key/       ${(pk.bytes / 1024).toFixed(0)} KB  ·  ${pk.runs} recorded runs beside it (${(pk.dataBytes / 1048576).toFixed(1)} MB), ${PK.facts.engines.join(' and ')}, ${fmt(PK.facts.verdicts)} verdicts in the two records`);
 console.log(`site/instruments/black-hole/        ${(bh.bytes / 1024).toFixed(0)} KB  ·  ${bh.views} views, ${bh.maps} map files beside it (${(bh.mapBytes / 1048576).toFixed(1)} MB)`);
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();

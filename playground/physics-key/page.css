@@ -39,7 +39,8 @@
 .pk-stack { display: grid; }
 .pk-stack > .pk-layer { grid-area: 1 / 1; min-width: 0; }
 .pk-layer.off { visibility: hidden; }
-.pk-opt:disabled { color: var(--ink-4); border-style: dashed; cursor: default; }
+/* a run that was not recorded: the chip goes quiet, it does not go dashed (a dash is a standing, and a chip is not a line) */
+.pk-opt:disabled { color: var(--ink-4); cursor: default; }
 .pk-opt:disabled:hover { border-color: var(--rule-strong); }
 .pk-pick, .pk-laws { display: flex; flex-wrap: wrap; gap: 6px; }
 .pk-opt { font: 500 .8125rem var(--f-sans); padding: 7px 13px; border-radius: var(--radius-pill); border: 1px solid var(--rule-strong); color: var(--ink-2); background: none; cursor: pointer; white-space: nowrap; }

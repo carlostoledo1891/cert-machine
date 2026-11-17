@@ -243,6 +243,45 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* two ART cards for the physics answer key (2026-11-17), both drawn from the records through the pages' one reading
+     (playground/physics-key/facts.js), loaded only when a card is asked for (a getter), so no other builder depends on it.
+     The report's: the spin energy of the same tumbling body over ten seconds in every configuration recorded at one
+     timestep, faint lines that stay near level (runs with the same bytes are drawn once) and one solid line that falls. The instrument's: one level line and
+     the two MuJoCo curves that leave it, one up and one down. Every line is a decided run, so every line is solid.
+     LIGHT theme, no number, no label. */
+  'physics-key': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the physics answer key', path: '/reports/physics-key.html',
+    title: 'The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic',
+    alt: 'Lines running left to right from one point. The faint ones, one for each other configuration recorded, stay close to a thin level line; one solid line falls steadily away below them.',
+    get svgRaw() {
+      const K = require(path.join(ROOT, 'playground', 'physics-key', 'facts.js'));
+      const H = '0.002', x0 = 150, x1 = 1050, yL = 232, f = (v) => v.toFixed(1);
+      const others = K.rowsOf('top').map((g) => g[0]).concat(K.rowsOf('top', K.N_OF.top).map((g) => g[0]).filter((i) => i !== 'semiimplicit'));
+      const line = (id) => { const t = K.trace(id, 'T-ENERGY'), n = 240; let d = ''; for (let j = 0; j <= n; j++) { const k = Math.round(j * (t.length - 1) / n); d += (j ? 'L' : 'M') + f(x0 + j * (x1 - x0) / n) + ' ' + f(yL - 100 * t[k] * 4.4); } return d; };
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lines from one point: the faint ones stay near level, one solid line falls" style="position:absolute;left:0;top:0">'];
+      o.push('<line x1="' + x0 + '" y1="' + yL + '" x2="' + x1 + '" y2="' + yL + '" stroke="var(--ink-4)" stroke-width="1.2"/>');
+      for (const i of others) o.push('<path d="' + line('top-' + i + '-h' + H) + '" fill="none" stroke="var(--ink-3)" stroke-width="2" stroke-linejoin="round"/>');
+      o.push('<path d="' + line('top-semiimplicit-h' + H) + '" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + x0 + '" cy="' + yL + '" r="7" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
+  'physics-key-instrument': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the physics answer key · instrument', path: '/instruments/physics-key/',
+    title: 'The physics answer key',
+    alt: 'A thin level line with two solid curves leaving it from the same point, one climbing in small steps and one falling in small steps.',
+    get svgRaw() {
+      const K = require(path.join(ROOT, 'playground', 'physics-key', 'facts.js'));
+      const x0 = 150, x1 = 1050, yL = 315, f = (v) => v.toFixed(1);
+      const up = K.trace('top-euler-h0.002', 'T-ENERGY'), dn = K.trace('top-implicitfast-h0.002', 'T-ENERGY');
+      const top = Math.max(up[up.length - 1], -dn[dn.length - 1]) * 1.1;
+      const line = (t) => { const n = 240; let d = ''; for (let j = 0; j <= n; j++) { const k = Math.round(j * (t.length - 1) / n); d += (j ? 'L' : 'M') + f(x0 + j * (x1 - x0) / n) + ' ' + f(yL - t[k] / top * 150); } return d; };
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A level line and two curves leaving it, one up and one down" style="position:absolute;left:0;top:0">'];
+      o.push('<line x1="' + x0 + '" y1="' + yL + '" x2="' + x1 + '" y2="' + yL + '" stroke="var(--ink-4)" stroke-width="1.2"/>');
+      o.push('<path d="' + line(up) + '" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<path d="' + line(dn) + '" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + x0 + '" cy="' + yL + '" r="7" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a
