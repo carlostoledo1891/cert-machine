@@ -13,11 +13,11 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a"
+  "sha256": "42cb1d13ad334e63d3f2bcb5c85c54b5f92aad4df4b42d495fa590bb0e707ae2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
+  "sha256": "918a6b9b360e678b285f7670971341b6c53dea617a6daabb21d7b62a3156b1de"
  },
  "inputs": {
   "register": {
@@ -29883,6 +29883,20 @@
    "after": {
     "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
     "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
+   }
+  },
+  {
+   "at": "2026-11-17T07:32:41.475Z",
+   "git": "7b4b0e34",
+   "why": "Amendment 2026-11-17 (notes/selfaudit-preregistration-2026-10-20.md): the interval kernel changed once (144d9f6f: the ±∞ membership fix, the padded cos/sin retired); certs/design-table-audit.json re-derived by its tool (its generated date and its sha256 of interval.js, two leaves; its row and every decided number identical); the design-table rows were never mutated; no measurement, mutant or decision touched",
+   "before": {
+    "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
+    "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "42cb1d13ad334e63d3f2bcb5c85c54b5f92aad4df4b42d495fa590bb0e707ae2",
+    "inventory": "918a6b9b360e678b285f7670971341b6c53dea617a6daabb21d7b62a3156b1de"
    }
   }
  ],
