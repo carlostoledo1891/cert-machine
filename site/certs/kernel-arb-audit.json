@@ -1,7 +1,7 @@
 {
  "what": "The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.",
- "generated": "2026-11-11T20:27:04+00:00",
- "seconds": 92.1,
+ "generated": "2026-11-17T00:06:16+00:00",
+ "seconds": 140.2,
  "seed": 20261018,
  "perOp": 50000,
  "node": "v24.14.1",
@@ -12,7 +12,7 @@
   4096
  ],
  "modules": {
-  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/interval.js": "5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e",
   "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
   "instruments/hseva/fit.js": "032e9b039b6e44cee2b7f977e68f4f2379ed6b84c5718ebb7927adae084a2b75",
   "instruments/hseva/special.js": "be98f1c495adcca04b3624bef64f1b52d81318976a7e7f5622ac08f8d75b624b",
@@ -20,8 +20,8 @@
   "instruments/ivspecial/ivspecial.js": "96395723520716d282166d385679ea49c5f00e98cab053959099deb54c9c4e55"
  },
  "counts": {
-  "cases": 1012121,
-  "contained": 1009497,
+  "cases": 912121,
+  "contained": 909497,
   "violations": 0,
   "undecided": 0,
   "refused": 2624,
@@ -141,32 +141,6 @@
     "median": 2.0,
     "max": 2.0,
     "n": 7649
-   }
-  },
-  "encloseCos": {
-   "cases": 50000,
-   "contained": 50000,
-   "violations": 0,
-   "undecided": 0,
-   "refused": 0,
-   "retried": 0,
-   "thinWidthUlps": {
-    "median": 4816.0,
-    "max": 1.3531114373143612e+16,
-    "n": 50000
-   }
-  },
-  "encloseSin": {
-   "cases": 50000,
-   "contained": 50000,
-   "violations": 0,
-   "undecided": 0,
-   "refused": 0,
-   "retried": 0,
-   "thinWidthUlps": {
-    "median": 4820.0,
-    "max": 5943453385310691.0,
-    "n": 50000
    }
   },
   "exp": {

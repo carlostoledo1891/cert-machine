@@ -1,14 +1,14 @@
 {
  "what": "The registry's C_86 certificate (R. Pinho, #227, merged 2026-10-18 with an asterisk) decided by two implementations that share no code with each other or with the claimant's checker (never run): the six finite conditions E1–E6 of Smith's sufficiency criterion and the bound's arithmetic, exact where the data is rational and by sound enclosures where a logarithm enters; the step from the conditions to C_86 <= bound is the published chain (the minimum principle, Smith's criterion and theorem [Smi24]), read and not re-derived here",
- "generated": "2026-10-21T01:54:34Z",
- "seconds": 245.1,
+ "generated": "2026-11-17T00:19:07Z",
+ "seconds": 535.7,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
   "js": "9c847e9accc65ceb939d857aa602cccbd3b04abe2c93adf3778eb2328a21c175",
   "py": "9f1fa37686fa3335f59023c9cbf47d12279c7bc119a330102edb1e254db66c7a",
-  "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
-  "eqcertTranscendental": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
+  "eqcertInterval": "5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e",
+  "eqcertTranscendental": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79"
  },
  "pins": "corpus/optconst-queue/c86-2026-10-19/PINS.json",
  "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
@@ -570,7 +570,7 @@
   },
   "failed": [],
   "verdict": "CERTIFIED",
-  "seconds": 20.9
+  "seconds": 69.7
  },
  "py": {
   "E1": {
@@ -902,7 +902,7 @@
   },
   "failed": [],
   "verdict": "CERTIFIED",
-  "seconds": 180.8
+  "seconds": 379.9
  },
  "redControls": [
   {
@@ -916,13 +916,13 @@
    "jsFailed": [
     "E5"
    ],
-   "jsSeconds": 3.8,
+   "jsSeconds": 12.5,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E5"
    ],
-   "pySeconds": 31.6
+   "pySeconds": 59.8
   },
   {
    "id": "weights-scaled-1.3",
@@ -935,13 +935,13 @@
    "jsFailed": [
     "E3"
    ],
-   "jsSeconds": 0.5,
+   "jsSeconds": 1.1,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E3"
    ],
-   "pySeconds": 2
+   "pySeconds": 2.6
   },
   {
    "id": "extra-mass-near-0.05",
@@ -956,14 +956,14 @@
     "E4",
     "E6"
    ],
-   "jsSeconds": 0.5,
+   "jsSeconds": 1.1,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E4",
     "E6"
    ],
-   "pySeconds": 1.6
+   "pySeconds": 2.7
   },
   {
    "id": "tampered-bound",
@@ -976,13 +976,13 @@
    "jsFailed": [
     "E6"
    ],
-   "jsSeconds": 0.5,
+   "jsSeconds": 1.2,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E6"
    ],
-   "pySeconds": 1.5
+   "pySeconds": 2.7
   },
   {
    "id": "reducible-polynomial",
@@ -995,7 +995,7 @@
    "jsFailed": [
     "E2"
    ],
-   "jsSeconds": 0.1,
+   "jsSeconds": 0.3,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
@@ -1014,13 +1014,13 @@
    "jsFailed": [
     "E2"
    ],
-   "jsSeconds": 0.1,
+   "jsSeconds": 0.3,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E2"
    ],
-   "pySeconds": 0.2
+   "pySeconds": 0.3
   }
  ],
  "limits": [

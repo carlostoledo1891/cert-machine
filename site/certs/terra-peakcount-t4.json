@@ -53,7 +53,7 @@
     "lo": 0,
     "hi": 0.11164160865359836,
     "sign": "+",
-    "margin": 2.7417292308121426,
+    "margin": 2.741729230812138,
     "grid": 256
    },
    {
@@ -69,7 +69,7 @@
     "lo": 0.2370788576808355,
     "hi": 0.44282277123099484,
     "sign": "-",
-    "margin": 0.18902239631209813,
+    "margin": 0.18902239631210152,
     "grid": 256
    },
    {
@@ -77,7 +77,7 @@
     "lo": 0.44282277123099484,
     "hi": 0.46738552220375773,
     "sign": "-",
-    "margin": 0.011416751488943364,
+    "margin": 0.011416751488943494,
     "grid": 256
    },
    {
@@ -85,11 +85,11 @@
     "lo": 0.46738552220375773,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.21308021341464092,
+    "margin": 0.21308021341465003,
     "grid": 256
    }
   ],
-  "minMargin": 0.011416751488943364,
+  "minMargin": 0.011416751488943494,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -115,7 +115,7 @@
     "lo": 0,
     "hi": 0.1286581438374038,
     "sign": "-",
-    "margin": 0.07848193578033713,
+    "margin": 0.07848193578033694,
     "grid": 256
    },
    {
@@ -123,7 +123,7 @@
     "lo": 0.1286581438374038,
     "hi": 0.27865814383740384,
     "sign": "-",
-    "margin": 0.016522216303896928,
+    "margin": 0.016522216303896917,
     "grid": 256
    },
    {
@@ -131,11 +131,11 @@
     "lo": 0.27865814383740384,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.04666696728809235,
+    "margin": 0.04666696728809278,
     "grid": 256
    }
   ],
-  "minMargin": 0.016522216303896928,
+  "minMargin": 0.016522216303896917,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -148,11 +148,11 @@
  "peaksExceedWells": true,
  "rigor": {
   "countFrom": "certified region signs only (float is the proposer, never the authority)",
-  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js",
   "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
  },
  "meta": {
-  "date": "2026-09-01",
-  "git": "5c1b0c2"
+  "date": "2026-11-17",
+  "git": "144d9f6f"
  }
 }

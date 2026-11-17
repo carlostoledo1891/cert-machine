@@ -13,12 +13,15 @@
    Assembled from, and identical to, the repository sources:
      legacy/core/interval/interval.js  sha256 59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5
      legacy/core/mfg/mfg1d.js  sha256 da026d0638b75e6ab7dbf574387381fbcdee65ecb13277e0935b14e2b81c82a1
-     labs/mfg/box.js  sha256 ec20e5bf9c75dd9fc4868f5aeb339acc1692f9b5ee74c27f9dc454f100f9e044
+     instruments/interval/interval.js  sha256 5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e
+     instruments/interval/rational.js  sha256 59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920
+     instruments/interval/transcendental.js  sha256 7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79
+     labs/mfg/box.js  sha256 bfa91bd5f5f828cfa628d2d4e40de39d44bcc1562cd25267d06c9d7ad8738a1d
    https://github.com/carlostoledo1891/cert-machine — MIT.
    No dependencies. Nothing is uploaded; there is nothing here that could be. */
 'use strict';
 /* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
-var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
 
    RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
@@ -153,7 +156,7 @@ module.exports = {
 };
 
 return module.exports;})();
-var MFG1D = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+var MFG1D = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* mfg1d.js — the model, in Fourier, and a Newton solver for it (floats).
    The rigorous half lives in validate.js; this file only produces the numerical
    candidate that the validation then either certifies or refuses.
@@ -434,7 +437,668 @@ module.exports = {
 };
 
 return module.exports;})();
-var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+var EqKernel = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
+
+   RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
+   no access to the FPU rounding mode, so directed rounding is SIMULATED: every
+   IEEE-754 basic operation (+ − × ÷ and sqrt) returns the correctly rounded
+   nearest double, so the exact real result lies strictly within half an ulp of
+   the computed value. Widening the computed bounds outward by ONE ulp (nextDown
+   on the lower end, nextUp on the upper) therefore encloses the exact result.
+   This is conservative by a factor of ~2 in the last bit and costs nothing at
+   the accuracy we need.
+
+   The library is not trusted on assertion: tests/test-interval.js checks every
+   operation against EXACT BigInt rational arithmetic on thousands of random
+   operands, and mutation-tests the widening (removing it turns the check red).
+
+   That sentence was FALSE from the day it was written until 2026-07-28: the file it
+   names did not exist, and the battery that did cover intervals (test-eqcert.js I2)
+   exercises 4 of these exports. `pow` therefore had no coverage and was wrong —
+   it returned [1,1] for every negative exponent. The file now exists, runs first in
+   `make check-eqcert`, and covers every export. Left as a standing reminder that a cited
+   test is not a test: the citation was read as evidence for months.
+
+   Sequence algebra (weighted ell^1_nu, convolution, parity) lives in
+   src/sequence.js; this file is arithmetic only.
+
+   MIT licensed. Part of eqcert — the single source of truth for interval
+   arithmetic across every project here. Vendored copies are gated
+   byte-identical; never edit a copy. */
+'use strict';
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+function nextUp(x) {
+  if (Number.isNaN(x) || x === Infinity) return x;
+  if (x === 0) return Number.MIN_VALUE;
+  _f64[0] = x; _u64[0] += (x > 0 ? 1n : -1n); return _f64[0];
+}
+function nextDown(x) { return -nextUp(-x); }
+
+/* an interval is a 2-array [lo, hi]; `iv(x)` is the thin (point) interval */
+const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
+const ZERO = iv(0), ONE = iv(1);
+
+/* THE DOMAIN, ENFORCED (2026-10-09). The rigor model above is a statement about
+   finite, well-formed operands: a pair of non-NaN doubles with lo <= hi, where an
+   infinite endpoint is a sound (if useless) bound. Before this date nothing checked
+   it: mul([0, Infinity], [0, 1]) returned [NaN, NaN], div by [NaN, NaN] was not
+   refused (NaN fails the straddle test), and a consumer written as
+   `if (!(x[1] > c)) proved` would have certified on a NaN. The batteries skipped
+   non-finite results and so never saw it. Every arithmetic operation now refuses a
+   malformed operand or an indeterminate result (0·∞, ∞−∞) by THROW — a refusal,
+   never a decision — and the method paper states this domain beside its rounding
+   proposition. Cost: a few comparisons per operation. */
+function wf(a, op) {
+  if (!Array.isArray(a) || a.length !== 2 || typeof a[0] !== 'number' || typeof a[1] !== 'number'
+      || Number.isNaN(a[0]) || Number.isNaN(a[1]) || a[0] > a[1])
+    throw new Error('interval ' + op + ': malformed operand ' + JSON.stringify(a) + ' — refused, not decided');
+  return a;
+}
+function out(r, op) {
+  if (Number.isNaN(r[0]) || Number.isNaN(r[1]))
+    throw new Error('interval ' + op + ': indeterminate result (0·∞ or ∞−∞) — refused, not decided');
+  return r;
+}
+
+function add(a, b) { wf(a, 'add'); wf(b, 'add'); return out([nextDown(a[0] + b[0]), nextUp(a[1] + b[1])], 'add'); }
+function sub(a, b) { wf(a, 'sub'); wf(b, 'sub'); return out([nextDown(a[0] - b[1]), nextUp(a[1] - b[0])], 'sub'); }
+function mul(a, b) {
+  wf(a, 'mul'); wf(b, 'mul');
+  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
+  return out([nextDown(Math.min(p[0], p[1], p[2], p[3])),
+              nextUp(Math.max(p[0], p[1], p[2], p[3]))], 'mul');
+}
+function div(a, b) {
+  wf(a, 'div'); wf(b, 'div');
+  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
+  const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
+  return out([nextDown(Math.min(q[0], q[1], q[2], q[3])),
+              nextUp(Math.max(q[0], q[1], q[2], q[3]))], 'div');
+}
+function neg(a) { return [-a[1], -a[0]]; }
+/* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
+   sqr([0,0]) returned [-5e-324, 5e-324] — nextDown(0) steps to the smallest negative
+   denormal — and a consumer testing `sqr(x)[0] >= 0` to prove non-negativity would be
+   defeated by the one case where non-negativity is certain. Clamping only TIGHTENS: 0 is
+   a true lower bound for x² always, so enclosure is preserved. The third branch below
+   already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
+function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  wf(a, 'sqr');
+  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
+  if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
+  const m = Math.max(-a[0], a[1]);
+  return [0, nextUp(m * m)];
+}
+/* |a| as an interval of the modulus, and the scalar sup|a| */
+function abs(a) {
+  if (a[0] >= 0) return [a[0], a[1]];
+  if (a[1] <= 0) return [-a[1], -a[0]];
+  return [0, Math.max(-a[0], a[1])];
+}
+const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
+const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
+/* MEMBERSHIP HOLDS REALS ONLY (2026-11-16). Until this date contains(a, x) answered a[0] <= x && x <= a[1], so ±∞
+   was a member of any interval with that infinite end: isMember(±∞, [entire]) came back true where IEEE 1788 says
+   false (certs/kernel-itf1788.json, two violations found 2026-10-27). No enclosure was affected, every caller passes a
+   finite point; the answer is now false for ±∞ and for NaN. */
+const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1];
+const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
+const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
+const width = a => nextUp(a[1] - a[0]);
+
+/* Integer power with a rigorous enclosure (repeated squaring).
+   NEGATIVE EXPONENTS: `while (e > 0)` never runs for n < 0, so this silently returned
+   ONE = [1,1] for every negative n — pow([2,2],-1) claimed to enclose 0.5 and did not.
+   A wrong enclosure is worse than a refusal, and this one was silent. n < 0 now goes
+   through div, which REFUSES a base straddling 0 (there 1/x is unbounded and no finite
+   interval encloses it). Non-integer n is refused rather than truncated: `e >>= 1` would
+   have quietly floored it. Found 2026-07-28 with 0 call sites in the tree — a loaded
+   trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
+function pow(a, n) {
+  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  /* `e & 1` and `e >>= 1` are 32-bit operations: pow([1,2], 2^31) returned [1,1] and
+     pow([2,2], 2^53) returned [1,1] — silently, like the negative-exponent trap above.
+     Found 2026-10-09 by a code read, with 0 call sites beyond exponents 2 and 3. Refused. */
+  if (Math.abs(n) >= 2147483648) throw new Error('interval pow: exponent ' + n + ' is beyond 2^31 — refused (32-bit exponent arithmetic)');
+  if (n < 0) return div(ONE, pow(a, -n));
+  wf(a, 'pow');
+  let r = ONE, base = a, e = n;
+  while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
+  return r;
+}
+
+/* ---------- Stage 2.4 — thin floats ----------
+   encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
+   ulp each side — the last-ulp thin-scalar hardening for 2π.
+
+   THE PADDED PLATFORM COS/SIN, RETIRED (2026-11-16). encloseCos / encloseSin /
+   trigAbsPad enclosed Math.cos / Math.sin — which ECMAScript gives NO accuracy
+   bound — by a derived pad of 2·ε·|ang| + ε, under an unwritten contract that the
+   argument carried at most 2 ulp of relative error. They are gone from the kernel:
+   every caller now uses the proved series sin / cos of transcendental.js (a
+   remainder after reduction by an enclosure of π/2, interval arguments, extrema
+   inside a box enclosed), which the Arb audit covers. */
+function encloseFloat(x) {
+  return [nextDown(x), nextUp(x)];
+}
+
+module.exports = {
+  nextUp, nextDown, iv, ZERO, ONE, wf,
+  add, sub, mul, div, neg, sqr, abs, mag, mig,
+  contains, subset, interior, width, pow,
+  encloseFloat
+};
+
+return module.exports;})();
+var EqRational = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* rational.js — exact arithmetic over BigInt fractions.
+
+   Why this exists next to interval arithmetic rather than instead of it: the
+   two answer different questions, and choosing the wrong one silently weakens
+   a certificate.
+
+     · INTERVAL arithmetic bounds a quantity you cannot compute exactly. It is
+       the right tool when the problem is genuinely nonlinear (a Krawczyk
+       enclosure, a radii polynomial).
+     · EXACT arithmetic DECIDES. It is the right tool when the data is rational
+       and the question is a sign — and it is the ONLY tool when the answer is
+       a tie, because no interval method can ever decide whether a quantity is
+       exactly zero.
+
+   That distinction was learned, not designed. Certifying a multi-population
+   Wardrop equilibrium, an unused edge turned out to carry a slack of exactly
+   zero — an unused route exactly as short as the used ones. Interval
+   arithmetic returned −1.6e−12 and could not conclude; exact rational
+   arithmetic settled it immediately. Weak complementarity is invisible to
+   floating point and to intervals alike.
+
+   Every finite double is exactly m·2^e, so `fromDouble` is lossless and the
+   bridge between the two worlds is exact in that direction.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
+
+/* canonical: denominator > 0, reduced */
+function R(n, d) {
+  n = BigInt(n); d = d === undefined ? 1n : BigInt(d);
+  if (d === 0n) throw new Error('rational: zero denominator');
+  if (d < 0n) { n = -n; d = -d; }
+  const g = gcd(n, d) || 1n;
+  return { n: n / g, d: d / g };
+}
+const ZERO = R(0n), ONE = R(1n);
+
+/* every finite double is exactly m·2^e — this conversion loses nothing */
+function fromDouble(x) {
+  if (!Number.isFinite(x)) throw new Error('rational: non-finite double');
+  let e = 0n, y = x;
+  while (!Number.isInteger(y)) { y *= 2; e += 1n; if (e > 1200n) throw new Error('rational: conversion did not terminate'); }
+  return R(BigInt(y), 1n << e);
+}
+
+const add = (a, b) => R(a.n * b.d + b.n * a.d, a.d * b.d);
+const sub = (a, b) => R(a.n * b.d - b.n * a.d, a.d * b.d);
+const mul = (a, b) => R(a.n * b.n, a.d * b.d);
+const div = (a, b) => { if (b.n === 0n) throw new Error('rational: division by zero'); return R(a.n * b.d, a.d * b.n); };
+const neg = a => R(-a.n, a.d);
+const sign = a => (a.n < 0n ? -1 : a.n > 0n ? 1 : 0);
+const cmp = (a, b) => { const l = a.n * b.d, r = b.n * a.d; return l < r ? -1 : l > r ? 1 : 0; };
+const isZero = a => a.n === 0n;
+const abs = a => (a.n < 0n ? neg(a) : a);
+
+/* a double that is >= (resp <=) the exact value — for reporting only.
+   Number(n)/Number(d) overflows on large heights, so scale first. */
+function toDouble(a) {
+  if (a.n === 0n) return 0;
+  const sign = (a.n < 0n) !== (a.d < 0n) ? -1 : 1;
+  const N = a.n < 0n ? -a.n : a.n;
+  const D = a.d < 0n ? -a.d : a.d;
+  const bn = N.toString(2).length, bd = D.toString(2).length;
+  if (bn < 1000 && bd < 1000) return sign * (Number(N) / Number(D));
+  const shift = BigInt(Math.max(bn, bd) - 1000);
+  return sign * (Number(N >> shift) / Number(D >> shift));
+}
+const toString = a => (a.d === 1n ? a.n.toString() : a.n + '/' + a.d);
+
+/* is the exact value inside the closed float interval [lo, hi]? */
+const inClosed = (a, lo, hi) => cmp(fromDouble(lo), a) <= 0 && cmp(a, fromDouble(hi)) <= 0;
+
+/* ---- exact dense linear algebra (Gaussian elimination, no pivoting error) ----
+   Returns null iff the matrix is EXACTLY singular — which is information, not
+   a failure: a singular exact system is a proof of degeneracy, whereas a small
+   float determinant is only a suspicion. */
+function solve(A, b, n) {
+  A = A.map(r => r.slice()); b = b.slice();
+  for (let k = 0; k < n; k++) {
+    let p = -1;
+    for (let r = k; r < n; r++) if (sign(A[r][k]) !== 0) { p = r; break; }
+    if (p < 0) return null;
+    if (p !== k) { const t = A[k]; A[k] = A[p]; A[p] = t; const tb = b[k]; b[k] = b[p]; b[p] = tb; }
+    for (let r = k + 1; r < n; r++) {
+      if (sign(A[r][k]) === 0) continue;
+      const f = div(A[r][k], A[k][k]);
+      for (let c = k; c < n; c++) A[r][c] = sub(A[r][c], mul(f, A[k][c]));
+      b[r] = sub(b[r], mul(f, b[k]));
+    }
+  }
+  const x = new Array(n).fill(ZERO);
+  for (let k = n - 1; k >= 0; k--) {
+    let s = b[k];
+    for (let c = k + 1; c < n; c++) s = sub(s, mul(A[k][c], x[c]));
+    x[k] = div(s, A[k][k]);
+  }
+  return x;
+}
+
+/* residual of A x − b, exactly. Zero here is a proof, not a tolerance. */
+function residual(A, x, b, n) {
+  const out = new Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = ZERO;
+    for (let j = 0; j < n; j++) if (sign(A[i][j]) !== 0) s = add(s, mul(A[i][j], x[j]));
+    out[i] = sub(s, b[i]);
+  }
+  return out;
+}
+const allZero = v => v.every(isZero);
+
+module.exports = {
+  R, ZERO, ONE, fromDouble, toDouble, toString,
+  add, sub, mul, div, neg, abs, sign, cmp, isZero, inClosed,
+  solve, residual, allZero, gcd
+};
+
+return module.exports;})();
+var EqTranscendental = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* transcendental.js — sound interval exp / log / sin / cos / tanh.
+
+   WHY THIS FILE EXISTS. PLAN.md §5.3 once said JS cannot soundly enclose
+   transcendentals without Rust. core/interval/tests/probe-transcendental.js measured
+   the opposite: a truncated series with a rigorous remainder, evaluated inside
+   the already-validated interval model, produces a valid enclosure. Rust still
+   buys tightness, speed, and a cross-language witness — not soundness.
+
+   RIGOR. Every returned interval must CONTAIN the true real value. Containment
+   is checked in tests/test-transcendental.js against independent exact-rational
+   brackets (and red controls that omit the tail bound). Bad domains refuse by
+   throw — never a silent wrong box.
+
+   SCOPE (closed list). exp, log, sin, cos, tanh. Named consumers:
+   attention-geometry / softmax H/PR enclose (exp/log); edge-of-chaos /
+   aerospace / Path 5 (sin/cos/tanh). No fractional pow until a battery demands it.
+   See research/interval-transcendentals.html.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+const I = require('./interval.js');
+const Q = require('./rational.js');
+const { iv, add, sub, mul, div, neg, ONE, ZERO, nextUp, nextDown } = I;
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+const EXP_TERMS = 24;
+const LOG_TERMS = 40;
+const LN2_SERIES_TERMS = 48;
+const TRIG_TERMS = 16;
+const PI_ARCTAN_TERMS = 40;
+const TANH_SAT = 20;
+
+function qpowInt(a, n) {
+  let r = Q.ONE;
+  for (let i = 0; i < n; i++) r = Q.mul(r, a);
+  return r;
+}
+
+function qToIv(loQ, hiQ) {
+  let lo = Q.toDouble(loQ), hi = Q.toDouble(hiQ);
+  while (Q.cmp(Q.fromDouble(lo), loQ) > 0) lo = nextDown(lo);
+  while (Q.cmp(Q.fromDouble(hi), hiQ) < 0) hi = nextUp(hi);
+  return iv(lo, hi);
+}
+
+/* ln(2) = 2 Σ_{k=0}^∞ 1/((2k+1) 3^{2k+1}), with a geometric remainder bound. */
+function ln2Interval() {
+  let sum = Q.ZERO;
+  for (let k = 0; k < LN2_SERIES_TERMS; k++) {
+    const odd = 2 * k + 1;
+    const denom = Q.mul(Q.R(odd), qpowInt(Q.R(3), odd));
+    sum = Q.add(sum, Q.div(Q.ONE, denom));
+  }
+  sum = Q.mul(Q.R(2), sum);
+  const K = LN2_SERIES_TERMS;
+  const oddK = 2 * K + 1;
+  const rem = Q.div(Q.mul(Q.R(2), Q.R(9)), Q.mul(qpowInt(Q.R(3), oddK), Q.R(8)));
+  return qToIv(Q.sub(sum, rem), Q.add(sum, rem));
+}
+
+const LN2 = ln2Interval();
+
+/* arctan(u) for 0 < u < 1: Σ (-1)^k u^{2k+1}/(2k+1), |R| < u^{2K+1}/(2K+1). */
+function arctanPosQ(uNum, uDen, terms) {
+  const U = Q.div(Q.R(uNum), Q.R(uDen));
+  let sum = Q.ZERO;
+  let pow = U;
+  const U2 = Q.mul(U, U);
+  for (let k = 0; k < terms; k++) {
+    const term = Q.div(pow, Q.R(2 * k + 1));
+    sum = (k % 2 === 0) ? Q.add(sum, term) : Q.sub(sum, term);
+    pow = Q.mul(pow, U2);
+  }
+  const rem = Q.div(pow, Q.R(2 * terms + 1));
+  return [Q.sub(sum, rem), Q.add(sum, rem)];
+}
+
+/* Machin: π/4 = 4 arctan(1/5) − arctan(1/239). */
+function piInterval() {
+  const [aLo, aHi] = arctanPosQ(1, 5, PI_ARCTAN_TERMS);
+  const [bLo, bHi] = arctanPosQ(1, 239, PI_ARCTAN_TERMS);
+  const fourALo = Q.mul(Q.R(4), aLo);
+  const fourAHi = Q.mul(Q.R(4), aHi);
+  const qLo = Q.mul(Q.R(4), Q.sub(fourALo, bHi));
+  const qHi = Q.mul(Q.R(4), Q.sub(fourAHi, bLo));
+  return qToIv(qLo, qHi);
+}
+
+const PI = piInterval();
+const TWO_PI = mul(iv(2), PI);
+const HALF_PI = div(PI, iv(2));
+
+/* Exact split x = m · 2^e for positive finite normals, m ∈ [1, 2). */
+function splitPow2(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental: splitPow2 needs positive finite, got ' + x);
+  }
+  _f64[0] = x;
+  let bits = _u64[0];
+  const eBits = Number((bits >> 52n) & 0x7ffn);
+  if (eBits === 0 || eBits === 2047) {
+    throw new Error('transcendental: splitPow2 refuses subnormal/non-finite');
+  }
+  const e = eBits - 1023;
+  bits = (bits & 0x800fffffffffffffn) | (1023n << 52n);
+  _u64[0] = bits;
+  return { m: _f64[0], e };
+}
+
+/* exp on a thin/narrow interval: x = k ln2 + r with |r| < 1, Taylor + tail. */
+function expNarrow(X) {
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.exp: non-finite or inverted interval');
+  }
+  const mid = (X[0] + X[1]) / 2;
+  const k = Math.round(mid / 0.6931471805599453);
+  const r = sub(X, mul(iv(k), LN2));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag < 1)) {
+    throw new Error('transcendental.exp: argument reduction left |r|=' + rmag + ' >= 1');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 1; n <= EXP_TERMS; n++) {
+    term = div(mul(term, r), iv(n));
+    sum = add(sum, term);
+  }
+  /* the tail |r|^{25}/25! · (1 − |r|/26)^{-1}, every operation outward (2026-10-21; it was round-to-nearest with one nextUp,
+     sound only by the margin below the ulp of the sum — debt of 2026-09-04, paid) */
+  let fact = ONE, p = ONE;
+  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }
+  const tail = div(p, mul(fact, sub(ONE, div(iv(rmag), iv(EXP_TERMS + 2)))))[1];
+  sum = add(sum, iv(-tail, tail));
+  if (k > 1023 || k < -1074) {
+    throw new Error('transcendental.exp: 2^k out of finite range, k=' + k);
+  }
+  return mul(sum, iv(Math.pow(2, k)));
+}
+
+/** Interval exponential. Monotone ⇒ wide boxes use endpoint enclosures. */
+function exp(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (X[1] - X[0] > 1e-6) {
+    return [expNarrow(iv(X[0]))[0], expNarrow(iv(X[1]))[1]];
+  }
+  return expNarrow(X);
+}
+
+function logMantissa(m) {
+  if (m === 1) return ZERO;
+  if (!(m >= 1 && m < 2)) {
+    throw new Error('transcendental.logMantissa: need m in [1,2), got ' + m);
+  }
+  const V = div(sub(iv(m), ONE), add(iv(m), ONE));
+  const vmax = Math.max(Math.abs(V[0]), Math.abs(V[1]));
+  if (!(vmax < 0.34)) {
+    throw new Error('transcendental.logMantissa: |v|=' + vmax + ' not in [0,1/3)');
+  }
+  let sum = ZERO;
+  let vpow = V;
+  const V2 = mul(V, V);
+  for (let k = 0; k < LOG_TERMS; k++) {
+    const odd = 2 * k + 1;
+    sum = add(sum, div(vpow, iv(odd)));
+    vpow = mul(vpow, V2);
+  }
+  /* the one-sided tail v^{2N+1} / ((2N+1)(1 − v²)), every operation outward (2026-10-21) */
+  let p = ONE;
+  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p = mul(p, iv(vmax));
+  const denom = mul(iv(2 * LOG_TERMS + 1), sub(ONE, mul(iv(vmax), iv(vmax))));
+  const tail = div(p, denom)[1];
+  return mul(iv(2), add(sum, iv(0, tail)));
+}
+
+function logPoint(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental.log: need positive finite, got ' + x);
+  }
+  if (x === 1) return ZERO;
+  const { m, e } = splitPow2(x);
+  const lm = logMantissa(m);
+  if (e === 0) return lm;
+  return add(lm, mul(iv(e), LN2));
+}
+
+/** Interval natural log. Domain: lo > 0. Monotone ⇒ endpoints. */
+function log(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] > 0) || !(X[1] > 0) || !(X[0] <= X[1])) {
+    throw new Error('transcendental.log: need positive interval, got [' + X[0] + ',' + X[1] + ']');
+  }
+  return [logPoint(X[0])[0], logPoint(X[1])[1]];
+}
+
+/* Taylor sin/cos on a box with |x| ≤ 2 (covers reduced [-π/2, π/2]).
+   |R_n| ≤ |x|^{n+1}/(n+1)! since |f^{(n+1)}| ≤ 1. */
+function sinSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.sinSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ZERO, term = X;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    sum = add(sum, term);
+    const k = 2 * n + 2;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+  }
+  let fact = ONE, p = ONE;
+  const deg = 2 * TRIG_TERMS + 1;
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
+  return add(sum, iv(-tail, tail));
+}
+
+function cosSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.cosSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    const k = 2 * n + 1;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+    sum = add(sum, term);
+  }
+  let fact = ONE, p = ONE;
+  const deg = 2 * TRIG_TERMS + 2;
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
+  return add(sum, iv(-tail, tail));
+}
+
+/** Reduce x = n·(π/2) + r with |r| ≲ π/4…π/2; return series args + quadrant n mod 4.
+   Quadrant table (n mod 4):
+     0: sin=sin r,  cos=cos r
+     1: sin=cos r,  cos=−sin r
+     2: sin=−sin r, cos=−cos r
+     3: sin=−cos r, cos=sin r */
+function reduceTrigPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.reduce: non-finite angle');
+  }
+  const halfPiMid = (HALF_PI[0] + HALF_PI[1]) / 2;
+  const n = Math.round(x / halfPiMid);
+  const r = sub(iv(x), mul(iv(n), HALF_PI));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag <= HALF_PI[1] + 0.02)) {
+    throw new Error('transcendental.reduce: |r|=' + rmag + ' after n=' + n);
+  }
+  return { r, q: ((n % 4) + 4) % 4 };
+}
+
+function sinPoint(x) {
+  if (x === 0) return ZERO;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return s;
+  if (q === 1) return c;
+  if (q === 2) return neg(s);
+  return neg(c);
+}
+
+function cosPoint(x) {
+  if (x === 0) return ONE;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return c;
+  if (q === 1) return neg(s);
+  if (q === 2) return neg(c);
+  return s;
+}
+
+/* Enclosure of 3*pi/2, outward-rounded, for the sin minimum. */
+const THREE_HALF_PI = [nextDown(PI[0] + HALF_PI[0]), nextUp(PI[1] + HALF_PI[1])];
+
+/** Might [a,b] contain a real of the form BASE + k*2pi for some integer k?
+ *
+ *  CONSERVATIVE BY CONSTRUCTION: it may answer true when the critical point is
+ *  merely near the box, and must NEVER answer false when one is inside. A false
+ *  positive only widens the result; a false negative makes it unsound. Every
+ *  candidate phase is built as an interval and pushed outward one ulp before the
+ *  overlap test, and the k window carries one extra step on each side, so the
+ *  error can only ever land on the safe side. */
+function containsPhase(a, b, BASE) {
+  if (b - a >= TWO_PI[0]) return true;
+  const kLo = Math.floor((a - BASE[1]) / TWO_PI[0]) - 1;
+  const kHi = Math.ceil((b - BASE[0]) / TWO_PI[0]) + 1;
+  if (!Number.isFinite(kLo) || !Number.isFinite(kHi)) return true;   /* refuse to guess */
+  for (let k = kLo; k <= kHi; k++) {
+    /* enclosure of BASE + k*2pi; multiplying by a negative k swaps the bounds */
+    const lo = k >= 0 ? BASE[0] + k * TWO_PI[0] : BASE[0] + k * TWO_PI[1];
+    const hi = k >= 0 ? BASE[1] + k * TWO_PI[1] : BASE[1] + k * TWO_PI[0];
+    if (nextUp(hi) >= a && nextDown(lo) <= b) return true;
+  }
+  return false;
+}
+
+/** Interval sin — a true enclosure over the whole box.
+ *
+ *  REWRITTEN 2026-08-08. Both previous branches were UNSOUND, and the file's own
+ *  header ("Every returned interval must CONTAIN the true real value") was the
+ *  claim they broke:
+ *
+ *    narrow (width <= 1e-6)  returned sinPoint(midpoint) — an enclosure of sin at
+ *                            ONE POINT, not over the box. sin([1,1+1e-9]) came back
+ *                            strictly INSIDE the true range, missing both endpoints.
+ *    wide                    hulled the two endpoints and only widened to [-1,1]
+ *                            when the width exceeded pi/2. But a critical point
+ *                            needs no such width to sit inside: sin([1,2]) returned
+ *                            [0.8415, 0.9093] while the true maximum is 1 at pi/2.
+ *
+ *  Why the battery never caught it: T10 tests sin(iv(x)) for SCALAR x — degenerate
+ *  boxes, where the midpoint IS the whole interval and sinPoint is trivially right.
+ *  The suite exercised D1 (accepts correct) and never D3 (rejects wrong), which is
+ *  the exact failure research/evidence-first-bench measures in other people's
+ *  suites. See tests/test-transcendental-enclosure.js, written with this fix.
+ *
+ *  Now: hull the endpoint enclosures, then force the bound to +/-1 whenever a
+ *  critical point may lie inside. Monotone boxes stay tight; boxes straddling an
+ *  extremum widen to the truth instead of reporting the chord. */
+function sin(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.sin: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = sinPoint(X[0]), b = sinPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], HALF_PI)) hi = 1;            /* sin = +1 */
+  if (containsPhase(X[0], X[1], THREE_HALF_PI)) lo = -1;     /* sin = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+/** Interval cos. Same rewrite, same reasons; extrema at 2k*pi and pi + 2k*pi. */
+function cos(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.cos: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = cosPoint(X[0]), b = cosPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], [0, 0])) hi = 1;             /* cos = +1 */
+  if (containsPhase(X[0], X[1], PI)) lo = -1;                /* cos = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+function tanhPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.tanh: non-finite');
+  }
+  if (x === 0) return ZERO;
+  if (x < 0) return neg(tanhPoint(-x));
+  if (x >= TANH_SAT) {
+    /* 0 < 1 − tanh(x) = 2/(e^{2x}+1) < 2 e^{-2x} ≤ 2 e^{-40} < 4e-17 */
+    const gap = nextUp(4e-17);
+    return iv(nextDown(1 - gap), 1);
+  }
+  const E = exp(iv(2 * x));
+  return div(sub(E, ONE), add(E, ONE));
+}
+
+/** Interval tanh. Odd, strictly increasing ⇒ endpoints. */
+function tanh(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.tanh: bad interval');
+  }
+  return [tanhPoint(X[0])[0], tanhPoint(X[1])[1]];
+}
+
+module.exports = {
+  exp, log, logPoint, sin, cos, tanh,
+  LN2, PI, HALF_PI, TWO_PI,
+  splitPow2, EXP_TERMS, LOG_TERMS, TRIG_TERMS
+};
+
+return module.exports;})();
+var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* box.js — UNIFORM-OVER-A-PARAMETER-BOX validation for the stationary
    quadratic mean-field game, with a tangent predictor.
 
@@ -492,11 +1156,12 @@ var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var 
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory(require('../../legacy/core/interval/interval.js'),
-                             require('../../legacy/core/mfg/mfg1d.js'));
+                             require('../../legacy/core/mfg/mfg1d.js'),
+                             require('../../instruments/interval/transcendental.js'));
   } else {
-    root.MFGBox = factory(root.EqInterval, root.MFG1D);
+    root.MFGBox = factory(root.EqInterval, root.MFG1D, root.EqTranscendental);
   }
-})(typeof self !== 'undefined' ? self : this, function (I, M1D) {
+})(typeof self !== 'undefined' ? self : this, function (I, M1D, T) {
 
 const { iv, add, sub, mul, div, neg, abs, mag, mig, ZERO, ONE } = I;
 const TWO_PI = 2 * Math.PI;
@@ -868,20 +1533,48 @@ function validateBox(xFloat, box, opts) {
    below for every parameter in the cell. min mbar is bounded by sampling and
    paying the modulus of continuity with L = sum_k 2 (2 pi k) |b_k| -- no
    sampling argument is left unquantified. m > 0 is a HYPOTHESIS of the model,
-   so it is certified, never assumed. At zero width this reproduces
-   validate.js's certifyPositivity exactly (gate G2).                        */
+   so it is certified, never assumed. At zero width this agrees with
+   validate.js's certifyPositivity on L, G and the verdict, and on minMbar to
+   within the old pad (gate G2): validate.js still pads the platform's cosine,
+   this file no longer does.
+
+   THE COSINES ARE PROVED (2026-11-16). Until this date each cos(2 pi k t) was
+   Math.cos of the float angle TWO_PI*k*t widened by a derived pad (the kernel's
+   encloseCos, now retired): ECMAScript gives Math.cos no accuracy bound, so the
+   pad rested on an unwritten contract. Now every cosine is transcendental.js's
+   series enclosure (Lemma S1.3: reduction by an enclosure of pi/2, a remainder
+   bound), at the angle 2 pi (j/G) enclosed outward, with j = (k g) mod G:
+   cos(2 pi k g/G) = cos(2 pi j/G) exactly, because k g - j is a multiple of G.
+   One table per grid size serves every mode and every call (cosGrid below);
+   the reduced angle lies in [0, 2 pi), which also keeps it tight.           */
+const COS_GRID = new Map();
+function cosGrid(G) {
+  let tab = COS_GRID.get(G);
+  if (!tab) {
+    const lo = new Float64Array(G), hi = new Float64Array(G), Gi = iv(G);
+    for (let j = 0; j < G; j++) {
+      const c = T.cos(mul(T.TWO_PI, div(iv(j), Gi)));
+      lo[j] = c[0]; hi[j] = c[1];
+    }
+    tab = { lo, hi };
+    COS_GRID.set(G, tab);
+  }
+  return tab;
+}
 function boxPositivity(bI, N, r, G) {
   let L = 0;
   for (let k = 1; k <= N; k++) L = I.nextUp(L + 2 * TWO_PI_HI * k * mag(bI[k]));
   G = G || 4096;
+  if (!(Number.isInteger(G) && G > 0 && N * G < 2 ** 53)) throw new Error('boxPositivity: the grid size must be a positive integer, got ' + G);
   let lo = Infinity, guard = 0;
   for (;;) {
     lo = Infinity;
+    const tab = cosGrid(G);
     for (let g = 0; g < G; g++) {
-      const t = g / G;
       let m = iv(1);
       for (let k = 1; k <= N; k++) {
-        const ci = I.encloseCos(TWO_PI * k * t);
+        const j = (k * g) % G;                                 /* exact: k g < 2^53 */
+        const ci = [tab.lo[j], tab.hi[j]];
         m = add(m, mul([2 * bI[k][0], 2 * bI[k][1]], ci));   /* doubling is exact */
       }
       if (m[0] < lo) lo = m[0];
@@ -1139,7 +1832,7 @@ function cStarBox(sigmaBox) {
   return neg(mul(mul(S, S), mul(TWO_PI_I, TWO_PI_I)));
 }
 
-return { validateBox, boxPositivity, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
+return { validateBox, boxPositivity, cosGrid, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
          separationBox, separationNu, cStarBox,
          midProblem, VboxI, normNu, IDX, wNuI, mid, half, buildPhiI, convI };
 });

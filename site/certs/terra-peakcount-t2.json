@@ -51,7 +51,7 @@
     "lo": 0,
     "hi": 0.11619178523959726,
     "sign": "+",
-    "margin": 2.428740896840556,
+    "margin": 2.4287408968405524,
     "grid": 256
    },
    {
@@ -67,11 +67,11 @@
     "lo": 0.2661917852395973,
     "hi": 0.5,
     "sign": "-",
-    "margin": 0.20952467851740145,
+    "margin": 0.20952467851741796,
     "grid": 256
    }
   ],
-  "minMargin": 0.20952467851740145,
+  "minMargin": 0.20952467851741796,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -97,7 +97,7 @@
     "lo": 0,
     "hi": 0.13428394832440754,
     "sign": "-",
-    "margin": 0.07205356776887571,
+    "margin": 0.07205356776887555,
     "grid": 256
    },
    {
@@ -105,7 +105,7 @@
     "lo": 0.13428394832440754,
     "hi": 0.28428394832440756,
     "sign": "-",
-    "margin": 0.0164958195764278,
+    "margin": 0.01649581957642779,
     "grid": 256
    },
    {
@@ -113,11 +113,11 @@
     "lo": 0.28428394832440756,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.06097220257365653,
+    "margin": 0.06097220257365691,
     "grid": 256
    }
   ],
-  "minMargin": 0.0164958195764278,
+  "minMargin": 0.01649581957642779,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -130,11 +130,11 @@
  "peaksExceedWells": false,
  "rigor": {
   "countFrom": "certified region signs only (float is the proposer, never the authority)",
-  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js",
   "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
  },
  "meta": {
-  "date": "2026-09-01",
-  "git": "5c1b0c2"
+  "date": "2026-11-17",
+  "git": "144d9f6f"
  }
 }
