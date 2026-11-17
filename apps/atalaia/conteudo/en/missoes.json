@@ -1,0 +1,638 @@
+{
+ "_nota": "The English words of data/missoes.json (2026-11-16), for /atalaia/en/missoes/: titles, phases, labels and caveats, keyed by slug, and one English line per source. No value, unit, stage, time, verdict or film is written here: lingua.js reads them from the pinned Portuguese record and refuses any English string whose numbers differ.",
+ "aviso": "Everything here is simulation, calculation or illustration, and every number says which: nothing has flown.",
+ "missoes": {
+  "posto-nos-morros": {
+   "titulo": "The post in the hills, with dragged GNSS along the way",
+   "subtitulo": "From the base in the north of the island to a post 4.5 km away, over the ridge. Midway out, the GNSS starts lying slowly: the reported position slides sideways, 2 m per second.",
+   "lugar": "North of the island of Florianópolis (SC)",
+   "publico": "cargo and inspection drones; civil defense; delivery to isolated posts",
+   "gancho": "In simulation, with the GNSS dragged midway, the drone on its own landed 586 m from the post; with the Atalaia protocol beside the autopilot, 1.8 m.",
+   "historia": [
+    {
+     "fase": "Before takeoff",
+     "texto": "Route, energy and airspace pass: the terrain provides a position fix along the whole leg, and with 12 kg there is energy to spare in the worst case (from 180 to 1,756 Wh)."
+    },
+    {
+     "fase": "Takeoff",
+     "texto": "The drone climbs to 120 m and heads for the post at 10 m/s. The protection region runs in parallel, built without the GNSS."
+    },
+    {
+     "fase": "The attack begins",
+     "texto": "At 35% of the outbound leg, the GNSS starts being pulled east. The reported position slides; the real one does not."
+    },
+    {
+     "fase": "The gate rejects the GNSS",
+     "texto": "The GNSS falls outside the 100 m region, 101 m from the center: it is declared false, and the autopilot's position source switches to the box at that same instant."
+    },
+    {
+     "fase": "The maximum deviation",
+     "texto": "The drone strays up to 73.6 m from the route just after the switch, and returns to it."
+    },
+    {
+     "fase": "Delivery",
+     "texto": "It lands 1.8 m from the post, within the 35 m delivery radius."
+    },
+    {
+     "fase": "After the flight: the report",
+     "texto": "A separately written verifier recomputes the report's 30 items from the raw log and agrees on all of them."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "The autopilot on its own notices the drag and warns, 14.9 s after it begins, but declares neither a region nor a course of action: it follows the false GNSS and lands far from the post. With a 300 m jump, it lands 300 m away.",
+    "rotulo": "landing distance from the post, autopilot alone, dragged GNSS"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The box (emulated on this bench) declares the GNSS false when it leaves the 100 m region and switches the position source, and the drone returns to the route and delivers. In the 300 m jump, the alarm comes in 0.4 s and the landing is 0.8 m away.",
+    "rotulo": "landing distance from the post, with the box, dragged GNSS"
+   },
+   "metricas": [
+    "300 m jump: landing, alone → with the box",
+    "Time to alarm under drag: alone / with the box",
+    "False alarms in the nominal flight",
+    "Another run, the simulation slice: landing, alone → with the box",
+    "Leg on which the terrain provides a position fix",
+    "Region width over the spoofed stretch: with a terrain fix every 0.5 km / without terrain",
+    "Time without GNSS until the region + ε exceeds 200 m, on inertia alone (tactical grade; with the carousel)",
+    "Set-estimator prototype: the true position inside the region",
+    "The box's own radar altimeter, for the terrain fix without the manufacturer's radar"
+   ],
+   "prova": "That the protocol works on the autopilot side, on a real ArduPilot in simulation: the alarm from the region, the switch of position source and the delivery, against a GNSS that lies.",
+   "ressalvas": [
+    "The box is emulated: its best estimate is the simulator's ground truth plus a randomly drawn error. What the bench measures is the protocol on the autopilot side, not the box's estimator.",
+    "The spoofer is naive: it shifts only the position; the GNSS velocity stays true. A spoofer consistent in both position and velocity has not been tested.",
+    "Flat terrain and a simulator octocopter, not the cargo drone of the examples. One run per pair: no false-alarm rate, no statistics.",
+    "The emulated region had a 100 m radius; with the declared bound of each terrain fix, the width book gives a diameter of about 267 m. The bench showed the protocol with a narrower region than the declared bound supports.",
+    "Under drag, the autopilot alone raised the alarm before the box (14.9 s against 46.0 s): the 100 m region costs time. It ran in the slice's configuration, which only warns; the estimator's default failure action was not tested.",
+    "The film is an Atalaia Central replay over the real terrain of the same route; the numbers come from the bench in SITL.",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation is logged. It never jams, spoofs or interferes with third-party signals, nor transmits in the GNSS bands."
+   ]
+  },
+  "costa-da-lagoa": {
+   "titulo": "Resupplying Costa da Lagoa",
+   "subtitulo": "A community reachable only by boat or trail. Straight from the base, the battery cannot make the round trip; from a forward base at Rio Vermelho, across the lagoon, it remains to be measured.",
+   "lugar": "Costa da Lagoa, Florianópolis (SC)",
+   "publico": "supply of isolated communities; health and civil defense",
+   "gancho": "By the spec sheet, the round trip fits; in the worst case, it may fall 1,213 Wh short. Atalaia does not guess: it says ∅ NEEDS DATA and what to measure.",
+   "historia": [
+    {
+     "fase": "Straight from the base",
+     "texto": "12.2 km to the Costa. With 12 kg, the worst-case energy margin runs from −2,629 to −333 Wh: energy falls short even in the best case."
+    },
+    {
+     "fase": "From Rio Vermelho",
+     "texto": "A forward base shortens the leg to 8.3 km, 36% of it over the lagoon. The margin runs from −1,213 to +722 Wh: the report does not decide."
+    },
+    {
+     "fase": "What would decide it",
+     "texto": "No single measurement is enough; the measurements of a calibration flight program decide it together: consumption under load, the energy spent climbing, battery health and landing time. The lower end of the margin has to rise by 1,213 Wh to turn into ✓ PASS."
+    },
+    {
+     "fase": "Route and airspace",
+     "texto": "The terrain provides a position fix along the entire leg, the lagoon included, and no controlled airspace volume is crossed."
+    },
+    {
+     "fase": "Training flight",
+     "texto": "The replay shows the training flight that measures consumption, not a cleared mission."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "The spec-sheet math divides the distance by the range: with 12 kg, the cargo drone of the examples would cover about 23 km, and the round trip from Rio Vermelho is 16.6 km. You take off trusting the average.",
+    "rotulo": "range with 12 kg by the spec sheet (linear interpolation between 28 km empty and 16 km with 30 kg)"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The energy report does the math for the worst case, with a 5 min reserve at landing. From Rio Vermelho, the margin runs from −1,213 to +722 Wh: ∅ NEEDS DATA, with what would decide it. Straight from the base, × FAIL.",
+    "rotulo": "worst-case energy margin, from Rio Vermelho, with 12 kg (in the best case: +722 Wh)"
+   },
+   "metricas": [
+    "Straight from the base: margin in the worst and the best case",
+    "From Rio Vermelho: margin in the worst and the best case",
+    "Round trip: direct / from Rio Vermelho",
+    "Rio Vermelho leg over the lagoon",
+    "With 5 kg, from Rio Vermelho",
+    "Reserve required at landing"
+   ],
+   "prova": "That the energy report separates what the spec sheet promises from what the worst case supports, and says which measurement decides.",
+   "ressalvas": [
+    "The margins come from declared assumptions (efficiency, hover time, wind from 0 to 5 m/s) applied to the public spec sheet of the drone in the examples; battery temperature and aging enter only through the declared health range.",
+    "The spec-sheet math (the linear interpolation of range) is ours, to show the single-point reading; the spec sheet does not say under what conditions the range was measured.",
+    "The film shows the training flight, not a cleared mission. Nothing has flown."
+   ]
+  },
+  "perna-sobre-o-mar": {
+   "titulo": "The leg over the sea: a boat off Ponta das Canas",
+   "subtitulo": "4 km out to sea from the beach. On the final stretch, neither terrain nor imagery provides a position fix.",
+   "lugar": "Ponta das Canas, north of the island of Florianópolis (SC)",
+   "publico": "vessel support; rescue and delivery at sea",
+   "gancho": "Over water, Atalaia does not pretend: before takeoff it says what is missing. With a cooperative beacon on the boat (proposed), the same leg passes.",
+   "historia": [
+    {
+     "fase": "Route report",
+     "texto": "From 2.3 km onward, the terrain test finds nothing: 1.7 km with no reference other than the GNSS, and none on the boat."
+    },
+    {
+     "fase": "Energy",
+     "texto": "The battery has plenty to spare: from 534 to 1,980 Wh of worst-case margin, with 12 kg."
+    },
+    {
+     "fase": "Integrity report (proposed)",
+     "texto": "How long does the protection region stay within the delivery limit on inertia alone? It depends on the IMU's in-flight bias and on the drag limit, which have not yet been measured. ∅ NEEDS DATA: the calibration flights decide, or a reference on the boat."
+    },
+    {
+     "fase": "Even reading the spec sheet as a bound",
+     "texto": "With a tactical-grade IMU and the carousel, the region exceeds 35 m at 199 s after the last terrain point. The outbound leg takes 114 s and the wait over the boat 2 to 5 min: it would not fit."
+    },
+    {
+     "fase": "The turnaround",
+     "texto": "With a cooperative beacon on the boat (round-trip distance measured over the telemetry link, authenticated; proposed), the region over the boat holds at 27.6 m throughout the wait, below the 35 m limit, and the route gains the reference it lacked at the destination."
+    },
+    {
+     "fase": "The last terrain point",
+     "texto": "At 2.3 km from the beach, the terrain stops helping; the region starts growing on inertia alone."
+    },
+    {
+     "fase": "Over the boat",
+     "texto": "Within the envelope approved before the flight, the box switches on cooperative ranging. The region relative to the boat holds at 27.6 m as long as the height above the beacon does not exceed 27 m."
+    },
+    {
+     "fase": "Back to the coastal terrain",
+     "texto": "With the boat at anchor (declared swing radius of 30 m), the region reaches the coast at 95 m, below the 200 m cruise limit. Every activation of the beacon is logged."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "The usual plan sees 4 km and battery to spare, and takes off. If the GNSS fails or lies on the final stretch, nothing on board says where the drone is or how wrong it may be.",
+    "rotulo": "final stretch with no position reference other than the GNSS: neither terrain nor imagery"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "Before takeoff, × FAIL on the route and ∅ NEEDS DATA on integrity, with what is missing stated. With a cooperative beacon on the boat (proposed), the region over the boat holds at 27.6 m throughout the wait: ✓ PASS, by the same rule.",
+    "rotulo": "width of the protection region + ε over the boat, with the beacon, throughout the wait (limit: 35 m)"
+   },
+   "metricas": [
+    "Energy margin, 12 kg",
+    "On inertia alone (tactical grade, carousel): time until the region + ε exceeds 35 m",
+    "Time without a reference that the delivery requires (outbound + wait)",
+    "Declared error of the distance to the beacon / of the height above it",
+    "Height above the beacon up to which the wait passes",
+    "On the return, up to the coastal terrain (cruise limit 200 m)",
+    "Cooperative ranging and authenticated beacons (at the post, at the pier, on the boat)"
+   ],
+   "prova": "That ∅ NEEDS DATA is a useful verdict: it says exactly which reference turns a rejected leg into one that passes.",
+   "ressalvas": [
+    "The beacon is proposed, not built. The turnaround is a model with declared numbers (the distance error, the height, the boat's swing radius), not a simulation.",
+    "The integrity ∅ NEEDS DATA comes from the fifth report, which is proposed; the route × FAIL comes from the report that exists today, and it is what Atalaia Central shows in the film.",
+    "Reading the IMU spec sheet as a bound is a choice: the spec sheet gives statistics, not a limit. The diameter limit at delivery (35 m) is the bench's delivery radius, used here as a conservative choice.",
+    "The region over the boat is relative to the boat. On the return, the absolute position depends on the boat being anchored at the point surveyed beforehand; a drifting boat needs another reference.",
+    "The film shows the rejected case, without a beacon: the drone declares itself lost.",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation is logged. It never jams, spoofs or interferes with third-party signals, nor transmits in the GNSS bands."
+   ]
+  },
+  "zona-do-aeroporto": {
+   "titulo": "In the control zone of Hercílio Luz airport",
+   "subtitulo": "A 6.05 km leg, from a forward base at Canto da Lagoa to Rio Tavares, that enters the Florianópolis control zone.",
+   "lugar": "Rio Tavares, south of the island of Florianópolis (SC)",
+   "publico": "drone operators near airports; urban inspection; civil defense",
+   "gancho": "The route passes; it is the airspace that decides. The report says ∅ NEEDS DATA and names the only data point that flips the verdict: authorization from whoever controls the zone.",
+   "historia": [
+    {
+     "fase": "Route report",
+     "texto": "The terrain provides a position fix along the entire leg."
+    },
+    {
+     "fase": "Airspace report",
+     "texto": "Cruising at 409 m altitude, the leg lies inside the Florianópolis control zone (CTR SBFL, from the surface to 1,500 ft, military control)."
+    },
+    {
+     "fase": "What decides it",
+     "texto": "Authorization from the body that controls this airspace, requested through SARPAS. With it, the airspace report turns ✓ PASS."
+    },
+    {
+     "fase": "Where the volumes come from",
+     "texto": "From DECEA's official aeronautical data package, checked against the aeronautical information publication."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "A short route, over neighborhood and hillside, that looks simple. Without cross-checking the leg against the official volumes, the drone would fly inside the airport's control zone, without authorization.",
+    "rotulo": "cruise altitude of the leg (the terrain plus 60 m of clearance), below the zone's 1,500 ft (457 m) ceiling"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The report finds the volume, says ∅ NEEDS DATA and names the data point that flips the verdict.",
+    "rotulo": "what is missing for ✓ PASS: authorization from the body that controls the zone, requested through SARPAS"
+   },
+   "metricas": [
+    "SBFL control zone: vertical limits",
+    "Leg",
+    "Cruise altitude",
+    "Leg on which the terrain provides a position fix"
+   ],
+   "prova": "That the pre-flight report cross-checks the route against the official volumes and publishes the exact data point that changes the verdict.",
+   "ressalvas": [
+    "The SARPAS request and the authorization are the operator's; the report only says that they decide.",
+    "The report reads the official volume package (AIRAC 2611); same-day notices (NOTAM) are not part of it.",
+    "This leg has no energy report in the public record.",
+    "On the island, the tests are synthetic only: real flight only at an authorized field."
+   ]
+  },
+  "cheia-no-medio-vale": {
+   "titulo": "The 14 m flood in the Médio Vale do Itajaí",
+   "subtitulo": "With the river at 14 m, 98 buildings are surrounded by water 3.3 km from the base. The drone carries 12 kg and returns with reserve.",
+   "lugar": "Blumenau, Médio Vale do Itajaí (SC)",
+   "publico": "civil defense and disaster response",
+   "gancho": "When the road becomes a river, the question is how many trips the fleet makes per day and which ones return with reserve; the report answers before the water rises.",
+   "historia": [
+    {
+     "fase": "The flood footprint",
+     "texto": "The 14 m flood map surrounds 98 buildings near the Fortaleza neighborhood, 3.3 km north of the base."
+    },
+    {
+     "fase": "Route and airspace",
+     "texto": "The terrain provides a position fix along the whole leg, and no controlled airspace volume is crossed."
+    },
+    {
+     "fase": "Energy",
+     "texto": "With 12 kg, the scenario's range band passes in the worst case up to 5 km; the community is 3.3 km away."
+    },
+    {
+     "fase": "The fleet",
+     "texto": "The request of 57 kg per day calls for 5 sorties. With 1 drone, 3 pairs of batteries and 1 charger, the fleet can fly from 21 to 33 per day in hot weather, and from 21 to 26 in cold weather."
+    },
+    {
+     "fase": "Takeoff",
+     "texto": "The replay shows the outbound leg, the delivery and the return with reserve."
+    },
+    {
+     "fase": "More than one drone in the air (proposed)",
+     "texto": "Each drone broadcasts its own region, and Atalaia Central checks whether they agree: a local spoofer shows up as disagreement between neighbors."
+    },
+    {
+     "fase": "After landing",
+     "texto": "Every decision is sealed, for civil defense and for whoever audits it later."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "Caution is left to the eye. In the scenario's synthetic week, of the 111 sorties in which energy was uncertain, 55 would not have arrived with reserve; of the 24 that the calculation rejected, none would have arrived.",
+    "rotulo": "uncertain sorties that would not have arrived with reserve, in the scenario's synthetic week (210 sorties)"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The report clears what passes in the worst case and holds the rest, saying what is missing. In the same week, none of the 75 cleared sorties landed below reserve, not even the only one in which the wind exceeded the forecast.",
+    "rotulo": "cleared sorties that landed below reserve, in the same synthetic week"
+   },
+   "metricas": [
+    "Buildings surrounded by water in the 14 m flood",
+    "Distance from the base",
+    "Band that passes in the worst case, 12 kg",
+    "Sorties per day: the fleet can fly / the request calls for",
+    "The cost of caution: sorties held back that would have arrived with reserve",
+    "Integrity broadcast across the fleet"
+   ],
+   "prova": "That the same protocol plans the fleet in an emergency: how many sorties fit, which ones return with reserve, and the cost of caution, measured.",
+   "ressalvas": [
+    "The synthetic week is that of the reference mission in the same scenario (a post 2 to 11 km away, loads of 5 to 30 kg, randomly drawn wind), not that of the flood.",
+    "The energy for this leg has no report of its own in the record: it comes from the scenario's range band and from the replay.",
+    "Within the assumptions, a cleared sortie cannot fail, by construction, because it is arithmetic: the real drone, battery and wind can only be measured in the field.",
+    "The footprint is the 2025 14 m flood map, simplified. Nothing has flown.",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation is logged. It never jams, spoofs or interferes with third-party signals, nor transmits in the GNSS bands."
+   ]
+  },
+  "bancada-digital": {
+   "titulo": "The digital test bench: a test report someone else can reproduce",
+   "subtitulo": "Six simulated flights, two pieces of equipment, three tests. Every verdict comes from the raw record, and a separately written verifier redoes all of them.",
+   "lugar": "Digital test bench, with no radio emission at all",
+   "publico": "drone and autopilot manufacturers; those who buy and those who audit navigation equipment",
+   "gancho": "On this bench nobody has to take anything on trust: the verifier redoes the report's 30 items from the raw record and agrees on every one, and the verdicts falsified on purpose were caught.",
+   "historia": [
+    {
+     "fase": "The catalog, beforehand",
+     "texto": "The tests and their criteria are written before the initial flight; each run keeps the fingerprint of the catalog it read, and the report rejects a run that read a different one."
+    },
+    {
+     "fase": "The runs",
+     "texto": "Six flights on the real ArduPilot, in simulation: nominal, GNSS drag and GNSS jump, each one on its own and with the emulated box."
+    },
+    {
+     "fase": "The report",
+     "texto": "Five items per flight (containment, alarm, false alarm, conduct and outcome), each one ✓, × or ∅, with the reason."
+    },
+    {
+     "fase": "The verifier",
+     "texto": "It redoes every item from the raw record, without reading the processed files: it agrees on 30 of 30."
+    },
+    {
+     "fase": "The red controls (planted faults)",
+     "texto": "A falsified verdict, a falsified number and a planted false alarm: all 3 were caught, each one only in its own item."
+    },
+    {
+     "fase": "The package",
+     "texto": "97 files with the fingerprint of each one, a root that binds them together, and a timestamp requested for it."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "The autopilot alone declares neither a region nor a conduct. The report does not make anything up: on those items it says ∅ NEEDS DATA, because there is nothing to check.",
+    "rotulo": "items for the autopilot alone that the report leaves at ∅ NEEDS DATA"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "Every verdict comes with its reason and with the raw record it came from, and a separately written program reaches the same result.",
+    "rotulo": "report items redone by the independent verifier from the raw record, in agreement"
+   },
+   "metricas": [
+    "Runs (3 tests × 2 pieces of equipment)",
+    "Verifier tolerances",
+    "Red controls (planted faults) that fired",
+    "Files in the package",
+    "The same template at sea: items redone by the verifier of the DP replay",
+    "The bench with a radio signal, by cable or in a shielded chamber"
+   ],
+   "prova": "That an integrity test can come out as a sealed, reproducible report, with three-valued verdicts and whatever the equipment does not claim stated as ∅.",
+   "ressalvas": [
+    "This is simulation, and the box is emulated. One run per pair: no false-alarm rate, no statistics.",
+    "The digital bench emits no radio: the attack is injected into the simulator. The bench with a radio signal is proposed.",
+    "The spoofer is naive (position only). The replay, intermittency and timing tests have not been run."
+   ]
+  },
+  "dp-ao-lado-da-instalacao": {
+   "titulo": "The support vessel beside the installation",
+   "subtitulo": "Dynamic positioning 50 m from an installation, with current, wind and waves. The vessel's GNSS starts to drift slowly, and the system has to decide which reference to trust.",
+   "lugar": "Fixed offshore installation (generic scenario, 25° S)",
+   "publico": "support vessels with dynamic positioning; shipowners and DP auditors",
+   "gancho": "In simulation, the vessel on its own followed the drifting GNSS and was pulled 31.0 m off without a single alarm; with Atalaia's relative gate, it stayed within 1.3 m of its set point.",
+   "historia": [
+    {
+     "fase": "On station",
+     "texto": "At 50 m from the installation, the vessel holds its set point with two references: the GNSS, which declares itself high-precision, and the laser on the installation together with the IMU. The relative region, built without the GNSS, is 3.41 to 3.43 m wide with ε, below the 5 m yellow limit."
+    },
+    {
+     "fase": "The drift begins",
+     "texto": "The vessel's GNSS starts being pulled sideways, 20 cm per second, up to 30 m."
+    },
+    {
+     "fase": "The gate rejects the GNSS",
+     "texto": "The relative GNSS moves more than 1.71 m from the center of the region: it is rejected, and the vessel carries on with the laser and the IMU. None of the 998 corrections outside the region was accepted."
+    },
+    {
+     "fase": "The drift stops at 30 m",
+     "texto": "The GNSS sits 30 m from the true position; the vessel stays less than 1.3 m from its set point."
+    },
+    {
+     "fase": "The record",
+     "texto": "The moment, the region and every rejected correction go into the sealed record; an independent verifier redoes the 42 items and agrees on all of them."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "The autopilot alone picks a reference by the quality that reference declares about itself: it follows the GNSS that says it is precise, sets aside the laser, which was good the whole time, and never raises an alarm. This is the pattern of the published case IMCA DPE 02/25, in which the system stayed with the bad reference.",
+    "rotulo": "largest offset from the set point, autopilot alone, GNSS drifting slowly"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The gate accepts the GNSS only inside the region built from the laser and the IMU, widened by ε. During the drift, it rejected the GNSS 7.2 s after the start, and the vessel stayed inside the 5 m yellow limit.",
+    "rotulo": "largest offset from the set point, with the relative gate"
+   },
+   "metricas": [
+    "The IMCA DPE 02/25 pattern (the GNSS, seen from the installation, rotates): alone → with the gate",
+    "Time to rejection: slow drift / DPE 02/25 pattern",
+    "Region width + 2ε, at every epoch (yellow: 5 m)",
+    "False alarms in the nominal run",
+    "Items redone by the independent verifier, in agreement",
+    "Displacement in the published case IMCA DPE 02/25",
+    "On paper, at 100 m: relative gate / absolute gate in deep water (1,000 and 2,000 m)",
+    "An authenticated cooperative beacon on the installation, a reference a spoofer cannot imitate"
+   ],
+   "prova": "That the Core's gate is the question DP reference voting needs to ask (\"is the GNSS where the other references say it is?\"), with a width that fits within the alert limit and a record someone else can reproduce.",
+   "ressalvas": [
+    "ArduPilot Rover is a model of the idea, not a DP system: a boat with one thruster and a rudder, with no side thrusters and without a DP system's reference voting. It models the pattern of DPE 02/25, not its mechanism.",
+    "The installation is fixed, and its GNSS was not attacked; the spoofer moves only the position. A spoofer that moved the two receivers together would cancel out in the relative GNSS, and that has not been tested.",
+    "The 10 m red line is proposed; the reference consulted gives the 5 m yellow limit. Against a 2 m yellow limit, the width is above it at every epoch.",
+    "The sensors are the simulator's ground truth plus clipped noise; containment passes by construction, and what catches a wrong declaration is the red control (a planted fault). One run per pair.",
+    "On paper, the absolute gate in deep water does not fit within the yellow limit: the product is the relative gate, close to the installation.",
+    "No documented GNSS interference was found in Brazilian waters (2023–2026).",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation goes into the record. It never jams, spoofs or interferes with third-party signals, and it never transmits in the GNSS bands."
+   ]
+  },
+  "talhao-na-borda-da-mata": {
+   "titulo": "The farm machine at the forest edge",
+   "subtitulo": "An autonomous sprayer enters the lane between the rows, under the canopy, and RTK drops out. The standard's question: does the machine stay inside the zone?",
+   "lugar": "An orchard bordered by forest (generic scenario)",
+   "publico": "manufacturers and operators of autonomous farm machines",
+   "gancho": "Under the canopy, without RTK, the protection region fits within the lane for 1 min 58 s; Atalaia knows when to stop before the machine could leave the zone.",
+   "historia": [
+    {
+     "fase": "In the field plot",
+     "texto": "RTK fixed and a declared polygon geofence: the protection region is inside the geofence."
+    },
+    {
+     "fase": "Under the canopy",
+     "texto": "At the forest edge, RTK drops out. The region starts to grow with the gyroscope and the wheel odometry, by the declared bounds."
+    },
+    {
+     "fase": "At the edge of the clearance",
+     "texto": "The region reaches the 2.25 m clearance to the tree row, 177 m past the edge: the machine stops in a safe state, before it could leave the zone, and waits for the reference to return."
+    },
+    {
+     "fase": "If a wheel slips beyond what was declared",
+     "texto": "The region loses its anchor: ∅ NEEDS DATA, and the same stop."
+    },
+    {
+     "fase": "The reference returns",
+     "texto": "RTK comes back; the correction is accepted only inside the region widened by ε, and the machine moves on."
+    },
+    {
+     "fase": "The record",
+     "texto": "The sealed record shows, moment by moment, that the region stayed inside the geofence: the evidence for the safety case and for the geofencing test."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "Without the region, the machine follows odometry and the last RTK position. In the declared worst case, at the end of a 400 m lane, the lateral uncertainty reaches 6.2 m, more than the 2.25 m clearance to the trees, and nothing on board gives a warning.",
+    "rotulo": "lateral uncertainty in the declared worst case, at the end of 400 m of lane without RTK (clearance to the trees: 2.25 m)"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "Atalaia checks, at every moment, whether the protection region fits within the lane. Under the canopy, it fits for 1 min 58 s (about 177 m): at that point the machine stops in a safe state, or moves on only once the reference returns.",
+    "rotulo": "time without RTK during which the region fits within the lane, under the declared bounds"
+   },
+   "metricas": [
+    "Speed in the lane",
+    "Declared bounds: gyroscope bias / heading when RTK is lost / initial position",
+    "Lane / machine width / clearance on each side",
+    "Distance under the canopy until the stop",
+    "The box's own Doppler radar: a ground speed that wheel slip cannot fool",
+    "Authenticated beacons at the edge of the field plot",
+    "The integrity test bench for the geofencing test"
+   ],
+   "prova": "That the ISO 18497 question (\"does the machine stay inside the zone?\") can get an answer with a number and with a record someone else can reproduce.",
+   "ressalvas": [
+    "Everything here is illustrative: the bounds, the orchard geometry and the speed are declared choices, not measurements. Nothing has been run in simulation.",
+    "ISO 18497-3:2024 requires that the machine not leave the operating zone, and Annex D.2 of ISO 18497-4:2024 is the geofencing test; the text of the annex has not been read (the standard is sold, not free). No Brazilian rule today asks for a position integrity number: NR-31 does not cover autonomous machines, and ISO 18497 has no ABNT version.",
+    "The model assumes zero lateral skid and a small angle; a wheel that slips beyond what was declared takes away the region's anchor (∅ NEEDS DATA).",
+    "The planned experiment is a rover in simulation, in a field plot with a forest edge and a polygon geofence; it has not been run yet.",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation goes into the record. It never jams, spoofs or interferes with third-party signals, and it never transmits in the GNSS bands."
+   ]
+  },
+  "galeria-de-mina": {
+   "titulo": "The mine gallery, with no GNSS at all",
+   "subtitulo": "A vehicle underground, in a long, straight gallery (tunnel) where the LiDAR finds no features. After an incident, the question: where could the vehicle have been?",
+   "lugar": "Underground mine (generic scenario)",
+   "publico": "underground mining: safety, operations and forensic investigation",
+   "gancho": "Underground there is no GNSS to spoof, but there is something to prove afterward: the record keeps the vehicle's region, and someone else can redo the verdict.",
+   "historia": [
+    {
+     "fase": "The mine's obligation",
+     "texto": "NR-22 requires the mine to know where people are underground, with its own system. Atalaia does not locate people: it keeps only the vehicle's region."
+    },
+    {
+     "fase": "At the intersection",
+     "texto": "The geometry of the intersection anchors the position: the region is 1 m long along the gallery."
+    },
+    {
+     "fase": "Straight gallery",
+     "texto": "Along the smooth walls, the LiDAR holds the lateral position and the heading, but not the position along the axis: that grows with odometry, 3% of the distance (declared bound)."
+    },
+    {
+     "fase": "400 m without features",
+     "texto": "The region grows past 25 m along the gallery, the distance between two cross-cuts: the record can no longer say which section the vehicle is in. ∅ NEEDS DATA until the next feature."
+    },
+    {
+     "fase": "The next intersection",
+     "texto": "The geometry anchors the position again, and the region shrinks."
+    },
+    {
+     "fase": "After an incident",
+     "texto": "The question is whether the vehicle entered a closed-off section. The verifier redoes the region from the sealed record: ✓ outside, × inside, or ∅ cannot tell, with the moment."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "An ordinary record keeps a point. After 800 m without features, by the same declared bound, that point can be off by up to 24.5 m along the gallery, and the record does not say so.",
+    "rotulo": "how far off the recorded point can be, along the gallery, after 800 m without features (3% bound)"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The record keeps the region, not just the point. For up to 400 m of gallery without features, the region stays shorter than the distance between two cross-cuts, and the record says ∅ once it no longer does.",
+    "rotulo": "of gallery without features over which the region stays shorter than the 25 m between two cross-cuts"
+   },
+   "metricas": [
+    "Gallery / lateral width of the region with the LiDAR on the walls",
+    "Odometry bound along the axis",
+    "Speed / time until the region grows past 25 m",
+    "With the box's own Doppler radar (bound of 0.5% of the distance)"
+   ],
+   "prova": "That the investigation of an underground incident can ask the record where the vehicle could have been, and get an answer someone else can reproduce.",
+   "ressalvas": [
+    "Everything here is illustrative: the gallery, the bounds and the speed are declared choices. Nothing has been run; the next step is to measure the region on a public tunnel dataset.",
+    "NR-22 (item 22.30.1 j) requires the mine to know the names and the probable location of the people underground, with its own system; there is no item on autonomous machines. Atalaia neither locates nor identifies people.",
+    "A LiDAR with a map can drift far less than the 3% bound used here: the number is the bound under the declaration, not the error of any product.",
+    "ISO 17757:2019 calls for a safe state when positioning degrades; the text of the requirements clause has not been read.",
+    "The active module is proposed, not built: silent by default, it switches on only within an envelope approved before the mission (on its own, when the gate declares the GNSS false), only with type-approved low-power modules, and every activation goes into the record. It never jams, spoofs or interferes with third-party signals, and it never transmits in the GNSS bands."
+   ]
+  },
+  "limite-de-onda": {
+   "titulo": "The offshore operation with a wave limit",
+   "subtitulo": "An operation with a published wave height limit, decided against the whole band of the forecast, not against its middle value.",
+   "lugar": "An offshore installation (generic scenario)",
+   "publico": "offshore marine operations: planning and audit",
+   "gancho": "The middle value says it can go ahead; the forecast band says it may not. Atalaia publishes the number that would flip the verdict.",
+   "historia": [
+    {
+     "fase": "The morning window",
+     "texto": "Forecast of 1.6 to 2.2 m against the 2.5 m limit: the whole band fits."
+    },
+    {
+     "fase": "The midday window",
+     "texto": "Forecast of 2.0 to 2.8 m: the middle value (2.4 m) fits, the upper end does not. It turns ✓ PASS if the upper end comes down by 0.3 m: a new forecast run or an on-site measurement."
+    },
+    {
+     "fase": "The afternoon window",
+     "texto": "Forecast of 2.7 to 3.4 m: not even the lower end fits."
+    },
+    {
+     "fase": "The record",
+     "texto": "Each verdict is sealed with the forecast it used, to be checked later against the sea that actually came."
+    }
+   ],
+   "sem": {
+    "titulo": "Without Atalaia",
+    "texto": "Read as a single point, the midday window opens: the middle value is below the limit.",
+    "rotulo": "middle value of the midday forecast, below the 2.5 m limit"
+   },
+   "com": {
+    "titulo": "With Atalaia",
+    "texto": "The band reaches 2.8 m: ∅ NEEDS DATA, with the threshold that would flip the verdict.",
+    "rotulo": "how much the upper end of the forecast has to come down for ✓ PASS"
+   },
+   "metricas": [
+    "Published significant wave height limit",
+    "Forecast bands: morning / midday / afternoon",
+    "Verdicts"
+   ],
+   "prova": "That a published limit, decided against a band, gives three verdicts and a threshold, and that the decision can be checked afterward.",
+   "ressalvas": [
+    "The numbers are chosen to illustrate: there is no real forecast here, and no limit from a real operation.",
+    "The limit and the allowance for forecast uncertainty come from the operator's procedures; the band comes from the forecast the operator uses."
+   ]
+  }
+ },
+ "fontes": {
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json",
+  "atalaia/sitl/bancada/runs/2026-11-16/verificacao.json": "atalaia/sitl/bancada/runs/2026-11-16/verificacao.json",
+  "atalaia/sitl/bancada/runs/2026-11-16/controles/controles.json": "atalaia/sitl/bancada/runs/2026-11-16/controles/controles.json",
+  "atalaia/sitl/bancada/runs/2026-11-16/PACOTE.json": "atalaia/sitl/bancada/runs/2026-11-16/PACOTE.json",
+  "atalaia/sitl/dp/runs/2026-11-16/verificacao.json": "atalaia/sitl/dp/runs/2026-11-16/verificacao.json",
+  "proposta do Atalaia (módulo ativo, não construído)": "Atalaia proposal (active module, not built)",
+  "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-ARR, sozinho)": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (test DP-ARR, alone)",
+  "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-ARR, com o portão)": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (test DP-ARR, with the gate)",
+  "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-DPE0225)": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (test DP-DPE0225)",
+  "atalaia/sitl/dp/runs/2026-11-16/laudo.json": "atalaia/sitl/dp/runs/2026-11-16/laudo.json",
+  "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-NOM)": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (test DP-NOM)",
+  "IMCA DPE 02/25 (01/08/2025), imca-int.com; lido em atalaia/familia/escoteiros-2026-11-16.md (escoteiros, leitura nas fontes)": "IMCA DPE 02/25 (1 August 2025), imca-int.com; read in atalaia/familia/escoteiros-2026-11-16.md (scouts, read at the sources)",
+  "atalaia/familia/dp/largura_dp.py (S71, conta no papel)": "atalaia/familia/dp/largura_dp.py (S71, calculation on paper)",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\"": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"talhao\" (field plot) model",
+  "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\"": "Declared choice (illustrative): atalaia/ferramentas/missoes_lp.py, \"talhao\" (field plot) model",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\"": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"galeria\" (gallery) model",
+  "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\"": "Declared choice (illustrative): atalaia/ferramentas/missoes_lp.py, \"galeria\" (gallery) model",
+  "proposta do Atalaia (módulo ativo, não construído); a conta: Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\"": "Atalaia proposal (active module, not built); the calculation: Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"galeria\" (gallery) model",
+  "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\" (números escolhidos)": "Declared choice (illustrative): atalaia/ferramentas/missoes_lp.py, \"limite de onda\" (wave limit) model (chosen numbers)",
+  "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\"": "Declared choice (illustrative): atalaia/ferramentas/missoes_lp.py, \"limite de onda\" (wave limit) model",
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-ARR, sozinho)": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (test E-ARR, alone)",
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-ARR, com a caixa)": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (test E-ARR, with the box)",
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-SAL)": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (test E-SAL)",
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (tempo declarado: 65,6 s)": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (declared time: 65.6 s)",
+  "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-NOM)": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (test E-NOM)",
+  "atalaia/sitl/runs/sem.json e atalaia/sitl/runs/com.json": "atalaia/sitl/runs/sem.json and atalaia/sitl/runs/com.json",
+  "atalaia/central/data/missoes-ilha.json (laudo de rota, missão morros)": "atalaia/central/data/missoes-ilha.json (route report, mission morros)",
+  "atalaia/sitl/livro.json (livro de larguras: modelo com pontos de simulação ao lado; IMU de classe tática)": "atalaia/sitl/livro.json (width book: a model with simulation points alongside; tactical-grade IMU)",
+  "apps/atalaia/nucleo-modelo.js (o modelo da página do Núcleo; a ficha lida como cota)": "apps/atalaia/nucleo-modelo.js (the model from the Core page; the spec sheet read as a bound)",
+  "atalaia/nucleo/r2-prototipo/resultados.json": "atalaia/nucleo/r2-prototipo/resultados.json",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"ficha\"; a ficha: https://www.dji.com/flycart-30/specs (lida em 15/11/2026)": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"ficha\" (spec sheet) model; the spec sheet: https://www.dji.com/flycart-30/specs (read on 15 November 2026)",
+  "apps/atalaia/data/ilha.json (missão costa-rv)": "apps/atalaia/data/ilha.json (mission costa-rv)",
+  "apps/atalaia/data/ilha.json (missão costa-base)": "apps/atalaia/data/ilha.json (mission costa-base)",
+  "apps/atalaia/data/ilha.json": "apps/atalaia/data/ilha.json",
+  "apps/atalaia/data/ilha.json (∅ FALTA DADO também)": "apps/atalaia/data/ilha.json (∅ NEEDS DATA as well)",
+  "apps/atalaia/data/central.json (premissa declarada)": "apps/atalaia/data/central.json (declared assumption)",
+  "atalaia/central/data/missoes-ilha.json (missão agua: o laudo de rota)": "atalaia/central/data/missoes-ilha.json (mission agua: the route report)",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\"": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"baliza\" (beacon) model",
+  "apps/atalaia/data/ilha.json (missão agua)": "apps/atalaia/data/ilha.json (mission agua)",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\", com o modelo de apps/atalaia/nucleo-modelo.js": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"baliza\" (beacon) model, with the model from apps/atalaia/nucleo-modelo.js",
+  "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\" (15 m/s e 2 a 5 min de espera, premissas de apps/atalaia/data/central.json)": "Calculated (illustrative model): atalaia/ferramentas/missoes_lp.py, \"baliza\" (beacon) model (15 m/s and a 2 to 5 min wait, assumptions from apps/atalaia/data/central.json)",
+  "atalaia/central/data/missoes-ilha.json (missão ctr)": "atalaia/central/data/missoes-ilha.json (mission ctr)",
+  "apps/atalaia/data/ilha.json (caso_ctr; volumes: DECEA, pacote AIXM 5.1 do AISWEB (AIRAC 2611), conferido na AIP ENR 2.1 (AMDT A 21-2026))": "apps/atalaia/data/ilha.json (caso_ctr; volumes: DECEA, AISWEB AIXM 5.1 package (AIRAC 2611), checked against AIP ENR 2.1 (AMDT A 21-2026))",
+  "DECEA, pacote AIXM 5.1 do AISWEB (AIRAC 2611), conferido na AIP ENR 2.1 (AMDT A 21-2026)": "DECEA, AISWEB AIXM 5.1 package (AIRAC 2611), checked against AIP ENR 2.1 (AMDT A 21-2026)",
+  "apps/atalaia/data/ilha.json (caso_ctr)": "apps/atalaia/data/ilha.json (caso_ctr)",
+  "apps/atalaia/data/central.json (sintetico.voos)": "apps/atalaia/data/central.json (sintetico.voos, the synthetic flights)",
+  "apps/atalaia/data/central.json (sintetico)": "apps/atalaia/data/central.json (sintetico, the synthetic data)",
+  "atalaia/central/data/missoes-medio-vale.json (sobre a carta de enchente de 14 m de 2025, Universidade Regional de Blumenau)": "atalaia/central/data/missoes-medio-vale.json (on the 2025 14 m flood map, Universidade Regional de Blumenau)",
+  "atalaia/central/data/missoes-medio-vale.json": "atalaia/central/data/missoes-medio-vale.json",
+  "apps/atalaia/data/central.json (alcance)": "apps/atalaia/data/central.json (alcance, the range)",
+  "apps/atalaia/data/central.json (frota)": "apps/atalaia/data/central.json (frota, the fleet)"
+ }
+}

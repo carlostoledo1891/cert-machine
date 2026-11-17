@@ -675,6 +675,10 @@ a.vt-brand{font-family:var(--f-display);font-weight:var(--weight-title);font-siz
 .vt-links{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);font-size:var(--text-small);line-height:var(--leading-snug)}
 .vt-links a{color:var(--ink-3);border-bottom:0;transition:color var(--dur-fast) var(--ease-out)}
 .vt-links a:hover,.vt-links a[aria-current]{color:var(--ink)}
+
+.vt-lang{display:inline-flex;align-items:baseline;gap:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);color:var(--ink-4)}
+.vt-links .vt-lang a{color:var(--ink-3)}
+.vt-links .vt-lang a[aria-current]{color:var(--ink)}
 @media (max-width:680px){.page > .vt-nav{margin-top:var(--s-7)}.page > .vt-nav + header{margin-top:0}}
 
 .vt-cta{display:flex;flex-wrap:wrap;gap:var(--s-3);margin:var(--s-6) 0 0}
@@ -850,7 +854,7 @@ a.vt-mc:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 <div class="page">
 
-<nav class="vt-nav" aria-label="Atalaia"><a class="vt-brand" href="/atalaia/">Atalaia</a><div class="vt-links"><a href="/atalaia/missoes/" aria-current="page">Missões</a><a href="/atalaia/investidores/">Investidores</a><a href="/atalaia/blog/">Blog</a><a href="/atalaia/nucleo/">Núcleo</a><a href="/atalaia/doutrina/">Doutrina</a><a class="vt-ct" href="mailto:carlos@carlostoledo.co" data-contact="">Contato</a></div></nav>
+<nav class="vt-nav" aria-label="Atalaia"><a class="vt-brand" href="/atalaia/">Atalaia</a><div class="vt-links"><a href="/atalaia/missoes/" aria-current="page">Missões</a><a href="/atalaia/investidores/">Investidores</a><a href="/atalaia/blog/">Blog</a><a href="/atalaia/nucleo/">Núcleo</a><a href="/atalaia/doutrina/">Doutrina</a><a class="vt-ct" href="mailto:carlos@carlostoledo.co" data-contact="">Contato</a><span class="vt-lang" aria-label="Idioma"><a href="/atalaia/missoes/galeria-de-mina/" hreflang="pt-BR" lang="pt-BR" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/atalaia/en/missoes/galeria-de-mina/" hreflang="en" lang="en">EN</a></span></div></nav>
 
 <div class="col vt-aviso"><p class="scope">Tudo aqui é simulação, cálculo ou ilustração, e cada número diz qual: nada voou.</p><p class="vt-leg"><span class="vt-k">Como ler os estágios</span><span class="vt-li"><span class="vt-st s">simulação</span><span>ou bancada</span></span><span class="vt-li"><span class="vt-st r">dados reais</span><span>vetores oficiais, prova formal</span></span><span class="vt-li"><span class="vt-st c">cálculo</span><span>de um modelo</span></span><span class="vt-li"><span class="vt-st f">relato publicado</span><span>por outros</span></span><span class="vt-li"><span class="vt-st i">ilustrativo</span><span>proposta ou estimativa</span></span></p></div>
 

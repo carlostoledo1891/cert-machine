@@ -55,5 +55,21 @@ MARCA.sinais and the names guard (a page that names what the project keeps priva
 missing content file leaves its page out; `ATALAIA_STUBS=<folder outside the repo>` builds drafts from stub files
 of the same shape, and those drafts are never committed.
 
+**The hero film and the share cards (2026-11-16).** The landing's hero carries the hills mission's film (the attack
+case) beside the headline on a desk and under it on a phone, its 16:9 box reserved, played only on screen and never
+under reduced motion. Each marketing page names its own light card (cartoes.js, drawn from the records, rendered by
+`node tools/build-og-report.js atalaia atalaia-missoes atalaia-investidores atalaia-en atalaia-en-missoes
+atalaia-en-investidores`); vitrine.js checks each card against its receipt and copies it to site/atalaia/og/.
+
+**The English mirror (2026-11-16).** `/atalaia/en/` repeats the landing, the missions (index and ten pages), the
+investors' page and the blog (index and five posts), same structure, slugs and design, unlisted, each page with a
+PT | EN switch to its counterpart; links to the technical pages (Núcleo, doutrina, EB) stay on the Portuguese pages,
+marked (PT). The words live in conteudo/en/ (lp.json and investidores.json mirror their Portuguese files key by key,
+blog/*.md mirror the posts file by file, missoes.json carries only the missions' words). lingua.js is the guard: an
+English string whose numbers differ from the Portuguese one beside it, a stage of another kind, a source naming other
+files, "certif…", "the first" or an em dash refuses the build; the missions' values, units, stages, verdicts and times
+are read from the pinned record and localized by rule, never retyped. `node apps/atalaia/lingua.js` runs the same
+checks alone. registros.js holds MARCA_EN (the tagline, the family line and the signals sentence in English), once.
+
 **Rebuild.** `make page R=apps/atalaia` (build.js also writes the landing and the EB page). To change the scenario, regenerate `data/` from `~/Projects/atalaia`
 (`ferramentas/missao.py` → `central.py` → `missao.py`, scenario `ferramentas/cenarios/blumenau.json`) and re-pin.

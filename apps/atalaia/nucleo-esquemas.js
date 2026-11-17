@@ -21,8 +21,11 @@ function box(x, y, w, h, title, sub, cls) {
 const arr = (x1, y1, x2, y2, cls) => '<line class="nu-arr' + (cls ? ' ' + cls : '') + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" marker-end="url(#nu-ah)"/>';
 const path = (d, cls) => '<path class="' + cls + '" d="' + d + '"/>';
 
-/* ---- 1 · the core inequality: the geometry of R1 */
-function desigualdade(narrow) {
+/* ---- 1 · the core inequality: the geometry of R1, in Portuguese or (lang 'en', the landing's English mirror) English */
+const R1_EN = { erro: 'undetected error', leg: ['the true position: somewhere in Rₜ', 'a fix the gate accepted', 'the region computed without GNSS', 'accepted only in here'],
+  aria: 'The geometry of R1: the true position x lies in Rₜ; the accepted fix g lies within ε of Rₜ; so the undetected error, from x to g, is at most the diameter of Rₜ plus ε' };
+function desigualdade(narrow, lang) {
+  const EN = lang === 'en';
   const W = narrow ? 360 : 780, H = narrow ? 430 : 340;
   const cx = narrow ? 175 : 230, cy = narrow ? 130 : 145, rx = narrow ? 120 : 150, ry = narrow ? 78 : 92, e = narrow ? 22 : 28;
   const x = [cx - rx * 0.78, cy + ry * 0.25], g = [cx + rx + e * 0.92, cy - 14];
@@ -32,18 +35,19 @@ function desigualdade(narrow) {
     + '<line class="nu-err" x1="' + x[0] + '" y1="' + x[1] + '" x2="' + g[0] + '" y2="' + g[1] + '"/>'
     + '<circle class="nu-x" cx="' + x[0] + '" cy="' + x[1] + '" r="6"/><circle class="nu-g" cx="' + g[0] + '" cy="' + g[1] + '" r="6"/>'
     + T(x[0] - 10, x[1] + 22, 'xₜ', 'nu-lb', 'start') + T(g[0] + 10, g[1] - 10, 'gₜ', 'nu-lb', 'start')
-    + T((x[0] + g[0]) / 2, (x[1] + g[1]) / 2 - 12, 'erro não detectado', 'nu-bs', 'middle');
+    + T((x[0] + g[0]) / 2, (x[1] + g[1]) / 2 - 12, EN ? R1_EN.erro : 'erro não detectado', 'nu-bs', 'middle');
   const yd = cy + ry + e + 22;
   b += '<line class="nu-dim" x1="' + (cx - rx) + '" y1="' + yd + '" x2="' + (cx + rx) + '" y2="' + yd + '"/>'
     + '<line class="nu-dim" x1="' + (cx - rx) + '" y1="' + (yd - 6) + '" x2="' + (cx - rx) + '" y2="' + (yd + 6) + '"/><line class="nu-dim" x1="' + (cx + rx) + '" y1="' + (yd - 6) + '" x2="' + (cx + rx) + '" y2="' + (yd + 6) + '"/>'
     + T(cx, yd + 20, 'diam Rₜ', 'nu-bs', 'middle')
     + '<line class="nu-dim" x1="' + (cx + rx) + '" y1="' + yd + '" x2="' + (cx + rx + e) + '" y2="' + yd + '"/><line class="nu-dim" x1="' + (cx + rx + e) + '" y1="' + (yd - 6) + '" x2="' + (cx + rx + e) + '" y2="' + (yd + 6) + '"/>'
     + T(cx + rx + e / 2, yd + 20, 'ε', 'nu-bs', 'middle');
-  const leg = [['xₜ', 'a posição verdadeira: em algum ponto de Rₜ'], ['gₜ', 'uma correção que o portão aceitou'], ['Rₜ', 'a região calculada sem GNSS'], ['Rₜ ⊕ ε', 'só se aceita aqui dentro']];
+  const leg = [['xₜ', 'a posição verdadeira: em algum ponto de Rₜ'], ['gₜ', 'uma correção que o portão aceitou'], ['Rₜ', 'a região calculada sem GNSS'], ['Rₜ ⊕ ε', 'só se aceita aqui dentro']]
+    .map((l, i) => EN ? [l[0], R1_EN.leg[i]] : l);
   const lx = narrow ? 20 : 470, ly = narrow ? 300 : 70;
   b += leg.map((l, i) => T(lx, ly + 28 * i, l[0], 'nu-lb', 'start') + T(lx + 58, ly + 28 * i, l[1], 'nu-bs', 'start')).join('');
   b += T(narrow ? 20 : 470, narrow ? 420 : 210, '|gₜ − xₜ| ≤ diam(Rₜ) + ε', 'nu-lb', 'start');
-  return svg(W, H, 'A geometria do R1: a posição verdadeira x está em Rₜ; a correção aceita g está a no máximo ε de Rₜ; então o erro não detectado, de x a g, é no máximo o diâmetro de Rₜ mais ε', b);
+  return svg(W, H, EN ? R1_EN.aria : 'A geometria do R1: a posição verdadeira x está em Rₜ; a correção aceita g está a no máximo ε de Rₜ; então o erro não detectado, de x a g, é no máximo o diâmetro de Rₜ mais ε', b);
 }
 
 /* ---- 2 · the architecture */

@@ -7,16 +7,14 @@
    italic, code and links; anything else stays text). Newest first. Every post ends with its sources. Without a post no
    page is written and the folder is taken down. pt-BR (the project's rule).
 
+   The English mirror (2026-11-16): the same notebook from conteudo/en/blog/ (one English file per post, of the same
+   name and slug, held to its post's numbers by lingua.js), at /atalaia/en/blog/.
+
    usage: node apps/atalaia/blog.js (also called at the end of apps/atalaia/build.js)                               */
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const V = require('./vitrine.js');
-const { C, esc, str } = V;
-const OUT = path.join(V.ROOT, 'site', 'atalaia', 'blog');
-
-const P = V.posts();
-if (!P.length) { const k = V.retirar('blog'); console.log('site/atalaia/blog/ NOT built: no post in apps/atalaia/conteudo/blog/' + (k ? ' (' + k + ' stale entries taken down)' : '')); return; }
+const V0 = require('./vitrine.js');
 
 const CSS = `
 .vt-posts{display:flex;flex-direction:column;max-width:var(--read);border-top:1px solid var(--rule);margin-top:var(--s-7)}
@@ -42,29 +40,44 @@ a.vt-post:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media (max-width:759px){.vt-pn{grid-template-columns:minmax(0,1fr)}.vt-pn .next{text-align:left}.vt-pn .next:only-child{grid-column:auto}}
 `;
 
+const TX = {
+  pt: { title: 'O caderno de pesquisa', deck: 'O que estamos aprendendo ao construir integridade verificável para sistemas autônomos: as ideias, os testes, o que deu certo e o que não deu. Cada texto termina com as suas fontes.',
+    fontes: 'Fontes', fontesTit: 'De onde vem cada fato', recente: '← Mais recente · ', anterior: 'Anterior · ', todos: 'Todos os textos', apresentacao: 'A apresentação do Atalaia',
+    page: 'Atalaia: o caderno de pesquisa', desc: (t) => 'O blog do Atalaia: ' + t + '.', pdesc: (p) => 'Atalaia, blog, ' + p.data.label + ': ' + (p.resumo || p.titulo) },
+  en: { title: 'The research notebook', deck: 'What we are learning while building verifiable integrity for autonomous systems: the ideas, the tests, what worked and what did not. Every post ends with its sources.',
+    fontes: 'Sources', fontesTit: 'Where each fact comes from', recente: '← Newer · ', anterior: 'Older · ', todos: 'All posts', apresentacao: 'The Atalaia overview',
+    page: 'Atalaia: the research notebook', desc: (t) => 'The Atalaia blog: ' + t + '.', pdesc: (p) => 'Atalaia, blog, ' + p.data.label + ': ' + (p.resumo || p.titulo) } };
+
+function construir(lang) {
+const V = V0.lingua(lang), W = TX[lang];
+const { C, esc, str } = V;
+const OUT = path.join(V.ROOT, 'site', 'atalaia', lang === 'en' ? 'en' : '', 'blog');
+const P = V.posts();
+if (!P.length) { const k = V.retirar('blog'); console.log('site' + V.base + 'blog/ NOT built: no post in its content folder' + (k ? ' (' + k + ' stale entries taken down)' : '')); return; }
+
 /* ---- the index */
-const B = [V.nav('/atalaia/blog/')];
-B.push(C.header({ eyebrow: 'Atalaia · Blog', title: 'O caderno de pesquisa',
-  deck: 'O que estamos aprendendo ao construir integridade verificável para sistemas autônomos: as ideias, os testes, o que deu certo e o que não deu. Cada texto termina com as suas fontes.' }));
-B.push('<div class="col"><div class="vt-posts">' + P.map((p) => '<a class="vt-post" href="/atalaia/blog/' + esc(p.slug) + '/"><span class="vt-k">' + esc(p.data.label) + '</span><span class="vt-pt">' + esc(p.titulo) + '</span>'
+const B = [V.nav(V.base + 'blog/')];
+B.push(C.header({ eyebrow: 'Atalaia · Blog', title: W.title, deck: W.deck }));
+B.push('<div class="col"><div class="vt-posts">' + P.map((p) => '<a class="vt-post" href="' + V.base + 'blog/' + esc(p.slug) + '/"><span class="vt-k">' + esc(p.data.label) + '</span><span class="vt-pt">' + esc(p.titulo) + '</span>'
   + (str(p.resumo) ? '<span class="vt-pr">' + esc(p.resumo) + '</span>' : '') + '</a>').join('') + '</div></div>');
-const pIdx = V.pagina({ dir: 'blog', title: 'Atalaia: o caderno de pesquisa', cssRaw: CSS, bodyRaw: B.join('\n\n'),
-  desc: 'O blog do Atalaia: ' + P.map((p) => p.titulo).slice(0, 3).join('; ') + '.' });
+const pIdx = V.pagina({ dir: 'blog', title: W.page, cssRaw: CSS, bodyRaw: B.join('\n\n'),
+  desc: W.desc(P.map((p) => p.titulo).slice(0, 3).join('; ')) });
 
 /* ---- one page per post (newer on the left of the pair, older on the right) */
 P.forEach((p, i) => {
   const newer = P[i - 1], older = P[i + 1];
-  const Q = [V.nav('/atalaia/blog/')];
+  const Q = [V.nav(V.base + 'blog/')];
   Q.push(C.header({ eyebrow: 'Atalaia · Blog · ' + p.data.label, title: p.titulo, deck: str(p.resumo) ? p.resumo : '' }));
   Q.push('<article class="col vt-md">' + p.html + '</article>');
-  if (p.fontes.length) Q.push('<section class="col vt-fontes"><div class="sec-head"><div class="lab">' + esc('Fontes') + '</div><h2>' + esc('De onde vem cada fato') + '</h2></div><ol>'
+  if (p.fontes.length) Q.push('<section class="col vt-fontes"><div class="sec-head"><div class="lab">' + esc(W.fontes) + '</div><h2>' + esc(W.fontesTit) + '</h2></div><ol>'
     + p.fontes.map((f) => '<li>' + V.fonte(f) + '</li>').join('') + '</ol></section>');
-  const pn = (x, cls, k) => '<a class="card ' + cls + '" href="/atalaia/blog/' + esc(x.slug) + '/"><span class="card-k">' + esc(k) + '</span><span class="card-t">' + esc(x.titulo) + '</span></a>';
-  Q.push('<section class="col"><div class="vt-pn">' + (newer ? pn(newer, 'prev', '← Mais recente · ' + newer.data.label) : '') + (older ? pn(older, 'next', 'Anterior · ' + older.data.label + ' →') : '') + '</div>'
-    + C.pRaw('<a href="/atalaia/blog/">' + esc('Todos os textos') + '</a>' + esc(' · ') + '<a href="/atalaia/">' + esc('A apresentação do Atalaia') + '</a>') + '</section>');
-  V.pagina({ dir: 'blog/' + p.slug, title: 'Atalaia: ' + p.titulo, cssRaw: CSS, bodyRaw: Q.join('\n\n'),
-    desc: 'Atalaia, blog, ' + p.data.label + ': ' + (str(p.resumo) ? p.resumo : p.titulo) });
+  const pn = (x, cls, k) => '<a class="card ' + cls + '" href="' + V.base + 'blog/' + esc(x.slug) + '/"><span class="card-k">' + esc(k) + '</span><span class="card-t">' + esc(x.titulo) + '</span></a>';
+  Q.push('<section class="col"><div class="vt-pn">' + (newer ? pn(newer, 'prev', W.recente + newer.data.label) : '') + (older ? pn(older, 'next', W.anterior + older.data.label + ' →') : '') + '</div>'
+    + C.pRaw('<a href="' + V.base + 'blog/">' + esc(W.todos) + '</a>' + esc(' · ') + '<a href="' + V.base + '">' + esc(W.apresentacao) + '</a>') + '</section>');
+  V.pagina({ dir: 'blog/' + p.slug, title: 'Atalaia: ' + p.titulo, cssRaw: CSS, bodyRaw: Q.join('\n\n'), desc: W.pdesc(p) });
 });
 const keep = P.map((p) => p.slug).concat(['index.html']);
 for (const e of fs.readdirSync(OUT)) if (!keep.includes(e)) fs.rmSync(path.join(OUT, e), { recursive: true, force: true });
 console.log('site' + pIdx + 'index.html written (unlisted): ' + P.length + ' posts' + V.stubNote());
+}
+for (const lang of ['pt', 'en']) construir(lang);

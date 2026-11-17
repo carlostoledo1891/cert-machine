@@ -1,0 +1,173 @@
+{
+  "hero": {
+    "eyebrow": "Atalaia · verifiable integrity for autonomous systems and critical infrastructure",
+    "titulo": "When GNSS lies, Atalaia tells you what is still guaranteed.",
+    "deck": "A box and software that sit beside any autopilot. Without relying on GNSS, it computes the region where the vehicle is sure to be, accepts GNSS only inside it and, faced with a lie, raises the alarm and switches source, holds or lands. Before the mission, a verdict. Afterwards, a sealed record that another party recomputes.",
+    "estado": "An applied research proposal. Measured in simulation and on recorded data, proven in Lean. No real-world flights yet.",
+    "cta": [
+      { "t": "See the proof", "u": "#prova" },
+      { "t": "For investors", "u": "/atalaia/investidores/" },
+      { "t": "Talk to us", "u": "mailto:carlos@carlostoledo.co" }
+    ]
+  },
+  "problema": {
+    "eyebrow": "The problem",
+    "titulo": "Everything that moves on its own trusts a signal anyone can drown out.",
+    "texto": "Drones, field robots and vessels depend on GNSS, the common name for GPS, Galileo and similar systems. The signal arrives from space very weak: a cheap device drowns it out, and a spoofer imitates it. The worst case is not losing the signal. It is continuing to receive a signal that lies, while the vehicle carries on, convinced.",
+    "fatos": [
+      {
+        "k": "Pampulha, Belo Horizonte, January 2025",
+        "v": "21 aircraft",
+        "n": "lost the GPS signal over the airport between 17 and 21 January and landed on instruments. Anatel found the jammer on top of a nearby hill by tracking the signal.",
+        "estagio": "public fact",
+        "fonte": "Agência Gov (Anatel), 15 September 2025; Convergência Digital, 24 January 2025"
+      },
+      {
+        "k": "Brasília, April 2021 to March 2022",
+        "v": "173 aircraft",
+        "n": "lost satellite navigation on approach or departure because of the government's own anti-drone jammers, according to an Anatel report.",
+        "estagio": "public fact, via the press",
+        "fonte": "Intercept Brasil, 2023"
+      },
+      {
+        "k": "Sorocaba (SP), September 2025",
+        "v": "1 factory",
+        "n": "clandestinely making jammers, with anti-drone briefcases ready for sale, dismantled by Anatel and the police.",
+        "estagio": "public fact",
+        "fonte": "Agência Gov (Anatel), 15 September 2025"
+      }
+    ],
+    "fecho": "The rules already call for an answer: DECEA requires contingency planning and a flight termination plan for drones, ISO 18497 asks that an autonomous agricultural machine not leave its operating zone, and IMCA asks for GNSS to be checked against independent references in dynamic positioning. Atalaia proposes an answer that can be checked."
+  },
+  "como": {
+    "eyebrow": "How it works",
+    "titulo": "A judge beside the navigation system.",
+    "texto": "Atalaia does not replace the vehicle's navigation system: it judges it. The position from the autopilot, a vision system or the manufacturer comes in as a proposal, and Atalaia decides whether it can be used.",
+    "passos": [
+      { "t": "A region, not a point", "d": "From the inertial sensor, the terrain, the camera and the height above ground, the box computes the protection region: where the vehicle is sure to be if every sensor stays within its declared limit. GNSS plays no part in that calculation." },
+      { "t": "GNSS goes through a gate", "d": "The satellite position is accepted only if it falls inside the region, plus a small margin. Because the region was built without GNSS, no attacker can drag it." },
+      { "t": "Lie caught, response ready", "d": "Outside the region, GNSS is declared false: the box raises the alarm, identifies the source and switches the estimator's source, holds or lands, as agreed before the mission." },
+      { "t": "Three verdicts before departure", "d": "Route, energy, weather and GNSS, each in the worst case: ✓ PASS, × FAIL or ∅ NEEDS DATA. Needs data says which measurement would decide." },
+      { "t": "A record someone else recomputes", "d": "Every reading is signed at capture and chained. A verifier written by another party redoes every decision from the sealed record." }
+    ],
+    "integracao": "It speaks MAVLink. On ArduPilot, it delivers the checked position and switches the estimator's source. On a DJI, which today does not accept an external position, it warns and commands a hover or a landing.",
+    "dominios": [
+      { "nome": "Air", "d": "Cargo and inspection drones, operating without a GNSS they can trust. This is the domain that opens the way.", "estado": "in simulation" },
+      { "nome": "Land", "d": "Robots and farm machinery: does the machine stay inside the fence, and for how many seconds after losing its precision correction?", "estado": "proposed" },
+      { "nome": "Sea", "d": "Dynamic positioning (DP): GNSS checked against the installation's laser or radar, and the record as evidence after a loss of position.", "estado": "calculation on paper" },
+      { "nome": "Offshore", "d": "Operating decisions redone from scratch, from public records, by people who did not make them.", "estado": "calculation on public data" }
+    ]
+  },
+  "silencioso": {
+    "eyebrow": "Silent by default",
+    "titulo": "It listens to everything. It transmits only with your authorization, and leaves a receipt.",
+    "texto": "Atalaia receives signals and stays silent by default. An optional active module, proposed, switches on only inside an envelope approved before the mission, using type-approved low-power equipment, and every activation is logged. In no mode does it jam, spoof or interfere with third-party signals, or transmit in the GNSS bands.",
+    "envelope": "The envelope states which transmitters may switch on, where, at what power, for how long and who switches them off. Inside it, the box switches them on by itself when the gate declares GNSS false. Outside it, nothing switches on, not even on command. An empty envelope is silent mode.",
+    "modulo": {
+      "titulo": "The optional active module",
+      "estado": "PROPOSED",
+      "texto": "References a spoofer cannot imitate, switched on only when the mission calls for them:",
+      "capacidades": [
+        { "t": "Cooperative ranging and authenticated beacons", "d": "Distance measured round trip over the telemetry link itself, or by UWB, to a beacon at the post, the quay, the platform or the edge of the field plot.", "estado": "PROPOSED" },
+        { "t": "Onboard radars", "d": "A radar altimeter on the drone, at 24 GHz or at 60 to 64 GHz, and a Doppler ground-speed radar on land vehicles.", "estado": "PROPOSED" },
+        { "t": "Integrity shared across the fleet", "d": "Each vehicle broadcasts its region; a local spoofer shows up as disagreement between them.", "estado": "PROPOSED" },
+        { "t": "Integrity test bench", "d": "Testing and test reports for receivers, autopilots and machines, sealed and reproducible. It starts digital, with no radio transmission at all.", "estado": "PROPOSED; the digital layer exists in simulation, with a sealed report" }
+      ]
+    },
+    "nunca": "In no mode: jamming, spoofing or interfering with third-party signals; transmitting in the GNSS bands; anti-drone by jamming; guiding weapons, designating targets or tracking people."
+  },
+  "bancada": {
+    "eyebrow": "The test bench",
+    "titulo": "Testing under attack, without transmitting a single signal.",
+    "texto": "Makers of drones, autopilots and autonomous machines need to know what their equipment does when GNSS lies. The Atalaia bench injects the attack, declared in advance, and delivers a report with five items: containment, alarm, false alarm, response and outcome, each with ✓ PASS, × FAIL or ∅ NEEDS DATA. The report is sealed, and another party redoes it from the package.",
+    "camadas": [
+      { "t": "Position domain", "d": "The false GNSS enters the autopilot as a position, in simulation with the real firmware.", "estado": "exists: a sealed test report in simulation" },
+      { "t": "Signal domain, in software", "d": "Public recordings of attacked signals run through a software receiver.", "estado": "proposed" },
+      { "t": "By cable, with the signal contained", "d": "A generator wired by cable to the physical receiver, with no antenna, only after a legal opinion and a gate of its own.", "estado": "proposed" }
+    ],
+    "ganchos": "It serves the virtual fence test in Annex D.2 of ISO 18497-4 and the cross-check in IMCA IN 1730, and can serve as evidence for the navigation that RBAC No. 100 asks for. No Brazilian rule requires this test today.",
+    "palavra": "We sell testing and test reports. Type approval is Anatel's role, through bodies it designates."
+  },
+  "diferente": {
+    "eyebrow": "What is different",
+    "titulo": "The market publishes estimates. Atalaia publishes a bound, and the proof.",
+    "linhas": [
+      { "tema": "What is claimed", "mercado": "Typical accuracy: average error, the circle holding half the positions, the share of the flight within tolerance.", "atalaia": "How wrong the position can be right now, in the worst case, against any attacker." },
+      { "tema": "Who checks", "mercado": "The supplier, with its own calculation.", "atalaia": "Any party, redoing the calculation from the sealed record." },
+      { "tema": "When in doubt", "mercado": "An alarm.", "atalaia": "An alarm, the source identified and a verdict that names the missing data." },
+      { "tema": "Relationship to the navigation system", "mercado": "One more navigation system.", "atalaia": "A judge over any navigation system: the others become inputs." },
+      { "tema": "The math", "mercado": "In our searches, no published machine-checked proof.", "atalaia": "The central bound and the soundness of the estimator, proven in Lean." },
+      { "tema": "Signals", "mercado": "Anti-jamming antennas, under export control.", "atalaia": "Silent by default, and no antenna under export control." }
+    ],
+    "nota": "Set-based estimation is an established field, and the earlier work is cited in the proof. What we did not find, together, is the combination: the inertial sensor's biases inside the region, the machine-checked proof, the record that another party redoes and a gate that accepts GNSS only inside a region built without it."
+  },
+  "prova": {
+    "eyebrow": "The proof, today",
+    "titulo": "Measured where it can be measured. What is still missing, stated.",
+    "texto": "Every number says where it came from: simulation, recorded data, official test vectors, bench or formal proof. None comes from flight.",
+    "itens": [
+      { "k": "Real flights", "v": "0", "n": "None yet. Calibration flights at an authorized site are gate G2.", "estagio": "field", "fonte": "this page; /atalaia/nucleo/" },
+      { "k": "Containment in simulated flights", "v": "24,300 of 24,300", "n": "checks with the true position inside the region, across 45 simulated flights of 45 minutes over real terrain and imagery; correlated instants, not independent experiments.", "estagio": "simulation", "fonte": "/atalaia/doutrina/, section 9" },
+      { "k": "The simulation gate (G0)", "v": "8 of 8 flights", "n": "with the true position inside the region at every epoch, under all three noise models, on ArduPilot in simulation. Passed on 16 November 2026 through a dated amendment, made after reading the numbers and labeled as an amendment.", "estagio": "simulation (ArduPilot SITL)", "fonte": "/atalaia/nucleo/, sections 8 and 9" },
+      { "k": "Region tightness", "v": "up to 3×", "n": "tighter than an interval box with the same limits, at 300 s, under the sub-Gaussian model. Under the strict worst-case model, almost no gain.", "estagio": "simulation", "fonte": "/atalaia/nucleo/, section 8" },
+      { "k": "Test report, GNSS dragged off course", "v": "585.7 m → 1.8 m", "n": "distance from the landing point to the post: ArduPilot alone, and with the box emulated. The box there has no estimator of its own, and the spoofer shifts only the position.", "estagio": "simulation", "fonte": "sealed test report in simulation, 16 November 2026" },
+      { "k": "Independent verifier", "v": "30 of 30", "n": "report items redone by a separately written verifier, from the raw record, with the same verdicts; every planted failing control was caught.", "estagio": "simulation", "fonte": "sealed test report in simulation, 16 November 2026" },
+      { "k": "Machine-checked proofs", "v": "59 theorems", "n": "in Lean 4.35.0 with Mathlib, using only the standard axioms: the central bound, the replay bound, the per-satellite version, the probabilistic layer and the soundness of the estimator.", "estagio": "formal proof", "fonte": "/atalaia/nucleo/, sections 3 and 8" },
+      { "k": "Slow drifts in real data", "v": "24 of 24", "n": "detected in GNSS data recorded at fixed IBGE stations, with the motion constraint; without it, 0 of 24. The drifts are synthetic.", "estagio": "recorded real data", "fonte": "/atalaia/doutrina/, section 9" },
+      { "k": "Galileo authentication", "v": "0 failures in 193,887", "n": "authentication tags checked against the official test vectors. It does not measure resistance to spoofing or to replay.", "estagio": "official test vectors", "fonte": "/atalaia/doutrina/, section 9" },
+      { "k": "The cost of caution", "v": "56 of 111", "n": "departures held for lack of data that would have arrived, in a synthetic week of 210 departures; none of the 75 cleared landed below reserve.", "estagio": "simulation", "fonte": "/atalaia/doutrina/, section 9" },
+      { "k": "Tampering with the record", "v": "53 of 53", "n": "errors planted in the report and in the seal that were caught.", "estagio": "bench", "fonte": "/atalaia/doutrina/, section 9" }
+    ],
+    "nota": "Simulation checks the math and the protocol, not the hardware: the simulated errors were drawn within the declared limits. Real flights will tell whether the sensors' limits hold.",
+    "link": { "t": "The technical side, with the proofs", "u": "/atalaia/nucleo/" }
+  },
+  "modelo": {
+    "eyebrow": "Business model",
+    "estado": "PROPOSED",
+    "titulo": "Report, box, license and record.",
+    "linhas": [
+      { "t": "Testing and reports", "d": "The bench tests receivers, autopilots and machines under attack and delivers a sealed report. It is the nearest revenue line: it starts digital, with no purchase of radio equipment." },
+      { "t": "The box", "d": "The hardware beside the autopilot, with radio modules that are already type-approved whenever there is an active module." },
+      { "t": "Per-vehicle license", "d": "The Core software, per vehicle in operation." },
+      { "t": "Auditable records", "d": "The sealed record of every mission, ready for an investigation or an audit, redone by an outside verifier." },
+      { "t": "Atalaia Central", "d": "The ground operations center: the verdicts before each mission, the fleet, the batteries and the synthetic flight." }
+    ],
+    "nota": "No price has been set yet."
+  },
+  "roadmap": {
+    "eyebrow": "Path and gates",
+    "titulo": "Nothing is bought before a gate is passed.",
+    "portoes": [
+      { "id": "G0", "t": "Simulation", "d": "The set estimator on 8 simulated flights in ArduPilot, with the true position inside the region at every epoch.", "valor": "US$0", "estagio": "simulation", "estado": "passed on 16 November 2026, by dated amendment", "fonte": "/atalaia/nucleo/, section 9" },
+      { "id": "G1", "t": "Hardware bench", "d": "Open autopilot, onboard computer, multiband GNSS receiver and bench inertial sensor: the hardware in the loop must make the same decisions as the simulation.", "valor": "about US$1.1 thousand", "estagio": "estimate, not a quote", "estado": "next", "fonte": "US retail prices on 16 November 2026, before taxes and shipping" },
+      { "id": "G2", "t": "Open aircraft", "d": "A development aircraft in the X650 class and calibration flights at an authorized site, each with a simulated twin recorded in advance.", "valor": "about US$4 to 6 thousand", "estagio": "estimate, not a quote", "estado": "after G1", "fonte": "US retail prices on 16 November 2026, before taxes and shipping" },
+      { "id": "Campanha", "t": "Tests and independent validation", "d": "Acceptance criteria frozen and timestamped before any bench work; an outside verifier redoes every decision; good and bad results published; one experiment in each domain beyond air.", "valor": "engineering hours", "estagio": "proposed", "estado": "12 months, counted from the research contract", "fonte": "applied research proposal, version 0.5" }
+    ],
+    "nota": "In Brazil, with taxes and shipping, the amounts come to about double."
+  },
+  "blog": [
+    { "t": "A bound, not an estimate", "u": "/atalaia/blog/um-limite-nao-uma-estimativa/", "resumo": "Why the right question is how wrong the position can be right now." },
+    { "t": "Pampulha, January 2025", "u": "/atalaia/blog/pampulha-janeiro-2025/", "resumo": "A jammer on a hill, 21 aircraft without GPS, and what it teaches drone operators." },
+    { "t": "Silent by default", "u": "/atalaia/blog/silencioso-por-padrao/", "resumo": "The design principle, the proposed active module and the lines that do not move." },
+    { "t": "The cost of caution", "u": "/atalaia/blog/o-custo-da-cautela/", "resumo": "56 of 111, and why publishing what we turn down is part of the product." },
+    { "t": "How to test without transmitting", "u": "/atalaia/blog/como-testar-sem-emitir/", "resumo": "The integrity test bench, the sealed report and what it does not show yet." }
+  ],
+  "faq_curta": [
+    { "q": "Has Atalaia flown yet?", "a": "No. No real-world flights yet. What we show comes from simulation with the real ArduPilot firmware, from recorded data, official test vectors, the bench and proof in Lean, and every number says where it came from. Calibration flights at an authorized site are gate G2." },
+    { "q": "Does it transmit any signal?", "a": "By default, no: it only receives. The active module, optional and proposed, switches on only inside an envelope approved before the mission, using type-approved low-power equipment, and every activation is logged. It never jams, spoofs or interferes with third-party signals, or transmits in the GNSS bands." },
+    { "q": "Does it work with my drone?", "a": "The box speaks MAVLink. On ArduPilot, it delivers the checked position and switches the estimator's source. On a DJI, it warns and commands a hover or a landing, because DJI does not accept an external position today." },
+    { "q": "What if GNSS disappears altogether?", "a": "The region then grows using only the other sensors. While it fits within the phase's limit, the mission continues; when it no longer fits, the box holds or lands where it was assessed in advance. With a consumer-grade inertial sensor, the guarantee is lost in about 3 minutes (simulation; /atalaia/doutrina/), which is why the verdict before the mission matters." },
+    { "q": "Why trust a bound you compute yourselves?", "a": "Because you do not have to trust it. The central bound is proven in Lean and checked by machine, and every decision sits in a sealed record that a verifier written by another party recomputes. If it disagrees, the disagreement shows." },
+    { "q": "Does the bench report replace type approval?", "a": "No. The bench sells testing and test reports, sealed and reproducible. Type approval of equipment is Anatel's role, through bodies it designates; authorizing operations is the role of ANAC and DECEA." },
+    { "q": "Who is behind it?", "a": "Carlos Toledo, author of the protocol and technical lead, with AI help (Claude) on research and writing. Research and pilot partners will be named once they confirm." }
+  ],
+  "fechamento": {
+    "titulo": "We are looking for people who want to measure this with us.",
+    "texto": "An applied research partner, a pilot customer and investment to get through the gates. The results, good and bad, come out with the record that proves them.",
+    "cta": [
+      { "t": "For investors", "u": "/atalaia/investidores/" },
+      { "t": "Write to Carlos", "u": "mailto:carlos@carlostoledo.co" }
+    ],
+    "assinatura": "Prepared by Carlos Toledo, with AI help (Claude) on research and writing. Working document: not a commercial proposal, nor an official document of any agency."
+  }
+}

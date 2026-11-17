@@ -1,0 +1,511 @@
+{
+  "secoes": [
+    {
+      "id": "problema",
+      "titulo": "The problem",
+      "perguntas": [
+        {
+          "q": "What is the problem, in one sentence?",
+          "a": "Drones, field robots and autonomous vessels depend on GNSS (GPS, Galileo and similar systems), a signal that arrives from space very weak and that a cheap device can drown out or imitate. When it lies, the vehicle may carry on convinced, and afterwards no one can say, with proof, how wrong the position was.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5, section 1", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "Does this really happen, in Brazil?",
+          "a": "Yes. Between 17 and 21 January 2025, 21 aircraft lost the GPS signal over Pampulha airport, in Belo Horizonte, and landed on instruments; Anatel and the Military Police located the jammer at the top of the Aglomerado da Serra by radio direction finding and seized it. Between April 2021 and March 2022, 173 aircraft lost satellite navigation in Brasília because of the State's own anti-drone jammers, according to an Anatel report cited by the press. In September 2025, a clandestine jammer factory was dismantled in Sorocaba. At sea, IMCA records that interference affects vessels with dynamic positioning (DP), personnel transfer units and support vessels; in 2018, 147 dynamic positioning events were reported, many of them caused by jamming in the Middle East. The gap: we found no documented GNSS interference in Brazilian waters between 2023 and 2026.",
+          "fontes": [
+            { "t": "Agência Gov (Anatel), operation dismantles a jammer factory and cites the Pampulha case, 15 September 2025", "u": "https://agenciagov.ebc.com.br/noticias/202509/operacao-conjunta-desmantela-fabrica-clandestina-de-bloqueadores-de-sinais-em-sao-paulo" },
+            { "t": "Convergência Digital, Anatel seizes the equipment that made 21 aircraft lose GPS, 24 January 2025", "u": "https://convergenciadigital.com.br/mercado/anatel-apreende-equipamento-clandestino-que-fez-21-aeronaves-perderem-o-sinal-de-gps-em-minas-gerais/" },
+            { "t": "Intercept Brasil, the 173 aircraft of Brasília, 2023", "u": "https://www.intercept.com.br/?p=422332" },
+            { "t": "IMCA Information Note 1730, April 2026", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" },
+            { "t": "RNTF, dynamic positioning events of 2018", "u": "https://rntfnd.org/?p=30638" }
+          ]
+        },
+        {
+          "q": "Who feels the pain, and do the rules already ask for anything?",
+          "a": "They do, each in its own domain. In the air, DECEA's ICA 100-40 (in force since 1 July 2026) requires alternative planning and a flight termination plan, and ANAC's RBAC No. 100 asks for a navigation system with enough performance and reliability for the safety of the operation. On land, ISO 18497-3:2024 asks that the autonomous agricultural machine not leave its operating zone. At sea, IMCA IN 1730 asks for GNSS to be checked against independent references, and a loss of position is an incident reported to the ANP. The gap: none of these rules obliges anyone to produce a position integrity number. They ask for behavior and evidence, and Atalaia proposes evidence that can be checked.",
+          "fontes": [
+            { "t": "DECEA, ICA 100-40 (Ordinance 2.094/DNOR8, 18 March 2026)", "u": "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento/arquivos/2026/ica-100-40-publicada-port-2094-dnor8-18-03-2026-bca-058-30-03-2026.pdf" },
+            { "t": "ANAC, RBAC No. 100", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "ISO 18497-3:2024", "u": "https://committee.iso.org/standard/82687.html" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "por-que-agora",
+      "titulo": "Why now",
+      "perguntas": [
+        {
+          "q": "Why now, and not five years ago?",
+          "a": "Three things arrived at the same time. The rules: ICA 100-40 and RBAC No. 100 (which replaced RBAC-E No. 94 on 15 June 2026), ISO 18497-3 and -4 of 2024, and IMCA IN 1730 of April 2026; abroad, RTCA committee SC-159 is writing, through 2028, a performance standard for inertial-aided GNSS that covers detection, mitigation and recovery under jamming and spoofing. Authentication: Galileo's OSNMA entered initial service on 24 July 2025, and with it a spoofer can no longer forge the message and has to rebroadcast it, an attack that a precisely known clock bounds. And machine proof became practical: Lean 4 with Mathlib made it possible to prove Atalaia's central bound and the soundness of its estimator, 59 theorems checked by machine. Add open autopilots that accept an external position over MAVLink, and a box beside the autopilot becomes possible.",
+          "fontes": [
+            { "t": "ANAC, Resolution No. 805/2026", "u": "https://pergamum.anac.gov.br/arquivos/RA2026-0805.pdf" },
+            { "t": "RTCA SC-159, terms of reference, revision 26, 23 June 2026", "u": "https://www.rtca.org/wp-content/uploads/2026/06/SC-159-TOR-Rev-26-Approved-2026-06-23.pdf" },
+            { "t": "EUSPA, OSNMA in initial service", "u": "https://www.euspa.europa.eu/newsroom-events/news/testing-operations-galileo-osnma-service-now-available-users" },
+            { "t": "Atalaia Core, the Lean proofs", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Do Brazilian authorities already treat this as a risk?",
+          "a": "Yes, in the air. In July 2026, DECEA presented to ICAO its plan for a minimum operating network of conventional aids in case of GNSS disruption, and the regional aviation safety group for the Americas issued an alert on GNSS interference on 11 November 2025. The gap: for drones, land and sea, we found no Brazilian requirement for GNSS robustness.",
+          "fontes": [
+            { "t": "DECEA at ICAO, plan for the minimum operating network in response to GNSS disruption, 2026", "u": "https://www.icao.int/sites/default/files/SAM/MeetingDocs/2026/0713-RLA06901-Reunion%20MON%20y%20GNSS/2.%20Presentaciones%20-%20Presentations/P02-2026_BRAZILIAN-PLAN-FOR-THE-IMPLEMENTATION-OF-A-MINIMUM-OPERATING-NETWORK-MON-IN-RESPONSE-TO-GNSS-DISRUPTION.pdf" },
+            { "t": "RASG-PA, alert on GNSS interference, 11 November 2025", "u": "https://www.icao.int/sites/default/files/RASGPA/Documents/RSIA-03-GNSS-Interference-REV.pdf" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "solucao",
+      "titulo": "The solution in plain language",
+      "perguntas": [
+        {
+          "q": "What is Atalaia?",
+          "a": "A box and software that sit beside any autopilot. The box computes, without GNSS, the region where the vehicle certainly is; it accepts GNSS only inside that region, with a small margin; when GNSS lies, it raises the alarm and switches the source, holds or lands; before the mission, it gives a three-state verdict, ✓ PASS, × FAIL or ∅ NEEDS DATA; and it leaves a sealed record that another party recomputes.",
+          "fontes": [
+            { "t": "Atalaia, home page", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "What does the customer get, in practice?",
+          "a": "Before the mission: four reports, route, energy, weather and GNSS, each one at the worst case, and a needs data verdict says which measurement would decide it. During: the alarm, the source identified and the agreed response. After: the sealed record, which serves as evidence in an investigation or an audit. For makers of receivers, autopilots and machines: the test report from the test bench.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "In which domains?",
+          "a": "Four, on the same integrity core. Air leads the way: cargo and inspection drones. Land: robots and agricultural machines, where the question is whether the machine stays inside the fence. Sea: dynamic positioning of vessels, with GNSS checked against the installation's laser or radar. Offshore: operating decisions redone from scratch from public records. Air is the largest; each of the others comes in with an experiment.",
+          "fontes": [
+            { "t": "Atalaia Core", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "And the active module?",
+          "a": "Atalaia receives signals and is silent by default. An optional active module, proposed, switches on only inside an envelope approved before the mission, with low-power type-approved equipment, and every activation goes into the record. In no mode does it jam, spoof or interfere with third-party signals, nor does it transmit in the GNSS bands. The module, PROPOSED, brings references that a spoofer cannot imitate: cooperative ranging to authenticated beacons (round trip over the telemetry link, or UWB, at a post, quay, platform or field edge); its own radars (a radar altimeter on the drone, at 24 GHz or 60 to 64 GHz, and a Doppler ground-speed radar on land vehicles); integrity broadcast across the fleet; and the integrity test bench, which starts digital, with no radio emission at all.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5, red lines", "u": "/atalaia/doutrina/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "como-funciona",
+      "titulo": "How it works (no formulas)",
+      "perguntas": [
+        {
+          "q": "How does the box know that GNSS is lying?",
+          "a": "Two estimates run side by side. The usual one, fused, gives the accuracy. The other is the protection region, computed only from the inertial sensor, the terrain, the camera and the height above ground, each with its declared error bound: GNSS never enters it. A satellite position that falls outside the region, widened by a small margin, is declared false. If the region becomes empty, an assumption has failed: some sensor went beyond its declared bound, and removing one source at a time shows which.",
+          "fontes": [
+            { "t": "Atalaia Core, section 3", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Why can't an attacker fool the gate?",
+          "a": "Because the region was built without GNSS, and the attacker has no way to drag it. The error an attacker can hide is bounded by the width of the region plus the margin, whatever the attack; this is proven in Lean. The bound is tight: an attacker who knows the region can place the false position on the opposite edge. That is why the product is shrinking the region without cheating: every meter taken off it is one meter less that any attacker can hide.",
+          "fontes": [
+            { "t": "Atalaia Core, section 3 (R1, proven in Lean 4.35.0)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Doesn't Galileo authentication solve this on its own?",
+          "a": "No. OSNMA proves where the message came from, not that the signal arrived directly from the satellite: a spoofer can still rebroadcast it. With the box's clock known to 100 nanoseconds, a rebroadcast with the same delay for every satellite hides at most 30 m, and this is proven in Lean. With different delays per satellite, we proved the opposite: the clock alone may bound nothing, and the bound has to come from another source. We state both.",
+          "fontes": [
+            { "t": "Atalaia Core, section 5 (R4 and the per-satellite version)", "u": "/atalaia/nucleo/" },
+            { "t": "EUSPA, OSNMA", "u": "https://www.euspa.europa.eu/galileo-osnma" }
+          ]
+        },
+        {
+          "q": "How does the box connect to the vehicle?",
+          "a": "Through MAVLink, from the start. On ArduPilot, it delivers the checked position (as an external GPS or as external navigation for the estimator) and switches the estimator's source when it declares GNSS false; the same path serves Copter, Rover and Sub. On a DJI, which today does not accept an external position (the mode is marked as unavailable in the development kit), the box warns and commands a hover or a landing. A single codebase, with one adapter per domain.",
+          "fontes": [
+            { "t": "Atalaia Core, section 2", "u": "/atalaia/nucleo/" },
+            { "t": "DJI Payload SDK, open capability list", "u": "https://developer.dji.com/doc/payload-sdk-tutorial/en/development-preparation/development-platform-overview/open-capability-list.html" }
+          ]
+        },
+        {
+          "q": "What is the sealed record?",
+          "a": "Each reading is signed at capture, chained to the previous one and timestamped, with the chain of custody preserved. A verifier written by another party redoes each verdict from the sealed data and reaches the same decisions, or says where it did not. On the bench, 53 of 53 errors planted in the report and in the seal were caught.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5, section 9", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "How long does the guarantee hold without GNSS?",
+          "a": "It depends on the inertial sensor and the terrain, and Atalaia measures this per source, in a ledger of widths. With a tactical inertial sensor and a camera, the error of the best estimate was 12 m 95% of the time, in simulation. By the calculated model, a tactical sensor of the HG4930-S class keeps the region within a 200 m alert limit for about 5 min 47 s on inertia alone. The gap: with a consumer inertial sensor, the guarantee is lost in about 3 minutes; over flat terrain, the terrain does not help; over water, the protocol refuses the mission.",
+          "fontes": [
+            { "t": "Atalaia Core, section 4 (calculated model)", "u": "/atalaia/nucleo/" },
+            { "t": "Atalaia, draft protocol v0.5, section 9", "u": "/atalaia/doutrina/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diferente",
+      "titulo": "What is different",
+      "perguntas": [
+        {
+          "q": "What do today's vendors publish?",
+          "a": "Performance estimates, which is what the market buys today for accuracy. Some public numbers: Vantor's Raptor Guide, under 10 m root-mean-square error; Honeywell's HANA, 10 m in the 50% circle on a flight of an E170; Q-CTRL's Ironstone Opal, 22 m over 500 km; SandboxAQ's AQNav, RNP 0.3 for 64% of the flight and RNP 2 for 100%. Among receivers, Septentrio has offered interference mitigation and OSNMA since 2022, and NovAtel offers an anti-jam antenna. These are good products, and they measure accuracy or protect the signal. In our search of 14 November 2026, we found no vendor that publishes a guaranteed error bound for navigation without GNSS.",
+          "fontes": [
+            { "t": "Vantor, Raptor", "u": "https://vantor.com/product/mission-solutions/raptor/" },
+            { "t": "Honeywell, vision-aided navigation", "u": "https://aerospace.honeywell.com/us/en/products-and-services/products/navigation-and-sensors/navigation-systems/vision-aided-navigation" },
+            { "t": "GPS World, Q-CTRL and quantum navigation", "u": "https://www.gpsworld.com/q-ctrl-demonstrates-quantum-navigation-system-as-gps-backup/" },
+            { "t": "The Quantum Insider, SandboxAQ and magnetic navigation, 16 July 2025", "u": "https://thequantuminsider.com/2025/07/16/sandboxaq-and-acubed-achieve-progress-in-magnetic-navigation/" },
+            { "t": "GPS World, Septentrio and OSNMA", "u": "https://www.gpsworld.com/septentrio-brings-osnma-anti-spoofing-security-to-market/" },
+            { "t": "NovAtel GAJT, product sheet", "u": "https://hexagondownloads.blob.core.windows.net/public/Novatel/assets/Documents/Papers/GAJT-AE-N-PS/GAJT-AE-N-PS.pdf" }
+          ]
+        },
+        {
+          "q": "So does Atalaia compete with them?",
+          "a": "It complements them. Atalaia is a judge over any navigator: the position from the autopilot, from a vision system or from the manufacturer comes in as a proposal, and the gate decides whether it can be used. A better navigator makes Atalaia refuse less, not lose value. What Atalaia adds is a different question: how wrong can the position be right now, in the worst case, against any attacker, in a record that another party recomputes.",
+          "fontes": [
+            { "t": "Atalaia Core, sections 1 and 2", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "And academic research? Doesn't this already exist?",
+          "a": "The pieces exist, and they are not ours. The empty region that exposes a false source is in Jaulin (Automatica, 2009); confidence domains by set inversion, in Drevelle and Bonnifait (2013); a set-based GNSS detector, in Su, Schön and Joerger (2023); GPS checked against the inertial sensor's reachable set, in Mina et al. (2023); protection levels with zonotopes, in Liu, Wang and Abel (2023); interval inertial navigation on a boat, in Le Bars et al. (2022); a deterministic protection level for LiDAR-inertial odometry, in a 2026 preprint. What we did not find, together: the inertial sensor's biases inside the region, the machine proof, the record that another party redoes, and the gate that accepts the outside correction only inside a region built without it. This is absence in the searches, not proof that it does not exist.",
+          "fontes": [
+            { "t": "Drevelle and Bonnifait, IEEE T-RO, 2013", "u": "https://doi.org/10.1109/TRO.2013.2262776" },
+            { "t": "Mina, Kanhere, Kousik and Gao, NAVIGATION, 2023", "u": "https://doi.org/10.33012/navi.616" },
+            { "t": "Liu, Wang and Abel, GPS Solutions, 2023", "u": "https://doi.org/10.1007/s10291-023-01447-z" },
+            { "t": "Le Bars et al., Frontiers in Control Engineering, 2022", "u": "https://doi.org/10.3389/fcteg.2021.786188" },
+            { "t": "Zhu et al., arXiv 2605.09383, 2026", "u": "https://arxiv.org/abs/2605.09383" },
+            { "t": "Atalaia Core, section 1 and sources (Jaulin 2009; Su, Schön and Joerger 2023)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "And on land and at sea?",
+          "a": "In agriculture, the GEOFENCE project, with ESA support, promises to maintain reliable position error bounds, without publishing values: it is the project to watch. In dynamic positioning, the vendors we read publish accuracy, alarms, RAIM or protection level; none publishes a guaranteed bound. IMCA asks for cross-checking, but in qualitative terms: that is the space for Atalaia's gate.",
+          "fontes": [
+            { "t": "ESA Business Applications, GEOFENCE", "u": "https://business.esa.int/projects/geofence" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prova",
+      "titulo": "The proof today",
+      "perguntas": [
+        {
+          "q": "How many real flights does Atalaia have?",
+          "a": "Zero. There is not yet a physical box, a flight, a DJI integration or field ground truth. Everything that follows comes from simulation, recorded data, official vectors, the bench or formal proof, and each number says which.",
+          "fontes": [
+            { "t": "Atalaia Core, opening panel (real flights: 0)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "What does exist, then?",
+          "a": "Simulations: the true position inside the region in 24,300 of 24,300 checks from 45 simulated 45-minute flights over real terrain and imagery (correlated instants, not independent experiments); on a simulated truck trip, the alarm 3 s after leaving the highway, with GNSS identified as the source. Proofs: 59 theorems in Lean 4.35.0 with Mathlib, using only the standard axioms, covering the central bound, the rebroadcast bound, the per-satellite version, the probabilistic layer and the soundness of the estimator. Recorded data: slow synthetic drifts injected into real data from fixed IBGE stations, detected in 24 of 24 with the motion constraint, and in 0 of 24 without it. Official vectors: 193,887 Galileo authentication tags checked, no failures. Bench: 53 of 53 errors planted in the record detected. And a sealed simulation test report, and gate G0, both below.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5, section 9", "u": "/atalaia/doutrina/" },
+            { "t": "Atalaia Core, sections 3, 8 and 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "What is the sealed simulation test report?",
+          "a": "The inaugural report from the test bench, run on 16 November 2026 on the real ArduPilot firmware in simulation, on a mission of about 4.4 km to a post in the hills. Three tests (nominal, dragged GNSS pulled off course, and GNSS that jumps 300 m) and two setups (ArduPilot alone and ArduPilot with the emulated box). Under drag, ArduPilot alone raised the alarm but landed 585.7 m from the post; with the box, 1.8 m. Under the jump, 300.0 m against 0.8 m. The test catalog was written before any run, a separately written verifier redid the 30 items from the raw record with the same verdicts, and the red controls (a falsified verdict and a falsified number, a planted false alarm) were all caught. The gap, stated in the report itself: the box is emulated and has no estimator of its own; the spoofer shifts only the position; the terrain is flat; and there was one run per pair, with no statistics.",
+          "fontes": [
+            { "t": "Sealed simulation test report, 16 November 2026 (provided under confidentiality)", "u": null }
+          ]
+        },
+        {
+          "q": "What is G0, and why did it pass by amendment?",
+          "a": "G0 is the simulation gate: the set estimator ran on the inertial sensor data of 8 flights simulated in ArduPilot. With the correct declared bounds, the true position stayed inside the region at every epoch of the 8 flights, under all three noise models, and the region came out up to 3 times tighter than an interval box in the sub-Gaussian model at 300 s. The criterion also required that a red control, a deliberately wrong declaration, escape in every flight. In the initial round, it did not escape: G0 did not pass as written, and we said so. In the second round, a stronger red, written and sealed before running, escaped in 6 of 8; the 2 that contained it simulate the physics at 1.2 kHz, with a gap term that is too wide, and the reruns of those flights at 1 kHz escaped at 9 and 11 s. A dated amendment, made after reading the numbers and labeled as an amendment, swapped those two flights for their reruns, and G0 passed on 16 November 2026. Tightening that term remains open.",
+          "fontes": [
+            { "t": "Atalaia Core, sections 8 and 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "What does the simulation not prove?",
+          "a": "The simulation checks the mathematics and the protocol, not the equipment: the simulated errors were drawn within the declared bounds. It does not say whether the bounds of real sensors hold, nor whether the sensors err independently. The estimator prototype propagates the classical inertial error; exact propagation on the Lie group is the goal and is being proven piece by piece. The calibration flights exist to answer what the simulation cannot.",
+          "fontes": [
+            { "t": "Atalaia Core, section 8", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Is there any calculation for the sea?",
+          "a": "There is, on paper. For a support vessel with dynamic positioning, the region relative to the installation, by laser, is about 3.6 to 3.8 m wide including the margin, against a typical yellow alert limit of 5 m: the relative gate passes. The absolute region without GNSS in deep water, from 1,000 to 2,000 m, is about 10 to 18 m, against 2 to 5 m: the absolute gate does not pass. That is why the sea product is the relative gate and the evidence after the fact. The gap: no Brazilian document of operating limits with public numbers was found, and the sensor data sheets give statistics, not bounds.",
+          "fontes": [
+            { "t": "Width calculation for dynamic positioning, 16 November 2026 (provided under confidentiality)", "u": null }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mercado",
+      "titulo": "The market",
+      "perguntas": [
+        {
+          "q": "How big is the market?",
+          "a": "We do not publish a total market number, because we do not have one with a primary source. What we have are sourced facts. The Brazilian offshore support fleet, from Clarksons data of February 2025 presented by Syndarma and ABEAM to the MME: 382 offshore support vessels; 144 supply vessels above 3,000 DWT, 14.6% of the world fleet in that class, 2nd place; 37 anchor-handling tugs above 15,000 BHP; 10 pipe-laying vessels. The contractual RD&I obligations of the oil sector, which can fund the sea and offshore domains, totaled R$4.3 billion in 2025. In agriculture, a Brazilian-made autonomous orchard sprayer was launched commercially at Agrishow 2026, at a starting price of about R$1.7 million, according to the press, and ISO 18497 does not yet have an ABNT version. On threats, the Pampulha, Brasília and Sorocaba cases, in the problem section.",
+          "fontes": [
+            { "t": "Syndarma and ABEAM to the MME, 27 June 2025 (Clarksons data, Feb 2025)", "u": "https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/gt-rcnpe-10-2024/subgrupos/subgt05/2025-06-27-subgt-05-apresentacao-syndarma-e-abeam.pdf" },
+            { "t": "Cenário Energia, the ANP 2026 Yearbook and the R$4.3 billion in RD&I, 1 July 2026", "u": "https://cenarioenergia.com.br/2026/07/01/producao-nacional-de-petroleo-salta-12-em-2025-impulsionada-pelo-pre-sal/" },
+            { "t": "Boca, the autonomous sprayer at Agrishow 2026", "u": "https://boca.com.br/agronegocio/jacto-destaca-inovacao-na-agrishow-2026-com-novo-pulverizador-autonomo" },
+            { "t": "Medeiros et al., Engenharia Agrícola v46, 2026", "u": "https://www.scielo.br/j/eagri/a/mPH5m8tSXwQbxQBqJKWg6Gm/" }
+          ]
+        },
+        {
+          "q": "What is not sized?",
+          "a": "Almost everything, and we say how much: the size of the agricultural autonomy market in Brazil (we found no primary source); the cargo drone market in the country; the GNSS resilience testing market (equipment vendors do not publish list prices, all ask for a quote, and we found no one selling the service in Brazil); the integrity market in dynamic positioning; and the defense market. A pilot customer and the bench's initial revenue will supply the measured number that is missing.",
+          "fontes": [
+            { "t": "Atalaia, market notes of 16 November 2026 (provided under confidentiality)", "u": null }
+          ]
+        },
+        {
+          "q": "Is there a buyer obliged to buy this?",
+          "a": "Today, no, and it is the most important gap. There are hooks: RBAC No. 100 asks for sufficient navigation, demonstrated in a manner acceptable to ANAC, without saying how; Annex D.2 of ISO 18497-4 describes the virtual fence test for the autonomous agricultural machine; IMCA IN 1730 asks for GNSS cross-checking; and a vessel's loss of position is an incident reported to the ANP, which may require an investigation report. Abroad, level 3 of the DHS resilient PNT framework asks for bounded degradation, which is exactly what the protection region measures. By our own test, this is still a demonstration with regulatory hooks, not a compelled market.",
+          "fontes": [
+            { "t": "ANAC, RBAC No. 100, 100.107(a)(2)", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "ISO 18497-4:2024, sample with the table of contents", "u": "https://cdn.standards.iteh.ai/samples/82688/9e77c86a5bb84b87859f194af2752999/ISO-18497-4-2024.pdf" },
+            { "t": "DHS, Resilient PNT Conformance Framework, 2020", "u": "https://dhs.gov/sites/default/files/publications/2020_12_resilient_pnt_conformance_framework.pdf" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modelo",
+      "titulo": "Business model (proposed)",
+      "perguntas": [
+        {
+          "q": "How does Atalaia make money?",
+          "a": "Five lines, all proposed. Testing and reports: the bench tests receivers, autopilots and machines under attack and delivers a sealed, reproducible report. The box: the hardware beside the autopilot. The software license per vehicle in operation. The auditable records of each mission, ready for an investigation or an audit. And Atalaia Central, for ground operations: the verdicts before each mission, the fleet and the batteries.",
+          "fontes": [
+            { "t": "Atalaia, applied research proposal v0.5, public summary", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "Which line comes first?",
+          "a": "The bench. It is the nearest revenue line because it starts digital: the attack goes in as a position fed to the autopilot in simulation, then as a public recording played into a software receiver, with no purchase of radio equipment. A sealed report already exists, in simulation. It serves drone and autopilot makers, agricultural machine makers (the ISO 18497-4 Annex D.2 test) and dynamic positioning operators (the IMCA IN 1730 cross-check). The gap: no Brazilian rule requires this test today.",
+          "fontes": [
+            { "t": "ISO 18497-4:2024, sample with the table of contents", "u": "https://cdn.standards.iteh.ai/samples/82688/9e77c86a5bb84b87859f194af2752999/ISO-18497-4-2024.pdf" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        },
+        {
+          "q": "What are the prices?",
+          "a": "None has been set, and no price is recorded in any project document. The only figures we have are the purchase estimates for gates G1 and G2, which are cost, not price.",
+          "fontes": []
+        },
+        {
+          "q": "Where is the recurring revenue?",
+          "a": "In the per-vehicle license, Atalaia Central and the records of each mission. The bench can be recurring too: each new firmware version from a manufacturer calls for a new test. All of this is a proposal until there is a pilot customer.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "go-to-market",
+      "titulo": "Go-to-market",
+      "perguntas": [
+        {
+          "q": "Where does it start?",
+          "a": "With civilian use. At the outset, drone and autopilot makers, with the bench report and the box. Next, agriculture: makers of autonomous machines, for the virtual fence test and for those exporting to the European Union, where the new machinery regulation applies from 20 January 2027. Then offshore: the relative dynamic positioning gate and the evidence after a loss of position. Defense comes after validation, with the same behavior: the envelope decides.",
+          "fontes": [
+            { "t": "Atalaia, draft protocol v0.5", "u": "/atalaia/doutrina/" },
+            { "t": "Regulation (EU) 2023/1230, machinery", "u": "https://eur-lex.europa.eu/eli/reg/2023/1230/oj" }
+          ]
+        },
+        {
+          "q": "Why does civilian use come first?",
+          "a": "Because of the order of credibility: applied research, controlled experiment, independent validation, protocol review and only then military evaluation. Civilian use (civil defense in a flood, agriculture, line and slope inspection, offshore energy, environmental monitoring) generates the measured results, including the negative ones, that a defense evaluation will ask for.",
+          "fontes": [
+            { "t": "Atalaia, home page", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "What is the immediate commercial step?",
+          "a": "A 12-month applied research program with an engineering institute, in five work packages, with the acceptance criteria frozen before any bench work; and, in parallel, a pilot customer for the bench report. The conversation with the institute has not yet formally begun.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "concorrencia",
+      "titulo": "Competition and moat",
+      "perguntas": [
+        {
+          "q": "Who are the competitors?",
+          "a": "In navigation, the vendors cited above, which publish accuracy and are, for Atalaia, inputs. On the bench, the equipment is a mature market: Keysight, which absorbed Spirent in October 2025; Safran, with Skydel; and Rohde & Schwarz. As a testing service, outside Brazil: IABG and Fraunhofer IIS, in Germany, and Jammertest, in Norway, an open event that in 2026 brought together 310 participants from 127 organizations in 28 countries. In Brazil, we found no one selling this service. And in research, the set-estimation groups cited above.",
+          "fontes": [
+            { "t": "Converge Digest, Keysight completes the acquisition of Spirent", "u": "https://convergedigest.com/keysight-completes-1-16-billion-acquisition-of-spirent-communications/" },
+            { "t": "Skydel (Safran, formerly Orolia)", "u": "https://www.4test.no/Orolia-Skydel.htm" },
+            { "t": "Rohde & Schwarz, GNSS simulation", "u": "https://www.rohde-schwarz.com/br/_56279-610109.html" },
+            { "t": "Fraunhofer IIS, test environment", "u": "https://www.iis.fraunhofer.de/en/ff/lv/lok/leist/test/over-the-air-testumgebung.html" },
+            { "t": "IABG, white paper on robust GNSS systems, Dec 2025", "u": "https://www.iabg.de/fileadmin/Daten/06_MEDIATHEK/04_Veroeffentlichungen/CT_Digitalisierung/2025-12_Whitepaper-Robuste-GNSS-Systeme-EN.pdf" },
+            { "t": "Statens vegvesen, Jammertest 2026", "u": "https://www.vegvesen.no/om-oss/presse/aktuelt/2026/09/jammertest-2026/" }
+          ]
+        },
+        {
+          "q": "What is the moat?",
+          "a": "Four layers. The proofs: the central bound and the soundness of the estimator in Lean, 59 theorems checked by machine, which a competitor would have to redo. The records: the report and the mission, sealed and reproducible by another party's verifier, a format that no one we read delivers. The method: criteria written in advance, red controls that must be caught, negative results published and needs data as a verdict, inherited from a public exact-verification laboratory. And the base intellectual property: inventoried file by file, with sha256 and date, and with the root timestamped on Bitcoin. The gap: a method can be copied; recording and replaying attacks is already in a European standard (EN 16803-2 and -3), and the IEEE plans to recognize PNT testing laboratories. The moat is the combination and the speed, not a patent.",
+          "fontes": [
+            { "t": "BSI, EN 16803 (security assessment of GNSS terminals)", "u": "https://knowledge.bsigroup.com/products/space-use-of-gnss-based-positioning-for-road-intelligent-transport-systems-its-assessment-of-security-performances-of-gnss-based-positioning-terminals" },
+            { "t": "IEEE P1952", "u": "https://standards.ieee.org/ieee/1952/10606" },
+            { "t": "Carlos Toledo, public exact-verification laboratory", "u": "https://carlostoledo.co/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regulacao",
+      "titulo": "Regulation",
+      "perguntas": [
+        {
+          "q": "Which agencies matter, and how does Atalaia fit?",
+          "a": "Three in the air. Anatel, for spectrum: Atalaia receives and is silent by default, and type approval is triggered by radio emission; we have not read an express exemption for a receive-only device, and this still needs to be confirmed with Anatel itself. ANAC, for the aircraft: RBAC No. 100 requires that the pilot be able to intervene at any moment and asks for sufficient navigation. DECEA, for the airspace: ICA 100-40 applies to all drones, with registration and planning. Real flights only at an authorized site.",
+          "fontes": [
+            { "t": "ANAC, RBAC No. 100", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "DECEA, ICA 100-40", "u": "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento/arquivos/2026/ica-100-40-publicada-port-2094-dnor8-18-03-2026-bca-058-30-03-2026.pdf" },
+            { "t": "Anatel, Resolution No. 715/2019 (type approval)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2019/1350-resolucao-715" }
+          ]
+        },
+        {
+          "q": "And the active module, is it legal?",
+          "a": "By our reading, which is not a legal opinion: round-trip ranging over the telemetry link and fleet broadcast are legal with an already type-approved module, in the 900 MHz, 2.4 GHz and 5.8 GHz bands; the drone radar altimeter is legal at 24 GHz and at 60 to 64 GHz (up to 122 m of height and 20 dBm peak), and not at 76 to 81 GHz in flight nor in the 4.2 to 4.4 GHz aeronautical band; the Doppler ground-speed radar is legal at 24 GHz, with continuous operation permitted on agricultural equipment. UWB on fixed outdoor beacons has no clear category and would come in through a temporary test authorization. The box with the module goes through type approval by a designated body. Silent by default: the module switches on only inside the approved envelope, and every activation goes into the record.",
+          "fontes": [
+            { "t": "Anatel, Resolution No. 680/2017 (restricted radiation)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2017/936-resolucao-680" },
+            { "t": "Anatel, Act No. 14.448/2017, consolidated text of 14 October 2025, on the legislation portal", "u": "https://informacoes.anatel.gov.br/legislacao/" },
+            { "t": "Anatel, Resolution No. 775/2025 (temporary use)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2025/2025-resolucao-775" }
+          ]
+        },
+        {
+          "q": "And the test bench, can it generate attacks?",
+          "a": "It starts with no emission at all: the attacks go in as data, in simulation and in recordings. Under the law, a signal confined to a cable is not radiocommunication; but the law also forbids a radio-frequency emitter without type approval, and Resolution No. 760/2023 prohibits even the possession of a jammer by anyone who is not an authorized public user. That is why the cable layer waits on a legal opinion, and a jamming generator with an antenna output does not exist in the project, ever. Anatel's temporary authorization expressly excludes jammer testing.",
+          "fontes": [
+            { "t": "Law No. 9.472/1997 (LGT), art. 162", "u": "https://www.planalto.gov.br/ccivil_03/leis/l9472.htm" },
+            { "t": "Anatel, Resolution No. 760/2023", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2023/1842-resolucao-760" },
+            { "t": "Anatel, Resolution No. 775/2025", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2025/2025-resolucao-775" }
+          ]
+        },
+        {
+          "q": "Is there an export risk?",
+          "a": "Yes, and the project addresses it: a tactical inertial sensor of class 7A003 requires a US license for Brazil, and one of class 7A994 does not; the proposed configuration uses a sensor that its manufacturer declares as 7A994. Atalaia does not use a controlled anti-jam antenna.",
+          "fontes": [
+            { "t": "eCFR, EAR, part 738, supplement 1", "u": "https://www.ecfr.gov/current/title-15/part-738/appendix-Supplement%20No.%201%20to%20Part%20738" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "riscos",
+      "titulo": "Risks",
+      "perguntas": [
+        {
+          "q": "What are the risks, without embellishment?",
+          "a": "1. No real flight yet: every number comes from simulation, recorded data, official vectors, the bench or proof, and the sensors' declared bounds may not hold on real equipment. 2. No obliged buyer today: in the air, on land, at sea and on the bench, there are regulatory hooks, not an obligation. 3. A single person: the project has one author and technical lead, with AI help, and the partners are not yet confirmed. 4. The name: the Atalaia trademark has not been filed, and an INPI search on 16 November 2026 found three live applications with the name in class 9 (apparatus and software), from another holder, awaiting examination; there is no legal opinion, and the name may change. 5. Regions too wide: in the worst-case noise model, the region exceeds 800 m at 60 s; with a consumer inertial sensor, the guarantee is lost in about 3 minutes; in deep water, the absolute region without GNSS is 10 to 18 m against a limit of 2 to 5 m; on a simulated mission, the terrain correction does not bring the region below about 267 m. 6. G0 passed by amendment, not as written, and the prototype is not yet the proven code. 7. On the DJI platform, the box only warns and commands a hover or a landing. 8. The cost of caution may drive customers away: 56 of 111 held departures would have arrived.",
+          "fontes": [
+            { "t": "Atalaia Core, sections 8 and 10", "u": "/atalaia/nucleo/" },
+            { "t": "INPI, trademark search (pePI)", "u": "https://busca.inpi.gov.br/pePI/" }
+          ]
+        },
+        {
+          "q": "What would kill the project?",
+          "a": "The declared bounds failing to hold on real sensors, or holding only with regions so wide that the verdict almost always becomes needs data; an incumbent adopting set-based protection levels ahead of us (the research exists); a laboratory or vendor opening the testing service in Brazil before we do; the bench's cable layer being read as possession of a jammer; and no customer accepting the cost of caution. Each has a test written in advance, and the result will be published, including a negative one.",
+          "fontes": [
+            { "t": "Anatel, Resolution No. 760/2023", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2023/1842-resolucao-760" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "titulo": "Roadmap and gates",
+      "perguntas": [
+        {
+          "q": "What are the gates?",
+          "a": "Nothing is bought before a gate passes, and each criterion is written before the test. G0, simulation, US$0: passed on 16 November 2026, by dated amendment. G1, hardware bench (open autopilot, onboard computer, multiband GNSS receiver and bench inertial sensor), about US$1.1 thousand: the hardware in the loop must make the same decisions as the simulation. G2, an open X650-class aircraft with the flight kit, about US$4 to 6 thousand: calibration flights at an authorized site, each with a simulated twin recorded in advance. G3, a heavy platform, in a later phase. The figures are estimates from US resale prices on 16 November 2026, before taxes and shipping (about double in Brazil); they are not quotes.",
+          "fontes": [
+            { "t": "Atalaia Core, section 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "What is the timeline?",
+          "a": "Twelve months, counted from the research contract, in five packages: threats and failures; integrity architecture; experimental environment; independent validation; protocol review. The specification in months 1 to 3; the air bench in months 2 to 8; the offshore bench in months 2 to 5; the land and sea benches in months 4 to 8; validation in months 6 to 11; the review in months 10 to 12. Then come calibration in a real environment and publication of the results, including the negative ones, and only then a demonstration to user organizations, asking for an assessment of interest, not adoption.",
+          "fontes": []
+        },
+        {
+          "q": "What comes right after G0?",
+          "a": "The next layer of the digital bench (public recordings played into a software receiver), cooperative ranging in simulation as a distance constraint, moving the prototype to exact propagation on the Lie group with the containment redone, and the relative replay for dynamic positioning. Each item on the author's word, one at a time.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "recursos",
+      "titulo": "Use of funds",
+      "perguntas": [
+        {
+          "q": "What is the money for?",
+          "a": "To get through the gates, in this order: the G1 hardware bench; the G2 aircraft and calibration flights, at an authorized site; the engineering hours for the land, sea and offshore simulation and for the digital bench, which require no purchase; independent validation, with a verifier written by another party; type approval of the active module, quoted before its gate; and legal work (the bench's cable layer, the trademark, the intellectual property). No purchase before its gate.",
+          "fontes": []
+        },
+        {
+          "q": "How much does each stage cost?",
+          "a": "Only two figures have an estimate: G1, about US$1.1 thousand, and G2, about US$4 to 6 thousand, both estimates and not quotes. Everything else is quoted before each item's gate, and this page carries no other figure.",
+          "fontes": [
+            { "t": "Atalaia Core, section 9", "u": "/atalaia/nucleo/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "titulo": "Team",
+      "perguntas": [
+        {
+          "q": "Who is behind it?",
+          "a": "Carlos Toledo, author of the protocol and the architecture, and technical lead. In Brazil, he runs a public laboratory for the exact verification of machine-generated mathematics, where each verification comes with the program, the records and a control showing that it can fail; Atalaia's method comes from there. The work uses AI help (Claude) in research and writing, and this is stated in every document. The proposing party is Carlos's technology company, holder of the base intellectual property. The research and pilot partners will be named once they confirm.",
+          "fontes": [
+            { "t": "carlostoledo.co, about", "u": "https://carlostoledo.co/about/" }
+          ]
+        },
+        {
+          "q": "Isn't a single person a risk?",
+          "a": "It is, and it is on the list of risks. What reduces that risk is the method itself: everything is written so that another party can check it without relying on the author's word, and the research program brings in the engineering, the bench and the validation of an outside institution.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "buscamos",
+      "titulo": "What we are looking for",
+      "perguntas": [
+        {
+          "q": "What are you looking for?",
+          "a": "Three things: an applied research partner, with embedded engineering, a bench and an authorized site; a pilot customer, preferably a maker of drones, autopilots or autonomous machines, for the bench report and a pilot of the box; and investment to get through the gates. This page states no investment amount.",
+          "fontes": []
+        },
+        {
+          "q": "What does a pilot customer receive?",
+          "a": "A sealed report on its equipment under attack, on the digital bench, with no radio emission at all, with five items (containment, alarm, false alarm, response and outcome) and the package to redo it. Then, if it makes sense, a pilot of the box on its vehicle, with the criteria written in advance.",
+          "fontes": []
+        },
+        {
+          "q": "And intellectual property in a partnership?",
+          "a": "The base property is the one in the dated inventory, which comes in as it is. New property and the rules on publication, confidentiality and commercialization are negotiated before the start, under the partner's contract template. Science done on public data can be published without opening the Core or the products.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "contato",
+      "titulo": "Contact",
+      "perguntas": [
+        {
+          "q": "How can you reach us?",
+          "a": "Write to carlos@carlostoledo.co, or use the contact form in the footer of this page. The research proposal, the intellectual property inventory and the reports are provided under confidentiality to anyone who asks.",
+          "fontes": [
+            { "t": "Email", "u": "mailto:carlos@carlostoledo.co" }
+          ]
+        }
+      ]
+    }
+  ]
+}

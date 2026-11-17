@@ -29,6 +29,12 @@ const MARCA = {
   /* the signals line (v0.5, 2026-11-16): receive-only became silent-by-default with an optional, PROPOSED active module;
      what never changes is stated here once and every page prints it */
   sinais: 'O Atalaia recebe sinais e fica em silêncio por padrão. Um módulo ativo opcional, proposto, liga só dentro de um envelope aprovado antes da missão, com equipamento homologado de baixa potência, e cada acionamento fica no registro. Em nenhum modo bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS.' };
+/* the same three lines in English, for the mirror at /atalaia/en/ (2026-11-16), written once here like the Portuguese;
+   the English pages print these and the English content's silent-by-default sentence must be MARCA_EN.sinais */
+const MARCA_EN = {
+  lema: 'verifiable integrity for autonomous systems and critical infrastructure',
+  familia: 'Atalaia: verifiable integrity for autonomous systems and critical infrastructure, across four domains (air, land, sea and offshore) on one shared integrity core. Air comes first: drones that operate without a GNSS signal they can trust.',
+  sinais: 'Atalaia receives signals and stays silent by default. An optional active module, proposed, switches on only inside an envelope approved before the mission, using type-approved low-power equipment, and every activation is logged. In no mode does it jam, spoof or interfere with third-party signals, or transmit in the GNSS bands.' };
 
 /* ---- the records, checked against their pins */
 const PROV = JSON.parse(fs.readFileSync(path.join(DATA, 'PROVENANCE.json'), 'utf8'));
@@ -108,5 +114,5 @@ const FILM_SCRIPT = `<script>(function(){var vs=document.querySelectorAll('video
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.play().catch(function(){})}else{e.target.pause()}})},{threshold:.4});
 vs.forEach(function(v){io.observe(v)})})();</script>`;
 
-module.exports = { VERSAO, MARCA, PROV, CJ, MJ, IL, ILM, AV, DI, AL, SI, FR, KG, R12, R30, RS, V, pa, fa, na, paMiss, faOk, naOk,
+module.exports = { VERSAO, MARCA, MARCA_EN, PROV, CJ, MJ, IL, ILM, AV, DI, AL, SI, FR, KG, R12, R30, RS, V, pa, fa, na, paMiss, faOk, naOk,
   CAP, zPost, zSerra, zBase, RES_MIN, CTRV, n, EVID, CSS_BASE, VWORD, filme, FILM_CSS, FILM_SCRIPT };
