@@ -24,6 +24,8 @@ write this.
 | `polarity` | yes | `proves` or `refutes`: the claimant's term proves the canonical statement or its negation |
 | `canonical` | yes | the statement someone else wrote: `url`, `commit`, `path`, `sha256` (of the file), `module`, `decl`, `toolchain`, `what`. `decl` may be a theorem, a definition's use or an axiom; an axiom checked as a claim is also listed in `canonical.axioms` |
 | `canonical.selfContained` | | `true`: the claimant's file declares the same names, so F1 reads a copy of the canonical file with one line added (`namespace IntakeCanon`), shown to be the original constant by constant |
+| `canonical.root` | | the Lake project is this subdirectory of the canonical repository; `path`, `claim.file` and the modules are then relative to it (from 17 November 2026) |
+| `canonical.prop` | | the canonical file states its claim as a definition of type `Prop` (`def Claim : Prop := …`, proved elsewhere as `theorem t : Claim`): the statement is this proposition, written from the file's own definitions, where a theorem's statement is its type. `decl` still names the definition. Not with `selfContained` (from 17 November 2026) |
 | `canonical.axioms` | | axioms the canonical file itself declares and the proof may rest on (names, or `{canonical, claim}` pairs). Needs `selfContained`. The verdict is then conditional on them |
 | `claim` | yes | the claimant's proof: `url`, `commit`, `file`, `sha256`, `decl`, `what`; `kind` and `license` are notes |
 | `claim.module` | | the claimant's file is a module of the canonical repository at the same commit: built in place, never copied |

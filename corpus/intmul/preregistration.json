@@ -1,0 +1,90 @@
+{
+ "what": "Pre-registration of the audit of two Lean proofs that integers multiply below n log n on a Turing machine. Committed on a local branch before the first pod-minute; the two intake specs beside it (corpus/lean-intake/intmul-gcmu, intmul-community) are part of it, and each carries its own amendments.",
+ "written": "2026-11-17",
+ "claims": {
+  "google-cmu": {
+   "who": "Piaoyang Cui, Yiming Liu, David P. Woodruff",
+   "repo": "https://github.com/lockqueue/intmul",
+   "commit": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+   "lean": "leanprover/lean4:v4.33.1",
+   "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+   "kappa": "2^-46",
+   "files": {
+    "lean/SubNLogN/Challenge.lean": "7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5",
+    "lean/SubNLogN/Assembly/ChallengeHeadline.lean": "ce17957927bcbbc950bce9f423bf20270d8e1d4159c4ce22e230c782ca44e0c1",
+    "IntMul_main_paper.pdf": "6b982e953b7a1e31e37c2cce2e37edfcded983031bb6ecf60c424fe20c92d173",
+    "IntMul_short_paper.pdf": "5d53c1e18f1bbd3411f027203213d0d95950d006cca86b817f2a42a97d5a712f",
+    "companion/IntMul_companion_paper.pdf": "fe15aee46482aecc5d1bcdba69a58d1c7831ca221e0861487e15ddaa0c357da2",
+    "MANIFEST.sha256": "ff4e5d0fce442862e0435464801b3bd77f26f411cd7ed9d9ba386df0e76944df"
+   },
+   "linkedFrom": "Google Research, \"Advancing science & engineering with Antigravity's /teamwork feature\", 2026-11-13"
+  },
+  "community": {
+   "who": "platypii, jdb19937",
+   "repo": "https://github.com/platypii/integer-mult-bounds-lean",
+   "commit": "aaf10926643826a69f868f7e0694cc34cad25060",
+   "lean": "leanprover/lean4:v4.34.1",
+   "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+   "kappa": "4222422970/2^46 (about 2^-14.02)",
+   "files": {
+    "IntegerMultBounds/MathlibTM2/Statement.lean": "fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5",
+    "IntegerMultBounds/MathlibTM2/Theorem.lean": "7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5"
+   }
+  },
+  "source": "OpenAI, \"Integer multiplication below n log n\", preprint of 2026-09-23 (result 109 of its math release), kappa = 2^-182; read only as the source both proofs point to. No verdict is given on it."
+ },
+ "specs": {
+  "intmul-gcmu": "c946ad80835f214ae94a32a39d222f9aeef298161e475c05c1ae1a0e339bd2e9",
+  "intmul-community": "288d5b0287b157764d00f059d68c3275d209cd62510386aad08ca099411083f9"
+ },
+ "words": {
+  "CERTIFIED": "the Lean theorem proves exactly the pinned proposition, on propext, Quot.sound and Classical.choice alone; Lean's kernel and nanoda (written independently, in Rust) both accept the proof; among the planted statements that reached the check every prediction is met, at least one changed statement is refused and at least one rewording is accepted; every planted defect is caught. It never says the mathematics is right beyond what the kernels checked, and nothing about practical speed.",
+  "REFUSED": "a check did not give its positive answer; the reason is named (resources, a missing input, a mismatch). A build stopped by the time limit is REFUSED on resources.",
+  "reading": "a comparison of a formal statement with a sentence of a paper is a reading, written out and kept apart from the verdicts."
+ },
+ "questions": [
+  {
+   "id": "Q1",
+   "question": "Does each headline theorem prove exactly its statement file, on three axioms, under two kernels?",
+   "how": "tools/lean-intake.js on one rented machine, both specs",
+   "expected": "google-cmu: CERTIFIED (its authors report the same checks accepted). community: no expectation; it has never been replayed outside its own CI, and its files use Lean's module system, which this tool has not met before."
+  },
+  {
+   "id": "Q2",
+   "question": "Does each statement say what its source says, in the source's machine model?",
+   "how": "two readings of each statement file against its paper, by readers who do not see each other's notes; the encodings evaluated on small pairs against an encoder of our own",
+   "expected": "faithful; the step from a multi-stack machine to a multitape machine rests on a classical simulation that neither proof formalizes."
+  },
+  {
+   "id": "Q3",
+   "question": "Are the two statements the same theorem?",
+   "how": "the three differences read on the scout (input encoding, form of the bound, finite alphabets); Lean where it is cheap",
+   "expected": "the two forms of the bound are equivalent at equal κ, and a proof of that closes; the encodings differ by a linear-time transducer, which may stay a written argument; a machine with an infinite work alphabet gains nothing, because every pushed symbol is the image of a finite state."
+  },
+  {
+   "id": "Q4",
+   "question": "Do our planted wrong statements and wrong proofs fail?",
+   "how": "the specs",
+   "expected": "as each spec predicts; four statements carry no prediction (\"kernel decides\")."
+  },
+  {
+   "id": "Q5",
+   "question": "Do the released programs compute products exactly, on inputs we choose?",
+   "how": "Python integers as the independent arithmetic, against the Python reference of Algorithm 1 and the C/GMP multiplier of the companion paper",
+   "expected": "exact on every input tried. Sizes above 10^8 bits are REFUSED on resources unless a smaller run predicts under an hour."
+  },
+  {
+   "id": "Q6",
+   "question": "In plain words, what does the theorem buy?",
+   "how": "exact arithmetic on the stated bound",
+   "expected": "the factor (log2 n)^(2^-46) reaches 2 only at n = 2^(2^(2^46)); C and N₀ are asserted to exist and are not given."
+  }
+ ],
+ "stopRules": [
+  "One pod, 16 vCPU / 128 GB, US$ 0.88 an hour; the cap is US$ 15, approved by the operator on 2026-11-17; at 17 pod-hours the pod is deleted whatever is running.",
+  "A build still running after 8 hours is stopped and recorded REFUSED on resources.",
+  "If the google-cmu run does not reproduce what its authors report, the community run is stopped until the difference is read.",
+  "The encodings bridge gets one day; if it does not close it is published as a written argument and called one."
+ ],
+ "readBefore": "Read on the scout, before this file: both READMEs, both statement files, the google-cmu Lean README and its authors' own replay record with nine planted controls (lean/replay), Mathlib's FinTM2 at 0df444a3, the community repository's theorem file and CI workflow, the C implementation's README. Nothing was built or run. The papers were not read."
+}

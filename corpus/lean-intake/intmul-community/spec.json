@@ -1,0 +1,175 @@
+{
+ "format": 2,
+ "id": "intmul-community",
+ "what": "The community Lean proof (platypii/integer-mult-bounds-lean at aaf10926: integer multiplication in O(n (log n)^(1 − κ)) steps on a multi-stack Turing machine, κ = 4222422970/2^46) against the statement file of the same repository, MathlibTM2/Statement.lean. The statement is the repository's own: this checks that the theorem mulInTime proves exactly that proposition, on the three standard axioms, under a second kernel, and that the check refuses statements we changed. Whether the proposition is OpenAI's theorem is a reading, kept apart.",
+ "polarity": "proves",
+ "canonical": {
+  "what": "the repository's own statement file: one fixed multi-stack machine multiplies two binary naturals in worst-case time O(n (log n)^(1 − κ)), n the input length, with Mathlib's asymptotic notation over the reals",
+  "url": "https://github.com/platypii/integer-mult-bounds-lean.git",
+  "commit": "aaf10926643826a69f868f7e0694cc34cad25060",
+  "path": "IntegerMultBounds/MathlibTM2/Statement.lean",
+  "sha256": "fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5",
+  "module": "IntegerMultBounds.MathlibTM2.Statement",
+  "decl": "IntegerMultBounds.MathlibTM2.MulInTime",
+  "prop": "IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46 : ℝ)",
+  "toolchain": "leanprover/lean4:v4.34.1"
+ },
+ "claim": {
+  "what": "the theorem with the explicit saving; the existential statement of the same file follows from it in one line",
+  "kind": "git",
+  "url": "https://github.com/platypii/integer-mult-bounds-lean.git",
+  "commit": "aaf10926643826a69f868f7e0694cc34cad25060",
+  "file": "IntegerMultBounds/MathlibTM2/Theorem.lean",
+  "sha256": "7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5",
+  "decl": "IntegerMultBounds.MathlibTM2.mulInTime",
+  "module": "IntegerMultBounds.MathlibTM2.Theorem",
+  "license": "MIT (the repository's); no byte of the file is kept here but its declaration's header"
+ },
+ "mutantNamespace": "IntegerMultBounds.MathlibTM2.IntakeMut",
+ "mutantOpen": [
+  "Turing Computability Asymptotics Filter"
+ ],
+ "f3": {
+  "what": "the statement is an existence claim with no hypotheses to satisfy",
+  "tactic": "intro h\n  exact h",
+  "expect": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the body of the definition MulInTime with κ = 4222422970/2^46 put in: the baseline",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (M→T, p→q, n→m): alpha-equivalent",
+   "statement": "∃ T : TM2ComputableInTime pairEnc encodingNatBool.encode (fun q : ℕ × ℕ => q.1 * q.2),\n    (fun m : ℕ => (T.time m : ℝ)) =O[atTop] fun m : ℕ => (m : ℝ) * Real.log m ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "rule": "same:folded",
+   "why": "the definition named and not unfolded",
+   "statement": "MulInTime (4222422970 / 2 ^ 46 : ℝ)",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "rule": "same:unfold-encoding",
+   "why": "the abbreviation pairEnc written out as Mathlib's product encoding",
+   "statement": "∃ M : TM2ComputableInTime (encodingProd encodingNatBool encodingNatBool).encode encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "C1",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "the numerator of κ raised by one (4222422971/2^46): a slightly stronger claim",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422971 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C2",
+   "kind": "changed",
+   "rule": "changed:constant",
+   "why": "κ made 1/2^14, just above the proved 2^-14.02",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (1 / 2 ^ 14 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C3",
+   "kind": "wrong",
+   "rule": "wrong:n-log-n",
+   "why": "the exponent of the logarithm made 1: the plain n log n bound, with no saving",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ ((1 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C4",
+   "kind": "changed",
+   "rule": "changed:asymptotic",
+   "why": "big O made little o",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =o[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C5",
+   "kind": "wrong",
+   "rule": "wrong:function",
+   "why": "the machine asked to compute the SUM of the two numbers",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 + p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C6",
+   "kind": "changed",
+   "rule": "changed:log",
+   "why": "the natural logarithm made the logarithm to base 2: the same class of functions, another statement",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.logb 2 n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C7",
+   "kind": "changed",
+   "rule": "changed:argument",
+   "why": "the time taken at length n + 1 where the file takes it at n",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (fun n : ℕ => (M.time (n + 1) : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C8",
+   "kind": "equivalent",
+   "rule": "equivalent:commute",
+   "why": "the product written p.2 * p.1: equal by commutativity, not by definition",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.2 * p.1),\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "kernel decides"
+  },
+  {
+   "id": "C9",
+   "kind": "changed",
+   "rule": "changed:add-conjunct",
+   "why": "the clause that every stack alphabet is finite ADDED, as the other release states it: a stronger statement than this file's",
+   "statement": "∃ M : TM2ComputableInTime pairEnc encodingNatBool.encode (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    (fun n : ℕ => (M.time n : ℝ)) =O[atTop] fun n : ℕ => (n : ℝ) * Real.log n ^ (1 - (4222422970 / 2 ^ 46 : ℝ))",
+   "expect": "REFUSED by type mismatch"
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "rule": "sorry",
+   "why": "the proof of mulInTime replaced by sorry",
+   "find": "theorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  Fast.Main.compactR_mulInTime_final",
+   "replace": "theorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  sorry",
+   "all": false,
+   "expect": "sorryAx in the axioms"
+  },
+  {
+   "id": "R2",
+   "rule": "axiom",
+   "why": "mulInTime proved by an added axiom",
+   "find": "theorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  Fast.Main.compactR_mulInTime_final",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  intakeRedAxiom",
+   "all": false,
+   "expect": "the added axiom in the axioms"
+  },
+  {
+   "id": "R3",
+   "rule": "native_decide",
+   "why": "the genuine proof, behind one step decided by native_decide",
+   "find": "theorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  Fast.Main.compactR_mulInTime_final",
+   "replace": "theorem mulInTime : MulInTime (4222422970 / 2 ^ 46 : ℝ) :=\n  (fun (_ : (2 : ℕ) + 2 = 4) => Fast.Main.compactR_mulInTime_final) (by native_decide)",
+   "all": false,
+   "expect": "a native_decide axiom in the axioms, or a failed build"
+  }
+ ],
+ "f2NotApplicable": "the statement quantifies over Turing machines and has no decidable instance to evaluate; the encodings it names are evaluated on small pairs by a separate check of the same audit",
+ "amendments": [],
+ "notInScope": "the mathematics beyond what the kernel checks; whether a multi-stack machine's time is a multitape machine's time; the statement does not require finite work-stack alphabets (Mathlib's FinTM2 requires it of the input stack only), which is read and argued apart; the constant hidden in the O"
+}

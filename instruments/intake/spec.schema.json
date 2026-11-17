@@ -76,6 +76,13 @@
       ],
       "additionalProperties": false
      }
+    },
+    "root": {
+     "type": "string",
+     "pattern": "^(?!/)(?!.*\\.\\.)[A-Za-z0-9_./-]+$"
+    },
+    "prop": {
+     "type": "string"
     }
    },
    "required": [
