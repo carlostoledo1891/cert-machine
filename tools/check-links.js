@@ -57,7 +57,7 @@ function linkProblems(siteDir, cfg) {
       const text = fs.readFileSync(p, 'utf8');
       for (const m of text.matchAll(/(?:href|src)="([^"#?]*)/g)) {
         let u = m[1].replace(/&amp;/g, '&');
-        if (!u || /^(mailto:|data:|javascript:|tel:)/.test(u) || u.includes("' + ") || u.includes('${')) continue;
+        if (!u || /^(mailto:|data:|javascript:|tel:)/.test(u) || /'\s*\+/.test(u) || u.includes('${')) continue;   /* a script's string concatenation, with or without spaces ('+k+' in the Central's loader, 2026-11-17), is not a URL */
         if (/^https?:\/\//.test(u) || u.startsWith('//')) {
           const x = new URL(u.startsWith('//') ? 'https:' + u : u);
           if (!/^(www\.)?carlostoledo\.co$/.test(x.hostname)) continue;

@@ -2,8 +2,8 @@
  "what": "The browser bundle of the claim checker: instruments/claimbox/check.js wrapped byte for byte, with the files the listed claim objects make it read, each embedded from the file on disk. Written by playground/textbook-machine/checker-web.build.js; held to Node by playground/textbook-machine/checker-web.battery.js.",
  "bundle": {
   "path": "playground/textbook-machine/out/claim-checker.js",
-  "sha256": "9f80e9b3e462b3cc21340aa51a7efaeba28f33a9d56b83741846b248cdcdef22",
-  "bytes": 339763
+  "sha256": "7387672ff85459215ec1d76665c611f5f0e40679ed082a60829af967f2576589",
+  "bytes": 339236
  },
  "checker": {
   "path": "instruments/claimbox/check.js",
@@ -151,16 +151,16 @@
   },
   {
    "path": "certs/c82-replay.json",
-   "sha256": "6456d94e87fc56a2dbd40887342cb85edf75466c20a36270d09f1623f8878866",
-   "bytes": 25156,
+   "sha256": "9213c9a691107c160e3db13ad47cab86a8c0efb14cbc968a911c4b16a16586ee",
+   "bytes": 25170,
    "use": "read",
    "encoding": "utf8",
    "blob": 1
   },
   {
    "path": "certs/kernel-arb-audit.json",
-   "sha256": "96c9ea8dad42517a81f74771c7711a06a61c5769d8e81c7946a201c84e6d4704",
-   "bytes": 6739,
+   "sha256": "9c183e91e87330bd83f886f8f6d38d945ba7f1df77e755d43a7621cc5f3e85e8",
+   "bytes": 6268,
    "use": "read",
    "encoding": "utf8",
    "blob": 2
@@ -353,14 +353,14 @@
  "dirs": [],
  "totals": {
   "files": 26,
-  "embeddedBytes": 280757,
-  "carriedOnceBytes": 239589,
+  "embeddedBytes": 280300,
+  "carriedOnceBytes": 239132,
   "bytesByUse": {
-   "read": 231638,
+   "read": 231181,
    "object": 18559,
    "probed": 30560
   },
   "base64Files": 0,
-  "bundleBytes": 339763
+  "bundleBytes": 339236
  }
 }
