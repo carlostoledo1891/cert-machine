@@ -31,15 +31,23 @@
 .pk-top p { margin: 0; color: var(--ink); font-weight: 530; font-size: 1.0625rem; line-height: 1.4; height: 2.8em; overflow: hidden; max-width: 80ch; }
 @media (max-width: 1100px) { .pk-top p { height: 4.2em; } }
 @media (max-width: 700px) { .pk-top p { height: 8.4em; font-size: 1rem; } }
-.pk-picks { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 14px 28px; padding: 16px clamp(16px, 2.4vw, 28px) 0; background: var(--bg); }
+.pk-picks { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px 28px; padding: 16px clamp(16px, 2.4vw, 28px) 0; background: var(--bg); }
 .pk-picks .eyebrow, .pk-chartbox .eyebrow { display: block; margin-bottom: 8px; }
-@media (max-width: 760px) { .pk-picks { grid-template-columns: 1fr; } }
+@media (max-width: 980px) { .pk-picks { grid-template-columns: 1fr; } }
+/* the two engines' lists lie in ONE cell, the one not chosen hidden and still taking its room: choosing an engine
+   moves nothing */
+.pk-stack { display: grid; }
+.pk-stack > .pk-layer { grid-area: 1 / 1; min-width: 0; }
+.pk-layer.off { visibility: hidden; }
+.pk-opt:disabled { color: var(--ink-4); border-style: dashed; cursor: default; }
+.pk-opt:disabled:hover { border-color: var(--rule-strong); }
 .pk-pick, .pk-laws { display: flex; flex-wrap: wrap; gap: 6px; }
 .pk-opt { font: 500 .8125rem var(--f-sans); padding: 7px 13px; border-radius: var(--radius-pill); border: 1px solid var(--rule-strong); color: var(--ink-2); background: none; cursor: pointer; white-space: nowrap; }
 .pk-opt:hover { border-color: var(--ink); }
 .pk-opt[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.pk-same { margin: 0; padding: 12px clamp(16px, 2.4vw, 28px) 14px; background: var(--bg); border-bottom: 1px solid var(--rule); font-size: .8125rem; line-height: 1.45; color: var(--ink-3); height: calc(1.45em + 26px); overflow: hidden; }
-@media (max-width: 760px) { .pk-same { height: calc(3 * 1.45em + 26px); } }
+.pk-same { margin: 0; padding: 12px clamp(16px, 2.4vw, 28px) 14px; background: var(--bg); border-bottom: 1px solid var(--rule); font-size: .8125rem; line-height: 1.45; color: var(--ink-3); height: calc(2 * 1.45em + 26px); overflow: hidden; }
+@media (max-width: 980px) { .pk-same { height: calc(3 * 1.45em + 26px); } }
+@media (max-width: 620px) { .pk-same { height: calc(6 * 1.45em + 26px); } }
 
 .pk-stage { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 1px; background: var(--rule); }
 .pk-stage > div { background: var(--bg); padding: 18px clamp(16px, 2.4vw, 28px); min-width: 0; }
@@ -103,6 +111,7 @@
 .pk-quote { margin: 0; }
 .pk-quote blockquote { margin: 0; padding: 4px 0 4px 20px; border-left: 1.5px dashed var(--ink-3); font-size: 1.0625rem; line-height: 1.5; color: var(--ink); }
 .pk-quote figcaption { margin-top: var(--s-3); padding-left: 20px; font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); }
+.pk-second { margin-top: var(--s-7); }
 .pk-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); }
 @media (max-width: 900px) { .pk-three { grid-template-columns: 1fr; } }
 

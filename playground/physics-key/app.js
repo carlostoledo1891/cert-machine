@@ -10,7 +10,15 @@
   var runs = {}; SPEC.runs.forEach(function (r) { runs[r.id] = r; });
   var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var fmt = function (x) { return Number(x).toLocaleString('en-US'); };
-  var sel = { scene: SPEC.default.scene, integrator: SPEC.default.integrator, timestep: SPEC.default.timestep }, law = null;
+  var sel = { engine: SPEC.default.engine, scene: SPEC.default.scene, integrator: SPEC.default.integrator, timestep: SPEC.default.timestep }, law = null;
+  var ENG = SPEC.engines;
+  /* a choice the engine did not record for this scene falls to the nearest one it did (same damping setting) */
+  function settle() {
+    var ok = ENG[sel.engine].of[sel.scene];
+    if (ok.indexOf(sel.integrator) >= 0) return;
+    var twin = sel.integrator.replace('semiimplicit', 'featherstone');
+    sel.integrator = ok.indexOf(twin) >= 0 ? twin : ok[0];
+  }
   var cache = {}, cur = null, token = 0, playing = !reduce, k = 0, t0 = 0, raf = 0;
   var idOf = function (s) { return s.scene + '-' + s.integrator + '-h' + s.timestep; };
   var LAWS = { fall: ['F-POS', 'F-VEL'], pendulum: ['P-ENERGY'], top: ['T-ENERGY', 'T-MONO', 'T-LMAG', 'T-LVEC'] };
@@ -79,7 +87,8 @@
       h += '<line class="pk-rod" x1="' + px + '" y1="' + py + '" x2="' + (px + len * Math.sin(th)).toFixed(2) + '" y2="' + (py + len * Math.cos(th)).toFixed(2) + '"/>'
         + '<circle class="pk-pivot" cx="' + px + '" cy="' + py + '" r="3"/><circle class="pk-body" cx="' + (px + len * Math.sin(th)).toFixed(2) + '" cy="' + (py + len * Math.cos(th)).toFixed(2) + '" r="11"/>';
     } else {
-      var w = val(c, step, 4), x = val(c, step, 5), yq = val(c, step, 6), zq = val(c, step, 7), n = w * w + x * x + yq * yq + zq * zq;
+      /* the recorded quaternion: scalar first, or scalar last under the "world" layout (RULES.md, A2.2) */
+      var wl = c.entry.layout === 'world', w = val(c, step, wl ? 7 : 4), x = val(c, step, wl ? 4 : 5), yq = val(c, step, wl ? 5 : 6), zq = val(c, step, wl ? 6 : 7), n = w * w + x * x + yq * yq + zq * zq;
       var R = [[(w * w + x * x - yq * yq - zq * zq) / n, 2 * (x * yq - w * zq) / n, 2 * (x * zq + w * yq) / n],
         [2 * (x * yq + w * zq) / n, (w * w - x * x + yq * yq - zq * zq) / n, 2 * (yq * zq - w * x) / n],
         [2 * (x * zq - w * yq) / n, 2 * (yq * zq + w * x) / n, (w * w - x * x - yq * yq + zq * zq) / n]];
@@ -162,11 +171,23 @@
   /* ---- the controls ---- */
   function marks() {
     document.querySelectorAll('.pk-step').forEach(function (b) { var on = b.getAttribute('data-scene') === sel.scene; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
-    document.querySelectorAll('[data-integrator]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-integrator') === sel.integrator)); });
+    var E = ENG[sel.engine], ok = E.of[sel.scene];
+    document.querySelectorAll('[data-engine]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-engine') === sel.engine)); });
+    document.querySelectorAll('.pk-layer').forEach(function (d) {
+      var on = d.getAttribute('data-for') === sel.engine;
+      d.classList.toggle('off', !on);
+      d.querySelectorAll('[data-integrator]').forEach(function (b) {
+        var i = b.getAttribute('data-integrator');
+        b.setAttribute('aria-pressed', String(on && i === sel.integrator));
+        b.disabled = !on || ok.indexOf(i) < 0;
+      });
+    });
     document.querySelectorAll('[data-timestep]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-timestep') === sel.timestep)); });
     $('pk-what').textContent = SPEC.scene[sel.scene].what;
-    var mine = runs[idOf(sel)].sha256, twins = SPEC.integrators.filter(function (i) { return i !== sel.integrator && runs[sel.scene + '-' + i + '-h' + sel.timestep].sha256 === mine; }).map(function (i) { return SPEC.names[i]; });
-    $('pk-same').textContent = twins.length ? 'In this scene at this timestep, ' + (twins.length < 2 ? twins[0] : twins.slice(0, -1).join(', ') + ' and ' + twins[twins.length - 1]) + ' wrote the same bytes as ' + SPEC.names[sel.integrator] + ', so the verdicts are the same.' : 'No other integrator wrote these bytes.';
+    var mine = runs[idOf(sel)].sha256, twins = ok.filter(function (i) { return i !== sel.integrator && runs[sel.scene + '-' + i + '-h' + sel.timestep].sha256 === mine; }).map(function (i) { return E.names[i]; });
+    var and = function (a) { return a.length < 2 ? a[0] : a.slice(0, -1).join('; ') + ' and ' + a[a.length - 1]; };
+    $('pk-same').textContent = (twins.length ? 'In this scene at this timestep, ' + and(twins) + ' wrote the same bytes as ' + E.names[sel.integrator] + ', so the verdicts are the same.' : 'No other configuration of ' + E.name + ' wrote these bytes.')
+      + (ok.length < E.list.length && E.absent ? ' ' + E.absent : '');
     if (LAWS[sel.scene].indexOf(law) < 0) law = LAWS[sel.scene][0];
     $('pk-laws').innerHTML = LAWS[sel.scene].map(function (l) { return '<button type="button" class="pk-opt" data-law="' + l + '" aria-pressed="' + (l === law) + '">' + F.LAW[l] + '</button>'; }).join('');
     document.querySelectorAll('[data-law]').forEach(function (b) { b.addEventListener('click', function () { law = b.getAttribute('data-law'); marks(); if (cur) { chart(cur); verdicts(cur); cursor(); } }); });
@@ -205,12 +226,16 @@
   function loop() { if (playing) frame(false); raf = requestAnimationFrame(loop); }
   $('pk-playb').addEventListener('click', function () { playing = !playing; if (playing && cur) t0 = performance.now() - k / cur.entry.steps * SPEC.scene[cur.entry.scene].seconds * 1000; frame(true); });
   $('pk-scrub').addEventListener('input', function () { playing = false; k = +$('pk-scrub').value; frame(true); });
-  document.querySelectorAll('.pk-step').forEach(function (b) { b.addEventListener('click', function () { sel.scene = b.getAttribute('data-scene'); show(); }); });
-  document.querySelectorAll('[data-integrator]').forEach(function (b) { b.addEventListener('click', function () { sel.integrator = b.getAttribute('data-integrator'); show(); }); });
+  document.querySelectorAll('.pk-step').forEach(function (b) { b.addEventListener('click', function () { sel.scene = b.getAttribute('data-scene'); settle(); show(); }); });
+  document.querySelectorAll('[data-engine]').forEach(function (b) { b.addEventListener('click', function () {
+    var e = b.getAttribute('data-engine'); if (e === sel.engine) return;
+    sel.engine = e; sel.integrator = ENG[e].first; settle(); show();
+  }); });
+  document.querySelectorAll('[data-integrator]').forEach(function (b) { b.addEventListener('click', function () { if (b.disabled) return; sel.integrator = b.getAttribute('data-integrator'); show(); }); });
   document.querySelectorAll('[data-timestep]').forEach(function (b) { b.addEventListener('click', function () { sel.timestep = b.getAttribute('data-timestep'); show(); }); });
   function fromHash() {
-    var m = /^#(fall|pendulum|top)-([a-z0-9]+)-h([0-9.]+)$/.exec(location.hash);
-    if (m && runs[m[1] + '-' + m[2] + '-h' + m[3]]) { sel = { scene: m[1], integrator: m[2], timestep: m[3] }; return true; }
+    var m = /^#(fall|pendulum|top)-([a-z0-9-]+)-h([0-9.]+)$/.exec(location.hash), r = m && runs[m[1] + '-' + m[2] + '-h' + m[3]];
+    if (r) { sel = { engine: r.engine, scene: m[1], integrator: m[2], timestep: m[3] }; return true; }
     return false;
   }
   window.addEventListener('hashchange', function () { if (fromHash() && (!cur || cur.entry.id !== idOf(sel))) show(); });
