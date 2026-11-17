@@ -143,4 +143,23 @@ function plano(narrow, feitos) {
   return svg(W, y + 8, 'O plano de 12 meses: barras cheias, o cronograma indicativo da proposta; barras tracejadas, a trilha proposta do Núcleo', o);
 }
 
-module.exports = { desigualdade, arquitetura, maquina, relevo, plano };
+/* the rules the R1 drawing needs on a page other than the Núcleo's (the landing's "como funciona", 2026-11-16); the
+   Núcleo page still carries the same values in its own sheet (nucleo.js), to be folded into this one when it is next
+   rebuilt. Class names only, every value a token or the drawing's own type size. */
+const CSS_DESIGUALDADE = `
+.nu-svg{display:block;width:100%;height:auto}
+.nu-nw{display:none}
+@media (max-width:640px){.nu-w{display:none}.nu-nw{display:block}}
+.nu-svg text{font-family:var(--f-sans)!important}
+.nu-bs{font-size:var(--text-small);fill:var(--ink-3)}
+.nu-reg{fill:var(--band-fill);stroke:var(--ink);stroke-width:2}
+.nu-eps{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+.nu-err{stroke:var(--ink);stroke-width:2.2}
+.nu-x{fill:var(--ink);stroke:var(--paper);stroke-width:2}
+.nu-g{fill:var(--paper);stroke:var(--ink);stroke-width:2.2}
+.nu-dim{stroke:var(--ink-3);stroke-width:1.2}
+.nu-lb{font-size:var(--text-small);font-weight:var(--weight-strong);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.nu-ahp{fill:var(--ink-3)}
+`;
+
+module.exports = { desigualdade, arquitetura, maquina, relevo, plano, CSS_DESIGUALDADE };

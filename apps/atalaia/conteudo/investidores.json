@@ -1,0 +1,512 @@
+{
+  "_nota": "Página para investidores do Atalaia (pt-BR), 16/11/2026. Em cada resposta, as forças vêm antes e as lacunas são ditas. Toda afirmação de fora tem fonte; uma fonte com u null é um registro do projeto entregue sob sigilo a quem pedir. Os caminhos internos (/atalaia/...) são as páginas não listadas já no ar. Nenhum preço, nenhum valor pedido e nenhum nome de parceiro.",
+  "secoes": [
+    {
+      "id": "problema",
+      "titulo": "O problema",
+      "perguntas": [
+        {
+          "q": "Qual é o problema, em uma frase?",
+          "a": "Drones, robôs de campo e embarcações autônomas dependem do GNSS (o GPS, o Galileo e os sistemas parecidos), um sinal que chega do espaço muito fraco e que um aparelho barato abafa ou imita. Quando ele mente, o veículo pode seguir convencido, e ninguém consegue dizer depois, com prova, quanto a posição estava errada.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5, seção 1", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "Isso acontece de verdade, no Brasil?",
+          "a": "Sim. Entre 17 e 21 de janeiro de 2025, 21 aeronaves perderam o sinal de GPS sobre o aeroporto da Pampulha, em Belo Horizonte, e pousaram por instrumentos; a Anatel e a Polícia Militar acharam o bloqueador no alto do Aglomerado da Serra por radiogoniometria e o apreenderam. Entre abril de 2021 e março de 2022, 173 aeronaves perderam a navegação por satélite em Brasília por bloqueadores antidrone do próprio Estado, segundo um relatório da Anatel citado pela imprensa. Em setembro de 2025, uma fábrica clandestina de bloqueadores foi desmontada em Sorocaba. No mar, a IMCA registra que a interferência atinge embarcações com posicionamento dinâmico, unidades de transbordo de pessoal e navios de apoio; em 2018, foram relatados 147 eventos de posicionamento dinâmico, boa parte por bloqueio no Oriente Médio. A lacuna: não encontramos interferência GNSS documentada em águas brasileiras entre 2023 e 2026.",
+          "fontes": [
+            { "t": "Agência Gov (Anatel), operação desmonta fábrica de bloqueadores e cita o caso da Pampulha, 15/09/2025", "u": "https://agenciagov.ebc.com.br/noticias/202509/operacao-conjunta-desmantela-fabrica-clandestina-de-bloqueadores-de-sinais-em-sao-paulo" },
+            { "t": "Convergência Digital, Anatel apreende equipamento que fez 21 aeronaves perderem o GPS, 24/01/2025", "u": "https://convergenciadigital.com.br/mercado/anatel-apreende-equipamento-clandestino-que-fez-21-aeronaves-perderem-o-sinal-de-gps-em-minas-gerais/" },
+            { "t": "Intercept Brasil, os 173 aviões de Brasília, 2023", "u": "https://www.intercept.com.br/?p=422332" },
+            { "t": "IMCA Information Note 1730, abril de 2026", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" },
+            { "t": "RNTF, eventos de posicionamento dinâmico de 2018", "u": "https://rntfnd.org/?p=30638" }
+          ]
+        },
+        {
+          "q": "Quem sente a dor, e as regras já pedem alguma coisa?",
+          "a": "Pedem, cada uma no seu domínio. No ar, a ICA 100-40 do DECEA (em vigor desde 01/07/2026) exige planejamento alternativo e plano de terminação de voo, e o RBAC nº 100 da ANAC pede um sistema de navegação com desempenho e confiabilidade suficientes para a segurança da operação. Na terra, a ISO 18497-3:2024 pede que a máquina agrícola autônoma não saia da zona de operação. No mar, a IMCA IN 1730 pede conferir o GNSS contra referências independentes, e a perda de posicionamento é um incidente que se comunica à ANP. A lacuna: nenhuma dessas regras obriga alguém a produzir um número de integridade de posição. Elas pedem comportamento e evidência, e o Atalaia propõe a evidência que se pode conferir.",
+          "fontes": [
+            { "t": "DECEA, ICA 100-40 (Portaria 2.094/DNOR8, 18/03/2026)", "u": "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento/arquivos/2026/ica-100-40-publicada-port-2094-dnor8-18-03-2026-bca-058-30-03-2026.pdf" },
+            { "t": "ANAC, RBAC nº 100", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "ISO 18497-3:2024", "u": "https://committee.iso.org/standard/82687.html" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "por-que-agora",
+      "titulo": "Por que agora",
+      "perguntas": [
+        {
+          "q": "Por que agora, e não há cinco anos?",
+          "a": "Três coisas chegaram ao mesmo tempo. As regras: a ICA 100-40 e o RBAC nº 100 (que substituiu o RBAC-E nº 94 em 15/06/2026), a ISO 18497-3 e -4 de 2024 e a IMCA IN 1730 de abril de 2026; lá fora, o comitê SC-159 da RTCA escreve até 2028 uma norma de desempenho para GNSS com inércia que trata de detecção, mitigação e recuperação diante de bloqueio e falsificação. A autenticação: o OSNMA do Galileo entrou em serviço inicial em 24/07/2025, e com ele o falsificador já não consegue forjar a mensagem e precisa retransmitir, um ataque que um relógio bem conhecido limita. E a prova por máquina ficou prática: o Lean 4 com a Mathlib permitiu provar o limite central do Atalaia e a solidez do estimador, 59 teoremas conferidos por máquina. Junte a isso pilotos automáticos abertos que aceitam posição externa por MAVLink, e uma caixa ao lado do piloto automático passa a ser possível.",
+          "fontes": [
+            { "t": "ANAC, Resolução nº 805/2026", "u": "https://pergamum.anac.gov.br/arquivos/RA2026-0805.pdf" },
+            { "t": "RTCA SC-159, termos de referência, revisão 26, 23/06/2026", "u": "https://www.rtca.org/wp-content/uploads/2026/06/SC-159-TOR-Rev-26-Approved-2026-06-23.pdf" },
+            { "t": "EUSPA, OSNMA em serviço inicial", "u": "https://www.euspa.europa.eu/newsroom-events/news/testing-operations-galileo-osnma-service-now-available-users" },
+            { "t": "Atalaia Núcleo, as provas em Lean", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "As autoridades brasileiras já tratam isso como risco?",
+          "a": "Sim, no ar. O DECEA apresentou à OACI, em julho de 2026, o plano de uma rede operacional mínima de auxílios convencionais para o caso de interrupção do GNSS, e o grupo regional de segurança da aviação das Américas emitiu um alerta sobre interferência GNSS em 11/11/2025. A lacuna: para drones, terra e mar, não encontramos requisito brasileiro de robustez GNSS.",
+          "fontes": [
+            { "t": "DECEA na OACI, plano da rede operacional mínima diante da interrupção do GNSS, 2026", "u": "https://www.icao.int/sites/default/files/SAM/MeetingDocs/2026/0713-RLA06901-Reunion%20MON%20y%20GNSS/2.%20Presentaciones%20-%20Presentations/P02-2026_BRAZILIAN-PLAN-FOR-THE-IMPLEMENTATION-OF-A-MINIMUM-OPERATING-NETWORK-MON-IN-RESPONSE-TO-GNSS-DISRUPTION.pdf" },
+            { "t": "RASG-PA, alerta sobre interferência GNSS, 11/11/2025", "u": "https://www.icao.int/sites/default/files/RASGPA/Documents/RSIA-03-GNSS-Interference-REV.pdf" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "solucao",
+      "titulo": "A solução em linguagem simples",
+      "perguntas": [
+        {
+          "q": "O que é o Atalaia?",
+          "a": "Uma caixa e um software ao lado de qualquer piloto automático. A caixa calcula, sem o GNSS, a região onde o veículo certamente está; aceita o GNSS só dentro dessa região, com uma margem pequena; quando o GNSS mente, alarma e troca a fonte, segura ou pousa; antes da missão, dá um veredito em três estados, ✓ PASSA, × NÃO PASSA ou ∅ FALTA DADO; e deixa um registro lacrado que outra parte recalcula.",
+          "fontes": [
+            { "t": "Atalaia, página de entrada", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "O que o cliente recebe, na prática?",
+          "a": "Antes da missão: quatro laudos, rota, energia, clima e GNSS, cada um no pior caso, e o falta dado diz qual medida decidiria. Durante: o alarme, a fonte apontada e a conduta combinada. Depois: o registro lacrado, que serve de evidência numa investigação ou numa auditoria. Para quem fabrica receptores, pilotos automáticos e máquinas: o laudo de ensaio da bancada de testes.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "Em que domínios?",
+          "a": "Quatro, sobre o mesmo núcleo de integridade. O ar abre o caminho: drones de carga e de inspeção. A terra: robôs e máquinas agrícolas, em que a pergunta é se a máquina fica dentro da cerca. O mar: o posicionamento dinâmico de embarcações, com o GNSS conferido contra o laser ou o radar da instalação. O offshore: decisões de operação refeitas do zero a partir de registros públicos. O ar é o maior; cada um dos outros entra com um experimento.",
+          "fontes": [
+            { "t": "Atalaia Núcleo", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "E o módulo ativo?",
+          "a": "O Atalaia recebe sinais e fica em silêncio por padrão. Um módulo ativo opcional, proposto, liga só dentro de um envelope aprovado antes da missão, com equipamento homologado de baixa potência, e cada acionamento fica no registro. Em nenhum modo bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS. O módulo, PROPOSTO, traz referências que um falsificador não consegue imitar: o alcance cooperativo até balizas autenticadas (ida e volta pelo enlace de telemetria, ou UWB, num posto, cais, plataforma ou borda de talhão); radares próprios (um radar altímetro no drone, em 24 GHz ou 60 a 64 GHz, e um radar Doppler de velocidade no solo em veículos terrestres); a difusão da integridade na frota; e a bancada de testes de integridade, que começa digital, sem nenhuma emissão de rádio.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5, linhas vermelhas", "u": "/atalaia/doutrina/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "como-funciona",
+      "titulo": "Como funciona (sem fórmulas)",
+      "perguntas": [
+        {
+          "q": "Como a caixa sabe que o GNSS está mentindo?",
+          "a": "Duas estimativas correm lado a lado. A de sempre, fundida, dá a precisão. A outra é a região de proteção, calculada só com o sensor inercial, o relevo, a câmera e a altura sobre o chão, cada um com o seu limite de erro declarado: o GNSS nunca entra nela. Uma posição de satélite que cai fora da região, alargada por uma margem pequena, é declarada falsa. Se a região ficar vazia, uma hipótese falhou: algum sensor passou do limite declarado, e retirar uma fonte de cada vez aponta qual.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 3", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Por que um atacante não consegue enganar o portão?",
+          "a": "Porque a região foi feita sem o GNSS, e o atacante não tem como arrastá-la. O erro que ele consegue esconder fica limitado à largura da região mais a margem, seja qual for o ataque; isso está provado em Lean. O limite é justo: um atacante que conheça a região pode pôr a posição falsa na borda oposta. Por isso o produto é encolher a região sem trapacear: cada metro tirado dela é um metro a menos que qualquer atacante esconde.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 3 (R1, provado em Lean 4.35.0)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "A autenticação do Galileo não resolve sozinha?",
+          "a": "Não. O OSNMA prova a origem da mensagem, não que o sinal chegou direto do satélite: um falsificador ainda pode retransmitir. Com o relógio da caixa conhecido a 100 nanossegundos, uma retransmissão com o mesmo atraso para todos os satélites esconde no máximo 30 m, e isso está provado em Lean. Com atrasos diferentes por satélite, provamos o contrário: o relógio sozinho pode não limitar nada, e o limite precisa vir de outra fonte. Dizemos as duas coisas.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 5 (R4 e a versão por satélite)", "u": "/atalaia/nucleo/" },
+            { "t": "EUSPA, OSNMA", "u": "https://www.euspa.europa.eu/galileo-osnma" }
+          ]
+        },
+        {
+          "q": "Como a caixa entra no veículo?",
+          "a": "Pelo MAVLink, desde o início. No ArduPilot, ela entrega a posição conferida (como GPS externo ou como navegação externa do estimador) e troca a fonte do estimador quando declara o GNSS falso; o mesmo caminho serve ao Copter, ao Rover e ao Sub. Num DJI, que hoje não aceita posição externa (o modo está marcado como indisponível no kit de desenvolvimento), a caixa avisa e manda pairar ou pousar. Um código só, com um adaptador por domínio.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 2", "u": "/atalaia/nucleo/" },
+            { "t": "DJI Payload SDK, lista de capacidades abertas", "u": "https://developer.dji.com/doc/payload-sdk-tutorial/en/development-preparation/development-platform-overview/open-capability-list.html" }
+          ]
+        },
+        {
+          "q": "O que é o registro lacrado?",
+          "a": "Cada leitura é assinada na captura, encadeada à anterior e carimbada no tempo, com a cadeia de custódia guardada. Um verificador escrito por outra parte refaz cada veredito a partir dos dados lacrados e chega às mesmas decisões, ou diz onde não chegou. Em bancada, 53 de 53 erros plantados no laudo e no lacre foram pegos.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5, seção 9", "u": "/atalaia/doutrina/" }
+          ]
+        },
+        {
+          "q": "Por quanto tempo a garantia aguenta sem GNSS?",
+          "a": "Depende do sensor inercial e do terreno, e o Atalaia mede isso por fonte, num livro de larguras. Com sensor inercial tático e câmera, o erro da melhor estimativa ficou em 12 m em 95% do tempo, em simulação. Pelo modelo calculado, um sensor tático da classe HG4930-S mantém a região dentro de um limite de alerta de 200 m por cerca de 5 min 47 s só com a inércia. A lacuna: com sensor inercial de consumo, a garantia se perde em cerca de 3 minutos; em relevo plano, o relevo não ajuda; sobre a água, o protocolo recusa a missão.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 4 (modelo calculado)", "u": "/atalaia/nucleo/" },
+            { "t": "Atalaia, minuta do protocolo v0.5, seção 9", "u": "/atalaia/doutrina/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diferente",
+      "titulo": "O que é diferente",
+      "perguntas": [
+        {
+          "q": "O que os fornecedores de hoje publicam?",
+          "a": "Estimativas de desempenho, que é o que o mercado compra hoje para precisão. Alguns números públicos: o Raptor Guide da Vantor, menos de 10 m de erro médio quadrático; o HANA da Honeywell, 10 m no círculo de 50% num voo de um E170; o Ironstone Opal da Q-CTRL, 22 m em 500 km; o AQNav da SandboxAQ, RNP 0,3 em 64% do voo e RNP 2 em 100%. Nos receptores, a Septentrio oferece mitigação de interferência e OSNMA desde 2022, e a NovAtel oferece antena anti-interferência. São bons produtos, e medem precisão ou protegem o sinal. Na busca de 14/11/2026, não encontramos fornecedor que publique um limite garantido de erro para a navegação sem GNSS.",
+          "fontes": [
+            { "t": "Vantor, Raptor", "u": "https://vantor.com/product/mission-solutions/raptor/" },
+            { "t": "Honeywell, navegação assistida por visão", "u": "https://aerospace.honeywell.com/us/en/products-and-services/products/navigation-and-sensors/navigation-systems/vision-aided-navigation" },
+            { "t": "GPS World, Q-CTRL e a navegação quântica", "u": "https://www.gpsworld.com/q-ctrl-demonstrates-quantum-navigation-system-as-gps-backup/" },
+            { "t": "The Quantum Insider, SandboxAQ e a navegação magnética, 16/07/2025", "u": "https://thequantuminsider.com/2025/07/16/sandboxaq-and-acubed-achieve-progress-in-magnetic-navigation/" },
+            { "t": "GPS World, Septentrio e o OSNMA", "u": "https://www.gpsworld.com/septentrio-brings-osnma-anti-spoofing-security-to-market/" },
+            { "t": "NovAtel GAJT, folha do produto", "u": "https://hexagondownloads.blob.core.windows.net/public/Novatel/assets/Documents/Papers/GAJT-AE-N-PS/GAJT-AE-N-PS.pdf" }
+          ]
+        },
+        {
+          "q": "Então o Atalaia compete com eles?",
+          "a": "Complementa. O Atalaia é um juiz sobre qualquer navegador: a posição do piloto automático, de um sistema de visão ou do fabricante entra como proposta, e o portão decide se ela pode ser usada. Um navegador melhor faz o Atalaia recusar menos, não perder valor. O que o Atalaia acrescenta é outra pergunta: quanto a posição pode estar errada agora, no pior caso, contra qualquer atacante, num registro que outra parte recalcula.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seções 1 e 2", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "E a pesquisa acadêmica? Isso já não existe?",
+          "a": "As peças existem, e não são nossas. A região vazia que acusa uma fonte falsa está em Jaulin (Automatica, 2009); domínios de confiança por inversão de conjuntos, em Drevelle e Bonnifait (2013); um detector GNSS por conjuntos, em Su, Schön e Joerger (2023); o GPS conferido contra o conjunto alcançável do sensor inercial, em Mina e outros (2023); níveis de proteção com zonotopos, em Liu, Wang e Abel (2023); navegação inercial por intervalos num barco, em Le Bars e outros (2022); um nível de proteção determinístico para odometria LiDAR-inercial, num preprint de 2026. O que não encontramos, juntos: os vieses do sensor inercial dentro da região, a prova por máquina, o registro que outra parte refaz e o portão que só aceita a correção de fora dentro de uma região feita sem ela. É ausência nas buscas, não prova de que não exista.",
+          "fontes": [
+            { "t": "Drevelle e Bonnifait, IEEE T-RO, 2013", "u": "https://doi.org/10.1109/TRO.2013.2262776" },
+            { "t": "Mina, Kanhere, Kousik e Gao, NAVIGATION, 2023", "u": "https://doi.org/10.33012/navi.616" },
+            { "t": "Liu, Wang e Abel, GPS Solutions, 2023", "u": "https://doi.org/10.1007/s10291-023-01447-z" },
+            { "t": "Le Bars e outros, Frontiers in Control Engineering, 2022", "u": "https://doi.org/10.3389/fcteg.2021.786188" },
+            { "t": "Zhu e outros, arXiv 2605.09383, 2026", "u": "https://arxiv.org/abs/2605.09383" },
+            { "t": "Atalaia Núcleo, seção 1 e fontes (Jaulin 2009; Su, Schön e Joerger 2023)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "E na terra e no mar?",
+          "a": "Na agricultura, o projeto GEOFENCE, com apoio da ESA, promete manter limites confiáveis de erro de posição, sem publicar valores: é o projeto a acompanhar. No posicionamento dinâmico, os fornecedores que lemos publicam acurácia, alarmes, RAIM ou nível de proteção; nenhum publica limite garantido. A IMCA pede a conferência cruzada, mas de forma qualitativa: é o espaço do portão do Atalaia.",
+          "fontes": [
+            { "t": "ESA Business Applications, GEOFENCE", "u": "https://business.esa.int/projects/geofence" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prova",
+      "titulo": "A prova hoje",
+      "perguntas": [
+        {
+          "q": "Quantos voos reais o Atalaia tem?",
+          "a": "Zero. Não existe ainda caixa física, voo, integração com DJI nem verdade de campo. Tudo o que segue vem de simulação, de dados gravados, de vetores oficiais, de bancada ou de prova formal, e cada número diz qual.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, quadro de abertura (voos reais: 0)", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "O que existe, então?",
+          "a": "Simulações: a posição real dentro da região em 24.300 de 24.300 verificações de 45 voos simulados de 45 minutos sobre relevo e imagens reais (instantes correlacionados, não experimentos independentes); numa viagem simulada de caminhão, o alarme 3 s depois da saída da rodovia, com o GNSS apontado. Provas: 59 teoremas em Lean 4.35.0 com a Mathlib, só com os axiomas padrão, cobrindo o limite central, o limite da retransmissão, a versão por satélite, a camada probabilística e a solidez do estimador. Dados gravados: desvios lentos sintéticos em dados reais de estações fixas do IBGE, detectados em 24 de 24 com a restrição de movimento, e em 0 de 24 sem ela. Vetores oficiais: 193.887 marcas de autenticação do Galileo conferidas, nenhuma falha. Bancada: 53 de 53 erros plantados no registro detectados. E um laudo lacrado de ensaio em simulação, e o portão G0, ambos abaixo.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5, seção 9", "u": "/atalaia/doutrina/" },
+            { "t": "Atalaia Núcleo, seções 3, 8 e 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "O que é o laudo lacrado de ensaio em simulação?",
+          "a": "O laudo inaugural da bancada de testes, rodado em 16/11/2026 no firmware real do ArduPilot em simulação, numa missão de cerca de 4,4 km até um posto nos morros. Três ensaios (nominal, GNSS arrastado e GNSS que salta 300 m) e dois equipamentos (o ArduPilot sozinho e o ArduPilot com a caixa emulada). Sob arrasto, o ArduPilot sozinho alarmou, mas pousou a 585,7 m do posto; com a caixa, a 1,8 m. Sob salto, 300,0 m contra 0,8 m. O catálogo de ensaios foi escrito antes de qualquer execução, um verificador escrito à parte refez os 30 itens a partir do registro bruto com os mesmos vereditos, e os controles vermelhos (um veredito e um número falsificados, um falso alarme plantado) foram todos pegos. A lacuna, dita no próprio laudo: a caixa é emulada e não tem estimador próprio; o falsificador desloca só a posição; o terreno é plano; e houve uma execução por par, sem estatística.",
+          "fontes": [
+            { "t": "Laudo lacrado de ensaio em simulação, 16/11/2026 (entregue sob sigilo)", "u": null }
+          ]
+        },
+        {
+          "q": "O que é o G0, e por que ele passou por emenda?",
+          "a": "O G0 é o portão de simulação: o estimador de conjunto rodou sobre o sensor inercial de 8 voos simulados no ArduPilot. Com os limites declarados corretos, a posição real ficou dentro da região em todas as épocas dos 8 voos, nos três modelos de ruído, e a região saiu até 3 vezes mais justa que uma caixa de intervalos no modelo sub-gaussiano a 300 s. O critério também exigia que um controle vermelho, uma declaração errada de propósito, escapasse em todos os voos. Na rodada inicial, não escapou: o G0 não passou como escrito, e dissemos. Na segunda, um vermelho mais forte, escrito e selado antes de rodar, escapou em 6 de 8; os 2 que o contiveram simulam a física a 1,2 kHz, com um termo de lacunas largo demais, e as repetições desses voos a 1 kHz escaparam em 9 e 11 s. Uma emenda datada, feita depois de ler os números e rotulada como emenda, trocou esses dois voos pelas suas repetições, e o G0 passou em 16/11/2026. Apertar aquele termo continua em aberto.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seções 8 e 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "O que a simulação não prova?",
+          "a": "A simulação confere a matemática e o protocolo, não o equipamento: os erros simulados foram sorteados dentro dos limites declarados. Ela não diz se os limites dos sensores reais se mantêm, nem se os sensores erram de modo independente. O protótipo do estimador propaga o erro inercial clássico; a propagação exata no grupo de Lie é a meta e está sendo provada parte por parte. Os voos de calibração existem para responder o que a simulação não responde.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 8", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Há alguma conta para o mar?",
+          "a": "Há, no papel. Para um navio de apoio com posicionamento dinâmico, a região relativa à instalação, pelo laser, fica em cerca de 3,6 a 3,8 m de largura com a margem, contra um limite de alerta amarelo típico de 5 m: o portão relativo passa. A região absoluta sem GNSS em águas profundas, de 1.000 a 2.000 m, fica em cerca de 10 a 18 m, contra 2 a 5 m: o portão absoluto não passa. Por isso o produto do mar é o portão relativo e a evidência depois do fato. A lacuna: nenhum documento brasileiro de limites de operação com números públicos foi encontrado, e as fichas dos sensores dão estatística, não limite.",
+          "fontes": [
+            { "t": "Conta da largura no posicionamento dinâmico, 16/11/2026 (entregue sob sigilo)", "u": null }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mercado",
+      "titulo": "O mercado",
+      "perguntas": [
+        {
+          "q": "Qual é o tamanho do mercado?",
+          "a": "Não publicamos um número de mercado total, porque não temos um com fonte primária. O que temos são fatos com fonte. A frota brasileira de apoio marítimo, pelos dados da Clarksons de fevereiro de 2025 apresentados pela Syndarma e pela ABEAM ao MME: 382 embarcações de apoio offshore; 144 navios de suprimento acima de 3.000 TPB, 14,6% da frota mundial dessa classe, o 2º lugar; 37 rebocadores de manuseio de âncoras acima de 15.000 BHP; 10 navios de lançamento de linhas. As obrigações contratuais de PD&I do petróleo, que podem financiar o mar e o offshore, somaram R$ 4,3 bilhões em 2025. Na agricultura, um pulverizador autônomo nacional para pomares foi lançado comercialmente na Agrishow 2026, com preço inicial de cerca de R$ 1,7 milhão, segundo a imprensa, e a ISO 18497 ainda não tem versão ABNT. Nas ameaças, os casos da Pampulha, de Brasília e de Sorocaba, na seção do problema.",
+          "fontes": [
+            { "t": "Syndarma e ABEAM ao MME, 27/06/2025 (dados Clarksons, fev/2025)", "u": "https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/gt-rcnpe-10-2024/subgrupos/subgt05/2025-06-27-subgt-05-apresentacao-syndarma-e-abeam.pdf" },
+            { "t": "Cenário Energia, o Anuário da ANP de 2026 e os R$ 4,3 bi de PD&I, 01/07/2026", "u": "https://cenarioenergia.com.br/2026/07/01/producao-nacional-de-petroleo-salta-12-em-2025-impulsionada-pelo-pre-sal/" },
+            { "t": "Boca, o pulverizador autônomo na Agrishow 2026", "u": "https://boca.com.br/agronegocio/jacto-destaca-inovacao-na-agrishow-2026-com-novo-pulverizador-autonomo" },
+            { "t": "Medeiros e outros, Engenharia Agrícola v46, 2026", "u": "https://www.scielo.br/j/eagri/a/mPH5m8tSXwQbxQBqJKWg6Gm/" }
+          ]
+        },
+        {
+          "q": "O que não está dimensionado?",
+          "a": "Quase tudo, e dizemos quanto: o tamanho do mercado de autonomia agrícola no Brasil (não encontramos fonte primária); o mercado de drones de carga no país; o mercado de ensaio de resiliência GNSS (os fornecedores de equipamento não publicam preço de tabela, todos pedem cotação, e não encontramos quem venda o serviço no Brasil); o mercado de integridade no posicionamento dinâmico; e o de defesa. Um cliente piloto e a receita inicial da bancada vão dar o número medido que falta.",
+          "fontes": [
+            { "t": "Atalaia, notas de mercado de 16/11/2026 (entregues sob sigilo)", "u": null }
+          ]
+        },
+        {
+          "q": "Existe um comprador obrigado a comprar isto?",
+          "a": "Hoje, não, e é a lacuna mais importante. Há ganchos: o RBAC nº 100 pede navegação suficiente, demonstrada de maneira aceitável pela ANAC, sem dizer como; o Anexo D.2 da ISO 18497-4 descreve o teste de cerca virtual da máquina agrícola autônoma; a IMCA IN 1730 pede a conferência cruzada do GNSS; e a perda de posicionamento de uma embarcação é um incidente que se comunica à ANP, que pode exigir um relatório de investigação. Lá fora, o nível 3 do quadro de PNT resiliente do DHS pede degradação limitada, que é exatamente o que a região de proteção mede. Pelo nosso próprio teste, isso ainda é demonstração com ganchos regulatórios, não mercado obrigado.",
+          "fontes": [
+            { "t": "ANAC, RBAC nº 100, 100.107(a)(2)", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "ISO 18497-4:2024, amostra com o sumário", "u": "https://cdn.standards.iteh.ai/samples/82688/9e77c86a5bb84b87859f194af2752999/ISO-18497-4-2024.pdf" },
+            { "t": "DHS, Resilient PNT Conformance Framework, 2020", "u": "https://dhs.gov/sites/default/files/publications/2020_12_resilient_pnt_conformance_framework.pdf" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modelo",
+      "titulo": "Modelo de negócio (proposto)",
+      "perguntas": [
+        {
+          "q": "Como o Atalaia ganha dinheiro?",
+          "a": "Cinco linhas, todas propostas. Ensaio e laudo: a bancada testa receptores, pilotos automáticos e máquinas sob ataque e entrega um laudo lacrado e refazível. A caixa: o hardware ao lado do piloto automático. A licença de software por veículo em operação. Os registros auditáveis de cada missão, prontos para uma investigação ou uma auditoria. E a Central de operações em solo: os vereditos antes de cada missão, a frota e as baterias.",
+          "fontes": [
+            { "t": "Atalaia, proposta de pesquisa aplicada v0.5, resumo público", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "Qual linha vem antes?",
+          "a": "A bancada. É a linha de receita mais próxima porque começa digital: o ataque entra como posição no piloto automático em simulação, depois como gravação pública num receptor em software, sem compra de equipamento de rádio. Um laudo lacrado já existe, em simulação. Serve a fabricantes de drones e de pilotos automáticos, a fabricantes de máquinas agrícolas (o teste do Anexo D.2 da ISO 18497-4) e a operadores de posicionamento dinâmico (a conferência da IMCA IN 1730). A lacuna: nenhuma regra brasileira obriga esse ensaio hoje.",
+          "fontes": [
+            { "t": "ISO 18497-4:2024, amostra com o sumário", "u": "https://cdn.standards.iteh.ai/samples/82688/9e77c86a5bb84b87859f194af2752999/ISO-18497-4-2024.pdf" },
+            { "t": "IMCA Information Note 1730", "u": "https://www.imca-int.com/resources/technical-library/in-1730-gnss-jamming-and-spoofing-operational-impacts-and-mitigation-for-dynamic-positioning-dp/" }
+          ]
+        },
+        {
+          "q": "Quais são os preços?",
+          "a": "Nenhum foi definido, e não há registro de preço em nenhum documento do projeto. Os únicos valores que temos são as estimativas de compra dos portões G1 e G2, que são custo, não preço.",
+          "fontes": []
+        },
+        {
+          "q": "Onde está a receita recorrente?",
+          "a": "Na licença por veículo, na Central e nos registros de cada missão. A bancada pode ser recorrente também: cada nova versão de firmware de um fabricante pede um novo ensaio. Tudo isso é proposta até haver um cliente piloto.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "go-to-market",
+      "titulo": "Go-to-market",
+      "perguntas": [
+        {
+          "q": "Por onde começa?",
+          "a": "Pelo civil. De início, fabricantes de drones e de pilotos automáticos, com o laudo da bancada e a caixa. Depois, a agricultura: fabricantes de máquinas autônomas, para o teste de cerca virtual e para quem exporta para a União Europeia, onde o novo regulamento de máquinas vale a partir de 20/01/2027. Em seguida, o offshore: o portão relativo do posicionamento dinâmico e a evidência depois de uma perda de posição. A defesa vem depois da validação, com o mesmo comportamento: o envelope decide.",
+          "fontes": [
+            { "t": "Atalaia, minuta do protocolo v0.5", "u": "/atalaia/doutrina/" },
+            { "t": "Regulamento (UE) 2023/1230, máquinas", "u": "https://eur-lex.europa.eu/eli/reg/2023/1230/oj" }
+          ]
+        },
+        {
+          "q": "Por que o civil vem antes?",
+          "a": "Pela ordem da credibilidade: pesquisa aplicada, experimento controlado, validação independente, revisão do protocolo e só então avaliação militar. O uso civil (defesa civil numa enchente, agricultura, inspeção de linhas e encostas, energia offshore, monitoramento ambiental) gera os resultados medidos, inclusive os negativos, que uma avaliação de defesa vai pedir.",
+          "fontes": [
+            { "t": "Atalaia, página de entrada", "u": "/atalaia/" }
+          ]
+        },
+        {
+          "q": "Qual é o passo comercial imediato?",
+          "a": "Um programa de pesquisa aplicada de 12 meses com um instituto de engenharia, em cinco pacotes de trabalho, com os critérios de aceitação congelados antes de qualquer bancada; e, em paralelo, um cliente piloto para o laudo da bancada. A conversa com o instituto ainda não começou formalmente.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "concorrencia",
+      "titulo": "Concorrência e fosso",
+      "perguntas": [
+        {
+          "q": "Quem são os concorrentes?",
+          "a": "Na navegação, os fornecedores citados acima, que publicam precisão e são, para o Atalaia, entradas. Na bancada, o equipamento é um mercado maduro: a Keysight, que absorveu a Spirent em outubro de 2025; a Safran, com o Skydel; e a Rohde & Schwarz. Como serviço de teste, fora do Brasil: a IABG e o Fraunhofer IIS, na Alemanha, e o Jammertest, na Noruega, um evento aberto que em 2026 reuniu 310 participantes de 127 organizações de 28 países. No Brasil, não encontramos quem venda esse serviço. E na pesquisa, os grupos de estimação por conjuntos citados acima.",
+          "fontes": [
+            { "t": "Converge Digest, a Keysight conclui a compra da Spirent", "u": "https://convergedigest.com/keysight-completes-1-16-billion-acquisition-of-spirent-communications/" },
+            { "t": "Skydel (Safran, ex-Orolia)", "u": "https://www.4test.no/Orolia-Skydel.htm" },
+            { "t": "Rohde & Schwarz, simulação GNSS", "u": "https://www.rohde-schwarz.com/br/_56279-610109.html" },
+            { "t": "Fraunhofer IIS, ambiente de teste", "u": "https://www.iis.fraunhofer.de/en/ff/lv/lok/leist/test/over-the-air-testumgebung.html" },
+            { "t": "IABG, white paper sobre sistemas GNSS robustos, dez/2025", "u": "https://www.iabg.de/fileadmin/Daten/06_MEDIATHEK/04_Veroeffentlichungen/CT_Digitalisierung/2025-12_Whitepaper-Robuste-GNSS-Systeme-EN.pdf" },
+            { "t": "Statens vegvesen, Jammertest 2026", "u": "https://www.vegvesen.no/om-oss/presse/aktuelt/2026/09/jammertest-2026/" }
+          ]
+        },
+        {
+          "q": "Qual é o fosso?",
+          "a": "Quatro camadas. As provas: o limite central e a solidez do estimador em Lean, 59 teoremas conferidos por máquina, que um concorrente teria de refazer. Os registros: o laudo e a missão lacrados e refazíveis por um verificador de outra parte, um formato que ninguém que lemos entrega. O método: critérios escritos antes, controles vermelhos que precisam ser pegos, resultados negativos publicados e o falta dado como veredito, herdados de um laboratório público de verificação exata. E a propriedade intelectual de base: inventariada arquivo por arquivo, com sha256 e data, e com a raiz carimbada no Bitcoin. A lacuna: um método pode ser copiado; a gravação e a reprodução de ataques já estão em norma europeia (EN 16803-2 e -3), e a IEEE planeja reconhecer laboratórios de teste de PNT. O fosso é a combinação e a velocidade, não uma patente.",
+          "fontes": [
+            { "t": "BSI, EN 16803 (avaliação de segurança de terminais GNSS)", "u": "https://knowledge.bsigroup.com/products/space-use-of-gnss-based-positioning-for-road-intelligent-transport-systems-its-assessment-of-security-performances-of-gnss-based-positioning-terminals" },
+            { "t": "IEEE P1952", "u": "https://standards.ieee.org/ieee/1952/10606" },
+            { "t": "Carlos Toledo, laboratório público de verificação exata", "u": "https://carlostoledo.co/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regulacao",
+      "titulo": "Regulação",
+      "perguntas": [
+        {
+          "q": "Que órgãos importam, e como o Atalaia se encaixa?",
+          "a": "Três no ar. A Anatel, pelo espectro: o Atalaia recebe e fica em silêncio por padrão, e a homologação é disparada pela emissão de rádio; não lemos dispensa expressa para um aparelho que só recebe, e isso ainda precisa ser confirmado com a própria Anatel. A ANAC, pela aeronave: o RBAC nº 100 exige que o piloto possa intervir a qualquer momento e pede navegação suficiente. O DECEA, pelo espaço aéreo: a ICA 100-40 vale para todos os drones, com cadastro e planejamento. Voo real só em campo autorizado.",
+          "fontes": [
+            { "t": "ANAC, RBAC nº 100", "u": "https://pergamum.anac.gov.br/arquivos/RBAC100EMD00.pdf" },
+            { "t": "DECEA, ICA 100-40", "u": "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento/arquivos/2026/ica-100-40-publicada-port-2094-dnor8-18-03-2026-bca-058-30-03-2026.pdf" },
+            { "t": "Anatel, Resolução nº 715/2019 (homologação)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2019/1350-resolucao-715" }
+          ]
+        },
+        {
+          "q": "E o módulo ativo, é legal?",
+          "a": "Pela nossa leitura, que não é parecer jurídico: o alcance de ida e volta pelo enlace de telemetria e a difusão na frota são legais com módulo já homologado, nas faixas de 900 MHz, 2,4 GHz e 5,8 GHz; o radar altímetro de drone é legal em 24 GHz e em 60 a 64 GHz (até 122 m de altura e 20 dBm de pico), e não em 76 a 81 GHz em voo nem na faixa aeronáutica de 4,2 a 4,4 GHz; o radar Doppler de velocidade no solo é legal em 24 GHz, com operação contínua permitida em equipamento agrícola. O UWB em balizas fixas ao ar livre não tem categoria clara e entraria por autorização temporária de ensaio. A caixa com o módulo passa pela homologação de um organismo designado. Silencioso por padrão: o módulo liga só dentro do envelope aprovado, e cada acionamento fica no registro.",
+          "fontes": [
+            { "t": "Anatel, Resolução nº 680/2017 (radiação restrita)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2017/936-resolucao-680" },
+            { "t": "Anatel, Ato nº 14.448/2017, texto consolidado de 14/10/2025, no portal de legislação", "u": "https://informacoes.anatel.gov.br/legislacao/" },
+            { "t": "Anatel, Resolução nº 775/2025 (uso temporário)", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2025/2025-resolucao-775" }
+          ]
+        },
+        {
+          "q": "E a bancada de testes, pode gerar ataques?",
+          "a": "Ela começa sem nenhuma emissão: os ataques entram como dados, em simulação e em gravações. Pela lei, o sinal confinado num cabo não é radiocomunicação; mas a lei também veda emissor de radiofrequência sem homologação, e a Resolução nº 760/2023 proíbe até a posse de bloqueador por quem não é usuário público autorizado. Por isso a camada por cabo espera um parecer jurídico, e um gerador de bloqueio com saída de antena não existe no projeto, nunca. A autorização temporária da Anatel exclui expressamente o teste de bloqueador.",
+          "fontes": [
+            { "t": "Lei nº 9.472/1997 (LGT), art. 162", "u": "https://www.planalto.gov.br/ccivil_03/leis/l9472.htm" },
+            { "t": "Anatel, Resolução nº 760/2023", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2023/1842-resolucao-760" },
+            { "t": "Anatel, Resolução nº 775/2025", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2025/2025-resolucao-775" }
+          ]
+        },
+        {
+          "q": "Há risco de exportação?",
+          "a": "Sim, e está tratado no projeto: um sensor inercial tático da classe 7A003 exige licença dos EUA para o Brasil, e um da classe 7A994 não; a configuração proposta usa um sensor que o fabricante declara 7A994. O Atalaia não usa antena anti-interferência controlada.",
+          "fontes": [
+            { "t": "eCFR, EAR, parte 738, suplemento 1", "u": "https://www.ecfr.gov/current/title-15/part-738/appendix-Supplement%20No.%201%20to%20Part%20738" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "riscos",
+      "titulo": "Riscos",
+      "perguntas": [
+        {
+          "q": "Quais são os riscos, sem enfeite?",
+          "a": "1. Nenhum voo real ainda: todos os números são de simulação, dados gravados, vetores oficiais, bancada ou prova, e os limites declarados dos sensores podem não se manter em equipamento real. 2. Nenhum comprador obrigado hoje: no ar, na terra, no mar e na bancada, há ganchos regulatórios, não obrigação. 3. Uma pessoa só: o projeto tem um autor e líder técnico, com ajuda de IA, e os parceiros ainda não estão confirmados. 4. O nome: a marca Atalaia não foi depositada, e uma busca no INPI em 16/11/2026 achou três pedidos vivos com o nome na classe 9 (aparelhos e software), de outro titular, aguardando exame; não há parecer jurídico, e o nome pode mudar. 5. Regiões largas demais: no modelo de ruído de pior caso, a região passa de 800 m aos 60 s; com sensor inercial de consumo, a garantia se perde em cerca de 3 minutos; no mar profundo, a região absoluta sem GNSS fica em 10 a 18 m contra um limite de 2 a 5 m; numa missão simulada, a correção pelo relevo não deixa a região descer de cerca de 267 m. 6. O G0 passou por emenda, não como foi escrito, e o protótipo ainda não é o código provado. 7. Na plataforma DJI, a caixa só avisa e manda pairar ou pousar. 8. O custo da cautela pode afastar clientes: 56 de 111 saídas retidas teriam chegado.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seções 8 e 10", "u": "/atalaia/nucleo/" },
+            { "t": "INPI, busca de marcas (pePI)", "u": "https://busca.inpi.gov.br/pePI/" }
+          ]
+        },
+        {
+          "q": "O que mataria o projeto?",
+          "a": "Os limites declarados não se manterem nos sensores reais, ou se manterem só com regiões tão largas que o veredito vire quase sempre falta dado; um incumbente adotar níveis de proteção por conjuntos antes (a pesquisa existe); um laboratório ou fornecedor abrir no Brasil o serviço de ensaio antes de nós; a camada por cabo da bancada ser lida como posse de bloqueador; e nenhum cliente aceitar o custo da cautela. Cada um tem um teste escrito antes, e o resultado será publicado, inclusive o negativo.",
+          "fontes": [
+            { "t": "Anatel, Resolução nº 760/2023", "u": "https://informacoes.anatel.gov.br/legislacao/resolucoes/2023/1842-resolucao-760" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "titulo": "Roadmap e portões",
+      "perguntas": [
+        {
+          "q": "Quais são os portões?",
+          "a": "Nada se compra antes de um portão passar, e cada critério é escrito antes do teste. G0, simulação, US$ 0: passou em 16/11/2026, por emenda datada. G1, bancada de hardware (piloto automático aberto, computador embarcado, receptor GNSS multibanda e sensor inercial de bancada), cerca de US$ 1,1 mil: o hardware no laço tem de tomar as mesmas decisões da simulação. G2, uma aeronave aberta da classe X650 com o conjunto de voo, cerca de US$ 4 a 6 mil: voos de calibração em campo autorizado, cada um com um gêmeo simulado registrado antes. G3, uma plataforma pesada, numa fase posterior. Os valores são estimativas a partir de preços de revenda nos EUA em 16/11/2026, antes de impostos e frete (cerca do dobro no Brasil); não são cotações.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 9", "u": "/atalaia/nucleo/" }
+          ]
+        },
+        {
+          "q": "Qual é o cronograma?",
+          "a": "Doze meses, contados do contrato de pesquisa, em cinco pacotes: ameaças e falhas; arquitetura de integridade; ambiente experimental; validação independente; revisão do protocolo. A especificação nos meses 1 a 3; a bancada do ar nos meses 2 a 8; a do offshore nos meses 2 a 5; as da terra e do mar nos meses 4 a 8; a validação nos meses 6 a 11; a revisão nos meses 10 a 12. Depois vêm a calibração em ambiente real e a publicação dos resultados, inclusive os negativos, e só então uma demonstração a organizações usuárias, pedindo avaliação de interesse, não adoção.",
+          "fontes": []
+        },
+        {
+          "q": "O que vem logo depois do G0?",
+          "a": "A camada seguinte da bancada digital (gravações públicas num receptor em software), o alcance cooperativo em simulação como restrição de distância, a troca do protótipo para a propagação exata no grupo de Lie com a contenção refeita, e o replay relativo do posicionamento dinâmico. Cada item com a palavra do autor, um de cada vez.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "recursos",
+      "titulo": "Uso de recursos",
+      "perguntas": [
+        {
+          "q": "Para que serve o dinheiro?",
+          "a": "Para atravessar os portões, nesta ordem: a bancada de hardware do G1; a aeronave e os voos de calibração do G2, em campo autorizado; as horas de engenharia da simulação da terra, do mar e do offshore e da bancada digital, que não pedem compra; a validação independente, com um verificador escrito por outra parte; a homologação do módulo ativo, cotada antes do seu portão; e o jurídico (a camada por cabo da bancada, a marca, a propriedade intelectual). Nenhuma compra antes do seu portão.",
+          "fontes": []
+        },
+        {
+          "q": "Quanto custa cada etapa?",
+          "a": "Só dois valores têm estimativa: o G1, cerca de US$ 1,1 mil, e o G2, cerca de US$ 4 a 6 mil, ambos estimativas e não cotações. O resto é cotado antes do portão de cada item, e esta página não traz outro valor.",
+          "fontes": [
+            { "t": "Atalaia Núcleo, seção 9", "u": "/atalaia/nucleo/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "titulo": "Time",
+      "perguntas": [
+        {
+          "q": "Quem está por trás?",
+          "a": "Carlos Toledo, autor do protocolo e da arquitetura e líder técnico. Ele mantém, no Brasil, um laboratório público de verificação exata de matemática gerada por máquina, em que cada verificação traz o programa, os registros e um controle que mostra que ela consegue falhar; o método do Atalaia vem de lá. O trabalho usa ajuda de IA (Claude) na pesquisa e na redação, e isso é dito em cada documento. A proponente é a empresa de tecnologia do Carlos, titular da propriedade intelectual de base. Os parceiros de pesquisa e de piloto serão nomeados quando confirmarem.",
+          "fontes": [
+            { "t": "carlostoledo.co, sobre", "u": "https://carlostoledo.co/about/" }
+          ]
+        },
+        {
+          "q": "Uma pessoa só não é um risco?",
+          "a": "É, e está na lista de riscos. O que reduz esse risco é o próprio método: tudo é escrito para que outra parte confira sem precisar da palavra do autor, e o programa de pesquisa traz a engenharia, a bancada e a validação de uma instituição de fora.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "buscamos",
+      "titulo": "O que buscamos",
+      "perguntas": [
+        {
+          "q": "O que vocês buscam?",
+          "a": "Três coisas: um parceiro de pesquisa aplicada, com engenharia embarcada, bancada e campo autorizado; um cliente piloto, de preferência um fabricante de drone, de piloto automático ou de máquina autônoma, para o laudo da bancada e um piloto da caixa; e investimento para atravessar os portões. Esta página não traz valor de investimento.",
+          "fontes": []
+        },
+        {
+          "q": "O que um cliente piloto recebe?",
+          "a": "Um laudo lacrado do seu equipamento sob ataque, na bancada digital, sem nenhuma emissão de rádio, com cinco itens (contenção, alarme, falso alarme, conduta e desfecho) e o pacote para refazer. Depois, se fizer sentido, um piloto da caixa no seu veículo, com os critérios escritos antes.",
+          "fontes": []
+        },
+        {
+          "q": "E a propriedade intelectual numa parceria?",
+          "a": "A propriedade de base é a do inventário datado, que entra como está. A propriedade nova, as regras de publicação, sigilo e comercialização são negociadas antes do início, no modelo de contrato do parceiro. A ciência feita sobre dados públicos pode ser publicada sem abrir o Núcleo nem os produtos.",
+          "fontes": []
+        }
+      ]
+    },
+    {
+      "id": "contato",
+      "titulo": "Contato",
+      "perguntas": [
+        {
+          "q": "Como falar com a gente?",
+          "a": "Escreva para carlos@carlostoledo.co, ou use o formulário de contato no rodapé desta página. A proposta de pesquisa, o inventário de propriedade intelectual e os laudos são entregues sob sigilo a quem pedir.",
+          "fontes": [
+            { "t": "E-mail", "u": "mailto:carlos@carlostoledo.co" }
+          ]
+        }
+      ]
+    }
+  ]
+}

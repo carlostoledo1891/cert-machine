@@ -1,0 +1,1243 @@
+{
+ "versao": "1",
+ "gerado_em": "2026-11-16",
+ "fonte": "atalaia/ferramentas/missoes_lp.py (privado)",
+ "aviso": "Tudo aqui é simulação, cálculo ou ilustração, e cada número diz qual: nada voou.",
+ "missoes": [
+  {
+   "slug": "posto-nos-morros",
+   "dominio": "ar",
+   "ordem": 1,
+   "titulo": "O posto nos morros, com o GNSS arrastado no caminho",
+   "subtitulo": "Da base no norte da ilha a um posto a 4,5 km, sobre a serra. No meio da ida, o GNSS passa a mentir devagar: a posição informada desliza para o lado, 2 m por segundo.",
+   "lugar": "Norte da ilha de Florianópolis (SC)",
+   "publico": "drones de carga e de inspeção; defesa civil; entrega a postos isolados",
+   "estagio": "simulação",
+   "gancho": "Em simulação, com o GNSS arrastado no meio do caminho, o drone sozinho pousou a 586 m do posto; com o protocolo do Atalaia ao lado do piloto automático, a 1,8 m.",
+   "historia": [
+    {
+     "t": "−15:00",
+     "fase": "Antes de decolar",
+     "texto": "Rota, energia e espaço aéreo passam: o relevo devolve a posição em toda a perna, e com 12 kg sobra energia no pior caso (de 180 a 1.756 Wh).",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Decolagem",
+     "texto": "O drone sobe a 120 m e segue para o posto a 10 m/s. A região de proteção corre em paralelo, construída sem o GNSS.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+03:30",
+     "fase": "O ataque começa",
+     "texto": "A 35% da ida, o GNSS passa a ser puxado para leste. A posição informada desliza; a real, não.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+04:16",
+     "fase": "O portão recusa o GNSS",
+     "texto": "O GNSS cai fora da região de 100 m, a 101 m do centro: é declarado falso, e a fonte de posição do piloto automático passa a ser a caixa, no mesmo instante.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "+04:18",
+     "fase": "O desvio máximo",
+     "texto": "O drone chega a 73,6 m da rota logo depois da troca, e volta para ela.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+08:29",
+     "fase": "Entrega",
+     "texto": "Pousa a 1,8 m do posto, dentro do raio de entrega de 35 m.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+10:07",
+     "fase": "Depois do voo: o laudo",
+     "texto": "Um verificador escrito à parte refaz os 30 itens do laudo a partir do registro bruto e concorda em todos.",
+     "estado": "PASSA"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "O piloto automático sozinho percebe o arrasto e avisa, 14,9 s depois do início, mas não declara região nem conduta: segue o GNSS falso e pousa longe do posto. Com um salto de 300 m, pousa a 300 m.",
+    "numero": {
+     "v": 586,
+     "u": "m",
+     "rotulo": "distância do pouso ao posto, piloto automático sozinho, GNSS arrastado",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-ARR, sozinho)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "A caixa (emulada nesta bancada) declara o GNSS falso quando ele sai da região de 100 m, troca a fonte de posição, e o drone volta à rota e entrega. No salto de 300 m, o alarme vem em 0,4 s e o pouso fica a 0,8 m.",
+    "numero": {
+     "v": 1.8,
+     "u": "m",
+     "rotulo": "distância do pouso ao posto, com a caixa, GNSS arrastado",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-ARR, com a caixa)"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Salto de 300 m: pouso, sozinho → com a caixa",
+     "v": "300 → 0,8",
+     "u": "m",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-SAL)"
+    },
+    {
+     "k": "Tempo até o alarme no arrasto: sozinho / com a caixa",
+     "v": "14,9 / 46,0",
+     "u": "s",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (tempo declarado: 65,6 s)"
+    },
+    {
+     "k": "Falsos alarmes no voo nominal",
+     "v": "0 em 600",
+     "u": "s",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json (ensaio E-NOM)"
+    },
+    {
+     "k": "Outra rodada, a fatia de simulação: pouso, sozinho → com a caixa",
+     "v": "584 → 1,6",
+     "u": "m",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/runs/sem.json e atalaia/sitl/runs/com.json"
+    },
+    {
+     "k": "Perna em que o relevo devolve a posição",
+     "v": "100",
+     "u": "%",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-ilha.json (laudo de rota, missão morros)"
+    },
+    {
+     "k": "Largura da região no trecho falsificado: com uma correção de relevo a cada 0,5 km / sem relevo",
+     "v": "267 / 1.232",
+     "u": "m",
+     "estagio": "cálculo",
+     "fonte": "atalaia/sitl/livro.json (livro de larguras: modelo com pontos de simulação ao lado; IMU de classe tática)"
+    },
+    {
+     "k": "Tempo sem GNSS até a região + ε passar de 200 m, só com a inércia (classe tática; com o carrossel)",
+     "v": "5:47 (6:49)",
+     "u": "min",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/nucleo-modelo.js (o modelo da página do Núcleo; a ficha lida como cota)"
+    },
+    {
+     "k": "Protótipo do estimador de conjunto: a posição real dentro da região",
+     "v": "8 de 8",
+     "u": "voos",
+     "estagio": "simulação",
+     "fonte": "atalaia/nucleo/r2-prototipo/resultados.json"
+    },
+    {
+     "k": "Radar altímetro da própria caixa, para a correção de relevo sem o radar do fabricante",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que o protocolo funciona do lado do piloto automático, num ArduPilot de verdade em simulação: o alarme pela região, a troca da fonte de posição e a entrega, contra um GNSS que mente.",
+   "ressalvas": [
+    "A caixa é emulada: a melhor estimativa dela é a verdade do simulador mais um erro sorteado. O que a bancada mede é o protocolo do lado do piloto automático, não o estimador da caixa.",
+    "O falsificador é ingênuo: desloca só a posição; a velocidade do GNSS continua a verdadeira. Um falsificador coerente em posição e velocidade não foi testado.",
+    "Terreno plano e um octacóptero do simulador, não o drone de carga dos exemplos. Uma execução por par: sem taxa de falso alarme, sem estatística.",
+    "A região emulada tinha 100 m de raio; com o limite declarado de cada correção de relevo, o livro de larguras dá cerca de 267 m de diâmetro. A bancada mostrou o protocolo com uma região mais estreita que a que o limite declarado sustenta.",
+    "No arrasto, o piloto automático sozinho alarmou antes da caixa (14,9 s contra 46,0 s): a região de 100 m custa tempo. Ele rodou na configuração da fatia, que só avisa; a ação padrão de falha do estimador não foi ensaiada.",
+    "O filme é um replay da Central sobre o relevo real da mesma rota; os números vêm da bancada em SITL.",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": "ilha-morros",
+   "mapa": null
+  },
+  {
+   "slug": "costa-da-lagoa",
+   "dominio": "ar",
+   "ordem": 2,
+   "titulo": "Reabastecer a Costa da Lagoa",
+   "subtitulo": "Uma comunidade só acessível por barco ou trilha. Direto da base, a bateria não leva e traz; de uma base avançada no Rio Vermelho, atravessando a lagoa, falta medir.",
+   "lugar": "Costa da Lagoa, Florianópolis (SC)",
+   "publico": "abastecimento de comunidades isoladas; saúde e defesa civil",
+   "estagio": "cálculo",
+   "gancho": "Pela ficha, a ida e volta cabe; no pior caso, podem faltar 1.213 Wh. O Atalaia não chuta: diz ∅ FALTA DADO e o que medir.",
+   "historia": [
+    {
+     "t": "−30:00",
+     "fase": "Direto da base",
+     "texto": "12,2 km até a Costa. Com 12 kg, a margem de energia no pior caso vai de −2.629 a −333 Wh: falta energia até no melhor caso.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "−25:00",
+     "fase": "Do Rio Vermelho",
+     "texto": "Uma base avançada encurta a perna para 8,3 km, 36% dela sobre a lagoa. A margem vai de −1.213 a +722 Wh: o laudo não decide.",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "−25:00",
+     "fase": "O que decidiria",
+     "texto": "Nenhuma medida sozinha basta; decidem juntas as de um programa de voos de calibração: o consumo com carga, o gasto na subida, a saúde das baterias e o tempo de pouso. A ponta de baixo da margem precisa subir 1.213 Wh para virar ✓ PASSA.",
+     "estado": "INFO"
+    },
+    {
+     "t": "−24:00",
+     "fase": "Rota e espaço aéreo",
+     "texto": "O relevo devolve a posição na perna inteira, a lagoa incluída, e nenhum volume de espaço aéreo controlado é cruzado.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Voo de treino",
+     "texto": "O replay mostra o voo de treino que mede o consumo, não uma missão liberada.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "A conta de ficha divide a distância pelo alcance: com 12 kg, o drone de carga dos exemplos faria cerca de 23 km, e a ida e volta do Rio Vermelho tem 16,6 km. Decola-se confiando na média.",
+    "numero": {
+     "v": 23.2,
+     "u": "km",
+     "rotulo": "alcance com 12 kg pela ficha (interpolação linear entre 28 km vazio e 16 km com 30 kg)",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"ficha\"; a ficha: https://www.dji.com/flycart-30/specs (lida em 15/11/2026)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O laudo de energia faz a conta no pior caso, com 5 min de reserva no pouso. Do Rio Vermelho, a margem vai de −1.213 a +722 Wh: ∅ FALTA DADO, com o que decidiria. Direto da base, × NÃO PASSA.",
+    "numero": {
+     "v": -1213,
+     "u": "Wh",
+     "rotulo": "margem de energia no pior caso, do Rio Vermelho, com 12 kg (no melhor: +722 Wh)",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (missão costa-rv)"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Direto da base: margem no pior e no melhor caso",
+     "v": "−2.629 a −333",
+     "u": "Wh",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (missão costa-base)"
+    },
+    {
+     "k": "Do Rio Vermelho: margem no pior e no melhor caso",
+     "v": "−1.213 a +722",
+     "u": "Wh",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (missão costa-rv)"
+    },
+    {
+     "k": "Ida e volta: direto / do Rio Vermelho",
+     "v": "24,4 / 16,6",
+     "u": "km",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json"
+    },
+    {
+     "k": "Perna do Rio Vermelho sobre a lagoa",
+     "v": "36",
+     "u": "%",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json"
+    },
+    {
+     "k": "Com 5 kg, do Rio Vermelho",
+     "v": "−867 a +931",
+     "u": "Wh",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (∅ FALTA DADO também)"
+    },
+    {
+     "k": "Reserva exigida no pouso",
+     "v": "5",
+     "u": "min",
+     "estagio": "proposto",
+     "fonte": "apps/atalaia/data/central.json (premissa declarada)"
+    }
+   ],
+   "prova": "Que o laudo de energia separa o que a ficha promete do que o pior caso sustenta, e diz que medida decide.",
+   "ressalvas": [
+    "As margens saem de premissas declaradas (rendimento, tempo de pairar, vento de 0 a 5 m/s) sobre a ficha pública do drone dos exemplos; a temperatura e o envelhecimento da bateria entram só pela faixa de saúde declarada.",
+    "A conta de ficha (a interpolação linear do alcance) é nossa, para mostrar a leitura de ponto; a ficha não diz em que condições mediu o alcance.",
+    "O filme mostra o voo de treino, não uma missão liberada. Nada voou."
+   ],
+   "filme": "ilha-costa-lagoa",
+   "mapa": null
+  },
+  {
+   "slug": "perna-sobre-o-mar",
+   "dominio": "ar",
+   "ordem": 3,
+   "titulo": "A perna sobre o mar: um barco ao largo de Ponta das Canas",
+   "subtitulo": "4 km mar adentro, a partir da praia. No último trecho, nem o relevo nem a imagem devolvem a posição.",
+   "lugar": "Ponta das Canas, norte da ilha de Florianópolis (SC)",
+   "publico": "apoio a embarcações; resgate e entrega no mar",
+   "estagio": "cálculo",
+   "gancho": "Sobre a água, o Atalaia não finge: antes de decolar diz o que falta. Com uma baliza cooperativa no barco, proposta, a mesma perna passa.",
+   "historia": [
+    {
+     "t": "−20:00",
+     "fase": "Laudo de rota",
+     "texto": "De 2,3 km em diante, o teste de relevo não acha nada: 1,7 km sem nenhuma referência além do GNSS, e nenhuma no barco.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "−20:00",
+     "fase": "Energia",
+     "texto": "A bateria sobra: de 534 a 1.980 Wh de margem no pior caso, com 12 kg.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "−19:00",
+     "fase": "Laudo de integridade (proposto)",
+     "texto": "Quanto tempo a região de proteção cabe no limite da entrega, só com a inércia? Depende do viés da IMU em voo e do limite do arrasto, que ainda não foram medidos. ∅ FALTA DADO: decidem os voos de calibração, ou uma referência no barco.",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "−19:00",
+     "fase": "Mesmo lendo a ficha como cota",
+     "texto": "Com uma IMU de classe tática e o carrossel, a região passa de 35 m 199 s depois do último ponto de relevo. A ida leva 114 s e a espera sobre o barco, de 2 a 5 min: não caberia.",
+     "estado": "INFO"
+    },
+    {
+     "t": "−10:00",
+     "fase": "A virada",
+     "texto": "Com uma baliza cooperativa no barco (a distância medida ida e volta pelo enlace de telemetria, autenticada; proposta), a região sobre o barco fica em 27,6 m durante toda a espera, abaixo do limite de 35 m, e a rota ganha a referência que faltava no destino.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+02:33",
+     "fase": "O último ponto de relevo",
+     "texto": "A 2,3 km da praia, o relevo deixa de ajudar; a região passa a crescer só com a inércia.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+04:27",
+     "fase": "Sobre o barco",
+     "texto": "Dentro do envelope aprovado antes do voo, a caixa liga o alcance cooperativo. A região relativa ao barco fica em 27,6 m enquanto a altura sobre a baliza não passar de 27 m.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+11:21",
+     "fase": "De volta ao relevo da costa",
+     "texto": "Com o barco fundeado (raio de giro declarado de 30 m), a região chega à costa com 95 m, abaixo do limite de cruzeiro de 200 m. Cada acionamento da baliza fica no registro.",
+     "estado": "PASSA"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "O plano comum vê 4 km e bateria de sobra, e decola. Se o GNSS falhar ou mentir no último trecho, nada a bordo diz onde o drone está nem quanto pode estar errado.",
+    "numero": {
+     "v": 1.7,
+     "u": "km",
+     "rotulo": "trecho final sem nenhuma referência de posição além do GNSS: nem relevo, nem imagem",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-ilha.json (missão agua: o laudo de rota)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "Antes de decolar, × NÃO PASSA na rota e ∅ FALTA DADO na integridade, com o que falta dito. Com uma baliza cooperativa no barco (proposta), a região sobre o barco fica em 27,6 m durante toda a espera: ✓ PASSA, pela mesma regra.",
+    "numero": {
+     "v": 27.6,
+     "u": "m",
+     "rotulo": "largura da região de proteção + ε sobre o barco, com a baliza, durante toda a espera (limite: 35 m)",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\""
+    }
+   },
+   "metricas": [
+    {
+     "k": "Margem de energia, 12 kg",
+     "v": "534 a 1.980",
+     "u": "Wh",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (missão agua)"
+    },
+    {
+     "k": "Só com a inércia (classe tática, carrossel): tempo até a região + ε passar de 35 m",
+     "v": "199",
+     "u": "s",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\", com o modelo de apps/atalaia/nucleo-modelo.js"
+    },
+    {
+     "k": "Tempo sem referência que a entrega pede (ida + espera)",
+     "v": "234 a 414",
+     "u": "s",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\" (15 m/s e 2 a 5 min de espera, premissas de apps/atalaia/data/central.json)"
+    },
+    {
+     "k": "Erro declarado da distância à baliza / da altura sobre ela",
+     "v": "1 / 1",
+     "u": "m",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    },
+    {
+     "k": "Altura sobre a baliza até a qual a espera passa",
+     "v": "27",
+     "u": "m",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\""
+    },
+    {
+     "k": "Na volta, até o relevo da costa (limite de cruzeiro 200 m)",
+     "v": "95",
+     "u": "m",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"baliza\""
+    },
+    {
+     "k": "Alcance cooperativo e balizas autenticadas (no posto, no cais, no barco)",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que ∅ FALTA DADO é um veredito útil: diz exatamente que referência transforma uma perna recusada numa perna que passa.",
+   "ressalvas": [
+    "A baliza é proposta, não construída. A virada é um modelo com números declarados (o erro da distância, a altura, o raio de giro do barco), não uma simulação.",
+    "O ∅ FALTA DADO da integridade é o do quinto laudo, proposto; o × NÃO PASSA da rota é o laudo que existe hoje, e é o que a Central mostra no filme.",
+    "Ler a ficha da IMU como cota é uma escolha: a ficha dá estatística, não limite. O limite do diâmetro na entrega (35 m) é o raio de entrega da bancada, usado aqui como escolha conservadora.",
+    "A região sobre o barco é relativa ao barco. Na volta, a posição absoluta depende de o barco estar fundeado no ponto levantado antes; um barco à deriva pede outra referência.",
+    "O filme mostra o caso recusado, sem baliza: o drone se declara perdido.",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": "ilha-barco",
+   "mapa": null
+  },
+  {
+   "slug": "zona-do-aeroporto",
+   "dominio": "ar",
+   "ordem": 4,
+   "titulo": "Na zona de controle do aeroporto Hercílio Luz",
+   "subtitulo": "Uma perna de 6,05 km, de uma base avançada no Canto da Lagoa até o Rio Tavares, que entra na zona de controle de Florianópolis.",
+   "lugar": "Rio Tavares, sul da ilha de Florianópolis (SC)",
+   "publico": "operadores de drones perto de aeroportos; inspeção urbana; defesa civil",
+   "estagio": "cálculo",
+   "gancho": "A rota passa; o espaço aéreo é que decide. O laudo diz ∅ FALTA DADO e nomeia o único dado que vira o veredito: a autorização de quem controla a zona.",
+   "historia": [
+    {
+     "t": "−30:00",
+     "fase": "Laudo de rota",
+     "texto": "O relevo devolve a posição na perna inteira.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "−30:00",
+     "fase": "Laudo de espaço aéreo",
+     "texto": "Em cruzeiro a 409 m de altitude, a perna fica dentro da zona de controle de Florianópolis (CTR SBFL, da superfície a 1.500 ft, controle militar).",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "−30:00",
+     "fase": "O que decide",
+     "texto": "A autorização do órgão que controla esse espaço, pedida no SARPAS. Com ela, o laudo de espaço aéreo vira ✓ PASSA.",
+     "estado": "INFO"
+    },
+    {
+     "t": "−29:00",
+     "fase": "De onde vêm os volumes",
+     "texto": "Do pacote oficial de dados aeronáuticos do DECEA, conferido na publicação de informação aeronáutica.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "Uma rota curta, sobre bairro e morro, que parece simples. Sem cruzar a perna com os volumes oficiais, o drone voaria dentro da zona de controle do aeroporto, sem autorização.",
+    "numero": {
+     "v": 409,
+     "u": "m",
+     "rotulo": "altitude de cruzeiro da perna (o relevo mais 60 m de folga), abaixo do teto de 1.500 ft (457 m) da zona",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-ilha.json (missão ctr)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O laudo acha o volume, diz ∅ FALTA DADO e nomeia o dado que vira o veredito.",
+    "numero": {
+     "v": 1,
+     "u": "dado",
+     "rotulo": "o que falta para ✓ PASSA: a autorização do órgão que controla a zona, pedida no SARPAS",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (caso_ctr; volumes: DECEA, pacote AIXM 5.1 do AISWEB (AIRAC 2611), conferido na AIP ENR 2.1 (AMDT A 21-2026))"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Zona de controle SBFL: limites verticais",
+     "v": "da superfície a 1.500",
+     "u": "ft (MSL)",
+     "estagio": "dados oficiais",
+     "fonte": "DECEA, pacote AIXM 5.1 do AISWEB (AIRAC 2611), conferido na AIP ENR 2.1 (AMDT A 21-2026)"
+    },
+    {
+     "k": "Perna",
+     "v": "6,05",
+     "u": "km",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/ilha.json (caso_ctr)"
+    },
+    {
+     "k": "Altitude de cruzeiro",
+     "v": "409",
+     "u": "m",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-ilha.json (missão ctr)"
+    },
+    {
+     "k": "Perna em que o relevo devolve a posição",
+     "v": "100",
+     "u": "%",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-ilha.json (missão ctr)"
+    }
+   ],
+   "prova": "Que o laudo antes do voo cruza a rota com os volumes oficiais e publica o dado exato que muda o veredito.",
+   "ressalvas": [
+    "O pedido no SARPAS e a autorização são do operador; o laudo só diz que eles decidem.",
+    "O laudo lê o pacote oficial de volumes (AIRAC 2611); avisos do dia (NOTAM) não entram nele.",
+    "Esta perna não tem laudo de energia no registro público.",
+    "Na ilha, os testes são só sintéticos: voo real, só em campo autorizado."
+   ],
+   "filme": null,
+   "mapa": null
+  },
+  {
+   "slug": "cheia-no-medio-vale",
+   "dominio": "ar",
+   "ordem": 5,
+   "titulo": "A cheia de 14 m no Médio Vale do Itajaí",
+   "subtitulo": "Com o rio a 14 m, 98 edificações ficam cercadas pela água a 3,3 km da base. O drone leva 12 kg e volta com reserva.",
+   "lugar": "Blumenau, Médio Vale do Itajaí (SC)",
+   "publico": "defesa civil e resposta a desastres",
+   "estagio": "simulação",
+   "gancho": "Quando a estrada vira rio, a pergunta é quantas viagens a frota faz por dia e quais voltam com reserva; o laudo responde antes de a água subir.",
+   "historia": [
+    {
+     "t": "−60:00",
+     "fase": "A mancha",
+     "texto": "A carta de enchente de 14 m cerca 98 edificações perto do Fortaleza, a 3,3 km ao norte da base.",
+     "estado": "INFO"
+    },
+    {
+     "t": "−30:00",
+     "fase": "Rota e espaço aéreo",
+     "texto": "O relevo devolve a posição em toda a perna, e nenhum volume de espaço aéreo controlado é cruzado.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "−30:00",
+     "fase": "Energia",
+     "texto": "Com 12 kg, a faixa de alcance do cenário passa no pior caso até 5 km; a comunidade está a 3,3 km.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "−30:00",
+     "fase": "A frota",
+     "texto": "O pedido de 57 kg por dia pede 5 saídas. Com 1 drone, 3 pares de baterias e 1 carregador, a frota faz de 21 a 33 por dia no calor, e de 21 a 26 no frio.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Decolagem",
+     "texto": "O replay mostra a ida, a entrega e a volta com reserva.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Mais de um drone no ar (proposto)",
+     "texto": "Cada drone difunde a sua região, e a Central confere se elas concordam: um falsificador local aparece como desacordo entre vizinhos.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+09:25",
+     "fase": "Depois do pouso",
+     "texto": "Cada decisão fica selada, para a defesa civil e para quem auditar depois.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "A cautela fica no olho. Na semana sintética do cenário, das 111 saídas em que a energia era incerta, 55 não teriam chegado com reserva; das 24 que a conta recusou, nenhuma teria chegado.",
+    "numero": {
+     "v": 55,
+     "u": "de 111",
+     "rotulo": "saídas incertas que não teriam chegado com reserva, na semana sintética do cenário (210 saídas)",
+     "estagio": "simulação",
+     "fonte": "apps/atalaia/data/central.json (sintetico.voos)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O laudo libera o que passa no pior caso e segura o resto, dizendo o que falta. Na mesma semana, nenhuma das 75 saídas liberadas pousou abaixo da reserva, nem a única em que o vento passou da previsão.",
+    "numero": {
+     "v": 0,
+     "u": "de 75",
+     "rotulo": "saídas liberadas que pousaram abaixo da reserva, na mesma semana sintética",
+     "estagio": "simulação",
+     "fonte": "apps/atalaia/data/central.json (sintetico)"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Edificações cercadas pela água na cheia de 14 m",
+     "v": "98",
+     "u": "",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-medio-vale.json (sobre a carta de enchente de 14 m de 2025, Universidade Regional de Blumenau)"
+    },
+    {
+     "k": "Distância da base",
+     "v": "3,34",
+     "u": "km",
+     "estagio": "cálculo",
+     "fonte": "atalaia/central/data/missoes-medio-vale.json"
+    },
+    {
+     "k": "Faixa que passa no pior caso, 12 kg",
+     "v": "até 5",
+     "u": "km",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/central.json (alcance)"
+    },
+    {
+     "k": "Saídas por dia: a frota faz / o pedido pede",
+     "v": "21 a 33 / 5",
+     "u": "",
+     "estagio": "cálculo",
+     "fonte": "apps/atalaia/data/central.json (frota)"
+    },
+    {
+     "k": "O custo da cautela: saídas seguradas que teriam chegado com reserva",
+     "v": "56 de 111",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "apps/atalaia/data/central.json (sintetico)"
+    },
+    {
+     "k": "Difusão da integridade na frota",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que o mesmo protocolo planeja a frota numa emergência: quantas saídas cabem, quais voltam com reserva, e o custo da cautela medido.",
+   "ressalvas": [
+    "A semana sintética é a da missão de referência do mesmo cenário (um posto de 2 a 11 km, cargas de 5 a 30 kg, vento sorteado), não a da cheia.",
+    "A energia desta perna não tem laudo próprio no registro: vem da faixa de alcance do cenário e do replay.",
+    "Dentro das premissas, uma saída liberada não falha por construção, porque é aritmética: o drone, a bateria e o vento reais só se medem em campo.",
+    "A mancha é a carta de enchente de 14 m de 2025, simplificada. Nada voou.",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": "vale-cheia",
+   "mapa": null
+  },
+  {
+   "slug": "bancada-digital",
+   "dominio": "ar",
+   "ordem": 6,
+   "titulo": "A bancada digital: um laudo que outro refaz",
+   "subtitulo": "Seis voos simulados, dois equipamentos, três ensaios. Cada veredito sai do registro bruto, e um verificador escrito à parte refaz todos.",
+   "lugar": "Bancada digital, sem nenhuma emissão de rádio",
+   "publico": "fabricantes de drones e de pilotos automáticos; quem compra e quem audita equipamento de navegação",
+   "estagio": "simulação",
+   "gancho": "Nesta bancada ninguém precisa acreditar: o verificador refaz os 30 itens do laudo a partir do registro bruto e concorda em todos, e os vereditos falsificados de propósito foram pegos.",
+   "historia": [
+    {
+     "t": "20:33",
+     "fase": "O catálogo, antes",
+     "texto": "Os ensaios e os critérios são escritos antes do voo inicial; cada execução guarda a impressão digital do catálogo que leu, e o laudo recusa uma execução que leu outro.",
+     "estado": "INFO"
+    },
+    {
+     "t": "20:33",
+     "fase": "As execuções",
+     "texto": "Seis voos no ArduPilot de verdade em simulação: nominal, GNSS arrastado e GNSS com salto, cada um sozinho e com a caixa emulada.",
+     "estado": "INFO"
+    },
+    {
+     "t": "20:44",
+     "fase": "O laudo",
+     "texto": "Cinco itens por voo (contenção, alarme, falso alarme, conduta e desfecho), cada um ✓, × ou ∅, com o motivo.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "20:44",
+     "fase": "O verificador",
+     "texto": "Refaz cada item do registro bruto, sem ler os processados: concorda em 30 de 30.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "20:44",
+     "fase": "Os controles vermelhos",
+     "texto": "Um veredito falsificado, um número falsificado e um falso alarme plantado: os 3 foram pegos, cada um só no seu item.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "20:44",
+     "fase": "O pacote",
+     "texto": "97 arquivos com a impressão digital de cada um, uma raiz que os junta e um carimbo de tempo pedido para ela.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "O piloto automático sozinho não declara região nem conduta. O laudo não inventa: nesses itens diz ∅ FALTA DADO, porque não há o que conferir.",
+    "numero": {
+     "v": 7,
+     "u": "de 15",
+     "rotulo": "itens do piloto automático sozinho que o laudo deixa em ∅ FALTA DADO",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "Cada veredito vem com o motivo e com o registro bruto de onde saiu, e um programa escrito à parte chega ao mesmo resultado.",
+    "numero": {
+     "v": 30,
+     "u": "de 30",
+     "rotulo": "itens do laudo refeitos pelo verificador à parte, a partir do registro bruto, com acordo",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/verificacao.json"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Execuções (3 ensaios × 2 equipamentos)",
+     "v": "6",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/laudo.json"
+    },
+    {
+     "k": "Tolerâncias do verificador",
+     "v": "5 m e 1 s",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/verificacao.json"
+    },
+    {
+     "k": "Controles vermelhos que dispararam",
+     "v": "3 de 3",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/controles/controles.json"
+    },
+    {
+     "k": "Arquivos no pacote",
+     "v": "97",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/bancada/runs/2026-11-16/PACOTE.json"
+    },
+    {
+     "k": "O mesmo molde no mar: itens refeitos pelo verificador do replay do DP",
+     "v": "42 de 42",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/verificacao.json"
+    },
+    {
+     "k": "A bancada com sinal de rádio, por cabo ou em câmara blindada",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que um ensaio de integridade pode sair como laudo selado e refazível, com os vereditos em três valores e o que o equipamento não afirma dito como ∅.",
+   "ressalvas": [
+    "É simulação, e a caixa é emulada. Uma execução por par: sem taxa de falso alarme, sem estatística.",
+    "A bancada digital não emite rádio: o ataque entra no simulador. A bancada com sinal de rádio é proposta.",
+    "O falsificador é ingênuo (só a posição). Os ensaios de repetição, de intermitência e de tempo não foram rodados."
+   ],
+   "filme": null,
+   "mapa": null
+  },
+  {
+   "slug": "dp-ao-lado-da-instalacao",
+   "dominio": "mar",
+   "ordem": 7,
+   "titulo": "O barco de apoio ao lado da instalação",
+   "subtitulo": "Posicionamento dinâmico a 50 m de uma instalação, com corrente, vento e ondas. O GNSS do barco passa a derivar devagar, e o sistema precisa decidir em que referência confiar.",
+   "lugar": "Instalação offshore fixa (cenário genérico, 25° S)",
+   "publico": "embarcações de apoio com posicionamento dinâmico; armadores e auditores de DP",
+   "estagio": "simulação",
+   "gancho": "Em simulação, o barco sozinho seguiu o GNSS que derivava e foi puxado 31,0 m sem um alarme; com o portão relativo do Atalaia, ficou a 1,3 m do ponto.",
+   "historia": [
+    {
+     "t": "+00:00",
+     "fase": "Em posição",
+     "texto": "A 50 m da instalação, o barco segura o ponto com duas referências: o GNSS, que se declara de alta precisão, e o laser na instalação com a IMU. A região relativa, feita sem o GNSS, tem de 3,41 a 3,43 m de largura com ε, abaixo do amarelo de 5 m.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+01:00",
+     "fase": "A deriva começa",
+     "texto": "O GNSS do barco passa a ser puxado de lado, 20 cm por segundo, até 30 m.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+01:07",
+     "fase": "O portão recusa o GNSS",
+     "texto": "O GNSS relativo passa de 1,71 m do centro da região: é recusado, e o barco segue com o laser e a IMU. Nenhuma das 998 correções fora da região foi aceita.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "+03:30",
+     "fase": "A deriva para em 30 m",
+     "texto": "O GNSS fica a 30 m da posição real; o barco continua a menos de 1,3 m do ponto.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+04:31",
+     "fase": "O registro",
+     "texto": "O instante, a região e cada correção recusada ficam no registro selado; um verificador à parte refaz os 42 itens e concorda em todos.",
+     "estado": "PASSA"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "O piloto automático sozinho escolhe a referência pela qualidade que ela declara de si mesma: segue o GNSS que se diz preciso, deixa de lado o laser, que estava bom o tempo todo, e não alarma nenhuma vez. É o padrão do caso publicado IMCA DPE 02/25, em que o sistema ficou com a referência ruim.",
+    "numero": {
+     "v": 31.0,
+     "u": "m",
+     "rotulo": "maior afastamento do ponto, piloto automático sozinho, GNSS derivando devagar",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-ARR, sozinho)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O portão aceita o GNSS só dentro da região feita pelo laser e pela IMU, alargada por ε. Na deriva, recusou o GNSS 7,2 s depois do início, e o barco ficou dentro do amarelo de 5 m.",
+    "numero": {
+     "v": 1.3,
+     "u": "m",
+     "rotulo": "maior afastamento do ponto, com o portão relativo",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-ARR, com o portão)"
+    }
+   },
+   "metricas": [
+    {
+     "k": "O padrão IMCA DPE 02/25 (o GNSS visto da instalação gira): sozinho → com o portão",
+     "v": "30,1 → 1,68",
+     "u": "m",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-DPE0225)"
+    },
+    {
+     "k": "Tempo até a recusa: deriva lenta / padrão DPE 02/25",
+     "v": "7,2 / 28,2",
+     "u": "s",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json"
+    },
+    {
+     "k": "Largura da região + 2ε, em todas as épocas (amarelo: 5 m)",
+     "v": "3,41 a 3,43",
+     "u": "m",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json"
+    },
+    {
+     "k": "Falsos alarmes no nominal",
+     "v": "0 em 241",
+     "u": "s",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/laudo.json (ensaio DP-NOM)"
+    },
+    {
+     "k": "Itens refeitos pelo verificador à parte, com acordo",
+     "v": "42 de 42",
+     "u": "",
+     "estagio": "simulação",
+     "fonte": "atalaia/sitl/dp/runs/2026-11-16/verificacao.json"
+    },
+    {
+     "k": "Deslocamento no caso publicado IMCA DPE 02/25",
+     "v": "29",
+     "u": "m",
+     "estagio": "relato publicado",
+     "fonte": "IMCA DPE 02/25 (01/08/2025), imca-int.com; lido em atalaia/familia/escoteiros-2026-11-16.md (escoteiros, leitura nas fontes)"
+    },
+    {
+     "k": "No papel, a 100 m: portão relativo / absoluto em águas profundas (1.000 e 2.000 m)",
+     "v": "3,82 / 10,2 e 17,5",
+     "u": "m",
+     "estagio": "cálculo",
+     "fonte": "atalaia/familia/dp/largura_dp.py (S71, conta no papel)"
+    },
+    {
+     "k": "Baliza cooperativa autenticada na instalação, uma referência que um falsificador não imita",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que o portão do Núcleo é a pergunta que a votação do DP precisa fazer (\"o GNSS está onde as outras referências dizem?\"), com uma largura que cabe no limite de alerta e um registro que outro refaz.",
+   "ressalvas": [
+    "O ArduPilot Rover é um modelo da ideia, não um sistema de DP: um barco de um propulsor e leme, sem propulsores laterais e sem a votação de referências de um DP. Modela o padrão da DPE 02/25, não o mecanismo dela.",
+    "A instalação é fixa, e o GNSS dela não foi atacado; o falsificador move só a posição. Um falsificador que mova os dois receptores juntos se cancela no GNSS relativo, e isso não foi ensaiado.",
+    "A linha vermelha de 10 m é proposta; a referência lida dá o amarelo de 5 m. Contra um amarelo de 2 m, a largura fica acima em todas as épocas.",
+    "Os sensores são a verdade do simulador mais um ruído cortado; a contenção passa por construção, e o que pega uma declaração errada é o controle vermelho. Uma execução por par.",
+    "No papel, o portão absoluto em águas profundas não cabe no amarelo: o produto é o portão relativo, junto da instalação.",
+    "Não foi encontrada interferência GNSS documentada em águas brasileiras (2023–2026).",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": null,
+   "mapa": null
+  },
+  {
+   "slug": "talhao-na-borda-da-mata",
+   "dominio": "terra",
+   "ordem": 8,
+   "titulo": "A máquina agrícola na borda da mata",
+   "subtitulo": "Um pulverizador autônomo entra na entrelinha, sob a copa, e o RTK cai. A pergunta da norma: a máquina fica dentro da zona?",
+   "lugar": "Um pomar com borda de mata (cenário genérico)",
+   "publico": "fabricantes e operadores de máquinas agrícolas autônomas",
+   "estagio": "ilustrativo",
+   "gancho": "Sob a copa, sem RTK, a região de proteção cabe na entrelinha por 1 min 58 s; o Atalaia sabe a hora de parar antes de a máquina poder sair da zona.",
+   "historia": [
+    {
+     "t": "+00:00",
+     "fase": "No talhão",
+     "texto": "RTK fixo e uma cerca poligonal declarada: a região de proteção está dentro da cerca.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Sob a copa",
+     "texto": "Na borda da mata, o RTK cai. A região passa a crescer com o giroscópio e a odometria das rodas, pelas cotas declaradas.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+01:58",
+     "fase": "No limite da folga",
+     "texto": "A região encosta na folga de 2,25 m até a fileira de árvores, a 177 m da borda: a máquina para em estado seguro, antes de poder sair da zona, e espera a referência voltar.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "+01:58",
+     "fase": "Se a roda patinar além do declarado",
+     "texto": "A região perde a âncora: ∅ FALTA DADO, e a mesma parada.",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "+02:28",
+     "fase": "A referência volta",
+     "texto": "O RTK volta; a correção só é aceita dentro da região alargada por ε, e a máquina segue.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+02:28",
+     "fase": "O registro",
+     "texto": "O registro selado mostra, instante a instante, que a região ficou dentro da cerca: a evidência para o caso de segurança e para o ensaio de geofencing.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "Sem a região, a máquina segue a odometria e o último ponto do RTK. No pior caso declarado, ao fim de uma entrelinha de 400 m, a incerteza lateral chega a 6,2 m, mais que a folga de 2,25 m até as árvores, e nada a bordo avisa.",
+    "numero": {
+     "v": 6.2,
+     "u": "m",
+     "rotulo": "incerteza lateral no pior caso declarado, ao fim de 400 m de entrelinha sem RTK (folga até as árvores: 2,25 m)",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O Atalaia confere, a cada instante, se a região de proteção cabe na entrelinha. Sob a copa, cabe por 1 min 58 s (cerca de 177 m): aí a máquina para em estado seguro, ou segue só quando a referência volta.",
+    "numero": {
+     "v": 118,
+     "u": "s",
+     "rotulo": "tempo sem RTK em que a região cabe na entrelinha, nas cotas declaradas",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    }
+   },
+   "metricas": [
+    {
+     "k": "Velocidade na entrelinha",
+     "v": "1,5",
+     "u": "m/s",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    },
+    {
+     "k": "Cotas declaradas: viés do giroscópio / aproamento ao perder o RTK / posição inicial",
+     "v": "10 °/h / 0,5° / 0,10 m",
+     "u": "",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    },
+    {
+     "k": "Entrelinha / largura da máquina / folga de cada lado",
+     "v": "7,0 / 2,5 / 2,25",
+     "u": "m",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    },
+    {
+     "k": "Distância sob a copa até a parada",
+     "v": "177",
+     "u": "m",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"talhao\""
+    },
+    {
+     "k": "Radar Doppler da própria caixa: a velocidade no solo que a patinagem não engana",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    },
+    {
+     "k": "Balizas autenticadas na borda do talhão",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    },
+    {
+     "k": "A bancada de integridade para o ensaio de geofencing",
+     "v": "proposto",
+     "u": "",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído)"
+    }
+   ],
+   "prova": "Que a pergunta da ISO 18497 (\"a máquina fica dentro da zona?\") pode ter resposta com número e com um registro que outro refaz.",
+   "ressalvas": [
+    "Tudo aqui é ilustrativo: as cotas, a geometria do pomar e a velocidade são escolhas declaradas, não medidas. Nada rodou em simulação.",
+    "A ISO 18497-3:2024 pede que a máquina não saia da zona de operação, e o Anexo D.2 da ISO 18497-4:2024 é o ensaio de geofencing; o texto do anexo não foi lido (a norma é paga). Nenhuma regra brasileira pede hoje um número de integridade de posição: a NR-31 não cobre o autônomo, e a ISO 18497 não tem versão ABNT.",
+    "O modelo supõe derrapagem lateral zero e ângulo pequeno; uma roda que patina além do declarado tira a âncora da região (∅ FALTA DADO).",
+    "O experimento planejado é um rover em simulação num talhão com borda de mata e cerca poligonal; ainda não foi rodado.",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": null,
+   "mapa": null
+  },
+  {
+   "slug": "galeria-de-mina",
+   "dominio": "terra",
+   "ordem": 9,
+   "titulo": "A galeria de mina, sem GNSS nenhum",
+   "subtitulo": "Um veículo no subsolo, numa galeria longa e reta em que o LiDAR não acha feição. Depois de um incidente, a pergunta: onde o veículo podia estar?",
+   "lugar": "Mina subterrânea (cenário genérico)",
+   "publico": "mineração subterrânea: segurança, operação e perícia",
+   "estagio": "ilustrativo",
+   "gancho": "No subsolo não há GNSS para falsificar, mas há o que provar depois: o registro guarda a região do veículo, e outro refaz o veredito.",
+   "historia": [
+    {
+     "t": "+00:00",
+     "fase": "A obrigação da mina",
+     "texto": "A NR-22 obriga a mina a saber onde estão as pessoas no subsolo, com o sistema dela. O Atalaia não localiza pessoas: guarda só a região do veículo.",
+     "estado": "INFO"
+    },
+    {
+     "t": "+00:00",
+     "fase": "No cruzamento",
+     "texto": "A geometria do cruzamento ancora a posição: a região tem 1 m ao longo da galeria.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+00:00",
+     "fase": "Galeria reta",
+     "texto": "Nas paredes lisas, o LiDAR segura a posição lateral e o rumo, mas não a posição ao longo do eixo: ela cresce com a odometria, 3% da distância (cota declarada).",
+     "estado": "INFO"
+    },
+    {
+     "t": "+02:13",
+     "fase": "400 m sem feição",
+     "texto": "A região passa de 25 m ao longo da galeria, a distância entre dois travessões: o registro já não diz em que trecho o veículo está. ∅ FALTA DADO até a próxima feição.",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "+03:13",
+     "fase": "O próximo cruzamento",
+     "texto": "A geometria volta a ancorar a posição, e a região encolhe.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "+03:13",
+     "fase": "Depois de um incidente",
+     "texto": "A pergunta é se o veículo entrou num trecho interditado. O verificador refaz a região a partir do registro selado: ✓ fora, × dentro, ou ∅ não dá para dizer, com o instante.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "O registro comum guarda um ponto. Depois de 800 m sem feição, pela mesma cota declarada, esse ponto pode estar até 24,5 m fora ao longo da galeria, e o registro não diz.",
+    "numero": {
+     "v": 24.5,
+     "u": "m",
+     "rotulo": "quanto o ponto registrado pode estar fora, ao longo da galeria, depois de 800 m sem feição (cota de 3%)",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "O registro guarda a região, não só o ponto. Por até 400 m de galeria sem feição, ela fica mais curta que a distância entre dois travessões, e o registro diz ∅ quando deixa de ficar.",
+    "numero": {
+     "v": 400,
+     "u": "m",
+     "rotulo": "de galeria sem feição em que a região fica mais curta que os 25 m entre dois travessões",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    }
+   },
+   "metricas": [
+    {
+     "k": "Galeria / largura lateral da região com o LiDAR nas paredes",
+     "v": "5,0 / 0,6",
+     "u": "m",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    },
+    {
+     "k": "Cota da odometria ao longo do eixo",
+     "v": "3",
+     "u": "% da distância",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    },
+    {
+     "k": "Velocidade / tempo até a região passar de 25 m",
+     "v": "3,0 m/s / 2:13",
+     "u": "min",
+     "estagio": "cálculo (modelo ilustrativo)",
+     "fonte": "Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    },
+    {
+     "k": "Com o radar Doppler da própria caixa (cota de 0,5% da distância)",
+     "v": "≈ 2.400",
+     "u": "m",
+     "estagio": "proposto",
+     "fonte": "proposta do Atalaia (módulo ativo, não construído); a conta: Calculado (modelo ilustrativo): atalaia/ferramentas/missoes_lp.py, modelo \"galeria\""
+    }
+   ],
+   "prova": "Que a perícia de um incidente no subsolo pode perguntar ao registro onde o veículo podia estar, e receber uma resposta que outro refaz.",
+   "ressalvas": [
+    "Tudo aqui é ilustrativo: a galeria, as cotas e a velocidade são escolhas declaradas. Nada rodou; o próximo passo é medir a região num conjunto público de dados de túneis.",
+    "A NR-22 (item 22.30.1 j) obriga a mina a saber os nomes e a localização provável das pessoas no subsolo, com o sistema dela; não há item sobre máquina autônoma. O Atalaia não localiza nem identifica pessoas.",
+    "Um LiDAR com mapa pode derivar bem menos que a cota de 3% usada aqui: o número é a cota sob a declaração, não o erro de um produto.",
+    "A ISO 17757:2019 pede estado seguro quando o posicionamento degrada; o texto da cláusula de requisitos não foi lido.",
+    "O módulo ativo é proposto, não construído: silencioso por padrão, liga só dentro de um envelope aprovado antes da missão (sozinho, quando o portão declara o GNSS falso), só com módulos homologados de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS."
+   ],
+   "filme": null,
+   "mapa": null
+  },
+  {
+   "slug": "limite-de-onda",
+   "dominio": "offshore",
+   "ordem": 10,
+   "titulo": "A operação offshore com limite de onda",
+   "subtitulo": "Uma operação com limite publicado de altura de onda, decidida contra a banda inteira da previsão, não contra o valor do meio.",
+   "lugar": "Uma instalação offshore (cenário genérico)",
+   "publico": "operações marítimas offshore: planejamento e auditoria",
+   "estagio": "ilustrativo",
+   "gancho": "O valor do meio diz que dá; a banda da previsão diz que pode não dar. O Atalaia publica o número que viraria o veredito.",
+   "historia": [
+    {
+     "t": "06:00",
+     "fase": "A janela da manhã",
+     "texto": "Previsão de 1,6 a 2,2 m contra o limite de 2,5 m: a banda inteira cabe.",
+     "estado": "PASSA"
+    },
+    {
+     "t": "12:00",
+     "fase": "A janela do meio-dia",
+     "texto": "Previsão de 2,0 a 2,8 m: o valor do meio (2,4 m) cabe, a ponta de cima não. Vira ✓ PASSA se a ponta de cima baixar 0,3 m: uma rodada nova da previsão ou uma medida no local.",
+     "estado": "FALTA_DADO"
+    },
+    {
+     "t": "18:00",
+     "fase": "A janela da tarde",
+     "texto": "Previsão de 2,7 a 3,4 m: nem a ponta de baixo cabe.",
+     "estado": "NAO_PASSA"
+    },
+    {
+     "t": "18:30",
+     "fase": "O registro",
+     "texto": "Cada veredito fica selado com a previsão usada, para conferir depois contra o mar que fez.",
+     "estado": "INFO"
+    }
+   ],
+   "sem": {
+    "titulo": "Sem o Atalaia",
+    "texto": "Pela leitura de ponto, a janela do meio-dia abre: o valor do meio fica abaixo do limite.",
+    "numero": {
+     "v": 2.4,
+     "u": "m",
+     "rotulo": "valor do meio da previsão do meio-dia, abaixo do limite de 2,5 m",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\" (números escolhidos)"
+    }
+   },
+   "com": {
+    "titulo": "Com o Atalaia",
+    "texto": "A banda vai a 2,8 m: ∅ FALTA DADO, com o limiar que viraria o veredito.",
+    "numero": {
+     "v": 0.3,
+     "u": "m",
+     "rotulo": "quanto a ponta de cima da previsão precisa baixar para ✓ PASSA",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\" (números escolhidos)"
+    }
+   },
+   "metricas": [
+    {
+     "k": "Limite publicado de altura de onda significativa",
+     "v": "2,5",
+     "u": "m",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\""
+    },
+    {
+     "k": "Bandas da previsão: manhã / meio-dia / tarde",
+     "v": "1,6–2,2 / 2,0–2,8 / 2,7–3,4",
+     "u": "m",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\""
+    },
+    {
+     "k": "Vereditos",
+     "v": "✓ / ∅ / ×",
+     "u": "",
+     "estagio": "ilustrativo",
+     "fonte": "Escolha declarada (ilustrativa): atalaia/ferramentas/missoes_lp.py, modelo \"limite de onda\""
+    }
+   ],
+   "prova": "Que um limite publicado, decidido contra uma banda, dá três vereditos e um limiar, e que a decisão pode ser conferida depois.",
+   "ressalvas": [
+    "Os números são escolhidos para ilustrar: não há previsão real nem limite de uma operação real aqui.",
+    "O limite e o desconto pela incerteza da previsão vêm dos procedimentos de quem opera; a banda, da previsão que ele usa."
+   ],
+   "filme": null,
+   "mapa": null
+  }
+ ]
+}

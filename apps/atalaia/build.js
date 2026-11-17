@@ -671,7 +671,10 @@ fs.copyFileSync(path.join(DATA, 'relevo-ilha.webp'), path.join(OUT, 'relevo-ilha
 console.log('site/atalaia/doutrina/index.html written (unlisted, minuta v' + VERSAO.n + '): posto ' + AV.post_km + ' km, ' + KG + ' kg ' + R12.verdict + '; 30 kg ' + R30.verdict + '; serra ' + RS.verdict
   + '; synthetic ' + pa.length + '/' + fa.length + '/' + na.length + '; maturity D ' + TALLY.D + ' · V ' + TALLY.V + ' · P ' + TALLY.P);
 
-require('./landing.js');                          /* the landing page, from the same records (v0.4) */
 require('./eb.js');                               /* the page for military interlocutors, /atalaia/eb/ (v0.4.1, D31) */
 require('./central.js');                          /* the Central behind a simple password, /atalaia/central/ (D34) */
 require('./nucleo.js');                           /* the technical-details page, /atalaia/nucleo/ (D36) */
+require('./landing.js');                          /* the landing page (v0.5, 2026-11-16); after nucleo.js, which numbers its drawings' arrowheads from 1 */
+require('./missoes.js');                          /* the missions, /atalaia/missoes/ and one page each (2026-11-16, vitrine.js reads the content) */
+require('./investidores.js');                     /* the investors' questions, /atalaia/investidores/ (2026-11-16) */
+require('./blog.js');                             /* the research notebook, /atalaia/blog/ (2026-11-16) */

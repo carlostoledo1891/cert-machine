@@ -1,0 +1,174 @@
+{
+  "_nota": "Textos da página de entrada do Atalaia (pt-BR), 16/11/2026. Menos matemática na superfície; a prova fica um clique abaixo (/atalaia/nucleo/ e /atalaia/doutrina/). Todo número traz estagio e fonte. Os caminhos /atalaia/investidores/ e /atalaia/blog/<arquivo>/ são suposições: ajuste se as páginas usarem outros. As capacidades do módulo ativo aparecem sempre como PROPOSTO e sempre junto do princípio silencioso por padrão.",
+  "hero": {
+    "eyebrow": "Atalaia · integridade verificável para sistemas autônomos e infraestrutura crítica",
+    "titulo": "Quando o GNSS mente, o Atalaia diz o que ainda é garantido.",
+    "deck": "Uma caixa e um software ao lado de qualquer piloto automático. Sem depender do GNSS, ela calcula a região onde o veículo certamente está, aceita o GNSS só dentro dela e, diante de uma mentira, alarma e troca a fonte, segura ou pousa. Antes da missão, um veredito. Depois, um registro lacrado que outra parte recalcula.",
+    "estado": "Proposta em pesquisa aplicada. Medido em simulação e em dados gravados, provado em Lean. Nenhum voo real ainda.",
+    "cta": [
+      { "t": "Veja a prova", "u": "#prova" },
+      { "t": "Para investidores", "u": "/atalaia/investidores/" },
+      { "t": "Fale com a gente", "u": "mailto:carlos@carlostoledo.co" }
+    ]
+  },
+  "problema": {
+    "eyebrow": "O problema",
+    "titulo": "Tudo o que anda sozinho confia num sinal que qualquer um abafa.",
+    "texto": "Drones, robôs de campo e embarcações dependem do GNSS, o nome comum do GPS, do Galileo e dos sistemas parecidos. O sinal chega do espaço muito fraco: um aparelho barato o abafa, e um falsificador o imita. O pior caso não é perder o sinal. É continuar recebendo um sinal que mente, com o veículo seguindo em frente, convencido.",
+    "fatos": [
+      {
+        "k": "Pampulha, Belo Horizonte, janeiro de 2025",
+        "v": "21 aeronaves",
+        "n": "perderam o sinal de GPS sobre o aeroporto entre 17 e 21 de janeiro e pousaram por instrumentos. A Anatel achou o bloqueador no alto de um morro próximo, rastreando o sinal.",
+        "estagio": "fato público",
+        "fonte": "Agência Gov (Anatel), 15/09/2025; Convergência Digital, 24/01/2025"
+      },
+      {
+        "k": "Brasília, abril de 2021 a março de 2022",
+        "v": "173 aeronaves",
+        "n": "perderam a navegação por satélite na aproximação ou na saída, por bloqueadores antidrone do próprio Estado, segundo um relatório da Anatel.",
+        "estagio": "fato público, pela imprensa",
+        "fonte": "Intercept Brasil, 2023"
+      },
+      {
+        "k": "Sorocaba (SP), setembro de 2025",
+        "v": "1 fábrica",
+        "n": "clandestina de bloqueadores, com maletas antidrone prontas para venda, desmontada pela Anatel e pela polícia.",
+        "estagio": "fato público",
+        "fonte": "Agência Gov (Anatel), 15/09/2025"
+      }
+    ],
+    "fecho": "As regras já pedem uma resposta: o DECEA exige planejamento alternativo e plano de terminação de voo para drones, a ISO 18497 pede que a máquina agrícola autônoma não saia da zona de operação, e a IMCA pede conferir o GNSS contra referências independentes no posicionamento dinâmico. O Atalaia propõe uma resposta que se pode conferir."
+  },
+  "como": {
+    "eyebrow": "Como funciona",
+    "titulo": "Um juiz ao lado do navegador.",
+    "texto": "O Atalaia não substitui o navegador do veículo: ele o julga. A posição do piloto automático, de um sistema de visão ou do fabricante entra como proposta, e o Atalaia decide se ela pode ser usada.",
+    "passos": [
+      { "t": "Uma região, não um ponto", "d": "Com o sensor inercial, o relevo, a câmera e a altura sobre o chão, a caixa calcula a região de proteção: onde o veículo certamente está se cada sensor ficar no seu limite declarado. O GNSS não entra nessa conta." },
+      { "t": "O GNSS passa por um portão", "d": "A posição do satélite só é aceita se cair dentro da região, com uma margem pequena. Como a região foi feita sem o GNSS, nenhum atacante consegue arrastá-la." },
+      { "t": "Mentira flagrada, conduta pronta", "d": "Fora da região, o GNSS é declarado falso: a caixa alarma, aponta a fonte e troca a fonte do estimador, segura ou pousa, como foi combinado antes da missão." },
+      { "t": "Três vereditos antes de sair", "d": "Rota, energia, clima e GNSS, cada um no pior caso: ✓ PASSA, × NÃO PASSA ou ∅ FALTA DADO. O falta dado diz qual medida decidiria." },
+      { "t": "Um registro que outro recalcula", "d": "Cada leitura é assinada na captura e encadeada. Um verificador escrito por outra parte refaz cada decisão a partir do registro lacrado." }
+    ],
+    "integracao": "Fala MAVLink. No ArduPilot, entrega a posição conferida e troca a fonte do estimador. Num DJI, que hoje não aceita posição externa, avisa e manda pairar ou pousar.",
+    "dominios": [
+      { "nome": "Ar", "d": "Drones de carga e de inspeção, operando sem um GNSS em que se possa confiar. É o domínio que abre o caminho.", "estado": "em simulação" },
+      { "nome": "Terra", "d": "Robôs e máquinas agrícolas: a máquina fica dentro da cerca, e por quantos segundos depois de perder a correção de precisão?", "estado": "proposto" },
+      { "nome": "Mar", "d": "Posicionamento dinâmico: o GNSS conferido contra o laser ou o radar da instalação, e o registro como evidência depois de uma perda de posição.", "estado": "cálculo no papel" },
+      { "nome": "Offshore", "d": "Decisões de operação refeitas do zero, a partir de registros públicos, por quem não as tomou.", "estado": "cálculo sobre dados públicos" }
+    ]
+  },
+  "silencioso": {
+    "eyebrow": "Silencioso por padrão",
+    "titulo": "Escuta tudo. Só emite com a sua autorização, e deixa o recibo.",
+    "texto": "O Atalaia recebe sinais e fica em silêncio por padrão. Um módulo ativo opcional, proposto, liga só dentro de um envelope aprovado antes da missão, com equipamento homologado de baixa potência, e cada acionamento fica no registro. Em nenhum modo bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS.",
+    "envelope": "O envelope diz que emissores podem ligar, onde, com que potência, por quanto tempo e quem desliga. Dentro dele, a caixa liga sozinha quando o portão declara o GNSS falso. Fora dele, nada liga, nem por comando. Um envelope vazio é o modo silencioso.",
+    "modulo": {
+      "titulo": "O módulo ativo, opcional",
+      "estado": "PROPOSTO",
+      "texto": "Referências que um falsificador não consegue imitar, ligadas só quando a missão pede:",
+      "capacidades": [
+        { "t": "Alcance cooperativo e balizas autenticadas", "d": "A distância medida, ida e volta, pelo próprio enlace de telemetria, ou por UWB, até uma baliza no posto, no cais, na plataforma ou na borda do talhão.", "estado": "PROPOSTO" },
+        { "t": "Radares próprios", "d": "Um radar altímetro no drone, em 24 GHz ou em 60 a 64 GHz, e um radar Doppler de velocidade no solo nos veículos terrestres.", "estado": "PROPOSTO" },
+        { "t": "Integridade compartilhada na frota", "d": "Cada veículo difunde a sua região; um falsificador local aparece como desacordo entre eles.", "estado": "PROPOSTO" },
+        { "t": "Bancada de testes de integridade", "d": "Ensaio e laudo para receptores, pilotos automáticos e máquinas, lacrados e refazíveis. Começa digital, sem nenhuma emissão de rádio.", "estado": "PROPOSTO; a camada digital existe em simulação, com um laudo lacrado" }
+      ]
+    },
+    "nunca": "Em nenhum modo: bloquear, falsificar ou interferir em sinais de terceiros; transmitir nas faixas do GNSS; antidrone por bloqueio; guiar armas, designar alvos ou rastrear pessoas."
+  },
+  "bancada": {
+    "eyebrow": "A bancada de testes",
+    "titulo": "Teste sob ataque, sem emitir um único sinal.",
+    "texto": "Fabricantes de drones, de pilotos automáticos e de máquinas autônomas precisam saber o que o equipamento faz quando o GNSS mente. A bancada do Atalaia injeta o ataque, declarado antes, e entrega um laudo com cinco itens: contenção, alarme, falso alarme, conduta e desfecho, cada um com ✓ PASSA, × NÃO PASSA ou ∅ FALTA DADO. O laudo é lacrado, e outra parte o refaz a partir do pacote.",
+    "camadas": [
+      { "t": "Domínio da posição", "d": "O GNSS falso entra como posição no piloto automático, em simulação com o firmware real.", "estado": "existe: um laudo lacrado de ensaio em simulação" },
+      { "t": "Domínio do sinal, em software", "d": "Gravações públicas de sinais atacados passam por um receptor em software.", "estado": "proposto" },
+      { "t": "Por cabo, com o sinal confinado", "d": "Um gerador ligado por cabo ao receptor físico, sem antena, só depois de um parecer jurídico e de um portão próprio.", "estado": "proposto" }
+    ],
+    "ganchos": "Serve ao teste de cerca virtual do Anexo D.2 da ISO 18497-4 e à conferência cruzada da IMCA IN 1730, e pode servir de evidência para a navegação que o RBAC nº 100 pede. Nenhuma regra brasileira obriga esse ensaio hoje.",
+    "palavra": "Vendemos ensaio e laudo. Homologar é papel da Anatel, por organismos designados por ela."
+  },
+  "diferente": {
+    "eyebrow": "O que é diferente",
+    "titulo": "O mercado publica estimativas. O Atalaia publica um limite, e a prova.",
+    "linhas": [
+      { "tema": "O que se afirma", "mercado": "Precisão típica: erro médio, o círculo de metade das posições, a parte do voo dentro da tolerância.", "atalaia": "Quanto a posição pode estar errada agora, no pior caso, contra qualquer atacante." },
+      { "tema": "Quem confere", "mercado": "O fornecedor, com o seu próprio cálculo.", "atalaia": "Qualquer parte, refazendo a conta a partir do registro lacrado." },
+      { "tema": "Diante da dúvida", "mercado": "Um alarme.", "atalaia": "Um alarme, a fonte apontada e um veredito que nomeia o dado que falta." },
+      { "tema": "Relação com o navegador", "mercado": "Mais um navegador.", "atalaia": "Um juiz sobre qualquer navegador: os outros viram entradas." },
+      { "tema": "A matemática", "mercado": "Nas nossas buscas, nenhuma prova por máquina publicada.", "atalaia": "O limite central e a solidez do estimador provados em Lean." },
+      { "tema": "Sinais", "mercado": "Antenas anti-interferência, sob controle de exportação.", "atalaia": "Silencioso por padrão, e nenhuma antena sob controle de exportação." }
+    ],
+    "nota": "A estimação por conjuntos é um campo estabelecido, e os trabalhos que vieram antes estão citados na prova. O que não encontramos, juntos, é a combinação: os vieses do sensor inercial dentro da região, a prova por máquina, o registro que outra parte refaz e um portão que só aceita o GNSS dentro de uma região feita sem ele."
+  },
+  "prova": {
+    "eyebrow": "A prova, hoje",
+    "titulo": "Medido onde dá para medir. Dito o que ainda falta.",
+    "texto": "Cada número diz de onde veio: simulação, dados gravados, vetores oficiais, bancada ou prova formal. Nenhum vem de voo.",
+    "itens": [
+      { "k": "Voos reais", "v": "0", "n": "Nenhum ainda. Os voos de calibração em campo autorizado são o portão G2.", "estagio": "campo", "fonte": "esta página; /atalaia/nucleo/" },
+      { "k": "Contenção em voos simulados", "v": "24.300 de 24.300", "n": "verificações com a posição real dentro da região, em 45 voos simulados de 45 minutos sobre relevo e imagens reais; instantes correlacionados, não experimentos independentes.", "estagio": "simulação", "fonte": "/atalaia/doutrina/, seção 9" },
+      { "k": "O portão de simulação (G0)", "v": "8 de 8 voos", "n": "com a posição real dentro da região em todas as épocas, nos três modelos de ruído, no ArduPilot em simulação. Passou em 16/11/2026 por uma emenda datada, feita depois de ler os números e rotulada como emenda.", "estagio": "simulação (SITL do ArduPilot)", "fonte": "/atalaia/nucleo/, seções 8 e 9" },
+      { "k": "Justeza da região", "v": "até 3×", "n": "mais justa que uma caixa de intervalos com os mesmos limites, a 300 s, no modelo sub-gaussiano. No modelo de pior caso rígido, quase nenhum ganho.", "estagio": "simulação", "fonte": "/atalaia/nucleo/, seção 8" },
+      { "k": "Laudo de ensaio, GNSS arrastado", "v": "585,7 m → 1,8 m", "n": "distância do pouso ao posto: o ArduPilot sozinho, e com a caixa emulada. A caixa ali não tem estimador próprio, e o falsificador desloca só a posição.", "estagio": "simulação", "fonte": "laudo lacrado de ensaio em simulação, 16/11/2026" },
+      { "k": "Verificador independente", "v": "30 de 30", "n": "itens do laudo refeitos por um verificador escrito à parte, a partir do registro bruto, com os mesmos vereditos; os controles vermelhos plantados foram todos pegos.", "estagio": "simulação", "fonte": "laudo lacrado de ensaio em simulação, 16/11/2026" },
+      { "k": "Provas por máquina", "v": "59 teoremas", "n": "em Lean 4.35.0 com Mathlib, só com os axiomas padrão: o limite central, o limite da retransmissão, a versão por satélite, a camada probabilística e a solidez do estimador.", "estagio": "prova formal", "fonte": "/atalaia/nucleo/, seções 3 e 8" },
+      { "k": "Desvios lentos em dados reais", "v": "24 de 24", "n": "detectados em dados GNSS gravados em estações fixas do IBGE, com a restrição de movimento; sem ela, 0 de 24. Os desvios são sintéticos.", "estagio": "dados reais gravados", "fonte": "/atalaia/doutrina/, seção 9" },
+      { "k": "Autenticação do Galileo", "v": "0 falhas em 193.887", "n": "marcas de autenticação conferidas nos vetores de teste oficiais. Não mede resistência a falsificação nem a retransmissão.", "estagio": "vetores oficiais", "fonte": "/atalaia/doutrina/, seção 9" },
+      { "k": "O custo da cautela", "v": "56 de 111", "n": "saídas retidas por falta de dado que teriam chegado, numa semana sintética de 210 saídas; nenhuma das 75 liberadas pousou abaixo da reserva.", "estagio": "simulação", "fonte": "/atalaia/doutrina/, seção 9" },
+      { "k": "Adulteração do registro", "v": "53 de 53", "n": "erros plantados no laudo e no lacre que foram pegos.", "estagio": "bancada", "fonte": "/atalaia/doutrina/, seção 9" }
+    ],
+    "nota": "A simulação confere a matemática e o protocolo, não o equipamento: os erros simulados foram sorteados dentro dos limites declarados. Os voos reais dirão se os limites dos sensores se mantêm.",
+    "link": { "t": "O lado técnico, com as provas", "u": "/atalaia/nucleo/" }
+  },
+  "modelo": {
+    "eyebrow": "Modelo de negócio",
+    "estado": "PROPOSTO",
+    "titulo": "Laudo, caixa, licença e registro.",
+    "linhas": [
+      { "t": "Ensaio e laudo", "d": "A bancada testa receptores, pilotos automáticos e máquinas sob ataque e entrega um laudo lacrado. É a linha de receita mais próxima: começa digital, sem compra de equipamento de rádio." },
+      { "t": "A caixa", "d": "O hardware ao lado do piloto automático, com módulos de rádio já homologados quando houver módulo ativo." },
+      { "t": "Licença por veículo", "d": "O software do Núcleo, por veículo em operação." },
+      { "t": "Registros auditáveis", "d": "O registro lacrado de cada missão, pronto para uma investigação ou uma auditoria, refeito por um verificador de fora." },
+      { "t": "A Central", "d": "O centro de operações em solo: os vereditos antes de cada missão, a frota, as baterias e o voo sintético." }
+    ],
+    "nota": "Nenhum preço foi definido ainda."
+  },
+  "roadmap": {
+    "eyebrow": "Caminho e portões",
+    "titulo": "Nada se compra antes de um portão passar.",
+    "portoes": [
+      { "id": "G0", "t": "Simulação", "d": "O estimador de conjunto em 8 voos simulados no ArduPilot, com a posição real dentro da região em todas as épocas.", "valor": "US$ 0", "estagio": "simulação", "estado": "passou em 16/11/2026, por emenda datada", "fonte": "/atalaia/nucleo/, seção 9" },
+      { "id": "G1", "t": "Bancada de hardware", "d": "Piloto automático aberto, computador embarcado, receptor GNSS multibanda e sensor inercial de bancada: o hardware no laço tem de tomar as mesmas decisões da simulação.", "valor": "cerca de US$ 1,1 mil", "estagio": "estimativa, não cotação", "estado": "o próximo", "fonte": "preços de revenda nos EUA em 16/11/2026, antes de impostos e frete" },
+      { "id": "G2", "t": "Aeronave aberta", "d": "Uma aeronave de desenvolvimento da classe X650 e voos de calibração em campo autorizado, cada um com um gêmeo simulado registrado antes.", "valor": "cerca de US$ 4 a 6 mil", "estagio": "estimativa, não cotação", "estado": "depois do G1", "fonte": "preços de revenda nos EUA em 16/11/2026, antes de impostos e frete" },
+      { "id": "Campanha", "t": "Ensaios e validação independente", "d": "Critérios de aceitação congelados e carimbados antes de qualquer bancada; um verificador de fora refaz cada decisão; resultados bons e ruins publicados; um experimento em cada domínio além do ar.", "valor": "horas de engenharia", "estagio": "proposto", "estado": "12 meses, contados do contrato de pesquisa", "fonte": "proposta de pesquisa aplicada, versão 0.5" }
+    ],
+    "nota": "No Brasil, com impostos e frete, os valores chegam a cerca do dobro."
+  },
+  "blog": [
+    { "t": "Um limite, não uma estimativa", "u": "/atalaia/blog/um-limite-nao-uma-estimativa/", "resumo": "Por que a pergunta certa é quanto a posição pode estar errada agora." },
+    { "t": "Pampulha, janeiro de 2025", "u": "/atalaia/blog/pampulha-janeiro-2025/", "resumo": "Um bloqueador num morro, 21 aeronaves sem GPS e o que isso ensina a quem opera drones." },
+    { "t": "Silencioso por padrão", "u": "/atalaia/blog/silencioso-por-padrao/", "resumo": "O princípio de projeto, o módulo ativo proposto e as linhas que não mudam." },
+    { "t": "O custo da cautela", "u": "/atalaia/blog/o-custo-da-cautela/", "resumo": "56 de 111, e por que publicar o que recusamos é parte do produto." },
+    { "t": "Como testar sem emitir", "u": "/atalaia/blog/como-testar-sem-emitir/", "resumo": "A bancada de testes de integridade, o laudo lacrado e o que ele ainda não mostra." }
+  ],
+  "faq_curta": [
+    { "q": "O Atalaia já voou?", "a": "Não. Nenhum voo real ainda. O que mostramos vem de simulação com o firmware real do ArduPilot, de dados gravados, de vetores oficiais, de bancada e de prova em Lean, e cada número diz de onde veio. Os voos de calibração em campo autorizado são o portão G2." },
+    { "q": "Ele emite algum sinal?", "a": "Por padrão, não: só recebe. O módulo ativo, opcional e proposto, liga só dentro de um envelope aprovado antes da missão, com equipamento homologado de baixa potência, e cada acionamento fica no registro. Nunca bloqueia, falsifica ou interfere em sinais de terceiros, nem transmite nas faixas do GNSS." },
+    { "q": "Funciona com o meu drone?", "a": "A caixa fala MAVLink. No ArduPilot, ela entrega a posição conferida e troca a fonte do estimador. Num DJI, avisa e manda pairar ou pousar, porque a DJI não aceita posição externa hoje." },
+    { "q": "E se o GNSS sumir de vez?", "a": "A região passa a crescer só com os outros sensores. Enquanto ela couber no limite da fase, a missão segue; quando não couber, a caixa segura ou pousa onde foi avaliado antes. Com um sensor inercial de consumo, a garantia se perde em cerca de 3 minutos (simulação; /atalaia/doutrina/), e é por isso que o veredito antes da missão importa." },
+    { "q": "Por que confiar num limite que vocês mesmos calculam?", "a": "Porque não precisa confiar. O limite central está provado em Lean e conferido por máquina, e cada decisão fica num registro lacrado que um verificador escrito por outra parte recalcula. Se ele discordar, a discordância aparece." },
+    { "q": "O laudo da bancada substitui a homologação?", "a": "Não. A bancada vende ensaio e laudo, lacrados e refazíveis. Homologar equipamento é papel da Anatel, por organismos designados por ela; autorizar a operação é papel da ANAC e do DECEA." },
+    { "q": "Quem está por trás?", "a": "Carlos Toledo, autor do protocolo e líder técnico, com ajuda de IA (Claude) na pesquisa e na redação. Os parceiros de pesquisa e de piloto serão nomeados quando confirmarem." }
+  ],
+  "fechamento": {
+    "titulo": "Procuramos quem queira medir isto com a gente.",
+    "texto": "Um parceiro de pesquisa aplicada, um cliente piloto e investimento para atravessar os portões. Os resultados, bons e ruins, saem com o registro que os prova.",
+    "cta": [
+      { "t": "Para investidores", "u": "/atalaia/investidores/" },
+      { "t": "Escreva para o Carlos", "u": "mailto:carlos@carlostoledo.co" }
+    ],
+    "assinatura": "Preparado por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho: não é proposta comercial nem documento oficial de nenhum órgão."
+  }
+}

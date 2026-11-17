@@ -41,5 +41,19 @@ ESAO constructive simulation the minuta cites, Souza e Burity, in the study's ow
 pages cannot state one result two ways. The position region is the "região de proteção" since v0.4.1, defined in §8
 at its two levels (deterministic under declared bounds, probabilistic under the declared noise model).
 
+**The marketing pages (v0.5, 2026-11-16).** `/atalaia/` is now the landing for investors (landing.js): the hero
+with MARCA.lema, the problem, the four films (each captioned with the verdict its record states), how it works with
+the R1 drawing from nucleo-esquemas.js, the missions gallery, the proof strip, what is different, silent by default
+and the active module (proposed; the operator's rule of 2026-11-16 put its capabilities and the test bench on the
+public site), the business model (proposed), the roadmap and its gates, a short FAQ, the latest posts, the technical
+pages and the contact card. Behind it: `/atalaia/missoes/` and one page per mission (missoes.js),
+`/atalaia/investidores/` (investidores.js) and `/atalaia/blog/` with its posts (blog.js). All unlisted, like every
+page here. Their words and numbers come from `data/missoes.json` (pinned in PROVENANCE.json) and `conteudo/`
+(lp.json, investidores.json, blog/*.md), read once in vitrine.js, which also holds the five stage chips (simulation,
+real data, calculation, published by others, illustrative: no two share a look), the sub-navigation, the footer with
+MARCA.sinais and the names guard (a page that names what the project keeps private refuses to be written). A
+missing content file leaves its page out; `ATALAIA_STUBS=<folder outside the repo>` builds drafts from stub files
+of the same shape, and those drafts are never committed.
+
 **Rebuild.** `make page R=apps/atalaia` (build.js also writes the landing and the EB page). To change the scenario, regenerate `data/` from `~/Projects/atalaia`
 (`ferramentas/missao.py` → `central.py` → `missao.py`, scenario `ferramentas/cenarios/blumenau.json`) and re-pin.

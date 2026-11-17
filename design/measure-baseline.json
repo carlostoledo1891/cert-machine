@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-11-16",
-  "browser": "Chrome/157.0.8103.52",
+  "recorded": "2026-11-17",
+  "browser": "Chrome/157.0.8103.79",
   "viewports": [
     1440,
     768,
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "26f0d61b14d196a8c325d4129920679850e071feab58bc83a41ebe4dd0e2fa87"
+      "sha": "0af764a11570fc015d0b3ecebec0337706dd04c3ec9540917f14408e79a83799"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -119,6 +119,132 @@
       },
       "sha": "8cce2dc8bf58b32f1351f66e6611c4944d61e3587755fe41dc3b5a96cae5cf8a"
     },
+    "site/atalaia/blog/como-testar-sem-emitir/index.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "31a86a2de20cd38ac1551071790ef8d378e192b6b33d78f4804e537e429cc795"
+    },
+    "site/atalaia/blog/index.html": {
+      "390": {
+        "spines": 1,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "db1478846d39e3c3d009ff507ed38646c445d6f72ba48033a82a7f6aaa02f3f1"
+    },
+    "site/atalaia/blog/o-custo-da-cautela/index.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "c422053e35ba39c444228624181e79317bc7e0da4449883f914b8682d3c1d65f"
+    },
+    "site/atalaia/blog/pampulha-janeiro-2025/index.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "26eb6bdb6a49bfe5696858696455c09447b0415781aff3e584f8317c60e6665d"
+    },
+    "site/atalaia/blog/silencioso-por-padrao/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "2ee2546c3c3a741325adbbf8c89a4cd3d7fcc9e1eae51b58cbc7291f15649320"
+    },
+    "site/atalaia/blog/um-limite-nao-uma-estimativa/index.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "facfe4cea85cb4d9ac1e6eb13ad9c0a51bea33b5f0a1f39af35b47b2d13a66f2"
+    },
     "site/atalaia/central/index.html": {
       "390": {
         "spines": 3,
@@ -138,7 +264,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "7b6d3b8d97543a2c6b6d1de7deaa058e31b9f09069bc7092ee59440e965af565"
+      "sha": "982633dee36feceb146693ca18a7eba9d49482482cc8c4e8fce6fa7f4a4ea4ac"
     },
     "site/atalaia/doutrina/index.html": {
       "390": {
@@ -159,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8822ceea1634942f8c6d71d24c9968b1fb3ae4c6f1313779f219769fadc320a8"
+      "sha": "67a60a9cfb3fbdf7626a0dce30e75706cb3306f6157332331c53b68532f74078"
     },
     "site/atalaia/eb/index.html": {
       "390": {
@@ -180,7 +306,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4d3f98a5e4838772e0ed525dd6f8e73dfb5adb987d18af5956904bbeacff9504"
+      "sha": "078eb0165a790c20023ca8f86dc69e9df2bc58389a64936f47445865c1800ea6"
     },
     "site/atalaia/index.html": {
       "390": {
@@ -190,18 +316,270 @@
         "clipped": 0
       },
       "768": {
-        "spines": 5,
+        "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 5,
+        "spines": 21,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "554e95a1fb612b71ecbc8660c4657cd4bb6230f8918c0ea4972f8d939cf3df57"
+      "sha": "617c7bd5a244dcfd934163b2113349d513c399a59afcc661c5602e31627929dd"
+    },
+    "site/atalaia/investidores/index.html": {
+      "390": {
+        "spines": 3,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 12,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 12,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "617d54618cb01f903b631e2b71fc50001b7ca576256ba9c7cd02e7c90cddef66"
+    },
+    "site/atalaia/missoes/bancada-digital/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 15,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "dc06b015fef778884ea74b4c7f08d4cba44b13ec952ebc185a732fed3552426e"
+    },
+    "site/atalaia/missoes/cheia-no-medio-vale/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "f8ef08cf5324ef11c2a68af963c8a4dd956eb8705aa70a9eba0ca836d7faf19e"
+    },
+    "site/atalaia/missoes/costa-da-lagoa/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "62bc6f59cf959cb0e32bf59d787f2b960011b8be19e9529c5044e4b38d61a3c4"
+    },
+    "site/atalaia/missoes/dp-ao-lado-da-instalacao/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "d2d78806c79da19ae245725146a097e17a2797ca650eb2822ae73e21ca309e3d"
+    },
+    "site/atalaia/missoes/galeria-de-mina/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "4b69d1ceb1bc3aa7c533b871567eb651efff1ecb2d19e4190aea86a21bf46f04"
+    },
+    "site/atalaia/missoes/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "a2db7f7fcb9441975e7d01c8502273d13d4981929a524d5b3d5d94c28bd31c7a"
+    },
+    "site/atalaia/missoes/limite-de-onda/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "7624bde282f6c2baf0540bc81911a32f752597904653a09429ea95ec0cbd10c3"
+    },
+    "site/atalaia/missoes/perna-sobre-o-mar/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "14c0c17b4a10bc0a01fb250a8bd1016468f116095dd8b72878f117c7444a044b"
+    },
+    "site/atalaia/missoes/posto-nos-morros/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "83736baee238ba4b39aff10df6c5905316c584f9928649b0c03f8bc42ea3dd51"
+    },
+    "site/atalaia/missoes/talhao-na-borda-da-mata/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 12,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "1d31b9ec135dc3b47e18d4e5673ccbcfe81ecfc215cb7945c822370f9c03052d"
+    },
+    "site/atalaia/missoes/zona-do-aeroporto/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 11,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 14,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "95b79e46cd14d14794123eca67e8f70ae33398537b5f4ab6df7ee6aa66382773"
     },
     "site/atalaia/nucleo/index.html": {
       "390": {
@@ -222,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "98e701de26c0f7a4dce5d5cb322e8774362125bb19b66760a3305f2f215a1c47"
+      "sha": "d44b441e73f3f8b5e21c62f8916ae790d69973e4aa728819206e52c865c67bfe"
     },
     "site/contraprova/index.html": {
       "390": {
@@ -348,7 +726,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8491aa168a864abdd3aee4aec6819dceef87cc2ba6e03f646b1270e3a0cee069"
+      "sha": "878e62fa9fc74dcc609cfa26f0c3bf2977b1830d924d507ade10aa826ea7b581"
     },
     "site/how-it-works/index.html": {
       "390": {
@@ -369,7 +747,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d1c03a43fe047ea07b79d4c3d56c94359e67e4275346e4231817369abde2e7b5"
+      "sha": "67f073800794dac719af54c5ba1e1a6e87bf8eb2c4a297ddeee5000bd7230f5f"
     },
     "site/index.html": {
       "390": {
@@ -985,7 +1363,7 @@
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0
+        "clipped": 1
       },
       "768": {
         "spines": 13,
@@ -999,7 +1377,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e5ed4d030388e8a54e3a2b108bfef9a459e4a83ba98a42160953e1140c0ee783"
+      "sha": "193e5cff40bcee8e15ff580cc9eec0bc521b7ffecf0c2b4969e9ee2d94edb52b"
     },
     "site/janela/metodo/index.html": {
       "390": {
@@ -1041,7 +1419,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6ae28930fa9f57a6a13416899b393e7b0c5d443b0b9381b50387873b6c34654e"
+      "sha": "e267706bace2654b8dc2259ca95535c8b4b5228ddcd69f3970d57e38f01b708b"
     },
     "site/machine/log.html": {
       "390": {
@@ -1083,7 +1461,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "27002c1798ef802dd1b3f7925388d33239d760e855be79b13d7bff70c8cbd524"
+      "sha": "c332c11d53ac7f67e8398e5561e1d3a252d10294cefdbfe38b1f59531fa7c602"
     },
     "site/papers/index.html": {
       "390": {
@@ -1104,7 +1482,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "764a078df304358557eb91ec77997df51eec2306bdf2b6715dfba311412709fd"
+      "sha": "2d22437c608d267533e309ed664a2a75570286d9b64a85c26ac423bf8ea79254"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2238,7 +2616,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0c8f3e00dad35dc1f143da0a33cbe35fafbffff66aa5f25f2dd9d0be262712c6"
+      "sha": "b1bed5232e53bc96bcab826688e9ed468a8255a3ff05e0784dd837bd26f89375"
     },
     "site/reports/keller.html": {
       "390": {
