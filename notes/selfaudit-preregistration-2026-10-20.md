@@ -190,6 +190,19 @@
 > this amendment as the reason, the concordance regenerated (pins only). Still open, and outside the class table: a
 > repeated exponent tuple within one component is read last-wins (DEBT.md). Nothing else changes.
 
+> **Amendment 2026-11-17 (the interval kernel's bytes moved once; one record's stamps move; no row, verdict or definition
+> moved).** The interval kernel changed in one commit (144d9f6f, 2026-11-16: the ±∞ membership test fixed, the padded
+> platform cos/sin helper retired for the proved series of instruments/interval/transcendental.js), and the records that
+> pin it were re-derived by their own tools (33f23f84). Of the records this note's inventory pins, one moved:
+> certs/design-table-audit.json (c88a6bcd5ce5 → a23288e60d60), in two leaves only, its `generated` date and its sha256 of
+> instruments/interval/interval.js (9891280d → 5b25b6f6); its one row (1 NEEDS DATA), every enclosure and every decided
+> number are byte-identical, and `node tools/run-design-table-audit.js --check` holds. The design-table rows were never
+> mutated, so no mutant or decision moves. Beside the inventory, and named here only so the kernel change is whole in one
+> place: certs/hseva-atlas.json was re-run on the same kernel on 2026-11-17 (2,589 cells, each byte-identical to the
+> record of 2026-10-22; only the kernel's pin, the date and the seconds moved). The inventory is regenerated, the run and
+> mutations records re-pinned with this amendment as the reason, the concordance regenerated (pins only); the rerun kit's
+> run record is left as measured. Nothing else changes.
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a

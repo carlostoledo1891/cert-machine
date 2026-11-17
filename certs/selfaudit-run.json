@@ -6,11 +6,11 @@
  "git": "dfb7c4d9",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a"
+  "sha256": "42cb1d13ad334e63d3f2bcb5c85c54b5f92aad4df4b42d495fa590bb0e707ae2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
+  "sha256": "918a6b9b360e678b285f7670971341b6c53dea617a6daabb21d7b62a3156b1de"
  },
  "inputs": {
   "register": {
@@ -34,7 +34,7 @@
    "certs/gsm8k-ledger.json": "7fbcda606b601c9c2867cc6305c39906ef21e7e0a7dcd6a11285125cca8e9248",
    "certs/horizon-ledger.json": "fa5b0bac0539bf9694e6c7044a6acf0325635f18474e387d4bf56bcf49bb2315",
    "certs/hseva-ledger.json": "23aa58c1078c357ab77ff00337ba73667c389101b6c3192eb604b7171291bf73",
-   "certs/design-table-audit.json": "c88a6bcd5ce5b76ef10ed8cacfb434eec190b8ce781e69f890b0de7ae21fe357",
+   "certs/design-table-audit.json": "a23288e60d6093033a8f994353b02bb76fccb5c510152719f4d65d4e0f31c435",
    "corpus/navier-stokes/audit.json": "5931f9ad48b4ed87f94ebb7f9b219bfe4ea6f8bce1bc32da740c6865ea5be766",
    "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
@@ -11411,6 +11411,26 @@
    "after": {
     "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
     "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811"
+   }
+  },
+  {
+   "at": "2026-11-17T07:32:41.395Z",
+   "git": "7b4b0e34",
+   "why": "Amendment 2026-11-17 (notes/selfaudit-preregistration-2026-10-20.md): the interval kernel changed once (144d9f6f: the ±∞ membership fix, the padded cos/sin retired); certs/design-table-audit.json re-derived by its tool (its generated date and its sha256 of interval.js, two leaves; its row and every decided number identical); the design-table rows were never mutated; no measurement, mutant or decision touched",
+   "before": {
+    "preregistration": "8cce6ce1b29cffff71a08d367490eeea719d4563016ac471c9fc7fc4d144a82a",
+    "inventory": "1052489fb81b374d45a25fe2a9733886632750b2ba1d8349aa6ef6321964f811",
+    "recordsMoved": [
+     {
+      "record": "certs/design-table-audit.json",
+      "from": "c88a6bcd5ce5b76ef10ed8cacfb434eec190b8ce781e69f890b0de7ae21fe357",
+      "to": "a23288e60d6093033a8f994353b02bb76fccb5c510152719f4d65d4e0f31c435"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "42cb1d13ad334e63d3f2bcb5c85c54b5f92aad4df4b42d495fa590bb0e707ae2",
+    "inventory": "918a6b9b360e678b285f7670971341b6c53dea617a6daabb21d7b62a3156b1de"
    }
   }
  ],

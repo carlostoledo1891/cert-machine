@@ -25,7 +25,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 145 decided rows) 
 | `certs/gsm8k-ledger.json` | python3 standard library and the instrument's own modules (instruments/gsm8k) | 1 (1 MIXED) | `python3 tools/run-gsm8k-ledger.py` (1.6 s) | — | — | `7fbcda606b601c9c…` |
 | `certs/horizon-ledger.json` | python3 standard library and the instrument's own modules (instruments/horizon) | 1 (1 MIXED) | `python3 tools/run-horizon-ledger.py` (2.2 min) | — | — | `fa5b0bac0539bf96…` |
 | `certs/hseva-ledger.json` | node; workers in parallel | 1 (1 MIXED) | `node tools/run-hseva-ledger.js --check` (8.6 min) | — | — | `23aa58c1078c357a…` |
-| `certs/design-table-audit.json` | node | 1 (1 NEEDS DATA) | `node tools/run-design-table-audit.js --check` (< 1 s) | — | — | `c88a6bcd5ce5b76e…` |
+| `certs/design-table-audit.json` | node | 1 (1 NEEDS DATA) | `node tools/run-design-table-audit.js --check` (< 1 s) | — | — | `a23288e60d609303…` |
 | `corpus/navier-stokes/audit.json` | a Lean 4 toolchain at the pinned commit, for the counts the record points at | 1 (1 CERTIFIED) | — | — | — | `5931f9ad48b4ed87…` |
 | `certs/sumdiff-ledger.json` | node; python3 standard library for the verifier | 3 (3 CERTIFIED) | `node tools/run-sumdiff-ledger.js --check` (1.2 s) | `python3 tools/verify_sumdiff.py` (< 1 s) | — | `bf8857db9f64b650…` |
 | `certs/fei-ledger.json` | python3 standard library and instruments/fei | 1 (1 CERTIFIED) | `python3 tools/run-fei-ledger.py --check` (1.5 s) | — | — | `ad853dabf8380298…` |
@@ -87,4 +87,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git 91292c5c
+git 7b4b0e34
