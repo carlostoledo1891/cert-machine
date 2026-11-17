@@ -98,6 +98,9 @@ const MARKERS = [
   ['a cell reading "undefined"', /(?<!<th)>\s*undefined\s*</g],
   ['a cell reading "null"', /(?<!<th)>\s*null\s*</g],
   ['a cell reading "NaN"', /(?<!<th)>\s*NaN\s*</g],
+  /* a NUMBER-THEN-UNIT leak inside prose (2026-11-16: the Atalaia minuta printed "uma rota de NaN km" for an hour; a
+     sentence is not a cell, so the line above missed it). NaN before a unit is never English or Portuguese. */
+  ['NaN followed by a unit', /\bNaN\s?(?:km|m|kg|Wh|kWh|s|min|h|%|°|m\/s|kn)(?![A-Za-z])/g],
   ['[object Object]', /\[object Object\]/g],
   ['an array joined with commas', /\/>,</g],
   ['a literal backtick', /`/g],
@@ -234,6 +237,8 @@ async function main() {
   red('an array joined with commas is caught',
     markerOffences('<svg><line/>,<line/></svg>', 'x').length === 1);
   red('a cell reading null is caught', markerOffences('<td><span>null</span></td>', 'x').length === 1);
+  red('NaN followed by a unit inside a sentence is caught', markerOffences('<p>uma rota de NaN km a partir de Tabatinga</p>', 'x').length === 1);
+  red('the word NaN with no unit inside a sentence is NOT caught', markerOffences('<p>IEEE 754 defines NaN as not a number</p>', 'x').length === 0);
   red('the same word inside a sentence is NOT caught',
     markerOffences('<p>reward hacking is undefined here</p>', 'x').length === 0);
   red('a template literal inside inlined script is NOT caught',
