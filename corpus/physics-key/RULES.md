@@ -218,3 +218,36 @@ about any of this is a result and will be reported as written here.
   only conserved quantities are.
 - Decider 2 is independent by procedure (a separate author with no sight of decider
   1), under one operator.
+
+## Amendment 1 (2026-11-17, after the 60 runs were recorded and decided by decider 1)
+
+Added: one law. Nothing above is changed.
+
+Why: the prior-art scout came back after the runs were decided. MuJoCo's own
+documentation (Numerical integration, "Gyroscopic derivatives for free bodies") states
+a property of its `implicit` and `implicitfast` integrators: "The kinetic energy of a
+spinning free body is non-increasing in the absence of applied force." That is a
+published statement about exactly the `top` scene, and the laws above do not test it:
+they compare every step with step 0, not each step with the one before.
+
+What I had seen before writing this: every verdict of the laws above from decider 1,
+and one exploratory count, outside the record, of the steps at which the recorded
+kinetic energy rose (none for `implicit` and `implicitfast` at three timesteps; every
+step for `euler`). So this law is NOT pre-registered. It is added because it is the
+engine's own stated property, and its ladder is the one already fixed for `top`.
+
+`top`, for k = 1, …, N, with T as in section 5:
+- T-MONO(ε): `R_k ≤ ε`, where `R_k = (T_k − T_{k−1})/T_0` is the rise of the kinetic
+  energy in step k, as a fraction of its initial value. One-sided: a fall of any size
+  satisfies it.
+- ε ∈ {1e-2, 1e-4, 1e-6, 1e-9, 1e-12, 0}. At ε = 0 it says the energy never rises.
+- Output (section 6): the deviation at step k ≥ 1 is `R_k`, and at step 0 it is 0.
+  `max` is the smallest step at which `max(R_k, 0)` is largest, and that value (step 0
+  and "0" when the energy never rises). `last` is the signed `R_N`. In a non-finite run
+  the law is treated as the others are.
+- It is decided for every integrator; the documentation states it only for `implicit`
+  and `implicitfast`.
+
+Planted file added: RC6 `top`, the kinetic energy falling at every step except one
+planted rise of about 1.9e-6 of T_0 at step 400. Expected: T-MONO REFUTED at 1e-9 with
+firstStep 400, CERTIFIED at 1e-4.
