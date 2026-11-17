@@ -53,7 +53,7 @@
     "lo": 0,
     "hi": 0.1117663489478319,
     "sign": "+",
-    "margin": 1.0064663511864325,
+    "margin": 1.006466351186431,
     "grid": 256
    },
    {
@@ -61,7 +61,7 @@
     "lo": 0.1117663489478319,
     "hi": 0.2325735170279015,
     "sign": "+",
-    "margin": 0.18819863003069176,
+    "margin": 0.1881986300306917,
     "grid": 256
    },
    {
@@ -69,7 +69,7 @@
     "lo": 0.2325735170279015,
     "hi": 0.4322877303715086,
     "sign": "-",
-    "margin": 0.10440357726533116,
+    "margin": 0.10440357726533049,
     "grid": 256
    },
    {
@@ -77,7 +77,7 @@
     "lo": 0.4322877303715086,
     "hi": 0.461480562291439,
     "sign": "-",
-    "margin": 0.007240988644406301,
+    "margin": 0.007240988644406252,
     "grid": 256
    },
    {
@@ -85,11 +85,11 @@
     "lo": 0.461480562291439,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.11332215264676371,
+    "margin": 0.11332215264676593,
     "grid": 256
    }
   ],
-  "minMargin": 0.007240988644406301,
+  "minMargin": 0.007240988644406252,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -115,7 +115,7 @@
     "lo": 0,
     "hi": 0.1286581438374038,
     "sign": "-",
-    "margin": 0.026160645260112386,
+    "margin": 0.026160645260112317,
     "grid": 256
    },
    {
@@ -123,7 +123,7 @@
     "lo": 0.1286581438374038,
     "hi": 0.27865814383740384,
     "sign": "-",
-    "margin": 0.005507405434632312,
+    "margin": 0.00550740543463231,
     "grid": 256
    },
    {
@@ -131,11 +131,11 @@
     "lo": 0.27865814383740384,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.015555655762697445,
+    "margin": 0.015555655762697587,
     "grid": 256
    }
   ],
-  "minMargin": 0.005507405434632312,
+  "minMargin": 0.00550740543463231,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -148,11 +148,11 @@
  "peaksExceedWells": true,
  "rigor": {
   "countFrom": "certified region signs only (float is the proposer, never the authority)",
-  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js",
   "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
  },
  "meta": {
-  "date": "2026-09-02",
-  "git": "5b6a608"
+  "date": "2026-11-17",
+  "git": "144d9f6f"
  }
 }
