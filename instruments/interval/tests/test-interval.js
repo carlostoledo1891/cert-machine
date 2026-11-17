@@ -164,6 +164,13 @@ for (const [name, fn, qfn, skipZero] of [
 /* ---------------- 4. the set predicates ---------------- */
 check('contains: [-1,1] contains 0, and does not contain 2',
   I.contains([-1, 1], 0) === true && I.contains([-1, 1], 2) === false);
+/* membership holds reals only (2026-11-16; ITF1788 libieeep1788_rec_bool.itl:139-140): ±∞ and NaN are members of no
+   interval, not even one with that infinite end */
+check('contains: ±∞ and NaN are members of no interval, even [−∞, +∞] (IEEE 1788 isMember)',
+  I.contains([-Infinity, Infinity], Infinity) === false && I.contains([-Infinity, Infinity], -Infinity) === false
+  && I.contains([0, Infinity], Infinity) === false && I.contains([-Infinity, 0], -Infinity) === false
+  && I.contains([-Infinity, Infinity], NaN) === false
+  && I.contains([-Infinity, Infinity], 0) === true && I.contains([0, Infinity], Number.MAX_VALUE) === true);
 check('subset: [0,1] ⊆ [-1,1], and [-1,1] ⊄ [0,1]',
   I.subset([0, 1], [-1, 1]) === true && I.subset([-1, 1], [0, 1]) === false);
 check('subset accepts an EQUAL box (⊆ is not ⊂)', I.subset([0, 1], [0, 1]) === true);
@@ -209,27 +216,15 @@ check('pow(a,0) = [1,1]', I.pow([2, 3], 0)[0] === 1 && I.pow([2, 3], 0)[1] === 1
   check('div REFUSES every zero-straddling denominator', n === 4, n + '/4 refused');
 }
 
-/* ---------------- 7. Stage 2.4 — trig pad + thin float enclosure ---------------- */
+/* ---------------- 7. Stage 2.4 — thin float enclosure; the padded trig helper retired ----------------
+   The trig pad tests stood here until 2026-11-16: trigAbsPad against 2·ε·|ang| on the Fourier grids, the remembered
+   ±1e-15 against the derived pad, and encloseCos(x) ∋ Math.cos(x) — the last a tautology (it compared the platform's
+   cosine with itself) and none of them a test of the TRUE cosine. The helper is gone; the proved sin / cos of
+   transcendental.js are tested against exact rational brackets in test-transcendental*.js and against Arb in
+   tools/audit-kernel-arb.js. What stays here is that the kernel no longer exports the helper. */
 {
-  const TWO_PI = 2 * Math.PI;
-  let okPad = true, worst = 0, worstAng = 0;
-  for (const N of [14, 20, 32]) for (let k = 1; k <= N; k++) for (let g = 0; g < 4096; g++) {
-    const ang = TWO_PI * k * (g / 4096);
-    const pad = I.trigAbsPad(ang);
-    const need = 2 * Number.EPSILON * Math.abs(ang);
-    if (!(pad >= need)) { okPad = false; break; }
-    if (pad > worst) { worst = pad; worstAng = ang; }
-  }
-  check('trigAbsPad dominates 2·ε·|ang| on the Fourier grids N≤32, G=4096', okPad,
-    'worst pad ' + worst.toExponential(3) + ' at |ang|=' + worstAng.toFixed(2));
-  const angOp = TWO_PI * 14 * (1 - 1 / 4096);
-  check('remembered ±1e-15 under-covers the derived pad at operating angles (TOPIC B6)',
-    1e-15 < I.trigAbsPad(angOp),
-    '1e-15 vs pad ' + I.trigAbsPad(angOp).toExponential(3) + ' (×' + (I.trigAbsPad(angOp) / 1e-15).toFixed(1) + ')');
-  const c = I.encloseCos(1.0), s = I.encloseSin(1.0);
-  check('encloseCos / encloseSin are well-formed and contain the float evaluation',
-    wellFormed(c) && wellFormed(s) && c[0] <= Math.cos(1) && Math.cos(1) <= c[1] &&
-    s[0] <= Math.sin(1) && Math.sin(1) <= s[1]);
+  check('the padded platform cos/sin helper is retired (encloseCos, encloseSin, trigAbsPad are not exported)',
+    I.encloseCos === undefined && I.encloseSin === undefined && I.trigAbsPad === undefined);
   const tf = I.encloseFloat(Math.PI);
   check('encloseFloat widens a correctly-rounded image by one ulp each side',
     tf[0] === I.nextDown(Math.PI) && tf[1] === I.nextUp(Math.PI));
@@ -270,11 +265,13 @@ let reds = 0;
   if (caught) { reds++; console.log('       RED ok  X4 lo>hi is caught by wellFormed (the Array.map arity trap that makes a check vacuous)'); }
 }
 {
-  /* X5 — Stage 2.4: the remembered ±1e-15 trig pad under-covers the derived floor. */
-  const ang = 2 * Math.PI * 14 * (1 - 1 / 4096);
-  const need = I.trigAbsPad(ang);
-  const caught = 1e-15 < need;
-  if (caught) { reds++; console.log('       RED ok  X5 remembered ±1e-15 trig pad under-covers derived pad ' + need.toExponential(3) + ' at ang=' + ang.toFixed(2) + ' (×' + (need / 1e-15).toFixed(1) + ')'); }
+  /* X5 — the membership test before 2026-11-16 (a[0] <= x && x <= a[1]) answered true for isMember(±∞, [entire]),
+     the two ITF1788 violations of certs/kernel-itf1788.json; the kernel's contains must answer false where it did.
+     (X5 was the remembered ±1e-15 trig pad until the padded helper was retired, the same day.) */
+  const oldContains = (a, x) => a[0] <= x && x <= a[1];
+  const E = [-Infinity, Infinity];
+  const caught = oldContains(E, Infinity) && oldContains(E, -Infinity) && !I.contains(E, Infinity) && !I.contains(E, -Infinity);
+  if (caught) { reds++; console.log('       RED ok  X5 the old membership test admits ±∞ to [−∞, +∞]; the kernel\'s contains refuses both'); }
 }
 {
   /* X6 — the toDouble underflow that reported a certified WIDTH as exactly
@@ -318,5 +315,5 @@ check('X every falsifier turned its own target red', reds === 8, reds + '/8');
 
 console.log('\n' + (fail ? fail + ' FAILED, ' + pass + ' passed'
   : 'ALL PASS (' + pass + ' checks) — every export is exercised; arithmetic against exact BigInt\n' +
-    '  rationals; Stage 2.4 trig pad is derived, not remembered.'));
+    '  rationals; membership holds reals only; the padded trig helper is retired.'));
 process.exit(fail ? 1 : 0);

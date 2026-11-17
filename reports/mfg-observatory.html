@@ -14,15 +14,15 @@
 <meta property="og:description" content="The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
-<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The MFG regime observatory: the coupling–potential plane decided · Carlos Toledo">
 <meta name="twitter:description" content="The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.">
-<meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The MFG regime observatory: the coupling–potential plane decided","description":"The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.","url":"https://carlostoledo.co/reports/mfg-observatory.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The MFG regime observatory: the coupling–potential plane decided","description":"The coupling–potential plane of a mean-field game, partitioned into 19,800 cells and decided: 11,330 carry two exact equilibria in provably disjoint balls valid for every parameter in the cell, 384 sit in the monotone half-plane with the enclosure certified, the rest are undecided with the reason kept. The certifier runs in the page and ships as one dependency-free file.","url":"https://carlostoledo.co/reports/mfg-observatory.html","image":"https://carlostoledo.co/og-landing.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,6 +139,54 @@
   --font-sans:var(--f-sans);
   --font-mono:var(--f-mono);
 }
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
 
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
@@ -161,7 +209,11 @@ img{max-width:100%}
    something past that edge. A box that hides a column without saying so is
    the same defect as a number without its units. This shipped on
    /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
-   chose.                                                                  */
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
   border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
   background:
@@ -172,6 +224,7 @@ img{max-width:100%}
     var(--sunk)}
 .tw > table{margin:0}
 .tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
 
 .page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
 
@@ -243,6 +296,16 @@ img{max-width:100%}
   .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
 }
 [id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
 
 /* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
    '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
@@ -360,6 +423,9 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -588,6 +654,47 @@ ul.plain b{color:var(--ink);font-weight:480}
 .foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
 .foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
 
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
 
 /* ---- the machine schematic (components.flow) ----
    Nodes are keyboard-focusable buttons; the readout above the drawing narrates
@@ -701,7 +808,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
 
 <div class="page">
 
@@ -734,8 +841,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§1 · the tool</div>
     <h2>Decide a cell, here, now</h2>
   </div>
-<div class="col"><p>Give it a rectangle of parameters. It solves for both branches, wraps each in a contraction argument over the whole rectangle, and answers. Nothing is uploaded — the certifier below is the repository’s own code, assembled from the same files the map was made with, running in this tab.</p><ul class="plain"><li><b>MULTIPLE.</b> Two exact solutions for every parameter in the cell, in two provably disjoint balls. You get both radii, the separation, and a lower bound on both densities.</li><li><b>UNIQUE.</b> The cell sits in c ≥ 0, where Lasry–Lions gives global uniqueness — <em>cited, not proved here</em>. What is proved here is the enclosure of that solution, uniform over the cell.</li><li><b>UNDECIDED.</b> With the reason, verbatim. Near the bifurcation the argument <em>cannot</em> close, and a certifier that certified there would be broken.</li></ul></div><div class="col"><div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" class="cmw-in" placeholder='{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}'>{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02}</textarea><div class="cmw-row"><button id="mfg-go" class="cmw-btn go">decide this cell</button><button id="mfg-ex1" class="cmw-btn">a multiplicity cell</button><button id="mfg-ex2" class="cmw-btn">a monotone cell</button><button id="mfg-ex3" class="cmw-btn">the bifurcation</button><button id="mfg-ex4" class="cmw-btn">refute a candidate</button></div><pre id="mfg-out" class="cmw-out"></pre><p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository's own code, assembled from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js. A cell takes about a tenth of a second.</p></div><script>/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
-var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+<div class="col"><p>Give it a rectangle of parameters. It solves for both branches, wraps each in a contraction argument over the whole rectangle, and answers. Nothing is uploaded — the certifier below is the repository’s own code, assembled from the same files the map was made with, running in this tab.</p><ul class="plain"><li><b>MULTIPLE.</b> Two exact solutions for every parameter in the cell, in two provably disjoint balls. You get both radii, the separation, and a lower bound on both densities.</li><li><b>UNIQUE.</b> The cell sits in c ≥ 0, where Lasry–Lions gives global uniqueness — <em>cited, not proved here</em>. What is proved here is the enclosure of that solution, uniform over the cell.</li><li><b>UNDECIDED.</b> With the reason, verbatim. Near the bifurcation the argument <em>cannot</em> close, and a certifier that certified there would be broken.</li></ul></div><div class="col"><div class="col"><textarea id="mfg-in" spellcheck="false" rows="6" class="cmw-in" placeholder='{"sigma":0.5,"c":[-16.03,-15.97],"A":[0.288,0.313],"N":16,"nu":1.02}'>{"sigma":0.5,"c":[-16.03125,-15.96875],"A":[0.2875,0.3125],"N":16,"nu":1.02}</textarea><div class="cmw-row"><button id="mfg-go" class="cmw-btn go">decide this cell</button><button id="mfg-ex1" class="cmw-btn">a multiplicity cell</button><button id="mfg-ex2" class="cmw-btn">a monotone cell</button><button id="mfg-ex3" class="cmw-btn">the bifurcation</button><button id="mfg-ex4" class="cmw-btn">refute a candidate</button></div><pre id="mfg-out" class="cmw-out"></pre><p class="scope">Runs in this tab. Nothing is uploaded, nothing is logged; the certifier is the repository's own code, assembled from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, instruments/interval/interval.js, instruments/interval/rational.js, instruments/interval/transcendental.js, labs/mfg/box.js. A cell takes about a tenth of a second.</p></div><script>/* assembled by labs/mfg/widget.js from the repository sources — do not edit here */
+var EqInterval = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
 
    RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
@@ -870,7 +977,7 @@ module.exports = {
 };
 
 return module.exports;})();
-var MFG1D = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+var MFG1D = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* mfg1d.js — the model, in Fourier, and a Newton solver for it (floats).
    The rigorous half lives in validate.js; this file only produces the numerical
    candidate that the validation then either certifies or refuses.
@@ -1151,7 +1258,668 @@ module.exports = {
 };
 
 return module.exports;})();
-var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/interval\.js$/.test(p))return EqInterval;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+var EqKernel = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
+
+   RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
+   no access to the FPU rounding mode, so directed rounding is SIMULATED: every
+   IEEE-754 basic operation (+ − × ÷ and sqrt) returns the correctly rounded
+   nearest double, so the exact real result lies strictly within half an ulp of
+   the computed value. Widening the computed bounds outward by ONE ulp (nextDown
+   on the lower end, nextUp on the upper) therefore encloses the exact result.
+   This is conservative by a factor of ~2 in the last bit and costs nothing at
+   the accuracy we need.
+
+   The library is not trusted on assertion: tests/test-interval.js checks every
+   operation against EXACT BigInt rational arithmetic on thousands of random
+   operands, and mutation-tests the widening (removing it turns the check red).
+
+   That sentence was FALSE from the day it was written until 2026-07-28: the file it
+   names did not exist, and the battery that did cover intervals (test-eqcert.js I2)
+   exercises 4 of these exports. `pow` therefore had no coverage and was wrong —
+   it returned [1,1] for every negative exponent. The file now exists, runs first in
+   `make check-eqcert`, and covers every export. Left as a standing reminder that a cited
+   test is not a test: the citation was read as evidence for months.
+
+   Sequence algebra (weighted ell^1_nu, convolution, parity) lives in
+   src/sequence.js; this file is arithmetic only.
+
+   MIT licensed. Part of eqcert — the single source of truth for interval
+   arithmetic across every project here. Vendored copies are gated
+   byte-identical; never edit a copy. */
+'use strict';
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+function nextUp(x) {
+  if (Number.isNaN(x) || x === Infinity) return x;
+  if (x === 0) return Number.MIN_VALUE;
+  _f64[0] = x; _u64[0] += (x > 0 ? 1n : -1n); return _f64[0];
+}
+function nextDown(x) { return -nextUp(-x); }
+
+/* an interval is a 2-array [lo, hi]; `iv(x)` is the thin (point) interval */
+const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
+const ZERO = iv(0), ONE = iv(1);
+
+/* THE DOMAIN, ENFORCED (2026-10-09). The rigor model above is a statement about
+   finite, well-formed operands: a pair of non-NaN doubles with lo <= hi, where an
+   infinite endpoint is a sound (if useless) bound. Before this date nothing checked
+   it: mul([0, Infinity], [0, 1]) returned [NaN, NaN], div by [NaN, NaN] was not
+   refused (NaN fails the straddle test), and a consumer written as
+   `if (!(x[1] > c)) proved` would have certified on a NaN. The batteries skipped
+   non-finite results and so never saw it. Every arithmetic operation now refuses a
+   malformed operand or an indeterminate result (0·∞, ∞−∞) by THROW — a refusal,
+   never a decision — and the method paper states this domain beside its rounding
+   proposition. Cost: a few comparisons per operation. */
+function wf(a, op) {
+  if (!Array.isArray(a) || a.length !== 2 || typeof a[0] !== 'number' || typeof a[1] !== 'number'
+      || Number.isNaN(a[0]) || Number.isNaN(a[1]) || a[0] > a[1])
+    throw new Error('interval ' + op + ': malformed operand ' + JSON.stringify(a) + ' — refused, not decided');
+  return a;
+}
+function out(r, op) {
+  if (Number.isNaN(r[0]) || Number.isNaN(r[1]))
+    throw new Error('interval ' + op + ': indeterminate result (0·∞ or ∞−∞) — refused, not decided');
+  return r;
+}
+
+function add(a, b) { wf(a, 'add'); wf(b, 'add'); return out([nextDown(a[0] + b[0]), nextUp(a[1] + b[1])], 'add'); }
+function sub(a, b) { wf(a, 'sub'); wf(b, 'sub'); return out([nextDown(a[0] - b[1]), nextUp(a[1] - b[0])], 'sub'); }
+function mul(a, b) {
+  wf(a, 'mul'); wf(b, 'mul');
+  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
+  return out([nextDown(Math.min(p[0], p[1], p[2], p[3])),
+              nextUp(Math.max(p[0], p[1], p[2], p[3]))], 'mul');
+}
+function div(a, b) {
+  wf(a, 'div'); wf(b, 'div');
+  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
+  const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
+  return out([nextDown(Math.min(q[0], q[1], q[2], q[3])),
+              nextUp(Math.max(q[0], q[1], q[2], q[3]))], 'div');
+}
+function neg(a) { return [-a[1], -a[0]]; }
+/* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
+   sqr([0,0]) returned [-5e-324, 5e-324] — nextDown(0) steps to the smallest negative
+   denormal — and a consumer testing `sqr(x)[0] >= 0` to prove non-negativity would be
+   defeated by the one case where non-negativity is certain. Clamping only TIGHTENS: 0 is
+   a true lower bound for x² always, so enclosure is preserved. The third branch below
+   already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
+function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  wf(a, 'sqr');
+  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
+  if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
+  const m = Math.max(-a[0], a[1]);
+  return [0, nextUp(m * m)];
+}
+/* |a| as an interval of the modulus, and the scalar sup|a| */
+function abs(a) {
+  if (a[0] >= 0) return [a[0], a[1]];
+  if (a[1] <= 0) return [-a[1], -a[0]];
+  return [0, Math.max(-a[0], a[1])];
+}
+const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
+const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
+/* MEMBERSHIP HOLDS REALS ONLY (2026-11-16). Until this date contains(a, x) answered a[0] <= x && x <= a[1], so ±∞
+   was a member of any interval with that infinite end: isMember(±∞, [entire]) came back true where IEEE 1788 says
+   false (certs/kernel-itf1788.json, two violations found 2026-10-27). No enclosure was affected, every caller passes a
+   finite point; the answer is now false for ±∞ and for NaN. */
+const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1];
+const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
+const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
+const width = a => nextUp(a[1] - a[0]);
+
+/* Integer power with a rigorous enclosure (repeated squaring).
+   NEGATIVE EXPONENTS: `while (e > 0)` never runs for n < 0, so this silently returned
+   ONE = [1,1] for every negative n — pow([2,2],-1) claimed to enclose 0.5 and did not.
+   A wrong enclosure is worse than a refusal, and this one was silent. n < 0 now goes
+   through div, which REFUSES a base straddling 0 (there 1/x is unbounded and no finite
+   interval encloses it). Non-integer n is refused rather than truncated: `e >>= 1` would
+   have quietly floored it. Found 2026-07-28 with 0 call sites in the tree — a loaded
+   trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
+function pow(a, n) {
+  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  /* `e & 1` and `e >>= 1` are 32-bit operations: pow([1,2], 2^31) returned [1,1] and
+     pow([2,2], 2^53) returned [1,1] — silently, like the negative-exponent trap above.
+     Found 2026-10-09 by a code read, with 0 call sites beyond exponents 2 and 3. Refused. */
+  if (Math.abs(n) >= 2147483648) throw new Error('interval pow: exponent ' + n + ' is beyond 2^31 — refused (32-bit exponent arithmetic)');
+  if (n < 0) return div(ONE, pow(a, -n));
+  wf(a, 'pow');
+  let r = ONE, base = a, e = n;
+  while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
+  return r;
+}
+
+/* ---------- Stage 2.4 — thin floats ----------
+   encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
+   ulp each side — the last-ulp thin-scalar hardening for 2π.
+
+   THE PADDED PLATFORM COS/SIN, RETIRED (2026-11-16). encloseCos / encloseSin /
+   trigAbsPad enclosed Math.cos / Math.sin — which ECMAScript gives NO accuracy
+   bound — by a derived pad of 2·ε·|ang| + ε, under an unwritten contract that the
+   argument carried at most 2 ulp of relative error. They are gone from the kernel:
+   every caller now uses the proved series sin / cos of transcendental.js (a
+   remainder after reduction by an enclosure of π/2, interval arguments, extrema
+   inside a box enclosed), which the Arb audit covers. */
+function encloseFloat(x) {
+  return [nextDown(x), nextUp(x)];
+}
+
+module.exports = {
+  nextUp, nextDown, iv, ZERO, ONE, wf,
+  add, sub, mul, div, neg, sqr, abs, mag, mig,
+  contains, subset, interior, width, pow,
+  encloseFloat
+};
+
+return module.exports;})();
+var EqRational = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* rational.js — exact arithmetic over BigInt fractions.
+
+   Why this exists next to interval arithmetic rather than instead of it: the
+   two answer different questions, and choosing the wrong one silently weakens
+   a certificate.
+
+     · INTERVAL arithmetic bounds a quantity you cannot compute exactly. It is
+       the right tool when the problem is genuinely nonlinear (a Krawczyk
+       enclosure, a radii polynomial).
+     · EXACT arithmetic DECIDES. It is the right tool when the data is rational
+       and the question is a sign — and it is the ONLY tool when the answer is
+       a tie, because no interval method can ever decide whether a quantity is
+       exactly zero.
+
+   That distinction was learned, not designed. Certifying a multi-population
+   Wardrop equilibrium, an unused edge turned out to carry a slack of exactly
+   zero — an unused route exactly as short as the used ones. Interval
+   arithmetic returned −1.6e−12 and could not conclude; exact rational
+   arithmetic settled it immediately. Weak complementarity is invisible to
+   floating point and to intervals alike.
+
+   Every finite double is exactly m·2^e, so `fromDouble` is lossless and the
+   bridge between the two worlds is exact in that direction.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
+
+/* canonical: denominator > 0, reduced */
+function R(n, d) {
+  n = BigInt(n); d = d === undefined ? 1n : BigInt(d);
+  if (d === 0n) throw new Error('rational: zero denominator');
+  if (d < 0n) { n = -n; d = -d; }
+  const g = gcd(n, d) || 1n;
+  return { n: n / g, d: d / g };
+}
+const ZERO = R(0n), ONE = R(1n);
+
+/* every finite double is exactly m·2^e — this conversion loses nothing */
+function fromDouble(x) {
+  if (!Number.isFinite(x)) throw new Error('rational: non-finite double');
+  let e = 0n, y = x;
+  while (!Number.isInteger(y)) { y *= 2; e += 1n; if (e > 1200n) throw new Error('rational: conversion did not terminate'); }
+  return R(BigInt(y), 1n << e);
+}
+
+const add = (a, b) => R(a.n * b.d + b.n * a.d, a.d * b.d);
+const sub = (a, b) => R(a.n * b.d - b.n * a.d, a.d * b.d);
+const mul = (a, b) => R(a.n * b.n, a.d * b.d);
+const div = (a, b) => { if (b.n === 0n) throw new Error('rational: division by zero'); return R(a.n * b.d, a.d * b.n); };
+const neg = a => R(-a.n, a.d);
+const sign = a => (a.n < 0n ? -1 : a.n > 0n ? 1 : 0);
+const cmp = (a, b) => { const l = a.n * b.d, r = b.n * a.d; return l < r ? -1 : l > r ? 1 : 0; };
+const isZero = a => a.n === 0n;
+const abs = a => (a.n < 0n ? neg(a) : a);
+
+/* a double that is >= (resp <=) the exact value — for reporting only.
+   Number(n)/Number(d) overflows on large heights, so scale first. */
+function toDouble(a) {
+  if (a.n === 0n) return 0;
+  const sign = (a.n < 0n) !== (a.d < 0n) ? -1 : 1;
+  const N = a.n < 0n ? -a.n : a.n;
+  const D = a.d < 0n ? -a.d : a.d;
+  const bn = N.toString(2).length, bd = D.toString(2).length;
+  if (bn < 1000 && bd < 1000) return sign * (Number(N) / Number(D));
+  const shift = BigInt(Math.max(bn, bd) - 1000);
+  return sign * (Number(N >> shift) / Number(D >> shift));
+}
+const toString = a => (a.d === 1n ? a.n.toString() : a.n + '/' + a.d);
+
+/* is the exact value inside the closed float interval [lo, hi]? */
+const inClosed = (a, lo, hi) => cmp(fromDouble(lo), a) <= 0 && cmp(a, fromDouble(hi)) <= 0;
+
+/* ---- exact dense linear algebra (Gaussian elimination, no pivoting error) ----
+   Returns null iff the matrix is EXACTLY singular — which is information, not
+   a failure: a singular exact system is a proof of degeneracy, whereas a small
+   float determinant is only a suspicion. */
+function solve(A, b, n) {
+  A = A.map(r => r.slice()); b = b.slice();
+  for (let k = 0; k < n; k++) {
+    let p = -1;
+    for (let r = k; r < n; r++) if (sign(A[r][k]) !== 0) { p = r; break; }
+    if (p < 0) return null;
+    if (p !== k) { const t = A[k]; A[k] = A[p]; A[p] = t; const tb = b[k]; b[k] = b[p]; b[p] = tb; }
+    for (let r = k + 1; r < n; r++) {
+      if (sign(A[r][k]) === 0) continue;
+      const f = div(A[r][k], A[k][k]);
+      for (let c = k; c < n; c++) A[r][c] = sub(A[r][c], mul(f, A[k][c]));
+      b[r] = sub(b[r], mul(f, b[k]));
+    }
+  }
+  const x = new Array(n).fill(ZERO);
+  for (let k = n - 1; k >= 0; k--) {
+    let s = b[k];
+    for (let c = k + 1; c < n; c++) s = sub(s, mul(A[k][c], x[c]));
+    x[k] = div(s, A[k][k]);
+  }
+  return x;
+}
+
+/* residual of A x − b, exactly. Zero here is a proof, not a tolerance. */
+function residual(A, x, b, n) {
+  const out = new Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = ZERO;
+    for (let j = 0; j < n; j++) if (sign(A[i][j]) !== 0) s = add(s, mul(A[i][j], x[j]));
+    out[i] = sub(s, b[i]);
+  }
+  return out;
+}
+const allZero = v => v.every(isZero);
+
+module.exports = {
+  R, ZERO, ONE, fromDouble, toDouble, toString,
+  add, sub, mul, div, neg, abs, sign, cmp, isZero, inClosed,
+  solve, residual, allZero, gcd
+};
+
+return module.exports;})();
+var EqTranscendental = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
+/* transcendental.js — sound interval exp / log / sin / cos / tanh.
+
+   WHY THIS FILE EXISTS. PLAN.md §5.3 once said JS cannot soundly enclose
+   transcendentals without Rust. core/interval/tests/probe-transcendental.js measured
+   the opposite: a truncated series with a rigorous remainder, evaluated inside
+   the already-validated interval model, produces a valid enclosure. Rust still
+   buys tightness, speed, and a cross-language witness — not soundness.
+
+   RIGOR. Every returned interval must CONTAIN the true real value. Containment
+   is checked in tests/test-transcendental.js against independent exact-rational
+   brackets (and red controls that omit the tail bound). Bad domains refuse by
+   throw — never a silent wrong box.
+
+   SCOPE (closed list). exp, log, sin, cos, tanh. Named consumers:
+   attention-geometry / softmax H/PR enclose (exp/log); edge-of-chaos /
+   aerospace / Path 5 (sin/cos/tanh). No fractional pow until a battery demands it.
+   See research/interval-transcendentals.html.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+const I = require('./interval.js');
+const Q = require('./rational.js');
+const { iv, add, sub, mul, div, neg, ONE, ZERO, nextUp, nextDown } = I;
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+const EXP_TERMS = 24;
+const LOG_TERMS = 40;
+const LN2_SERIES_TERMS = 48;
+const TRIG_TERMS = 16;
+const PI_ARCTAN_TERMS = 40;
+const TANH_SAT = 20;
+
+function qpowInt(a, n) {
+  let r = Q.ONE;
+  for (let i = 0; i < n; i++) r = Q.mul(r, a);
+  return r;
+}
+
+function qToIv(loQ, hiQ) {
+  let lo = Q.toDouble(loQ), hi = Q.toDouble(hiQ);
+  while (Q.cmp(Q.fromDouble(lo), loQ) > 0) lo = nextDown(lo);
+  while (Q.cmp(Q.fromDouble(hi), hiQ) < 0) hi = nextUp(hi);
+  return iv(lo, hi);
+}
+
+/* ln(2) = 2 Σ_{k=0}^∞ 1/((2k+1) 3^{2k+1}), with a geometric remainder bound. */
+function ln2Interval() {
+  let sum = Q.ZERO;
+  for (let k = 0; k < LN2_SERIES_TERMS; k++) {
+    const odd = 2 * k + 1;
+    const denom = Q.mul(Q.R(odd), qpowInt(Q.R(3), odd));
+    sum = Q.add(sum, Q.div(Q.ONE, denom));
+  }
+  sum = Q.mul(Q.R(2), sum);
+  const K = LN2_SERIES_TERMS;
+  const oddK = 2 * K + 1;
+  const rem = Q.div(Q.mul(Q.R(2), Q.R(9)), Q.mul(qpowInt(Q.R(3), oddK), Q.R(8)));
+  return qToIv(Q.sub(sum, rem), Q.add(sum, rem));
+}
+
+const LN2 = ln2Interval();
+
+/* arctan(u) for 0 < u < 1: Σ (-1)^k u^{2k+1}/(2k+1), |R| < u^{2K+1}/(2K+1). */
+function arctanPosQ(uNum, uDen, terms) {
+  const U = Q.div(Q.R(uNum), Q.R(uDen));
+  let sum = Q.ZERO;
+  let pow = U;
+  const U2 = Q.mul(U, U);
+  for (let k = 0; k < terms; k++) {
+    const term = Q.div(pow, Q.R(2 * k + 1));
+    sum = (k % 2 === 0) ? Q.add(sum, term) : Q.sub(sum, term);
+    pow = Q.mul(pow, U2);
+  }
+  const rem = Q.div(pow, Q.R(2 * terms + 1));
+  return [Q.sub(sum, rem), Q.add(sum, rem)];
+}
+
+/* Machin: π/4 = 4 arctan(1/5) − arctan(1/239). */
+function piInterval() {
+  const [aLo, aHi] = arctanPosQ(1, 5, PI_ARCTAN_TERMS);
+  const [bLo, bHi] = arctanPosQ(1, 239, PI_ARCTAN_TERMS);
+  const fourALo = Q.mul(Q.R(4), aLo);
+  const fourAHi = Q.mul(Q.R(4), aHi);
+  const qLo = Q.mul(Q.R(4), Q.sub(fourALo, bHi));
+  const qHi = Q.mul(Q.R(4), Q.sub(fourAHi, bLo));
+  return qToIv(qLo, qHi);
+}
+
+const PI = piInterval();
+const TWO_PI = mul(iv(2), PI);
+const HALF_PI = div(PI, iv(2));
+
+/* Exact split x = m · 2^e for positive finite normals, m ∈ [1, 2). */
+function splitPow2(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental: splitPow2 needs positive finite, got ' + x);
+  }
+  _f64[0] = x;
+  let bits = _u64[0];
+  const eBits = Number((bits >> 52n) & 0x7ffn);
+  if (eBits === 0 || eBits === 2047) {
+    throw new Error('transcendental: splitPow2 refuses subnormal/non-finite');
+  }
+  const e = eBits - 1023;
+  bits = (bits & 0x800fffffffffffffn) | (1023n << 52n);
+  _u64[0] = bits;
+  return { m: _f64[0], e };
+}
+
+/* exp on a thin/narrow interval: x = k ln2 + r with |r| < 1, Taylor + tail. */
+function expNarrow(X) {
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.exp: non-finite or inverted interval');
+  }
+  const mid = (X[0] + X[1]) / 2;
+  const k = Math.round(mid / 0.6931471805599453);
+  const r = sub(X, mul(iv(k), LN2));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag < 1)) {
+    throw new Error('transcendental.exp: argument reduction left |r|=' + rmag + ' >= 1');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 1; n <= EXP_TERMS; n++) {
+    term = div(mul(term, r), iv(n));
+    sum = add(sum, term);
+  }
+  /* the tail |r|^{25}/25! · (1 − |r|/26)^{-1}, every operation outward (2026-10-21; it was round-to-nearest with one nextUp,
+     sound only by the margin below the ulp of the sum — debt of 2026-09-04, paid) */
+  let fact = ONE, p = ONE;
+  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }
+  const tail = div(p, mul(fact, sub(ONE, div(iv(rmag), iv(EXP_TERMS + 2)))))[1];
+  sum = add(sum, iv(-tail, tail));
+  if (k > 1023 || k < -1074) {
+    throw new Error('transcendental.exp: 2^k out of finite range, k=' + k);
+  }
+  return mul(sum, iv(Math.pow(2, k)));
+}
+
+/** Interval exponential. Monotone ⇒ wide boxes use endpoint enclosures. */
+function exp(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (X[1] - X[0] > 1e-6) {
+    return [expNarrow(iv(X[0]))[0], expNarrow(iv(X[1]))[1]];
+  }
+  return expNarrow(X);
+}
+
+function logMantissa(m) {
+  if (m === 1) return ZERO;
+  if (!(m >= 1 && m < 2)) {
+    throw new Error('transcendental.logMantissa: need m in [1,2), got ' + m);
+  }
+  const V = div(sub(iv(m), ONE), add(iv(m), ONE));
+  const vmax = Math.max(Math.abs(V[0]), Math.abs(V[1]));
+  if (!(vmax < 0.34)) {
+    throw new Error('transcendental.logMantissa: |v|=' + vmax + ' not in [0,1/3)');
+  }
+  let sum = ZERO;
+  let vpow = V;
+  const V2 = mul(V, V);
+  for (let k = 0; k < LOG_TERMS; k++) {
+    const odd = 2 * k + 1;
+    sum = add(sum, div(vpow, iv(odd)));
+    vpow = mul(vpow, V2);
+  }
+  /* the one-sided tail v^{2N+1} / ((2N+1)(1 − v²)), every operation outward (2026-10-21) */
+  let p = ONE;
+  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p = mul(p, iv(vmax));
+  const denom = mul(iv(2 * LOG_TERMS + 1), sub(ONE, mul(iv(vmax), iv(vmax))));
+  const tail = div(p, denom)[1];
+  return mul(iv(2), add(sum, iv(0, tail)));
+}
+
+function logPoint(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental.log: need positive finite, got ' + x);
+  }
+  if (x === 1) return ZERO;
+  const { m, e } = splitPow2(x);
+  const lm = logMantissa(m);
+  if (e === 0) return lm;
+  return add(lm, mul(iv(e), LN2));
+}
+
+/** Interval natural log. Domain: lo > 0. Monotone ⇒ endpoints. */
+function log(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] > 0) || !(X[1] > 0) || !(X[0] <= X[1])) {
+    throw new Error('transcendental.log: need positive interval, got [' + X[0] + ',' + X[1] + ']');
+  }
+  return [logPoint(X[0])[0], logPoint(X[1])[1]];
+}
+
+/* Taylor sin/cos on a box with |x| ≤ 2 (covers reduced [-π/2, π/2]).
+   |R_n| ≤ |x|^{n+1}/(n+1)! since |f^{(n+1)}| ≤ 1. */
+function sinSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.sinSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ZERO, term = X;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    sum = add(sum, term);
+    const k = 2 * n + 2;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+  }
+  let fact = ONE, p = ONE;
+  const deg = 2 * TRIG_TERMS + 1;
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
+  return add(sum, iv(-tail, tail));
+}
+
+function cosSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.cosSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    const k = 2 * n + 1;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+    sum = add(sum, term);
+  }
+  let fact = ONE, p = ONE;
+  const deg = 2 * TRIG_TERMS + 2;
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
+  return add(sum, iv(-tail, tail));
+}
+
+/** Reduce x = n·(π/2) + r with |r| ≲ π/4…π/2; return series args + quadrant n mod 4.
+   Quadrant table (n mod 4):
+     0: sin=sin r,  cos=cos r
+     1: sin=cos r,  cos=−sin r
+     2: sin=−sin r, cos=−cos r
+     3: sin=−cos r, cos=sin r */
+function reduceTrigPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.reduce: non-finite angle');
+  }
+  const halfPiMid = (HALF_PI[0] + HALF_PI[1]) / 2;
+  const n = Math.round(x / halfPiMid);
+  const r = sub(iv(x), mul(iv(n), HALF_PI));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag <= HALF_PI[1] + 0.02)) {
+    throw new Error('transcendental.reduce: |r|=' + rmag + ' after n=' + n);
+  }
+  return { r, q: ((n % 4) + 4) % 4 };
+}
+
+function sinPoint(x) {
+  if (x === 0) return ZERO;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return s;
+  if (q === 1) return c;
+  if (q === 2) return neg(s);
+  return neg(c);
+}
+
+function cosPoint(x) {
+  if (x === 0) return ONE;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return c;
+  if (q === 1) return neg(s);
+  if (q === 2) return neg(c);
+  return s;
+}
+
+/* Enclosure of 3*pi/2, outward-rounded, for the sin minimum. */
+const THREE_HALF_PI = [nextDown(PI[0] + HALF_PI[0]), nextUp(PI[1] + HALF_PI[1])];
+
+/** Might [a,b] contain a real of the form BASE + k*2pi for some integer k?
+ *
+ *  CONSERVATIVE BY CONSTRUCTION: it may answer true when the critical point is
+ *  merely near the box, and must NEVER answer false when one is inside. A false
+ *  positive only widens the result; a false negative makes it unsound. Every
+ *  candidate phase is built as an interval and pushed outward one ulp before the
+ *  overlap test, and the k window carries one extra step on each side, so the
+ *  error can only ever land on the safe side. */
+function containsPhase(a, b, BASE) {
+  if (b - a >= TWO_PI[0]) return true;
+  const kLo = Math.floor((a - BASE[1]) / TWO_PI[0]) - 1;
+  const kHi = Math.ceil((b - BASE[0]) / TWO_PI[0]) + 1;
+  if (!Number.isFinite(kLo) || !Number.isFinite(kHi)) return true;   /* refuse to guess */
+  for (let k = kLo; k <= kHi; k++) {
+    /* enclosure of BASE + k*2pi; multiplying by a negative k swaps the bounds */
+    const lo = k >= 0 ? BASE[0] + k * TWO_PI[0] : BASE[0] + k * TWO_PI[1];
+    const hi = k >= 0 ? BASE[1] + k * TWO_PI[1] : BASE[1] + k * TWO_PI[0];
+    if (nextUp(hi) >= a && nextDown(lo) <= b) return true;
+  }
+  return false;
+}
+
+/** Interval sin — a true enclosure over the whole box.
+ *
+ *  REWRITTEN 2026-08-08. Both previous branches were UNSOUND, and the file's own
+ *  header ("Every returned interval must CONTAIN the true real value") was the
+ *  claim they broke:
+ *
+ *    narrow (width <= 1e-6)  returned sinPoint(midpoint) — an enclosure of sin at
+ *                            ONE POINT, not over the box. sin([1,1+1e-9]) came back
+ *                            strictly INSIDE the true range, missing both endpoints.
+ *    wide                    hulled the two endpoints and only widened to [-1,1]
+ *                            when the width exceeded pi/2. But a critical point
+ *                            needs no such width to sit inside: sin([1,2]) returned
+ *                            [0.8415, 0.9093] while the true maximum is 1 at pi/2.
+ *
+ *  Why the battery never caught it: T10 tests sin(iv(x)) for SCALAR x — degenerate
+ *  boxes, where the midpoint IS the whole interval and sinPoint is trivially right.
+ *  The suite exercised D1 (accepts correct) and never D3 (rejects wrong), which is
+ *  the exact failure research/evidence-first-bench measures in other people's
+ *  suites. See tests/test-transcendental-enclosure.js, written with this fix.
+ *
+ *  Now: hull the endpoint enclosures, then force the bound to +/-1 whenever a
+ *  critical point may lie inside. Monotone boxes stay tight; boxes straddling an
+ *  extremum widen to the truth instead of reporting the chord. */
+function sin(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.sin: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = sinPoint(X[0]), b = sinPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], HALF_PI)) hi = 1;            /* sin = +1 */
+  if (containsPhase(X[0], X[1], THREE_HALF_PI)) lo = -1;     /* sin = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+/** Interval cos. Same rewrite, same reasons; extrema at 2k*pi and pi + 2k*pi. */
+function cos(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.cos: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = cosPoint(X[0]), b = cosPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], [0, 0])) hi = 1;             /* cos = +1 */
+  if (containsPhase(X[0], X[1], PI)) lo = -1;                /* cos = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+function tanhPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.tanh: non-finite');
+  }
+  if (x === 0) return ZERO;
+  if (x < 0) return neg(tanhPoint(-x));
+  if (x >= TANH_SAT) {
+    /* 0 < 1 − tanh(x) = 2/(e^{2x}+1) < 2 e^{-2x} ≤ 2 e^{-40} < 4e-17 */
+    const gap = nextUp(4e-17);
+    return iv(nextDown(1 - gap), 1);
+  }
+  const E = exp(iv(2 * x));
+  return div(sub(E, ONE), add(E, ONE));
+}
+
+/** Interval tanh. Odd, strictly increasing ⇒ endpoints. */
+function tanh(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.tanh: bad interval');
+  }
+  return [tanhPoint(X[0])[0], tanhPoint(X[1])[1]];
+}
+
+module.exports = {
+  exp, log, logPoint, sin, cos, tanh,
+  LN2, PI, HALF_PI, TWO_PI,
+  splitPow2, EXP_TERMS, LOG_TERMS, TRIG_TERMS
+};
+
+return module.exports;})();
+var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var require=function(p){if(/legacy\/core\/interval\/interval\.js$/.test(p))return EqInterval;if(p==="./interval.js")return EqKernel;if(/rational\.js$/.test(p))return EqRational;if(/transcendental\.js$/.test(p))return EqTranscendental;if(/mfg1d\.js$/.test(p))return MFG1D;throw new Error("the bundle does not carry "+p);};var self=undefined;
 /* box.js — UNIFORM-OVER-A-PARAMETER-BOX validation for the stationary
    quadratic mean-field game, with a tangent predictor.
 
@@ -1209,11 +1977,12 @@ var MFGBox = (function(){var module={exports:{}};var exports=module.exports;var 
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory(require('../../legacy/core/interval/interval.js'),
-                             require('../../legacy/core/mfg/mfg1d.js'));
+                             require('../../legacy/core/mfg/mfg1d.js'),
+                             require('../../instruments/interval/transcendental.js'));
   } else {
-    root.MFGBox = factory(root.EqInterval, root.MFG1D);
+    root.MFGBox = factory(root.EqInterval, root.MFG1D, root.EqTranscendental);
   }
-})(typeof self !== 'undefined' ? self : this, function (I, M1D) {
+})(typeof self !== 'undefined' ? self : this, function (I, M1D, T) {
 
 const { iv, add, sub, mul, div, neg, abs, mag, mig, ZERO, ONE } = I;
 const TWO_PI = 2 * Math.PI;
@@ -1585,20 +2354,48 @@ function validateBox(xFloat, box, opts) {
    below for every parameter in the cell. min mbar is bounded by sampling and
    paying the modulus of continuity with L = sum_k 2 (2 pi k) |b_k| -- no
    sampling argument is left unquantified. m > 0 is a HYPOTHESIS of the model,
-   so it is certified, never assumed. At zero width this reproduces
-   validate.js's certifyPositivity exactly (gate G2).                        */
+   so it is certified, never assumed. At zero width this agrees with
+   validate.js's certifyPositivity on L, G and the verdict, and on minMbar to
+   within the old pad (gate G2): validate.js still pads the platform's cosine,
+   this file no longer does.
+
+   THE COSINES ARE PROVED (2026-11-16). Until this date each cos(2 pi k t) was
+   Math.cos of the float angle TWO_PI*k*t widened by a derived pad (the kernel's
+   encloseCos, now retired): ECMAScript gives Math.cos no accuracy bound, so the
+   pad rested on an unwritten contract. Now every cosine is transcendental.js's
+   series enclosure (Lemma S1.3: reduction by an enclosure of pi/2, a remainder
+   bound), at the angle 2 pi (j/G) enclosed outward, with j = (k g) mod G:
+   cos(2 pi k g/G) = cos(2 pi j/G) exactly, because k g - j is a multiple of G.
+   One table per grid size serves every mode and every call (cosGrid below);
+   the reduced angle lies in [0, 2 pi), which also keeps it tight.           */
+const COS_GRID = new Map();
+function cosGrid(G) {
+  let tab = COS_GRID.get(G);
+  if (!tab) {
+    const lo = new Float64Array(G), hi = new Float64Array(G), Gi = iv(G);
+    for (let j = 0; j < G; j++) {
+      const c = T.cos(mul(T.TWO_PI, div(iv(j), Gi)));
+      lo[j] = c[0]; hi[j] = c[1];
+    }
+    tab = { lo, hi };
+    COS_GRID.set(G, tab);
+  }
+  return tab;
+}
 function boxPositivity(bI, N, r, G) {
   let L = 0;
   for (let k = 1; k <= N; k++) L = I.nextUp(L + 2 * TWO_PI_HI * k * mag(bI[k]));
   G = G || 4096;
+  if (!(Number.isInteger(G) && G > 0 && N * G < 2 ** 53)) throw new Error('boxPositivity: the grid size must be a positive integer, got ' + G);
   let lo = Infinity, guard = 0;
   for (;;) {
     lo = Infinity;
+    const tab = cosGrid(G);
     for (let g = 0; g < G; g++) {
-      const t = g / G;
       let m = iv(1);
       for (let k = 1; k <= N; k++) {
-        const ci = I.encloseCos(TWO_PI * k * t);
+        const j = (k * g) % G;                                 /* exact: k g < 2^53 */
+        const ci = [tab.lo[j], tab.hi[j]];
         m = add(m, mul([2 * bI[k][0], 2 * bI[k][1]], ci));   /* doubling is exact */
       }
       if (m[0] < lo) lo = m[0];
@@ -1856,7 +2653,7 @@ function cStarBox(sigmaBox) {
   return neg(mul(mul(S, S), mul(TWO_PI_I, TWO_PI_I)));
 }
 
-return { validateBox, boxPositivity, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
+return { validateBox, boxPositivity, cosGrid, refuteCandidate, decideCell, seedAligned, seedHerding, seedDirect,
          separationBox, separationNu, cStarBox,
          midProblem, VboxI, normNu, IDX, wNuI, mid, half, buildPhiI, convI };
 });
@@ -2546,14 +3343,14 @@ function mfgCertify(claim) {
     <h2>Three ways to run this, none of which involve me</h2>
   </div>
 <p>The map is evidence that the tool works at scale. The tool is the point.</p>
-<ul class="plain"><li><b>In this tab.</b> The box in §1. Nothing uploaded, nothing logged; a cell takes about a tenth of a second.</li><li><b>One file, offline.</b> <span class="m">reports/mfg-certify.js</span> — the same certifier as a standalone Node script with <em>no dependencies at all</em>, assembled from the repository sources at this build (sha256 7c8376b67efdba7b…). Download it, run it, diff it against the map.</li><li><b>The repository.</b> <span class="m">labs/mfg/</span> — the certifier, the sweep, the battery, and the README that states the scope. MIT.</li></ul>
+<ul class="plain"><li><b>In this tab.</b> The box in §1. Nothing uploaded, nothing logged; a cell takes about a tenth of a second.</li><li><b>One file, offline.</b> <span class="m">reports/mfg-certify.js</span> — the same certifier as a standalone Node script with <em>no dependencies at all</em>, assembled from the repository sources at this build (sha256 a3be611397cb7061…). Download it, run it, diff it against the map.</li><li><b>The repository.</b> <span class="m">labs/mfg/</span> — the certifier, the sweep, the battery, and the README that states the scope. MIT.</li></ul>
 <pre class="code">node mfg-certify.js &#39;{&quot;sigma&quot;:0.5,&quot;c&quot;:[-16.03,-15.97],&quot;A&quot;:[0.288,0.313]}&#39;
   -&gt; MULTIPLE — two exact solutions for every parameter in the cell
 
 git clone https://github.com/carlostoledo1891/cert-machine
 node labs/mfg/battery.js       # 9 checks, 6 falsifiers
 node labs/mfg/regime.js        # rebuild the whole map</pre>
-<p>The browser certifier is not a re-implementation. It is ASSEMBLED at build time from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, labs/mfg/box.js — nothing retyped — and then executed against the Node path and required to give the same verdicts and the same witnesses, or this page does not build. A rule defined twice will diverge; the only defence is a check that fires when it does.</p>
+<p>The browser certifier is not a re-implementation. It is ASSEMBLED at build time from legacy/core/interval/interval.js, legacy/core/mfg/mfg1d.js, instruments/interval/interval.js, instruments/interval/rational.js, instruments/interval/transcendental.js, labs/mfg/box.js — nothing retyped — and then executed against the Node path and required to give the same verdicts and the same witnesses, or this page does not build. A rule defined twice will diverge; the only defence is a check that fires when it does.</p>
 </section>
 
 <section class="">
@@ -2587,7 +3384,7 @@ node labs/mfg/regime.js        # rebuild the whole map</pre>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-mfg-observatory.js @ git e9141192. Gates that ran for this build: labs/mfg/battery.js (9 checks, 6/6 falsifiers red, including the bit-for-bit zero-width equality with the lifted kernel); the browser bundle executed against the Node path and required to agree; the map record re-tallied here from its own 19,800 cells with the area identity checked to 24.000000 = 24.000000; and 8 cells re-decided at build FROM SCRATCH — no warm start — with the same verdicts and independently re-derived witnesses. Map record: <span class="m">certs/mfg-regime-map.json</span>, sha256 ca6b63d34dbd8384…, swept 2026-08-28 in 2037 s. Lab: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg">labs/mfg/</a>. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-mfg-observatory.js @ git 33f23f84. Gates that ran for this build: labs/mfg/battery.js (9 checks, 6/6 falsifiers red, including the bit-for-bit zero-width equality with the lifted kernel); the browser bundle executed against the Node path and required to agree; the map record re-tallied here from its own 19,800 cells with the area identity checked to 24.000000 = 24.000000; and 8 cells re-decided at build FROM SCRATCH — no warm start — with the same verdicts and independently re-derived witnesses. Map record: <span class="m">certs/mfg-regime-map.json</span>, sha256 b7be37240282fd24…, swept 2026-11-17 in 1371 s. Lab: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg">labs/mfg/</a>. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
 
 </body>
 </html>

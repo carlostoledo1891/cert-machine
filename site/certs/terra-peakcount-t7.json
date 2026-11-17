@@ -51,7 +51,7 @@
     "lo": 0,
     "hi": 0.11451023617267765,
     "sign": "+",
-    "margin": 2.533295782512715,
+    "margin": 2.533295782512712,
     "grid": 256
    },
    {
@@ -67,11 +67,11 @@
     "lo": 0.26451023617267766,
     "hi": 0.5,
     "sign": "-",
-    "margin": 0.006322344347687557,
+    "margin": 0.006322344347705012,
     "grid": 1024
    }
   ],
-  "minMargin": 0.006322344347687557,
+  "minMargin": 0.006322344347705012,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -97,7 +97,7 @@
     "lo": 0,
     "hi": 0.13225936400860347,
     "sign": "-",
-    "margin": 0.07417925416375351,
+    "margin": 0.0741792541637533,
     "grid": 256
    },
    {
@@ -113,7 +113,7 @@
     "lo": 0.2822593640086035,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.05620378240060836,
+    "margin": 0.056203782400608776,
     "grid": 256
    }
   ],
@@ -130,11 +130,11 @@
  "peaksExceedWells": false,
  "rigor": {
   "countFrom": "certified region signs only (float is the proposer, never the authority)",
-  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js",
   "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
  },
  "meta": {
-  "date": "2026-09-01",
-  "git": "5c1b0c2"
+  "date": "2026-11-17",
+  "git": "144d9f6f"
  }
 }

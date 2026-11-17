@@ -274,12 +274,13 @@ const RED = {
 };
 /* DECLARED VIOLATIONS: found by this audit, reported, and not fixed here — a kernel change is the lead session's call (it
    forces re-derivation of every record that pins interval.js). Declared in this source, never in the generated record, so
-   regenerating the record cannot launder a new violation: any violation not listed here fails the run. */
-const DECLARED = {
-  'libieeep1788_rec_bool.itl:139 isMember -infinity [entire] = false;': 'found 2026-10-27',
-  'libieeep1788_rec_bool.itl:140 isMember infinity [entire] = false;': 'found 2026-10-27'
-};
-const DECLARED_WHY = 'interval.contains(a, x) answers a[0] <= x && x <= a[1], so ±∞ is a member of any interval with that infinite end; an IEEE 1788 interval holds reals only, so isMember(±∞, X) is false. The minimal fix is const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1]; no enclosure is affected.';
+   regenerating the record cannot launder a new violation: any violation not listed here fails the run.
+   NONE SINCE 2026-11-16. The two found 2026-10-27 (libieeep1788_rec_bool.itl:139-140, isMember ∓infinity [entire] = false:
+   interval.contains answered a[0] <= x && x <= a[1], so ±∞ was a member of an interval with that infinite end) were fixed
+   in the kernel that day by the one-line fix this list stated, const contains = (a, x) => Number.isFinite(x) && a[0] <= x
+   && x <= a[1]; the record that pinned them was re-derived by the new bytes, 2 violations -> 0. */
+const DECLARED = {};
+const DECLARED_WHY = 'none declared. The two isMember answers at ±infinity found on 2026-10-27 (libieeep1788_rec_bool.itl:139-140; interval.contains answered a[0] <= x && x <= a[1], so ±∞ was a member of any interval with that infinite end) were fixed on 2026-11-16 by const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1]; no enclosure was affected.';
 const DECORATION_OPS = new Set(['newDec', 'setDec', 'decorationPart', 'intervalPart', 'd-numsToInterval', 'd-textToInterval']);
 const SET_OPS = new Set(['intersection', 'convexHull']);
 const isReverse = (op) => /Rev(?:Bin|Ten|ToPair|1|2)?$/.test(op);

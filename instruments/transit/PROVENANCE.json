@@ -3,7 +3,8 @@
   "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/experiments/transit",
   "liftedOn": "2026-09-05",
   "declaredPatches": {
-    "transit.js, enclose.js": "one require each: ../../lib/eqcert/interval.js -> ../interval/interval.js. The two files are byte-identical (the labs' interval library, lifted from sin-mfg into instruments/interval/); only the path changed."
+    "transit.js, enclose.js": "one require each: ../../lib/eqcert/interval.js -> ../interval/interval.js. The two files are byte-identical (the labs' interval library, lifted from sin-mfg into instruments/interval/); only the path changed.",
+    "transit.js (2026-11-16)": "the padded platform cos/sin retired from the kernel: zIv builds theta from transcendental.js's enclosed 2 pi (T.TWO_PI, where the thin [2*Math.PI, 2*Math.PI] did not contain the real 2 pi), and encloseSinIv / encloseCosIv are transcendental.js's proved series sin / cos over the interval (they were Math.sin / Math.cos at the two ends widened by the kernel's derived pad); the monotone-branch guard |theta| <= 1.5 stays. One require added (../interval/transcendental.js). out/page.json, out/witness.json and paper/figures.tex re-derived by the patched code."
   },
   "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git. fetch.js talks to archive.stsci.edu and is NEVER run by a battery: data/*.csv are the pinned extractions. The paper is a pinned artifact (TeX + PDF as typeset there with tectonic); figures.tex is regenerated from the records by paper/make-figures.js and must reproduce.",
   "acceptance": {
@@ -86,9 +87,9 @@
     },
     {
       "file": "transit.js",
-      "sha256": "be4888608065e556d27d175e21ffcdae77f420681d6a77c74e6a8cd292485899",
+      "sha256": "dd76dad8acf7b8a540c723dbc555022990c7355f575c3e83b05a2b1ed43c5832",
       "sourceSha256": "9bf7da54ab6d8284c71d0014a68f9e354487918656abcd0e06ef625e6e570ea0",
-      "bytes": 10055,
+      "bytes": 10007,
       "patched": true
     },
     {
@@ -136,12 +137,12 @@
     },
     {
       "file": "out/page.json",
-      "sha256": "4ff3059674bbfde8c372a0a42fa74ee7ccf72c48f81b8bfc500001875f7c8cbd",
+      "sha256": "58d1232407733b3dc84289733b3df61d12af21b5bd791f73e35aa81b8f6e8081",
       "sourceSha256": null,
-      "bytes": 95473,
+      "bytes": 95464,
       "patched": false,
       "derivedHere": true,
-      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js)"
+      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js); re-derived 2026-11-16 by the patched transit.js (the proved series sin/cos): every enclosure and verdict identical, only the witness atoms' weights moved (about 1e-13) and the timings"
     },
     {
       "file": "out/witness.frontier.json",
@@ -153,12 +154,12 @@
     },
     {
       "file": "out/witness.json",
-      "sha256": "ad765f3c18847c7f9cf723fe347eec98684c4901b204d5b8ab6ca1cde5d5f3c1",
+      "sha256": "b8271c08c00374bd4c8e4265f4bf949cad1eecfa909f6d94bf4e9f721ac1d947",
       "sourceSha256": null,
       "bytes": 68191,
       "patched": false,
       "derivedHere": true,
-      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js)"
+      "note": "produced here by the pinned code from the pinned data (make-page-data.js, 10.4 min; witness-curves.js; paper/make-figures.js); re-derived 2026-11-16 by the patched transit.js (the proved series sin/cos): every enclosure and verdict identical, only the witness atoms' weights moved (about 1e-13) and the timings"
     },
     {
       "file": "paper/figures.frontier.tex",

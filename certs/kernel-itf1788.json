@@ -1,11 +1,11 @@
 {
  "what": "The interval kernel (instruments/interval: interval.js, transcendental.js, algebraic.js) run on ITF1788, the IEEE Std 1788-2015 interval test suite, at one pinned commit. Every test of an operation the kernel implements with the IEEE meaning is run; its expected result is the tightest double enclosure, so any valid enclosure contains it: CONTAINED-TIGHT = exactly the expected interval, CONTAINED = a wider enclosure, REFUSED = the kernel threw (its domain is enforced by refusal), VIOLATION = a result that does not contain the expected one (a soundness defect, each listed). NOT-APPLICABLE tests (decorations, the empty set, reverse and set operations, operations the kernel does not have, binary32 literals, tests with no tightest result) are counted per file and never run. mag and wid are scored as upper bounds, mig as a lower bound, subset/interior/isMember as proofs (a false where the suite says true is CONTAINED, a true where it says false is a VIOLATION). Literals are read exactly and rounded to the nearest double (the C double literal ITF1788 compiles them to). Two planted wrong kernels are red controls. Written by tools/audit-kernel-itf1788.js; --check re-hashes the pins and re-derives every number.",
- "generated": "2026-10-27T14:25:34Z",
- "seconds": 0.175,
- "git": "c36f1f03",
+ "generated": "2026-11-17T00:06:17Z",
+ "seconds": 0.277,
+ "git": "144d9f6f",
  "node": "v24.14.1",
  "modules": {
-  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/interval.js": "5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e",
   "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
   "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
   "instruments/interval/algebraic.js": "bf6bbbccc41237c3519e173cf5a9439c3da59f8487b74c090f56a3c3fa57cfb0"
@@ -45,10 +45,10 @@
   "suiteTests": 9542,
   "kernelOpTests": 2209,
   "run": 1891,
-  "tight": 466,
+  "tight": 468,
   "contained": 974,
   "refused": 449,
-  "violations": 2,
+  "violations": 0,
   "notApplicable": 7651
  },
  "notApplicableByReason": {
@@ -281,11 +281,11 @@
   "isMember": {
    "fn": "interval.contains (arguments swapped)",
    "tests": 75,
-   "tight": 28,
+   "tight": 30,
    "contained": 0,
    "refused": 0,
    "notApplicable": 45,
-   "violations": 2,
+   "violations": 0,
    "refusedBy": {}
   }
  },
@@ -527,10 +527,10 @@
   "libieeep1788_rec_bool.itl": {
    "tests": 139,
    "run": 30,
-   "tight": 28,
+   "tight": 30,
    "contained": 0,
    "refused": 0,
-   "violations": 2,
+   "violations": 0,
    "notApplicable": {
     "decorations": 77,
     "reverse operation": 0,
@@ -832,37 +832,6 @@
    "refused": 0
   }
  },
- "violations": [
-  {
-   "at": "libieeep1788_rec_bool.itl:139",
-   "testcase": "minimal_is_member_test",
-   "op": "isMember",
-   "fn": "interval.contains (arguments swapped)",
-   "test": "isMember -infinity [entire] = false;",
-   "inputs": [
-    "-infinity",
-    "[-infinity, infinity]"
-   ],
-   "expected": "false",
-   "got": "true",
-   "expectedLiteralInexact": false,
-   "declared": true
-  },
-  {
-   "at": "libieeep1788_rec_bool.itl:140",
-   "testcase": "minimal_is_member_test",
-   "op": "isMember",
-   "fn": "interval.contains (arguments swapped)",
-   "test": "isMember infinity [entire] = false;",
-   "inputs": [
-    "infinity",
-    "[-infinity, infinity]"
-   ],
-   "expected": "false",
-   "got": "true",
-   "expectedLiteralInexact": false,
-   "declared": true
-  }
- ],
- "declaredViolationsWhy": "interval.contains(a, x) answers a[0] <= x && x <= a[1], so ±∞ is a member of any interval with that infinite end; an IEEE 1788 interval holds reals only, so isMember(±∞, X) is false. The minimal fix is const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1]; no enclosure is affected."
+ "violations": [],
+ "declaredViolationsWhy": "none declared. The two isMember answers at ±infinity found on 2026-10-27 (libieeep1788_rec_bool.itl:139-140; interval.contains answered a[0] <= x && x <= a[1], so ±∞ was a member of any interval with that infinite end) were fixed on 2026-11-16 by const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1]; no enclosure was affected."
 }

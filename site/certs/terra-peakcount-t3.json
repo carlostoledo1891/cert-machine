@@ -51,7 +51,7 @@
     "lo": 0,
     "hi": 0.12857764506323974,
     "sign": "+",
-    "margin": 0.864350277870962,
+    "margin": 0.8643502778709597,
     "grid": 256
    },
    {
@@ -59,7 +59,7 @@
     "lo": 0.12857764506323974,
     "hi": 0.2785776450632398,
     "sign": "+",
-    "margin": 0.1807843618784358,
+    "margin": 0.18078436187843586,
     "grid": 256
    },
    {
@@ -67,11 +67,11 @@
     "lo": 0.2785776450632398,
     "hi": 0.5,
     "sign": "-",
-    "margin": 0.4953921068131227,
+    "margin": 0.49539210681312723,
     "grid": 256
    }
   ],
-  "minMargin": 0.1807843618784358,
+  "minMargin": 0.18078436187843586,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -97,7 +97,7 @@
     "lo": 0,
     "hi": 0.12167421592694123,
     "sign": "-",
-    "margin": 0.08938183204534694,
+    "margin": 0.08938183204534683,
     "grid": 256
    },
    {
@@ -105,7 +105,7 @@
     "lo": 0.12167421592694123,
     "hi": 0.2716742159269413,
     "sign": "-",
-    "margin": 0.0166157104890301,
+    "margin": 0.016615710489030093,
     "grid": 256
    },
    {
@@ -113,11 +113,11 @@
     "lo": 0.2716742159269413,
     "hi": 0.5,
     "sign": "+",
-    "margin": 0.022825255373484215,
+    "margin": 0.022825255373484742,
     "grid": 256
    }
   ],
-  "minMargin": 0.0166157104890301,
+  "minMargin": 0.016615710489030093,
   "assertions": {
    "contiguous": true,
    "curvatureAlternates": true,
@@ -130,11 +130,11 @@
  "peaksExceedWells": false,
  "rigor": {
   "countFrom": "certified region signs only (float is the proposer, never the authority)",
-  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, trig argument rounding chain bounded",
+  "coefficientProducts": "outward interval arithmetic, 2pi enclosed, sin and cos over the interval angle by the proved series of instruments/interval/transcendental.js",
   "cellPad": "(L + ballPadNextDeriv) * h/2 + ballPad — the ball Lipschitz is folded in"
  },
  "meta": {
-  "date": "2026-09-01",
-  "git": "5c1b0c2"
+  "date": "2026-11-17",
+  "git": "144d9f6f"
  }
 }

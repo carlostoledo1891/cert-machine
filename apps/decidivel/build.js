@@ -7,6 +7,10 @@
    and the Nota Técnica (site/decidivel/nota-tecnica-exemplo.pdf), each re-printed
    only when its HTML changes.
 
+   FROZEN (2026-11-16): data/decidivel-ledger.json and data/decidivel-ledger-2026-11-11.json are frozen as submitted
+   and pin the interval kernel of their dates (the kernel changed on 2026-11-16); their pins are verified at the
+   commit each record was made at (tools/pinned-at.js), and site/decidivel/ is not rebuilt.
+
    usage: node apps/decidivel/build.js                apps/decidivel · cert-machine  MIT */
 'use strict';
 const fs = require('fs');
@@ -28,12 +32,20 @@ const bm = /decidivel battery: (\d+) pass, 0 fail, (\d+)\/(\d+) red controls fir
 if (!bm || bm[2] !== bm[3]) die('the battery did not pass whole: ' + out);
 console.log('gate: ' + out.trim());
 
-/* gate 2 — the ledger is this engine's, over these ranges */
+/* gate 2 — the ledger is this engine's, over these ranges. The submitted record is FROZEN (2026-11-16, the operator's
+   ruling): it keeps pinning the engine and the interval kernel it was written by, and the page inlines those bytes. A
+   pin is verified on disk or at the commit the record was made at (tools/pinned-at.js); one that holds nowhere is
+   refused as before. One that holds only at that commit names the frozen record's own code, and the build refuses
+   too — a rebuild would inline today's code beside a record that pins another, so it waits on the operator's word,
+   with a new record. */
 const R = require('./engine/rockphys.js');
 const L = JSON.parse(fs.readFileSync(path.join(APP, 'data', 'decidivel-ledger.json'), 'utf8'));
-const fileSha = (f) => sha(fs.readFileSync(path.join(ROOT, f)));
-for (const [f, h] of Object.entries(L.engine)) if (fileSha(f) !== h) die(f + ' is not the code that wrote the ledger (run apps/decidivel/run.js)');
-if (fileSha(L.declared.file) !== L.declared.sha256) die('declared.json is not the one the ledger decided over (run apps/decidivel/run.js)');
+{
+  const P = require(path.join(ROOT, 'tools', 'pinned-at.js')).check('apps/decidivel/data/decidivel-ledger.json', Object.assign({}, L.engine, { [L.declared.file]: L.declared.sha256 }));
+  const nowhere = P.pins.filter((x) => !x.holds).map((x) => x.file), atCommit = P.pins.filter((x) => x.holds === 'commit').map((x) => x.file);
+  if (nowhere.length) die(nowhere.join(', ') + ' is not the code that wrote the ledger, on disk or at the commit it was made at (run apps/decidivel/run.js)');
+  if (atCommit.length) die('the ledger is the FROZEN record of the submitted page: it pins ' + atCommit.join(', ') + ' as at ' + P.commit.slice(0, 8) + ' (' + P.date + '), not the code on disk; the page stays as submitted (a rebuild is the operator\'s word, with a new record)');
+}
 
 /* gate 3 — a seeded sample re-decided */
 const D = JSON.parse(fs.readFileSync(path.join(APP, 'declared.json'), 'utf8'));

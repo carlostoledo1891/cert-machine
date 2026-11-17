@@ -65,6 +65,7 @@
 
 const path = require('path');
 const IV = require(path.join(__dirname, '..', '..', 'instruments', 'interval', 'interval.js'));
+const TR = require(path.join(__dirname, '..', '..', 'instruments', 'interval', 'transcendental.js'));
 const { iv, add, sub, mul, div, neg, sqr, nextUp, nextDown } = IV;
 
 /* ---------- units ---------------------------------------------------------- */
@@ -81,29 +82,15 @@ function isqrt(x) {
 }
 
 /* ---------- sound cos/sin over an ANGLE INTERVAL --------------------------
-   Endpoints plus the interior extrema: cos attains +1 at 2kπ and −1 at
-   (2k+1)π; sin attains ±1 at (2k±1/2)π. Detected by counting whether such a
-   point lies inside [a,b], which is exact in float for our magnitudes.      */
-function hitsMultiple(a, b, period, offset) {
-  const k0 = Math.ceil((a - offset) / period);
-  return (k0 * period + offset) <= b;
-}
-function cosHull(a, b) {
-  if (b - a >= 2 * Math.PI) return [-1, 1];
-  const ca = IV.encloseCos(a), cb = IV.encloseCos(b);
-  let lo = Math.min(ca[0], cb[0]), hi = Math.max(ca[1], cb[1]);
-  if (hitsMultiple(a, b, 2 * Math.PI, 0)) hi = 1;
-  if (hitsMultiple(a, b, 2 * Math.PI, Math.PI)) lo = -1;
-  return [nextDown(lo), nextUp(hi)];
-}
-function sinHull(a, b) {
-  if (b - a >= 2 * Math.PI) return [-1, 1];
-  const sa = IV.encloseSin(a), sb = IV.encloseSin(b);
-  let lo = Math.min(sa[0], sb[0]), hi = Math.max(sa[1], sb[1]);
-  if (hitsMultiple(a, b, 2 * Math.PI, Math.PI / 2)) hi = 1;
-  if (hitsMultiple(a, b, 2 * Math.PI, -Math.PI / 2)) lo = -1;
-  return [nextDown(lo), nextUp(hi)];
-}
+   transcendental.js's proved series over the box [a, b]: the endpoints by a
+   series with a remainder after reduction by an enclosure of π/2, and the
+   interior extrema (cos = ±1 at kπ, sin = ±1 at (k+1/2)π) found against an
+   ENCLOSED π, so a critical point near an end can only widen the answer.
+   Until 2026-11-16 this was the platform's Math.cos / Math.sin at the two
+   ends, widened by the kernel's retired pad, with the extrema tested against
+   multiples of the double Math.PI.                                          */
+function cosHull(a, b) { return TR.cos([a, b]); }
+function sinHull(a, b) { return TR.sin([a, b]); }
 
 /* ---------- geodesy (H3) --------------------------------------------------
    Haversine in double, then enclosed by the earth-radius interval and a
@@ -131,11 +118,17 @@ function bearingOf(lat1, lon1, lat2, lon2) {
    FROM) }, h = [lo,hi] metres above the site. Returns metres, plus a
    `degenerate` flag when the envelope admits a crosswind at or above the
    airspeed, where the steady-glide model has no solution on that course.  */
-function bandRaw(bearingDeg, h, env, tTurn) {
-  const a = (bearingDeg - env.Wdir[1]) * D2R;
-  const b = (bearingDeg - env.Wdir[0]) * D2R;
+/* the two trig hulls of the wind angle over one Wdir box; they depend on the bearing and Wdir only, so band() takes them
+   once per Wdir sub-box (2026-11-16: the proved series costs ~300x the platform's Math.cos, and every Va sub-box used
+   to recompute the same twelve pairs — the same inputs, the same outputs, 24x fewer evaluations) */
+function angleHulls(bearingDeg, Wdir) {
+  const a = (bearingDeg - Wdir[1]) * D2R;
+  const b = (bearingDeg - Wdir[0]) * D2R;
   const lo = Math.min(a, b), hi = Math.max(a, b);
-  const cosD = cosHull(lo, hi), sinD = sinHull(lo, hi);
+  return { cosD: cosHull(lo, hi), sinD: sinHull(lo, hi) };
+}
+function bandRaw(bearingDeg, h, env, tTurn, hulls) {
+  const { cosD, sinD } = hulls || angleHulls(bearingDeg, env.Wdir);
 
   const along = mul(neg(env.Ws), cosD);
   const cross = mul(env.Ws, sinD);
@@ -181,9 +174,11 @@ function splitIv(r, n) {
 }
 function band(bearingDeg, h, env, tTurn) {
   let lo = Infinity, hi = -Infinity, degenerate = false;
+  const WD = splitIv(env.Wdir, NWD), HU = WD.map((W) => angleHulls(bearingDeg, W));
   for (const Va of splitIv(env.Va, NVA)) {
-    for (const Wdir of splitIv(env.Wdir, NWD)) {
-      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }), tTurn);
+    for (let j = 0; j < WD.length; j++) {
+      const Wdir = WD[j];
+      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }), tTurn, HU[j]);
       if (r.lo < lo) lo = r.lo;
       if (r.hi > hi) hi = r.hi;
       if (r.degenerate) degenerate = true;

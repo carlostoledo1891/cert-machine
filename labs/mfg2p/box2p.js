@@ -43,6 +43,9 @@
 
 const I = require('../../legacy/core/interval/interval.js');
 const M2 = require('./mfg2p.js');
+/* the proved cosine table of the one-population certifier: transcendental.js's series cos at 2 pi (j/G), one table
+   per grid size (labs/mfg/box.js, cosGrid — one definition for both certifiers) */
+const { cosGrid } = require('../mfg/box.js');
 
 const { iv, add, sub, mul, div, neg, abs, mag, mig, ZERO, ONE } = I;
 const TWO_PI = 2 * Math.PI;
@@ -488,7 +491,10 @@ function validateBox(xFloat, box, opts) {
    sup_x |m_i(x) - mbar_i(x)| <= r for each i, and a rigorous lower bound on
    min mbar_i over the box, minus r, bounds min m_i below for every parameter in
    the cell. m_i > 0 is a HYPOTHESIS of the model, so it is certified, never
-   assumed — and with two populations BOTH must clear it.                    */
+   assumed — and with two populations BOTH must clear it.
+   THE COSINES ARE PROVED (2026-11-16): cos(2 pi k g/G) = cos(2 pi j/G) with
+   j = (k g) mod G, read from labs/mfg/box.js's table of transcendental.js
+   series enclosures — no longer Math.cos widened by the kernel's retired pad. */
 function boxPositivity(predictor, N, r, G) {
   const out = [];
   for (let i = 0; i < NPOP; i++) {
@@ -496,13 +502,15 @@ function boxPositivity(predictor, N, r, G) {
     let Lc = 0;
     for (let k = 1; k <= N; k++) Lc = I.nextUp(Lc + 2 * TWO_PI_HI * k * mag(bI[k]));
     let g0 = G || 4096, lo = Infinity, guard = 0;
+    if (!(Number.isInteger(g0) && g0 > 0 && N * g0 < 2 ** 53)) throw new Error('boxPositivity: the grid size must be a positive integer, got ' + g0);
     for (;;) {
       lo = Infinity;
+      const tab = cosGrid(g0);
       for (let g = 0; g < g0; g++) {
-        const t = g / g0;
         let m = iv(1);
         for (let k = 1; k <= N; k++) {
-          const ci = I.encloseCos(TWO_PI * k * t);
+          const j = (k * g) % g0;                                /* exact: k g < 2^53 */
+          const ci = [tab.lo[j], tab.hi[j]];
           m = add(m, mul([2 * bI[k][0], 2 * bI[k][1]], ci));   /* doubling is exact */
         }
         if (m[0] < lo) lo = m[0];

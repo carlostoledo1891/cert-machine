@@ -1,7 +1,7 @@
 {
  "what": "The registry's C_16 enclosure (maximusrufus, teorth/optimizationproblems #246, merged 2026-10-26 with both rows asterisked) decided as a second party by two implementations that share no code with each other or with the claimant's checkers (kept as text, never run): every finite claim of the two certificates, stated in corpus/optconst-queue/c16-2026-10-27/claims.json before deciding; the analytic steps (the weighted Cauchy–Schwarz dual bound, the tail bounds, the asymptotic bound g) read and re-derived there, never given a verdict; the convexity step not used (each box decided by subdivision with monotone enclosures)",
- "generated": "2026-10-27T14:54:37Z",
- "seconds": 227.7,
+ "generated": "2026-11-17T00:20:20Z",
+ "seconds": 73,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
@@ -9,7 +9,7 @@
   "py": "098fa3d3629e831f506628863a1a8b61b50144f33b4fbe4506f208c8c0d00338",
   "bgw16a": "b3a7eca375da5830058e88223582a4fe3f75acca9d57efbd4389fac4c432cda3",
   "ivdec": "f4e514c49e79d8e082d825703d1efaf525eb543299f00fd4713b22b883b2f04f",
-  "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "eqcertInterval": "5b25b6f6039ad303d4457106f1165b85f1ed150344759a1cf92aeba64fca4f2e",
   "eqcertTranscendental": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
   "eqcertRational": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
  },
@@ -156,7 +156,7 @@
      "2.1562247706441",
      "2.1562247706444"
     ],
-    "seconds": 6.3
+    "seconds": 1.7
    },
    "LF2": {
     "bracketsMeetEnclosures": {
@@ -242,7 +242,7 @@
     "verdict": "CERTIFIED",
     "how": "implied: 2.1562256458 <= 2.1562256465 and 2.1562256458 is CERTIFIED (the acceptance test is monotone in the bound)"
    },
-   "seconds": 56.3,
+   "seconds": 18.7,
    "boxes": [
     {
      "box": 0,
@@ -3184,7 +3184,7 @@
  },
  "py": {
   "python": "3.9.6",
-  "seconds": 93.8,
+  "seconds": 33.3,
   "constants": {
    "G": [
     "0.91596559417721901505",
@@ -3230,7 +3230,7 @@
      "2.15622477064423579034",
      "2.15622477064423579035"
     ],
-    "seconds": 50.6
+    "seconds": 13.4
    },
    "LF2": {
     "verdict": "CERTIFIED",
@@ -5455,7 +5455,7 @@
      "UF4": "CERTIFIED"
     }
    ],
-   "seconds": 40.9
+   "seconds": 18.2
   },
   "redControls": {
    "upper-below-supported": "REFUSED",

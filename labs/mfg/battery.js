@@ -13,7 +13,13 @@
    the radii-polynomial argument (box.js, uniform over a parameter rectangle)
    beside the lifted single-point one (legacy/core/mfg/validate.js). A rule
    defined twice will diverge; the only defence is a check that fires when it
-   does. G1 and G2 demand bit-for-bit equality on the reference instances.
+   does. G1 demands bit-for-bit equality on the reference instances. G2 did
+   too until 2026-11-16, when box.js's positivity cosines became the proved
+   series of instruments/interval/transcendental.js while the lifted
+   validate.js (read-only, a gate source) still pads the platform's Math.cos:
+   G2 now demands the same L, the same grid G and the same verdict, and minMbar
+   and minM within the two cosines' error budgets (the old pad plus the new
+   enclosure's width, per mode, summed with the coefficients).
 
    usage: node labs/mfg/battery.js          (exit 0 and "ALL PASS" or nothing)
    MIT licensed. Part of cert-machine (labs/mfg). */
@@ -45,7 +51,7 @@ const REF = [[0.5, 1, 1, 16, 1.05], [0.3, 2, 1.5, 20, 1.05], [0.5, 1, 0.5, 16, 1
 
 /* ================= G · agreement with the lifted point kernel ============ */
 {
-  let same = 0, pos = 0;
+  let same = 0, pos = 0, posBit = 0;
   for (const [sigma, c, A, n, nu] of REF) {
     const P = M.makeProblem({ sigma, c, A, N: n });
     const s = M.solve(P);
@@ -57,12 +63,23 @@ const REF = [[0.5, 1, 1, 16, 1.05], [0.3, 2, 1.5, 20, 1.05], [0.5, 1, 0.5, 16, 1
     const bI = [[1, 1]];
     for (let k = 1; k <= n; k++) bI.push([un.b[k], un.b[k]]);
     const pr = V.certifyPositivity(s.x, P, ref.r), pb = B.boxPositivity(bI, n, ref.r);
-    if (pr.minM === pb.minM && pr.minMbar === pb.minMbar && pr.L === pb.L && pr.G === pb.G) pos++;
+    /* each cosine of validate.js is Math.cos padded by 2·ε·|ang| + ε, |ang| <= 2πN; each of box.js is an enclosure at
+       most as wide (measured below on the grid); a lower end of m moves by at most the sum over modes of 2|b_k| times
+       both, plus the two ulps of the final subtractions */
+    let sb = 0;
+    for (let k = 1; k <= n; k++) sb += 2 * Math.abs(un.b[k]);
+    const tab = B.cosGrid(pb.G);
+    let wmax = 0;
+    for (let j = 0; j < pb.G; j++) wmax = Math.max(wmax, tab.hi[j] - tab.lo[j]);
+    const tol = sb * (2 * Number.EPSILON * 2 * Math.PI * n + Number.EPSILON + wmax) + 4 * Number.EPSILON;
+    if (pr.L === pb.L && pr.G === pb.G && pr.positive === pb.positive
+        && Math.abs(pr.minMbar - pb.minMbar) <= tol && Math.abs(pr.minM - pb.minM) <= tol) pos++;
+    if (pr.minM === pb.minM && pr.minMbar === pb.minMbar) posBit++;
   }
   check('G1 at zero width the box certifier reproduces validate.js BIT FOR BIT (Y0, Z1, Z2, r, kappa)',
     same === REF.length, same + '/' + REF.length + ' reference instances identical');
-  check('G2 at zero width boxPositivity reproduces certifyPositivity bit for bit (minM, minMbar, L, G)',
-    pos === REF.length, pos + '/' + REF.length + ' identical');
+  check('G2 at zero width boxPositivity agrees with certifyPositivity: L, G and the verdict identical, minM and minMbar within the cosines\' error budgets',
+    pos === REF.length, pos + '/' + REF.length + ' agree, ' + posBit + '/' + REF.length + ' bit for bit');
 }
 {
   /* the kappa column validate.js records in its own header, recomputed here */

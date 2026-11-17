@@ -615,6 +615,176 @@
           "{\n  /* X6 — the toDouble underflow that reported a certified WIDTH as exactly\n     zero. Found 2026-08-31 by the Erdos #290 squeeze at horizon l = 309: once\n     the denominator passes ~1024 bits while the numerator does not,\n     Number(d) is Infinity, the quotient is finite/Infinity = 0, and the old\n     guard `Number.isFinite(q)` ACCEPTED that zero. A width of zero reads as\n     infinite precision, which is the worst direction this file can fail in. */\n  const Q = require('../rational.js');\n  const N = (2n ** 1016n) * 3n, D = (2n ** 1026n) * 3n * 10000n / 8071n;\n  const got = Q.toDouble({ n: N, d: D });\n  const oldWay = Number(N) / Number(D);\n  const caught = got > 1e-4 && got < 1e-3 && oldWay === 0 && Number.isFinite(oldWay);\n  if (caught) { reds++; console.log('       RED ok  X6 a rational with a >1024-bit denominator reports ' + got.toExponential(3)\n    + ', not the 0 the old isFinite guard accepted (a certified width of zero is a claim of infinite precision)'); }\n}\ncheck('X every falsifier turned its own target red', reds === 6, reds + '/6');"
         ]
       ]
+    },
+    {
+      "file": "instruments/interval/interval.js",
+      "why": "CORRECTNESS, in dated edits declared here on 2026-11-16 (the 2026-10-09 ones had been made and never declared, so PROVENANCE.json still named the lift-time bytes, patched false). 2026-10-09 (the code read of Phase 0): the domain enforced — every arithmetic operation refuses a malformed operand (not a pair of numbers, NaN, lo > hi) or an indeterminate result (0·∞, ∞−∞) by throw, through wf/out, and wf is exported; pow refuses an exponent at or beyond 2^31, where its 32-bit `e & 1` / `e >>= 1` returned [1,1]. 2026-11-16, two approved fixes in one commit: contains(a, x) requires a finite x — ±∞ was a member of any interval with that infinite end, the two ITF1788 violations isMember ∓infinity [entire] of certs/kernel-itf1788.json; and the padded platform cos/sin helper (trigAbsPad, encloseCos, encloseSin: Math.cos/Math.sin, which ECMAScript gives no accuracy bound, widened by a derived pad under an unwritten argument-error contract) is retired, its six callers moved to transcendental.js's proved series sin/cos. Every record that pinned the kernel's digest was re-derived by the new bytes each time (certs/erratum-2026-10-09.json; the 2026-11-16 re-derivation, the return-level atlas after it), except the Petrobras submissions, frozen as submitted and pinning the kernel of their dates (tools/pinned-at.js).",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "function add(a, b) { return [nextDown(a[0] + b[0]), nextUp(a[1] + b[1])]; }\nfunction sub(a, b) { return [nextDown(a[0] - b[1]), nextUp(a[1] - b[0])]; }\n",
+          "/* THE DOMAIN, ENFORCED (2026-10-09). The rigor model above is a statement about\n   finite, well-formed operands: a pair of non-NaN doubles with lo <= hi, where an\n   infinite endpoint is a sound (if useless) bound. Before this date nothing checked\n   it: mul([0, Infinity], [0, 1]) returned [NaN, NaN], div by [NaN, NaN] was not\n   refused (NaN fails the straddle test), and a consumer written as\n   `if (!(x[1] > c)) proved` would have certified on a NaN. The batteries skipped\n   non-finite results and so never saw it. Every arithmetic operation now refuses a\n   malformed operand or an indeterminate result (0·∞, ∞−∞) by THROW — a refusal,\n   never a decision — and the method paper states this domain beside its rounding\n   proposition. Cost: a few comparisons per operation. */\nfunction wf(a, op) {\n  if (!Array.isArray(a) || a.length !== 2 || typeof a[0] !== 'number' || typeof a[1] !== 'number'\n      || Number.isNaN(a[0]) || Number.isNaN(a[1]) || a[0] > a[1])\n    throw new Error('interval ' + op + ': malformed operand ' + JSON.stringify(a) + ' — refused, not decided');\n  return a;\n}\nfunction out(r, op) {\n  if (Number.isNaN(r[0]) || Number.isNaN(r[1]))\n    throw new Error('interval ' + op + ': indeterminate result (0·∞ or ∞−∞) — refused, not decided');\n  return r;\n}\n\nfunction add(a, b) { wf(a, 'add'); wf(b, 'add'); return out([nextDown(a[0] + b[0]), nextUp(a[1] + b[1])], 'add'); }\nfunction sub(a, b) { wf(a, 'sub'); wf(b, 'sub'); return out([nextDown(a[0] - b[1]), nextUp(a[1] - b[0])], 'sub'); }\n"
+        ],
+        [
+          "function mul(a, b) {\n  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];\n",
+          "function mul(a, b) {\n  wf(a, 'mul'); wf(b, 'mul');\n  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];\n"
+        ],
+        [
+          "  return [nextDown(Math.min(p[0], p[1], p[2], p[3])),\n          nextUp(Math.max(p[0], p[1], p[2], p[3]))];\n",
+          "  return out([nextDown(Math.min(p[0], p[1], p[2], p[3])),\n              nextUp(Math.max(p[0], p[1], p[2], p[3]))], 'mul');\n"
+        ],
+        [
+          "function div(a, b) {\n  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');\n",
+          "function div(a, b) {\n  wf(a, 'div'); wf(b, 'div');\n  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');\n"
+        ],
+        [
+          "  return [nextDown(Math.min(q[0], q[1], q[2], q[3])),\n          nextUp(Math.max(q[0], q[1], q[2], q[3]))];\n",
+          "  return out([nextDown(Math.min(q[0], q[1], q[2], q[3])),\n              nextUp(Math.max(q[0], q[1], q[2], q[3]))], 'div');\n"
+        ],
+        [
+          "function sqr(a) {                       /* tighter than mul(a,a) across 0 */\n  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];\n",
+          "function sqr(a) {                       /* tighter than mul(a,a) across 0 */\n  wf(a, 'sqr');\n  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];\n"
+        ],
+        [
+          "const contains = (a, x) => a[0] <= x && x <= a[1];\n",
+          "/* MEMBERSHIP HOLDS REALS ONLY (2026-11-16). Until this date contains(a, x) answered a[0] <= x && x <= a[1], so ±∞\n   was a member of any interval with that infinite end: isMember(±∞, [entire]) came back true where IEEE 1788 says\n   false (certs/kernel-itf1788.json, two violations found 2026-10-27). No enclosure was affected, every caller passes a\n   finite point; the answer is now false for ±∞ and for NaN. */\nconst contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1];\n"
+        ],
+        [
+          "  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);\n  if (n < 0) return div(ONE, pow(a, -n));\n",
+          "  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);\n  /* `e & 1` and `e >>= 1` are 32-bit operations: pow([1,2], 2^31) returned [1,1] and\n     pow([2,2], 2^53) returned [1,1] — silently, like the negative-exponent trap above.\n     Found 2026-10-09 by a code read, with 0 call sites beyond exponents 2 and 3. Refused. */\n  if (Math.abs(n) >= 2147483648) throw new Error('interval pow: exponent ' + n + ' is beyond 2^31 — refused (32-bit exponent arithmetic)');\n  if (n < 0) return div(ONE, pow(a, -n));\n"
+        ],
+        [
+          "  if (n < 0) return div(ONE, pow(a, -n));\n  let r = ONE, base = a, e = n;\n",
+          "  if (n < 0) return div(ONE, pow(a, -n));\n  wf(a, 'pow');\n  let r = ONE, base = a, e = n;\n"
+        ],
+        [
+          "/* ---------- Stage 2.4 — thin floats and the trigonometric pad ----------\n   Math.cos / Math.sin are implementation-approximated with NO ECMAScript accuracy\n   bound. The positivity kernels used a remembered ±1e-15 pad that under-covered the\n   float mul-chain argument error by ≥16× on the Fourier grids in this monorepo\n   (TOPIC B6: measured 1.641e-14). Until a Taylor / Payne–Hanek interval cos ships\n   (sound interval exp/log: src/transcendental.js), enclose the float evaluation\n   by a DERIVED absolute pad: |d cos/dθ|≤1 and |d sin/dθ|≤1, so\n     pad(ang) = 2·ε·|ang| + ε\n   dominates a 2-ulp relative argument defect plus one ulp of the result.\n",
+          "/* ---------- Stage 2.4 — thin floats ----------\n"
+        ],
+        [
+          "   ulp each side — the last-ulp thin-scalar hardening for 2π. */\nfunction trigAbsPad(ang) {\n  return nextUp(2 * Number.EPSILON * Math.abs(ang) + Number.EPSILON);\n}\nfunction encloseCos(ang) {\n  const cv = Math.cos(ang), p = trigAbsPad(ang);\n  return [nextDown(cv - p), nextUp(cv + p)];\n}\nfunction encloseSin(ang) {\n  const sv = Math.sin(ang), p = trigAbsPad(ang);\n  return [nextDown(sv - p), nextUp(sv + p)];\n}\n",
+          "   ulp each side — the last-ulp thin-scalar hardening for 2π.\n\n   THE PADDED PLATFORM COS/SIN, RETIRED (2026-11-16). encloseCos / encloseSin /\n   trigAbsPad enclosed Math.cos / Math.sin — which ECMAScript gives NO accuracy\n   bound — by a derived pad of 2·ε·|ang| + ε, under an unwritten contract that the\n   argument carried at most 2 ulp of relative error. They are gone from the kernel:\n   every caller now uses the proved series sin / cos of transcendental.js (a\n   remainder after reduction by an enclosure of π/2, interval arguments, extrema\n   inside a box enclosed), which the Arb audit covers. */\n"
+        ],
+        [
+          "  nextUp, nextDown, iv, ZERO, ONE,\n",
+          "  nextUp, nextDown, iv, ZERO, ONE, wf,\n"
+        ],
+        [
+          "  trigAbsPad, encloseCos, encloseSin, encloseFloat\n",
+          "  encloseFloat\n"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/interval/transcendental.js",
+      "why": "SOUNDNESS (2026-10-21, lane A of the method-paper review; declared here on 2026-11-16, never declared before): the remainders of the exp, log, sin and cos series are interval products with the upper end taken, every operation outward; before, they were computed round-to-nearest with one nextUp, sound only by the margin below the ulp of the sum.",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "  let fact = 1, p = 1;\n  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact *= n; p *= rmag; }\n  const tail = nextUp((p / fact) / (1 - rmag / (EXP_TERMS + 2)));\n",
+          "  /* the tail |r|^{25}/25! · (1 − |r|/26)^{-1}, every operation outward (2026-10-21; it was round-to-nearest with one nextUp,\n     sound only by the margin below the ulp of the sum — debt of 2026-09-04, paid) */\n  let fact = ONE, p = ONE;\n  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }\n  const tail = div(p, mul(fact, sub(ONE, div(iv(rmag), iv(EXP_TERMS + 2)))))[1];\n"
+        ],
+        [
+          "  let p = 1;\n  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p *= vmax;\n  const denom = (2 * LOG_TERMS + 1) * (1 - vmax * vmax);\n  const tail = nextUp(p / denom);\n",
+          "  /* the one-sided tail v^{2N+1} / ((2N+1)(1 − v²)), every operation outward (2026-10-21) */\n  let p = ONE;\n  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p = mul(p, iv(vmax));\n  const denom = mul(iv(2 * LOG_TERMS + 1), sub(ONE, mul(iv(vmax), iv(vmax))));\n  const tail = div(p, denom)[1];\n"
+        ],
+        [
+          "  }\n  let fact = 1, p = 1;\n  const deg = 2 * TRIG_TERMS + 1;\n",
+          "  }\n  let fact = ONE, p = ONE;\n  const deg = 2 * TRIG_TERMS + 1;\n"
+        ],
+        [
+          "  const deg = 2 * TRIG_TERMS + 1;\n  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }\n  const tail = nextUp(p / fact);\n  return add(sum, iv(-tail, tail));\n",
+          "  const deg = 2 * TRIG_TERMS + 1;\n  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */\n  const tail = div(p, fact)[1];\n  return add(sum, iv(-tail, tail));\n"
+        ],
+        [
+          "  let fact = 1, p = 1;\n",
+          "  let fact = ONE, p = ONE;\n"
+        ],
+        [
+          "  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }\n  const tail = nextUp(p / fact);\n",
+          "  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */\n  const tail = div(p, fact)[1];\n"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/interval/radii.js",
+      "why": "CORRECTNESS (2026-10-09 code read; declared here on 2026-11-16, never declared before): the radii polynomial refuses a Y0 or Z2 that is negative, NaN or infinite — the old test !(Z2 > 0) sent a negative Z2 and a NaN into the linear branch and certified them — and the linear branch (Z2 = 0) proves p(r) < 0 as an interval inequality before it says ok, as the other branch always did.",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "  if (!(Z2 > 0)) {\n    /* linear problem: p is affine, negative for r > Y0/(1−Z1) */\n",
+          "  /* Y0 and Z2 are bounds on a norm and a Lipschitz constant: nonnegative finite numbers\n     or nothing. Before 2026-10-09 the test below was `!(Z2 > 0)`, which sent a NEGATIVE\n     Z2 — and a NaN — into the linear branch and certified it. */\n  if (!(Number.isFinite(Y0) && Y0 >= 0 && Number.isFinite(Z2) && Z2 >= 0)) {\n    return Object.assign({ ok: false, why: 'Y0 and Z2 must be finite and nonnegative (got Y0=' + Y0 + ', Z2=' + Z2 + ') — not bounds; refused' }, base);\n  }\n  if (Z2 === 0) {\n    /* linear problem: p(r) = −(1−Z1) r + Y0 is affine, negative for r > Y0/(1−Z1).\n       The other branch verifies p(r) < 0 as an interval inequality before it says ok;\n       until 2026-10-09 this branch did not, and returned ok on the float formula alone. */\n"
+        ],
+        [
+          "    return Object.assign({ ok: r > 0, r, rMin: Y0 / (1 - Z1), rMax: Infinity, linear: true }, base);\n",
+          "    const pLin = add(mul(sub(ZERO, sub(ONE, iv(Z1))), iv(r)), iv(Y0));\n    if (!(pLin[1] < 0)) {\n      return Object.assign({ ok: false, why: 'linear branch: p(r) is not proved negative at r=' + r + ' (enclosure [' + pLin[0] + ', ' + pLin[1] + '])', r, linear: true }, base);\n    }\n    return Object.assign({ ok: true, r, rMin: Y0 / (1 - Z1), rMax: Infinity, linear: true, pAtR: pLin }, base);\n"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/interval/certificate.js",
+      "why": "CORRECTNESS (2026-10-09 code read; declared here on 2026-11-16, never declared before): the Certificate class refuses a falsifier list holding an empty string, and evidence for a PROVED verdict that is not a finite number, an interval of finite numbers, a BigInt, a non-empty string or a boolean ({k: undefined} passed and then serialised as the {} the constructor refuses).",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "  if (Array.isArray(v) && v.length === 0) throw new Error('Certificate: ' + what + ' must not be empty');\n  return v;\n",
+          "  if (Array.isArray(v) && v.length === 0) throw new Error('Certificate: ' + what + ' must not be empty');\n  /* a list of empty strings passed the two tests above (2026-10-09 code read): `['']`\n     was accepted as a falsifier. Every element must itself be a non-empty string. */\n  if (Array.isArray(v) && v.some(x => typeof x !== 'string' || x.trim() === ''))\n    throw new Error('Certificate: every entry of ' + what + ' must be a non-empty string');\n  return v;\n"
+        ],
+        [
+          "  return v;\n}\n",
+          "  return v;\n}\n\n/* evidence is the numbers a PROVED verdict rests on. `{k: undefined}` passed the\n   \"carries evidence\" test and then serialised as `{}` — the object the constructor\n   refuses — because JSON drops undefined values (2026-10-09 code read). A value must\n   be a finite number, an interval of two finite numbers, a BigInt, a non-empty string,\n   or a boolean; anything else, including NaN, refuses. */\nfunction checkEvidence(ev) {\n  const okScalar = (x) => (typeof x === 'number' && Number.isFinite(x)) || typeof x === 'bigint'\n    || typeof x === 'boolean' || (typeof x === 'string' && x.trim() !== '');\n  for (const k of Object.keys(ev)) {\n    const x = ev[k];\n    const ok = okScalar(x)\n      || (Array.isArray(x) && x.length > 0 && x.every(okScalar))\n      || (x !== null && typeof x === 'object' && !Array.isArray(x) && Object.keys(x).length > 0 && Object.values(x).every(okScalar));\n    if (!ok) throw new Error('Certificate: evidence.' + k + ' is not a finite number, interval, string or boolean (got ' + String(x) + ') — a PROVED verdict cannot rest on it');\n  }\n}\n"
+        ],
+        [
+          "      throw new Error('Certificate: a PROVED verdict must carry evidence');\n    if (this.verdict === REFUSED && !this.why)\n",
+          "      throw new Error('Certificate: a PROVED verdict must carry evidence');\n    if (this.verdict === PROVED) checkEvidence(this.evidence);\n    if (this.verdict === REFUSED && !this.why)\n"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/interval/tests/test-eqcert.js",
+      "why": "the checks for the 2026-10-09 kernel edits (declared here on 2026-11-16, never declared before): S4 was vacuous — f.map(I.iv) is the Array.map arity trap, iv(x, index) built [0.5, 0] boxes — and now builds thin boxes; R3b–R3e refuse a negative or NaN Z2 and a negative Y0, and require the linear branch's interval proof.",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "  const ivl = S.conv(f.map(I.iv), g.map(I.iv), 4, S.EVEN, S.EVEN, IA);\n",
+          "  /* `f.map(I.iv)` was the Array.map arity trap — iv(x, index) built [0.5, 0] boxes and this\n     check passed VACUOUSLY until interval.js refused malformed operands (2026-10-09). */\n  const ivl = S.conv(f.map(x => I.iv(x)), g.map(x => I.iv(x)), 4, S.EVEN, S.EVEN, IA);\n"
+        ],
+        [
+          "check('R3 Z1 >= 1 is refused outright', (() => !R.radiiPolynomial(1e-15, 1.0, 2.0).ok)());\ncheck('R4 too large a defect is refused (discriminant <= 0)', (() => !R.radiiPolynomial(1.0, 0.5, 2.0).ok)());\n",
+          "check('R3 Z1 >= 1 is refused outright', (() => !R.radiiPolynomial(1e-15, 1.0, 2.0).ok)());\n/* RED (2026-10-09): a negative Z2 is not a Lipschitz bound and a NaN is not a number; both went\n   into the linear branch and came back ok. And the linear branch itself must prove p(r) < 0. */\ncheck('R3b a NEGATIVE Z2 is refused, not certified as linear', (() => !R.radiiPolynomial(1e-3, 0.5, -1).ok)());\ncheck('R3c a NaN Z2 is refused', (() => !R.radiiPolynomial(1e-3, 0.5, NaN).ok)());\ncheck('R3d a negative Y0 is refused', (() => !R.radiiPolynomial(-1e-3, 0.5, 1).ok)());\ncheck('R3e the linear branch (Z2 = 0) certifies WITH an interval proof of p(r) < 0', (() => {\n  const r = R.radiiPolynomial(1e-3, 0.5, 0);\n  return r.ok === true && r.linear === true && Array.isArray(r.pAtR) && r.pAtR[1] < 0;\n})());\ncheck('R4 too large a defect is refused (discriminant <= 0)', (() => !R.radiiPolynomial(1.0, 0.5, 2.0).ok)());\n"
+        ]
+      ]
+    },
+    {
+      "file": "instruments/interval/tests/test-interval.js",
+      "why": "the checks for the kernel's dated edits (declared here on 2026-11-16; the 2026-10-09 ones had never been declared). 2026-10-09: X7 pow refuses exponents at and beyond 2^31, X8 NaN, inverted and 0·∞ operands refused while infinite endpoints stay sound bounds. 2026-11-16: membership refuses ±∞ and NaN even in [−∞, +∞], with X5 the old membership test as its red control (X5 was the remembered ±1e-15 trig pad); the padded-helper tests are removed — trigAbsPad against 2·ε·|ang|, ±1e-15 against the pad, and encloseCos(x) ∋ Math.cos(x), a tautology — and the helper's retirement is checked.",
+      "declared": "2026-11-16",
+      "replace": [
+        [
+          "  I.contains([-1, 1], 0) === true && I.contains([-1, 1], 2) === false);\ncheck('subset: [0,1] ⊆ [-1,1], and [-1,1] ⊄ [0,1]',\n",
+          "  I.contains([-1, 1], 0) === true && I.contains([-1, 1], 2) === false);\n/* membership holds reals only (2026-11-16; ITF1788 libieeep1788_rec_bool.itl:139-140): ±∞ and NaN are members of no\n   interval, not even one with that infinite end */\ncheck('contains: ±∞ and NaN are members of no interval, even [−∞, +∞] (IEEE 1788 isMember)',\n  I.contains([-Infinity, Infinity], Infinity) === false && I.contains([-Infinity, Infinity], -Infinity) === false\n  && I.contains([0, Infinity], Infinity) === false && I.contains([-Infinity, 0], -Infinity) === false\n  && I.contains([-Infinity, Infinity], NaN) === false\n  && I.contains([-Infinity, Infinity], 0) === true && I.contains([0, Infinity], Number.MAX_VALUE) === true);\ncheck('subset: [0,1] ⊆ [-1,1], and [-1,1] ⊄ [0,1]',\n"
+        ],
+        [
+          "/* ---------------- 7. Stage 2.4 — trig pad + thin float enclosure ---------------- */\n",
+          "/* ---------------- 7. Stage 2.4 — thin float enclosure; the padded trig helper retired ----------------\n   The trig pad tests stood here until 2026-11-16: trigAbsPad against 2·ε·|ang| on the Fourier grids, the remembered\n   ±1e-15 against the derived pad, and encloseCos(x) ∋ Math.cos(x) — the last a tautology (it compared the platform's\n   cosine with itself) and none of them a test of the TRUE cosine. The helper is gone; the proved sin / cos of\n   transcendental.js are tested against exact rational brackets in test-transcendental*.js and against Arb in\n   tools/audit-kernel-arb.js. What stays here is that the kernel no longer exports the helper. */\n"
+        ],
+        [
+          "  const TWO_PI = 2 * Math.PI;\n  let okPad = true, worst = 0, worstAng = 0;\n  for (const N of [14, 20, 32]) for (let k = 1; k <= N; k++) for (let g = 0; g < 4096; g++) {\n    const ang = TWO_PI * k * (g / 4096);\n    const pad = I.trigAbsPad(ang);\n    const need = 2 * Number.EPSILON * Math.abs(ang);\n    if (!(pad >= need)) { okPad = false; break; }\n    if (pad > worst) { worst = pad; worstAng = ang; }\n  }\n  check('trigAbsPad dominates 2·ε·|ang| on the Fourier grids N≤32, G=4096', okPad,\n    'worst pad ' + worst.toExponential(3) + ' at |ang|=' + worstAng.toFixed(2));\n  const angOp = TWO_PI * 14 * (1 - 1 / 4096);\n  check('remembered ±1e-15 under-covers the derived pad at operating angles (TOPIC B6)',\n    1e-15 < I.trigAbsPad(angOp),\n    '1e-15 vs pad ' + I.trigAbsPad(angOp).toExponential(3) + ' (×' + (I.trigAbsPad(angOp) / 1e-15).toFixed(1) + ')');\n  const c = I.encloseCos(1.0), s = I.encloseSin(1.0);\n  check('encloseCos / encloseSin are well-formed and contain the float evaluation',\n    wellFormed(c) && wellFormed(s) && c[0] <= Math.cos(1) && Math.cos(1) <= c[1] &&\n    s[0] <= Math.sin(1) && Math.sin(1) <= s[1]);\n",
+          "  check('the padded platform cos/sin helper is retired (encloseCos, encloseSin, trigAbsPad are not exported)',\n    I.encloseCos === undefined && I.encloseSin === undefined && I.trigAbsPad === undefined);\n"
+        ],
+        [
+          "  /* X5 — Stage 2.4: the remembered ±1e-15 trig pad under-covers the derived floor. */\n  const ang = 2 * Math.PI * 14 * (1 - 1 / 4096);\n  const need = I.trigAbsPad(ang);\n  const caught = 1e-15 < need;\n  if (caught) { reds++; console.log('       RED ok  X5 remembered ±1e-15 trig pad under-covers derived pad ' + need.toExponential(3) + ' at ang=' + ang.toFixed(2) + ' (×' + (need / 1e-15).toFixed(1) + ')'); }\n",
+          "  /* X5 — the membership test before 2026-11-16 (a[0] <= x && x <= a[1]) answered true for isMember(±∞, [entire]),\n     the two ITF1788 violations of certs/kernel-itf1788.json; the kernel's contains must answer false where it did.\n     (X5 was the remembered ±1e-15 trig pad until the padded helper was retired, the same day.) */\n  const oldContains = (a, x) => a[0] <= x && x <= a[1];\n  const E = [-Infinity, Infinity];\n  const caught = oldContains(E, Infinity) && oldContains(E, -Infinity) && !I.contains(E, Infinity) && !I.contains(E, -Infinity);\n  if (caught) { reds++; console.log('       RED ok  X5 the old membership test admits ±∞ to [−∞, +∞]; the kernel\\'s contains refuses both'); }\n"
+        ],
+        [
+          "check('X every falsifier turned its own target red', reds === 6, reds + '/6');\n",
+          "{\n  /* X7 — the 32-bit exponent trap (2026-10-09 code read): `e & 1` and `e >>= 1` made\n     pow([1,2], 2^31) return [1,1]. The library must REFUSE such an exponent, never answer. */\n  let caught = false;\n  try { I.pow(I.iv(1, 2), 2147483648); } catch (e) { caught = /beyond 2\\^31/.test(e.message); }\n  let caught2 = false;\n  try { I.pow(I.iv(2), 2 ** 53); } catch (e) { caught2 = /beyond 2\\^31/.test(e.message); }\n  if (caught && caught2) { reds++; console.log('       RED ok  X7 pow refuses exponents at and beyond 2^31 instead of answering [1,1]'); }\n}\n{\n  /* X8 — the domain: NaN operands, inverted operands and indeterminate products are REFUSED\n     by throw. Until 2026-10-09 mul([0,∞],[0,1]) returned [NaN,NaN], div by [NaN,NaN] was not\n     refused, and a consumer testing `!(x[1] > c)` would have certified on it. */\n  const refuses = (f) => { try { f(); return false; } catch (e) { return /refused/.test(e.message); } };\n  const caught = refuses(() => I.mul([0, Infinity], [0, 1]))\n    && refuses(() => I.add([Infinity, Infinity], [-Infinity, -Infinity]))\n    && refuses(() => I.div([1, 2], [NaN, NaN]))\n    && refuses(() => I.sqr([NaN, NaN]))\n    && refuses(() => I.mul([0.5, 0], [1, 2]))\n    && refuses(() => I.add([1, 2], [3]));\n  const stillSound = I.mul([1, Infinity], [2, 3])[1] === Infinity && I.add([-Infinity, 0], [0, 1])[0] === -Infinity;\n  if (caught && stillSound) { reds++; console.log('       RED ok  X8 NaN, inverted and 0·∞ operands are refused; infinite endpoints stay sound bounds'); }\n}\ncheck('X every falsifier turned its own target red', reds === 8, reds + '/8');\n"
+        ],
+        [
+          "    '  rationals; Stage 2.4 trig pad is derived, not remembered.'));\n",
+          "    '  rationals; membership holds reals only; the padded trig helper is retired.'));\n"
+        ]
+      ]
     }
   ]
 }

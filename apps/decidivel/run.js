@@ -92,15 +92,25 @@ if (!isMainThread) {
      record the engine on disk wrote (the header) */
   const shaNow = (f) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, f))).digest('hex');
   const otherEngine = (file) => { const was = JSON.parse(fs.readFileSync(file, 'utf8')).engine || {}; return Object.keys(was).filter((f) => shaNow(f) !== was[f]); };
-  let TARGET = OUT;
+  /* FROZEN BESIDE RECORDS (2026-11-16): decidivel-ledger-2026-11-11.json is frozen as written, by the operator's ruling,
+     and keeps pinning the interval kernel of that date after the kernel changed. Its pins are verified against the file
+     at the commit the record was made at (tools/pinned-at.js); --check then re-derives it with the engine ON DISK and
+     refuses on any difference — the question it answers is whether today's engine still writes the frozen record. A
+     pin that holds neither on disk nor at that commit is refused, as before. */
+  const PIN = require(path.join(ROOT, 'tools', 'pinned-at.js'));
+  const pinsOf = (file) => { const L = JSON.parse(fs.readFileSync(file, 'utf8')); return PIN.check(path.relative(ROOT, file), Object.assign({}, L.engine || {}, L.declared ? { [L.declared.file]: L.declared.sha256 } : {})); };
+  let TARGET = OUT, FROZEN = false;
   if (OUT === SUBMITTED && fs.existsSync(SUBMITTED) && !process.argv.includes('--replace')) {
     const moved = otherEngine(SUBMITTED);
     if (moved.length && !process.argv.includes('--check')) { console.error('decidivel ledger REFUSED: ' + path.relative(ROOT, SUBMITTED) + ' is the record of the submitted page and was written by another ' + moved.join(', ') + '; write the new record beside it (--out data/decidivel-ledger-<date>.json), or replace it on the operator\'s word (--replace) and rebuild the page'); process.exit(1); }
     if (moved.length) {
-      const beside = fs.readdirSync(path.dirname(SUBMITTED)).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort().map((x) => path.join(path.dirname(SUBMITTED), x)).filter((x) => otherEngine(x).length === 0);
-      if (!beside.length) { console.error('decidivel ledger REFUSED: ' + path.relative(ROOT, SUBMITTED) + ' was written by another ' + moved.join(', ') + ' (the submitted page\'s) and no record beside it pins the engine on disk; write one with --out data/decidivel-ledger-<date>.json'); process.exit(1); }
-      TARGET = beside[beside.length - 1];
-      console.log(path.relative(ROOT, SUBMITTED) + ' is the submitted page\'s record, written by another ' + moved.join(', ') + '; checking the record of the engine on disk, ' + path.relative(ROOT, TARGET));
+      const all = fs.readdirSync(path.dirname(SUBMITTED)).filter((x) => /^decidivel-ledger-.+\.json$/.test(x)).sort().map((x) => path.join(path.dirname(SUBMITTED), x));
+      let beside = all.filter((x) => otherEngine(x).length === 0), frozen = false;
+      if (!beside.length) { beside = all.filter((x) => pinsOf(x).ok); frozen = beside.length > 0; }
+      if (!beside.length) { console.error('decidivel ledger REFUSED: ' + path.relative(ROOT, SUBMITTED) + ' was written by another ' + moved.join(', ') + ' (the submitted page\'s) and no record beside it pins the engine on disk or at the commit it was made at; write one with --out data/decidivel-ledger-<date>.json'); process.exit(1); }
+      TARGET = beside[beside.length - 1]; FROZEN = frozen;
+      console.log(path.relative(ROOT, SUBMITTED) + ' is the submitted page\'s record, written by another ' + moved.join(', ') + '; checking '
+        + (frozen ? 'the frozen record beside it, ' + path.relative(ROOT, TARGET) + ', which ' + PIN.describe(pinsOf(TARGET)) + ', re-derived by the engine on disk' : 'the record of the engine on disk, ' + path.relative(ROOT, TARGET)));
     }
   }
   const D = JSON.parse(fs.readFileSync(path.join(APP, 'declared.json'), 'utf8'));
@@ -185,8 +195,12 @@ if (!isMainThread) {
     const text = JSON.stringify(ledger) + '\n';
     if (process.argv.includes('--check')) {
       const old = fs.existsSync(TARGET) ? fs.readFileSync(TARGET, 'utf8') : '';
-      if (old !== text) { console.error('decidivel ledger DEVIATES from ' + path.relative(ROOT, TARGET)); process.exit(1); }
-      console.log('decidivel ledger re-derived identical (' + tasks.length + ' tasks, ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s)' + (TARGET !== OUT ? ': ' + path.relative(ROOT, TARGET) : ''));
+      /* a frozen record keeps its engine pins (verified above at the commit it was made at); every other byte must be
+         what the engine on disk writes */
+      const cmp = FROZEN && old ? JSON.stringify(Object.assign({}, ledger, { engine: JSON.parse(old).engine })) + '\n' : text;
+      if (old !== cmp) { console.error('decidivel ledger DEVIATES from ' + path.relative(ROOT, TARGET)); process.exit(1); }
+      console.log('decidivel ledger re-derived identical (' + tasks.length + ' tasks, ' + ((Date.now() - t0) / 1000).toFixed(0) + ' s)' + (TARGET !== OUT ? ': ' + path.relative(ROOT, TARGET) : '')
+        + (FROZEN ? ' — every byte but its engine pins, which hold at the commit it was made at' : ''));
       if (TARGET !== OUT) {
         /* how the checked record differs from the submitted one, leaf by leaf */
         const leaves = []; const walk = (a, b, p) => { if (a && b && typeof a === 'object' && typeof b === 'object') { for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) walk(a[k], b[k], p + '/' + k); } else if (a !== b) leaves.push(p); };
