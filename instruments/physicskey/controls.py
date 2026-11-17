@@ -65,7 +65,7 @@ def top_rows(n, h, bump=None, nan=None):
 
 
 TOP = {"I1": bits(1.0), "I2": bits(2.0), "I3": bits(3.0)}
-ALL0 = {law: {"0": "CERTIFIED"} for law in ("T-ENERGY", "T-LMAG", "T-LVEC")}
+ALL0 = {law: {"0": "CERTIFIED"} for law in ("T-ENERGY", "T-LMAG", "T-LVEC", "T-MONO")}
 
 
 def main():
@@ -105,6 +105,16 @@ def main():
     c[3][1] = 2.0 + 2.0 ** -40              # a different angle: D needs the cosine
     out.append(entry("rc5c-pendulum-angle", "pendulum", 10, 1, 1, pack(c), PEND,
                      {"P-ENERGY": {"1e-12": "CERTIFIED", "0": ["REFUTED", 3]}}))
+
+    # RC6 (amendment 1): the energy falls at every step but one
+    rows = []
+    for k in range(1001):
+        w2 = 4.0 * (1.0 - k * 2.0 ** -30)
+        if k >= 400:
+            w2 *= (1.0 + 2.0 ** -20)
+        rows.append([0.01 * k, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, w2, 0.0])
+    out.append(entry("rc6-top-one-rise", "top", 1000, 7, 6, pack(rows), TOP,
+                     {"T-MONO": {"1e-4": "CERTIFIED", "1e-9": ["REFUTED", 400], "0": ["REFUTED", 400]}}))
 
     manifest = []
     for e, raw in out:

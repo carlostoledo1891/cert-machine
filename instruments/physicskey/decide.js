@@ -3,6 +3,9 @@
 // is the ONE module the Node record script, the battery and the browser tab share.
 //
 //   decideRun(entry, bytes, shaHex) -> the object R of RULES.md section 6
+//   decideRun(entry, bytes, shaHex, trace) also fills trace[law] with every step's
+//   deviation as a plain number, for DRAWING only: each is the exactly decided
+//   deviation rounded once at the end, and no verdict reads it.
 //
 // `bytes` is the uncompressed trajectory (Uint8Array) or null when it could not be
 // read; `shaHex` is its sha256, computed by the caller (Node's crypto or Web Crypto).
@@ -55,6 +58,15 @@
   const qCmp = (a, b) => { const x = a.n * b.d - b.n * a.d; return x > 0n ? 1 : x < 0n ? -1 : 0; };
   const qSign = (a) => (a.n > 0n ? 1 : a.n < 0n ? -1 : 0);
   const pow10 = (k) => 10n ** BigInt(k);
+  // the nearest plain number, for drawing only
+  function qNum(v) {
+    if (v.n === 0n) return 0;
+    const neg = v.n < 0n, n = neg ? -v.n : v.n, d = v.d;
+    const s = (d.toString(16).length - n.toString(16).length) * 4 + 64;
+    const quo = s >= 0 ? (n << BigInt(s)) / d : n / (d << BigInt(-s));
+    const x = Number(quo) * Math.pow(2, -s);
+    return neg ? -x : x;
+  }
 
   // ── the 12-digit outward print of RULES.md section 6 ──────────────────────────────
   function dec12(v) {
@@ -104,7 +116,7 @@
   const LAWS = {
     fall: { 'F-POS': 'abs', 'F-VEL': 'abs' },
     pendulum: { 'P-ENERGY': 'rel' },
-    top: { 'T-ENERGY': 'rel', 'T-LMAG': 'rel', 'T-LVEC': 'rel' },
+    top: { 'T-ENERGY': 'rel', 'T-LMAG': 'rel', 'T-LVEC': 'rel', 'T-MONO': 'rel' },
   };
   const PARAMS = { fall: ['G'], pendulum: ['M', 'L', 'IYY', 'G'], top: ['I1', 'I2', 'I3'] };
   const tolOf = (key, squared) => {
@@ -125,8 +137,10 @@
 
   // One law's scan state. A deviation is { v: rational } when exact, or
   // { enc: (level) => [lo, hi], key: string } when it needs the cosine.
-  function Scan(law, ladder, squared) {
+  function Scan(law, ladder, squared, trace) {
     this.law = law;
+    this.oneSided = law === 'T-MONO';      // amendment 1: a rise only, never a fall
+    this.trace = trace || null;
     this.tol = ladder.map((key) => ({ key, eps: tolOf(key, squared), first: null, undecided: false }));
     this.max = null;          // { step, dev }
     this.maxTies = [];        // other steps not separated from the max
@@ -138,8 +152,9 @@
     const a = qNeg(lo); return [Q0, qCmp(a, hi) > 0 ? a : hi];
   };
   // is |dev| ≤ eps ?  -> true, false, or null (undecided at the cap)
-  function within(dev, eps) {
-    if (dev.v) return qCmp(qAbs(dev.v), eps) <= 0;
+  // (one-sided: is dev ≤ eps ? — only ever asked of an exact deviation)
+  function within(dev, eps, oneSided) {
+    if (dev.v) return qCmp(oneSided ? dev.v : qAbs(dev.v), eps) <= 0;
     if (eps.n === 0n) return false;                       // section 7: never exactly 0
     for (const p of LEVELS) {
       const [lo, hi] = absEnc(dev.enc(p));
@@ -161,19 +176,22 @@
     return null;
   }
   Scan.prototype.step = function (k, dev) {
+    if (this.trace) this.trace[k] = qNum(dev.v ? dev.v : dev.enc(LEVELS[0])[0]);
     for (const t of this.tol) {
       if (t.first !== null) continue;
-      const w = within(dev, t.eps);
+      const w = within(dev, t.eps, this.oneSided);
       if (w === false) t.first = k; else if (w === null) t.undecided = true;
     }
-    if (this.max === null) { this.max = { step: k, dev }; this.maxTies = []; }
+    // what `max` ranks: the absolute deviation, or for a one-sided law the rise alone
+    const mag = this.oneSided ? { v: qSign(dev.v) > 0 ? dev.v : Q0 } : dev;
+    if (this.max === null) { this.max = { step: k, dev: mag }; this.maxTies = []; }
     else {
-      const c = cmpAbs(dev, this.max.dev);
+      const c = cmpAbs(mag, this.max.dev);
       if (c === 1) {
         // a new largest step; ties it could not be separated from remain ties
-        const ties = this.maxTies.filter((o) => cmpAbs(dev, o.dev) === null);
-        this.max = { step: k, dev }; this.maxTies = ties;
-      } else if (c === null) this.maxTies.push({ step: k, dev });
+        const ties = this.maxTies.filter((o) => cmpAbs(mag, o.dev) === null);
+        this.max = { step: k, dev: mag }; this.maxTies = ties;
+      } else if (c === null) this.maxTies.push({ step: k, dev: mag });
     }
     this.last = dev;
   };
@@ -205,7 +223,7 @@
   };
 
   // ── the laws of RULES.md section 5 ────────────────────────────────────────────────
-  function decideRun(entry, bytes, shaHex) {
+  function decideRun(entry, bytes, shaHex, trace) {
     const scene = entry.scene;
     if (!LAWS[scene]) return { status: 'malformed', nonFiniteStep: null, laws: {} };
     const width = 1 + entry.nq + entry.nv, rows = entry.steps + 1;
@@ -227,7 +245,10 @@
       return r;
     };
     const scans = {};
-    for (const law of Object.keys(LAWS[scene])) scans[law] = new Scan(law, LADDER[LAWS[scene][law]], law === 'T-LVEC');
+    for (const law of Object.keys(LAWS[scene])) {
+      if (trace) trace[law] = new Float64Array(rows).fill(NaN);
+      scans[law] = new Scan(law, LADDER[LAWS[scene][law]], law === 'T-LVEC', trace ? trace[law] : null);
+    }
 
     let devs;   // (row, k) -> { law: deviation } ; set from row 0
     const r0 = readRow(0);
@@ -285,16 +306,20 @@
         };
         const T0 = energy2(r0), p0 = mom(r0), L0 = dot(p0, p0), W0 = world(r0, p0);
         if (dSign(T0) === 0 || dSign(L0) === 0) return refusedRun(scene, 'malformed');
+        let prev = T0;                                     // twice the kinetic energy one step back
         if (dSign(W0.n) === 0) devs = null;
-        else devs = (r) => {
+        else devs = (r, k) => {
           const p = mom(r), W = world(r, p);
           if (dSign(W.n) === 0) return null;               // an all-zero quaternion
-          const L = dot(p, p);
+          const L = dot(p, p), E = energy2(r);
+          const rise = k === 0 ? Q0 : qOf(dSub(E, prev), T0);
+          prev = E;
           // ℓ_k − ℓ_0 = (n_0·u_k − n_k·u_0) / (n_0·n_k)
           const diff = [0, 1, 2].map((i) => dSub(dMul(W0.n, W.u[i]), dMul(W.n, W0.u[i])));
           const den = dMul(dSq(dMul(W0.n, W.n)), L0);
           return {
-            'T-ENERGY': { v: qOf(dSub(energy2(r), T0), T0) },
+            'T-ENERGY': { v: qOf(dSub(E, T0), T0) },
+            'T-MONO': { v: rise },
             'T-LMAG': { v: qOf(dSub(L, L0), L0) },
             'T-LVEC': { v: qOf(dot(diff, diff), den) },
           };
@@ -314,14 +339,5 @@
     return { status: nonFiniteStep === null ? 'ok' : 'nonfinite', nonFiniteStep, laws };
   }
 
-  // The signed deviation of every step as plain numbers, for drawing only. The
-  // verdicts never read these.
-  function series(entry, bytes) {
-    const width = 1 + entry.nq + entry.nv, rows = entry.steps + 1;
-    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-    const col = (j) => { const a = new Float64Array(rows); for (let k = 0; k < rows; k++) a[k] = view.getFloat64(8 * (k * width + j), true); return a; };
-    return { rows, width, col };
-  }
-
-  return { decideRun, series, dec12, cosEnclosure, dyFromHex, qOf, LAWS, LADDER, PARAMS, _q: q };
+  return { decideRun, dec12, cosEnclosure, dyFromHex, qOf, qNum, LAWS, LADDER, PARAMS };
 });

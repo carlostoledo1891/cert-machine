@@ -38,6 +38,9 @@
     },
     "T-LVEC": {
      "0": "CERTIFIED"
+    },
+    "T-MONO": {
+     "0": "CERTIFIED"
     }
    },
    "id": "rc2a-top-constant",
@@ -251,6 +254,38 @@
    "scene": "pendulum",
    "sha256": "9b1fa2d77f58b22eb55e19432890029ee87c69a78b279b80b78c8328cb6ab63c",
    "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "T-MONO": {
+     "0": [
+      "REFUTED",
+      400
+     ],
+     "1e-4": "CERTIFIED",
+     "1e-9": [
+      "REFUTED",
+      400
+     ]
+    }
+   },
+   "id": "rc6-top-one-rise",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "ded03dc436bb7014b51f65b8f4c531eef9a2472d74c8b38e7ad3f78682518b39",
+   "steps": 1000,
    "timestep": "0.002",
    "timestepBits": "3f60624dd2f1a9fc",
    "warnings": {}
