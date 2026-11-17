@@ -1,0 +1,7 @@
+# What recorded the 60 runs (instruments/physicskey/generate.py). Only the generator needs these:
+# the two deciders and the record script use Node and Python's standard library.
+#   /opt/homebrew/bin/python3.12 -m venv .venv && .venv/bin/pip install -r instruments/physicskey/requirements.txt
+# The sha256 of every engine binary that wrote the bytes is in corpus/physics-key/runs/ENV.json.
+# mujoco-4.0.1-py3-none-any.whl sha256 3a0ce4c6cd76dd599a89e60513ac1b03404642363a42267bcfd6b028cc753417
+mujoco==4.0.1
+numpy==2.5.5
