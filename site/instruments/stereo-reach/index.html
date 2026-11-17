@@ -942,7 +942,11 @@ function abs(a) {
 }
 const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
 const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
-const contains = (a, x) => a[0] <= x && x <= a[1];
+/* MEMBERSHIP HOLDS REALS ONLY (2026-11-16). Until this date contains(a, x) answered a[0] <= x && x <= a[1], so ±∞
+   was a member of any interval with that infinite end: isMember(±∞, [entire]) came back true where IEEE 1788 says
+   false (certs/kernel-itf1788.json, two violations found 2026-10-27). No enclosure was affected, every caller passes a
+   finite point; the answer is now false for ±∞ and for NaN. */
+const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1];
 const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
 const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
 const width = a => nextUp(a[1] - a[0]);
@@ -968,28 +972,17 @@ function pow(a, n) {
   return r;
 }
 
-/* ---------- Stage 2.4 — thin floats and the trigonometric pad ----------
-   Math.cos / Math.sin are implementation-approximated with NO ECMAScript accuracy
-   bound. The positivity kernels used a remembered ±1e-15 pad that under-covered the
-   float mul-chain argument error by ≥16× on the Fourier grids in this monorepo
-   (TOPIC B6: measured 1.641e-14). Until a Taylor / Payne–Hanek interval cos ships
-   (sound interval exp/log: src/transcendental.js), enclose the float evaluation
-   by a DERIVED absolute pad: |d cos/dθ|≤1 and |d sin/dθ|≤1, so
-     pad(ang) = 2·ε·|ang| + ε
-   dominates a 2-ulp relative argument defect plus one ulp of the result.
+/* ---------- Stage 2.4 — thin floats ----------
    encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
-   ulp each side — the last-ulp thin-scalar hardening for 2π. */
-function trigAbsPad(ang) {
-  return nextUp(2 * Number.EPSILON * Math.abs(ang) + Number.EPSILON);
-}
-function encloseCos(ang) {
-  const cv = Math.cos(ang), p = trigAbsPad(ang);
-  return [nextDown(cv - p), nextUp(cv + p)];
-}
-function encloseSin(ang) {
-  const sv = Math.sin(ang), p = trigAbsPad(ang);
-  return [nextDown(sv - p), nextUp(sv + p)];
-}
+   ulp each side — the last-ulp thin-scalar hardening for 2π.
+
+   THE PADDED PLATFORM COS/SIN, RETIRED (2026-11-16). encloseCos / encloseSin /
+   trigAbsPad enclosed Math.cos / Math.sin — which ECMAScript gives NO accuracy
+   bound — by a derived pad of 2·ε·|ang| + ε, under an unwritten contract that the
+   argument carried at most 2 ulp of relative error. They are gone from the kernel:
+   every caller now uses the proved series sin / cos of transcendental.js (a
+   remainder after reduction by an enclosure of π/2, interval arguments, extrema
+   inside a box enclosed), which the Arb audit covers. */
 function encloseFloat(x) {
   return [nextDown(x), nextUp(x)];
 }
@@ -998,7 +991,7 @@ module.exports = {
   nextUp, nextDown, iv, ZERO, ONE, wf,
   add, sub, mul, div, neg, sqr, abs, mag, mig,
   contains, subset, interior, width, pow,
-  trigAbsPad, encloseCos, encloseSin, encloseFloat
+  encloseFloat
 };
 
  return module.exports; })();</script>
