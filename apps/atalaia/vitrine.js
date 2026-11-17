@@ -499,8 +499,10 @@ a.vt-btn.ghost:hover{border-color:var(--ink)}
 .vt-st.c{text-transform:none;letter-spacing:0;font-size:var(--text-small)}
 .vt-st.f{font-family:var(--f-sans);text-transform:none;letter-spacing:0;font-size:var(--text-small);border:0;border-left:2px solid var(--ink-4);border-radius:0;color:var(--ink-3)}
 .vt-st.i{font-family:var(--f-sans);font-style:italic;text-transform:none;letter-spacing:0;font-size:var(--text-small);color:var(--ink-3);border-color:transparent}
-.col > .vt-leg,.vt-leg{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2) var(--s-5);margin:var(--s-5) 0 0;font-size:var(--text-small);color:var(--ink-4);max-width:none}
-.vt-leg .vt-k{flex-basis:100%}
+/* the stage legend is a grid whose column count comes from the page's width alone: as a wrapping row its last entry
+   fitted in the fallback font and dropped a line when the web font arrived (1440: a shift of 0.28, measured 2026-11-17) */
+.col > .vt-leg,.vt-leg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,18.5rem),1fr));align-items:center;justify-items:start;gap:var(--s-2) var(--s-5);margin:var(--s-5) 0 0;font-size:var(--text-small);color:var(--ink-4);max-width:none}
+.vt-leg .vt-k{grid-column:1/-1}
 .vt-li{display:inline-flex;align-items:center;gap:var(--s-2)}
 .vt-info{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);color:var(--ink-4)}
 .vt-src{font-size:var(--text-small);color:var(--ink-4)}

@@ -258,22 +258,12 @@ B.push(C.section({ lab: '11 · Fontes', title: 'Lidas no rascunho e na verifica�
   C.plainList(SRC.map(([u, t]) => ({ raw: a(u, esc(t)) }))) }));
 
 const foot = '<p>' + esc('Atalaia Núcleo, versão ' + NJ.versao + ', ' + NJ.data + '. Preparado por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho: não é doutrina aprovada nem proposta comercial. Linhas tracejadas são calculadas a partir de fórmulas e de números de ficha; preços são anúncios de revendas; os resultados medidos e provados vêm de apps/atalaia/data/nucleo.json, escrito a partir dos registros privados do projeto.') + '</p>';
-const css = R.CSS_BASE + `
+const css = R.CSS_BASE + E.CSS_DESIGUALDADE + `
 .at-steps ol{margin:var(--s-4) 0;padding-left:1.6em;display:flex;flex-direction:column;gap:var(--s-2)}
 .at-steps li::marker{font-family:var(--f-mono);color:var(--ink-4)}
 .at-steps li p{margin:0}
-.nu-svg{display:block;width:100%;height:auto}
-.nu-nw{display:none}
-@media (max-width:640px){.nu-w{display:none}.nu-nw{display:block}}
-.nu-bs{font-size:var(--text-small);fill:var(--ink-3)}
 .nu-sec{font-family:var(--f-mono)!important;font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}
 .nu-sec2{font-family:var(--f-mono)!important;font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-4)}
-.nu-reg{fill:var(--band-fill);stroke:var(--ink);stroke-width:2}
-.nu-eps{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
-.nu-err{stroke:var(--ink);stroke-width:2.2}
-.nu-x{fill:var(--ink);stroke:var(--paper);stroke-width:2}
-.nu-g{fill:var(--paper);stroke:var(--ink);stroke-width:2.2}
-.nu-dim{stroke:var(--ink-3);stroke-width:1.2}
 .nu-forbid{stroke:var(--ink-3);stroke-width:1.6;stroke-dasharray:2 3}
 .nu-rule{stroke:var(--ink-4);stroke-width:1}
 .nu-fb{fill:none;stroke:var(--ink-3);stroke-width:1.4;stroke-dasharray:5 4}
@@ -283,7 +273,6 @@ const css = R.CSS_BASE + `
 .nu-bar{fill:var(--ink-3);stroke:none}
 .nu-bar.prop{fill:var(--band-fill);stroke:var(--ink);stroke-width:1.4;stroke-dasharray:5 4}
 .nu-gl{font-size:var(--text-small);fill:var(--ink-2)}
-.nu-svg text{font-family:var(--f-sans)!important}
 .nu-chart{aspect-ratio:720/340}
 .nu-grid{stroke:var(--rule);stroke-width:1}
 .nu-ax{font-family:var(--f-mono)!important;font-size:12px;fill:var(--ink-3)}
@@ -292,12 +281,10 @@ const css = R.CSS_BASE + `
 .nu-c0{fill:none;stroke:var(--ink-3);stroke-width:2;stroke-dasharray:5 4}
 .nu-c1{fill:none;stroke:var(--ink);stroke-width:3.5;stroke-dasharray:5 4}
 .nu-mk{fill:var(--paper);stroke:var(--ink);stroke-width:2}
-.nu-lb{font-size:13px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
 .nu-box{fill:var(--sunk);stroke:var(--rule-strong);stroke-width:1.2}
 .nu-box.nu-key{stroke:var(--ink);stroke-width:2}
 .nu-bt{font-size:14px;fill:var(--ink)}
 .nu-arr{stroke:var(--ink-3);stroke-width:1.6}
-.nu-ahp{fill:var(--ink-3)}
 .nu-ctl{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-5);align-items:center;margin:var(--s-4) 0 var(--s-2);font-size:var(--text-small);color:var(--ink-2)}
 .nu-ctl label{display:inline-flex;align-items:center;gap:var(--s-2)}
 .nu-ctl select{font:inherit;color:var(--ink);background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:2px var(--s-2)}

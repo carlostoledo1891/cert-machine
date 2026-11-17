@@ -26,7 +26,8 @@ const R1_EN = { erro: 'undetected error', leg: ['the true position: somewhere in
   aria: 'The geometry of R1: the true position x lies in Rₜ; the accepted fix g lies within ε of Rₜ; so the undetected error, from x to g, is at most the diameter of Rₜ plus ε' };
 function desigualdade(narrow, lang) {
   const EN = lang === 'en';
-  const W = narrow ? 360 : 780, H = narrow ? 430 : 340;
+  /* the wide drawing is 812 across: at 780 the first legend line ended at 797 and was cut (measured in Chrome, 2026-11-17) */
+  const W = narrow ? 360 : 812, H = narrow ? 430 : 340;
   const cx = narrow ? 175 : 230, cy = narrow ? 130 : 145, rx = narrow ? 120 : 150, ry = narrow ? 78 : 92, e = narrow ? 22 : 28;
   const x = [cx - rx * 0.78, cy + ry * 0.25], g = [cx + rx + e * 0.92, cy - 14];
   let b = '<ellipse class="nu-eps" cx="' + cx + '" cy="' + cy + '" rx="' + (rx + e) + '" ry="' + (ry + e) + '"/>'
@@ -137,19 +138,21 @@ function plano(narrow, feitos) {
   for (const [title, prop, rows] of G) {
     o += T(12, y + 18, title.toUpperCase(), 'nu-sec2', 'start'); y += 28;
     for (const [lab, a, b2, key] of rows) {
-      const ty = narrow ? y + 13 : y + 19, by = narrow ? y + 20 : y + 6;
-      o += T(narrow ? 12 : 12, ty, lab + (key && feitos && feitos[key] ? ' · ' + feitos[key] : ''), 'nu-gl', 'start');
+      /* on a phone what was done gets its own line under the name: on one line the longest row ran to 377 of 360 */
+      const feito = key && feitos && feitos[key] ? feitos[key] : '', own = narrow && feito ? 16 : 0;
+      const ty = narrow ? y + 13 : y + 19, by = (narrow ? y + 20 : y + 6) + own;
+      o += T(12, ty, lab + (feito && !narrow ? ' · ' + feito : ''), 'nu-gl', 'start');
+      if (own) o += T(12, ty + 16, feito, 'nu-bs', 'start');
       o += '<rect class="nu-bar' + (prop ? ' prop' : '') + '" x="' + X(a).toFixed(1) + '" y="' + by + '" width="' + (X(b2 + 1) - X(a)).toFixed(1) + '" height="16" rx="3"/>';
-      y += rowH;
+      y += rowH + own;
     }
     y += 8;
   }
   return svg(W, y + 8, 'O plano de 12 meses: barras cheias, o cronograma indicativo da proposta; barras tracejadas, a trilha proposta do Núcleo', o);
 }
 
-/* the rules the R1 drawing needs on a page other than the Núcleo's (the landing's "como funciona", 2026-11-16); the
-   Núcleo page still carries the same values in its own sheet (nucleo.js), to be folded into this one when it is next
-   rebuilt. Class names only, every value a token or the drawing's own type size. */
+/* the rules the R1 drawing needs, ONCE: the landing's "como funciona" and the Núcleo page (nucleo.js adds only the
+   rules of its other drawings) both read this sheet. Class names only, every value a token. */
 const CSS_DESIGUALDADE = `
 .nu-svg{display:block;width:100%;height:auto}
 .nu-nw{display:none}
