@@ -367,6 +367,11 @@ const CARDS = {
       + '</svg>' }
 };
 
+/* the Atalaia cards (2026-11-16): drawn in apps/atalaia/cartoes.js from that app's pinned records, read only when one of
+   them is asked for, so no other card depends on those records */
+const ATALAIA = () => require(path.join(ROOT, 'apps', 'atalaia', 'cartoes.js')).cards();
+const card = (key) => CARDS[key] || (/^atalaia(-|$)/.test(key) ? ATALAIA()[key] : undefined);
+
 function cardHtml(c) {
   const C = require(path.join(ROOT, 'design', 'components.js'));
   const TPL = require(path.join(ROOT, 'design', 'template.js'));
@@ -395,8 +400,8 @@ function cardHtml(c) {
 }
 
 async function build(key) {
-  const c = CARDS[key];
-  if (!c) throw new Error('no card named ' + key + ' (known: ' + Object.keys(CARDS).join(', ') + ')');
+  const c = card(key);
+  if (!c) throw new Error('no card named ' + key + ' (known: ' + Object.keys(CARDS).join(', ') + ', and atalaia*)');
   const OUT = path.join(ROOT, 'design', 'assets', 'og-' + key + '.png'), REC = path.join(ROOT, 'design', 'assets', 'og-' + key + '.json');
   const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'og-' + key + '-'));
@@ -426,7 +431,7 @@ async function build(key) {
   if (w !== 1200 || h !== 630) throw new Error('the card is ' + w + ' × ' + h + ', not 1200 × 630');
   if (buf.length >= MAX) throw new Error('the card is ' + buf.length + ' bytes, over 300 KB');
   const receipt = { what: 'The share card of ' + c.path + ' (og:image, twitter:image), rendered by tools/build-og-report.js from the house page shell: the eyebrow, the title and one deck sentence, no number.',
-    key, path: c.path, eyebrow: c.eyebrow, title: c.title, description: c.art ? c.alt : c.deck, art: !!c.art, theme: c.theme || 'dark', width: w, height: h, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), rendered: new Date().toISOString().slice(0, 10) };
+    key, path: c.path, eyebrow: c.eyebrow, title: c.title, description: c.art ? c.alt : (c.deck || c.alt), art: !!c.art, theme: c.theme || 'dark', width: w, height: h, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), rendered: new Date().toISOString().slice(0, 10) };
   fs.writeFileSync(REC, JSON.stringify(receipt, null, 2) + '\n');
   console.log('wrote design/assets/og-' + key + '.png (' + w + ' × ' + h + ', ' + Math.round(buf.length / 1024) + ' KB) and its receipt');
 }
@@ -439,7 +444,7 @@ function alt(key) {
 
 module.exports = { CARDS, alt };
 if (require.main === module) {
-  const keys = process.argv.includes('--all') ? Object.keys(CARDS) : process.argv.slice(2).filter((a) => !a.startsWith('--'));
+  const keys = process.argv.includes('--all') ? Object.keys(CARDS).concat(Object.keys(ATALAIA())) : process.argv.slice(2).filter((a) => !a.startsWith('--'));
   if (!keys.length) { console.error('usage: node tools/build-og-report.js <key> | --all   (keys: ' + Object.keys(CARDS).join(', ') + ')'); process.exit(2); }
   (async () => { for (const k of keys) await build(k); })().catch((e) => { console.error('OG-REPORT REFUSED: ' + e.message); process.exit(1); });
 }

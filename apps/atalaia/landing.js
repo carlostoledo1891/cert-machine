@@ -38,6 +38,7 @@ if (L.silencioso && str(L.silencioso.texto) && L.silencioso.texto.trim() !== R.M
 /* ---- the films: their verdicts and the numbers in their captions read from the records (registros.js asserts the verdicts) */
 const FILMS = [
   { f: 'ilha-morros', v: ILM.morros.energia12.verdict, t: 'Um posto nos morros, com o GNSS falsificado no caminho',
+    hero: 'um posto nos morros da ilha de Florianópolis. No meio do caminho o GNSS passa a mentir; o drone segue pela região de proteção, calculada sem o GNSS, e entrega.',
     c: 'A ' + n(ILM.morros.km, 1) + ' km da base, no norte da ilha de Florianópolis. No meio do caminho o GNSS passa a mentir: o trecho fica vermelho, o drone segue pela região de proteção, calculada sem o GNSS, entrega e volta com reserva.' },
   { f: 'ilha-costa-lagoa', v: ILM['costa-rv'].energia12.verdict, t: 'A Costa da Lagoa, acessível só por barco ou trilha',
     c: 'Direto da base, a ida e volta não cabe na bateria. De uma base avançada, faltam medidas que só voos de calibração fazem: o consumo real com carga, o gasto na subida e a saúde das baterias. O replay mostra o voo de treino, não uma missão liberada.' },
@@ -68,11 +69,23 @@ B.push(V.nav('/atalaia/'));
 const H = L.hero;
 const lemaNoEyebrow = str(H.eyebrow) && H.eyebrow.includes(R.MARCA.lema);
 const ctas = [TEM.missoes ? V.botao('/atalaia/missoes/', esc('Ver as missões') + ' →') : '', TEM.investidores ? V.botao('/atalaia/investidores/', esc('Para investidores'), true) : '', V.botao('#como', esc('Como funciona'), true)].filter(Boolean);
+/* the hero's film (2026-11-16, the operator's "a strong visual" for the empty right half of the first screen): the hills
+   mission, the attack case, as a muted loop beside the words on a desk and under them on a phone. Its box is reserved by
+   the stylesheet (16:9, the film's own shape) before a byte of it arrives, so nothing moves when it loads; it plays only
+   while on screen and never under reduced motion (registros.js FILM_SCRIPT), when its poster stands in. Its verdict and
+   its stage are the record's, read like the strip's below; the caption names the stage first: it is a simulation. */
+const HF = FILMS[0];
+const heroFilm = '<div class="vt-hfilm">' + C.figure({ svgRaw: filme(HF.f, HF.t, 'filmes/'), wide: false, record: ['apps/atalaia/data/filmes/' + HF.f + '.mp4'],
+  captionRaw: '<span class="vt-ft">' + V.estagio('simulação') + C.tag(R.VWORD[HF.v][0], R.VWORD[HF.v][1]) + '</span>'
+    + esc('Replay de uma simulação: ' + HF.hero + ' ')
+    + (M && M.missoes.some((m) => m.filme === HF.f) ? '<a href="/atalaia/missoes/' + esc(M.missoes.find((m) => m.filme === HF.f).slug) + '/">' + esc('Ver a missão →') + '</a>' : '') }) + '</div>';
 B.push('<header class="col vt-hero">\n'
   + '<div class="eyebrow">' + esc(lemaNoEyebrow ? H.eyebrow : 'Atalaia · ' + R.MARCA.lema) + '</div>\n'
+  + '<div class="vt-hgrid"><div class="vt-htext">\n'
   + '<h1>' + esc(H.titulo) + '</h1>\n'
   + (str(H.deck) ? '<p class="deck">' + esc(H.deck) + '</p>\n' : '')
   + '<div class="vt-cta">' + ctas.join('') + '</div>\n'
+  + '</div>\n' + heroFilm + '</div>\n'
   + '<p class="vt-hnote"><span>' + esc('Versão ' + R.VERSAO.n + ' · ' + R.VERSAO.data) + '</span>' + (str(H.estado) ? '<span>' + esc(H.estado) + '</span>' : '') + '</p>\n'
   + V.legenda() + '\n'
   + '</header>');
@@ -210,6 +223,20 @@ B.push('<section class="col vt-close" id="contato"><div class="sec-head"><div cl
 const css = E.CSS_DESIGUALDADE + `
 .vt-hero{padding:var(--s-8) 0 var(--s-5)}
 .vt-hero .deck{font-size:var(--text-3);color:var(--ink-3)}
+/* the hero: words, then the film under them on a phone; side by side on a desk, the film's 16:9 box held by .lp-v.
+   The film stands at the headline's top (align start): the words reflowing when the web font arrives cannot move it */
+.vt-hgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-7);align-items:start}
+.vt-hgrid h1{margin-top:var(--s-4)}
+.vt-hfilm figure{margin:0}
+.vt-hfilm .figbox{padding:0;border:0;background:none;overflow:visible}
+.vt-hfilm .lp-v{border-radius:var(--radius-m)}
+.vt-hfilm figcaption{margin-bottom:0}
+.vt-hfilm figcaption a{white-space:nowrap}
+@media (min-width:1100px){
+  .vt-hgrid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s-7)}
+  .vt-hgrid h1{font-size:calc(var(--text-display) * .7)}
+  .vt-hfilm{padding-top:var(--s-5)}
+}
 .vt-hnote{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-5);margin:var(--s-7) 0 0;padding-top:var(--s-4);border-top:1px solid var(--rule);max-width:var(--read);
   font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-slight);line-height:var(--leading-body);color:var(--ink-4)}
 .vt-sec .sec-head h2{max-width:var(--title)}
@@ -255,7 +282,7 @@ const css = E.CSS_DESIGUALDADE + `
 .vt-close > p{max-width:var(--read);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-3)}
 `;
 
-const p = V.pagina({ dir: '', title: 'Atalaia: ' + H.titulo.replace(/\.$/, ''), cssRaw: css, scriptRaw: R.FILM_SCRIPT, bodyRaw: B.join('\n\n'),
+const p = V.pagina({ dir: '', title: 'Atalaia: ' + H.titulo.replace(/\.$/, ''), og: 'atalaia', cssRaw: css, scriptRaw: R.FILM_SCRIPT, bodyRaw: B.join('\n\n'),
   desc: 'Atalaia, ' + R.MARCA.lema + ': ' + (str(H.deck) ? H.deck : H.titulo),
   footExtra: 'Os replays são simulações renderizadas sobre o relevo Copernicus GLO-30 e mapas © OpenStreetMap; cada filme é fixado por sha256 em apps/atalaia/data/PROVENANCE.json.' });
 fs.mkdirSync(path.join(OUT, 'filmes'), { recursive: true });

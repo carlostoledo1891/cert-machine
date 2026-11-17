@@ -62,7 +62,7 @@ const B = [V.nav('/atalaia/missoes/'), aviso];
 B.push(C.header({ eyebrow: 'Atalaia · Missões', title: 'As missões, domínio a domínio',
   deck: 'Cada missão conta uma operação do começo ao fim: o que acontece sem o Atalaia, o que muda com ele, os números com o estágio e a fonte de cada um, e o que ainda não foi provado.' }));
 for (const g of M.grupos) B.push('<div class="vt-dom">' + sec('dominio-' + g.k, 'Domínio', g.nome, grade(g.missoes.map(card))) + '</div>');
-const pIdx = V.pagina({ dir: 'missoes', title: 'Atalaia: as missões', cssRaw: CSS, bodyRaw: B.join('\n\n'),
+const pIdx = V.pagina({ dir: 'missoes', title: 'Atalaia: as missões', og: 'atalaia-missoes', cssRaw: CSS, bodyRaw: B.join('\n\n'),
   desc: 'As missões do Atalaia, por domínio (' + M.grupos.map((g) => g.nome).join(', ') + '): o que acontece sem o Atalaia, o que muda com ele, e o estágio de cada número.' });
 
 /* ---- one page per mission */
@@ -98,7 +98,7 @@ M.missoes.forEach((m, i) => {
   const pn = (x, cls, k) => '<a class="card ' + cls + '" href="/atalaia/missoes/' + esc(x.slug) + '/"><span class="card-k">' + esc(k) + '</span><span class="card-t">' + esc(x.titulo) + '</span></a>';
   P.push('<section class="col"><div class="vt-pn">' + (prev ? pn(prev, 'prev', '← Anterior · ' + V.dominioNome(prev.dominio)) : '') + (next ? pn(next, 'next', 'Próxima · ' + V.dominioNome(next.dominio) + ' →') : '') + '</div>'
     + C.pRaw('<a href="/atalaia/missoes/">' + esc('Todas as missões') + '</a>' + esc(' · ') + '<a href="/atalaia/">' + esc('A apresentação do Atalaia') + '</a>') + '</section>');
-  built.push(V.pagina({ dir: 'missoes/' + m.slug, title: 'Atalaia: ' + m.titulo, cssRaw: CSS, scriptRaw: m.filme ? R.FILM_SCRIPT : '', bodyRaw: P.join('\n\n'),
+  built.push(V.pagina({ dir: 'missoes/' + m.slug, title: 'Atalaia: ' + m.titulo, og: 'atalaia-missoes', cssRaw: CSS, scriptRaw: m.filme ? R.FILM_SCRIPT : '', bodyRaw: P.join('\n\n'),
     desc: 'Atalaia, missão ' + V.dominioNome(m.dominio).toLowerCase() + ': ' + m.titulo + '. ' + m.gancho }));
 });
 /* the films the mission pages play are served once, from /atalaia/filmes/ (landing.js copies the landing's; these are the rest) */

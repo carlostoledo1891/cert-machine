@@ -53,6 +53,6 @@ const CSS = `
   .vt-idx{position:sticky;top:calc(var(--nav-h) + var(--s-6))}
 }
 `;
-const p = V.pagina({ dir: 'investidores', title: 'Atalaia: para investidores', cssRaw: CSS, bodyRaw: B.join('\n\n'),
+const p = V.pagina({ dir: 'investidores', title: 'Atalaia: para investidores', og: 'atalaia-investidores', cssRaw: CSS, bodyRaw: B.join('\n\n'),
   desc: 'Atalaia para investidores: ' + I.secoes.map((s) => s.titulo).join(', ') + '; cada resposta com as suas fontes.' });
 console.log('site' + p + 'index.html written (unlisted): ' + I.secoes.length + ' sections, ' + nq + ' questions' + V.stubNote());

@@ -321,10 +321,33 @@ function rodape(extra) {
     + '<p>' + esc('Atalaia: ' + R.MARCA.lema + '. Preparado por Carlos Toledo, com ajuda de IA (Claude) na pesquisa e na redação. Documento de trabalho: não é doutrina aprovada, proposta comercial nem documento oficial de nenhum órgão.' + (extra ? ' ' + extra : '')) + '</p>';
 }
 
+/* ---- the share card a page names (its own LIGHT illustrated card, never the site's landing card: the house rule of
+   2026-11-07). The cards are drawn in cartoes.js and rendered by tools/build-og-report.js into design/assets/ with a
+   receipt; the page that names one copies it beside the Atalaia pages, to site/atalaia/og/, and the alt is the card's
+   own description, read from its receipt. A card whose bytes differ from its receipt's sha256 refuses the page. */
+function cartao(key) {
+  const rec = path.join(ROOT, 'design', 'assets', 'og-' + key + '.json'), png = path.join(ROOT, 'design', 'assets', 'og-' + key + '.png');
+  if (!fs.existsSync(rec) || !fs.existsSync(png)) die('the share card og-' + key + ' is not rendered: node tools/build-og-report.js ' + key);
+  const J = JSON.parse(fs.readFileSync(rec, 'utf8')), buf = fs.readFileSync(png);
+  if (require('crypto').createHash('sha256').update(buf).digest('hex') !== J.sha256) die('og-' + key + '.png does not match its receipt: render it again');
+  const out = path.join(SITE, 'og', 'og-' + key + '.png');
+  if (!fs.existsSync(out) || !fs.readFileSync(out).equals(buf)) { fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, buf); }
+  return { image: '/atalaia/og/og-' + key + '.png', alt: J.description };
+}
+/* the page's own bytes, without the stylesheet's comments (notes for this repository's readers, not the page's) and
+   without the verdict tokens of the site's other pages when this page uses none of them: what an Atalaia page ships
+   says only what the project says (2026-11-16, the words rule of the English mirror) */
+function enxugar(html) {
+  html = html.replace(/<style>[\s\S]*?<\/style>/g, (st) => st.replace(/\/\*[\s\S]*?\*\//g, ''));
+  if (!/var\(--verdict-certified-/.test(html)) html = html.replace(/--verdict-certified-[a-z]+:[^;}]*;?/g, '');
+  return html;
+}
+
 /* ---- the page shell: one stylesheet, unlisted, written under site/atalaia/<dir>/ */
-function pagina({ dir, title, desc, bodyRaw, cssRaw = '', scriptRaw = '', footExtra }) {
+function pagina({ dir, title, desc, bodyRaw, cssRaw = '', scriptRaw = '', footExtra, og }) {
   const p = '/atalaia/' + (dir ? dir.replace(/\/?$/, '/') : '');
-  let html = TPL.render({ title, bodyRaw, footRaw: rodape(footExtra), lang: 'pt-BR', cssRaw: CSS + cssRaw, scriptRaw, desc, path: p });
+  let html = TPL.render({ title, bodyRaw, footRaw: rodape(footExtra), lang: 'pt-BR', cssRaw: CSS + cssRaw, scriptRaw, desc, path: p, og: cartao(og || 'atalaia') });
+  html = enxugar(html);
   html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
   if (!/name="robots" content="noindex/.test(html)) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
   if (!html.includes(esc(R.MARCA.sinais))) die(p + ' does not print the signals sentence');
