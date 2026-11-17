@@ -195,7 +195,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -378,7 +378,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -561,7 +561,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -614,7 +614,7 @@
     "r": 5.551115123125731e-15,
     "Z1": 0.06442462148407821,
     "kappa": 0.06442462148408933,
-    "minM": 0.7442792620996302
+    "minM": 0.7442792620996305
    },
    "form": {
     "value": [
@@ -741,7 +741,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -802,7 +802,7 @@
     "r": 1.6246839143199633e-11,
     "Z1": 0.32017452392132306,
     "kappa": 0.3201745242872602,
-    "minM": 0.1611959083246188
+    "minM": 0.16119590832462177
    },
    "form": {
     "value": [
@@ -942,7 +942,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -995,7 +995,7 @@
     "r": 4.377915128205962e-12,
     "Z1": 0.3092711097789599,
     "kappa": 0.3092711099067313,
-    "minM": 0.20514939501317553
+    "minM": 0.20514939501317808
    },
    "form": {
     "value": [
@@ -1135,7 +1135,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -1354,7 +1354,7 @@
     ],
     "provenance": {
      "code": "instruments/monoflow/monoflow.js",
-     "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c"
+     "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0"
     },
     "why": ""
    },
@@ -1397,8 +1397,8 @@
  ],
  "provenance": {
   "code": "instruments/monoflow/monoflow.js",
-  "sha256": "4f54364e4932e6ee5c8ed184e44e3e88c84f160cbb35ebe0430fd2bb238d3b4c",
-  "kernel": "legacy/core/mfg/{mfg1d,validate}.js (the lifted mfg-cap kernel; Jacobian rows dRow, interval)",
+  "sha256": "8462694832dcf700359ef2da28191383a3965d6adf77edde20fa9954cc7789d0",
+  "kernel": "legacy/core/mfg/{mfg1d,validate}.js (the lifted mfg-cap kernel; Jacobian rows dRow, interval); the density's positivity by labs/mfg/box.js boxPositivity at a zero-width box (cosines from the proved series of instruments/interval/transcendental.js)",
   "flow": "Almulla–Ferreira–Gomes, DGA 7(4) 2017, §2.6 (2.7)–(2.8): the monotone flow; Ferreira–Gomes–Tada, arXiv:2502.20091: monotonicity methods",
   "argument": "a gradient flow ż = −G⁻¹∇E has Jacobian −G⁻¹ Hess E ~ symmetric at an equilibrium, hence real spectrum; a certified non-real pair excludes every (G, E)"
  },

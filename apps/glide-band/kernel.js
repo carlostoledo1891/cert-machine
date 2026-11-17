@@ -121,11 +121,14 @@ function bearingOf(lat1, lon1, lat2, lon2) {
 /* the two trig hulls of the wind angle over one Wdir box; they depend on the bearing and Wdir only, so band() takes them
    once per Wdir sub-box (2026-11-16: the proved series costs ~300x the platform's Math.cos, and every Va sub-box used
    to recompute the same twelve pairs — the same inputs, the same outputs, 24x fewer evaluations) */
+/* THE ANGLE IN RADIANS IS ENCLOSED (2026-11-17): bearing − Wdir over the box in degrees with outward rounding, then
+   into radians by the kernel's π over 180, outward again. Until then both steps were double arithmetic with the double
+   Math.PI / 180 (a subtraction and a product each rounded to nearest), so the box handed to the proved series could
+   sit a rounding inside the true one. The bearing itself is still H3's double (the geodesy's stated pad). */
+const D2R_I = div(TR.PI, iv(180));
 function angleHulls(bearingDeg, Wdir) {
-  const a = (bearingDeg - Wdir[1]) * D2R;
-  const b = (bearingDeg - Wdir[0]) * D2R;
-  const lo = Math.min(a, b), hi = Math.max(a, b);
-  return { cosD: cosHull(lo, hi), sinD: sinHull(lo, hi) };
+  const r = mul(sub(iv(bearingDeg), iv(Wdir[0], Wdir[1])), D2R_I);
+  return { cosD: cosHull(r[0], r[1]), sinD: sinHull(r[0], r[1]) };
 }
 function bandRaw(bearingDeg, h, env, tTurn, hulls) {
   const { cosD, sinD } = hulls || angleHulls(bearingDeg, env.Wdir);

@@ -368,7 +368,16 @@ function decide(inst, opts) {
   const G = galerkinBox(P, x);
   if (!G.ok) return { ok: false, inst, why: 'Galerkin equilibrium not enclosed: ' + G.why };
   const pde = VAL.validate(x, P, { nu: inst.nu || 1.05 });
-  const pos = pde.ok ? VAL.certifyPositivity(x, P, pde.r, 2048) : null;
+  /* positivity of the density by labs/mfg/box.js at a zero-width box: the same sampled bound as the lifted
+     validate.js's certifyPositivity (same L, same grid, gate G2 of labs/mfg/battery.js holds the two together), with
+     the cosines from the kernel's proved series. Until 2026-11-17 this called the lifted routine, whose cosines are the
+     platform's Math.cos widened by a pad: the last caller of that pad behind a served record. */
+  let pos = null;
+  if (pde.ok) {
+    const un = M1D.unpack(x, N), bI = [[1, 1]];
+    for (let k = 1; k <= N; k++) bI.push([un.b[k], un.b[k]]);
+    pos = BOX.boxPositivity(bI, N, pde.r, 2048);
+  }
   const J = flowJacobian(P, G.box);
   const Jm = midM(J);
   /* the Lasry–Lions form at δm = cos 2πx (δb_1 = 1), δu = 0: must be c/2 */

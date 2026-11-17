@@ -35,7 +35,7 @@ function build() {
     verdict: 'VERIFIED',
     instances: [],
     provenance: { code: 'instruments/monoflow/monoflow.js', sha256: sha,
-      kernel: 'legacy/core/mfg/{mfg1d,validate}.js (the lifted mfg-cap kernel; Jacobian rows dRow, interval)',
+      kernel: 'legacy/core/mfg/{mfg1d,validate}.js (the lifted mfg-cap kernel; Jacobian rows dRow, interval); the density\'s positivity by labs/mfg/box.js boxPositivity at a zero-width box (cosines from the proved series of instruments/interval/transcendental.js)',
       flow: 'Almulla–Ferreira–Gomes, DGA 7(4) 2017, §2.6 (2.7)–(2.8): the monotone flow; Ferreira–Gomes–Tada, arXiv:2502.20091: monotonicity methods',
       argument: 'a gradient flow ż = −G⁻¹∇E has Jacobian −G⁻¹ Hess E ~ symmetric at an equilibrium, hence real spectrum; a certified non-real pair excludes every (G, E)' },
     generatedBy: 'node instruments/monoflow/run.js'
