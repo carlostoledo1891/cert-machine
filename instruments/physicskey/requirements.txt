@@ -5,3 +5,8 @@
 # mujoco-4.0.1-py3-none-any.whl sha256 3a0ce4c6cd76dd599a89e60513ac1b03404642363a42267bcfd6b028cc753417
 mujoco==4.0.1
 numpy==2.5.5
+# The second engine (instruments/physicskey/generate_newton.py, the 40 runs of amendment 2); its
+# solver sources and the Warp binaries are hashed in corpus/physics-key/newton/ENV.json.
+# newton-1.8.0-py3-none-any.whl sha256 f17435c1a8bc6451acd5306ce00e296e7c6931eb8b9d9d61e44e876b2cd9caa2
+newton==1.8.0
+warp-lang==1.19.0
