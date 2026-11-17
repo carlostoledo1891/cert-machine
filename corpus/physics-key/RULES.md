@@ -251,3 +251,162 @@ engine's own stated property, and its ladder is the one already fixed for `top`.
 Planted file added: RC6 `top`, the kinetic energy falling at every step except one
 planted rise of about 1.9e-6 of T_0 at step 400. Expected: T-MONO REFUTED at 1e-9 with
 firstStep 400, CERTIFIED at 1e-4.
+
+## Amendment 2 (2026-11-17, a second engine; written before any Newton simulation step)
+
+Added: a second engine, one file layout, three calibration checks, one planted file.
+Nothing above is changed, and the 60 MuJoCo runs are not touched.
+
+Why: Newton 1.8.0 (PyPI `newton`, released 2026-11-11; `warp-lang` 1.19.0) describes two
+of its solvers, `SolverSemiImplicit` and `SolverFeatherstone`, with the sentence
+"Semi-implicit time integration is a variational integrator that preserves energy", and
+gives both constructors the default `angular_damping = 0.05`.
+
+What I had read before writing this, and what I had not run. Read: the package's source.
+In `newton/_src/solvers/solver.py`, `integrate_rigid_body` ends every step of a body with
+`w1 *= 1.0 - angular_damping * dt`, and `SolverSemiImplicit.step` passes its own
+`angular_damping` to it. In `newton/_src/solvers/featherstone/` the name
+`angular_damping` occurs three times (the argument, its description, the assignment to
+`self`) and in no kernel. The package's own verification tests
+(`newton/tests/test_physics_verification.py`: free fall, pendulum energy within 0.5%,
+momentum within 5e-4, torque-free angular momentum within 5e-3 over 20 steps) construct
+every one of these solvers with `angular_damping=0.0`. I searched the project's issues
+and pull requests for `angular_damping` and for "preserves energy" and found nothing on
+either point. Run: the package imported, one one-body model built, its stored arrays
+read. No `step` had been called.
+
+### A2.1 The engine, the solvers, the runs
+
+Newton 1.8.0 on the CPU device. Four `integrator` names:
+
+- `semiimplicit`: `SolverSemiImplicit(model)`, every argument at its default.
+- `semiimplicit-d0`: `SolverSemiImplicit(model, angular_damping=0.0)`.
+- `featherstone`: `SolverFeatherstone(model)`, every argument at its default.
+- `featherstone-d0`: `SolverFeatherstone(model, angular_damping=0.0)`.
+
+Timesteps 0.01, 0.005, 0.002, 0.001. Scenes `fall` and `top` under all four; `pendulum`
+under the two Featherstone names only (`SolverSemiImplicit` holds a hinge with a damped
+spring and has no hinge angle in its state, so the section 4 pendulum is not that
+solver's system). Forty runs, in `corpus/physics-key/newton/`, with their own
+`runs.json`. A step is `state_in.clear_forces()`, then
+`solver.step(state_in, state_out, None, None, h)`, then the two states change places,
+as in the package's own tests. No shape, no contact, no joint damping, friction, limit,
+target or armature (the generator refuses a model whose stored values of these are not
+zero or absent).
+
+The scenes are section 4's: `fall`, a body of mass 1 at rest at the origin under the
+engine's stored gravity; `top`, principal inertias 1, 2, 3, no gravity, attitude the
+identity, angular velocity (0.0625, 4, 0.0625); `pendulum`, one revolute joint about y,
+mass 1, the centre of mass 1 below the hinge at θ = 0, inertia 0.01 about the hinge
+axis through the centre of mass, released from rest at θ = 2. Initial states are set in
+`joint_q` and `joint_qd` and carried to the body state by the engine's `eval_fk`.
+
+### A2.2 The numbers and the file
+
+The engine computes in binary32. Every finite binary32 number is a binary64 number, so
+the file format of section 3 is unchanged: each number the engine holds is written as
+the binary64 number equal to it, and `params` holds the engine's stored values the same
+way (so `G` is the rational 9.81000041961669921875, not 9.81).
+
+The engine keeps no clock. The time in row k is written by the generator as the
+binary64 product `k·h`, with h the binary64 number nearest the decimal timestep: the
+time a user who asked for that timestep attaches to step k. (The engine itself
+multiplies by the binary32 number nearest h. That difference is part of what F-POS and
+F-VEL measure.)
+
+Row k of `fall` and `top` is the time, then the engine's `body_q` of the one body, then
+its `body_qd`, after k steps. Row k of `pendulum` is the time, `joint_q[0]`,
+`joint_qd[0]`.
+
+A manifest entry may carry `"layout": "world"`. Then, for `fall` and `top`:
+
+- `qpos = (x, y, z, qx, qy, qz, qw)`: the quaternion is scalar LAST;
+- `qvel = (vx, vy, vz, wx, wy, wz)`, and `(wx, wy, wz)` is the angular velocity IN THE
+  WORLD FRAME.
+
+For `top` under this layout, write `q = (qw, qx, qy, qz)` in the notation of section 5
+and take `ω = R(q)ᵀ·(wx, wy, wz)`. T, p, Λ, ℓ = R(q)·p and every law, tolerance and
+output of sections 5 and 6 and of amendment 1 then read exactly as written. `fall` uses
+`z = qpos[2]` and `vz = qvel[2]` in both layouts. The non-finite rule's quaternion is
+the four quaternion entries of the layout. An entry with no `layout` is read as section
+4 says. Any other value of `layout` makes the run malformed. All Newton `fall` and
+`top` entries carry `"layout": "world"`; the pendulum entries carry none.
+
+### A2.3 Calibration, in floating point, before any verdict is read
+
+Newton has no energy or momentum function to compare with, so C1 and C2 have no direct
+counterpart. In their place:
+
+- N0: every run is recorded twice, from two freshly built models and solvers, and the
+  two files must be byte-identical.
+- N1 (`top`, every run): ℓ_k computed in doubles by A2.2 agrees with `(R·I·Rᵀ)·w`, with
+  R from the engine's own `wp.quat_to_matrix(wp.quat(qx, qy, qz, qw))` (the reading its
+  own torque-free test uses), to 1e-5·|ℓ_0| at every step. Two planted misreadings must
+  each disagree by more than 1e-3·|ℓ_0| at some step: the angular velocity taken as
+  body-frame, and the quaternion taken as scalar-first.
+- N2 (`top`, the two semi-implicit names): one step replayed in doubles. From row k,
+  `w_b = Rᵀw`, `w_b' = w_b + h·I⁻¹(−w_b × I·w_b)`, `w' = (1 − d·h)·R·w_b'`, with d the
+  solver's damping; `w'` agrees with the angular velocity of row k + 1 to 1e-4·|w_0| at
+  every step. Planted misreading: the same replay with d = 0 against the default
+  solver's file must disagree with the damped replay by more than can be rounding
+  (the damped replay must fit at least ten times better, summed over the run).
+- N3 (`pendulum`): `−L·cos θ_k` agrees with the height of the body the engine reports
+  (`body_q` z) to 1e-5 at every step, and `|θ'_k|` with the size of the body's angular
+  velocity to 1e-5·(1 + |θ'_k|).
+
+If N1, N2 or N3 fails for a run, that run's laws are not read and the failure is the
+finding.
+
+### A2.4 The planted file
+
+RC7 `top`, eleven rows that alternate between two states. Even rows: quaternion entries
+(0, 0, 0, 1), angular entries (1, 2, 3). Odd rows: quaternion entries (1, 0, 0, 1) (not
+normalised, on purpose), angular entries (1, −3, 2). Inertias 1, 2, 3. The same bytes
+are listed twice.
+
+- RC7a, with `"layout": "world"`: both states have body-frame angular velocity
+  (1, 2, 3). Expected: T-ENERGY, T-LMAG and T-MONO CERTIFIED at 0; T-LVEC REFUTED at
+  every tolerance with firstStep 1 (the world-frame angular momentum jumps between
+  (1, 4, 9) and (1, −9, 4), a squared distance of 194 against Λ_0 = 98).
+- RC7b, with no `layout`: read as section 4, the odd rows have kinetic energy 15.5
+  against 18. Expected: T-ENERGY REFUTED at every tolerance with firstStep 1.
+
+### A2.5 The deciders
+
+Decider 1 is amended by me. Decider 2 is amended by an agent given this file and its
+own earlier decider, and nothing of decider 1. The MuJoCo record is regenerated with the
+amended deciders and must not move in any verdict or printed number.
+
+### A2.6 What I expect, written before the first step
+
+From the source, not from a run.
+
+- `top`, `semiimplicit` (the defaults): the spin energy is multiplied by about
+  (1 − 0.05·h)² at every step, so after 10 s it is near e⁻¹ of its initial value: a loss
+  of about 63%, at every timestep, and Λ falls by the same fraction. I expect T-MONO to
+  be CERTIFIED at 0 (the damping per step is larger than the explicit step's gain), and
+  I am less sure of that at h = 0.01.
+- `top`, `semiimplicit-d0`: in exact arithmetic the body-frame angular velocity follows
+  the same recurrence as MuJoCo's Euler integrator, so I expect the energy gains of the
+  MuJoCo record to about the size of binary32 rounding: +9.93%, +4.79%, +1.88%, +0.931%
+  at h = 0.01, 0.005, 0.002, 0.001.
+- `featherstone` and `featherstone-d0`: byte-identical files in every scene and at every
+  timestep, because the argument is never read. For `top` I expect gains close to the
+  ones above, with less confidence: I have not followed the free joint through the
+  articulated-body algebra.
+- `fall`: the first-order position error of section 10 (about G·h·t/2, so F-POS fails
+  at 1 cm at h = 0.002 near step 510), the same bytes with and without damping, and
+  F-VEL failing well before 1e-9 because the arithmetic is binary32; I do not know
+  where between 1e-3 and 1e-9.
+- `pendulum` (Featherstone): a bounded oscillation of the energy of about the size of
+  MuJoCo's Euler rows (0.37% at h = 0.002).
+
+Being wrong about any of this is a result and will be reported as written here.
+
+### A2.7 Limits added
+
+- The sentence "preserves energy" is a class description, not a stated bound, and the
+  damping is a documented argument with a documented default. A verdict here says what
+  the pinned bytes do; it is not a bug report.
+- CPU device only. The GPU device may round differently.
+- The time column is mine (A2.2); the engine has no clock to record.
