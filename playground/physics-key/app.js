@@ -73,7 +73,7 @@
       for (var m = 0; m <= 20; m += 5) h += '<line class="pk-g" x1="120" x2="136" y1="' + (34 + m / 20 * 252) + '" y2="' + (34 + m / 20 * 252) + '"/><text class="pk-tx" x="112" y="' + (38 + m / 20 * 252) + '" text-anchor="end">' + m + ' m</text>';
       h += '<line class="pk-g" x1="160" x2="160" y1="34" y2="286"/><circle class="pk-body" cx="160" cy="' + y.toFixed(2) + '" r="10"/>';
     } else if (s === 'pendulum') {
-      var th = val(c, step, 1), px = 160, py = 132, len = 118, th0 = val(c, 0, 1);
+      var th = val(c, step, 1), px = 160, py = 165, len = 118, th0 = val(c, 0, 1);
       var yr = py + len * Math.cos(th0);
       h += '<line class="pk-g" x1="20" x2="300" y1="' + yr.toFixed(1) + '" y2="' + yr.toFixed(1) + '"/><text class="pk-tx" x="300" y="' + (yr - 6).toFixed(1) + '" text-anchor="end">the height it was let go from</text>';
       h += '<line class="pk-rod" x1="' + px + '" y1="' + py + '" x2="' + (px + len * Math.sin(th)).toFixed(2) + '" y2="' + (py + len * Math.cos(th)).toFixed(2) + '"/>'
