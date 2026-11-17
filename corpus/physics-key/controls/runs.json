@@ -1,0 +1,259 @@
+{
+ "format": 1,
+ "runs": [
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "F-POS": {
+     "1e-12": "CERTIFIED"
+    },
+    "F-VEL": {
+     "1e-12": "CERTIFIED"
+    }
+   },
+   "id": "rc1-fall-exact",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb851eb851f"
+   },
+   "scene": "fall",
+   "sha256": "fbdc8c7bf6ba4a0949c5a0ce93c3bf9ed5addd2901da4ddcb48e3688b3274ace",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "T-ENERGY": {
+     "0": "CERTIFIED"
+    },
+    "T-LMAG": {
+     "0": "CERTIFIED"
+    },
+    "T-LVEC": {
+     "0": "CERTIFIED"
+    }
+   },
+   "id": "rc2a-top-constant",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "ef1941784991ea84e8187d7a5b9b8fe5cdfbfc19304ffa8d89f4bb4abddcbaa7",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "T-ENERGY": {
+     "1e-4": "CERTIFIED",
+     "1e-6": [
+      "REFUTED",
+      700
+     ]
+    },
+    "T-LMAG": {
+     "1e-4": "CERTIFIED",
+     "1e-6": [
+      "REFUTED",
+      700
+     ]
+    },
+    "T-LVEC": {
+     "1e-6": "CERTIFIED",
+     "1e-9": [
+      "REFUTED",
+      700
+     ]
+    }
+   },
+   "id": "rc2b-top-bump",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "bb85c49e2f609645f5ea4e3cf0c64550b62d62f75612eb0b16ce632c332bb53d",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "all": "REFUSED",
+    "nonFiniteStep": 5,
+    "status": "nonfinite"
+   },
+   "id": "rc3-top-nan",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "027bc61da878279a5c237a921c9abb1077ec48f481f67e1dca490ab8c2c2e28c",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "all": "REFUSED",
+    "status": "malformed"
+   },
+   "id": "rc4a-top-truncated",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "ec681602fc296de78eb058e2252600e0fce15362a8fa23c9aa2bc8607d1dfa28",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "all": "REFUSED",
+    "status": "malformed"
+   },
+   "id": "rc4b-top-wrong-sha",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "ef1941784991ea84e8187d7a5b9b8fe5cdfbfc19304ffa8d89f4bb4abddcbaa7",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "P-ENERGY": {
+     "0": "CERTIFIED"
+    }
+   },
+   "id": "rc5a-pendulum-return",
+   "integrator": "none",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb851eb851f",
+    "IYY": "3f847ae147ae147b",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "bbe616cb7ea792f3a100854943708d0c6cb706f2ad51a0fcb0e6f7d282d71bed",
+   "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "P-ENERGY": {
+     "0": [
+      "REFUTED",
+      6
+     ],
+     "1e-12": [
+      "REFUTED",
+      6
+     ],
+     "1e-9": "CERTIFIED"
+    }
+   },
+   "id": "rc5b-pendulum-speed",
+   "integrator": "none",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb851eb851f",
+    "IYY": "3f847ae147ae147b",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "56ea2815f1b07c0f37719a80ac46cc6cb84750228adedbc89eb3897ff2d78844",
+   "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "P-ENERGY": {
+     "0": [
+      "REFUTED",
+      3
+     ],
+     "1e-12": "CERTIFIED"
+    }
+   },
+   "id": "rc5c-pendulum-angle",
+   "integrator": "none",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb851eb851f",
+    "IYY": "3f847ae147ae147b",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "9b1fa2d77f58b22eb55e19432890029ee87c69a78b279b80b78c8328cb6ab63c",
+   "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  }
+ ]
+}
