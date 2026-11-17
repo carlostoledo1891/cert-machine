@@ -1,0 +1,11 @@
+<mujoco model="pendulum">
+  <option gravity="0 0 -9.81">
+    <flag contact="disable" autoreset="disable"/>
+  </option>
+  <worldbody>
+    <body name="b">
+      <joint type="hinge" axis="0 1 0" pos="0 0 0"/>
+      <inertial pos="0 0 -1" mass="1" diaginertia="0.01 0.01 0.01"/>
+    </body>
+  </worldbody>
+</mujoco>

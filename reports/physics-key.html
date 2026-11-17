@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic · Carlos Toledo</title>
+<meta name="description" content="Every number a physics engine writes is an exact fraction, so conservation laws can be decided on a recorded run with whole numbers. One hundred runs of MuJoCo and Newton on three scenes with a known answer, decided by two programs that share no code. What stays open is said first.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/physics-key.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/physics-key.html">
+<meta property="og:title" content="The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic · Carlos Toledo">
+<meta property="og:description" content="Every number a physics engine writes is an exact fraction, so conservation laws can be decided on a recorded run with whole numbers. One hundred runs of MuJoCo and Newton on three scenes with a known answer, decided by two programs that share no code. What stays open is said first.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic · Carlos Toledo">
+<meta name="twitter:description" content="Every number a physics engine writes is an exact fraction, so conservation laws can be decided on a recorded run with whole numbers. One hundred runs of MuJoCo and Newton on three scenes with a known answer, decided by two programs that share no code. What stays open is said first.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic","description":"Every number a physics engine writes is an exact fraction, so conservation laws can be decided on a recorded run with whole numbers. One hundred runs of MuJoCo and Newton on three scenes with a known answer, decided by two programs that share no code. What stays open is said first.","url":"https://carlostoledo.co/reports/physics-key.html","image":"https://carlostoledo.co/og-landing.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+/* @/site-css */
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the records</div>
+  <h1>The physics answer key: one hundred simulator runs, two engines, decided in exact arithmetic</h1>
+  <p class="deck">A physics engine writes its state as floating-point numbers, and every one of those is an exact fraction. So whether a recorded run kept its energy, to a stated tolerance, can be decided with whole numbers and no rounding in the decision. With Claude (Anthropic’s AI model), I recorded 100 runs of two engines built for simulating robots, MuJoCo 4.0.1 and Newton 1.8.0, on three scenes whose physics is known exactly, and decided each recorded file that way. For MuJoCo, the documentation already describes what the runs show. For Newton, one solver’s default settings include an angular damping that its class description does not mention where it says the method preserves energy. What is added here is the exact decision, the step at which each tolerance first fails, and a page that decides the same bytes again in a browser tab.</p>
+</header>
+
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+  <svg viewBox="0 0 900 380" role="img" aria-label="Spin energy over ten seconds for a tumbling body with no force on it, in every configuration recorded at the timestep 0.002 seconds. Physics says it stays level. One line, Newton’s SolverSemiImplicit at its default settings, falls steadily to about minus 63 per cent. The other lines, MuJoCo’s integrators and Newton with the damping off, stay within about 2 per cent of the zero line.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="252.5" x2="878" y2="252.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="256.5" text-anchor="end" class="t-ax">−60%</text>
+    <line x1="62" y1="183.5" x2="878" y2="183.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="187.5" text-anchor="end" class="t-ax">−40%</text>
+    <line x1="62" y1="114.6" x2="878" y2="114.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="118.6" text-anchor="end" class="t-ax">−20%</text>
+    <line x1="62" y1="45.6" x2="878" y2="45.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="49.6" text-anchor="end" class="t-ax">0%</text>
+    <line x1="62.0" y1="287" x2="62.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="307.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="225.2" y1="287" x2="225.2" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="307.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="388.4" y1="287" x2="388.4" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="307.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="551.6" y1="287" x2="551.6" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="307.0" text-anchor="middle" class="t-ax">6</text>
+    <line x1="714.8" y1="287" x2="714.8" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="307.0" text-anchor="middle" class="t-ax">8</text>
+    <line x1="878.0" y1="287" x2="878.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="307.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="62" y1="287" x2="878" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="329.0" text-anchor="middle" class="t-note">seconds</text>
+    <text x="13" y="152.5" class="t-note" transform="rotate(-90 13 152.5)" text-anchor="middle">spin energy, change since the start</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.59 L72.28 45.59 L75.55 45.59 L78.97 45.59 L82.40 45.59 L85.83 45.59 L89.25 45.59 L92.68 45.59 L95.95 45.59 L99.37 45.59 L102.80 45.59 L106.23 45.59 L109.65 45.59 L113.08 45.59 L116.35 45.59 L119.77 45.59 L123.20 45.59 L126.63 45.59 L130.05 45.59 L133.48 45.59 L136.75 45.59 L140.17 45.59 L143.60 45.59 L147.03 45.59 L150.45 45.59 L153.88 45.58 L157.15 45.58 L160.57 45.58 L164.00 45.58 L167.43 45.58 L170.85 45.58 L174.28 45.57 L177.55 45.57 L180.97 45.57 L184.40 45.56 L187.83 45.56 L191.25 45.55 L194.68 45.54 L197.95 45.53 L201.37 45.52 L204.80 45.51 L208.23 45.49 L211.65 45.47 L215.08 45.45 L218.35 45.42 L221.77 45.39 L225.20 45.35 L228.63 45.30 L232.05 45.24 L235.48 45.18 L238.75 45.11 L242.17 45.03 L245.60 44.93 L249.03 44.82 L252.45 44.70 L255.88 44.57 L259.15 44.44 L262.57 44.29 L266.00 44.14 L269.43 43.99 L272.85 43.83 L276.28 43.68 L279.55 43.54 L282.97 43.40 L286.40 43.27 L289.83 43.15 L293.25 43.04 L296.68 42.94 L299.95 42.86 L303.37 42.79 L306.80 42.72 L310.23 42.67 L313.65 42.62 L317.08 42.58 L320.35 42.55 L323.77 42.52 L327.20 42.50 L330.63 42.48 L334.05 42.46 L337.48 42.45 L340.75 42.44 L344.17 42.43 L347.60 42.42 L351.03 42.41 L354.45 42.41 L357.88 42.40 L361.15 42.40 L364.57 42.39 L368.00 42.39 L371.43 42.39 L374.85 42.39 L378.28 42.39 L381.55 42.39 L384.97 42.39 L388.40 42.38 L391.83 42.38 L395.25 42.38 L398.68 42.38 L401.95 42.38 L405.37 42.38 L408.80 42.38 L412.23 42.38 L415.65 42.38 L419.08 42.38 L422.35 42.38 L425.77 42.38 L429.20 42.38 L432.63 42.38 L436.05 42.38 L439.48 42.38 L442.75 42.38 L446.17 42.38 L449.60 42.38 L453.03 42.38 L456.45 42.38 L459.88 42.38 L463.15 42.38 L466.57 42.38 L470.00 42.38 L473.43 42.38 L476.85 42.38 L480.28 42.38 L483.55 42.38 L486.97 42.38 L490.40 42.38 L493.83 42.38 L497.25 42.38 L500.68 42.38 L503.95 42.38 L507.37 42.38 L510.80 42.38 L514.23 42.38 L517.65 42.38 L521.08 42.38 L524.35 42.38 L527.77 42.37 L531.20 42.37 L534.63 42.37 L538.05 42.37 L541.48 42.37 L544.75 42.36 L548.17 42.36 L551.60 42.36 L555.03 42.35 L558.45 42.34 L561.88 42.34 L565.15 42.33 L568.57 42.31 L572.00 42.30 L575.43 42.28 L578.85 42.26 L582.28 42.24 L585.55 42.21 L588.97 42.18 L592.40 42.14 L595.83 42.09 L599.25 42.04 L602.68 41.97 L605.95 41.90 L609.37 41.82 L612.80 41.72 L616.23 41.61 L619.65 41.49 L623.08 41.36 L626.35 41.23 L629.77 41.08 L633.20 40.92 L636.63 40.76 L640.05 40.61 L643.48 40.45 L646.75 40.31 L650.17 40.16 L653.60 40.03 L657.03 39.91 L660.45 39.80 L663.88 39.70 L667.15 39.62 L670.57 39.54 L674.00 39.47 L677.43 39.42 L680.85 39.37 L684.28 39.33 L687.55 39.30 L690.97 39.27 L694.40 39.24 L697.83 39.22 L701.25 39.21 L704.68 39.19 L707.95 39.18 L711.37 39.17 L714.80 39.16 L718.23 39.16 L721.65 39.15 L725.08 39.15 L728.35 39.14 L731.77 39.14 L735.20 39.14 L738.63 39.14 L742.05 39.13 L745.48 39.13 L748.75 39.13 L752.17 39.13 L755.60 39.13 L759.03 39.13 L762.45 39.13 L765.88 39.13 L769.15 39.13 L772.57 39.13 L776.00 39.13 L779.43 39.13 L782.85 39.13 L786.28 39.13 L789.55 39.13 L792.97 39.13 L796.40 39.13 L799.83 39.13 L803.25 39.13 L806.68 39.13 L809.95 39.13 L813.37 39.13 L816.80 39.13 L820.23 39.13 L823.65 39.13 L827.08 39.13 L830.35 39.13 L833.77 39.13 L837.20 39.13 L840.63 39.13 L844.05 39.13 L847.48 39.13 L850.75 39.13 L854.17 39.13 L857.60 39.13 L861.03 39.13 L864.45 39.13 L867.88 39.13 L871.15 39.13 L874.57 39.12 L878.00 39.12" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="39.12" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.59 L72.28 45.59 L75.55 45.59 L78.97 45.59 L82.40 45.59 L85.83 45.59 L89.25 45.59 L92.68 45.59 L95.95 45.59 L99.37 45.59 L102.80 45.59 L106.23 45.59 L109.65 45.59 L113.08 45.59 L116.35 45.59 L119.77 45.59 L123.20 45.59 L126.63 45.59 L130.05 45.59 L133.48 45.59 L136.75 45.59 L140.17 45.59 L143.60 45.59 L147.03 45.59 L150.45 45.59 L153.88 45.59 L157.15 45.60 L160.57 45.60 L164.00 45.60 L167.43 45.60 L170.85 45.60 L174.28 45.61 L177.55 45.61 L180.97 45.61 L184.40 45.62 L187.83 45.62 L191.25 45.63 L194.68 45.64 L197.95 45.65 L201.37 45.66 L204.80 45.67 L208.23 45.69 L211.65 45.71 L215.08 45.74 L218.35 45.76 L221.77 45.80 L225.20 45.84 L228.63 45.89 L232.05 45.95 L235.48 46.01 L238.75 46.08 L242.17 46.17 L245.60 46.27 L249.03 46.38 L252.45 46.50 L255.88 46.63 L259.15 46.76 L262.57 46.91 L266.00 47.06 L269.43 47.21 L272.85 47.36 L276.28 47.51 L279.55 47.65 L282.97 47.78 L286.40 47.91 L289.83 48.02 L293.25 48.13 L296.68 48.22 L299.95 48.29 L303.37 48.37 L306.80 48.43 L310.23 48.48 L313.65 48.52 L317.08 48.56 L320.35 48.59 L323.77 48.62 L327.20 48.64 L330.63 48.66 L334.05 48.68 L337.48 48.69 L340.75 48.70 L344.17 48.71 L347.60 48.72 L351.03 48.72 L354.45 48.73 L357.88 48.73 L361.15 48.74 L364.57 48.74 L368.00 48.74 L371.43 48.75 L374.85 48.75 L378.28 48.75 L381.55 48.75 L384.97 48.75 L388.40 48.75 L391.83 48.75 L395.25 48.75 L398.68 48.75 L401.95 48.75 L405.37 48.75 L408.80 48.75 L412.23 48.75 L415.65 48.75 L419.08 48.75 L422.35 48.75 L425.77 48.75 L429.20 48.75 L432.63 48.75 L436.05 48.75 L439.48 48.75 L442.75 48.75 L446.17 48.75 L449.60 48.75 L453.03 48.75 L456.45 48.75 L459.88 48.75 L463.15 48.75 L466.57 48.75 L470.00 48.75 L473.43 48.75 L476.85 48.76 L480.28 48.76 L483.55 48.76 L486.97 48.76 L490.40 48.76 L493.83 48.76 L497.25 48.76 L500.68 48.76 L503.95 48.76 L507.37 48.76 L510.80 48.76 L514.23 48.76 L517.65 48.76 L521.08 48.76 L524.35 48.76 L527.77 48.76 L531.20 48.76 L534.63 48.77 L538.05 48.77 L541.48 48.77 L544.75 48.77 L548.17 48.78 L551.60 48.78 L555.03 48.79 L558.45 48.79 L561.88 48.80 L565.15 48.81 L568.57 48.82 L572.00 48.84 L575.43 48.86 L578.85 48.88 L582.28 48.90 L585.55 48.93 L588.97 48.96 L592.40 49.00 L595.83 49.05 L599.25 49.11 L602.68 49.17 L605.95 49.25 L609.37 49.33 L612.80 49.43 L616.23 49.53 L619.65 49.65 L623.08 49.78 L626.35 49.91 L629.77 50.06 L633.20 50.20 L636.63 50.35 L640.05 50.50 L643.48 50.65 L646.75 50.78 L650.17 50.92 L653.60 51.04 L657.03 51.15 L660.45 51.25 L663.88 51.34 L667.15 51.42 L670.57 51.49 L674.00 51.55 L677.43 51.60 L680.85 51.65 L684.28 51.68 L687.55 51.71 L690.97 51.74 L694.40 51.76 L697.83 51.78 L701.25 51.80 L704.68 51.81 L707.95 51.82 L711.37 51.83 L714.80 51.84 L718.23 51.85 L721.65 51.85 L725.08 51.86 L728.35 51.86 L731.77 51.86 L735.20 51.86 L738.63 51.87 L742.05 51.87 L745.48 51.87 L748.75 51.87 L752.17 51.87 L755.60 51.87 L759.03 51.87 L762.45 51.87 L765.88 51.87 L769.15 51.87 L772.57 51.87 L776.00 51.87 L779.43 51.87 L782.85 51.88 L786.28 51.88 L789.55 51.88 L792.97 51.88 L796.40 51.88 L799.83 51.88 L803.25 51.88 L806.68 51.88 L809.95 51.88 L813.37 51.88 L816.80 51.88 L820.23 51.88 L823.65 51.88 L827.08 51.88 L830.35 51.88 L833.77 51.88 L837.20 51.88 L840.63 51.88 L844.05 51.88 L847.48 51.88 L850.75 51.88 L854.17 51.88 L857.60 51.88 L861.03 51.88 L864.45 51.88 L867.88 51.88 L871.15 51.88 L874.57 51.88 L878.00 51.88" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="51.88" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.59 L72.28 45.59 L75.55 45.59 L78.97 45.59 L82.40 45.59 L85.83 45.59 L89.25 45.59 L92.68 45.59 L95.95 45.59 L99.37 45.59 L102.80 45.59 L106.23 45.59 L109.65 45.59 L113.08 45.59 L116.35 45.59 L119.77 45.59 L123.20 45.59 L126.63 45.59 L130.05 45.59 L133.48 45.59 L136.75 45.59 L140.17 45.59 L143.60 45.59 L147.03 45.59 L150.45 45.59 L153.88 45.59 L157.15 45.60 L160.57 45.60 L164.00 45.60 L167.43 45.60 L170.85 45.60 L174.28 45.61 L177.55 45.61 L180.97 45.61 L184.40 45.62 L187.83 45.62 L191.25 45.63 L194.68 45.64 L197.95 45.65 L201.37 45.66 L204.80 45.67 L208.23 45.69 L211.65 45.71 L215.08 45.74 L218.35 45.76 L221.77 45.80 L225.20 45.84 L228.63 45.89 L232.05 45.95 L235.48 46.01 L238.75 46.08 L242.17 46.17 L245.60 46.27 L249.03 46.38 L252.45 46.50 L255.88 46.63 L259.15 46.76 L262.57 46.91 L266.00 47.06 L269.43 47.21 L272.85 47.36 L276.28 47.51 L279.55 47.65 L282.97 47.78 L286.40 47.91 L289.83 48.02 L293.25 48.13 L296.68 48.22 L299.95 48.29 L303.37 48.37 L306.80 48.43 L310.23 48.48 L313.65 48.52 L317.08 48.56 L320.35 48.59 L323.77 48.62 L327.20 48.64 L330.63 48.66 L334.05 48.68 L337.48 48.69 L340.75 48.70 L344.17 48.71 L347.60 48.72 L351.03 48.72 L354.45 48.73 L357.88 48.73 L361.15 48.74 L364.57 48.74 L368.00 48.74 L371.43 48.75 L374.85 48.75 L378.28 48.75 L381.55 48.75 L384.97 48.75 L388.40 48.75 L391.83 48.75 L395.25 48.75 L398.68 48.75 L401.95 48.75 L405.37 48.75 L408.80 48.75 L412.23 48.75 L415.65 48.75 L419.08 48.75 L422.35 48.75 L425.77 48.75 L429.20 48.75 L432.63 48.75 L436.05 48.75 L439.48 48.75 L442.75 48.75 L446.17 48.75 L449.60 48.75 L453.03 48.75 L456.45 48.75 L459.88 48.75 L463.15 48.75 L466.57 48.75 L470.00 48.75 L473.43 48.75 L476.85 48.76 L480.28 48.76 L483.55 48.76 L486.97 48.76 L490.40 48.76 L493.83 48.76 L497.25 48.76 L500.68 48.76 L503.95 48.76 L507.37 48.76 L510.80 48.76 L514.23 48.76 L517.65 48.76 L521.08 48.76 L524.35 48.76 L527.77 48.76 L531.20 48.76 L534.63 48.77 L538.05 48.77 L541.48 48.77 L544.75 48.77 L548.17 48.78 L551.60 48.78 L555.03 48.79 L558.45 48.79 L561.88 48.80 L565.15 48.81 L568.57 48.82 L572.00 48.84 L575.43 48.86 L578.85 48.88 L582.28 48.90 L585.55 48.93 L588.97 48.96 L592.40 49.00 L595.83 49.05 L599.25 49.11 L602.68 49.17 L605.95 49.25 L609.37 49.33 L612.80 49.43 L616.23 49.53 L619.65 49.65 L623.08 49.78 L626.35 49.91 L629.77 50.06 L633.20 50.20 L636.63 50.35 L640.05 50.50 L643.48 50.65 L646.75 50.78 L650.17 50.92 L653.60 51.04 L657.03 51.15 L660.45 51.25 L663.88 51.34 L667.15 51.42 L670.57 51.49 L674.00 51.55 L677.43 51.60 L680.85 51.65 L684.28 51.68 L687.55 51.71 L690.97 51.74 L694.40 51.76 L697.83 51.78 L701.25 51.80 L704.68 51.81 L707.95 51.82 L711.37 51.83 L714.80 51.84 L718.23 51.85 L721.65 51.85 L725.08 51.86 L728.35 51.86 L731.77 51.86 L735.20 51.86 L738.63 51.87 L742.05 51.87 L745.48 51.87 L748.75 51.87 L752.17 51.87 L755.60 51.87 L759.03 51.87 L762.45 51.87 L765.88 51.87 L769.15 51.87 L772.57 51.87 L776.00 51.87 L779.43 51.87 L782.85 51.88 L786.28 51.88 L789.55 51.88 L792.97 51.88 L796.40 51.88 L799.83 51.88 L803.25 51.88 L806.68 51.88 L809.95 51.88 L813.37 51.88 L816.80 51.88 L820.23 51.88 L823.65 51.88 L827.08 51.88 L830.35 51.88 L833.77 51.88 L837.20 51.88 L840.63 51.88 L844.05 51.88 L847.48 51.88 L850.75 51.88 L854.17 51.88 L857.60 51.88 L861.03 51.88 L864.45 51.88 L867.88 51.88 L871.15 51.88 L874.57 51.88 L878.00 51.88" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="51.88" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.59 L72.28 45.59 L75.55 45.59 L78.97 45.59 L82.40 45.59 L85.83 45.59 L89.25 45.59 L92.68 45.59 L95.95 45.59 L99.37 45.59 L102.80 45.59 L106.23 45.59 L109.65 45.59 L113.08 45.59 L116.35 45.59 L119.77 45.59 L123.20 45.59 L126.63 45.59 L130.05 45.59 L133.48 45.59 L136.75 45.59 L140.17 45.59 L143.60 45.59 L147.03 45.59 L150.45 45.59 L153.88 45.59 L157.15 45.59 L160.57 45.59 L164.00 45.59 L167.43 45.59 L170.85 45.59 L174.28 45.59 L177.55 45.59 L180.97 45.59 L184.40 45.59 L187.83 45.59 L191.25 45.59 L194.68 45.59 L197.95 45.59 L201.37 45.59 L204.80 45.59 L208.23 45.59 L211.65 45.59 L215.08 45.59 L218.35 45.59 L221.77 45.59 L225.20 45.59 L228.63 45.59 L232.05 45.59 L235.48 45.59 L238.75 45.59 L242.17 45.59 L245.60 45.59 L249.03 45.59 L252.45 45.59 L255.88 45.59 L259.15 45.59 L262.57 45.59 L266.00 45.59 L269.43 45.59 L272.85 45.59 L276.28 45.59 L279.55 45.59 L282.97 45.59 L286.40 45.59 L289.83 45.59 L293.25 45.59 L296.68 45.59 L299.95 45.59 L303.37 45.59 L306.80 45.59 L310.23 45.59 L313.65 45.59 L317.08 45.59 L320.35 45.59 L323.77 45.59 L327.20 45.59 L330.63 45.59 L334.05 45.59 L337.48 45.59 L340.75 45.59 L344.17 45.59 L347.60 45.59 L351.03 45.59 L354.45 45.59 L357.88 45.59 L361.15 45.59 L364.57 45.59 L368.00 45.59 L371.43 45.59 L374.85 45.59 L378.28 45.59 L381.55 45.59 L384.97 45.59 L388.40 45.59 L391.83 45.59 L395.25 45.59 L398.68 45.59 L401.95 45.59 L405.37 45.59 L408.80 45.59 L412.23 45.59 L415.65 45.59 L419.08 45.59 L422.35 45.59 L425.77 45.59 L429.20 45.59 L432.63 45.59 L436.05 45.59 L439.48 45.59 L442.75 45.59 L446.17 45.59 L449.60 45.59 L453.03 45.59 L456.45 45.59 L459.88 45.59 L463.15 45.59 L466.57 45.59 L470.00 45.59 L473.43 45.59 L476.85 45.59 L480.28 45.59 L483.55 45.59 L486.97 45.59 L490.40 45.59 L493.83 45.59 L497.25 45.59 L500.68 45.59 L503.95 45.59 L507.37 45.59 L510.80 45.59 L514.23 45.59 L517.65 45.59 L521.08 45.59 L524.35 45.59 L527.77 45.59 L531.20 45.59 L534.63 45.59 L538.05 45.59 L541.48 45.59 L544.75 45.59 L548.17 45.59 L551.60 45.59 L555.03 45.59 L558.45 45.59 L561.88 45.59 L565.15 45.59 L568.57 45.59 L572.00 45.59 L575.43 45.59 L578.85 45.59 L582.28 45.59 L585.55 45.59 L588.97 45.59 L592.40 45.59 L595.83 45.59 L599.25 45.59 L602.68 45.59 L605.95 45.59 L609.37 45.59 L612.80 45.59 L616.23 45.59 L619.65 45.59 L623.08 45.59 L626.35 45.59 L629.77 45.59 L633.20 45.59 L636.63 45.59 L640.05 45.59 L643.48 45.59 L646.75 45.59 L650.17 45.59 L653.60 45.59 L657.03 45.59 L660.45 45.59 L663.88 45.59 L667.15 45.59 L670.57 45.59 L674.00 45.59 L677.43 45.59 L680.85 45.59 L684.28 45.59 L687.55 45.59 L690.97 45.59 L694.40 45.59 L697.83 45.59 L701.25 45.59 L704.68 45.59 L707.95 45.59 L711.37 45.59 L714.80 45.59 L718.23 45.59 L721.65 45.59 L725.08 45.59 L728.35 45.59 L731.77 45.59 L735.20 45.59 L738.63 45.59 L742.05 45.59 L745.48 45.59 L748.75 45.59 L752.17 45.59 L755.60 45.59 L759.03 45.59 L762.45 45.59 L765.88 45.59 L769.15 45.59 L772.57 45.59 L776.00 45.59 L779.43 45.59 L782.85 45.59 L786.28 45.59 L789.55 45.59 L792.97 45.59 L796.40 45.59 L799.83 45.59 L803.25 45.59 L806.68 45.59 L809.95 45.59 L813.37 45.59 L816.80 45.59 L820.23 45.59 L823.65 45.59 L827.08 45.59 L830.35 45.59 L833.77 45.59 L837.20 45.59 L840.63 45.59 L844.05 45.59 L847.48 45.59 L850.75 45.59 L854.17 45.59 L857.60 45.59 L861.03 45.59 L864.45 45.59 L867.88 45.59 L871.15 45.59 L874.57 45.59 L878.00 45.59" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="45.59" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.58 L72.28 45.58 L75.55 45.58 L78.97 45.58 L82.40 45.57 L85.83 45.57 L89.25 45.57 L92.68 45.57 L95.95 45.56 L99.37 45.56 L102.80 45.56 L106.23 45.55 L109.65 45.55 L113.08 45.54 L116.35 45.54 L119.77 45.54 L123.20 45.53 L126.63 45.53 L130.05 45.52 L133.48 45.52 L136.75 45.52 L140.17 45.51 L143.60 45.51 L147.03 45.51 L150.45 45.50 L153.88 45.50 L157.15 45.50 L160.57 45.49 L164.00 45.49 L167.43 45.49 L170.85 45.48 L174.28 45.48 L177.55 45.47 L180.97 45.47 L184.40 45.46 L187.83 45.45 L191.25 45.44 L194.68 45.42 L197.95 45.41 L201.37 45.40 L204.80 45.38 L208.23 45.36 L211.65 45.34 L215.08 45.31 L218.35 45.28 L221.77 45.25 L225.20 45.20 L228.63 45.15 L232.05 45.10 L235.48 45.03 L238.75 44.96 L242.17 44.87 L245.60 44.77 L249.03 44.66 L252.45 44.54 L255.88 44.41 L259.15 44.27 L262.57 44.12 L266.00 43.97 L269.43 43.81 L272.85 43.65 L276.28 43.50 L279.55 43.36 L282.97 43.22 L286.40 43.09 L289.83 42.97 L293.25 42.86 L296.68 42.76 L299.95 42.68 L303.37 42.61 L306.80 42.54 L310.23 42.49 L313.65 42.44 L317.08 42.40 L320.35 42.37 L323.77 42.34 L327.20 42.31 L330.63 42.29 L334.05 42.28 L337.48 42.26 L340.75 42.25 L344.17 42.24 L347.60 42.24 L351.03 42.23 L354.45 42.22 L357.88 42.22 L361.15 42.22 L364.57 42.21 L368.00 42.21 L371.43 42.21 L374.85 42.21 L378.28 42.20 L381.55 42.20 L384.97 42.20 L388.40 42.20 L391.83 42.20 L395.25 42.20 L398.68 42.20 L401.95 42.20 L405.37 42.20 L408.80 42.20 L412.23 42.20 L415.65 42.20 L419.08 42.20 L422.35 42.20 L425.77 42.20 L429.20 42.20 L432.63 42.20 L436.05 42.20 L439.48 42.20 L442.75 42.20 L446.17 42.20 L449.60 42.20 L453.03 42.20 L456.45 42.20 L459.88 42.20 L463.15 42.20 L466.57 42.20 L470.00 42.20 L473.43 42.20 L476.85 42.20 L480.28 42.20 L483.55 42.20 L486.97 42.20 L490.40 42.20 L493.83 42.20 L497.25 42.20 L500.68 42.20 L503.95 42.20 L507.37 42.20 L510.80 42.20 L514.23 42.20 L517.65 42.20 L521.08 42.19 L524.35 42.19 L527.77 42.19 L531.20 42.19 L534.63 42.19 L538.05 42.19 L541.48 42.18 L544.75 42.18 L548.17 42.17 L551.60 42.17 L555.03 42.16 L558.45 42.16 L561.88 42.15 L565.15 42.14 L568.57 42.12 L572.00 42.11 L575.43 42.09 L578.85 42.07 L582.28 42.04 L585.55 42.01 L588.97 41.97 L592.40 41.92 L595.83 41.87 L599.25 41.81 L602.68 41.73 L605.95 41.66 L609.37 41.56 L612.80 41.45 L616.23 41.34 L619.65 41.21 L623.08 41.07 L626.35 40.93 L629.77 40.77 L633.20 40.61 L636.63 40.45 L640.05 40.29 L643.48 40.14 L646.75 40.00 L650.17 39.86 L653.60 39.74 L657.03 39.62 L660.45 39.51 L663.88 39.42 L667.15 39.34 L670.57 39.27 L674.00 39.21 L677.43 39.16 L680.85 39.11 L684.28 39.07 L687.55 39.04 L690.97 39.01 L694.40 38.99 L697.83 38.96 L701.25 38.95 L704.68 38.93 L707.95 38.92 L711.37 38.91 L714.80 38.90 L718.23 38.89 L721.65 38.88 L725.08 38.88 L728.35 38.87 L731.77 38.86 L735.20 38.85 L738.63 38.85 L742.05 38.84 L745.48 38.84 L748.75 38.84 L752.17 38.83 L755.60 38.83 L759.03 38.83 L762.45 38.82 L765.88 38.82 L769.15 38.81 L772.57 38.81 L776.00 38.81 L779.43 38.81 L782.85 38.80 L786.28 38.80 L789.55 38.80 L792.97 38.79 L796.40 38.79 L799.83 38.79 L803.25 38.78 L806.68 38.78 L809.95 38.78 L813.37 38.77 L816.80 38.77 L820.23 38.77 L823.65 38.77 L827.08 38.77 L830.35 38.76 L833.77 38.76 L837.20 38.76 L840.63 38.76 L844.05 38.75 L847.48 38.75 L850.75 38.75 L854.17 38.75 L857.60 38.74 L861.03 38.74 L864.45 38.73 L867.88 38.73 L871.15 38.73 L874.57 38.72 L878.00 38.72" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="38.72" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 45.59 L68.85 45.59 L72.28 45.59 L75.55 45.59 L78.97 45.59 L82.40 45.59 L85.83 45.59 L89.25 45.59 L92.68 45.59 L95.95 45.59 L99.37 45.59 L102.80 45.59 L106.23 45.59 L109.65 45.59 L113.08 45.59 L116.35 45.59 L119.77 45.59 L123.20 45.59 L126.63 45.59 L130.05 45.59 L133.48 45.59 L136.75 45.59 L140.17 45.59 L143.60 45.59 L147.03 45.59 L150.45 45.59 L153.88 45.58 L157.15 45.58 L160.57 45.58 L164.00 45.58 L167.43 45.58 L170.85 45.58 L174.28 45.57 L177.55 45.57 L180.97 45.57 L184.40 45.56 L187.83 45.56 L191.25 45.55 L194.68 45.54 L197.95 45.53 L201.37 45.52 L204.80 45.51 L208.23 45.49 L211.65 45.47 L215.08 45.45 L218.35 45.42 L221.77 45.39 L225.20 45.35 L228.63 45.30 L232.05 45.24 L235.48 45.18 L238.75 45.11 L242.17 45.03 L245.60 44.93 L249.03 44.82 L252.45 44.70 L255.88 44.57 L259.15 44.44 L262.57 44.29 L266.00 44.14 L269.43 43.99 L272.85 43.83 L276.28 43.68 L279.55 43.54 L282.97 43.40 L286.40 43.27 L289.83 43.15 L293.25 43.04 L296.68 42.94 L299.95 42.86 L303.37 42.79 L306.80 42.72 L310.23 42.67 L313.65 42.62 L317.08 42.58 L320.35 42.55 L323.77 42.52 L327.20 42.50 L330.63 42.48 L334.05 42.46 L337.48 42.45 L340.75 42.43 L344.17 42.43 L347.60 42.42 L351.03 42.41 L354.45 42.41 L357.88 42.40 L361.15 42.40 L364.57 42.40 L368.00 42.39 L371.43 42.39 L374.85 42.39 L378.28 42.39 L381.55 42.39 L384.97 42.39 L388.40 42.38 L391.83 42.38 L395.25 42.38 L398.68 42.38 L401.95 42.38 L405.37 42.38 L408.80 42.38 L412.23 42.38 L415.65 42.38 L419.08 42.38 L422.35 42.38 L425.77 42.38 L429.20 42.38 L432.63 42.38 L436.05 42.38 L439.48 42.38 L442.75 42.38 L446.17 42.38 L449.60 42.38 L453.03 42.38 L456.45 42.38 L459.88 42.38 L463.15 42.38 L466.57 42.38 L470.00 42.38 L473.43 42.38 L476.85 42.38 L480.28 42.38 L483.55 42.38 L486.97 42.38 L490.40 42.38 L493.83 42.38 L497.25 42.38 L500.68 42.38 L503.95 42.38 L507.37 42.38 L510.80 42.38 L514.23 42.38 L517.65 42.38 L521.08 42.38 L524.35 42.38 L527.77 42.37 L531.20 42.37 L534.63 42.37 L538.05 42.37 L541.48 42.37 L544.75 42.36 L548.17 42.36 L551.60 42.36 L555.03 42.35 L558.45 42.34 L561.88 42.34 L565.15 42.33 L568.57 42.32 L572.00 42.30 L575.43 42.29 L578.85 42.27 L582.28 42.24 L585.55 42.21 L588.97 42.18 L592.40 42.14 L595.83 42.09 L599.25 42.04 L602.68 41.97 L605.95 41.90 L609.37 41.82 L612.80 41.72 L616.23 41.61 L619.65 41.49 L623.08 41.36 L626.35 41.22 L629.77 41.07 L633.20 40.92 L636.63 40.76 L640.05 40.60 L643.48 40.45 L646.75 40.30 L650.17 40.16 L653.60 40.03 L657.03 39.91 L660.45 39.80 L663.88 39.70 L667.15 39.62 L670.57 39.54 L674.00 39.47 L677.43 39.42 L680.85 39.37 L684.28 39.33 L687.55 39.30 L690.97 39.27 L694.40 39.24 L697.83 39.22 L701.25 39.21 L704.68 39.19 L707.95 39.18 L711.37 39.17 L714.80 39.16 L718.23 39.16 L721.65 39.15 L725.08 39.15 L728.35 39.14 L731.77 39.14 L735.20 39.14 L738.63 39.14 L742.05 39.14 L745.48 39.13 L748.75 39.13 L752.17 39.13 L755.60 39.13 L759.03 39.13 L762.45 39.13 L765.88 39.13 L769.15 39.13 L772.57 39.13 L776.00 39.13 L779.43 39.13 L782.85 39.13 L786.28 39.13 L789.55 39.13 L792.97 39.13 L796.40 39.13 L799.83 39.13 L803.25 39.13 L806.68 39.13 L809.95 39.13 L813.37 39.13 L816.80 39.13 L820.23 39.13 L823.65 39.13 L827.08 39.13 L830.35 39.13 L833.77 39.13 L837.20 39.13 L840.63 39.13 L844.05 39.13 L847.48 39.13 L850.75 39.13 L854.17 39.13 L857.60 39.13 L861.03 39.13 L864.45 39.13 L867.88 39.13 L871.15 39.13 L874.57 39.13 L878.00 39.13" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="39.13" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 45.59 L65.43 47.03 L68.85 48.47 L72.28 49.90 L75.55 51.26 L78.97 52.68 L82.40 54.09 L85.83 55.50 L89.25 56.90 L92.68 58.30 L95.95 59.62 L99.37 61.00 L102.80 62.38 L106.23 63.76 L109.65 65.12 L113.08 66.48 L116.35 67.77 L119.77 69.12 L123.20 70.46 L126.63 71.81 L130.05 73.14 L133.48 74.47 L136.75 75.72 L140.17 77.04 L143.60 78.35 L147.03 79.66 L150.45 80.96 L153.88 82.25 L157.15 83.48 L160.57 84.77 L164.00 86.04 L167.43 87.32 L170.85 88.59 L174.28 89.85 L177.55 91.04 L180.97 92.29 L184.40 93.54 L187.83 94.78 L191.25 96.01 L194.68 97.24 L197.95 98.40 L201.37 99.61 L204.80 100.82 L208.23 102.02 L211.65 103.22 L215.08 104.41 L218.35 105.54 L221.77 106.72 L225.20 107.88 L228.63 109.05 L232.05 110.20 L235.48 111.34 L238.75 112.42 L242.17 113.55 L245.60 114.67 L249.03 115.77 L252.45 116.87 L255.88 117.96 L259.15 118.98 L262.57 120.05 L266.00 121.10 L269.43 122.15 L272.85 123.19 L276.28 124.22 L279.55 125.20 L282.97 126.22 L286.40 127.23 L289.83 128.25 L293.25 129.26 L296.68 130.27 L299.95 131.24 L303.37 132.25 L306.80 133.27 L310.23 134.29 L313.65 135.31 L317.08 136.33 L320.35 137.30 L323.77 138.32 L327.20 139.35 L330.63 140.37 L334.05 141.39 L337.48 142.42 L340.75 143.39 L344.17 144.41 L347.60 145.43 L351.03 146.44 L354.45 147.45 L357.88 148.46 L361.15 149.42 L364.57 150.43 L368.00 151.43 L371.43 152.43 L374.85 153.42 L378.28 154.41 L381.55 155.35 L384.97 156.33 L388.40 157.31 L391.83 158.29 L395.25 159.26 L398.68 160.23 L401.95 161.15 L405.37 162.11 L408.80 163.06 L412.23 164.02 L415.65 164.97 L419.08 165.91 L422.35 166.81 L425.77 167.74 L429.20 168.68 L432.63 169.61 L436.05 170.53 L439.48 171.45 L442.75 172.33 L446.17 173.24 L449.60 174.15 L453.03 175.06 L456.45 175.96 L459.88 176.86 L463.15 177.71 L466.57 178.61 L470.00 179.49 L473.43 180.38 L476.85 181.26 L480.28 182.14 L483.55 182.97 L486.97 183.84 L490.40 184.70 L493.83 185.57 L497.25 186.43 L500.68 187.28 L503.95 188.09 L507.37 188.94 L510.80 189.79 L514.23 190.63 L517.65 191.46 L521.08 192.30 L524.35 193.09 L527.77 193.92 L531.20 194.74 L534.63 195.56 L538.05 196.38 L541.48 197.19 L544.75 197.96 L548.17 198.77 L551.60 199.57 L555.03 200.38 L558.45 201.17 L561.88 201.97 L565.15 202.72 L568.57 203.50 L572.00 204.29 L575.43 205.07 L578.85 205.85 L582.28 206.62 L585.55 207.35 L588.97 208.12 L592.40 208.89 L595.83 209.65 L599.25 210.40 L602.68 211.16 L605.95 211.87 L609.37 212.62 L612.80 213.37 L616.23 214.11 L619.65 214.85 L623.08 215.58 L626.35 216.28 L629.77 217.01 L633.20 217.74 L636.63 218.46 L640.05 219.18 L643.48 219.90 L646.75 220.58 L650.17 221.29 L653.60 221.99 L657.03 222.70 L660.45 223.40 L663.88 224.10 L667.15 224.76 L670.57 225.45 L674.00 226.14 L677.43 226.82 L680.85 227.50 L684.28 228.18 L687.55 228.82 L690.97 229.49 L694.40 230.16 L697.83 230.83 L701.25 231.49 L704.68 232.14 L707.95 232.76 L711.37 233.41 L714.80 234.06 L718.23 234.70 L721.65 235.34 L725.08 235.97 L728.35 236.57 L731.77 237.19 L735.20 237.81 L738.63 238.43 L742.05 239.04 L745.48 239.65 L748.75 240.23 L752.17 240.83 L755.60 241.43 L759.03 242.03 L762.45 242.62 L765.88 243.21 L769.15 243.78 L772.57 244.36 L776.00 244.95 L779.43 245.53 L782.85 246.11 L786.28 246.69 L789.55 247.24 L792.97 247.82 L796.40 248.40 L799.83 248.98 L803.25 249.55 L806.68 250.12 L809.95 250.67 L813.37 251.24 L816.80 251.81 L820.23 252.38 L823.65 252.94 L827.08 253.51 L830.35 254.05 L833.77 254.61 L837.20 255.17 L840.63 255.73 L844.05 256.29 L847.48 256.85 L850.75 257.38 L854.17 257.93 L857.60 258.48 L861.03 259.03 L864.45 259.58 L867.88 260.12 L871.15 260.64 L874.57 261.18 L878.00 261.72" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="261.72" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="350" x2="76" y2="350" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="354.0" text-anchor="start" class="t-note">Newton, SolverSemiImplicit at its defaults: −62.7% after 10 s</text>
+    <line x1="62" y1="369" x2="76" y2="369" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="373.0" text-anchor="start" class="t-note">the 8 other configurations of both engines: none more than 2.00% from level</text>
+  </svg>
+</div><div class="hv-n">
+  <svg viewBox="0 0 440 430" role="img" aria-label="Spin energy over ten seconds for a tumbling body with no force on it, in every configuration recorded at the timestep 0.002 seconds. Physics says it stays level. One line, Newton’s SolverSemiImplicit at its default settings, falls steadily to about minus 63 per cent. The other lines, MuJoCo’s integrators and Newton with the damping off, stay within about 2 per cent of the zero line.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="296.1" x2="418" y2="296.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="300.1" text-anchor="end" class="t-ax">−60%</text>
+    <line x1="62" y1="214.3" x2="418" y2="214.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="218.3" text-anchor="end" class="t-ax">−40%</text>
+    <line x1="62" y1="132.5" x2="418" y2="132.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="136.5" text-anchor="end" class="t-ax">−20%</text>
+    <line x1="62" y1="50.7" x2="418" y2="50.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="54.7" text-anchor="end" class="t-ax">0%</text>
+    <line x1="62.0" y1="337" x2="62.0" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="357.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="240.0" y1="337" x2="240.0" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="240.0" y="357.0" text-anchor="middle" class="t-ax">5</text>
+    <line x1="418.0" y1="337" x2="418.0" y2="342" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="418.0" y="357.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="62" y1="337" x2="418" y2="337" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="240.0" y="379.0" text-anchor="middle" class="t-note">seconds</text>
+    <text x="13" y="177.5" class="t-note" transform="rotate(-90 13 177.5)" text-anchor="middle">spin energy, change</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="337" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M62.00 50.72 L63.50 50.72 L64.99 50.72 L66.49 50.72 L67.91 50.72 L69.40 50.72 L70.90 50.72 L72.40 50.72 L73.89 50.72 L75.39 50.72 L76.81 50.72 L78.30 50.72 L79.80 50.72 L81.30 50.72 L82.79 50.72 L84.29 50.72 L85.71 50.72 L87.20 50.72 L88.70 50.72 L90.20 50.72 L91.69 50.72 L93.19 50.72 L94.61 50.72 L96.10 50.72 L97.60 50.71 L99.10 50.71 L100.59 50.71 L102.09 50.71 L103.51 50.71 L105.00 50.71 L106.50 50.71 L108.00 50.71 L109.49 50.70 L110.99 50.70 L112.41 50.70 L113.90 50.69 L115.40 50.69 L116.90 50.68 L118.39 50.67 L119.89 50.66 L121.31 50.65 L122.80 50.64 L124.30 50.62 L125.80 50.60 L127.29 50.58 L128.79 50.55 L130.21 50.52 L131.70 50.48 L133.20 50.43 L134.70 50.37 L136.19 50.31 L137.69 50.23 L139.11 50.15 L140.60 50.05 L142.10 49.93 L143.60 49.81 L145.09 49.67 L146.59 49.51 L148.01 49.36 L149.50 49.18 L151.00 49.00 L152.50 48.82 L153.99 48.63 L155.49 48.45 L156.91 48.28 L158.40 48.12 L159.90 47.96 L161.40 47.82 L162.89 47.69 L164.39 47.58 L165.81 47.48 L167.30 47.39 L168.80 47.32 L170.30 47.25 L171.79 47.20 L173.29 47.15 L174.71 47.11 L176.20 47.08 L177.70 47.05 L179.20 47.03 L180.69 47.01 L182.19 46.99 L183.61 46.98 L185.10 46.97 L186.60 46.96 L188.10 46.95 L189.59 46.94 L191.09 46.94 L192.51 46.93 L194.00 46.93 L195.50 46.93 L197.00 46.92 L198.49 46.92 L199.99 46.92 L201.41 46.92 L202.90 46.92 L204.40 46.92 L205.90 46.92 L207.39 46.92 L208.89 46.91 L210.31 46.91 L211.80 46.91 L213.30 46.91 L214.80 46.91 L216.29 46.91 L217.79 46.91 L219.21 46.91 L220.70 46.91 L222.20 46.91 L223.70 46.91 L225.19 46.91 L226.69 46.91 L228.11 46.91 L229.60 46.91 L231.10 46.91 L232.60 46.91 L234.09 46.91 L235.59 46.91 L237.01 46.91 L238.50 46.91 L240.00 46.91 L241.50 46.91 L242.99 46.91 L244.49 46.91 L245.91 46.91 L247.40 46.91 L248.90 46.91 L250.40 46.91 L251.89 46.91 L253.39 46.91 L254.81 46.91 L256.30 46.91 L257.80 46.91 L259.30 46.91 L260.79 46.91 L262.29 46.91 L263.71 46.91 L265.20 46.90 L266.70 46.90 L268.20 46.90 L269.69 46.90 L271.19 46.90 L272.61 46.89 L274.10 46.89 L275.60 46.88 L277.10 46.88 L278.59 46.87 L280.09 46.86 L281.51 46.85 L283.00 46.83 L284.50 46.82 L286.00 46.80 L287.49 46.77 L288.99 46.75 L290.41 46.71 L291.90 46.67 L293.40 46.63 L294.90 46.57 L296.39 46.51 L297.89 46.43 L299.31 46.35 L300.80 46.24 L302.30 46.13 L303.80 46.00 L305.29 45.86 L306.79 45.70 L308.21 45.54 L309.70 45.37 L311.20 45.18 L312.70 45.00 L314.19 44.81 L315.69 44.62 L317.11 44.45 L318.60 44.28 L320.10 44.13 L321.60 43.98 L323.09 43.85 L324.59 43.73 L326.01 43.63 L327.50 43.54 L329.00 43.47 L330.50 43.40 L331.99 43.34 L333.49 43.29 L334.91 43.26 L336.40 43.22 L337.90 43.19 L339.40 43.17 L340.89 43.15 L342.39 43.13 L343.81 43.12 L345.30 43.11 L346.80 43.10 L348.30 43.09 L349.79 43.08 L351.29 43.08 L352.71 43.07 L354.20 43.07 L355.70 43.07 L357.20 43.07 L358.69 43.06 L360.19 43.06 L361.61 43.06 L363.10 43.06 L364.60 43.06 L366.10 43.06 L367.59 43.06 L369.09 43.06 L370.51 43.06 L372.00 43.06 L373.50 43.06 L375.00 43.05 L376.49 43.05 L377.99 43.05 L379.41 43.05 L380.90 43.05 L382.40 43.05 L383.90 43.05 L385.39 43.05 L386.89 43.05 L388.31 43.05 L389.80 43.05 L391.30 43.05 L392.80 43.05 L394.29 43.05 L395.79 43.05 L397.21 43.05 L398.70 43.05 L400.20 43.05 L401.70 43.05 L403.19 43.05 L404.69 43.05 L406.11 43.05 L407.60 43.05 L409.10 43.05 L410.60 43.05 L412.09 43.05 L413.59 43.05 L415.01 43.05 L416.50 43.05 L418.00 43.05" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="43.05" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 50.72 L64.99 50.72 L66.49 50.72 L67.91 50.72 L69.40 50.72 L70.90 50.72 L72.40 50.72 L73.89 50.72 L75.39 50.72 L76.81 50.72 L78.30 50.72 L79.80 50.72 L81.30 50.72 L82.79 50.72 L84.29 50.72 L85.71 50.72 L87.20 50.72 L88.70 50.72 L90.20 50.72 L91.69 50.72 L93.19 50.72 L94.61 50.72 L96.10 50.72 L97.60 50.72 L99.10 50.72 L100.59 50.72 L102.09 50.72 L103.51 50.73 L105.00 50.73 L106.50 50.73 L108.00 50.73 L109.49 50.73 L110.99 50.74 L112.41 50.74 L113.90 50.74 L115.40 50.75 L116.90 50.76 L118.39 50.76 L119.89 50.77 L121.31 50.79 L122.80 50.80 L124.30 50.82 L125.80 50.84 L127.29 50.86 L128.79 50.89 L130.21 50.92 L131.70 50.97 L133.20 51.02 L134.70 51.07 L136.19 51.14 L137.69 51.22 L139.11 51.30 L140.60 51.41 L142.10 51.52 L143.60 51.65 L145.09 51.80 L146.59 51.95 L148.01 52.11 L149.50 52.28 L151.00 52.46 L152.50 52.64 L153.99 52.82 L155.49 53.00 L156.91 53.16 L158.40 53.32 L159.90 53.47 L161.40 53.60 L162.89 53.72 L164.39 53.83 L165.81 53.93 L167.30 54.01 L168.80 54.08 L170.30 54.14 L171.79 54.20 L173.29 54.24 L174.71 54.28 L176.20 54.31 L177.70 54.34 L179.20 54.36 L180.69 54.38 L182.19 54.40 L183.61 54.41 L185.10 54.42 L186.60 54.43 L188.10 54.44 L189.59 54.44 L191.09 54.45 L192.51 54.45 L194.00 54.45 L195.50 54.46 L197.00 54.46 L198.49 54.46 L199.99 54.46 L201.41 54.46 L202.90 54.47 L204.40 54.47 L205.90 54.47 L207.39 54.47 L208.89 54.47 L210.31 54.47 L211.80 54.47 L213.30 54.47 L214.80 54.47 L216.29 54.47 L217.79 54.47 L219.21 54.47 L220.70 54.47 L222.20 54.47 L223.70 54.47 L225.19 54.47 L226.69 54.47 L228.11 54.47 L229.60 54.47 L231.10 54.47 L232.60 54.47 L234.09 54.47 L235.59 54.47 L237.01 54.47 L238.50 54.47 L240.00 54.47 L241.50 54.47 L242.99 54.47 L244.49 54.47 L245.91 54.47 L247.40 54.47 L248.90 54.47 L250.40 54.47 L251.89 54.47 L253.39 54.47 L254.81 54.47 L256.30 54.47 L257.80 54.47 L259.30 54.48 L260.79 54.48 L262.29 54.48 L263.71 54.48 L265.20 54.48 L266.70 54.48 L268.20 54.48 L269.69 54.49 L271.19 54.49 L272.61 54.49 L274.10 54.50 L275.60 54.50 L277.10 54.51 L278.59 54.52 L280.09 54.53 L281.51 54.54 L283.00 54.55 L284.50 54.57 L286.00 54.59 L287.49 54.62 L288.99 54.64 L290.41 54.68 L291.90 54.72 L293.40 54.77 L294.90 54.82 L296.39 54.89 L297.89 54.97 L299.31 55.05 L300.80 55.15 L302.30 55.27 L303.80 55.40 L305.29 55.54 L306.79 55.69 L308.21 55.84 L309.70 56.01 L311.20 56.19 L312.70 56.37 L314.19 56.55 L315.69 56.72 L317.11 56.88 L318.60 57.03 L320.10 57.18 L321.60 57.31 L323.09 57.43 L324.59 57.54 L326.01 57.63 L327.50 57.71 L329.00 57.79 L330.50 57.85 L331.99 57.90 L333.49 57.94 L334.91 57.98 L336.40 58.01 L337.90 58.04 L339.40 58.06 L340.89 58.08 L342.39 58.10 L343.81 58.11 L345.30 58.12 L346.80 58.13 L348.30 58.14 L349.79 58.14 L351.29 58.15 L352.71 58.15 L354.20 58.16 L355.70 58.16 L357.20 58.16 L358.69 58.16 L360.19 58.16 L361.61 58.17 L363.10 58.17 L364.60 58.17 L366.10 58.17 L367.59 58.17 L369.09 58.17 L370.51 58.17 L372.00 58.17 L373.50 58.17 L375.00 58.17 L376.49 58.17 L377.99 58.17 L379.41 58.17 L380.90 58.17 L382.40 58.17 L383.90 58.17 L385.39 58.17 L386.89 58.17 L388.31 58.17 L389.80 58.17 L391.30 58.17 L392.80 58.17 L394.29 58.17 L395.79 58.17 L397.21 58.17 L398.70 58.17 L400.20 58.17 L401.70 58.17 L403.19 58.17 L404.69 58.17 L406.11 58.17 L407.60 58.17 L409.10 58.17 L410.60 58.17 L412.09 58.17 L413.59 58.17 L415.01 58.17 L416.50 58.18 L418.00 58.18" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="58.18" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 50.72 L64.99 50.72 L66.49 50.72 L67.91 50.72 L69.40 50.72 L70.90 50.72 L72.40 50.72 L73.89 50.72 L75.39 50.72 L76.81 50.72 L78.30 50.72 L79.80 50.72 L81.30 50.72 L82.79 50.72 L84.29 50.72 L85.71 50.72 L87.20 50.72 L88.70 50.72 L90.20 50.72 L91.69 50.72 L93.19 50.72 L94.61 50.72 L96.10 50.72 L97.60 50.72 L99.10 50.72 L100.59 50.72 L102.09 50.72 L103.51 50.73 L105.00 50.73 L106.50 50.73 L108.00 50.73 L109.49 50.73 L110.99 50.74 L112.41 50.74 L113.90 50.74 L115.40 50.75 L116.90 50.76 L118.39 50.76 L119.89 50.77 L121.31 50.79 L122.80 50.80 L124.30 50.82 L125.80 50.84 L127.29 50.86 L128.79 50.89 L130.21 50.92 L131.70 50.97 L133.20 51.02 L134.70 51.07 L136.19 51.14 L137.69 51.22 L139.11 51.30 L140.60 51.41 L142.10 51.52 L143.60 51.65 L145.09 51.80 L146.59 51.95 L148.01 52.11 L149.50 52.28 L151.00 52.46 L152.50 52.64 L153.99 52.82 L155.49 53.00 L156.91 53.16 L158.40 53.32 L159.90 53.47 L161.40 53.60 L162.89 53.72 L164.39 53.83 L165.81 53.93 L167.30 54.01 L168.80 54.08 L170.30 54.14 L171.79 54.20 L173.29 54.24 L174.71 54.28 L176.20 54.31 L177.70 54.34 L179.20 54.36 L180.69 54.38 L182.19 54.40 L183.61 54.41 L185.10 54.42 L186.60 54.43 L188.10 54.44 L189.59 54.44 L191.09 54.45 L192.51 54.45 L194.00 54.45 L195.50 54.46 L197.00 54.46 L198.49 54.46 L199.99 54.46 L201.41 54.46 L202.90 54.47 L204.40 54.47 L205.90 54.47 L207.39 54.47 L208.89 54.47 L210.31 54.47 L211.80 54.47 L213.30 54.47 L214.80 54.47 L216.29 54.47 L217.79 54.47 L219.21 54.47 L220.70 54.47 L222.20 54.47 L223.70 54.47 L225.19 54.47 L226.69 54.47 L228.11 54.47 L229.60 54.47 L231.10 54.47 L232.60 54.47 L234.09 54.47 L235.59 54.47 L237.01 54.47 L238.50 54.47 L240.00 54.47 L241.50 54.47 L242.99 54.47 L244.49 54.47 L245.91 54.47 L247.40 54.47 L248.90 54.47 L250.40 54.47 L251.89 54.47 L253.39 54.47 L254.81 54.47 L256.30 54.47 L257.80 54.47 L259.30 54.48 L260.79 54.48 L262.29 54.48 L263.71 54.48 L265.20 54.48 L266.70 54.48 L268.20 54.48 L269.69 54.49 L271.19 54.49 L272.61 54.49 L274.10 54.50 L275.60 54.50 L277.10 54.51 L278.59 54.52 L280.09 54.53 L281.51 54.54 L283.00 54.55 L284.50 54.57 L286.00 54.59 L287.49 54.62 L288.99 54.64 L290.41 54.68 L291.90 54.72 L293.40 54.77 L294.90 54.82 L296.39 54.89 L297.89 54.97 L299.31 55.05 L300.80 55.15 L302.30 55.27 L303.80 55.40 L305.29 55.54 L306.79 55.69 L308.21 55.84 L309.70 56.01 L311.20 56.19 L312.70 56.37 L314.19 56.55 L315.69 56.72 L317.11 56.88 L318.60 57.03 L320.10 57.18 L321.60 57.31 L323.09 57.43 L324.59 57.54 L326.01 57.63 L327.50 57.71 L329.00 57.79 L330.50 57.85 L331.99 57.90 L333.49 57.94 L334.91 57.98 L336.40 58.01 L337.90 58.04 L339.40 58.06 L340.89 58.08 L342.39 58.10 L343.81 58.11 L345.30 58.12 L346.80 58.13 L348.30 58.14 L349.79 58.14 L351.29 58.15 L352.71 58.15 L354.20 58.16 L355.70 58.16 L357.20 58.16 L358.69 58.16 L360.19 58.16 L361.61 58.17 L363.10 58.17 L364.60 58.17 L366.10 58.17 L367.59 58.17 L369.09 58.17 L370.51 58.17 L372.00 58.17 L373.50 58.17 L375.00 58.17 L376.49 58.17 L377.99 58.17 L379.41 58.17 L380.90 58.17 L382.40 58.17 L383.90 58.17 L385.39 58.17 L386.89 58.17 L388.31 58.17 L389.80 58.17 L391.30 58.17 L392.80 58.17 L394.29 58.17 L395.79 58.17 L397.21 58.17 L398.70 58.17 L400.20 58.17 L401.70 58.17 L403.19 58.17 L404.69 58.17 L406.11 58.17 L407.60 58.17 L409.10 58.17 L410.60 58.17 L412.09 58.17 L413.59 58.17 L415.01 58.17 L416.50 58.18 L418.00 58.18" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="58.18" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 50.72 L64.99 50.72 L66.49 50.72 L67.91 50.72 L69.40 50.72 L70.90 50.72 L72.40 50.72 L73.89 50.72 L75.39 50.72 L76.81 50.72 L78.30 50.72 L79.80 50.72 L81.30 50.72 L82.79 50.72 L84.29 50.72 L85.71 50.72 L87.20 50.72 L88.70 50.72 L90.20 50.72 L91.69 50.72 L93.19 50.72 L94.61 50.72 L96.10 50.72 L97.60 50.72 L99.10 50.72 L100.59 50.72 L102.09 50.72 L103.51 50.72 L105.00 50.72 L106.50 50.72 L108.00 50.72 L109.49 50.72 L110.99 50.72 L112.41 50.72 L113.90 50.72 L115.40 50.72 L116.90 50.72 L118.39 50.72 L119.89 50.72 L121.31 50.72 L122.80 50.72 L124.30 50.72 L125.80 50.72 L127.29 50.72 L128.79 50.72 L130.21 50.72 L131.70 50.72 L133.20 50.72 L134.70 50.72 L136.19 50.72 L137.69 50.72 L139.11 50.72 L140.60 50.72 L142.10 50.72 L143.60 50.72 L145.09 50.72 L146.59 50.72 L148.01 50.72 L149.50 50.72 L151.00 50.72 L152.50 50.72 L153.99 50.72 L155.49 50.72 L156.91 50.72 L158.40 50.72 L159.90 50.72 L161.40 50.72 L162.89 50.72 L164.39 50.72 L165.81 50.72 L167.30 50.72 L168.80 50.72 L170.30 50.72 L171.79 50.72 L173.29 50.72 L174.71 50.72 L176.20 50.72 L177.70 50.72 L179.20 50.72 L180.69 50.72 L182.19 50.72 L183.61 50.72 L185.10 50.72 L186.60 50.72 L188.10 50.72 L189.59 50.72 L191.09 50.72 L192.51 50.72 L194.00 50.72 L195.50 50.72 L197.00 50.72 L198.49 50.72 L199.99 50.72 L201.41 50.72 L202.90 50.72 L204.40 50.72 L205.90 50.72 L207.39 50.72 L208.89 50.72 L210.31 50.72 L211.80 50.72 L213.30 50.72 L214.80 50.72 L216.29 50.72 L217.79 50.72 L219.21 50.72 L220.70 50.72 L222.20 50.72 L223.70 50.72 L225.19 50.72 L226.69 50.72 L228.11 50.72 L229.60 50.72 L231.10 50.72 L232.60 50.72 L234.09 50.72 L235.59 50.72 L237.01 50.72 L238.50 50.72 L240.00 50.72 L241.50 50.72 L242.99 50.72 L244.49 50.72 L245.91 50.72 L247.40 50.72 L248.90 50.72 L250.40 50.72 L251.89 50.72 L253.39 50.72 L254.81 50.72 L256.30 50.72 L257.80 50.72 L259.30 50.72 L260.79 50.72 L262.29 50.72 L263.71 50.72 L265.20 50.72 L266.70 50.72 L268.20 50.72 L269.69 50.72 L271.19 50.72 L272.61 50.72 L274.10 50.72 L275.60 50.72 L277.10 50.72 L278.59 50.72 L280.09 50.72 L281.51 50.72 L283.00 50.72 L284.50 50.72 L286.00 50.72 L287.49 50.72 L288.99 50.72 L290.41 50.72 L291.90 50.72 L293.40 50.72 L294.90 50.72 L296.39 50.72 L297.89 50.72 L299.31 50.72 L300.80 50.72 L302.30 50.72 L303.80 50.72 L305.29 50.72 L306.79 50.72 L308.21 50.72 L309.70 50.72 L311.20 50.72 L312.70 50.72 L314.19 50.72 L315.69 50.72 L317.11 50.72 L318.60 50.72 L320.10 50.72 L321.60 50.72 L323.09 50.72 L324.59 50.72 L326.01 50.72 L327.50 50.72 L329.00 50.72 L330.50 50.72 L331.99 50.72 L333.49 50.72 L334.91 50.72 L336.40 50.72 L337.90 50.72 L339.40 50.72 L340.89 50.72 L342.39 50.72 L343.81 50.72 L345.30 50.72 L346.80 50.72 L348.30 50.72 L349.79 50.72 L351.29 50.72 L352.71 50.72 L354.20 50.72 L355.70 50.72 L357.20 50.72 L358.69 50.72 L360.19 50.72 L361.61 50.72 L363.10 50.72 L364.60 50.72 L366.10 50.72 L367.59 50.72 L369.09 50.72 L370.51 50.72 L372.00 50.72 L373.50 50.72 L375.00 50.72 L376.49 50.72 L377.99 50.72 L379.41 50.72 L380.90 50.72 L382.40 50.72 L383.90 50.72 L385.39 50.72 L386.89 50.72 L388.31 50.72 L389.80 50.72 L391.30 50.72 L392.80 50.72 L394.29 50.72 L395.79 50.72 L397.21 50.72 L398.70 50.72 L400.20 50.72 L401.70 50.72 L403.19 50.72 L404.69 50.72 L406.11 50.72 L407.60 50.72 L409.10 50.72 L410.60 50.72 L412.09 50.72 L413.59 50.72 L415.01 50.72 L416.50 50.72 L418.00 50.72" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="50.72" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 50.71 L64.99 50.71 L66.49 50.71 L67.91 50.70 L69.40 50.70 L70.90 50.70 L72.40 50.70 L73.89 50.69 L75.39 50.69 L76.81 50.69 L78.30 50.68 L79.80 50.68 L81.30 50.68 L82.79 50.67 L84.29 50.66 L85.71 50.66 L87.20 50.66 L88.70 50.65 L90.20 50.64 L91.69 50.64 L93.19 50.63 L94.61 50.63 L96.10 50.63 L97.60 50.62 L99.10 50.62 L100.59 50.61 L102.09 50.61 L103.51 50.61 L105.00 50.60 L106.50 50.60 L108.00 50.59 L109.49 50.59 L110.99 50.58 L112.41 50.58 L113.90 50.57 L115.40 50.56 L116.90 50.55 L118.39 50.54 L119.89 50.52 L121.31 50.51 L122.80 50.49 L124.30 50.47 L125.80 50.45 L127.29 50.42 L128.79 50.39 L130.21 50.35 L131.70 50.31 L133.20 50.26 L134.70 50.20 L136.19 50.13 L137.69 50.05 L139.11 49.97 L140.60 49.86 L142.10 49.75 L143.60 49.62 L145.09 49.47 L146.59 49.31 L148.01 49.16 L149.50 48.98 L151.00 48.80 L152.50 48.61 L153.99 48.42 L155.49 48.24 L156.91 48.07 L158.40 47.91 L159.90 47.75 L161.40 47.61 L162.89 47.48 L164.39 47.37 L165.81 47.27 L167.30 47.18 L168.80 47.10 L170.30 47.04 L171.79 46.98 L173.29 46.93 L174.71 46.90 L176.20 46.86 L177.70 46.83 L179.20 46.81 L180.69 46.79 L182.19 46.77 L183.61 46.76 L185.10 46.75 L186.60 46.74 L188.10 46.73 L189.59 46.73 L191.09 46.72 L192.51 46.72 L194.00 46.71 L195.50 46.71 L197.00 46.71 L198.49 46.70 L199.99 46.70 L201.41 46.70 L202.90 46.70 L204.40 46.70 L205.90 46.70 L207.39 46.70 L208.89 46.70 L210.31 46.70 L211.80 46.70 L213.30 46.70 L214.80 46.70 L216.29 46.70 L217.79 46.70 L219.21 46.70 L220.70 46.70 L222.20 46.70 L223.70 46.70 L225.19 46.70 L226.69 46.70 L228.11 46.70 L229.60 46.70 L231.10 46.70 L232.60 46.70 L234.09 46.70 L235.59 46.70 L237.01 46.70 L238.50 46.70 L240.00 46.70 L241.50 46.70 L242.99 46.70 L244.49 46.70 L245.91 46.70 L247.40 46.70 L248.90 46.70 L250.40 46.70 L251.89 46.70 L253.39 46.70 L254.81 46.70 L256.30 46.70 L257.80 46.69 L259.30 46.69 L260.79 46.69 L262.29 46.69 L263.71 46.69 L265.20 46.69 L266.70 46.69 L268.20 46.68 L269.69 46.68 L271.19 46.68 L272.61 46.67 L274.10 46.67 L275.60 46.66 L277.10 46.65 L278.59 46.65 L280.09 46.63 L281.51 46.62 L283.00 46.61 L284.50 46.59 L286.00 46.57 L287.49 46.54 L288.99 46.51 L290.41 46.47 L291.90 46.42 L293.40 46.37 L294.90 46.31 L296.39 46.23 L297.89 46.15 L299.31 46.05 L300.80 45.94 L302.30 45.81 L303.80 45.67 L305.29 45.52 L306.79 45.36 L308.21 45.19 L309.70 45.00 L311.20 44.82 L312.70 44.63 L314.19 44.44 L315.69 44.26 L317.11 44.09 L318.60 43.93 L320.10 43.78 L321.60 43.64 L323.09 43.51 L324.59 43.40 L326.01 43.31 L327.50 43.23 L329.00 43.15 L330.50 43.09 L331.99 43.03 L333.49 42.99 L334.91 42.95 L336.40 42.91 L337.90 42.89 L339.40 42.86 L340.89 42.84 L342.39 42.82 L343.81 42.81 L345.30 42.79 L346.80 42.79 L348.30 42.78 L349.79 42.77 L351.29 42.76 L352.71 42.75 L354.20 42.74 L355.70 42.73 L357.20 42.72 L358.69 42.72 L360.19 42.72 L361.61 42.71 L363.10 42.70 L364.60 42.70 L366.10 42.70 L367.59 42.69 L369.09 42.69 L370.51 42.68 L372.00 42.68 L373.50 42.68 L375.00 42.67 L376.49 42.67 L377.99 42.66 L379.41 42.66 L380.90 42.66 L382.40 42.66 L383.90 42.65 L385.39 42.65 L386.89 42.64 L388.31 42.64 L389.80 42.64 L391.30 42.63 L392.80 42.63 L394.29 42.63 L395.79 42.63 L397.21 42.62 L398.70 42.62 L400.20 42.61 L401.70 42.61 L403.19 42.61 L404.69 42.61 L406.11 42.61 L407.60 42.60 L409.10 42.60 L410.60 42.59 L412.09 42.59 L413.59 42.58 L415.01 42.58 L416.50 42.57 L418.00 42.57" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="42.57" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 50.72 L64.99 50.72 L66.49 50.72 L67.91 50.72 L69.40 50.72 L70.90 50.72 L72.40 50.72 L73.89 50.72 L75.39 50.72 L76.81 50.72 L78.30 50.72 L79.80 50.72 L81.30 50.72 L82.79 50.72 L84.29 50.72 L85.71 50.72 L87.20 50.72 L88.70 50.72 L90.20 50.72 L91.69 50.72 L93.19 50.72 L94.61 50.72 L96.10 50.72 L97.60 50.71 L99.10 50.71 L100.59 50.71 L102.09 50.71 L103.51 50.71 L105.00 50.71 L106.50 50.71 L108.00 50.71 L109.49 50.70 L110.99 50.70 L112.41 50.70 L113.90 50.69 L115.40 50.69 L116.90 50.68 L118.39 50.67 L119.89 50.66 L121.31 50.65 L122.80 50.64 L124.30 50.62 L125.80 50.60 L127.29 50.58 L128.79 50.55 L130.21 50.52 L131.70 50.48 L133.20 50.43 L134.70 50.37 L136.19 50.31 L137.69 50.23 L139.11 50.15 L140.60 50.05 L142.10 49.93 L143.60 49.81 L145.09 49.67 L146.59 49.51 L148.01 49.36 L149.50 49.18 L151.00 49.00 L152.50 48.82 L153.99 48.63 L155.49 48.45 L156.91 48.28 L158.40 48.12 L159.90 47.96 L161.40 47.82 L162.89 47.69 L164.39 47.58 L165.81 47.48 L167.30 47.40 L168.80 47.32 L170.30 47.25 L171.79 47.20 L173.29 47.15 L174.71 47.11 L176.20 47.08 L177.70 47.05 L179.20 47.03 L180.69 47.01 L182.19 46.99 L183.61 46.98 L185.10 46.97 L186.60 46.96 L188.10 46.95 L189.59 46.94 L191.09 46.94 L192.51 46.93 L194.00 46.93 L195.50 46.93 L197.00 46.92 L198.49 46.92 L199.99 46.92 L201.41 46.92 L202.90 46.92 L204.40 46.92 L205.90 46.92 L207.39 46.92 L208.89 46.91 L210.31 46.91 L211.80 46.91 L213.30 46.91 L214.80 46.91 L216.29 46.91 L217.79 46.91 L219.21 46.91 L220.70 46.91 L222.20 46.91 L223.70 46.91 L225.19 46.91 L226.69 46.91 L228.11 46.91 L229.60 46.91 L231.10 46.91 L232.60 46.91 L234.09 46.91 L235.59 46.91 L237.01 46.91 L238.50 46.91 L240.00 46.91 L241.50 46.91 L242.99 46.91 L244.49 46.91 L245.91 46.91 L247.40 46.91 L248.90 46.91 L250.40 46.91 L251.89 46.91 L253.39 46.91 L254.81 46.91 L256.30 46.91 L257.80 46.91 L259.30 46.91 L260.79 46.91 L262.29 46.91 L263.71 46.91 L265.20 46.90 L266.70 46.90 L268.20 46.90 L269.69 46.90 L271.19 46.90 L272.61 46.89 L274.10 46.89 L275.60 46.88 L277.10 46.88 L278.59 46.87 L280.09 46.86 L281.51 46.85 L283.00 46.83 L284.50 46.82 L286.00 46.80 L287.49 46.78 L288.99 46.75 L290.41 46.71 L291.90 46.67 L293.40 46.63 L294.90 46.57 L296.39 46.51 L297.89 46.43 L299.31 46.34 L300.80 46.24 L302.30 46.13 L303.80 46.00 L305.29 45.86 L306.79 45.70 L308.21 45.54 L309.70 45.36 L311.20 45.18 L312.70 44.99 L314.19 44.80 L315.69 44.62 L317.11 44.45 L318.60 44.28 L320.10 44.12 L321.60 43.98 L323.09 43.85 L324.59 43.73 L326.01 43.63 L327.50 43.54 L329.00 43.47 L330.50 43.40 L331.99 43.34 L333.49 43.29 L334.91 43.26 L336.40 43.22 L337.90 43.19 L339.40 43.17 L340.89 43.15 L342.39 43.13 L343.81 43.12 L345.30 43.11 L346.80 43.10 L348.30 43.09 L349.79 43.08 L351.29 43.08 L352.71 43.08 L354.20 43.07 L355.70 43.07 L357.20 43.07 L358.69 43.06 L360.19 43.06 L361.61 43.06 L363.10 43.06 L364.60 43.06 L366.10 43.06 L367.59 43.06 L369.09 43.06 L370.51 43.06 L372.00 43.06 L373.50 43.06 L375.00 43.06 L376.49 43.06 L377.99 43.06 L379.41 43.06 L380.90 43.06 L382.40 43.06 L383.90 43.06 L385.39 43.06 L386.89 43.06 L388.31 43.06 L389.80 43.06 L391.30 43.06 L392.80 43.06 L394.29 43.06 L395.79 43.06 L397.21 43.06 L398.70 43.06 L400.20 43.06 L401.70 43.06 L403.19 43.06 L404.69 43.06 L406.11 43.06 L407.60 43.06 L409.10 43.06 L410.60 43.06 L412.09 43.06 L413.59 43.06 L415.01 43.05 L416.50 43.05 L418.00 43.05" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="43.05" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 50.72 L63.50 52.43 L64.99 54.13 L66.49 55.83 L67.91 57.44 L69.40 59.12 L70.90 60.80 L72.40 62.47 L73.89 64.13 L75.39 65.79 L76.81 67.36 L78.30 69.00 L79.80 70.63 L81.30 72.26 L82.79 73.88 L84.29 75.49 L85.71 77.02 L87.20 78.62 L88.70 80.22 L90.20 81.81 L91.69 83.39 L93.19 84.96 L94.61 86.45 L96.10 88.02 L97.60 89.57 L99.10 91.12 L100.59 92.66 L102.09 94.20 L103.51 95.66 L105.00 97.18 L106.50 98.69 L108.00 100.20 L109.49 101.71 L110.99 103.20 L112.41 104.62 L113.90 106.10 L115.40 107.58 L116.90 109.05 L118.39 110.51 L119.89 111.96 L121.31 113.34 L122.80 114.78 L124.30 116.22 L125.80 117.64 L127.29 119.06 L128.79 120.47 L130.21 121.81 L131.70 123.21 L133.20 124.59 L134.70 125.97 L136.19 127.34 L137.69 128.69 L139.11 129.98 L140.60 131.31 L142.10 132.63 L143.60 133.95 L145.09 135.25 L146.59 136.54 L148.01 137.75 L149.50 139.02 L151.00 140.27 L152.50 141.51 L153.99 142.74 L155.49 143.96 L156.91 145.12 L158.40 146.33 L159.90 147.54 L161.40 148.74 L162.89 149.94 L164.39 151.14 L165.81 152.29 L167.30 153.49 L168.80 154.70 L170.30 155.90 L171.79 157.11 L173.29 158.32 L174.71 159.48 L176.20 160.69 L177.70 161.90 L179.20 163.12 L180.69 164.33 L182.19 165.54 L183.61 166.69 L185.10 167.90 L186.60 169.11 L188.10 170.31 L189.59 171.52 L191.09 172.71 L192.51 173.85 L194.00 175.04 L195.50 176.23 L197.00 177.41 L198.49 178.59 L199.99 179.77 L201.41 180.88 L202.90 182.05 L204.40 183.21 L205.90 184.36 L207.39 185.52 L208.89 186.67 L210.31 187.75 L211.80 188.89 L213.30 190.03 L214.80 191.16 L216.29 192.28 L217.79 193.40 L219.21 194.47 L220.70 195.58 L222.20 196.68 L223.70 197.79 L225.19 198.88 L226.69 199.98 L228.11 201.01 L229.60 202.10 L231.10 203.18 L232.60 204.25 L234.09 205.32 L235.59 206.39 L237.01 207.40 L238.50 208.46 L240.00 209.51 L241.50 210.56 L242.99 211.61 L244.49 212.65 L245.91 213.63 L247.40 214.66 L248.90 215.69 L250.40 216.71 L251.89 217.73 L253.39 218.75 L254.81 219.71 L256.30 220.71 L257.80 221.72 L259.30 222.71 L260.79 223.71 L262.29 224.70 L263.71 225.63 L265.20 226.62 L266.70 227.59 L268.20 228.57 L269.69 229.54 L271.19 230.50 L272.61 231.42 L274.10 232.37 L275.60 233.32 L277.10 234.27 L278.59 235.22 L280.09 236.16 L281.51 237.05 L283.00 237.99 L284.50 238.91 L286.00 239.84 L287.49 240.76 L288.99 241.68 L290.41 242.55 L291.90 243.46 L293.40 244.37 L294.90 245.27 L296.39 246.17 L297.89 247.06 L299.31 247.91 L300.80 248.80 L302.30 249.68 L303.80 250.56 L305.29 251.44 L306.79 252.31 L308.21 253.14 L309.70 254.00 L311.20 254.86 L312.70 255.72 L314.19 256.57 L315.69 257.42 L317.11 258.23 L318.60 259.07 L320.10 259.91 L321.60 260.75 L323.09 261.58 L324.59 262.41 L326.01 263.19 L327.50 264.01 L329.00 264.82 L330.50 265.64 L331.99 266.44 L333.49 267.25 L334.91 268.01 L336.40 268.81 L337.90 269.60 L339.40 270.38 L340.89 271.17 L342.39 271.95 L343.81 272.68 L345.30 273.45 L346.80 274.22 L348.30 274.98 L349.79 275.73 L351.29 276.48 L352.71 277.19 L354.20 277.93 L355.70 278.67 L357.20 279.40 L358.69 280.13 L360.19 280.85 L361.61 281.54 L363.10 282.25 L364.60 282.96 L366.10 283.67 L367.59 284.37 L369.09 285.08 L370.51 285.74 L372.00 286.44 L373.50 287.13 L375.00 287.82 L376.49 288.51 L377.99 289.20 L379.41 289.85 L380.90 290.54 L382.40 291.22 L383.90 291.91 L385.39 292.59 L386.89 293.27 L388.31 293.91 L389.80 294.59 L391.30 295.27 L392.80 295.94 L394.29 296.61 L395.79 297.29 L397.21 297.92 L398.70 298.59 L400.20 299.26 L401.70 299.92 L403.19 300.58 L404.69 301.24 L406.11 301.87 L407.60 302.52 L409.10 303.18 L410.60 303.83 L412.09 304.48 L413.59 305.12 L415.01 305.74 L416.50 306.38 L418.00 307.02" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="418.00" cy="307.02" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="400" x2="76" y2="400" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="404.0" text-anchor="start" class="t-note">Newton, SolverSemiImplicit, defaults: −62.7%</text>
+    <line x1="62" y1="419" x2="76" y2="419" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="423.0" text-anchor="start" class="t-note">the 8 others: within 2.00% of level</text>
+  </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/physics-key-newton.json@218f54cb0b95 certs/physics-key.json@e1d7c3316356" data-stop>A flat body tumbling in empty space, with no force and no torque on it, simulated for 10 seconds at a timestep of 0.002 s. Its spin energy should not change. The line that falls is Newton’s SolverSemiImplicit built with every argument at its default, which includes an angular damping of 0.05, a documented default. The grey lines beside the zero line are every other configuration recorded at this timestep. Each curve is drawn from the exactly decided value at every recorded step.<span class="fig-rec">Records: <span class="m">certs/physics-key-newton.json</span> · sha256 218f54cb0b95; <span class="m">certs/physics-key.json</span> · sha256 e1d7c3316356</span><span class="fig-stop">The build refuses this figure if a run file is not the pinned bytes, or the record no longer says that the default run loses between 60% and 63% of its spin energy without ever gaining any, or another configuration ends more than 2.5% from level.</span></figcaption>
+</figure></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">recorded runs</div><div class="v">100</div><div class="n">60 of MuJoCo 4.0.1, 40 of Newton 1.8.0</div></div>
+    <div class="stat"><div class="k">verdicts</div><div class="v">1,464</div><div class="n">393 certified, 1,071 refuted, 0 refused</div></div>
+    <div class="stat"><div class="k">files on which two deciders agree</div><div class="v">112 of 112</div><div class="n">JavaScript and Python, no shared code, every field</div></div>
+    <div class="stat"><div class="k">planted files decided as planted</div><div class="v">12 of 12</div><div class="n">synthetic runs with a known answer</div></div>
+  </div>
+</div>
+
+<p class="scope">MuJoCo is Google DeepMind’s engine. Newton is a Linux Foundation project initiated by Disney Research, Google DeepMind and NVIDIA. Nothing on this page is a fault report on either: an integrator of finite order is expected to move away from the true motion, and a damping that is a documented argument with a documented default is a choice, not a bug. Each verdict is about one recorded file of bytes, never about an engine in general. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs under my direction.</p>
+
+<section class="col" id="limits">
+  <div class="sec-head">
+    <div class="lab">read this first</div>
+    <h2>What is still open</h2>
+  </div>
+<ul class="plain"><li><b>It is not a discovery about MuJoCo.</b> MuJoCo’s <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html">documentation</a> says that integrating a spinning free body explicitly can gain energy, and that its implicit integrators damp a tumble instead. Its <a href="https://github.com/google-deepmind/mujoco/blob/main/test/engine/engine_forward_test.cc">own tests</a> check the energy of a tumbling free body, in floating point with a tolerance. Free fall and the same tumble were compared across four other engines in 2014 and 2015 (the <a href="https://github.com/scpeters/benchmark">Gazebo “boxes” benchmark</a>), and energy and momentum across five engines in 2015 (<a href="https://roboti.us/lab/papers/ErezICRA15.pdf">Erez, Tassa and Todorov</a>). All of those plot or assert floating-point errors. I looked for an earlier case of conservation laws decided on an engine’s recorded output in exact arithmetic and found none; that is a search, not a proof that none exists.</li><li><b>It is not a fault report on Newton.</b> The angular damping is an argument of the solver’s constructor, and its documentation gives the default, 0.05. The words “preserves energy” are in the class description of the integration method; they are not a stated bound, and no sentence promises that the default settings keep a free body’s energy. Passing <span class="m">angular_damping=0.0</span> turns the damping off. Newton’s <a href="https://github.com/newton-physics/newton/blob/v1.8.0/newton/tests/test_physics_verification.py">own verification tests</a> check free fall, a pendulum’s energy, momentum and torque-free angular momentum, and each of them builds its solver with the damping set to zero. I searched the project’s issues and pull requests for the argument’s name and for “preserves energy” on 17 November 2026 and found nothing on either point; that is a search, not a proof that nobody has raised it.</li><li><b>Two engines, one version of each, one machine.</b> The bytes were written by MuJoCo 4.0.1 and Newton 1.8.0 (with Warp 1.19.0) on one arm64 Mac. Newton ran on its CPU device only; its GPU device may round differently, and so may another platform. The verdicts are about the pinned bytes.</li><li><b>Newton computes in 32-bit floats and keeps no clock.</b> Every 32-bit float is an exact fraction too, so nothing about the decision changes. The time attached to each Newton step is mine: the step number times the timestep. The falling body’s laws compare against that time, so part of what they measure for Newton is the engine’s 32-bit timestep.</li><li><b>One cause is attributed and not shown.</b> With the damping off, Newton’s SolverSemiImplicit gains a little more energy than its SolverFeatherstone, and the gap grows with the number of steps. I attribute it to 32-bit rounding. I have not shown that.</li><li><b>Newton’s pendulum was run under one solver only.</b> SolverSemiImplicit holds a hinge with a damped spring and has no hinge angle in its state, so the frictionless pendulum of this page is not that solver’s system. The pendulum runs are SolverFeatherstone’s.</li><li><b>The tolerances are mine.</b> Six per law, from 1% (or 1 cm) down to exactly zero, fixed before the first run. No sentence of either engine’s documentation promises any of them.</li><li><b>Only conserved quantities, and nothing a robot touches.</b> The pendulum’s timing and the tumbling body’s attitude are not compared with a closed form; only energy and angular momentum are. There is no contact and no friction in any scene, and those are where robots spend their time and where a single right answer stops existing.</li><li><b>Between the recorded steps, nothing is said.</b> A law that holds at every recorded step holds at those instants.</li><li><b>One law was added after the MuJoCo runs were decided.</b> The rules were committed before any simulation step. The law “the spin energy never rises” was added afterwards, when I read that MuJoCo’s documentation states it; I had by then seen the other MuJoCo verdicts and an informal count. It is marked as amendment 1 in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/physics-key/RULES.md"><span class="m">corpus/physics-key/RULES.md</span></a> and is not pre-registered for MuJoCo. The Newton runs came later, under amendment 2, which was committed before any Newton step and already held that law.</li><li><b>The second decider is independent by procedure only.</b> It was written by a separate session of the same AI model, given the rules and nothing of the first decider. Both ran under one person. Exact programs decide here, not a model; you should still know that a model wrote both.</li><li><b>MuJoCo’s fifth integrator is new.</b> The documentation calls “discrete” new and subject to change. In all three scenes it wrote the same bytes as implicitfast.</li></ul>
+</section>
+
+<section class="col" id="idea">
+  <div class="sec-head">
+    <div class="lab">the idea</div>
+    <h2>A float is a fraction</h2>
+  </div>
+<p>A floating-point number, 64-bit or 32-bit, is a whole number times a power of two. A simulator’s state is a list of them: the time, the positions, the velocities. Kinetic energy and angular momentum are sums of products of those numbers, so for a recorded step they are fractions too, with no error at all. “The energy at step 4,812 is within 1% of the energy at step 0” is then a comparison of two whole numbers.</p><p>That removes one layer of doubt. When a floating-point check says an error is 1.9%, the check itself carries rounding. Here the only rounding is the engine’s own, which is the thing being measured. The pendulum needs a cosine, which is not a fraction; it is trapped between two fractions, as tightly as each comparison needs.</p>
+</section>
+
+<section class="col" id="scenes">
+  <div class="sec-head">
+    <div class="lab">the scenes</div>
+    <h2>Three motions with a known answer</h2>
+  </div>
+<ul class="plain"><li><b>A falling body.</b> Dropped from rest, nothing in its way, for 2 seconds. Its height at every instant is the starting height minus half of g times the time squared, and its speed is g times the time. Two laws: position and speed against those formulas.</li><li><b>A pendulum.</b> One weight on a frictionless hinge, let go from rest, for 10 seconds. One law: its total energy stays what it was.</li><li><b>A tumbling body.</b> A flat body in empty space, spinning about its middle axis with a small nudge, so it flips over and over (the tennis racket effect), for 10 seconds. Four laws: its spin energy stays what it was; its spin energy never rises; its angular momentum keeps its size; its angular momentum stays the same vector.</li><li><b>The MuJoCo runs.</b> Each scene with each of the five integrators MuJoCo 4.0.1 names (Euler, which is the default; implicitfast, which the documentation recommends; implicit; discrete; RK4) at four timesteps: 0.01, 0.005, 0.002 (the default) and 0.001 seconds. 60 files, each named by its sha256.</li><li><b>The Newton runs.</b> Two solvers of Newton 1.8.0, SolverSemiImplicit and SolverFeatherstone, each built twice: with every argument at its default, and with <span class="m">angular_damping=0.0</span>. The falling and the tumbling body under all four, the pendulum under the two SolverFeatherstone ones, at the same four timesteps. 40 files. A step is the one the package’s own tests take.</li></ul>
+</section>
+
+<section class="" id="fall">
+  <div class="col sec-head">
+    <div class="lab">the falling body</div>
+    <h2>The speed is right; the position lags</h2>
+  </div>
+<div class="col"><p>Largest distance between the recorded height and the formula over 2 seconds, rounded up, and the tightest tolerance the whole run stays inside. Four of MuJoCo’s five integrators wrote the same bytes, and so did all four Newton configurations.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>MuJoCo 4.0.1, integrator</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s (the default)</th><th>0.001 s</th></tr></thead><tbody><tr><td>Euler, implicitfast, implicit, discrete</td><td><span class="m">98.1 mm</span><br>inside no tolerance tried</td><td><span class="m">49.1 mm</span><br>inside no tolerance tried</td><td><span class="m">19.7 mm</span><br>inside no tolerance tried</td><td><span class="m">9.82 mm</span><br>inside 1 cm</td></tr><tr><td>RK4</td><td><span class="m">2.35 × 10⁻¹⁴ m</span><br>inside 1 pm</td><td><span class="m">3.59 × 10⁻¹³ m</span><br>inside 1 pm</td><td><span class="m">1.67 × 10⁻¹³ m</span><br>inside 1 pm</td><td><span class="m">2.09 × 10⁻¹² m</span><br>inside 1 nm</td></tr></tbody></table></div></div><div class="wide"><div class="tw"><table><thead><tr><th>Newton 1.8.0, solver</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s</th><th>0.001 s</th></tr></thead><tbody><tr><td>all four configurations (the same bytes)</td><td><span class="m">98.1 mm</span><br>inside no tolerance tried</td><td><span class="m">49.1 mm</span><br>inside no tolerance tried</td><td><span class="m">19.7 mm</span><br>inside no tolerance tried</td><td><span class="m">10.1 mm</span><br>inside no tolerance tried</td></tr></tbody></table></div></div><div class="col"><ul class="plain"><li><b>In MuJoCo, at the default timestep,</b> the body ends 19.7 mm from the formula and first passes 1 cm at step 510. <span class="tag dep">REFUTED</span> at 1 cm; at half the timestep the whole fall stays inside 1 cm.</li><li><b>Its speed in MuJoCo</b> is within a billionth of a metre per second at every step of every run. <span class="tag held">CERTIFIED</span> The step updates the speed first and then moves the body with the new speed, so the position is always one step’s worth ahead: an error that grows in proportion to time and to the timestep.</li><li><b>With MuJoCo’s RK4</b> the position stays within 1.67 × 10⁻¹³ m at the default timestep. <span class="tag held">CERTIFIED</span> at a millionth of a millionth of a metre.</li><li><b>In Newton</b> the position lags the same way: 19.7 mm from the formula at 0.002 s, first past 1 cm at step 511. The speed stays within a millimetre per second at every step of every run <span class="tag held">CERTIFIED</span> and leaves a micrometre per second by step 87 at every timestep <span class="tag dep">REFUTED</span>: it is at most 342 µm/s off. MuJoCo, which computes in 64-bit floats, holds a billionth on the same law; Newton computes in 32-bit floats.</li></ul></div>
+</section>
+
+<section class="" id="pendulum">
+  <div class="col sec-head">
+    <div class="lab">the pendulum</div>
+    <h2>Energy wobbles, and comes back</h2>
+  </div>
+<div class="col"><p>Largest change of the total energy over 10 seconds, as a share of the weight times g times the length.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>MuJoCo 4.0.1, integrator</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s (the default)</th><th>0.001 s</th></tr></thead><tbody><tr><td>Euler, implicitfast, discrete</td><td><span class="m">1.85%</span><br>inside no tolerance tried</td><td><span class="m">0.920%</span><br>inside 1%</td><td><span class="m">0.367%</span><br>inside 1%</td><td><span class="m">0.184%</span><br>inside 1%</td></tr><tr><td>implicit</td><td><span class="m">1.85%</span><br>inside no tolerance tried</td><td><span class="m">0.920%</span><br>inside 1%</td><td><span class="m">0.367%</span><br>inside 1%</td><td><span class="m">0.184%</span><br>inside 1%</td></tr><tr><td>RK4</td><td><span class="m">1.52 × 10⁻⁸</span><br>inside 1 in 10⁶</td><td><span class="m">6.68 × 10⁻¹⁰</span><br>inside 1 in 10⁹</td><td><span class="m">1.29 × 10⁻¹¹</span><br>inside 1 in 10⁹</td><td><span class="m">7.18 × 10⁻¹³</span><br>inside 1 in 10¹²</td></tr></tbody></table></div></div><div class="wide"><div class="tw"><table><thead><tr><th>Newton 1.8.0, solver</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s</th><th>0.001 s</th></tr></thead><tbody><tr><td>SolverFeatherstone, defaults; SolverFeatherstone, damping off</td><td><span class="m">1.85%</span><br>inside no tolerance tried</td><td><span class="m">0.920%</span><br>inside 1%</td><td><span class="m">0.367%</span><br>inside 1%</td><td><span class="m">0.184%</span><br>inside 1%</td></tr></tbody></table></div></div><div class="col"><p>With MuJoCo’s default integrator at its default timestep the energy is never more than 0.367% from its starting value, and −0.124% at the end. With RK4 it is never more than 1.29 × 10⁻¹¹. Newton’s SolverFeatherstone at the same timestep: never more than 0.367%. It wrote the same bytes with and without the damping argument.</p></div>
+</section>
+
+<section class="" id="top">
+  <div class="col sec-head">
+    <div class="lab">the tumbling body</div>
+    <h2>Some configurations make energy, some lose it, one loses most of it</h2>
+  </div>
+<div class="col"><p>Largest change of the spin energy over 10 seconds, with the change at the end. No force and no torque act in this scene.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>MuJoCo 4.0.1, integrator</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s (the default)</th><th>0.001 s</th></tr></thead><tbody><tr><td>Euler</td><td><span class="m">9.93%</span> · +9.93% at the end<br>inside no tolerance tried</td><td><span class="m">4.79%</span> · +4.79% at the end<br>inside no tolerance tried</td><td><span class="m">1.88%</span> · +1.88% at the end<br>inside no tolerance tried</td><td><span class="m">0.931%</span> · +0.931% at the end<br>inside 1%</td></tr><tr><td>implicitfast, discrete</td><td><span class="m">8.65%</span> · −8.65% at the end<br>inside no tolerance tried</td><td><span class="m">4.47%</span> · −4.47% at the end<br>inside no tolerance tried</td><td><span class="m">1.83%</span> · −1.83% at the end<br>inside no tolerance tried</td><td><span class="m">0.919%</span> · −0.919% at the end<br>inside 1%</td></tr><tr><td>implicit</td><td><span class="m">8.65%</span> · −8.65% at the end<br>inside no tolerance tried</td><td><span class="m">4.47%</span> · −4.47% at the end<br>inside no tolerance tried</td><td><span class="m">1.83%</span> · −1.83% at the end<br>inside no tolerance tried</td><td><span class="m">0.919%</span> · −0.919% at the end<br>inside 1%</td></tr><tr><td>RK4</td><td><span class="m">1.91 × 10⁻⁹</span> · −4.55 × 10⁻¹⁰ at the end<br>inside 1 in 10⁶</td><td><span class="m">1.06 × 10⁻¹⁰</span> · −1.48 × 10⁻¹¹ at the end<br>inside 1 in 10⁹</td><td><span class="m">2.51 × 10⁻¹²</span> · −1.67 × 10⁻¹³ at the end<br>inside 1 in 10⁹</td><td><span class="m">1.62 × 10⁻¹³</span> · −1.47 × 10⁻¹⁴ at the end<br>inside 1 in 10¹²</td></tr></tbody></table></div></div><div class="wide"><div class="tw"><table><thead><tr><th>Newton 1.8.0, solver</th><th>0.01 s</th><th>0.005 s</th><th>0.002 s</th><th>0.001 s</th></tr></thead><tbody><tr><td>SolverSemiImplicit, defaults</td><td><span class="m">60.6%</span> · −60.6% at the end<br>inside no tolerance tried</td><td><span class="m">61.9%</span> · −61.9% at the end<br>inside no tolerance tried</td><td><span class="m">62.7%</span> · −62.7% at the end<br>inside no tolerance tried</td><td><span class="m">62.9%</span> · −62.9% at the end<br>inside no tolerance tried</td></tr><tr><td>SolverSemiImplicit, damping off</td><td><span class="m">9.94%</span> · +9.94% at the end<br>inside no tolerance tried</td><td><span class="m">4.83%</span> · +4.83% at the end<br>inside no tolerance tried</td><td><span class="m">2.00%</span> · +2.00% at the end<br>inside no tolerance tried</td><td><span class="m">1.16%</span> · +1.16% at the end<br>inside no tolerance tried</td></tr><tr><td>SolverFeatherstone, defaults; SolverFeatherstone, damping off</td><td><span class="m">9.93%</span> · +9.93% at the end<br>inside no tolerance tried</td><td><span class="m">4.79%</span> · +4.79% at the end<br>inside no tolerance tried</td><td><span class="m">1.88%</span> · +1.88% at the end<br>inside no tolerance tried</td><td><span class="m">0.930%</span> · +0.930% at the end<br>inside 1%</td></tr></tbody></table></div></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 360" role="img" aria-label="Three curves over ten seconds for a tumbling body with no force on it. Physics says its spin energy stays level. Under Euler it climbs in steps to about plus 1.9 per cent; under implicitfast it falls in steps to about minus 1.8 per cent; under RK4 it stays on the zero line.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="255.7" x2="878" y2="255.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="259.7" text-anchor="end" class="t-ax">−2%</text>
+    <line x1="62" y1="199.1" x2="878" y2="199.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="203.1" text-anchor="end" class="t-ax">−1%</text>
+    <line x1="62" y1="142.5" x2="878" y2="142.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="146.5" text-anchor="end" class="t-ax">0%</text>
+    <line x1="62" y1="85.9" x2="878" y2="85.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="89.9" text-anchor="end" class="t-ax">+1%</text>
+    <line x1="62" y1="29.3" x2="878" y2="29.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="33.3" text-anchor="end" class="t-ax">+2%</text>
+    <line x1="62.0" y1="267" x2="62.0" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="287.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="225.2" y1="267" x2="225.2" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="287.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="388.4" y1="267" x2="388.4" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="287.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="551.6" y1="267" x2="551.6" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="287.0" text-anchor="middle" class="t-ax">6</text>
+    <line x1="714.8" y1="267" x2="714.8" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="287.0" text-anchor="middle" class="t-ax">8</text>
+    <line x1="878.0" y1="267" x2="878.0" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="287.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="62" y1="267" x2="878" y2="267" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="309.0" text-anchor="middle" class="t-note">seconds</text>
+    <text x="13" y="142.5" class="t-note" transform="rotate(-90 13 142.5)" text-anchor="middle">spin energy, change since the start</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="267" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M62.00 142.50 L65.43 142.50 L68.85 142.50 L72.28 142.50 L75.55 142.50 L78.97 142.50 L82.40 142.49 L85.83 142.49 L89.25 142.49 L92.68 142.49 L95.95 142.49 L99.37 142.49 L102.80 142.49 L106.23 142.49 L109.65 142.49 L113.08 142.49 L116.35 142.49 L119.77 142.48 L123.20 142.48 L126.63 142.48 L130.05 142.47 L133.48 142.47 L136.75 142.47 L140.17 142.46 L143.60 142.45 L147.03 142.44 L150.45 142.43 L153.88 142.42 L157.15 142.40 L160.57 142.38 L164.00 142.36 L167.43 142.33 L170.85 142.30 L174.28 142.25 L177.55 142.20 L180.97 142.14 L184.40 142.07 L187.83 141.98 L191.25 141.87 L194.68 141.74 L197.95 141.59 L201.37 141.40 L204.80 141.17 L208.23 140.90 L211.65 140.57 L215.08 140.17 L218.35 139.73 L221.77 139.17 L225.20 138.52 L228.63 137.74 L232.05 136.84 L235.48 135.78 L238.75 134.63 L242.17 133.24 L245.60 131.66 L249.03 129.90 L252.45 127.95 L255.88 125.82 L259.15 123.64 L262.57 121.23 L266.00 118.73 L269.43 116.18 L272.85 113.63 L276.28 111.12 L279.55 108.82 L282.97 106.52 L286.40 104.38 L289.83 102.42 L293.25 100.65 L296.68 99.07 L299.95 97.74 L303.37 96.52 L306.80 95.46 L310.23 94.55 L313.65 93.78 L317.08 93.13 L320.35 92.60 L323.77 92.13 L327.20 91.74 L330.63 91.41 L334.05 91.14 L337.48 90.91 L340.75 90.73 L344.17 90.58 L347.60 90.45 L351.03 90.34 L354.45 90.25 L357.88 90.18 L361.15 90.12 L364.57 90.07 L368.00 90.03 L371.43 90.00 L374.85 89.97 L378.28 89.95 L381.55 89.93 L384.97 89.91 L388.40 89.90 L391.83 89.89 L395.25 89.88 L398.68 89.87 L401.95 89.87 L405.37 89.86 L408.80 89.86 L412.23 89.86 L415.65 89.85 L419.08 89.85 L422.35 89.85 L425.77 89.85 L429.20 89.85 L432.63 89.85 L436.05 89.84 L439.48 89.84 L442.75 89.84 L446.17 89.84 L449.60 89.84 L453.03 89.84 L456.45 89.84 L459.88 89.84 L463.15 89.84 L466.57 89.84 L470.00 89.84 L473.43 89.84 L476.85 89.84 L480.28 89.83 L483.55 89.83 L486.97 89.83 L490.40 89.83 L493.83 89.83 L497.25 89.82 L500.68 89.82 L503.95 89.81 L507.37 89.81 L510.80 89.80 L514.23 89.79 L517.65 89.78 L521.08 89.77 L524.35 89.75 L527.77 89.73 L531.20 89.71 L534.63 89.68 L538.05 89.65 L541.48 89.61 L544.75 89.56 L548.17 89.50 L551.60 89.42 L555.03 89.33 L558.45 89.23 L561.88 89.10 L565.15 88.95 L568.57 88.76 L572.00 88.54 L575.43 88.26 L578.85 87.94 L582.28 87.55 L585.55 87.10 L588.97 86.55 L592.40 85.90 L595.83 85.12 L599.25 84.22 L602.68 83.16 L605.95 82.00 L609.37 80.60 L612.80 79.02 L616.23 77.24 L619.65 75.26 L623.08 73.11 L626.35 70.90 L629.77 68.46 L633.20 65.91 L636.63 63.32 L640.05 60.71 L643.48 58.16 L646.75 55.80 L650.17 53.46 L653.60 51.28 L657.03 49.27 L660.45 47.46 L663.88 45.85 L667.15 44.49 L670.57 43.24 L674.00 42.16 L677.43 41.23 L680.85 40.44 L684.28 39.78 L687.55 39.24 L690.97 38.76 L694.40 38.37 L697.83 38.03 L701.25 37.76 L704.68 37.53 L707.95 37.35 L711.37 37.19 L714.80 37.06 L718.23 36.95 L721.65 36.86 L725.08 36.79 L728.35 36.73 L731.77 36.68 L735.20 36.64 L738.63 36.61 L742.05 36.58 L745.48 36.56 L748.75 36.54 L752.17 36.52 L755.60 36.51 L759.03 36.50 L762.45 36.49 L765.88 36.48 L769.15 36.48 L772.57 36.47 L776.00 36.47 L779.43 36.46 L782.85 36.46 L786.28 36.46 L789.55 36.46 L792.97 36.46 L796.40 36.45 L799.83 36.45 L803.25 36.45 L806.68 36.45 L809.95 36.45 L813.37 36.45 L816.80 36.45 L820.23 36.45 L823.65 36.45 L827.08 36.45 L830.35 36.45 L833.77 36.45 L837.20 36.45 L840.63 36.44 L844.05 36.44 L847.48 36.44 L850.75 36.44 L854.17 36.44 L857.60 36.44 L861.03 36.43 L864.45 36.43 L867.88 36.43 L871.15 36.42 L874.57 36.42 L878.00 36.41" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="36.41" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 142.50 L65.43 142.50 L68.85 142.50 L72.28 142.50 L75.55 142.50 L78.97 142.50 L82.40 142.51 L85.83 142.51 L89.25 142.51 L92.68 142.51 L95.95 142.51 L99.37 142.51 L102.80 142.51 L106.23 142.51 L109.65 142.51 L113.08 142.51 L116.35 142.51 L119.77 142.52 L123.20 142.52 L126.63 142.52 L130.05 142.53 L133.48 142.53 L136.75 142.53 L140.17 142.54 L143.60 142.55 L147.03 142.56 L150.45 142.57 L153.88 142.58 L157.15 142.60 L160.57 142.62 L164.00 142.64 L167.43 142.67 L170.85 142.71 L174.28 142.75 L177.55 142.80 L180.97 142.87 L184.40 142.94 L187.83 143.04 L191.25 143.15 L194.68 143.28 L197.95 143.44 L201.37 143.64 L204.80 143.87 L208.23 144.16 L211.65 144.50 L215.08 144.90 L218.35 145.36 L221.77 145.94 L225.20 146.61 L228.63 147.41 L232.05 148.35 L235.48 149.43 L238.75 150.62 L242.17 152.04 L245.60 153.64 L249.03 155.43 L252.45 157.41 L255.88 159.55 L259.15 161.73 L262.57 164.13 L266.00 166.60 L269.43 169.11 L272.85 171.61 L276.28 174.05 L279.55 176.28 L282.97 178.49 L286.40 180.54 L289.83 182.42 L293.25 184.11 L296.68 185.61 L299.95 186.88 L303.37 188.04 L306.80 189.05 L310.23 189.91 L313.65 190.64 L317.08 191.27 L320.35 191.77 L323.77 192.22 L327.20 192.59 L330.63 192.91 L334.05 193.17 L337.48 193.39 L340.75 193.56 L344.17 193.71 L347.60 193.84 L351.03 193.94 L354.45 194.03 L357.88 194.10 L361.15 194.15 L364.57 194.20 L368.00 194.24 L371.43 194.28 L374.85 194.30 L378.28 194.33 L381.55 194.34 L384.97 194.36 L388.40 194.37 L391.83 194.38 L395.25 194.39 L398.68 194.40 L401.95 194.41 L405.37 194.41 L408.80 194.42 L412.23 194.42 L415.65 194.42 L419.08 194.42 L422.35 194.43 L425.77 194.43 L429.20 194.43 L432.63 194.43 L436.05 194.43 L439.48 194.43 L442.75 194.43 L446.17 194.43 L449.60 194.43 L453.03 194.43 L456.45 194.44 L459.88 194.44 L463.15 194.44 L466.57 194.44 L470.00 194.44 L473.43 194.44 L476.85 194.44 L480.28 194.44 L483.55 194.44 L486.97 194.45 L490.40 194.45 L493.83 194.45 L497.25 194.45 L500.68 194.46 L503.95 194.46 L507.37 194.47 L510.80 194.48 L514.23 194.49 L517.65 194.50 L521.08 194.51 L524.35 194.53 L527.77 194.55 L531.20 194.57 L534.63 194.60 L538.05 194.64 L541.48 194.68 L544.75 194.73 L548.17 194.80 L551.60 194.88 L555.03 194.97 L558.45 195.08 L561.88 195.22 L565.15 195.37 L568.57 195.57 L572.00 195.80 L575.43 196.09 L578.85 196.43 L582.28 196.83 L585.55 197.29 L588.97 197.86 L592.40 198.53 L595.83 199.32 L599.25 200.25 L602.68 201.32 L605.95 202.49 L609.37 203.89 L612.80 205.47 L616.23 207.24 L619.65 209.18 L623.08 211.29 L626.35 213.43 L629.77 215.78 L633.20 218.21 L636.63 220.68 L640.05 223.13 L643.48 225.53 L646.75 227.72 L650.17 229.89 L653.60 231.91 L657.03 233.75 L660.45 235.42 L663.88 236.90 L667.15 238.15 L670.57 239.30 L674.00 240.29 L677.43 241.15 L680.85 241.87 L684.28 242.49 L687.55 242.99 L690.97 243.44 L694.40 243.81 L697.83 244.12 L701.25 244.38 L704.68 244.60 L707.95 244.77 L711.37 244.92 L714.80 245.05 L718.23 245.15 L721.65 245.24 L725.08 245.31 L728.35 245.37 L731.77 245.42 L735.20 245.46 L738.63 245.49 L742.05 245.52 L745.48 245.54 L748.75 245.56 L752.17 245.58 L755.60 245.59 L759.03 245.60 L762.45 245.61 L765.88 245.62 L769.15 245.62 L772.57 245.63 L776.00 245.63 L779.43 245.64 L782.85 245.64 L786.28 245.64 L789.55 245.64 L792.97 245.64 L796.40 245.65 L799.83 245.65 L803.25 245.65 L806.68 245.65 L809.95 245.65 L813.37 245.65 L816.80 245.65 L820.23 245.65 L823.65 245.65 L827.08 245.65 L830.35 245.65 L833.77 245.65 L837.20 245.66 L840.63 245.66 L844.05 245.66 L847.48 245.66 L850.75 245.66 L854.17 245.66 L857.60 245.67 L861.03 245.67 L864.45 245.67 L867.88 245.68 L871.15 245.68 L874.57 245.69 L878.00 245.70" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="245.70" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 142.50 L65.43 142.50 L68.85 142.50 L72.28 142.50 L75.55 142.50 L78.97 142.50 L82.40 142.50 L85.83 142.50 L89.25 142.50 L92.68 142.50 L95.95 142.50 L99.37 142.50 L102.80 142.50 L106.23 142.50 L109.65 142.50 L113.08 142.50 L116.35 142.50 L119.77 142.50 L123.20 142.50 L126.63 142.50 L130.05 142.50 L133.48 142.50 L136.75 142.50 L140.17 142.50 L143.60 142.50 L147.03 142.50 L150.45 142.50 L153.88 142.50 L157.15 142.50 L160.57 142.50 L164.00 142.50 L167.43 142.50 L170.85 142.50 L174.28 142.50 L177.55 142.50 L180.97 142.50 L184.40 142.50 L187.83 142.50 L191.25 142.50 L194.68 142.50 L197.95 142.50 L201.37 142.50 L204.80 142.50 L208.23 142.50 L211.65 142.50 L215.08 142.50 L218.35 142.50 L221.77 142.50 L225.20 142.50 L228.63 142.50 L232.05 142.50 L235.48 142.50 L238.75 142.50 L242.17 142.50 L245.60 142.50 L249.03 142.50 L252.45 142.50 L255.88 142.50 L259.15 142.50 L262.57 142.50 L266.00 142.50 L269.43 142.50 L272.85 142.50 L276.28 142.50 L279.55 142.50 L282.97 142.50 L286.40 142.50 L289.83 142.50 L293.25 142.50 L296.68 142.50 L299.95 142.50 L303.37 142.50 L306.80 142.50 L310.23 142.50 L313.65 142.50 L317.08 142.50 L320.35 142.50 L323.77 142.50 L327.20 142.50 L330.63 142.50 L334.05 142.50 L337.48 142.50 L340.75 142.50 L344.17 142.50 L347.60 142.50 L351.03 142.50 L354.45 142.50 L357.88 142.50 L361.15 142.50 L364.57 142.50 L368.00 142.50 L371.43 142.50 L374.85 142.50 L378.28 142.50 L381.55 142.50 L384.97 142.50 L388.40 142.50 L391.83 142.50 L395.25 142.50 L398.68 142.50 L401.95 142.50 L405.37 142.50 L408.80 142.50 L412.23 142.50 L415.65 142.50 L419.08 142.50 L422.35 142.50 L425.77 142.50 L429.20 142.50 L432.63 142.50 L436.05 142.50 L439.48 142.50 L442.75 142.50 L446.17 142.50 L449.60 142.50 L453.03 142.50 L456.45 142.50 L459.88 142.50 L463.15 142.50 L466.57 142.50 L470.00 142.50 L473.43 142.50 L476.85 142.50 L480.28 142.50 L483.55 142.50 L486.97 142.50 L490.40 142.50 L493.83 142.50 L497.25 142.50 L500.68 142.50 L503.95 142.50 L507.37 142.50 L510.80 142.50 L514.23 142.50 L517.65 142.50 L521.08 142.50 L524.35 142.50 L527.77 142.50 L531.20 142.50 L534.63 142.50 L538.05 142.50 L541.48 142.50 L544.75 142.50 L548.17 142.50 L551.60 142.50 L555.03 142.50 L558.45 142.50 L561.88 142.50 L565.15 142.50 L568.57 142.50 L572.00 142.50 L575.43 142.50 L578.85 142.50 L582.28 142.50 L585.55 142.50 L588.97 142.50 L592.40 142.50 L595.83 142.50 L599.25 142.50 L602.68 142.50 L605.95 142.50 L609.37 142.50 L612.80 142.50 L616.23 142.50 L619.65 142.50 L623.08 142.50 L626.35 142.50 L629.77 142.50 L633.20 142.50 L636.63 142.50 L640.05 142.50 L643.48 142.50 L646.75 142.50 L650.17 142.50 L653.60 142.50 L657.03 142.50 L660.45 142.50 L663.88 142.50 L667.15 142.50 L670.57 142.50 L674.00 142.50 L677.43 142.50 L680.85 142.50 L684.28 142.50 L687.55 142.50 L690.97 142.50 L694.40 142.50 L697.83 142.50 L701.25 142.50 L704.68 142.50 L707.95 142.50 L711.37 142.50 L714.80 142.50 L718.23 142.50 L721.65 142.50 L725.08 142.50 L728.35 142.50 L731.77 142.50 L735.20 142.50 L738.63 142.50 L742.05 142.50 L745.48 142.50 L748.75 142.50 L752.17 142.50 L755.60 142.50 L759.03 142.50 L762.45 142.50 L765.88 142.50 L769.15 142.50 L772.57 142.50 L776.00 142.50 L779.43 142.50 L782.85 142.50 L786.28 142.50 L789.55 142.50 L792.97 142.50 L796.40 142.50 L799.83 142.50 L803.25 142.50 L806.68 142.50 L809.95 142.50 L813.37 142.50 L816.80 142.50 L820.23 142.50 L823.65 142.50 L827.08 142.50 L830.35 142.50 L833.77 142.50 L837.20 142.50 L840.63 142.50 L844.05 142.50 L847.48 142.50 L850.75 142.50 L854.17 142.50 L857.60 142.50 L861.03 142.50 L864.45 142.50 L867.88 142.50 L871.15 142.50 L874.57 142.50 L878.00 142.50" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="142.50" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="330" x2="76" y2="330" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="334.0" text-anchor="start" class="t-note">Euler, the engine’s default: +1.88% after 10 s</text>
+    <line x1="425" y1="330" x2="439" y2="330" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="444.0" y="334.0" text-anchor="start" class="t-note">implicitfast, the one its documentation recommends: −1.83%</text>
+    <line x1="62" y1="349" x2="76" y2="349" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="353.0" text-anchor="start" class="t-note">RK4: never more than 2.51 × 10⁻¹² away</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/physics-key.json@e1d7c3316356" data-stop>The same scene on a much finer scale, MuJoCo only, at its default timestep of 0.002 s: the three behaviours of its integrators.<span class="fig-rec">Record: <span class="m">certs/physics-key.json</span> · sha256 e1d7c3316356</span><span class="fig-stop">The build refuses this figure if a run file is not the pinned bytes, or the record no longer says that the Euler run gains energy at its first step and that the implicit runs never gain any.</span></figcaption>
+</figure></div><div class="col"><ul class="plain"><li><b>MuJoCo, Euler (its default).</b> The spin energy rises at the first step of every run and ends at its largest value: +1.88% at the default timestep. The largest rise within one step is 0.00220% of the starting energy.</li><li><b>MuJoCo, implicitfast, implicit and discrete.</b> The spin energy falls: −1.83% at the default timestep, −8.65% at 0.01 s, −4.47% at 0.005 s, −1.83% at 0.002 s, −0.919% at 0.001 s.</li><li><b>MuJoCo, RK4.</b> Never more than 2.51 × 10⁻¹² from the start at the default timestep.</li><li><b>Newton, SolverSemiImplicit at its defaults.</b> The spin energy falls at every timestep: −60.6% at 0.01 s, −61.9% at 0.005 s, −62.7% at 0.002 s, −62.9% at 0.001 s. “Within 1% of its starting value” first fails within 0.11 s of the start in every run. <span class="tag dep">REFUTED</span> “Never rises” holds at every step of every run, with no tolerance. <span class="tag held">CERTIFIED</span></li><li><b>Newton, SolverSemiImplicit with the damping off.</b> The spin energy rises, as under MuJoCo’s Euler: +9.94% at 0.01 s, +4.83% at 0.005 s, +2.00% at 0.002 s, +1.16% at 0.001 s (MuJoCo’s Euler: +9.93%, +4.79%, +1.88%, +0.931%).</li><li><b>Newton, SolverFeatherstone.</b> The same bytes with the default damping and with the damping off, at every timestep. The spin energy rises: +9.93% at 0.01 s, +4.79% at 0.005 s, +1.88% at 0.002 s, +0.930% at 0.001 s.</li><li><b>Angular momentum</b> changes with the energy, with no torque acting. At the timestep 0.002 s its squared size ends +1.88% under MuJoCo’s Euler, −1.83% under implicitfast, and −62.7% under Newton’s SolverSemiImplicit at its defaults.</li></ul></div>
+</section>
+
+<section class="col" id="documented">
+  <div class="sec-head">
+    <div class="lab">a published sentence, decided</div>
+    <h2>The documentation’s own property holds exactly</h2>
+  </div>
+<blockquote>The kinetic energy of a spinning free body is non-increasing in the absence of applied force. Steady spins about principal axes are conserved almost exactly; tumbling motion is mildly damped […]. Systems requiring long-horizon energy conservation of tumbling bodies should use the RK4 integrator.<cite>MuJoCo documentation, Computation, Numerical integration, “Gyroscopic derivatives for free bodies”, read 17 November 2026</cite></blockquote><ul class="plain"><li><b>What it says.</b> Under the implicit and implicitfast integrators, the spin energy of a free body with no force on it never increases.</li><li><b>What was decided.</b> On each of the 8 recorded runs it covers, the spin energy at every step is less than or equal to the step before, as fractions, with no tolerance. <span class="tag held">CERTIFIED</span> The engine’s own test of the same property allows a small tolerance for rounding; on these runs none is needed.</li><li><b>What it does not say.</b> That energy is kept. It is not: these are the runs that lose it. And it covers the bodies and settings recorded here, not every free body.</li><li><b>For contrast.</b> Under Euler the same statement fails at step 1 of every run. <span class="tag dep">REFUTED</span></li></ul>
+</section>
+
+<section class="col" id="newton">
+  <div class="sec-head">
+    <div class="lab">a second published sentence</div>
+    <h2>A sentence and a default</h2>
+  </div>
+<blockquote>Semi-implicit time integration is a variational integrator that preserves energy, however it not unconditionally stable, and requires a time-step small enough to support the required stiffness and damping forces.<cite>Newton 1.8.0, the class description of SolverSemiImplicit and, in the same words, of SolverFeatherstone; quoted as written</cite></blockquote><ul class="plain"><li><b>What it says.</b> That the integration method keeps energy. It is a description of the method, with no bound and no tolerance.</li><li><b>The default beside it.</b> Both constructors take <span class="m">angular_damping</span>, documented as “Angular damping factor”, default 0.05. In <a href="https://github.com/newton-physics/newton/blob/v1.8.0/newton/_src/solvers/solver.py">the shared rigid-body step</a> every step of a body ends by multiplying its angular velocity by one minus the damping times the timestep. So a body built with the defaults is damped, by design.</li><li><b>What was decided, at the defaults.</b> On the 4 recorded runs of SolverSemiImplicit with every argument at its default, the tumbling body loses 60.6% to 62.9% of its spin energy in 10 seconds, with no force on it. “The spin energy stays within 1% of its starting value”: <span class="tag dep">REFUTED</span> in each, first within 0.11 s. “The spin energy never rises”: <span class="tag held">CERTIFIED</span> in each, at every step, with no tolerance. The loss is the size the documented default predicts: a factor of about one minus 0.05 times the timestep on the angular velocity at every step is a loss of about 63% of the energy over 10 seconds.</li><li><b>With the damping off.</b> The same solver gains energy instead, as an explicit step does: +2.00% at 0.002 s, against +1.88% for MuJoCo’s Euler. Neither setting keeps the energy to 1% over 10 seconds at that timestep.</li><li><b>The other solver does not read the argument.</b> SolverFeatherstone has the same sentence and the same documented default. In Newton 1.8.0 its constructor stores the value and, as far as I could find by reading <a href="https://github.com/newton-physics/newton/tree/v1.8.0/newton/_src/solvers/featherstone">its source</a>, nothing reads it. The bytes agree: with the default and with the damping off it wrote identical files, the same sha256, in all 12 pairs: three scenes at four timesteps.</li><li><b>What this is not.</b> A bug report. A user who wants a free body to keep spinning passes one argument, and Newton’s own tests do. What the page records is that the defaults and the sentence point in different directions, and by how much on these files.</li></ul>
+</section>
+
+<section class="col" id="expected">
+  <div class="sec-head">
+    <div class="lab">written before running</div>
+    <h2>What I expected, and where I was wrong</h2>
+  </div>
+<ul class="plain"><li><b>The falling body, MuJoCo.</b> I expected the position to fail at 1 cm within 2 seconds at the default timestep while the speed held, and RK4 to hold the position to rounding. That is what the bytes say.</li><li><b>The tumbling body, MuJoCo.</b> I expected the integrators that treat the spinning term implicitly to change the energy less than Euler does. They do not: at the default timestep they lose 1.83% where Euler gains 1.88%. What differs is the direction, which is the property the documentation states. My expectation came from an older version of the documentation.</li><li><b>Newton at its defaults.</b> From the source, before any step: a loss of about 63% at every timestep, and no rise at any step, of which I was less sure at the largest timestep. The bytes: 60.6% to 62.9%, and no rise at any step of any run.</li><li><b>Newton with the damping off.</b> I expected SolverSemiImplicit to reproduce the gains of MuJoCo’s Euler to about the size of 32-bit rounding. At the two larger timesteps it does (+9.94% and +4.83% against +9.93% and +4.79%). At the smallest it gains about a quarter more (+1.16% against +0.931%). There I was wrong.</li><li><b>SolverFeatherstone.</b> I expected identical files with and without the damping argument, because I had found nothing in the source that reads it. They are identical in every pair. I expected its gains to be close to MuJoCo’s Euler, with less confidence: they are (+9.93% at 0.01 s, +4.79% at 0.005 s, +1.88% at 0.002 s, +0.930% at 0.001 s).</li><li><b>Newton’s falling body and pendulum.</b> I expected the position to lag as in MuJoCo, the speed to fail somewhere between a millimetre and a nanometre per second because the arithmetic is 32-bit (I did not know where), and the pendulum’s energy to wobble about as much as under MuJoCo’s Euler. All three are what the bytes say.</li></ul>
+</section>
+
+<section class="col" id="method">
+  <div class="sec-head">
+    <div class="lab">how it was checked</div>
+    <h2>Rules first, two deciders, planted files</h2>
+  </div>
+<ul class="plain"><li><b>The rules came first.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/physics-key/RULES.md"><span class="m">corpus/physics-key/RULES.md</span></a> was committed before the generator existed: the scenes, the laws, the six tolerances, the three verdict words, the exact form of every printed number, and what I expected. One law was added afterwards and is marked. The second engine is an amendment to the same file, committed before any Newton step, with what I expected of it.</li><li><b>Reading MuJoCo’s conventions.</b> Before any verdict was read, three floating-point checks of my reading of the engine: a second run with the engine’s own energy and angular-momentum outputs switched on wrote identical bytes (60 of 60 runs); my angular momentum agrees with the engine’s to 7 × 10⁻¹⁵ of its size, and a deliberately wrong reading of the velocity frame disagrees by more than 2 times its size; my energy change agrees with the engine’s to 9 × 10⁻¹⁶.</li><li><b>Reading Newton’s conventions.</b> Newton has no energy or momentum output to compare with, so the checks are different. Every run was recorded twice from freshly built models and the two files are identical (40 of 40). My angular momentum agrees with the one built from the engine’s own rotation function to 2 × 10⁻⁶ of its size, and two deliberately wrong readings (the angular velocity taken in the body frame, the quaternion taken scalar-first) each disagree by more than 0.7 times its size. One step replayed in 64-bit floats from each recorded row lands on the next row to 2 × 10⁻⁶ of the starting spin, and the replay with the damping fits the default solver’s files at least 273 times better than the replay without it. The pendulum’s height and speed from the hinge angle agree with the body the engine reports to 2 × 10⁻⁷.</li><li><b>Decider 1.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/physicskey/decide.js"><span class="m">instruments/physicskey/decide.js</span></a>: JavaScript, whole numbers only. The same file runs in the browser on the instrument page.</li><li><b>Decider 2.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/physicskey/decide2.py"><span class="m">instruments/physicskey/decide2.py</span></a>: Python fractions, written from the rules alone by a session that never saw decider 1.</li><li><b>They agree.</b> On all 112 files, every verdict, every first failing step and every printed digit is the same. The record is written only then. <span class="tag held">CERTIFIED</span></li><li><b>Planted files.</b> 12 synthetic runs with a known answer: an exact parabola, a constant spin, one step nudged by two parts in a million, a single planted rise, a number that is not a number, a cut file, a file with one bit flipped, three pendulum cases that exercise the cosine, and one file read under both engines’ layouts, right under one and wrong under the other. Each was decided as planted by both.</li></ul>
+</section>
+
+<section class="col" id="roles">
+  <div class="sec-head">
+    <div class="lab">who did what</div>
+    <h2>Each part is someone’s</h2>
+  </div>
+<ul class="plain"><li><b>The engines and their documentation.</b> MuJoCo: Google DeepMind and its contributors. Newton: the Newton developers, a Linux Foundation project initiated by Disney Research, Google DeepMind and NVIDIA, built on NVIDIA Warp.</li><li><b>Earlier comparisons of engines against conservation laws.</b> The Gazebo “boxes” benchmark (free fall and the tumbling box across four engines); Erez, Tassa and Todorov (2015); MuJoCo’s own test suite; Newton’s own verification tests.</li><li><b>The checks on this page.</b> Carlos Toledo, with Claude (Anthropic), which wrote the generator, both deciders (the second in a separate session, from the rules alone) and this page’s builder under my direction. Recorded and decided on 17 November 2026.</li></ul>
+</section>
+
+<section class="col" id="rerun">
+  <div class="sec-head">
+    <div class="lab">check it yourself</div>
+    <h2>How to re-run it</h2>
+  </div>
+<ul class="plain"><li><b>In a browser.</b> <a href="/instruments/physics-key/">The instrument page</a> fetches any of the 100 files, checks its sha256 and decides it again in your tab with decider 1.</li><li><b>The record.</b> <span class="m">node tools/record-physics-key.js --check</span> runs both deciders on every file again and refuses on any difference from <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/physics-key.json"><span class="m">certs/physics-key.json</span></a> or <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/physics-key-newton.json"><span class="m">certs/physics-key-newton.json</span></a>. About two minutes; Python’s standard library and Node, nothing else.</li><li><b>The bytes.</b> <span class="m">python instruments/physicskey/generate.py --check</span> and <span class="m">python instruments/physicskey/generate_newton.py --check</span> run the engines again and compare every file’s sha256 with <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/physics-key/runs/runs.json"><span class="m">corpus/physics-key/runs/runs.json</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/physics-key/newton/runs.json"><span class="m">corpus/physics-key/newton/runs.json</span></a>. They need MuJoCo 4.0.1, Newton 1.8.0 and Warp 1.19.0 (<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/physicskey/requirements.txt"><span class="m">instruments/physicskey/requirements.txt</span></a>); on another platform the bytes may differ.</li><li><b>The scenes.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/physics-key/scenes"><span class="m">corpus/physics-key/scenes</span></a>: three short model files for MuJoCo. Newton’s are built in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/physicskey/generate_newton.py"><span class="m">instruments/physicskey/generate_newton.py</span></a>.</li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-physics-key.js from certs/physics-key.json and certs/physics-key-newton.json. I did this with Claude (Anthropic); Claude wrote the programs under my direction.</p><p>git 1513468c · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+
+</body>
+</html>

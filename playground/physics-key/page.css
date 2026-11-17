@@ -1,0 +1,123 @@
+/* page.css — /instruments/physics-key/. Tokens only; no new colour. The red is the witness and nothing else: the cross
+   at the first recorded step outside a tolerance. Every line on the chart is solid because every point on it is a
+   decided value; the only dashes are guides (2 3): the tolerances, the scale, the height the pendulum was let go from.
+   RESERVED HEIGHTS: every element whose content a control changes has its size fixed here (the description, the
+   same-bytes line, the law buttons, the caption, the verdicts, the status), so picking a run moves nothing. */
+.pk-hero h1 span { display: block; }
+.pk-hero h1 span:first-child { color: var(--ink-4); }
+.pk-sec { padding-block: var(--s-7); border-top: 1px solid var(--rule); }
+.pk-sec:first-of-type { border-top: 0; padding-top: 0; }
+.pk-sec h2 { font-size: var(--text-1); line-height: 1.08; letter-spacing: -.02em; max-width: 24ch; }
+.pk-sec h3 { margin-top: var(--s-6); font-size: 1.0625rem; font-weight: 550; color: var(--ink); }
+.pk-sec .prose { margin-top: var(--s-4); color: var(--ink-3); max-width: 66ch; }
+.pk-sec .prose b { color: var(--ink); font-weight: 550; }
+
+/* the three scenes */
+.pk-ladder { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pk-step { display: grid; gap: 2px; text-align: left; font: inherit; color: var(--ink-3); background: none; border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-m); padding: 10px 12px; cursor: pointer; min-width: 0; }
+.pk-step .n { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; color: var(--ink-4); }
+.pk-step .idea { color: var(--ink); font-weight: 550; font-size: .9375rem; line-height: 1.25; }
+.pk-step .nm { font-size: .8125rem; line-height: 1.3; color: var(--ink-4); }
+.pk-step:hover { border-color: var(--ink-3); }
+.pk-step[aria-selected="true"] { background: var(--ink); border-color: var(--ink); }
+.pk-step[aria-selected="true"] .n, .pk-step[aria-selected="true"] .idea, .pk-step[aria-selected="true"] .nm { color: var(--paper); }
+@media (max-width: 640px) { .pk-ladder { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 11rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .pk-ladder::-webkit-scrollbar { display: none; } }
+
+/* the run */
+.pk-machine { margin-top: var(--s-4); border: 1px solid var(--rule); border-radius: var(--radius-l); background: var(--sunk); overflow: hidden; }
+.pk-top { padding: 16px clamp(16px, 2.4vw, 28px); border-bottom: 1px solid var(--rule); }
+.pk-top p { margin: 0; color: var(--ink); font-weight: 530; font-size: 1.0625rem; line-height: 1.4; height: 2.8em; overflow: hidden; max-width: 80ch; }
+@media (max-width: 1100px) { .pk-top p { height: 4.2em; } }
+@media (max-width: 700px) { .pk-top p { height: 8.4em; font-size: 1rem; } }
+.pk-picks { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px 28px; padding: 16px clamp(16px, 2.4vw, 28px) 0; background: var(--bg); }
+.pk-picks .eyebrow, .pk-chartbox .eyebrow { display: block; margin-bottom: 8px; }
+@media (max-width: 980px) { .pk-picks { grid-template-columns: 1fr; } }
+/* the two engines' lists lie in ONE cell, the one not chosen hidden and still taking its room: choosing an engine
+   moves nothing */
+.pk-stack { display: grid; }
+.pk-stack > .pk-layer { grid-area: 1 / 1; min-width: 0; }
+.pk-layer.off { visibility: hidden; }
+.pk-opt:disabled { color: var(--ink-4); border-style: dashed; cursor: default; }
+.pk-opt:disabled:hover { border-color: var(--rule-strong); }
+.pk-pick, .pk-laws { display: flex; flex-wrap: wrap; gap: 6px; }
+.pk-opt { font: 500 .8125rem var(--f-sans); padding: 7px 13px; border-radius: var(--radius-pill); border: 1px solid var(--rule-strong); color: var(--ink-2); background: none; cursor: pointer; white-space: nowrap; }
+.pk-opt:hover { border-color: var(--ink); }
+.pk-opt[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.pk-same { margin: 0; padding: 12px clamp(16px, 2.4vw, 28px) 14px; background: var(--bg); border-bottom: 1px solid var(--rule); font-size: .8125rem; line-height: 1.45; color: var(--ink-3); height: calc(2 * 1.45em + 26px); overflow: hidden; }
+@media (max-width: 980px) { .pk-same { height: calc(3 * 1.45em + 26px); } }
+@media (max-width: 620px) { .pk-same { height: calc(6 * 1.45em + 26px); } }
+
+.pk-stage { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 1px; background: var(--rule); }
+.pk-stage > div { background: var(--bg); padding: 18px clamp(16px, 2.4vw, 28px); min-width: 0; }
+@media (max-width: 860px) { .pk-stage { grid-template-columns: 1fr; } .pk-view { display: grid; justify-items: center; } }
+#pk-anim { display: block; width: 100%; max-width: 320px; aspect-ratio: 1; height: auto; color: var(--ink); }
+#pk-anim .pk-g { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+#pk-anim .pk-tx, #pk-chart .pk-tx { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-4); }
+#pk-anim .pk-body { fill: var(--ink); }
+#pk-anim .pk-rod { stroke: var(--ink); stroke-width: 2; }
+#pk-anim .pk-pivot { fill: var(--ink); }
+#pk-anim .pk-plate { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+#pk-anim .pk-plate.front { fill: var(--ink); fill-opacity: .88; }
+#pk-anim .pk-mark { fill: var(--ink); }
+#pk-anim .pk-mark.front { fill: var(--bg); }
+.pk-play { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 12px; align-items: center; margin-top: 10px; width: 100%; max-width: 320px; }
+.pk-clock { grid-column: 1 / -1; font-family: var(--f-mono); font-size: .75rem; color: var(--ink-3); font-variant-numeric: tabular-nums; height: 1.4em; }
+.pk-btn { display: inline-flex; align-items: center; justify-content: center; font: 530 .875rem var(--f-sans); padding: 8px 16px; border-radius: var(--radius-pill); border: 1px solid var(--rule-strong); color: var(--ink); background: none; cursor: pointer; min-width: 5rem; }
+.pk-btn.solid { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.pk-play input[type=range] { appearance: none; -webkit-appearance: none; width: 100%; height: 22px; background: transparent; margin: 0; cursor: pointer; }
+.pk-play input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--rule-strong); }
+.pk-play input[type=range]::-moz-range-track { height: 2px; background: var(--rule-strong); }
+.pk-play input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); margin-top: -7px; }
+.pk-play input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--ink); border: 0; }
+
+.pk-laws { min-height: 72px; align-content: flex-start; }
+@media (max-width: 560px) { .pk-laws { min-height: 148px; } }
+#pk-chart { display: block; width: 100%; height: auto; overflow: visible; margin-top: 4px; }
+#pk-chart .pk-rung { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+#pk-chart .pk-base { stroke: var(--ink); stroke-width: 1.5; }
+#pk-chart .pk-line { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
+#pk-chart .pk-cursor { stroke: var(--ink-4); stroke-width: 1; }
+#pk-chart .pk-x line { stroke: var(--witness); stroke-width: 2; stroke-linecap: round; }
+.pk-cap { margin: 8px 0 0; font-size: var(--text-small); line-height: 1.5; color: var(--ink-3); height: 4.5em; overflow: hidden; }
+@media (max-width: 700px) { .pk-cap { height: 7.5em; } }
+.pk-machine.busy #pk-chart, .pk-machine.busy #pk-anim, .pk-machine.busy .pk-verdicts { opacity: .35; }
+
+/* the verdicts of the law in view: six tolerances, one cell each */
+.pk-verdicts { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); min-height: 104px; }
+.pk-v { background: var(--bg); padding: 12px 12px 10px; display: grid; grid-template-rows: 1.4em 1.9em auto; gap: 4px; align-content: start; height: 104px; box-sizing: border-box; overflow: hidden; }
+.pk-tol { font-size: .8125rem; color: var(--ink); font-weight: 550; white-space: nowrap; }
+.pk-why { font-family: var(--f-mono); font-size: .6875rem; line-height: 1.35; color: var(--ink-3); }
+@media (max-width: 860px) { .pk-verdicts { grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 209px; } }
+@media (max-width: 480px) { .pk-verdicts { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 314px; } }
+.pk-status { margin: 0; padding: 14px clamp(16px, 2.4vw, 28px); border-top: 1px solid var(--rule); font-family: var(--f-mono); font-size: .75rem; line-height: 1.5; color: var(--ink-3); height: calc(3em + 28px); overflow: hidden; box-sizing: border-box; }
+.pk-status.bad { color: var(--ink); font-weight: 600; }
+@media (max-width: 700px) { .pk-status { height: calc(7.5em + 28px); } }
+
+/* the record's tables */
+.pk-t { border-collapse: collapse; font-size: 13px; width: 100%; margin-top: var(--s-4); min-width: 680px; }
+.pk-t th, .pk-t td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--rule); }
+.pk-t th { font-family: var(--f-mono); font-size: 11px; letter-spacing: .02em; color: var(--ink-3); font-weight: 500; white-space: nowrap; }
+.pk-t td.k { color: var(--ink); font-weight: 550; }
+.pk-t td span { display: block; }
+.pk-max { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); font-size: .875rem; }
+.pk-end, .pk-held { font-size: 12px; color: var(--ink-3); line-height: 1.4; }
+.pk-dflt { display: inline !important; color: var(--ink); }
+
+/* the quotation: dashed, because it is quoted, not decided here */
+.pk-grow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+@media (max-width: 900px) { .pk-grow { grid-template-columns: 1fr; } }
+.pk-quote { margin: 0; }
+.pk-quote blockquote { margin: 0; padding: 4px 0 4px 20px; border-left: 1.5px dashed var(--ink-3); font-size: 1.0625rem; line-height: 1.5; color: var(--ink); }
+.pk-quote figcaption { margin-top: var(--s-3); padding-left: 20px; font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); }
+.pk-second { margin-top: var(--s-7); }
+.pk-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); }
+@media (max-width: 900px) { .pk-three { grid-template-columns: 1fr; } }
+
+/* the verdict chips, in the shapes the site's sheet gives them (design/template.js): filled, outlined, dim */
+.tag { display: inline-flex; align-items: center; gap: .45em; font-family: var(--f-mono); font-size: .625rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .35em .8em; border-radius: var(--radius-pill); white-space: nowrap; justify-self: start; align-self: center; }
+.tag.held { background: var(--ink); color: var(--paper); }
+.tag.open { border: 1px solid var(--ink-4); border-radius: 4px; color: var(--ink-3); background: transparent; }
+.tag.dep { border: 1px solid var(--rule-strong); color: var(--ink-3); background: transparent; }
