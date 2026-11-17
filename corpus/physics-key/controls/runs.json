@@ -289,6 +289,110 @@
    "timestep": "0.002",
    "timestepBits": "3f60624dd2f1a9fc",
    "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "T-ENERGY": {
+     "0": "CERTIFIED"
+    },
+    "T-LMAG": {
+     "0": "CERTIFIED"
+    },
+    "T-LVEC": {
+     "0": [
+      "REFUTED",
+      1
+     ],
+     "1e-12": [
+      "REFUTED",
+      1
+     ],
+     "1e-2": [
+      "REFUTED",
+      1
+     ],
+     "1e-4": [
+      "REFUTED",
+      1
+     ],
+     "1e-6": [
+      "REFUTED",
+      1
+     ],
+     "1e-9": [
+      "REFUTED",
+      1
+     ]
+    },
+    "T-MONO": {
+     "0": "CERTIFIED"
+    }
+   },
+   "id": "rc7a-top-world",
+   "integrator": "none",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "30f5b9b2574242bbeab3f73639b1c1c1ec7f344f1468aa54b70b86219f71e0d8",
+   "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "planted",
+   "engineVersion": "0",
+   "expected": {
+    "T-ENERGY": {
+     "0": [
+      "REFUTED",
+      1
+     ],
+     "1e-12": [
+      "REFUTED",
+      1
+     ],
+     "1e-2": [
+      "REFUTED",
+      1
+     ],
+     "1e-4": [
+      "REFUTED",
+      1
+     ],
+     "1e-6": [
+      "REFUTED",
+      1
+     ],
+     "1e-9": [
+      "REFUTED",
+      1
+     ]
+    }
+   },
+   "id": "rc7b-top-world-misread",
+   "integrator": "none",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "30f5b9b2574242bbeab3f73639b1c1c1ec7f344f1468aa54b70b86219f71e0d8",
+   "steps": 10,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
   }
  ]
 }

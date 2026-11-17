@@ -226,6 +226,9 @@
   function decideRun(entry, bytes, shaHex, trace) {
     const scene = entry.scene;
     if (!LAWS[scene]) return { status: 'malformed', nonFiniteStep: null, laws: {} };
+    // amendment 2: the only layouts are the one of section 4 (no field) and "world"
+    if (entry.layout !== undefined && entry.layout !== 'world') return refusedRun(scene, 'malformed');
+    const world = entry.layout === 'world';
     const width = 1 + entry.nq + entry.nv, rows = entry.steps + 1;
     if (!bytes || bytes.length !== 8 * rows * width || shaHex !== entry.sha256) return refusedRun(scene, 'malformed');
     const P = {};
@@ -288,40 +291,46 @@
           return { 'P-ENERGY': { enc, key: a.m + '/' + a.e + '/' + qOf(dSq(r[2])).n + '/' + qOf(dSq(r[2])).d } };
         };
       } else {
+        /* Everything is kept as a dyadic numerator over a dyadic denominator, so the two layouts share one
+           set of formulas. With n = |q|² and M = n·R(q) (dyadic): in the section 4 layout the body-frame angular
+           velocity is u = ω and s = 1; in the world layout (amendment 2) it is u/s with u = Mᵀ·w and s = n.
+             2T = Σ I·u² / s²      Λ = Σ (I·u)² / s²      ℓ = M·(I·u) / (n·s)                                 */
         const I = [P.I1, P.I2, P.I3];
-        const mom = (r) => [dMul(I[0], r[11]), dMul(I[1], r[12]), dMul(I[2], r[13])];
-        const energy2 = (r) => dAdd(dAdd(dMul(I[0], dSq(r[11])), dMul(I[1], dSq(r[12]))), dMul(I[2], dSq(r[13])));
         const dot = (a, b) => dAdd(dAdd(dMul(a[0], b[0]), dMul(a[1], b[1])), dMul(a[2], b[2]));
-        const two = dy(2n, 0);
-        // n·R(q)·p as a dyadic vector, and n
-        const world = (r, p) => {
-          const w = r[4], x = r[5], y = r[6], z = r[7];
+        const two = dy(2n, 0), one = dy(1n, 0);
+        const state = (r) => {
+          const w = world ? r[7] : r[4], x = world ? r[4] : r[5], y = world ? r[5] : r[6], z = world ? r[6] : r[7];
           const ww = dSq(w), xx = dSq(x), yy = dSq(y), zz = dSq(z);
-          const R = [
+          const n = dAdd(dAdd(ww, xx), dAdd(yy, zz));
+          const M = [
             [dSub(dAdd(ww, xx), dAdd(yy, zz)), dMul(two, dSub(dMul(x, y), dMul(w, z))), dMul(two, dAdd(dMul(x, z), dMul(w, y)))],
             [dMul(two, dAdd(dMul(x, y), dMul(w, z))), dSub(dAdd(ww, yy), dAdd(xx, zz)), dMul(two, dSub(dMul(y, z), dMul(w, x)))],
             [dMul(two, dSub(dMul(x, z), dMul(w, y))), dMul(two, dAdd(dMul(y, z), dMul(w, x))), dSub(dAdd(ww, zz), dAdd(xx, yy))],
           ];
-          return { n: dAdd(dAdd(ww, xx), dAdd(yy, zz)), u: R.map((row) => dot(row, p)) };
+          const om = [r[11], r[12], r[13]];
+          const u = world ? [0, 1, 2].map((j) => dot([M[0][j], M[1][j], M[2][j]], om)) : om;
+          const s = world ? n : one, ss = dSq(s);
+          const p = [dMul(I[0], u[0]), dMul(I[1], u[1]), dMul(I[2], u[2])];
+          return { n, Ea: dot(u, p), La: dot(p, p), ss, la: M.map((row) => dot(row, p)), lb: dMul(n, s) };
         };
-        const T0 = energy2(r0), p0 = mom(r0), L0 = dot(p0, p0), W0 = world(r0, p0);
-        if (dSign(T0) === 0 || dSign(L0) === 0) return refusedRun(scene, 'malformed');
-        let prev = T0;                                     // twice the kinetic energy one step back
-        if (dSign(W0.n) === 0) devs = null;
+        const S0 = state(r0);
+        const zeroQuat0 = dSign(S0.n) === 0;
+        if (!(world && zeroQuat0) && (dSign(S0.Ea) === 0 || dSign(S0.La) === 0)) return refusedRun(scene, 'malformed');
+        let prev = S0;                                     // the state one step back
+        if (zeroQuat0) devs = null;
         else devs = (r, k) => {
-          const p = mom(r), W = world(r, p);
-          if (dSign(W.n) === 0) return null;               // an all-zero quaternion
-          const L = dot(p, p), E = energy2(r);
-          const rise = k === 0 ? Q0 : qOf(dSub(E, prev), T0);
-          prev = E;
-          // ℓ_k − ℓ_0 = (n_0·u_k − n_k·u_0) / (n_0·n_k)
-          const diff = [0, 1, 2].map((i) => dSub(dMul(W0.n, W.u[i]), dMul(W.n, W0.u[i])));
-          const den = dMul(dSq(dMul(W0.n, W.n)), L0);
+          const S = state(r);
+          if (dSign(S.n) === 0) return null;               // an all-zero quaternion
+          // (T_k − T_{k−1})/T_0 = (Ea_k·ss_p − Ea_p·ss_k)·ss_0 / (ss_k·ss_p·Ea_0)
+          const rise = k === 0 ? Q0 : qOf(dMul(dSub(dMul(S.Ea, prev.ss), dMul(prev.Ea, S.ss)), S0.ss), dMul(dMul(S.ss, prev.ss), S0.Ea));
+          prev = S;
+          // ℓ_k − ℓ_0 = (la_k·lb_0 − la_0·lb_k) / (lb_k·lb_0), and 1/Λ_0 = ss_0/La_0
+          const diff = [0, 1, 2].map((i) => dSub(dMul(S.la[i], S0.lb), dMul(S0.la[i], S.lb)));
           return {
-            'T-ENERGY': { v: qOf(dSub(E, T0), T0) },
+            'T-ENERGY': { v: qOf(dSub(dMul(S.Ea, S0.ss), dMul(S0.Ea, S.ss)), dMul(S0.Ea, S.ss)) },
             'T-MONO': { v: rise },
-            'T-LMAG': { v: qOf(dSub(L, L0), L0) },
-            'T-LVEC': { v: qOf(dot(diff, diff), den) },
+            'T-LMAG': { v: qOf(dSub(dMul(S.La, S0.ss), dMul(S0.La, S.ss)), dMul(S0.La, S.ss)) },
+            'T-LVEC': { v: qOf(dMul(dot(diff, diff), S0.ss), dMul(dSq(dMul(S.lb, S0.lb)), S0.La)) },
           };
         };
       }

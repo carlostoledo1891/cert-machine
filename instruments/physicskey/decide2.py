@@ -12,6 +12,12 @@ Lagrange remainder (RULES section 7).
     python3 decide2.py <path/to/runs.json> [--out <file>] [--only <run-id>]
 
 The trajectory of run <id> is <id>.f64.gz beside runs.json.
+
+Amended for RULES amendment 2, section A2.2 (given RULES.md and this file,
+nothing else): a manifest entry may carry "layout": "world" (quaternion scalar
+last, angular velocity in the world frame, for `fall` and `top`); any other
+value of `layout` makes the run malformed; an entry with no `layout` is read
+exactly as before.
 """
 
 import argparse
@@ -317,19 +323,28 @@ def decide_fall(vals, nsteps, width, params):
 # top
 # ----------------------------------------------------------------------------
 
-def top_quantities(vals, s, i1, i2, i3):
-    w = bits_to_fraction(vals[s + 4])
-    x = bits_to_fraction(vals[s + 5])
-    y = bits_to_fraction(vals[s + 6])
-    z = bits_to_fraction(vals[s + 7])
+def top_quantities(vals, s, i1, i2, i3, world=False):
+    """T, Lambda and the world-frame angular momentum of one row.
+
+    world=False: section 4. qpos[3..6] = (qw, qx, qy, qz), scalar first, and
+    qvel[3..5] is the angular velocity in the body frame.
+    world=True: amendment 2, A2.2 ("layout": "world"). qpos[3..6] =
+    (qx, qy, qz, qw), scalar last, and qvel[3..5] is the angular velocity in
+    the world frame; the body-frame one is R(q)^T (wx, wy, wz). Everything
+    after that reads as section 5 does."""
+    if world:
+        x = bits_to_fraction(vals[s + 4])
+        y = bits_to_fraction(vals[s + 5])
+        z = bits_to_fraction(vals[s + 6])
+        w = bits_to_fraction(vals[s + 7])
+    else:
+        w = bits_to_fraction(vals[s + 4])
+        x = bits_to_fraction(vals[s + 5])
+        y = bits_to_fraction(vals[s + 6])
+        z = bits_to_fraction(vals[s + 7])
     o1 = bits_to_fraction(vals[s + 11])            # qvel[3]
     o2 = bits_to_fraction(vals[s + 12])            # qvel[4]
     o3 = bits_to_fraction(vals[s + 13])            # qvel[5]
-    p1 = i1 * o1
-    p2 = i2 * o2
-    p3 = i3 * o3
-    t = (p1 * o1 + p2 * o2 + p3 * o3) / 2
-    lam = p1 * p1 + p2 * p2 + p3 * p3
     ww = w * w
     xx = x * x
     yy = y * y
@@ -341,13 +356,24 @@ def top_quantities(vals, s, i1, i2, i3):
     wy = w * y
     yz = y * z
     wx = w * x
+    if world:
+        # omega = R(q)^T (wx, wy, wz): the columns of R(q), each over n
+        u1, u2, u3 = o1, o2, o3
+        o1 = ((ww + xx - yy - zz) * u1 + 2 * (xy + wz) * u2 + 2 * (xz - wy) * u3) / n
+        o2 = (2 * (xy - wz) * u1 + (ww - xx + yy - zz) * u2 + 2 * (yz + wx) * u3) / n
+        o3 = (2 * (xz + wy) * u1 + 2 * (yz - wx) * u2 + (ww - xx - yy + zz) * u3) / n
+    p1 = i1 * o1
+    p2 = i2 * o2
+    p3 = i3 * o3
+    t = (p1 * o1 + p2 * o2 + p3 * o3) / 2
+    lam = p1 * p1 + p2 * p2 + p3 * p3
     l1 = ((ww + xx - yy - zz) * p1 + 2 * (xy - wz) * p2 + 2 * (xz + wy) * p3) / n
     l2 = (2 * (xy + wz) * p1 + (ww - xx + yy - zz) * p2 + 2 * (yz - wx) * p3) / n
     l3 = (2 * (xz - wy) * p1 + 2 * (yz + wx) * p2 + (ww - xx - yy + zz) * p3) / n
     return t, lam, l1, l2, l3
 
 
-def decide_top(vals, nsteps, width, params):
+def decide_top(vals, nsteps, width, params, world=False):
     sd = SCENES["top"]
     i1 = params["I1"]
     i2 = params["I2"]
@@ -362,10 +388,11 @@ def decide_top(vals, nsteps, width, params):
         if row_nonfinite(vals, s, width):
             nf = k
             break
+        # the four quaternion entries are qpos[3..6] in both layouts (A2.2)
         if ((vals[s + 4] | vals[s + 5] | vals[s + 6] | vals[s + 7]) & MASK63) == 0:
             nf = k                                 # quaternion all zeros
             break
-        t, lam, l1, l2, l3 = top_quantities(vals, s, i1, i2, i3)
+        t, lam, l1, l2, l3 = top_quantities(vals, s, i1, i2, i3, world)
         if k == 0:
             if t == 0 or lam == 0:
                 return malformed(sd)
@@ -626,6 +653,14 @@ def decide_entry(entry, base_dir):
     if not isinstance(scene, str) or scene not in SCENES:
         return malformed(None)
     sd = SCENES[scene]
+    # Amendment 2, A2.2: an entry with no `layout` is read as section 4 says;
+    # "world" is the one value there is; any other value is a malformed run.
+    world = False
+    if "layout" in entry:
+        layout = entry["layout"]
+        if not isinstance(layout, str) or layout != "world":
+            return malformed(sd)
+        world = True
     run_id = entry.get("id")
     nsteps = entry.get("steps")
     nq = entry.get("nq")
@@ -657,10 +692,12 @@ def decide_entry(entry, base_dir):
     count = (nsteps + 1) * width
     vals = struct.unpack("<%dQ" % count, data)
     if scene == "fall":
+        # z = qpos[2] and vz = qvel[2] in both layouts (A2.2)
         return decide_fall(vals, nsteps, width, params)
     if scene == "pendulum":
+        # A2.2 defines the world layout for `fall` and `top` only
         return decide_pendulum(vals, nsteps, width, params)
-    return decide_top(vals, nsteps, width, params)
+    return decide_top(vals, nsteps, width, params, world)
 
 
 def main(argv=None):

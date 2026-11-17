@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The planted files of RULES.md section 9: synthetic runs with a known answer.
+"""The planted files of RULES.md section 9 and its amendments: synthetic runs with a known answer.
 
 Standard library only; no engine. Writes corpus/physics-key/controls/<id>.f64.gz and
 runs.json, whose `expected` field is what each decider must return (read by the
@@ -115,6 +115,21 @@ def main():
         rows.append([0.01 * k, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, w2, 0.0])
     out.append(entry("rc6-top-one-rise", "top", 1000, 7, 6, pack(rows), TOP,
                      {"T-MONO": {"1e-4": "CERTIFIED", "1e-9": ["REFUTED", 400], "0": ["REFUTED", 400]}}))
+
+    # RC7 (amendment 2): two states that agree in the body frame and differ in the world frame;
+    # the same bytes listed twice, once under the world layout and once under section 4's
+    rows = []
+    for k in range(11):
+        quat, ang = ([0.0, 0.0, 0.0, 1.0], [1.0, 2.0, 3.0]) if k % 2 == 0 else ([1.0, 0.0, 0.0, 1.0], [1.0, -3.0, 2.0])
+        rows.append([0.002 * k, 0.0, 0.0, 0.0] + quat + [0.0, 0.0, 0.0] + ang)
+    every = lambda verdict: {t: verdict for t in ("1e-2", "1e-4", "1e-6", "1e-9", "1e-12", "0")}
+    e7a, raw7 = entry("rc7a-top-world", "top", 10, 7, 6, pack(rows), TOP, {
+        "T-ENERGY": {"0": "CERTIFIED"}, "T-LMAG": {"0": "CERTIFIED"}, "T-MONO": {"0": "CERTIFIED"},
+        "T-LVEC": every(["REFUTED", 1]),
+    })
+    e7a["layout"] = "world"
+    out.append((e7a, raw7))
+    out.append(entry("rc7b-top-world-misread", "top", 10, 7, 6, pack(rows), TOP, {"T-ENERGY": every(["REFUTED", 1])}))
 
     manifest = []
     for e, raw in out:

@@ -1,0 +1,773 @@
+{
+ "format": 1,
+ "runs": [
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-h0.01",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "c8bd297a0173f628ef625607d861be8df1bbab3b836a61d9c2770abd29194ad6",
+   "steps": 200,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-h0.005",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "a8c74362d9663dde3b15e13c2b4fe82ac5293a4b62029dca4622f0e905be691d",
+   "steps": 400,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-h0.002",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "6fa1f62b01bd983cb52abf35974efb43c30b01d171009776b22cf84a951b8dba",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-h0.001",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "8746472bf56c4b2940345c4bde4da7280c0c6d2fd3c06836586bdc7437495300",
+   "steps": 2000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-d0-h0.01",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "c8bd297a0173f628ef625607d861be8df1bbab3b836a61d9c2770abd29194ad6",
+   "steps": 200,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-d0-h0.005",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "a8c74362d9663dde3b15e13c2b4fe82ac5293a4b62029dca4622f0e905be691d",
+   "steps": 400,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-d0-h0.002",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "6fa1f62b01bd983cb52abf35974efb43c30b01d171009776b22cf84a951b8dba",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-semiimplicit-d0-h0.001",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "8746472bf56c4b2940345c4bde4da7280c0c6d2fd3c06836586bdc7437495300",
+   "steps": 2000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-h0.01",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "c8bd297a0173f628ef625607d861be8df1bbab3b836a61d9c2770abd29194ad6",
+   "steps": 200,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-h0.005",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "a8c74362d9663dde3b15e13c2b4fe82ac5293a4b62029dca4622f0e905be691d",
+   "steps": 400,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-h0.002",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "6fa1f62b01bd983cb52abf35974efb43c30b01d171009776b22cf84a951b8dba",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-h0.001",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "8746472bf56c4b2940345c4bde4da7280c0c6d2fd3c06836586bdc7437495300",
+   "steps": 2000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-d0-h0.01",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "c8bd297a0173f628ef625607d861be8df1bbab3b836a61d9c2770abd29194ad6",
+   "steps": 200,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-d0-h0.005",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "a8c74362d9663dde3b15e13c2b4fe82ac5293a4b62029dca4622f0e905be691d",
+   "steps": 400,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-d0-h0.002",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "6fa1f62b01bd983cb52abf35974efb43c30b01d171009776b22cf84a951b8dba",
+   "steps": 1000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "fall-featherstone-d0-h0.001",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "G": "40239eb860000000"
+   },
+   "scene": "fall",
+   "sha256": "8746472bf56c4b2940345c4bde4da7280c0c6d2fd3c06836586bdc7437495300",
+   "steps": 2000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-h0.01",
+   "integrator": "featherstone",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "8ae63ba10e1aaa7b9e812f8267581326905a93f50ab932dc1be9f2344ead360c",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-h0.005",
+   "integrator": "featherstone",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "2995509cd8a8861e32fbe928bf2e2dc09f53526f2b40a29ec23497e4a7488cfb",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-h0.002",
+   "integrator": "featherstone",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "3c12534f430e58896fd5c96e8390bf57797fcd538252697c0d9f42f8723ba9db",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-h0.001",
+   "integrator": "featherstone",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "9e6f68a8fbe9f6ad355fddbc96eaf9cadee348af2ad534bddb4857308ae8b61a",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-d0-h0.01",
+   "integrator": "featherstone-d0",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "8ae63ba10e1aaa7b9e812f8267581326905a93f50ab932dc1be9f2344ead360c",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-d0-h0.005",
+   "integrator": "featherstone-d0",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "2995509cd8a8861e32fbe928bf2e2dc09f53526f2b40a29ec23497e4a7488cfb",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-d0-h0.002",
+   "integrator": "featherstone-d0",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "3c12534f430e58896fd5c96e8390bf57797fcd538252697c0d9f42f8723ba9db",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "pendulum-featherstone-d0-h0.001",
+   "integrator": "featherstone-d0",
+   "nq": 1,
+   "nv": 1,
+   "params": {
+    "G": "40239eb860000000",
+    "IYY": "3f847ae140000000",
+    "L": "3ff0000000000000",
+    "M": "3ff0000000000000"
+   },
+   "scene": "pendulum",
+   "sha256": "9e6f68a8fbe9f6ad355fddbc96eaf9cadee348af2ad534bddb4857308ae8b61a",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-h0.01",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "4016198c2214a4b20f7e8e2d516da2b2c8f8f4fc1492639bf34ae86c74d6a9c0",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-h0.005",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "ac50dbd860899011d1d6bd544bffcd2e970003c5dd685f38777dfd8c04289c20",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-h0.002",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "66397f6c7573aef2c5f7cf38bbf7078328542bba5e9d0d61bcb22c1a26d8b38c",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-h0.001",
+   "integrator": "semiimplicit",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "071f79638df16456dfbf2271750a75607dc906570ba9ec23413999da49eed94d",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-d0-h0.01",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "d08299a0cd54dad2f0d3d65fde7ef333af9217e386198455c7e12d4d47e41cb7",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-d0-h0.005",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "27370a61285b08665ac83e49e8808e3eb0ec3f929889774469eef2c2988e3d05",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-d0-h0.002",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "fb020afac506b2085e51fba97ef3fe1dd49ac133aa2cfc593b0eab9e0bacf112",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-semiimplicit-d0-h0.001",
+   "integrator": "semiimplicit-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "425f7b99945dc55bc0b6afbd54c61b239a3ad64ebf278601b1a5c3fd63c69ac3",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-h0.01",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "a866c3246acb71003d8d95e130efc58ddafb73f653511b3634e27e97321343c8",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-h0.005",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "4f388a16500fa7a4ca37e0a46fdd9500809c7316b35bc43c2fe82b17264f83de",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-h0.002",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "0b8aa51a5a4ad7fa4d98d3359685cdd1b810cd237a28ac38c3dd94f3c4fb69f4",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-h0.001",
+   "integrator": "featherstone",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "a7756f2590769c140fa12e22f31c9febfa9b1a583afab62891c56a9dabd2d01e",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-d0-h0.01",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "a866c3246acb71003d8d95e130efc58ddafb73f653511b3634e27e97321343c8",
+   "steps": 1000,
+   "timestep": "0.01",
+   "timestepBits": "3f847ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-d0-h0.005",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "4f388a16500fa7a4ca37e0a46fdd9500809c7316b35bc43c2fe82b17264f83de",
+   "steps": 2000,
+   "timestep": "0.005",
+   "timestepBits": "3f747ae147ae147b",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-d0-h0.002",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "0b8aa51a5a4ad7fa4d98d3359685cdd1b810cd237a28ac38c3dd94f3c4fb69f4",
+   "steps": 5000,
+   "timestep": "0.002",
+   "timestepBits": "3f60624dd2f1a9fc",
+   "warnings": {}
+  },
+  {
+   "engine": "newton",
+   "engineVersion": "1.8.0",
+   "id": "top-featherstone-d0-h0.001",
+   "integrator": "featherstone-d0",
+   "layout": "world",
+   "nq": 7,
+   "nv": 6,
+   "params": {
+    "I1": "3ff0000000000000",
+    "I2": "4000000000000000",
+    "I3": "4008000000000000"
+   },
+   "scene": "top",
+   "sha256": "a7756f2590769c140fa12e22f31c9febfa9b1a583afab62891c56a9dabd2d01e",
+   "steps": 10000,
+   "timestep": "0.001",
+   "timestepBits": "3f50624dd2f1a9fc",
+   "warnings": {}
+  }
+ ]
+}
