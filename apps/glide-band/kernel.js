@@ -118,11 +118,17 @@ function bearingOf(lat1, lon1, lat2, lon2) {
    FROM) }, h = [lo,hi] metres above the site. Returns metres, plus a
    `degenerate` flag when the envelope admits a crosswind at or above the
    airspeed, where the steady-glide model has no solution on that course.  */
-function bandRaw(bearingDeg, h, env, tTurn) {
-  const a = (bearingDeg - env.Wdir[1]) * D2R;
-  const b = (bearingDeg - env.Wdir[0]) * D2R;
+/* the two trig hulls of the wind angle over one Wdir box; they depend on the bearing and Wdir only, so band() takes them
+   once per Wdir sub-box (2026-11-16: the proved series costs ~300x the platform's Math.cos, and every Va sub-box used
+   to recompute the same twelve pairs — the same inputs, the same outputs, 24x fewer evaluations) */
+function angleHulls(bearingDeg, Wdir) {
+  const a = (bearingDeg - Wdir[1]) * D2R;
+  const b = (bearingDeg - Wdir[0]) * D2R;
   const lo = Math.min(a, b), hi = Math.max(a, b);
-  const cosD = cosHull(lo, hi), sinD = sinHull(lo, hi);
+  return { cosD: cosHull(lo, hi), sinD: sinHull(lo, hi) };
+}
+function bandRaw(bearingDeg, h, env, tTurn, hulls) {
+  const { cosD, sinD } = hulls || angleHulls(bearingDeg, env.Wdir);
 
   const along = mul(neg(env.Ws), cosD);
   const cross = mul(env.Ws, sinD);
@@ -168,9 +174,11 @@ function splitIv(r, n) {
 }
 function band(bearingDeg, h, env, tTurn) {
   let lo = Infinity, hi = -Infinity, degenerate = false;
+  const WD = splitIv(env.Wdir, NWD), HU = WD.map((W) => angleHulls(bearingDeg, W));
   for (const Va of splitIv(env.Va, NVA)) {
-    for (const Wdir of splitIv(env.Wdir, NWD)) {
-      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }), tTurn);
+    for (let j = 0; j < WD.length; j++) {
+      const Wdir = WD[j];
+      const r = bandRaw(bearingDeg, h, Object.assign({}, env, { Va, Wdir }), tTurn, HU[j]);
       if (r.lo < lo) lo = r.lo;
       if (r.hi > hi) hi = r.hi;
       if (r.degenerate) degenerate = true;
