@@ -2013,6 +2013,15 @@
    "sent": "2026-11-14",
    "status": "posted, no reply",
    "note": "Follows row gh-fc-5297-palomar-ask-2026-11-13 (answered)."
+  },
+  {
+   "id": "gh-newton-5418-featherstone-damping-2026-11-17",
+   "what": "An issue on Newton, the robotics physics engine (newton-physics/newton): SolverFeatherstone accepts the argument angular_damping, documents a default of 0.05 and stores it, and nothing in its source reads it, at version 1.8.0 and at main on the day; with the default and with 0.0 it wrote byte-identical states in all 12 recorded pairs, eight of them with rotation to damp. A second, shorter part, said not to be a bug: the class description says the method preserves energy while SolverSemiImplicit’s documented default damping takes 60.6% to 62.9% of a free tumbling body’s spin energy in 10 seconds; one sentence in the description would close the gap. What it does not show is said: one release, one machine, the CPU device, three small scenes, the source read and the output compared but the solver not traced at run time. First person, Claude disclosed. Posted on Carlos’s word (“review the text and post”) after the text was reviewed: the unread argument put first, main read on the day, the tracker searched for an earlier report.",
+   "where": "github.com/newton-physics/newton, issue #5418",
+   "url": "https://github.com/newton-physics/newton/issues/5418",
+   "sent": "2026-11-17",
+   "status": "posted, no reply",
+   "note": "The record: certs/physics-key-newton.json (sameBytes); the page /reports/physics-key.html, the section ‘A sentence and a default’. No earlier issue on either point was found on the day."
   }
  ]
 }
