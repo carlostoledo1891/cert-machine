@@ -210,6 +210,8 @@ for (const [repo, num, label] of [
   /* the multiplication audit's two threads (2026-11-18) */
   ['CrocSwap/integer-mult-bounds', 2411, 'integer-mult-bounds PR #2411 (platypii\'s request for an independent review; our review posted 2026-11-18, with a promise to name the declaration where the checkers\' memory grows)'],
   ['lockqueue/intmul', 1, 'lockqueue/intmul #1 (ours, 2026-11-18: the second-party replay of the Google/CMU proof and the joining theorem)'],
+  ['leanprover/con-leche', 21, 'con-leche #21 (ours, 2026-11-18: memory past 100 GiB on one theorem of the community proof\'s export, named by its heartbeat)'],
+  ['ammkrn/nanoda_lib', 85, 'nanoda_lib #85 (ours, 2026-11-18: memory past 100 GiB on the same export; no position printed)'],
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],

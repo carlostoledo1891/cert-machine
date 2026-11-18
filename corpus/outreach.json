@@ -2094,6 +2094,33 @@
    "sent": "2026-11-18",
    "status": "posted, no reply",
    "note": "notes/x/drops/d30-intmul-post.txt; posted with tools/x.js on Carlos’s word. The page’s own light card (og-intmul.png) was read with the Twitterbot agent before the send: 200, summary_large_image."
+  },
+  {
+   "id": "gh-crocswap-2411-declaration-2026-11-18",
+   "what": "The follow-up promised in the review on the community’s pull request: the place where the checkers run out of memory, named. On a second machine the export is the same file byte for byte; con-leche’s heartbeat names the theorem it began the second its memory started to grow (DesignB.stage_source_trace, in M8/Global/DataTraceB.lean), unfinished 589 seconds later at 100.4 GiB; and Lean’s own leanchecker on that one module ends out of memory after 9 min 10 s, where the ordinary build compiles it in 98 seconds: a reproduction in one command. Not shown: that nanoda and the fresh replay were on the same theorem, and why.",
+   "where": "github.com/CrocSwap/integer-mult-bounds, pull request #2411",
+   "url": "https://github.com/CrocSwap/integer-mult-bounds/pull/2411#issuecomment-6984588045",
+   "sent": "2026-11-18",
+   "status": "live, no reply",
+   "note": "outreach/gh-crocswap-2411-declaration-2026-11-18.md; posted on Carlos’s word. Read back: the posted text is the file’s."
+  },
+  {
+   "id": "gh-conleche-21-intmul-memory-2026-11-18",
+   "what": "An issue on con-leche, Lean’s verified checker: on one theorem of the community proof’s 3.25 GB export its memory grows about 10 GiB a minute until stopped at 100.4 GiB; its own heartbeat names the theorem; Lean’s leanchecker runs out of memory on the same module, so the report says it may not be con-leche’s alone. Setup, what happened, what was not done.",
+   "where": "github.com/leanprover/con-leche, issue #21",
+   "url": "https://github.com/leanprover/con-leche/issues/21",
+   "sent": "2026-11-18",
+   "status": "open, no comments",
+   "note": "outreach/gh-conleche-intmul-memory-2026-11-18.md; posted on Carlos’s word. Read back: the posted text is the file’s."
+  },
+  {
+   "id": "gh-nanoda-85-intmul-memory-2026-11-18",
+   "what": "An issue on nanoda, the independent Lean kernel in Rust: on the community proof’s 3.25 GB export it stays under 9 GiB for about 70 minutes, then passes 100 GiB in ten; it prints no position, so the report says what two other checkers show on the same file (con-leche’s heartbeat names one theorem; Lean’s leanchecker runs out of memory on its module) and that nanoda was not shown to be on that theorem.",
+   "where": "github.com/ammkrn/nanoda_lib, issue #85",
+   "url": "https://github.com/ammkrn/nanoda_lib/issues/85",
+   "sent": "2026-11-18",
+   "status": "open, no comments",
+   "note": "outreach/gh-nanoda-intmul-memory-2026-11-18.md; posted on Carlos’s word. Read back: the posted text is the file’s. No issue was opened on Lean itself: the reproduction needs the whole proof built and is not minimal."
   }
  ]
 }
