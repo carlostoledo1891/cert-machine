@@ -408,6 +408,14 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'prime-gap-premises.json'), 'utf8')), S = P.ledger.byStatus;
       if (P.ledger.rows !== 16 || P.words.premisesProved !== 0 || S['DECIDED ON INSTANCES below 2000'] + S.REPRODUCED + S['READ: MISMATCH'] + S['NOT DECIDED'] !== P.ledger.rows) fail('the prime-gap-premises card would misstate its record');
       return P.ledger.rows + ' premises · ' + P.words.premisesProved + ' proved here · ' + S['DECIDED ON INSTANCES below 2000'] + ' decided on instances · ' + S['NOT DECIDED'] + ' not decided'; })() },
+  /* integer multiplication below n log n (2026-11-18): the card's words are read from the audit record and the card
+     refuses if either verdict word moved */
+  { g: 'ai', f: 'intmul.html', k: 'multiplication below n log n · two Lean proofs',
+    title: 'Integer multiplication below n log n: two Lean proofs, replayed by a second party',
+    desc: 'Two groups published Lean proofs that integers multiply in fewer than n log n steps on a Turing machine. Both were rebuilt from source under questions written before the run. Three independent checkers accept the Google/CMU proof. The community proof proves its statement, and three checkers ran out of memory re-checking it; nothing rejected it. A Lean theorem shows it gives the Google/CMU statement. What stays open is said first.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')), g = P.Q1['google-cmu'], c = P.Q1.community;
+      if (g.word !== 'CERTIFIED' || c.word !== 'REFUSED' || g.acceptedBy.length !== 3 || c.conLeche.word !== 'STOPPED') fail('the intmul card would misstate its record');
+      return g.acceptedBy.length + ' checkers accept one proof · the other REFUSED on memory · ' + P.amendments.count + ' amendments declared'; })() },
   /* the physics answer key (2026-11-17): the counts are read from the two records and the card refuses if either holds a
      REFUSED or says its two deciders disagree */
   { g: 'applied', f: 'physics-key.html', k: 'simulators · recorded runs decided exactly',
@@ -2090,7 +2098,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

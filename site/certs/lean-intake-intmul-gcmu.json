@@ -1,0 +1,465 @@
+{
+ "format": 2,
+ "what": "The Lean intake of the headline theorem of the release against the release's own statement file: one fixed multi-stack machine with finite alphabets multiplies two binary naturals within (C·L)·(log2 L)^(1 − 2^-46) steps on every input of length L ≥ N₀, stated in ℕ, decided from the run's facts by tools/lean-intake.js (record format 2, instruments/intake/SPEC.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement; of the planted statements that reached the identity check, every one with a predicted outcome has it, at least one is refused and at least one rewording is accepted; the canonical hypotheses have a model; and every planted defect in the claimant's file is caught. A planted statement that did not elaborate tested nothing and is named, not counted.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, was not run). Kernels THIS RUN did not run: leanchecker-paranoid, lean4lean, con-leche, con-ron — another record of the same proof may have run them; this record speaks for its own run only.",
+ "spec": {
+  "path": "corpus/lean-intake/intmul-gcmu/spec.json",
+  "sha256": "c946ad80835f214ae94a32a39d222f9aeef298161e475c05c1ae1a0e339bd2e9",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-17",
+  "facts": "corpus/lean-intake/intmul-gcmu/runs/2026-11-17",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 16,
+   "memGB": 119.2,
+   "host": {
+    "cpus": 256,
+    "memGB": 1008
+   },
+   "limit": {
+    "cpus": null,
+    "memGB": 119.2,
+    "source": "cgroup v2"
+   },
+   "declared": {
+    "source": "RUNPOD_CPU_COUNT / RUNPOD_MEM_GB",
+    "cpus": 16,
+    "memGB": 128
+   },
+   "plantedStatementsAtOnce": 8
+  },
+  "stepSeconds": 3010.2,
+  "cost": {
+   "usd": 0.69,
+   "what": "RunPod cpu3m-16-128, 47 min at US$0.88/h, pod 3ik2qpnhfed4kx: the registered run alone (2026-11-17 23:17 to 2026-11-18 00:04 UTC). The pod ran 12 h 8 min in all; the rest of its bill went to the second proof's run, the theorem joining the two statements, the released programs and the optional checks (corpus/intmul/pod/cost.json)"
+  }
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/lockqueue/intmul.git",
+   "path": "SubNLogN/Challenge.lean",
+   "decl": "SubNLogN.Challenge.IntMulSubNLogN",
+   "head": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+   "sha256": "7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  },
+  "claim": {
+   "url": "https://github.com/lockqueue/intmul.git",
+   "file": "SubNLogN/Assembly/ChallengeHeadline.lean",
+   "decl": "SubNLogN.Assembly.intMul_challenge",
+   "head": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+   "sha256": "ce17957927bcbbc950bce9f423bf20270d8e1d4159c4ce22e230c782ca44e0c1",
+   "toolchain": "leanprover/lean4:v4.33.1"
+  }
+ },
+ "hazards": {
+  "sorry": [
+   13,
+   21
+  ],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "CERTIFIED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "4 of 4 accepted (predicted)",
+   "type": "0 of 0 refused (predicted)",
+   "changed": "3 refused, 0 accepted, of 3 (kernel decides: no outcome predicted)",
+   "equivalent": "1 of 1 refused (kernel decides)",
+   "certain": "9 of 9 certain predictions met",
+   "reachedTheCheck": "10 of 15",
+   "notTested": {
+    "count": 5,
+    "statements": [
+     "C1 (FAILED elsewhere)",
+     "C2 (FAILED elsewhere)",
+     "C5 (FAILED elsewhere)",
+     "C6 (FAILED elsewhere)",
+     "C11 (FAILED elsewhere)"
+    ],
+    "note": "these planted statements never reached the identity check: shown, counted neither as refusals nor as misses"
+   },
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "3 of 3",
+   "word": "CERTIFIED"
+  },
+  "kernels": "ACCEPT (3 run)",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "the statement quantifies over Turing machines and has no decidable instance to evaluate; the encodings it names are evaluated on small pairs by a separate check of the same audit"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": true,
+   "eqv": true,
+   "defeq": true
+  },
+  "canonical": "SubNLogN.Challenge.IntMulSubNLogN",
+  "claim": "SubNLogN.Challenge.IntMulSubNLogN",
+  "seconds": 17.6,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's SubNLogN.Assembly.intMul_challenge as a proof of the proposition SubNLogN.Challenge.IntMulSubNLogN, written from the canonical file's own definitions; the two types are equal as expressions"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "the statement is an existence claim with no hypotheses to satisfy",
+  "seconds": 5.3,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the body of the definition IntMulSubNLogN copied verbatim (comments dropped): the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 14.6,
+   "tested": true,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (M→T, k→j, C→c, N₀→n₀, L→n, p→q): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 14.5,
+   "tested": true,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "the definition named and not unfolded",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 14.3,
+   "tested": true,
+   "rule": "same:folded",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the input encoding named by its function (encodeNatPair) where the file writes the structure's field (encNatPair.encode): equal after unfolding one definition and one projection",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 14.9,
+   "tested": true,
+   "rule": "same:unfold-encoding",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C1",
+   "kind": "changed",
+   "why": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "FAILED elsewhere",
+   "asExpected": null,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 17.8,
+   "tested": false,
+   "rule": "changed:exponent",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C2",
+   "kind": "changed",
+   "why": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "FAILED elsewhere",
+   "asExpected": null,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 15.5,
+   "tested": false,
+   "rule": "changed:exponent",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C3",
+   "kind": "changed",
+   "why": "≤ made <",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17,
+   "tested": true,
+   "rule": "changed:strictness",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C4",
+   "kind": "changed",
+   "why": "the conjunct that every stack alphabet is finite deleted",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 12,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 15,
+   "tested": true,
+   "rule": "changed:drop-conjunct",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C5",
+   "kind": "wrong",
+   "why": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "FAILED elsewhere",
+   "asExpected": null,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 14.1,
+   "tested": false,
+   "rule": "wrong:n-log-n",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C6",
+   "kind": "equivalent",
+   "why": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+   "expect": "kernel decides",
+   "outcome": "FAILED elsewhere",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 14.9,
+   "tested": false,
+   "rule": "equivalent:log",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C7",
+   "kind": "wrong",
+   "why": "the bound asked of SOME length above N₀ where the file asks it of every one",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 14.2,
+   "tested": true,
+   "rule": "wrong:quantifier",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C8",
+   "kind": "wrong",
+   "why": "the machine asked to compute the SUM of the two numbers",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 14.5,
+   "tested": true,
+   "rule": "wrong:function",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C9",
+   "kind": "equivalent",
+   "why": "the product written p.2 * p.1: equal by commutativity, not by definition",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 14.4,
+   "tested": true,
+   "rule": "equivalent:commute",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "why": "the condition 0 < C deleted",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 13,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 14.8,
+   "tested": true,
+   "rule": "changed:drop-conjunct",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "why": "the time taken at length L + 1 where the file takes it at L",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "FAILED elsewhere",
+   "asExpected": null,
+   "errors": [
+    {
+     "line": 13,
+     "text": "maximum recursion depth has been reached"
+    }
+   ],
+   "seconds": 14.4,
+   "tested": false,
+   "rule": "changed:argument",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of intMul_challenge replaced by sorry",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 15.9
+  },
+  {
+   "id": "R2",
+   "why": "intMul_challenge proved by an added axiom",
+   "expect": "the added axiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "SubNLogN.Assembly.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list SubNLogN.Assembly.intakeRedAxiom",
+   "seconds": 16.6
+  },
+  {
+   "id": "R3",
+   "why": "the genuine proof, behind one step decided by native_decide",
+   "expect": "a native_decide axiom in the axioms, or a failed build",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "SubNLogN.Assembly.intMul_challenge._native.native_decide.ax_1_1"
+   ],
+   "caught": true,
+   "how": "the axioms list SubNLogN.Assembly.intMul_challenge._native.native_decide.ax_1_1",
+   "seconds": 16.2
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 17.6
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.33.1)",
+   "word": "ACCEPTS",
+   "seconds": 25.8
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "ACCEPTS",
+   "export": {
+    "sha256": "018ed0d6a1aaff2541e1ab94a20bd1e26d3ee018b6602ea375489e9b565f5662",
+    "bytes": 1959637056
+   },
+   "seconds": 135.4
+  }
+ ],
+ "notRunHere": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

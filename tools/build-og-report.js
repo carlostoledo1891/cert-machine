@@ -282,6 +282,27 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /reports/intmul.html (2026-11-18): the page's own figure without its words. A thin level line near the
+     top (the machine's memory), and the memory of the three stopped checkers over their last hour, read from the record
+     (certs/intmul-audit.json, memoryCurves): three lines that run level along the bottom and then climb to the line. The
+     one checker that ran alone on the machine is the solid one. LIGHT theme, no number, no label. */
+  intmul: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · integer multiplication below n log n', path: '/reports/intmul.html',
+    title: 'Integer multiplication below n log n: two Lean proofs, replayed by a second party',
+    alt: 'Three lines running left to right along the bottom of the card, level for most of the way, then each climbing steeply to a thin level line near the top; one of the three is drawn heavier than the others.',
+    get svgRaw() {
+      const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')).memoryCurves;
+      const x0 = 130, x1 = 1070, yB = 505, yT = 135, f = (v) => v.toFixed(1);
+      const X = (m) => x0 + (m + 60) / 60 * (x1 - x0), Y = (g) => yB - g / M.limitGiB * (yB - yT);
+      const d = (c) => c.points.map((q, k) => (k ? 'L' : 'M') + f(X(q[0])) + ' ' + f(Y(q[1]))).join(' ');
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Three lines level along the bottom, then climbing steeply to a thin line near the top" style="position:absolute;left:0;top:0">'];
+      o.push('<line x1="' + x0 + '" y1="' + yT + '" x2="' + x1 + '" y2="' + yT + '" stroke="var(--ink-4)" stroke-width="1.2"/>');
+      for (const c of M.series.filter((c) => c.id !== 'con-leche')) o.push('<path d="' + d(c) + '" fill="none" stroke="var(--ink-3)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>');
+      const solid = M.series.find((c) => c.id === 'con-leche'), last = solid.points[solid.points.length - 1];
+      o.push('<path d="' + d(solid) + '" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + f(X(last[0])) + '" cy="' + f(Y(last[1])) + '" r="8" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a

@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Integer multiplication below n log n: two Lean proofs, replayed by a second party · Carlos Toledo</title>
+<meta name="description" content="Two Lean proofs that integers multiply below n log n on a Turing machine, rebuilt from source by a second party: the Google/CMU proof accepted by three independent checkers, the community proof proving its statement with no second kernel finished, and a Lean theorem joining the two statements.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/intmul.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/intmul.html">
+<meta property="og:title" content="Integer multiplication below n log n: two Lean proofs, replayed by a second party · Carlos Toledo">
+<meta property="og:description" content="Two Lean proofs that integers multiply below n log n on a Turing machine, rebuilt from source by a second party: the Google/CMU proof accepted by three independent checkers, the community proof proving its statement with no second kernel finished, and a Lean theorem joining the two statements.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-intmul.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Integer multiplication below n log n: two Lean proofs, replayed by a second party — Three lines running left to right along the bottom of the card, level for most of the way, then each climbing steeply to a thin level line near the top; one of the three is drawn heavier than the others.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Integer multiplication below n log n: two Lean proofs, replayed by a second party · Carlos Toledo">
+<meta name="twitter:description" content="Two Lean proofs that integers multiply below n log n on a Turing machine, rebuilt from source by a second party: the Google/CMU proof accepted by three independent checkers, the community proof proving its statement with no second kernel finished, and a Lean theorem joining the two statements.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-intmul.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Integer multiplication below n log n: two Lean proofs, replayed by a second party","description":"Two Lean proofs that integers multiply below n log n on a Turing machine, rebuilt from source by a second party: the Google/CMU proof accepted by three independent checkers, the community proof proving its statement with no second kernel finished, and a Lean theorem joining the two statements.","url":"https://carlostoledo.co/reports/intmul.html","image":"https://carlostoledo.co/og-intmul.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+/* @/site-css */
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the record</div>
+  <h1>Integer multiplication below n log n: two Lean proofs, replayed by a second party</h1>
+  <p class="deck">Two groups have published Lean proofs that two n-bit integers can be multiplied in fewer than n log n steps on a Turing machine, a result OpenAI announced in a manuscript: Piaoyang Cui, Yiming Liu and David Woodruff (Google and CMU), and Dan Brown and Kenny Daniel (jdb19937 and platypii on GitHub, a community project). The mathematics and the proofs are theirs. With Claude (Anthropic’s AI model), I rebuilt both from source on a rented machine, under questions written down before the run. The Google/CMU proof is accepted by three independent checkers. The community proof builds and proves its own statement, but no second checker finished on it: each ran out of memory. I also proved, in Lean, that the community proof gives the Google/CMU statement.</p>
+</header>
+
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+  <svg viewBox="0 0 900 380" role="img" aria-label="Three lines of memory against time, over the hour before each checker was stopped. Each stays near the bottom of the chart, under 12 GiB, for most of the hour, then climbs almost straight up: nanoda to 114.8 GiB, Lean’s kernel to 115.2 GiB, con-leche to 100.7 GiB. A horizontal rule marks the machine’s limit, 119.2 GiB.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="268.0" x2="878" y2="268.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="272.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="219.2" x2="878" y2="219.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="223.2" text-anchor="end" class="t-ax">25</text>
+    <line x1="62" y1="170.3" x2="878" y2="170.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="174.3" text-anchor="end" class="t-ax">50</text>
+    <line x1="62" y1="121.5" x2="878" y2="121.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="125.5" text-anchor="end" class="t-ax">75</text>
+    <line x1="62" y1="72.7" x2="878" y2="72.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="76.7" text-anchor="end" class="t-ax">100</text>
+    <line x1="62.0" y1="268" x2="62.0" y2="273" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="288.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="266.0" y1="268" x2="266.0" y2="273" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="288.0" text-anchor="middle" class="t-ax">45</text>
+    <line x1="470.0" y1="268" x2="470.0" y2="273" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="288.0" text-anchor="middle" class="t-ax">30</text>
+    <line x1="674.0" y1="268" x2="674.0" y2="273" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="288.0" text-anchor="middle" class="t-ax">15</text>
+    <line x1="878.0" y1="268" x2="878.0" y2="273" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="288.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="62" y1="268" x2="878" y2="268" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="310.0" text-anchor="middle" class="t-note">minutes before the checker was stopped</text>
+    <text x="13" y="143" class="t-note" transform="rotate(-90 13 143)" text-anchor="middle">memory, GiB</text>
+    <line x1="62" y1="35.2" x2="878" y2="35.2" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="29.2" text-anchor="end" class="t-note">the machine’s limit, 119.2 GiB</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="268" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M181.68 261.55 L195.28 261.55 L208.88 261.75 L222.48 261.55 L241.52 261.55 L259.20 261.55 L264.64 260.97 L278.24 261.36 L291.84 261.36 L305.44 261.55 L319.04 261.36 L332.64 261.16 L346.24 261.55 L359.84 261.36 L373.44 261.75 L387.04 261.55 L400.64 261.55 L414.24 261.55 L427.84 261.55 L441.44 261.36 L455.04 261.75 L468.64 261.55 L482.24 261.55 L495.84 261.75 L509.44 261.55 L523.04 261.75 L536.64 261.55 L550.24 258.43 L563.84 257.45 L577.44 251.01 L591.04 261.16 L604.64 261.55 L618.24 261.16 L631.84 261.75 L645.44 260.97 L659.04 261.55 L672.64 261.16 L686.24 261.55 L699.84 261.16 L713.44 260.77 L727.04 258.63 L740.64 243.39 L754.24 229.13 L767.84 219.76 L781.44 205.30 L795.04 195.54 L808.64 186.36 L822.24 177.57 L835.84 163.51 L849.44 133.04 L868.48 69.76 L878.00 43.78" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="43.78" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M67.44 261.95 L81.04 261.55 L94.64 261.55 L108.24 261.55 L121.84 261.75 L135.44 261.55 L149.04 261.55 L162.64 261.55 L176.24 261.95 L189.84 261.55 L203.44 261.95 L217.04 261.75 L230.64 261.95 L244.24 261.75 L257.84 261.95 L271.44 261.55 L285.04 261.36 L298.64 261.75 L312.24 261.95 L325.84 259.02 L339.44 259.21 L353.04 259.60 L366.64 258.82 L380.24 259.99 L393.84 258.82 L407.44 259.99 L421.04 261.36 L434.64 259.80 L448.24 260.77 L461.84 259.80 L475.44 261.16 L489.04 261.16 L502.64 261.36 L517.60 260.77 L531.20 261.55 L544.80 260.77 L558.40 252.96 L572.00 240.66 L585.60 250.23 L599.20 240.85 L612.80 249.05 L626.40 260.38 L640.00 246.52 L653.60 257.65 L667.20 243.98 L680.80 229.13 L694.40 213.12 L708.00 195.73 L721.60 180.30 L735.20 165.27 L748.80 155.11 L762.40 149.05 L776.00 136.16 L789.60 122.49 L803.20 109.99 L816.80 96.91 L830.40 84.02 L848.08 70.34 L861.68 57.65 L875.28 42.80 L878.00 43.00" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="43.00" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M75.60 260.77 L89.20 261.36 L102.80 261.16 L116.40 262.53 L130.00 263.31 L143.60 261.55 L157.20 261.36 L170.80 262.92 L184.40 261.75 L198.00 262.92 L211.60 262.73 L225.20 262.92 L238.80 262.34 L252.40 262.73 L266.00 262.92 L279.60 263.12 L293.20 262.53 L306.80 262.34 L320.40 262.92 L334.00 262.14 L347.60 261.95 L361.20 262.53 L374.80 262.53 L388.40 261.16 L402.00 262.53 L415.60 262.73 L429.20 262.92 L442.80 262.73 L456.40 262.73 L470.00 262.92 L483.60 262.92 L497.20 262.73 L510.80 262.92 L524.40 262.92 L538.00 262.92 L551.60 262.92 L565.20 262.92 L578.80 263.12 L592.40 263.12 L606.00 262.92 L619.60 262.92 L633.20 260.19 L646.80 249.84 L660.40 262.92 L674.00 263.31 L687.60 262.14 L701.20 263.51 L714.80 262.53 L728.40 263.12 L742.00 262.73 L755.60 262.53 L769.20 263.70 L782.80 261.16 L796.40 232.45 L810.00 197.88 L823.60 162.92 L837.20 134.02 L850.80 108.82 L864.40 85.77 L878.00 71.32" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="71.32" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="62" y1="331" x2="76" y2="331" stroke="var(--c-1)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="81.0" y="335.0" text-anchor="start" class="t-note">nanoda (Rust), second attempt: stopped 81 min after its start</text>
+    <line x1="62" y1="350" x2="76" y2="350" stroke="var(--c-2)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="81.0" y="354.0" text-anchor="start" class="t-note">Lean’s kernel, fresh replay: stopped 6 h 42 min after its start</text>
+    <line x1="62" y1="369" x2="76" y2="369" stroke="var(--c-3)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="81.0" y="373.0" text-anchor="start" class="t-note">con-leche, alone on the machine: stopped 63 min after its start</text>
+  </svg>
+</div><div class="hv-n">
+  <svg viewBox="0 0 360 420" role="img" aria-label="Three lines of memory against time, over the hour before each checker was stopped. Each stays near the bottom of the chart, under 12 GiB, for most of the hour, then climbs almost straight up: nanoda to 114.8 GiB, Lean’s kernel to 115.2 GiB, con-leche to 100.7 GiB. A horizontal rule marks the machine’s limit, 119.2 GiB.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="46" y1="308.0" x2="330" y2="308.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="37.0" y="312.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="46" y1="251.4" x2="330" y2="251.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="37.0" y="255.4" text-anchor="end" class="t-ax">25</text>
+    <line x1="46" y1="194.7" x2="330" y2="194.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="37.0" y="198.7" text-anchor="end" class="t-ax">50</text>
+    <line x1="46" y1="138.1" x2="330" y2="138.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="37.0" y="142.1" text-anchor="end" class="t-ax">75</text>
+    <line x1="46" y1="81.4" x2="330" y2="81.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="37.0" y="85.4" text-anchor="end" class="t-ax">100</text>
+    <line x1="46.0" y1="308" x2="46.0" y2="313" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="46.0" y="328.0" text-anchor="middle" class="t-ax">60</text>
+    <line x1="188.0" y1="308" x2="188.0" y2="313" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="188.0" y="328.0" text-anchor="middle" class="t-ax">30</text>
+    <line x1="330.0" y1="308" x2="330.0" y2="313" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="330.0" y="328.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="46" y1="308" x2="330" y2="308" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="188.0" y="350.0" text-anchor="middle" class="t-note">minutes before the stop</text>
+    <text x="13" y="163" class="t-note" transform="rotate(-90 13 163)" text-anchor="middle">memory, GiB</text>
+    <line x1="46" y1="37.9" x2="330" y2="37.9" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="326.0" y="31.9" text-anchor="end" class="t-note">limit, 119.2 GiB</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="308" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M87.65 300.52 L92.39 300.52 L97.12 300.75 L101.85 300.52 L108.48 300.52 L114.63 300.52 L116.53 299.84 L121.26 300.30 L125.99 300.30 L130.73 300.52 L135.46 300.30 L140.19 300.07 L144.93 300.52 L149.66 300.30 L154.39 300.75 L159.13 300.52 L163.86 300.52 L168.59 300.52 L173.33 300.52 L178.06 300.30 L182.79 300.75 L187.53 300.52 L192.26 300.52 L196.99 300.75 L201.73 300.52 L206.46 300.75 L211.19 300.52 L215.93 296.90 L220.66 295.77 L225.39 288.29 L230.13 300.07 L234.86 300.52 L239.59 300.07 L244.33 300.75 L249.06 299.84 L253.79 300.52 L258.53 300.07 L263.26 300.52 L267.99 300.07 L272.73 299.62 L277.46 297.13 L282.19 279.45 L286.93 262.91 L291.66 252.04 L296.39 235.27 L301.13 223.95 L305.86 213.30 L310.59 203.10 L315.33 186.79 L320.06 151.45 L326.69 78.04 L330.00 47.91" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="330.00" cy="47.91" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M47.89 300.98 L52.63 300.52 L57.36 300.52 L62.09 300.52 L66.83 300.75 L71.56 300.52 L76.29 300.52 L81.03 300.52 L85.76 300.98 L90.49 300.52 L95.23 300.98 L99.96 300.75 L104.69 300.98 L109.43 300.75 L114.16 300.98 L118.89 300.52 L123.63 300.30 L128.36 300.75 L133.09 300.98 L137.83 297.58 L142.56 297.80 L147.29 298.26 L152.03 297.35 L156.76 298.71 L161.49 297.35 L166.23 298.71 L170.96 300.30 L175.69 298.48 L180.43 299.62 L185.16 298.48 L189.89 300.07 L194.63 300.07 L199.36 300.30 L204.57 299.62 L209.30 300.52 L214.03 299.62 L218.77 290.55 L223.50 276.28 L228.23 287.38 L232.97 276.51 L237.70 286.02 L242.43 299.16 L247.17 283.08 L251.90 295.99 L256.63 280.13 L261.37 262.91 L266.10 244.34 L270.83 224.17 L275.57 206.27 L280.30 188.83 L285.03 177.05 L289.77 170.02 L294.50 155.07 L299.23 139.21 L303.97 124.71 L308.70 109.53 L313.43 94.58 L319.59 78.72 L324.32 63.99 L329.05 46.77 L330.00 47.00" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="330.00" cy="47.00" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M50.73 299.62 L55.47 300.30 L60.20 300.07 L64.93 301.66 L69.67 302.56 L74.40 300.52 L79.13 300.30 L83.87 302.11 L88.60 300.75 L93.33 302.11 L98.07 301.88 L102.80 302.11 L107.53 301.43 L112.27 301.88 L117.00 302.11 L121.73 302.34 L126.47 301.66 L131.20 301.43 L135.93 302.11 L140.67 301.20 L145.40 300.98 L150.13 301.66 L154.87 301.66 L159.60 300.07 L164.33 301.66 L169.07 301.88 L173.80 302.11 L178.53 301.88 L183.27 301.88 L188.00 302.11 L192.73 302.11 L197.47 301.88 L202.20 302.11 L206.93 302.11 L211.67 302.11 L216.40 302.11 L221.13 302.11 L225.87 302.34 L230.60 302.34 L235.33 302.11 L240.07 302.11 L244.80 298.94 L249.53 286.93 L254.27 302.11 L259.00 302.56 L263.73 301.20 L268.47 302.79 L273.20 301.66 L277.93 302.34 L282.67 301.88 L287.40 301.66 L292.13 303.02 L296.87 300.07 L301.60 266.77 L306.33 226.66 L311.07 186.11 L315.80 152.58 L320.53 123.35 L325.27 96.62 L330.00 79.85" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="330.00" cy="79.85" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="46" y1="371" x2="60" y2="371" stroke="var(--c-1)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="65.0" y="375.0" text-anchor="start" class="t-note">nanoda, 81 min in</text>
+    <line x1="46" y1="390" x2="60" y2="390" stroke="var(--c-2)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="65.0" y="394.0" text-anchor="start" class="t-note">Lean’s kernel, 6 h 42 min in</text>
+    <line x1="46" y1="409" x2="60" y2="409" stroke="var(--c-3)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="65.0" y="413.0" text-anchor="start" class="t-note">con-leche, 63 min in</text>
+  </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/intmul-audit.json@401dc3ca4a8c corpus/intmul/pod/extra/guard3.txt@ee22afdb5f3f" data-stop>What stopped the second check of the community proof. Three checkers written independently of each other were given the proof to re-check from nothing. Each ran quietly, then its memory climbed past 100 GiB within minutes and it was stopped just under the machine’s limit. Lean’s kernel had been quiet for more than six hours before the hour shown. One reading a minute; a measurement, drawn dashed because nothing here is an exact decision. Nothing rejected the proof.<span class="fig-rec">Records: <span class="m">certs/intmul-audit.json</span> · sha256 401dc3ca4a8c; <span class="m">corpus/intmul/pod/extra/guard3.txt</span> · sha256 ee22afdb5f3f</span><span class="fig-stop">The build refuses this figure if a curve does not start under 12 GiB an hour before its stop, or does not end between 100 GiB and the machine’s limit.</span></figcaption>
+</figure></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">checkers that accept the Google/CMU proof</div><div class="v">3</div><div class="n">Lean’s kernel, nanoda and con-leche, each on the whole proof</div></div>
+    <div class="stat"><div class="k">second checkers that finished on the community proof</div><div class="v">0</div><div class="n">nanoda, a fresh Lean replay and con-leche all stopped; nothing rejected it</div></div>
+    <div class="stat"><div class="k">planted wrong proofs caught</div><div class="v">6 of 6</div><div class="n">three in each proof: sorry, an added axiom, native_decide</div></div>
+    <div class="stat"><div class="k">products of the released programs</div><div class="v">291 of 291</div><div class="n">exact against Python’s integers</div></div>
+  </div>
+</div>
+
+<p class="scope">This page checks two releases; it is not new mathematics and it does not rank them. The result is OpenAI’s claim; the proofs are their authors’. The checks are mine, run with Claude (Anthropic’s AI model), which wrote the programs and the Lean files under my direction.</p>
+
+<section class="col" id="limits">
+  <div class="sec-head">
+    <div class="lab">read this first</div>
+    <h2>What is still open</h2>
+  </div>
+<ul class="plain"><li><b>The community proof has no second kernel.</b> nanoda was stopped on memory twice (114,017 MiB of 122,070 the first time, 114.8 GiB the second). Lean’s own kernel, replaying the whole closure afresh, was stopped at 115.2 GiB after 6 h 42 min. A third checker, con-leche, alone on the machine, stayed under 10 GiB for 54 minutes, then grew by more than 10 GiB a minute and was stopped at 100.7 GiB. Nothing rejected the proof. The cause of the memory growth was not found.</li><li><b>Some planted statements got no verdict.</b> 5 of the 15 statements planted against the Google/CMU proof got no verdict from the intake: its check ran into the elaborator’s recursion limit under the 2^46 power. Every one that changes the saving is among them. The sentence written before the run is met only as amended afterwards. What those statements were meant to show comes from two checks added after the run.</li><li><b>The theorem joining the two statements is partial.</b> It goes one way, was accepted by one kernel, and rebuilds the community machine instead of opening the one inside their theorem.</li><li><b>The statements were read, not decided.</b> Neither formal statement is its paper’s theorem as written: both are about Mathlib’s multi-stack machine, and the step to a multitape machine is a classical argument that neither release formalizes. That the statements say what the papers say is a reading, made twice.</li><li><b>A third proof was not audited.</b> A third Lean development of the same result exists (Prove2Me, prove2me/formalpedia). It was not audited here, and who was first is not decided here.</li><li><b>Nothing here is about practical speed.</b> The saving reaches a factor of 2 only at sizes no computer will hold, the constants are not given, and the fast algorithm itself is not executable at any feasible size.</li><li><b>The comparator runs are not the planned ones.</b> They used the release’s own statement and configuration for Google/CMU and a challenge module written here for the community proof, not a statement typed from the paper as the plan said. Comparator’s sandbox ran in best-effort mode on this machine.</li><li><b>The source is not judged.</b> OpenAI’s manuscript, which both proofs point to, is not judged here.</li></ul>
+</section>
+
+<section class="" id="claim">
+  <div class="col sec-head">
+    <div class="lab">the claim</div>
+    <h2>Below n log n, by a factor that grows very slowly</h2>
+  </div>
+<div class="col"><p>Since 2021 the fastest known way to multiply two n-bit integers on a Turing machine has taken about n log n steps (Harvey and van der Hoeven), and many expected that to be the end. The new claim is a bound of n·(log n)^(1 − κ) for a fixed κ &gt; 0: n log n divided by (log n)^κ. The three public numbers for κ are OpenAI’s 2^-182, Google/CMU’s 2^-46, and the community’s 4222422970/2^46 (about 2^-14.02). A larger κ is a stronger theorem.</p><p>Both proofs audited here state the result on Mathlib’s multi-stack Turing machine. A third Lean development, on Prove2Me, uses a model of its own and was not audited.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>Release</th><th>Authors</th><th>Saving κ</th><th>Lean</th><th>Verdict here</th></tr></thead><tbody><tr><td><a href="https://github.com/lockqueue/intmul">lockqueue/intmul</a> at <span class="m">4738aeff</span></td><td>Piaoyang Cui, Yiming Liu, David P. Woodruff</td><td>2^-46</td><td>4.33.1</td><td><span class="tag held">CERTIFIED</span> as amended</td></tr><tr><td><a href="https://github.com/platypii/integer-mult-bounds-lean">platypii/integer-mult-bounds-lean</a> at <span class="m">aaf10926</span></td><td>Dan Brown (jdb19937), Kenny Daniel (platypii)</td><td>4222422970/2^46 (about 2^-14.02)</td><td>4.34.1</td><td><span class="tag open">REFUSED</span> on resources</td></tr></tbody></table></div></div><div class="wide"><details class="more"><summary>Dates of the public record</summary><div class="col"><p>Read from the sources named, by public record only. Private dates are unknown and no priority is decided here.</p><ul class="plain"><li><b>23 September 2026.</b> OpenAI: The date on the manuscript “Integer multiplication below n log n” (κ = 2^-182). It became public on 2026-10-06, with the first commit of openai/math. Source: openai/math, preprints/Integer-multiplication-below-n-log-n-September-23-2026/paper.pdf; the repository’s first commit adc7f124 (2026-10-06 21:58:50).</li><li><b>15 October 2026.</b> Dan Brown (jdb19937), Kenny Daniel (platypii): The community repository merges a complete Lean proof on Mathlib’s multi-stack machine, at κ = 296/(10^11·2^131), with its own check of the three axioms. Source: platypii/integer-mult-bounds-lean, pull request #3, merged 06:26:49 as 9a7e575f.</li><li><b>15 October 2026.</b> Kenny Daniel (platypii): Asks the upstream community for “Independent review of the linked theorem statement and machine/time model”. Still open when read. Source: CrocSwap/integer-mult-bounds, pull request #2411.</li><li><b>15 October 2026.</b> ywz65: A note on the community statement: Mathlib’s machine makes only the input alphabet finite, and a kernel-checked lemma on definitions extracted from Mathlib shows that the alphabet a machine can reach is finite anyway. Source: CrocSwap/integer-mult-bounds, research/fintm2-reachable-alphabet, commit 9f397bb6.</li><li><b>17 October 2026.</b> Prove2Me: A third Lean development, in a k-tape model of its own, at OpenAI’s κ = 2^-182; later at 3666565558019/10^17 (2026-10-21). Not audited here. Source: prove2me/formalpedia, envs/0df444a/Solutions/Sol_NLogN_KFTop_kappa_bound.lean; the platform’s campaign page.</li><li><b>22 October 2026.</b> Kenny Daniel (platypii): The community theorem reaches κ = 4222422970/2^46, the saving it has at the commit audited here. Source: platypii/integer-mult-bounds-lean, commit 4b9ea4b6, IntegerMultBounds/MathlibTM2/Theorem.lean.</li><li><b>26 October 2026.</b> Piaoyang Cui, Yiming Liu, David P. Woodruff: First public push of the Google/CMU repository; the paper carries the date 2026-10-25 and κ = 2^-46. The commit audited here is of 2026-11-10. Source: lockqueue/intmul, the repository’s events; IntMul_main_paper.pdf, title page; commit 4738aeff.</li><li><b>13 November 2026.</b> Google Research: The post “Advancing science &amp; engineering with Antigravity’s /teamwork feature” links the Google/CMU repository. Source: research.google/blog, the post of 2026-11-13.</li></ul></div></details></div>
+</section>
+
+<section class="col" id="gcmu">
+  <div class="sec-head">
+    <div class="lab">1 · the Google/CMU proof</div>
+    <h2>Accepted by three independent checkers</h2>
+  </div>
+<ul class="plain"><li><b>Built from source.</b> The release at its pinned commit, with its own Lean 4.33.1: 10,447 build steps, no error. The headline theorem <span class="m">SubNLogN.Assembly.intMul_challenge</span> has the type <span class="m">SubNLogN.Challenge.IntMulSubNLogN</span>, the proposition of the release’s 80-line statement file, and rests on <span class="m">propext, Quot.sound, Classical.choice</span> and nothing else.</li><li><b>Lean’s kernel.</b> It checked every module of the release as it was built. Afterwards a fresh replay of the whole proof, Mathlib included, also passed (1 h 24 min).</li><li><b>nanoda.</b> An independent kernel written in Rust: it accepts all 124,416 declarations of the exported proof.</li><li><b>con-leche.</b> A third checker, run in its default mode on the same export: accepted. Its count of declarations (120,324) is not nanoda’s; the two tools count differently and I did not reconcile them.</li><li><b>The authors’ own check, repeated.</b> The release ships a configuration for Comparator, the tool that checks a proof against a separately written statement. Run here on another machine, it accepts under both of its kernels. This repeats the authors’ check; it is not a different kind of evidence. Comparator’s first attempt here ended in a stack overflow inside nanoda, with the nanoda build I had made for the intake; the run that counts used the nanoda commit the release names.</li><li><b>One checker gave no verdict.</b> lean4lean, a kernel written in Lean, stopped at its own recursion limit after 30 min on the fresh replay. That is its limit, not a rejection.</li><li><b>The word.</b> <span class="tag held">CERTIFIED</span> with one amendment, stated under “planted errors” below: five of my planted statements got no verdict, so the sentence I wrote before the run is met only in an amended reading.</li></ul>
+</section>
+
+<section class="col" id="community">
+  <div class="sec-head">
+    <div class="lab">2 · the community proof</div>
+    <h2>Proves its statement; no second kernel finished</h2>
+  </div>
+<ul class="plain"><li><b>What holds.</b> The release at its pinned commit builds from source with its own Lean 4.34.1: 14,288 build steps, no error, so Lean’s kernel accepted every module. The theorem <span class="m">IntegerMultBounds.MathlibTM2.mulInTime</span> proves <span class="m">IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46)</span> on the three standard axioms. All 13 of my planted statements came out as predicted, and the three planted wrong proofs were caught.</li><li><b>What did not finish: nanoda.</b> The second kernel I had named before the run was stopped on memory twice. The first time the run’s own watchdog stopped it, 76 minutes in, while a tool build of mine shared the machine: how much of that memory was mine cannot be separated from the log. I ran the same step again by hand, from the same binary, configuration and export. It stayed small for about 70 minutes, then passed 100 GiB within ten, and was stopped at 114.8 GiB.</li><li><b>What did not finish: Lean’s own kernel, afresh.</b> A fresh replay of the whole proof by Lean’s kernel stayed under 12 GiB for hours, then grew to 115.2 GiB in under half an hour; I stopped it after 6 h 42 min. The machine’s limit was 119 GiB.</li><li><b>What did not finish: con-leche.</b> A third checker, run on the same export as the last optional step, this time alone on the machine. It stayed under 10 GiB for 54 minutes, then grew by more than 10 GiB a minute, and my guard stopped it at 100.7 GiB. It printed nothing.</li><li><b>Comparator.</b> The release ships no statement file for Comparator, so I wrote one. With the saving raised by one unit in its numerator, Comparator refuses: the statements do not match. On the true statement it gave no verdict: it was still running after five hours when my memory guard stopped it, and I did not run it again.</li><li><b>The same pattern in three checkers.</b> Memory grew without bound after a long quiet stretch in every run whose input contains this proof: nanoda on the proof, nanoda on the joined theorem below, Lean’s kernel on the fresh replay, and con-leche. The three checkers are written independently of each other. During the ordinary build, Lean’s kernel checked the same modules within the same memory. I did not find the cause. One guess, a very large number literal, was tested and not supported.</li><li><b>The word.</b> <span class="tag open">REFUSED</span> on resources: a check did not give its positive answer, and the reason is memory. Nothing rejected the proof. A machine with more memory, or the cause found, would settle it; I did not rent a larger one.</li></ul>
+</section>
+
+<section class="" id="statements">
+  <div class="col sec-head">
+    <div class="lab">3 · the two statements</div>
+    <h2>Read twice, then joined by a theorem</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Two readings.</b> Before the runs, each statement file was read against its paper twice, by readers who did not see each other’s notes (Claude sessions, under my direction). They agree. This is a reading, kept apart from the verdicts.</li><li><b>What the readings found.</b> Neither proposition is its paper’s theorem as written. Both are about Mathlib’s multi-stack machine (FinTM2), on least-significant-bit-first words, with time measured in the total encoded length. The papers speak of a multitape machine. The step between the two is a classical simulation, argued in prose in both releases and formalized in neither; the Google/CMU paper says so.</li><li><b>The differences between the two.</b> The input is written differently (a separator symbol against tagged halves), the bound is written differently (an inequality in whole numbers against big-O over the reals), the Google/CMU statement asks every stack alphabet to be finite and the community statement does not, and the savings differ.</li><li><b>The encodings, on small pairs.</b> Each release’s encoder was evaluated in Lean against an encoder of mine on 328 pairs of numbers: all agree.</li><li><b>The joining theorem.</b> <span class="m">IntMulBridge.community_proves_challenge : SubNLogN.Challenge.IntMulSubNLogN</span>. The community proof gives the Google/CMU statement, as the Google/CMU statement file words it: compiled in the community release’s environment (Lean 4.34.1), importing the community’s theorem and a byte-identical copy of the Google/CMU statement file. It rests on the three standard axioms and was accepted by one kernel, Lean’s; nanoda on its export was stopped on memory, like the proof it imports. Under the words fixed before the run that is not CERTIFIED, which asks for two kernels.</li><li><b>Finite alphabets.</b> To supply the clause the community statement lacks, one module rebuilds the community machine along the community’s own lemmas and carries the finiteness through. That an unreachable part of an alphabet cannot matter was already shown for this statement by <span class="m">ywz65</span> on 15 October 2026, with a kernel-checked lemma on definitions extracted from Mathlib; the module here is inside a real Mathlib import and specific to this machine.</li></ul></div><div class="wide"><details class="more"><summary>What the joining theorem does not say</summary><div class="col"><ul class="plain"><li>One direction only. That the Google/CMU proof gives the community statement at κ = 2^-46 is a written argument (second reading, section 3); it is not built. It cannot give the community theorem itself, whose saving is larger.</li><li>The finite-alphabets module rebuilds the community machine through the community’s own lemmas. It is not proved equal to the machine hidden inside their existential theorem, which cannot be taken out and asked.</li><li>The two releases pin different Lean and Mathlib versions. The statement proved here is the Google/CMU statement file compiled under the community’s versions: the same bytes, and four Mathlib files diffed at both pins (no definition differs); the definitions underneath (asymptotics, real powers, logarithms) were not diffed.</li><li>One kernel. Lean’s kernel accepted the five modules; nanoda on the export was stopped on memory. The theorem imports the community proof, so it inherits that proof’s missing second kernel.</li></ul></div></details></div><div class="wide"><details class="more"><summary>Its four parts</summary><div class="col"><ul class="plain"><li><span class="m">IntMulBridge.natForm_iff_bigOForm</span>: for one time function, the Google/CMU inequality in ℕ and the community’s =O form at κ = 2^-46 are equivalent.</li><li><span class="m">IntMulBridge.community_to_natForm</span>: the community’s bound at its κ gives the Google/CMU inequality.</li><li><span class="m">IntMulEnc.reencode</span>: a machine for the tagged input encoding, with finite alphabets, gives one for the separator encoding, with finite alphabets, at a linear extra cost.</li><li><span class="m">IntMulBridge.mulInTimeFinite</span>: the community machine rebuilt along the community’s own chain, carrying that every stack alphabet is finite.</li></ul></div></details></div>
+</section>
+
+<section class="" id="planted">
+  <div class="col sec-head">
+    <div class="lab">4 · planted errors</div>
+    <h2>What would have caught a wrong result</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>Planted statements.</b> For each proof I wrote variants of its statement before the run, some reworded and some changed, each with a prediction: the proof must still prove a rewording and must fail to prove a change.</li><li><b>Google/CMU: 10 of 15 got a verdict.</b> All 10 came out as predicted or, where I had made no prediction, were refused. The other 5 got no verdict: my check tried to unfold the 2^46 power and ran into Lean’s recursion limit. They include every variant that changes the saving, so as run, this check did not show that it tells κ = 2^-46 from κ = 2^-45.</li><li><b>The amendment.</b> Before the run I wrote that every prediction would be met among the statements that reached the check. Those 5 reached it and got no verdict, so that sentence is not met as written. I now read it as “among the statements that got a verdict”, and I say so here and in the record.</li><li><b>Two checks added afterwards.</b> First, every planted statement of both proofs was compared with its statement as an expression, with nothing unfolded: all 20 changed statements differ. Second, Comparator on the release’s own nine controls: its exponent-45 control is refused because the statement does not match.</li><li><b>Community: 13 of 13 got a verdict.</b> All as predicted, the variants of the saving included.</li><li><b>Planted wrong proofs.</b> In each release’s theorem file: the proof replaced by sorry, the theorem proved by an added axiom, and one step decided by native_decide. All 6 are caught by the list of axioms. One of them, the added axiom, was also exported and shown to nanoda, which fails on it.</li></ul></div><div class="wide"><details class="more"><summary>The 15 statements planted against the Google/CMU proof</summary><div class="wide"><div class="tw"><table><thead><tr><th></th><th>Change</th><th>Predicted</th><th>Outcome</th></tr></thead><tbody><tr><td>S0</td><td>the body of the definition IntMulSubNLogN copied verbatim (comments dropped): the baseline</td><td>accepted</td><td>accepted</td></tr><tr><td>S1</td><td>every bound variable renamed (M→T, k→j, C→c, N₀→n₀, L→n, p→q): alpha-equivalent</td><td>accepted</td><td>accepted</td></tr><tr><td>S2</td><td>the definition named and not unfolded</td><td>accepted</td><td>accepted</td></tr><tr><td>S3</td><td>the input encoding named by its function (encodeNatPair) where the file writes the structure&#39;s field (encNatPair.encode): equal after unfolding one definition and one projection</td><td>accepted</td><td>accepted</td></tr><tr><td>C1</td><td>2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved</td><td>refused</td><td>no verdict</td></tr><tr><td>C2</td><td>2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement</td><td>refused</td><td>no verdict</td></tr><tr><td>C3</td><td>≤ made &lt;</td><td>refused</td><td>refused</td></tr><tr><td>C4</td><td>the conjunct that every stack alphabet is finite deleted</td><td>refused</td><td>refused</td></tr><tr><td>C5</td><td>the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all</td><td>refused</td><td>no verdict</td></tr><tr><td>C6</td><td>Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition</td><td>none</td><td>no verdict</td></tr><tr><td>C7</td><td>the bound asked of SOME length above N₀ where the file asks it of every one</td><td>refused</td><td>refused</td></tr><tr><td>C8</td><td>the machine asked to compute the SUM of the two numbers</td><td>refused</td><td>refused</td></tr><tr><td>C9</td><td>the product written p.2 * p.1: equal by commutativity, not by definition</td><td>none</td><td>refused</td></tr><tr><td>C10</td><td>the condition 0 &lt; C deleted</td><td>refused</td><td>refused</td></tr><tr><td>C11</td><td>the time taken at length L + 1 where the file takes it at L</td><td>refused</td><td>no verdict</td></tr></tbody></table></div></div></details></div><div class="wide"><details class="more"><summary>The 13 statements planted against the community proof</summary><div class="wide"><div class="tw"><table><thead><tr><th></th><th>Change</th><th>Predicted</th><th>Outcome</th></tr></thead><tbody><tr><td>S0</td><td>the body of the definition MulInTime with κ = 4222422970/2^46 put in: the baseline</td><td>accepted</td><td>accepted</td></tr><tr><td>S1</td><td>every bound variable renamed (M→T, p→q, n→m): alpha-equivalent</td><td>accepted</td><td>accepted</td></tr><tr><td>S2</td><td>the definition named and not unfolded</td><td>accepted</td><td>accepted</td></tr><tr><td>S3</td><td>the abbreviation pairEnc written out as Mathlib&#39;s product encoding</td><td>accepted</td><td>accepted</td></tr><tr><td>C1</td><td>the numerator of κ raised by one (4222422971/2^46): a slightly stronger claim</td><td>refused</td><td>refused</td></tr><tr><td>C2</td><td>κ made 1/2^14, just above the proved 2^-14.02</td><td>refused</td><td>refused</td></tr><tr><td>C3</td><td>the exponent of the logarithm made 1: the plain n log n bound, with no saving</td><td>refused</td><td>refused</td></tr><tr><td>C4</td><td>big O made little o</td><td>refused</td><td>refused</td></tr><tr><td>C5</td><td>the machine asked to compute the SUM of the two numbers</td><td>refused</td><td>refused</td></tr><tr><td>C6</td><td>the natural logarithm made the logarithm to base 2: the same class of functions, another statement</td><td>refused</td><td>refused</td></tr><tr><td>C7</td><td>the time taken at length n + 1 where the file takes it at n</td><td>refused</td><td>refused</td></tr><tr><td>C8</td><td>the product written p.2 * p.1: equal by commutativity, not by definition</td><td>none</td><td>refused</td></tr><tr><td>C9</td><td>the clause that every stack alphabet is finite ADDED, as the other release states it: a stronger statement than this file&#39;s</td><td>refused</td><td>refused</td></tr></tbody></table></div></div></details></div><div class="wide"><details class="more"><summary>The Google/CMU release’s own nine controls, run here</summary><div class="wide"><div class="tw"><table><thead><tr><th>Control</th><th>What it changes</th><th>Outcome here</th><th>As the release reports</th></tr></thead><tbody><tr><td>S0_IdenticalCopy</td><td>a byte-identical copy of the statement</td><td>accepted</td><td>yes</td></tr><tr><td>S1_Exp45</td><td>the exponent 46 made 45</td><td>refused: the statement does not match</td><td>yes</td></tr><tr><td>S2_NoFinite</td><td>the finite-alphabets clause deleted</td><td>refused: the statement does not match</td><td>yes</td></tr><tr><td>S3_StrictLt</td><td>≤ made &lt;</td><td>refused: the statement does not match</td><td>yes</td></tr><tr><td>P1_Sorry</td><td>the proof replaced by sorry</td><td>refused: an axiom outside the three</td><td>yes</td></tr><tr><td>P2_AddedAxiom</td><td>an added axiom</td><td>refused: an axiom outside the three</td><td>yes</td></tr><tr><td>P3_NativeDecide</td><td>native_decide</td><td>refused: an axiom outside the three</td><td>yes</td></tr><tr><td>P4_ExtraAxiomTransitive</td><td>an axiom hidden one step away</td><td>refused: an axiom outside the three</td><td>yes</td></tr><tr><td>P5_DefinitionSwap</td><td>the statement redefined as True</td><td>refused: the statement does not match</td><td>yes</td></tr></tbody></table></div></div></details></div>
+</section>
+
+<section class="col" id="programs">
+  <div class="sec-head">
+    <div class="lab">5 · the released programs</div>
+    <h2>Exact on every input tried, and what they are</h2>
+  </div>
+<ul class="plain"><li><b>The C program.</b> 55 products, from 4,096 to 100,000,000 bits, in both of its modes, zero and one included: every one equals the product computed by Python’s integers. The C program implements the companion O(n log n) multiplier, not the algorithm below n log n, by its own README. “Exact” is a fact about that program; its arithmetic is GMP’s.</li><li><b>The Python reference.</b> 236 products, each equal to Python’s own, with the library’s counters recorded for each row to show which path ran: 82 ran the new transform on test parameters, 70 fell back to the two-dimensional transform, and 48 returned Python’s own product through the small-input shortcut.</li><li><b>What neither shows.</b> Algorithm 1 at the theorem’s parameters is not executable at any feasible size, by the release’s own statement. Nothing here measures speed, and no timing is quoted: the rows ran while the machine was building.</li></ul>
+</section>
+
+<section class="col" id="buys">
+  <div class="sec-head">
+    <div class="lab">6 · in plain numbers</div>
+    <h2>What the theorem buys</h2>
+  </div>
+<ul class="plain"><li><b>Google/CMU.</b> The bound is n·(log2 n)^(1 − 2^-46): n log n divided by (log2 n)^(2^-46). That divisor equals 2 exactly when log2 n = 2^(2^46), that is for inputs of 2^(2^(2^46)) bits, and is below 2 for every shorter input.</li><li><b>Community.</b> The bound is O(n·(ln n)^(1 − κ)): n ln n divided by (ln n)^κ. That divisor equals 2 exactly when ln n = 2^(1/κ), with 1/κ a little over 16,665. The saving is 2^-14.02, rounded.</li><li><b>The constants.</b> In both statements the constant in front and the length from which the bound holds are asserted to exist and are not given.</li><li><b>So.</b> This is a theorem about the shape of a bound at sizes far beyond any computer. Its interest is that n log n is not optimal, not that anything multiplies faster today.</li></ul>
+</section>
+
+<section class="" id="amendments">
+  <div class="col sec-head">
+    <div class="lab">departures</div>
+    <h2>What changed after the questions were written</h2>
+  </div>
+<div class="col"><p>The questions, the verdict words and the stop rules were committed before the rented machine existed; their digest reached a public place only after the first result (see A11). Everything that departed from them is listed in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/intmul/amendments.json"><span class="m">corpus/intmul/amendments.json</span></a>, 16 entries. The pre-registration itself was not edited.</p></div><div class="wide"><details class="more"><summary>The 16 amendments</summary><div class="col"><ul class="plain"><li><b>A1 · Q1, Q4 · the sentence about the planted statements (Google/CMU).</b> Not met as written. Five of the fifteen statements planted against the Google/CMU proof (C1 and C2, the exponent 45 and 47; C5, plain n log n; C11, the time at L + 1; C6, another spelling of the logarithm) were elaborated, reached the check, and got no verdict: the check ran into the elaborator’s recursion limit while unfolding the 2^46 power. Four of the five carried a prediction (refused). The record’s note that they “never reached the identity check” is false for these five; the string is the tool’s and is not changed here, because changing it re-derives seven older records. The sentence is read from now on as “among the planted statements that got a verdict”: ten got one, each as predicted. Every statement that changes the saving is among the five, so as run the intake’s check did not show that it tells κ = 2^-46 from κ = 2^-45. Two checks were added after the run to show it: (a) a structural comparison of every planted statement of both specs with its statement, as expressions and with nothing unfolded (corpus/intmul/checks/first, results in corpus/intmul/pod/extra/struct): every changed statement differs; (b) comparator on the release’s own nine controls, where the exponent-45 control is refused because the statement does not match. The word for the Google/CMU proof stays CERTIFIED with this amendment named beside it.</li><li><b>A2 · Q1 · what the Google/CMU intake record says about kernels, identity and hypotheses.</b> “kernels: ACCEPT (3 run)” counts three entries; they are two kernels, and the second entry (leanchecker without --fresh) replayed a module of two declarations. In the registered run Lean’s kernel checked the release’s modules as they were built from source (Mathlib’s compiled files came from its cache), and nanoda checked the whole closure, Mathlib included (124,416 declarations). A fresh replay of the whole closure by Lean’s kernel (leanchecker --fresh on the headline module) was run afterwards and exits 0. In this spec the statement is given as a named definition, so F1’s “equal as expressions” compares that name with itself and could not come out false; the evidence that the name is the text of the pinned file is the planted statement S0 (the body typed out, accepted) and the file’s sha256. F3’s CERTIFIED cannot fail in this mode and reports nothing; the statement was read by hand to be a bare existence claim with no hypothesis. The controls summary line “3 refused, 0 accepted, of 3 (kernel decides)” misdescribes this spec. The record’s hazards scan covers the 25-line theorem file only, and its two hits are comments; a scan of every Lean file of both releases is in corpus/intmul/checks/first/hazards.json (a flag, never a verdict).</li><li><b>A3 · Q4 · a count in the pre-registration.</b> Three do: C6 and C9 of the Google/CMU spec, C8 of the community spec.</li><li><b>A4 · Q1 · the community proof’s second kernel, and how the registered run ended.</b> The registered run did not end by itself. 76 minutes into its nanoda step (03:35:38) the run’s own memory watchdog stopped it at 114,017 MiB of the container’s 122,070 (it counts file cache); the run’s exit is 143. At that moment the pod was shared: nanoda on the joined theorem’s export had been running since 02:25, and a tool for the optional checks (con-leche) was being built from 03:12:53 to 03:36:04, by us. The container’s memory rose from about 69,000 MiB to 114,017 MiB over exactly that interval. How much of the rise was nanoda’s own and how much was ours cannot be separated from the log. The step was run again by hand from the same binary, configuration and export (sha256 of each in _resumed.json), started 03:40:07. It held under 9 GiB for about 70 minutes, then grew past 100 GiB in the next ten, and our guard stopped it at 05:01:01 with nanoda alone at 114.8 GiB (exit 137, 4,868.8 s). The record’s word for that kernel, “REJECTS OR STOPPED”, is the tool’s; it was stopped both times and never printed a rejection. The verdict for the community proof is REFUSED on resources. No larger machine was rented: the plan says to ask first.</li><li><b>A5 · Q1, Q3 · the same growth in four runs and three checkers, cause not found.</b> Memory grew past 100 GiB after a long flat stretch in four runs whose input contains the community proof: nanoda on the registered export (A4); nanoda on the joined theorem’s export (started 02:25; the first reading of it alone is 48.4 GiB at 04:09:51 and the last 103.5 GiB at 04:14:11; stopped by our guard at 04:14:26); and Lean’s own kernel replaying the whole closure afresh (leanchecker --fresh on the theorem’s module: started 03:36; under 12 GiB in every reading from 04:09 to 09:54, then to 115.2 GiB in under half an hour, stopped by hand at 10:18:25 after 24,104 s, no output); and con-leche on the registered export (A8), the one run of the four made on an otherwise empty pod. Three checkers written independently show it. During the normal build Lean’s kernel accepted every module of the same proof inside the same memory. The cause was not found. One guess was tested and not supported: a scan of both exports for very large number literals (corpus/intmul/checks/diag/big_literals.py) found none near the size of an exponent; the largest are certificate data of up to 52,939 bits. Nothing was sent to the authors of either tool.</li><li><b>A6 · plan P3, P4 · comparator.</b> Run after the registered runs, and not against a statement typed from the paper. Google/CMU: the release’s own challenge module and configurations (one positive, nine controls), in a copy of the checkout with the release’s own lakefile addition appended and replay/Replay copied to ./Replay; comparator v4.33.0 (3927ad38) built on Lean 4.33.1 with lean4export 15f6055e. The first attempt ended in a stack overflow inside nanoda, with the intake’s nanoda build 8de7e0c4 (comparator writes nanoda’s configuration with no stack size); the run that counts used the nanoda commit the release names (37cb87b7). It accepts under both kernels, and the nine controls come out as the release’s replay record says. So this is a second party repeating the authors’ own check on another machine, not a new kind of check. Community: the release ships no challenge module; one was written here (corpus/intmul/checks/xreplay) and installed in the registered checkout after the registered run was over, with comparator v4.34.0 (d03acab1) on Lean 4.34.1, lean4export 076e8e57, nanoda switched off because of A4. The control (the saving’s numerator raised by one) is refused: the statement does not match. The run on the true statement gave no verdict: our guard stopped it after 5 h 14 min when the fresh replay beside it passed 100 GiB; it held 7.4 GiB and had printed nothing after its build. It was not run again. The sandbox: landrun v0.1.18 (ec104f6e) through comparator’s own --best-effort on a kernel whose Landlock ABI is 4; the pod has no systemd, so the README’s RestrictAddressFamilies property was not applied and the stack limit was set with ulimit.</li><li><b>A7 · plan P3 · lean4lean.</b> One try each, as optional checks. No lean4lean commit names Lean 4.33.1 or 4.34.1; its master (67f63b0c, on 4.33.0-rc2) was built with each toolchain forced. On 4.33.1 it builds: the headline module alone exits 0 (“checked 1 declarations”, which is one declaration and says little); the fresh replay of the closure stopped after 30 min 45 s at “(kernel) deep recursion detected” in SubNLogN.Machine.C5.NetAux.pm_hdMinus. That is lean4lean reaching its own limit, not a rejection, and it gives no verdict. On 4.34.1 it does not build (Batteries.Data.List.Basic fails), so it was not run on the community proof.</li><li><b>A8 · plan P3 · con-leche.</b> con-leche master (cd2eceab, its own toolchain Lean 4.36.0) was run on each registered export in its default mode (--verified), with 8 threads, as the last optional check. Google/CMU: “accepted 120324 declarations”, exit 0, 2 min 33 s. Its count is not nanoda’s 124,416 on the same file; the two tools count differently and the difference was not reconciled. Community: no verdict. From 10:22, when the other con-leche run ended, it was alone on the pod: every reading for 53 minutes was under 10 GiB, and all but the first under 5; then it grew by about 17 GiB a minute, and our guard stopped it at 11:22:17 at 100.7 GiB, 62 min 48 s after its start; no output. con-leche is a third checker, not the pre-registered second kernel; its acceptance of the Google/CMU proof is stated beside that verdict and does not change the word.</li><li><b>A9 · Q3, plan P5 · the theorem joining the two statements.</b> Both closed, and more was built than planned: one theorem, IntMulBridge.community_proves_challenge, whose type is the Google/CMU statement, compiled in the community release’s environment with the community theorem imported and the Google/CMU statement file copied byte for byte. To get the finite-alphabets clause, which the community statement does not have, IntMulBridge/Finite.lean rebuilds the community machine along the community’s own chain of lemmas; it is not proved equal to the machine inside their existential theorem. The other direction is not built. Lean’s kernel only: nanoda on the export was stopped on memory (A5). corpus/intmul/bridge/assembly/check.log was written on a text of Encodings.lean that differs from the final one in one comment line (corpus/intmul/pod/extra/bridge-encodings-comment.diff); all five modules were compiled again from the final texts before the export, and their sha256 on the pod equal the files kept here. The exporter for the joined theorem was lean4export at cacf989 (the bump to v4.34.0-rc2), and nanoda was configured to treat an unpermitted axiom as a hard error.</li><li><b>A10 · stop rule · “If the google-cmu run does not reproduce what its authors report, the community run is stopped until the difference is read.”.</b> The authors report their exponent-45 control refused by comparator. Our intake’s exponent controls got no verdict, by another method (A1). The rule was read as not triggered, because no check contradicted the authors and the record came out as expected, and the community run started at 00:15 without a stop. A stricter reading would have stopped it. The comparator run made later reproduces all nine of their controls.</li><li><b>A11 · the pre-registration’s clock.</b> The pre-registration and the two specs were committed at 2026-11-17 23:15:04, 47 seconds before the pod was created (23:15:51), on a local branch that was not pushed. Their digest reached a public place only at 2026-11-18 01:09:48 (the seal registry of this repository, commit 14b9f72a): after the first result (the Google/CMU record, 00:04) and before the second. The public clock therefore proves the pre-registration existed before the community result and before every optional check, not before the Google/CMU result.</li><li><b>A12 · tool versions the records do not name.</b> For Lean 4.33.1 the intake tool picked lean4export by sorting tags and took 9fb131b (“bump toolchain to v4.33.0-rc2”), then set its toolchain to 4.33.1. The export it wrote was accepted by nanoda and by con-leche. The nanoda configuration of the registered Google/CMU run was written to the work folder, not to the facts; a copy is in corpus/intmul/pod/extra/gcmu-nanoda.json. No planted defect reaches the second kernel in the registered runs (they are caught by the list of axioms in a Lean build); afterwards one, the added axiom, was exported and shown to nanoda, which fails on it in both of its modes (corpus/intmul/pod/extra/red-R2-*).</li><li><b>A13 · Q2 · “the encodings evaluated on small pairs against an encoder of our own”.</b> Done after the first result, not before: 328 pairs for each release, produced by an encoder written here and evaluated in Lean against each release’s encoder; every one holds. The two readings were made before the runs, by readers who did not see each other’s notes, and both worked their examples by hand.</li><li><b>A14 · Q5, plan P6 · the programs.</b> The Python reference’s own test suite was not run. The first pass of the Python rows (216, all exact) carried labels that said more than ran and recorded no counter; a second pass (236 rows, all exact) records the library’s own counters for each row and replaces the first for every statement about which path ran. Zero and one, and 10^8 bits in the program’s other mode, were added to the C rows in the second pass. The first C script would read an empty product file as zero; no row depends on it. Sizes above 10^8 bits were not run.</li><li><b>A15 · timings.</b> Every time in these files was taken on a pod that was doing something else at the same moment. None is a speed, and none is quoted as one.</li><li><b>A16 · said during the run and corrected.</b> Three statements made while the pod was running were wrong and were corrected the same day: that three kernels had accepted the Google/CMU proof (at the time one of the three had replayed a two-declaration module; the fresh replay came later); that the Python reference had run “under schedules that force the new route” (the counters show what ran); and that the first stop of the community run was caused by our tool build alone (A4: it cannot be separated).</li></ul></div></details></div>
+</section>
+
+<section class="col" id="roles">
+  <div class="sec-head">
+    <div class="lab">who did what</div>
+    <h2>Each step is a separate job</h2>
+  </div>
+<ul class="plain"><li><b>The claim.</b> OpenAI’s manuscript “Integer multiplication below n log n”. It is not judged here.</li><li><b>The proofs.</b> Piaoyang Cui, Yiming Liu, David P. Woodruff (Google and CMU); Dan Brown (jdb19937) and Kenny Daniel (platypii), the community repository. The n log n algorithm all of this improves on is Harvey and van der Hoeven’s.</li><li><b>The note on finite alphabets.</b> ywz65, in the upstream community repository.</li><li><b>The checkers.</b> Lean, Mathlib, Comparator, nanoda, con-leche, lean4lean and lean4export: their authors.</li><li><b>The checks on this page.</b> Carlos Toledo, with Claude (Anthropic), which wrote the programs, the planted statements and the Lean files of the joining theorem under my direction. The runs were made on 17 November 2026 and 18 November 2026 on one rented machine (16 processors, 128 GB), for US$ 10.89.</li></ul>
+</section>
+
+<section class="col" id="rerun">
+  <div class="sec-head">
+    <div class="lab">check it yourself</div>
+    <h2>How to re-read it</h2>
+  </div>
+<ul class="plain"><li><b>The record.</b> <span class="m">node tools/record-intmul.js --check</span> re-derives <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/intmul-audit.json"><span class="m">certs/intmul-audit.json</span></a> from the kept logs and refuses on any difference. It needs no Lean.</li><li><b>The two intake records.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/lean-intake-intmul-gcmu.json"><span class="m">certs/lean-intake-intmul-gcmu.json</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/lean-intake-intmul-community.json"><span class="m">certs/lean-intake-intmul-community.json</span></a>, each decided by <span class="m">tools/lean-intake.js</span> from the run’s files.</li><li><b>The questions and the departures.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/intmul/preregistration.json"><span class="m">corpus/intmul/preregistration.json</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/intmul/amendments.json"><span class="m">corpus/intmul/amendments.json</span></a>.</li><li><b>The joining theorem.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/intmul/bridge/assembly"><span class="m">corpus/intmul/bridge/assembly</span></a>: five Lean files. They compile inside the community release at its pinned commit.</li><li><b>To run it again.</b> The scripts that ran on the machine are in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/intmul/checks/pod-scripts"><span class="m">corpus/intmul/checks/pod-scripts</span></a> and <span class="m">tools/runpod-lean-intake.sh</span>. The community proof needs more than 119 GiB for a second kernel; that is the open item.</li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-intmul.js from certs/intmul-audit.json, re-checked as the page is built. I did this with Claude (Anthropic); Claude wrote the programs under my direction.</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+
+</body>
+</html>

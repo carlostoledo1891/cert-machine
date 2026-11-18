@@ -242,6 +242,9 @@ test:
 	@printf "%-30s " "prime-gap premises, the ledger"; $(NODE) tools/record-prime-gap-premises.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "physics key (two engines)"; $(NODE) tools/record-physics-key.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "the 212 certificate witness"; $(NODE) tools/record-bgp212-witness.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: intmul (Google/CMU)"; $(NODE) tools/lean-intake.js record intmul-gcmu --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "Lean intake: intmul (community)"; $(NODE) tools/lean-intake.js record intmul-community --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "integer multiplication, audited"; $(NODE) tools/record-intmul.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "textbook machine (the counts)"; $(NODE) playground/textbook-machine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -437,6 +440,7 @@ reports:
 	@$(NODE) tools/build-report-percolation-critical.js
 	@$(NODE) tools/build-report-prime-gap-premises.js
 	@$(NODE) tools/build-report-physics-key.js
+	@$(NODE) tools/build-report-intmul.js
 	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js

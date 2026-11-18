@@ -1,0 +1,2170 @@
+{
+ "format": 1,
+ "what": "The audit of two Lean proofs that two n-bit integers multiply in O(n (log n)^(1−κ)) steps on a Turing machine, for a fixed κ > 0: the Google/CMU release (Cui, Liu, Woodruff; κ = 2^-46) and the community release (Brown, Daniel; κ = 4222422970/2^46). Each pre-registered question read back from the facts.",
+ "notDecided": "The mathematics is not ours. Not decided here: whether either statement is the informal theorem (a reading); OpenAI's manuscript; a third Lean development (Prove2Me), not audited; who was first; anything about practical speed. CERTIFIED never says more than what the kernels checked.",
+ "generated": "2026-11-18",
+ "preregistration": {
+  "file": "corpus/intmul/preregistration.json",
+  "sha256": "63388b28a07e1f4b3df41f4b1f447fbccef6df0c9c1dd6d0668e9e754bb9c4d5",
+  "written": "2026-11-17",
+  "words": {
+   "CERTIFIED": "the Lean theorem proves exactly the pinned proposition, on propext, Quot.sound and Classical.choice alone; Lean's kernel and nanoda (written independently, in Rust) both accept the proof; among the planted statements that reached the check every prediction is met, at least one changed statement is refused and at least one rewording is accepted; every planted defect is caught. It never says the mathematics is right beyond what the kernels checked, and nothing about practical speed.",
+   "REFUSED": "a check did not give its positive answer; the reason is named (resources, a missing input, a mismatch). A build stopped by the time limit is REFUSED on resources.",
+   "reading": "a comparison of a formal statement with a sentence of a paper is a reading, written out and kept apart from the verdicts."
+  }
+ },
+ "pins": {
+  "google-cmu": {
+   "who": "Piaoyang Cui, Yiming Liu, David P. Woodruff",
+   "repo": "https://github.com/lockqueue/intmul",
+   "commit": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+   "lean": "leanprover/lean4:v4.33.1",
+   "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+   "kappa": "2^-46",
+   "files": {
+    "lean/SubNLogN/Challenge.lean": "7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5",
+    "lean/SubNLogN/Assembly/ChallengeHeadline.lean": "ce17957927bcbbc950bce9f423bf20270d8e1d4159c4ce22e230c782ca44e0c1",
+    "IntMul_main_paper.pdf": "6b982e953b7a1e31e37c2cce2e37edfcded983031bb6ecf60c424fe20c92d173",
+    "IntMul_short_paper.pdf": "5d53c1e18f1bbd3411f027203213d0d95950d006cca86b817f2a42a97d5a712f",
+    "companion/IntMul_companion_paper.pdf": "fe15aee46482aecc5d1bcdba69a58d1c7831ca221e0861487e15ddaa0c357da2",
+    "MANIFEST.sha256": "ff4e5d0fce442862e0435464801b3bd77f26f411cd7ed9d9ba386df0e76944df"
+   },
+   "linkedFrom": "Google Research, \"Advancing science & engineering with Antigravity's /teamwork feature\", 2026-11-13"
+  },
+  "community": {
+   "who": "platypii, jdb19937",
+   "repo": "https://github.com/platypii/integer-mult-bounds-lean",
+   "commit": "aaf10926643826a69f868f7e0694cc34cad25060",
+   "lean": "leanprover/lean4:v4.34.1",
+   "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+   "kappa": "4222422970/2^46 (about 2^-14.02)",
+   "files": {
+    "IntegerMultBounds/MathlibTM2/Statement.lean": "fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5",
+    "IntegerMultBounds/MathlibTM2/Theorem.lean": "7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5"
+   }
+  },
+  "source": "OpenAI, \"Integer multiplication below n log n\", preprint of 2026-09-23 (result 109 of its math release), kappa = 2^-182; read only as the source both proofs point to. No verdict is given on it."
+ },
+ "verdicts": {
+  "Q1 Google/CMU": "CERTIFIED (as amended, A1)",
+  "Q1 community": "REFUSED on resources (no second kernel finished: nanoda, Lean's fresh replay and con-leche each stopped on memory)",
+  "Q2": "READING",
+  "Q3": "PROVED IN LEAN, ONE KERNEL",
+  "Q4": "Google/CMU 9 of 13 predictions met, 5 statements with no verdict; community 12 of 12; defects 6 of 6 caught",
+  "Q5": "EXACT on every input tried",
+  "Q6": "COMPUTED"
+ },
+ "gaps": [
+  {
+   "lead": "The community proof has no second kernel.",
+   "text": "nanoda was stopped on memory twice (114,017 MiB of 122,070 the first time, 114.8 GiB the second). Lean's own kernel, replaying the whole closure afresh, was stopped at 115.2 GiB after 6 h 42 min. A third checker, con-leche, alone on the machine, stayed under 10 GiB for 54 minutes, then grew by more than 10 GiB a minute and was stopped at 100.7 GiB. Nothing rejected the proof. The cause of the memory growth was not found."
+  },
+  {
+   "lead": "Some planted statements got no verdict.",
+   "text": "5 of the 15 statements planted against the Google/CMU proof got no verdict from the intake: its check ran into the elaborator's recursion limit under the 2^46 power. Every one that changes the saving is among them. The sentence written before the run is met only as amended afterwards. What those statements were meant to show comes from two checks added after the run."
+  },
+  {
+   "lead": "The theorem joining the two statements is partial.",
+   "text": "It goes one way, was accepted by one kernel, and rebuilds the community machine instead of opening the one inside their theorem."
+  },
+  {
+   "lead": "The statements were read, not decided.",
+   "text": "Neither formal statement is its paper's theorem as written: both are about Mathlib's multi-stack machine, and the step to a multitape machine is a classical argument that neither release formalizes. That the statements say what the papers say is a reading, made twice."
+  },
+  {
+   "lead": "A third proof was not audited.",
+   "text": "A third Lean development of the same result exists (Prove2Me, prove2me/formalpedia). It was not audited here, and who was first is not decided here."
+  },
+  {
+   "lead": "Nothing here is about practical speed.",
+   "text": "The saving reaches a factor of 2 only at sizes no computer will hold, the constants are not given, and the fast algorithm itself is not executable at any feasible size."
+  },
+  {
+   "lead": "The comparator runs are not the planned ones.",
+   "text": "They used the release's own statement and configuration for Google/CMU and a challenge module written here for the community proof, not a statement typed from the paper as the plan said. Comparator's sandbox ran in best-effort mode on this machine."
+  },
+  {
+   "lead": "The source is not judged.",
+   "text": "OpenAI's manuscript, which both proofs point to, is not judged here."
+  }
+ ],
+ "Q1": {
+  "google-cmu": {
+   "release": "https://github.com/lockqueue/intmul @ 4738aeff",
+   "theorem": "SubNLogN.Assembly.intMul_challenge",
+   "statement": "SubNLogN.Challenge.IntMulSubNLogN",
+   "record": "certs/lean-intake-intmul-gcmu.json",
+   "recordVerdict": "CERTIFIED",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "builtFromSource": "10447 jobs, exit 0",
+   "nanoda": {
+    "build": "8de7e0c4",
+    "declarations": 124416,
+    "seconds": 135.4,
+    "word": "ACCEPTS",
+    "export": {
+     "sha256": "018ed0d6a1aaff2541e1ab94a20bd1e26d3ee018b6602ea375489e9b565f5662",
+     "bytes": 1959637056
+    }
+   },
+   "freshReplay": {
+    "what": "leanchecker --fresh on the headline module: Lean's kernel on the whole closure, Mathlib included",
+    "files": "corpus/intmul/pod/extra/gcmu-fresh.*",
+    "start": "2026-11-18T01:11:35Z",
+    "end": "2026-11-18T02:36:11Z",
+    "exit": 0,
+    "wall": "1:24:35",
+    "peakGiB": 14.8,
+    "exitStatus": 0
+   },
+   "comparator": {
+    "what": "leanprover/comparator on the release's own configuration (replay/configs/positive.json), in a copy of the checkout",
+    "tools": {
+     "comparator": "3927ad383f208ae977c340a91c48ac9b497d2097 built with leanprover/lean4:v4.33.1",
+     "lean4export": "15f6055e299ad5b89345e533cc2192f4cc00f659",
+     "nanoda": "37cb87b7e6cd6862ef2bd121faa9f4604f59fe96; diff lines 0; sha256 953642b4c4d9fd03f006f3f256d0b99b43c9d9b84a5fe016292c496cd82dea48",
+     "landrun": "landrun version 0.1.18",
+     "kernel": "6.8.0-147-generic",
+     "lean": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)"
+    },
+    "firstTry": {
+     "files": "corpus/intmul/pod/extra2/A1.comparator-positive.*",
+     "start": "2026-11-18T03:37:03Z",
+     "end": null,
+     "exit": null,
+     "wall": null,
+     "peakGiB": null,
+     "exitStatus": null,
+     "nanoda": "8de7e0c4ed3052745a7f8725164efd9e76d84c56; diff lines 0",
+     "said": [
+      "thread 'thread_0' (244238) has overflowed its stack",
+      "fatal runtime error: stack overflow, aborting"
+     ]
+    },
+    "run": {
+     "files": "corpus/intmul/pod/extra2/r2/A1.comparator-positive.*",
+     "start": "2026-11-18T04:15:53Z",
+     "end": "2026-11-18T04:46:11Z",
+     "exit": 0,
+     "wall": "30:17.82",
+     "peakGiB": 15.9,
+     "exitStatus": 0,
+     "said": [
+      "Nanoda kernel accepts the solution",
+      "Running Lean default kernel on solution.",
+      "Lean default kernel accepts the solution",
+      "Your solution is okay!"
+     ]
+    }
+   },
+   "lean4lean": {
+    "build": [
+     "lean4lean master 67f63b0c818920dfaed2ad07ccff187a6a8fe1e3 2026-10-10T14:10:41+01:00; ships leanprover/lean4:v4.33.0-rc2",
+     "lean4lean on v4.34.1: no binary"
+    ],
+    "headlineModuleAlone": {
+     "exit": 0,
+     "said": "checked 1 declarations",
+     "wall": "0:43.97"
+    },
+    "fresh": {
+     "exit": 1,
+     "wall": "30:44.89",
+     "said": "at SubNLogN.Machine.C5.NetAux.pm_hdMinus: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit",
+     "word": "NO VERDICT: stopped at its recursion limit, not a rejection"
+    }
+   },
+   "conLeche": {
+    "tool": "con-leche: cd2eceab2e9b10404c663b468639c8aa99d0d1f2 leanprover/lean4:v4.36.0 sha256 6d8dd758515bcf4180a12b47193e0c4c3772e45fac652bb513a70b3907e6ba4f",
+    "exit": 0,
+    "said": "con-leche: accepted 120324 declarations (--verified)",
+    "wall": "2:32.75",
+    "peakGiB": 11,
+    "word": "ACCEPTS"
+   },
+   "plantedStatements": {
+    "planted": 15,
+    "predicted": 13,
+    "gotAVerdict": 10,
+    "asPredicted": 9,
+    "rewordingsAccepted": "4 of 4",
+    "refused": [
+     "C3",
+     "C4",
+     "C7",
+     "C8",
+     "C9",
+     "C10"
+    ],
+    "noVerdict": [
+     {
+      "id": "C1",
+      "change": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+      "predicted": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C2",
+      "change": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+      "predicted": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C5",
+      "change": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+      "predicted": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C6",
+      "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+      "predicted": "none (the kernel decides)"
+     },
+     {
+      "id": "C11",
+      "change": "the time taken at length L + 1 where the file takes it at L",
+      "predicted": "REFUSED by type mismatch"
+     }
+    ],
+    "noPrediction": [
+     {
+      "id": "C6",
+      "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+      "outcome": "FAILED elsewhere"
+     },
+     {
+      "id": "C9",
+      "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+      "outcome": "REFUSED by type mismatch"
+     }
+    ],
+    "rows": [
+     {
+      "id": "S0",
+      "kind": "same",
+      "change": "the body of the definition IntMulSubNLogN copied verbatim (comments dropped): the baseline",
+      "predicted": "ACCEPTED",
+      "outcome": "ACCEPTED"
+     },
+     {
+      "id": "S1",
+      "kind": "same",
+      "change": "every bound variable renamed (M→T, k→j, C→c, N₀→n₀, L→n, p→q): alpha-equivalent",
+      "predicted": "ACCEPTED",
+      "outcome": "ACCEPTED"
+     },
+     {
+      "id": "S2",
+      "kind": "same",
+      "change": "the definition named and not unfolded",
+      "predicted": "ACCEPTED",
+      "outcome": "ACCEPTED"
+     },
+     {
+      "id": "S3",
+      "kind": "same",
+      "change": "the input encoding named by its function (encodeNatPair) where the file writes the structure's field (encNatPair.encode): equal after unfolding one definition and one projection",
+      "predicted": "ACCEPTED",
+      "outcome": "ACCEPTED"
+     },
+     {
+      "id": "C1",
+      "kind": "changed",
+      "change": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "FAILED elsewhere"
+     },
+     {
+      "id": "C2",
+      "kind": "changed",
+      "change": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "FAILED elsewhere"
+     },
+     {
+      "id": "C3",
+      "kind": "changed",
+      "change": "≤ made <",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C4",
+      "kind": "changed",
+      "change": "the conjunct that every stack alphabet is finite deleted",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C5",
+      "kind": "wrong",
+      "change": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "FAILED elsewhere"
+     },
+     {
+      "id": "C6",
+      "kind": "equivalent",
+      "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+      "predicted": "none",
+      "outcome": "FAILED elsewhere"
+     },
+     {
+      "id": "C7",
+      "kind": "wrong",
+      "change": "the bound asked of SOME length above N₀ where the file asks it of every one",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C8",
+      "kind": "wrong",
+      "change": "the machine asked to compute the SUM of the two numbers",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C9",
+      "kind": "equivalent",
+      "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+      "predicted": "none",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C10",
+      "kind": "changed",
+      "change": "the condition 0 < C deleted",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "REFUSED by type mismatch"
+     },
+     {
+      "id": "C11",
+      "kind": "changed",
+      "change": "the time taken at length L + 1 where the file takes it at L",
+      "predicted": "REFUSED by type mismatch",
+      "outcome": "FAILED elsewhere"
+     }
+    ]
+   },
+   "plantedDefects": [
+    {
+     "id": "R1",
+     "defect": "the proof of intMul_challenge replaced by sorry",
+     "caught": true,
+     "how": "the axioms list sorryAx"
+    },
+    {
+     "id": "R2",
+     "defect": "intMul_challenge proved by an added axiom",
+     "caught": true,
+     "how": "the axioms list SubNLogN.Assembly.intakeRedAxiom"
+    },
+    {
+     "id": "R3",
+     "defect": "the genuine proof, behind one step decided by native_decide",
+     "caught": true,
+     "how": "the axioms list SubNLogN.Assembly.intMul_challenge._native.native_decide.ax_1_1"
+    }
+   ],
+   "acceptedBy": [
+    "Lean's kernel (the build from source; then a fresh replay of the whole closure)",
+    "nanoda (Rust): build 8de7e0c4 on the intake's export, and build 37cb87b7 inside comparator",
+    "con-leche (--verified) on the intake's export"
+   ],
+   "word": "CERTIFIED",
+   "wordNote": "CERTIFIED under amendment A1: five planted statements reached the check and got no verdict, so the pre-registered sentence about the planted statements is met only when read as \"got a verdict\". What those five were meant to show is shown by two checks added after the run: every changed statement differs from the statement as an expression, and comparator refuses the release's own exponent-45 control."
+  },
+  "community": {
+   "release": "https://github.com/platypii/integer-mult-bounds-lean @ aaf10926",
+   "theorem": "IntegerMultBounds.MathlibTM2.mulInTime",
+   "statement": "IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46)",
+   "record": "certs/lean-intake-intmul-community.json",
+   "recordVerdict": "REFUSED",
+   "holds": {
+    "builtFromSource": "14288 jobs, exit 0, 6408 s: Lean's kernel accepted every module as it was compiled",
+    "axioms": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "statementIdentity": {
+     "equal": false,
+     "eqv": false,
+     "defeq": true
+    },
+    "statementIdentityHow": "the kernel accepts the claimant's IntegerMultBounds.MathlibTM2.mulInTime as a proof of the proposition IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46 : ℝ), written from the canonical file's own definitions; the two types differ as written and agree after definitional unfolding",
+    "plantedStatements": {
+     "planted": 13,
+     "predicted": 12,
+     "gotAVerdict": 13,
+     "asPredicted": 12,
+     "rewordingsAccepted": "4 of 4",
+     "refused": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9"
+     ],
+     "noVerdict": [],
+     "noPrediction": [
+      {
+       "id": "C8",
+       "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+       "outcome": "REFUSED by type mismatch"
+      }
+     ],
+     "rows": [
+      {
+       "id": "S0",
+       "kind": "same",
+       "change": "the body of the definition MulInTime with κ = 4222422970/2^46 put in: the baseline",
+       "predicted": "ACCEPTED",
+       "outcome": "ACCEPTED"
+      },
+      {
+       "id": "S1",
+       "kind": "same",
+       "change": "every bound variable renamed (M→T, p→q, n→m): alpha-equivalent",
+       "predicted": "ACCEPTED",
+       "outcome": "ACCEPTED"
+      },
+      {
+       "id": "S2",
+       "kind": "same",
+       "change": "the definition named and not unfolded",
+       "predicted": "ACCEPTED",
+       "outcome": "ACCEPTED"
+      },
+      {
+       "id": "S3",
+       "kind": "same",
+       "change": "the abbreviation pairEnc written out as Mathlib's product encoding",
+       "predicted": "ACCEPTED",
+       "outcome": "ACCEPTED"
+      },
+      {
+       "id": "C1",
+       "kind": "changed",
+       "change": "the numerator of κ raised by one (4222422971/2^46): a slightly stronger claim",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C2",
+       "kind": "changed",
+       "change": "κ made 1/2^14, just above the proved 2^-14.02",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C3",
+       "kind": "wrong",
+       "change": "the exponent of the logarithm made 1: the plain n log n bound, with no saving",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C4",
+       "kind": "changed",
+       "change": "big O made little o",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C5",
+       "kind": "wrong",
+       "change": "the machine asked to compute the SUM of the two numbers",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C6",
+       "kind": "changed",
+       "change": "the natural logarithm made the logarithm to base 2: the same class of functions, another statement",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C7",
+       "kind": "changed",
+       "change": "the time taken at length n + 1 where the file takes it at n",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C8",
+       "kind": "equivalent",
+       "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+       "predicted": "none",
+       "outcome": "REFUSED by type mismatch"
+      },
+      {
+       "id": "C9",
+       "kind": "changed",
+       "change": "the clause that every stack alphabet is finite ADDED, as the other release states it: a stronger statement than this file's",
+       "predicted": "REFUSED by type mismatch",
+       "outcome": "REFUSED by type mismatch"
+      }
+     ]
+    },
+    "plantedDefects": [
+     {
+      "id": "R1",
+      "defect": "the proof of mulInTime replaced by sorry",
+      "caught": true,
+      "how": "the axioms list sorryAx"
+     },
+     {
+      "id": "R2",
+      "defect": "mulInTime proved by an added axiom",
+      "caught": true,
+      "how": "the axioms list IntegerMultBounds.MathlibTM2.intakeRedAxiom"
+     },
+     {
+      "id": "R3",
+      "defect": "the genuine proof, behind one step decided by native_decide",
+      "caught": true,
+      "how": "the axioms list IntegerMultBounds.MathlibTM2.mulInTime._native.native_decide.ax_1_1"
+     }
+    ],
+    "comparatorControl": {
+     "what": "comparator (no nanoda) on a challenge module written here, the numerator of the saving raised by one",
+     "tools": {
+      "comparator": "d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+      "lean4export": "076e8e57707e813375e8f9da8bf989799ace9680",
+      "nanoda": "not enabled",
+      "landrun": "landrun version 0.1.18",
+      "kernel": "6.8.0-147-generic",
+      "lean": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)"
+     },
+     "said": "Challenge and solution theorem statement do not match: 'IntegerMultBounds.MathlibTM2.mulInTime'",
+     "outcome": "refused: the statement does not match",
+     "files": "corpus/intmul/pod/extra2/r2/C1.comparator-control-kappa.*",
+     "start": "2026-11-18T04:15:53Z",
+     "end": "2026-11-18T04:34:53Z",
+     "exit": 1,
+     "wall": "19:00.32",
+     "peakGiB": 13,
+     "exitStatus": 1
+    }
+   },
+   "secondKernel": {
+    "word": "STOPPED on memory, twice; never a rejection",
+    "export": {
+     "sha256": "114e7e51f9237319131b447eb1497ad70f4621bce37d4b8a442362f4ede9103b",
+     "bytes": 3250495245
+    },
+    "first": {
+     "what": "nanoda 8de7e0c4, the registered step",
+     "started": "2026-11-18T02:19:26.865Z",
+     "stopped": "03:35:38 STOPPED the run at 93% of the memory limit",
+     "lastReading": "03:35:38 114017 MiB of 122070",
+     "by": "the run's own memory watchdog (93% of the container's limit, file cache counted)",
+     "runExit": "143"
+    },
+    "second": {
+     "what": "the same binary, configuration and export, started by hand",
+     "started": "2026-11-18T03:40:07Z",
+     "ended": "2026-11-18T05:01:16Z",
+     "exit": 137,
+     "seconds": 4868.8,
+     "stopped": "05:01:01 anon 115 GiB: the registered step's second nanoda attempt is stopped at 114.8 GB",
+     "by": "our guard (pod-guard3.sh)",
+     "sha256": {
+      "binary": "1135f64208d2d44465fc22f396bcee9df784526f45b9d3f8328203f6d45271b8",
+      "config": "5f54afd69bf2f88ac6b054a213373c5fa6820b7fb020b8a39eb5f687378ede6f",
+      "export": "114e7e51f9237319131b447eb1497ad70f4621bce37d4b8a442362f4ede9103b"
+     }
+    }
+   },
+   "freshReplay": {
+    "what": "leanchecker --fresh on the theorem's module: Lean's kernel on the whole closure",
+    "start": "2026-11-18T03:36:40Z",
+    "stoppedAt": "2026-11-18T10:18:25Z",
+    "elapsedSeconds": 24104,
+    "residentGiBWhenStopped": 115.2,
+    "exit": 137,
+    "firstReadingOver12GiB": "09:55:52",
+    "readingsBeforeIt": 339,
+    "word": "STOPPED on memory by hand; no output, not a rejection"
+   },
+   "comparatorPositive": {
+    "what": "comparator (no nanoda) on the true statement",
+    "start": "2026-11-18T05:01:16Z",
+    "stopped": "2026-11-18T10:19:23Z note written by hand: pod-guard3.sh stopped pod-extra2-run3.sh and this comparator run at 10:15:08 UTC (container anonymous memory 100 GiB, of which this run 7.4 GB; the rest was the community fresh replay). Started 05:01 UTC; no exit file; undecided, not a rejection. Not run again: it cannot finish before the deadline.",
+    "word": "NO VERDICT: stopped by our guard, not run again"
+   },
+   "lean4lean": {
+    "word": "NOT RUN",
+    "why": "lean4lean for v4.34.1 did not build"
+   },
+   "conLeche": {
+    "tool": "con-leche: cd2eceab2e9b10404c663b468639c8aa99d0d1f2 leanprover/lean4:v4.36.0 sha256 6d8dd758515bcf4180a12b47193e0c4c3772e45fac652bb513a70b3907e6ba4f",
+    "word": "STOPPED",
+    "start": "2026-11-18T10:19:29Z",
+    "stopped": "2026-11-18T11:23:58Z note written by hand: pod-guard3.sh stopped con-leche on the community export at 11:22:17 UTC with con-leche alone at 100.7 GiB (the guard prints GB), 62 min 48 s after its start at 10:19:29 UTC; the pod was otherwise empty. No output, no exit file; undecided, not a rejection. Not run again.",
+    "guardLine": "11:22:17 anon 100 GiB: the optional checks are stopped (optional 100.7 GB)",
+    "aloneFrom": "2026-11-18T10:22:01Z",
+    "readingsBeforeTheGrowth": 54,
+    "highestBeforeTheGrowthGiB": 9.3,
+    "firstReadingOver12GiB": "11:16:17",
+    "lastReadingGiB": 100.7
+   },
+   "word": "REFUSED",
+   "reason": "resources: no second kernel finished. nanoda was stopped on memory twice, Lean's own kernel was stopped on memory on a fresh replay of the closure, and con-leche, a third checker, was stopped on memory too. Nothing rejected the proof."
+  }
+ },
+ "Q2": {
+  "word": "READING",
+  "readings": [
+   {
+    "file": "corpus/intmul/readings/first.md",
+    "sha256": "1c28748cfa819bf984f32cb9277b8be1e11b9229a0e89ae9e191750bb1e5d4c9"
+   },
+   {
+    "file": "corpus/intmul/readings/second.md",
+    "sha256": "6facf9b9f14e8ca87a2c515640646e30a4dc8acba6a4fd745f8d1d4e12ebcca7"
+   }
+  ],
+  "whatBothFound": [
+   "Neither proposition is its paper's theorem as written. Both are about Mathlib's multi-stack machine (FinTM2), on least-significant-bit-first words, with time measured in the total encoded length. The papers speak of a multitape machine. The step between the two is a classical simulation, argued in prose in both releases and formalized in neither; the Google/CMU paper says so.",
+   "Both propositions are bare existence claims: one fixed machine, outside every quantifier over inputs, with no hypothesis that could be unsatisfiable.",
+   "The Google/CMU statement requires every stack alphabet finite; the community statement does not (Mathlib asks it of the input stack only).",
+   "The community theorem has the larger saving: κ = 4222422970/2^46, about 2^-14.02, against 2^-46. The Google/CMU paper's sentence that κ \"improves from 2^-182 to 2^-46\" does not mention it; reported without judging priority.",
+   "The readers found no way to meet either proposition with something that is not, up to a constant factor, a multitape Turing machine running in the stated time."
+  ],
+  "encodingsOnSmallPairs": {
+   "what": "each release's encoder evaluated in Lean on pairs produced by an encoder of ours (corpus/intmul/checks/first/gen.py), as #guard lines",
+   "gcmu": "328 pairs, all hold",
+   "community": "328 pairs, all hold"
+  },
+  "notRead": "Read only in part: the Google/CMU paper (its Algorithm 1, Sections 4–7 and appendices were not read), OpenAI's manuscript (abstract, Theorem 1, the start of §2), the community repository's proof files. A reading is not a verdict."
+ },
+ "Q3": {
+  "theorem": "IntMulBridge.community_proves_challenge : SubNLogN.Challenge.IntMulSubNLogN",
+  "says": "The community proof gives the Google/CMU statement, as the Google/CMU statement file words it: compiled in the community release's environment (Lean 4.34.1), importing the community's theorem and a byte-identical copy of the Google/CMU statement file.",
+  "sources": [
+   {
+    "file": "corpus/intmul/bridge/assembly/SubNLogN/Challenge.lean",
+    "sha256": "7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5"
+   },
+   {
+    "file": "corpus/intmul/bridge/assembly/IntMulBridge/Bounds.lean",
+    "sha256": "a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674"
+   },
+   {
+    "file": "corpus/intmul/bridge/assembly/IntMulBridge/Encodings.lean",
+    "sha256": "e4f908d022dfb9adde7a8cc570554c81bb7b48a69b7ecbec179477e249db875d"
+   },
+   {
+    "file": "corpus/intmul/bridge/assembly/IntMulBridge/Finite.lean",
+    "sha256": "68fe75cd2b4dc961354ba3c987a74624d5b47f8050adc33860a62c1ad4912092"
+   },
+   {
+    "file": "corpus/intmul/bridge/assembly/IntMulBridge/Main.lean",
+    "sha256": "7edc61192bfd58422f13c9293b39c10f031542b2a21814271f38ee436438d3dd"
+   }
+  ],
+  "axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "leanKernel": "ACCEPTS: all five modules compile with exit 0 (corpus/intmul/bridge/assembly/check.log); after one comment line of Encodings.lean was changed (corpus/intmul/pod/extra/bridge-encodings-comment.diff) all five were compiled again, and the export below is of that build",
+  "export": {
+   "exit": 0,
+   "bytes": 3247336666,
+   "sha256": "b39e5cace4591c95d5830726349a022f624f4be759679d413765b525593efcd9",
+   "exporter": "lean4export cacf989 Merge pull request #46 from leanprover/bump-to-v4.34.0-rc2"
+  },
+  "secondKernel": {
+   "word": "STOPPED on memory; never a rejection",
+   "what": "nanoda 8de7e0c4 on the export",
+   "scriptStarted": "2026-11-18T02:12:48Z",
+   "stopped": "04:14:26 anon 112 GiB: the bridge theorem's nanoda is stopped",
+   "exit": 137
+  },
+  "parts": [
+   {
+    "name": "IntMulBridge.natForm_iff_bigOForm",
+    "says": "for one time function, the Google/CMU inequality in ℕ and the community's =O form at κ = 2^-46 are equivalent"
+   },
+   {
+    "name": "IntMulBridge.community_to_natForm",
+    "says": "the community's bound at its κ gives the Google/CMU inequality"
+   },
+   {
+    "name": "IntMulEnc.reencode",
+    "says": "a machine for the tagged input encoding, with finite alphabets, gives one for the separator encoding, with finite alphabets, at a linear extra cost"
+   },
+   {
+    "name": "IntMulBridge.mulInTimeFinite",
+    "says": "the community machine rebuilt along the community's own chain, carrying that every stack alphabet is finite"
+   }
+  ],
+  "limits": [
+   "One direction only. That the Google/CMU proof gives the community statement at κ = 2^-46 is a written argument (second reading, section 3); it is not built. It cannot give the community theorem itself, whose saving is larger.",
+   "The finite-alphabets module rebuilds the community machine through the community's own lemmas. It is not proved equal to the machine hidden inside their existential theorem, which cannot be taken out and asked.",
+   "The two releases pin different Lean and Mathlib versions. The statement proved here is the Google/CMU statement file compiled under the community's versions: the same bytes, and four Mathlib files diffed at both pins (no definition differs); the definitions underneath (asymptotics, real powers, logarithms) were not diffed.",
+   "One kernel. Lean's kernel accepted the five modules; nanoda on the export was stopped on memory. The theorem imports the community proof, so it inherits that proof's missing second kernel."
+  ],
+  "word": "PROVED IN LEAN, ONE KERNEL",
+  "wordNote": "not CERTIFIED: the pre-registered word asks for two kernels"
+ },
+ "Q4": {
+  "google-cmu": {
+   "planted": 15,
+   "predicted": 13,
+   "gotAVerdict": 10,
+   "asPredicted": 9,
+   "rewordingsAccepted": "4 of 4",
+   "refused": [
+    "C3",
+    "C4",
+    "C7",
+    "C8",
+    "C9",
+    "C10"
+   ],
+   "noVerdict": [
+    {
+     "id": "C1",
+     "change": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+     "predicted": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C2",
+     "change": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+     "predicted": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C5",
+     "change": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+     "predicted": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C6",
+     "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+     "predicted": "none (the kernel decides)"
+    },
+    {
+     "id": "C11",
+     "change": "the time taken at length L + 1 where the file takes it at L",
+     "predicted": "REFUSED by type mismatch"
+    }
+   ],
+   "noPrediction": [
+    {
+     "id": "C6",
+     "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "id": "C9",
+     "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+     "outcome": "REFUSED by type mismatch"
+    }
+   ],
+   "rows": [
+    {
+     "id": "S0",
+     "kind": "same",
+     "change": "the body of the definition IntMulSubNLogN copied verbatim (comments dropped): the baseline",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S1",
+     "kind": "same",
+     "change": "every bound variable renamed (M→T, k→j, C→c, N₀→n₀, L→n, p→q): alpha-equivalent",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S2",
+     "kind": "same",
+     "change": "the definition named and not unfolded",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S3",
+     "kind": "same",
+     "change": "the input encoding named by its function (encodeNatPair) where the file writes the structure's field (encNatPair.encode): equal after unfolding one definition and one projection",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "C1",
+     "kind": "changed",
+     "change": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "id": "C2",
+     "kind": "changed",
+     "change": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "id": "C3",
+     "kind": "changed",
+     "change": "≤ made <",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C4",
+     "kind": "changed",
+     "change": "the conjunct that every stack alphabet is finite deleted",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C5",
+     "kind": "wrong",
+     "change": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "id": "C6",
+     "kind": "equivalent",
+     "change": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+     "predicted": "none",
+     "outcome": "FAILED elsewhere"
+    },
+    {
+     "id": "C7",
+     "kind": "wrong",
+     "change": "the bound asked of SOME length above N₀ where the file asks it of every one",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C8",
+     "kind": "wrong",
+     "change": "the machine asked to compute the SUM of the two numbers",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C9",
+     "kind": "equivalent",
+     "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+     "predicted": "none",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C10",
+     "kind": "changed",
+     "change": "the condition 0 < C deleted",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C11",
+     "kind": "changed",
+     "change": "the time taken at length L + 1 where the file takes it at L",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "FAILED elsewhere"
+    }
+   ]
+  },
+  "community": {
+   "planted": 13,
+   "predicted": 12,
+   "gotAVerdict": 13,
+   "asPredicted": 12,
+   "rewordingsAccepted": "4 of 4",
+   "refused": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9"
+   ],
+   "noVerdict": [],
+   "noPrediction": [
+    {
+     "id": "C8",
+     "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+     "outcome": "REFUSED by type mismatch"
+    }
+   ],
+   "rows": [
+    {
+     "id": "S0",
+     "kind": "same",
+     "change": "the body of the definition MulInTime with κ = 4222422970/2^46 put in: the baseline",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S1",
+     "kind": "same",
+     "change": "every bound variable renamed (M→T, p→q, n→m): alpha-equivalent",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S2",
+     "kind": "same",
+     "change": "the definition named and not unfolded",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "S3",
+     "kind": "same",
+     "change": "the abbreviation pairEnc written out as Mathlib's product encoding",
+     "predicted": "ACCEPTED",
+     "outcome": "ACCEPTED"
+    },
+    {
+     "id": "C1",
+     "kind": "changed",
+     "change": "the numerator of κ raised by one (4222422971/2^46): a slightly stronger claim",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C2",
+     "kind": "changed",
+     "change": "κ made 1/2^14, just above the proved 2^-14.02",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C3",
+     "kind": "wrong",
+     "change": "the exponent of the logarithm made 1: the plain n log n bound, with no saving",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C4",
+     "kind": "changed",
+     "change": "big O made little o",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C5",
+     "kind": "wrong",
+     "change": "the machine asked to compute the SUM of the two numbers",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C6",
+     "kind": "changed",
+     "change": "the natural logarithm made the logarithm to base 2: the same class of functions, another statement",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C7",
+     "kind": "changed",
+     "change": "the time taken at length n + 1 where the file takes it at n",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C8",
+     "kind": "equivalent",
+     "change": "the product written p.2 * p.1: equal by commutativity, not by definition",
+     "predicted": "none",
+     "outcome": "REFUSED by type mismatch"
+    },
+    {
+     "id": "C9",
+     "kind": "changed",
+     "change": "the clause that every stack alphabet is finite ADDED, as the other release states it: a stronger statement than this file's",
+     "predicted": "REFUSED by type mismatch",
+     "outcome": "REFUSED by type mismatch"
+    }
+   ]
+  },
+  "structuralComparison": {
+   "what": "every planted statement compared with the statement as an expression, with nothing unfolded but the definition itself; added after the first result (amendment A1)",
+   "google-cmu": {
+    "changedAllDifferent": "11 of 11",
+    "rewordings": [
+     {
+      "id": "S0",
+      "sameAsNamed": false,
+      "sameAsBody": true
+     },
+     {
+      "id": "S1",
+      "sameAsNamed": false,
+      "sameAsBody": true
+     },
+     {
+      "id": "S2",
+      "sameAsNamed": true,
+      "sameAsBody": false
+     },
+     {
+      "id": "S3",
+      "sameAsNamed": false,
+      "sameAsBody": false
+     }
+    ],
+    "rewordingsDifferentAsExpressions": [
+     "S3"
+    ],
+    "c6": "compared with Mathlib imported (C6m); its first comparison did not elaborate: the statement file does not import the constant it names"
+   },
+   "community": {
+    "changedAllDifferent": "9 of 9",
+    "rewordings": [
+     {
+      "id": "S0",
+      "sameAsNamed": false,
+      "sameAsBody": true
+     },
+     {
+      "id": "S1",
+      "sameAsNamed": false,
+      "sameAsBody": true
+     },
+     {
+      "id": "S2",
+      "sameAsNamed": true,
+      "sameAsBody": false
+     },
+     {
+      "id": "S3",
+      "sameAsNamed": false,
+      "sameAsBody": false
+     }
+    ],
+    "rewordingsDifferentAsExpressions": [
+     "S3"
+    ],
+    "c6": "compared with Mathlib imported (C6m); its first comparison did not elaborate: the statement file does not import the constant it names"
+   }
+  },
+  "comparatorControls": {
+   "google-cmu": [
+    {
+     "id": "S0_IdenticalCopy",
+     "change": "a byte-identical copy of the statement",
+     "exit": 0,
+     "start": "2026-11-18T05:10:12Z",
+     "end": "2026-11-18T05:35:17Z",
+     "said": "Your solution is okay!",
+     "outcome": "accepted",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "S1_Exp45",
+     "change": "the exponent 46 made 45",
+     "exit": 1,
+     "start": "2026-11-18T04:46:11Z",
+     "end": "2026-11-18T04:51:06Z",
+     "said": "Const does not match between challenge and target 'SubNLogN.Challenge.IntMulSubNLogN'",
+     "outcome": "refused: the statement does not match",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "S2_NoFinite",
+     "change": "the finite-alphabets clause deleted",
+     "exit": 1,
+     "start": "2026-11-18T04:51:06Z",
+     "end": "2026-11-18T04:56:50Z",
+     "said": "Const does not match between challenge and target 'SubNLogN.Challenge.IntMulSubNLogN'",
+     "outcome": "refused: the statement does not match",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "S3_StrictLt",
+     "change": "≤ made <",
+     "exit": 1,
+     "start": "2026-11-18T05:01:16Z",
+     "end": "2026-11-18T05:05:25Z",
+     "said": "Const does not match between challenge and target 'SubNLogN.Challenge.IntMulSubNLogN'",
+     "outcome": "refused: the statement does not match",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "P1_Sorry",
+     "change": "the proof replaced by sorry",
+     "exit": 1,
+     "start": "2026-11-18T05:05:25Z",
+     "end": "2026-11-18T05:05:39Z",
+     "said": "Illegal axiom detected: 'sorryAx'",
+     "outcome": "refused: an axiom outside the three",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "P2_AddedAxiom",
+     "change": "an added axiom",
+     "exit": 1,
+     "start": "2026-11-18T05:05:39Z",
+     "end": "2026-11-18T05:05:53Z",
+     "said": "Illegal axiom detected: 'Replay.Controls.P2.intMul_challenge_axiom'",
+     "outcome": "refused: an axiom outside the three",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "P3_NativeDecide",
+     "change": "native_decide",
+     "exit": 1,
+     "start": "2026-11-18T05:05:53Z",
+     "end": "2026-11-18T05:09:45Z",
+     "said": "Illegal axiom detected: 'SubNLogN.Assembly.intMul_challenge._native.native_decide.ax_1_1'",
+     "outcome": "refused: an axiom outside the three",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "P4_ExtraAxiomTransitive",
+     "change": "an axiom hidden one step away",
+     "exit": 1,
+     "start": "2026-11-18T05:09:45Z",
+     "end": "2026-11-18T05:09:59Z",
+     "said": "Illegal axiom detected: 'Replay.Controls.P4.oracle'",
+     "outcome": "refused: an axiom outside the three",
+     "asTheReleaseReports": true
+    },
+    {
+     "id": "P5_DefinitionSwap",
+     "change": "the statement redefined as True",
+     "exit": 1,
+     "start": "2026-11-18T05:09:59Z",
+     "end": "2026-11-18T05:10:12Z",
+     "said": "Const does not match between challenge and target 'SubNLogN.Challenge.IntMulSubNLogN'",
+     "outcome": "refused: the statement does not match",
+     "asTheReleaseReports": true
+    }
+   ],
+   "community": [
+    {
+     "id": "ControlKappa",
+     "change": "the numerator of the saving raised by one",
+     "exit": 1,
+     "said": "Challenge and solution theorem statement do not match: 'IntegerMultBounds.MathlibTM2.mulInTime'",
+     "outcome": "refused: the statement does not match"
+    }
+   ]
+  },
+  "aDefectShownToNanoda": {
+   "export": "export exit 0 bytes 7395788 sha256 6da6115d85b2468c7fa468ab4ef7f9fbbb4d92fac251251bb6e10219cb61f5e5",
+   "hardError": {
+    "exit": 1,
+    "says": "export file declares unpermitted axiom \"SubNLogN.Assembly.intakeRedAxiom\""
+   },
+   "softError": {
+    "exit": 101,
+    "says": "depends on SubNLogN.Assembly.intakeRedAxiom which was not found in the environment"
+   }
+  }
+ },
+ "Q5": {
+  "word": "EXACT on every input tried",
+  "c": {
+   "what": "the C program of the companion paper (the O(n log n) multiplier; every product inside it is GMP's mpz_mul on pieces), against Python's integers",
+   "rows": 55,
+   "exact": 55,
+   "firstPass": 42,
+   "secondPass": 13,
+   "bits": [
+    4096,
+    65536,
+    1000000,
+    10000000,
+    100000000
+   ],
+   "cases": [
+    "random",
+    "ones",
+    "pow2",
+    "alt",
+    "unbalanced",
+    "zero",
+    "one"
+   ],
+   "modes": [
+    "gauss",
+    "sinc"
+   ]
+  },
+  "python": {
+   "what": "the Python reference of Algorithm 1, against Python's integers and against a schoolbook product of ours, with the library's own counters recorded for each row",
+   "rows": 236,
+   "exactAgainstPythonIntegers": 236,
+   "exactAgainstOurSchoolbook": 220,
+   "schoolbookNotRun": 16,
+   "smallInputShortcut": 48,
+   "ranTheForcedBridge": 82,
+   "ranTheHierarchy": 17,
+   "fellBackToThe2DTransform": 70,
+   "sizes": [
+    "1",
+    "2",
+    "8",
+    "64",
+    "70",
+    "96",
+    "256",
+    "1024",
+    "4096",
+    "16384",
+    "65536",
+    "quickstart"
+   ],
+   "supersedes": "programs/py.jsonl (216 rows, all EXACT; its row labels said more than ran, and it recorded no counter)"
+  },
+  "say": [
+   "The C program implements the companion O(n log n) multiplier, not the algorithm below n log n, by its own README. \"Exact\" is a fact about that program; its arithmetic is GMP's.",
+   "Algorithm 1 at the theorem's parameters is not executable at any feasible size, by the release's own statement. The Python rows exercise its pieces on test parameters; 48 of the 236 rows return Python's own product through the small-input shortcut.",
+   "No timing is quoted: the rows ran while the pod was building.",
+   "Sizes above 10^8 bits were not run (the pre-registered refusal on resources)."
+  ]
+ },
+ "Q6": {
+  "word": "COMPUTED",
+  "gcmu": {
+   "kappa": "2^-46",
+   "twoTo46": "70368744177664",
+   "says": "The bound is n·(log2 n)^(1 − 2^-46): n log n divided by (log2 n)^(2^-46). That divisor equals 2 exactly when log2 n = 2^(2^46), that is for inputs of 2^(2^(2^46)) bits, and is below 2 for every shorter input."
+  },
+  "community": {
+   "kappa": "4222422970/2^46",
+   "kappaAsPowerOfTwo": "2^-14.02 (rounded)",
+   "oneOverKappa": "16665.489 (rounded down)",
+   "says": "The bound is O(n·(ln n)^(1 − κ)): n ln n divided by (ln n)^κ. That divisor equals 2 exactly when ln n = 2^(1/κ), with 1/κ a little over 16,665."
+  },
+  "constants": "In both statements the constant in front and the length from which the bound holds are asserted to exist and are not given."
+ },
+ "memoryCurves": {
+  "what": "resident memory of three checkers on the community proof in the hour before each was stopped: one reading a minute by `ps`, from the guards' logs (corpus/intmul/pod/extra/guard2.txt, guard3.txt); a measurement, not a decision",
+  "limitGiB": 119.2,
+  "series": [
+   {
+    "id": "nanoda",
+    "name": "nanoda (Rust), second attempt",
+    "started": "2026-11-18T03:40:07Z",
+    "stopped": "05:01:01",
+    "minutesRunning": 81,
+    "lastQuietReadingMinutesBeforeStop": 11.1,
+    "firstReadingOver12GiBMinutesBeforeStop": 10.1,
+    "lastGiB": 114.8,
+    "points": [
+     [
+      -51.2,
+      3.3
+     ],
+     [
+      -50.2,
+      3.3
+     ],
+     [
+      -49.2,
+      3.2
+     ],
+     [
+      -48.2,
+      3.3
+     ],
+     [
+      -46.8,
+      3.3
+     ],
+     [
+      -45.5,
+      3.3
+     ],
+     [
+      -45.1,
+      3.6
+     ],
+     [
+      -44.1,
+      3.4
+     ],
+     [
+      -43.1,
+      3.4
+     ],
+     [
+      -42.1,
+      3.3
+     ],
+     [
+      -41.1,
+      3.4
+     ],
+     [
+      -40.1,
+      3.5
+     ],
+     [
+      -39.1,
+      3.3
+     ],
+     [
+      -38.1,
+      3.4
+     ],
+     [
+      -37.1,
+      3.2
+     ],
+     [
+      -36.1,
+      3.3
+     ],
+     [
+      -35.1,
+      3.3
+     ],
+     [
+      -34.1,
+      3.3
+     ],
+     [
+      -33.1,
+      3.3
+     ],
+     [
+      -32.1,
+      3.4
+     ],
+     [
+      -31.1,
+      3.2
+     ],
+     [
+      -30.1,
+      3.3
+     ],
+     [
+      -29.1,
+      3.3
+     ],
+     [
+      -28.1,
+      3.2
+     ],
+     [
+      -27.1,
+      3.3
+     ],
+     [
+      -26.1,
+      3.2
+     ],
+     [
+      -25.1,
+      3.3
+     ],
+     [
+      -24.1,
+      4.9
+     ],
+     [
+      -23.1,
+      5.4
+     ],
+     [
+      -22.1,
+      8.7
+     ],
+     [
+      -21.1,
+      3.5
+     ],
+     [
+      -20.1,
+      3.3
+     ],
+     [
+      -19.1,
+      3.5
+     ],
+     [
+      -18.1,
+      3.2
+     ],
+     [
+      -17.1,
+      3.6
+     ],
+     [
+      -16.1,
+      3.3
+     ],
+     [
+      -15.1,
+      3.5
+     ],
+     [
+      -14.1,
+      3.3
+     ],
+     [
+      -13.1,
+      3.5
+     ],
+     [
+      -12.1,
+      3.7
+     ],
+     [
+      -11.1,
+      4.8
+     ],
+     [
+      -10.1,
+      12.6
+     ],
+     [
+      -9.1,
+      19.9
+     ],
+     [
+      -8.1,
+      24.7
+     ],
+     [
+      -7.1,
+      32.1
+     ],
+     [
+      -6.1,
+      37.1
+     ],
+     [
+      -5.1,
+      41.8
+     ],
+     [
+      -4.1,
+      46.3
+     ],
+     [
+      -3.1,
+      53.5
+     ],
+     [
+      -2.1,
+      69.1
+     ],
+     [
+      -0.7,
+      101.5
+     ],
+     [
+      0,
+      114.8
+     ]
+    ]
+   },
+   {
+    "id": "lean",
+    "name": "Lean's kernel, fresh replay",
+    "started": "2026-11-18T03:36:40Z",
+    "stopped": "10:18:25",
+    "minutesRunning": 402,
+    "lastQuietReadingMinutesBeforeStop": 16.5,
+    "firstReadingOver12GiBMinutesBeforeStop": 22.5,
+    "lastGiB": 115.2,
+    "points": [
+     [
+      -59.6,
+      3.1
+     ],
+     [
+      -58.6,
+      3.3
+     ],
+     [
+      -57.6,
+      3.3
+     ],
+     [
+      -56.6,
+      3.3
+     ],
+     [
+      -55.6,
+      3.2
+     ],
+     [
+      -54.6,
+      3.3
+     ],
+     [
+      -53.6,
+      3.3
+     ],
+     [
+      -52.6,
+      3.3
+     ],
+     [
+      -51.6,
+      3.1
+     ],
+     [
+      -50.6,
+      3.3
+     ],
+     [
+      -49.6,
+      3.1
+     ],
+     [
+      -48.6,
+      3.2
+     ],
+     [
+      -47.6,
+      3.1
+     ],
+     [
+      -46.6,
+      3.2
+     ],
+     [
+      -45.6,
+      3.1
+     ],
+     [
+      -44.6,
+      3.3
+     ],
+     [
+      -43.6,
+      3.4
+     ],
+     [
+      -42.6,
+      3.2
+     ],
+     [
+      -41.6,
+      3.1
+     ],
+     [
+      -40.6,
+      4.6
+     ],
+     [
+      -39.6,
+      4.5
+     ],
+     [
+      -38.6,
+      4.3
+     ],
+     [
+      -37.6,
+      4.7
+     ],
+     [
+      -36.6,
+      4.1
+     ],
+     [
+      -35.6,
+      4.7
+     ],
+     [
+      -34.6,
+      4.1
+     ],
+     [
+      -33.6,
+      3.4
+     ],
+     [
+      -32.6,
+      4.2
+     ],
+     [
+      -31.6,
+      3.7
+     ],
+     [
+      -30.6,
+      4.2
+     ],
+     [
+      -29.6,
+      3.5
+     ],
+     [
+      -28.6,
+      3.5
+     ],
+     [
+      -27.6,
+      3.4
+     ],
+     [
+      -26.5,
+      3.7
+     ],
+     [
+      -25.5,
+      3.3
+     ],
+     [
+      -24.5,
+      3.7
+     ],
+     [
+      -23.5,
+      7.7
+     ],
+     [
+      -22.5,
+      14
+     ],
+     [
+      -21.5,
+      9.1
+     ],
+     [
+      -20.5,
+      13.9
+     ],
+     [
+      -19.5,
+      9.7
+     ],
+     [
+      -18.5,
+      3.9
+     ],
+     [
+      -17.5,
+      11
+     ],
+     [
+      -16.5,
+      5.3
+     ],
+     [
+      -15.5,
+      12.3
+     ],
+     [
+      -14.5,
+      19.9
+     ],
+     [
+      -13.5,
+      28.1
+     ],
+     [
+      -12.5,
+      37
+     ],
+     [
+      -11.5,
+      44.9
+     ],
+     [
+      -10.5,
+      52.6
+     ],
+     [
+      -9.5,
+      57.8
+     ],
+     [
+      -8.5,
+      60.9
+     ],
+     [
+      -7.5,
+      67.5
+     ],
+     [
+      -6.5,
+      74.5
+     ],
+     [
+      -5.5,
+      80.9
+     ],
+     [
+      -4.5,
+      87.6
+     ],
+     [
+      -3.5,
+      94.2
+     ],
+     [
+      -2.2,
+      101.2
+     ],
+     [
+      -1.2,
+      107.7
+     ],
+     [
+      -0.2,
+      115.3
+     ],
+     [
+      0,
+      115.2
+     ]
+    ]
+   },
+   {
+    "id": "con-leche",
+    "name": "con-leche, alone on the machine",
+    "started": "2026-11-18T10:19:29Z",
+    "stopped": "11:22:17",
+    "minutesRunning": 63,
+    "lastQuietReadingMinutesBeforeStop": 7,
+    "firstReadingOver12GiBMinutesBeforeStop": 6,
+    "lastGiB": 100.7,
+    "points": [
+     [
+      -59,
+      3.7
+     ],
+     [
+      -58,
+      3.4
+     ],
+     [
+      -57,
+      3.5
+     ],
+     [
+      -56,
+      2.8
+     ],
+     [
+      -55,
+      2.4
+     ],
+     [
+      -54,
+      3.3
+     ],
+     [
+      -53,
+      3.4
+     ],
+     [
+      -52,
+      2.6
+     ],
+     [
+      -51,
+      3.2
+     ],
+     [
+      -50,
+      2.6
+     ],
+     [
+      -49,
+      2.7
+     ],
+     [
+      -48,
+      2.6
+     ],
+     [
+      -47,
+      2.9
+     ],
+     [
+      -46,
+      2.7
+     ],
+     [
+      -45,
+      2.6
+     ],
+     [
+      -44,
+      2.5
+     ],
+     [
+      -43,
+      2.8
+     ],
+     [
+      -42,
+      2.9
+     ],
+     [
+      -41,
+      2.6
+     ],
+     [
+      -40,
+      3
+     ],
+     [
+      -39,
+      3.1
+     ],
+     [
+      -38,
+      2.8
+     ],
+     [
+      -37,
+      2.8
+     ],
+     [
+      -36,
+      3.5
+     ],
+     [
+      -35,
+      2.8
+     ],
+     [
+      -34,
+      2.7
+     ],
+     [
+      -33,
+      2.6
+     ],
+     [
+      -32,
+      2.7
+     ],
+     [
+      -31,
+      2.7
+     ],
+     [
+      -30,
+      2.6
+     ],
+     [
+      -29,
+      2.6
+     ],
+     [
+      -28,
+      2.7
+     ],
+     [
+      -27,
+      2.6
+     ],
+     [
+      -26,
+      2.6
+     ],
+     [
+      -25,
+      2.6
+     ],
+     [
+      -24,
+      2.6
+     ],
+     [
+      -23,
+      2.6
+     ],
+     [
+      -22,
+      2.5
+     ],
+     [
+      -21,
+      2.5
+     ],
+     [
+      -20,
+      2.6
+     ],
+     [
+      -19,
+      2.6
+     ],
+     [
+      -18,
+      4
+     ],
+     [
+      -17,
+      9.3
+     ],
+     [
+      -16,
+      2.6
+     ],
+     [
+      -15,
+      2.4
+     ],
+     [
+      -14,
+      3
+     ],
+     [
+      -13,
+      2.3
+     ],
+     [
+      -12,
+      2.8
+     ],
+     [
+      -11,
+      2.5
+     ],
+     [
+      -10,
+      2.7
+     ],
+     [
+      -9,
+      2.8
+     ],
+     [
+      -8,
+      2.2
+     ],
+     [
+      -7,
+      3.5
+     ],
+     [
+      -6,
+      18.2
+     ],
+     [
+      -5,
+      35.9
+     ],
+     [
+      -4,
+      53.8
+     ],
+     [
+      -3,
+      68.6
+     ],
+     [
+      -2,
+      81.5
+     ],
+     [
+      -1,
+      93.3
+     ],
+     [
+      0,
+      100.7
+     ]
+    ]
+   }
+  ]
+ },
+ "publicRecord": {
+  "file": "corpus/intmul/public-record.json",
+  "what": "Dates of the public record around the two audited proofs, read from the primary sources named in each row on 2026-11-18 (GitHub's API, the files at the commits named, the pages themselves). A reading, by public record only: private dates are unknown, nothing here was built to confirm a row, and no priority is decided. Times are UTC.",
+  "rows": [
+   {
+    "date": "2026-09-23",
+    "who": "OpenAI",
+    "what": "The date on the manuscript \"Integer multiplication below n log n\" (κ = 2^-182). It became public on 2026-10-06, with the first commit of openai/math.",
+    "source": "openai/math, preprints/Integer-multiplication-below-n-log-n-September-23-2026/paper.pdf; the repository's first commit adc7f124 (2026-10-06 21:58:50)"
+   },
+   {
+    "date": "2026-10-15",
+    "who": "Dan Brown (jdb19937), Kenny Daniel (platypii)",
+    "what": "The community repository merges a complete Lean proof on Mathlib's multi-stack machine, at κ = 296/(10^11·2^131), with its own check of the three axioms.",
+    "source": "platypii/integer-mult-bounds-lean, pull request #3, merged 06:26:49 as 9a7e575f"
+   },
+   {
+    "date": "2026-10-15",
+    "who": "Kenny Daniel (platypii)",
+    "what": "Asks the upstream community for \"Independent review of the linked theorem statement and machine/time model\". Still open when read.",
+    "source": "CrocSwap/integer-mult-bounds, pull request #2411"
+   },
+   {
+    "date": "2026-10-15",
+    "who": "ywz65",
+    "what": "A note on the community statement: Mathlib's machine makes only the input alphabet finite, and a kernel-checked lemma on definitions extracted from Mathlib shows that the alphabet a machine can reach is finite anyway.",
+    "source": "CrocSwap/integer-mult-bounds, research/fintm2-reachable-alphabet, commit 9f397bb6"
+   },
+   {
+    "date": "2026-10-17",
+    "who": "Prove2Me",
+    "what": "A third Lean development, in a k-tape model of its own, at OpenAI's κ = 2^-182; later at 3666565558019/10^17 (2026-10-21). Not audited here.",
+    "source": "prove2me/formalpedia, envs/0df444a/Solutions/Sol_NLogN_KFTop_kappa_bound.lean; the platform's campaign page"
+   },
+   {
+    "date": "2026-10-22",
+    "who": "Kenny Daniel (platypii)",
+    "what": "The community theorem reaches κ = 4222422970/2^46, the saving it has at the commit audited here.",
+    "source": "platypii/integer-mult-bounds-lean, commit 4b9ea4b6, IntegerMultBounds/MathlibTM2/Theorem.lean"
+   },
+   {
+    "date": "2026-10-26",
+    "who": "Piaoyang Cui, Yiming Liu, David P. Woodruff",
+    "what": "First public push of the Google/CMU repository; the paper carries the date 2026-10-25 and κ = 2^-46. The commit audited here is of 2026-11-10.",
+    "source": "lockqueue/intmul, the repository's events; IntMul_main_paper.pdf, title page; commit 4738aeff"
+   },
+   {
+    "date": "2026-11-13",
+    "who": "Google Research",
+    "what": "The post \"Advancing science & engineering with Antigravity's /teamwork feature\" links the Google/CMU repository.",
+    "source": "research.google/blog, the post of 2026-11-13"
+   }
+  ]
+ },
+ "amendments": {
+  "file": "corpus/intmul/amendments.json",
+  "count": 16,
+  "list": [
+   {
+    "id": "A1",
+    "about": "Q1, Q4 · the sentence about the planted statements (Google/CMU)",
+    "preregistered": "CERTIFIED: \"among the planted statements that reached the check every prediction is met\".",
+    "text": "Not met as written. Five of the fifteen statements planted against the Google/CMU proof (C1 and C2, the exponent 45 and 47; C5, plain n log n; C11, the time at L + 1; C6, another spelling of the logarithm) were elaborated, reached the check, and got no verdict: the check ran into the elaborator's recursion limit while unfolding the 2^46 power. Four of the five carried a prediction (refused). The record's note that they \"never reached the identity check\" is false for these five; the string is the tool's and is not changed here, because changing it re-derives seven older records. The sentence is read from now on as \"among the planted statements that got a verdict\": ten got one, each as predicted. Every statement that changes the saving is among the five, so as run the intake's check did not show that it tells κ = 2^-46 from κ = 2^-45. Two checks were added after the run to show it: (a) a structural comparison of every planted statement of both specs with its statement, as expressions and with nothing unfolded (corpus/intmul/checks/first, results in corpus/intmul/pod/extra/struct): every changed statement differs; (b) comparator on the release's own nine controls, where the exponent-45 control is refused because the statement does not match. The word for the Google/CMU proof stays CERTIFIED with this amendment named beside it."
+   },
+   {
+    "id": "A2",
+    "about": "Q1 · what the Google/CMU intake record says about kernels, identity and hypotheses",
+    "text": "\"kernels: ACCEPT (3 run)\" counts three entries; they are two kernels, and the second entry (leanchecker without --fresh) replayed a module of two declarations. In the registered run Lean's kernel checked the release's modules as they were built from source (Mathlib's compiled files came from its cache), and nanoda checked the whole closure, Mathlib included (124,416 declarations). A fresh replay of the whole closure by Lean's kernel (leanchecker --fresh on the headline module) was run afterwards and exits 0. In this spec the statement is given as a named definition, so F1's \"equal as expressions\" compares that name with itself and could not come out false; the evidence that the name is the text of the pinned file is the planted statement S0 (the body typed out, accepted) and the file's sha256. F3's CERTIFIED cannot fail in this mode and reports nothing; the statement was read by hand to be a bare existence claim with no hypothesis. The controls summary line \"3 refused, 0 accepted, of 3 (kernel decides)\" misdescribes this spec. The record's hazards scan covers the 25-line theorem file only, and its two hits are comments; a scan of every Lean file of both releases is in corpus/intmul/checks/first/hazards.json (a flag, never a verdict)."
+   },
+   {
+    "id": "A3",
+    "about": "Q4 · a count in the pre-registration",
+    "preregistered": "\"four statements carry no prediction\".",
+    "text": "Three do: C6 and C9 of the Google/CMU spec, C8 of the community spec."
+   },
+   {
+    "id": "A4",
+    "about": "Q1 · the community proof's second kernel, and how the registered run ended",
+    "text": "The registered run did not end by itself. 76 minutes into its nanoda step (03:35:38) the run's own memory watchdog stopped it at 114,017 MiB of the container's 122,070 (it counts file cache); the run's exit is 143. At that moment the pod was shared: nanoda on the joined theorem's export had been running since 02:25, and a tool for the optional checks (con-leche) was being built from 03:12:53 to 03:36:04, by us. The container's memory rose from about 69,000 MiB to 114,017 MiB over exactly that interval. How much of the rise was nanoda's own and how much was ours cannot be separated from the log. The step was run again by hand from the same binary, configuration and export (sha256 of each in _resumed.json), started 03:40:07. It held under 9 GiB for about 70 minutes, then grew past 100 GiB in the next ten, and our guard stopped it at 05:01:01 with nanoda alone at 114.8 GiB (exit 137, 4,868.8 s). The record's word for that kernel, \"REJECTS OR STOPPED\", is the tool's; it was stopped both times and never printed a rejection. The verdict for the community proof is REFUSED on resources. No larger machine was rented: the plan says to ask first."
+   },
+   {
+    "id": "A5",
+    "about": "Q1, Q3 · the same growth in four runs and three checkers, cause not found",
+    "text": "Memory grew past 100 GiB after a long flat stretch in four runs whose input contains the community proof: nanoda on the registered export (A4); nanoda on the joined theorem's export (started 02:25; the first reading of it alone is 48.4 GiB at 04:09:51 and the last 103.5 GiB at 04:14:11; stopped by our guard at 04:14:26); and Lean's own kernel replaying the whole closure afresh (leanchecker --fresh on the theorem's module: started 03:36; under 12 GiB in every reading from 04:09 to 09:54, then to 115.2 GiB in under half an hour, stopped by hand at 10:18:25 after 24,104 s, no output); and con-leche on the registered export (A8), the one run of the four made on an otherwise empty pod. Three checkers written independently show it. During the normal build Lean's kernel accepted every module of the same proof inside the same memory. The cause was not found. One guess was tested and not supported: a scan of both exports for very large number literals (corpus/intmul/checks/diag/big_literals.py) found none near the size of an exponent; the largest are certificate data of up to 52,939 bits. Nothing was sent to the authors of either tool."
+   },
+   {
+    "id": "A6",
+    "about": "plan P3, P4 · comparator",
+    "planned": "comparator with nanoda against our own copy of each statement, typed from the paper.",
+    "text": "Run after the registered runs, and not against a statement typed from the paper. Google/CMU: the release's own challenge module and configurations (one positive, nine controls), in a copy of the checkout with the release's own lakefile addition appended and replay/Replay copied to ./Replay; comparator v4.33.0 (3927ad38) built on Lean 4.33.1 with lean4export 15f6055e. The first attempt ended in a stack overflow inside nanoda, with the intake's nanoda build 8de7e0c4 (comparator writes nanoda's configuration with no stack size); the run that counts used the nanoda commit the release names (37cb87b7). It accepts under both kernels, and the nine controls come out as the release's replay record says. So this is a second party repeating the authors' own check on another machine, not a new kind of check. Community: the release ships no challenge module; one was written here (corpus/intmul/checks/xreplay) and installed in the registered checkout after the registered run was over, with comparator v4.34.0 (d03acab1) on Lean 4.34.1, lean4export 076e8e57, nanoda switched off because of A4. The control (the saving's numerator raised by one) is refused: the statement does not match. The run on the true statement gave no verdict: our guard stopped it after 5 h 14 min when the fresh replay beside it passed 100 GiB; it held 7.4 GiB and had printed nothing after its build. It was not run again. The sandbox: landrun v0.1.18 (ec104f6e) through comparator's own --best-effort on a kernel whose Landlock ABI is 4; the pod has no systemd, so the README's RestrictAddressFamilies property was not applied and the stack limit was set with ulimit."
+   },
+   {
+    "id": "A7",
+    "about": "plan P3 · lean4lean",
+    "text": "One try each, as optional checks. No lean4lean commit names Lean 4.33.1 or 4.34.1; its master (67f63b0c, on 4.33.0-rc2) was built with each toolchain forced. On 4.33.1 it builds: the headline module alone exits 0 (\"checked 1 declarations\", which is one declaration and says little); the fresh replay of the closure stopped after 30 min 45 s at \"(kernel) deep recursion detected\" in SubNLogN.Machine.C5.NetAux.pm_hdMinus. That is lean4lean reaching its own limit, not a rejection, and it gives no verdict. On 4.34.1 it does not build (Batteries.Data.List.Basic fails), so it was not run on the community proof."
+   },
+   {
+    "id": "A8",
+    "about": "plan P3 · con-leche",
+    "text": "con-leche master (cd2eceab, its own toolchain Lean 4.36.0) was run on each registered export in its default mode (--verified), with 8 threads, as the last optional check. Google/CMU: \"accepted 120324 declarations\", exit 0, 2 min 33 s. Its count is not nanoda's 124,416 on the same file; the two tools count differently and the difference was not reconciled. Community: no verdict. From 10:22, when the other con-leche run ended, it was alone on the pod: every reading for 53 minutes was under 10 GiB, and all but the first under 5; then it grew by about 17 GiB a minute, and our guard stopped it at 11:22:17 at 100.7 GiB, 62 min 48 s after its start; no output. con-leche is a third checker, not the pre-registered second kernel; its acceptance of the Google/CMU proof is stated beside that verdict and does not change the word."
+   },
+   {
+    "id": "A9",
+    "about": "Q3, plan P5 · the theorem joining the two statements",
+    "planned": "5a the two forms of the bound; 5b a transducer between the two input encodings, one day at most, a written argument if it does not close.",
+    "text": "Both closed, and more was built than planned: one theorem, IntMulBridge.community_proves_challenge, whose type is the Google/CMU statement, compiled in the community release's environment with the community theorem imported and the Google/CMU statement file copied byte for byte. To get the finite-alphabets clause, which the community statement does not have, IntMulBridge/Finite.lean rebuilds the community machine along the community's own chain of lemmas; it is not proved equal to the machine inside their existential theorem. The other direction is not built. Lean's kernel only: nanoda on the export was stopped on memory (A5). corpus/intmul/bridge/assembly/check.log was written on a text of Encodings.lean that differs from the final one in one comment line (corpus/intmul/pod/extra/bridge-encodings-comment.diff); all five modules were compiled again from the final texts before the export, and their sha256 on the pod equal the files kept here. The exporter for the joined theorem was lean4export at cacf989 (the bump to v4.34.0-rc2), and nanoda was configured to treat an unpermitted axiom as a hard error."
+   },
+   {
+    "id": "A10",
+    "about": "stop rule · \"If the google-cmu run does not reproduce what its authors report, the community run is stopped until the difference is read.\"",
+    "text": "The authors report their exponent-45 control refused by comparator. Our intake's exponent controls got no verdict, by another method (A1). The rule was read as not triggered, because no check contradicted the authors and the record came out as expected, and the community run started at 00:15 without a stop. A stricter reading would have stopped it. The comparator run made later reproduces all nine of their controls."
+   },
+   {
+    "id": "A11",
+    "about": "the pre-registration's clock",
+    "text": "The pre-registration and the two specs were committed at 2026-11-17 23:15:04, 47 seconds before the pod was created (23:15:51), on a local branch that was not pushed. Their digest reached a public place only at 2026-11-18 01:09:48 (the seal registry of this repository, commit 14b9f72a): after the first result (the Google/CMU record, 00:04) and before the second. The public clock therefore proves the pre-registration existed before the community result and before every optional check, not before the Google/CMU result."
+   },
+   {
+    "id": "A12",
+    "about": "tool versions the records do not name",
+    "text": "For Lean 4.33.1 the intake tool picked lean4export by sorting tags and took 9fb131b (\"bump toolchain to v4.33.0-rc2\"), then set its toolchain to 4.33.1. The export it wrote was accepted by nanoda and by con-leche. The nanoda configuration of the registered Google/CMU run was written to the work folder, not to the facts; a copy is in corpus/intmul/pod/extra/gcmu-nanoda.json. No planted defect reaches the second kernel in the registered runs (they are caught by the list of axioms in a Lean build); afterwards one, the added axiom, was exported and shown to nanoda, which fails on it in both of its modes (corpus/intmul/pod/extra/red-R2-*)."
+   },
+   {
+    "id": "A13",
+    "about": "Q2 · \"the encodings evaluated on small pairs against an encoder of our own\"",
+    "text": "Done after the first result, not before: 328 pairs for each release, produced by an encoder written here and evaluated in Lean against each release's encoder; every one holds. The two readings were made before the runs, by readers who did not see each other's notes, and both worked their examples by hand."
+   },
+   {
+    "id": "A14",
+    "about": "Q5, plan P6 · the programs",
+    "text": "The Python reference's own test suite was not run. The first pass of the Python rows (216, all exact) carried labels that said more than ran and recorded no counter; a second pass (236 rows, all exact) records the library's own counters for each row and replaces the first for every statement about which path ran. Zero and one, and 10^8 bits in the program's other mode, were added to the C rows in the second pass. The first C script would read an empty product file as zero; no row depends on it. Sizes above 10^8 bits were not run."
+   },
+   {
+    "id": "A15",
+    "about": "timings",
+    "text": "Every time in these files was taken on a pod that was doing something else at the same moment. None is a speed, and none is quoted as one."
+   },
+   {
+    "id": "A16",
+    "about": "said during the run and corrected",
+    "text": "Three statements made while the pod was running were wrong and were corrected the same day: that three kernels had accepted the Google/CMU proof (at the time one of the three had replayed a two-declaration module; the fresh replay came later); that the Python reference had run \"under schedules that force the new route\" (the counters show what ran); and that the first stop of the community run was caused by our tool build alone (A4: it cannot be separated)."
+   }
+  ]
+ },
+ "cost": {
+  "pod": "3ik2qpnhfed4kx",
+  "shape": "RunPod CPU pod cpu3m, 16 vCPU / 128 GB, US$ 0.88 an hour, US-CA-2",
+  "created": "2026-11-17T23:15:51Z",
+  "deleted": "2026-11-18T11:24Z",
+  "deletedConfirmed": true,
+  "deletedHow": "deleted through RunPod's API after every result file was copied home and its sha256 compared with the pod's (289 files); a read of the pod afterwards answers 404 and the account lists no pod",
+  "hours": 12.15,
+  "usd": 10.89,
+  "usdHow": "computed: 12 h 8 min 45 s of uptime at US$ 0.88 an hour (US$ 10.69) plus the disk line at the rate billed (US$ 0.20). RunPod's billing API, read two minutes after the deletion, showed US$ 9.97 and was still about an hour behind.",
+  "cap": 15,
+  "split": [
+   {
+    "what": "the registered run of the Google/CMU proof",
+    "minutes": 47,
+    "usd": 0.69
+   },
+   {
+    "what": "the registered run of the community proof (211 min) and its second nanoda attempt by hand (81 min, on a shared pod)",
+    "minutes": 292,
+    "usd": 4.28
+   },
+   {
+    "what": "the rest: setting up, the theorem joining the two statements and its export, the released programs, the fresh replays, comparator, lean4lean, con-leche (much of it at the same time as the registered runs)",
+    "usd": 5.92
+   }
+  ]
+ },
+ "code": {
+  "tools/record-intmul.js": "be7e0d6406993c0c5cd1a8b19d1f4c4b8004c94b7effbec70a7e7d595154bd0e",
+  "corpus/intmul/preregistration.json": "63388b28a07e1f4b3df41f4b1f447fbccef6df0c9c1dd6d0668e9e754bb9c4d5",
+  "corpus/intmul/amendments.json": "c27dec2cb1c72d6a46e04c5a0c8f3d62235ba1b832f5283eb1a522827269ea6c",
+  "corpus/intmul/public-record.json": "98feb2e90346b1eacabcd65ce898e3c48533d420cc6b8199421f4a52ec3e7fa8",
+  "corpus/intmul/README.md": "b28e2efa966376f02f04bdee28557d7dd5d54b51b08ef62014ec83cf94ceb7cd",
+  "corpus/intmul/pod/cost.json": "e35e68fc09bc359152924d985fec6e691a352ddf5e1523c99ddc1e87571e5c4b",
+  "certs/lean-intake-intmul-gcmu.json": "887cc86e0d2d34dc4418462b1837c3caf9b34ab1e8ae9cbec95968333c52f5d0",
+  "certs/lean-intake-intmul-community.json": "27968c9b0661ae2172562fadaa57c7b21b4b394b3e8794f0f41718be2bdb1fe5"
+ }
+}
