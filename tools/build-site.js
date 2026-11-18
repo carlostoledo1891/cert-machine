@@ -416,6 +416,14 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')), g = P.Q1['google-cmu'], c = P.Q1.community;
       if (g.word !== 'CERTIFIED' || c.word !== 'REFUSED' || g.acceptedBy.length !== 3 || c.conLeche.word !== 'STOPPED') fail('the intmul card would misstate its record');
       return g.acceptedBy.length + ' checkers accept one proof · the other REFUSED on memory · ' + P.amendments.count + ' amendments declared'; })() },
+  /* one mean-field game given to two AI models (2026-11-18): the card's counts are read from the record and the card
+     refuses if a claim is refuted or the certified counts moved */
+  { g: 'ai', f: 'mfg-two-models.html', k: 'a mean-field game · two AI models, one certifier',
+    title: 'Two AI models on a mean-field game: claims decided, proofs read',
+    desc: 'GPT-6.2 Astra and Claude Fable 5.2 each received one identical message about a stationary mean-field game, answered once, and then read each other’s mathematics. Every list of solutions they submitted was decided as submitted: none refuted, five coexisting equilibria certified where three was the most known, and seven by a construction that follows from both answers. A proof that the equilibrium is unique was read and measured against the fold. It is not a comparison of the models. What stays open is said first.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mfg-two-models.json'), 'utf8')), S = P.summary;
+      if (S.astra.refuted !== 0 || S.fable.refuted !== 0 || S.astra.mostCertifiedAtOnce !== 5 || S.fable.mostCertifiedAtOnce !== 5 || S.session.mostCertifiedAtOnce !== 7) fail('the mfg-two-models card would misstate its record');
+      return (S.astra.certified + S.fable.certified) + ' of ' + (S.astra.claims + S.fable.claims) + ' lists certified · none refuted · ' + S.session.mostCertifiedAtOnce + ' equilibria at one parameter · ' + fmt(P.uniqueness.map.uniqueByTheArgument) + ' map cells under a uniqueness proof'; })() },
   /* the physics answer key (2026-11-17): the counts are read from the two records and the card refuses if either holds a
      REFUSED or says its two deciders disagree */
   { g: 'applied', f: 'physics-key.html', k: 'simulators · recorded runs decided exactly',
@@ -2098,7 +2106,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

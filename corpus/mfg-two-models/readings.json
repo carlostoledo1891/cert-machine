@@ -1,0 +1,58 @@
+{
+ "what": "What was read, by whom, and what each reading found. Written by hand on 2026-11-18 from the two models' replies and cross-reads; the record copies it and the page states nothing about a proof that is not here. A reading is a person or a model following a written proof line by line; it is not a formal check.",
+ "date": "2026-11-18",
+ "models": {
+  "astra": { "name": "GPT-6.2 Astra", "lab": "OpenAI" },
+  "fable": { "name": "Claude Fable 5.2", "lab": "Anthropic" }
+ },
+ "session": "Claude Fable 5.2, in the session that ran the checks and wrote this page",
+ "findings": [
+  { "id": "reduction", "statement": "With phi = sqrt(m) the game is the stationary equation -(1/2) phi'' + c phi^3 + A cos(2 pi x) phi = rho phi with int phi^2 = 1, and every real periodic solution with mean density one has a positive density.",
+    "from": ["astra", "fable"], "status": "PROOF READ", "readers": ["session", "astra on fable's version", "fable on astra's version"], "found": "holds", "prior": "known (Cirant 2016, Lemma 4.1)" },
+  { "id": "count-unforced", "statement": "At A = 0 the number of even equilibria is exactly 1 + 2 #{j >= 1 : pi^2 j^2 < -c}; the non-constant ones are dn elliptic profiles with 4 j^2 K E = -c.",
+    "from": ["astra", "fable"], "status": "PROOF READ", "readers": ["session", "astra on fable's proof", "fable on astra's proof"], "found": "holds", "prior": "the ingredients are classical (Carr, Clark, Reinhardt 2000; Kanamoto, Saito, Ueda 2003); the count stated for this game was not found" },
+  { "id": "five", "statement": "Five equilibria coexist near c = -90 for A > 0.",
+    "from": ["astra", "fable"], "status": "CERTIFIED", "readers": [], "found": "decided by the certifier", "prior": "not found" },
+  { "id": "seven", "statement": "Seven equilibria coexist at c = -360, for A = 0 and for A = 0.1.",
+    "from": ["session"], "status": "CERTIFIED", "readers": [], "found": "decided by the certifier; the candidates were built in this session from the count at A = 0", "prior": "not found" },
+  { "id": "unique-rectangle", "statement": "There is exactly one equilibrium, even or not, for c in [-7, 0] and A in [0, 6/5].",
+    "from": ["astra"], "status": "PROOF READ", "readers": ["session", "fable"], "found": "holds; the final bound recomputed three times (14.18 against the 14 needed)", "prior": "not found; Cirant 2016 calls uniqueness with a potential open in general",
+    "limit": "both readers are Claude Fable 5.2, and the second knew the first reading's result" },
+  { "id": "unique-strip", "statement": "The equilibrium is unique when |c| exp(3|c| + 3A/pi) < pi^2, for every A.",
+    "from": ["fable"], "status": "PROOF READ", "readers": ["session", "astra"], "found": "the uniqueness holds; astra found that existence was asserted and not proved, and supplied the proof; astra found one table entry rounded the wrong way (0.6098 printed for 0.60975); astra widened the condition to |c| exp(2|c| + 2A/pi) < pi^2",
+    "missedByTheFirstReading": "the session had read this proof and reported no error; it did not notice the missing existence step or the rounding" },
+  { "id": "fold-first", "statement": "The first fold is at A = (4/3) sqrt(2/(3 pi^2)) d^(3/2) (1 + d/(16 pi^2) + ...), d = -c - pi^2.",
+    "from": ["astra", "fable"], "status": "PROOF READ", "readers": ["fable on astra's proof"], "found": "holds; the two models' leading terms are algebraically the same; a search reproduces fable's table to five decimals", "prior": "not searched" },
+  { "id": "three-near-fold", "statement": "Three equilibria right next to the first fold, in cells the published map left undecided.",
+    "from": ["astra", "fable"], "status": "CERTIFIED", "readers": [], "found": "decided by the certifier" },
+  { "id": "persistence", "statement": "The count at A = 0 persists for small A near every coupling that is not a threshold; at least five equilibria on c in [-91, -90], A up to 2^-41, proved analytically.",
+    "from": ["astra"], "status": "PROOF READ", "readers": ["fable"], "found": "holds; all 26 inequalities of the box proof recomputed", "limit": "one reader" },
+  { "id": "folds-higher", "statement": "The second and third folds leave -4 pi^2 and -9 pi^2 like 0.13341 A^(4/3) and 0.0054024 A^2.",
+    "from": ["astra"], "status": "SUPPORTED", "readers": [], "found": "fable's independent table gives 0.005402 for the third and a value falling toward 0.1334 for the second; the proof has had no reader but its author" },
+  { "id": "count-forced", "statement": "For every A >= 0 the number of even equilibria is 1 + 2 #{j : c < c_j(A)}.",
+    "from": ["fable"], "status": "FALSE AS STATED", "readers": ["astra"], "found": "astra's counterexample is on the fold itself: at A = 0, c = -pi^2 the equilibrium is unique, and for small A > 0 there are two equilibria on the first fold where the formula counts one; away from the folds the statement is open",
+    "missedByTheFirstReading": "the session had listed this conjecture as open" },
+  { "id": "evenness", "statement": "There is no equilibrium that is not even, for A > 0.",
+    "from": ["fable"], "status": "OPEN", "readers": [], "found": "neither model's search found one; astra proves it for small A when -c < 4 pi^2, and that proof has had no reader but its author" }
+ ],
+ "conditions": [
+  "Both models worked inside this repository, with the certifier at hand.",
+  "Claude Fable 5.2 checked every candidate with the certifier before submitting, and said so.",
+  "Claude Fable 5.2's chat had this project's notes in memory, and said so.",
+  "A folder made twenty minutes before GPT-6.2 Astra's answer holds a script that runs the certifier; its report says no certificate was run; which chat made the folder is not known.",
+  "During the cross-read both chats could see the working folder of this experiment.",
+  "The session that ran the checks is the same model as one of the two."
+ ],
+ "notDone": [
+  "No reader outside the Claude family has read GPT-6.2 Astra's proofs.",
+  "What GPT-6.2 Astra added in the cross-read (a closed-form uniqueness region, the exponents of the higher folds, evenness for small A) has had no reader but its author.",
+  "Neither model's code was run here.",
+  "The fold values are floating point; nothing certifies a fold.",
+  "The prior literature was searched briefly, not surveyed."
+ ],
+ "priorWork": [
+  { "who": "M. Cirant", "what": "Stationary focusing Mean Field Games", "year": 2016, "url": "https://arxiv.org/abs/1602.04231", "says": "the Schrödinger form of the quadratic game (Lemma 4.1); with a potential, uniqueness of the normalised solution is 'in general an open problem'" },
+  { "who": "L. D. Carr, C. W. Clark, W. P. Reinhardt", "what": "Stationary solutions of the one-dimensional nonlinear Schrödinger equation. II. Case of attractive nonlinearity", "year": 2000, "url": "https://arxiv.org/abs/cond-mat/9911178", "says": "all stationary solutions under periodic conditions, the dn profiles among them" },
+  { "who": "R. Kanamoto, H. Saito, M. Ueda", "what": "Quantum phase transition in one-dimensional Bose-Einstein condensates with attractive interactions", "year": 2003, "url": "https://arxiv.org/abs/cond-mat/0210229", "says": "the uniform state stops being the ground state at the coupling that is c = -pi^2 here" }
+ ]
+}

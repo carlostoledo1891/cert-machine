@@ -245,6 +245,7 @@ test:
 	@printf "%-30s " "Lean intake: intmul (Google/CMU)"; $(NODE) tools/lean-intake.js record intmul-gcmu --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "Lean intake: intmul (community)"; $(NODE) tools/lean-intake.js record intmul-community --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "integer multiplication, audited"; $(NODE) tools/record-intmul.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "a mean-field game, two AI models"; $(NODE) tools/record-mfg-two-models.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "textbook machine (the counts)"; $(NODE) playground/textbook-machine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -441,6 +442,7 @@ reports:
 	@$(NODE) tools/build-report-prime-gap-premises.js
 	@$(NODE) tools/build-report-physics-key.js
 	@$(NODE) tools/build-report-intmul.js
+	@$(NODE) tools/build-report-mfg-two-models.js
 	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js

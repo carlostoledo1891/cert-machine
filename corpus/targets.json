@@ -1568,6 +1568,15 @@
    "scouted": "2026-11-17",
    "verdict": "UNSCOUTED beyond the headline — each was read only in secondary coverage; none has a located artifact that an exact decider could take. Listed so the next scout does not start from zero.",
    "finding": "Source of the leads: a public daily digest (diclogic/ai-daily-digest, issues 208 to 215), itself secondary and unable to reach arXiv; every item above needs its primary page read before it is repeated."
+  },
+  {
+   "id": "mfg-two-models-2026-11",
+   "name": "One stationary quadratic mean-field game given to two AI models (GPT-6.2 Astra, Claude Fable 5.2): each answers one identical message, then reads the other’s mathematics; this repository decides what they submit",
+   "scouted": "2026-11-18",
+   "verdict": "BUILT 2026-11-18 on the branch mfg-two-models (certs/mfg-two-models.json, /reports/mfg-two-models.html, tools/record-mfg-two-models.js --check); not merged",
+   "finding": "Nothing either model claimed was refuted. Five coexisting equilibria certified from each model’s own numbers near c = -90 (three was the most known), seven at c = -360 from candidates built here on the count both models proved at A = 0. GPT-6.2 Astra’s uniqueness proof (c in [-7, 0], A in [0, 6/5]) read line by line by two readers of one model family; its last inequality, decided per rectangle in exact arithmetic, covers 1,786 of the map’s 8,086 undecided cells. A plain random-restart search, pointed at the same parameters, finds the same equilibria: the finding is where to look.",
+   "measured": "Before the run a plain search certified three equilibria at the midpoint of every sampled reason-1 undecided cell of the published map and turned 57 of 60 into MULTIPLE; the map’s own seeding misses that third solution.",
+   "note": "Prior work, from a short search: the Schrödinger form of the game (Cirant 2016) and the dn solutions on a ring with their first threshold (Carr, Clark, Reinhardt 2000; Kanamoto, Saito, Ueda 2003) are known; no uniqueness result with a potential was found. NOT a comparison of the models: both worked inside this repository with the certifier at hand, and the checking session is the same model as one of them. No reader outside the Claude family has read Astra’s proofs. Later: the published map updated with these cells; nine equilibria near c = -810 by the same rescaling; uniqueness between the argument’s curve and the fold."
   }
  ]
 }

@@ -1,0 +1,1636 @@
+{
+ "what": "two models on the stationary quadratic mean-field game: their candidate equilibria decided as submitted, one uniqueness argument decided per rectangle, and who read which proof",
+ "game": "-sigma u'' + (1/2)(u')^2 + rho = c m + A cos(2 pi x), -sigma m'' - (m u')' = 0, int m = 1, int u = 0, m > 0, sigma = 1/2, even solutions on R/Z",
+ "date": "2026-11-18",
+ "nu": 1.02,
+ "pins": {
+  "corpus/mfg-two-models/message.md": "77dbbd9bb2381ad451739a00ce50549e455d17bb16e1d9b06104327d4fc71879",
+  "corpus/mfg-two-models/cross-read-instruction.md": "82c8132f8a36e9c52356fd99008c38ad910eda8ea6a74090dfd19dee7037c240",
+  "corpus/mfg-two-models/astra-claims.json": "7fdd4f6f0038ea5564664713233dacd86668dc35a77ceb3d733f29bce9c033a2",
+  "corpus/mfg-two-models/fable-claims.json": "7696f4aa1e9011b0090751a8c5464013b4cc39d27b614e9a92bae75ac2718316",
+  "corpus/mfg-two-models/control-room-seven-claims.json": "5546815f602294935b05661e8278585ede476d1a7afcf93a5380531363a5f7fa",
+  "corpus/mfg-two-models/astra-report.tex": "8273745f4c71eefe4b97a65574c9110309527f14c7f55bfb2308b0cc0702d355",
+  "corpus/mfg-two-models/astra-cross-read.txt": "a288fcac1844b038d21355937edd33cd0b870c972c51461e6142bbfa1a12ac61",
+  "corpus/mfg-two-models/fable-proofs.md": "08ad02896cc446d227aa9514e721ba14157eb612dc74bb7a689ddcbe8a1256b7",
+  "corpus/mfg-two-models/fable-folds.csv": "c2c41cef9c2990ae910cdb352c481621e9d47c136aa50af96b1b8a97e1536d74",
+  "corpus/mfg-two-models/readings.json": "df636304dbc1d4d574a669a64d15c8d8ad994624f42ebd3e7d658cdb5395297b",
+  "labs/mfg/box.js": "bfa91bd5f5f828cfa628d2d4e40de39d44bcc1562cd25267d06c9d7ad8738a1d",
+  "labs/mfg/uniqueness.py": "fda04028933637cf6dcd2036ad996124df3f408f8e593f66e46ad964c49e08a0",
+  "legacy/core/mfg/validate.js": "6c56cf734acc8fb40367a1221a652a0980c833d0d2893e02fe9ecfa54452f0b0",
+  "legacy/core/mfg/mfg1d.js": "da026d0638b75e6ab7dbf574387381fbcdee65ecb13277e0935b14e2b81c82a1",
+  "legacy/core/interval/interval.js": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5",
+  "certs/mfg-regime-map.json": "b7be37240282fd24672dacb5a0665c89f34fa2b7f53c957f9c0cfab74c113f87"
+ },
+ "sample": {
+  "astra": [
+   "near-first-fold"
+  ],
+  "fable": [
+   "three_nearfold_A05",
+   "three_nearfold_A12"
+  ]
+ },
+ "positivity": "word: positivity from the zero-flux lemma (an enclosed solution is real, periodic and has mean density one). wordWithTheGridBound: the certifier's own grid bound as well.",
+ "models": {
+  "astra": {
+   "name": "GPT-6.2 Astra",
+   "lab": "OpenAI"
+  },
+  "fable": {
+   "name": "Claude Fable 5.2",
+   "lab": "Anthropic"
+  }
+ },
+ "session": "Claude Fable 5.2, in the session that ran the checks and wrote this page",
+ "summary": {
+  "astra": {
+   "claims": 6,
+   "certified": 4,
+   "certifiedWithTheGridBound": 2,
+   "refused": 2,
+   "refuted": 0,
+   "mostCertifiedAtOnce": 5
+  },
+  "fable": {
+   "claims": 13,
+   "certified": 13,
+   "certifiedWithTheGridBound": 12,
+   "refused": 0,
+   "refuted": 0,
+   "mostCertifiedAtOnce": 5
+  },
+  "session": {
+   "claims": 2,
+   "certified": 2,
+   "certifiedWithTheGridBound": 2,
+   "refused": 0,
+   "refuted": 0,
+   "mostCertifiedAtOnce": 7
+  }
+ },
+ "claims": {
+  "astra": [
+   {
+    "id": "forced-five-box",
+    "c": [
+     -90.00003051757812,
+     -89.99996948242188
+    ],
+    "A": [
+     0.4999980926513672,
+     0.5000019073486328
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.00018614291745329574,
+    "largestRadius": 0.0000030693634827526736,
+    "statedProbability": 0.995
+   },
+   {
+    "id": "proved-five-box",
+    "c": [
+     -91,
+     -90
+    ],
+    "A": [
+     2.2737367544323206e-13,
+     4.547473508864641e-13
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 5,
+    "enclosed": 0,
+    "distinct": 0,
+    "gridPositive": 0,
+    "word": "REFUSED",
+    "wordWithTheGridBound": "REFUSED",
+    "reason": "Z1 >= 1 over the box — the midpoint inverse does not control the whole cell",
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": null,
+    "largestRadius": null,
+    "statedProbability": 0.998
+   },
+   {
+    "id": "forced-five-point",
+    "c": [
+     -40,
+     -40
+    ],
+    "A": [
+     0.5,
+     0.5
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "REFUSED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": -0.00002544714587081787,
+    "largestRadius": 4.128060957336513e-11,
+    "statedProbability": 0.995
+   },
+   {
+    "id": "autonomous-exactly-five",
+    "c": [
+     -40,
+     -40
+    ],
+    "A": [
+     0,
+     0
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "REFUSED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": -0.000025425443613866356,
+    "largestRadius": 4.0361403990541273e-11,
+    "statedProbability": 0.9999
+   },
+   {
+    "id": "unique-rectangle",
+    "c": [
+     -7,
+     0
+    ],
+    "A": [
+     0,
+     1.2
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 1,
+    "enclosed": 0,
+    "distinct": 0,
+    "gridPositive": 0,
+    "word": "REFUSED",
+    "wordWithTheGridBound": "REFUSED",
+    "reason": "Z1 >= 1 over the box — the midpoint inverse does not control the whole cell",
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": null,
+    "largestRadius": null,
+    "statedProbability": 0.995
+   },
+   {
+    "id": "near-first-fold",
+    "c": [
+     -10,
+     -10
+    ],
+    "A": [
+     0.01,
+     0.01
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 3,
+    "enclosed": 3,
+    "distinct": 3,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.6757274031325777,
+    "largestRadius": 1.2747730083180912e-12,
+    "statedProbability": 0.995
+   }
+  ],
+  "fable": [
+   {
+    "id": "five_c90_A0",
+    "c": [
+     -90,
+     -90
+    ],
+    "A": [
+     0,
+     0
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.0009195141092536102,
+    "largestRadius": 5.953197149318374e-10,
+    "statedProbability": 0.95
+   },
+   {
+    "id": "five_c90_A05",
+    "c": [
+     -90,
+     -90
+    ],
+    "A": [
+     0.5,
+     0.5
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.00021095463179488958,
+    "largestRadius": 2.815394033459987e-9,
+    "statedProbability": 0.93
+   },
+   {
+    "id": "five_c95_A02",
+    "c": [
+     -95,
+     -95
+    ],
+    "A": [
+     0.2,
+     0.2
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.00016702285188262395,
+    "largestRadius": 1.1521393544422652e-8,
+    "statedProbability": 0.9
+   },
+   {
+    "id": "five_c92_A01",
+    "c": [
+     -92,
+     -92
+    ],
+    "A": [
+     0.1,
+     0.1
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.0004365243699755658,
+    "largestRadius": 4.842635577881139e-9,
+    "statedProbability": 0.9
+   },
+   {
+    "id": "five_c892_A1",
+    "c": [
+     -89.2,
+     -89.2
+    ],
+    "A": [
+     1,
+     1
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.0001267892261042667,
+    "largestRadius": 1.918123211139399e-9,
+    "statedProbability": 0.85
+   },
+   {
+    "id": "five_box_c90_A01",
+    "c": [
+     -90.0001,
+     -89.9999
+    ],
+    "A": [
+     0.099999,
+     0.100001
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.0005867925929868944,
+    "largestRadius": 0.0000195416517007893,
+    "statedProbability": 0.85
+   },
+   {
+    "id": "five_cline_c90_A0",
+    "c": [
+     -90.0005,
+     -89.9995
+    ],
+    "A": [
+     0,
+     0
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 5,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.0008875582924015246,
+    "largestRadius": 0.000004231740363296895,
+    "statedProbability": 0.88
+   },
+   {
+    "id": "four_box_c90_A01",
+    "c": [
+     -90.001,
+     -89.999
+    ],
+    "A": [
+     0.0995,
+     0.1005
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 4,
+    "enclosed": 4,
+    "distinct": 4,
+    "gridPositive": 4,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.0008365250103491509,
+    "largestRadius": 0.00001966106046130763,
+    "statedProbability": 0.88
+   },
+   {
+    "id": "four_box_c90_A05",
+    "c": [
+     -90.0005,
+     -89.9995
+    ],
+    "A": [
+     0.49975,
+     0.50025
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 4,
+    "enclosed": 4,
+    "distinct": 4,
+    "gridPositive": 4,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.0008821080207582527,
+    "largestRadius": 0.000005078148732888126,
+    "statedProbability": 0.88
+   },
+   {
+    "id": "three_box_c45_A05",
+    "c": [
+     -45.02,
+     -44.98
+    ],
+    "A": [
+     0.49,
+     0.51
+    ],
+    "N": 64,
+    "point": false,
+    "claimed": 3,
+    "enclosed": 3,
+    "distinct": 3,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "not applicable (a box)",
+    "smallestGridDensity": 0.23492602743526686,
+    "largestRadius": 0.001788247272051801,
+    "statedProbability": 0.9
+   },
+   {
+    "id": "five_c45_A05_all",
+    "c": [
+     -45,
+     -45
+    ],
+    "A": [
+     0.5,
+     0.5
+    ],
+    "N": 64,
+    "point": true,
+    "claimed": 5,
+    "enclosed": 5,
+    "distinct": 5,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "REFUSED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": -0.000032611071888712204,
+    "largestRadius": 1.0315132803948783e-9,
+    "statedProbability": 0.15
+   },
+   {
+    "id": "three_nearfold_A05",
+    "c": [
+     -11.15,
+     -11.15
+    ],
+    "A": [
+     0.5,
+     0.5
+    ],
+    "N": 32,
+    "point": true,
+    "claimed": 3,
+    "enclosed": 3,
+    "distinct": 3,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.20859508792523512,
+    "largestRadius": 1.739671916083845e-12,
+    "statedProbability": 0.95
+   },
+   {
+    "id": "three_nearfold_A12",
+    "c": [
+     -12.14,
+     -12.14
+    ],
+    "A": [
+     1.2,
+     1.2
+    ],
+    "N": 32,
+    "point": true,
+    "claimed": 3,
+    "enclosed": 3,
+    "distinct": 3,
+    "gridPositive": 3,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.10057275149300265,
+    "largestRadius": 2.7192674858706187e-12,
+    "statedProbability": 0.95
+   }
+  ],
+  "session": [
+   {
+    "id": "k7_c-360_A0",
+    "c": [
+     -360,
+     -360
+    ],
+    "A": [
+     0,
+     0
+    ],
+    "N": 160,
+    "point": true,
+    "claimed": 7,
+    "enclosed": 7,
+    "distinct": 7,
+    "gridPositive": 7,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.0010482801862545822,
+    "largestRadius": 5.52994750449174e-10,
+    "statedProbability": null
+   },
+   {
+    "id": "k7_c-360_A0.1",
+    "c": [
+     -360,
+     -360
+    ],
+    "A": [
+     0.1,
+     0.1
+    ],
+    "N": 160,
+    "point": true,
+    "claimed": 7,
+    "enclosed": 7,
+    "distinct": 7,
+    "gridPositive": 7,
+    "word": "CERTIFIED",
+    "wordWithTheGridBound": "CERTIFIED",
+    "reason": null,
+    "secondDecider": "agrees",
+    "smallestGridDensity": 0.0009261732060177459,
+    "largestRadius": 1.0593974752095172e-8,
+    "statedProbability": null
+   }
+  ]
+ },
+ "uniqueness": {
+  "what": "a uniqueness argument (GPT-6.2 Astra) decided exactly per rectangle [-G, 0] x [0, a]: the largest G on a 1e-4 grid whose finite inequality holds",
+  "authorPoint": {
+   "G": "7",
+   "a": "6/5",
+   "lowerBoundFloat": 14.18159,
+   "needs": 14
+  },
+  "mustFail": [
+   {
+    "G": "49/5",
+    "a": "6/5"
+   },
+   {
+    "G": "9",
+    "a": "3"
+   }
+  ],
+  "curve": [
+   {
+    "depth": "1/80",
+    "depthFloat": 0.0125,
+    "G": "97237/10000",
+    "GFloat": 9.7237,
+    "foldFloat": -9.9774
+   },
+   {
+    "depth": "1/40",
+    "depthFloat": 0.025,
+    "G": "48191/5000",
+    "GFloat": 9.6382,
+    "foldFloat": -10.042
+   },
+   {
+    "depth": "3/80",
+    "depthFloat": 0.0375,
+    "G": "95667/10000",
+    "GFloat": 9.5667,
+    "foldFloat": -10.0961
+   },
+   {
+    "depth": "1/20",
+    "depthFloat": 0.05,
+    "G": "9503/1000",
+    "GFloat": 9.503,
+    "foldFloat": -10.1444
+   },
+   {
+    "depth": "1/16",
+    "depthFloat": 0.0625,
+    "G": "94447/10000",
+    "GFloat": 9.4447,
+    "foldFloat": -10.1882
+   },
+   {
+    "depth": "3/40",
+    "depthFloat": 0.075,
+    "G": "93903/10000",
+    "GFloat": 9.3903,
+    "foldFloat": -10.2293
+   },
+   {
+    "depth": "7/80",
+    "depthFloat": 0.0875,
+    "G": "93389/10000",
+    "GFloat": 9.3389,
+    "foldFloat": -10.2682
+   },
+   {
+    "depth": "1/10",
+    "depthFloat": 0.1,
+    "G": "92901/10000",
+    "GFloat": 9.2901,
+    "foldFloat": -10.3054
+   },
+   {
+    "depth": "9/80",
+    "depthFloat": 0.1125,
+    "G": "46217/5000",
+    "GFloat": 9.2434,
+    "foldFloat": -10.3408
+   },
+   {
+    "depth": "1/8",
+    "depthFloat": 0.125,
+    "G": "18397/2000",
+    "GFloat": 9.1985,
+    "foldFloat": -10.375
+   },
+   {
+    "depth": "11/80",
+    "depthFloat": 0.1375,
+    "G": "5722/625",
+    "GFloat": 9.1552,
+    "foldFloat": -10.4081
+   },
+   {
+    "depth": "3/20",
+    "depthFloat": 0.15,
+    "G": "22783/2500",
+    "GFloat": 9.1132,
+    "foldFloat": -10.4403
+   },
+   {
+    "depth": "13/80",
+    "depthFloat": 0.1625,
+    "G": "3629/400",
+    "GFloat": 9.0725,
+    "foldFloat": -10.4714
+   },
+   {
+    "depth": "7/40",
+    "depthFloat": 0.175,
+    "G": "90329/10000",
+    "GFloat": 9.0329,
+    "foldFloat": -10.5017
+   },
+   {
+    "depth": "3/16",
+    "depthFloat": 0.1875,
+    "G": "11243/1250",
+    "GFloat": 8.9944,
+    "foldFloat": -10.5314
+   },
+   {
+    "depth": "1/5",
+    "depthFloat": 0.2,
+    "G": "89567/10000",
+    "GFloat": 8.9567,
+    "foldFloat": -10.5604
+   },
+   {
+    "depth": "17/80",
+    "depthFloat": 0.2125,
+    "G": "89199/10000",
+    "GFloat": 8.9199,
+    "foldFloat": -10.5888
+   },
+   {
+    "depth": "9/40",
+    "depthFloat": 0.225,
+    "G": "88839/10000",
+    "GFloat": 8.8839,
+    "foldFloat": -10.6166
+   },
+   {
+    "depth": "19/80",
+    "depthFloat": 0.2375,
+    "G": "88487/10000",
+    "GFloat": 8.8487,
+    "foldFloat": -10.6439
+   },
+   {
+    "depth": "1/4",
+    "depthFloat": 0.25,
+    "G": "88141/10000",
+    "GFloat": 8.8141,
+    "foldFloat": -10.6707
+   },
+   {
+    "depth": "21/80",
+    "depthFloat": 0.2625,
+    "G": "43901/5000",
+    "GFloat": 8.7802,
+    "foldFloat": -10.6971
+   },
+   {
+    "depth": "11/40",
+    "depthFloat": 0.275,
+    "G": "21867/2500",
+    "GFloat": 8.7468,
+    "foldFloat": -10.723
+   },
+   {
+    "depth": "23/80",
+    "depthFloat": 0.2875,
+    "G": "4357/500",
+    "GFloat": 8.714,
+    "foldFloat": -10.7485
+   },
+   {
+    "depth": "3/10",
+    "depthFloat": 0.3,
+    "G": "43409/5000",
+    "GFloat": 8.6818,
+    "foldFloat": -10.7737
+   },
+   {
+    "depth": "5/16",
+    "depthFloat": 0.3125,
+    "G": "173/20",
+    "GFloat": 8.65,
+    "foldFloat": -10.7985
+   },
+   {
+    "depth": "13/40",
+    "depthFloat": 0.325,
+    "G": "21547/2500",
+    "GFloat": 8.6188,
+    "foldFloat": -10.823
+   },
+   {
+    "depth": "27/80",
+    "depthFloat": 0.3375,
+    "G": "2147/250",
+    "GFloat": 8.588,
+    "foldFloat": -10.8471
+   },
+   {
+    "depth": "7/20",
+    "depthFloat": 0.35,
+    "G": "10697/1250",
+    "GFloat": 8.5576,
+    "foldFloat": -10.871
+   },
+   {
+    "depth": "29/80",
+    "depthFloat": 0.3625,
+    "G": "85277/10000",
+    "GFloat": 8.5277,
+    "foldFloat": -10.8945
+   },
+   {
+    "depth": "3/8",
+    "depthFloat": 0.375,
+    "G": "84981/10000",
+    "GFloat": 8.4981,
+    "foldFloat": -10.9178
+   },
+   {
+    "depth": "31/80",
+    "depthFloat": 0.3875,
+    "G": "84689/10000",
+    "GFloat": 8.4689,
+    "foldFloat": -10.9408
+   },
+   {
+    "depth": "2/5",
+    "depthFloat": 0.4,
+    "G": "84401/10000",
+    "GFloat": 8.4401,
+    "foldFloat": -10.9635
+   },
+   {
+    "depth": "33/80",
+    "depthFloat": 0.4125,
+    "G": "84117/10000",
+    "GFloat": 8.4117,
+    "foldFloat": -10.986
+   },
+   {
+    "depth": "17/40",
+    "depthFloat": 0.425,
+    "G": "16767/2000",
+    "GFloat": 8.3835,
+    "foldFloat": -11.0083
+   },
+   {
+    "depth": "7/16",
+    "depthFloat": 0.4375,
+    "G": "83557/10000",
+    "GFloat": 8.3557,
+    "foldFloat": -11.0304
+   },
+   {
+    "depth": "9/20",
+    "depthFloat": 0.45,
+    "G": "41641/5000",
+    "GFloat": 8.3282,
+    "foldFloat": -11.0522
+   },
+   {
+    "depth": "37/80",
+    "depthFloat": 0.4625,
+    "G": "8301/1000",
+    "GFloat": 8.301,
+    "foldFloat": -11.0738
+   },
+   {
+    "depth": "19/40",
+    "depthFloat": 0.475,
+    "G": "82741/10000",
+    "GFloat": 8.2741,
+    "foldFloat": -11.0953
+   },
+   {
+    "depth": "39/80",
+    "depthFloat": 0.4875,
+    "G": "3299/400",
+    "GFloat": 8.2475,
+    "foldFloat": -11.1165
+   },
+   {
+    "depth": "1/2",
+    "depthFloat": 0.5,
+    "G": "20553/2500",
+    "GFloat": 8.2212,
+    "foldFloat": -11.1375
+   },
+   {
+    "depth": "41/80",
+    "depthFloat": 0.5125,
+    "G": "81951/10000",
+    "GFloat": 8.1951,
+    "foldFloat": -11.1584
+   },
+   {
+    "depth": "21/40",
+    "depthFloat": 0.525,
+    "G": "81693/10000",
+    "GFloat": 8.1693,
+    "foldFloat": -11.1791
+   },
+   {
+    "depth": "43/80",
+    "depthFloat": 0.5375,
+    "G": "81437/10000",
+    "GFloat": 8.1437,
+    "foldFloat": -11.1996
+   },
+   {
+    "depth": "11/20",
+    "depthFloat": 0.55,
+    "G": "5074/625",
+    "GFloat": 8.1184,
+    "foldFloat": -11.22
+   },
+   {
+    "depth": "9/16",
+    "depthFloat": 0.5625,
+    "G": "20233/2500",
+    "GFloat": 8.0932,
+    "foldFloat": -11.2401
+   },
+   {
+    "depth": "23/40",
+    "depthFloat": 0.575,
+    "G": "20171/2500",
+    "GFloat": 8.0684,
+    "foldFloat": -11.2602
+   },
+   {
+    "depth": "47/80",
+    "depthFloat": 0.5875,
+    "G": "80437/10000",
+    "GFloat": 8.0437,
+    "foldFloat": -11.28
+   },
+   {
+    "depth": "3/5",
+    "depthFloat": 0.6,
+    "G": "80193/10000",
+    "GFloat": 8.0193,
+    "foldFloat": -11.2998
+   },
+   {
+    "depth": "49/80",
+    "depthFloat": 0.6125,
+    "G": "1599/200",
+    "GFloat": 7.995,
+    "foldFloat": -11.3194
+   },
+   {
+    "depth": "5/8",
+    "depthFloat": 0.625,
+    "G": "7971/1000",
+    "GFloat": 7.971,
+    "foldFloat": -11.3388
+   },
+   {
+    "depth": "51/80",
+    "depthFloat": 0.6375,
+    "G": "4967/625",
+    "GFloat": 7.9472,
+    "foldFloat": -11.3581
+   },
+   {
+    "depth": "13/20",
+    "depthFloat": 0.65,
+    "G": "15847/2000",
+    "GFloat": 7.9235,
+    "foldFloat": -11.3773
+   },
+   {
+    "depth": "53/80",
+    "depthFloat": 0.6625,
+    "G": "79001/10000",
+    "GFloat": 7.9001,
+    "foldFloat": -11.3964
+   },
+   {
+    "depth": "27/40",
+    "depthFloat": 0.675,
+    "G": "4923/625",
+    "GFloat": 7.8768,
+    "foldFloat": -11.4153
+   },
+   {
+    "depth": "11/16",
+    "depthFloat": 0.6875,
+    "G": "78537/10000",
+    "GFloat": 7.8537,
+    "foldFloat": -11.4341
+   },
+   {
+    "depth": "7/10",
+    "depthFloat": 0.7,
+    "G": "19577/2500",
+    "GFloat": 7.8308,
+    "foldFloat": -11.4528
+   },
+   {
+    "depth": "57/80",
+    "depthFloat": 0.7125,
+    "G": "78081/10000",
+    "GFloat": 7.8081,
+    "foldFloat": -11.4714
+   },
+   {
+    "depth": "29/40",
+    "depthFloat": 0.725,
+    "G": "15571/2000",
+    "GFloat": 7.7855,
+    "foldFloat": -11.4898
+   },
+   {
+    "depth": "59/80",
+    "depthFloat": 0.7375,
+    "G": "77631/10000",
+    "GFloat": 7.7631,
+    "foldFloat": -11.5082
+   },
+   {
+    "depth": "3/4",
+    "depthFloat": 0.75,
+    "G": "77409/10000",
+    "GFloat": 7.7409,
+    "foldFloat": -11.5264
+   },
+   {
+    "depth": "61/80",
+    "depthFloat": 0.7625,
+    "G": "19297/2500",
+    "GFloat": 7.7188,
+    "foldFloat": -11.5445
+   },
+   {
+    "depth": "31/40",
+    "depthFloat": 0.775,
+    "G": "76969/10000",
+    "GFloat": 7.6969,
+    "foldFloat": -11.5626
+   },
+   {
+    "depth": "63/80",
+    "depthFloat": 0.7875,
+    "G": "76751/10000",
+    "GFloat": 7.6751,
+    "foldFloat": -11.5805
+   },
+   {
+    "depth": "4/5",
+    "depthFloat": 0.8,
+    "G": "15307/2000",
+    "GFloat": 7.6535,
+    "foldFloat": -11.5983
+   },
+   {
+    "depth": "13/16",
+    "depthFloat": 0.8125,
+    "G": "954/125",
+    "GFloat": 7.632,
+    "foldFloat": -11.616
+   },
+   {
+    "depth": "33/40",
+    "depthFloat": 0.825,
+    "G": "38053/5000",
+    "GFloat": 7.6106,
+    "foldFloat": -11.6336
+   },
+   {
+    "depth": "67/80",
+    "depthFloat": 0.8375,
+    "G": "37947/5000",
+    "GFloat": 7.5894,
+    "foldFloat": -11.6512
+   },
+   {
+    "depth": "17/20",
+    "depthFloat": 0.85,
+    "G": "18921/2500",
+    "GFloat": 7.5684,
+    "foldFloat": -11.6686
+   },
+   {
+    "depth": "69/80",
+    "depthFloat": 0.8625,
+    "G": "37737/5000",
+    "GFloat": 7.5474,
+    "foldFloat": -11.686
+   },
+   {
+    "depth": "7/8",
+    "depthFloat": 0.875,
+    "G": "37633/5000",
+    "GFloat": 7.5266,
+    "foldFloat": -11.7032
+   },
+   {
+    "depth": "71/80",
+    "depthFloat": 0.8875,
+    "G": "3753/500",
+    "GFloat": 7.506,
+    "foldFloat": -11.7204
+   },
+   {
+    "depth": "9/10",
+    "depthFloat": 0.9,
+    "G": "37427/5000",
+    "GFloat": 7.4854,
+    "foldFloat": -11.7375
+   },
+   {
+    "depth": "73/80",
+    "depthFloat": 0.9125,
+    "G": "1493/200",
+    "GFloat": 7.465,
+    "foldFloat": -11.7545
+   },
+   {
+    "depth": "37/40",
+    "depthFloat": 0.925,
+    "G": "74447/10000",
+    "GFloat": 7.4447,
+    "foldFloat": -11.7714
+   },
+   {
+    "depth": "15/16",
+    "depthFloat": 0.9375,
+    "G": "37123/5000",
+    "GFloat": 7.4246,
+    "foldFloat": -11.7882
+   },
+   {
+    "depth": "19/20",
+    "depthFloat": 0.95,
+    "G": "14809/2000",
+    "GFloat": 7.4045,
+    "foldFloat": -11.805
+   },
+   {
+    "depth": "77/80",
+    "depthFloat": 0.9625,
+    "G": "36923/5000",
+    "GFloat": 7.3846,
+    "foldFloat": -11.8216
+   },
+   {
+    "depth": "39/40",
+    "depthFloat": 0.975,
+    "G": "4603/625",
+    "GFloat": 7.3648,
+    "foldFloat": -11.8382
+   },
+   {
+    "depth": "79/80",
+    "depthFloat": 0.9875,
+    "G": "73451/10000",
+    "GFloat": 7.3451,
+    "foldFloat": -11.8548
+   },
+   {
+    "depth": "1",
+    "depthFloat": 1,
+    "G": "14651/2000",
+    "GFloat": 7.3255,
+    "foldFloat": -11.8712
+   },
+   {
+    "depth": "81/80",
+    "depthFloat": 1.0125,
+    "G": "3653/500",
+    "GFloat": 7.306,
+    "foldFloat": -11.8876
+   },
+   {
+    "depth": "41/40",
+    "depthFloat": 1.025,
+    "G": "36433/5000",
+    "GFloat": 7.2866,
+    "foldFloat": -11.9039
+   },
+   {
+    "depth": "83/80",
+    "depthFloat": 1.0375,
+    "G": "36337/5000",
+    "GFloat": 7.2674,
+    "foldFloat": -11.9201
+   },
+   {
+    "depth": "21/20",
+    "depthFloat": 1.05,
+    "G": "36241/5000",
+    "GFloat": 7.2482,
+    "foldFloat": -11.9363
+   },
+   {
+    "depth": "17/16",
+    "depthFloat": 1.0625,
+    "G": "18073/2500",
+    "GFloat": 7.2292,
+    "foldFloat": -11.9523
+   },
+   {
+    "depth": "43/40",
+    "depthFloat": 1.075,
+    "G": "36051/5000",
+    "GFloat": 7.2102,
+    "foldFloat": -11.9684
+   },
+   {
+    "depth": "87/80",
+    "depthFloat": 1.0875,
+    "G": "35957/5000",
+    "GFloat": 7.1914,
+    "foldFloat": -11.9843
+   },
+   {
+    "depth": "11/10",
+    "depthFloat": 1.1,
+    "G": "35863/5000",
+    "GFloat": 7.1726,
+    "foldFloat": -12.0002
+   },
+   {
+    "depth": "89/80",
+    "depthFloat": 1.1125,
+    "G": "71539/10000",
+    "GFloat": 7.1539,
+    "foldFloat": -12.016
+   },
+   {
+    "depth": "9/8",
+    "depthFloat": 1.125,
+    "G": "35677/5000",
+    "GFloat": 7.1354,
+    "foldFloat": -12.0318
+   },
+   {
+    "depth": "91/80",
+    "depthFloat": 1.1375,
+    "G": "71169/10000",
+    "GFloat": 7.1169,
+    "foldFloat": -12.0475
+   },
+   {
+    "depth": "23/20",
+    "depthFloat": 1.15,
+    "G": "35493/5000",
+    "GFloat": 7.0986,
+    "foldFloat": -12.0631
+   },
+   {
+    "depth": "93/80",
+    "depthFloat": 1.1625,
+    "G": "70803/10000",
+    "GFloat": 7.0803,
+    "foldFloat": -12.0787
+   },
+   {
+    "depth": "47/40",
+    "depthFloat": 1.175,
+    "G": "70621/10000",
+    "GFloat": 7.0621,
+    "foldFloat": -12.0942
+   },
+   {
+    "depth": "19/16",
+    "depthFloat": 1.1875,
+    "G": "1761/250",
+    "GFloat": 7.044,
+    "foldFloat": -12.1096
+   },
+   {
+    "depth": "6/5",
+    "depthFloat": 1.2,
+    "G": "3513/500",
+    "GFloat": 7.026,
+    "foldFloat": -12.125
+   },
+   {
+    "depth": "2",
+    "depthFloat": 2,
+    "G": "15049/2500",
+    "GFloat": 6.0196,
+    "foldFloat": -13.0133
+   },
+   {
+    "depth": "3",
+    "depthFloat": 3,
+    "G": "5031/1000",
+    "GFloat": 5.031,
+    "foldFloat": -13.9463
+   }
+  ],
+  "table": [
+   {
+    "depth": "1/80",
+    "depthFloat": 0.0125,
+    "G": "97237/10000",
+    "GFloat": 9.7237,
+    "foldFloat": -9.9774,
+    "gap": 0.254
+   },
+   {
+    "depth": "9/80",
+    "depthFloat": 0.1125,
+    "G": "46217/5000",
+    "GFloat": 9.2434,
+    "foldFloat": -10.3408,
+    "gap": 1.097
+   },
+   {
+    "depth": "5/16",
+    "depthFloat": 0.3125,
+    "G": "173/20",
+    "GFloat": 8.65,
+    "foldFloat": -10.7985,
+    "gap": 2.148
+   },
+   {
+    "depth": "49/80",
+    "depthFloat": 0.6125,
+    "G": "1599/200",
+    "GFloat": 7.995,
+    "foldFloat": -11.3194,
+    "gap": 3.324
+   },
+   {
+    "depth": "73/80",
+    "depthFloat": 0.9125,
+    "G": "1493/200",
+    "GFloat": 7.465,
+    "foldFloat": -11.7545,
+    "gap": 4.289
+   },
+   {
+    "depth": "6/5",
+    "depthFloat": 1.2,
+    "G": "3513/500",
+    "GFloat": 7.026,
+    "foldFloat": -12.125,
+    "gap": 5.099
+   }
+  ],
+  "map": {
+   "undecidedCells": 8086,
+   "uniqueByTheArgument": 1786,
+   "area": "3083/320",
+   "areaFloat": 9.6344,
+   "shareOfMap": 0.4014,
+   "byReason": {
+    "0": 1730,
+    "2": 43,
+    "3": 13
+   },
+   "insideTheAuthorsRectangle": 1344,
+   "shareOfMapAuthorsRectangle": 0.35,
+   "multipleCellsInsideTheUniqueRegion": 0
+  },
+  "againstTheFold": {
+   "source": "corpus/mfg-two-models/fable-folds.csv (floating point, not certified)",
+   "areaRightOfTheFoldFloat": 13.475,
+   "shareOfMapFloat": 0.5615,
+   "argumentReachesShare": 0.715
+  }
+ },
+ "folds": {
+  "source": "corpus/mfg-two-models/fable-folds.csv (floating point, not certified)",
+  "first": [
+   {
+    "depth": 0.1,
+    "fableFold": -10.305401829,
+    "astraFormulaReturns": 0.09997,
+    "relativeError": "3.1e-4"
+   },
+   {
+    "depth": 0.5,
+    "fableFold": -11.1375422938,
+    "astraFormulaReturns": 0.49873,
+    "relativeError": "2.5e-3"
+   },
+   {
+    "depth": 1,
+    "fableFold": -11.8712082794,
+    "astraFormulaReturns": 0.99376,
+    "relativeError": "6.2e-3"
+   },
+   {
+    "depth": 1.2,
+    "fableFold": -12.1250304087,
+    "astraFormulaReturns": 1.19054,
+    "relativeError": "7.9e-3"
+   }
+  ],
+  "second": {
+   "astraCoefficient": 0.133414749944,
+   "exponent": "4/3",
+   "fableTableGives": [
+    {
+     "depth": 0.05,
+     "value": 0.134646
+    },
+    {
+     "depth": 0.1,
+     "value": 0.135376
+    },
+    {
+     "depth": 0.2,
+     "value": 0.136547
+    }
+   ]
+  },
+  "third": {
+   "astraCoefficient": 0.005402423388,
+   "exponent": "2",
+   "fableTableGives": [
+    {
+     "depth": 0.05,
+     "value": 0.005402
+    },
+    {
+     "depth": 0.1,
+     "value": 0.005402
+    },
+    {
+     "depth": 0.2,
+     "value": 0.005402
+    }
+   ]
+  }
+ },
+ "readings": {
+  "what": "What was read, by whom, and what each reading found. Written by hand on 2026-11-18 from the two models' replies and cross-reads; the record copies it and the page states nothing about a proof that is not here. A reading is a person or a model following a written proof line by line; it is not a formal check.",
+  "date": "2026-11-18",
+  "models": {
+   "astra": {
+    "name": "GPT-6.2 Astra",
+    "lab": "OpenAI"
+   },
+   "fable": {
+    "name": "Claude Fable 5.2",
+    "lab": "Anthropic"
+   }
+  },
+  "session": "Claude Fable 5.2, in the session that ran the checks and wrote this page",
+  "findings": [
+   {
+    "id": "reduction",
+    "statement": "With phi = sqrt(m) the game is the stationary equation -(1/2) phi'' + c phi^3 + A cos(2 pi x) phi = rho phi with int phi^2 = 1, and every real periodic solution with mean density one has a positive density.",
+    "from": [
+     "astra",
+     "fable"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "session",
+     "astra on fable's version",
+     "fable on astra's version"
+    ],
+    "found": "holds",
+    "prior": "known (Cirant 2016, Lemma 4.1)"
+   },
+   {
+    "id": "count-unforced",
+    "statement": "At A = 0 the number of even equilibria is exactly 1 + 2 #{j >= 1 : pi^2 j^2 < -c}; the non-constant ones are dn elliptic profiles with 4 j^2 K E = -c.",
+    "from": [
+     "astra",
+     "fable"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "session",
+     "astra on fable's proof",
+     "fable on astra's proof"
+    ],
+    "found": "holds",
+    "prior": "the ingredients are classical (Carr, Clark, Reinhardt 2000; Kanamoto, Saito, Ueda 2003); the count stated for this game was not found"
+   },
+   {
+    "id": "five",
+    "statement": "Five equilibria coexist near c = -90 for A > 0.",
+    "from": [
+     "astra",
+     "fable"
+    ],
+    "status": "CERTIFIED",
+    "readers": [],
+    "found": "decided by the certifier",
+    "prior": "not found"
+   },
+   {
+    "id": "seven",
+    "statement": "Seven equilibria coexist at c = -360, for A = 0 and for A = 0.1.",
+    "from": [
+     "session"
+    ],
+    "status": "CERTIFIED",
+    "readers": [],
+    "found": "decided by the certifier; the candidates were built in this session from the count at A = 0",
+    "prior": "not found"
+   },
+   {
+    "id": "unique-rectangle",
+    "statement": "There is exactly one equilibrium, even or not, for c in [-7, 0] and A in [0, 6/5].",
+    "from": [
+     "astra"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "session",
+     "fable"
+    ],
+    "found": "holds; the final bound recomputed three times (14.18 against the 14 needed)",
+    "prior": "not found; Cirant 2016 calls uniqueness with a potential open in general",
+    "limit": "both readers are Claude Fable 5.2, and the second knew the first reading's result"
+   },
+   {
+    "id": "unique-strip",
+    "statement": "The equilibrium is unique when |c| exp(3|c| + 3A/pi) < pi^2, for every A.",
+    "from": [
+     "fable"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "session",
+     "astra"
+    ],
+    "found": "the uniqueness holds; astra found that existence was asserted and not proved, and supplied the proof; astra found one table entry rounded the wrong way (0.6098 printed for 0.60975); astra widened the condition to |c| exp(2|c| + 2A/pi) < pi^2",
+    "missedByTheFirstReading": "the session had read this proof and reported no error; it did not notice the missing existence step or the rounding"
+   },
+   {
+    "id": "fold-first",
+    "statement": "The first fold is at A = (4/3) sqrt(2/(3 pi^2)) d^(3/2) (1 + d/(16 pi^2) + ...), d = -c - pi^2.",
+    "from": [
+     "astra",
+     "fable"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "fable on astra's proof"
+    ],
+    "found": "holds; the two models' leading terms are algebraically the same; a search reproduces fable's table to five decimals",
+    "prior": "not searched"
+   },
+   {
+    "id": "three-near-fold",
+    "statement": "Three equilibria right next to the first fold, in cells the published map left undecided.",
+    "from": [
+     "astra",
+     "fable"
+    ],
+    "status": "CERTIFIED",
+    "readers": [],
+    "found": "decided by the certifier"
+   },
+   {
+    "id": "persistence",
+    "statement": "The count at A = 0 persists for small A near every coupling that is not a threshold; at least five equilibria on c in [-91, -90], A up to 2^-41, proved analytically.",
+    "from": [
+     "astra"
+    ],
+    "status": "PROOF READ",
+    "readers": [
+     "fable"
+    ],
+    "found": "holds; all 26 inequalities of the box proof recomputed",
+    "limit": "one reader"
+   },
+   {
+    "id": "folds-higher",
+    "statement": "The second and third folds leave -4 pi^2 and -9 pi^2 like 0.13341 A^(4/3) and 0.0054024 A^2.",
+    "from": [
+     "astra"
+    ],
+    "status": "SUPPORTED",
+    "readers": [],
+    "found": "fable's independent table gives 0.005402 for the third and a value falling toward 0.1334 for the second; the proof has had no reader but its author"
+   },
+   {
+    "id": "count-forced",
+    "statement": "For every A >= 0 the number of even equilibria is 1 + 2 #{j : c < c_j(A)}.",
+    "from": [
+     "fable"
+    ],
+    "status": "FALSE AS STATED",
+    "readers": [
+     "astra"
+    ],
+    "found": "astra's counterexample is on the fold itself: at A = 0, c = -pi^2 the equilibrium is unique, and for small A > 0 there are two equilibria on the first fold where the formula counts one; away from the folds the statement is open",
+    "missedByTheFirstReading": "the session had listed this conjecture as open"
+   },
+   {
+    "id": "evenness",
+    "statement": "There is no equilibrium that is not even, for A > 0.",
+    "from": [
+     "fable"
+    ],
+    "status": "OPEN",
+    "readers": [],
+    "found": "neither model's search found one; astra proves it for small A when -c < 4 pi^2, and that proof has had no reader but its author"
+   }
+  ],
+  "conditions": [
+   "Both models worked inside this repository, with the certifier at hand.",
+   "Claude Fable 5.2 checked every candidate with the certifier before submitting, and said so.",
+   "Claude Fable 5.2's chat had this project's notes in memory, and said so.",
+   "A folder made twenty minutes before GPT-6.2 Astra's answer holds a script that runs the certifier; its report says no certificate was run; which chat made the folder is not known.",
+   "During the cross-read both chats could see the working folder of this experiment.",
+   "The session that ran the checks is the same model as one of the two."
+  ],
+  "notDone": [
+   "No reader outside the Claude family has read GPT-6.2 Astra's proofs.",
+   "What GPT-6.2 Astra added in the cross-read (a closed-form uniqueness region, the exponents of the higher folds, evenness for small A) has had no reader but its author.",
+   "Neither model's code was run here.",
+   "The fold values are floating point; nothing certifies a fold.",
+   "The prior literature was searched briefly, not surveyed."
+  ],
+  "priorWork": [
+   {
+    "who": "M. Cirant",
+    "what": "Stationary focusing Mean Field Games",
+    "year": 2016,
+    "url": "https://arxiv.org/abs/1602.04231",
+    "says": "the Schrödinger form of the quadratic game (Lemma 4.1); with a potential, uniqueness of the normalised solution is 'in general an open problem'"
+   },
+   {
+    "who": "L. D. Carr, C. W. Clark, W. P. Reinhardt",
+    "what": "Stationary solutions of the one-dimensional nonlinear Schrödinger equation. II. Case of attractive nonlinearity",
+    "year": 2000,
+    "url": "https://arxiv.org/abs/cond-mat/9911178",
+    "says": "all stationary solutions under periodic conditions, the dn profiles among them"
+   },
+   {
+    "who": "R. Kanamoto, H. Saito, M. Ueda",
+    "what": "Quantum phase transition in one-dimensional Bose-Einstein condensates with attractive interactions",
+    "year": 2003,
+    "url": "https://arxiv.org/abs/cond-mat/0210229",
+    "says": "the uniform state stops being the ground state at the coupling that is c = -pi^2 here"
+   }
+  ]
+ }
+}

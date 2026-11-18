@@ -303,6 +303,26 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /reports/mfg-two-models.html (2026-11-18): the page's own figure without its words, read from the
+     record (certs/mfg-two-models.json, uniqueness.curve). Two curves leave almost the same point at the left and part:
+     the heavy one is where the uniqueness argument stops, the lighter one the first fold. LIGHT theme, no number, no
+     label. */
+  'mfg-two-models': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · a mean-field game, two AI models', path: '/reports/mfg-two-models.html',
+    title: 'Two AI models on a mean-field game: claims decided, proofs read',
+    alt: 'Two curves that leave nearly the same point at the left of the card and part as they run right: a heavy one rising gently and ending in a dot, and a lighter one falling away below it.',
+    get svgRaw() {
+      const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mfg-two-models.json'), 'utf8')).uniqueness.curve.filter((q) => q.depthFloat <= 1.2 + 1e-9 && q.GFloat !== null);
+      const x0 = 130, x1 = 1070, yT = 150, yB = 500, lo = -12.6, hi = -6.6, f = (v) => v.toFixed(1);
+      const X = (a) => x0 + a / 1.2 * (x1 - x0), Y = (c) => yT + (hi - c) / (hi - lo) * (yB - yT);
+      const d = (get) => C.map((q, k) => (k ? 'L' : 'M') + f(X(q.depthFloat)) + ' ' + f(Y(get(q)))).join(' ');
+      const last = C[C.length - 1];
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two curves leaving nearly the same point and parting: a heavy one rising, a lighter one falling below it" style="position:absolute;left:0;top:0">'];
+      o.push('<path d="' + d((q) => q.foldFloat) + '" fill="none" stroke="var(--ink-3)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<path d="' + d((q) => -q.GFloat) + '" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + f(X(last.depthFloat)) + '" cy="' + f(Y(-last.GFloat)) + '" r="8" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /instruments/textbook-machine/ (2026-11-12): the four-state busy beaver's whole run, read from the
      instrument's record (playground/textbook-machine/out/facts.json), time running left to right, one column per step and
      one row per cell of the tape; a 1 is a solid cell, and the head's path is a faint line through them. Every mark is a
