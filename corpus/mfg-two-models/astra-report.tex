@@ -1,0 +1,267 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,left=.85in,right=.85in,top=.76in,bottom=.79in,footskip=.37in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,xcolor,hyperref,fancyhdr}
+\definecolor{ink}{HTML}{183B49}
+\definecolor{accent}{HTML}{216967}
+\hypersetup{colorlinks=true,urlcolor=accent,linkcolor=accent,pdftitle={Multiplicity and uniqueness for the quadratic torus mean-field game}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily\color{ink} STATIONARY MEAN-FIELD GAMES}
+\fancyhead[R]{\small\sffamily\color{ink} Research report}\fancyfoot[R]{\small\sffamily\thepage}
+\renewcommand{\headrulewidth}{.3pt}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt plus 1pt}
+\newcommand{\titleline}[1]{{\Large\bfseries\sffamily\color{ink}#1}\par}
+\newcommand{\topic}[1]{\smallskip{\bfseries\sffamily\color{accent}#1}\par\nobreak}
+\newcommand{\EE}{\mathcal E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\dd}{\,dx}
+\newcommand{\dn}{\operatorname{dn}}
+\newcommand{\prob}[1]{{\small\sffamily\color{accent}#1}\par}
+\begin{document}
+\titleline{Five equilibria with a nonconstant potential}
+\prob{Computationally supported \quad Subjective probability 0.995 for each multiplicity statement}
+With $\sigma=1/2$, I propose at least five positive, even, analytic equilibria at
+$(c,A)=(-40,1/2)$ and at every point of the closed rectangle
+\[
+[-90-2^{-15},-90+2^{-15}]\ \times\ [1/2-2^{-19},1/2+2^{-19}].
+\]
+A separate shooting proof gives five throughout $[-91,-90]\times[2^{-42},2^{-41}]$ (pages 3--4). The numbers below are midpoint values. The JSON gives all 64 positive modes of both fields, including signs, at binary64 precision. The two columns of mode labels identify the number of density peaks at zero forcing and whether the density starts at a maximum or a minimum at $x=0$.
+\begin{center}\small
+\begin{tabular}{@{}rllrrrr@{}}\toprule
+$c$ & Peaks & At zero & $\rho$ & $b_2$ & $b_3$ & Sampled $\min m$\\\midrule
+$-90$ &0& uniform & $-90.000096$ & $-0.000003$ & $0.000001$ & $0.993752$\\
+&2& max & $-252.906867$ & $0.881730$ & $0.001097$ & $0.00117704$\\
+&2& min & $-252.529771$ & $-0.789839$ & $-0.481736$ & $0.00023180$\\
+&3& max & $-92.357699$ & $-0.000731$ & $0.160786$ & $0.697228$\\
+&3& min & $-92.357736$ & $0.000724$ & $-0.160788$ & $0.700134$\\\midrule
+$-40$ &0& uniform & $-40.000842$ & $-0.001962$ & $-0.000023$ & $0.979498$\\
+&1& max & $-199.481275$ & $0.854291$ & $0.710353$ & $3.3931\,10^{-7}$\\
+&1& min & $-200.518549$ & $0.854465$ & $-0.710638$ & $3.2055\,10^{-7}$\\
+&2& max & $-41.058252$ & $0.161562$ & $0.001537$ & $0.701688$\\
+&2& min & $-41.030338$ & $-0.159316$ & $-0.002359$ & $0.689935$\\\bottomrule
+\end{tabular}\end{center}
+I seeded each positive-frequency branch separately at $A=0$ and continued it in $A$. On a $3\times3$ parameter grid covering the proposed rectangle, the smallest pairwise distance using only $(b_1,b_2,b_3)$ in the maximum norm was $0.16078$ to five decimal places. All density minima in the table use 65,536 spatial samples.
+
+\topic{From the game to a scalar boundary-value problem}
+Write $V=A\cos(2\pi x)$ and $v=\sqrt m$. The conserved flux $J=m'/2+mu'$ obeys $(m e^{2u})'=2Je^{2u}$. Integration gives $J=0$. In particular, \emph{every} real classical periodic solution with mean density one has $m=e^{-2u}/\int e^{-2u}>0$, even if positivity has yet to be checked numerically. The exact equivalent problem is
+\[
+-\tfrac12 v''+cv^3+Vv=\rho v,\qquad \int_0^1v^2=1,\quad v>0,\qquad
+u=-\log v+\int_0^1\log v .
+\]
+Even periodic solutions satisfy Neumann conditions at $0$ and $1/2$. Reflection reconstructs the periodic solution and the analytic ODE gives analyticity. Independent collocation of this scalar equation provided a second numerical check.
+
+\topic{Scope and falsifier}
+A parameter in either claim with fewer than five even equilibria refutes that claim. Excluding an exact solution near a submitted candidate invalidates that witness. The infinite tail and continuous parameter coverage remain open for both proposals at depth $1/2$. The analytical results on the following pages have separate proofs.
+
+\newpage
+\titleline{Exact count at zero forcing and persistence}
+\prob{Proved \quad Subjective probability 0.9999 for the unforced count and 0.999 for persistence}
+Let $g=-c>0$. At $A=0$ the exact number of even equilibria is
+\[
+L(g)=1+2\#\{j\in\mathbb N:j\ge1,\ \pi^2j^2<g\}.
+\]
+At every nonthreshold $g$, this same count holds throughout a neighborhood of $(g,0)$ with $A\ge0$. In particular, for every $n\ge0$ a positive-area rectangle with $A>0$ has exactly $2n+1$ even equilibria. Take $g=\pi^2(n+1/2)^2$ as the unforced starting point. This argument does not specify the rectangle's width.
+
+\topic{All positive periodic profiles}
+For a nonconstant positive solution write $l=\min v$ and $h=\max v$. The first integral gives
+\[
+(v')^2=g(v^2-l^2)(h^2-v^2),\qquad \rho=-g(h^2+l^2)/2.
+\]
+Set $t=1-l^2/h^2\in(0,1)$, and use the elliptic \emph{parameter} $t$ (the modulus is $\sqrt t$). Put $K=\int_0^{\pi/2}(1-t\sin^2\theta)^{-1/2}d\theta$ and $E=\int_0^{\pi/2}(1-t\sin^2\theta)^{1/2}d\theta$. Quadrature, or the initial-value problem at a maximum, gives $v=h\,\dn(h\sqrt g(x-x_0)\mid t)$. Its fundamental period is $2K/(h\sqrt g)$ and its mean square over that period is $h^2 E/K$. Thus
+\[
+g=4j^2K E,\qquad
+v(x)=\sqrt{K/E}\,\dn(2jK(x-x_0)\mid t),\qquad
+\rho=-2j^2K^2(2-t).
+\]
+This also gives exact Fourier data by integrating $v^2$ and $-\log v$ against the cosines. Evenness permits two distinct phases modulo $1/j$, namely $x_0=0,1/(2j)$.
+
+To see strict monotonicity with positive derivative for $0<t<1$, write $w_\theta=\sqrt{1-t\sin^2\theta}$. Symmetrizing the product integral for $K E$ gives the integral of $\cosh(\log(w_\theta/w_\phi))$. For $\sin^2\theta\ne\sin^2\phi$, the absolute value of this log ratio has strictly positive derivative in $t$. The product $K E$ tends from $\pi^2/4$ to infinity. At equality with a threshold the new pair has collapsed to the constant. At $g=40$ precisely $j=1,2$ contribute.
+
+\topic{Why the count persists for small forcing}
+Shoot on $[0,1/2]$ with $v'(0)=0$ and unknown $(v(0),\rho)$. The two end conditions are $v'(1/2)=0$ and $2\int_0^{1/2}v^2=1$. At a nonconstant unforced solution, $(\omega,t)$, $\omega=h\sqrt g$, are smooth local coordinates for the two shooting unknowns. This follows from $h>l>0$ and $\rho=-g(h^2+l^2)/2$, for either choice of initial extremum. At fixed $t$ the endpoint derivative has a simple zero at $\omega=2jK$, since the endpoint is a nondegenerate extremum. Along that curve the normalized mass is $4j^2KE/g$, with positive derivative. The shooting Jacobian is invertible. At the constant, the mass removes the constant direction and the even nonzero modes have linearized scalar eigenvalues $2(\pi^2 k^2-g)$. The implicit function theorem continues each branch.
+
+For compactness, $v>0$ is the periodic ground state of $-\partial_x^2/2-gv^2+V$, so testing the constant gives $\rho\le-g$. If $D=\norm{v'}_2$, then $\sup v^2\le1+2D$ by total variation. Testing the eigen-equation with $v$ gives $D^2/2\le 2gD+A$ and bounds $|\rho|$ on compact parameter sets. The ODE gives subsequential $C^2$ convergence. A nonnegative limit vanishing somewhere has zero derivative there, so ODE uniqueness would contradict its mass. Every limit is therefore among the enumerated solutions. A different count at $A=0$, or a sequence with a different even count approaching a nonthreshold point, would refute the corresponding theorem.
+
+\newpage
+\titleline{Five equilibria on an explicit positive-depth box}
+\prob{Proved \quad Subjective probability 0.998}
+For every $90\le g=-c\le91$ and $2^{-42}\le A\le2^{-41}$, there are at least five distinct even equilibria. The proof also works for $0\le A\le2^{-41}$. The two- and three-peak unforced solutions generate four of them. A separate argument produces one near the constant. A point with fewer than five even equilibria refutes the claim. This proof has a much smaller forcing range than the numerical proposal on page 1.
+
+\topic{Four rectangles in shooting data}
+Fix $j=2$ or $3$, and start either at a maximum or a minimum. Put $d_0=1/256$, $e=1/4096$. For $|d|\le d_0$ choose the unique $t$ solving $4j^2KE=g(1+d)$. It exists since $90(1-d_0)>9\pi^2$. Write $v_0$ for the corresponding unforced solution of period $1/j$, maximum $H=2jK/\sqrt g$, minimum $L=H\sqrt{1-t}$, and mass $1+d$. For $|s|\le e$ use the unforced profile
+\[
+v_s(x)=(1+s)v_0((1+s)x),\qquad \rho_s=-(1+s)^2g(H^2+L^2)/2.
+\]
+Shoot the forced equation from $v_s(0),v_s'(0)=0$ at $\rho_s$. We track endpoint derivative and half-period mass on the four faces of the $(s,d)$ rectangle.
+
+Here are uniform bounds on the unforced profiles. Since $E\ge1$, $K\le91(1+d_0)/16<5.72$ and $(1+e)H\le(1+e)\sqrt{91}(1+d_0)/4<2.4$. Write $k'=\sqrt{1-t}$. Substituting $u=\pi/2-\theta$ in $K$ and integrating only over $0\le u\le1$ yields $K\ge\int_0^1(u^2+k'^2)^{-1/2}du=\operatorname{asinh}(1/k')$. Since $H\ge\sqrt{1-d_0}$, this gives $L>0.006$. Also $KE\le\pi^2/(4k')$, hence $k'\le9\pi^2/[90(1-d_0)]$ and $t>0.015$. Finally $L^2\le1+d_0$ yields $2|\rho_s|<625$.
+
+\topic{Unforced signs and margins}
+The mass of $v_s$ differs from $1+d$ by at most
+$e[1+d_0+(1+e)H^2]<0.0017$, by substituting $y=(1+s)x$ in the half-period integral. Thus the mass defect has the sign of $d$ on the two $d$ faces, with margin greater than $0.002$.
+
+The endpoint $x=1/2$ of $v_0$ is an extremum, with
+$|v_0''(1/2)|\ge g L(H^2-L^2)>0.007$. The sign is fixed for the chosen $j$ and starting phase. The function $z=v_0'$ solves $z''=(-6gv_0^2-2\rho_0)z$ with coefficient of absolute value below $4000$. At distance $T=e/2$ on either side of this extremum, $z$ has the sign of its linear approximation and at least half its magnitude. Indeed the integral equation bounds the error in $z(1/2+\tau)/\tau$ by $(4000T^2/6)\sup_{0<|r|\le T}|z(1/2+r)/r|$. Scaling back to $v_s$ gives opposite signs of $v_s'(1/2)$ on the two $s$ faces, each with magnitude greater than $4\times10^{-7}$.
+
+\newpage
+\titleline{Preserving the shooting signs under forcing}
+Let $y$ be the forced shot, $w=y-v_s$, and $Z=(w,w'/38)$. As long as $|y|\le2.5$,
+\[
+w''=b(x)w+2Vy,\qquad b=-2g(y^2+yv_s+v_s^2)-2\rho_s\in[-3413,625].
+\]
+The largest eigenvalue of the symmetric part of the scaled first-order matrix is $|38+b/38|/2<28$. Since $Z(0)=0$, the Euclidean norm obeys $D^+\norm Z\le28\norm Z+5A/38$ in the sense of the upper derivative of $\norm Z$. Thus, throughout the half interval,
+\[
+\norm Z\le \frac{5A}{38\cdot28}(e^{14}-1)\le5700A,
+\qquad |w|<3\times10^{-9},\qquad |w'|<10^{-7}.
+\]
+The first estimate closes the bootstrap $|y|<2.5$ and gives positivity. The half-period mass changes by less than $1.5\times10^{-8}$. Both pairs of face signs survive. The rectangle intermediate value theorem gives a simultaneous zero of $y'(1/2)$ and $2\int_0^{1/2}y^2-1$. Equivalently, orient the two components to point outwards on their faces and apply Brouwer's theorem to a small step against the vector field, projected back to the rectangle. The strict face signs make a fixed point a zero.
+
+The four solutions are distinct. Their shooting data specify a unique \emph{unforced} orbit and its fundamental period is $1/[j(1+s)]$, so the two $j$ ranges are disjoint. At fixed $j$, starting at a maximum or a minimum gives opposite unforced initial accelerations. Each shot's squared profile has oscillation exceeding $0.01$, since the unforced half interval contains a maximum and a minimum and $(1-e)^2H^2t>0.014$.
+
+\topic{The fifth solution}
+Use $v=1+w$, $\rho=-g+\lambda$, with real even functions in the Fourier algebra $\norm w_{\rm F}=\sum_{k\in\mathbb Z}|\widehat w_k|$. On the ball $\norm w_{\rm F}+|\lambda|\le r=10^{-6}$ define
+\[
+ f=3gw^2+gw^3-V(1+w)+\lambda w,\qquad
+ \widetilde w_0=-\tfrac12\widehat{(w^2)}_0,\quad
+ \widetilde w_k=\frac{\widehat f_k}{2(\pi^2 k^2-g)}\ (k\ne0),\quad
+ \widetilde\lambda=-2g\widetilde w_0-\widehat f_0 .
+\]
+The denominators have absolute value greater than $2$ throughout $90\le g\le91$. A fixed point solves the scalar equation with unit mass. For explicit norm bounds, $\norm f_{\rm F}\le275r^2+2A$ and the output has norm at most $91.5r^2+1.5\norm f_{\rm F}<r$. The Lipschitz constant of $f$ in the sum norm is at most $550r+2A$ by the algebra product bound. The full map has constant at most $183r+1.5(550r+2A)<0.002$. Contraction gives a solution with $\norm w_\infty\le10^{-6}$, positive and distinct from the four oscillatory shots. The differential equation gives analyticity. This completes the explicit-box existence proof; a count above five is compatible with it.
+
+\newpage
+\titleline{A global uniqueness rectangle at negative coupling}
+\prob{Proved \quad Subjective probability 0.995}
+For $-7\le c\le0$ and $0\le A\le6/5$ there is exactly one normalized positive periodic equilibrium, even when no symmetry is imposed. Reflection therefore makes the solution even. A second periodic solution anywhere in the rectangle would refute the statement. The bound $7$ is a sufficient cutoff.
+
+\topic{Two sharp inequalities for a normalized density}
+Use the energy $\EE_g(v)=\tfrac12\int(v')^2-\tfrac g2\int v^4+\int Vv^2$ at $\int v^2=1$. The bound $\sup v^2\le1+2\norm{v'}_2$ gives coercivity. The direct method gives a minimizer. Its absolute value also minimizes, solves the Euler equation, and is positive by ODE uniqueness. This proves existence throughout the rectangle. In the unforced problem at $g=\pi^2$, the classification on page 2, before fixing phase, makes the constant the only positive solution. Comparing energies with this minimizer gives
+\[
+\norm{v'}_2^2\ \ge\ \pi^2\norm{v^2-1}_2^2 .
+\]
+The other inequality is $\norm{v'/v}_2^2\ge\pi^2\norm{v^2-1}_2^2$. To prove it, use $y=\int_0^x v^2$, $h(y)=v(x)$, and $f(y)=h(y)\exp(i\pi\int_0^y h^{-2})$. Since $\int_0^1h^{-2}dy=1$, $f$ is antiperiodic. The lowest squared frequency is $\pi^2$. Thus
+\[
+\pi^2\int v^4\dd =\pi^2\int|f|^2dy\le\int|f'|^2dy
+=\int(h_y^2+\pi^2h^{-2})dy=\norm{v'/v}_2^2+\pi^2.
+\]
+
+\topic{Bounds uniform over every possible equilibrium}
+Write $d=m-1$, $s=\norm d_2$, $D_v=\norm{v'}_2$ and $\ell=\norm{v'/v}_2^2$. Integrating the scalar equation divided by $v$ gives $\rho=-g-\ell/2$. Testing it against $v$ then gives
+\[
+(D_v^2+\ell)/2=g s^2-\int Vd .
+\]
+Set $a=6/5$, $G=7$, $S=a/(\sqrt2(\pi^2-G))$ and $D=\pi S$. By the two inequalities, $(\pi^2-g)s^2\le as/\sqrt2$, hence $s\le S$. Applying just the second inequality also gives
+\[
+D_v^2\le(2G-\pi^2)S^2+\sqrt2a S=D^2,
+\]
+where $2G>\pi^2$. The Fourier estimate
+$\norm{v-\int v}_\infty\le D_v/\sqrt{12}$ follows from $\sum_{k\ne0}(2\pi k)^{-2}=1/12$. Hence $m\le M=(1+D/\sqrt{12})^2$.
+
+A bound on the second harmonic matters because a squared first harmonic couples to frequency two. Differentiating $m=v^2$ twice gives
+\[
+m''+4g d=2(v')^2-4g d^2+4Vm+2\ell m .
+\]
+At frequency two, $\widehat V_2=0$. Moving the term $2\ell\widehat m_2$ to the same side as the diagonal and using Cauchy--Schwarz yields
+\[
+|\widehat m_2|\le C_2=
+\frac{2D^2+4GS^2+4aS/\sqrt2}{16\pi^2-4G}.
+\]
+Here $\widehat m_2$ is a complex Fourier coefficient, so the argument also covers positive solutions without imposed reflection symmetry.
+
+\newpage
+\titleline{Excluding a second solution}
+Assume two distinct normalized profiles $v_1,v_2$ and put
+$w=(v_1-v_2)/\norm{v_1-v_2}_2$, $d_i=v_i^2-1$.
+Subtract their scalar equations and test with $w$. Normalization gives
+$w\perp v_1+v_2$. The term from the two eigenvalues reduces to their arithmetic mean, which is at most $-g$. Using $v_1 v_2\le(v_1^2+v_2^2)/2$ in the cubic difference yields
+\[
+\tfrac12\norm{w'}_2^2-\int Ww^2\le2g,\qquad
+W=\tfrac32g(d_1+d_2)-V.
+\]
+This $W$ has mean zero. The previous page gives
+\[
+\norm W_2\le U=3GS+a/\sqrt2,\qquad
+\sup W\le B=3G(M-1)+a,\qquad |\widehat W_2|\le3G C_2 .
+\]
+
+Write $w=\alpha+w_1+h$ for its mean, first harmonic, and all remaining modes. Put $\eta=D/(2\pi)$. Poincaré's inequality and positivity give $\int v_i\ge\sqrt{1-\eta^2}$. The unit vector parallel to $v_1+v_2$ has scalar product at least $\sqrt{1-\eta^2}$ with the constant unit vector, since $\norm{v_1+v_2}_2\le2$. Orthogonality then gives $|\alpha|\le\eta$.
+
+Let $\gamma=\norm h_2$. The two spectral gaps give
+\[
+\tfrac12\norm{w'}_2^2\ge 2\pi^2(1-\eta^2)+6\pi^2\gamma^2 .
+\]
+Since $W$ has zero mean, $\int Ww^2=\int W(w_1+h)^2+2\alpha\int Ww$.
+The oscillatory part of $w_1^2$ is a single second harmonic with amplitude $\norm{w_1}_2^2\le1$. Also $\norm{w_1}_\infty\le\sqrt2$. Therefore
+\[
+\int Ww^2\le 3G C_2+2\sqrt2 U\gamma+B\gamma^2+2\eta U .
+\]
+Minimizing the resulting quadratic in $\gamma$ gives the contradiction
+\[
+2g\ \ge\ 2\pi^2(1-\eta^2)-3G C_2-2\eta U-\frac{2U^2}{6\pi^2-B}\ >\ 14\ =2G .
+\]
+
+\topic{Finite numerical inequality in the proof}
+The strict last inequality can be checked using rational arithmetic. For instance $3.14159<\pi<3.14160$ and $1.41421<\sqrt2<1.41422$, $3.46410<\sqrt{12}<3.46411$ give
+\[
+ S<0.296,\quad D<0.930,\quad \eta<0.1481,\quad
+ M<1.610,\quad U<7.065,\quad B<14.01,\quad C_2<0.0401 .
+\]
+Substitution of these bounds and the lower bound for $\pi$ gives a lower bound exceeding $14.1$. This proves uniqueness over the entire closed rectangle. The candidate in the JSON is its midpoint equilibrium at $c=-3.5$, $A=0.6$. This argument uses the full differential equation and includes every periodic solution.
+
+\newpage
+\titleline{The first fold, through second order}
+\prob{Proved \quad Subjective probability 0.995}
+Set $\delta=-c-\pi^2$. For sufficiently small $\delta>0$, the positive-depth fold satisfies
+\[
+ A_{\rm f}(\delta)=\frac43\sqrt{\frac{2}{3\pi^2}}\,\delta^{3/2}
+ \left(1+\frac{\delta}{16\pi^2}+O(\delta^2)\right).
+\]
+Locally there are three even equilibria below this curve, two on it, and one above it. For $\delta\le0$ there is one locally in parameter space. For $A>0$ these local-in-parameter counts include all positive periodic equilibria.
+
+\topic{Reduction to a signed first density coefficient}
+Substitute $u=-\frac12\log m+\text{constant}$ into the first game equation. Prescribe $s=b_1$ and solve all rows $k\ge2$ near the constant. Their linearization on even mean-zero functions without the first harmonic has diagonal $g-\pi^2 k^2$. This second-order elliptic operator is invertible from the corresponding $C^{2,\alpha}$ to $C^{0,\alpha}$ spaces for $g$ near $\pi^2$. The analytic implicit function theorem gives the unique higher modes, independently of $A$. The mean equation fixes $\rho$. A half-period shift makes the resulting $A(s,g)$ odd in $s$. Compactness on page 2 excludes additional distant profiles near these parameters.
+
+For the full periodic problem, multiplying the scalar equation by $v'$ and integrating gives $\int V'm=0$. When $A>0$ the sine part of the first density harmonic vanishes. The same higher-mode inversion applies with both sines and cosines. Reflection fixes $s$ and, by uniqueness, fixes all the higher modes. This establishes the full-space count for positive depth here.
+
+\topic{Finite Taylor calculation}
+At order $n$, multiplication and diagonal inversion generate only $|k|\le n$ by induction. Using the stated Fourier convention, the second row gives
+$b_2=T s^2+O(s^4)$, $T=3\pi^2/[2(4\pi^2-g)]$. Indeed
+$a_2=-b_2/2+s^2/4+O(s^4)$ and
+$a_1=-s/2+sb_2/2-s^3/2+O(s^5)$.
+The first row now gives the exact cubic coefficient in $A(s,g)$ as
+$6\pi^2T-4\pi^2=-\pi^2+\delta+O(\delta^2)$, with linear term $2\delta s$.
+
+To get the quintic at $\delta=0$, use the unforced $j=1$ branch. For the elliptic nome $q=e^{-\pi K(1-t)/K(t)}$, its profile has the Fourier series
+\[
+ v=\frac{\pi}{\sqrt g}\left(1+4\sum_{n\ge1}\frac{q^n\cos(2\pi n x)}{1+q^{2n}}\right).
+\]
+Normalization and multiplication give $g/\pi^2=1+8q^2-8q^4+O(q^6)$ and $s=4q-28q^3+O(q^5)$. Elimination yields $\delta/\pi^2=s^2/2+13s^4/32+O(s^6)$. Substituting $A=0$ in the reduced expansion therefore fixes its missing coefficient.
+\[
+ A=2\delta s-\pi^2s^3+\delta s^3-\tfrac{21}{16}\pi^2s^5+
+ O(\delta^2 |s|^3+|\delta||s|^5+|s|^7).
+\]
+The derivative is analytic in $(s^2,\delta)$ with derivative $-3\pi^2$ in $s^2$ at the origin. It has precisely one small positive root in $s^2$ for $\delta>0$, and none for $\delta<0$. The positive extremum occurs at $s=\sqrt{2\delta/(3\pi^2)}+O(\delta^{3/2})$. The displacement affects its height first at order $\delta^{7/2}$. Substitution gives the displayed fold law. A different asymptotic coefficient or count arbitrarily close to this cusp would refute it. Its proof gives no quantitative outer radius of validity.
+
+\newpage
+\titleline{Reproduction, limitations, and sources}
+\topic{Numerical evidence}
+The JSON uses the requested order $\rho,a_1,\ldots,a_{64},b_1,\ldots,b_{64}$ in separate fields. The solver uses $p_k=2\pi k a_k$ and signed, unaliased linear convolutions. The residual columns use the original unscaled rows, evaluated from the submitted decimal strings with 80-digit arithmetic. The omitted-mode residual below is for the \emph{zero-padded submitted polynomial} in rows $65$ to $128$. The last column measures the largest observed coefficient in a separate 128-mode solve, over modes $65$ to $128$. All entries are numerical diagnostics.
+\begin{center}\small
+\begin{tabular}{@{}lrrrr@{}}\toprule
+$(c,A)$ & Max retained residual & Max omitted residual & Max omitted $|a_k|$ & Max omitted $|b_k|$\\\midrule
+$(-90,0.5)$ & $7.98\,10^{-14}$ & $1.43\,10^{-6}$ & $1.60\,10^{-14}$ & $1.66\,10^{-11}$\\
+$(-40,0.5)$ & $6.90\,10^{-14}$ & $6.60\,10^{-8}$ & $3.78\,10^{-16}$ & $7.58\,10^{-13}$\\\bottomrule
+\end{tabular}\end{center}
+These entries are rounded upwards for display. At the two midpoints the largest collocation discrepancy was below $7.1\,10^{-11}$ in $\rho$ and $5.2\,10^{-12}$ in any retained density coefficient. A positive lower bound for an \emph{exact} normalized density follows from the conserved flux once existence of a real periodic solution is proved. A sampled positive minimum alone gives no enclosure.
+
+At $(c,A)=(-10,0.01)$ the file also gives three candidates with $b_1$ values $0.04090666$, $0.13716707$ and $-0.17676979$. Their coexistence at this specific point is computationally supported (probability $0.995$). An existence exclusion near one of the candidates would invalidate that witness. A 12-mode fold computation gave $(A_{\rm f}/A_{\rm leading}-1)/\delta$ equal to $0.00649490$, $0.00636508$ and $0.00633908$ at $\delta=0.1$, $0.02$ and $0.004$. The analytical limit is $1/(16\pi^2)\simeq0.00633257$.
+
+\topic{Negative results}
+At half-width $2^{-10}$ in both parameters near $(-90,0.5)$, a finite floating-point estimate of the derivative defect reached $6.24$ for the two-peak branch starting at a minimum. I narrowed the proposed rectangle. A 48-mode sweep initialized at $c=-96$ retained only four candidates on reaching $A=0.5$, and only two on reaching $c=-88.5$ along that depth. These are continuation losses. I did not establish an upper count at the stated positive-depth multiplicity locations or locate a non-even forced equilibrium. The sharp first-harmonic phase condition does not settle global reflection symmetry.
+
+\topic{Code and sources}
+Run \texttt{python3 reproduce.py} and \texttt{python3 checks.py} in the witness directory. The first writes the JSON. The second tests scalar collocation, 128-mode continuation, parameter samples and bordered fold solves. \texttt{residuals.py} reevaluates the JSON using mpmath 1.3.0. \texttt{bounds.py} checks the finite rational inequalities. \texttt{widths.py} and \texttt{explore.py} reproduce the width estimates and sweep. I used NumPy 2.0.2 and SciPy 1.13.1.
+
+The public \href{https://github.com/carlostoledo1891/cert-machine/tree/main/labs/mfg}{cert-machine MFG lab} supplied the Fourier and verifier conventions; consulted local files were \texttt{README.md}, \texttt{multiplicity.js}, \texttt{box.js}, \texttt{census.js} and the \texttt{legacy/core/mfg} model and validation sources. No interval certificate was run or issued.
+
+The nodeless unforced nonlinear Schrödinger profiles have prior literature, including \href{https://journals.aps.org/pra/abstract/10.1103/PhysRevA.62.063611}{Carr, Clark and Reinhardt, Phys. Rev. A 62, 063611 (2000)}. I used NIST DLMF \href{https://dlmf.nist.gov/19.2}{\S19.2} for elliptic integrals, \href{https://dlmf.nist.gov/22.13}{\S22.13} for the differential equation, and \href{https://dlmf.nist.gov/22.11}{\S22.11} for the Fourier series. The claims here concern the game's normalization and verification problem. Historical priority has not been established.
+\end{document}
+

@@ -1,0 +1,130 @@
+ADVERSARIAL REVIEW OF P1–P3, S2, C1 AND C2
+
+1. Verdicts
+
+All integrals are over the length-one torus unless indicated. I use g = -c when c < 0, V = A cos(2πx), and “all” includes solutions without imposed reflection symmetry. Probabilities refer to the mathematical statements. HOLDS for a numerical row means the reported numerical precision or evidence is reproducible. It does not assert a continuum theorem.
+
+Claim                                               Verdict    Probability true as stated
+P1. Normalized scalar reduction and consequences    HOLDS      >0.9999
+P2. Full unforced classification and even count     HOLDS      >0.9999
+P3. Exactly one positive periodic equilibrium       GAP        >0.9999 (existence supplied below)
+P3. A=1 cutoff rounded to four decimal places       ERROR      0 for the quoted rounding
+S2. Fifteen tabulated folds and six inverse values  HOLDS      0.995 at the quoted numerical precision
+S2. First-fold leading term                         HOLDS      >0.999
+S2. Exact counts on the stated scan grids           GAP        0.95 for the proposed grid counts
+S2. Global uniqueness to the right across the map   GAP        0.90
+C1. Count and strict uniqueness law for every A,c   ERROR      0
+C2. Every positive-depth equilibrium is even        GAP        0.5
+
+P3 has a proof of at most one and a short repair to exactly one. The cleanest counterexample to C1 is (c,A)=(-π²,0). The strongest positive numerical finding is the agreement of all three fold columns with an independent normalized scalar calculation. Neither the grid nor the random restarts establish completeness.
+
+2. Proof audit, corrections and counterexamples
+
+P1. Integrating the Fokker–Planck equation once gives m'/2+mu'=J. Differentiating m exp(2u) gives 2J exp(2u). Periodicity and positivity of exp(2u) force J=0. The mass fixes the proportionality constant. For φ=√m one obtains u=-log φ+∫log φ, which explicitly fixes the “const” in the statement. Substitution gives -u''/2+(u')²/2=φ''/(2φ). Multiplication by φ and rearrangement give the asserted equation with the asserted signs. The reverse substitution satisfies both equations and both mean constraints. Evenness is preserved in both directions. A positive classical solution is analytic by the scalar ODE.
+
+For the ground-state statement, direct integration by parts gives
+  ∫[|ψ'|²/2+(cm+V-ρ)|ψ|²] = (1/2)∫φ² |(ψ/φ)'|².
+This also proves simplicity. Integrating the HJB equation gives ρ=c-(1/2)∫(u')². Multiplication of the scalar equation by φ' leaves -(1/2)∫V'φ²=0 after integration. Dividing by A when A>0 gives the stated first sine moment. This is one moment condition, not a global symmetry theorem. The cited connection with the nonlinear Schrödinger equation is present in the papers listed below.
+
+P2. Write h=max φ and l=min φ. A nonconstant positive orbit has 0<l<h. Integrating the autonomous equation at its two extrema gives exactly
+  (φ')²=g(φ²-l²)(h²-φ²),       ρ=-g(h²+l²)/2.
+The right homoclinic orbit cannot furnish a positive nonconstant finite-period solution. The two turning values and uniqueness for the ODE identify every positive periodic orbit as h dn(β(x-x₀);k), with k²=1-l²/h² and β=h√g. The fundamental period is 2K/β, and every orbit on the unit torus completes a positive integer j of periods. Since the integral of dn² over its real period is 2E, normalization gives h²E/K=1. This reproduces all three formulas for g, h and ρ.
+
+I independently differentiated with respect to the modulus k, with k'=√(1-k²). Both displayed derivatives are correct:
+  (KE)'=[E²-(k')²K²]/[k(k')²],
+  (E-k'K)'=(1-k')(K-E)/(kk').
+The second quantity is positive for 0<k<1 and E-k'K vanishes at 0. The endpoint values of KE are π²/4 and +∞. A threshold equality contributes no new nonconstant state. Evenness requires the origin to be a turning point, giving exactly two phases modulo 1/j. The five and seven stated in P2 are counts of EVEN triples; the unrestricted class has a continuum of phases whenever a nonconstant branch exists. The constant always has φ=m=1,u=0,ρ=c. For c≥0 at A=0 the constant and P3's identity extend the uniqueness assertion to the full stated half-line.
+
+P3, steps 1–4. Let Δ=m₂-m₁ and w=log(φ₂/φ₁). Integration by parts with the proposed multipliers gives positive kinetic contribution (1/2)∫(m₁+m₂)(w')², coupling contribution c∫Δ², and zero combined potential and mass contributions. Thus D/2=-c∫Δ². Also z=tanh w=Δ/μ, |z'|≤|w'| and ∫μz=0. In step 3 the bar must be the ORDINARY mean ∫z for the application of ordinary Wirtinger. In detail,
+  ∫Δ² ≤ μmax ∫μz² ≤ μmax ∫μ(z-∫z)²
+        ≤ μmax²/(4π²) ∫(z')² ≤ μmax²/(4π² μmin) D.
+The middle inequality follows by expanding the square and using ∫μz=0. Strict inequality g<2π²μmin/μmax² forces D=0, hence proportional densities, equal by mass. P1 fixes u and ρ. For c≥0 the sign in step 1 already suffices.
+
+Steps 5–7. For any normalized ψ in the periodic H¹ space and d=||ψ'||₂, the oscillation of |ψ|² is at most half its total variation, hence at most d. Its mean is one, so sup|ψ|²≤1+d. Integrating cos(2πx)|ψ|² by parts gives absolute value at most d/π. Since m is a probability density, the Rayleigh quotient of the frozen operator is bounded below by d²/2-g(1+d)-Ad/π. Completing the square proves step 5. P1 gives ||u'||₂≤g+A/π. The shorter-variation bound on a closed curve gives osc(log m)=2 osc u≤∫|u'|≤g+A/π. Because min m≤1≤max m, step 6 and the factor of 2 in both bounds on μ in step 7 follow. Substitution gives exactly g exp(3g+3A/π)<π². All seven steps are valid.
+
+My repair to P3. Uniqueness of an equilibrium requires existence as well. Minimize
+  (1/2)∫|v'|²+(c/2)∫v⁴+∫Vv²,    ∫v²=1,
+over real periodic H¹. For attractive coupling, ∫v⁴≤1+||v'||₂ gives coercivity. One-dimensional compactness gives a minimizer. Its absolute value is also a minimizer, solves the smooth Euler equation, and cannot vanish: a zero would be a minimum with derivative zero, and the ODE would force the zero solution. P1 reconstructs a normalized equilibrium. Uniqueness in the full space then implies evenness by reflection. If existence is taken as a separately supplied theorem, the verdict on P3's theorem becomes HOLDS without this additional paragraph.
+
+P3 table. The exact cutoff is T(A)=W(3π² exp(-3A/π))/3, with W the positive real Lambert W. The roots for the five columns are
+  0.82662236437095, 0.71556108436065, 0.60974705928737,
+  0.56908808008027, 0.25879570403332.
+At A=1 the printed 0.6098 rounds incorrectly; the ordinary four-place rounding is 0.6097. Moreover a strict sufficient cutoff must not be rounded upward if it is offered as a guarantee. Conservative four-decimal cutoffs are 0.8266, 0.7155, 0.6097, 0.5690, 0.2587. For example, g=0.60977 is below the printed cutoff at A=1 and fails the displayed sufficient test. This is an error in the table's inference; it does not exhibit nonuniqueness.
+
+C1. At A=0,c=c₁(0)=-π², P2 proves exactly one solution. The conjectured “unique if and only if c>c₁(A)” says it is not unique. The counting formula alone has a separate failure at positive-depth ordinary folds. At the first cusp, for all sufficiently small A>0, the reduced scalar has a double root and a distinct simple root on the fold. These give two distinct equilibria at c=c₁(A), where the strict-indicator formula counts one. The derivation is below. My proposed correction, still only a CONJECTURE globally, would add one at each isolated simple positive-depth fold, keep the original strict rule at unforced pitchforks, and state the off-fold count separately. Ordering and absence of other branches remain open.
+
+S2 and C2. Continuation enumerates the branches that were found. Proving that the counts exhaust the ODE would require, for example, a priori bounds on the initial height and ρ, followed by exhaustive exclusion or isolation of every positive Neumann shot of the required mass. A mesh over those two unknowns can miss a pair of roots having zero net degree, or a root near tangency. Open grid cells do not follow from their sampled parameter points. C2 has a further gap: continuation of odd-sector eigenvalues along known even branches cannot exclude a disconnected asymmetric family. A finite sample of positive eigenvalues also cannot exclude an intervening zero. No counterexample to global C2 was established here.
+
+3. Independent recomputations and their scope
+
+For P2, in (g,j) order, the formula and an 80-mode normalized scalar Newton calculation gave
+
+ (12,1)   ρ=-16.62421066373121    min m=0.1646238839596494
+ (45,2)   ρ=-56.64257934208010    min m=0.2546033463639043
+ (90,2)   ρ=-252.9065916031524    min m=0.001177046797514317
+ (90,3)   ρ=-92.35878785470101    min m=0.7029466994832979
+
+Maximum observed differences were 8.6e-14 in ρ and 1.3e-15 in the minimum. The check script also brackets each P3 root between consecutive multiples of 10^-12 using rational Taylor bounds for exp and Machin bounds for π. If T₀=T(0), T₁=T(1.2), the strip area is exactly (π/3)[T₀-T₁+(3/2)(T₀²-T₁²)]. Dividing by 24 gives 3.4762561337% of the published map. I checked the 19,800 local cell records. Exactly 146 cell interiors intersect the open negative strip in positive area; all 146 are marked UNDECIDED. On nine independently selected solution pairs the largest discrepancy in D/2=g∫Δ², divided by max(1,LHS,RHS), was 1.08e-12 or less. The weighted inequality chain and the density/range bounds also passed on these pairs. The nine pairs in the author's check were unspecified.
+
+For S2 I solved the normalized scalar Galerkin equations together with a null-vector equation in the even space. The null vector includes the change in ρ and is normalized by setting its j-th cosine coefficient to one. Products are evaluated without aliasing into the retained rows. Independent runs at N=24 and 48 reproduce the printed fold table. The N=48 results are
+
+ A        c₁                c₂                c₃
+ 0.1   -10.305401829     -39.484701209     -88.826493634
+ 0.5   -11.137542294     -39.533683181     -88.827790242
+ 1.0   -11.871208279     -39.621250398     -88.831842458
+ 1.2   -12.125030409     -39.662171178     -88.834219981
+ 3.0   -13.946340753     -40.142725061     -88.875095748
+
+On j=1, increasing |c| through 12,20,30,45 gives depths 1.099832343, 13.581183498, 49.856876654, 135.902305176. On j=2 at c=-45 I get 13.166498529; on j=3 at c=-90 I get 14.626188320. The first-fold leading law has absolute c errors 0.000038233756 and 0.033466203 at A=0.01 and 1.2; the latter is the unrounded comparison for the quoted “0.034.” The two empirical fits at A=0.1,0.5 miss c₂ by 0.00003003 and 0.00034469, and c₃ by 0.00000002428 and 0.00000063242. The underlying regression sample and fitting weights were unspecified.
+
+I also ran cert-machine's own fable/check-folds.js, which calls the native Fourier solver and compares branch separations. Its random-search transition estimates at A=0.1,0.5,1.0,1.2 agree at five decimals with the first column. Its printed brackets are empirical. An exploratory 16-mode run at c=-45 on j=1 gave 135.870589, and an unrefined third-mode initial guess stalled at A=0.1. Increasing the resolution and using the resonant initial guess resolved these numerical difficulties.
+
+The grid continuation covered 19,170 (c,A) points, including all eight 1,600-point slices down to c=-16 and both deeper slices. The first hundredth-grid couplings strictly below the first fold, in the author's A order, were
+  -10.31, -10.78, -11.14, -11.60, -11.88, -12.13, -13.02, -13.95.
+The first grid points below the second fold were -39.54 and -39.63. I used the numerical fold and its null vector to launch each new pair and followed both branches at every subsequent grid point. This checks existence evidence and separation for the predicted branches. It is not a blind search for additional ones. Targeted solves recovered 3, 3, 5 distinct profiles at (-20,0.5), (-30,2), (-45,0.5).
+
+I also sampled the odd scalar linearization -∂²/2+3cv²+V-ρ at g=40,45,60,80, on both two-peak phases, and at A=0.01,0.02,0.04. Tracking the eigenvector by overlap with v' gave opposite signs on the two phases, with the same sign on each phase throughout these samples. At g=60, λ/A² was about +0.0203384 and -0.0203384 at A=0.01. These checks support the reported quadratic splitting. I did not reproduce the author's 2,800 unrestricted starts, its exact nine comparison pairs, or its complete odd-spectrum traces: the points, starts, tracked intervals or raw outputs were not specified in the brief. I did not repeat the multiplicity certification, prove the extrema of the true PDE at the tabulated decimal parameters, or prove that no other folds exist.
+
+4. Additions
+
+PROVED — an immediate widening of P3. With ω=g+A/π, every density obeys m_i(x)≤exp(ω)m_i(y) for every x,y. Summing at the SAME x,y gives μmax/μmin≤exp(ω). Also μmax≤2 exp(ω). Step 4 now proves global uniqueness under g exp(2g+2A/π)<π². This works for every finite A. The new positive cutoffs at A=0,0.5,1,1.2,3 are approximately 1.0979895, 0.9903988, 0.8866004, 0.8462363, 0.5183513.
+
+PROVED — an explicit sufficient region approaching g=π². Write P=π². Fix P/2≤G<P and A₀≥0. Then every 0≤g≤G, 0≤A≤A₀ has a unique positive periodic equilibrium provided
+  G exp(√2 π A₀/(P-G)) < P.
+For example this proves the full rectangles G=5.75,A₀=0.5 and G=9.2,A₀=0.01. The left sides are below 9.860 and 9.832 respectively. One can choose G arbitrarily close to π² by reducing A₀.
+
+Here is the derivation. Write s=||v²-1||₂, d=||v'||₂, L=||(log v)'||₂². For normalized v>0, both d²≥P s² and L≥P s². For the first, the zero-forcing energy at g=P has a positive minimizer by the existence argument. P2 makes it constant even before imposing symmetry. Comparison with that minimum gives the inequality. For the second, change variable to y=∫₀ˣ v² and put h(y)=v(x). Then ∫h⁻²dy=1. The antiperiodic function h(y) exp(iπ∫₀ʸ h⁻²) has derivative energy L+P and squared norm ∫v⁴. Its lowest squared frequency is P, proving L≥P s². The scalar energy identity and P1 give
+  (d²+L)/2 = g s²-∫V(v²-1).
+Hence s≤S=A₀/[√2(P-G)], and L≤(2G-P)S²+√2 A₀ S=P S². In the previous ratio argument one may now take ω=√L≤π S. This proves the displayed condition, including the constants.
+
+PROVED — uniqueness reaches the first fold locally. Set P=π², a=A/P, δ=g/P-j², and s equal to the j-th complex Fourier coefficient of v=√m in the even space (so it is real). Near v=1, solve normalization, the mean equation, and all nonresonant Fourier rows for the mean of v, ρ, and the other coefficients. Their linearization is invertible: normalization fixes the mean, the zero row fixes ρ, and row k≠0,j has diagonal 2(k²-j²) in the scaled scalar equation. Analytic implicit inversion, e.g. in periodic even Hölder spaces C^{2,α} to C^{0,α}, gives a scalar residual F_j(s,δ,a). At zero depth its leading terms are -2δs+4j²s³. The cubic also follows from the P2 branch: g/P=j²(1+t²/32+O(t³)) and s=t/8+O(t²) for elliptic parameter t=k². At j=1 the direct forcing adds +a/2. In the density coordinate b₁=2s+O(s²+|a|) this gives exactly the author's leading cubic and c₁(A)=-P-(3/2)(π/2)^{2/3} A^{2/3}+o(A^{2/3}).
+
+For clarity on root counts, at j=1 one may instead solve the higher density rows after u=-log(m)/2+const and prescribe b=b₁. These rows are independent of A. The remaining scalar is A(b,g)=2(g-P)b-Pb³+O(|g-P||b|³+|b|⁵), odd in b by half-period translation. Its derivative is analytic in (b²,g) and its derivative in b² is -3P at the origin. Thus, for g just above P, it has one local maximum and one local minimum, giving three solutions below the positive fold, two at it, and one above it, locally in parameters. For g≤P nearby there is one. The cubic sign and the distinct simple root persist at the positive fold.
+
+These are counts of all equilibria locally for A>0. The sine balance from P1 makes the first density harmonic real, and uniqueness of the higher-mode inversion including both sines and cosines forces reflection symmetry. No distant positive solution can intrude near (g,A)=(P,0): write d=||v'||₂. Testing the scalar equation with v and using ρ≤-g, sup v²≤1+d gives d²/2≤gd+A. Thus d, ρ and v'' are bounded on compact parameter sets, giving subsequential C² convergence by the ODE. A nonnegative limit of unit mass cannot have a zero by initial-value uniqueness. P2 makes the only limit at (P,0) the constant. This proof gives a neighborhood rather than an explicit forcing range. It supplies the positive-depth counterexample to C1 independently of a numerical fold.
+
+PROVED — local exponents and coefficients for the second and third constant-state folds. These are local statements about even branches from the stated resonances. The fits in S2 admit the following exact leading terms:
+  c₂(A)=-4P-K₂ A^{4/3}+o(A^{4/3}),    K₂=24/(768^{2/3} P^{1/3})=0.133414749944…,
+  c₃(A)=-9P-K₃ A²+o(A²),              K₃=[99/4480+54(41/(40960·72))^{2/3}]/P
+                                            =0.005402423388….
+
+Here are coefficient details for independent checking. The scaled scalar rows are
+  2k² v_k -(j²+δ)(v³)_k + a(cos v)_k -(ρ/P)v_k=0,
+where cos denotes cos(2πx). At j=2 the forced v₁=a/12 at first order. The resonant constant term in row 2 is -12(a/12)²+(a/2)(a/12)=-a²/24. Half-period translation makes F₂ even in a. At a=0 phase shift makes it odd in s. With a=t³,s=t²Y,δ=t⁴D, the scaled limiting residual is 16Y³-2DY-1/24. Its double root has Y³=-1/768 and D=24Y².
+
+At j=3 put a=t a₀, s=tS, δ=t²D and v=1+t f+t²h+…. The nonzero entries of f are f_{±1}=a₀/32 and f_{±3}=S. Denote the unit cosine by C. Then h₀=-(f²)₀/2, h₃=0, and for k=2,4,6 one has h_k=[27(f²)_k-a₀(Cf)_k]/(2k²-18). The second-order correction R in ρ/P=-9+t²(R-D)+… is R=-18h₀-27(f²)₀+a₀(Cf)₀. Substitution in row 3 gives
+  -2DS-54(fh)₃-9(f³)₃+a₀(Ch)₃-RS
+   =36S³+(99 a₀²/2240-2D)S+41 a₀³/40960.
+All products here are Fourier convolutions. For a₀=1 the double root satisfies S³=41/(40960·72) and D=99/4480+54S². For both j=2 and j=3 the double root is nonzero. The Jacobian for (residual, amplitude derivative) in (amplitude,D) is invertible there since the second amplitude derivative and the D derivative of the residual are nonzero. Analytic rescaling and the implicit function theorem lift each limiting fold to an actual small-positive-A fold. These arguments do not continue the curves globally.
+
+PROVED — a restriction on where C2 could fail. For each compact I⊂[0,4π²), there exists ε(I)>0 such that every positive periodic solution with g in I and 0<A<ε(I) is even. Suppose asymmetric solutions existed along A→0. Use the compactness argument above. By P2 the unforced limit is constant or a translate of the single-peak profile. That profile has a nonzero first density coefficient: centered at its maximum it strictly decreases on (0,1/2), and integration by parts against cos(2πx) makes this coefficient positive. The sine balance consequently pins any such limit to the even maximum or minimum phase.
+
+Normalize the odd differences h_n=[v_n(x)-v_n(-x)]/||v_n(x)-v_n(-x)||₂. They satisfy a linear scalar ODE with uniformly convergent potentials, and converge along a subsequence to a unit odd solution h of
+  -h''/2+(3c v₀²-ρ₀)h=0,       ∫sin(2πx)·2v₀h=0.
+The latter condition follows by subtracting the sine balances of the reflected pair before passing to the limit. At a constant limit, the only possible odd zero mode for g<4π² is sin(2πx) at g=π², which violates this condition. At a single-peak limit, the odd kernel is spanned by v₀': an odd solution has initial value zero, and v₀' has a nonzero initial derivative at the extremum. Its moment equals -2π∫cos(2πx)v₀², again nonzero. Both cases contradict ||h||₂=1. This rules out asymmetric solutions in the specified small-depth range without resolving C2 for general parameters.
+
+Sources and reproduction
+
+External pages used: NIST DLMF §19.4 (https://dlmf.nist.gov/19.4) and §22.13 (https://dlmf.nist.gov/22.13); the original Schrödinger–MFG paper (https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.116.128701) and the authors' overview (https://arxiv.org/abs/1708.07730). Local inputs were TO-ASTRA.md, the published map in certs/mfg-regime-map.json, and the public repo's fold-check and Fourier conventions. I have not audited historical priority.
+
+The accompanying astra_crosscheck.py accepts “exact”, “scalars”, “folds”, “scan”, “pairs”, and “odd”. Use Python with NumPy, SciPy, mpmath and SymPy. The exact mode checks rational root brackets and the resonant coefficients. The numerical modes use floating arithmetic. The existence and uniqueness arguments above concern the infinite-dimensional equation.
