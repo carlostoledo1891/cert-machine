@@ -202,6 +202,11 @@ for (const [repo, num, label] of [
   ['AxiomMath/BGP212', 1, 'BGP212 #1 (the seven quoted premises read MISMATCH; opened 2026-11-12)'],
   ['AxiomMath/BGP212', 2, 'BGP212 #2 (is the Gap212Certificate witness published?; opened 2026-11-12; pruzze posted an independent witness 11-14)'],
   ['newton-physics/newton', 5418, 'Newton #5418 (SolverFeatherstone’s unread angular_damping, and the class description’s energy sentence; opened 2026-11-17)'],
+  /* four threads read by hand until 2026-11-18 (added then; none had a reply) */
+  ['anthropics/formal-math', 48, 'formal-math #48 (ours, 2026-11-12: the percolation replay and the bridge; our follow-up 11-13, issuecomment-6860180203: Conjecture 3 under which reading, continuity offered as a pull request)'],
+  ['nitromannitol/percolation-after-anthropic', 1, 'percolation-after-anthropic #1 (ours, 2026-11-13: Bou-Rabee\'s Conjecture 1 against the printed sentence; two observations; the bridge files offered as a pull request)'],
+  ['anadim/AdderBoard', 97, 'AdderBoard #97 (skyway1111\'s 5-parameter adder; our confirmation 2026-11-12, issuecomment-6830293069; the lane is dropped, reopened only on a reply)'],
+  ['jasondavies/macmahon-min-universal-sets', 1, 'macmahon-min-universal-sets #1 (ours, 2026-11-03: Davies\'s classification replayed and certified twice)'],
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
