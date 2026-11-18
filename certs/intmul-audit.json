@@ -57,7 +57,7 @@
  "gaps": [
   {
    "lead": "The community proof has no second kernel.",
-   "text": "nanoda was stopped on memory twice (114,017 MiB of 122,070 the first time, 114.8 GiB the second). Lean's own kernel, replaying the whole closure afresh, was stopped at 115.2 GiB after 6 h 42 min. A third checker, con-leche, alone on the machine, stayed under 10 GiB for 54 minutes, then grew by more than 10 GiB a minute and was stopped at 100.7 GiB. Nothing rejected the proof. The cause of the memory growth was not found."
+   "text": "nanoda was stopped on memory twice (114,017 MiB of 122,070 the first time, 114.8 GiB the second). Lean's own kernel, replaying the whole closure afresh, was stopped at 115.2 GiB after 6 h 42 min. A third checker, con-leche, alone on the machine, stayed under 10 GiB for 54 minutes, then grew by more than 10 GiB a minute and was stopped at 100.7 GiB. Nothing rejected the proof. On a second machine con-leche's heartbeat names the theorem it was on when the growth began, stage_source_trace, and Lean's own kernel runs out of memory replaying that theorem's module alone, which the ordinary build compiled in 98 seconds. Why a replay costs what the build did not is not known."
   },
   {
    "lead": "Some planted statements got no verdict.",
@@ -1985,6 +1985,59 @@
    }
   ]
  },
+ "located": {
+  "what": "a second pod (no registered run): the proof built again, exported by the tool's recipe, and con-leche run alone with its heartbeat every 10 seconds, which names the oldest check in flight; then Lean's own kernel on the one module that holds the theorem (amendment A17)",
+  "exportIsTheRegisteredFile": true,
+  "exportSha256": "114e7e51f9237319131b447eb1497ad70f4621bce37d4b8a442362f4ede9103b",
+  "conLeche": {
+   "tool": "con-leche: cd2eceab2e9b10404c663b468639c8aa99d0d1f2 leanprover/lean4:v4.36.0 sha256 6d8dd758515bcf4180a12b47193e0c4c3772e45fac652bb513a70b3907e6ba4f",
+   "start": "2026-11-18T14:37:14Z",
+   "end": "2026-11-18T15:39:22Z",
+   "exit": 137,
+   "stopped": "2026-11-18T15:39:12Z stopped (kill -9) at 100.4 GiB of resident memory, by guard-locate.sh; not a rejection",
+   "heartbeatLines": 365,
+   "checksCompletedAtTheStop": 379652
+  },
+  "declaration": {
+   "kind": "theorem",
+   "name": "IntegerMultBounds.MathlibTM2.M8.Global.DesignB.stage_source_trace",
+   "foldIndex": 372008,
+   "file": "IntegerMultBounds/MathlibTM2/M8/Global/DataTraceB.lean",
+   "fileSha256": "19368d255b5d4a426a343fc887e3ad904b42bc09dd2c2aa1d70e98cd2227968c",
+   "beganAt": "15:29:18",
+   "secondsInFlightAtTheLastHeartbeat": 589,
+   "checksCompletedMeanwhile": 7762
+  },
+  "memory": {
+   "sampler": "guard-locate.sh, from 15:14:17 (the first sampler read the wrong process)",
+   "lastReadingBeforeItBeganGiB": 2.9,
+   "lastReadingBeforeItBeganAt": "15:29:10",
+   "highestReadingBeforeItBeganGiB": 10,
+   "lastReadingGiB": 100.4,
+   "giBPerMinuteAfter": 9.7
+  },
+  "otherChecksOver30Seconds": [
+   {
+    "name": "_private.IntegerMultBounds.Networks.Certificates.T16.Streams.PortsCheck.0.IntegerMultBounds.Networks.Certificates.T16.Streams.ports_check._proof_1_1",
+    "seconds": 38
+   },
+   {
+    "name": "IntegerMultBounds.MathlibTM2.M8.Global.DesignB.centreBlock_gate_good",
+    "seconds": 114
+   }
+  ],
+  "leanOnTheOneModule": {
+   "what": "leanchecker --verbose on the module alone, on top of its imports as built (no --fresh), 15-minute limit, 90 GiB address-space limit",
+   "start": "2026-11-18T15:41:03Z",
+   "end": "2026-11-18T15:50:13Z",
+   "exit": 1,
+   "said": "INTERNAL PANIC: out of memory",
+   "wall": "9:09.79",
+   "peakGiB": 84.9,
+   "theOrdinaryBuildOfTheSameModuleSeconds": 98
+  },
+  "notShown": "That nanoda and the fresh replay of the first pod were on this declaration (neither says where it is), and why a replay costs what the build did not."
+ },
  "publicRecord": {
   "file": "corpus/intmul/public-record.json",
   "what": "Dates of the public record around the two audited proofs, read from the primary sources named in each row on 2026-11-18 (GitHub's API, the files at the commits named, the pages themselves). A reading, by public record only: private dates are unknown, nothing here was built to confirm a row, and no priority is decided. Times are UTC.",
@@ -2041,7 +2094,7 @@
  },
  "amendments": {
   "file": "corpus/intmul/amendments.json",
-  "count": 16,
+  "count": 17,
   "list": [
    {
     "id": "A1",
@@ -2126,6 +2179,11 @@
     "id": "A16",
     "about": "said during the run and corrected",
     "text": "Three statements made while the pod was running were wrong and were corrected the same day: that three kernels had accepted the Google/CMU proof (at the time one of the three had replayed a two-declaration module; the fresh replay came later); that the Python reference had run \"under schedules that force the new route\" (the counters show what ran); and that the first stop of the community run was caused by our tool build alone (A4: it cannot be separated)."
+   },
+   {
+    "id": "A17",
+    "about": "Q1 · the declaration named, on a second machine (added 2026-11-18, after the page was first published)",
+    "text": "A second pod (the same shape, cap US$ 8, no registered run on it) built the community proof again through the intake's stages and exported it by the tool's own recipe. The export's sha256 equals the registered run's (114e7e51...), so the checkers there read the same file. con-leche, the same binary as on the first pod, ran alone with its heartbeat every 10 seconds; each heartbeat line names the oldest check in flight. Its memory read 2.9 GiB at 15:29:10 UTC. At 15:29:18, by the heartbeat, it began the theorem IntegerMultBounds.MathlibTM2.M8.Global.DesignB.stage_source_trace (file IntegerMultBounds/MathlibTM2/M8/Global/DataTraceB.lean). From then it grew about 10 GiB a minute while the other workers completed 7,762 checks, and the sampler stopped it at 100.4 GiB with that one theorem 589 seconds in flight. One earlier theorem of the same design, centreBlock_gate_good, took 114 seconds and about 10 GiB, and finished. Then Lean's own kernel was run on that one module alone, replayed on top of its imports as built (leanchecker without --fresh, a 15-minute limit and a 90 GiB address-space limit): it ended with INTERNAL PANIC: out of memory after 9 min 10 s at 84.9 GiB. The ordinary build had compiled the same module in 98 seconds. NOT SHOWN: that nanoda and the fresh replay on the first pod were on this declaration (neither says where it is); why a replay costs what the build did not. One guess was not tested: that under Lean's module system the build's kernel sees less of the imported definitions than a replay does. DEPARTURES on this pod: the sampler inside pod-locate-run.sh read the memory of the timing wrapper and not of con-leche, so memory.txt holds zeros and its stop could not have fired; a corrected sampler (guard-locate.sh, memory2.txt) ran from 15:14, 37 minutes into the run, so con-leche's memory before that was not recorded here. The con-leche build was paused while the proof built, because the intake's watchdog counts everything on the pod. Cost: US$ 2.97 (corpus/intmul/pod2/cost.json)."
    }
   ]
  },
@@ -2157,13 +2215,27 @@
    }
   ]
  },
+ "costOfTheSecondPod": {
+  "pod": "uceaqh2d4s4m7i",
+  "shape": "RunPod CPU pod cpu3m, 16 vCPU / 128 GB, US$ 0.88 an hour, US-CA-2",
+  "created": "2026-11-18T12:31:44Z",
+  "deleted": "2026-11-18T15:51Z",
+  "deletedConfirmed": true,
+  "deletedHow": "deleted through RunPod's API after every result file was copied home and its sha256 compared with the pod's (45 files); a read of the pod afterwards answers 404 and the account lists no pod",
+  "hours": 3.31,
+  "usd": 2.97,
+  "usdHow": "computed: 11,914 s of uptime at the last reading before the deletion, at US$ 0.88 an hour (US$ 2.91), plus the disk line at the rate billed on the first pod (US$ 0.06)",
+  "cap": 8,
+  "what": "the community proof built again through the intake's stages (no registered run), its export, con-leche with its heartbeat, and Lean's leanchecker on one module"
+ },
  "code": {
-  "tools/record-intmul.js": "be7e0d6406993c0c5cd1a8b19d1f4c4b8004c94b7effbec70a7e7d595154bd0e",
+  "tools/record-intmul.js": "e51331ec27ec7253881a2cd1b71ee249ac8b6c55950f446098939ee2782666f1",
   "corpus/intmul/preregistration.json": "63388b28a07e1f4b3df41f4b1f447fbccef6df0c9c1dd6d0668e9e754bb9c4d5",
-  "corpus/intmul/amendments.json": "c27dec2cb1c72d6a46e04c5a0c8f3d62235ba1b832f5283eb1a522827269ea6c",
+  "corpus/intmul/amendments.json": "e2af15314ef0e21f9dbd4a387932d7706c13d1b3e56602edc3a47f41e6ab8260",
   "corpus/intmul/public-record.json": "98feb2e90346b1eacabcd65ce898e3c48533d420cc6b8199421f4a52ec3e7fa8",
-  "corpus/intmul/README.md": "b28e2efa966376f02f04bdee28557d7dd5d54b51b08ef62014ec83cf94ceb7cd",
+  "corpus/intmul/README.md": "78699644d45551b91e7d57a0ffd47653f35dbe73f44a8b413775a4e6506a3468",
   "corpus/intmul/pod/cost.json": "e35e68fc09bc359152924d985fec6e691a352ddf5e1523c99ddc1e87571e5c4b",
+  "corpus/intmul/pod2/cost.json": "312a048788c8f87ae60e1541f47703deb2bd8770f067d7d1c0eac6ed85b29e7f",
   "certs/lean-intake-intmul-gcmu.json": "887cc86e0d2d34dc4418462b1837c3caf9b34ab1e8ae9cbec95968333c52f5d0",
   "certs/lean-intake-intmul-community.json": "27968c9b0661ae2172562fadaa57c7b21b4b394b3e8794f0f41718be2bdb1fe5"
  }

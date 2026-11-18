@@ -22,7 +22,8 @@ const die = (msg) => { console.error('INTMUL PAGE REFUSED: ' + msg); process.exi
 const need = (ok, msg) => { if (!ok) die(msg); };
 const GH = 'https://github.com/carlostoledo1891/cert-machine/blob/main/';
 const rec = (rel) => '<a href="' + C.escAttr(GH + rel) + '"><span class="m">' + C.esc(rel) + '</span></a>';
-const m = (s) => '<span class="m">' + C.esc(s) + '</span>';
+/* a long Lean name or path may break after its dots, slashes and underscores (C.breakable), so a phone does not clip it */
+const m = (s) => '<span class="m">' + C.breakable(s) + '</span>';
 const a = (href, text) => '<a href="' + C.escAttr(href) + '">' + C.esc(text) + '</a>';
 const N = (x) => Number(x).toLocaleString('en-US');
 const REC = 'certs/intmul-audit.json';
@@ -37,6 +38,7 @@ catch (e) { die('tools/record-intmul.js --check refused: ' + (e.stdout || '') + 
 const R = JSON.parse(fs.readFileSync(path.join(ROOT, REC), 'utf8'));
 const g = R.Q1['google-cmu'], c = R.Q1.community, Q2 = R.Q2, Q3 = R.Q3, Q4 = R.Q4, Q5 = R.Q5, Q6 = R.Q6;
 const PG = R.pins['google-cmu'], PC = R.pins.community;
+const LOC = R.located;
 
 /* ---- the words this page states, each read back from the record ---- */
 need(g.word === 'CERTIFIED' && /amendment A1/.test(g.wordNote), 'the Google/CMU word is no longer CERTIFIED under amendment A1');
@@ -58,6 +60,7 @@ need(SC['google-cmu'].changedAllDifferent === '11 of 11' && SC.community.changed
 need(c.secondKernel.second.exit === 137 && c.freshReplay.exit === 137 && /^NO VERDICT/.test(c.comparatorPositive.word), 'the community stops moved');
 need(Q5.c.rows === Q5.c.exact && Q5.python.rows === Q5.python.exactAgainstPythonIntegers, 'a program row is not exact');
 need(R.cost.deletedConfirmed === true && R.gaps.length === 8, 'the cost or the list of gaps moved');
+need(LOC.exportIsTheRegisteredFile === true && /stage_source_trace$/.test(LOC.declaration.name) && LOC.leanOnTheOneModule.exit === 1 && /out of memory/.test(LOC.leanOnTheOneModule.said) && R.costOfTheSecondPod.deletedConfirmed === true, 'the located declaration or the second pod’s cost moved');
 const CL = c.conLeche.word;   /* ACCEPTS | STOPPED | DOES NOT ACCEPT */
 need(['ACCEPTS', 'STOPPED', 'DOES NOT ACCEPT'].includes(CL), 'con-leche on the community proof has no word');
 need(CL !== 'STOPPED' || (c.conLeche.readingsBeforeTheGrowth > 30 && c.conLeche.highestBeforeTheGrowthGiB < 10 && c.conLeche.lastReadingGiB > 100), 'con-leche’s memory readings on the community proof moved');
@@ -115,7 +118,7 @@ O.push(C.section({ lab: 'the claim', title: 'Below n log n, by a factor that gro
   ] })
   + '<div class="wide"><details class="more"><summary>Dates of the public record</summary><div class="col">'
   + C.pRaw(C.esc('Read from the sources named, by public record only. Private dates are unknown and no priority is decided here.'))
-  + C.plainList(PUB.map((r) => ({ b: day(r.date) + '.', text: T(r.who + ': ' + r.what + ' Source: ' + r.source + '.') })))
+  + C.plainList(PUB.map((r) => ({ b: day(r.date) + '.', raw: C.breakable(T(r.who + ': ' + r.what + ' Source: ' + r.source + '.')) })))
   + '</div></details></div>'
 }));
 
@@ -141,7 +144,9 @@ O.push(C.section({ lab: '2 · the community proof', title: 'Proves its statement
     ? { b: 'A third checker accepts.', text: 'con-leche, run on the same export, accepts it (' + c.conLeche.said.replace(/^con-leche: /, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '). It was not the kernel named before the run, and it was added after the result, so it does not change the word; it is the only second opinion on this proof that finished here.' }
     : { b: 'What did not finish: con-leche.', text: 'A third checker, run on the same export as the last optional step, this time alone on the machine. It stayed under 10 GiB for ' + c.conLeche.readingsBeforeTheGrowth + ' minutes, then grew by more than 10 GiB a minute, and my guard stopped it at ' + c.conLeche.lastReadingGiB + ' GiB. It printed nothing.' },
   { b: 'Comparator.', text: 'The release ships no statement file for Comparator, so I wrote one. With the saving raised by one unit in its numerator, Comparator refuses: the statements do not match. On the true statement it gave no verdict: it was still running after five hours when my memory guard stopped it, and I did not run it again.' },
-  { b: 'The same pattern in three checkers.', text: 'Memory grew without bound after a long quiet stretch in every run whose input contains this proof: nanoda on the proof, nanoda on the joined theorem below, Lean’s kernel on the fresh replay' + (CL === 'STOPPED' ? ', and con-leche' : '') + '. The three checkers are written independently of each other. During the ordinary build, Lean’s kernel checked the same modules within the same memory. I did not find the cause. One guess, a very large number literal, was tested and not supported.' },
+  { b: 'The same pattern in three checkers.', text: 'Memory grew without bound after a long quiet stretch in every run whose input contains this proof: nanoda on the proof, nanoda on the joined theorem below, Lean’s kernel on the fresh replay' + (CL === 'STOPPED' ? ', and con-leche' : '') + '. The three checkers are written independently of each other. During the ordinary build, Lean’s kernel checked the same modules within the same memory. A scan of the export for very large number literals found nothing.' },
+  { b: 'Where it happens, named.', raw: C.esc('On a second machine I built the proof again; its export is the same file, byte for byte. con-leche’s heartbeat names the check it was on when the growth began: the theorem ') + m(LOC.declaration.name.split('.').slice(-2).join('.')) + C.esc(', in ') + m(LOC.declaration.file.replace('IntegerMultBounds/MathlibTM2/', '')) + C.esc('. Ten seconds before it began, con-leche’s memory read ' + LOC.memory.lastReadingBeforeItBeganGiB + ' GiB. It was stopped at ' + LOC.memory.lastReadingGiB + ' GiB with that one theorem unfinished after ' + N(LOC.declaration.secondsInFlightAtTheLastHeartbeat) + ' seconds, while the other workers completed ' + N(LOC.declaration.checksCompletedMeanwhile) + ' checks.') },
+  { b: 'Lean’s own kernel on that one module.', text: 'Replaying only that module on top of its imports, Lean’s checker ended with “out of memory” after ' + LOC.leanOnTheOneModule.wall.replace(/^(\d+):(\d+)\..*$/, '$1 min $2 s') + ' at ' + LOC.leanOnTheOneModule.peakGiB + ' GiB, under a limit of 90 that I set. The ordinary build compiles the same module in ' + LOC.leanOnTheOneModule.theOrdinaryBuildOfTheSameModuleSeconds + ' seconds. Why a replay costs what the build did not, I do not know. I have also not shown that nanoda and the fresh replay were on this theorem: neither says where it is.' },
   { b: 'The word.', raw: tag(c.word) + C.esc(' on resources: a check did not give its positive answer, and the reason is memory. Nothing rejected the proof. A machine with more memory, or the cause found, would settle it; I did not rent a larger one.') }
 ]) }));
 
@@ -200,7 +205,7 @@ O.push(C.section({ lab: '6 · in plain numbers', title: 'What the theorem buys',
 O.push(C.section({ lab: 'departures', title: 'What changed after the questions were written', id: 'amendments', wide: true, bodyRaw:
   '<div class="col">' + C.pRaw(C.esc('The questions, the verdict words and the stop rules were committed before the rented machine existed; their digest reached a public place only after the first result (see A11). Everything that departed from them is listed in ') + rec(R.amendments.file) + C.esc(', ' + R.amendments.count + ' entries. The pre-registration itself was not edited.')) + '</div>'
   + '<div class="wide"><details class="more"><summary>The ' + R.amendments.count + ' amendments</summary><div class="col">'
-  + C.plainList(R.amendments.list.map((x) => ({ b: T(x.id + ' · ' + x.about) + '.', text: T(x.text) })))
+  + C.plainList(R.amendments.list.map((x) => ({ b: T(x.id + ' · ' + x.about) + '.', raw: C.breakable(T(x.text)) })))
   + '</div></details></div>'
 }));
 
@@ -209,7 +214,7 @@ O.push(C.section({ lab: 'who did what', title: 'Each step is a separate job', id
   { b: 'The proofs.', text: PG.who + ' (Google and CMU); Dan Brown (jdb19937) and Kenny Daniel (platypii), the community repository. The n log n algorithm all of this improves on is Harvey and van der Hoeven’s.' },
   { b: 'The note on finite alphabets.', text: 'ywz65, in the upstream community repository.' },
   { b: 'The checkers.', text: 'Lean, Mathlib, Comparator, nanoda, con-leche, lean4lean and lean4export: their authors.' },
-  { b: 'The checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs, the planted statements and the Lean files of the joining theorem under my direction. The runs were made on ' + day('2026-11-17') + ' and ' + RAN + ' on one rented machine (16 processors, 128 GB), for US$ ' + R.cost.usd.toFixed(2) + '.' }
+  { b: 'The checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs, the planted statements and the Lean files of the joining theorem under my direction. The runs were made on ' + day('2026-11-17') + ' and ' + RAN + ' on one rented machine (16 processors, 128 GB), for US$ ' + R.cost.usd.toFixed(2) + ', and a second one of the same size to name the theorem, for US$ ' + R.costOfTheSecondPod.usd.toFixed(2) + '.' }
 ]) }));
 
 O.push(C.section({ lab: 'check it yourself', title: 'How to re-read it', id: 'rerun', bodyRaw: C.plainList([
@@ -217,7 +222,7 @@ O.push(C.section({ lab: 'check it yourself', title: 'How to re-read it', id: 're
   { b: 'The two intake records.', raw: rec(g.record) + C.esc(' and ') + rec(c.record) + C.esc(', each decided by ') + m('tools/lean-intake.js') + C.esc(' from the run’s files.') },
   { b: 'The questions and the departures.', raw: rec(R.preregistration.file) + C.esc(' and ') + rec(R.amendments.file) + '.' },
   { b: 'The joining theorem.', raw: rec('corpus/intmul/bridge/assembly') + C.esc(': five Lean files. They compile inside the community release at its pinned commit.') },
-  { b: 'To run it again.', raw: C.esc('The scripts that ran on the machine are in ') + rec('corpus/intmul/checks/pod-scripts') + C.esc(' and ') + m('tools/runpod-lean-intake.sh') + C.esc('. The community proof needs more than 119 GiB for a second kernel; that is the open item.') }
+  { b: 'To run it again.', raw: C.esc('The scripts that ran on the machine are in ') + rec('corpus/intmul/checks/pod-scripts') + C.esc(' and ') + m('tools/runpod-lean-intake.sh') + C.esc('. The community proof needs more than 119 GiB for a second kernel; that is the open item. The shortest way to see it: build the community release at its pinned commit, then run ') + m('lake env leanchecker ' + 'IntegerMultBounds.MathlibTM2.M8.Global.DataTraceB') + C.esc(', which here ran out of memory in nine minutes.') }
 ]) }));
 
 const foot = '<p>' + C.esc('Generated by tools/build-report-intmul.js from ' + REC + ', re-checked as the page is built. I did this with Claude (Anthropic); Claude wrote the programs under my direction.') + '</p>'

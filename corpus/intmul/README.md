@@ -24,6 +24,8 @@ Nothing here needs Lean or a rented machine to re-read.
 | `programs/` | the released programs against Python's integers: scripts, rows (`*.jsonl`), logs | during the runs |
 | `pod/` | what the pod wrote outside the two registered runs: `extra/` (fresh replays, the joined theorem's export and its nanoda run, the structural comparison, the encodings, the memory guards), `extra2/` (comparator, lean4lean, con-leche; `r2`, `r3`, `r4` are the later attempts after a guard stopped the one before), `cost.json` | during and after |
 
+| `pod2/` | the second pod (2026-11-18, amendment A17): the proof built again, the same export, con-leche with its heartbeat (`locate/progress.log`, `memory2.txt`), Lean's checker on one module (`locate/module.*`), its scripts, `cost.json`. Nothing in it was changed after it left the pod | after the page was first published |
+
 ## Changes made to the copies kept here
 
 - In `pod/`, eight comparator logs of about 2.3 MB each (build warnings) are gzipped (`*.out.gz`, `gzip -n -9`). The

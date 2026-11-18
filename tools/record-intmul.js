@@ -10,6 +10,7 @@
      corpus/intmul/preregistration.json    the questions, the words, the stop rules: written before the pod
      corpus/intmul/amendments.json         every departure from them, written after
      corpus/intmul/pod/                    what the pod wrote outside the two registered runs (logs over 200 kB gzipped)
+     corpus/intmul/pod2/                   the second pod: the declaration named by con-leche's heartbeat (amendment A17)
      corpus/intmul/bridge/                 the Lean sources of the theorem joining the two statements, and their check log
      corpus/intmul/checks/                 the inputs of the checks added after the first result
      corpus/intmul/programs/               the released programs against Python's integers, row by row
@@ -52,6 +53,7 @@ const grab = (t, re, what) => { const m = re.exec(t); if (!m) die('a fact no lon
 const PRE = JSON.parse(rd('preregistration.json'));
 const AM = JSON.parse(rd('amendments.json'));
 const COST = JSON.parse(rd('pod/cost.json'));
+const COST2 = JSON.parse(rd('pod2/cost.json'));
 const PUB = JSON.parse(rd('public-record.json'));
 const cert = (id) => JSON.parse(root('certs/lean-intake-' + id + '.json'));
 const G = cert('intmul-gcmu'), C = cert('intmul-community');
@@ -218,6 +220,38 @@ function build() {
     ] };
   need(memoryCurves.series.every((c) => c.lastGiB > 100 && c.points[0][1] < 12), 'a memory curve no longer starts quiet and ends above 100 GiB');
 
+  /* ---- the declaration named (the second pod, amendment A17): con-leche's heartbeat names the oldest check in flight ---- */
+  const P2 = 'pod2/locate/';
+  const ex2 = grab(one(P2 + 'export.log'), /^export exit (\d+) bytes (\d+) sha256 ([0-9a-f]{64}) registered ([0-9a-f]{64}) same=(yes|NO)$/, 'the second export line');
+  need(ex2[1] === '0' && ex2[5] === 'yes' && ex2[3] === C.kernels[2].export.sha256, 'the second pod\'s export is no longer the registered export');
+  const hb = lines(rd(P2 + 'progress.log')).map((l) => { const m = /^con-leche: check (\d+) \((\d+)%\) t=([\d.]+)s busy=(\d+)\/(\d+)(?:, oldest (\S+) (\S+) \(#(\d+)\) ([\d.]+)s)?$/.exec(l); return m ? { done: Number(m[1]), t: Number(m[3]), kind: m[6] || null, name: m[7] || null, index: m[8] ? Number(m[8]) : null, age: m[9] ? Number(m[9]) : null } : null; }).filter(Boolean);
+  need(hb.length > 300, 'the heartbeat no longer holds its lines');
+  const lastHb = hb[hb.length - 1];
+  need(lastHb.name && lastHb.age > 300, 'the last heartbeat line no longer names a check long in flight');
+  const runStart = one(P2 + 'run.start'), startS = secs(runStart.slice(11, 19));
+  const clock = (s) => { const x = Math.round(s); return [Math.floor(x / 3600), Math.floor(x % 3600 / 60), x % 60].map((v) => String(v).padStart(2, '0')).join(':'); };
+  const began = clock(startS + lastHb.t - lastHb.age);
+  const mem2 = lines(rd(P2 + 'memory2.txt')).map((l) => { const m = /^(\d\d:\d\d:\d\d) ([\d.]+) GiB$/.exec(l); return m ? { at: m[1], gib: Number(m[2]) } : null; }).filter(Boolean);
+  const before = mem2.filter((x) => x.at <= began), after = mem2.filter((x) => x.at > began && x.gib > 0);
+  const longOnes = {}; for (const h of hb) if (h.name && h.age > (longOnes[h.name] || 0)) longOnes[h.name] = h.age;
+  const others = Object.entries(longOnes).filter(([n, v]) => n !== lastHb.name && v > 30).map(([n, v]) => ({ name: n, seconds: Math.round(v) }));
+  const modErr = rd(P2 + 'module.err'), modT = timeV(modErr), buildLine = grab(rd(P2 + 'build-lines.txt'), /Built IntegerMultBounds\.MathlibTM2\.M8\.Global\.DataTraceB \((\d+)s\)/, 'the module\'s build line');
+  need(/INTERNAL PANIC: out of memory/.test(modErr) && Number(one(P2 + 'module.exit')) === 1, 'the one-module replay no longer ends out of memory');
+  const srcSha = grab(rd(P2 + 'sources.sha256'), /^([0-9a-f]{64})\s+\S*DataTraceB\.lean$/m, 'the theorem file\'s sha256')[1];
+  const located = {
+    what: 'a second pod (no registered run): the proof built again, exported by the tool\'s recipe, and con-leche run alone with its heartbeat every 10 seconds, which names the oldest check in flight; then Lean\'s own kernel on the one module that holds the theorem (amendment A17)',
+    exportIsTheRegisteredFile: true, exportSha256: ex2[3],
+    conLeche: { tool: one(P2 + 'run.env.txt').split('\n')[0], start: runStart, end: one(P2 + 'run.end'), exit: Number(one(P2 + 'run.exit')), stopped: one(P2 + 'run.stopped'), heartbeatLines: hb.length, checksCompletedAtTheStop: lastHb.done },
+    declaration: { kind: lastHb.kind, name: lastHb.name, foldIndex: lastHb.index, file: 'IntegerMultBounds/MathlibTM2/M8/Global/DataTraceB.lean', fileSha256: srcSha, beganAt: began, secondsInFlightAtTheLastHeartbeat: Math.round(lastHb.age),
+      checksCompletedMeanwhile: lastHb.done - hb.filter((h) => h.t <= lastHb.t - lastHb.age).pop().done },
+    memory: { sampler: 'guard-locate.sh, from ' + mem2[0].at + ' (the first sampler read the wrong process)', lastReadingBeforeItBeganGiB: before[before.length - 1].gib, lastReadingBeforeItBeganAt: before[before.length - 1].at, highestReadingBeforeItBeganGiB: Math.max(...before.map((x) => x.gib)), lastReadingGiB: after[after.length - 1].gib,
+      giBPerMinuteAfter: Math.round((after[after.length - 1].gib - before[before.length - 1].gib) / ((secs(after[after.length - 1].at) - secs(before[before.length - 1].at)) / 60) * 10) / 10 },
+    otherChecksOver30Seconds: others,
+    leanOnTheOneModule: { what: 'leanchecker --verbose on the module alone, on top of its imports as built (no --fresh), 15-minute limit, 90 GiB address-space limit', start: one(P2 + 'module.start'), end: one(P2 + 'module.end'), exit: Number(one(P2 + 'module.exit')), said: 'INTERNAL PANIC: out of memory', wall: modT.wall, peakGiB: modT.peakGiB, theOrdinaryBuildOfTheSameModuleSeconds: Number(buildLine[1]) },
+    notShown: 'That nanoda and the fresh replay of the first pod were on this declaration (neither says where it is), and why a replay costs what the build did not.',
+  };
+  need(located.memory.lastReadingBeforeItBeganGiB < 6 && located.memory.lastReadingGiB > 100 && located.declaration.checksCompletedMeanwhile > 1000, 'the located declaration\'s facts moved');
+
   /* ---- Q2 · the readings; the encodings on small pairs ---- */
   const enc = (id, f) => { const t = rd(f), m = grab(t, new RegExp('^ENC ' + id + ' (\\d+) pairs: all guards hold$', 'm'), 'the encodings of ' + id + ' on small pairs'); need(/^exit 0$/m.test(t), 'the encodings check of ' + id + ' did not exit 0'); return Number(m[1]); };
   const q2 = {
@@ -305,12 +339,13 @@ function build() {
   /* ---- the amendments and the cost, as written ---- */
   need(Array.isArray(AM.amendments) && AM.amendments.every((a) => a.id && a.about && a.text), 'the amendments file is not a list of {id, about, text}');
   need(COST.pod === '3ik2qpnhfed4kx' && COST.deletedConfirmed === true && COST.usd <= 15, 'the cost file does not show the pod deleted inside the cap');
+  need(COST2.pod === 'uceaqh2d4s4m7i' && COST2.deletedConfirmed === true && COST2.usd <= 8, 'the second cost file does not show the pod deleted inside its cap');
 
   /* ---- what is still open, first on any page ---- */
   const gaps = [
     { lead: 'The community proof has no second kernel.', text: 'nanoda was stopped on memory twice (' + q1c.secondKernel.first.lastReading.replace(/^\S+ /, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' the first time, ' + (/stopped at ([\d.]+) GB/.exec(g3Stop) || [])[1] + ' GiB the second). Lean\'s own kernel, replaying the whole closure afresh, was stopped at ' + q1c.freshReplay.residentGiBWhenStopped + ' GiB after ' + Math.floor(q1c.freshReplay.elapsedSeconds / 3600) + ' h ' + Math.round(q1c.freshReplay.elapsedSeconds % 3600 / 60) + ' min.'
       + (secondChecker ? ' A third checker, con-leche, accepts the closure; it was not the pre-registered kernel, so the word stays REFUSED.' : ' A third checker, con-leche, alone on the machine, stayed under ' + Math.ceil(q1c.conLeche.highestBeforeTheGrowthGiB + 0.5) + ' GiB for ' + q1c.conLeche.readingsBeforeTheGrowth + ' minutes, then grew by more than 10 GiB a minute and was stopped at ' + q1c.conLeche.lastReadingGiB + ' GiB.')
-      + ' Nothing rejected the proof. The cause of the memory growth was not found.' },
+      + ' Nothing rejected the proof. On a second machine con-leche\'s heartbeat names the theorem it was on when the growth began, ' + located.declaration.name.split('.').pop() + ', and Lean\'s own kernel runs out of memory replaying that theorem\'s module alone, which the ordinary build compiled in ' + located.leanOnTheOneModule.theOrdinaryBuildOfTheSameModuleSeconds + ' seconds. Why a replay costs what the build did not is not known.' },
     { lead: 'Some planted statements got no verdict.', text: cg.noVerdict.length + ' of the ' + cg.planted + ' statements planted against the Google/CMU proof got no verdict from the intake: its check ran into the elaborator\'s recursion limit under the 2^46 power. Every one that changes the saving is among them. The sentence written before the run is met only as amended afterwards. What those statements were meant to show comes from two checks added after the run.' },
     { lead: 'The theorem joining the two statements is partial.', text: 'It goes one way, was accepted by one kernel, and rebuilds the community machine instead of opening the one inside their theorem.' },
     { lead: 'The statements were read, not decided.', text: 'Neither formal statement is its paper\'s theorem as written: both are about Mathlib\'s multi-stack machine, and the step to a multitape machine is a classical argument that neither release formalizes. That the statements say what the papers say is a reading, made twice.' },
@@ -321,7 +356,7 @@ function build() {
   ];
 
   const code = {};
-  for (const f of ['tools/record-intmul.js', 'corpus/intmul/preregistration.json', 'corpus/intmul/amendments.json', 'corpus/intmul/public-record.json', 'corpus/intmul/README.md', 'corpus/intmul/pod/cost.json', 'certs/lean-intake-intmul-gcmu.json', 'certs/lean-intake-intmul-community.json'])
+  for (const f of ['tools/record-intmul.js', 'corpus/intmul/preregistration.json', 'corpus/intmul/amendments.json', 'corpus/intmul/public-record.json', 'corpus/intmul/README.md', 'corpus/intmul/pod/cost.json', 'corpus/intmul/pod2/cost.json', 'certs/lean-intake-intmul-gcmu.json', 'certs/lean-intake-intmul-community.json'])
     code[f] = sha(fs.readFileSync(path.join(ROOT, f)));
   return {
     format: 1,
@@ -348,9 +383,11 @@ function build() {
       aDefectShownToNanoda: defectToNanoda },
     Q5: q5, Q6: q6,
     memoryCurves,
+    located,
     publicRecord: { file: 'corpus/intmul/public-record.json', what: PUB.what, rows: PUB.rows },
     amendments: { file: 'corpus/intmul/amendments.json', count: AM.amendments.length, list: AM.amendments },
     cost: COST,
+    costOfTheSecondPod: COST2,
     code,
   };
 }
