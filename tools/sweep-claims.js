@@ -207,6 +207,9 @@ for (const [repo, num, label] of [
   ['nitromannitol/percolation-after-anthropic', 1, 'percolation-after-anthropic #1 (ours, 2026-11-13: Bou-Rabee\'s Conjecture 1 against the printed sentence; two observations; the bridge files offered as a pull request)'],
   ['anadim/AdderBoard', 97, 'AdderBoard #97 (skyway1111\'s 5-parameter adder; our confirmation 2026-11-12, issuecomment-6830293069; the lane is dropped, reopened only on a reply)'],
   ['jasondavies/macmahon-min-universal-sets', 1, 'macmahon-min-universal-sets #1 (ours, 2026-11-03: Davies\'s classification replayed and certified twice)'],
+  /* the multiplication audit's two threads (2026-11-18) */
+  ['CrocSwap/integer-mult-bounds', 2411, 'integer-mult-bounds PR #2411 (platypii\'s request for an independent review; our review posted 2026-11-18, with a promise to name the declaration where the checkers\' memory grows)'],
+  ['lockqueue/intmul', 1, 'lockqueue/intmul #1 (ours, 2026-11-18: the second-party replay of the Google/CMU proof and the joining theorem)'],
   ['elliotglazer/diophantine-z-q', 3, 'ZQ #3 (our reproducibility report; closed by Glazer 11-07 with the Lean-PR invitation)'],
   ['elliotglazer/diophantine-z-q', 5, 'ZQ PR #5 (P0 infinite order, no hypotheses; opened 2026-11-07)'],
   ['elliotglazer/diophantine-z-q', 6, 'ZQ PR #6 (the frozen conclusion from eight hypotheses, stacked on #5; opened 2026-11-07)'],
