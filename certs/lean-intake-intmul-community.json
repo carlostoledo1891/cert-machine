@@ -32,8 +32,10 @@
    "plantedStatementsAtOnce": 8
   },
   "stepSeconds": 13161.4,
-  "cost": null,
-  "costNote": "not recorded (no cost.json beside the run)"
+  "cost": {
+   "usd": 4.28,
+   "what": "RunPod cpu3m-16-128, 292 min at US$0.88/h, pod 3ik2qpnhfed4kx: the registered run (211 min, 2026-11-18 00:04 to 03:35 UTC, stopped by its memory watchdog) and the second nanoda attempt made by hand (81 min, on a pod shared with other checks). The pod ran 12 h 8 min in all (corpus/intmul/pod/cost.json)"
+  }
  },
  "pins": {
   "canonical": {
