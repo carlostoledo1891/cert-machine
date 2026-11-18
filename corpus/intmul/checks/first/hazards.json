@@ -1,0 +1,90 @@
+{
+ "what": "Every .lean file of both releases at their pins scanned for the words a reader looks for first; counted in code (comments stripped) and with comments. A flag, never a verdict: the axioms a theorem rests on are decided by the kernel.",
+ "releases": {
+  "google-cmu": {
+   "leanFiles": 2023,
+   "inCode": {
+    "sorry": [
+     8,
+     [
+      "IntMulTM/Gate.lean:132",
+      "SubNLogN/Gate.lean:61",
+      "replay/Replay/Challenge.lean:13",
+      "replay/Replay/Controls/P1_Sorry.lean:9",
+      "replay/Replay/Controls/S0_IdenticalCopy.lean:84",
+      "replay/Replay/Controls/S1_Exp45.lean:92"
+     ]
+    ],
+    "native_decide": [
+     1,
+     [
+      "replay/Replay/Controls/P3_NativeDecide.lean:12"
+     ]
+    ],
+    "axiom": [
+     2,
+     [
+      "replay/Replay/Controls/P2_AddedAxiom.lean:9",
+      "replay/Replay/Controls/P4_ExtraAxiomTransitive.lean:10"
+     ]
+    ],
+    "unsafe": [
+     6,
+     [
+      "IntMulTM/Gate.lean:138",
+      "SubNLogN/Gate.lean:67",
+      "replay/EnvStats.lean:10",
+      "replay/EnvStats.lean:32",
+      "replay/EnvStats.lean:32",
+      "replay/EnvStats.lean:42"
+     ]
+    ],
+    "implemented_by": [
+     6,
+     [
+      "IntMulTM/Gate.lean:136",
+      "IntMulTM/Gate.lean:285",
+      "IntMulTM/Gate.lean:409",
+      "SubNLogN/Gate.lean:65",
+      "SubNLogN/Gate.lean:188",
+      "SubNLogN/Gate.lean:299"
+     ]
+    ],
+    "extern": [
+     2,
+     [
+      "IntMulTM/Gate.lean:409",
+      "SubNLogN/Gate.lean:299"
+     ]
+    ],
+    "reduceBool": [
+     4,
+     [
+      "IntMulTM/Gate.lean:87",
+      "IntMulTM/Gate.lean:90",
+      "SubNLogN/Gate.lean:26",
+      "SubNLogN/Gate.lean:29"
+     ]
+    ]
+   },
+   "withComments": {
+    "sorry": 442,
+    "native_decide": 9,
+    "axiom": 2,
+    "unsafe": 14,
+    "implemented_by": 17,
+    "extern": 7,
+    "skipKernelTC": 1,
+    "csimp": 1,
+    "reduceBool": 10
+   }
+  },
+  "community": {
+   "leanFiles": 12656,
+   "inCode": {},
+   "withComments": {
+    "admit": 2
+   }
+  }
+ }
+}

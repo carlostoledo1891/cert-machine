@@ -1,0 +1,17 @@
+{
+ "pod": "3ik2qpnhfed4kx",
+ "shape": "RunPod CPU pod cpu3m, 16 vCPU / 128 GB, US$ 0.88 an hour, US-CA-2",
+ "created": "2026-11-17T23:15:51Z",
+ "deleted": "2026-11-18T11:24Z",
+ "deletedConfirmed": true,
+ "deletedHow": "deleted through RunPod's API after every result file was copied home and its sha256 compared with the pod's (289 files); a read of the pod afterwards answers 404 and the account lists no pod",
+ "hours": 12.15,
+ "usd": 10.89,
+ "usdHow": "computed: 12 h 8 min 45 s of uptime at US$ 0.88 an hour (US$ 10.69) plus the disk line at the rate billed (US$ 0.20). RunPod's billing API, read two minutes after the deletion, showed US$ 9.97 and was still about an hour behind.",
+ "cap": 15,
+ "split": [
+  { "what": "the registered run of the Google/CMU proof", "minutes": 47, "usd": 0.69 },
+  { "what": "the registered run of the community proof (211 min) and its second nanoda attempt by hand (81 min, on a shared pod)", "minutes": 292, "usd": 4.28 },
+  { "what": "the rest: setting up, the theorem joining the two statements and its export, the released programs, the fresh replays, comparator, lean4lean, con-leche (much of it at the same time as the registered runs)", "usd": 5.92 }
+ ]
+}

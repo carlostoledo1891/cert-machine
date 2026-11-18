@@ -133,6 +133,17 @@ const canonStem = 'C_' + path.basename(SPEC.canonical.path, '.lean').replace(/[^
 const canonMod = WRAP ? 'Intake.Canon.' + canonStem : SPEC.canonical.module;
 const canonDecl = (WRAP ? WRAP_NS + '.' : '') + SPEC.canonical.decl;
 const claimRef = (WRAP ? '_root_.' : '') + SPEC.claim.decl;
+/* 2026-11-17. `canonical.root`: the Lake project is a subdirectory of the canonical repository, and `path`, `file`
+   and the modules are relative to it. `canonical.prop`: the canonical file states its claim as a DEFINITION of type
+   Prop (`def Claim : Prop := …`, proved elsewhere as `theorem t : Claim`), so the statement is the proposition written
+   here from the file's own definitions, where a theorem's statement is its type (type_of%). Not with self-contained
+   files. A spec with neither field generates the bytes it always did. */
+const PROP = SPEC.canonical.prop || null;
+if (PROP && WRAP) die('canonical.prop is not handled with canonical.selfContained');
+const canonType = PROP ? `(${PROP})` : `(type_of% @${canonDecl})`;
+/* the two long kinds of step, for a release whose build or export outlasts two hours */
+const BUILD_SECONDS = Math.max(60, Number(process.env.LEAN_INTAKE_BUILD_SECONDS || 7200) || 7200);
+const KERNEL_SECONDS = Math.max(60, Number(process.env.LEAN_INTAKE_KERNEL_SECONDS || 7200) || 7200);
 const AXIOMS = (SPEC.canonical.axioms || []).map((a) => (typeof a === 'string' ? { canonical: a, claim: a } : a));
 if (AXIOMS.length && !WRAP) die('canonical.axioms needs canonical.selfContained (the comparison is name for name)');
 const PERMITTED = AXIOMS.map((a) => a.claim);
@@ -312,17 +323,19 @@ function wrapCanonical(text) {
 }
 function generated() {
   const C = SPEC.canonical, imp = `import ${canonMod}\nimport ${claimMod}\n`;
+  const CAN_TYPE = PROP ? 'can.value!' : 'can.type';
   const files = {
     'Intake/Meta.lean': INTAKE_IMPORTS + META,
-    'Intake/F1.lean': imp + `\n/-! F1: the canonical statement, taken from its declaration by type_of%, and the claimant's proof. -/\ntheorem Intake.f1 : ${neg}(type_of% @${canonDecl}) := ${claimRef}\n\n#print axioms Intake.f1\n`,
+    'Intake/F1.lean': imp + (PROP ? `\n/-! F1: the canonical statement, written as a proposition from the canonical file's own definitions, and the claimant's proof. -/\ndef Intake.f1Statement : Prop := ${PROP}\n\ntheorem Intake.f1 : ${neg}${canonType} := ${claimRef}\n\n#print axioms Intake.f1\n`
+        : `\n/-! F1: the canonical statement, taken from its declaration by type_of%, and the claimant's proof. -/\ntheorem Intake.f1 : ${neg}(type_of% @${canonDecl}) := ${claimRef}\n\n#print axioms Intake.f1\n`),
     'Intake/F1Report.lean': `import Intake.F1\nimport Intake.Meta\nopen Lean Meta\n\n#eval show MetaM Unit from do\n  let env ← getEnv\n`
-      + `  let some can := env.find? "${canonDecl}".toName | throwError "intake: no canonical declaration"\n`
+      + `  let some can := env.find? "${PROP ? 'Intake.f1Statement' : canonDecl}".toName | throwError "intake: no canonical declaration"\n`
       + `  let some cl := env.find? "${SPEC.claim.decl}".toName | throwError "intake: no claimant declaration"\n`
-      + `  let target := ${neg ? 'mkNot can.type' : 'can.type'}\n  let defeq ← isDefEq cl.type target\n`
-      + `  Intake.emit <| Json.mkObj [("canonical", Json.str s!"{← ppExpr can.type}"), ("claim", Json.str s!"{← ppExpr cl.type}"),\n`
+      + `  let target := ${neg ? 'mkNot ' + CAN_TYPE : CAN_TYPE}\n  let defeq ← isDefEq cl.type target\n`
+      + `  Intake.emit <| Json.mkObj [("canonical", Json.str s!"{← ppExpr ${CAN_TYPE}}"), ("claim", Json.str s!"{← ppExpr cl.type}"),\n`
       + `    ("equal", Json.bool (cl.type.equal target)), ("eqv", Json.bool (cl.type.eqv target)), ("defeq", Json.bool defeq),\n`
       + `    ("canonicalLevelParams", toJson can.levelParams.toArray), ("claimLevelParams", toJson cl.levelParams.toArray)]\n`,
-    'Intake/F3.lean': (WRAP && SPEC.f3.withClaim ? imp : `import ${C.module}\n`) + `import Intake.Meta\n\n/-! F3: the canonical statement's hypotheses have a model. -/\nintake_hypotheses ${WRAP && SPEC.f3.withClaim ? canonDecl : C.decl} => Intake.F3.target\n\n`
+    'Intake/F3.lean': (WRAP && SPEC.f3.withClaim ? imp : `import ${C.module}\n`) + `import Intake.Meta\n\n/-! F3: the canonical statement's hypotheses have a model. -/\n` + (PROP ? `theorem Intake.F3.statement : ${PROP} := by\n  sorry\n\n` : '') + `intake_hypotheses ${PROP ? 'Intake.F3.statement' : WRAP && SPEC.f3.withClaim ? canonDecl : C.decl} => Intake.F3.target\n\n`
       + `theorem Intake.f3 : ¬ Intake.F3.target := by\n  ${SPEC.f3.tactic}\n\n#print axioms Intake.f3\n`,
   };
   const cLine = {};
@@ -420,7 +433,7 @@ function run() {
   const FACTS = path.join(RUNS, day); fs.mkdirSync(FACTS, { recursive: true });
   const WORK = process.env.LEAN_INTAKE_WORK || path.join(os.homedir(), 'Projects', 'lean-intake-work', id);
   fs.mkdirSync(WORK, { recursive: true });
-  const CAN = path.join(WORK, 'canonical'), CLM = IN_PLACE ? CAN : path.join(WORK, 'claim'), TOOLS = path.join(WORK, 'tools');
+  const CAN = path.join(WORK, 'canonical', SPEC.canonical.root || ''), CLM = IN_PLACE ? CAN : path.join(WORK, 'claim'), TOOLS = path.join(WORK, 'tools');
   const status = (s) => { fs.appendFileSync(path.join(FACTS, '_status.txt'), new Date().toISOString() + ' ' + s + '\n'); console.log(s); };
   const step = (name, cwd, command, seconds = 7200, env = {}) => {
     status('start ' + name);
@@ -470,7 +483,7 @@ function run() {
       }
       if (!got) die('lake exe cache get failed four times (see cache.log): stopped before the canonical build; run the stage again');
     } else if (s === 'canonical') {
-      step('canonical', CAN, `lake build '${C.module}'`);
+      step('canonical', CAN, `lake build '${C.module}'`, BUILD_SECONDS);
     } else if (s === 'assemble') {
       const { files } = generated();
       const lib = path.join(CAN, 'Intake');
@@ -495,7 +508,7 @@ function run() {
       fs.writeFileSync(path.join(FACTS, 'assemble.json'), JSON.stringify(wrap ? { files: shas, wrap } : { files: shas }, null, 1) + '\n');
       status('assembled ' + Object.keys(shas).length + ' files');
     } else if (s === 'claim') {
-      step('claim', CAN, `lake build ${claimMod}`);
+      step('claim', CAN, `lake build ${claimMod}`, BUILD_SECONDS);
     } else if (s === 'f1') {
       if (WRAP) {
         fs.rmSync(path.join(FACTS, 'wrapcheck.jsonl'), { force: true }); fs.rmSync(path.join(FACTS, 'same.jsonl'), { force: true });
@@ -541,10 +554,10 @@ function run() {
       step('nanoda-build', WORK, `rm -rf tools/nanoda_lib && mkdir -p tools && git clone -q ${NANODA.url} tools/nanoda_lib && cd tools/nanoda_lib && git checkout -q ${NANODA.commit} && cargo build --release --locked -q && shasum -a 256 target/release/nanoda_bin`, 3600);
       if (!ok('lean4export-build') || !ok('nanoda-build')) continue;
       const exp = path.join(WORK, 'f1.export');
-      step('export', CAN, `lake env "${TOOLS}/lean4export/.lake/build/bin/lean4export" Intake.F1 -- Intake.f1 > "${exp}" && shasum -a 256 "${exp}" && wc -c < "${exp}"`, 7200);
+      step('export', CAN, `lake env "${TOOLS}/lean4export/.lake/build/bin/lean4export" Intake.F1 -- Intake.f1 > "${exp}" && shasum -a 256 "${exp}" && wc -c < "${exp}"`, KERNEL_SECONDS);
       if (!ok('export')) continue;
       fs.writeFileSync(path.join(WORK, 'nanoda.json'), JSON.stringify({ export_file_path: exp, use_stdin: false, permitted_axioms: ['propext', 'Quot.sound', 'Classical.choice'].concat(PERMITTED), unpermitted_axiom_hard_error: false, nat_extension: true, string_extension: true, num_threads: 8, print_success_message: true, stack_size_bytes: 1073741824 }) + '\n');
-      step('nanoda', WORK, `"${TOOLS}/nanoda_lib/target/release/nanoda_bin" nanoda.json`, 7200);
+      step('nanoda', WORK, `"${TOOLS}/nanoda_lib/target/release/nanoda_bin" nanoda.json`, KERNEL_SECONDS);
     }
   }
   fs.writeFileSync(path.join(FACTS, 'machine.json'), JSON.stringify(V2 ? Object.assign(machineFacts(), JOBS > 1 ? { plantedStatementsAtOnce: JOBS } : {}) : { platform: process.platform, arch: process.arch, cpus: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, null, 1) + '\n');
@@ -604,7 +617,7 @@ function decide() {
   }
   const f1std = !!f1ax && f1ax.every((a) => STD.includes(a) || PERMITTED.includes(a));
   F1.word = F1.exit === '0' && f1std && rep && rep.defeq && (!SC || (SC.copyIsCanonical.word === 'CERTIFIED' && SC.axioms.word !== 'REFUSED')) ? 'CERTIFIED' : 'REFUSED';
-  F1.how = F1.word === 'CERTIFIED' ? `the kernel accepts the claimant's ${SPEC.claim.decl} as a proof of ${neg}${SPEC.canonical.decl}'s own type (taken by type_of%); `
+  F1.how = F1.word === 'CERTIFIED' ? (PROP ? `the kernel accepts the claimant's ${SPEC.claim.decl} as a proof of ${neg}the proposition ${PROP}, written from the canonical file's own definitions; ` : `the kernel accepts the claimant's ${SPEC.claim.decl} as a proof of ${neg}${SPEC.canonical.decl}'s own type (taken by type_of%); `)
     + (rep.equal ? 'the two types are equal as expressions' : rep.eqv ? 'the two types are equal up to binder names' : 'the two types differ as written and agree after definitional unfolding') : 'see the log';
 
   if (SC) {
@@ -950,7 +963,7 @@ function preflight() {
   const day = opt('--day') || new Date().toISOString().slice(0, 10);
   const PRE = path.join(ROOT, 'corpus', 'lean-intake', id, 'preflight', day); fs.mkdirSync(PRE, { recursive: true });
   const WORK = process.env.LEAN_INTAKE_WORK || path.join(os.homedir(), 'Projects', 'lean-intake-work', id);
-  const CAN = path.join(WORK, 'canonical'), C = SPEC.canonical;
+  const CAN = path.join(WORK, 'canonical', SPEC.canonical.root || ''), C = SPEC.canonical;
   if (!fs.existsSync(path.join(CAN, '.lake')) || cp.spawnSync('git', ['-C', CAN, 'rev-parse', 'HEAD']).stdout.toString().trim() !== C.commit) die('preflight needs the canonical repository built at its pin in ' + CAN + ': run --stages pin,toolchain,cache,canonical first (LEAN_INTAKE_KEEP=1 keeps the build for the run)');
   if (sha(fs.readFileSync(path.join(CAN, C.path))) !== C.sha256) die('the canonical file is not the pinned bytes');
   /* the statement alone: the header the run writes, `theorem s`, and no claimant's term — so no outcome of F1 is seen.

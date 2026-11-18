@@ -1,0 +1,31 @@
+# Check of Encodings.lean on the pod (Lean 4.33.1, prebuilt Mathlib under /home/tester/work/4738aeff839d/canonical/lean)
+# Local sha256 of Encodings.lean before upload: dc2de007041e48effd17bba028e33b36af0bc690516adb261ab221c3c70a37a9
+# Command run on the pod over ssh (as root; lean itself as user tester), verbatim:
+#   P=/home/tester/work/4738aeff839d/canonical/lean
+#   LP=$(ls -d $P/.lake/packages/*/.lake/build/lib/lean | paste -sd:)
+#   cd /home/tester/bridge3
+#   date -u +%Y-%m-%dT%H:%M:%SZ
+#   sha256sum /home/tester/bridge3/Encodings.lean
+#   time runuser -u tester -- env HOME=/home/tester LEAN_PATH=$LP nice -n 15 /home/tester/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /home/tester/bridge3/Encodings.lean
+#   echo "lean exit: $?"
+#   echo "--- forbidden words in the checked file (grep -n, none expected besides the two #print lines) ---"
+#   grep -n "sorry\|axiom\|native_decide\|unsafe" /home/tester/bridge3/Encodings.lean
+#   echo "--- versions ---"
+#   /home/tester/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean --version
+#   cat $P/.lake/packages/mathlib/.git/HEAD
+# ---- output ----
+2026-11-17T23:50:05Z
+dc2de007041e48effd17bba028e33b36af0bc690516adb261ab221c3c70a37a9  /home/tester/bridge3/Encodings.lean
+'IntMulEnc.reencode' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulEnc.bigO_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+lean exit: 0
+--- forbidden words in the checked file (grep -n, none expected besides the two #print lines) ---
+
+real	0m13.601s
+user	0m8.166s
+sys	0m7.565s
+670:#print axioms IntMulEnc.reencode
+671:#print axioms IntMulEnc.bigO_shift
+--- versions ---
+Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+0df444a360eaa60ab8c11dca51a86af692955474

@@ -1,0 +1,41 @@
+# written by hand 2026-11-18T10:21:40Z: the two texts of IntMulBridge/Encodings.lean on the pod. asm/ is the text bridge/assembly/check.log hashed (996887c5...); asm2/ is the final text (e4f908d0...), compiled again with Main before the export (bridge-encodings-build.log, bridge-main-build.log, bridge-sources.sha256).
+996887c5fe51bfbf59e83e727eb25fb245bb0dd8fe79f96392168eb6d0c19f86  /home/tester/asm/IntMulBridge/Encodings.lean
+e4f908d022dfb9adde7a8cc570554c81bb7b48a69b7ecbec179477e249db875d  /home/tester/asm2/IntMulBridge/Encodings.lean
+$ diff asm/IntMulBridge/Encodings.lean asm2/IntMulBridge/Encodings.lean
+8c8,9
+< hypothesis added. `PairSym`, `encodeNatPair` and `pairEnc` are the copied definitions.
+---
+> hypothesis added. `PairSym` and `encodeNatPair` are those of `SubNLogN/Challenge.lean`, imported as written;
+> `pairEnc` is the other release's expression, written again here.
+diff exit 1
+$ ls -la --time-style=full-iso asm2 out dirs
+/home/tester/asm2/:
+total 3171268
+drwxr-xr-x  5 tester root         4096 2026-11-18 02:12:48.633559166 +0000 .
+drwxr-x--- 18 tester tester       4096 2026-11-18 10:19:23.400398081 +0000 ..
+-rwxr-xr-x  1 tester staff         163 2026-11-18 02:06:43.000000000 +0000 ._IntMulBridge
+-rwxr-xr-x  1 tester staff         163 2026-11-18 00:31:07.000000000 +0000 ._SubNLogN
+-rw-r--r--  1 tester root          278 2026-11-18 02:11:40.350055507 +0000 Bounds.log
+-rw-r--r--  1 tester root            0 2026-11-18 02:11:28.910636074 +0000 Challenge.log
+-rw-r--r--  1 tester root          572 2026-11-18 02:11:52.232491184 +0000 Encodings.log
+-rw-r--r--  1 tester root            0 2026-11-18 02:11:53.207526935 +0000 Finite.log
+drwxr-xr-x  2 tester staff        4096 2026-11-18 02:06:43.111409722 +0000 IntMulBridge
+-rw-r--r--  1 tester root          191 2026-11-18 02:12:23.707645242 +0000 Main.log
+drwxr-xr-x  2 tester staff          64 2026-11-18 00:31:07.299965188 +0000 SubNLogN
+-rw-r--r--  1 root   root          226 2026-11-18 04:14:26.940623751 +0000 bridge-kernel.out
+-rw-r--r--  1 tester root         1881 2026-11-18 02:12:48.585557407 +0000 bridge-kernel.sh
+-rw-r--r--  1 tester tester 3247336666 2026-11-18 02:25:05.284455970 +0000 bridge.export
+drwxr-xr-x  4 tester tester         54 2026-11-18 02:11:31.575733790 +0000 out
+
+/home/tester/asm2/IntMulBridge/:
+total 84
+drwxr-xr-x 2 tester staff  4096 2026-11-18 02:06:43.111409722 +0000 .
+drwxr-xr-x 5 tester root   4096 2026-11-18 02:12:48.633559166 +0000 ..
+-rw-r--r-- 1 tester staff   163 2026-11-18 00:31:07.000000000 +0000 ._Bounds.lean
+-rw-r--r-- 1 tester staff   163 2026-11-18 02:10:41.000000000 +0000 ._Encodings.lean
+-rw-r--r-- 1 tester staff   163 2026-11-18 02:06:42.000000000 +0000 ._Finite.lean
+-rw-r--r-- 1 tester staff   163 2026-11-18 02:06:43.000000000 +0000 ._Main.lean
+-rw-r--r-- 1 tester staff 10346 2026-11-18 00:31:07.303367867 +0000 Bounds.lean
+-rw-r--r-- 1 tester staff 31778 2026-11-18 02:10:41.776538746 +0000 Encodings.lean
+-rw-r--r-- 1 tester staff  8939 2026-11-18 02:06:42.323269827 +0000 Finite.lean
+-rw-r--r-- 1 tester staff  1622 2026-11-18 02:06:43.111074012 +0000 Main.lean

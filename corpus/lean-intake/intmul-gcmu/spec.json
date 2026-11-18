@@ -1,0 +1,192 @@
+{
+ "format": 2,
+ "id": "intmul-gcmu",
+ "what": "The Lean proof of Cui, Liu and Woodruff (lockqueue/intmul at 4738aeff: integer multiplication in O(n (log n)^(1 − 2^-46)) steps on a multi-stack Turing machine) against the statement file of the same release, SubNLogN/Challenge.lean. The statement is the release's own: this checks that the headline theorem proves exactly that proposition, on the three standard axioms, under a second kernel, and that the check refuses statements we changed. Whether the proposition is the paper's theorem is a reading, kept apart.",
+ "polarity": "proves",
+ "canonical": {
+  "what": "the release's own statement file: one fixed multi-stack machine with finite alphabets multiplies two binary naturals within (C·L)·(log2 L)^(1 − 2^-46) steps on every input of length L ≥ N₀, stated in ℕ",
+  "url": "https://github.com/lockqueue/intmul.git",
+  "commit": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+  "root": "lean",
+  "path": "SubNLogN/Challenge.lean",
+  "sha256": "7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5",
+  "module": "SubNLogN.Challenge",
+  "decl": "SubNLogN.Challenge.IntMulSubNLogN",
+  "prop": "SubNLogN.Challenge.IntMulSubNLogN",
+  "toolchain": "leanprover/lean4:v4.33.1"
+ },
+ "claim": {
+  "what": "the headline theorem of the release",
+  "kind": "git",
+  "url": "https://github.com/lockqueue/intmul.git",
+  "commit": "4738aeff839dafd4bbcd176a0550f70242d966a6",
+  "file": "SubNLogN/Assembly/ChallengeHeadline.lean",
+  "sha256": "ce17957927bcbbc950bce9f423bf20270d8e1d4159c4ce22e230c782ca44e0c1",
+  "decl": "SubNLogN.Assembly.intMul_challenge",
+  "module": "SubNLogN.Assembly.ChallengeHeadline",
+  "license": "Apache-2.0 (the software of the repository); no byte of the file is kept here but its declaration's header"
+ },
+ "mutantNamespace": "SubNLogN.Challenge.IntakeMut",
+ "mutantOpen": [
+  "Computability"
+ ],
+ "f3": {
+  "what": "the statement is an existence claim with no hypotheses to satisfy",
+  "tactic": "intro h\n  exact h",
+  "expect": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "rule": "verbatim",
+   "why": "the body of the definition IntMulSubNLogN copied verbatim (comments dropped): the baseline",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "rule": "same:rename",
+   "why": "every bound variable renamed (M→T, k→j, C→c, N₀→n₀, L→n, p→q): alpha-equivalent",
+   "statement": "∃ T : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun q : ℕ × ℕ => q.1 * q.2),\n    (∀ j, Finite (T.tm.Γ j)) ∧\n    ∃ c n₀ : ℕ, 0 < c ∧ ∀ n ≥ n₀,\n      (T.time n) ^ (2 ^ 46) ≤ (c * n) ^ (2 ^ 46) * (Nat.log2 n) ^ (2 ^ 46 - 1)",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "rule": "same:folded",
+   "why": "the definition named and not unfolded",
+   "statement": "IntMulSubNLogN",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "rule": "same:unfold-encoding",
+   "why": "the input encoding named by its function (encodeNatPair) where the file writes the structure's field (encNatPair.encode): equal after unfolding one definition and one projection",
+   "statement": "∃ M : Turing.TM2ComputableInTime encodeNatPair encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "ACCEPTED"
+  },
+  {
+   "id": "C1",
+   "kind": "changed",
+   "rule": "changed:exponent",
+   "why": "2^46 made 2^45 throughout: the saving κ = 2^-45, a stronger claim than the one proved",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 45) ≤ (C * L) ^ (2 ^ 45) * (Nat.log2 L) ^ (2 ^ 45 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C2",
+   "kind": "changed",
+   "rule": "changed:exponent",
+   "why": "2^46 made 2^47 throughout: the saving κ = 2^-47, a weaker claim; implied by the canonical one, not the same statement",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 47) ≤ (C * L) ^ (2 ^ 47) * (Nat.log2 L) ^ (2 ^ 47 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C3",
+   "kind": "changed",
+   "rule": "changed:strictness",
+   "why": "≤ made <",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) < (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C4",
+   "kind": "changed",
+   "rule": "changed:drop-conjunct",
+   "why": "the conjunct that every stack alphabet is finite deleted",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C5",
+   "kind": "wrong",
+   "rule": "wrong:n-log-n",
+   "why": "the exponent of the logarithm made 2^46 where the file has 2^46 − 1: the plain n log n bound, with no saving at all",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C6",
+   "kind": "equivalent",
+   "rule": "equivalent:log",
+   "why": "Nat.log2 L written Nat.log 2 L: the same function by a theorem, not by definition",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log 2 L) ^ (2 ^ 46 - 1)",
+   "expect": "kernel decides"
+  },
+  {
+   "id": "C7",
+   "kind": "wrong",
+   "rule": "wrong:quantifier",
+   "why": "the bound asked of SOME length above N₀ where the file asks it of every one",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∃ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C8",
+   "kind": "wrong",
+   "rule": "wrong:function",
+   "why": "the machine asked to compute the SUM of the two numbers",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 + p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C9",
+   "kind": "equivalent",
+   "rule": "equivalent:commute",
+   "why": "the product written p.2 * p.1: equal by commutativity, not by definition",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.2 * p.1),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "kernel decides"
+  },
+  {
+   "id": "C10",
+   "kind": "changed",
+   "rule": "changed:drop-conjunct",
+   "why": "the condition 0 < C deleted",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, ∀ L ≥ N₀,\n      (M.time L) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  },
+  {
+   "id": "C11",
+   "kind": "changed",
+   "rule": "changed:argument",
+   "why": "the time taken at length L + 1 where the file takes it at L",
+   "statement": "∃ M : Turing.TM2ComputableInTime encNatPair.encode encodingNatBool.encode\n      (fun p : ℕ × ℕ => p.1 * p.2),\n    (∀ k, Finite (M.tm.Γ k)) ∧\n    ∃ C N₀ : ℕ, 0 < C ∧ ∀ L ≥ N₀,\n      (M.time (L + 1)) ^ (2 ^ 46) ≤ (C * L) ^ (2 ^ 46) * (Nat.log2 L) ^ (2 ^ 46 - 1)",
+   "expect": "REFUSED by type mismatch"
+  }
+ ],
+ "claimReds": [
+  {
+   "id": "R1",
+   "rule": "sorry",
+   "why": "the proof of intMul_challenge replaced by sorry",
+   "find": "theorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  challenge_of_spec SubNLogN.intMul_TM2_sub_nlogn_46",
+   "replace": "theorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  sorry",
+   "all": false,
+   "expect": "sorryAx in the axioms"
+  },
+  {
+   "id": "R2",
+   "rule": "axiom",
+   "why": "intMul_challenge proved by an added axiom",
+   "find": "theorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  challenge_of_spec SubNLogN.intMul_TM2_sub_nlogn_46",
+   "replace": "axiom intakeRedAxiom {p : Prop} : p\n\ntheorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  intakeRedAxiom",
+   "all": false,
+   "expect": "the added axiom in the axioms"
+  },
+  {
+   "id": "R3",
+   "rule": "native_decide",
+   "why": "the genuine proof, behind one step decided by native_decide",
+   "find": "theorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  challenge_of_spec SubNLogN.intMul_TM2_sub_nlogn_46",
+   "replace": "theorem intMul_challenge : SubNLogN.Challenge.IntMulSubNLogN :=\n  (fun (_ : (2 : ℕ) + 2 = 4) => challenge_of_spec SubNLogN.intMul_TM2_sub_nlogn_46) (by native_decide)",
+   "all": false,
+   "expect": "a native_decide axiom in the axioms, or a failed build"
+  }
+ ],
+ "f2NotApplicable": "the statement quantifies over Turing machines and has no decidable instance to evaluate; the encodings it names are evaluated on small pairs by a separate check of the same audit",
+ "amendments": [],
+ "notInScope": "the mathematics beyond what the kernel checks; whether a multi-stack machine's time is a multitape machine's time (a classical simulation, formalized by neither proof); the constants C and N₀, which the statement only asserts to exist"
+}

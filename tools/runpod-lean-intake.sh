@@ -10,6 +10,9 @@
 #                   INTAKE_IDS   one or several spec ids, space separated (required): corpus/lean-intake/<id>/spec.json
 #                   INTAKE_STAGES  optional, passed to `run --stages`
 #                   INTAKE_JOBS    optional: planted statements elaborated at once (default: half the declared vCPUs)
+#                   AUDIT_TGZ      optional: an archive already on the pod with the tool and the specs at the same paths
+#                                  (a claim not yet public); nothing is then fetched from the repository
+#                   LEAN_NUM_THREADS, LEAN_INTAKE_BUILD_SECONDS, LEAN_INTAKE_KERNEL_SECONDS  optional, passed to the tool
 #                   INTAKE_MODE    optional: `preflight` builds the canonical module and elaborates each planted statement
 #                                  ALONE (no claimant's term, no outcome of the identity check), serving <id>.preflight.json;
 #                                  the specs it reads are not yet a pre-registration
@@ -69,15 +72,23 @@ fi
 # ---- P1: node, rust, elan, the repository at the pin -----------------------------------------------------------------
 status _phase "P1 prepare"
 curl -fsSL --retry 5 "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.xz" | tar -xJ -C /usr/local --strip-components=1 || fail "node"
+# where the tool and the specs come from: the public repository at AUDIT_SHA, or (AUDIT_TGZ, a claim not yet public) an
+# archive copied onto the pod by hand, holding the same paths; AUDIT_SHA is then only the label of the local commit
+if [ -n "${AUDIT_TGZ:-}" ]; then
+  cp "$AUDIT_TGZ" /tmp/audit.tgz && chmod 644 /tmp/audit.tgz || fail "no archive at $AUDIT_TGZ"
+  FETCH="rm -rf $A && mkdir -p $A && cd $A && tar -xzf /tmp/audit.tgz && sha256sum /tmp/audit.tgz"
+else
+  FETCH="rm -rf $A && mkdir -p $A && cd $A && git init -q && git remote add origin $REPO
+git fetch -q --depth 1 --filter=blob:none origin $AUDIT_SHA
+git sparse-checkout set --no-cone /tools/lean-intake.js /tools/check-intake-specs.js /instruments/intake/ $(for i in $INTAKE_IDS; do printf '/corpus/lean-intake/%s/spec.json /corpus/lean-intake/%s/reading.json ' "$i" "$i"; done)
+git checkout -q FETCH_HEAD && git rev-parse HEAD"
+fi
 cat > /tmp/P1.sh <<BLOCK
 set -euo pipefail
 export PATH=\$HOME/.elan/bin:\$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin
 [ -x \$HOME/.elan/bin/elan ] || curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
 [ -x \$HOME/.cargo/bin/cargo ] || curl -sSfL https://sh.rustup.rs | sh -s -- -y --profile minimal
-rm -rf $A && mkdir -p $A && cd $A && git init -q && git remote add origin $REPO
-git fetch -q --depth 1 --filter=blob:none origin $AUDIT_SHA
-git sparse-checkout set --no-cone /tools/lean-intake.js /tools/check-intake-specs.js /instruments/intake/ $(for i in $INTAKE_IDS; do printf '/corpus/lean-intake/%s/spec.json /corpus/lean-intake/%s/reading.json ' "$i" "$i"; done)
-git checkout -q FETCH_HEAD && git rev-parse HEAD
+$FETCH
 mkdir -p certs
 for i in $INTAKE_IDS; do test -f corpus/lean-intake/\$i/spec.json; done
 node tools/check-intake-specs.js $(for i in $INTAKE_IDS; do printf 'corpus/lean-intake/%s/spec.json ' "$i"; done)
@@ -107,6 +118,7 @@ for ID in $INTAKE_IDS; do
   status _phase "P2 $ID running"; date +%s > $R/$ID.start
   setsid runuser -u $U -- env -i HOME=$H PATH="$H/.elan/bin:$H/.cargo/bin:/usr/local/bin:/usr/bin:/bin" \
     LEAN_INTAKE_KEEP=1 LEAN_INTAKE_WORK=$H/work/$KEY LEAN_INTAKE_JOBS=$JOBS RUNPOD_CPU_COUNT="$DECL_CPUS" RUNPOD_MEM_GB="$DECL_MEM" \
+    ${LEAN_NUM_THREADS:+LEAN_NUM_THREADS=$LEAN_NUM_THREADS} ${LEAN_INTAKE_BUILD_SECONDS:+LEAN_INTAKE_BUILD_SECONDS=$LEAN_INTAKE_BUILD_SECONDS} ${LEAN_INTAKE_KERNEL_SECONDS:+LEAN_INTAKE_KERNEL_SECONDS=$LEAN_INTAKE_KERNEL_SECONDS} \
     bash -c "cd $A && ulimit -s unlimited 2>/dev/null; if [ '${INTAKE_MODE:-run}' = preflight ]; then node tools/lean-intake.js run $ID --day $DAY --stages pin,toolchain,cache,canonical && exec node tools/lean-intake.js preflight $ID --day $DAY; else exec node tools/lean-intake.js run $ID --day $DAY ${INTAKE_STAGES:+--stages $INTAKE_STAGES}; fi" > $R/$ID.out 2> $R/$ID.err &
   echo $! > /tmp/run.pid; wait $!; echo $? > $R/$ID.exit; : > /tmp/run.pid; date +%s > $R/$ID.end
   status "$ID" "run exit $(cat $R/$ID.exit) after $(( $(cat $R/$ID.end) - $(cat $R/$ID.start) )) s"

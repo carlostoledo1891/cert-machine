@@ -1,0 +1,413 @@
+{
+ "format": 2,
+ "what": "The Lean intake of the theorem with the explicit saving; the existential statement of the same file follows from it in one line against the repository's own statement file: one fixed multi-stack machine multiplies two binary naturals in worst-case time O(n (log n)^(1 − κ)), n the input length, with Mathlib's asymptotic notation over the reals, decided from the run's facts by tools/lean-intake.js (record format 2, instruments/intake/SPEC.md). CERTIFIED here says: the kernels named accept the claimant's proof as a proof of the canonical declaration's own statement; of the planted statements that reached the identity check, every one with a predicted outcome has it, at least one is refused and at least one rewording is accepted; the canonical hypotheses have a model; and every planted defect in the claimant's file is caught. A planted statement that did not elaborate tested nothing and is named, not counted.",
+ "notDecided": "Whether the canonical statement is the informal problem (a reading, F5; F2, instance agreement, was not run). Kernels THIS RUN did not run: leanchecker-paranoid, lean4lean, con-leche, con-ron — another record of the same proof may have run them; this record speaks for its own run only.",
+ "spec": {
+  "path": "corpus/lean-intake/intmul-community/spec.json",
+  "sha256": "288d5b0287b157764d00f059d68c3275d209cd62510386aad08ca099411083f9",
+  "amendments": 0
+ },
+ "run": {
+  "day": "2026-11-17",
+  "facts": "corpus/lean-intake/intmul-community/runs/2026-11-17",
+  "machine": {
+   "platform": "linux",
+   "arch": "x64",
+   "cpus": 16,
+   "memGB": 119.2,
+   "host": {
+    "cpus": 256,
+    "memGB": 1008
+   },
+   "limit": {
+    "cpus": null,
+    "memGB": 119.2,
+    "source": "cgroup v2"
+   },
+   "declared": {
+    "source": "RUNPOD_CPU_COUNT / RUNPOD_MEM_GB",
+    "cpus": 16,
+    "memGB": 128
+   },
+   "plantedStatementsAtOnce": 8
+  },
+  "stepSeconds": 13161.4,
+  "cost": {
+   "usd": 4.28,
+   "what": "RunPod cpu3m-16-128, 292 min at US$0.88/h, pod 3ik2qpnhfed4kx: the registered run (211 min, 2026-11-18 00:04 to 03:35 UTC, stopped by its memory watchdog) and the second nanoda attempt made by hand (81 min, on a pod shared with other checks). The pod ran 12 h 8 min in all (corpus/intmul/pod/cost.json)"
+  }
+ },
+ "pins": {
+  "canonical": {
+   "url": "https://github.com/platypii/integer-mult-bounds-lean.git",
+   "path": "IntegerMultBounds/MathlibTM2/Statement.lean",
+   "decl": "IntegerMultBounds.MathlibTM2.MulInTime",
+   "head": "aaf10926643826a69f868f7e0694cc34cad25060",
+   "sha256": "fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5",
+   "toolchain": "leanprover/lean4:v4.34.1"
+  },
+  "claim": {
+   "url": "https://github.com/platypii/integer-mult-bounds-lean.git",
+   "file": "IntegerMultBounds/MathlibTM2/Theorem.lean",
+   "decl": "IntegerMultBounds.MathlibTM2.mulInTime",
+   "head": "aaf10926643826a69f868f7e0694cc34cad25060",
+   "sha256": "7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5",
+   "toolchain": "leanprover/lean4:v4.34.1"
+  }
+ },
+ "hazards": {
+  "sorry": [],
+  "admit": [],
+  "native_decide": [],
+  "axiom": [],
+  "unsafe": [],
+  "implemented_by": [],
+  "extern": [],
+  "skipKernelTC": [],
+  "opaque": []
+ },
+ "verdict": "REFUSED",
+ "words": {
+  "F1": "CERTIFIED",
+  "F1controls": {
+   "same": "4 of 4 accepted (predicted)",
+   "type": "0 of 0 refused (predicted)",
+   "changed": "6 refused, 0 accepted, of 6 (kernel decides: no outcome predicted)",
+   "equivalent": "1 of 1 refused (kernel decides)",
+   "certain": "12 of 12 certain predictions met",
+   "reachedTheCheck": "13 of 13",
+   "word": "CERTIFIED"
+  },
+  "F3": "CERTIFIED",
+  "plantedClaims": {
+   "caught": "3 of 3",
+   "word": "CERTIFIED"
+  },
+  "kernels": "NOT ALL ACCEPT",
+  "F2": {
+   "word": "REFUSED (not run)",
+   "why": "the statement quantifies over Turing machines and has no decidable instance to evaluate; the encodings it names are evaluated on small pairs by a separate check of the same audit"
+  }
+ },
+ "F1": {
+  "exit": "0",
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": {
+   "equal": false,
+   "eqv": false,
+   "defeq": true
+  },
+  "canonical": "IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46)",
+  "claim": "IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46)",
+  "seconds": 20,
+  "word": "CERTIFIED",
+  "how": "the kernel accepts the claimant's IntegerMultBounds.MathlibTM2.mulInTime as a proof of the proposition IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46 : ℝ), written from the canonical file's own definitions; the two types differ as written and agree after definitional unfolding"
+ },
+ "F2": null,
+ "F3": {
+  "exit": "0",
+  "axioms": [],
+  "witness": "the statement is an existence claim with no hypotheses to satisfy",
+  "seconds": 5.5,
+  "word": "CERTIFIED"
+ },
+ "mutants": [
+  {
+   "id": "S0",
+   "kind": "same",
+   "why": "the body of the definition MulInTime with κ = 4222422970/2^46 put in: the baseline",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 18,
+   "tested": true,
+   "rule": "verbatim",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S1",
+   "kind": "same",
+   "why": "every bound variable renamed (M→T, p→q, n→m): alpha-equivalent",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 17,
+   "tested": true,
+   "rule": "same:rename",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S2",
+   "kind": "same",
+   "why": "the definition named and not unfolded",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 24.1,
+   "tested": true,
+   "rule": "same:folded",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "S3",
+   "kind": "same",
+   "why": "the abbreviation pairEnc written out as Mathlib's product encoding",
+   "expect": "ACCEPTED",
+   "outcome": "ACCEPTED",
+   "asExpected": true,
+   "errors": [],
+   "seconds": 18.8,
+   "tested": true,
+   "rule": "same:unfold-encoding",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C1",
+   "kind": "changed",
+   "why": "the numerator of κ raised by one (4222422971/2^46): a slightly stronger claim",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 21.8,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C2",
+   "kind": "changed",
+   "why": "κ made 1/2^14, just above the proved 2^-14.02",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 18,
+   "tested": true,
+   "rule": "changed:constant",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C3",
+   "kind": "wrong",
+   "why": "the exponent of the logarithm made 1: the plain n log n bound, with no saving",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 22.4,
+   "tested": true,
+   "rule": "wrong:n-log-n",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C4",
+   "kind": "changed",
+   "why": "big O made little o",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17.5,
+   "tested": true,
+   "rule": "changed:asymptotic",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C5",
+   "kind": "wrong",
+   "why": "the machine asked to compute the SUM of the two numbers",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17.4,
+   "tested": true,
+   "rule": "wrong:function",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C6",
+   "kind": "changed",
+   "why": "the natural logarithm made the logarithm to base 2: the same class of functions, another statement",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 24.1,
+   "tested": true,
+   "rule": "changed:log",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C7",
+   "kind": "changed",
+   "why": "the time taken at length n + 1 where the file takes it at n",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17.2,
+   "tested": true,
+   "rule": "changed:argument",
+   "predicted": true,
+   "aligned": false
+  },
+  {
+   "id": "C8",
+   "kind": "equivalent",
+   "why": "the product written p.2 * p.1: equal by commutativity, not by definition",
+   "expect": "kernel decides",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 10,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 20.4,
+   "tested": true,
+   "rule": "equivalent:commute",
+   "predicted": false,
+   "aligned": false
+  },
+  {
+   "id": "C9",
+   "kind": "changed",
+   "why": "the clause that every stack alphabet is finite ADDED, as the other release states it: a stronger statement than this file's",
+   "expect": "REFUSED by type mismatch",
+   "outcome": "REFUSED by type mismatch",
+   "asExpected": true,
+   "errors": [
+    {
+     "line": 11,
+     "text": "Type mismatch"
+    }
+   ],
+   "seconds": 17.8,
+   "tested": true,
+   "rule": "changed:add-conjunct",
+   "predicted": true,
+   "aligned": false
+  }
+ ],
+ "reds": [
+  {
+   "id": "R1",
+   "why": "the proof of mulInTime replaced by sorry",
+   "expect": "sorryAx in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "sorryAx"
+   ],
+   "caught": true,
+   "how": "the axioms list sorryAx",
+   "seconds": 12.7
+  },
+  {
+   "id": "R2",
+   "why": "mulInTime proved by an added axiom",
+   "expect": "the added axiom in the axioms",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "IntegerMultBounds.MathlibTM2.intakeRedAxiom"
+   ],
+   "caught": true,
+   "how": "the axioms list IntegerMultBounds.MathlibTM2.intakeRedAxiom",
+   "seconds": 13.6
+  },
+  {
+   "id": "R3",
+   "why": "the genuine proof, behind one step decided by native_decide",
+   "expect": "a native_decide axiom in the axioms, or a failed build",
+   "exit": "0",
+   "nonstandardAxioms": [
+    "IntegerMultBounds.MathlibTM2.mulInTime._native.native_decide.ax_1_1"
+   ],
+   "caught": true,
+   "how": "the axioms list IntegerMultBounds.MathlibTM2.mulInTime._native.native_decide.ax_1_1",
+   "seconds": 14.9
+  }
+ ],
+ "kernels": [
+  {
+   "name": "Lean (the build of Intake.F1)",
+   "word": "ACCEPTS",
+   "seconds": 20
+  },
+  {
+   "name": "leanchecker --verbose Intake.F1 (bundled with v4.34.1)",
+   "word": "ACCEPTS",
+   "seconds": 34
+  },
+  {
+   "name": "nanoda 8de7e0c4 on the lean4export export of Intake.f1",
+   "word": "REJECTS OR STOPPED",
+   "export": {
+    "sha256": "114e7e51f9237319131b447eb1497ad70f4621bce37d4b8a442362f4ede9103b",
+    "bytes": 3250495245
+   },
+   "seconds": 4868.8
+  }
+ ],
+ "notRunHere": [
+  "leanchecker-paranoid",
+  "lean4lean",
+  "con-leche",
+  "con-ron"
+ ],
+ "reproduces": null
+}

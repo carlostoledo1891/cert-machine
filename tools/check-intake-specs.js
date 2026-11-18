@@ -36,6 +36,7 @@ function rules(S, file, out) {
   if (dup(S.mutants.map((m) => m.id)).length) out.push('planted statements share an id: ' + dup(S.mutants.map((m) => m.id)).join(', '));
   if (dup((S.claimReds || []).map((r) => r.id)).length) out.push('planted defects share an id');
   if (S.canonical.axioms && S.canonical.axioms.length && !S.canonical.selfContained) out.push('canonical.axioms needs canonical.selfContained');
+  if (S.canonical.prop && S.canonical.selfContained) out.push('canonical.prop is not handled with canonical.selfContained');
   if (S.claim.module && (S.claim.url !== S.canonical.url || S.claim.commit !== S.canonical.commit)) out.push('claim.module needs the claimant\'s file in the canonical repository at the same commit');
   if (S.f2 && S.f2NotApplicable) out.push('both f2 and f2NotApplicable');
   if (S.f2 && !S.f2.decider && !(S.f2.reading && S.f2.table)) out.push('f2 needs a decider, or a reading and its table');

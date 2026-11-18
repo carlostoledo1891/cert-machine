@@ -1,0 +1,7 @@
+Intake/Mut/C6.lean:7:8: warning: declaration uses `sorry`
+Intake/Mut/C6.lean:10:29: error: Type mismatch
+  mulInTime
+has type
+  MulInTime (4222422970 / 2 ^ 46)
+but is expected to have type
+  ∃ M, (fun n => ↑(M.time n)) =O[atTop] fun n => ↑n * Real.logb 2 ↑n ^ (1 - 4222422970 / 2 ^ 46)

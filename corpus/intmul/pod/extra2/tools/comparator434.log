@@ -1,0 +1,27 @@
+ships toolchain leanprover/lean4:v4.34.0
+info: lean4export: cloning https://github.com/leanprover/lean4export
+info: lean4export: checking out revision '076e8e57707e813375e8f9da8bf989799ace9680'
+✔ [4/21] Built Comparator.Util (3.5s)
+✔ [5/21] Built Comparator.Util:c.o (232ms)
+✔ [6/21] Built Export.Parse (3.9s)
+✔ [7/21] Built Comparator.Axioms (1.2s)
+✔ [8/21] Built Comparator.Axioms:c.o (493ms)
+✔ [9/21] Built Comparator.Compare (1.2s)
+✔ [10/21] Built Comparator.Compare:c.o (684ms)
+✔ [11/21] Built Comparator (3.9s)
+✔ [12/21] Built Comparator:c.o (108ms)
+✔ [13/21] Built Export (11s)
+✔ [14/21] Built Main (7.0s)
+✔ [15/21] Built Main (10s)
+✔ [16/21] Built Main:c.o (410ms)
+✔ [17/21] Built Main:c.o (5.8s)
+✔ [18/21] Built Export.Parse:c.o (23s)
+✔ [19/21] Built Export:c.o (19s)
+✔ [20/21] Built comparator:exe (3.7s)
+✔ [21/21] Built lean4export:exe (4.4s)
+Build completed successfully (21 jobs).
+lean4export rev 076e8e57707e813375e8f9da8bf989799ace9680 as pinned
+-rwxr-xr-x 1 tester tester 122488776 Nov 18 03:12 .lake/build/bin/comparator
+-rwxr-xr-x 1 tester tester 233952032 Nov 18 03:12 .lake/packages/lean4export/.lake/build/bin/lean4export
+afa65e57a1770f5961efe7681626a9a1cd99705262421658abd30b705f66e4a2  .lake/build/bin/comparator
+8c5d64ba68f4d3a68b3bcb7e1c5f188e35ae573b29470b8d4530a62324c9ddd1  .lake/packages/lean4export/.lake/build/bin/lean4export

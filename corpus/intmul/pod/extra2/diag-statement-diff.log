@@ -1,0 +1,26 @@
+DIAG equal=false eqv=false defeq=true
+CANON IntegerMultBounds.MathlibTM2.MulInTime
+  (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+    (@OfNat.ofNat.{0} Real (nat_lit 4222422970)
+      (@instOfNatAtLeastTwo.{0} Real (nat_lit 4222422970) Real.instNatCast IntMulDiag.canon._proof_1))
+    (@HPow.hPow.{0, 0, 0} Real Nat Real
+      (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+      (@OfNat.ofNat.{0} Real (nat_lit 2)
+        (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast IntMulDiag.canon._proof_2))
+      (@OfNat.ofNat.{0} Nat (nat_lit 46) (instOfNatNat (nat_lit 46)))))
+CLAIM IntegerMultBounds.MathlibTM2.MulInTime
+  (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+    (@OfNat.ofNat.{0} Real (nat_lit 4222422970)
+      (@instOfNatAtLeastTwo.{0} Real (nat_lit 4222422970) Real.instNatCast
+        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 4222422969) (instOfNatNat (nat_lit 4222422969)))
+          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 4222422968) (instOfNatNat (nat_lit 4222422968)))))))
+    (@HPow.hPow.{0, 0, 0} Real Nat Real
+      (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+      (@OfNat.ofNat.{0} Real (nat_lit 2)
+        (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 46) (instOfNatNat (nat_lit 46)))))
+CANON-RAW IntegerMultBounds.MathlibTM2.MulInTime (HDiv.hDiv.{0, 0, 0} Real Real Real (instHDiv.{0} Real (DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid)) (OfNat.ofNat.{0} Real 4222422970 (instOfNatAtLeastTwo.{0} Real 4222422970 Real.instNatCast IntMulDiag.canon._proof_1)) (HPow.hPow.{0, 0, 0} Real Nat Real (instHPow.{0, 0} Real Nat (NPow.toPow.{0} Real (Monoid.toNPow.{0} Real Real.instMonoid))) (OfNat.ofNat.{0} Real 2 (instOfNatAtLeastTwo.{0} Real 2 Real.instNatCast IntMulDiag.canon._proof_2)) (OfNat.ofNat.{0} Nat 46 (instOfNatNat 46))))
+CLAIM-RAW IntegerMultBounds.MathlibTM2.MulInTime (HDiv.hDiv.{0, 0, 0} Real Real Real (instHDiv.{0} Real (DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid)) (OfNat.ofNat.{0} Real 4222422970 (instOfNatAtLeastTwo.{0} Real 4222422970 Real.instNatCast (Nat.instAtLeastTwoHAddOfNat (OfNat.ofNat.{0} Nat 4222422969 (instOfNatNat 4222422969)) (Nat.instNeZeroSucc (OfNat.ofNat.{0} Nat 4222422968 (instOfNatNat 4222422968)))))) (HPow.hPow.{0, 0, 0} Real Nat Real (instHPow.{0, 0} Real Nat (NPow.toPow.{0} Real (Monoid.toNPow.{0} Real Real.instMonoid))) (OfNat.ofNat.{0} Real 2 (instOfNatAtLeastTwo.{0} Real 2 Real.instNatCast (Nat.instAtLeastTwoHAddOfNat (OfNat.ofNat.{0} Nat 1 (instOfNatNat 1)) (Nat.instNeZeroSucc (OfNat.ofNat.{0} Nat 0 (instOfNatNat 0)))))) (OfNat.ofNat.{0} Nat 46 (instOfNatNat 46))))
+exit 0
