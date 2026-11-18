@@ -18,6 +18,8 @@ const cp = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const die = (msg) => { console.error('INTMUL PAGE REFUSED: ' + msg); process.exit(1); };
 const need = (ok, msg) => { if (!ok) die(msg); };
 const GH = 'https://github.com/carlostoledo1891/cert-machine/blob/main/';
@@ -65,16 +67,33 @@ const kernelsThatFinishedOnCommunity = CL === 'ACCEPTS' ? 1 : 0;
 const RAN = day(c.freshReplay.start);
 const tag = (v) => C.tag(v);
 
+/* ---- the figure: the memory of the three stopped checkers in their last hour. Readings, so every line wears the
+   COMPUTED standing; the machine's limit is a plain rule. Drawn twice, wide and for a phone. ---- */
+const MC = R.memoryCurves;
+need(MC.series.length === 3 && MC.series.map((x) => x.id).join() === 'nanoda,lean,con-leche' && MC.limitGiB > 119 && MC.limitGiB < 120, 'the memory curves moved');
+need(MC.series.every((x) => x.points[0][0] <= -50 && x.points[0][1] < 12 && x.lastGiB > 100 && x.lastGiB < MC.limitGiB), 'a memory curve no longer starts quiet an hour before its stop and ends between 100 GiB and the limit');
+const ran = (x) => x.minutesRunning >= 120 ? Math.floor(x.minutesRunning / 60) + ' h ' + (x.minutesRunning % 60) + ' min' : x.minutesRunning + ' min';
+const SERIES = (short) => MC.series.map((x) => ({ name: short ? { nanoda: 'nanoda', lean: 'Lean’s kernel', 'con-leche': 'con-leche' }[x.id] + ', ' + ran(x) + ' in' : T(x.name) + ': stopped ' + ran(x) + ' after its start', pts: x.points, standing: W.COMPUTED }));
+const FALT = 'Three lines of memory against time, over the hour before each checker was stopped. Each stays near the bottom of the chart, under 12 GiB, for most of the hour, then climbs almost straight up: nanoda to ' + MC.series[0].lastGiB + ' GiB, Lean’s kernel to ' + MC.series[1].lastGiB + ' GiB, con-leche to ' + MC.series[2].lastGiB + ' GiB. A horizontal rule marks the machine’s limit, ' + MC.limitGiB + ' GiB.';
+const fig = (w, h, short) => CH.lines({ w, h, x0: -60, x1: 0, y0: 0, y1: 128, hover: false, padR: short ? 30 : 22, padL: short ? 46 : 62,
+  yTicks: [0, 25, 50, 75, 100].map((v) => ({ v, t: String(v) })), xTicks: (short ? [-60, -30, 0] : [-60, -45, -30, -15, 0]).map((v) => ({ v, t: String(-v) })),
+  xLabel: short ? 'minutes before the stop' : 'minutes before the checker was stopped', yLabel: 'memory, GiB',
+  rules: [{ v: MC.limitGiB, t: (short ? 'limit, ' : 'the machine’s limit, ') + MC.limitGiB + ' GiB' }],
+  series: SERIES(short), alt: FALT });
+
 const TITLE = 'Integer multiplication below n log n: two Lean proofs, replayed by a second party';
 const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the record',
   title: TITLE,
-  deck: 'Two groups have published Lean proofs that two n-bit integers can be multiplied in fewer than n log n steps on a Turing machine, a result OpenAI announced in a manuscript: Piaoyang Cui, Yiming Liu and David Woodruff (Google and CMU), and Dan Brown and Kenny Daniel (a community project). The mathematics and the proofs are theirs. '
+  deck: 'Two groups have published Lean proofs that two n-bit integers can be multiplied in fewer than n log n steps on a Turing machine, a result OpenAI announced in a manuscript: Piaoyang Cui, Yiming Liu and David Woodruff (Google and CMU), and Dan Brown and Kenny Daniel (jdb19937 and platypii on GitHub, a community project). The mathematics and the proofs are theirs. '
     + 'With Claude (Anthropic’s AI model), I rebuilt both from source on a rented machine, under questions written down before the run. The Google/CMU proof is accepted by three independent checkers. The community proof builds and proves its own statement, '
     + (CL === 'ACCEPTS' ? 'but the second checker I had named beforehand ran out of memory on it; a different one accepts it. ' : 'but no second checker finished on it: each ran out of memory. ')
     + 'I also proved, in Lean, that the community proof gives the Google/CMU statement.'
 }));
+O.push(C.figure({ hero: true, svgRaw: fig(900, 380, false), svgNarrowRaw: fig(360, 420, true), record: [REC, 'corpus/intmul/pod/extra/guard3.txt'],
+  caption: 'What stopped the second check of the community proof. Three checkers written independently of each other were given the proof to re-check from nothing. Each ran quietly, then its memory climbed past 100 GiB within minutes and it was stopped just under the machine’s limit. Lean’s kernel had been quiet for more than six hours before the hour shown. One reading a minute; a measurement, drawn dashed because nothing here is an exact decision. Nothing rejected the proof.',
+  stop: 'a curve does not start under 12 GiB an hour before its stop, or does not end between 100 GiB and the machine’s limit' }));
 O.push(C.stats([
   { k: 'checkers that accept the Google/CMU proof', v: String(g.acceptedBy.length), n: 'Lean’s kernel, nanoda and con-leche, each on the whole proof' },
   { k: 'second checkers that finished on the community proof', v: String(kernelsThatFinishedOnCommunity), n: CL === 'ACCEPTS' ? 'con-leche accepts; nanoda and a fresh Lean replay ran out of memory' : 'nanoda, a fresh Lean replay and con-leche all stopped; nothing rejected it' },
@@ -94,7 +113,7 @@ O.push(C.section({ lab: 'the claim', title: 'Below n log n, by a factor that gro
   + '</div>'
   + C.table({ cols: [{ h: 'Release' }, { h: 'Authors' }, { h: 'Saving κ' }, { h: 'Lean' }, { h: 'Verdict here' }], rows: [
     [{ raw: a(PG.repo, 'lockqueue/intmul') + C.esc(' at ') + m(PG.commit.slice(0, 8)) }, PG.who, PG.kappa, PG.lean.replace('leanprover/lean4:v', ''), { raw: tag(g.word) + C.esc(' as amended') }],
-    [{ raw: a(PC.repo, 'platypii/integer-mult-bounds-lean') + C.esc(' at ') + m(PC.commit.slice(0, 8)) }, 'Dan Brown, Kenny Daniel', PC.kappa, PC.lean.replace('leanprover/lean4:v', ''), { raw: tag(c.word) + C.esc(' on resources') }]
+    [{ raw: a(PC.repo, 'platypii/integer-mult-bounds-lean') + C.esc(' at ') + m(PC.commit.slice(0, 8)) }, 'Dan Brown (jdb19937), Kenny Daniel (platypii)', PC.kappa, PC.lean.replace('leanprover/lean4:v', ''), { raw: tag(c.word) + C.esc(' on resources') }]
   ] })
   + '<div class="wide"><details class="more"><summary>Dates of the public record</summary><div class="col">'
   + C.pRaw(C.esc('Read from the sources named, by public record only. Private dates are unknown and no priority is decided here.'))
@@ -189,7 +208,7 @@ O.push(C.section({ lab: 'departures', title: 'What changed after the questions w
 
 O.push(C.section({ lab: 'who did what', title: 'Each step is a separate job', id: 'roles', bodyRaw: C.plainList([
   { b: 'The claim.', text: 'OpenAI’s manuscript “Integer multiplication below n log n”. It is not judged here.' },
-  { b: 'The proofs.', text: PG.who + ' (Google and CMU); Dan Brown and Kenny Daniel (the community repository). The n log n algorithm all of this improves on is Harvey and van der Hoeven’s.' },
+  { b: 'The proofs.', text: PG.who + ' (Google and CMU); Dan Brown (jdb19937) and Kenny Daniel (platypii), the community repository. The n log n algorithm all of this improves on is Harvey and van der Hoeven’s.' },
   { b: 'The note on finite alphabets.', text: 'ywz65, in the upstream community repository.' },
   { b: 'The checkers.', text: 'Lean, Mathlib, Comparator, nanoda, con-leche, lean4lean and lean4export: their authors.' },
   { b: 'The checks on this page.', text: 'Carlos Toledo, with Claude (Anthropic), which wrote the programs, the planted statements and the Lean files of the joining theorem under my direction. The runs were made on ' + day('2026-11-17') + ' and ' + RAN + ' on one rented machine (16 processors, 128 GB), for US$ ' + R.cost.usd.toFixed(2) + '.' }

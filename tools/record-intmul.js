@@ -195,6 +195,29 @@ function build() {
     ? 'resources: the pre-registered second kernel, nanoda, never finished (stopped on memory twice), and Lean\'s own kernel was stopped on memory on a fresh replay of the closure. A different independent checker, con-leche, accepts the closure; that was not the pre-registered kernel and was added after the result, so the word stays REFUSED and the acceptance is stated beside it.'
     : 'resources: no second kernel finished. nanoda was stopped on memory twice, Lean\'s own kernel was stopped on memory on a fresh replay of the closure, and con-leche, a third checker, was stopped on memory too. Nothing rejected the proof.';
 
+  /* ---- the memory of the three stopped checkers on the community proof, minute by minute (the page's figure) ----
+     Each guard line is one `ps` reading of the process's resident memory, in GiB. The last point of nanoda and of the
+     fresh replay is the figure written when each was stopped. x is minutes before the stop; only the last hour is kept. */
+  const secs = (t) => { const [h, m, x] = t.split(':').map(Number); return h * 3600 + m * 60 + x; };
+  const colOf = (ls, re) => ls.map((l) => { const m = re.exec(l); return m ? { at: m[1], gib: Number(m[2]) } : null; }).filter(Boolean);
+  const curve = (id, name, readings, from, stopAt, lastGiB, startedAt) => {
+    const pts = readings.filter((r) => r.at >= from && r.at < stopAt && r.gib > 0).map((r) => [Math.round((secs(r.at) - secs(stopAt)) / 6) / 10, r.gib]);
+    if (lastGiB !== null) pts.push([0, lastGiB]);
+    need(pts.length > 20, 'the guard no longer holds the readings of ' + id);
+    const quiet = pts.filter((q) => q[1] < 12), rise = pts.find((q) => q[1] >= 12);
+    return { id, name, started: startedAt, stopped: stopAt, minutesRunning: Math.round((secs(stopAt) - secs(startedAt.slice(11, 19))) / 60), lastQuietReadingMinutesBeforeStop: quiet.length ? -quiet[quiet.length - 1][0] : null, firstReadingOver12GiBMinutesBeforeStop: rise ? -rise[0] : null, lastGiB: pts[pts.length - 1][1], points: pts.filter((q) => q[0] >= -60) }; };
+  const NRE = /^(\d\d:\d\d:\d\d) anon \d+ GiB \| registered nanoda ([\d.]+)/, FRE = /^(\d\d:\d\d:\d\d) anon \d+ GiB \|.*\| fresh ([\d.]+)/, ORE = /^(\d\d:\d\d:\d\d) anon \d+ GiB \|.*\| optional ([\d.]+)$/;
+  const g3StopAt = g3Stop.slice(0, 8), clStopLine = g3.filter((l) => /the optional checks are stopped/.test(l)).pop();
+  const memoryCurves = {
+    what: 'resident memory of three checkers on the community proof in the hour before each was stopped: one reading a minute by `ps`, from the guards\' logs (corpus/intmul/pod/extra/guard2.txt, guard3.txt); a measurement, not a decision',
+    limitGiB: Math.round(Number(/cgroup memory limit (\d+) MiB/.exec(JSON.parse(rd('pod/_status.json'))._machine)[1]) / 1024 * 10) / 10,
+    series: [
+      curve('nanoda', 'nanoda (Rust), second attempt', colOf(g2, NRE).concat(colOf(g3, NRE)), resumed.started.slice(11, 19), g3StopAt, Number((/stopped at ([\d.]+) GB/.exec(g3Stop) || [])[1]), resumed.started),
+      curve('lean', 'Lean\'s kernel, fresh replay', colOf(g2, FRE).concat(colOf(g3, FRE)), one('pod/extra/community-fresh.start').slice(11, 19), fs1[1].slice(11, 19), Math.round(Number(fs1[3]) / 1048576 * 10) / 10, one('pod/extra/community-fresh.start')),
+      curve('con-leche', 'con-leche, alone on the machine', colOf(g3, ORE), one('pod/extra2/r4/A3.con-leche-gcmu.end').slice(11, 19), clStopLine.slice(0, 8), Number(/optional ([\d.]+) GB/.exec(clStopLine)[1]), one('pod/extra2/r4/C2.con-leche-community.start')),
+    ] };
+  need(memoryCurves.series.every((c) => c.lastGiB > 100 && c.points[0][1] < 12), 'a memory curve no longer starts quiet and ends above 100 GiB');
+
   /* ---- Q2 · the readings; the encodings on small pairs ---- */
   const enc = (id, f) => { const t = rd(f), m = grab(t, new RegExp('^ENC ' + id + ' (\\d+) pairs: all guards hold$', 'm'), 'the encodings of ' + id + ' on small pairs'); need(/^exit 0$/m.test(t), 'the encodings check of ' + id + ' did not exit 0'); return Number(m[1]); };
   const q2 = {
@@ -324,6 +347,7 @@ function build() {
       comparatorControls: { 'google-cmu': nine, community: [{ id: 'ControlKappa', change: 'the numerator of the saving raised by one', exit: ck.exit, said: ckSaid.replace(/^uncaught exception: /, ''), outcome: 'refused: the statement does not match' }] },
       aDefectShownToNanoda: defectToNanoda },
     Q5: q5, Q6: q6,
+    memoryCurves,
     publicRecord: { file: 'corpus/intmul/public-record.json', what: PUB.what, rows: PUB.rows },
     amendments: { file: 'corpus/intmul/amendments.json', count: AM.amendments.length, list: AM.amendments },
     cost: COST,
