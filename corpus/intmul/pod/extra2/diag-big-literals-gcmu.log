@@ -1,0 +1,207 @@
+lines 36388944; expressions up to 35436420; names 413079; declarations 120324; literals >= 2^24: 980
+  declaration line sample: {"inductive":{"ctors":[{"cidx":0,"induct":1,"isUnsafe":false,"levelParams":[2],"name":10,"numFields":2,"numParams":2,"type":16}],"recs":[{"all":[1],"isUnsafe":false,"k":false,"levelParams":[2],"name":13,"numIndices":0,"numMinors":1,"numMotives":1,"numParams":2
+  declaration line sample: {"inductive":{"ctors":[{"cidx":0,"induct":17,"isUnsafe":false,"levelParams":[2],"name":18,"numFields":0,"numParams":1,"type":48},{"cidx":1,"induct":17,"isUnsafe":false,"levelParams":[2],"name":19,"numFields":2,"numParams":1,"type":53}],"recs":[{"all":[17],"isU
+  declaration line sample: {"inductive":{"ctors":[],"recs":[{"all":[27],"isUnsafe":false,"k":false,"levelParams":[2],"name":28,"numIndices":0,"numMinors":0,"numMotives":1,"numParams":0,"rules":[],"type":95}],"types":[{"all":[27],"ctors":[],"isRec":false,"isReflexive":false,"isUnsafe":fa
+  declaration line sample: {"def":{"all":[29],"hints":{"regular":1},"levelParams":[],"name":29,"safety":"safe","type":96,"value":98}}
+literal bit lengths (bits: count): [(90, 1), (91, 4), (92, 2), (93, 1), (94, 1), (95, 1), (96, 2), (97, 1), (98, 1), (102, 2), (103, 1), (104, 2), (105, 1), (106, 1), (109, 1), (110, 1), (111, 2), (114, 2), (115, 1), (116, 3), (117, 1), (118, 2), (119, 1), (120, 2), (121, 1)]
+applications with a large literal as argument (outside the literal wrappers): 8421
+by head constant and argument position (1 = first argument):
+       692  Mathlib.Meta.NormNum.IsNat.to_raw_eq  #3  max bits 121
+       673  Eq.refl  #2  max bits 121
+       596  Mathlib.Meta.NormNum.isNat_mul  #8  max bits 121
+       452  Nat.rawCast  #3  max bits 121
+       403  Mathlib.Meta.NormNum.IsNat.of_raw  #3  max bits 121
+       287  Mathlib.Meta.NormNum.isNat_ofNat  #4  max bits 91
+       286  Mathlib.Meta.NormNum.isNat_ofNat  #3  max bits 91
+       253  Mathlib.Meta.NormNum.isNat_mul  #6  max bits 121
+       251  HMul.hMul  #5  max bits 66
+       233  Mathlib.Meta.NormNum.IsNat.to_isInt  #4  max bits 91
+       230  Int.ofNat  #1  max bits 95
+       195  Int.negOfNat  #1  max bits 69
+       161  Mathlib.Meta.NormNum.isNat_mul  #7  max bits 121
+       124  Mathlib.Tactic.Ring.cast_pos  #3  max bits 66
+       124  Mathlib.Tactic.Ring.cast_pos  #4  max bits 66
+       118  Mathlib.Tactic.Ring.Common.mul_congr  #3  max bits 66
+       111  Mathlib.Meta.NormNum.isNat_lt_true  #9  max bits 71
+       110  Mathlib.Meta.NormNum.isNat_lt_true  #7  max bits 71
+       109  Mathlib.Meta.NormNum.isNNRat_mul  #11  max bits 85
+       105  Mathlib.Meta.NormNum.isNat_add  #8  max bits 116
+       104  Mathlib.Meta.NormNum.instAtLeastTwo  #1  max bits 84
+       102  HAdd.hAdd  #5  max bits 66
+       100  instNeZeroNatHAdd_1  #1  max bits 66
+        90  Nat.instAtLeastTwoHAddOfNat  #1  max bits 120
+        90  Nat.instNeZeroSucc  #1  max bits 120
+        88  Mathlib.Meta.NormNum.isNat_add  #6  max bits 116
+        84  Mathlib.Meta.NormNum.isNNRat_mul  #10  max bits 91
+        83  Mathlib.Meta.NormNum.isNat_add  #7  max bits 116
+        82  Mathlib.Tactic.Linarith.mul_nonpos  #6  max bits 66
+        80  Mathlib.Meta.NormNum.IsNat.to_isNNRat  #4  max bits 91
+        78  Mathlib.Tactic.Linarith.mul_neg  #6  max bits 63
+        73  Mathlib.Meta.NormNum.isNNRat_div  #6  max bits 85
+        66  Mathlib.Meta.NormNum.IsNNRat.to_eq  #7  max bits 85
+        65  Mathlib.Meta.NormNum.IsNatPowT.run  #3  max bits 121
+        55  HDiv.hDiv  #6  max bits 85
+        53  Mathlib.Meta.NormNum.IsNat.to_isNNRat  #3  max bits 85
+        51  Mathlib.Meta.NormNum.isNat_pow  #8  max bits 121
+        49  Mathlib.Meta.NormNum.IsNatPowT.trans  #6  max bits 121
+        47  Mathlib.Meta.NormNum.isNNRat_inv_pos  #5  max bits 91
+        47  Mathlib.Meta.NormNum.IsInt.to_isNat  #4  max bits 69
+        46  Mathlib.Meta.NormNum.isNNRat_div  #4  max bits 85
+        40  Mathlib.Meta.NormNum.IsNNRat.to_eq  #4  max bits 85
+        36  HMul.hMul  #6  max bits 121
+        35  Mathlib.Meta.NormNum.IsNNRat.to_isRat  #5  max bits 96
+        34  Mathlib.Meta.NormNum.isNNRat_mul  #6  max bits 84
+        33  Inv.inv  #3  max bits 85
+        33  Mathlib.Meta.NormNum.isNNRat_inv_pos  #4  max bits 85
+        32  Mathlib.Meta.NormNum.IsNNRat.to_eq  #6  max bits 84
+        32  Mathlib.Meta.NormNum.isNNRat_mul  #9  max bits 51
+        28  Mathlib.Meta.NormNum.isNNRat_add  #11  max bits 94
+        27  Mathlib.Meta.NormNum.isNNRat_add  #8  max bits 95
+        26  Mathlib.Meta.NormNum.isNNRat_add  #10  max bits 80
+        26  HDiv.hDiv  #5  max bits 84
+        25  Nat.mul  #1  max bits 84
+        23  Mathlib.Meta.NormNum.isNNRat_pow  #10  max bits 75
+        23  Mathlib.Meta.NormNum.isNNRat_mul  #8  max bits 84
+        22  Mathlib.Meta.NormNum.isNat_le_true  #8  max bits 91
+        22  Mathlib.Meta.NormNum.IsNNRat  #4  max bits 79
+        22  Mathlib.Meta.NormNum.IsNNRat  #5  max bits 80
+        22  Mathlib.Meta.NormNum.isNNRat_add  #7  max bits 79
+uses under a power-like head, largest literals first:
+     121 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 8365382  first declaration after it: SubNLogN.S5.sqrtLog_pow15_le
+     121 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 8365399  first declaration after it: SubNLogN.S5.sqrtLog_pow15_le
+     121 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 8365389  first declaration after it: SubNLogN.S5.sqrtLog_pow15_le
+      75 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 6123078  first declaration after it: Real.pi_lt_d4
+      75 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 6123252  first declaration after it: Real.pi_lt_d4
+      68 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 7805436  first declaration after it: IntMul.buildQuantizedSpecPaperStop_precomputeSeriesTableCost_le
+      68 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 7805450  first declaration after it: IntMul.buildQuantizedSpecPaperStop_precomputeSeriesTableCost_le
+      68 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 7805442  first declaration after it: IntMul.buildQuantizedSpecPaperStop_precomputeSeriesTableCost_le
+      67 bits  Mathlib.Meta.NormNum.isNNRat_pow #6  expr 16063412  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      67 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 16063433  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      67 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 16063422  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      58 bits  Mathlib.Meta.NormNum.isNNRat_pow #6  expr 6123073  first declaration after it: Real.pi_lt_d4
+      57 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #3  expr 8365392  first declaration after it: SubNLogN.S5.sqrtLog_pow15_le
+      57 bits  Mathlib.Meta.NormNum.IsNatPowT.bit1 #3  expr 8365414  first declaration after it: SubNLogN.S5.sqrtLog_pow15_le
+      52 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 30580185  first declaration after it: SubNLogN.Machine.CCore.PartsAux.Wn_pos
+      52 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 30580194  first declaration after it: SubNLogN.Machine.CCore.PartsAux.Wn_pos
+      51 bits  SubNLogN.Math.Cost.floorRatPow #3  expr 17026795  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.rp_main
+      51 bits  SubNLogN.Math.Cost.floorRatPow #3  expr 16962078  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.outMparB_ms._proof_1_11
+      51 bits  SubNLogN.Math.Cost.floorRatPow #3  expr 16958882  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.prepKK_ms
+      51 bits  SubNLogN.Math.Cost.floorRatPow #3  expr 16957829  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.prepKK_ms._proof_1_11
+      51 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 15361920  first declaration after it: SubNLogN.Math.Cost.row46_c
+      51 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 15361819  first declaration after it: SubNLogN.Math.Cost.row46_c
+      51 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 15361807  first declaration after it: SubNLogN.Math.Cost.row46_c
+      50 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 7802351  first declaration after it: IntMul.precomputeStepSeriesTableBitCost_le_of_step
+      50 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 7802369  first declaration after it: IntMul.precomputeStepSeriesTableBitCost_le_of_step
+      50 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 7802358  first declaration after it: IntMul.precomputeStepSeriesTableBitCost_le_of_step
+      47 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 8475446  first declaration after it: SubNLogN.Math.Cost.headlineCost_monoEnv_of_realBound
+      47 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 16063416  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      47 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 8475467  first declaration after it: SubNLogN.Math.Cost.headlineCost_monoEnv_of_realBound
+      47 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 8475455  first declaration after it: SubNLogN.Math.Cost.headlineCost_monoEnv_of_realBound
+      43 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 16467056  first declaration after it: SubNLogN.Assembly.tau_row46_eq
+      43 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 15589989  first declaration after it: WP.Top.poly_le
+      43 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 8508012  first declaration after it: SubNLogN.Math.Cost.headlineCost_walsh46BK
+      43 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 16064396  first declaration after it: SubNLogN.Assembly.row46Layer_sigma
+      43 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 16064025  first declaration after it: SubNLogN.Math.Networks.deficitsH100_holds
+      43 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 8508031  first declaration after it: SubNLogN.Math.Cost.headlineCost_walsh46BK
+      43 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 8508023  first declaration after it: SubNLogN.Math.Cost.headlineCost_walsh46BK
+      42 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 7912192  first declaration after it: SubNLogN.S5.sqP_le_linear
+      42 bits  Mathlib.Meta.NormNum.isNNRat_pow #6  expr 14972085  first declaration after it: SubNLogN.Math.Bridge.bridge_constant_lt
+      42 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 7912203  first declaration after it: SubNLogN.S5.sqP_le_linear
+      42 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 14972095  first declaration after it: SubNLogN.Math.Bridge.bridge_constant_lt
+      42 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 7912198  first declaration after it: SubNLogN.S5.sqP_le_linear
+      41 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 5890949  first declaration after it: WP.W7k1.piNat_eq
+      41 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 16064182  first declaration after it: SubNLogN.Assembly.row46Layer_tau
+      41 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 14972089  first declaration after it: SubNLogN.Math.Bridge.bridge_constant_lt
+      41 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 5890967  first declaration after it: WP.W7k1.piNat_eq
+      41 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 5890955  first declaration after it: WP.W7k1.piNat_eq
+      40 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 35246796  first declaration after it: SubNLogN.Machine.Layer.DrvDescPiecesAux.runs_piecesProg
+      40 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 6123435  first declaration after it: Real.pi_lt_d4
+      40 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 35246806  first declaration after it: SubNLogN.Machine.Layer.DrvDescPiecesAux.runs_piecesProg
+      40 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 35246801  first declaration after it: SubNLogN.Machine.Layer.DrvDescPiecesAux.runs_piecesProg
+      39 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 7818839  first declaration after it: WP.W7pure.tableCost_le
+      39 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 7818855  first declaration after it: WP.W7pure.tableCost_le
+      39 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 7818845  first declaration after it: WP.W7pure.tableCost_le
+      38 bits  Mathlib.Meta.NormNum.isNNRat_pow #7  expr 6123075  first declaration after it: Real.pi_lt_d4
+      38 bits  Mathlib.Meta.NormNum.IsNatPowT.run #1  expr 6123250  first declaration after it: Real.pi_lt_d4
+      38 bits  Mathlib.Meta.NormNum.IsNatPowT.bit0 #3  expr 6123255  first declaration after it: Real.pi_lt_d4
+      38 bits  Mathlib.Meta.NormNum.IsNatPowT.bit0 #1  expr 6123253  first declaration after it: Real.pi_lt_d4
+      36 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 15055423  first declaration after it: SubNLogN.Math.Bridge.master_margin
+      36 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 14950706  first declaration after it: Real.pi_gt_d4
+      36 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 3826065  first declaration after it: Real.log_two_near_10
+      36 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 3826087  first declaration after it: Real.log_two_near_10
+      36 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 14950808  first declaration after it: Real.pi_gt_d4
+      36 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 3826082  first declaration after it: Real.log_two_near_10
+      35 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 3826410  first declaration after it: Real.log_two_near_10
+      34 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 3826723  first declaration after it: Real.log_two_gt_d9
+      34 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #3  expr 16063426  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      34 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #3  expr 7805447  first declaration after it: IntMul.buildQuantizedSpecPaperStop_precomputeSeriesTableCost_le
+      34 bits  Mathlib.Meta.NormNum.IsNatPowT.bit1 #3  expr 7805453  first declaration after it: IntMul.buildQuantizedSpecPaperStop_precomputeSeriesTableCost_le
+      34 bits  Mathlib.Meta.NormNum.IsNatPowT.bit0 #3  expr 16063450  first declaration after it: SubNLogN.Math.Networks.logMLt14_holds
+      33 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 6115943  first declaration after it: IntMul.c0Coeff_alphaSchedule_gt_049999999
+      33 bits  Mathlib.Meta.NormNum.isNNRat_zpow_neg #7  expr 6115922  first declaration after it: IntMul.c0Coeff_alphaSchedule_gt_049999999
+      31 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 17018266  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.rp_main
+      31 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 14951046  first declaration after it: Real.pi_gt_d4
+      31 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 14609157  first declaration after it: SubNLogN.Math.Cost.bandsNat_row46_of_bounds
+      31 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 3778115  first declaration after it: Real.pi_lt_d2
+      31 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 14609167  first declaration after it: SubNLogN.Math.Cost.bandsNat_row46_of_bounds
+      31 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 14609162  first declaration after it: SubNLogN.Math.Cost.bandsNat_row46_of_bounds
+      31 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 3778325  first declaration after it: Real.pi_lt_d2
+      29 bits  Mathlib.Meta.NormNum.isNNRat_pow #5  expr 6123072  first declaration after it: Real.pi_lt_d4
+      28 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 16992696  first declaration after it: SubNLogN.Machine.Pipe.ReadParamsAux.mkDk_cost_le
+      28 bits  Mathlib.Meta.NormNum.isNNRat_pow #6  expr 10338260  first declaration after it: SubNLogN.Math.Bridge.sqrt_two_lt_14143
+      28 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 10338270  first declaration after it: SubNLogN.Math.Bridge.sqrt_two_lt_14143
+      27 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 10338264  first declaration after it: SubNLogN.Math.Bridge.sqrt_two_lt_14143
+      27 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 6118353  first declaration after it: IntMul.c0Coeff_alphaSchedule_gt_049999999
+      27 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 6118348  first declaration after it: IntMul.c0Coeff_alphaSchedule_gt_049999999
+      26 bits  Mathlib.Meta.NormNum.isNNRat_pow #6  expr 14950702  first declaration after it: Real.pi_gt_d4
+      26 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #3  expr 15361813  first declaration after it: SubNLogN.Math.Cost.row46_c
+      26 bits  Mathlib.Meta.NormNum.IsNatPowT.bit0 #3  expr 15361822  first declaration after it: SubNLogN.Math.Cost.row46_c
+      25 bits  Mathlib.Meta.NormNum.isNat_pow #8  expr 6073750  first declaration after it: IntMul.t1_mul_complexQuantizeMaxErr_two_mul_pChild_le
+      25 bits  Mathlib.Meta.NormNum.isNNRat_zpow_neg #7  expr 6073722  first declaration after it: IntMul.t1_mul_complexQuantizeMaxErr_two_mul_pChild_le
+      25 bits  Mathlib.Meta.NormNum.isNNRat_pow #10  expr 6195576  first declaration after it: IntMul.c1_div_c0_pow_le_015_of_le_half
+      25 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #6  expr 6195612  first declaration after it: IntMul.c1_div_c0_pow_le_015_of_le_half
+      25 bits  Mathlib.Meta.NormNum.IsNatPowT.trans #3  expr 7802362  first declaration after it: IntMul.precomputeStepSeriesTableBitCost_le_of_step
+      25 bits  Mathlib.Meta.NormNum.IsNatPowT.run #3  expr 6195601  first declaration after it: IntMul.c1_div_c0_pow_le_015_of_le_half
+      25 bits  Mathlib.Meta.NormNum.IsNatPowT.bit0 #3  expr 7802375  first declaration after it: IntMul.precomputeStepSeriesTableBitCost_le_of_step
+largest literals anywhere (bits, head, position, first declaration after):
+     121  Nat.rawCast #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.isNat_pow #8  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.isNat_mul #8  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.isNat_mul #8  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.isNat_mul #7  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.isNat_mul #6  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNatPowT.trans #6  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNatPowT.run #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  Mathlib.Meta.NormNum.IsNat.of_raw #3  SubNLogN.S5.sqrtLog_pow15_le
+     121  HMul.hMul #6  SubNLogN.S5.sqrtLog_pow15_le
+     121  Eq.refl #2  SubNLogN.S5.sqrtLog_pow15_le
+     120  Nat.instNeZeroSucc #1  SubNLogN.S5.sqrtLog_pow15_le
+     120  Nat.instAtLeastTwoHAddOfNat #1  SubNLogN.S5.sqrtLog_pow15_le
+     119  Eq.refl #2  Real.log_two_near_10
+     118  Eq.refl #2  Real.log_two_near_10
+     118  Eq.refl #2  Real.log_two_near_10
+     117  Eq.refl #2  Real.log_two_near_10
+     116  Nat.rawCast #3  WP.W7pure.tableCost_le
+     116  Nat.rawCast #3  WP.W7pure.tableCost_le
+     116  Nat.rawCast #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_mul #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_mul #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_mul #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #8  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #7  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.isNat_add #6  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.to_raw_eq #3  WP.W7pure.tableCost_le
+     116  Mathlib.Meta.NormNum.IsNat.of_raw #3  WP.W7pure.tableCost_le
+exit 0

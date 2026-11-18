@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/tester/x/diag/big_literals.py", line 41, in <module>
+    v = int(m.group(2))
+        ^^^^^^^^^^^^^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 15936 digits; use sys.set_int_max_str_digits() to increase the limit
+exit 1

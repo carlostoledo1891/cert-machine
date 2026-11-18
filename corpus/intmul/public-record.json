@@ -1,0 +1,54 @@
+{
+ "what": "Dates of the public record around the two audited proofs, read from the primary sources named in each row on 2026-11-18 (GitHub's API, the files at the commits named, the pages themselves). A reading, by public record only: private dates are unknown, nothing here was built to confirm a row, and no priority is decided. Times are UTC.",
+ "read": "2026-11-18",
+ "rows": [
+  {
+   "date": "2026-09-23",
+   "who": "OpenAI",
+   "what": "The date on the manuscript \"Integer multiplication below n log n\" (κ = 2^-182). It became public on 2026-10-06, with the first commit of openai/math.",
+   "source": "openai/math, preprints/Integer-multiplication-below-n-log-n-September-23-2026/paper.pdf; the repository's first commit adc7f124 (2026-10-06 21:58:50)"
+  },
+  {
+   "date": "2026-10-15",
+   "who": "Dan Brown (jdb19937), Kenny Daniel (platypii)",
+   "what": "The community repository merges a complete Lean proof on Mathlib's multi-stack machine, at κ = 296/(10^11·2^131), with its own check of the three axioms.",
+   "source": "platypii/integer-mult-bounds-lean, pull request #3, merged 06:26:49 as 9a7e575f"
+  },
+  {
+   "date": "2026-10-15",
+   "who": "Kenny Daniel (platypii)",
+   "what": "Asks the upstream community for \"Independent review of the linked theorem statement and machine/time model\". Still open when read.",
+   "source": "CrocSwap/integer-mult-bounds, pull request #2411"
+  },
+  {
+   "date": "2026-10-15",
+   "who": "ywz65",
+   "what": "A note on the community statement: Mathlib's machine makes only the input alphabet finite, and a kernel-checked lemma on definitions extracted from Mathlib shows that the alphabet a machine can reach is finite anyway.",
+   "source": "CrocSwap/integer-mult-bounds, research/fintm2-reachable-alphabet, commit 9f397bb6"
+  },
+  {
+   "date": "2026-10-17",
+   "who": "Prove2Me",
+   "what": "A third Lean development, in a k-tape model of its own, at OpenAI's κ = 2^-182; later at 3666565558019/10^17 (2026-10-21). Not audited here.",
+   "source": "prove2me/formalpedia, envs/0df444a/Solutions/Sol_NLogN_KFTop_kappa_bound.lean; the platform's campaign page"
+  },
+  {
+   "date": "2026-10-22",
+   "who": "Kenny Daniel (platypii)",
+   "what": "The community theorem reaches κ = 4222422970/2^46, the saving it has at the commit audited here.",
+   "source": "platypii/integer-mult-bounds-lean, commit 4b9ea4b6, IntegerMultBounds/MathlibTM2/Theorem.lean"
+  },
+  {
+   "date": "2026-10-26",
+   "who": "Piaoyang Cui, Yiming Liu, David P. Woodruff",
+   "what": "First public push of the Google/CMU repository; the paper carries the date 2026-10-25 and κ = 2^-46. The commit audited here is of 2026-11-10.",
+   "source": "lockqueue/intmul, the repository's events; IntMul_main_paper.pdf, title page; commit 4738aeff"
+  },
+  {
+   "date": "2026-11-13",
+   "who": "Google Research",
+   "what": "The post \"Advancing science & engineering with Antigravity's /teamwork feature\" links the Google/CMU repository.",
+   "source": "research.google/blog, the post of 2026-11-13"
+  }
+ ]
+}

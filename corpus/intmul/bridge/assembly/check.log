@@ -1,0 +1,244 @@
+check.log — IntMulBridge assembly, compiled on the pod against integer-mult-bounds-lean aaf10926 (Lean 4.34.1)
+written 2026-11-18T02:10:02Z
+
+RESULT: all five modules compile with exit 0; no sorry, axiom, native_decide, unsafe or implemented_by in any of them.
+  'IntMulBridge.community_proves_challenge' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'IntMulBridge.mulInTimeFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Check runs in this session: 2 with check.sh (Finite.lean once, Main.lean once; both exit 0 at the first run),
+then one sequential rebuild of all five modules and an audit file from source into a fresh out-fresh/ (check-fresh.sh, section 2).
+
+================================================================================
+1. The two check.sh runs (the command given for this task)
+================================================================================
+
+$ cat /home/tester/asm/check.sh
+#!/bin/bash
+# check.sh <Module/Path.lean>: compiles one module of /home/tester/asm into out/, with the community project and its packages on the path
+cd /home/tester/asm
+W=$(ls -d /home/tester/work/aaf10926*/canonical)
+LP=$(ls -d $W/.lake/packages/*/.lake/build/lib/lean | paste -sd:):$W/.lake/build/lib/lean:/home/tester/asm/out
+M=${1%.lean}
+mkdir -p out/$(dirname $M)
+env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out/$M.olean -i out/$M.ilean $1
+
+$ runuser -u tester -- /home/tester/asm/check.sh IntMulBridge/Finite.lean; sha256sum IntMulBridge/Finite.lean
+EXIT=0 SECONDS=15
+68fe75cd2b4dc961354ba3c987a74624d5b47f8050adc33860a62c1ad4912092  IntMulBridge/Finite.lean
+
+$ runuser -u tester -- /home/tester/asm/check.sh IntMulBridge/Main.lean; sha256sum IntMulBridge/Main.lean
+'IntMulBridge.community_proves_challenge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.mulInTimeFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT=0 SECONDS=14
+7edc61192bfd58422f13c9293b39c10f031542b2a21814271f38ee436438d3dd  IntMulBridge/Main.lean
+
+================================================================================
+2. The fresh sequential rebuild: every module, in dependency order, from the sources as hashed,
+   into /home/tester/asm/out-fresh (out/ not on the path). This is each module's LAST compile.
+================================================================================
+
+$ cat /home/tester/asm/check-fresh.sh
+#!/bin/bash
+# check-fresh.sh: compiles the five modules (and the audit file) in dependency order from the sources in
+# /home/tester/asm into a fresh out-fresh/; out/ is not on the path and is not touched
+cd /home/tester/asm
+W=$(ls -d /home/tester/work/aaf10926*/canonical)
+LP=$(ls -d $W/.lake/packages/*/.lake/build/lib/lean | paste -sd:):$W/.lake/build/lib/lean:/home/tester/asm/out-fresh
+LEAN=/home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean
+rm -rf /home/tester/asm/out-fresh
+echo "date: $(date -u +%FT%TZ)"; echo "lean: $($LEAN --version)"; echo "community tree: $W"; echo "community HEAD: $(git -C $W rev-parse HEAD 2>&1)"
+echo "LEAN_PATH=$LP"
+for f in SubNLogN/Challenge.lean IntMulBridge/Bounds.lean IntMulBridge/Encodings.lean IntMulBridge/Finite.lean IntMulBridge/Main.lean scratch/Audit.lean; do
+  M=${f%.lean}; mkdir -p out-fresh/$(dirname $M)
+  echo; echo "=== $f"; echo "sha256: $(sha256sum $f)"
+  echo "command: env HOME=/home/tester LEAN_PATH=\$LP nice -n 10 $LEAN --root=/home/tester/asm -o out-fresh/$M.olean -i out-fresh/$M.ilean $f"
+  S=$(date +%s)
+  env HOME=/home/tester LEAN_PATH=$LP nice -n 10 $LEAN --root=/home/tester/asm -o out-fresh/$M.olean -i out-fresh/$M.ilean $f 2>&1
+  echo "exit=$? seconds=$(( $(date +%s)-S ))"
+done
+echo; echo "=== DONE $(date -u +%FT%TZ)"
+
+$ cat /home/tester/asm/scratch/Audit.lean      (statement and axiom checks; not one of the five modules)
+import IntMulBridge.Main
+import IntegerMultBounds.MathlibTM2.Theorem
+
+-- the composed theorem has exactly the challenge statement as its type
+#check (IntMulBridge.community_proves_challenge : SubNLogN.Challenge.IntMulSubNLogN)
+#print SubNLogN.Challenge.IntMulSubNLogN
+-- the strengthened community statement, and that it gives the community statement back
+#print IntMulBridge.MulInTimeFinite
+#check (IntMulBridge.mulInTimeFinite : IntMulBridge.MulInTimeFinite (4222422970 / 2 ^ 46 : ℝ))
+#check @IntMulBridge.MulInTimeFinite.mulInTime
+#check (IntMulBridge.mulInTimeFinite.mulInTime :
+  IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46 : ℝ))
+#check @IntMulBridge.hostMachine_finite
+#check @IntMulBridge.mulInTimeFinite_of_host
+-- axioms: ours and the community headline's
+#print axioms IntMulBridge.community_proves_challenge
+#print axioms IntMulBridge.mulInTimeFinite
+#print axioms IntMulBridge.MulInTimeFinite.mulInTime
+#print axioms IntegerMultBounds.MathlibTM2.mulInTime
+
+$ runuser -u tester -- nohup setsid /home/tester/asm/check-fresh.sh > /home/tester/asm/fresh.log 2>&1; cat /home/tester/asm/fresh.log
+date: 2026-11-18T02:08:24Z
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+community tree: /home/tester/work/aaf109266438/canonical
+community HEAD: aaf10926643826a69f868f7e0694cc34cad25060
+LEAN_PATH=/home/tester/work/aaf109266438/canonical/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/Qq/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/aesop/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/batteries/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/importGraph/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/mathlib/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/plausible/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/tester/work/aaf109266438/canonical/.lake/build/lib/lean:/home/tester/asm/out-fresh
+
+=== SubNLogN/Challenge.lean
+sha256: 7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5  SubNLogN/Challenge.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/SubNLogN/Challenge.olean -i out-fresh/SubNLogN/Challenge.ilean SubNLogN/Challenge.lean
+exit=0 seconds=2
+
+=== IntMulBridge/Bounds.lean
+sha256: a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674  IntMulBridge/Bounds.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/IntMulBridge/Bounds.olean -i out-fresh/IntMulBridge/Bounds.ilean IntMulBridge/Bounds.lean
+'IntMulBridge.natForm_iff_bigOForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.bigOForm_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.community_to_natForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit=0 seconds=10
+
+=== IntMulBridge/Encodings.lean
+sha256: 996887c5fe51bfbf59e83e727eb25fb245bb0dd8fe79f96392168eb6d0c19f86  IntMulBridge/Encodings.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/IntMulBridge/Encodings.olean -i out-fresh/IntMulBridge/Encodings.ilean IntMulBridge/Encodings.lean
+IntMulBridge/Encodings.lean:437:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+IntMulBridge/Encodings.lean:442:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+IntMulBridge/Encodings.lean:447:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+IntMulBridge/Encodings.lean:452:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+'IntMulEnc.reencode' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulEnc.bigO_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit=0 seconds=11
+
+=== IntMulBridge/Finite.lean
+sha256: 68fe75cd2b4dc961354ba3c987a74624d5b47f8050adc33860a62c1ad4912092  IntMulBridge/Finite.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/IntMulBridge/Finite.olean -i out-fresh/IntMulBridge/Finite.ilean IntMulBridge/Finite.lean
+exit=0 seconds=20
+
+=== IntMulBridge/Main.lean
+sha256: 7edc61192bfd58422f13c9293b39c10f031542b2a21814271f38ee436438d3dd  IntMulBridge/Main.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/IntMulBridge/Main.olean -i out-fresh/IntMulBridge/Main.ilean IntMulBridge/Main.lean
+'IntMulBridge.community_proves_challenge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.mulInTimeFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit=0 seconds=13
+
+=== scratch/Audit.lean
+sha256: 0f50857e5a5fb380951a6ead23b5c5c82f14c719bd45c9b34178d10c80852a23  scratch/Audit.lean
+command: env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1/bin/lean --root=/home/tester/asm -o out-fresh/scratch/Audit.olean -i out-fresh/scratch/Audit.ilean scratch/Audit.lean
+IntMulBridge.community_proves_challenge : SubNLogN.Challenge.IntMulSubNLogN
+def SubNLogN.Challenge.IntMulSubNLogN : Prop :=
+∃ M,
+  (∀ (k : M.tm.K), Finite (M.tm.Γ k)) ∧
+    ∃ C N₀, 0 < C ∧ ∀ L ≥ N₀, M.time L ^ 2 ^ 46 ≤ (C * L) ^ 2 ^ 46 * L.log2 ^ (2 ^ 46 - 1)
+def IntMulBridge.MulInTimeFinite : ℝ → Prop :=
+fun κ =>
+  ∃ M, (∀ (k : M.tm.K), Finite (M.tm.Γ k)) ∧ (fun n => ↑(M.time n)) =O[Filter.atTop] fun n => ↑n * Real.log ↑n ^ (1 - κ)
+IntMulBridge.mulInTimeFinite : IntMulBridge.MulInTimeFinite (4222422970 / 2 ^ 46)
+@IntMulBridge.MulInTimeFinite.mulInTime : ∀ {κ : ℝ},
+  IntMulBridge.MulInTimeFinite κ → IntegerMultBounds.MathlibTM2.MulInTime κ
+IntMulBridge.MulInTimeFinite.mulInTime
+  IntMulBridge.mulInTimeFinite : IntegerMultBounds.MathlibTM2.MulInTime (4222422970 / 2 ^ 46)
+@IntMulBridge.hostMachine_finite : ∀ {P : Type} {T Q A : ℕ} {U : Type} [inst : Fintype P] [inst_1 : Fintype U]
+  (body : P → IntegerMultBounds.MathlibTM2.Host.Pr P T Q A U) (pm : P)
+  (v₀ : IntegerMultBounds.MathlibTM2.Host.HS T Q A U)
+  (k :
+    (IntegerMultBounds.MathlibTM2.Stack.machine body pm IntegerMultBounds.MathlibTM2.Host.HK.inp
+        IntegerMultBounds.MathlibTM2.Host.HK.out v₀).K),
+  Finite
+    ((IntegerMultBounds.MathlibTM2.Stack.machine body pm IntegerMultBounds.MathlibTM2.Host.HK.inp
+          IntegerMultBounds.MathlibTM2.Host.HK.out v₀).Γ
+      k)
+@IntMulBridge.mulInTimeFinite_of_host : ∀ {P : Type} {T Q A : ℕ} {U : Type} [Fintype P] [Fintype U]
+  (body : P → IntegerMultBounds.MathlibTM2.Host.Pr P T Q A U) (pm : P)
+  (v₀ : IntegerMultBounds.MathlibTM2.Host.HS T Q A U) (time : ℕ → ℕ) {κ : ℝ},
+  (∀ (x y : ℕ), IntegerMultBounds.MathlibTM2.Fast.HostMulWithin body pm v₀ time x y) →
+    ((fun n => ↑(time n)) =O[Filter.atTop] fun n => ↑n * Real.log ↑n ^ (1 - κ)) → IntMulBridge.MulInTimeFinite κ
+'IntMulBridge.community_proves_challenge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.mulInTimeFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.MulInTimeFinite.mulInTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntegerMultBounds.MathlibTM2.mulInTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit=0 seconds=13
+
+=== DONE 2026-11-18T02:09:33Z
+
+================================================================================
+3. State of the pod after the runs
+================================================================================
+--- sha256 of the five sources, on the pod
+7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5  SubNLogN/Challenge.lean
+a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674  IntMulBridge/Bounds.lean
+996887c5fe51bfbf59e83e727eb25fb245bb0dd8fe79f96392168eb6d0c19f86  IntMulBridge/Encodings.lean
+68fe75cd2b4dc961354ba3c987a74624d5b47f8050adc33860a62c1ad4912092  IntMulBridge/Finite.lean
+7edc61192bfd58422f13c9293b39c10f031542b2a21814271f38ee436438d3dd  IntMulBridge/Main.lean
+--- sha256 of the compiled modules (out/ by check.sh, out-fresh/ by check-fresh.sh)
+61f74d3a7221c24d5512e54fa0fb717f0fe3d898c53815215d5e630b49d0c56f  out/SubNLogN/Challenge.olean
+9ea1a3a7259b836cc911cc68ba539f87ba58a9e0816fbcdbc038b21646a23d89  out/IntMulBridge/Bounds.olean
+3eeb9f45160d564350487f39358bd6d05af2663491237048dfd019c8861bd107  out/IntMulBridge/Encodings.olean
+3270279f969b6906153fed4d8c9faaf6e444988127fdf3bac1f0679b01d0fea9  out/IntMulBridge/Finite.olean
+f752926a25942327681b49ef178511bb22560a8f2de152a81cdde267504a17b3  out/IntMulBridge/Main.olean
+61f74d3a7221c24d5512e54fa0fb717f0fe3d898c53815215d5e630b49d0c56f  out-fresh/SubNLogN/Challenge.olean
+9ea1a3a7259b836cc911cc68ba539f87ba58a9e0816fbcdbc038b21646a23d89  out-fresh/IntMulBridge/Bounds.olean
+3eeb9f45160d564350487f39358bd6d05af2663491237048dfd019c8861bd107  out-fresh/IntMulBridge/Encodings.olean
+3270279f969b6906153fed4d8c9faaf6e444988127fdf3bac1f0679b01d0fea9  out-fresh/IntMulBridge/Finite.olean
+f752926a25942327681b49ef178511bb22560a8f2de152a81cdde267504a17b3  out-fresh/IntMulBridge/Main.olean
+out/IntMulBridge:
+total 1920
+drwxr-xr-x 2 tester tester    4096 2026-11-18 02:07:26.959764787 +0000 .
+drwxr-xr-x 4 tester root        54 2026-11-18 00:31:15.051537389 +0000 ..
+-rw-r--r-- 1 tester tester   23800 2026-11-18 00:31:31.600131846 +0000 Bounds.ilean
+-rw-r--r-- 1 tester tester  477616 2026-11-18 00:31:31.262119704 +0000 Bounds.olean
+-rw-r--r-- 1 tester tester   85904 2026-11-18 00:31:53.903933042 +0000 Encodings.ilean
+-rw-r--r-- 1 tester tester 1128976 2026-11-18 00:31:52.847895107 +0000 Encodings.olean
+-rw-r--r-- 1 tester tester   25877 2026-11-18 02:07:04.284933398 +0000 Finite.ilean
+-rw-r--r-- 1 tester tester  154272 2026-11-18 02:07:04.045924635 +0000 Finite.olean
+-rw-r--r-- 1 tester tester    2838 2026-11-18 02:07:26.959764787 +0000 Main.ilean
+-rw-r--r-- 1 tester tester   49256 2026-11-18 02:07:26.946764310 +0000 Main.olean
+
+out/SubNLogN:
+total 224
+drwxr-xr-x 2 tester tester     64 2026-11-18 00:31:14.452515871 +0000 .
+drwxr-xr-x 4 tester root       54 2026-11-18 00:31:15.051537389 +0000 ..
+-rw-r--r-- 1 tester tester  11444 2026-11-18 00:31:14.452515871 +0000 Challenge.ilean
+-rw-r--r-- 1 tester tester 213176 2026-11-18 00:31:14.432515152 +0000 Challenge.olean
+--- /home/tester/asm/Challenge.lean.out (recorded before this session, 2026-11-18 00:31:10.549375662 +0000)
+--- /home/tester/asm/Bounds.lean.out (recorded before this session, 2026-11-18 00:31:31.600131846 +0000)
+'IntMulBridge.natForm_iff_bigOForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.bigOForm_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.community_to_natForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+--- /home/tester/asm/Encodings.lean.out (recorded before this session, 2026-11-18 00:31:53.903933042 +0000)
+IntMulBridge/Encodings.lean:437:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+IntMulBridge/Encodings.lean:442:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+IntMulBridge/Encodings.lean:447:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+IntMulBridge/Encodings.lean:452:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+'IntMulEnc.reencode' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulEnc.bigO_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+================================================================================
+4. The same sources locally (shasum -a 256), and the community files the chain was read from
+================================================================================
+--- ~/Projects/cert-machine/notes/intmul-2026-11-17/bridge/assembly
+7aa50930921c494e50803b037c4cc6ed9be880c3f795e4b171e16ab59cf61fb5  SubNLogN/Challenge.lean
+a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674  IntMulBridge/Bounds.lean
+996887c5fe51bfbf59e83e727eb25fb245bb0dd8fe79f96392168eb6d0c19f86  IntMulBridge/Encodings.lean
+68fe75cd2b4dc961354ba3c987a74624d5b47f8050adc33860a62c1ad4912092  IntMulBridge/Finite.lean
+7edc61192bfd58422f13c9293b39c10f031542b2a21814271f38ee436438d3dd  IntMulBridge/Main.lean
+--- community chain files: pod /home/tester/work/aaf109266438/canonical (HEAD aaf10926643826a69f868f7e0694cc34cad25060)
+fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5  IntegerMultBounds/MathlibTM2/Statement.lean
+7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5  IntegerMultBounds/MathlibTM2/Theorem.lean
+3f6f45f936f9a46f3c3472e2884b75793174272297c6be377ecab77836444714  IntegerMultBounds/MathlibTM2/Stack.lean
+9e4b5d59409c5b7d7949ac3d690d0d3bb51f9d6e4620c043450576e82c403f6a  IntegerMultBounds/MathlibTM2/Host/Core.lean
+584f9e98852d95b511c55c1132adea47cedb4affcd8b50e0bd3dcea54fd14a59  IntegerMultBounds/MathlibTM2/Fast/Glue.lean
+23c66e0ba9593a28b1ce58927ae0b2965a4604cf03e67cd4312bf24f314dcb92  IntegerMultBounds/MathlibTM2/Fast/CompactMainDispatch.lean
+91e13b4e05b71c27f66565884d84a723fb76af62b2927d9274ec300126f01316  IntegerMultBounds/MathlibTM2/Fast/CompactFinalR.lean
+e8cfcdae2702b8d64759c00a14315182e099fffc70270ac46f6c7563df0f30ed  IntegerMultBounds/MathlibTM2/Fast/CompactMainRunsTime.lean
+3970811b287ec06ce21d131b62ac663956f0c503da3b159365e2e883d66c9222  IntegerMultBounds/MathlibTM2/Cost/CompactRetunedTransformMatchR.lean
+--- community chain files: local clone ~/Projects/intmul-src/community (HEAD aaf10926643826a69f868f7e0694cc34cad25060)
+fdefddb6fe2870e6c2c5f45dd4ac02ef93dee3171ebaaa86e3d059cf0a57c0d5  IntegerMultBounds/MathlibTM2/Statement.lean
+7ee3e902d945847952c14252c2e62dd4e09c2b2c3e7ed3788925835b95e3c1f5  IntegerMultBounds/MathlibTM2/Theorem.lean
+3f6f45f936f9a46f3c3472e2884b75793174272297c6be377ecab77836444714  IntegerMultBounds/MathlibTM2/Stack.lean
+9e4b5d59409c5b7d7949ac3d690d0d3bb51f9d6e4620c043450576e82c403f6a  IntegerMultBounds/MathlibTM2/Host/Core.lean
+584f9e98852d95b511c55c1132adea47cedb4affcd8b50e0bd3dcea54fd14a59  IntegerMultBounds/MathlibTM2/Fast/Glue.lean
+23c66e0ba9593a28b1ce58927ae0b2965a4604cf03e67cd4312bf24f314dcb92  IntegerMultBounds/MathlibTM2/Fast/CompactMainDispatch.lean
+91e13b4e05b71c27f66565884d84a723fb76af62b2927d9274ec300126f01316  IntegerMultBounds/MathlibTM2/Fast/CompactFinalR.lean
+e8cfcdae2702b8d64759c00a14315182e099fffc70270ac46f6c7563df0f30ed  IntegerMultBounds/MathlibTM2/Fast/CompactMainRunsTime.lean
+3970811b287ec06ce21d131b62ac663956f0c503da3b159365e2e883d66c9222  IntegerMultBounds/MathlibTM2/Cost/CompactRetunedTransformMatchR.lean

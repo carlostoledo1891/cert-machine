@@ -1,0 +1,27 @@
+# Check of Bridge.lean on the pod, 2026-11-17T23:24:11Z
+# Lean 4.33.1 (toolchain leanprover--lean4---v4.33.1), prebuilt Mathlib in /home/tester/work/4738aeff839d/canonical/lean
+# Command run on the pod (as root, lean itself as user tester), the script /home/tester/bridge/check.sh:
+#   #!/bin/bash
+#   # usage: check.sh  (run on the pod)
+#   P=/home/tester/work/4738aeff839d/canonical/lean
+#   LP=$(ls -d $P/.lake/packages/*/.lake/build/lib/lean | paste -sd:)
+#   cd /home/tester/bridge
+#   sha256sum /home/tester/bridge/Bridge.lean
+#   time runuser -u tester -- env HOME=/home/tester LEAN_PATH=$LP nice -n 10 /home/tester/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /home/tester/bridge/Bridge.lean
+#   echo "lean exit: $?"
+# Local sha256 of Bridge.lean before upload:
+#   a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674  ~/Projects/cert-machine/notes/intmul-2026-11-17/bridge/Bridge.lean
+# ---- output ----
+a184f296442992ac57a57f07bd674ca4f11f7235cc2ffe1a781d411a5bd49674  /home/tester/bridge/Bridge.lean
+'IntMulBridge.natForm_iff_bigOForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.bigOForm_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'IntMulBridge.community_to_natForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m32.393s
+user	0m8.269s
+sys	0m7.904s
+lean exit: 0
+--- versions ---
+Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+# (git rev-parse refused as root: dubious ownership. Read instead, without writing:
+#  .lake/packages/mathlib/.git/HEAD = 0df444a360eaa60ab8c11dca51a86af692955474, the same rev as the mathlib entry of lake-manifest.json)

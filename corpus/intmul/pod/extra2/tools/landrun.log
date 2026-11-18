@@ -1,0 +1,14 @@
+go.tgz: OK
+go version go1.24.13 linux/amd64
+go: downloading github.com/urfave/cli/v3 v3.6.2
+go: downloading github.com/landlock-lsm/go-landlock v0.10.1
+go: downloading golang.org/x/sys v0.40.0
+go: downloading kernel.org/pub/linux/libs/security/libcap/psx v1.2.77
+built landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a
+go: downloading github.com/landlock-lsm/go-landlock v0.9.0
+built landrun 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+landrun in use: ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a
+landrun version 0.1.18
+[landrun:error] 2026/11/18 03:10:41 Failed to apply sandbox: failed to apply Landlock restrictions: missing kernel Landlock support. Got Landlock ABI v4, wanted {Landlock V10; FS: all; Net: all; Scoped: all}
+landrun smoke: FAILED exit 1
+6.8.0-147-generic
