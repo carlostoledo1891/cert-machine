@@ -1,0 +1,9 @@
+Intake/Mut/C8.lean:7:8: warning: declaration uses `sorry`
+Intake/Mut/C8.lean:13:29: error: Type mismatch
+  Assembly.intMul_challenge
+has type
+  IntMulSubNLogN
+but is expected to have type
+  ∃ M,
+    (∀ (k : M.tm.K), Finite (M.tm.Γ k)) ∧
+      ∃ C N₀, 0 < C ∧ ∀ L ≥ N₀, M.time L ^ 2 ^ 46 ≤ (C * L) ^ 2 ^ 46 * L.log2 ^ (2 ^ 46 - 1)
