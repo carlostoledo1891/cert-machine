@@ -169,3 +169,34 @@ committed before the code it changes.
 - The literature check came back (`corpus/twelve-blocks/literature-2026-11-19.md`). It changes no statement here.
 - The corpus README said the copies carry local paths; checked, none does; the sentence is corrected.
 No statement, domain, control or prediction changes.
+
+## Amendment A2, 2026-11-19 (committed while the first full run was still at D6, before any record existed and before the code it changes)
+
+**A fault of this pre-registration in D9, found by us.** D9 reads the table's field `rounded_delta` as the loss of the
+rounded colouring, a number ≥ 0 ("= 0 on exactly 500 rows, at most 10"; "M(C_n) minus the row's value = rounded_delta").
+The field is the other way round: it is the proposed minimum minus M(C_n), so it is ≤ 0 (0 on 500 rows, least −10).
+GPT's prose says rounding "can lose by 10"; the sign of the field was our guess, not its statement. A helper that
+prepares the report's figure (`instruments/twelve-blocks/series.py`, not part of the judge) tripped on residue 9 while
+the first run was at D6. The first run is left to finish as written: its D9 comes out REFUTED on that sign alone, and
+that verdict is kept in the record under `amendments`. D9 is then restated and decided again, alone:
+
+- **D9, restated.** As before, except: rounded_delta = 0 on exactly 500 rows and is never below −10 nor above 0; and for
+  every row, with n = r + 3288: M(C_n) − (117n² + c_r)/2192 + n/2 = −rounded_delta. The control K9 is unchanged.
+Nothing else in D9, and nothing in any other statement, depends on that sign (checked: the witness convention, c_0, c_548,
+the range of c_r and of the multiplicities read as written).
+
+**The Lean step enters the record as L1 (the operator's choice of 2026-11-19: "Lean on the finite lemmas").** Produced by
+an agent of the control room in `~/Projects/multitrack/runs/twelve-blocks/control/lean`, before this amendment; copied to
+`instruments/twelve-blocks/lean/`.
+- **L1.** `TwelveBlocks.lean` (sha256 `2fcdf43936d42d6aa68199f2e3cdf584430dc9c0e76b7e1c9af90a552c091eba`) compiles with
+  Lean 4.35.0, core only, exit 0, and states `theorem signature_period (m : Int) (hm : 1 ≤ m) : signature (m + 2) =
+  signature m` for the closed-form coefficients of the brief's appendix; `#print axioms` shows only propext,
+  Classical.choice and Quot.sound; the file has no sorry, native_decide or axiom; `Planted.lean` is refused; the `#eval`
+  at m = 1..8 equals the appendix's Python on all 2,024 numbers; and those values equal costs recounted from whole
+  colourings at m = 1..8 (`lean/tie.py`, 2,024 numbers). Decided by recompiling and rerunning those checks.
+- NOT decided by L1: that the cost of a pattern of flips is that quadratic form with those closed-form coefficients for
+  every m (the bridge from the definition of M to the closed forms stays on paper). No other lemma is in Lean: not the
+  window enumeration, not the lattice identity.
+
+The judge gains `--redo NAME`, which decides one statement again and rewrites it in the record, keeping the first
+verdict; the record names which version of the judge decided what.
