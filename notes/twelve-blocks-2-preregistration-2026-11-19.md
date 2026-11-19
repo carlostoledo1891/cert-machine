@@ -131,3 +131,31 @@ decided it there (TABLE95, CERTIFIED). The table and U1 therefore run to n = 95:
 the claim cards, the verdicts and the final ledger are the final ones. The run folder is pinned again:
 `corpus/twelve-blocks-2/MANIFEST.json` is now sha256 `475551309b38ad92c5ad7551357181985254d1540a4bfb2cb5a8cb869a5d94e0`
 (the first is named inside it). The open range in "What is NOT decided" starts at 96, not 95. Nothing else changes.
+
+## Amendment A2, 2026-11-19 (E1's judge has reported; committed before its files and before the code that runs it)
+
+The separate judge for E1 was written by an agent of the control room in
+`~/Projects/multitrack/runs/twelve-blocks-2/control/judge548/` (Node, standard library; `judge.js`, `controls.js`), from
+the text of `gpt/Localisation.md` (sections 1, 2, 7, 8, 10), the data file `gpt/unit-tangents.json` and this
+repository's delta-three verifier. It reports that it opened no program of either track (not `unit_cells.py` either).
+Its verdict: E CERTIFIED, nine items established. The control room ran it again: exit 0, the same nine items, 6 s.
+
+How it enters the record: it is copied to `instruments/twelve-blocks/exact/judge548/` with two lines changed (where it
+finds this repository and the data file); `judge.py --unit` runs it and its quick controls and writes the outcome under
+`unitScale`, with the combined statement of the pre-registration (E1 with U3 and U4: V(548) = 15,756, 102 minimisers).
+
+Said before the code is committed, because it differs from what this file predicted:
+- **One pre-registered control of E1 is NOT refused, and that is correct.** "A perturbed tangent vector": with the largest
+  entry of the first vector of the first operation doubled, the replay still closes. Every rational vector gives a true
+  tangent inequality, so a perturbed vector makes the certificate wrong only if the argument stops closing. The control
+  was badly chosen by this file. It is reported by name as not refused; a sweep doubles the largest entry of each of
+  the 201 vectors in turn and the replay stops closing in 191.
+- "One operation dropped" is refused at the pre-registered instance, but the certificate is redundant: with each of the
+  120 operations dropped in turn, the conclusion is lost in 33.
+- **What E1 rests on that its judge did not prove itself:** the four slab lower bounds, taken from this repository's own
+  `instruments/delta3/verify.js` (exact; decided in `certs/delta3-ledger.json`). The judge proves the link (each
+  certificate's polynomial, written from the finite inequalities, equals the verifier's, coefficient by coefficient),
+  the inner identity and the two positive definite matrices itself.
+- Two readings the text leaves open were chosen by the judge's author and are named in its report: which pairs "touch a
+  window" at n = 548 (either reading is sound), and the order in which an operation's vectors act.
+- One implementation, one author, the same model family as one track: no second program replayed this judge.
