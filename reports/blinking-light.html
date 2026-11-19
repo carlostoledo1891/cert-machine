@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The least dissipation behind a blinking light, narrowed from a factor of 25 to 3% · Carlos Toledo</title>
+<meta name="description" content="The least dissipation of a hidden machine whose lamp, read at random times, has two given correlations: 0.36572 ≤ g ≤ 0.37713, the upper end decided, the lower end read once.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/blinking-light.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/blinking-light.html">
+<meta property="og:title" content="The least dissipation behind a blinking light, narrowed from a factor of 25 to 3% · Carlos Toledo">
+<meta property="og:description" content="The least dissipation of a hidden machine whose lamp, read at random times, has two given correlations: 0.36572 ≤ g ≤ 0.37713, the upper end decided, the lower end read once.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-blinking-light.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The least dissipation behind a blinking light, narrowed from a factor of 25 to 3% — Two step lines closing in from left to right, a heavy one stepping down from the top and a lighter one stepping up from below, ending close together; beneath them a row of small circles, some filled and some open, at uneven spacing.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The least dissipation behind a blinking light, narrowed from a factor of 25 to 3% · Carlos Toledo">
+<meta name="twitter:description" content="The least dissipation of a hidden machine whose lamp, read at random times, has two given correlations: 0.36572 ≤ g ≤ 0.37713, the upper end decided, the lower end read once.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-blinking-light.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The least dissipation behind a blinking light, narrowed from a factor of 25 to 3%","description":"The least dissipation of a hidden machine whose lamp, read at random times, has two given correlations: 0.36572 ≤ g ≤ 0.37713, the upper end decided, the lower end read once.","url":"https://carlostoledo.co/reports/blinking-light.html","image":"https://carlostoledo.co/og-blinking-light.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=report grammar=1 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.
+
+   .cap (2026-11-08) caps one column of a table at 15rem, so a cell whose text
+   is long (a register row's claimant, which can run to hundreds of characters)
+   wraps inside its column instead of widening it into a new alignment edge.  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+.tw .cap{max-width:15rem}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+  color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
+  transition:border-color var(--dur-fast) var(--ease-out)}
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+  background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+  background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+  border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* @/site-css */
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · generated from the record</div>
+  <h1>The least dissipation behind a blinking light, narrowed from a factor of 25 to 3%</h1>
+  <p class="deck">A hidden machine blinks a light, and you look only at random moments. Two numbers you measure break an inequality every machine in equilibrium obeys, so the machine must burn energy; Dobrynin and Stroujkova showed this effect a day before this run and left the least amount open. In under seven hours, Claude Fable 5.2 (Anthropic) and GPT-6.2 Astra (OpenAI), working together, narrowed it for one example from a factor of 25 to 3.1%. With Claude (Anthropic’s AI model), I checked both ends in exact arithmetic: the upper end is decided; the lower end rests on two theorems one model proved and the other read.</p>
+</header>
+
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+  <svg viewBox="0 0 900 380" role="img" aria-label="Two step lines over the run, from 11:04 to 17:49 UTC. The upper one, solid, falls from 0.497 to about 0.377, most of the way by noon. The lower one, dashed, rises from 0.02 to 0.366, in steps through the afternoon. At the end they are 3.1% apart.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="56" y1="287.0" x2="878" y2="287.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="291.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="56" y1="238.1" x2="878" y2="238.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="242.1" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="56" y1="189.2" x2="878" y2="189.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="193.2" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="56" y1="140.3" x2="878" y2="140.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="144.3" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="56" y1="91.4" x2="878" y2="91.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="95.4" text-anchor="end" class="t-ax">0.4</text>
+    <line x1="56" y1="42.5" x2="878" y2="42.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="46.5" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="56.0" y1="287" x2="56.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="56.0" y="307.0" text-anchor="middle" class="t-ax">11:00</text>
+    <line x1="173.4" y1="287" x2="173.4" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="173.4" y="307.0" text-anchor="middle" class="t-ax">12:00</text>
+    <line x1="290.9" y1="287" x2="290.9" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="290.9" y="307.0" text-anchor="middle" class="t-ax">13:00</text>
+    <line x1="408.3" y1="287" x2="408.3" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="408.3" y="307.0" text-anchor="middle" class="t-ax">14:00</text>
+    <line x1="525.7" y1="287" x2="525.7" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="525.7" y="307.0" text-anchor="middle" class="t-ax">15:00</text>
+    <line x1="643.1" y1="287" x2="643.1" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="643.1" y="307.0" text-anchor="middle" class="t-ax">16:00</text>
+    <line x1="760.6" y1="287" x2="760.6" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="760.6" y="307.0" text-anchor="middle" class="t-ax">17:00</text>
+    <line x1="878.0" y1="287" x2="878.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="307.0" text-anchor="middle" class="t-ax">18:00</text>
+    <line x1="56" y1="287" x2="878" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="467.0" y="329.0" text-anchor="middle" class="t-note">19 November 2026, time of day (UTC)</text>
+    <text x="13" y="152.5" class="t-note" transform="rotate(-90 13 152.5)" text-anchor="middle">g = least dissipation per reading (k_B)</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M64.48 43.71 L83.43 43.71 L83.43 63.90 L164.59 63.90 L164.59 70.26 L165.34 70.26 L165.34 99.57 L171.83 99.57 L171.83 102.18 L278.04 102.18 L278.04 102.55 L855.40 102.55" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="855.40" cy="102.55" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M64.48 277.22 L78.12 277.22 L78.12 265.32 L95.99 265.32 L95.99 171.66 L144.07 171.66 L144.07 159.24 L337.80 159.24 L337.80 121.06 L440.97 121.06 L440.97 114.25 L510.42 114.25 L510.42 111.54 L624.26 111.54 L624.26 110.25 L823.46 110.25 L823.46 108.13 L855.40 108.13" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="855.40" cy="108.13" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="56" y1="350" x2="70" y2="350" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="75.0" y="354.0" text-anchor="start" class="t-note">upper bound: a network that reproduces both numbers, decided</text>
+    <line x1="56" y1="369" x2="70" y2="369" stroke="var(--c-2)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="75.0" y="373.0" text-anchor="start" class="t-note">lower bound: proved by one model and read once by the other, not decided</text>
+  </svg>
+</div><div class="hv-n">
+  <svg viewBox="0 0 360 420" role="img" aria-label="Two step lines over the run, from 11:04 to 17:49 UTC. The upper one, solid, falls from 0.497 to about 0.377, most of the way by noon. The lower one, dashed, rises from 0.02 to 0.366, in steps through the afternoon. At the end they are 3.1% apart.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="40" y1="327.0" x2="334" y2="327.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="331.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="270.8" x2="334" y2="270.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="274.8" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="40" y1="214.6" x2="334" y2="214.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="218.6" text-anchor="end" class="t-ax">0.2</text>
+    <line x1="40" y1="158.5" x2="334" y2="158.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="162.5" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="40" y1="102.3" x2="334" y2="102.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="106.3" text-anchor="end" class="t-ax">0.4</text>
+    <line x1="40" y1="46.1" x2="334" y2="46.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="50.1" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="40.0" y1="327" x2="40.0" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="347.0" text-anchor="middle" class="t-ax">11:00</text>
+    <line x1="166.0" y1="327" x2="166.0" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="166.0" y="347.0" text-anchor="middle" class="t-ax">14:00</text>
+    <line x1="292.0" y1="327" x2="292.0" y2="332" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="292.0" y="347.0" text-anchor="middle" class="t-ax">17:00</text>
+    <line x1="40" y1="327" x2="334" y2="327" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="187.0" y="369.0" text-anchor="middle" class="t-note">time (UTC)</text>
+    <text x="13" y="172.5" class="t-note" transform="rotate(-90 13 172.5)" text-anchor="middle">g</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="327" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M43.03 47.53 L49.81 47.53 L49.81 70.73 L78.84 70.73 L78.84 78.03 L79.11 78.03 L79.11 111.70 L81.43 111.70 L81.43 114.70 L119.41 114.70 L119.41 115.12 L325.92 115.12" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="325.92" cy="115.12" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M43.03 315.76 L47.91 315.76 L47.91 302.10 L54.30 302.10 L54.30 194.51 L71.50 194.51 L71.50 180.24 L140.79 180.24 L140.79 136.38 L177.69 136.38 L177.69 128.57 L202.53 128.57 L202.53 125.44 L243.25 125.44 L243.25 123.97 L314.49 123.97 L314.49 121.53 L325.92 121.53" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="325.92" cy="121.53" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="40" y1="390" x2="54" y2="390" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="59.0" y="394.0" text-anchor="start" class="t-note">upper bound: a network, decided</text>
+    <line x1="40" y1="409" x2="54" y2="409" stroke="var(--c-2)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="59.0" y="413.0" text-anchor="start" class="t-note">lower bound: proved, read once</text>
+  </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/blinking-light.json@76be58467225 corpus/blinking-light/series.json@03837472d4ac" data-stop>The two bounds on g(3/10, 2/25) during the run, each drawn when the control room registered or decided it. Solid: the best network found so far, decided by the checker: it reproduces both numbers exactly and its dissipation is enclosed. Dashed: the best lower bound so far, a theorem proved by one model and read once by the other. The paper’s own four-state network sits far above the frame, at g = ln 3 ≈ 1.10. At the end: 0.36572 ≤ g ≤ 0.37713.<span class="fig-rec">Records: <span class="m">certs/blinking-light.json</span> · sha256 76be58467225; <span class="m">corpus/blinking-light/series.json</span> · sha256 03837472d4ac</span><span class="fig-stop">The build refuses this figure if a decided network or a certificate in the series stops matching the message it cites.</span></figcaption>
+</figure></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">upper bound on g, decided</div><div class="v">0.37713</div><div class="n">a 156-state network reproduces both numbers exactly; its dissipation is enclosed to twelve digits</div></div>
+    <div class="stat"><div class="k">lower bound on g, read once</div><div class="v">0.36572</div><div class="n">its certificate passes every finite check here; the two theorems behind it are read once, not decided</div></div>
+    <div class="stat"><div class="k">what is left</div><div class="v">3.1%</div><div class="n">from a factor of 25 when the run began</div></div>
+    <div class="stat"><div class="k">planted errors caught</div><div class="v">2 of 2</div><div class="n">by each model; the record’s own 8 wrong versions all refused</div></div>
+  </div>
+</div>
+
+<p class="scope">The upper end of the interval is decided. The lower end rests on two theorems that one model proved and the other read; they are not decided here. Nothing on this page is about a physical device, and nothing compares the two models.</p>
+
+<section class="col" id="limits">
+  <div class="sec-head">
+    <div class="lab">read this first</div>
+    <h2>What is still open</h2>
+  </div>
+<ul class="plain"><li>The lower bound is not decided here. Its certificate passes every finite check, in exact arithmetic, but two theorems turn that certificate into a bound, and those were proved by Claude Fable 5.2 and re-derived by GPT-6.2 Astra. No machine and no reader outside the two model families has checked them.</li><li>The exact value is open. The gap is 3.1%. Claude Fable 5.2 guesses g = 0.3769, the limit of the best family of networks found; that is a guess. A certificate at that value would settle it.</li><li>This is a snapshot version of the question: the observer sees only two correlations of readings taken at random times. Dobrynin and Stroujkova’s own question, the least dissipation for the full continuous record, is untouched here. Nothing on this page is about a physical device or a finite recording.</li><li>Novelty is stated only against a literature search done before the run. Nothing in it treats readings at random times or this constant. The phenomenon itself was published the day before the run.</li></ul><details class="more"><summary>The conditions of the run</summary><ul class="plain"><li>Both models worked in one shared folder and could read each other’s files from the first minute. This was a collaboration, and nothing here compares the two.</li><li>The control room that registered their claims, wrote the network checker before the run and wrote this repository’s judge is Claude Opus 5.5, of the same family as one of the two. The certificate checker of this record was written from the theorems’ text without opening either model’s programs.</li><li>The record’s pre-registration was written after the run and says so. The network checker gave its verdicts in the run first.</li><li>Two false claims were planted in the run, sealed before it began: a network with a wrong dissipation and a wrong step inside a proof. Each model caught both.</li></ul></details>
+</section>
+
+<section class="" id="question">
+  <div class="col sec-head">
+    <div class="lab">1 · the question</div>
+    <h2>A light that has to cost energy</h2>
+  </div>
+<div class="wide"><figure class="mach">
+  <div class="figbox">
+    <div class="mach-ro"><div class="k" data-ro-k>the question</div><div class="d" data-ro-d>Select a step for what it means here.</div></div>
+    <svg viewBox="0 0 600 410" role="img" aria-label="A schema in six steps: a hidden machine; its lamp, read at random moments; two numbers; the equilibrium test, which fails; the question how little the machine can dissipate; and its two ends, an upper end by a machine (decided) and a lower end by a certificate (read once).">
+      <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
+      <path class="ed" d="M280 46 L318 46" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M280 46 L318 46"/></circle>
+      <path class="ed" d="M450 78 C450 100 150 100 150 120" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M450 78 C450 100 150 100 150 120"/></circle>
+      <path class="ed" d="M280 152 L318 152" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M280 152 L318 152"/></circle>
+      <path class="ed" d="M450 184 C450 206 300 204 300 226" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M450 184 C450 206 300 204 300 226"/></circle>
+      <path class="ed" d="M250 290 C250 312 150 312 150 332" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M250 290 C250 312 150 312 150 332"/></circle>
+      <path class="ed" d="M350 290 C350 312 450 312 450 332" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M350 290 C350 312 450 312 450 332"/></circle>
+      <g class="nd" tabindex="0" role="button" aria-label="the hidden machine" data-t="the hidden machine" data-d="Any number of hidden states jumping at random with fixed rates, in a steady state. Some states light the lamp, the others do not.">
+        <rect class="nd-box" x="20" y="16" width="260" height="60" rx="5"/>
+        <rect class="acc-dep" x="20" y="16" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="34" y="34">1 · A HIDDEN MACHINE</text>
+        <text class="nd-v" x="34" y="65">states and rates you never see</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the lamp" data-t="the lamp" data-d="You see only the lamp, and only at the moments of a random clock that ticks twice a second on average.">
+        <rect class="nd-box" x="320" y="16" width="260" height="60" rx="5"/>
+        <rect class="acc-dep" x="320" y="16" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="334" y="34">2 · ITS LAMP</text>
+        <text class="nd-v" x="334" y="65">seen only at random moments</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="two numbers" data-t="two numbers" data-d="Consecutive looks agree 65% of the time (C1 = 3/10); looks two apart agree 54% of the time (C2 = 2/25). Both read the same forwards and backwards in time.">
+        <rect class="nd-box" x="20" y="122" width="260" height="60" rx="5"/>
+        <rect class="acc-dep" x="20" y="122" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="34" y="140">3 · TWO NUMBERS</text>
+        <text class="nd-v" x="34" y="171">C1 = 0.30 · C2 = 0.08</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the test" data-t="the test" data-d="A machine with no net current through its states always has C2 at least C1². Here C2 is 0.08, below 0.09, so some current must circulate, and a current dissipates.">
+        <rect class="nd-box" x="320" y="122" width="260" height="60" rx="5"/>
+        <rect class="acc-warn" x="320" y="122" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="334" y="140">4 · THE EQUILIBRIUM TEST</text>
+        <text class="nd-v" x="334" y="171">needs C2 ≥ 0.09: it fails</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the question" data-t="the question" data-d="g(3/10, 2/25) is the least dissipation per look, in units of Boltzmann’s constant, over every machine of any size that gives both numbers exactly.">
+        <rect class="nd-box" x="170" y="228" width="260" height="60" rx="5"/>
+        <rect class="acc-dep" x="170" y="228" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="184" y="246">5 · THE QUESTION</text>
+        <text class="nd-v" x="184" y="277">the least it can dissipate: g</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the upper end" data-t="the upper end" data-d="A machine that gives both numbers exactly bounds g from above. The best one has 156 states; its numbers are proved exact and its dissipation is enclosed.">
+        <rect class="nd-box w-decided" x="20" y="334" width="260" height="60" rx="5"/>
+        <rect class="acc-sig" x="20" y="334" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="34" y="352">6 · THE UPPER END · A MACHINE</text>
+        <text class="nd-v" x="34" y="383">g ≤ 0.37713 · decided</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the lower end" data-t="the lower end" data-d="A certificate shows every machine pays at least a stated amount. Its finite conditions are decided here; the two theorems that make it a bound were proved by one model and read once by the other.">
+        <rect class="nd-box w-computed" stroke-dasharray="1.5 2" x="320" y="334" width="260" height="60" rx="5"/>
+        <rect class="acc-held" x="320" y="334" width="3" height="60" rx="1.5"/>
+        <text class="nd-k" x="334" y="352">6 · THE LOWER END · A CERTIFICATE</text>
+        <text class="nd-v" x="334" y="383">g ≥ 0.36572 · read once</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption>The question in six steps. Two numbers that break the equilibrium test prove that the hidden machine dissipates; how little it can dissipate is bounded from both ends.</figcaption>
+  <div class="w-legend compact" data-n="2" data-from="data"><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div>
+</figure></div>
+<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 340" role="img" aria-label="The parabola C2 = C1² rising across the plane, the region under it shaded, and one point at C1 = 0.30, C2 = 0.08, just under the parabola, which passes 0.09 there.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="56" y1="216.5" x2="878" y2="216.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="220.5" text-anchor="end" class="t-ax">0.04</text>
+    <line x1="56" y1="155.4" x2="878" y2="155.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="159.4" text-anchor="end" class="t-ax">0.08</text>
+    <line x1="56" y1="94.3" x2="878" y2="94.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="98.3" text-anchor="end" class="t-ax">0.12</text>
+    <line x1="56" y1="33.3" x2="878" y2="33.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="37.3" text-anchor="end" class="t-ax">0.16</text>
+    <line x1="56.0" y1="247" x2="56.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="56.0" y="267.0" text-anchor="middle" class="t-ax">0.20</text>
+    <line x1="261.5" y1="247" x2="261.5" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="261.5" y="267.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="467.0" y1="247" x2="467.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="467.0" y="267.0" text-anchor="middle" class="t-ax">0.30</text>
+    <line x1="672.5" y1="247" x2="672.5" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="672.5" y="267.0" text-anchor="middle" class="t-ax">0.35</text>
+    <line x1="878.0" y1="247" x2="878.0" y2="252" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="267.0" text-anchor="middle" class="t-ax">0.40</text>
+    <line x1="56" y1="247" x2="878" y2="247" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="467.0" y="289.0" text-anchor="middle" class="t-note">C1, consecutive looks</text>
+    <text x="13" y="132.5" class="t-note" transform="rotate(-90 13 132.5)" text-anchor="middle">C2, looks two apart</text>
+    <line x1="467.0" y1="18" x2="467.0" y2="247" stroke="var(--c-3)" stroke-width="2" data-w="decided"/>
+    <text x="474.0" y="31.0" text-anchor="start" class="t-lab">at C1 = 0.30 equilibrium needs C2 ≥ 0.09</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="247" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M56.00 216.47 L76.55 213.38 L97.10 210.21 L117.65 206.96 L138.20 203.64 L158.75 200.25 L179.30 196.77 L199.85 193.22 L220.40 189.60 L240.95 185.90 L261.50 182.12 L282.05 178.26 L302.60 174.33 L323.15 170.32 L343.70 166.24 L364.25 162.08 L384.80 157.84 L405.35 153.53 L425.90 149.14 L446.45 144.68 L467.00 140.13 L487.55 135.52 L508.10 130.82 L528.65 126.05 L549.20 121.20 L569.75 116.28 L590.30 111.28 L610.85 106.20 L631.40 101.05 L651.95 95.82 L672.50 90.52 L693.05 85.14 L713.60 79.68 L734.15 74.14 L754.70 68.53 L775.25 62.85 L795.80 57.08 L816.35 51.24 L836.90 45.33 L857.45 39.34 L878.00 33.27 L878.00 247 L56.00 247 Z" fill="var(--c-1)" opacity="0.10"/>
+    <path d="M56.00 216.47 L76.55 213.38 L97.10 210.21 L117.65 206.96 L138.20 203.64 L158.75 200.25 L179.30 196.77 L199.85 193.22 L220.40 189.60 L240.95 185.90 L261.50 182.12 L282.05 178.26 L302.60 174.33 L323.15 170.32 L343.70 166.24 L364.25 162.08 L384.80 157.84 L405.35 153.53 L425.90 149.14 L446.45 144.68 L467.00 140.13 L487.55 135.52 L508.10 130.82 L528.65 126.05 L549.20 121.20 L569.75 116.28 L590.30 111.28 L610.85 106.20 L631.40 101.05 L651.95 95.82 L672.50 90.52 L693.05 85.14 L713.60 79.68 L734.15 74.14 L754.70 68.53 L775.25 62.85 L795.80 57.08 L816.35 51.24 L836.90 45.33 L857.45 39.34 L878.00 33.27" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="878.00" cy="33.27" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M467.00 155.40" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="467.00" cy="155.40" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="56" y1="310" x2="70" y2="310" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="75.0" y="314.0" text-anchor="start" class="t-note">C2 = C1²: every equilibrium machine is on or above it; below it (shaded) a machine must dissipate</text>
+    <line x1="56" y1="329" x2="70" y2="329" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="75.0" y="333.0" text-anchor="start" class="t-note">this lamp: C1 = 0.30, C2 = 0.08</text>
+  </svg>
+  </div>
+  <figcaption data-record="corpus/blinking-light/run/GOAL.md@759155dfaf48" data-stop>Why this light costs energy. A machine in equilibrium always lands on or above the curve C2 = C1²; this lamp lands just under it, 0.08 against 0.09.<span class="fig-rec">Record: <span class="m">corpus/blinking-light/run/GOAL.md</span> · sha256 759155dfaf48</span><span class="fig-stop">The build refuses this figure if the target is no longer (3/10, 2/25).</span></figcaption>
+</figure></div><div class="col"><ul class="plain"><li><b>The paper.</b> A. V. Dobrynin and A. Stroujkova, <a href="https://arxiv.org/abs/2611.24898">When Time-Reversible Sensor Records Require Hidden Dissipation</a> (arXiv:2611.24898, 18 November 2026), shows this effect for a lamp watched continuously and leaves the least dissipation over all finite machines open. Here the observer has only the two numbers.</li><li><b>Before the run.</b> g was known to lie between 0.02 (an inequality of Pinsker’s type) and 0.497 (an eight-state ring). The paper’s four-state machine gives ln 3 ≈ 1.10.</li></ul></div>
+</section>
+
+<section class="" id="upper">
+  <div class="col sec-head">
+    <div class="lab">2 · the upper end, decided</div>
+    <h2>The machine that won: a switch and a ring</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 440" role="img" aria-label="The 156-state machine: a ring of 154 small dots, half filled (lamp on) and half hollow (lamp off), with an arrow showing the current going round; beside it two large circles, the two-state switch, one filled and one hollow, joined to each other and by one edge to the ring. The switch holds about 82% of the probability; the ring about 18% and all the current.">
+    <path d="M300.0 45.0 L640.0 140.0" stroke="var(--c-axis)" stroke-width="1.4" fill="none"/>
+    <path d="M640.0 140.0 L640.0 320.0" stroke="var(--c-axis)" stroke-width="1.4" fill="none"/>
+    <circle cx="300" cy="215" r="170" fill="none" stroke="var(--c-grid)" stroke-width="1"/>
+    <circle cx="300.0" cy="45.0" r="3.30" fill="var(--c-1)"/>
+    <circle cx="293.1" cy="45.1" r="3.01" fill="var(--c-1)"/>
+    <circle cx="286.1" cy="45.6" r="2.79" fill="var(--c-1)"/>
+    <circle cx="279.2" cy="46.3" r="2.61" fill="var(--c-1)"/>
+    <circle cx="272.4" cy="47.3" r="2.46" fill="var(--c-1)"/>
+    <circle cx="265.6" cy="48.5" r="2.35" fill="var(--c-1)"/>
+    <circle cx="258.8" cy="50.1" r="2.25" fill="var(--c-1)"/>
+    <circle cx="252.1" cy="51.9" r="2.17" fill="var(--c-1)"/>
+    <circle cx="245.5" cy="54.0" r="2.10" fill="var(--c-1)"/>
+    <circle cx="239.0" cy="56.3" r="2.05" fill="var(--c-1)"/>
+    <circle cx="232.5" cy="59.0" r="2.00" fill="var(--c-1)"/>
+    <circle cx="226.2" cy="61.8" r="1.96" fill="var(--c-1)"/>
+    <circle cx="220.1" cy="65.0" r="1.93" fill="var(--c-1)"/>
+    <circle cx="214.0" cy="68.4" r="1.90" fill="var(--c-1)"/>
+    <circle cx="208.1" cy="72.0" r="1.88" fill="var(--c-1)"/>
+    <circle cx="202.3" cy="75.9" r="1.86" fill="var(--c-1)"/>
+    <circle cx="196.7" cy="80.0" r="1.84" fill="var(--c-1)"/>
+    <circle cx="191.3" cy="84.3" r="1.83" fill="var(--c-1)"/>
+    <circle cx="186.1" cy="88.8" r="1.81" fill="var(--c-1)"/>
+    <circle cx="181.0" cy="93.6" r="1.80" fill="var(--c-1)"/>
+    <circle cx="176.2" cy="98.5" r="1.79" fill="var(--c-1)"/>
+    <circle cx="171.5" cy="103.7" r="1.79" fill="var(--c-1)"/>
+    <circle cx="167.1" cy="109.0" r="1.78" fill="var(--c-1)"/>
+    <circle cx="162.9" cy="114.5" r="1.78" fill="var(--c-1)"/>
+    <circle cx="158.9" cy="120.2" r="1.77" fill="var(--c-1)"/>
+    <circle cx="155.1" cy="126.0" r="1.77" fill="var(--c-1)"/>
+    <circle cx="151.6" cy="132.0" r="1.76" fill="var(--c-1)"/>
+    <circle cx="148.4" cy="138.1" r="1.76" fill="var(--c-1)"/>
+    <circle cx="145.4" cy="144.4" r="1.76" fill="var(--c-1)"/>
+    <circle cx="142.6" cy="150.7" r="1.76" fill="var(--c-1)"/>
+    <circle cx="140.1" cy="157.2" r="1.75" fill="var(--c-1)"/>
+    <circle cx="137.9" cy="163.8" r="1.75" fill="var(--c-1)"/>
+    <circle cx="135.9" cy="170.4" r="1.75" fill="var(--c-1)"/>
+    <circle cx="134.3" cy="177.2" r="1.75" fill="var(--c-1)"/>
+    <circle cx="132.9" cy="184.0" r="1.75" fill="var(--c-1)"/>
+    <circle cx="131.7" cy="190.8" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.9" cy="197.7" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.3" cy="204.6" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.0" cy="211.5" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.0" cy="218.5" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.3" cy="225.4" r="1.75" fill="var(--c-1)"/>
+    <circle cx="130.9" cy="232.3" r="1.75" fill="var(--c-1)"/>
+    <circle cx="131.7" cy="239.2" r="1.75" fill="var(--c-1)"/>
+    <circle cx="132.9" cy="246.0" r="1.75" fill="var(--c-1)"/>
+    <circle cx="134.3" cy="252.8" r="1.75" fill="var(--c-1)"/>
+    <circle cx="135.9" cy="259.6" r="1.75" fill="var(--c-1)"/>
+    <circle cx="137.9" cy="266.2" r="1.75" fill="var(--c-1)"/>
+    <circle cx="140.1" cy="272.8" r="1.76" fill="var(--c-1)"/>
+    <circle cx="142.6" cy="279.3" r="1.76" fill="var(--c-1)"/>
+    <circle cx="145.4" cy="285.6" r="1.76" fill="var(--c-1)"/>
+    <circle cx="148.4" cy="291.9" r="1.76" fill="var(--c-1)"/>
+    <circle cx="151.6" cy="298.0" r="1.77" fill="var(--c-1)"/>
+    <circle cx="155.1" cy="304.0" r="1.77" fill="var(--c-1)"/>
+    <circle cx="158.9" cy="309.8" r="1.78" fill="var(--c-1)"/>
+    <circle cx="162.9" cy="315.5" r="1.78" fill="var(--c-1)"/>
+    <circle cx="167.1" cy="321.0" r="1.79" fill="var(--c-1)"/>
+    <circle cx="171.5" cy="326.3" r="1.79" fill="var(--c-1)"/>
+    <circle cx="176.2" cy="331.5" r="1.80" fill="var(--c-1)"/>
+    <circle cx="181.0" cy="336.4" r="1.81" fill="var(--c-1)"/>
+    <circle cx="186.1" cy="341.2" r="1.83" fill="var(--c-1)"/>
+    <circle cx="191.3" cy="345.7" r="1.84" fill="var(--c-1)"/>
+    <circle cx="196.7" cy="350.0" r="1.86" fill="var(--c-1)"/>
+    <circle cx="202.3" cy="354.1" r="1.88" fill="var(--c-1)"/>
+    <circle cx="208.1" cy="358.0" r="1.90" fill="var(--c-1)"/>
+    <circle cx="214.0" cy="361.6" r="1.93" fill="var(--c-1)"/>
+    <circle cx="220.1" cy="365.0" r="1.96" fill="var(--c-1)"/>
+    <circle cx="226.2" cy="368.2" r="2.00" fill="var(--c-1)"/>
+    <circle cx="232.5" cy="371.0" r="2.05" fill="var(--c-1)"/>
+    <circle cx="239.0" cy="373.7" r="2.10" fill="var(--c-1)"/>
+    <circle cx="245.5" cy="376.0" r="2.17" fill="var(--c-1)"/>
+    <circle cx="252.1" cy="378.1" r="2.25" fill="var(--c-1)"/>
+    <circle cx="258.8" cy="379.9" r="2.35" fill="var(--c-1)"/>
+    <circle cx="265.6" cy="381.5" r="2.46" fill="var(--c-1)"/>
+    <circle cx="272.4" cy="382.7" r="2.61" fill="var(--c-1)"/>
+    <circle cx="279.2" cy="383.7" r="2.79" fill="var(--c-1)"/>
+    <circle cx="286.1" cy="384.4" r="3.01" fill="var(--c-1)"/>
+    <circle cx="293.1" cy="384.9" r="3.30" fill="var(--c-1)"/>
+    <circle cx="300.0" cy="385.0" r="3.30" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="306.9" cy="384.9" r="3.01" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="313.9" cy="384.4" r="2.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="320.8" cy="383.7" r="2.61" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="327.6" cy="382.7" r="2.46" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="334.4" cy="381.5" r="2.35" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="341.2" cy="379.9" r="2.25" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="347.9" cy="378.1" r="2.17" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="354.5" cy="376.0" r="2.10" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="361.0" cy="373.7" r="2.05" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="367.5" cy="371.0" r="2.00" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="373.8" cy="368.2" r="1.96" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="379.9" cy="365.0" r="1.93" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="386.0" cy="361.6" r="1.90" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="391.9" cy="358.0" r="1.88" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="397.7" cy="354.1" r="1.86" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="403.3" cy="350.0" r="1.84" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="408.7" cy="345.7" r="1.83" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="413.9" cy="341.2" r="1.81" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="419.0" cy="336.4" r="1.80" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="423.8" cy="331.5" r="1.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="428.5" cy="326.3" r="1.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="432.9" cy="321.0" r="1.78" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="437.1" cy="315.5" r="1.78" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="441.1" cy="309.8" r="1.77" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="444.9" cy="304.0" r="1.77" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="448.4" cy="298.0" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="451.6" cy="291.9" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="454.6" cy="285.6" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="457.4" cy="279.3" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="459.9" cy="272.8" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="462.1" cy="266.2" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="464.1" cy="259.6" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="465.7" cy="252.8" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="467.1" cy="246.0" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="468.3" cy="239.2" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="469.1" cy="232.3" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="469.7" cy="225.4" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="470.0" cy="218.5" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="470.0" cy="211.5" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="469.7" cy="204.6" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="469.1" cy="197.7" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="468.3" cy="190.8" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="467.1" cy="184.0" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="465.7" cy="177.2" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="464.1" cy="170.4" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="462.1" cy="163.8" r="1.75" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="459.9" cy="157.2" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="457.4" cy="150.7" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="454.6" cy="144.4" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="451.6" cy="138.1" r="1.76" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="448.4" cy="132.0" r="1.77" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="444.9" cy="126.0" r="1.77" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="441.1" cy="120.2" r="1.78" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="437.1" cy="114.5" r="1.78" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="432.9" cy="109.0" r="1.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="428.5" cy="103.7" r="1.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="423.8" cy="98.5" r="1.80" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="419.0" cy="93.6" r="1.81" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="413.9" cy="88.8" r="1.83" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="408.7" cy="84.3" r="1.84" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="403.3" cy="80.0" r="1.86" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="397.7" cy="75.9" r="1.88" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="391.9" cy="72.0" r="1.90" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="386.0" cy="68.4" r="1.93" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="379.9" cy="65.0" r="1.96" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="373.8" cy="61.8" r="2.00" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="367.5" cy="59.0" r="2.05" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="361.0" cy="56.3" r="2.10" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="354.5" cy="54.0" r="2.17" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="347.9" cy="51.9" r="2.25" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="341.2" cy="50.1" r="2.35" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="334.4" cy="48.5" r="2.46" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="327.6" cy="47.3" r="2.61" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="320.8" cy="46.3" r="2.79" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="313.9" cy="45.6" r="3.01" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="306.9" cy="45.1" r="3.30" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1"/>
+    <circle cx="640" cy="140" r="37.8" fill="var(--c-1)"/>
+    <circle cx="640" cy="320" r="37.8" fill="var(--sunk)" stroke="var(--c-1)" stroke-width="1.6"/>
+    <path d="M250.6 79.7 A144 144 0 1 0 381.3 96.2" stroke="var(--c-axis)" stroke-width="1.6" fill="none"/>
+    <path d="M373.9 91.1 L384.1 92.0 L378.5 100.3Z" fill="var(--c-axis)"/>
+    <text x="300.0" y="207.0" text-anchor="middle" class="t-lab">the ring</text>
+    <text x="300.0" y="227.0" text-anchor="middle" class="t-note">154 states · 18%</text>
+    <text x="300.0" y="245.0" text-anchor="middle" class="t-note">all of the current</text>
+    <text x="712.0" y="212.0" text-anchor="start" class="t-lab">the switch</text>
+    <text x="712.0" y="232.0" text-anchor="start" class="t-note">2 states · 82%</text>
+    <text x="712.0" y="250.0" text-anchor="start" class="t-note">in equilibrium</text>
+    <text x="712.0" y="268.0" text-anchor="start" class="t-note">no current</text>
+    <text x="470.0" y="82.5" text-anchor="middle" class="t-note">one edge</text>
+    <rect x="60" y="416" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="79.0" y="426.0" text-anchor="start" class="t-note">lamp on (filled) · lamp off (hollow) · area ∝ probability</text>
+  </svg>
+  </div>
+  <figcaption data-record="corpus/blinking-light/run/claude/mix156.json@2f22bf12ba4f certs/blinking-light.json@76be58467225" data-stop>The 156-state machine of the upper end, drawn from its file. Most of the probability (82%) sits in a two-state switch in equilibrium; a ring of 154 states carries all the current, with the lamp on for 77 of them in a row; one edge joins the two. Areas and the current are computed in floating point from the decided network.<span class="fig-rec">Records: <span class="m">corpus/blinking-light/run/claude/mix156.json</span> · sha256 2f22bf12ba4f; <span class="m">certs/blinking-light.json</span> · sha256 76be58467225</span><span class="fig-stop">The build refuses this figure if the drawn network stops giving C1 = 0.3 and C2 = 0.08, or stops being a switch joined to a ring.</span></figcaption>
+</figure></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 360" role="img" aria-label="Four series over the number of states, 6 to 400 on a log scale. Rings, decided, stay near 0.44 to 0.46 from 40 to 400 states. The switch-and-ring family falls in a floating-point search from 0.54 at 8 states to 0.381 at 42, and its decided members continue from 42 to 156 states, ending at 0.377. A dashed rule marks the lower end at 0.3657.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="56" y1="255.7" x2="878" y2="255.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="259.7" text-anchor="end" class="t-ax">0.35</text>
+    <line x1="56" y1="199.1" x2="878" y2="199.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="203.1" text-anchor="end" class="t-ax">0.40</text>
+    <line x1="56" y1="142.5" x2="878" y2="142.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="146.5" text-anchor="end" class="t-ax">0.45</text>
+    <line x1="56" y1="85.9" x2="878" y2="85.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="89.9" text-anchor="end" class="t-ax">0.50</text>
+    <line x1="56" y1="29.3" x2="878" y2="29.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="33.3" text-anchor="end" class="t-ax">0.55</text>
+    <line x1="89.3" y1="267" x2="89.3" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="89.3" y="287.0" text-anchor="middle" class="t-ax">6</text>
+    <line x1="182.6" y1="267" x2="182.6" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="182.6" y="287.0" text-anchor="middle" class="t-ax">10</text>
+    <line x1="309.2" y1="267" x2="309.2" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="309.2" y="287.0" text-anchor="middle" class="t-ax">20</text>
+    <line x1="435.9" y1="267" x2="435.9" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="435.9" y="287.0" text-anchor="middle" class="t-ax">40</text>
+    <line x1="603.2" y1="267" x2="603.2" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="603.2" y="287.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="729.9" y1="267" x2="729.9" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="729.9" y="287.0" text-anchor="middle" class="t-ax">200</text>
+    <line x1="856.5" y1="267" x2="856.5" y2="272" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="856.5" y="287.0" text-anchor="middle" class="t-ax">400</text>
+    <line x1="56" y1="267" x2="878" y2="267" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="467.0" y="309.0" text-anchor="middle" class="t-note">number of hidden states (log scale)</text>
+    <text x="13" y="142.5" class="t-note" transform="rotate(-90 13 142.5)" text-anchor="middle">g of the best machine found</text>
+    <line x1="56" y1="237.9" x2="878" y2="237.9" stroke="var(--c-ctx)" stroke-width="1" data-w="computed" stroke-dasharray="1.5 2"/>
+    <text x="874.0" y="231.9" text-anchor="end" class="t-note">lower end 0.3657</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="267" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M89.31 38.37 L117.46 64.40 L141.86 89.30" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="141.86" cy="89.30" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M435.86 135.54 L595.79 137.97 L856.48 150.26" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="856.48" cy="150.26" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M141.86 43.75 L182.62 119.84 L215.93 157.00 L244.09 177.55 L289.99 198.24 L326.65 207.92 L444.77 220.91" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="computed" stroke-dasharray="5 4"/>
+    <circle cx="444.77" cy="220.91" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M444.77 218.08 L571.39 224.13 L684.48 224.98" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-w="decided"/>
+    <circle cx="684.48" cy="224.98" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <line x1="56" y1="330" x2="70" y2="330" stroke="var(--c-ctx)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="75.0" y="334.0" text-anchor="start" class="t-note">before the run: a plain search, rings and complete graphs (floats)</text>
+    <line x1="557" y1="330" x2="571" y2="330" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="576.0" y="334.0" text-anchor="start" class="t-note">rings, decided</text>
+    <line x1="56" y1="349" x2="70" y2="349" stroke="var(--c-2)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
+    <text x="75.0" y="353.0" text-anchor="start" class="t-note">a switch and a ring, floating-point search</text>
+    <line x1="391" y1="349" x2="405" y2="349" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="410.0" y="353.0" text-anchor="start" class="t-note">a switch and a ring, decided</text>
+  </svg>
+  </div>
+  <figcaption data-record="corpus/blinking-light/run/control/verdict-MIX156.json@ddf01792882a corpus/blinking-light/run/control/verdict-RING400.json@9931224a4a90 corpus/blinking-light/run/claude/notes.md@0f6c0abb51f5" data-stop>Rings stall near 0.44 however many states they get. The switch-and-ring shape keeps falling: dashed where it was found by a floating-point search, solid where machines were decided exactly. In the search it reaches 0.37712 at 162 states; Claude Fable 5.2 extrapolates 0.3769.<span class="fig-rec">Records: <span class="m">corpus/blinking-light/run/control/verdict-MIX156.json</span> · sha256 ddf01792882a; <span class="m">corpus/blinking-light/run/control/verdict-RING400.json</span> · sha256 9931224a4a90; <span class="m">corpus/blinking-light/run/claude/notes.md</span> · sha256 0f6c0abb51f5</span><span class="fig-stop">The build refuses this figure if a decided network in the figure is no longer CERTIFIED in the run.</span></figcaption>
+</figure></div><div class="col"><ul class="plain"><li><b>How a machine is decided.</b> The checker computes both numbers exactly. When two rates are left free in a tiny box, an interval Newton test (Krawczyk’s) proves exactly one choice in the box hits both numbers; then it encloses the dissipation.</li><li><b>Two programs on one machine.</b> The 84-state machine, every rate a fraction, was decided again by a second program written without opening the checker: g ≤ 0.37787624.</li></ul></div><div class="wide"><details class="more"><summary>The decided machines</summary><div class="wide"><div class="tw"><table><thead><tr><th>Network</th><th>States</th><th>Shape</th><th>From</th><th>g at most</th><th>Standing</th></tr></thead><tbody><tr><td>RING40</td><td>40</td><td>a ring</td><td>GPT-6.2 Astra</td><td><span class="m">0.45614592</span></td><td><span class="tag cert">DECIDED</span></td></tr><tr><td>RING400</td><td>400</td><td>a ring</td><td>GPT-6.2 Astra</td><td><span class="m">0.44314191</span></td><td><span class="tag cert">DECIDED</span></td></tr><tr><td>MIX42</td><td>42</td><td>a switch, a ring, one edge</td><td>Claude Fable 5.2</td><td><span class="m">0.38321857</span></td><td><span class="tag cert">DECIDED</span></td></tr><tr><td>RATMIX84</td><td>84</td><td>two switches and a ring, every rate a fraction</td><td>GPT-6.2 Astra</td><td><span class="m">0.37787624</span></td><td><span class="tag cert">DECIDED</span></td></tr><tr><td>MIX156</td><td>156</td><td>a switch, a ring, one edge</td><td>Claude Fable 5.2</td><td><span class="m">0.37712827</span></td><td><span class="tag cert">DECIDED</span></td></tr></tbody></table></div></div></details></div>
+</section>
+
+<section class="" id="lower">
+  <div class="col sec-head">
+    <div class="lab">3 · the lower end, read once</div>
+    <h2>A certificate every machine must pay</h2>
+  </div>
+<div class="col"><ul class="plain"><li><b>The idea.</b> Label every hidden state by what it predicts about the lamp’s future and what it remembers of its past: a point in a square. A certificate is three functions on that square. If two conditions hold everywhere, every machine dissipates at least a stated amount (Theorem D), and it is enough to check a 2×2 matrix inequality at each single point (Theorem C).</li><li><b>Decided here.</b> The best certificate passes both conditions over the whole square, for both lamp states, in exact arithmetic: 3,090 boxes, checked by a program written from the theorems’ text alone. Its bound is 1828627119/5000000000 = 0.3657254. Two other programs, the author’s and GPT-6.2 Astra’s, agree.</li><li><b>Not decided.</b> Theorems D and C were proved by Claude Fable 5.2 and re-derived by GPT-6.2 Astra; nobody else has checked them. If either fails, the lower end falls; the upper end does not.</li></ul></div><div class="wide"><div class="tw"><table><thead><tr><th>Certificate</th><th>g at least</th><th>Entered the record (UTC)</th></tr></thead><tbody><tr><td>CERT211</td><td><span class="m">0.3392862</span></td><td>13:23</td></tr><tr><td>CERT211B</td><td><span class="m">0.3532012</span></td><td>14:16</td></tr><tr><td>CERT222</td><td><span class="m">0.3587562</span></td><td>14:52</td></tr><tr><td>CERT333</td><td><span class="m">0.3613756</span></td><td>15:50</td></tr><tr><td>CERT222G</td><td><span class="m">0.3657254</span></td><td>17:32</td></tr></tbody></table></div></div><div class="wide"><details class="more"><summary>The theorems and who read them</summary><div class="wide"><div class="tw"><table><thead><tr><th>Claim</th><th>From</th><th>Read by</th><th>Standing</th><th>How it was read</th></tr></thead><tbody><tr><td>Weak duality: three functions on the square of labels and three numbers that satisfy two pointwise conditions give, for every finite network, sigma/r ≥ l1 C1 + l2 C2 + mu.</td><td>Claude Fable 5.2</td><td>GPT-6.2 Astra</td><td><span class="tag cert">PROOF READ</span></td><td>GPT re-derived it (g19): the potential terms cancel by flow balance and the two resolvent identities produce the rest. It is the step that turns a certificate into a bound.</td></tr><tr><td>Locality: for piecewise-smooth certificates, the condition on every pair of labels follows from a 2×2 matrix inequality at each single point; an edge can be cut into a chain through massless states at no cost.</td><td>Claude Fable 5.2</td><td>GPT-6.2 Astra</td><td><span class="tag cert">PROOF READ</span></td><td>GPT re-derived the subdivision lemma and the Taylor estimate independently (g39). It is what makes the certificate checkable by finitely many polynomial inequalities.</td></tr><tr><td>The least dissipation is a convex program over labelled states, so g(C1, C2) is convex.</td><td>Claude Fable 5.2</td><td>GPT-6.2 Astra</td><td><span class="tag cert">PROOF READ, on C1 &lt; 1</span></td><td>GPT first found a gap at the boundary (g20), then, with its own repair read in full by Claude, found it holds for C1 &lt; 1, the target included, and showed the statement as first printed is false at C1 = 1 (g47). The bounds on this page do not use it.</td></tr><tr><td>The first strong lower bound of the run: g ≥ 64/245 = 0.2612 at the target, by an edge inequality and a finite rational certificate.</td><td>GPT-6.2 Astra</td><td>Claude Fable 5.2</td><td><span class="tag cert">PROOF READ</span></td><td>Claude went through the proof line by line and re-derived it (c5). Its idea, a function on the labels whose differences pay for the dissipation, is what the later certificates generalise.</td></tr></tbody></table></div></div><p>PROOF READ means a written proof was followed and re-derived by the reader named, who found no error. It is not a formal check and not this repository’s verdict. The proofs are <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/run/claude/lifting.md"><span class="m">corpus/blinking-light/run/claude/lifting.md</span></a> and <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/run/claude/locality.md"><span class="m">corpus/blinking-light/run/claude/locality.md</span></a>.</p></details></div>
+</section>
+
+<section class="col" id="controls">
+  <div class="sec-head">
+    <div class="lab">4 · could the checks fail?</div>
+    <h2>Wrong versions, refused</h2>
+  </div>
+<ul class="plain"><li><b>Controls.</b> 8 wrong versions, all refused: a rate moved by a millionth, a dissipation claimed just below its enclosure, the search box moved off its zero, the certificate before its final scaling, its constant raised, its bound misstated, one function bent at one point.</li><li><b>Planted in the run.</b> Two false claims, sealed before the run: a network with a wrong dissipation and a wrong step inside a proof. Each model caught both.</li></ul>
+</section>
+
+<section class="col" id="roles">
+  <div class="sec-head">
+    <div class="lab">who did what</div>
+    <h2>Each step is a separate job</h2>
+  </div>
+<ul class="plain"><li><b>The networks.</b> Rings by both models; the switch-and-ring family by Claude Fable 5.2, which GPT-6.2 Astra turned into a network with every rate a fraction.</li><li><b>The lower bounds.</b> GPT-6.2 Astra gave the first strong one, 0.2612, with an idea the later certificates generalise. Claude Fable 5.2 wrote the two theorems, the certificates and their verifier; GPT-6.2 Astra re-derived the theorems and re-verified five of the certificates with its own program.</li><li><b>The checkers and the judge.</b> The network checker was written by the control room (Claude Opus 5.5, Anthropic) before the run, from the definitions. For this record a second network program and the certificate checker were written from the definitions and the theorems’ text, without opening either model’s programs.</li><li><b>The run and this page.</b> Carlos Toledo, with Claude (Anthropic), which wrote the programs under my direction. The run went from 11:04 to 17:49 UTC on 19 November 2026, on one laptop: 74 messages between the two models in one shared folder. The question came to me from a conversation with another AI model, which did not cite the paper; I found the paper before the run.</li></ul>
+</section>
+
+<section class="col" id="rerun">
+  <div class="sec-head">
+    <div class="lab">check it yourself</div>
+    <h2>How to re-read it</h2>
+  </div>
+<ul class="plain"><li><b>The record.</b> <span class="m">python3 instruments/<wbr>blinking-light/<wbr>judge.<wbr>py --check</span> re-checks the pinned files and decides the start, the rational network and the certificate again; <span class="m">--write</span> decides everything, controls included, and writes <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/blinking-light.json"><span class="m">certs/blinking-light.json</span></a>. The statements were written down before the judge existed: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/notes/blinking-light-preregistration-2026-11-19.md"><span class="m">notes/blinking-light-preregistration-2026-11-19.md</span></a>.</li><li><b>A network.</b> Give any network file to <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/blinking-light/lamp.py"><span class="m">instruments/blinking-light/lamp.py</span></a> (or, with every rate a fraction, to <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/blinking-light/rational.py"><span class="m">instruments/blinking-light/rational.py</span></a>). A machine of any size with the same two correlations and less dissipation than 0.37713 per look would move the upper end in one file.</li><li><b>The certificate.</b> <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/run/claude/cert222g.json"><span class="m">corpus/blinking-light/run/claude/cert222g.json</span></a> and its checker <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/blinking-light/lower.py"><span class="m">instruments/blinking-light/lower.py</span></a>; the checker’s own account, limits first, is <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/instruments/blinking-light/CHECKERS.md"><span class="m">instruments/blinking-light/CHECKERS.md</span></a>.</li><li><b>What the models wrote.</b> Their notes, data and the whole conversation are under <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/run"><span class="m">corpus/blinking-light/run</span></a>. Their programs are not copied here; each is pinned by its hash in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/MANIFEST.json"><span class="m">corpus/blinking-light/MANIFEST.json</span></a>. The two planted claims and the checks that showed them false are in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/corpus/blinking-light/private"><span class="m">corpus/blinking-light/private</span></a>.</li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-blinking-light.js from certs/blinking-light.json, re-checked as the page is built. I did this with Claude (Anthropic); Claude wrote the programs under my direction.</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="mailto:carlos@carlostoledo.co" data-contact="">contact</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer><dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in"><div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div><button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div><form class="ccd-form" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="6eb04316-c621-4d65-8704-f361e4d69aec"><label class="ccd-f"><span class="ccd-l">Name</span><input name="name" autocomplete="name" required></label><label class="ccd-f"><span class="ccd-l">E-mail</span><input type="email" name="email" autocomplete="email" required></label><label class="ccd-f"><span class="ccd-l">Organisation <em>optional</em></span><input name="organisation" autocomplete="organization"></label><label class="ccd-f"><span class="ccd-l">What it is about</span><select name="product"><option value="Verify Graders">Verify Graders</option><option value="Verify Audits">Verify Audits</option><option value="Grader Red-Team">Grader Red-Team</option><option value="Eval &amp; Data Audit">Eval &amp; Data Audit</option><option value="Verify Gym">Verify Gym</option><option value="Training-Run Audit">Training-Run Audit</option><option value="Verified Datasets">Verified Datasets</option><option value="Statement Check">Statement Check</option><option value="Verify Seal">Verify Seal</option><option value="Something else">Something else</option></select></label><label class="ccd-f"><span class="ccd-l">Message</span><textarea name="message" rows="5" required></textarea></label><div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div><p class="ccd-status" role="status" aria-live="polite"></p><div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div><p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p><p class="ccd-note">Or write to <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a>, or open the public <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form on GitHub</a>.</p></form><div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p><div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div></div></dialog><script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,MAIL="carlos@carlostoledo.co",OTHER="Something else",FROM="carlostoledo.co",opener=null,down=null;function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;var ok=false;for(var i=0;i<E.product.options.length;i++)if(E.product.options[i].value===p)ok=true;E.product.value=ok?p:OTHER;d.showModal();(E.name.value?E.message:E.name).focus()}document.addEventListener("click",function(e){var a=e.target.closest?e.target.closest("[data-contact]"):null;if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();open(a.getAttribute("data-contact"),a)});d.addEventListener("close",function(){if(opener&&opener.focus)opener.focus()});d.addEventListener("pointerdown",function(e){down=e.target});d.addEventListener("click",function(e){if(e.target===d&&down===d)d.close()});d.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;if(E.botcheck.checked){sent();return}var data={access_key:E.access_key.value,subject:subj,from_name:FROM,name:nm,email:E.email.value.trim(),organisation:E.organisation.value.trim(),product:p,message:E.message.value};function fail(m){go.disabled=false;say("error","It did not go through"+(m?" ("+m+")":"")+". Your message is still here; send it by e-mail instead: ");var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(data.message+"\n\n"+nm+(data.organisation?", "+data.organisation:"")+"\n"+data.email);a.textContent=MAIL;st.appendChild(a);st.appendChild(document.createTextNode("."))}go.disabled=true;say("sending","Sending…");fetch(f.action,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>
+
+</body>
+</html>

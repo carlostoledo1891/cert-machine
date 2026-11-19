@@ -1,0 +1,25 @@
+{
+ "id": "CERT211",
+ "author": "claude",
+ "registeredBy": "control",
+ "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with l1 = 2006731/100000, l2 = -3573121/100000, mu = -282241/100000 (claude/cert211.json); at the target g(3/10, 2/25) >= 1696431/5000000 = 0.3392862. Rests on Theorems D and C (DUALITY, LOCALITY) and the exact finite check claude/verify_local.py on the certificate.",
+ "source": "c11",
+ "from": "claude/verify_local.py",
+ "quote": "NEW LOWER BOUND, exact: g(3/10, 2/25) >= 1696431/5000000 = 0.3392862",
+ "kind": "theorem",
+ "object": null,
+ "adapter": null,
+ "core": null,
+ "copies": {
+  "from": "claims/CERT211.files/verify_local.py",
+  "object": null,
+  "core": null
+ },
+ "files": [
+  {
+   "path": "claims/CERT211.files/verify_local.py",
+   "sha256": "21092b1c985cdee218b3f0c661a47bc0078c943da461561bbcf8dbf33ef4c4c3"
+  }
+ ],
+ "at": "2026-11-19T13:23:59.153Z"
+}

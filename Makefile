@@ -249,6 +249,7 @@ test:
 	@printf "%-30s " "twelve blocks (finite facts)"; $(PY) instruments/twelve-blocks/judge.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "twelve blocks (the figure)"; $(PY) instruments/twelve-blocks/series.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "twelve blocks (exact values)"; $(PY) instruments/twelve-blocks/exact/judge.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "the blinking light"; $(PY) instruments/blinking-light/judge.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the shadow edge)"; $(NODE) tools/run-bh-shadow.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "black hole (the lensing maps)"; $(NODE) tools/run-bh-maps.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "textbook machine (the counts)"; $(NODE) playground/textbook-machine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -448,6 +449,7 @@ reports:
 	@$(NODE) tools/build-report-mfg-two-models.js
 	@$(NODE) tools/build-report-twelve-blocks.js
 	@$(NODE) tools/build-report-twelve-blocks-exact.js
+	@$(NODE) tools/build-report-blinking-light.js
 	@$(NODE) tools/build-report-lean-intake.js
 	@$(NODE) tools/build-report-rm-audit.js
 	@$(NODE) tools/build-report-erdos290.js

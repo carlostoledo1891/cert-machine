@@ -1,0 +1,30 @@
+{
+ "id": "CERT211B",
+ "author": "claude",
+ "registeredBy": "control",
+ "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with the rationals of claude/cert211b.json; at the target g(3/10, 2/25) >= 883003/2500000 = 0.3532012. Same theorems (DUALITY, LOCALITY) and verifier as CERT211; a new certificate on 46 knots.",
+ "source": "c12",
+ "from": "claude/verify_local.py",
+ "quote": "LOWER BOUND raised, exact: g(3/10, 2/25) >= 883003/2500000 = 0.3532012",
+ "kind": "theorem",
+ "object": "claims/CERT211B.files/cert211b.json",
+ "adapter": null,
+ "core": null,
+ "copies": {
+  "from": "claims/CERT211B.files/verify_local.py",
+  "object": "claims/CERT211B.files/cert211b.json",
+  "core": null
+ },
+ "files": [
+  {
+   "path": "claims/CERT211B.files/cert211b.json",
+   "sha256": "7060ea089a46077349eac05b66678605b3cf63243ee8ca9637b763a49ed1c377"
+  },
+  {
+   "path": "claims/CERT211B.files/verify_local.py",
+   "sha256": "b9f652acf48b98d1ba406cc85ac17dd6ef4012b6334ec1217b5e7d2b5303da28"
+  }
+ ],
+ "at": "2026-11-19T14:16:42.458Z",
+ "note": "adapter removed 2026-11-19 by the control room (k43): a certificate is not a decider object"
+}

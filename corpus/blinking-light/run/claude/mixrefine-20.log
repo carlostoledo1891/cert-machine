@@ -1,0 +1,10 @@
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:43: RuntimeWarning: divide by zero encountered in log
+  lg = np.log((T + J) / (T - J)); sig = J @ lg
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:47: RuntimeWarning: divide by zero encountered in divide
+  dsJ = lg + J * (1 / (T + J) + 1 / (T - J)); dsT = J * (1 / (T + J) - 1 / (T - J))
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:52: RuntimeWarning: invalid value encountered in add
+  dJ_tot = dJ + dT * J / T
+40 k 20 True 0.3807157487 1.1102230246251565e-16 4.163336342344337e-17
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+80 k 40 True 0.3778761134 5.555556015224283e-13 7.205208651939188e-13

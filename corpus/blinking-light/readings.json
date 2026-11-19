@@ -1,0 +1,35 @@
+{
+ "what": "Who proposed what and who read what in the multitrack run blinking-light (2026-11-19 UTC), written by hand from the run's conversation (corpus/blinking-light/run/CHAT.md and chat/*.jsonl). The report page states nothing about a proof or a reading that is not in this file. PROOF READ means a written proof was followed by the reader named, who re-derived it and found no error; it is not a formal check and not this repository's verdict.",
+ "models": {
+  "gpt": { "name": "GPT-6.2 Astra", "lab": "OpenAI", "where": "the Codex extension, effort xhigh" },
+  "claude": { "name": "Claude Fable 5.2", "lab": "Anthropic", "where": "Claude Code, effort high" },
+  "control": { "name": "Claude Opus 5.5", "lab": "Anthropic", "where": "Claude Code" }
+ },
+ "run": { "firstMessage": "2026-11-19T11:04:20Z", "lastMessage": "2026-11-19T17:48:57Z", "minutes": 405, "messages": { "gpt": 47, "claude": 27, "controlRoom": 54 } },
+ "theorems": [
+  { "id": "DUALITY", "from": "claude", "readBy": ["gpt"], "status": "PROOF READ", "msgs": ["g19"],
+    "statement": "Weak duality: three functions on the square of labels and three numbers that satisfy two pointwise conditions give, for every finite network, sigma/r ≥ l1 C1 + l2 C2 + mu.",
+    "note": "GPT re-derived it (g19): the potential terms cancel by flow balance and the two resolvent identities produce the rest. It is the step that turns a certificate into a bound." },
+  { "id": "LOCALITY", "from": "claude", "readBy": ["gpt"], "status": "PROOF READ", "msgs": ["g39"],
+    "statement": "Locality: for piecewise-smooth certificates, the condition on every pair of labels follows from a 2×2 matrix inequality at each single point; an edge can be cut into a chain through massless states at no cost.",
+    "note": "GPT re-derived the subdivision lemma and the Taylor estimate independently (g39). It is what makes the certificate checkable by finitely many polynomial inequalities." },
+  { "id": "LIFT", "from": "claude", "readBy": ["gpt"], "status": "PROOF READ, on C1 < 1", "msgs": ["g20", "g47"],
+    "statement": "The least dissipation is a convex program over labelled states, so g(C1, C2) is convex.",
+    "note": "GPT first found a gap at the boundary (g20), then, with its own repair read in full by Claude, found it holds for C1 < 1, the target included, and showed the statement as first printed is false at C1 = 1 (g47). The bounds on this page do not use it." },
+  { "id": "POTENTIAL", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ", "msgs": ["c5"],
+    "statement": "The first strong lower bound of the run: g ≥ 64/245 = 0.2612 at the target, by an edge inequality and a finite rational certificate.",
+    "note": "Claude went through the proof line by line and re-derived it (c5). Its idea, a function on the labels whose differences pay for the dissipation, is what the later certificates generalise." }
+ ],
+ "notDone": [
+  "The lower bound is not decided here. Its certificate passes every finite check, in exact arithmetic, but two theorems turn that certificate into a bound, and those were proved by Claude Fable 5.2 and re-derived by GPT-6.2 Astra. No machine and no reader outside the two model families has checked them.",
+  "The exact value is open. The gap is 3.1%. Claude Fable 5.2 guesses g = 0.3769, the limit of the best family of networks found; that is a guess. A certificate at that value would settle it.",
+  "This is a snapshot version of the question: the observer sees only two correlations of readings taken at random times. Dobrynin and Stroujkova's own question, the least dissipation for the full continuous record, is untouched here. Nothing on this page is about a physical device or a finite recording.",
+  "Novelty is stated only against a literature search done before the run. Nothing in it treats readings at random times or this constant. The phenomenon itself was published the day before the run."
+ ],
+ "conditions": [
+  "Both models worked in one shared folder and could read each other's files from the first minute. This was a collaboration, and nothing here compares the two.",
+  "The control room that registered their claims, wrote the network checker before the run and wrote this repository's judge is Claude Opus 5.5, of the same family as one of the two. The certificate checker of this record was written from the theorems' text without opening either model's programs.",
+  "The record's pre-registration was written after the run and says so. The network checker gave its verdicts in the run first.",
+  "Two false claims were planted in the run, sealed before it began: a network with a wrong dissipation and a wrong step inside a proof. Each model caught both."
+ ]
+}

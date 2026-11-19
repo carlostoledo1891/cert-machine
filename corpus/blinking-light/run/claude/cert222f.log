@@ -1,0 +1,12 @@
+family 222 knots 62 points 4148 variables 375
+  round  0 rows  58072 bound 49.998613  violating 4110  least eig -3.454e+08 [7 s]
+  round  5 rows  78529 bound 1.977001  violating 3841  least eig -4.126e+04 [62 s]
+  round 10 rows  96638 bound 0.386504  violating 2726  least eig -6.836e+02 [224 s]
+  round 15 rows 104833 bound 0.367153  violating 532  least eig -7.385e+01 [622 s]
+  round 20 rows 107740 bound 0.366872  violating 365  least eig -4.466e+02 [1135 s]
+  round 24 bound 0.366868: stable, stage 1 stops
+stage 1: bound 0.366868, feasible at samples: False
+stage 2 pass 0: bound 0.365767, feasible at samples: True; fine grid: least eig -0.0974, least D1 -0.00024, points to add 72
+stage 2 pass 1: bound 0.365767, feasible at samples: True; fine grid: least eig -0.0210, least D1 0.00019, points to add 4
+stage 2 pass 2: bound 0.365767, feasible at samples: True; fine grid: least eig 0.0057, least D1 0.00019, points to add 0
+written cert222f.json rational bound 0.365762

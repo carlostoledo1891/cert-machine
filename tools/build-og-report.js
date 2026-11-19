@@ -303,6 +303,34 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /reports/blinking-light.html (2026-11-19): the page's own figure without its words, read from
+     corpus/blinking-light/series.json: the upper bound as a heavy solid step line falling from the top, the lower bound
+     as a lighter step line rising from the floor, the two ending close together with a dot; under them a row of small
+     circles, filled or open at uneven spacing, the lamp as it is read at random moments. LIGHT theme, no number, no label. */
+  'blinking-light': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the least dissipation of a blinking light', path: '/reports/blinking-light.html',
+    title: 'The least dissipation behind a blinking light, narrowed from a factor of 25 to 3%',
+    alt: 'Two step lines closing in from left to right, a heavy one stepping down from the top and a lighter one stepping up from below, ending close together; beneath them a row of small circles, some filled and some open, at uneven spacing.',
+    get svgRaw() {
+      const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'blinking-light', 'series.json'), 'utf8'));
+      const hr = (t) => { const [h, mi, s] = t.split(':').map(Number); return h + mi / 60 + s / 3600; };
+      const x0 = 130, x1 = 1070, yT = 170, yB = 440, t0 = 11, t1 = hr(S.end), lo = 0, hi = 0.52, f = (v) => v.toFixed(1);
+      const X = (t) => x0 + (t - t0) / (t1 - t0) * (x1 - x0), Y = (v) => yT + (hi - v) / (hi - lo) * (yB - yT);
+      const steps = (L) => { const P = []; L.forEach((e, i) => { const x = hr(e.at), y = Number(e.value); if (i) P.push([x, P[P.length - 1][1]]); P.push([x, y]); }); P.push([t1, P[P.length - 1][1]]); return P; };
+      const d = (P) => P.map((q, k) => (k ? 'L' : 'M') + f(X(q[0])) + ' ' + f(Y(q[1]))).join(' ');
+      const U = steps(S.upper), L = steps(S.lower), end = U[U.length - 1];
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two step lines closing in, and a row of small filled and open circles beneath" style="position:absolute;left:0;top:0">'];
+      o.push('<path d="' + d(L) + '" fill="none" stroke="var(--ink-3)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<path d="' + d(U) + '" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + f(X(end[0])) + '" cy="' + f(Y(end[1])) + '" r="8" fill="var(--ink)"/>');
+      /* the lamp, read at random moments: a fixed pseudo-random sequence (a linear congruential generator, seed 7) */
+      let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+      let x = x0, on = true;
+      while (x < x1) { if (rnd() < 0.35) on = !on;
+        o.push('<circle cx="' + f(x) + '" cy="505" r="6" ' + (on ? 'fill="var(--ink)"' : 'fill="none" stroke="var(--ink-3)" stroke-width="1.8"') + '/>');
+        x += 18 + rnd() * 34; }
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
      record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
      terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing

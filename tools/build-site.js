@@ -416,6 +416,16 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')), g = P.Q1['google-cmu'], c = P.Q1.community;
       if (g.word !== 'CERTIFIED' || c.word !== 'REFUSED' || g.acceptedBy.length !== 3 || c.conLeche.word !== 'STOPPED') fail('the intmul card would misstate its record');
       return g.acceptedBy.length + ' checkers accept one proof · the other REFUSED on memory · ' + P.amendments.count + ' amendments declared'; })() },
+  /* the blinking light (2026-11-19, the third multitrack run): the card's numbers are read from the judge's record and
+     the card refuses if a statement is no longer certified, a control was missed or the theorems are said to be decided */
+  { g: 'ai', f: 'blinking-light.html', k: 'the least dissipation of a blinking light · two AI models, one judge',
+    title: 'The least dissipation behind a blinking light, narrowed from a factor of 25 to 3%',
+    desc: 'A hidden machine whose lamp, read at random moments, breaks an equilibrium inequality must burn energy; Dobrynin and Stroujkova showed the effect and left the least amount open. For one example, Claude Fable 5.2 and GPT-6.2 Astra, working together, narrowed it from a factor of 25 to 3.1%. The upper end is a network decided in exact arithmetic; the lower end’s certificate passes every finite check, and the two theorems behind it are read once and not decided.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'blinking-light.json'), 'utf8'));
+      if (Object.keys(P.statements).some((x) => P.statements[x].verdict !== 'CERTIFIED') || P.controlsMissed.length || !/NOT DECIDED/.test(P.theorems)) fail('the blinking-light card would misstate its record');
+      const up5 = (Math.ceil(Number(P.interval.upper.g_at_most) * 1e5) / 1e5).toFixed(5);   /* an upper end is rounded UP, never cut */
+      if (Number(up5) < Number(P.interval.upper.g_at_most)) fail('the blinking-light card would print an upper end below the decided one');
+      return P.interval.lower.g_at_least.slice(0, 7) + ' ≤ g ≤ ' + up5 + ' · the upper end decided, the lower read once · ' + P.controls.length + ' planted wrong versions refused'; })() },
   /* fifty new exact values (2026-11-19, the second twelve-blocks run): the card's counts are read from the judge's record
      and the card refuses if a statement is no longer certified, a control was missed or the table has a gap */
   { g: 'ai', f: 'twelve-blocks-exact.html', k: 'a colouring problem · exact values with certificates',
@@ -2123,7 +2133,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks', 'twelve-blocks-exact']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks', 'twelve-blocks-exact', 'blinking-light']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

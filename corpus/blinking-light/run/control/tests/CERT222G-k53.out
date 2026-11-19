@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/carlostoledo/Projects/multitrack/runs/blinking-light/gpt/review_local_certificate.py", line 128, in <module>
+    check(path)
+  File "/Users/carlostoledo/Projects/multitrack/runs/blinking-light/gpt/review_local_certificate.py", line 122, in check
+    leaves+=cover(int_net)
+  File "/Users/carlostoledo/Projects/multitrack/runs/blinking-light/gpt/review_local_certificate.py", line 67, in cover
+    raise ValueError("Negative slack or indefinite matrix at an exact box corner")
+ValueError: Negative slack or indefinite matrix at an exact box corner

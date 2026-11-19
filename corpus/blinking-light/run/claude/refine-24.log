@@ -1,0 +1,15 @@
+24 True 0.4491977888
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:43: RuntimeWarning: divide by zero encountered in divide
+  lg = np.log((T + J) / (T - J)); sig = J @ lg
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:47: RuntimeWarning: divide by zero encountered in divide
+  dsJ = lg + J * (1 / (T + J) + 1 / (T - J)); dsT = J * (1 / (T + J) - 1 / (T - J))
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:52: RuntimeWarning: invalid value encountered in add
+  dJ_tot = dJ + dT * J / T
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+  48 k 21 False 0.4447392914
+  48 k 22 False 0.4447076083
+Traceback (most recent call last):
+  File "/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/refine.py", line 26, in <module>
+    rn, o = best; x = o['x']
+TypeError: cannot unpack non-iterable NoneType object
