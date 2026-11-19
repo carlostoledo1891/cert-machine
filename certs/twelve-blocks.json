@@ -1,5 +1,5 @@
 {
- "what": "The finite facts of \"twelve blocks at finite length\": ten statements decided on stated finite domains, and the controls that must be refused. PRIVATE until its reveal.",
+ "what": "The finite facts of \"twelve blocks at finite length\": ten statements decided on stated finite domains, and the controls that must be refused.",
  "saysFirst": "The theorem (V(548m) = M(B_m) for every even m >= 118 and odd m >= 123; V(n) to within a bounded error at every n; the exact V(n) for n >= 92,000) is NOT decided here. It was proposed by two AI models working together and read by each other, and it rests on the delta-three certificates (not refereed) and on two paper lemmas no machine has checked. This decides finite facts only: the constants, identities, counts and tables the proofs display, each on a stated finite domain.",
  "preregistration": "notes/twelve-blocks-preregistration-2026-11-19.md",
  "decidedOn": "2026-11-19",
@@ -1916,7 +1916,7 @@
     "firstBadRow": [],
     "reportedNotAVerdict": "the row's witness attains the row's value at n = r + 3288 on 1096 of 1,096 rows (the claim asserts it only from 92,000)"
    },
-   "seconds": 4.8
+   "seconds": 4.7
   },
   "D10": {
    "verdict": "CERTIFIED",
@@ -2107,11 +2107,11 @@
   },
   "L1": {
    "verdict": "CERTIFIED",
-   "text": "Lean 4.35.0, core only: TwelveBlocks.lean compiles (exit 0, 40 s) and states signature (m + 2) = signature m for every m >= 1; axioms ['propext', 'Classical.choice', 'Quot.sound']; the #eval at m = 1..8 equals the appendix on 2024 numbers and whole-colouring recounts on 2024",
+   "text": "Lean 4.35.0, core only: TwelveBlocks.lean compiles (exit 0, 38 s) and states signature (m + 2) = signature m for every m >= 1; axioms ['propext', 'Classical.choice', 'Quot.sound']; the #eval at m = 1..8 equals the appendix on 2024 numbers and whole-colouring recounts on 2024",
    "detail": {
     "version": "4.35.0",
     "exit": 0,
-    "seconds": 40.2,
+    "seconds": 38.0,
     "statement": "theorem signature_period (m : Int) (hm : 1 ≤ m) : signature (m + 2) = signature m",
     "stated": true,
     "noSorryNativeDecideOrAxiom": true,
@@ -2138,7 +2138,7 @@
     },
     "sha256": "2fcdf43936d42d6aa68199f2e3cdf584430dc9c0e76b7e1c9af90a552c091eba"
    },
-   "seconds": 49.8
+   "seconds": 47.3
   }
  },
  "controls": [
@@ -2253,7 +2253,7 @@
   "L1: that the cost of a pattern of flips is the quadratic form with the closed-form coefficients, for every m (the bridge from the definition of M stays on paper); no other lemma is in Lean"
  ],
  "pins": {
-  "instruments/twelve-blocks/judge.py": "5c8d11ec417ddd9c0ffdb4e7fd777654e4d575b76a6e11c091ce19a31278b677",
+  "instruments/twelve-blocks/judge.py": "af4f08cba7165454ac6f5bf13f89e252ff1fc5acc2826c3dcce553eef642f7c8",
   "instruments/twelve-blocks/d1.js": "a06d33bbd8fb46beee7b557f6bbcf81fec64a427dc917b04b108686a8d52d8ee",
   "instruments/twelve-blocks/ap3.py": "e5ddf6bdf7431da85a4c2d579d6ca11b26882be816c4a6c4b881baf8f6ad8c81",
   "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
@@ -2261,13 +2261,13 @@
   "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
   "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
   "certs/delta3/inner-r20-g24_4_8.json": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
-  "corpus/twelve-blocks/MANIFEST.json": "1631af16d426b831091182db172e6e564f2801bbab33ef6f62b0d7a49a3c2c2e",
+  "corpus/twelve-blocks/MANIFEST.json": "914f5eeef7d21ed18b1f45aa0daa6c675ccb7f179418d256ff2b32d3f298e3cb",
   "corpus/twelve-blocks/oeis-b121385.txt": "17fe0bf9b7a8483c499f8f44b2b3042c69df7288b93086d5195464a5e56dec89",
   "corpus/twelve-blocks/run/gpt/optimum-residues.json": "dbe25731effd4e559c0b6e329b2f3c40a55cd37548c63af2faefd102ec6a1aa9",
   "corpus/twelve-blocks/run/gpt/period-witnesses.json": "0fa5a1c91f3bb00ae1c4be7829aa695a820564be6b08242d8c11feb3ef71a8eb",
   "corpus/twelve-blocks/run/gpt/threshold_counts.json": "3f54c4f7555f9a06caf6b4b70b044e5abeb7e9924d2dc6176408a58dce387d28",
   "corpus/twelve-blocks/run/claude/alln_anchors.json": "759f69d74efae979072e29d9309206473570224849689bdcfc732b85c5760468",
-  "notes/twelve-blocks-preregistration-2026-11-19.md": "c27e3b9c0087fad5c5284372454cfc026076cd0c138ebd7c647d78771d040156",
+  "notes/twelve-blocks-preregistration-2026-11-19.md": "e4b5faea4c3d27a616ec9cd631363b01914d711867b35d4b03799c66f762cd83",
   "instruments/twelve-blocks/lean/TwelveBlocks.lean": "2fcdf43936d42d6aa68199f2e3cdf584430dc9c0e76b7e1c9af90a552c091eba",
   "instruments/twelve-blocks/lean/Planted.lean": "a0e2a8c8ea3389879863f315494c49be1df940bd54bbca44a841940ad7dc27f2",
   "instruments/twelve-blocks/lean/eval-m1-8.txt": "9f031367f6ae70ccde71e5da3ea0561e6747ac2297db7091c1eba5b60806f86c",

@@ -1,5 +1,5 @@
 {
- "what": "The multitrack run twelve-blocks (2026-11-19 UTC), pinned at its end. \"run\" lists every file of the run folder with its sha256; \"copied\" lists the files copied into this folder (statements, data, logs). The tracks' programs are pinned by hash and NOT copied: no code of either track is an input of the judge.",
+ "what": "The multitrack run twelve-blocks (2026-11-19 UTC), pinned at its end. \"run\" lists every file of the run folder with its sha256; \"copied\" lists every file of this folder: the files copied from the run (statements, data, logs), and beside them the literature check and readings.json, which were written here. The tracks' programs are pinned by hash and NOT copied: no code of either track is an input of the judge.",
  "snapshot": "2026-11-19T03:14Z",
  "firstSnapshot": {
   "sha256": "f06d89bf7567769894013f66a1f1f4f115b48e694026095a6b89cc93fa3d2c59",
@@ -435,8 +435,8 @@
  },
  "copied": {
   "README.md": {
-   "sha256": "5cb0b60c68c29bc618f89e2bec2fb733f84f8e5726a603ecfe52755c0b5d1a5c",
-   "bytes": 1005
+   "sha256": "daa47900b1cb57e4415180da9b0fbc5ce1aef42276ccab9ae6c06ba52f197683",
+   "bytes": 978
   },
   "literature-2026-11-19.md": {
    "sha256": "24282823bd3b485ef27eef3e1eca68518ac49b88698d828fcac4e32d5eb86a7f",
@@ -445,6 +445,10 @@
   "oeis-b121385.txt": {
    "sha256": "17fe0bf9b7a8483c499f8f44b2b3042c69df7288b93086d5195464a5e56dec89",
    "bytes": 294
+  },
+  "readings.json": {
+   "sha256": "aed2b7d24cfa3938ab9e0a00aca7aea76ea2f408c9685eedfa80f3a979a319de",
+   "bytes": 8204
   },
   "run/GOAL.md": {
    "sha256": "01850c010f674a6400c97814c43c74c30262bad9cbb563052b35777f42699cfd",

@@ -416,6 +416,14 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')), g = P.Q1['google-cmu'], c = P.Q1.community;
       if (g.word !== 'CERTIFIED' || c.word !== 'REFUSED' || g.acceptedBy.length !== 3 || c.conLeche.word !== 'STOPPED') fail('the intmul card would misstate its record');
       return g.acceptedBy.length + ' checkers accept one proof · the other REFUSED on memory · ' + P.amendments.count + ' amendments declared'; })() },
+  /* twelve blocks on the integers (2026-11-19): two AI models propose an exact minimum; the card's counts are read from
+     the judge's record and the card refuses if a finite statement is no longer certified or a control was missed */
+  { g: 'ai', f: 'twelve-blocks.html', k: 'twelve blocks on the integers · two AI models, one judge',
+    title: 'Twelve blocks on the integers: two AI models propose an exact minimum',
+    desc: 'GPT-6.2 Astra and Claude Fable 5.2, working together in one folder, proposed the exact least number of single-coloured 3-term progressions at large lengths, and each read the other’s proof. The finite facts those proofs display are decided here and one lemma is checked in Lean. The theorem itself is not decided: no machine has checked the proofs, and they rest on a lower bound that is not refereed.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'twelve-blocks.json'), 'utf8')), D = Object.keys(P.statements).filter((x) => /^D\d+$/.test(x));
+      if (D.length !== 10 || D.some((x) => P.statements[x].verdict !== 'CERTIFIED') || P.statements.L1.verdict !== 'CERTIFIED' || P.controlsMissed.length || !/NOT DECIDED/.test(P.theorem)) fail('the twelve-blocks card would misstate its record');
+      return D.length + ' finite statements certified · ' + P.controls.length + ' planted wrong versions refused · one lemma in Lean · the theorem not decided'; })() },
   /* one mean-field game given to two AI models (2026-11-18): the card's counts are read from the record and the card
      refuses if a claim is refuted or the certified counts moved */
   { g: 'ai', f: 'mfg-two-models.html', k: 'a mean-field game · two AI models, one certifier',
@@ -2106,7 +2114,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

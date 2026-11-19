@@ -535,6 +535,7 @@ def main():
             print('%-4s %-10s %6.1f s  %s' % (name, r['verdict'], r['seconds'], r['text'][:170]), flush=True)
             for x in k: print('     %-8s %s: %s' % ('refused' if x['refused'] else 'MISSED', x['control'], x['text'][:110]), flush=True)
         rec['controlsMissed'] = [x['control'] for x in rec['controls'] if not x['refused']]
+        rec['what'] = rec['what'].replace(' PRIVATE until its reveal.', '')      # amendment A3: the operator's word to build the page on the public branch
         rec['notDecided'] = NOT_DECIDED; rec['pins'] = pins(); rec['environment'] = env()
         json.dump(rec, open(RECORD, 'w'), indent=1, ensure_ascii=False)
         print('rewritten: certs/twelve-blocks.json  (%s; controls refused %d of %d)' % (', '.join('%s %s' % (k, v['verdict']) for k, v in rec['statements'].items()), sum(x['refused'] for x in rec['controls']), len(rec['controls'])))
@@ -552,7 +553,7 @@ def main():
     if a[:1] == ['--write']:
         S, K, secs = decide_all()
         prior = json.load(open(RECORD)) if os.path.exists(RECORD) else {}
-        rec = {'what': 'The finite facts of "twelve blocks at finite length": ten statements decided on stated finite domains, and the controls that must be refused. PRIVATE until its reveal.',
+        rec = {'what': 'The finite facts of "twelve blocks at finite length": ten statements decided on stated finite domains, and the controls that must be refused.',
                'saysFirst': SAYS_FIRST, 'preregistration': PREREG, 'decidedOn': time.strftime('%Y-%m-%d', time.gmtime()),
                'theorem': 'NOT DECIDED HERE: proposed by two models, read once by the other family, its displayed finite facts decided below',
                'statements': S, 'controls': K, 'controlsMissed': [k['control'] for k in K if not k['refused']], 'notDecided': NOT_DECIDED,

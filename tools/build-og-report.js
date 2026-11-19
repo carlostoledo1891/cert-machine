@@ -303,6 +303,24 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /reports/twelve-blocks.html (2026-11-19): the twelve blocks themselves, at their true proportions
+     (28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28 out of 548), red blocks solid and blue blocks outlined, with the
+     integer lattice as a row of ticks under them. LIGHT theme, no number, no label. */
+  'twelve-blocks': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · twelve blocks on the integers', path: '/reports/twelve-blocks.html',
+    title: 'Twelve blocks on the integers: two AI models propose an exact minimum',
+    alt: 'A horizontal band cut into twelve blocks of unequal width, alternately solid and outlined, symmetric about its middle, with a row of fine evenly spaced ticks beneath it.',
+    svgRaw: (() => {
+      const Wd = [28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28], x0 = 130, x1 = 1070, yT = 330, yB = 440, f = (v) => v.toFixed(1);
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Twelve blocks of unequal width in a row, alternately solid and outlined, with a row of ticks beneath" style="position:absolute;left:0;top:0">'];
+      let x = x0;
+      Wd.forEach((w, i) => { const wd = w / 548 * (x1 - x0);
+        o.push(i % 2 === 0 ? '<rect x="' + f(x) + '" y="' + yT + '" width="' + f(wd) + '" height="' + (yB - yT) + '" fill="var(--ink)"/>'
+          : '<rect x="' + f(x + 1.2) + '" y="' + (yT + 1.2) + '" width="' + f(wd - 2.4) + '" height="' + (yB - yT - 2.4) + '" fill="none" stroke="var(--ink-3)" stroke-width="2.4"/>');
+        x += wd; });
+      for (let k = 0; k <= 137; k++) { const tx = x0 + k / 137 * (x1 - x0); o.push('<line x1="' + f(tx) + '" y1="' + (yB + 22) + '" x2="' + f(tx) + '" y2="' + (yB + (k % 137 === 0 ? 40 : 32)) + '" stroke="var(--ink-4)" stroke-width="1.2"/>'); }
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/mfg-two-models.html (2026-11-18): the page's own figure without its words, read from the
      record (certs/mfg-two-models.json, uniqueness.curve). Two curves leave almost the same point at the left and part:
      the heavy one is where the uniqueness argument stops, the lighter one the first fold. LIGHT theme, no number, no

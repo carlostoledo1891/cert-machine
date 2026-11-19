@@ -1,4 +1,4 @@
-# corpus/twelve-blocks — the pinned inputs of the twelve-blocks decision (PRIVATE until its reveal)
+# corpus/twelve-blocks — the pinned inputs of the twelve-blocks decision
 
 - `twelve-block-session.md`: the operator's brief, as he pasted it to the control room on 2026-11-18.
 - `run/`: statements, data and logs of the multitrack run of 2026-11-19 (chat logs, claim cards, the two tracks' notes and

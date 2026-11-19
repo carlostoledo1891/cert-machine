@@ -200,3 +200,12 @@ an agent of the control room in `~/Projects/multitrack/runs/twelve-blocks/contro
 
 The judge gains `--redo NAME`, which decides one statement again and rewrites it in the record, keeping the first
 verdict; the record names which version of the judge decided what.
+
+## Amendment A3, 2026-11-19 (the reveal; no statement, input or control changes)
+
+The operator's word, after the record was written: "Build the report page on the public branch already." The line
+"PRIVATE until its own reveal" at the top of this file was true when written and stays as written. The two READMEs and the
+record's description lose the word; the corpus manifest now lists every file of its folder, the literature check and the
+hand-written readings included (sha256 `914f5eeef7d21ed18b1f45aa0daa6c675ccb7f179418d256ff2b32d3f298e3cb`). No file the judge
+reads as an input changed. D9 and L1 are decided again by the judge as it now stands, so that the record's pins name one
+version of it for both.

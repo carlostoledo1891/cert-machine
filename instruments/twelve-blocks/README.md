@@ -1,4 +1,4 @@
-# Twelve blocks at finite length: the judge of the finite facts (PRIVATE until its reveal)
+# Twelve blocks at finite length: the judge of the finite facts
 
 Two AI models, working together in one folder (a multitrack run, 2026-11-19), proposed that the twelve-block
 colouring behind δ₃ = 117/2192 is exactly optimal on the integers at large scales:
