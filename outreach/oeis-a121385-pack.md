@@ -50,6 +50,12 @@ EXTENSIONS (add)
     session I ran and were verified by an independent exact checker; a second model (OpenAI's GPT) re-verified a(46)-a(50),
     a(64) and a(88) with its own program.
 
+OPTIONAL COMMENT (only after the record's unit-scale step is public and you are content with it)
+
+    a(548) = 15756, attained by exactly 102 colorings: the twelve-block coloring of Parrilo, Robertson and Saracino with
+    block lengths 28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28, its color exchange, and 50 variants of each near the
+    block boundaries (see the link). - Carlos Toledo, Nov 19 2026
+
 KEYWORD: remove "more" only if the editors wish; the method slows near n = 95 (about 3,000 subcubes and twenty minutes
 per term) but has not hit a wall.
 

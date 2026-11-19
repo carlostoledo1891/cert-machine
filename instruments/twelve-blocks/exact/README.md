@@ -29,8 +29,18 @@ Python 3.9+ standard library; numpy only to PROPOSE a triangular factor for the 
 | U6 | the first run's formula value is attained at every n ≤ 3288 | counts from bits |
 | T1, T2 | two finite tests of the conditional theorems (the two maps; the witnesses from 20,700) | counts from bits |
 
-Fourteen planted wrong versions are refused. E1 (the exclusion at the unit scale) has its own judge; the record says
-under `unitScale` whether it is decided.
+| E1 | a colouring of 1..548 with at most 15,756 agrees with the twelve blocks, or their colour exchange, outside those 48 sites | a separate judge, `judge548/` (Node), nine items by finite exact computation |
+
+Fourteen planted wrong versions are refused. E1 with U3 and U4 gives **V(548) = 15,756 exactly, with 102 minimising
+colourings**, recorded under `unitScale`: no theorem about the continuum and no paper lemma, the October multipliers as
+numbers whose identities are verified, and four slab bounds from `instruments/delta3/verify.js`. `judge548/REPORT.md`
+leads with its gaps; seven of its eight planted errors are refused and the eighth, soundly, is not (it was badly chosen:
+amendment A2).
+
+```
+python3 instruments/twelve-blocks/exact/judge.py --unit      runs judge548 and its named controls, rewrites "unitScale"   (~1 min)
+node instruments/twelve-blocks/exact/judge548/judge.js       the nine items, about 6 s
+```
 
 ## The certificate format, and why a certificate proves its claim
 

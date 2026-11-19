@@ -1,0 +1,38 @@
+{
+ "what": "Who proposed what and who read what in the multitrack run twelve-blocks-2 (2026-11-19 UTC), written by hand from the run's conversation (corpus/twelve-blocks-2/run/CHAT.md). The report page states nothing about a proof or a reading that is not in this file. PROOF READ means a written proof was followed by the reader named and no error was found; it is not a formal check and not this repository's verdict.",
+ "models": {
+  "gpt": { "name": "GPT-6.2 Astra", "lab": "OpenAI", "where": "the Codex extension" },
+  "claude": { "name": "Claude Fable 5.2", "lab": "Anthropic", "where": "Claude Code" }
+ },
+ "run": { "firstMessage": "2026-11-19T04:31:04Z", "lastMessage": "2026-11-19T05:45:00Z", "minutes": 74, "messages": { "gpt": 23, "claude": 19, "controlRoom": 53 } },
+ "theorems": [
+  { "id": "LOCAL75", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ",
+    "statement": "For every n ≥ 20,700, a colouring with no more single-coloured progressions than the rounded twelve blocks differs from them only within 75 sites of the eleven block boundaries.",
+    "note": "A new argument: restore one cell and bound the restored colouring. Claude rebuilt the key lemma along its own code path, re-derived the others on paper, and named the weakest steps: everything leans on one paper lemma of October, and three margins at n = 20,700 are within half a site." },
+  { "id": "ALLSCALES and UNIT", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ",
+    "statement": "At every length n = 548m, m ≥ 1, the twelve blocks are optimal: V(n) = 117n²/2192 − n/2 + (m mod 2), with 2 minimisers at even m and 102 at odd m.",
+    "note": "The first run reached m ≥ 118. Claude replayed the finite parts with its own program. It did not re-check the first run's classification inside the windows, which the result needs at every m ≥ 2." },
+  { "id": "FINITE548", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ",
+    "statement": "V(548) = 15,756 with 102 minimisers, by finite checks on the 548-site model alone: no paper lemma and no continuum theorem; the October multipliers are reused as numbers whose identities are verified.",
+    "note": "Claude rebuilt the two finite conditions that replace the paper lemmas with its own program; both hold exactly on both grids, one with a smallest slack of exactly zero." },
+  { "id": "JUMPS", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ",
+    "statement": "Two explicit maps on the places where the colour changes: one enlarges a colouring by 1,096 sites and adds exactly 117n + 63,568 progressions, one sends length n to 1096q − n. Both keep the correction to the formula, which explains its period 1,096 and why it agrees at the residues r and −r.",
+    "note": "Claude wrote its own test from the document and ran 1,880 cases with no failure, and showed the test fails outside the stated range." },
+  { "id": "FORMULA15756", "from": "gpt", "readBy": ["claude"], "status": "PROOF READ",
+    "statement": "For every n ≥ 15,756, V(n) = (117n² + c_r)/2192 − n/2 with the first run's table of 1,096 corrections and numbers of minimisers.",
+    "note": "The first run needed n ≥ 92,000. Claude redid the arithmetic in fractions and tested the maps at the smaller window." }
+ ],
+ "notDone": [
+  "The theorems about every large n are not decided here. Each was read once, by the other model, and no reader outside the two model families has read any of it. They rest on δ₃ ≥ 117/2192, which is this repository's own claim of October 2026 and is not refereed.",
+  "Between n = 96 and n = 15,755, at lengths that are not multiples of 548, nobody has a lower bound that matches the formula. A search from random colourings at 648 of those lengths found nothing below it; that is a search, not a proof.",
+  "The certificates slow down as n grows: about 3,000 cubes and twenty minutes of search per length near n = 95. The method does not reach n = 548 by itself: one cube proves 15,385 there and exactly no more.",
+  "The number of minimising colourings is decided only at n = 548. The table of exact values proves values, not counts.",
+  "The checker of the certificates was written by the control room, which is the same model as the track that found them. It is short, exact, and written from the format's one page; the other model re-verified seven of the lengths with its own program."
+ ],
+ "conditions": [
+  "Both models worked in one shared folder and could read each other's files and the whole first run from the first minute. This was a collaboration, and nothing here compares the two.",
+  "The control room that registered their claims, wrote the checkers and wrote this repository's judge is Claude Fable 5.2, the same model as one of the two.",
+  "The checkers were written during the run and gave their verdicts there first. The pre-registration of the record was written after the run and says so.",
+  "The control room planted no false claim in this run. The only planted errors are the controls of the judge."
+ ]
+}

@@ -11,7 +11,7 @@
    "detail": {
     "colourings": 124766
    },
-   "seconds": 5.8
+   "seconds": 4.0
   },
   "U1": {
    "verdict": "CERTIFIED",
@@ -500,7 +500,7 @@
      "equal to A(n)": "95 of 95 rows"
     }
    },
-   "seconds": 113.9
+   "seconds": 72.2
   },
   "U2": {
    "verdict": "CERTIFIED",
@@ -508,7 +508,7 @@
    "detail": {
     "margin": "821099/2097152"
    },
-   "seconds": 12.6
+   "seconds": 10.3
   },
   "U3": {
    "verdict": "CERTIFIED",
@@ -566,7 +566,7 @@
      522
     ]
    },
-   "seconds": 46.3
+   "seconds": 41.6
   },
   "U4": {
    "verdict": "CERTIFIED",
@@ -587,7 +587,7 @@
      7
     ]
    },
-   "seconds": 456.6
+   "seconds": 415.5
   },
   "U5": {
    "verdict": "CERTIFIED",
@@ -616,7 +616,7 @@
      33
     ]
    },
-   "seconds": 5.1
+   "seconds": 3.5
   },
   "T1": {
    "verdict": "CERTIFIED",
@@ -624,13 +624,13 @@
    "detail": {
     "cases": 120
    },
-   "seconds": 27.2
+   "seconds": 21.6
   },
   "T2": {
    "verdict": "CERTIFIED",
    "text": "the table's witness at the least n >= 20,700 of each residue class has exactly A(n): 1096 of 1,096",
    "detail": {},
-   "seconds": 60.2
+   "seconds": 48.0
   }
  },
  "controls": [
@@ -708,14 +708,114 @@
  "controlsMissed": [],
  "notDecided": [
   "every theorem about infinitely many n: the localisation from 20,700 (LOCAL75), the scaled result at m >= 2 (which also needs the first run's window classification), the two maps as bijections of minimisers (JUMPS), the formula A(n) from 15,756 or from 20,700, the value A(n) attained beyond n = 3288",
-  "the lower bound V(n) >= A(n) for 95 <= n <= 15,755 off the multiples of 548, which neither model claims",
-  "E1, the exclusion at the unit scale, unless its own judge certifies it (see \"unitScale\" in this record)"
+  "the lower bound V(n) >= A(n) for 95 <= n <= 15,755 off the multiples of 548, which neither model claims"
  ],
  "unitScale": {
-  "E1": "not decided: its judge has not reported"
+  "E1": {
+   "verdict": "CERTIFIED",
+   "text": "every colouring of 1..548 with at most 15,756, in its orientation nearer to the twelve blocks, agrees with them outside the 48 sites of U3: 9 of 9 items established by the separate judge",
+   "items": [
+    {
+     "item": 1,
+     "passed": true,
+     "what": "the identity 16M = 4T - 6n + 2(S0^2+S1^2) + K + 4R, and 0 <= G <= 4"
+    },
+    {
+     "item": 2,
+     "passed": true,
+     "what": "M(B) = 15,756, the parity sums, R(B) = 0"
+    },
+    {
+     "item": 3,
+     "passed": true,
+     "what": "the finite quadratic Y and the site fields h_p"
+    },
+    {
+     "item": 4,
+     "passed": true,
+     "what": "F1: the one-body inequality on every cell of every grid"
+    },
+    {
+     "item": 5,
+     "passed": true,
+     "what": "F2: finite inside sums = n^2 x model areas; Y dominates the model polynomials"
+    },
+    {
+     "item": 6,
+     "passed": true,
+     "what": "inner identity, P - ww^T/948 positive definite, slab bounds, k <= 243, k < 548/5"
+    },
+    {
+     "item": 7,
+     "passed": true,
+     "what": "the charging weights: -R <= sum g_i x_i"
+    },
+    {
+     "item": 8,
+     "passed": true,
+     "what": "the 120 box operations with 201 tangent vectors"
+    },
+    {
+     "item": 9,
+     "passed": true,
+     "what": "statement E"
+    }
+   ],
+   "restsOn": "the four slab bounds are taken from instruments/delta3/verify.js; the October multipliers and gpt/unit-tangents.json enter as numbers whose identities are verified",
+   "report": "instruments/twelve-blocks/exact/judge548/REPORT.md",
+   "controls": [
+    {
+     "control": "1  the strengthening constant 947 instead of 948",
+     "refused": true
+    },
+    {
+     "control": "2  one tangent entry doubled (operation 0, vector 0, entry 45: cell 69, value 14606602)",
+     "refused": false
+    },
+    {
+     "control": "2b  one tangent entry doubled (operation 1, vector 0, entry 40: cell 68, value 17784768)",
+     "refused": true
+    },
+    {
+     "control": "3  one operation dropped (operation 1: {\"action\":\"exclude\",\"cell\":0,\"lower\":1})",
+     "refused": true
+    },
+    {
+     "control": "3b  one operation dropped (operation 3: {\"action\":\"exclude\",\"cell\":2,\"lower\":1})",
+     "refused": true
+    },
+    {
+     "control": "4  the charging weights g set to 0 on the exterior cells",
+     "refused": true
+    },
+    {
+     "control": "5  F1 with b_i doubled on one cell (inner grid, cell 0, sites 1..8)",
+     "refused": true
+    },
+    {
+     "control": "6  the baseline changed at one site far from every boundary (site 200)",
+     "refused": true
+    }
+   ],
+   "controlsNotRefused": [
+    "2  one tangent entry doubled (operation 0, vector 0, entry 45: cell 69, value 14606602)"
+   ],
+   "whyNotRefused": "every rational tangent vector gives a true inequality, so a perturbed vector makes the certificate wrong only if the replay stops closing; this one still closes. The control was badly chosen by the pre-registration (amendment A2). In a sweep over all 201 vectors the same perturbation stops the replay in 191.",
+   "cleanRun": true
+  },
+  "V548": {
+   "verdict": "CERTIFIED",
+   "text": "V(548) = 15,756 exactly, with exactly 102 labelled minimising colourings: E1 puts every colouring with at most 15,756 (or its colour exchange) inside the sub-cube of U3, where U3 gives at least 15,756 and U4 gives exactly 51 at 15,756; the 51 and their colour exchanges are 102 distinct colourings.",
+   "from": [
+    "E1",
+    "U3",
+    "U4"
+   ],
+   "uses": "no theorem about the continuum and no paper lemma; the October certificate files as numbers whose identities are verified, and the four slab bounds of this repository's delta-three verifier"
+  }
  },
  "pins": {
-  "instruments/twelve-blocks/exact/judge.py": "1e1097e1b25ae3e549b98a11a2503236e3e47143aa7ebb92eb6d1e003921fae2",
+  "instruments/twelve-blocks/exact/judge.py": "5930850df4c34689d1449f42cf8014b512467747aa82183b9acebbb47ad8561c",
   "instruments/twelve-blocks/exact/cubepsd.py": "de15322b81fee8b039d37efe2c00163a71e1ef03fdba3467de8a8403fe60844e",
   "instruments/twelve-blocks/ap3.py": "e5ddf6bdf7431da85a4c2d579d6ca11b26882be816c4a6c4b881baf8f6ad8c81",
   "instruments/twelve-blocks/judge.py": "af4f08cba7165454ac6f5bf13f89e252ff1fc5acc2826c3dcce553eef642f7c8",
@@ -727,7 +827,12 @@
   "corpus/twelve-blocks/run/gpt/optimum-residues.json": "dbe25731effd4e559c0b6e329b2f3c40a55cd37548c63af2faefd102ec6a1aa9",
   "corpus/twelve-blocks/oeis-b121385.txt": "17fe0bf9b7a8483c499f8f44b2b3042c69df7288b93086d5195464a5e56dec89",
   "certs/twelve-blocks.json": "46531914710f7188f0b2dcbd8fb0355cb80c0327316f37af60b05bc0296ed68a",
-  "notes/twelve-blocks-2-preregistration-2026-11-19.md": "16c11ef652d547127555f7fc3d5b100f5c77c3c21d519d1a1c97c4b4f110a68b",
+  "notes/twelve-blocks-2-preregistration-2026-11-19.md": "f21d8b8a2a1578e6aaf845c2c5051c0af994f3a92436dfca7e680c5e8ba19199",
+  "instruments/twelve-blocks/exact/judge548/judge.js": "bb5f8ea18d96e49660840e0620f7ff3e210f95ada5e3e6d1b98b64c8f26f44be",
+  "instruments/twelve-blocks/exact/judge548/controls.js": "c7837c79709c8755804004f5753d07392bfeb187f744afc2409bdf9902fb057f",
+  "corpus/twelve-blocks-2/run/gpt/unit-tangents.json": "b35f0f6dc31b5403449dd66c63e04c403fcd158c4bcff1265cd959fe64aa7845",
+  "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
+  "certs/delta3/inner-r20-g24_4_8.json": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
   "corpus/twelve-blocks-2/certificates/ (all 98 files, names and sha256)": "906fab77750f0d96385e63d16e51efac3ab62fe49356ef257e84b8d90222d476"
  },
  "environment": {
@@ -735,5 +840,5 @@
   "numpy": "2.0.2",
   "processes": 7
  },
- "seconds": 728.0
+ "seconds": 616.8
 }

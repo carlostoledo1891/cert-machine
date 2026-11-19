@@ -73,5 +73,5 @@ Carlos Toledo
 ## What has no need of a reader
 
 Decided in `certs/twelve-blocks-exact.json` with nothing but the definition: V(n) for every n ≤ 95; V(548) ≥ 15,385;
-at n = 548, no colouring that agrees with the twelve blocks outside 48 named sites has fewer than 15,756, and exactly 51
-have 15,756.
+V(548) = 15,756 exactly, with 102 minimising colourings (the last step by a separate judge that proves the October
+inequalities again by counting on the 548 sites; its report leads with its gaps).

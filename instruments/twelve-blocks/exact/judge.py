@@ -8,8 +8,10 @@ certificate format cube-psd-1 (written during the run from the format's page); a
 
   python3 instruments/twelve-blocks/exact/judge.py --write     decide everything, write certs/twelve-blocks-exact.json (~10 min)
   python3 instruments/twelve-blocks/exact/judge.py --check     the pins, and U0 (to n = 10), U1 (n <= 50), U2, U5 again (~40 s)
-  python3 instruments/twelve-blocks/exact/judge.py --only U4   one statement, printed"""
-import hashlib, itertools, json, lzma, os, random, sys, time
+  python3 instruments/twelve-blocks/exact/judge.py --only U4   one statement, printed
+  python3 instruments/twelve-blocks/exact/judge.py --unit      run the separate judge of E1 (judge548/) and its named controls, and
+                                                               write the outcome under "unitScale" in the record (amendment A2)"""
+import hashlib, itertools, json, lzma, os, random, re, subprocess, sys, time
 from fractions import Fraction as Fr
 from multiprocessing import Pool
 
@@ -284,6 +286,35 @@ def T2():
     return out('CERTIFIED' if all(res) else 'REFUTED', 'the table\'s witness at the least n >= 20,700 of each residue class has exactly A(n): %d of 1,096' % sum(res)), []
 
 
+# ------------------------------------------------------------------------------------------------ E1 (amendment A2)
+J548 = os.path.join(HERE, 'judge548')
+
+
+def E1(controls=True):
+    """Run the separate judge of the exclusion at the unit scale. It is its own program (Node); this only runs it and
+    reads its verdict. Its report, with its gaps, is judge548/REPORT.md."""
+    try:
+        p = subprocess.run(['node', 'judge.js'], cwd=J548, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=1800)
+    except Exception as e:
+        return {'verdict': 'REFUSED', 'text': 'the judge did not run: ' + str(e)[:200]}
+    text = p.stdout.decode(errors='replace')
+    items = re.findall(r'^(PASS|FAIL)\s+item (\d)\s+(.*)$', text, re.M)
+    ok = p.returncode == 0 and len(items) == 9 and all(i[0] == 'PASS' for i in items) and 'E: CERTIFIED' in text
+    out1 = {'verdict': 'CERTIFIED' if ok else 'REFUSED',
+            'text': 'every colouring of 1..548 with at most 15,756, in its orientation nearer to the twelve blocks, agrees with them outside the 48 sites of U3: %d of 9 items established by the separate judge' % sum(i[0] == 'PASS' for i in items),
+            'items': [{'item': int(i[1]), 'passed': i[0] == 'PASS', 'what': i[2].strip()} for i in items],
+            'restsOn': 'the four slab bounds are taken from instruments/delta3/verify.js; the October multipliers and gpt/unit-tangents.json enter as numbers whose identities are verified',
+            'report': 'instruments/twelve-blocks/exact/judge548/REPORT.md'}
+    if controls:
+        c = subprocess.run(['node', 'controls.js', '--quick'], cwd=J548, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=3600).stdout.decode(errors='replace')
+        found = re.findall(r'^control (\S+)\s+(.*)\n\s+verdict (CERTIFIED|REFUSED)', c, re.M)
+        out1['controls'] = [{'control': name + '  ' + what.strip(), 'refused': v == 'REFUSED'} for name, what, v in found if name != '0']
+        out1['controlsNotRefused'] = [x['control'] for x in out1['controls'] if not x['refused']]
+        out1['whyNotRefused'] = 'every rational tangent vector gives a true inequality, so a perturbed vector makes the certificate wrong only if the replay stops closing; this one still closes. The control was badly chosen by the pre-registration (amendment A2). In a sweep over all 201 vectors the same perturbation stops the replay in 191.'
+        out1['cleanRun'] = any(name == '0' and v == 'CERTIFIED' for name, what, v in found)
+    return out1
+
+
 # ------------------------------------------------------------------------------------------------ the record
 NOT_DECIDED = [
     'every theorem about infinitely many n: the localisation from 20,700 (LOCAL75), the scaled result at m >= 2 (which also needs the first run\'s window classification), the two maps as bijections of minimisers (JUMPS), the formula A(n) from 15,756 or from 20,700, the value A(n) attained beyond n = 3288',
@@ -297,7 +328,9 @@ def pins():
     files = ['instruments/twelve-blocks/exact/judge.py', 'instruments/twelve-blocks/exact/cubepsd.py', 'instruments/twelve-blocks/ap3.py', 'instruments/twelve-blocks/judge.py',
              'corpus/twelve-blocks-2/MANIFEST.json', 'corpus/twelve-blocks-2/run/claude/V-table.json', 'corpus/twelve-blocks-2/run/claude/CERT-FORMAT-V.md',
              'corpus/twelve-blocks-2/run/gpt/sdp548-primal.json', 'corpus/twelve-blocks-2/run/gpt/upper-short.json', 'corpus/twelve-blocks/run/gpt/optimum-residues.json',
-             'corpus/twelve-blocks/oeis-b121385.txt', 'certs/twelve-blocks.json', PREREG]
+             'corpus/twelve-blocks/oeis-b121385.txt', 'certs/twelve-blocks.json', PREREG,
+             'instruments/twelve-blocks/exact/judge548/judge.js', 'instruments/twelve-blocks/exact/judge548/controls.js',
+             'corpus/twelve-blocks-2/run/gpt/unit-tangents.json', 'instruments/delta3/verify.js', 'certs/delta3/inner-r20-g24_4_8.json']
     d = {p: sha(os.path.join(ROOT, p)) for p in files}
     h = hashlib.sha256()
     for name in sorted(os.listdir(os.path.join(C, 'certificates'))): h.update(name.encode() + b'\0' + sha(os.path.join(C, 'certificates', name)).encode())
@@ -324,10 +357,29 @@ def main():
         if moved: print('REFUSED: these files changed since the record was written: ' + ', '.join(moved)); sys.exit(1)
         quick = {'U0': U0(10, False)[0], 'U1': U1(50)[0], 'U2': U2()[0], 'U5': U5()[0]}
         bad = [k for k, v in quick.items() if v['verdict'] != rec['statements'][k]['verdict']]
+        e1 = rec.get('unitScale', {}).get('E1')
+        if isinstance(e1, dict):
+            again = E1(controls=False); quick['E1'] = again
+            if again['verdict'] != e1['verdict']: bad.append('E1')
         print('pins intact (%d entries); decided again now: %s; the record: %s; controls refused %d of %d' % (
             len(now), ', '.join('%s %s' % (k, v['verdict']) for k, v in quick.items()), ', '.join('%s %s' % (k, v['verdict']) for k, v in rec['statements'].items()),
             sum(k['refused'] for k in rec['controls']), len(rec['controls'])))
         sys.exit(1 if bad else 0)
+    if a[:1] == ['--unit']:
+        rec = json.load(open(RECORD)); S = rec['statements']
+        e1 = E1()
+        both = e1['verdict'] == 'CERTIFIED' and S['U3']['verdict'] == 'CERTIFIED' and S['U4']['verdict'] == 'CERTIFIED' and e1.get('cleanRun')
+        rec['unitScale'] = {'E1': e1,
+                            'V548': {'verdict': 'CERTIFIED' if both else 'REFUSED',
+                                     'text': 'V(548) = 15,756 exactly, with exactly 102 labelled minimising colourings: E1 puts every colouring with at most 15,756 (or its colour exchange) inside the sub-cube of U3, where U3 gives at least 15,756 and U4 gives exactly 51 at 15,756; the 51 and their colour exchanges are 102 distinct colourings.',
+                                     'from': ['E1', 'U3', 'U4'],
+                                     'uses': 'no theorem about the continuum and no paper lemma; the October certificate files as numbers whose identities are verified, and the four slab bounds of this repository\'s delta-three verifier'}}
+        rec['notDecided'] = [x for x in NOT_DECIDED if not x.startswith('E1')]
+        rec['pins'] = pins()
+        json.dump(rec, open(RECORD, 'w'), indent=1, ensure_ascii=False)
+        print('E1 %s (%d of 9 items); controls refused %d of %d; not refused: %s' % (e1['verdict'], sum(i['passed'] for i in e1.get('items', [])), sum(c['refused'] for c in e1.get('controls', [])), len(e1.get('controls', [])), e1.get('controlsNotRefused')))
+        print('V(548) = 15,756 with 102 minimisers: ' + rec['unitScale']['V548']['verdict'])
+        return
     if a[:1] == ['--write']:
         S, K, secs = decide_all()
         prior = json.load(open(RECORD)) if os.path.exists(RECORD) else {}
