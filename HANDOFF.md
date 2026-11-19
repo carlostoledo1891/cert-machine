@@ -31,7 +31,9 @@ START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
   3. His, any time: the OEIS edit of A121385 (his account); the outside readers for the twelve blocks and for the
      blinking light (two packs in outreach/); replies from Dobrynin and Stroujkova (his e-mail) or Greenwood (issue #1).
   Done today: three multitrack runs integrated and live (twelve-blocks, twelve-blocks-exact, blinking-light); run-3
-  outreach sent; housekeeping on his word: the control build run, multitrack under git in a PRIVATE repository
+  outreach sent; housekeeping on his word: the control build run twice, 251 of 252 both times (red: home, under load;
+  green alone, twice; its page unchanged since 11-17), so the control page was NOT written: rerun `make control` on an idle
+  machine; multitrack under git in a PRIVATE repository
   (github.com/carlostoledo1891/multitrack), 66 merged local branches and the merged intmul worktree removed
   (paper-v011 and four unmerged branches kept), outreach/vetto deleted (he will not apply).
 
