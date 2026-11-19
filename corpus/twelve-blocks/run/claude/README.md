@@ -23,3 +23,7 @@ Scripts that read the staged certificates expect `../inherited/cert-machine/`; `
 | `t1_test.py`, `inner_probe.py`, `inner_P.pkl` | early probes (exact comparison D against n^2 E; eigenvalues of the inner residual, uses numpy) | |
 | `ref_gpt_h3_core.py` | a byte copy of gpt/h3_core.py, imported once to compare its coefficients with mine | |
 | `web/` | public files of cert-machine fetched before the control room staged them (same sha256 as inherited/) and OEIS A121385 | |
+| `periodic_check.py` | PERIOD: my own window minimiser at arbitrary length (`spot`: against triples; `table`: all 1096 residues at two periods) | 5 min |
+| `periodic_window_min.json` | its output: per residue, least D against the rounded C_n, number of minimising charge vectors, largest charge | |
+| `periodic_compare.py` | my table against gpt/optimum-residues.json: 0 mismatches | 1 min |
+| `periodic_domain.py` | the same problem at one length per residue inside n >= 92000, full-depth checks | 8 min |

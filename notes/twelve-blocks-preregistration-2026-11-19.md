@@ -152,3 +152,20 @@ the named claim. A control MISSED is a fault of the judge, reported and fixed by
 `instruments/twelve-blocks/judge.py --write` writes `certs/twelve-blocks.json`; `--check` recomputes and compares.
 D1 runs through Node on the repository's verifier. Changes after this commit are amendments below, each dated, each
 committed before the code it changes.
+
+## Amendment A1, 2026-11-19 (inputs only; committed while the first full run was still deciding D6, before any record existed)
+
+- The run ended after the first snapshot: Claude read PERIOD ("holds", its own table of the 1,096 residues agreeing with
+  GPT's on every row) and both tracks posted a final `done`. The run folder is pinned again at its end:
+  `corpus/twelve-blocks/MANIFEST.json` is now sha256 `1631af16d426b831091182db172e6e564f2801bbab33ef6f62b0d7a49a3c2c2e`
+  (the first, cited above, was taken at about 03:00Z, not 03:10Z as its own field said; it is named inside the new one).
+  The copied chat logs, claim cards, verdicts and notes are the final ones.
+- The four data files the judge reads (`gpt/optimum-residues.json`, `gpt/period-witnesses.json`,
+  `gpt/threshold_counts.json`, `claude/alln_anchors.json`) did not change between the two snapshots, byte for byte.
+- The two chats, read from their local session records (model fields only): the GPT track was gpt-6.2-astra at effort
+  xhigh in the Codex extension; the Claude track was claude-fable-5-2 in Claude Code, in a window opened on this
+  repository, so this repository's instructions and memory index were in its context (the run's rules told it to use no
+  memory of other conversations).
+- The literature check came back (`corpus/twelve-blocks/literature-2026-11-19.md`). It changes no statement here.
+- The corpus README said the copies carry local paths; checked, none does; the sentence is corrected.
+No statement, domain, control or prediction changes.

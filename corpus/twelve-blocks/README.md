@@ -7,5 +7,6 @@
   https://oeis.org/A121385/b121385.txt on 2026-11-19; OEIS content is CC BY-SA 4.0.
 - `MANIFEST.json`: sha256 of every file of the run folder at the snapshot, and of every file copied here.
 
-The run's texts are the operator's own (his brief; the output of two model chats he opened). They carry local paths of
-his machine: scrub before any reveal.
+The run's texts are the operator's own (his brief; the output of two model chats he opened). Checked 2026-11-19: no file
+here carries a local path of his machine.
+- `literature-2026-11-19.md`: the literature check of 2026-11-19, with its limits.
