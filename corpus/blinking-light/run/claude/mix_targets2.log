@@ -1,0 +1,24 @@
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:43: RuntimeWarning: divide by zero encountered in divide
+  lg = np.log((T + J) / (T - J)); sig = J @ lg
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:47: RuntimeWarning: divide by zero encountered in divide
+  dsJ = lg + J * (1 / (T + J) + 1 / (T - J)); dsT = J * (1 / (T + J) - 1 / (T - J))
+/Users/carlostoledo/Projects/multitrack/runs/blinking-light/claude/pq.py:52: RuntimeWarning: invalid value encountered in add
+  dJ_tot = dJ + dT * J / T
+N 20 G=22.85916 target (0.3, 0.08) sqrt(q) = 0.28284  g=0.392201 ring mass 0.2011  telegraph C1 = 0.28194  ring (c,q) = (0.37174, 0.08203)  Lambda 40.543
+N 20 G=22.93240 target (0.3, 0.07) sqrt(q) = 0.26458  g=0.812377 ring mass 0.3810  telegraph C1 = 0.26316  ring (c,q) = (0.35986, 0.07122)  Lambda 43.577
+N 20 G=22.27120 target (0.5, 0.22) sqrt(q) = 0.46904  g=0.689481 ring mass 0.8814  telegraph C1 = 0.46942  ring (c,q) = (0.50411, 0.21995)  Lambda 23.722
+N 20 G=22.90804 target (0.2, 0.035) sqrt(q) = 0.18708  g=0.295906 ring mass 0.0965  telegraph C1 = 0.18778  ring (c,q) = (0.31445, 0.03255)  Lambda 61.003
+N 20 G=22.93600 target (0.6, 0.35) sqrt(q) = 0.59161  g=0.192479 ring mass 0.4936  telegraph C1 = 0.59396  ring (c,q) = (0.60619, 0.34714)  Lambda 19.318
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+/Users/carlostoledo/Library/Python/3.9/lib/python/site-packages/scipy/optimize/_slsqp_py.py:437: RuntimeWarning: Values in x were outside bounds during a minimize step, clipping to bounds
+  fx = wrapped_fun(x)
+N 40 G=22.18974 target (0.3, 0.08) sqrt(q) = 0.28284  g=0.380716 ring mass 0.1853  telegraph C1 = 0.28261  ring (c,q) = (0.37644, 0.08058)  Lambda 39.259
+N 40 G=22.19996 target (0.3, 0.07) sqrt(q) = 0.26458  g=0.786431 ring mass 0.3515  telegraph C1 = 0.26458  ring (c,q) = (0.36533, 0.07000)  Lambda 41.953
+N 40 G=21.98181 target (0.5, 0.22) sqrt(q) = 0.46904  g=0.680522 ring mass 0.8230  telegraph C1 = 0.47025  ring (c,q) = (0.50640, 0.21976)  Lambda 23.374
+N 40 G=21.83671 target (0.2, 0.035) sqrt(q) = 0.18708  g=0.282068 ring mass 0.0876  telegraph C1 = 0.18841  ring (c,q) = (0.32081, 0.02982)  Lambda 57.972
+N 40 G=22.73117 target (0.6, 0.35) sqrt(q) = 0.59161  g=0.190761 ring mass 0.4558  telegraph C1 = 0.59416  ring (c,q) = (0.60698, 0.34639)  Lambda 19.141

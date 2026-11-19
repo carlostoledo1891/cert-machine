@@ -1,0 +1,54 @@
+{
+ "name": "blinking-light",
+ "version": 3,
+ "created": "2026-11-19T11:04:20.471Z",
+ "tracks": {
+  "gpt": {
+   "family": "openai"
+  },
+  "claude": {
+   "family": "anthropic"
+  }
+ },
+ "sealed": false,
+ "lean": false,
+ "adapterSeconds": 1800,
+ "adapters": {
+  "ap3": [
+   "python3",
+   "{mt}/adapters/ap3.py",
+   "{file}"
+  ],
+  "cubepsd": [
+   "python3",
+   "{mt}/adapters/cubepsd.py",
+   "{file}"
+  ],
+  "vtable": [
+   "python3",
+   "{mt}/adapters/vtable.py",
+   "{file}",
+   "{run}"
+  ],
+  "claimbox": [
+   "python3",
+   "{mt}/adapters/claimbox.py",
+   "{file}"
+  ],
+  "mfg": [
+   "python3",
+   "{mt}/adapters/mfg.py",
+   "{file}"
+  ],
+  "pycore": [
+   "python3",
+   "{mt}/adapters/pycore.py",
+   "{file}"
+  ],
+  "lamp": [
+   "python3",
+   "{mt}/adapters/lamp.py",
+   "{file}"
+  ]
+ }
+}

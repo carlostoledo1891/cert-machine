@@ -1,0 +1,7 @@
+inherited/baseline/ring.json: CERTIFIED | 4 states, exact rates: C1 = 3/10 and C2 = 2/25 exactly; sigma in [2.19722457733, 2.19722457734] k_B/s, so g = sigma/r in [1.09861228866, 1.09861228867
+inherited/baseline/best4.json: CERTIFIED | 4 states, two free rates (0->1, 1->0): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit intervals); sigma i
+inherited/baseline/best8.json: CERTIFIED | 8 states, two free rates (0->1, 1->0): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit intervals); sigma i
+control/prior/K1-ring-claim-2.1.json: REFUTED | 4 states, exact rates: C1 = 3/10 and C2 = 2/25 exactly; but sigma in [2.19722457733, 2.19722457734] k_B/s, so g = sigma/r in [1.09861228866, 1.0986122
+control/prior/K2-ring-target-off.json: REFUTED | the exact rates give C1 = 3/10 and C2 = 2/25, not the target 3/10 and 81/1000
+control/prior/K3-best8-claim-0.99.json: REFUTED | 8 states, two free rates (0->1, 1->0): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit intervals); but sig
+control/prior/K4-best8-rate-perturbed.json: REFUSED | Krawczyk is not conclusive on this box (it does not map into its interior): no zero is proved; a smaller box around a better approximation usually suc

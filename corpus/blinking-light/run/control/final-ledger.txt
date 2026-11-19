@@ -1,0 +1,29 @@
+GENBOUND     gpt      theorem  READ ONCE (a theorem needs a second reading)   read by: claude: holds (re-derived)
+RING40       gpt      finite   CERTIFIED                                      read by: claude: holds
+AUXCLOCK     gpt      theorem  PROPOSED                                       read by: nobody
+JOINT        gpt      theorem  READ ONCE (a theorem needs a second reading)   read by: claude: holds (re-derived)
+EIGHT        control  finite   QUESTIONED                                     read by: gpt: error, claude: error   PLANTED; caught by: gpt, claude; passed as holding by: nobody
+LIFT         claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: gap, gpt: gap, gpt: holds
+DUALITY      claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: gap, gpt: holds (re-derived)
+SHARPER      control  theorem  QUESTIONED                                     read by: gpt: error, claude: error (re-derived)   PLANTED; caught by: gpt, claude; passed as holding by: nobody
+RING400      gpt      finite   CERTIFIED                                      read by: nobody
+RING96       gpt      finite   CERTIFIED                                      read by: claude: holds
+POTENTIAL    gpt      theorem  READ ONCE (a theorem needs a second reading)   read by: claude: holds (re-derived)
+AFFINE       gpt      theorem  READ ONCE (a theorem needs a second reading)   read by: claude: holds
+INTERIOR     gpt      theorem  READ ONCE (a theorem needs a second reading)   read by: claude: holds, claude: holds (re-derived)
+MIX42        claude   finite   CERTIFIED                                      read by: gpt: holds
+RATMIX84     gpt      finite   CERTIFIED                                      read by: claude: holds
+MIX156       claude   finite   CERTIFIED                                      read by: gpt: holds
+REDUCTION    claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+LOCALITY     claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+CERT211      claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+CERT211B     claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+CERT222      claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+CERT333      claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds
+CERT222G     claude   theorem  READ ONCE (a theorem needs a second reading)   read by: gpt: holds (re-derived)
+
+2 plant(s). gpt caught 2 of the 2 plant(s) it read (0 not read); claude caught 2 of the 2 plant(s) it read (0 not read).
+
+chains and pinned files intact
+
+Saved 2026-11-19T17:48Z, after g46 (GPT reads CERT222G: holds, re-derived), c27 (Claude reads INTERIOR sections 1-2: holds, re-derived) and g47 (GPT re-reads LIFT: holds on C1 < 1 only; the unqualified statement fails at C1 = 1; control note k54). Replaces the 17:33 UTC copy.

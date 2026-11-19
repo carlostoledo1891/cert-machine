@@ -1,0 +1,12 @@
+family 333 knots 34 points 2244 variables 309
+  round  0 rows  31416 bound 49.998151  violating 2189  least eig -1.227e+08 [9 s]
+  round  5 rows  41992 bound 2.209353  violating 2051  least eig -9.112e+04 [59 s]
+  round 10 rows  51564 bound 0.384069  violating 1481  least eig -1.638e+03 [136 s]
+  round 15 rows  56503 bound 0.363059  violating 523  least eig -1.519e+02 [277 s]
+  round 20 rows  58480 bound 0.362830  violating 255  least eig -4.392e+01 [623 s]
+  round 23 bound 0.362827: stable, stage 1 stops
+stage 1: bound 0.362827, feasible at samples: False
+stage 2 pass 0: bound 0.361376, feasible at samples: True; fine grid: least eig -0.0898, least D1 -0.00024, points to add 160
+stage 2 pass 1: bound 0.361376, feasible at samples: True; fine grid: least eig -0.0176, least D1 0.00021, points to add 9
+stage 2 pass 2: bound 0.361376, feasible at samples: True; fine grid: least eig 0.0137, least D1 0.00040, points to add 0
+written cert333.json rational bound 0.3613756

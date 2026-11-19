@@ -1,0 +1,17 @@
+family 211 knots 46 points 5625 variables 187
+  round  0 rows 123750 bound 0.659627  violating 5194  least eig -4.752e+03 [9 s]
+  round  5 rows 143125 bound 0.356407  violating 1337  least eig -5.861e+00 [64 s]
+  round 10 rows 146646 bound 0.354663  violating 290  least eig -1.399e+00 [125 s]
+  round 15 rows 148792 bound 0.354624  violating 283  least eig -5.606e+02 [214 s]
+  round 20 rows 150200 bound 0.354623  violating 225  least eig -3.058e+01 [309 s]
+  round 25 rows 151161 bound 0.354623  violating 91  least eig -6.816e-01 [389 s]
+  round 30 rows 151717 bound 0.354623  violating 144  least eig -4.817e+00 [472 s]
+  round 35 rows 152351 bound 0.354623  violating 57  least eig -1.883e+00 [547 s]
+  round 40 rows 152659 bound 0.354623  violating 268  least eig -8.435e+04 [674 s]
+  round 45 rows 153349 bound 0.354623  violating 71  least eig -2.150e+00 [763 s]
+  round 50 rows 154114 bound 0.354623  violating 225  least eig -2.428e+01 [854 s]
+  round 55 rows 154880 bound 0.354623  violating 186  least eig -2.126e+02 [954 s]
+stage 1: bound 0.354623, feasible at samples: False
+stage 2 pass 0: bound 0.353204, feasible at samples: True; fine grid: least eig -0.0168, least D1 0.00057, points to add 9
+stage 2 pass 1: bound 0.353204, feasible at samples: True; fine grid: least eig 0.0076, least D1 0.00057, points to add 0
+written cert211b.json rational bound 0.3532012

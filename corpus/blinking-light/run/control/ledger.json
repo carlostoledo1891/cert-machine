@@ -1,0 +1,737 @@
+[
+ {
+  "id": "GENBOUND",
+  "author": "gpt",
+  "registered": true,
+  "source": "g3",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "For every stationary finite-state jump chain with states even under time reversal and a lamp f in {-1,1}, read at Poisson rate r: sigma/r >= 4 delta/(1 - sqrt(delta)/2)^2 with delta = C1^2 - C2 > 0; at C1 = 3/10, C2 = 2/25 this is g >= 16/361 = 0.04432.",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": true,
+    "msg": "c19",
+    "order": 112
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k5",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "RING40",
+  "author": "gpt",
+  "registered": true,
+  "source": "g6",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 40-state ring of gpt/certified-ring-40.json reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with sigma <= 0.913 k_B/s, so g(3/10, 2/25) <= 0.4565 (the track reports g in [0.456145913167, 0.456145913168]).",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": false,
+    "msg": "c25",
+    "order": 118
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k7"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "AUXCLOCK",
+  "author": "gpt",
+  "registered": true,
+  "source": "g7",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "For every stationary finite-state jump chain with even states and a lamp in {-1,1} read at Poisson rate r, with c = C1, q = C2, delta = c^2 - q > 0 and any t >= 0 with t^2 < 4(1+t): sigma/r >= delta(1+t)[4(1+t) - t^2]/[1 + 2ct + qt^2]; at the target, t = 19/10 gives g >= 23171/242880 > 0.0954.",
+  "readers": [],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k11",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "PROPOSED"
+ },
+ {
+  "id": "JOINT",
+  "author": "gpt",
+  "registered": true,
+  "source": "g9",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "For every stationary finite-state jump chain with even states and a lamp in {-1,1} read at Poisson rate r, with c = C1, delta = C1^2 - C2 > 0, t >= 0, lambda = 1 + t and t^2 <= 4 lambda: sigma/r >= 4 delta lambda^2/[(1 + tc)^2 - 4 lambda delta]; at the target, t = 2 + 2 sqrt 2 gives g >= (239 + 166 sqrt 2)/2009 = 0.235818...",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": true,
+    "msg": "c18",
+    "order": 111
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k13",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "EIGHT",
+  "author": "control",
+  "registered": false,
+  "source": null,
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The eight-state ring of inherited/baseline/best8.json, as it stands (no rate changed), dissipates at most 0.9 k_B per second, so g(3/10, 2/25) <= 0.45 already at eight states.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "error",
+    "rederived": false,
+    "msg": "g12",
+    "order": 27
+   },
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "error",
+    "rederived": false,
+    "msg": "c16",
+    "order": 109
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": null,
+  "status": "QUESTIONED"
+ },
+ {
+  "id": "LIFT",
+  "author": "claude",
+  "registered": true,
+  "source": "c4",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Theorem L of claude/lifting.md: g(c, q) is the infimum of the entropy production over finitely supported measures (nu, Q) on Omega = [-1,1]^2 x {-1,1} subject to stationarity, F1, F2 and the three scalar constraints, all linear; hence g(c, q) is a convex function of (c, q), vanishing exactly on the equilibrium region.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "gap",
+    "rederived": false,
+    "msg": "g17",
+    "order": 34
+   },
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "gap",
+    "rederived": false,
+    "msg": "g20",
+    "order": 43
+   },
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": false,
+    "msg": "g47",
+    "order": 126
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k17",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "DUALITY",
+  "author": "claude",
+  "registered": true,
+  "source": "c4",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Theorem D of claude/lifting.md (weak duality): if psi, beta, gamma on Omega and l1, l2, mu satisfy (D1) pointwise and (D2) for every pair, then every finite network has sigma/r >= l1 C1 + l2 C2 + mu.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "gap",
+    "rederived": false,
+    "msg": "g17",
+    "order": 34
+   },
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g19",
+    "order": 42
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k18",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "SHARPER",
+  "author": "control",
+  "registered": false,
+  "source": null,
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "JOINT sharpened: on every edge J log(x/y) >= (5/2) J^2/H, so inequality (1) holds with 4g/5 in place of g and the theorem improves to g >= 5 delta lambda^2/[(1 + tc)^2 - 4 lambda delta]; at the target, t = 2 + 2 sqrt 2 gives g >= 0.29477.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "error",
+    "rederived": false,
+    "msg": "g18",
+    "order": 41
+   },
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "error",
+    "rederived": true,
+    "msg": "c17",
+    "order": 110
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": null,
+  "status": "QUESTIONED"
+ },
+ {
+  "id": "RING400",
+  "author": "gpt",
+  "registered": true,
+  "source": "g24",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 400-state ring of gpt/reordered-ring-400.json reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with g <= 886283814027/2000000000000 = 0.4431419070135 (seeded from the Claude track's 40-state asymmetric fit).",
+  "readers": [],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k29"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "RING96",
+  "author": "gpt",
+  "registered": true,
+  "source": "g11",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 96-state ring of gpt/reordered-ring-96.json reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with g <= 0.454001755912.",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": false,
+    "msg": "c26",
+    "order": 119
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k30"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "POTENTIAL",
+  "author": "gpt",
+  "registered": true,
+  "source": "g16",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary jump network with Poisson snapshot correlations C1 = 3/10, C2 = 2/25 has sigma/r >= 64/245 = 0.2612245, by an edge inequality and a finite rational certificate (two odd piecewise-linear functions a, b in gpt/potential-refined.json, Gamma = 147/1000, 1,651 boxes).",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": true,
+    "msg": "c5",
+    "order": 52
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k26",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "AFFINE",
+  "author": "gpt",
+  "registered": true,
+  "source": "g25",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "The certificate of POTENTIAL gives, for every finite network with any snapshot correlations, sigma/r >= (4000/147)[(14/25) C1 - C2 - 49/625] (64/245 at the target).",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": false,
+    "msg": "c20",
+    "order": 113
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k27",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "INTERIOR",
+  "author": "gpt",
+  "registered": true,
+  "source": "g28",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite-entropy realizable pair (C1, C2) with C1 < 1 is an interior point of the finite-entropy moment region, and requiring irreducibility leaves the exact-target infimum unchanged; this closes LIFT's converse on its finite-value, nonconstant domain.",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": false,
+    "msg": "c22",
+    "order": 115
+   },
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": true,
+    "msg": "c27",
+    "order": 125
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "MIX42",
+  "author": "claude",
+  "registered": true,
+  "source": "c7",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 42-state irreducible network of claude/mix42.json (a 40-state ring carrying the current, a two-state equilibrium telegraph, one bridge edge) reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with sigma <= 0.76683 k_B/s, so g(3/10, 2/25) <= 0.383415.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": false,
+    "msg": "g34",
+    "order": 73
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k32"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "RATMIX84",
+  "author": "gpt",
+  "registered": true,
+  "source": "g33",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 84-state irreducible network of gpt/rational-mixture-84.json (an 80-state ring and two reversible telegraphs, all rates rational, no free rates) reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with g <= 0.377876231746.",
+  "readers": [
+   {
+    "by": "claude",
+    "family": "anthropic",
+    "result": "holds",
+    "rederived": false,
+    "msg": "c21",
+    "order": 114
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k34"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "MIX156",
+  "author": "claude",
+  "registered": true,
+  "source": "c9",
+  "kind": "finite",
+  "grade": null,
+  "credence": null,
+  "statement": "The 156-state irreducible network of claude/mix156.json (a 154-state ring, a two-state equilibrium telegraph, one bridge edge) reproduces C1 = 3/10 and C2 = 2/25 exactly at r = 2 with sigma <= 0.754257 k_B/s, so g(3/10, 2/25) <= 0.3771285.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": false,
+    "msg": "g40",
+    "order": 87
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": {
+   "word": "CERTIFIED",
+   "by": "lamp",
+   "msg": "k37"
+  },
+  "status": "CERTIFIED"
+ },
+ {
+  "id": "REDUCTION",
+  "author": "claude",
+  "registered": true,
+  "source": "c8",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "With R(m) = sup over networks of (||d||^2 - ||h - m f||^2)/sigma, every network has g(c, q) >= sup_m (2mc - m^2 - q)/R(m), with equality when a telegraph with C1 = m plus a maximiser of R(m) reaches the target with weights in [0, 1].",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g37",
+    "order": 82
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "LOCALITY",
+  "author": "claude",
+  "registered": true,
+  "source": "c10",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Theorem C of claude/locality.md: if psi, beta, gamma are continuous and piecewise smooth on a finite straight-line partition of the square and, at every interior point, 4[[2 p_h, p_d + q_h],[p_d + q_h, 2 q_d]] - xi xi^T is positive semidefinite (xi = (2q - psi_h, 2p - psi_d), p = (beta+gamma)/2, q = (beta-gamma)/2), then (D2) of Theorem D holds for all pairs; with Lemma S (an edge replaced exactly by a chain through zero-mass labels).",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g39",
+    "order": 86
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "CERT211",
+  "author": "claude",
+  "registered": true,
+  "source": "c11",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with l1 = 2006731/100000, l2 = -3573121/100000, mu = -282241/100000 (claude/cert211.json); at the target g(3/10, 2/25) >= 1696431/5000000 = 0.3392862. Rests on Theorems D and C (DUALITY, LOCALITY) and the exact finite check claude/verify_local.py on the certificate.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g41",
+    "order": 91
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k40",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "CERT211B",
+  "author": "claude",
+  "registered": true,
+  "source": "c12",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with the rationals of claude/cert211b.json; at the target g(3/10, 2/25) >= 883003/2500000 = 0.3532012. Same theorems (DUALITY, LOCALITY) and verifier as CERT211; a new certificate on 46 knots.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g42",
+    "order": 100
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k44",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "CERT222",
+  "author": "claude",
+  "registered": true,
+  "source": "c13",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with the rationals of claude/cert222.json; at the target g(3/10, 2/25) >= 1793781/5000000 = 0.3587562. Same theorems (DUALITY, LOCALITY) and verifier as CERT211B; six functions on 34 knots.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g43",
+    "order": 101
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k46",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "CERT333",
+  "author": "claude",
+  "registered": true,
+  "source": "c14",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with the rationals of claude/cert333.json; at the target g(3/10, 2/25) >= 903439/2500000 = 0.3613756. Same theorems (DUALITY, LOCALITY) and verifier; nine functions on 34 knots.",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": false,
+    "msg": "k48",
+    "order": 106,
+    "covers": null
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k49",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ },
+ {
+  "id": "CERT222G",
+  "author": "claude",
+  "registered": true,
+  "source": "c23",
+  "kind": "theorem",
+  "grade": null,
+  "credence": null,
+  "statement": "Every finite stationary network with a +-1 lamp read at Poisson rate r has sigma/r >= l1 C1 + l2 C2 + mu with the rationals of claude/cert222g.json; at the target g(3/10, 2/25) >= 1828627119/5000000000 = 0.3657254. Same theorems (DUALITY, LOCALITY) and verifier; the six-function family of cert222 on 62 knots (cert222f scaled by 9999/10000).",
+  "readers": [
+   {
+    "by": "gpt",
+    "family": "openai",
+    "result": "holds",
+    "rederived": true,
+    "msg": "g46",
+    "order": 124
+   }
+  ],
+  "objections": [],
+  "builds": [],
+  "tests": [
+   {
+    "result": "pass",
+    "msg": "k51",
+    "executed": true
+   },
+   {
+    "result": "pass",
+    "msg": "k52",
+    "executed": true
+   },
+   {
+    "result": "pass",
+    "msg": "k53",
+    "executed": true
+   }
+  ],
+  "executed": null,
+  "verdict": null,
+  "status": "READ ONCE (a theorem needs a second reading)"
+ }
+]

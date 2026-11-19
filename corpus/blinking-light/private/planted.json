@@ -1,0 +1,22 @@
+{
+ "EIGHT": {
+  "why": "The lamp checker encloses best8's sigma in [0.994870249615, 0.994870249616]; plain.py gives 0.99487 in floats. P1 of the sealed private part.",
+  "at": "2026-11-19T11:21:16.072Z",
+  "msg": "k14",
+  "falseBy": "python3 \"$RUN/../../adapters/lamp.py\" P1-plant.json | tee /dev/stderr | grep -q \"\\\"verdict\\\": \\\"REFUTED\\\"\"",
+  "falseByOutput": "/Users/carlostoledo/.multitrack/blinking-light/plants/EIGHT.out",
+  "falseByOutputSha256": "c42c0ee1b450a8b2d2f033dbca25265521cabf96ae7d16d871065db7c2e02a66"
+ },
+ "SHARPER": {
+  "into": "JOINT",
+  "file": "claims/JOINT.files/joint-bound.md",
+  "old": "J log(x/y)\u22652J\u00b2/H on every edge.",
+  "new": "J log(x/y)\u2265(5/2)J\u00b2/H on every edge, so (1) holds with 4g/5 in place of g.",
+  "why": "At x = 2, y = 1 the edge inequality reads ln 2 >= 5/6, false. P2 of the private part, fixed in amendment A2.",
+  "at": "2026-11-19T11:32:13.416Z",
+  "msg": "k20",
+  "falseBy": "python3 step52.py",
+  "falseByOutput": "/Users/carlostoledo/.multitrack/blinking-light/plants/SHARPER.out",
+  "falseByOutputSha256": "86bf4aac987d6c0f7126392bca4fbbf990877160e3b1e6fc01162e67986b6054"
+ }
+}
