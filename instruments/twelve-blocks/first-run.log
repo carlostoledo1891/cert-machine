@@ -1,0 +1,30 @@
+D1   CERTIFIED     1.4 s  inner certificate with N + w w^T/948: VERIFIED by instruments/delta3/verify.js; four slabs VERIFIED, each bound > 1/3792; cover complete: True
+D2   CERTIFIED     2.0 s  identity and the bounds on R_n: 45964 colourings (every colouring of every length 2..14; 200 seeded at each length 15..80)
+D3   CERTIFIED     5.0 s  least single-flip cost outside the windows >= 2m+2-o at m = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 118, 123
+D4   CERTIFIED     0.2 s  maxima 237 (at k, a, b = (236, 0, 0)) and 244 (at (242, 1, -1)); cutoffs even m >= 118, odd m >= 123; min k^2/237 - k = -14042/237; bands -14, -16; -2
+D5   CERTIFIED    72.7 s  M(B_m) = f + (m mod 2) at 28 scales (m = 1..24, 118, 123, 192, 195); six threshold counts; census m = 1..8: minimum 0, 51 masks at odd m (one index se
+D6   CERTIFIED   942.2 s  114 pieces of 24 sites walked in full (20 at m = 1, 39 at m = 2, 55 at m = 3): minimum 0, minimisers exactly the expected ones
+D7   CERTIFIED     2.2 s  M(C_n) - f(n) for n = 1..3288: equal at n and n + 1096 for every n <= 2192; minimum -369/548, maximum 1453/137 at residues [220, 876]
+D8   CERTIFIED     3.1 s  f(n) - 281/16 <= V(n) <= f(n) + 1453/137 at the 45 lengths of OEIS A121385; V(n), n <= 14, recomputed by exhaustion and equal; 9 anchors recounted
+D9   REFUTED       4.8 s  1,096 rows; c_0 = 0 (2 minimisers), c_548 = 2192 (102); c_r in [-1476, 3516]; multiplicities in [2, 536]; rounded_delta = 0 on 500 rows, at most 0; M(
+D10  CERTIFIED    32.3 s  the witness has M = (117 n^2 + c_r)/2192 - n/2 at the least n >= 92,000 of 24 residue classes; 8 of GPT's witnesses recounted. This is V(n) <= that va
+     refused  K1 the constant 947: 947: REFUSED (psd: P is not proved PSD — exact witness vᵀAv < 0 at pivot 129 (rescaled value -4.7149e-3))
+     refused  K2 the identity without R: fails on some colouring of length <= 8
+     refused  K2 the identity with -R: fails on some colouring of length <= 8
+     refused  K2 the identity d = 0 admitted: fails on some colouring of length <= 8
+     refused  K2 the identity T unrounded: fails on some colouring of length <= 8
+     refused  K3 the bound 2m+3-o: the least cost equals 2m+2-o at m = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 118, 123]
+     refused  K4 the maxima 236 and 243: the maxima are 237 and 244
+     refused  K4 the cutoffs 116 and 121: 2*116+2 = 234 < 237 and 2*121+1 = 243 < 244
+     refused  K5 the odd tie count 50: the census finds 51
+     refused  K5 the zero mask unique at every scale: at m = 1 there are 51 minimisers
+     refused  K5 the first-boundary swap costs m (the run's plant): at m = 4 the swap costs +2
+     refused  K5 the pair weight without the midpoint (-2 for sites 28, 34): the mixed term is -3; third sites [22, 31, 40]
+     refused  K6 a piece's tie count raised by one: the first piece has exactly 17 minimisers
+     refused  K7 period 548: fails first at n = 1
+     refused  K7 the maximum 1452/137: the maximum is 1453/137
+     refused  K8 V(n) >= f(n) for every n: V(n) < f(n) at n = [18, 38]
+     refused  K9 a row with c_r lowered by 2192: every lowered row disagrees with the count of C_n
+     refused  K9 a witness with its first listed site dropped: residue 548, n = 92612: M = 457757965 against 457757964
+
+written: certs/twelve-blocks.json  (D1 CERTIFIED, D2 CERTIFIED, D3 CERTIFIED, D4 CERTIFIED, D5 CERTIFIED, D6 CERTIFIED, D7 CERTIFIED, D8 CERTIFIED, D9 REFUTED, D10 CERTIFIED; controls refused 18 of 18; 1066 s)

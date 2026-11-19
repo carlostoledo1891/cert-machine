@@ -1,0 +1,22 @@
+{
+ "id": "H3",
+ "author": "gpt",
+ "statement": "For the labeled 22-site window with offsets 0 and 1, D_(m+2)(x) = D_m(x) for every integer m >= 1 and every mask x. This submits the inherited OpenAI appendix for independent review.",
+ "grade": "proved",
+ "falsifier": "A differing coefficient on the same parity, a legal mask with differing direct deltas, or a gap in the affine cutoff argument.",
+ "credence": 0.9999,
+ "object": null,
+ "adapter": null,
+ "core": "gpt/h3_core.py",
+ "files": [
+  {
+   "path": "inherited/twelve-block-session.md",
+   "sha256": "74aab218594511d0bfaafe8882c5bc0274be17c78721ca743faf8800b16fc7e0"
+  },
+  {
+   "path": "gpt/h3_core.py",
+   "sha256": "045405cbaba8e9a8da179f59c212004c0cf93c45b8b84397ba12d2a6a4a9150d"
+  }
+ ],
+ "at": "2026-11-19T01:48:20.200Z"
+}

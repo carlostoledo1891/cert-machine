@@ -1,0 +1,60 @@
+{
+ "what": "Who proposed what and who read what in the multitrack run twelve-blocks (2026-11-19 UTC), written by hand from the run's chat logs (corpus/twelve-blocks/run/chat). The report page states nothing about a proof or a reading that is not in this file. PROOF READ means a written proof was followed line by line by the reader named and no error was found; it is not a formal check.",
+ "models": {
+  "gpt": { "name": "GPT-6.2 Astra", "lab": "OpenAI", "id": "gpt-6.2-astra", "where": "the Codex extension, effort xhigh" },
+  "claude": { "name": "Claude Fable 5.2", "lab": "Anthropic", "id": "claude-fable-5-2", "where": "Claude Code" }
+ },
+ "run": { "firstMessage": "2026-11-19T01:47:43Z", "lastMessage": "2026-11-19T03:00:29Z", "minutes": 73, "messages": { "gpt": 31, "claude": 16, "controlRoom": 16 } },
+ "claims": [
+  { "id": "H3", "from": "gpt", "kind": "finite lemma", "status": "PROOF READ", "readBy": ["claude"],
+    "statement": "In the 22-site family (two sites at each of the eleven block boundaries), the cost of every pattern of flips is the same at scale m and at scale m + 2, for every m.",
+    "note": "Inherited from an earlier GPT session's appendix. Claude derived the coefficients from the definition before opening the code, recounted all 253 with no formula at eight scales, and redid the affine step symbolically." },
+  { "id": "WINDOW", "from": "gpt", "kind": "theorem", "status": "PROOF READ", "readBy": ["claude"],
+    "statement": "For every scale m, no pattern of flips inside the eleven windows of radius 2m around the boundaries (44m sites) goes below the twelve blocks. At odd m exactly 51 patterns tie, all inside the 22-site family; at even m only the empty one.",
+    "note": "Claude checked it from its own derivation, fixed before it read the proof: a positive definite quadratic polynomial in 22 integers whose non-positive points it enumerated." },
+  { "id": "GLOBAL", "from": "gpt and claude", "kind": "theorem", "status": "PROOF READ", "readBy": ["claude", "gpt"],
+    "statement": "For n = 548m with even m ≥ 118 or odd m ≥ 123, V(n) = 117n²/2192 − n/2 + (m mod 2), and the minimisers are exactly the twelve blocks and the tying patterns of the window theorem, with their colour exchanges: 2 at even m, 102 at odd m.",
+    "note": "GPT proved it from m ≥ 192 (even) and 195 (odd). Claude's sharper bound on what one flip can recover, with GPT's deletion argument, gave 128 and 131; Claude's constant 1/948 gave 118 and 123. Each read the other's step." },
+  { "id": "ROUNDED", "from": "gpt", "kind": "theorem", "status": "PROOF READ", "readBy": ["claude"],
+    "statement": "At every length n the twelve blocks rounded to the nearest integer have 117n²/2192 − n/2 plus a term that depends only on n mod 1096 and lies between −369/548 and 1453/137.",
+    "note": "Claude recounted every length up to 3,288 by counting triples and read the proof." },
+  { "id": "ALLN", "from": "claude", "kind": "theorem", "status": "PROOF READ", "readBy": ["gpt"],
+    "statement": "At every length n, 117n²/2192 − n/2 − 281/16 ≤ V(n) ≤ 117n²/2192 − n/2 + 1453/137. At every scale m, the twelve blocks are within 14 (even m) or 16 (odd m) of the minimum.",
+    "note": "The upper constant is GPT's (ROUNDED); Claude's own was 54. GPT rebuilt the certificates with its own program and re-derived the bounds." },
+  { "id": "PERIOD", "from": "gpt", "kind": "theorem", "status": "PROOF READ", "readBy": ["claude"],
+    "statement": "For every n ≥ 92,000, V(n) = (117n² + c_r)/2192 − n/2, where c_r depends only on r = n mod 1096: 1,096 integers between −1476 and 3516, with the number of minimisers for each.",
+    "note": "Claude computed the table of 1,096 values with a program written before it opened GPT's proof; the two tables agree on every row, in value and in number of minimisers." }
+ ],
+ "notDone": [
+  "The theorem is not decided here. No proof on this page has been checked by a machine, and each was read once, by the other model. No reader outside the two model families has read any of it.",
+  "Everything rests on δ₃ ≥ 117/2192, which is not a published theorem: it is this repository's own claim of October 2026, proved by five exact certificates that two independent programs accept, and not refereed. It also rests on two lemmas of that proof that are written on paper and that no machine has checked.",
+  "The lower bound of V is never computed here: no V(n) is known exactly beyond n = 45, and this repository recomputed it only to n = 14. What is decided on the lower side is the arithmetic the proofs display.",
+  "The window theorem is decided only on pieces of 24 sites. No full family of 44m sites was walked, at any scale.",
+  "Whether the twelve blocks are optimal at the smaller scales is open: every even m ≤ 116 and odd m ≤ 121, which includes n = 1,096. Neither model claims it. A plain single-flip search found nothing better at m ≤ 4.",
+  "The literature check was a web search of about thirty pages, not a survey; three older papers could not be opened."
+ ],
+ "conditions": [
+  "Both models worked in one shared folder and could read each other's files from the first minute. This was a collaboration, and nothing here compares the two.",
+  "The control room that answered their questions, ran the checks and wrote this repository's judge is Claude Fable 5.2, the same model as one of the two.",
+  "The Claude chat was opened in a window on this repository, so this repository's instructions were in its context. The run's rules told both models to use no memory of other conversations.",
+  "The pre-registration of the finite facts was written after the run, not before it; what the control room had already computed during the run is listed in it as prior observation.",
+  "The judge's author had read the brief, the chat and five of the models' notes before writing it. It opened none of their programs."
+ ],
+ "priorWork": [
+  { "who": "Parrilo, Robertson, Saracino", "year": 2008, "what": "On the asymptotic minimum number of monochromatic 3-term arithmetic progressions", "url": "https://arxiv.org/abs/math/0609532",
+    "says": "the twelve blocks, giving V(n) ≤ (117/2192)n²(1 + o(1)), and the lower bound 1675/32768; the colouring is locally optimal and they believe the bound sharp" },
+  { "who": "Butler, Costello, Graham", "year": 2010, "what": "Finding patterns avoiding many monochromatic constellations", "url": "https://doi.org/10.1080/10586458.2010.10390631",
+    "says": "block colourings give (117/2192)n² + O(n); no pattern with 11 or fewer blocks does better; they believe the correct value is (117/2192)n² + O(n)" },
+  { "who": "Butler, Graham, Lu", "year": 2012, "what": "Unrolling residues to avoid progressions", "url": "https://arxiv.org/abs/1209.2687",
+    "says": "conjectures that every 2-colouring of [n] has at least (117/2192)n² + O(n) monochromatic 3-term progressions" },
+  { "who": "Greenwood, Kariv, Williams", "year": 2023, "what": "From discrete to continuous: Monochromatic 3-term arithmetic progressions", "url": "https://arxiv.org/abs/2301.00336",
+    "says": "the twelve blocks are optimal, and unique, among antisymmetric colourings with at most twelve blocks" },
+  { "who": "OEIS", "year": 2014, "what": "A121385", "url": "https://oeis.org/A121385",
+    "says": "V(n) exactly for n ≤ 45, the last values by integer programming (R. Pratt)" },
+  { "who": "Koutschan, Wong", "year": 2020, "what": "Exact Lower Bounds for Monochromatic Schur Triples and Generalizations", "url": "https://arxiv.org/abs/1904.01925",
+    "says": "for Schur triples, a neighbouring problem, the exact minimum for every n: ⌊(n² − 4n + 6)/11⌋" },
+  { "who": "Sjöland", "year": 2014, "what": "Enumeration of monochromatic three term arithmetic progressions in two-colorings of cyclic groups", "url": "https://arxiv.org/abs/1408.1058",
+    "says": "3-term progressions in ℤ_n, exact for many residues, with constants depending on n mod 24" }
+ ],
+ "notFound": "An exact value of V(n) beyond n = 45; an exact extremal statement for infinitely many n; the coefficient −1/2 of the second term, or any proved lower bound at that precision; a correction periodic in n."
+}

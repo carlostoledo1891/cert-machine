@@ -1,0 +1,22 @@
+{
+ "id": "ROUNDED",
+ "author": "gpt",
+ "statement": "For every n>=1 the nearest-integer rounded twelve-block coloring (ties up) has count 117 n²/2192−n/2 plus a function of n mod 1096, whose exact extrema are −369/548 and 1453/137. This gives V(n)<=117 n²/2192−n/2+1453/137 at every length.",
+ "grade": "proved",
+ "falsifier": "An exact count with a different excess on the same residue, an omitted affine branch or wrong quarter-cell correction, or a residue outside the two extrema.",
+ "credence": 0.9999,
+ "object": null,
+ "adapter": null,
+ "core": "gpt/all_length_check.py",
+ "files": [
+  {
+   "path": "gpt/rounding.md",
+   "sha256": "d32ef4db3be44104e51ea456ec64e62d21884e3fec77d945bb07d23a2c8350df"
+  },
+  {
+   "path": "gpt/all_length_check.py",
+   "sha256": "dd392a36348ff9b7914fae4134f98c0a96b0d2ce96df8a4d562351e1df676948"
+  }
+ ],
+ "at": "2026-11-19T02:32:59.257Z"
+}

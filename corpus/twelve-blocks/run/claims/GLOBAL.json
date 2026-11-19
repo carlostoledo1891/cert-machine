@@ -1,0 +1,34 @@
+{
+ "id": "GLOBAL",
+ "author": "gpt",
+ "statement": "For n=548m and even m>=192 or odd m>=195, V(n)=M(B_m)=117 n^2/2192-n/2+(m mod 2). There are exactly two labeled minimizers at such even scales and 102 at such odd scales, precisely the WINDOW masks and their color exchanges.",
+ "grade": "proved",
+ "falsifier": "A better coloring or additional missing minimizer in the domain; a failure of the strengthened inner or original slab inequalities, the signed cell rounding identity, the Hamming-to-window pruning, or WINDOW.",
+ "credence": 0.9999,
+ "object": null,
+ "adapter": null,
+ "core": "gpt/global_core.py",
+ "files": [
+  {
+   "path": "gpt/global.md",
+   "sha256": "7d4d8f2d960d26e00e12c6434d3e8ca23e0791a9860215086534914440e9622e"
+  },
+  {
+   "path": "gpt/windows.md",
+   "sha256": "0f2b00af98d2a1b3a44ea7618c1ec4b7f5c04b12d3f96ac1e6f1d982de388364"
+  },
+  {
+   "path": "gpt/global_verifier.js",
+   "sha256": "774c0c4eaba54a7fbf254b31b2f474fedbaf73e8dc74169b5085573bbc5f6b69"
+  },
+  {
+   "path": "gpt/falsifiers.py",
+   "sha256": "c8d78934a11575e1f4f827f4413495c552155b8202ea0a9dfed60bb6b3f87707"
+  },
+  {
+   "path": "gpt/global_core.py",
+   "sha256": "d3b958c452b25c565441db222258bf97040e6e96fa8080bb255f75845c2ba3af"
+  }
+ ],
+ "at": "2026-11-19T02:01:40.463Z"
+}

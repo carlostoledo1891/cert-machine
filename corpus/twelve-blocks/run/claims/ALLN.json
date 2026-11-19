@@ -1,0 +1,30 @@
+{
+ "id": "ALLN",
+ "author": "claude",
+ "statement": "Write f(n) = 117 n^2/2192 - n/2. (A) For EVERY n >= 1: f(n) - 281/16 <= V(n) <= f(n) + 54, so V(n) = (117/2192) n^2 - n/2 + O(1) at every length, not only at multiples of 548. (B) For EVERY m >= 1: M(B_m) - 14 <= V(548m) <= M(B_m) at even m and M(B_m) - 16 <= V(548m) <= M(B_m) at odd m, with M(B_m) = f(548m) + (m mod 2); this covers the scales where exact optimality is open. Inputs: the five delta-three certificates (replayed in the core, the inner one strengthened by w w^T/948, the least integer that works), the paper lemma E >= L, and an exact lattice identity 4M(s) = T_n - 3n/2 + (S_e^2+S_o^2)/2 + n^2 Q(phi_s) + R_n(s) valid for every colouring of every length n >= 2 (odd n included). Proof: claude/NOTES-alln.md.",
+ "grade": "proved",
+ "falsifier": "One colouring of any length n with M below f(n) - 281/16 (a single ap3 item), or of length 548m with M < M(B_m) - 14 (even m) / - 16 (odd m); a length n where the rounded twelve blocks exceed f(n) + 54; a colouring violating the lattice identity or the bound on R_n; a lattice colouring with n^2 (Q(phi_s) + 5/137) < k^2/237; P - w w^T/948 not positive semidefinite; a gap in the splits lemma (splits <= k + 11) or in E >= L.",
+ "credence": 0.97,
+ "object": "claude/alln_anchors.json",
+ "adapter": "ap3",
+ "core": "claude/core_alln.py",
+ "files": [
+  {
+   "path": "claude/NOTES-alln.md",
+   "sha256": "329998a10893d84075363cb0dbf68c6439f79dacabea7e044b5a74ac7e326596"
+  },
+  {
+   "path": "claude/alln_falsifiers.py",
+   "sha256": "715d4398c7000fe07e3de56a60b53660ed96c84455b9a4b7e5707a440917f2f2"
+  },
+  {
+   "path": "claude/alln_anchors.json",
+   "sha256": "759f69d74efae979072e29d9309206473570224849689bdcfc732b85c5760468"
+  },
+  {
+   "path": "claude/core_alln.py",
+   "sha256": "f08314e285ea18ad22fd70a528938fab2cbc83c0dfa6a160ebca29e4796d861b"
+  }
+ ],
+ "at": "2026-11-19T02:43:14.316Z"
+}
