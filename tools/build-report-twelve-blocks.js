@@ -87,7 +87,7 @@ O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the record',
   title: TITLE,
   deck: 'I gave ' + GPT + ' (' + RD.models.gpt.lab + ') and ' + CLA + ' (' + RD.models.claude.lab + ') one identical message and one shared folder, and asked what happens when the best known colouring for a question of Ron Graham’s, twelve blocks of red and blue, is put on the integers. '
-    + 'In ' + minutes + ' minutes they proposed, and each read the other’s proof of, the exact least number of single-coloured 3-term progressions: at every length n = 548m from m = ' + d4.cutoffs.even + ' on, and at every length from 92,000 on. '
+    + 'In ' + minutes + ' minutes they proposed, and each read the other’s proof of, the exact least number of single-coloured 3-term progressions: at every length n = 548m with m even and at least ' + d4.cutoffs.even + ', or odd and at least ' + d4.cutoffs.odd + ', and at every length from 92,000 on. '
     + 'With Claude (Anthropic’s AI model, and the same model as one of the two), I then decided the finite facts those proofs display: ' + DS.length + ' statements, all certified, and ' + refused + ' planted wrong versions, all refused. '
     + 'The theorem itself is not decided here. No machine has checked the proofs, nobody outside the two models has read them, and they rest on a lower bound that is this repository’s own and is not refereed.'
 }));
@@ -98,7 +98,7 @@ O.push(C.figure({ hero: true, svgRaw: fig(900, 380, false), svgNarrowRaw: fig(36
 O.push(C.stats([
   { k: 'finite statements decided', v: DS.length + ' of ' + DS.length, n: 'all certified, each on a stated finite domain; ' + refused + ' planted wrong versions refused' },
   { k: 'proofs checked by a machine', v: '0', n: 'each proof was read once, by the other model; one finite lemma is checked in Lean' },
-  { k: 'least scale the proposed theorem covers', v: 'm = ' + d4.cutoffs.even, n: 'n = 548m; odd m from ' + d4.cutoffs.odd + '. Smaller scales are open' },
+  { k: 'least scale the proposed theorem covers', v: 'm = ' + d4.cutoffs.even, n: 'n = 548m with m even; odd m from ' + d4.cutoffs.odd + '. Every other scale is open' },
   { k: 'from the first message to the last', v: minutes + ' min', n: N(RD.run.messages.gpt + RD.run.messages.claude) + ' messages between the two models, in one shared folder' }
 ]));
 O.push(C.scope('This page reports one run of two models working together; it does not compare them. The mathematics is theirs. The checks and this page are mine, done with Claude, and the session that ran the checks is the same model as one of the two.'));
