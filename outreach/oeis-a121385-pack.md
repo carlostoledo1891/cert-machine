@@ -61,9 +61,24 @@ per term) but has not hit a wall.
 
 ---
 
+## The OEIS's rules on AI (read on 2026-11-19 at https://oeis.org/wiki/Use_of_AI_for_OEIS_Submissions; read it again before submitting)
+
+- The author is a person and "is responsible for the correctness of any content produced by a large language model".
+- FORBIDDEN: "using AI to generate the full text of comments"; pasting AI-generated text into the pink boxes as answers
+  to the editors; listing an AI tool as author or co-author; bulk or serial AI submissions without permission.
+- So THE COMMENT AND EXTENSION TEXTS ABOVE ARE NOTES, NOT TEXT TO PASTE: they were drafted by Claude. Write the comments
+  yourself, in your own words, from the facts in them, and answer the editors yourself. The terms and the b-file are
+  data, each proved by a checked certificate; those can go in as they are.
+- The page cites the test that an author should be able to give "a clear, expert-level talk" on the result. Before
+  submitting, be able to explain the certificate in your own words: the identity 4M = T + Σ w x_i x_j, the cubes, the
+  one positive semidefinite matrix per cube, and what the checker verifies (the page's section "the certificate").
+- The page does not require disclosing AI use. Disclose it anyway, in your own sentence in EXTENSIONS: it is true, it is
+  this repository's rule, and an editor who finds it out later will trust the terms less.
+
 ## Notes for the conversation with the editors
 
-- The OEIS asks contributors to say when AI was used. The EXTENSIONS line says it; do not shorten that away.
+- An earlier version of this file said the OEIS asks contributors to say when AI was used. That was written without
+  reading the policy; the policy is the section above.
 - If an editor asks how to check a term: `python3 instruments/twelve-blocks/exact/cubepsd.py` is not needed; the command is
   `python3 instruments/twelve-blocks/exact/judge.py --only U1` in the public repository (about four minutes for all 95
   rows); the certificates are in `corpus/twelve-blocks-2/certificates/` (xz), their format in
