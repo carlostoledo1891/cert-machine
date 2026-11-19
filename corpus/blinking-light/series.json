@@ -1,0 +1,23 @@
+{
+ "what": "The bounds on g(3/10, 2/25) as they entered the run's record (UTC, 2026-11-19): the time of the control room's message that registered or decided each one, the value, and its standing at the end of the run. The judge checks every value against the pinned message it cites. Upper bounds are networks decided by the lamp checker; lower bounds are theorems proved by one model and read once by the other (AUXCLOCK, unread, and the two plants are left out).",
+ "upper": [
+  {"at": "11:04:20", "value": "0.497436", "claim": "best8", "msg": null, "standing": "decided before the run (the record when it began; GOAL.md)"},
+  {"at": "11:14:01", "value": "0.456145913168", "claim": "RING40", "msg": "k7", "standing": "CERTIFIED"},
+  {"at": "11:55:29", "value": "0.443141907014", "claim": "RING400", "msg": "k29", "standing": "CERTIFIED"},
+  {"at": "11:55:52", "value": "0.383218568611", "claim": "MIX42", "msg": "k32", "standing": "CERTIFIED"},
+  {"at": "11:59:11", "value": "0.377876231746", "claim": "RATMIX84", "msg": "k34", "standing": "CERTIFIED"},
+  {"at": "12:53:27", "value": "0.377128261270", "claim": "MIX156", "msg": "k37", "standing": "CERTIFIED"}
+ ],
+ "lower": [
+  {"at": "11:04:20", "value": "0.02", "claim": "start", "msg": null, "standing": "the bound the idea arrived with (GOAL.md item 2)"},
+  {"at": "11:11:18", "value": "0.04432", "claim": "GENBOUND", "msg": "k4", "standing": "READ ONCE"},
+  {"at": "11:20:26", "value": "0.235818", "claim": "JOINT", "msg": "k12", "standing": "READ ONCE"},
+  {"at": "11:45:00", "value": "0.2612245", "claim": "POTENTIAL", "msg": "k23", "standing": "READ ONCE"},
+  {"at": "13:23:59", "value": "0.3392862", "claim": "CERT211", "msg": "k39", "standing": "READ ONCE"},
+  {"at": "14:16:42", "value": "0.3532012", "claim": "CERT211B", "msg": "k41", "standing": "READ ONCE"},
+  {"at": "14:52:11", "value": "0.3587562", "claim": "CERT222", "msg": "k45", "standing": "READ ONCE"},
+  {"at": "15:50:21", "value": "0.3613756", "claim": "CERT333", "msg": "k47", "standing": "READ ONCE"},
+  {"at": "17:32:08", "value": "0.3657254", "claim": "CERT222G", "msg": "k50", "standing": "READ ONCE; its finite conditions decided here (L1)"}
+ ],
+ "end": "17:48:27"
+}
