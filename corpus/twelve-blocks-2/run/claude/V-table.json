@@ -1,0 +1,670 @@
+{
+"what": "V(n) for n = 1..95: each lower bound by a cube-psd-1 certificate, each upper bound by a colouring; every value equals run 1 periodic formula (117 n^2 + c_r)/2192 - n/2",
+"rows": [
+{
+"n": 1,
+"V": 0,
+"certificate": "certs/V1-ge-0.json",
+"cubes": 2,
+"colouring": "B"
+},
+{
+"n": 2,
+"V": 0,
+"certificate": "certs/V2-ge-0.json",
+"cubes": 2,
+"colouring": "RB"
+},
+{
+"n": 3,
+"V": 0,
+"certificate": "certs/V3-ge-0.json",
+"cubes": 2,
+"colouring": "RBB"
+},
+{
+"n": 4,
+"V": 0,
+"certificate": "certs/V4-ge-0.json",
+"cubes": 2,
+"colouring": "RBBR"
+},
+{
+"n": 5,
+"V": 0,
+"certificate": "certs/V5-ge-0.json",
+"cubes": 2,
+"colouring": "RBBRB"
+},
+{
+"n": 6,
+"V": 0,
+"certificate": "certs/V6-ge-0.json",
+"cubes": 2,
+"colouring": "RBBRRB"
+},
+{
+"n": 7,
+"V": 0,
+"certificate": "certs/V7-ge-0.json",
+"cubes": 2,
+"colouring": "RBBRRBB"
+},
+{
+"n": 8,
+"V": 0,
+"certificate": "certs/V8-ge-0.json",
+"cubes": 2,
+"colouring": "BRBRRBRB"
+},
+{
+"n": 9,
+"V": 1,
+"certificate": "certs/V9-ge-1.json",
+"cubes": 2,
+"colouring": "BRBBRRRBB"
+},
+{
+"n": 10,
+"V": 1,
+"certificate": "certs/V10-ge-1.json",
+"cubes": 2,
+"colouring": "RBRBBRRBBR"
+},
+{
+"n": 11,
+"V": 2,
+"certificate": "certs/V11-ge-2.json",
+"cubes": 2,
+"colouring": "RRBRBBRRRBB"
+},
+{
+"n": 12,
+"V": 2,
+"certificate": "certs/V12-ge-2.json",
+"cubes": 2,
+"colouring": "RBRBBRRRBRBB"
+},
+{
+"n": 13,
+"V": 3,
+"certificate": "certs/V13-ge-3.json",
+"cubes": 2,
+"colouring": "RRBRBBRRRBRBB"
+},
+{
+"n": 14,
+"V": 4,
+"certificate": "certs/V14-ge-4.json",
+"cubes": 4,
+"colouring": "RBRRBBBRRRBRBB"
+},
+{
+"n": 15,
+"V": 5,
+"certificate": "certs/V15-ge-5.json",
+"cubes": 2,
+"colouring": "RRBRRBBBRRRBBRB"
+},
+{
+"n": 16,
+"V": 6,
+"certificate": "certs/V16-ge-6.json",
+"cubes": 2,
+"colouring": "RRBRRBBBBRRRBBRB"
+},
+{
+"n": 17,
+"V": 7,
+"certificate": "certs/V17-ge-7.json",
+"cubes": 2,
+"colouring": "RRBRRBBBBRRRBBRBR"
+},
+{
+"n": 18,
+"V": 8,
+"certificate": "certs/V18-ge-8.json",
+"cubes": 2,
+"colouring": "RRBRRBBBBRRRRBBRBB"
+},
+{
+"n": 19,
+"V": 10,
+"certificate": "certs/V19-ge-10.json",
+"cubes": 2,
+"colouring": "RRBRRBBBBRRRRBBRRBB"
+},
+{
+"n": 20,
+"V": 12,
+"certificate": "certs/V20-ge-12.json",
+"cubes": 4,
+"colouring": "RRBRRBBBBRRRRBBRRBBB"
+},
+{
+"n": 21,
+"V": 14,
+"certificate": "certs/V21-ge-14.json",
+"cubes": 12,
+"colouring": "RRBRRRBBBBBRRRRBBBRBR"
+},
+{
+"n": 22,
+"V": 16,
+"certificate": "certs/V22-ge-16.json",
+"cubes": 18,
+"colouring": "RRBRRBBBBBRRRRRBBRRBBB"
+},
+{
+"n": 23,
+"V": 18,
+"certificate": "certs/V23-ge-18.json",
+"cubes": 24,
+"colouring": "BBBRRBBBRRRRRBBBBBRRBRR"
+},
+{
+"n": 24,
+"V": 20,
+"certificate": "certs/V24-ge-20.json",
+"cubes": 22,
+"colouring": "RBRBRRBBBBBRRRRRBBBRRBBR"
+},
+{
+"n": 25,
+"V": 22,
+"certificate": "certs/V25-ge-22.json",
+"cubes": 16,
+"colouring": "BRBBRBBBRRRRRRBBBBBRRBBRR"
+},
+{
+"n": 26,
+"V": 24,
+"certificate": "certs/V26-ge-24.json",
+"cubes": 18,
+"colouring": "RRBBRRRBBBBBRRRRRRBBBRRBBB"
+},
+{
+"n": 27,
+"V": 26,
+"certificate": "certs/V27-ge-26.json",
+"cubes": 8,
+"colouring": "RRRBBRRRBBBBBBRRRRRRBBBRRBB"
+},
+{
+"n": 28,
+"V": 28,
+"certificate": "certs/V28-ge-28.json",
+"cubes": 4,
+"colouring": "RRRBBRRRBBBBBBRRRRRRBBBRRBBB"
+},
+{
+"n": 29,
+"V": 31,
+"certificate": "certs/V29-ge-31.json",
+"cubes": 8,
+"colouring": "RRRBBRRRBBBBBBRRRRRRBBBRRBRBB"
+},
+{
+"n": 30,
+"V": 34,
+"certificate": "certs/V30-ge-34.json",
+"cubes": 28,
+"colouring": "RRRBBRRRBBBBBBBRRRRRRBBBBRRBRB"
+},
+{
+"n": 31,
+"V": 37,
+"certificate": "certs/V31-ge-37.json",
+"cubes": 42,
+"colouring": "BBBBRRBBBRRRRRRRBBBBBBRRRBBRRBR"
+},
+{
+"n": 32,
+"V": 40,
+"certificate": "certs/V32-ge-40.json",
+"cubes": 80,
+"colouring": "RRBRRBBRRRBBBBBBBRRRRRRBBBBRRBRB"
+},
+{
+"n": 33,
+"V": 43,
+"certificate": "certs/V33-ge-43.json",
+"cubes": 70,
+"colouring": "RRRBBRRRRBBBBBBBRRRRRRRBBBBRRBBRB"
+},
+{
+"n": 34,
+"V": 46,
+"certificate": "certs/V34-ge-46.json",
+"cubes": 84,
+"colouring": "RRBRRBBRRRBBBBBBBRRRRRRRBBBBRRBBRB"
+},
+{
+"n": 35,
+"V": 49,
+"certificate": "certs/V35-ge-49.json",
+"cubes": 54,
+"colouring": "RRBRRBBRRRRBBBBBBBRRRRRRRBBBRRBBRBB"
+},
+{
+"n": 36,
+"V": 52,
+"certificate": "certs/V36-ge-52.json",
+"cubes": 40,
+"colouring": "RRRRBBBRRRRBBBBBBBBRRRRRRRRBBBBRRBBB"
+},
+{
+"n": 37,
+"V": 55,
+"certificate": "certs/V37-ge-55.json",
+"cubes": 14,
+"colouring": "RRBRRBBRRRRBBBBBBBBRRRRRRRBBBBRRRBRBB"
+},
+{
+"n": 38,
+"V": 58,
+"certificate": "certs/V38-ge-58.json",
+"cubes": 18,
+"colouring": "RRRRBBBRRRRBBBBBBBBRRRRRRRRBBBBRRBBRBB"
+},
+{
+"n": 39,
+"V": 62,
+"certificate": "certs/V39-ge-62.json",
+"cubes": 36,
+"colouring": "RRBRRBBRRRRBBBBBBBBRRRRRRRRBBBBBRRRBBBB"
+},
+{
+"n": 40,
+"V": 66,
+"certificate": "certs/V40-ge-66.json",
+"cubes": 46,
+"colouring": "RRRRBBBRRRRBBBBBBBBRRRRRRRRRBBBBRRRBBBBB"
+},
+{
+"n": 41,
+"V": 70,
+"certificate": "certs/V41-ge-70.json",
+"cubes": 80,
+"colouring": "RRRRBBBRRRRBBBBBBBBBRRRRRRRRRBBBBRRRBBBBB"
+},
+{
+"n": 42,
+"V": 74,
+"certificate": "certs/V42-ge-74.json",
+"cubes": 106,
+"colouring": "RRBRRBBRRRRBBBBBBBBBRRRRRRRRRBBBBBRRRBBRBB"
+},
+{
+"n": 43,
+"V": 78,
+"certificate": "certs/V43-ge-78.json",
+"cubes": 114,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBRRRRRRRRRBBBBRRRBBBBB"
+},
+{
+"n": 44,
+"V": 82,
+"certificate": "certs/V44-ge-82.json",
+"cubes": 58,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBRRRRRRRRRBBBBRRRBBBRBB"
+},
+{
+"n": 45,
+"V": 86,
+"certificate": "certs/V45-ge-86.json",
+"cubes": 64,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBRRRRRRRRRRBBBBBRRRBBBBB"
+},
+{
+"n": 46,
+"V": 90,
+"certificate": "certs/V46-ge-90.json",
+"cubes": 32,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBBRRRRRRRRRRBBBBBRRRBBRBB"
+},
+{
+"n": 47,
+"V": 95,
+"certificate": "certs/V47-ge-95.json",
+"cubes": 76,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBBRRRRRRRRRRBBBBBRRRBBRBBB"
+},
+{
+"n": 48,
+"V": 100,
+"certificate": "certs/V48-ge-100.json",
+"cubes": 188,
+"colouring": "RRBRRBBBRRRRRBBBBBBBBBBRRRRRRRRRRBBBBBBRRRBBRBBB"
+},
+{
+"n": 49,
+"V": 104,
+"certificate": "certs/V49-ge-104.json",
+"cubes": 76,
+"colouring": "RRBRRRBBBRRRRRBBBBBBBBBBRRRRRRRRRRRBBBBBRRRBBBBBB"
+},
+{
+"n": 50,
+"V": 110,
+"certificate": "certs/V50-ge-110.json",
+"cubes": 408,
+"colouring": "RRBRRRBBBRRRRRBBBBBBBBBBRRRRRRRRRRRBBBBBRRRBBBRBBB"
+},
+{
+"n": 51,
+"V": 114,
+"certificate": "certs/V51-ge-114.json",
+"cubes": 132,
+"colouring": "RRBRRRBBBRRRRRRBBBBBBBBBBBRRRRRRRRRRRBBBBBRRRBBRBBB"
+},
+{
+"n": 52,
+"V": 119,
+"certificate": "certs/V52-ge-119.json",
+"cubes": 156,
+"colouring": "RRBRRRBBBRRRRRRBBBBBBBBBBBRRRRRRRRRRRBBBBBBRRRBBRBBB"
+},
+{
+"n": 53,
+"V": 124,
+"certificate": "certs/V53-ge-124.json",
+"cubes": 96,
+"colouring": "RRBRRRBBBRRRRRRBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRBBBBBB"
+},
+{
+"n": 54,
+"V": 130,
+"certificate": "certs/V54-ge-130.json",
+"cubes": 186,
+"colouring": "RRRBRRRBBBBRRRRRBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRBBRBBB"
+},
+{
+"n": 55,
+"V": 135,
+"certificate": "certs/V55-ge-135.json",
+"cubes": 276,
+"colouring": "RRRRRRBBBBRRRRRRBBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRRBBBBB"
+},
+{
+"n": 56,
+"V": 140,
+"certificate": "certs/V56-ge-140.json",
+"cubes": 228,
+"colouring": "RRBRRRBBBBRRRRRRBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRRBBBRBBB"
+},
+{
+"n": 57,
+"V": 146,
+"certificate": "certs/V57-ge-146.json",
+"cubes": 192,
+"colouring": "RRRRRRBBBBRRRRRRBBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRRBBBBRBB"
+},
+{
+"n": 58,
+"V": 151,
+"certificate": "certs/V58-ge-151.json",
+"cubes": 146,
+"colouring": "RRRBRRRBBBBRRRRRRBBBBBBBBBBBBRRRRRRRRRRRRBBBBBBRRRRBBBBRBB"
+},
+{
+"n": 59,
+"V": 157,
+"certificate": "certs/V59-ge-157.json",
+"cubes": 170,
+"colouring": "RRRBRRRBBBBRRRRRRBBBBBBBBBBBBRRRRRRRRRRRRRBBBBBBBRRRRBBBBBB"
+},
+{
+"n": 60,
+"V": 163,
+"certificate": "certs/V60-ge-163.json",
+"cubes": 204,
+"colouring": "RRRBRRRBBBBRRRRRRBBBBBBBBBBBBRRRRRRRRRRRRRBBBBBBRRRRBBBRBBBB"
+},
+{
+"n": 61,
+"V": 169,
+"certificate": "certs/V61-ge-169.json",
+"cubes": 234,
+"colouring": "RRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBRRRRRRRRRRRRRBBBBBBBRRRRBBBRBB"
+},
+{
+"n": 62,
+"V": 174,
+"certificate": "certs/V62-ge-174.json",
+"cubes": 146,
+"colouring": "RRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBRRRRRRRRRRRRRBBBBBBBRRRRBBBRBBB"
+},
+{
+"n": 63,
+"V": 181,
+"certificate": "certs/V63-ge-181.json",
+"cubes": 258,
+"colouring": "RRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBRRRRRRRRRRRRRBBBBBBBRRRRBBBRBBBB"
+},
+{
+"n": 64,
+"V": 187,
+"certificate": "certs/V64-ge-187.json",
+"cubes": 168,
+"colouring": "RRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBRRRRRRRRRRRRRRBBBBBBBRRRRBBBRBBBB"
+},
+{
+"n": 65,
+"V": 194,
+"certificate": "certs/V65-ge-194.json",
+"cubes": 388,
+"colouring": "RRRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBBRRRRRRRRRRRRRRBBBBBBBRRRRBBBBRBB"
+},
+{
+"n": 66,
+"V": 200,
+"certificate": "certs/V66-ge-200.json",
+"cubes": 190,
+"colouring": "RRRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBBRRRRRRRRRRRRRRBBBBBBBRRRRRBBBBBBB"
+},
+{
+"n": 67,
+"V": 207,
+"certificate": "certs/V67-ge-207.json",
+"cubes": 250,
+"colouring": "RRRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBBRRRRRRRRRRRRRRBBBBBBBRRRRRBBBBBBBB"
+},
+{
+"n": 68,
+"V": 214,
+"certificate": "certs/V68-ge-214.json",
+"cubes": 560,
+"colouring": "RRRRBRRRBBBBRRRRRRRBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBBBB"
+},
+{
+"n": 69,
+"V": 220,
+"certificate": "certs/V69-ge-220.json",
+"cubes": 360,
+"colouring": "RRRRBRRRBBBBBRRRRRRRBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBRRRRRBBBBBBBB"
+},
+{
+"n": 70,
+"V": 228,
+"certificate": "certs/V70-ge-228.json",
+"cubes": 1194,
+"colouring": "RRRRBRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBRRRRRBBBBBBB"
+},
+{
+"n": 71,
+"V": 234,
+"certificate": "certs/V71-ge-234.json",
+"cubes": 396,
+"colouring": "RRRRBRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBRRRRRBBBBBBBB"
+},
+{
+"n": 72,
+"V": 241,
+"certificate": "certs/V72-ge-241.json",
+"cubes": 320,
+"colouring": "RRRRBRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBRBBB"
+},
+{
+"n": 73,
+"V": 248,
+"certificate": "certs/V73-ge-248.json",
+"cubes": 354,
+"colouring": "RRRRBRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBBBBB"
+},
+{
+"n": 74,
+"V": 256,
+"certificate": "certs/V74-ge-256.json",
+"cubes": 526,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBRBBB"
+},
+{
+"n": 75,
+"V": 263,
+"certificate": "certs/V75-ge-263.json",
+"cubes": 290,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBRBBB"
+},
+{
+"n": 76,
+"V": 270,
+"certificate": "certs/V76-ge-270.json",
+"cubes": 228,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBRBBBB"
+},
+{
+"n": 77,
+"V": 278,
+"certificate": "certs/V77-ge-278.json",
+"cubes": 482,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRBBBBBBBBRRRRRRBBBBRBBBB"
+},
+{
+"n": 78,
+"V": 286,
+"certificate": "certs/V78-ge-286.json",
+"cubes": 618,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRBBBBRBBBB"
+},
+{
+"n": 79,
+"V": 294,
+"certificate": "certs/V79-ge-294.json",
+"cubes": 718,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRBBBBRBBBB"
+},
+{
+"n": 80,
+"V": 302,
+"certificate": "certs/V80-ge-302.json",
+"cubes": 856,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRBBBBBBBBRRRRRBBBBBRBBBB"
+},
+{
+"n": 81,
+"V": 310,
+"certificate": "certs/V81-ge-310.json",
+"cubes": 648,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRBBBBRBBBB"
+},
+{
+"n": 82,
+"V": 318,
+"certificate": "certs/V82-ge-318.json",
+"cubes": 568,
+"colouring": "RRRRBRRRRBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBB"
+},
+{
+"n": 83,
+"V": 326,
+"certificate": "certs/V83-ge-326.json",
+"cubes": 374,
+"colouring": "RRRRBRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRBBBBBRBBBB"
+},
+{
+"n": 84,
+"V": 335,
+"certificate": "certs/V84-ge-335.json",
+"cubes": 842,
+"colouring": "RRRRBRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBBB"
+},
+{
+"n": 85,
+"V": 343,
+"certificate": "certs/V85-ge-343.json",
+"cubes": 826,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBB"
+},
+{
+"n": 86,
+"V": 352,
+"certificate": "certs/V86-ge-352.json",
+"cubes": 784,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBBB"
+},
+{
+"n": 87,
+"V": 361,
+"certificate": "certs/V87-ge-361.json",
+"cubes": 952,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBB"
+},
+{
+"n": 88,
+"V": 370,
+"certificate": "certs/V88-ge-370.json",
+"cubes": 1288,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBRBBBBB"
+},
+{
+"n": 89,
+"V": 379,
+"certificate": "certs/V89-ge-379.json",
+"cubes": 2000,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBBRBBBBB"
+},
+{
+"n": 90,
+"V": 388,
+"certificate": "certs/V90-ge-388.json",
+"cubes": 2114,
+"colouring": "RRRRRBRRRRRBBBBBBRRRRRRRRRBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRBBBBBBBBBRRRRRRBBBBBRBBBBB"
+},
+{
+"n": 91,
+"V": 397,
+"certificate": "certs/V91-ge-397.json",
+"cubes": 2254,
+"colouring": "RRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRBBBBBBBBBBRRRRRRRBBBBBRBBBB"
+},
+{
+"n": 92,
+"V": 406,
+"certificate": "certs/V92-ge-406.json",
+"cubes": 932,
+"colouring": "RRRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRBBBBBBBBBBRRRRRRBBBBBRBBBB"
+},
+{
+"n": 93,
+"V": 416,
+"certificate": "certs/V93-ge-416.json",
+"cubes": 2336,
+"colouring": "RRRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRBBBBBBBBBBRRRRRRBBBBBRRBBBB"
+},
+{
+"n": 94,
+"V": 425,
+"certificate": "certs/V94-ge-425.json",
+"cubes": 2094,
+"colouring": "RRRRRBRRRRRBBBBBBRRRRRRRRRRBBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRRBBBBBBBBBBRRRRRRBBBBRBBBBBB"
+},
+{
+"n": 95,
+"V": 435,
+"certificate": "certs/V95-ge-435.json",
+"cubes": 3146,
+"colouring": "RRRRBRRRRRBBBBBBBRRRRRRRRRRRBBBBBBBBBBBBBBBBBBBBRRRRRRRRRRRRRRRRRRRRBBBBBBBBBBRRRRRRRBBBBBRBBBB"
+}
+]
+}

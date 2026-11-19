@@ -1,0 +1,54 @@
+control 0  the clean run
+    verdict CERTIFIED   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:pass 8:pass 9:pass]   6.0 s
+    as expected: CERTIFIED
+
+control 1  the strengthening constant 947 instead of 948
+    verdict REFUSED, first refusal at item 6   [1:pass 2:pass 3:pass 4:pass 5:pass 6:FAIL 7:pass 8:FAIL 9:FAIL]   1.9 s
+    item 6: P - w w^T/947 is not proved positive definite: NOT (an exact vector v with v^T A v < 0, value -0.000029515252011784983, float least eigenvalue of the rescaled matrix -0.00002951525201173181)
+    CAUGHT
+
+control 2  one tangent entry doubled (operation 0, vector 0, entry 45: cell 69, value 14606602)
+    verdict CERTIFIED   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:pass 8:pass 9:pass]   5.6 s
+    NOT REFUSED: every rational v gives a true tangent inequality, so a perturbed file is a wrong certificate only if its replay no longer closes; this one still closes, and certifying it is sound (see sweep A for all 201 vectors)
+
+control 2b one tangent entry doubled (operation 1, vector 0, entry 40: cell 68, value 17784768)
+    verdict REFUSED, first refusal at item 8   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:pass 8:FAIL 9:FAIL]   3.9 s
+    item 8: H positive definite (shift 2^-42, least exact margin 1.472e-13); 120 operations, 201 tangent vectors replayed; 1 exclusion(s) NOT established: op 1 (cell 0 >= 1); exterior cells left with a possible flip: cell 7 (sites 31..32) <= 1, cell 122 (sites 517..518) <= 1; final mass budget 30; self-test of the replay algebra: exact on 30 point boxes, never above Y + (s.x)^2/4 + R/4 on 400 real flip vectors in random boxes (least gap 0.3680); 19 colourings with M <= M(B) found among flips of at most three sites of F, 0 of them outside the final box
+    CAUGHT
+
+control 3  one operation dropped (operation 1: {"action":"exclude","cell":0,"lower":1})
+    verdict REFUSED, first refusal at item 8   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:pass 8:FAIL 9:FAIL]   3.8 s
+    item 8: the replay ends as the text says, but the file holds 119 operations and 199 vectors, not 120 and 201; H positive definite (shift 2^-42, least exact margin 1.472e-13); 119 operations, 199 tangent vectors replayed; exterior cells left with a possible flip: cell 7 (sites 31..32) <= 1, cell 122 (sites 517..518) <= 1; final mass budget 30; self-test of the replay algebra: exact on 30 point boxes, never above Y + (s.x)^2/4 + R/4 on 400 real flip vectors in random boxes (least gap 0.4605); 19 colourings with M <= M(B) found among flips of at most three sites of F, 0 of them outside the final box
+    CAUGHT
+
+control 3b one operation dropped (operation 3: {"action":"exclude","cell":2,"lower":1})
+    verdict REFUSED, first refusal at item 8   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:pass 8:FAIL 9:FAIL]   3.7 s
+    item 8: H positive definite (shift 2^-42, least exact margin 1.472e-13); 119 operations, 196 tangent vectors replayed; 81 exclusion(s) NOT established: op 4 (cell 4 >= 1), op 5 (cell 6 >= 2), op 6 (cell 7 >= 2), op 7 (cell 9 >= 2), op 8 (cell 10 >= 1), op 9 (cell 11 >= 1), op 10 (cell 12 >= 1), op 11 (cell 13 >= 1), op 12 (cell 14 >= 1), op 13 (cell 15 >= 1), op 14 (cell 17 >= 2), op 15 (cell 18 >= 1), op 16 (cell 19 >= 1), op 17 (cell 20 >= 1), op 18 (cell 21 >= 1), op 19 (cell 22 >= 1), op 20 (cell 23 >= 1), op 21 (cell 24 >= 1), op 22 (cell 25 >= 1), op 23 (cell 26 >= 1), op 24 (cell 28 >= 2), op 25 (cell 29 >= 1), op 26 (cell 30 >= 1), op 27 (cell 31 >= 1), op 28 (cell 32 >= 1), op 29 (cell 33 >
+    CAUGHT
+
+control 4  the charging weights g set to 0 on the exterior cells
+    verdict REFUSED, first refusal at item 7   [1:pass 2:pass 3:pass 4:pass 5:pass 6:pass 7:FAIL 8:pass 9:FAIL]   3.5 s
+    item 7: the weights do not cover the charges (first at cell 0); numeric test: largest -R - sum g x found = 158; first counterexample: flipping {58} gives -R - sum g x = 1 > 0: the inequality is FALSE
+    CAUGHT
+
+control 5  F1 with b_i doubled on one cell (inner grid, cell 0, sites 1..8)
+    verdict REFUSED, first refusal at item 4   [1:pass 2:pass 3:pass 4:FAIL 5:pass 6:pass 7:pass 8:pass 9:FAIL]   3.6 s
+    item 4: F1 fails on grid 0 (130 cells) cell 0 (sites 1..8) at t = 1: sum of the 1 smallest h = 29/2 < 15
+    CAUGHT
+
+control 6  the baseline changed at one site far from every boundary (site 200)
+    verdict REFUSED, first refusal at item 2   [1:pass 2:FAIL 3:pass 4:FAIL 5:FAIL 6:FAIL 7:pass 8:FAIL 9:FAIL]   1.7 s
+    item 2: M(B) = 15811, not 15,756
+    item 4: F1 fails on grid 0 (130 cells) cell 0 (sites 1..8) at t = 1: sum of the 1 smallest h = 27/2 < 29/2
+    item 5: numeric test: Y < n^2 L(y) on a flip vector
+    CAUGHT
+
+sweep A  each tangent vector in turn, its largest entry doubled: the replay no longer reaches the conclusion in 191 of 201 cases; it still reaches it for (operation.vector) 0.0 0.1 0.2 5.8 10.1 14.2 109.0 111.1 116.0 119.0
+sweep A2 each tangent vector in turn replaced by twice itself: the replay no longer reaches the conclusion in 129 of 201 cases
+sweep B  each operation in turn dropped: the replay no longer reaches the conclusion in 33 of 120 cases (operations 0 3 4 5 6 7 8 9 14 15 16 24 26 37 38 51 54 55 71 72 83 84 92 93 94 99 101 102 104 111 112 113 114); in the other 87 it still reaches it, and the judge then refuses only because the file no longer holds 120 operations and 201 vectors
+sweep C  F1 with b_i doubled, each cell in turn: item 4 refuses 270 of 276; NOT refused (grid:cell[sites]): g0:58[241..248] g0:71[301..308] g1:37[137..140] g1:52[193..196] g1:93[353..356] g1:108[409..412]
+sweep D  the baseline changed at one site: 10:refused at item 2, 48:refused at item 2, 80:refused at item 2, 128:refused at item 2, 200:refused at item 2, 216:refused at item 2, 330:refused at item 2, 420:refused at item 2, 468:refused at item 2, 500:refused at item 2, 534:refused at item 2, 540:refused at item 2
+
+controls: the clean run is CERTIFIED and every scored control (1, 2b, 3, 3b, 4, 5, 6) is CAUGHT; control 2 is reported, not scored
+node controls.js  312.55s user 2.33s system 101% cpu 5:10.75 total
+EXIT 0

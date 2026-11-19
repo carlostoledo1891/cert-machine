@@ -303,6 +303,30 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
+     record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
+     terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing
+     where it is only proposed. LIGHT theme, no number, no label. */
+  'twelve-blocks-exact': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · fifty new exact values', path: '/reports/twelve-blocks-exact.html',
+    title: 'Fifty new exact values for a colouring problem, each with a certificate',
+    alt: 'A jagged line running left to right, drawn heavy and solid for its first half and ending in a dot, then continuing lighter to the right edge.',
+    get svgRaw() {
+      const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'twelve-blocks-exact.json'), 'utf8')).statements.U1.detail.rows;
+      const TB = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'twelve-blocks', 'run', 'gpt', 'optimum-residues.json'), 'utf8'));
+      const c = {}; for (const x of TB) c[x.residue] = x.excess_numerator;
+      const x0 = 130, x1 = 1070, yT = 190, yB = 470, XM = 190, lo = -0.8, hi = 1.7, f = (v) => v.toFixed(1);
+      const X = (n) => x0 + (n - 1) / (XM - 1) * (x1 - x0), Y = (v) => yT + (hi - v) / (hi - lo) * (yB - yT);
+      const dec = R.map((r) => [r.n, (2192 * r.V - (117 * r.n * r.n - 1096 * r.n)) / 2192]);
+      const pro = []; for (let n = R.length; n <= XM; n++) pro.push([n, c[n % 1096] / 2192]);
+      const d = (P) => P.map((q, k) => (k ? 'L' : 'M') + f(X(q[0])) + ' ' + f(Y(q[1]))).join(' ');
+      const last = dec[dec.length - 1];
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A jagged line, heavy and solid for its first half and ending in a dot, then continuing lighter" style="position:absolute;left:0;top:0">'];
+      o.push('<path d="' + d(pro) + '" fill="none" stroke="var(--ink-3)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<path d="' + d(dec) + '" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>');
+      o.push('<circle cx="' + f(X(last[0])) + '" cy="' + f(Y(last[1])) + '" r="8" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /reports/twelve-blocks.html (2026-11-19): the twelve blocks themselves, at their true proportions
      (28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28 out of 548), red blocks solid and blue blocks outlined, with the
      integer lattice as a row of ticks under them. LIGHT theme, no number, no label. */

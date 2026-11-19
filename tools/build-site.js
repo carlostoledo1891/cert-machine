@@ -416,6 +416,15 @@ const REPORTS = [
     n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'intmul-audit.json'), 'utf8')), g = P.Q1['google-cmu'], c = P.Q1.community;
       if (g.word !== 'CERTIFIED' || c.word !== 'REFUSED' || g.acceptedBy.length !== 3 || c.conLeche.word !== 'STOPPED') fail('the intmul card would misstate its record');
       return g.acceptedBy.length + ' checkers accept one proof · the other REFUSED on memory · ' + P.amendments.count + ' amendments declared'; })() },
+  /* fifty new exact values (2026-11-19, the second twelve-blocks run): the card's counts are read from the judge's record
+     and the card refuses if a statement is no longer certified, a control was missed or the table has a gap */
+  { g: 'ai', f: 'twelve-blocks-exact.html', k: 'a colouring problem · exact values with certificates',
+    title: 'Fifty new exact values for a colouring problem, each with a certificate',
+    desc: 'How few three-term progressions of one colour can a red and blue colouring of 1 to n have? The exact answer was known up to n = 45. Claude Fable 5.2 and GPT-6.2 Astra, working together, produced a certificate for every n up to 95; each is checked here in exact arithmetic by a program that shares no code with the search. These values depend on nothing but the definition. The two models’ theorems about every large n are read once and not decided.',
+    n: (() => { const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'twelve-blocks-exact.json'), 'utf8')), rows = P.statements.U1.detail.rows;
+      if (Object.keys(P.statements).some((x) => P.statements[x].verdict !== 'CERTIFIED') || P.controlsMissed.length || rows.some((r, i) => r.n !== i + 1) || rows.length !== 95 || !/NOT DECIDED/.test(P.theorems)) fail('the twelve-blocks-exact card would misstate its record');
+      const u = (P.unitScale || {}).V548;
+      return rows.length + ' exact values, ' + (rows.length - 45) + ' new · ' + fmt(rows.reduce((s, r) => s + (r.cubes || 0), 0)) + ' certificate pieces checked' + (u && u.verdict === 'CERTIFIED' ? ' · V(548) = 15,756 exactly' : '') + ' · ' + P.controls.length + ' planted wrong versions refused'; })() },
   /* twelve blocks on the integers (2026-11-19): two AI models propose an exact minimum; the card's counts are read from
      the judge's record and the card refuses if a finite statement is no longer certified or a control was missed */
   { g: 'ai', f: 'twelve-blocks.html', k: 'twelve blocks on the integers · two AI models, one judge',
@@ -2114,7 +2123,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks', 'twelve-blocks-exact']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
