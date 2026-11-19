@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-19 ~21:00 UTC)
+## TASKS BACKLOG — the standing menu (updated 2026-11-19 ~23:45 UTC)
 
 START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
   1. OWED, PROMISED IN PUBLIC. (a) The WSP re-grade is DONE: certs/wsp-dna-regrade.json (tools/wsp-regrade-dna.py,
@@ -25,9 +25,18 @@ START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
      score 49.7-56.3% floor (decided 54.2-60.6%); one answer their grader accepts is WRONG (number_theory/598: gold
      .0000672 = 21/312500, boxed 0.00006709). The reply with the table is POSTED on his word:
      https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7022785268 (promised "within the next day", delivered the same evening).
-     (b) The ℤ-in-ℚ equivalence file (elliotglazer/diophantine-z-q#6 → a pull request on Deicyde/diophantine-z-q
-     against 8ecaadef; "a few days"; needs a pod).
-  2. Then the next target: ask him.
+     (b) The ℤ-in-ℚ equivalence file is BUILT and CHECKED, NOT SENT: ZInQKernel/Contrib/OneProof/PrintedTheorem11.lean
+     (sha256 ffb91720…e9e0; Theorem 1.1 as printed ↔ ZInQ.FrozenTarget, standard axioms only) in the clone
+     ~/Projects/zq-scout/deicyde-8ecaadef, branch printed-theorem-11, commit 06a869aa8, NOT PUSHED. Checked on pod
+     8tp34ov5glo0r3 (cpu3m, 16 vCPU, US$0.88/h, 21:59-23:40 UTC, ≈ US$1.5, DELETED, get-pod 404): the file builds, and the
+     CONTRIBUTING discharge check (`lake build +Main +Discharges +PrintedTheorem11`, 16,562 jobs, 94 min) and `#discharges`
+     exit 0 (345 existing discharges, all standard axioms, none from the file, as expected). Log:
+     notes/zq-printed-theorem11-2026-11-19/pod-run.log; the PR body: notes/zq-printed-theorem11-pr.md (filled). On his
+     word: push to carlostoledo1891/diophantine-z-q, `gh pr create -R Deicyde/diophantine-z-q --base main --head
+     carlostoledo1891:printed-theorem-11`, then link the PR on elliotglazer/diophantine-z-q#6 (promised there).
+  2. The next target, SCOUTED on his word (OPEN, nothing built): exact certification of the SDP lower bounds on the 2D
+     J1-J2 Heisenberg ground-state energy (Wang et al., PRX 14, 031006, Table 11; the later 10x10 bounds of SciPost 21,
+     074). The row: corpus/targets.json qmb-ground-energy-2026-11 (prior art, the corrections, the plan). Waits for his go.
   3. His, any time: the OEIS edit of A121385 (his account); the outside readers for the twelve blocks and for the
      blinking light (two packs in outreach/); replies from Dobrynin and Stroujkova (his e-mail) or Greenwood (issue #1).
   Done today: three multitrack runs integrated and live (twelve-blocks, twelve-blocks-exact, blinking-light); run-3
