@@ -1,0 +1,2316 @@
+{
+ "what": "The finite facts of \"twelve blocks at finite length\": ten statements decided on stated finite domains, and the controls that must be refused. PRIVATE until its reveal.",
+ "saysFirst": "The theorem (V(548m) = M(B_m) for every even m >= 118 and odd m >= 123; V(n) to within a bounded error at every n; the exact V(n) for n >= 92,000) is NOT decided here. It was proposed by two AI models working together and read by each other, and it rests on the delta-three certificates (not refereed) and on two paper lemmas no machine has checked. This decides finite facts only: the constants, identities, counts and tables the proofs display, each on a stated finite domain.",
+ "preregistration": "notes/twelve-blocks-preregistration-2026-11-19.md",
+ "decidedOn": "2026-11-19",
+ "theorem": "NOT DECIDED HERE: proposed by two models, read once by the other family, its displayed finite facts decided below",
+ "statements": {
+  "D1": {
+   "verdict": "CERTIFIED",
+   "text": "inner certificate with N + w w^T/948: VERIFIED by instruments/delta3/verify.js; four slabs VERIFIED, each bound > 1/3792; cover complete: True",
+   "detail": {
+    "node": {
+     "cells": 130,
+     "widthsSum": "1",
+     "inner": [
+      {
+       "constant": 948,
+       "verdict": "VERIFIED",
+       "why": null
+      },
+      {
+       "constant": 947,
+       "verdict": "REFUSED",
+       "why": "psd: P is not proved PSD — exact witness vᵀAv < 0 at pivot 129 (rescaled value -4.7149e-3)"
+      }
+     ],
+     "theorem": "VERIFIED",
+     "cover": true,
+     "slabs": [
+      {
+       "file": "certs/delta3/slab-1_5-3_10-g24_4_8.json",
+       "verdict": "VERIFIED",
+       "bound": "6296384718336605890182449/22609041927129531731084058720",
+       "above1over3792": true
+      },
+      {
+       "file": "certs/delta3/slab-2_5-9_20-g8_4_0.json",
+       "verdict": "VERIFIED",
+       "bound": "50963377393403307885655938/185520059131196374275938963885",
+       "above1over3792": true
+      },
+      {
+       "file": "certs/delta3/slab-3_10-4_10-g24_4_8.json",
+       "verdict": "VERIFIED",
+       "bound": "302061852991525508034881073/995093408858134763756936327093",
+       "above1over3792": true
+      },
+      {
+       "file": "certs/delta3/slab-9_20-1_2-g8_4_0.json",
+       "verdict": "VERIFIED",
+       "bound": "336509882373552357045412601/725496284546822070496074644287",
+       "above1over3792": true
+      }
+     ]
+    }
+   },
+   "seconds": 1.4
+  },
+  "D2": {
+   "verdict": "CERTIFIED",
+   "text": "identity and the bounds on R_n: 45964 colourings (every colouring of every length 2..14; 200 seeded at each length 15..80)",
+   "detail": {
+    "colourings": 45964,
+    "identityCounterexample": [],
+    "boundCounterexample": []
+   },
+   "seconds": 2.0
+  },
+  "D3": {
+   "verdict": "CERTIFIED",
+   "text": "least single-flip cost outside the windows >= 2m+2-o at m = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 118, 123",
+   "detail": {
+    "scales": [
+     {
+      "m": 1,
+      "n": 548,
+      "sites outside": 504,
+      "least cost": 3,
+      "at site": 26,
+      "bound": 3
+     },
+     {
+      "m": 2,
+      "n": 1096,
+      "sites outside": 1008,
+      "least cost": 6,
+      "at site": 52,
+      "bound": 6
+     },
+     {
+      "m": 3,
+      "n": 1644,
+      "sites outside": 1512,
+      "least cost": 7,
+      "at site": 78,
+      "bound": 7
+     },
+     {
+      "m": 4,
+      "n": 2192,
+      "sites outside": 2016,
+      "least cost": 10,
+      "at site": 104,
+      "bound": 10
+     },
+     {
+      "m": 5,
+      "n": 2740,
+      "sites outside": 2520,
+      "least cost": 11,
+      "at site": 130,
+      "bound": 11
+     },
+     {
+      "m": 6,
+      "n": 3288,
+      "sites outside": 3024,
+      "least cost": 14,
+      "at site": 156,
+      "bound": 14
+     },
+     {
+      "m": 7,
+      "n": 3836,
+      "sites outside": 3528,
+      "least cost": 15,
+      "at site": 182,
+      "bound": 15
+     },
+     {
+      "m": 8,
+      "n": 4384,
+      "sites outside": 4032,
+      "least cost": 18,
+      "at site": 208,
+      "bound": 18
+     },
+     {
+      "m": 9,
+      "n": 4932,
+      "sites outside": 4536,
+      "least cost": 19,
+      "at site": 234,
+      "bound": 19
+     },
+     {
+      "m": 10,
+      "n": 5480,
+      "sites outside": 5040,
+      "least cost": 22,
+      "at site": 260,
+      "bound": 22
+     },
+     {
+      "m": 11,
+      "n": 6028,
+      "sites outside": 5544,
+      "least cost": 23,
+      "at site": 286,
+      "bound": 23
+     },
+     {
+      "m": 12,
+      "n": 6576,
+      "sites outside": 6048,
+      "least cost": 26,
+      "at site": 312,
+      "bound": 26
+     },
+     {
+      "m": 118,
+      "n": 64664,
+      "sites outside": 59472,
+      "least cost": 238,
+      "at site": 3068,
+      "bound": 238
+     },
+     {
+      "m": 123,
+      "n": 67404,
+      "sites outside": 61992,
+      "least cost": 247,
+      "at site": 3198,
+      "bound": 247
+     }
+    ],
+    "numpyTiedToDefinition": "all 548 single flips of B_1 recounted"
+   },
+   "seconds": 5.0
+  },
+  "D4": {
+   "verdict": "CERTIFIED",
+   "text": "maxima 237 (at k, a, b = (236, 0, 0)) and 244 (at (242, 1, -1)); cutoffs even m >= 118, odd m >= 123; min k^2/237 - k = -14042/237; bands -14, -16; -281/16, -35/2",
+   "detail": {
+    "maxima": {
+     "even": 237,
+     "odd": 244
+    },
+    "cutoffs": {
+     "even": 118,
+     "odd": 123
+    }
+   },
+   "seconds": 0.2
+  },
+  "D5": {
+   "verdict": "CERTIFIED",
+   "text": "M(B_m) = f + (m mod 2) at 28 scales (m = 1..24, 118, 123, 192, 195); six threshold counts; census m = 1..8: minimum 0, 51 masks at odd m (one index set), the zero mask alone at even m; 253 flip costs equal at m and m+2, m = 1..6",
+   "detail": {
+    "baseline": [
+     {
+      "m": 1,
+      "n": 548,
+      "M": 15756
+     },
+     {
+      "m": 2,
+      "n": 1096,
+      "M": 63568
+     },
+     {
+      "m": 3,
+      "n": 1644,
+      "M": 143440
+     },
+     {
+      "m": 4,
+      "n": 2192,
+      "M": 255368
+     },
+     {
+      "m": 5,
+      "n": 2740,
+      "M": 399356
+     },
+     {
+      "m": 6,
+      "n": 3288,
+      "M": 575400
+     },
+     {
+      "m": 7,
+      "n": 3836,
+      "M": 783504
+     },
+     {
+      "m": 8,
+      "n": 4384,
+      "M": 1023664
+     },
+     {
+      "m": 9,
+      "n": 4932,
+      "M": 1295884
+     },
+     {
+      "m": 10,
+      "n": 5480,
+      "M": 1600160
+     },
+     {
+      "m": 11,
+      "n": 6028,
+      "M": 1936496
+     },
+     {
+      "m": 12,
+      "n": 6576,
+      "M": 2304888
+     },
+     {
+      "m": 13,
+      "n": 7124,
+      "M": 2705340
+     },
+     {
+      "m": 14,
+      "n": 7672,
+      "M": 3137848
+     },
+     {
+      "m": 15,
+      "n": 8220,
+      "M": 3602416
+     },
+     {
+      "m": 16,
+      "n": 8768,
+      "M": 4099040
+     },
+     {
+      "m": 17,
+      "n": 9316,
+      "M": 4627724
+     },
+     {
+      "m": 18,
+      "n": 9864,
+      "M": 5188464
+     },
+     {
+      "m": 19,
+      "n": 10412,
+      "M": 5781264
+     },
+     {
+      "m": 20,
+      "n": 10960,
+      "M": 6406120
+     },
+     {
+      "m": 21,
+      "n": 11508,
+      "M": 7063036
+     },
+     {
+      "m": 22,
+      "n": 12056,
+      "M": 7752008
+     },
+     {
+      "m": 23,
+      "n": 12604,
+      "M": 8473040
+     },
+     {
+      "m": 24,
+      "n": 13152,
+      "M": 9226128
+     },
+     {
+      "m": 118,
+      "n": 64664,
+      "M": 223155464
+     },
+     {
+      "m": 123,
+      "n": 67404,
+      "M": 242469040
+     },
+     {
+      "m": 192,
+      "n": 105216,
+      "M": 590840448
+     },
+     {
+      "m": 195,
+      "n": 106860,
+      "M": 609449296
+     }
+    ],
+    "baselineFails": [],
+    "census": [
+     {
+      "m": 1,
+      "min": 0,
+      "ties": 51
+     },
+     {
+      "m": 2,
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 3,
+      "min": 0,
+      "ties": 51
+     },
+     {
+      "m": 4,
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 5,
+      "min": 0,
+      "ties": 51
+     },
+     {
+      "m": 6,
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 7,
+      "min": 0,
+      "ties": 51
+     },
+     {
+      "m": 8,
+      "min": 0,
+      "ties": 1
+     }
+    ],
+    "censusOK": true,
+    "coefficientsOK": true,
+    "thresholdCounts": [
+     "n = 105216, M = 590840448, M(B_192) = 590840448, difference +0",
+     "n = 105216, M = 590840450, M(B_192) = 590840448, difference +2",
+     "n = 105216, M = 590840834, M(B_192) = 590840448, difference +386",
+     "n = 106860, M = 609449296, M(B_195) = 609449296, difference +0",
+     "n = 106860, M = 609449296, M(B_195) = 609449296, difference +0",
+     "n = 106860, M = 609449687, M(B_195) = 609449296, difference +391"
+    ],
+    "mixed_28_34": -3,
+    "oddMinimisers": [
+     [],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      4,
+      6
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+     ],
+     [
+      1,
+      3,
+      5,
+      7
+     ],
+     [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+     ],
+     [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+     ],
+     [
+      2,
+      4,
+      6,
+      8
+     ],
+     [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+     ],
+     [
+      3,
+      5,
+      7,
+      9
+     ],
+     [
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      4,
+      6,
+      8,
+      10
+     ],
+     [
+      4,
+      6,
+      8,
+      10,
+      12
+     ],
+     [
+      5,
+      7
+     ],
+     [
+      5,
+      7,
+      9,
+      11
+     ],
+     [
+      5,
+      7,
+      9,
+      11,
+      13
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      6,
+      8,
+      10,
+      12
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      7,
+      9,
+      11,
+      13
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      8,
+      10,
+      12
+     ],
+     [
+      8,
+      10,
+      12,
+      14
+     ],
+     [
+      8,
+      10,
+      12,
+      14,
+      16
+     ],
+     [
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+     ],
+     [
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+     ],
+     [
+      9,
+      11,
+      13
+     ],
+     [
+      9,
+      11,
+      13,
+      15
+     ],
+     [
+      9,
+      11,
+      13,
+      15,
+      17
+     ],
+     [
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+     ],
+     [
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21
+     ],
+     [
+      10,
+      12,
+      14,
+      16
+     ],
+     [
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+     ],
+     [
+      11,
+      13,
+      15,
+      17
+     ],
+     [
+      11,
+      13,
+      15,
+      17,
+      19,
+      21
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      12,
+      14
+     ],
+     [
+      12,
+      14,
+      16,
+      18
+     ],
+     [
+      13,
+      15
+     ],
+     [
+      13,
+      15,
+      17,
+      19
+     ],
+     [
+      14,
+      15
+     ],
+     [
+      14,
+      16
+     ],
+     [
+      14,
+      16,
+      18,
+      20
+     ],
+     [
+      15,
+      17
+     ],
+     [
+      15,
+      17,
+      19,
+      21
+     ],
+     [
+      16,
+      17
+     ],
+     [
+      20,
+      21
+     ]
+    ]
+   },
+   "seconds": 72.7
+  },
+  "D6": {
+   "verdict": "CERTIFIED",
+   "text": "114 pieces of 24 sites walked in full (20 at m = 1, 39 at m = 2, 55 at m = 3): minimum 0, minimisers exactly the expected ones",
+   "detail": {
+    "pieces": [
+     {
+      "m": 1,
+      "windows": [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "min": 0,
+      "ties": 17
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ],
+      "min": 0,
+      "ties": 21
+     },
+     {
+      "m": 1,
+      "windows": [
+       3,
+       4,
+       5,
+       6,
+       7,
+       8
+      ],
+      "min": 0,
+      "ties": 22
+     },
+     {
+      "m": 1,
+      "windows": [
+       4,
+       5,
+       6,
+       7,
+       8,
+       9
+      ],
+      "min": 0,
+      "ties": 22
+     },
+     {
+      "m": 1,
+      "windows": [
+       5,
+       6,
+       7,
+       8,
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 21
+     },
+     {
+      "m": 1,
+      "windows": [
+       6,
+       7,
+       8,
+       9,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 17
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       4,
+       5,
+       6,
+       8,
+       11
+      ],
+      "min": 0,
+      "ties": 8
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       5,
+       7,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 7
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       5,
+       8,
+       9,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 10
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       5,
+       8,
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 7
+     },
+     {
+      "m": 1,
+      "windows": [
+       3,
+       4,
+       6,
+       7,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 9
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       3,
+       5,
+       6,
+       7,
+       10
+      ],
+      "min": 0,
+      "ties": 7
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       4,
+       7,
+       8,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 8
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       4,
+       7,
+       8,
+       9
+      ],
+      "min": 0,
+      "ties": 12
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       3,
+       4,
+       8,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 8
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       5,
+       6,
+       7,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 6
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       4,
+       6,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 6
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       2,
+       5,
+       8,
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 7
+     },
+     {
+      "m": 1,
+      "windows": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       11
+      ],
+      "min": 0,
+      "ties": 13
+     },
+     {
+      "m": 1,
+      "windows": [
+       1,
+       5,
+       7,
+       8,
+       9,
+       11
+      ],
+      "min": 0,
+      "ties": 11
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       2,
+       3
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       3,
+       4
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       4,
+       5
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       4,
+       5,
+       6
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       5,
+       6,
+       7
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       6,
+       7,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       7,
+       8,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       8,
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       9,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       3,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       4,
+       5,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       6,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       4,
+       7
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       4,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       6,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       8,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       5,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       6,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       2,
+       4
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       7,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       4,
+       6,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       7,
+       9,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       7,
+       8,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       2,
+       6
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       6,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       7,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       7,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       5,
+       6,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       4,
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       5,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       6,
+       7
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       4,
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       1,
+       2,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       3,
+       5,
+       9
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 2,
+      "windows": [
+       2,
+       5,
+       8
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       2
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       3
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       4
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       5
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       6
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       7
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       8
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       9
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       1,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       3
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       4
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       5
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       6
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       7
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       8
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       9
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 3,
+      "windows": [
+       2,
+       11
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       4
+      ],
+      "min": 0,
+      "ties": 5
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       5
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       6
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       7
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       8
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       9
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       3,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       5
+      ],
+      "min": 0,
+      "ties": 5
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       6
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       7
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       8
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       9
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       4,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       6
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       7
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       8
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       9
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       5,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       6,
+       7
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       6,
+       8
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       6,
+       9
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       6,
+       10
+      ],
+      "min": 0,
+      "ties": 1
+     },
+     {
+      "m": 3,
+      "windows": [
+       6,
+       11
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       7,
+       8
+      ],
+      "min": 0,
+      "ties": 5
+     },
+     {
+      "m": 3,
+      "windows": [
+       7,
+       9
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       7,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       7,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       8,
+       9
+      ],
+      "min": 0,
+      "ties": 5
+     },
+     {
+      "m": 3,
+      "windows": [
+       8,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       8,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       9,
+       10
+      ],
+      "min": 0,
+      "ties": 2
+     },
+     {
+      "m": 3,
+      "windows": [
+       9,
+       11
+      ],
+      "min": 0,
+      "ties": 3
+     },
+     {
+      "m": 3,
+      "windows": [
+       10,
+       11
+      ],
+      "min": 0,
+      "ties": 2
+     }
+    ]
+   },
+   "seconds": 942.2
+  },
+  "D7": {
+   "verdict": "CERTIFIED",
+   "text": "M(C_n) - f(n) for n = 1..3288: equal at n and n + 1096 for every n <= 2192; minimum -369/548, maximum 1453/137 at residues [220, 876]",
+   "detail": {
+    "firstNonPeriodic": [],
+    "secondProgramTo300": true
+   },
+   "seconds": 2.2
+  },
+  "D8": {
+   "verdict": "CERTIFIED",
+   "text": "f(n) - 281/16 <= V(n) <= f(n) + 1453/137 at the 45 lengths of OEIS A121385; V(n), n <= 14, recomputed by exhaustion and equal; 9 anchors recounted",
+   "detail": {
+    "V_minus_f": {
+     "min": -0.2937956204379562,
+     "max": 1.373631386861314
+    },
+    "exhaustion": {
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 0,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0,
+     "9": 1,
+     "10": 1,
+     "11": 2,
+     "12": 2,
+     "13": 3,
+     "14": 4
+    },
+    "anchors": [
+     "n = 45, M = 86",
+     "n = 100, M = 492",
+     "n = 547, M = 15697",
+     "n = 549, M = 15813",
+     "n = 1000, M = 52878",
+     "n = 1097, M = 63685",
+     "n = 5000, M = 1331900",
+     "n = 12000, M = 7680132",
+     "n = 30000, M = 48023322"
+    ]
+   },
+   "seconds": 3.1
+  },
+  "D9": {
+   "verdict": "CERTIFIED",
+   "text": "1,096 rows; c_0 = 0 (2 minimisers), c_548 = 2192 (102); c_r in [-1476, 3516]; multiplicities in [2, 536]; rounded_delta = 0 on 500 rows, never below -10; M(C_n) minus the row's value equals -rounded_delta at n = r + 3288 on 1096 of 1,096 rows",
+   "detail": {
+    "tableFacts": true,
+    "firstBadRow": [],
+    "reportedNotAVerdict": "the row's witness attains the row's value at n = r + 3288 on 1096 of 1,096 rows (the claim asserts it only from 92,000)"
+   },
+   "seconds": 4.8
+  },
+  "D10": {
+   "verdict": "CERTIFIED",
+   "text": "the witness has M = (117 n^2 + c_r)/2192 - n/2 at the least n >= 92,000 of 24 residue classes; 8 of GPT's witnesses recounted. This is V(n) <= that value at those lengths, nothing more",
+   "detail": {
+    "rows": [
+     {
+      "residue": 0,
+      "n": 92064,
+      "M of the witness": 452356464,
+      "the row's value": "452356464",
+      "equal": true
+     },
+     {
+      "residue": 548,
+      "n": 92612,
+      "M of the witness": 457757964,
+      "the row's value": "457757964",
+      "equal": true
+     },
+     {
+      "residue": 220,
+      "n": 92284,
+      "M of the witness": 454521098,
+      "the row's value": "454521098",
+      "equal": true
+     },
+     {
+      "residue": 876,
+      "n": 92940,
+      "M of the witness": 461006314,
+      "the row's value": "461006314",
+      "equal": true
+     },
+     {
+      "residue": 114,
+      "n": 92178,
+      "M of the witness": 453477492,
+      "the row's value": "453477492",
+      "equal": true
+     },
+     {
+      "residue": 126,
+      "n": 92190,
+      "M of the witness": 453595578,
+      "the row's value": "453595578",
+      "equal": true
+     },
+     {
+      "residue": 47,
+      "n": 92111,
+      "M of the witness": 452818475,
+      "the row's value": "452818475",
+      "equal": true
+     },
+     {
+      "residue": 870,
+      "n": 92934,
+      "M of the witness": 460946790,
+      "the row's value": "460946790",
+      "equal": true
+     },
+     {
+      "residue": 605,
+      "n": 92669,
+      "M of the witness": 458321639,
+      "the row's value": "458321639",
+      "equal": true
+     },
+     {
+      "residue": 321,
+      "n": 92385,
+      "M of the witness": 455516592,
+      "the row's value": "455516592",
+      "equal": true
+     },
+     {
+      "residue": 92,
+      "n": 92156,
+      "M of the witness": 453261046,
+      "the row's value": "453261046",
+      "equal": true
+     },
+     {
+      "residue": 808,
+      "n": 92872,
+      "M of the witness": 460331932,
+      "the row's value": "460331932",
+      "equal": true
+     },
+     {
+      "residue": 627,
+      "n": 92691,
+      "M of the witness": 458539290,
+      "the row's value": "458539290",
+      "equal": true
+     },
+     {
+      "residue": 325,
+      "n": 92389,
+      "M of the witness": 455556040,
+      "the row's value": "455556040",
+      "equal": true
+     },
+     {
+      "residue": 397,
+      "n": 92461,
+      "M of the witness": 456266395,
+      "the row's value": "456266395",
+      "equal": true
+     },
+     {
+      "residue": 54,
+      "n": 92118,
+      "M of the witness": 452887306,
+      "the row's value": "452887306",
+      "equal": true
+     },
+     {
+      "residue": 160,
+      "n": 92224,
+      "M of the witness": 453930231,
+      "the row's value": "453930231",
+      "equal": true
+     },
+     {
+      "residue": 988,
+      "n": 93052,
+      "M of the witness": 462118137,
+      "the row's value": "462118137",
+      "equal": true
+     },
+     {
+      "residue": 297,
+      "n": 92361,
+      "M of the witness": 455279941,
+      "the row's value": "455279941",
+      "equal": true
+     },
+     {
+      "residue": 108,
+      "n": 92172,
+      "M of the witness": 453418457,
+      "the row's value": "453418457",
+      "equal": true
+     },
+     {
+      "residue": 489,
+      "n": 92553,
+      "M of the witness": 457174876,
+      "the row's value": "457174876",
+      "equal": true
+     },
+     {
+      "residue": 774,
+      "n": 92838,
+      "M of the witness": 459994926,
+      "the row's value": "459994926",
+      "equal": true
+     },
+     {
+      "residue": 1085,
+      "n": 92053,
+      "M of the witness": 452248369,
+      "the row's value": "452248369",
+      "equal": true
+     },
+     {
+      "residue": 1055,
+      "n": 92023,
+      "M of the witness": 451953627,
+      "the row's value": "451953627",
+      "equal": true
+     }
+    ],
+    "gptWitnesses": [
+     "n = 92000, M = 451727723",
+     "n = 92284, M = 454521098",
+     "n = 92940, M = 461006314",
+     "n = 92190, M = 453595578",
+     "n = 92178, M = 453477492",
+     "n = 92114, M = 452847974",
+     "n = 92064, M = 452356464",
+     "n = 92612, M = 457757964"
+    ]
+   },
+   "seconds": 32.3
+  },
+  "L1": {
+   "verdict": "CERTIFIED",
+   "text": "Lean 4.35.0, core only: TwelveBlocks.lean compiles (exit 0, 40 s) and states signature (m + 2) = signature m for every m >= 1; axioms ['propext', 'Classical.choice', 'Quot.sound']; the #eval at m = 1..8 equals the appendix on 2024 numbers and whole-colouring recounts on 2024",
+   "detail": {
+    "version": "4.35.0",
+    "exit": 0,
+    "seconds": 40.2,
+    "statement": "theorem signature_period (m : Int) (hm : 1 ≤ m) : signature (m + 2) = signature m",
+    "stated": true,
+    "noSorryNativeDecideOrAxiom": true,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "axiomsOfEveryTheorem": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "evalEqualsKept": true,
+    "compare": {
+     "compared": 2024,
+     "mismatches": 0
+    },
+    "plantedRefused": true,
+    "plantedErrors": 4,
+    "tie": {
+     "compared": 2024,
+     "differ": 0
+    },
+    "sha256": "2fcdf43936d42d6aa68199f2e3cdf584430dc9c0e76b7e1c9af90a552c091eba"
+   },
+   "seconds": 49.8
+  }
+ },
+ "controls": [
+  {
+   "control": "K1 the constant 947",
+   "refused": true,
+   "text": "947: REFUSED (psd: P is not proved PSD — exact witness vᵀAv < 0 at pivot 129 (rescaled value -4.7149e-3))"
+  },
+  {
+   "control": "K2 the identity without R",
+   "refused": true,
+   "text": "fails on some colouring of length <= 8"
+  },
+  {
+   "control": "K2 the identity with -R",
+   "refused": true,
+   "text": "fails on some colouring of length <= 8"
+  },
+  {
+   "control": "K2 the identity d = 0 admitted",
+   "refused": true,
+   "text": "fails on some colouring of length <= 8"
+  },
+  {
+   "control": "K2 the identity T unrounded",
+   "refused": true,
+   "text": "fails on some colouring of length <= 8"
+  },
+  {
+   "control": "K3 the bound 2m+3-o",
+   "refused": true,
+   "text": "the least cost equals 2m+2-o at m = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 118, 123]"
+  },
+  {
+   "control": "K4 the maxima 236 and 243",
+   "refused": true,
+   "text": "the maxima are 237 and 244"
+  },
+  {
+   "control": "K4 the cutoffs 116 and 121",
+   "refused": true,
+   "text": "2*116+2 = 234 < 237 and 2*121+1 = 243 < 244"
+  },
+  {
+   "control": "K5 the odd tie count 50",
+   "refused": true,
+   "text": "the census finds 51"
+  },
+  {
+   "control": "K5 the zero mask unique at every scale",
+   "refused": true,
+   "text": "at m = 1 there are 51 minimisers"
+  },
+  {
+   "control": "K5 the first-boundary swap costs m (the run's plant)",
+   "refused": true,
+   "text": "at m = 4 the swap costs +2"
+  },
+  {
+   "control": "K5 the pair weight without the midpoint (-2 for sites 28, 34)",
+   "refused": true,
+   "text": "the mixed term is -3; third sites [22, 31, 40]"
+  },
+  {
+   "control": "K6 a piece's tie count raised by one",
+   "refused": true,
+   "text": "the first piece has exactly 17 minimisers"
+  },
+  {
+   "control": "K7 period 548",
+   "refused": true,
+   "text": "fails first at n = 1"
+  },
+  {
+   "control": "K7 the maximum 1452/137",
+   "refused": true,
+   "text": "the maximum is 1453/137"
+  },
+  {
+   "control": "K8 V(n) >= f(n) for every n",
+   "refused": true,
+   "text": "V(n) < f(n) at n = [18, 38]"
+  },
+  {
+   "control": "K9 a witness with its first listed site dropped",
+   "refused": true,
+   "text": "residue 548, n = 92612: M = 457757965 against 457757964"
+  },
+  {
+   "control": "K9 a row with c_r lowered by 2192",
+   "refused": true,
+   "text": "every lowered row disagrees with the count of C_n"
+  },
+  {
+   "control": "KL the planted Lean file (period 1; one constant moved; the pair weight without its parity bracket)",
+   "refused": true,
+   "text": "lean exits 1 with 4 errors"
+  }
+ ],
+ "controlsMissed": [],
+ "notDecided": [
+  "the centring identity and E >= L (paper lemmas of the delta-three record)",
+  "that the identity verified in D1 yields E >= mu^2/948 (it does through those lemmas)",
+  "the lattice identity beyond the lengths of D2",
+  "the outside-window bound beyond the scales of D3",
+  "WINDOW beyond the pieces of D6: no full 2^(44m) family is walked, at any m",
+  "the localisation and last-deletion arguments of GLOBAL and SHARP",
+  "the affine and polynomial-in-k arguments of H3, ROUNDED and PERIOD",
+  "the lower bound of V in every statement: no V(n) is computed beyond n = 14",
+  "the multiplicities of PERIOD",
+  "that the two tracks' programs do what their notes say",
+  "L1: that the cost of a pattern of flips is the quadratic form with the closed-form coefficients, for every m (the bridge from the definition of M stays on paper); no other lemma is in Lean"
+ ],
+ "pins": {
+  "instruments/twelve-blocks/judge.py": "5c8d11ec417ddd9c0ffdb4e7fd777654e4d575b76a6e11c091ce19a31278b677",
+  "instruments/twelve-blocks/d1.js": "a06d33bbd8fb46beee7b557f6bbcf81fec64a427dc917b04b108686a8d52d8ee",
+  "instruments/twelve-blocks/ap3.py": "e5ddf6bdf7431da85a4c2d579d6ca11b26882be816c4a6c4b881baf8f6ad8c81",
+  "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
+  "instruments/delta3/model.js": "65b68c49c45f8a6cf5045de9e632e2f67e8f8285de2d1a77e8b242c5bb4d440a",
+  "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "certs/delta3/inner-r20-g24_4_8.json": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
+  "corpus/twelve-blocks/MANIFEST.json": "1631af16d426b831091182db172e6e564f2801bbab33ef6f62b0d7a49a3c2c2e",
+  "corpus/twelve-blocks/oeis-b121385.txt": "17fe0bf9b7a8483c499f8f44b2b3042c69df7288b93086d5195464a5e56dec89",
+  "corpus/twelve-blocks/run/gpt/optimum-residues.json": "dbe25731effd4e559c0b6e329b2f3c40a55cd37548c63af2faefd102ec6a1aa9",
+  "corpus/twelve-blocks/run/gpt/period-witnesses.json": "0fa5a1c91f3bb00ae1c4be7829aa695a820564be6b08242d8c11feb3ef71a8eb",
+  "corpus/twelve-blocks/run/gpt/threshold_counts.json": "3f54c4f7555f9a06caf6b4b70b044e5abeb7e9924d2dc6176408a58dce387d28",
+  "corpus/twelve-blocks/run/claude/alln_anchors.json": "759f69d74efae979072e29d9309206473570224849689bdcfc732b85c5760468",
+  "notes/twelve-blocks-preregistration-2026-11-19.md": "c27e3b9c0087fad5c5284372454cfc026076cd0c138ebd7c647d78771d040156",
+  "instruments/twelve-blocks/lean/TwelveBlocks.lean": "2fcdf43936d42d6aa68199f2e3cdf584430dc9c0e76b7e1c9af90a552c091eba",
+  "instruments/twelve-blocks/lean/Planted.lean": "a0e2a8c8ea3389879863f315494c49be1df940bd54bbca44a841940ad7dc27f2",
+  "instruments/twelve-blocks/lean/eval-m1-8.txt": "9f031367f6ae70ccde71e5da3ea0561e6747ac2297db7091c1eba5b60806f86c",
+  "instruments/twelve-blocks/lean/reference.py": "bf258dfa963830172f4ef7a004bd70d73414eca565f34ac0db41e693abf42f28",
+  "instruments/twelve-blocks/lean/compare.py": "61d56b47032d09b643ec072b32fca06916bc620da5d370811ebb0a3fba171397",
+  "instruments/twelve-blocks/lean/tie.py": "bbd68b3d49523a9481aea29c89fcdf4ac0ff660658d7ae877792f893bf1deb7a",
+  "instruments/twelve-blocks/first-run.log": "e15d017834aeada70c564ebbaf501c348f7baa052f86b15ab604befa11ed98b6"
+ },
+ "environment": {
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "node": "v24.14.1",
+  "processes": 7
+ },
+ "seconds": 1065.8,
+ "judge": {
+  "firstRun": {
+   "sha256": "17e46da3f00321619547a07dfc007870cdd6517e51eee63a0ae2ecc740ecc187",
+   "decided": [
+    "D1",
+    "D10",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9"
+   ]
+  },
+  "redone": {
+   "D9": "by the judge as pinned below",
+   "L1": "by the judge as pinned below"
+  }
+ },
+ "amendments": [
+  {
+   "id": "A2",
+   "statement": "D9",
+   "firstVerdict": "REFUTED",
+   "firstText": "1,096 rows; c_0 = 0 (2 minimisers), c_548 = 2192 (102); c_r in [-1476, 3516]; multiplicities in [2, 536]; rounded_delta = 0 on 500 rows, at most 0; M(C_n) minus the row's value equals rounded_delta at n = r + 3288 on 500 of 1,096 rows",
+   "why": "a fault of the pre-registration: the table's rounded_delta is the proposed minimum minus M(C_n), at most 0; D9 as first written read it as a loss, at least 0. Restated in amendment A2 before the judge was changed, and decided again alone. Nothing else moved."
+  }
+ ]
+}
