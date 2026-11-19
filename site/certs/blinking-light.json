@@ -1,0 +1,346 @@
+{
+ "what": "Two-sided bounds on the least dissipation g(3/10, 2/25) of a hidden finite-state network whose binary lamp, read at Poisson times of rate 2, has C1 = 3/10 and C2 = 2/25: networks decided as upper bounds, and the finite conditions of a lower-bound certificate, with the controls that must be refused.",
+ "saysFirst": "The question and the phenomenon are Dobrynin and Stroujkova's (arXiv:2611.24898, 18 November 2026): a time-reversible binary record that still requires dissipation, and the least dissipation over all finite networks left open. This record decides a two-sided bound on one constant of a snapshot version of it. The upper bound is decided: a network that reproduces the two numbers exactly. The lower bound is a certificate whose finite conditions are decided here; the two theorems that turn it into a bound were proved by one AI model and read once by the other, and are not decided.",
+ "preregistration": "notes/blinking-light-preregistration-2026-11-19.md",
+ "decidedOn": "2026-11-19",
+ "source": {
+  "paper": "A. V. Dobrynin and A. Stroujkova, When Time-Reversible Sensor Records Require Hidden Dissipation, arXiv:2611.24898 v1 (18 Nov 2026)",
+  "run": "multitrack run 3, blinking-light, 2026-11-19 11:04-17:48 UTC; GPT track gpt-6.2-astra (Codex, effort xhigh), Claude track claude-fable-5-2 (Claude Code, effort high), control room claude-opus-5-5 (Claude Code)"
+ },
+ "interval": {
+  "upper": {
+   "g_at_most": "0.37712826127",
+   "exact": "0.377128261270",
+   "standing": "DECIDED (U2)"
+  },
+  "lower": {
+   "g_at_least": "0.3657254238",
+   "exact": "1828627119/5000000000",
+   "standing": "its finite conditions CERTIFIED (L1); Theorems D and C, which make it a bound, READ ONCE and not decided"
+  },
+  "start": {
+   "g_at_least": "0.02",
+   "g_at_most": "0.497436"
+  }
+ },
+ "theorems": "NOT DECIDED HERE: Theorems D and C were proved by the Claude track and re-derived by the GPT track; no machine and no reader outside the two families has checked them",
+ "statements": {
+  "U0": {
+   "verdict": "CERTIFIED",
+   "text": "the paper's four-state ring reproduces C1 = 3/10 and C2 = 2/25 exactly with sigma in [2.19722457733621, 2.19722457733621], which holds 2 ln 3 = 2.1972245773362193828 (g = ln 3); the eight-state ring that was the record when the run began has g <= 0.497435125",
+   "ring": {
+    "verdict": "CERTIFIED",
+    "summary": "4 states, exact rates: C1 = 3/10 and C2 = 2/25 exactly; sigma in [2.19722457733, 2.19722457734] k_B/s, so g = sigma/r in [1.09861228866, 1.09861228867]"
+   },
+   "best8": {
+    "verdict": "CERTIFIED",
+    "summary": "8 states, two free rates (0->1, 1->0): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit intervals); sigma in [0.994870249615, 0.994870249616] k_B/s, so g = sigma/r in [0.497435124807, 0.497435124808] <= 249/250 as claimed"
+   },
+   "seconds": 0.0
+  },
+  "U1": {
+   "verdict": "CERTIFIED",
+   "text": "the 84-state network with every rate rational reproduces C1 = 3/10 and C2 = 2/25 exactly, by two deciders that agree: lamp gives sigma in [0.75575246349063, 0.75575246349063], rational gives [0.75575246349063, 0.75575246349063]; so g <= 0.377876231745317837",
+   "lamp": {
+    "verdict": "CERTIFIED",
+    "summary": "84 states, exact rates: C1 = 3/10 and C2 = 2/25 exactly; sigma in [0.755752463490, 0.755752463491] k_B/s, so g = sigma/r in [0.377876231745, 0.377876231746] <= 188938115873/250000000000 as claimed"
+   },
+   "rational": {
+    "verdict": "CERTIFIED",
+    "N": 84,
+    "C1": "3/10",
+    "C2": "2/25",
+    "sigma_lo": "0.755752463490635672",
+    "sigma_hi": "0.755752463490635673",
+    "g_lo": "0.377876231745317836",
+    "g_hi": "0.377876231745317837",
+    "claim": {
+     "sigma_at_most": "0.755752463492"
+    },
+    "reason": "C1 and C2 equal the target exactly and sigma <= 188938115873/250000000000 (upper end of the enclosure)",
+    "sigma_width": 4.0649776009424016e-56,
+    "target": {
+     "C1": "3/10",
+     "C2": "2/25"
+    },
+    "r": "2"
+   },
+   "seconds": 115.5
+  },
+  "U2": {
+   "verdict": "CERTIFIED",
+   "text": "in the box of the 156-state network exactly one value of the two free rates reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit outward-rounded intervals), and there sigma is in [0.75425652253993, 0.75425652253993]; hence g(3/10, 2/25) <= 0.37712826127",
+   "lamp": {
+    "verdict": "CERTIFIED",
+    "summary": "156 states, two free rates (0->115, 154->155): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/25 exactly (Krawczyk, 256-bit intervals); sigma in [0.754256522539, 0.754256522540] k_B/s, so g = sigma/r in [0.377128261269, 0.377128261270] <= 754257/1000000 as claimed",
+    "sigma": [
+     "0.754256522539930041624545139049",
+     "0.754256522539930041624545139050"
+    ]
+   },
+   "seconds": 45.3
+  },
+  "L1": {
+   "verdict": "CERTIFIED",
+   "text": "cert222g satisfies (D1) for both lamp values, (LOC) and continuity over the whole diamond, with no symmetry assumed (3090 boxes), and l1 (3/10) + l2 (2/25) + mu = 1828627119/5000000000 = 0.3657254238... exactly, its stated bound",
+   "lower": {
+    "verdict": "PROVED",
+    "objective": {
+     "exact": "1828627119/5000000000",
+     "decimal": "0.365725423800"
+    },
+    "bound": "1828627119/5000000000",
+    "bound_matches": true,
+    "boxes": 3090,
+    "seconds": 3.0,
+    "witness": null,
+    "reading_of_format": "functions = [A_0..A_{na-1}, K_0..K_{nk-1}, P_0..P_{npsi-1}], each the values at the knots 0 = h_0 < ... < h_K = 1, linear in |h| between knots; A and P odd in h (A(h) = sign(h) A(|h|)), K even (K(h) = K(|h|)); p = sum A_k d^(2k), q = sum K_k d^(2k+1), psi = sum P_k d^(2k+1); w = h + d, v = h - d, beta = p + q, gamma = p - q",
+    "c1": "3/10",
+    "c2": "2/25",
+    "continuity": "ok",
+    "strips": 122,
+    "conditions": [
+     "D1(f=+1)",
+     "D1(f=-1)",
+     "LOC a=8p_h-x1^2",
+     "LOC c=8q_d-x2^2",
+     "LOC det=ac-b^2"
+    ],
+    "max_level": 40,
+    "budget_per_condition": 400000,
+    "per_condition": {
+     "D1(f=+1)": {
+      "proved": 122,
+      "refuted": 0,
+      "undecided": 0,
+      "boxes": 718,
+      "deepest": 6
+     },
+     "D1(f=-1)": {
+      "proved": 122,
+      "refuted": 0,
+      "undecided": 0,
+      "boxes": 718,
+      "deepest": 6
+     },
+     "LOC a=8p_h-x1^2": {
+      "proved": 122,
+      "refuted": 0,
+      "undecided": 0,
+      "boxes": 254,
+      "deepest": 1
+     },
+     "LOC c=8q_d-x2^2": {
+      "proved": 122,
+      "refuted": 0,
+      "undecided": 0,
+      "boxes": 238,
+      "deepest": 1
+     },
+     "LOC det=ac-b^2": {
+      "proved": 122,
+      "refuted": 0,
+      "undecided": 0,
+      "boxes": 1162,
+      "deepest": 9
+     }
+    },
+    "slowest_strip_seconds": 0.19,
+    "reason": "(D1) for f = +1 and -1, (LOC) and continuity hold on the whole diamond; the bound equals l1 C1 + l2 C2 + mu exactly"
+   },
+   "objective": "1828627119/5000000000",
+   "concordance": {
+    "author (claude/verify_local.py, k51)": true,
+    "reader (gpt/review_local_certificate.py, k52)": true
+   },
+   "seconds": 3.0
+  }
+ },
+ "controls": [
+  {
+   "control": "KU1a: the 84-state network with the rate 0->1 raised by 10^-6",
+   "refused": true,
+   "text": "lamp: REFUTED (the exact rates give C1 = 1248230404513488810369597656987138090946836142015548084966295629045336064786511659144026837457); rational: REFUTED, C1 = 124823040451348881036959..., C2 = 422956043983936004092387..."
+  },
+  {
+   "control": "KU1b: the 84-state network claiming sigma <= 0.75575246",
+   "refused": true,
+   "text": "lamp: REFUTED; rational: REFUTED"
+  },
+  {
+   "control": "KU2a: the 156-state network claiming sigma <= 0.7542565225",
+   "refused": true,
+   "text": "lamp: REFUTED; 6-bit intervals); but sigma in [0.754256522539, 0.754256522540] k_B/s, so g = sigma/r in [0.377128261269, 0.377128261270], above the claimed 301702609/400000000"
+  },
+  {
+   "control": "KU2b: the 156-state network with its box moved by 10^-20 (the box is 2 x 10^-45 wide)",
+   "refused": true,
+   "text": "lamp on the moved box: REFUSED (Krawczyk is not conclusive on this box (it does not map into its interior): no zero is proved; a smaller box around a better approximation u)",
+   "route": "a box holding both, the original widened by 10^-20 on each side: CERTIFIED (156 states, two free rates (0->115, 154->155): exactly one choice in the box reproduces C1 = 3/10 and C2 = 2/2); a single zero there, which U2 places in the original box, disjoint from the moved one",
+   "routeConfirms": true
+  },
+  {
+   "control": "KL1a: cert222f, the unscaled search output",
+   "why": "the author reports it refused",
+   "refused": true,
+   "lower": {
+    "verdict": "REFUTED",
+    "bound_matches": true,
+    "witness": {
+     "h": "1023/51200",
+     "d": "-2559027/2621440",
+     "f": null,
+     "condition": "LOC det=ac-b^2",
+     "value": "-290932482148623284906052135391445090824697299929721620141279385236450541/1169201309864722334562947866173026415724746034380800000000000000000000000",
+     "value_approx": -0.24883010281803775,
+     "strip": {
+      "side": 1,
+      "h_range_abs": [
+       "1/100",
+       "1/50"
+      ]
+     },
+     "interior": true,
+     "matrix": {
+      "a": "119449833552026745626864210515148694333729715576383079/53169119831396634916152282411213783040000000000000000",
+      "b": "-1521648816271187684573847579749202047147432726829/81129638414606681695789005144064000000000000000",
+      "c": "19370284972217986923887379532048129082508079/123794003928538027489912422400000000000000"
+     }
+    },
+    "boxes": 43,
+    "seconds": 0.24
+   },
+   "route": "at (h, d, f) = (1023/51200, -2559027/2621440, +1) the judge computes LOC det = -0.24883 exactly",
+   "routeConfirms": true
+  },
+  {
+   "control": "KL1b: cert222g with mu raised by 1/1000 (and its bound with it)",
+   "why": "the least (D1) slack seen in the run was about 1.9e-4",
+   "refused": true,
+   "lower": {
+    "verdict": "REFUTED",
+    "bound_matches": true,
+    "witness": {
+     "h": "71/400",
+     "d": "38493/51200",
+     "f": 1,
+     "condition": "D1(f=+1)",
+     "value": "-1098081820499056440292837/6871947673600000000000000000",
+     "value_approx": -0.00015979193565713015,
+     "strip": {
+      "side": 1,
+      "h_range_abs": [
+       "17/100",
+       "9/50"
+      ]
+     },
+     "interior": true
+    },
+    "boxes": 133,
+    "seconds": 0.49
+   },
+   "route": "at (h, d, f) = (71/400, 38493/51200, +1) the judge computes D1 = -0.000159792 exactly",
+   "routeConfirms": true
+  },
+  {
+   "control": "KL1c: cert222g with its stated bound raised by 10^-7",
+   "why": "l1, l2, mu unchanged",
+   "refused": true,
+   "lower": {
+    "verdict": "REFUTED",
+    "bound_matches": false,
+    "witness": {
+     "h": null,
+     "d": null,
+     "f": null,
+     "condition": "bound = l1 C1 + l2 C2 + mu",
+     "value": "-1/10000000",
+     "note": "objective - stated bound (exact); the stated bound does not follow"
+    },
+    "boxes": 3090,
+    "seconds": 2.95
+   },
+   "route": "l1 (3/10) + l2 (2/25) + mu = 1828627119/5000000000, not 1828627619/5000000000",
+   "routeConfirms": true
+  },
+  {
+   "control": "KL1d: cert222g with P_0 raised by 1 at the knot h = 3/10",
+   "why": "a slope of 100 in psi beside that knot",
+   "refused": true,
+   "lower": {
+    "verdict": "REFUTED",
+    "bound_matches": true,
+    "witness": {
+     "h": "117/400",
+     "d": "-283/800",
+     "f": null,
+     "condition": "LOC a=8p_h-x1^2",
+     "value": "-10851152469937702992982993612038966361/10485760000000000000000000000000000",
+     "value_approx": -1034.846541398783,
+     "strip": {
+      "side": 1,
+      "h_range_abs": [
+       "29/100",
+       "3/10"
+      ]
+     },
+     "interior": true,
+     "matrix": {
+      "a": "-10851152469937702992982993612038966361/10485760000000000000000000000000000",
+      "b": "66221972633311352491273576292757689/262144000000000000000000000000000",
+      "c": "671237931014565456815335391979239/6553600000000000000000000000000"
+     }
+    },
+    "boxes": 606,
+    "seconds": 0.79
+   },
+   "route": "at (h, d, f) = (117/400, -283/800, +1) the judge computes LOC det = -169807 exactly",
+   "routeConfirms": true
+  }
+ ],
+ "controlsMissed": [],
+ "routesNotConfirming": [],
+ "series": {
+  "entries": 15,
+  "mismatched": []
+ },
+ "notDecided": [
+  "Theorem D (weak duality, run/claude/lifting.md section 3) and Theorem C with Lemma S (locality, run/claude/locality.md), which turn L1 into g(3/10, 2/25) >= 0.3657254: proved by the Claude track, re-derived by the GPT track (g19, g39), READ ONCE",
+  "Theorem L (the convex lifting): READ ONCE on C1 < 1, false as printed at C1 = 1 (g47, k54); INTERIOR",
+  "the earlier lower bounds of the GPT track (GENBOUND, JOINT, POTENTIAL, AFFINE: READ ONCE; AUXCLOCK: unread)",
+  "the conjecture g(3/10, 2/25) = 0.3769 and the optimality of a two-state telegraph plus a ring",
+  "the function R(m) and g(C1, C2) away from the target",
+  "the continuous-record question of the paper, any statement about a physical system or a finite recording",
+  "novelty beyond the scout's reading of the literature (corpus/targets.json, row one-bit-dissipation-2026-11)"
+ ],
+ "plants": {
+  "posted": 2,
+  "caught": {
+   "gpt": "2 of 2",
+   "claude": "2 of 2"
+  },
+  "files": "corpus/blinking-light/private/"
+ },
+ "pins": {
+  "instruments/blinking-light/judge.py": "b255b5a4bf1fdc13d56d612294ae3ea6d0567e53034a8500a0bfaadfc02d65bc",
+  "instruments/blinking-light/lamp.py": "988cfe18dd5f9ba93f0a99ddeb2e3f7e5a8f32402708c61e843da6f0c89bf5f9",
+  "instruments/blinking-light/rational.py": "1f8d9cffeb815bb42dedc877ddfc7c0791862f2ff99fed6a82354566fba6969a",
+  "instruments/blinking-light/lower.py": "f0c2e01fb548a137ddedebfecf8826bdfef2846afbd5f2ccc1bf2a8a98515edb",
+  "corpus/blinking-light/MANIFEST.json": "45002eb77dceb9b6fb8ef477a8f07ae44f727e3a9f662becc86e4333d57bf8c4",
+  "corpus/blinking-light/series.json": "03837472d4ac25036ef433bbf1ab3a606f135f2b6638304bf65ba2c8e73b884b",
+  "notes/blinking-light-preregistration-2026-11-19.md": "0c2afcebdc445f47726f0de675554ac9f9f0ee451bdc2d72bdec98e0912afc31",
+  "corpus/blinking-light/run/inherited/baseline/ring.json": "5986815ed97a32608d9b6e37aef248f8434c6c0969eca53c61c017a0d085e11c",
+  "corpus/blinking-light/run/inherited/baseline/best8.json": "d0c1a1b30272380d6fe3a50ac0545d2be9c47dbc3d37bae36ea27b3c7fa79a6a",
+  "corpus/blinking-light/run/gpt/rational-mixture-84.json": "4afac8dda6d80c3db25bdc21a295e0d7ca9ea910863f4c7182c91c883fe1a99d",
+  "corpus/blinking-light/run/claude/mix156.json": "2f22bf12ba4ffa4d26d07e59ebe3a9d94054c96097130f83ac85c3e689a6c48b",
+  "corpus/blinking-light/run/claude/cert222g.json": "627e5eb8702d4ef63451bd53623534045718d5e6276dca09993ef95188953434",
+  "corpus/blinking-light/run/claude/cert222f.json": "35eeaab8338a5450548b684ce5fb6aa0fd9d27b3dcd80d109d113dcb1857a582",
+  "corpus/blinking-light/run/control/tests/CERT222G-k51.out": "c46db3717452483f5a54fb7cfad5c1ff98a9651a7ac9b1581d01a95887319563",
+  "corpus/blinking-light/run/control/tests/CERT222G-k52.out": "6e44495a4b9a818d25befc4a85408f833f6541327a69eabd7bf5bc33c67a53e5"
+ },
+ "environment": {
+  "python": "3.9.6",
+  "mpmath": "1.3.0"
+ },
+ "seconds": 556.9
+}
