@@ -1,0 +1,22 @@
+{
+ "id": "WINDOW",
+ "author": "gpt",
+ "statement": "For every m>=1, all 2^(44m) labeled subsets of the eleven windows (bm-2m,bm+2m] have D>=0. At odd scales precisely the listed 51 original masks tie, at even scales only the empty mask ties. For any fixed symmetric radius r the full window cost function repeats by parity for m>=ceil(r/2).",
+ "grade": "proved",
+ "falsifier": "A violating coloring, an extra tie, a missing interval mask, a sign/diagonal/affine-cone defect, or an omitted integer vector in the exact compression and enumeration.",
+ "credence": 0.9999,
+ "object": null,
+ "adapter": null,
+ "core": "gpt/window_core.py",
+ "files": [
+  {
+   "path": "gpt/windows.md",
+   "sha256": "0f2b00af98d2a1b3a44ea7618c1ec4b7f5c04b12d3f96ac1e6f1d982de388364"
+  },
+  {
+   "path": "gpt/window_core.py",
+   "sha256": "524ca9c2ffea03da63a6fc80293a50723d332ba01c22e27f00fe58ab7ba001e4"
+  }
+ ],
+ "at": "2026-11-19T01:53:45.642Z"
+}

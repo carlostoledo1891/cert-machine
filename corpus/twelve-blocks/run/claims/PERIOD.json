@@ -1,0 +1,30 @@
+{
+ "id": "PERIOD",
+ "author": "gpt",
+ "statement": "For every integer n>=92000, r=n mod 1096, V(n)=(117 n²+c_r)/2192−n/2, with all 1096 exact c_r, labeled multiplicities and explicit minimizers in gpt/optimum-residues.json. Coefficients range from −1476 to 3516. Every minimizer is a four-site-per-boundary mask of the rounded construction or its color exchange. The labeled multiplicities range from 2 to 536.",
+ "grade": "proved",
+ "falsifier": "Any contradictory count, additional or missing minimizer, failed localization or transfer inequality, sign/feasibility error, or omitted optimal lattice vector, at any length in the domain.",
+ "credence": 0.9999,
+ "object": "gpt/period-witnesses.json",
+ "adapter": "ap3",
+ "core": "gpt/residue_optima.py",
+ "files": [
+  {
+   "path": "gpt/periodic-optimum.md",
+   "sha256": "1c4a0ec0a2dbf151edcf17a7a849d68978568adbcf93669955e5ebebf36a1fcb"
+  },
+  {
+   "path": "gpt/optimum-residues.json",
+   "sha256": "dbe25731effd4e559c0b6e329b2f3c40a55cd37548c63af2faefd102ec6a1aa9"
+  },
+  {
+   "path": "gpt/period-witnesses.json",
+   "sha256": "0fa5a1c91f3bb00ae1c4be7829aa695a820564be6b08242d8c11feb3ef71a8eb"
+  },
+  {
+   "path": "gpt/residue_optima.py",
+   "sha256": "a82ec726cc16e942a3b89f7b073c77482c326fa87bbd5f39a5715b28aca44656"
+  }
+ ],
+ "at": "2026-11-19T02:55:05.236Z"
+}

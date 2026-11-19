@@ -1,0 +1,26 @@
+{
+ "id": "SHARP",
+ "author": "gpt",
+ "statement": "With the previously checked GLOBAL and WINDOW ingredients, the same global value and complete labeled classification hold for every even m>=128 and odd m>=131. This adopts Claude c7 and includes the borderline odd m=131 by the last outside flip.",
+ "grade": "proved",
+ "falsifier": "A better coloring or omitted minimizer in this enlarged domain, an error in the parity-specific marginal or integer maxima 257/263, or a gap in the last-deletion argument.",
+ "credence": 0.9999,
+ "object": null,
+ "adapter": null,
+ "core": "gpt/sharper_cutoffs.py",
+ "files": [
+  {
+   "path": "gpt/sharper-cutoffs.md",
+   "sha256": "88eb369b2659a01d3254f79d253bee38448698ac48169f057578eec296930742"
+  },
+  {
+   "path": "claude/prune_build.py",
+   "sha256": "8a649d878cc2c241d15d892739a4b5b91a9817dd6a103c2a5e4b4cbfa77f7777"
+  },
+  {
+   "path": "gpt/sharper_cutoffs.py",
+   "sha256": "5bebb323143449e64bf1e71dba9bab3b9f9fc64d970b9936fb03482c4ca0b964"
+  }
+ ],
+ "at": "2026-11-19T02:22:07.644Z"
+}

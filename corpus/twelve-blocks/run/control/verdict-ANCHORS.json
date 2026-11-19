@@ -1,0 +1,78 @@
+{
+ "verdict": "CERTIFIED",
+ "summary": "6 items: 6 CERTIFIED",
+ "items": [
+  {
+   "name": "baseline, scale 192",
+   "word": "CERTIFIED",
+   "text": "n = 105216, M = 590840448, M(B_192) = 590840448, difference +0",
+   "found": {
+    "n": 105216,
+    "count": 590840448,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 590840448,
+    "delta": 0
+   }
+  },
+  {
+   "name": "first boundary swap, scale 192",
+   "word": "CERTIFIED",
+   "text": "n = 105216, M = 590840450, M(B_192) = 590840448, difference +2",
+   "found": {
+    "n": 105216,
+    "count": 590840450,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 590840448,
+    "delta": 2
+   }
+  },
+  {
+   "name": "just outside first window, scale 192",
+   "word": "CERTIFIED",
+   "text": "n = 105216, M = 590840834, M(B_192) = 590840448, difference +386",
+   "found": {
+    "n": 105216,
+    "count": 590840834,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 590840448,
+    "delta": 386
+   }
+  },
+  {
+   "name": "baseline, scale 195",
+   "word": "CERTIFIED",
+   "text": "n = 106860, M = 609449296, M(B_195) = 609449296, difference +0",
+   "found": {
+    "n": 106860,
+    "count": 609449296,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 609449296,
+    "delta": 0
+   }
+  },
+  {
+   "name": "first boundary swap, scale 195",
+   "word": "CERTIFIED",
+   "text": "n = 106860, M = 609449296, M(B_195) = 609449296, difference +0",
+   "found": {
+    "n": 106860,
+    "count": 609449296,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 609449296,
+    "delta": 0
+   }
+  },
+  {
+   "name": "just outside first window, scale 195",
+   "word": "CERTIFIED",
+   "text": "n = 106860, M = 609449687, M(B_195) = 609449296, difference +391",
+   "found": {
+    "n": 106860,
+    "count": 609449687,
+    "counted": "once (bit masks; above n = 12000 the second program is not run)",
+    "baseline": 609449296,
+    "delta": 391
+   }
+  }
+ ]
+}
