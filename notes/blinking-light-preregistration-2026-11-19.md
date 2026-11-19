@@ -134,3 +134,16 @@ U0-U2 and L1 CERTIFIED; every control refused (U0-U2 and the concordance of L1 w
 
 `python3 instruments/blinking-light/judge.py --write` writes `certs/blinking-light.json`; `--check` re-hashes the pins
 and decides again. Changes after this commit are amendments below, dated, each committed before the code it changes.
+
+## Amendment A1, 2026-11-19 (one control's wording and route; committed before any file of the judge is committed)
+
+The first full run of the judge (not committed, its record not kept) refused all eight controls, and the route of one of
+them, KU2b, did not confirm. Two things were wrong in this file, both about KU2b, neither about a statement:
+- U2's box is 2 x 10^-45 wide in each free rate, not "about 10^-30" as written above. Moving it by 10^-20 still makes
+  the two boxes disjoint; the control is unchanged.
+- "One box holding both" was first built as [lo, hi + 10^-20], which leaves the zero within 2 x 10^-45 of its lower
+  edge; the Krawczyk test was not conclusive there (its image is not strictly inside the box when the zero sits on an
+  edge), so the route did not confirm. The box holding both is now [lo - 10^-20, hi + 10^-20], with the zero near its
+  centre. Run alone, the Krawczyk test proves a single zero in it.
+Every other statement, control and route is as written. U0-U2, L1 and the other seven controls came out as predicted
+in that run: rational.py and lower.py agreed with lamp and with the run's verdicts.
