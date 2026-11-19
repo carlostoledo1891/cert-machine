@@ -43,13 +43,15 @@ g47; Claude done c24).
        build cut 0.377128... to 0.37712; fixed before any commit; the same slip caught in the e-mail draft). make page
        green in 486 s after the baselines were accepted (the ruler's first accept refused a flake on /swell/ @390, unchanged
        bytes; the second run recorded clean). The control build NOT run (a rebuild; his to schedule).
-  ★ 3. SENDS, ALL HIS, NONE MADE. (a) The X post, one post with the page's card: notes/x/13-blinking-light.txt (277
-       weighted characters), after the push. (b) outreach/blinking-light-reader-pack.md: one outside reader for Theorems D and
-       C (about four pages), the step that would take the lower end to READ TWICE; he chooses the reader. (c) A note to the paper's authors, drafted on
-       his request: a private draft in notes/ (his send, by e-mail, after the page is live). (d) Runs 1-2: a GitHub issue
-       for a repository on antisymmetric optimal colourings, a private draft in notes/ (his word to post); of the 102
-       minimisers at n = 548, exactly 2 are antisymmetric, none symmetric (counted from the published list, not in a
-       record). incrediblecrab/erdos-1186 no longer exists; formal-conjectures #6882 is closed (1186.lean added).
+  ★ 3. SENDS, on his word ("Email sent, proceed the other outreaches"). DONE: (a) his e-mail to Dobrynin and Stroujkova
+       (sent by him; the draft, private, in notes/; it asks for a reading of Theorems D and C); (b) the X post
+       https://x.com/_carlos_toledo_/status/2123500014953443741 (one post, the page's light card confirmed: Twitterbot
+       200, summary_large_image); (c) runs 1-2: https://github.com/TorinGreenwood/MonochromaticProgressions/issues/1
+       (of the 102 minimisers at n = 548, exactly 2 antisymmetric, none symmetric; counted from the published list, not
+       in a record), logged in outreach/GITHUB-OUTREACH.md §E. OPEN, HIS: the outside reader for D and C
+       (outreach/blinking-light-reader-pack.md; he names the reader); the OEIS edit of A121385 (his account); a reply from
+       the authors, if one comes, is answered (the channel is theirs). incrediblecrab/erdos-1186 no longer exists;
+       formal-conjectures #6882 is closed (1186.lean added).
   ★ 4. MY READING (asked): run 2 is the stronger certified result (unconditional, OEIS values); run 3 the stronger story
        (a question a physics paper left open the day before, 25x -> 3%, the whole method on one page); run 3 becomes the
        better piece once an outside reader checks D and C.

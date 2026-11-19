@@ -368,3 +368,14 @@ DAY TWO POSTED 2026-10-16 ~00:30 UTC on the operator's "go day 2":
 - anthropics/formal-math issue #8, comment (https://github.com/anthropics/formal-math/issues/8#issuecomment-6341978281): the zeta23 row certificate re-decided from LawN256.lean's integers without Lean, the law-file request joined (the file had been asked for in #8 and #14 since August, unanswered); evidence claimbox b37d980; corpus/outreach.json gh-formal-math-8. Seen there, not acted on: issue #25 claims the simple-on-line proportion raised to 0.6728005676 (kernel-checked, PR #17) — a replay target, scouted in corpus/targets.json.
 - anthropics/formal-math issue #36, comment (https://github.com/anthropics/formal-math/issues/36#issuecomment-6641391967), 2026-11-04, on the operator's word: C2 — the FinTM2 → standard-machine step our earlier comment named as informal, now in Lean (claimbox 235fbfa, certs/eth-c2.json); the seam and the textbook reading stated as open; corpus/outreach.json gh-formal-math-36-c2-2026-11-04. The same day, by hand: the reply under our ethdiscussion.blog comment-24 (awaiting moderation).
 - anthropics/formal-math issue #30 (https://github.com/anthropics/formal-math/issues/30), 2026-10-23: the ξ′ window optimised exactly and the tail taken to fifteen terms — 0.86864150 / 0.93432075 against the formalization's constants, the optimality certificate to degree 20, the ζ calibration, the abstract's print; corpus/outreach.json gh-formal-math-30. The reply to Leandre (C31) sent the same day by the operator; e-mails otherwise OFF (the channel rule, SEND-QUEUE's head).
+
+## §E 2026-11-19 — the twelve blocks and the blinking light, on the operator's "proceed the other outreaches"
+
+- TorinGreenwood/MonochromaticProgressions issue #1 (https://github.com/TorinGreenwood/MonochromaticProgressions/issues/1):
+  runs 1-2 of the twelve blocks for Greenwood and Skalsky's antisymmetry question. Of the 102 minimisers at n = 548
+  (V(548) = 15,756, certs/twelve-blocks-exact.json), exactly 2 are antisymmetric (the twelve blocks and their colour
+  exchange), none symmetric; counted from the published list, not a record. The large-n formula said to be read once,
+  resting on δ₃ (ours, not refereed). AI disclosure. incrediblecrab/erdos-1186 no longer exists (checked the same day).
+- Off GitHub, the same day: the X post for /reports/blinking-light.html
+  (https://x.com/_carlos_toledo_/status/2123500014953443741), and the operator's own e-mail to Dobrynin and Stroujkova
+  (sent by him; the draft is private), an exception to the e-mails-off rule that he asked for.
