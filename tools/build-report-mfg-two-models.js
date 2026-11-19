@@ -76,6 +76,76 @@ const fig = (w, h, short) => CH.lines({ w, h, x0: 0, x1: 1.2, y0: -13, y1: -6, h
   xLabel: short ? 'depth A' : 'depth A of the potential', yLabel: 'coupling c',
   series: SERIES(short), alt: FALT });
 
+/* ---- figure: the count without a potential, a staircase. The law is the two models' theorem (finding count-unforced);
+   the three callouts are counts the certifier decided. ---- */
+const CAP = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mfg-cap-multiplicity.json'), 'utf8'));
+need(CAP.verdict === 'VERIFIED' && CAP.couplings.every((x) => x.claimed) && CAP.couplings.some((x) => x.c === -24), 'the three known before (certs/mfg-cap-multiplicity.json) moved');
+const fiveAt0 = row(cF, 'five_c90_A0'), sevenAt0 = cS.find((r) => r.A[0] === 0);
+need(fiveAt0.word === 'CERTIFIED' && fiveAt0.claimed === 5 && fiveAt0.A[0] === 0 && fiveAt0.c[0] === -90 && sevenAt0 && sevenAt0.word === 'CERTIFIED', 'the certified five or seven at A = 0 moved');
+const PI2 = Math.PI * Math.PI, GMAX = 400;
+const stairs = [[0, 1]];
+for (let j = 1; PI2 * j * j < GMAX; j++) { stairs.push([PI2 * j * j, 2 * j - 1], [PI2 * j * j, 2 * j + 1]); }
+stairs.push([GMAX, stairs[stairs.length - 1][1]]);
+const topCount = stairs[stairs.length - 1][1];
+const STAIR_ALT = 'A staircase: the number of even equilibria without a potential, against the strength of the attraction from 0 to ' + GMAX + '. It starts at 1 and rises by 2 at each threshold, reaching ' + topCount + ' at the right edge. Three vertical marks name where a count was certified: three at 24, five at 90 and seven at 360.';
+const figStairs = (w, h, short) => CH.lines({ w, h, x0: 0, x1: GMAX, y0: 0, y1: topCount + 1, hover: false, padR: short ? 30 : 22, padL: short ? 40 : 56,
+  yTicks: [1, 3, 5, 7, 9, 11, 13].filter((v) => v <= topCount).map((v) => ({ v, t: String(v) })), xTicks: (short ? [0, 200, 400] : [0, 100, 200, 300, 400]).map((v) => ({ v, t: String(v) })),
+  xLabel: short ? 'attraction −c' : 'strength of the attraction, −c', yLabel: 'even equilibria',
+  vmarks: [{ x: 24, t: short ? '3' : 'three, known', row: 2 }, { x: -fiveAt0.c[0], t: short ? '5' : 'five certified', row: 1 }, { x: -sevenAt0.c[0], t: short ? '7' : 'seven certified', anchor: 'end' }],
+  series: [{ name: 'the count at A = 0', pts: stairs, standing: W.DECIDED }], alt: STAIR_ALT });
+
+/* ---- figure: one cell per submitted list. Three states, named by the key; the two undecided lists are the context
+   grey. ---- */
+const ALL = cA.map((r) => ['astra', r]).concat(cF.map((r) => ['fable', r]), cS.map((r) => ['session', r]));
+const stateOf = (r) => r.word !== 'CERTIFIED' ? 2 : r.wordWithTheGridBound === 'CERTIFIED' ? 0 : 1;
+const STATE = [{ token: 'var(--c-2)', t: 'certified, positivity also by the grid bound' }, { token: 'var(--c-3)', t: 'certified, positivity from the lemma' }, { token: 'var(--c-ctx)', t: 'not decided: the box is too wide' }];
+const nState = [0, 1, 2].map((k) => ALL.filter(([, r]) => stateOf(r) === k).length);
+need(nState[0] + nState[1] + nState[2] === ALL.length && nState[2] === 2 && ALL.every(([, r]) => r.word !== 'REFUTED'), 'the three states of the submitted lists moved');
+const figLists = (w, per, cell) => CH.strip({ w, perRow: per, cell, padL: 6,
+  items: ALL.map(([k, r]) => ({ token: STATE[stateOf(r)].token, k: who(k) + ' · ' + r.id + ' · ' + r.claimed + ' equilibria claimed', v: STATE[stateOf(r)].t })),
+  keys: STATE.map((x, k) => ({ token: x.token, t: nState[k] + ' ' + x.t })),
+  alt: 'One cell for each of the ' + ALL.length + ' lists of equilibria: ' + cA.length + ' from ' + AST + ', ' + cF.length + ' from ' + FAB + ' and ' + cS.length + ' built in this session. ' + nState[0] + ' are certified with positivity also proved by the grid bound, ' + nState[1] + ' are certified with positivity taken from the lemma, and ' + nState[2] + ' were not decided because their box is too wide. None is refuted.' });
+
+/* ---- figure: what seven equilibria look like. The densities of the 4-, 5- and 6-peak states at c = -360, A = 0.1,
+   drawn in floating point from the submitted coefficients; each has a twin, the same profile shifted by half a peak
+   spacing, and the seventh is the nearly constant state, drawn as the rule at 1. ---- */
+const SEVEN = JSON.parse(fs.readFileSync(path.join(ROOT, DIR + 'control-room-seven-claims.json'), 'utf8')).claims.find((q) => q.A[0] > 0);
+const sevenRow = row(cS, SEVEN.id);
+need(SEVEN.candidates.length === 7 && sevenRow.word === 'CERTIFIED' && sevenRow.largestRadius < 1e-6, 'the seven at positive depth moved');
+const dens = (q, x) => { let v = 1; for (let k = 1; k <= SEVEN.N; k++) v += 2 * q.b[k - 1] * Math.cos(2 * Math.PI * k * x); return v; };
+const prof = (q) => { const o = []; for (let i = 0; i <= 600; i++) o.push([i / 600, dens(q, i / 600)]); return o; };
+const P4 = prof(SEVEN.candidates[1]), P5 = prof(SEVEN.candidates[3]), P6 = prof(SEVEN.candidates[5]);
+const peak = (P) => Math.max(...P.map((q) => q[1]));
+const peaksOf = (P) => P.filter((q, i) => i > 0 && i < P.length - 1 && q[1] > P[i - 1][1] && q[1] >= P[i + 1][1]).length + (P[0][1] > P[1][1] ? 1 : 0);
+need(peaksOf(P4) === 4 && peaksOf(P5) === 5 && peaksOf(P6) === 6 && peak(P4) > peak(P5) && peak(P5) > peak(P6) && Math.min(...P4.map((q) => q[1])) > 0, 'the three drawn densities are no longer a 4-, a 5- and a 6-peak state');
+const SEVEN_ALT = 'Three periodic curves over one period, each a density with equal peaks: one with four tall narrow peaks reaching about ' + peak(P4).toFixed(1) + ', one with five peaks reaching about ' + peak(P5).toFixed(1) + ', and one with six low peaks reaching about ' + peak(P6).toFixed(1) + '. A level rule at 1 marks the nearly constant state.';
+const figSeven = (w, h, short) => CH.lines({ w, h, x0: 0, x1: 1, y0: 0, y1: Math.ceil(peak(P4)) + 1, hover: false, padR: short ? 30 : 22, padL: short ? 40 : 56,
+  yTicks: [0, 2, 4, 6].map((v) => ({ v, t: String(v) })), xTicks: [0, 0.5, 1].map((v) => ({ v, t: String(v) })),
+  xLabel: short ? 'position x' : 'position x on the circle', yLabel: 'density m',
+  rules: [{ v: 1, t: short ? 'constant' : 'constant state' }],
+  series: [{ name: 'four peaks', pts: P4, standing: W.COMPUTED }, { name: 'five peaks', pts: P5, standing: W.COMPUTED }, { name: 'six peaks', pts: P6, standing: W.COMPUTED }], alt: SEVEN_ALT });
+
+/* ---- schema: the experiment in five boxes ---- */
+const SCH_NODES = [
+  { id: 'msg', x: 170, y: 16, w: 260, h: 60, role: 'dep', k: '1 · ONE MESSAGE', v: 'the whole task, nothing attached', t: 'one message', d: 'The same text to both models: the game, what was already known, what would count as new, and how to hand over the numbers of every solution claimed.' },
+  { id: 'astra', x: 20, y: 122, w: 260, h: 60, role: 'held', k: '2 · ' + AST.toUpperCase(), v: 'one answer: proofs and numbers', t: AST, d: 'One reply: a uniqueness proof, the count without a potential, a fold formula, and six lists of candidate equilibria.' },
+  { id: 'fable', x: 320, y: 122, w: 260, h: 60, role: 'held', k: '2 · ' + FAB.toUpperCase(), v: 'one answer: proofs and numbers', t: FAB, d: 'One reply: the same count proved another way, a uniqueness strip, three fold tables, two conjectures, and thirteen lists of candidate equilibria.' },
+  { id: 'cert', x: 20, y: 228, w: 260, h: 60, role: 'sig', k: '3 · THE CERTIFIER', v: 'every list, as submitted', t: 'the certifier', d: 'Each list of candidate equilibria is enclosed in interval arithmetic and the enclosures are proved disjoint, or the list is refused with the reason. Nothing is polished. A second decider repeats every single point.' },
+  { id: 'cross', x: 320, y: 228, w: 260, h: 60, role: 'warn', k: '4 · THE CROSS-READ', v: 'each attacks the other’s proofs', t: 'the cross-read', d: 'Each model receives the other’s mathematics with one identical instruction: find the strongest reason not to accept it. A reading follows a proof line by line; it is not a formal check.' },
+  { id: 'page', x: 170, y: 334, w: 260, h: 60, role: 'sig', k: '5 · THE RECORD', v: 'what held and what is open', t: 'the record', d: 'Every finding once, with who found it, what the certifier decided and what each reading found. What nobody has checked is listed first.' }
+];
+const SCH_EDGES = [
+  { d: 'M250 78 C250 100 150 100 150 120' }, { d: 'M350 78 C350 100 450 100 450 120' },
+  { d: 'M110 184 L110 226', lab: 'numbers', lx: 100, ly: 210, anchor: 'end' },
+  { d: 'M490 184 L490 226', lab: 'proofs', lx: 502, ly: 210, anchor: 'start' },
+  { d: 'M230 184 C230 206 380 204 380 226', flow: false }, { d: 'M370 184 C370 206 220 204 220 226', flow: false },
+  { d: 'M150 290 C150 312 250 312 250 332' }, { d: 'M450 290 C450 312 350 312 350 332' }
+];
+const SCHEMA = C.flow({ w: 600, h: 410, nodes: SCH_NODES, edges: SCH_EDGES,
+  alt: 'A schema of the experiment in five steps: one message goes to both models; each answers once with proofs and numbers; the numbers of both go to the certifier and the proofs of each go to the other model to attack; what the certifier decided and what the readings found meet in the record.',
+  readout: { k: 'the experiment', d: 'Select a step for what happened in it.' },
+  caption: 'The experiment in five steps. The numbers of both models go to the certifier and the proofs of each go to the other model; neither model sees the other’s answer before its own is in.' });
+
 const TITLE = 'Two AI models on a mean-field game: claims decided, proofs read';
 const O = [];
 O.push(C.header({
@@ -114,7 +184,7 @@ O.push(C.section({ lab: 'the experiment', title: 'One message each, then each re
   { b: 'One answer.', text: 'Each model worked in one reply and ended it with its claims, each labelled proved, computationally supported or conjecture, with a probability.' },
   { b: 'The check.', text: 'Every list of candidate solutions was given to the certifier exactly as submitted. Nothing was polished: a polished candidate would be the solver’s discovery, not the model’s.' },
   { b: 'The cross-read.', raw: C.esc('Each model then received the other’s mathematics with one identical instruction, to find the strongest reason not to accept it (') + rec(DIR + 'cross-read-instruction.md') + C.esc(').') }
-]) }));
+]) + SCHEMA }));
 
 /* ---- 1 · multiplicity ---- */
 const where = (r) => r.point ? 'c = ' + String(r.c[0]).replace('-', '−') + ', A = ' + r.A[0] : 'a box around c = ' + ((r.c[0] + r.c[1]) / 2).toFixed(2).replace('-', '−') + ', A = ' + Number(((r.A[0] + r.A[1]) / 2).toPrecision(3));
@@ -128,6 +198,15 @@ O.push(C.section({ lab: '1 · how many equilibria', title: 'Five from each model
     { b: 'Positivity.', text: 'The certifier proves the density positive by a bound on a grid, and refuses a density that comes close to zero. Both models prove a short lemma that makes this unnecessary: the flux of any real periodic solution vanishes, so its density is an exponential and cannot change sign. ' + FAB + ' drew the consequence in the cross-read. On this page a list is CERTIFIED when every candidate is enclosed and the enclosures are pairwise disjoint; the column beside it says whether the grid bound agrees. It disagrees on ' + (lemmaOnly(cA).length + lemmaOnly(cF).length) + ' lists, each a five whose one-peak pair has a density near 10⁻⁷.' },
     { b: 'What was not certified.', text: AST + '’s two remaining boxes are too wide for the certifier: its analytic five over a whole unit of c, and the uniqueness rectangle, which is a statement and not a list of solutions. A refusal is not a refutation.' }
   ]) + '</div>'
+  + C.figure({ svgRaw: figStairs(900, 340, false), svgNarrowRaw: figStairs(360, 380, true), record: [REC, 'certs/mfg-cap-multiplicity.json'],
+    caption: 'The count without a potential. Both models proved that the number of even equilibria at A = 0 rises by two each time the attraction passes π²j²: 1, 3, 5, 7 and on. The marks are where a count has been certified: three, known before this experiment; five, from each model’s own numbers; seven, from candidates built on this law. The law gives ' + topCount + ' at the right edge; the certifier has reached seven.',
+    stop: 'the five at c = −90 or the seven at c = −360 is no longer certified at A = 0, or the three known before moved' })
+  + C.figure({ svgRaw: figSeven(900, 340, false), svgNarrowRaw: figSeven(360, 380, true), record: [REC, DIR + 'control-room-seven-claims.json'],
+    caption: 'What seven equilibria look like, at c = −360 and A = 0.1. Three of them are drawn: the density with four peaks, with five and with six. Each has a twin, the same crowd shifted by half the spacing between peaks, and the seventh is the nearly constant state at 1. The curves are drawn in floating point from the coefficients given to the certifier, which encloses an exact equilibrium within ' + sevenRow.largestRadius.toExponential(0).replace('e-', ' × 10⁻').replace(/⁻(\d)$/, (x, d) => '⁻' + '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]) + ' of each.',
+    stop: 'the drawn densities are not a 4-, a 5- and a 6-peak state, or the seven are no longer certified' })
+  + C.figure({ svgRaw: figLists(900, ALL.length, 26), svgNarrowRaw: figLists(360, 7, 30), record: [REC],
+    caption: 'Every list of equilibria, one cell each: ' + cA.length + ' from ' + AST + ', ' + cF.length + ' from ' + FAB + ', ' + cS.length + ' built in this session. None is refuted.',
+    stop: 'a list is refuted, or the two undecided lists are no longer two' })
   + '<div class="wide"><details class="more"><summary>The ' + cA.length + ' lists ' + C.esc(AST) + ' submitted</summary>' + C.table({ cols: claimCols, rows: claimRows(cA) }) + '</details></div>'
   + '<div class="wide"><details class="more"><summary>The ' + cF.length + ' lists ' + C.esc(FAB) + ' submitted</summary>' + C.table({ cols: claimCols, rows: claimRows(cF) }) + '</details></div>'
   + '<div class="wide"><details class="more"><summary>The ' + cS.length + ' lists built in this session</summary>' + C.table({ cols: claimCols, rows: claimRows(cS) }) + '</details></div>'
