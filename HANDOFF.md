@@ -23,8 +23,8 @@ START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
      --check re-derives it; the six traces of Nondual-Observer/dna-weight-editing @ b7cdf67a cached, git-ignored, in
      corpus/wsp/.cache/dna-b7cdf67a/); the JS second grader agrees on all 3,000; on the untouched 300 the edited runs
      score 49.7-56.3% floor (decided 54.2-60.6%); one answer their grader accepts is WRONG (number_theory/598: gold
-     .0000672 = 21/312500, boxed 0.00006709). The reply with the table is DRAFTED (notes/wsp-dna-regrade-reply.md,
-     private) and posts on his word (RikiyaT/lm_understand-logs#4; promised "within the next day" at ~20:40 UTC 11-19).
+     .0000672 = 21/312500, boxed 0.00006709). The reply with the table is POSTED on his word:
+     https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7022785268 (promised "within the next day", delivered the same evening).
      (b) The ℤ-in-ℚ equivalence file (elliotglazer/diophantine-z-q#6 → a pull request on Deicyde/diophantine-z-q
      against 8ecaadef; "a few days"; needs a pod).
   2. Then the next target: ask him.
