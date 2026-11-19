@@ -12,10 +12,10 @@ On a cube (some sites fixed, the rest free) this is c0 + b·x + Σ w x x in the 
 A certificate is a list of cubes that fills {R,B}ⁿ with one integer vector U per cube. Format and proof of soundness:
 `CERT-FORMAT-V.md` (one page; addendum: the field `within` for a lower bound on a sub-cube).
 
-**Results.** `V-table.json`: V(n) for every n = 1..94 (TABLE88, TABLE92: CERTIFIED by the control room; TABLE94 proposed); lower bound `certs/V{n}-ge-{V}.json`, upper bound a colouring
-(`upper-1-94.json`). New: V(46..94) = 90, 95, 100, 104, 110, 114, 119, 124, 130, 135, 140, 146, 151, 157, 163, 169, 174,
+**Results.** `V-table.json`: V(n) for every n = 1..95 (TABLE88, TABLE92, TABLE94: CERTIFIED by the control room; V(95) proposed last); lower bound `certs/V{n}-ge-{V}.json`, upper bound a colouring
+(`upper-1-95.json`). New: V(46..95) = 90, 95, 100, 104, 110, 114, 119, 124, 130, 135, 140, 146, 151, 157, 163, 169, 174,
 181, 187, 194, 200, 207, 214, 220, 228, 234, 241, 248, 256, 263, 270, 278, 286, 294, 302, 310, 318, 326, 335, 343, 352,
-361, 370, 379, 388, 397, 406, 416, 425. For n ≤ 45 the same method reproduces OEIS A121385. Nothing is used but the definition: no October result, no
+361, 370, 379, 388, 397, 406, 416, 425, 435. For n ≤ 45 the same method reproduces OEIS A121385. Nothing is used but the definition: no October result, no
 earlier V(k), no symmetry.
 
 **Every one of these values equals A(n).** (Part 3, third bullet, in value, as far as an unconditional method reaches.)
@@ -68,9 +68,9 @@ All "exact" items use run 1's claude-track rebuild of the October inner file (`i
 ## 4. Where the question stands (my reading)
 
 - V(n) ≤ A(n) for every n ≥ 1: unconditional (gpt ALLUPPER; I recounted n ≤ 112).
-- V(n) = A(n): unconditional for n ≤ 94 (TABLE94) and n = 548 (FINITE548, read once); conditional on the October
+- V(n) = A(n): unconditional for n ≤ 95 (TABLE94 and V(95)) and n = 548 (FINITE548, read once); conditional on the October
   certificates for n = 548m, m ≥ 2, and for every n ≥ 15,756.
-- OPEN: the lower bound V(n) ≥ A(n) for 95 ≤ n ≤ 15,755 off the multiples of 548.
+- OPEN: the lower bound V(n) ≥ A(n) for 96 ≤ n ≤ 15,755 off the multiples of 548.
 - An attack on that range that failed (`attack_formula.py`, `anneal.c`; a heuristic, no bound): simulated annealing
   from the table's colouring and from random colourings, every n = 93..700 and 40 sampled lengths up to 1,776 (`logs/attack-*.txt`):
   never below A(n), and a random start lands exactly on A(n) at every one of the 648 lengths.

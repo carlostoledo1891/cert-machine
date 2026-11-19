@@ -121,3 +121,13 @@ two models' readings say it holds; its judge is not yet finished.
 `python3 instruments/twelve-blocks/exact/judge.py --write` writes `certs/twelve-blocks-exact.json`; `--check` re-hashes the
 pins and decides the quick statements again. Changes after this commit are amendments below, dated, each committed before
 the code it changes.
+
+## Amendment A1, 2026-11-19 (inputs only; committed before any file of the judge is committed and before any record exists)
+
+One proposal came after the Claude track's closing statement and after the first snapshot: V(95) = 435, by a
+certificate of 3,146 cubes and the table's colouring (c19). The control room registered it in the run and its checker
+decided it there (TABLE95, CERTIFIED). The table and U1 therefore run to n = 95: `run/claude/V-table.json` has 95 rows,
+`certificates/V95-ge-435.json.xz` is added, the colourings file is `run/claude/upper-1-95.json`, and the conversation,
+the claim cards, the verdicts and the final ledger are the final ones. The run folder is pinned again:
+`corpus/twelve-blocks-2/MANIFEST.json` is now sha256 `475551309b38ad92c5ad7551357181985254d1540a4bfb2cb5a8cb869a5d94e0`
+(the first is named inside it). The open range in "What is NOT decided" starts at 96, not 95. Nothing else changes.
