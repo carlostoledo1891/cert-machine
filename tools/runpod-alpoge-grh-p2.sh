@@ -5,7 +5,8 @@
 #   CEN       the closure census and the False probe (P1, D1: COMPUTED)
 #   S1        Comparator v4.33.0 (rebuilt on v4.33.1) against cert-machine's challenge, the challenge's build checked unchanged
 #   C1-C4     the controls, each through the same judge, each must be REJECTED
-#   EXP, K2   lean4export of the five theorems' closure to a file; nanoda on it (C5, a corrupted export, is run by hand after)
+#   EXP, K2   lean4export of the five theorems' closure to a file; nanoda on it (C5, a corrupted export, ran on a
+#             small export before phase 1 ended: /results/derisk.txt, a literal 4 -> 5 made nanoda exit 101)
 #   KR        last: leanchecker --fresh Main (Lean's kernel replaying the closure from the .olean files in a fresh environment)
 # Every Lean step runs as `tester`. If landrun cannot sandbox on this container, Comparator gets a pass-through wrapper and
 # the record says "no sandbox" (as the ETH lane did with bwrap).
@@ -120,8 +121,10 @@ grep 'CertMachine/Challenge\.' $R/challenge-build.sha256 | sort -k2 > /tmp/ch0
 cmp -s /tmp/ch0 $R/challenge-build.before-S1.sha256 && log "challenge build unchanged before S1" || log "WARNING: challenge build differs before S1"
 step CTLB 7200 $W bash -c 'export PATH=$HOME/.elan/bin:$PATH; lake build CertMachine.ChallengeC1 CertMachine.Ctl2 CertMachine.Ctl3 CertMachine.Ctl4'
 # landrun: sandbox if it can run here, else a recorded pass-through
-if runuser -u $U -- $T/landrun/landrun --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true > $R/landrun-test.txt 2>&1; then
-  ln -sf $T/landrun/landrun $T/landrun-use; echo sandbox > $R/S1.mode
+# Comparator calls landrun with --best-effort (it applies what the host's Landlock ABI offers: v4 here, file-system rules);
+# the same flags decide the mode; a strict request fails on this host (ABI v4, landrun asks v10), recorded in derisk.txt
+if runuser -u $U -- $T/landrun/landrun --best-effort --ro / --rw /dev -ldd -add-exec -- /bin/true > $R/landrun-test.txt 2>&1; then
+  ln -sf $T/landrun/landrun $T/landrun-use; echo 'sandbox (landrun --best-effort, Landlock ABI v4)' > $R/S1.mode
 else
   printf '#!/usr/bin/env bash\n# pass-through: landrun cannot sandbox on this container (see landrun-test.txt); drop landrun flags up to --\nwhile [ $# -gt 0 ] && [ "$1" != "--" ]; do shift; done; shift; exec "$@"\n' > $T/landrun-use; chmod 755 $T/landrun-use; echo nosandbox > $R/S1.mode
 fi
