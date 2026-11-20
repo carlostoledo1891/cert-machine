@@ -56,20 +56,26 @@ def derive(run):
     ok = 'I1 PASS' in i1 and i1.count('MATCH') >= 15 and 'MISMATCH' not in i1
     rows.append(row('I1', 'CERTIFIED' if ok else 'REFUTED', 'the 14 parts fetched on the pod against PINS.json; joined sha256 '
                     + pins['archive']['sha256'] if ok else 'a part or the joined archive differs from its pin'))
-    # B1
-    b1 = ex(run, 'B1')
-    prog = rd(run, 'B1.progress', '') or ''
+    # B1, read from B1V (B1's own status went through tee: amendment A3) and the source/olean reconciliation
+    b1v = ex(run, 'B1V')
+    prog = (rd(run, 'B1.progress', '') or '') + (rd(run, 'B1V.out', '') or '')
     sorry = prog.count("declaration uses 'sorry'")
-    built = re.findall(r'Build completed successfully \((\d+) jobs\)', prog)
-    if b1 == 0 and built and sorry == 0:
-        v, why = 'CERTIFIED', f'lake build of the default targets exited 0 ({built[-1]} jobs), no sorry warning'
-    elif b1 == 124:
+    built = re.findall(r'Build completed successfully \((\d+) jobs\)', rd(run, 'B1V.out', '') or '')
+    rec_ = (rd(run, 'reconcile.txt', '') or '').splitlines()[:1]
+    m_ = re.match(r'sources (\d+) oleans (\d+) missing (\d+) extra (\d+)', rec_[0]) if rec_ else None
+    if b1v == 0 and built and sorry == 0 and m_ and m_.group(3) == '0':
+        v, why = 'CERTIFIED', f'lake build of the default targets exits 0 ({built[-1]} jobs), no sorry warning, all {m_.group(1)} sources have an .olean'
+    elif b1v in (None,):
+        v, why = 'REFUSED', 'no B1V result pulled'
+    elif b1v == 124:
         v, why = 'REFUSED', 'the build hit its time limit'
-    elif b1 is None:
-        v, why = 'REFUSED', 'no build result pulled'
     else:
-        v, why = 'REFUTED', f'the build exited {b1} (sorry warnings: {sorry})'
-    rows.append(row('B1', v, why, seconds=secs(run, 'B1'), peak_rss_gb=peak_rss_gb(run, 'B1')))
+        v, why = 'REFUTED', f'the build exits {b1v} (sorry warnings: {sorry}; reconcile: {rec_[0] if rec_ else "none"})'
+    rows.append(row('B1', v, why, seconds=secs(run, 'B1'), peak_rss_gb=peak_rss_gb(run, 'B1'), reconcile=rec_[0] if rec_ else None))
+    mi = (rd(run, 'mathlib-integrity.txt', '') or '').splitlines()[:1]
+    mm = re.search(r'common (\d+) differing (\d+)', mi[0]) if mi else None
+    rows.append(row('MI', 'CERTIFIED' if mm and mm.group(2) == '0' and int(mm.group(1)) > 0 else 'REFUSED',
+                    ('the workspace\'s ' + mm.group(1) + ' dependency .olean files equal a clean cache download of the same revision') if mm and mm.group(2) == '0' else 'Mathlib integrity not established: ' + (mi[0] if mi else 'no result')))
     # A1
     a1 = rd(run, 'A1.out', '') or ''
     found = {}
@@ -102,12 +108,18 @@ def derive(run):
         v, why = 'REFUTED', 'Comparator rejected the release against the challenge'
     rows.append(row('S1', v, why, mode=mode, seconds=secs(run, 'S1')))
     ctl = {}
-    for c, want in [('C1', 'statement mismatch'), ('C2', 'planted axiom'), ('C3', 'sorry'), ('C4', 'hijacked definition')]:
-        e = ex(run, c)
-        ctl[c] = {'what': want, 'exit': e, 'refused': e not in (None, 0)}
-    d = rd(run, 'derisk.txt', '') or ''
-    ctl['C5'] = {'what': 'corrupted export (a literal 4 -> 5), small project', 'refused': 'nanoda-bad exit 101' in d}
-    if any(c != 'C5' and x['exit'] is None for c, x in ctl.items()):
+    built_ok = ex(run, 'CTLB') == 0
+    expect = {'C1': ('statement mismatch', r'do not match|does not match'), 'C2': ('planted axiom', r"Illegal axiom detected: 'cheat'"),
+              'C3': ('sorry', r"Illegal axiom detected: 'sorryAx'"), 'C4': ('hijacked definition', r'do not match|does not match')}
+    for c, (want, pat) in expect.items():
+        e = ex(run, c); out = (rd(run, c + '.out', '') or '') + (rd(run, c + '.err', '') or '')
+        ctl[c] = {'what': want, 'exit': e, 'refused': built_ok and e not in (None, 0, 124) and bool(re.search(pat, out))}
+    ctl['A1-C2'] = {'what': 'the axiom report names the planted axiom', 'refused': "'riemannHypothesis' depends on axioms" in (rd(run, 'A1C2.out', '') or '') and 'cheat' in (rd(run, 'A1C2.out', '') or '')}
+    ctl['A1-C3'] = {'what': 'the axiom report names sorryAx', 'refused': 'sorryAx' in (rd(run, 'A1C3.out', '') or '')}
+    c5out = (rd(run, 'C5.out', '') or '') + (rd(run, 'C5.err', '') or '')
+    ctl['C5'] = {'what': "the release's export with riemannHypothesis re-typed as False", 'exit': ex(run, 'C5'),
+                 'refused': ex(run, 'C5') not in (None, 0, 124) and 'C5: riemannHypothesis re-typed as False' in c5out and not re.search(r'Checked \d+ declarations with no (?:typechecker )?errors', c5out)}
+    if any(x.get('exit', 0) is None for x in ctl.values()) or not built_ok:
         v, why = 'REFUSED', 'not every control ran'
     elif all(x['refused'] for x in ctl.values()):
         v, why = 'CERTIFIED', 'every control was refused by the judge it was built to fail'
@@ -116,8 +128,8 @@ def derive(run):
     rows.append(row('C1-C5', v, why, controls=ctl))
     # K2 nanoda, KR leanchecker --fresh
     k2 = rd(run, 'K2.out', '') or ''
-    m = re.search(r'Checked (\d+) declarations with no typechecker errors', k2)
-    if ex(run, 'K2') == 0 and m:
+    m = re.search(r'Checked (\d+) declarations with no (?:typechecker )?errors', k2)
+    if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and m:
         v, why = 'CERTIFIED', f'nanoda checked {m.group(1)} declarations of the exported closure with no typechecker error'
     elif ex(run, 'K2') in (None, 124, 137):
         v, why = 'REFUSED', 'nanoda did not finish (resources or not run)'
@@ -152,9 +164,9 @@ def main():
     if len(sys.argv) != 2 or sys.argv[1] not in ('--write', '--check'):
         print(__doc__); sys.exit(2)
     runs = sorted(d for d in os.listdir(RUNS)) if os.path.isdir(RUNS) else []
-    if not runs:
-        print('REFUSED: no pulled run in', RUNS); sys.exit(1)
-    rec = derive(os.path.join(RUNS, runs[-1]))
+    if len(runs) != 1:
+        print('REFUSED: expected exactly one pulled run in', RUNS, 'found', runs); sys.exit(1)
+    rec = derive(os.path.join(RUNS, runs[0]))
     text = json.dumps(rec, indent=1, ensure_ascii=False) + '\n'
     if sys.argv[1] == '--write':
         open(OUT, 'w', encoding='utf-8').write(text); print('wrote', OUT)
