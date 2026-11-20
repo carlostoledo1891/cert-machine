@@ -1,0 +1,112 @@
+{
+ "what": "Pins of the claim decided by cert-machine: Levent Alpöge, \"Remark\" (alpo.ge/remark.pdf, 2026-11-20) and the Lean archive its footnote 1 names (alpo.ge/lean.tar.gz.part01..part14). Fetched 2026-11-20 ~16:14-16:17 UTC from alpo.ge (Cloudflare) by plain GET; nothing in the archive is copied here (1.3 GB extracted); its file list and key files are pinned by sha256.",
+ "remark": {
+  "url": "https://alpo.ge/remark.pdf",
+  "bytes": 245114,
+  "sha256": "3fc97784b71ddd44ff8aa0a177e99622a1c61b13cfa843a0989ee4a7a0cfeb8d",
+  "pdf_creation": "2026-11-20 09:52:48 -03 (pdfTeX-1.40.29)"
+ },
+ "parts": {
+  "lean.tar.gz.part01": {
+   "url": "https://alpo.ge/lean.tar.gz.part01",
+   "bytes": 18000000,
+   "sha256": "86974b1c242ca7b6748f3299df4fc64ee0f6e06c776ac964fb64888101a3de77"
+  },
+  "lean.tar.gz.part02": {
+   "url": "https://alpo.ge/lean.tar.gz.part02",
+   "bytes": 18000000,
+   "sha256": "1c2a2477354a9dfa97ff1ce54861e96ed885bd456fffbaaabc2028314a229c42"
+  },
+  "lean.tar.gz.part03": {
+   "url": "https://alpo.ge/lean.tar.gz.part03",
+   "bytes": 18000000,
+   "sha256": "1465a23b1b579a881e24e5ffaf7c4c3727af28ea24741f1ec80e1d67947530a3"
+  },
+  "lean.tar.gz.part04": {
+   "url": "https://alpo.ge/lean.tar.gz.part04",
+   "bytes": 18000000,
+   "sha256": "3929e327eecb4e2c5c7cae30e104e6a4a52fa6b82d28325bcda8e9da1c86893b"
+  },
+  "lean.tar.gz.part05": {
+   "url": "https://alpo.ge/lean.tar.gz.part05",
+   "bytes": 18000000,
+   "sha256": "f25d7e80f7c4ad6d674aa18b323ca760f848857c8755501c149317c38a66c75d"
+  },
+  "lean.tar.gz.part06": {
+   "url": "https://alpo.ge/lean.tar.gz.part06",
+   "bytes": 18000000,
+   "sha256": "a8c651a68327811b37dce3cca8eda5e0b2102fa227c0d395cbb7553e4dd69939"
+  },
+  "lean.tar.gz.part07": {
+   "url": "https://alpo.ge/lean.tar.gz.part07",
+   "bytes": 18000000,
+   "sha256": "65c7e502a9b236a0f68d9e0aa6e089d4c09b9fc7a0960a149384063ccbe5e869"
+  },
+  "lean.tar.gz.part08": {
+   "url": "https://alpo.ge/lean.tar.gz.part08",
+   "bytes": 18000000,
+   "sha256": "71b027ad6e4179c3a50ce72921e3fec0a2dd751ec7472ac2c644ad145a50ec7e"
+  },
+  "lean.tar.gz.part09": {
+   "url": "https://alpo.ge/lean.tar.gz.part09",
+   "bytes": 18000000,
+   "sha256": "47718977ebaa8613f1647e93134479780db9320c5fa911463fd312a6257b796f"
+  },
+  "lean.tar.gz.part10": {
+   "url": "https://alpo.ge/lean.tar.gz.part10",
+   "bytes": 18000000,
+   "sha256": "1d85ece78e0779cec26b0cce29c6462d9f90180e56d78120b152df101715240b"
+  },
+  "lean.tar.gz.part11": {
+   "url": "https://alpo.ge/lean.tar.gz.part11",
+   "bytes": 18000000,
+   "sha256": "cf83a159d1a9540012229c376562587dd966da10cd657cbcef53acfd03232448"
+  },
+  "lean.tar.gz.part12": {
+   "url": "https://alpo.ge/lean.tar.gz.part12",
+   "bytes": 18000000,
+   "sha256": "1aa5415bd2db83b2689afeeb946419303b3c4f599ae790ad74d38465f768b502"
+  },
+  "lean.tar.gz.part13": {
+   "url": "https://alpo.ge/lean.tar.gz.part13",
+   "bytes": 18000000,
+   "sha256": "2de4edbce8ebdbfd0b94bc89bab518c7294209f408ec5b14a7be9e4832d9da81"
+  },
+  "lean.tar.gz.part14": {
+   "url": "https://alpo.ge/lean.tar.gz.part14",
+   "bytes": 5275554,
+   "sha256": "53f8ea43a9b5dcab97b84a52f3ac2848711c844a5420a4c56418093bacb3c6f6"
+  }
+ },
+ "archive": {
+  "joined": "cat part01..part14 in order",
+  "bytes": 239275554,
+  "sha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+  "entries": 175190,
+  "lean_files": 175187,
+  "lean_lines": 17374215,
+  "file_list_sha256": "ac98446c111d89d0b60ecef090b8cbfb753aa640532d39d81e6f30bde1b16aae",
+  "file_list_note": "tar -tzf output, one path per line, in archive order"
+ },
+ "key_files": {
+  "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+  "lakefile.toml": "b831ad8cac0babb7bf713433259bdfe5163e58c90734e86d71536d4e30ddec4c",
+  "lake-manifest.json": "fee57ee9ed399d0a638ca955e5ad40a37a36eeb9b6dfd9f5964114fa7bbe4774",
+  "src/Main.lean": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939",
+  "src/Statements.lean": "79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf"
+ },
+ "toolchain": "leanprover/lean4:v4.33.1 (official release, published 2026-08-21T12:02:41Z)",
+ "mathlib": {
+  "rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "tag": "v4.33.1 (the tag object points to this commit)",
+  "note": "not on mathlib4 master (behind_by 1 when compared with master on 2026-11-20): the release-tag commit \"chore: bump toolchain to v4.33.1\", 2026-08-21; fetched by lake, not vendored"
+ },
+ "headline_theorems": [
+  "riemannHypothesis : RiemannHypothesis",
+  "riemannZeta_eq_zero_re : RiemannZetaZerosOnLine",
+  "LFunction_ne_zero_of_half_lt_re : DirichletLNonvanishingRightOfHalf",
+  "LFunction_eq_zero_re : DirichletLZerosOnLine",
+  "LFunction_eq_zero_re_of_isPrimitive : PrimitiveDirichletLZerosOnLine"
+ ],
+ "mirror_not_pinned": "github.com/CocoSgt/riemann-hypothesis-lean (third party, created 2026-11-20T14:59Z) is NOT the claim; it is compared, never used"
+}
