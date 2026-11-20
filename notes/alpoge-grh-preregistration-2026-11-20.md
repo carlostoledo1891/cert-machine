@@ -114,3 +114,43 @@ describes it: non-trivial zeros on 1/2 + iℝ and, off the centre, multiplicity 
   for primitive characters; ReadingQ ⇒ every nontrivial zero of ζ off the real axis is on the line and simple; and
   what the reading adds (simplicity off the centre) is stated separately. Axioms printed. Nothing about the truth of
   Masullo's claim is decided: no Lean of it exists.
+
+## Amendment A3 — after an outside red-team reading (2026-11-21 ~00:10 UTC, before phase 2 starts)
+
+An independent reader from another model family red-teamed this plan at 0201d71c-era files (dde91825) and read the
+statements a second time. Its findings were checked here against the sources before acting; every one below was
+confirmed or adopted.
+
+- **S1 configuration (confirmed defect, fixed).** The runner passed the four release-defined propositions to
+  Comparator as `definition_names`. In Comparator v4.33.0 those are definition HOLES: name, type, universes and
+  safety are compared, the bodies are not (README "Definition Holes"; Compare.lean `definitionHoleMatches`). S1 as
+  configured could not have certified the four Dirichlet statements' bodies, and C1 and C4 (which change exactly such
+  a body) would have been accepted. Fixed before any run: no `definition_names` in S1, C1–C4; the five theorem names
+  stay, and Comparator then compares every constant their statements use, bodies included.
+- **Host hygiene (adopted).** B1 ran release code as `tester`, the owner of the toolchain (~/.elan), the judges, the
+  Mathlib packages and /results. Phase 2 now: makes /results and the export root-owned before any judge runs; rebuilds
+  the judges as root in /opt/judges; runs every step with the official v4.33.1 release unpacked by root in
+  /opt/toolchain (tester's copy hashed against it); compares the workspace's Mathlib .olean files with a clean
+  root-owned cache download of the same revision; keeps the challenge-build hash check (exact list equality).
+- **B1's exit status (confirmed defect, fixed).** B1's status was `tee`'s. B1V re-runs `lake build` with its own exit
+  status, and the release's .olean set is reconciled with its 175,187 sources. The record reads B1 from B1V.
+- **Controls (adopted).** C1–C4 count only with the expected diagnostic, after their builds succeed; A1 also runs on
+  C2 (`cheat` must appear) and C3 (`sorryAx` must appear); C5 now runs on the release's own export (the theorem
+  `riemannHypothesis` re-typed as `False`, its proof unchanged, must be rejected by nanoda); the toy C5 of the dry run
+  is kept as a dry run only.
+- **The recorder (adopted).** nanoda's success line at the pinned commit is "Checked N declarations with no errors";
+  K2 also requires EXP's exit 0 and records the export's sha256; the run directory is named, not chosen by sort.
+- **Wording (adopted).** "Without assumptions" is replaced by the exact axioms of each theorem; the claim is named
+  "the Riemann Hypothesis and GRH for Dirichlet L-functions"; M1 reads "no declaration inserted outside the kernel's
+  check was found" (`cpt_copy_thms` adds declarations through `addDecl`, which the kernel checks); P1 checks
+  syntactically `False` and `¬True` (no more is claimed); K3 attempts are reported one by one.
+- **Still open, planned:** a second, clean verifier (a fresh pod that never compiled release code: clean Mathlib,
+  clean judges, the challenge built there) running Comparator and nanoda on the release's compiled modules, and an
+  independently written specification of RH proved equivalent to Mathlib's in a Mathlib-only workspace.
+
+**Correction to amendment A2 (Masullo).** The description of Theorem 13.3.1.2 opens §14.1.2 on page **528** (not
+532), where the footnote "Correct this subsection." sits; page 529 places the central point at s = 1/2 − i·x₀ in the
+draft's unnormalized coordinate, so the multiplicity bound is for non-central zeros; the location claim also appears in
+prose on pages 30 and 55; Proposition 14.1.2.3 (page 531) states both conclusions conditionally on Conjectures
+14.1.2.1–2. `ReadingQ` is the normalized (t = 0) primitive-Dirichlet specialization; twists |·|^{it} follow by
+translation.

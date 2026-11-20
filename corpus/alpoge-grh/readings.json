@@ -15,10 +15,10 @@
    "Formalism/HermitianCurvature/HermitianCurvatureProofs/CutCptCopy.lean: elab \"cpt_copy_thms\" — copies declarations under renamed constants through addDecl, which is kernel-checked",
    "no addDeclWithoutChecking, no Kernel/Environment writes besides the deny list; 22 tactic macros are abbreviations of tactic scripts"
   ],
-  "verdict_reading": "none of them adds or alters a declaration outside the kernel (K2 and KR are the backstop either way)"
+  "verdict_reading": "no declaration inserted outside the kernel's check was found: cpt_copy_thms adds declarations through addDecl, which the kernel checks; kexactB and kcopy assign proof terms that the kernel checks when the theorem is added (K2 and KR are the backstop either way)"
  },
  "F1_riemannHypothesis": {
-  "standing": "READ ONCE",
+  "standing": "READ TWICE (two model families)",
   "source": "Mathlib/NumberTheory/LSeries/RiemannZeta.lean at 0df444a3 (sha256 db9f37f08bcce379…)",
   "text": "def RiemannHypothesis : Prop := ∀ (s : ℂ) (_ : riemannZeta s = 0) (_ : ¬∃ n : ℕ, s = -2 * (n + 1)) (_ : s ≠ 1), s.re = 1 / 2",
   "checklist": {
@@ -27,10 +27,11 @@
    "c_function": "riemannZeta := hurwitzZetaEven 0 equals Σ n^(-s) for Re s > 1 (zeta_eq_tsum_one_div_nat_cpow; the n+1 form avoids 0^s) and is analytic on ℂ ∖ {1} (analyticOn_riemannZeta), so it is the classical continuation there by the identity theorem",
    "d_conclusion": "s.re = 1 / 2 in ℝ"
   },
-  "found": "Mathlib's RiemannHypothesis is the classical statement; the release's RiemannZetaZerosOnLine is the same proposition with the cast written out"
+  "found": "Mathlib's RiemannHypothesis is the classical statement; the release's RiemannZetaZerosOnLine is the same proposition with the cast written out",
+  "second_reading": "2026-11-21, an independent reader from another model family: OK on all four points; adds Mathlib's value at s = 1, (γ − log 4π)/2 ≠ 0 (Mathlib/NumberTheory/Harmonic/ZetaAsymp.lean), so excluding s = 1 removes no zero"
  },
  "F2_dirichlet": {
-  "standing": "READ ONCE",
+  "standing": "READ TWICE (two model families)",
   "source": "Mathlib/NumberTheory/LSeries/DirichletContinuation.lean at 0df444a3 (sha256 86d3aaad83e64cb6…); the release's Statements.lean (sha256 79ef7ca7…)",
   "found": [
    "DirichletCharacter.LFunction: the meromorphic continuation of Σ χ(n) n^(-s) (LFunction_eq_LSeries for Re s > 1; differentiableAt_LFunction off s = 1 for the trivial character; LFunction_modOne_eq: ζ at N = 1)",
@@ -38,7 +39,8 @@
    "DirichletLZerosOnLine: zeros of every L(χ, ·) in 0 < Re s < 1 lie on Re s = 1/2",
    "PrimitiveDirichletLZerosOnLine: the same for primitive χ (implied by the previous)",
    "'Generalized' = Dirichlet L-functions of every modulus (the usual GRH); the Extended RH (Dedekind zeta) and automorphic L-functions are not stated in the Lean — the remark says ERH is expected 'with more time', so the Lean claims no more than the remark"
-  ]
+  ],
+  "second_reading": "2026-11-21, the same reader: OK; the character mod 1 is primitive and its LFunction is riemannZeta, so even the primitive statement contains RH; χ ≠ 1 ∨ s ≠ 1 excludes exactly the principal pole and keeps every non-principal character at s = 1; the three Dirichlet forms are classically equivalent (functional equation for primitive χ; nonvanishing on Re s ≥ 1); the precise label is 'GRH for Dirichlet L-functions' (it implies RH for the Dedekind zeta function of every abelian extension of Q, which factors into Dirichlet L-functions)"
  },
  "F3_remark": {
   "standing": "READ ONCE",
@@ -57,7 +59,7 @@
    ],
    [
     "Claude and I have also formalized the arguments without assumptions",
-    "A1 and the scan (no sorry, no declared axiom)"
+    "A1 (the exact axioms of each theorem: propext, Classical.choice, Quot.sound expected) and the scan (no sorry, no declared axiom)"
    ],
    [
     "its formalization is finished",

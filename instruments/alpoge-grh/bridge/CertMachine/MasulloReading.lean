@@ -7,12 +7,15 @@ import CertMachine.BridgeConditional
 Alessandro Maria Masullo, "The Music of the Primes" (draft, 940 pp., posted 2026-11-20 at
 math216.wordpress.com, sha256 e039d3f6…). Its main theorem on the zeros, Theorem 13.3.1.2 (p. 522), is NOT yet
 stated in the draft (its footnotes read "Insert statement." and "State and prove the Main Theorems"). The draft
-describes what that theorem asserts in §14.1.2 (p. 532): "if ρ ∈ ℂ is a non-trivial zero of L(s, χ), then
-ρ ∈ 1/2 + iℝ, and if, in addition, ρ ∉ ℝ, i.e. ρ ≠ 1/2, then N(ρ) ≤ [F : ℚ]", for the Hecke L-functions of every
-number field F and every unitary Hecke character χ.
+describes what that theorem asserts at the opening of §14.1.2 (p. 528, itself footnoted "Correct this subsection."):
+"if ρ ∈ ℂ is a non-trivial zero of L(s, χ), then ρ ∈ 1/2 + iℝ, and if, in addition, ρ ∉ ℝ, i.e. ρ ≠ 1/2, then
+N(ρ) ≤ [F : ℚ]", for the Hecke L-functions of every number field F and every unitary Hecke character χ; p. 529 places
+the central point at s = 1/2 − i·x₀ in the draft's unnormalized coordinate. The location claim also appears in prose on
+pp. 30 and 55, and Proposition 14.1.2.3 (p. 531) states both conclusions conditionally on Conjectures 14.1.2.1–2.
 
-`ReadingQ` is cert-machine's reading of that description at F = ℚ (where [F : ℚ] = 1 and the unitary Hecke
-characters are the primitive Dirichlet characters up to a twist |·|^{it}, which moves zeros vertically only). It is a
+`ReadingQ` is cert-machine's reading of that description at F = ℚ, normalized (t = 0): [F : ℚ] = 1, and the unitary
+Hecke characters of ℚ are the primitive Dirichlet characters twisted by |·|^{it}, which moves zeros vertically only, so
+the twists follow by translation (the central point then sits at 1/2). It is a
 READING of a description, not a printed theorem, and it is re-checked against Theorem 13.3.1.2 once the draft states
 it. Proved here, from Mathlib alone: the reading implies the zero statements of Alpöge's Lean release for primitive
 characters (and for ζ), and it says MORE — every zero off the centre is simple — which neither Lean release states.
