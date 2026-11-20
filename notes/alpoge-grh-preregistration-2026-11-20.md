@@ -97,3 +97,20 @@ Mathlib commits 95 apart. The bridge puts both in one environment and composes t
   "distinct". Its value is the interlock: the two releases' statements refer to the same Mathlib constants and compose
   without a seam. It adds no mathematics beyond the two releases and claims no novelty (conditional results under RH
   are stronger in the literature); the page will say so.
+
+## Amendment A2 — the statement bridge to Masullo's draft (2026-11-20 ~23:40 UTC, before the bridge file is compiled)
+
+On the operator's "Both bridges": Alessandro Maria Masullo's all-human draft "The Music of the Primes" (940 pp.,
+posted 2026-11-20 by Ravi Vakil, math216.wordpress.com; PDF sha256 e039d3f6cf0a4b14f03c7edb85097752dd65c0a2fe543c76fe992be234f97bf5)
+claims GRH for all number fields and all unitary Hecke characters. Its main zero theorem (Theorem 13.3.1.2, p. 522)
+is not stated in the draft ("Insert statement.", "State and prove the Main Theorems"; the trace formula above it
+carries "Correct statement."; it cites a "Theorem ??"). §14.1.2 (p. 532, itself marked "Correct this subsection")
+describes it: non-trivial zeros on 1/2 + iℝ and, off the centre, multiplicity ≤ [F : ℚ].
+
+- **MR (READ ONCE, a reading):** `CertMachine.Masullo.ReadingQ` (instruments/alpoge-grh/bridge/CertMachine/MasulloReading.lean)
+  is cert-machine's reading of that description at F = ℚ. It is re-checked against Theorem 13.3.1.2 when the draft
+  states it; until then the record calls it a reading of a description, never Masullo's theorem.
+- **MB (decided by Lean, Mathlib + zeta23's Mathlib-only layer):** ReadingQ ⇒ the zero statement of Alpöge's release
+  for primitive characters; ReadingQ ⇒ every nontrivial zero of ζ off the real axis is on the line and simple; and
+  what the reading adds (simplicity off the centre) is stated separately. Axioms printed. Nothing about the truth of
+  Masullo's claim is decided: no Lean of it exists.
