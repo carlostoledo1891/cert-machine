@@ -1678,6 +1678,16 @@
    "finding": "",
    "measured": "Nothing run.",
    "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "erdos1186-snively-lean-2026-11",
+   "name": "Chandler Snively (Quana Labs), github.com/dreadpiratechan/erdos-1186 (v1.0.0, 26 Oct 2026; aiXiv:2610.02762): a Lean 4 formalisation whose Theorem C is the Formal Conjectures statement erdos_1186.variants.prs_conjecture, δ 3 = 117/2192 — 'a Lean formalisation of Carlos Toledo's unrefereed proof claim' (our δ₃ claim of 2026-10-05), with five stated departures.",
+   "scouted": "2026-11-20",
+   "verdict": "OPEN — pre-checked read-only by an agent on the operator's word (2026-11-20): HEAD 7349c51d (one commit after v1.0.0, README/CITATION/MANIFEST only); manifest check 457/457 and 484/484 files OK; prs_conjecture : δ 3 = 117 / 2192 with no binders, definitions text-identical to Formal Conjectures (rfl-checked by their pin script); upstream file unchanged since c83a94d (sha256 28cedb69…, main d8d031d 2026-11-19), still 'research open' with sorry, no proof link; static scan clean (no sorry/axiom/native_decide/macros; decide +kernel on 467 lines); their logs: Windows, Lean 4.27.0, Mathlib a3a10db, 8228 jobs, 4978 constants standard axioms only, lean4checker 342/342; certificates independent of ours (none of our files in their manifest). The five departures do not weaken the proved statement (its type is upstream's). Missing: a build and kernel replay by someone other than them — our job after the GRH release (est. 3-6 machine-hours, ~US$5-15).",
+   "finding": "Their README credits the mathematics of Theorem C to the operator by name. erdosproblems.com/1186 now labels the claim 'A proof' (0 comments) and 'Formalised statement? Yes'; the site's status widget was not readable logged out. Our forum note still says 'not formalised in Lean' (out of date). No issue/PR anywhere names their repository; formal-conjectures mentions of 1186: only #6882 (ours) and #7467. Notes and the clone: notes/erdos1186-snively-2026-11-20/ (private).",
+   "measured": "Manifest and source scan only; nothing built.",
+   "next": "After the GRH release, on the operator's word: build + leanchecker + Comparator (our own challenge from the upstream statement) + nanoda on a pod; then, each send his: an issue on their repo confirming the replay, an erdosproblems note, a formal-conjectures proof-link PR (prs_bounds is the cleaner first link), a recognition entry.",
+   "note": "Pre-checked by a background agent while the GRH pod built; facts are its readings, spot-checked by repo metadata."
   }
  ]
 }
