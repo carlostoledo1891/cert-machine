@@ -379,3 +379,11 @@ DAY TWO POSTED 2026-10-16 ~00:30 UTC on the operator's "go day 2":
 - Off GitHub, the same day: the X post for /reports/blinking-light.html
   (https://x.com/_carlos_toledo_/status/2123500014953443741), and the operator's own e-mail to Dobrynin and Stroujkova
   (sent by him; the draft is private), an exception to the e-mails-off rule that he asked for.
+- The WSP re-grade (RikiyaT/lm_understand-logs#4, https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7022785268),
+  on his "yes, post it": the six MATH-500 traces of Nondual-Observer/dna-weight-editing re-graded three-valued
+  (certs/wsp-dna-regrade.json).
+- The ℤ-in-ℚ statement check, on his "Proceed GitHub tasks": PR Deicyde/diophantine-z-q#151
+  (https://github.com/Deicyde/diophantine-z-q/pull/151), one file ZInQKernel/Contrib/OneProof/PrintedTheorem11.lean
+  (Theorem 1.1 as printed ↔ ZInQ.FrozenTarget, standard axioms, built at 8ecaadef, the CONTRIBUTING discharge check
+  run on a pod), the eight-hypothesis table in the description; linked on elliotglazer/diophantine-z-q#6 as promised
+  (https://github.com/elliotglazer/diophantine-z-q/pull/6#issuecomment-7025762516). AI disclosure in both.

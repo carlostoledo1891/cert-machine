@@ -25,15 +25,15 @@ START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
      score 49.7-56.3% floor (decided 54.2-60.6%); one answer their grader accepts is WRONG (number_theory/598: gold
      .0000672 = 21/312500, boxed 0.00006709). The reply with the table is POSTED on his word:
      https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7022785268 (promised "within the next day", delivered the same evening).
-     (b) The ℤ-in-ℚ equivalence file is BUILT and CHECKED, NOT SENT: ZInQKernel/Contrib/OneProof/PrintedTheorem11.lean
+     (b) The ℤ-in-ℚ equivalence file is SENT on his word ("Proceed GitHub tasks"): PR Deicyde/diophantine-z-q#151, linked
+     on elliotglazer/diophantine-z-q#6 (issuecomment-7025762516); watch #151 for the fork's discharge check and review. It was: ZInQKernel/Contrib/OneProof/PrintedTheorem11.lean
      (sha256 ffb91720…e9e0; Theorem 1.1 as printed ↔ ZInQ.FrozenTarget, standard axioms only) in the clone
      ~/Projects/zq-scout/deicyde-8ecaadef, branch printed-theorem-11, commit 06a869aa8, NOT PUSHED. Checked on pod
      8tp34ov5glo0r3 (cpu3m, 16 vCPU, US$0.88/h, 21:59-23:40 UTC, ≈ US$1.5, DELETED, get-pod 404): the file builds, and the
      CONTRIBUTING discharge check (`lake build +Main +Discharges +PrintedTheorem11`, 16,562 jobs, 94 min) and `#discharges`
      exit 0 (345 existing discharges, all standard axioms, none from the file, as expected). Log:
-     notes/zq-printed-theorem11-2026-11-19/pod-run.log; the PR body: notes/zq-printed-theorem11-pr.md (filled). On his
-     word: push to carlostoledo1891/diophantine-z-q, `gh pr create -R Deicyde/diophantine-z-q --base main --head
-     carlostoledo1891:printed-theorem-11`, then link the PR on elliotglazer/diophantine-z-q#6 (promised there).
+     notes/zq-printed-theorem11-2026-11-19/pod-run.log; the PR body: notes/zq-printed-theorem11-pr.md. The branch
+     printed-theorem-11 is pushed to carlostoledo1891/diophantine-z-q.
   2. The next target, SCOUTED on his word (OPEN, nothing built): exact certification of the SDP lower bounds on the 2D
      J1-J2 Heisenberg ground-state energy (Wang et al., PRX 14, 031006, Table 11; the later 10x10 bounds of SciPost 21,
      074). The row: corpus/targets.json qmb-ground-energy-2026-11 (prior art, the corrections, the plan). Waits for his go.
