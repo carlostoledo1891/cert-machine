@@ -36,7 +36,10 @@ START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
      printed-theorem-11 is pushed to carlostoledo1891/diophantine-z-q.
   2. The next target, SCOUTED on his word (OPEN, nothing built): exact certification of the SDP lower bounds on the 2D
      J1-J2 Heisenberg ground-state energy (Wang et al., PRX 14, 031006, Table 11; the later 10x10 bounds of SciPost 21,
-     074). The row: corpus/targets.json qmb-ground-energy-2026-11 (prior art, the corrections, the plan). Waits for his go.
+     074). The row: corpus/targets.json qmb-ground-energy-2026-11 (prior art, the corrections, the plan). He was "not
+     convinced yet" and asked for other physics: seven more rows scouted 2026-11-20 (three-body-orbits, thomson-llm-records,
+     metadesign-quantum-experiments, llm-evolved-qldpc-codes OPEN; single-minus-gluon-gpt52, bootstrap-rigorous OCCUPIED;
+     water-wave-a6-agents UNSCOUTED). Recommended: the three-body orbits, with the Thomson records first. Waits for his pick.
   3. His, any time: the OEIS edit of A121385 (his account); the outside readers for the twelve blocks and for the
      blinking light (two packs in outreach/); replies from Dobrynin and Stroujkova (his e-mail) or Greenwood (issue #1).
   Done today: three multitrack runs integrated and live (twelve-blocks, twelve-blocks-exact, blinking-light); run-3

@@ -1615,6 +1615,69 @@
    "measured": "Nothing run; the scout read only (arXiv HTML of 2310.05844 v5, 2512.17713 v2, 2604.01555 v2; the QMBCertify tree and PR #4; the Hugging Face cards).",
    "next": "(1) Calibration, desk or a small pod: re-solve Table 11 (all eight rows, L = 6) with our own model of the relaxation (their monomial list, Section IV.4) and an open solver or a Mosek licence; certify with a checker written here that shares no code with QMBCertify: expand the Gram blocks into Pauli words exactly, enclose each block's least eigenvalue, and bound the residual by the sum of |coefficients|, since every Pauli word has norm 1 (E_cert = E − Σ|r_w| + n·min(0, λ_min)). Per row: CERTIFIED if the certified bound reaches the printed digits, otherwise the certified bound and REFUSED at the printed digit. (2) The story: the 10x10 J2 = 0.5 row (−0.514628 old, −0.510813 new) — a pod job (21 h on one core in 2024); a certified bound at or above −0.510813 is a first. (3) The AI state stays an estimate at 10x10, shown dashed. Blocker to settle first: Mosek's licence (academic or trial) or an open solver at these sizes.",
    "note": "Scouted on the operator's 'go' after a pasted proposal; nothing built."
+  },
+  {
+   "id": "three-body-orbits-2026-11",
+   "name": "Computer-assisted proofs of existence (and of the stability claims) for the machine-found periodic orbits of the Newtonian three-body problem: Li & Liao's catalogues (695 planar equal-mass families, Sci. China 2017, arXiv:1705.00527; 1,349 unequal-mass, 2018; 10,059 three-dimensional orbits with m1 = m2 = 1, m3 = 0.1n, arXiv:2508.08568, Sci. China PMA 69, 119515, 2026, of which 1,996 are claimed linearly stable), and the ML proposers (an ANN, arXiv:2106.11010; a PINN, arXiv:2607.23501).",
+   "scouted": "2026-11-20",
+   "verdict": "OPEN — about 12,000 machine-found orbits published with digits, essentially none proved (the figure-eight and a few choreographies only: Kapela–Zgliczyński math/0304404, Kapela–Simó 1105.3235); no rigorous sweep of any catalogue found. Three-valued by nature: existence CERTIFIED by Krawczyk on a reduced shooting map, a stability claim decided (or REFUTED) from an enclosure of the monodromy matrix, long near-collision orbits REFUSED. The build is a validated Taylor/Lohner ODE integrator of our own (CAPD as an outside second decider, not the claimant's code); a sample of 100-500 orbits is CPU-days, the whole catalogue pod-weeks.",
+   "finding": "Files: github.com/sjtu-liao/three-body (3D: initial conditions, T and stability, ~11 significant digits; one orbit to 70 digits; 91 stars, pushed 2026-02-15); the planar 2017 tables at numericaltank.sjtu.edu.cn/three-body (10 decimals). Periodicity criteria: planar return distance < 1e-6 after Newton-Raphson with dop853, then 'clean numerical simulation' at 100 digits; 3D δ(T) < 1e-10 (read from garbled LaTeX); stability 'all eigenvalues of the monodromy matrix lie on the unit circle' with no tolerance. No rigorous proof claimed. Hristov et al. (2022) found 105 families missing from the 2017 database.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "thomson-llm-records-2026-11",
+   "name": "Shao, Wang, Liu, Peng, 'Certified Improvements to Best-Known Thomson-Problem Configurations with a Search Pipeline Built with Large Language Model Agents', arXiv:2611.17776 (13 Nov 2026; built with Claude and Claude Code): new configurations for N = 912, 1382, 2502 below the Cambridge Cluster Database values by 0.0036186, 0.0109730 and 0.0614033.",
+   "scouted": "2026-11-20",
+   "verdict": "OPEN (narrow, fast) — the energies are self-certified in exact integer arithmetic by scripts the same model wrote ('not independent of the model'); local minimality is numerical only ('numerically strict local minima modulo rotations'; gradient < 1e-8, least Hessian eigenvalues 1.91, 8.17, 11.52) and the authors name an interval Newton-Kantorovich argument they did not do. We decide: each energy, independently and exactly, against the CCD value AND against Amore & Wales arXiv:2610.08122 (6 Oct 2026, 'substantially improve' large-N Thomson records — the 'new record' may already be beaten); a strict local minimum by Krawczyk plus interval positive-definiteness of the reduced Hessian. The same decider closes two rows already queued here: ea-best-thomson-problem (n = 282) and ea-best-tammes-problem (n = 50) in certs/mc100-einstein-arena.json ('needs a new decider'). Caveat: made with Claude, so independent by procedure only (as with percolation).",
+   "finding": "Files: github.com/jesse87wang-bit/thomson-records (0 stars, pushed 2026-11-07), Zenodo 10.5281/zenodo.23996279; N = 1382 and 2502 in the repository, N = 912 in the supplement; points rational (a,b,c)/d with a²+b²+c² = d² on a 2^-29 grid. CCD energies as the paper prints them: 912: 400657.6165027 -> 400657.6128841; 1382: 926576.1030330 -> 926576.0920600; 2502: 3060842.2403807 -> 3060842.1789774. The paper reports two other participants claiming N = 960 below CCD, unverified. Compute: 3.1M pairs at N = 2502 (seconds); interval Cholesky of a 5001x5001 Hessian, minutes to an hour on the Mac.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "metadesign-quantum-experiments-2026-11",
+   "name": "Arlt, Duan, Li, Xie, Wu, Krenn, 'Meta-designing quantum experiments with language models', arXiv:2406.02470 (Nature Machine Intelligence, 2026 per a Tübingen press release): a transformer writes Python programs meant to build the optical setup for a whole class of target states, for every N; with PyTheus (Ruiz-Gonzalez et al., Quantum 2023) as the single-state baseline.",
+   "scouted": "2026-11-20",
+   "verdict": "OPEN, with a NEEDS DATA risk — each program claims its target for every N but was scored numerically only for N = 0..4 (the repository README: 'We compute the fidelity ... for N = 0, 1, 2, 3, 4'). Fidelity is a perfect-matching sum, polynomial in the weights, so an exact checker decides N = 5..k; a genuine REFUTED is plausible (a program fitted to N <= 4 can break at N = 5). The discovered programs are not in the repository (github.com/artificial-scientist-lab/metadesign holds generators, configs and the scorer): they must come from the paper's appendix, unread. PyTheus alone is low-yield: 129 plot_*.json graphs with float64 weights; ±1 graphs would certify at fidelity exactly 1, float-perfect ones come out 1 − δ (a wording question); several 'clean' files carry nonzero fidelity loss (ghz_638 0.0501, randmax2 0.0573, noon2m3ph1anc 0.0769, complex4qubit 0.0434).",
+   "finding": "PyTheus: github.com/artificial-scientist-lab/PyTheus (209 stars, pushed 2025-10-04). No prior exact verification found (not separately searched). Compute: PyTheus graphs <= ~16 vertices, seconds; meta-design at N ~ 8-10, 20-30 vertices with a subset DP, minutes to hours.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "llm-evolved-qldpc-codes-2026-11",
+   "name": "Cruz-Benito, Cross, Kremer, Faro (IBM), 'Evolutionary Discovery of Bivariate Bicycle Codes with LLM-Guided Search', arXiv:2606.02418 (1 Jun 2026): OpenEvolve over ~2x10^5 candidates, 465 codes at n <= 360 (97 CSS, 368 non-CSS 'perturbed' BB codes; 251 exact rows, 117 upper-bound rows); headline [[288,16,12]], [[288,50,8]], non-CSS [[144,12,12]], [[360,12,<=24]]. And the Unitary Foundation qLDPC challenge board.",
+   "scouted": "2026-11-20",
+   "verdict": "OPEN but CONTESTED on the upper-bound side — the claimants self-audit in public (qiskit-community/qcode-discovery #13, 2026-10-08: two PARTIAL-tier distances collapsed under an independent search, 40 -> 16 and 32 -> 20; #19 asks for a paper audit; #16/#17 plan their own resweeps), an outsider posted tighter upper bounds (#21, 2026-11-12: 22 -> 16, 20 -> 14), and the unitaryfoundation/qldpc-challenge board (39 stars, pushed 2026-11-20) runs its own refutation search and a 'certified exact' tier. What nobody does exactly: LOWER bounds, d >= claimed, for rows labelled exact by a float MILP (HiGHS, 'reported as exact only when all relevant logical MILP instances reach proven optimality'). A second decider is a reciprocity offer more than a discovery.",
+   "finding": "Files: github.com/qiskit-community/qcode-discovery (Apache-2.0, 27 stars): results/ilp_catalog.json (97 CSS), results/campaign7_publication_merged.jsonl (368 non-CSS, fields d, d_is_exact, trust_level EXACT/TRUSTED/PARTIAL), campaign7_deep_milp.jsonl. Distances: BP-OSD (150,000 trials, an upper bound) then MILP with 120-600 s per-logical timeouts, up to 14,400 s. Nearby: arXiv:2609.39395 proves distances of the six standard BB codes; arXiv:2603.22532 benchmarks distance tools. Compute: n = 144 at d = 12 hours on the Mac (estimate); n = 288 pod-hours; [[360,12,<=24]]'s lower bound likely REFUSED.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "single-minus-gluon-gpt52-2026-11",
+   "name": "Guevara, Lupsasca, Skinner, Strominger, Weil, 'Single-minus gluon tree amplitudes are nonzero', arXiv:2602.12176 (Feb 2026): a closed formula in half-collinear (2,2) kinematics, 'first conjectured by GPT-5.2 Pro and then proved by a new internal OpenAI model'.",
+   "scouted": "2026-11-20",
+   "verdict": "OCCUPIED — proved in the paper and extended by four or more groups (gravitons arXiv:2603.04330; N = 4 completion arXiv:2603.26609; matrix theory arXiv:2608.25239; all chambers 'rigorously derived via a Lean-formalized dependency graph', arXiv:2610.10673). An exact re-check (Berends-Giele as a regulated Laurent limit over Q, since the locus is 0/0) could only confirm.",
+   "finding": "No code or ancillary data with the paper; explicit amplitudes up to n = 6; INSPIRE lists 45 citing papers.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "bootstrap-rigorous-2026-11",
+   "name": "Exact certification of numerical conformal (and S-matrix) bootstrap bounds.",
+   "scouted": "2026-11-20",
+   "verdict": "OCCUPIED (conformal) — Reehorst, arXiv:2610.20701 (14 Oct 2026): 'Numerical conformal bootstrap bounds are commonly called rigorous, yet as published they are not theorems'; Bernstein-basis positivity certificates in exact arithmetic over Q(√2), the 3d Ising region certified (certificates Zenodo 10.5281/zenodo.21708207; gitlab.com/Reehorst/polyboot); and arXiv:2610.40764 on Slater-condition failures. Earlier: Kravchuk, Mazáč, Pal arXiv:2111.12716. The AI angle is DEAD (no AI bootstrap claim with checkable objects). The S-matrix dual bounds (Guerrieri-Sever arXiv:2106.10257, SDPB floats) have no exact certification found — OPEN but unscouted.",
+   "finding": "No published bound shown invalid found.",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
+  },
+  {
+   "id": "water-wave-a6-agents-2026-11",
+   "name": "Zhou, Wadekar, Zaldarriaga, 'How AI Agents Discover Scientific Equations: From Hydrotope Rediscovery to New Water-Wave Amplitudes', arXiv:2610.00435 (30 Sep 2026): a 'PI + two students' agent workflow found 'a new independent verified analytic expression for the six-point amplitude' A6 (three negative wavenumbers), building on the hydrotope (arXiv:2606.28280).",
+   "scouted": "2026-11-20",
+   "verdict": "UNSCOUTED lead — an AI-made formula, piecewise per kinematic chamber, possibly decidable exactly at rational wavenumbers; the abstract page lists no ancillary files, and whether the expression is rational in the wavenumbers is not stated. Read the paper before anything else.",
+   "finding": "",
+   "measured": "Nothing run.",
+   "note": "Scouted by three agents on the operator's 'Find other physics suggestions' (2026-11-20 ~00:00 UTC, after he was not convinced by qmb-ground-energy-2026-11); facts are the agents' readings of primary sources, the repositories spot-checked to exist; nothing built."
   }
  ]
 }
