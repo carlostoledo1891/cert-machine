@@ -49,7 +49,7 @@ theorem N0starL_eq_NdistL (hL : PrimitiveZerosOnLine) {q : ℕ} [NeZero q] (χ :
   constructor
   · exact fun h => h.1
   · intro h
-    obtain ⟨⟨hz, h0, h1⟩, -⟩ := h
+    obtain ⟨⟨hz, h0, h1⟩, -⟩ := id h
     exact ⟨h, hL q χ hχ ρ h0 h1 hz⟩
 
 /-- The shape shared by all the bounds: for every ε > 0, eventually (c − ε)·N ≤ X. -/

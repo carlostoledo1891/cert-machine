@@ -1,0 +1,20 @@
+✖ [8707/8710] Building CertMachine.BridgeConditional (3.6s)
+trace: .> LEAN_PATH=/home/tester/formal-math/zeta23/.lake/packages/Cli/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/batteries/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/Qq/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/aesop/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/importGraph/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/plausible/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/packages/mathlib/.lake/build/lib/lean:/home/tester/formal-math/zeta23/.lake/build/lib/lean /home/tester/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /home/tester/formal-math/zeta23/CertMachine/BridgeConditional.lean -o /home/tester/formal-math/zeta23/.lake/build/lib/lean/CertMachine/BridgeConditional.olean -i /home/tester/formal-math/zeta23/.lake/build/lib/lean/CertMachine/BridgeConditional.ilean -c /home/tester/formal-math/zeta23/.lake/build/ir/CertMachine/BridgeConditional.c --setup /home/tester/formal-math/zeta23/.lake/build/ir/CertMachine/BridgeConditional.setup.json --json
+error: CertMachine/BridgeConditional.lean:53:11: Unknown identifier `h`
+error: Lean exited with code 1
+⚠ [8709/8710] Built CertMachine.BridgeChallengeBC1 (3.9s)
+warning: CertMachine/BridgeChallengeBC1.lean:109:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallengeBC1.lean:113:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallengeBC1.lean:117:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallengeBC1.lean:121:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallengeBC1.lean:125:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallengeBC1.lean:130:8: declaration uses `sorry`
+⚠ [8710/8710] Built CertMachine.BridgeChallenge (3.9s)
+warning: CertMachine/BridgeChallenge.lean:109:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallenge.lean:113:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallenge.lean:117:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallenge.lean:121:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallenge.lean:125:8: declaration uses `sorry`
+warning: CertMachine/BridgeChallenge.lean:130:8: declaration uses `sorry`
+Some required targets logged failures:
+- CertMachine.BridgeConditional

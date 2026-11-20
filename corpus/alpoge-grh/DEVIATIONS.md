@@ -21,3 +21,8 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
    37.8 GB after 6,400 modules, which would not fit 175,187 modules. Every 2 minutes the setup files of modules whose
    compile has finished (`.c.hash` written) are removed (`tools/runpod-alpoge-grh-setupclean.sh`, log
    `setupclean.log`). Lake treats a module without its setup file as up to date (tested on a small project).
+6. **2026-11-20 23:31 UTC — one proof line of the conditional bridge corrected after its first compile.** In
+   `CertMachine/BridgeConditional.lean`, `N0starL_eq_NdistL` destructured the hypothesis `h` and then used it
+   (`Unknown identifier h`); `obtain … := h` became `obtain … := id h`. No statement changed; the file was committed
+   before its first compile (e90acbad) and the fix is its own commit. The first, failing compile is kept in the run
+   (`BB.out`), the second in `BB2-after-fix.txt`.

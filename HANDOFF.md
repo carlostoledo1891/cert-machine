@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-**RUNNING POD (2026-11-20 22:59 UTC): lyq17afbn6smbz** (alpoge-grh-bridge-port-2026-11-20, cpu3m 16 vCPU / 128 GB, US$0.88/h) — the port of formal-math/zeta23 to v4.33.1/Mathlib 0df444a3 and the conditional bridge (pre-registration amendment A1). DELETE it when pulled.
+**DELETED (2026-11-20 23:50 UTC): lyq17afbn6smbz** (the bridge port pod; ~US$0.75; results in corpus/alpoge-grh/runs-bridge/).
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md). DELETE it when the build and the checks are pulled home; after a session restart, list pods first. His answers (22:20 UTC): scope today's RH/GRH claim; release order Alpöge first (private), then Tao's post, one X post, a Palomar entry, each text on his word; ceiling US$150; Erdős 1186 (Snively's Lean of the δ₃ claim) pre-checked by a background agent now (notes/erdos1186-snively-2026-11-20/, no sends). Palomar dropped (needs the author + Lean ≥ 4.35 + module headers); instead a post on the Lean Zulip thread Tao's post names, and the heads-up to Alpöge offers a Palomar package with his approval. Phase 2 starts on the pod by itself after B1.
 
