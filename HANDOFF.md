@@ -16,6 +16,8 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
+**RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md). DELETE it when the build and the checks are pulled home; after a session restart, list pods first.
+
 ## TASKS BACKLOG — the standing menu (updated 2026-11-19 ~23:45 UTC)
 
 START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
