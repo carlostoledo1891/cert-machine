@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-**RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md). DELETE it when the build and the checks are pulled home; after a session restart, list pods first.
+**RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md). DELETE it when the build and the checks are pulled home; after a session restart, list pods first. His answers (22:20 UTC): scope today's RH/GRH claim; release order Alpöge first (private), then Tao's post, one X post, a Palomar entry, each text on his word; ceiling US$150; Erdős 1186 (Snively's Lean of the δ₃ claim) pre-checked by a background agent now (notes/erdos1186-snively-2026-11-20/, no sends).
 
 ## TASKS BACKLOG — the standing menu (updated 2026-11-19 ~23:45 UTC)
 
