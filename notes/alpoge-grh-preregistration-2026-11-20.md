@@ -70,3 +70,30 @@ kernels is correct".
 The record `certs/alpoge-grh-lean.json` is written only from pulled pod logs, with a `--check` that re-derives
 every verdict from them; the report page leads with the gaps (every REFUSED and every reading); it goes out when
 every row above has a verdict. Nothing is sent or posted without the operator's word for that item.
+
+## Amendment A1 — the bridge between the two releases (2026-11-20 ~23:15 UTC, before any bridge code runs)
+
+On the operator's "A bridge between both? Let's push!!": the August release (Anthropic's `formal-math/zeta23`, the Lean
+of "More than two thirds of the zeros … are simple and on the critical line", Lean v4.33.0-rc2, Mathlib 51e6992e) and
+today's release state theorems about the SAME Mathlib objects (`riemannZeta`, `DirichletCharacter.LFunction`), on
+Mathlib commits 95 apart. The bridge puts both in one environment and composes them.
+
+- **P0 (port).** zeta23 at formal-math 16a5ce41 is rebuilt on today's toolchain v4.33.1 and Mathlib 0df444a3. Every
+  source change is listed file by file (expected: none or a few); its own Comparator configuration (17 statements,
+  nanoda on) is re-run there. CERTIFIED iff its Comparator accepts; otherwise the port's failure is reported (a port
+  failure says nothing against either release).
+- **BRc (the conditional bridge, Mathlib + zeta23's Mathlib-only definitions, no proof from either release):**
+  `RiemannHypothesis → N0star T₁ T₂ = Ndist T₁ T₂` for all windows, hence RH turns zeta23's distinct-zero bounds
+  (5/6, and (3 − 1/c₁*)/2 with the Montgomery–Taylor window; dyadic and cumulative) into the same bounds for distinct
+  zeros ON the critical line; and the primitive-character zero statement turns Theorem E's distinct bounds likewise.
+- **BRu (the unconditional bridge):** in one environment holding both releases, the six statements above with the
+  hypotheses discharged by `riemannHypothesis`, `LFunction_eq_zero_re_of_isPrimitive` (today's) and
+  `five_sixths_distinct`, `five_sixths_distinct_cumulative`, `montgomery_taylor_distinct_mult(_cumulative)`,
+  `dirichlet_five_sixths_distinct`, `dirichlet_montgomery_taylor_distinct_mult` (August's).
+- **Judge and controls.** Comparator against cert-machine's bridge challenge (zeta23's Mathlib-only definitions
+  verbatim + the six statements with `sorry`), the three standard axioms. Control BC1: the challenge with 5/6 replaced
+  by 6/7 must be rejected. Axioms of each bridge theorem printed. CERTIFIED / REFUTED / REFUSED as in the table above.
+- **What the bridge is and is not.** Mathematically it is a composition: given RH, "distinct and on the line" equals
+  "distinct". Its value is the interlock: the two releases' statements refer to the same Mathlib constants and compose
+  without a seam. It adds no mathematics beyond the two releases and claims no novelty (conditional results under RH
+  are stronger in the literature); the page will say so.
