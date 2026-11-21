@@ -20,6 +20,31 @@ make drift     re-hash the lift against the source lab
 
 **DELETED (2026-11-21 02:21 UTC): uhsel7c0ri69nn** (the 4×H100 build pod: ~95 modules/min against the checking pod's ~170; ~US$6).
 
+**NEXT SESSION — the Alpöge RH/GRH lane (handoff 2026-11-21 ~17:40 UTC).** The page is live and listed as a draft:
+15 of 24 checks are done (I1, I2, the source scan, M1, F1, F2, SPEC, CHAR, P0, BRc+MB, ROUTE, B1, MI, RB, A1), and A13
+and A14 are disclosed. Build pod phden71h9yeked runs phase 2 (the census at 17:05, then the controls, S1, the export,
+K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. Clean pod paum8sua0213n6 runs `clean.sh setup`.
+- **First:** list the pods; re-arm two watchers: new non-"running" lines in /results/_phase.log on
+  213.173.105.98:46715, and "CR setup done|STOPPED" on 64.247.201.12:18257.
+- **Each result (the operator's word: refresh whenever a result is ready):**
+  - rsync /results with `--max-size=5m --exclude B1.out --exclude B1.progress --exclude B1V.out` into
+    corpus/alpoge-grh/runs/podA-phden71h9yeked/;
+  - `python3 -I tools/check-alpoge-grh.py --write`;
+  - a dated line in corpus/alpoge-grh/page-log.json whose `done` equals the record's;
+  - `make page R=alpoge-grh`;
+  - stage explicit files with `git add --pathspec-from-file`; commit; push.
+- **CR, once _phase.log says EXPORT-OK:** put the clean pod's /results/cr_pull.pub into the build pod's
+  ~/.ssh/authorized_keys, then on the clean pod:
+  `EXPORT_SHA=<K2.export_sha256 in the committed record> SRC=213.173.105.98 SRC_PORT=46715 bash /root/clean.sh check`.
+  Pull its /results into corpus/alpoge-grh/runs-clean/paum8sua0213n6/, then DELETE the clean pod.
+- **Final:** every row has a verdict, then `FINAL=1 node tools/build-report-alpoge-grh.js`, then pull everything and
+  delete phden71h9yeked. The three public texts (Lean Zulip, Tao's post, the final X post) each need the operator's
+  word. Stage 2 is discussed only after the final release.
+- **NEVER write STOPPED, EXPORT-, "phase 2 not started" or "phase 2 done" into /results/_phase.log by hand.** The
+  scripts grep those words (the 17:00 slip; A13's correction).
+- An ssh command that starts a remote job with `&` keeps the session open. Use `setsid nohup … < /dev/null` and expect
+  to stop the local task.
+
 **RUNNING POD (2026-11-21 17:02 UTC): paum8sua0213n6** (alpoge-grh-clean-2026-11-21, cpu3m 16 vCPU / 128 GB, US$0.88/h, US-MO-1, cap US$10 on the operator's word) — CR, the clean machine of amendment A12: `tools/runpod-alpoge-grh-clean.sh setup` now; `check` once phase 2 has exported (pulls ONLY export.ndjson from phden71h9yeked, sha256 against the record). DELETE it after its results are pulled.
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md, amendments A1–A11). B1 PASSED 16:55 UTC 11-21 (exit 0, 183,903 jobs, 175,188 oleans, no sorry); phase 2 restarted 17:01 under amendment A13 (challenge gate on the compiled files; log part 1 kept as _phase.log.part1); the bridge (p3) and con-leche (p4) waiters restarted with it. DELETE it when the build and the checks are pulled home; after a session restart, list pods first. Release (his answers, current): public channels only, each text on his word — one post on the Lean Zulip thread Tao's 11-20 post names, a comment on Tao's post, one X post; no Alpöge heads-up, no Palomar; announce our work with full credits, never "a replication" (A8); ceiling US$150. The page is LIVE and LISTED as a draft since 2026-11-21 03:39 UTC (e03c61a5, his word: "Listed now", no posts until final, refresh at milestones): tools/build-report-alpoge-grh.js → /reports/alpoge-grh.html; each milestone = pull, check-alpoge-grh.py --write, a dated line in corpus/alpoge-grh/page-log.json (the builder refuses if its count differs), make page R=alpoge-grh, commit, push; FINAL=1 refuses pending rows. STAGE 2 (his word 2026-11-21 ~03:20 UTC: "Two stages and let's wait for the full verifications to discuss again"): after the verification release, discuss — nothing before — the extension that organises and fills the gaps of the three 2026 claims (Alpöge, Masullo, Nielsen–Semita) as a report + paper + repo, with claimbox (its own session), the Lean intake and cert-machine; candidate items: ζ/L-function definition fidelity in Lean, con-leche as a third kernel on our export, a closure-only rebuild of the proof, a universe-level census, the Nielsen–Semita Lean intake (57ea6117), adopting instruments/rh-comparison/ (untracked, built by another session 11-21 ~03:00 UTC on Lean 4.35.0 — port to the release pin + our judges + an Astra red-team before any citation); pre-register it as A12 before anything runs.
