@@ -296,6 +296,15 @@ if (!(e1038inf.lower > 1.8 && e1038inf.upper > e1038inf.lower && hLB > 0.3)) fai
 const expDown = (x, sig) => { const e = Math.floor(Math.log10(x)); const m = Math.floor(x / 10 ** e * 10 ** (sig - 1)) / 10 ** (sig - 1); return m.toFixed(sig - 1) + 'e' + e; };
 const REPORTS = [
   /* group 'ai': the AI-verification shelf — the audience-facing work */
+  /* Alpöge's Lean proof of RH and GRH (2026-11-21): listed while its checks still run, on the operator's word; the card's
+     count is read from the one module the page draws its ring from (instruments/alpoge-grh/status.js), so the card and
+     the page cannot disagree, and the card says "draft" for as long as a check is running */
+  { g: 'ai', f: 'alpoge-grh.html', k: 'the Riemann Hypothesis · a Lean proof, checked',
+    title: 'Alpöge’s Lean proof of the Riemann Hypothesis, checked',
+    desc: 'On 20 November 2026 Levent Alpöge released a proof of the Riemann Hypothesis, made with Claude, as 175,187 files of Lean. Every check was written down before it ran: the files, the build, the axioms, a second kernel, the statement against our own file and against the textbook form, planted errors, the route inside the proof, and bridges to two other claims.',
+    n: (() => { const S = require(path.join(ROOT, 'instruments', 'alpoge-grh', 'status.js'));
+      if (S.done.length + S.pending.length + S.bad.length > S.ALL.length) fail('the alpoge-grh card would misstate its record');
+      return (S.pending.length ? 'a draft · ' : '') + S.done.length + ' of ' + S.ALL.length + ' checks done' + (S.pending.length ? ' · ' + S.pending.length + ' still running' : '') + (S.bad.length ? ' · ' + S.bad.length + ' refused' : ''); })() },
   { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
     title: 'The matmul eval: ground truth is a proof',
     desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.',
@@ -2133,7 +2142,7 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
 /* the reports' own share cards (tools/build-og-report.js, 2026-11-03: a shared report must not carry the landing's card) */
-for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks', 'twelve-blocks-exact', 'blinking-light']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
+for (const k of ['wsp', 'eth', 'eth-chain', 'verify-seal', 'z-in-q', 'erdos-488', 'heptagon', 'claims', 'lean-intake', 'prime-gaps-186', 'textbook-machine', 'textbook-machine-claims', 'percolation-critical', 'macmahon', 'prime-gap-premises', 'physics-key', 'physics-key-instrument', 'intmul', 'mfg-two-models', 'twelve-blocks', 'twelve-blocks-exact', 'blinking-light', 'alpoge-grh']) { const f = path.join(ROOT, 'design', 'assets', 'og-' + k + '.png'); if (fs.existsSync(f)) put('og-' + k + '.png', fs.readFileSync(f)); }
 console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
   : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · Don’t take the AI’s word for it', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',

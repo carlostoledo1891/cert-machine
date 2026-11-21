@@ -1,0 +1,226 @@
+{
+ "what": "The decision of Levent Alpöge's Lean release of RH and GRH (alpo.ge, 2026-11-20), check by check, derived from the pod's pulled results by tools/check-alpoge-grh.py under the pre-registration notes/alpoge-grh-preregistration-2026-11-20.md.",
+ "pins": {
+  "archive_sha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+  "remark_sha256": "3fc97784b71ddd44ff8aa0a177e99622a1c61b13cfa843a0989ee4a7a0cfeb8d",
+  "toolchain": "leanprover/lean4:v4.33.1 (official release, published 2026-08-21T12:02:41Z)",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474"
+ },
+ "run": "podA-phden71h9yeked",
+ "rows": [
+  {
+   "id": "I1",
+   "verdict": "CERTIFIED",
+   "why": "the 14 parts fetched on the pod against PINS.json; joined sha256 9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc"
+  },
+  {
+   "id": "B1",
+   "verdict": "REFUSED",
+   "why": "no B1V result pulled"
+  },
+  {
+   "id": "RB",
+   "verdict": "COMPUTED",
+   "why": "two independent compilations compared (ours vs Sutherland, MIT): not measured"
+  },
+  {
+   "id": "MI",
+   "verdict": "REFUSED",
+   "why": "Mathlib integrity not established: no result"
+  },
+  {
+   "id": "A1",
+   "verdict": "REFUSED",
+   "why": "the axiom report was not produced for every theorem",
+   "axioms": {
+    "riemannHypothesis": null,
+    "riemannZeta_eq_zero_re": null,
+    "LFunction_ne_zero_of_half_lt_re": null,
+    "LFunction_eq_zero_re": null,
+    "LFunction_eq_zero_re_of_isPrimitive": null
+   }
+  },
+  {
+   "id": "S1",
+   "verdict": "REFUSED",
+   "why": "Comparator did not run"
+  },
+  {
+   "id": "C1-C5",
+   "verdict": "REFUSED",
+   "why": "not every control ran",
+   "controls": {
+    "C1": {
+     "what": "statement mismatch",
+     "exit": null,
+     "refused": false
+    },
+    "C2": {
+     "what": "planted axiom",
+     "exit": null,
+     "refused": false
+    },
+    "C3": {
+     "what": "sorry",
+     "exit": null,
+     "refused": false
+    },
+    "C4": {
+     "what": "hijacked definition",
+     "exit": null,
+     "refused": false
+    },
+    "A1-C2": {
+     "what": "the axiom report names the planted axiom",
+     "exit": null,
+     "refused": false
+    },
+    "A1-C3": {
+     "what": "the axiom report names sorryAx",
+     "exit": null,
+     "refused": false
+    },
+    "C5": {
+     "what": "the release's export with riemannHypothesis re-typed as False",
+     "exit": null,
+     "refused": false
+    }
+   }
+  },
+  {
+   "id": "K2",
+   "verdict": "REFUSED",
+   "why": "nanoda did not finish (resources or not run)"
+  },
+  {
+   "id": "KR",
+   "verdict": "REFUSED",
+   "why": "leanchecker exit None"
+  },
+  {
+   "id": "V",
+   "verdict": "REFUSED",
+   "why": "not run: dropped on the operator's word (amendment A7); RB is the cross-host evidence"
+  },
+  {
+   "id": "SPEC",
+   "verdict": "CERTIFIED",
+   "why": "RHStrip ↔ RiemannHypothesis compiled at the pin; both theorems on the three standard axioms"
+  },
+  {
+   "id": "P0",
+   "verdict": "CERTIFIED",
+   "why": "the August release rebuilt on v4.33.1/Mathlib 0df444a3 with all 326 Lean sources unchanged; its own Comparator (17 statements) accepted by nanoda and Lean's kernel"
+  },
+  {
+   "id": "BRc+MB",
+   "verdict": "CERTIFIED",
+   "why": "the conditional bridge (5 theorems) and the Masullo reading (3 theorems) compiled, all on the three standard axioms"
+  },
+  {
+   "id": "BRu",
+   "verdict": "REFUSED",
+   "why": "the unconditional bridge has not passed"
+  }
+ ],
+ "computed": {
+  "census": {},
+  "nielsen": {},
+  "wordfacts": {}
+ },
+ "readings": {
+  "what": "The readings of the Alpöge decision: what a person read, against what, and what it found. A reading is READ ONCE (its standing on the page is 'read', never 'decided'). Written 2026-11-20 before any build result.",
+  "I2_mirror": {
+   "standing": "COMPUTED",
+   "what": "github.com/CocoSgt/riemann-hypothesis-lean @ 7cbf7a0c32fca1badf05931879a37c3f8a2b03b4 (2026-11-20T15:13:33Z push) against the pinned archive, file by file (sha256)",
+   "found": "175,190 archive files present and identical in the mirror; the mirror adds README.md and .gitignore only"
+  },
+  "M1_metaprogramming": {
+   "standing": "READ ONCE",
+   "what": "every run_cmd, command elaborator and term/tactic elaborator in the 175,187 files (found by a full-text scan: 5 run_cmd, 4 elab, 22 tactic macros, 0 notation/syntax/infix)",
+   "found": [
+    "BuildAid/D1-D5: run_cmd Lean.modifyEnv adding one entry each to Lean.LibrarySuggestions.nameDenyListExt (library search hints; no declaration)",
+    "Formalism/LocalToGlobal/IndefiniteReal/HeckeNonvanishing/Imports.lean: elab \"kexactB\" — elaborates a term and assigns it to the goal without the elaborator's type check; the kernel checks the finished proof term when the theorem is added",
+    "Formalism/LocalToGlobal/NumberFieldFamilies/OwnStruct.lean: elab \"kcopy\" (rebuilds a structure value field by field, Kernel.isDefEq used as a test) and the command \"#kcopy_probe\" (logInfo only)",
+    "Formalism/HermitianCurvature/HermitianCurvatureProofs/CutCptCopy.lean: elab \"cpt_copy_thms\" — copies declarations under renamed constants through addDecl, which is kernel-checked",
+    "no addDeclWithoutChecking, no Kernel/Environment writes besides the deny list; 22 tactic macros are abbreviations of tactic scripts"
+   ],
+   "verdict_reading": "no declaration inserted outside the kernel's check was found: cpt_copy_thms adds declarations through addDecl, which the kernel checks; kexactB and kcopy assign proof terms that the kernel checks when the theorem is added (K2 and KR are the backstop either way)"
+  },
+  "F1_riemannHypothesis": {
+   "standing": "READ TWICE (two model families)",
+   "source": "Mathlib/NumberTheory/LSeries/RiemannZeta.lean at 0df444a3 (sha256 db9f37f08bcce379…)",
+   "text": "def RiemannHypothesis : Prop := ∀ (s : ℂ) (_ : riemannZeta s = 0) (_ : ¬∃ n : ℕ, s = -2 * (n + 1)) (_ : s ≠ 1), s.re = 1 / 2",
+   "checklist": {
+    "a_quantifier": "every s : ℂ with riemannZeta s = 0",
+    "b_exclusions": "exactly the trivial zeros -2(n+1), n ≥ 0 (zeros by riemannZeta_neg_two_mul_nat_add_one), and s = 1 (the pole, a convention value); riemannZeta 0 = -1/2 ≠ 0",
+    "c_function": "riemannZeta := hurwitzZetaEven 0 equals Σ n^(-s) for Re s > 1 (zeta_eq_tsum_one_div_nat_cpow; the n+1 form avoids 0^s) and is analytic on ℂ ∖ {1} (analyticOn_riemannZeta), so it is the classical continuation there by the identity theorem",
+    "d_conclusion": "s.re = 1 / 2 in ℝ"
+   },
+   "found": "Mathlib's RiemannHypothesis is the classical statement; the release's RiemannZetaZerosOnLine is the same proposition with the cast written out",
+   "second_reading": "2026-11-21, an independent reader from another model family: OK on all four points; adds Mathlib's value at s = 1, (γ − log 4π)/2 ≠ 0 (Mathlib/NumberTheory/Harmonic/ZetaAsymp.lean), so excluding s = 1 removes no zero"
+  },
+  "F2_dirichlet": {
+   "standing": "READ TWICE (two model families)",
+   "source": "Mathlib/NumberTheory/LSeries/DirichletContinuation.lean at 0df444a3 (sha256 86d3aaad83e64cb6…); the release's Statements.lean (sha256 79ef7ca7…)",
+   "found": [
+    "DirichletCharacter.LFunction: the meromorphic continuation of Σ χ(n) n^(-s) (LFunction_eq_LSeries for Re s > 1; differentiableAt_LFunction off s = 1 for the trivial character; LFunction_modOne_eq: ζ at N = 1)",
+    "DirichletLNonvanishingRightOfHalf: every modulus, every character (imprimitive and principal included), Re s > 1/2, χ ≠ 1 ∨ s ≠ 1 ⇒ L(χ, s) ≠ 0 — for imprimitive χ the extra Euler-factor zeros lie on Re s = 0, so this is zero-freeness right of 1/2 for every primitive L-function",
+    "DirichletLZerosOnLine: zeros of every L(χ, ·) in 0 < Re s < 1 lie on Re s = 1/2",
+    "PrimitiveDirichletLZerosOnLine: the same for primitive χ (implied by the previous)",
+    "'Generalized' = Dirichlet L-functions of every modulus (the usual GRH); the Extended RH (Dedekind zeta) and automorphic L-functions are not stated in the Lean — the remark says ERH is expected 'with more time', so the Lean claims no more than the remark"
+   ],
+   "second_reading": "2026-11-21, the same reader: OK; the character mod 1 is primitive and its LFunction is riemannZeta, so even the primitive statement contains RH; χ ≠ 1 ∨ s ≠ 1 excludes exactly the principal pole and keeps every non-principal character at s = 1; the three Dirichlet forms are classically equivalent (functional equation for primitive χ; nonvanishing on Re s ≥ 1); the precise label is 'GRH for Dirichlet L-functions' (it implies RH for the Dedekind zeta function of every abelian extension of Q, which factors into Dirichlet L-functions)"
+  },
+  "F3_remark": {
+   "standing": "READ ONCE",
+   "rows": [
+    [
+     "discovered a proof of the Riemann Hypothesis",
+     "B1 ∧ A1 ∧ S1 ∧ F1 (with K2, KR)"
+    ],
+    [
+     "resolving the so-called Generalized Riemann Hypothesis",
+     "the same with F2"
+    ],
+    [
+     "with more time, the Extended Riemann Hypothesis too",
+     "not claimed by the Lean: nothing to decide"
+    ],
+    [
+     "Claude and I have also formalized the arguments without assumptions",
+     "A1 (the exact axioms of each theorem: propext, Classical.choice, Quot.sound expected) and the scan (no sorry, no declared axiom)"
+    ],
+    [
+     "its formalization is finished",
+     "B1"
+    ],
+    [
+     "250,000+ pages; who found what; the dated timeline",
+     "REFUSED: process claims, not decidable from the bytes"
+    ]
+   ]
+  },
+  "static_scan": {
+   "standing": "COMPUTED",
+   "what": "ripgrep over the 175,187 .lean files, 2026-11-20",
+   "found": {
+    "sorry": 0,
+    "axiom declarations": 0,
+    "native_decide": 0,
+    "implemented_by": 0,
+    "@[extern": 0,
+    "unsafe": 0,
+    "opaque": 0,
+    "skipKernelTC": 0,
+    "#eval": 0,
+    "ofReduceBool": 0,
+    "trustCompiler": 0,
+    "run_cmd": 5,
+    "import Lean": 7,
+    "elab": 4,
+    "macro": 22
+   }
+  }
+ }
+}

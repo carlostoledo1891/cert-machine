@@ -1,0 +1,1526 @@
+{
+ "what": "Six MATH-500 trace files of Nondual-Observer/dna-weight-editing (the untouched Qwen3.5-0.8B, the MIT-p50c edit and the SGNE-CC edit, each greedy and at the card's settings, thinking on, 32,768 tokens) re-graded with this repository's three-valued grader, on all 500 and on the untouched 300 of the authors' manifest, compared answer by answer with the authors' strict_ok, and re-graded again by the JavaScript second grader",
+ "offer": "https://github.com/RikiyaT/lm_understand-logs/issues/4 (offered 2026-11-18, accepted the same day)",
+ "convention": "the last closed \\boxed{} of the whole response (as in certs/wsp-baseline.json); none or empty -> WRONG; floor = CORRECT/all; decided = CORRECT/(CORRECT+WRONG). Second reading, not the verdict: the answer after the last </think> only",
+ "sources": {
+  "traces": {
+   "repo": "github.com/Nondual-Observer/dna-weight-editing",
+   "commit": "b7cdf67a52dee6c750bdcff9d5164101ec31cd8d"
+  },
+  "gold": {
+   "repo": "HuggingFaceH4/MATH-500",
+   "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+   "sha256": "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132"
+  }
+ },
+ "split": {
+  "untouched": 300,
+  "calibration": 200,
+  "disjoint_and_complete": true,
+  "sealed_at_utc": "2026-11-13T18:45:40Z"
+ },
+ "runs": {
+  "traces/math500_base_think32k_pure_t0.jsonl": {
+   "model": "FACTORY_BASE",
+   "regime": "pure_t0",
+   "sampling": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "presence_penalty": 0.0,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 14,
+    "WRONG": 486,
+    "REFUSED": 0,
+    "no_box": 485,
+    "authors_strict_ok": 0,
+    "hit_cap": 500,
+    "floor_percent": 2.8,
+    "decided_percent": 2.8,
+    "authors_percent": 0.0,
+    "hit_cap_percent": 100.0
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 14,
+    "WRONG": 286,
+    "REFUSED": 0,
+    "no_box": 285,
+    "authors_strict_ok": 0,
+    "hit_cap": 300,
+    "floor_percent": 4.67,
+    "decided_percent": 4.67,
+    "authors_percent": 0.0,
+    "hit_cap_percent": 100.0
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 0,
+     "WRONG": 500,
+     "REFUSED": 0,
+     "no_box": 500,
+     "authors_strict_ok": 0,
+     "hit_cap": 500,
+     "floor_percent": 0.0,
+     "decided_percent": 0.0,
+     "authors_percent": 0.0,
+     "hit_cap_percent": 100.0
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 0,
+     "WRONG": 300,
+     "REFUSED": 0,
+     "no_box": 300,
+     "authors_strict_ok": 0,
+     "hit_cap": 300,
+     "floor_percent": 0.0,
+     "decided_percent": 0.0,
+     "authors_percent": 0.0,
+     "hit_cap_percent": 100.0
+    }
+   },
+   "cross_with_authors": {
+    "WRONG / authors not ok": 486,
+    "CORRECT / authors not ok": 14
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [],
+   "correct_here_not_ok_there": [
+    {
+     "id": "test/algebra/1004.json",
+     "pred": "4",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/prealgebra/192.json",
+     "pred": "2",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/prealgebra/1924.json",
+     "pred": "2k + 2",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/2251.json",
+     "pred": "3",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/precalculus/43.json",
+     "pred": "(15, -29)",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/geometry/802.json",
+     "pred": "12",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/109.json",
+     "pred": "0",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/864.json",
+     "pred": "(-1, 6)",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/1529.json",
+     "pred": "1",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/849.json",
+     "pred": "18",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/prealgebra/1784.json",
+     "pred": "326.5",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/2680.json",
+     "pred": "5r^5",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/number_theory/342.json",
+     "pred": "0",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/2470.json",
+     "pred": "137\\frac{1}{2}",
+     "authors_pred": "NONE"
+    }
+   ],
+   "ok_there_not_correct_here": []
+  },
+  "traces/math500_mit_p50c_think32k_pure_t0.jsonl": {
+   "model": "MIT_p50c",
+   "regime": "pure_t0",
+   "sampling": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "presence_penalty": 0.0,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 32,
+    "WRONG": 468,
+    "REFUSED": 0,
+    "no_box": 468,
+    "authors_strict_ok": 25,
+    "hit_cap": 475,
+    "floor_percent": 6.4,
+    "decided_percent": 6.4,
+    "authors_percent": 5.0,
+    "hit_cap_percent": 95.0
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 27,
+    "WRONG": 273,
+    "REFUSED": 0,
+    "no_box": 273,
+    "authors_strict_ok": 20,
+    "hit_cap": 280,
+    "floor_percent": 9.0,
+    "decided_percent": 9.0,
+    "authors_percent": 6.67,
+    "hit_cap_percent": 93.33
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 25,
+     "WRONG": 475,
+     "REFUSED": 0,
+     "no_box": 475,
+     "authors_strict_ok": 25,
+     "hit_cap": 475,
+     "floor_percent": 5.0,
+     "decided_percent": 5.0,
+     "authors_percent": 5.0,
+     "hit_cap_percent": 95.0
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 20,
+     "WRONG": 280,
+     "REFUSED": 0,
+     "no_box": 280,
+     "authors_strict_ok": 20,
+     "hit_cap": 280,
+     "floor_percent": 6.67,
+     "decided_percent": 6.67,
+     "authors_percent": 6.67,
+     "hit_cap_percent": 93.33
+    }
+   },
+   "cross_with_authors": {
+    "WRONG / authors not ok": 468,
+    "CORRECT / authors ok": 25,
+    "CORRECT / authors not ok": 7
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [],
+   "correct_here_not_ok_there": [
+    {
+     "id": "test/algebra/1004.json",
+     "pred": "4",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/2251.json",
+     "pred": "3",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/988.json",
+     "pred": "11",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/1255.json",
+     "pred": "6",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/prealgebra/1113.json",
+     "pred": "60",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/109.json",
+     "pred": "0",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/1529.json",
+     "pred": "1",
+     "authors_pred": "NONE"
+    }
+   ],
+   "ok_there_not_correct_here": []
+  },
+  "traces/math500_sgne_cc_think32k_pure_t0.jsonl": {
+   "model": "SGNE_CC",
+   "regime": "pure_t0",
+   "sampling": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "presence_penalty": 0.0,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 206,
+    "WRONG": 246,
+    "REFUSED": 48,
+    "no_box": 114,
+    "authors_strict_ok": 215,
+    "hit_cap": 92,
+    "floor_percent": 41.2,
+    "decided_percent": 45.58,
+    "authors_percent": 43.0,
+    "hit_cap_percent": 18.4
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 149,
+    "WRONG": 126,
+    "REFUSED": 25,
+    "no_box": 57,
+    "authors_strict_ok": 154,
+    "hit_cap": 44,
+    "floor_percent": 49.67,
+    "decided_percent": 54.18,
+    "authors_percent": 51.33,
+    "hit_cap_percent": 14.67
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 206,
+     "WRONG": 247,
+     "REFUSED": 47,
+     "no_box": 117,
+     "authors_strict_ok": 215,
+     "hit_cap": 92,
+     "floor_percent": 41.2,
+     "decided_percent": 45.47,
+     "authors_percent": 43.0,
+     "hit_cap_percent": 18.4
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 149,
+     "WRONG": 126,
+     "REFUSED": 25,
+     "no_box": 58,
+     "authors_strict_ok": 154,
+     "hit_cap": 44,
+     "floor_percent": 49.67,
+     "decided_percent": 54.18,
+     "authors_percent": 51.33,
+     "hit_cap_percent": 14.67
+    }
+   },
+   "cross_with_authors": {
+    "CORRECT / authors ok": 205,
+    "WRONG / authors not ok": 246,
+    "REFUSED / authors not ok": 38,
+    "REFUSED / authors ok": 10,
+    "CORRECT / authors not ok": 1
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [
+    {
+     "id": "test/precalculus/990.json",
+     "pred": "3 - 2\\sqrt{2}i",
+     "why": "not canonicalised: gold c / pred lit"
+    },
+    {
+     "id": "test/algebra/2193.json",
+     "pred": "5",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1217.json",
+     "pred": "x^5 - x^4 - x^3 + x^2 - x - 1",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/675.json",
+     "pred": "\\frac{1}{4} \\lambda_{\\max}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1233.json",
+     "pred": "10\\%",
+     "why": "a percentage against a number (the convention is not decided here)"
+    },
+    {
+     "id": "test/number_theory/516.json",
+     "pred": "1247",
+     "why": "a base-n literal against a bare number (the convention is not decided here)"
+    },
+    {
+     "id": "test/intermediate_algebra/662.json",
+     "pred": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/intermediate_algebra/582.json",
+     "pred": "13^{10}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/558.json",
+     "pred": "[1, 4]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/intermediate_algebra/345.json",
+     "pred": "a_1",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/number_theory/612.json",
+     "pred": "N \\pmod 3",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/659.json",
+     "pred": "5x - 7y + 11z = 0",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/algebra/1275.json",
+     "pred": "\\frac{1}{\\sqrt[3]{9}}",
+     "why": "not canonicalised: gold sqrt / pred lit"
+    },
+    {
+     "id": "test/precalculus/263.json",
+     "pred": "\\begin{pmatrix} 2 \\\\ 4 \\\\ -3 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/102.json",
+     "pred": "\\frac{1}{\\sqrt{5}}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "why": "not canonicalised: gold lit / pred text"
+    },
+    {
+     "id": "test/algebra/975.json",
+     "pred": "\\{-4\\}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2626.json",
+     "pred": "25,227",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1210.json",
+     "pred": "0",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/precalculus/920.json",
+     "pred": "\\begin{pmatrix} -1/2 & 0 \\\\ -\\sqrt{3}/2 & 1/2 - \\sqrt{3}/2 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/prealgebra/1787.json",
+     "pred": "\\left(\\dfrac{37}{8}\\right)^{110}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2486.json",
+     "pred": "(3/5, 8/3)",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/intermediate_algebra/754.json",
+     "pred": "1",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/geometry/711.json",
+     "pred": "\\frac{4\\sqrt{2}}{3}",
+     "why": "not canonicalised: gold lit / pred sqrt"
+    },
+    {
+     "id": "test/algebra/509.json",
+     "pred": "\\dfrac{13\\sqrt[4]{5}}{6}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/1547.json",
+     "pred": "6r^2 + 44r - 24",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/826.json",
+     "pred": "\\frac{1}{2} \\left( \\cos \\frac{2 \\pi}{15} + \\cos \\frac{2 \\pi}{5} \\right)",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/1281.json",
+     "pred": "11\\sqrt{2}",
+     "why": "not canonicalised: gold lit / pred sqrt"
+    },
+    {
+     "id": "test/intermediate_algebra/1992.json",
+     "pred": "(-\\infty, -9) \\cup (0, 9) \\cup (9, \\infty)",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/geometry/817.json",
+     "pred": "r_1",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/681.json",
+     "pred": "\\frac{1-12\\sqrt{5}}{256}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/145.json",
+     "pred": "\\begin{pmatrix} 52.5 \\\\ 75 \\\\ -232.5 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/625.json",
+     "pred": "\\begin{pmatrix} \\frac{16}{49} \\\\ \\frac{48}{49} \\\\ \\frac{24}{49} \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/2015.json",
+     "pred": "\\{x_1x_2 + x_3x_4, x_1x_3 + x_2x_4, x_1x_4 + x_2x_3\\}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/1133.json",
+     "pred": "2\\sqrt{3}R",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/121.json",
+     "pred": "\\infty",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/499.json",
+     "pred": "[\\pi^2/8, 5\\pi^2/4]",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/1462.json",
+     "pred": "2, 4, 8, 16, \\dots",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2043.json",
+     "pred": "[0, 2) \\cup [3, \\infty)",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/counting_and_probability/731.json",
+     "pred": "\\frac{\\pi (k^2+1)}{4k}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/number_theory/1000.json",
+     "pred": "17 \\cdot 5 \\equiv 2 \\pmod{83}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/323.json",
+     "pred": "y = 2x + 1",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/752.json",
+     "pred": "\\log_2 3 \\cdot \\log_3 4 \\cdot \\log_4 5 \\cdot \\log_5 6 \\cdot \\log_6 7 \\cdot \\log_7 8",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1508.json",
+     "pred": "\\frac{1}{1 - \\frac{1}{1 - x}}",
+     "why": "not canonicalised: gold q / pred lit"
+    }
+   ],
+   "correct_here_not_ok_there": [
+    {
+     "id": "test/algebra/1078.json",
+     "pred": "[-\\sqrt{3}, \\sqrt{3}]",
+     "authors_pred": "[-\\sqrt{3}, \\sqrt{3}]"
+    }
+   ],
+   "ok_there_not_correct_here": [
+    {
+     "id": "test/algebra/2193.json",
+     "pred": "5",
+     "v": "REFUSED",
+     "authors_pred": "5"
+    },
+    {
+     "id": "test/prealgebra/1233.json",
+     "pred": "10\\%",
+     "v": "REFUSED",
+     "authors_pred": "10\\%"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "v": "REFUSED",
+     "authors_pred": "C"
+    },
+    {
+     "id": "test/algebra/975.json",
+     "pred": "\\{-4\\}",
+     "v": "REFUSED",
+     "authors_pred": "\\{-4\\}"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "v": "REFUSED",
+     "authors_pred": "864"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "v": "REFUSED",
+     "authors_pred": "[-2, 7]"
+    },
+    {
+     "id": "test/precalculus/625.json",
+     "pred": "\\begin{pmatrix} \\frac{16}{49} \\\\ \\frac{48}{49} \\\\ \\frac{24}{49} \\end{pmatrix}",
+     "v": "REFUSED",
+     "authors_pred": "\\begin{pmatrix} \\frac{16}{49} \\\\"
+    },
+    {
+     "id": "test/precalculus/499.json",
+     "pred": "[\\pi^2/8, 5\\pi^2/4]",
+     "v": "REFUSED",
+     "authors_pred": "[\\pi^2/8, 5\\pi^2/4]"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "v": "REFUSED",
+     "authors_pred": "15"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36",
+     "v": "REFUSED",
+     "authors_pred": "36"
+    }
+   ]
+  },
+  "traces/math500_base_think32k_card_pp15.jsonl": {
+   "model": "FACTORY_BASE",
+   "regime": "card_pp15",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 40,
+    "WRONG": 458,
+    "REFUSED": 2,
+    "no_box": 458,
+    "authors_strict_ok": 39,
+    "hit_cap": 461,
+    "floor_percent": 8.0,
+    "decided_percent": 8.03,
+    "authors_percent": 7.8,
+    "hit_cap_percent": 92.2
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 32,
+    "WRONG": 266,
+    "REFUSED": 2,
+    "no_box": 266,
+    "authors_strict_ok": 33,
+    "hit_cap": 267,
+    "floor_percent": 10.67,
+    "decided_percent": 10.74,
+    "authors_percent": 11.0,
+    "hit_cap_percent": 89.0
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 37,
+     "WRONG": 461,
+     "REFUSED": 2,
+     "no_box": 461,
+     "authors_strict_ok": 39,
+     "hit_cap": 461,
+     "floor_percent": 7.4,
+     "decided_percent": 7.43,
+     "authors_percent": 7.8,
+     "hit_cap_percent": 92.2
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 31,
+     "WRONG": 267,
+     "REFUSED": 2,
+     "no_box": 267,
+     "authors_strict_ok": 33,
+     "hit_cap": 267,
+     "floor_percent": 10.33,
+     "decided_percent": 10.4,
+     "authors_percent": 11.0,
+     "hit_cap_percent": 89.0
+    }
+   },
+   "cross_with_authors": {
+    "WRONG / authors not ok": 458,
+    "CORRECT / authors ok": 37,
+    "CORRECT / authors not ok": 3,
+    "REFUSED / authors ok": 2
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [
+    {
+     "id": "test/algebra/988.json",
+     "pred": "x=11",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    }
+   ],
+   "correct_here_not_ok_there": [
+    {
+     "id": "test/precalculus/1105.json",
+     "pred": "-\\frac{\\pi}{6}",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/geometry/456.json",
+     "pred": "3",
+     "authors_pred": "NONE"
+    },
+    {
+     "id": "test/algebra/1004.json",
+     "pred": "4",
+     "authors_pred": "NONE"
+    }
+   ],
+   "ok_there_not_correct_here": [
+    {
+     "id": "test/algebra/988.json",
+     "pred": "x=11",
+     "v": "REFUSED",
+     "authors_pred": "x=11"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "v": "REFUSED",
+     "authors_pred": "[-2, 7]"
+    }
+   ]
+  },
+  "traces/math500_mit_p50c_think32k_card_pp15.jsonl": {
+   "model": "MIT_p50c",
+   "regime": "card_pp15",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 243,
+    "WRONG": 227,
+    "REFUSED": 30,
+    "no_box": 180,
+    "authors_strict_ok": 259,
+    "hit_cap": 141,
+    "floor_percent": 48.6,
+    "decided_percent": 51.7,
+    "authors_percent": 51.8,
+    "hit_cap_percent": 28.2
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 169,
+    "WRONG": 110,
+    "REFUSED": 21,
+    "no_box": 80,
+    "authors_strict_ok": 180,
+    "hit_cap": 61,
+    "floor_percent": 56.33,
+    "decided_percent": 60.57,
+    "authors_percent": 60.0,
+    "hit_cap_percent": 20.33
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 243,
+     "WRONG": 228,
+     "REFUSED": 29,
+     "no_box": 181,
+     "authors_strict_ok": 259,
+     "hit_cap": 141,
+     "floor_percent": 48.6,
+     "decided_percent": 51.59,
+     "authors_percent": 51.8,
+     "hit_cap_percent": 28.2
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 169,
+     "WRONG": 111,
+     "REFUSED": 20,
+     "no_box": 81,
+     "authors_strict_ok": 180,
+     "hit_cap": 61,
+     "floor_percent": 56.33,
+     "decided_percent": 60.36,
+     "authors_percent": 60.0,
+     "hit_cap_percent": 20.33
+    }
+   },
+   "cross_with_authors": {
+    "CORRECT / authors ok": 243,
+    "WRONG / authors not ok": 227,
+    "REFUSED / authors ok": 16,
+    "REFUSED / authors not ok": 14
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [
+    {
+     "id": "test/number_theory/864.json",
+     "pred": "52",
+     "why": "a base-n literal against a bare number (the convention is not decided here)"
+    },
+    {
+     "id": "test/prealgebra/1233.json",
+     "pred": "10\\%",
+     "why": "a percentage against a number (the convention is not decided here)"
+    },
+    {
+     "id": "test/intermediate_algebra/2046.json",
+     "pred": "x=2",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/892.json",
+     "pred": "\\infty",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2251.json",
+     "pred": "x = 3",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/505.json",
+     "pred": "x = 6",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1003.json",
+     "pred": "1/2",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/counting_and_probability/508.json",
+     "pred": "7!",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "why": "not canonicalised: gold lit / pred text"
+    },
+    {
+     "id": "test/intermediate_algebra/1354.json",
+     "pred": "\\sum_{k=0}^{1996} \\frac{1}{1+\\omega^k}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/975.json",
+     "pred": "\\{-4\\}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2626.json",
+     "pred": "26511",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/precalculus/920.json",
+     "pred": "-I",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/452.json",
+     "pred": "E",
+     "why": "not canonicalised: gold lit / pred text"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/geometry/686.json",
+     "pred": "18",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/754.json",
+     "pred": "B",
+     "why": "not canonicalised: gold lit / pred text"
+    },
+    {
+     "id": "test/precalculus/695.json",
+     "pred": "-\\infty < y \\le 0",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/geometry/711.json",
+     "pred": "2",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/number_theory/368.json",
+     "pred": "4343",
+     "why": "a base-n literal against a bare number (the convention is not decided here)"
+    },
+    {
+     "id": "test/intermediate_algebra/1566.json",
+     "pred": "0",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/prealgebra/1865.json",
+     "pred": "12^{\\mathrm{th}}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/precalculus/398.json",
+     "pred": "\\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/625.json",
+     "pred": "\\frac{8}{49} \\begin{pmatrix} 2 \\\\ 6 \\\\ 3 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/499.json",
+     "pred": "\\frac{\\pi^2}{8}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/algebra/2780.json",
+     "pred": "18.90",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36.00",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1981.json",
+     "pred": "(2, 102)",
+     "why": "not canonicalised: gold lit / pred tuple"
+    }
+   ],
+   "correct_here_not_ok_there": [],
+   "ok_there_not_correct_here": [
+    {
+     "id": "test/number_theory/864.json",
+     "pred": "52",
+     "v": "REFUSED",
+     "authors_pred": "52"
+    },
+    {
+     "id": "test/prealgebra/1233.json",
+     "pred": "10\\%",
+     "v": "REFUSED",
+     "authors_pred": "10\\%"
+    },
+    {
+     "id": "test/intermediate_algebra/2046.json",
+     "pred": "x=2",
+     "v": "REFUSED",
+     "authors_pred": "x=2"
+    },
+    {
+     "id": "test/algebra/2251.json",
+     "pred": "x = 3",
+     "v": "REFUSED",
+     "authors_pred": "x = 3"
+    },
+    {
+     "id": "test/prealgebra/505.json",
+     "pred": "x = 6",
+     "v": "REFUSED",
+     "authors_pred": "x = 6"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "v": "REFUSED",
+     "authors_pred": "C"
+    },
+    {
+     "id": "test/algebra/975.json",
+     "pred": "\\{-4\\}",
+     "v": "REFUSED",
+     "authors_pred": "\\{-4\\}"
+    },
+    {
+     "id": "test/precalculus/452.json",
+     "pred": "E",
+     "v": "REFUSED",
+     "authors_pred": "E"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "v": "REFUSED",
+     "authors_pred": "864"
+    },
+    {
+     "id": "test/intermediate_algebra/754.json",
+     "pred": "B",
+     "v": "REFUSED",
+     "authors_pred": "B"
+    },
+    {
+     "id": "test/number_theory/368.json",
+     "pred": "4343",
+     "v": "REFUSED",
+     "authors_pred": "4343"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "v": "REFUSED",
+     "authors_pred": "[-2, 7]"
+    },
+    {
+     "id": "test/precalculus/625.json",
+     "pred": "\\frac{8}{49} \\begin{pmatrix} 2 \\\\ 6 \\\\ 3 \\end{pmatrix}",
+     "v": "REFUSED",
+     "authors_pred": "\\frac{8}{49} \\begin{pmatrix} 2 \\"
+    },
+    {
+     "id": "test/algebra/2780.json",
+     "pred": "18.90",
+     "v": "REFUSED",
+     "authors_pred": "18.90"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "v": "REFUSED",
+     "authors_pred": "15"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36.00",
+     "v": "REFUSED",
+     "authors_pred": "36.00"
+    }
+   ]
+  },
+  "traces/math500_sgne_cc_think32k_card_pp15.jsonl": {
+   "model": "SGNE_CC",
+   "regime": "card_pp15",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "seed": 0,
+    "max_new_tokens": 32768
+   },
+   "all_500": {
+    "n": 500,
+    "CORRECT": 223,
+    "WRONG": 232,
+    "REFUSED": 45,
+    "no_box": 69,
+    "authors_strict_ok": 235,
+    "hit_cap": 8,
+    "floor_percent": 44.6,
+    "decided_percent": 49.01,
+    "authors_percent": 47.0,
+    "hit_cap_percent": 1.6
+   },
+   "untouched_300": {
+    "n": 300,
+    "CORRECT": 156,
+    "WRONG": 115,
+    "REFUSED": 29,
+    "no_box": 30,
+    "authors_strict_ok": 165,
+    "hit_cap": 2,
+    "floor_percent": 52.0,
+    "decided_percent": 57.56,
+    "authors_percent": 55.0,
+    "hit_cap_percent": 0.67
+   },
+   "after_think_only": {
+    "all_500": {
+     "n": 500,
+     "CORRECT": 222,
+     "WRONG": 233,
+     "REFUSED": 45,
+     "no_box": 71,
+     "authors_strict_ok": 235,
+     "hit_cap": 8,
+     "floor_percent": 44.4,
+     "decided_percent": 48.79,
+     "authors_percent": 47.0,
+     "hit_cap_percent": 1.6
+    },
+    "untouched_300": {
+     "n": 300,
+     "CORRECT": 156,
+     "WRONG": 115,
+     "REFUSED": 29,
+     "no_box": 31,
+     "authors_strict_ok": 165,
+     "hit_cap": 2,
+     "floor_percent": 52.0,
+     "decided_percent": 57.56,
+     "authors_percent": 55.0,
+     "hit_cap_percent": 0.67
+    }
+   },
+   "cross_with_authors": {
+    "WRONG / authors not ok": 231,
+    "REFUSED / authors not ok": 33,
+    "CORRECT / authors ok": 222,
+    "REFUSED / authors ok": 12,
+    "WRONG / authors ok": 1,
+    "CORRECT / authors not ok": 1
+   },
+   "gold_field_differs_from_HF": [],
+   "refused": [
+    {
+     "id": "test/intermediate_algebra/1994.json",
+     "pred": "1/2",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/algebra/2193.json",
+     "pred": "5",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/428.json",
+     "pred": "x=3.5, 4.5",
+     "why": "not canonicalised: gold tuple / pred lit"
+    },
+    {
+     "id": "test/prealgebra/930.json",
+     "pred": "12 \\text{ cm}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/number_theory/516.json",
+     "pred": "1246",
+     "why": "a base-n literal against a bare number (the convention is not decided here)"
+    },
+    {
+     "id": "test/intermediate_algebra/558.json",
+     "pred": "[2,4]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/number_theory/847.json",
+     "pred": "4210",
+     "why": "a base-n literal against a bare number (the convention is not decided here)"
+    },
+    {
+     "id": "test/intermediate_algebra/1408.json",
+     "pred": "2\\sqrt{5}\\phi^{85}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1003.json",
+     "pred": "1",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1555.json",
+     "pred": "19^{611} + 7^{11} + 14",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/263.json",
+     "pred": "\\begin{pmatrix} 2 \\\\ 4 \\\\ -3 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "why": "not canonicalised: gold lit / pred text"
+    },
+    {
+     "id": "test/precalculus/1056.json",
+     "pred": "288\\pi\\sqrt{2}",
+     "why": "not canonicalised: gold pi / pred lit"
+    },
+    {
+     "id": "test/algebra/975.json",
+     "pred": "\\{-5, -4, 1\\}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2626.json",
+     "pred": "25230",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1210.json",
+     "pred": "0",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/precalculus/920.json",
+     "pred": "-2\\mathbf{A}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/geometry/686.json",
+     "pred": "18+2\\pi \\approx 24.28",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/algebra/634.json",
+     "pred": "No solution",
+     "why": "text answers"
+    },
+    {
+     "id": "test/algebra/2486.json",
+     "pred": "\\left[\\frac{3}{5}, \\frac{8}{3}\\right]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/intermediate_algebra/754.json",
+     "pred": "(A)",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/881.json",
+     "pred": "\\begin{pmatrix} -3 \\\\ 7 \\\\ 10 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1044.json",
+     "pred": "4",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/geometry/711.json",
+     "pred": "\\frac{2\\sqrt{6}}{3}",
+     "why": "not canonicalised: gold lit / pred sqrt"
+    },
+    {
+     "id": "test/precalculus/1281.json",
+     "pred": "202",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/1166.json",
+     "pred": "10 \\cdot 10^{1/3}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/1992.json",
+     "pred": "\\{x \\mid 0 \\le x \\le 36\\}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "why": "not canonicalised: gold lit / pred tuple"
+    },
+    {
+     "id": "test/geometry/817.json",
+     "pred": "\\frac{14}{\\sqrt{2}}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/precalculus/398.json",
+     "pred": "\\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/145.json",
+     "pred": "\\frac{1}{100} \\begin{pmatrix} 1 \\\\ 2 \\\\ -5 \\end{pmatrix} \\times \\begin{pmatrix} 90 \\\\ 30 \\\\ 30 \\end{pmatrix}",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/precalculus/625.json",
+     "pred": "\\frac{8}{7}",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/2015.json",
+     "pred": "2",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/precalculus/1133.json",
+     "pred": "R^2",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/1462.json",
+     "pred": "2^{1985}",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/number_theory/410.json",
+     "pred": "0.35625\\ldots",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/algebra/2043.json",
+     "pred": "(-\\infty, 2] \\cup [3, \\infty)",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/199.json",
+     "pred": "1",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/algebra/2780.json",
+     "pred": "18.90",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/intermediate_algebra/101.json",
+     "pred": "2 \\le x \\le 10",
+     "why": "not canonicalised: gold q / pred lit"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36",
+     "why": "not canonicalised: gold lit / pred q"
+    },
+    {
+     "id": "test/precalculus/356.json",
+     "pred": "2x + y = 0",
+     "why": "not canonicalised: gold lit / pred lit"
+    },
+    {
+     "id": "test/intermediate_algebra/1981.json",
+     "pred": "(2, 10002)",
+     "why": "not canonicalised: gold lit / pred tuple"
+    }
+   ],
+   "correct_here_not_ok_there": [
+    {
+     "id": "test/algebra/776.json",
+     "pred": "-2",
+     "authors_pred": "NONE"
+    }
+   ],
+   "ok_there_not_correct_here": [
+    {
+     "id": "test/algebra/2193.json",
+     "pred": "5",
+     "v": "REFUSED",
+     "authors_pred": "5"
+    },
+    {
+     "id": "test/prealgebra/930.json",
+     "pred": "12 \\text{ cm}",
+     "v": "REFUSED",
+     "authors_pred": "12 \\text{ cm}"
+    },
+    {
+     "id": "test/number_theory/847.json",
+     "pred": "4210",
+     "v": "REFUSED",
+     "authors_pred": "4210"
+    },
+    {
+     "id": "test/number_theory/598.json",
+     "pred": "0.00006709",
+     "v": "WRONG",
+     "authors_pred": "0.00006709"
+    },
+    {
+     "id": "test/precalculus/819.json",
+     "pred": "C",
+     "v": "REFUSED",
+     "authors_pred": "C"
+    },
+    {
+     "id": "test/geometry/473.json",
+     "pred": "864",
+     "v": "REFUSED",
+     "authors_pred": "864"
+    },
+    {
+     "id": "test/geometry/686.json",
+     "pred": "18+2\\pi \\approx 24.28",
+     "v": "REFUSED",
+     "authors_pred": "18+2\\pi \\approx 24.28"
+    },
+    {
+     "id": "test/algebra/101.json",
+     "pred": "[-2, 7]",
+     "v": "REFUSED",
+     "authors_pred": "[-2, 7]"
+    },
+    {
+     "id": "test/number_theory/410.json",
+     "pred": "0.35625\\ldots",
+     "v": "REFUSED",
+     "authors_pred": "0.35625\\ldots"
+    },
+    {
+     "id": "test/algebra/2780.json",
+     "pred": "18.90",
+     "v": "REFUSED",
+     "authors_pred": "18.90"
+    },
+    {
+     "id": "test/prealgebra/1114.json",
+     "pred": "15",
+     "v": "REFUSED",
+     "authors_pred": "15"
+    },
+    {
+     "id": "test/prealgebra/1203.json",
+     "pred": "36",
+     "v": "REFUSED",
+     "authors_pred": "36"
+    },
+    {
+     "id": "test/precalculus/356.json",
+     "pred": "2x + y = 0",
+     "v": "REFUSED",
+     "authors_pred": "2x + y = 0"
+    }
+   ]
+  }
+ },
+ "second_grader": {
+  "responses": 3000,
+  "disagreements": []
+ },
+ "controls": {
+  "changed_gold": [
+   "WRONG",
+   "WRONG"
+  ],
+  "pm": [
+   "REFUSED",
+   "REFUSED"
+  ]
+ },
+ "controls_ok": true,
+ "pins": {
+  "traces/math500_base_think32k_pure_t0.jsonl": "97e2b70bbe81367254a972b7efd4b0c649a35c6f08ae0fb992bc1c545c936a4f",
+  "traces/math500_mit_p50c_think32k_pure_t0.jsonl": "ea51d00c88bf65a26acd82a977290ae0b5392eddfb8b18abb18826f773b6a8c8",
+  "traces/math500_sgne_cc_think32k_pure_t0.jsonl": "4b94c6c55599f40f26973af412b513b519d5d6232ebf374b16137089c7f4baf4",
+  "traces/math500_base_think32k_card_pp15.jsonl": "6d06d373c429c760584a553ebf9ed26a639f42ee64b4ce72b86d0c49fc3c113c",
+  "traces/math500_mit_p50c_think32k_card_pp15.jsonl": "2c766bf006030cb15dd6d8256534ca6ad730b8a780d9c058872d09d9b150ffb6",
+  "traces/math500_sgne_cc_think32k_card_pp15.jsonl": "8f4fed10df896a6ffe5f367982f23d88625cdee1b3cba5a40801626ce3b7be9a",
+  "suites/reproducibility_and_holdout_manifest.json": "c36bd257d55e7643f0c10378fdd935f184e1740630b7c0a05f42f48cea01689a"
+ },
+ "grader": {
+  "python": "instruments/wsp/grade.py",
+  "sha256": "4b36ee1a00f83f693de2a0395baca63bfe131f1bbd145779e5e630f1a426e990",
+  "javascript": "instruments/wsp/grade.js",
+  "js_sha256": "4068e438b696c6d036fa32b3716a4c2381ab92306ffc9efa889e8a3fe1092f2d"
+ },
+ "seconds": 7.9,
+ "python": "3.9.6"
+}

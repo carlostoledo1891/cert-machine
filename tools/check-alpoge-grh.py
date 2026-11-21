@@ -185,12 +185,23 @@ def derive(run):
     brok = 'STOPPED (bridge)' not in plog and 'bridge: no release artifact changed' in plog and 'BC1 rejected with its diagnostic' in plog and ex(run, 'BC1') not in (None, 0) and ex(run, 'BRB') == 0 and (rd(run, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(run, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
         and bool(re.search(r"theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'", (rd(run, 'BC1.out', '') or '') + (rd(run, 'BC1.err', '') or '')))
     rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected' if brok else 'the unconditional bridge has not passed'))
-    # census (COMPUTED)
-    cen = {}
+    # census (COMPUTED): the CENSUS lines, the NIELSEN probes (amendment A10) and the WORDFACTS trace (amendment A11)
+    cen, niel, wf = {}, {}, {'targets': []}
     for line in (rd(run, 'CEN.out', '') or '').splitlines():
         if line.startswith('CENSUS '):
             for k, val in re.findall(r'(\w+)=(\S.*?)(?= \w+=|$)', line[7:]):
                 cen[k] = val
+        elif line.startswith('NIELSEN '):
+            m = re.match(r'NIELSEN (\S+) in_closure=(\d+) (.*)$', line)
+            if m: niel[m.group(1)] = {'in_closure': int(m.group(2)), 'names': m.group(3).strip()}
+        elif line.startswith('WORDFACTS named='):
+            m = re.match(r'WORDFACTS named=(\d+) producers=(\d+)', line)
+            if m: wf['named'], wf['producers'] = int(m.group(1)), int(m.group(2))
+        elif line.startswith('WORDFACTS '):
+            m = re.match(r'WORDFACTS (\S+) module=(\S+) release_closure=(\d+) direct=(.*)$', line)
+            if m: wf['targets'].append({'name': m.group(1), 'module': m.group(2), 'release_closure': int(m.group(3)), 'direct': m.group(4).strip()})
+    for k in ('constants_by_root', 'modules_by_root'):
+        if k in cen: cen[k + '_parsed'] = [[a, int(b)] for a, b in re.findall(r'\(([^(),]+), (\d+)\)', cen[k])]
     # readings (F1, F2, M1, F3) are pinned, not derived
     readings = json.load(open(READINGS)) if os.path.exists(READINGS) else {}
     return {
@@ -199,7 +210,7 @@ def derive(run):
                  'toolchain': pins['toolchain'], 'mathlib': pins['mathlib']['rev']},
         'run': os.path.basename(run),
         'rows': rows,
-        'computed': {'census': cen},
+        'computed': {'census': cen, 'nielsen': niel, 'wordfacts': wf if (niel or wf['targets'] or 'named' in wf) else {}},
         'readings': readings,
     }
 

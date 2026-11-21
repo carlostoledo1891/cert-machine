@@ -1,0 +1,50 @@
+fatal: could not read Username for 'https://github.com': No such device or address
+fatal: the remote end hung up unexpectedly
+/tmp/tools.sh: line 6: cd: lean4export: No such file or directory
+fatal: could not read Username for 'https://github.com': No such device or address
+fatal: the remote end hung up unexpectedly
+/tmp/tools.sh: line 8: cd: comparator: No such file or directory
+nanoda 0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929 v0.3.2-86-g0da9f98
+lean4export 15f6055e299ad5b89345e533cc2192f4cc00f659 v4.33.0
+lean4export toolchain as tagged: leanprover/lean4:v4.33.0
+✔ [5/6] Built Export:c.o (111s)
+✔ [6/6] Built lean4export:exe (46s)
+Build completed successfully (6 jobs).
+comparator 3927ad383f208ae977c340a91c48ac9b497d2097 v4.33.0
+comparator toolchain as tagged: leanprover/lean4:v4.33.0
+✔ [15/16] Built Main:c.o (20s)
+✔ [16/16] Built comparator:exe (42s)
+Build completed successfully (16 jobs).
+/home/tester/tools/comparator/.lake/build/bin:
+comparator
+comparator.hash
+comparator.rsp
+comparator.trace
+
+/home/tester/tools/lean4export/.lake/build/bin:
+lean4export
+lean4export.hash
+lean4export.rsp
+lean4export.trace
+   Compiling nanoda_lib v0.4.32 (/home/tester/tools/nanoda_lib)
+    Finished `release` profile [optimized] target(s) in 14m 42s
+-rw-r--r--  1 tester tester     643 Nov 20 22:27 libnanoda_lib.d
+-rw-r--r--  2 tester tester 6212216 Nov 20 22:21 libnanoda_lib.rlib
+-rwxr-xr-x  2 tester tester 1378232 Nov 20 22:27 nanoda_bin
+-rw-r--r--  1 tester tester     717 Nov 20 22:27 nanoda_bin.d
+landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a v0.1.17-8-gec104f6
+go: downloading golang.org/x/sys v0.40.0
+go: downloading kernel.org/pub/linux/libs/security/libcap/psx v1.2.77
+-rwxr-xr-x 1 tester tester 6146816 Nov 20 22:34 landrun
+/home/tester/tools/comparator/.lake/build/bin:
+comparator
+comparator.hash
+comparator.rsp
+comparator.trace
+
+/home/tester/tools/lean4export/.lake/build/bin:
+lean4export
+lean4export.hash
+lean4export.rsp
+lean4export.trace
+2026-11-20T22:34:46Z tools done (exit 0)

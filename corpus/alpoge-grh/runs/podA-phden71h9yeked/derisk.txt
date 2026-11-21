@@ -1,0 +1,47 @@
+✔ [6/7] Built Bad (3.7s)
+Build completed successfully (7 jobs).
+== landrun test
+[landrun:error] 2026/11/20 22:34:57 Failed to apply sandbox: failed to apply Landlock restrictions: missing kernel Landlock support. Got Landlock ABI v4, wanted {Landlock V10; FS: all; Net: all; Scoped: all}
+landrun exit 1
+== comparator landrun cfg-So-true.json
+Nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+exit 0
+== comparator landrun cfg-Bad-false.json
+Building Bad
+Build completed successfully (3 jobs).
+Exporting #[t, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Bad
+uncaught exception: Illegal axiom detected: 'a'
+exit 1
+== comparator passthrough cfg-So-true.json
+Nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+exit 0
+== comparator passthrough cfg-Bad-false.json
+Building Bad
+Build completed successfully (3 jobs).
+Exporting #[t, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Bad
+uncaught exception: Illegal axiom detected: 'a'
+exit 1
+== export + nanoda (C5 dry run)
+export exit 0 bytes 115805
+{"meta":{"exporter":{"name":"lean4export","version":"3.1.0"},"format":{"version":"3.1.0"},"lean":{"githash":"819816b2e0a3bf405af45ae5c7af2491d8f5bee6","version":"4.33.1"}}}
+{"in":1,"str":{"pre":0,"str
+Checked 80 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+nanoda exit 0
+landrun-best-effort exit 0
+2090c2090
+< {"ie":1628,"natVal":"4"}
+---
+> {"ie":1628,"natVal":"5"}
+
+thread 'thread_1' (109589) panicked at src/tc.rs:988:71:
+assertion failed: self.def_eq(u, v)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+nanoda-bad exit 101
