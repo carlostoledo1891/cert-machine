@@ -26,3 +26,6 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
    (`Unknown identifier h`); `obtain … := h` became `obtain … := id h`. No statement changed; the file was committed
    before its first compile (e90acbad) and the fix is its own commit. The first, failing compile is kept in the run
    (`BB.out`), the second in `BB2-after-fix.txt`.
+7. **2026-11-21 ~00:40 UTC — the independent RH statement's first compile.** `instruments/alpoge-grh/spec/Spec.lean`,
+   committed before its first compile (0fd9ab3b9), used the notation `π` without opening `Real`; four `have` lines now
+   write `Real.pi`. No statement changed. Both compiles are kept (`corpus/alpoge-grh/runs-spec/`).

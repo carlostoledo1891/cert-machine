@@ -50,12 +50,12 @@ theorem re_mem_strip_of_nontrivial {s : ℂ} (hz : riemannZeta s = 0)
     rw [hsw, hz] at fe
     have hζw : riemannZeta w ≠ 0 := riemannZeta_ne_zero_of_one_le_re hwre
     have hΓ : Gamma w ≠ 0 := Complex.Gamma_ne_zero hwn
-    have hπ : (π : ℂ) ≠ 0 := by exact_mod_cast Real.pi_ne_zero
-    have h2π : (2 * (π : ℂ)) ≠ 0 := mul_ne_zero two_ne_zero hπ
-    have hpow : (2 * (π : ℂ)) ^ (-w) ≠ 0 := by
+    have hπ : (Real.pi : ℂ) ≠ 0 := by exact_mod_cast Real.pi_ne_zero
+    have h2π : (2 * (Real.pi : ℂ)) ≠ 0 := mul_ne_zero two_ne_zero hπ
+    have hpow : (2 * (Real.pi : ℂ)) ^ (-w) ≠ 0 := by
       rw [Ne, cpow_eq_zero_iff]
       exact fun h => h2π h.1
-    have hcos : cos (π * w / 2) = 0 := by
+    have hcos : cos ((Real.pi : ℂ) * w / 2) = 0 := by
       have h := fe.symm
       simp only [mul_eq_zero] at h
       rcases h with (((h | h) | h) | h) | h

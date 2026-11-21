@@ -1,0 +1,46 @@
+Already decompressed 8690 file(s)
+0df444a360eaa60ab8c11dca51a86af692955474
+SPECWS-READY
+Spec.lean:27:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Spec.lean:53:15: error(lean.unknownIdentifier): Unknown identifier `π`
+Spec.lean:54:21: error(lean.unknownIdentifier): Unknown identifier `π`
+Spec.lean:55:22: error(lean.unknownIdentifier): Unknown identifier `π`
+Spec.lean:58:21: error(lean.unknownIdentifier): Unknown identifier `π`
+Spec.lean:70:6: error: ring failed, ring expressions not equal
+s : ℂ
+hz : riemannZeta s = 0
+ht : ¬∃ n, s = -2 * (↑n + 1)
+h1 : s ≠ 1
+hle : s.re ≤ 0
+h0 : ¬s = 0
+w : ℂ := ⋯
+hw : w = 1 - s
+hwre : 1 ≤ w.re
+hwn : ∀ (n : ℕ), w ≠ -↑n
+hw1 : w ≠ 1
+fe : 0 = 2 * (2 * ↑Real.pi) ^ (-w) * Gamma w * cos (↑Real.pi * w / 2) * riemannZeta w
+hsw : 1 - w = s
+hζw : riemannZeta w ≠ 0
+hΓ : Gamma w ≠ 0
+hπ : sorry ≠ 0
+h2π : 2 * sorry ≠ 0
+hpow : (2 * sorry) ^ (-w) ≠ 0
+hcos : cos (sorry * w / 2) = 0
+k : ℤ
+hk : sorry * w / 2 = (2 * ↑k + 1) * ↑Real.pi / 2
+⊢ -sorry - sorry * ↑k * 2 + ↑k * ↑Real.pi * 2 + ↑Real.pi = 0
+Spec.lean:92:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+exit 1
+
+[exited with code 0]
