@@ -447,7 +447,7 @@ function timeline() {
 
 /* ---------------------------------------------------------------- the page */
 const TITLE_FINAL = 'Alpöge’s Lean proof of the Riemann Hypothesis, checked';
-const TITLE_DRAFT = 'Alpöge’s Lean proof of RH: the right statement. Now, the proof.';
+const TITLE_DRAFT = 'Alpöge’s Lean proof of RH and GRH: the right statements. Now, the proof.';
 const TITLE = pending.length ? TITLE_DRAFT : TITLE_FINAL;
 const O = [];
 O.push(C.header({
@@ -509,11 +509,13 @@ const standing = (st) => st === 'decided' ? W.DECIDED : st === 'computed' ? W.CO
 const roleOf = (st) => st === 'decided' ? 'sig' : st === 'pending' ? 'dep' : st === 'refused' || st === 'refuted' ? 'warn' : 'held';
 /* the chain, as a list with every step's explanation printed beside it (no click needed): a box per step, solid when the
    record has decided it, dashed while it runs; a spine joins the boxes and a point travels down it */
+/* the kernels step is decided only when all three are; running while any runs; otherwise its worst state */
+const KST = (() => { const s3 = ['K2', 'KR', 'K3'].map(fst); return s3.every((x) => x === 'decided') ? 'decided' : s3.includes('pending') ? 'pending' : s3.find((x) => x !== 'decided'); })();
 const STEPS = [
     { id: 'bytes', role: roleOf(fst('I1')), standing: standing(fst('I1')), k: '1 · THE FILES · ' + WORD[fst('I1')].toUpperCase(), v: 'the 14 announced parts', t: 'the files', d: 'The archive is fetched from alpo.ge and every part checked against the checksums recorded the day it appeared. Three fetches, from two continents, gave the same bytes.' },
     { id: 'build', role: roleOf(fst('B1')), standing: standing(fst('B1')), k: '2 · THE BUILD · ' + WORD[fst('B1')].toUpperCase(), v: '175,187 files compile', t: 'the build', d: 'Lean compiles every file. Compiling already runs the kernel on every declaration; an error anywhere would stop it.' },
     { id: 'ax', role: roleOf(fst('A1')), standing: standing(fst('A1')), k: '3 · THE AXIOMS · ' + WORD[fst('A1')].toUpperCase(), v: 'only the standard three', t: 'the axioms', d: 'Lean reports which axioms each theorem ultimately rests on. Anything beyond propext, Classical.choice and Quot.sound — or the placeholder sorry — would be a hole.' },
-    { id: 'kern', role: roleOf(fst('K2')), standing: standing(fst('K2')), k: '4 · SECOND KERNEL · ' + WORD[fst('K2')].toUpperCase(), v: 'nanoda re-checks it all', t: 'a second kernel', d: 'The whole proof is exported and re-checked by nanoda, a kernel written independently in another language. A bug in Lean’s kernel would have to be repeated there.' },
+    { id: 'kern', role: roleOf(KST), standing: standing(KST), k: '4 · THREE KERNELS · ' + WORD[KST].toUpperCase(), v: 'nanoda, Lean’s replay, con-leche', t: 'three kernels', d: 'The whole proof is exported and re-checked by nanoda and by con-leche, two kernels written independently of Lean, and replayed by Lean’s own checker in a fresh environment. A bug in Lean’s kernel would have to be repeated in both independent ones.' },
     { id: 'judge', role: roleOf(fst('S1')), standing: standing(fst('S1')), k: '5 · THE JUDGE · ' + WORD[fst('S1')].toUpperCase(), v: 'our statement = theirs', t: 'the judge', d: 'Comparator, Lean’s official judge, checks that the proved theorems state exactly what our own statement file says, word for word, using Mathlib only — so no definition in the release can change their meaning.' },
     { id: 'ctl', role: roleOf(fst('C1-C5')), standing: standing(fst('C1-C5')), k: '6 · PLANTED ERRORS · ' + WORD[fst('C1-C5')].toUpperCase(), v: 'five wrong versions out', t: 'planted errors', d: 'A judge that never says no proves nothing. We planted five errors — a changed constant, a smuggled axiom, a missing proof, a hijacked definition, a corrupted proof — and every one must be rejected.' },
     { id: 'what', role: 'held', k: '7 · WHAT IT MEANS', v: 'a formal proof of RH', t: 'what it means', d: 'If every check passes, independent kernels accept a proof of exactly the textbook RH from the three standard axioms. That is the strongest evidence a computer can give; it is not a human understanding of why the proof works.' }
@@ -552,7 +554,7 @@ O.push(C.section({ lab: '5 · inside the proof', title: 'What carries the conclu
     { b: 'Names are not evidence.', text: 'Several parts are named for deep mathematics but are empty in the code: a geometry condition that is literally True, a geometric model whose key map is zero, a theorem named for a simple pole that proves True, two “literature” inputs that are one statement. The proof can still be valid — the kernel checks what is there, not what things are called — but those names do not explain it.' }
   ]) + '</div>'
   + C.figure({ svgRaw: dual(figRoute(900, false), figRoute(360, true)), record: [DIR + 'route-reading.json'],
-    caption: 'The route of the proof, from the headline down (solid boxes), and, set apart under their own heading, four places named for deep mathematics that are vacuous in the code (dotted boxes). They are not steps of the route. Hover for each. The highlighted box is where the real content has to be.',
+    caption: 'The route of the proof, from the headline down (solid boxes), and, set apart under their own heading, four places named for deep mathematics that are vacuous in the code (dotted boxes). They are not on the route as drawn; whether the compiled proof uses them is what the census measures. Hover for each. The highlighted box is where the real content has to be.',
     stop: 'a quoted line no longer matches the pinned archive' })
   + '<div class="col">' + C.plainList([
     { b: 'J. L. Nielsen’s critique.', raw: C.esc('A paper posted the same day, ') + a('https://philarchive.org/rec/NIEIOT-2', 'The Invalidity of Alpöge’s Proposed Proof of the Riemann Hypothesis') + C.esc(', reads the source and finds the vacuous geometric and lattice witnesses above, and a height set equal to its own formula. We confirmed each quote in the pinned files. Our verdict on that point: the geometric interpretation of this step remains unverified. The paper’s title goes further than its analysis: the formal theorem is decided by the kernels, not by the names, and the paper’s own appendix grants that the proof term may well check.') },

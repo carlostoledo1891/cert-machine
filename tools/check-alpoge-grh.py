@@ -147,8 +147,10 @@ def derive(run):
     digest_ok = bool((rd(run, 'export.sha256', '') or '').strip())
     if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and m and int(m.group(1)) > 0 and roots_ok and digest_ok:
         v, why = 'CERTIFIED', f'nanoda checked {m.group(1)} declarations of the exported closure with no typechecker error'
-    elif ex(run, 'K2') in (None, 124, 137):
-        v, why = 'REFUSED', 'nanoda did not finish (resources or not run)'
+    elif ex(run, 'K2') is None:
+        v, why = 'REFUSED', 'nanoda did not run yet'
+    elif ex(run, 'K2') in (124, 137):
+        v, why = 'REFUSED', f'nanoda stopped on resources (exit {ex(run, "K2")})'
     else:
         v, why = 'REFUSED', f'nanoda exited {ex(run, "K2")}: a disagreement, REFUSED until traced (pre-registered)'
     rows.append(row('K2', v, why, seconds=secs(run, 'K2'), peak_rss_gb=peak_rss_gb(run, 'K2'),
