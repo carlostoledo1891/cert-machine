@@ -34,3 +34,8 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
    `Cardinal` (now `exact_mod_cast Nat.one_lt_two`), and `isTextbookL_LFunction` hit the heartbeat limit while unifying
    the series before its argument was elaborated (now the same two terms, named first with `have`). No statement
    changed. Both compiles are kept (`corpus/alpoge-grh/runs-char/`).
+9. **2026-11-21 16:55–17:15 UTC — the challenge-unchanged gate, narrowed to the compiled files (amendment A13).**
+   After B1, phase 1 found `Challenge.c` emptied (item 4) and `Challenge.setup.json` removed (item 5): both this run's
+   own disk-saving steps, neither read by any judge. The compiled challenge (`.olean`, `.ilean`, their hashes, the
+   `.trace`) is unchanged. The gate before S1 now compares those files only. Phase 2, still in its first step
+   (rebuilding the judges), was stopped and restarted from the corrected script, with `/opt/judges` moved aside first.

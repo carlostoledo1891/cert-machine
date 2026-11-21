@@ -252,9 +252,11 @@ PY4
 log "RB: $(sed -n 2p $R/rb.txt)"
 step A1 7200 $W bash -c 'lake env lean scratch/Axioms.lean'
 step CEN 21600 $W bash -c 'lake env lean scratch/Census.lean'
-# the challenge's build must be the one made before B1
-find $W/.lake/build -path '*CertMachine/Challenge.*' -type f -exec sha256sum {} \; | sort -k2 > $R/challenge-build.before-S1.sha256
-grep 'CertMachine/Challenge\.' $R/challenge-build.sha256 | sort -k2 > /tmp/ch0
+# the challenge's build must be the one made before B1 — its compiled files under lib/ (.olean, .ilean, their .hash, the
+# .trace), which the judges read; amendment A13: ir/ (the generated .c and Lake's .setup.json) is excluded, because the
+# disk-saving steps of DEVIATIONS items 4 and 5 emptied Challenge.c and removed Challenge.setup.json during B1
+find $W/.lake/build/lib -path '*CertMachine/Challenge.*' -type f -exec sha256sum {} \; | sort -k2 > $R/challenge-build.before-S1.sha256
+grep '/lib/lean/CertMachine/Challenge\.' $R/challenge-build.sha256 | sort -k2 > /tmp/ch0
 cmp -s /tmp/ch0 $R/challenge-build.before-S1.sha256 && log "challenge build unchanged before S1" || log "WARNING: challenge build differs before S1"
 step CTLB 7200 $W bash -c 'lake build CertMachine.ChallengeC1 CertMachine.Ctl2 CertMachine.Ctl3 CertMachine.Ctl4'
 printf 'import CertMachine.Ctl2\n#print axioms riemannHypothesis\n' > $W/scratch/AxCtl2.lean; printf 'import CertMachine.Ctl3\n#print axioms riemannHypothesis\n' > $W/scratch/AxCtl3.lean; chown $U:$U $W/scratch/AxCtl*.lean

@@ -104,7 +104,7 @@ def derive(run):
     s1ok = ex(run, 'S1') == 0 and 'Your solution is okay!' in s1 and 'Lean default kernel accepts the solution' in s1
     ch0 = rd(run, 'challenge-build.sha256', '')
     ch1 = rd(run, 'challenge-build.before-S1.sha256', '')
-    chl = lambda t: sorted(l for l in (t or '').splitlines() if 'CertMachine/Challenge.' in l)
+    chl = lambda t: sorted(l for l in (t or '').splitlines() if '/lib/lean/CertMachine/Challenge.' in l)   # amendment A13: the compiled files only
     same = bool(chl(ch1)) and chl(ch0) == chl(ch1)
     sandboxed = bool(mode) and mode.startswith('sandbox')
     if s1ok and same and not sandboxed:

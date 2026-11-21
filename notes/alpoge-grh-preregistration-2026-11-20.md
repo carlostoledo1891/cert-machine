@@ -363,3 +363,26 @@ bridge has finished (done, not started, or stopped), so it never competes with K
 **Budget.** K3 adds well under an hour of the build pod (MIT's record: con-leche checked this closure in 3 min 15 s on
 64 workers, 46 GiB peak). CR is quoted before it is created (MIT's record: nanoda 28 min, 89 GB peak; the pod needs
 ≥ 128 GB of memory). The lane's ceiling stays US$150.
+
+## Amendment A13 — the challenge-unchanged gate reads the compiled files only (2026-11-21 ~17:10 UTC), before S1 runs
+
+B1 ended at 16:55:08 UTC: exit 0, "Build completed successfully (183903 jobs)", 175,188 .olean files, no `sorry`.
+Phase 1 then logged "WARNING: challenge build CHANGED during B1". The difference, file by file, against
+`challenge-build.sha256` (taken before B1):
+- `ir/CertMachine/Challenge.c` is now empty (sha256 e3b0c442…), emptied by the loop of DEVIATIONS item 4
+  (22:42–22:47 UTC on 11-20);
+- `ir/CertMachine/Challenge.setup.json` is gone, removed by the setup-file loop of DEVIATIONS item 5.
+- The compiled challenge is unchanged: `lib/lean/CertMachine/Challenge.olean`, `.ilean`, their `.hash` files and the
+  `.trace`. `ir/…/Challenge.c.hash` is unchanged too.
+
+Both changes are this run's own disk-saving steps, logged when they were made. Neither file is read by Comparator,
+lean4export, the kernels or `#print axioms`, all of which read the `.olean` files. Phase 2's gate before S1, and the
+recorder, compared every `CertMachine/Challenge.*` file. Left as written, the gate would fail S1's precondition for a
+reason that says nothing about the challenge's meaning.
+
+Changed, before S1 runs: the gate, in `tools/runpod-alpoge-grh-p2.sh` and in `tools/check-alpoge-grh.py`, compares
+the challenge's files under `lib/lean/` only: the `.olean`, the `.ilean`, their `.hash` files and the `.trace`.
+
+Phase 2 was in its first step (the judges rebuilt by root) when this was found. It is stopped, `/opt/judges` is moved
+aside, and phase 2 is restarted from the corrected script, from its start. No judge, gate or check of phase 2 had
+reported. The full before/after lists stay in the run (`challenge-build.sha256`, `challenge-build.after-B1.sha256`).
