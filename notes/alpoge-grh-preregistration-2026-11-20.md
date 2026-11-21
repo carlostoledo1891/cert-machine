@@ -240,3 +240,14 @@ Adopted from the third reading (each confirmed in the code here):
   the repository, unused.
 - **Positioning** (the operator: "Second replication + extras"): the page leads with Sutherland's record, then what
   this one adds that his does not state — the planted-defect controls, SPEC, the two bridges, the route reading and RB.
+
+## Amendment A8 — the public text (the operator, 2026-11-21 ~02:50 UTC)
+
+The page and every post announce this work as it is — the checks run here, the controls, SPEC, the two bridges, the
+route reading, RB — and do NOT call it a "second replication" or frame it against anyone else's record. A credits
+section names everyone whose work the record uses or compares against: Levent Alpöge (the claim); Andrew Sutherland
+(MIT's published manifest, used by RB); Astra 6.2 (the second readings and three red-team rounds); the August release
+(Anthropic's formal-math/zeta23: Alpöge and Furman, Claude, the Lean by Eric Easley's team) for P0 and the bridges;
+Alessandro Masullo, Ravi Vakil and Brian Conrad (the draft and its posting) for the Masullo section; Terence Tao's post
+(the venue); the tools (Lean and Lake, Mathlib, Comparator and lean4export by the Lean FRO, nanoda by ammkrn, landrun).
+A7's positioning sentence is superseded.
