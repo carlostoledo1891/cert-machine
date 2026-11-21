@@ -137,6 +137,36 @@ def roots : List Name := [`riemannHypothesis, `riemannZeta_eq_zero_re, `LFunctio
   for pr in probes do
     let hits := seen.toList.filter (fun n => match n with | .str _ s => s == pr | _ => false)
     IO.println s!"NIELSEN {pr} in_closure={hits.length} {(hits.take 6)}"
+  -- WORDFACTS (amendment A11, COMPUTED): where the two inequalities of the divisor link come from in the compiled term.
+  -- Targets: the closure constants named wordFacts_of / divClausesR_of / linkDIV_at_words / slope_bound_of_word_facts,
+  -- and every closure constant whose type ends in a structure named DivInputsR (its producers). For each: its direct
+  -- dependencies outside the libraries (Mathlib, Init, Std, Batteries, Aesop, Lean, Qq, …) and the size of its
+  -- release-only dependency closure.
+  let libRoots : List String := ["Mathlib", "Init", "Std", "Batteries", "Aesop", "Lean", "Qq", "ProofWidgets", "Plausible", "LeanSearchClient", "ImportGraph"]
+  let modRoot := fun (n : Name) => match env.getModuleIdxFor? n with
+    | some idx => (env.header.moduleNames[idx.toNat]!).getRoot.toString
+    | none => "_current"
+  let isRel := fun (n : Name) => !libRoots.contains (modRoot n)
+  let lastIs := fun (n : Name) (xs : List String) => match n with | .str _ s => xs.contains s | _ => false
+  let named := seen.toList.filter (fun n => lastIs n ["wordFacts_of", "divClausesR_of", "linkDIV_at_words", "slope_bound_of_word_facts"])
+  let producers := seen.toList.filter (fun n => match env.find? n with
+    | some ci => (match ci.type.getForallBody.getAppFn with | .const c _ => lastIs c ["DivInputsR"] | _ => false)
+    | none => false)
+  IO.println s!"WORDFACTS named={named.length} producers={producers.length}"
+  for t in (named ++ producers).take 40 do
+    let some ci := env.find? t | continue
+    let direct := ci.getUsedConstantsAsSet.toList.filter isRel
+    let mut seen2 : NameHashSet := {}
+    let mut st : Array Name := #[t]
+    while !st.isEmpty do
+      let x := st.back!
+      st := st.pop
+      if seen2.contains x then continue
+      seen2 := seen2.insert x
+      if let some cx := env.find? x then
+        for c in cx.getUsedConstantsAsSet do
+          if isRel c && !seen2.contains c then st := st.push c
+    IO.println s!"WORDFACTS {t} module={modRoot t} release_closure={seen2.size} direct={(direct.take 30)}"
 EOF
 # the controls' modules (cert-machine's own, Mathlib only, written into the checkout's CertMachine library)
 cat > $W/src/CertMachine/ChallengeC1.lean <<'EOF'

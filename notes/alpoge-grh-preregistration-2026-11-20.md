@@ -277,3 +277,18 @@ The record's reading: the degenerate witnesses are a confirmed finding about the
 release "has not been shown to contain any proof of the Riemann Hypothesis" is not what a kernel acceptance of a closed
 term of Mathlib's `RiemannHypothesis` on the three standard axioms says — the record reports both, and her paper is
 credited.
+
+## Amendment A11 (2026-11-21 ~02:25 UTC)
+
+- **A9's larger pod abandoned.** The 4×H100 pod (uhsel7c0ri69nn, 112 vCPU; 8×H100 was out of stock) built 1,267 modules
+  in its first 14 minutes, ~95 per minute, against the checking pod's ~170 per minute; it would have finished later, not
+  sooner. It was deleted at 02:21 UTC (~US$6). Its first fetch from alpo.ge matched the pins (I1 PASS, a third time) and
+  its challenge build hashed equal to the checking pod's (one file built on two machines, equal bytes). B1 stays on the
+  checking pod, unchanged; the move script stays in the repository, unused.
+- **WORDFACTS (COMPUTED, added on the operator's word):** the census traces, in the compiled closure, the constants named
+  wordFacts_of / divClausesR_of / linkDIV_at_words / slope_bound_of_word_facts and every producer of a `DivInputsR` value:
+  for each, its direct release-side dependencies and the size of its release-only dependency closure — a map of where the
+  two inequalities of the divisor link come from, for readers; not a verdict.
+- **Nielsen, the wording (the operator's choice):** "The geometric interpretation of this step remains unverified." Her
+  findings about the code are confirmed here; her title goes beyond what her analysis establishes; the formal theorem
+  is decided by the kernels, not by the names.
