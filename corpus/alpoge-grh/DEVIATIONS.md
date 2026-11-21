@@ -29,3 +29,8 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
 7. **2026-11-21 ~00:40 UTC — the independent RH statement's first compile.** `instruments/alpoge-grh/spec/Spec.lean`,
    committed before its first compile (0fd9ab3b9), used the notation `π` without opening `Real`; four `have` lines now
    write `Real.pi`. No statement changed. Both compiles are kept (`corpus/alpoge-grh/runs-spec/`).
+8. **2026-11-21 ~12:45 UTC — CHAR's first compile (amendment A12).** `instruments/alpoge-grh/spec/Textbook.lean`,
+   committed before its first compile (35bfd60f), failed on two proofs: `one_lt_two` found no ordered-group instance on
+   `Cardinal` (now `exact_mod_cast Nat.one_lt_two`), and `isTextbookL_LFunction` hit the heartbeat limit while unifying
+   the series before its argument was elaborated (now the same two terms, named first with `have`). No statement
+   changed. Both compiles are kept (`corpus/alpoge-grh/runs-char/`).

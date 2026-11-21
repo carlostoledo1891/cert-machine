@@ -57,7 +57,7 @@ private lemma eqOn_of_hasSum (a : ℕ → ℂ → ℂ) {f g : ℂ → ℂ}
   have hU : IsOpen ({1}ᶜ : Set ℂ) := isOpen_compl_singleton
   have hpc : IsPreconnected ({1}ᶜ : Set ℂ) :=
     (isConnected_compl_singleton_of_one_lt_rank
-      (by rw [Complex.rank_real_complex]; exact one_lt_two) (1 : ℂ)).isPreconnected
+      (by rw [Complex.rank_real_complex]; exact_mod_cast Nat.one_lt_two) (1 : ℂ)).isPreconnected
   have h2 : (2 : ℂ) ∈ ({1}ᶜ : Set ℂ) := Set.mem_compl_singleton_iff.mpr (by norm_num)
   refine (hf.analyticOnNhd hU).eqOn_of_preconnected_of_eventuallyEq (hg.analyticOnNhd hU) hpc h2 ?_
   have hV : IsOpen {s : ℂ | 1 < s.re} := isOpen_lt continuous_const Complex.continuous_re
@@ -76,8 +76,10 @@ theorem isTextbookL_LFunction (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ 
     IsTextbookL χ (DirichletCharacter.LFunction χ) := by
   refine ⟨fun s hs => (DirichletCharacter.differentiableAt_LFunction χ s
     (Or.inl (Set.mem_compl_singleton_iff.mp hs))).differentiableWithinAt, fun s hs => ?_⟩
+  have h1 := (DirichletCharacter.LSeriesSummable_of_one_lt_re χ hs).LSeriesHasSum
+  have h2 := hasSum_succ h1
   rw [DirichletCharacter.LFunction_eq_LSeries χ hs]
-  exact hasSum_succ (DirichletCharacter.LSeriesSummable_of_one_lt_re χ hs).LSeriesHasSum
+  exact h2
 
 /-- The characterisation determines ζ on ℂ ∖ {1}. -/
 theorem eqOn_riemannZeta {f : ℂ → ℂ} (hf : IsTextbookZeta f) : Set.EqOn f riemannZeta {1}ᶜ :=
