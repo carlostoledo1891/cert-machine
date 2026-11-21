@@ -15,22 +15,22 @@
   },
   {
    "id": "B1",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "no B1V result pulled"
   },
   {
    "id": "RB",
-   "verdict": "COMPUTED",
+   "verdict": "PENDING",
    "why": "two independent compilations compared (ours vs Sutherland, MIT): not measured"
   },
   {
    "id": "MI",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "Mathlib integrity not established: no result"
   },
   {
    "id": "A1",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "the axiom report was not produced for every theorem",
    "axioms": {
     "riemannHypothesis": null,
@@ -42,12 +42,12 @@
   },
   {
    "id": "S1",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "Comparator did not run"
   },
   {
    "id": "C1-C5",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "not every control ran",
    "controls": {
     "C1": {
@@ -89,12 +89,12 @@
   },
   {
    "id": "K2",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "nanoda did not finish (resources or not run)"
   },
   {
    "id": "KR",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "leanchecker exit None"
   },
   {
@@ -119,7 +119,7 @@
   },
   {
    "id": "BRu",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "the unconditional bridge has not passed"
   },
   {
@@ -130,7 +130,7 @@
   },
   {
    "id": "K3",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "con-leche did not run (it starts after phase 2 and the bridge)",
    "controls": {
     "K3C1": {
@@ -145,7 +145,7 @@
   },
   {
    "id": "CR",
-   "verdict": "REFUSED",
+   "verdict": "PENDING",
    "why": "the clean machine did not run (created only on the operator's word after a quote, amendment A12)"
   }
  ],
@@ -154,8 +154,8 @@
   "nielsen": {},
   "wordfacts": {},
   "b1_progress": {
-   "at": "2026-11-21T13:03:38Z",
-   "built": 141087,
+   "at": "2026-11-21T13:30:33Z",
+   "built": 144635,
    "of": 175187,
    "failed": 0,
    "error_lines": 0,

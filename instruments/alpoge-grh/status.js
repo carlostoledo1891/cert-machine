@@ -11,14 +11,15 @@ const R = JSON.parse(fs.readFileSync(path.join(ROOT, REC), 'utf8'));
 const row = (id) => R.rows.find((r) => r.id === id) || { id, verdict: 'REFUSED', why: 'not in the record' };
 
 /* ---- the status of each check, as the page draws it ---- */
-const PENDING = /no B1V|integrity not established: no result|not produced for every|did not run|not every control|did not finish|exit None|has not passed|not measured|no complete integrity/;
+/* the record says PENDING for a check whose step has not run yet (tools/check-alpoge-grh.py holds that one rule) */
 function status(id) {
   const r = row(id);
+  if (r.verdict === 'PENDING') return 'pending';
   if (r.verdict === 'CERTIFIED') return 'decided';
-  if (r.verdict === 'COMPUTED') return PENDING.test(r.why) ? 'pending' : 'computed';
+  if (r.verdict === 'COMPUTED') return 'computed';
   if (r.verdict === 'REFUTED') return 'refuted';
   if (/dropped on the operator/.test(r.why)) return 'dropped';
-  return PENDING.test(r.why) ? 'pending' : 'refused';
+  return 'refused';
 }
 const census = (R.computed && R.computed.census) || {};
 const nielsenRan = Object.keys(census).length > 0;

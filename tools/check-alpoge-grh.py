@@ -17,6 +17,8 @@ READINGS = os.path.join(ROOT, 'corpus', 'alpoge-grh', 'readings.json')
 THEOREMS = ['riemannHypothesis', 'riemannZeta_eq_zero_re', 'LFunction_ne_zero_of_half_lt_re',
             'LFunction_eq_zero_re', 'LFunction_eq_zero_re_of_isPrimitive']
 STANDARD = {'propext', 'Classical.choice', 'Quot.sound'}
+# the reasons that mean "its step has not run (or not finished) yet"
+PENDING = re.compile(r'no B1V|integrity not established: no result|not produced for every|did not run|not every control|did not finish|exit None|has not passed|not measured|no complete integrity')
 
 
 def sha(p):
@@ -229,6 +231,11 @@ def derive(run):
         crok = 'CR CERTIFIED by its gates' in crlog and 'STOPPED' not in crlog
         rows.append(row('CR', 'CERTIFIED' if crok else 'REFUSED', 'on a fresh pod that never ran the release\'s code, nanoda and con-leche --compare accepted the export against the challenge built there, and the controls were rejected there'
                         if crok else ('the clean machine stopped: ' + [l for l in crlog.splitlines() if 'STOPPED' in l][0] if 'STOPPED' in crlog else ('; '.join(l.split(' ', 1)[1] for l in crlog.splitlines() if 'CR gate:' in l or 'gates held' in l) if 'CR done' in crlog else 'the clean machine did not finish')), run=os.path.basename(cr)))
+    # a check whose step has not produced its output yet is PENDING, not REFUSED: a state, not a verdict (an outside reading,
+    # 2026-11-21). ONE rule, here; instruments/alpoge-grh/status.js reads the verdict and does not re-derive it.
+    for r in rows:
+        if r['verdict'] in ('REFUSED', 'COMPUTED') and PENDING.search(r['why']):
+            r['verdict'] = 'PENDING'
     # census (COMPUTED): the CENSUS lines, the NIELSEN probes (amendment A10) and the WORDFACTS trace (amendment A11)
     cen, niel, wf = {}, {}, {'targets': []}
     for line in (rd(run, 'CEN.out', '') or '').splitlines():
@@ -297,7 +304,7 @@ def main():
         if old != text:
             print('REFUSED: certs/alpoge-grh-lean.json does not re-derive from the pulled run'); sys.exit(1)
         print('alpoge-grh: the record re-derives;', ', '.join(r['id'] + ' ' + r['verdict'] for r in rec['rows']))
-        print('alpoge-grh: rows not CERTIFIED:', [r['id'] for r in rec['rows'] if r['verdict'] != 'CERTIFIED'] or 'none')
+        print('alpoge-grh: rows not CERTIFIED:', [r['id'] for r in rec['rows'] if r['verdict'] not in ('CERTIFIED', 'PENDING')] or 'none', '· pending:', [r['id'] for r in rec['rows'] if r['verdict'] == 'PENDING'])
 
 
 if __name__ == '__main__':

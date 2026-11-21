@@ -410,7 +410,7 @@ const B1P = (R.computed && R.computed.b1_progress) || {};
 const hhmm = (iso) => iso.slice(11, 16) + ' UTC';
 function timeline() {
   const STAGES = [
-    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs — ' + AMENDMENTS + ' dated amendments since.' },
+    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs. ' + AMENDMENTS + ' dated amendments since, each before the run it changes: they add or tighten checks; one check was dropped (A7).', link: GH + 'notes/alpoge-grh-preregistration-2026-11-20.md' },
     { t: 'Files and statement', rows: ['I1', 'I2', 'SCAN', 'M1', 'F1', 'F2', 'SPEC', 'CHAR', 'ROUTE', 'P0', 'BRc+MB'], d: 'The announced files, no shortcut in the source, and the theorem proved to be the textbook RH.' },
     { t: 'The build', rows: ['B1', 'MI', 'RB'], d: 'Lean compiles all 175,187 files; its kernel checks every step on the way.' },
     { t: 'Axioms, judge, planted errors', rows: ['A1', 'S1', 'C1-C5', 'NIELSEN', 'WORDFACTS'], d: 'What the proof rests on, whether it states exactly our statement, and five planted errors that must be caught.' },
@@ -435,14 +435,14 @@ function timeline() {
     const mins = (Date.parse(B1P.at) - Date.parse(B1P.started)) / 60000, rate = B1P.built / mins;
     const eta = new Date(Date.parse(B1P.at) + (B1P.of - B1P.built) / rate * 60000).toISOString();
     prog = '<div class="tl-bar" role="img" aria-label="' + C.escAttr(pct + '% of the files compiled') + '"><span style="width:' + pct + '%"></span></div>'
-      + '<p class="tl-count"><b>' + N(B1P.built) + '</b> of ' + N(B1P.of) + ' files compiled at ' + C.esc(hhmm(B1P.at)) + ' · ' + B1P.failed + ' errors · ' + B1P.sorry + ' sorry</p>'
+      + '<p class="tl-count"><b>' + pct + '%</b> · ' + N(B1P.built) + ' of ' + N(B1P.of) + ' files compiled at ' + C.esc(hhmm(B1P.at)) + ' · ' + B1P.failed + ' errors · ' + B1P.sorry + ' sorry</p>'
       + '<p class="tl-proj">projected end of the build: about ' + C.esc(hhmm(eta)) + ', at its average pace so far (' + Math.round(rate) + ' files a minute)</p>';
   }
   return '<section class="tl" aria-label="The release timeline"><div class="tl-head"><span class="tl-k">Building the full verification</span>'
     + '<span class="tl-sub">' + C.esc(done.length + ' of ' + ALL.length + ' checks done. Results land on this page as each check finishes; the full record goes out when the last one has a verdict.') + '</span></div>'
     + '<ol class="tl-rail">' + STAGES.map((S, i) => '<li class="tl-step tl-' + st[i] + '"><span class="tl-dot" aria-hidden="true"></span>'
       + '<span class="tl-n">' + (i + 1) + '</span><span class="tl-t">' + C.esc(S.t) + '</span><span class="tl-st">' + C.esc(WORDS[st[i]]) + '</span>'
-      + '<span class="tl-d">' + C.esc(S.d) + '</span>' + (i === bi ? prog : '') + '</li>').join('') + '</ol></section>';
+      + '<span class="tl-d">' + C.esc(S.d) + (S.link ? ' <a href="' + C.escAttr(S.link) + '">Read them.</a>' : '') + '</span>' + (i === bi ? prog : '') + '</li>').join('') + '</ol></section>';
 }
 
 /* ---------------------------------------------------------------- the page */
@@ -453,9 +453,9 @@ const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ''),
   title: TITLE,
-  deck: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis, made with Claude and released only as a computer proof: 175,187 files of Lean, a language in which a small program, the kernel, checks every step. '
+  deck: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, made with Claude and released only as a computer proof: 175,187 files of Lean, a language in which a small program, the kernel, checks every step. '
     + (pending.length
-      ? 'Done: the files are the announced ones, and Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib. Running now: the replay of every file, the statement judge, three kernels (two of them written independently of Lean) and five planted errors the checkers must catch. '
+      ? 'Done: the files are the announced ones, and Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib. Running now: the replay of every file, the statement judge, three kernels (two of them written independently of Lean) and five planted errors the checkers must catch. If every check passes, independent checkers will have accepted a proof of exactly the textbook statements; understanding why the argument works remains a task for mathematicians. '
       : 'Here is everything we checked about it, in plain words: that the files are the announced ones, that they compile, that the theorem says exactly what mathematicians mean by RH, that several independent checkers accept the proof, and that those checkers do catch errors we planted. ')
     + 'What a computer check cannot tell you is said just as plainly.'
 }));
@@ -467,10 +467,10 @@ O.push(C.figure({ hero: true, svgRaw: figWheel(900, false), svgNarrowRaw: figWhe
   stop: 'a check drawn as done is not done in the record' }));
 O.push('<div class="col">' + W.legendHtml({ compact: true }) + '</div>');
 O.push(C.stats([
-  { k: 'files of Lean', v: N(SS.files), n: N(SS.lines) + ' lines; the theorem itself is stated in 28' },
   { k: 'checks done', v: done.length + ' of ' + ALL.length, n: pending.length ? pending.length + ' still running' : 'none running' },
   { k: 'axioms the proof uses', v: status('A1') === 'decided' ? '3' : '…', n: status('A1') === 'decided' ? 'propext, Classical.choice, Quot.sound — the standard three' : 'the report is still running' },
-  { k: 'planted errors caught', v: status('C1-C5') === 'decided' ? '5 of 5' : '…', n: 'a judge that cannot fail proves nothing' }
+  { k: 'planted errors caught', v: status('C1-C5') === 'decided' ? '5 of 5' : '…', n: 'a judge that cannot fail proves nothing' },
+  { k: 'kernels that accept it', v: ['K2', 'KR', 'K3'].some((i) => status(i) !== 'pending') ? ['K2', 'KR', 'K3'].filter((i) => status(i) === 'decided').length + ' of 3' : '…', n: 'nanoda, Lean’s own replay, con-leche' }
 ]));
 O.push(C.scope('This page checks a computer proof: whether the files compile, what the theorem says, and whether independent checkers accept it. It does not judge the mathematics as mathematics, and it is not a refereed review.'));
 
@@ -480,14 +480,14 @@ O.push(C.section({ lab: '1 · what is claimed', title: 'One sentence about where
     { b: 'The Riemann Hypothesis.', text: 'The zeta function ζ(s) is zero at s = −2, −4, −6, … (the “trivial” zeros) and at infinitely many other points, all inside the vertical band 0 < Re s < 1. RH says all those other zeros lie exactly on the middle line, Re s = 1/2. It controls how evenly the primes are spread.' },
     { b: 'What the proof states.', raw: C.esc('The headline theorem is ') + '<span class="m">riemannHypothesis : RiemannHypothesis</span>' + C.esc(', where RiemannHypothesis is Mathlib’s own definition, written years before this proof: every zero of ζ, except the trivial ones and the point s = 1, has real part 1/2.') },
     { b: 'Is that really RH?', text: 'Two readers from two model families say yes. More: we wrote RH a second way, the textbook way (“every zero in the critical strip has real part 1/2”), and proved in Lean that the two statements are equivalent. That turns a reading into a proof.' },
-    { b: 'Even without Mathlib’s ζ.', text: 'One step further: we defined ζ and the L-functions the way a textbook does — the functions given by the series 1 + 2^−s + 3^−s + … (and χ(n)·n^−s) that continue smoothly to the rest of the plane — and proved in Lean that the release’s statements say exactly the same thing about them' + (status('CHAR') === 'decided' ? '.' : ' (running).') + ' The statement no longer depends on how Mathlib happens to define ζ.' }
+    { b: 'Even without Mathlib’s ζ.', text: 'One step further: we defined ζ and the L-functions the way a textbook does — the functions given by the series 1 + 2^−s + 3^−s + … (and χ(n)·n^−s) for Re s > 1 that admit analytic continuation to the rest of the plane except s = 1, a holomorphic function being fixed by its values there — and proved in Lean that the release’s statements say exactly the same thing about them' + (status('CHAR') === 'decided' ? '.' : ' (running).') + ' The statement no longer depends on how Mathlib happens to define ζ.' }
   ]) + '</div>'
   + '<div class="wide zp-wrap">' + planeButtons + '</div>'
   + C.figure({ svgRaw: dual(figPlane(900, false), figPlane(360, true)), record: ['instruments/alpoge-grh/spec/Spec.lean', DIR + 'runs-spec/spec-axioms.out', DIR + 'readings.json'],
     caption: 'The complex plane, where RH lives. The band is the critical strip; the line in it is Re s = 1/2, with the first five zeros of ζ drawn on it (published values, not computed here). The dots on the left are the trivial zeros; the ring at 1 is ζ’s pole. ζ has no zeros right of the band (the grey region). Use the buttons: Mathlib’s definition and the textbook form talk about the same zeros, and a Lean proof says so.',
     stop: 'the equivalence proof no longer compiles on the three standard axioms' })
   + '<div class="col">' + C.plainList([
-    { b: 'And GRH?', text: 'Four more theorems say the same for Dirichlet L-functions, the relatives of ζ that count primes in arithmetic progressions: every modulus, every character. That is the usual meaning of the Generalized Riemann Hypothesis. It is not the “Extended” RH for other number fields, which the announcement expects “with more time”.' }
+    { b: 'And GRH?', text: 'Of the five theorems, two are about ζ (RH, in two forms) and three say the same for Dirichlet L-functions, the relatives of ζ that count primes in arithmetic progressions: every modulus, every character. That is the usual meaning of the Generalized Riemann Hypothesis. It is not the “Extended” RH for other number fields, which the announcement expects “with more time”.' }
   ]) + '</div>' }));
 
 /* 2 · how big */
@@ -552,7 +552,7 @@ O.push(C.section({ lab: '5 · inside the proof', title: 'What carries the conclu
     { b: 'Names are not evidence.', text: 'Several parts are named for deep mathematics but are empty in the code: a geometry condition that is literally True, a geometric model whose key map is zero, a theorem named for a simple pole that proves True, two “literature” inputs that are one statement. The proof can still be valid — the kernel checks what is there, not what things are called — but those names do not explain it.' }
   ]) + '</div>'
   + C.figure({ svgRaw: dual(figRoute(900, false), figRoute(360, true)), record: [DIR + 'route-reading.json'],
-    caption: 'The route of the proof, from the headline down (left), and four places named for deep mathematics that are vacuous in the code (right, dotted). Hover for each. The highlighted box is where the real content has to be.',
+    caption: 'The route of the proof, from the headline down (solid boxes), and, set apart under their own heading, four places named for deep mathematics that are vacuous in the code (dotted boxes). They are not steps of the route. Hover for each. The highlighted box is where the real content has to be.',
     stop: 'a quoted line no longer matches the pinned archive' })
   + '<div class="col">' + C.plainList([
     { b: 'J. L. Nielsen’s critique.', raw: C.esc('A paper posted the same day, ') + a('https://philarchive.org/rec/NIEIOT-2', 'The Invalidity of Alpöge’s Proposed Proof of the Riemann Hypothesis') + C.esc(', reads the source and finds the vacuous geometric and lattice witnesses above, and a height set equal to its own formula. We confirmed each quote in the pinned files. Our verdict on that point: the geometric interpretation of this step remains unverified. The paper’s title goes further than its analysis: the formal theorem is decided by the kernels, not by the names, and the paper’s own appendix grants that the proof term may well check.') },
