@@ -121,12 +121,47 @@
    "id": "BRu",
    "verdict": "REFUSED",
    "why": "the unconditional bridge has not passed"
+  },
+  {
+   "id": "CHAR",
+   "verdict": "CERTIFIED",
+   "why": "the textbook RH and GRH (zeta and L characterised by their series and holomorphy on C minus 1) proved equivalent to the release's statements in the Mathlib-only workspace; eight theorems on the three standard axioms",
+   "textbook_sha256": "5310cb6fe26eda7d25f0c2f84542644a13b39e5d6dc1c7c7f26d5526b016947e"
+  },
+  {
+   "id": "K3",
+   "verdict": "REFUSED",
+   "why": "con-leche did not run (it starts after phase 2 and the bridge)",
+   "controls": {
+    "K3C1": {
+     "exit": null,
+     "refused": false
+    },
+    "K3C5": {
+     "exit": null,
+     "refused": false
+    }
+   }
+  },
+  {
+   "id": "CR",
+   "verdict": "REFUSED",
+   "why": "the clean machine did not run (created only on the operator's word after a quote, amendment A12)"
   }
  ],
  "computed": {
   "census": {},
   "nielsen": {},
-  "wordfacts": {}
+  "wordfacts": {},
+  "b1_progress": {
+   "at": "2026-11-21T12:28:11Z",
+   "built": 135910,
+   "of": 175187,
+   "failed": 0,
+   "error_lines": 0,
+   "sorry": 0,
+   "started": "2026-11-20T22:09:02Z"
+  }
  },
  "readings": {
   "what": "The readings of the Alpöge decision: what a person read, against what, and what it found. A reading is READ ONCE (its standing on the page is 'read', never 'decided'). Written 2026-11-20 before any build result.",

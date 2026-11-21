@@ -5,8 +5,9 @@ of notes/alpoge-grh-preregistration-2026-11-20.md.
 
   python3 -I tools/check-alpoge-grh.py --write   write certs/alpoge-grh-lean.json
   python3 -I tools/check-alpoge-grh.py --check   re-derive it and refuse on any difference (the battery)
+  python3 -I tools/check-alpoge-grh.py --compare-run DIR   a re-run's results (the rerun kit) against this record
 """
-import hashlib, json, os, re, sys
+import hashlib, json, os, re, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS = os.path.join(ROOT, 'corpus', 'alpoge-grh', 'runs')
@@ -185,6 +186,49 @@ def derive(run):
     brok = 'STOPPED (bridge)' not in plog and 'bridge: no release artifact changed' in plog and 'BC1 rejected with its diagnostic' in plog and ex(run, 'BC1') not in (None, 0) and ex(run, 'BRB') == 0 and (rd(run, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(run, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
         and bool(re.search(r"theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'", (rd(run, 'BC1.out', '') or '') + (rd(run, 'BC1.err', '') or '')))
     rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected' if brok else 'the unconditional bridge has not passed'))
+    # amendment A12: CHAR (the textbook statements, Mathlib-only workspace), K3 (con-leche on the build pod), CR (a clean pod)
+    cd_ = os.path.join(os.path.dirname(base), 'runs-char')
+    cax = rd(cd_, 'CHAR-axioms.out', '') if os.path.isdir(cd_) else ''
+    cfiles = rd(cd_, 'CHAR-files.sha256', '') if os.path.isdir(cd_) else ''
+    tb = re.search(r'^([0-9a-f]{64})  Textbook\.lean$', cfiles or '', re.M)
+    cok = ex(cd_, 'CHAR-build') == 0 and ex(cd_, 'CHAR-axioms') == 0 and cax.count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 8 \
+        and 'sorryAx' not in cax and tb is not None
+    rows.append(row('CHAR', 'CERTIFIED' if cok else 'REFUSED',
+                    'the textbook RH and GRH (zeta and L characterised by their series and holomorphy on C minus 1) proved equivalent to the release\'s statements in the Mathlib-only workspace; eight theorems on the three standard axioms' if cok else 'CHAR did not run to completion',
+                    textbook_sha256=tb.group(1) if tb else None))
+    def acc(step):
+        t = (rd(run, step + '.out', '') or '') + (rd(run, step + '.err', '') or '')
+        m_ = re.search(r'accepted (\d+) declarations', t)
+        return t, (int(m_.group(1)) if m_ and ex(run, step) == 0 else None)
+    k3t, k3n = acc('K3'); k3st, k3sn = acc('K3S')
+    k3c1t = (rd(run, 'K3C1.out', '') or '') + (rd(run, 'K3C1.err', '') or '')
+    k3c5t = (rd(run, 'K3C5.out', '') or '') + (rd(run, 'K3C5.err', '') or '')
+    c1rej = ex(run, 'K3C1') not in (None, 0, 124, 137) and bool(re.search(r'RiemannZetaZerosOnLine|riemannZeta_eq_zero_re', k3c1t)) and not re.search(r'accepted \d+ declarations', k3c1t)
+    c5rej = ex(run, 'K3C5') not in (None, 0, 124, 137) and 'riemannHypothesis' in k3c5t and not re.search(r'accepted \d+ declarations', k3c5t)
+    k3exp = (rd(run, 'K3-export.sha256', '') or '').split(' ')[0]
+    k3dig = k3exp != '' and k3exp == (rd(run, 'export.sha256', '') or '').split(' ')[0]
+    k3just = sorted(set(re.findall(r'theorem (\S+) justified by the solution', k3st)))
+    k3s_ok = bool(k3sn) and '5 axioms justified by the solution' in k3st and k3just == sorted(THEOREMS)
+    if ex(run, 'K3') is None:
+        v, why = 'REFUSED', 'con-leche did not run (it starts after phase 2 and the bridge)'
+    elif k3n and k3s_ok and c1rej and c5rej and k3dig:
+        v, why = 'CERTIFIED', f'con-leche accepted the {k3n} declarations of the export, --compare justified the five theorems against the challenge, and both controls (C1, C5) were rejected'
+    elif ex(run, 'K3') in (124, 137) or ex(run, 'K3S') in (124, 137):
+        v, why = 'REFUSED', 'con-leche stopped on resources'
+    elif ex(run, 'K3') not in (0, None) or ex(run, 'K3S') not in (0, None):
+        v, why = 'REFUSED', 'con-leche rejected: a disagreement, REFUSED until traced (pre-registered)'
+    else:
+        v, why = 'REFUSED', 'con-leche: a control was not rejected, or the export digest differs'
+    rows.append(row('K3', v, why, declarations=k3n, seconds=secs(run, 'K3'), peak_rss_gb=peak_rss_gb(run, 'K3'),
+                    controls={'K3C1': {'exit': ex(run, 'K3C1'), 'refused': c1rej}, 'K3C5': {'exit': ex(run, 'K3C5'), 'refused': c5rej}}))
+    cr = onlyrun('runs-clean')
+    if cr is None:
+        rows.append(row('CR', 'REFUSED', 'the clean machine did not run (created only on the operator\'s word after a quote, amendment A12)'))
+    else:
+        crlog = rd(cr, '_phase.log', '') or ''
+        crok = 'CR CERTIFIED by its gates' in crlog and 'STOPPED' not in crlog
+        rows.append(row('CR', 'CERTIFIED' if crok else 'REFUSED', 'on a fresh pod that never ran the release\'s code, nanoda and con-leche --compare accepted the export against the challenge built there, and the controls were rejected there'
+                        if crok else ('the clean machine stopped: ' + [l for l in crlog.splitlines() if 'STOPPED' in l][0] if 'STOPPED' in crlog else ('; '.join(l.split(' ', 1)[1] for l in crlog.splitlines() if 'CR gate:' in l or 'gates held' in l) if 'CR done' in crlog else 'the clean machine did not finish')), run=os.path.basename(cr)))
     # census (COMPUTED): the CENSUS lines, the NIELSEN probes (amendment A10) and the WORDFACTS trace (amendment A11)
     cen, niel, wf = {}, {}, {'targets': []}
     for line in (rd(run, 'CEN.out', '') or '').splitlines():
@@ -202,6 +246,10 @@ def derive(run):
             if m: wf['targets'].append({'name': m.group(1), 'module': m.group(2), 'release_closure': int(m.group(3)), 'direct': m.group(4).strip()})
     for k in ('constants_by_root', 'modules_by_root'):
         if k in cen: cen[k + '_parsed'] = [[a, int(b)] for a, b in re.findall(r'\(([^(),]+), (\d+)\)', cen[k])]
+    # the build's progress while it runs (COMPUTED, a count, never a verdict): B1.count, written by root on the pod at a pull
+    prog_ = re.match(r'(\S+) built=(\d+) failed=(\d+) errorlines=(\d+) sorry=(\d+)', (rd(run, 'B1.count', '') or '').strip())
+    b1p = {'at': prog_.group(1), 'built': int(prog_.group(2)), 'of': pins['archive']['lean_files'], 'failed': int(prog_.group(3)),
+           'error_lines': int(prog_.group(4)), 'sorry': int(prog_.group(5)), 'started': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(int((rd(run, 'B1.start', '') or '0').strip())))} if prog_ else {}
     # readings (F1, F2, M1, F3) are pinned, not derived
     readings = json.load(open(READINGS)) if os.path.exists(READINGS) else {}
     return {
@@ -210,12 +258,31 @@ def derive(run):
                  'toolchain': pins['toolchain'], 'mathlib': pins['mathlib']['rev']},
         'run': os.path.basename(run),
         'rows': rows,
-        'computed': {'census': cen, 'nielsen': niel, 'wordfacts': wf if (niel or wf['targets'] or 'named' in wf) else {}},
+        'computed': {'census': cen, 'nielsen': niel, 'wordfacts': wf if (niel or wf['targets'] or 'named' in wf) else {}, 'b1_progress': b1p},
         'readings': readings,
     }
 
 
+POD_ROWS = ['I1', 'B1', 'MI', 'RB', 'A1', 'S1', 'C1-C5', 'K2', 'KR', 'K3', 'BRu']
+
+
+def compare_run(d):
+    """the rerun kit (instruments/alpoge-grh/rerun/): a re-run's /results against this record, row by row"""
+    theirs = {r['id']: r for r in derive(os.path.abspath(d))['rows']}
+    ours = {r['id']: r for r in json.load(open(OUT, encoding='utf-8'))['rows']}
+    same = 0
+    for i in POD_ROWS:
+        a, b = theirs.get(i, {}).get('verdict'), ours.get(i, {}).get('verdict')
+        same += a == b
+        print(f'{i:7} yours {a or "-":10} ours {b or "-":10} {"same" if a == b else "DIFFERENT: " + theirs.get(i, {}).get("why", "")}')
+    ea = (theirs.get('K2', {}).get('export_sha256') or '-'); eb = (ours.get('K2', {}).get('export_sha256') or '-')
+    print('export sha256  yours', ea, ' ours', eb, ' (equal bytes need equal compilations; RB measures that)')
+    print(f'{same} of {len(POD_ROWS)} rows agree')
+
+
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == '--compare-run':
+        compare_run(sys.argv[2]); return
     if len(sys.argv) != 2 or sys.argv[1] not in ('--write', '--check'):
         print(__doc__); sys.exit(2)
     runs = sorted(d for d in os.listdir(RUNS)) if os.path.isdir(RUNS) else []
