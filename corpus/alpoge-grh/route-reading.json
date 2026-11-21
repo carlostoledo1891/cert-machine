@@ -1,0 +1,40 @@
+{
+ "what": "The route of the release's proof, read from its source text (not a check of the proofs). Read by Astra 6.2 (prompt AS5, 2026-11-21) from the public mirror at 7cbf7a0c (byte-identical to the pinned archive); the starred items were re-read here against the extracted archive.",
+ "standing": "READ ONCE (Astra 6.2), five items spot-checked by cert-machine",
+ "route": "Main.riemannHypothesis := rhOfAll := Formalism.VW.rh_of_every allChi (Supplements/Kernels/MainTheorems.lean*): RH from Dirichlet nonvanishing on Re s > 1/2 for every character (modulus 1 gives ζ) plus the functional equation of ζ for zeros to the left (Formalism/GammaFactorNonvanishing/RhOfRight.lean). allChi := UpperTheory.FinalTheorems.everyCharacter. The zero-free step is zeroFree_of_rpow_window* (Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ZeroFreeOfRpowWindow.lean: a one-sided bound for a smoothed character-sum family on windows [Y, Y^(1+δ)] for arbitrarily large Y gives zero-freeness on Re s > θ), fed by window bounds whose exponent 1/2 + O(ε) is pushed below Re s. The arithmetic input is a statement named Row (Galois representations for regular algebraic polarized cuspidal data over CM fields), supplied through geometry and theta-lift constructions, with theta, local-matching, covolume and Galois-cohomology (a Vandiver-type length bound, VVle/VWin) estimates.",
+ "remark_steps_matched": {
+  "direct": [
+   "5 (the smoothed von Mangoldt sum, exact)",
+   "8 (the definite theta-lift chain; m between x^(1/2-ε/8) and x^(1/2))",
+   "17 (a precise Vandiver-type weakening: VVle/VWin)",
+   "19 (Behrend's construction, built and used)",
+   "20 (GRH for Dirichlet characters)"
+  ],
+  "partial": [
+   "2",
+   "7",
+   "9",
+   "11",
+   "12",
+   "13",
+   "14",
+   "15",
+   "16",
+   "18"
+  ],
+  "not_found": [
+   "1",
+   "3",
+   "4",
+   "6",
+   "10"
+  ]
+ },
+ "observations": [
+  "* A theorem named siegel_eisenstein_simple_pole proves GlobalTheory.Published.UnusedSlot72, an abbreviation for True, by `trivial`, and fills the field siegelEisensteinSimplePole of the package passed to the main assembly (EveryCharacterOfLiteratureOfVWin.lean, lines 505-506, 718). Names of fields are not evidence of what is proved.",
+  "* The bundle UpperTheory.LiteratureTheorems.OpenLiteratureStatements (a Prop structure, line 215) has three fields: caraianiLocalGlobalDual and galoisRepOfPolarizedPairLit, both of the SAME type UpperTheory.One.M.Row, and localLanglandsExists. It is built as ⟨h, recTExists, h⟩: two literature names, one proposition. Most '..._of_literature O' theorems take the bundle as an argument and do not use it (their proofs call the release's own *_holds theorems).",
+  "Whether the release's Row is the theorem of the literature it is named after is a reading question (its own definitions); for the soundness of the five public theorems it does not matter — the kernels check the closure.",
+  "The Rallis chain theorem stmt3c is conditional on six premises, one requiring nonzero periods at every link (FunctionModelRallisFromInputs.lean, lines 534-566); the public theorems have no hypotheses, so wherever it is used its premises are discharged inside the closure.",
+  "Following imports from CharacterBoxes/MainConclusion.lean reaches 175,174 of the 175,187 files: import reachability says little; direct calls say more."
+ ]
+}
