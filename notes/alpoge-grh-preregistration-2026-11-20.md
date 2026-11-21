@@ -154,3 +154,23 @@ draft's unnormalized coordinate, so the multiplicity bound is for non-central ze
 prose on pages 30 and 55; Proposition 14.1.2.3 (page 531) states both conclusions conditionally on Conjectures
 14.1.2.1–2. `ReadingQ` is the normalized (t = 0) primitive-Dirichlet specialization; twists |·|^{it} follow by
 translation.
+
+## Amendment A4 — the operator's answers (2026-11-21 ~00:20 UTC), before the checks they add run
+
+- **Provenance of A3.** The outside reader of amendment A3 is **Astra 6.2**, prompted by cert-machine through the
+  operator, named on the operator's word. Its answers were checked here against the sources before any change.
+- **V (clean second verifier), added.** A fresh pod that never compiles release code (tools/runpod-alpoge-grh-verifier.sh):
+  the official toolchain and the judges built there by root; the 14 parts fetched again and checked; its own clean
+  Mathlib cache; the challenge built there BEFORE the release's compiled artifacts are copied in from the build pod;
+  `lake build --no-build` must succeed (nothing of the release compiled there); then #print axioms, Comparator with
+  nanoda ON against the challenge (no definition_names) and control C1. CERTIFIED for V iff Comparator accepts with both
+  kernels and C1 is rejected with its diagnostic; REFUSED if Lake would rebuild or resources stop it.
+- **SPEC (an independently written RH), added.** instruments/alpoge-grh/spec/Spec.lean, Mathlib only at the pin:
+  `RHStrip` (every zero of ζ in the open critical strip has real part 1/2) proved equivalent to Mathlib's
+  `RiemannHypothesis`, through `re_mem_strip_of_nontrivial` (a zero that is neither trivial nor 1 lies in the open
+  strip: the zero-free region Re s ≥ 1 and the functional equation). CERTIFIED iff it compiles with the three standard
+  axioms; it turns the RH fidelity row from two readings into a proof about the statement.
+- **Release.** No private heads-up to Alpöge (the operator: skip it); public channels on the operator's word for each
+  text: the Lean Zulip thread Tao's post names, a comment on Tao's post, one X post. Masullo: a short neutral section
+  (what the draft claims; that Theorem 13.3.1.2 is not yet stated, with the page; our ℚ reading and its relation to
+  the release's statements; no judgement of the mathematics).
