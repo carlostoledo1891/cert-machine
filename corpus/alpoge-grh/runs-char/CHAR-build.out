@@ -1,0 +1,24 @@
+⚠ [8706/8709] Replayed Spec
+warning: Spec.lean:27:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Spec.lean:92:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8707/8709] Replayed Challenge
+warning: Challenge.lean:29:8: declaration uses `sorry`
+warning: Challenge.lean:31:8: declaration uses `sorry`
+warning: Challenge.lean:33:8: declaration uses `sorry`
+warning: Challenge.lean:35:8: declaration uses `sorry`
+warning: Challenge.lean:37:8: declaration uses `sorry`
+⚠ [8708/8709] Built Textbook (43s)
+warning: Textbook.lean:64:59: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+Build completed successfully (8709 jobs).
