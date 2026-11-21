@@ -51,7 +51,12 @@ chmod -R a+rX /opt/judges; chmod -R go-w /opt/judges
 T=/opt/judges
 # the toolchain every later step uses: the official v4.33.1 release, unpacked by root (tester's ~/.elan was writable
 # during B1); tester's copy is hashed against it for the record
-mkdir -p /opt/toolchain && curl -fsSL --retry 5 -o /opt/lean.tar.zst https://releases.lean-lang.org/lean4/v4.33.1/lean-4.33.1-linux.tar.zst && sha256sum /opt/lean.tar.zst > $R/toolchain.sha256 && tar --zstd -xf /opt/lean.tar.zst -C /opt/toolchain --strip-components=1 && chmod -R a+rX,go-w /opt/toolchain
+mkdir -p /opt/toolchain && curl -fsSL --retry 5 -o /opt/lean.tar.zst https://github.com/leanprover/lean4/releases/download/v4.33.1/lean-4.33.1-linux.tar.zst && sha256sum /opt/lean.tar.zst > $R/toolchain.sha256
+# the digest GitHub publishes for this release asset (read 2026-11-21 from the releases API); a mismatch stops phase 2
+grep -q '^890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235 ' $R/toolchain.sha256 || { log "STOPPED: the toolchain archive does not match GitHub's published digest"; exit 1; }
+tar --zstd -xf /opt/lean.tar.zst -C /opt/toolchain --strip-components=1 && chmod -R a+rX,go-w /opt/toolchain
+# lake env puts the workspace's .lake/build/bin first on PATH: the release defines no executable, so it must not exist
+if [ -e $W/.lake/build/bin ]; then ls -laR $W/.lake/build/bin > $R/workspace-bin.txt 2>&1; log "STOPPED: the release workspace has .lake/build/bin (workspace-bin.txt)"; exit 1; fi
 (cd /opt/toolchain && find bin lib -type f -exec sha256sum {} \; | sort -k2) > $R/toolchain-official.sha256
 (cd /home/tester/.elan/toolchains/leanprover--lean4---v4.33.1 && find bin lib -type f -exec sha256sum {} \; | sort -k2) > $R/toolchain-tester.sha256
 cmp -s $R/toolchain-official.sha256 $R/toolchain-tester.sha256 && log "tester's toolchain identical to the official release" || log "WARNING: tester's toolchain differs from the official release (see the two lists)"
@@ -177,10 +182,11 @@ mkdir -p /opt/cleanws && cp $W/lean-toolchain $W/lake-manifest.json /opt/cleanws
 python3 -I - $W/.lake/packages /opt/cleanws/.lake/packages > $R/mathlib-integrity.txt 2>&1 <<'PY3'
 import hashlib, os, sys
 def tree(root):
+    # every compiled artifact of every dependency package: .olean and its .private/.server parts, .ilean (amendment A5)
     out = {}
     for d, ds, fs in os.walk(root):
         for f in fs:
-            if f.endswith('.olean'):
+            if '.olean' in f or f.endswith('.ilean'):
                 p = os.path.join(d, f); out[os.path.relpath(p, root)] = hashlib.sha256(open(p, 'rb').read()).hexdigest()
     return out
 a, b = tree(sys.argv[1]), tree(sys.argv[2])

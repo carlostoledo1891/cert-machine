@@ -174,3 +174,28 @@ translation.
   text: the Lean Zulip thread Tao's post names, a comment on Tao's post, one X post. Masullo: a short neutral section
   (what the draft claims; that Theorem 13.3.1.2 is not yet stated, with the page; our ℚ reading and its relation to
   the release's statements; no judgement of the mathematics).
+
+## Amendment A5 — after Astra 6.2's second-round red team (2026-11-21 ~02:00 UTC), before phase 2 starts
+
+Astra 6.2 reviewed the fixes at 59cc5699 (finding 1 closed; 2–11 partly closed or open) and named new holes. Adopted:
+- **Gates.** The verifier stops (STOPPED) on any failed step its verdict depends on; its challenge build must be
+  unchanged and non-empty after the copy; C1 must be rejected with a statement or definition mismatch; S1 must show
+  both kernels' acceptance; nothing in .lake/build may change during V4 (manifest before/after). The bridge phase
+  starts only after phase 2's export and only if S1 passed; each of its steps is a gate; the release's artifacts must
+  be unchanged across the bridge build; the zeta23 source check is fatal.
+- **Executables and toolchain.** The toolchain archive must match GitHub's published digest
+  (sha256 890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235) on both pods; a `.lake/build/bin` in the
+  release workspace (which `lake env` would put first on PATH) stops phase 2 and the verifier.
+- **The copy.** tools/runpod-alpoge-grh-verifier-copy.sh copies only the release's compiled artifacts (no
+  CertMachine/*, no bridge modules, no bin), and both ends' sha256 lists must be equal.
+- **The recorder.** S1 counts as CERTIFIED only in sandbox mode; B1 requires exactly the pinned 175,187 sources, no
+  missing and no extra .olean; MI requires no differing and no one-sided files (now .olean, .olean.* and .ilean);
+  A1 on the controls requires the report's own exit 0; C5 requires a typechecker diagnostic and excludes OOM (137);
+  K2 accepts only nanoda's plain success line; rows V, SPEC, P0, BRc+MB, BRu are added; `--check` prints which rows
+  are not CERTIFIED.
+- **Wording.** SPEC proves two formal statements equivalent over the same Mathlib `riemannZeta`; that the function is
+  the classical ζ stays a reading (F1). The bridge's bounds read "for every ε > 0, eventually N₀* ≥ (c − ε)·N", N with
+  multiplicity, N₀* counting each distinct zero once; dyadic and cumulative for ζ, dyadic for each fixed primitive χ mod
+  q > 1 with no threshold uniform in χ; no simplicity bound follows.
+- **Not adopted (stated):** an independent formal equivalence for the three Dirichlet statements (they are read twice);
+  a separate positive control of nanoda through the stdin path (K2 is the positive control, through the file path).
