@@ -33,14 +33,34 @@
   },
   {
    "id": "A1",
-   "verdict": "PENDING",
-   "why": "the axiom report was not produced for every theorem",
+   "verdict": "CERTIFIED",
+   "why": "each of the five theorems depends only on propext, Classical.choice, Quot.sound",
    "axioms": {
-    "riemannHypothesis": null,
-    "riemannZeta_eq_zero_re": null,
-    "LFunction_ne_zero_of_half_lt_re": null,
-    "LFunction_eq_zero_re": null,
-    "LFunction_eq_zero_re_of_isPrimitive": null
+    "riemannHypothesis": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "riemannZeta_eq_zero_re": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "LFunction_ne_zero_of_half_lt_re": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "LFunction_eq_zero_re": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "LFunction_eq_zero_re_of_isPrimitive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
    }
   },
   {

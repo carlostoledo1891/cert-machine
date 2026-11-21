@@ -63,12 +63,12 @@ function figWheel(w, narrow) {
       const tok = st === 'refuted' ? 'var(--witness)' : st === 'refused' ? 'var(--ink-3)' : 'var(--sig)';
       /* the track: every check has one; the mark on it says its state (solid decided, dashed computed, dotted read, none running) */
       /* the track carries the hover (a full-width target for every state); the mark on it is drawn over it and ignores the pointer */
-      o.push('    ' + CH.hit('<path class="wh-track' + (st === 'pending' ? ' wh-run' : '') + '" data-wi="' + k + '" d="' + arc(a0, a1, r) + '" fill="none" stroke="var(--mark)" stroke-width="' + sw + '" style="animation-delay:' + (k * 90) + 'ms" pointer-events="stroke"', x.t, WORD[st] + ' · ' + x.d) + '/>');
+      o.push('    ' + CH.hit('<path class="wh-track wd' + k + (st === 'pending' ? ' wh-run' : '') + '" data-wi="' + k + '" d="' + arc(a0, a1, r) + '" fill="none" stroke="var(--mark)" stroke-width="' + sw + '" pointer-events="stroke"', x.t, WORD[st] + ' · ' + x.d) + '/>');
       const mw = st === 'read' ? 3.5 : st === 'computed' ? sw - 6 : sw;
       const gs = s && s.dash ? W.stroke(kind, { width: mw }) : null;   /* the grammar's pattern (design/grammar.js), never a literal */
       const dash = gs ? ' stroke-dasharray="' + gs.dash + '"' + (gs.cap ? ' stroke-linecap="' + gs.cap + '"' : '') : '';
-      if (s || st === 'refused' || st === 'refuted') o.push('    <path class="wh-seg ' + (s ? s.class : 'w-none') + '" data-wi="' + k + '" d="' + arc(a0, a1, r) + '" fill="none" stroke="' + tok + '" stroke-width="' + mw + '"' + dash
-        + ' style="animation-delay:' + (200 + k * 90) + 'ms" pointer-events="none"/>');
+      if (s || st === 'refused' || st === 'refuted') o.push('    <path class="wh-seg ws' + k + ' ' + (s ? s.class : 'w-none') + '" data-wi="' + k + '" d="' + arc(a0, a1, r) + '" fill="none" stroke="' + tok + '" stroke-width="' + mw + '"' + dash
+        + ' pointer-events="none"/>');
       k++;
       ang = a1 + (ii < G.items.length - 1 ? gap : 0);
     });
@@ -623,7 +623,9 @@ const SCRIPT = CH.script() + `<script>
   io.observe(g);
 })();
 </script>`;
-const STYLE = `
+/* the ring's staggered entrance, as classes (an inline delay per arc grew the page's inline styles each time a check landed) */
+const WHD = Array.from({ length: ALL.length }, (_, k) => '.wd' + k + '{animation-delay:' + (k * 90) + 'ms}.ws' + k + '{animation-delay:' + (200 + k * 90) + 'ms}').join('');
+const STYLE = WHD + `
 .tl{margin:var(--s-4) 0 var(--s-2);border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);padding:var(--s-4) 0 var(--s-5);}
 .tl-head{display:flex;flex-direction:column;gap:var(--s-1);margin-bottom:var(--s-4);}
 .tl-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink);font-weight:bold;}
