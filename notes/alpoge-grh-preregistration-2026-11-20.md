@@ -292,3 +292,74 @@ credited.
 - **Nielsen, the wording (the operator's choice):** "The geometric interpretation of this step remains unverified." Her
   findings about the code are confirmed here; her title goes beyond what her analysis establishes; the formal theorem
   is decided by the kernels, not by the names.
+
+## Amendment A12 — four checks that make the decision stronger (the operator, 2026-11-21 ~12:30 UTC), before any of them runs
+
+The operator's answers to "what is yet doable to make this verification stronger?": a clean-machine re-check (quote
+first), the two statement readings turned into proofs, a third kernel planned now, and four cheap extras (a rerun kit,
+a second reader for M1, a reading of the census, a Bitcoin timestamp). Each row below is fixed here before its code
+runs; a statement change is a new amendment, a proof edit is recorded in DEVIATIONS.md.
+
+| id | check | CERTIFIED iff | REFUTED iff | REFUSED iff |
+|---|---|---|---|---|
+| CHAR | the textbook statements, proved | `instruments/alpoge-grh/spec/Textbook.lean` (statements below) compiles in the root-owned Mathlib-only workspace of SPEC (`/root/specws`, Mathlib 0df444a3 from a clean cache, no release code), with `instruments/alpoge-grh/Challenge.lean` beside it for its definitions only; no `sorry`; `#print axioms` of its eight theorems ⊆ {propext, Classical.choice, Quot.sound} | — (a failed proof is not a refutation) | it cannot be proved here (the reason stated) |
+| K3 | a third kernel, and a second statement judge | con-leche (leanprover/con-leche @ 5ea446d5c79d23ef1f954215d094db2162f1ab6f, its own toolchain v4.36.0, built from source by root on the build pod after phase 2) accepts phase 2's export (`/data/export.ndjson`, sha256 equal to `export.sha256`) in its default verified mode, AND `con-leche --compare` accepts that export against the challenge's own export (lean4export of `CertMachine.Challenge`, the five theorems as roots), AND both controls are rejected: K3C1 (`--compare` against the export of control C1's challenge, `1 / 3`) and K3C5 (C5's export, `riemannHypothesis` re-typed as `False`) | as K2 | resources, or the export format unreadable by con-leche (lean4lean is not run on the whole closure: with default fuel it times out on single modules, as MIT's record shows) |
+| CR | a clean machine agrees | on a fresh RunPod CPU pod that never ran the release's code, created only on the operator's word after a price quote (once EXP has produced the export and its size is known): the official toolchain (digest 890afd18… enforced), Mathlib 0df444a3 from `lake exe cache get`, `Challenge.lean` and control C1's challenge built there, lean4export v4.33.0, nanoda 0da9f98f and con-leche 5ea446d5 built there by root from source; the ONLY input from the build pod is the export file, accepted only if its sha256 equals the value already in the committed record. Then: nanoda accepts it (CRK); `con-leche --compare` accepts it against the challenge exported THERE (CRS); and the controls are rejected there: C5's re-typed export by nanoda (CRC5) and by con-leche (CRC5c), C1's challenge by `con-leche --compare` (CRC1) | as K2 | not run (the operator declines the quote: "not run: on the operator's word"), or resources |
+
+COMPUTED on the clean pod (not a verdict): the sha256 of the challenge's `.olean` files built there, against the build
+pod's (one file built on two machines). The rejections of the controls count only with a diagnostic naming the
+planted declaration; an exit by kill or timeout (137, 124) is not a rejection.
+
+**CHAR's statements** (Mathlib only; namespace `CertMachine.Textbook`). ζ and L(·, χ) are characterised WITHOUT
+Mathlib's `riemannZeta` and `LFunction`: a function holomorphic on ℂ ∖ {1} that equals the Dirichlet series
+Σ_{n≥1} n^{−s} (resp. Σ_{n≥1} χ(n) n^{−s}) for Re s > 1, the series summed as `HasSum` (unconditional convergence,
+no junk value).
+
+```lean
+def IsTextbookZeta (f : ℂ → ℂ) : Prop :=
+  DifferentiableOn ℂ f {1}ᶜ ∧
+    ∀ s : ℂ, 1 < s.re → HasSum (fun n : ℕ => 1 / ((n + 1 : ℕ) : ℂ) ^ s) (f s)
+def IsTextbookL {N : ℕ} (χ : DirichletCharacter ℂ N) (f : ℂ → ℂ) : Prop :=
+  DifferentiableOn ℂ f {1}ᶜ ∧
+    ∀ s : ℂ, 1 < s.re → HasSum (fun n : ℕ => χ ((n + 1 : ℕ) : ZMod N) / ((n + 1 : ℕ) : ℂ) ^ s) (f s)
+def TextbookRH : Prop :=
+  ∀ f : ℂ → ℂ, IsTextbookZeta f → ∀ s : ℂ, 0 < s.re → s.re < 1 → f s = 0 → s.re = 1 / 2
+def TextbookGRH : Prop :=
+  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (f : ℂ → ℂ), IsTextbookL χ f →
+    ∀ s : ℂ, 0 < s.re → s.re < 1 → f s = 0 → s.re = 1 / 2
+theorem isTextbookZeta_riemannZeta : IsTextbookZeta riemannZeta
+theorem isTextbookL_LFunction (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) :
+    IsTextbookL χ (DirichletCharacter.LFunction χ)
+theorem eqOn_riemannZeta {f : ℂ → ℂ} (hf : IsTextbookZeta f) : Set.EqOn f riemannZeta {1}ᶜ
+theorem eqOn_LFunction {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N} {f : ℂ → ℂ} (hf : IsTextbookL χ f) :
+    Set.EqOn f (DirichletCharacter.LFunction χ) {1}ᶜ
+theorem textbookRH_of_riemannHypothesis (h : RiemannHypothesis) : TextbookRH
+theorem textbookGRH_of (h : DirichletLZerosOnLine) : TextbookGRH
+theorem riemannHypothesis_of_textbookRH (h : TextbookRH) : RiemannHypothesis
+theorem dirichletLZerosOnLine_of_textbookGRH (h : TextbookGRH) : DirichletLZerosOnLine
+```
+
+The first two say the characterisations are met (the statements are not vacuous); the next two that they determine
+the function on ℂ ∖ {1} (identity theorem); the last four that the release's statements, as the challenge defines them
+(`RiemannHypothesis` is Mathlib's; `DirichletLZerosOnLine` is the challenge's definition, the constant S1 matches),
+are EQUIVALENT to the textbook ones. With S1, the record can then say the release proves RH and GRH for Dirichlet
+L-functions with ζ and L defined by their series, resting on Mathlib's complex numbers, powers, sums, derivatives and
+characters, not on its definitions of ζ or L. F1 and F2 stay readings (read twice); CHAR is the proof beside them.
+
+**Where they run, and in what order.** CHAR: now, in `/root/specws` on the build pod (root, Mathlib only, as SPEC).
+K3: a new script `tools/runpod-alpoge-grh-p4.sh`, started on the build pod now, waiting until "phase 2 done" and the
+bridge has finished (done, not started, or stopped), so it never competes with KR or the bridge for memory. CR:
+`tools/runpod-alpoge-grh-clean.sh`, on the operator's word after the quote.
+
+**The extras (not verdicts).**
+- *Rerun kit* (`instruments/alpoge-grh/rerun/`): the scripts at their commit, the pins, and the expected values of
+  every row taken from the final record, so that anyone can reproduce each number on a Linux machine of their own.
+- *M1, a second reading*: Astra 6.2 reads the release's metaprogramming from the pinned archive's file list, with the
+  prompt recorded; M1 becomes READ TWICE if the readings agree, and a disagreement is reported as found.
+- *The census, read*: Astra 6.2 reads the NIELSEN and WORDFACTS lines when CEN lands; a reading, labelled as one.
+- *A Bitcoin timestamp*: an OpenTimestamps proof of this file (with this amendment), `PINS.json` and the scripts at
+  the A12 commit, made before S1 and K2 report; the `.ots` files go to `corpus/alpoge-grh/timestamps/`.
+
+**Budget.** K3 adds well under an hour of the build pod (MIT's record: con-leche checked this closure in 3 min 15 s on
+64 workers, 46 GiB peak). CR is quoted before it is created (MIT's record: nanoda 28 min, 89 GB peak; the pod needs
+≥ 128 GB of memory). The lane's ceiling stays US$150.
