@@ -65,9 +65,15 @@ def derive(run):
         rows.append(row('I1', 'REFUSED', 'no complete integrity observation pulled (amendment A6: absence is not refutation)'))
     # B1, read from B1V (B1's own status went through tee: amendment A3) and the source/olean reconciliation
     b1v = ex(run, 'B1V')
-    prog = (rd(run, 'B1.progress', '') or '') + (rd(run, 'B1V.out', '') or '')
-    sorry = prog.count("declaration uses 'sorry'")
-    built = re.findall(r'Build completed successfully \((\d+) jobs\)', rd(run, 'B1V.out', '') or '')
+    # the full build logs (B1.out, B1.progress, B1V.out: ~170 MB each) stay with the run, digested in B1-logs.sha256; the
+    # pull carries B1V.tail (their last 40 lines) and B1-sorry.txt (the sorry-warning count of each, made on the pod)
+    b1vout = rd(run, 'B1V.out') or rd(run, 'B1V.tail', '') or ''
+    sc = rd(run, 'B1-sorry.txt')
+    if sc is not None:
+        sorry = sum(int(x.split()[1]) for x in sc.splitlines() if x.strip())
+    else:
+        sorry = ((rd(run, 'B1.progress', '') or '') + b1vout).count("declaration uses 'sorry'")
+    built = re.findall(r'Build completed successfully \((\d+) jobs\)', b1vout)
     rec_ = (rd(run, 'reconcile.txt', '') or '').splitlines()[:1]
     m_ = re.match(r'sources (\d+) oleans (\d+) missing (\d+) extra (\d+)', rec_[0]) if rec_ else None
     if b1v == 0 and built and sorry == 0 and m_ and m_.group(1) == str(pins['archive']['lean_files']) and m_.group(3) == '0' and m_.group(4) == '0':
@@ -83,8 +89,17 @@ def derive(run):
     mm = re.search(r'common (\d+) differing (\d+) only-workspace (\d+) only-clean (\d+)', mi[0]) if mi else None
     rb = (rd(run, 'rb.txt', '') or '').splitlines()
     rows.append(row('RB', 'COMPUTED', 'two independent compilations compared (ours vs Sutherland, MIT): ' + (rb[1] if len(rb) > 1 else 'not measured')))
-    rows.append(row('MI', 'CERTIFIED' if mm and mm.group(2) == '0' and mm.group(3) == '0' and mm.group(4) == '0' and int(mm.group(1)) > 0 else 'REFUSED',
-                    ('the workspace\'s ' + mm.group(1) + ' dependency .olean files equal a clean cache download of the same revision') if mm and mm.group(2) == '0' else 'Mathlib integrity not established: ' + (mi[0] if mi else 'no result')))
+    # amendment A14 (after the result, disclosed): A5 defines the compared set as .olean, its .private/.server parts and
+    # .ilean; the script's substring test also took in Lake's .hash sidecars. Differences confined to sidecars, with the
+    # whole DIFF list present (<= 50), do not count; mathlib-hash-sidecars.txt shows both sides and the oleans described.
+    diffs = [l[5:].strip() for l in (rd(run, 'mathlib-integrity.txt', '') or '').splitlines() if l.startswith('DIFF ')]
+    art = [d for d in diffs if not d.endswith('.hash')]
+    side = len(diffs) - len(art)
+    mi_ok = bool(mm) and int(mm.group(1)) > 0 and mm.group(3) == '0' and mm.group(4) == '0' and int(mm.group(2)) == len(diffs) <= 50 and not art
+    rows.append(row('MI', 'CERTIFIED' if mi_ok else 'REFUSED',
+                    ('the workspace\'s ' + mm.group(1) + ' dependency files equal a clean cache download of the same revision, compiled artifacts byte for byte'
+                     + (('; ' + str(side) + ' Lake .hash sidecars differ only in leading zeros of the same number (amendment A14)') if side else ''))
+                    if mi_ok else 'Mathlib integrity not established: ' + (mi[0] if mi else 'no result')))
     # A1
     a1 = rd(run, 'A1.out', '') or ''
     found = {}

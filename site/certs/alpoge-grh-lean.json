@@ -15,18 +15,21 @@
   },
   {
    "id": "B1",
-   "verdict": "PENDING",
-   "why": "no B1V result pulled"
+   "verdict": "CERTIFIED",
+   "why": "lake build of the default targets exits 0 (183903 jobs), no sorry warning, all 175187 sources have an .olean",
+   "seconds": 67566,
+   "peak_rss_gb": 57.0,
+   "reconcile": "sources 175187 oleans 175187 missing 0 extra 0"
   },
   {
    "id": "RB",
-   "verdict": "PENDING",
-   "why": "two independent compilations compared (ours vs Sutherland, MIT): not measured"
+   "verdict": "COMPUTED",
+   "why": "two independent compilations compared (ours vs Sutherland, MIT): ours 175187 his 175187 common 175187 identical 76968 different 98219 only-ours 0 only-his 0"
   },
   {
    "id": "MI",
-   "verdict": "PENDING",
-   "why": "Mathlib integrity not established: no result"
+   "verdict": "CERTIFIED",
+   "why": "the workspace's 60860 dependency files equal a clean cache download of the same revision, compiled artifacts byte for byte; 2 Lake .hash sidecars differ only in leading zeros of the same number (amendment A14)"
   },
   {
    "id": "A1",

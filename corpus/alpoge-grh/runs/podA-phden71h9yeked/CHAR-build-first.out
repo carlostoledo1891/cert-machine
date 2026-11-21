@@ -1,0 +1,39 @@
+⚠ [8706/8709] Built Spec (13s)
+warning: Spec.lean:27:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Spec.lean:92:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8707/8709] Built Challenge (17s)
+warning: Challenge.lean:29:8: declaration uses `sorry`
+warning: Challenge.lean:31:8: declaration uses `sorry`
+warning: Challenge.lean:33:8: declaration uses `sorry`
+warning: Challenge.lean:35:8: declaration uses `sorry`
+warning: Challenge.lean:37:8: declaration uses `sorry`
+✖ [8708/8709] Building Textbook (59s)
+trace: .> LEAN_PATH=/root/specws/.lake/packages/Cli/.lake/build/lib/lean:/root/specws/.lake/packages/batteries/.lake/build/lib/lean:/root/specws/.lake/packages/Qq/.lake/build/lib/lean:/root/specws/.lake/packages/aesop/.lake/build/lib/lean:/root/specws/.lake/packages/proofwidgets/.lake/build/lib/lean:/root/specws/.lake/packages/importGraph/.lake/build/lib/lean:/root/specws/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/root/specws/.lake/packages/plausible/.lake/build/lib/lean:/root/specws/.lake/packages/mathlib/.lake/build/lib/lean:/root/specws/.lake/build/lib/lean /root/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean /root/specws/Textbook.lean -o /root/specws/.lake/build/lib/lean/Textbook.olean -i /root/specws/.lake/build/lib/lean/Textbook.ilean -c /root/specws/.lake/build/ir/Textbook.c --setup /root/specws/.lake/build/ir/Textbook.setup.json --json
+error: Textbook.lean:60:48: failed to synthesize instance of type class
+  AddLeftStrictMono Cardinal.{0}
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+warning: Textbook.lean:64:59: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+error: Textbook.lean:74:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: Textbook.lean:88:8: (kernel) unknown constant 'CertMachine.Textbook.isTextbookL_LFunction'
+error: Textbook.lean:114:8: (kernel) unknown constant 'CertMachine.Textbook.isTextbookL_LFunction'
+error: Lean exited with code 1
+Some required targets logged failures:
+- Textbook
+error: build failed

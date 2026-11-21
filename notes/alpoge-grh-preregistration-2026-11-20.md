@@ -394,3 +394,9 @@ The control room's halt line in `_phase.log` contained the word the scripts use 
 - a continuation `_phase.log` was started: part 1's lines up to "phase 1 done", plus one line naming part 1 and its sha256;
 - phase 2, the bridge (its script unchanged, sha256 ba6ae330…, audit 9ce3c598) and con-leche (unchanged, 52800ebc…, audit 59bd80fc) were restarted at 17:01 UTC.
 The recorder reads the continuation; part 1 stays in the run.
+
+## Amendment A14 — MI compares the compiled artifacts A5 names (2026-11-21 ~17:20 UTC), AFTER MI reported — disclosed as such
+
+MI ran at 17:05 UTC and reported 60,860 files in common, 0 only on one side, and 2 differing. Both differing files are Lake's `.hash` sidecars (`Mathlib/Tactic/FastInstance.olean.hash`, `Mathlib/Topology/Category/TopCat/ULift.olean.server.hash`). Each holds the same number on both sides, with and without leading zeros: `0033606662060955` vs `33606662060955`, and `0192040428878591` vs `192040428878591`. The `.olean` files they describe are byte-identical (`mathlib-hash-sidecars.txt`).
+
+Amendment A5 defines the compared set as ".olean and its .private/.server parts, .ilean". The script's test, `'.olean' in f`, also took in the `.hash` sidecars, which are not compiled artifacts. The recorder now applies A5's set. A difference confined to `.hash` sidecars, with the whole difference list present, does not count, and the row says how many sidecars differed. This change was made after the result was seen. It is marked here and in DEVIATIONS item 10 so a reader can weigh it.

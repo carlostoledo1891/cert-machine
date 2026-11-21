@@ -18,3 +18,17 @@ release oleans before B1: 0
 2026-11-20T22:09:02Z B1 running
 2026-11-20T22:23:41Z lean tools retry done
 2026-11-20T22:34:46Z tools done (exit 0)
+2026-11-21T16:55:08Z B1 exit 0 after 67566 s
+2026-11-21T16:55:09Z WARNING: challenge build CHANGED during B1
+2026-11-21T16:55:10Z oleans after B1: 175188; sorry warnings: 0
+2026-11-21T16:55:10Z phase 1 done
+2026-11-21T17:01:00Z phase 2 restarted under amendment A13 (the challenge gate reads the compiled files only). The first phase-2 attempt (16:56-17:00 UTC: judges exit 0, B1V exit 0 after 140 s, reconcile 175187 of 175187) and the control room halt are kept verbatim in _phase.log.part1, sha256 737f65a5de8f0ef8421872218ac553e6bb1498345c7035c85f56526a779b2824
+2026-11-21T17:01:01Z phase 2 start
+2026-11-21T17:01:26Z judges (root, /opt/judges) exit 0
+2026-11-21T17:01:55Z tester's toolchain identical to the official release
+2026-11-21T17:01:55Z B1V running
+2026-11-21T17:04:02Z B1V exit 0 after 127 s
+2026-11-21T17:04:04Z reconcile: sources 175187 oleans 175187 missing 0 extra 0
+2026-11-21T17:05:04Z mathlib integrity: workspace 60860 clean 60860 common 60860 differing 2 only-workspace 0 only-clean 0
+2026-11-21T17:05:12Z RB: ours 175187 his 175187 common 175187 identical 76968 different 98219 only-ours 0 only-his 0
+2026-11-21T17:05:12Z A1 running
