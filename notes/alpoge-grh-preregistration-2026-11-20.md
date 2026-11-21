@@ -251,3 +251,14 @@ section names everyone whose work the record uses or compares against: Levent Al
 Alessandro Masullo, Ravi Vakil and Brian Conrad (the draft and its posting) for the Masullo section; Terence Tao's post
 (the venue); the tools (Lean and Lake, Mathlib, Comparator and lean4export by the Lean FRO, nanoda by ammkrn, landrun).
 A7's positioning sentence is superseded.
+
+## Amendment A9 — the build moves to a larger machine (the operator, 2026-11-21 ~02:05 UTC), before it is created
+
+On the operator's "Big pod builds, small pod checks": B1 is run again, from scratch, by the same phase-1 script
+(tools/runpod-alpoge-grh-p1.sh, same pins, same paths, same user, same toolchain) on an 8×H100 SXM pod (224 vCPU,
+~2 TB RAM; the GPUs are unused) — the largest machine in stock; the setup-file cleanup of DEVIATIONS item 5 runs there
+too. When it finishes, the release's compiled files are copied to the checking pod phden71h9yeked (its own B1, running
+since 22:09 UTC, is stopped first; its pre-B1 challenge build is kept), both ends' sha256 lists must be equal, and phase 2
+runs there unchanged: B1V (`lake build` with its own exit status, which must not recompile anything copied) decides B1.
+The record names the host of every step. If the large pod cannot be created or its build fails, the checking pod's own
+B1 continues and nothing else changes.
