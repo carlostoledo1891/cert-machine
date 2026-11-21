@@ -52,10 +52,14 @@ def derive(run):
     pins = json.load(open(PINS))
     rows = []
     # I1
-    i1 = rd(run, 'I1.txt', '')
-    ok = 'I1 PASS' in i1 and i1.count('MATCH') >= 15 and 'MISMATCH' not in i1
-    rows.append(row('I1', 'CERTIFIED' if ok else 'REFUTED', 'the 14 parts fetched on the pod against PINS.json; joined sha256 '
-                    + pins['archive']['sha256'] if ok else 'a part or the joined archive differs from its pin'))
+    i1 = rd(run, 'I1.txt', '') or ''
+    ok = 'I1 PASS' in i1 and i1.count(' MATCH') >= 15 and 'MISMATCH' not in i1
+    if ok:
+        rows.append(row('I1', 'CERTIFIED', 'the 14 parts fetched on the pod against PINS.json; joined sha256 ' + pins['archive']['sha256']))
+    elif 'MISMATCH' in i1:
+        rows.append(row('I1', 'REFUTED', 'observed digest mismatch: ' + '; '.join(l for l in i1.splitlines() if 'MISMATCH' in l)))
+    else:
+        rows.append(row('I1', 'REFUSED', 'no complete integrity observation pulled (amendment A6: absence is not refutation)'))
     # B1, read from B1V (B1's own status went through tee: amendment A3) and the source/olean reconciliation
     b1v = ex(run, 'B1V')
     prog = (rd(run, 'B1.progress', '') or '') + (rd(run, 'B1V.out', '') or '')
@@ -74,6 +78,8 @@ def derive(run):
     rows.append(row('B1', v, why, seconds=secs(run, 'B1'), peak_rss_gb=peak_rss_gb(run, 'B1'), reconcile=rec_[0] if rec_ else None))
     mi = (rd(run, 'mathlib-integrity.txt', '') or '').splitlines()[:1]
     mm = re.search(r'common (\d+) differing (\d+) only-workspace (\d+) only-clean (\d+)', mi[0]) if mi else None
+    rb = (rd(run, 'rb.txt', '') or '').splitlines()
+    rows.append(row('RB', 'COMPUTED', 'two independent compilations compared (ours vs Sutherland, MIT): ' + (rb[1] if len(rb) > 1 else 'not measured')))
     rows.append(row('MI', 'CERTIFIED' if mm and mm.group(2) == '0' and mm.group(3) == '0' and mm.group(4) == '0' and int(mm.group(1)) > 0 else 'REFUSED',
                     ('the workspace\'s ' + mm.group(1) + ' dependency .olean files equal a clean cache download of the same revision') if mm and mm.group(2) == '0' else 'Mathlib integrity not established: ' + (mi[0] if mi else 'no result')))
     # A1
@@ -134,7 +140,9 @@ def derive(run):
     # K2 nanoda, KR leanchecker --fresh
     k2 = rd(run, 'K2.out', '') or ''
     m = re.search(r'Checked (\d+) declarations with no errors', k2)
-    if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and m:
+    roots_ok = (rd(run, 'export-roots.txt', '') or '').startswith('roots 5/5')
+    digest_ok = bool((rd(run, 'export.sha256', '') or '').strip())
+    if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and m and int(m.group(1)) > 0 and roots_ok and digest_ok:
         v, why = 'CERTIFIED', f'nanoda checked {m.group(1)} declarations of the exported closure with no typechecker error'
     elif ex(run, 'K2') in (None, 124, 137):
         v, why = 'REFUSED', 'nanoda did not finish (resources or not run)'
@@ -173,7 +181,8 @@ def derive(run):
     rows.append(row('BRc+MB', 'CERTIFIED' if 'Build completed successfully' in bb and bb.count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 8 else 'REFUSED',
                     'the conditional bridge (5 theorems) and the Masullo reading (3 theorems) compiled, all on the three standard axioms'))
     brj = rd(run, 'BRJ.out', '') or ''
-    brok = ex(run, 'BRB') == 0 and (rd(run, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(run, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
+    plog = rd(run, '_phase.log', '') or ''
+    brok = 'STOPPED (bridge)' not in plog and 'bridge: no release artifact changed' in plog and 'BC1 rejected with its diagnostic' in plog and ex(run, 'BC1') not in (None, 0) and ex(run, 'BRB') == 0 and (rd(run, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(run, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
         and bool(re.search(r"theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'", (rd(run, 'BC1.out', '') or '') + (rd(run, 'BC1.err', '') or '')))
     rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected' if brok else 'the unconditional bridge has not passed'))
     # census (COMPUTED)

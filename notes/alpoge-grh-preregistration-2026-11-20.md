@@ -199,3 +199,35 @@ Astra 6.2 reviewed the fixes at 59cc5699 (finding 1 closed; 2–11 partly closed
   q > 1 with no threshold uniform in χ; no simplicity bound follows.
 - **Not adopted (stated):** an independent formal equivalence for the three Dirichlet statements (they are read twice);
   a separate positive control of nanoda through the stdin path (K2 is the positive control, through the file path).
+
+## Amendment A6 — Astra 6.2's third reading, and the record already published at MIT (2026-11-21 ~02:30 UTC, before phase 2)
+
+**Prior and parallel work, cited first.** Andrew Sutherland (MIT) published a verification record on 2026-11-20
+(math.mit.edu/~drew/grh/, checks run with Claude Code; snapshot 22:05 UTC): all 175,187 modules compiled with zero errors
+(direct `lean` calls, unsandboxed cloud machines); `#print axioms` standard for the five theorems; Mathlib .olean files
+identical to the official cache; `leanchecker` replay 175,187/175,187; nanoda (full export) accepts; con-leche
+(`--verified`) accepts 1,468,418 declarations; con-leche `--compare` matches all five challenge statements; lean4lean
+module by module 175,187/175,187; `lake comparator` (Lean v4.36.0) statement and axiom check passed, kernels still
+running. His export and olean manifest are published with SHA256SUMS. This record is a second, independent replication;
+it adds what his does not state: planted-defect controls (C1–C5), a root-owned judge setup with the Mathlib check, a
+Lean proof that the statement is the textbook RH (SPEC), the two bridges, and the route reading.
+
+Adopted from the third reading (each confirmed in the code here):
+- **K2** counts only with a positive declaration count, the export's digest present, and all five roots found in the
+  export as theorems with a value (`export-roots.txt`, written by root after the export).
+- **I1**: an absent or incomplete observation is REFUSED; REFUTED needs an observed digest mismatch.
+- **The bridge** starts only on a completion record `EXPORT-OK` written after the export succeeded, was hashed, holds
+  the five roots, and S1 met every condition (exit 0, acceptance line, sandbox, challenge build unchanged). The release
+  artifacts are compared by sha256 (not size and time) before and after; the final comparison and BC1 (non-zero exit AND
+  its diagnostic) are gates; BRu requires them.
+- **RB (COMPUTED, new):** our release .olean files hashed in Sutherland's format and compared with his published
+  manifest (sha256 375cbee2…, pinned by his SHA256SUMS): equality of compiled bytes across two independent compilations
+  is measured, not required (independent compilations are reported to differ for some modules).
+- **Wording corrections.** (1) A5's "no simplicity bound follows" is wrong: with N counted with multiplicity, D distinct
+  and S simple zeros in a window, N ≥ S + 2(D − S), so S ≥ 2D − N; under RH the bridge's 5/6 − ε for distinct zeros on the
+  line gives 2/3 − 2ε for simple zeros on the line — the constants the August release already states. Replacement: "The
+  bridge improves the stated bound for distinct zeros on the line; the simplicity bounds it implies recover the August
+  release's constants." (2) The percentages are not vacuous: the August release proves the zero counts diverge
+  (`tendsto_Ncount_zero_atTop`, Zeta23/Main.lean). (3) Masullo: ReadingQ would give, on every window with
+  0 ≤ T₁ < T₂, N₀ˢ = N_d = N for each normalized primitive character — one double zero at a positive ordinate would
+  refute the reading while remaining compatible with RH and the bridge.

@@ -195,6 +195,22 @@ print('workspace', len(a), 'clean', len(b), 'common', len(set(a) & set(b)), 'dif
 for k in sorted(diff)[:50]: print('DIFF', k)
 PY3
 log "mathlib integrity: $(head -1 $R/mathlib-integrity.txt)"
+# RB (COMPUTED, amendment A6): our release .olean files against Andrew Sutherland's independent build (MIT, 2026-11-20,
+# project-oleans.sha256, itself pinned by his SHA256SUMS as 375cbee2…); equality of compiled bytes across two
+# independent compilations is measured, not required
+(cd $W/.lake/build/lib/lean && find . -name '*.olean' -not -path './CertMachine/*' -print0 | xargs -0 -P 16 -n 500 sha256sum | sort -k2) > $R/project-oleans.sha256
+curl -fsSL --retry 5 -A 'Mozilla/5.0 (cert-machine audit)' -o $R/sutherland-project-oleans.sha256 https://math.mit.edu/~drew/grh/project-oleans.sha256
+python3 -I - $R/project-oleans.sha256 $R/sutherland-project-oleans.sha256 > $R/rb.txt 2>&1 <<'PY4'
+import hashlib, sys
+ours, his = sys.argv[1], sys.argv[2]
+print('sutherland manifest sha256', hashlib.sha256(open(his, 'rb').read()).hexdigest(), '(expected 375cbee2fc3fc0f5088ef2e6dc9a5ac5530924310dc62422ec65aac9dc4c1d25)')
+ld = lambda p: dict((l.split('  ', 1)[1].strip(), l.split('  ', 1)[0]) for l in open(p) if '  ' in l)
+a, b = ld(ours), ld(his)
+same = [k for k in a if k in b and a[k] == b[k]]; diff = [k for k in a if k in b and a[k] != b[k]]
+print('ours', len(a), 'his', len(b), 'common', len(set(a) & set(b)), 'identical', len(same), 'different', len(diff), 'only-ours', len(set(a) - set(b)), 'only-his', len(set(b) - set(a)))
+for k in sorted(diff)[:40]: print('DIFF', k)
+PY4
+log "RB: $(sed -n 2p $R/rb.txt)"
 step A1 7200 $W bash -c 'lake env lean scratch/Axioms.lean'
 step CEN 21600 $W bash -c 'lake env lean scratch/Census.lean'
 # the challenge's build must be the one made before B1
@@ -232,6 +248,25 @@ for c in c1 c2 c3 c4; do step ${c^^} 14400 $W bash -c "lake env $CMP scratch/$c.
 step EXP 86400 $W bash -c "lake env $T/lean4export/.lake/build/bin/lean4export Main -- riemannHypothesis riemannZeta_eq_zero_re LFunction_ne_zero_of_half_lt_re LFunction_eq_zero_re LFunction_eq_zero_re_of_isPrimitive"
 mv $R/EXP.out $D/export.ndjson && chmod 644 $D/export.ndjson
 ls -la $D/export.ndjson | tee -a $R/_phase.log; sha256sum $D/export.ndjson > $R/export.sha256; head -c 300 $D/export.ndjson > $R/export.head
+python3 -I - $D/export.ndjson > $R/export-roots.txt 2>&1 <<'PY6'
+import json, sys
+roots = {'riemannHypothesis', 'riemannZeta_eq_zero_re', 'LFunction_ne_zero_of_half_lt_re', 'LFunction_eq_zero_re', 'LFunction_eq_zero_re_of_isPrimitive'}
+ids, found, decls = {}, set(), 0
+for line in open(sys.argv[1]):
+    if line.startswith('{"in"'):
+        o = json.loads(line)
+        if 'str' in o and o['str']['pre'] == 0 and o['str']['str'] in roots: ids[o['in']] = o['str']['str']
+    elif '"thm"' in line[:8] or '"defn"' in line[:9] or '"axiom"' in line[:10] or '"inductive"' in line[:13] or '"opaque"' in line[:10] or '"quot"' in line[:8]:
+        decls += 1
+        if line.startswith('{"thm"'):
+            o = json.loads(line)
+            if o['thm']['name'] in ids and o['thm'].get('value') is not None: found.add(ids[o['thm']['name']])
+print('roots %d/5 found as theorems with a value: %s' % (len(found), sorted(found)))
+print('declaration lines', decls)
+PY6
+log "export roots: $(head -1 $R/export-roots.txt)"
+S1OK=0; [ "$(cat $R/S1.exit 2>/dev/null)" = 0 ] && grep -q "Your solution is okay!" $R/S1.out && grep -q '^sandbox' $R/S1.mode && grep -q "challenge build unchanged before S1" $R/_phase.log && S1OK=1
+if [ "$(cat $R/EXP.exit)" = 0 ] && [ -s $D/export.ndjson ] && [ -s $R/export.sha256 ] && grep -q '^roots 5/5' $R/export-roots.txt && [ $S1OK = 1 ]; then log "EXPORT-OK (export, digest, five roots, S1 conditions)"; else log "EXPORT-NOT-OK (bridge will not start)"; fi
 cat > $D/nanoda.json <<EOF
 {"export_file_path": "$D/export.ndjson", "use_stdin": false, "num_threads": 32, "stack_size_bytes": 1073741824,
  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"], "unpermitted_axiom_hard_error": false,

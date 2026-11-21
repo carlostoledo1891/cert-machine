@@ -13,12 +13,11 @@ RAW=https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA
 log() { echo "$(date -u +%FT%TZ) $*" | tee -a $R/_phase.log; }
 # amendment A5: start only after phase 2 has exported (the remaining phase-2 steps read the export file, or only read the
 # workspace through lake env), and only if S1 was accepted
-until grep -qE "EXP exit|phase 2 not started|STOPPED" $R/_phase.log 2>/dev/null; do sleep 120; done
-grep -qE "phase 2 not started|STOPPED" $R/_phase.log && { log "bridge not started: phase 2 did not reach the export"; exit 1; }
-[ "$(cat $R/S1.exit 2>/dev/null)" = 0 ] || { log "bridge not started: S1 did not pass (exit $(cat $R/S1.exit 2>/dev/null))"; exit 1; }
+until grep -qE "EXPORT-OK|EXPORT-NOT-OK|phase 2 not started|STOPPED" $R/_phase.log 2>/dev/null; do sleep 120; done
+grep -q "EXPORT-OK (export" $R/_phase.log || { log "bridge not started: no EXPORT-OK completion record (amendment A6)"; exit 1; }
 log "bridge (p3) start"
 gate() { [ "$(cat $R/$1.exit)" = 0 ] || { log "STOPPED (bridge): $1 exit $(cat $R/$1.exit)"; exit 1; }; }
-manifest() { find $W/.lake/build/lib/lean -type f \( -name '*.olean*' -o -name '*.ilean' \) -not -path '*/CertMachine/*' -not -path '*/Zeta23/*' -not -name 'ChallengeDeps.*' -not -name 'Solution.*' -not -path '*/Solution/*' -not -path '*/ChallengeDeps/*' -printf '%P %s %T@\n' | sort; }
+manifest() { (cd $W/.lake/build/lib/lean && find . -type f \( -name '*.olean*' -o -name '*.ilean' \) -not -path './CertMachine/*' -not -path './Zeta23/*' -not -name 'ChallengeDeps.*' -not -name 'Solution.*' -not -path './Solution/*' -not -path './ChallengeDeps/*' -print0 | xargs -0 -P 16 -n 500 sha256sum | sort -k2); }
 manifest > $R/BR-release-manifest.before.txt; log "release artifacts before the bridge: $(wc -l < $R/BR-release-manifest.before.txt)"
 step() {
   local n=$1 to=$2; shift 2
@@ -66,8 +65,8 @@ printf '{"challenge_module": "CertMachine.BridgeChallenge", "solution_module": "
 printf '{"challenge_module": "CertMachine.BridgeChallengeBC1", "solution_module": "CertMachine.Bridge", "theorem_names": ["CertMachine.Bridge.five_sixths_distinct_on_critical_line"], "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"], "enable_nanoda": false}\n' > $W/scratch/bc1.json
 chown $U:$U $W/scratch/br.json $W/scratch/bc1.json; cp $W/scratch/br.json $W/scratch/bc1.json $R/
 step BC1 21600 lake env $T/comparator/.lake/build/bin/comparator scratch/bc1.json
-grep -qE "theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'" $R/BC1.out $R/BC1.err && log "BC1 rejected with its diagnostic" || log "WARNING (bridge): BC1 was not rejected with the expected diagnostic"
+[ "$(cat $R/BC1.exit)" != 0 ] && grep -qE "theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'" $R/BC1.out $R/BC1.err && log "BC1 rejected with its diagnostic" || { log "STOPPED (bridge): BC1 was not rejected with its diagnostic"; exit 1; }
 step BRJ 172800 lake env $T/comparator/.lake/build/bin/comparator scratch/br.json
 manifest > $R/BR-release-manifest.after.txt
-cmp -s $R/BR-release-manifest.before.txt $R/BR-release-manifest.after.txt && log "bridge: no release artifact changed" || log "WARNING (bridge): release artifacts changed by the end of the bridge"
+cmp -s $R/BR-release-manifest.before.txt $R/BR-release-manifest.after.txt && log "bridge: no release artifact changed" || { log "STOPPED (bridge): release artifacts changed by the end of the bridge"; exit 1; }
 log "bridge (p3) done"
