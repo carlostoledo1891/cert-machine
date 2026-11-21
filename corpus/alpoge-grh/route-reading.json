@@ -36,5 +36,11 @@
   "Whether the release's Row is the theorem of the literature it is named after is a reading question (its own definitions); for the soundness of the five public theorems it does not matter — the kernels check the closure.",
   "The Rallis chain theorem stmt3c is conditional on six premises, one requiring nonzero periods at every link (FunctionModelRallisFromInputs.lean, lines 534-566); the public theorems have no hypotheses, so wherever it is used its premises are discharged inside the closure.",
   "Following imports from CharacterBoxes/MainConclusion.lean reaches 175,174 of the 175,187 files: import reachability says little; direct calls say more."
- ]
+ ],
+ "nielsen": {
+  "source": "J. L. Nielsen, 'The Invalidity of Alpöge's Proposed Proof of the Riemann Hypothesis — Vacuously true geometric and lattice witnesses in the Lean formalization', 20 Nov 2026, PhilArchive NIEIOT-2 (philarchive.org/rec/NIEIOT-2); read from the mirror Deicyde/riemann-hypothesis @ 712a6aef",
+  "checked_here": "against the pinned archive (2026-11-21): anyGeometry := fun _ _ _ => True (GlobalTheory.Mem.Top.Bl, OverIx.lean) passed through geoCl at EveryCharacterE.lean lines 57, 60, 64; divXFl (Formalism.L2.Geo, Inhabited.lean 829-861) with geo := geoDegenerate …, iMj := 0, iMj_mem := Submodule.mem_top; ht := DV.hExpl6 D p.L Y.X C.Csz (SetUnipotentTranslate.lean 379); linkDIV_at_words used at RecBridge.lean 567 and 689 — as quoted",
+  "second_reading": "Astra 6.2 (2026-11-21): the degenerate geometric witness is a confirmed finding; assigning the height is not by itself circular — linkDIV_at_words takes the height equation and the two inequalities as separate arguments, the inequalities supplied through P.wordFacts (whose inputs the paper leaves untraced); the row-side lattice map jM has its own lemmas (independence, spanning, lattice membership, norm); the alleged invalidation of RH is unsupported, since the public theorem has no premise and independent kernels accept it",
+  "record_reading": "the vacuous witnesses are real and show the route's geometric names are not what carries the conclusion; whether the term is a proof is what the kernels decide (K2 here; Sutherland's nanoda, con-leche, lean4lean); the paper's check 2 is answered from the compiled closure by the census (NIELSEN lines, amendment A10)"
+ }
 }
