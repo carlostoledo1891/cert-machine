@@ -39,3 +39,4 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
    own disk-saving steps, neither read by any judge. The compiled challenge (`.olean`, `.ilean`, their hashes, the
    `.trace`) is unchanged. The gate before S1 now compares those files only. Phase 2, still in its first step
    (rebuilding the judges), was stopped and restarted from the corrected script, with `/opt/judges` moved aside first.
+   Correction (17:10 UTC): phase 2 had also run B1V (exit 0) and the reconcile (175,187 of 175,187) before the halt. The halt's log line tripped the scripts' stop signal; the log is kept verbatim as `_phase.log.part1` (sha256 737f65a5…), a clean continuation was started, and phase 2, the bridge and con-leche were restarted at 17:01 UTC (amendment A13's correction).

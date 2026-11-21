@@ -386,3 +386,11 @@ the challenge's files under `lib/lean/` only: the `.olean`, the `.ilean`, their 
 Phase 2 was in its first step (the judges rebuilt by root) when this was found. It is stopped, `/opt/judges` is moved
 aside, and phase 2 is restarted from the corrected script, from its start. No judge, gate or check of phase 2 had
 reported. The full before/after lists stay in the run (`challenge-build.sha256`, `challenge-build.after-B1.sha256`).
+
+**Correction to amendment A13 (17:10 UTC).** Phase 2 had gone further than A13 says when it was halted. It had rebuilt the judges (exit 0), run B1V (exit 0 after 140 s) and the reconcile (175,187 sources, 175,187 oleans, none missing or extra), and had begun the Mathlib integrity download. None of these depends on the challenge gate; all are run again by the restart.
+
+The control room's halt line in `_phase.log` contained the word the scripts use as their stop signal. It made the restarted phase 2 refuse to start ("phase 2 not started"). It would have made the bridge and con-leche waiters give up at their next poll. Those two waiters were stopped before they polled (their logs show nothing). Then:
+- the log was kept verbatim as `_phase.log.part1` (sha256 737f65a5…);
+- a continuation `_phase.log` was started: part 1's lines up to "phase 1 done", plus one line naming part 1 and its sha256;
+- phase 2, the bridge (its script unchanged, sha256 ba6ae330…, audit 9ce3c598) and con-leche (unchanged, 52800ebc…, audit 59bd80fc) were restarted at 17:01 UTC.
+The recorder reads the continuation; part 1 stays in the run.
