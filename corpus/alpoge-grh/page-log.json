@@ -35,6 +35,11 @@
    "at": "2026-11-21T17:30Z",
    "done": 15,
    "what": "The axioms: Lean reports that each of the five theorems rests on propext, Classical.choice and Quot.sound, and nothing else. The census of the compiled proof is running."
+  },
+  {
+   "at": "2026-11-21T23:20Z",
+   "done": 17,
+   "what": "The census of the compiled proof: the five theorems reach 1,478,243 constants in 151,694 modules, the only axioms anywhere in them are propext, Classical.choice and Quot.sound, and no constant in the environment has type False. Of the 21 constants J. L. Nielsen’s critique names, 14 are in the compiled proof and 7 are not; the sub-proofs feeding the two key inequalities are traced (closures of 299 to 1,999 constants). The planted errors: Lean’s axiom report names the planted axiom (cheat) in one control and sorryAx in the other, as it must. The statement judge (Comparator) started at 22:27 UTC."
   }
  ]
 }

@@ -66,7 +66,8 @@
   {
    "id": "S1",
    "verdict": "PENDING",
-   "why": "Comparator did not run"
+   "why": "Comparator did not run",
+   "mode": "sandbox (landrun --best-effort, Landlock ABI v4)"
   },
   {
    "id": "C1-C5",
@@ -95,13 +96,13 @@
     },
     "A1-C2": {
      "what": "the axiom report names the planted axiom",
-     "exit": null,
-     "refused": false
+     "exit": 0,
+     "refused": true
     },
     "A1-C3": {
      "what": "the axiom report names sorryAx",
-     "exit": null,
-     "refused": false
+     "exit": 0,
+     "refused": true
     },
     "C5": {
      "what": "the release's export with riemannHypothesis re-typed as False",
@@ -173,9 +174,265 @@
   }
  ],
  "computed": {
-  "census": {},
-  "nielsen": {},
-  "wordfacts": {},
+  "census": {
+   "closure_constants": "1478243",
+   "closure_modules": "151694",
+   "env_constants": "2701133",
+   "constants_by_root": "[(Development, 842319), (Formalism, 278275), (Mathlib, 203036), (GroundTheory, 76752), (ReciprocityTheory, 47612), (CompanionTheory, 15717), (Init, 9662), (PositivityTheory, 4276), (Lemmata, 314), (Batteries, 253), (Std, 9), (Main, 5), (Statements, 5), (Supplements, 4), (Aesop, 3), (Lean, 1)]",
+   "modules_by_root": "[(Development, 119092), (Formalism, 14927), (GroundTheory, 6578), (Mathlib, 5081), (ReciprocityTheory, 3458), (CompanionTheory, 1882), (PositivityTheory, 343), (Lemmata, 157), (Init, 152), (Batteries, 15), (Std, 4), (Aesop, 1), (Statements, 1), (Lean, 1), (Supplements, 1), (Main, 1)]",
+   "axioms_in_closure": "[Classical.choice, Quot.sound, propext]",
+   "false_typed_in_closure": "[]",
+   "false_typed_anywhere_count": "0",
+   "first": "[]",
+   "constants_by_root_parsed": [
+    [
+     "Development",
+     842319
+    ],
+    [
+     "Formalism",
+     278275
+    ],
+    [
+     "Mathlib",
+     203036
+    ],
+    [
+     "GroundTheory",
+     76752
+    ],
+    [
+     "ReciprocityTheory",
+     47612
+    ],
+    [
+     "CompanionTheory",
+     15717
+    ],
+    [
+     "Init",
+     9662
+    ],
+    [
+     "PositivityTheory",
+     4276
+    ],
+    [
+     "Lemmata",
+     314
+    ],
+    [
+     "Batteries",
+     253
+    ],
+    [
+     "Std",
+     9
+    ],
+    [
+     "Main",
+     5
+    ],
+    [
+     "Statements",
+     5
+    ],
+    [
+     "Supplements",
+     4
+    ],
+    [
+     "Aesop",
+     3
+    ],
+    [
+     "Lean",
+     1
+    ]
+   ],
+   "modules_by_root_parsed": [
+    [
+     "Development",
+     119092
+    ],
+    [
+     "Formalism",
+     14927
+    ],
+    [
+     "GroundTheory",
+     6578
+    ],
+    [
+     "Mathlib",
+     5081
+    ],
+    [
+     "ReciprocityTheory",
+     3458
+    ],
+    [
+     "CompanionTheory",
+     1882
+    ],
+    [
+     "PositivityTheory",
+     343
+    ],
+    [
+     "Lemmata",
+     157
+    ],
+    [
+     "Init",
+     152
+    ],
+    [
+     "Batteries",
+     15
+    ],
+    [
+     "Std",
+     4
+    ],
+    [
+     "Aesop",
+     1
+    ],
+    [
+     "Statements",
+     1
+    ],
+    [
+     "Lean",
+     1
+    ],
+    [
+     "Supplements",
+     1
+    ],
+    [
+     "Main",
+     1
+    ]
+   ]
+  },
+  "nielsen": {
+   "anyGeometry": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Mem.Top.Bl.anyGeometry]"
+   },
+   "geoOf": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "GeoCl": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Mem.Top.Bl.GeoCl]"
+   },
+   "geoDegenerate": {
+    "in_closure": 1,
+    "names": "[Formalism.L2.Geo.geoDegenerate]"
+   },
+   "divXFl": {
+    "in_closure": 1,
+    "names": "[Formalism.L2.Geo.divXFl]"
+   },
+   "divEx_prov": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Mem.Top.DivRec.divEx_prov]"
+   },
+   "hExpl6": {
+    "in_closure": 1,
+    "names": "[Formalism.BasicNotions.DV.hExpl6]"
+   },
+   "divClausesR_of": {
+    "in_closure": 1,
+    "names": "[Formalism.L2.DIV.divClausesR_of]"
+   },
+   "exists_divStage_of_pk": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Mem.R3.Rw.exists_divStage_of_pk]"
+   },
+   "FrobeniusOrbitPlaceCount": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "geoTied": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "formsTieX": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "geoOf_surf": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "degree_value_of_determinant": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "degCh2_eq_zero": {
+    "in_closure": 0,
+    "names": "[]"
+   },
+   "linkDIV_at_words": {
+    "in_closure": 1,
+    "names": "[Formalism.L2.DIV.linkDIV_at_words]"
+   },
+   "UnusedSlot72": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Published.UnusedSlot72]"
+   },
+   "siegel_eisenstein_simple_pole": {
+    "in_closure": 1,
+    "names": "[UpperTheory.LiteratureTheorems.siegel_eisenstein_simple_pole]"
+   },
+   "WeightCaseCondition": {
+    "in_closure": 1,
+    "names": "[GlobalTheory.Mem.R3.Rw.WeightCaseCondition]"
+   },
+   "zeroFreeOn_of_tiedWin_cyc": {
+    "in_closure": 1,
+    "names": "[Formalism.HC.zeroFreeOn_of_tiedWin_cyc]"
+   },
+   "zeroFree_of_rpow_window": {
+    "in_closure": 1,
+    "names": "[Deduction.zeroFree_of_rpow_window]"
+   }
+  },
+  "wordfacts": {
+   "targets": [
+    {
+     "name": "Formalism.L2.DIV.wordFacts_of",
+     "module": "Formalism",
+     "release_closure": 1882,
+     "direct": "[Formalism.BasicNotions.SizeData₂.B0, Formalism.BasicNotions.DivData.cc, Formalism.BasicNotions.D7, Formalism.BasicNotions.HLat.ι, Formalism.BasicNotions.SizeData₂, Formalism.BasicNotions.DivData.RR, Formalism.HN.dualLat, Formalism.L2.DIV.WordFacts, Formalism.HN.htMap, Formalism.BasicNotions.HLat.X, Formalism.BasicNotions.Host.TT, Formalism.BasicNotions.D7.R, Formalism.BasicNotions.D7.nfLL, Formalism.BasicNotions.D7.wordFin, Formalism.L2.DIV.WordFacts._proof_4, Formalism.BasicNotions.Scale.eps, Formalism.BasicNotions.D7.div, Formalism.BasicNotions.HLat.towV, Formalism.BasicNotions.HLat.dualB, Formalism.BasicNotions.HLat.modOV, Formalism.L2.DIV.WordFacts._proof_3, Formalism.L2.DIV.WordFacts._proof_1, Formalism.BasicNotions.HLat.muDual, Formalism.BasicNotions.SizeData₂.Nc, Formalism.BasicNotions.DivData.h, Formalism.BasicNotions.HLat.finι, Formalism.BasicNotions.D7.host, Formalism.BasicNotions.HLat.decι, Formalism.L2.DIV.ne_zero_of_coord, Formalism.BasicNotions.D7.starLL]"
+    },
+    {
+     "name": "Formalism.L2.DIV.linkDIV_at_words",
+     "module": "Formalism",
+     "release_closure": 1999,
+     "direct": "[Formalism.BasicNotions.SizeData₂.B0, Formalism.MainNotions.DIV.prod_gTypes, Formalism.MainNotions.LinkDIV_at, Formalism.MainNotions.LocalQuadraticParts.FrameNumberBound, Formalism.BasicNotions.Rows.Data.instEE, Formalism.BasicNotions.DivData.cc, Formalism.MainNotions.LocalQuadraticParts.adm11, Formalism.BasicNotions.Rows.Data.Bu, Formalism.BasicNotions.D7, Formalism.BasicNotions.HLat.ι, Formalism.BasicNotions.SizeData₂, Formalism.BasicNotions.DivData.RR, Formalism.BasicNotions.DivData.OneMapIntoCC, Formalism.L2.DIV.WordFacts, Formalism.HN.htMap, Formalism.BasicNotions.D7.mem, Formalism.BasicNotions.HLat.X, Formalism.BasicNotions.Host.TT, Formalism.BasicNotions.D7.R, Formalism.BasicNotions.D7.nfLL, Formalism.BasicNotions.Rows.Data.instMu, Formalism.BasicNotions.D7.wordFin, Formalism.L2.DIV.WordFacts._proof_4, Formalism.BasicNotions.Scale.eps, Formalism.BasicNotions.D7.div, Formalism.BasicNotions.D7.hcW, Formalism.BasicNotions.SizeData₂.sz, Formalism.BasicNotions.HLat.dualB, Formalism.BasicNotions.HLat.modOV, Formalism.BasicNotions.Rows.Data.Mu]"
+    },
+    {
+     "name": "Formalism.L2.DIV.divClausesR_of",
+     "module": "Formalism",
+     "release_closure": 1441,
+     "direct": "[Formalism.DivisionValues.MuLcv._proof_1, Formalism.L2.DIV.RecNums.pq, Formalism.DivisionValues.reduction_lemma_zero, Formalism.L2.DIV.shiftZ, Formalism.HN.opNormAt._proof_10, Formalism.L2.Indef.IndefNum.hh, Formalism.L2.Indef.DefBase.Tup, Formalism.L2.DIV.DivInputs0R.Q1, Formalism.L2.DIV.DivInputs0R.gy, Formalism.L2.DIV.DivClausesR._proof_4, Formalism.L2.DIV.DivClausesR._proof_1, Formalism.L2.Indef.IndefData.D, Formalism.L2.DIV.height_chain_atR, Formalism.L2.DIV.DivInputsR, Formalism.EigenvalueLevelCeiling.ramw, Formalism.L2.DIV.DivInputs0R.biv, Formalism.HN.opNormAt._proof_5, Formalism.L2.DIV.DivInputs0R.constant_ge_twenty_eight, Formalism.DivisionValues.meanLog, Formalism.L2.Indef.DefBase.fJ, Formalism.L2.DIV.DivClausesR._proof_2, Formalism.L2.Indef.DefCols.a, Formalism.L2.DIV.ColChain.X, Formalism.DivisorInequality.boundsMu, Formalism.L2.DIV.RecNums.w, Formalism.L2.Indef.ColData.B, Formalism.L2.DIV.DivInputs0R.sg_fin, Formalism.L2.DIV.RecNums.m, Formalism.L2.Indef.SPer, Formalism.L2.Indef.IndefCoreR.extra]"
+    },
+    {
+     "name": "Formalism.L2.DIV.DivInputsR.mk",
+     "module": "Formalism",
+     "release_closure": 299,
+     "direct": "[Formalism.L2.DIV.DivInputsR, Formalism.L2.Indef.DefBase.fJ, Formalism.L2.Indef.DefCols.a, Formalism.L2.Indef.DefCols.Pt, Formalism.L2.Indef.SPer, Formalism.L2.DIV.DivInputsR.mk, Formalism.L2.Indef.DefBase, Formalism.L2.Indef.DefSide, Formalism.L2.DIV.RecNums, Formalism.L2.Indef.DefSide.Mt, Formalism.L2.Indef.IndefData.μ, Formalism.L2.DIV.DivInputs0R, Formalism.L2.Indef.IndefCoreR.cols, Formalism.L2.Indef.IndefCoreR, Formalism.L2.Indef.IndefColsR.toIndefData, Formalism.L2.Indef.DefSide.nV, Formalism.L2.Indef.DefBase.J, Formalism.L2.Indef.IndefNum, Formalism.L2.Indef.DefCols, Formalism.DivisionValues.vw, Formalism.L2.Indef.DefCols.Mem]"
+    }
+   ],
+   "named": 3,
+   "producers": 1
+  },
   "b1_progress": {
    "at": "2026-11-21T16:20:00Z",
    "built": 172118,
