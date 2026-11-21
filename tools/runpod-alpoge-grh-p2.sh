@@ -128,6 +128,15 @@ def roots : List Name := [`riemannHypothesis, `riemannZeta_eq_zero_re, `LFunctio
   IO.println s!"CENSUS axioms_in_closure={axiomsInClosure.toList}"
   IO.println s!"CENSUS false_typed_in_closure={falseInClosure.toList}"
   IO.println s!"CENSUS false_typed_anywhere_count={falseAnywhere.size} first={falseAnywhere.toList.take 20}"
+  -- NIELSEN (amendment A10, COMPUTED): which of the constants J. L. Nielsen's paper (20 Nov 2026) names are in the
+  -- compiled closure of the five theorems (her check 2: "Dependency walk"); matched by the last name component
+  let probes : List String := ["anyGeometry", "geoOf", "GeoCl", "geoDegenerate", "divXFl", "divEx_prov", "hExpl6",
+    "divClausesR_of", "exists_divStage_of_pk", "FrobeniusOrbitPlaceCount", "geoTied", "formsTieX", "geoOf_surf",
+    "degree_value_of_determinant", "degCh2_eq_zero", "linkDIV_at_words", "UnusedSlot72", "siegel_eisenstein_simple_pole",
+    "WeightCaseCondition", "zeroFreeOn_of_tiedWin_cyc", "zeroFree_of_rpow_window"]
+  for pr in probes do
+    let hits := seen.toList.filter (fun n => match n with | .str _ s => s == pr | _ => false)
+    IO.println s!"NIELSEN {pr} in_closure={hits.length} {(hits.take 6)}"
 EOF
 # the controls' modules (cert-machine's own, Mathlib only, written into the checkout's CertMachine library)
 cat > $W/src/CertMachine/ChallengeC1.lean <<'EOF'

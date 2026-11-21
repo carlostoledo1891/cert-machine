@@ -262,3 +262,18 @@ since 22:09 UTC, is stopped first; its pre-B1 challenge build is kept), both end
 runs there unchanged: B1V (`lake build` with its own exit status, which must not recompile anything copied) decides B1.
 The record names the host of every step. If the large pod cannot be created or its build fails, the checking pod's own
 B1 continues and nothing else changes.
+
+## Amendment A10 — J. L. Nielsen's paper (2026-11-21 ~02:20 UTC), before phase 2
+
+J. L. Nielsen, "The Invalidity of Alpöge's Proposed Proof of the Riemann Hypothesis" (PhilArchive NIEIOT-2,
+20 Nov 2026), reads the source and argues that the geometric and lattice witnesses on the route are vacuously true
+(`anyGeometry := True`, the degenerate model `divXFl` with the zero map `iMj` and `iMj_mem := Submodule.mem_top`, the
+height `ht := hExpl6 …` assigned so the height equation holds by `rfl`), concluding the proposed proof is invalid; her
+Appendix A grants that the paper does not show the term fails to typecheck. Checked here against the pinned archive:
+`anyGeometry`, `divXFl`'s zero map and `ht := DV.hExpl6 …` are as she quotes. Added, COMPUTED (her check 2,
+"Dependency walk"): the census lists which of the constants her paper names lie in the compiled closure of the five
+theorems (NIELSEN lines of CEN.out). Her check 1 (independent kernel replay) is K2 here and is in Sutherland's record.
+The record's reading: the degenerate witnesses are a confirmed finding about the route's named structure; that the
+release "has not been shown to contain any proof of the Riemann Hypothesis" is not what a kernel acceptance of a closed
+term of Mathlib's `RiemannHypothesis` on the three standard axioms says — the record reports both, and her paper is
+credited.
