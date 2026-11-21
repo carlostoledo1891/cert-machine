@@ -231,3 +231,12 @@ Adopted from the third reading (each confirmed in the code here):
   (`tendsto_Ncount_zero_atTop`, Zeta23/Main.lean). (3) Masullo: ReadingQ would give, on every window with
   0 ≤ T₁ < T₂, N₀ˢ = N_d = N for each normalized primitive character — one double zero at a positive ordinate would
   refute the reading while remaining compatible with RH and the bridge.
+
+## Amendment A7 — the operator's answers after MIT's record (2026-11-21 ~02:40 UTC)
+
+- **V is dropped** (the operator: "Drop it"). Sutherland's record and this run are two independent replications; RB
+  (our compiled bytes against his published manifest) takes V's place as the cross-host evidence. The V row reads
+  REFUSED with the reason "not run: dropped on the operator's word (A7)"; tools/runpod-alpoge-grh-verifier*.sh stay in
+  the repository, unused.
+- **Positioning** (the operator: "Second replication + extras"): the page leads with Sutherland's record, then what
+  this one adds that his does not state — the planted-defect controls, SPEC, the two bridges, the route reading and RB.

@@ -165,7 +165,7 @@ def derive(run):
     vlog = rd(vr, '_phase.log', '') if vr else ''
     rows.append(row('V', 'CERTIFIED' if vlog and 'V CERTIFIED by its gates' in vlog and 'STOPPED' not in vlog else 'REFUSED',
                     'the clean verifier passed every gate (challenge built there first, nothing rebuilt, five axiom reports, C1 rejected, both kernels accept)'
-                    if vlog and 'V CERTIFIED by its gates' in vlog and 'STOPPED' not in vlog else ('the clean verifier stopped: ' + [l for l in vlog.splitlines() if 'STOPPED' in l][0] if 'STOPPED' in (vlog or '') else 'the clean verifier has not run')))
+                    if vlog and 'V CERTIFIED by its gates' in vlog and 'STOPPED' not in vlog else ('the clean verifier stopped: ' + [l for l in vlog.splitlines() if 'STOPPED' in l][0] if 'STOPPED' in (vlog or '') else 'not run: dropped on the operator\'s word (amendment A7); RB is the cross-host evidence')))
     sd = os.path.join(os.path.dirname(base), 'runs-spec')
     sax = rd(sd, 'spec-axioms.out', '') if os.path.isdir(sd) else ''
     sok = sax.count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 2 and 'exit 0' in (rd(sd, 'spec-compile.out', '') or '')
