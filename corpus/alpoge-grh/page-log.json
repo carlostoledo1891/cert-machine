@@ -1,6 +1,15 @@
 {
  "what": "Every published update of /reports/alpoge-grh.html, newest last. The page prints the newest entry as its 'last updated' line and the list as its change log; its builder refuses to build when the newest entry's count of checks done differs from the record's, so every public update of the count carries a dated line here.",
  "entries": [
-  { "at": "2026-11-21T03:39Z", "done": 10, "what": "First published, as a draft: the archive, the source scan, the readings, the Lean proof that the statement is the textbook RH, the August release re-checked and the bridges compiled are done; the build and the remaining checks are running." }
+  {
+   "at": "2026-11-21T03:39Z",
+   "done": 10,
+   "what": "First published, as a draft: the archive, the source scan, the readings, the Lean proof that the statement is the textbook RH, the August release re-checked and the bridges compiled are done; the build and the remaining checks are running."
+  },
+  {
+   "at": "2026-11-21T13:03Z",
+   "done": 11,
+   "what": "A release timeline at the top, and a title that says what is done and what is next. Amendment A12 adds three checks, each fixed before it runs: a third kernel (con-leche), a re-check on a clean machine, and CHAR, the textbook statements with ζ and the L-functions defined by their series, proved equivalent to the release’s (done). The rule files were submitted for an OpenTimestamps timestamp (its Bitcoin confirmation pending). Two rows now need their own output to count as computed (an outside reading). The build stood at 141,087 of 175,187 files with no error."
+  }
  ]
 }

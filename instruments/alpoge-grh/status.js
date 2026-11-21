@@ -37,12 +37,15 @@ const WHEEL = [
     { id: 'A1', k: W.DECIDED, t: 'Only the standard axioms', d: 'The five theorems rest on propext, Classical.choice and Quot.sound, and nothing else.' },
     { id: 'K2', k: W.DECIDED, t: 'A second kernel agrees', d: 'nanoda, a checker written independently in Rust, re-checks the whole exported proof.' },
     { id: 'KR', k: W.DECIDED, t: 'Lean replays its own proof', d: 'Lean’s checker replays every declaration in a fresh environment.' },
+    { id: 'K3', k: W.DECIDED, t: 'A third kernel agrees', d: 'con-leche, a third independently written checker, re-checks the export and matches it against our statement again.' },
+    { id: 'CR', k: W.DECIDED, t: 'A clean machine agrees', d: 'On a fresh machine that never ran the release’s code, two kernels re-check the exported proof against a statement built there.' },
     { id: 'RB', k: W.COMPUTED, t: 'Two builds compared', d: 'Our compiled files compared byte for byte with Andrew Sutherland’s independent build.' }
   ] },
   { g: 'The statement', items: [
     { id: 'S1', k: W.DECIDED, t: 'The theorem is the one we wrote down', d: 'Lean’s judge, Comparator, matches the five theorems against our own statement file, which imports Mathlib only.' },
     { id: 'F1', k: W.CHOSEN, t: 'Mathlib’s RH is the classical RH', d: 'Read twice, by two model families: every nontrivial zero of ζ has real part 1/2.', fixed: 'read' },
     { id: 'SPEC', k: W.DECIDED, t: 'Proved: it is the textbook statement', d: 'A Lean proof that Mathlib’s definition is equivalent to “every zero in the critical strip lies on the critical line”.' },
+    { id: 'CHAR', k: W.DECIDED, t: 'Proved: ζ and L as the textbook defines them', d: 'A Lean proof that the statements stay the same when ζ and the L-functions are defined by their series, not by Mathlib’s definitions.' },
     { id: 'F2', k: W.CHOSEN, t: 'GRH here means Dirichlet L-functions', d: 'Read twice: every modulus, every character; not other number fields.', fixed: 'read' },
     { id: 'C1-C5', k: W.DECIDED, t: 'The judges catch planted errors', d: 'Five wrong versions — a changed constant, a smuggled axiom, a missing proof, a hijacked definition, a corrupted proof — must all be rejected.' }
   ] },
@@ -51,13 +54,15 @@ const WHEEL = [
     { id: 'BRc+MB', k: W.DECIDED, t: 'The bridges compile', d: 'Given RH, the August bounds move onto the critical line; and Masullo’s claim, as we read it, implies this release’s.' },
     { id: 'BRu', k: W.DECIDED, t: 'The two releases combine', d: 'One environment holds both proofs; the combined statements pass Comparator.' },
     { id: 'ROUTE', k: W.CHOSEN, t: 'The route inside the proof was read', d: 'From Main.lean down, by Astra 6.2: RH from Dirichlet nonvanishing and ζ’s functional equation.', fixed: 'read' },
-    { id: 'NIELSEN', k: W.COMPUTED, t: 'What the proof term really uses', d: 'Which constants named in J. L. Nielsen’s critique are in the compiled proof.', fixedFrom: 'census' },
-    { id: 'WORDFACTS', k: W.COMPUTED, t: 'Where the content lives', d: 'The sub-proofs that feed the two key inequalities, traced in the compiled term.', fixedFrom: 'census' }
+    { id: 'NIELSEN', k: W.COMPUTED, t: 'What the proof term really uses', d: 'Which constants named in J. L. Nielsen’s critique are in the compiled proof.', fixedFrom: 'nielsen' },
+    { id: 'WORDFACTS', k: W.COMPUTED, t: 'Where the content lives', d: 'The sub-proofs that feed the two key inequalities, traced in the compiled term.', fixedFrom: 'wordfacts' }
   ] }
 ];
 function stOf(it) {
   if (it.fixed) return it.fixed;
-  if (it.fixedFrom === 'census') return nielsenRan ? 'computed' : 'pending';
+  /* each computed row needs its OWN output, not merely a census that ran (an outside reading, 2026-11-21) */
+  if (it.fixedFrom === 'nielsen') return Object.keys((R.computed && R.computed.nielsen) || {}).length > 0 ? 'computed' : 'pending';
+  if (it.fixedFrom === 'wordfacts') { const wf = (R.computed && R.computed.wordfacts) || {}; return (wf.targets || []).length > 0 && wf.named !== undefined ? 'computed' : 'pending'; }
   return status(it.id);
 }
 const ALL = WHEEL.flatMap((g) => g.items.map((it) => Object.assign({ g: g.g, st: stOf(it) }, it)));

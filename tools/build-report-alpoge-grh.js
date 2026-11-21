@@ -43,7 +43,7 @@ const LAST = LOG[LOG.length - 1].at.replace('T', ' ').replace('Z', ' UTC');
 
 /* ---------------------------------------------------------------- HERO: the wheel */
 function figWheel(w, narrow) {
-  const h = narrow ? 500 : 520, cx = narrow ? w / 2 : 300, cy = narrow ? 172 : 260, r = narrow ? 128 : 168, sw = narrow ? 22 : 28;
+  const h = narrow ? 500 : Math.max(520, 34 + WHEEL.length * 27 + ALL.length * 17 + 36), cx = narrow ? w / 2 : 300, cy = narrow ? 172 : 260, r = narrow ? 128 : 168, sw = narrow ? 22 : 28;
   const o = [CH.open({ w, h, alt: 'A ring of ' + ALL.length + ' arcs, one per check, in four groups: the bytes, the build and the kernels, the statement, the context. Solid arcs are decided, dashed are computed, dotted are readings; grey arcs are still running. In the centre the theorem’s name and the count of checks done.' })];
   const n = ALL.length, gap = 0.035, gGap = 0.09, groups = WHEEL.length;
   const per = (2 * Math.PI - groups * gGap - (n - groups) * gap) / n;
@@ -398,18 +398,70 @@ function figBridge(w, narrow) {
 const dual = (wide, narrow) => '<div class="dual"><div class="hv-w">\n' + wide + '\n</div><div class="hv-n">\n'
   + narrow.replace(/id="([\w-]+)"/g, 'id="$1-n"').replace(/url\(#([\w-]+)\)/g, 'url(#$1-n)') + '\n</div></div>';
 
+/* ---------------------------------------------------------------- the release timeline (hero, while the run is a draft)
+   Every state is read from the ring's checks (status.js); the build's count is the record's computed.b1_progress, a count
+   pulled from the pod; the one projection on the page (the build's end) is labelled "projected" and set in italics, so a
+   projected time never reads like a decided one. */
+/* the timestamp's state, read from the proof file itself: a Bitcoin block-header attestation, or only calendar ones */
+const OTS_BTC = fs.readFileSync(path.join(ROOT, DIR + 'timestamps/rules-2026-11-21.txt.ots')).includes(Buffer.from('0588960d73d71901', 'hex'));
+const PRE = fs.readFileSync(path.join(ROOT, 'notes', 'alpoge-grh-preregistration-2026-11-20.md'), 'utf8');
+const AMENDMENTS = (PRE.match(/^## Amendment A\d+/gm) || []).length;
+const B1P = (R.computed && R.computed.b1_progress) || {};
+const hhmm = (iso) => iso.slice(11, 16) + ' UTC';
+function timeline() {
+  const STAGES = [
+    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs — ' + AMENDMENTS + ' dated amendments since.' },
+    { t: 'Files and statement', rows: ['I1', 'I2', 'SCAN', 'M1', 'F1', 'F2', 'SPEC', 'CHAR', 'ROUTE', 'P0', 'BRc+MB'], d: 'The announced files, no shortcut in the source, and the theorem proved to be the textbook RH.' },
+    { t: 'The build', rows: ['B1', 'MI', 'RB'], d: 'Lean compiles all 175,187 files; its kernel checks every step on the way.' },
+    { t: 'Axioms, judge, planted errors', rows: ['A1', 'S1', 'C1-C5', 'NIELSEN', 'WORDFACTS'], d: 'What the proof rests on, whether it states exactly our statement, and five planted errors that must be caught.' },
+    { t: 'Three kernels', rows: ['K2', 'KR', 'K3'], d: 'nanoda, Lean’s own replay and con-leche each re-check the whole proof.' },
+    { t: 'Clean machine, bridge', rows: ['CR', 'BRu'], d: 'A machine that never ran the release re-checks it; the August proof and this one combined.' },
+    { t: 'The full verification', rows: [], final: true, d: 'Every verdict, the gaps first, and a kit to re-run all of it yourself.' }
+  ];
+  const stOfId = (id) => (ALL.find((z) => z.id === id) || { st: status(id) }).st;
+  let nowSeen = false;
+  const st = STAGES.map((S) => {
+    if (S.final) return pending.length === 0 && FINAL ? 'done' : 'planned';
+    if (!S.rows.length) return 'done';
+    if (S.rows.every((id) => stOfId(id) !== 'pending')) return 'done';
+    if (!nowSeen) { nowSeen = true; return 'now'; }
+    return 'next';
+  });
+  const WORDS = { done: 'done', now: 'running now', next: 'next', planned: 'when every check has a verdict' };
+  let prog = '';
+  const bi = 2;
+  if (st[bi] === 'now' && B1P.built && stOfId('B1') === 'pending') {
+    const pct = Math.floor(100 * B1P.built / B1P.of);
+    const mins = (Date.parse(B1P.at) - Date.parse(B1P.started)) / 60000, rate = B1P.built / mins;
+    const eta = new Date(Date.parse(B1P.at) + (B1P.of - B1P.built) / rate * 60000).toISOString();
+    prog = '<div class="tl-bar" role="img" aria-label="' + C.escAttr(pct + '% of the files compiled') + '"><span style="width:' + pct + '%"></span></div>'
+      + '<p class="tl-count"><b>' + N(B1P.built) + '</b> of ' + N(B1P.of) + ' files compiled at ' + C.esc(hhmm(B1P.at)) + ' · ' + B1P.failed + ' errors · ' + B1P.sorry + ' sorry</p>'
+      + '<p class="tl-proj">projected end of the build: about ' + C.esc(hhmm(eta)) + ', at its average pace so far (' + Math.round(rate) + ' files a minute)</p>';
+  }
+  return '<section class="tl" aria-label="The release timeline"><div class="tl-head"><span class="tl-k">Building the full verification</span>'
+    + '<span class="tl-sub">' + C.esc(done.length + ' of ' + ALL.length + ' checks done. Results land on this page as each check finishes; the full record goes out when the last one has a verdict.') + '</span></div>'
+    + '<ol class="tl-rail">' + STAGES.map((S, i) => '<li class="tl-step tl-' + st[i] + '"><span class="tl-dot" aria-hidden="true"></span>'
+      + '<span class="tl-n">' + (i + 1) + '</span><span class="tl-t">' + C.esc(S.t) + '</span><span class="tl-st">' + C.esc(WORDS[st[i]]) + '</span>'
+      + '<span class="tl-d">' + C.esc(S.d) + '</span>' + (i === bi ? prog : '') + '</li>').join('') + '</ol></section>';
+}
+
 /* ---------------------------------------------------------------- the page */
-const TITLE = 'Alpöge’s Lean proof of the Riemann Hypothesis, checked';
+const TITLE_FINAL = 'Alpöge’s Lean proof of the Riemann Hypothesis, checked';
+const TITLE_DRAFT = 'Alpöge’s Lean proof of RH: the right statement. Now, the proof.';
+const TITLE = pending.length ? TITLE_DRAFT : TITLE_FINAL;
 const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ''),
   title: TITLE,
   deck: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis, made with Claude and released only as a computer proof: 175,187 files of Lean, a language in which a small program, the kernel, checks every step. '
-    + 'Here is everything we checked about it, in plain words: that the files are the announced ones, that they compile, that the theorem says exactly what mathematicians mean by RH, that several independent checkers accept the proof, and that those checkers do catch errors we planted. '
+    + (pending.length
+      ? 'Done: the files are the announced ones, and Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib. Running now: the replay of every file, the statement judge, three kernels (two of them written independently of Lean) and five planted errors the checkers must catch. '
+      : 'Here is everything we checked about it, in plain words: that the files are the announced ones, that they compile, that the theorem says exactly what mathematicians mean by RH, that several independent checkers accept the proof, and that those checkers do catch errors we planted. ')
     + 'What a computer check cannot tell you is said just as plainly.'
 }));
-O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are still running. Every check and the rule that decides it were published before any of them ran. This page rebuilds from the record as results arrive.') + '</p>' : '')
+O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are still running. Every check and the rule that decides it were published before that check ran. This page rebuilds from the record as results arrive.') + '</p>' : '')
   + '<p class="upd">Last updated ' + C.esc(LAST) + ' · <a href="#changes">changes to this page</a></p></div>');
+if (pending.length) O.push('<div class="wide">' + timeline() + '</div>');
 O.push(C.figure({ hero: true, svgRaw: figWheel(900, false), svgNarrowRaw: figWheel(360, true), record: [REC, DIR + 'readings.json', DIR + 'route-reading.json'],
   caption: 'Every check on this page, as one ring. Each arc is one check; hover or tap it for what it is. Solid arcs are decided by a program; dashed arcs are counts and comparisons computed by a program; dotted arcs are careful readings by a person or a model, which no program decides. Grey arcs are still running.',
   stop: 'a check drawn as done is not done in the record' }));
@@ -427,7 +479,8 @@ O.push(C.section({ lab: '1 · what is claimed', title: 'One sentence about where
   '<div class="col">' + C.plainList([
     { b: 'The Riemann Hypothesis.', text: 'The zeta function ζ(s) is zero at s = −2, −4, −6, … (the “trivial” zeros) and at infinitely many other points, all inside the vertical band 0 < Re s < 1. RH says all those other zeros lie exactly on the middle line, Re s = 1/2. It controls how evenly the primes are spread.' },
     { b: 'What the proof states.', raw: C.esc('The headline theorem is ') + '<span class="m">riemannHypothesis : RiemannHypothesis</span>' + C.esc(', where RiemannHypothesis is Mathlib’s own definition, written years before this proof: every zero of ζ, except the trivial ones and the point s = 1, has real part 1/2.') },
-    { b: 'Is that really RH?', text: 'Two readers from two model families say yes. More: we wrote RH a second way, the textbook way (“every zero in the critical strip has real part 1/2”), and proved in Lean that the two statements are equivalent. That turns a reading into a proof.' }
+    { b: 'Is that really RH?', text: 'Two readers from two model families say yes. More: we wrote RH a second way, the textbook way (“every zero in the critical strip has real part 1/2”), and proved in Lean that the two statements are equivalent. That turns a reading into a proof.' },
+    { b: 'Even without Mathlib’s ζ.', text: 'One step further: we defined ζ and the L-functions the way a textbook does — the functions given by the series 1 + 2^−s + 3^−s + … (and χ(n)·n^−s) that continue smoothly to the rest of the plane — and proved in Lean that the release’s statements say exactly the same thing about them' + (status('CHAR') === 'decided' ? '.' : ' (running).') + ' The statement no longer depends on how Mathlib happens to define ζ.' }
   ]) + '</div>'
   + '<div class="wide zp-wrap">' + planeButtons + '</div>'
   + C.figure({ svgRaw: dual(figPlane(900, false), figPlane(360, true)), record: ['instruments/alpoge-grh/spec/Spec.lean', DIR + 'runs-spec/spec-axioms.out', DIR + 'readings.json'],
@@ -488,7 +541,7 @@ O.push(C.section({ lab: '4 · every check', title: 'The ' + ALL.length + ' check
   + plantedCards()
   + '<div class="wide"><details class="more"><summary>All ' + ALL.length + ' checks, one by one</summary>' + C.table({ cols: [{ h: 'Check' }, { h: 'Group' }, { h: 'State' }, { h: 'What it means' }], rows: TABROWS }) + '</details></div>'
   + '<div class="col">' + C.plainList([
-    { b: 'Written down first.', raw: C.esc('Every check and the rule that decides it were committed in public before any of them ran, and every later change is dated: ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (eleven amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
+    { b: 'Written down first.', raw: C.esc('Every check and the rule that decides it were committed in public before that check ran, and every later change is dated: ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
     { b: 'Attacked three times.', text: 'Astra 6.2, a model from another family, red-teamed the plan three times. Its first round found a real defect in our own setup — the judge was configured to accept any body for four definitions — fixed before anything ran.' }
   ]) + '</div>' }));
 
@@ -503,7 +556,7 @@ O.push(C.section({ lab: '5 · inside the proof', title: 'What carries the conclu
     stop: 'a quoted line no longer matches the pinned archive' })
   + '<div class="col">' + C.plainList([
     { b: 'J. L. Nielsen’s critique.', raw: C.esc('A paper posted the same day, ') + a('https://philarchive.org/rec/NIEIOT-2', 'The Invalidity of Alpöge’s Proposed Proof of the Riemann Hypothesis') + C.esc(', reads the source and finds the vacuous geometric and lattice witnesses above, and a height set equal to its own formula. We confirmed each quote in the pinned files. Our verdict on that point: the geometric interpretation of this step remains unverified. The paper’s title goes further than its analysis: the formal theorem is decided by the kernels, not by the names, and the paper’s own appendix grants that the proof term may well check.') },
-    { b: 'The question that remains.', text: 'The height enters with two inequalities supplied separately, derived from about forty matrix-norm, covolume and valuation estimates. Whether those estimates are where the argument really lives — and what they mean — is a question for number theorists, not for a kernel. We trace, in the compiled proof, which sub-proofs feed them' + (nielsenRan ? '.' : ' (running).') }
+    { b: 'The question that remains.', text: 'The height enters with two inequalities supplied separately, derived from about forty matrix-norm, covolume and valuation estimates. Whether those estimates are where the argument really lives — and what they mean — is a question for number theorists, not for a kernel. We trace, in the compiled proof, which sub-proofs feed them' + (ALL.find((z) => z.id === 'WORDFACTS').st === 'computed' ? '.' : ' (running).') }
   ]) + '</div>' }));
 
 /* 6 · bridges */
@@ -525,14 +578,16 @@ O.push(C.section({ lab: 'credits', title: 'Whose work this uses', id: 'credits',
   { b: 'The August release.', raw: a('https://github.com/anthropics/formal-math', 'anthropics/formal-math') + C.esc(', zeta23: Levent Alpöge and Ralph Furman, Claude, and the team that formalized it in Lean.') },
   { b: 'Masullo’s draft.', text: 'Alessandro Maria Masullo, “The Music of the Primes”, posted by Ravi Vakil; reviewed by Brian Conrad.' },
   { b: 'The venue.', raw: C.esc('Terence Tao’s ') + a('https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/', 'post of 20 November') + C.esc(' and the Lean Zulip thread it names.') },
-  { b: 'The tools.', text: 'Lean and Lake, Mathlib; Comparator and lean4export (Lean FRO); nanoda (ammkrn); landrun.' }
+  { b: 'The tools.', text: 'Lean and Lake, Mathlib; Comparator, lean4export and con-leche (Lean FRO); nanoda (ammkrn); landrun; OpenTimestamps.' }
 ]) }));
 
 /* 8 · check it yourself */
 O.push(C.section({ lab: 'check it yourself', title: 'How to re-run it', id: 'rerun', bodyRaw: C.plainList([
+  { b: 'One command.', raw: C.esc('The kit in ') + rec('instruments/alpoge-grh/rerun/README.md') + C.esc(' runs the same scripts in the same order on a Linux machine of your own, and compares your verdicts with ours, check by check.') },
   { b: 'The record.', raw: rec(REC) + C.esc(', re-derived from the machine’s logs by ') + rec('tools/check-alpoge-grh.py') + C.esc(' (') + '<span class="m">--check</span>' + C.esc(').') },
-  { b: 'The machine’s scripts.', raw: rec('tools/runpod-alpoge-grh-p1.sh') + C.esc(' (fetch, statement file, build), ') + rec('tools/runpod-alpoge-grh-p2.sh') + C.esc(' (axioms, census, judge, controls, kernels) and ') + rec('tools/runpod-alpoge-grh-p3-bridge.sh') + C.esc(' (the bridge).') },
-  { b: 'Our statement file and the proofs we wrote.', raw: rec('instruments/alpoge-grh/Challenge.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Spec.lean') + C.esc(' and ') + rec('instruments/alpoge-grh/bridge/CertMachine') + C.esc('.') }
+  { b: 'The machine’s scripts.', raw: rec('tools/runpod-alpoge-grh-p1.sh') + C.esc(' (fetch, statement file, build), ') + rec('tools/runpod-alpoge-grh-p2.sh') + C.esc(' (axioms, census, judge, controls, kernels) and ') + rec('tools/runpod-alpoge-grh-p3-bridge.sh') + C.esc(' (the bridge), ') + rec('tools/runpod-alpoge-grh-p4.sh') + C.esc(' (con-leche) and ') + rec('tools/runpod-alpoge-grh-clean.sh') + C.esc(' (the clean machine).') },
+  { b: 'Our statement file and the proofs we wrote.', raw: rec('instruments/alpoge-grh/Challenge.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Spec.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Textbook.lean') + C.esc(' and ') + rec('instruments/alpoge-grh/bridge/CertMachine') + C.esc('.') },
+  { b: 'The rules, timestamped.', raw: rec(DIR + 'timestamps/rules-2026-11-21.txt') + C.esc(' lists the checksum of every rule file; its OpenTimestamps proof (') + rec(DIR + 'timestamps/rules-2026-11-21.txt.ots') + C.esc(OTS_BTC ? ') anchors it in Bitcoin, so anyone can confirm the rules existed before the results.' : ') was submitted to four OpenTimestamps calendars on 21 November, before the judges and kernels reported; its Bitcoin confirmation was still pending at this update.') }
 ]) }));
 
 O.push(C.section({ lab: 'changes', title: 'Changes to this page', id: 'changes', bodyRaw: C.plainList(LOG.slice().reverse().map((e) => ({ b: e.at.replace('T', ' ').replace('Z', ' UTC') + '.', text: e.what + (e.done !== undefined ? ' (' + e.done + ' of ' + ALL.length + ' checks done.)' : '') }))) }));
@@ -566,6 +621,32 @@ const SCRIPT = CH.script() + `<script>
 })();
 </script>`;
 const STYLE = `
+.tl{margin:var(--s-4) 0 var(--s-2);border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule-strong);padding:var(--s-4) 0 var(--s-5);}
+.tl-head{display:flex;flex-direction:column;gap:var(--s-1);margin-bottom:var(--s-4);}
+.tl-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink);font-weight:bold;}
+.tl-sub{font-size:var(--text-small);color:var(--ink-2);}
+.tl-rail{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 var(--s-3);}
+.tl-step{position:relative;display:flex;flex-direction:column;gap:var(--s-1);padding-top:var(--s-5);min-width:0;}
+.tl-step::before{content:"";position:absolute;left:0;right:calc(-1 * var(--s-3));top:calc(var(--s-2) - 1px);height:2px;background:var(--rule);}
+.tl-step:last-child::before{right:0;}
+.tl-done::before{background:var(--sig);}
+.tl-dot{position:absolute;left:0;top:0;width:16px;height:16px;border-radius:50%;box-sizing:border-box;border:2px solid var(--rule-strong);background:var(--surface);z-index:1;}
+.tl-done .tl-dot{background:var(--sig);border-color:var(--sig);}
+.tl-now .tl-dot{border-color:var(--sig);animation:tlPulse calc(var(--dur-slow) * 4) ease-in-out infinite;}
+@keyframes tlPulse{0%,100%{box-shadow:0 0 0 0 var(--sig-soft)}50%{box-shadow:0 0 0 6px var(--sig-soft)}}
+.tl-n{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);}
+.tl-t{font-weight:bold;font-size:var(--text-body);color:var(--ink);line-height:var(--leading-snug);}
+.tl-st{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);}
+.tl-done .tl-st{color:var(--sig);}
+.tl-now .tl-st{color:var(--ink);font-weight:bold;}
+.tl-d{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-2);}
+.tl-next .tl-t,.tl-planned .tl-t{color:var(--ink-2);}
+.tl-bar{height:6px;border-radius:var(--radius-pill);background:var(--mark);overflow:hidden;margin-top:var(--s-1);}
+.tl-bar span{display:block;height:100%;background:var(--sig);border-radius:var(--radius-pill);}
+.tl-count{margin:var(--s-1) 0 0;font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink);line-height:var(--leading-snug);}
+.tl-proj{margin:var(--s-1) 0 0;font-size:var(--text-eyebrow);font-style:italic;color:var(--ink-3);line-height:var(--leading-snug);}
+@media(max-width:980px){.tl-rail{grid-template-columns:1fr;gap:0}.tl-step{padding:0 0 var(--s-4) var(--s-6)}.tl-step::before{left:calc(var(--s-2) - 1px);right:auto;top:var(--s-4);bottom:0;width:2px;height:auto}.tl-step:last-child::before{display:none}}
+@media(prefers-reduced-motion:reduce){.tl-now .tl-dot{animation:none}}
 .upd{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.04em;color:var(--ink-3);margin:.3rem 0 0;}
 .draft-note{border-left:3px solid var(--warn);padding:.4rem .8rem;color:var(--ink-2);background:var(--warn-soft);border-radius:4px;}
 .wh-seg,.wh-track{animation:whIn .8s ease both;}
