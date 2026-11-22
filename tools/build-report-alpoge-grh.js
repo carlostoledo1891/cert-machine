@@ -407,16 +407,27 @@ const dual = (wide, narrow) => '<div class="dual"><div class="hv-w">\n' + wide +
 const OTS_BTC = fs.readFileSync(path.join(ROOT, DIR + 'timestamps/rules-2026-11-21.txt.ots')).includes(Buffer.from('0588960d73d71901', 'hex'));
 const PRE = fs.readFileSync(path.join(ROOT, 'notes', 'alpoge-grh-preregistration-2026-11-20.md'), 'utf8');
 const AMENDMENTS = (PRE.match(/^## Amendment A\d+/gm) || []).length;
+/* the amendments written after the result they change are marked AFTER in their own heading; the page names them */
+const AFTER = (PRE.match(/^## Amendment A\d+[^\n]*\bAFTER\b/gm) || []).map((h) => h.match(/A\d+/)[0]);
+const SMALL = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const nw = (n) => SMALL[n] || String(n);
+const AFTER_WORDS = AFTER.length
+  ? (AFTER.length === 1 ? 'one later amendment (' + AFTER[0] + ') changed' : nw(AFTER.length) + ' later amendments (' + AFTER.join(', ') + ') changed') + ' how a result is read after it was seen, and say so'
+  : '';
 const B1P = (R.computed && R.computed.b1_progress) || {};
 const hhmm = (iso) => iso.slice(11, 16) + ' UTC';
 function timeline() {
   const STAGES = [
-    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs. ' + AMENDMENTS + ' dated amendments since, each before the run it changes: they add or tighten checks; one check was dropped (A7).', link: GH + 'notes/alpoge-grh-preregistration-2026-11-20.md' },
+    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs. ' + AMENDMENTS + ' dated amendments since. '
+      + (AFTER.length ? 'All but ' + nw(AFTER.length) + ' came before the run they change; ' + AFTER_WORDS + '. ' : 'Each came before the run it changes. ')
+      + 'They add or tighten checks; one check was dropped at the start (A7)' + (status('BRu') === 'refused' ? ', and the combination of the two releases was closed for cost (A21).' : '.'), link: GH + 'notes/alpoge-grh-preregistration-2026-11-20.md' },
     { t: 'Files and statement', rows: ['I1', 'I2', 'SCAN', 'M1', 'F1', 'F2', 'SPEC', 'CHAR', 'ROUTE', 'P0', 'BRc+MB'], d: 'The announced files, no shortcut in the source, and the theorem proved to be the textbook RH.' },
     { t: 'The build', rows: ['B1', 'MI', 'RB'], d: 'Lean compiles all 175,187 files; its kernel checks every step on the way.' },
     { t: 'Axioms, judge, planted errors', rows: ['A1', 'S1', 'C1-C5', 'NIELSEN', 'WORDFACTS'], d: 'What the proof rests on, whether it states exactly our statement, and five planted errors that must be caught.' },
     { t: 'Three kernels', rows: ['K2', 'KR', 'K3'], d: 'nanoda, Lean’s own replay and con-leche each re-check the whole proof.' },
-    { t: 'Clean machine, bridge', rows: ['CR', 'BRu'], d: 'A machine that never ran the release re-checks it; the August proof and this one combined.' },
+    { t: 'A clean machine', rows: ['CR'], d: 'A machine that never ran Alpöge’s code receives only the exported proof, builds its own checkers and its own copy of the statements, and checks the five theorems again.' },
+    { t: 'The two releases combined', rows: ['BRu'], d: 'The August proof and this one in one environment, so that RH is no longer a hypothesis there. '
+      + (status('BRu') === 'refused' ? 'Not run: closed for cost before the statement judge reported (A21). The August bound with RH as a hypothesis is proved and checked (step 2).' : '') },
     { t: 'The full verification', rows: [], final: true, d: 'Every verdict, the gaps first, and a kit to re-run all of it yourself.' }
   ];
   const stOfId = (id) => (ALL.find((z) => z.id === id) || { st: status(id) }).st;
@@ -424,11 +435,13 @@ function timeline() {
   const st = STAGES.map((S) => {
     if (S.final) return pending.length === 0 && FINAL ? 'done' : 'planned';
     if (!S.rows.length) return 'done';
+    /* a step whose checks were refused is not done: it says so, in the grey of a step not reached (no new colour) */
+    if (S.rows.every((id) => stOfId(id) !== 'pending') && S.rows.some((id) => ['refused', 'refuted'].includes(stOfId(id)))) return 'refused';
     if (S.rows.every((id) => stOfId(id) !== 'pending')) return 'done';
     if (!nowSeen) { nowSeen = true; return 'now'; }
     return 'next';
   });
-  const WORDS = { done: 'done', now: 'running now', next: 'next', planned: 'when every check has a verdict' };
+  const WORDS = { done: 'done', now: 'running now', next: 'next', planned: 'when every check has a verdict', refused: 'refused' };
   let prog = '';
   const bi = 2;
   if (st[bi] === 'now' && B1P.built && stOfId('B1') === 'pending') {
@@ -450,17 +463,34 @@ function timeline() {
 const TITLE_FINAL = 'Alpöge’s Lean proof of the Riemann Hypothesis, checked';
 const TITLE_DRAFT = 'Alpöge’s Lean proof of RH and GRH: the right statements. Now, the proof.';
 const TITLE = pending.length ? TITLE_DRAFT : TITLE_FINAL;
+/* the draft's opening, read from the record: the strongest decided result first, then what is done, what is still
+   running and what was not run. Each clause appears only when its checks are in that state. */
+const DECK_DRAFT = (() => {
+  const d = (id) => status(id) === 'decided';
+  const s = [];
+  if (d('CR')) s.push('The strongest result so far: a machine that never ran Alpöge’s code was given only the exported proof, built its own checkers and its own copy of the statements, and confirmed the five theorems. nanoda accepted the proof there, and con-leche named each theorem the proof justifies. ');
+  const also = ['the files are the announced ones', d('B1') ? 'all of them compile' : null,
+    'Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib',
+    d('K2') && d('KR') && d('K3') ? 'three kernels accept the proof, one of them Lean’s own replay from an empty environment' : null].filter(Boolean);
+  s.push((d('CR') ? 'Also done: ' : 'Done: ') + also.join('; ') + '. ');
+  const run = [status('S1') === 'pending' ? 'the statement judge Comparator' : null,
+    status('C1-C5') === 'pending' ? 'the last of the five planted errors, ½ changed to ⅓, through that judge (con-leche already rejects it, and the other four were caught)' : null].filter(Boolean);
+  if (run.length) s.push('Still running: ' + run.join(', and ') + '. ');
+  if (status('BRu') === 'refused') s.push('Not run: the combination with the August release, closed for cost. ');
+  s.push('If the last checks pass, independent checkers will have accepted a proof of exactly the textbook statements; understanding why the argument works remains a task for mathematicians. ');
+  return s.join('');
+})();
 const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ''),
   title: TITLE,
   deck: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, made with Claude and released only as a computer proof: 175,187 files of Lean, a language in which a small program, the kernel, checks every step. '
     + (pending.length
-      ? 'Done: the files are the announced ones, and Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib. Running now: the replay of every file, the statement judge, three kernels (two of them written independently of Lean) and five planted errors the checkers must catch. If every check passes, independent checkers will have accepted a proof of exactly the textbook statements; understanding why the argument works remains a task for mathematicians. '
+      ? DECK_DRAFT
       : 'Here is everything we checked about it, in plain words: that the files are the announced ones, that they compile, that the theorem says exactly what mathematicians mean by RH, that several independent checkers accept the proof, and that those checkers do catch errors we planted. ')
     + 'What a computer check cannot tell you is said just as plainly.'
 }));
-O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are still running. Every check and the rule that decides it were published before that check ran. This page rebuilds from the record as results arrive.') + '</p>' : '')
+O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are still running. Every check and the rule that decides it were published before that check ran' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '. This page rebuilds from the record as results arrive.') + '</p>' : '')
   + '<p class="upd">Last updated ' + C.esc(LAST) + ' · <a href="#changes">changes to this page</a></p></div>');
 if (pending.length) O.push('<div class="wide">' + timeline() + '</div>');
 O.push(C.figure({ hero: true, svgRaw: figWheel(900, false), svgNarrowRaw: figWheel(360, true), record: [REC, DIR + 'readings.json', DIR + 'route-reading.json'],
@@ -539,12 +569,12 @@ O.push(C.section({ lab: '3 · how a computer checks it', title: 'Seven steps, ea
 /* 4 · the checks, one by one */
 const TABROWS = ALL.map((x) => [x.t, x.g, { raw: C.tag(WORD[x.st], x.st === 'decided' ? 'held' : x.st === 'pending' || x.st === 'dropped' ? 'open' : x.st === 'refused' || x.st === 'refuted' ? 'dep' : 'cert') }, x.d]);
 O.push(C.section({ lab: '4 · every check', title: 'The ' + ALL.length + ' checks, one by one', id: 'checks', wide: true, bodyRaw:
-  '<div class="col">' + C.p('Every arc of the ring above is one check. Each was written down, with the rule that decides it, before it ran.')
+  '<div class="col">' + C.p('Every arc of the ring above is one check. Each was written down, with the rule that decides it, before it ran' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '.')
   + C.plainList([{ b: 'A judge that cannot say no proves nothing.', text: 'So we planted five wrong versions of the proof, each wrong in a different way, and ran them through the same judges. Every one must be rejected — and if any is accepted, the whole run is void.' }]) + '</div>'
   + plantedCards()
   + '<div class="wide"><details class="more"><summary>All ' + ALL.length + ' checks, one by one</summary>' + C.table({ cols: [{ h: 'Check' }, { h: 'Group' }, { h: 'State' }, { h: 'What it means' }], rows: TABROWS }) + '</details></div>'
   + '<div class="col">' + C.plainList([
-    { b: 'Written down first.', raw: C.esc('Every check and the rule that decides it were committed in public before that check ran, and every later change is dated: ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
+    { b: 'Written down first.', raw: C.esc('Every check and the rule that decides it were committed in public before that check ran, and every later change is dated' + (AFTER.length ? ', the ' + nw(AFTER.length) + ' made after a result (' + AFTER.join(', ') + ') marked as such' : '') + ': ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
     { b: 'Attacked three times.', text: 'Astra 6.2, a model from another family, red-teamed the plan three times. Its first round found a real defect in our own setup — the judge was configured to accept any body for four definitions — fixed before anything ran.' }
   ]) + '</div>' }));
 
@@ -633,7 +663,7 @@ const STYLE = WHD + `
 .tl-head{display:flex;flex-direction:column;gap:var(--s-1);margin-bottom:var(--s-4);}
 .tl-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink);font-weight:bold;}
 .tl-sub{font-size:var(--text-small);color:var(--ink-2);}
-.tl-rail{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 var(--s-3);}
+.tl-rail{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0 var(--s-3);}
 .tl-step{position:relative;display:flex;flex-direction:column;gap:var(--s-1);padding-top:var(--s-5);min-width:0;}
 .tl-step::before{content:"";position:absolute;left:0;right:calc(-1 * var(--s-3));top:calc(var(--s-2) - 1px);height:2px;background:var(--rule);}
 .tl-step:last-child::before{right:0;}
@@ -648,7 +678,7 @@ const STYLE = WHD + `
 .tl-done .tl-st{color:var(--sig);}
 .tl-now .tl-st{color:var(--ink);font-weight:bold;}
 .tl-d{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-2);}
-.tl-next .tl-t,.tl-planned .tl-t{color:var(--ink-2);}
+.tl-next .tl-t,.tl-planned .tl-t,.tl-refused .tl-t{color:var(--ink-2);}
 .tl-bar{height:6px;border-radius:var(--radius-pill);background:var(--mark);overflow:hidden;margin-top:var(--s-1);}
 .tl-bar span{display:block;height:100%;background:var(--sig);border-radius:var(--radius-pill);}
 .tl-count{margin:var(--s-1) 0 0;font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink);line-height:var(--leading-snug);}
