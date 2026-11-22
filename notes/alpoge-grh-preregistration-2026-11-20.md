@@ -548,3 +548,19 @@ The recorder looked for the words `with no errors` and would have read this acce
 
 **Disclosure.** This changes how a result is read, and it was made after the result was seen. It can be checked against the five output files in `corpus/alpoge-grh/runs-clean/pzyamyxbl8ncom/` and against A12's rule. The recorder's new reading was tested on six altered copies of the run (the control accepted, the control killed, C5 exiting 0, one theorem not justified, a nanoda line that is not an acceptance, a wrong export digest): each is refused.
 
+## Amendment A21 — the unconditional bridge is dropped on cost; a guard on the larger machine (the operator, 2026-11-22 about 22:25 UTC; written 22:41 UTC), before S1 has a verdict
+
+**State when this is written.** S1 has been running on the larger machine for 17.6 hours, at about 345 GB of the 376 GB limit; nothing has been killed. No result of S1 is known. The judge's source compares the statements before it replays the proof, so a run still alive should be in the replay; that is a reading of the code, not a result.
+
+**Why.** A19 estimated the bridge at 10 to 14 hours and US$30 to 40 after S1. S1's own length now puts it at about 20 hours and US$58: the bridge's judge reads a slightly larger proof than S1 does. That would take this lane to about US$205, above the operator's ceiling of US$200, and delay the last row by about a day. Asked in the session, the operator answered: drop it now, add it later.
+
+**What changes.**
+- The unconditional bridge (BRu) is not run on the larger machine. Its row is REFUSED, with the reason "not run: dropped on cost before S1 had a verdict". The waiter that would have started it (A19) is stopped, and the marker `BRu.dropped` is written on the machine and in the record.
+- Nothing else about S1 or C1 changes. If S1 passes, C1 runs next, as A17 fixed.
+- The conditional bridge and the Masullo reading (BRc+MB) and the August release's own rebuild (P0) were CERTIFIED earlier and do not depend on this.
+- The bridge can be run later as its own follow-up, with its own budget and its own registration. A later result would be added to the page as a dated addition; this record keeps the row as REFUSED at the time of the release.
+
+**A guard on the machine.** A19 fixed that C1 is not run if S1 stops on resources. Until now that was enforced from the operator's Mac. `tools/runpod-alpoge-grh-judge-guard.sh` (new, at this commit) enforces it on the machine: if S1 is killed, times out, or exits non-zero with the kernel's out-of-memory counter above zero, it stops the judge script and writes `C1.not-run`. On any other exit, 0 included, it does nothing.
+
+**Disclosure.** This changes which rows are run, for a reason of cost. It is written and published before S1 has reported, and it cannot depend on S1's result.
+

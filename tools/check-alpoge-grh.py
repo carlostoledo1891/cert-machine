@@ -321,7 +321,11 @@ def derive(run):
     # is read from the larger machine: the same conditions on that run and its _bridge.log, and S1 passed there
     blog = (rd(_jr, '_bridge.log', '') or '') if _jr else ''
     s1_big = res['larger machine'][0] if 'larger machine' in res else None
-    if 'bridge not started' in plog and 'bridge (p3) start' not in plog and (blog or s1_big in ('resources', 'rejected')):
+    # amendment A21 (before S1 had a verdict): the operator dropped the unconditional bridge on cost. The marker
+    # BRu.dropped sits in the larger machine's run; no bridge step ran there.
+    if _jr and rd(_jr, 'BRu.dropped') is not None and not blog:
+        rows.append(row('BRu', 'REFUSED', 'the unconditional bridge was not run: the operator dropped it on cost before the statement judge had a verdict (amendment A21); the conditional bridge and the Masullo reading are unaffected (BRc+MB)', where='larger machine', dropped=(rd(_jr, 'BRu.dropped') or '').strip()))
+    elif 'bridge not started' in plog and 'bridge (p3) start' not in plog and (blog or s1_big in ('resources', 'rejected')):
         brok = s1_big == 'pass' and _copy_ok(_jr, '_judge.log') and _bridge_ok(_jr, blog)
         if brok:
             bwhy = 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected; on the larger machine, a hash-checked copy of the build (amendment A19)'

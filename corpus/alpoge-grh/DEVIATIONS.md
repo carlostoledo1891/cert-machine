@@ -84,4 +84,9 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     control was rejected (exit 1, the planted declaration named). The recorder now decides CR from the five outputs by
     A12's rule, with the tests it already used for K3; the gate line is kept as logged; the script is corrected.
     Nothing was rerun. A change of reading made after seeing the result, disclosed as such.
+18. **2026-11-22 22:41 UTC — the unconditional bridge dropped on cost; a guard on the larger machine (amendment A21,
+    before S1 has a verdict).** S1's own length put the bridge at about 20 more hours and US$58, above the lane's
+    ceiling. On the operator's word the bridge is not run there and BRu is REFUSED with that reason; it can be run
+    later as a follow-up. The waiter that would have started it was stopped. A small script on the machine now
+    enforces A19's rule that C1 is not run if S1 stops on resources. S1 had not reported when this was written.
 
