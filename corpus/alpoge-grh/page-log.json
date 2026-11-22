@@ -40,6 +40,11 @@
    "at": "2026-11-21T23:20Z",
    "done": 17,
    "what": "The census of the compiled proof: the five theorems reach 1,478,243 constants in 151,694 modules, the only axioms anywhere in them are propext, Classical.choice and Quot.sound, and no constant in the environment has type False. Of the 21 constants J. L. Nielsen’s critique names, 14 are in the compiled proof and 7 are not; the sub-proofs feeding the two key inequalities are traced (closures of 299 to 1,999 constants). The planted errors: Lean’s axiom report names the planted axiom (cheat) in one control and sorryAx in the other, as it must. The statement judge (Comparator) started at 22:27 UTC."
+  },
+  {
+   "at": "2026-11-22T06:35Z",
+   "done": 17,
+   "what": "The statement judge (Comparator) could not finish on the build pod: at that pod’s 256 GB memory limit its export stopped making progress, so the run was stopped after 6.2 hours and decides nothing (amendment A17). The same judge now runs on a machine with 376 GB, on a copy of the compiled proof whose 1,226,309 files match the build pod’s hashes. Three planted errors went through the judge on the build pod and were rejected with their diagnostics: a planted axiom, a sorry, a hijacked definition. The export of the proof is written: 61,571,290,481 bytes, with all five theorems in it; a second export, made on the parallel pod, has the same sha256. On that second export nanoda checked 1,484,729 declarations with no type error and rejected the planted error (the Riemann Hypothesis re-typed as False). Those two results are reported beside the registered runs, which have started on the build pod’s own export."
   }
  ]
 }

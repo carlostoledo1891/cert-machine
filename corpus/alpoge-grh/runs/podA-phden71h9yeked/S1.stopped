@@ -1,0 +1,12 @@
+S1 stopped by the control room at 2026-11-22T04:41:14Z, on amendment A17 (commits d6db39e7, ebc89c20). The stopped run decides nothing.
+reason: the pod is at its memory limit and the export inside the judge makes no progress
+memory.current 255998361600 of memory.max 256000000000 bytes
+memory.events: low 0 high 0 max 2551284 oom 0 oom_kill 0 oom_group_kill 0 
+memory.stat: anon 201834336256 file 48235102208 file_mapped 10806153216 
+lean4export utime stime (clock ticks, 100 per second), two samples 20 s apart: 590566 715669 -> 590570 716542
+    PID    PGID ELAPSED   RSS     TIME COMMAND
+3596900 3596900   22414  1824 00:00:00 timeout
+3596950 3596900   22413 126511524 00:01:30 comparator
+3597204 3596900   22354 81063684 03:37:51 lean4export
+S1.out bytes: 168588634; S1.err bytes: 792
+kill: SIGKILL to process group 3596900 (timeout, lake, comparator, lean4export)

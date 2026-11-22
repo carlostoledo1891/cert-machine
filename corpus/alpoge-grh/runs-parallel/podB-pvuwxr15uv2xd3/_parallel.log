@@ -1,0 +1,19 @@
+2026-11-22T02:28:46Z copy lists equal: 1226309 files, list sha256 e792fec54b3bd944db071ab2a437144248e88fa6069034d3edfcd58f6521d079
+2026-11-22T02:28:47Z challenge build unchanged by the copy
+2026-11-22T02:28:48Z release oleans after the copy: 175187
+2026-11-22T02:29:06Z parallel pre done
+2026-11-22T02:29:06Z KR running
+2026-11-22T02:37:46Z EXP running
+2026-11-22T03:48:13Z backup S1 waiting for the parallel export chain to end (amendment A16)
+2026-11-22T04:17:34Z EXP exit 0 after 5988 s
+-rw-r--r-- 1 root root 61571290481 Nov 22 04:17 /data/export.ndjson
+2026-11-22T04:23:26Z export roots: roots 5/5 found as theorems with a value: ['LFunction_eq_zero_re', 'LFunction_eq_zero_re_of_isPrimitive', 'LFunction_ne_zero_of_half_lt_re', 'riemannHypothesis', 'riemannZeta_eq_zero_re']
+2026-11-22T04:23:26Z parallel export good (export, digest, five roots)
+2026-11-22T04:23:45Z K2 running
+2026-11-22T04:27:22Z backup S1 cancelled before it started: the judge needs more memory than this pod has (amendment A17)
+2026-11-22T04:28:37Z NOBUILD test started (amendment A17: does Lake accept the copied build without compiling?)
+2026-11-22T04:52:15Z NOBUILD test ended by the control room (not a registered step; it competed for the disk with the two kernel runs): progress [41112/41115], 16337 modules replayed with their logs, 0 built, no failure line
+2026-11-22T04:59:03Z K2 exit 0 after 2118 s
+2026-11-22T04:59:32Z C5 running
+2026-11-22T05:45:30Z C5 exit 101 after 2758 s
+2026-11-22T05:45:30Z parallel exp done

@@ -44,3 +44,18 @@ release oleans before B1: 0
 2026-11-21T22:27:40Z A1C3 exit 0 after 4 s
 2026-11-21T22:27:40Z Comparator mode: sandbox (landrun --best-effort, Landlock ABI v4)
 2026-11-21T22:27:40Z S1 running
+2026-11-22T04:41:14Z S1 exit 137 after 22414 s
+2026-11-22T04:41:14Z C1 running
+2026-11-22T04:41:18Z C1 exit 137 after 4 s
+2026-11-22T04:41:18Z C2 running
+2026-11-22T04:42:22Z C2 exit 1 after 64 s
+2026-11-22T04:42:22Z C3 running
+2026-11-22T04:43:16Z C3 exit 1 after 54 s
+2026-11-22T04:43:16Z C4 running
+2026-11-22T04:43:52Z C4 exit 1 after 36 s
+2026-11-22T04:43:52Z EXP running
+2026-11-22T06:28:30Z EXP exit 0 after 6278 s
+-rw-r--r-- 1 root root 61571290481 Nov 22 06:28 /data/export.ndjson
+2026-11-22T06:34:20Z export roots: roots 5/5 found as theorems with a value: ['LFunction_eq_zero_re', 'LFunction_eq_zero_re_of_isPrimitive', 'LFunction_ne_zero_of_half_lt_re', 'riemannHypothesis', 'riemannZeta_eq_zero_re']
+2026-11-22T06:34:20Z EXPORT-NOT-OK (bridge will not start)
+2026-11-22T06:34:20Z K2 running

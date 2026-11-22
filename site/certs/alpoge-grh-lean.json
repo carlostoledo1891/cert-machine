@@ -66,8 +66,13 @@
   {
    "id": "S1",
    "verdict": "PENDING",
-   "why": "Comparator did not run",
-   "mode": "sandbox (landrun --best-effort, Landlock ABI v4)"
+   "why": "on the build pod: the run was stopped by the control room at that pod's memory limit (amendment A17); on the larger machine: the judge has not passed yet",
+   "mode": "sandbox (landrun --best-effort, Landlock ABI v4)",
+   "seconds": 22414,
+   "runs": {
+    "build pod": "stopped",
+    "larger machine": "notrun"
+   }
   },
   {
    "id": "C1-C5",
@@ -77,22 +82,23 @@
     "C1": {
      "what": "statement mismatch",
      "exit": null,
-     "refused": false
+     "refused": false,
+     "where": "larger machine"
     },
     "C2": {
      "what": "planted axiom",
-     "exit": null,
-     "refused": false
+     "exit": 1,
+     "refused": true
     },
     "C3": {
      "what": "sorry",
-     "exit": null,
-     "refused": false
+     "exit": 1,
+     "refused": true
     },
     "C4": {
      "what": "hijacked definition",
-     "exit": null,
-     "refused": false
+     "exit": 1,
+     "refused": true
     },
     "A1-C2": {
      "what": "the axiom report names the planted axiom",
@@ -114,12 +120,24 @@
   {
    "id": "K2",
    "verdict": "PENDING",
-   "why": "nanoda did not run yet"
+   "why": "nanoda did not run yet",
+   "export_sha256": "4301ce4828d397c728e87f3e6a1251aa42abe5e12809bb9e0b73cc3d33072e7e"
   },
   {
    "id": "KR",
    "verdict": "PENDING",
-   "why": "leanchecker exit None"
+   "why": "leanchecker exit None on the parallel pod",
+   "where": "parallel pod",
+   "parallel": {
+    "run": "podB-pvuwxr15uv2xd3",
+    "copy_files": 1226309,
+    "copy_lists_equal": true,
+    "copy_list_sha256": "e792fec54b3bd944db071ab2a437144248e88fa6069034d3edfcd58f6521d079",
+    "export_sha256": "4301ce4828d397c728e87f3e6a1251aa42abe5e12809bb9e0b73cc3d33072e7e",
+    "K2_exit": 0,
+    "K2_declarations": 1484729,
+    "C5_exit": 101
+   }
   },
   {
    "id": "V",
