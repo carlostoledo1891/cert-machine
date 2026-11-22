@@ -165,8 +165,10 @@
   },
   {
    "id": "BRu",
-   "verdict": "PENDING",
-   "why": "the unconditional bridge has not passed"
+   "verdict": "REFUSED",
+   "why": "the unconditional bridge was not run: the operator dropped it on cost before the statement judge had a verdict (amendment A21); the conditional bridge and the Masullo reading are unaffected (BRc+MB)",
+   "where": "larger machine",
+   "dropped": "2026-11-22T22:41:46Z the unconditional bridge was dropped on cost by the operator before S1 had a verdict (amendment A21, commit a24a9027e); the waiter judge-bridge.sh (pid 42658) was stopped; no bridge step ran"
   },
   {
    "id": "CHAR",

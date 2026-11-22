@@ -65,6 +65,11 @@
    "at": "2026-11-22T13:53Z",
    "done": 21,
    "what": "Lean’s own kernel replays the whole proof: leanchecker --fresh Main, starting from an empty environment, checked every module the five theorems rest on and exited 0 after 11 hours 20 minutes on one core. It ran on the parallel pod, on a copy of the compiled proof whose 1,226,309 files match the build pod’s hashes (amendment A15). With nanoda and con-leche, three kernels have now accepted the proof. Left: the statement judge Comparator, its planted-error control and the bridge, all on the larger machine."
+  },
+  {
+   "at": "2026-11-22T22:42Z",
+   "done": 21,
+   "what": "The unconditional bridge is closed without a run. The statement judge Comparator has been running for 17.6 hours on the larger machine, and its length puts that bridge at about 20 more hours, above this audit’s budget. By a decision written and published before the judge reported (amendment A21), the bridge is not run now and its row reads REFUSED, for cost. It can be run later as a follow-up. The conditional bridge and the Masullo reading stand as certified. A small script on the machine now makes sure the judge’s control is not started if the judge itself runs out of memory. Left: the statement judge and its planted-error control."
   }
  ]
 }
