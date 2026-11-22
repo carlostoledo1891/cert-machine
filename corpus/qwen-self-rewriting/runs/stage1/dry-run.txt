@@ -1,0 +1,132 @@
+### dry run on the synthetic checkpoint, local mock of the hub, options: f32 (2026-11-22T12:21:23Z)
+fixture: 11 shards, 397562 bytes, time-step bias in F32
+I1 PASSED (11 shards; 3162 bytes read)
+I1 PASSED (11 shards; 3162 bytes read)
+I2 COMPUTED: 3 commits; every listed hash equals the pin: True; 6428 bytes read
+I2 COMPUTED: 3 commits; every listed hash equals the pin: true; 6428 bytes read
+deciders agree on every row: True; range lists equal: True; range hashes equal: True; specification bytes identical: True
+  I1  PASSED
+  I2  COMPUTED
+  S1  CERTIFIED
+  S2  REFUTED
+  S3  REFUTED
+  S4  CERTIFIED
+  W1  REFUTED
+  W2  REFUTED
+  W3  REFUTED
+  W4  REFUTED
+  E1  CERTIFIED
+  E4  REFUSED
+  S5  COMPUTED
+  W5  COMPUTED
+  E2  COMPUTED
+  E3  COMPUTED
+  A1  COMPUTED
+  A2  COMPUTED
+  A3  COMPUTED
+  A4  COMPUTED
+  A5  COMPUTED
+  A6  COMPUTED
+  K1 caught
+  K2 caught
+  K3 caught
+  K4 caught
+  K5 caught
+  K6 caught
+  K7 caught
+cert <scratch>/dry1/runs/cert.json
+answer key: 12 values, 0 differ []
+requests:   546  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,user-agent
+requests:   542  user-agent curl/8.7.1  headers accept,accept-encoding,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,host,user-agent
+headers that must not be sent: none
+DRY RUN PASSED
+### dry run on the synthetic checkpoint, local mock of the hub, options: bf16 (2026-11-22T12:21:40Z)
+fixture: 11 shards, 396642 bytes, time-step bias in BF16
+I1 PASSED (11 shards; 3162 bytes read)
+I1 PASSED (11 shards; 3162 bytes read)
+I2 COMPUTED: 3 commits; every listed hash equals the pin: True; 6428 bytes read
+I2 COMPUTED: 3 commits; every listed hash equals the pin: true; 6428 bytes read
+deciders agree on every row: True; range lists equal: True; range hashes equal: True; specification bytes identical: True
+  I1  PASSED
+  I2  COMPUTED
+  S1  CERTIFIED
+  S2  REFUTED
+  S3  CERTIFIED
+  S4  CERTIFIED
+  W1  REFUTED
+  W2  REFUTED
+  W3  REFUTED
+  W4  REFUTED
+  E1  CERTIFIED
+  E4  CERTIFIED
+  S5  COMPUTED
+  W5  COMPUTED
+  E2  COMPUTED
+  E3  COMPUTED
+  A1  COMPUTED
+  A2  COMPUTED
+  A3  COMPUTED
+  A4  COMPUTED
+  A5  COMPUTED
+  A6  COMPUTED
+  K1 caught
+  K2 caught
+  K3 caught
+  K4 caught
+  K5 caught
+  K6 caught
+  K7 caught
+cert <scratch>/dry1/runs/cert.json
+answer key: 12 values, 0 differ []
+requests:   542  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,user-agent
+requests:   542  user-agent curl/8.7.1  headers accept,accept-encoding,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,host,user-agent
+headers that must not be sent: none
+DRY RUN PASSED
+### dry run on the synthetic checkpoint, local mock of the hub, options: f32 --no-lfs-in-api (2026-11-22T12:21:57Z)
+fixture: 11 shards, 396642 bytes, time-step bias in BF16
+I1 PASSED (11 shards; 3162 bytes read)
+I1 PASSED (11 shards; 3162 bytes read)
+I2 COMPUTED: 3 commits; every listed hash equals the pin: True; 6428 bytes read
+I2 COMPUTED: 3 commits; every listed hash equals the pin: true; 6428 bytes read
+deciders agree on every row: True; range lists equal: True; range hashes equal: True; specification bytes identical: True
+  I1  PASSED
+  I2  COMPUTED
+  S1  CERTIFIED
+  S2  REFUTED
+  S3  CERTIFIED
+  S4  CERTIFIED
+  W1  REFUTED
+  W2  REFUTED
+  W3  REFUTED
+  W4  REFUTED
+  E1  CERTIFIED
+  E4  CERTIFIED
+  S5  COMPUTED
+  W5  COMPUTED
+  E2  COMPUTED
+  E3  COMPUTED
+  A1  COMPUTED
+  A2  COMPUTED
+  A3  COMPUTED
+  A4  COMPUTED
+  A5  COMPUTED
+  A6  COMPUTED
+  K1 caught
+  K2 caught
+  K3 caught
+  K4 caught
+  K5 caught
+  K6 caught
+  K7 caught
+cert <scratch>/dry1/runs/cert.json
+answer key: 12 values, 0 differ []
+requests:   542  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,connection,host,user-agent
+requests:   542  user-agent curl/8.7.1  headers accept,accept-encoding,host,range,user-agent
+requests:    10  user-agent curl/8.7.1  headers accept,accept-encoding,host,user-agent
+headers that must not be sent: none
+DRY RUN PASSED

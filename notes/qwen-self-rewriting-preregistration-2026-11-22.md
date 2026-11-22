@@ -118,3 +118,29 @@ A control that is not caught voids the rows that depend on it: they are reported
 - Records: `corpus/qwen-self-rewriting/claims.json` (these rows as data, committed before the run), `corpus/qwen-self-rewriting/PINS.json`, `corpus/qwen-self-rewriting/session8-edit-spec.json`, `certs/qwen-self-rewriting-base.json`.
 - Reuse, in part: `instruments/wsp/weights.py` and `tools/wsp-weights.js` (the safetensors header parser, exact bf16 and binary32 conversion, rounding to bf16, the red-control pattern, pins, the agreement check). Both read two local checkpoints; the range reads and the statistics are new. `tools/wsp-side-claims.py` has the quote check (`must_contain`). The graders and the baseline tools belong to later stages.
 - The targets row: `notes/qwen-self-rewriting-2026-11-22/targets-row.json`.
+
+## Amendment A1 — rulings on the prepared code, before any read (2026-11-22 12:24 UTC)
+
+The two deciders, the rows as data and the offline controls are written and committed with this amendment
+(`corpus/qwen-self-rewriting/STAGE1-CODE.sha256` lists them). No request has been sent to the model's host. The agent
+that prepared them named the places where the rules left a choice; the control room rules on them here.
+
+1. **Each decider reads every range itself.** The method above had one copy of a tensor read by both. Now each decider
+   fetches its own bytes, so the transport code is cross-checked by every hash. The traffic doubles, to about 35.5 GB.
+2. **Shard 11 is streamed once by each decider** and hashed whole against the published LFS value. While it streams,
+   the hashes of the tensors needed from it must equal those of the range reads.
+3. **I2 reads the listings of the other 26 commits.** That is metadata only, no weight bytes.
+4. **W4 has a fourth reading** (the largest signed value over the mean of the two middle magnitudes). REFUTED now needs
+   a far miss under all four, which is harder to reach than under three.
+5. **I1's rule as coded:** two sources per shard (the headers the host returns on the first read, and the listing at
+   the pinned commit). It passes when every shard has at least one source giving size and LFS sha256 and no source
+   gives another commit, size or hash. The stage also stops if `config.json` or the tensor index at the pin differ from
+   the fetched copies.
+6. **Which rows a control voids if it is not caught:** K1: W2, W3. K2: E1, E4. K3: E4. K4: S3. K5: W1, W4. K6: W1–W4.
+   K7: all ten rows with a verdict.
+7. **The record is `certs/qwen-self-rewriting-stage1.json`.**
+8. **Not blind, stated again:** the arithmetic rows A1–A5 need no network. Their values were computed in the offline
+   dry run and seen by the preparing agent. They are recorded by the run, and they decide nothing.
+9. **If the system Python cannot open the connection,** the same decider runs under the other installed Python, and
+   that is reported as a deviation.
+

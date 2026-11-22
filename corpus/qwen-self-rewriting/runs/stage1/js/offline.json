@@ -1,0 +1,111 @@
+{
+ "meta": {
+  "decider": "tools/qwen-stage1.js",
+  "node": "v24.14.1",
+  "claims_sha256": "91495c589a33bff1f0fe45e26f25c01468def3f7727c7dc00b8e021c81ab151a",
+  "pins_sha256": "85d93628d6b7bc567a0909b4524f424f69f18341f714c6457c4d52b06d70cddc",
+  "code_sha256": "836f3a031e6da64e5787a8d016a57d8e9a9219bf9c83231394dd1d70b372ddda",
+  "written_utc": "2026-11-22T12:22:20Z"
+ },
+ "K6": {
+  "edge_cases": 88,
+  "edge_failures": [],
+  "hand_worked_matrix": {
+   "computed": {
+    "entries": 6,
+    "sum": "7/4",
+    "sum_of_squares": "121/16",
+    "variance_dividing_by_n": "677/576",
+    "variance_dividing_by_n_minus_1": "677/480",
+    "largest_abs_bits": "4000",
+    "largest_signed_bits": "4000",
+    "median_lower_bits": "3f00",
+    "median_upper_bits": "3f80",
+    "ratio_abs_over_lower": "4/1",
+    "ratio_abs_over_mean2": "8/3",
+    "second_row_sum_of_squares": "25/4",
+    "second_row_entries": 3,
+    "second_row_norm_band_against_2.5": "MATCH"
+   },
+   "by_hand": {
+    "entries": 6,
+    "sum": "7/4",
+    "sum_of_squares": "121/16",
+    "variance_dividing_by_n": "677/576",
+    "variance_dividing_by_n_minus_1": "677/480",
+    "largest_abs_bits": "4000",
+    "largest_signed_bits": "4000",
+    "median_lower_bits": "3f00",
+    "median_upper_bits": "3f80",
+    "ratio_abs_over_lower": "4/1",
+    "ratio_abs_over_mean2": "8/3",
+    "second_row_sum_of_squares": "25/4",
+    "second_row_entries": 3,
+    "second_row_norm_band_against_2.5": "MATCH"
+   },
+   "equal": true
+  },
+  "caught": true
+ },
+ "K7": {
+  "planted_stops_the_stage": true,
+  "quotes_searched": 64,
+  "found": 64,
+  "at_the_stated_lines": 64,
+  "missing": [],
+  "found_off_the_stated_lines": [],
+  "planted": {
+   "row": "W4",
+   "quote": 0,
+   "from": "162.3",
+   "to": "162.4"
+  },
+  "planted_missing": [
+   {
+    "row": "W4",
+    "text": "no other output matrix exceeds 162.4 times",
+    "file": "tables/tab_edits.tex",
+    "lines": [
+     14,
+     14
+    ]
+   }
+  ],
+  "caught": true
+ },
+ "unit_tests": {
+  "bf16_known_values": {
+   "cases": 8,
+   "failures": 0
+  },
+  "bf16_every_finite_pattern_round_trips": {
+   "cases": 97919,
+   "failures": 0
+  },
+  "binary32_rounding_against_the_hardware": {
+   "cases": 20000,
+   "failures": 0
+  },
+  "bf16_rounding_against_the_bit_formula": {
+   "cases": 19911,
+   "failures": 0
+  },
+  "bf16_ties_go_to_even": {
+   "cases": 10000,
+   "failures": 0
+  },
+  "rounding_of_exact_sums_against_the_nearest_test": {
+   "cases": 169308,
+   "failures": 0
+  },
+  "binary16_rounding_against_the_hardware": {
+   "cases": 20000,
+   "failures": 0
+  },
+  "decimal_enclosures_and_the_sign_test": {
+   "cases": 9,
+   "failures": 0
+  },
+  "all_pass": true
+ }
+}

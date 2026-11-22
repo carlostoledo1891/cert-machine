@@ -1,0 +1,1436 @@
+{
+ "what": "Stage 1 of the audit of \"Language Models Can Rewrite Their Own Weights\" (arXiv 2611.21885 v2): the registered rows as data. Written 2026-11-22 before any network read of the model. The text of each row is copied from the registered rules; the params are the numbers both deciders read. The rows decide nothing about any accuracy number.",
+ "rules": {
+  "file": "notes/qwen-self-rewriting-preregistration-2026-11-22.md",
+  "commit": "9d8d99629d18e06c6d83b2b51b51606f501239cb",
+  "sha256": "5e440344f941c14273f06433ff8f884116b8dd20fb2acaa5d68f7b984945e6f8",
+  "registered": "2026-11-22 11:36 UTC"
+ },
+ "control_room_rulings": [
+  "1. **The rule for a printed number stands as written:** CERTIFIED only on a match after rounding, REFUTED only when the\n   value is more than one last-digit unit away under every reading, REFUSED in between.",
+  "2. **Shard 11 is also hashed whole.** It is 2.0 GiB and holds all 48 time-step bias tensors. It is streamed once, not\n   stored, and its sha256 is compared with the published LFS value, so the bytes of the edit's targets are tied to the\n   pin. Every other shard is read by range only, as the method limits say.",
+  "3. **Records** go where the last section proposes (`corpus/qwen-self-rewriting/`, `certs/`), with the rows as data\n   committed before the run.",
+  "4. **Who asked.** An author of the paper asked for the review. That is stated here because it bears on independence;\n   the authors supply files and explanations, and decide nothing."
+ ],
+ "verdict_words": [
+  "CERTIFIED",
+  "REFUTED",
+  "REFUSED",
+  "COMPUTED"
+ ],
+ "number_rule": "A printed number d has a unit u: one in its last printed digit. Our value x is exact. MATCH: |x − d| ≤ u/2. NEAR: u/2 < |x − d| ≤ u. FAR: |x − d| > u. The test is made on exact rationals; for a norm or a standard deviation, on the squares. A row is CERTIFIED only on MATCH under its first reading. It is REFUTED only on FAR under every reading listed for it. Anything else is REFUSED, and x is printed under each reading. Every stored number is a dyadic rational: sums, sums of squares, maxima and order statistics are computed on integers from the bit patterns, with no floating-point accumulation. A decimal of ours that bounds something is rounded outward.",
+ "names": {
+  "layer_prefix": "model.language_model.layers.",
+  "layer30_matrix": "model.language_model.layers.30.mlp.down_proj.weight",
+  "output_matrix_suffixes": {
+   "mlp": "mlp.down_proj.weight",
+   "linear": "linear_attn.out_proj.weight",
+   "full": "self_attn.o_proj.weight"
+  },
+  "linear_marker": ".linear_attn.",
+  "full_marker": ".self_attn.",
+  "time_step_bias_suffix": "linear_attn.dt_bias",
+  "bias_word": "bias"
+ },
+ "not_established": [
+  "No accuracy number: not 57.2, 58.3, 57.8, 61.3, 63.8, 33.0, 55.0 or 70.2, and no interval, p-value or share of answers cut at the limit.",
+  "Nothing about the authors' edits as they made them. Stage 1 sees an edit only as the paper describes it. Our rebuild of session 8's edit is ours. It is not their file, and no row says it is.",
+  "Nothing about the damaged copy or the repaired copy. Neither is public.",
+  "The revision the authors used. The paper states none. The revision read here is our choice, pinned below; I2 reports whether the weight files differ between revisions.",
+  "How the authors' framework loads or casts the weights. Rows about a \"stored\" format are about the published files.",
+  "Which tensor the paper means by \"time-step bias\". The paper names none. The reading in E1 is ours."
+ ],
+ "rows": [
+  {
+   "id": "I1",
+   "kind": "integrity",
+   "text": "I1, integrity (the stage stops if it fails): at the pinned commit the server reports, for each shard, the size and the LFS sha256 of that listing.",
+   "outcome": "the stage stops if it fails"
+  },
+  {
+   "id": "I2",
+   "kind": "computed",
+   "text": "I2, COMPUTED: the LFS sha256 of each shard at each of the 27 commits in `fetched/hf-qwen35-27b-commits.json`. It shows whether any revision carried other weight files."
+  },
+  {
+   "id": "S1",
+   "kind": "verdict",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"in layer 30 of 64\" (E.1, app_results.tex:44); \"time-step bias +0.5 in all 48 linear-attention layers\", \"log decay rate +0.5, layer 62\", \"log decay rate -0.5, 9 layers in 40–50\", \"layer 63\" (Tab. 13, app_protocol2.tex:45, 42, 43, 39)",
+   "quotes": [
+    {
+     "text": "in layer 30 of 64",
+     "where": "E.1",
+     "file": "input/app_results.tex",
+     "lines": [
+      44,
+      44
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "time-step bias +0.5 in all 48 linear-attention layers",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "log decay rate +0.5, layer 62",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      42,
+      42
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "log decay rate -0.5, 9 layers in 40–50",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      43,
+      43
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "layer 63",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      39,
+      39
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "`num_hidden_layers` and `layer_types` of `config.json`; from the 11 headers, the layers that hold tensors under `.linear_attn.` and under `.self_attn.`",
+   "certified_iff": "config and headers both give 64 layers numbered 0–63 and the same 48 linear-attention layers; layer 62 is one of them; at least 9 of them lie in 40–50",
+   "refuted_iff": "one of these fails (it is named)",
+   "refused_iff": "a header cannot be parsed",
+   "params": {
+    "layers": 64,
+    "linear_layers": 48,
+    "must_be_linear": [
+     62
+    ],
+    "window": [
+     40,
+     50
+    ],
+    "window_min": 9,
+    "layer_named": [
+     30,
+     63
+    ]
+   }
+  },
+  {
+   "id": "S2",
+   "kind": "verdict",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"rows 3068 to 3075 of the MLP output matrix (mlp.down_proj)\" (E.1, app_results.tex:44–45); \"In the eight damaged rows (139,264 weights)\" (E.3, app_results.tex:199–200)",
+   "quotes": [
+    {
+     "text": "rows 3068 to 3075 of the MLP output matrix (mlp.down_proj)",
+     "where": "E.1",
+     "file": "input/app_results.tex",
+     "lines": [
+      44,
+      45
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "In the eight damaged rows (139,264 weights)",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      199,
+      200
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the header entry of the layer-30 matrix: its shape [r, c]",
+   "certified_iff": "it exists with two axes, r ≥ 3,076 and 8 × c = 139,264",
+   "refuted_iff": "it is absent, or r < 3,076, or 8 × c ≠ 139,264",
+   "refused_iff": "the header cannot be parsed",
+   "params": {
+    "rows_needed": 3076,
+    "rows": 8,
+    "weights": 139264
+   }
+  },
+  {
+   "id": "S3",
+   "kind": "verdict",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"The damaged matrix is stored in bf16, like the rest of the model\" (D.2, app_details.tex:75–76); \"stored in bf16, the 16-bit number format of the model's weights\" (Tab. 5, app_details.tex:54–55)",
+   "quotes": [
+    {
+     "text": "The damaged matrix is stored in bf16, like the rest of the model",
+     "where": "D.2",
+     "file": "input/app_details.tex",
+     "lines": [
+      75,
+      76
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "stored in bf16, the 16-bit number format of the model's weights",
+     "where": "Tab. 5",
+     "file": "input/app_details.tex",
+     "lines": [
+      54,
+      55
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the dtype of every tensor in the 11 headers; entries per dtype",
+   "certified_iff": "every tensor of the published files is BF16",
+   "refuted_iff": "a tensor has another dtype (names, dtypes and entry counts listed)",
+   "refused_iff": "a header cannot be parsed",
+   "params": {
+    "dtype": "BF16"
+   }
+  },
+  {
+   "id": "S4",
+   "kind": "verdict",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"in the layer-30 matrix and in 19 other output matrices of layers 0–10\" (§3.2, 040experiments.tex:61–62); \"for layer in [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 30]:\" and \"it applies the same rule to the linear-attention output matrices of layers 0–10\" (Fig. 12, fig_notebook.tex:40, 73–74)",
+   "quotes": [
+    {
+     "text": "in the layer-30 matrix and in 19 other output matrices of layers 0–10",
+     "where": "§3.2",
+     "file": "input/040experiments.tex",
+     "lines": [
+      61,
+      62
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "for layer in [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 30]:",
+     "where": "Fig. 12",
+     "file": "input/fig_notebook.tex",
+     "lines": [
+      40,
+      40
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "it applies the same rule to the linear-attention output matrices of layers 0–10",
+     "where": "Fig. 12",
+     "file": "input/fig_notebook.tex",
+     "lines": [
+      73,
+      74
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the set: `mlp.down_proj.weight` of the 11 quoted layers, plus `linear_attn.out_proj.weight` of every linear-attention layer in 0–10; its size; its total entries N",
+   "certified_iff": "the set has exactly 20 tensors",
+   "refuted_iff": "it has another number",
+   "refused_iff": "a layer in 0–10 holds more than one tensor that could be its linear-attention output matrix",
+   "params": {
+    "mlp_layers": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     30
+    ],
+    "linear_window": [
+     0,
+     10
+    ],
+    "expected": 20
+   }
+  },
+  {
+   "id": "W1",
+   "kind": "verdict",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"where σ=0.0111 is the standard deviation of the matrix's entries\" (D.2, app_details.tex:73)",
+   "quotes": [
+    {
+     "text": "where σ=0.0111 is the standard deviation of the matrix's entries",
+     "where": "D.2",
+     "file": "input/app_details.tex",
+     "lines": [
+      73,
+      73
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the exact variance of all entries of the layer-30 matrix, dividing by n; the n − 1 form is also printed",
+   "certified_iff": "MATCH to 0.0111",
+   "refuted_iff": "FAR",
+   "refused_iff": "NEAR, or the two forms fall in different bands",
+   "params": {
+    "printed": "0.0111"
+   }
+  },
+  {
+   "id": "W2",
+   "kind": "verdict",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"the norm of these rows is 3.85 in the published weights\" (E.3, app_results.tex:201–202)",
+   "quotes": [
+    {
+     "text": "the norm of these rows is 3.85 in the published weights",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      201,
+      202
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the exact sum of squares of rows 3068–3075 of that matrix: first axis, counted from 0, both ends included, 8 × c entries. Second reading: counted from 1",
+   "certified_iff": "MATCH to 3.85 under the first reading",
+   "refuted_iff": "FAR under both readings",
+   "refused_iff": "anything else",
+   "params": {
+    "printed": "3.85",
+    "first_row": 3068,
+    "last_row": 3075
+   }
+  },
+  {
+   "id": "W3",
+   "kind": "verdict",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"largest |w| in the eight damaged rows: 0.071 original\" (Fig. 14, fig_found.tex:6)",
+   "quotes": [
+    {
+     "text": "largest |w| in the eight damaged rows: 0.071 original",
+     "where": "Fig. 14",
+     "file": "input/fig_found.tex",
+     "lines": [
+      6,
+      6
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the largest |w| on the same rows; the same second reading",
+   "certified_iff": "MATCH to 0.071 under the first reading",
+   "refuted_iff": "FAR under both readings",
+   "refused_iff": "anything else",
+   "params": {
+    "printed": "0.071",
+    "first_row": 3068,
+    "last_row": 3075
+   }
+  },
+  {
+   "id": "W4",
+   "kind": "verdict",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"no other output matrix exceeds 162.3 times\" (Tab. 1, tab_edits.tex:14); \"against at most 162.3 times in every other matrix\" (E.3, app_results.tex:158); \"ratio = max_val / median if median > 0 else 0\" (Fig. 12, fig_notebook.tex:31)",
+   "quotes": [
+    {
+     "text": "no other output matrix exceeds 162.3 times",
+     "where": "Tab. 1",
+     "file": "tables/tab_edits.tex",
+     "lines": [
+      14,
+      14
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "against at most 162.3 times in every other matrix",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      158,
+      158
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "ratio = max_val / median if median > 0 else 0",
+     "where": "Fig. 12",
+     "file": "input/fig_notebook.tex",
+     "lines": [
+      31,
+      31
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "Every other weight is unchanged",
+     "where": "D.2",
+     "file": "input/app_details.tex",
+     "lines": [
+      75,
+      75
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "for each of the other 127 output matrices of layers 0–63 (63 MLP, 48 linear-attention, 16 full-attention): the largest |w| divided by the median |w|, the median being the lower middle value. Other readings: the mean of the two middle values; the largest signed w as numerator. M is the largest ratio; M over the 111 matrices that E.3 names is printed too. The row rests on the paper's \"Every other weight is unchanged\" (D.2, app_details.tex:75): the other matrices of the damaged copy are the base's",
+   "certified_iff": "M is MATCH to 162.3 under the first reading (the matrix that attains it is named)",
+   "refuted_iff": "M is FAR under every reading",
+   "refused_iff": "anything else",
+   "params": {
+    "printed": "162.3",
+    "others": 127,
+    "named_in_E3": 111
+   }
+  },
+  {
+   "id": "E1",
+   "kind": "verdict",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"Session 8 raises the time-step bias of every linear-attention layer by 0.5\" (E.9, app_protocol2.tex:68–69; also Tab. 13 and §3.6, 040experiments.tex:130–131)",
+   "quotes": [
+    {
+     "text": "Session 8 raises the time-step bias of every linear-attention layer by 0.5",
+     "where": "E.9",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      68,
+      69
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "time-step bias +0.5 in all 48 linear-attention layers",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "raises the time-step bias of every linear-attention layer by 0.5",
+     "where": "§3.6",
+     "file": "input/040experiments.tex",
+     "lines": [
+      130,
+      131
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "our reading of \"time-step bias\": the tensor `linear_attn.dt_bias` of each linear-attention layer. From the headers: in each such layer, the tensors under `.linear_attn.` whose name contains `bias`",
+   "certified_iff": "each of the 48 layers holds exactly one, named `dt_bias`",
+   "refuted_iff": "a linear-attention layer holds none",
+   "refused_iff": "a layer holds more than one (the phrase does not single one out)",
+   "params": {
+    "expected": 48
+   }
+  },
+  {
+   "id": "E4",
+   "kind": "verdict",
+   "read_before_the_rules": false,
+   "sentence_cell": "the same sentences",
+   "quotes": [
+    {
+     "text": "Session 8 raises the time-step bias of every linear-attention layer by 0.5",
+     "where": "E.9",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      68,
+      69
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "time-step bias +0.5 in all 48 linear-attention layers",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "raises the time-step bias of every linear-attention layer by 0.5",
+     "where": "§3.6",
+     "file": "input/040experiments.tex",
+     "lines": [
+      130,
+      131
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the edited bytes of the 48 tensors under each reading of the arithmetic: (a) y = x + 0.5 as an exact sum, rounded once to nearest, ties to even, in the tensor's stored dtype; (b) the same sum rounded once to bf16, the format Tab. 5 gives for edits; (c) the sum rounded to binary32, then to bf16; (d) if the stored dtype is not BF16: x rounded to bf16 first, then as (b). The specification file lists, per tensor: name, shard, byte range, dtype, shape, sha256 of the base bytes, sha256 of the edited bytes under each reading. Its own sha256 is recorded",
+   "certified_iff": "E1 is CERTIFIED, every y is finite, both deciders write identical bytes, and all readings give the same value on every entry (the description fixes one edit)",
+   "refuted_iff": "E1 is REFUTED",
+   "refused_iff": "the readings differ on some entry: the description does not fix the bytes. Each reading's hash is recorded; the authors' file would decide, in a later stage",
+   "params": {
+    "constant": "0.5",
+    "edits_dtype": "BF16"
+   }
+  },
+  {
+   "id": "S5",
+   "kind": "computed",
+   "read_before_the_rules": true,
+   "sentence_cell": "\"Across one model family at 2B, 4B, 9B and 27B parameters\" (§1, 010intro.tex:55)",
+   "quotes": [
+    {
+     "text": "Across one model family at 2B, 4B, 9B and 27B parameters",
+     "where": "§1",
+     "file": "input/010intro.tex",
+     "lines": [
+      55,
+      55
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the number of entries in the 11 headers: all tensors, and by group (`model.language_model`, `model.visual`, `mtp`, `lm_head`)",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "groups": [
+     "model.language_model.",
+     "model.visual.",
+     "mtp.",
+     "lm_head."
+    ]
+   }
+  },
+  {
+   "id": "W5",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"holds a weight 1397 times its median\" (Tab. 1); \"10.1 damaged, 0.108 after its repair\" (Fig. 14); \"15.0 times the median magnitude of the matrix\" (E.3, app_results.tex:203–204)",
+   "quotes": [
+    {
+     "text": "holds a weight 1397 times its median",
+     "where": "Tab. 1",
+     "file": "tables/tab_edits.tex",
+     "lines": [
+      14,
+      14
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "10.1 damaged, 0.108 after its repair",
+     "where": "Fig. 14",
+     "file": "input/fig_found.tex",
+     "lines": [
+      6,
+      6
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "15.0 times the median magnitude of the matrix",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      203,
+      204
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the median |w| of the layer-30 matrix in the base and its own ratio; the exact range the median can take in any copy that differs from the base in at most 139,264 entries; set beside 10.1 ÷ 1397 and 0.108 ÷ 15.0 with their rounding intervals. 1397, 10.1 and 0.108 belong to copies that are not public",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "entries_changed_max": 139264,
+    "pairs": [
+     {
+      "label": "10.1 / 1397 (the damaged copy)",
+      "num": "10.1",
+      "den": "1397"
+     },
+     {
+      "label": "0.108 / 15.0 (the repaired copy)",
+      "num": "0.108",
+      "den": "15.0"
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "—",
+   "quotes": [],
+   "computed": "per time-step bias tensor: shape, stored dtype, entries, byte range, sha256; the total number of entries the edit touches",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {}
+  },
+  {
+   "id": "E3",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"+0.5\" (Tab. 13)",
+   "quotes": [
+    {
+     "text": "+0.5",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "number"
+    }
+   ],
+   "computed": "whether 0.5 is representable in the stored dtype and in bf16; entry by entry, whether x + 0.5 is; the count of entries where it is not; the set of realised y − x; if the stored dtype is not BF16, how many base entries bf16 cannot hold",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "constant": "0.5"
+   }
+  },
+  {
+   "id": "A1",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "57.2, 58.3, 57.8, 61.3, 63.8; \"439 answers right only with the edit against 182\", \"403 against 246\" (E.9, app_protocol2.tex:65–66); \"289 answers right only with the edit against 247\" (E.4, app_results.tex:260); +6.6, +4.0, +1.1, +0.5",
+   "quotes": [
+    {
+     "text": "439 answers right only with the edit against 182",
+     "where": "E.9",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      65,
+      66
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "403 against 246",
+     "where": "E.9",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      65,
+      66
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "289 answers right only with the edit against 247",
+     "where": "E.4",
+     "file": "input/app_results.tex",
+     "lines": [
+      260,
+      260
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "57.2",
+     "where": "Tab. 8",
+     "file": "tables/tab_heldout.tex",
+     "lines": [
+      13,
+      13
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "58.3",
+     "where": "Tab. 8",
+     "file": "tables/tab_heldout.tex",
+     "lines": [
+      13,
+      13
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "57.8",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      38,
+      38
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "61.3",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      39,
+      39
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "63.8",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "+6.6",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "+4.0",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      39,
+      39
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "+1.1",
+     "where": "Tab. 8",
+     "file": "tables/tab_heldout.tex",
+     "lines": [
+      13,
+      13
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "+0.5",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      38,
+      38
+     ],
+     "kind": "number"
+    }
+   ],
+   "computed": "(a − b) ÷ 3,920 for each pair; the integers B (the base model's correct answers out of 3,920) for which every printed accuracy and change rounds as printed. An empty set means the printed numbers cannot all hold",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "answers": 3920,
+    "base_printed": "57.2",
+    "pairs": [
+     {
+      "label": "session 8, second protocol",
+      "only_edit": 439,
+      "only_base": 182,
+      "printed_change": "+6.6",
+      "printed_accuracy": "63.8"
+     },
+     {
+      "label": "session 2, second protocol",
+      "only_edit": 403,
+      "only_base": 246,
+      "printed_change": "+4.0",
+      "printed_accuracy": "61.3"
+     },
+     {
+      "label": "first-protocol edit",
+      "only_edit": 289,
+      "only_base": 247,
+      "printed_change": "+1.1",
+      "printed_accuracy": "58.3"
+     }
+    ],
+    "session1": {
+     "printed_accuracy": "57.8",
+     "printed_change": "+0.5"
+    }
+   }
+  },
+  {
+   "id": "A2",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"[5.0, 8.1]\", \"[2.3, 5.7]\", \"[-0.9, 1.9]\" (Tab. 13)",
+   "quotes": [
+    {
+     "text": "[5.0, 8.1]",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      45,
+      45
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "[2.3, 5.7]",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      39,
+      39
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "[-0.9, 1.9]",
+     "where": "Tab. 13",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      38,
+      38
+     ],
+     "kind": "number"
+    }
+   ],
+   "computed": "midpoint, half-width and half-width ÷ 1.96 of each interval, beside the printed change",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "z": "1.96",
+    "intervals": [
+     {
+      "label": "session 8",
+      "lo": "5.0",
+      "hi": "8.1",
+      "printed_change": "+6.6"
+     },
+     {
+      "label": "session 2",
+      "lo": "2.3",
+      "hi": "5.7",
+      "printed_change": "+4.0"
+     },
+     {
+      "label": "session 1",
+      "lo": "-0.9",
+      "hi": "1.9",
+      "printed_change": "+0.5"
+     }
+    ]
+   }
+  },
+  {
+   "id": "A3",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "sign tests with printed counts: 66 and 0, \"p<10^-19\"; 110 and 0, \"p<10^-33\" (E.3, app_results.tex:162–164, 223–224); Tab. 12 (65/1 to 388/11, \"<10^-99\"); Tab. 7; Tab. 8 (289 and 247, 0.038)",
+   "quotes": [
+    {
+     "text": "p<10^-19",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      162,
+      164
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "p<10^-33",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      223,
+      224
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "<10^-99",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      20,
+      20
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "65 / 1",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      13,
+      13
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "388 / 11",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      20,
+      20
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "33.3",
+     "where": "Tab. 7",
+     "file": "tables/tab_repeats.tex",
+     "lines": [
+      14,
+      14
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "55.9",
+     "where": "Tab. 7",
+     "file": "tables/tab_repeats.tex",
+     "lines": [
+      15,
+      15
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "0.038",
+     "where": "Tab. 8",
+     "file": "tables/tab_heldout.tex",
+     "lines": [
+      13,
+      13
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "100,000 flips",
+     "where": "D.3",
+     "file": "input/app_details.tex",
+     "lines": [
+      129,
+      129
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "the exact one-sided sign-test p as a rational, beside the printed bound. The tables do not give enough for any permutation p (0.038, 0.045, 0.25, 0.009, \"<10^-5\", \"<10^-4\"): the per-problem differences are not printed. Computed instead: the smallest p that \"100,000 flips\" (D.3, app_details.tex:129) can report",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "flips": 100000,
+    "sign_tests": [
+     {
+      "label": "E.3: the repair against the damaged copy, 200 problems",
+      "a": 66,
+      "b": 0,
+      "bound_exp": -19
+     },
+     {
+      "label": "E.3: the named matrix alone against the damaged copy, 200 problems",
+      "a": 110,
+      "b": 0,
+      "bound_exp": -33
+     },
+     {
+      "label": "Tab. 12 MathVista",
+      "a": 65,
+      "b": 1,
+      "bound_exp": -18
+     },
+     {
+      "label": "Tab. 12 MathVerse",
+      "a": 55,
+      "b": 0,
+      "bound_exp": -16
+     },
+     {
+      "label": "Tab. 12 MMStar",
+      "a": 56,
+      "b": 0,
+      "bound_exp": -16
+     },
+     {
+      "label": "Tab. 12 HallusionBench",
+      "a": 61,
+      "b": 6,
+      "bound_exp": -12
+     },
+     {
+      "label": "Tab. 12 POPE",
+      "a": 62,
+      "b": 4,
+      "bound_exp": -13
+     },
+     {
+      "label": "Tab. 12 ScreenSpot-v2",
+      "a": 89,
+      "b": 0,
+      "bound_exp": -26
+     },
+     {
+      "label": "Tab. 12 all six",
+      "a": 388,
+      "b": 11,
+      "bound_exp": -99
+     },
+     {
+      "label": "Tab. 7: the repair without the repeats, 195 problems (count derived from 33.3)",
+      "derive": {
+       "problems": 195,
+       "printed_accuracy": "33.3"
+      },
+      "b": 0,
+      "bound_exp": -19
+     },
+     {
+      "label": "Tab. 7: the named matrix alone without the repeats, 195 problems (count derived from 55.9)",
+      "derive": {
+       "problems": 195,
+       "printed_accuracy": "55.9"
+      },
+      "b": 0,
+      "bound_exp": -32
+     },
+     {
+      "label": "Tab. 8: first-protocol edit, answers right with only one model",
+      "a": 289,
+      "b": 247,
+      "printed_p": "0.038"
+     }
+    ]
+   }
+  },
+  {
+   "id": "A4",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"33.6% of the base model's answers against 26.1% for session 8 and 28.8% for session 2\" (E.9, app_protocol2.tex:68); Tab. 9 (61.7 and 35.2; 18.8 and 80.5)",
+   "quotes": [
+    {
+     "text": "33.6% of the base model's answers against 26.1% for session 8 and 28.8% for session 2",
+     "where": "E.9",
+     "file": "input/app_protocol2.tex",
+     "lines": [
+      68,
+      68
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "61.7 & 35.2",
+     "where": "Tab. 9",
+     "file": "tables/tab_scaling.tex",
+     "lines": [
+      16,
+      16
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "18.8 & 80.5",
+     "where": "Tab. 9",
+     "file": "tables/tab_scaling.tex",
+     "lines": [
+      17,
+      17
+     ],
+     "kind": "number"
+    }
+   ],
+   "computed": "the accuracy among answers that finished: correct share ÷ (100 − share out of tokens), as an interval from the rounding of both printed numbers. It assumes that no answer that ran out of tokens counts as correct; the paper states that rule for answers \"whose thinking is still open\"",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "pairs": [
+     {
+      "label": "base model, 490 x 8 answers (E.9)",
+      "correct": "57.2",
+      "cut": "33.6"
+     },
+     {
+      "label": "session 8 (E.9)",
+      "correct": "63.8",
+      "cut": "26.1"
+     },
+     {
+      "label": "session 2 (E.9)",
+      "correct": "61.3",
+      "cut": "28.8"
+     },
+     {
+      "label": "27B first session, starting diagnosis (Tab. 9)",
+      "correct": "61.7",
+      "cut": "35.2"
+     },
+     {
+      "label": "27B second session, starting diagnosis at 4,096 tokens (Tab. 9)",
+      "correct": "18.8",
+      "cut": "80.5"
+     }
+    ]
+   }
+  },
+  {
+   "id": "A5",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "Tab. 12 (84.3, 7.3, 70.2; 388 and 11); \"83%\" (§3.6); \"9.6 times\" (Fig. 16, fig_visual.tex:8); \"about 56%\" (E.3); 110 against 117, 22 and 15 (E.3); \"39.9\" and \"about 5%\" (E.3)",
+   "quotes": [
+    {
+     "text": "84.3 & 7.3",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      20,
+      20
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "70.2",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      20,
+      20
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "388 / 11",
+     "where": "Tab. 12",
+     "file": "tables/tab_visual.tex",
+     "lines": [
+      20,
+      20
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "83%",
+     "where": "§3.6",
+     "file": "input/040experiments.tex",
+     "lines": [
+      160,
+      160
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "9.6 times",
+     "where": "Fig. 16",
+     "file": "input/fig_visual.tex",
+     "lines": [
+      8,
+      8
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "about 56%",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      162,
+      162
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "the copy solves 110 problems",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      223,
+      223
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "it fails 22 problems the base model solves and solves 15",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      224,
+      224
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "(39.9)",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      202,
+      202
+     ],
+     "kind": "number"
+    },
+    {
+     "text": "about 5%",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      203,
+      203
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "column sums and means; damaged + turned right − turned wrong = repaired, per benchmark; each quotient",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "per_benchmark_problems": 100,
+    "benchmarks": [
+     {
+      "name": "MathVista",
+      "base": "86.0",
+      "damaged": "3.0",
+      "repaired": "67.0",
+      "right": 65,
+      "wrong": 1
+     },
+     {
+      "name": "MathVerse",
+      "base": "76.0",
+      "damaged": "0.0",
+      "repaired": "55.0",
+      "right": 55,
+      "wrong": 0
+     },
+     {
+      "name": "MMStar",
+      "base": "73.0",
+      "damaged": "4.0",
+      "repaired": "60.0",
+      "right": 56,
+      "wrong": 0
+     },
+     {
+      "name": "HallusionBench",
+      "base": "89.0",
+      "damaged": "14.0",
+      "repaired": "69.0",
+      "right": 61,
+      "wrong": 6
+     },
+     {
+      "name": "POPE",
+      "base": "89.0",
+      "damaged": "23.0",
+      "repaired": "81.0",
+      "right": 62,
+      "wrong": 4
+     },
+     {
+      "name": "ScreenSpot-v2",
+      "base": "93.0",
+      "damaged": "0.0",
+      "repaired": "89.0",
+      "right": 89,
+      "wrong": 0
+     }
+    ],
+    "pooled_printed": {
+     "base": "84.3",
+     "damaged": "7.3",
+     "repaired": "70.2",
+     "right": 388,
+     "wrong": 11
+    },
+    "quotients": [
+     {
+      "label": "83% of the base model's accuracy (70.2 / 84.3)",
+      "num": "70.2",
+      "den": "84.3",
+      "printed": "83",
+      "percent": true
+     },
+     {
+      "label": "9.6 times the accuracy of the damaged copy (70.2 / 7.3)",
+      "num": "70.2",
+      "den": "7.3",
+      "printed": "9.6",
+      "percent": false
+     },
+     {
+      "label": "about 56% of the base model's accuracy (33.0 / 58.5)",
+      "num": "33.0",
+      "den": "58.5",
+      "printed": "56",
+      "percent": true
+     },
+     {
+      "label": "about 5% of the damaged copy's (39.9 / 825)",
+      "num": "39.9",
+      "den": "825",
+      "printed": "5",
+      "percent": true
+     }
+    ],
+    "named_matrix": {
+     "problems": 200,
+     "solved_named": 110,
+     "base_printed": "58.5",
+     "named_fails_base_solves": 22,
+     "named_solves_base_fails": 15
+    },
+    "distance": {
+     "repaired_norm": "39.7",
+     "published_norm": "3.85",
+     "cosine": "0.002",
+     "printed_distance": "39.9"
+    }
+   }
+  },
+  {
+   "id": "A6",
+   "kind": "computed",
+   "read_before_the_rules": false,
+   "sentence_cell": "\"158,399 weights of the damaged copy, 0.013% of them\" (E.3, app_results.tex:204–205); \"825 in the damaged copy\" (E.3, app_results.tex:202)",
+   "quotes": [
+    {
+     "text": "158,399 weights of the damaged copy, 0.013% of them",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      204,
+      205
+     ],
+     "kind": "sentence"
+    },
+    {
+     "text": "825 in the damaged copy",
+     "where": "E.3",
+     "file": "input/app_results.tex",
+     "lines": [
+      202,
+      202
+     ],
+     "kind": "sentence"
+    }
+   ],
+   "computed": "158,399 ÷ N with N from S4; with W1's exact σ, the expected norm 200σ√139,264 of the overwritten rows under the stated distribution, and its standard deviation 200σ ÷ √2",
+   "outcome": "COMPUTED: arithmetic restated; it decides nothing",
+   "params": {
+    "changed": 158399,
+    "printed_percent": "0.013",
+    "overwritten": 139264,
+    "strength": 200,
+    "printed_norm": "825",
+    "printed_sigma": "0.0111"
+   }
+  }
+ ],
+ "controls": [
+  {
+   "id": "K1",
+   "text": "K1, wrong offset: the range of rows 3068–3075 read two bytes late. Its sha256 must differ from the recorded one, and the two deciders' hashes must disagree when only one of them reads late.",
+   "needs_network": true,
+   "voids_if_not_caught": [
+    "W2",
+    "W3"
+   ],
+   "planted": {
+    "late_bytes": 2
+   }
+  },
+  {
+   "id": "K2",
+   "text": "K2, a name removed: the list of 48 time-step bias tensors with one name deleted. E1 must fail at 47, and no specification may be written.",
+   "needs_network": true,
+   "voids_if_not_caught": [
+    "E1",
+    "E4"
+   ],
+   "planted": {
+    "delete_layer": 30
+   }
+  },
+  {
+   "id": "K3",
+   "text": "K3, wrong constant: the edit built with +0.25. The check that recomputes y − x on every entry must reject it, and the specification hash must differ.",
+   "needs_network": true,
+   "voids_if_not_caught": [
+    "E4"
+   ],
+   "planted": {
+    "constant": "0.25"
+   }
+  },
+  {
+   "id": "K4",
+   "text": "K4, a dtype altered: a copy of one header with one tensor's dtype changed. S3 must list that tensor, and the length check (entries × bytes per entry = range length) must fail.",
+   "needs_network": true,
+   "voids_if_not_caught": [
+    "S3"
+   ],
+   "planted": {
+    "tensor": "model.language_model.layers.30.mlp.down_proj.weight",
+    "dtype_to": "F32"
+   }
+  },
+  {
+   "id": "K5",
+   "text": "K5, one bit flipped in a copy of the layer-30 matrix. Its sha256 and its census of bit patterns must change.",
+   "needs_network": true,
+   "voids_if_not_caught": [
+    "W1",
+    "W4"
+   ],
+   "planted": {
+    "byte": 123456,
+    "bit": 0
+   }
+  },
+  {
+   "id": "K6",
+   "text": "K6, the number rule at its edges: x = d ± u/2 must be MATCH, x = d ± u must be NEAR, and any x beyond that must be FAR. A small matrix whose variance is worked by hand must come out exact.",
+   "needs_network": false,
+   "voids_if_not_caught": [
+    "W1",
+    "W2",
+    "W3",
+    "W4"
+   ],
+   "planted": {}
+  },
+  {
+   "id": "K7",
+   "text": "K7, a misquote: each sentence quoted above is searched in the pinned TeX (markup and spacing normalised: `$`, `~`, braces, `--`, `\\_`, `\\%`, `\\texttt`, `\\sigma`, line breaks). One altered quote must stop the stage.",
+   "needs_network": false,
+   "voids_if_not_caught": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "W1",
+    "W2",
+    "W3",
+    "W4",
+    "E1",
+    "E4"
+   ],
+   "planted": {
+    "row": "W4",
+    "quote": 0,
+    "from": "162.3",
+    "to": "162.4"
+   }
+  }
+ ],
+ "quote_normalisation": "applied to the TeX and to the quote, in this order: \\texttt dropped, \\sigma -> σ, \\_ -> _, \\% -> %, $ { } dropped, ~ -> space, -- and – and − -> -, every run of white space (line breaks too) -> one space"
+}
