@@ -215,7 +215,10 @@ def derive(run):
                  'refused': ex(run, 'C5') not in (None, 0, 124, 137) and 'C5: riemannHypothesis re-typed as False' in c5out
                  and not re.search(r'Checked \d+ declarations with no (?:typechecker )?errors', c5out) and bool(re.search(r'tc\.rs|def_eq|type mismatch|typecheck', c5out))}
     if any(x.get('exit', 0) is None for x in ctl.values()) or not built_ok:
-        v, why = 'REFUSED', 'not every control ran'
+        if rd(run, 'C1.stopped') is not None and 'larger machine' in res and res['larger machine'][0] == 'resources' and all(x['exit'] is not None for k, x in ctl.items() if k != 'C1'):
+            v, why = 'REFUSED', 'C1 was not run: it needs the same memory as S1, which stopped on resources on the larger machine (amendment A19); the other controls were each rejected' if all(x['refused'] for k, x in ctl.items() if k != 'C1') else 'C1 was not run for lack of memory (amendment A19), and another control was not rejected'
+        else:
+            v, why = 'REFUSED', 'not every control ran'
     elif all(x['refused'] for x in ctl.values()):
         v, why = 'CERTIFIED', 'every control was refused by the judge it was built to fail'
     else:
@@ -310,9 +313,28 @@ def derive(run):
                     'the conditional bridge (5 theorems) and the Masullo reading (3 theorems) compiled, all on the three standard axioms'))
     brj = rd(run, 'BRJ.out', '') or ''
     plog = rd(run, '_phase.log', '') or ''
-    brok = 'STOPPED (bridge)' not in plog and 'bridge: no release artifact changed' in plog and 'BC1 rejected with its diagnostic' in plog and ex(run, 'BC1') not in (None, 0) and ex(run, 'BRB') == 0 and (rd(run, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(run, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
-        and bool(re.search(r"theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'", (rd(run, 'BC1.out', '') or '') + (rd(run, 'BC1.err', '') or '')))
-    rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected' if brok else 'the unconditional bridge has not passed'))
+    def _bridge_ok(r_, lg_):
+        brj = rd(r_, 'BRJ.out', '') or ''
+        return 'STOPPED (bridge)' not in lg_ and 'bridge: no release artifact changed' in lg_ and 'BC1 rejected with its diagnostic' in lg_ and ex(r_, 'BC1') not in (None, 0) and ex(r_, 'BRB') == 0 and (rd(r_, 'BRA.out', '') or '').count('depends on axioms: [propext, Classical.choice, Quot.sound]') == 6 and ex(r_, 'BRJ') == 0 and 'Your solution is okay!' in brj and 'Lean default kernel accepts the solution' in brj \
+            and bool(re.search(r"theorem statement do not match: 'CertMachine.Bridge.five_sixths_distinct_on_critical_line'", (rd(r_, 'BC1.out', '') or '') + (rd(r_, 'BC1.err', '') or '')))
+    # amendment A19: when the build pod's bridge did not start (its gate reads that pod's own S1, stopped under A17), BRu
+    # is read from the larger machine: the same conditions on that run and its _bridge.log, and S1 passed there
+    blog = (rd(_jr, '_bridge.log', '') or '') if _jr else ''
+    s1_big = res['larger machine'][0] if 'larger machine' in res else None
+    if 'bridge not started' in plog and 'bridge (p3) start' not in plog and (blog or s1_big in ('resources', 'rejected')):
+        brok = s1_big == 'pass' and _copy_ok(_jr, '_judge.log') and _bridge_ok(_jr, blog)
+        if brok:
+            bwhy = 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected; on the larger machine, a hash-checked copy of the build (amendment A19)'
+        elif s1_big == 'resources' or any(ex(_jr, x) in (124, 137) for x in ('BC1', 'BRJ')):
+            bwhy = 'the unconditional bridge is REFUSED on resources: its judge needs more memory than the 376 GB machine has (amendment A19)'
+        elif s1_big == 'rejected':
+            bwhy = 'the unconditional bridge was not run: the statement judge rejected the release on the larger machine (amendment A19)'
+        else:
+            bwhy = 'the unconditional bridge has not passed'
+        rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', bwhy, where='larger machine'))
+    else:
+        brok = _bridge_ok(run, plog)
+        rows.append(row('BRu', 'CERTIFIED' if brok else 'REFUSED', 'the unconditional bridge: six statements judged by Comparator against the bridge challenge, all on the three standard axioms, BC1 rejected' if brok else 'the unconditional bridge has not passed'))
     # amendment A12: CHAR (the textbook statements, Mathlib-only workspace), K3 (con-leche on the build pod), CR (a clean pod)
     cd_ = os.path.join(os.path.dirname(base), 'runs-char')
     cax = rd(cd_, 'CHAR-axioms.out', '') if os.path.isdir(cd_) else ''

@@ -73,4 +73,9 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     clean-machine gate now read both forms with one pattern each; any other pretty-printer error is not an acceptance.
     COMPUTED beside it: the parallel pod's export holds exactly three axiom records (propext, Quot.sound,
     Classical.choice).
+16. **2026-11-22 09:39 UTC — what follows the larger machine's S1 (amendment A19, before S1 has a verdict).** On the
+    operator's word: if S1 runs out of memory on the 376 GB machine it is REFUSED on resources and no larger machine is
+    rented; C1 is then not run and the row C1–C5 is REFUSED on resources, as is the bridge. If S1 passes, C1 runs and
+    then the bridge runs there, with the build pod's bridge steps line for line. The second statement judge
+    (con-leche's comparison) is already CERTIFIED and does not depend on any of this.
 

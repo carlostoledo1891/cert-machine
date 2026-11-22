@@ -505,3 +505,30 @@ The recorder looked for the words `with no errors` and would have read this acce
 
 **Disclosure.** This amendment is written after the parallel pod's K2 reported, and before the registered K2 has run. The parallel pod's K2 is reported beside the registered one (A15), not as its verdict.
 
+## Amendment A19 — what follows the larger machine's S1, either way (the operator, 2026-11-22 ~09:00 UTC; written 09:39 UTC), before S1 has a verdict
+
+**State when this is written.** S1 has been running on the larger machine since 05:02 UTC. Its memory reached 356 GB of the 376 GB limit at 07:21 UTC and has stayed there while it works; nothing has been killed. No result of S1 is known.
+
+**The operator's two answers** (asked in the session, about 09:00 UTC):
+1. If S1 runs out of memory there, it is recorded as refused on resources. No larger machine is rented.
+2. The bridge (BRu) runs on the larger machine only if S1 passes there.
+
+**If S1 stops on resources.**
+- S1 is REFUSED on resources, as A17 already fixed.
+- C1 is not run. It is the same judge on the same proof and needs the same memory. The row C1–C5 is then REFUSED on resources, with each control that ran reported one by one (C2, C3, C4 and C5 were each rejected on the build pod).
+- BRu is REFUSED on resources. Its two Comparator runs read a slightly larger proof.
+- The larger machine is deleted once its results are home.
+- The statement is still judged by the second statement judge of A12: con-leche's comparison, CERTIFIED on the build pod (K3) and repeated on the clean machine (CR). The record says which judge decided what.
+
+**If S1 passes.**
+- C1 runs next on the larger machine, as A17 fixed.
+- Then the bridge runs there, with `tools/runpod-alpoge-grh-judge-bridge.sh` (new, at this commit). From its `gate()` helper to its last step it is the build pod's bridge script line for line; one comment line names this file. What differs is above that: the unprivileged user, the log file (`_bridge.log`), and the start condition.
+- Start condition: the judge script has ended, and S1 passed there with every condition of A17 (exit 0, both acceptance lines, the sandbox, the compiled challenge unchanged, the copy's lists equal, `lake build --no-build` exit 0).
+- The bridge build compiles the August release's 326 sources and cert-machine's bridge files on that machine. It compiles nothing of the release under test: the release's artifacts are listed before and after, and any change stops the bridge.
+- BRu's rule is unchanged: the build exits 0, no release artifact changed, the six bridge theorems rest on the three standard axioms, the control BC1 is rejected with its diagnostic, and Comparator accepts the six statements against the bridge challenge. The row says where it ran.
+- A bridge Comparator run that stops on resources makes BRu REFUSED on resources.
+
+**If S1 rejects the release.** A17's rule stands: REFUSED until traced. The bridge does not run.
+
+**Cost.** If S1 passes: about 10–14 more hours at US$2.88 an hour, US$30–40. Spent on this lane so far: about US$93 of the US$200 ceiling.
+
