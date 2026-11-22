@@ -442,13 +442,13 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 
 **Cost.** The parallel pod stays up for the length of this run, perhaps 10–20 hours at US$1.76 an hour.
 
-## Amendment A17 — S1 and its control C1 on a machine with more memory (the operator, 2026-11-22 ~04:55 UTC), before either runs there
+## Amendment A17 — S1 and its control C1 on a machine with more memory (the operator, 2026-11-22 ~04:39 UTC), before either runs there
 
-**Why.** Measured on the pods, 04:17–04:36 UTC:
+**Why.** Measured on the pods, 04:17–04:35 UTC:
 - The export of the five theorems' closure is 61,571,290,481 bytes. The parallel pod wrote it in 5,988 s with memory free.
 - Comparator v4.33.0 reads that whole text into memory before it parses it, while lean4export, its child, still holds its own data. On the build pod Comparator held 126.5 GB and lean4export 80.9 GB.
 - The build pod stood at its limit: 255,998,107,648 of 256,000,000,000 bytes, 201.8 GB of it anonymous. The limit had been hit 2,488,490 times, with no out-of-memory kill.
-- At the limit the kernel keeps evicting the compiled proof files the export reads. In 20 seconds lean4export got 0.07 s of user time and 10.2 s of system time. S1 was 6 h 9 min in and still exporting.
+- At the limit the kernel keeps evicting the compiled proof files the export reads. In 20 seconds lean4export got 0.07 s of user time and 10.2 s of system time. S1 was 6 h 6 min in and still exporting.
 - The parallel pod has the same limit, so A16's backup run would have met the same wall, beside KR. It was cancelled at 04:27 UTC, before it started (the line is in that pod's `_parallel.log`). There is no A16 run to report.
 - The parse and the kernel replay that follow the export need more memory still. How much is not known.
 
@@ -473,4 +473,6 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 - *K3.* It needs the build pod's export, not its S1. It starts by itself when phase 2 and the bridge's wait are over. Its `--compare` is the second statement judge of A12 and is untouched.
 - *CR.* Its only input is the build pod's export. The clean pod is created once that export has its digest and its five roots (A12's own condition, "once EXP has produced the export"), on the operator's word of 2026-11-21 to recreate it then.
 
-**Cost.** US$2.88 an hour (the catalog's price, read at 04:20 UTC) for an estimated 15–20 hours: US$45–60. Spent on this lane so far: about US$62 (billing read, 04:45 UTC; the last hour is not in it yet). With three pods running, the lane's total is now expected to reach about US$170, above the US$150 ceiling. The operator chose this machine at its hourly price; the estimate is put to him in the next report, and the ceiling is his to raise or hold.
+**Cost.** US$2.88 an hour (the catalog's price, read at 04:20 UTC) for an estimated 15–20 hours: US$45–60. Spent on this lane so far: about US$62 (billing read, 04:36 UTC; the last hour is not in it yet). With three pods running, the lane's total is now expected to reach about US$170, above the US$150 ceiling. The operator chose this machine at its hourly price; the estimate is put to him in the next report, and the ceiling is his to raise or hold.
+
+**Correction (04:42 UTC).** The first commit of this amendment (d6db39e7, made at 04:39 UTC) gave its own time as ~04:55, the billing read as 04:45, and S1's age as 6 h 9 min. All three were written ahead of the clock. The times above are the corrected ones; nothing else changed. S1 was still running on the build pod at this correction.
