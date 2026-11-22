@@ -112,8 +112,8 @@
     },
     "C5": {
      "what": "the release's export with riemannHypothesis re-typed as False",
-     "exit": null,
-     "refused": false
+     "exit": 101,
+     "refused": true
     }
    }
   },
@@ -174,16 +174,19 @@
   },
   {
    "id": "K3",
-   "verdict": "PENDING",
-   "why": "con-leche did not run (it starts after phase 2 and the bridge)",
+   "verdict": "CERTIFIED",
+   "why": "con-leche accepted the 1468414 declarations of the export, --compare justified the five theorems against the challenge, and both controls (C1, C5) were rejected",
+   "declarations": 1468414,
+   "seconds": 501,
+   "peak_rss_gb": 44.3,
    "controls": {
     "K3C1": {
-     "exit": null,
-     "refused": false
+     "exit": 1,
+     "refused": true
     },
     "K3C5": {
-     "exit": null,
-     "refused": false
+     "exit": 1,
+     "refused": true
     }
    }
   },

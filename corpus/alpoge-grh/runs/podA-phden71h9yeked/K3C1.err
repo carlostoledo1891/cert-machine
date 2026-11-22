@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 88.9s (index 2.6s), check 411.3s
+con-leche: stats: check pool: 411.165s wall, 32 workers, 1468414 records, busy 13132.723s (99.8%); tail 0.485s after the last start, 32 busy then, 1.277s worker-time in it (8.2%)
+con-leche: stats: slowest checks: 64.338s theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554); 63.221s theorem PI.PC.loop_run._proof_1_1 (#571290); 46.808s theorem GlobalTheory.HeightCounting.SideCopy.sigSpan_copy (#829660); 40.131s theorem GlobalTheory.PrimeRecip.table_ok._proof_1_1 (#570391); 32.422s theorem Formalism.IrreducibleCountingLemmas.GaloisIrreducibility.PrimeCountingLemmas.factorial_ladder_one_forty_one._proof_1_1 (#226690)
+con-leche: stats: peak RSS 44.48 GiB
+con-leche: stats: phases: parse 503.5s (index 0.8s), check 1.4s
+con-leche: stats: check pool: 1.419s wall, 32 workers, 51217 records, busy 44.134s (97.1%); tail 0.016s after the last start, 32 busy then, 0.111s worker-time in it (20.8%)
+con-leche: stats: slowest checks: 0.102s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#22850); 0.080s theorem hasFDerivAt_of_tendstoUniformlyOnFilter (#35284); 0.065s theorem Besicovitch.SatelliteConfig.exists_normalized_aux3 (#43083); 0.061s theorem continuousMultilinearCurryRightEquiv._proof_2 (#38261); 0.059s theorem hasFDerivWithinAt_closure_of_tendsto_fderiv (#40821)
+con-leche: stats: peak RSS 44.48 GiB
+con-leche: invalid: axiom riemannZeta_eq_zero_re is not justified by the solution: its type reads RiemannZetaZerosOnLine, which the solution does not declare alike [at axiom riemannZeta_eq_zero_re, fold position 51216] (--verified) t=504.9s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 env LEAN_ABORT_ON_PANIC=1 /opt/judges4/con-leche/.lake/build/bin/con-leche --jobs=32 --compare -- /data/k3/challenge-c1.ndjson /data/export.ndjson"
+	User time (seconds): 13222.92
+	System time (seconds): 870.78
+	Percent of CPU this job got: 2789%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:25.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46642960
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 38368574
+	Voluntary context switches: 234788
+	Involuntary context switches: 169047
+	Swaps: 0
+	File system inputs: 677968
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

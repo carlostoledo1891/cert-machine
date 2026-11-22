@@ -50,6 +50,11 @@
    "at": "2026-11-22T07:11Z",
    "done": 18,
    "what": "An independent kernel accepts the proof: nanoda, a Lean kernel written in Rust, checked all 1,484,729 declarations of the exported proof with no type error, in 35 minutes. The export holds exactly three axioms: propext, Quot.sound and Classical.choice. The planted error for this kernel (the Riemann Hypothesis re-typed as False) is running on the same file. How nanoda’s acceptance line is read was fixed in amendment A18, before this run started."
+  },
+  {
+   "at": "2026-11-22T09:04Z",
+   "done": 19,
+   "what": "A third kernel and a second statement judge: con-leche accepted the 1,468,414 declarations of the exported proof in 8 minutes. Its comparison justified each of the five theorems of our challenge file by the release’s export. It rejected both planted errors with their diagnostics: the challenge with 1/2 replaced by 1/3, and the Riemann Hypothesis re-typed as False. nanoda also rejected its planted error on the build pod. The statement judge Comparator is still running on the larger machine, and the clean-machine check has started."
   }
  ]
 }

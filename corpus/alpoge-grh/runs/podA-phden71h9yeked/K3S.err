@@ -1,0 +1,79 @@
+con-leche: reading /data/k3/challenge.ndjson
+con-leche: reading /data/export.ndjson
+con-leche: checking: 1468414 declarations on 32 workers t=88.0s
+con-leche: check 73421 (5%) t=90.8s busy=31/32
+con-leche: check 146842 (10%) t=97.3s busy=31/32
+con-leche: check 220263 (15%) t=110.1s busy=31/32
+con-leche: check 293683 (20%) t=130.4s busy=31/32, oldest theorem Formalism.IrreducibleCountingLemmas.GaloisIrreducibility.PrimeCountingLemmas.factorial_ladder_one_forty_one._proof_1_1 (#226690) 19.268s
+con-leche: check 367104 (25%) t=151.7s busy=31/32
+con-leche: check 440525 (30%) t=169.5s busy=31/32
+con-leche: check 513945 (35%) t=202.8s busy=31/32
+con-leche: check 587366 (40%) t=228.4s busy=31/32
+con-leche: check 660787 (45%) t=256.0s busy=31/32, oldest theorem PI.PC.loop_run._proof_1_1 (#571290) 32.646s
+con-leche: check 734207 (50%) t=271.8s busy=31/32
+con-leche: check 807628 (55%) t=295.5s busy=31/32
+con-leche: check 881049 (60%) t=329.7s busy=31/32, oldest theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554) 25.928s
+con-leche: check 954470 (65%) t=351.4s busy=31/32, oldest theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554) 47.549s
+con-leche: check 1027890 (70%) t=369.8s busy=31/32
+con-leche: check 1101311 (75%) t=389.0s busy=31/32
+con-leche: check 1174732 (80%) t=410.8s busy=31/32
+con-leche: check 1248152 (85%) t=444.1s busy=31/32
+con-leche: check 1321573 (90%) t=462.8s busy=31/32
+con-leche: check 1394994 (95%) t=481.5s busy=31/32
+con-leche: check 1468414 (100%) t=504.8s busy=0/32
+con-leche: check done: 1468414 declarations t=505.3s (check 417.2s)
+con-leche: done: parse 88.0s, check 417.2s, 32 workers t=505.3s
+con-leche: stats: phases: parse 88.0s (index 2.6s), check 417.2s
+con-leche: stats: check pool: 417.131s wall, 32 workers, 1468414 records, busy 13321.658s (99.8%); tail 0.495s after the last start, 32 busy then, 1.453s worker-time in it (9.1%)
+con-leche: stats: slowest checks: 62.916s theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554); 46.844s theorem GlobalTheory.HeightCounting.SideCopy.sigSpan_copy (#829660); 38.963s theorem PI.PC.loop_run._proof_1_1 (#571290); 27.051s theorem Formalism.IrreducibleCountingLemmas.GaloisIrreducibility.PrimeCountingLemmas.factorial_ladder_one_forty_one._proof_1_1 (#226690); 20.664s theorem GlobalTheory.PrimeRecip.table_ok._proof_1_1 (#570391)
+con-leche: stats: peak RSS 44.46 GiB
+con-leche: checking: 51688 declarations on 32 workers t=508.6s
+con-leche: check 2585 (5%) t=508.7s busy=26/32
+con-leche: check 5169 (10%) t=508.7s busy=31/32
+con-leche: check 7754 (15%) t=508.8s busy=30/32
+con-leche: check 10338 (20%) t=508.8s busy=31/32
+con-leche: check 12922 (25%) t=508.9s busy=30/32
+con-leche: check 15507 (30%) t=508.9s busy=31/32
+con-leche: check 18091 (35%) t=509.0s busy=31/32
+con-leche: check 20676 (40%) t=509.0s busy=30/32
+con-leche: check 23260 (45%) t=509.1s busy=30/32
+con-leche: check 25844 (50%) t=509.1s busy=31/32
+con-leche: check 28429 (55%) t=509.2s busy=31/32
+con-leche: check 31013 (60%) t=509.3s busy=30/32
+con-leche: check 33598 (65%) t=509.3s busy=31/32
+con-leche: check 36182 (70%) t=509.4s busy=31/32
+con-leche: check 38766 (75%) t=509.5s busy=31/32
+con-leche: check 41351 (80%) t=509.6s busy=31/32
+con-leche: check 43935 (85%) t=509.7s busy=30/32
+con-leche: check 46520 (90%) t=509.8s busy=31/32
+con-leche: check 49104 (95%) t=509.9s busy=31/32
+con-leche: check 51688 (100%) t=510.1s busy=0/32
+con-leche: check done: 51688 declarations t=510.1s (check 1.4s)
+con-leche: done: parse 508.6s, check 1.4s, 32 workers t=510.1s
+con-leche: stats: phases: parse 508.6s (index 0.8s), check 1.4s
+con-leche: stats: check pool: 1.421s wall, 32 workers, 51688 records, busy 42.866s (94.2%); tail 0.065s after the last start, 32 busy then, 0.303s worker-time in it (14.4%)
+con-leche: stats: slowest checks: 0.108s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#22850); 0.089s theorem _private.Init.GrindInstances.Ring.Fin.0.Lean.Grind.Fin.neg_mul._proof_1_5 (#17208); 0.075s theorem _private.Mathlib.Algebra.Order.Field.Basic.0.mul_self_inj_of_nonneg._proof_1_1 (#24853); 0.069s axiom riemannHypothesis (#51215); 0.068s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#25775)
+con-leche: stats: peak RSS 44.46 GiB
+	Command being timed: "timeout 14400 env LEAN_ABORT_ON_PANIC=1 /opt/judges4/con-leche/.lake/build/bin/con-leche --jobs=32 --progress=5% --compare -- /data/k3/challenge.ndjson /data/export.ndjson"
+	User time (seconds): 14009.53
+	System time (seconds): 437.71
+	Percent of CPU this job got: 2825%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:31.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46622912
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 38771092
+	Voluntary context switches: 203411
+	Involuntary context switches: 60536
+	Swaps: 0
+	File system inputs: 685152
+	File system outputs: 200
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
