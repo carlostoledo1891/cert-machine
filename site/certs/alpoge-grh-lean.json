@@ -127,8 +127,10 @@
   },
   {
    "id": "KR",
-   "verdict": "PENDING",
-   "why": "leanchecker exit None on the parallel pod",
+   "verdict": "CERTIFIED",
+   "why": "leanchecker --fresh Main replayed the closure on the parallel pod, on a copy whose 1226309 files have the build pod's sha256 (amendment A15)",
+   "seconds": 40800,
+   "peak_rss_gb": 102.7,
    "where": "parallel pod",
    "parallel": {
     "run": "podB-pvuwxr15uv2xd3",

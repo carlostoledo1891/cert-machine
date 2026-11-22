@@ -1,0 +1,6 @@
+The parallel pod's /results held 51 files when it was read for the last time (2026-11-22T13:55:51Z). Their sha256 are in
+RESULTS-ALL.sha256, written on the pod. Three are too large for this repository and were not kept:
+  copy-source.sha256 and copy-dest.sha256 (224,483,801 bytes each; equal, sha256 e792fec5…d079: the two lists of the copy)
+  NOBUILD-test.out (32,773,790 bytes: the log of a side test that was not a registered step)
+The 48 other files are here and match that list. The pod's export (/data/export.ndjson, sha256 4301ce48…2e7e) was not
+kept: it is byte-identical to the build pod's, by that hash.

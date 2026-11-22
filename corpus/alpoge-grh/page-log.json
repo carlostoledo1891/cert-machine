@@ -60,6 +60,11 @@
    "at": "2026-11-22T10:43Z",
    "done": 20,
    "what": "A clean machine agrees. A fresh pod that never ran the release’s code built its own tools and its own copy of our statement file, and received only the exported proof, accepted by its hash. There nanoda checked 1,484,729 declarations with no type error, con-leche’s comparison justified all five theorems, and the three planted errors were rejected. The pod’s own script logged “4 of 5 gates held”: its test for one control misread con-leche’s rejection wording, a fault of our script. The verdict is decided from the five recorded outputs by the rule fixed in advance, and the misread line is kept in the record (amendment A20, made after the result and disclosed as such)."
+  },
+  {
+   "at": "2026-11-22T13:53Z",
+   "done": 21,
+   "what": "Lean’s own kernel replays the whole proof: leanchecker --fresh Main, starting from an empty environment, checked every module the five theorems rest on and exited 0 after 11 hours 20 minutes on one core. It ran on the parallel pod, on a copy of the compiled proof whose 1,226,309 files match the build pod’s hashes (amendment A15). With nanoda and con-leche, three kernels have now accepted the proof. Left: the statement judge Comparator, its planted-error control and the bridge, all on the larger machine."
   }
  ]
 }
