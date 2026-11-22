@@ -45,6 +45,11 @@
    "at": "2026-11-22T06:35Z",
    "done": 17,
    "what": "The statement judge (Comparator) could not finish on the build pod: at that pod’s 256 GB memory limit its export stopped making progress, so the run was stopped after 6.2 hours and decides nothing (amendment A17). The same judge now runs on a machine with 376 GB, on a copy of the compiled proof whose 1,226,309 files match the build pod’s hashes. Three planted errors went through the judge on the build pod and were rejected with their diagnostics: a planted axiom, a sorry, a hijacked definition. The export of the proof is written: 61,571,290,481 bytes, with all five theorems in it; a second export, made on the parallel pod, has the same sha256. On that second export nanoda checked 1,484,729 declarations with no type error and rejected the planted error (the Riemann Hypothesis re-typed as False). Those two results are reported beside the registered runs, which have started on the build pod’s own export."
+  },
+  {
+   "at": "2026-11-22T07:11Z",
+   "done": 18,
+   "what": "An independent kernel accepts the proof: nanoda, a Lean kernel written in Rust, checked all 1,484,729 declarations of the exported proof with no type error, in 35 minutes. The export holds exactly three axioms: propext, Quot.sound and Classical.choice. The planted error for this kernel (the Riemann Hypothesis re-typed as False) is running on the same file. How nanoda’s acceptance line is read was fixed in amendment A18, before this run started."
   }
  ]
 }
