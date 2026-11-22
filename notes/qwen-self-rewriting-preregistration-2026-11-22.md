@@ -144,3 +144,17 @@ that prepared them named the places where the rules left a choice; the control r
 9. **If the system Python cannot open the connection,** the same decider runs under the other installed Python, and
    that is reported as a deviation.
 
+## Pause note (2026-11-22 13:12 UTC)
+
+The operator paused this audit to keep two other lanes moving. The run stopped at a step boundary:
+- **Done:** I1 (passed, both deciders), I2, the plan, and both deciders' reads (12:25 to 13:10 UTC). Each decider read
+  17,584,465,270 bytes in 229 requests with no failed attempt; the two range lists are equal (199 ranges, sha256
+  10ad29fc…f5463).
+- **Not run:** the network controls K1–K5 and the recorder. So no row has a verdict, and nothing is reported.
+- **The paused state, pinned by hash:** the Python decider's results file 792664c2…dbf1c, the JavaScript decider's
+  1f9d3438…7c0, and the edit specification each wrote, 2e2c3f76…c7c0 from both. The code is unchanged
+  (`STAGE1-CODE.sha256` still passes at commit 8a900f44).
+- **Seen so far:** the agent that ran the steps saw the header rows of the plan and the verdict words the Python run
+  log prints; the control room saw the last lines of two logs. No results file has been opened by the control room.
+- **To resume,** on the operator's word: the two control steps and the recorder, in that order, with no step repeated.
+
