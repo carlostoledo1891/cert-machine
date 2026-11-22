@@ -65,3 +65,12 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     `STREAMS=<n>`: the same set of files (the filter is now defined once and used by both the list and the copy),
     largest first, dealt to n tar streams. The single-stream copy started at 04:43 was stopped at 2 GB and its files
     are overwritten. The acceptance test is unchanged: both ends hash every copied file and the two lists must be equal.
+15. **2026-11-22 05:05 UTC — nanoda's acceptance line (amendment A18, before the registered K2 reports).** With this
+    run's configuration nanoda prints `Checked N declarations with no typechecker errors, 1 pretty printer errors:
+    ["Unable to print axioms"]` (its axiom printing is on by default and no destination is set). The recorder looked
+    for `with no errors` and would have misread an acceptance. Found on the parallel pod's K2 (exit 0, 1,484,729
+    declarations); the committed derisk already showed the line and I had not adapted the reader. The recorder and the
+    clean-machine gate now read both forms with one pattern each; any other pretty-printer error is not an acceptance.
+    COMPUTED beside it: the parallel pod's export holds exactly three axiom records (propext, Quot.sound,
+    Classical.choice).
+

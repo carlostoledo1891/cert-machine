@@ -480,3 +480,28 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 **Done (04:41 UTC).** The build pod's S1 was stopped at 04:41:14 UTC (exit 137 after 22,414 s) and its C1 at 04:41:18 UTC, each with its marker file. The larger machine's setup had finished at 04:41:51 UTC, at commit d6db39e7.
 
 **The ceiling (the operator, 2026-11-22 04:58 UTC).** Asked with the estimate above (about US$170), the operator raised the lane's ceiling from US$150 to US$200.
+
+## Amendment A18 — nanoda's acceptance line, read as nanoda prints it (2026-11-22 05:05 UTC), before the registered K2 reports
+
+**What was found.** The parallel pod's nanoda run ended at 04:59 UTC with exit 0 and this output:
+
+```
+Checked 1484729 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+```
+
+The recorder looked for the words `with no errors` and would have read this acceptance as "a disagreement". The registered K2, on the build pod's own export, has not started: that export is still being written.
+
+**Why nanoda prints it.** nanoda's `print_axioms` option is on by default, and this run's configuration names no pretty-printer destination. nanoda then checks every declaration, cannot print the axioms, and reports that as a pretty-printer error beside its count (`src/main.rs` and `src/pretty_printer.rs` at 0da9f98f). The note says nothing about the type check. The small-export test in the committed record, made before phase 2 (`derisk.txt`), shows the same line on acceptance and exit 101 on a planted wrong literal. I did not adapt the reader then; that was my miss.
+
+**What changes.**
+- The recorder reads nanoda's acceptance with one function, `nanoda_accepts`. It takes either `Checked N declarations with no errors`, or `Checked N declarations with no typechecker errors, 1 pretty printer errors: ["Unable to print axioms"]`. Exit 0 is still required, and so are the export's digest and its five roots.
+- Any other pretty-printer error, a second one, or any other text is not an acceptance: REFUSED until read.
+- The clean-machine gate (`tools/runpod-alpoge-grh-clean.sh`, rows CRK and CRC5) uses the same two patterns. That script has not run its check step.
+- K2's rule is unchanged: nanoda accepts the export of the closure of the five theorems. The configuration of the registered run is unchanged.
+
+**One thing this form does not say.** With the plain form, nanoda also names any axiom it skipped as not permitted; in this form it does not. Two facts cover that. First, the export is the closure of the five roots, so every axiom in it is used, and a skipped axiom would leave its users without a constant they need. Second, COMPUTED on the parallel pod's export (sha256 4301ce48…): a scan of all 61,571,290,481 bytes finds exactly three axiom records, and their names resolve to `propext`, `Quot.sound` and `Classical.choice`. The same scan is run on the build pod's export when it exists, and reported beside K2.
+
+**Disclosure.** This amendment is written after the parallel pod's K2 reported, and before the registered K2 has run. The parallel pod's K2 is reported beside the registered one (A15), not as its verdict.
+

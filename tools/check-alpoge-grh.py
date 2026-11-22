@@ -221,13 +221,25 @@ def derive(run):
     else:
         v, why = 'REFUTED', 'a control was accepted: the judge cannot be trusted on this run'
     rows.append(row('C1-C5', v, why, controls=ctl))
+    def nanoda_accepts(out):
+        """the declaration count if nanoda's output is one of its two acceptance lines, else None (amendment A18).
+        With a pretty-printer destination or print_axioms off: `Checked N declarations with no errors`. With this run's
+        config (print_axioms left at its default, no destination): `Checked N declarations with no typechecker errors,
+        1 pretty printer errors: ["Unable to print axioms"]` — the form the committed derisk already shows. Any other
+        pretty-printer error is not an acceptance here."""
+        t = ' '.join((out or '').split())
+        a = re.search(r'Checked (\d+) declarations with no errors', t)
+        b = re.search(r'Checked (\d+) declarations with no typechecker errors, 1 pretty printer errors: \[ ?"Unable to print axioms",? ?\]', t)
+        m_ = a or b
+        return int(m_.group(1)) if m_ else None
+
     # K2 nanoda, KR leanchecker --fresh
     k2 = rd(run, 'K2.out', '') or ''
-    m = re.search(r'Checked (\d+) declarations with no errors', k2)
+    nk2 = nanoda_accepts(k2)
     roots_ok = (rd(run, 'export-roots.txt', '') or '').startswith('roots 5/5')
     digest_ok = bool((rd(run, 'export.sha256', '') or '').strip())
-    if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and m and int(m.group(1)) > 0 and roots_ok and digest_ok:
-        v, why = 'CERTIFIED', f'nanoda checked {m.group(1)} declarations of the exported closure with no typechecker error'
+    if ex(run, 'K2') == 0 and ex(run, 'EXP') == 0 and nk2 and roots_ok and digest_ok:
+        v, why = 'CERTIFIED', f'nanoda checked {nk2} declarations of the exported closure with no typechecker error'
     elif ex(run, 'K2') is None:
         v, why = 'REFUSED', 'nanoda did not run yet'
     elif ex(run, 'K2') in (124, 137):
@@ -262,10 +274,10 @@ def derive(run):
             v, why = 'REFUSED', f'leanchecker exit {kr} on the parallel pod'
         else:
             v, why = 'REFUTED', f'leanchecker exit {kr} on the parallel pod'
-        m2 = re.search(r'Checked (\d+) declarations with no errors', rd(pr, 'K2.out', '') or '')
+        n2 = nanoda_accepts(rd(pr, 'K2.out', '') or '')
         par = {'run': os.path.basename(pr), 'copy_files': nfiles, 'copy_lists_equal': lists_ok, 'copy_list_sha256': mcl.group(2) if mcl else None,
                'export_sha256': (rd(pr, 'export.sha256', '') or '').split(' ')[0] or None, 'K2_exit': ex(pr, 'K2'),
-               'K2_declarations': int(m2.group(1)) if m2 else None, 'C5_exit': ex(pr, 'C5')}
+               'K2_declarations': n2, 'C5_exit': ex(pr, 'C5')}
         rows.append(row('KR', v, why, seconds=secs(pr, 'KR'), peak_rss_gb=peak_rss_gb(pr, 'KR'), where='parallel pod', parallel=par))
     else:
         kr = ex(run, 'KR')

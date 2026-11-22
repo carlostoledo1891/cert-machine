@@ -118,10 +118,12 @@ if [ "$MODE" = check ]; then
   ex() { cat $R/$1.exit; }
   rej() { local e; e=$(ex $1); [ "$e" != 0 ] && [ "$e" != 124 ] && [ "$e" != 137 ]; }
   k=0
-  [ "$(ex CRK)" = 0 ] && o CRK | grep -qE 'Checked [0-9]+ declarations with no errors' && k=$((k+1)) || log "CR gate: CRK did not accept"
+  # nanoda's acceptance line, either form (amendment A18; the same two patterns as the recorder's nanoda_accepts)
+  nok() { o $1 | tr -s ' \n' ' ' | grep -qE 'Checked [0-9]+ declarations with no errors|Checked [0-9]+ declarations with no typechecker errors, 1 pretty printer errors: \[ ?"Unable to print axioms",? ?\]'; }
+  [ "$(ex CRK)" = 0 ] && nok CRK && k=$((k+1)) || log "CR gate: CRK did not accept"
   [ "$(ex CRS)" = 0 ] && o CRS | grep -q '5 axioms justified by the solution' && [ "$(o CRS | grep -cE '^con-leche: theorem (riemannHypothesis|riemannZeta_eq_zero_re|LFunction_ne_zero_of_half_lt_re|LFunction_eq_zero_re|LFunction_eq_zero_re_of_isPrimitive) justified by the solution')" = 5 ] && k=$((k+1)) || log "CR gate: CRS did not justify the five theorems"
   rej CRC1 && o CRC1 | grep -qE 'RiemannZetaZerosOnLine|riemannZeta_eq_zero_re' && ! o CRC1 | grep -q 'justified by the solution' && k=$((k+1)) || log "CR gate: CRC1 was not rejected with its diagnostic"
-  rej CRC5 && grep -q 'C5: riemannHypothesis re-typed as False' $R/CRC5-make.txt && ! o CRC5 | grep -qE 'Checked [0-9]+ declarations with no errors' && k=$((k+1)) || log "CR gate: CRC5 was not rejected by nanoda"
+  rej CRC5 && grep -q 'C5: riemannHypothesis re-typed as False' $R/CRC5-make.txt && ! nok CRC5 && k=$((k+1)) || log "CR gate: CRC5 was not rejected by nanoda"
   rej CRC5c && o CRC5c | grep -q riemannHypothesis && ! o CRC5c | grep -q 'accepted [0-9]* declarations' && k=$((k+1)) || log "CR gate: CRC5c was not rejected by con-leche"
   if [ $k = 5 ]; then log "CR CERTIFIED by its gates"; else log "CR: $k of 5 gates held"; fi
   log "CR done"
