@@ -41,3 +41,8 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
    (rebuilding the judges), was stopped and restarted from the corrected script, with `/opt/judges` moved aside first.
    Correction (17:10 UTC): phase 2 had also run B1V (exit 0) and the reconcile (175,187 of 175,187) before the halt. The halt's log line tripped the scripts' stop signal; the log is kept verbatim as `_phase.log.part1` (sha256 737f65a5…), a clean continuation was started, and phase 2, the bridge and con-leche were restarted at 17:01 UTC (amendment A13's correction).
 10. **2026-11-21 ~17:20 UTC — MI read with the artifact set amendment A5 names (amendment A14, after the result).** MI's two differences are Lake `.hash` sidecars holding the same number with and without leading zeros; the oleans they describe are identical (`mathlib-hash-sidecars.txt`). The script's substring test had included sidecars, which A5's set does not; the recorder now follows A5 and names the sidecars in the row.
+11. **2026-11-22 ~02:10 UTC — a parallel pod for KR, the export, K2 and C5 (amendment A15, before any of them runs).**
+    On the operator's word, to finish sooner: a second pod of the same shape is set up with the dropped row V's own
+    setup script, receives a hash-checked copy of the compiled release, and runs KR, EXP, K2 and C5 while S1 runs on
+    the build pod. KR's verdict is read from the parallel pod; K2 and C5 stay on the build pod's own export, with the
+    parallel pod's runs reported beside them. The copy reads the build's files while S1 runs and may slow it.

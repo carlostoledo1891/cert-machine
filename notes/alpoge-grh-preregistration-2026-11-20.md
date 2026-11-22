@@ -400,3 +400,24 @@ The recorder reads the continuation; part 1 stays in the run.
 MI ran at 17:05 UTC and reported 60,860 files in common, 0 only on one side, and 2 differing. Both differing files are Lake's `.hash` sidecars (`Mathlib/Tactic/FastInstance.olean.hash`, `Mathlib/Topology/Category/TopCat/ULift.olean.server.hash`). Each holds the same number on both sides, with and without leading zeros: `0033606662060955` vs `33606662060955`, and `0192040428878591` vs `192040428878591`. The `.olean` files they describe are byte-identical (`mathlib-hash-sidecars.txt`).
 
 Amendment A5 defines the compared set as ".olean and its .private/.server parts, .ilean". The script's test, `'.olean' in f`, also took in the `.hash` sidecars, which are not compiled artifacts. The recorder now applies A5's set. A difference confined to `.hash` sidecars, with the whole difference list present, does not count, and the row says how many sidecars differed. This change was made after the result was seen. It is marked here and in DEVIATIONS item 10 so a reader can weigh it.
+
+## Amendment A15 — a parallel pod for KR, the export, K2 and C5 (the operator, 2026-11-22 ~02:10 UTC), before any of them runs
+
+**Why.** The operator asked for the check to finish as soon as possible. Phase 2 runs its steps one after another on the build pod, and two of them are long single-process runs: S1 (Comparator v4.33.0 takes the whole export into memory, parses it, and replays it in Lean's kernel on one thread) and KR. At 01:50 UTC S1 was still in its export, 3.4 h in, with the pod at its memory limit (187 of 238 GB in use by the two processes; no out-of-memory event).
+
+**What changes.**
+- A second pod of the same shape (32 vCPU, 256 GB) is set up with `tools/runpod-alpoge-grh-verifier.sh setup`, unchanged: the official toolchain by its published digest, the judges built by root, the 14 parts fetched again against the pins, the challenge built before any release artifact arrives.
+- The release's compiled artifacts are copied from the build pod with `tools/runpod-alpoge-grh-verifier-copy.sh`, unchanged: both ends hash every copied file, and the copy is refused unless the two lists are equal.
+- `tools/runpod-alpoge-grh-parallel.sh` (new, at this commit) then runs there: KR, and separately EXP, K2 and C5. Its roots check and its C5 rewriter are phase 2's own blocks, byte for byte; nanoda's configuration is phase 2's.
+- Row V stays dropped (A7). None of its checks runs.
+
+**Verdict rules, fixed now.**
+- **KR** is read from the parallel pod. CERTIFIED: `leanchecker --fresh Main` exits 0 there, the copy's lists are equal, and the challenge is unchanged by the copy. REFUSED: a timeout or an out-of-memory kill. REFUTED: any other exit. The row says where it ran. When the build pod's own phase 2 reaches its KR step, the control room stops that step; it is recorded as stopped under this amendment, not as a verdict.
+- **K2 and C5** keep their registered meaning and are read from the build pod's own export. The parallel pod's K2 and C5 are reported beside them as a second run, with both exports' sha256.
+- **S1, C1–C4, the bridge, K3 and CR** are unchanged. The bridge still starts only after the build pod's export and only if S1 passed.
+- If the parallel pod cannot be set up, or the copy is refused, nothing changes and phase 2 continues as registered.
+- The recorder (`tools/check-alpoge-grh.py`) will read KR from `corpus/alpoge-grh/runs-parallel/`; that change is committed before KR reports.
+
+**Disclosed side effect.** Hashing and reading the build's files for the copy competes with S1 for the build pod's file cache, because that pod is at its memory limit. S1 may slow while the copy runs.
+
+**Cost.** US$1.76 an hour (the catalog's price for this shape, read at 02:00 UTC), expected US$35–45. Spent so far: US$54.51 (billing read, 01:57 UTC). The lane's ceiling stays US$150.
