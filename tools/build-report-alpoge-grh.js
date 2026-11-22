@@ -377,7 +377,8 @@ function figBridge(w, narrow) {
     o.push(CH.txt(p.x + 14, p.y + 100, b.f, b.st === 'decided' ? 't-lab' : 't-note', 'start', ' style="font-size:11.5px"'));
   });
   /* the arrows and their words; on the wide figure the words sit outside each curve, never over a box */
-  const L = (lines, x, y, anchor, run) => (run ? lines.concat(['(running)']) : lines).map((t, j) => CH.txt(x, y + j * 16, t, 't-note', anchor)).join('\n');
+  /* an edge that is not decided says why: a refused check was not run (amendment A21), a pending one is running */
+  const L = (lines, x, y, anchor, st) => (st === 'decided' ? lines : lines.concat([st === 'refused' ? '(not run)' : '(running)'])).map((t, j) => CH.txt(x, y + j * 16, t, 't-note', anchor)).join('\n');
   const edges = narrow
     ? [{ d: 'M' + (w / 2) + ' ' + (16 + bh + 2) + ' L' + (w / 2) + ' 248', lines: ['with RH: 5/6 of the', 'zeros distinct AND', 'on the line'], lx: w / 2 + 10, ly: 162, a: 'start', st: status('BRu') },
        { d: 'M' + (w / 2) + ' 484 L' + (w / 2) + ' ' + (252 + bh + 4), lines: ['read for ℚ: implies', 'these statements,', 'plus simple zeros'], lx: w / 2 + 10, ly: 400, a: 'start', st: status('BRc+MB') }]
@@ -386,9 +387,9 @@ function figBridge(w, narrow) {
   for (const e of edges) {
     const s = e.st === 'decided' ? W.stroke(W.DECIDED, { width: 2 }) : null;
     o.push('    <path class="br-edge ' + (s ? s.class : 'w-none') + '" d="' + e.d + '" fill="none" stroke="' + (e.st === 'decided' ? 'var(--sig)' : 'var(--ink-5)') + '" stroke-width="2"' + (e.st === 'decided' ? '' : ' stroke-dasharray="2 3"') + ' marker-end="url(#bra)"/>');
-    o.push(L(e.lines, e.lx, e.ly, e.a, e.st !== 'decided'));
+    o.push(L(e.lines, e.lx, e.ly, e.a, e.st));
   }
-  o.push(CH.legend([{ token: 'var(--sig)', t: 'proved in Lean, checked here' }, { token: 'var(--ink-3)', kind: 'guide', t: 'running' }, { token: 'var(--ink-3)', kind: 'dot', t: 'a reading of a draft' }], narrow ? 16 : 30, h - 10, null, w - 60));
+  o.push(CH.legend([{ token: 'var(--sig)', t: 'proved in Lean, checked here' }, { token: 'var(--ink-3)', kind: 'guide', t: edges.some((e) => e.st === 'refused') ? 'not run' : 'running' }, { token: 'var(--ink-3)', kind: 'dot', t: 'a reading of a draft' }], narrow ? 16 : 30, h - 10, null, w - 60));
   o.push(CH.close);
   return o.join('\n');
 }
@@ -567,7 +568,9 @@ O.push(C.section({ lab: '6 · connections', title: 'Two other claims, connected 
     caption: 'Three claims about the zeros of ζ from 2026, and what Lean says connects them. Solid arrows are proved in Lean and checked here; grey ones are still running; the dotted box is a reading of a draft whose main theorem is not yet written.',
     stop: 'a bridge drawn as proved is not CERTIFIED in the record' })
   + '<div class="col">' + C.plainList([
-    { b: 'The August release.', text: 'Anthropic’s August proof that at least two thirds of the zeros are simple and on the critical line checks unchanged — all 326 files — on the Mathlib of today’s release, and both kernels accept it. Put together with today’s RH, its bound that 5/6 of the zeros are distinct becomes a bound for distinct zeros on the line. The simplicity bounds this implies are the August ones again; nothing new beyond the composition.' },
+    { b: 'The August release.', text: 'Anthropic’s August proof that at least two thirds of the zeros are simple and on the critical line checks unchanged — all 326 files — on the Mathlib of today’s release, and both kernels accept it. ' + (status('BRu') === 'decided'
+      ? 'Put together with today’s RH, its bound that 5/6 of the zeros are distinct becomes a bound for distinct zeros on the line. The simplicity bounds this implies are the August ones again; nothing new beyond the composition.'
+      : 'With RH taken as a hypothesis, its bound that 5/6 of the zeros are distinct becomes a bound for distinct zeros on the line: that conditional statement is proved in Lean and checked here. ' + (status('BRu') === 'refused' ? 'Putting the two releases in one environment, so that the hypothesis is discharged by today’s proof, was not run: it was dropped for cost before the statement judge reported (amendment A21).' : 'Putting the two releases in one environment, so that the hypothesis is discharged by today’s proof, is still running.')) },
     { b: 'Masullo’s draft.', raw: C.esc('Alessandro Masullo’s all-human draft (') + a('https://math216.wordpress.com/2026/11/20/hurried-announcement-alessandro-masullo-grh/', 'posted by Ravi Vakil') + C.esc(', 940 pages, reviewed for months by Brian Conrad) claims GRH for every number field and more: off the centre, every zero simple. Its main zero theorem is not yet written in the draft (page 522: “Insert statement.”). Read for ℚ, the claim implies this release’s statements; one double zero would refute it while leaving RH intact.') }
   ]) + '</div>' }));
 
