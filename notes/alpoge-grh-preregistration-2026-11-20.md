@@ -441,3 +441,36 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 - The controls C1–C4, the bridge's gate and everything else on the build pod are unchanged. If S1 is certified only by the parallel pod's run, the bridge's start (which reads the build pod's own S1) is settled by a further dated amendment before it is touched.
 
 **Cost.** The parallel pod stays up for the length of this run, perhaps 10–20 hours at US$1.76 an hour.
+
+## Amendment A17 — S1 and its control C1 on a machine with more memory (the operator, 2026-11-22 ~04:55 UTC), before either runs there
+
+**Why.** Measured on the pods, 04:17–04:36 UTC:
+- The export of the five theorems' closure is 61,571,290,481 bytes. The parallel pod wrote it in 5,988 s with memory free.
+- Comparator v4.33.0 reads that whole text into memory before it parses it, while lean4export, its child, still holds its own data. On the build pod Comparator held 126.5 GB and lean4export 80.9 GB.
+- The build pod stood at its limit: 255,998,107,648 of 256,000,000,000 bytes, 201.8 GB of it anonymous. The limit had been hit 2,488,490 times, with no out-of-memory kill.
+- At the limit the kernel keeps evicting the compiled proof files the export reads. In 20 seconds lean4export got 0.07 s of user time and 10.2 s of system time. S1 was 6 h 9 min in and still exporting.
+- The parallel pod has the same limit, so A16's backup run would have met the same wall, beside KR. It was cancelled at 04:27 UTC, before it started (the line is in that pod's `_parallel.log`). There is no A16 run to report.
+- The parse and the kernel replay that follow the export need more memory still. How much is not known.
+
+**What changes.**
+- A third pod, "the larger machine" (RunPod `bmwjdc3l37zuwh`, four RTX PRO 4500 cards rented for the memory that comes with them), has a limit of 376,000,000,000 bytes and Landlock ABI 4.
+- It is set up with the dropped row V's own setup script at this commit, as the parallel pod was: the official toolchain by its published digest, the judges built by root, the 14 parts fetched again against the pins, `Challenge.lean` and control C1's challenge built there before any release artifact arrives.
+- It receives the compiled release by `tools/runpod-alpoge-grh-verifier-copy.sh`: both ends' sha256 lists equal, or the copy is refused.
+- `tools/runpod-alpoge-grh-judge.sh` (new, at this commit) then runs, in order: the copy's gates; `lake build --no-build`, which must succeed, so nothing of the release is compiled there; S1 with phase 2's `s1.json`; C1 with phase 2's `c1.json`.
+- The build pod's S1 is stopped by the control room once this amendment is public: its Comparator and lean4export processes are killed. A marker file `/results/S1.stopped` records the time, the reason and the measurements above. The stopped run decides nothing.
+- The build pod's C1 is the same judge on the same closure and would meet the same wall. It is stopped the same way when it starts, with `/results/C1.stopped`.
+- Everything else on the build pod runs as registered: C2, C3 and C4 (their closures are small), EXP, K2, C5. Its own KR is stopped when it starts, as A15 fixed.
+
+**Verdict rules, fixed now.**
+- S1 is CERTIFIED if the larger machine's run passes every gate of S1: exit 0, both acceptance lines, sandbox mode, the compiled challenge unchanged since that machine's setup, the copy's two lists equal. The row says where it ran.
+- A rejection there makes S1 REFUSED until it is traced. If the trace shows the release's statements or axioms differ from the challenge's, S1 becomes REFUTED by a dated amendment that names the diagnostic. If it shows a fault of the copy or the setup, the run is repeated.
+- A run stopped on resources decides nothing. If the larger machine's run stops on resources, S1 is REFUSED on resources.
+- C1 is read from the larger machine. It counts as rejected only with its diagnostic naming the planted statement, with an exit that is not 0, 124 or 137, and with the control challenge built there at setup.
+- C2, C3 and C4 are read from the build pod, as before.
+
+**What this does to the other rows.**
+- *The bridge (BRu).* Its gate reads the build pod's own S1, so the build pod will log EXPORT-NOT-OK and the bridge will not start there. Its own Comparator step judges the same closure and would need the same memory. Whether and where it runs is settled by a further dated amendment, after the larger machine's S1 has a verdict. Until then BRu has no verdict.
+- *K3.* It needs the build pod's export, not its S1. It starts by itself when phase 2 and the bridge's wait are over. Its `--compare` is the second statement judge of A12 and is untouched.
+- *CR.* Its only input is the build pod's export. The clean pod is created once that export has its digest and its five roots (A12's own condition, "once EXP has produced the export"), on the operator's word of 2026-11-21 to recreate it then.
+
+**Cost.** US$2.88 an hour (the catalog's price, read at 04:20 UTC) for an estimated 15–20 hours: US$45–60. Spent on this lane so far: about US$62 (billing read, 04:45 UTC; the last hour is not in it yet). With three pods running, the lane's total is now expected to reach about US$170, above the US$150 ceiling. The operator chose this machine at its hourly price; the estimate is put to him in the next report, and the ceiling is his to raise or hold.

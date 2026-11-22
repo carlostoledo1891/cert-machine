@@ -137,43 +137,75 @@ def derive(run):
             return 'changed', md, 'the challenge build changed before S1, so the judge\'s premise failed'
         return 'rejected', md, 'Comparator rejected the release against the challenge'
 
-    sa, mode, why_a = s1_eval(run)
-    _pd = os.path.join(os.path.dirname(os.path.dirname(run.rstrip('/'))), 'runs-parallel')
-    _prs = sorted(x for x in os.listdir(_pd) if os.path.isdir(os.path.join(_pd, x))) if os.path.isdir(_pd) else []
-    _pr = os.path.join(_pd, _prs[0]) if len(_prs) == 1 else None
-    _src, _dst = ((rd(_pr, 'copy-source.sha256', '') or ''), (rd(_pr, 'copy-dest.sha256', '') or '')) if _pr else ('', '')
-    _plog = (rd(_pr, '_parallel.log', '') or '') if _pr else ''
-    _copy_ok = (bool(_src.strip()) and _src == _dst) or (bool(re.search(r'copy lists equal: \d+ files, list sha256 [0-9a-f]{64}', _plog)) and not _src.strip() and not _dst.strip())
-    sb, mode_b, why_b = s1_eval(_pr) if (_pr and rd(_pr, 'S1.start') is not None) else ('absent', None, '')
+    def _only(sub):
+        d = os.path.join(os.path.dirname(os.path.dirname(run.rstrip('/'))), sub)
+        rs = sorted(x for x in os.listdir(d) if os.path.isdir(os.path.join(d, x))) if os.path.isdir(d) else []
+        return os.path.join(d, rs[0]) if len(rs) == 1 else None
+
+    def _copy_ok(r, logname):
+        src, dst = rd(r, 'copy-source.sha256', '') or '', rd(r, 'copy-dest.sha256', '') or ''
+        lg = rd(r, logname, '') or ''
+        lists = (bool(src.strip()) and src == dst) or (bool(re.search(r'copy lists equal: \d+ files, list sha256 [0-9a-f]{64}', lg)) and not src.strip() and not dst.strip())
+        return lists and 'challenge build unchanged by the copy' in lg
+
+    # every run of the judge: the build pod's (registered); the parallel pod's backup (A16, cancelled by A17 before it
+    # started); the larger machine's (A17). A run the control room stopped carries the marker file S1.stopped.
+    _pr, _jr = _only('runs-parallel'), _only('runs-judge')
+    cand = [('build pod', run, None)]
+    if _pr and rd(_pr, 'S1.start') is not None:
+        cand.append(('parallel pod', _pr, '_parallel.log'))
+    if _jr and rd(_jr, 'S1.start') is not None:
+        cand.append(('larger machine', _jr, '_judge.log'))
+    res = {}
+    for name, r, lg in cand:
+        st, md, wy = s1_eval(r)
+        if rd(r, 'S1.stopped') is not None and st != 'pass':
+            st, wy = 'stopped', 'the run was stopped by the control room at that pod\'s memory limit (amendment A17)'
+        if st == 'pass' and lg and not (_copy_ok(r, lg) and ex(r, 'NOBUILD') == 0):
+            st, wy = 'changed', 'that machine\'s copy is not established equal to the build (the two lists, the challenge, `lake build --no-build`)'
+        res[name] = (st, md, wy, r)
+    sa, mode, why_a, _ = res['build pod']
+    passed = [n for n in ('build pod', 'larger machine', 'parallel pod') if n in res and res[n][0] == 'pass']
+    rejected = [n for n in res if res[n][0] == 'rejected']
     where = None
-    if sb == 'pass' and not _copy_ok:
-        sb, why_b = 'changed', 'the parallel pod\'s copy is not established equal to the build'
-    if (sa == 'pass' and sb == 'rejected') or (sb == 'pass' and sa == 'rejected'):
-        v, why = 'REFUSED', 'the two runs of the judge disagree (one accepts, one rejects): REFUSED until explained (amendment A16)'
-    elif sa == 'pass':
-        v, why, where = 'CERTIFIED', why_a, 'build pod'
-    elif sb == 'pass':
-        v, why, where, mode = 'CERTIFIED', why_b.replace('since before B1', 'since this pod\'s setup') + '; on the parallel pod, a hash-checked copy of the build (amendment A16)', 'parallel pod', mode_b
-    elif sa == 'rejected':
+    if passed and rejected:
+        v, why = 'REFUSED', 'the runs of the judge disagree (the %s accepts, the %s rejects): REFUSED until explained (amendments A16, A17)' % (passed[0], rejected[0])
+    elif passed:
+        where = passed[0]
+        mode, wy = res[where][1], res[where][2]
+        v = 'CERTIFIED'
+        why = wy if where == 'build pod' else wy.replace('since before B1', 'since that machine\'s setup') + '; on the %s, a hash-checked copy of the build (amendment %s)' % (where, 'A17' if where == 'larger machine' else 'A16')
+    elif 'build pod' in rejected:
         v, why = 'REFUTED', why_a
-    elif sa == 'notrun' and sb in ('absent', 'notrun'):
-        v, why = 'REFUSED', why_a
-    elif sa in ('notrun', 'resources', 'changed', 'nosandbox') and sb in ('notrun',):
-        v, why = 'REFUSED', why_a if sa != 'notrun' else 'Comparator did not run'
-    elif sb == 'rejected':
-        v, why = 'REFUSED', 'the parallel pod\'s run of the judge rejected the release, and the build pod\'s run has no verdict: REFUSED until the rejection is traced (amendment A16)'
+    elif rejected:
+        v, why = 'REFUSED', 'the run of the judge on the %s rejected the release, and no run has accepted it: REFUSED until the rejection is traced' % rejected[0]
     else:
-        v, why = 'REFUSED', why_a + ('' if sb == 'absent' else '; the parallel pod\'s run: ' + why_b)
-    if sb == 'absent':   # no second run pulled: the row is exactly the registered one
+        others = [n for n in res if n != 'build pod']
+        v = 'REFUSED'
+        if not others and sa != 'stopped':
+            why = why_a
+        elif not others:
+            why = 'on the build pod ' + why_a + '; the judge on the larger machine has not passed yet'
+        else:
+            why = 'on the build pod: ' + why_a + '; ' + '; '.join('on the %s: %s' % (n, 'the judge has not passed yet' if res[n][0] == 'notrun' else res[n][2]) for n in others)
+    if len(res) == 1 and sa != 'stopped':   # only the registered run exists: the row is exactly the registered one
         rows.append(row('S1', v, why, mode=mode, seconds=secs(run, 'S1')))
     else:
-        rows.append(row('S1', v, why, mode=mode, seconds=secs(_pr if where == 'parallel pod' else run, 'S1'), where=where,
-                        runs={'build pod': sa, 'parallel pod': sb}))
+        rows.append(row('S1', v, why, mode=mode, seconds=secs(res[where][3] if where else run, 'S1'), where=where,
+                        runs={n: res[n][0] for n in res}))
     ctl = {}
     built_ok = ex(run, 'CTLB') == 0
     expect = {'C1': ('statement mismatch', r'do not match|does not match'), 'C2': ('planted axiom', r"Illegal axiom detected: 'cheat'"),
               'C3': ('sorry', r"Illegal axiom detected: 'sorryAx'"), 'C4': ('hijacked definition', r'do not match|does not match')}
     for c, (want, pat) in expect.items():
+        if c == 'C1' and rd(run, 'C1.stopped') is not None:
+            # amendment A17: the build pod's C1 was stopped at its memory limit; C1 is read from the larger machine,
+            # against the same control challenge, built there at setup (V2-challenge) before any release artifact arrived
+            e = ex(_jr, 'C1') if _jr else None
+            out = ((rd(_jr, 'C1.out', '') or '') + (rd(_jr, 'C1.err', '') or '')) if _jr else ''
+            bok = bool(_jr) and ex(_jr, 'V2-challenge') == 0 and _copy_ok(_jr, '_judge.log')
+            ctl[c] = {'what': want, 'exit': e, 'refused': bok and e not in (None, 0, 124, 137) and bool(re.search(pat, out)), 'where': 'larger machine'}
+            continue
         e = ex(run, c); out = (rd(run, c + '.out', '') or '') + (rd(run, c + '.err', '') or '')
         ctl[c] = {'what': want, 'exit': e, 'refused': built_ok and e not in (None, 0, 124) and bool(re.search(pat, out))}
     ctl['A1-C2'] = {'what': 'the axiom report names the planted axiom', 'exit': ex(run, 'A1C2'), 'refused': ex(run, 'A1C2') == 0 and "'riemannHypothesis' depends on axioms" in (rd(run, 'A1C2.out', '') or '') and 'cheat' in (rd(run, 'A1C2.out', '') or '')}
