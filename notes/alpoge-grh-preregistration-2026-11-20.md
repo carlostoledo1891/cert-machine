@@ -478,3 +478,5 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 **Correction (04:40 UTC).** The first commit of this amendment (d6db39e7, made at 04:39 UTC) gave its own time as ~04:55, the billing read as 04:45, and S1's age as 6 h 9 min. All three were written ahead of the clock. The times above are the corrected ones; nothing else changed. S1 was still running on the build pod at this correction.
 
 **Done (04:41 UTC).** The build pod's S1 was stopped at 04:41:14 UTC (exit 137 after 22,414 s) and its C1 at 04:41:18 UTC, each with its marker file. The larger machine's setup had finished at 04:41:51 UTC, at commit d6db39e7.
+
+**The ceiling (the operator, 2026-11-22 04:58 UTC).** Asked with the estimate above (about US$170), the operator raised the lane's ceiling from US$150 to US$200.
