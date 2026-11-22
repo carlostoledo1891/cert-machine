@@ -532,3 +532,19 @@ The recorder looked for the words `with no errors` and would have read this acce
 
 **Cost.** If S1 passes: about 10–14 more hours at US$2.88 an hour, US$30–40. Spent on this lane so far: about US$93 of the US$200 ceiling.
 
+## Amendment A20 — the clean machine's gate line misread one rejection (2026-11-22 10:43 UTC), AFTER CR reported — disclosed as such
+
+**What happened.** The clean machine ran its five steps and ended at 10:41 UTC. Its own script then logged "CR: 4 of 5 gates held", with "CRC1 was not rejected with its diagnostic".
+
+**What CRC1's output says.** Exit 1, and this line: `con-leche: invalid: axiom riemannZeta_eq_zero_re is not justified by the solution: its type reads RiemannZetaZerosOnLine, which the solution does not declare alike`. By A12's rule that is a rejection with a diagnostic that names the planted declaration.
+
+**The fault, mine.** The script's gate for CRC1 had a third test, meant to exclude an acceptance: no line containing the words "justified by the solution". con-leche's rejection line contains those words after "is not". So the gate refused a correct rejection. The same control with the same wording had already been read correctly on the build pod (K3), where the recorder's test is "no line `accepted N declarations`".
+
+**What changes.**
+- The recorder decides CR from the clean machine's five outputs, by A12's rule and with K3's tests. A control counts as rejected when its exit is not 0, 124 or 137, its output names the planted declaration, and it has no acceptance line (`accepted N declarations`, or `theorem X justified by the solution`).
+- The pod's gate line stays in the record exactly as it was logged, and the row says the verdict was decided from the outputs.
+- `tools/runpod-alpoge-grh-clean.sh` gets the corrected test, for anyone who reruns it.
+- Nothing was rerun, and no output was edited.
+
+**Disclosure.** This changes how a result is read, and it was made after the result was seen. It can be checked against the five output files in `corpus/alpoge-grh/runs-clean/pzyamyxbl8ncom/` and against A12's rule. The recorder's new reading was tested on six altered copies of the run (the control accepted, the control killed, C5 exiting 0, one theorem not justified, a nanoda line that is not an acceptance, a wrong export digest): each is refused.
+

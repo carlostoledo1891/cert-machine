@@ -375,9 +375,40 @@ def derive(run):
         rows.append(row('CR', 'REFUSED', 'the clean machine did not run (created only on the operator\'s word after a quote, amendment A12)'))
     else:
         crlog = rd(cr, '_phase.log', '') or ''
-        crok = 'CR CERTIFIED by its gates' in crlog and 'STOPPED' not in crlog
-        rows.append(row('CR', 'CERTIFIED' if crok else 'REFUSED', 'on a fresh pod that never ran the release\'s code, nanoda and con-leche --compare accepted the export against the challenge built there, and the controls were rejected there'
-                        if crok else ('the clean machine stopped: ' + [l for l in crlog.splitlines() if 'STOPPED' in l][0] if 'STOPPED' in crlog else ('; '.join(l.split(' ', 1)[1] for l in crlog.splitlines() if 'CR gate:' in l or 'gates held' in l) if 'CR done' in crlog else 'the clean machine did not finish')), run=os.path.basename(cr)))
+        # amendment A20 (after the result, disclosed): the five gates are decided here from the clean pod's outputs, by
+        # A12's rule and with the same tests as K3. The pod's own gate line is kept as a fact (gate_line): its CRC1 test
+        # looked for the words "justified by the solution" to exclude an acceptance, and con-leche's rejection reads
+        # "is not justified by the solution".
+        def cro(step):
+            return (rd(cr, step + '.out', '') or '') + (rd(cr, step + '.err', '') or '')
+        def crej(step):
+            return ex(cr, step) not in (None, 0, 124, 137)
+        no_accept = lambda t: not re.search(r'accepted \d+ declarations', t) and not re.search(r'theorem \S+ justified by the solution', t)
+        crs = cro('CRS')
+        g = {
+            'export': bool((rd(cr, 'export.sha256', '') or '').split(' ')[0]) and (rd(cr, 'export.sha256', '') or '').split(' ')[0] == (rd(run, 'export.sha256', '') or '').split(' ')[0],
+            'CRK': ex(cr, 'CRK') == 0 and bool(nanoda_accepts(rd(cr, 'CRK.out', '') or '')),
+            'CRS': ex(cr, 'CRS') == 0 and '5 axioms justified by the solution' in crs and sorted(set(re.findall(r'theorem (\S+) justified by the solution', crs))) == sorted(THEOREMS),
+            'CRC1': crej('CRC1') and bool(re.search(r'RiemannZetaZerosOnLine|riemannZeta_eq_zero_re', cro('CRC1'))) and no_accept(cro('CRC1')),
+            'CRC5': crej('CRC5') and 'C5: riemannHypothesis re-typed as False' in (rd(cr, 'CRC5-make.txt', '') or '') and not nanoda_accepts(cro('CRC5')),
+            'CRC5c': crej('CRC5c') and 'riemannHypothesis' in cro('CRC5c') and no_accept(cro('CRC5c')),
+        }
+        gl = re.findall(r'CR CERTIFIED by its gates|CR: \d of 5 gates held', crlog)
+        ran = 'CR done' in crlog
+        crok = ran and 'STOPPED' not in crlog and all(g.values())
+        if crok:
+            crwhy = 'on a fresh pod that never ran the release\'s code, nanoda and con-leche --compare accepted the export against the challenge built there, and the controls were rejected there'
+            if 'CR CERTIFIED by its gates' not in crlog:
+                crwhy += '; decided from the five outputs by the registered rule (the pod\'s own gate line misread one rejection: amendment A20)'
+        elif 'STOPPED' in crlog:
+            crwhy = 'the clean machine stopped: ' + [l for l in crlog.splitlines() if 'STOPPED' in l][0]
+        elif not ran:
+            crwhy = 'the clean machine did not finish'
+        elif any(ex(cr, x) in (124, 137) for x in ('CRK', 'CRS', 'CRC1', 'CRC5', 'CRC5c')):
+            crwhy = 'the clean machine stopped on resources'
+        else:
+            crwhy = 'the clean machine: ' + ', '.join(k for k, ok in g.items() if not ok) + ' did not hold'
+        rows.append(row('CR', 'CERTIFIED' if crok else 'REFUSED', crwhy, gates=g, gate_line=gl[-1] if gl else None, run=os.path.basename(cr.rstrip('/'))))
     # a check whose step has not produced its output yet is PENDING, not REFUSED: a state, not a verdict (an outside reading,
     # 2026-11-21). ONE rule, here; instruments/alpoge-grh/status.js reads the verdict and does not re-derive it.
     for r in rows:

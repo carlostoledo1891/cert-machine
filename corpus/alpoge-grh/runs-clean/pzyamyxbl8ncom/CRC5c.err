@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 104.4s (index 2.5s), check 406.7s
+con-leche: stats: check pool: 406.716s wall, 32 workers, 1468390 records, busy 12997.909s (99.8%); tail 0.260s after the last start, 32 busy then, 1.546s worker-time in it (18.5%)
+con-leche: stats: slowest checks: 63.814s theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554); 45.326s theorem GlobalTheory.HeightCounting.SideCopy.sigSpan_copy (#829660); 38.234s theorem PI.PC.loop_run._proof_1_1 (#571290); 24.868s theorem Formalism.IrreducibleCountingLemmas.GaloisIrreducibility.PrimeCountingLemmas.factorial_ladder_one_forty_one._proof_1_1 (#226690); 20.454s theorem GlobalTheory.PrimeRecip.table_ok._proof_1_1 (#570391)
+con-leche: stats: peak RSS 44.18 GiB
+con-leche: invalid: type mismatch in theorem riemannHypothesis [at theorem riemannHypothesis, fold position 1468389] (--verified) t=511.1s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --jobs=32 /data/cr/export-c5.ndjson"
+	User time (seconds): 13579.86
+	System time (seconds): 798.83
+	Percent of CPU this job got: 2809%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:31.70
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46335860
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 39460338
+	Voluntary context switches: 194519
+	Involuntary context switches: 53979
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

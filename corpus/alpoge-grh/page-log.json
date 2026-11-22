@@ -55,6 +55,11 @@
    "at": "2026-11-22T09:04Z",
    "done": 19,
    "what": "A third kernel and a second statement judge: con-leche accepted the 1,468,414 declarations of the exported proof in 8 minutes. Its comparison justified each of the five theorems of our challenge file by the release’s export. It rejected both planted errors with their diagnostics: the challenge with 1/2 replaced by 1/3, and the Riemann Hypothesis re-typed as False. nanoda also rejected its planted error on the build pod. The statement judge Comparator is still running on the larger machine, and the clean-machine check has started."
+  },
+  {
+   "at": "2026-11-22T10:43Z",
+   "done": 20,
+   "what": "A clean machine agrees. A fresh pod that never ran the release’s code built its own tools and its own copy of our statement file, and received only the exported proof, accepted by its hash. There nanoda checked 1,484,729 declarations with no type error, con-leche’s comparison justified all five theorems, and the three planted errors were rejected. The pod’s own script logged “4 of 5 gates held”: its test for one control misread con-leche’s rejection wording, a fault of our script. The verdict is decided from the five recorded outputs by the rule fixed in advance, and the misread line is kept in the record (amendment A20, made after the result and disclosed as such)."
   }
  ]
 }

@@ -192,8 +192,18 @@
   },
   {
    "id": "CR",
-   "verdict": "PENDING",
-   "why": "the clean machine did not run (created only on the operator's word after a quote, amendment A12)"
+   "verdict": "CERTIFIED",
+   "why": "on a fresh pod that never ran the release's code, nanoda and con-leche --compare accepted the export against the challenge built there, and the controls were rejected there; decided from the five outputs by the registered rule (the pod's own gate line misread one rejection: amendment A20)",
+   "gates": {
+    "export": true,
+    "CRK": true,
+    "CRS": true,
+    "CRC1": true,
+    "CRC5": true,
+    "CRC5c": true
+   },
+   "gate_line": "CR: 4 of 5 gates held",
+   "run": "pzyamyxbl8ncom"
   }
  ],
  "computed": {

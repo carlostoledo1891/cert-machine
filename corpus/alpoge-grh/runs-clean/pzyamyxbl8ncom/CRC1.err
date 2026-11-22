@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 46.7s (index 2.3s), check 365.0s
+con-leche: stats: check pool: 364.875s wall, 32 workers, 1468414 records, busy 11654.133s (99.8%); tail 0.457s after the last start, 32 busy then, 1.036s worker-time in it (7.0%)
+con-leche: stats: slowest checks: 57.544s theorem GlobalTheory.HeightCounting.SideCopy.LamCopy.lam_copy (#829554); 40.371s theorem GlobalTheory.HeightCounting.SideCopy.sigSpan_copy (#829660); 35.601s theorem PI.PC.loop_run._proof_1_1 (#571290); 23.379s theorem Formalism.IrreducibleCountingLemmas.GaloisIrreducibility.PrimeCountingLemmas.factorial_ladder_one_forty_one._proof_1_1 (#226690); 18.404s theorem GlobalTheory.PrimeRecip.table_ok._proof_1_1 (#570391)
+con-leche: stats: peak RSS 44.72 GiB
+con-leche: stats: phases: parse 414.9s (index 0.8s), check 1.1s
+con-leche: stats: check pool: 1.150s wall, 32 workers, 51217 records, busy 35.914s (97.5%); tail 0.016s after the last start, 32 busy then, 0.101s worker-time in it (19.2%)
+con-leche: stats: slowest checks: 0.071s theorem CommRing.orzechProperty (#23344); 0.046s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#22850); 0.046s theorem sdiff_sdiff_right (#16591); 0.042s theorem integral_cexp_quadratic (#48233); 0.039s theorem FormalMultilinearSeries.changeOrigin_eval (#40416)
+con-leche: stats: peak RSS 44.72 GiB
+con-leche: invalid: axiom riemannZeta_eq_zero_re is not justified by the solution: its type reads RiemannZetaZerosOnLine, which the solution does not declare alike [at axiom riemannZeta_eq_zero_re, fold position 51216] (--verified) t=416.1s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --jobs=32 --compare -- /data/cr/challenge-c1.ndjson /data/export.ndjson"
+	User time (seconds): 12210.39
+	System time (seconds): 69.02
+	Percent of CPU this job got: 2949%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:56.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46895200
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 35058264
+	Voluntary context switches: 193807
+	Involuntary context switches: 44226
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

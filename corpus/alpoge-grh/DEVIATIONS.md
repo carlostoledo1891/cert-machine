@@ -78,4 +78,10 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     rented; C1 is then not run and the row C1–C5 is REFUSED on resources, as is the bridge. If S1 passes, C1 runs and
     then the bridge runs there, with the build pod's bridge steps line for line. The second statement judge
     (con-leche's comparison) is already CERTIFIED and does not depend on any of this.
+17. **2026-11-22 10:43 UTC — the clean machine's gate line misread one rejection (amendment A20, AFTER the result).** The
+    clean pod logged "CR: 4 of 5 gates held" because its script's test for control C1 looked for the words "justified
+    by the solution" to exclude an acceptance, and con-leche's rejection reads "is not justified by the solution". The
+    control was rejected (exit 1, the planted declaration named). The recorder now decides CR from the five outputs by
+    A12's rule, with the tests it already used for K3; the gate line is kept as logged; the script is corrected.
+    Nothing was rerun. A change of reading made after seeing the result, disclosed as such.
 
