@@ -170,12 +170,37 @@ def derive(run):
         v, why = 'REFUSED', f'nanoda exited {ex(run, "K2")}: a disagreement, REFUSED until traced (pre-registered)'
     rows.append(row('K2', v, why, seconds=secs(run, 'K2'), peak_rss_gb=peak_rss_gb(run, 'K2'),
                     export_sha256=(rd(run, 'export.sha256', '') or '').split(' ')[0] or None))
-    kr = ex(run, 'KR')
-    rows.append(row('KR', 'CERTIFIED' if kr == 0 else ('REFUSED' if kr in (None, 124, 137) else 'REFUTED'),
-                    'leanchecker --fresh Main replayed the closure' if kr == 0 else f'leanchecker exit {kr}',
-                    seconds=secs(run, 'KR'), peak_rss_gb=peak_rss_gb(run, 'KR')))
     # rows from the other runs (amendments A1, A2, A4): the clean verifier, SPEC, the port and the bridges
     base = os.path.dirname(run.rstrip('/'))
+    # KR (amendment A15): read from the parallel pod, a hash-checked copy of the compiled release. The copy's two sha256
+    # lists must be equal and the challenge unchanged by the copy; a halt of the parallel pod before KR leaves the row
+    # with the build pod, as registered. The parallel pod's K2 and C5 are reported beside the registered ones.
+    pd = os.path.join(os.path.dirname(base), 'runs-parallel')
+    prs = sorted(x for x in os.listdir(pd) if os.path.isdir(os.path.join(pd, x))) if os.path.isdir(pd) else []
+    pr = os.path.join(pd, prs[0]) if len(prs) == 1 else None
+    plog = (rd(pr, '_parallel.log', '') or '') if pr else ''
+    if pr and 'parallel pre done' in plog:
+        src, dst = rd(pr, 'copy-source.sha256', '') or '', rd(pr, 'copy-dest.sha256', '') or ''
+        copy_ok = bool(src.strip()) and src == dst and 'challenge build unchanged by the copy' in plog
+        kr = ex(pr, 'KR')
+        if kr == 0 and copy_ok:
+            v, why = 'CERTIFIED', f'leanchecker --fresh Main replayed the closure on the parallel pod, on a copy whose {len(dst.splitlines())} files have the build pod\'s sha256 (amendment A15)'
+        elif kr == 0:
+            v, why = 'REFUSED', 'leanchecker exited 0 on the parallel pod, but the copy is not established equal to the build'
+        elif kr in (None, 124, 137):
+            v, why = 'REFUSED', f'leanchecker exit {kr} on the parallel pod'
+        else:
+            v, why = 'REFUTED', f'leanchecker exit {kr} on the parallel pod'
+        m2 = re.search(r'Checked (\d+) declarations with no errors', rd(pr, 'K2.out', '') or '')
+        par = {'run': os.path.basename(pr), 'copy_files': len(dst.splitlines()), 'copy_lists_equal': bool(src.strip()) and src == dst,
+               'export_sha256': (rd(pr, 'export.sha256', '') or '').split(' ')[0] or None, 'K2_exit': ex(pr, 'K2'),
+               'K2_declarations': int(m2.group(1)) if m2 else None, 'C5_exit': ex(pr, 'C5')}
+        rows.append(row('KR', v, why, seconds=secs(pr, 'KR'), peak_rss_gb=peak_rss_gb(pr, 'KR'), where='parallel pod', parallel=par))
+    else:
+        kr = ex(run, 'KR')
+        rows.append(row('KR', 'CERTIFIED' if kr == 0 else ('REFUSED' if kr in (None, 124, 137) else 'REFUTED'),
+                        'leanchecker --fresh Main replayed the closure' if kr == 0 else f'leanchecker exit {kr}',
+                        seconds=secs(run, 'KR'), peak_rss_gb=peak_rss_gb(run, 'KR')))
     def onlyrun(sub):
         d = os.path.join(os.path.dirname(base), sub)
         if not os.path.isdir(d): return None
