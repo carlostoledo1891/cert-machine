@@ -475,4 +475,6 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 
 **Cost.** US$2.88 an hour (the catalog's price, read at 04:20 UTC) for an estimated 15–20 hours: US$45–60. Spent on this lane so far: about US$62 (billing read, 04:36 UTC; the last hour is not in it yet). With three pods running, the lane's total is now expected to reach about US$170, above the US$150 ceiling. The operator chose this machine at its hourly price; the estimate is put to him in the next report, and the ceiling is his to raise or hold.
 
-**Correction (04:42 UTC).** The first commit of this amendment (d6db39e7, made at 04:39 UTC) gave its own time as ~04:55, the billing read as 04:45, and S1's age as 6 h 9 min. All three were written ahead of the clock. The times above are the corrected ones; nothing else changed. S1 was still running on the build pod at this correction.
+**Correction (04:40 UTC).** The first commit of this amendment (d6db39e7, made at 04:39 UTC) gave its own time as ~04:55, the billing read as 04:45, and S1's age as 6 h 9 min. All three were written ahead of the clock. The times above are the corrected ones; nothing else changed. S1 was still running on the build pod at this correction.
+
+**Done (04:41 UTC).** The build pod's S1 was stopped at 04:41:14 UTC (exit 137 after 22,414 s) and its C1 at 04:41:18 UTC, each with its marker file. The larger machine's setup had finished at 04:41:51 UTC, at commit d6db39e7.

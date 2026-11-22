@@ -58,4 +58,4 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     settings runs S1 and C1 on a 376 GB machine, on a hash-checked copy of the compiled release. The bridge does not
     start on the build pod and waits for a further amendment. The lane's cost is now expected to pass its US$150
     ceiling (about US$170).
-    Correction (04:42 UTC): the first commit of this item (d6db39e7) gave its time as ~04:55; it was made at 04:39.
+    Correction (04:40 UTC): the first commit of this item (d6db39e7) gave its time as ~04:55; it was made at 04:39.
