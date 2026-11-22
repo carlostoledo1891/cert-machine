@@ -113,28 +113,61 @@ def derive(run):
     else:
         v, why = 'REFUSED', 'the axiom report was not produced for every theorem'
     rows.append(row('A1', v, why, axioms=found))
-    # S1 and the controls
-    mode = (rd(run, 'S1.mode', '') or '').strip() or None
-    s1 = rd(run, 'S1.out', '') or ''
-    s1ok = ex(run, 'S1') == 0 and 'Your solution is okay!' in s1 and 'Lean default kernel accepts the solution' in s1
-    ch0 = rd(run, 'challenge-build.sha256', '')
-    ch1 = rd(run, 'challenge-build.before-S1.sha256', '')
+    # S1 and the controls. Amendment A16: a second run of the same judge on the parallel pod is a backup; S1 passes if
+    # either run passes every gate, and a run that passes beside a run that REJECTS is a disagreement (REFUSED).
     chl = lambda t: sorted(l for l in (t or '').splitlines() if '/lib/lean/CertMachine/Challenge.' in l)   # amendment A13: the compiled files only
-    same = bool(chl(ch1)) and chl(ch0) == chl(ch1)
-    sandboxed = bool(mode) and mode.startswith('sandbox')
-    if s1ok and same and not sandboxed:
-        v, why = 'REFUSED', 'Comparator accepted, but without the sandbox (amendment A5 makes the sandbox a condition); see V for the clean verifier'
-    elif s1ok and same:
-        v, why = 'CERTIFIED', 'Comparator accepted Main against cert-machine\'s challenge (five theorems, four definitions, three axioms); the challenge build unchanged since before B1'
-    elif ex(run, 'S1') is None:
-        v, why = 'REFUSED', 'Comparator did not run'
-    elif ex(run, 'S1') == 124 or 'out of memory' in s1.lower():
-        v, why = 'REFUSED', 'Comparator stopped on resources'
-    elif not same:
-        v, why = 'REFUSED', 'the challenge build changed before S1, so the judge\'s premise failed'
+
+    def s1_eval(r):
+        """(state, mode, why) of one Comparator run: pass | nosandbox | notrun | resources | changed | rejected"""
+        md = (rd(r, 'S1.mode', '') or '').strip() or None
+        out = rd(r, 'S1.out', '') or ''
+        ok = ex(r, 'S1') == 0 and 'Your solution is okay!' in out and 'Lean default kernel accepts the solution' in out
+        c1 = rd(r, 'challenge-build.before-S1.sha256', '')
+        unchanged = bool(chl(c1)) and chl(rd(r, 'challenge-build.sha256', '')) == chl(c1)
+        boxed = bool(md) and md.startswith('sandbox')
+        if ok and unchanged and not boxed:
+            return 'nosandbox', md, 'Comparator accepted, but without the sandbox (amendment A5 makes the sandbox a condition); see V for the clean verifier'
+        if ok and unchanged:
+            return 'pass', md, 'Comparator accepted Main against cert-machine\'s challenge (five theorems, four definitions, three axioms); the challenge build unchanged since before B1'
+        if ex(r, 'S1') is None:
+            return 'notrun', md, 'Comparator did not run'
+        if ex(r, 'S1') in (124, 137) or 'out of memory' in out.lower():
+            return 'resources', md, 'Comparator stopped on resources'
+        if not unchanged:
+            return 'changed', md, 'the challenge build changed before S1, so the judge\'s premise failed'
+        return 'rejected', md, 'Comparator rejected the release against the challenge'
+
+    sa, mode, why_a = s1_eval(run)
+    _pd = os.path.join(os.path.dirname(os.path.dirname(run.rstrip('/'))), 'runs-parallel')
+    _prs = sorted(x for x in os.listdir(_pd) if os.path.isdir(os.path.join(_pd, x))) if os.path.isdir(_pd) else []
+    _pr = os.path.join(_pd, _prs[0]) if len(_prs) == 1 else None
+    _src, _dst = ((rd(_pr, 'copy-source.sha256', '') or ''), (rd(_pr, 'copy-dest.sha256', '') or '')) if _pr else ('', '')
+    _copy_ok = bool(_src.strip()) and _src == _dst
+    sb, mode_b, why_b = s1_eval(_pr) if (_pr and rd(_pr, 'S1.start') is not None) else ('absent', None, '')
+    where = None
+    if sb == 'pass' and not _copy_ok:
+        sb, why_b = 'changed', 'the parallel pod\'s copy is not established equal to the build'
+    if (sa == 'pass' and sb == 'rejected') or (sb == 'pass' and sa == 'rejected'):
+        v, why = 'REFUSED', 'the two runs of the judge disagree (one accepts, one rejects): REFUSED until explained (amendment A16)'
+    elif sa == 'pass':
+        v, why, where = 'CERTIFIED', why_a, 'build pod'
+    elif sb == 'pass':
+        v, why, where, mode = 'CERTIFIED', why_b.replace('since before B1', 'since this pod\'s setup') + '; on the parallel pod, a hash-checked copy of the build (amendment A16)', 'parallel pod', mode_b
+    elif sa == 'rejected':
+        v, why = 'REFUTED', why_a
+    elif sa == 'notrun' and sb in ('absent', 'notrun'):
+        v, why = 'REFUSED', why_a
+    elif sa in ('notrun', 'resources', 'changed', 'nosandbox') and sb in ('notrun',):
+        v, why = 'REFUSED', why_a if sa != 'notrun' else 'Comparator did not run'
+    elif sb == 'rejected':
+        v, why = 'REFUSED', 'the parallel pod\'s run of the judge rejected the release, and the build pod\'s run has no verdict: REFUSED until the rejection is traced (amendment A16)'
     else:
-        v, why = 'REFUTED', 'Comparator rejected the release against the challenge'
-    rows.append(row('S1', v, why, mode=mode, seconds=secs(run, 'S1')))
+        v, why = 'REFUSED', why_a + ('' if sb == 'absent' else '; the parallel pod\'s run: ' + why_b)
+    if sb == 'absent':   # no second run pulled: the row is exactly the registered one
+        rows.append(row('S1', v, why, mode=mode, seconds=secs(run, 'S1')))
+    else:
+        rows.append(row('S1', v, why, mode=mode, seconds=secs(_pr if where == 'parallel pod' else run, 'S1'), where=where,
+                        runs={'build pod': sa, 'parallel pod': sb}))
     ctl = {}
     built_ok = ex(run, 'CTLB') == 0
     expect = {'C1': ('statement mismatch', r'do not match|does not match'), 'C2': ('planted axiom', r"Illegal axiom detected: 'cheat'"),

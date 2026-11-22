@@ -421,3 +421,23 @@ Amendment A5 defines the compared set as ".olean and its .private/.server parts,
 **Disclosed side effect.** Hashing and reading the build's files for the copy competes with S1 for the build pod's file cache, because that pod is at its memory limit. S1 may slow while the copy runs.
 
 **Cost.** US$1.76 an hour (the catalog's price for this shape, read at 02:00 UTC), expected US$35–45. Spent so far: US$54.51 (billing read, 01:57 UTC). The lane's ceiling stays US$150.
+
+## Amendment A16 — a second run of S1 on the parallel pod, as a backup (the operator, 2026-11-22 ~03:45 UTC), before it runs
+
+**Why.** At 03:38 UTC the build pod's S1 was still in its export, 5.2 hours in. The same export on the parallel pod wrote 46.8 GB in its first hour. The build pod is at its memory limit (188 of 238 GB in use, no out-of-memory event), so its file cache is squeezed and the export crawls; the parse and the kernel replay that follow need more memory still. The run may be killed for memory, which would leave the statement check REFUSED on resources.
+
+**What changes.**
+- `tools/runpod-alpoge-grh-parallel-s1.sh` (new, at this commit) runs S1 a second time on the parallel pod, once that pod's export, K2 and C5 have ended, so the judge has the memory to itself.
+- It is the same judge with the same settings: Comparator at tag v4.33.0 rebuilt on v4.33.1 by root, phase 2's `s1.json` (no definition names, nanoda off), the same sandbox test, and the same challenge-unchanged gate on the compiled challenge files (A13).
+- The challenge is the one the parallel pod built at its setup, from the same `Challenge.lean`, before any release artifact arrived there.
+- One gate is added, taken from the dropped row V: `lake build --no-build` must succeed first, so nothing of the release is compiled on that pod.
+- The build pod's S1 is left running, untouched.
+
+**Verdict rule, fixed now.**
+- S1 is CERTIFIED if either run passes every gate of S1: exit 0, both acceptance lines, sandbox mode, the challenge unchanged. For the parallel pod's run, the copy's two sha256 lists must also be equal. The row says which pod.
+- If one run accepts and the other REJECTS, S1 is REFUSED until the disagreement is explained.
+- If the parallel pod's run rejects before the build pod's has a verdict, S1 is REFUSED until that rejection is traced.
+- A run stopped on resources decides nothing. If both stop on resources, S1 is REFUSED on resources.
+- The controls C1–C4, the bridge's gate and everything else on the build pod are unchanged. If S1 is certified only by the parallel pod's run, the bridge's start (which reads the build pod's own S1) is settled by a further dated amendment before it is touched.
+
+**Cost.** The parallel pod stays up for the length of this run, perhaps 10–20 hours at US$1.76 an hour.

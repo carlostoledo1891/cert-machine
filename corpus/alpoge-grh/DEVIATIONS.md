@@ -46,3 +46,7 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     setup script, receives a hash-checked copy of the compiled release, and runs KR, EXP, K2 and C5 while S1 runs on
     the build pod. KR's verdict is read from the parallel pod; K2 and C5 stay on the build pod's own export, with the
     parallel pod's runs reported beside them. The copy reads the build's files while S1 runs and may slow it.
+12. **2026-11-22 ~03:45 UTC — a second run of S1 on the parallel pod (amendment A16, before it runs).** On the
+    operator's word: the build pod's S1 is at that pod's memory limit and its export crawls. The same judge with the
+    same settings runs again on the parallel pod once its export, K2 and C5 end. S1 passes if either run passes every
+    gate; an accept beside a reject is REFUSED until explained. The build pod's run is left untouched.
