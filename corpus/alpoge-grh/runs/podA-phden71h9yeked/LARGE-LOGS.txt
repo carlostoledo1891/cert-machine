@@ -1,0 +1,11 @@
+The build pod's /results held 184 files when it was read for the last time (2026-11-22T10:52:10Z). Their sha256 are in
+RESULTS-ALL.sha256, written on the pod. Eight of them are too large for this repository and are kept outside it, in one
+archive made on the pod:
+
+  podA-large-logs.tar.zst   112,294,044 bytes   sha256 30bf02be2e5c540efd695ec5f00995e7e25fcfdb2cefb0aca964e33a4aca05db
+
+  B1.out  B1.progress  B1V.out  S1.out  copy-source.sha256  project-oleans.sha256  sutherland-project-oleans.sha256  tarlist.txt
+
+Each one's own sha256 is its line in RESULTS-ALL.sha256. The archive is with the operator; ask for it.
+The 61.6 GB export (/data/export.ndjson, sha256 4301ce48…2e7e) was not kept: the parallel pod made a byte-identical
+one, and the clean machine received and checked this one by its hash.
