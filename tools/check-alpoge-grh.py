@@ -142,7 +142,8 @@ def derive(run):
     _prs = sorted(x for x in os.listdir(_pd) if os.path.isdir(os.path.join(_pd, x))) if os.path.isdir(_pd) else []
     _pr = os.path.join(_pd, _prs[0]) if len(_prs) == 1 else None
     _src, _dst = ((rd(_pr, 'copy-source.sha256', '') or ''), (rd(_pr, 'copy-dest.sha256', '') or '')) if _pr else ('', '')
-    _copy_ok = bool(_src.strip()) and _src == _dst
+    _plog = (rd(_pr, '_parallel.log', '') or '') if _pr else ''
+    _copy_ok = (bool(_src.strip()) and _src == _dst) or (bool(re.search(r'copy lists equal: \d+ files, list sha256 [0-9a-f]{64}', _plog)) and not _src.strip() and not _dst.strip())
     sb, mode_b, why_b = s1_eval(_pr) if (_pr and rd(_pr, 'S1.start') is not None) else ('absent', None, '')
     where = None
     if sb == 'pass' and not _copy_ok:
@@ -213,11 +214,16 @@ def derive(run):
     pr = os.path.join(pd, prs[0]) if len(prs) == 1 else None
     plog = (rd(pr, '_parallel.log', '') or '') if pr else ''
     if pr and 'parallel pre done' in plog:
+        # the two lists are 224 MB each and stay on the pod; the pod's own script compares them (cmp) and logs one line
+        # with the count and the list's sha256, which is what is pulled. Full lists, if pulled, are compared here too.
         src, dst = rd(pr, 'copy-source.sha256', '') or '', rd(pr, 'copy-dest.sha256', '') or ''
-        copy_ok = bool(src.strip()) and src == dst and 'challenge build unchanged by the copy' in plog
+        mcl = re.search(r'copy lists equal: (\d+) files, list sha256 ([0-9a-f]{64})', plog)
+        lists_ok = (bool(src.strip()) and src == dst) or (bool(mcl) and not src.strip() and not dst.strip())
+        nfiles = len(dst.splitlines()) if dst.strip() else (int(mcl.group(1)) if mcl else 0)
+        copy_ok = lists_ok and 'challenge build unchanged by the copy' in plog
         kr = ex(pr, 'KR')
         if kr == 0 and copy_ok:
-            v, why = 'CERTIFIED', f'leanchecker --fresh Main replayed the closure on the parallel pod, on a copy whose {len(dst.splitlines())} files have the build pod\'s sha256 (amendment A15)'
+            v, why = 'CERTIFIED', f'leanchecker --fresh Main replayed the closure on the parallel pod, on a copy whose {nfiles} files have the build pod\'s sha256 (amendment A15)'
         elif kr == 0:
             v, why = 'REFUSED', 'leanchecker exited 0 on the parallel pod, but the copy is not established equal to the build'
         elif kr in (None, 124, 137):
@@ -225,7 +231,7 @@ def derive(run):
         else:
             v, why = 'REFUTED', f'leanchecker exit {kr} on the parallel pod'
         m2 = re.search(r'Checked (\d+) declarations with no errors', rd(pr, 'K2.out', '') or '')
-        par = {'run': os.path.basename(pr), 'copy_files': len(dst.splitlines()), 'copy_lists_equal': bool(src.strip()) and src == dst,
+        par = {'run': os.path.basename(pr), 'copy_files': nfiles, 'copy_lists_equal': lists_ok, 'copy_list_sha256': mcl.group(2) if mcl else None,
                'export_sha256': (rd(pr, 'export.sha256', '') or '').split(' ')[0] or None, 'K2_exit': ex(pr, 'K2'),
                'K2_declarations': int(m2.group(1)) if m2 else None, 'C5_exit': ex(pr, 'C5')}
         rows.append(row('KR', v, why, seconds=secs(pr, 'KR'), peak_rss_gb=peak_rss_gb(pr, 'KR'), where='parallel pod', parallel=par))
