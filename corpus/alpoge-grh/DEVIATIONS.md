@@ -59,3 +59,9 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     start on the build pod and waits for a further amendment. The lane's cost is now expected to pass its US$150
     ceiling (about US$170).
     Correction (04:40 UTC): the first commit of this item (d6db39e7) gave its time as ~04:55; it was made at 04:39.
+14. **2026-11-22 04:49 UTC — the copy to the larger machine goes over parallel streams (before it runs that way).** One
+    tar stream from the build pod (Romania) to the larger machine (Kansas) carried 14 MB/s, about two hours for the
+    compiled release; eight test streams carried 94 MB/s together. `tools/runpod-alpoge-grh-verifier-copy.sh` gains
+    `STREAMS=<n>`: the same set of files (the filter is now defined once and used by both the list and the copy),
+    largest first, dealt to n tar streams. The single-stream copy started at 04:43 was stopped at 2 GB and its files
+    are overwritten. The acceptance test is unchanged: both ends hash every copied file and the two lists must be equal.
