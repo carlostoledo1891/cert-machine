@@ -20,6 +20,8 @@ make drift     re-hash the lift against the source lab
 
 **DELETED (2026-11-21 02:21 UTC): uhsel7c0ri69nn** (the 4×H100 build pod: ~95 modules/min against the checking pod's ~170; ~US$6).
 
+**RUNNING POD (2026-11-22 02:10 UTC): pvuwxr15uv2xd3** (alpoge-grh-parallel-2026-11-22, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — amendment A15 (a1f4a77b): the parallel pod for KR, the export, K2 and C5 on a hash-checked copy of the compiled release, on the operator's word ("Yes, start it"), so the check finishes sooner. Steps: `verifier.sh setup` (AUDIT_SHA a1f4a77b), then `verifier-copy.sh` from the Mac, then `tools/runpod-alpoge-grh-parallel.sh pre | kr | exp`. Pull /results into corpus/alpoge-grh/runs-parallel/podB-pvuwxr15uv2xd3/; the recorder must read KR from there BEFORE KR reports. DELETE it when KR, K2 and C5 are pulled home. The RunPod balance was US$2.59 at 01:55 UTC (the operator topped it to US$52 and said he would turn on auto-pay): at US$0 a pod without a network volume is terminated and its data lost — read the balance at every milestone. State at 02:15 UTC: 17 of 24 on the page (557bedbd); S1 still in its export on the build pod, which is at its memory limit (187 of 238 GB anonymous, no OOM event).
+
 **NEXT SESSION — the Alpöge RH/GRH lane (handoff 2026-11-21 ~17:40 UTC).** The page is live and listed as a draft:
 15 of 24 checks are done (I1, I2, the source scan, M1, F1, F2, SPEC, CHAR, P0, BRc+MB, ROUTE, B1, MI, RB, A1), and A13
 and A14 are disclosed. Build pod phden71h9yeked runs phase 2 (the census at 17:05, then the controls, S1, the export,
