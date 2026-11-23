@@ -184,6 +184,29 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /reports/optconst-queue.html (2026-11-23, for the post on the registry's merges of 2026-11-22): five
+     registry rows as hollow bars, each with the registry's asterisk at its end struck through, and from each bar a solid
+     line to one solid block (the replay that took the mark off). LIGHT theme, no number, no title text. */
+  'optconst-queue': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the registry\'s asterisks', path: '/reports/optconst-queue.html',
+    title: 'The registry\'s asterisks, replayed',
+    alt: 'Five hollow bars in a column, each ending in an asterisk struck through; from each bar a solid line runs to one solid block on the right.',
+    svgRaw: (() => {
+      const o = [], x0 = 150, x1 = 560, bh = 34, ys = [170, 245, 320, 395, 470], bx = 900, bw = 150, bby = 250, bbh = 160;
+      o.push('<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Five hollow bars, each with a struck-through asterisk, joined by solid lines to one solid block" style="position:absolute;left:0;top:0">');
+      for (const y of ys) {
+        const cy = y + bh / 2, ax = x1 + 46;
+        o.push('<rect x="' + x0 + '" y="' + y + '" width="' + (x1 - x0) + '" height="' + bh + '" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.4"/>');
+        for (const a of [0, 60, 120]) {
+          const t = a * Math.PI / 180, dx = 13 * Math.cos(t), dy = 13 * Math.sin(t);
+          o.push('<line x1="' + (ax - dx).toFixed(1) + '" y1="' + (cy - dy).toFixed(1) + '" x2="' + (ax + dx).toFixed(1) + '" y2="' + (cy + dy).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="2.4" stroke-linecap="round"/>');
+        }
+        o.push('<line x1="' + (ax - 20) + '" y1="' + (cy + 16) + '" x2="' + (ax + 20) + '" y2="' + (cy - 16) + '" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>');
+        o.push('<line x1="' + (ax + 34) + '" y1="' + cy + '" x2="' + (bx - 12) + '" y2="' + (bby + bbh / 2 + (cy - 337) * 0.45).toFixed(1) + '" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>');
+      }
+      o.push('<rect x="' + bx + '" y="' + bby + '" width="' + bw + '" height="' + bbh + '" rx="8" fill="var(--ink)" stroke="var(--ink)" stroke-width="2.4"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/percolation-critical.html (2026-11-12): a hollow ring (the textbook) joined by a dashed line
      to one solid block (the statement written from it); two hollow rings on the right (the two labs' Lean proofs), each
      with a solid arrow into the block (the bridges). LIGHT theme, no number, no title text. */
