@@ -29,7 +29,7 @@
    "posed": "The question was posed in public before: by Unsolved Lab (M20, 1 Oct, not run), in the repository andrey-kokoev/marici (a note dated 9 Nov: “this extension family has not been excluded”) and by an idea scout of Chen’s run (21 Nov, timed out). Nobody had decided it.",
    "corollary": {
     "text": "In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.",
-    "label": "prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph"
+    "label": "prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; derived in a reading by GPT-6.2-astra (a control-room session) and checked by the control room"
    },
    "why39": "Call the copy’s 35 vertices the core and the rest outside. If an outside vertex were unjoined to two other outside vertices, their three core-neighbourhoods would be three sets that Lemma P, a finite fact checked by computer, says cannot exist; so the missing edges among the outside vertices form a matching. Five outside vertices missing only a matching always contain a triangle, so there are at most four, and 35 + 4 = 39; four with no triangle must miss two disjoint edges, which leaves exactly a 4-cycle.",
    "exoo_square": {
@@ -37,7 +37,7 @@
     "caveat": "checked on the isomorphism class identified from our own files; Exoo’s pinned bytes were not at home"
    },
    "smaller_certificate": "A smaller certificate for Lemma P: 385 of the 3,360 independent 8-sets suffice, in five orbits of the circulant’s 210 affine symmetries (105 + 70 + 70 + 105 + 35). No union of whole orbits with fewer sets works (1,082 non-empty unions checked). Smaller sub-families exist (an irredundant one of 368 sets), so 385 is minimal only among unions of whole orbits. Confirmed by our own search and by a SAT proof that lrat-check and cake_lpr accept.",
-   "found_by": "The square and the smaller certificate were found in a reading by GPT-6.2-astra (via Carlos Toledo’s chat) and checked by our own code.",
+   "found_by": "That Exoo’s graph is C35 plus four vertices in exactly one way was already reported by Unsolved Lab; the full count over all 82,251 four-subsets and the smaller certificate came from a reading by GPT-6.2-astra (via Carlos Toledo’s chat); all of it is checked by our own code.",
    "seal": {
     "block": 976983,
     "at": "2026-11-22T03:26:46Z",

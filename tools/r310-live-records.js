@@ -266,7 +266,7 @@ function boxes() {
   cite(C35REV, '| 4 smaller certificate | CERTIFIED as stated | 3,360 sets, 6 multipliers, 210 maps, 23 orbits. One union of five orbits (105 + 70 + 70 + 105 + 35 = 385) has no triple');
   cite(C35REV, '1,082 non-empty');
   cite(C35REV, 'A greedy pass gives an irredundant 368-set sub-family');
-  const FOUND = 'The square and the smaller certificate were found in a reading by GPT-6.2-astra (via Carlos Toledo’s chat) and checked by our own code.';
+  const FOUND = 'That Exoo’s graph is C35 plus four vertices in exactly one way was already reported by Unsolved Lab; the full count over all 82,251 four-subsets and the smaller certificate came from a reading by GPT-6.2-astra (via Carlos Toledo’s chat); all of it is checked by our own code.';
   /* box 2: the full ledger, released */
   const RELEASE = { url: 'https://github.com/carlostoledo1891/cert-machine/releases/tag/r310-r7-ledger-2026-11-23', index: 29, package: 'r7-ledger-prod-tsv-reveal.tar.gz',
     package_sha256: '4e1b1b5d01a2411ddaa4d3903627ae877a85d9f81db96d11d47d5b972260e8ee', prod_sha256: 'ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793' };
@@ -310,7 +310,7 @@ function boxes() {
   cite(REVEAL2, 'so no triangle-free graph on 40 vertices with no independent 10-set contains an induced C35(1,7,11,16)');
   const POSED = 'The question was posed in public before: by Unsolved Lab (M20, 1 Oct, not run), in the repository andrey-kokoev/marici (a note dated 9 Nov: “this extension family has not been excluded”) and by an idea scout of Chen’s run (21 Nov, timed out). Nobody had decided it.';
   cite(REVEAL2, 'The induced-C35 question was posed in public at least three times before our theorem');
-  const COROL = { text: 'In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.', label: 'prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph' };
+  const COROL = { text: 'In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.', label: 'prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; derived in a reading by GPT-6.2-astra (a control-room session) and checked by the control room' };
   cite(REVEAL2, COROL.text);
   return {
     what: 'The three boxes of /r310/: two opened (Theorem C35; the second computation of Case R(7)), one sealed (Case R(6): codegree six). A sealed box shows its name, its Bitcoin anchors and its progress, rounded down to a whole percent, and nothing else; it opens only after audit, on Carlos Toledo’s word.',
