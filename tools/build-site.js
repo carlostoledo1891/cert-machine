@@ -296,15 +296,16 @@ if (!(e1038inf.lower > 1.8 && e1038inf.upper > e1038inf.lower && hLB > 0.3)) fai
 const expDown = (x, sig) => { const e = Math.floor(Math.log10(x)); const m = Math.floor(x / 10 ** e * 10 ** (sig - 1)) / 10 ** (sig - 1); return m.toFixed(sig - 1) + 'e' + e; };
 const REPORTS = [
   /* group 'ai': the AI-verification shelf — the audience-facing work */
-  /* Alpöge's Lean proof of RH and GRH (2026-11-21): listed while its checks still run, on the operator's word; the card's
-     count is read from the one module the page draws its ring from (instruments/alpoge-grh/status.js), so the card and
-     the page cannot disagree, and the card says "draft" for as long as a check is running */
-  { g: 'ai', f: 'alpoge-grh.html', k: 'the Riemann Hypothesis · a Lean proof, checked',
-    title: 'Alpöge’s Lean proof of the Riemann Hypothesis, checked',
-    desc: 'On 20 November 2026 Levent Alpöge released a proof of the Riemann Hypothesis, made with Claude, as 175,187 files of Lean. Every check was written down before it ran: the files, the build, the axioms, a second kernel, the statement against our own file and against the textbook form, planted errors, the route inside the proof, and bridges to two other claims.',
+  /* Alpöge's Lean release on RH and GRH (2026-11-21): listed while its checks still run, on the operator's word; the
+     card's count is read from the one module the page draws its ring from (instruments/alpoge-grh/status.js), so the
+     card and the page cannot disagree, and the card says "draft" for as long as a check is pending. The card never says
+     that RH is proved: it names the release and the checks (an outside reading, 2026-11-23) */
+  { g: 'ai', f: 'alpoge-grh.html', k: 'the Riemann Hypothesis · a Lean release, 24 checks',
+    title: 'Checking Alpöge’s Lean release on RH and Dirichlet GRH',
+    desc: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis, which he says he made working with Claude, and released it as 175,187 Lean files. The page puts that release through checks registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges — with what the checks do not settle first.',
     n: (() => { const S = require(path.join(ROOT, 'instruments', 'alpoge-grh', 'status.js'));
-      if (S.done.length + S.pending.length + S.bad.length > S.ALL.length) fail('the alpoge-grh card would misstate its record');
-      return (S.pending.length ? 'a draft · ' : '') + S.done.length + ' of ' + S.ALL.length + ' checks done' + (S.pending.length ? ' · ' + S.pending.length + ' still running' : '') + (S.bad.length ? ' · ' + S.bad.length + ' refused' : ''); })() },
+      if (S.done.length + S.pending.length + S.refused.length + S.refuted.length > S.ALL.length) fail('the alpoge-grh card would misstate its record');
+      return (S.pending.length ? 'a draft · ' : '') + S.done.length + ' of ' + S.ALL.length + ' checks done' + (S.pending.length ? ' · ' + S.pending.length + ' pending' : '') + (S.refused.length ? ' · ' + S.refused.length + ' refused' : '') + (S.refuted.length ? ' · ' + S.refuted.length + ' refuted' : ''); })() },
   { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
     title: 'The matmul eval: ground truth is a proof',
     desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.',

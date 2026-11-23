@@ -331,17 +331,17 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
-  /* an ART card for /reports/alpoge-grh.html (2026-11-21): the page's ring of checks without its words — 21 arcs in four
-     groups, all one tone so the card never states a check's result (a card is not re-rendered at every build) — and inside
+  /* an ART card for /reports/alpoge-grh.html (2026-11-21): the page's ring of checks without its words — 24 arcs in four
+     groups (21 until 2026-11-23), all one tone so the card never states a check's result (a card is not re-rendered at every build) — and inside
      it the critical line, solid, with the first five zeros of ζ at their heights (quoted values). LIGHT theme, no number. */
-  'alpoge-grh': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the Riemann Hypothesis in Lean, checked', path: '/reports/alpoge-grh.html',
-    title: 'Alpöge’s Lean proof of the Riemann Hypothesis, checked',
-    alt: 'A ring of twenty-one arcs in four groups, and inside it a vertical line with five dots on it at uneven heights.',
+  'alpoge-grh': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · checking a Lean release on RH', path: '/reports/alpoge-grh.html',
+    title: 'Checking Alpöge’s Lean release on RH and Dirichlet GRH',
+    alt: 'A ring of twenty-four arcs in four groups, and inside it a vertical line with five dots on it at uneven heights.',
     get svgRaw() {
-      const cx = 820, cy = 338, r = 184, sw = 24, n = 21, groups = [4, 6, 5, 6], gap = 0.035, gGap = 0.09, f = (v) => v.toFixed(1);
+      const cx = 820, cy = 338, r = 184, sw = 24, n = 24, groups = [4, 8, 6, 6], gap = 0.035, gGap = 0.09, f = (v) => v.toFixed(1);
       const per = (2 * Math.PI - groups.length * gGap - (n - groups.length) * gap) / n;
       const arc = (a0, a1) => 'M' + f(cx + r * Math.cos(a0)) + ' ' + f(cy + r * Math.sin(a0)) + ' A' + r + ' ' + r + ' 0 0 1 ' + f(cx + r * Math.cos(a1)) + ' ' + f(cy + r * Math.sin(a1));
-      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A ring of twenty-one arcs, and inside it a vertical line with five dots" style="position:absolute;left:0;top:0">'];
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A ring of twenty-four arcs, and inside it a vertical line with five dots" style="position:absolute;left:0;top:0">'];
       let ang = -Math.PI / 2 + gGap / 2;
       for (const g of groups) { for (let i = 0; i < g; i++) { o.push('<path d="' + arc(ang, ang + per) + '" fill="none" stroke="var(--ink-3)" stroke-width="' + sw + '"/>'); ang += per + (i < g - 1 ? gap : 0); } ang += gGap; }
       const yT = cy - r + 46, yB = cy + r - 46;

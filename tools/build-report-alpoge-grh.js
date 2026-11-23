@@ -1,9 +1,13 @@
 #!/usr/bin/env node
-/* build-report-alpoge-grh.js — reports/alpoge-grh.html: Levent Alpöge's Lean proof of the Riemann Hypothesis (alpo.ge,
-   20 November 2026), checked by cert-machine. Every verdict word and number is read from certs/alpoge-grh-lean.json
-   (derived from the pod's pulled results by tools/check-alpoge-grh.py) and the pinned readings in corpus/alpoge-grh/.
-   While checks are still running the page is a DRAFT: those rows are drawn as pending and a banner says so;
-   `FINAL=1 node tools/build-report-alpoge-grh.js` refuses to build while any row is pending.
+/* build-report-alpoge-grh.js — reports/alpoge-grh.html: cert-machine's checks of Levent Alpöge's Lean release on the
+   Riemann Hypothesis and GRH for Dirichlet L-functions (alpo.ge, 20 November 2026). Every verdict word and number is
+   read from certs/alpoge-grh-lean.json (derived from the pods' pulled results by tools/check-alpoge-grh.py) and the
+   pinned readings in corpus/alpoge-grh/. The page never says or implies that RH is proved: it reports what each tool
+   did with the formal release, and a conditional result always carries its condition.
+   While checks are pending the page is a DRAFT: those rows are drawn as pending and a banner says so. With no check
+   pending, the page closes only in one of the two closing states registered in advance (ENDING below: A or B); any
+   other state is HELD, with no closing deck. `FINAL=1 make page R=alpoge-grh` runs this builder with FINAL=1 before
+   the sync and the gates, and FINAL=1 refuses anything but A or B, and a page-log entry not written for that state.
 
    The page explains, in plain words, what a computer check of a 17-million-line proof is and is not: the 360° wheel of
    checks (hero), what the theorem says on the complex plane (interactive), the size of the proof (treemap), the chain of
@@ -34,17 +38,58 @@ const RT = JSON.parse(fs.readFileSync(path.join(ROOT, DIR + 'route-reading.json'
 const SS = JSON.parse(fs.readFileSync(path.join(ROOT, DIR + 'source-stats.json'), 'utf8'));
 need(SS.archive_sha256 === PINS.archive.sha256 && SS.files === PINS.archive.lean_files, 'the source statistics are not of the pinned archive');
 const S = require(path.join(ROOT, 'instruments', 'alpoge-grh', 'status.js'));
-const { row, status, census, nielsenRan, WHEEL, ALL, pending, done, bad, WORD } = S;
-if (FINAL) need(pending.length === 0, 'FINAL build with pending checks: ' + pending.map((x) => x.id).join(', '));
+const { row, status, census, nielsenRan, WHEEL, ALL, pending, done, bad, refused, refuted, WORD } = S;
+/* the larger machine's run (amendment A17): where S1 and C1 run; its marker files say what the guard did (A21) */
+const JR = (() => { const d = path.join(ROOT, DIR, 'runs-judge'); const rs = fs.existsSync(d) ? fs.readdirSync(d).filter((x) => fs.statSync(path.join(d, x)).isDirectory()) : []; return rs.length === 1 ? path.join(d, rs[0]) : null; })();
+const jr = (f) => (JR && fs.existsSync(path.join(JR, f)) ? fs.readFileSync(path.join(JR, f), 'utf8') : null);
+/* C1's diagnostic on the larger machine, as Comparator printed it (amendment A22: the tail when the full output stays
+   on the machine). A17 counts C1 as rejected only with a diagnostic naming the planted statement; the closing state A
+   asks for that name here, on top of the record's row */
+const C1DIAG = (() => { const t = (jr('C1.out') || jr('C1.tail') || '') + (jr('C1.err') || ''); const m = t.split('\n').find((l) => /do not match|does not match/.test(l)); return m ? m.replace(/^uncaught exception: /, '').trim() : null; })();
+/* the page's state, read from the record. Two closing states were registered before S1 had a verdict (amendments A17,
+   A19, A21): A, Comparator accepts on the larger machine and C1 is rejected there with its diagnostic; B, Comparator
+   stops on resources there, the guard's marker C1.not-run says C1 was not run, and the other controls were each
+   rejected. Anything else with no check pending (a rejection not yet traced, a control accepted, a refuted row) is HELD. */
+const ENDING = (() => {
+  if (pending.length) return 'draft';
+  if (refuted.length) return 'hold';
+  const others = ALL.filter((x) => !['S1', 'C1-C5', 'BRu'].includes(x.id));
+  if (others.some((x) => !['decided', 'computed', 'read'].includes(x.st)) || status('BRu') !== 'refused' || !row('BRu').dropped) return 'hold';
+  const c = row('C1-C5').controls || {}, s1 = row('S1'), runs = s1.runs || {};
+  const rest = ['C2', 'C3', 'C4', 'C5', 'A1-C2', 'A1-C3'].every((k) => c[k] && c[k].refused);
+  if (status('S1') === 'decided' && s1.where === 'larger machine' && status('C1-C5') === 'decided' && c.C1 && c.C1.refused && rest
+    && C1DIAG && /RiemannZetaZerosOnLine|riemannZeta_eq_zero_re/.test(C1DIAG)) return 'A';
+  if (status('S1') === 'refused' && runs['larger machine'] === 'resources' && status('C1-C5') === 'refused' && /^C1 was not run: it needs the same memory/.test(row('C1-C5').why)
+    && c.C1 && c.C1.exit === null && rest && jr('C1.not-run') !== null) return 'B';
+  return 'hold';
+})();
+if (FINAL) need(ENDING === 'A' || ENDING === 'B', 'FINAL build in state ' + ENDING + (pending.length ? ' (pending: ' + pending.map((x) => x.id).join(', ') + ')' : '')
+  + ': only the two closing states registered in advance may close the page (A: Comparator accepts on the larger machine and C1 is rejected there with a diagnostic naming the plant; B: Comparator stops on resources there and the guard\'s C1.not-run marker is in the run)');
 /* the page's public change log (corpus/alpoge-grh/page-log.json): the newest entry must state the count the record gives */
 const LOG = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'alpoge-grh', 'page-log.json'), 'utf8')).entries;
 need(LOG.length > 0 && LOG[LOG.length - 1].done === done.length, 'the newest page-log entry says ' + (LOG.length ? LOG[LOG.length - 1].done : 'nothing') + ' checks done, the record ' + done.length + ': add a dated line to corpus/alpoge-grh/page-log.json');
-const LAST = LOG[LOG.length - 1].at.replace('T', ' ').replace('Z', ' UTC');
+/* the count of done checks alone cannot tell the closing entry from an older one (21 done now and 21 in ending B): an
+   entry may also carry pending, refused and refuted; when it does they must be the record's, and a closing build needs
+   all three, so the closing entry is one written for that state */
+const NEWEST = LOG[LOG.length - 1], COUNTS = { pending: pending.length, refused: refused.length, refuted: refuted.length };
+for (const k of Object.keys(COUNTS)) if (NEWEST[k] !== undefined) need(NEWEST[k] === COUNTS[k], 'the newest page-log entry says ' + NEWEST[k] + ' ' + k + ', the record ' + COUNTS[k]);
+if (FINAL) need(Object.keys(COUNTS).every((k) => NEWEST[k] !== undefined), 'a closing build needs a page-log entry written for it, with its pending, refused and refuted counts beside done');
+const LAST = NEWEST.at.replace('T', ' ').replace('Z', ' UTC');
+/* the standings the wheel fixes (readings and computed comparisons) must be the record's own: the wheel's stop sentence
+   ("a check drawn as done is not done in the record") holds for them too */
+const RDG = R.readings || {};
+need(/^COMPUTED/.test((RDG.I2_mirror || {}).standing || '') && /^COMPUTED/.test((RDG.static_scan || {}).standing || '')
+  && /^READ/.test((RDG.M1_metaprogramming || {}).standing || '') && /^READ/.test((RDG.F1_riemannHypothesis || {}).standing || '')
+  && /^READ/.test((RDG.F2_dirichlet || {}).standing || '') && /^READ/.test(RT.standing || ''), 'a standing the wheel fixes (I2, SCAN, M1, F1, F2, ROUTE) is not the record\'s');
+/* the complex-plane figure says a Lean proof makes the two forms of RH equivalent: the record must show it (SPEC
+   CERTIFIED, and its axiom report naming the three standard axioms for both directions), or the figure is refused */
+const SPECAX = fs.readFileSync(path.join(ROOT, DIR + 'runs-spec/spec-axioms.out'), 'utf8');
+need(status('SPEC') === 'decided' && (SPECAX.match(/depends on axioms: \[propext, Classical\.choice, Quot\.sound\]/g) || []).length === 2, 'the record does not show the equivalence proof (SPEC) compiled on the three standard axioms');
 
 /* ---------------------------------------------------------------- HERO: the wheel */
 function figWheel(w, narrow) {
   const h = narrow ? 500 : Math.max(520, 34 + WHEEL.length * 27 + ALL.length * 17 + 36), cx = narrow ? w / 2 : 300, cy = narrow ? 172 : 260, r = narrow ? 128 : 168, sw = narrow ? 22 : 28;
-  const o = [CH.open({ w, h, alt: 'A ring of ' + ALL.length + ' arcs, one per check, in four groups: the bytes, the build and the kernels, the statement, the context. Solid arcs are decided, dashed are computed, dotted are readings; grey arcs are still running. In the centre the theorem’s name and the count of checks done.' })];
+  const o = [CH.open({ w, h, alt: 'A ring of ' + ALL.length + ' arcs, one per check, in four groups: the bytes, the build and the kernels, the statement, the context. Solid arcs are decided, dashed are computed, dotted are readings; a grey arc is refused, and an empty track is pending. In the centre the theorem’s name, the count of checks done, and the counts pending and refused.' })];
   const n = ALL.length, gap = 0.035, gGap = 0.09, groups = WHEEL.length;
   const per = (2 * Math.PI - groups * gGap - (n - groups) * gap) / n;
   let ang = -Math.PI / 2 + gGap / 2;
@@ -83,15 +128,18 @@ function figWheel(w, narrow) {
     if (!narrow) return;
     const G = WHEEL[i], its = G.items.map((it) => ALL.find((z) => z.id === it.id));
     const nd = its.filter((x) => ['decided', 'computed', 'read'].includes(x.st)).length, np = its.filter((x) => x.st === 'pending').length;
+    const nr = its.filter((x) => x.st === 'refused').length, nx = its.filter((x) => x.st === 'refuted').length;
     const y = cy + r + sw / 2 + 40 + i * 26;
     o.push(CH.txt(16, y, (i + 1) + '  ' + G.g.replace('The build and the kernels', 'Build · kernels').toUpperCase(), 't-ax', 'start', ' style="letter-spacing:.06em"'));
-    o.push(CH.txt(w - 16, y, nd + ' of ' + its.length + ' done' + (np ? ' · ' + np + ' running' : ''), np ? 't-note' : 't-lab', 'end', ' style="font-size:11.5px"'));
+    o.push(CH.txt(w - 16, y, nd + ' of ' + its.length + ' done' + (np ? ' · ' + np + ' pending' : '') + (nr ? ' · ' + nr + ' refused' : '') + (nx ? ' · ' + nx + ' refuted' : ''), np || nr || nx ? 't-note' : 't-lab', 'end', ' style="font-size:11.5px"'));
   });
   /* centre */
   o.push(CH.txt(cx, cy - 26, 'riemannHypothesis', 't-lab', 'middle', ' style="font-family:var(--f-mono);font-size:' + (narrow ? 13 : 15) + 'px"'));
   o.push(CH.txt(cx, cy - 6, ': RiemannHypothesis', 't-note', 'middle', ' style="font-family:var(--f-mono)"'));
   o.push(CH.txt(cx, cy + 26, done.length + ' of ' + ALL.length + ' checks done', 't-lab', 'middle', ' style="font-size:' + (narrow ? 15 : 18) + 'px;font-weight:600"'));
-  o.push(CH.txt(cx, cy + 46, pending.length ? pending.length + ' still running' : (bad.length ? bad.length + ' refused' : 'none refused'), 't-note', 'middle'));
+  /* pending, refused and refuted are three states: the centre names each that occurs, never one for another */
+  const centre = [pending.length ? pending.length + ' pending' : null, refused.length ? refused.length + ' refused' : null, refuted.length ? refuted.length + ' refuted' : null].filter(Boolean);
+  o.push(CH.txt(cx, cy + 46, centre.length ? centre.join(' · ') : 'none pending, none refused', 't-note', 'middle'));
   /* the side list (wide only): the checks of each group, in order, with their state */
   if (!narrow) {
     let y = 34;
@@ -107,21 +155,22 @@ function figWheel(w, narrow) {
       y += 9;
     });
   }
-  o.push(CH.legend([{ token: 'var(--sig)', t: 'decided (solid)' }, { token: 'var(--sig)', kind: 'dash', t: 'computed (dashed)' }, { token: 'var(--sig)', kind: 'dot', t: 'read (dotted)' }, { token: 'var(--mark)', t: 'running (empty track)' }],
+  o.push(CH.legend([{ token: 'var(--sig)', t: 'decided (solid)' }, { token: 'var(--sig)', kind: 'dash', t: 'computed (dashed)' }, { token: 'var(--sig)', kind: 'dot', t: 'read (dotted)' }, { token: 'var(--ink-3)', t: 'refused (grey)' }]
+    .concat(refuted.length ? [{ token: 'var(--witness)', t: 'refuted' }] : []).concat([{ token: 'var(--mark)', t: 'pending (empty track)' }]),
     narrow ? 16 : 40, h - 14, null, w - (narrow ? 32 : 80)));
   o.push(CH.close);
   return o.join('\n');
 }
 
 /* ---------------------------------------------------------------- the complex plane (interactive) */
-const ZEROS = [14.134725, 21.022040, 25.010858, 30.424876, 32.935062];   /* the first five ordinates, quoted (LMFDB / Odlyzko) */
+const ZEROS = [14.134725, 21.022040, 25.010858, 30.424876, 32.935062];   /* the first five positive ordinates of nontrivial zeros, quoted (LMFDB / Odlyzko): an illustration, no evidence for the universal claim */
 function figPlane(w, narrow) {
   const h = narrow ? 560 : 500;
   const x0 = narrow ? 18 : 40, x1 = w - (narrow ? 14 : 40), y0 = narrow ? 64 : 40, y1 = h - 56;
   const reMin = narrow ? -6.6 : -7, reMax = narrow ? 2.6 : 3, imMin = -3, imMax = 40;
   const X = (re) => x0 + (re - reMin) / (reMax - reMin) * (x1 - x0), Y = (im) => y1 - (im - imMin) / (imMax - imMin) * (y1 - y0);
   const f = (x) => x.toFixed(1);
-  const o = [CH.open({ w, h, alt: 'The complex plane. A shaded vertical band between real parts 0 and 1 is the critical strip; a solid line at real part 1/2 is the critical line, with the first five zeros of ζ drawn on it; dots at −2, −4 and −6 on the real axis are the trivial zeros; a ring at 1 is the pole; the region right of real part 1 is grey: ζ has no zeros there. Buttons above the figure highlight what each statement talks about.', cls: 'zplane' })];
+  const o = [CH.open({ w, h, alt: 'The complex plane. A shaded vertical band between real parts 0 and 1 is the critical strip; a solid line at real part 1/2 is the critical line, with the first five nontrivial zeros of ζ of positive imaginary part drawn on it (published values, an illustration); dots at −2, −4 and −6 on the real axis are the trivial zeros; a ring at 1 is the pole; the region right of real part 1 is grey: ζ has no zeros there. Buttons above the figure highlight what each statement talks about.', cls: 'zplane' })];
   /* zero-free region Re ≥ 1 */
   o.push('    <rect class="zp-free" x="' + f(X(1)) + '" y="' + y0 + '" width="' + f(x1 - X(1)) + '" height="' + f(y1 - y0) + '" fill="var(--mark)" opacity="0.5"/>');
   /* the strip */
@@ -144,7 +193,7 @@ function figPlane(w, narrow) {
   /* trivial zeros */
   for (const t of [-2, -4, -6]) o.push('    <circle ' + CH.hit('class="zp-triv" cx="' + f(X(t)) + '" cy="' + f(Y(0)) + '" r="5" fill="var(--ink-3)"', 'a trivial zero of ζ', 's = ' + t + ' · excluded by Mathlib’s definition') + '/>');
   /* the pole */
-  o.push('    <circle ' + CH.hit('class="zp-pole" cx="' + f(X(1)) + '" cy="' + f(Y(0)) + '" r="6" fill="var(--paper)" stroke="var(--warn)" stroke-width="2"', 'the pole of ζ at s = 1', 'excluded: ζ is not defined there; Mathlib’s value at 1 is not a zero') + '/>');
+  o.push('    <circle ' + CH.hit('class="zp-pole" cx="' + f(X(1)) + '" cy="' + f(Y(0)) + '" r="6" fill="var(--paper)" stroke="var(--warn)" stroke-width="2"', 'the pole of ζ at s = 1', 'the classical ζ has a pole here; Mathlib gives ζ(1) a convention value, which is not 0, and every statement excludes s = 1') + '/>');
   /* region labels */
   o.push(CH.txt(narrow ? X(1) + 4 : X(0.5), y0 - (narrow ? 30 : 14), narrow ? 'the critical strip, 0 < Re s < 1' : 'the critical strip, 0 < Re s < 1', 't-lab', narrow ? 'end' : 'middle'));
   if (!narrow) o.push(CH.txt((X(1) + x1) / 2, y0 + 40, 'no zeros here', 't-note', 'middle'));
@@ -201,7 +250,7 @@ function squarify(items, x, y, w, h) {
 const LIBTOK = ['var(--c-s1)', 'var(--c-s2)', 'var(--c-s3)', 'var(--c-s4)', 'var(--c-s5)'];
 function figTree(w, narrow) {
   const h = narrow ? 560 : 420, pad = 2;
-  const o = [CH.open({ w, h, alt: 'A treemap of the release: one rectangle per library, its area proportional to its lines of Lean, split into its folders. Development holds most of it; Formalism, GroundTheory and ReciprocityTheory follow; the files that state the theorem are a sliver.' })];
+  const o = [CH.open({ w, h, alt: 'A treemap of the release: one rectangle per larger library, its area proportional to its lines of Lean, split into its folders; the smallest libraries are listed under it. Development holds most of it; Formalism, GroundTheory and ReciprocityTheory follow; the two files that state the five theorems are a sliver.' })];
   const libs = SS.libraries.filter((l) => l.lines > 1000).map((l) => ({ name: l.name, v: l.lines, l }));
   const tiny = SS.libraries.filter((l) => l.lines <= 1000);
   const tops = squarify(libs, 0, 0, w, h - 34);
@@ -227,38 +276,61 @@ function figTree(w, narrow) {
       if (t.h > 46) o.push(CH.txt(t.x + 10, t.y + 36, sub, 't-note', 'start', ' style="pointer-events:none"'));
     }
   });
-  o.push(CH.txt(4, h - 12, narrow ? 'Main.lean + Statements.lean: 28 lines' : 'Too small to see: ' + tiny.map((l) => l.name + ' (' + N(l.lines) + ')').join(', ') + ' lines. The theorem itself: 28 lines.', 't-note', 'start'));
+  o.push(CH.txt(4, h - 12, narrow ? 'Main.lean + Statements.lean: 28 lines' : 'Too small to see: ' + tiny.map((l) => l.name + ' (' + N(l.lines) + ')').join(', ') + ' lines. Main.lean and Statements.lean, which state the five theorems: 28 lines.', 't-note', 'start'));
   o.push(CH.close);
   return o.join('\n');
 }
 
 /* ---------------------------------------------------------------- the planted errors (C1–C5), as cards */
 const CTL = (row('C1-C5').controls) || {};
+/* a card's state, per registered control: rejected (with its registered diagnostic); accepted (exit 0 from the tool
+   that had to say no, or an axiom report that ran and did not name the plant); no valid result (an exit that is
+   neither: a kill, a time limit, a missing diagnostic); pending (no exit while the row is pending); not run */
 function ctlState(keys) {
-  const xs = keys.map((k) => CTL[k]).filter(Boolean);
-  if (xs.length < keys.length || xs.some((x) => x.exit === null || x.exit === undefined)) return 'pending';
-  return xs.every((x) => x.refused) ? 'rejected' : 'accepted';
+  const xs = keys.map((k) => [k, CTL[k]]);
+  if (xs.every(([, x]) => x && x.refused)) return 'rejected';
+  if (xs.some(([, x]) => x && x.exit === 0 && !x.refused)) return 'accepted';
+  if (xs.some(([, x]) => !x || x.exit === null || x.exit === undefined)) return status('C1-C5') === 'pending' ? 'pending' : 'notrun';
+  return 'invalid';
 }
+/* what each tool printed, verbatim from the run's own output files (never a paraphrase in quotation marks) */
+const RUNDIR = path.join(ROOT, DIR, 'runs', R.run);
+const runText = (...fs_) => fs_.map((f) => (fs.existsSync(path.join(RUNDIR, f)) ? fs.readFileSync(path.join(RUNDIR, f), 'utf8') : '')).join('\n');
+const firstLine = (t, re) => { const l = (t || '').split('\n').find((x) => re.test(x)); return l ? l.replace(/^uncaught exception: /, '').trim() : null; };
+const OBS = {
+  C1: C1DIAG,
+  C2: firstLine(runText('C2.err', 'C2.out'), /Illegal axiom detected/), C3: firstLine(runText('C3.err', 'C3.out'), /Illegal axiom detected/),
+  C4: firstLine(runText('C4.err', 'C4.out'), /do not match|does not match/), C5: firstLine(runText('C5.err', 'C5.out'), /assertion failed|type mismatch/)
+};
+const ex_ = (k) => (CTL[k] && CTL[k].exit !== null && CTL[k].exit !== undefined ? ' (exit ' + CTL[k].exit + ')' : '');
 const PLANTED = [
-  { id: 'C1', keys: ['C1'], t: 'A changed constant', code: ['s.re = 1 / 2', 's.re = 1 / 3'], diff: true, who: 'Comparator, the judge', say: '“the statements do not match”', why: 'The judge must notice when the theorem proved is not the theorem asked, even by one character.' },
-  { id: 'C2', keys: ['C2', 'A1-C2'], t: 'A smuggled axiom', code: ['axiom cheat :', '  RiemannHypothesis', 'theorem', '  riemannHypothesis', '  := cheat'], who: 'Comparator and Lean’s axiom report', say: '“illegal axiom: cheat”', why: 'Assuming RH and calling it a proof must be caught by two different tools.' },
-  { id: 'C3', keys: ['C3', 'A1-C3'], t: 'A missing proof', code: ['theorem', '  riemannHypothesis', '  := sorry'], who: 'Comparator and Lean’s axiom report', say: '“illegal axiom: sorryAx”', why: 'Lean’s placeholder for “proof goes here” must never pass as a proof.' },
-  { id: 'C4', keys: ['C4'], t: 'A hijacked definition', code: ['def', '  RiemannZetaZerosOnLine', '  : Prop := True'], who: 'Comparator, the judge', say: '“the statements do not match”', why: 'Redefining the statement as something trivially true must not slip past.' },
-  { id: 'C5', keys: ['C5'], t: 'A corrupted proof', code: ['riemannHypothesis', '  : False', '-- proof unchanged'], who: 'nanoda, the second kernel', say: 'a type mismatch', why: 'The release’s own exported proof, with its theorem re-typed as False, must fail in the independent kernel.' }
+  { id: 'C1', keys: ['C1'], t: 'A changed constant', code: ['s.re = 1 / 2', 's.re = 1 / 3'], diff: true, who: 'Comparator', expect: 'a mismatch naming RiemannZetaZerosOnLine or the theorem that uses it', why: 'A changed constant in our challenge: the judge must notice when the theorem proved is not the theorem asked, even by one character.' },
+  { id: 'C2', keys: ['C2', 'A1-C2'], t: 'A smuggled axiom', code: ['axiom cheat :', '  RiemannHypothesis', 'theorem', '  riemannHypothesis', '  := cheat'], who: 'Comparator and Lean’s axiom report', expect: 'Comparator, an illegal axiom named cheat; the report, cheat among the axioms', why: 'Assuming RH and calling it a proof must be caught by two different tools.' },
+  { id: 'C3', keys: ['C3', 'A1-C3'], t: 'A missing proof', code: ['theorem', '  riemannHypothesis', '  := sorry'], who: 'Comparator and Lean’s axiom report', expect: 'Comparator, an illegal axiom named sorryAx; the report, sorryAx among the axioms', why: 'Lean’s placeholder for “proof goes here” must never pass as a proof.' },
+  { id: 'C4', keys: ['C4'], t: 'A hijacked definition', code: ['def', '  RiemannZetaZerosOnLine', '  : Prop := True'], who: 'Comparator', expect: 'a mismatch naming RiemannZetaZerosOnLine', why: 'Redefining the statement as something trivially true must not slip past.' },
+  { id: 'C5', keys: ['C5'], t: 'A corrupted export', code: ['riemannHypothesis', '  : False', '-- proof unchanged'], who: 'nanoda, the second kernel', expect: 'a type-checking failure', why: 'The release’s own exported proof, with the declaration riemannHypothesis re-typed as False and its proof term left as it was, must fail in the independent kernel.' }
 ];
+function observed(p, st) {
+  if (st === 'pending') return p.id === 'C1' && jr('C1.start') === null ? 'nothing yet: queued behind the statement judge' : 'nothing yet: pending';
+  if (st === 'notrun') return p.id === 'C1' && jr('C1.not-run') !== null ? 'no result: the guard stopped the judge script when the statement judge stopped on resources (amendment A19)' : 'no result: not run';
+  const o = OBS[p.id];
+  const tail = p.id === 'C2' ? '; the axiom report lists cheat among riemannHypothesis’s axioms' : p.id === 'C3' ? '; the axiom report lists sorryAx among riemannHypothesis’s axioms' : '';
+  return (o ? '“' + o + '”' + ex_(p.id) : 'no diagnostic line found' + ex_(p.id)) + (st === 'rejected' ? tail : '');
+}
 function plantedCards() {
-  const word = { pending: 'running', rejected: 'rejected', accepted: 'ACCEPTED: the judge failed' };
+  const word = { pending: 'pending', rejected: 'rejected', accepted: 'ACCEPTED: the control failed', notrun: 'no result', invalid: 'no valid result' };
   return '<div class="wide"><div class="pe-grid" role="list">' + PLANTED.map((p, i) => {
     const st = ctlState(p.keys);
     const code = p.diff
       ? '<code class="pe-code"><span class="pe-old">' + C.esc(p.code[0]) + '</span><span class="pe-new">' + C.esc(p.code[1]) + '</span></code>'
       : '<code class="pe-code">' + p.code.map((l) => '<span class="pe-new">' + C.esc(l) + '</span>').join('') + '</code>';
-    return '<div class="pe-card pe-' + st + '" role="listitem" style="--i:' + i + '">'
+    return '<div class="pe-card pe-' + (st === 'notrun' || st === 'invalid' ? 'none' : st) + '" role="listitem" style="--i:' + i + '">'
       + '<div class="pe-head"><span class="pe-id">' + p.id + '</span><span class="pe-t">' + C.esc(p.t) + '</span></div>'
       + code
       + '<p class="pe-why">' + C.esc(p.why) + '</p>'
-      + '<p class="pe-who"><span>must say no</span>' + C.esc(p.who) + ': ' + C.esc(p.say) + '</p>'
-      + '<p class="pe-st" aria-label="state">' + (st === 'rejected' ? '✕ ' : st === 'pending' ? '◌ ' : '! ') + C.esc(word[st]) + '</p>'
+      + '<p class="pe-who"><span>must say no</span>' + C.esc(p.who) + ', expected: ' + C.esc(p.expect) + '</p>'
+      + '<p class="pe-who"><span>observed</span>' + C.esc(observed(p, st)) + '</p>'
+      + '<p class="pe-st" aria-label="state">' + (st === 'rejected' ? '✕ ' : st === 'pending' ? '◌ ' : st === 'accepted' ? '! ' : '– ') + C.esc(word[st]) + '</p>'
       + '</div>';
   }).join('') + '</div></div>';
 }
@@ -302,8 +374,12 @@ function figUse(w, narrow) {
 }
 
 /* ---------------------------------------------------------------- the route inside the proof */
+const SMALL0 = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 const NI = (R.computed && R.computed.nielsen) || {};
 const WF = (R.computed && R.computed.wordfacts) || {};
+/* the census's WORDFACTS trace, in words: how many selected declarations, and the range of their release-only closures */
+const WFC = (WF.targets || []).map((t) => t.release_closure).filter((n) => typeof n === 'number');
+const WFW = WFC.length ? (SMALL0[WFC.length] || String(WFC.length)) + ' selected declarations, whose release-only dependency closures hold ' + N(Math.min(...WFC)) + ' to ' + N(Math.max(...WFC)) + ' constants' : null;
 function niWord(name) {
   /* the census's NIELSEN probe for this name (amendment A10), as the checker parsed it; running until phase 2 */
   if (!nielsenRan || !NI[name]) return 'is it in the compiled proof? running';
@@ -312,10 +388,10 @@ function niWord(name) {
 function figRoute(w, narrow) {
   const nodes = [
     { k: 'Main.lean', v: 'riemannHypothesis : RiemannHypothesis', d: 'The headline: Mathlib’s RH, no hypotheses. 12 lines.', t: 'route' },
-    { k: 'rhOfAll → rh_of_every', v: 'RH from Dirichlet nonvanishing', d: 'If no Dirichlet L-function vanishes right of 1/2, ζ (modulus 1) has no zero there; ζ’s functional equation handles the left half.', t: 'route' },
-    { k: 'everyCharacter', v: 'no zeros right of 1/2, every character', d: 'Every Dirichlet L-function is nonzero for Re s > 1/2 (the principal one away from s = 1). All the weight is here.', t: 'route' },
+    { k: 'rhOfAll → rh_of_every', v: 'RH from Dirichlet nonvanishing', d: 'If no Dirichlet L-function vanishes right of 1/2 (the principal one away from s = 1), ζ (modulus 1) has no zero there; ζ’s functional equation handles the left half.', t: 'route' },
+    { k: 'everyCharacter', v: 'no zeros right of 1/2, every character', d: 'Every Dirichlet L-function is nonzero for Re s > 1/2 (the principal one away from s = 1). The rest of the route supplies this nonvanishing input.', t: 'route' },
     { k: 'zeroFree_of_rpow_window', v: 'a window criterion', d: 'A one-sided bound for a smoothed sum over windows [Y, Y^(1+δ)], Y as large as you like, rules out zeros past the bound’s exponent; the exponent is pushed to 1/2. 30 files, 2,475 lines — small enough to read.', t: 'route' },
-    { k: 'the divisor link', v: 'height = formula (by rfl) + two inequalities', d: 'Takes a height equation that holds by definition and two inequalities passed separately (P.wordFacts), built from about 40 matrix-norm, covolume and valuation estimates. This is where the content must be.', t: 'key' },
+    { k: 'the divisor link', v: 'height = formula (by rfl) + two inequalities', d: 'Takes a height equation that holds by definition and two inequalities passed separately (P.wordFacts), whose inputs the readings leave untraced. ' + (WFW ? 'The census traces what feeds them: ' + WFW + '.' : 'The census traces what feeds them (pending).'), t: 'key' },
     { k: 'Row', v: 'a Galois-representation statement', d: 'The arithmetic input, proved inside the release under the name Row; whether it is the literature theorem it is named after is a reading question.', t: 'route' }
   ];
   const side = [
@@ -325,7 +401,7 @@ function figRoute(w, narrow) {
     { k: 'OpenLiteratureStatements', v: '⟨h, recTExists, h⟩', d: 'Two inputs named for two papers are the same proposition (Astra; confirmed).', n: null }
   ];
   const h = narrow ? 806 : 524, bw = narrow ? w - 32 : 380, bh = narrow ? 58 : 62, x = narrow ? 16 : 30;
-  const o = [CH.open({ w, h, alt: 'The route of the proof as a chain of six boxes from Main.lean down to the arithmetic input, the divisor link highlighted; beside it four dotted boxes for parts that are named for deep mathematics but are vacuous: a geometry predicate that is True, a degenerate geometric model with a zero map, a theorem named for a simple pole that proves True, and two literature inputs that are one statement.' })];
+  const o = [CH.open({ w, h, alt: 'The route of the proof, as read, as a chain of six boxes from Main.lean down to the arithmetic input, the divisor link highlighted; beside it four dotted boxes for parts named for deep mathematics that hold something else in the code: a geometry predicate that is True, a degenerate geometric model with a zero map, a theorem named for a simple pole that proves True, and two literature inputs that are one proposition.' })];
   o.push('    <defs><marker id="rta" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>');
   const gapY = narrow ? 18 : 22;
   nodes.forEach((nd, i) => {
@@ -338,8 +414,8 @@ function figRoute(w, narrow) {
   });
   const sx = narrow ? 16 : 460, sw2 = narrow ? w - 32 : w - 490;
   const sy0 = narrow ? 16 + nodes.length * (bh + gapY) + 46 : 30;
-  if (narrow) { o.push(CH.txt(sx, sy0 - 26, 'NAMED FOR DEEP MATHEMATICS,', 't-ax', 'start', ' style="letter-spacing:.06em"')); o.push(CH.txt(sx, sy0 - 10, 'VACUOUS IN THE CODE', 't-ax', 'start', ' style="letter-spacing:.06em"')); }
-  else o.push(CH.txt(sx, sy0 - 10, 'NAMED FOR DEEP MATHEMATICS, VACUOUS IN THE CODE', 't-ax', 'start', ' style="letter-spacing:.06em"'));
+  if (narrow) { o.push(CH.txt(sx, sy0 - 26, 'NAMES ARE NOT EVIDENCE:', 't-ax', 'start', ' style="letter-spacing:.06em"')); o.push(CH.txt(sx, sy0 - 10, 'FOUR EXAMPLES IN THE CODE', 't-ax', 'start', ' style="letter-spacing:.06em"')); }
+  else o.push(CH.txt(sx, sy0 - 10, 'NAMES ARE NOT EVIDENCE: FOUR EXAMPLES IN THE CODE', 't-ax', 'start', ' style="letter-spacing:.06em"'));
   side.forEach((sd, i) => {
     const y = sy0 + i * (narrow ? 72 : 96);
     const s = W.stroke(W.CHOSEN, { width: 1.6 });
@@ -355,16 +431,17 @@ function figRoute(w, narrow) {
 /* ---------------------------------------------------------------- the bridges */
 function figBridge(w, narrow) {
   const h = narrow ? 690 : 400;
-  const o = [CH.open({ w, h, alt: 'Three boxes: the August release (at least two thirds of the zeros simple and on the line), today’s release (RH and GRH for Dirichlet L-functions) and Masullo’s draft (GRH for every number field, main theorem not yet written). Arrows between them: the August proof re-checked on today’s Mathlib; combined with RH, its 5/6 bound for distinct zeros moves onto the critical line; and Masullo’s claim, as read here, implies today’s statements and adds simple zeros.' })];
+  const o = [CH.open({ w, h, alt: 'Three boxes: the August release (asymptotically, at least two thirds of the zeros simple and on the line), this release (five Lean statements of RH and GRH for Dirichlet L-functions) and Masullo’s draft (GRH for every number field, its main theorem not yet written). Arrows: assuming RH and the August bound, the August bound for distinct zeros holds on the critical line (compiled in Lean); and our reading of Masullo’s description for ℚ implies the release’s statement for primitive characters and simple zeros off the centre (compiled). Under the first arrow: the two releases in one environment, ' + (status('BRu') === 'decided' ? 'checked.' : status('BRu') === 'pending' ? 'pending.' : 'not run.') })];
   o.push('    <defs><marker id="bra" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>');
   const bw = narrow ? w - 32 : 300, bh = 118;
   const B = narrow
     ? [{ x: 16, y: 16, w: bw, h: bh }, { x: 16, y: 252, w: bw, h: bh }, { x: 16, y: 488, w: bw, h: bh }]
     : [{ x: 20, y: 20, w: bw, h: bh }, { x: w / 2 - bw / 2, y: 236, w: bw, h: bh }, { x: w - 20 - bw, y: 20, w: bw, h: bh }];
-  const a1st = ALL.find((z) => z.id === 'A1').st;
+  /* this release's box says what was checked of it (it compiles, three kernels accept it), never that its zeros are on the line */
+  const kst = ['B1', 'A1', 'K2', 'KR', 'K3'].every((id) => status(id) === 'decided') ? 'decided' : 'pending';
   const boxes = [
-    { k: 'August 2026 · Anthropic', t: '≥ 2/3 of the zeros', s: 'simple and on the critical line', f: status('P0') === 'decided' ? '✓ re-checked here on today’s Mathlib' : 'being re-checked here', st: status('P0') },
-    { k: '20 November · Alpöge', t: 'RH, and GRH for Dirichlet', s: 'every zero on the critical line', f: a1st === 'decided' ? '✓ checked here' : 'being checked here (running)', st: a1st },
+    { k: 'August 2026 · Anthropic', t: '≥ 2/3 of the zeros', s: 'simple and on the line, asymptotically', f: status('P0') === 'decided' ? '✓ re-checked here on today’s Mathlib' : 'being re-checked here', st: status('P0') },
+    { k: '20 November · Alpöge', t: 'RH, and GRH for Dirichlet', s: 'five statements in Lean', f: kst === 'decided' ? '✓ compiles; three kernels accept it' : 'being checked here (pending)', st: kst },
     { k: '20 November · Masullo', t: 'GRH, every number field', s: 'a draft, 940 pages', f: 'main theorem not yet written', st: 'read' }
   ];
   boxes.forEach((b, i) => {
@@ -377,19 +454,24 @@ function figBridge(w, narrow) {
     o.push(CH.txt(p.x + 14, p.y + 100, b.f, b.st === 'decided' ? 't-lab' : 't-note', 'start', ' style="font-size:11.5px"'));
   });
   /* the arrows and their words; on the wide figure the words sit outside each curve, never over a box */
-  /* an edge that is not decided says why: a refused check was not run (amendment A21), a pending one is running */
-  const L = (lines, x, y, anchor, st) => (st === 'decided' ? lines : lines.concat([st === 'refused' ? '(not run)' : '(running)'])).map((t, j) => CH.txt(x, y + j * 16, t, 't-note', anchor)).join('\n');
+  /* each arrow is a statement compiled in Lean (BRc+MB), and says its hypotheses; the two releases in one environment
+     (BRu) is a separate check, written under the first arrow with its own state (amendment A21: not run, for cost) */
+  const L = (lines, x, y, anchor, st) => (st === 'decided' ? lines : lines.concat([st === 'refused' ? '(not run)' : '(pending)'])).map((t, j) => CH.txt(x, y + j * 16, t, 't-note', anchor)).join('\n');
+  const bru = status('BRu') === 'decided' ? ['in one environment:', 'checked'] : ['in one environment:', status('BRu') === 'pending' ? 'pending' : 'not run (cost)'];
+  const A1L = ['assuming RH and the', 'August bound: 5/6 of', 'the zeros distinct', 'AND on the line'];
+  const MBL = ['read for ℚ: implies', 'the primitive-', 'character statement,', 'and simple zeros', 'off the centre'];
   const edges = narrow
-    ? [{ d: 'M' + (w / 2) + ' ' + (16 + bh + 2) + ' L' + (w / 2) + ' 248', lines: ['with RH: 5/6 of the', 'zeros distinct AND', 'on the line'], lx: w / 2 + 10, ly: 162, a: 'start', st: status('BRu') },
-       { d: 'M' + (w / 2) + ' 484 L' + (w / 2) + ' ' + (252 + bh + 4), lines: ['read for ℚ: implies', 'these statements,', 'plus simple zeros'], lx: w / 2 + 10, ly: 400, a: 'start', st: status('BRc+MB') }]
-    : [{ d: 'M170 ' + (20 + bh + 2) + ' C170 236 220 295 ' + (w / 2 - bw / 2 - 4) + ' 295', lines: ['with RH: 5/6 of the', 'zeros distinct AND', 'on the line'], lx: 156, ly: 186, a: 'end', st: status('BRu') },
-       { d: 'M' + (w - 170) + ' ' + (20 + bh + 2) + ' C' + (w - 170) + ' 236 ' + (w - 220) + ' 295 ' + (w / 2 + bw / 2 + 4) + ' 295', lines: ['read for ℚ: implies', 'these statements,', 'plus simple zeros'], lx: w - 156, ly: 186, a: 'start', st: status('BRc+MB') }];
+    ? [{ d: 'M' + (w / 2) + ' ' + (16 + bh + 2) + ' L' + (w / 2) + ' 248', lines: A1L, extra: bru, lx: w / 2 + 10, ly: 146, a: 'start', st: status('BRc+MB') },
+       { d: 'M' + (w / 2) + ' 484 L' + (w / 2) + ' ' + (252 + bh + 4), lines: MBL, lx: w / 2 + 10, ly: 396, a: 'start', st: status('BRc+MB') }]
+    : [{ d: 'M170 ' + (20 + bh + 2) + ' C170 236 220 295 ' + (w / 2 - bw / 2 - 4) + ' 295', lines: A1L, extra: bru, lx: 156, ly: 180, a: 'end', st: status('BRc+MB') },
+       { d: 'M' + (w - 170) + ' ' + (20 + bh + 2) + ' C' + (w - 170) + ' 236 ' + (w - 220) + ' 295 ' + (w / 2 + bw / 2 + 4) + ' 295', lines: MBL, lx: w - 156, ly: 180, a: 'start', st: status('BRc+MB') }];
   for (const e of edges) {
     const s = e.st === 'decided' ? W.stroke(W.DECIDED, { width: 2 }) : null;
     o.push('    <path class="br-edge ' + (s ? s.class : 'w-none') + '" d="' + e.d + '" fill="none" stroke="' + (e.st === 'decided' ? 'var(--sig)' : 'var(--ink-5)') + '" stroke-width="2"' + (e.st === 'decided' ? '' : ' stroke-dasharray="2 3"') + ' marker-end="url(#bra)"/>');
     o.push(L(e.lines, e.lx, e.ly, e.a, e.st));
+    if (e.extra) o.push(e.extra.map((t, j) => CH.txt(e.lx, e.ly + (e.lines.length + 0.6 + j) * 16, t, 't-note', e.a)).join('\n'));
   }
-  o.push(CH.legend([{ token: 'var(--sig)', t: 'proved in Lean, checked here' }, { token: 'var(--ink-3)', kind: 'guide', t: edges.some((e) => e.st === 'refused') ? 'not run' : 'running' }, { token: 'var(--ink-3)', kind: 'dot', t: 'a reading of a draft' }], narrow ? 16 : 30, h - 10, null, w - 60));
+  o.push(CH.legend([{ token: 'var(--sig)', t: 'compiled in Lean, with its hypotheses, checked here' }].concat(edges.some((e) => e.st !== 'decided') ? [{ token: 'var(--ink-3)', kind: 'guide', t: edges.some((e) => e.st === 'refused') ? 'not run' : 'pending' }] : []).concat([{ token: 'var(--ink-3)', kind: 'dot', t: 'a reading of a draft' }]), narrow ? 16 : 30, h - 10, null, w - 60));
   o.push(CH.close);
   return o.join('\n');
 }
@@ -404,13 +486,27 @@ const dual = (wide, narrow) => '<div class="dual"><div class="hv-w">\n' + wide +
    pulled from the pod; the one projection on the page (the build's end) is labelled "projected" and set in italics, so a
    projected time never reads like a decided one. */
 /* the timestamp's state, read from the proof file itself: a Bitcoin block-header attestation, or only calendar ones */
-const OTS_BTC = fs.readFileSync(path.join(ROOT, DIR + 'timestamps/rules-2026-11-21.txt.ots')).includes(Buffer.from('0588960d73d71901', 'hex'));
+const OTS = fs.readFileSync(path.join(ROOT, DIR + 'timestamps/rules-2026-11-21.txt.ots'));
+const OTS_BTC = OTS.includes(Buffer.from('0588960d73d71901', 'hex'));
+/* what the stamped list holds, and how many calendars the stored proof names: read from the two files, never typed */
+const OTS_CAL = new Set((OTS.toString('latin1').match(/https:\/\/[a-z0-9.-]+/g) || [])).size;
+const RULES_TXT = fs.readFileSync(path.join(ROOT, DIR + 'timestamps/rules-2026-11-21.txt'), 'utf8');
+const RULES_N = (RULES_TXT.match(/^[0-9a-f]{64}  \S/gm) || []).length;
+const RULES_AT = (RULES_TXT.match(/\((\d{4}-\d\d-\d\dT\d\d:\d\d):\d\dZ\)/) || [])[1];
+need(RULES_N > 0 && RULES_AT && OTS_CAL > 0, 'the stamped rule list or its proof is not readable');
 const PRE = fs.readFileSync(path.join(ROOT, 'notes', 'alpoge-grh-preregistration-2026-11-20.md'), 'utf8');
 const AMENDMENTS = (PRE.match(/^## Amendment A\d+/gm) || []).length;
 /* the amendments written after the result they change are marked AFTER in their own heading; the page names them */
 const AFTER = (PRE.match(/^## Amendment A\d+[^\n]*\bAFTER\b/gm) || []).map((h) => h.match(/A\d+/)[0]);
-const SMALL = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const SMALL = SMALL0;
 const nw = (n) => SMALL[n] || String(n);
+/* the history of the rules, in the words the registration's own headings support: the original registration came
+   before the build, the replay and the judges (not before the first fetch and the source scan, made earlier that day);
+   A14 and A20 are marked AFTER the result they change; A18 followed a parallel observation, before the registered run;
+   A21 and A22 were written while the statement judge was running, before it had a result */
+const RULES_WORDS = 'The build, replay and judging rules were registered on 20 November, before those runs; the archive’s first fetch and the source scan came earlier that day. '
+  + AMENDMENTS + ' dated amendments since' + (AFTER.length ? ': ' + AFTER_WORDS_SHORT() : '') + '.';
+function AFTER_WORDS_SHORT() { return AFTER.join(' and ') + ' changed how a result is read after it was seen, and say so'; }
 const AFTER_WORDS = AFTER.length
   ? (AFTER.length === 1 ? 'one later amendment (' + AFTER[0] + ') changed' : nw(AFTER.length) + ' later amendments (' + AFTER.join(', ') + ') changed') + ' how a result is read after it was seen, and say so'
   : '';
@@ -418,22 +514,20 @@ const B1P = (R.computed && R.computed.b1_progress) || {};
 const hhmm = (iso) => iso.slice(11, 16) + ' UTC';
 function timeline() {
   const STAGES = [
-    { t: 'Rules first', rows: [], d: 'Every check and the rule that decides it, in public before it runs. ' + AMENDMENTS + ' dated amendments since. '
-      + (AFTER.length ? 'All but ' + nw(AFTER.length) + ' came before the run they change; ' + AFTER_WORDS + '. ' : 'Each came before the run it changes. ')
-      + 'They add or tighten checks; one check was dropped at the start (A7)' + (status('BRu') === 'refused' ? ', and the combination of the two releases was closed for cost (A21).' : '.'), link: GH + 'notes/alpoge-grh-preregistration-2026-11-20.md' },
-    { t: 'Files and statement', rows: ['I1', 'I2', 'SCAN', 'M1', 'F1', 'F2', 'SPEC', 'CHAR', 'ROUTE', 'P0', 'BRc+MB'], d: 'The announced files, no shortcut in the source, and the theorem proved to be the textbook RH.' },
-    { t: 'The build', rows: ['B1', 'MI', 'RB'], d: 'Lean compiles all 175,187 files; its kernel checks every step on the way.' },
-    { t: 'Axioms, judge, planted errors', rows: ['A1', 'S1', 'C1-C5', 'NIELSEN', 'WORDFACTS'], d: 'What the proof rests on, whether it states exactly our statement, and five planted errors that must be caught.' },
-    { t: 'Three kernels', rows: ['K2', 'KR', 'K3'], d: 'nanoda, Lean’s own replay and con-leche each re-check the whole proof.' },
-    { t: 'A clean machine', rows: ['CR'], d: 'A machine that never ran Alpöge’s code receives only the exported proof, builds its own checkers and its own copy of the statements, and checks the five theorems again.' },
-    { t: 'The two releases combined', rows: ['BRu'], d: 'The August proof and this one in one environment, so that RH is no longer a hypothesis there. '
-      + (status('BRu') === 'refused' ? 'Not run: closed for cost before the statement judge reported (A21). The August bound with RH as a hypothesis is proved and checked (step 2).' : '') },
-    { t: 'The full verification', rows: [], final: true, d: 'Every verdict, the gaps first, and a kit to re-run all of it yourself.' }
+    { t: 'Rules first', rows: [], d: RULES_WORDS + ' A18 followed an observation on a second machine and came before the registered run; A21 and A22 were written while the statement judge was running, before it had a result. One check was dropped at the start (A7)' + (status('BRu') === 'refused' ? '; the two releases in one environment were closed for cost (A21).' : '.'), link: GH + 'notes/alpoge-grh-preregistration-2026-11-20.md' },
+    { t: 'Files and statement', rows: ['I1', 'I2', 'SCAN', 'M1', 'F1', 'F2', 'SPEC', 'CHAR', 'ROUTE', 'P0', 'BRc+MB'], d: 'The announced files, no shortcut found in the source, and Lean proofs that two of the five statements are equivalent to their textbook forms.' },
+    { t: 'The build', rows: ['B1', 'MI', 'RB'], d: 'Lean compiles all 175,187 Lean source files with exit 0.' },
+    { t: 'Axioms, judge, planted errors', rows: ['A1', 'S1', 'C1-C5', 'NIELSEN', 'WORDFACTS'], d: 'What the proof rests on, whether its statements match our challenge, and five planted errors the tools must catch.' },
+    { t: 'Three kernels', rows: ['K2', 'KR', 'K3'], d: 'nanoda and con-leche check the exported proof; Lean replays the compiled modules from an empty environment.' },
+    { t: 'A clean machine', rows: ['CR'], d: 'A machine that never ran Alpöge’s code, whose only input from the build was the exported proof, builds the same checkers and the same challenge from source, and checks the export there.' },
+    { t: 'The two releases combined', rows: ['BRu'], d: 'The August proof and this one in one environment, to test whether this release discharges the RH hypothesis of the August bound there. '
+      + (status('BRu') === 'refused' ? 'Not run: closed for cost before the statement judge reported (A21). The conditional statement, with RH and the August bound as hypotheses, is compiled (step 2).' : '') },
+    { t: 'The closing record', rows: [], final: true, d: 'Every verdict, the gaps first.' }
   ];
   const stOfId = (id) => (ALL.find((z) => z.id === id) || { st: status(id) }).st;
   let nowSeen = false;
   const st = STAGES.map((S) => {
-    if (S.final) return pending.length === 0 && FINAL ? 'done' : 'planned';
+    if (S.final) return (ENDING === 'A' || ENDING === 'B') && FINAL ? 'done' : 'planned';
     if (!S.rows.length) return 'done';
     /* a step whose checks were refused is not done: it says so, in the grey of a step not reached (no new colour) */
     if (S.rows.every((id) => stOfId(id) !== 'pending') && S.rows.some((id) => ['refused', 'refuted'].includes(stOfId(id)))) return 'refused';
@@ -441,7 +535,7 @@ function timeline() {
     if (!nowSeen) { nowSeen = true; return 'now'; }
     return 'next';
   });
-  const WORDS = { done: 'done', now: 'running now', next: 'next', planned: 'when every check has a verdict', refused: 'refused' };
+  const WORDS = { done: 'done', now: 'pending now', next: 'next', planned: 'when every check has a verdict', refused: 'refused' };
   let prog = '';
   const bi = 2;
   if (st[bi] === 'now' && B1P.built && stOfId('B1') === 'pending') {
@@ -452,82 +546,125 @@ function timeline() {
       + '<p class="tl-count"><b>' + pct + '%</b> · ' + N(B1P.built) + ' of ' + N(B1P.of) + ' files compiled at ' + C.esc(hhmm(B1P.at)) + ' · ' + B1P.failed + ' errors · ' + B1P.sorry + ' sorry</p>'
       + '<p class="tl-proj">projected end of the build: about ' + C.esc(hhmm(eta)) + ', at its average pace so far (' + Math.round(rate) + ' files a minute)</p>';
   }
-  return '<section class="tl" aria-label="The release timeline"><div class="tl-head"><span class="tl-k">Building the full verification</span>'
-    + '<span class="tl-sub">' + C.esc(done.length + ' of ' + ALL.length + ' checks done. Results land on this page as each check finishes; the full record goes out when the last one has a verdict.') + '</span></div>'
+  return '<section class="tl" aria-label="The release timeline"><div class="tl-head"><span class="tl-k">Where the checks stand</span>'
+    + '<span class="tl-sub">' + C.esc('Status at ' + LAST + ': ' + done.length + ' of ' + ALL.length + ' checks done, ' + pending.length + ' pending, ' + refused.length + ' refused' + (refuted.length ? ', ' + refuted.length + ' refuted' : '') + '. Results land on this page as each check finishes; the closing record goes out only in one of the two closing states registered in advance, never on an untraced rejection.') + '</span></div>'
     + '<ol class="tl-rail">' + STAGES.map((S, i) => '<li class="tl-step tl-' + st[i] + '"><span class="tl-dot" aria-hidden="true"></span>'
       + '<span class="tl-n">' + (i + 1) + '</span><span class="tl-t">' + C.esc(S.t) + '</span><span class="tl-st">' + C.esc(WORDS[st[i]]) + '</span>'
       + '<span class="tl-d">' + C.esc(S.d) + (S.link ? ' <a href="' + C.escAttr(S.link) + '">Read them.</a>' : '') + '</span>' + (i === bi ? prog : '') + '</li>').join('') + '</ol></section>';
 }
 
 /* ---------------------------------------------------------------- the page */
-const TITLE_FINAL = 'Alpöge’s Lean proof of the Riemann Hypothesis, checked';
-const TITLE_DRAFT = 'Alpöge’s Lean proof of RH and GRH: the right statements. Now, the proof.';
-const TITLE = pending.length ? TITLE_DRAFT : TITLE_FINAL;
-/* the draft's opening, read from the record: the strongest decided result first, then what is done, what is still
-   running and what was not run. Each clause appears only when its checks are in that state. */
-const DECK_DRAFT = (() => {
-  const d = (id) => status(id) === 'decided';
-  const s = [];
-  if (d('CR')) s.push('The strongest result so far: a machine that never ran Alpöge’s code was given only the exported proof, built its own checkers and its own copy of the statements, and confirmed the five theorems. nanoda accepted the proof there, and con-leche named each theorem the proof justifies. ');
-  const also = ['the files are the announced ones', d('B1') ? 'all of them compile' : null,
-    'Lean proofs show that the statement is exactly the textbook RH, even with ζ defined by its series rather than by Mathlib',
-    d('K2') && d('KR') && d('K3') ? 'three kernels accept the proof, one of them Lean’s own replay from an empty environment' : null].filter(Boolean);
-  s.push((d('CR') ? 'Also done: ' : 'Done: ') + also.join('; ') + '. ');
-  const run = [status('S1') === 'pending' ? 'the statement judge Comparator' : null,
-    status('C1-C5') === 'pending' ? 'the last of the five planted errors, ½ changed to ⅓, through that judge (con-leche already rejects it, and the other four were caught)' : null].filter(Boolean);
-  if (run.length) s.push('Still running: ' + run.join(', and ') + '. ');
-  if (status('BRu') === 'refused') s.push('Not run: the combination with the August release, closed for cost. ');
-  s.push('If the last checks pass, independent checkers will have accepted a proof of exactly the textbook statements; understanding why the argument works remains a task for mathematicians. ');
-  return s.join('');
-})();
+/* ONE title in every state (draft, closing, held): it names the release and the work, and never says that RH is proved.
+   design/titles.json holds the same string as `title` and `was`, so the registry never swaps a draft title back in. */
+const TITLE = 'Checking Alpöge’s Lean release on RH and Dirichlet GRH';
+/* the opening, read from the record clause by clause. The release rule (pre-registration) puts the gaps first: what is
+   pending, refused or refuted, and the readings, then what is done. Each clause appears only when its checks are in
+   that state; no clause says more than its rows. */
+const d_ = (id) => status(id) === 'decided';
+const hm = (sec) => new Date(Number(sec) * 1000).toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
+const S1START = (jr('S1.start') || '').trim();
+/* each check that is not done, in plain words, with its reason (the record's reason, put without its internal words) */
+function notDone(x) {
+  const r = row(x.id), c = r.controls || {};
+  if (x.id === 'S1' && x.st === 'pending') return 'the statement judge Comparator (' + (S1START ? 'started on the larger machine at ' + hm(S1START) + ', no exit yet' : 'not started') + ')';
+  if (x.id === 'C1-C5' && x.st === 'pending') { const n4 = ['C2', 'C3', 'C4', 'C5'].filter((k) => c[k] && c[k].refused).length;
+    return 'the last planted error, C1 (' + (jr('C1.start') === null ? 'queued behind the statement judge' : 'started, no exit yet') + '; ' + (n4 === 4 ? 'the other four were each rejected' : nw(n4) + ' of the other four were rejected') + ')'; }
+  if (x.id === 'BRu' && x.st === 'refused' && r.dropped) return 'the two releases in one environment (not run: dropped for cost before the statement judge had a verdict, amendment A21)';
+  if (x.id === 'S1' && x.st === 'refused' && (r.runs || {})['larger machine'] === 'resources') return 'the statement judge Comparator (it stopped on resources on the larger machine and gives no verdict; an earlier run, at the build machine’s 256 GB limit, was stopped when it made no progress, amendments A17 and A19)';
+  if (x.id === 'S1' && x.st === 'refused' && (r.runs || {})['larger machine'] === 'rejected') return 'the statement judge Comparator (it reported a rejection on the larger machine; under amendment A17 the check is refused until the rejection is traced)';
+  if (x.id === 'C1-C5' && x.st === 'refused' && /^C1 was not run/.test(r.why)) return 'the planted-error check as a whole (C1 has no result on the larger machine, amendment A19; C2 to C5 were each rejected)';
+  return 'the check “' + x.t + '” (' + WORD[x.st] + '; the record’s reason is in the table of checks)';
+}
+const READS = ALL.filter((x) => x.st === 'read');
+/* each reading with its standing as the record states it (once, twice) and its reader where the record names one */
+const READ_OF = { M1: RDG.M1_metaprogramming, F1: RDG.F1_riemannHypothesis, F2: RDG.F2_dirichlet, ROUTE: RT };
+const READ_WORDS = { M1: 'the release’s metaprogramming', F1: 'Mathlib’s RH against the classical statement', F2: 'what GRH covers here', ROUTE: 'the route inside the proof' };
+const howRead = (id) => { const s = ((READ_OF[id] || {}).standing || ''); return (/TWICE/.test(s) ? 'read twice' + (/two model families/.test(s) ? ', by two model families' : '') : /ONCE/.test(s) ? 'read once' : 'read') + (/Astra 6\.2/.test(s) ? ', by Astra 6.2' : '') + (/spot-checked/.test(s) ? ', five items spot-checked here' : ''); };
+const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+/* the deck names the gaps by count; the list under the header gives each with its reason */
+const gapWords = () => {
+  const xs = [pending.length ? nw(pending.length) + ' ' + (pending.length === 1 ? 'is' : 'are') + ' pending' : null, refused.length ? nw(refused.length) + ' ' + (refused.length === 1 ? 'was' : 'were') + ' refused' : null,
+    refuted.length ? nw(refuted.length) + ' ' + (refuted.length === 1 ? 'was' : 'were') + ' refuted' : null, nw(READS.length) + ' ' + (READS.length === 1 ? 'is a reading' : 'are readings') + ' that no program decides'].filter(Boolean);
+  return 'Of those checks, ' + (xs.length > 1 ? xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1] : xs[0]) + '; each is listed with its reason just below.';
+};
+const doneWords = () => {
+  const c = row('C1-C5').controls || {};
+  const nrej = ['C1', 'C2', 'C3', 'C4', 'C5'].filter((k) => c[k] && c[k].refused).length;
+  const xs = [d_('I1') ? 'the files are the announced ones' : null, d_('B1') ? 'all 175,187 Lean source files compile' : null,
+    d_('K2') && d_('KR') && d_('K3') ? 'Lean’s own replay, nanoda and con-leche accept the compiled proof' : null,
+    d_('CR') ? 'on a clean machine whose only input from the build was the exported proof, nanoda accepted it and con-leche matched each of the five theorems to the challenge compiled there' : null,
+    d_('S1') ? 'Comparator accepted the five theorems against our challenge on the larger machine' : null,
+    d_('SPEC') && d_('CHAR') ? 'Lean proves Mathlib’s RH and the release’s Dirichlet zero statement each equivalent to its textbook form' : null,
+    d_('C1-C5') ? 'the five planted errors were each rejected by the tool they target' : nrej ? nw(nrej) + ' of the five planted errors were rejected by the tool they target' : null].filter(Boolean);
+  return xs.length ? (ENDING === 'A' || ENDING === 'B' ? 'Done: ' : 'Done so far: ') + xs.join('; ') + '. ' : '';
+};
+const DECK = 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, which he says he made working with Claude, and released it only as Lean: 175,187 source files, in a language whose kernel, a small program, checks each declaration it is given. '
+  + 'This page puts that release through ' + ALL.length + ' checks. '
+  + (ENDING === 'hold' ? 'Every check has a state, but not one of the two closing states registered in advance, so this page holds until the record is traced. ' : '')
+  + gapWords() + ' '
+  + doneWords()
+  + 'What a computer check cannot tell you is said just as plainly below.';
 const O = [];
 O.push(C.header({
-  eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ''),
+  eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ENDING === 'hold' ? ' · HELD' : ''),
   title: TITLE,
-  deck: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, made with Claude and released only as a computer proof: 175,187 files of Lean, a language in which a small program, the kernel, checks every step. '
-    + (pending.length
-      ? DECK_DRAFT
-      : 'Here is everything we checked about it, in plain words: that the files are the announced ones, that they compile, that the theorem says exactly what mathematicians mean by RH, that several independent checkers accept the proof, and that those checkers do catch errors we planted. ')
-    + 'What a computer check cannot tell you is said just as plainly.'
+  deck: DECK
 }));
-O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are still running. Every check and the rule that decides it were published before that check ran' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '. This page rebuilds from the record as results arrive.') + '</p>' : '')
+/* the gaps, in full, before anything else on the page (the release rule): every check that is not done with its reason,
+   every reading with its standing, and what lies outside the 24 */
+const F3R = ((RDG.F3_remark || {}).rows || []).find((r) => /^REFUSED/.test(r[1] || ''));
+const GAPS = [
+  pending.length ? { b: 'Pending.', text: pending.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
+  refused.length ? { b: 'Refused.', text: refused.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
+  refuted.length ? { b: 'Refuted.', text: refuted.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
+  { b: 'Readings.', text: cap(READS.map((x) => (READ_WORDS[x.id] || x.t) + ', ' + howRead(x.id)).join('; ')) + '. A reading is attributed to its reader, and no program decides it.' },
+  { b: 'Outside the ' + ALL.length + '.', text: 'A clean second verifier (V) was registered and dropped before it ran (amendment A7). '
+    + (F3R ? 'The remark’s sentences about the process (' + F3R[0] + ') cannot be decided from the files. ' : '')
+    + 'The comparison with Masullo’s draft rests on our reading of a theorem the draft has not yet stated.' },
+  { b: 'What a pass would not mean.', text: 'These checks are about a formal release: whether its files compile, what its statements say, and whether independently written checkers accept its compiled proof. They do not judge the mathematics as mathematics, they are not a refereed review, and they do not explain why the argument works.' }
+].filter(Boolean);
+O.push('<div class="col">' + C.plainList(GAPS) + '</div>');
+O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are pending. The build, replay and judging rules were registered before those runs' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '. This page rebuilds from the record as results arrive.') + '</p>'
+  : ENDING === 'hold' ? '<p class="draft-note"><b>Held.</b> ' + C.esc('No check is pending, but the record is not in one of the two closing states registered in advance. The page holds until the result is traced and a dated amendment says how it is read.') + '</p>' : '')
   + '<p class="upd">Last updated ' + C.esc(LAST) + ' · <a href="#changes">changes to this page</a></p></div>');
 if (pending.length) O.push('<div class="wide">' + timeline() + '</div>');
 O.push(C.figure({ hero: true, svgRaw: figWheel(900, false), svgNarrowRaw: figWheel(360, true), record: [REC, DIR + 'readings.json', DIR + 'route-reading.json'],
-  caption: 'Every check on this page, as one ring. Each arc is one check; hover or tap it for what it is. Solid arcs are decided by a program; dashed arcs are counts and comparisons computed by a program; dotted arcs are careful readings by a person or a model, which no program decides. Grey arcs are still running.',
+  caption: 'Every check on this page, as one ring. Each arc is one check; hover or tap it for what it tests. Solid arcs are decided by a program; dashed arcs are counts and comparisons computed by a program; dotted arcs are readings by a person or a model, which no program decides. A grey arc is refused, and an empty track is pending. Decided means the record meets the check’s registered rule.',
   stop: 'a check drawn as done is not done in the record' }));
 O.push('<div class="col">' + W.legendHtml({ compact: true }) + '</div>');
+const CTL0 = row('C1-C5').controls || {};
+const NREJ = ['C1', 'C2', 'C3', 'C4', 'C5'].filter((k) => CTL0[k] && CTL0[k].refused).length;
 O.push(C.stats([
-  { k: 'checks done', v: done.length + ' of ' + ALL.length, n: pending.length ? pending.length + ' still running' : 'none running' },
-  { k: 'axioms the proof uses', v: status('A1') === 'decided' ? '3' : '…', n: status('A1') === 'decided' ? 'propext, Classical.choice, Quot.sound — the standard three' : 'the report is still running' },
-  { k: 'planted errors caught', v: status('C1-C5') === 'decided' ? '5 of 5' : '…', n: 'a judge that cannot fail proves nothing' },
+  { k: 'checks done', v: done.length + ' of ' + ALL.length, n: [pending.length ? pending.length + ' pending' : 'none pending', refused.length ? refused.length + ' refused' : null, refuted.length ? refuted.length + ' refuted' : null].filter(Boolean).join(' · ') },
+  { k: 'axioms the proof uses', v: status('A1') === 'decided' ? '3' : '…', n: status('A1') === 'decided' ? 'propext, Classical.choice, Quot.sound — the standard three' : 'the report is pending' },
+  { k: 'planted errors caught', v: NREJ + ' of 5', n: status('C1-C5') === 'decided' ? 'each by the tool it targets' : status('C1-C5') === 'pending' ? 'C1 pending, behind the statement judge' : CTL0.C1 && CTL0.C1.exit === null ? 'C1 has no result (amendment A19)' : 'see the cards below' },
   { k: 'kernels that accept it', v: ['K2', 'KR', 'K3'].some((i) => status(i) !== 'pending') ? ['K2', 'KR', 'K3'].filter((i) => status(i) === 'decided').length + ' of 3' : '…', n: 'nanoda, Lean’s own replay, con-leche' }
 ]));
-O.push(C.scope('This page checks a computer proof: whether the files compile, what the theorem says, and whether independent checkers accept it. It does not judge the mathematics as mathematics, and it is not a refereed review.'));
+O.push(C.scope('This page checks a formal release: whether the files compile, what the statements say, and whether independent checkers accept the compiled proof. It does not judge the mathematics as mathematics, and it is not a refereed review.'));
 
 /* 1 · what is claimed */
 O.push(C.section({ lab: '1 · what is claimed', title: 'One sentence about where ζ vanishes', id: 'claim', wide: true, bodyRaw:
   '<div class="col">' + C.plainList([
     { b: 'The Riemann Hypothesis.', text: 'The zeta function ζ(s) is zero at s = −2, −4, −6, … (the “trivial” zeros) and at infinitely many other points, all inside the vertical band 0 < Re s < 1. RH says all those other zeros lie exactly on the middle line, Re s = 1/2. It controls how evenly the primes are spread.' },
-    { b: 'What the proof states.', raw: C.esc('The headline theorem is ') + '<span class="m">riemannHypothesis : RiemannHypothesis</span>' + C.esc(', where RiemannHypothesis is Mathlib’s own definition, written years before this proof: every zero of ζ, except the trivial ones and the point s = 1, has real part 1/2.') },
-    { b: 'Is that really RH?', text: 'Two readers from two model families say yes. More: we wrote RH a second way, the textbook way (“every zero in the critical strip has real part 1/2”), and proved in Lean that the two statements are equivalent. That turns a reading into a proof.' },
-    { b: 'Even without Mathlib’s ζ.', text: 'One step further: we defined ζ and the L-functions the way a textbook does — the functions given by the series 1 + 2^−s + 3^−s + … (and χ(n)·n^−s) for Re s > 1 that admit analytic continuation to the rest of the plane except s = 1, a holomorphic function being fixed by its values there — and proved in Lean that the release’s statements say exactly the same thing about them' + (status('CHAR') === 'decided' ? '.' : ' (running).') + ' The statement no longer depends on how Mathlib happens to define ζ.' }
+    { b: 'What the proof states.', raw: C.esc('The headline theorem is ') + '<span class="m">riemannHypothesis : RiemannHypothesis</span>' + C.esc(', where RiemannHypothesis is Mathlib’s own definition, written years before this release: every zero of ζ, except the trivial ones and the point s = 1, has real part 1/2.') },
+    { b: 'Is that really RH?', text: 'Two readers from two model families say yes. We also wrote RH the textbook way (“every zero in the critical strip has real part 1/2”) and proved in Lean that the two formal statements are equivalent, over the same Mathlib ζ. That the Mathlib function is the classical ζ stays a reading; the next point removes that dependence for two of the statements.' },
+    { b: 'Even without Mathlib’s ζ.', text: 'In a workspace with Mathlib alone, Lean proves that Mathlib’s RiemannHypothesis and the release’s DirichletLZerosOnLine are each equivalent to the corresponding textbook strip statement, with ζ and the L-functions characterised the way a textbook does: holomorphic on ℂ ∖ {1} and equal to the series 1 + 2^−s + 3^−s + … (and Σ χ(n)·n^−s) for Re s > 1, a holomorphic function being fixed by its values there' + (status('CHAR') === 'decided' ? '.' : ' (pending).') + ' For those two statements the meaning no longer depends on how Mathlib defines ζ or L. The release’s other three statements were matched to our challenge by con-leche and read twice; this proof does not cover them.' }
   ]) + '</div>'
   + '<div class="wide zp-wrap">' + planeButtons + '</div>'
   + C.figure({ svgRaw: dual(figPlane(900, false), figPlane(360, true)), record: ['instruments/alpoge-grh/spec/Spec.lean', DIR + 'runs-spec/spec-axioms.out', DIR + 'readings.json'],
-    caption: 'The complex plane, where RH lives. The band is the critical strip; the line in it is Re s = 1/2, with the first five zeros of ζ drawn on it (published values, not computed here). The dots on the left are the trivial zeros; the ring at 1 is ζ’s pole. ζ has no zeros right of the band (the grey region). Use the buttons: Mathlib’s definition and the textbook form talk about the same zeros, and a Lean proof says so.',
-    stop: 'the equivalence proof no longer compiles on the three standard axioms' })
+    caption: 'The complex plane, where RH lives. The band is the critical strip; the line in it is Re s = 1/2, with the first five nontrivial zeros of ζ of positive imaginary part drawn on it (published values, quoted as an illustration, not computed here). The dots on the left are the trivial zeros; the ring at 1 is the classical pole, a point every statement excludes. ζ has no zeros right of the band (the grey region). Use the buttons: Mathlib’s definition and the textbook form talk about the same zeros, and a Lean proof says so.',
+    stop: 'the record does not show the equivalence proof (SPEC) compiled on the three standard axioms' })
   + '<div class="col">' + C.plainList([
-    { b: 'And GRH?', text: 'Of the five theorems, two are about ζ (RH, in two forms) and three say the same for Dirichlet L-functions, the relatives of ζ that count primes in arithmetic progressions: every modulus, every character. That is the usual meaning of the Generalized Riemann Hypothesis. It is not the “Extended” RH for other number fields, which the announcement expects “with more time”.' }
+    { b: 'And GRH?', text: 'Of the five theorems, two are about ζ (RH, in two forms) and three about Dirichlet L-functions, the relatives of ζ that count primes in arithmetic progressions, for every positive modulus and every character: no zero right of 1/2 (away from the principal pole), every zero in the critical strip on the line, and the same for primitive characters. Our second reading’s label for this is GRH for Dirichlet L-functions. The release makes no general claim about other number fields; the announcement expects the “Extended” RH “with more time”.' }
   ]) + '</div>' }));
 
 /* 2 · how big */
-O.push(C.section({ lab: '2 · how big is it', title: '17 million lines, one theorem', id: 'size', wide: true, bodyRaw:
+O.push(C.section({ lab: '2 · how big is it', title: '17 million lines, five statements', id: 'size', wide: true, bodyRaw:
   C.figure({ svgRaw: dual(figTree(900, false), figTree(360, true)), record: [DIR + 'source-stats.json', DIR + 'PINS.json'],
-    caption: 'The release, drawn by size: each rectangle is a library, its area proportional to its lines of Lean, split into its folders. Hover for counts. Nobody can read this by hand; the point of Lean is that nobody has to — a small, trusted kernel checks every line.',
+    caption: 'The release, drawn by size: each large rectangle is a library, its area proportional to its lines of Lean, split into its folders; the smallest libraries are listed under it. Hover for counts. Nobody can read this by hand. Lean’s kernel checks each declaration it is given; what that does not cover, the checks below test separately.',
     stop: 'the counts are not of the pinned archive' })
   + '<div class="col">' + C.plainList([
-    { b: 'Why a computer check matters.', text: 'A human-readable version of this argument would run past 250,000 pages, the author says. A proof this size can only be trusted the way a large program is trusted: by machines that check every step, written by different people, agreeing.' },
+    { b: 'Why a computer check matters.', text: 'A human-readable version of this argument would run past 250,000 pages, the author says. A formal development this size is checked the way a large program is: by checkers written by different people, run on the compiled declarations, agreeing. Whether its statements mean what mathematicians mean is checked separately, by the statement checks and the readings.' },
     { b: 'How much of it carries the proof?', text: 'Not every file has to matter. Once everything is compiled we walk the finished proof of the five theorems, declaration by declaration, and count what it really reaches — in the release and in Mathlib.' }
   ]) + '</div>'
   + C.figure({ svgRaw: dual(figUse(900, false), figUse(360, true)), record: [REC, DIR + 'source-stats.json'],
@@ -543,90 +680,98 @@ const roleOf = (st) => st === 'decided' ? 'sig' : st === 'pending' ? 'dep' : st 
 /* the kernels step is decided only when all three are; running while any runs; otherwise its worst state */
 const KST = (() => { const s3 = ['K2', 'KR', 'K3'].map(fst); return s3.every((x) => x === 'decided') ? 'decided' : s3.includes('pending') ? 'pending' : s3.find((x) => x !== 'decided'); })();
 const STEPS = [
-    { id: 'bytes', role: roleOf(fst('I1')), standing: standing(fst('I1')), k: '1 · THE FILES · ' + WORD[fst('I1')].toUpperCase(), v: 'the 14 announced parts', t: 'the files', d: 'The archive is fetched from alpo.ge and every part checked against the checksums recorded the day it appeared. Three fetches, from two continents, gave the same bytes.' },
-    { id: 'build', role: roleOf(fst('B1')), standing: standing(fst('B1')), k: '2 · THE BUILD · ' + WORD[fst('B1')].toUpperCase(), v: '175,187 files compile', t: 'the build', d: 'Lean compiles every file. Compiling already runs the kernel on every declaration; an error anywhere would stop it.' },
-    { id: 'ax', role: roleOf(fst('A1')), standing: standing(fst('A1')), k: '3 · THE AXIOMS · ' + WORD[fst('A1')].toUpperCase(), v: 'only the standard three', t: 'the axioms', d: 'Lean reports which axioms each theorem ultimately rests on. Anything beyond propext, Classical.choice and Quot.sound — or the placeholder sorry — would be a hole.' },
-    { id: 'kern', role: roleOf(KST), standing: standing(KST), k: '4 · THREE KERNELS · ' + WORD[KST].toUpperCase(), v: 'nanoda, Lean’s replay, con-leche', t: 'three kernels', d: 'The whole proof is exported and re-checked by nanoda and by con-leche, two kernels written independently of Lean, and replayed by Lean’s own checker in a fresh environment. A bug in Lean’s kernel would have to be repeated in both independent ones.' },
-    { id: 'judge', role: roleOf(fst('S1')), standing: standing(fst('S1')), k: '5 · THE JUDGE · ' + WORD[fst('S1')].toUpperCase(), v: 'our statement = theirs', t: 'the judge', d: 'Comparator, Lean’s official judge, checks that the proved theorems state exactly what our own statement file says, word for word, using Mathlib only — so no definition in the release can change their meaning.' },
-    { id: 'ctl', role: roleOf(fst('C1-C5')), standing: standing(fst('C1-C5')), k: '6 · PLANTED ERRORS · ' + WORD[fst('C1-C5')].toUpperCase(), v: 'five wrong versions out', t: 'planted errors', d: 'A judge that never says no proves nothing. We planted five errors — a changed constant, a smuggled axiom, a missing proof, a hijacked definition, a corrupted proof — and every one must be rejected.' },
-    { id: 'what', role: 'held', k: '7 · WHAT IT MEANS', v: 'a formal proof of RH', t: 'what it means', d: 'If every check passes, independent kernels accept a proof of exactly the textbook RH from the three standard axioms. That is the strongest evidence a computer can give; it is not a human understanding of why the proof works.' }
+    { id: 'bytes', role: roleOf(fst('I1')), standing: standing(fst('I1')), k: '1 · THE FILES · ' + WORD[fst('I1')].toUpperCase(), v: 'the 14 announced parts', t: 'the files', d: 'The archive is fetched from alpo.ge and every part checked against the checksums recorded the day it appeared. The registered fetch matched, and so did the later fetches on two more machines.' },
+    { id: 'build', role: roleOf(fst('B1')), standing: standing(fst('B1')), k: '2 · THE BUILD · ' + WORD[fst('B1')].toUpperCase(), v: '175,187 source files compile', t: 'the build', d: 'Lean compiles every Lean source file with exit 0, and every source has its compiled file. Compiling runs the kernel on each declaration, but a placeholder (sorry) passes with a warning: the next step is what catches it.' },
+    { id: 'ax', role: roleOf(fst('A1')), standing: standing(fst('A1')), k: '3 · THE AXIOMS · ' + WORD[fst('A1')].toUpperCase(), v: 'only the standard three', t: 'the axioms', d: 'Lean reports which axioms each theorem ultimately rests on. Anything beyond propext, Classical.choice and Quot.sound — sorryAx, the axiom behind the placeholder sorry, included — would be a hole.' },
+    { id: 'kern', role: roleOf(KST), standing: standing(KST), k: '4 · THREE KERNELS · ' + WORD[KST].toUpperCase(), v: 'nanoda, Lean’s replay, con-leche', t: 'three kernels', d: 'The proof is exported and checked by nanoda and by con-leche, two kernels written independently of Lean, and Lean’s own checker replays the compiled modules from an empty environment. A kernel bug would have to be shared by all three to pass, and Lean’s replay does not read the export.' },
+    { id: 'judge', role: roleOf(fst('S1')), standing: standing(fst('S1')), k: '5 · THE STATEMENTS · ' + WORD[fst('S1')].toUpperCase(), v: 'the five theorems against our challenge', t: 'the statements', d: 'Comparator, the Lean FRO’s statement-comparison tool, tests whether the five proved theorems state what our challenge states: a file compiled from Mathlib alone, holding Mathlib’s RH and the four statements as the release’s Statements.lean writes them. It compares each declaration and every constant it uses, bodies included, so no definition elsewhere in the release can change their meaning. '
+      + (fst('S1') === 'decided' ? 'It accepted Main, with Lean’s default kernel, in landrun’s best-effort sandbox. ' : fst('S1') === 'pending' ? 'Its verdict is pending. ' : 'It gave no verdict. ') + 'con-leche makes the same comparison separately (step 4).' },
+    { id: 'ctl', role: roleOf(fst('C1-C5')), standing: standing(fst('C1-C5')), k: '6 · PLANTED ERRORS · ' + WORD[fst('C1-C5')].toUpperCase(), v: 'five planted changes', t: 'planted errors', d: 'The controls test whether each tool detects a specified change: a changed constant in the challenge (C1), a smuggled axiom (C2), a missing proof (C3), a hijacked definition (C4) and the exported theorem re-typed as False (C5). Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5.' },
+    { id: 'what', role: 'held', k: 'AND WHAT A PASS MEANS', v: 'a fact about a formal release', t: 'what it means', d: 'If the remaining checks pass, independently written kernels accept closed terms of the five stated theorems from the three standard axioms, and the statements match our Mathlib-only challenge. That is a fact about a formal release. It is not a refereed review, and it does not explain why the argument works.' }
 ];
 const stepState = (n) => n.id === 'what' ? 'held' : n.role === 'sig' ? 'decided' : n.role === 'dep' ? 'pending' : n.role === 'warn' ? 'refused' : 'held';
 const SCH = C.figure({ record: [REC],
   svgRaw: '<ol class="ch" aria-label="The checks as a chain, in order">' + STEPS.map((n, i) => {
     const st = stepState(n), parts = n.k.split(' · ');
-    const word = /RUNNING|DECIDED|REFUSED|REFUTED|COMPUTED|READ/.test(parts[parts.length - 1]) ? parts.pop() : null;
+    const word = /PENDING|RUNNING|DECIDED|REFUSED|REFUTED|COMPUTED|READ/.test(parts[parts.length - 1]) ? parts.pop() : null;
     return '<li class="ch-step ch-' + st + '">'
       + (i < STEPS.length - 1 ? '<span class="ch-flow" aria-hidden="true" style="animation-delay:' + (-i * 0.55).toFixed(2) + 's"></span>' : '')
       + '<div class="ch-box"><span class="ch-k">' + C.esc(parts.join(' · ')) + (word ? ' · <span class="ch-st">' + C.esc(word.toLowerCase()) + '</span>' : '') + '</span>'
       + '<span class="ch-v">' + C.esc(n.v) + '</span></div>'
       + '<p class="ch-d">' + C.esc(n.d) + '</p></li>';
   }).join('') + '</ol>',
-  caption: 'How a computer checks a proof, in seven steps. A box is outlined bright when the record has decided its step, and faint while it still runs.',
+  caption: 'How the release is checked, in six steps and a note on what they mean. A box is outlined bright when the record has decided its step, and faint while it is pending.',
   stop: 'a step drawn as decided is not CERTIFIED in the record' });
-O.push(C.section({ lab: '3 · how a computer checks it', title: 'Seven steps, each able to say no', id: 'chain', wide: true, bodyRaw: SCH }));
+O.push(C.section({ lab: '3 · how a computer checks it', title: 'Six checks, each able to say no', id: 'chain', wide: true, bodyRaw: SCH }));
 
 /* 4 · the checks, one by one */
-const TABROWS = ALL.map((x) => [x.t, x.g, { raw: C.tag(WORD[x.st], x.st === 'decided' ? 'held' : x.st === 'pending' || x.st === 'dropped' ? 'open' : x.st === 'refused' || x.st === 'refuted' ? 'dep' : 'cert') }, x.d]);
+/* a check that is not done shows the record's own reason beside what it tests (the row's why, as recorded) */
+const TABROWS = ALL.map((x) => [x.t, x.g, { raw: C.tag(WORD[x.st], x.st === 'decided' ? 'held' : x.st === 'pending' || x.st === 'dropped' ? 'open' : x.st === 'refused' || x.st === 'refuted' ? 'dep' : 'cert') },
+  x.d + (['pending', 'refused', 'refuted'].includes(x.st) && R.rows.some((r) => r.id === x.id) ? ' The record: ' + row(x.id).why + '.' : '')]);
 O.push(C.section({ lab: '4 · every check', title: 'The ' + ALL.length + ' checks, one by one', id: 'checks', wide: true, bodyRaw:
-  '<div class="col">' + C.p('Every arc of the ring above is one check. Each was written down, with the rule that decides it, before it ran' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '.')
-  + C.plainList([{ b: 'A judge that cannot say no proves nothing.', text: 'So we planted five wrong versions of the proof, each wrong in a different way, and ran them through the same judges. Every one must be rejected — and if any is accepted, the whole run is void.' }]) + '</div>'
+  '<div class="col">' + C.p('Every arc of the ring above is one check. The build, replay and judging rules were registered before those runs, and every later change is dated' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '.')
+  + C.plainList([{ b: 'Negative controls.', text: 'Five planted changes test whether specified tools detect specified errors: Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5. Each is a separate input, built to be wrong; none of them is the release. con-leche also rejected C1 on the build machine and on the clean machine, and nanoda and con-leche each rejected C5 on the clean machine; those results are reported beside the registered controls. If a plant were accepted, the controls check would fail: the tool that accepted it could not be trusted on that run.' }]) + '</div>'
   + plantedCards()
   + '<div class="wide"><details class="more"><summary>All ' + ALL.length + ' checks, one by one</summary>' + C.table({ cols: [{ h: 'Check' }, { h: 'Group' }, { h: 'State' }, { h: 'What it means' }], rows: TABROWS }) + '</details></div>'
   + '<div class="col">' + C.plainList([
-    { b: 'Written down first.', raw: C.esc('Every check and the rule that decides it were committed in public before that check ran, and every later change is dated' + (AFTER.length ? ', the ' + nw(AFTER.length) + ' made after a result (' + AFTER.join(', ') + ') marked as such' : '') + ': ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
-    { b: 'Attacked three times.', text: 'Astra 6.2, a model from another family, red-teamed the plan three times. Its first round found a real defect in our own setup — the judge was configured to accept any body for four definitions — fixed before anything ran.' }
+    { b: 'Registered first.', raw: C.esc('The build, replay and judging rules were committed in public before those runs, and every later change is dated' + (AFTER.length ? ', the ' + nw(AFTER.length) + ' made after a result (' + AFTER.join(', ') + ') marked as such' : '') + ': ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
+    { b: 'Read by a model from another family.', text: 'Astra 6.2 gave second readings of the RH and Dirichlet statements, read the route inside the proof (five of its items spot-checked here against the archive) and red-teamed the plan three times. Its first round found a real defect in our own setup — the judge was configured to compare the types but not the bodies of four definitions — fixed before the affected Comparator runs (S1, C1 to C4).' }
   ]) + '</div>' }));
 
 /* 5 · inside the proof */
 O.push(C.section({ lab: '5 · inside the proof', title: 'What carries the conclusion', id: 'route', wide: true, bodyRaw:
   '<div class="col">' + C.plainList([
-    { b: 'The route.', text: 'Read from the top down: RH follows from “no Dirichlet L-function vanishes right of 1/2”, plus ζ’s functional equation for the left half. That in turn rests on a window criterion and on a link whose two inequalities come from matrix estimates.' },
-    { b: 'Names are not evidence.', text: 'Several parts are named for deep mathematics but are empty in the code: a geometry condition that is literally True, a geometric model whose key map is zero, a theorem named for a simple pole that proves True, two “literature” inputs that are one statement. The proof can still be valid — the kernel checks what is there, not what things are called — but those names do not explain it.' }
+    { b: 'The route.', text: 'Read from the top down, by Astra 6.2: RH follows from “no Dirichlet L-function vanishes right of 1/2, away from the principal pole”, plus ζ’s functional equation for the left half. That in turn rests on a window criterion and on a link that takes a height equation and two inequalities as separate inputs.' },
+    { b: 'Names are not evidence.', text: 'Several parts are named for deep mathematics but hold something else in the code: a geometry condition that is literally True, a geometric model whose key map is zero, a theorem named for a simple pole that proves True, two “literature” inputs that are the same proposition. The kernel checks what is there, not what things are called, so those names do not explain the proof.' }
   ]) + '</div>'
   + C.figure({ svgRaw: dual(figRoute(900, false), figRoute(360, true)), record: [DIR + 'route-reading.json'],
-    caption: 'The route of the proof, from the headline down (solid boxes), and, set apart under their own heading, four places named for deep mathematics that are vacuous in the code (dotted boxes). They are not on the route as drawn; whether the compiled proof uses them is what the census measures. Hover for each. The highlighted box is where the real content has to be.',
-    stop: 'a quoted line no longer matches the pinned archive' })
+    caption: 'The route of the proof, from the headline down (solid boxes; a reading by Astra 6.2, five of its items spot-checked here against the archive), and, set apart under their own heading, four places named for deep mathematics that hold something else in the code (dotted boxes). They are not on the route as drawn; whether the compiled proof uses them is what the census measures. Hover for each. The highlighted box is the step whose two inequalities the readings leave untraced.',
+    stop: 'a mark “in the proof term” is not the census’s count in the record' })
   + '<div class="col">' + C.plainList([
-    { b: 'J. L. Nielsen’s critique.', raw: C.esc('A paper posted the same day, ') + a('https://philarchive.org/rec/NIEIOT-2', 'The Invalidity of Alpöge’s Proposed Proof of the Riemann Hypothesis') + C.esc(', reads the source and finds the vacuous geometric and lattice witnesses above, and a height set equal to its own formula. We confirmed each quote in the pinned files. Our verdict on that point: the geometric interpretation of this step remains unverified. The paper’s title goes further than its analysis: the formal theorem is decided by the kernels, not by the names, and the paper’s own appendix grants that the proof term may well check.') },
-    { b: 'The question that remains.', text: 'The height enters with two inequalities supplied separately, derived from about forty matrix-norm, covolume and valuation estimates. Whether those estimates are where the argument really lives — and what they mean — is a question for number theorists, not for a kernel. We trace, in the compiled proof, which sub-proofs feed them' + (ALL.find((z) => z.id === 'WORDFACTS').st === 'computed' ? '.' : ' (running).') }
+    { b: 'J. L. Nielsen’s critique.', raw: C.esc('A paper posted the same day, ') + a('https://philarchive.org/rec/NIEIOT-2', 'The Invalidity of Alpöge’s Proposed Proof of the Riemann Hypothesis') + C.esc(', reads the source and finds the vacuous geometric and lattice witnesses above, and a height set equal to its own formula. We checked each quote against the pinned archive: as quoted. Our verdict on that point: the geometric interpretation of this step remains unverified. The paper’s title goes further than its analysis: the formal theorem is decided by the kernels, not by the names, and the paper’s own Appendix A grants that it does not show the proof term fails to typecheck.') },
+    { b: 'The question that remains.', text: 'The height enters with two inequalities supplied separately. ' + (WFW ? 'The census traces what feeds them in the compiled proof: ' + WFW + '. ' : 'The census traces what feeds them in the compiled proof (pending). ') + 'Whether those inputs carry the argument, and what they mean, is a question for number theorists, not for a kernel.' }
   ]) + '</div>' }));
 
 /* 6 · bridges */
 O.push(C.section({ lab: '6 · connections', title: 'Two other claims, connected in Lean', id: 'bridges', wide: true, bodyRaw:
-  C.figure({ svgRaw: dual(figBridge(900, false), figBridge(360, true)), record: [DIR + 'runs-bridge/podB-lyq17afbn6smbz/P0J.out', 'instruments/alpoge-grh/bridge/CertMachine/Bridge.lean', 'instruments/alpoge-grh/bridge/CertMachine/MasulloReading.lean'],
-    caption: 'Three claims about the zeros of ζ from 2026, and what Lean says connects them. Solid arrows are proved in Lean and checked here; grey ones are still running; the dotted box is a reading of a draft whose main theorem is not yet written.',
-    stop: 'a bridge drawn as proved is not CERTIFIED in the record' })
+  C.figure({ svgRaw: dual(figBridge(900, false), figBridge(360, true)), record: [DIR + 'runs-bridge/podB-lyq17afbn6smbz/P0J.out', DIR + 'runs-bridge/podB-lyq17afbn6smbz/BB2-after-fix.txt', 'instruments/alpoge-grh/bridge/CertMachine/BridgeConditional.lean', 'instruments/alpoge-grh/bridge/CertMachine/MasulloReading.lean'],
+    caption: 'Three claims about the zeros of ζ from 2026, and what Lean says connects them. Solid arrows are statements compiled in Lean and checked here; each carries its hypotheses. The two releases in one environment, which would discharge the first arrow’s hypotheses, is its own check, written under that arrow with its state. The dotted box is a reading of a draft whose main theorem is not yet written.',
+    stop: 'an arrow drawn as compiled is not CERTIFIED in the record' })
   + '<div class="col">' + C.plainList([
-    { b: 'The August release.', text: 'Anthropic’s August proof that at least two thirds of the zeros are simple and on the critical line checks unchanged — all 326 files — on the Mathlib of today’s release, and both kernels accept it. ' + (status('BRu') === 'decided'
-      ? 'Put together with today’s RH, its bound that 5/6 of the zeros are distinct becomes a bound for distinct zeros on the line. The simplicity bounds this implies are the August ones again; nothing new beyond the composition.'
-      : 'With RH taken as a hypothesis, its bound that 5/6 of the zeros are distinct becomes a bound for distinct zeros on the line: that conditional statement is proved in Lean and checked here. ' + (status('BRu') === 'refused' ? 'Putting the two releases in one environment, so that the hypothesis is discharged by today’s proof, was not run: it was dropped for cost before the statement judge reported (amendment A21).' : 'Putting the two releases in one environment, so that the hypothesis is discharged by today’s proof, is still running.')) },
-    { b: 'Masullo’s draft.', raw: C.esc('Alessandro Masullo’s all-human draft (') + a('https://math216.wordpress.com/2026/11/20/hurried-announcement-alessandro-masullo-grh/', 'posted by Ravi Vakil') + C.esc(', 940 pages, reviewed for months by Brian Conrad) claims GRH for every number field and more: off the centre, every zero simple. Its main zero theorem is not yet written in the draft (page 522: “Insert statement.”). Read for ℚ, the claim implies this release’s statements; one double zero would refute it while leaving RH intact.') }
+    { b: 'The August release.', text: 'Anthropic’s August release proves, asymptotically, that at least two thirds of the zeros are simple and on the critical line. It checks unchanged — all 326 source files — on the Mathlib of this release, and its own 17-statement judge run accepts it with nanoda and Lean’s kernel. Assuming RH and the August distinct-zero bound, Lean proves that for every ε > 0 the count of distinct zeros on the line is eventually at least (5/6 − ε) times the count of zeros with multiplicity; the same holds for each primitive Dirichlet character, assuming the primitive-character zero statement and its August bound. The simplicity bounds this implies are the August constants again. '
+      + (status('BRu') === 'decided' ? 'In one environment, the two releases discharge those hypotheses: this release’s theorems supply the zero statements and the August theorems the bounds.'
+        : status('BRu') === 'refused' ? 'Putting the two releases in one environment, to test whether they discharge those hypotheses there, was not run: it was dropped for cost before the statement judge reported (amendment A21).'
+        : 'Putting the two releases in one environment, to test whether they discharge those hypotheses there, is pending.') },
+    { b: 'Masullo’s draft.', raw: C.esc('Alessandro Maria Masullo’s draft (') + a('https://math216.wordpress.com/2026/11/20/hurried-announcement-alessandro-masullo-grh/', 'posted by Ravi Vakil') + C.esc(', 940 pages) describes a claim for every number field F: the nontrivial zeros on the critical line and, off the centre, multiplicity at most [F : ℚ]. Its main zero theorem is not yet written in the draft (page 522: “Insert statement.”). Assuming our reading of that description for ℚ, Lean derives the release’s zero statement for primitive characters, and simplicity of the zeros off the centre. An off-centre double zero of a primitive Dirichlet L-function would contradict that reading while remaining compatible with RH.') }
   ]) + '</div>' }));
 
 /* 7 · credits */
 O.push(C.section({ lab: 'credits', title: 'Whose work this uses', id: 'credits', bodyRaw: C.plainList([
-  { b: 'The claim.', raw: C.esc('Levent Alpöge, ') + a('https://alpo.ge/remark.pdf', 'Remark') + C.esc(' and the Lean archive (alpo.ge, 20 November 2026), made with Claude.') },
-  { b: 'An independent record.', raw: C.esc('Andrew Sutherland (MIT) published his own verification of the release the same day, with Claude Code: ') + a('https://math.mit.edu/~drew/grh/', 'math.mit.edu/~drew/grh') + C.esc('. Our comparison of compiled bytes uses his published manifest.') },
-  { b: 'The community’s statement.', raw: C.esc('A ') + a('https://leanprover-community.github.io/blog/posts/riemann-hypothesis/', 'joint statement by the Lean and Mathlib communities') + C.esc(', endorsed by the Lean FRO and the Mathlib Initiative (21 November): the communities checked the release in the day after it appeared, and their statement certifies the proof as correct.') },
-  { b: 'The second readings and the red team.', text: 'Astra 6.2, a model from another family, read the statements, Masullo’s draft and the proof’s route, and red-teamed our plan three times; every claim it made was checked against the sources here before it was used.' },
+  { b: 'The claim.', raw: C.esc('Levent Alpöge, ') + a('https://alpo.ge/remark.pdf', 'Remark') + C.esc(' and the Lean archive (alpo.ge, 20 November 2026); he says he worked with Claude.') },
+  { b: 'An independent record.', raw: C.esc('Andrew Sutherland (MIT) published his own verification record of the release the same day, run with Claude Code: ') + a('https://math.mit.edu/~drew/grh/', 'math.mit.edu/~drew/grh') + C.esc('. Our comparison of compiled bytes uses his published manifest.') },
+  { b: 'The community’s statement.', raw: C.esc('The Lean and Mathlib communities’ ') + a('https://leanprover-community.github.io/blog/posts/riemann-hypothesis/', 'joint statement on the release') + C.esc(' (21 November). We have not pinned a copy, and the record quotes nothing from it.') },
+  { b: 'The second readings and the red team.', text: 'Astra 6.2, a model from another family: second readings of the RH and Dirichlet statements, the reading of the route inside the proof (five of its items spot-checked here against the archive), a reading that corrected our description of Masullo’s draft, and three red-team rounds on the plan. Its findings were checked against the sources here before any change was made.' },
   { b: 'The critique.', raw: C.esc('J. L. Nielsen, ') + a('https://philarchive.org/rec/NIEIOT-2', 'PhilArchive NIEIOT-2') + C.esc('.') },
-  { b: 'The August release.', raw: a('https://github.com/anthropics/formal-math', 'anthropics/formal-math') + C.esc(', zeta23: Levent Alpöge and Ralph Furman, Claude, and the team that formalized it in Lean.') },
-  { b: 'Masullo’s draft.', text: 'Alessandro Maria Masullo, “The Music of the Primes”, posted by Ravi Vakil; reviewed by Brian Conrad.' },
+  { b: 'The August release.', raw: a('https://github.com/anthropics/formal-math', 'anthropics/formal-math') + C.esc(', zeta23: Levent Alpöge and Ralph Furman, Claude, and the Lean formalization by Eric Easley’s team.') },
+  { b: 'Masullo’s draft.', text: 'Alessandro Maria Masullo, “The Music of the Primes” (a draft), posted by Ravi Vakil. Its acknowledgments name Brian Conrad, under whom the work began at Stanford, and his planned help with the exposition.' },
   { b: 'The venue.', raw: C.esc('Terence Tao’s ') + a('https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/', 'post of 20 November') + C.esc(' and the Lean Zulip thread it names.') },
   { b: 'The tools.', text: 'Lean and Lake, Mathlib; Comparator, lean4export and con-leche (Lean FRO); nanoda (ammkrn); landrun; OpenTimestamps.' }
 ]) }));
 
 /* 8 · check it yourself */
 O.push(C.section({ lab: 'check it yourself', title: 'How to re-run it', id: 'rerun', bodyRaw: C.plainList([
-  { b: 'One command.', raw: C.esc('The kit in ') + rec('instruments/alpoge-grh/rerun/README.md') + C.esc(' runs the same scripts in the same order on a Linux machine of your own, and compares your verdicts with ours, check by check.') },
+  { b: 'The kit.', raw: C.esc('The kit in ') + rec('instruments/alpoge-grh/rerun/README.md') + C.esc(' reruns the build machine’s scripts on a Linux machine of your own and compares 11 of the checks with ours (') + '<span class="m">--compare-run</span>' + C.esc('). It predates the later amendments. Its README names 256 GB of memory, the limit at which the statement judge stopped making progress here (amendment A17), and it still starts the bridge step, which was not run here (A21). Lean’s replay, the statement judge and the clean-machine check ran on separate machines (amendments A15, A17, A12) and are not in it.') },
   { b: 'The record.', raw: rec(REC) + C.esc(', re-derived from the machine’s logs by ') + rec('tools/check-alpoge-grh.py') + C.esc(' (') + '<span class="m">--check</span>' + C.esc(').') },
-  { b: 'The machine’s scripts.', raw: rec('tools/runpod-alpoge-grh-p1.sh') + C.esc(' (fetch, statement file, build), ') + rec('tools/runpod-alpoge-grh-p2.sh') + C.esc(' (axioms, census, judge, controls, kernels) and ') + rec('tools/runpod-alpoge-grh-p3-bridge.sh') + C.esc(' (the bridge), ') + rec('tools/runpod-alpoge-grh-p4.sh') + C.esc(' (con-leche) and ') + rec('tools/runpod-alpoge-grh-clean.sh') + C.esc(' (the clean machine).') },
-  { b: 'Our statement file and the proofs we wrote.', raw: rec('instruments/alpoge-grh/Challenge.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Spec.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Textbook.lean') + C.esc(' and ') + rec('instruments/alpoge-grh/bridge/CertMachine') + C.esc('.') },
-  { b: 'The rules, timestamped.', raw: rec(DIR + 'timestamps/rules-2026-11-21.txt') + C.esc(' lists the checksum of every rule file; its OpenTimestamps proof (') + rec(DIR + 'timestamps/rules-2026-11-21.txt.ots') + C.esc(OTS_BTC ? ') anchors it in Bitcoin, so anyone can confirm the rules existed before the results.' : ') was submitted to four OpenTimestamps calendars on 21 November, before the judges and kernels reported; its Bitcoin confirmation was still pending at this update.') }
+  { b: 'The machines’ scripts.', raw: rec('tools/runpod-alpoge-grh-p1.sh') + C.esc(' (fetch, challenge, build), ') + rec('tools/runpod-alpoge-grh-p2.sh') + C.esc(' (axioms, census, judge, controls, kernels), ') + rec('tools/runpod-alpoge-grh-p3-bridge.sh') + C.esc(' (the bridge, not run), ') + rec('tools/runpod-alpoge-grh-p4.sh') + C.esc(' (con-leche), ') + rec('tools/runpod-alpoge-grh-parallel.sh') + C.esc(' (Lean’s replay), ') + rec('tools/runpod-alpoge-grh-judge.sh') + C.esc(' and ') + rec('tools/runpod-alpoge-grh-judge-guard.sh') + C.esc(' (the statement judge on the larger machine) and ') + rec('tools/runpod-alpoge-grh-clean.sh') + C.esc(' (the clean machine).') },
+  { b: 'Our challenge file and the proofs we wrote.', raw: rec('instruments/alpoge-grh/Challenge.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Spec.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Textbook.lean') + C.esc(' and ') + rec('instruments/alpoge-grh/bridge/CertMachine') + C.esc('.') },
+  { b: 'The rules, timestamped.', raw: rec(DIR + 'timestamps/rules-2026-11-21.txt') + C.esc(' lists the checksums of ' + nw(RULES_N) + ' rule files as they stood at ' + RULES_AT.replace('T', ' ') + ' UTC, before S1, K2 and K3 reported; the amendments after that are not in it. Its OpenTimestamps proof (') + rec(DIR + 'timestamps/rules-2026-11-21.txt.ots') + C.esc(OTS_BTC ? ') anchors it in Bitcoin.' : ') holds pending attestations from ' + nw(OTS_CAL) + ' calendars; its Bitcoin confirmation was still pending at this update.') }
 ]) }));
 
-O.push(C.section({ lab: 'changes', title: 'Changes to this page', id: 'changes', bodyRaw: C.plainList(LOG.slice().reverse().map((e) => ({ b: e.at.replace('T', ' ').replace('Z', ' UTC') + '.', text: e.what + (e.done !== undefined ? ' (' + e.done + ' of ' + ALL.length + ' checks done.)' : '') }))) }));
+/* each entry's count is printed against the number of checks at its time: amendment A12 (2026-11-21, about 12:30 UTC)
+   added three checks to the first 21, so an entry from before it says "of the then 21" (an outside reading, 2026-11-23) */
+const A12_AT = '2026-11-21T12:30Z', BEFORE_A12 = ALL.length - 3;
+const ofAt = (e) => (e.at < A12_AT ? ' of the then ' + BEFORE_A12 : ' of ' + ALL.length);
+O.push(C.section({ lab: 'changes', title: 'Changes to this page', id: 'changes', bodyRaw: C.plainList(LOG.slice().reverse().map((e) => ({ b: e.at.replace('T', ' ').replace('Z', ' UTC') + '.', text: e.what + (e.done !== undefined ? ' (' + e.done + ofAt(e) + ' checks done.)' : '') }))) }));
 
 const SCRIPT = CH.script() + `<script>
 (function(){
@@ -754,10 +899,10 @@ svg.wh-hl .wh-track.wh-on{stroke:var(--ink-5);}
 @keyframes peStamp{from{opacity:0;transform:scale(1.5)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.pe-js .pe-card{opacity:1;transform:none;transition:none}.pe-st{animation:none !important}}
 `;
-const foot = '<p>' + C.esc('Generated by tools/build-report-alpoge-grh.js from ' + REC + (pending.length ? ' — a draft: ' + pending.length + ' checks still running.' : '.') + ' I did this with Claude (Anthropic), which wrote the programs under my direction; Astra 6.2 read and red-teamed.') + '</p>'
+const foot = '<p>' + C.esc('Generated by tools/build-report-alpoge-grh.js from ' + REC + (pending.length ? ' — a draft: ' + pending.length + ' checks pending.' : ENDING === 'hold' ? ' — held.' : '.') + ' I did this with Claude (Anthropic), which wrote this audit’s programs under my direction; Astra 6.2 gave second readings and red-teamed.') + '</p>'
   + '<p>' + C.esc('cert-machine · Carlos Toledo') + '</p>';
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'alpoge-grh.html'), TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/alpoge-grh.html',
   cssRaw: STYLE, scriptRaw: SCRIPT, og: { image: '/og-alpoge-grh.png', alt: OG.alt('alpoge-grh') },
-  desc: 'Levent Alpöge’s Lean proof of the Riemann Hypothesis, checked step by step: the files, the build, the axioms, independent kernels, the statement, planted errors, the route inside the proof, and two bridges to other claims.' }));
-console.log('reports/alpoge-grh.html written · ' + done.length + ' of ' + ALL.length + ' done · ' + pending.length + ' running · ' + bad.length + ' refused' + (FINAL ? ' · FINAL' : ' · draft'));
+  desc: 'Levent Alpöge’s Lean release on the Riemann Hypothesis and GRH for Dirichlet L-functions, put through ' + ALL.length + ' checks under rules registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges, with what the checks do not settle first.' }));
+console.log('reports/alpoge-grh.html written · ' + done.length + ' of ' + ALL.length + ' done · ' + pending.length + ' pending · ' + refused.length + ' refused · ' + refuted.length + ' refuted · state ' + ENDING + (FINAL ? ' · FINAL' : ''));
