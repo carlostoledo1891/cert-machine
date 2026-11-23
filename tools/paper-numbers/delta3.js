@@ -103,6 +103,16 @@ need(LM.counts.length >= 4, 'too few upper-bound counts');
 def('VnRows', LM.counts.map((r) => int(r.n) + ' & ' + int(r.mono) + ' & ' + r.ratioDecimal + ' & $' + r.timesN.replace('-', '-') + '$ \\\\').join('\n'));
 def('VnMaxN', int(Math.max(...LM.counts.map((r) => r.n))));
 
+/* ---- strictness of P (instruments/delta3/strict.js --record), which the uniqueness step uses ---- */
+const ST = J('certs/delta3-strict.json');
+need(ST.verdict === 'P POSITIVE DEFINITE', 'the strictness record does not say P is positive definite');
+need(ST.files['instruments/delta3/strict.js'] === crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'instruments/delta3/strict.js'))).digest('hex'), 'the strictness record was not written by the strict.js now in the tree');
+need(ST.decision.leadingMinorsPositive === ST.inner.dim && ST.inner.dim > 0, 'not every leading minor of P is recorded positive');
+need(ST.psdJsOnP.rowsDropped === 0 && ST.psdJsOnP.smallestRemainderMarginPositive === true, 'psd.js on P no longer shows no dropped row and a strictly positive margin');
+need(ST.controls.length >= 5 && ST.controls.every((c) => c.pass), 'a strictness control did not pass');
+def('StrictDim', int(ST.inner.dim));
+def('StrictControls', int(ST.controls.filter((c) => c.expected === 'refuse').length));
+
 /* ---- the superseded ladder, the claimant's records -------------------------- */
 const CEIL = J('certs/delta3/frontier/s34/ceilings.json');
 def('LadderRows', [32, 64, 128, 192, 256].map((Lc) => {

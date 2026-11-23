@@ -66,6 +66,17 @@ const nRed = (bout.match(/^PASS {2}RED\b/gm) || []).length;
 const bm = /BATTERY GREEN\s+(\d+) pass, 0 fail/.exec(bout);
 if (!bm || Number(bm[1]) !== nPass || !nRed || /^FAIL\b/m.test(bout)) die('the battery did not end GREEN with every line a PASS:\n' + bout.slice(-800));
 
+/* strictness of the inner matrix P (instruments/delta3/strict.js --record): the uniqueness step needs P ≻ 0, and verify.js
+   proves only P ⪰ 0 (pointed out by the Erdős Problem a Day referee report, received 2026-11-23) */
+const ST = J('certs/delta3-strict.json');
+if (ST.verdict !== 'P POSITIVE DEFINITE') die('the strictness record does not say P is positive definite');
+if (sha('instruments/delta3/strict.js') !== ST.files['instruments/delta3/strict.js']) die('the strictness record was written by a different strict.js — re-run node instruments/delta3/strict.js --record');
+if (sha('instruments/delta3/verify.js') !== ST.files['instruments/delta3/verify.js'] || sha('instruments/delta3/psd.js') !== ST.files['instruments/delta3/psd.js']) die('the strictness record ran a different verify.js or psd.js');
+if (ST.decision.leadingMinorsPositive !== ST.inner.dim || !(ST.inner.dim > 0)) die('not every leading minor of P is recorded positive');
+if (!ST.controls.every((c) => c.pass)) die('a strictness control did not pass');
+if (!L.certificates.some((c) => c.file === ST.inner.file && c.sha256 === ST.inner.sha256)) die('the strictness record checked a different inner certificate');
+const stDim = ST.inner.dim, stRefused = ST.controls.filter((c) => c.expected === 'refuse').length;
+
 /* the lemma tests and the mutation pass: records of their own, each required clean */
 if (!LM.allPass || LM.identity.identityHolds !== LM.identity.cases || LM.discretisation.holds !== LM.discretisation.cases) die('the lemma record is not all-pass');
 const MU = J('certs/delta3-mutations.json');
@@ -165,8 +176,8 @@ O.push(C.header({
     + '117/2192·n², proved nothing can go below 1675/32768·n², and conjectured their colouring optimal — the value Graham had '
     + 'offered $100 for in 1999. The conjecture is true: δ₃ = 117/2192. The proof is two pages of mathematics and five exact '
     + 'certificates; the certificates were made and checked in a sandbox, and are re-decided here by a second program written '
-    + 'from the mathematics alone, sharing no code with the first. Not refereed, not formalised — what that leaves open is '
-    + 'stated below, in full.'
+    + 'from the mathematics alone, sharing no code with the first. Refereed by AI readers, not yet by a person; the same value '
+    + 'was claimed earlier, by 15 July 2026, by Star Fleet Math (§1). What is still open is stated below, in full.'
 }));
 
 O.push(C.tldr({
@@ -175,13 +186,14 @@ O.push(C.tldr({
     + 'negative are the only minimisers. This settles δ₃, the case k = 3 of Erdős problem #1186, and the 2008 conjecture; '
     + 'it says nothing about longer progressions.',
   mechanismRaw: 'Expand the problem around the twelve-block colouring. The first-order term becomes an explicit function '
-    + 'h ≥ 0 that vanishes exactly at the eleven block edges; a discretisation built on h loses nothing to first order, which is '
-    + 'what every earlier relaxation could not avoid. The space is then cut into five regions by the distance from the optimum, '
+    + 'h ≥ 0 that vanishes exactly at the eleven block edges; a discretisation built on h gives a lower bound that is exact '
+    + 'at the optimum. The space is then cut into five regions by the distance from the optimum, '
     + 'and each is closed by an exact rational certificate: zero gap near the optimum, a margin of at least '
     + boundSci(minSlab, 7) + ' away from it.',
   checkRaw: C.m('node instruments/delta3/verify.js') + ' — ' + measuredAt('/seconds') + ', Node only, no dependencies. It derives '
     + 'the colouring, h, every cell area and every bathtub constant from the mathematics, rebuilds each certificate\'s residual '
-    + 'matrix exactly, proves it semidefinite exactly, and checks the cover. The battery\'s ' + nRed + ' planted forgeries are '
+    + 'matrix exactly, proves it semidefinite exactly, and checks the cover; ' + C.m('strict.js') + ' then proves the inner matrix '
+    + 'positive definite (all ' + stDim + ' leading minors > 0), which the uniqueness of the minimisers needs. The battery\'s ' + nRed + ' planted forgeries are '
     + 'all refused (' + nPass + ' checks green).'
 }));
 
@@ -190,12 +202,12 @@ O.push(C.stats([
   { k: 'certificates', v: String(certs.length), n: 'one inner (zero gap) and four slabs, each accepted by two verifiers that share no code' },
   { k: 'smallest margin', v: boundSci(minSlab, 2), n: 'on E = (Q − Q*)/4, slab [' + frac(minSlab.region.lo) + ', ' + frac(minSlab.region.hi) + ']; exact value in the ledger' },
   { k: 'forgeries refused', v: nRed + ' / ' + nRed, n: 'mutated certificates, each refused by the rule it breaks · ' + MU.counts.caught + ' of ' + MU.counts.mutants + ' verifier mutations caught' },
-  { k: 'status', v: 'proved', sm: true, n: 'machine-verified twice · read line by line by the author · not refereed · not formalised' }
+  { k: 'status', v: 'proved', sm: true, n: 'machine-verified twice · read line by line by the author · refereed by AI readers, not by a person · formalised in Lean by a second party, not replayed here' }
 ]));
 
 O.push(C.scope('A computer-assisted proof. The mathematics (§2) is short and elementary; it has been checked by machine, by AI '
-  + 'reading, and line by line by the author (5 October 2026), not by a referee; the certificates are finite exact computations, accepted by the claimant\'s verifier '
-  + 'and by this repository\'s, which were written independently. Nothing here is a Lean proof. The claim was produced in the '
+  + 'reading (ours, and an outside AI referee report of 19 November 2026), and line by line by the author (5 October 2026), not by a human referee; the certificates are finite exact computations, accepted by the claimant\'s verifier '
+  + 'and by this repository\'s, which were written independently. Nothing here is a Lean proof; a second party\'s Lean formalisation exists (§6). The claim was produced in the '
   + 'operator\'s own sandbox (frontier-apps); this repository is its judge, with the same rules it applies to anyone\'s claim.'));
 
 /* §1 */
@@ -210,13 +222,22 @@ O.push(C.section({
       + 'and Graham (2010) recovered the twelve blocks by experiment, crediting the 2008 paper; Greenwood, Kariv and Williams (2023) '
       + 'proved them optimal among antisymmetric colourings with at most twelve blocks. On erdosproblems.com the question is '
       + 'problem #1186, for every k — open as of the snapshot pinned here (5 October 2026).')
+    + C.pRaw('<strong>Earlier and later claims.</strong> Star Fleet Math stated δ₃ = 117/2192, with an exact rational sum-of-squares '
+      + 'certificate, by 15 July 2026 (<a href="https://web.archive.org/web/20260715002525/https://www.starfleetmath.com/">an Internet Archive '
+      + 'snapshot of that day</a> carries the entry, with an update dated 13 July). That is about three months before the claim here '
+      + '(5 October 2026), so it is the earlier public claim of the value. We learned of it on 23 November 2026 and have not checked its '
+      + 'certificate. Chandler Snively (Quana Labs) has since formalised the argument here in Lean (<a href="https://github.com/dreadpiratechan/erdos-1186">dreadpiratechan/erdos-1186</a>, '
+      + 'v1.0.0, 26 October 2026; aiXiv:2610.02762): it proves Formal Conjectures\' statement δ₃ = 117/2192 in a discrete form, with five '
+      + 'stated departures and certificates of its own, and does not cover the uniqueness. <a href="https://erdosproblemaday.com/day/1186-toledo-delta-3-equals-117-over-2192-refereed">Erdős '
+      + 'Problem a Day</a> refereed the claim with AI readers (19 November 2026): no error in the mathematics, the five certificates '
+      + 'accepted by a third verifier written from the paper and the file format, and five corrections, all made on 23 November (§2).')
     + C.note({ lab: 'scope', bodyRaw: C.pRaw('This settles <strong>δ₃</strong>: Graham\'s question and the 2008 conjecture. '
       + '“Solves #1186” would overstate it — the problem asks about δ<sub>k</sub> for every k, and nothing here touches k ≥ 4.') })
 }));
 
 /* §2 */
 O.push(C.section({
-  lab: '§2 · the proof, in four steps', title: 'Expand around the answer, and the first order stops leaking',
+  lab: '§2 · the proof, in four steps', title: 'Expand around the answer, and the bound is exact at the optimum',
   bodyRaw: C.pRaw('<strong>1 · Reduction.</strong> Counting each non-monochromatic progression by its two bichromatic pairs gives, '
     + 'uniformly over colourings, V(n)/n² ≥ 1/16 + Q*/4 − O(1/n), where Q* is the infimum over measurable φ : [0,1] → [−1,1] of')
     + C.eq('Q(φ) = ∬<sub>R</sub> φ(a)φ(b) da db, &nbsp;&nbsp; R = {(a, b) : a/2 ≤ b ≤ (1 + a)/2}.')
@@ -225,7 +246,7 @@ O.push(C.section({
       + 'every φ,')
     + C.eq('E(σ) = (Q(φ) − Q(φ*))/4 = ∫ h σ + Q(φ*σ), &nbsp;&nbsp; h = −φ* · Kφ* ≥ 0,')
     + C.pRaw('and h is piecewise linear on the 1/1096 grid, zero exactly at the eleven edges, with ∫h = ' + L.phiStar.hIntegral
-      + '. <strong>3 · Discretisation without first-order loss.</strong> On cells whose ends include every edge, the bathtub '
+      + '. <strong>3 · A discretisation exact at the optimum.</strong> On cells whose ends include every edge, the bathtub '
       + 'principle bounds ∫hσ cell by cell with no loss at σ = 0, and pairs of cells cut by the boundary of R are bounded from '
       + '0 ≤ σ ≤ 1 alone; the resulting quadratic L(y) in the cell averages satisfies E ≥ L. <strong>4 · Cover.</strong> By the '
       + 'symmetry φ → −φ it suffices to take m = ∫σ ≤ ½; five regions in m each carry an exact certificate that L is ≥ 0 '
@@ -240,6 +261,17 @@ O.push(C.section({
       + 'functions, lemmas.js and verify.js, on 2026-10-20; on the g8·4·0 grid L = (8t + 3t²)/18769). The bathtub is exact only along its own '
       + 'minimiser, the sublevel set {h &lt; v}. The theorem never used the stronger sentence: the certificates prove L ≥ 0 (or &gt; 0) over '
       + 'each region, and E ≥ L with L(0) = 0 is the lemma tested in lemmas.js. No verdict moved.')
+    + C.pRaw('<strong>Corrections (2026-11-23, from the Erdős Problem a Day referee report).</strong> (1) The paper said the second verifier '
+      + 'proves the inner matrix P positive definite; it proves P semidefinite, while the uniqueness of the minimisers needs P strictly '
+      + 'definite. Its own run showed strictness (no row dropped, every remainder margin positive) without requiring it. A separate '
+      + 'exact check, ' + C.m('instruments/delta3/strict.js') + ', now proves it: all ' + stDim + ' leading principal minors of P are positive '
+      + 'by fraction-free elimination, with no floating point, and ' + stRefused + ' planted matrices are refused on every run, among them P with '
+      + 'one row and column set to zero, which the semidefinite test alone accepts (<a href="/certs/delta3-strict.json">the record</a>). '
+      + '(2) The paper still carried the first-order sentence corrected above, in its abstract, a section title and two sentences. '
+      + '(3) It gave the wrong reason for the twelve-block colouring\'s balanced parity classes (antisymmetry, instead of long blocks with '
+      + 'equal colour totals). (4) It gave the one-sided slopes of h at its zeros without their signs. (5) It cited neither Star Fleet '
+      + 'Math\'s earlier claim nor Snively\'s formalisation. All five are corrected in the paper\'s version 0.3; the five certificate '
+      + 'files are unchanged and no verdict moved. We thank Patrick White and Claude, of Erdős Problem a Day, for a careful report.')
     + C.figure({ svgRaw: FIG_H, caption: 'The first-order term h. Flipping the colouring on a set costs ∫h over it to first order; h vanishes exactly at the eleven edges, where moving an edge is free to first order and the certificates must see the second-order cost. Its ' + HN.length + ' node values are exact, and h is linear between nodes, so the line drawn is h itself: solid, decided.' })
 }));
 
@@ -258,7 +290,9 @@ O.push(C.section({
       + 'm − lo, hi − m, and triangle inequalities), and S + εI semidefinite; so L ≥ B − ε(1 + n) there. The inner region m ≤ '
       + frac(inner.region.hi) + ' carries one in which every term vanishes at y = 0 — the certificate is exact at the optimum itself. '
       + 'The multipliers came from floating-point semidefinite programs; nothing here trusts them: the residual matrix is rebuilt '
-      + 'from the mathematics in exact rationals and its semidefiniteness is proved exactly (' + C.esc(L.verifier.method.psd) + ').') + '</div>'
+      + 'from the mathematics in exact rationals and its semidefiniteness is proved exactly (' + C.esc(L.verifier.method.psd) + '). '
+      + 'The inner matrix is also proved strictly positive definite, by ' + C.m('strict.js') + ' (all ' + stDim + ' leading minors > 0), '
+      + 'which the uniqueness of the minimisers needs.') + '</div>'
       + C.table({
         cols: [{ h: 'region m = ∫σ' }, { h: 'kind' }, { h: 'cells', cls: 'n' }, { h: 'forms', cls: 'n' }, { h: 'triangles', cls: 'n' }, { h: 'certified bound (exact in the ledger)' }, { h: 'time here', cls: 'n' }, { h: 'verdict here' }],
         rows
@@ -337,14 +371,14 @@ O.push(C.section({
 O.push(C.section({
   lab: '§6 · what is not established', title: 'What a referee would still ask for',
   bodyRaw: C.plainList([
-    { b: 'a referee', text: 'The mathematics is two pages (the reduction, the expansion, the bathtub and discretisation lemmas). The author read it line by line on 5 October 2026, after both verifiers had accepted the certificates — the condition the erdosproblems forum sets before an AI-assisted solution is posted. No referee has read it.' },
-    { b: 'Lean', text: 'Nothing is formalised. The finite part (five rational identities, semidefiniteness of 131- to 147-dimensional rational matrices) is plausible with a verified checker; the analytic part (the reduction, the bathtub rearrangement, the discretisation) is real measure-theory work — weeks, not days.' },
+    { b: 'a referee', text: 'The mathematics is two pages (the reduction, the expansion, the bathtub and discretisation lemmas). The author read it line by line on 5 October 2026, after both verifiers had accepted the certificates — the condition the erdosproblems forum sets before an AI-assisted solution is posted. No person has refereed it. Erdős Problem a Day refereed it with AI readers on 19 November 2026 and found no error in the mathematics; its five corrections are made (§2). It is still not a human referee\'s report.' },
+    { b: 'Lean', text: 'We have formalised nothing. Chandler Snively\'s Lean formalisation of the argument (dreadpiratechan/erdos-1186, v1.0.0) proves δ₃ = 117/2192 in a discrete form, with certificates of its own; it does not cover the uniqueness, and we have read its statement but not replayed it. For a formalisation of the argument as written here: the finite part (five rational identities, semidefiniteness of 131- to 147-dimensional rational matrices) is plausible with a verified checker; the analytic part (the reduction, the bathtub rearrangement, the discretisation) is real measure-theory work — weeks, not days.' },
     { b: 'independence', text: 'Both verifiers and the generators were written by AI agents. The clean-room rule removes shared code, not a shared misreading of the mathematics both were given; §2 is where a reader should look.' },
     { b: 'reproducibility of generation', text: 'The multipliers came from a nondeterministic solver, so regeneration gives different files. The five files are the record, pinned by sha256; their force does not depend on regenerating them.' }
   ])
     + C.note({ lab: 'the records', bodyRaw: C.pRaw('<a href="/certs/delta3-ledger.json">The ledger</a> (each certificate\'s sha256, region, '
       + 'exact bound and verdict; the verifier files\' hashes) · <a href="/certs/delta3-lemmas.json">the lemma tests and the counts</a> · '
-      + '<a href="/paper/delta3.pdf">the paper</a> (draft v0.2, numbers interpolated from these records). The certificates, both verifiers '
+      + '<a href="/paper/delta3.pdf">the paper</a> (draft v0.3, corrected 23 November 2026; numbers interpolated from these records) · <a href="/certs/delta3-strict.json">the strictness of P</a>. The certificates, both verifiers '
       + 'and the claimant\'s generators are in the repository under certs/delta3/ and instruments/delta3/; the sources (the 2008 and 2010 '
       + 'papers, the problem page, the forum) are pinned by sha256. Archived at Zenodo as ' + ZEN.latest + ', <a href="https://doi.org/' + DEP.doi + '">doi:' + DEP.doi + '</a>. '
       + 'Listed on erdosproblems.com as a <a href="https://www.erdosproblems.com/forum/thread/1186/proof-claims">partial proof claim for #1186</a> (submitted 2026-10-05, shown 2026-10-06; the page snapshot is pinned).') })
@@ -353,11 +387,11 @@ O.push(C.section({
 /* what has come back from outside: re-runs and credits, from design/outside.js (one record, pinned quotes) */
 { const OUT = require(path.join(ROOT, 'design', 'outside.js')).section(C, 'reports/delta3.html'); if (OUT) O.push(OUT); }
 
-const foot = '<p>' + C.esc('Generated by tools/build-report-delta3.js from certs/delta3-ledger.json and certs/delta3-lemmas.json — the certificate hashes and the verifier hashes checked against the tree, the battery run with every planted forgery refused; the build fails if any of it does not hold.') + '</p>'
+const foot = '<p>' + C.esc('Generated by tools/build-report-delta3.js from certs/delta3-ledger.json, certs/delta3-lemmas.json and certs/delta3-strict.json — the certificate hashes and the verifier hashes checked against the tree, the battery run with every planted forgery refused; the build fails if any of it does not hold.') + '</p>'
   + '<p>' + C.esc('git ' + git + ' · cert-machine · Carlos Toledo') + '</p>';
 
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'delta3.html'),
   TPL.render({ title: 'δ₃ = 117/2192: the twelve blocks are optimal · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/delta3.html',
-    desc: 'Graham\'s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.' }));
+    desc: 'Graham\'s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Refereed by AI readers, not by a person; Star Fleet Math claimed the same value earlier, in July 2026.' }));
 console.log('reports/delta3.html written — ' + certs.length + ' certificates verified, min slab margin ' + minSlab.boundDecimal + ', battery ' + nPass + ' green, ' + nRed + ' forgeries refused');

@@ -1,0 +1,96 @@
+{
+  "what": "The inner certificate's matrix P (the quadratic form left after verify.js's identity) is positive definite: every leading principal minor of den·P is > 0, by exact fraction-free elimination. The uniqueness step of the δ₃ paper uses this; verify.js itself proves P only semidefinite.",
+  "inner": {
+    "file": "certs/delta3/inner-r20-g24_4_8.json",
+    "sha256": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
+    "dim": 130,
+    "matrixSha256": "3d04e2562274f23c0b235cf3ba3034a9b4125780b4c09d7f59a63db3910b5f25"
+  },
+  "decision": {
+    "method": "Bareiss fraction-free elimination on the integer matrix den·P; Sylvester's criterion",
+    "leadingMinorsPositive": 130,
+    "refusedAt": null,
+    "determinantBits": 5564,
+    "seconds": 2.337
+  },
+  "psdJsOnP": {
+    "verdict": "PSD",
+    "method": "dyadic Cholesky of A − 2^−4I (rows rescaled by powers of 2), remainder diagonally dominant",
+    "rowsDropped": 0,
+    "smallestRemainderMarginPositive": true,
+    "smallestRemainderMarginApprox": 0.062499999999980495
+  },
+  "controls": [
+    {
+      "name": "positive definite 2x2 [[2,1],[1,2]]",
+      "expected": "accept",
+      "got": "accept",
+      "why": null,
+      "pass": true
+    },
+    {
+      "name": "singular PSD 2x2 [[1,1],[1,1]]",
+      "expected": "refuse",
+      "got": "refuse",
+      "why": "leading principal minor 2 is zero",
+      "pass": true
+    },
+    {
+      "name": "zero row 2x2 [[1,0],[0,0]]",
+      "expected": "refuse",
+      "got": "refuse",
+      "why": "leading principal minor 2 is zero",
+      "pass": true
+    },
+    {
+      "name": "indefinite 2x2 [[1,2],[2,1]]",
+      "expected": "refuse",
+      "got": "refuse",
+      "why": "leading principal minor 2 is negative",
+      "pass": true
+    },
+    {
+      "name": "P with its last row and column set to zero (singular)",
+      "expected": "refuse",
+      "got": "refuse",
+      "why": "leading principal minor 130 is zero",
+      "pass": true,
+      "psdJsVerdictOnSameMatrix": "PSD"
+    }
+  ],
+  "verifyRun": [
+    {
+      "file": "certs/delta3/inner-r20-g24_4_8.json",
+      "kind": "inner",
+      "verdict": "VERIFIED"
+    },
+    {
+      "file": "certs/delta3/slab-1_5-3_10-g24_4_8.json",
+      "kind": "slab",
+      "verdict": "VERIFIED"
+    },
+    {
+      "file": "certs/delta3/slab-2_5-9_20-g8_4_0.json",
+      "kind": "slab",
+      "verdict": "VERIFIED"
+    },
+    {
+      "file": "certs/delta3/slab-3_10-4_10-g24_4_8.json",
+      "kind": "slab",
+      "verdict": "VERIFIED"
+    },
+    {
+      "file": "certs/delta3/slab-9_20-1_2-g8_4_0.json",
+      "kind": "slab",
+      "verdict": "VERIFIED"
+    }
+  ],
+  "files": {
+    "instruments/delta3/strict.js": "04908eed8fd430606028b2a2455ffcce2ae54c207477fafeb8740b3b2f7c2e1a",
+    "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
+    "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
+    "instruments/delta3/model.js": "65b68c49c45f8a6cf5045de9e632e2f67e8f8285de2d1a77e8b242c5bb4d440a",
+    "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
+  },
+  "verdict": "P POSITIVE DEFINITE"
+}

@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erdős #1186: δ₃ = 117/2192, Toledo&#39;s proof refereed</title>
+<meta name="description" content="Colour 1, …, n red and blue: how few monochromatic three-term progressions must there be? In 2008 Parrilo, Robertson and Saracino found a twelve-block colouring with about 117n²/2192 and conjectured it optimal; Graham had offered $100 for the constant. Carlos Toledo&#39;s computer-assisted proof claim of 5 October says they were right. We refereed it. An AI referee instance, told to refute, found no error in the mathematics (holds with fixes), a third verifier written here from the paper and its file-format note accepts all five of his exact certificates, and searches over thousands of colourings found nothing below 117/2192. Star Fleet Math claimed the same value in July, and Quana Labs formalised Toledo&#39;s argument in Lean in October. No human has refereed any of the three.">
+<meta name="theme-color" content="#1b2120">
+<link rel="canonical" href="https://erdosproblemaday.com/day/1186-toledo-delta-3-equals-117-over-2192-refereed">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Erdős #1186, Graham&#39;s $100 question: Carlos Toledo&#39;s computer-assisted proof that δ₃ = 117/2192 — the twelve-block colouring is optimal — holds as read by an AI referee, and a verifier written here from his paper and file-format note accepts all five certificates; Star Fleet Math claimed the same value, by a similar route, in July — Erdős Problem a Day">
+<meta property="og:description" content="Colour 1, …, n red and blue: how few monochromatic three-term progressions must there be? In 2008 Parrilo, Robertson and Saracino found a twelve-block colouring with about 117n²/2192 and conjectured it optimal; Graham had offered $100 for the constant. Carlos Toledo&#39;s computer-assisted proof claim of 5 October says they were right. We refereed it. An AI referee instance, told to refute, found no error in the mathematics (holds with fixes), a third verifier written here from the paper and its file-format note accepts all five of his exact certificates, and searches over thousands of colourings found nothing below 117/2192. Star Fleet Math claimed the same value in July, and Quana Labs formalised Toledo&#39;s argument in Lean in October. No human has refereed any of the three.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://erdosproblemaday.com/day/1186-toledo-delta-3-equals-117-over-2192-refereed">
+<meta property="og:image" content="https://erdosproblemaday.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://erdosproblemaday.com/og-image.jpg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTKRWBYKMH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DTKRWBYKMH');
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --slate: #1b2120; --slate-2: #222927; --slate-3: #2a3230; --slate-4: #333c39;
+  --rule: rgba(235,232,222,.13); --rule-2: rgba(235,232,222,.26);
+  --chalk: #ece9df; --chalk-2: #c3c6bc; --chalk-3: #8f968d;
+  --yellow: #f3d46c;
+  --c-open: #ece9df; --c-finite: #8fc6ea; --c-proved: #a2d69c; --c-disproved: #f2a3b3;
+  --c-solved: #e6bf7d; --c-axiom: #bba9e8;
+  --ink: #161b1a;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --display: 'Fraunces', 'Source Serif 4', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  /* legacy names still referenced by inline styles in older entries */
+  --gold: var(--yellow); --blue: var(--c-finite); --green: var(--c-proved); --red: var(--c-disproved);
+  --amber: var(--c-solved); --gray: var(--chalk-3); --text-main: var(--chalk-2); --text-muted: var(--chalk-3);
+  --text-bright: var(--chalk); --border-dim: var(--rule); --bg-panel: var(--slate-2); --bg-panel-hover: var(--slate-3);
+}
+* { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: hidden; }
+body {
+  margin: 0; background: var(--slate); color: var(--chalk-2);
+  font-family: var(--serif); font-size: 18px; line-height: 1.6;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(235,232,222,.045), transparent 55%),
+    radial-gradient(ellipse at 90% 30%, rgba(235,232,222,.03), transparent 50%);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(243,212,108,.3); }
+h1, h2, h3, .font-display { font-family: var(--display); color: var(--chalk); font-weight: 600; line-height: 1.12; letter-spacing: -.01em; }
+a { color: var(--yellow); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--chalk); }
+.mono { font-family: var(--mono); }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 1.4rem 16px 5rem; }
+.narrow { max-width: 760px; }
+
+/* ---------- header / footer ---------- */
+header.site { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; padding-bottom: 1.1rem; border-bottom: 1px solid var(--rule); margin-bottom: 2.2rem; }
+header.site .mark { display: flex; align-items: baseline; gap: .6rem; text-decoration: none; color: var(--chalk); }
+header.site .mark b { font-family: var(--display); font-weight: 800; font-size: 1.45rem; letter-spacing: -.01em; }
+header.site .mark span { font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--chalk-3); }
+header.site nav { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+header.site nav a { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--chalk-2); text-decoration: none; padding: .2rem 0; border-bottom: 1px solid transparent; }
+header.site nav a:hover, header.site nav a.on { color: var(--chalk); border-bottom-color: var(--yellow); }
+header.site .nav-toggle { display: none; background: none; border: 1px solid var(--rule-2); color: var(--chalk); font-size: 1.15rem; line-height: 1; padding: .35rem .6rem; border-radius: 4px; cursor: pointer; }
+footer.site { margin-top: 4.5rem; padding-top: 1.3rem; border-top: 1px solid var(--rule); font-size: .88rem; color: var(--chalk-3); line-height: 1.6; }
+footer.site p { margin: 0 0 .5rem; max-width: 78ch; }
+footer.site a { color: var(--chalk-2); }
+footer.site a:hover { color: var(--yellow); }
+
+/* ---------- type helpers ---------- */
+.kicker { display: block; font-family: var(--mono); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: .8rem; }
+.hero { margin-bottom: 2.2rem; }
+h1.hero-h1 { font-size: clamp(2.1rem, 5.6vw, 3.6rem); margin: 0 0 1rem; max-width: 22ch; text-transform: none; }
+h1.hero-h1 .gold, .gold { color: var(--yellow); }
+.hero-sub { font-size: 1.12rem; color: var(--chalk-2); max-width: 64ch; margin: 0 0 1.3rem; }
+.hero-links { display: flex; gap: 1.3rem; flex-wrap: wrap; font-family: var(--mono); font-size: .82rem; letter-spacing: .04em; }
+.section-header { display: flex; align-items: baseline; gap: 1rem; margin: 3.2rem 0 1.1rem; }
+.section-header h2 { font-size: 1.7rem; margin: 0; white-space: nowrap; text-transform: none; }
+.section-header .line { flex: 1; height: 1px; background: var(--rule); align-self: center; }
+.section-header .more { font-family: var(--mono); font-size: .76rem; letter-spacing: .05em; white-space: nowrap; }
+.lede { font-size: 1.05rem; color: var(--chalk-2); max-width: 66ch; margin: -.3rem 0 1.4rem; }
+.meta, .problem-num { font-family: var(--mono); font-size: .76rem; letter-spacing: .05em; color: var(--chalk-3); }
+
+/* ---------- jump box ---------- */
+.jump { display: flex; gap: .5rem; align-items: stretch; margin: 1.4rem 0 0; max-width: 30rem; }
+.jump label { position: absolute; left: -9999px; }
+.jump .hash { display: flex; align-items: center; font-family: var(--display); font-size: 1.6rem; color: var(--chalk-3); padding: 0 .1rem 0 .2rem; }
+.jump input { flex: 1; min-width: 0; background: var(--slate-2); border: 1px solid var(--rule-2); border-radius: 6px; color: var(--chalk); font-family: var(--display); font-size: 1.4rem; padding: .45rem .8rem; }
+.jump input:focus { outline: 2px solid var(--yellow); outline-offset: 1px; }
+.jump button { background: var(--yellow); color: var(--ink); border: 0; border-radius: 6px; font-family: var(--mono); font-weight: 600; font-size: .85rem; letter-spacing: .05em; text-transform: uppercase; padding: 0 1.1rem; cursor: pointer; }
+.jump-note { font-family: var(--mono); font-size: .72rem; color: var(--chalk-3); margin: .5rem 0 0; letter-spacing: .03em; }
+
+/* ---------- big numbers ---------- */
+.bignums { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 2.4rem 0 0; }
+.bignums a, .bignums div { display: block; padding: 1rem .9rem 1.05rem; text-decoration: none; border-left: 1px solid var(--rule); }
+.bignums > :first-child { border-left: 0; padding-left: 0; }
+.bignums b { display: block; font-family: var(--display); font-weight: 600; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1; color: var(--chalk); font-variant-numeric: tabular-nums; }
+.bignums span { display: block; font-family: var(--mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); margin-top: .45rem; }
+.bignums .k-open b { color: var(--c-open); } .bignums .k-proved b { color: var(--c-proved); } .bignums .k-disproved b { color: var(--c-disproved); }
+.bignums .k-solved b { color: var(--c-solved); } .bignums .k-finite b { color: var(--c-finite); }
+.bignums a:hover { background: var(--slate-2); }
+.asof { font-family: var(--mono); font-size: .72rem; color: var(--chalk-3); margin: .55rem 0 0; letter-spacing: .03em; }
+
+/* ---------- status squares (shared by the map and the board) ---------- */
+.sq { display: inline-block; width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid var(--c-open); opacity: .78; }
+a.sq:hover { opacity: 1; transform: scale(1.5); }
+.g-open .sq, .sq.g-open { border-color: var(--c-open); background: transparent; opacity: .5; }
+.g-openlean .sq, .sq.g-openlean { border-color: var(--yellow); background: transparent; box-shadow: 0 0 0 2px rgba(243,212,108,.25); opacity: 1; }
+.g-finite .sq, .sq.g-finite { border-color: var(--c-finite); background: transparent; opacity: 1; }
+.g-proved .sq, .sq.g-proved { border-color: var(--c-proved); background: var(--c-proved); }
+.g-disproved .sq, .sq.g-disproved { border-color: var(--c-disproved); background: var(--c-disproved); }
+.g-solved .sq, .sq.g-solved { border-color: var(--c-solved); background: var(--c-solved); }
+.g-onesided .sq, .sq.g-onesided { border-color: var(--c-axiom); background: transparent; opacity: 1; }
+.g-independent .sq, .sq.g-independent { border-color: var(--c-axiom); background: var(--c-axiom); }
+
+/* ---------- the status map (centrepiece) ---------- */
+.smap { border: 1px solid var(--rule); border-radius: 10px; background: var(--slate-2); overflow: hidden; }
+.smap-head, .smap-row { display: grid; grid-template-columns: minmax(13rem, 1.15fr) 1.6fr 1fr; }
+.smap-head > div { font-family: var(--mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); padding: .8rem 1rem; border-bottom: 1px solid var(--rule); }
+.smap-head > div + div { border-left: 1px solid var(--rule); }
+.smap-head b { color: var(--chalk); font-weight: 500; }
+.smap-row + .smap-row { border-top: 1px solid var(--rule); }
+.smap-label { padding: .9rem 1rem 1rem; }
+.smap-label h3 { font-size: 1.12rem; margin: 0 0 .25rem; display: flex; align-items: center; gap: .5rem; }
+.smap-label h3 .sq { flex: none; }
+.smap-label p { margin: 0; font-size: .9rem; line-height: 1.45; color: var(--chalk-3); }
+.smap-label p a { white-space: nowrap; }
+.smap-cell { border-left: 1px solid var(--rule); padding: .9rem 1rem 1rem; }
+.smap-cell .n { display: flex; align-items: baseline; gap: .5rem; font-family: var(--display); font-size: 1.5rem; color: var(--chalk); line-height: 1; margin-bottom: .55rem; text-decoration: none; }
+.smap-cell .n small { font-family: var(--mono); font-size: .68rem; color: var(--chalk-3); letter-spacing: .05em; text-transform: uppercase; }
+.smap-cell a.n:hover small { color: var(--yellow); }
+.smap-cell .sqs { display: flex; flex-wrap: wrap; gap: 3px; }
+.smap-cell.zero .n { color: var(--chalk-3); }
+.smap-cell .colname { display: none; }
+.smap-row.callout { background: rgba(243,212,108,.06); }
+.smap-row.callout .smap-label h3 { color: var(--yellow); }
+.smap-foot { font-size: .88rem; color: var(--chalk-3); margin: .8rem 0 0; max-width: 78ch; }
+
+/* ---------- two-column home blocks ---------- */
+.cols { display: grid; grid-template-columns: 1.35fr 1fr; gap: 2.2rem; align-items: start; }
+.card { border: 1px solid var(--rule); border-radius: 10px; background: var(--slate-2); padding: 1.3rem 1.4rem 1.4rem; }
+.card h3 { font-size: 1.35rem; margin: .1rem 0 .6rem; }
+.card h3 a { color: var(--chalk); text-decoration: none; }
+.card h3 a:hover { color: var(--yellow); }
+
+/* problem of the day */
+.potd .potd-date { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--chalk-3); }
+.potd .statement { border-left-color: var(--rule-2); margin: .8rem 0 1rem; }
+.potd .row { display: flex; flex-wrap: wrap; gap: .5rem .8rem; align-items: center; }
+
+/* recent list */
+.rlist { list-style: none; margin: 0; padding: 0; }
+.rlist li { display: grid; grid-template-columns: 4.2rem 1fr auto; gap: .7rem; align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--rule); }
+.rlist li:first-child { padding-top: 0; }
+.rlist .num { font-family: var(--display); font-size: 1.15rem; color: var(--chalk); text-decoration: none; }
+.rlist .num:hover { color: var(--yellow); }
+.rlist .d { font-family: var(--mono); font-size: .7rem; color: var(--chalk-3); white-space: nowrap; }
+.rlist .what { min-width: 0; font-size: .9rem; color: var(--chalk-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* prize cheques — Erdős paid his prizes by personal cheque */
+.cheques { display: grid; grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr)); gap: .8rem; }
+.cheque { position: relative; display: block; text-decoration: none; color: var(--ink); background: linear-gradient(180deg, #f1ecdc, #e6dfc9); border-radius: 6px; padding: .75rem .9rem .7rem; box-shadow: 0 1px 0 rgba(0,0,0,.4); border: 1px solid #cfc6aa; }
+.cheque:hover { transform: translateY(-2px); color: var(--ink); }
+.cheque .top { display: flex; justify-content: space-between; white-space: nowrap; gap: .5rem; font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: #6b6553; }
+.cheque .amt { font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1.1; margin: .25rem 0 .2rem; }
+.cheque .memo { font-size: .82rem; line-height: 1.35; color: #4a4639; border-top: 1px dashed #b7ad8d; padding-top: .35rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.2em; }
+.cheque .sig { position: absolute; right: .8rem; bottom: .25rem; font-family: var(--display); font-style: italic; font-size: .8rem; color: #8a8167; }
+.cheque.small { padding: .55rem .8rem .55rem; display: inline-block; }
+.cheque.small .amt { font-size: 1.35rem; margin: 0; }
+
+/* contribute band */
+.band { display: grid; grid-template-columns: 1fr auto; gap: 1rem 2rem; align-items: center; border: 1px solid var(--rule-2); border-radius: 10px; padding: 1.3rem 1.5rem; margin: 2rem 0; background: var(--slate-2); }
+.band .band-k { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--chalk-3); }
+.band .band-nums { font-family: var(--display); font-size: 1.4rem; color: var(--chalk); line-height: 1.2; margin: .2rem 0 .3rem; }
+.band .band-nums b { color: var(--yellow); font-weight: 600; }
+.band .band-note { font-size: .95rem; color: var(--chalk-3); max-width: 62ch; }
+.band .ctas { display: flex; flex-direction: column; gap: .5rem; }
+.cta, .band .cta { display: inline-block; text-align: center; border: 1px solid var(--yellow); color: var(--yellow); border-radius: 6px; padding: .55rem 1.1rem; font-family: var(--mono); font-weight: 600; font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+.cta:hover { background: rgba(243,212,108,.1); color: var(--yellow); }
+.cta.solid { background: var(--yellow); color: var(--ink); }
+.cta.solid:hover { filter: brightness(1.06); color: var(--ink); }
+
+/* our-work panel on the home page */
+.ours-panel { border-top: 1px solid var(--rule); padding-top: .2rem; }
+.ourstats { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; font-family: var(--mono); font-size: .8rem; color: var(--chalk-3); margin: 0 0 1.2rem; }
+.ourstats b { font-family: var(--display); font-size: 1.25rem; color: var(--chalk); font-weight: 600; margin-right: .3rem; }
+
+/* ---------- chips & stamps ---------- */
+/* database status: a filled chip */
+.chip-st { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: .22rem .6rem; border-radius: 999px; color: var(--ink); background: var(--chalk-2); white-space: nowrap; }
+.chip-st.st-open { background: transparent; color: var(--chalk); box-shadow: inset 0 0 0 1.5px var(--chalk-2); }
+.chip-st.st-openlean { background: transparent; color: var(--yellow); box-shadow: inset 0 0 0 1.5px var(--yellow); }
+.chip-st.st-finite { background: transparent; color: var(--c-finite); box-shadow: inset 0 0 0 1.5px var(--c-finite); }
+.chip-st.st-proved { background: var(--c-proved); }
+.chip-st.st-disproved { background: var(--c-disproved); }
+.chip-st.st-solved { background: var(--c-solved); }
+.chip-st.st-onesided { background: transparent; color: var(--c-axiom); box-shadow: inset 0 0 0 1.5px var(--c-axiom); }
+.chip-st.st-independent { background: var(--c-axiom); }
+.chip-st .lean { font-size: .62rem; padding: .02rem .3rem; border-radius: 3px; background: rgba(0,0,0,.18); }
+.chip-st.st-open .lean, .chip-st.st-openlean .lean, .chip-st.st-finite .lean, .chip-st.st-onesided .lean { background: rgba(255,255,255,.1); }
+/* our verdicts: an outlined stamp, square corners */
+.badge { display: inline-flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .7rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .55rem; border: 1.5px solid var(--chalk-3); color: var(--chalk-2); border-radius: 2px; background: transparent; white-space: nowrap; }
+.badge-closed { border-color: var(--c-proved); color: var(--c-proved); }
+.badge-confirmed { border-color: var(--c-solved); color: var(--c-solved); }
+.badge-partial { border-color: var(--c-solved); color: var(--c-solved); }
+.badge-refuted { border-color: var(--c-disproved); color: var(--c-disproved); }
+.badge-live, .badge-open { border-color: var(--c-finite); color: var(--c-finite); }
+.badge-noproof, .badge-wall { border-color: var(--chalk-3); color: var(--chalk-3); }
+.tag-writeup { display: inline-flex; font-family: var(--mono); font-size: .7rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .55rem; border: 1px dashed var(--chalk-3); color: var(--chalk-2); border-radius: 2px; margin-left: .4rem; }
+.pulse-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c-finite); margin-right: .3rem; animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+
+/* ---------- key / legend ---------- */
+.key { display: flex; flex-wrap: wrap; gap: .5rem 1.3rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .04em; color: var(--chalk-3); margin: .6rem 0 1rem; align-items: center; }
+.key span { display: inline-flex; align-items: center; gap: .4rem; }
+.key a { color: var(--chalk-2); text-decoration: none; border-bottom: 1px dotted var(--chalk-3); }
+.key a:hover, .key a.on { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+/* ---------- the board ---------- */
+.board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(3.1rem, 1fr)); gap: 4px; margin: 1rem 0 2rem; }
+.board-grid a { position: relative; display: block; text-align: center; font-family: var(--mono); font-size: .74rem; padding: .4rem 0 .42rem; border-radius: 4px; text-decoration: none; color: var(--chalk-2); border: 1.5px solid var(--rule-2); }
+.board-grid a:hover { outline: 2px solid var(--yellow); outline-offset: 1px; color: var(--chalk); }
+.board-grid a.g-open { border-color: var(--rule-2); color: var(--chalk-3); }
+.board-grid a.g-openlean { border-color: var(--yellow); color: var(--yellow); }
+.board-grid a.g-finite { border-color: var(--c-finite); color: var(--c-finite); }
+.board-grid a.g-proved { background: var(--c-proved); border-color: var(--c-proved); color: var(--ink); }
+.board-grid a.g-disproved { background: var(--c-disproved); border-color: var(--c-disproved); color: var(--ink); }
+.board-grid a.g-solved { background: var(--c-solved); border-color: var(--c-solved); color: var(--ink); }
+.board-grid a.g-onesided { border-color: var(--c-axiom); color: var(--c-axiom); }
+.board-grid a.g-independent { background: var(--c-axiom); border-color: var(--c-axiom); color: var(--ink); }
+.board-grid a.lean::before { content: ''; position: absolute; top: 3px; right: 3px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .75; }
+.board-grid a.ours::after { content: ''; position: absolute; left: 25%; right: 25%; bottom: 2px; height: 2px; border-radius: 1px; background: currentColor; opacity: .7; }
+.board-grid a.prize { font-weight: 600; }
+.board-tools { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; margin: 0 0 .4rem; }
+.board-tools select, .board-tools input { background: var(--slate-2); border: 1px solid var(--rule-2); color: var(--chalk); border-radius: 6px; font-family: var(--mono); font-size: .8rem; padding: .45rem .6rem; }
+.board-tools button { background: transparent; border: 1px solid var(--yellow); color: var(--yellow); border-radius: 6px; font-family: var(--mono); font-size: .78rem; padding: .45rem .9rem; cursor: pointer; text-transform: uppercase; letter-spacing: .05em; }
+.filter-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; color: var(--chalk); border: 1px solid var(--rule-2); border-radius: 8px; padding: .6rem .9rem; margin: .4rem 0 1rem; background: var(--slate-2); }
+.filter-bar[hidden] { display: none; }
+.filter-bar button { background: none; border: 1px solid var(--rule-2); color: var(--chalk-2); font: inherit; cursor: pointer; padding: .2rem .7rem; border-radius: 4px; }
+.filter-bar a { color: var(--chalk-2); }
+.plist { list-style: none; padding: 0; margin: 0; }
+.plist li { display: grid; grid-template-columns: 4.4rem 1fr; gap: .4rem 1rem; padding: .9rem 0; border-bottom: 1px solid var(--rule); }
+.plist .num { font-family: var(--display); font-size: 1.35rem; color: var(--chalk); text-decoration: none; line-height: 1.2; }
+.plist .num:hover { color: var(--yellow); }
+.plist .txt { min-width: 0; font-size: .97rem; color: var(--chalk-2); }
+.plist .txt p { margin: .35rem 0 0; }
+.plist .tags { display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; font-family: var(--mono); font-size: .7rem; color: var(--chalk-3); }
+.tagcloud { display: flex; flex-wrap: wrap; gap: .4rem; margin: .4rem 0 1.5rem; }
+.tagcloud a { font-family: var(--mono); font-size: .76rem; color: var(--chalk-2); text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: .25rem .7rem; }
+.tagcloud a:hover, .tagcloud a.on { border-color: var(--yellow); color: var(--yellow); }
+.tagcloud a i { font-style: normal; color: var(--chalk-3); margin-left: .3rem; }
+.tag-table { width: 100%; border-collapse: collapse; font-size: .95rem; margin: .5rem 0 1.5rem; }
+.tag-table td { padding: .45rem .4rem; border-bottom: 1px solid var(--rule); }
+.tag-table td.num { font-family: var(--mono); text-align: right; color: var(--chalk-3); white-space: nowrap; }
+.tag-table a { color: var(--chalk); text-decoration: none; }
+.tag-table a:hover { color: var(--yellow); }
+
+/* ---------- problem page ---------- */
+.crumbs { font-family: var(--mono); font-size: .74rem; letter-spacing: .04em; color: var(--chalk-3); margin-bottom: 1rem; }
+.crumbs a { color: var(--chalk-2); text-decoration: none; }
+.crumbs a:hover { color: var(--yellow); }
+article h1 { font-size: clamp(2rem, 5vw, 3rem); margin: .2rem 0 .9rem; text-transform: none; }
+article .meta-row { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.4rem; }
+article .meta-row .date { font-family: var(--mono); color: var(--chalk-3); font-size: .78rem; }
+.statusbox { display: grid; grid-template-columns: auto 1fr; gap: .2rem 1.1rem; align-items: start; border: 1px solid var(--rule-2); border-radius: 10px; padding: 1rem 1.2rem; margin: 0 0 1.4rem; background: var(--slate-2); }
+.statusbox .sbig { width: 2.2rem; height: 2.2rem; border-radius: 6px; border: 2.5px solid var(--c-open); grid-row: span 2; margin-top: .15rem; }
+.statusbox.g-open .sbig { border-color: var(--c-open); opacity: .6; }
+.statusbox.g-openlean .sbig { border-color: var(--yellow); }
+.statusbox.g-finite .sbig { border-color: var(--c-finite); }
+.statusbox.g-proved .sbig { background: var(--c-proved); border-color: var(--c-proved); }
+.statusbox.g-disproved .sbig { background: var(--c-disproved); border-color: var(--c-disproved); }
+.statusbox.g-solved .sbig { background: var(--c-solved); border-color: var(--c-solved); }
+.statusbox.g-onesided .sbig { border-color: var(--c-axiom); }
+.statusbox.g-independent .sbig { background: var(--c-axiom); border-color: var(--c-axiom); }
+.statusbox .sline { display: flex; flex-wrap: wrap; gap: .4rem .8rem; align-items: center; }
+.statusbox .sline .date { font-family: var(--mono); font-size: .74rem; color: var(--chalk-3); }
+.statusbox p { margin: .45rem 0 0; font-size: 1rem; color: var(--chalk-2); line-height: 1.55; }
+.statusbox p.src { font-size: .82rem; color: var(--chalk-3); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 1.4rem 0; }
+.facts > div { padding: .8rem .9rem .85rem 0; }
+.facts .k { display: block; font-family: var(--mono); font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: .25rem; }
+.facts .v { font-size: .95rem; color: var(--chalk); }
+.facts .v a { color: var(--yellow); }
+.prob-nav { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--mono); font-size: .82rem; margin: 2.4rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.prob-nav a { text-decoration: none; }
+.statement { border-left: 3px solid var(--yellow); padding: .3rem 0 .3rem 1.2rem; margin: 1.3rem 0; font-size: 1.18rem; line-height: 1.7; color: var(--chalk); }
+.gloss { font-size: 1.08rem; line-height: 1.55; color: var(--chalk); margin: .2rem 0 1.1rem; max-width: 46rem; }
+.gloss .gloss-src { display: block; font-family: var(--mono); font-size: .7rem; letter-spacing: .03em; color: var(--chalk-3); margin-top: .35rem; }
+.statement .st-src { display: block; font-family: var(--mono); font-size: .7rem; letter-spacing: .03em; color: var(--chalk-3); margin-top: .7rem; line-height: 1.6; }
+.statement .st-def { font-size: .98rem; color: var(--chalk-3); margin: .5rem 0 0; }
+.katex { color: var(--chalk); font-size: 1.04em; }
+.tracker-strip { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; align-items: center; border: 1px solid var(--rule-2); border-radius: 8px; background: var(--slate-2); padding: .7rem .95rem; margin: 1rem 0 1.3rem; font-family: var(--mono); font-size: .74rem; letter-spacing: .03em; color: var(--chalk-3); }
+.tracker-strip .ts-k { color: var(--chalk-3); text-transform: uppercase; letter-spacing: .06em; margin-right: .3rem; }
+.tracker-strip .ts-v { color: var(--chalk); }
+.tracker-strip a { color: var(--yellow); text-decoration: none; }
+.tracker-strip a:hover { text-decoration: underline; }
+.notice { border: 1px solid rgba(230,191,125,.5); border-left: 3px solid var(--c-solved); color: var(--chalk-2); background: rgba(230,191,125,.06); border-radius: 6px; padding: .8rem 1rem; font-size: .95rem; margin: 1rem 0; line-height: 1.55; }
+.notice strong { color: var(--c-solved); }
+.notice.ok { border-color: rgba(162,214,156,.5); border-left-color: var(--c-proved); background: rgba(162,214,156,.06); }
+
+/* ---------- prose ---------- */
+.body-content { max-width: 46rem; margin: 1.4rem 0 0; font-size: 1.05rem; line-height: 1.7; color: var(--chalk-2); }
+.body-content h2, .body-content h3, .body-content h4 { color: var(--chalk); margin: 2rem 0 .6rem; text-transform: none; }
+.body-content h2 { font-size: 1.7rem; border-bottom: 1px solid var(--rule); padding-bottom: .3rem; }
+.body-content h3 { font-size: 1.35rem; }
+.body-content h4 { font-family: var(--mono); font-size: .82rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-2); }
+.body-content p { margin: 0 0 1.05rem; }
+.body-content ul, .body-content ol { margin: 0 0 1.1rem; padding-left: 1.4rem; }
+.body-content li { margin: .3rem 0; }
+.body-content a { color: var(--yellow); }
+.body-content strong { color: var(--chalk); }
+.body-content em { color: var(--chalk); }
+.body-content blockquote { margin: 1rem 0; padding: .2rem 0 .2rem 1rem; border-left: 2px solid var(--rule-2); color: var(--chalk-3); }
+.body-content code { font-family: var(--mono); font-size: .86em; background: rgba(255,255,255,.06); padding: .1em .35em; border-radius: 4px; }
+.body-content pre { background: rgba(0,0,0,.25); border: 1px solid var(--rule); border-radius: 8px; padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.3rem; }
+.body-content pre code { background: none; padding: 0; }
+.body-content .math-block, .body-content .katex-display { overflow-x: auto; overflow-y: hidden; }
+.body-content .table-wrap { width: 100%; overflow-x: auto; margin: 0 0 1.3rem; border: 1px solid var(--rule); border-radius: 6px; }
+.body-content table { width: 100%; border-collapse: collapse; min-width: max-content; font-size: .92rem; }
+.body-content th, .body-content td { padding: .5rem .75rem; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+.body-content th:last-child, .body-content td:last-child { border-right: 0; }
+.body-content th { font-family: var(--mono); font-size: .76rem; color: var(--chalk); background: rgba(255,255,255,.04); }
+.about-block { max-width: 46rem; font-size: 1.04rem; line-height: 1.7; }
+.about-block h2 { font-size: 1.5rem; margin: 2rem 0 .6rem; text-transform: none; }
+.status-def { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; align-items: baseline; margin-bottom: .9rem; font-size: .97rem; }
+.status-def > :first-child { justify-self: start; }
+
+/* ---------- record lists (our work, friends, submissions) ---------- */
+.record-list { display: flex; flex-direction: column; margin-bottom: 1rem; border-top: 1px solid var(--rule); }
+.record-item { padding: 1rem 0 1.05rem; border-bottom: 1px solid var(--rule); }
+.record-item .meta { margin-bottom: .3rem; }
+.record-item h3 { font-size: 1.2rem; margin: 0 0 .35rem; text-transform: none; }
+.record-item h3 a { color: var(--chalk); text-decoration: none; }
+.record-item h3 a:hover { color: var(--yellow); }
+.record-item .summary { color: var(--chalk-3); margin: 0 0 .6rem; font-size: .96rem; line-height: 1.55; }
+.sub-item { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.sub-item h3 { font-size: 1.2rem; margin: .2rem 0 .45rem; }
+.sub-item h3 a { color: var(--chalk); text-decoration: none; }
+.review-box { border: 1px solid var(--rule-2); border-radius: 8px; background: var(--slate-2); padding: 1rem 1.2rem; margin: 1.2rem 0; }
+.review-box .rb-k { font-family: var(--mono); font-size: .72rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: .4rem; }
+.links-list { font-size: .95rem; margin-top: 1.6rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); }
+.links-list a { display: block; margin: .35rem 0; overflow-wrap: anywhere; }
+.links-heading { font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: .45rem; }
+.lh-receipt { color: var(--yellow); }
+.links-list + .links-list { border-top: 0; padding-top: 0; }
+
+/* our-work scoreboard (the /progress ledger) */
+.stats-strip { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 1.6rem 0 0; }
+.stat-box { padding: .9rem .8rem; border-left: 1px solid var(--rule); cursor: pointer; text-align: left; }
+.stat-box:first-child { border-left: 0; }
+.stat-box:hover { background: var(--slate-2); }
+.stat-box:focus-visible { outline: 2px solid var(--yellow); outline-offset: -2px; }
+.stat-box.active { background: var(--slate-3); box-shadow: inset 0 -3px 0 var(--yellow); }
+.stat-value { font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 600; color: var(--chalk); line-height: 1; }
+.stat-label { font-family: var(--mono); font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); margin-top: .4rem; }
+.stat-closed .stat-value, .stat-closedbyus .stat-value { color: var(--c-proved); }
+.stat-confirmed .stat-value { color: var(--c-solved); }
+.stat-live .stat-value { color: var(--c-finite); }
+.stat-noproof .stat-value { color: var(--chalk-3); }
+.filter-hint { font-family: var(--mono); font-size: .7rem; color: var(--chalk-3); margin: .5rem 0 1.6rem; letter-spacing: .03em; }
+.headlines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.headline-card { border: 1px solid var(--rule); border-radius: 10px; background: var(--slate-2); padding: 1.1rem 1.2rem 1.2rem; border-top: 3px solid var(--rule-2) !important; border-left: 1px solid var(--rule) !important; }
+.headline-card .hl-tag { display: inline-block; font-family: var(--mono); font-size: .66rem; letter-spacing: .07em; text-transform: uppercase; border: 1px solid; border-radius: 2px; padding: .15rem .45rem; margin-bottom: .6rem; }
+.headline-card .hl-meta { font-family: var(--mono); font-size: .72rem; color: var(--chalk-3); margin-bottom: .2rem; }
+.headline-card h3 { font-size: 1.12rem; margin: 0 0 .45rem; text-transform: none; line-height: 1.3; }
+.headline-card h3 a { color: var(--chalk); text-decoration: none; }
+.headline-card h3 a:hover { color: var(--yellow); }
+.headline-card .summary { font-size: .92rem; color: var(--chalk-3); margin: 0 0 .8rem; line-height: 1.5; }
+.headline-card .cta { font-size: .72rem; padding: .4rem .8rem; }
+.target-card { border: 1px solid var(--rule); border-radius: 10px; background: var(--slate-2); padding: 1.2rem 1.3rem; margin-bottom: 1rem; }
+.seat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; margin-bottom: 1.2rem; }
+.seat-card { border: 1px solid var(--rule); border-radius: 8px; padding: .9rem 1rem; }
+.seat-card h4 { font-family: var(--mono); font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; margin: 0 0 .4rem; color: var(--chalk); }
+.seat-card p { font-size: .88rem; color: var(--chalk-3); margin: 0; }
+.chip { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; padding: .1rem .45rem; border: 1px solid var(--rule-2); color: var(--chalk-3); border-radius: 2px; }
+
+/* ---------- forms ---------- */
+.form { max-width: 44rem; margin: 1rem 0; }
+.form label { display: block; font-family: var(--mono); font-size: .72rem; letter-spacing: .07em; text-transform: uppercase; color: var(--chalk-3); margin: 1.2rem 0 .35rem; }
+.form input[type=text], .form input[type=email], .form input[type=number], .form select, .form textarea { width: 100%; background: var(--slate-2); border: 1px solid var(--rule-2); color: var(--chalk); font-family: var(--serif); font-size: 1rem; padding: .6rem .7rem; border-radius: 6px; }
+.form textarea { min-height: 9rem; font-family: var(--mono); font-size: .88rem; line-height: 1.5; }
+.form input:focus, .form textarea:focus, .form select:focus { outline: 2px solid var(--yellow); outline-offset: 0; }
+.form .hint { font-size: .9rem; color: var(--chalk-3); margin: .3rem 0 0; }
+.form .consent { display: flex; gap: .6rem; align-items: flex-start; text-transform: none; letter-spacing: 0; font-family: var(--serif); font-size: .98rem; color: var(--chalk-2); margin-top: 1.3rem; }
+.form button { margin-top: 1.4rem; background: var(--yellow); color: var(--ink); border: 0; border-radius: 6px; font-family: var(--mono); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: .88rem; padding: .75rem 1.5rem; cursor: pointer; }
+.form .hp { position: absolute; left: -9999px; top: -9999px; height: 0; width: 0; opacity: 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .cols { grid-template-columns: 1fr; }
+  .bignums { grid-template-columns: repeat(3, 1fr); }
+  .bignums > :nth-child(4) { border-left: 0; padding-left: 0; }
+  .bignums > :nth-child(n+4) { border-top: 1px solid var(--rule); }
+  .stats-strip { grid-template-columns: repeat(3, 1fr); }
+  .stat-box:nth-child(4) { border-left: 0; }
+  .stat-box:nth-child(n+4) { border-top: 1px solid var(--rule); }
+  .headlines { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  .smap-head { display: none; }
+  .smap-row { grid-template-columns: 1fr 1fr; }
+  .smap-label { grid-column: 1 / -1; padding-bottom: .3rem; }
+  .smap-cell { border-left: 0; padding-top: .5rem; }
+  .smap-cell + .smap-cell { border-left: 1px solid var(--rule); }
+  .smap-cell .colname { display: block; font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--chalk-3); margin-bottom: .35rem; }
+  .smap-cell .sqs { gap: 2px; }
+  .band { grid-template-columns: 1fr; }
+  .band .ctas { flex-direction: row; flex-wrap: wrap; }
+  .status-def { grid-template-columns: 1fr; gap: .3rem; }
+  header.site .nav-toggle { display: block; }
+  header.site .mark span { display: none; }
+  header.site .mark b { font-size: 1.3rem; }
+  .section-header { flex-wrap: wrap; gap: .3rem .8rem; }
+  .section-header .line { display: none; }
+  .section-header h2 { white-space: normal; }
+  .smap-cell .sq { width: 7px; height: 7px; border-width: 1.2px; }
+  header.site nav { display: none; width: 100%; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); margin-top: .4rem; }
+  header.site.nav-open nav { display: flex; }
+  header.site nav a { padding: .8rem 0; border-bottom: 1px solid var(--rule); font-size: .85rem; }
+  .rlist li { grid-template-columns: 3.6rem 1fr auto; }
+  .plist li { grid-template-columns: 3.6rem 1fr; }
+  .board-grid { grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr)); gap: 3px; }
+  .board-grid a { font-size: .68rem; }
+}
+@media (max-width: 420px) {
+  .bignums { grid-template-columns: repeat(2, 1fr); }
+  .bignums > :nth-child(n) { border-left: 1px solid var(--rule); padding-left: .9rem; border-top: 1px solid var(--rule); }
+  .bignums > :nth-child(odd) { border-left: 0; padding-left: 0; }
+  .bignums > :nth-child(-n+2) { border-top: 0; }
+  .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat-box:nth-child(n) { border-left: 1px solid var(--rule); border-top: 1px solid var(--rule); }
+  .stat-box:nth-child(odd) { border-left: 0; }
+  .stat-box:nth-child(-n+2) { border-top: 0; }
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof renderMathInElement === 'function') {
+    var B = String.fromCharCode(92);
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: B + '[', right: B + ']', display: true },
+        { left: B + '(', right: B + ')', display: false }
+      ],
+      throwOnError: false
+    });
+  }
+});
+</script>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a class="mark" href="/"><b>Erdős Problem a Day</b><span>the open tracker</span></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  <nav><a href="/board">Board</a><a href="/guide">Guide</a><a href="/submit">Submit</a><a href="/submissions">Submissions</a><a href="/progress" class="on">Our attempts</a><a href="/about">About</a></nav>
+</header>
+
+<article>
+  <div class="problem-num">ERDŐS #1186</div>
+  <h1>#1186, Graham&#39;s $100 question: Carlos Toledo&#39;s computer-assisted proof that δ₃ = 117/2192 — the twelve-block colouring is optimal — holds as read by an AI referee, and a verifier written here from his paper and file-format note accepts all five certificates; Star Fleet Math claimed the same value, by a similar route, in July</h1>
+  <div class="meta-row"><span class="badge badge-partial">PARTIAL</span><span class="date">NOV 19, 2026</span></div>
+  <div class="tracker-strip"><span><span class="ts-k">Community database</span> <span class="chip-st st-open" title="No proof or disproof is known, and it isn&#39;t known whether a finite computation could settle it.">OPEN</span></span><span><span class="ts-k">as of</span> <span class="ts-v">2026-04-04</span></span><span><span class="ts-k">tags</span> <a href="/board?tag=additive%20combinatorics">additive combinatorics</a>, <a href="/board?tag=arithmetic%20progressions">arithmetic progressions</a></span><span><a href="/problem/1186">problem page</a> &middot; <a href="https://www.erdosproblems.com/1186" target="_blank" rel="noopener">erdosproblems.com/1186</a></span></div>
+  
+  <div class="body-content">
+<p><strong>The problem</strong> (<a href="https://www.erdosproblems.com/1186">erdosproblems.com/1186</a>; Erdős 1980, p. 93). Colour the numbers 1, …, <em>n</em> red and blue. How few monochromatic <em>k</em>-term arithmetic progressions can there be? Erdős wrote <em>A</em>(<em>n</em>; <em>k</em>) for the least number and asked whether one can get an asymptotic formula. The problem is now stated with the constant δ<sub><em>k</em></sub>: every colouring has at least (δ<sub><em>k</em></sub> + <em>o</em>(1))<em>n</em>² of them, and the question is to find good bounds on δ<sub><em>k</em></sub>. For three-term progressions a random colouring gives about <em>n</em>²/16. In 2008 Parrilo, Robertson and Saracino found a colouring that does better: twelve alternating blocks, of relative lengths 28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28 out of 548, with about 117<em>n</em>²/2192 monochromatic progressions. They proved that every colouring has at least (1675/32768 + <em>o</em>(1))<em>n</em>² and wrote that they believe their colouring is optimal. Their introduction begins: "At the Erdős Conference in Budapest in the summer of 1999, Ron Graham proposed the following $100 problem". The refereed literature has not moved since: 0.05112 ≈ 1675/32768 ≤ δ<sub>3</sub> ≤ 117/2192 ≈ 0.05338. Greenwood, Kariv and Williams (<em>Math. Comp.</em>, 2024) proved the twelve blocks optimal among antisymmetric colourings with at most twelve blocks, which is a restricted class.</p>
+
+<p><strong>Two independent claims of δ<sub>3</sub> = 117/2192 this year, and a Lean formalisation of the second; none refereed.</strong></p>
+<ul>
+<li><em>By 15 July.</em> <strong>Star Fleet Math</strong> (starfleetmath.com, Colin Snyder; its agents run on GPT-5.6) states "δ₃ = 117/2192 exactly". Its page says the lower bound "is an exact rational sum-of-squares certificate verified by two independent exact-arithmetic checkers; its discrete-to-continuum reduction is hand-verified". An Internet Archive snapshot of 15 July 2026, 00:25 UTC, already carries the entry, with an update dated 13 July. Its method has the same shape as the one below, with one certificate on 548 equal cells. The proofs were written by GPT-5.6 agents and reviewed by a Claude harness. It was never submitted as a proof claim on erdosproblems.com, and we have not run its bundle.</li>
+<li><em>5 October.</em> <strong>Carlos Toledo</strong> (cert-machine, an independent researcher in Brazil) posted the proof claim that appears on the problem's page. He disclosed AI help ("using Claude (Anthropic)") and wrote that he had read the mathematics line by line. His certificates were generated in his own sandbox and are checked by two programs written by AI agents, the second one under a clean-room rule. A correction of 20 October, after an outside audit, withdrew one sentence about how tight the bathtub bound is; it changed no verdict. Nobody has refereed the claim.</li>
+<li><em>26–27 October.</em> <strong>Chandler Snively's Quana Labs</strong> released a Lean formalisation of Toledo's argument (aiXiv:2610.02762). Its abstract says "The mathematics of Theorem C is Toledo's, not ours". It reports a Lean proof of Formal Conjectures' statement <code>erdos_1186.variants.prs_conjecture : δ 3 = 117 / 2192</code>, in a discrete form with five stated departures from Toledo's argument. For example, it covers ±1 colourings only, and it proves the five finite statements in the weaker form <em>L</em> ≥ 0, so the uniqueness of ±φ* is not formalised. It uses certificates of its own, never Toledo's, and it reports that lean4checker replayed all 342 modules. Its README says that no independent human mathematician has checked the proofs. As of 19 November nobody outside Quana has reported a replay; Quana's own GitHub build, without the kernel replay, passed on 27 October.</li>
+</ul>
+
+<p><strong>This entry referees Toledo's claim</strong>, the one on the problem's page.</p>
+
+<p><strong>The argument, in four steps.</strong></p>
+<ol>
+<li><em>Reduction</em> (the counting lemma of Parrilo, Robertson and Saracino, re-derived in his §2). The least number of monochromatic progressions in a colouring of [<em>n</em>], <em>V</em>(<em>n</em>), is at least (1/16 + <em>Q</em>*/4 − <em>O</em>(1/<em>n</em>))<em>n</em>². Here <em>Q</em>* is the infimum of <em>Q</em>(φ) = ∬<sub><em>R</em></sub> φ(<em>a</em>)φ(<em>b</em>) d<em>a</em> d<em>b</em> over measurable φ : [0,1] → [−1,1], with <em>R</em> = {(<em>a</em>,<em>b</em>) : <em>a</em>/2 ≤ <em>b</em> ≤ (1+<em>a</em>)/2}. The twelve-block function φ* has <em>Q</em>(φ*) = −5/137, and 1/16 − 5/548 = 117/2192, so everything rests on <em>Q</em> ≥ −5/137.</li>
+<li><em>Expansion.</em> Write φ = φ*(1 − 2σ), where σ ∈ [0,1] is the part flipped against φ*. Then, exactly, <em>E</em>(σ) = (<em>Q</em>(φ) − <em>Q</em>(φ*))/4 = ∫<em>h</em>σ + <em>Q</em>(φ*σ), where <em>h</em> = −φ*·<em>K</em>φ* ≥ 0 vanishes exactly at the eleven block edges. Here (<em>K</em>φ)(<em>a</em>) = ½(∫ φ over [<em>a</em>/2, (1+<em>a</em>)/2] + ∫ φ over [2<em>a</em>−1, 2<em>a</em>] ∩ [0,1]) is the symmetrised kernel of <em>R</em>.</li>
+<li><em>Discretisation.</em> Cut [0,1] into cells whose ends include every edge, and let <em>y</em><sub><em>i</em></sub> be the average of σ on cell <em>i</em>. The bathtub principle bounds ∫<em>h</em>σ on each cell below by <em>a</em><sub><em>i</em></sub><em>y</em><sub><em>i</em></sub> + <em>b</em><sub><em>i</em></sub><em>y</em><sub><em>i</em></sub>². Pairs of cells inside <em>R</em> contribute exactly. Pairs cut by the boundary of <em>R</em> are bounded using only 0 ≤ σ ≤ 1. The result is a piecewise-quadratic <em>L</em>(<em>y</em>) ≤ <em>E</em>(σ) with <em>L</em>(0) = 0; each certificate works with a quadratic minorant of it.</li>
+<li><em>Cover.</em> By the symmetry σ ↔ 1 − σ it is enough to take <em>m</em> = ∫σ ≤ 1/2. Five regions of <em>m</em> each carry an exact rational certificate. For <em>m</em> ≤ 1/5 it shows <em>L</em> ≥ 0, with equality only at <em>y</em> = 0. On the four slabs from 1/5 to 1/2 it shows <em>L</em> &gt; 0, with margins of at least 2.747 × 10<sup>−4</sup>.</li>
+</ol>
+
+<p><strong>What we checked.</strong> All of it was done by Claude instances, not by human mathematicians. A "seat" below is one instance with its own context and its own brief.</p>
+<ul>
+<li><em>The mathematics, re-derived without code.</em> The main seat re-derived steps 1–3. Step 1: each progression that is not monochromatic has exactly two bichromatic pairs among its three. Counting them gives 2<em>V</em> = <em>n</em>²/2 − <em>N</em><sup>+</sup> − <em>T</em> + <em>O</em>(<em>n</em>). Here <em>N</em><sup>+</sup> counts the ordered bichromatic pairs (<em>u</em>, <em>v</em>) with 2<em>v</em> − <em>u</em> in [<em>n</em>], <em>v</em> being the middle term. <em>T</em>, the count of bichromatic same-parity pairs, is at most <em>n</em>²/8. <em>N</em><sup>+</sup> = (<em>n</em>²/2)(1/2 − <em>Q</em>(φ)) + <em>O</em>(<em>n</em>) because <em>R</em> has area 1/2. Step 2 comes from expanding <em>Q</em>(φ* − 2φ*σ), with the factor 1/2 in the symmetrised kernel. Step 3: the bathtub bound needs the derivative of the sublevel measure of <em>h</em> summed over every piece of <em>h</em> at a level, which is how the paper now states it. Each cut-pair bound is a valid lower bound for every measurable σ with 0 ≤ σ ≤ 1. A separately briefed referee instance, told to refute and given the paper, the files and the 2008 paper, re-derived the reduction against Parrilo, Robertson and Saracino's own Lemma 1. It re-checked identity (2), the paper's Lemma 1 (the properties of <em>h</em>), both lemmas of §4, the cover and the uniqueness step with its own exact code. It then went looking for a σ that breaks <em>E</em> ≥ <em>L</em>, on a grid finer than either certificate grid. It tried σ at the far end of each cell from the zero of <em>h</em>, sublevel sets of <em>h</em>, configurations that make each cut-pair bound tight, flips of every block edge by up to 32/2192, and gradient descents: more than 3,000 tries. The smallest exact value of <em>E</em> − <em>L</em> it found is 0, reached at nonzero σ, so the bound is sharp there. It re-verified all five certificates with its own code, finding every bound exactly as claimed, and returned <strong>HOLDS WITH FIXES</strong>. It found no error in the mathematics. Its fixes are listed under the verdict.</li>
+<li><em>The paper's Lemma 1, by our own exact code.</em> <em>Q</em>(φ*) = −5/137, from the areas of the block rectangles. <em>h</em> is linear on every interval of length 1/1096 (checked at interior points), continuous and nonnegative. It vanishes exactly at the eleven edges (56, 68, 124, 198, 316, 548, 780, 898, 972, 1028 and 1040, in units of 1/1096), with one-sided slopes ±1 and ±3/2, and ∫<em>h</em> = 5/137.</li>
+<li><em>Lemma 2, tested exactly.</em> We took all 276 cells of the two certificate grids and 85 values of the cell average on each (<em>k</em>/64 for <em>k</em> = 0, …, 64, and 20 random values). On every one, the exact bathtub minimum (computed by filling the lowest levels of <em>h</em>) is at least <em>a</em><sub><em>i</em></sub><em>y</em> + <em>b</em><sub><em>i</em></sub><em>y</em>²: no failures in 23,460 tests. The test can fail. If the derivative is read as the largest single piece instead of the sum, 1,782 of the same tests fail, which is the misreading Toledo's second verifier reported.</li>
+<li><em>A third verifier.</em> We wrote our own checker of the five certificate files in Python, from the paper and the file-format note alone, without reading Toledo's generators, his verifier or cert-machine's <code>verify.js</code>. It works in exact rationals throughout. It derives φ*, <em>h</em> and the bathtub constants. It computes every cell-pair area twice, by integrating across <em>R</em> in each direction (the two must agree), and from those the full/cut classification and the quadratic <em>L</em><sub>θ</sub>. Then it subtracts the stated multiples of the nonnegative forms. It proves positive definiteness by fraction-free elimination on integer matrices: every leading principal minor must be positive, with no floating point anywhere (cert-machine's verifier instead rounds a floating-point Cholesky factor and proves the exact remainder diagonally dominant, which is also rigorous, for semidefiniteness). It also checks:
+  <ul>
+  <li>the sign of every multiplier;</li>
+  <li>every triangle form, which needs three distinct indices and s₁s₂s₃ = 1;</li>
+  <li>that every θ lies in [0, 1];</li>
+  <li>that every grid contains every edge;</li>
+  <li>that each slab's stated bound equals <em>B</em> − ε(1 + <em>n</em>) and is positive;</li>
+  <li>the linear terms of the inner identity, exactly;</li>
+  <li>and the cover.</li>
+  </ul>
+  It <strong>accepts all five certificates</strong>, and they are the same five files, byte for byte, as in cert-machine's ledger. We also tried 16 mutations on three of the certificates. It refused 14, each by the rule broken:
+  <ul>
+  <li>a negative multiplier (tried on two certificates);</li>
+  <li>a missing block edge (tried on two certificates);</li>
+  <li>a doubled inner radius;</li>
+  <li>half the inner multipliers dropped;</li>
+  <li>one bathtub constant raised by 10<sup>−9</sup> in the inner certificate;</li>
+  <li>a slab bound raised by 10<sup>−6</sup>;</li>
+  <li>ε set to 0;</li>
+  <li>every θ set to 1;</li>
+  <li>a slab widened by 1/100;</li>
+  <li>a mirrored <em>R</em> on a slab;</li>
+  <li>the triangle forms removed;</li>
+  <li>one triangle with s₁s₂s₃ = −1.</li>
+  </ul>
+  It accepted the other two, as it should. Mirroring <em>R</em> leaves the inner quadratic form unchanged. The same 10<sup>−9</sup> change in a slab is absorbed by that slab's margin, so the bathtub constants rest on Lemma 2 itself (re-derived above and tested exactly on 23,460 cases), not on the certificates. Toledo's two verifiers, re-run here, also accept the five files, and cert-machine's 79-check forgery battery passes.</li>
+<li><em>Trying to beat 117/2192.</em> A compute seat, with its own code, looked for anything better. On step functions with 1,096 and 2,192 equal cells it ran about 4,100 local searches (coordinate descent, projected gradient, simulated annealing and tabu search) from random, smoothed, block-shaped and perturbed starts. Because every grid vector is a genuine step function, any grid value below −5/137 would have been a real counterexample. None was found. The best was φ* itself, reached exactly by about one coordinate-descent run in seven and by every annealing and tabu run. It also ran 91 descents that move the block edges of 2- to 30-block functions continuously, using exact <em>Q</em> and its exact gradient. None went below −5/137, and 19 ended at φ*, one of them from a random 30-block start. Exact first- and second-order checks show that φ* is a strict local minimiser. The search can find a better optimum when one exists. In one control the problem was tilted so that a nearby colouring beats φ* by 1.9 × 10<sup>−5</sup>. The search found it in more than half of the coordinate-descent runs and in every annealing and tabu run. On actual colourings of [<em>n</em>], 244 annealing and tabu runs for <em>n</em> = 300, 600, 1,096 and 2,192 found nothing below 117<em>n</em>²/2192 − <em>n</em>/2. The best colouring at every <em>n</em> has the twelve-block shape. At <em>n</em> = 1,096 and 2,192 it is exactly the twelve-block colouring, with 63,568 and 255,368 monochromatic progressions. Up to <em>n</em> = 16 the same searches match exhaustive enumeration. Our referee also ran 2,090 descents of its own on grids of 548 and 1,096 cells, with the same result. A search cannot prove a minimum. It can only fail to find a counterexample, and it did.</li>
+<li><em>The world.</em> A literature seat searched arXiv, MathOverflow, Tao's blog, the problem's forum (frozen since 6 October, so the silence there is not acceptance), the community database, Formal Conjectures and the repositories that track these claims. It found Star Fleet's July claim and Quana's formalisation (above), which none of Toledo's pages, cert-machine or our site had mentioned. It found no refereed improvement on 1675/32768. The community database still records #1186 as open, its status last updated 4 April 2026. Toledo's certificates and verifier are byte-for-byte unchanged since 5 October; the paper, rebuilt since, is still labelled "draft v0.2".</li>
+</ul>
+
+<p><strong>Verdict: the proof holds as read.</strong> Our referee found no error in the mathematics. Toledo's two verifiers and ours, written separately, accept the five certificates, and our referee's own exact code reproduced every bound. No search found a colouring below 117/2192. In the labels we use (a, elementary; b, rigorous modulo a named theorem; c, plausible; d, computer-assisted) this is (d): the analytic part is elementary and short, and the rest is five finite exact computations. It is still a claim. No human mathematician has refereed it, here or anywhere we could find. The fixes, for whoever edits the paper:</p>
+<ul>
+<li><em>§2.</em> "The twelve-block colouring is antisymmetric, so its parity classes are balanced" gives the wrong reason. Colouring the odd numbers red is antisymmetric on [<em>n</em>] for even <em>n</em> and makes <em>T</em> = 0. What balances the parity classes is a bounded number of long blocks with equal colour totals. And "(1) is an equality for it" assumes the answer; it should read <em>V</em>(<em>n</em>)/<em>n</em>² = 1/16 + <em>Q</em>(φ*)/4 + <em>O</em>(1/<em>n</em>). Neither sentence carries any weight in the proof.</li>
+<li><em>Abstract, §4's title and §7.</em> These still say the discretisation "loses nothing to first order" and that "the discretisation error is second order". The report withdrew this on 20 October. For σ = <em>t</em> on [0, 16/1096], <em>E</em> − <em>L</em> = (2<em>t</em> + <em>t</em>²)/18769 on the 130-cell grid, which our referee confirmed exactly. What is true is narrower: the linear part of <em>L</em> equals the linear part of the least <em>E</em> with the same cell averages. The proof only uses <em>E</em> ≥ <em>L</em> and <em>L</em>(0) = 0.</li>
+<li><em>§6 and the uniqueness step.</em> The paper says the second verifier proves <em>P</em> positive definite, and the proof that ±φ* are the only minimisers relies on it. cert-machine's <code>verify.js</code> tests only that <em>P</em> is semidefinite. (On this <em>P</em> its own run does show a strict margin.) Our verifier and our referee each showed, by integer elimination, that all 130 leading principal minors of <em>P</em> are positive, so uniqueness holds. The text or the code should say how strictness is established.</li>
+<li><em>Lemma 1.</em> "One-sided slopes 1 or 3/2" should read |slopes|; the left-hand slopes are −1 and −3/2.</li>
+<li><em>The record.</em> Neither the paper nor the report mentions Star Fleet Math's claim of July, or Quana Labs' formalisation of the argument.</li>
+</ul>
+
+<p><strong>What this does not do.</strong></p>
+<ul>
+<li>It is about <em>k</em> = 3 only. Problem #1186 asks about δ<sub><em>k</em></sub> for every <em>k</em>, and Formal Conjectures reads its main question as the order of magnitude as <em>k</em> → ∞. Toledo says his method does not carry over to <em>k</em> = 4 as it stands. So #1186 stays open.</li>
+<li>It is not a human referee's report. Every reader here was a Claude instance, as were Toledo's two verifiers and every agent in Quana's chain. Star Fleet's July argument is the one claim written by another model family; we have not checked it. Separate code rules out shared bugs, not a misreading of the mathematics that all of them share. §§2–4 of the paper, two pages, are where a human reader should look.</li>
+<li><em>Update, 20 November.</em> We rebuilt Quana's Lean proof (dreadpiratechan/erdos-1186, release v1.0.0, commit 0b0155e; Lean v4.27.0, with Mathlib's cached build) on our machine. The build finished with 0 errors, and <code>erdos_1186.variants.prs_conjecture</code>, which says δ(3) = 117/2192, depends only on propext, Classical.choice and Quot.sound. We copied Formal Conjectures' three definitions (main, commit 4beab72) into a fresh namespace, and Lean accepts Quana's theorem at that type; the same copy with <em>k</em> − 1 changed to <em>k</em> in the progression bound is rejected. Mathlib's cached files are not re-checked by such a build; the from-scratch re-check came the next day (below). We have not run Star Fleet's bundle. Logs: <a href="https://github.com/pw/erdosproblemaday-verification/tree/main/1186/toledo-delta3-refereed/lean-replay">lean-replay</a>.</li>
+<li><em>Update, 21 November.</em> The from-scratch re-check is done, and it passed. The v4.27.0 toolchain ships no <code>leanchecker</code>, so we built lean4checker from its v4.27.0 tag (commit 7df7485) and ran <code>lean4checker --fresh Erdos.Proofs.P1186ExFinal</code>. That replays the whole environment of the module holding Quana's final theorem, every imported declaration and Mathlib's included, into an empty kernel. Its output, 5 h 25 min later, contains no error. The checker accepts Lean's own <code>Init.Prelude</code>. On a small file we built with the kernel check switched off, which claims a proof of False, it prints the kernel error "declaration type mismatch", in the normal mode and in <code>--fresh</code> mode alike. In <code>--fresh</code> mode it still exits 0 after printing that error, so the evidence for Quana's proof is the clean output, not the exit code. Both runs, the build and the replay, use Lean's own kernel; we did not run a second kernel on this proof. Logs: <a href="https://github.com/pw/erdosproblemaday-verification/tree/main/1186/toledo-delta3-refereed/lean-replay">lean-replay</a>.</li>
+<li>The theorem is about the limit constant. It says nothing about the exact minimum for a given <em>n</em>; cert-machine's pages of 19 November on exact values for small <em>n</em> were not read here.</li>
+</ul>
+</div>
+  <div class="links-list"><div class="links-heading lh-source">Sources & verification</div><a href="https://www.erdosproblems.com/1186" target="_blank" rel="noopener">erdosproblems.com/1186 — the problem ↗</a>
+<a href="https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395" target="_blank" rel="noopener">C. Toledo&#39;s proof claim on the problem&#39;s page (5 October 2026) ↗</a>
+<a href="https://carlostoledo.co/paper/delta3.pdf" target="_blank" rel="noopener">C. Toledo, The twelve-block colouring is optimal: δ3 = 117/2192 (draft v0.2) ↗</a>
+<a href="https://carlostoledo.co/reports/delta3.html" target="_blank" rel="noopener">C. Toledo, report page, with the 20 October correction ↗</a>
+<a href="https://github.com/carlostoledo1891/cert-machine" target="_blank" rel="noopener">cert-machine — certificates, verifiers, generators ↗</a>
+<a href="https://arxiv.org/abs/math/0609532" target="_blank" rel="noopener">P. A. Parrilo, A. Robertson, D. Saracino, On the asymptotic minimum number of monochromatic 3-term arithmetic progressions (JCTA 115, 2008) ↗</a>
+<a href="https://arxiv.org/abs/2301.00336" target="_blank" rel="noopener">T. Greenwood, J. Kariv, N. Williams, From discrete to continuous: monochromatic 3-term arithmetic progressions (Math. Comp., 2024) ↗</a>
+<a href="https://web.archive.org/web/20260715002525/https://www.starfleetmath.com/" target="_blank" rel="noopener">Star Fleet Math, entry for #1186 (Internet Archive, 15 July 2026) ↗</a>
+<a href="https://aixiv.online/abs/2610.02762" target="_blank" rel="noopener">C. Snively (Quana Labs), aiXiv:2610.02762 — Lean formalisation of Toledo&#39;s argument ↗</a>
+<a href="https://github.com/dreadpiratechan/erdos-1186" target="_blank" rel="noopener">Quana Labs&#39; repository dreadpiratechan/erdos-1186 (release v1.0.0) ↗</a>
+<a href="https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/1186.lean" target="_blank" rel="noopener">Formal Conjectures, ErdosProblems/1186.lean (erdos_1186.variants.prs_conjecture) ↗</a>
+<a href="https://github.com/pw/erdosproblemaday-verification/tree/main/1186/toledo-delta3-refereed" target="_blank" rel="noopener">Our verification bundle — the third verifier, its runs and mutations, the seats&#39; scripts ↗</a></div>
+</article>
+<p class="meta" style="margin-top:2rem"><a href="/progress">← our attempt log</a> &middot; <a href="/problem/1186">problem #1186 on the board</a></p>
+
+<footer class="site">
+  <p>The problems are Paul Erdős's, collected by Thomas Bloom at <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a> — the authoritative wording lives there.
+  Statuses come from the community database <a href="https://github.com/teorth/erdosproblems" target="_blank" rel="noopener">teorth/erdosproblems</a> and statements from
+  Google DeepMind's <a href="https://github.com/google-deepmind/formal-conjectures" target="_blank" rel="noopener">Formal Conjectures</a>, both Apache-2.0.</p>
+  <p>Built and kept by Patrick White with Claude (Anthropic). Our own attempts are labelled as ours, everywhere. <a href="/about">About</a> · <a href="/submit">Send an attempt</a></p>
+</footer>
+</div>
+<script>
+(function() {
+  var btn = document.querySelector('.nav-toggle');
+  var header = document.querySelector('header.site');
+  if (!btn || !header) return;
+  btn.addEventListener('click', function() {
+    var open = header.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+})();
+</script>
+<script>
+(function(){
+  var list = document.getElementById('recordList');
+  if (!list) return;
+  var items = Array.prototype.slice.call(list.querySelectorAll('.record-item'));
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.stat-box[data-filter]'));
+  var bar = document.getElementById('filterBar');
+  var barText = document.getElementById('filterBarText');
+  var clearBtn = document.getElementById('filterClear');
+  var today = Array.prototype.slice.call(document.querySelectorAll('.js-today'));
+  var current = 'all';
+  function boxFor(k){ for (var i=0;i<boxes.length;i++){ if (boxes[i].getAttribute('data-filter')===k) return boxes[i]; } return null; }
+  function labelFor(k){ var b = boxFor(k); return b ? b.getAttribute('data-label') : k; }
+  function matches(it, k){ if (k==='all') return !it.classList.contains('is-today') && !it.classList.contains('is-headline') && it.getAttribute('data-verdict')!=='SKIP'; if (k==='closedbyus') return it.getAttribute('data-cb')==='1'; return it.getAttribute('data-status')===k; }
+  function setView(k){
+    current = k;
+    var filtering = (k !== 'all');
+    document.body.classList.toggle('filtering', filtering);
+    today.forEach(function(el){ el.style.display = filtering ? 'none' : ''; });
+    if (bar) bar.hidden = !filtering;
+    var n = 0;
+    items.forEach(function(it){ var show = matches(it, k); if (show) n++; it.style.display = show ? '' : 'none'; });
+    if (barText) barText.textContent = filtering ? ('Showing ' + labelFor(k).toLowerCase() + '  ·  ' + n + (n===1?' entry':' entries')) : '';
+    boxes.forEach(function(b){ var on = b.getAttribute('data-filter')===k; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+  }
+  function handler(b){ return function(ev){ if (ev.type==='keydown'){ if (ev.key!=='Enter' && ev.key!==' ' && ev.keyCode!==13 && ev.keyCode!==32) return; ev.preventDefault(); } var k = b.getAttribute('data-filter'); setView((current===k && k!=='all') ? 'all' : k); }; }
+  boxes.forEach(function(b){ b.addEventListener('click', handler(b)); b.addEventListener('keydown', handler(b)); });
+  if (clearBtn) clearBtn.addEventListener('click', function(){ setView('all'); });
+  setView('all');
+})();
+</script>
+</body>
+</html>

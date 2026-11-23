@@ -109,6 +109,7 @@ test:
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "delta3 (the 12-block theorem)"; $(NODE) instruments/delta3/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "delta3 (P strictly definite)"; $(NODE) instruments/delta3/strict.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "delta4 (the k = 4 scout)"; $(NODE) instruments/delta4/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "easota (the SOTA table)"; $(NODE) instruments/easota/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ecbench (contour benchmark)"; $(NODE) instruments/ecbench/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
