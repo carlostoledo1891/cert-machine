@@ -75,6 +75,15 @@ const P1 = 'cert-machine-r1/P1-RESULT.md';
 const PROD = 'claude-r7/PROD-RESULT.md';
 const REVEAL = 'reveal-draft/REVEAL-DRAFT.md';
 const CHENAUD = 'control-room-checks/CHEN-RALPH-READING-AUDIT.md';
+const C35REV = 'control-room-checks/C35-REVIEW-CHECK.md';   /* the control room's check of an outside reading of C35 (06:22 UTC 23 Nov) */
+const README = 'corpus/r310-c35-r7/README.md';   /* the published record's README (in the repository, not the lane) */
+/* a phrase that must stand in a file of the repository itself, not of the lane */
+function citeRepo(rel, needle) {
+  const p = path.join(ROOT, rel);
+  need(fs.existsSync(p), 'a repository file is gone: ' + rel);
+  need(has(fs.readFileSync(p, 'utf8'), needle), rel + ' no longer says: ' + needle);
+  return rel;
+}
 const REVEAL2 = 'reveal-draft/REVEAL-v2-2026-11-23.md';   /* the reveal's source of truth (written 04:25–05:15 UTC 23 Nov) */
 const RECHECK = 'reveal-draft/PRIOR-ART-RECHECK-2026-11-23.md';
 const GR13 = 'audit/gr2013/gr2013.txt';   /* Goedgebeur–Radziszowski 2013, as read (arXiv 1210.5826) */
@@ -246,6 +255,33 @@ function boxes() {
   cite(REVEAL2, 'claude-fable-5-2 from 01:27:15 UTC 22 Nov (line 2880) to 23:13 UTC (line 11835)');
   cite(REVEAL2, 'cert-machine, since 23:13 UTC 22 Nov | claude-opus-5-5');
   cite(REVEAL2, 'all 44 turn contexts gpt-6.2-astra');
+  /* box 1, after the outside reading checked by the control room (C35-REVIEW-CHECK.md, claims 1, 2 and 4) */
+  const WHY39 = 'Call the copy’s 35 vertices the core and the rest outside. If an outside vertex were unjoined to two other outside vertices, their three core-neighbourhoods would be three sets that Lemma P, a finite fact checked by computer, says cannot exist; so the missing edges among the outside vertices form a matching. Five outside vertices missing only a matching always contain a triangle, so there are at most four, and 35 + 4 = 39; four with no triangle must miss two disjoint edges, which leaves exactly a 4-cycle.';
+  cite(C35REV, 'So each outside vertex misses at most one of the others: the missing edges among outside vertices form a matching. Five outside vertices would then always contain a triangle');
+  cite(C35REV, '| 1 mechanism | CERTIFIED |');
+  const EXOO = { text: 'Of the 82,251 ways to remove four of the 39 vertices of Exoo’s 1989 graph, exactly one leaves an induced copy of C35(1,7,11,16), and the four removed vertices induce a 4-cycle: the equality case of the theorem appears in Exoo’s example.', caveat: 'checked on the isomorphism class identified from our own files; Exoo’s pinned bytes were not at home' };
+  cite(C35REV, 'Of the C(39,4) = 82,251 four-subsets W');
+  cite(C35REV, '| 2 Exoo\'s square | CERTIFIED (count and C4), on the class identified from our files | 1 of 82,251 four-subsets leaves C35(1,7,11,16), and it induces C4.');
+  const SMALLER = 'A smaller certificate for Lemma P: 385 of the 3,360 independent 8-sets suffice, in five orbits of the circulant’s 210 affine symmetries (105 + 70 + 70 + 105 + 35). No union of whole orbits with fewer sets works (1,082 non-empty unions checked). Smaller sub-families exist (an irredundant one of 368 sets), so 385 is minimal only among unions of whole orbits. Confirmed by our own search and by a SAT proof that lrat-check and cake_lpr accept.';
+  cite(C35REV, '| 4 smaller certificate | CERTIFIED as stated | 3,360 sets, 6 multipliers, 210 maps, 23 orbits. One union of five orbits (105 + 70 + 70 + 105 + 35 = 385) has no triple');
+  cite(C35REV, '1,082 non-empty');
+  cite(C35REV, 'A greedy pass gives an irredundant 368-set sub-family');
+  const FOUND = 'The square and the smaller certificate were found in a reading by GPT-6.2-astra (via Carlos Toledo’s chat) and checked by our own code.';
+  /* box 2: the full ledger, released */
+  const RELEASE = { url: 'https://github.com/carlostoledo1891/cert-machine/releases/tag/r310-r7-ledger-2026-11-23', index: 29, package: 'r7-ledger-prod-tsv-reveal.tar.gz',
+    package_sha256: '4e1b1b5d01a2411ddaa4d3903627ae877a85d9f81db96d11d47d5b972260e8ee', prod_sha256: 'ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793' };
+  citeRepo(README, 'published as a sealed reveal package (index 29) in the release https://github.com/carlostoledo1891/cert-machine/releases/tag/r310-r7-ledger-2026-11-23 (2026-11-23; r7-ledger-prod-tsv-reveal.tar.gz, sha256 4e1b1b5d01a2411ddaa4d3903627ae877a85d9f81db96d11d47d5b972260e8ee)');
+  citeRepo(README, 'Ledger sha256 ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793');
+  cite(LOG, 'on his word, the R(7) ledger released');
+  /* the two full-CNF configurations regenerated from public sources (the control room's kit, corpus/r310-c35-r7/r7/regen-two/) */
+  const KIT = 'corpus/r310-c35-r7/r7/regen-two/';
+  const REGEN = { ids: [332942, 745446], seconds: '62.89', where: 'a laptop (an arm64 Mac)', kit: KIT, kit_url: 'https://github.com/carlostoledo1891/cert-machine/tree/main/' + KIT,
+    tar: 'regen-two.tar.gz', tar_sha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, KIT, 'regen-two.tar.gz'))).digest('hex') };
+  need(REGEN.tar_sha256 === 'afbfe98e59d705e464271885b94768b24a4fcaff66fb1730d47fd46d7cbeeb50', 'the regeneration kit is not the one the control room pinned');
+  citeRepo(KIT + 'README.md', 'This replay does not determine R(3,10) or establish proof-byte reproducibility for other configurations. On the arm64 Mac, both full CNFs and both regenerated LRAT proofs matched their production hashes. For each proof, lrat-check printed c VERIFIED and cake_lpr printed s VERIFIED UNSAT');
+  citeRepo(KIT + 'README.md', '62.89 seconds elapsed');
+  citeRepo(KIT + 'README.md', '| 332942 | X1 |');
+  citeRepo(KIT + 'README.md', '| 745446 | X2 |');
   const reg = fs.readFileSync(path.join(ROOT, 'seals', 'registry.jsonl'), 'utf8').trim().split('\n');
   const line = (dg) => reg.findIndex((l) => l.includes(dg)) + 1;
   const dC = 'ed00c76571823fc3e412ea029b9aacdb36678a5bffc8ebfd799a3ca75f9969e4', dR = '75dd6cf73a79b7d95b751136da8a6a8ebb8f994710875d731417dd057fe985eb';
@@ -281,6 +317,7 @@ function boxes() {
     credits: CREDITS,
     boxes: [
       { n: 1, id: 'c35', state: 'opened', label: 'Theorem C35', statement: C35, attained: 'The bound 39 is attained.', also: ALSO, posed: POSED, corollary: COROL,
+        why39: WHY39, exoo_square: EXOO, smaller_certificate: SMALLER, found_by: FOUND,
         seal: { block: 976983, at: '2026-11-22T03:26:46Z', digest: dC, registry_line: line(dC) },
         rows: [
           { id: 'S', what: 'the Lean statements say the claim (read once, by cert-machine)', verdict: 'CERTIFIED' },
@@ -292,7 +329,7 @@ function boxes() {
           { id: 'corollary', what: 'no vertex of degree 4, given Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; known before', verdict: 'CERTIFIED' }],
         lean: { lean: '4.35.0', axioms: 'propext, Classical.choice, Quot.sound', nodes: 32529, search_nodes: 403541 } },
       { n: 2, id: 'r7', state: 'opened', label: 'Case R(7), a second computation', statement: R7,
-        first: 'C-004', registered: '2026-11-22T02:13Z', set_equal: SETEQ, adds: ADDS, sealed_correction: SEALFIX,
+        first: 'C-004', registered: '2026-11-22T02:13Z', set_equal: SETEQ, adds: ADDS, sealed_correction: SEALFIX, ledger_release: RELEASE, regenerated: REGEN,
         seal: { block: 977031, at: '2026-11-22T09:29:47Z', digest: dR, registry_line: line(dR) },
         configurations: 977008, by_level: { level3: 879379, level4: 97627, full: 2 },
         run: { start: '2026-11-22T02:17:45Z', end: '2026-11-22T08:32:12Z', cpu_s: 677467, wall_s: 22466, vcpu: 32 },
@@ -419,7 +456,7 @@ function machine() {
   }
   /* the audits: the control room's notes, one file one audit; an erratum file is a correction of ours, not an audit */
   const top = fs.readdirSync(path.join(LANE, 'control-room-checks')).filter((f) => f.endsWith('.md'));
-  const OPEN_BOX = ['CHEN-RALPH-READING-AUDIT.md', 'P3-X0-CHECK.md', 'P4-KERNEL2-CHECK.md', 'P4-LEAN-READ.md', 'P4-PAGE-TEST.md', 'P4-ROUND3-CHECK.md', 'P4-ROUND4-CHECK.md',
+  const OPEN_BOX = ['C35-REVIEW-CHECK.md', 'CHEN-RALPH-READING-AUDIT.md', 'P3-X0-CHECK.md', 'P4-KERNEL2-CHECK.md', 'P4-LEAN-READ.md', 'P4-PAGE-TEST.md', 'P4-ROUND3-CHECK.md', 'P4-ROUND4-CHECK.md',
     'P5-READ.md', 'P5-READ-2.md', 'P5-READ-3.md', 'P5-READ-4.md'];
   for (const f of OPEN_BOX) need(top.includes(f), 'an audit note of the opened boxes is gone: ' + f);
   const sealedNotes = top.filter((f) => !OPEN_BOX.includes(f) && !/ERRATUM/i.test(f)).length;
@@ -435,6 +472,11 @@ function machine() {
     ['c35', '2026-11-21T18:05Z', 'K: three second checkers', 'CERTIFIED', P1, 'K second checkers | CERTIFIED by three checkers'],
     ['c35', '2026-11-21T18:05Z', 'the degree-4 corollary, given one premise', 'CERTIFIED', P1, 'Corollary (not pre-registered) | CERTIFIED given one named premise'],
     ['c35', '2026-11-23T04:41Z', 'the τ₉ ≥ 6 corollary, in prose, given one premise', 'CERTIFIED', CHENAUD, 'CERTIFIED (proof above; prose, conditional on both premises)'],
+    ['c35', '2026-11-23T06:22Z', 'an outside reading’s mechanism for 39: a matching, then a 4-cycle', 'CERTIFIED', C35REV, '| 1 mechanism | CERTIFIED |'],
+    ['c35', '2026-11-23T06:22Z', 'Exoo’s square: 1 of 82,251 four-subsets leaves C35, and it induces a 4-cycle', 'CERTIFIED', C35REV, '| 2 Exoo\'s square | CERTIFIED (count and C4)'],
+    ['c35', '2026-11-23T06:22Z', 'the label of the fourth removed vertex, without Exoo’s pinned bytes', 'REFUSED', C35REV, 'Label 22: REFUSED here'],
+    ['c35', '2026-11-23T06:22Z', 'the corollary as the page states it', 'CERTIFIED', C35REV, '| 3 corollary on the page | CERTIFIED (stated correctly)'],
+    ['c35', '2026-11-23T06:22Z', 'a smaller certificate: 385 sets in five orbits, minimal among orbit unions', 'CERTIFIED', C35REV, '| 4 smaller certificate | CERTIFIED as stated |'],
     ['r7', '2026-11-22T01:40Z', 'our own enumeration: the 977,008 configurations byte for byte', 'EQUAL', LOG, 'It equals the track’s configs.bin byte for byte: 977,008 records'],
     ['r7', '2026-11-22T01:40Z', 'our own decider on 24 configurations and 14 controls', 'AGREED', LOG, 'K = 9, 24 configurations'],
     ['r7', '2026-11-22T02:17Z', 'the four controls before production', 'PASS', LOG, 'Controls at 02:17:43 UTC, all PASS'],

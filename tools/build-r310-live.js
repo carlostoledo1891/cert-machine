@@ -218,6 +218,10 @@ const stamp = (b, i, box) => '<li><span class="bk">block ' + V('boxes.json', '/b
   + esc(utcs(i === null ? b.seal.at : b.stamps[i].at)) + (i === null ? '' : ' — ' + esc(b.stamps[i].what)) + '</li>';
 const C35BOX = '<article class="bx bx-open" id="box-1"><div class="bx-h">' + ICON(lockOpen(11, 12, 11), 22, 20, '0 0 22 20') + '<span>box 1 · opened</span></div>'
   + '<h3>' + esc(B1.label) + '</h3>' + said(B1.statement) + '<p class="bx-p">' + esc(B1.attained) + ' ' + esc(B1.also) + '</p>'
+  + '<p class="bx-p bx-why"><b>Why 39.</b> ' + esc(B1.why39) + '</p>'
+  + '<p class="bx-p bx-why"><b>Exoo’s square.</b> ' + esc(B1.exoo_square.text) + ' <span class="bx-pc">(' + esc(B1.exoo_square.caveat) + '.)</span></p>'
+  + '<p class="bx-p bx-why"><b>A smaller certificate.</b> ' + esc(B1.smaller_certificate.replace(/^A smaller certificate for Lemma P: /, 'For Lemma P, ')) + '</p>'
+  + '<p class="bx-p bx-pc">' + esc(B1.found_by) + '</p>'
   + '<p class="bx-p">Proved in Lean ' + esc(B1.lean.lean) + ' with Mathlib, on the three standard axioms only. Its key lemma is checked by Lean’s kernel on a certificate of '
   + V('boxes.json', '/boxes[id=c35]/lean/nodes') + ' nodes, with no native code. It was also decided twice outside Lean, by a SAT proof two checkers accept and by our own search over '
   + V('boxes.json', '/boxes[id=c35]/lean/search_nodes') + ' nodes.</p>'
@@ -248,6 +252,10 @@ const R7BOX = '<article class="bx bx-open" id="box-2"><div class="bx-h">' + ICON
   + '<p class="bx-p">' + esc(B2.adds) + '</p>'
   + '<p class="bx-p bx-anchor">Sealed in Bitcoin</p><ul class="bx-stamps">' + stamp(B2, null, 'r7') + '</ul>'
   + '<p class="bx-p bx-open-at">' + (OPENED_UTC ? 'Opened ' + esc(utc(OPENED_UTC)) : 'Opening: at publication') + '</p>'
+  + '<p class="bx-p">The full ledger is published, one row per configuration with both checkers’ verdicts: <a href="' + ea(B2.ledger_release.url) + '">the release r310-r7-ledger-2026-11-23</a>, a sealed reveal package.</p>'
+  + '<p class="bx-p"><b>Deleted, and regenerable, for two of them.</b> The two configurations that needed the full formula were regenerated from public sources on ' + esc(B2.regenerated.where)
+    + ': the pinned CaDiCaL 3.0.1 from its GitHub commit and the tools of the sealed bundle. Both CNFs and both LRAT proofs came out byte-identical to the ledger’s hashes, and lrat-check and cake_lpr accepted each proof; the whole replay took '
+    + V('boxes.json', '/boxes[id=r7]/regenerated/seconds', W.DECIDED, 'raw') + ' seconds. The other configurations were not regenerated.</p>'
   + '<p class="bx-p bx-fix"><b>A correction beside the seal.</b> ' + esc(B2.sealed_correction) + ' Sealed bytes cannot change, so it is corrected here.</p>'
   + '<p class="bx-p bx-gap"><b>Not established:</b> the run checks none of the six premises; the proofs were deleted after both checkers read them (about 2.5 TB), as registered, and the ledger keeps each one’s hash and both verdicts; the ledger is the machine’s own account; nobody outside has read it. It does not decide R(3,10).</p>'
   + '</article>';
@@ -421,9 +429,12 @@ const trustBody = [
   C.pRaw('<b>The sources.</b> The records cite ' + N(CASES.sources.length) + ' files of the lane by a phrase each must contain; their hashes are fixed here so that the files, when they open, can be checked against them:'),
   C.table({ cols: [{ h: 'source' }, { h: 'sha256, first 12' }], rows: CASES.sources.map((s) => [{ raw: '<span class="m">' + C.breakable(s.file) + '</span>' }, { raw: '<span class="m">' + esc(s.sha256_12) + '</span>' }]) }),
   C.pRaw('The sealed box’s corrections cite their source line by the first 16 hex digits of its hash, so nothing of the sealed work is quoted.'),
-  C.pRaw('<b>The seals.</b> Box 1’s digest is <span class="m">' + C.breakable(B1.seal.digest) + '</span> (line ' + B1.seal.registry_line + ' of <span class="m">seals/registry.jsonl</span>, Bitcoin block ' + B1.seal.block + '); box 2’s is <span class="m">' + C.breakable(B2.seal.digest)
+  C.pRaw('<b>The seals.</b> Box 1’s digest is <span class="hx">' + esc(B1.seal.digest) + '</span> (line ' + B1.seal.registry_line + ' of <span class="m">seals/registry.jsonl</span>, Bitcoin block ' + B1.seal.block + '); box 2’s is <span class="hx">' + esc(B2.seal.digest)
     + '</span> (line ' + B2.seal.registry_line + ', block ' + B2.seal.block + '). An opened seal publishes its files, salt and manifest, and anyone re-derives the digest with <span class="m">instruments/seal/</span>. The opened seals and the record: '
     + (OPENED_UTC ? '<a href="' + ea(RECORD_URL) + '">corpus/r310-c35-r7/ in the cert-machine repository</a>.' : 'published at launch, in the cert-machine repository at <span class="m">corpus/r310-c35-r7/</span>.') + ' A seal proves possession by a date, nothing else.'),
+  C.pRaw('<b>The R(7) ledger</b> is published as a sealed reveal package (index ' + B2.ledger_release.index + ') in <a href="' + ea(B2.ledger_release.url) + '">the release r310-r7-ledger-2026-11-23</a>: <span class="m">' + esc(B2.ledger_release.package) + '</span>, sha256 <span class="hx">'
+    + esc(B2.ledger_release.package_sha256) + '</span>; the ledger inside it, <span class="m">prod.tsv</span>, sha256 <span class="hx">' + esc(B2.ledger_release.prod_sha256) + '</span>.'),
+  C.pRaw('<b>The two regenerated configurations</b> (' + B2.regenerated.ids.map((x) => N(x).replace(/,/g, '')).join(' and ') + '): the kit is <a href="' + ea(B2.regenerated.kit_url) + '">' + esc(B2.regenerated.kit) + '</a>, with a README and <span class="m">' + esc(B2.regenerated.tar) + '</span>, sha256 <span class="hx">' + esc(B2.regenerated.tar_sha256) + '</span>.'),
   C.pRaw('<b>Chen’s claim C-004</b> is commit <span class="m">' + esc(CASES.chen_c004.commit) + '</span> of github.com/jeffchen006/Ramsey-R3-10, committed ' + esc(utcs(CASES.chen_c004.at)) + ' (the committer’s clock).'),
   C.pRaw('<b>What the build refuses.</b> The page is not built when: the replay’s counts are not box 2’s; box 2’s levels do not sum to its configurations; the sealed box’s record holds anything beyond its name, its three anchors and a whole percent; the map names the sealed case otherwise than its box; a sealed correction says more than one line; the newest change-log entry is not the records’ state; the case number of the sealed box appears anywhere but in its name; the opening time is unset outside a preview.'),
   C.pRaw('<b>How to read a mark.</b> A plain number is decided: exact arithmetic or a checker backs it. A number underlined in dashes is computed or quoted: someone printed it and nothing here decided it (a price, a claimant’s count).'),
@@ -487,6 +498,7 @@ const STYLE = `
 .bx-first{color:var(--ink)}
 .bx-anchor{margin:var(--s-4) 0 var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
 .bx-fix{border-left:2px solid var(--ink-3);padding-left:var(--s-3);color:var(--ink-2)}
+.bx-why b{color:var(--ink)}
 .bx-open-at{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
 .f5{list-style:none;margin:var(--s-2) 0 var(--s-5);padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s-3)}
 @media (max-width:1000px){.f5{grid-template-columns:minmax(0,1fr)}}
@@ -528,6 +540,8 @@ const STYLE = `
 .pl-t{font-family:var(--f-display);font-weight:var(--weight-title);color:var(--ink)}
 .pl-d{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
 .trust .col>p{color:var(--ink-2)}
+.hx{font-family:var(--f-mono);font-size:var(--text-small);overflow-wrap:anywhere}
+.lg-src{overflow-wrap:anywhere}
 `;
 const SCRIPT = `<script>(function(){
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -39,7 +39,9 @@ triangle-free graph on 40 vertices with no independent set of size 10 exists is 
    - P6, the two proof checkers, lrat-check and cake_lpr.
 3. **The R(7) proofs are not here.** Each CNF and proof was deleted after both checkers read it (about 2.5 TB). The
    ledger keeps each CNF's and proof's sha256 and both verdict lines; any proof can be made again from the pinned
-   tools. The ledger itself (232 MB) is on the Zenodo-later list below.
+   tools. The ledger itself (232 MB) is published as a sealed reveal package (index 29) in the release
+   https://github.com/carlostoledo1891/cert-machine/releases/tag/r310-r7-ledger-2026-11-23 (2026-11-23;
+   r7-ledger-prod-tsv-reveal.tar.gz, sha256 4e1b1b5d01a2411ddaa4d3903627ae877a85d9f81db96d11d47d5b972260e8ee).
 4. **The ledger is the run machine's own account of what its checkers said.** Independent of it: four controls
    before production, our own decider on 1,002 configurations, our own tally, and T2.
 5. **One operator; Claude and GPT models; no second party.** "Own" and "independent" mean code written without
@@ -152,11 +154,14 @@ github.com/tanyongkiam/cake_lpr at commit 033aad53 (sha256 251cdc54d59eb4d22a096
 
 ## Zenodo later (not in this folder)
 
+The R(7) ledger `prod.tsv` is no longer on this list: it was released on 2026-11-23 (see above).
+
+
 | File | Bytes | sha256 |
 |---|---|---|
 | R(7) seal `archive.tar` (all 33 files) | 245,770,240 | 3c32c7ea4c81ac09acda3d69af31aa1bb121ae0038e8d852a0b671292a74b560 |
 | R(7) seal `salts.json` (all 33 salts) | 5,352 | d5122a4bcf531c10f57fd63d31e178a7efef4aa6448116bf4860ecf55d8057b5 |
-| `prod-out/prod.tsv`, the ledger, with its reveal package (index 29) | 231,996,228 | ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793 |
+| `prod-out/prod.tsv`, the ledger, with its reveal package (index 29) — RELEASED 2026-11-23, see above | 231,996,228 | ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793 |
 | `c35-direct-proof.tar.xz` (row D1's CNFs and LRAT proofs) | 44,346,848 | 956b2dfb5e9acb5d28170bda603af024fc405667548d416c98226f275b7e26ff |
 | `t2.tsv.gz` (T2's output) | 51,189,950 | 91fdac12286219c9a4f95971bc45e7da8aab03a1c5d680942ffc9705f3319873 |
 | `t2-bundle.tar.gz` (T2's run bundle) | 46,950,775 | 11d0055dd1ceb60e7366149ceafb5626a733cc497e839c0d3e74c3b4e3506cf5 |

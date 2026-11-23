@@ -31,6 +31,13 @@
     "text": "In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.",
     "label": "prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph"
    },
+   "why39": "Call the copy’s 35 vertices the core and the rest outside. If an outside vertex were unjoined to two other outside vertices, their three core-neighbourhoods would be three sets that Lemma P, a finite fact checked by computer, says cannot exist; so the missing edges among the outside vertices form a matching. Five outside vertices missing only a matching always contain a triangle, so there are at most four, and 35 + 4 = 39; four with no triangle must miss two disjoint edges, which leaves exactly a 4-cycle.",
+   "exoo_square": {
+    "text": "Of the 82,251 ways to remove four of the 39 vertices of Exoo’s 1989 graph, exactly one leaves an induced copy of C35(1,7,11,16), and the four removed vertices induce a 4-cycle: the equality case of the theorem appears in Exoo’s example.",
+    "caveat": "checked on the isomorphism class identified from our own files; Exoo’s pinned bytes were not at home"
+   },
+   "smaller_certificate": "A smaller certificate for Lemma P: 385 of the 3,360 independent 8-sets suffice, in five orbits of the circulant’s 210 affine symmetries (105 + 70 + 70 + 105 + 35). No union of whole orbits with fewer sets works (1,082 non-empty unions checked). Smaller sub-families exist (an irredundant one of 368 sets), so 385 is minimal only among unions of whole orbits. Confirmed by our own search and by a SAT proof that lrat-check and cake_lpr accept.",
+   "found_by": "The square and the smaller certificate were found in a reading by GPT-6.2-astra (via Carlos Toledo’s chat) and checked by our own code.",
    "seal": {
     "block": 976983,
     "at": "2026-11-22T03:26:46Z",
@@ -92,6 +99,25 @@
    "set_equal": "Our 977,008 configurations are Chen’s package pairs, set for set, by our reading of his pair_packages.py: his filters re-implemented, not run.",
    "adds": "What ours adds to C-004, as facts: LRAT proofs; two checkers, one formally verified (cake_lpr); a Lean proof that the encoding is sound (T0, T1); the CNF bytes recomputed from the Lean definition on every row (T2, computed); the premises written out; the rules timestamped before the pod existed; four controls before production.",
    "sealed_correction": "The sealed result note says “It is Chen’s open case R(7)”. That sentence is wrong: it was written from his report v2, which lists the case as open; his run had excluded it a day earlier.",
+   "ledger_release": {
+    "url": "https://github.com/carlostoledo1891/cert-machine/releases/tag/r310-r7-ledger-2026-11-23",
+    "index": 29,
+    "package": "r7-ledger-prod-tsv-reveal.tar.gz",
+    "package_sha256": "4e1b1b5d01a2411ddaa4d3903627ae877a85d9f81db96d11d47d5b972260e8ee",
+    "prod_sha256": "ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793"
+   },
+   "regenerated": {
+    "ids": [
+     332942,
+     745446
+    ],
+    "seconds": "62.89",
+    "where": "a laptop (an arm64 Mac)",
+    "kit": "corpus/r310-c35-r7/r7/regen-two/",
+    "kit_url": "https://github.com/carlostoledo1891/cert-machine/tree/main/corpus/r310-c35-r7/r7/regen-two/",
+    "tar": "regen-two.tar.gz",
+    "tar_sha256": "afbfe98e59d705e464271885b94768b24a4fcaff66fb1730d47fd46d7cbeeb50"
+   },
    "seal": {
     "block": 977031,
     "at": "2026-11-22T09:29:47Z",

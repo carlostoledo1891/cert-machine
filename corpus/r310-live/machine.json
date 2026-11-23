@@ -1,6 +1,6 @@
 {
  "what": "The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.",
- "as_of": "2026-11-23T05:37:18Z",
+ "as_of": "2026-11-23T06:25:21Z",
  "now": {
   "rented": {
    "for": "box 3, the sealed computation",
@@ -11,14 +11,14 @@
   "astra": {
    "model": "GPT-6.2 Astra, by command line from the Mac",
    "since": "2026-11-23T03:53:18Z",
-   "started": 8,
-   "finished": 7,
-   "running": 1
+   "started": 9,
+   "finished": 9,
+   "running": 0
   }
  },
  "audits": {
-  "opened_boxes": 13,
-  "sealed_box": 26
+  "opened_boxes": 14,
+  "sealed_box": 27
  },
  "verdicts": {
   "rows": [
@@ -77,6 +77,41 @@
     "what": "the τ₉ ≥ 6 corollary, in prose, given one premise",
     "verdict": "CERTIFIED",
     "src": "control-room-checks/CHEN-RALPH-READING-AUDIT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T06:22Z",
+    "what": "an outside reading’s mechanism for 39: a matching, then a 4-cycle",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/C35-REVIEW-CHECK.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T06:22Z",
+    "what": "Exoo’s square: 1 of 82,251 four-subsets leaves C35, and it induces a 4-cycle",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/C35-REVIEW-CHECK.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T06:22Z",
+    "what": "the label of the fourth removed vertex, without Exoo’s pinned bytes",
+    "verdict": "REFUSED",
+    "src": "control-room-checks/C35-REVIEW-CHECK.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T06:22Z",
+    "what": "the corollary as the page states it",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/C35-REVIEW-CHECK.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T06:22Z",
+    "what": "a smaller certificate: 385 sets in five orbits, minimal among orbit unions",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/C35-REVIEW-CHECK.md"
    },
    {
     "box": "r7",
@@ -220,11 +255,11 @@
    }
   ],
   "tally": {
-   "CERTIFIED": 19,
+   "CERTIFIED": 23,
+   "REFUSED": 2,
    "EQUAL": 3,
    "AGREED": 2,
-   "PASS": 3,
-   "REFUSED": 1
+   "PASS": 3
   }
  },
  "money": {
