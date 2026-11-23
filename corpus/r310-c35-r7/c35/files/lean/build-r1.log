@@ -1,0 +1,20 @@
+== LemmaPCheck
+        0.34 real         0.24 user         0.13 sys
+            95902392  peak memory footprint
+== LemmaPCert
+        6.87 real         8.99 user         0.30 sys
+           874978576  peak memory footprint
+== PathLemma
+'RamseyScout.PathLemma.lemma_P' depends on axioms: [propext, Classical.choice, Quot.sound]
+      122.53 real       115.20 user         3.35 sys
+          2475239800  peak memory footprint
+== Outside
+'RamseyScout.PathLemma.outside_fork' depends on axioms: [propext, Classical.choice, Quot.sound]
+        1.77 real         1.18 user         0.63 sys
+           393553456  peak memory footprint
+== OutsideSize
+'RamseyScout.PathLemma.order_at_most_39' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamseyScout.PathLemma.four_outside_C4' depends on axioms: [propext, Classical.choice, Quot.sound]
+        1.47 real         1.17 user         0.54 sys
+           290104880  peak memory footprint
+BUILD EXIT 0

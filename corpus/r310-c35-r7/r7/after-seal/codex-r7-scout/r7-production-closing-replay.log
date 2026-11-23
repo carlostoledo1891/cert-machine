@@ -1,0 +1,124 @@
+a582482f1336099a77645b58056cd867b10a7b7996351c4f5c578b377c976eb5  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/../claude-r7/prod-out/control_k10_sat.tsv
+6b2373618c34d588dfbf073e28794dab68400a15ef6e06d96bc618b490c8ce57  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/../claude-r7/cores_e85.g6
+945212e941ddf9e8f350cba5b9e1bd830644239017b4ba1b5047ee8753632c9e  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/../audit/chen-23678020/repo/lean/R310/R7.lean
+C1 scan: 477142 graph6 lines, minimum 85 edges, 85-edge positions [49240, 49288, 49914, 49938] (zero-based)
+decompressed census sha256 f64e710e848585dbf7b5fa45fd226d238d878148de8e49918a79ec1312e60149
+filtered production lines sha256 6b2373618c34d588dfbf073e28794dab68400a15ef6e06d96bc618b490c8ce57
+R7Cnf.lean: OK
+R7CnfSound.lean: OK
+configs.bin: OK
+cores_e85.g6: OK
+configs.bin: OK
+prod-out/prod.tsv: OK
+Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+7aebf6ad6fd9c461f63d7bd4b5003d32b5bf8b2f653cf63d3c72954322bc4ebc  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Independence.lean
+'R7Independence.bound_iff_templates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.rowClauses_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.side_hits_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.bound_iff_rowClauses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.clauses_at_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Independence build exit 0
+replaying R7Independence
+R7Independence leanchecker exit 0
+c7f2cd9c8dcc7977afed0f84a044678331d70a1fd4e0f43e18a4bcf36c591acf  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7SideChoices.lean
+'R7Independence.row_sizes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.rows_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.opposite_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.gives_configuration' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Independence.column_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7SideChoices build exit 0
+replaying R7SideChoices
+R7SideChoices leanchecker exit 0
+243a51f12ba6d25ff8d10a9a48f02fad88bfe24924c9bd47de4bec1e5e946401  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Exchanges.lean
+'R7Exchange.slot_action' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.common_fixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.layout_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.section3_image_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.sideInputs_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.section3_of_graph' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.completes_image_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Exchange.representative_completion' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Exchanges build exit 0
+replaying R7Exchanges
+R7Exchanges leanchecker exit 0
+4835303b6c8795f7333ccd9fe09f3b4adb27de659f48d66398d87dce568a8ce6  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Layout.lean
+'R7Independence.layout_of_r7' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Layout build exit 0
+replaying R7Layout
+R7Layout leanchecker exit 0
+4dac23740f2d548e4998741825e8b95f8f740f4f704593228aae2ad1926135b2  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Composition.lean
+'R7Composition.transport_graph' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Composition.r7_gives_record' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Composition build exit 0
+replaying R7Composition
+R7Composition leanchecker exit 0
+9cf2ecad5547c16f4ae8cd0230d8033a2721d78ec9f20ab7bd46f61b75a39277  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7CoreTransport.lean
+'R7Composition.section3_core_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Composition.completes_core_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7CoreTransport build exit 0
+replaying R7CoreTransport
+R7CoreTransport leanchecker exit 0
+5c380265b8e8af64fec74274e478202875ef7112de877c2fc5a8a03f50c0b721  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Catalogue.lean
+'R7Catalogue.catalogue_iso_of_85' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Catalogue.marker_catalogue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Catalogue.identify_X0' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Catalogue build exit 0
+replaying R7Catalogue
+R7Catalogue leanchecker exit 0
+3ec2b8ca9fa14b00327fd1c7ac527294b81ccf0d256f21fc6b3e9031e4452a03  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/../claude-r7/p4-lean/R7Cnf.lean
+R7Cnf build exit 0
+replaying R7Cnf
+R7Cnf leanchecker exit 0
+519b96e24c7ad1cc7b1fa5378761736469c01f6390392480653b33dbf5b651d5  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/../claude-r7/p4-lean/R7CnfSound.lean
+'R7Cnf.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Cnf.T1_input' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Cnf.T0' depends on axioms: [propext, Quot.sound]
+R7CnfSound build exit 0
+replaying R7CnfSound
+R7CnfSound leanchecker exit 0
+88b1cba29453f89671082a21eb1422bb639ba8c336aeb0470042cbecaa83e5bf  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7CnfBridge.lean
+'R7CnfBridge.completion_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7CnfBridge.decoded_adjacency' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7CnfBridge.record_file_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7CnfBridge build exit 0
+replaying R7CnfBridge
+R7CnfBridge leanchecker exit 0
+16de5ad7264d7ccb905c84429113cd822c7197482cf76118884e9a9fcbb1597a  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7RecordModel.lean
+'R7RecordModel.lineGraph_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7RecordModel.recordSides_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7RecordModel.catalogue_record_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7RecordModel.r7_record_file_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7RecordModel build exit 0
+replaying R7RecordModel
+R7RecordModel leanchecker exit 0
+a185e0fd597c85c4b2a69cf94683fb7c98d31e1c6bd9eb2e9d67c3292855df1b  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7Closing.lean
+'R7Closing.no_r7_of_all_unsat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'R7Closing.no_r7_plain' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7Closing build exit 0
+replaying R7Closing
+R7Closing leanchecker exit 0
+90956e22ecb6f1c83d3d4c9d8bec5363481d31d7ab12e51355cddb1719f118a2  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7ProductionEmbed.lean
+R7ProductionEmbed build exit 0
+replaying R7ProductionEmbed
+R7ProductionEmbed leanchecker exit 0
+ff9101e1b7e49a80d0c35a1760467d4d58602257901d7c05d282fe7da5970190  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7ProductionData.lean
+'R7ProductionData.cfg_size' depends on axioms: [propext, Quot.sound]
+'R7ProductionData.num_records' depends on axioms: [propext, Quot.sound]
+R7ProductionData build exit 0
+replaying R7ProductionData
+R7ProductionData leanchecker exit 0
+5e68ec471e5011b86f56ad575f6618213b0b8b9bbc3061896cfe442890b2aad7  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7ProductionClosing.lean
+'R7ProductionClosing.no_r7_production' depends on axioms: [propext, Classical.choice, Quot.sound]
+R7ProductionClosing build exit 0
+replaying R7ProductionClosing
+R7ProductionClosing leanchecker exit 0
+6fd70dd4a8044a80f5a0c495b39214b8a11a69fd1b77ed3d456a6c3cd3cb77f6  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/R7ExportProduction.lean
+506b1a2d229053d43016f01c23bd3861b106daa2a7c77fbbfe832134797085c3  /Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/codex-r7-scout/check_r7_production.py
+production export exit 0
+configs.bin sha256 76c2666b7f2c4de5d54951cf2ba5e17337c541fa89b5e39ce5d9de45142ced9e
+prod.tsv sha256 ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793
+Lean cfg: all 9770080 bytes match; Lean level: all 977008 indices match
+levels {3: 879379, 4: 97627, 7: 2}; level 7 indices [332942, 745446]
+dense level-column sha256 6d342507c55b84be0b4ccc5bac45ea7bebcb6df004cb37a55aee27200b2a52e7 (one byte per index)
+production comparison exit 0
+replay script exit 0

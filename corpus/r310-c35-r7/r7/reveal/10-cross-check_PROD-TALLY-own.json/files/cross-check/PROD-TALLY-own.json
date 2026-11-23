@@ -1,0 +1,61 @@
+{
+ "ledger_sha256": "ba545601b42d7796ff8e8dc8b8d671f05f83ce14c24c90bb484b985dbeb47793",
+ "header": [
+  "idx",
+  "K",
+  "outcome",
+  "level",
+  "trail",
+  "cnf_sha256",
+  "proof_sha256",
+  "lrat_check_line",
+  "cake_lpr_line",
+  "clauses",
+  "cnf_bytes",
+  "proof_bytes",
+  "cpu_gen",
+  "cpu_solve",
+  "cpu_lrat",
+  "cpu_cake",
+  "graph"
+ ],
+ "rows": 977008,
+ "distinct_indices": 977008,
+ "missing": 0,
+ "duplicates": 0,
+ "rows_failing_a_rule": 0,
+ "failing_examples": [],
+ "outcomes": {
+  "CERTIFIED-UNSAT": 977008
+ },
+ "by_level": {
+  "3": 879379,
+  "4": 97627,
+  "7": 2
+ },
+ "trails": {
+  "3:UNSAT": 879379,
+  "3:SAT,4:UNSAT": 97627,
+  "3:SAT,4:SAT,7:UNSAT": 2
+ },
+ "cpu_seconds": {
+  "cpu_gen": 32523,
+  "cpu_solve": 306354,
+  "cpu_lrat": 111683,
+  "cpu_cake": 226907
+ },
+ "cpu_seconds_total": 677467,
+ "xcheck": {
+  "file_equals_registered_sample": true,
+  "configurations": 1000,
+  "own_decided": 1000,
+  "in_ledger": 1000,
+  "agree_unsat_and_verified": 1000,
+  "ledger_levels_on_sample": {
+   "3": 894,
+   "4": 106
+  }
+ },
+ "ALL_CERTIFIED": true,
+ "XCHECK_AGREES": true
+}

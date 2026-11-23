@@ -1,0 +1,173 @@
+{
+ "what": "The three boxes of /r310/: two opened (Theorem C35; the second computation of Case R(7)), one sealed (Case R(6): codegree six). A sealed box shows its name, its Bitcoin anchors and its progress, rounded down to a whole percent, and nothing else; it opens only after audit, on Carlos Toledo’s word.",
+ "credits": [
+  {
+   "who": "The Claude track (Claude Code)",
+   "model": "Claude Opus 5.5, then Claude Fable 5.2 from 01:22 UTC 22 Nov",
+   "what": "C35: the question whether a (3,10;40)-graph contains an induced C35, Lemma P stated, the first enumeration. R(7): the counting, completion and CNF programs, the pilot, the production program, the reduction written out, the registration, and the encoding’s soundness in Lean."
+  },
+  {
+   "who": "The Astra track (Codex, two chats)",
+   "model": "GPT-6.2-astra",
+   "what": "C35: the direct CNF and its LRAT proofs, the claim as handed over, the Lean statement of Lemma P and the bridge. R(7): the reading of the reduction, the counting rules, the Lean chain to the closing theorem."
+  },
+  {
+   "who": "cert-machine, the control room (Claude Code)",
+   "model": "Claude Opus 5.5; Claude Fable 5.2 from 01:27 to 23:13 UTC 22 Nov; Claude Opus 5.5 since",
+   "what": "C35: the registration, our own search, Lemma P checked by the kernel, the controls, the second checkers. R(7): the byte-identical enumeration, our own decider, the tally, the result note, the rented machines, the readings, both seals; this page."
+  }
+ ],
+ "boxes": [
+  {
+   "n": 1,
+   "id": "c35",
+   "state": "opened",
+   "label": "Theorem C35",
+   "statement": "Any finite triangle-free simple graph with no independent set of size 10 that contains an induced copy of the circulant C35(1,7,11,16) (vertices 0..34, u ~ v iff v − u ≡ ±1, ±7, ±11 or ±16 mod 35) has at most 39 vertices, and any four distinct vertices outside the copy induce a 4-cycle.",
+   "attained": "The bound 39 is attained.",
+   "also": "So no triangle-free graph on 40 vertices with no independent 10-set contains an induced C35(1,7,11,16).",
+   "posed": "The question was posed in public before: by Unsolved Lab (M20, 1 Oct, not run), in the repository andrey-kokoev/marici (a note dated 9 Nov: “this extension family has not been excluded”) and by an idea scout of Chen’s run (21 Nov, timed out). Nobody had decided it.",
+   "corollary": {
+    "text": "In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.",
+    "label": "prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph"
+   },
+   "seal": {
+    "block": 976983,
+    "at": "2026-11-22T03:26:46Z",
+    "digest": "ed00c76571823fc3e412ea029b9aacdb36678a5bffc8ebfd799a3ca75f9969e4",
+    "registry_line": 43
+   },
+   "rows": [
+    {
+     "id": "S",
+     "what": "the Lean statements say the claim (read once, by cert-machine)",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "D1",
+     "what": "a SAT decider: our formula equals the other family’s; lrat-check and the verified cake_lpr accept both proofs",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "D2",
+     "what": "a second decider, no SAT: our own branching search closes every branch, 403,541 nodes",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "L",
+     "what": "Lemma P checked by Lean’s kernel on a 32,529-node certificate, no native code; the three standard axioms only",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "B",
+     "what": "the bridge from Lemma P to the theorem, the other family’s files unchanged",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "K",
+     "what": "second checkers: leanchecker replay, nanoda, con-leche (leanchecker --fresh not run)",
+     "verdict": "CERTIFIED"
+    },
+    {
+     "id": "corollary",
+     "what": "no vertex of degree 4, given Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; known before",
+     "verdict": "CERTIFIED"
+    }
+   ],
+   "lean": {
+    "lean": "4.35.0",
+    "axioms": "propext, Classical.choice, Quot.sound",
+    "nodes": 32529,
+    "search_nodes": 403541
+   }
+  },
+  {
+   "n": 2,
+   "id": "r7",
+   "state": "opened",
+   "label": "Case R(7), a second computation",
+   "statement": "If P1–P6 hold (as they stand in item 1 above): no 9-regular triangle-free graph on 40 vertices with independence number at most 9 has two non-adjacent vertices with exactly 7 common neighbours.",
+   "first": "C-004",
+   "registered": "2026-11-22T02:13Z",
+   "set_equal": "Our 977,008 configurations are Chen’s package pairs, set for set, by our reading of his pair_packages.py: his filters re-implemented, not run.",
+   "adds": "What ours adds to C-004, as facts: LRAT proofs; two checkers, one formally verified (cake_lpr); a Lean proof that the encoding is sound (T0, T1); the CNF bytes recomputed from the Lean definition on every row (T2, computed); the premises written out; the rules timestamped before the pod existed; four controls before production.",
+   "sealed_correction": "The sealed result note says “It is Chen’s open case R(7)”. That sentence is wrong: it was written from his report v2, which lists the case as open; his run had excluded it a day earlier.",
+   "seal": {
+    "block": 977031,
+    "at": "2026-11-22T09:29:47Z",
+    "digest": "75dd6cf73a79b7d95b751136da8a6a8ebb8f994710875d731417dd057fe985eb",
+    "registry_line": 44
+   },
+   "configurations": 977008,
+   "by_level": {
+    "level3": 879379,
+    "level4": 97627,
+    "full": 2
+   },
+   "run": {
+    "start": "2026-11-22T02:17:45Z",
+    "end": "2026-11-22T08:32:12Z",
+    "cpu_s": 677467,
+    "wall_s": 22466,
+    "vcpu": 32
+   },
+   "premises": [
+    {
+     "id": "P1",
+     "text": "e(3,8,27) = 85 (Goedgebeur–Radziszowski)",
+     "checked": "from the literature; not checked here"
+    },
+    {
+     "id": "P2",
+     "text": "McKay’s list of (3,8;27)-graphs is complete (Brinkmann and Goedgebeur, 2012, by McKay’s page)",
+     "checked": "from the literature; our filter of it finds 4 graphs with 85 edges and none below, which does not test completeness"
+    },
+    {
+     "id": "P3",
+     "text": "the list of 977,008 configurations is complete",
+     "checked": "a checked statement on the four cores: the cover formula is unsatisfiable on each, both checkers accept, two generators give the same clauses; in Lean it enters as a hypothesis"
+    },
+    {
+     "id": "P4",
+     "text": "the CNF written for each configuration is the formula the reduction describes",
+     "checked": "the encoding’s soundness (T0, T1) is proved in Lean, built and replayed by the control room and accepted by nanoda, con-leche and leanchecker --fresh; that the program’s bytes equal the formula was computed on all 977,008 rows (T2), not proved; Lean holds no instance of the 977,008 refutations"
+    },
+    {
+     "id": "P5",
+     "text": "the reduction from a graph to a configuration",
+     "checked": "a Lean chain from the other model family, a conditional whose hypotheses are the literature, the cover and every record’s refutation; read once by one agent; Lean does not prove that its embedded data are the pinned file"
+    },
+    {
+     "id": "P6",
+     "text": "the two proof checkers, lrat-check and cake_lpr",
+     "checked": "trusted as tools; cake_lpr is formally verified"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "id": "c6",
+   "state": "sealed",
+   "label": "Case R(6): codegree six",
+   "stamps": [
+    {
+     "block": 977085,
+     "at": "2026-11-22T18:17:27Z",
+     "what": "the registration of the running computation"
+    },
+    {
+     "block": 977089,
+     "at": "2026-11-22T19:03:33Z",
+     "what": "further derivations"
+    },
+    {
+     "block": 977108,
+     "at": "2026-11-22T22:02:41Z",
+     "what": "a draw registration"
+    }
+   ],
+   "progress_percent": 37,
+   "as_of": "2026-11-23T05:38:32Z"
+  }
+ ]
+}

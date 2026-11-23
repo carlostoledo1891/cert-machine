@@ -1,0 +1,4 @@
+Part B of P3-PREREG.md, pinned 2026-11-22T10:40:51Z before it runs on the pod: the control room's own generator
+9e1dd8982cab128aeb6709fdfe0faae9157936e1148cf703db192fe859315d5a  gen_cover.py
+It was written from the statement and already compared with cover7 on core X0 on the Mac (equal multisets; P3-X0-CHECK.md).
+On the pod it writes the CNF of each core 0..3; each is compared with cover7's CNF as a multiset: every clause's literals sorted, the clauses sorted, one sha256 per file.

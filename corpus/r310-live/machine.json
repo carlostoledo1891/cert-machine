@@ -1,0 +1,253 @@
+{
+ "what": "The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.",
+ "as_of": "2026-11-23T05:37:18Z",
+ "now": {
+  "rented": {
+   "for": "box 3, the sealed computation",
+   "vcpu": 32,
+   "usd_per_hour": "0.96",
+   "state": "running"
+  },
+  "astra": {
+   "model": "GPT-6.2 Astra, by command line from the Mac",
+   "since": "2026-11-23T03:53:18Z",
+   "started": 8,
+   "finished": 7,
+   "running": 1
+  }
+ },
+ "audits": {
+  "opened_boxes": 13,
+  "sealed_box": 26
+ },
+ "verdicts": {
+  "rows": [
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "S: the Lean statements say the claim",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "D1: the SAT formula and both proofs",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "D2: our own search, no SAT",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "L: Lemma P by the kernel",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "B: the bridge",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "K: three second checkers",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-21T18:05Z",
+    "what": "the degree-4 corollary, given one premise",
+    "verdict": "CERTIFIED",
+    "src": "cert-machine-r1/P1-RESULT.md"
+   },
+   {
+    "box": "c35",
+    "at": "2026-11-23T04:41Z",
+    "what": "the τ₉ ≥ 6 corollary, in prose, given one premise",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/CHEN-RALPH-READING-AUDIT.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T01:40Z",
+    "what": "our own enumeration: the 977,008 configurations byte for byte",
+    "verdict": "EQUAL",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T01:40Z",
+    "what": "our own decider on 24 configurations and 14 controls",
+    "verdict": "AGREED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T02:17Z",
+    "what": "the four controls before production",
+    "verdict": "PASS",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T08:37Z",
+    "what": "our own tally of the ledger",
+    "verdict": "EQUAL",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T08:37Z",
+    "what": "the registered cross-check of 1,000, and the 2 full-CNF configurations",
+    "verdict": "AGREED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T10:09Z",
+    "what": "the first Lean files of the reduction",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T10:49Z",
+    "what": "P3, the cover, on all four cores",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/p3-pod/P3-RESULT.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T11:14Z",
+    "what": "the P4 page rebuilt the bytes alone: 77 of 77",
+    "verdict": "PASS",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T11:40Z",
+    "what": "seven Lean modules of the reduction",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T12:49Z",
+    "what": "the CNF soundness proof (T0, T1), built by our route",
+    "verdict": "PASS",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T13:36Z",
+    "what": "the bridge from a completion to the CNF",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T15:08Z",
+    "what": "the closing theorem, as a conditional",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T17:51Z",
+    "what": "T2: the bytes on all 977,008 rows",
+    "verdict": "EQUAL",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T18:54Z",
+    "what": "second kernels on the soundness proof",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T20:22Z",
+    "what": "the bytes read back as the clause list",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T20:22Z",
+    "what": "the join of the two tracks’ Lean",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T20:22Z",
+    "what": "“a fresh replay passed”",
+    "verdict": "REFUSED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T22:43Z",
+    "what": "the variable bound",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-22T22:43Z",
+    "what": "the closing theorem on the reader’s output",
+    "verdict": "CERTIFIED",
+    "src": "control-room-2026-11-22.md"
+   },
+   {
+    "box": "r7",
+    "at": "2026-11-23T04:41Z",
+    "what": "Chen’s 977,008 pairs are ours, core by core",
+    "verdict": "CERTIFIED",
+    "src": "control-room-checks/CHEN-RALPH-READING-AUDIT.md"
+   }
+  ],
+  "tally": {
+   "CERTIFIED": 19,
+   "EQUAL": 3,
+   "AGREED": 2,
+   "PASS": 3,
+   "REFUSED": 1
+  }
+ },
+ "money": {
+  "r7": {
+   "items": [
+    {
+     "what": "the production run: 977,008 configurations, 32 vCPU, about 6 hours",
+     "usd": "7"
+    },
+    {
+     "what": "the cover check (P3) on the four graph cores, 8 vCPU",
+     "usd": "0.25"
+    },
+    {
+     "what": "the byte check (T2) on all 977,008 rows, 32 vCPU, about 4.5 hours",
+     "usd": "4.80"
+    }
+   ],
+   "total_usd": "12.05"
+  },
+  "c35": {
+   "where": "the Mac (an M2 with 16 GB); no rented machine",
+   "usd": "0"
+  }
+ }
+}

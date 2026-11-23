@@ -1,0 +1,39 @@
+{
+  "checked": "Fixed edges reconstructed from the rooted partition. All subsets of the fixed part checked; all row availability patterns tested with both roots available.",
+  "derivation_review": [
+    "The two roots have seven common and two private neighbours apiece. Triangle-freeness forbids edges within either root neighbourhood. The roots miss the remaining 27 vertices X. An independent eight in X would extend by both roots to ten.",
+    "Writing e for the number of A-B edges gives 18+e fixed edges, 81-2e edges to X by the degree sums on the eleven row vertices, and hence 81+e edges inside X. The input lower bound 85 and e<=4 force e=4. This gives the fixed 13-vertex graph used in the truth table.",
+    "Exactly five maximal independent sets of the fixed graph occur: C+A, C+B, {u}+B, {w}+A, {u,w}. For any independent I in X, remove from each of these sets the row vertices incident to I. The largest remaining set extends I, and every independent extension is contained in one of the five.",
+    "At K=9 the first two families give h_C(I)+h_Q(I)>=|I| for both Q. The one-root inequalities are automatic through size six and require each side union to hit every independent seven. The two-root inequality follows from alpha(X)<=7. All independent I, including non-maximal members, enter this argument.",
+    "The four side rows have size six and the seven common rows size seven. Each x must receive exactly 9-deg_X(x) incidences in these eleven rows. Triangles with two core vertices are excluded by row independence; triangles with one core vertex are excluded by disjoint opposite-side unions. Conversely these data build the labelled graph. Repeated common rows count with multiplicity.",
+    "Permuting common vertices and swapping the two vertices on a side preserves extensions. Exchanging A and B also exchanges the two roots. Sorting rows only chooses representatives."
+  ],
+  "fixed_subsets": 8192,
+  "maximal_independent_families": 5,
+  "availability_patterns": 2048,
+  "ledger_sha256": "4495960a2e94ecc6d770029de922c5b90a02603bfcded55afb6bfc409df2cca0",
+  "distinct_configs_in_sample": 1200,
+  "terminal_double_verified_by_ledger": {
+    "4": 114,
+    "3": 1086
+  },
+  "fresh_double_checker_replays": [
+    {
+      "config": 160934,
+      "level": 3,
+      "cnf_sha256": "97e8dd9128a3aa70a9c8e3ff2cb14695ff02d3118c72fb8d0873b62aaa98e521",
+      "lrat_sha256": "c97b811130d16831a6475bed807927a2746d1d9ff1a6f2a08101e555b3867e2f"
+    },
+    {
+      "config": 139240,
+      "level": 4,
+      "cnf_sha256": "6481dfda2bfd220417e3d2b75480ab5cdfb0d1e0f25edde8999cbce93eac0741",
+      "lrat_sha256": "b06ec64899ab425aa31fdd8169b23cc4ed476fdcb50235ca891e6f3fd7a570aa"
+    }
+  ],
+  "level_3_SAT_models_reconstructed": 114,
+  "labelled_C_rows_passed_triple_filter": 798,
+  "all_114_first_graph_violation_at_core_size": 4,
+  "models_sha256": "af1799a00d492acb6e3b8b8f3e91c6da1ec9c57f4514767d73741c99cce6cfd3",
+  "premises": "The four-core census and Chen's upstream reduction are premises. The graph-to-row review and finite checks concern the completion model."
+}

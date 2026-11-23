@@ -1,0 +1,36 @@
+== tools
+Lean (version 4.35.0, arm64-apple-darwin24.6.0, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+nanoda_bin: nanoda_bin 0.4.19; sha256 b5a75a50d07b06a25b3ddb9519144ebdeed8e0f3489222c88ba4049dfe8ce627
+con-leche: sha256 4dc91239adc01a07a8d974bad720d68a316ed21aef73847bb74a191696304e34
+leanexport: sha256 01327b83d6a69dbc84fa04fd671c61068b2f074e51d1bf607bf6a6b9aed5339e
+leanchecker: sha256 d70e645ea2b0e597d0ff4cf67aa0c268483fac0b5b2b991ca2d4cd7fb78ab73c
+== the modules, compiled here from this folder's sources (-DwarningAsError=true)
+  R7Cnf: exit 0, 0 output line(s), source sha256 3ec2b8ca9fa14b00327fd1c7ac527294b81ccf0d256f21fc6b3e9031e4452a03, olean sha256 d37d7132b384e29eabe1e7d7bea6e1295751411a2ddb10208c55e00f0cb12454
+  R7CnfSound: exit 0, 3 output line(s), source sha256 519b96e24c7ad1cc7b1fa5378761736469c01f6390392480653b33dbf5b651d5, olean sha256 fe27fda23f4a4ea6ad1a94ed413c3d977ddf0b933f354ba1f887113e2b251f3c
+== export of R7Cnf.T1 R7Cnf.T1_input R7Cnf.T0 (module R7CnfSound)
+  leanexport exit 0, 26630503 bytes; {"meta":{"exporter":{"name":"lean4export","version":"3.1.0"},"format":{"version":"3.1.0"},"lean":{"githash":"eb6cafb7290e8bd5f2937522d8d804f58f02bafc","version":"4.35.0"}}}
+  sha256 b7ef93e35d49b34bf7a59b8a67bdae1db897a939cd2686a621035e42319fbc16
+  records: 3600 thm, 2107 def, 289 inductive, 3 axiom, 2 opaque, 4 quot
+  axioms declared: Classical.choice, Quot.sound, propext
+  opaque declarations: Lean.opaqueId, String.Internal.append
+  roots with a theorem body: R7Cnf.T1, R7Cnf.T1_input, R7Cnf.T0 | missing: []
+== the three kernels on the proofs as built
+  nanoda_bin: exit 0 | Checked 6637 declarations with no errors 
+  con-leche --verified: exit 0 | con-leche: accepted 6005 declarations (--verified)
+  nanoda's printing of the three statements and of the axioms: WORKDIR/good.nanoda.log, 72 lines, sha256 84d4fb26887b722724122364afaaec08694f488e7a9fe93e007e0b9161b81369
+  leanchecker R7Cnf R7CnfSound: exit 0
+== control: the same R7CnfSound.olean beside a mutated R7Cnf (10 - I.length - maxMiss -> 9 - I.length - maxMiss)
+  mutated R7Cnf: compiles, exit 0; differing lines 1; olean sha256 38cfdc68a384b61dcda056f68a75a89ad2493dd34305d71c203b5021216d4a42
+ root R7Cnf.T1
+  leanexport exit 0, 24926938 bytes, sha256 1b3d595b2337117906a3a46496af7270a0efe6805a3f33fc738d40fef428a7e6
+  nanoda_bin: exit 101 | thread 'thread_0' (72143721) panicked at src/tc.rs:955:71: assertion failed: self.def_eq(u, v)
+  con-leche --verified: exit 1 | con-leche: invalid: application type mismatch [at theorem R7Cnf.T1, fold position 5761] (--verified) t=1.4s
+ root R7Cnf.T1_input
+  leanexport exit 0, 24959317 bytes, sha256 7f39e92115b360c033bb0172b6027da219bda6c640d33ea90fb01744b0d15aa8
+  nanoda_bin: exit 101 | thread 'thread_0' (72143867) panicked at src/tc.rs:955:71: assertion failed: self.def_eq(u, v)
+  con-leche --verified: exit 1 | con-leche: invalid: application type mismatch [at theorem R7Cnf.T1, fold position 5762] (--verified) t=1.4s
+ root R7Cnf.T0
+  leanexport exit 0, 7128801 bytes, sha256 79984a346713fb9b8920da22574e7b582bd62e15d24f275a8d2a71eadc6e633e
+  nanoda_bin: exit 101 | thread 'thread_1' (72144006) panicked at src/tc.rs:955:71: assertion failed: self.def_eq(u, v)
+  con-leche --verified: exit 1 | con-leche: invalid: application type mismatch [at theorem R7Cnf.F_congr, fold position 623] (--verified) t=0.3s
+ leanchecker R7CnfSound beside the mutated R7Cnf: exit 1 | uncaught exception: while replaying declaration 'R7Cnf.F_congr': (kernel) application type mismatch 

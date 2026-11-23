@@ -1,0 +1,72 @@
+theorem R7Cnf.T1 (X : SimpleGraph (Fin (OfNat.ofNat 27))) :
+  forall [inst._@.R7CnfSound.3122007034._hygCtx._hyg.7 : DecidableRel (SimpleGraph.Adj X)]
+    (S : Fin (OfNat.ofNat 4) → Finset (Fin (OfNat.ofNat 27))) (ℓ : Nat)
+    (R : Fin (OfNat.ofNat 7) → Finset (Fin (OfNat.ofNat 27))),
+  (forall (c : Fin (OfNat.ofNat 7)),
+    And (SimpleGraph.IsIndepSet X (SetLike.coe (R c))) (Eq (Finset.card (R c)) (OfNat.ofNat 7))) →
+  (forall (y : Fin (OfNat.ofNat 27)),
+    Eq
+      (HAdd.hAdd
+        (HAdd.hAdd (SimpleGraph.degree X y)
+          (Finset.card (Finset.filter (fun (j : Fin (OfNat.ofNat 4)) => Membership.mem (S j) y) Finset.univ)))
+        (Finset.card (Finset.filter (fun (c : Fin (OfNat.ofNat 7)) => Membership.mem (R c) y) Finset.univ))) (OfNat.ofNat 9)) →
+  (forall (I : Finset (Fin (OfNat.ofNat 27))),
+    Finset.Nonempty I → SimpleGraph.IsIndepSet X (SetLike.coe I) → LT.lt
+      (Finset.card (Finset.filter (fun (c : Fin (OfNat.ofNat 7)) => Disjoint (R c) I) Finset.univ))
+      (HSub.hSub (HSub.hSub (OfNat.ofNat 10) (Finset.card I))
+        (Max.max (HAdd.hAdd (R7Cnf.missF (S (OfNat.ofNat 0)) I) (R7Cnf.missF (S (OfNat.ofNat 1)) I))
+          (HAdd.hAdd (R7Cnf.missF (S (OfNat.ofNat 2)) I) (R7Cnf.missF (S (OfNat.ofNat 3)) I))))) →
+  Exists (fun (τ : Nat → Bool) => R7Cnf.Sat τ (Prod.fst (R7Cnf.F (R7Cnf.inputOfGraph X S) ℓ))) :=
+  _
+
+theorem R7Cnf.T1_input (inp : R7Cnf.Input) (ℓ : Nat)
+  (hsymm :
+    (forall (y z : Fin (OfNat.ofNat 27)), Eq (R7Cnf.Input.adj inp y z) Bool.true → Eq (R7Cnf.Input.adj inp z y) Bool.true))
+  (hirr : (forall (y : Fin (OfNat.ofNat 27)), Eq (R7Cnf.Input.adj inp y y) Bool.false))
+  (R : Fin (OfNat.ofNat 7) → Finset (Fin (OfNat.ofNat 27)))
+  (ha :
+    (forall (c : Fin (OfNat.ofNat 7)),
+    And
+      (forall (y : Fin (OfNat.ofNat 27)),
+      Membership.mem (R c) y → (forall (z : Fin (OfNat.ofNat 27)),
+      Membership.mem (R c) z → Eq (R7Cnf.Input.adj inp y z) Bool.false)) (Eq (Finset.card (R c)) (OfNat.ofNat 7))))
+  (hb :
+    (forall (y : Fin (OfNat.ofNat 27)),
+    Eq
+      (HAdd.hAdd
+        (HAdd.hAdd
+          (Finset.card (Finset.filter (fun (z : Fin (OfNat.ofNat 27)) => Eq (R7Cnf.Input.adj inp y z) Bool.true) Finset.univ))
+          (Finset.card (Finset.filter (fun (j : Fin (OfNat.ofNat 4)) => Eq (R7Cnf.Input.side inp j y) Bool.true) Finset.univ)))
+        (Finset.card (Finset.filter (fun (c : Fin (OfNat.ofNat 7)) => Membership.mem (R c) y) Finset.univ))) (OfNat.ofNat 9)))
+  (hc :
+    (forall (I : Finset (Fin (OfNat.ofNat 27))),
+    Finset.Nonempty I → (forall (y : Fin (OfNat.ofNat 27)),
+      Membership.mem I y → (forall (z : Fin (OfNat.ofNat 27)),
+      Membership.mem I z → Eq (R7Cnf.Input.adj inp y z) Bool.false)) →
+    LT.lt (Finset.card (Finset.filter (fun (c : Fin (OfNat.ofNat 7)) => Disjoint (R c) I) Finset.univ))
+      (HSub.hSub (HSub.hSub (OfNat.ofNat 10) (Finset.card I))
+        (Max.max
+          (HAdd.hAdd (R7Cnf.missF (R7Cnf.sideSet inp (OfNat.ofNat 0)) I) (R7Cnf.missF (R7Cnf.sideSet inp (OfNat.ofNat 1)) I))
+          (HAdd.hAdd (R7Cnf.missF (R7Cnf.sideSet inp (OfNat.ofNat 2)) I)
+            (R7Cnf.missF (R7Cnf.sideSet inp (OfNat.ofNat 3)) I)))))) :
+  Exists (fun (τ : Nat → Bool) => R7Cnf.Sat τ (Prod.fst (R7Cnf.F inp ℓ))) :=
+  _
+
+theorem R7Cnf.T0 (adj : Fin (OfNat.ofNat 27) → Fin (OfNat.ofNat 27) → Bool) (s0 s1 s2 s3 : Fin (OfNat.ofNat 27) → Bool)
+  (ℓ : Nat) :
+  And (Eq (R7Cnf.F (R7Cnf.mk4 adj s1 s0 s2 s3) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+    (And (Eq (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s3 s2) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+      (And (Eq (R7Cnf.F (R7Cnf.mk4 adj s1 s0 s3 s2) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+        (And (Eq (R7Cnf.F (R7Cnf.mk4 adj s2 s3 s0 s1) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+          (And (Eq (R7Cnf.F (R7Cnf.mk4 adj s2 s3 s1 s0) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+            (And (Eq (R7Cnf.F (R7Cnf.mk4 adj s3 s2 s0 s1) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))
+              (Eq (R7Cnf.F (R7Cnf.mk4 adj s3 s2 s1 s0) ℓ) (R7Cnf.F (R7Cnf.mk4 adj s0 s1 s2 s3) ℓ))))))) :=
+  _
+
+axiom propext {a b : Sort 0} : Iff a b → Eq a b
+
+axiom Quot.sound.{u} {α : Sort u} {r : α → α → Sort 0} {a b : α} : r a b → Eq (Quot.mk r a) (Quot.mk r b)
+
+axiom Classical.choice.{u} {α : Sort u} : Nonempty α → α
+
+Checked 6637 declarations with no errors

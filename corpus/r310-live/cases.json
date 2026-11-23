@@ -1,0 +1,622 @@
+{
+ "what": "The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-23: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, sealed (running under seal), open, refused.",
+ "read": "2026-11-23",
+ "states": [
+  "decided",
+  "sealed",
+  "open",
+  "refused"
+ ],
+ "chen_c004": {
+  "claim": "C-004",
+  "round": 1,
+  "commit": "3248382c54545cbe0d2e02890222280144c03252",
+  "at": "2026-11-21T16:50:52Z",
+  "confirmed": {
+   "round": 2,
+   "commit": "ab6d5ebd44d0bd1297b7d61058d019548d984d2a",
+   "at": "2026-11-21T17:49:01Z"
+  },
+  "pairs": 977008,
+  "method": "custom trace; hand reduction, not Lean"
+ },
+ "nodes": [
+  {
+   "id": "root",
+   "parent": null,
+   "label": "A (3,10;40)-graph",
+   "sub": "40 vertices, no triangle, no 10 pairwise non-adjacent",
+   "state": "open",
+   "note": "If no such graph exists, R(3,10) = 40; if one does, R(3,10) = 41. Nothing on this page decides which.",
+   "credits": [
+    {
+     "who": "Geoffrey Exoo",
+     "what": "R(3,10) ≥ 40: a 39-vertex graph with no triangle and no independent 10-set",
+     "where": "SIAM J. Discrete Math. 2(4) 488–490",
+     "when": "1989",
+     "refereed": true,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "Jan Goedgebeur and Stanisław Radziszowski",
+     "what": "R(3,10) ≤ 42; Δ = 9 and 161 ≤ e ≤ 180 for any such graph",
+     "where": "Electron. J. Combin. 20(1) P30",
+     "when": "2013",
+     "refereed": true,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "Vigleik Angeltveit",
+     "what": "R(3,10) ≤ 41",
+     "where": "Electron. J. Combin. 32(4) P4.30",
+     "when": "2025-11-03",
+     "refereed": true,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "R(3,10) not decided, still 40 or 41; no (3,10;40)-graph found and no proof that none exists",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    }
+   ],
+   "map": [
+    "A (3,10;40)-graph",
+    "triangle-free, α ≤ 9"
+   ]
+  },
+  {
+   "id": "deg4",
+   "parent": "root",
+   "label": "A vertex of degree 4 or less",
+   "sub": "impossible",
+   "state": "decided",
+   "note": "Degree at least 4 follows from R(3,9) = 36. Degree exactly 4 was excluded four times before this lane, each without a referee.",
+   "credits": [
+    {
+     "who": "Daugherty, Ward and Ryan",
+     "what": "no vertex of degree 4 (SAT proof; the earliest)",
+     "where": "Zenodo 10.5281/zenodo.22945442",
+     "when": "2026-09-24",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "algal-lab",
+     "what": "no vertex of degree 4 (its release link now answers 404)",
+     "where": "github.com/hraness/algal-lab",
+     "when": "2026-09-28",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "Unsolved Lab",
+     "what": "no vertex of degree 4 (method M09)",
+     "where": "its R(3,10) page",
+     "when": "2026-10-01",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "Zhiyang Chen",
+     "what": "every degree is at least 4, from R(3,9) = 36; and degree 4 excluded",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "this lane",
+     "what": "again, as a corollary of Theorem C35, given Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; known before",
+     "where": "box 1 below",
+     "when": "2026-11-21 to 2026-11-23",
+     "refereed": false,
+     "kind": "ours",
+     "box": 1,
+     "src": "cert-machine-r1/P1-RESULT.md"
+    }
+   ],
+   "map": [
+    "Degree 4 or less",
+    "impossible"
+   ]
+  },
+  {
+   "id": "c35",
+   "parent": "root",
+   "label": "Contains an induced C35(1,7,11,16)",
+   "sub": "impossible at 40 vertices",
+   "state": "decided",
+   "box": 1,
+   "note": "Theorem C35: such a graph has at most 39 vertices, so no (3,10;40)-graph contains an induced C35(1,7,11,16). The question was posed in public at least three times before; nobody had decided it.",
+   "credits": [
+    {
+     "who": "Unsolved Lab",
+     "what": "posed it: “Extension from C35”, an open question, not run (M20)",
+     "where": "its R(3,10) page",
+     "when": "2026-10-01",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "andrey-kokoev/marici",
+     "what": "posed it: the five new vertices must induce a 5-cycle; “this extension family has not been excluded”",
+     "where": "a note in a public repository, dated 9 Nov, committed 16 Nov",
+     "when": "2026-11-09",
+     "refereed": false,
+     "kind": "literature",
+     "src": "reveal-draft/PRIOR-ART-RECHECK-2026-11-23.md"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "posed it: an idea scout ran the C35 + 5 formula, “TIMEOUT at 13 min; no answer”",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "reveal-draft/PRIOR-ART-RECHECK-2026-11-23.md"
+    },
+    {
+     "who": "Jan Goedgebeur and Stanisław Radziszowski",
+     "what": "the (3,9;35)-graph is unique: the circulant C35(1,7,11,16)",
+     "where": "Electron. J. Combin. 20(1) P30, Theorem 3",
+     "when": "2013",
+     "refereed": true,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "J. G. Kalbfleisch",
+     "what": "found the cyclic graph on 35 vertices with circular distances {1,7,11,16}, as Goedgebeur and Radziszowski credit it",
+     "where": "Chromatic Graphs and Ramsey’s Theorem, Ph.D. thesis, University of Waterloo",
+     "when": "1966",
+     "refereed": "a thesis",
+     "kind": "literature",
+     "src": "audit/gr2013/gr2013.txt"
+    },
+    {
+     "who": "this lane",
+     "what": "Theorem C35, in Lean (box 1)",
+     "where": "box 1 below",
+     "when": "2026-11-21 to 2026-11-23",
+     "refereed": false,
+     "kind": "ours",
+     "box": 1,
+     "src": "cert-machine-r1/P1-RESULT.md"
+    },
+    {
+     "who": "this lane",
+     "what": "a corollary: in a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none",
+     "where": "this page",
+     "when": "2026-11-21 to 2026-11-23",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "reveal-draft/REVEAL-v2-2026-11-23.md",
+     "label": "prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph"
+    }
+   ],
+   "map": [
+    "Contains an induced C35",
+    "impossible: Theorem C35"
+   ]
+  },
+  {
+   "id": "mtf",
+   "parent": "root",
+   "label": "Maximal triangle-free, degrees 6 to 9",
+   "sub": "a reduction",
+   "state": "decided",
+   "note": "One may assume no edge can be added without a triangle; then every degree is 6, 7, 8 or 9. The cover below is the split that follows.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "without loss of generality maximal triangle-free; then degrees 6 to 9; 545 possible degree distributions",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Pandey and Ravi",
+     "what": "diameter 2 or 3; diameter 2 forces minimum degree 6",
+     "where": "arXiv 2601.03572",
+     "when": "2026-01",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    }
+   ],
+   "map": [
+    "Maximal triangle-free",
+    "then degrees 6 to 9"
+   ]
+  },
+  {
+   "id": "s8",
+   "parent": "mtf",
+   "label": "A degree-8 vertex v, e(G − N[v]) ≤ 96",
+   "sub": "closed by gluing, an enumeration",
+   "state": "decided",
+   "note": "Closed by Chen’s exhaustive gluing runs (his Theorem 6.1: floors 97 at degree 8 and 88 at degree 9). They are enumerations with no checked proof, their runs are not published, and nobody has refereed them; the case rests on them.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "closed: no degree-8 vertex has e(G − N[v]) ≤ 96, by an enumeration with no checked proof (Theorem 6.1)",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen",
+     "what": "the gluing runs’ evidence is not in the repository; the floors 97 (degree 8) and 88 (degree 9) rest on them",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "reveal-draft/CHEN-NOTE-DRAFT-v2-2026-11-23.md"
+    }
+   ],
+   "map": [
+    "S8: a degree-8 vertex",
+    "closed by enumeration"
+   ]
+  },
+  {
+   "id": "near",
+   "parent": "mtf",
+   "label": "Near-regular distributions N(e), 162 ≤ e ≤ 179",
+   "sub": "open",
+   "state": "open",
+   "note": "Degree distributions that are not 9-regular. The count of those still open fell during Chen’s run.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "524 distributions open",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "238 still open at the end of the run (from 524)",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    },
+    {
+     "who": "Robert McCrea",
+     "what": "one slice closed: no degree-7 vertex with e(G − N[v]) = 104",
+     "where": "Zenodo 10.5281/zenodo.23928054",
+     "when": "2026-11-03",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    }
+   ],
+   "map": [
+    "Near-regular N(e)",
+    "238 distributions open"
+   ]
+  },
+  {
+   "id": "caseR",
+   "parent": "mtf",
+   "label": "Case R: 9-regular",
+   "sub": "split by the largest codegree",
+   "state": "open",
+   "note": "Every vertex has degree 9. Chen splits it by c*, the largest number of common neighbours of two non-adjacent vertices, 3 ≤ c* ≤ 7.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "the split by c* = 3, …, 7 (Lemma Mc)",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    }
+   ],
+   "map": [
+    "Case R: 9-regular",
+    "split by codegree c*"
+   ]
+  },
+  {
+   "id": "r7",
+   "parent": "caseR",
+   "label": "Case R(7): codegree seven",
+   "sub": "closed by Chen’s run; computed again here",
+   "state": "decided",
+   "box": 2,
+   "note": "Excluded first by Chen’s own AI run. This lane’s run is a second computation of the case, with its own reduction and code, under premises listed in box 2.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "open: 365 of 464 cubes certified, 99 open",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "excluded first: claim C-004 over all 977,008 admissible package pairs, added in round 1 (21 Nov, 16:50:52 UTC) and confirmed in round 2 (17:49:01 UTC) as a certificate with a custom trace; a hand reduction, not Lean",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/CLAIMS.md"
+    },
+    {
+     "who": "this lane",
+     "what": "a second computation, with our own reduction and code (it uses Chen’s Lemma R7): LRAT proofs for all 977,008 configurations, two checkers, the encoding’s soundness in Lean, under six premises (box 2)",
+     "where": "box 2 below",
+     "when": "2026-11-21 to 2026-11-23",
+     "refereed": false,
+     "kind": "ours",
+     "box": 2,
+     "src": "claude-r7/PROD-RESULT.md"
+    }
+   ],
+   "map": [
+    "Case R(7): codegree seven",
+    "closed first by Chen’s run"
+   ]
+  },
+  {
+   "id": "c6",
+   "parent": "caseR",
+   "label": "Case R(6): codegree six",
+   "sub": "running, sealed",
+   "state": "sealed",
+   "box": 3,
+   "note": "Worked on now, under seal: only its name, its Bitcoin anchors and its progress are shown (box 3).",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "open",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "partial results; not closed",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    },
+    {
+     "who": "this lane",
+     "what": "a sealed box, running (box 3)",
+     "where": "box 3 below",
+     "when": "2026-11-21 to 2026-11-23",
+     "refereed": false,
+     "kind": "ours",
+     "box": 3,
+     "src": "control-room-2026-11-22.md"
+    }
+   ],
+   "map": [
+    "Case R(6): codegree six",
+    "running, sealed"
+   ]
+  },
+  {
+   "id": "r35",
+   "parent": "caseR",
+   "label": "Cases R(3), R(4), R(5)",
+   "sub": "open",
+   "state": "open",
+   "note": "Codegree at most five.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "open",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "many marked sub-cases excluded; not closed",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    }
+   ],
+   "map": [
+    "Cases R(3) to R(5)",
+    "open"
+   ]
+  },
+  {
+   "id": "sym",
+   "parent": "root",
+   "label": "Graphs with a symmetry",
+   "sub": "partly closed",
+   "state": "open",
+   "route": true,
+   "note": "Another route, beside the cover: graphs with a given automorphism.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen",
+     "what": "not a Cayley graph (all 14 groups of order 40, certified); several prime-order automorphism cases closed, others open",
+     "where": "progress report, version 2 (Zenodo 10.5281/zenodo.23678020)",
+     "when": "2026-10-26",
+     "refereed": false,
+     "kind": "chen-report",
+     "src": "audit/chen-23678020/chen-v2.txt"
+    },
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "more order-2 cases and mixed cores closed; a few cores open",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    }
+   ],
+   "map": [
+    "Graphs with a symmetry",
+    "partly closed"
+   ]
+  },
+  {
+   "id": "build",
+   "parent": "root",
+   "label": "Building one",
+   "sub": "none found",
+   "state": "open",
+   "route": true,
+   "note": "The other side of the question: a 40-vertex graph found would make R(3,10) = 41.",
+   "credits": [
+    {
+     "who": "Zhiyang Chen’s AI run r310_ralph",
+     "what": "none found; the best 40-vertex graph with valid degrees has 44 independent 10-sets",
+     "where": "github.com/jeffchen006/Ramsey-R3-10",
+     "when": "2026-11-21 to 2026-11-22",
+     "refereed": false,
+     "kind": "chen-run",
+     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    },
+    {
+     "who": "Google DeepMind (AlphaEvolve)",
+     "what": "matched 39 vertices, no more",
+     "where": "arXiv 2603.09172",
+     "when": "2026",
+     "refereed": false,
+     "kind": "literature",
+     "src": "prior-art-2026-11-21.md"
+    }
+   ],
+   "map": [
+    "Building one",
+    "none found"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "file": "audit/AUDIT-PREREG-P2.md",
+   "sha256_12": "0af0a75cfa10"
+  },
+  {
+   "file": "audit/chen-23678020/chen-v2.txt",
+   "sha256_12": "1187d5a727fe"
+  },
+  {
+   "file": "audit/chen-ralph-2026-11-23/repo/ralph/CLAIMS.md",
+   "sha256_12": "58fb834b8fc3"
+  },
+  {
+   "file": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md",
+   "sha256_12": "e4fc9a5575e1"
+  },
+  {
+   "file": "audit/gr2013/gr2013.txt",
+   "sha256_12": "35f16104f2e4"
+  },
+  {
+   "file": "cert-machine-r1/P1-RESULT.md",
+   "sha256_12": "f9c264b93a1f"
+  },
+  {
+   "file": "claude-r7/PROD-RESULT.md",
+   "sha256_12": "6ab7ad144cd4"
+  },
+  {
+   "file": "control-room-2026-11-22.md",
+   "sha256_12": "93d8b37cebf7"
+  },
+  {
+   "file": "control-room-checks/CHEN-RALPH-READING-AUDIT.md",
+   "sha256_12": "a56eac121645"
+  },
+  {
+   "file": "control-room-checks/P4-KERNEL2-CHECK.md",
+   "sha256_12": "55623b19549a"
+  },
+  {
+   "file": "control-room-checks/P4-LEAN-READ.md",
+   "sha256_12": "868b3385155b"
+  },
+  {
+   "file": "control-room-checks/P4-ROUND3-CHECK.md",
+   "sha256_12": "51393773c6fa"
+  },
+  {
+   "file": "control-room-checks/P5-READ-2.md",
+   "sha256_12": "c3606695ab3e"
+  },
+  {
+   "file": "control-room-checks/P5-READ-3.md",
+   "sha256_12": "5acdff9d39dd"
+  },
+  {
+   "file": "control-room-checks/P5-READ-4.md",
+   "sha256_12": "3595482087c0"
+  },
+  {
+   "file": "control-room-checks/P5-READ.md",
+   "sha256_12": "c72cc8be3134"
+  },
+  {
+   "file": "control-room-checks/p3-pod/P3-RESULT.md",
+   "sha256_12": "27af1614ba62"
+  },
+  {
+   "file": "control-room-checks/t2-pod/T2-RESULT.md",
+   "sha256_12": "08dacaff7d7f"
+  },
+  {
+   "file": "prior-art-2026-11-21.md",
+   "sha256_12": "3d729f9e6bb6"
+  },
+  {
+   "file": "reveal-draft/CHEN-NOTE-DRAFT-v2-2026-11-23.md",
+   "sha256_12": "c76017bdd904"
+  },
+  {
+   "file": "reveal-draft/PRIOR-ART-RECHECK-2026-11-23.md",
+   "sha256_12": "062c9808e9cd"
+  },
+  {
+   "file": "reveal-draft/REVEAL-DRAFT.md",
+   "sha256_12": "f6b5b5ee0577"
+  },
+  {
+   "file": "reveal-draft/REVEAL-v2-2026-11-23.md",
+   "sha256_12": "ec5b7f1a96d1"
+  }
+ ]
+}
