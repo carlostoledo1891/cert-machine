@@ -6,9 +6,9 @@
   "opened": 28,
   "lane": 5,
   "cert_machine": 25,
-  "model_tracks": 30,
-  "not_yet_known": 1,
-  "open": 1
+  "model_tracks": 31,
+  "not_yet_known": 0,
+  "open": 0
  },
  "rows": [
   {
@@ -832,13 +832,14 @@
    "id": "E55",
    "at": "2026-11-23T07:31Z",
    "where": "sealed",
-   "whose": "not yet known",
-   "side": "not yet known",
-   "status": "open",
+   "whose": "the second program (the Astra track’s code)",
+   "side": "a model track",
+   "status": "closed",
    "caught_by": "a cert-machine agent",
    "how": "a second program’s full run, joined with ours by our own code",
-   "what": "An independent second program, run over every input of the sealed computation, disagrees with ours on a small number of inputs; until each is decided, no input it touches counts as closed. Found 07:31 UTC, under investigation.",
-   "outcome": "OPEN: under investigation",
+   "what": "An independent second program, run over every input of the sealed computation, disagreed with ours on a small number of inputs; until each was decided, no input it touched counted as closed. Found 07:31 UTC.",
+   "outcome": "resolved at 08:01 UTC; no verdict changes",
+   "resolution": "Resolved: the second program was the one in error (it omitted two conditions of a screen both programs implement); ours was right, and every input the disagreement touched was decided anyway by our tests and our second method. No verdict changes. The second program is being corrected and will be compared again over every input when the sealed run ends.",
    "src": "the control room’s notes, sealed",
    "line_sha256_16": "5c8203e09c0bfa5f",
    "n": 56

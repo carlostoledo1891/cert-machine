@@ -356,7 +356,7 @@ const legendShapes = '<div class="lg-key">' + [['c35', 'box 1'], ['r7', 'box 2']
 const srcOf = (r) => r.line_sha256_16 ? 'a line of the control room’s notes, sealed (sha256 ' + r.line_sha256_16 + '…)' : r.src;
 const ledgerTable = (rows, sealed) => C.table({
   cols: sealed ? [{ h: 'when' }, { h: 'what, and its source' }, { h: 'whose' }, { h: 'caught by' }, { h: 'then' }] : [{ h: 'when' }, { h: 'where' }, { h: 'what, and its source' }, { h: 'whose' }, { h: 'caught by, how' }, { h: 'then' }],
-  rows: rows.map((r) => { const what = { raw: esc(r.what) + '<span class="lg-src">' + C.breakable(srcOf(r)) + '</span>' };
+  rows: rows.map((r) => { const what = { raw: esc(r.what) + (r.resolution ? '<span class="lg-res">' + esc(r.resolution) + '</span>' : '') + '<span class="lg-src">' + C.breakable(srcOf(r)) + '</span>' };
     return sealed ? [utc(r.at), what, r.whose, r.caught_by, r.outcome] : [utc(r.at), WHERE[r.where], what, r.whose, r.caught_by + ', ' + r.how, r.outcome]; }) }).replace('<table>', '<table class="lg-t">');
 const OPENROWS = K.rows.filter((r) => r.where !== 'sealed'), SEALROWS = K.rows.filter((r) => r.where === 'sealed');
 const FIVE = K.rows.filter((r) => r.mattered).sort((a, b) => a.mattered.n - b.mattered.n);
@@ -368,7 +368,7 @@ const LEDGER = C.section({ lab: 'the corrections ledger', title: 'Every error ca
   bodyRaw: '<div class="col">' + C.pRaw(V('corrections.json', '/counts/all') + ' errors in about ' + Math.round(span) + ' hours, ours and the models’ alike: '
     + V('corrections.json', '/counts/cert_machine') + ' by cert-machine and its agents, ' + V('corrections.json', '/counts/model_tracks') + ' by the two model tracks. '
     + (K.counts.not_yet_known ? V('corrections.json', '/counts/not_yet_known') + ' not yet known (drawn in the upper lane). ' : '')
-    + V('corrections.json', '/counts/sealed') + ' are inside the sealed box, one line each with nothing of the method; ' + V('corrections.json', '/counts/open') + ' still open. Five that mattered:') + '</div>'
+    + V('corrections.json', '/counts/sealed') + ' are inside the sealed box, one line each with nothing of the method; ' + (K.counts.open ? V('corrections.json', '/counts/open') + ' still open' : 'none is open') + '. Five that mattered:') + '</div>'
     + '<div class="wide">' + STRIP + '</div>'
     + '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + ledgerSvg(false) + '</div><div class="hv-n">' + ledgerSvg(true) + '</div></div>'
     + '<figcaption data-record="' + ea(DIR + 'corrections.json@' + sha12(DIR + 'corrections.json')) + '">' + legendShapes + 'Each mark is one error, at the time it was recorded; hover or focus one to read it.</figcaption></figure></div>'
@@ -513,6 +513,7 @@ const STYLE = `
 .f5-k{display:flex;align-items:center;gap:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-4)}
 .f5-t{font-family:var(--f-display);font-weight:var(--weight-title);color:var(--ink);line-height:var(--leading-snug)}
 .f5-d{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.lg-res{display:block;margin-top:var(--s-1);color:var(--ink-2)}
 .lg-src{display:block;margin-top:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-4)}
 .bx-gap{border-top:1px solid var(--rule);padding-top:var(--s-3);margin-top:var(--s-4);color:var(--ink-3)}
 .bx-rows,.bx-stamps{list-style:none;padding:0;margin:0 0 var(--s-3);display:grid;gap:var(--s-2);font-size:var(--text-small);color:var(--ink-2);line-height:var(--leading-snug)}

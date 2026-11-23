@@ -405,15 +405,19 @@ function corrections() {
     ['2026-11-23T03:14Z', 'sealed', CM, AG, 'an audit', 'A slip in one of our own notes was carried into a model’s text.', 'noted', null, 'b13fecea47c03618'],
     ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'A model’s cost estimate was not supported.', 'refused', null, '1bad09a8ef035abb'],
     ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'Three wording slips in a model’s report.', 'listed', null, '43cdc8643c577e37'],
-    ['2026-11-23T07:31Z', 'sealed', 'not yet known', AG, 'a second program’s full run, joined with ours by our own code', 'An independent second program, run over every input of the sealed computation, disagrees with ours on a small number of inputs; until each is decided, no input it touches counts as closed. Found 07:31 UTC, under investigation.', 'OPEN: under investigation', null, '5c8203e09c0bfa5f'],
+    ['2026-11-23T07:31Z', 'sealed', 'the second program (the Astra track’s code)', AG, 'a second program’s full run, joined with ours by our own code', 'An independent second program, run over every input of the sealed computation, disagreed with ours on a small number of inputs; until each was decided, no input it touched counted as closed. Found 07:31 UTC.', 'resolved at 08:01 UTC; no verdict changes', null, '5c8203e09c0bfa5f'],
     ['2026-11-23T04:45Z', 'sealed', CM, CM, 'reading the receipt whole', 'We read a timestamp receipt only in part and “corrected” a registration’s time to a later one; the whole receipt proves the earlier time.', 'the correction withdrawn', null, 'a1dd2067e5c9b5c4']
   ];
+  /* a resolved entry's full resolution, in words that reveal no method (the control room's, 2026-11-23) */
+  const RESOLVED = { '2026-11-23T07:31Z sealed': 'Resolved: the second program was the one in error (it omitted two conditions of a screen both programs implement); ours was right, and every input the disagreement touched was decided anyway by our tests and our second method. No verdict changes. The second program is being corrected and will be compared again over every input when the sealed run ends.' };
   const rows = E.map((e, i) => {
     const [at, where, whose, caught_by, how, what, outcome, rel, needle] = e;
     if (rel) cite(rel, needle); else inNotes(needle);
+    if (at === '2026-11-23T07:31Z' && where === 'sealed') inNotes('28acf10c884b848a');   /* its resolution line in the log (the note: 07:35–08:01 UTC) */
     const side = whose === 'not yet known' ? 'not yet known' : /track|model session|a model track/.test(whose) ? 'a model track' : 'cert-machine';   /* the control room, its agents, scripts and documents */
     const status = /^OPEN/.test(outcome) ? 'open' : 'closed';
-    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, status, caught_by, how, what, outcome, src: rel || 'the control room’s notes, sealed', line_sha256_16: rel ? undefined : needle };
+    const resolution = RESOLVED[at + ' ' + where];
+    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, status, caught_by, how, what, outcome, resolution, src: rel || 'the control room’s notes, sealed', line_sha256_16: rel ? undefined : needle };
   }).sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id));
   rows.forEach((r, i) => { r.n = i + 1; });
   /* five that mattered (the control room's choice, 2026-11-23): a title and one line each, for the page's strip */
