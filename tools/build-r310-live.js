@@ -62,7 +62,7 @@ need(B1 && B2 && B3 && BX.boxes.length === 3, 'the boxes record does not hold th
 need(B1.state === 'opened' && B2.state === 'opened' && B3.state === 'sealed', 'a box’s state is not the one the page draws');
 const LABEL6 = B3.label;
 need(LABEL6 === 'Case R(6): codegree six', 'the sealed box is not named as Chen’s report names its case');
-need(Object.keys(B3).sort().join(',') === 'as_of,id,label,n,progress_percent,stamps,state', 'the sealed box’s record holds more than its name, its anchors and its progress');
+need(Object.keys(B3).sort().join(',') === 'as_of,id,label,n,open_discrepancies,progress_percent,stamps,state', 'the sealed box’s record holds more than its name, its anchors and its progress');
 need(Number.isInteger(B3.progress_percent) && B3.progress_percent >= 0 && B3.progress_percent <= 100, 'the sealed box’s progress is not a whole percent');
 need(B3.stamps.length === 3 && B3.stamps.every((s, i) => i === 0 || s.at > B3.stamps[i - 1].at) && B3.stamps.every((s) => Number.isInteger(s.block)), 'the sealed box’s anchors are not three blocks in time order');
 const lv = B2.by_level, rl = RP.by_level;
@@ -74,6 +74,7 @@ const NODES = CASES.nodes, byId = Object.fromEntries(NODES.map((n) => [n.id, n])
 need(byId.r7.box === 2 && byId.c35.box === 1 && byId.c6.box === 3 && byId.c6.state === 'sealed', 'the map’s boxes are not the boxes record’s');
 need(byId.c6.label === LABEL6, 'the map names the sealed case otherwise than its box');
 need(K.counts.all === K.rows.length && K.counts.sealed === K.rows.filter((r) => r.where === 'sealed').length, 'the corrections’ counts are not their rows’');
+need(B3.open_discrepancies === K.rows.filter((r) => r.where === 'sealed' && r.status === 'open').length, 'the sealed box’s open discrepancies are not the ledger’s open sealed rows');
 need(K.rows.filter((r) => r.where === 'sealed').every((r) => r.line_sha256_16 && !/R\(6\)/.test(r.what + r.how + r.outcome)), 'a sealed correction says more than one line');
 /* the public change log: the newest entry states the state the page shows */
 const LOGE = PL.entries, NEWEST = LOGE[LOGE.length - 1];
@@ -264,6 +265,7 @@ const SEALBOX = '<article class="bx bx-sealed" id="box-3"><div class="bx-h">' + 
   + '<p class="bx-p">Running now. Its rules were stamped in Bitcoin before and while it runs:</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
   + '<div class="pg" role="img" aria-label="' + ea(B3.progress_percent + ' percent done') + '"><span style="--w:' + B3.progress_percent + '%"></span></div>'
   + '<p class="pg-n"><span class="pg-v">' + V('boxes.json', '/boxes[id=c6]/progress_percent') + '%</span> done, rounded down, at ' + esc(utc(B3.as_of)) + ' (the newest copy of its ledger at home)</p>'
+  + (B3.open_discrepancies ? '<p class="pg-n pg-open"><b>' + V('boxes.json', '/boxes[id=c6]/open_discrepancies') + ' open discrepanc' + (B3.open_discrepancies === 1 ? 'y' : 'ies') + '</b> (in the corrections ledger)</p>' : '')
   + '<p class="bx-p">Nothing else about it is shown. It opens only after audit, on my word; its replay waits for that.</p></article>';
 const BOXES = C.section({ lab: 'the boxes', title: 'Two boxes opened, one sealed', id: 'boxes', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw('Work in progress is kept in a sealed box: what it is, its rules stamped in Bitcoin, how far it has got, and nothing else. A box opens only after its audit. These are the first two to open.') + '</div>'
@@ -329,7 +331,7 @@ function ledgerSvg(narrow) {
     o.push('<rect x="' + L + '" y="' + y0 + '" width="' + (w - L - R) + '" height="' + (laneH - 8) + '" rx="4" fill="var(--surface)"/>');
     if (narrow) o.push('<text x="' + (L + 6) + '" y="' + (y0 - 6) + '" class="t-note">' + esc(name1 + ' ' + name2) + '</text>');
     else o.push('<text x="' + (L - 14) + '" y="' + (y0 + laneH / 2 - 4) + '" text-anchor="end" class="t-note">' + esc(name1) + '</text><text x="' + (L - 14) + '" y="' + (y0 + laneH / 2 + 11) + '" text-anchor="end" class="t-note">' + esc(name2) + '</text>');
-    const rows = K.rows.filter((r) => r.side === side), bins = {};
+    const rows = K.rows.filter((r) => r.side === side || (side === 'cert-machine' && r.side === 'not yet known')), bins = {};
     for (const r of rows) {
       const b = Math.round((Date.parse(r.at) - T0) / (narrow ? 5400000 : 2700000));
       const k = bins[b] = (bins[b] || 0) + 1;
@@ -365,7 +367,8 @@ const span = ((Date.parse(K.rows[K.rows.length - 1].at) - Date.parse(K.rows[0].a
 const LEDGER = C.section({ lab: 'the corrections ledger', title: 'Every error caught, by whom and how', id: 'corrections', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw(V('corrections.json', '/counts/all') + ' errors in about ' + Math.round(span) + ' hours, ours and the models’ alike: '
     + V('corrections.json', '/counts/cert_machine') + ' by cert-machine and its agents, ' + V('corrections.json', '/counts/model_tracks') + ' by the two model tracks. '
-    + V('corrections.json', '/counts/sealed') + ' are inside the sealed box, one line each with nothing of the method. Five that mattered:') + '</div>'
+    + (K.counts.not_yet_known ? V('corrections.json', '/counts/not_yet_known') + ' not yet known (drawn in the upper lane). ' : '')
+    + V('corrections.json', '/counts/sealed') + ' are inside the sealed box, one line each with nothing of the method; ' + V('corrections.json', '/counts/open') + ' still open. Five that mattered:') + '</div>'
     + '<div class="wide">' + STRIP + '</div>'
     + '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + ledgerSvg(false) + '</div><div class="hv-n">' + ledgerSvg(true) + '</div></div>'
     + '<figcaption data-record="' + ea(DIR + 'corrections.json@' + sha12(DIR + 'corrections.json')) + '">' + legendShapes + 'Each mark is one error, at the time it was recorded; hover or focus one to read it.</figcaption></figure></div>'
@@ -384,6 +387,7 @@ const STEPS = [
 const RAIL = '<ol class="pl">' + STEPS.map(([t, d], i) => '<li class="pl-s"><span class="pl-n">' + (i + 1) + '</span><span class="pl-t">' + esc(t) + '</span><span class="pl-d">' + d + '</span></li>').join('') + '</ol>';
 const vt = M.verdicts.tally;
 const AS = M.now.astra;
+const SEC = M.now.rented.second;
 const NOW = C.stats([
   { k: 'rented machine, box 3', vRaw: V('machine.json', '/now/rented/vcpu') + ' vCPU', nRaw: 'US$' + V('machine.json', '/now/rented/usd_per_hour', W.COMPUTED, 'raw') + ' an hour, ' + esc(M.now.rented.state) },
   { k: 'GPT-6.2-astra sessions', vRaw: V('machine.json', '/now/astra/started'), nRaw: 'since ' + esc(utc(AS.since, false)) + ' today: ' + V('machine.json', '/now/astra/finished') + ' done, ' + V('machine.json', '/now/astra/running') + ' running' },
@@ -398,6 +402,8 @@ const money = C.table({ cols: [{ h: 'result' }, { h: 'where it ran' }, { h: 'cos
 const MACHINE = C.section({ lab: 'the machine at work', title: 'What runs now, and what it costs', id: 'machine', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw('As of ' + esc(utc(M.as_of)) + ', from the records. One person runs it with models of two families; cert-machine, the control room, is a Claude model too. “Independent” here means code written without reading the other side’s code, not a second party.') + '</div>'
     + NOW
+    + (SEC ? '<div class="col">' + C.pRaw('Also: ' + esc(SEC.what) + ' (' + V('machine.json', '/now/rented/second/vcpu') + ' vCPU, US$' + V('machine.json', '/now/rented/second/usd_per_hour', W.COMPUTED, 'raw') + ' an hour), from '
+      + esc(utc(SEC.from, false)) + ' to ' + esc(SEC.to) + ' on 23 November, now ' + esc(SEC.state) + ', and ' + esc(SEC.earlier) + '. About US$' + V('machine.json', '/now/rented/second/usd_both', W.COMPUTED, 'raw') + ' for both.') + '</div>' : '')
     + '<div class="col"><h3 class="lg-h">How a claim travels</h3></div><div class="wide">' + RAIL + '</div>'
     + '<div class="col">' + C.pRaw('On the two opened boxes, ' + N(M.verdicts.rows.length) + ' checks have a verdict: ' + Object.entries(vt).map(([k, v]) => N(v) + ' ' + esc(k)).join(', ') + '. Each is counted once; our own corrections are never counted as findings.') + '</div>'
     + '<div class="wide"><details class="more"><summary>The ' + N(M.verdicts.rows.length) + ' checks, one by one</summary>' + vRows + '</details></div>'
@@ -499,6 +505,7 @@ const STYLE = `
 .bx-anchor{margin:var(--s-4) 0 var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
 .bx-fix{border-left:2px solid var(--ink-3);padding-left:var(--s-3);color:var(--ink-2)}
 .bx-why b{color:var(--ink)}
+.pg-open b{color:var(--ink)}
 .bx-open-at{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
 .f5{list-style:none;margin:var(--s-2) 0 var(--s-5);padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s-3)}
 @media (max-width:1000px){.f5{grid-template-columns:minmax(0,1fr)}}

@@ -405,13 +405,15 @@ function corrections() {
     ['2026-11-23T03:14Z', 'sealed', CM, AG, 'an audit', 'A slip in one of our own notes was carried into a model’s text.', 'noted', null, 'b13fecea47c03618'],
     ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'A model’s cost estimate was not supported.', 'refused', null, '1bad09a8ef035abb'],
     ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'Three wording slips in a model’s report.', 'listed', null, '43cdc8643c577e37'],
+    ['2026-11-23T07:31Z', 'sealed', 'not yet known', AG, 'a second program’s full run, joined with ours by our own code', 'An independent second program, run over every input of the sealed computation, disagrees with ours on a small number of inputs; until each is decided, no input it touches counts as closed. Found 07:31 UTC, under investigation.', 'OPEN: under investigation', null, '5c8203e09c0bfa5f'],
     ['2026-11-23T04:45Z', 'sealed', CM, CM, 'reading the receipt whole', 'We read a timestamp receipt only in part and “corrected” a registration’s time to a later one; the whole receipt proves the earlier time.', 'the correction withdrawn', null, 'a1dd2067e5c9b5c4']
   ];
   const rows = E.map((e, i) => {
     const [at, where, whose, caught_by, how, what, outcome, rel, needle] = e;
     if (rel) cite(rel, needle); else inNotes(needle);
-    const side = /track|model session|a model track/.test(whose) ? 'a model track' : 'cert-machine';   /* the control room, its agents, scripts and documents */
-    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, caught_by, how, what, outcome, src: rel || 'the control room’s notes, sealed', line_sha256_16: rel ? undefined : needle };
+    const side = whose === 'not yet known' ? 'not yet known' : /track|model session|a model track/.test(whose) ? 'a model track' : 'cert-machine';   /* the control room, its agents, scripts and documents */
+    const status = /^OPEN/.test(outcome) ? 'open' : 'closed';
+    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, status, caught_by, how, what, outcome, src: rel || 'the control room’s notes, sealed', line_sha256_16: rel ? undefined : needle };
   }).sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id));
   rows.forEach((r, i) => { r.n = i + 1; });
   /* five that mattered (the control room's choice, 2026-11-23): a title and one line each, for the page's strip */
@@ -430,7 +432,8 @@ function corrections() {
   return {
     what: 'Every error caught in the R(3,10) lane, by whom and how, from the control room’s log and notes: ours and the models’ alike, never a person’s. Errors inside the sealed box are one line each with a date and nothing of the method. A correction of a correction is one row, never counted as a finding.',
     counts: { all: rows.length, sealed: count((r) => r.where === 'sealed'), opened: count((r) => r.where === 'c35' || r.where === 'r7'), lane: count((r) => r.where === 'lane'),
-      cert_machine: count((r) => r.side === 'cert-machine'), model_tracks: count((r) => r.side === 'a model track') },
+      cert_machine: count((r) => r.side === 'cert-machine'), model_tracks: count((r) => r.side === 'a model track'), not_yet_known: count((r) => r.side === 'not yet known'),
+      open: count((r) => r.status === 'open') },
     rows
   };
 }
@@ -439,6 +442,9 @@ function corrections() {
 function machine() {
   cite(LOG, 'cpu3c 32 vCPU / 64 GB, US$0.96/h');
   cite(LOG, 'copied home and deleted at US$20, now about 17:00 UTC');
+  for (const h of ['5fd3670cac3b5b01', 'b5984821f8a452cb', 'd8af801d6323ac91', '9f46682932c85348']) inNotes(h);   /* never started, deleted 05:10; created 05:10; deleted 07:4x; about US$2.6 for both */
+  const SECOND = { what: 'a second machine for the sealed box', vcpu: 32, usd_per_hour: '0.96', from: '2026-11-23T05:10Z', to: 'shortly after 07:40 UTC', state: 'deleted',
+    earlier: 'one created at 04:54 UTC that never started, deleted at 05:10 UTC', usd_both: '2.6' };
   /* the model sessions run from this Mac (GPT-6.2 Astra by command line), read from their own run files */
   const ar = path.join(LANE, 'astra-runs');
   let started = 0, finished = 0, firstAt = null, lastAt = null;
@@ -510,7 +516,7 @@ function machine() {
   return {
     what: 'The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.',
     as_of: lastAt,
-    now: { rented: { for: 'box 3, the sealed computation', vcpu: 32, usd_per_hour: '0.96', state: 'running' },
+    now: { rented: { for: 'box 3, the sealed computation', vcpu: 32, usd_per_hour: '0.96', state: 'running', second: SECOND },
       astra: { model: 'GPT-6.2 Astra, by command line from the Mac', since: firstAt, started, finished, running: started - finished } },
     audits: { opened_boxes: OPEN_BOX.length + runNotes.length, sealed_box: sealedNotes },
     verdicts: { rows: V, tally },
@@ -577,6 +583,8 @@ async function all() {
   const recs = { 'cases.json': cases(), 'boxes.json': boxes(), 'corrections.json': corrections(), 'machine.json': machine(), 'replay.json': await replay() };
   /* every source cited, with the first twelve hex digits of its sha256, for the page's trust layer */
   recs['cases.json'].sources = [...SRC.entries()].sort().map(([rel, h]) => ({ file: rel, sha256_12: h }));
+  /* the sealed box shows its open discrepancies as a count only, read from the ledger's open sealed rows */
+  recs['boxes.json'].boxes[2].open_discrepancies = recs['corrections.json'].rows.filter((r) => r.where === 'sealed' && r.status === 'open').length;
   return recs;
 }
 (async () => {

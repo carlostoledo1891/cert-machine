@@ -1,24 +1,34 @@
 {
  "what": "The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.",
- "as_of": "2026-11-23T06:25:21Z",
+ "as_of": "2026-11-23T07:25:57Z",
  "now": {
   "rented": {
    "for": "box 3, the sealed computation",
    "vcpu": 32,
    "usd_per_hour": "0.96",
-   "state": "running"
+   "state": "running",
+   "second": {
+    "what": "a second machine for the sealed box",
+    "vcpu": 32,
+    "usd_per_hour": "0.96",
+    "from": "2026-11-23T05:10Z",
+    "to": "shortly after 07:40 UTC",
+    "state": "deleted",
+    "earlier": "one created at 04:54 UTC that never started, deleted at 05:10 UTC",
+    "usd_both": "2.6"
+   }
   },
   "astra": {
    "model": "GPT-6.2 Astra, by command line from the Mac",
    "since": "2026-11-23T03:53:18Z",
-   "started": 9,
-   "finished": 9,
+   "started": 10,
+   "finished": 10,
    "running": 0
   }
  },
  "audits": {
   "opened_boxes": 14,
-  "sealed_box": 27
+  "sealed_box": 30
  },
  "verdicts": {
   "rows": [
