@@ -120,7 +120,9 @@ def derive(run):
     def s1_eval(r):
         """(state, mode, why) of one Comparator run: pass | nosandbox | notrun | resources | changed | rejected"""
         md = (rd(r, 'S1.mode', '') or '').strip() or None
-        out = rd(r, 'S1.out', '') or ''
+        # amendment A22 (before S1 reported): the full S1.out (the build replay, ~170 MB) stays with the run, digested on
+        # the machine; the pull carries S1.tail (its last 400 lines, made on the machine), as B1V.tail does for B1
+        out = rd(r, 'S1.out') or rd(r, 'S1.tail', '') or ''
         ok = ex(r, 'S1') == 0 and 'Your solution is okay!' in out and 'Lean default kernel accepts the solution' in out
         c1 = rd(r, 'challenge-build.before-S1.sha256', '')
         unchanged = bool(chl(c1)) and chl(rd(r, 'challenge-build.sha256', '')) == chl(c1)
@@ -202,7 +204,7 @@ def derive(run):
             # amendment A17: the build pod's C1 was stopped at its memory limit; C1 is read from the larger machine,
             # against the same control challenge, built there at setup (V2-challenge) before any release artifact arrived
             e = ex(_jr, 'C1') if _jr else None
-            out = ((rd(_jr, 'C1.out', '') or '') + (rd(_jr, 'C1.err', '') or '')) if _jr else ''
+            out = ((rd(_jr, 'C1.out') or rd(_jr, 'C1.tail', '') or '') + (rd(_jr, 'C1.err', '') or '')) if _jr else ''   # A22: C1.tail as for S1
             bok = bool(_jr) and ex(_jr, 'V2-challenge') == 0 and _copy_ok(_jr, '_judge.log')
             ctl[c] = {'what': want, 'exit': e, 'refused': bok and e not in (None, 0, 124, 137) and bool(re.search(pat, out)), 'where': 'larger machine'}
             continue

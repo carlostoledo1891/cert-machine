@@ -89,4 +89,9 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     ceiling. On the operator's word the bridge is not run there and BRu is REFUSED with that reason; it can be run
     later as a follow-up. The waiter that would have started it was stopped. A small script on the machine now
     enforces A19's rule that C1 is not run if S1 stops on resources. S1 had not reported when this was written.
+19. **2026-11-23 04:11 UTC — S1's and C1's outputs carried home as tails (amendment A22, before S1 has a verdict).** The
+    closing checklist excluded `S1.out` (about 168.6 MB) from the pull while the recorder reads Comparator's acceptance
+    lines there; found by Astra 6.2's red-team of the release texts. The recorder now falls back to `S1.tail` / `C1.tail`
+    (the last 400 lines, made on the machine, with the full file's sha256 and size in the machine's hash list), as for
+    `B1V.tail`. Criteria unchanged; S1 had not reported when this was written.
 

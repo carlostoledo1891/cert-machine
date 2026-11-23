@@ -564,3 +564,23 @@ The recorder looked for the words `with no errors` and would have read this acce
 
 **Disclosure.** This changes which rows are run, for a reason of cost. It is written and published before S1 has reported, and it cannot depend on S1's result.
 
+## Amendment A22 — how S1's and C1's outputs are carried home (written 04:11 UTC on 2026-11-23), before S1 has a verdict
+
+**State when this is written.** S1 has run on the larger machine since 2026-11-22 05:02:50 UTC; no exit, nothing killed.
+Its stdout, `S1.out`, is the replay of the build plus Comparator's own lines, about 168.6 MB (its file time is the end of
+the build replay; Comparator has written nothing since). No result of S1 is known.
+
+**Why.** A red-team of the release texts (Astra 6.2, 2026-11-23) found that the closing checklist pulls `/results` with
+`--max-size=5m --exclude S1.out`, while the recorder looks for Comparator's two acceptance lines in `S1.out`. Followed as
+written, an accepted run would have been recorded as a rejection. The file is too large for the repository (GitHub
+refuses files over 100 MB).
+
+**What changes.** The recorder reads `S1.out` if present, else `S1.tail`; and `C1.out` if present, else `C1.tail`
+(`tools/check-alpoge-grh.py`, at this commit). Each tail is made on the machine after its step exits, as the last 400
+lines of the full file (`tail -n 400`), and the full file's sha256 and byte count are recorded beside it in the machine's
+hash list, which the pull checks. This is the rule `B1V.tail` and `NOBUILD.tail.txt` already follow. The acceptance and
+rejection criteria are unchanged. No other row is affected; `--check` re-derives the record unchanged at this commit.
+
+**Disclosure.** This changes how evidence is carried, not what counts as a pass. It is written and published before S1
+has reported, and it cannot depend on S1's result.
+
