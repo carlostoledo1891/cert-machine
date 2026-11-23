@@ -28,6 +28,12 @@ CASES = os.path.join(ROOT, 'instruments', 'countex', 'cases')
 OUT = os.path.join(ROOT, 'certs', 'countex-ledger.json')
 COMMIT = 'dbf673741a54c7dc9d88a6aec0e8148a538f4a3a'
 
+# One case tabulates integers past CPython 3.11's 4300-digit limit for int<->str conversion
+# (quantum-coupon-collector: 12758 digits), which no other countex case does. Raising the limit
+# is a property of this runner's interpreter, not of any decider, so it is set here: the deciders
+# and their hashes stay exactly as published.
+getattr(sys, 'set_int_max_str_digits', lambda n: None)(0)   # absent before Python 3.11
+
 
 def sha(path):
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
