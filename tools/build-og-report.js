@@ -350,6 +350,38 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /r310/ (2026-11-23, the live R(3,10) page): its case map without its words. A tree of twelve boxes
+     from one root, left to right: the decided cases filled in ink, the open ones hollow, and one box drawn double and
+     locked, the sealed case, with a short bar inside it; a second, lighter group below the cover for the other routes.
+     LIGHT theme, no number, no label. */
+  r310: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · R(3,10), live', path: '/r310/',
+    title: 'R(3,10), live',
+    alt: 'A tree of twelve boxes growing from one root to the right: some filled in ink, some hollow, and one drawn double with a padlock and a short bar inside it.',
+    get svgRaw() {
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A tree of boxes, some filled, some hollow, one double and locked" style="position:absolute;left:0;top:0">'];
+      const X = [140, 380, 640, 900], BW = [180, 200, 200, 180], BH = 40;
+      /* rows of the leaves: deg4, c35, s8, near, r7, r6, r35, then the other routes */
+      const node = { root: [0, 3.6], deg4: [1, 0], c35: [1, 1], mtf: [1, 3.5], s8: [2, 2], near: [2, 3], caseR: [2, 5], r7: [3, 4], r6: [3, 5], r35: [3, 6], sym: [1, 7.5], build: [1, 8.5] };
+      const kind = { root: 'open', deg4: 'decided', c35: 'decided', mtf: 'decided', s8: 'decided', near: 'open', caseR: 'open', r7: 'decided', r6: 'sealed', r35: 'open', sym: 'open', build: 'open' };
+      const par = { deg4: 'root', c35: 'root', mtf: 'root', s8: 'mtf', near: 'mtf', caseR: 'mtf', r7: 'caseR', r6: 'caseR', r35: 'caseR', sym: 'root', build: 'root' };
+      const Y = (r) => 150 + r * 44, P = (id) => ({ x: X[node[id][0]], y: Y(node[id][1]), w: BW[node[id][0]] });
+      for (const [c, p] of Object.entries(par)) { const a = P(p), b = P(c), xm = a.x + a.w + 22; o.push('<path d="M' + (a.x + a.w) + ' ' + (a.y + BH / 2) + ' H' + xm + ' V' + (b.y + BH / 2) + ' H' + b.x + '" fill="none" stroke="var(--ink-4)" stroke-width="1.6"/>'); }
+      for (const id of Object.keys(node)) {
+        const p = P(id), k = kind[id];
+        if (k === 'decided') o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + BH + '" rx="6" fill="var(--ink)"/>');
+        else if (k === 'open') o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + BH + '" rx="6" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>');
+        else {
+          o.push('<rect x="' + (p.x - 5) + '" y="' + (p.y - 5) + '" width="' + (p.w + 10) + '" height="' + (BH + 10) + '" rx="9" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.6"/>');
+          o.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + BH + '" rx="5" fill="none" stroke="var(--ink-3)" stroke-width="1.2"/>');
+          const lx = p.x + 24, ly = p.y + 22;
+          o.push('<path d="M' + (lx - 6) + ' ' + (ly - 2) + ' v-5 a6 6 0 0 1 12 0 v5" fill="none" stroke="var(--ink)" stroke-width="2"/><rect x="' + (lx - 9) + '" y="' + (ly - 2) + '" width="18" height="13" rx="2" fill="var(--ink)"/>');
+          o.push('<rect x="' + (p.x + 46) + '" y="' + (p.y + 17) + '" width="110" height="7" rx="3.5" fill="var(--ink-5)"/><rect x="' + (p.x + 46) + '" y="' + (p.y + 17) + '" width="26" height="7" rx="3.5" fill="var(--ink)"/>');
+        }
+      }
+      o.push('<line x1="380" y1="' + (Y(7.5) - 14) + '" x2="1080" y2="' + (Y(7.5) - 14) + '" stroke="var(--ink-5)" stroke-width="1.2"/>');
+      o.push('</svg>');
+      return o.join('');
+    } },
   /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
      record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
      terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing

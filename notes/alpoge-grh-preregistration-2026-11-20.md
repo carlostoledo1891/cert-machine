@@ -584,3 +584,43 @@ rejection criteria are unchanged. No other row is affected; `--check` re-derives
 **Disclosure.** This changes how evidence is carried, not what counts as a pass. It is written and published before S1
 has reported, and it cannot depend on S1's result.
 
+## Amendment A23 — how the larger machine's S1 stop and C1 are read (written 05:05 UTC on 2026-11-23), before S1 has a verdict and before C1 has run
+
+**State when this is written.** S1 has run on the larger machine since 2026-11-22 05:02:50 UTC; no exit. C1 has not
+started there. No result of either is known.
+
+**Why.** Astra 6.2's red-team of the release texts (2026-11-23) found three ways the recorder could read the end of the
+run more loosely than the registration intends. (1) A17 says C1 on the larger machine counts as rejected when its
+diagnostic names the planted statement; the recorder used the generic pattern `do not match|does not match`, which a
+rejection naming another declaration would also meet. (2) Exit 137 is also a manual kill, so it does not by itself
+establish a stop on resources. (3) The A19 reading ("C1 not run") did not require the guard's own marker.
+
+**What changes** (`tools/check-alpoge-grh.py`, at this commit; criteria for a pass are unchanged):
+- C1 on the larger machine counts as rejected only if its diagnostic names `RiemannZetaZerosOnLine` or
+  `riemannZeta_eq_zero_re` and Comparator did not print its acceptance — the test K3C1 and CRC1 already use. A C1 that
+  stops without such a diagnostic makes the controls row REFUSED until traced (not REFUTED, which stays for a control
+  that is accepted).
+- On the larger machine, S1 reads "resources" from exit 124, or from exit 137 with the guard's `oom_kill` above 0 or an
+  out-of-memory line in S1's output. Exit 137 with neither reads "killed, cause not established". S1 is REFUSED either
+  way; only the stated reason differs.
+- The A19 branch of the controls row requires the guard's marker `C1.not-run` in the larger machine's run, and records
+  `C1.start` when present (the guard stops the judge script within seconds of S1's exit, so C1 can have started).
+- Tested on a copy of the record with planted endings: exit 137 with `oom_kill` 0 reads "killed"; with `oom_kill` 3,
+  "resources"; an accepted S1 with a C1 naming the plant gives S1 and C1–C5 CERTIFIED; a C1 naming something else
+  gives C1–C5 REFUSED. `--check` re-derives the current record unchanged.
+
+**Disclosure.** Written and published before S1 or C1 has a result; it tightens how they are read and cannot depend on
+either.
+
+## Amendment A24 — B1's sorry tally re-counted in both spellings (written 05:05 UTC on 2026-11-23), AFTER the result it re-reads — disclosed as such
+
+**Why.** The same red-team found that B1's `sorry` tally (`B1-sorry.txt`, and the recorder's fallback) counted
+`declaration uses 'sorry'` with straight quotes, while this Lean prints the warning with backticks (`C2.out`). The tally
+could therefore not have seen a warning. B1 was CERTIFIED on 21 Nov; this re-reads that result after it was seen.
+
+**What was done.** The archived full logs (`notes/alpoge-rh-2026-11-20/pod-logs/podA-large-logs.tar.zst`, sha256
+30bf02be2e5c540efd695ec5f00995e7e25fcfdb2cefb0aca964e33a4aca05db, the file named in
+`corpus/alpoge-grh/runs/podA-phden71h9yeked/LARGE-LOGS.txt`) were re-counted on the Mac for both spellings and for any
+line holding both "declaration uses" and "sorry": `B1.out` 0, 0, 0; `B1.progress` 0, 0, 0; `B1V.out` 0, 0, 0. B1's
+verdict stands. The page rests "no sorry" on the source scan and the axiom report A1 as well as on this count.
+

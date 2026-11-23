@@ -94,4 +94,11 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
     lines there; found by Astra 6.2's red-team of the release texts. The recorder now falls back to `S1.tail` / `C1.tail`
     (the last 400 lines, made on the machine, with the full file's sha256 and size in the machine's hash list), as for
     `B1V.tail`. Criteria unchanged; S1 had not reported when this was written.
+20. **2026-11-23 05:05 UTC — how the larger machine's S1 stop and C1 are read (amendment A23, before S1 and C1 have
+    results).** C1 there counts as rejected only with a diagnostic naming the planted statement (as A17 fixed); exit 137
+    without out-of-memory evidence reads "killed, cause not established"; the A19 reading needs the guard's C1.not-run
+    marker. Found by Astra 6.2's red-team; criteria for a pass unchanged.
+21. **2026-11-23 05:05 UTC — B1's sorry tally re-counted in both spellings (amendment A24, AFTER the result).** The tally
+    matched straight quotes while Lean prints backticks; the archived full logs re-counted: 0 in every log and spelling.
+    B1 stands.
 

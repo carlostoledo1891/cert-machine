@@ -161,6 +161,13 @@ def derive(run):
     res = {}
     for name, r, lg in cand:
         st, md, wy = s1_eval(r)
+        if name == 'larger machine' and st == 'resources' and ex(r, 'S1') == 137 and rd(r, 'S1.stopped') is None:
+            # amendment A23 (before S1 had a verdict): exit 137 is also a manual kill; 'resources' needs the guard's
+            # oom_kill above 0 or an out-of-memory line, else the reason is 'killed, cause not established' (REFUSED either way)
+            m = re.search(r'S1 exit 137, oom_kill (\d+)', rd(r, '_guard.log', '') or '')
+            s1o = (rd(r, 'S1.out') or rd(r, 'S1.tail', '') or '') + (rd(r, 'S1.err', '') or '')
+            if not ((m and int(m.group(1)) > 0) or 'out of memory' in s1o.lower()):
+                st, wy = 'killed', 'Comparator was killed (exit 137) with no out-of-memory evidence: the cause is not established (amendment A23)'
         if rd(r, 'S1.stopped') is not None and st != 'pass':
             st, wy = 'stopped', 'the run was stopped by the control room at that pod\'s memory limit (amendment A17)'
         if st == 'pass' and lg and not (_copy_ok(r, lg) and ex(r, 'NOBUILD') == 0):
@@ -206,7 +213,14 @@ def derive(run):
             e = ex(_jr, 'C1') if _jr else None
             out = ((rd(_jr, 'C1.out') or rd(_jr, 'C1.tail', '') or '') + (rd(_jr, 'C1.err', '') or '')) if _jr else ''   # A22: C1.tail as for S1
             bok = bool(_jr) and ex(_jr, 'V2-challenge') == 0 and _copy_ok(_jr, '_judge.log')
-            ctl[c] = {'what': want, 'exit': e, 'refused': bok and e not in (None, 0, 124, 137) and bool(re.search(pat, out)), 'where': 'larger machine'}
+            # amendment A23 (before C1 ran): as A17 fixed and as K3C1 and CRC1 test, the diagnostic must name the planted
+            # statement, and Comparator must not have printed its acceptance
+            named = bool(re.search(r'RiemannZetaZerosOnLine|riemannZeta_eq_zero_re', out)) and 'Your solution is okay!' not in out
+            ctl[c] = {'what': want, 'exit': e, 'refused': bok and e not in (None, 0, 124, 137) and named, 'where': 'larger machine'}
+            if _jr and rd(_jr, 'C1.start') is not None:
+                ctl[c]['started'] = rd(_jr, 'C1.start').strip()
+            if _jr and rd(_jr, 'C1.not-run') is not None:
+                ctl[c]['not_run_marker'] = True
             continue
         e = ex(run, c); out = (rd(run, c + '.out', '') or '') + (rd(run, c + '.err', '') or '')
         ctl[c] = {'what': want, 'exit': e, 'refused': built_ok and e not in (None, 0, 124) and bool(re.search(pat, out))}
@@ -217,14 +231,21 @@ def derive(run):
                  'refused': ex(run, 'C5') not in (None, 0, 124, 137) and 'C5: riemannHypothesis re-typed as False' in c5out
                  and not re.search(r'Checked \d+ declarations with no (?:typechecker )?errors', c5out) and bool(re.search(r'tc\.rs|def_eq|type mismatch|typecheck', c5out))}
     if any(x.get('exit', 0) is None for x in ctl.values()) or not built_ok:
-        if rd(run, 'C1.stopped') is not None and 'larger machine' in res and res['larger machine'][0] == 'resources' and all(x['exit'] is not None for k, x in ctl.items() if k != 'C1'):
-            v, why = 'REFUSED', 'C1 was not run: it needs the same memory as S1, which stopped on resources on the larger machine (amendment A19); the other controls were each rejected' if all(x['refused'] for k, x in ctl.items() if k != 'C1') else 'C1 was not run for lack of memory (amendment A19), and another control was not rejected'
+        if rd(run, 'C1.stopped') is not None and 'larger machine' in res and res['larger machine'][0] in ('resources', 'killed') and _jr and rd(_jr, 'C1.not-run') is not None and all(x['exit'] is not None for k, x in ctl.items() if k != 'C1'):
+            # amendment A23: the guard's marker C1.not-run is required; C1.start is recorded when present
+            v, why = 'REFUSED', 'C1 has no result on the larger machine: the guard stopped the judge script after S1 stopped there (amendments A19, A21, A23); the other controls were each rejected' if all(x['refused'] for k, x in ctl.items() if k != 'C1') else 'C1 has no result on the larger machine (amendments A19, A23), and another control was not rejected'
         else:
             v, why = 'REFUSED', 'not every control ran'
     elif all(x['refused'] for x in ctl.values()):
         v, why = 'CERTIFIED', 'every control was refused by the judge it was built to fail'
     else:
-        v, why = 'REFUTED', 'a control was accepted: the judge cannot be trusted on this run'
+        bad = [k for k, x in ctl.items() if not x['refused']]
+        c1x = ctl.get('C1', {})
+        if bad == ['C1'] and c1x.get('where') == 'larger machine' and c1x.get('exit') not in (None, 0):
+            # amendment A23: a C1 that stopped with a diagnostic not naming the planted statement is not an acceptance
+            v, why = 'REFUSED', 'C1 on the larger machine stopped without a diagnostic naming the planted statement: REFUSED until traced (amendment A23); the other controls were each rejected'
+        else:
+            v, why = 'REFUTED', 'a control was accepted: the judge cannot be trusted on this run'
     rows.append(row('C1-C5', v, why, controls=ctl))
     def nanoda_accepts(out):
         """the declaration count if nanoda's output is one of its two acceptance lines, else None (amendment A18).

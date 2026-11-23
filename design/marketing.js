@@ -29,6 +29,14 @@ const PAGES = {
     quote: 'The homepage is marketing in the sense of /verify/: no visible pins, hashes or stop lines on it; no commit links typed into the copy.',
     relayed: 'the session brief of 2026-11-11, relaying the operator\'s decisions for the home page',
   },
+  /* the live R(3,10) page (2026-11-23, unlisted until the control room publishes it). Its rigor is one click down, in
+     its "why you can trust this" layer, where every record and hash is listed; the sentence is the brief's, relaying him */
+  'r310/index.html': {
+    url: '/r310/',
+    ruled: '2026-11-23',
+    quote: 'Rigor one click down (the "why you can trust this" layer); no commit links on the page; block heights are fine, hashes only one click down.',
+    relayed: 'the control room\'s brief of 2026-11-23 for the live R(3,10) page, relaying the operator\'s decisions',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',
