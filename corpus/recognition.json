@@ -495,6 +495,95 @@
    "pages": [
     "reports/delta3.html"
    ]
+  },
+  {
+   "id": "registry-82-86",
+   "date": "2026-11-22",
+   "kind": "registry",
+   "who": "the optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)",
+   "what": "Three asterisks removed on our replay — R. Pinho's C₈₆ and C₈₂ certificates and the Épi construction behind C₈₂ — merged by T. Tao (pull request #242); the two pages cite the replay as [T2026c].",
+   "quote": "by [C. Toledo](https://carlostoledo.co/reports/optconst-queue.html#c82), 20 Oct 2026; asterisks removed.",
+   "source": "recognition/teorth__optimizationproblems__README.md@84527cf2",
+   "url": "https://github.com/teorth/optimizationproblems/blob/84527cf2af55389f65738f440ae0630733eaad1a/README.md",
+   "pages": [
+    "reports/optconst-queue.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "registry-82a-reference",
+   "date": "2026-11-22",
+   "kind": "registry",
+   "who": "the optimization-constants registry, constants 82a and 86a",
+   "what": "The constants' pages list the replay as a reference of their own.",
+   "quote": "[T2026c] Toledo, Carlos. Independent replay of the [Pin26] certificate and the [Epi26] construction",
+   "source": "recognition/teorth__optimizationproblems__constants__82a.md@84527cf2",
+   "url": "https://github.com/teorth/optimizationproblems/blob/84527cf2af55389f65738f440ae0630733eaad1a/constants/82a.md",
+   "pages": []
+  },
+  {
+   "id": "registry-31",
+   "date": "2026-11-22",
+   "kind": "registry",
+   "who": "the optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)",
+   "what": "Two asterisks removed on our replay — L. Jack's C₃₁ rows, Lueker's method at h = 9 and h = 10 — merged by T. Tao (pull request #249); the page cites the replay as [T2026].",
+   "quote": "by [C. Toledo](https://carlostoledo.co/reports/chvatal-sankoff.html), 22 Oct 2026; asterisks removed.",
+   "source": "recognition/teorth__optimizationproblems__README.md@84527cf2",
+   "url": "https://github.com/teorth/optimizationproblems/blob/84527cf2af55389f65738f440ae0630733eaad1a/README.md",
+   "pages": [
+    "reports/chvatal-sankoff.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "registry-31a-reference",
+   "date": "2026-11-22",
+   "kind": "registry",
+   "who": "the optimization-constants registry, constant 31a",
+   "what": "The constant's page lists the replay as a reference of its own, and each of the two rows says it was independently replayed.",
+   "quote": "[T2026] Toledo, Carlos. Independent replay of the [J2026] bounds",
+   "source": "recognition/teorth__optimizationproblems__constants__31a.md@84527cf2",
+   "url": "https://github.com/teorth/optimizationproblems/blob/84527cf2af55389f65738f440ae0630733eaad1a/constants/31a.md",
+   "pages": []
+  },
+  {
+   "id": "registry-88a",
+   "date": "2026-11-22",
+   "kind": "registry",
+   "who": "the optimization-constants registry, constant 88a (the bounded prime gap constant)",
+   "what": "Our outside re-run of OpenAI's conditional Lean proof that prime gaps are at most 186 added to the page's formalization bullet, merged by T. Tao (pull request #360); the page cites the note as [Tol26] and says it reports a re-run by one party and does not verify the bound.",
+   "quote": "[Tol26] Toledo, Carlos. *An outside check of OpenAI's conditional Lean proof that prime gaps are at most 186.*",
+   "source": "recognition/teorth__optimizationproblems__constants__88a.md@84527cf2",
+   "url": "https://github.com/teorth/optimizationproblems/blob/84527cf2af55389f65738f440ae0630733eaad1a/constants/88a.md",
+   "pages": [
+    "reports/prime-gaps-186.html"
+   ]
+  },
+  {
+   "id": "nondual-observer-wsp-regrade-thanks",
+   "date": "2026-11-21",
+   "kind": "credit",
+   "who": "Nondual-Observer on GitHub, the author of the SGNE-CC weight edit (dna-weight-editing), in the weight-space-programming authors' log repository",
+   "what": "Thanked the regrade of their six MATH-500 trace files (certs/wsp-dna-regrade.json): every answer re-graded by two graders, and every disagreement with their own strict grader published.",
+   "quote": "Thank you, @carlostoledo1891, for re-grading all 3,000 responses with two independent graders and publishing the full list of disagreements!",
+   "source": "recognition/RikiyaT__lm_understand-logs__issue-4_comment-7060542882_2026-11-21.json",
+   "url": "https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7060542882",
+   "pages": [
+    "reports/weight-space-programming.html"
+   ]
+  },
+  {
+   "id": "hedonismjesse-wsp-sgne-three-graders",
+   "date": "2026-11-21",
+   "kind": "peer",
+   "who": "HedonismJesse on GitHub (Human-AI-Evolution/weight-space-notes), commenting in the weight-space-programming authors' log repository; not one of its authors",
+   "what": "Re-generated the SGNE-CC edit's 300 untouched problems on a second stack (HF transformers) and placed our regrade of its traces beside the author's own grade and theirs: 51.3% (the author's strict grade), 49.7% floor and 54.2% decided (ours), 47.7% (theirs).",
+   "quote": "own generation lands 47.7 — three graders, two engines, same cell.",
+   "source": "recognition/RikiyaT__lm_understand-logs__issue-4_comment-7062726129_2026-11-21.json",
+   "url": "https://github.com/RikiyaT/lm_understand-logs/issues/4#issuecomment-7062726129",
+   "pages": [
+    "reports/weight-space-programming.html"
+   ]
   }
  ]
 }

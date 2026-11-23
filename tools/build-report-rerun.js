@@ -321,9 +321,9 @@ B.push(C.section({
   lab: '§5 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true, id: 'reruns',
   bodyRaw: (EXT.length ? C.table({
     cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'how' }, { h: 'obtained' }, { h: 'hash · code' }],
-    rows: EXT.map((x) => [x.who, x.date, { raw: C.esc(x.what).replace(/\//g, '/<wbr>') + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id).replace(/[-_]/g, '$&<wbr>') + '</span>').join(', ') + '</small>'
-      : (x.records || []).length ? '<br><small>records: ' + x.records.map((r) => '<span class="m">' + C.esc(r).replace(/\//g, '/<wbr>') + '</span>').join(', ') + '</small>'
-      : '<br><small>not a register row (a lab theorem)</small>') }, { raw: '<span class="m">' + C.esc(x.kind).replace(/-/g, '-<wbr>') + '</span>' }, x.outcome || '',
+    rows: EXT.map((x) => [{ raw: C.esc(x.who).replace(/-/g, '<wbr>-') }, x.date, { raw: C.esc(x.what).replace(/\//g, '/<wbr>') + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id).replace(/[-_]/g, '$&<wbr>') + '</span>').join(', ') + '</small>'
+      : (x.records || []).length ? '<br><small>records: ' + x.records.map((r) => '<span class="m">' + C.esc(r).replace(/[/_-]/g, '$&<wbr>') + '</span>').join(', ') + '</small>'
+      : '<br><small>not a register row (a lab theorem)</small>') }, x.kind.replace(/-/g, ' '), x.outcome || '',
       { raw: (x.hash ? '<span class="m">' + x.hash.slice(0, 16) + '…</span><br>' : '') + '<a href="' + C.escAttr(x.where) + '">code</a>' + (x.posted ? ' · <a href="' + C.escAttr(x.posted) + '">posted</a>' : '') }])
   }) : '<div class="col">' + C.p('None recorded yet.') + '</div>')
     + '<div class="col">' + C.pRaw('Three kinds and no fourth: ' + Object.entries(RERUN_KINDS).map(([k, d]) => '<span class="m">' + C.esc(k) + '</span> — ' + C.esc(d)).join('; ') + '. '

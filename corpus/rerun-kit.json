@@ -262,7 +262,7 @@
       "rederive": "python3 -I tools/wsp-baseline.py --check",
       "verifier": null,
       "second": "node tools/wsp-grade-second.js --check",
-      "needs": "python3 standard library; the cached generations under corpus/wsp/.cache/baseline-runs; node for the second grader",
+      "needs": "python3 standard library; the MATH-500 answer file, which every run grades against (its source, place and sha256 in corpus/wsp/PINS.json), and the cached generations (pinned in corpus/wsp/baseline-runs/), neither in the repository; without the generations, the pins and the grader are checked; node for the second grader",
       "note": "Stage 3 of the Weight-Space Programming verification: the unedited model under the pre-registered conditions, every text graded by the exact three-valued grader and the pre-registered reading applied as written; the JavaScript grader re-grades every pair."
     },
     {

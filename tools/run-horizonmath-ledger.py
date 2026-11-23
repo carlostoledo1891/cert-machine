@@ -62,7 +62,7 @@ def build():
     by = {}
     for x in rows:
         by[x['verdict']] = by.get(x['verdict'], 0) + 1
-    code = {os.path.relpath(p, ROOT): sha(p) for p in (RR.__file__, KA.__file__)}
+    code = {os.path.relpath(p, ROOT).replace(os.sep, '/'): sha(p) for p in (RR.__file__, KA.__file__)}
     return {'what': 'The discoveries HorizonMath (arXiv 2603.15617v2) credits to frontier models, decided from what its Appendix A prints, by standard-library deciders that share no code with its validators.',
             'generated': time.strftime('%Y-%m-%d'), 'source': {'paper': 'arXiv:2603.15617v2', 'repo': meta['sources']['benchmark']['repo'], 'commit': meta['sources']['benchmark']['commit'],
                                                              'metaSha256': sha(os.path.join(CORPUS, 'meta.json'))},

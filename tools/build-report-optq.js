@@ -142,6 +142,20 @@ B.push(C.tldr({
     + '<a href="https://github.com/teorth/optimizationproblems/pull/242">#242</a> (C₈₂ and C₈₆, §8 and §9) and <a href="https://github.com/teorth/optimizationproblems/pull/249">#249</a> (C₃₁) stay open under the new rule, waiting for a second party; their rows keep the asterisk. '
     + 'The registry\'s bytes after this round are pinned in ' + C.m('corpus/optconst-queue/registry-2026-10-26/') + '.') }) + '</div>');
 }
+/* and on 2026-11-22, read from the fourth snapshot (registry-2026-11-22, pinned at the last of the three merges): #242 and #249 merged */
+{
+  const RG4 = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-11-22', 'record.json'), 'utf8')).facts;
+  const M = RG4.merged;
+  if (!(M[242].merged && M[249].merged && M[242].mergedBy === 'teorth' && M[249].mergedBy === 'teorth' && RG4.marksRemovedOnReplays === 5
+    && RG4.c31.cites && RG4.c82.cites && RG4.c86.cites && RG4.open[275].state === 'open' && RG4.sumProduct.asterisked))
+    die('the fourth registry snapshot no longer says what the third afterwards note says — rewrite it');
+  const hm = (iso) => iso.slice(11, 16) + ' UTC';
+  B.push('<div class="col">' + C.note({ lab: 'afterwards · ' + M[242].mergedAt.slice(0, 10), bodyRaw: C.pRaw('The maintainer merged the two that waited. '
+    + '<a href="https://github.com/teorth/optimizationproblems/pull/242">#242</a> (C₈₂ and C₈₆, §8 and §9, commit ' + C.esc(M[242].mergeCommit.slice(0, 8)) + ') and <a href="https://github.com/teorth/optimizationproblems/pull/249">#249</a> (C₃₁, commit ' + C.esc(M[249].mergeCommit.slice(0, 8)) + ') went in at ' + hm(M[242].mergedAt) + ': '
+    + RG4.marksRemovedOnReplays + ' asterisks removed — Pinho\'s C₈₂ and C₈₆ rows, the Épi construction for C₈₂, and the two C₃₁ rows of <a href="chvatal-sankoff.html">the Lueker replay</a> — the C₈₂ and C₈₆ pages citing the replay as [T2026c] and the C₃₁ page as [T2026]. '
+    + '<a href="https://github.com/teorth/optimizationproblems/pull/275">#275</a>, C₈₄b\'s ceiling digit, is still open, the row still ' + C.m('1.9993*') + '. '
+    + 'The registry\'s bytes at the last merge of that morning are pinned in ' + C.m('corpus/optconst-queue/registry-2026-11-22/') + '.') }) + '</div>');
+}
 B.push(C.stats([
   { k: 'decided', v: String(L.counts.CERTIFIED), n: L.counts.REFUTED + ' refuted · ' + L.counts.REFUSED + ' refused (evidence not submitted). 16a and 70a joined the decided on 10-16.' },
   /* an upper bound printed short rounds UP (it read "1.50274348" until 2026-10-28, below the value it bounds) */

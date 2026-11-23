@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """run-gnnw-ledger.py — Gupta, Ndiaye, Norin and Wei's "preliminary, unverified" iteration (arXiv 2407.19026v2), decided.
 Writes certs/gnnw-certificate.json — the claim's polynomial as the paper prints it, the witness M this program chose,
-and the decision of tools/verify_gnnw_gai.py on them — and `--check` re-derives it and refuses on any difference.
+and the decision of tools/verify_gnnw_gai.py on them — and `--check` re-derives it and refuses on any difference (the figure's float
+samples, never read by the decision, are compared to 1e-12 relative, because their last digit differs across CPython builds).
 
 The corpus is corpus/gnnw: meta.json (the paper pinned by sha256, the remark transcribed, the results of the paper
 this decision uses) and m-nodes.json (the witness). The verifier is one standard-library file that anyone can run on
@@ -127,7 +128,34 @@ def strip(x):
     y['decided']['seconds'] = None
     if 'second' in y:
         y['second']['ran'] = None
+    if 'curve' in y:
+        y['curve']['points'] = None   # the figure's float samples: compared apart, by curve_drift(), never exactly
     return y
+
+
+CURVE_RTOL = 1e-12   # the figure's samples are floats; their last digit differs across CPython builds (a Windows re-run, 2026-11-23)
+
+
+def curve_drift(old, new):
+    """The figure's sample points, old against new: the x values exactly, the y values to CURVE_RTOL relative.
+    Returns (number of y values that differ at all, largest relative difference, the first point beyond the bound or None).
+    The decision is never read from these points (curve.what says so); everything else is compared exactly."""
+    a, b = (old.get('curve') or {}).get('points'), (new.get('curve') or {}).get('points')
+    if a is None and b is None:
+        return 0, 0.0, None
+    if a is None or b is None or len(a) != len(b):
+        return 0, 0.0, 'the number of sample points differs'
+    n, worst = 0, 0.0
+    for i, (p, q) in enumerate(zip(a, b)):
+        if p[0] != q[0]:
+            return n, worst, 'sample %d: x %r against %r' % (i, p[0], q[0])
+        if p[1] != q[1]:
+            n += 1
+            r = abs(p[1] - q[1]) / max(abs(p[1]), abs(q[1]))
+            worst = max(worst, r)
+            if r > CURVE_RTOL:
+                return n, worst, 'sample %d: y %r against %r (relative %.3g > %.0e)' % (i, p[1], q[1], r, CURVE_RTOL)
+    return n, worst, None
 
 
 if __name__ == '__main__':
@@ -138,11 +166,20 @@ if __name__ == '__main__':
     if L['decided']['verdict'] != 'CERTIFIED' or not L['decided']['printedDigitsHold']:
         sys.exit('gnnw-ledger: the decision is not the certified one the record describes: ' + json.dumps(L['decided'])[:300])
     if '--check' in sys.argv:
-        if strip(json.load(open(OUT))) != strip(L):
+        old = json.load(open(OUT))
+        if strip(old) != strip(L):
             sys.exit('gnnw-ledger: the certificate is not what the corpus and the verifier give now')
-        if strip(json.load(open(CHAIN_OUT))) != strip(Ch):
+        nd, worst, bad = curve_drift(old, L)
+        if bad:
+            sys.exit('gnnw-ledger: the figure\'s samples are not what the corpus and the verifier give now: ' + bad)
+        oldCh = json.load(open(CHAIN_OUT))
+        if strip(oldCh) != strip(Ch):
             sys.exit('gnnw-ledger: the chain certificate is not what the corpus and the verifiers give now')
-        print('gnnw-ledger: re-derived, identical (CERTIFIED, c = %s…; the chain, c = %s…, both implementations)' % (L['decided']['c'][0][:14], Ch['decided']['c'][0][:14]))
+        ndc, worstc, badc = curve_drift(oldCh, Ch)
+        if badc:
+            sys.exit('gnnw-ledger: the chain\'s figure samples are not what the corpus and the verifiers give now: ' + badc)
+        drift = '' if nd + ndc == 0 else '; %d figure sample(s) differ in the last digits, at most %.1e relative' % (nd + ndc, max(worst, worstc))
+        print('gnnw-ledger: re-derived, identical (CERTIFIED, c = %s…; the chain, c = %s…, both implementations%s)' % (L['decided']['c'][0][:14], Ch['decided']['c'][0][:14], drift))
     else:
         json.dump(L, open(OUT, 'w'), indent=1, ensure_ascii=False)
         open(OUT, 'a').write('\n')

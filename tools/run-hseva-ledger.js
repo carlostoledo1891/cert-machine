@@ -386,8 +386,38 @@ runAll().then(() => {
   const strip = (x) => { const y = JSON.parse(JSON.stringify(x)); delete y.generated; delete y.seconds; const walk = (o) => { if (o && typeof o === 'object') { delete o.seconds; for (const v of Object.values(o)) walk(v); } }; walk(y); return JSON.stringify(y); };
   if (CHECK) {
     const old = JSON.parse(fs.readFileSync(OUT, 'utf8'));
-    if (strip(old) !== strip(ledger)) die('the re-derived ledger differs from certs/hseva-ledger.json');
-    console.log('  --check: the shipped ledger re-derives identically');
+    if (strip(old) !== strip(ledger)) {
+      /* Not byte-identical. The optimiser's float candidates (theta) differ in the last digits across platforms and Node
+         builds (a Windows re-run, 2026-11-23), and every enclosure built around them moves with them. What must re-derive
+         is every decision: every label, flag, word and count exactly; every number (a JSON number or a numeric string)
+         within NUM_RTOL relative. Both runs certify their own boxes; the check is that they decide the same. */
+      const NUM_RTOL = 1e-6;
+      const isNum = (v) => typeof v === 'number' || (typeof v === 'string' && /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(v));
+      let labels = 0, nums = 0, drifted = 0, worst = 0;
+      const cmp = (a, b, p) => {
+        if (a && typeof a === 'object' && b && typeof b === 'object') {
+          if (Array.isArray(a) !== Array.isArray(b)) return p + ': an array against an object';
+          const ka = Object.keys(a).filter((k) => k !== 'seconds' && k !== 'generated'), kb = Object.keys(b).filter((k) => k !== 'seconds' && k !== 'generated');
+          if (ka.length !== kb.length || ka.some((k, i) => k !== kb[i])) return p + ': the keys differ';
+          for (const k of ka) { const e = cmp(a[k], b[k], p + '/' + k); if (e) return e; }
+          return null;
+        }
+        if (isNum(a) && isNum(b) && !(typeof a === 'number' && Number.isInteger(a) && typeof b === 'number' && Number.isInteger(b))) {
+          nums++;
+          const x = Number(a), y = Number(b);
+          if (x === y) return null;
+          drifted++;
+          const r = Math.abs(x - y) / Math.max(Math.abs(x), Math.abs(y));
+          worst = Math.max(worst, r);
+          return r <= NUM_RTOL ? null : p + ': ' + a + ' against ' + b + ' (relative ' + r.toExponential(2) + ' > ' + NUM_RTOL + ')';
+        }
+        labels++;
+        return a === b ? null : p + ': ' + JSON.stringify(a) + ' against ' + JSON.stringify(b);
+      };
+      const why = cmp(old, JSON.parse(JSON.stringify(ledger)), '');
+      if (why) die('the re-derived ledger decides differently from certs/hseva-ledger.json at ' + why);
+      console.log('  --check: every decision re-derives identically (' + labels + ' labels, flags, words and counts exactly; ' + nums + ' numbers, ' + drifted + ' of them differing in the last digits, at most ' + worst.toExponential(1) + ' relative, within ' + NUM_RTOL + ')');
+    } else console.log('  --check: the shipped ledger re-derives identically');
   } else if (QUICK) {
     const old = JSON.parse(fs.readFileSync(OUT, 'utf8'));
     for (const b of ['A', 'B', 'C']) for (const blk of BUOY_BLOCKS) if (JSON.stringify(strip(old.buoys[b].blocks[blk])) !== JSON.stringify(strip(ledger.buoys[b].blocks[blk]))) die('buoy ' + b + ' ' + blk + ' re-derives differently from the shipped ledger');

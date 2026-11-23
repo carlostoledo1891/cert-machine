@@ -18,6 +18,9 @@
                             #243 (C_1c and C_1d) and #257 (C_84b corrected to the note's theorem) merged minutes after the
                             maintainer's hold note; CONTRIBUTING's new rule (removing an asterisk takes a second party);
                             #242, #249 and #275 open
+     registry-2026-11-22    after the merges of 07:08–07:16 UTC on 2026-11-22: #242 (C_82 and C_86) and #249 (C_31) merged with
+                            their five asterisks removed, the maintainer being the second party; #360 (the outside re-run
+                            paragraph on 88a) merged; #275 open
 
    usage: node tools/read-optconst-registry.js <snapshot>   fetch (gh api), pin, read → corpus/optconst-queue/<snapshot>/
           node tools/read-optconst-registry.js --check      offline: re-hash every snapshot's pins and re-read its facts;
@@ -40,14 +43,19 @@ const SNAPS = {
   'registry-2026-10-18b': { pages: BASE.concat(['constants/1a.md', 'constants/1b.md']), prs: [216, 221, 210, 225, 226, 230], commits: ['3010f7ed'], read: readAfter },
   'registry-2026-10-26': { pages: BASE.concat(['constants/1a.md', 'constants/1b.md', 'constants/1c.md', 'constants/1d.md', 'constants/31a.md', 'constants/82a.md', 'constants/84b.md', 'constants/86a.md']),
     prs: [232, 242, 243, 249, 257, 275], commits: [], read: readThird,
-    what: 'The optimization-constants registry after the merges of 2026-10-26 (#232, #243, #257) and the second-party rule' }
+    what: 'The optimization-constants registry after the merges of 2026-10-26 (#232, #243, #257) and the second-party rule' },
+  'registry-2026-11-22': { pages: BASE.concat(['constants/31a.md', 'constants/82a.md', 'constants/84b.md', 'constants/86a.md', 'constants/88a.md']),
+    ref: '84527cf2af55389f65738f440ae0630733eaad1a',   // the merge of #360, 07:16:16 UTC, the last of the three
+    prs: [242, 249, 275, 360], commits: [], read: readFourth,
+    what: 'The optimization-constants registry after the merges of 2026-11-22 (#242, #249, #360)' }
 };
 
 /* ---- fetch and pin (skipped by --check) ---------------------------------------------------------------- */
 function fetchSnapshot(DIR, spec) {
   fs.mkdirSync(path.join(DIR, 'upstream', 'constants'), { recursive: true });
   fs.mkdirSync(path.join(DIR, 'api'), { recursive: true });
-  const head = JSON.parse(gh(['api', 'repos/' + REPO + '/commits/main']).toString());
+  /* upstream main, or the commit a snapshot names (spec.ref: the registry moved on the same day, so a snapshot of a moment pins it) */
+  const head = JSON.parse(gh(['api', 'repos/' + REPO + '/commits/' + (spec.ref || 'main')]).toString());
   const files = {};
   for (const p of spec.pages) {
     const meta = JSON.parse(gh(['api', 'repos/' + REPO + '/contents/' + p + '?ref=' + head.sha]).toString());
@@ -216,6 +224,53 @@ function readThird(DIR, spec) {
   facts.marksRemovedOnReplays = sfRows.length + acRows.length;   // six on this day; four before it (registry-2026-10-18, -18b)
   facts.duplicate1dRow = Boolean(A.rows['1d-CERT2026-asPrinted']);  // the page keeps the row as first printed (asterisked) beside the corrected one
   return { facts, line: '#232 merged ' + F.merged[232].mergedAt + ', #243 ' + F.merged[243].mergedAt + ', #257 ' + F.merged[257].mergedAt + '; six marks off on the replays; the second-party rule stated; #242, #249, #275 open; 1d row kept as printed: ' + facts.duplicate1dRow };
+}
+
+/* after the merges of 2026-11-22 (07:08–07:16 UTC): #242 (C_82 and C_86: Pinho's certificates and the Épi construction)
+   and #249 (C_31: Jack's h = 9 and h = 10 rows) merged with their asterisks removed, the second party being the maintainer
+   (one of CONTRIBUTING's four routes); #360 (the outside re-run paragraph on 88a) merged; #275 open. A row of a page whose
+   bound is printed bare, "| 0.2534449 | [Pin26] |" (82a prints its values without $), is read by rowBare. */
+function rowBare(t, v, ref) {
+  const re = new RegExp('^\\| \\$?' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\*)?\\$?(\\*)? \\| \\[' + ref + '\\]');
+  const l = t.split('\n').find((x) => re.test(x));
+  if (!l) return null;
+  const m = re.exec(l);
+  return { star: Boolean(m[1] || m[2]) };
+}
+function readFourth(DIR, spec) {
+  const { PINS, T, readme, tableRow } = pinned(DIR);
+  const page = Object.fromEntries(['31a', '82a', '84b', '86a', '88a'].map((k) => [k, T('upstream/constants/' + k + '.md')]));
+  const pr = prs(T, spec.prs);
+  const citesC = (t) => /\[T2026c\]\**\s*Toledo, Carlos/.test(t);
+  const r = Object.fromEntries(['31', '82', '84b', '86'].map((k) => [k, tableRow(k)]));
+  const meta = (n) => ({ merged: pr[n].merged, mergedAt: pr[n].merged_at, mergedBy: pr[n].merged_by, mergeCommit: pr[n].merge_commit_sha, createdAt: pr[n].created_at, state: pr[n].state });
+  const line = (re) => readme.split('\n').some((l) => re.test(l));
+  const facts = {
+    registryCommit: PINS.commit, registryCommitted: PINS.committed, fetched: PINS.fetched,
+    merged: { 242: meta(242), 249: meta(249), 360: meta(360) },
+    open: { 275: meta(275) },
+    c31: { readme: r['31'].upper, rows: { 'J2026-h9': rowOf(page['31a'], '0.825101', 'J2026'), 'J2026-h10': rowOf(page['31a'], '0.824120', 'J2026') }, cites: cites(page['31a']),
+      progressLine: line(/^- \[31\]\(.*\*\*independently replayed:\*\*.*Toledo.*asterisks removed\.$/) },
+    c82: { readme: r['82'].upper, rows: { Pin26: rowBare(page['82a'], '0.2534449', 'Pin26'), Epi26: rowBare(page['82a'], '0.2535744749068227', 'Epi26') }, cites: citesC(page['82a']),
+      progressLine: line(/^- \[82\]\(.*\*\*independently replayed:\*\*.*Toledo.*asterisks removed\.$/) },
+    c86: { readme: r['86'].upper, ourValueStarred: /1\.8117251\*/.test(r['86'].upper), rows: { Pin26: rowOf(page['86a'], '1.8117251', 'Pin26') }, cites: citesC(page['86a']),
+      progressLine: line(/^- \[86\]\(.*\*\*independently replayed:\*\*.*Toledo.*asterisk removed\.$/) },
+    c88a: { citesTol26: /\[Tol26\] Toledo, Carlos/.test(page['88a']), contributionNote: /The outside re-run paragraph in the formalization bullet was added by \[@carlostoledo1891\]/.test(page['88a']),
+      saysNotVerified: /It reports a re-run by one party; it does not verify the bound\./.test(page['88a']) },
+    sumProduct: { readme: r['84b'].upper, asterisked: /1\.9993\*/.test(r['84b'].upper) }
+  };
+  const F = facts;
+  const rowsOff = (o) => Object.values(o).every((x) => x && !x.star);
+  if (!Object.values(F.merged).every((m) => m.merged && m.mergedBy === 'teorth')) die('#242, #249 and #360 are not all merged by the maintainer');
+  if (!(F.open[275].state === 'open' && !F.open[275].merged)) die('#275 is not open');
+  if (!(F.c31.readme === '0.824120' && rowsOff(F.c31.rows) && F.c31.cites && F.c31.progressLine)) die('#249 is not merged with both J2026 rows unmarked, [T2026] cited and the README line in place');
+  if (!(F.c82.readme === '0.2534449' && rowsOff(F.c82.rows) && F.c82.cites && F.c82.progressLine)) die('#242 is not merged with the C_82 rows unmarked, [T2026c] cited and the README line in place');
+  /* the README cell for 86 may hold a later claimant's bound (D. Koshta's 1.8084990 at this commit); what #242 changed is the Pin26 row */
+  if (!(!F.c86.ourValueStarred && rowsOff(F.c86.rows) && F.c86.cites && F.c86.progressLine)) die('#242 is not merged with the C_86 row unmarked, [T2026c] cited and the README line in place');
+  if (!(F.c88a.citesTol26 && F.c88a.contributionNote && F.c88a.saysNotVerified)) die('#360 is not merged with the [Tol26] reference and its contribution note');
+  if (!F.sumProduct.asterisked) die('C_84b is no longer 1.9993* — #275 changed it; re-read');
+  facts.marksRemovedOnReplays = Object.keys(F.c31.rows).length + Object.keys(F.c82.rows).length + Object.keys(F.c86.rows).length;   // five on this day
+  return { facts, line: '#242 merged ' + F.merged[242].mergedAt + ', #249 ' + F.merged[249].mergedAt + ', #360 ' + F.merged[360].mergedAt + '; ' + facts.marksRemovedOnReplays + ' marks off on the replays (C31 ×2, C82 ×2, C86); 88a cites [Tol26]; #275 open' };
 }
 
 /* ---- run --------------------------------------------------------------------------------------------- */

@@ -40,6 +40,13 @@ const allCert = words.every((w) => w === 'CERTIFIED');
 const row10 = R.rows.find((r) => r.h === 10), row9 = R.rows.find((r) => r.h === 9);
 const machine = R.machine.model ? R.machine.model + ', ' + Math.round(R.machine.memoryBytes / (1 << 30)) + ' GB' : R.machine.platform;
 const pr = R.sources.pr;
+/* what the registry did with our pull request #249, read from the pinned snapshot of 2026-11-22 (tools/read-optconst-registry.js) */
+const RG4 = (() => {
+  const F = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-11-22', 'record.json'), 'utf8')).facts;
+  const rows = Object.values(F.c31.rows);
+  if (!(F.merged[249].merged && F.merged[249].mergedBy === 'teorth' && rows.length === 2 && rows.every((x) => x && !x.star && x.note) && F.c31.cites)) die('the 2026-11-22 registry snapshot does not show #249 merged with both rows unmarked and [T2026] cited');
+  return F;
+})();
 
 const B = [];
 B.push(C.header({
@@ -47,12 +54,13 @@ B.push(C.header({
   title: 'Two asterisks on the Chvátal–Sankoff constant, replayed',
   deck: 'On 2026-10-18 the optimization-constants registry merged PR #' + pr.number + ': Lueker\'s 2009 upper-bound method for the binary Chvátal–Sankoff constant, '
     + 'run two history lengths past his paper, giving γ₂ ≤ ' + (row9 ? row9.printed : '0.825101') + ' at h = 9 and γ₂ ≤ ' + (row10 ? row10.printed : '0.824120') + ' at h = 10, below the 0.826280 that had stood since 2009. '
-    + 'Both rows carry the registry\'s asterisk: every check so far was the claimant\'s own. Here the automaton is rebuilt from Lueker\'s paper and nothing else, '
+    + 'Both rows carried the registry\'s asterisk: every check until then was the claimant\'s own. Here the automaton is rebuilt from Lueker\'s paper and nothing else, '
     + 'in two implementations, calibrated on his own table, run with witness vectors of our own, and the printed bounds decided.'
 }));
 B.push(C.scope('Published, not peer-reviewed. The claimant\'s code was neither read nor run: the automaton here is written from Lueker\'s Figure 7 and weights from his eq. (36); '
   + 'the claimant\'s commit supplies only the two printed bounds, the two values of z, and the state counts to compare against. Lueker\'s theorem and his proof that '
-  + 'the automaton covers Σ* for every h are the paper\'s, peer-reviewed in 2009, and are used, not re-proved. The asterisk itself moves only by a pull request the maintainer merges.'));
+  + 'the automaton covers Σ* for every h are the paper\'s, peer-reviewed in 2009, and are used, not re-proved. The asterisk itself moves only by a pull request the maintainer merges'
+  + (RG4 ? ': he merged ours, #249, on ' + RG4.merged[249].mergedAt.slice(0, 10) + ', and both rows are unmarked, each noting the replay, the page citing it as [T2026].' : '.')));
 B.push(C.tldr({
   findingRaw: '<b>' + (allCert ? 'Both rows CERTIFIED by an independent certificate' : words.join(', ')) + '.</b> '
     + R.rows.map((r) => 'h = ' + r.h + ': ' + num(r.states) + ' states (the claimant\'s ' + num(r.claimantStates) + '), our λ ≤ ' + r.lambdaCertUp + ' against the claimant\'s ' + r.claimant.lambdaDecimal + ', bound γ₂ ≤ ' + r.boundUp + ' against the printed ' + r.printed).join('; ') + '. '

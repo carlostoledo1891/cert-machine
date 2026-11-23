@@ -14,7 +14,7 @@
   "merged": "accepted into the other party's repository",
   "closed, no comment": "the other party closed it without a reply"
  },
- "lastChecked": "2026-11-08",
+ "lastChecked": "2026-11-23",
  "rows": [
   {
    "id": "erdos852-thread",
@@ -526,8 +526,8 @@
    "where": "teorth/optimizationproblems pull request 242",
    "url": "https://github.com/teorth/optimizationproblems/pull/242",
    "sent": "2026-10-20",
-   "status": "answered",
-   "note": "evidence at cert-machine d9a3942b; merges cleanly with #232 and #243 in either order (test merges); 2026-10-26: T. Tao changed CONTRIBUTING (removing an asterisk takes a second party: a refereed paper, a registration such as Palomar, a maintainer, or an independent confirmation in the thread) and posted the same hold note on #232, #242, #243 and #249; held for a second party; asked maximusrufus to re-run C82/C86 (cert-machine#1, issuecomment-6421798844); 2026-11-04: two second-party replays landed: arhancanli re-ran Pinho's C86 row with code of their own (05:23 UTC), and maximusrufus's #323 (Zenodo 10.5281/zenodo.23938911) marks C86 and C82 REPRODUCED and says our README cell would replace main's newer [Kos2026] 1.8084990*; branch rebased onto main (2ca4846; the C86 cell 1.8117251 (1.8084990*), the Kos2026 row kept) and our reply POSTED (issuecomment-6627410507), disclosing the mutual checks with maximusrufus (#246); 2026-11-04 10:38 UTC: arhancanli also replayed both C82 rows (Pinho's certificate and the Épi construction), with two notes (the Épi value a loose but valid bound; the Épi row names no commit or hash); the row now names them (286afec, BakeLab/Epi-results 97fa6a4, construction.json e85e26fa…, the bytes our replay pinned) and our thanks POSTED (issuecomment-6633371435); each of the three rows now has an independent replay in the thread"
+   "status": "merged",
+   "note": "evidence at cert-machine d9a3942b; merges cleanly with #232 and #243 in either order (test merges); 2026-10-26: T. Tao changed CONTRIBUTING (removing an asterisk takes a second party: a refereed paper, a registration such as Palomar, a maintainer, or an independent confirmation in the thread) and posted the same hold note on #232, #242, #243 and #249; held for a second party; asked maximusrufus to re-run C82/C86 (cert-machine#1, issuecomment-6421798844); 2026-11-04: two second-party replays landed: arhancanli re-ran Pinho's C86 row with code of their own (05:23 UTC), and maximusrufus's #323 (Zenodo 10.5281/zenodo.23938911) marks C86 and C82 REPRODUCED and says our README cell would replace main's newer [Kos2026] 1.8084990*; branch rebased onto main (2ca4846; the C86 cell 1.8117251 (1.8084990*), the Kos2026 row kept) and our reply POSTED (issuecomment-6627410507), disclosing the mutual checks with maximusrufus (#246); 2026-11-04 10:38 UTC: arhancanli also replayed both C82 rows (Pinho's certificate and the Épi construction), with two notes (the Épi value a loose but valid bound; the Épi row names no commit or hash); the row now names them (286afec, BakeLab/Epi-results 97fa6a4, construction.json e85e26fa…, the bytes our replay pinned) and our thanks POSTED (issuecomment-6633371435); each of the three rows now has an independent replay in the thread 2026-11-22 07:08 UTC: merged by T. Tao (merge fee5969c): the three asterisks are off (Pinho's C₈₆ and C₈₂ rows and the Épi construction), both pages cite the replay as [T2026c] and the README carries the two \"independently replayed\" lines; read from corpus/optconst-queue/registry-2026-11-22/ (pinned at 84527cf2); credit rows registry-82-86 and registry-82a-reference."
   },
   {
    "id": "gh-optq-243",
@@ -553,8 +553,8 @@
    "where": "teorth/optimizationproblems pull request 249",
    "url": "https://github.com/teorth/optimizationproblems/pull/249",
    "sent": "2026-10-22",
-   "status": "answered",
-   "note": "filed at the claimant's own request (e-mail of 2026-10-21); evidence at cert-machine 61aae8eb (certs/lueker-replay.json); label [T2026] on 31a.md; the README's Recent-progress list also edited by our open #242/#243; 2026-10-23: approved by a registry contributor who is not a maintainer (Chessing234), “all good”; not merged; 2026-10-24: JeetuSK0808 posted a third independent replay (their own C from Lueker’s published programs): the state counts equal ours at h = 8, 9, 10, bounds a little looser; our thanks posted (issuecomment-6379668934); recorded in corpus/external-reruns.json; 2026-10-26: T. Tao changed CONTRIBUTING (removing an asterisk takes a second party: a refereed paper, a registration such as Palomar, a maintainer, or an independent confirmation in the thread) and posted the same hold note on #232, #242, #243 and #249; our reply names JeetuSK0808's in-thread C replay as the possible second party (issuecomment-6421793297); 2026-10-27 00:26 UTC: JeetuSK0808 confirmed on the thread that they have no connection to us or to the C31 authors and wrote their replay from Lueker's published programs only (issuecomment-6430610425) — the second party the new rule asks for, if the maintainer accepts it; 2026-10-27 ~03:30 UTC, our thanks POSTED (issuecomment-6433116322), naming the K5/K6 replays on #277/#279; 2026-11-04: maximusrufus's #323 table marks C31 PARTIAL (arithmetic only, the 51M/400M-state automaton runs not replayed); the PR conflicts on constants/31a.md; nothing sent"
+   "status": "merged",
+   "note": "filed at the claimant's own request (e-mail of 2026-10-21); evidence at cert-machine 61aae8eb (certs/lueker-replay.json); label [T2026] on 31a.md; the README's Recent-progress list also edited by our open #242/#243; 2026-10-23: approved by a registry contributor who is not a maintainer (Chessing234), “all good”; not merged; 2026-10-24: JeetuSK0808 posted a third independent replay (their own C from Lueker’s published programs): the state counts equal ours at h = 8, 9, 10, bounds a little looser; our thanks posted (issuecomment-6379668934); recorded in corpus/external-reruns.json; 2026-10-26: T. Tao changed CONTRIBUTING (removing an asterisk takes a second party: a refereed paper, a registration such as Palomar, a maintainer, or an independent confirmation in the thread) and posted the same hold note on #232, #242, #243 and #249; our reply names JeetuSK0808's in-thread C replay as the possible second party (issuecomment-6421793297); 2026-10-27 00:26 UTC: JeetuSK0808 confirmed on the thread that they have no connection to us or to the C31 authors and wrote their replay from Lueker's published programs only (issuecomment-6430610425) — the second party the new rule asks for, if the maintainer accepts it; 2026-10-27 ~03:30 UTC, our thanks POSTED (issuecomment-6433116322), naming the K5/K6 replays on #277/#279; 2026-11-04: maximusrufus's #323 table marks C31 PARTIAL (arithmetic only, the 51M/400M-state automaton runs not replayed); the PR conflicts on constants/31a.md; nothing sent 2026-11-22 07:08 UTC: merged by T. Tao (merge 416e3efc): both J2026 rows unmarked with \"Independently replayed [T2026]\" notes, the page cites [T2026], the README carries the \"independently replayed\" line; read from corpus/optconst-queue/registry-2026-11-22/; credit rows registry-31 and registry-31a-reference."
   },
   {
    "id": "gh-formal-math-8",
@@ -616,8 +616,8 @@
    "where": "teorth/optimizationproblems pull request 275",
    "url": "https://github.com/teorth/optimizationproblems/pull/275",
    "sent": "2026-10-26",
-   "status": "filed, no reply",
-   "note": "the digit from certs/sumproduct-ledger.json (d5e86354)"
+   "status": "reviewed, not merged",
+   "note": "the digit from certs/sumproduct-ledger.json (d5e86354) 2026-11-23 03:27 UTC: a review by chessing234, a registry contributor who is not a maintainer, labelled by them as AI-generated: \"Looks good to me for the one-digit rounding correction\"; their 75-digit decimal evaluation at the half-cell [1399, 1399.5] gives 0.0007150507336807361885…, which the new 0.0007150508 rounds upward (their scope note: not a rigorous interval certification, no build or replay); not merged; nothing asked of us."
   },
   {
    "id": "gh-optq-277",
@@ -1678,8 +1678,8 @@
    "where": "github.com/teorth/optimizationproblems, pull request #360",
    "url": "https://github.com/teorth/optimizationproblems/pull/360",
    "sent": "2026-11-11",
-   "status": "open, no comments",
-   "note": "outreach/gh-registry-pr360-88a-2026-11-11.md (untracked); the page /reports/prime-gaps-186.html; the note doi:10.5281/zenodo.24122214; the record certs/prime-gaps-186.json."
+   "status": "merged",
+   "note": "outreach/gh-registry-pr360-88a-2026-11-11.md (untracked); the page /reports/prime-gaps-186.html; the note doi:10.5281/zenodo.24122214; the record certs/prime-gaps-186.json. 2026-11-22 07:16 UTC: merged by T. Tao (merge 84527cf2): the paragraph is in 88a's formalization bullet, [Tol26] is a reference, and the contribution note says it reports a re-run by one party and does not verify the bound; credit row registry-88a."
   },
   {
    "id": "gh-python-flint-450-2026-11-11",

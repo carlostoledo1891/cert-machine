@@ -148,7 +148,7 @@ const killedByMemory = (s) => s && (s.exit === 137 || /exited with 137|Killed|ou
 function facts(id) {
   const d = path.join(RUNS, id);
   const run = JSON.parse(rd(d, '_run.json'));
-  const f = { id, run, dir: path.relative(ROOT, d), fails: [] };
+  const f = { id, run, dir: path.relative(ROOT, d).split(path.sep).join('/'), fails: [] };   // POSIX separators on every OS (a Windows re-run, 2026-11-23)
   f.env = (rd(d, 'env.txt') || '').trim().split('\n');
   if (!f.env.includes('commit: ' + run.headSha)) f.envCommitMismatch = true;
   const v = rd(d, 'verify-anthropic.json');

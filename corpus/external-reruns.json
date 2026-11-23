@@ -127,5 +127,128 @@
   "posted": "https://github.com/teorth/optimizationproblems/pull/252#issuecomment-6794307196",
   "hash": null,
   "outcome": "the same verdict: no triangle and no independent 33-set, through the same eight multipliers and the same 31 orbits"
+ },
+ {
+  "who": "Zhibo Zhang (GitHub lindicaphxag-tech)",
+  "date": "2026-11-23",
+  "what": "The standard-library verifiers run at cert-machine 01e8d86 on Windows 11 (Python 3.13, Node 22), from a file copy with no .git, in three batches: the five claims-intake decisions (and in the other direction, with an implementation of his own), the four sum–difference claims, the gnnw certificate, 45 tensor decompositions in four records, and the Erdős #852 certificate, each with its red controls.",
+  "kind": "detached-verifier",
+  "records": [
+   "certs/claims-intake-2026-11-08.json",
+   "certs/claims-intake-7-2026-11-08.json",
+   "certs/sumdiff-ledger.json",
+   "certs/gnnw-certificate.json",
+   "certs/strassen-certificate.json",
+   "certs/mc100-alphatensor-q.json",
+   "certs/mc100-alphatensor-f2.json",
+   "certs/mc100-alphaevolve-nb-matmul.json",
+   "certs/erdos852-certificate.json"
+  ],
+  "pages": [
+   "reports/claims.html",
+   "reports/optimization-constants.html",
+   "reports/diagonal-ramsey.html",
+   "reports/alphaevolve.html",
+   "reports/erdos852.html",
+   "reports/rerun.html"
+  ],
+  "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-7090614583",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-7090614583",
+  "hash": null,
+  "outcome": "the same verdict on every claim and certificate, and every red control fired (batches 1–3, three comments on issue #1)"
+ },
+ {
+  "who": "Zhibo Zhang (GitHub lindicaphxag-tech)",
+  "date": "2026-11-23",
+  "what": "The rerun kit run row by row at cert-machine 01e8d86 on Windows 11 (Python 3.13, Node 22): 31 of the 32 re-derivable records (the 32nd, ledger.json, needs a Rust toolchain), plus the producers of four records re-run on their own. 24 passed as printed. The other seven re-derived every decision but refused on bytes that decide nothing: path separators in three records (eth-tsavo-bridge, eth-hawkley-bridge, horizonmath), last-digit floats in two (hseva, gnnw), CPython 3.11's 4,300-digit limit in countex, and an input the kit did not name for wsp-baseline.",
+  "kind": "full-rederive",
+  "records": [
+   "certs/erdos852-certificate.json",
+   "certs/kissing-ledger.json",
+   "certs/strassen-certificate.json",
+   "certs/easota-ledger.json",
+   "certs/ecbench-ledger.json",
+   "certs/gsm8k-ledger.json",
+   "certs/horizon-ledger.json",
+   "certs/sumdiff-ledger.json",
+   "certs/fei-ledger.json",
+   "certs/sumproduct-ledger.json",
+   "certs/turan-ledger.json",
+   "certs/polymaps-ledger.json",
+   "certs/mc100-alphatensor-q.json",
+   "certs/mc100-alphatensor-f2.json",
+   "certs/mc100-alphaevolve-nb-matmul.json",
+   "certs/mc100-einstein-arena.json",
+   "certs/mc100-station-v2.json",
+   "certs/eth-kernel.json",
+   "certs/eth-hawkley-heavy.json",
+   "certs/eth-cslib-d1.json",
+   "certs/eth-chain.json",
+   "certs/eth-openai-chain.json",
+   "certs/claims-intake-2026-11-08.json",
+   "certs/claims-intake-7-2026-11-08.json",
+   "certs/eth-tsavo-bridge.json",
+   "certs/eth-hawkley-bridge.json",
+   "certs/hseva-ledger.json",
+   "certs/horizonmath-ledger.json",
+   "certs/gnnw-certificate.json",
+   "certs/countex-ledger.json",
+   "certs/wsp-baseline.json"
+  ],
+  "pages": [
+   "reports/rerun.html"
+  ],
+  "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-7092212088",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-7092212088",
+  "hash": null,
+  "outcome": "the same verdict on every record (batches 4–5 and the index, three comments on issue #1); the countex limit fixed by his pull request #11 (merged); the separators, the two float checks and the missing input fixed here on 2026-11-23"
+ },
+ {
+  "who": "Zhibo Zhang (GitHub lindicaphxag-tech)",
+  "date": "2026-11-23",
+  "what": "Claim #7 (the 26-circle packing 8B-w_RL@65-Formal, 2.63598308) re-decided from the pinned witness with his own program in exact rational arithmetic at zero tolerance: every circle inside, no overlap in 325 pairs, the sum rounding to the printed digits.",
+  "kind": "own-code",
+  "records": [
+   "certs/claims-intake-7-2026-11-08.json"
+  ],
+  "pages": [
+   "reports/claims.html"
+  ],
+  "where": "https://github.com/lindicaphxag-tech/cert-machine/tree/78d9f217475aea47a0376361da4fad8dad0cd3c9/third-party/issue-7-circle-packing-26",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/pull/8",
+  "hash": null,
+  "outcome": "the same verdict (CERTIFIED)"
+ },
+ {
+  "who": "Zhibo Zhang (GitHub lindicaphxag-tech)",
+  "date": "2026-11-23",
+  "what": "Claims #3 (AlphaEvolve's 26 circles) and #5 (8B-w_RL@65, at the source's 1e-6 tolerance) re-decided from the pinned witness with his own program in exact rational arithmetic.",
+  "kind": "own-code",
+  "records": [
+   "certs/claims-intake-2026-11-08.json"
+  ],
+  "pages": [
+   "reports/claims.html"
+  ],
+  "where": "https://github.com/lindicaphxag-tech/cert-machine/tree/c70a64c0a5ba8c4ea6eb274143664f581e7f8260/third-party/replication-claims-3-and-5",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/pull/9",
+  "hash": null,
+  "outcome": "the same verdicts (#3 CERTIFIED at zero tolerance; #5 holds at 1e-6). At zero tolerance the pull request reports one circle outside the square; our record says two, and both are outside under either reading of the stored decimals (circle 22's top by 1.29e-12, circle 20's right side by 7.1e-13). Its \"max penetration 1.004e-07\" is a difference of squared distances; as a distance the deepest overlap is 3.09e-7."
+ },
+ {
+  "who": "Zhibo Zhang (GitHub lindicaphxag-tech)",
+  "date": "2026-11-23",
+  "what": "Claims #4 (the 3,072-cell step function, C₂ ≥ 0.9469) and #6 (EinsteinArena's solution 2506 to \"The Prime Number Theorem\") re-decided from the bytes with his own program and a battery of controls; for #6 a seven-digit witness outside the sampled window, n = 1,285,185 with F(n) in [1.96018, 1.96019], where ours had 2,117 digits.",
+  "kind": "own-code",
+  "records": [
+   "certs/claims-intake-2026-11-08.json"
+  ],
+  "pages": [
+   "reports/claims.html"
+  ],
+  "where": "https://github.com/lindicaphxag-tech/cert-machine/tree/c7120b0fe857b5c371a585a52f7747936c557b0f/third-party/claims-4-and-6",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/pull/10",
+  "hash": null,
+  "outcome": "the same verdicts (both REFUTED as written; #4's exact ratio digit for digit the register's)"
  }
 ]

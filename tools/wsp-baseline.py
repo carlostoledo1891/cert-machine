@@ -50,6 +50,10 @@ def sha(p):
 
 def load_gold():
     pins = json.load(open(PINS))["files"]["math500/test.jsonl"]["sha256"]
+    if not os.path.exists(GOLD):   # not in git: every run, --check included, grades against it (a fresh-clone re-run, 2026-11-23)
+        src = json.load(open(PINS))["sources"]["math500"]
+        raise SystemExit("REFUSED: %s is not here. It is not in the repository: fetch test.jsonl of %s at revision %s into "
+                         "corpus/wsp/.cache/math500/ (sha256 %s, pinned in corpus/wsp/PINS.json)" % (os.path.relpath(GOLD, ROOT).replace(os.sep, "/"), src["repo"], src["revision"], pins))
     got = sha(GOLD)
     if got != pins:
         raise SystemExit("REFUSED: math500/test.jsonl sha256 %s differs from corpus/wsp/PINS.json (%s)" % (got, pins))

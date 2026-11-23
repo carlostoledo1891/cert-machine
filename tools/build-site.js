@@ -1135,22 +1135,27 @@ const cong604 = (() => {
 /* HOW an outside rerun was done, said in its heading (WARRANT site pass, 2026-10-28). Every row was headed "Independently
    re-derived, no shared code", and two of the seven ran OUR tools (kind full-rederive: "the record re-derived with the tool
    that writes it"). The closed vocabulary is tools/build-report-rerun.js's; a kind this map does not know refuses the page. */
-const RERUN_HEAD = { 'own-code': 'Independently re-derived, no shared code', 'full-rederive': 'Re-run by a third party with the tools that wrote the record' };
-guard('an outside re-derivation in corpus/external-reruns.json is of a kind this page has no words for (its own code, or the tools that wrote the record)',
+const RERUN_HEAD = { 'own-code': 'Independently re-derived, no shared code', 'full-rederive': 'Re-run by a third party with the tools that wrote the record',
+  'detached-verifier': 'Checked by a third party with our standalone verifiers' };   // the third kind, first used 2026-11-23 (Zhibo Zhang's batches 1–3)
+guard('an outside re-derivation in corpus/external-reruns.json is of a kind this page has no words for (its own code, the tools that wrote the record, or our standalone verifiers)',
   externalReruns.every((r) => RERUN_HEAD[r.kind]), externalReruns.filter((r) => !RERUN_HEAD[r.kind]).map((r) => r.kind).join(', '));
 const rerunsOwn = externalReruns.filter((r) => r.kind === 'own-code').length, rerunsTools = externalReruns.length - rerunsOwn;
+const rerunsFull = externalReruns.filter((r) => r.kind === 'full-rederive').length, rerunsVerifier = externalReruns.filter((r) => r.kind === 'detached-verifier').length;
 /* the registry's asterisks removed on our replays, counted in the three pinned snapshots of its README (the landing said
    "four", the count after 2026-10-18; the round of 2026-10-26 removed six more) */
 const asterisksOff = (() => {
   const snap = (d) => JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', d, 'record.json'), 'utf8')).facts;
-  const R1 = snap('registry-2026-10-18'), R2 = snap('registry-2026-10-18b'), R3 = snap('registry-2026-10-26');
+  const R1 = snap('registry-2026-10-18'), R2 = snap('registry-2026-10-18b'), R3 = snap('registry-2026-10-26'), R4 = snap('registry-2026-11-22');
   const first = ['71', '3b'].filter((k) => R1.replay.asterisksNow[k] === false && R2.firstReplayHolds[k] === true).length;
   const second = ['rowJ2026', 'rowL2026'].filter((k) => R2.secondReplay[k].star === false).length;
   const third = R3.marksRemovedOnReplays;
   const rows3 = Object.values(R3.stepFunctions.rows).concat(Object.values(R3.autocorr.rows)).filter((x) => x.star === false).length;
-  guard('the three pinned snapshots of the optimization-constants registry stop counting the asterisks removed on our replays the same way',
-    first === 2 && second === 2 && third === rows3, first + ', ' + second + ', ' + third + ' vs ' + rows3);
-  return first + second + third;
+  /* the fourth round (2026-11-22: #242, #249): C_31's two rows, C_82's Pin26 and Epi26 rows, C_86's Pin26 row */
+  const fourth = R4.marksRemovedOnReplays;
+  const rows4 = [R4.c31.rows, R4.c82.rows, R4.c86.rows].flatMap((o) => Object.values(o)).filter((x) => x && x.star === false).length;
+  guard('the four pinned snapshots of the optimization-constants registry stop counting the asterisks removed on our replays the same way',
+    first === 2 && second === 2 && third === rows3 && fourth === rows4, first + ', ' + second + ', ' + third + ' vs ' + rows3 + ', ' + fourth + ' vs ' + rows4);
+  return first + second + third + fourth;
 })();
 /* the rerun kit, as it is: a one-line re-derivation for most records, a standard-library verifier for some (the landing said
    it "re-derives any decided claim with the standard library") */
@@ -1764,8 +1769,9 @@ const aboutBody = [
       /* it said "7 results … independently re-derived by a third party sharing no code": two of the seven re-derivations ran
          OUR tools (kind full-rederive), so the count sharing no code is the own-code kind's, read from the same record */
       C.pRaw('<strong>Filed is not accepted; posted is not replied.</strong> Third parties have re-derived results on this site '
-        + numword(externalReruns.length) + ' times (above): ' + numword(rerunsOwn) + ' with code of their own, sharing none with ours, and '
-        + numword(rerunsTools) + ' with the tools that wrote the record; none of it has been peer-reviewed. '
+        + numword(externalReruns.length) + ' times (above): ' + numword(rerunsOwn) + ' with code of their own, sharing none with ours, '
+        + (rerunsVerifier ? numword(rerunsFull) + ' with the tools that wrote the record, and ' + numword(rerunsVerifier) + ' with our standalone verifiers' : 'and ' + numword(rerunsFull) + ' with the tools that wrote the record')
+        + '; none of it has been peer-reviewed. '
         + 'That is the plain state of it, and it is why the pages ship their own falsifiers rather than asking for trust.'),
       C.pRaw('Traffic in the other direction has somewhere to go now: <a href="/reports/claims.html">the claims '
         + 'desk</a> takes a claim and answers it in public, whichever way it falls. '
