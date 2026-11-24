@@ -1,0 +1,550 @@
+project /home/tester/fm/vp-vnp, toolchain leanprover/lean4:v4.33.1, configurations: comparator.json
+== comparator @ 575674928e239f5bc452aab72d1dd7b0f1326494
+✔ [1/4] Built Comparator.Util (538ms)
+✔ [5/16] Built Comparator.Util:c.o (165ms)
+✔ [6/16] Built Export.Parse (1.8s)
+✔ [7/16] Built Comparator.Axioms (825ms)
+✔ [8/16] Built Comparator.Axioms:c.o (359ms)
+✔ [9/16] Built Comparator.Compare (1.0s)
+✔ [10/16] Built Comparator.Compare:c.o (484ms)
+✔ [11/16] Built Comparator (598ms)
+✔ [12/16] Built Comparator:c.o (88ms)
+✔ [13/16] Built Export.Parse:c.o (3.8s)
+✔ [14/16] Built Main (2.4s)
+✔ [15/16] Built Main:c.o (1.1s)
+✔ [16/16] Built comparator:exe (978ms)
+Build completed successfully (16 jobs).
+== lean4export @ 15f6055e299ad5b89345e533cc2192f4cc00f659
+✔ [2/6] Built Export (3.2s)
+✔ [3/6] Built Main (1.7s)
+✔ [4/6] Built Main:c.o (229ms)
+✔ [5/6] Built Export:c.o (2.7s)
+✔ [6/6] Built lean4export:exe (1.2s)
+Build completed successfully (6 jobs).
+== nanoda_lib @ 68d5ca9db226849b41a6fff59d796ff19d0a8840
+== landrun @ 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+== comparator comparator.json  (log: /home/tester/exports/k1-logs/comparator.log)
+Building Challenge
+⚠ [8707/8708] Replayed Challenge
+warning: Challenge.lean:17:8: declaration uses `sorry`
+warning: Challenge.lean:20:8: declaration uses `sorry`
+warning: Challenge.lean:23:8: declaration uses `sorry`
+warning: Challenge.lean:26:8: declaration uses `sorry`
+warning: Challenge.lean:29:8: declaration uses `sorry`
+Build completed successfully (8708 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Solution.mainTheorem, Solution.mainTheoremApprox, Solution.separation, Solution.separationClosure, Solution.permanent_over_real, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Challenge
+Building Solution
+⚠ [8771/9027] Replayed Nc.Flag.Len
+warning: Nc/Flag/Len.lean:41:64: Variable name `ha` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ha
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Flag/Len.lean:42:5: Variable name `hb` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hb
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Flag/Len.lean:89:0: automatically included section variable(s) unused in theorem `Nc.Flag.dg_empty`:
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Nc/Flag/Len.lean:92:0: automatically included section variable(s) unused in theorem `Nc.Flag.dg_union`:
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8788/9027] Replayed Nc.Flag.Blow
+warning: Nc/Flag/Blow.lean:22:0: automatically included section variable(s) unused in theorem `Nc.Flag.inc_t_mul`:
+  [Fintype μ]
+  [Fintype κ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype μ] [Fintype κ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Nc/Flag/Blow.lean:26:0: automatically included section variable(s) unused in theorem `Nc.Flag.inc_mul_diag`:
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Nc/Flag/Blow.lean:31:13: This simp argument is unused:
+  ite_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [one_mul, zero_mul, mul_ite, mul_one, mul_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Blow.lean:31:22: This simp argument is unused:
+  one_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ite_mul, zero_mul, mul_ite, mul_one, mul_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Blow.lean:31:31: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ite_mul, one_mul, mul_ite, mul_one, mul_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Blow.lean:56:0: automatically included section variable(s) unused in theorem `Nc.Flag.blow_add`:
+  [DecidableEq μ]
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq μ] [Fintype ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8791/9027] Replayed Nc.Flag.Uni
+warning: Nc/Flag/Uni.lean:127:10: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Nc/Flag/Uni.lean:130:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Nc/Flag/Uni.lean:141:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Nc/Flag/Uni.lean:227:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Nc/Flag/Uni.lean:247:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8793/9027] Replayed Nc.Flag.Words
+warning: Nc/Flag/Words.lean:36:28: This simp argument is unused:
+  Matrix.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, Ne.symm h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Words.lean:46:28: This simp argument is unused:
+  Matrix.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mul_apply, Ne.symm h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Words.lean:61:12: This simp argument is unused:
+  lo_ne_hi'
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [f2_add_self, (lo_ne_hi' j).symm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Words.lean:63:13: This simp argument is unused:
+  Matrix.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h, Ne.symm h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Flag/Words.lean:210:9: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Flag/Words.lean:210:11: Variable name `j` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _j
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Flag/Words.lean:210:58: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8794/9027] Replayed Nc.Flag.Walk
+warning: Nc/Flag/Walk.lean:186:32: This simp argument is unused:
+  Matrix.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.one_apply, lo, hi, Fin.ext_iff, this]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8806/9027] Replayed Nc.Tow.Defs
+warning: Nc/Tow/Defs.lean:53:14: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8819/9027] Replayed Nc.Cut.Blocks
+warning: Nc/Cut/Blocks.lean:159:4: Unused tactic linter: `congr 2` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8830/9027] Replayed Nc.Tow.Load
+warning: Nc/Tow/Load.lean:189:55: Variable name `hf` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hf
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8831/9027] Replayed Nc.Tow.Relay
+warning: Nc/Tow/Relay.lean:24:29: Variable name `e` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _e
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Relay.lean:25:11: Variable name `ν` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ν
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Relay.lean:56:49: This simp argument is unused:
+  if_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [relTab, Fin.isValue, dite_true, one_ne_zero, dite_false, reduceDIte]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Relay.lean:56:83: This simp argument is unused:
+  reduceDIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [relTab, Fin.isValue, dite_true, if_true, one_ne_zero, dite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8845/9027] Replayed Paper.CircuitPhi
+warning: Paper/CircuitPhi.lean:149:64: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Paper/CircuitPhi.lean:230:58: This simp argument is unused:
+  not_isEmpty_iff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [withInputs, fdLits, Finset.univ_eq_empty_iff, this]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Paper/CircuitPhi.lean:230:75: This simp argument is unused:
+  this
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [withInputs, fdLits, Finset.univ_eq_empty_iff, not_isEmpty_iff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8876/9027] Replayed NS1.DSteps
+warning: NS1/DSteps.lean:179:16: This simp argument is unused:
+  DStep.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:271:63: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [reduceCtorEq, false_and, and_false, true_and, Tree.cons.injEq] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:271:73: This simp argument is unused:
+  Tree.cons.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [reduceCtorEq, false_and, and_false, true_and, and_true] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:404:53: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:428:55: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:429:18: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:429:81: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:436:55: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:437:18: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: NS1/DSteps.lean:437:81: This simp argument is unused:
+  Tm.tree
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [num]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8899/9027] Replayed Nc.Dl.Cut
+warning: Nc/Dl/Cut.lean:153:64: Variable name `hnl` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hnl
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Dl/Cut.lean:153:86: Variable name `hnub` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hnub
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8920/9027] Replayed Nc.Tow.Net
+warning: Nc/Tow/Net.lean:303:6: Variable name `x` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _x
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8921/9027] Replayed Nc.Tow.Flow
+warning: Nc/Tow/Flow.lean:256:17: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Flow.lean:256:30: Variable name `hb` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hb
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Flow.lean:298:13: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+⚠ [8922/9027] Replayed Nc.Tow.Ends
+warning: Nc/Tow/Ends.lean:43:26: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Sym2.map_mk] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Ends.lean:79:13: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [h1, h2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Ends.lean:120:34: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Sym2.map_mk] at h2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Ends.lean:154:28: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Sym2.map_mk] at h4
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8924/9027] Replayed Nc.Tow.Plan
+warning: Nc/Tow/Plan.lean:75:79: Variable name `u` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _u
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Plan.lean:75:81: Variable name `v` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _v
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8925/9027] Replayed Nc.Tow.Load2
+warning: Nc/Tow/Load2.lean:22:20: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Load2.lean:22:33: Variable name `hb` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hb
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Load2.lean:329:19: This simp argument is unused:
+  inpR_mid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tgM] at hν
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Load2.lean:352:21: This simp argument is unused:
+  inpR_mid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tgM] at hν
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Load2.lean:370:21: This simp argument is unused:
+  inpR_mid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tgM] at hν
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Load2.lean:391:19: This simp argument is unused:
+  inpR_mid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tgM] at hν
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8935/9027] Replayed Nc.Tow.Ok
+warning: Nc/Tow/Ok.lean:121:14: Variable name `a` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _a
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Ok.lean:121:16: Variable name `b` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _b
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/Ok.lean:245:15: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Pl.pt_base]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Nc/Tow/Ok.lean:272:42: This simp argument is unused:
+  Prod.map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [inpZ, hT, pr, Sym2.map_mk]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8943/9027] Replayed Nc.Tow.Ever2
+warning: Nc/Tow/Ever2.lean:75:19: This simp argument is unused:
+  inpR_mid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tgM] at hν
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8949/9027] Replayed Nc.Tow.PlaceE
+warning: Nc/Tow/PlaceE.lean:23:7: Variable name `a` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _a
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Nc/Tow/PlaceE.lean:23:9: Variable name `c` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _c
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8954/9027] Replayed Paper.Heavy
+warning: Paper/Heavy.lean:143:57: Variable name `hM` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hM
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Paper/Heavy.lean:143:70: Variable name `hY` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hY
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8958/9027] Replayed Paper.Pieces
+warning: Paper/Pieces.lean:34:12: Variable name `E` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _E
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8965/9027] Replayed Nc.Dl.Num0
+warning: Nc/Dl/Num0.lean:57:8: exponent 300 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+warning: Nc/Dl/Num0.lean:60:34: exponent 300 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+warning: Nc/Dl/Num0.lean:75:53: exponent 261 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+⚠ [8987/9027] Replayed Nc.Grp.StepBase
+warning: Nc/Grp/StepBase.lean:228:18: Variable name `hub` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hub
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8995/9027] Replayed Nc.Dl.GrpCost
+warning: Nc/Dl/GrpCost.lean:51:21: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: Nc/Dl/GrpCost.lean:111:20: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: Nc/Dl/GrpCost.lean:111:20: Unused tactic linter: `congr 1` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8996/9027] Replayed NS1.OneCut
+warning: NS1/OneCut.lean:194:12: Unused tactic linter: `congr 2` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Build completed successfully (9027 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Solution.mainTheorem, Solution.mainTheoremApprox, Solution.separation, Solution.separationClosure, Solution.permanent_over_real, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS comparator.json
+All 1 comparator configuration(s) accepted.

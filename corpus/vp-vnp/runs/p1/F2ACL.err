@@ -1,0 +1,31 @@
+con-leche: stats: phases: parse 1.6s (index 0.0s), check 11.5s
+con-leche: stats: check pool: 11.515s wall, 16 workers, 61156 records, busy 183.497s (99.5%); tail 0.037s after the last start, 16 busy then, 0.146s worker-time in it (24.1%)
+con-leche: stats: slowest checks: 0.842s theorem Paper.thm_onecut._proof_1_46 (#53831); 0.638s theorem Paper.thm_onecut._proof_1_93 (#55007); 0.623s theorem Paper.thm_onecut._proof_1_84 (#54996); 0.392s theorem Paper.thm_onecut._proof_1_75 (#54987); 0.390s theorem Nc.Grp.script_time_le._proof_1_13 (#55996)
+con-leche: stats: peak RSS 0.95 GiB
+con-leche: stats: phases: parse 13.4s (index 0.0s), check 1.0s
+con-leche: stats: check pool: 1.070s wall, 16 workers, 17908 records, busy 16.263s (94.9%); tail 0.056s after the last start, 16 busy then, 0.213s worker-time in it (23.5%)
+con-leche: stats: slowest checks: 0.129s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#15504); 0.098s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#16997); 0.080s inductive RCLike (#14263); 0.067s axiom CertMachine.BridgeA.mainTheoremApprox (#17729); 0.067s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#15507)
+con-leche: stats: peak RSS 0.95 GiB
+	Command being timed: "timeout 14400 /home/tester/tools/con-leche/.lake/build/bin/con-leche --jobs=16 --compare -- /home/tester/exports-f2/challengeA.ndjson /home/tester/exports-f2/bridgeA.ndjson"
+	User time (seconds): 179.94
+	System time (seconds): 1.60
+	Percent of CPU this job got: 1221%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.86
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1004220
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 185777
+	Voluntary context switches: 5622
+	Involuntary context switches: 13397
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

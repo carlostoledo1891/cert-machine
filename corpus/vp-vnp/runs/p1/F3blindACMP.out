@@ -1,0 +1,47 @@
+Building CertMachine.ChallengeAnchorsBlindA
+⚠ [8707/8707] Replayed CertMachine.ChallengeAnchorsBlindA
+warning: CertMachine/ChallengeAnchorsBlindA.lean:13:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:16:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:19:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:23:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:27:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:30:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:33:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:38:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:42:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:46:8: declaration uses `sorry`
+warning: CertMachine/ChallengeAnchorsBlindA.lean:50:8: declaration uses `sorry`
+Build completed successfully (8707 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, CertMachine.AnchorsBlindA.A1_A, CertMachine.AnchorsBlindA.A1_A_min, CertMachine.AnchorsBlindA.complexity_gt_iff, CertMachine.AnchorsBlindA.A2_A, CertMachine.AnchorsBlindA.A3_A, CertMachine.AnchorsBlindA.A3_A_complexity, CertMachine.AnchorsBlindA.A4_A, CertMachine.AnchorsBlindA.A4_A_complexity, CertMachine.AnchorsBlindA.A5_A, CertMachine.AnchorsBlindA.A6_A, CertMachine.AnchorsBlindA.R1_A, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from CertMachine.ChallengeAnchorsBlindA
+Building CertMachine.AnchorsBlindA
+ℹ [8707/8709] Replayed CertMachine.Anchors
+info: CertMachine/Anchors.lean:330:0: 'CertMachine.Anchors.A1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:331:0: 'CertMachine.Anchors.A2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:332:0: 'CertMachine.Anchors.A3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:333:0: 'CertMachine.Anchors.A4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:334:0: 'CertMachine.Anchors.A5' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:335:0: 'CertMachine.Anchors.A6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:336:0: 'CertMachine.Anchors.R1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:337:0: 'CertMachine.Anchors.R1_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:338:0: 'CertMachine.Anchors.R1_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:339:0: 'CertMachine.Anchors.A1_any' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/Anchors.lean:340:0: 'CertMachine.Anchors.A5_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8709/8709] Replayed CertMachine.AnchorsBlindA
+info: CertMachine/AnchorsBlindA.lean:349:0: 'CertMachine.AnchorsBlindA.A1_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:350:0: 'CertMachine.AnchorsBlindA.A1_A_min' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:351:0: 'CertMachine.AnchorsBlindA.complexity_gt_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:352:0: 'CertMachine.AnchorsBlindA.A2_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:353:0: 'CertMachine.AnchorsBlindA.A3_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:354:0: 'CertMachine.AnchorsBlindA.A3_A_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:355:0: 'CertMachine.AnchorsBlindA.A4_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:356:0: 'CertMachine.AnchorsBlindA.A4_A_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:357:0: 'CertMachine.AnchorsBlindA.A5_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:358:0: 'CertMachine.AnchorsBlindA.A6_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CertMachine/AnchorsBlindA.lean:359:0: 'CertMachine.AnchorsBlindA.R1_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8709 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, CertMachine.AnchorsBlindA.A1_A, CertMachine.AnchorsBlindA.A1_A_min, CertMachine.AnchorsBlindA.complexity_gt_iff, CertMachine.AnchorsBlindA.A2_A, CertMachine.AnchorsBlindA.A3_A, CertMachine.AnchorsBlindA.A3_A_complexity, CertMachine.AnchorsBlindA.A4_A, CertMachine.AnchorsBlindA.A4_A_complexity, CertMachine.AnchorsBlindA.A5_A, CertMachine.AnchorsBlindA.A6_A, CertMachine.AnchorsBlindA.R1_A, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from CertMachine.AnchorsBlindA
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!

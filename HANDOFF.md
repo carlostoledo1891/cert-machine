@@ -16,6 +16,8 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
+**PAUSED (2026-11-24 ~01:53 UTC, the operator: "pause the work … handoff to continue next session").** VP ≠ VNP: /vp-vnp/ CERTIFIED (the formal claim), 17 of 23 rows, outreach drafted and held for the Bitcoin blocks, phase 3 next. R(3,10): /r310/ at 100% (private notes hold the rest). RH: the S1 judge pod bmwjdc3l37zuwh still running. Disk 18 GB free. Everything is in the TASKS BACKLOG's START HERE.
+
 **DELETED (2026-11-20 23:50 UTC): lyq17afbn6smbz** (the bridge port pod; ~US$0.75; results in corpus/alpoge-grh/runs-bridge/).
 
 **DELETED (2026-11-21 02:21 UTC): uhsel7c0ri69nn** (the 4×H100 build pod: ~95 modules/min against the checking pod's ~170; ~US$6).
@@ -75,8 +77,50 @@ K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. The clean pod 
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md, amendments A1–A11). B1 PASSED 16:55 UTC 11-21 (exit 0, 183,903 jobs, 175,188 oleans, no sorry); phase 2 restarted 17:01 under amendment A13 (challenge gate on the compiled files; log part 1 kept as _phase.log.part1); the bridge (p3) and con-leche (p4) waiters restarted with it. DELETE it when the build and the checks are pulled home; after a session restart, list pods first. Release (his answers, current): public channels only, each text on his word — one post on the Lean Zulip thread Tao's 11-20 post names, a comment on Tao's post, one X post; no Alpöge heads-up, no Palomar; announce our work with full credits, never "a replication" (A8); ceiling US$150. The page is LIVE and LISTED as a draft since 2026-11-21 03:39 UTC (e03c61a5, his word: "Listed now", no posts until final, refresh at milestones): tools/build-report-alpoge-grh.js → /reports/alpoge-grh.html; each milestone = pull, check-alpoge-grh.py --write, a dated line in corpus/alpoge-grh/page-log.json (the builder refuses if its count differs), make page R=alpoge-grh, commit, push; FINAL=1 refuses pending rows. STAGE 2 (his word 2026-11-21 ~03:20 UTC: "Two stages and let's wait for the full verifications to discuss again"): after the verification release, discuss — nothing before — the extension that organises and fills the gaps of the three 2026 claims (Alpöge, Masullo, Nielsen–Semita) as a report + paper + repo, with claimbox (its own session), the Lean intake and cert-machine; candidate items: ζ/L-function definition fidelity in Lean, con-leche as a third kernel on our export, a closure-only rebuild of the proof, a universe-level census, the Nielsen–Semita Lean intake (57ea6117), adopting instruments/rh-comparison/ (untracked, built by another session 11-21 ~03:00 UTC on Lean 4.35.0 — port to the release pin + our judges + an Astra red-team before any citation); pre-register it as A12 before anything runs.
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-19 ~23:45 UTC)
+## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~01:53 UTC)
 
+START HERE (2026-11-24 ~01:53 UTC; PAUSED on the operator's word: "When safe, pause the work and try to free some space
+and downloads made last days. Do it safelly. After that, handoff to continue next session." Control room: Claude Opus 5.5.)
+First: `date -u`; list the pods (one should remain: bmwjdc3l37zuwh, the RH judge); read this block.
+
+  1. VP ≠ VNP — Anthropic's release anthropics/formal-math/vp-vnp @ 918c8e27. The live page /vp-vnp/ (public, listed)
+     shows VERDICT CERTIFIED (the formal claim, as the textbooks define it), published e1642c50 on his dialog word
+     ("Publish CERTIFIED now"); 17 of 23 rows passed. Every record: corpus/vp-vnp/ (PREREG.md sealed SEAL-0 23:57 UTC 11-23;
+     DEVIATIONS D0–D3; status.json = the page's source; PANEL-LEDGER.md; lean/ = the authors' Lean; runs/p1, runs/cr;
+     panel/). No pod is running for it (P1 w3bcc2z20q825p and CR 87kmww6w7lj0b0 DELETED; ~US$1.8 of the US$25 ceiling).
+     a. OUTREACH, agreed with him: send after the Bitcoin blocks. Run `ots upgrade` on corpus/vp-vnp/SEAL-0/-1A/-1B
+        .sha256.ots (pending at 01:20 UTC); put the block heights in status.json "seals" and in the issue; then show him
+        outreach/gh-formal-math-vp-vnp-2026-11-24.md (the issue, facts only, form of our #48) and
+        notes/x/vp-vnp-2026-11-24.txt (one X post, 263 chars, the page's light card). Each needs his word.
+     b. PAGE REFRESH OWED: status.json changed at 01:51 (both bridges' leanchecker --fresh exit 0) — run
+        `node tools/vp-vnp-live-records.js && node tools/vp-vnp-live-records.js --log "…" && node tools/build-vp-vnp-live.js`
+        then `make page`. check-home FLAKES at 1440 inside make page under load (the still/zoom race; home unchanged):
+        then run check-textbook-machine, check-textbook-claims, check-render, check-measure, check-home one by one.
+     c. PHASE 3 (his answer: "Yes, after the statement check"): N6 — a division-free polynomial-size determinant circuit
+        (Berkowitz or Mahajan–Vinay) proved in Lean on the release's definitions, then Remark N.6 from mainTheoremApprox,
+        and R2 (perm over characteristic 2 has small circuits, so "p ≠ 2" is necessary). Needs a new pod
+        (tools/runpod-vp-vnp-p1.sh up to K0 rebuilds the workspace in ~10 min). Row NC: c = 1/1600² is read; write its
+        plain-words note and mark it.
+     d. PHASE 4 (readable): the proof map from the Lean (the Paper.* route; corpus/vp-vnp/runs/p1/CEN2.out, T3), the idea
+        on one page (§2), what it does not say (no m₀; c = 1/1600² bites past m² only for log₂ m > 1.3·10²⁰), the trusted base.
+     e. Panel: Gemini dropped ("Gemini is weak"); Grok computation-only. Grok's D.2 μ = 3 character count re-run here =
+        a second program agreeing with Astra (dimension 1); its B.2 file reproduces 9 cases, not the 14/33 it reported.
+  2. R(3,10) — the lane is private except /r310/ (which now shows the sealed box at 100% · finished). Its next steps are
+     in the lane's private notes folder, file NEXT-2026-11-24.md (named in the session memory r310-lane); nothing of it
+     goes into a public file.
+  3. RH (Alpöge): the S1 judge pod bmwjdc3l37zuwh is STILL RUNNING (US$2.88/h; balance US$44.22 at 01:13 UTC, so about 15 h
+     of judge). This session's watchers stop with it: re-arm a watch on root@216.81.151.72 -p 18879 /results/_judge.log
+     (JUDGE-HALT | S1 exit | C1 exit | judge done). When S1 ends: the planned steps (pull, check-alpoge-grh.py, page FINAL,
+     delete the pod; a private heads-up to Alpöge first). His own description of the route, mapped to file names:
+     notes/alpoge-rh-2026-11-20/alpoge-words-2026-11-23.md (for the FINAL page, labelled "by file name").
+  4. DISK (2026-11-24, on his word): 5.4 → 18 GB free. Hard-linked 21 identical large files in the R(3,10) lane's private notes (10.5 GB; every path
+     unchanged, every copy re-hashed); removed two
+     finished sessions' temp folders, ~/Downloads/Codex.dmg (an installer, not installed), artigos.zip (all 13 files
+     verified by CRC in ~/Downloads/artigos/), Grok's three scripts (now in corpus/vp-vnp/panel/grok-r2/), ~/.cache/mathlib,
+     the pip/npm/Homebrew caches. Left for him: ~/Projects/atalaia (30 GB, frozen), Chrome 2.8 / Spotify 2.0 / Cursor
+     updater 1.9 GB caches, 1.1 GB of regenerable proofs in a private lane, corpus/wsp models 3.2 GB and eleicoes2026 4.8 GB (batteries).
+
+PREVIOUS START HERE (2026-11-19, history, kept verbatim):
 START HERE (2026-11-19, end of the day; the control room was Claude Opus 5.5):
   1. OWED, PROMISED IN PUBLIC. (a) The WSP re-grade is DONE: certs/wsp-dna-regrade.json (tools/wsp-regrade-dna.py,
      --check re-derives it; the six traces of Nondual-Observer/dna-weight-editing @ b7cdf67a cached, git-ignored, in

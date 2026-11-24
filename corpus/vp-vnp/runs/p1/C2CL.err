@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 1.2s (index 0.0s), check 9.8s
+con-leche: stats: check pool: 9.863s wall, 16 workers, 59373 records, busy 157.418s (99.7%); tail 0.013s after the last start, 16 busy then, 0.049s worker-time in it (22.8%)
+con-leche: stats: slowest checks: 0.598s theorem Paper.thm_onecut._proof_1_46 (#53803); 0.492s theorem Paper.thm_onecut._proof_1_87 (#54971); 0.420s theorem Paper.thm_onecut._proof_1_75 (#54959); 0.414s theorem Paper.thm_onecut._proof_1_93 (#54979); 0.396s theorem Paper.thm_onecut._proof_1_84 (#54968)
+con-leche: stats: peak RSS 0.88 GiB
+con-leche: invalid: type mismatch in theorem Solution.mainTheorem [at theorem Solution.mainTheorem, fold position 59312] (--verified) t=11.1s
+Command exited with non-zero status 1
+	Command being timed: "timeout 43200 /home/tester/tools/con-leche/.lake/build/bin/con-leche --jobs=16 /home/tester/exports/export-c2.ndjson"
+	User time (seconds): 146.44
+	System time (seconds): 1.75
+	Percent of CPU this job got: 1330%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 923924
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 208282
+	Voluntary context switches: 2993
+	Involuntary context switches: 15273
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

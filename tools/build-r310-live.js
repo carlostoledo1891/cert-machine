@@ -172,7 +172,7 @@ function mapSvg(L, narrow) {
       const bx = p.x + 30, bw = Math.min(110, p.w - 92), by = p.y + 36;
       o.push('<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="6" rx="3" fill="var(--mark)"/>');
       o.push('<rect x="' + bx + '" y="' + by + '" width="' + (bw * B3.progress_percent / 100).toFixed(1) + '" height="6" rx="3" fill="var(--ink)"/>');
-      o.push('<text x="' + (bx + bw + 8) + '" y="' + (by + 6.5) + '" class="t-note">' + B3.progress_percent + '% · running</text>');
+      o.push('<text x="' + (bx + bw + 8) + '" y="' + (by + 6.5) + '" class="t-note">' + B3.progress_percent + (B3.progress_percent === 100 ? '% · finished' : '% · running') + '</text>');
     } else o.push('<text x="' + (p.x + 30) + '" y="' + (p.y + 41) + '" class="t-note">' + esc(n.map[1]) + '</text>');
     /* a box's number as a tab on the case's top edge, in the gap above it */
     if (n.box) o.push('<rect x="' + (p.x + p.w - 52) + '" y="' + (p.y - 8) + '" width="42" height="15" rx="7.5" fill="var(--sunk)" stroke="var(--ink-3)" stroke-width="1"/>'
@@ -262,7 +262,7 @@ const R7BOX = '<article class="bx bx-open" id="box-2"><div class="bx-h">' + ICON
   + '</article>';
 const SEALBOX = '<article class="bx bx-sealed" id="box-3"><div class="bx-h">' + ICON(lock(11, 12, 11), 22, 20, '0 0 22 20') + '<span>box 3 · sealed</span></div>'
   + '<h3>' + esc(LABEL6) + '</h3>'
-  + '<p class="bx-p">Running now. Its rules were stamped in Bitcoin before and while it runs:</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
+  + '<p class="bx-p">' + (B3.progress_percent === 100 ? 'Finished; the box stays sealed. Its rules were stamped in Bitcoin before and while it ran:' : 'Running now. Its rules were stamped in Bitcoin before and while it runs:') + '</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
   + '<div class="pg" role="img" aria-label="' + ea(B3.progress_percent + ' percent done') + '"><span style="--w:' + B3.progress_percent + '%"></span></div>'
   + '<p class="pg-n"><span class="pg-v">' + V('boxes.json', '/boxes[id=c6]/progress_percent') + '%</span> done, rounded down, at ' + esc(utc(B3.as_of)) + ' (the newest copy of its ledger at home)</p>'
   + (B3.open_discrepancies ? '<p class="pg-n pg-open"><b>' + V('boxes.json', '/boxes[id=c6]/open_discrepancies') + ' open discrepanc' + (B3.open_discrepancies === 1 ? 'y' : 'ies') + '</b> (in the corrections ledger)</p>' : '')

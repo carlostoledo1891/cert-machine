@@ -1,0 +1,150 @@
+Census.lean:29:18: error(lean.invalidField): Invalid field `getUsedConstants`: The environment does not contain `Lean.ConstantInfo.getUsedConstants`, so it is not possible to project the field `getUsedConstants` from an expression
+  ci
+of type `ConstantInfo`
+Census.lean:56:19: error(lean.invalidField): Invalid field `getUsedConstants`: The environment does not contain `Lean.ConstantInfo.getUsedConstants`, so it is not possible to project the field `getUsedConstants` from an expression
+  ci
+of type `ConstantInfo`
+Census.lean:37:22: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  OfNat MessageData 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  MessageData
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:58:19: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  OfNat MessageData 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  MessageData
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:59:21: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  OfNat MessageData 0
+numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+  MessageData
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:42:68: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HAdd MessageData ℕ MessageData
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:64:23: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HAdd MessageData ℕ MessageData
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:65:25: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HAdd MessageData ℕ MessageData
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Census.lean:57:52: error(lean.invalidField): Invalid field notation: Type of
+  ps
+is not known; cannot resolve field `toList`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Array.toList`
+  • `ByteArray.toList`
+  • `DyckWord.toList`
+  • `FinEnum.toList`
+  • `Finset.toList`
+  • `FloatArray.toList`
+  • `ForIn.toList`
+  • `FreeAddMonoid.toList`
+  • `FreeMonoid.toList`
+  • `Lists.toList`
+  • `Lists'.toList`
+  • `Multiset.toList`
+  • `Nondet.toList`
+  • `Option.toList`
+  • `Ordnode.toList`
+  • `RelSeries.toList`
+  • `String.toList`
+  • `Traversable.toList`
+  • `Vector.toList`
+  • `WType.toList`
+  • `Aesop.PersistentHashSet.toList`
+  • `Array.Perm.toList`
+  • `Batteries.AssocList.toList`
+  • `Batteries.BinomialHeap.toList`
+  • `Batteries.DList.toList`
+  • `Batteries.HashMap.toList`
+  • `Batteries.PairingHeap.toList`
+  • `Equiv.Perm.toList`
+  • `AssocList.toList`
+  • `MessageLog.toList`
+  • `PHashSet.toList`
+  • `PersistentArray.toList`
+  • `PersistentHashMap.toList`
+  • `PersistentHashSet.toList`
+  • `SMap.toList`
+  • `SSet.toList`
+  • `List.Vector.toList`
+  • `NS1.Tree.toList`
+  • `Quiver.Path.toList`
+  • `RBTree.RBMap.toList`
+  • `RBTree.RBNode.toList`
+  • `RBTree.RBSet.toList`
+  • `Std.DHashMap.toList`
+  • `Std.DTreeMap.toList`
+  • `Std.ExtDTreeMap.toList`
+  • `Std.ExtTreeMap.toList`
+  • `Std.ExtTreeSet.toList`
+  • `Std.HashMap.toList`
+  • `Std.HashSet.toList`
+  • `Std.Iter.toList`
+  • `Std.IterM.toList`
+  • `Std.Rcc.toList`
+  • `Std.Rci.toList`
+  • `Std.Rco.toList`
+  • `Std.Ric.toList`
+  • `Std.Rii.toList`
+  • `Std.Rio.toList`
+  • `Std.Roc.toList`
+  • `Std.Roi.toList`
+  • `Std.Roo.toList`
+  • `Std.Slice.toList`
+  • `Std.TreeMap.toList`
+  • `Std.TreeSet.toList`
+  • `Stream'.Seq.toList`
+  • `Stream'.WSeq.toList`
+  • `Vector.Perm.toList`
+  • `Batteries.PairingHeapImp.Heap.toList`
+  • `HNNExtension.NormalWord.ReducedWord.toList`
+  • `Omega.Coeffs.toList`
+  • `Monoid.CoprodI.NeWord.toList`
+  • `Monoid.CoprodI.Word.toList`
+  • `RBTree.RBMap.Keys.toList`
+  • `RBTree.RBMap.Values.toList`
+  • `RBTree.RBNode.Stream.toList`
+  • `Std.DHashMap.Const.toList`
+  • `Std.DHashMap.Raw.toList`
+  • `Std.DTreeMap.Const.toList`
+  • `Std.DTreeMap.Raw.toList`
+  • `Std.ExtDTreeMap.Const.toList`
+  • `Std.HashMap.Raw.toList`
+  • `Std.HashSet.Raw.toList`
+  • `Std.Http.Headers.toList`
+  • `Std.Http.Trailer.toList`
+  • `Std.Internal.IndexMultiMap.toList`
+  • `Std.Iter.Partial.toList`
+  • `Std.Iter.Total.toList`
+  • `Std.IterM.Partial.toList`
+  • `Std.IterM.Total.toList`
+  • `Std.Legacy.Range.toList`
+  • `Std.TreeMap.Raw.toList`
+  • `Std.TreeSet.Raw.toList`
+  • `Batteries.BinomialHeap.Imp.Heap.toList`
+  • `Data.AC.Expr.toList`
+  • `Meta.RefinedDiscrTree.LazyEntry.toList`
+  • `Mathlib.Tactic.BicategoryLike.Mor₁.toList`
+  • `Mathlib.Tactic.BicategoryLike.NormalExpr.toList`
+  • `Std.DHashMap.Internal.AssocList.toList`
+  • `Std.DHashMap.Raw.Const.toList`
+  • `Std.DTreeMap.Internal.Impl.toList`
+  • `Std.DTreeMap.Internal.Zipper.toList`
+  • `Std.DTreeMap.Raw.Const.toList`
+  • `Std.DTreeMap.Internal.Impl.Const.toList`
+  • `Std.Tactic.BVDecide.LRAT.Internal.Clause.toList`
+  • `Std.Tactic.BVDecide.LRAT.Internal.DefaultClause.toList`
+  • `Std.Tactic.BVDecide.LRAT.Internal.DefaultFormula.toList`
+  • `Std.Tactic.BVDecide.LRAT.Internal.Formula.toList`

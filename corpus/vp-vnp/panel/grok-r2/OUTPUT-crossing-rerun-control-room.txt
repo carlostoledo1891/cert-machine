@@ -1,0 +1,85 @@
+P(E) for E=0..12:
+  P(0) = 1
+  P(1) = 1
+  P(2) = 2
+  P(3) = 2
+  P(4) = 4
+  P(5) = 4
+  P(6) = 7
+  P(7) = 7
+  P(8) = 12
+  P(9) = 12
+  P(10) = 19
+  P(11) = 19
+  P(12) = 30
+
+Checking 196 potential cases...
+
+=== (n1=1, e1=2, n2=1, e2=2) ===
+|Sigma1|=1, |Sigma2|=1, Theta=8, 4-tuples=1
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=1, max rank_ab=1
+
+=== (n1=1, e1=2, n2=1, e2=4) ===
+|Sigma1|=1, |Sigma2|=2, Theta=12, 4-tuples=4
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=2, max rank_ab=2
+
+=== (n1=1, e1=2, n2=1, e2=6) ===
+|Sigma1|=1, |Sigma2|=3, Theta=16, 4-tuples=9
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=3, max rank_ab=3
+
+=== (n1=1, e1=4, n2=1, e2=2) ===
+|Sigma1|=2, |Sigma2|=1, Theta=12, 4-tuples=4
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=2, max rank_ab=2
+
+=== (n1=1, e1=4, n2=1, e2=4) ===
+|Sigma1|=2, |Sigma2|=2, Theta=16, 4-tuples=16
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=4, max rank_ab=4
+
+=== (n1=1, e1=4, n2=1, e2=6) ===
+|Sigma1|=2, |Sigma2|=3, Theta=20, 4-tuples=36
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=6, max rank_ab=6
+
+=== (n1=1, e1=6, n2=1, e2=2) ===
+|Sigma1|=3, |Sigma2|=1, Theta=16, 4-tuples=9
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=3, max rank_ab=3
+
+=== (n1=1, e1=6, n2=1, e2=4) ===
+|Sigma1|=3, |Sigma2|=2, Theta=20, 4-tuples=36
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=6, max rank_ab=6
+
+=== (n1=1, e1=6, n2=1, e2=6) ===
+|Sigma1|=3, |Sigma2|=3, Theta=24, 4-tuples=81
+(a) raw matching consistent: True, epsilon=1, is_sign=True
+(b) all rank_ad <= bound: True
+(c) all rank_ab <= bound: True
+  max rank_ad=9, max rank_ab=9
+
+Total nonempty cases computed: 9
+real 178.83
+user 156.09
+sys 1.30
+exit 0

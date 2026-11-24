@@ -1,0 +1,31 @@
+con-leche: stats: phases: parse 0.7s (index 0.0s), check 2.4s
+con-leche: stats: check pool: 2.404s wall, 16 workers, 31368 records, busy 37.708s (98.0%); tail 0.033s after the last start, 16 busy then, 0.097s worker-time in it (18.4%)
+con-leche: stats: slowest checks: 0.143s theorem LinearMap.map_mul_of_map_mul_tmul (#27541); 0.091s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#18299); 0.088s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#10545); 0.071s theorem sdiff_sdiff_right (#18473); 0.066s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.Ring.intCast_add._proof_1_8 (#5147)
+con-leche: stats: peak RSS 0.42 GiB
+con-leche: stats: phases: parse 3.4s (index 0.0s), check 1.0s
+con-leche: stats: check pool: 1.033s wall, 16 workers, 17824 records, busy 15.866s (95.9%); tail 0.048s after the last start, 16 busy then, 0.198s worker-time in it (25.7%)
+con-leche: stats: slowest checks: 0.108s axiom CertMachine.AnchorsBlindA.A4_A_complexity (#10118); 0.101s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#9224); 0.091s axiom CertMachine.AnchorsBlindA.A4_A (#10116); 0.072s axiom CertMachine.AnchorsBlindA.complexity_gt_iff (#7825); 0.067s theorem _private.Mathlib.Data.List.Perm.Lattice.0.List.Perm.bagInter_right._proof_1_3 (#3429)
+con-leche: stats: peak RSS 0.42 GiB
+	Command being timed: "timeout 14400 /home/tester/tools/con-leche/.lake/build/bin/con-leche --jobs=16 --compare -- /home/tester/exports-F3blindA/challenge.ndjson /home/tester/exports-F3blindA/solution.ndjson"
+	User time (seconds): 46.10
+	System time (seconds): 0.39
+	Percent of CPU this job got: 970%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 450872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 29854
+	Voluntary context switches: 4775
+	Involuntary context switches: 3943
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

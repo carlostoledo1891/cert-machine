@@ -1,10 +1,10 @@
 {
   "what": "The control room's state of the VP ≠ VNP lane, row by row (the rows of PREREG.md). Updated at every phase finish; the live page /vp-vnp/ is built from it. States: pending, running, passed, failed, refused, open.",
-  "as_of": "2026-11-24T01:14Z",
+  "as_of": "2026-11-24T01:51Z",
   "verdict": "CERTIFIED",
   "verdict_words": "the formal claim, as the textbooks define it",
   "ceiling_usd": 25,
-  "spent_usd": 1.2,
+  "spent_usd": 1.8,
   "target": {
     "repo": "anthropics/formal-math",
     "folder": "vp-vnp",
@@ -165,7 +165,7 @@
       "phase": 2,
       "title": "Bridge: each blind statement proved from the release's theorems",
       "state": "passed",
-      "note": "both blind statements, five propositions each, proved from the release's theorems (bridge A: a program of length ℓ becomes a release circuit of 4ℓ + 2 gates and the constant halves; bridge B: gate for gate, same constant). Replayed by the control room: Comparator, with OUR blind statement as the challenge, \"Your solution is okay!\" for both; nanoda (second version) checked 63,485 and 63,380 declarations with no error; con-leche --compare justified 5 of 5 for each. Lean's from-scratch replay of both bridges is running."
+      "note": "both blind statements, five propositions each, proved from the release's theorems (bridge A: a program of length ℓ becomes a release circuit of 4ℓ + 2 gates and the constant halves; bridge B: gate for gate, same constant). Replayed by the control room: Comparator, with OUR blind statement as the challenge, \"Your solution is okay!\" for both; nanoda (second version) checked 63,485 and 63,380 declarations with no error; con-leche --compare justified 5 of 5 for each. Lean's own checker replayed both bridges from scratch, exit 0 (36 min each)."
     },
     {
       "id": "F3",

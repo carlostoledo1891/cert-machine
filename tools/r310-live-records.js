@@ -520,7 +520,7 @@ function machine() {
   return {
     what: 'The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.',
     as_of: lastAt,
-    now: { rented: { for: 'box 3, the sealed computation', vcpu: 32, usd_per_hour: '0.96', state: 'running', second: SECOND },
+    now: { rented: { for: 'box 3, the sealed computation', vcpu: 32, usd_per_hour: '0.96', state: sealedLedger().percent === 100 ? 'finished; the machine is deleted' : 'running', second: SECOND },
       astra: { model: 'GPT-6.2 Astra, by command line from the Mac', since: firstAt, started, finished, running: started - finished } },
     audits: { opened_boxes: OPEN_BOX.length + runNotes.length, sealed_box: sealedNotes },
     verdicts: { rows: V, tally },

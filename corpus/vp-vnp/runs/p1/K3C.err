@@ -1,0 +1,31 @@
+con-leche: stats: phases: parse 1.5s (index 0.0s), check 10.4s
+con-leche: stats: check pool: 10.431s wall, 16 workers, 60921 records, busy 166.292s (99.6%); tail 0.023s after the last start, 16 busy then, 0.095s worker-time in it (25.4%)
+con-leche: stats: slowest checks: 0.443s theorem Nc.Grp.script_time_le._proof_1_13 (#55968); 0.434s theorem Paper.thm_onecut._proof_1_46 (#53803); 0.387s theorem Paper.thm_onecut._proof_1_93 (#54979); 0.384s theorem Paper.thm_onecut._proof_1_84 (#54968); 0.372s theorem Paper.thm_onecut._proof_1_89 (#54974)
+con-leche: stats: peak RSS 0.95 GiB
+con-leche: stats: phases: parse 12.3s (index 0.0s), check 1.0s
+con-leche: stats: check pool: 1.072s wall, 16 workers, 17014 records, busy 16.209s (94.4%); tail 0.059s after the last start, 16 busy then, 0.189s worker-time in it (20.0%)
+con-leche: stats: slowest checks: 0.086s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#16088); 0.071s theorem _private.Mathlib.Order.Interval.Finset.Nat.0.Nat.instLocallyFiniteOrder._proof_6 (#13116); 0.064s axiom Solution.mainTheorem (#16175); 0.056s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#8851); 0.056s axiom Solution.permanent_over_real (#17013)
+con-leche: stats: peak RSS 0.95 GiB
+	Command being timed: "timeout 14400 /home/tester/tools/con-leche/.lake/build/bin/con-leche --jobs=16 --compare -- /home/tester/exports/challenge.ndjson /home/tester/exports/export.ndjson"
+	User time (seconds): 175.52
+	System time (seconds): 1.72
+	Percent of CPU this job got: 1294%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.69
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1000236
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 208187
+	Voluntary context switches: 5509
+	Involuntary context switches: 6015
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
