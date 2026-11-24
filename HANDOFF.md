@@ -16,7 +16,9 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-**PAUSED (2026-11-24 ~01:53 UTC, the operator: "pause the work … handoff to continue next session").** VP ≠ VNP: /vp-vnp/ CERTIFIED (the formal claim), 17 of 23 rows, outreach drafted and held for the Bitcoin blocks, phase 3 next. R(3,10): /r310/ at 100% (private notes hold the rest). RH: the S1 judge pod bmwjdc3l37zuwh still running. Disk 18 GB free. Everything is in the TASKS BACKLOG's START HERE.
+**NOW (2026-11-24 ~10:15 UTC): NO POD IS RUNNING** — the RH judge bmwjdc3l37zuwh was stopped on cost and deleted at about 10:10 UTC on the operator's word ("Stop it now"); the focus is the R(3,10) lane, on the Mac, with Astra (private notes). VP ≠ VNP is parked. Everything is in the TASKS BACKLOG's START HERE.
+
+**EARLIER (history): PAUSED (2026-11-24 ~01:53 UTC, the operator: "pause the work … handoff to continue next session").** VP ≠ VNP: /vp-vnp/ CERTIFIED (the formal claim), 17 of 23 rows, outreach drafted and held for the Bitcoin blocks, phase 3 next. R(3,10): /r310/ at 100% (private notes hold the rest). RH: the S1 judge pod bmwjdc3l37zuwh still running. Disk 18 GB free. Everything is in the TASKS BACKLOG's START HERE.
 
 **DELETED (2026-11-20 23:50 UTC): lyq17afbn6smbz** (the bridge port pod; ~US$0.75; results in corpus/alpoge-grh/runs-bridge/).
 
@@ -77,23 +79,26 @@ K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. The clean pod 
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md, amendments A1–A11). B1 PASSED 16:55 UTC 11-21 (exit 0, 183,903 jobs, 175,188 oleans, no sorry); phase 2 restarted 17:01 under amendment A13 (challenge gate on the compiled files; log part 1 kept as _phase.log.part1); the bridge (p3) and con-leche (p4) waiters restarted with it. DELETE it when the build and the checks are pulled home; after a session restart, list pods first. Release (his answers, current): public channels only, each text on his word — one post on the Lean Zulip thread Tao's 11-20 post names, a comment on Tao's post, one X post; no Alpöge heads-up, no Palomar; announce our work with full credits, never "a replication" (A8); ceiling US$150. The page is LIVE and LISTED as a draft since 2026-11-21 03:39 UTC (e03c61a5, his word: "Listed now", no posts until final, refresh at milestones): tools/build-report-alpoge-grh.js → /reports/alpoge-grh.html; each milestone = pull, check-alpoge-grh.py --write, a dated line in corpus/alpoge-grh/page-log.json (the builder refuses if its count differs), make page R=alpoge-grh, commit, push; FINAL=1 refuses pending rows. STAGE 2 (his word 2026-11-21 ~03:20 UTC: "Two stages and let's wait for the full verifications to discuss again"): after the verification release, discuss — nothing before — the extension that organises and fills the gaps of the three 2026 claims (Alpöge, Masullo, Nielsen–Semita) as a report + paper + repo, with claimbox (its own session), the Lean intake and cert-machine; candidate items: ζ/L-function definition fidelity in Lean, con-leche as a third kernel on our export, a closure-only rebuild of the proof, a universe-level census, the Nielsen–Semita Lean intake (57ea6117), adopting instruments/rh-comparison/ (untracked, built by another session 11-21 ~03:00 UTC on Lean 4.35.0 — port to the release pin + our judges + an Astra red-team before any citation); pre-register it as A12 before anything runs.
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~03:20 UTC)
+## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~10:15 UTC)
 
-START HERE (2026-11-24 ~03:20 UTC. The operator, in order: "Keep the efforts on 1, 2 and 3. Remember you can use also
-Astra as partner here and send grok messages through me. Any question, ask me here."; then "Let's focus on 40", with
-his dialog answers: four R(3,10) streams at once, NO TOP-UP and Mac only, the sealed box opens after the join, and
-"Park it now" for VP ≠ VNP. Control room: Claude Fable 5.2.)
-First: `date -u`; list the pods (one: bmwjdc3l37zuwh, the RH judge; balance US$40.98 at 02:10 UTC, about 14 h of it,
-out near 16:20 UTC on 24 Nov; he chose no top-up); `pmset -g batt`; read this block. Disk: about 6 GB free.
+START HERE (2026-11-24 ~10:15 UTC. The operator, in order: "Keep the efforts on 1, 2 and 3 … use also Astra as
+partner"; "Let's focus on 40"; then, at about 10:00 UTC: "I want to stop spending on pods that will not close the
+problem" and "Ask me questions here, I do not want to spend time again". His dialog answers since: NO TOP-UP, Mac
+only; the RH judge "Stop it now"; "Keep going, report at results" on the R(3,10) attack; VP ≠ VNP "Park it now".
+Control room: Claude Fable 5.2.)
+First: `date -u`; list the pods — NONE should exist (both were deleted on 24 Nov by 10:10 UTC; balance US$17.03);
+`pmset -g batt` (long Mac jobs are running: keep it on mains); read this block. Questions to him go through the
+dialog, all at once. Disk: about 8 GB free.
 
-  1. R(3,10) — THE FOCUS: prove that no (3,10;40)-graph exists. The lane is private except /r310/ (which now shows
-     the sealed box's fourth anchor, Bitcoin block 977301). Everything else — the round-3 gate, the four streams
-     started 02:59–03:05 UTC on the Mac, what each owes — is in the lane's private notes: NEXT-2026-11-24.md and the
-     round3/ folder. Nothing of it goes into a public file.
-  2. RH (Alpöge): S1 still running at 02:10 UTC (since 05:02 UTC on 22 Nov). A one-shot watch ran in this session
-     (it dies with it): re-arm with ~/.ssh/id_ed25519_runpod on root@216.81.151.72 -p 18879, /results/_judge.log
-     (JUDGE-HALT | S1 exit | C1 exit | judge done) and the files /results/S1.exit, C1.exit, C1.not-run. When S1 ends:
-     the planned steps of the previous block. If the balance runs out first the pod stops: pull /results before.
+  1. R(3,10) — THE FOCUS: prove that no (3,10;40)-graph exists, with Astra, on the Mac, without pauses between
+     attempts. The lane is private except /r310/. Everything — the gates, what runs now, what each owes — is in the
+     lane's private notes: NEXT-2026-11-24.md (its last block) and the round4/ folder. Nothing of it goes into a
+     public file. /r310/ got a correction on 24 Nov (what the R(7) rules' timestamp proves; 516b06e7).
+  2. RH (Alpöge): the statement judge S1 was STOPPED ON COST at 10:08 UTC on 24 Nov after 53 hours with no verdict,
+     on his word; the pod is deleted; its results are in notes/alpoge-rh-2026-11-20/pod-logs/results-podD-final.tgz
+     (523c2ac7…d8cd). A Claude agent is preparing amendment A22, the records and the FINAL page locally, without
+     committing: read its report (it lists every file it changed), review, stage those files only, commit, push.
+     Release texts for this ending: notes/alpoge-rh-2026-11-20/final-texts-draft-2026-11-24.md; every send on his word.
   3. VP ≠ VNP — PARKED on his word (24 Nov, ~02:57 UTC). /vp-vnp/ shows CERTIFIED, 18 of 23 rows, 4 seals,
      6 deviations; row N6 pending with its state in words.
      a. Done this session: the three seals in Bitcoin (blocks 977295, 977295, 977301; status.json carries block and
