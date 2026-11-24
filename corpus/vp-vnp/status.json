@@ -1,10 +1,10 @@
 {
   "what": "The control room's state of the VP ≠ VNP lane, row by row (the rows of PREREG.md). Updated at every phase finish; the live page /vp-vnp/ is built from it. States: pending, running, passed, failed, refused, open.",
-  "as_of": "2026-11-24T01:10Z",
-  "verdict": "OPEN",
-  "verdict_words": "nothing decided yet",
+  "as_of": "2026-11-24T01:14Z",
+  "verdict": "CERTIFIED",
+  "verdict_words": "the formal claim, as the textbooks define it",
   "ceiling_usd": 25,
-  "spent_usd": 1.1,
+  "spent_usd": 1.2,
   "target": {
     "repo": "anthropics/formal-math",
     "folder": "vp-vnp",
@@ -115,8 +115,8 @@
       "id": "KR",
       "phase": 1,
       "title": "Lean's own checker, replayed from scratch",
-      "state": "running",
-      "note": "Lean's checker replaying everything from scratch since 00:34 UTC"
+      "state": "passed",
+      "note": "Lean's own checker replayed the five theorems' whole closure from scratch (leanchecker --fresh Solution): exit 0 after 35 min 39 s, 10.2 GB peak, no message."
     },
     {
       "id": "CR",

@@ -1,10 +1,10 @@
 {
  "what": "The state of the VP ≠ VNP lane as the live page shows it, written by tools/vp-vnp-live-records.js from corpus/vp-vnp/status.json and checked against PREREG.md, the seals and the pinned README.",
- "as_of": "2026-11-24T01:02Z",
- "verdict": "OPEN",
- "verdict_words": "nothing decided yet",
+ "as_of": "2026-11-24T01:14Z",
+ "verdict": "CERTIFIED",
+ "verdict_words": "the formal claim, as the textbooks define it",
  "ceiling_usd": 25,
- "spent_usd": 0.95,
+ "spent_usd": 1.2,
  "target": {
   "repo": "anthropics/formal-math",
   "folder": "vp-vnp",
@@ -96,14 +96,14 @@
     {
      "id": "KR",
      "title": "Lean's own checker, replayed from scratch",
-     "state": "running",
-     "note": "Lean's checker replaying everything from scratch since 00:34 UTC"
+     "state": "passed",
+     "note": "Lean's own checker replayed the five theorems' whole closure from scratch (leanchecker --fresh Solution): exit 0 after 35 min 39 s, 10.2 GB peak, no message."
     },
     {
      "id": "CR",
      "title": "A second machine that never ran the release's code",
-     "state": "running",
-     "note": "a second machine (EU-RO-1) that never ran the release's proofs is building the official Lean, the checkers and the statement files since 01:01 UTC."
+     "state": "passed",
+     "note": "a second machine (EU-RO-1, 8 vCPU) that never ran the release's proofs: the official Lean v4.33.1 (GitHub's digest), the checkers built from source, a workspace with only Mathlib and the two statement files. The first machine's export arrived with its recorded sha256; nanoda accepted it, con-leche --compare justified the five theorems against the challenge exported there, and both controls were refused (C1 by con-leche; C2 by nanoda and con-leche). The challenge exported there is byte-identical to the first machine's. All 5 gates held, 01:08–01:10 UTC; the machine is deleted."
     },
     {
      "id": "C1",
@@ -218,8 +218,8 @@
  ],
  "counts": {
   "all": 23,
-  "passed": 15,
-  "running": 3,
+  "passed": 17,
+  "running": 1,
   "pending": 5,
   "failed": 0,
   "refused": 0,
@@ -279,7 +279,7 @@
  "sources": [
   {
    "file": "corpus/vp-vnp/status.json",
-   "sha256_12": "e8a8c14f9c46"
+   "sha256_12": "68ab34843c34"
   },
   {
    "file": "corpus/vp-vnp/PREREG.md",

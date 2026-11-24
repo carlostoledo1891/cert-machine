@@ -42,7 +42,11 @@ const STATES = ['passed', 'running', 'pending', 'failed', 'refused', 'open'];
 need(ROWS.length === S.counts.all, 'the rows are not the count of rows');
 for (const st of STATES) need(ROWS.filter((r) => r.state === st).length === S.counts[st], 'the count of ' + st + ' rows is not the rows’');
 need(S.verdict !== 'OPEN' || ROWS.some((r) => r.state !== 'passed'), 'the verdict is OPEN while every row has passed');
-need(S.verdict !== 'CERTIFIED' || ROWS.filter((r) => r.phase !== 4).every((r) => r.state === 'passed'), 'the verdict is CERTIFIED while a row has not passed');
+/* the sealed rule's rows (PREREG.md, Verdict rule): CERTIFIED needs exactly these; phases 3 and 4 are beyond the verdict */
+const RULE_ROWS = ['K0', 'K1', 'K3', 'KR', 'CR', 'C1', 'C2', 'F2', 'F3', 'F4', 'F5'];
+need(RULE_ROWS.every((id) => ROWS.some((r) => r.id === id)), 'a row of the sealed rule is missing from the state');
+need(S.verdict !== 'CERTIFIED' || RULE_ROWS.every((id) => ROWS.find((r) => r.id === id).state === 'passed'), 'the verdict is CERTIFIED while a row of the sealed rule has not passed');
+const CERT = S.verdict === 'CERTIFIED';
 need(S.spent_usd <= S.ceiling_usd, 'spent is above the ceiling: the lane must say REFUSED, not this page');
 need(S.gaps.length >= 1 && S.gaps.every((g) => /^G\d+$/.test(g.id)), 'the gaps are not G-numbered');
 need(LG.entries.length >= 1 && LG.entries[0].id === 'D0', 'the corrections ledger has no D0');
@@ -119,10 +123,11 @@ const STATS = C.stats([
 
 /* ---------------------------------------------------------------- what is not established, first */
 const LEAD = '<div class="col"><div class="note ne"><span class="lab">what is not established</span>' + C.plainList([
-  { b: 'Nothing is decided yet.', text: 'The verdict today is ' + S.verdict + ': ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows have passed, ' + N(S.counts.running) + ' are running and ' + N(S.counts.pending) + ' have not started' + (S.counts.failed ? '; ' + N(S.counts.failed) + ' failed' : '') + '.' },
+  CERT ? { b: 'What is certified is the formal claim, not the mathematics.', text: 'By the rule sealed before any run, the verdict is CERTIFIED: the Lean proof checks in three independently written checkers and again on a second machine, and two statements of the claim, written from the textbooks by writers who never saw the release’s, are both proved from its theorems. ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows have passed; the rest (filling the release’s own gap, and the readable account) go on.' }
+    : { b: 'Nothing is decided yet.', text: 'The verdict today is ' + S.verdict + ': ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows have passed, ' + N(S.counts.running) + ' are running and ' + N(S.counts.pending) + ' have not started' + (S.counts.failed ? '; ' + N(S.counts.failed) + ' failed' : '') + '.' },
   { b: 'No person has checked it.', raw: 'The release says so itself: “' + esc(S.quotes[1]) + '” This page does not change that. It checks what a machine can check: whether the proof checks, and whether its statement says what the paper claims.' },
   { b: 'Claude is checking a Claude claim.', raw: 'The release says: “' + esc(S.quotes[0]) + '” Claude models do most of this audit too. Who does what, and what “independent” means here, is <a href="#panel">below</a>.' },
-  { b: 'A pass would not settle it for everyone.', text: 'Even if every row passes, what is certified is the formal statement as the textbooks define it, checked by machines. Whether those are the right definitions, and whether the proof is the one people wanted, is for those who work on the question.' }]) + '</div></div>';
+  { b: CERT ? 'This does not settle it for everyone.' : 'A pass would not settle it for everyone.', text: (CERT ? 'What is certified' : 'Even if every row passes, what is certified') + ' is the formal statement as the textbooks define it, checked by machines. Whether those are the right definitions, and whether the proof is the one people wanted, is for those who work on the question.' }]) + '</div></div>';
 
 /* ---------------------------------------------------------------- the gaps */
 const GAPS = C.section({ lab: 'the gaps', title: 'What the release itself leaves open', id: 'gaps',
@@ -137,11 +142,11 @@ const ROWSEC = C.section({ lab: 'the rows', title: 'Every row, phase by phase', 
     + '<div class="wide"><div class="vr-grid">' + S.phases.map((p) => '<article class="vr-p"><div class="vr-h">phase ' + p.phase + '</div><h3>' + esc(p.title) + '</h3><ul class="vr-l">' + p.rows.map(rowItem).join('') + '</ul></article>').join('') + '</div></div>' });
 
 /* ---------------------------------------------------------------- what would count */
-const RULE = C.section({ lab: 'what would count', title: 'What a verdict would mean', id: 'verdict',
+const RULE = C.section({ lab: CERT ? 'what it means' : 'what would count', title: CERT ? 'What the verdict means' : 'What a verdict would mean', id: 'verdict',
   bodyRaw: C.plainList([
-    { b: 'CERTIFIED would mean:', text: 'the proof checks in Lean’s own kernel, in nanoda and in con-leche, and again on a second machine that never ran the release’s code; two planted errors are refused; two statements of the claim, written from the textbooks by writers who never saw the release’s, are both proved from its theorems; the statement is shown not to be empty; a planted false version is proved false; and every real difference an adversarial reader finds is decided.' },
+    { b: CERT ? 'CERTIFIED means:' : 'CERTIFIED would mean:', text: 'the proof checks in Lean’s own kernel, in nanoda and in con-leche, and again on a second machine that never ran the release’s code; two planted errors are refused; two statements of the claim, written from the textbooks by writers who never saw the release’s, are both proved from its theorems; the statement is shown not to be empty; a planted false version is proved false; and every real difference an adversarial reader finds is decided.' },
     { b: 'Anything less', text: 'and the verdict names the row that failed: REFUTED, if a defect in meaning is proved (the Lean says less than the paper, or nothing); REFUSED, if a row cannot be run within the money or the time; OPEN, if it is undecided, with the reason.' },
-    { b: 'What CERTIFIED would still not say:', text: 'that any person has checked the mathematics, or anything beyond what the checkers, the three standard axioms and the Mathlib definitions the statements use can carry.' }])
+    { b: CERT ? 'What CERTIFIED does not say:' : 'What CERTIFIED would still not say:', text: 'that any person has checked the mathematics, or anything beyond what the checkers, the three standard axioms and the Mathlib definitions the statements use can carry.' }])
     + C.pRaw('The rule above is the plain-words reading of the one sealed before the run; its exact text is one click down.') });
 
 /* ---------------------------------------------------------------- the panel */
