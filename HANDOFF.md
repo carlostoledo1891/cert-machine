@@ -120,8 +120,9 @@ dialog, all at once. Disk: about 8 GB free.
         on the Mac only. TO FINISH (one pod, about an hour): `remarkN6 : RemarkN6` from Solution.mainTheoremApprox,
         Comparator against a challenge file, nanoda and con-leche, a second machine, as in phase 2; the reader's
         tests N-1, N-4, N-6 (PANEL-LEDGER.md). The local Lean workspace at the pins is ~/Projects/vp-vnp-n6-ws
-        (tools/n6lean.sh compiles one file); it and the v4.33.1 toolchain take 10 GB: delete both when phase 3 is
-        closed, or sooner if the disk is needed.
+        (tools/n6lean.sh compiles one file); its Mathlib build and the v4.33.1 toolchain were DELETED on 24 Nov at
+        13:10 UTC (the disk was down to 2 GB): to use it again, `elan toolchain install leanprover/lean4:v4.33.1` and
+        `lake exe cache get` in that folder (about 10 GB, 10 minutes).
      c. Phase 4: GPT-6.2-astra's first drafts of H2–H4 are in notes/vp-vnp-2026-11-23/astra-runs/h-drafts/work/,
         every sentence with its source; unchecked, too dense for the page as they are. H1 not started.
      d. Outreach, each text on his word, not sent: outreach/gh-formal-math-vp-vnp-2026-11-24.md (the D4 sentence is
