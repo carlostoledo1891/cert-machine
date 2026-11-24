@@ -1,6 +1,6 @@
 {
   "what": "The control room's state of the VP ≠ VNP lane, row by row (the rows of PREREG.md). Updated at every phase finish; the live page /vp-vnp/ is built from it. States: pending, running, passed, failed, refused, open.",
-  "as_of": "2026-11-24T02:41Z",
+  "as_of": "2026-11-24T03:15Z",
   "verdict": "CERTIFIED",
   "verdict_words": "the formal claim, as the textbooks define it",
   "ceiling_usd": 25,
@@ -203,8 +203,8 @@
       "id": "N6",
       "phase": 3,
       "title": "Fill gap G2: the determinant's small circuits, then Remark N.6, in Lean",
-      "state": "running",
-      "note": "the statement is written in Lean (corpus/vp-vnp/lean/n6/N6Statement.lean: the determinant has small circuits; Remark N.6; the control in characteristic 2), elaborated at the release's pins and sealed at 02:38 UTC on 24 Nov, before any proof. Two provers that do not see each other (a Claude agent, GPT-6.2-astra) are working on the determinant's circuit; nothing is proved yet."
+      "state": "pending",
+      "note": "PARKED on the operator's word (24 Nov, about 02:57 UTC), not passed. Reached so far (corpus/vp-vnp/lean/n6/, its README): the statement, sealed before any proof; a proof that the determinant has circuits of at most n¹² + 12 gates in the release's model (GPT-6.2-astra, Bird's algorithm, its correctness from Mathlib); and from it, Remark N.6 as a consequence of the release's approximate main theorem, and the control in characteristic 2. The control room rebuilt all twelve files from an empty folder at the release's pins: exit 0, no sorry, the three standard axioms. Still owed: the unconditional theorem against the release's own proof, a second checker, Comparator, a second machine."
     },
     {
       "id": "NC",

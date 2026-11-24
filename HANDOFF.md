@@ -77,41 +77,41 @@ K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. The clean pod 
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md, amendments A1–A11). B1 PASSED 16:55 UTC 11-21 (exit 0, 183,903 jobs, 175,188 oleans, no sorry); phase 2 restarted 17:01 under amendment A13 (challenge gate on the compiled files; log part 1 kept as _phase.log.part1); the bridge (p3) and con-leche (p4) waiters restarted with it. DELETE it when the build and the checks are pulled home; after a session restart, list pods first. Release (his answers, current): public channels only, each text on his word — one post on the Lean Zulip thread Tao's 11-20 post names, a comment on Tao's post, one X post; no Alpöge heads-up, no Palomar; announce our work with full credits, never "a replication" (A8); ceiling US$150. The page is LIVE and LISTED as a draft since 2026-11-21 03:39 UTC (e03c61a5, his word: "Listed now", no posts until final, refresh at milestones): tools/build-report-alpoge-grh.js → /reports/alpoge-grh.html; each milestone = pull, check-alpoge-grh.py --write, a dated line in corpus/alpoge-grh/page-log.json (the builder refuses if its count differs), make page R=alpoge-grh, commit, push; FINAL=1 refuses pending rows. STAGE 2 (his word 2026-11-21 ~03:20 UTC: "Two stages and let's wait for the full verifications to discuss again"): after the verification release, discuss — nothing before — the extension that organises and fills the gaps of the three 2026 claims (Alpöge, Masullo, Nielsen–Semita) as a report + paper + repo, with claimbox (its own session), the Lean intake and cert-machine; candidate items: ζ/L-function definition fidelity in Lean, con-leche as a third kernel on our export, a closure-only rebuild of the proof, a universe-level census, the Nielsen–Semita Lean intake (57ea6117), adopting instruments/rh-comparison/ (untracked, built by another session 11-21 ~03:00 UTC on Lean 4.35.0 — port to the release pin + our judges + an Astra red-team before any citation); pre-register it as A12 before anything runs.
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~02:45 UTC)
+## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~03:20 UTC)
 
-START HERE (2026-11-24 ~02:45 UTC; the operator: "Keep the efforts on 1, 2 and 3. Remember you can use also Astra as
-partner here and send grok messages through me. Any question, ask me here." Control room: Claude Fable 5.2.)
-First: `date -u`; list the pods (one: bmwjdc3l37zuwh, the RH judge; balance US$40.98 at 02:10 UTC = about 14 h of it,
-his answer on a top-up is awaited); read this block. Disk: about 7 GB free (the local Lean workspace below took 10).
+START HERE (2026-11-24 ~03:20 UTC. The operator, in order: "Keep the efforts on 1, 2 and 3. Remember you can use also
+Astra as partner here and send grok messages through me. Any question, ask me here."; then "Let's focus on 40", with
+his dialog answers: four R(3,10) streams at once, NO TOP-UP and Mac only, the sealed box opens after the join, and
+"Park it now" for VP ≠ VNP. Control room: Claude Fable 5.2.)
+First: `date -u`; list the pods (one: bmwjdc3l37zuwh, the RH judge; balance US$40.98 at 02:10 UTC, about 14 h of it,
+out near 16:20 UTC on 24 Nov; he chose no top-up); `pmset -g batt`; read this block. Disk: about 6 GB free.
 
-  1. VP ≠ VNP — /vp-vnp/ shows CERTIFIED, 18 of 23 rows, 4 seals, 5 deviations.
-     a. DONE this session: the three seals are in Bitcoin (SEAL-0 and SEAL-1B block 977295, 00:19 UTC; SEAL-1A block
-        977301, 01:10 UTC; each merkle root = the public header); status.json carries block and time and the records
-        tool checks them against the proofs. Row NC passed (corpus/vp-vnp/NC.md). CORRECTION D4: the page and the issue
-        draft said "timestamped in Bitcoin before anything ran"; the stamp was submitted before, its block came after
-        rows PIN and K0 had finished. Both texts now say exactly that.
-     b. OUTREACH, each text on his word (NOT shown to him yet as final): outreach/gh-formal-math-vp-vnp-2026-11-24.md
-        (the D4 sentence is in) and notes/x/vp-vnp-2026-11-24.txt.
-     c. PHASE 3 RUNNING, all on the Mac, no pod: the statement corpus/vp-vnp/lean/n6/N6Statement.lean
-        (DetHasSmallCircuits, ApproxByDet, RemarkN6, PermCharTwo) elaborates at the release's pins and is sealed
-        (SEAL-2, 02:38 UTC, block awaited: `ots upgrade`, then bitcoin_block + bitcoin_block_utc in status.json).
-        GPT-6.2-astra's reading of it: 17 points, nothing against RemarkN6 (PANEL-LEDGER.md, reader/). The local Lean
-        workspace at the release's pins is ~/Projects/vp-vnp-n6-ws (v4.33.1 + Mathlib 0df444a3; compile one file with
-        tools/n6lean.sh; delete the folder and the v4.33.1 toolchain when phase 3 ends: 10 GB). Provers, started
-        02:38–02:40 UTC: a Claude agent (notes/vp-vnp-2026-11-23/n6-claude-a/, the power-series route) and Astra
-        (notes/vp-vnp-2026-11-23/astra-runs/n6-det-b/) on the determinant's circuit; Astra n6-remark on Remark N.6
-        and the control FROM that hypothesis. Each leaves WORKLOG.md + BUILD.sh; an Astra run is continued with
-        `notes/astra-cli/run-astra.sh DIR resume "text"`. OWED when they report: audit each (rebuild from an empty
-        build/, #print axioms, no sorry), the reader's tests N-1, N-4, N-6 (PANEL-LEDGER.md), then ONE pod at the pins
-        for `remarkN6 : RemarkN6` from Solution.mainTheoremApprox with Comparator, nanoda and con-leche, as in phase 2.
-     d. PHASE 4: Astra's first drafts of H2–H4 (astra-runs/h-drafts/work/), every sentence with its source, to be
-        checked line by line before anything reaches the page. H1 (the proof map from the Lean) not started.
-  2. R(3,10) — private except /r310/, which now shows the sealed box's fourth anchor (block 977301). Next steps: the
-     lane's private notes, file NEXT-2026-11-24.md (updated this session).
-  3. RH (Alpöge): S1 still running at 02:10 UTC (since 05:02 UTC on 22 Nov). A one-shot watch ran in this session
+  1. R(3,10) — THE FOCUS: prove that no (3,10;40)-graph exists. The lane is private except /r310/ (which now shows
+     the sealed box's fourth anchor, Bitcoin block 977301). Everything else — the round-3 gate, the four streams
+     started 02:59–03:05 UTC on the Mac, what each owes — is in the lane's private notes: NEXT-2026-11-24.md and the
+     round3/ folder. Nothing of it goes into a public file.
+  2. RH (Alpöge): S1 still running at 02:10 UTC (since 05:02 UTC on 22 Nov). A one-shot watch ran in this session
      (it dies with it): re-arm with ~/.ssh/id_ed25519_runpod on root@216.81.151.72 -p 18879, /results/_judge.log
      (JUDGE-HALT | S1 exit | C1 exit | judge done) and the files /results/S1.exit, C1.exit, C1.not-run. When S1 ends:
-     the planned steps of the previous block.
+     the planned steps of the previous block. If the balance runs out first the pod stops: pull /results before.
+  3. VP ≠ VNP — PARKED on his word (24 Nov, ~02:57 UTC). /vp-vnp/ shows CERTIFIED, 18 of 23 rows, 4 seals,
+     6 deviations; row N6 pending with its state in words.
+     a. Done this session: the three seals in Bitcoin (blocks 977295, 977295, 977301; status.json carries block and
+        time, checked against the proofs); correction D4 (the stamp was submitted before any run, its block came after
+        rows PIN and K0); row NC passed (corpus/vp-vnp/NC.md; GPT-6.2-astra's own reading agrees on c and m₀).
+     b. Phase 3 as parked — corpus/vp-vnp/lean/n6/ and its README: the statement (sealed, SEAL-2, block awaited:
+        `ots upgrade`, then bitcoin_block + bitcoin_block_utc in status.json); det_has_small_circuits (a = 12, Bird's
+        algorithm, deviation D5), remarkN6_of_main : MainTheoremApprox → RemarkN6, permCharTwo and three tests, all
+        rebuilt by the control room from an empty folder at the release's pins (exit 0, no sorry, standard axioms),
+        on the Mac only. TO FINISH (one pod, about an hour): `remarkN6 : RemarkN6` from Solution.mainTheoremApprox,
+        Comparator against a challenge file, nanoda and con-leche, a second machine, as in phase 2; the reader's
+        tests N-1, N-4, N-6 (PANEL-LEDGER.md). The local Lean workspace at the pins is ~/Projects/vp-vnp-n6-ws
+        (tools/n6lean.sh compiles one file); it and the v4.33.1 toolchain take 10 GB: delete both when phase 3 is
+        closed, or sooner if the disk is needed.
+     c. Phase 4: GPT-6.2-astra's first drafts of H2–H4 are in notes/vp-vnp-2026-11-23/astra-runs/h-drafts/work/,
+        every sentence with its source; unchecked, too dense for the page as they are. H1 not started.
+     d. Outreach, each text on his word, not sent: outreach/gh-formal-math-vp-vnp-2026-11-24.md (the D4 sentence is
+        in; "I am working on it" for N.6 should become what the README says) and notes/x/vp-vnp-2026-11-24.txt.
 
 PREVIOUS START HERE (2026-11-24 ~01:53 UTC, history, kept verbatim; PAUSED on the operator's word: "When safe, pause the work and try to free some space
 and downloads made last days. Do it safelly. After that, handoff to continue next session." Control room: Claude Opus 5.5.)

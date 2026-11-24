@@ -32,3 +32,10 @@ shows that the rows and the verdict rule existed before every result except PIN 
 elaboration (00:22 UTC) or its bridge (00:42 to 00:48 UTC): for those the evidence is this lane's own log and its
 commits (pre-registration df92c754 at 00:04:53 UTC, blind statements 0e001d38 at 00:13:29 UTC; a commit's time is its
 author's to set). Found by the control room when the block heights were read; the page's sentence now says this.
+
+D5 (2026-11-24 03:15 UTC, the determinant's algorithm, and the lane parked). Row N6 named "Berkowitz or Mahajan–Vinay" for
+the determinant's division-free circuit. The proof written (GPT-6.2-astra, lean/n6/N6B/) uses Bird's algorithm instead,
+because the release's Mathlib pin already proves that algorithm correct over every commutative ring
+(BirdDet.det_eq_birdDet); what the row asks for, a division-free circuit of polynomial size proved in Lean on the
+release's definitions, is unchanged. On the operator's word the lane was parked at about 02:57 UTC with row N6 not
+passed: lean/n6/README.md says what is proved (on one machine, by Lean's kernel only) and what is still owed.

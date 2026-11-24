@@ -1,0 +1,25 @@
+== N6B/Bird
+== N6B/Circuit
+== N6B/Layers
+== N6B/Det
+== N6R/Control
+== N6R/MatrixAnchors
+== N6R/Affine
+== N6R/Substitution
+== N6R/Bridge
+== N6R/Growth
+N6R/Growth.lean:67:35: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+N6R/Growth.lean:67:35: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+== N6R/Remark
+== N6/Local
+'CertMachine.N6.det_has_small_circuits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.N6.remarkN6_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.N6.permCharTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.N6.approxByDet_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.N6.approxByDet_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.N6.approximates_of_approxByDet' depends on axioms: [propext, Classical.choice, Quot.sound]
+bash BUILD.sh  36.38s user 104.60s system 15% cpu 15:06.33 total

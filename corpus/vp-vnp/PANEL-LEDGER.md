@@ -65,3 +65,12 @@ different from, or false against the paper's remark. No sealed line changes. Its
 
 What it says comes from its memory of the literature, not from a file: the exact-dc convention, the projection
 convention, Berkowitz's construction, the complex GCT dictionary.
+
+## Phase 3 and 4 at the parking (2026-11-24, about 02:57 UTC)
+
+| # | claim | by | checked? |
+|---|---|---|---|
+| P3-1 | The determinant of the generic n × n matrix has a circuit of at most n¹² + 12 gates in the release's model, over every commutative ring (Bird's algorithm; correctness from Mathlib's BirdDet.det_eq_birdDet). | GPT-6.2-astra, lean/n6/N6B/ | REBUILT by the control room from an empty folder at the release's pins: exit 0, no sorry, standard axioms. One machine, Lean's kernel only. |
+| P3-2 | From P3-1 and the release's MainTheoremApprox: RemarkN6. From P3-1: the control in characteristic 2. Three tests of ApproxByDet. | GPT-6.2-astra, lean/n6/N6R/ (its session was stopped before its report) | REBUILT, same run, same result. |
+| P4-1 | c = 1/1600² at Paper/Fields.lean line 87; the paper gives no value for m₀ (its lines 432–433). | GPT-6.2-astra, in its draft of "what the theorem does not say" | AGREES with the control room's own reading (NC.md), made separately. |
+| P4-2 | First drafts of "the idea on one page", "what the theorem does not say", "the trusted base", each sentence with a source. | GPT-6.2-astra | NOT checked; not on the page. |
