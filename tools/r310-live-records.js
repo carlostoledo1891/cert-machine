@@ -246,6 +246,7 @@ function boxes() {
   cite(LOG, '977085 (2026-11-22 18:17:27 UTC; merkle root aec92a7c…ff68 = blockstream’s header)');
   cite(LOG, 'block 977089 (2026-11-22 19:03:33 UTC)');
   cite(LOG, '977108 (22:02:41 UTC)');
+  cite(LOG, 'block 977301 (2026-11-24 01:10:46 UTC; merkle root 57e5fcee…14d3 = blockstream’s header');
   const CREDITS = [
     { who: 'The Claude track (Claude Code)', model: 'Claude Opus 5.5, then Claude Fable 5.2 from 01:22 UTC 22 Nov', what: 'C35: the question whether a (3,10;40)-graph contains an induced C35, Lemma P stated, the first enumeration. R(7): the counting, completion and CNF programs, the pilot, the production program, the reduction written out, the registration, and the encoding’s soundness in Lean.' },
     { who: 'The Astra track (Codex, two chats)', model: 'GPT-6.2-astra', what: 'C35: the direct CNF and its LRAT proofs, the claim as handed over, the Lean statement of Lemma P and the bridge. R(7): the reading of the reduction, the counting rules, the Lean chain to the closing theorem.' },
@@ -338,7 +339,8 @@ function boxes() {
         stamps: [
           { block: 977085, at: '2026-11-22T18:17:27Z', what: 'the registration of the running computation' },
           { block: 977089, at: '2026-11-22T19:03:33Z', what: 'further derivations' },
-          { block: 977108, at: '2026-11-22T22:02:41Z', what: 'a draw registration' }],
+          { block: 977108, at: '2026-11-22T22:02:41Z', what: 'a draw registration' },
+          { block: 977301, at: '2026-11-24T01:10:46Z', what: 'the final record, after it finished' }],
         progress_percent: s.percent, as_of: s.as_of }
     ]
   };

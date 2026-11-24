@@ -64,7 +64,7 @@ const LABEL6 = B3.label;
 need(LABEL6 === 'Case R(6): codegree six', 'the sealed box is not named as Chen’s report names its case');
 need(Object.keys(B3).sort().join(',') === 'as_of,id,label,n,open_discrepancies,progress_percent,stamps,state', 'the sealed box’s record holds more than its name, its anchors and its progress');
 need(Number.isInteger(B3.progress_percent) && B3.progress_percent >= 0 && B3.progress_percent <= 100, 'the sealed box’s progress is not a whole percent');
-need(B3.stamps.length === 3 && B3.stamps.every((s, i) => i === 0 || s.at > B3.stamps[i - 1].at) && B3.stamps.every((s) => Number.isInteger(s.block)), 'the sealed box’s anchors are not three blocks in time order');
+need(B3.stamps.length >= 3 && B3.stamps.every((s, i) => i === 0 || s.at > B3.stamps[i - 1].at) && B3.stamps.every((s) => Number.isInteger(s.block)), 'the sealed box’s anchors are not three or more blocks in time order');
 const lv = B2.by_level, rl = RP.by_level;
 need(lv.level3 === rl.level3 && lv.level4 === rl.level4 && lv.full === rl.full, 'the replay’s levels are not box 2’s');
 need(lv.level3 + lv.level4 + lv.full === B2.configurations, 'box 2’s levels do not sum to its configurations');
@@ -262,7 +262,7 @@ const R7BOX = '<article class="bx bx-open" id="box-2"><div class="bx-h">' + ICON
   + '</article>';
 const SEALBOX = '<article class="bx bx-sealed" id="box-3"><div class="bx-h">' + ICON(lock(11, 12, 11), 22, 20, '0 0 22 20') + '<span>box 3 · sealed</span></div>'
   + '<h3>' + esc(LABEL6) + '</h3>'
-  + '<p class="bx-p">' + (B3.progress_percent === 100 ? 'Finished; the box stays sealed. Its rules were stamped in Bitcoin before and while it ran:' : 'Running now. Its rules were stamped in Bitcoin before and while it runs:') + '</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
+  + '<p class="bx-p">' + (B3.progress_percent === 100 ? 'Finished; the box stays sealed. Its rules were stamped in Bitcoin before and while it ran, and its final record when it ended:' : 'Running now. Its rules were stamped in Bitcoin before and while it runs:') + '</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
   + '<div class="pg" role="img" aria-label="' + ea(B3.progress_percent + ' percent done') + '"><span style="--w:' + B3.progress_percent + '%"></span></div>'
   + '<p class="pg-n"><span class="pg-v">' + V('boxes.json', '/boxes[id=c6]/progress_percent') + '%</span> done, rounded down, at ' + esc(utc(B3.as_of)) + ' (the newest copy of its ledger at home)</p>'
   + (B3.open_discrepancies ? '<p class="pg-n pg-open"><b>' + V('boxes.json', '/boxes[id=c6]/open_discrepancies') + ' open discrepanc' + (B3.open_discrepancies === 1 ? 'y' : 'ies') + '</b> (in the corrections ledger)</p>' : '')

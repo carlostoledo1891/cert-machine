@@ -1,10 +1,10 @@
 {
  "what": "The state of the VP ≠ VNP lane as the live page shows it, written by tools/vp-vnp-live-records.js from corpus/vp-vnp/status.json and checked against PREREG.md, the seals and the pinned README.",
- "as_of": "2026-11-24T01:14Z",
+ "as_of": "2026-11-24T02:41Z",
  "verdict": "CERTIFIED",
  "verdict_words": "the formal claim, as the textbooks define it",
  "ceiling_usd": 25,
- "spent_usd": 1.2,
+ "spent_usd": 1.8,
  "target": {
   "repo": "anthropics/formal-math",
   "folder": "vp-vnp",
@@ -61,7 +61,7 @@
      "id": "SEAL",
      "title": "Pre-register the rows and the verdict rule, timestamped on Bitcoin, before any run",
      "state": "passed",
-     "note": "Sealed 23:57 UTC on 23 Nov; first seal superseded within a minute (a date written ahead of the clock, deviation D0)."
+     "note": "Sealed and stamped 23:57 UTC on 23 Nov, before any run; first seal superseded within a minute (a date written ahead of the clock, deviation D0). Bitcoin confirms the stamp from block 977295 (00:19 UTC on 24 Nov), by which time rows PIN and K0 had finished: for those two the order rests on our own log (deviation D4)."
     }
    ]
   },
@@ -145,7 +145,7 @@
      "id": "F2",
      "title": "Bridge: each blind statement proved from the release's theorems",
      "state": "passed",
-     "note": "both blind statements, five propositions each, proved from the release's theorems (bridge A: a program of length ℓ becomes a release circuit of 4ℓ + 2 gates and the constant halves; bridge B: gate for gate, same constant). Replayed by the control room: Comparator, with OUR blind statement as the challenge, \"Your solution is okay!\" for both; nanoda (second version) checked 63,485 and 63,380 declarations with no error; con-leche --compare justified 5 of 5 for each. Lean's from-scratch replay of both bridges is running."
+     "note": "both blind statements, five propositions each, proved from the release's theorems (bridge A: a program of length ℓ becomes a release circuit of 4ℓ + 2 gates and the constant halves; bridge B: gate for gate, same constant). Replayed by the control room: Comparator, with OUR blind statement as the challenge, \"Your solution is okay!\" for both; nanoda (second version) checked 63,485 and 63,380 declarations with no error; con-leche --compare justified 5 of 5 for each. Lean's own checker replayed both bridges from scratch, exit 0 (36 min each)."
     },
     {
      "id": "F3",
@@ -174,14 +174,14 @@
     {
      "id": "N6",
      "title": "Fill gap G2: the determinant's small circuits, then Remark N.6, in Lean",
-     "state": "pending",
-     "note": "after phase 2"
+     "state": "running",
+     "note": "the statement is written in Lean (corpus/vp-vnp/lean/n6/N6Statement.lean: the determinant has small circuits; Remark N.6; the control in characteristic 2), elaborated at the release's pins and sealed at 02:38 UTC on 24 Nov, before any proof. Two provers that do not see each other (a Claude agent, GPT-6.2-astra) are working on the determinant's circuit; nothing is proved yet."
     },
     {
      "id": "NC",
      "title": "What the theorem says in numbers: the constant, and the missing m₀",
-     "state": "running",
-     "note": "read from the Lean: the constant is explicit, c = 1/1600² (Paper/Fields.lean, thm_allfields); m₀ is M₁ + M₂ + 2 with M₁, M₂ from the two cases and no value. With this c the bound exceeds m² only when log₂ m > (2·1600²)³ ≈ 1.3·10²⁰."
+     "state": "passed",
+     "note": "read from the Lean and the paper, line by line (corpus/vp-vnp/NC.md): the proof's constant is c = 1/1600² (Paper/Fields.lean line 87, Paper/Approximate.lean line 295), so the bound exceeds m² only when log₂ m > (2·1600²)³ ≈ 1.3·10²⁰; m₀ is M₁ + M₂ + 2 with M₁, M₂ taken from existence statements, and the paper says the proof gives no value for it. A reading, not a machine check."
     }
    ]
   },
@@ -218,9 +218,9 @@
  ],
  "counts": {
   "all": 23,
-  "passed": 17,
+  "passed": 18,
   "running": 1,
-  "pending": 5,
+  "pending": 4,
   "failed": 0,
   "refused": 0,
   "open": 0
@@ -250,8 +250,9 @@
    "file": "corpus/vp-vnp/SEAL-0.sha256",
    "file_sha256": "4b3bfe42ddcaf0b4e5d85e728490d0b38d69efb496987464da5e9724e26d5ed8",
    "ots": "corpus/vp-vnp/SEAL-0.sha256.ots",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977295,
+   "bitcoin_block_utc": "2026-11-24T00:19Z"
   },
   {
    "id": "SEAL-1B",
@@ -261,8 +262,9 @@
    "file": "corpus/vp-vnp/SEAL-1B.sha256",
    "file_sha256": "980a27ad0881c608909b35ae46a486c58ed4849e33c18c02d259412ca9b053e0",
    "ots": "corpus/vp-vnp/SEAL-1B.sha256.ots",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977295,
+   "bitcoin_block_utc": "2026-11-24T00:19Z"
   },
   {
    "id": "SEAL-1A",
@@ -272,14 +274,27 @@
    "file": "corpus/vp-vnp/SEAL-1A.sha256",
    "file_sha256": "3286b1b4c754cb67033f0a4c5323136abfc15b8d67ff2b2c154c3c2888d3798f",
    "ots": "corpus/vp-vnp/SEAL-1A.sha256.ots",
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977301,
+   "bitcoin_block_utc": "2026-11-24T01:10Z"
+  },
+  {
+   "id": "SEAL-2",
+   "what": "the Lean statement of Remark N.6, before any proof of it was attempted",
+   "stamped_utc": "2026-11-24T02:38Z",
+   "files": 1,
+   "file": "corpus/vp-vnp/SEAL-2.sha256",
+   "file_sha256": "101ca15314e569ae1134cd774f03a798a6789dda75b8d69b44f7c103f560c6b0",
+   "ots": "corpus/vp-vnp/SEAL-2.sha256.ots",
    "ots_state": "pending",
-   "bitcoin_block": null
+   "bitcoin_block": null,
+   "bitcoin_block_utc": null
   }
  ],
  "sources": [
   {
    "file": "corpus/vp-vnp/status.json",
-   "sha256_12": "68ab34843c34"
+   "sha256_12": "17d9cf430b5e"
   },
   {
    "file": "corpus/vp-vnp/PREREG.md",
@@ -287,7 +302,11 @@
   },
   {
    "file": "corpus/vp-vnp/DEVIATIONS.md",
-   "sha256_12": "170412bf5d1c"
+   "sha256_12": "f43d6b33575f"
+  },
+  {
+   "file": "corpus/vp-vnp/NC.md",
+   "sha256_12": "4516533ce7cf"
   },
   {
    "file": "corpus/vp-vnp/target-SHA256SUMS",
@@ -307,7 +326,7 @@
   },
   {
    "file": "corpus/vp-vnp/SEAL-0.sha256.ots",
-   "sha256_12": "f4117c948903"
+   "sha256_12": "c35ec626a21d"
   },
   {
    "file": "corpus/vp-vnp/SEAL-1B.sha256",
@@ -315,7 +334,7 @@
   },
   {
    "file": "corpus/vp-vnp/SEAL-1B.sha256.ots",
-   "sha256_12": "7d3c148d1e5c"
+   "sha256_12": "1c10010b37d1"
   },
   {
    "file": "corpus/vp-vnp/SEAL-1A.sha256",
@@ -323,7 +342,15 @@
   },
   {
    "file": "corpus/vp-vnp/SEAL-1A.sha256.ots",
-   "sha256_12": "b96083ec1014"
+   "sha256_12": "890e35958473"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-2.sha256",
+   "sha256_12": "101ca15314e5"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-2.sha256.ots",
+   "sha256_12": "ef14599d75b5"
   }
  ],
  "scripts": [

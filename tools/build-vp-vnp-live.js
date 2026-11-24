@@ -115,6 +115,8 @@ const HERO = C.figure({
 const KEY = '<div class="wide vt-key" aria-label="the states">' + STATES.filter((st) => S.counts[st] || ['passed', 'running', 'pending'].includes(st))
   .map((st) => '<span>' + ICON(st) + esc(WORD[st]) + ' <span class="vt-kn">' + N(S.counts[st]) + '</span></span>').join('') + '</div>';
 const blocks = S.seals.filter((s) => s.bitcoin_block).length;
+const S0 = S.seals.find((s) => s.id === 'SEAL-0');
+need(S0, 'the records hold no SEAL-0');
 const STATS = C.stats([
   { k: 'verdict today', v: S.verdict, n: S.verdict_words },
   { k: 'rows passed', v: N(S.counts.passed) + ' of ' + N(S.counts.all), n: N(S.counts.running) + ' running, ' + N(S.counts.pending) + ' pending' + (S.counts.failed ? ', ' + N(S.counts.failed) + ' failed' : '') },
@@ -138,7 +140,7 @@ const GAPS = C.section({ lab: 'the gaps', title: 'What the release itself leaves
 const rowItem = (r) => '<li class="vr-i"><span class="vr-s">' + ICON(r.state) + C.tag(WORD[r.state].toUpperCase(), KIND[r.state]) + '</span>'
   + '<span class="vr-t"><span class="m">' + esc(r.id) + '</span> ' + esc(r.title) + '</span>' + (r.note ? '<span class="vr-n">' + esc(r.note) + '</span>' : '') + '</li>';
 const ROWSEC = C.section({ lab: 'the rows', title: 'Every row, phase by phase', id: 'rows', wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('Each row was written down, with the rule that decides it, and timestamped in Bitcoin before any of them ran. A row changes state only when its result is in the lane’s files.') + '</div>'
+  bodyRaw: '<div class="col">' + C.pRaw('Each row was written down, with the rule that decides it, and stamped with OpenTimestamps at ' + esc(hm(S0.stamped_utc)) + ' on ' + esc(day(S0.stamped_utc)) + ', before any of them ran. ' + (S0.bitcoin_block ? 'Bitcoin confirms that stamp from block ' + String(S0.bitcoin_block) + ' (' + esc(hm(S0.bitcoin_block_utc)) + ' on ' + esc(day(S0.bitcoin_block_utc)) + '), by which time the first two rows, PIN and K0, had finished: for those two the order rests on our own log (deviation D4 below).' : 'Its Bitcoin block is awaited.') + ' A row changes state only when its result is in the lane’s files.') + '</div>'
     + '<div class="wide"><div class="vr-grid">' + S.phases.map((p) => '<article class="vr-p"><div class="vr-h">phase ' + p.phase + '</div><h3>' + esc(p.title) + '</h3><ul class="vr-l">' + p.rows.map(rowItem).join('') + '</ul></article>').join('') + '</div></div>' });
 
 /* ---------------------------------------------------------------- what would count */
@@ -161,7 +163,7 @@ const LEDGER = C.section({ lab: 'the corrections ledger', title: 'Every deviatio
 
 /* ---------------------------------------------------------------- why you can trust this (one click down) */
 const sealRows = S.seals.map((s) => [{ raw: '<b>' + esc(s.id) + '</b>' }, s.what, s.stamped_utc.replace('T', ' ').replace('Z', ' UTC'), N(s.files),
-  s.bitcoin_block ? 'Bitcoin block ' + N(s.bitcoin_block).replace(/,/g, '') : 'awaiting a block (OpenTimestamps, pending)']);
+  s.bitcoin_block ? 'Bitcoin block ' + N(s.bitcoin_block).replace(/,/g, '') + ' (' + s.bitcoin_block_utc.replace('T', ' ').replace('Z', ' UTC') + ')' : 'awaiting a block (OpenTimestamps, pending)']);
 const trustBody = [
   C.pRaw('<b>Every state on this page is read from a record.</b> The records below are written from the lane’s own files by <span class="m">tools/vp-vnp-live-records.js</span>, which refuses when a source no longer says what a record states; this page is built from them by <span class="m">tools/build-vp-vnp-live.js</span>, which refuses when they disagree.'),
   C.table({ cols: [{ h: 'record' }, { h: 'sha256, 12 hex digits' }, { h: 'what it holds' }], rows: ['state.json', 'ledger.json', 'page-log.json'].map((f) => [{ raw: '<span class="m">' + esc(DIR + f) + '</span>' }, { raw: '<span class="m">' + sha12(DIR + f) + '</span>' }, J(f).what]) }),

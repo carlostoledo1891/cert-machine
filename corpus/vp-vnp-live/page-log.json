@@ -32,6 +32,30 @@
    "running": 1,
    "verdict": "CERTIFIED",
    "what": "VERDICT: CERTIFIED, by the rule sealed before any run (the formal claim, as the textbooks define it). The last required row passed: Lean's own checker replayed the whole closure from scratch (35 min, exit 0). With it: the release's own check, nanoda at a second version and con-leche accept the proof; a second machine that never ran the release's proofs accepts it too; both planted controls are refused; both blind statements are proved from the release's theorems, with Comparator accepting each against our statement; the anchors hold and the planted false claim is proved false; the adversarial reading found nothing material. No person has checked the mathematics. Phase 3 (Remark N.6) and the readable account continue."
+  },
+  {
+   "at": "2026-11-24T02:16Z",
+   "as_of": "2026-11-24T02:16Z",
+   "passed": 17,
+   "running": 1,
+   "verdict": "CERTIFIED",
+   "what": "The three seals are in Bitcoin: the pre-registration and writer B's blind statement in block 977295 (00:19 UTC, 24 Nov), writer A's blind statement in block 977301 (01:10 UTC); each proof's merkle root equals the block header's. Lean's own checker also replayed both bridges from scratch, exit 0 (36 min each)."
+  },
+  {
+   "at": "2026-11-24T02:39Z",
+   "as_of": "2026-11-24T02:39Z",
+   "passed": 18,
+   "running": 1,
+   "verdict": "CERTIFIED",
+   "what": "Phase 3 has begun. Remark N.6 is written as a Lean statement, elaborated at the release's pins and sealed before any proof (SEAL-2, 02:38 UTC); two provers that do not see each other are working on the determinant's circuit, and nothing is proved yet. Row NC passed, 18 of 23: the proof's constant is c = 1/1600² and it gives no value for m₀, read from the Lean and the paper line by line (a reading, not a machine check)."
+  },
+  {
+   "at": "2026-11-24T02:41Z",
+   "as_of": "2026-11-24T02:41Z",
+   "passed": 18,
+   "running": 1,
+   "verdict": "CERTIFIED",
+   "what": "Correction D4: the page said the rows were timestamped in Bitcoin before any of them ran. The stamp was submitted at 23:57 UTC, before any run, but its Bitcoin block is 977295 (00:19 UTC on 24 Nov), by which time rows PIN and K0 had finished. The chain fixes the rule before every other result and before the verdict; for PIN and K0, and for the order of writer A's blind statement and its bridge, the evidence is our own log. No result changes."
   }
  ]
 }

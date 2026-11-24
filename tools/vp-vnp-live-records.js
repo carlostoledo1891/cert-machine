@@ -92,7 +92,9 @@ function build() {
     }
     const o = otsState(rd(s.ots));
     need(o.state !== 'unknown', s.ots + ' holds no attestation');
-    return { id: s.id, what: s.what, stamped_utc: s.stamped_utc, files: lines.length, file: 'corpus/vp-vnp/' + s.file, file_sha256: sha(rd(s.file)), ots: 'corpus/vp-vnp/' + s.ots, ots_state: o.state, bitcoin_block: o.block };
+    /* the block is read from the proof; its time is the control room's reading of that block's header, and must be there once the block is */
+    need(!o.block || (s.bitcoin_block === o.block && /^\d{4}-\d\d-\d\dT\d\d:\d\dZ$/.test(s.bitcoin_block_utc || '') && s.bitcoin_block_utc >= s.stamped_utc), s.id + ': status.json does not give the block the proof names (' + o.block + ') with its time, or the block is earlier than the stamp');
+    return { id: s.id, what: s.what, stamped_utc: s.stamped_utc, files: lines.length, file: 'corpus/vp-vnp/' + s.file, file_sha256: sha(rd(s.file)), ots: 'corpus/vp-vnp/' + s.ots, ots_state: o.state, bitcoin_block: o.block, bitcoin_block_utc: o.block ? s.bitcoin_block_utc : null };
   });
   /* the README's quoted sentences, in the pinned copy */
   need(fs.existsSync(README), 'the pinned README is gone: ' + path.relative(ROOT, README));
@@ -106,7 +108,7 @@ function build() {
   const entries = DEV.split(/\n\s*\n/).map((par) => /^(D\d+) \(([^)]*)\)\. ([\s\S]+)$/.exec(par.trim())).filter(Boolean).map((m) => ({ id: m[1], when: m[2], text: m[3].replace(/\s+/g, ' ').trim() }));
   need(entries.length >= 1 && entries[0].id === 'D0', 'DEVIATIONS.md has no D0');
   const counts = Object.fromEntries(STATES.map((s) => [s, ST.rows.filter((r) => r.state === s).length]));
-  const SOURCES = ['status.json', 'PREREG.md', 'DEVIATIONS.md', 'target-SHA256SUMS', 'prompts/blind-writer.md', 'prompts/adversarial-reader.md'].concat(ST.seals.flatMap((s) => [s.file, s.ots]));
+  const SOURCES = ['status.json', 'PREREG.md', 'DEVIATIONS.md', 'NC.md', 'target-SHA256SUMS', 'prompts/blind-writer.md', 'prompts/adversarial-reader.md'].concat(ST.seals.flatMap((s) => [s.file, s.ots]));
   const scripts = ['tools/runpod-vp-vnp-p1.sh', 'instruments/vp-vnp/census/Census.lean', 'instruments/vp-vnp/controls/C1.lean', 'instruments/vp-vnp/controls/c2.py'].filter((f) => fs.existsSync(path.join(ROOT, f)));
   const state = {
     what: 'The state of the VP ≠ VNP lane as the live page shows it, written by tools/vp-vnp-live-records.js from corpus/vp-vnp/status.json and checked against PREREG.md, the seals and the pinned README.',

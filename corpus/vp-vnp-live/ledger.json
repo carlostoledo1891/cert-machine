@@ -20,6 +20,11 @@
    "id": "D3",
    "when": "2026-11-24 01:02 UTC, an author outside its workspace, no result changed",
    "text": "The anchors' author saved a backup of its workspace's lakefile to /tmp on the pod, as root, at about 00:24 UTC, which its brief forbids; nothing read it and it deleted the file at 00:44 UTC (its WORKLOG). The control room's replay used only the workspace's own files."
+  },
+  {
+   "id": "D4",
+   "when": "2026-11-24 02:41 UTC, what the seals prove, no result changed",
+   "text": "The page said the rows were \"timestamped in Bitcoin before any of them ran\". The stamps were submitted before the runs they concern (SEAL-0 at 23:57:19 UTC on 23 Nov, SEAL-1B at 00:03, SEAL-1A at 00:12 on 24 Nov), but a stamp proves a date only from the Bitcoin block that confirms it: block 977295 (00:19:22 UTC) for SEAL-0 and SEAL-1B, block 977301 (01:10:46 UTC) for SEAL-1A. Phase 1 began on the pod at 00:03:24 UTC; rows PIN and K0 had finished by 00:15:02 and K1 was running at 00:19 (runs/p1/_phase.log). So the chain shows that the rows and the verdict rule existed before every result except PIN and K0 and before the verdict (01:14 UTC), and that writer B's blind statement existed before the time our log gives for its first elaboration (00:22 UTC). It does not show that the rule preceded PIN and K0, nor that writer A's blind statement preceded its first elaboration (00:22 UTC) or its bridge (00:42 to 00:48 UTC): for those the evidence is this lane's own log and its commits (pre-registration df92c754 at 00:04:53 UTC, blind statements 0e001d38 at 00:13:29 UTC; a commit's time is its author's to set). Found by the control room when the block heights were read; the page's sentence now says this."
   }
  ]
 }

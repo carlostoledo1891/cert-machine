@@ -46,3 +46,22 @@ Re-run here, isolated (python -I, sympy 1.14.0), 01:24–01:28 UTC:
 | G2-4 | D.2 at μ = 3 by translation characters: total nullity 1, all in the trivial character (rank 510 of 511); the classes rank(b) = 0, 1, 2, 3 hold 1, 49, 294, 168 characters with nullities 1, 0, 0, 0. | RE-RUN, same output (panel/grok-r2/OUTPUT-chars-rerun-control-room.txt, 200 s). Rank modulo a prime can only undercount the rational rank, and the rank metric is a solution, so the dimension is exactly 1 — a SECOND, independently written program agrees with GPT-6.2-astra's exact count (G-2). Steps 4–7 of Theorem D.2 at μ = 3: confirmed by two programs. |
 | G2-1′ | B.2 (crossing identity): (a), (b), (c) hold. | RE-RUN of the script received: it computes 9 nonempty cases (energies up to 6, sizes 1), all three properties True, ε = 1 in each; it does NOT reproduce the 14 or 33 cases nor the degree check Grok reported — those came from a version we were not given. So: 9 cases checked by re-run; the rest of Grok's B.2 report stays unchecked. |
 | G2-5 | the full D.2 elimination (check_d2.py) | Not re-run to the end: stopped by the control room at the pause (Grok said its μ = 3 part does not finish). |
+
+## Phase 3: the reading of the N6 statement (GPT-6.2-astra, 2026-11-24 02:33–02:41 UTC)
+
+The control room wrote corpus/vp-vnp/lean/n6/N6Statement.lean and sealed it (SEAL-2, 02:38 UTC). GPT-6.2-astra read it
+against the paper and the literature (brief: prompts/n6-statement-reader.md; its answer, whole: reader/
+N6-STATEMENT-READING-astra.md). It lists 17 points, 5 labelled material, none saying that `RemarkN6` is weaker than,
+different from, or false against the paper's remark. No sealed line changes. Its Lean tests were not run by it.
+
+| # | point | what follows |
+|---|---|---|
+| N-1 | `PermCharTwo` is a control for the circuit bound, not for the remark itself. The direct control: in characteristic 2 the generic matrix is an affine matrix of size m whose determinant IS perm m, so the remark's bound is false there. | ADDED as a test to prove: `ApproxByDet (perm F m) m` over every field of characteristic 2. |
+| N-2 | `PermCharTwo` puts "every field of characteristic 2" outside the negation: harder than refuting the uniform clause needs. | Kept: the stronger form is the one the paper's "the permanent coincides with the determinant" supports. |
+| N-3 | `ApproxByDet` over F uses Laurent series over F itself; over a field that is not algebraically closed this differs, polynomial by polynomial, from the geometric notion (its example: x² + y² + z² over ℝ at size 2). No loss for the permanent: `RemarkN6` quantifies over every field of the characteristic, the closure included. | To say on the page under "what it does not say". Its example is unchecked. |
+| N-4 | `ApproxByDet` is the border notion (as "in the sense of Definition N.1" asks), so the bound also covers exact determinantal complexity. | Test to prove: an exact affine determinant is an approximating one. |
+| N-5 | `DetHasSmallCircuits` (every commutative ring, one exponent) is broader than the corollary needs; equivalent to the statement over ℤ. | Kept. Test proposed, not required. |
+| N-6…17 | quantifier order, "affine" = total degree ≤ 1, the coefficient condition, the strict inequality, n = 0 and m ≤ 1, non-vacuity (degree forces n ≥ m; witnesses exist at size 2^m − 1), index conventions, the gate convention, the universe: each read as immaterial. | Tests to prove: `ApproxByDet f n → f.totalDegree ≤ n`; `perm F m = det F m` in characteristic 2. The size-(2^m − 1) witness is from its memory, unchecked. |
+
+What it says comes from its memory of the literature, not from a file: the exact-dc convention, the projection
+convention, Berkowitz's construction, the complex GCT dictionary.
