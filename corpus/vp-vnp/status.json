@@ -1,10 +1,10 @@
 {
   "what": "The control room's state of the VP ≠ VNP lane, row by row (the rows of PREREG.md). Updated at every phase finish; the live page /vp-vnp/ is built from it. States: pending, running, passed, failed, refused, open.",
-  "as_of": "2026-11-24T00:05Z",
+  "as_of": "2026-11-24T00:14Z",
   "verdict": "OPEN",
   "verdict_words": "nothing decided yet",
   "ceiling_usd": 25,
-  "spent_usd": 0.05,
+  "spent_usd": 0.2,
   "target": {
     "repo": "anthropics/formal-math",
     "folder": "vp-vnp",
@@ -17,46 +17,233 @@
     "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474"
   },
   "seals": [
-    {"id": "SEAL-0", "what": "the pre-registration, the two briefs and the target's file hashes", "stamped_utc": "2026-11-23T23:57Z", "file": "SEAL-0.sha256", "ots": "SEAL-0.sha256.ots", "bitcoin_block": null},
-    {"id": "SEAL-1B", "what": "writer B's blind statement, before any elaboration", "stamped_utc": "2026-11-24T00:03Z", "file": "SEAL-1B.sha256", "ots": "SEAL-1B.sha256.ots", "bitcoin_block": null}
+    {
+      "id": "SEAL-0",
+      "what": "the pre-registration, the two briefs and the target's file hashes",
+      "stamped_utc": "2026-11-23T23:57Z",
+      "file": "SEAL-0.sha256",
+      "ots": "SEAL-0.sha256.ots",
+      "bitcoin_block": null
+    },
+    {
+      "id": "SEAL-1B",
+      "what": "writer B's blind statement, before any elaboration",
+      "stamped_utc": "2026-11-24T00:03Z",
+      "file": "SEAL-1B.sha256",
+      "ots": "SEAL-1B.sha256.ots",
+      "bitcoin_block": null
+    },
+    {
+      "id": "SEAL-1A",
+      "what": "writer A's blind statement, before any elaboration",
+      "stamped_utc": "2026-11-24T00:12Z",
+      "file": "SEAL-1A.sha256",
+      "ots": "SEAL-1A.sha256.ots",
+      "bitcoin_block": null
+    }
   ],
   "gaps": [
-    {"id": "G1", "text": "Whether the statement file says what the paper claims was judged by AI readers only; no machine checks it."},
-    {"id": "G2", "text": "Remark N.6 (the permanent is not approximated by determinants of polynomial size) is the one numbered statement with no Lean theorem."},
-    {"id": "G3", "text": "The release's own check runs two kernels (Lean's and nanoda) on one machine."},
-    {"id": "G4", "text": "The proof gives no value for the size m₀ from which the bound holds."},
-    {"id": "G5", "text": "The authors did not analyse relativization or algebrization."},
-    {"id": "G6", "text": "No human mathematician has checked the development, the statement file or the proofs."}
+    {
+      "id": "G1",
+      "text": "Whether the statement file says what the paper claims was judged by AI readers only; no machine checks it."
+    },
+    {
+      "id": "G2",
+      "text": "Remark N.6 (the permanent is not approximated by determinants of polynomial size) is the one numbered statement with no Lean theorem."
+    },
+    {
+      "id": "G3",
+      "text": "The release's own check runs two kernels (Lean's and nanoda) on one machine."
+    },
+    {
+      "id": "G4",
+      "text": "The proof gives no value for the size m₀ from which the bound holds."
+    },
+    {
+      "id": "G5",
+      "text": "The authors did not analyse relativization or algebrization."
+    },
+    {
+      "id": "G6",
+      "text": "No human mathematician has checked the development, the statement file or the proofs."
+    }
   ],
   "rows": [
-    {"id": "PIN", "phase": 0, "title": "Pin the release: every file hashed at its commit", "state": "passed", "note": "333 files, 324 Lean files, 72,932 lines; Lean v4.33.1, Mathlib 0df444a3."},
-    {"id": "SEAL", "phase": 0, "title": "Pre-register the rows and the verdict rule, timestamped on Bitcoin, before any run", "state": "passed", "note": "Sealed 23:57 UTC on 23 Nov; first seal superseded within a minute (a date written ahead of the clock, deviation D0)."},
-    {"id": "K0", "phase": 1, "title": "Build the release; list its axioms; search for unsafe code", "state": "running", "note": "pod started 00:03 UTC"},
-    {"id": "K1", "phase": 1, "title": "The release's own check (Comparator, Lean's kernel, nanoda), at its own pins", "state": "pending", "note": ""},
-    {"id": "K2", "phase": 1, "title": "nanoda at a second version", "state": "pending", "note": ""},
-    {"id": "K3", "phase": 1, "title": "con-leche, a third independently written checker", "state": "pending", "note": ""},
-    {"id": "KR", "phase": 1, "title": "Lean's own checker, replayed from scratch", "state": "pending", "note": ""},
-    {"id": "CR", "phase": 1, "title": "A second machine that never ran the release's code", "state": "pending", "note": ""},
-    {"id": "C1", "phase": 1, "title": "Control: one symbol changed in a statement must be refused", "state": "pending", "note": ""},
-    {"id": "C2", "phase": 1, "title": "Control: a theorem re-typed as False must be refused", "state": "pending", "note": ""},
-    {"id": "CEN", "phase": 1, "title": "Census: what the five theorems actually use", "state": "pending", "note": ""},
-    {"id": "T3", "phase": 1, "title": "The paper's Table 3 checked against the Lean names", "state": "pending", "note": ""},
-    {"id": "F1", "phase": 2, "title": "Two blind statements, written from the textbooks without seeing the release's", "state": "running", "note": "writer B (GPT-6.2-astra) done and sealed 00:03 UTC; writer A (Claude) writing"},
-    {"id": "F2", "phase": 2, "title": "Bridge: each blind statement proved from the release's theorems", "state": "pending", "note": ""},
-    {"id": "F3", "phase": 2, "title": "Anchors: the statement is not vacuous and means circuits, not formulas", "state": "pending", "note": ""},
-    {"id": "F4", "phase": 2, "title": "Red controls: planted false versions proved false", "state": "pending", "note": ""},
-    {"id": "F5", "phase": 2, "title": "An adversarial reading of every definition", "state": "running", "note": "a separate Claude agent reading"},
-    {"id": "N6", "phase": 3, "title": "Fill gap G2: the determinant's small circuits, then Remark N.6, in Lean", "state": "pending", "note": "after phase 2"},
-    {"id": "NC", "phase": 3, "title": "What the theorem says in numbers: the constant, and the missing m₀", "state": "pending", "note": ""},
-    {"id": "H1", "phase": 4, "title": "A proof map generated from the Lean, in plain words", "state": "pending", "note": ""},
-    {"id": "H2", "phase": 4, "title": "The idea on one page", "state": "pending", "note": ""},
-    {"id": "H3", "phase": 4, "title": "What the theorem does not say", "state": "pending", "note": ""},
-    {"id": "H4", "phase": 4, "title": "The trusted base", "state": "pending", "note": ""}
+    {
+      "id": "PIN",
+      "phase": 0,
+      "title": "Pin the release: every file hashed at its commit",
+      "state": "passed",
+      "note": "333 files, 324 Lean files, 72,932 lines; Lean v4.33.1, Mathlib 0df444a3."
+    },
+    {
+      "id": "SEAL",
+      "phase": 0,
+      "title": "Pre-register the rows and the verdict rule, timestamped on Bitcoin, before any run",
+      "state": "passed",
+      "note": "Sealed 23:57 UTC on 23 Nov; first seal superseded within a minute (a date written ahead of the clock, deviation D0)."
+    },
+    {
+      "id": "K0",
+      "phase": 1,
+      "title": "Build the release; list its axioms; search for unsafe code",
+      "state": "running",
+      "note": "every file matched its pin; Mathlib fetched; building since 00:05 UTC"
+    },
+    {
+      "id": "K1",
+      "phase": 1,
+      "title": "The release's own check (Comparator, Lean's kernel, nanoda), at its own pins",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "K2",
+      "phase": 1,
+      "title": "nanoda at a second version",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "K3",
+      "phase": 1,
+      "title": "con-leche, a third independently written checker",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "KR",
+      "phase": 1,
+      "title": "Lean's own checker, replayed from scratch",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "CR",
+      "phase": 1,
+      "title": "A second machine that never ran the release's code",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "C1",
+      "phase": 1,
+      "title": "Control: one symbol changed in a statement must be refused",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "C2",
+      "phase": 1,
+      "title": "Control: a theorem re-typed as False must be refused",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "CEN",
+      "phase": 1,
+      "title": "Census: what the five theorems actually use",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "T3",
+      "phase": 1,
+      "title": "The paper's Table 3 checked against the Lean names",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "phase": 2,
+      "title": "Two blind statements, written from the textbooks without seeing the release's",
+      "state": "running",
+      "note": "both written without seeing the release's statement and sealed before elaboration: writer B (GPT-6.2-astra) 00:03 UTC, circuits as graphs; writer A (Claude) 00:12 UTC, straight-line programs. Next: elaborate them against the release's Lean and Mathlib."
+    },
+    {
+      "id": "F2",
+      "phase": 2,
+      "title": "Bridge: each blind statement proved from the release's theorems",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "F3",
+      "phase": 2,
+      "title": "Anchors: the statement is not vacuous and means circuits, not formulas",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "F4",
+      "phase": 2,
+      "title": "Red controls: planted false versions proved false",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "F5",
+      "phase": 2,
+      "title": "An adversarial reading of every definition",
+      "state": "running",
+      "note": "a separate Claude agent reading"
+    },
+    {
+      "id": "N6",
+      "phase": 3,
+      "title": "Fill gap G2: the determinant's small circuits, then Remark N.6, in Lean",
+      "state": "pending",
+      "note": "after phase 2"
+    },
+    {
+      "id": "NC",
+      "phase": 3,
+      "title": "What the theorem says in numbers: the constant, and the missing m₀",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "H1",
+      "phase": 4,
+      "title": "A proof map generated from the Lean, in plain words",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "H2",
+      "phase": 4,
+      "title": "The idea on one page",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "H3",
+      "phase": 4,
+      "title": "What the theorem does not say",
+      "state": "pending",
+      "note": ""
+    },
+    {
+      "id": "H4",
+      "phase": 4,
+      "title": "The trusted base",
+      "state": "pending",
+      "note": ""
+    }
   ],
   "panel": [
-    {"who": "Claude Opus 5.5 (Anthropic)", "role": "control room: pins, seals, checkers, ledger, page; blind writer A; the adversarial reader; the bridges"},
-    {"who": "GPT-6.2-astra (OpenAI, in Codex)", "role": "blind writer B"},
-    {"who": "Grok (xAI) and Gemini (Google)", "role": "readings pasted by the operator; only checks someone else re-ran enter the ledger"}
+    {
+      "who": "Claude Opus 5.5 (Anthropic)",
+      "role": "control room: pins, seals, checkers, ledger, page; blind writer A; the adversarial reader; the bridges"
+    },
+    {
+      "who": "GPT-6.2-astra (OpenAI, in Codex)",
+      "role": "blind writer B"
+    },
+    {
+      "who": "Grok (xAI) and Gemini (Google)",
+      "role": "readings pasted by the operator; only checks someone else re-ran enter the ledger"
+    }
   ],
   "independence": "The claim was made by a Claude model and Claude models are on this panel. Independence here is by procedure: statements written without seeing the release's, checkers written by other people (Lean's kernel, nanoda, con-leche), one blind statement by a non-Anthropic model, and every rule sealed before the run."
 }

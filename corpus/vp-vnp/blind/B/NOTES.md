@@ -1,0 +1,42 @@
+# BlindB statement notes
+
+## Sources
+
+The bibliographic references here are **from memory**. For the DAG model and Valiant's classes I follow Shpilka and Yehudayoff, *Arithmetic Circuits: A Survey of Recent Results and Open Questions* (2010), ch. 1, and the introductory treatment of arithmetic circuits in Saptharishi, *A Survey of Lower Bounds in Arithmetic Circuit Complexity*. I use Valiant's p-computable and p-definable families from *Completeness Classes in Algebra* (1979) for VP and VNP. The references identify the definitions I used. The conventions below give their precise implementation in this file. The five claims and the particular Laurent-series approximation criterion come from the numbered items in the supplied brief.
+
+## Circuits
+
+- **`Gate` and `Circuit`** follow the arithmetic DAG definition in Shpilka–Yehudayoff, ch. 1. Sources are labelled by a variable or an arbitrary field element. Addition and multiplication each have two ordered input ports. The same vertex can feed several gates or both ports of one gate, so a square can reuse its input. Numbering vertices in topological order expresses acyclicity. Every finite DAG admits such a numbering. The circuit has one designated output, which may itself be a source.
+- **`Circuit.size`** counts each vertex once, including each variable or constant source present in the graph. This is the vertex-count convention for the survey model and gives “gates” its literal meaning in the bound. Reusing a source costs one vertex in total. Listing an unused vertex increases the size, and omitting it preserves the output. Other conventions count only arithmetic gates, count wires, or charge only for nonscalar multiplications. Unbounded fan-in is also common, especially with wire size. These choices can change the numerical size of a circuit.
+- **`Gate.eval` and `Circuit.Computes`** express the recursive polynomial semantics of Shpilka–Yehudayoff, ch. 1. A labelling satisfies the source, sum and product equations at every vertex. Topological order determines this labelling uniquely, so reading its output expresses equality in the polynomial ring, including over finite fields. There is no depth restriction. Field elements have unit source cost regardless of their representation. Some models allow subtraction, division or weighted edges, and constant-free models restrict the scalar labels. I use the division-free addition and multiplication basis. For example, subtraction can use a source labelled by `−1`, a product and a sum.
+
+## Matrix polynomials
+
+- **`permMonomial` and `PERM`** use the permanent from Valiant's setting and the displayed matrix formula in the brief. The pair `(i, j)` indexes a distinct indeterminate. A permutation gives one product with coefficient one. At dimension zero the empty permutation contributes the empty product, so `PERM₀ = 1`.
+- **`IsFullCycle` and `HC`** implement the brief's restriction of the permutation sum. A chosen index must have every index in its orbit. The choice lives inside a proposition, so the sum counts each permutation once, even though each of its indices could serve as the starting point. For positive dimension this selects exactly the directed cycles of length `m`, including the loop at dimension one. At dimension zero there is no starting index and `HC₀ = 0`. The brief's factorial count applies at positive dimension.
+
+## Families and classes
+
+- **`PBounded`** implements the polynomial growth condition for Valiant's families as recalled in Shpilka–Yehudayoff, ch. 1. It asks for natural numbers `a, d` such that `t(n) ≤ a (n + 1)^d` for every natural `n`. This covers index zero and constant functions. An arbitrary polynomial majorant or an eventual `O(n^d)` bound gives the same growth condition here, since increasing the multiplier absorbs finitely many initial values.
+- **`Family` and `IsPFamily`** implement Valiant's polynomial families and p-families. At each natural index the family declares an arity and a formal polynomial in that many variables. Both declared arity and actual total degree must be polynomially bounded in the index. Some conventions fix the arity to the index, count only occurring variables or start indexing at one. Declared arity allows unused variables and makes the variable set of each polynomial explicit.
+- **`VP`** is Valiant's nonuniform p-computability definition, in the circuit formulation of Shpilka–Yehudayoff, ch. 1. One polynomial bound on size works at every index of the family. The circuits and scalar labels may depend on the index. The degree bound concerns the output polynomial after cancellations. Other formulations impose a formal degree bound on the circuit, which also constrains intermediate gates, or require a uniform procedure for producing the circuits.
+- **`booleanSum` and `VNP`** implement Valiant's p-definability definition. One VP witness family has arity `arity(n) + w(n)` with polynomially bounded `w`. Its first block stays symbolic. Every assignment in the Boolean cube for the second block substitutes field zeros and ones, and the resulting polynomials are added in the field. At width zero there is exactly one assignment. This definition keeps the witness's polynomial degree bound through membership in VP. Other presentations use a single polynomial for witness width, express the sum as an exponential sum of small formulas, or formulate membership using p-projections of a VNP-complete family. I chose the Boolean-sum definition because it specifies the witness directly in every characteristic.
+
+## Approximation
+
+- **`Circuit.Approximates`** applies the gate semantics of Shpilka–Yehudayoff, ch. 1, over the Laurent-series field, with the output condition from item 3. First embed the coefficients of `f` as constant power series, add `ε g` there, then embed all coefficients of this polynomial in the Laurent-series field. Here `PowerSeries.X` is ε and the matrix or family variables are the outer polynomial variables. The error polynomial `g` has finite monomial support and power-series coefficients. Intermediate gate values may have poles. The definition places no size, degree or precision bound on `g`.
+- **`VPBar`** uses the same p-family and size conditions as VP, with the existential circuit at each index interpreted by item 3. Arbitrary Laurent-series constants have the same unit source cost as other scalars. Border complexity is also described using degenerations over rational functions or a Zariski closure in a coefficient space. I used the series field specified in the brief, including for finite base fields.
+
+## The five propositions
+
+- **`gateBound`** transcribes item 1 as a real number. It uses the base-two real logarithm, the real cube root of that logarithm and a real exponent on `m`. The comparison casts the natural gate count to the reals and uses strict inequality. The threshold may be taken at least two, so the conventions for logarithms and powers at zero have no asymptotic effect.
+- **`MainTheorem`** is item 1. A single positive `c` works for every allowed characteristic. For each such `p`, the threshold is chosen before quantifying over the field, the dimension and the circuit. This threshold covers both targets when `p ≠ 2`. The restriction on characteristic applies only to the permanent.
+- **`MainTheoremApprox`** is item 3, with the same quantifier order. The characteristic is that of the base field of the target. The circuit runs over its Laurent-series field. Each of the two standalone propositions binds its own existential constants. Any constants witnessing the approximation bound also apply to exact circuits by embedding scalar labels as constant series.
+- **`Separation`** is item 2 and asserts proper inclusion of sets of families over each field. **`SeparationClosure`** is item 4 and asserts failure of containment of VNP in VP-bar over each field. The family witnessing a separation may depend on the field. Fields range over Lean's `Type`, as permitted in the brief.
+- **`PermanentOverReal`** is item 5. It states the real permanent bound directly for exact circuits. Its constants are existentially quantified within the proposition.
+
+The handback lists the approximation proposition second, while the numbered English claims put the VP separation second. The file follows the requested declaration order and assigns each name the meaning recorded above.
+
+I used the permitted local Mathlib source for API names. I did not run Lean or verify elaboration against the target commit.
+
+I did not see the claimant's Lean statement
