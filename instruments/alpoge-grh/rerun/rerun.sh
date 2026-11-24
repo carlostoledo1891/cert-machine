@@ -3,6 +3,8 @@
 # with the same scripts, in the same order, from the same commit. Needs: Linux x86-64 (Debian/Ubuntu), root, network,
 # >= 320 GB of free disk, >= 256 GB of memory (nanoda peaks near 90 GB, the build and leanchecker less), ideally >= 32 vCPU
 # (the build ran at ~150 files a minute on 32 vCPU: about 20 hours). Results land in /results; then compare them with ours:
+# 256 GB is NOT enough for the statement judge (Comparator, steps S1 and C1): see the README beside this file (amendments
+# A17 and A25). The bridge's waiting script (p3) is started because p4 waits for its log line; the bridge was not run here (A21).
 #   python3 -I tools/check-alpoge-grh.py --compare-run /results      (from a checkout of the same commit)
 # usage: AUDIT_SHA=<cert-machine commit> bash rerun.sh
 set -uo pipefail

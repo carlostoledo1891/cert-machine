@@ -65,25 +65,47 @@
   },
   {
    "id": "S1",
-   "verdict": "PENDING",
-   "why": "on the build pod: the run was stopped by the control room at that pod's memory limit (amendment A17); on the larger machine: the judge has not passed yet",
+   "verdict": "REFUSED",
+   "why": "on the build pod: the run was stopped by the control room at that pod's memory limit (amendment A17); on the larger machine: Comparator gave no verdict: the control room stopped it on the operator's word, on cost, after 53 hours of running with no line of its own printed; it neither accepted nor rejected the release (REFUSED on resources, amendment A25)",
    "mode": "sandbox (landrun --best-effort, Landlock ABI v4)",
    "seconds": 22414,
    "runs": {
     "build pod": "stopped",
-    "larger machine": "notrun"
+    "larger machine": "stopped on cost"
+   },
+   "stop": {
+    "at": "2026-11-24T10:08:32Z",
+    "by": "the control room, on the operator's word",
+    "words": "Stop it now",
+    "reason": "cost",
+    "started": "2026-11-22T05:02:50Z",
+    "wall_seconds": 191142,
+    "comparator_elapsed_seconds": 191141,
+    "comparator_cpu_seconds": 185092,
+    "rss_kb": 348861876,
+    "timeout_seconds": 259200,
+    "memory_events": {
+     "max": 8083,
+     "oom": 0,
+     "oom_kill": 0
+    },
+    "memory_limit_bytes": 376000000000,
+    "last_output_line": "Build completed successfully (183893 jobs).",
+    "verdict_lines": 0,
+    "marker": "2026-11-24T10:08:32Z S1 STOPPED BY THE OPERATOR (cost): judge.sh, the guard and comparator killed by the control room on his word \"Stop it now\". comparator at the stop: elapsed, cpu, rss_kB =  2-05:05:41 2-03:24:52 348861876. timeout was 259200 s; cgroup memory.events: low 0 high 0 max 8083 oom 0 oom_kill 0 oom_group_kill 0 . No verdict: S1 neither accepted nor rejected. C1 not run."
    }
   },
   {
    "id": "C1-C5",
-   "verdict": "PENDING",
-   "why": "not every control ran",
+   "verdict": "REFUSED",
+   "why": "C1 has no result: the statement judge was stopped on cost on the larger machine before it reported, and C1 never started there (REFUSED on resources, amendment A25); the other controls were each rejected",
    "controls": {
     "C1": {
      "what": "statement mismatch",
      "exit": null,
      "refused": false,
-     "where": "larger machine"
+     "where": "larger machine",
+     "not_run_marker": true
     },
     "C2": {
      "what": "planted axiom",

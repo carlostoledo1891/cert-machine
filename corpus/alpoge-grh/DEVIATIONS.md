@@ -101,4 +101,16 @@ None of these changes a verdict rule. Each is about the machine, the judges' ver
 21. **2026-11-23 05:05 UTC — B1's sorry tally re-counted in both spellings (amendment A24, AFTER the result).** The tally
     matched straight quotes while Lean prints backticks; the archived full logs re-counted: 0 in every log and spelling.
     B1 stands.
-
+22. **2026-11-24 10:08 UTC — the statement judge stopped on cost, with no verdict (amendment A25, AFTER the stop).** On
+    the operator's word ("Stop it now") the control room killed the judge script, the guard and Comparator on the
+    376 GB machine after 53 hours 5 minutes of running: about 357 GB in use, nothing killed for memory, 18.9 hours of
+    its 72-hour limit left, and no line of its own printed. S1 is REFUSED on resources (cost): no verdict, neither an
+    acceptance nor a rejection. C1 never started there, so the row C1–C5 is REFUSED with it; C2 to C5 were each
+    rejected earlier. This is the lane's second refusal for cost (the first: item 18). The 40 result files were pulled
+    in one archive and match the machine's own sha256 list; four are over 100 MB and stay outside the repository
+    (`LARGE-LOGS.txt` in the run). `S1.tail` was cut at home from the hash-checked `S1.out`, because the step never
+    exited and no tail was made on the machine (item 19 has it made there). Two logs that had grown since the previous
+    pull are kept in both versions (`_judge.log.at-stop`, `S1.err.at-stop`). The recorder reads the machine's marker
+    `S1.stopped-by-operator` as "no verdict" and stops if anything beside it says otherwise. The page closes in a
+    state that was not registered in advance, and says so. A change of reading made after the state was seen,
+    disclosed as such.

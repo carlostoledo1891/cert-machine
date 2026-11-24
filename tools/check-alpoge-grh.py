@@ -7,7 +7,7 @@ of notes/alpoge-grh-preregistration-2026-11-20.md.
   python3 -I tools/check-alpoge-grh.py --check   re-derive it and refuse on any difference (the battery)
   python3 -I tools/check-alpoge-grh.py --compare-run DIR   a re-run's results (the rerun kit) against this record
 """
-import hashlib, json, os, re, sys, time
+import calendar, hashlib, json, os, re, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS = os.path.join(ROOT, 'corpus', 'alpoge-grh', 'runs')
@@ -158,7 +158,45 @@ def derive(run):
         cand.append(('parallel pod', _pr, '_parallel.log'))
     if _jr and rd(_jr, 'S1.start') is not None:
         cand.append(('larger machine', _jr, '_judge.log'))
-    res = {}
+    VERDICT_LINE = re.compile(r'Your solution is okay!|kernel accepts the solution|do not match|does not match|Illegal axiom detected|uncaught exception')
+
+    def _dhms(t):
+        """ps's elapsed or cpu time, [d-]hh:mm:ss, in seconds"""
+        d, _, hms = t.rpartition('-')
+        h, m, s = (int(x) for x in hms.split(':'))
+        return (int(d) if d else 0) * 86400 + h * 3600 + m * 60 + s
+
+    def _operator_stop(r, name):
+        """the stop record of a judge run ended by the operator on cost (amendment A25), read from the marker written on
+        the machine; refuses unless everything beside it says the same thing: no exit, no end, no verdict line"""
+        mk = (rd(r, 'S1.stopped-by-operator') or '').strip()
+        out = rd(r, 'S1.out') or rd(r, 'S1.tail')
+        m = re.match(r'(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ) S1 STOPPED BY THE OPERATOR \(cost\)', mk)
+        ps = re.search(r'elapsed, cpu, rss_kB =\s+(\S+) (\S+) (\d+)\.', mk)
+        to = re.search(r'timeout was (\d+) s', mk)
+        ev = re.search(r'memory\.events: low \d+ high \d+ max (\d+) oom (\d+) oom_kill (\d+)', mk)
+        wd = re.search(r'on his word "([^"]+)"', mk)
+        start = (rd(r, 'S1.start') or '').strip()
+        bad = []
+        if not (m and ps and to and ev and wd and 'No verdict' in mk): bad.append('the marker is not in the form the stop wrote')
+        if not start.isdigit(): bad.append('no S1.start')
+        if ex(r, 'S1') is not None or rd(r, 'S1.end') is not None: bad.append('S1 has an exit or an end beside the marker')
+        if out is None: bad.append('neither S1.out nor S1.tail is here, so the absence of a verdict line cannot be read')
+        elif VERDICT_LINE.search(out + (rd(r, 'S1.err', '') or '')): bad.append('S1\'s output holds a verdict line of Comparator')
+        if ev and int(ev.group(3)) > 0: bad.append('the marker shows an out-of-memory kill, which is not a stop on cost')
+        if bad:
+            raise SystemExit('REFUSED: the %s carries S1.stopped-by-operator, and that marker means "no verdict" only; but %s. Trace it before any row is written.' % (name, '; '.join(bad)))
+        at = calendar.timegm(time.strptime(m.group(1), '%Y-%m-%dT%H:%M:%SZ'))
+        lim = re.search(r'memory limit (\d+) bytes', rd(r, '_judge.log', '') or '')
+        last = [l for l in out.splitlines() if l.strip()]
+        return {'at': m.group(1), 'by': 'the control room, on the operator\'s word', 'words': wd.group(1), 'reason': 'cost',
+                'started': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(int(start))), 'wall_seconds': at - int(start),
+                'comparator_elapsed_seconds': _dhms(ps.group(1)), 'comparator_cpu_seconds': _dhms(ps.group(2)), 'rss_kb': int(ps.group(3)),
+                'timeout_seconds': int(to.group(1)), 'memory_events': {'max': int(ev.group(1)), 'oom': int(ev.group(2)), 'oom_kill': int(ev.group(3))},
+                'memory_limit_bytes': int(lim.group(1)) if lim else None, 'last_output_line': last[-1].strip() if last else None,
+                'verdict_lines': 0, 'marker': mk}
+
+    res, stops = {}, {}
     for name, r, lg in cand:
         st, md, wy = s1_eval(r)
         if name == 'larger machine' and st == 'resources' and ex(r, 'S1') == 137 and rd(r, 'S1.stopped') is None:
@@ -170,6 +208,15 @@ def derive(run):
                 st, wy = 'killed', 'Comparator was killed (exit 137) with no out-of-memory evidence: the cause is not established (amendment A23)'
         if rd(r, 'S1.stopped') is not None and st != 'pass':
             st, wy = 'stopped', 'the run was stopped by the control room at that pod\'s memory limit (amendment A17)'
+        if rd(r, 'S1.stopped-by-operator') is not None:
+            # amendment A25 (AFTER the stop, disclosed as such): the operator ended the run on cost before Comparator
+            # reported. The marker, written on the machine at the stop, is the only path to this state, and the state is
+            # "no verdict" and nothing else: an exit status or any verdict line of Comparator beside the marker is a
+            # contradiction, and the recorder stops instead of writing a row.
+            stop = _operator_stop(r, name)
+            st, wy = 'stopped on cost', ('Comparator gave no verdict: the control room stopped it on the operator\'s word, on cost, after %d hours of running '
+                                         'with no line of its own printed; it neither accepted nor rejected the release (REFUSED on resources, amendment A25)') % (stop['wall_seconds'] // 3600)
+            stops[name] = stop
         if st == 'pass' and lg and not (_copy_ok(r, lg) and ex(r, 'NOBUILD') == 0):
             st, wy = 'changed', 'that machine\'s copy is not established equal to the build (the two lists, the challenge, `lake build --no-build`)'
         res[name] = (st, md, wy, r)
@@ -197,11 +244,13 @@ def derive(run):
             why = 'on the build pod ' + why_a + '; the judge on the larger machine has not passed yet'
         else:
             why = 'on the build pod: ' + why_a + '; ' + '; '.join('on the %s: %s' % (n, 'the judge has not passed yet' if res[n][0] == 'notrun' else res[n][2]) for n in others)
+    if stops and v != 'REFUSED':   # amendment A25: a run stopped by the operator is "no verdict", whatever else is in the folders
+        raise SystemExit('REFUSED: a run of the judge carries S1.stopped-by-operator, yet S1 would read %s. Trace it before any row is written.' % v)
     if len(res) == 1 and sa != 'stopped':   # only the registered run exists: the row is exactly the registered one
         rows.append(row('S1', v, why, mode=mode, seconds=secs(run, 'S1')))
     else:
         rows.append(row('S1', v, why, mode=mode, seconds=secs(res[where][3] if where else run, 'S1'), where=where,
-                        runs={n: res[n][0] for n in res}))
+                        runs={n: res[n][0] for n in res}, stop=stops.get('larger machine')))
     ctl = {}
     built_ok = ex(run, 'CTLB') == 0
     expect = {'C1': ('statement mismatch', r'do not match|does not match'), 'C2': ('planted axiom', r"Illegal axiom detected: 'cheat'"),
@@ -234,6 +283,12 @@ def derive(run):
         if rd(run, 'C1.stopped') is not None and 'larger machine' in res and res['larger machine'][0] in ('resources', 'killed') and _jr and rd(_jr, 'C1.not-run') is not None and all(x['exit'] is not None for k, x in ctl.items() if k != 'C1'):
             # amendment A23: the guard's marker C1.not-run is required; C1.start is recorded when present
             v, why = 'REFUSED', 'C1 has no result on the larger machine: the guard stopped the judge script after S1 stopped there (amendments A19, A21, A23); the other controls were each rejected' if all(x['refused'] for k, x in ctl.items() if k != 'C1') else 'C1 has no result on the larger machine (amendments A19, A23), and another control was not rejected'
+        elif rd(run, 'C1.stopped') is not None and 'larger machine' in res and res['larger machine'][0] == 'stopped on cost' and _jr and rd(_jr, 'C1.not-run') is not None and all(x['exit'] is not None for k, x in ctl.items() if k != 'C1'):
+            # amendment A25 (AFTER the stop, disclosed as such): C1 was queued behind S1 on the larger machine, and the
+            # stop that ended S1 on cost ended the judge script with it; the stop wrote C1.not-run there
+            c1how = 'C1 never started there' if rd(_jr, 'C1.start') is None else 'C1 had started there and has no exit'
+            v, why = 'REFUSED', ('C1 has no result: the statement judge was stopped on cost on the larger machine before it reported, and ' + c1how + ' (REFUSED on resources, amendment A25); '
+                                 + ('the other controls were each rejected' if all(x['refused'] for k, x in ctl.items() if k != 'C1') else 'and another control was not rejected'))
         else:
             v, why = 'REFUSED', 'not every control ran'
     elif all(x['refused'] for x in ctl.values()):

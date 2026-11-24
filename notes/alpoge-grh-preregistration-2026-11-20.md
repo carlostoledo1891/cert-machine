@@ -624,3 +624,72 @@ could therefore not have seen a warning. B1 was CERTIFIED on 21 Nov; this re-rea
 line holding both "declaration uses" and "sorry": `B1.out` 0, 0, 0; `B1.progress` 0, 0, 0; `B1V.out` 0, 0, 0. B1's
 verdict stands. The page rests "no sorry" on the source scan and the axiom report A1 as well as on this count.
 
+## Amendment A25 — the statement judge is stopped on cost, with no verdict (the operator, 2026-11-24 10:08 UTC; written 10:17 UTC), AFTER the stop — disclosed as such
+
+**What happened.** S1, the statement judge Comparator, had been running on the larger machine (RunPod `bmwjdc3l37zuwh`,
+US$2.88 an hour, amendment A17) since 2026-11-22 05:02:50 UTC. On 2026-11-24 the operator was asked in the session
+what to do with the run. His answer: "Stop it now". The option he chose read: pull its result files, delete the
+pod, record the statement check as "refused on resources", make the RH page final. At 10:08:32 UTC the control room
+killed the judge script, the guard and Comparator on that machine. This is the second time a check of this audit is
+closed on cost; the first was the unconditional bridge (A21).
+
+**Measured at the stop** (the marker `S1.stopped-by-operator`, written on the machine, and the files beside it in
+`corpus/alpoge-grh/runs-judge/podD-bmwjdc3l37zuwh/`):
+- Comparator had run for 2 days 05:05:41 of wall time (53 hours 5 minutes; 191,141 s) and used 2 days 03:24:52 of
+  processor time (185,092 s).
+- Its resident memory was 348,861,876 kB: 357.2 GB in the unit of the machine's 376 GB limit (376,000,000,000 bytes).
+- Its own time limit was 259,200 s (72 hours). 68,059 s of it, about 18.9 hours, were left.
+- The container's `memory.events` read `max 8083`, `oom 0`, `oom_kill 0`. Nothing had been killed for memory.
+- It had printed nothing of its own. `S1.out` (168,588,615 bytes) was last written at 05:03 UTC on 22 November and ends
+  with the build replay's last line, "Build completed successfully (183893 jobs)." Counted over the whole file at home:
+  no acceptance line, no mismatch line, no illegal-axiom line, no exception, no out-of-memory line.
+- There is no `S1.exit` and no `S1.end`: the step never ended by itself.
+- C1, the control queued behind S1, never started: there is no `C1.start`, and the stop wrote `C1.not-run`.
+- A17 had estimated this run at 15 to 20 hours. No billing figure was read for this amendment.
+
+**What it means.**
+- **S1 has no verdict.** Comparator neither accepted nor rejected the release against the challenge. A17 fixed that a
+  run stopped on resources decides nothing and leaves S1 REFUSED on resources. A17 and A19 had memory and time in mind;
+  this amendment applies the same rule to a stop for cost, on the operator's word. S1 is REFUSED on resources (cost).
+- **C1 was not run, and the row C1–C5 is REFUSED with it**, as A19 fixed for a stop of S1: C1 is the same judge on the
+  same proof. The controls that ran are reported one by one, as before: C2, C3 and C4 were each rejected by Comparator
+  on the build pod, C5 by nanoda, and Lean's axiom report named the plants of C2 and C3.
+- **BRu stays REFUSED for cost** (A21). Three of the 24 checks are therefore refused, and none is pending.
+- The statements are compared with the challenge by one tool only: con-leche's comparison, the second statement judge
+  of A12, CERTIFIED on the build pod (K3) and on the clean machine (CR). Comparator, the tool this registration named
+  for the statement check, gave no verdict.
+
+**What it does not mean.**
+- It is not evidence against the proof. Comparator reported no mismatch, no illegal axiom and no error. It reported
+  nothing.
+- It is not evidence for it either. Nothing in S1 may be read as an acceptance.
+- It was not a stop for memory, and not a timeout. Whether the run would have ended inside its 72 hours is not known.
+- It changes no other row. The three kernels (K2, KR, K3), the clean machine (CR), the axiom report, the build and the
+  rest stand exactly as recorded. Nothing was rerun, and no output was edited.
+
+**What changes** (`tools/check-alpoge-grh.py`, `tools/build-report-alpoge-grh.js`, with this amendment):
+- The recorder reads the marker `S1.stopped-by-operator` in the larger machine's run as the state "stopped on cost":
+  S1 REFUSED, with the measurements above in the row. The marker means "no verdict" and nothing else. If an exit
+  status, an end time, a verdict line of Comparator or an out-of-memory kill stands beside it, or if neither `S1.out`
+  nor `S1.tail` is there to be read, the recorder stops and writes no record.
+- With that state and the marker `C1.not-run`, the row C1–C5 reads REFUSED: C1 has no result, the others each rejected.
+- `S1.tail` (the last 400 lines of `S1.out`) was cut at home from the pulled file, after its sha256 was checked against
+  the machine's own list. A22 has the tail made on the machine after the step exits; here the step never exited. The
+  full file stays outside the repository, with the three other files over 100 MB; `LARGE-LOGS.txt` in the run names
+  each with its sha256.
+- Two logs had grown on the machine since the previous pull (`_judge.log`, by the line of the stop; `S1.err`, by the
+  shell's line of the kill). The earlier copies are kept; the final ones are saved beside them as `_judge.log.at-stop`
+  and `S1.err.at-stop`.
+- The page had two closing states, both registered before S1 could report: a pass, or a stop on resources recorded by
+  the guard. This ending is neither. The page now closes in a third state, the one this amendment describes, and says
+  that it was not registered in advance. Its first paragraph says that the central check gave no verdict.
+- Tested on altered copies of the record: the marker with an exit 0 and Comparator's two acceptance lines, with a
+  mismatch line, with an exit 137, with `oom_kill 3`, and without any output file: each time the recorder stops and
+  writes nothing. Without the marker, S1 reads PENDING as before. Without `C1.not-run`, the controls row stays PENDING.
+
+**Disclosure.** This amendment is written after the stop it describes, and it changes how a state of the record is
+read, from pending to REFUSED, after that state was seen. The decision to stop was made on cost, with no result of S1
+known to anyone: Comparator had printed nothing. No row becomes CERTIFIED by it, and it cannot make one so. The
+results were pulled before the machine was deleted, at about 10:10 UTC: 40 files, each matching the machine's own
+sha256 list, in one archive (sha256 523c2ac7dacb1febc7a83f8727e1553e6d949e93657191db2234fa50a705d8cd).
+

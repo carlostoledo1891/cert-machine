@@ -1,0 +1,37 @@
+The larger machine's /results held 40 files when it was read for the last time (2026-11-24, after the stop at
+10:08:32 UTC and before the machine was deleted at about 10:10 UTC). Their sha256 are in RESULTS-ALL.sha256, written on
+the machine. All 40 were pulled in one archive, kept outside this repository:
+
+  results-podD-final.tgz   136,485,612 bytes   sha256 523c2ac7dacb1febc7a83f8727e1553e6d949e93657191db2234fa50a705d8cd
+
+Unpacked at home on 2026-11-24, all 40 files match RESULTS-ALL.sha256. Four of them are too large for this repository
+and stay in the archive only:
+
+  S1.out               168,588,615 bytes   sha256 52bd690db5205d865dacc1f33460c9f975ac3fc477e4030ee4eb56a13b85d6fa
+  NOBUILD.out          168,578,538 bytes   sha256 60dab725313257312cfe097cc03e87fdfe3099a183e700d5ace23fb4439461a2
+  copy-source.sha256   224,483,801 bytes   sha256 e792fec54b3bd944db071ab2a437144248e88fa6069034d3edfcd58f6521d079
+  copy-dest.sha256     224,483,801 bytes   sha256 e792fec54b3bd944db071ab2a437144248e88fa6069034d3edfcd58f6521d079
+
+The archive is with the operator; ask for it.
+
+The 36 other files are here. 34 are byte for byte the machine's. Two logs grew on the machine after the last pull
+before the stop; the earlier copies, already in this folder, are kept as they were, and each is the exact beginning of
+the final file. The final files are saved beside them under another name, and it is these whose sha256 stand in
+RESULTS-ALL.sha256 under the machine's names:
+
+  _judge.log.at-stop   is the machine's _judge.log   (664 bytes; the copy named _judge.log is its first 586 bytes)
+  S1.err.at-stop       is the machine's S1.err       (1,105 bytes; the copy named S1.err is its first 1,056 bytes)
+
+Two files here were not on the machine:
+
+  S1.tail            the last 400 lines of S1.out (24,939 bytes, sha256 fc688a410e042939036dbbcb7e1a2fb0651b9a9f831e2462be2667f9d9d6d6c8),
+                     cut at home with `tail -n 400` from the archive's S1.out after its sha256 was checked against
+                     RESULTS-ALL.sha256. Amendment A22 has such tails made on the machine after the step exits; S1 never
+                     exited by itself, so no tail was made there (amendment A25 says so).
+  NOBUILD.tail.txt   the last lines of NOBUILD.out, pulled on 2026-11-22.
+
+Counted at home over the whole of S1.out (2,330,562 lines): 0 lines with "Your solution is okay", 0 with "kernel accepts
+the solution", 0 with "do not match" or "does not match", 0 with "Illegal axiom", 0 with "uncaught exception", 0 with
+"out of memory". Its last line is "Build completed successfully (183893 jobs).": the replay of the build, which
+Comparator runs first. Comparator wrote nothing after it. The file's last change on the machine was at 05:03 UTC on
+2026-11-22, as the archive's listing shows.

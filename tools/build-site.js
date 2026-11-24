@@ -302,7 +302,10 @@ const REPORTS = [
      that RH is proved: it names the release and the checks (an outside reading, 2026-11-23) */
   { g: 'ai', f: 'alpoge-grh.html', k: 'the Riemann Hypothesis · a Lean release, 24 checks',
     title: 'Checking Alpöge’s Lean release on RH and Dirichlet GRH',
-    desc: 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis, which he says he made working with Claude, and released it as 175,187 Lean files. The page puts that release through checks registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges — with what the checks do not settle first.',
+    /* when the statement judge was stopped on cost (amendment A25, read from the record's stop block), the card says so first */
+    desc: (() => { const S = require(path.join(ROOT, 'instruments', 'alpoge-grh', 'status.js')); const st = S.row('S1').stop;
+      return !S.pending.length && S.status('S1') === 'refused' && st && st.reason === 'cost' ? 'The central check gave no verdict: the statement judge was stopped for cost after ' + Math.floor(st.wall_seconds / 3600) + ' hours. ' : ''; })()
+      + 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis, which he says he made working with Claude, and released it as 175,187 Lean files. The page puts that release through checks registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges — with what the checks do not settle first.',
     n: (() => { const S = require(path.join(ROOT, 'instruments', 'alpoge-grh', 'status.js'));
       if (S.done.length + S.pending.length + S.refused.length + S.refuted.length > S.ALL.length) fail('the alpoge-grh card would misstate its record');
       return (S.pending.length ? 'a draft · ' : '') + S.done.length + ' of ' + S.ALL.length + ' checks done' + (S.pending.length ? ' · ' + S.pending.length + ' pending' : '') + (S.refused.length ? ' · ' + S.refused.length + ' refused' : '') + (S.refuted.length ? ' · ' + S.refuted.length + ' refuted' : ''); })() },

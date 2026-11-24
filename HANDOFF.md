@@ -96,8 +96,8 @@ dialog, all at once. Disk: about 8 GB free.
      public file. /r310/ got a correction on 24 Nov (what the R(7) rules' timestamp proves; 516b06e7).
   2. RH (Alpöge): the statement judge S1 was STOPPED ON COST at 10:08 UTC on 24 Nov after 53 hours with no verdict,
      on his word; the pod is deleted; its results are in notes/alpoge-rh-2026-11-20/pod-logs/results-podD-final.tgz
-     (523c2ac7…d8cd). A Claude agent is preparing amendment A22, the records and the FINAL page locally, without
-     committing: read its report (it lists every file it changed), review, stage those files only, commit, push.
+     (523c2ac7…d8cd). The FINAL page is built and pushed (amendment A25; the record, the page and the rerun kit say what stopped and why). (History of this line: an agent prepared it locally, without
+     committing; the control room reviewed and pushed it.) Owed: `ots upgrade` on corpus/alpoge-grh/timestamps/ and a rebuild so the page says what the chain confirms; the stale lines in tools/build-control.js (270) and tools/certs-shelf.js (168).
      Release texts for this ending: notes/alpoge-rh-2026-11-20/final-texts-draft-2026-11-24.md; every send on his word.
   3. VP ≠ VNP — PARKED on his word (24 Nov, ~02:57 UTC). /vp-vnp/ shows CERTIFIED, 18 of 23 rows, 4 seals,
      6 deviations; row N6 pending with its state in words.

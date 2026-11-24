@@ -5,9 +5,11 @@
    pinned readings in corpus/alpoge-grh/. The page never says or implies that RH is proved: it reports what each tool
    did with the formal release, and a conditional result always carries its condition.
    While checks are pending the page is a DRAFT: those rows are drawn as pending and a banner says so. With no check
-   pending, the page closes only in one of the two closing states registered in advance (ENDING below: A or B); any
-   other state is HELD, with no closing deck. `FINAL=1 make page R=alpoge-grh` runs this builder with FINAL=1 before
-   the sync and the gates, and FINAL=1 refuses anything but A or B, and a page-log entry not written for that state.
+   pending, the page closes only in one of the two closing states registered in advance (ENDING below: A or B), or in
+   the one amendment A25 added after the event (D: the statement judge stopped on cost by the operator, no verdict);
+   any other state is HELD, with no closing deck. `FINAL=1 make page R=alpoge-grh` runs this builder with FINAL=1
+   before the sync and the gates, and FINAL=1 refuses anything but A, B or D, and a page-log entry not written for
+   that state. In state D the page LEADS with the fact that the central check gave no verdict.
 
    The page explains, in plain words, what a computer check of a 17-million-line proof is and is not: the 360° wheel of
    checks (hero), what the theorem says on the complex plane (interactive), the size of the proof (treemap), the chain of
@@ -49,7 +51,12 @@ const C1DIAG = (() => { const t = (jr('C1.out') || jr('C1.tail') || '') + (jr('C
 /* the page's state, read from the record. Two closing states were registered before S1 had a verdict (amendments A17,
    A19, A21): A, Comparator accepts on the larger machine and C1 is rejected there with its diagnostic; B, Comparator
    stops on resources there, the guard's marker C1.not-run says C1 was not run, and the other controls were each
-   rejected. Anything else with no check pending (a rejection not yet traced, a control accepted, a refuted row) is HELD. */
+   rejected. Anything else with no check pending (a rejection not yet traced, a control accepted, a refuted row) is HELD.
+   A third closing state was NOT registered in advance: D, amendment A25 (written after the stop, and marked so): the
+   operator ended the judge's run on cost before Comparator reported. It is read from the record's own stop block (the
+   marker written on the machine), needs the absence of any exit and of any verdict line, and the page says in its
+   first paragraph and in its list of gaps that the check gave no verdict and that this ending was not registered. */
+const STOP = row('S1').stop || null;
 const ENDING = (() => {
   if (pending.length) return 'draft';
   if (refuted.length) return 'hold';
@@ -61,10 +68,23 @@ const ENDING = (() => {
     && C1DIAG && /RiemannZetaZerosOnLine|riemannZeta_eq_zero_re/.test(C1DIAG)) return 'A';
   if (status('S1') === 'refused' && runs['larger machine'] === 'resources' && status('C1-C5') === 'refused' && /^C1 was not run: it needs the same memory/.test(row('C1-C5').why)
     && c.C1 && c.C1.exit === null && rest && jr('C1.not-run') !== null) return 'B';
+  if (status('S1') === 'refused' && runs['larger machine'] === 'stopped on cost' && STOP && STOP.reason === 'cost' && STOP.verdict_lines === 0 && STOP.memory_events && STOP.memory_events.oom_kill === 0
+    && STOP.memory_limit_bytes > 0 && jr('S1.stopped-by-operator') !== null && jr('S1.exit') === null && jr('S1.end') === null
+    && status('C1-C5') === 'refused' && /^C1 has no result: the statement judge was stopped on cost/.test(row('C1-C5').why)
+    && c.C1 && c.C1.exit === null && rest && jr('C1.not-run') !== null) return 'D';
   return 'hold';
 })();
-if (FINAL) need(ENDING === 'A' || ENDING === 'B', 'FINAL build in state ' + ENDING + (pending.length ? ' (pending: ' + pending.map((x) => x.id).join(', ') + ')' : '')
-  + ': only the two closing states registered in advance may close the page (A: Comparator accepts on the larger machine and C1 is rejected there with a diagnostic naming the plant; B: Comparator stops on resources there and the guard\'s C1.not-run marker is in the run)');
+const CLOSED = ['A', 'B', 'D'].includes(ENDING);
+if (FINAL) need(CLOSED, 'FINAL build in state ' + ENDING + (pending.length ? ' (pending: ' + pending.map((x) => x.id).join(', ') + ')' : '')
+  + ': only three states may close the page (A: Comparator accepts on the larger machine and C1 is rejected there with a diagnostic naming the plant; B: Comparator stops on resources there and the guard\'s C1.not-run marker is in the run; D, amendment A25: the operator stopped Comparator on cost, the machine\'s stop marker is in the run and no exit or verdict line is)');
+/* the stop's figures, each from the record's stop block (never typed): whole hours and minutes, GB in the unit of the limit */
+const hmin = (sec) => Math.floor(sec / 3600) + ' hours ' + Math.floor(sec % 3600 / 60) + ' minutes';
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const dayOf = (iso) => Number(iso.slice(8, 10)) + ' ' + MONTHS[Number(iso.slice(5, 7)) - 1];
+const utc = (iso) => iso.slice(0, 16).replace('T', ' ') + ' UTC';
+const SD = ENDING === 'D' ? { hours: Math.floor(STOP.wall_seconds / 3600), day: dayOf(STOP.at), gb: Math.round(STOP.rss_kb * 1024 / 1e9), lim: Math.round(STOP.memory_limit_bytes / 1e9),
+  limit_h: STOP.timeout_seconds / 3600, bru: /^\d{4}-\d\d-\d\dT/.test(row('BRu').dropped || '') ? dayOf(row('BRu').dropped) : null } : null;
+if (ENDING === 'D') need(SD.bru && Number.isInteger(SD.limit_h) && SD.hours > 0 && SD.gb < SD.lim, 'the stop block of S1 does not carry the figures the closing page prints');
 /* the page's public change log (corpus/alpoge-grh/page-log.json): the newest entry must state the count the record gives */
 const LOG = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'alpoge-grh', 'page-log.json'), 'utf8')).entries;
 need(LOG.length > 0 && LOG[LOG.length - 1].done === done.length, 'the newest page-log entry says ' + (LOG.length ? LOG[LOG.length - 1].done : 'nothing') + ' checks done, the record ' + done.length + ': add a dated line to corpus/alpoge-grh/page-log.json');
@@ -312,6 +332,7 @@ const PLANTED = [
 ];
 function observed(p, st) {
   if (st === 'pending') return p.id === 'C1' && jr('C1.start') === null ? 'nothing yet: queued behind the statement judge' : 'nothing yet: pending';
+  if (st === 'notrun' && p.id === 'C1' && ENDING === 'D') return 'no result: never started. The statement judge it was queued behind was stopped for cost (amendment A25)';
   if (st === 'notrun') return p.id === 'C1' && jr('C1.not-run') !== null ? 'no result: the guard stopped the judge script when the statement judge stopped on resources (amendment A19)' : 'no result: not run';
   const o = OBS[p.id];
   const tail = p.id === 'C2' ? '; the axiom report lists cheat among riemannHypothesis’s axioms' : p.id === 'C3' ? '; the axiom report lists sorryAx among riemannHypothesis’s axioms' : '';
@@ -527,7 +548,7 @@ function timeline() {
   const stOfId = (id) => (ALL.find((z) => z.id === id) || { st: status(id) }).st;
   let nowSeen = false;
   const st = STAGES.map((S) => {
-    if (S.final) return (ENDING === 'A' || ENDING === 'B') && FINAL ? 'done' : 'planned';
+    if (S.final) return CLOSED && FINAL ? 'done' : 'planned';
     if (!S.rows.length) return 'done';
     /* a step whose checks were refused is not done: it says so, in the grey of a step not reached (no new colour) */
     if (S.rows.every((id) => stOfId(id) !== 'pending') && S.rows.some((id) => ['refused', 'refuted'].includes(stOfId(id)))) return 'refused';
@@ -547,7 +568,7 @@ function timeline() {
       + '<p class="tl-proj">projected end of the build: about ' + C.esc(hhmm(eta)) + ', at its average pace so far (' + Math.round(rate) + ' files a minute)</p>';
   }
   return '<section class="tl" aria-label="The release timeline"><div class="tl-head"><span class="tl-k">Where the checks stand</span>'
-    + '<span class="tl-sub">' + C.esc('Status at ' + LAST + ': ' + done.length + ' of ' + ALL.length + ' checks done, ' + pending.length + ' pending, ' + refused.length + ' refused' + (refuted.length ? ', ' + refuted.length + ' refuted' : '') + '. Results land on this page as each check finishes; the closing record goes out only in one of the two closing states registered in advance, never on an untraced rejection.') + '</span></div>'
+    + '<span class="tl-sub">' + C.esc('Status at ' + LAST + ': ' + done.length + ' of ' + ALL.length + ' checks done, ' + pending.length + ' pending, ' + refused.length + ' refused' + (refuted.length ? ', ' + refuted.length + ' refuted' : '') + '. Results land on this page as each check finishes; the closing record goes out only in a closing state the rules name, never on an untraced rejection.') + '</span></div>'
     + '<ol class="tl-rail">' + STAGES.map((S, i) => '<li class="tl-step tl-' + st[i] + '"><span class="tl-dot" aria-hidden="true"></span>'
       + '<span class="tl-n">' + (i + 1) + '</span><span class="tl-t">' + C.esc(S.t) + '</span><span class="tl-st">' + C.esc(WORDS[st[i]]) + '</span>'
       + '<span class="tl-d">' + C.esc(S.d) + (S.link ? ' <a href="' + C.escAttr(S.link) + '">Read them.</a>' : '') + '</span>' + (i === bi ? prog : '') + '</li>').join('') + '</ol></section>';
@@ -570,6 +591,8 @@ function notDone(x) {
   if (x.id === 'C1-C5' && x.st === 'pending') { const n4 = ['C2', 'C3', 'C4', 'C5'].filter((k) => c[k] && c[k].refused).length;
     return 'the last planted error, C1 (' + (jr('C1.start') === null ? 'queued behind the statement judge' : 'started, no exit yet') + '; ' + (n4 === 4 ? 'the other four were each rejected' : nw(n4) + ' of the other four were rejected') + ')'; }
   if (x.id === 'BRu' && x.st === 'refused' && r.dropped) return 'the two releases in one environment (not run: dropped for cost before the statement judge had a verdict, amendment A21)';
+  if (x.id === 'S1' && ENDING === 'D') return 'the statement judge Comparator (no verdict: stopped for cost after ' + SD.hours + ' hours on the larger machine, amendment A25; an earlier run, at the build machine’s 256 GB limit, was stopped when it made no progress, amendment A17)';
+  if (x.id === 'C1-C5' && ENDING === 'D') return 'the planted-error check as a whole (C1, which needs the same judge on the same machine, was never started, amendment A25; C2 to C5 were each rejected)';
   if (x.id === 'S1' && x.st === 'refused' && (r.runs || {})['larger machine'] === 'resources') return 'the statement judge Comparator (it stopped on resources on the larger machine and gives no verdict; an earlier run, at the build machine’s 256 GB limit, was stopped when it made no progress, amendments A17 and A19)';
   if (x.id === 'S1' && x.st === 'refused' && (r.runs || {})['larger machine'] === 'rejected') return 'the statement judge Comparator (it reported a rejection on the larger machine; under amendment A17 the check is refused until the rejection is traced)';
   if (x.id === 'C1-C5' && x.st === 'refused' && /^C1 was not run/.test(r.why)) return 'the planted-error check as a whole (C1 has no result on the larger machine, amendment A19; C2 to C5 were each rejected)';
@@ -596,36 +619,54 @@ const doneWords = () => {
     d_('S1') ? 'Comparator accepted the five theorems against our challenge on the larger machine' : null,
     d_('SPEC') && d_('CHAR') ? 'Lean proves Mathlib’s RH and the release’s Dirichlet zero statement each equivalent to its textbook form' : null,
     d_('C1-C5') ? 'the five planted errors were each rejected by the tool they target' : nrej ? nw(nrej) + ' of the five planted errors were rejected by the tool they target' : null].filter(Boolean);
-  return xs.length ? (ENDING === 'A' || ENDING === 'B' ? 'Done: ' : 'Done so far: ') + xs.join('; ') + '. ' : '';
+  return xs.length ? (CLOSED ? 'Done: ' : 'Done so far: ') + xs.join('; ') + '. ' : '';
 };
-const DECK = 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, which he says he made working with Claude, and released it only as Lean: 175,187 source files, in a language whose kernel, a small program, checks each declaration it is given. '
+/* state D leads with the gap (the operator's rule for this ending: the central check gave no verdict is the headline
+   fact), then the two refusals beside it, then the release and the counts, then what is done */
+const DECK_D = () => 'The central check of this audit did not finish. Comparator, the tool registered to test whether the five theorems of Levent Alpöge’s Lean release state what our challenge states, ran for '
+  + SD.hours + ' hours on a rented machine with ' + SD.lim + ' GB of memory, printed nothing of its own, and was stopped on ' + SD.day + ' 2026 for cost. It gave no verdict, for or against. '
+  + 'The planted error that was to test it there (C1) was never started, and a third check, the two releases in one environment, had been dropped for cost on ' + SD.bru + '. '
+  + 'The release (alpo.ge, 20 November 2026) is 175,187 Lean source files stating the Riemann Hypothesis and GRH for Dirichlet L-functions; Alpöge says he made the proof working with Claude. This page puts it through ' + ALL.length + ' checks. '
+  + gapWords() + ' '
+  + doneWords()
+  + 'What a computer check cannot tell you is said just as plainly below.';
+const DECK = ENDING === 'D' ? DECK_D() : 'On 20 November 2026 Levent Alpöge announced a proof of the Riemann Hypothesis and of GRH for Dirichlet L-functions, which he says he made working with Claude, and released it only as Lean: 175,187 source files, in a language whose kernel, a small program, checks each declaration it is given. '
   + 'This page puts that release through ' + ALL.length + ' checks. '
-  + (ENDING === 'hold' ? 'Every check has a state, but not one of the two closing states registered in advance, so this page holds until the record is traced. ' : '')
+  + (ENDING === 'hold' ? 'Every check has a state, but not one of the closing states the rules name, so this page holds until the record is traced. ' : '')
   + gapWords() + ' '
   + doneWords()
   + 'What a computer check cannot tell you is said just as plainly below.';
 const O = [];
 O.push(C.header({
-  eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ENDING === 'hold' ? ' · HELD' : ''),
+  eyebrow: 'cert-machine · report · generated from the record' + (pending.length ? ' · DRAFT' : ENDING === 'hold' ? ' · HELD' : ' · FINAL'),
   title: TITLE,
   deck: DECK
 }));
 /* the gaps, in full, before anything else on the page (the release rule): every check that is not done with its reason,
    every reading with its standing, and what lies outside the 24 */
 const F3R = ((RDG.F3_remark || {}).rows || []).find((r) => /^REFUSED/.test(r[1] || ''));
+/* state D: the stop itself, in full, is the first thing under the header; then what compares the statements in its place */
+const GAP_STOP = ENDING === 'D' ? { b: 'The statement judge gave no verdict.', text: 'Comparator started on the larger machine at ' + utc(STOP.started) + ' and was stopped at ' + utc(STOP.at)
+  + ', on the operator’s word, for cost. By then it had run ' + hmin(STOP.comparator_elapsed_seconds) + ', used ' + hmin(STOP.comparator_cpu_seconds) + ' of processor time and held about ' + SD.gb + ' GB of the machine’s ' + SD.lim
+  + ' GB. Its own time limit was ' + SD.limit_h + ' hours, and nothing had been killed for memory. It had printed no line of its own: no acceptance, no mismatch, no error. '
+  + 'This is not evidence against the proof, and it is not evidence for it. It is the second check of this audit closed for cost. This ending was not one of the two registered before the judge could report: amendment A25, written after the stop, records it.' } : null;
+const GAP_ONE_TOOL = ENDING === 'D' && d_('K3') && d_('CR') && (row('CR').gates || {}).CRS && (row('CR').gates || {}).CRC1 && ((row('K3').controls || {}).K3C1 || {}).refused
+  ? { b: 'So one tool compared the statements, not two.', text: 'con-leche matched each of the five theorems to our challenge, on the build machine and on the clean machine, and on both it rejected the challenge with 1/2 changed to 1/3. Comparator, the tool registered for this check, gave no verdict.' } : null;
 const GAPS = [
+  GAP_STOP,
   pending.length ? { b: 'Pending.', text: pending.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
   refused.length ? { b: 'Refused.', text: refused.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
   refuted.length ? { b: 'Refuted.', text: refuted.map((x) => cap(notDone(x))).join('. ') + '.' } : null,
+  GAP_ONE_TOOL,
   { b: 'Readings.', text: cap(READS.map((x) => (READ_WORDS[x.id] || x.t) + ', ' + howRead(x.id)).join('; ')) + '. A reading is attributed to its reader, and no program decides it.' },
   { b: 'Outside the ' + ALL.length + '.', text: 'A clean second verifier (V) was registered and dropped before it ran (amendment A7). '
     + (F3R ? 'The remark’s sentences about the process (' + F3R[0] + ') cannot be decided from the files. ' : '')
     + 'The comparison with Masullo’s draft rests on our reading of a theorem the draft has not yet stated.' },
-  { b: 'What a pass would not mean.', text: 'These checks are about a formal release: whether its files compile, what its statements say, and whether independently written checkers accept its compiled proof. They do not judge the mathematics as mathematics, they are not a refereed review, and they do not explain why the argument works.' }
+  { b: CLOSED ? 'What the checks that are done do not mean.' : 'What a pass would not mean.', text: 'These checks are about a formal release: whether its files compile, what its statements say, and whether independently written checkers accept its compiled proof. They do not judge the mathematics as mathematics, they are not a refereed review, and they do not explain why the argument works.' }
 ].filter(Boolean);
 O.push('<div class="col">' + C.plainList(GAPS) + '</div>');
 O.push('<div class="col">' + (pending.length ? '<p class="draft-note"><b>Draft.</b> ' + C.esc(pending.length + ' of ' + ALL.length + ' checks are pending. The build, replay and judging rules were registered before those runs' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '. This page rebuilds from the record as results arrive.') + '</p>'
-  : ENDING === 'hold' ? '<p class="draft-note"><b>Held.</b> ' + C.esc('No check is pending, but the record is not in one of the two closing states registered in advance. The page holds until the result is traced and a dated amendment says how it is read.') + '</p>' : '')
+  : ENDING === 'hold' ? '<p class="draft-note"><b>Held.</b> ' + C.esc('No check is pending, but the record is not in one of the closing states the rules name. The page holds until the result is traced and a dated amendment says how it is read.') + '</p>' : '')
   + '<p class="upd">Last updated ' + C.esc(LAST) + ' · <a href="#changes">changes to this page</a></p></div>');
 if (pending.length) O.push('<div class="wide">' + timeline() + '</div>');
 O.push(C.figure({ hero: true, svgRaw: figWheel(900, false), svgNarrowRaw: figWheel(360, true), record: [REC, DIR + 'readings.json', DIR + 'route-reading.json'],
@@ -637,7 +678,7 @@ const NREJ = ['C1', 'C2', 'C3', 'C4', 'C5'].filter((k) => CTL0[k] && CTL0[k].ref
 O.push(C.stats([
   { k: 'checks done', v: done.length + ' of ' + ALL.length, n: [pending.length ? pending.length + ' pending' : 'none pending', refused.length ? refused.length + ' refused' : null, refuted.length ? refuted.length + ' refuted' : null].filter(Boolean).join(' · ') },
   { k: 'axioms the proof uses', v: status('A1') === 'decided' ? '3' : '…', n: status('A1') === 'decided' ? 'propext, Classical.choice, Quot.sound — the standard three' : 'the report is pending' },
-  { k: 'planted errors caught', v: NREJ + ' of 5', n: status('C1-C5') === 'decided' ? 'each by the tool it targets' : status('C1-C5') === 'pending' ? 'C1 pending, behind the statement judge' : CTL0.C1 && CTL0.C1.exit === null ? 'C1 has no result (amendment A19)' : 'see the cards below' },
+  { k: 'planted errors caught', v: NREJ + ' of 5', n: status('C1-C5') === 'decided' ? 'each by the tool it targets' : status('C1-C5') === 'pending' ? 'C1 pending, behind the statement judge' : ENDING === 'D' ? 'C1 was never started (amendment A25)' : CTL0.C1 && CTL0.C1.exit === null ? 'C1 has no result (amendment A19)' : 'see the cards below' },
   { k: 'kernels that accept it', v: ['K2', 'KR', 'K3'].some((i) => status(i) !== 'pending') ? ['K2', 'KR', 'K3'].filter((i) => status(i) === 'decided').length + ' of 3' : '…', n: 'nanoda, Lean’s own replay, con-leche' }
 ]));
 O.push(C.scope('This page checks a formal release: whether the files compile, what the statements say, and whether independent checkers accept the compiled proof. It does not judge the mathematics as mathematics, and it is not a refereed review.'));
@@ -685,9 +726,13 @@ const STEPS = [
     { id: 'ax', role: roleOf(fst('A1')), standing: standing(fst('A1')), k: '3 · THE AXIOMS · ' + WORD[fst('A1')].toUpperCase(), v: 'only the standard three', t: 'the axioms', d: 'Lean reports which axioms each theorem ultimately rests on. Anything beyond propext, Classical.choice and Quot.sound — sorryAx, the axiom behind the placeholder sorry, included — would be a hole.' },
     { id: 'kern', role: roleOf(KST), standing: standing(KST), k: '4 · THREE KERNELS · ' + WORD[KST].toUpperCase(), v: 'nanoda, Lean’s replay, con-leche', t: 'three kernels', d: 'The proof is exported and checked by nanoda and by con-leche, two kernels written independently of Lean, and Lean’s own checker replays the compiled modules from an empty environment. A kernel bug would have to be shared by all three to pass, and Lean’s replay does not read the export.' },
     { id: 'judge', role: roleOf(fst('S1')), standing: standing(fst('S1')), k: '5 · THE STATEMENTS · ' + WORD[fst('S1')].toUpperCase(), v: 'the five theorems against our challenge', t: 'the statements', d: 'Comparator, the Lean FRO’s statement-comparison tool, tests whether the five proved theorems state what our challenge states: a file compiled from Mathlib alone, holding Mathlib’s RH and the four statements as the release’s Statements.lean writes them. It compares each declaration and every constant it uses, bodies included, so no definition elsewhere in the release can change their meaning. '
-      + (fst('S1') === 'decided' ? 'It accepted Main, with Lean’s default kernel, in landrun’s best-effort sandbox. ' : fst('S1') === 'pending' ? 'Its verdict is pending. ' : 'It gave no verdict. ') + 'con-leche makes the same comparison separately (step 4).' },
-    { id: 'ctl', role: roleOf(fst('C1-C5')), standing: standing(fst('C1-C5')), k: '6 · PLANTED ERRORS · ' + WORD[fst('C1-C5')].toUpperCase(), v: 'five planted changes', t: 'planted errors', d: 'The controls test whether each tool detects a specified change: a changed constant in the challenge (C1), a smuggled axiom (C2), a missing proof (C3), a hijacked definition (C4) and the exported theorem re-typed as False (C5). Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5.' },
-    { id: 'what', role: 'held', k: 'AND WHAT A PASS MEANS', v: 'a fact about a formal release', t: 'what it means', d: 'If the remaining checks pass, independently written kernels accept closed terms of the five stated theorems from the three standard axioms, and the statements match our Mathlib-only challenge. That is a fact about a formal release. It is not a refereed review, and it does not explain why the argument works.' }
+      + (fst('S1') === 'decided' ? 'It accepted Main, with Lean’s default kernel, in landrun’s best-effort sandbox. ' : fst('S1') === 'pending' ? 'Its verdict is pending. '
+        : ENDING === 'D' ? 'It gave no verdict: it was stopped for cost after ' + SD.hours + ' hours, having printed nothing of its own (amendment A25). ' : 'It gave no verdict. ') + 'con-leche makes the same comparison separately (step 4).' },
+    { id: 'ctl', role: roleOf(fst('C1-C5')), standing: standing(fst('C1-C5')), k: '6 · PLANTED ERRORS · ' + WORD[fst('C1-C5')].toUpperCase(), v: 'five planted changes', t: 'planted errors', d: 'The controls test whether each tool detects a specified change: a changed constant in the challenge (C1), a smuggled axiom (C2), a missing proof (C3), a hijacked definition (C4) and the exported theorem re-typed as False (C5). Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5.'
+      + (ENDING === 'D' ? ' C2 to C5 were each rejected. C1 was never started, so the check as a whole is refused.' : '') },
+    ENDING === 'D' && KST === 'decided' && d_('A1') && d_('CR')
+      ? { id: 'what', role: 'held', k: 'AND WHAT THIS MEANS', v: 'a fact about a formal release', t: 'what it means', d: 'Lean’s kernel and two independently written ones accept closed terms of the five stated theorems from the three standard axioms, and one tool, con-leche, matches the statements to our Mathlib-only challenge. Comparator, the judge registered for that comparison, gave no verdict. That is a fact about a formal release. It is not a refereed review, and it does not explain why the argument works.' }
+      : { id: 'what', role: 'held', k: 'AND WHAT A PASS MEANS', v: 'a fact about a formal release', t: 'what it means', d: 'If the remaining checks pass, independently written kernels accept closed terms of the five stated theorems from the three standard axioms, and the statements match our Mathlib-only challenge. That is a fact about a formal release. It is not a refereed review, and it does not explain why the argument works.' }
 ];
 const stepState = (n) => n.id === 'what' ? 'held' : n.role === 'sig' ? 'decided' : n.role === 'dep' ? 'pending' : n.role === 'warn' ? 'refused' : 'held';
 const SCH = C.figure({ record: [REC],
@@ -700,7 +745,7 @@ const SCH = C.figure({ record: [REC],
       + '<span class="ch-v">' + C.esc(n.v) + '</span></div>'
       + '<p class="ch-d">' + C.esc(n.d) + '</p></li>';
   }).join('') + '</ol>',
-  caption: 'How the release is checked, in six steps and a note on what they mean. A box is outlined bright when the record has decided its step, and faint while it is pending.',
+  caption: 'How the release is checked, in six steps and a note on what they mean. A box is outlined bright when the record has decided its step, ' + (pending.length ? 'and faint while it is pending.' : 'and grey when its step was refused.'),
   stop: 'a step drawn as decided is not CERTIFIED in the record' });
 O.push(C.section({ lab: '3 · how a computer checks it', title: 'Six checks, each able to say no', id: 'chain', wide: true, bodyRaw: SCH }));
 
@@ -710,11 +755,12 @@ const TABROWS = ALL.map((x) => [x.t, x.g, { raw: C.tag(WORD[x.st], x.st === 'dec
   x.d + (['pending', 'refused', 'refuted'].includes(x.st) && R.rows.some((r) => r.id === x.id) ? ' The record: ' + row(x.id).why + '.' : '')]);
 O.push(C.section({ lab: '4 · every check', title: 'The ' + ALL.length + ' checks, one by one', id: 'checks', wide: true, bodyRaw:
   '<div class="col">' + C.p('Every arc of the ring above is one check. The build, replay and judging rules were registered before those runs, and every later change is dated' + (AFTER.length ? '; ' + AFTER_WORDS : '') + '.')
-  + C.plainList([{ b: 'Negative controls.', text: 'Five planted changes test whether specified tools detect specified errors: Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5. Each is a separate input, built to be wrong; none of them is the release. con-leche also rejected C1 on the build machine and on the clean machine, and nanoda and con-leche each rejected C5 on the clean machine; those results are reported beside the registered controls. If a plant were accepted, the controls check would fail: the tool that accepted it could not be trusted on that run.' }]) + '</div>'
+  + C.plainList([{ b: 'Negative controls.', text: 'Five planted changes test whether specified tools detect specified errors: Comparator must reject C1 to C4, Lean’s axiom report must also name the plants in C2 and C3, and nanoda must reject C5. Each is a separate input, built to be wrong; none of them is the release. con-leche also rejected C1 on the build machine and on the clean machine, and nanoda and con-leche each rejected C5 on the clean machine; those results are reported beside the registered controls. If a plant were accepted, the controls check would fail: the tool that accepted it could not be trusted on that run.'
+    + (ENDING === 'D' ? ' C1 has no Comparator result: it was queued behind the statement judge on the larger machine and was never started.' : '') }]) + '</div>'
   + plantedCards()
   + '<div class="wide"><details class="more"><summary>All ' + ALL.length + ' checks, one by one</summary>' + C.table({ cols: [{ h: 'Check' }, { h: 'Group' }, { h: 'State' }, { h: 'What it means' }], rows: TABROWS }) + '</details></div>'
   + '<div class="col">' + C.plainList([
-    { b: 'Registered first.', raw: C.esc('The build, replay and judging rules were committed in public before those runs, and every later change is dated' + (AFTER.length ? ', the ' + nw(AFTER.length) + ' made after a result (' + AFTER.join(', ') + ') marked as such' : '') + ': ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.') },
+    { b: 'Registered first.', raw: C.esc('The build, replay and judging rules were committed in public before those runs, and every later change is dated' + (AFTER.length ? ', the ' + nw(AFTER.length) + ' made after a result (' + AFTER.join(', ') + ') marked as such' : '') + ': ') + rec('notes/alpoge-grh-preregistration-2026-11-20.md') + C.esc(' (' + AMENDMENTS + ' amendments) and ') + rec(DIR + 'DEVIATIONS.md') + C.esc('.' + (ENDING === 'D' ? ' The state this page closes in, the statement judge stopped for cost with no verdict, was not registered in advance: amendment A25 records it, and was written after the stop.' : '')) },
     { b: 'Read by a model from another family.', text: 'Astra 6.2 gave second readings of the RH and Dirichlet statements, read the route inside the proof (five of its items spot-checked here against the archive) and red-teamed the plan three times. Its first round found a real defect in our own setup — the judge was configured to compare the types but not the bodies of four definitions — fixed before the affected Comparator runs (S1, C1 to C4).' }
   ]) + '</div>' }));
 
@@ -759,8 +805,14 @@ O.push(C.section({ lab: 'credits', title: 'Whose work this uses', id: 'credits',
 ]) }));
 
 /* 8 · check it yourself */
+/* the rows the kit's comparison prints are the recorder's own list (POD_ROWS), read from its source, never typed twice */
+const KIT_ROWS = ((fs.readFileSync(path.join(ROOT, 'tools', 'check-alpoge-grh.py'), 'utf8').match(/^POD_ROWS = \[([^\]]*)\]/m) || [])[1] || '').split(',').map((x) => x.trim().replace(/'/g, '')).filter(Boolean);
+need(KIT_ROWS.length > 0 && KIT_ROWS.every((id) => R.rows.some((r) => r.id === id)), 'the rerun kit’s row list (POD_ROWS in tools/check-alpoge-grh.py) is not readable or names a row the record lacks');
+const KIT_REFUSED = KIT_ROWS.filter((id) => status(id) === 'refused');
 O.push(C.section({ lab: 'check it yourself', title: 'How to re-run it', id: 'rerun', bodyRaw: C.plainList([
-  { b: 'The kit.', raw: C.esc('The kit in ') + rec('instruments/alpoge-grh/rerun/README.md') + C.esc(' reruns the build machine’s scripts on a Linux machine of your own and compares 11 of the checks with ours (') + '<span class="m">--compare-run</span>' + C.esc('). It predates the later amendments. Its README names 256 GB of memory, the limit at which the statement judge stopped making progress here (amendment A17), and it still starts the bridge step, which was not run here (A21). Lean’s replay, the statement judge and the clean-machine check ran on separate machines (amendments A15, A17, A12) and are not in it.') },
+  { b: 'The kit.', raw: C.esc('The kit in ') + rec('instruments/alpoge-grh/rerun/README.md') + C.esc(' reruns the build machine’s scripts on a Linux machine of your own and compares ' + KIT_ROWS.length + ' of the checks with ours (') + '<span class="m">--compare-run</span>' + C.esc(')'
+    + (KIT_REFUSED.length ? '; ' + nw(KIT_REFUSED.length) + ' of those ' + KIT_ROWS.length + ' are refused here, so agreement on them means only that neither run has a verdict' : '') + '. Its README says what 256 GB of memory is enough for (the build and the three kernels) and what it is not enough for (the statement judge: amendment A17'
+    + (ENDING === 'D' ? ', and A25 for what a larger machine gave' : '') + '), and why it still starts the bridge’s waiting script although the bridge was not run here (A21). In our run, Lean’s replay, the statement judge and the clean-machine check ran on separate machines (amendments A15, A17, A12).') },
   { b: 'The record.', raw: rec(REC) + C.esc(', re-derived from the machine’s logs by ') + rec('tools/check-alpoge-grh.py') + C.esc(' (') + '<span class="m">--check</span>' + C.esc(').') },
   { b: 'The machines’ scripts.', raw: rec('tools/runpod-alpoge-grh-p1.sh') + C.esc(' (fetch, challenge, build), ') + rec('tools/runpod-alpoge-grh-p2.sh') + C.esc(' (axioms, census, judge, controls, kernels), ') + rec('tools/runpod-alpoge-grh-p3-bridge.sh') + C.esc(' (the bridge, not run), ') + rec('tools/runpod-alpoge-grh-p4.sh') + C.esc(' (con-leche), ') + rec('tools/runpod-alpoge-grh-parallel.sh') + C.esc(' (Lean’s replay), ') + rec('tools/runpod-alpoge-grh-judge.sh') + C.esc(' and ') + rec('tools/runpod-alpoge-grh-judge-guard.sh') + C.esc(' (the statement judge on the larger machine) and ') + rec('tools/runpod-alpoge-grh-clean.sh') + C.esc(' (the clean machine).') },
   { b: 'Our challenge file and the proofs we wrote.', raw: rec('instruments/alpoge-grh/Challenge.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Spec.lean') + C.esc(', ') + rec('instruments/alpoge-grh/spec/Textbook.lean') + C.esc(' and ') + rec('instruments/alpoge-grh/bridge/CertMachine') + C.esc('.') },
@@ -904,5 +956,7 @@ const foot = '<p>' + C.esc('Generated by tools/build-report-alpoge-grh.js from '
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'alpoge-grh.html'), TPL.render({ title: TITLE + ' · cert-machine', bodyRaw: O.join('\n\n'), footRaw: foot, path: '/reports/alpoge-grh.html',
   cssRaw: STYLE, scriptRaw: SCRIPT, og: { image: '/og-alpoge-grh.png', alt: OG.alt('alpoge-grh') },
-  desc: 'Levent Alpöge’s Lean release on the Riemann Hypothesis and GRH for Dirichlet L-functions, put through ' + ALL.length + ' checks under rules registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges, with what the checks do not settle first.' }));
+  /* the description travels without the page (search results, share cards): in state D it carries the headline fact too */
+  desc: (ENDING === 'D' ? 'The central check gave no verdict: the statement judge was stopped for cost after ' + SD.hours + ' hours. ' + done.length + ' of ' + ALL.length + ' checks are done and ' + refused.length + ' refused. ' : '')
+    + 'Levent Alpöge’s Lean release on the Riemann Hypothesis and GRH for Dirichlet L-functions, put through ' + ALL.length + ' checks under rules registered before the build and the judges ran: the files, the build, the axioms, three kernels, the statements against our challenge and their textbook forms, planted errors, the route inside the proof and two bridges, with what the checks do not settle first.' }));
 console.log('reports/alpoge-grh.html written · ' + done.length + ' of ' + ALL.length + ' done · ' + pending.length + ' pending · ' + refused.length + ' refused · ' + refuted.length + ' refuted · state ' + ENDING + (FINAL ? ' · FINAL' : ''));

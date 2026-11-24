@@ -98,6 +98,14 @@
    "pending": 2,
    "refused": 1,
    "refuted": 0
+  },
+  {
+   "at": "2026-11-24T10:27Z",
+   "done": 21,
+   "what": "The statement judge was stopped for cost, with no verdict, and this page closes. Comparator had run on the larger machine since 05:02 UTC on 22 November. At 10:08 UTC on 24 November it was stopped on the operator’s word, for cost. By then it had run 53 hours 5 minutes and held about 357 GB of the machine’s 376 GB; nothing had been killed for memory, 18.9 hours of its own 72-hour limit were left, and it had printed not one line of its own. It neither accepted nor rejected the release. Its planted error, C1, was never started, so the planted-error check is refused as a whole; C2 to C5 were each rejected earlier. With the two releases in one environment, dropped for cost on 22 November, three of the 24 checks are refused and none is pending. The statements were compared with our challenge by one tool only, con-leche, on two machines. This ending was not one of the two registered before the judge could report: amendment A25, written after the stop and marked so, records it and says what it does and does not mean. The page’s opening now leads with the missing verdict. The larger machine was deleted after its 40 result files were pulled and matched against its own hash list. The rerun kit’s README now says that 256 GB of memory is not enough for the statement judge, why the bridge’s waiting script is still started, and what the timestamp files support. A correction to an earlier entry, which stays as written: on 23 November at 04:53, “the page now closes only in one of the two endings registered before the judge reported” no longer holds, for the reason above.",
+   "pending": 0,
+   "refused": 3,
+   "refuted": 0
   }
  ]
 }
