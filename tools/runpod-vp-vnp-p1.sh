@@ -60,7 +60,7 @@ cp $V/target-SHA256SUMS $R/; sha256sum $FM/.github/scripts/comparator-check.sh >
 # K0
 step K0M 3600 $W bash -c 'for t in 1 2 3; do lake exe cache get && exit 0; sleep 30; done; exit 1'
 step K0 21600 $W lake build
-grep -n "declaration uses 'sorry'" $R/K0.out $R/K0.err 2>/dev/null > $R/K0-sorry.txt
+grep -n "declaration uses" $R/K0.out $R/K0.err 2>/dev/null > $R/K0-sorry.txt   # Lean 4.33 writes `sorry` in backticks (D1)
 log "K0 sorry warnings: $(wc -l < $R/K0-sorry.txt) lines; outside Challenge.lean: $(grep -vc 'Challenge.lean' $R/K0-sorry.txt)"
 step K0A 3600 $W lake env lean scripts/PrintAxioms.lean
 (cd $W && grep -rnE 'native_decide|implemented_by|@\[extern|^[[:space:]]*(private[[:space:]]+)?axiom[[:space:]]' --include='*.lean' . | grep -v '^./.lake/' > $R/K0-grep.txt; true)
