@@ -25,3 +25,7 @@ prompts/grok-gemini-round1.md, pasted by the operator; answers received 2026-11-
 | M-2 | Relativization and algebrization do not apply directly as formal barriers to Valiant's model. | REASONED | A reading; unchecked. |
 | M-3 | No contradiction known; the bound 2^(c (log m)^(4/3)) is far below Ryser's and Held–Karp's upper bounds. | REASONED | Consistent with the paper's §1.1 (the paper's m is the matrix size; Gemini's "2^(O(√m))" uses m for the number of variables). |
 | M-4 | What to check in Statement.lean: c outside the circuit quantifier; no restriction to bounded depth or multilinear circuits; the degree bound in VP; VNP as equality of polynomials, not of functions over finite fields. | REASONED | All four hold in Statement.lean as pinned (control room reading: `∃ c, 0 < c ∧ ∀ p, ∃ m₀, …`; `Computes` has no depth or multilinearity restriction; `VP` bounds `totalDegree`; `VNP` equates `MvPolynomial`s). To be decided by rows F2–F5. |
+
+Operator, 2026-11-24 before 00:27 UTC: "Gemini is weak, lets keep grok on track." Gemini leaves the panel after round 1;
+Grok continues with computation-only rounds (round 2: prompts/grok-round2.md — the crossing identity B.2 for small
+cases, and an independent second computation of the D.2 check Astra is running).
