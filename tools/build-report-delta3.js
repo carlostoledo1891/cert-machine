@@ -117,7 +117,7 @@ if ((TRUE / (1675 / 32768)).toFixed(3) !== '1.044' || TRUE.toFixed(6) !== '0.053
   const dims = L.certificates.filter((c) => c.kind === 'slab').map((c) => c.n + 1);   /* v = (1, y): the residual matrix is (n + 1)-square */
   if (Math.min(...dims) !== 131 || Math.max(...dims) !== 147) die('§6\'s "131- to 147-dimensional" no longer matches the slabs: ' + dims.join(', '));
   const P = J('paper/INDEX.json'); const pd = (P.papers || P).find((x) => x.name === 'delta3');
-  if (!pd || !/^draft v0\.2\b/.test(pd.status)) die('§6 names the paper "draft v0.2"; paper/INDEX.json says ' + (pd && pd.status));
+  if (!pd || !/^draft v0\.3\b/.test(pd.status)) die('§6 names the paper "draft v0.3"; paper/INDEX.json says ' + (pd && pd.status));
 }
 /* the archive that holds these files: the deposit record's latest version */
 const ZEN = J('corpus/zenodo.json');
