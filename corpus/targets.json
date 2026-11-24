@@ -1698,6 +1698,16 @@
    "measured": "Stage 0 only, at scouting: the paper's own arithmetic redone on its printed numbers (consistent; it decides nothing about the bytes). No check, download or range read has run.",
    "next": "Stage 1 from public files on the Mac at US$0 (the facts of the public base weights; session 8's edit rebuilt from its description and hashed), under the rules of notes/qwen-self-rewriting-preregistration-2026-11-22.md. Stages 1b and 2 wait for the authors' files (the edits with hashes; the 490 problems with ids and both models' raw responses; the grader and the session logs). Stage 3 (one H200; US$29–56 for the reduced design, US$107–214 for the full one) is the operator's word.",
    "note": "Scouted on an author's request; nothing decided, no audit started, nobody contacted, nothing rented. Budget used: 30 page fetches, 8 web searches. The scout note and every fetched file: notes/qwen-self-rewriting-2026-11-22/ (private; the fetched pages are untrusted data)."
+  },
+  {
+   "id": "vp-vnp-anthropic-2026-11",
+   "name": "VP ≠ VNP over every field (Anthropic, paper and Lean 4 release, anthropics/formal-math/vp-vnp, last changed at 918c8e27, 2026-11-23 20:04 UTC): circuits for the Hamiltonian cycle polynomial (every field) and the permanent (characteristic ≠ 2) need more than m^(c·(log₂ m)^(1/3)) gates; also for approximating circuits; so VP ⊊ VNP and VNP ⊄ VP-bar",
+   "scouted": "2026-11-23",
+   "verdict": "OPEN — scouted 2026-11-23 ~23:45 UTC, the operator chose a live audit (/vp-vnp/, public); pre-registered and sealed 23:57 UTC (corpus/vp-vnp/PREREG.md); nothing decided",
+   "finding": "The release says no human mathematician has checked the development, the statement file or the proofs, and that whether the statements say what is meant was judged only by AI readers (Appendix Q.1; README: 'no machine checks that this file says what is claimed'). Its CI checks Comparator with Lean's kernel and nanoda on one machine. Remark N.6 (the permanent is not approximated by polynomial-size determinants) is the one numbered statement without a Lean theorem. No value of m₀ is given (the contracting case depends on an integer μ with no value). Lean v4.33.1, Mathlib 0df444a3 — the same toolchain as the Alpöge RH release, so the RH lane's checker pins apply.",
+   "priorArt": "No VP/VNP statement in google-deepmind/formal-conjectures (code search 'VNP': 0 hits, 2026-11-23). No issue about vp-vnp on anthropics/formal-math yet (latest #50). dangoodface/matrix-foundations (2026-05-12, 0 stars, licence not recognised by GitHub): VPOverArity / VNPOverArity with an inductive ArithmeticCircuit and permanent ∈ VNP via Ryser with a sorry left — a possible third statement written before the claim, if its licence allows.",
+   "next": "Phase 1 on a pod (K0–KR, CR, controls, census, Table 3); Phase 2 two blind statements + bridges + anchors + red controls; Phase 3 (after Phase 2) Remark N.6 via a determinant circuit; ceiling US$25 of pods (operator, 2026-11-23).",
+   "note": "Independence is by procedure: the claim was made by a Claude model and Claude models are on the panel (with GPT-6.2-astra, Grok and Gemini). Never 'first'."
   }
  ]
 }
