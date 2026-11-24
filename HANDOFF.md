@@ -99,6 +99,15 @@ dialog, all at once. Disk: about 8 GB free.
      (523c2ac7…d8cd). The FINAL page is built and pushed (amendment A25; the record, the page and the rerun kit say what stopped and why). (History of this line: an agent prepared it locally, without
      committing; the control room reviewed and pushed it.) Owed: `ots upgrade` on corpus/alpoge-grh/timestamps/ and a rebuild so the page says what the chain confirms; the stale lines in tools/build-control.js (270) and tools/certs-shelf.js (168).
      Release texts for this ending: notes/alpoge-rh-2026-11-20/final-texts-draft-2026-11-24.md; every send on his word.
+  J. JOB SEARCH (his word on 24 Nov: "the companies I'm sending are not responding … I need some fresh options"):
+     a new scout and ten application packets are drafted and HELD FOR HIM, all local and git-ignored — the index is
+     notes/job-search-2026-11-24.md; each packet is a folder under outreach/ with a PASTE.md and a "before you send"
+     list. One has a date: a grant form that pauses on 15 December (send by 4 December). Found while drafting, owed on
+     public pages: the /eth/ page still says "merge pending" for two complexitylib PRs merged on 6 Nov; /cv/ prints 10
+     registry asterisks where corpus/recognition.json gives fifteen in six merged PRs; outreach/resume/resume.md
+     carries older counts (131 → 145 claims, 398 → 407 of 416, 77 → 78 defects, reruns now 13 by 5 parties); the
+     self-audit page's table rows add to 98 where its text says 97; the landing prints 89.55% where the report prints
+     89.5%.
   3. VP ≠ VNP — PARKED on his word (24 Nov, ~02:57 UTC). /vp-vnp/ shows CERTIFIED, 18 of 23 rows, 4 seals,
      6 deviations; row N6 pending with its state in words.
      a. Done this session: the three seals in Bitcoin (blocks 977295, 977295, 977301; status.json carries block and
