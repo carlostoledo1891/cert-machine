@@ -1,0 +1,34 @@
+COMPUTED | Exact rational character-block elimination and direct integer checks
+
+mu=2  matrices=16  unordered off-diagonal variables=120
+Transversal direction pairs (unordered), by ranks: {(1, 1): 18}
+Pairs=18  D.1 rows=576  D.2 rows=288  raw rows=864
+Character blocks (each character reduced individually):
+rank(k)  characters  after_symmetry  after_D.1  D.2_rank  nullity
+      0           1              15         15        14        1
+      1           9               7          2         2        0
+      2           6               7          4         3        1
+Full rational rank=113  nullity=7
+Rank function: PASS on symmetry, zero diagonal, and all 864 raw rows
+Direct unordered-endpoint elimination: rows=864  rank=113  nullity=7
+Additional basis functions: displacement S, character K (hex, row-major LSB first)
+  S=6  K=6  PASS on symmetry, zero diagonal, and all 864 raw rows
+  S=7  K=e  PASS on symmetry, zero diagonal, and all 864 raw rows
+  S=9  K=9  PASS on symmetry, zero diagonal, and all 864 raw rows
+  S=b  K=d  PASS on symmetry, zero diagonal, and all 864 raw rows
+  S=d  K=b  PASS on symmetry, zero diagonal, and all 864 raw rows
+  S=e  K=7  PASS on symmetry, zero diagonal, and all 864 raw rows
+
+mu=3  matrices=512  unordered off-diagonal variables=130816
+Transversal direction pairs (unordered), by ranks: {(1, 1): 882, (1, 2): 4704}
+Pairs=5586  D.1 rows=5720064  D.2 rows=2860032  raw rows=8580096
+Character blocks (each character reduced individually):
+rank(k)  characters  after_symmetry  after_D.1  D.2_rank  nullity
+      0           1             511        511       510        1
+      1          49             255         72        72        0
+      2         294             255         88        88        0
+      3         168             255         80        80        0
+Full rational rank=130815  nullity=1
+Rank function: PASS on symmetry, zero diagonal, and all 8580096 raw rows
+
+CPU seconds: 4.777
