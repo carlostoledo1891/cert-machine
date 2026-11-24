@@ -1,10 +1,10 @@
 {
  "what": "The state of the VP ≠ VNP lane as the live page shows it, written by tools/vp-vnp-live-records.js from corpus/vp-vnp/status.json and checked against PREREG.md, the seals and the pinned README.",
- "as_of": "2026-11-24T00:14Z",
+ "as_of": "2026-11-24T01:02Z",
  "verdict": "OPEN",
  "verdict_words": "nothing decided yet",
  "ceiling_usd": 25,
- "spent_usd": 0.2,
+ "spent_usd": 0.95,
  "target": {
   "repo": "anthropics/formal-math",
   "folder": "vp-vnp",
@@ -72,62 +72,62 @@
     {
      "id": "K0",
      "title": "Build the release; list its axioms; search for unsafe code",
-     "state": "running",
-     "note": "every file matched its pin; Mathlib fetched; building since 00:05 UTC"
+     "state": "passed",
+     "note": "built in 554 s (9,032 modules), exit 0; the only sorry warnings are the five in Challenge.lean (lines 17–29), as the README says; no native_decide, implemented_by, extern or axiom declaration in the 324 Lean files; all five theorems depend only on propext, Classical.choice, Quot.sound."
     },
     {
      "id": "K1",
      "title": "The release's own check (Comparator, Lean's kernel, nanoda), at its own pins",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "the release's own script, unmodified, at its own pins (Comparator 57567492, nanoda 68d5ca9d, landrun 811cfff5 sandboxing): \"Your solution is okay!\", all 1 configuration accepted, 419 s."
     },
     {
      "id": "K2",
      "title": "nanoda at a second version",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "nanoda (ammkrn/nanoda_lib 0da9f98f, a second version) on our export of the five theorems' closure (60,921 declarations): \"Checked 63,236 declarations with no typechecker errors\" (its one \"pretty printer error\", \"Unable to print axioms\", is its acceptance form with axiom printing on and no destination set, as in our RH audit)."
     },
     {
      "id": "K3",
      "title": "con-leche, a third independently written checker",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "con-leche 5ea446d5 accepted all 60,921 declarations of the export (--verified), and con-leche --compare justified each of the five theorems against Challenge.lean exported separately."
     },
     {
      "id": "KR",
      "title": "Lean's own checker, replayed from scratch",
-     "state": "pending",
-     "note": ""
+     "state": "running",
+     "note": "Lean's checker replaying everything from scratch since 00:34 UTC"
     },
     {
      "id": "CR",
      "title": "A second machine that never ran the release's code",
-     "state": "pending",
-     "note": ""
+     "state": "running",
+     "note": "a second machine (EU-RO-1) that never ran the release's proofs is building the official Lean, the checkers and the statement files since 01:01 UTC."
     },
     {
      "id": "C1",
      "title": "Control: one symbol changed in a statement must be refused",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "refused twice: Comparator, \"Challenge and solution theorem statement do not match: Solution.permanent_over_real\"; con-leche --compare, \"the solution's Solution.permanent_over_real has another type\"."
     },
     {
      "id": "C2",
      "title": "Control: a theorem re-typed as False must be refused",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "refused twice: nanoda stopped on a failed definitional-equality check (exit 101); con-leche, \"type mismatch in theorem Solution.mainTheorem\"."
     },
     {
      "id": "CEN",
      "title": "Census: what the five theorems actually use",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "the five theorems reach 62,499 constants in 2,057 of the 11,334 modules imported; 320 of the release's 321 modules are used, the one unused being Paper.Ryser (the permanent's Ryser formula, not needed on the route). The first run of the census script failed on two Lean API names (deviation D2)."
     },
     {
      "id": "T3",
      "title": "The paper's Table 3 checked against the Lean names",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "all 87 Lean names in the paper's Table 3 exist; 67 lie on the route of the five theorems; the four statements Appendix Q.3 says are off the route (Theorem L.2, Corollary L.3, Proposition E.5, Theorem E.6) are off it; the other 16 off the route are definitions and second names."
     }
    ]
   },
@@ -138,32 +138,32 @@
     {
      "id": "F1",
      "title": "Two blind statements, written from the textbooks without seeing the release's",
-     "state": "running",
-     "note": "both written without seeing the release's statement and sealed before elaboration: writer B (GPT-6.2-astra) 00:03 UTC, circuits as graphs; writer A (Claude) 00:12 UTC, straight-line programs. Next: elaborate them against the release's Lean and Mathlib."
+     "state": "passed",
+     "note": "both blind statements written without seeing the release's and sealed before elaboration (B 00:03, A 00:12 UTC); both elaborated with no repair at all."
     },
     {
      "id": "F2",
      "title": "Bridge: each blind statement proved from the release's theorems",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "both blind statements, five propositions each, proved from the release's theorems (bridge A: a program of length ℓ becomes a release circuit of 4ℓ + 2 gates and the constant halves; bridge B: gate for gate, same constant). Replayed by the control room: Comparator, with OUR blind statement as the challenge, \"Your solution is okay!\" for both; nanoda (second version) checked 63,485 and 63,380 declarations with no error; con-leche --compare justified 5 of 5 for each. Lean's from-scratch replay of both bridges is running."
     },
     {
      "id": "F3",
      "title": "Anchors: the statement is not vacuous and means circuits, not formulas",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "proved on the release's definitions and on both blind statements': every polynomial has a circuit (the bound is not vacuous); padding; reuse (X^(2^k) in k + 1 gates: circuits, not formulas); an exact circuit is an approximating one; the bound beats every polynomial; from the main theorem alone the permanent (characteristic ≠ 2) and Hamiltonian-cycle families are not in VP. Replayed: Comparator accepted all three sets (11, 11 and 7 theorems), nanoda and con-leche accepted them."
     },
     {
      "id": "F4",
      "title": "Red controls: planted false versions proved false",
-     "state": "pending",
-     "note": ""
+     "state": "passed",
+     "note": "the planted claim \"the main bound holds for the dense power (Σ x_ij)^m\" is PROVED FALSE in Lean (a circuit of 2m² − 1 + k gates for m = 2^k), over ℚ, over every commutative semiring, in the main theorem's own shape, and for both blind statements. The characteristic-2 control waits for phase 3."
     },
     {
      "id": "F5",
      "title": "An adversarial reading of every definition",
-     "state": "running",
-     "note": "a separate Claude agent reading"
+     "state": "passed",
+     "note": "the reading found nothing material in 42 items; its 23 proposed Lean tests are proved (70 theorems, standard axioms only; one repair: an \"open Classical in\" the release's own definition also uses), replayed by the control room with nanoda and con-leche. The one unsure item (the exact wording of four books) is closed by bridge A."
     }
    ]
   },
@@ -180,8 +180,8 @@
     {
      "id": "NC",
      "title": "What the theorem says in numbers: the constant, and the missing m₀",
-     "state": "pending",
-     "note": ""
+     "state": "running",
+     "note": "read from the Lean: the constant is explicit, c = 1/1600² (Paper/Fields.lean, thm_allfields); m₀ is M₁ + M₂ + 2 with M₁, M₂ from the two cases and no value. With this c the bound exceeds m² only when log₂ m > (2·1600²)³ ≈ 1.3·10²⁰."
     }
    ]
   },
@@ -218,9 +218,9 @@
  ],
  "counts": {
   "all": 23,
-  "passed": 2,
+  "passed": 15,
   "running": 3,
-  "pending": 18,
+  "pending": 5,
   "failed": 0,
   "refused": 0,
   "open": 0
@@ -236,8 +236,8 @@
    "role": "blind writer B"
   },
   {
-   "who": "Grok (xAI) and Gemini (Google)",
-   "role": "readings pasted by the operator; only checks someone else re-ran enter the ledger"
+   "who": "Grok (xAI)",
+   "role": "readings and computations pasted by the operator; only checks someone else re-ran enter the ledger"
   }
  ],
  "independence": "The claim was made by a Claude model and Claude models are on this panel. Independence here is by procedure: statements written without seeing the release's, checkers written by other people (Lean's kernel, nanoda, con-leche), one blind statement by a non-Anthropic model, and every rule sealed before the run.",
@@ -279,7 +279,7 @@
  "sources": [
   {
    "file": "corpus/vp-vnp/status.json",
-   "sha256_12": "fa03d79fdd63"
+   "sha256_12": "e8a8c14f9c46"
   },
   {
    "file": "corpus/vp-vnp/PREREG.md",
@@ -287,7 +287,7 @@
   },
   {
    "file": "corpus/vp-vnp/DEVIATIONS.md",
-   "sha256_12": "d30127c0a35c"
+   "sha256_12": "170412bf5d1c"
   },
   {
    "file": "corpus/vp-vnp/target-SHA256SUMS",
@@ -329,11 +329,11 @@
  "scripts": [
   {
    "file": "tools/runpod-vp-vnp-p1.sh",
-   "sha256_12": "26794de91a97"
+   "sha256_12": "a453aaa3d88f"
   },
   {
    "file": "instruments/vp-vnp/census/Census.lean",
-   "sha256_12": "9d12b871b932"
+   "sha256_12": "6484acb0e0d7"
   },
   {
    "file": "instruments/vp-vnp/controls/C1.lean",

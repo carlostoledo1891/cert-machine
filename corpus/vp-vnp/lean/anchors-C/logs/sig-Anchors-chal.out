@@ -1,0 +1,254 @@
+@CertMachine.Anchors.A1_any.{u_1} : ∀ {R : Type u_1} [inst : CommSemiring.{u_1} R] {V : Type}
+  (f : @MvPolynomial.{0, u_1} V R inst), @Exists.{1} Nat fun (s : Nat) => @Statement.Computes.{u_1} R V inst f s
+@CertMachine.Anchors.A1.{u_1} : ∀ {R : Type u_1} [inst : CommSemiring.{u_1} R] {V : Type} [Fintype.{0} V]
+  (f : @MvPolynomial.{0, u_1} V R inst), @Exists.{1} Nat fun (s : Nat) => @Statement.Computes.{u_1} R V inst f s
+@CertMachine.Anchors.A2.{u_1} : ∀ {R : Type u_1} [inst : CommSemiring.{u_1} R] {V : Type}
+  {f : @MvPolynomial.{0, u_1} V R inst} {s : Nat} (h : @Statement.Computes.{u_1} R V inst f s),
+  @Statement.Computes.{u_1} R V inst f
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) s
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+@CertMachine.Anchors.A3.{u_1} : ∀ {R : Type u_1} [inst : CommSemiring.{u_1} R] {V : Type} (w : V) (k : Nat),
+  @Statement.Computes.{u_1} R V inst
+    (@HPow.hPow.{u_1, 0, u_1} (@MvPolynomial.{0, u_1} V R inst) Nat (@MvPolynomial.{0, u_1} V R inst)
+      (@instHPow.{u_1, 0} (@MvPolynomial.{0, u_1} V R inst) Nat
+        (@NPow.toPow.{u_1} (@MvPolynomial.{0, u_1} V R inst)
+          (@Monoid.toNPow.{u_1} (@MvPolynomial.{0, u_1} V R inst)
+            (@Semiring.toMonoid.{u_1} (@MvPolynomial.{0, u_1} V R inst)
+              (@AddMonoidAlgebra.semiring.{u_1, 0} R
+                (@Finsupp.{0, 0} V Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                (@CommSemiring.toSemiring.{u_1} R inst) (@Finsupp.instAddMonoid.{0, 0} V Nat Nat.instAddMonoid))))))
+      (@MvPolynomial.X.{u_1, 0} R V inst w)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+@CertMachine.Anchors.A4.{u_1} : ∀ {F : Type u_1} [inst : Field.{u_1} F] {V : Type}
+  {f : @MvPolynomial.{0, u_1} V F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))} {s : Nat}
+  (h : @Statement.Computes.{u_1} F V (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)) f s),
+  @Statement.Approximates.{u_1} F V inst f s
+CertMachine.Anchors.A5_real : ∀ (c : Real)
+  (hc : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+  (k : Real),
+  @Exists.{1} Nat fun (m₀ : Nat) =>
+    ∀ (m : Nat),
+      @GE.ge.{0} Nat instLENat m m₀ →
+        @LT.lt.{0} Real Real.instLT
+          (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+            (@Nat.cast.{0} Real Real.instNatCast m) k)
+          (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+            (@Nat.cast.{0} Real Real.instNatCast m)
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) c
+              (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+                (Real.logb
+                  (@OfNat.ofNat.{0} Real (nat_lit 2)
+                    (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+                  (@Nat.cast.{0} Real Real.instNatCast m))
+                (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                  (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+                  (@OfNat.ofNat.{0} Real (nat_lit 3)
+                    (@instOfNatAtLeastTwo.{0} Real (nat_lit 3) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))))))
+CertMachine.Anchors.A5 : ∀ (c : Real)
+  (hc : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+  (k : Nat),
+  @Exists.{1} Nat fun (m₀ : Nat) =>
+    ∀ (m : Nat),
+      @GE.ge.{0} Nat instLENat m m₀ →
+        @LT.lt.{0} Real Real.instLT
+          (@HPow.hPow.{0, 0, 0} Real Nat Real
+            (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+            (@Nat.cast.{0} Real Real.instNatCast m) k)
+          (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+            (@Nat.cast.{0} Real Real.instNatCast m)
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) c
+              (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+                (Real.logb
+                  (@OfNat.ofNat.{0} Real (nat_lit 2)
+                    (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+                  (@Nat.cast.{0} Real Real.instNatCast m))
+                (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                  (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+                  (@OfNat.ofNat.{0} Real (nat_lit 3)
+                    (@instOfNatAtLeastTwo.{0} Real (nat_lit 3) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))))))
+CertMachine.Anchors.A6.{u_1} : ∀ (h : Statement.MainTheorem.{u_1}) (F : Type u_1) [inst : Field.{u_1} F],
+  And
+    (Not
+      (@Membership.mem.{max 1 u_1, max 1 u_1}
+        (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+        (Set.{max 1 u_1}
+          (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+        (@Set.instMembership.{max 1 u_1}
+          (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+        (@Statement.VP.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+        (@Statement.Family.mk.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))
+          (fun (n : Nat) => Prod.{0, 0} (Fin n) (Fin n))
+          (fun (n : Nat) => @instFintypeProd.{0, 0} (Fin n) (Fin n) (Fin.fintype n) (Fin.fintype n)) fun (n : Nat) =>
+          @Statement.hc.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)) n)))
+    (@Ne.{1} Nat
+        (@ringChar.{u_1} F
+          (@Semiring.toNonAssocSemiring.{u_1} F
+            (@DivisionSemiring.toSemiring.{u_1} F
+              (@Semifield.toDivisionSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) →
+      Not
+        (@Membership.mem.{max 1 u_1, max 1 u_1}
+          (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+          (Set.{max 1 u_1}
+            (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+          (@Set.instMembership.{max 1 u_1}
+            (@Statement.Family.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+          (@Statement.VP.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+          (@Statement.Family.mk.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))
+            (fun (n : Nat) => Prod.{0, 0} (Fin n) (Fin n))
+            (fun (n : Nat) => @instFintypeProd.{0, 0} (Fin n) (Fin n) (Fin.fintype n) (Fin.fintype n)) fun (n : Nat) =>
+            @Statement.perm.{u_1} F (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)) n)))
+CertMachine.Anchors.R1_general.{u_1} : ∀ (R : Type u_1) [inst : CommSemiring.{u_1} R],
+  Not
+    (@Exists.{1} Real fun (c : Real) =>
+      And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+        (@Exists.{1} Nat fun (m₀ : Nat) =>
+          ∀ (m : Nat),
+            @GE.ge.{0} Nat instLENat m m₀ →
+              ∀ (s : Nat),
+                @Statement.Computes.{u_1} R (Prod.{0, 0} (Fin m) (Fin m)) inst
+                    (@HPow.hPow.{u_1, 0, u_1} (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst) Nat
+                      (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                      (@instHPow.{u_1, 0} (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst) Nat
+                        (@NPow.toPow.{u_1} (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                          (@Monoid.toNPow.{u_1} (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                            (@Semiring.toMonoid.{u_1} (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                              (@AddMonoidAlgebra.semiring.{u_1, 0} R
+                                (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                                  (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                                (@CommSemiring.toSemiring.{u_1} R inst)
+                                (@Finsupp.instAddMonoid.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat Nat.instAddMonoid))))))
+                      (@Finset.sum.{0, u_1} (Fin m) (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                        (@AddMonoidAlgebra.instAddCommMonoid.{u_1, 0} R
+                          (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                            (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                          (@CommSemiring.toSemiring.{u_1} R inst))
+                        (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) =>
+                        @Finset.sum.{0, u_1} (Fin m) (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) R inst)
+                          (@AddMonoidAlgebra.instAddCommMonoid.{u_1, 0} R
+                            (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                              (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                            (@CommSemiring.toSemiring.{u_1} R inst))
+                          (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (j : Fin m) =>
+                          @MvPolynomial.X.{u_1, 0} R (Prod.{0, 0} (Fin m) (Fin m)) inst
+                            (@Prod.mk.{0, 0} (Fin m) (Fin m) i j))
+                      m)
+                    s →
+                  Statement.Beyond c m s))
+CertMachine.Anchors.R1 : Not
+  (@Exists.{1} Real fun (c : Real) =>
+    And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+      (@Exists.{1} Nat fun (m₀ : Nat) =>
+        ∀ (m : Nat),
+          @GE.ge.{0} Nat instLENat m m₀ →
+            ∀ (s : Nat),
+              @Statement.Computes.{0} Rat (Prod.{0, 0} (Fin m) (Fin m)) Rat.commSemiring
+                  (@HPow.hPow.{0, 0, 0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring) Nat
+                    (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                    (@instHPow.{0, 0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring) Nat
+                      (@NPow.toPow.{0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                        (@Monoid.toNPow.{0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                          (@Semiring.toMonoid.{0}
+                            (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                            (@AddMonoidAlgebra.semiring.{0, 0} Rat
+                              (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                                (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                              (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring)
+                              (@Finsupp.instAddMonoid.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat Nat.instAddMonoid))))))
+                    (@Finset.sum.{0, 0} (Fin m)
+                      (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                      (@AddMonoidAlgebra.instAddCommMonoid.{0, 0} Rat
+                        (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                          (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                        (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring))
+                      (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) =>
+                      @Finset.sum.{0, 0} (Fin m)
+                        (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                        (@AddMonoidAlgebra.instAddCommMonoid.{0, 0} Rat
+                          (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                            (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                          (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring))
+                        (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (j : Fin m) =>
+                        @MvPolynomial.X.{0, 0} Rat (Prod.{0, 0} (Fin m) (Fin m)) Rat.commSemiring
+                          (@Prod.mk.{0, 0} (Fin m) (Fin m) i j))
+                    m)
+                  s →
+                Statement.Beyond c m s))
+CertMachine.Anchors.R1_shape.{u_1} : Not
+  (@Exists.{1} Real fun (c : Real) =>
+    And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+      (∀ (p : Nat),
+        @Exists.{1} Nat fun (m₀ : Nat) =>
+          ∀ (F : Type u_1) [inst : Field.{u_1} F]
+            [@CharP.{u_1} F
+                (@AddGroupWithOne.toAddMonoidWithOne.{u_1} F
+                  (@Ring.toAddGroupWithOne.{u_1} F (@DivisionRing.toRing.{u_1} F (@Field.toDivisionRing.{u_1} F inst))))
+                p]
+            (m : Nat),
+            @GE.ge.{0} Nat instLENat m m₀ →
+              ∀ (s : Nat),
+                @Statement.Computes.{u_1} F (Prod.{0, 0} (Fin m) (Fin m))
+                    (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))
+                    (@HPow.hPow.{u_1, 0, u_1}
+                      (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                        (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                      Nat
+                      (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                        (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                      (@instHPow.{u_1, 0}
+                        (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                          (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                        Nat
+                        (@NPow.toPow.{u_1}
+                          (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                            (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                          (@Monoid.toNPow.{u_1}
+                            (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                              (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                            (@Semiring.toMonoid.{u_1}
+                              (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                                (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                              (@AddMonoidAlgebra.semiring.{u_1, 0} F
+                                (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                                  (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                                (@CommSemiring.toSemiring.{u_1} F
+                                  (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                                (@Finsupp.instAddMonoid.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat Nat.instAddMonoid))))))
+                      (@Finset.sum.{0, u_1} (Fin m)
+                        (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                          (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                        (@AddMonoidAlgebra.instAddCommMonoid.{u_1, 0} F
+                          (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                            (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                          (@CommSemiring.toSemiring.{u_1} F
+                            (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+                        (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) =>
+                        @Finset.sum.{0, u_1} (Fin m)
+                          (@MvPolynomial.{0, u_1} (Prod.{0, 0} (Fin m) (Fin m)) F
+                            (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst)))
+                          (@AddMonoidAlgebra.instAddCommMonoid.{u_1, 0} F
+                            (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                              (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                            (@CommSemiring.toSemiring.{u_1} F
+                              (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))))
+                          (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (j : Fin m) =>
+                          @MvPolynomial.X.{u_1, 0} F (Prod.{0, 0} (Fin m) (Fin m))
+                            (@Semifield.toCommSemiring.{u_1} F (@Field.toSemifield.{u_1} F inst))
+                            (@Prod.mk.{0, 0} (Fin m) (Fin m) i j))
+                      m)
+                    s →
+                  Statement.Beyond c m s))

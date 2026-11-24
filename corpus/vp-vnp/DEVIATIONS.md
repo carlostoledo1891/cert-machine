@@ -9,3 +9,14 @@ D1 (2026-11-24 00:18 UTC, check script, no result changed). Row K0's count of so
 "declaration uses 'sorry'" with straight quotes; Lean 4.33.1 prints the word in backticks, so the count read 0. The
 log itself (K0.out lines 63–67) holds exactly five, all in Challenge.lean at lines 17, 20, 23, 26, 29 — the five
 theorems the README says are stated without proof. The pattern in tools/runpod-vp-vnp-p1.sh is now "declaration uses".
+
+D2 (2026-11-24 00:44 UTC, the census script, no result changed). Row CEN's first run (inside the phase-1 script, 00:34
+UTC) stopped on errors in instruments/vp-vnp/census/Census.lean: ConstantInfo.getUsedConstants does not exist in Lean
+v4.33.1, and three counters were typed as messages. A first repair walked only the declarations' types and reached 2,824
+constants — wrong, and not recorded as a result. The script now walks the bodies of theorems, definitions and opaque
+constants and the parts of inductive types explicitly; it was run by hand on the same pod (CEN2.out, 62,499 constants,
+close to the 60,921 declarations of the kernel export). The script's hash is in CEN2-file.sha256.
+
+D3 (2026-11-24 01:02 UTC, an author outside its workspace, no result changed). The anchors' author saved a backup of
+its workspace's lakefile to /tmp on the pod, as root, at about 00:24 UTC, which its brief forbids; nothing read it and
+it deleted the file at 00:44 UTC (its WORKLOG). The control room's replay used only the workspace's own files.

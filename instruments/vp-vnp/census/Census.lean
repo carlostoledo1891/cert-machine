@@ -3,7 +3,20 @@
    Walks every constant the five Solution theorems use (types, values, constructors), maps each to its module, and
    checks the Lean names of the paper's Table 3 (Appendix Q, prefix Paper.): does each exist, is it on the route. MIT -/
 import Solution
+import Lean
 open Lean Elab Command
+
+/-- The constants a declaration mentions: its type and, if any, its value. -/
+def usedConsts (ci : ConstantInfo) : Array Name :=
+  match ci with
+  | .thmInfo v => v.type.getUsedConstants ++ v.value.getUsedConstants
+  | .defnInfo v => v.type.getUsedConstants ++ v.value.getUsedConstants
+  | .opaqueInfo v => v.type.getUsedConstants ++ v.value.getUsedConstants
+  | .ctorInfo v => v.type.getUsedConstants.push v.induct
+  | .recInfo v => v.type.getUsedConstants ++ v.all.toArray ++ (v.rules.toArray.map (·.ctor)) ++
+      (v.rules.toArray.flatMap (·.rhs.getUsedConstants))
+  | .inductInfo v => v.type.getUsedConstants ++ v.ctors.toArray ++ v.all.toArray
+  | _ => ci.type.getUsedConstants
 
 def table3 : List String := ["cor_allclasses", "cor_classes", "cor_clauses", "cor_clauses_hc", "def_acc", "def_approx", "def_cases", "def_cut", "def_law", "def_price", "def_spectral", "def_spectral_congr", "eq_Q", "eq_window", "exists_setting", "lem_angle", "lem_balanced", "lem_circuit", "lem_circuit_perm", "lem_convex", "lem_count", "lem_exponents", "lem_few", "lem_few_approx", "lem_first", "lem_fkl_perm", "lem_fkl_perm_printed", "lem_growth", "lem_hubs", "lem_hubs_further", "lem_lowdeg", "lem_means", "lem_postpone", "lem_runnet", "lem_tele", "lem_toolkit", "lem_toolkit_a", "lem_toolkit_b", "lem_toolkit_c", "lem_toolkit_d", "lem_toolkit_e", "lem_toolkit_f", "lem_toolkit_c_minimizer", "lem_transfer", "lem_transfer_approx", "lem_words", "projection_nearest", "prop_approx_acc", "prop_approx_acc_setting", "prop_crossing", "prop_cube", "prop_extend", "prop_flat_lower", "prop_flat_lower_printed", "prop_flat_rate", "prop_flat_rate_printed", "prop_gauge", "prop_grid", "prop_hc_grid", "prop_identity", "prop_next", "prop_pieces", "prop_pieces_identity", "prop_random", "prop_space", "prop_tower", "prop_tower_representatives", "prop_universal", "scales_setting", "thm_allfields", "thm_alt", "thm_approx", "thm_cn", "thm_contracting", "thm_cut", "thm_duality", "thm_flat_rate", "thm_flat_simple", "thm_laws", "thm_main", "thm_main_form", "thm_noacc", "thm_onecut", "thm_poincare", "thm_simple", "thm_tree", "thm_tree_good"]
 
@@ -26,7 +39,7 @@ run_cmd do
     seen := seen.insert n
     match env.find? n with
     | some ci =>
-      for m in ci.getUsedConstants do
+      for m in usedConsts ci do
         unless seen.contains m do stack := stack.push m
       if let .inductInfo v := ci then
         for c in v.ctors do
@@ -34,7 +47,7 @@ run_cmd do
     | none => missing := missing.push n
   let mods := env.header.moduleNames
   let mut reached : NameSet := {}
-  let mut nProject := 0
+  let mut nProject : Nat := 0
   for n in seen.toList do
     if let some idx := env.getModuleIdxFor? n then
       let mn := mods[idx.toNat]!
@@ -53,10 +66,10 @@ run_cmd do
   logInfo m!"CEN project modules NOT reached: {unreached.toList}"
   for r in roots do
     if let some ci := env.find? r then
-      let ps := ci.getUsedConstants.filter (fun m => m.getRoot == `Paper)
+      let ps := (usedConsts ci).filter (fun m => m.getRoot == `Paper)
       logInfo m!"T3 direct Paper constants of {r}: {ps.toList}"
-  let mut exist := 0
-  let mut onRoute := 0
+  let mut exist : Nat := 0
+  let mut onRoute : Nat := 0
   for t in table3 do
     let nm := Name.mkStr `Paper t
     let e := env.contains nm

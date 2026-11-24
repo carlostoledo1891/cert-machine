@@ -1,0 +1,73 @@
+== lake env lean CertMachine/Anchors.lean
+'CertMachine.Anchors.A1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.R1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.R1_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.R1_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A1_any' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.Anchors.A5_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0, 11.24s
+== lake env lean CertMachine/AnchorsRelease.lean
+'CertMachine.AnchorsRelease.A6_release' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0, 11.11s
+== lake env lean CertMachine/AnchorsBlindA.lean
+'CertMachine.AnchorsBlindA.A1_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A1_A_min' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.complexity_gt_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A2_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A3_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A3_A_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A4_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A4_A_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A5_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.A6_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindA.R1_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0, 10.60s
+== lake env lean CertMachine/AnchorsBlindB.lean
+'CertMachine.AnchorsBlindB.A1_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.A2_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.A3_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.A4_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.A5_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.A6_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CertMachine.AnchorsBlindB.R1_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0, 10.15s
+== lake env lean CertMachine/ChallengeAnchors.lean
+CertMachine/ChallengeAnchors.lean:16:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:20:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:24:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:28:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:32:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:36:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:40:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:44:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:50:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:55:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchors.lean:60:8: warning: declaration uses `sorry`
+exit 0, 9.68s
+== lake env lean CertMachine/ChallengeAnchorsBlindA.lean
+CertMachine/ChallengeAnchorsBlindA.lean:13:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:16:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:19:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:23:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:27:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:30:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:33:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:38:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:42:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:46:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindA.lean:50:8: warning: declaration uses `sorry`
+exit 0, 9.77s
+== lake env lean CertMachine/ChallengeAnchorsBlindB.lean
+CertMachine/ChallengeAnchorsBlindB.lean:13:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:16:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:20:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:24:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:28:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:32:8: warning: declaration uses `sorry`
+CertMachine/ChallengeAnchorsBlindB.lean:40:8: warning: declaration uses `sorry`
+exit 0, 9.58s

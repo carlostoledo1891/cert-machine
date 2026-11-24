@@ -1,0 +1,7 @@
+--- lakefile.toml (release, as copied into ws-B)
++++ lakefile.toml (ws-B, bridge B)
+@@ -31,0 +32,4 @@
++
++[[lean_lib]]
++name = "CertMachine"
++globs = ["CertMachine.+"]

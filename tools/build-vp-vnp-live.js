@@ -195,8 +195,7 @@ const STYLE = `
 .vt-kn{color:var(--ink-4);text-transform:none;letter-spacing:0}
 .ic{display:inline-block;vertical-align:middle;flex:none}
 .ne .plain li{padding:var(--s-2) 0}
-.vr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4);align-items:start}
-@media (max-width:900px){.vr-grid{grid-template-columns:minmax(0,1fr)}}
+.vr-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
 .vr-p{background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:var(--s-5);min-width:0}
 .vr-h{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
 .vr-p h3{margin:var(--s-2) 0 var(--s-3)}

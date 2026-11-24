@@ -5,6 +5,21 @@
    "id": "D0",
    "when": "2026-11-23 23:58 UTC, before any run",
    "text": "The first seal (superseded/SEAL-0a, stamped 23:57 UTC) covered a PREREG.md that gave its own writing time as \"2026-11-24 around 00:05 UTC\" and briefs dated 2026-11-24: ahead of the clock. The three texts were corrected to the real time and date (nothing else changed; compare superseded/*-0a.md) and sealed again as SEAL-0. Both stamps are kept."
+  },
+  {
+   "id": "D1",
+   "when": "2026-11-24 00:18 UTC, check script, no result changed",
+   "text": "Row K0's count of sorry warnings searched for \"declaration uses 'sorry'\" with straight quotes; Lean 4.33.1 prints the word in backticks, so the count read 0. The log itself (K0.out lines 63–67) holds exactly five, all in Challenge.lean at lines 17, 20, 23, 26, 29 — the five theorems the README says are stated without proof. The pattern in tools/runpod-vp-vnp-p1.sh is now \"declaration uses\"."
+  },
+  {
+   "id": "D2",
+   "when": "2026-11-24 00:44 UTC, the census script, no result changed",
+   "text": "Row CEN's first run (inside the phase-1 script, 00:34 UTC) stopped on errors in instruments/vp-vnp/census/Census.lean: ConstantInfo.getUsedConstants does not exist in Lean v4.33.1, and three counters were typed as messages. A first repair walked only the declarations' types and reached 2,824 constants — wrong, and not recorded as a result. The script now walks the bodies of theorems, definitions and opaque constants and the parts of inductive types explicitly; it was run by hand on the same pod (CEN2.out, 62,499 constants, close to the 60,921 declarations of the kernel export). The script's hash is in CEN2-file.sha256."
+  },
+  {
+   "id": "D3",
+   "when": "2026-11-24 01:02 UTC, an author outside its workspace, no result changed",
+   "text": "The anchors' author saved a backup of its workspace's lakefile to /tmp on the pod, as root, at about 00:24 UTC, which its brief forbids; nothing read it and it deleted the file at 00:44 UTC (its WORKLOG). The control room's replay used only the workspace's own files."
   }
  ]
 }

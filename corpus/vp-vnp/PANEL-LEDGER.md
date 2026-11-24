@@ -29,3 +29,11 @@ prompts/grok-gemini-round1.md, pasted by the operator; answers received 2026-11-
 Operator, 2026-11-24 before 00:27 UTC: "Gemini is weak, lets keep grok on track." Gemini leaves the panel after round 1;
 Grok continues with computation-only rounds (round 2: prompts/grok-round2.md — the crossing identity B.2 for small
 cases, and an independent second computation of the D.2 check Astra is running).
+
+## Round 2 (Grok only; computation; part 1 pasted by the operator before 01:00 UTC, "the model is working yet")
+
+| # | claim | label given | checked? |
+|---|---|---|---|
+| G2-1 | Proposition B.2 (crossing identity) holds in all 14 nonempty cases with n1, n2 ∈ {1, 2} and energies up to 10: (a) the coefficients of Ψ = det M sum to the matching indicator, with sign ε = 1 in every case; (b), (c) every flattening rank is within (N + 1)P(N), resp. (N′ + 1)P(N′); P(0..12) = 1 1 2 2 4 4 7 7 12 12 19 19 30. | COMPUTED (script named, not yet pasted) | Grok's reading of the sign and of the row and column order matches the paper (§B.3, "The value at X = 1": "Ψ\|X=1 is a sign ε, which depends on n1 and n2 only, times [Jc = Ia, Ic = Ja, Jb = Id, Ib = Jd]"). Not yet re-run: the code is asked for. |
+| G2-2 | D.2 at μ = 2: 120 unknowns, 1,728 equations (ordered pairs), rank 113 mod 1,000,000,007, nullity 7; the rank metric satisfies every equation. | COMPUTED (script described, not yet pasted) | Agrees with GPT-6.2-astra's exact count (rank 113, nullity 7) by a separately written program; becomes a second check once its code is re-run here. Rank mod p bounds the rational rank from below, so nullity 7 mod p with Astra's rational nullity 7 is consistent. |
+| G2-3 | D.2 at μ = 3: the rank metric satisfies all 17,160,192 equations (ordered pairs; Astra counted 8,580,096 unordered); the elimination did not finish in pure Python, so the dimension was NOT computed. | COMPUTED (membership) + "not computed" (dimension) | Honest non-result. The μ = 3 dimension stays single-program (Astra) until an independent program finishes it. |

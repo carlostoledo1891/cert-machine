@@ -80,7 +80,15 @@ function build() {
     const lines = rd(s.file).toString('utf8').trim().split('\n');
     for (const l of lines) {
       const m = /^([0-9a-f]{64})\s+(.+)$/.exec(l.trim()); need(m, s.file + ': a line is not "sha256  path"');
-      need(sha(rd(m[2])) === m[1], s.file + ': ' + m[2] + ' no longer hashes to its sealed value');
+      if (sha(rd(m[2])) !== m[1]) {
+        /* an append-only record (DEVIATIONS.md) may grow after its seal: the sealed bytes are kept in sealed/<seal>/
+           and must hash to the sealed value and stand, unchanged, at the head of the current file */
+        const snap = 'sealed/' + s.id + '/' + m[2];
+        need(m[2] === 'DEVIATIONS.md' && fs.existsSync(path.join(LANE, snap)), s.file + ': ' + m[2] + ' no longer hashes to its sealed value');
+        const was = rd(snap), now = rd(m[2]);
+        need(sha(was) === m[1], s.file + ': ' + snap + ' is not the sealed ' + m[2]);
+        need(now.length >= was.length && now.subarray(0, was.length).equals(was), s.file + ': ' + m[2] + ' was changed, not appended to, after its seal');
+      }
     }
     const o = otsState(rd(s.ots));
     need(o.state !== 'unknown', s.ots + ' holds no attestation');

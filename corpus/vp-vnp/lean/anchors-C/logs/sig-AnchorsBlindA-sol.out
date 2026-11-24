@@ -1,0 +1,333 @@
+@CertMachine.AnchorsBlindA.A1_A : ∀ {σ F : Type} [inst : Field.{0} F]
+  (f : @MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst))),
+  @Exists.{1} Nat fun (ℓ : Nat) =>
+    @Exists.{1} (BlindA.SLP σ F ℓ) fun (P : BlindA.SLP σ F ℓ) =>
+      @Membership.mem.{0, 0}
+        (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+        (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+        (@Set.instMembership.{0}
+          (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+        (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst) ℓ P) f
+@CertMachine.AnchorsBlindA.A1_A_min : ∀ {σ F : Type} [inst : Field.{0} F]
+  (f : @MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst))),
+  @Exists.{1} (BlindA.SLP σ F (@BlindA.complexity F inst σ f))
+    fun (P : BlindA.SLP σ F (@BlindA.complexity F inst σ f)) =>
+    @Membership.mem.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+      (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@Set.instMembership.{0}
+        (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst) (@BlindA.complexity F inst σ f) P) f
+@CertMachine.AnchorsBlindA.complexity_gt_iff : ∀ {σ F : Type} [inst : Field.{0} F]
+  (f : @MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst))) (B : Real),
+  Iff (@LT.lt.{0} Real Real.instLT B (@Nat.cast.{0} Real Real.instNatCast (@BlindA.complexity F inst σ f)))
+    (∀ (ℓ : Nat) (P : BlindA.SLP σ F ℓ),
+      @Membership.mem.{0, 0}
+          (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+          (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+          (@Set.instMembership.{0}
+            (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+          (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst) ℓ P) f →
+        @LT.lt.{0} Real Real.instLT B (@Nat.cast.{0} Real Real.instNatCast ℓ))
+@CertMachine.AnchorsBlindA.A2_A : ∀ {σ F : Type} [inst : Field.{0} F]
+  {f : @MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst))} {ℓ : Nat}
+  (P : BlindA.SLP σ F ℓ)
+  (h :
+    @Membership.mem.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+      (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@Set.instMembership.{0}
+        (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst) ℓ P) f),
+  @Exists.{1}
+    (BlindA.SLP σ F
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) ℓ
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    fun
+      (P' :
+        BlindA.SLP σ F
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) ℓ
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+    @Membership.mem.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+      (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@Set.instMembership.{0}
+        (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) ℓ
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        P')
+      f
+@CertMachine.AnchorsBlindA.A3_A : ∀ {σ F : Type} [inst : Field.{0} F] (v : σ) (k : Nat),
+  @Exists.{1} (BlindA.SLP σ F k) fun (P : BlindA.SLP σ F k) =>
+    @Membership.mem.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+      (Set.{0} (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@Set.instMembership.{0}
+        (@MvPolynomial.{0, 0} σ F (@CommRing.toCommSemiring.{0} F (@Field.toCommRing.{0} F inst))))
+      (@BlindA.SLP.computed σ F (@Field.toCommRing.{0} F inst) k P)
+      (@HPow.hPow.{0, 0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+        Nat (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+        (@instHPow.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+          Nat
+          (@NPow.toPow.{0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+            (@Monoid.toNPow.{0}
+              (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+              (@Semiring.toMonoid.{0}
+                (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+                (@AddMonoidAlgebra.semiring.{0, 0} F
+                  (@Finsupp.{0, 0} σ Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                  (@CommSemiring.toSemiring.{0} F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+                  (@Finsupp.instAddMonoid.{0, 0} σ Nat Nat.instAddMonoid))))))
+        (@MvPolynomial.X.{0, 0} F σ (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)) v)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k))
+@CertMachine.AnchorsBlindA.A3_A_complexity : ∀ {σ F : Type} [inst : Field.{0} F] (v : σ) (k : Nat),
+  @LE.le.{0} Nat instLENat
+    (@BlindA.complexity F inst σ
+      (@HPow.hPow.{0, 0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+        Nat (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+        (@instHPow.{0, 0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+          Nat
+          (@NPow.toPow.{0} (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+            (@Monoid.toNPow.{0}
+              (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+              (@Semiring.toMonoid.{0}
+                (@MvPolynomial.{0, 0} σ F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+                (@AddMonoidAlgebra.semiring.{0, 0} F
+                  (@Finsupp.{0, 0} σ Nat (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                  (@CommSemiring.toSemiring.{0} F (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)))
+                  (@Finsupp.instAddMonoid.{0, 0} σ Nat Nat.instAddMonoid))))))
+        (@MvPolynomial.X.{0, 0} F σ (@Semifield.toCommSemiring.{0} F (@Field.toSemifield.{0} F inst)) v)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)))
+    k
+@CertMachine.AnchorsBlindA.A4_A : ∀ {σ K : Type} [inst : Field.{0} K]
+  {f : @MvPolynomial.{0, 0} σ K (@Semifield.toCommSemiring.{0} K (@Field.toSemifield.{0} K inst))} {ℓ : Nat}
+  (P : BlindA.SLP σ K ℓ)
+  (h :
+    @Membership.mem.{0, 0} (@MvPolynomial.{0, 0} σ K (@Semifield.toCommSemiring.{0} K (@Field.toSemifield.{0} K inst)))
+      (Set.{0} (@MvPolynomial.{0, 0} σ K (@CommRing.toCommSemiring.{0} K (@Field.toCommRing.{0} K inst))))
+      (@Set.instMembership.{0}
+        (@MvPolynomial.{0, 0} σ K (@CommRing.toCommSemiring.{0} K (@Field.toCommRing.{0} K inst))))
+      (@BlindA.SLP.computed σ K (@Field.toCommRing.{0} K inst) ℓ P) f),
+  @Exists.{1}
+    (BlindA.SLP σ
+      (@LaurentSeries.{0} K
+        (@MulZeroClass.toZero.{0} K
+          (@instMulZeroClassOfSemiring.{0} K
+            (@DivisionSemiring.toSemiring.{0} K
+              (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+      ℓ)
+    fun
+      (P' :
+        BlindA.SLP σ
+          (@LaurentSeries.{0} K
+            (@MulZeroClass.toZero.{0} K
+              (@instMulZeroClassOfSemiring.{0} K
+                (@DivisionSemiring.toSemiring.{0} K
+                  (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+          ℓ) =>
+    @Exists.{1}
+      (@MvPolynomial.{0, 0} σ
+        (@LaurentSeries.{0} K
+          (@MulZeroClass.toZero.{0} K
+            (@instMulZeroClassOfSemiring.{0} K
+              (@DivisionSemiring.toSemiring.{0} K
+                (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+        (@CommRing.toCommSemiring.{0}
+          (@LaurentSeries.{0} K
+            (@MulZeroClass.toZero.{0} K
+              (@instMulZeroClassOfSemiring.{0} K
+                (@DivisionSemiring.toSemiring.{0} K
+                  (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+          (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+            (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+            (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+              (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                  (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                    (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                      Int.instConditionallyCompleteLinearOrder))))
+              Int.instIsStrictOrderedRing)
+            (@Field.toCommRing.{0} K inst))))
+      fun
+        (G :
+          @MvPolynomial.{0, 0} σ
+            (@LaurentSeries.{0} K
+              (@MulZeroClass.toZero.{0} K
+                (@instMulZeroClassOfSemiring.{0} K
+                  (@DivisionSemiring.toSemiring.{0} K
+                    (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+            (@CommRing.toCommSemiring.{0}
+              (@LaurentSeries.{0} K
+                (@MulZeroClass.toZero.{0} K
+                  (@instMulZeroClassOfSemiring.{0} K
+                    (@DivisionSemiring.toSemiring.{0} K
+                      (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+              (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+                (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+                (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+                  (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                    (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                      (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                        (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                          Int.instConditionallyCompleteLinearOrder))))
+                  Int.instIsStrictOrderedRing)
+                (@Field.toCommRing.{0} K inst)))) =>
+      And
+        (@Membership.mem.{0, 0}
+          (@MvPolynomial.{0, 0} σ
+            (@LaurentSeries.{0} K
+              (@MulZeroClass.toZero.{0} K
+                (@instMulZeroClassOfSemiring.{0} K
+                  (@DivisionSemiring.toSemiring.{0} K
+                    (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+            (@CommRing.toCommSemiring.{0}
+              (@LaurentSeries.{0} K
+                (@MulZeroClass.toZero.{0} K
+                  (@instMulZeroClassOfSemiring.{0} K
+                    (@DivisionSemiring.toSemiring.{0} K
+                      (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+              (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+                (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+                (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+                  (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                    (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                      (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                        (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                          Int.instConditionallyCompleteLinearOrder))))
+                  Int.instIsStrictOrderedRing)
+                (@Field.toCommRing.{0} K inst))))
+          (Set.{0}
+            (@MvPolynomial.{0, 0} σ
+              (@LaurentSeries.{0} K
+                (@MulZeroClass.toZero.{0} K
+                  (@instMulZeroClassOfSemiring.{0} K
+                    (@DivisionSemiring.toSemiring.{0} K
+                      (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+              (@CommRing.toCommSemiring.{0}
+                (@LaurentSeries.{0} K
+                  (@MulZeroClass.toZero.{0} K
+                    (@instMulZeroClassOfSemiring.{0} K
+                      (@DivisionSemiring.toSemiring.{0} K
+                        (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+                (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+                  (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+                  (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+                    (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                      (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                        (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                          (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                            Int.instConditionallyCompleteLinearOrder))))
+                    Int.instIsStrictOrderedRing)
+                  (@Field.toCommRing.{0} K inst)))))
+          (@Set.instMembership.{0}
+            (@MvPolynomial.{0, 0} σ
+              (@LaurentSeries.{0} K
+                (@MulZeroClass.toZero.{0} K
+                  (@instMulZeroClassOfSemiring.{0} K
+                    (@DivisionSemiring.toSemiring.{0} K
+                      (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+              (@CommRing.toCommSemiring.{0}
+                (@LaurentSeries.{0} K
+                  (@MulZeroClass.toZero.{0} K
+                    (@instMulZeroClassOfSemiring.{0} K
+                      (@DivisionSemiring.toSemiring.{0} K
+                        (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+                (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+                  (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+                  (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+                    (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                      (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                        (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                          (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                            Int.instConditionallyCompleteLinearOrder))))
+                    Int.instIsStrictOrderedRing)
+                  (@Field.toCommRing.{0} K inst)))))
+          (@BlindA.SLP.computed σ
+            (@LaurentSeries.{0} K
+              (@MulZeroClass.toZero.{0} K
+                (@instMulZeroClassOfSemiring.{0} K
+                  (@DivisionSemiring.toSemiring.{0} K
+                    (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))
+            (@HahnSeries.instCommRing.{0, 0} Int K Int.instAddCommMonoid
+              (@SemilatticeInf.toPartialOrder.{0} Int (@Lattice.toSemilatticeInf.{0} Int instLatticeInt))
+              (@IsStrictOrderedRing.toIsOrderedCancelAddMonoid.{0} Int Int.instSemiring
+                (@ConditionallyCompletePartialOrderSup.toPartialOrder.{0} Int
+                  (@ConditionallyCompletePartialOrder.toConditionallyCompletePartialOrderSup.{0} Int
+                    (@ConditionallyCompleteLattice.toConditionallyCompletePartialOrder.{0} Int
+                      (@ConditionallyCompleteLinearOrder.toConditionallyCompleteLattice.{0} Int
+                        Int.instConditionallyCompleteLinearOrder))))
+                Int.instIsStrictOrderedRing)
+              (@Field.toCommRing.{0} K inst))
+            ℓ P')
+          G)
+        (@BlindA.Approximates K inst σ G f)
+@CertMachine.AnchorsBlindA.A4_A_complexity : ∀ {σ K : Type} [inst : Field.{0} K]
+  (f : @MvPolynomial.{0, 0} σ K (@Semifield.toCommSemiring.{0} K (@Field.toSemifield.{0} K inst))),
+  @LE.le.{0} Nat instLENat (@BlindA.approxComplexity K inst σ f) (@BlindA.complexity K inst σ f)
+CertMachine.AnchorsBlindA.A5_A : ∀ (c : Real)
+  (hc : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+  (k : Nat),
+  @Exists.{1} Nat fun (m₀ : Nat) =>
+    ∀ (m : Nat),
+      @GE.ge.{0} Nat instLENat m m₀ →
+        @LT.lt.{0} Real Real.instLT
+          (@HPow.hPow.{0, 0, 0} Real Nat Real
+            (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+            (@Nat.cast.{0} Real Real.instNatCast m) k)
+          (BlindA.claimedBound c m)
+CertMachine.AnchorsBlindA.A6_A : ∀ (h : BlindA.MainTheorem) (K : Type) [inst : Field.{0} K],
+  And
+    (Not
+      (@Membership.mem.{0, 0} (@BlindA.Family K (@Field.toCommRing.{0} K inst))
+        (Set.{0} (@BlindA.Family K (@Field.toCommRing.{0} K inst)))
+        (@Set.instMembership.{0} (@BlindA.Family K (@Field.toCommRing.{0} K inst))) (@BlindA.VP K inst)
+        (@BlindA.hcFamily K (@Field.toCommRing.{0} K inst))))
+    (@Ne.{1} Nat
+        (@ringChar.{0} K
+          (@Semiring.toNonAssocSemiring.{0} K
+            (@DivisionSemiring.toSemiring.{0} K (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) →
+      Not
+        (@Membership.mem.{0, 0} (@BlindA.Family K (@Field.toCommRing.{0} K inst))
+          (Set.{0} (@BlindA.Family K (@Field.toCommRing.{0} K inst)))
+          (@Set.instMembership.{0} (@BlindA.Family K (@Field.toCommRing.{0} K inst))) (@BlindA.VP K inst)
+          (@BlindA.permFamily K (@Field.toCommRing.{0} K inst))))
+CertMachine.AnchorsBlindA.R1_A : Not
+  (@Exists.{1} Real fun (c : Real) =>
+    And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) c)
+      (@Exists.{1} Nat fun (m₀ : Nat) =>
+        ∀ (m : Nat),
+          @LE.le.{0} Nat instLENat m₀ m →
+            @LT.lt.{0} Real Real.instLT (BlindA.claimedBound c m)
+              (@Nat.cast.{0} Real Real.instNatCast
+                (@BlindA.complexity Rat Rat.instField (Prod.{0, 0} (Fin m) (Fin m))
+                  (@HPow.hPow.{0, 0, 0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring) Nat
+                    (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                    (@instHPow.{0, 0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring) Nat
+                      (@NPow.toPow.{0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                        (@Monoid.toNPow.{0} (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                          (@Semiring.toMonoid.{0}
+                            (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                            (@AddMonoidAlgebra.semiring.{0, 0} Rat
+                              (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                                (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                              (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring)
+                              (@Finsupp.instAddMonoid.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat Nat.instAddMonoid))))))
+                    (@Finset.sum.{0, 0} (Fin m)
+                      (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                      (@AddMonoidAlgebra.instAddCommMonoid.{0, 0} Rat
+                        (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                          (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                        (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring))
+                      (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) =>
+                      @Finset.sum.{0, 0} (Fin m)
+                        (@MvPolynomial.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Rat Rat.commSemiring)
+                        (@AddMonoidAlgebra.instAddCommMonoid.{0, 0} Rat
+                          (@Finsupp.{0, 0} (Prod.{0, 0} (Fin m) (Fin m)) Nat
+                            (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass))
+                          (@CommSemiring.toSemiring.{0} Rat Rat.commSemiring))
+                        (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (j : Fin m) =>
+                        @MvPolynomial.X.{0, 0} Rat (Prod.{0, 0} (Fin m) (Fin m)) Rat.commSemiring
+                          (@Prod.mk.{0, 0} (Fin m) (Fin m) i j))
+                    m)))))

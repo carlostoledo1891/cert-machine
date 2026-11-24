@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 0.9s (index 0.0s), check 8.2s
+con-leche: stats: check pool: 8.272s wall, 8 workers, 60921 records, busy 66.011s (99.7%); tail 0.011s after the last start, 8 busy then, 0.014s worker-time in it (15.1%)
+con-leche: stats: slowest checks: 0.198s theorem Paper.thm_onecut._proof_1_46 (#53803); 0.174s theorem Paper.thm_onecut._proof_1_89 (#54974); 0.148s theorem Paper.thm_onecut._proof_1_90 (#54975); 0.147s theorem Paper.prop_approx_acc_round_num._proof_1_55 (#60401); 0.143s theorem Paper.thm_onecut._proof_1_91 (#54976)
+con-leche: stats: peak RSS 0.91 GiB
+con-leche: stats: phases: parse 9.3s (index 0.0s), check 0.7s
+con-leche: stats: check pool: 0.744s wall, 8 workers, 16168 records, busy 5.847s (98.1%); tail 0.011s after the last start, 8 busy then, 0.026s worker-time in it (29.0%)
+con-leche: stats: slowest checks: 0.039s theorem _private.Mathlib.Order.Interval.Finset.Nat.0.Nat.instLocallyFiniteOrder._proof_4 (#13097); 0.021s def Nat.div (#268); 0.020s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#16088); 0.018s theorem Lean.Grind.Linarith.Poly.combine._unary._proof_1 (#8691); 0.017s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#8844)
+con-leche: stats: peak RSS 0.91 GiB
+con-leche: invalid: axiom Solution.permanent_over_real is not justified by the solution: the solution's Solution.permanent_over_real has another type [at axiom Solution.permanent_over_real, fold position 16167] (--verified) t=10.1s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --jobs=8 --compare -- /data/cr/challenge-c1.ndjson /data/export.ndjson"
+	User time (seconds): 74.96
+	System time (seconds): 0.40
+	Percent of CPU this job got: 742%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 958088
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 122735
+	Voluntary context switches: 2398
+	Involuntary context switches: 955
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
