@@ -37,6 +37,15 @@ const PAGES = {
     quote: 'Rigor one click down (the "why you can trust this" layer); no commit links on the page; block heights are fine, hashes only one click down.',
     relayed: 'the control room\'s brief of 2026-11-23 for the live R(3,10) page, relaying the operator\'s decisions',
   },
+  /* the live VP ≠ VNP audit page (2026-11-23, public and listed). Its rigor is one click down, in its "why you can
+     trust this" layer, where every record, seal and script is listed with its hash; the operator chose the option in
+     the control room's dialog */
+  'vp-vnp/index.html': {
+    url: '/vp-vnp/',
+    ruled: '2026-11-23',
+    quote: 'Public and listed (Recommended)',
+    relayed: 'the operator\'s choice in the control room\'s dialog of 2026-11-23 ("How should the new /vp-vnp/ page go up tonight?"), with the brief\'s rule: rigor one click down, no hashes or commit links on the surface',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',

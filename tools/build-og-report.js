@@ -405,6 +405,25 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     } },
+  /* an ART card for /vp-vnp/ (2026-11-23, the live VP ≠ VNP audit): the page's rows without their words or states — one
+     solid block at the left, the release, and from it five lines to five bands of small hollow tiles, the phases (2, 10,
+     5, 2 and 4 rows), all one tone so the card never states a row's result (a card is not re-rendered at every build).
+     LIGHT theme, no number, no label. */
+  'vp-vnp': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · the VP ≠ VNP claim, in the open', path: '/vp-vnp/',
+    title: 'The VP ≠ VNP claim, checked in the open',
+    alt: 'One solid block at the left; from it, five lines to five bands of small hollow tiles, of two, ten, five, two and four tiles.',
+    svgRaw: (() => {
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="One solid block; five lines to five bands of hollow tiles" style="position:absolute;left:0;top:0">'];
+      const bands = [2, 10, 5, 2, 4], bx = 130, bw = 120, bh = 150, by = 240, tx = 400, tw = 52, th = 36, gx = 12, y0 = 150, dy = 72;
+      o.push('<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="6" fill="var(--ink)"/>');
+      bands.forEach((n, k) => {
+        const y = y0 + k * dy;
+        o.push('<path d="M' + (bx + bw) + ' ' + (by + bh / 2) + ' C' + (bx + bw + 70) + ' ' + (by + bh / 2) + ' ' + (tx - 80) + ' ' + (y + th / 2) + ' ' + (tx - 12) + ' ' + (y + th / 2) + '" fill="none" stroke="var(--ink-4)" stroke-width="1.6"/>');
+        for (let i = 0; i < n; i++) o.push('<rect x="' + (tx + i * (tw + gx)) + '" y="' + y + '" width="' + tw + '" height="' + th + '" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>');
+      });
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
      record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
      terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing

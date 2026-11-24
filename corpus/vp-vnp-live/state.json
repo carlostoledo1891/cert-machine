@@ -1,0 +1,347 @@
+{
+ "what": "The state of the VP ≠ VNP lane as the live page shows it, written by tools/vp-vnp-live-records.js from corpus/vp-vnp/status.json and checked against PREREG.md, the seals and the pinned README.",
+ "as_of": "2026-11-24T00:14Z",
+ "verdict": "OPEN",
+ "verdict_words": "nothing decided yet",
+ "ceiling_usd": 25,
+ "spent_usd": 0.2,
+ "target": {
+  "repo": "anthropics/formal-math",
+  "folder": "vp-vnp",
+  "commit": "918c8e2778aee18b0283dc5a33ed39ab3cd63a96",
+  "published_utc": "2026-11-23T20:04Z",
+  "files": 333,
+  "lean_files": 324,
+  "lean_lines": 72932,
+  "lean": "v4.33.1",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474"
+ },
+ "quotes": [
+  "The result was discovered by an internal research Claude model.",
+  "Both were written by AI models, and no human mathematician has checked the proof."
+ ],
+ "gaps": [
+  {
+   "id": "G1",
+   "text": "Whether the statement file says what the paper claims was judged by AI readers only; no machine checks it."
+  },
+  {
+   "id": "G2",
+   "text": "Remark N.6 (the permanent is not approximated by determinants of polynomial size) is the one numbered statement with no Lean theorem."
+  },
+  {
+   "id": "G3",
+   "text": "The release's own check runs two kernels (Lean's and nanoda) on one machine."
+  },
+  {
+   "id": "G4",
+   "text": "The proof gives no value for the size m₀ from which the bound holds."
+  },
+  {
+   "id": "G5",
+   "text": "The authors did not analyse relativization or algebrization."
+  },
+  {
+   "id": "G6",
+   "text": "No human mathematician has checked the development, the statement file or the proofs."
+  }
+ ],
+ "phases": [
+  {
+   "phase": 0,
+   "title": "Pin and seal",
+   "rows": [
+    {
+     "id": "PIN",
+     "title": "Pin the release: every file hashed at its commit",
+     "state": "passed",
+     "note": "333 files, 324 Lean files, 72,932 lines; Lean v4.33.1, Mathlib 0df444a3."
+    },
+    {
+     "id": "SEAL",
+     "title": "Pre-register the rows and the verdict rule, timestamped on Bitcoin, before any run",
+     "state": "passed",
+     "note": "Sealed 23:57 UTC on 23 Nov; first seal superseded within a minute (a date written ahead of the clock, deviation D0)."
+    }
+   ]
+  },
+  {
+   "phase": 1,
+   "title": "Does the proof check?",
+   "rows": [
+    {
+     "id": "K0",
+     "title": "Build the release; list its axioms; search for unsafe code",
+     "state": "running",
+     "note": "every file matched its pin; Mathlib fetched; building since 00:05 UTC"
+    },
+    {
+     "id": "K1",
+     "title": "The release's own check (Comparator, Lean's kernel, nanoda), at its own pins",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "K2",
+     "title": "nanoda at a second version",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "K3",
+     "title": "con-leche, a third independently written checker",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "KR",
+     "title": "Lean's own checker, replayed from scratch",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "CR",
+     "title": "A second machine that never ran the release's code",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "C1",
+     "title": "Control: one symbol changed in a statement must be refused",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "C2",
+     "title": "Control: a theorem re-typed as False must be refused",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "CEN",
+     "title": "Census: what the five theorems actually use",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "T3",
+     "title": "The paper's Table 3 checked against the Lean names",
+     "state": "pending",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "phase": 2,
+   "title": "Does the statement say VP ≠ VNP?",
+   "rows": [
+    {
+     "id": "F1",
+     "title": "Two blind statements, written from the textbooks without seeing the release's",
+     "state": "running",
+     "note": "both written without seeing the release's statement and sealed before elaboration: writer B (GPT-6.2-astra) 00:03 UTC, circuits as graphs; writer A (Claude) 00:12 UTC, straight-line programs. Next: elaborate them against the release's Lean and Mathlib."
+    },
+    {
+     "id": "F2",
+     "title": "Bridge: each blind statement proved from the release's theorems",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "F3",
+     "title": "Anchors: the statement is not vacuous and means circuits, not formulas",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "F4",
+     "title": "Red controls: planted false versions proved false",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "F5",
+     "title": "An adversarial reading of every definition",
+     "state": "running",
+     "note": "a separate Claude agent reading"
+    }
+   ]
+  },
+  {
+   "phase": 3,
+   "title": "The gap nobody filled",
+   "rows": [
+    {
+     "id": "N6",
+     "title": "Fill gap G2: the determinant's small circuits, then Remark N.6, in Lean",
+     "state": "pending",
+     "note": "after phase 2"
+    },
+    {
+     "id": "NC",
+     "title": "What the theorem says in numbers: the constant, and the missing m₀",
+     "state": "pending",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "phase": 4,
+   "title": "Readable by a person",
+   "rows": [
+    {
+     "id": "H1",
+     "title": "A proof map generated from the Lean, in plain words",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "H2",
+     "title": "The idea on one page",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "H3",
+     "title": "What the theorem does not say",
+     "state": "pending",
+     "note": ""
+    },
+    {
+     "id": "H4",
+     "title": "The trusted base",
+     "state": "pending",
+     "note": ""
+    }
+   ]
+  }
+ ],
+ "counts": {
+  "all": 23,
+  "passed": 2,
+  "running": 3,
+  "pending": 18,
+  "failed": 0,
+  "refused": 0,
+  "open": 0
+ },
+ "verdict_rule": "CERTIFIED (the formal claim, as the textbooks define it): K0, K1, K3, KR and CR pass, C1 and C2 are refused, F2 proves BOTH blind statements' five propositions with Comparator accepting our challenge, F3 holds, R1 is proved false, and every MATERIAL item of F5 is decided. Otherwise the verdict names the first failing row: REFUTED (a proved defect in meaning: the Lean is weaker than, vacuous for, or different from the English claim), REFUSED (a row could not be run within US$25 of pods or the time it needs), or OPEN (undecided, with the reason). What CERTIFIED would not say: that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions our statements use).",
+ "panel": [
+  {
+   "who": "Claude Opus 5.5 (Anthropic)",
+   "role": "control room: pins, seals, checkers, ledger, page; blind writer A; the adversarial reader; the bridges"
+  },
+  {
+   "who": "GPT-6.2-astra (OpenAI, in Codex)",
+   "role": "blind writer B"
+  },
+  {
+   "who": "Grok (xAI) and Gemini (Google)",
+   "role": "readings pasted by the operator; only checks someone else re-ran enter the ledger"
+  }
+ ],
+ "independence": "The claim was made by a Claude model and Claude models are on this panel. Independence here is by procedure: statements written without seeing the release's, checkers written by other people (Lean's kernel, nanoda, con-leche), one blind statement by a non-Anthropic model, and every rule sealed before the run.",
+ "seals": [
+  {
+   "id": "SEAL-0",
+   "what": "the pre-registration, the two briefs and the target's file hashes",
+   "stamped_utc": "2026-11-23T23:57Z",
+   "files": 5,
+   "file": "corpus/vp-vnp/SEAL-0.sha256",
+   "file_sha256": "4b3bfe42ddcaf0b4e5d85e728490d0b38d69efb496987464da5e9724e26d5ed8",
+   "ots": "corpus/vp-vnp/SEAL-0.sha256.ots",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-1B",
+   "what": "writer B's blind statement, before any elaboration",
+   "stamped_utc": "2026-11-24T00:03Z",
+   "files": 6,
+   "file": "corpus/vp-vnp/SEAL-1B.sha256",
+   "file_sha256": "980a27ad0881c608909b35ae46a486c58ed4849e33c18c02d259412ca9b053e0",
+   "ots": "corpus/vp-vnp/SEAL-1B.sha256.ots",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-1A",
+   "what": "writer A's blind statement, before any elaboration",
+   "stamped_utc": "2026-11-24T00:12Z",
+   "files": 2,
+   "file": "corpus/vp-vnp/SEAL-1A.sha256",
+   "file_sha256": "3286b1b4c754cb67033f0a4c5323136abfc15b8d67ff2b2c154c3c2888d3798f",
+   "ots": "corpus/vp-vnp/SEAL-1A.sha256.ots",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  }
+ ],
+ "sources": [
+  {
+   "file": "corpus/vp-vnp/status.json",
+   "sha256_12": "fa03d79fdd63"
+  },
+  {
+   "file": "corpus/vp-vnp/PREREG.md",
+   "sha256_12": "cbcb86d9dbd2"
+  },
+  {
+   "file": "corpus/vp-vnp/DEVIATIONS.md",
+   "sha256_12": "d30127c0a35c"
+  },
+  {
+   "file": "corpus/vp-vnp/target-SHA256SUMS",
+   "sha256_12": "9ca1036c1638"
+  },
+  {
+   "file": "corpus/vp-vnp/prompts/blind-writer.md",
+   "sha256_12": "7fa58ca73c16"
+  },
+  {
+   "file": "corpus/vp-vnp/prompts/adversarial-reader.md",
+   "sha256_12": "5f831c5fffcf"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-0.sha256",
+   "sha256_12": "4b3bfe42ddca"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-0.sha256.ots",
+   "sha256_12": "f4117c948903"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-1B.sha256",
+   "sha256_12": "980a27ad0881"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-1B.sha256.ots",
+   "sha256_12": "7d3c148d1e5c"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-1A.sha256",
+   "sha256_12": "3286b1b4c754"
+  },
+  {
+   "file": "corpus/vp-vnp/SEAL-1A.sha256.ots",
+   "sha256_12": "b96083ec1014"
+  }
+ ],
+ "scripts": [
+  {
+   "file": "tools/runpod-vp-vnp-p1.sh",
+   "sha256_12": "26794de91a97"
+  },
+  {
+   "file": "instruments/vp-vnp/census/Census.lean",
+   "sha256_12": "9d12b871b932"
+  },
+  {
+   "file": "instruments/vp-vnp/controls/C1.lean",
+   "sha256_12": "27556baa7b70"
+  },
+  {
+   "file": "instruments/vp-vnp/controls/c2.py",
+   "sha256_12": "bad5353cf3ea"
+  }
+ ]
+}
