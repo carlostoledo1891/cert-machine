@@ -134,3 +134,21 @@ rank, asymptotic rank). Their decisions, from the Phase 1 run (runs/p1/PROGRESS.
 The verdict rule's "every MATERIAL item of F4 is decided" is read as: every item has a decision — proved, proved in a
 weaker form, absent, or failed — and none is left undecided. Absent items are reported under G2 and G3 and do not enter
 what CERTIFIED says. F4 therefore passes with the decisions above.
+
+## A13 — 2026-11-25 09:11 UTC: Phase 4, the corollaries the release does not state (after the verdict; it does not change it)
+
+On the operator's word ("Yes, try it"), after the verdict CERTIFIED (VERDICT.md): an attempt to close gap G3 ourselves.
+Rows (outside the sealed verdict rule; the verdict stands whatever they find):
+- G3a  the per-n bound counting EVERY multiplication and division gate, stated by us (PerN.GatesPerNAll).
+- G3b  the paper's per-n bound in NONSCALAR gates, ⌈n^{9/4}/2⌉ at every n ≥ 2 over every field (PerN.GatesPerN).
+- G3c  the asymptotic rank of T_n over every field equals n^{9/4} (PerN.AsymptoticRank).
+- G3d  the geometric border rank of T_n ≥ n^{9/4} (PerN.BorderRankLower), if it can be stated faithfully in Mathlib.
+Procedure as F1/F2: a statement writer (a Claude agent, prompts/pern-writer.md) states them from the paper and the
+textbooks without seeing the release's Lean; the file is sealed (amendment) before it is first elaborated; a prover
+(a Claude agent, prompts/pern-prover.md) proves them from the release on a fresh pod; Comparator with our file as the
+challenge, Lean's kernel and nanoda, con-leche, a planted control refused. Words per row: PROVED (all three checkers),
+NOT PROVED (with the reason). Pod spend counts toward the US$50 ceiling (US$5.99 spent at the verdict).
+Also recorded: the exported proof (export.ndjson.zst, sha256 4731e942…) is published as a release asset of the public
+repository (tag omega-nine-fourths-export-2026-11-25), GitHub's digest equal to ours; the operator's choice.
+a9fd23bbf3fb30f4fd82546edcb070810f20ba604b96b986d2900ff782dbd4b0  prompts/pern-writer.md
+c3170c0c91086e89f794359ffca8f48a220b661eeac6cdc611416e8c4eab0839  prompts/pern-prover.md
