@@ -16,3 +16,14 @@ writer A, the adversarial reader, proof reader 1) and the provenance scout.
 c088065140ef09c1454fe8586da7250864cd62ba8141c760d0a1de117c17ff94  corpus/omega-nine-fourths/blind/B/TASK.md
 a9b46484f6d84a8429cc0881fd2571a2e286e774517eb7a57d23d71f844520a6  corpus/omega-nine-fourths/proof-readers/astra/TASK.md
 9b50eb44ff2824a5bcd53aefe43931c03c778ceac9ce786a9c4a2cc80db25fc9  corpus/omega-nine-fourths/proof-readers/astra/INPUTS.sha256
+
+## A4 — 2026-11-25 ~03:03 UTC: writer B's blind statement sealed before it is first elaborated
+
+GPT-6.2-astra (session 01a210a3-7b59-7033-b989-5ba7663b5857) ran 02:57:58–03:03:22 UTC, exit 0, and wrote four
+propositions in namespace BlindB (SquareExponent, DualExponent, RectangularExponent, SquareExponentWithDivision; its
+weights are rows / shared dimension / columns, so its alpha uses omega F 1 t 1). Its NOTES.md ends "I did not see the
+claimant's Lean statement". The files are kept unpublished until writer A's statement is sealed too (so neither writer
+can read the other's); their hashes are public now:
+c8723bbd5023915b32bfd6357e2ca4b3d4c5d5efd1a3aed1afc30a44b6f82007  blind/B/work/BlindB.lean
+9ecb5d112131a1568ba33045a168c60066d16b8a6f05910483525cb7df6f199d  blind/B/work/NOTES.md
+7886cd08fe80bbb0302b5fa52ac67d5a3b78c4c463d3dee673611054b6167101  blind/B/REPORT.md
