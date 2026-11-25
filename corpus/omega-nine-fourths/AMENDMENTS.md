@@ -45,3 +45,18 @@ A5's heading says "~03:06 UTC"; it was written ahead of the clock, which read 03
 The operator, after A5: "I mean from the post". His instruction concerned the wording of a draft X post, not the page.
 A5 is withdrawn: the page is built as PREREG.md says, gaps first. The neutral wording (no "hostile") is kept on the
 page as well. The control room misread the instruction; this line says so.
+
+## A6-c — 2026-11-25 03:05 UTC: a correction
+
+A6's heading says 03:06 UTC; the clock read 03:05:39 UTC when A6 was sealed (21 seconds ahead).
+
+## A7 — 2026-11-25 03:07 UTC: writer A's blind statement sealed; both blind statements published
+
+Writer A (a Claude agent) wrote BlindA.lean and NOTES.md (about 03:00–03:05 UTC; it read only the brief, its own
+folder and Mathlib at d13f23b7; no web). Four propositions in namespace BlindA: SquareExponent (division-free),
+SquareExponentWithDivision, DualExponent, RectangularExponent; its alphaDual follows the claim's words omega(F;1,1,t)
+in its order rows / inner / columns (so the OUTER dimension n^t), and NOTES names the swap for the textbook inner one.
+NOTES ends "I did not see the claimant's Lean statement". Hashes:
+a9535d53f70b9fd92fceb25925d0533d340c7c85fb7a124e5c6d588c52f94a45  blind/A/BlindA.lean
+e22cb9e95e4edf50237d423699445999ab8e22d72d5358873f3b2271c743ad92  blind/A/NOTES.md
+With both sealed (B in A4), both files are committed now, before either is first elaborated.
