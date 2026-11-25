@@ -85,11 +85,11 @@ K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. The clean pod 
 
 START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a new session". Control room: Claude
 Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
-First: `date -u`; list the pods (one may still run: the δ₃ CakeML replay, see the private block); `pmset -g batt`; disk.
+First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 21:2x UTC on 25 Nov after the CI job passed); `pmset -g batt`; disk.
 
   1. δ₃ IN HOL4 — public: github.com/carlostoledo1891/delta3-hol4 (CI green) and /delta3-hol4/. Layer 1 holds; the
      blind benchmark is scored (harness records local). A HOL4 pull request (HOL-Theorem-Prover/HOL#2228) is a draft
-     until its build in the fork is green; then mark it ready. Owed: the CakeML result into the README and the page; a
+     until its build in the fork is green; then mark it ready. The CakeML job passed on CI (82 min). Owed: say so in the README and the page; a
      shelf record certs/delta3-hol4.json.
   2. ω = 9/4 — CLOSED; the Zenodo draft (DOI 10.5281/zenodo.24537370) awaits the operator's Publish click; then put the
      DOI on /omega/ and in certs/omega-nine-fourths.json.
