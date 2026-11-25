@@ -596,6 +596,9 @@ group() {
 }
 ALL="setup DERISK I1 CHB B1 A1-grh EXP CTL S1 C3 KR D1-grh B2 A1-compact E1 D1-compact S2"   # amendment A3's order
 [ $# -ge 1 ] || { sed -n '2,40p' "$SELF"; exit 2; }
+# run() wraps every step in GNU time; the runpod image does not ship it (the first start, 23:34 UTC, exit 127)
+[ -x /usr/bin/time ] || { apt-get update -qq >/dev/null 2>&1; DEBIAN_FRONTEND=noninteractive apt-get install -y -qq time >/dev/null 2>&1; }
+[ -x /usr/bin/time ] || { echo "no /usr/bin/time and it could not be installed"; exit 2; }
 log "invoked: $* (pid $$; audit ${AUDIT_SHA:-unset}; deadline ${DEADLINE:-none}; script $(sha256sum "$SELF" | cut -c1-16))"
 for g in "$@"; do
   if [ "$g" = all ]; then for a in $ALL; do group $a; done; seal; else group "$g"; fi
