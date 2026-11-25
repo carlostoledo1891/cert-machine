@@ -44,6 +44,7 @@ const norm = (s) => String(s).replace(/\s+/g, ' ').trim();
 const J = (o) => JSON.stringify(o, null, 1) + '\n';
 const iso = (d, t) => d + 'T' + (t.length === 5 ? t + ':00' : t) + 'Z';
 const hm = (ms) => new Date(ms).toISOString().slice(11, 16) + ' UTC';
+const N3 = (n) => Number(n).toLocaleString('en-US');
 
 /* the rows, in the pre-registration's order, each with a title in plain words (the pre-registration's own wording of
    every row is one click down, in PREREG.md) */
@@ -71,8 +72,17 @@ const ROWS = [
   /* rows registered AFTER the seal, each by its amendment (with its brief sealed there), in a fourth band; outside the
      CERTIFIED rule unless the amendment says otherwise */
   ['X1', 4, 'Sun’s printed border-rank bound for 32 × 32 matrices, decided exactly', 'A10', 'prompts/sun-check.md'],
-].map(([id, phase, title, amendment, brief]) => ({ id, phase, title, amendment, brief }));
+  /* rows added AFTER THE VERDICT (Phase 4, amendment A13, which does not change it), in a fifth band: each of G3a–G3d is a
+     "- <id>" line of A13, whose body hashes the prover's brief; G3-CR, the clean-room replay, is the control room's
+     addition, standing in DEVIATIONS.md (its pod) and in the prover's log (its start) */
+  ['G3a', 5, 'The per-n bound counting every multiplication and division gate', null, 'prompts/pern-prover.md', 'A13'],
+  ['G3b', 5, 'The paper’s per-n bound in nonscalar gates: ⌈n^{9/4}/2⌉ at every n ≥ 2, over every field', null, 'prompts/pern-prover.md', 'A13'],
+  ['G3c', 5, 'The asymptotic rank of T_n over every field equals n^{9/4}', null, 'prompts/pern-prover.md', 'A13'],
+  ['G3d', 5, 'The geometric border rank of T_n is at least n^{9/4}', null, 'prompts/pern-prover.md', 'A13'],
+  ['G3-CR', 5, 'A clean-room replay of the Phase 4 proofs on a fresh machine that never ran the release’s code', null, null, null, { file: 'DEVIATIONS.md', needle: 'for the Phase 4 clean-room replay' }],
+].map(([id, phase, title, amendment, brief, listed, logged]) => ({ id, phase, title, amendment, brief, listed, logged }));
 const PHASE_AFTER = 'Added after the seal';
+const PHASE_VERDICT = 'Added after the verdict (amendment A13)';
 const CONTROLS = new Set(['C1', 'C2', 'C3']);
 const READ_ROWS = new Set(['P1', 'P2', 'U']);
 const STATES = ['passed', 'read', 'running', 'pending', 'failed', 'refused', 'open'];
@@ -135,7 +145,7 @@ function build(clock) {
   const PHASES = {};
   for (const m of rowsSec.matchAll(/^Phase (\d) — ([^(\n]+?)(?: \(|$)/gm)) PHASES[m[1]] = m[2].trim().replace(/^./, (c) => c.toUpperCase());
   for (const p of [1, 2, 3]) need(PHASES[p], 'PREREG.md has no Phase ' + p + ' in its Rows');
-  for (const r of ROWS.filter((x) => !x.amendment)) need(new RegExp('(^|[\\s(])' + r.id + '(\\s|$)', 'm').test(rowsSec), 'row ' + r.id + ' does not stand in PREREG.md’s Rows');
+  for (const r of ROWS.filter((x) => x.phase <= 3)) need(new RegExp('(^|[\\s(])' + r.id + '(\\s|$)', 'm').test(rowsSec), 'row ' + r.id + ' does not stand in PREREG.md’s Rows');
   /* the gaps, word for word */
   const gaps = gapsSec.split(/\n- (?=G\d+ )/).slice(1).map((g) => { const m = /^(G\d+) ([\s\S]+)$/.exec(g.trim()); need(m, 'a gap of PREREG.md is not "- Gn text"'); return { id: m[1], text: norm(m[2]) }; });
   need(gaps.length === 7 && gaps.every((g, i) => g.id === 'G' + (i + 1)), 'PREREG.md’s gaps are not G1–G7 in order');
@@ -242,6 +252,14 @@ function build(clock) {
     need(has(r.brief), 'the brief of row ' + r.id + ' is gone: ' + r.brief);
   }
   if (ROWS.some((x) => x.amendment)) PHASES[4] = PHASE_AFTER;
+  /* a row listed in an amendment's body ("- G3a  …"), with its brief hashed there; or one standing in a lane file */
+  for (const r of ROWS.filter((x) => x.listed)) {
+    const a = amendments.find((x) => x.id === r.listed);
+    need(a && new RegExp('^- ' + r.id + '\\s', 'm').test(a.body), 'row ' + r.id + ' is not listed in amendment ' + r.listed);
+    need(new RegExp('[0-9a-f]{64}\\s+' + r.brief.replace(/[.]/g, '\\.') + '\\b').test(a.body) && has(r.brief), 'amendment ' + r.listed + ' does not hash ' + r.brief + ', or it is gone');
+  }
+  for (const r of ROWS.filter((x) => x.logged)) need(norm(txt(r.logged.file)).includes(r.logged.needle), 'row ' + r.id + ' stands nowhere in ' + r.logged.file + ' ("' + r.logged.needle + '")');
+  if (ROWS.some((x) => x.phase === 5)) PHASES[5] = PHASE_VERDICT;
 
   /* ------------------------------------------------------------ the runs */
   function run(dir) {
@@ -256,7 +274,7 @@ function build(clock) {
 
   /* ------------------------------------------------------------ the progress lines */
   const progFiles = (has('runs') ? fs.readdirSync(path.join(LANE, 'runs')).filter((d) => has('runs/' + d + '/PROGRESS.md')).map((d) => 'runs/' + d + '/PROGRESS.md') : [])
-    .concat(['bridge/PROGRESS.md', 'PROGRESS.md'].filter((f) => has(f)));   /* bridge/: the bridge author's log (rows F2, F3; amendment A9) */
+    .concat(['bridge/PROGRESS.md', 'phase4/prover/PROGRESS.md', 'PROGRESS.md'].filter((f) => has(f)));   /* bridge/: the bridge author's log (rows F2, F3; amendment A9); phase4/prover/: the Phase 4 prover's (rows G3a–G3d, G3-CR; A13) */
   const progress = [];
   for (const f of progFiles) for (const l of txt(f).split('\n')) {
     const m = /^- (\d{4}-\d\d-\d\d) (\d\d:\d\d(?::\d\d)?) — (\S+)(?: (\S+))?(.*)$/.exec(l.trim());
@@ -267,7 +285,15 @@ function build(clock) {
     if (row && word === 'in' && /^ progress\b/.test(m[5])) word = 'running';   /* "K0 in progress" */
     progress.push({ file: LANE_REL + '/' + f, line: l.trim(), t, row: row ? row.id : null, word });
     /* a line that opens with something else ("run started …; K0 in progress.") may still name a row with its state */
-    if (!row) for (const r of ROWS) { const q = new RegExp('(?:^|[\\s;(])' + r.id + ' (in progress|started|passed|failed|stopped)\\b').exec(m[3] + (m[4] ? ' ' + m[4] : '') + m[5]); if (q) progress.push({ file: LANE_REL + '/' + f, line: l.trim(), t, row: r.id, word: q[1] === 'in progress' ? 'running' : q[1], echo: true }); }
+    /* a line that names several rows ("G3a passed; G3b passed; …") gives each its state: on a row's own line, only a
+       segment that opens with another row id after "; " counts */
+    for (const r of ROWS) {
+      if (row && r.id === row.id) continue;
+      /* on a row's own line the state word must close its segment (";", ":", " (" or the line's end), so a citation such
+         as "K0 passed per runs/p1/PROGRESS.md" is not read as an event */
+      const q = new RegExp(row ? '(?:^|;\\s)' + r.id + ' (started|running|passed|failed|stopped)(?=[;:]| \\(|\\.?$)' : '(?:^|[\\s;(])' + r.id + ' (in progress|started|passed|failed|stopped)\\b').exec(m[3] + (m[4] ? ' ' + m[4] : '') + m[5]);
+      if (q) progress.push({ file: LANE_REL + '/' + f, line: l.trim(), t, row: r.id, word: q[1] === 'in progress' ? 'running' : q[1], echo: true });
+    }
   }
   progress.sort((a, b) => a.t - b.t);
   const last = {};
@@ -323,6 +349,15 @@ function build(clock) {
       note = WORDS[L.state] + ' at ' + hm(L.t) + (r.phase === 1 && r.id !== 'CR' ? ' on the Phase 1 machine' : '') + '.' + (L.state === 'running' ? '' : '');
       if (r.id === 'F1' && L.state === 'running') note = WORDS.running + ' at ' + hm(L.t) + '.';
     }
+    if (r.phase === 5 && state === 'passed') {
+      const P4 = norm(txt('phase4/prover/PROGRESS.md'));
+      const say = (needles, words) => { for (const n of needles) need(P4.includes(n), 'phase4/prover/PROGRESS.md no longer says "' + n + '" (row ' + r.id + ')'); return words; };
+      note = 'Passed at ' + hm(last[r.id].t) + '. ' + (r.id === 'G3-CR'
+        ? say(['never ran the release\'s code, all 4 gates held', 'Checked 95337 declarations with no typechecker errors', 'all four theorems justified', 'refused, exit 1'],
+          'On a fresh machine that never ran the release’s code: nanoda (a second version) and con-leche accept the transferred export, con-leche justifies all four statements against the challenge exported there, and the planted challenge is refused.')
+        : say(['nanoda kernel accepts the solution', 'Lean default kernel accepts the solution', 'Your solution is okay!', 'justifies all four theorems', 'Const does not match between challenge and target', 'it refuses, exit 1'],
+          'Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.'));
+    }
     note = (note + devNote(r.id)).trim();
     /* the row's record, one click down on the final report: every log line that names it, and the files its state is read from */
     const files = { F1: ['blind/A/BlindA.lean', 'blind/A/NOTES.md', 'blind/B/work/BlindB.lean', 'blind/B/work/NOTES.md', 'blind/B/RUN.txt'], F4: ['reader/REPORT.md'],
@@ -347,6 +382,28 @@ function build(clock) {
     spent += Math.max(0, end - c) / 3600000 * p.usd_per_h;
   }
   const spent_usd = Math.floor(spent * 100) / 100;
+
+  /* ------------------------------------------------------------ Phase 4 (after the verdict) and the published exports */
+  const P5 = rows.filter((r) => r.phase === 5);
+  const pern = sealOf(/^phase4\/writer\/PerN\.lean$/);
+  const phase4 = P5.length ? {
+    amendment: 'A13', statements: { file: LANE_REL + '/phase4/writer/PerN.lean', sha256: has('phase4/writer/PerN.lean') ? sha(rd('phase4/writer/PerN.lean')) : null, sealed_by: pern },
+    rows: P5.map((r) => r.id), closes_g3: ['G3a', 'G3b', 'G3c', 'G3d', 'G3-CR'].every((id) => (P5.find((r) => r.id === id) || {}).state === 'passed') && !!pern
+  } : null;
+  /* the exported proofs, published as release assets (the operator's choice, A13): each name, size and sha256 must be the
+     one the lane recorded when the file came home, so a link never points at bytes the lane did not check */
+  const tag = (/tag (omega-nine-fourths-export-\d{4}-\d\d-\d\d)/.exec(norm(AM)) || [, null])[1];
+  const ASSETS = [
+    { name: 'export.ndjson.zst', what: 'the Phase 1 export of the three theorems', sha256: '4731e942060bb4d759f9cb77ef496794f5c30b5bd3b2fcace01c86cb19282ed5', bytes: 172572532, recorded_in: 'runs/p1/LARGE-FILES.txt', size_in: 'runs/p1/LARGE-FILES.txt' },
+    { name: 'phase4-export.ndjson.zst', what: 'the Phase 4 export of the four statements’ proofs', sha256: '0644a59535ac0822be9562a280875df71768762a5895b479333e823683b65284', bytes: 128599600, recorded_in: 'phase4/prover/pod-logs/work/exports/sol.ndjson.zst.sha256', size_in: 'phase4/prover/PROGRESS.md' }];
+  const exports = tag ? {
+    tag, url: 'https://github.com/carlostoledo1891/cert-machine/releases/tag/' + tag,
+    files: ASSETS.map((a) => {
+      need(has(a.recorded_in) && txt(a.recorded_in).includes(a.sha256), a.name + ': its sha256 is not the one recorded in ' + a.recorded_in);
+      need(norm(txt(a.size_in)).includes(N3(a.bytes) + ' bytes'), a.name + ': its size is not the one the lane logged in ' + a.size_in);
+      return Object.assign({}, a, { recorded_in: LANE_REL + '/' + a.recorded_in, size_in: LANE_REL + '/' + a.size_in, url: 'https://github.com/carlostoledo1891/cert-machine/releases/download/' + tag + '/' + a.name });
+    })
+  } : null;
 
   /* ------------------------------------------------------------ the verdict */
   /* the verdict is OPEN until the lane declares one in VERDICT.md: "VERDICT: <word>" on its first line, the reason after */
@@ -374,7 +431,7 @@ function build(clock) {
       { who: 'The Phase 1 runner, a Claude agent', role: 'builds and checks the proof on rented machines, every step logged (Phase 1)' },
       { who: 'The provenance scout', role: 'where the upper bound comes from and how the release was received, every fact with its source (U)' },
       { who: 'The control room, Claude Opus 5.5 (Anthropic), for Carlos Toledo', role: 'wrote and sealed the pre-registration and its amendments, and writes the records this page reads' }],
-    facts, scopes,
+    facts, scopes, phase4, exports,
     seals, amendments: amendments.map(({ id, day, approx, hm: h, title, body }) => ({ id, when: day + ' ' + (approx ? '~' : '') + h + ' UTC', title, correction: /-c$/.test(id) ? norm(body) : null })),
     progress: progress.filter((p) => !p.echo).map(({ file, line }) => ({ file, line })),
     sources: SOURCES.map((f) => ({ file: LANE_REL + '/' + f, sha256_12: sha(rd(f)).slice(0, 12) })),
@@ -404,11 +461,16 @@ function finalize(recs) {
     as_of: S.as_of, verdict: S.verdict, verdict_reason: S.verdict_reason, verdict_rule: S.verdict_rule,
     target: { repo: S.target.repo, commit: S.target.commit, committed_utc: S.target.committed, pinned: S.target.pinned },
     preregistration: { file: 'corpus/omega-nine-fourths/PREREG.md', sha256: sha(rd('PREREG.md')), seal: seal0.file, seal_sha256: seal0.file_sha256, stamped_utc: seal0.stamped_utc, ots_state: seal0.ots_state, bitcoin_block: seal0.bitcoin_block },
-    rows: S.phases.flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: p.phase, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))),
+    rows: S.phases.filter((p) => p.phase <= 4).flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: p.phase, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))),
     gaps: S.gaps, facts_after_pin: S.facts, corrections: L.corrections, deviations: L.deviations, amendments: L.amendments.map((a) => ({ id: a.id, when: a.when, title: a.title })),
     seals: S.seals.map((x) => ({ id: x.id, file: x.file, sha256: x.file_sha256, ots_state: x.ots_state, bitcoin_block: x.bitcoin_block })),
     spent_usd: S.spent_usd, ceiling_usd: S.ceiling_usd, records: ['corpus/omega-live/state.json', 'corpus/omega-live/ledger.json']
   };
+  /* Phase 4 (amendment A13), after the verdict, which it does not change: its own section, beside the fields above */
+  if (S.phase4) cert.phase4 = Object.assign({ what: 'After the verdict, which it does not change (amendment A13): the corollaries the release does not state (gap G3), stated by us without seeing the release’s Lean, sealed before elaboration (A14), and proved from the release’s theorems.' }, S.phase4,
+    { rows: S.phases.filter((p) => p.phase === 5).flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: 5, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))) });
+  if (S.exports) cert.exports = S.exports;
+  cert.pods = S.pods;
   return Object.assign({}, recs, { cert });
 }
 

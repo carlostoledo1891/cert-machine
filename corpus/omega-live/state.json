@@ -1,13 +1,13 @@
 {
  "what": "The state of the ω = 9/4 lane as the live page shows it, written by tools/omega-live-records.js from the lane’s files in corpus/omega-nine-fourths/ and checked against PREREG.md, the seals and the clock.",
- "as_of": "2026-11-25T06:06Z",
+ "as_of": "2026-11-25T10:42Z",
  "final": true,
  "verdict": "CERTIFIED",
  "verdict_declared": true,
  "verdict_reason": "Declared 2026-11-25 06:05 UTC by the control room under the sealed verdict rule (PREREG.md; amendments A8 and A12 fixed F2's and F4's scope before any verdict). Every row the rule names has the state it requires: K0, K1, K1N, K2, K3, KR and CR passed; C1, C2 and C3 were refused; F2 proves BOTH blind statements' propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent) with Comparator accepting our challenge, Lean's kernel and nanoda, and con-leche --compare justifying them; F3 holds (nine anchors, Comparator and con-leche); every MATERIAL item of F4 is decided (A12). What it says: the formal claim — over every field, the exponent of square matrix multiplication for division-free straight-line programs is 9/4, the dual exponent is 1/2, and the stated rectangular formula holds — is proved in Lean 4.34.1 / Mathlib d13f23b7 from the release at openai/math 92b516ef with only propext, Classical.choice and Quot.sound, checked by three independent kernels (Lean's, nanoda at two versions, con-leche), on a clean second machine, and its statement matches two statements written blind from the textbooks. What it does NOT say (PREREG.md, as sealed): that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use); the per-n bound ⌈n^{9/4}/2⌉ in nonscalar gates (proved only counting every multiplication), geometric border rank of T_n, or Corollary 1.3 per format (absent from the release); divisions beyond the square case. The square case with divisions IS proved (MatrixExponent.omega_eq), by Lean's kernel only through the statement reader's challenge and Comparator, and by both bridges. Outside the rule: P1 (two readings of the lower-bound proof: no counterexample; both name the imported list-distinctness bound as the first place to challenge), P2 (read), U (read), X1 (Sun's conflicting construction: NEEDS DATA, twice).",
  "verdict_words": "by the rule sealed before any run",
  "ceiling_usd": 50,
- "spent_usd": 5.99,
+ "spent_usd": 8.11,
  "pods": [
   {
    "id": "yfz653o1ck7ew9",
@@ -22,6 +22,20 @@
    "usd_per_h": 0.88,
    "created_utc": "2026-11-25T03:42:32Z",
    "ended_utc": "2026-11-25T04:08:00Z"
+  },
+  {
+   "id": "30uvwu2xeeknef",
+   "machine": "RunPod cpu3m 32 vCPU / 256 GB",
+   "usd_per_h": 1.76,
+   "created_utc": "2026-11-25T09:22:01Z",
+   "ended_utc": "2026-11-25T10:29:00Z"
+  },
+  {
+   "id": "cq6kgq4cw61uxt",
+   "machine": "RunPod cpu3m 16 vCPU / 128 GB",
+   "usd_per_h": 0.88,
+   "created_utc": "2026-11-25T10:25:53Z",
+   "ended_utc": "2026-11-25T10:37:00Z"
   }
  ],
  "target": {
@@ -162,6 +176,10 @@
      "evidence": [
       {
        "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+       "line": "- 2026-11-25 03:41 — K0 passed: `lake build` of the solution and challenge modules exit 0 (1,169 s, 9,516 jobs; 593 modules compiled here — the 592 OAI files of the closure + the challenge; Mathlib from its cache); warnings: 3 `sorry` (the challenge's three statements, l.107/118/123) + 1 linter warning (MatrixMultiplication/Model.lean:37, `eval.match_1` auxiliary); no error. `#print axioms`: all three theorems [propext, Classical.choice, Quot.sound]. Grep of the 11,279 sealed files: 2,707 lines, of them in OAI files 1 (a comment containing \"opaque\", MatrixExponent/Sphere/Proof/Accept.lean:416) and the lakefile's `unsafe evalConstCheck` (build script, not a declaration); Mathlib's closure includes two real `axiom` declarations in a tactic test file (Mathlib/Tactic/LinearCombinationPrime.lean:248–249, `qc`, `hqc`), not used (axioms above). Judges built at their pins. KR started (background); K1 running (landrun sandbox works on this pod)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
        "line": "- 2026-11-25 03:49 — K1 passed: Comparator d03acab1 (lean4export 076e8e57, landrun 811cfff5 sandboxing on this pod), MatrixExponent.json as released (nanoda off): exit 0 after 461 s, peak 8.4 GB, \"Lean default kernel accepts the solution / Your solution is okay!\". K1N running. CR pod vznibdp98fhl5c: setup started 03:49 UTC."
       }
      ]
@@ -220,6 +238,10 @@
      "state": "passed",
      "note": "Passed at 04:21 UTC on the Phase 1 machine.",
      "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+       "line": "- 2026-11-25 04:20 — CEN done (Census.lean, exit 0, 71 s): the import closure of the two modules is 11,337 modules / 3,238,563 lines (Mathlib 8,530 files; Lean core 1,835 incl. the implicit Init (D4); OAI 592 + the challenge; Batteries 192; Aesop 132; Qq 14; ProofWidgets 13; Plausible 13; ImportGraph 10; LeanSearchClient 4; Lake 1); no patched package and no patched file in it (the 27 patches touch 27 other packages). The three theorems reach 94,737 constants (32,843 in OAI modules) in 2,539 modules (Mathlib 1,855; OAI 532 of 592; core 139; Batteries 12; Aesop 1); axioms reached: propext, Classical.choice, Quot.sound only; 39 opaque constants reached, all Lean core / Mathlib irreducible_def wrappers. Statement base 2,329 constants; its OAI part is exactly the challenge's definitions (Gate, Program, MatrixAlgorithm, MatrixInput and their costs in OAI.LinearAlgebra.MatrixMultiplication.Model — the October subtree; gatePolynomial, registerPolynomial, FormalCorrect, wireDimension, FormalAdmissibleExponent, formalOmega, dualExponent, formalAlpha in SpectralBooks). Lean's own import list equals the script's closure (with implicit Init) module for module. F4 tests (p1x) running; KR running."
+      },
       {
        "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
        "line": "- 2026-11-25 04:21 — KR passed: `lake env leanchecker --fresh OAI.LinearAlgebra.SpectralBooks.ExactExponent` (the digest-checked v4.34.1 leanchecker; it replays every declaration of the module's import closure through Lean's kernel from scratch) exit 0 after 2,372 s (03:41:54–04:21:27 UTC), peak 9.5 GB, no output besides lake's notes on the 3 patched non-closure packages. All pre-registered Phase 1 rows are done (\"P1 DONE\" 04:21:38 UTC); the F4 additions are running."
@@ -505,11 +527,169 @@
      ]
     }
    ]
+  },
+  {
+   "phase": 5,
+   "title": "Added after the verdict (amendment A13)",
+   "rows": [
+    {
+     "id": "G3a",
+     "title": "The per-n bound counting every multiplication and division gate",
+     "state": "passed",
+     "note": "Passed at 10:25 UTC. Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:26 — G3a started; G3b started; G3c started; G3d started: brief (pern-prover.md c3170c0c…), PREREG, AMENDMENTS A13/A14, PerN.lean (71a4378d…, matches A14) and NOTES.md (5e01e83f…, matches A14) read; reader REPORT and T4 read; release files fetched read-only at 92b516ef into phase4/prover/inputs/rel/; own build of the release started on pod 30uvwu2xeeknef as the unprivileged user `prover` (/home/prover/work; toolchain v4.34.1 from GitHub's archive, digest 47bf4bbd… enforced; lake update, cache get, build of ExactExponent + the challenge, then the judges at the runner's pins)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:55 — G3a running; G3b running; G3c running; G3d running: own release build exit 0 (9,516 jobs; lake update exit 0, manifest unchanged; cache get exit 0; PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked); the sealed PerN.lean elaborates unchanged (no repair); own judges built at the runner's pins (Comparator d03acab1 + lean4export 076e8e57 — byte-identical binaries to the bridge author's — landrun 811cfff5, nanoda 3a240721); proofs written (src/PerNProof/Main.lean): G3c from tendsto_tensorRank_power_root + square_asymptoticRank_eq_rpow_formalOmega; G3d from asymptoticRank_le_geometricBorderRank (the release's geometric border rank IS the sealed Zariski-closure one); G3b by our own nonscalar Lemma 2.4 (the release's ratMixed derivative argument with scalar gates contributing nothing); G3a from G3b. Building PerNProof.Main."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:59 — G3a passed (build); G3b passed (build); G3c passed (build); G3d passed (build): PerNProof.Main built in the prover's copy of the release (lake build exit 0, 9,529 jobs; no warning from our files); #print axioms for PerN.gatesPerNAll_holds, PerN.gatesPerN_holds, PerN.asymptoticRank_holds, PerN.borderRankLower_holds = [propext, Classical.choice, Quot.sound]; grep of PerNProof/*.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Three tactic repairs of OUR proof file on the way (not of the sealed file): the two nsSet-membership steps (simp → unfold + rw Finset.mem_filter; `classical` added for its decidability instance) and a dead fallback removed in matMul_eq. Comparator (configs/PerN.json, nanoda on) running, then the planted twin."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:09 — G3a passed (Comparator); G3b passed (Comparator); G3c passed (Comparator); G3d passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/PerN.json (challenge PerNChallenges.PerN = the sealed PerN.lean byte for byte + four stubs; solution PerNProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 565 s, peak 8.4 GB. The planted twin (AsymptoticRank's `(9 : ℝ) / 4` → `(10 : ℝ) / 4`) running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:13 — G3a passed (control); G3b passed (control); G3c passed (control); G3d passed (control): Comparator on configs/PerNPlanted.json (the challenge with ONE constant changed, AsymptoticRank's infimum value `(9 : ℝ) / 4` → `(10 : ℝ) / 4`; same solution) refused it: \"uncaught exception: Const does not match between challenge and target 'PerN.AsymptoticRank'\", exit 1. con-leche 5ea446d5 (own build) next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:25 — G3a passed; G3b passed; G3c passed; G3d passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts the solution export (92,099 declarations; sol.ndjson sha256 7738050c…), and --verified --compare against the challenge export (chal.ndjson aa1667b4…) justifies all four theorems (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0; against the planted challenge (chalPlanted.ndjson 2e6179e0…) it refuses, exit 1: \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". Prover work complete; logs in phase4/prover/pod-logs/. The pod can be deleted (the control room's call)."
+      }
+     ]
+    },
+    {
+     "id": "G3b",
+     "title": "The paper’s per-n bound in nonscalar gates: ⌈n^{9/4}/2⌉ at every n ≥ 2, over every field",
+     "state": "passed",
+     "note": "Passed at 10:25 UTC. Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:26 — G3a started; G3b started; G3c started; G3d started: brief (pern-prover.md c3170c0c…), PREREG, AMENDMENTS A13/A14, PerN.lean (71a4378d…, matches A14) and NOTES.md (5e01e83f…, matches A14) read; reader REPORT and T4 read; release files fetched read-only at 92b516ef into phase4/prover/inputs/rel/; own build of the release started on pod 30uvwu2xeeknef as the unprivileged user `prover` (/home/prover/work; toolchain v4.34.1 from GitHub's archive, digest 47bf4bbd… enforced; lake update, cache get, build of ExactExponent + the challenge, then the judges at the runner's pins)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:55 — G3a running; G3b running; G3c running; G3d running: own release build exit 0 (9,516 jobs; lake update exit 0, manifest unchanged; cache get exit 0; PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked); the sealed PerN.lean elaborates unchanged (no repair); own judges built at the runner's pins (Comparator d03acab1 + lean4export 076e8e57 — byte-identical binaries to the bridge author's — landrun 811cfff5, nanoda 3a240721); proofs written (src/PerNProof/Main.lean): G3c from tendsto_tensorRank_power_root + square_asymptoticRank_eq_rpow_formalOmega; G3d from asymptoticRank_le_geometricBorderRank (the release's geometric border rank IS the sealed Zariski-closure one); G3b by our own nonscalar Lemma 2.4 (the release's ratMixed derivative argument with scalar gates contributing nothing); G3a from G3b. Building PerNProof.Main."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:59 — G3a passed (build); G3b passed (build); G3c passed (build); G3d passed (build): PerNProof.Main built in the prover's copy of the release (lake build exit 0, 9,529 jobs; no warning from our files); #print axioms for PerN.gatesPerNAll_holds, PerN.gatesPerN_holds, PerN.asymptoticRank_holds, PerN.borderRankLower_holds = [propext, Classical.choice, Quot.sound]; grep of PerNProof/*.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Three tactic repairs of OUR proof file on the way (not of the sealed file): the two nsSet-membership steps (simp → unfold + rw Finset.mem_filter; `classical` added for its decidability instance) and a dead fallback removed in matMul_eq. Comparator (configs/PerN.json, nanoda on) running, then the planted twin."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:09 — G3a passed (Comparator); G3b passed (Comparator); G3c passed (Comparator); G3d passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/PerN.json (challenge PerNChallenges.PerN = the sealed PerN.lean byte for byte + four stubs; solution PerNProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 565 s, peak 8.4 GB. The planted twin (AsymptoticRank's `(9 : ℝ) / 4` → `(10 : ℝ) / 4`) running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:13 — G3a passed (control); G3b passed (control); G3c passed (control); G3d passed (control): Comparator on configs/PerNPlanted.json (the challenge with ONE constant changed, AsymptoticRank's infimum value `(9 : ℝ) / 4` → `(10 : ℝ) / 4`; same solution) refused it: \"uncaught exception: Const does not match between challenge and target 'PerN.AsymptoticRank'\", exit 1. con-leche 5ea446d5 (own build) next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:25 — G3a passed; G3b passed; G3c passed; G3d passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts the solution export (92,099 declarations; sol.ndjson sha256 7738050c…), and --verified --compare against the challenge export (chal.ndjson aa1667b4…) justifies all four theorems (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0; against the planted challenge (chalPlanted.ndjson 2e6179e0…) it refuses, exit 1: \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". Prover work complete; logs in phase4/prover/pod-logs/. The pod can be deleted (the control room's call)."
+      }
+     ]
+    },
+    {
+     "id": "G3c",
+     "title": "The asymptotic rank of T_n over every field equals n^{9/4}",
+     "state": "passed",
+     "note": "Passed at 10:25 UTC. Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:26 — G3a started; G3b started; G3c started; G3d started: brief (pern-prover.md c3170c0c…), PREREG, AMENDMENTS A13/A14, PerN.lean (71a4378d…, matches A14) and NOTES.md (5e01e83f…, matches A14) read; reader REPORT and T4 read; release files fetched read-only at 92b516ef into phase4/prover/inputs/rel/; own build of the release started on pod 30uvwu2xeeknef as the unprivileged user `prover` (/home/prover/work; toolchain v4.34.1 from GitHub's archive, digest 47bf4bbd… enforced; lake update, cache get, build of ExactExponent + the challenge, then the judges at the runner's pins)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:55 — G3a running; G3b running; G3c running; G3d running: own release build exit 0 (9,516 jobs; lake update exit 0, manifest unchanged; cache get exit 0; PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked); the sealed PerN.lean elaborates unchanged (no repair); own judges built at the runner's pins (Comparator d03acab1 + lean4export 076e8e57 — byte-identical binaries to the bridge author's — landrun 811cfff5, nanoda 3a240721); proofs written (src/PerNProof/Main.lean): G3c from tendsto_tensorRank_power_root + square_asymptoticRank_eq_rpow_formalOmega; G3d from asymptoticRank_le_geometricBorderRank (the release's geometric border rank IS the sealed Zariski-closure one); G3b by our own nonscalar Lemma 2.4 (the release's ratMixed derivative argument with scalar gates contributing nothing); G3a from G3b. Building PerNProof.Main."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:59 — G3a passed (build); G3b passed (build); G3c passed (build); G3d passed (build): PerNProof.Main built in the prover's copy of the release (lake build exit 0, 9,529 jobs; no warning from our files); #print axioms for PerN.gatesPerNAll_holds, PerN.gatesPerN_holds, PerN.asymptoticRank_holds, PerN.borderRankLower_holds = [propext, Classical.choice, Quot.sound]; grep of PerNProof/*.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Three tactic repairs of OUR proof file on the way (not of the sealed file): the two nsSet-membership steps (simp → unfold + rw Finset.mem_filter; `classical` added for its decidability instance) and a dead fallback removed in matMul_eq. Comparator (configs/PerN.json, nanoda on) running, then the planted twin."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:09 — G3a passed (Comparator); G3b passed (Comparator); G3c passed (Comparator); G3d passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/PerN.json (challenge PerNChallenges.PerN = the sealed PerN.lean byte for byte + four stubs; solution PerNProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 565 s, peak 8.4 GB. The planted twin (AsymptoticRank's `(9 : ℝ) / 4` → `(10 : ℝ) / 4`) running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:13 — G3a passed (control); G3b passed (control); G3c passed (control); G3d passed (control): Comparator on configs/PerNPlanted.json (the challenge with ONE constant changed, AsymptoticRank's infimum value `(9 : ℝ) / 4` → `(10 : ℝ) / 4`; same solution) refused it: \"uncaught exception: Const does not match between challenge and target 'PerN.AsymptoticRank'\", exit 1. con-leche 5ea446d5 (own build) next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:25 — G3a passed; G3b passed; G3c passed; G3d passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts the solution export (92,099 declarations; sol.ndjson sha256 7738050c…), and --verified --compare against the challenge export (chal.ndjson aa1667b4…) justifies all four theorems (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0; against the planted challenge (chalPlanted.ndjson 2e6179e0…) it refuses, exit 1: \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". Prover work complete; logs in phase4/prover/pod-logs/. The pod can be deleted (the control room's call)."
+      }
+     ]
+    },
+    {
+     "id": "G3d",
+     "title": "The geometric border rank of T_n is at least n^{9/4}",
+     "state": "passed",
+     "note": "Passed at 10:25 UTC. Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:26 — G3a started; G3b started; G3c started; G3d started: brief (pern-prover.md c3170c0c…), PREREG, AMENDMENTS A13/A14, PerN.lean (71a4378d…, matches A14) and NOTES.md (5e01e83f…, matches A14) read; reader REPORT and T4 read; release files fetched read-only at 92b516ef into phase4/prover/inputs/rel/; own build of the release started on pod 30uvwu2xeeknef as the unprivileged user `prover` (/home/prover/work; toolchain v4.34.1 from GitHub's archive, digest 47bf4bbd… enforced; lake update, cache get, build of ExactExponent + the challenge, then the judges at the runner's pins)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:55 — G3a running; G3b running; G3c running; G3d running: own release build exit 0 (9,516 jobs; lake update exit 0, manifest unchanged; cache get exit 0; PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked); the sealed PerN.lean elaborates unchanged (no repair); own judges built at the runner's pins (Comparator d03acab1 + lean4export 076e8e57 — byte-identical binaries to the bridge author's — landrun 811cfff5, nanoda 3a240721); proofs written (src/PerNProof/Main.lean): G3c from tendsto_tensorRank_power_root + square_asymptoticRank_eq_rpow_formalOmega; G3d from asymptoticRank_le_geometricBorderRank (the release's geometric border rank IS the sealed Zariski-closure one); G3b by our own nonscalar Lemma 2.4 (the release's ratMixed derivative argument with scalar gates contributing nothing); G3a from G3b. Building PerNProof.Main."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 09:59 — G3a passed (build); G3b passed (build); G3c passed (build); G3d passed (build): PerNProof.Main built in the prover's copy of the release (lake build exit 0, 9,529 jobs; no warning from our files); #print axioms for PerN.gatesPerNAll_holds, PerN.gatesPerN_holds, PerN.asymptoticRank_holds, PerN.borderRankLower_holds = [propext, Classical.choice, Quot.sound]; grep of PerNProof/*.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Three tactic repairs of OUR proof file on the way (not of the sealed file): the two nsSet-membership steps (simp → unfold + rw Finset.mem_filter; `classical` added for its decidability instance) and a dead fallback removed in matMul_eq. Comparator (configs/PerN.json, nanoda on) running, then the planted twin."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:09 — G3a passed (Comparator); G3b passed (Comparator); G3c passed (Comparator); G3d passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/PerN.json (challenge PerNChallenges.PerN = the sealed PerN.lean byte for byte + four stubs; solution PerNProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 565 s, peak 8.4 GB. The planted twin (AsymptoticRank's `(9 : ℝ) / 4` → `(10 : ℝ) / 4`) running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:13 — G3a passed (control); G3b passed (control); G3c passed (control); G3d passed (control): Comparator on configs/PerNPlanted.json (the challenge with ONE constant changed, AsymptoticRank's infimum value `(9 : ℝ) / 4` → `(10 : ℝ) / 4`; same solution) refused it: \"uncaught exception: Const does not match between challenge and target 'PerN.AsymptoticRank'\", exit 1. con-leche 5ea446d5 (own build) next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:25 — G3a passed; G3b passed; G3c passed; G3d passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts the solution export (92,099 declarations; sol.ndjson sha256 7738050c…), and --verified --compare against the challenge export (chal.ndjson aa1667b4…) justifies all four theorems (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0; against the planted challenge (chalPlanted.ndjson 2e6179e0…) it refuses, exit 1: \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". Prover work complete; logs in phase4/prover/pod-logs/. The pod can be deleted (the control room's call)."
+      }
+     ]
+    },
+    {
+     "id": "G3-CR",
+     "title": "A clean-room replay of the Phase 4 proofs on a fresh machine that never ran the release’s code",
+     "state": "passed",
+     "note": "Passed at 10:37 UTC. On a fresh machine that never ran the release’s code: nanoda (a second version) and con-leche accept the transferred export, con-leche justifies all four statements against the challenge exported there, and the planted challenge is refused.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:28 — G3-CR started: the control room's go (clean-room replay, as Phase 1's CR). On the Phase 4 pod, sol.ndjson (sha256 7738050c…, 1,207,465,262 bytes) is being compressed with zstd for the transfer. On the CR pod cq6kgq4cw61uxt (16 vCPU / 128 GB, EU-RO-1), which never clones or runs the release's code: scripts/cr-g3.sh setup (sha256 b6cc238b…) started — our two challenge files uploaded and checked (244b7227…, 631829ee…; first 13,624 bytes = the sealed PerN.lean 71a4378d…), Lean v4.34.1 from the digest-checked archive, lean4export 076e8e57, nanoda d0a02cc5 (the second pin) and con-leche 5ea446d5 from source, Mathlib d13f23b7 cache only, the two challenges built and exported there."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:29 — G3-CR running: the Phase 4 pod's export is safely on the Mac (scratch folder, not the repo): sol.ndjson.zst (zstd -19 --long=27, 128,599,600 bytes, sha256 0644a595…) copied, its sha256 equal on both ends, and decompressed on the Mac it hashes to 7738050c… (the solution export con-leche and Comparator checked on the Phase 4 pod). Both digests kept in pod-logs/work/exports/ (sol.ndjson.sha256, sol.ndjson.zst.sha256, challenges.sha256). The Phase 4 pod is no longer needed."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:35 — G3-CR running: CR setup done on cq6kgq4cw61uxt (never cloned openai/math; the workspace holds only Mathlib d13f23b7 from the cache and its own dependencies): toolchain digest enforced; judges built at their pins (lean4export 076e8e57 8c5d64ba… and con-leche 5ea446d5 f38aae26…, both byte-identical to the Phase 4 pod's builds; nanoda d0a02cc5 b96771e2…); the two challenges built (only the four stubs' `sorry` warnings) and exported here — challenge.ndjson aa1667b4… and challenge-planted.ndjson 2e6179e0…, byte-identical to the Phase 4 pod's exports. The transferred export decompressed there to 1,207,465,262 bytes with sha256 7738050c… (the recorded digest). nanoda d0a02cc5 on it running, then con-leche --verified, --compare, and the planted control."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+       "line": "- 2026-11-25 10:37 — G3-CR passed: on the CR pod, which never ran the release's code, all 4 gates held (scripts/cr-g3.sh check). (1) nanoda d0a02cc5 (16 threads) on the transferred export: exit 0 after 27 s, \"Checked 95337 declarations with no typechecker errors\", plus the same one pretty-printer note (\"Unable to print axioms\") as Phase 1's K2. (2) con-leche 5ea446d5 --verified: \"accepted 92099 declarations\", exit 0. (3) con-leche --verified --compare against the challenge exported THERE from the sealed PerN.lean + the four stubs: all four theorems justified (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0. (4) The planted challenge, made and exported there: refused, exit 1, \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". The challenge exports there are byte-identical to the Phase 4 pod's (aa1667b4…, 2e6179e0…). Logs in pod-logs/cr/. The CR pod can be deleted (the control room's call)."
+      }
+     ]
+    }
+   ]
   }
  ],
  "counts": {
-  "all": 21,
-  "passed": 17,
+  "all": 26,
+  "passed": 22,
   "read": 3,
   "running": 0,
   "pending": 0,
@@ -589,6 +769,46 @@
    "text": "the writers were asked for a with-division proposition, which the challenge does not claim. CERTIFIED's F2 condition covers the propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent). Each writer's SquareExponentWithDivision is attempted from any theorem of the release (N2 included) and reported proved or not, with the reason, under G2; it does not decide the verdict."
   }
  ],
+ "phase4": {
+  "amendment": "A13",
+  "statements": {
+   "file": "corpus/omega-nine-fourths/phase4/writer/PerN.lean",
+   "sha256": "71a4378ddf537461ed70a35916ea7f283072a7a8fd3500a3800b13ad6d9daac3",
+   "sealed_by": "SEAL-A14"
+  },
+  "rows": [
+   "G3a",
+   "G3b",
+   "G3c",
+   "G3d",
+   "G3-CR"
+  ],
+  "closes_g3": true
+ },
+ "exports": {
+  "tag": "omega-nine-fourths-export-2026-11-25",
+  "url": "https://github.com/carlostoledo1891/cert-machine/releases/tag/omega-nine-fourths-export-2026-11-25",
+  "files": [
+   {
+    "name": "export.ndjson.zst",
+    "what": "the Phase 1 export of the three theorems",
+    "sha256": "4731e942060bb4d759f9cb77ef496794f5c30b5bd3b2fcace01c86cb19282ed5",
+    "bytes": 172572532,
+    "recorded_in": "corpus/omega-nine-fourths/runs/p1/LARGE-FILES.txt",
+    "size_in": "corpus/omega-nine-fourths/runs/p1/LARGE-FILES.txt",
+    "url": "https://github.com/carlostoledo1891/cert-machine/releases/download/omega-nine-fourths-export-2026-11-25/export.ndjson.zst"
+   },
+   {
+    "name": "phase4-export.ndjson.zst",
+    "what": "the Phase 4 export of the four statements’ proofs",
+    "sha256": "0644a59535ac0822be9562a280875df71768762a5895b479333e823683b65284",
+    "bytes": 128599600,
+    "recorded_in": "corpus/omega-nine-fourths/phase4/prover/pod-logs/work/exports/sol.ndjson.zst.sha256",
+    "size_in": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+    "url": "https://github.com/carlostoledo1891/cert-machine/releases/download/omega-nine-fourths-export-2026-11-25/phase4-export.ndjson.zst"
+   }
+  ]
+ },
  "seals": [
   {
    "id": "SEAL-0",
@@ -769,6 +989,30 @@
    "file_sha256": "28164d2699635d8200b406ba485118ecb7d39f7d2a5d76702e9d05679789f9cb",
    "ots_state": "pending",
    "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A13",
+   "amendment": "A13",
+   "what": "Phase 4, the corollaries the release does not state (after the verdict; it does not change it)",
+   "stamped_utc": "2026-11-25T09:11:00Z",
+   "stamped_approx": false,
+   "files": 4,
+   "file": "corpus/omega-nine-fourths/SEAL-A13.sha256",
+   "file_sha256": "b84a6491d2fa20861225ac6f5f8d52f7fb173df8f17c10cbe43d9c4adbfa238f",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A14",
+   "amendment": "A14",
+   "what": "the Phase 4 statements sealed before they are first elaborated",
+   "stamped_utc": "2026-11-25T09:21:00Z",
+   "stamped_approx": false,
+   "files": 3,
+   "file": "corpus/omega-nine-fourths/SEAL-A14.sha256",
+   "file_sha256": "4f7d2fa3b31fb2ddc7e0605eb8e6b646cdea0f3bd56dd98515fca0ff8f3bc201",
+   "ots_state": "pending",
+   "bitcoin_block": null
   }
  ],
  "amendments": [
@@ -854,6 +1098,18 @@
    "id": "A12",
    "when": "2026-11-25 05:00 UTC",
    "title": "how F4's items are decided (written before any verdict, after the F4 tests ran)",
+   "correction": null
+  },
+  {
+   "id": "A13",
+   "when": "2026-11-25 09:11 UTC",
+   "title": "Phase 4, the corollaries the release does not state (after the verdict; it does not change it)",
+   "correction": null
+  },
+  {
+   "id": "A14",
+   "when": "2026-11-25 09:21 UTC",
+   "title": "the Phase 4 statements sealed before they are first elaborated",
    "correction": null
   }
  ],
@@ -1025,6 +1281,46 @@
   {
    "file": "corpus/omega-nine-fourths/PROGRESS.md",
    "line": "- 2026-11-25 06:05 — P2 read: settled from the census and the statement reader's tests (A12): divisions — the square exponent with division gates is proved on the route (MatrixExponent.omega_eq) and both writers' with-division propositions are bridged from it; the per-n gate count is proved only counting every multiplication (the paper's nonscalar count is absent); asymptotic rank n^{9/4} is proved on the route; geometric border rank and Corollary 1.3 per format are absent from the release."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 09:26 — G3a started; G3b started; G3c started; G3d started: brief (pern-prover.md c3170c0c…), PREREG, AMENDMENTS A13/A14, PerN.lean (71a4378d…, matches A14) and NOTES.md (5e01e83f…, matches A14) read; reader REPORT and T4 read; release files fetched read-only at 92b516ef into phase4/prover/inputs/rel/; own build of the release started on pod 30uvwu2xeeknef as the unprivileged user `prover` (/home/prover/work; toolchain v4.34.1 from GitHub's archive, digest 47bf4bbd… enforced; lake update, cache get, build of ExactExponent + the challenge, then the judges at the runner's pins)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 09:55 — G3a running; G3b running; G3c running; G3d running: own release build exit 0 (9,516 jobs; lake update exit 0, manifest unchanged; cache get exit 0; PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked); the sealed PerN.lean elaborates unchanged (no repair); own judges built at the runner's pins (Comparator d03acab1 + lean4export 076e8e57 — byte-identical binaries to the bridge author's — landrun 811cfff5, nanoda 3a240721); proofs written (src/PerNProof/Main.lean): G3c from tendsto_tensorRank_power_root + square_asymptoticRank_eq_rpow_formalOmega; G3d from asymptoticRank_le_geometricBorderRank (the release's geometric border rank IS the sealed Zariski-closure one); G3b by our own nonscalar Lemma 2.4 (the release's ratMixed derivative argument with scalar gates contributing nothing); G3a from G3b. Building PerNProof.Main."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 09:59 — G3a passed (build); G3b passed (build); G3c passed (build); G3d passed (build): PerNProof.Main built in the prover's copy of the release (lake build exit 0, 9,529 jobs; no warning from our files); #print axioms for PerN.gatesPerNAll_holds, PerN.gatesPerN_holds, PerN.asymptoticRank_holds, PerN.borderRankLower_holds = [propext, Classical.choice, Quot.sound]; grep of PerNProof/*.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Three tactic repairs of OUR proof file on the way (not of the sealed file): the two nsSet-membership steps (simp → unfold + rw Finset.mem_filter; `classical` added for its decidability instance) and a dead fallback removed in matMul_eq. Comparator (configs/PerN.json, nanoda on) running, then the planted twin."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:09 — G3a passed (Comparator); G3b passed (Comparator); G3c passed (Comparator); G3d passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/PerN.json (challenge PerNChallenges.PerN = the sealed PerN.lean byte for byte + four stubs; solution PerNProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 565 s, peak 8.4 GB. The planted twin (AsymptoticRank's `(9 : ℝ) / 4` → `(10 : ℝ) / 4`) running."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:13 — G3a passed (control); G3b passed (control); G3c passed (control); G3d passed (control): Comparator on configs/PerNPlanted.json (the challenge with ONE constant changed, AsymptoticRank's infimum value `(9 : ℝ) / 4` → `(10 : ℝ) / 4`; same solution) refused it: \"uncaught exception: Const does not match between challenge and target 'PerN.AsymptoticRank'\", exit 1. con-leche 5ea446d5 (own build) next."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:25 — G3a passed; G3b passed; G3c passed; G3d passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts the solution export (92,099 declarations; sol.ndjson sha256 7738050c…), and --verified --compare against the challenge export (chal.ndjson aa1667b4…) justifies all four theorems (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0; against the planted challenge (chalPlanted.ndjson 2e6179e0…) it refuses, exit 1: \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". Prover work complete; logs in phase4/prover/pod-logs/. The pod can be deleted (the control room's call)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:28 — G3-CR started: the control room's go (clean-room replay, as Phase 1's CR). On the Phase 4 pod, sol.ndjson (sha256 7738050c…, 1,207,465,262 bytes) is being compressed with zstd for the transfer. On the CR pod cq6kgq4cw61uxt (16 vCPU / 128 GB, EU-RO-1), which never clones or runs the release's code: scripts/cr-g3.sh setup (sha256 b6cc238b…) started — our two challenge files uploaded and checked (244b7227…, 631829ee…; first 13,624 bytes = the sealed PerN.lean 71a4378d…), Lean v4.34.1 from the digest-checked archive, lean4export 076e8e57, nanoda d0a02cc5 (the second pin) and con-leche 5ea446d5 from source, Mathlib d13f23b7 cache only, the two challenges built and exported there."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:29 — G3-CR running: the Phase 4 pod's export is safely on the Mac (scratch folder, not the repo): sol.ndjson.zst (zstd -19 --long=27, 128,599,600 bytes, sha256 0644a595…) copied, its sha256 equal on both ends, and decompressed on the Mac it hashes to 7738050c… (the solution export con-leche and Comparator checked on the Phase 4 pod). Both digests kept in pod-logs/work/exports/ (sol.ndjson.sha256, sol.ndjson.zst.sha256, challenges.sha256). The Phase 4 pod is no longer needed."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:35 — G3-CR running: CR setup done on cq6kgq4cw61uxt (never cloned openai/math; the workspace holds only Mathlib d13f23b7 from the cache and its own dependencies): toolchain digest enforced; judges built at their pins (lean4export 076e8e57 8c5d64ba… and con-leche 5ea446d5 f38aae26…, both byte-identical to the Phase 4 pod's builds; nanoda d0a02cc5 b96771e2…); the two challenges built (only the four stubs' `sorry` warnings) and exported here — challenge.ndjson aa1667b4… and challenge-planted.ndjson 2e6179e0…, byte-identical to the Phase 4 pod's exports. The transferred export decompressed there to 1,207,465,262 bytes with sha256 7738050c… (the recorded digest). nanoda d0a02cc5 on it running, then con-leche --verified, --compare, and the planted control."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "line": "- 2026-11-25 10:37 — G3-CR passed: on the CR pod, which never ran the release's code, all 4 gates held (scripts/cr-g3.sh check). (1) nanoda d0a02cc5 (16 threads) on the transferred export: exit 0 after 27 s, \"Checked 95337 declarations with no typechecker errors\", plus the same one pretty-printer note (\"Unable to print axioms\") as Phase 1's K2. (2) con-leche 5ea446d5 --verified: \"accepted 92099 declarations\", exit 0. (3) con-leche --verified --compare against the challenge exported THERE from the sealed PerN.lean + the four stubs: all four theorems justified (gatesPerNAll_holds, gatesPerN_holds, asymptoticRank_holds, borderRankLower_holds), exit 0. (4) The planted challenge, made and exported there: refused, exit 1, \"axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike\". The challenge exports there are byte-identical to the Phase 4 pod's (aa1667b4…, 2e6179e0…). Logs in pod-logs/cr/. The CR pod can be deleted (the control room's call)."
   }
  ],
  "sources": [
@@ -1034,11 +1330,11 @@
   },
   {
    "file": "corpus/omega-nine-fourths/AMENDMENTS.md",
-   "sha256_12": "20b937ff9682"
+   "sha256_12": "d318c8cabc1f"
   },
   {
    "file": "corpus/omega-nine-fourths/DEVIATIONS.md",
-   "sha256_12": "3209e326f3cb"
+   "sha256_12": "d92549d1230e"
   },
   {
    "file": "corpus/omega-nine-fourths/prompts/blind-writer.md",
@@ -1091,6 +1387,10 @@
   {
    "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
    "sha256_12": "127243ce0b14"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
+   "sha256_12": "b95e45f84b07"
   },
   {
    "file": "corpus/omega-nine-fourths/PROGRESS.md",
@@ -1215,6 +1515,22 @@
   {
    "file": "corpus/omega-nine-fourths/SEAL-A12.sha256.ots",
    "sha256_12": "2f68739c39c5"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A13.sha256",
+   "sha256_12": "b84a6491d2fa"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A13.sha256.ots",
+   "sha256_12": "575622dc968b"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A14.sha256",
+   "sha256_12": "4f7d2fa3b31f"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A14.sha256.ots",
+   "sha256_12": "25f7591b157d"
   }
  ],
  "scripts": [

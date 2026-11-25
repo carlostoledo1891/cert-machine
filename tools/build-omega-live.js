@@ -52,6 +52,8 @@ const utc = (iso) => iso.replace('T', ' ').replace(/^(\S+ \d\d:\d\d)(:\d\d)?Z$/,
 /* backticked words of the pre-registration, set as code; everything else escaped */
 const tick = (s) => C.breakable(s).replace(/`([^`]+)`/g, '<span class="m">$1</span>');   /* breakable: a long path in a ledger entry wraps at its slashes instead of widening a phone's page */
 /* no hash on the surface (design/marketing.js): the release's commit is "the pinned commit", any other hash is one click down */
+/* a full digest may break every 16 hex digits, so it wraps inside a phone's column instead of widening it */
+const hexwrap = (h) => esc(h).replace(/([0-9a-f]{16})(?=[0-9a-f])/g, '$1<wbr>');
 const unhash = (s) => s.split(S.target.commit).join('the pinned commit').split(S.target.commit.slice(0, 8)).join('the pinned commit').replace(/\(sha256 (?=[0-9a-f]*[a-f])[0-9a-f]{7,64}…?\)/g, '(its hash one click down)').replace(/\b(?=[0-9a-f]*[a-f])[0-9a-f]{12,64}\b…?/g, '[a hash, one click down]');
 
 /* ---------------------------------------------------------------- the records agree with each other */
@@ -86,7 +88,7 @@ if (FINAL) {
   const CP = path.join(ROOT, 'certs', 'omega-nine-fourths.json');
   need(fs.existsSync(CP), 'FINAL=1 with no certificate: certs/omega-nine-fourths.json');
   const CT = JSON.parse(fs.readFileSync(CP, 'utf8'));
-  need(CT.verdict === S.verdict && CT.as_of === S.as_of && CT.rows.map((r) => r.id + ':' + r.state).join(' ') === ROWS.map((r) => r.id + ':' + r.state).join(' '), 'the certificate is not the records’ verdict, minute and rows');
+  need(CT.verdict === S.verdict && CT.as_of === S.as_of && CT.rows.concat(CT.phase4 ? CT.phase4.rows : []).map((r) => r.id + ':' + r.state).join(' ') === ROWS.map((r) => r.id + ':' + r.state).join(' '), 'the certificate is not the records’ verdict, minute and rows');
 }
 need(MKT.isMarketing('omega/index.html'), 'the page is not on design/marketing.js’s list: its figures would print hashes on the surface');
 const S0 = S.seals.find((s) => s.id === 'SEAL-0');
@@ -114,6 +116,8 @@ function tile(st, x, y, w, h, id) {
   if (id) o.push('<text x="' + (x + w / 2) + '" y="' + (y + h / 2 + 4.5) + '" text-anchor="middle" class="t-lab' + (st === 'pending' ? ' vt-dim' : '') + '">' + esc(id) + '</text>');
   return o.join('');
 }
+/* the band's short label: phases 1–3 by number; the rows added later by when they were added */
+const BAND = (p) => p.phase <= 3 ? 'phase ' + p.phase : p.phase === 4 ? 'after the seal' : 'after the verdict';
 const ICON = (st) => '<svg class="ic" viewBox="0 0 32 22" width="29" height="20" aria-hidden="true">' + tile(st, 1, 1, 30, 20, '') + '</svg>';
 const SHAPE = { passed: 'a tick and a full bar', read: 'two short lines', running: 'a dot', pending: 'faint', failed: 'a cross', refused: 'a slash', open: 'a slash' };
 
@@ -125,7 +129,7 @@ function heroSvg(narrow) {
   const wrap = (s, n) => s.split(' ').reduce((a, w) => { const l = a[a.length - 1]; if (l && (l + ' ' + w).length <= n) a[a.length - 1] = l + ' ' + w; else a.push(w); return a; }, []);
   let y = narrow ? 4 : 10;
   const bands = S.phases.map((p) => {
-    const head = narrow ? wrap((p.phase === 4 ? p.title : 'phase ' + p.phase + ' · ' + p.title), 50) : null;
+    const head = narrow ? wrap((p.phase >= 4 ? p.title : 'phase ' + p.phase + ' · ' + p.title), 50) : null;
     const lines = Math.max(1, Math.ceil(p.rows.length / PER)), top = y + (narrow ? 22 + 14 * (head.length - 1) : 0);
     const h = lines * TH + (lines - 1) * GY;
     y = top + h + (narrow ? 22 : 24);
@@ -139,8 +143,8 @@ function heroSvg(narrow) {
     if (narrow) head.forEach((l, k) => o.push('<text x="0" y="' + (top - 8 - 14 * (head.length - 1 - k)) + '" class="t-note">' + esc(l) + '</text>'));
     else {
       const tl = wrap(p.title, 30), y0 = top + h / 2 - 3 - 8 * (tl.length - 1);
-      o.push('<text x="0" y="' + y0 + '" class="t-lab">' + (p.phase === 4 ? 'after the seal' : 'phase ' + p.phase) + '</text>');
-      (p.phase === 4 ? [] : tl).forEach((l, k) => o.push('<text x="0" y="' + (y0 + 17 + 15 * k) + '" class="t-note">' + esc(l) + '</text>'));
+      o.push('<text x="0" y="' + y0 + '" class="t-lab">' + esc(BAND(p)) + '</text>');
+      (p.phase === 5 ? ['(amendment A13)'] : p.phase === 4 ? [] : tl).forEach((l, k) => o.push('<text x="0" y="' + (y0 + 17 + 15 * k) + '" class="t-note">' + esc(l) + '</text>'));
     }
     p.rows.forEach((r, i) => {
       const x = LBL + (i % PER) * (TW + GX), yy = top + Math.floor(i / PER) * (TH + GY);
@@ -167,18 +171,28 @@ const STATS = C.stats([
   { k: 'rented machines', v: 'US$' + S.spent_usd.toFixed(2), n: 'of a ceiling of US$' + N(S.ceiling_usd) + (live.length ? '; ' + live.map((p) => 'US$' + p.usd_per_h.toFixed(2) + ' an hour since ' + hm(p.created_utc)).join(', ') : '') },
   { k: 'seals in Bitcoin', v: N(S.seals.length), n: blocks === S.seals.length ? 'each in a block' : blocks ? blocks + ' in a block, ' + (S.seals.length - blocks) + ' awaiting one' : 'awaiting a block' }]);
 
+/* ---------------------------------------------------------------- Phase 4 (after the verdict): what it closes */
+const P5 = ROWS.filter((r) => S.phases.find((p) => p.phase === 5 && p.rows.includes(r)));
+const G3_CLOSED = !!(S.phase4 && S.phase4.closes_g3 && P5.length && P5.every((r) => r.state === 'passed'));
+need(!S.phase4 || S.phase4.closes_g3 === ['G3a', 'G3b', 'G3c', 'G3d', 'G3-CR'].every((id) => (ROWS.find((r) => r.id === id) || {}).state === 'passed') || !S.phase4.statements.sealed_by, 'the records’ Phase 4 summary disagrees with its rows');
+
 /* ---------------------------------------------------------------- what is not established, first */
 const LEAD = '<div class="col"><div class="note ne"><span class="lab">what is not established</span>' + C.plainList([
-  FINAL && !CERT ? { b: 'The verdict is ' + S.verdict + '.', text: S.verdict_reason } : CERT ? { b: 'What is certified is the formal claim, not the mathematics.', text: 'By the rule sealed before any run, the verdict is CERTIFIED. ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows have passed; the readings of the paper beyond the Lean go on.' }
+  FINAL && !CERT ? { b: 'The verdict is ' + S.verdict + '.', text: S.verdict_reason } : CERT ? { b: 'What is certified is the formal claim, not the mathematics.', text: 'By the rule sealed before any run, the verdict is CERTIFIED. ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows have passed' + (P5.length ? ' (' + ['', 'one', 'two', 'three', 'four', 'five', 'six'][P5.length] + ' of them added after the verdict, outside it)' : '')
+      + (S.counts.read ? '; ' + N(S.counts.read) + ' were read, the paper beyond the Lean' : '') + (S.counts.open ? '; ' + N(S.counts.open) + ' ' + (S.counts.open === 1 ? 'is' : 'are') + ' left open with the reason (' + ROWS.filter((r) => r.state === 'open').map((r) => r.id).join(', ') + ')' : '')
+      + (S.counts.running || S.counts.pending ? '; ' + N(S.counts.running + S.counts.pending) + ' go on' : '') + '.' }
     : { b: 'Nothing is decided yet.', text: 'The verdict today is ' + S.verdict + ': ' + N(S.counts.passed) + ' of the ' + N(S.counts.all) + ' rows ' + (S.counts.passed === 1 ? 'has' : 'have') + ' passed, ' + N(S.counts.running) + (S.counts.running === 1 ? ' is' : ' are') + ' running and ' + N(S.counts.pending) + (S.counts.pending === 1 ? ' has' : ' have') + ' not started' + (S.counts.read ? '; ' + N(S.counts.read) + (S.counts.read === 1 ? ' reading is in' : ' readings are in') : '') + (S.counts.failed ? '; ' + N(S.counts.failed) + ' failed' : '') + '.' },
   { b: 'The claim is OpenAI’s, and an OpenAI model sits on the panel.', raw: 'The release was made by OpenAI models. Beside Claude agents (Anthropic), two seats of the panel are held by GPT-6.2-astra, an OpenAI model. Independence here is by procedure (separate prompts, sealed outputs, no shared files), not by vendor. Who does what is <a href="#panel">below</a>.' },
   { b: 'No person checks the mathematics here.', text: 'The rows check what a machine can check: whether the Lean proof checks, and whether its Lean statement says what the paper claims. Even a CERTIFIED verdict would not say that any human has checked the mathematics.' },
-  { b: CERT ? 'What the verdict does not settle.' : 'What a pass would still not settle.', text: 'By the sealed rule, CERTIFIED says nothing about divisions (G2), the per-n bound or Corollary 1.2 (G3) unless the census finds them proved, and nothing beyond the trusted base: the kernels, the three axioms and the Mathlib definitions the statements use.' }]) + '</div></div>';
+  { b: CERT ? 'What the verdict does not settle.' : 'What a pass would still not settle.', text: 'By the sealed rule, CERTIFIED says nothing about divisions (G2), the per-n bound or Corollary 1.2 (G3) unless the census finds them proved, and nothing beyond the trusted base: the kernels, the three axioms and the Mathlib definitions the statements use.'
+    + (G3_CLOSED ? ' After the verdict, and outside it: the release does not state G3’s statements; our Phase 4 proves them from the release’s theorems (below).' : '') }]) + '</div></div>';
 
 /* ---------------------------------------------------------------- the gaps, as the pre-registration words them */
 const GAPS = C.section({ lab: 'the gaps', title: 'Seven gaps, read at the pin', id: 'gaps',
   bodyRaw: C.pRaw('Read from the release at the commit pinned before anything ran, and worded here as the pre-registration words them (sealed ' + esc(hm(S0.stamped_utc)) + ', ' + esc(day(S0.stamped_utc)) + '). Each is a fact about what the release states or checks; none is a verdict on the proof.')
-    + C.plainList(S.gaps.map((g) => { const c = LG.corrections.filter((x) => x.gaps.includes(g.id)).map((x) => x.id); return { b: g.id + '.', raw: tick(g.text) + (c.length ? ' <span class="vr-n">(Read with ' + (c.length > 1 ? 'corrections ' : 'correction ') + c.map((id) => '<a href="#corrections">' + esc(id) + '</a>').join(', ') + '.)</span>' : '') }; }))
+    + C.plainList(S.gaps.map((g) => { const c = LG.corrections.filter((x) => x.gaps.includes(g.id)).map((x) => x.id); return { b: g.id + '.', raw: tick(g.text)
+      + (g.id === 'G3' && G3_CLOSED ? ' <span class="vr-n"><b>Closed after the verdict by Phase 4 (amendment A13), outside it:</b> the release does not state it; our Phase 4 proves it from the release’s theorems (rows <a href="#rows">G3a–G3d</a> passed, and the clean-room replay G3-CR).</span>' : '')
+      + (c.length ? ' <span class="vr-n">(Read with ' + (c.length > 1 ? 'corrections ' : 'correction ') + c.map((id) => '<a href="#corrections">' + esc(id) + '</a>').join(', ') + '.)</span>' : '') }; }))
     + (S.facts.length ? '<h3>Found after the pin</h3>' + C.pRaw('Facts read after the seal, each dated by the amendment that records it and sourced in the provenance report; quoted as recorded.')
       + C.plainList(S.facts.map((f) => ({ b: f.id + ' (' + f.amendment + ', ' + f.when.replace('~', 'about ') + ').', raw: tick(unhash(f.text)) }))) : '') });
 
@@ -190,8 +204,9 @@ const rowItem = (r) => '<li class="vr-i"><span class="vr-s">' + ICON(r.state) + 
     + (e.sha256_12 ? ' <span class="m">' + esc(e.sha256_12) + '</span>' : '') + (e.line ? '<br><span class="m">' + C.breakable(e.line.replace(/`/g, '')) + '</span>' : '') + '</li>').join('') + '</ul></details>' : '') + '</li>';
 const HEROSEC = '<section class="vt-sec" id="progress"><div class="col sec-head"><div class="lab">the audit at a glance</div><h2>' + (FINAL ? 'Where it ended' : 'Where it stands') + '</h2></div>' + HERO + KEY + STATS + '</section>';
 const ROWSEC = C.section({ lab: 'the rows', title: 'Every row, phase by phase', id: 'rows', wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('Each row was written down, with the rule that decides it, and stamped with OpenTimestamps at ' + esc(hm(S0.stamped_utc)) + ' on ' + esc(day(S0.stamped_utc)) + ', before any of them ran; changes since are dated amendments, listed below. A row changes state only when its result is in the lane’s files. Phase 3 is read, not checked by a kernel: it is outside the verdict.' + (S.phases.some((p) => p.phase === 4) ? ' The last band holds rows registered after the seal, each by a dated amendment before it started; they are outside the verdict too.' : '')) + '</div>'
-    + '<div class="wide"><div class="vr-grid">' + S.phases.map((p) => '<article class="vr-p"><div class="vr-h">' + (p.phase === 4 ? 'after the seal' : 'phase ' + p.phase) + '</div><h3>' + esc(p.title) + '</h3><ul class="vr-l">' + p.rows.map(rowItem).join('') + '</ul></article>').join('') + '</div></div>' });
+  bodyRaw: '<div class="col">' + C.pRaw('Each row was written down, with the rule that decides it, and stamped with OpenTimestamps at ' + esc(hm(S0.stamped_utc)) + ' on ' + esc(day(S0.stamped_utc)) + ', before any of them ran; changes since are dated amendments, listed below. A row changes state only when its result is in the lane’s files. Phase 3 is read, not checked by a kernel: it is outside the verdict.' + (S.phases.some((p) => p.phase === 4) ? ' The band after the seal holds a row registered by a dated amendment before it started; it is outside the verdict too.' : '')
+    + (S.phases.some((p) => p.phase === 5) ? ' The last band, Phase 4, was registered after the verdict (amendment A13), which it does not change: our attempt at the corollaries the release does not state (gap G3).' : '')) + '</div>'
+    + '<div class="wide"><div class="vr-grid">' + S.phases.map((p) => '<article class="vr-p"><div class="vr-h">' + esc(BAND(p)) + '</div><h3>' + esc(p.title) + '</h3><ul class="vr-l">' + p.rows.map(rowItem).join('') + '</ul></article>').join('') + '</div></div>' });
 
 /* ---------------------------------------------------------------- what each verdict would mean: the sealed rule, quoted */
 const VR = S.verdict_rule;
@@ -231,6 +246,10 @@ const trustBody = [
   S.progress.length ? C.pRaw('<b>The Phase 1 log</b>, line by line as the runner wrote it:') + C.plainList(S.progress.map((p) => ({ raw: '<span class="m">' + C.breakable(p.line.replace(/`/g, '')) + '</span>' })))   /* the line is mono already: its code ticks are dropped, not printed */ : '',
   LG.deviations.length ? C.pRaw('<b>The deviations, verbatim.</b>') + C.plainList(LG.deviations.map((e) => ({ b: e.id + ' (' + e.when + ').', raw: tick(e.text) }))) : '',
   S.scripts.length ? C.pRaw('<b>The scripts that run the checks</b>, committed before they ran:') + C.table({ cols: [{ h: 'script' }, { h: 'sha256, 12 hex digits' }], rows: S.scripts.map((s) => [{ raw: '<span class="m">' + C.breakable(s.file) + '</span>' }, { raw: '<span class="m">' + esc(s.sha256_12) + '</span>' }]) }) : '',
+  S.phase4 ? C.pRaw('<b>Phase 4, after the verdict.</b> Our statements of the corollaries, written without seeing the release’s Lean: <span class="m">' + C.breakable(S.phase4.statements.file) + '</span>, sha256 <span class="m">' + hexwrap(S.phase4.statements.sha256 || '') + '</span>, sealed by ' + esc(S.phase4.statements.sealed_by || '—') + ' before it was elaborated. The prover’s log, line by line, is in each row’s record above and in <span class="m">corpus/omega-nine-fourths/phase4/prover/PROGRESS.md</span>.') : '',
+  S.exports ? C.pRaw('<b>The exported proofs</b>, published as release assets of the public repository (tag <a href="' + ea(S.exports.url) + '"><span class="m">' + esc(S.exports.tag) + '</span></a>); each sha256 and size is the one the lane recorded when the file came home:')
+    /* a list, not a table: four columns of a 64-hex digest widen the column on a phone and add spines on a desk */
+    + C.plainList(S.exports.files.map((f) => ({ raw: '<a href="' + ea(f.url) + '"><span class="m">' + esc(f.name) + '</span></a>, ' + esc(f.what) + ': ' + N(f.bytes) + ' bytes, sha256 <span class="m">' + hexwrap(f.sha256) + '</span>.' }))) : '',
   C.pRaw('<b>The money.</b> ' + S.pods.map((p) => 'Machine <span class="m">' + esc(p.id) + '</span> (' + esc(p.machine) + '), US$' + p.usd_per_h.toFixed(2) + ' an hour, created ' + esc(utc(p.created_utc)) + (p.ended_utc ? ', deleted ' + esc(utc(p.ended_utc)) : ', still running') + '.').join(' ') + ' The figure above is the price times the time since creation, at the minute the records were written, rounded down; the ceiling, US$' + N(S.ceiling_usd) + ', is the pre-registration’s.'),
   C.pRaw('<b>What the build refuses.</b> The page is not built when: a row or gap the records name does not stand in the pre-registration; a file a seal lists no longer hashes to its sealed value, or a timestamp proof does not stamp its seal; a run started from a brief that is not its sealed one; a time in a source is ahead of the clock; a log line names a row with a word the records cannot read; the counts are not the rows’; the verdict disagrees with the rows; the money is above its ceiling; the newest change-log entry does not carry the records’ state row by row; the words would call the claim proved or settled, claim priority, or take a side.')].filter(Boolean);
 const TRUST = C.section({ lab: 'one click down', title: 'Why you can trust this', id: 'trust', wide: true,
