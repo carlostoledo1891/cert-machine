@@ -16,7 +16,9 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-**NOW (2026-11-24 ~10:15 UTC): NO POD IS RUNNING** — the RH judge bmwjdc3l37zuwh was stopped on cost and deleted at about 10:10 UTC on the operator's word ("Stop it now"); the focus is the R(3,10) lane, on the Mac, with Astra (private notes). VP ≠ VNP is parked. Everything is in the TASKS BACKLOG's START HERE.
+**NOW (2026-11-25 ~21:05 UTC): handoff on the operator's word.** ω closed (Zenodo click pending); δ₃ in HOL4 public with green CI. Everything is in the TASKS BACKLOG's START HERE and its private block (notes/handoff-private-2026-11-25.md).
+
+**EARLIER (history): NOW (2026-11-24 ~10:15 UTC): NO POD IS RUNNING** — the RH judge bmwjdc3l37zuwh was stopped on cost and deleted at about 10:10 UTC on the operator's word ("Stop it now"); the focus is the R(3,10) lane, on the Mac, with Astra (private notes). VP ≠ VNP is parked. Everything is in the TASKS BACKLOG's START HERE.
 
 **EARLIER (history): PAUSED (2026-11-24 ~01:53 UTC, the operator: "pause the work … handoff to continue next session").** VP ≠ VNP: /vp-vnp/ CERTIFIED (the formal claim), 17 of 23 rows, outreach drafted and held for the Bitcoin blocks, phase 3 next. R(3,10): /r310/ at 100% (private notes hold the rest). RH: the S1 judge pod bmwjdc3l37zuwh still running. Disk 18 GB free. Everything is in the TASKS BACKLOG's START HERE.
 
@@ -79,9 +81,21 @@ K2, C5 and KR), the bridge waiter p3 and the con-leche waiter p4. The clean pod 
 
 **RUNNING POD (2026-11-20 22:04 UTC): phden71h9yeked** (alpoge-grh-build-2026-11-20, cpu3m 32 vCPU / 256 GB, US$1.76/h, EU-RO-1) — the build of Alpöge's Lean release (notes/alpoge-grh-preregistration-2026-11-20.md, amendments A1–A11). B1 PASSED 16:55 UTC 11-21 (exit 0, 183,903 jobs, 175,188 oleans, no sorry); phase 2 restarted 17:01 under amendment A13 (challenge gate on the compiled files; log part 1 kept as _phase.log.part1); the bridge (p3) and con-leche (p4) waiters restarted with it. DELETE it when the build and the checks are pulled home; after a session restart, list pods first. Release (his answers, current): public channels only, each text on his word — one post on the Lean Zulip thread Tao's 11-20 post names, a comment on Tao's post, one X post; no Alpöge heads-up, no Palomar; announce our work with full credits, never "a replication" (A8); ceiling US$150. The page is LIVE and LISTED as a draft since 2026-11-21 03:39 UTC (e03c61a5, his word: "Listed now", no posts until final, refresh at milestones): tools/build-report-alpoge-grh.js → /reports/alpoge-grh.html; each milestone = pull, check-alpoge-grh.py --write, a dated line in corpus/alpoge-grh/page-log.json (the builder refuses if its count differs), make page R=alpoge-grh, commit, push; FINAL=1 refuses pending rows. STAGE 2 (his word 2026-11-21 ~03:20 UTC: "Two stages and let's wait for the full verifications to discuss again"): after the verification release, discuss — nothing before — the extension that organises and fills the gaps of the three 2026 claims (Alpöge, Masullo, Nielsen–Semita) as a report + paper + repo, with claimbox (its own session), the Lean intake and cert-machine; candidate items: ζ/L-function definition fidelity in Lean, con-leche as a third kernel on our export, a closure-only rebuild of the proof, a universe-level census, the Nielsen–Semita Lean intake (57ea6117), adopting instruments/rh-comparison/ (untracked, built by another session 11-21 ~03:00 UTC on Lean 4.35.0 — port to the release pin + our judges + an Astra red-team before any citation); pre-register it as A12 before anything runs.
 
-## TASKS BACKLOG — the standing menu (updated 2026-11-24 ~10:15 UTC)
+## TASKS BACKLOG — the standing menu (updated 2026-11-25 ~21:05 UTC)
 
-START HERE (2026-11-24 ~10:15 UTC. The operator, in order: "Keep the efforts on 1, 2 and 3 … use also Astra as
+START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a new session". Control room: Claude
+Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
+First: `date -u`; list the pods (one may still run: the δ₃ CakeML replay, see the private block); `pmset -g batt`; disk.
+
+  1. δ₃ IN HOL4 — public: github.com/carlostoledo1891/delta3-hol4 (CI green) and /delta3-hol4/. Layer 1 holds; the
+     blind benchmark is scored (harness records local). A HOL4 pull request (HOL-Theorem-Prover/HOL#2228) is a draft
+     until its build in the fork is green; then mark it ready. Owed: the CakeML result into the README and the page; a
+     shelf record certs/delta3-hol4.json.
+  2. ω = 9/4 — CLOSED; the Zenodo draft (DOI 10.5281/zenodo.24537370) awaits the operator's Publish click; then put the
+     DOI on /omega/ and in certs/omega-nine-fourths.json.
+  3. The private lanes, the grant draft, the Lean–HOL4 bridge (claimbox) and the disk freeze: the private block.
+
+PREVIOUS START HERE (2026-11-24 ~10:15 UTC, history. The operator, in order: "Keep the efforts on 1, 2 and 3 … use also Astra as
 partner"; "Let's focus on 40"; then, at about 10:00 UTC: "I want to stop spending on pods that will not close the
 problem" and "Ask me questions here, I do not want to spend time again". His dialog answers since: NO TOP-UP, Mac
 only; the RH judge "Stop it now"; "Keep going, report at results" on the R(3,10) attack; VP ≠ VNP "Park it now".
