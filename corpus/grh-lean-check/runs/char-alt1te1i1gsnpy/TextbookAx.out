@@ -1,0 +1,39 @@
+⚠ [9047/9051] Replayed Spec
+warning: src/Spec.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: src/Spec.lean:27:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: src/Spec.lean:92:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [9048/9051] Replayed Challenge
+warning: src/Challenge.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: src/Challenge.lean:29:8: declaration uses `sorry`
+warning: src/Challenge.lean:31:8: declaration uses `sorry`
+warning: src/Challenge.lean:33:8: declaration uses `sorry`
+warning: src/Challenge.lean:35:8: declaration uses `sorry`
+warning: src/Challenge.lean:37:8: declaration uses `sorry`
+⚠ [9049/9051] Replayed Textbook
+warning: src/Textbook.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: src/Textbook.lean:64:59: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+ℹ [9050/9051] Built TextbookAx (2.7s)
+info: src/TextbookAx.lean:2:0: 'CertMachine.Textbook.isTextbookZeta_riemannZeta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:3:0: 'CertMachine.Textbook.isTextbookL_LFunction' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:4:0: 'CertMachine.Textbook.eqOn_riemannZeta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:5:0: 'CertMachine.Textbook.eqOn_LFunction' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:6:0: 'CertMachine.Textbook.textbookRH_of_riemannHypothesis' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:7:0: 'CertMachine.Textbook.textbookGRH_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:8:0: 'CertMachine.Textbook.riemannHypothesis_of_textbookRH' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: src/TextbookAx.lean:9:0: 'CertMachine.Textbook.dirichletLZerosOnLine_of_textbookGRH' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9051 jobs).
