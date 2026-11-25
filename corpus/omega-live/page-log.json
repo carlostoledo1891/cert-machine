@@ -44,6 +44,15 @@
    "verdict": "OPEN",
    "rows": "PIN:passed K0:passed K1:passed K1N:passed EXP:passed K2:passed K3:passed KR:pending CR:passed C1:pending C2:pending C3:pending CEN:pending F1:passed F2:running F3:pending F4:running P1:read P2:pending U:read X1:open",
    "what": "The release builds (K0) and passes its own Comparator bar with Lean's kernel (K1) and with nanoda switched on (K1N); nanoda at a second version (K2) and con-leche (K3) accept the export and match the three theorems to the challenge; a clean machine that never ran the release's code accepts the same export (CR). Both blind statements are sealed (F1); both readings of the proof and the provenance scout are in; Sun's conflicting construction cannot be decided as printed (X1)."
+  },
+  {
+   "at": "2026-11-25T04:45Z",
+   "as_of": "2026-11-25T04:45Z",
+   "passed": 16,
+   "running": 1,
+   "verdict": "OPEN",
+   "rows": "PIN:passed K0:passed K1:passed K1N:passed EXP:passed K2:passed K3:passed KR:passed CR:passed C1:passed C2:passed C3:passed CEN:passed F1:passed F2:passed F3:passed F4:running P1:read P2:pending U:read X1:open",
+   "what": "Every pre-registered Phase 1 row has passed: Lean's own checker replayed the whole proof from scratch (KR, 40 min); the three planted controls were refused — 9/4 changed to 2.24 and 1/2 to 0.49 (C1), the theorem re-typed as False (C2), and one definition changed, a multiplication costing 2 (C3), which shows the release's checker compares definition bodies; the census (CEN): 11,337 modules and 3.24 million lines behind the theorems, no patched file among them, only the three standard axioms reached."
   }
  ]
 }
