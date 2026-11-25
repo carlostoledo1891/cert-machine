@@ -152,3 +152,13 @@ Also recorded: the exported proof (export.ndjson.zst, sha256 4731e942…) is pub
 repository (tag omega-nine-fourths-export-2026-11-25), GitHub's digest equal to ours; the operator's choice.
 a9fd23bbf3fb30f4fd82546edcb070810f20ba604b96b986d2900ff782dbd4b0  prompts/pern-writer.md
 c3170c0c91086e89f794359ffca8f48a220b661eeac6cdc611416e8c4eab0839  prompts/pern-prover.md
+
+## A14 — 2026-11-25 09:21 UTC: the Phase 4 statements sealed before they are first elaborated
+
+The Phase 4 writer (a Claude agent, 09:12–09:20 UTC; it read only its brief, intro.tex, obstruction.tex, consequences.tex
+and Mathlib's source) wrote phase4/writer/PerN.lean with four propositions in namespace PerN: GatesPerN (nonscalar),
+GatesPerNAll (every multiplication and division), AsymptoticRank (the limit AND the infimum over k >= 1), BorderRankLower
+(included: Zariski closure stated as MvPolynomial.zeroLocus of the vanishing ideal, over the algebraic closure).
+NOTES.md ends "I did not see the claimant's Lean statements". Both files are committed now.
+71a4378ddf537461ed70a35916ea7f283072a7a8fd3500a3800b13ad6d9daac3  phase4/writer/PerN.lean
+5e01e83f7f588b58adb0c9999d44fbc92e20f74042385e628ede094a1454e3e9  phase4/writer/NOTES.md
