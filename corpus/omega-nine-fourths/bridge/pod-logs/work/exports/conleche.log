@@ -1,0 +1,32 @@
+2026-11-25T05:46:52Z con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f toolchain leanprover/lean4:v4.36.0 build exit 0
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  /home/bridge/tools/con-leche/.lake/build/bin/con-leche
+2026-11-25T05:48:34Z export solA (Bridge.BridgeA) exit 0 43cc2c179fc12665
+2026-11-25T05:49:07Z export chalA (BridgeChallenges.BlindA) exit 0 e1554f94f4ccc00a
+2026-11-25T05:50:51Z export solB (Bridge.BridgeB) exit 0 bd1738011ff9efc8
+2026-11-25T05:51:23Z export chalB (BridgeChallenges.BlindB) exit 0 b429259af4d0cf22
+2026-11-25T05:53:13Z export solF3 (Bridge.F3) exit 0 4ab224f830b9b344
+2026-11-25T05:53:46Z export chalF3 (BridgeChallenges.F3) exit 0 f17124f5f3ea177f
+2026-11-25T05:55:34Z export solADiv (Bridge.DivisionA) exit 0 2c5f3cca95f44160
+2026-11-25T05:56:14Z export chalADiv (BridgeChallenges.BlindADiv) exit 0 076b19196e384d1f
+2026-11-25T05:58:01Z export solBDiv (Bridge.DivisionB) exit 0 fbc3d336fd122aff
+2026-11-25T05:58:34Z export chalBDiv (BridgeChallenges.BlindBDiv) exit 0 0127499aa5721ff0
+2026-11-25T05:59:05Z con-leche --verified solA exit 0
+2026-11-25T05:59:34Z con-leche --verified --compare A exit 0; justified lines: 4
+2026-11-25T06:00:02Z con-leche --verified solB exit 0
+2026-11-25T06:00:33Z con-leche --verified --compare B exit 0; justified lines: 4
+2026-11-25T06:00:59Z con-leche --verified solF3 exit 0
+2026-11-25T06:01:30Z con-leche --verified --compare F3 exit 0; justified lines: 10
+2026-11-25T06:01:59Z con-leche --verified solADiv exit 0
+2026-11-25T06:02:28Z con-leche --verified --compare ADiv exit 0; justified lines: 2
+2026-11-25T06:02:56Z con-leche --verified solBDiv exit 0
+2026-11-25T06:03:25Z con-leche --verified --compare BDiv exit 0; justified lines: 2
+e1554f94f4ccc00aaec13c5a93fd14055dcb11ad473c194e92e1a3e9f43ac37e  chalA.ndjson
+076b19196e384d1f4522fa00e1d071129024887bb43d6dfcfa3eaa2b2aaf2b22  chalADiv.ndjson
+b429259af4d0cf22bc5d16442d39d79f7c40d6124f12064e4584f9b0f9bd318c  chalB.ndjson
+0127499aa5721ff01572c45b22470cfef9dc095777f864693292339643ff1d3c  chalBDiv.ndjson
+f17124f5f3ea177f47363de604eebf1e3e523cf983c09109af6c2ac36f4b89e4  chalF3.ndjson
+43cc2c179fc126659568b2f31727b1d70256d66116aae23ca3b79bf42aab141a  solA.ndjson
+2c5f3cca95f44160101b90a1faa80f264bd97a5f177004a1ac6c02c00b060b01  solADiv.ndjson
+bd1738011ff9efc88c41a64fbe1e505351255d92547dca5e0ca9c8736379d0fc  solB.ndjson
+fbc3d336fd122aff7308ad507087ef0ce33e6e8be90f59c7e14c189a2827a254  solBDiv.ndjson
+4ab224f830b9b344623271fe3a489e82eff211616807e3b34223771b4863a526  solF3.ndjson

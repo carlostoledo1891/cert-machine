@@ -1,0 +1,50 @@
+Building BridgeChallenges.BlindB
+⚠ [8924/8924] Replayed BridgeChallenges.BlindB
+warning: BridgeChallenges/BlindB.lean:153:8: declaration uses `sorry`
+warning: BridgeChallenges/BlindB.lean:155:8: declaration uses `sorry`
+warning: BridgeChallenges/BlindB.lean:157:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, BlindB.square_exponent_holds, BlindB.dual_exponent_holds, BlindB.rectangular_exponent_holds, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from BridgeChallenges.BlindB
+Building Bridge.BridgeB
+⚠ [9493/9518] Replayed OAI.LinearAlgebra.MatrixMultiplication.Model
+warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+⚠ [9517/9518] Replayed Bridge.Common
+warning: Bridge/Common.lean:112:35: Variable name `ha` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ha
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Bridge/Common.lean:201:13: This simp argument is unused:
+  MvPolynomial.aeval_X
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [φ]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Bridge/Common.lean:272:46: Variable name `hk` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hk
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9518/9518] Replayed Bridge.BridgeB
+warning: Bridge/BridgeB.lean:168:78: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+warning: Bridge/BridgeB.lean:189:61: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: Bridge/BridgeB.lean:191:64: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: Bridge/BridgeB.lean:195:66: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: Bridge/BridgeB.lean:205:47: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: Bridge/BridgeB.lean:207:73: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: Bridge/BridgeB.lean:211:74: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: Bridge/BridgeB.lean:275:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: Bridge/BridgeB.lean:289:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: Bridge/BridgeB.lean:314:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+Build completed successfully (9518 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, BlindB.square_exponent_holds, BlindB.dual_exponent_holds, BlindB.rectangular_exponent_holds, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Bridge.BridgeB
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!

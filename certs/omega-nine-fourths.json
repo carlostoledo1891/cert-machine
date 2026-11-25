@@ -1,0 +1,760 @@
+{
+ "what": "The decision of OpenAI’s claim that the exponent of matrix multiplication is 9/4 over every field (github.com/openai/math at 92b516ef8e2abf66c3db7aa31438d3010bc7956f), row by row, under the pre-registration corpus/omega-nine-fourths/PREREG.md; written by tools/omega-live-records.js --final from the lane’s files, the same records the page /omega/ is built from.",
+ "as_of": "2026-11-25T06:06Z",
+ "verdict": "CERTIFIED",
+ "verdict_reason": "Declared 2026-11-25 06:05 UTC by the control room under the sealed verdict rule (PREREG.md; amendments A8 and A12 fixed F2's and F4's scope before any verdict). Every row the rule names has the state it requires: K0, K1, K1N, K2, K3, KR and CR passed; C1, C2 and C3 were refused; F2 proves BOTH blind statements' propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent) with Comparator accepting our challenge, Lean's kernel and nanoda, and con-leche --compare justifying them; F3 holds (nine anchors, Comparator and con-leche); every MATERIAL item of F4 is decided (A12). What it says: the formal claim — over every field, the exponent of square matrix multiplication for division-free straight-line programs is 9/4, the dual exponent is 1/2, and the stated rectangular formula holds — is proved in Lean 4.34.1 / Mathlib d13f23b7 from the release at openai/math 92b516ef with only propext, Classical.choice and Quot.sound, checked by three independent kernels (Lean's, nanoda at two versions, con-leche), on a clean second machine, and its statement matches two statements written blind from the textbooks. What it does NOT say (PREREG.md, as sealed): that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use); the per-n bound ⌈n^{9/4}/2⌉ in nonscalar gates (proved only counting every multiplication), geometric border rank of T_n, or Corollary 1.3 per format (absent from the release); divisions beyond the square case. The square case with divisions IS proved (MatrixExponent.omega_eq), by Lean's kernel only through the statement reader's challenge and Comparator, and by both bridges. Outside the rule: P1 (two readings of the lower-bound proof: no counterexample; both name the imported list-distinctness bound as the first place to challenge), P2 (read), U (read), X1 (Sun's conflicting construction: NEEDS DATA, twice).",
+ "verdict_rule": {
+  "certified": "CERTIFIED (the formal claim, as the textbooks define ω for division-free straight-line programs): K0, K1, K1N, K2, K3, KR and CR pass; C1, C2 and C3 are refused; F2 proves BOTH blind statements' propositions with Comparator accepting our challenge; F3 holds; every MATERIAL item of F4 is decided.",
+  "otherwise": "Otherwise the verdict names the first failing row: REFUTED (a proved defect in meaning: the Lean is weaker than, vacuous for, or different from the English claim), REFUSED (a row could not be run within the pod ceiling or the time it needs), or OPEN (undecided, with the reason).",
+  "not_say": "What CERTIFIED would NOT say: that any human has checked the mathematics; anything about divisions, the per-n bound, border rank or asymptotic rank unless CEN finds them proved; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use)."
+ },
+ "target": {
+  "repo": "openai/math",
+  "commit": "92b516ef8e2abf66c3db7aa31438d3010bc7956f",
+  "committed_utc": "2026-11-25 00:04:41",
+  "pinned": [
+   {
+    "file": "lean/ComparatorChallenges/MatrixExponent.lean",
+    "about": "136 lines, imports Mathlib only",
+    "sha256": "a56cd2267e261903bb62e18eaa4f4663c81dfea83510f20eb19617a42e640534"
+   },
+   {
+    "file": "lean/OAI/LinearAlgebra/SpectralBooks/ExactExponent.lean",
+    "about": "",
+    "sha256": "a0e2433ae4939e469e866c683499ea8b6e370ffd892a145c24120d2933a6c962"
+   },
+   {
+    "file": "lean/ComparatorChallenges/MatrixExponent.json",
+    "about": "",
+    "sha256": "bf7bd1e681b75f1664d93eaaeefa583024b0133f436f59c4a179d84b1b6a3699"
+   },
+   {
+    "file": "lean/lakefile.lean",
+    "about": "post-update hook applying 28 compatibility patches",
+    "sha256": "ee45fe3b2f1ecf8fbdb0513b00fc6ed9195a612db9327cd76fc9b792de63190f"
+   },
+   {
+    "file": "lean/lake-manifest.json",
+    "about": "Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612",
+    "sha256": "b0848e3682e0e50761a717d4ea92a40321db8d695a22d3790b3e8b8b13814168"
+   },
+   {
+    "file": "lean/lean-toolchain",
+    "about": "leanprover/lean4:v4.34.1",
+    "sha256": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+   },
+   {
+    "file": "lean/formalization.yaml",
+    "about": "",
+    "sha256": "b56e17872e392e8985abaf669102ba2805719e682ee732a490d81b65ea01bc69"
+   },
+   {
+    "file": "preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf",
+    "about": "",
+    "sha256": "ddde9ab7755596c6f0210c148985f9761f2c291582e4d0a045987ad1766e5a01"
+   },
+   {
+    "file": "…/README.md",
+    "about": "",
+    "sha256": "c83864717e5f42acbbef76c7a17a4a8a9ead8df9d07f7701e4a70eb97e127834"
+   },
+   {
+    "file": "lean/docs/107.md",
+    "about": "the formalization scope note",
+    "sha256": "31d88810902fccb13f04d0e60e992cc5e2726d36379d4c4806391b96156ec01d"
+   }
+  ]
+ },
+ "preregistration": {
+  "file": "corpus/omega-nine-fourths/PREREG.md",
+  "sha256": "a64130c71c89912496b1b14f067c8a2cbe74ddea356ffd1217c2a83352420589",
+  "seal": "corpus/omega-nine-fourths/SEAL-0.sha256",
+  "seal_sha256": "f499f5df63e62f6bce84bbaaa5f635392f9180d32e0510021d488b19aa25d2ef",
+  "stamped_utc": "2026-11-25T02:52:37Z",
+  "ots_state": "pending",
+  "bitcoin_block": null
+ },
+ "rows": [
+  {
+   "id": "PIN",
+   "phase": 1,
+   "title": "Pin the release: every file the proof uses hashed before anything is built",
+   "state": "passed",
+   "note": "Passed at 03:09 UTC on the Phase 1 machine. See deviations D1, D2, D4.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:02 — PIN started on pod yfz653o1ck7ew9 (tools/runpod-omega-p1.sh pin)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:09 — PIN passed (third run; D1, D2): release at 92b516ef, the ten PREREG sha256s match, 59 packages at their manifest revisions, closure 11,242 modules (Mathlib 8,530; Lean core 1,740 + Lake 1; OAI 593; Batteries 192; Aesop 132; Qq 14; ProofWidgets 13; Plausible 13; ImportGraph 10; LeanSearchClient 4), 0 unresolved; A1-target-SHA256SUMS 11,279 files (350adbb6…); patched packages in the closure: 0 of 27. Sealed SEAL-A1 and stamped 03:09:44 UTC, before K0."
+    }
+   ]
+  },
+  {
+   "id": "K0",
+   "phase": 1,
+   "title": "Build the proof; list its axioms; search it for unsafe code",
+   "state": "passed",
+   "note": "Passed at 03:41 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:15 — run started (SEAL-A1 checked on the pod); K0 in progress."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:21 — K0 lake update exit 0 (283 s; manifest unchanged; 27 compatibility patches applied, all to packages outside the closure; the 11,276 closure files re-hashed after it: 0 differ); cache get exit 0; build of the two modules running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:41 — K0 passed: `lake build` of the solution and challenge modules exit 0 (1,169 s, 9,516 jobs; 593 modules compiled here — the 592 OAI files of the closure + the challenge; Mathlib from its cache); warnings: 3 `sorry` (the challenge's three statements, l.107/118/123) + 1 linter warning (MatrixMultiplication/Model.lean:37, `eval.match_1` auxiliary); no error. `#print axioms`: all three theorems [propext, Classical.choice, Quot.sound]. Grep of the 11,279 sealed files: 2,707 lines, of them in OAI files 1 (a comment containing \"opaque\", MatrixExponent/Sphere/Proof/Accept.lean:416) and the lakefile's `unsafe evalConstCheck` (build script, not a declaration); Mathlib's closure includes two real `axiom` declarations in a tactic test file (Mathlib/Tactic/LinearCombinationPrime.lean:248–249, `qc`, `hqc`), not used (axioms above). Judges built at their pins. KR started (background); K1 running (landrun sandbox works on this pod)."
+    }
+   ]
+  },
+  {
+   "id": "K1",
+   "phase": 1,
+   "title": "The release’s own check (Comparator, Lean’s kernel only), as released",
+   "state": "passed",
+   "note": "Passed at 03:49 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:49 — K1 passed: Comparator d03acab1 (lean4export 076e8e57, landrun 811cfff5 sandboxing on this pod), MatrixExponent.json as released (nanoda off): exit 0 after 461 s, peak 8.4 GB, \"Lean default kernel accepts the solution / Your solution is okay!\". K1N running. CR pod vznibdp98fhl5c: setup started 03:49 UTC."
+    }
+   ]
+  },
+  {
+   "id": "K1N",
+   "phase": 1,
+   "title": "The same check with a second kernel, nanoda, switched on",
+   "state": "passed",
+   "note": "Passed at 03:58 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:58 — K1N passed: the same config with enable_nanoda true (nanoda 3a240721, stock build, inside Comparator's landrun sandbox): exit 0 after 510 s, \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\". EXP (and the control challenges' build) running."
+    }
+   ]
+  },
+  {
+   "id": "EXP",
+   "phase": 1,
+   "title": "Export the three theorems and the challenge for outside checkers",
+   "state": "passed",
+   "note": "Passed at 04:04 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:04 — EXP done (lean4export 076e8e57, format 3.1.0): export.ndjson of the three theorems' closure 1,214,282,939 bytes, sha256 90444ef2fcf006e9f6872bfff99bd7b77c68c8f85dcaefbb379da511308b5f44 (100 s); challenge.ndjson 8027091e… — byte-identical to the challenge exported on the CR pod from Mathlib only (and C1a 8272e8b2…, C1b 220132b6… identical on both pods)."
+    }
+   ]
+  },
+  {
+   "id": "K2",
+   "phase": 1,
+   "title": "nanoda at a second version, on the export",
+   "state": "passed",
+   "note": "Passed at 04:04 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:04 — K2 passed: nanoda d0a02cc5 (stock, 32 threads) on the export: exit 0 after 41 s, peak 1.8 GB, \"Checked 95908 declarations with no typechecker errors, 1 pretty printer errors: [\\\"Unable to print axioms\\\"]\" (the same printer message as in the VP ≠ VNP lane)."
+    }
+   ]
+  },
+  {
+   "id": "K3",
+   "phase": 1,
+   "title": "con-leche, a third independently written checker",
+   "state": "passed",
+   "note": "Passed at 04:04 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:04 — K3 passed: con-leche 5ea446d5 --verified: \"accepted 92673 declarations (--verified)\", exit 0 after 13 s, peak 1.7 GB; --compare against the challenge exported separately: \"accepted 16083 declarations, 3 axioms justified by the solution\", square_exponent / dual_exponent / rectangular_exponent each \"justified by the solution\", exit 0."
+    }
+   ]
+  },
+  {
+   "id": "KR",
+   "phase": 1,
+   "title": "Lean’s own checker, replayed from scratch",
+   "state": "passed",
+   "note": "Passed at 04:21 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:21 — KR passed: `lake env leanchecker --fresh OAI.LinearAlgebra.SpectralBooks.ExactExponent` (the digest-checked v4.34.1 leanchecker; it replays every declaration of the module's import closure through Lean's kernel from scratch) exit 0 after 2,372 s (03:41:54–04:21:27 UTC), peak 9.5 GB, no output besides lake's notes on the 3 patched non-closure packages. All pre-registered Phase 1 rows are done (\"P1 DONE\" 04:21:38 UTC); the F4 additions are running."
+    }
+   ]
+  },
+  {
+   "id": "CR",
+   "phase": 1,
+   "title": "A second machine that never ran the release’s code",
+   "state": "passed",
+   "note": "Passed at 04:07 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 03:56 — CR setup done on vznibdp98fhl5c (03:49:23–03:55:27 UTC): official v4.34.1 archive digest-checked; lean4export 076e8e57, nanoda d0a02cc5, con-leche 5ea446d5 built from source; the challenge fetched from GitHub at 92b516ef matches PREREG and A1; 10,649 closure files re-hashed there against A1: 0 differ; challenge + C1a + C1b built (7 s) and exported. Waiting for P1's export."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:07 — CR passed (pod vznibdp98fhl5c, never ran the release's code; results in runs/cr/, 70 files, hashes equal on both ends): export 90444ef2… arrived intact; nanoda d0a02cc5 \"Checked 95908 declarations with no typechecker errors\" (25 s, 1.6 GB); con-leche --verified --compare against the challenge built there: the three theorems justified (13 s); C1a and C1b refused (\"…square_exponent / dual_exponent is not justified by the solution: … has another type\"); C2 made there refused by nanoda (exit 101, assertion def_eq panic) and con-leche (\"type mismatch in theorem …square_exponent\"); all 6 gates held; the challenge export there is byte-identical to P1's. CR's work is finished: the CR pod can be deleted (the control room's call)."
+    }
+   ]
+  },
+  {
+   "id": "C1",
+   "phase": 1,
+   "title": "Control: 9/4 changed to 2.24, and 1/2 to 0.49, must be refused",
+   "state": "passed",
+   "note": "Passed at 04:17 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:17 — C1 passed (both refused by both judges): C1a (square_exponent 9/4 → 2.24) — Comparator exit 1 after 198 s, \"Challenge and solution theorem statement do not match: '…square_exponent'\"; con-leche --compare exit 1, \"axiom …square_exponent is not justified by the solution: … has another type\". C1b (dual_exponent 1/2 → 0.49) — Comparator exit 1 (195 s), \"…do not match: '…dual_exponent'\"; con-leche exit 1, the same diagnostic for dual_exponent."
+    }
+   ]
+  },
+  {
+   "id": "C2",
+   "phase": 1,
+   "title": "Control: the main theorem re-typed as False must be refused",
+   "state": "passed",
+   "note": "Passed at 04:17 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:17 — C2 passed: the export with square_exponent re-typed as False (expr 1925) refused by nanoda d0a02cc5 (exit 101, panic \"assertion failed: self.def_eq(u, v)\", 26 s) and by con-leche --verified (exit 1, \"type mismatch in theorem …square_exponent\")."
+    }
+   ]
+  },
+  {
+   "id": "C3",
+   "phase": 1,
+   "title": "Control: one definition changed (a multiplication costs 2) must be refused",
+   "state": "passed",
+   "note": "Passed at 04:17 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:17 — C3 passed: Gate.cost of mul 1 → 2 in the challenge refused by Comparator (exit 1, 195 s), \"Const does not match between challenge and target 'OAI.MatrixMultiplication.Arithmetic.Gate.cost'\" — Comparator compares definition bodies; also refused by con-leche --compare (beyond the row): \"…its type reads OAI.MatrixMultiplication.Arithmetic.Gate.cost, which the solution does not declare alike\". CEN running."
+    }
+   ]
+  },
+  {
+   "id": "CEN",
+   "phase": 1,
+   "title": "Census: what the three theorems use; whether divisions, the per-n bound or border rank are proved anywhere",
+   "state": "passed",
+   "note": "Passed at 04:58 UTC on the Phase 1 machine.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:20 — CEN done (Census.lean, exit 0, 71 s): the import closure of the two modules is 11,337 modules / 3,238,563 lines (Mathlib 8,530 files; Lean core 1,835 incl. the implicit Init (D4); OAI 592 + the challenge; Batteries 192; Aesop 132; Qq 14; ProofWidgets 13; Plausible 13; ImportGraph 10; LeanSearchClient 4; Lake 1); no patched package and no patched file in it (the 27 patches touch 27 other packages). The three theorems reach 94,737 constants (32,843 in OAI modules) in 2,539 modules (Mathlib 1,855; OAI 532 of 592; core 139; Batteries 12; Aesop 1); axioms reached: propext, Classical.choice, Quot.sound only; 39 opaque constants reached, all Lean core / Mathlib irreducible_def wrappers. Statement base 2,329 constants; its OAI part is exactly the challenge's definitions (Gate, Program, MatrixAlgorithm, MatrixInput and their costs in OAI.LinearAlgebra.MatrixMultiplication.Model — the October subtree; gatePolynomial, registerPolynomial, FormalCorrect, wireDimension, FormalAdmissibleExponent, formalOmega, dualExponent, formalAlpha in SpectralBooks). Lean's own import list equals the script's closure (with implicit Init) module for module. F4 tests (p1x) running; KR running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:58 — CEN additions (XCEN, exit 0): docs/379.md's division theorems are SpectralBooks.divisionOmega_square_eq_formalOmega (DivisionExponent.lean) and SpectralBooks.algebraicClosure_rank_le_twice_cost / _productQuotientCount (CircuitRankSpecialization.lean): outside the closure, NOT on the route, named by no Comparator config, they build (XB exit 0) and depend on the three axioms only — checked by Lean's kernel at build only. MatrixExponent.omega_eq (division model) IS on the route of square_exponent (via formalOmega_square_eq_omega). omega_eq_and_rigidity : omega F = 9/4 ∧ Rigidity F is on the route with NO hypothesis and the three axioms only, so the conditional rigidity is discharged in the kernel-checked closure. N3: the October MatrixMultiplication.json challenge is absent at 92b516ef; MatrixMultiplication/Main.lean is blob 7608542c, last changed adc7f124 (2026-10-06), and is not imported; the three theorems do use that subtree (15 of 22 imported modules reached; the statement's Gate, Program, MatrixAlgorithm and costs are defined in MatrixMultiplication/Model.lean)."
+    }
+   ]
+  },
+  {
+   "id": "F1",
+   "phase": 2,
+   "title": "Two blind statements, written from the textbooks without seeing the release’s",
+   "state": "passed",
+   "note": "Passed at 03:06 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/PROGRESS.md",
+     "line": "- 2026-11-25 03:06 — F1 passed: both blind statements written without seeing the release's statement and sealed by hash before their first elaboration (writer B, GPT-6.2-astra, A4 at 03:03 UTC; writer A, a Claude agent, A7 at 03:06 UTC; both published at A7)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/blind/A/BlindA.lean",
+     "sha256_12": "a9535d53f70b"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/blind/A/NOTES.md",
+     "sha256_12": "e22cb9e95e4e"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/blind/B/work/BlindB.lean",
+     "sha256_12": "c8723bbd5023"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/blind/B/work/NOTES.md",
+     "sha256_12": "9ecb5d112131"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/blind/B/RUN.txt",
+     "sha256_12": "d27f0ee8a647"
+    }
+   ]
+  },
+  {
+   "id": "F2",
+   "phase": 2,
+   "title": "Bridge: each blind statement proved from the release’s theorems",
+   "state": "passed",
+   "note": "Passed at 06:04 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 03:55 — F2 started: brief, PREREG, AMENDMENTS, both blind files, the reader report read; release files fetched at 92b516ef into bridge/release/ (challenge and ExactExponent sha256 match PREREG); K0 passed per runs/p1/PROGRESS.md; writing the bridge (route: the release's set-based Integral model, formalOmega_eq_integral)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:08 — F2 running: Common.lean, BridgeA.lean, BridgeB.lean, F3.lean, the three challenge files (sealed blind files byte for byte + appended theorem stubs; the release challenge byte for byte + F3 stubs) and three Comparator configs written, not yet compiled; setting up an unprivileged build folder on the P1 pod."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:10 — F2 running: own build of the release at 92b516ef started on P1 as the unprivileged user `bridge` in /home/bridge/work (deviation: the runner's /home/tester is mode 750 and granting another user access to it, or opening /root to it, was refused by the harness; nothing of the runner's is written, and the only runner-installed thing read is the digest-checked toolchain /pin/lean (world-readable); lake update, cache get, lake build of the solution and challenge modules, nice 19)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:37 — F2 running: the release build in /home/bridge/work is at 9,505/9,516 jobs (lake update exit 0, manifest unchanged; cache get exit 0; the five PREREG sha256s re-checked); the bridge user's own judges (Comparator d03acab1 + lean4export 076e8e57, landrun 811cfff5, nanoda 3a240721 — the runner's pins) building, because the runner's judges live in /home/tester."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:40 — F2 running: release build in the bridge folder exit 0 (9,516 jobs; 3 sorry warnings, the challenge's); both sealed blind files elaborate unchanged at Lean v4.34.1 / Mathlib d13f23b7 (lake build Bridge.BlindA Bridge.BlindB exit 0): no repair needed so far; compiling Common.lean."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:45 — F2 passed (build): Bridge.BridgeA and Bridge.BridgeB built (exit 0, no sorry, no native_decide, no axiom declarations); #print axioms for the six writer theorems (A and B × square, dual, rectangular) = [propext, Classical.choice, Quot.sound]; Comparator runs next."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:48 — F2 running: the division propositions (BlindA/BlindB.SquareExponentWithDivision, reported separately, not in the verdict) built from the release's MatrixExponent.omega_eq, axioms [propext, Classical.choice, Quot.sound]; Comparator (Lean's kernel + nanoda) running on BridgeA, BridgeB, F3, BridgeADiv, BridgeBDiv in turn, as the bridge user (landrun probe exit 0)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:59 — F2 passed: writer A — Comparator d03acab1 (own build at the runner's pins), configs/BridgeA.json (challenge = sealed BlindA.lean + three stubs; solution Bridge.BridgeA; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 616 s, peak 8.4 GB. Writer B running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 05:09 — F2 passed: writer B — Comparator, configs/BridgeB.json (challenge = sealed BlindB.lean + three stubs; solution Bridge.BridgeB; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 637 s, peak 8.4 GB. F3 running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 05:27 — F2 passed (division, reported separately): writer A's SquareExponentWithDivision — Comparator, configs/BridgeADiv.json (sealed BlindA.lean + one stub; solution Bridge.DivisionA, from the release's MatrixExponent.omega_eq): nanoda and Lean's kernel accept, exit 0. Writer B's division config running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 05:36 — F2 passed (division, reported separately): writer B's SquareExponentWithDivision — Comparator, configs/BridgeBDiv.json (sealed BlindB.lean + one stub; solution Bridge.DivisionB): nanoda and Lean's kernel accept, exit 0. Next: a planted control (writer A's challenge with SquareExponent's 9/4 changed to 2.24, must be refused), then con-leche 5ea446d5."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 05:40 — F2 passed (control): Comparator on configs/BridgeAPlanted.json (writer A's challenge with one definition body changed, SquareExponent's `9 / 4` → `2.24`; solution Bridge.BridgeA) refused it: \"uncaught exception: Const does not match between challenge and target 'BlindA.SquareExponent'\", exit 1. con-leche 5ea446d5 (own build) running on the exports."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 06:04 — F2 passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts every solution export (A 92,779 declarations, B 92,761, F3 92,461, both division exports) and --verified --compare justifies every listed theorem against its challenge export (A 3/3, B 3/3, F3 9/9, A-division 1/1, B-division 1/1), exit 0 each; export sha256s in pod-logs/work/exports/conleche.log. Bridge work complete; logs in bridge/pod-logs/."
+    }
+   ]
+  },
+  {
+   "id": "F3",
+   "phase": 2,
+   "title": "Anchors: the exponent is not Lean’s empty-set 0, and the formula gives the trivial values",
+   "state": "passed",
+   "note": "Passed at 06:04 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 04:45 — F3 passed (build): Bridge.F3 built (exit 0); #print axioms for its nine anchors = [propext, Classical.choice, Quot.sound]; Comparator run against the challenge file + appended statements next."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 05:18 — F3 passed: Comparator, configs/F3.json (challenge = the release's ComparatorChallenges/MatrixExponent.lean byte for byte + the nine F3 statements; solution Bridge.F3; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 525 s. Division configs running."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+     "line": "- 2026-11-25 06:04 — F3 passed: con-leche --verified --compare justifies all nine F3 anchors against the challenge copy + statements (exit 0)."
+    }
+   ]
+  },
+  {
+   "id": "F4",
+   "phase": 2,
+   "title": "The statement reader: every difference between the Lean statement and the textbooks, each decided",
+   "state": "passed",
+   "note": "Passed at 05:00 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+     "line": "- 2026-11-25 04:58 — F4 decision tests (D3; regenerated from the pinned sources by the reader's own scripts and byte-equal to commit 94b626de): the six planted one-definition variants are ALL REFUSED by Comparator (released settings), each naming the altered definition: V1 floor-for-ceil → \"Const does not match … 'SpectralBooks.wireDimension'\" (323 s); V2 → 'gatePolynomial'; V3 → 'FormalCorrect'; V4 → 'Gate.cost'; V5 → 'dualExponent'; V6 → 'FormalAdmissibleExponent' (203–242 s each). T3: ReaderDivision ACCEPTED (\"Lean default kernel accepts the solution / Your solution is okay!\": MatrixExponent.omega_eq : omega F = 9/4 in the release's rational-circuit model, division allowed), ReaderDivisionPlanted (2.24) REFUSED (\"theorem statement do not match: '…MatrixExponent.omega_eq'\"). lake env lean: T1, T3_DivisionInEnv, T4, T5 GREEN (three axioms only); T2 failed on a tactic (unsolved goal, bracketing) and is GREEN after the one-line repair r1 (D5)."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/PROGRESS.md",
+     "line": "- 2026-11-25 05:00 — F4 passed: every item of the statement reader decided (A12): U1 immaterial (C3 and V1–V6 refused); M1 proved (with division, square case; Lean's kernel only); M3 proved only for all multiplications; M4 proved; M2, M5, M6 absent from the release; T1, T2 (after a one-line tactic repair, D5), T3, T4, T5 green."
+    },
+    {
+     "file": "corpus/omega-nine-fourths/reader/REPORT.md",
+     "sha256_12": "264d43a99311"
+    }
+   ]
+  },
+  {
+   "id": "P1",
+   "phase": 3,
+   "title": "Two independent readings of the lower-bound proof",
+   "state": "read",
+   "note": "Both readings are in: reader 1 (a Claude agent) and reader 2 (GPT-6.2-astra, finished at 03:25 UTC), each written alone, neither seeing the other’s.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/proof-readers/claude/REPORT.md",
+     "sha256_12": "9f0e81012419"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/proof-readers/astra/work/REPORT.md",
+     "sha256_12": "8c19caaf884c"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/proof-readers/astra/REPORT.md",
+     "sha256_12": "d23afd4e4417"
+    },
+    {
+     "file": "corpus/omega-nine-fourths/proof-readers/astra/RUN.txt",
+     "sha256_12": "8ad80c264fb0"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "phase": 3,
+   "title": "Divisions, the per-n bound and Corollary 1.2: proved in the release, or not",
+   "state": "read",
+   "note": "Read at 06:05 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/PROGRESS.md",
+     "line": "- 2026-11-25 06:05 — P2 read: settled from the census and the statement reader's tests (A12): divisions — the square exponent with division gates is proved on the route (MatrixExponent.omega_eq) and both writers' with-division propositions are bridged from it; the per-n gate count is proved only counting every multiplication (the paper's nonscalar count is absent); asymptotic rank n^{9/4} is proved on the route; geometric border rank and Corollary 1.3 per format are absent from the release."
+    }
+   ]
+  },
+  {
+   "id": "U",
+   "phase": 3,
+   "title": "Where the upper bound comes from, and how the release was received",
+   "state": "read",
+   "note": "The provenance report is in.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/provenance/SCOUT.md",
+     "sha256_12": "596c42a4d072"
+    }
+   ]
+  },
+  {
+   "id": "X1",
+   "phase": 4,
+   "title": "Sun’s printed border-rank bound for 32 × 32 matrices, decided exactly",
+   "state": "open",
+   "note": "Left open at 04:03 UTC.",
+   "evidence": [
+    {
+     "file": "corpus/omega-nine-fourths/PROGRESS.md",
+     "line": "- 2026-11-25 04:03 — X1 open: both reconstructions of Sun's printed construction say NEEDS DATA (A: the three maps behind Theorem 1.3(a) are not printed, 27 of 33 checks of what is printed pass; B: the tables disagree with the stated coefficient on 50 of 128 retained supports, which A found independently); undecided until the maps are published."
+    }
+   ]
+  }
+ ],
+ "gaps": [
+  {
+   "id": "G1",
+   "text": "ONE KERNEL in their bar: MatrixExponent.json has `enable_nanoda: false`."
+  },
+  {
+   "id": "G2",
+   "text": "The Lean model is DIVISION-FREE (gates: constant, input, add, sub, mul); the paper's Theorem 1.1 and its per-n bound allow division gates. A lower bound for division-free programs is weaker than one with divisions."
+  },
+  {
+   "id": "G3",
+   "text": "The per-n headline (⌈n^{9/4}/2⌉ gates at EVERY n ≥ 2) and Corollary 1.2 (geometric border rank of T_n ≥ n^{9/4}; asymptotic rank = n^{9/4}) are NOT in the challenge, which states exponents only."
+  },
+  {
+   "id": "G4",
+   "text": "The paper claims 1/2 ≤ α_F ≤ 2/3; the Lean states α = 1/2 and an exact rectangular formula, i.e. more than this paper claims; docs/107.md attributes the extra to three other manuscripts (two of 2026-09-24, one companion of 2026-11-24)."
+  },
+  {
+   "id": "G5",
+   "text": "The literature as read disagrees on the upper bound: DeepMind's notebook of 2026-11-04 says \"The current best bound is ω < 2.371339\" and claims ω < 2.371177; the paper calls ω ≤ 9/4 known. The Lean, if it checks, proves both directions."
+  },
+  {
+   "id": "G6",
+   "text": "The build applies 28 compatibility patches to dependencies (lean/patches/); whether Mathlib or any patched dependency is in the closure of the three theorems is unmeasured."
+  },
+  {
+   "id": "G7",
+   "text": "`formalOmega` is an `sInf` of real numbers; Lean's `sInf` of an empty or unbounded-below set is 0. The control room's reading: the set is non-empty (schoolbook) and bounded below (N² degree-2 outputs) — to be PROVED (F3)."
+  }
+ ],
+ "facts_after_pin": [
+  {
+   "id": "N1",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "OpenAI's PR #6 (2026-11-25 00:17:44 UTC), which added this release: \"Lean and LaTeX builds were not run for this PR.\" formalization.yaml: review status \"unchecked\", method \"agent\".",
+   "gaps": []
+  },
+  {
+   "id": "N2",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "lean/docs/379.md (not read before the seal): \"Lean also proves that allowing division preserves the square exponent. In any circuit for matrix multiplication, the total number of multiplication and division gates is at least half the tensor rank over the algebraic closure of F. The paper's lower bound of ⌈n^{9/4}/2⌉ … at each side length n ≥ 2 remains unformalized.\" CEN records whether those theorems exist, under which Comparator config, and whether they are on the route.",
+   "gaps": []
+  },
+  {
+   "id": "N3",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "The October Comparator challenge for ω_ℂ ≤ 9/4 (MatrixMultiplication.json, complex_omega_le_nine_quarters) is removed at 92b516ef; its solution file is unchanged. CEN records whether the three theorems use that subtree.",
+   "gaps": []
+  }
+ ],
+ "corrections": [
+  {
+   "id": "C-1",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "PREREG.md G6 says \"28 compatibility patches\"; lean/patches/ holds 27 patch files and a README. The PIN row found 0 of the 27 patched packages in the closure of the three theorems.",
+   "gaps": [
+    "G6"
+   ]
+  },
+  {
+   "id": "C-2",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "prompts/provenance-scout.md identified the paper's reference [41] as the two 2026-09-24 manuscripts. The scout (provenance/SCOUT.md) found [41] is the 2026-10-02 preprint \"An Upper Bound of 9/4 for the Matrix Multiplication Exponent\" (over ℂ); the two 2026-09-24 papers are [44] and [45].",
+   "gaps": []
+  },
+  {
+   "id": "C-3",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "G5 as sealed is a true sentence about DeepMind's notebook, but the scout reads it as stale: the upper bound ω ≤ 9/4 has seven outside write-ups (none refereed) and four outside Lean developments (three descend from OpenAI's October code; one, qit-lmu/omega, is code-independent and uses a rank-based ω). G5 stays listed, with this reading.",
+   "gaps": [
+    "G5"
+   ]
+  }
+ ],
+ "deviations": [
+  {
+   "id": "D1",
+   "when": "2026-11-25 03:04 UTC, row PIN, script fix, no result changed",
+   "text": "The first PIN run (03:02:16 UTC) cloned the release and printed its head as 92b516ef8e2abf66c3db7aa31438d3010bc7956f (runs/p1/pin-clone.txt), then stopped at 03:03:56 UTC on its own check \"the release is not at 92b516ef\": the check ran `git rev-parse` as root on a clone owned by the unprivileged user, and git refused the directory as of \"dubious ownership\", printing nothing. No file was checked and no sum written. The check now runs as the clone's owner (tools/runpod-omega-p1.sh); PIN is run again from the start."
+  },
+  {
+   "id": "D2",
+   "when": "2026-11-25 03:07 UTC, row PIN, script fix before the seal, nothing sealed",
+   "text": "The second PIN run finished at 03:06:18 UTC with a list of 11,278 files (sha256 064b658a…) that was NOT sealed, for two faults found on reading its log: one imported module, Lake.Util.Casing (imported by Mathlib.Tactic.Linter.TextBased), was left unresolved because the closure script searched the toolchain's src/lean but not src/lean/lake, where Lake's sources live; and the check of which compatibility patches touch closure files matched by path suffix only, so three paths inside other packages (e.g. PrimeNumberTheoremAnd/Erdos970/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean) were reported as Mathlib files. The script now also searches src/lean/lake and matches a patch's paths only inside the package the patch is named for. PIN is run a third time from the start; only that run's list is sealed (the unsealed one is kept in runs/p1/pin-attempt2/)."
+  },
+  {
+   "id": "D3",
+   "when": "2026-11-25 03:26 UTC, additions to Phase 1 at the control room's word; no pre-registered row changes",
+   "text": "While K0 was building, the control room sent (a) the provenance scout's facts N1–N3 (AMENDMENTS.md A8) for CEN and the K0 log, and (b) the statement reader's decision tests for F4 (reader/tests at commit 94b626de: the six planted challenges V1–V6, each changing one definition body, which Comparator must refuse; the T3 pair ReaderDivision / ReaderDivisionPlanted, accept / refuse; T1–T5 with `lake env lean`) and its note on `rigidity` / `contact_of_installations`. These run AFTER the pre-registered rows, from a separate script (tools/runpod-omega-p1x.sh, which sources the running tools/runpod-omega-p1.sh unchanged; the running file is not edited). Two tests (T3_DivisionInEnv, T4) and N2 need two modules outside the sealed A1 closure (SpectralBooks.DivisionExponent and SpectralBooks.CircuitRankSpecialization); the files they add beyond A1, with the reader's test files, are hashed into A1x-SHA256SUMS and stamped (SEAL-A1x) before anything of them is built. Those two modules are then checked by Lean's kernel at build only (no Comparator config names them, no external kernel); this is said wherever their results are quoted."
+  },
+  {
+   "id": "D4",
+   "when": "2026-11-25 04:19 UTC, row PIN's file list, found at CEN, no result changed",
+   "text": "Lean imports `Init` implicitly into every file that does not begin with `prelude`; the PIN closure script read only the written `import` lines, so the sealed A1-target-SHA256SUMS lists 11,242 modules where the true import closure of the two modules has 11,337. The 95 missing are all toolchain files — Init.lean and 94 files under Init/ — from the official v4.34.1 archive, whose GitHub digest (47bf4bbd…) IS in A1, so their bytes were pinned before K0 through that digest, not file by file. With the implicit import added, the script's closure of {the solution module, Lean} equals, module for module, the 11,857 modules Lean's own environment reports in the census (CEN.out, CENIMP lines). The 95 files' sha256s are recorded in runs/p1/pod/x/init/missing-from-A1.SHA256SUMS (from the digest-checked archive). Found by the Phase 1 runner when the census compared Lean's import list with A1."
+  },
+  {
+   "id": "D5",
+   "when": "2026-11-25 04:57 UTC, F4 test T2, a repair, not a finding",
+   "text": "T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal \"unsolved\" — the two sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this (\"a tactic failure … repair … report it as a repair\"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule. Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins)."
+  }
+ ],
+ "amendments": [
+  {
+   "id": "A2",
+   "when": "2026-11-25 ~02:56 UTC",
+   "title": "the prompt files, sealed before any agent starts"
+  },
+  {
+   "id": "A3",
+   "when": "2026-11-25 ~02:58 UTC",
+   "title": "the two GPT-6.2-astra task files (sealed prompt + a role-and-folders footer)"
+  },
+  {
+   "id": "A4",
+   "when": "2026-11-25 ~03:03 UTC",
+   "title": "writer B's blind statement sealed before it is first elaborated"
+  },
+  {
+   "id": "A5",
+   "when": "2026-11-25 ~03:06 UTC",
+   "title": "the page's order (the operator's word)"
+  },
+  {
+   "id": "A5-c",
+   "when": "2026-11-25 03:05 UTC",
+   "title": "a correction"
+  },
+  {
+   "id": "A6",
+   "when": "2026-11-25 03:06 UTC",
+   "title": "A5 withdrawn"
+  },
+  {
+   "id": "A6-c",
+   "when": "2026-11-25 03:05 UTC",
+   "title": "a correction"
+  },
+  {
+   "id": "A7",
+   "when": "2026-11-25 03:07 UTC",
+   "title": "writer A's blind statement sealed; both blind statements published"
+  },
+  {
+   "id": "A7-c",
+   "when": "2026-11-25 03:06 UTC",
+   "title": "a correction"
+  },
+  {
+   "id": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "title": "corrections, facts found after the pin, and F2's scope (before any bridge attempt)"
+  },
+  {
+   "id": "A9",
+   "when": "2026-11-25 03:30 UTC",
+   "title": "the bridge author's brief (rows F2, F3), sealed before its agent starts"
+  },
+  {
+   "id": "A10",
+   "when": "2026-11-25 03:38 UTC",
+   "title": "a new row X1 (Sun's M_32 construction, decided exactly), sealed before it starts"
+  },
+  {
+   "id": "A11",
+   "when": "2026-11-25 04:08 UTC",
+   "title": "the clean-room pod, created and deleted; F1 and X1 states"
+  },
+  {
+   "id": "A12",
+   "when": "2026-11-25 05:00 UTC",
+   "title": "how F4's items are decided (written before any verdict, after the F4 tests ran)"
+  }
+ ],
+ "seals": [
+  {
+   "id": "SEAL-0",
+   "file": "corpus/omega-nine-fourths/SEAL-0.sha256",
+   "sha256": "f499f5df63e62f6bce84bbaaa5f635392f9180d32e0510021d488b19aa25d2ef",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A1",
+   "file": "corpus/omega-nine-fourths/SEAL-A1.sha256",
+   "sha256": "a33e2f80b137d3f228d33021a8b05f8e74419257abad7fb830e6db56e17715d2",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A1x",
+   "file": "corpus/omega-nine-fourths/SEAL-A1x.sha256",
+   "sha256": "28c4f33c92c162af6640ed54ac0cb708160156bc13aa74deee43092dbb8cb1b0",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A2",
+   "file": "corpus/omega-nine-fourths/SEAL-A2.sha256",
+   "sha256": "decfdd9ec04e4af4f1f13a3c744387b120c026d3dea56c54e33397389a08ee30",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A3",
+   "file": "corpus/omega-nine-fourths/SEAL-A3.sha256",
+   "sha256": "b99e25dace4b753f3af0f09793f355d910ec5d3b33cbbb664042ee0d80cf3149",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A4",
+   "file": "corpus/omega-nine-fourths/SEAL-A4.sha256",
+   "sha256": "e92f7f751cf2b39df0edeca7b64796f1d34404f0af3a9d38f7d89a09f8a9b7a3",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A5",
+   "file": "corpus/omega-nine-fourths/SEAL-A5.sha256",
+   "sha256": "c439452f019ff5d87b37233e53cd1ea4884d3dd1e1b7dc37ae0e9f8e571fcd33",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A5c",
+   "file": "corpus/omega-nine-fourths/SEAL-A5c.sha256",
+   "sha256": "9d6122ac3d5cd09724cff75260b979c91b921d0765b8bf1ad2ad4b27eb23a25a",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A6",
+   "file": "corpus/omega-nine-fourths/SEAL-A6.sha256",
+   "sha256": "a00a72664d5068e03ea5c1ca653c339dc6d844859adc584ab2aa8c364cb1885b",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A7",
+   "file": "corpus/omega-nine-fourths/SEAL-A7.sha256",
+   "sha256": "80c07c5ece9e5319942ea16ff42287cfda1fdcf60216963f4785eaaa8be22342",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A8",
+   "file": "corpus/omega-nine-fourths/SEAL-A8.sha256",
+   "sha256": "d63d8870d516c171e61c3b99a501d8d0676c97b624a591dbe06e8be5555b6a30",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A9",
+   "file": "corpus/omega-nine-fourths/SEAL-A9.sha256",
+   "sha256": "f933c90f785e231ae4c274060904963870215a41d4f885c565bd3dd150687a63",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A10",
+   "file": "corpus/omega-nine-fourths/SEAL-A10.sha256",
+   "sha256": "06669417e466ae70bad945bd661a3f5249c1ea581cfde8873a9903ea1d982ff9",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A11",
+   "file": "corpus/omega-nine-fourths/SEAL-A11.sha256",
+   "sha256": "d922b138431023fee92acf18b30127cec732c210ac0f653ef3469b5ed0bf2812",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A12",
+   "file": "corpus/omega-nine-fourths/SEAL-A12.sha256",
+   "sha256": "28164d2699635d8200b406ba485118ecb7d39f7d2a5d76702e9d05679789f9cb",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  }
+ ],
+ "spent_usd": 5.99,
+ "ceiling_usd": 50,
+ "records": [
+  "corpus/omega-live/state.json",
+  "corpus/omega-live/ledger.json"
+ ]
+}

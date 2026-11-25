@@ -44,3 +44,4 @@ no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's 
 failure … repair … report it as a repair"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else
 changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three
 #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule.
+Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins).

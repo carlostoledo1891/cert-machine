@@ -1,0 +1,82 @@
+Building BridgeChallenges.BlindA
+⚠ [8924/8924] Replayed BridgeChallenges.BlindA
+warning: BridgeChallenges/BlindA.lean:240:8: declaration uses `sorry`
+warning: BridgeChallenges/BlindA.lean:242:8: declaration uses `sorry`
+warning: BridgeChallenges/BlindA.lean:244:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, BlindA.square_exponent_holds, BlindA.dual_exponent_holds, BlindA.rectangular_exponent_holds, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from BridgeChallenges.BlindA
+Building Bridge.BridgeA
+⚠ [9493/9518] Replayed OAI.LinearAlgebra.MatrixMultiplication.Model
+warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+⚠ [9517/9518] Replayed Bridge.Common
+warning: Bridge/Common.lean:112:35: Variable name `ha` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ha
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Bridge/Common.lean:201:13: This simp argument is unused:
+  MvPolynomial.aeval_X
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [φ]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Bridge/Common.lean:272:46: Variable name `hk` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hk
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9518/9518] Replayed Bridge.BridgeA
+warning: Bridge/BridgeA.lean:41:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.runProg_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:62:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.cost_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:71:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.wellFormed_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:90:29: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+warning: Bridge/BridgeA.lean:95:29: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+warning: Bridge/BridgeA.lean:83:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.wellFormed_of_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:100:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.divisionFree_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:110:0: automatically included section variable(s) unused in theorem `OmegaBridge.A.divisionFree_of_append`:
+  [Field F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Field F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: Bridge/BridgeA.lean:259:78: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+warning: Bridge/BridgeA.lean:349:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: Bridge/BridgeA.lean:366:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: Bridge/BridgeA.lean:428:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+Build completed successfully (9518 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, BlindA.square_exponent_holds, BlindA.dual_exponent_holds, BlindA.rectangular_exponent_holds, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Bridge.BridgeA
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!

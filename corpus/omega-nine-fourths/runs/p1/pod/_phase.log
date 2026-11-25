@@ -81,3 +81,56 @@
 2026-11-25T04:17:23Z SEAL-A1x matches; the additions start
 2026-11-25T04:17:23Z XBUILD: the 8 challenge files equal their regeneration from the pinned sources; diffs vs the challenge: V1_wireDimension_floor=2 V2_sub_reversed=2 V3_product_commuted=2 V4_constant_cost_one=2 V5_dual_Icc_0_2=2 V6_C_at_least_one=2 
 2026-11-25T04:17:23Z XB running
+2026-11-25T04:18:37Z XB exit 0 after 74 s, peak 6979160 kB
+2026-11-25T04:18:37Z XB: built 13 modules; errors: 0
+2026-11-25T04:18:37Z p1x stage xf4
+2026-11-25T04:18:37Z XV1CMP running
+2026-11-25T04:21:27Z KR exit 0 after 2372 s, peak 9477420 kB
+2026-11-25T04:21:27Z KR finished (exit 0)
+2026-11-25T04:21:38Z KR exit 0 after 2372 s
+2026-11-25T04:21:38Z P1 DONE
+2026-11-25T04:24:00Z XV1CMP exit 1 after 323 s, peak 8428140 kB
+2026-11-25T04:24:00Z F4 V1_wireDimension_floor: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:24:00Z XV2CMP running
+2026-11-25T04:28:02Z XV2CMP exit 1 after 242 s, peak 8413844 kB
+2026-11-25T04:28:02Z F4 V2_sub_reversed: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:28:02Z XV3CMP running
+2026-11-25T04:31:39Z XV3CMP exit 1 after 217 s, peak 8419236 kB
+2026-11-25T04:31:39Z F4 V3_product_commuted: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:31:39Z XV4CMP running
+2026-11-25T04:35:13Z XV4CMP exit 1 after 214 s, peak 8424000 kB
+2026-11-25T04:35:13Z F4 V4_constant_cost_one: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:35:13Z XV5CMP running
+2026-11-25T04:38:41Z XV5CMP exit 1 after 208 s, peak 8420000 kB
+2026-11-25T04:38:41Z F4 V5_dual_Icc_0_2: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:38:41Z XV6CMP running
+2026-11-25T04:42:04Z XV6CMP exit 1 after 203 s, peak 8424016 kB
+2026-11-25T04:42:04Z F4 V6_C_at_least_one: refused by Comparator (exit 1): warning: OAI/LinearAlgebra/MatrixMultiplication/Model.lean:37:7: `eval.match_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different app
+2026-11-25T04:42:04Z XReaderDivisionCMP running
+2026-11-25T04:49:51Z XReaderDivisionCMP exit 0 after 467 s, peak 5337252 kB
+2026-11-25T04:49:51Z F4 T3 ReaderDivision: ACCEPTED by Comparator (exit 0)
+2026-11-25T04:49:51Z XReaderDivisionPlantedCMP running
+2026-11-25T04:52:39Z XReaderDivisionPlantedCMP exit 1 after 168 s, peak 5341496 kB
+2026-11-25T04:52:39Z F4 T3 ReaderDivisionPlanted: refused by Comparator (exit 1)
+2026-11-25T04:52:39Z XT1 running
+2026-11-25T04:53:08Z XT1 exit 0 after 29 s, peak 7625448 kB
+2026-11-25T04:53:08Z F4 T1_SquareTextbook: GREEN (depends on axioms: [propext, Classical.choice, Quot.sound] )
+2026-11-25T04:53:08Z XT2 running
+2026-11-25T04:53:39Z XT2 exit 1 after 31 s, peak 7604596 kB
+2026-11-25T04:53:39Z F4 T2_AlphaOrientation: NOT green (exit 1; /home/tester/audit/T2_AlphaOrientation.lean:40:76: error: unsolved goals )
+2026-11-25T04:53:39Z XT3 running
+2026-11-25T04:54:10Z XT3 exit 0 after 31 s, peak 7601008 kB
+2026-11-25T04:54:10Z F4 T3_DivisionInEnv: GREEN (depends on axioms: [propext, Classical.choice, Quot.sound] )
+2026-11-25T04:54:10Z XT4 running
+2026-11-25T04:54:42Z XT4 exit 0 after 32 s, peak 7614448 kB
+2026-11-25T04:54:42Z F4 T4_PerN: GREEN (depends on axioms: [propext, Classical.choice, Quot.sound] )
+2026-11-25T04:54:42Z XT5 running
+2026-11-25T04:55:16Z XT5 exit 0 after 34 s, peak 7611012 kB
+2026-11-25T04:55:16Z F4 T5_Eventually: GREEN (depends on axioms: [propext, Classical.choice, Quot.sound] )
+2026-11-25T04:55:16Z p1x stage xcen
+2026-11-25T04:55:16Z XCEN running
+2026-11-25T04:56:06Z XCEN exit 0 after 50 s, peak 8214828 kB
+2026-11-25T04:56:06Z XCEN exit 0; configs (other than the reader's) naming the division theorems or omega_eq: 0
+2026-11-25T04:57:16Z XT2r1 running
+2026-11-25T04:57:54Z XT2r1 exit 0 after 38 s, peak 7605868 kB
+2026-11-25T04:57:54Z F4 T2_AlphaOrientation (repair r1, D5): GREEN (depends on axioms: [propext, Classical.choice, Quot.sound] )

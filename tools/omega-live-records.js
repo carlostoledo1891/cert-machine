@@ -82,7 +82,11 @@ const VERBS = { started: 'running', running: 'running', restarted: 'running', re
   stopped: 'refused', open: 'open', read: 'read', accepted: 'ACC', refused: 'REF',
   /* the runner's words (control room, 2026-11-25 04:1x UTC): "<ROW> setup …" is a row being set up, so running;
      "<ROW> done" is a step row (EXP) finished with its output recorded, so passed */
-  setup: 'running', done: 'passed' };
+  setup: 'running', done: 'passed',
+  /* "F4 decision tests …": the runner's report of the reader's tests, a step toward F4's decision, which the lane log states (A12) */
+  decision: 'running',
+  /* "CEN additions (XCEN, exit 0)": further census items the control room asked for, finished; CEN had already passed */
+  additions: 'passed' };
 
 /* an .ots file: the digest it stamps (sha256 op 0x08 after the 31-byte magic and the version byte), and its attestations */
 function ots(buf) {
@@ -191,7 +195,7 @@ function build(clock) {
   deviations.forEach((d, i) => need(i === 0 || Number(d.id.slice(1)) === Number(deviations[i - 1].id.slice(1)) + 1, 'the deviations are not numbered in order at ' + d.id));
 
   /* ------------------------------------------------------------ the seals */
-  const APPEND_ONLY = new Set(['AMENDMENTS.md', 'DEVIATIONS.md']);
+  const APPEND_ONLY = new Set(['AMENDMENTS.md', 'DEVIATIONS.md', 'PROGRESS.md']);   /* PROGRESS.md (the lane-level log) is append-only too: sealed in A11 and A12, it grows by one line per row event (control room, 2026-11-25) */
   const sealFiles = fs.readdirSync(LANE).filter((f) => /^SEAL-[A-Za-z0-9]+\.sha256$/.test(f))
     .sort((a, b) => { const k = (f) => f === 'SEAL-0.sha256' ? -1 : Number((/A(\d+)/.exec(f) || [, 1e9])[1]) * 10 + (/c\.sha256$/.test(f) ? 1 : 0); return k(a) - k(b); });
   need(sealFiles[0] === 'SEAL-0.sha256', 'the lane has no SEAL-0.sha256');

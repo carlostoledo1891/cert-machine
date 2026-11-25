@@ -1,20 +1,20 @@
 {
  "what": "The state of the ω = 9/4 lane as the live page shows it, written by tools/omega-live-records.js from the lane’s files in corpus/omega-nine-fourths/ and checked against PREREG.md, the seals and the clock.",
- "as_of": "2026-11-25T04:45Z",
- "final": false,
- "verdict": "OPEN",
- "verdict_declared": false,
- "verdict_reason": "",
- "verdict_words": "nothing decided yet",
+ "as_of": "2026-11-25T06:06Z",
+ "final": true,
+ "verdict": "CERTIFIED",
+ "verdict_declared": true,
+ "verdict_reason": "Declared 2026-11-25 06:05 UTC by the control room under the sealed verdict rule (PREREG.md; amendments A8 and A12 fixed F2's and F4's scope before any verdict). Every row the rule names has the state it requires: K0, K1, K1N, K2, K3, KR and CR passed; C1, C2 and C3 were refused; F2 proves BOTH blind statements' propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent) with Comparator accepting our challenge, Lean's kernel and nanoda, and con-leche --compare justifying them; F3 holds (nine anchors, Comparator and con-leche); every MATERIAL item of F4 is decided (A12). What it says: the formal claim — over every field, the exponent of square matrix multiplication for division-free straight-line programs is 9/4, the dual exponent is 1/2, and the stated rectangular formula holds — is proved in Lean 4.34.1 / Mathlib d13f23b7 from the release at openai/math 92b516ef with only propext, Classical.choice and Quot.sound, checked by three independent kernels (Lean's, nanoda at two versions, con-leche), on a clean second machine, and its statement matches two statements written blind from the textbooks. What it does NOT say (PREREG.md, as sealed): that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use); the per-n bound ⌈n^{9/4}/2⌉ in nonscalar gates (proved only counting every multiplication), geometric border rank of T_n, or Corollary 1.3 per format (absent from the release); divisions beyond the square case. The square case with divisions IS proved (MatrixExponent.omega_eq), by Lean's kernel only through the statement reader's challenge and Comparator, and by both bridges. Outside the rule: P1 (two readings of the lower-bound proof: no counterexample; both name the imported list-distinctness bound as the first place to challenge), P2 (read), U (read), X1 (Sun's conflicting construction: NEEDS DATA, twice).",
+ "verdict_words": "by the rule sealed before any run",
  "ceiling_usd": 50,
- "spent_usd": 3.64,
+ "spent_usd": 5.99,
  "pods": [
   {
    "id": "yfz653o1ck7ew9",
    "machine": "RunPod cpu3m 32 vCPU / 256 GB",
    "usd_per_h": 1.76,
    "created_utc": "2026-11-25T02:53:29Z",
-   "ended_utc": null
+   "ended_utc": "2026-11-25T06:05:00Z"
   },
   {
    "id": "vznibdp98fhl5c",
@@ -282,11 +282,15 @@
      "id": "CEN",
      "title": "Census: what the three theorems use; whether divisions, the per-n bound or border rank are proved anywhere",
      "state": "passed",
-     "note": "Passed at 04:20 UTC on the Phase 1 machine.",
+     "note": "Passed at 04:58 UTC on the Phase 1 machine.",
      "evidence": [
       {
        "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
        "line": "- 2026-11-25 04:20 — CEN done (Census.lean, exit 0, 71 s): the import closure of the two modules is 11,337 modules / 3,238,563 lines (Mathlib 8,530 files; Lean core 1,835 incl. the implicit Init (D4); OAI 592 + the challenge; Batteries 192; Aesop 132; Qq 14; ProofWidgets 13; Plausible 13; ImportGraph 10; LeanSearchClient 4; Lake 1); no patched package and no patched file in it (the 27 patches touch 27 other packages). The three theorems reach 94,737 constants (32,843 in OAI modules) in 2,539 modules (Mathlib 1,855; OAI 532 of 592; core 139; Batteries 12; Aesop 1); axioms reached: propext, Classical.choice, Quot.sound only; 39 opaque constants reached, all Lean core / Mathlib irreducible_def wrappers. Statement base 2,329 constants; its OAI part is exactly the challenge's definitions (Gate, Program, MatrixAlgorithm, MatrixInput and their costs in OAI.LinearAlgebra.MatrixMultiplication.Model — the October subtree; gatePolynomial, registerPolynomial, FormalCorrect, wireDimension, FormalAdmissibleExponent, formalOmega, dualExponent, formalAlpha in SpectralBooks). Lean's own import list equals the script's closure (with implicit Init) module for module. F4 tests (p1x) running; KR running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+       "line": "- 2026-11-25 04:58 — CEN additions (XCEN, exit 0): docs/379.md's division theorems are SpectralBooks.divisionOmega_square_eq_formalOmega (DivisionExponent.lean) and SpectralBooks.algebraicClosure_rank_le_twice_cost / _productQuotientCount (CircuitRankSpecialization.lean): outside the closure, NOT on the route, named by no Comparator config, they build (XB exit 0) and depend on the three axioms only — checked by Lean's kernel at build only. MatrixExponent.omega_eq (division model) IS on the route of square_exponent (via formalOmega_square_eq_omega). omega_eq_and_rigidity : omega F = 9/4 ∧ Rigidity F is on the route with NO hypothesis and the three axioms only, so the conditional rigidity is discharged in the kernel-checked closure. N3: the October MatrixMultiplication.json challenge is absent at 92b516ef; MatrixMultiplication/Main.lean is blob 7608542c, last changed adc7f124 (2026-10-06), and is not imported; the three theorems do use that subtree (15 of 22 imported modules reached; the statement's Gate, Program, MatrixAlgorithm and costs are defined in MatrixMultiplication/Model.lean)."
       }
      ]
     }
@@ -332,7 +336,7 @@
      "id": "F2",
      "title": "Bridge: each blind statement proved from the release’s theorems",
      "state": "passed",
-     "note": "Passed at 04:45 UTC.",
+     "note": "Passed at 06:04 UTC.",
      "evidence": [
       {
        "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
@@ -357,6 +361,34 @@
       {
        "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
        "line": "- 2026-11-25 04:45 — F2 passed (build): Bridge.BridgeA and Bridge.BridgeB built (exit 0, no sorry, no native_decide, no axiom declarations); #print axioms for the six writer theorems (A and B × square, dual, rectangular) = [propext, Classical.choice, Quot.sound]; Comparator runs next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 04:48 — F2 running: the division propositions (BlindA/BlindB.SquareExponentWithDivision, reported separately, not in the verdict) built from the release's MatrixExponent.omega_eq, axioms [propext, Classical.choice, Quot.sound]; Comparator (Lean's kernel + nanoda) running on BridgeA, BridgeB, F3, BridgeADiv, BridgeBDiv in turn, as the bridge user (landrun probe exit 0)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 04:59 — F2 passed: writer A — Comparator d03acab1 (own build at the runner's pins), configs/BridgeA.json (challenge = sealed BlindA.lean + three stubs; solution Bridge.BridgeA; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 616 s, peak 8.4 GB. Writer B running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 05:09 — F2 passed: writer B — Comparator, configs/BridgeB.json (challenge = sealed BlindB.lean + three stubs; solution Bridge.BridgeB; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 637 s, peak 8.4 GB. F3 running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 05:27 — F2 passed (division, reported separately): writer A's SquareExponentWithDivision — Comparator, configs/BridgeADiv.json (sealed BlindA.lean + one stub; solution Bridge.DivisionA, from the release's MatrixExponent.omega_eq): nanoda and Lean's kernel accept, exit 0. Writer B's division config running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 05:36 — F2 passed (division, reported separately): writer B's SquareExponentWithDivision — Comparator, configs/BridgeBDiv.json (sealed BlindB.lean + one stub; solution Bridge.DivisionB): nanoda and Lean's kernel accept, exit 0. Next: a planted control (writer A's challenge with SquareExponent's 9/4 changed to 2.24, must be refused), then con-leche 5ea446d5."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 05:40 — F2 passed (control): Comparator on configs/BridgeAPlanted.json (writer A's challenge with one definition body changed, SquareExponent's `9 / 4` → `2.24`; solution Bridge.BridgeA) refused it: \"uncaught exception: Const does not match between challenge and target 'BlindA.SquareExponent'\", exit 1. con-leche 5ea446d5 (own build) running on the exports."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 06:04 — F2 passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts every solution export (A 92,779 declarations, B 92,761, F3 92,461, both division exports) and --verified --compare justifies every listed theorem against its challenge export (A 3/3, B 3/3, F3 9/9, A-division 1/1, B-division 1/1), exit 0 each; export sha256s in pod-logs/work/exports/conleche.log. Bridge work complete; logs in bridge/pod-logs/."
       }
      ]
     },
@@ -364,20 +396,36 @@
      "id": "F3",
      "title": "Anchors: the exponent is not Lean’s empty-set 0, and the formula gives the trivial values",
      "state": "passed",
-     "note": "Passed at 04:45 UTC.",
+     "note": "Passed at 06:04 UTC.",
      "evidence": [
       {
        "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
        "line": "- 2026-11-25 04:45 — F3 passed (build): Bridge.F3 built (exit 0); #print axioms for its nine anchors = [propext, Classical.choice, Quot.sound]; Comparator run against the challenge file + appended statements next."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 05:18 — F3 passed: Comparator, configs/F3.json (challenge = the release's ComparatorChallenges/MatrixExponent.lean byte for byte + the nine F3 statements; solution Bridge.F3; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 525 s. Division configs running."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+       "line": "- 2026-11-25 06:04 — F3 passed: con-leche --verified --compare justifies all nine F3 anchors against the challenge copy + statements (exit 0)."
       }
      ]
     },
     {
      "id": "F4",
      "title": "The statement reader: every difference between the Lean statement and the textbooks, each decided",
-     "state": "running",
-     "note": "The reading is in; each material difference now waits for its Lean test.",
+     "state": "passed",
+     "note": "Passed at 05:00 UTC.",
      "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+       "line": "- 2026-11-25 04:58 — F4 decision tests (D3; regenerated from the pinned sources by the reader's own scripts and byte-equal to commit 94b626de): the six planted one-definition variants are ALL REFUSED by Comparator (released settings), each naming the altered definition: V1 floor-for-ceil → \"Const does not match … 'SpectralBooks.wireDimension'\" (323 s); V2 → 'gatePolynomial'; V3 → 'FormalCorrect'; V4 → 'Gate.cost'; V5 → 'dualExponent'; V6 → 'FormalAdmissibleExponent' (203–242 s each). T3: ReaderDivision ACCEPTED (\"Lean default kernel accepts the solution / Your solution is okay!\": MatrixExponent.omega_eq : omega F = 9/4 in the release's rational-circuit model, division allowed), ReaderDivisionPlanted (2.24) REFUSED (\"theorem statement do not match: '…MatrixExponent.omega_eq'\"). lake env lean: T1, T3_DivisionInEnv, T4, T5 GREEN (three axioms only); T2 failed on a tactic (unsolved goal, bracketing) and is GREEN after the one-line repair r1 (D5)."
+      },
+      {
+       "file": "corpus/omega-nine-fourths/PROGRESS.md",
+       "line": "- 2026-11-25 05:00 — F4 passed: every item of the statement reader decided (A12): U1 immaterial (C3 and V1–V6 refused); M1 proved (with division, square case; Lean's kernel only); M3 proved only for all multiplications; M4 proved; M2, M5, M6 absent from the release; T1, T2 (after a one-line tactic repair, D5), T3, T4, T5 green."
+      },
       {
        "file": "corpus/omega-nine-fourths/reader/REPORT.md",
        "sha256_12": "264d43a99311"
@@ -417,9 +465,14 @@
     {
      "id": "P2",
      "title": "Divisions, the per-n bound and Corollary 1.2: proved in the release, or not",
-     "state": "pending",
-     "note": "Waits for CEN and the two readings.",
-     "evidence": []
+     "state": "read",
+     "note": "Read at 06:05 UTC.",
+     "evidence": [
+      {
+       "file": "corpus/omega-nine-fourths/PROGRESS.md",
+       "line": "- 2026-11-25 06:05 — P2 read: settled from the census and the statement reader's tests (A12): divisions — the square exponent with division gates is proved on the route (MatrixExponent.omega_eq) and both writers' with-division propositions are bridged from it; the per-n gate count is proved only counting every multiplication (the paper's nonscalar count is absent); asymptotic rank n^{9/4} is proved on the route; geometric border rank and Corollary 1.3 per format are absent from the release."
+      }
+     ]
     },
     {
      "id": "U",
@@ -456,10 +509,10 @@
  ],
  "counts": {
   "all": 21,
-  "passed": 16,
-  "read": 2,
-  "running": 1,
-  "pending": 1,
+  "passed": 17,
+  "read": 3,
+  "running": 0,
+  "pending": 0,
   "failed": 0,
   "refused": 0,
   "open": 1
@@ -704,6 +757,18 @@
    "file_sha256": "d922b138431023fee92acf18b30127cec732c210ac0f653ef3469b5ed0bf2812",
    "ots_state": "pending",
    "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A12",
+   "amendment": "A12",
+   "what": "how F4's items are decided (written before any verdict, after the F4 tests ran)",
+   "stamped_utc": "2026-11-25T05:00:00Z",
+   "stamped_approx": false,
+   "files": 3,
+   "file": "corpus/omega-nine-fourths/SEAL-A12.sha256",
+   "file_sha256": "28164d2699635d8200b406ba485118ecb7d39f7d2a5d76702e9d05679789f9cb",
+   "ots_state": "pending",
+   "bitcoin_block": null
   }
  ],
  "amendments": [
@@ -783,6 +848,12 @@
    "id": "A11",
    "when": "2026-11-25 04:08 UTC",
    "title": "the clean-room pod, created and deleted; F1 and X1 states",
+   "correction": null
+  },
+  {
+   "id": "A12",
+   "when": "2026-11-25 05:00 UTC",
+   "title": "how F4's items are decided (written before any verdict, after the F4 tests ran)",
    "correction": null
   }
  ],
@@ -898,6 +969,62 @@
   {
    "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
    "line": "- 2026-11-25 04:45 — F3 passed (build): Bridge.F3 built (exit 0); #print axioms for its nine anchors = [propext, Classical.choice, Quot.sound]; Comparator run against the challenge file + appended statements next."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 04:48 — F2 running: the division propositions (BlindA/BlindB.SquareExponentWithDivision, reported separately, not in the verdict) built from the release's MatrixExponent.omega_eq, axioms [propext, Classical.choice, Quot.sound]; Comparator (Lean's kernel + nanoda) running on BridgeA, BridgeB, F3, BridgeADiv, BridgeBDiv in turn, as the bridge user (landrun probe exit 0)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+   "line": "- 2026-11-25 04:58 — F4 decision tests (D3; regenerated from the pinned sources by the reader's own scripts and byte-equal to commit 94b626de): the six planted one-definition variants are ALL REFUSED by Comparator (released settings), each naming the altered definition: V1 floor-for-ceil → \"Const does not match … 'SpectralBooks.wireDimension'\" (323 s); V2 → 'gatePolynomial'; V3 → 'FormalCorrect'; V4 → 'Gate.cost'; V5 → 'dualExponent'; V6 → 'FormalAdmissibleExponent' (203–242 s each). T3: ReaderDivision ACCEPTED (\"Lean default kernel accepts the solution / Your solution is okay!\": MatrixExponent.omega_eq : omega F = 9/4 in the release's rational-circuit model, division allowed), ReaderDivisionPlanted (2.24) REFUSED (\"theorem statement do not match: '…MatrixExponent.omega_eq'\"). lake env lean: T1, T3_DivisionInEnv, T4, T5 GREEN (three axioms only); T2 failed on a tactic (unsolved goal, bracketing) and is GREEN after the one-line repair r1 (D5)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+   "line": "- 2026-11-25 04:58 — CEN additions (XCEN, exit 0): docs/379.md's division theorems are SpectralBooks.divisionOmega_square_eq_formalOmega (DivisionExponent.lean) and SpectralBooks.algebraicClosure_rank_le_twice_cost / _productQuotientCount (CircuitRankSpecialization.lean): outside the closure, NOT on the route, named by no Comparator config, they build (XB exit 0) and depend on the three axioms only — checked by Lean's kernel at build only. MatrixExponent.omega_eq (division model) IS on the route of square_exponent (via formalOmega_square_eq_omega). omega_eq_and_rigidity : omega F = 9/4 ∧ Rigidity F is on the route with NO hypothesis and the three axioms only, so the conditional rigidity is discharged in the kernel-checked closure. N3: the October MatrixMultiplication.json challenge is absent at 92b516ef; MatrixMultiplication/Main.lean is blob 7608542c, last changed adc7f124 (2026-10-06), and is not imported; the three theorems do use that subtree (15 of 22 imported modules reached; the statement's Gate, Program, MatrixAlgorithm and costs are defined in MatrixMultiplication/Model.lean)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
+   "line": "- 2026-11-25 04:59 — Phase 1 runner done. Every pre-registered row of Phase 1 passed (PIN, K0, K1, K1N, EXP, K2, K3, KR, CR; C1, C2, C3 refused; CEN recorded); deviations D1–D5 (DEVIATIONS.md). Results: runs/p1/pod (342 files, hashes equal on both ends), runs/cr (70 files), LARGE-FILES.txt. CR pod vznibdp98fhl5c has nothing left to run. P1 pod yfz653o1ck7ew9 is also used by the bridge author (user `bridge`) since ~04:11 UTC."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 04:59 — F2 passed: writer A — Comparator d03acab1 (own build at the runner's pins), configs/BridgeA.json (challenge = sealed BlindA.lean + three stubs; solution Bridge.BridgeA; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 616 s, peak 8.4 GB. Writer B running."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/PROGRESS.md",
+   "line": "- 2026-11-25 05:00 — F4 passed: every item of the statement reader decided (A12): U1 immaterial (C3 and V1–V6 refused); M1 proved (with division, square case; Lean's kernel only); M3 proved only for all multiplications; M4 proved; M2, M5, M6 absent from the release; T1, T2 (after a one-line tactic repair, D5), T3, T4, T5 green."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 05:09 — F2 passed: writer B — Comparator, configs/BridgeB.json (challenge = sealed BlindB.lean + three stubs; solution Bridge.BridgeB; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 637 s, peak 8.4 GB. F3 running."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 05:18 — F3 passed: Comparator, configs/F3.json (challenge = the release's ComparatorChallenges/MatrixExponent.lean byte for byte + the nine F3 statements; solution Bridge.F3; nanoda on): nanoda and Lean's kernel accept, \"Your solution is okay!\", exit 0 after 525 s. Division configs running."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 05:27 — F2 passed (division, reported separately): writer A's SquareExponentWithDivision — Comparator, configs/BridgeADiv.json (sealed BlindA.lean + one stub; solution Bridge.DivisionA, from the release's MatrixExponent.omega_eq): nanoda and Lean's kernel accept, exit 0. Writer B's division config running."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 05:36 — F2 passed (division, reported separately): writer B's SquareExponentWithDivision — Comparator, configs/BridgeBDiv.json (sealed BlindB.lean + one stub; solution Bridge.DivisionB): nanoda and Lean's kernel accept, exit 0. Next: a planted control (writer A's challenge with SquareExponent's 9/4 changed to 2.24, must be refused), then con-leche 5ea446d5."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 05:40 — F2 passed (control): Comparator on configs/BridgeAPlanted.json (writer A's challenge with one definition body changed, SquareExponent's `9 / 4` → `2.24`; solution Bridge.BridgeA) refused it: \"uncaught exception: Const does not match between challenge and target 'BlindA.SquareExponent'\", exit 1. con-leche 5ea446d5 (own build) running on the exports."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 06:04 — F2 passed: con-leche 5ea446d5 (own build, toolchain v4.36.0) --verified accepts every solution export (A 92,779 declarations, B 92,761, F3 92,461, both division exports) and --verified --compare justifies every listed theorem against its challenge export (A 3/3, B 3/3, F3 9/9, A-division 1/1, B-division 1/1), exit 0 each; export sha256s in pod-logs/work/exports/conleche.log. Bridge work complete; logs in bridge/pod-logs/."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
+   "line": "- 2026-11-25 06:04 — F3 passed: con-leche --verified --compare justifies all nine F3 anchors against the challenge copy + statements (exit 0)."
+  },
+  {
+   "file": "corpus/omega-nine-fourths/PROGRESS.md",
+   "line": "- 2026-11-25 06:05 — P2 read: settled from the census and the statement reader's tests (A12): divisions — the square exponent with division gates is proved on the route (MatrixExponent.omega_eq) and both writers' with-division propositions are bridged from it; the per-n gate count is proved only counting every multiplication (the paper's nonscalar count is absent); asymptotic rank n^{9/4} is proved on the route; geometric border rank and Corollary 1.3 per format are absent from the release."
   }
  ],
  "sources": [
@@ -907,11 +1034,11 @@
   },
   {
    "file": "corpus/omega-nine-fourths/AMENDMENTS.md",
-   "sha256_12": "cb1696403ed7"
+   "sha256_12": "20b937ff9682"
   },
   {
    "file": "corpus/omega-nine-fourths/DEVIATIONS.md",
-   "sha256_12": "874a97013522"
+   "sha256_12": "3209e326f3cb"
   },
   {
    "file": "corpus/omega-nine-fourths/prompts/blind-writer.md",
@@ -959,15 +1086,15 @@
   },
   {
    "file": "corpus/omega-nine-fourths/runs/p1/PROGRESS.md",
-   "sha256_12": "0f74c449a1c3"
+   "sha256_12": "cc8d06fcdd82"
   },
   {
    "file": "corpus/omega-nine-fourths/bridge/PROGRESS.md",
-   "sha256_12": "bab3438056a4"
+   "sha256_12": "127243ce0b14"
   },
   {
    "file": "corpus/omega-nine-fourths/PROGRESS.md",
-   "sha256_12": "0ccf4290ffb4"
+   "sha256_12": "55b6e2c484fe"
   },
   {
    "file": "corpus/omega-nine-fourths/SEAL-0.sha256",
@@ -1080,6 +1207,14 @@
   {
    "file": "corpus/omega-nine-fourths/SEAL-A11.sha256.ots",
    "sha256_12": "388da151981c"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A12.sha256",
+   "sha256_12": "28164d269963"
+  },
+  {
+   "file": "corpus/omega-nine-fourths/SEAL-A12.sha256.ots",
+   "sha256_12": "2f68739c39c5"
   }
  ],
  "scripts": [
