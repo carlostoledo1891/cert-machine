@@ -1,7 +1,7 @@
 {
- "what": "The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run is open.",
- "as_of": "2026-11-25T15:10Z",
- "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:4 events:12",
+ "what": "The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ and its notes (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run was open; after scoring, the scorer’s totals, the audits’ set sizes, the Layer-1 read-back and the chain’s sources.",
+ "as_of": "2026-11-25T19:38Z",
+ "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:7 events:22 scored:1 layer1:1 lemmas:42 next:3 ci:1 cake:1",
  "run_open": false,
  "run": {
   "start_utc": "2026-11-25T11:02:30Z",
@@ -631,6 +631,30 @@
    "happened": "A Claude agent found that a planted statement’s “may use” list can name a decoy whose text is false. The planted statement then holds vacuously and has a correct kernel proof, and the gate “zero planted statements proved” would have flagged a correct proof as a fault.",
    "done": "Ruled at 13:47 UTC, before the key is opened: the gate judges what the kernel judged. Zero “proved” on a statement whose goal is false, and zero “refuted” on a statement whose text is true; either one would mean a kernel or judge fault. A planted statement whose goal holds vacuously is scored in its own class.",
    "scoring": "Every statement is classed by the truth of what the kernel was asked to judge, read from the key once it is opened."
+  },
+  {
+   "id": "protocol",
+   "when": "14:06",
+   "title": "A sentence in the protocol named one statement and both families’ outcomes on it",
+   "happened": "The text of the 13:29 ruling, added to the protocol file the agents may read, named one statement and how both families had decided it. Both had already decided it, so no attempt on it could change; the sentence could still hint at the role of the statements that share its text.",
+   "done": "At 14:06 UTC the statement and its outcomes were taken out of the protocol file; the case is kept in the private work log.",
+   "scoring": "The blinding audit counted the reads of the protocol after 13:29 that showed the sentence: 2 by Claude agents, 1 by a GPT session."
+  },
+  {
+   "id": "audits",
+   "when": "15:29",
+   "title": "What the two blinding audits found",
+   "happened": "After the run, a Claude agent read every agent’s tool log (906 Claude tool calls, 973 GPT shell commands). All nine GPT sessions were clean; six of the nine Claude agents were not. It found two reads the agents had not reported: two Claude agents read the whole proof from before the run in the run’s first minutes, and a third read the texts of the first statement list. Nobody read the answer key or the other family’s folder, or ran HOL4 outside the judge.",
+   "done": "A GPT-6.2 agent then audited the same logs on its own (at 16:08 UTC). It agreed on every agent and every read that matters, and differed on the size of three sets (the table below). Scoring uses the union of the two, the stricter reading.",
+   "scoring": "23 of the Claude family’s statements are left out of its blind rows: 5 where an agent used or read the material from before the run, and 18 more where an agent could have seen the GPT family’s outcome first. 139 statements remain. The GPT family has none left out."
+  },
+  {
+   "id": "readers",
+   "when": "16:19",
+   "title": "The two readers disagreed on style in 57 scripts",
+   "happened": "Every accepted script was read by two agents, each alone, against a seven-item checklist; no person read them. The Claude reader passed all 307. The GPT-6.2 reader passed 250 and flagged 57 on two style items only: top-level code in the script (55) and two extra standard HOL4 theories (2). Neither reader found a soundness problem.",
+   "done": "Ruled at 16:19 UTC, before the key was opened: a flag on one of those two style items alone, with the other reader passing and no flag on the five other items, does not exclude an attempt. All 57 are listed, with both readers’ reasons, in the scoring report.",
+   "scoring": "Every one of the 307 accepted attempts counts."
   }
  ],
  "rulings": [
@@ -645,6 +669,10 @@
   {
    "when": "13:47",
    "text": "The gate judges what the kernel judged: no proof of a false goal, no refutation of a true text."
+  },
+  {
+   "when": "16:19",
+   "text": "A reader’s flag on style alone, with the other reader passing, does not exclude an attempt. All 57 such flags are listed in the scoring report."
   }
  ],
  "limits_known": [
@@ -652,10 +680,10 @@
    "text": "The first answer key, frozen at 22:03 UTC on 24 November, was printed into AI session transcripts on the machine that runs the benchmark. It was replaced before the run by a fresh key, frozen at 10:25 UTC on 25 November and encrypted under a passphrase that one person, Carlos Toledo, holds."
   },
   {
-   "text": "The Claude agents that built the harness read the texts of the true statements. The proving agents are other agents; the blinding audit checks what each of them read."
+   "text": "The Claude agents that built the harness read the texts of the true statements. The proving agents are other agents; the blinding audits checked what each of them read."
   },
   {
-   "text": "Nothing stops an agent from reading a file: the machine does not restrict reads. The blinding rule is checked afterwards, on every agent’s tool log."
+   "text": "Nothing stops an agent from reading a file: the machine does not restrict reads. The blinding rule was checked afterwards, on every agent’s tool log, twice."
   },
   {
    "text": "Agents of the same family may read each other’s scripts. The brief allows it; reuse is reported, not excluded."
@@ -664,10 +692,16 @@
    "text": "The decoys remove the signal that used to mark the true statements; weaker signals remain, were measured before the run, and are reported with the results."
   },
   {
-   "text": "The judge trusts the files HOL4 writes. A deliberate forgery from inside a build would be stopped only by a text filter on the script and by reading the script, which is why every accepted proof is rebuilt and read (below)."
+   "text": "The judge trusts the files HOL4 writes. A deliberate forgery from inside a build would be stopped only by a text filter on the script and by reading the script, which is why every accepted proof was rebuilt alone and read by two agents."
   },
   {
    "text": "The judge kept running through the pause: 1 Claude Opus 5.5 attempt and 2 GPT-6.2 Astra attempts, already submitted when the agents stopped (11:39 UTC), were judged during it."
+  },
+  {
+   "text": "The blinding audits are agent audits. The first was done by a Claude agent of the same session as the nine Claude provers; the second, by a GPT-6.2 agent, read a work log that already carried the first one’s headline."
+  },
+  {
+   "text": "Each family’s tokens are counted by its own tool (the Agent tool’s report for Claude, Codex’s count for GPT), so the two totals are not one measure."
   }
  ],
  "events": [
@@ -730,6 +764,56 @@
    "at": "2026-11-25T15:09:00Z",
    "title": "The run ends",
    "text": "Every statement is judged or at the cap for both families, or the run was stopped."
+  },
+  {
+   "at": "2026-11-25T15:29:00Z",
+   "title": "The first blinding audit",
+   "text": "A Claude agent reads every agent’s tool log: the GPT family is clean, six of the nine Claude agents are not."
+  },
+  {
+   "at": "2026-11-25T16:04:00Z",
+   "title": "Every accepted proof rebuilt",
+   "text": "307 of 307 rebuilt alone, with the same decision; the judge machine is deleted."
+  },
+  {
+   "at": "2026-11-25T16:08:00Z",
+   "title": "The second blinding audit",
+   "text": "A GPT-6.2 agent audits the same logs on its own and agrees on every read that matters."
+  },
+  {
+   "at": "2026-11-25T16:19:00Z",
+   "title": "Both readers done, and a ruling",
+   "text": "No reader finds a soundness problem; style-only flags do not exclude an attempt."
+  },
+  {
+   "at": "2026-11-25T16:45:00Z",
+   "title": "The key is unlocked, and the run scored",
+   "text": "The gate holds in both families."
+  },
+  {
+   "at": "2026-11-25T17:10:00Z",
+   "title": "The slab soundness theorem",
+   "text": "The one true statement neither family proved is finished by a builder that had read the key, and the slab theorem is assembled."
+  },
+  {
+   "at": "2026-11-25T17:53:00Z",
+   "title": "Layer 1 holds",
+   "text": "The three soundness theorems, and the five certificates through them."
+  },
+  {
+   "at": "2026-11-25T18:38:00Z",
+   "title": "Two lemmas proved again, clean",
+   "text": "A fresh agent that never saw their earlier proofs proves the two lemmas whose only accepted proofs were contaminated."
+  },
+  {
+   "at": "2026-11-25T19:08:00Z",
+   "title": "The repository is public",
+   "text": "Its replay runs on every push."
+  },
+  {
+   "at": "2026-11-25T19:37:00Z",
+   "title": "The replay passes on CI",
+   "text": "On GitHub’s own runner, Poly/ML and HOL4 built from scratch, everything replayed in 27 min 39 s; the read-back is exact. The CakeML job is started by hand."
   }
  ],
  "work": {
@@ -840,51 +924,1031 @@
    "capture": "20260715002525"
   }
  },
+ "scored": {
+  "scored_utc": "2026-11-25T16:45:04Z",
+  "unlocked": "16:45",
+  "frozen_scorer": "16:36",
+  "scorer_tests": "132",
+  "gate_held": true,
+  "judged": 307,
+  "rebuilt": 307,
+  "run_lines": 447,
+  "classes": {
+   "T": 42,
+   "P": 28,
+   "P-vac": 15,
+   "D-planted": 39,
+   "D-true": 38
+  },
+  "success": [
+   {
+    "cls": "T",
+    "family": "claude",
+    "variant": "all",
+    "n": 42,
+    "proved": 40,
+    "refuted": 0,
+    "not_judged": 2,
+    "success_is": "proved",
+    "success": {
+     "k": 40,
+     "n": 42,
+     "rate": "95.2",
+     "lo": "83.8",
+     "hi": "99.5"
+    }
+   },
+   {
+    "cls": "T",
+    "family": "claude",
+    "variant": "blind",
+    "n": 37,
+    "proved": 35,
+    "refuted": 0,
+    "not_judged": 2,
+    "success_is": "proved",
+    "success": {
+     "k": 35,
+     "n": 37,
+     "rate": "94.6",
+     "lo": "81.8",
+     "hi": "99.4"
+    }
+   },
+   {
+    "cls": "T",
+    "family": "gpt",
+    "variant": "all",
+    "n": 42,
+    "proved": 35,
+    "refuted": 0,
+    "not_judged": 7,
+    "success_is": "proved",
+    "success": {
+     "k": 35,
+     "n": 42,
+     "rate": "83.3",
+     "lo": "68.6",
+     "hi": "93.1"
+    }
+   },
+   {
+    "cls": "P",
+    "family": "claude",
+    "variant": "all",
+    "n": 28,
+    "proved": 0,
+    "refuted": 28,
+    "not_judged": 0,
+    "success_is": "refuted",
+    "success": {
+     "k": 28,
+     "n": 28,
+     "rate": "100.0",
+     "lo": "87.6",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "P",
+    "family": "claude",
+    "variant": "blind",
+    "n": 24,
+    "proved": 0,
+    "refuted": 24,
+    "not_judged": 0,
+    "success_is": "refuted",
+    "success": {
+     "k": 24,
+     "n": 24,
+     "rate": "100.0",
+     "lo": "85.7",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "P",
+    "family": "gpt",
+    "variant": "all",
+    "n": 28,
+    "proved": 0,
+    "refuted": 27,
+    "not_judged": 1,
+    "success_is": "refuted",
+    "success": {
+     "k": 27,
+     "n": 28,
+     "rate": "96.4",
+     "lo": "81.6",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "P-vac",
+    "family": "claude",
+    "variant": "all",
+    "n": 15,
+    "proved": 1,
+    "refuted": 14,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 1,
+     "n": 15,
+     "rate": "6.7",
+     "lo": "0.1",
+     "hi": "32.0"
+    },
+    "beside": {
+     "name": "refuted",
+     "k": 14,
+     "n": 15,
+     "rate": "93.3",
+     "lo": "68.0",
+     "hi": "99.9"
+    },
+    "either": {
+     "k": 15,
+     "n": 15,
+     "rate": "100.0",
+     "lo": "78.1",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "P-vac",
+    "family": "claude",
+    "variant": "blind",
+    "n": 12,
+    "proved": 1,
+    "refuted": 11,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 1,
+     "n": 12,
+     "rate": "8.3",
+     "lo": "0.2",
+     "hi": "38.5"
+    },
+    "beside": {
+     "name": "refuted",
+     "k": 11,
+     "n": 12,
+     "rate": "91.7",
+     "lo": "61.5",
+     "hi": "99.8"
+    },
+    "either": {
+     "k": 12,
+     "n": 12,
+     "rate": "100.0",
+     "lo": "73.5",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "P-vac",
+    "family": "gpt",
+    "variant": "all",
+    "n": 15,
+    "proved": 0,
+    "refuted": 15,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 0,
+     "n": 15,
+     "rate": "0.0",
+     "lo": "0.0",
+     "hi": "21.9"
+    },
+    "beside": {
+     "name": "refuted",
+     "k": 15,
+     "n": 15,
+     "rate": "100.0",
+     "lo": "78.1",
+     "hi": "100.0"
+    },
+    "either": {
+     "k": 15,
+     "n": 15,
+     "rate": "100.0",
+     "lo": "78.1",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "D-planted",
+    "family": "claude",
+    "variant": "all",
+    "n": 39,
+    "proved": 17,
+    "refuted": 22,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 17,
+     "n": 39,
+     "rate": "43.6",
+     "lo": "27.8",
+     "hi": "60.4"
+    },
+    "beside": {
+     "name": "text refuted",
+     "k": 22,
+     "n": 39,
+     "rate": "56.4",
+     "lo": "39.6",
+     "hi": "72.2"
+    },
+    "either": {
+     "k": 39,
+     "n": 39,
+     "rate": "100.0",
+     "lo": "90.9",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "D-planted",
+    "family": "claude",
+    "variant": "blind",
+    "n": 32,
+    "proved": 17,
+    "refuted": 15,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 17,
+     "n": 32,
+     "rate": "53.1",
+     "lo": "34.7",
+     "hi": "71.0"
+    },
+    "beside": {
+     "name": "text refuted",
+     "k": 15,
+     "n": 32,
+     "rate": "46.9",
+     "lo": "29.0",
+     "hi": "65.3"
+    },
+    "either": {
+     "k": 32,
+     "n": 32,
+     "rate": "100.0",
+     "lo": "89.1",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "D-planted",
+    "family": "gpt",
+    "variant": "all",
+    "n": 39,
+    "proved": 3,
+    "refuted": 36,
+    "not_judged": 0,
+    "success_is": "proved",
+    "success": {
+     "k": 3,
+     "n": 39,
+     "rate": "7.7",
+     "lo": "1.6",
+     "hi": "20.9"
+    },
+    "beside": {
+     "name": "text refuted",
+     "k": 36,
+     "n": 39,
+     "rate": "92.3",
+     "lo": "79.1",
+     "hi": "98.4"
+    },
+    "either": {
+     "k": 39,
+     "n": 39,
+     "rate": "100.0",
+     "lo": "90.9",
+     "hi": "100.0"
+    }
+   },
+   {
+    "cls": "D-true",
+    "family": "claude",
+    "variant": "all",
+    "n": 38,
+    "proved": 36,
+    "refuted": 0,
+    "not_judged": 2,
+    "success_is": "proved",
+    "success": {
+     "k": 36,
+     "n": 38,
+     "rate": "94.7",
+     "lo": "82.2",
+     "hi": "99.4"
+    }
+   },
+   {
+    "cls": "D-true",
+    "family": "claude",
+    "variant": "blind",
+    "n": 34,
+    "proved": 32,
+    "refuted": 0,
+    "not_judged": 2,
+    "success_is": "proved",
+    "success": {
+     "k": 32,
+     "n": 34,
+     "rate": "94.1",
+     "lo": "80.3",
+     "hi": "99.3"
+    }
+   },
+   {
+    "cls": "D-true",
+    "family": "gpt",
+    "variant": "all",
+    "n": 38,
+    "proved": 33,
+    "refuted": 0,
+    "not_judged": 5,
+    "success_is": "proved",
+    "success": {
+     "k": 33,
+     "n": 38,
+     "rate": "86.8",
+     "lo": "71.9",
+     "hi": "95.6"
+    }
+   }
+  ],
+  "blind": {
+   "rule": "the union of the two audits’ CONTAMINATED and OTHER-FAMILY-VISIBLE sets, the stricter reading",
+   "left_out": 23,
+   "contaminated": 5,
+   "visible_only": 18,
+   "remaining": 139,
+   "judged_remaining": 135,
+   "gpt_left_out": 0,
+   "audits": [
+    {
+     "set": "CONTAMINATED",
+     "first": 5,
+     "second": 4,
+     "union": 5
+    },
+    {
+     "set": "OTHER-FAMILY-VISIBLE",
+     "first": 18,
+     "second": 19,
+     "union": 19
+    },
+    {
+     "set": "SAME-FAMILY-REUSE",
+     "first": 13,
+     "second": 19,
+     "union": 19
+    }
+   ]
+  },
+  "tokens": {
+   "claude": {
+    "total": 5043536,
+    "judged": 158,
+    "per_judged": 31921
+   },
+   "gpt": {
+    "total": 1100209,
+    "judged": 149,
+    "per_judged": 7384
+   }
+  },
+  "readers": {
+   "scripts": 307,
+   "claude_pass": 307,
+   "gpt_pass": 250,
+   "gpt_flagged": 57,
+   "item2": 55,
+   "item4": 2,
+   "flagged_gpt": 48,
+   "flagged_claude": 9,
+   "gpt_done": "16:16",
+   "claude_done": "16:19"
+  },
+  "ruling_readers": "16:19"
+ },
+ "proved": {
+  "theorems": [
+   "slab_check_sound",
+   "inner_check_sound",
+   "cover_all_sound"
+  ],
+  "lemmas_read_back": 54,
+  "ancestry": 159,
+  "axioms": [
+   "SELECT_AX",
+   "INFINITY_AX",
+   "ETA_AX",
+   "BOOL_CASES_AX"
+  ],
+  "checks_T": 6,
+  "bounds": [
+   {
+    "id": "slabA",
+    "n": 130,
+    "lo": [
+     1,
+     5
+    ],
+    "hi": [
+     3,
+     10
+    ],
+    "digits_num": 25,
+    "digits_den": 29,
+    "approx": "2.7849e-4"
+   },
+   {
+    "id": "slabB",
+    "n": 130,
+    "lo": [
+     3,
+     10
+    ],
+    "hi": [
+     2,
+     5
+    ],
+    "digits_num": 27,
+    "digits_den": 30,
+    "approx": "3.0355e-4"
+   },
+   {
+    "id": "slabC",
+    "n": 146,
+    "lo": [
+     2,
+     5
+    ],
+    "hi": [
+     9,
+     20
+    ],
+    "digits_num": 26,
+    "digits_den": 30,
+    "approx": "2.7471e-4"
+   },
+   {
+    "id": "slabD",
+    "n": 146,
+    "lo": [
+     9,
+     20
+    ],
+    "hi": [
+     1,
+     2
+    ],
+    "digits_num": 27,
+    "digits_den": 30,
+    "approx": "4.6383e-4"
+   }
+  ],
+  "forgeries": {
+   "total": 40,
+   "certs": 37,
+   "covers": 3,
+   "kernel": 39,
+   "loader": 1
+  },
+  "replay": {
+   "files": 271,
+   "s": 1415.3,
+   "peak_gb": 1.94,
+   "verdicts": 52
+  },
+  "layer1_at": "17:53",
+  "slab_sound_at": "17:10",
+  "cleanroom_at": "18:38",
+  "repo": {
+   "url": "https://github.com/carlostoledo1891/delta3-hol4",
+   "public_at": "19:08",
+   "ci_started": "19:07",
+   "ci_green": {
+    "at": "19:37",
+    "from": "19:07",
+    "to": "19:37",
+    "took": "27 min 39 s",
+    "theorem_files": 51
+   },
+   "cakeml_started": {
+    "at": "19:37",
+    "expected_h": 3
+   }
+  }
+ },
+ "lemmas": [
+  {
+   "id": "L01",
+   "part": "SLAB",
+   "name": "sc_exact",
+   "statement": "S017",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L02",
+   "part": "SLAB",
+   "name": "addl_spec",
+   "statement": "S041",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L03",
+   "part": "SLAB",
+   "name": "addm_spec",
+   "statement": "S021",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L04",
+   "part": "SLAB",
+   "name": "add_term_guard",
+   "statement": "S110",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L05",
+   "part": "SLAB",
+   "name": "add_term_val",
+   "statement": "S042",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L06",
+   "part": "SLAB",
+   "name": "init_state",
+   "statement": "S005",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L07",
+   "part": "SLAB",
+   "name": "add_cells_sound",
+   "statement": "S130",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L08",
+   "part": "SLAB",
+   "name": "add_full_sound",
+   "statement": "S100",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L09",
+   "part": "SLAB",
+   "name": "add_cut_sound",
+   "statement": "S001",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L10",
+   "part": "SLAB",
+   "name": "add_zz_sound",
+   "statement": "S117",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L11",
+   "part": "SLAB",
+   "name": "add_form_guard",
+   "statement": "S095",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L12",
+   "part": "SLAB",
+   "name": "add_form_val_y",
+   "statement": "S084",
+   "used_by": [
+    "slab"
+   ],
+   "how": "claude-visible",
+   "only": true
+  },
+  {
+   "id": "L13",
+   "part": "SLAB",
+   "name": "add_form_val_m",
+   "statement": "S098",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L14",
+   "part": "SLAB",
+   "name": "add_form_val_tri",
+   "statement": "S089",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L15",
+   "part": "SLAB",
+   "name": "add_forms_sound",
+   "statement": "S146",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L16",
+   "part": "SLAB",
+   "name": "form_nonneg_box",
+   "statement": "S152",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L17",
+   "part": "SLAB",
+   "name": "tri_nonneg",
+   "statement": "S054",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": true
+  },
+  {
+   "id": "L18",
+   "part": "SLAB",
+   "name": "forms_val_nonneg",
+   "statement": "S154",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L19",
+   "part": "SLAB",
+   "name": "slab_poly_sound",
+   "statement": "S019",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L20",
+   "part": "SLAB",
+   "name": "transp_spec",
+   "statement": "S052",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L21",
+   "part": "SLAB",
+   "name": "lin_spec",
+   "statement": "S038",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L22",
+   "part": "SLAB",
+   "name": "slab_matrix_shape_sym",
+   "statement": "S027",
+   "used_by": [
+    "slab"
+   ],
+   "how": "claude-blind",
+   "only": true
+  },
+  {
+   "id": "L23",
+   "part": "SLAB",
+   "name": "slab_matrix_val",
+   "statement": "S057",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L24",
+   "part": "SLAB",
+   "name": "sumsq_le",
+   "statement": "S123",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L25",
+   "part": "SLAB",
+   "name": "widths_len",
+   "statement": "S078",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L26",
+   "part": "SLAB",
+   "name": "dd_rows_psd",
+   "statement": "S040",
+   "used_by": [
+    "slab",
+    "inner"
+   ],
+   "how": "clean-room",
+   "only": false,
+   "proved_at": "2026-11-25T18:36:14Z"
+  },
+  {
+   "id": "L27",
+   "part": "SLAB",
+   "name": "claim_le_bound",
+   "statement": "S108",
+   "used_by": [
+    "slab"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L28",
+   "part": "SLAB",
+   "name": "slab_check_sound",
+   "statement": "S149",
+   "used_by": [
+    "slab"
+   ],
+   "how": "builder",
+   "only": false,
+   "proved_at": "2026-11-25T16:52:08Z"
+  },
+  {
+   "id": "L29",
+   "part": "STRICT",
+   "name": "sdd_rows_pd",
+   "statement": "S046",
+   "used_by": [
+    "inner"
+   ],
+   "how": "clean-room",
+   "only": false,
+   "proved_at": "2026-11-25T18:36:50Z"
+  },
+  {
+   "id": "L30",
+   "part": "INNER",
+   "name": "add_cut0_sound",
+   "statement": "S048",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L31",
+   "part": "INNER",
+   "name": "add_lam_sound",
+   "statement": "S002",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L32",
+   "part": "INNER",
+   "name": "add_nu_sound",
+   "statement": "S059",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L33",
+   "part": "INNER",
+   "name": "add_kap_sound",
+   "statement": "S043",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L34",
+   "part": "INNER",
+   "name": "add_nn_sound",
+   "statement": "S139",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L35",
+   "part": "INNER",
+   "name": "add_cc_sound",
+   "statement": "S047",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L36",
+   "part": "INNER",
+   "name": "inner_poly_sound",
+   "statement": "S105",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L37",
+   "part": "INNER",
+   "name": "inner_matrix_val",
+   "statement": "S109",
+   "used_by": [
+    "inner"
+   ],
+   "how": "claude-blind",
+   "only": true
+  },
+  {
+   "id": "L38",
+   "part": "INNER",
+   "name": "lin_ldot",
+   "statement": "S058",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L39",
+   "part": "INNER",
+   "name": "mval_nonneg",
+   "statement": "S115",
+   "used_by": [
+    "inner"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L40",
+   "part": "INNER",
+   "name": "inner_check_sound",
+   "statement": "S049",
+   "used_by": [
+    "inner"
+   ],
+   "how": "claude-blind",
+   "only": true
+  },
+  {
+   "id": "L41",
+   "part": "COVER",
+   "name": "cover_step",
+   "statement": "S053",
+   "used_by": [
+    "cover"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  },
+  {
+   "id": "L42",
+   "part": "COVER",
+   "name": "cover_all_sound",
+   "statement": "S114",
+   "used_by": [
+    "cover"
+   ],
+   "how": "gpt-blind",
+   "only": false
+  }
+ ],
  "next": [
   {
-   "title": "The run ends",
-   "short": "run ends",
-   "text": "When every statement is judged or at the cap for both families, or the run is stopped. The judge machine is stopped, its log brought home, and the machine deleted."
+   "title": "The CakeML job on CI",
+   "short": "CakeML on CI",
+   "state": "started 19:37 UTC, running",
+   "text": "The repository’s replay runs on every push. Its second job, which also builds CakeML’s basis, translates and compiles the checker and runs the binary on all 52 inputs, runs by hand or weekly. It was started by hand at 19:37 UTC and is expected to take about 3 h; until it ends, it has not run on a standard CI runner nor in the repository’s own layout."
   },
   {
-   "title": "A fresh rebuild of every accepted proof",
-   "short": "fresh rebuild",
-   "text": "Each accepted script is built again, alone, in a new process against the frozen statements; an attempt counts only if the rebuild gives the same decision."
+   "title": "A bridge to Lean, as a plan",
+   "short": "Lean bridge",
+   "state": "a plan; one trial so far",
+   "text": "The plan: decide the certificates in Lean’s own kernel as well, read the data back and refuse the forgeries there, and set the result beside the Lean formalisation of the full statement by Snively. So far one slab has been decided in Lean’s kernel, as a trial before the run, in 807 s (HOL4: 1.15 s); the other four have no Lean verdict."
   },
   {
-   "title": "Two readers for every accepted script",
-   "short": "two readers",
-   "text": "One Claude and one GPT-6.2 agent, each alone, read every accepted script against a seven-item checklist. No person reads them, and the report will say so."
-  },
-  {
-   "title": "The blinding audit",
-   "short": "blinding audit",
-   "text": "Every agent’s tool log is read for forbidden reads: the judge’s log, the moved material, the answer texts."
-  },
-  {
-   "title": "The key is unlocked",
-   "short": "key unlocked",
-   "text": "Carlos Toledo types the passphrase; the key says which statements are true, planted or decoys. Nobody knows that before."
-  },
-  {
-   "title": "Scoring",
-   "short": "scoring",
-   "text": "By what the kernel judged, per family and per class, with exact 95% intervals, the Claude family also without the statements touched by the two leaks above."
-  },
-  {
-   "title": "A non-blind builder finishes the slab lemmas",
-   "short": "non-blind builder",
-   "text": "Any lemma of the slab proof left unproved after the run is finished by a builder agent that is not blind. Those lemmas are labelled non-blind, and the scores count only blind attempts."
-  },
-  {
-   "title": "The slab theorem",
-   "short": "slab theorem",
-   "text": "The theorem that an accepting slab check implies the bound on its region, for the four slabs: the next milestone of the soundness proof."
-  },
-  {
-   "title": "A public repository",
-   "short": "public repository",
-   "text": "The checker, its proofs and the run’s records in a small public repository of their own."
+   "title": "The dominance lemma, offered to HOL4",
+   "short": "HOL4 pull request",
+   "state": "prepared, not opened",
+   "text": "The lemma that weighted diagonal dominance gives positive (semi)definiteness is prepared as a pull request to the HOL4 repository. Opening it is Carlos Toledo’s step; nothing has been sent."
   }
  ],
  "sources": [
@@ -902,7 +1966,7 @@
   },
   {
    "file": "hol4/delta3/harness/RUN-PROTOCOL.md",
-   "sha256_12": "d4703046e370"
+   "sha256_12": "5ebcf61c5302"
   },
   {
    "file": "hol4/delta3/harness/FREEZE-2.json",
@@ -926,7 +1990,7 @@
   },
   {
    "file": "hol4/delta3/WORKLOG.md",
-   "sha256_12": "53b227a3dd1c"
+   "sha256_12": "536feceafd58"
   },
   {
    "file": "hol4/delta3/README.md",
@@ -935,6 +1999,58 @@
   {
    "file": "hol4/delta3/repo-draft/README.md",
    "sha256_12": "9307ca1e7131"
+  },
+  {
+   "file": "hol4/delta3/harness/score/score.json",
+   "sha256_12": "def7bd7dcab6"
+  },
+  {
+   "file": "hol4/delta3/harness/score/SCORE.md",
+   "sha256_12": "1f595b28f8e9"
+  },
+  {
+   "file": "hol4/delta3/harness/audit/AUDIT.md",
+   "sha256_12": "3b4b042cceca"
+  },
+  {
+   "file": "hol4/delta3/harness/audit/sets.json",
+   "sha256_12": "fd24fb979b1d"
+  },
+  {
+   "file": "hol4/delta3/assembly/SOURCES.tsv",
+   "sha256_12": "81fc36bb346a"
+  },
+  {
+   "file": "hol4/delta3/assembly/check.out",
+   "sha256_12": "eb66945951fc"
+  },
+  {
+   "file": "hol4/delta3/assembly/README.md",
+   "sha256_12": "b4aa877f80fe"
+  },
+  {
+   "file": "hol4/delta3/assembly/repo/delta3-hol4/README.md",
+   "sha256_12": "7edf188e9b3c"
+  },
+  {
+   "file": "hol4/delta3/assembly/repo/delta3-hol4/.github/workflows/replay.yml",
+   "sha256_12": "91990252f455"
+  },
+  {
+   "file": "hol4/delta3/upstream/README.md",
+   "sha256_12": "5969d91a3bca"
+  },
+  {
+   "file": "notes/(private)/audit-astra/work/sets.json",
+   "sha256_12": "edca7ea43019"
+  },
+  {
+   "file": "notes/(private)/astra-lean-slab/REPORT.md",
+   "sha256_12": "fe63cb0c042f"
+  },
+  {
+   "file": "notes/(private)/control-room-replay-lean/REPLAY-NOTE.md",
+   "sha256_12": "4347a9f9b931"
   }
  ]
 }
