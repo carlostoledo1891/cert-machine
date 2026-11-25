@@ -105,8 +105,10 @@ First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 
   5. NEW LANE grh-lean (22:4x UTC, his word "start a new lane to contribute with useful things we can"): an independent
      check of lsernau/grh-lean at 72fead10 (RH + GRH in Lean, two editions; now the main branch of
      leanprover-community/riemann-hypothesis). PRE-REGISTERED and sealed (corpus/grh-lean-check/PREREG.md, 278f4cf4;
-     A1: ceiling US$15, the pod starts only AFTER the Lean-bridge pod is deleted). An agent is preparing
-     instruments/grh-lean/ and tools/runpod-grh-lean.sh + tools/check-grh-lean.py (not committed; review first).
+     A1: ceiling US$15, the pod starts only AFTER the Lean-bridge pod is deleted). CHAR PASSED 22:59 UTC (A2, on
+     the Lean-bridge pod). Instruments + runner + recorder committed with A3 (3bb6b7f4: P1–P6 adopted; order: verdict
+     rows, D1 readable, then compact, S2 dropped first). NEXT, after the Lean-bridge pod is deleted: read the balance,
+     create cpu3m 16 vCPU / 128 GB / disk 160, `AUDIT_SHA=3bb6b7f4… DEADLINE=<from US$15>` per the runner's header.
      Community texts: facts sheets he writes (no LLM comments on Zulip/GitHub).
 
 PREVIOUS START HERE (2026-11-24 ~10:15 UTC, history. The operator, in order: "Keep the efforts on 1, 2 and 3 … use also Astra as
