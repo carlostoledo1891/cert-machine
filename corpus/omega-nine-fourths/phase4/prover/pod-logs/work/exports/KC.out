@@ -1,0 +1,13 @@
+con-leche: stats: phases: parse 3.5s (index 0.2s), check 29.7s
+con-leche: stats: check pool: 29.717s wall, 8 workers, 92099 records, busy 237.136s (99.7%); tail 0.061s after the last start, 8 busy then, 0.071s worker-time in it (14.5%)
+con-leche: stats: slowest checks: 1.005s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82145); 0.976s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59828); 0.861s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59802); 0.614s theorem OAI.LinearAlgebra.MatrixExponent.Protocol.applyMove_value (#67736); 0.519s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85831)
+con-leche: stats: peak RSS 1.29 GiB
+con-leche: stats: phases: parse 33.7s (index 0.0s), check 2.3s
+con-leche: stats: check pool: 2.300s wall, 8 workers, 22133 records, busy 17.889s (97.2%); tail 0.070s after the last start, 8 busy then, 0.093s worker-time in it (16.6%)
+con-leche: stats: slowest checks: 0.096s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#20408); 0.085s theorem AlgebraicClosure.toSplittingField_coeff (#22004); 0.076s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#17481); 0.066s axiom PerN.borderRankLower_holds (#22132); 0.065s axiom PerN.gatesPerN_holds (#17573)
+con-leche: stats: peak RSS 1.29 GiB
+con-leche: accepted 22132 declarations, 4 axioms justified by the solution /home/prover/work/exports/sol.ndjson (92099 declarations accepted) (--verified)
+con-leche: theorem PerN.gatesPerNAll_holds justified by the solution
+con-leche: theorem PerN.gatesPerN_holds justified by the solution
+con-leche: theorem PerN.asymptoticRank_holds justified by the solution
+con-leche: theorem PerN.borderRankLower_holds justified by the solution

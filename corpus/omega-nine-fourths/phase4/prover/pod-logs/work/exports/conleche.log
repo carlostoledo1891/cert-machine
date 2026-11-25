@@ -1,0 +1,11 @@
+2026-11-25T10:19:46Z con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f toolchain leanprover/lean4:v4.36.0 build exit 0
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  /home/prover/tools/con-leche/.lake/build/bin/con-leche
+2026-11-25T10:21:33Z export sol (PerNProof.Main) exit 0 7738050c956fa845
+2026-11-25T10:22:09Z export chal (PerNChallenges.PerN) exit 0 aa1667b441888b00
+2026-11-25T10:22:45Z export chalPlanted (PerNChallenges.PerNPlanted) exit 0 2e6179e09561a63e
+2026-11-25T10:23:22Z con-leche --verified sol exit 0
+2026-11-25T10:23:58Z con-leche --verified --compare chal exit 0; justified lines: 5
+2026-11-25T10:24:34Z con-leche --verified --compare planted exit 1; justified lines: 1
+aa1667b441888b00e3095bce53e1dd78b7303dad985b21430f3556c5c5189e4b  chal.ndjson
+2e6179e09561a63ebe86ff0f2a1407427f3bb581c70baba9d2aa084f45d5716e  chalPlanted.ndjson
+7738050c956fa845665ff0b456b25a4f6f04c10169b1a94a24af82d6bf54cbff  sol.ndjson

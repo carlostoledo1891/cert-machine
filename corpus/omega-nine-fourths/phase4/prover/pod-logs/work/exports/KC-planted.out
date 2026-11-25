@@ -1,0 +1,9 @@
+con-leche: stats: phases: parse 3.3s (index 0.1s), check 30.3s
+con-leche: stats: check pool: 30.296s wall, 8 workers, 92099 records, busy 241.614s (99.6%); tail 0.086s after the last start, 8 busy then, 0.095s worker-time in it (13.8%)
+con-leche: stats: slowest checks: 1.186s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59828); 0.818s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82145); 0.748s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59802); 0.612s theorem OAI.LinearAlgebra.MatrixExponent.Protocol.applyMove_value (#67736); 0.527s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85831)
+con-leche: stats: peak RSS 1.30 GiB
+con-leche: stats: phases: parse 34.3s (index 0.0s), check 1.5s
+con-leche: stats: check pool: 1.525s wall, 8 workers, 17593 records, busy 11.841s (97.0%); tail 0.057s after the last start, 8 busy then, 0.168s worker-time in it (36.8%)
+con-leche: stats: slowest checks: 0.067s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#17481); 0.059s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#10561); 0.057s axiom PerN.gatesPerN_holds (#17573); 0.048s theorem _private.Mathlib.Algebra.Order.Field.Basic.0.mul_self_inj_of_nonneg._proof_1_1 (#13910); 0.046s theorem _private.Mathlib.Data.List.Perm.Lattice.0.List.Perm.bagInter_right._proof_1_3 (#3286)
+con-leche: stats: peak RSS 1.30 GiB
+con-leche: invalid: axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike [at axiom PerN.asymptoticRank_holds, fold position 17592] (--verified) t=35.8s
