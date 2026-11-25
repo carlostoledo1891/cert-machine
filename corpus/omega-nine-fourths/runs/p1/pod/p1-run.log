@@ -1,0 +1,68 @@
+2026-11-25T03:15:06Z SEAL-A1 matches target-SHA256SUMS (350adbb637dd089d…); run starts
+2026-11-25T03:15:54Z toolchain: elan's /home/tester/.elan/toolchains/leanprover--lean4---v4.34.1 is byte-identical to the digest-checked archive (15212 files)
+2026-11-25T03:15:54Z K0U running
+2026-11-25T03:20:37Z K0U exit 0 after 283 s, peak 1982176 kB
+2026-11-25T03:20:37Z K0U: lake-manifest.json unchanged by lake update
+2026-11-25T03:20:37Z K0U patch lines: 38 (27 'applied', 11 'verified')
+2026-11-25T03:20:41Z K0 closure after lake update: re-hashed 11276 files of target-SHA256SUMS in the live tree after lake update: 0 differ, 0 missing
+2026-11-25T03:20:41Z K0M running
+2026-11-25T03:21:30Z K0M exit 0 after 49 s, peak 1776652 kB
+2026-11-25T03:21:30Z K0B running
+2026-11-25T03:40:59Z K0B exit 0 after 1169 s, peak 7697808 kB
+2026-11-25T03:40:59Z K0B: built 593 modules, replayed 0, last line: Build completed successfully (9516 jobs).; sorry warnings: 3 (0 outside the challenge)
+2026-11-25T03:40:59Z K0A running
+2026-11-25T03:41:31Z K0A exit 0 after 32 s, peak 7593996 kB
+2026-11-25T03:41:31Z K0A axioms:       3 depends on axioms: [propext, Classical.choice, Quot.sound] 
+2026-11-25T03:41:54Z K0 grep: 2707 lines over the closure; OAI files: OAI-release opaque 1;OAI-release unsafe 1;OAI-release total: 2;
+2026-11-25T03:41:54Z KR running
+2026-11-25T03:41:54Z JUDGES-OK: comparator: d03acab1 comparator: toolchai lean4export: 076e8e57 landrun: 811cfff5 nanoda-3a24: 3a240721 nanoda-d0a0: d0a02cc5 con-leche: 5ea446d5 con-leche: toolchai nanoda-3a24: local nanoda-d0a0: local con-leche: local comparator: local landrun: local 
+2026-11-25T03:41:54Z K1 mode: sandbox (landrun 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4); Comparator reads COMPARATOR_LANDRUN COMPARATOR_LEAN COMPARATOR_NANODA 
+2026-11-25T03:41:54Z K1 running
+2026-11-25T03:49:35Z K1 exit 0 after 461 s, peak 8431700 kB
+2026-11-25T03:49:35Z K1-OK (the config as released, Lean's kernel)
+2026-11-25T03:49:35Z K1N running
+2026-11-25T03:58:05Z K1N exit 0 after 510 s, peak 8429456 kB
+2026-11-25T03:58:05Z K1N-OK (nanoda 3a240721 on)
+2026-11-25T03:58:05Z CB running
+2026-11-25T03:58:31Z CB exit 0 after 26 s, peak 6953152 kB
+2026-11-25T03:58:31Z EXP running
+2026-11-25T04:00:11Z EXP exit 0 after 100 s, peak 8434728 kB
+2026-11-25T04:00:11Z EXPC running
+2026-11-25T04:00:42Z EXPC exit 0 after 31 s, peak 6660924 kB
+2026-11-25T04:00:42Z EXPC1a running
+2026-11-25T04:01:14Z EXPC1a exit 0 after 32 s, peak 6657272 kB
+2026-11-25T04:01:14Z EXPC1b running
+2026-11-25T04:01:46Z EXPC1b exit 0 after 32 s, peak 6665396 kB
+2026-11-25T04:01:46Z EXPC3 running
+2026-11-25T04:02:18Z EXPC3 exit 0 after 32 s, peak 6661288 kB
+2026-11-25T04:02:20Z exports: challenge-C1a.ndjson: 8272e8b2f397c4b4 challenge-C1b.ndjson: 220132b60f98839b challenge-C3.ndjson: 1c23247bcb2eef91 challenge.ndjson: 8027091ec24d8406 export.ndjson: 90444ef2fcf006e9 1: -rw-r--r-- 
+2026-11-25T04:02:20Z K2 running
+2026-11-25T04:03:00Z K2 exit 0 after 40 s, peak 1816468 kB
+2026-11-25T04:03:01Z K3 running
+2026-11-25T04:03:13Z K3 exit 0 after 12 s, peak 1737392 kB
+2026-11-25T04:03:13Z K3C running
+2026-11-25T04:03:27Z K3C exit 0 after 14 s, peak 1815484 kB
+2026-11-25T04:03:27Z C1aCMP running
+2026-11-25T04:06:45Z C1aCMP exit 1 after 198 s, peak 8424136 kB
+2026-11-25T04:06:45Z C1aCL running
+2026-11-25T04:06:58Z C1aCL exit 1 after 13 s, peak 1805820 kB
+2026-11-25T04:06:58Z C1bCMP running
+2026-11-25T04:10:13Z C1bCMP exit 1 after 195 s, peak 8424356 kB
+2026-11-25T04:10:13Z C1bCL running
+2026-11-25T04:10:26Z C1bCL exit 1 after 13 s, peak 1794416 kB
+2026-11-25T04:10:26Z C3CMP running
+2026-11-25T04:13:41Z C3CMP exit 1 after 195 s, peak 8428004 kB
+2026-11-25T04:13:41Z C3CL running
+2026-11-25T04:13:55Z C3CL exit 1 after 14 s, peak 1793376 kB
+2026-11-25T04:14:49Z C2ND running
+2026-11-25T04:15:15Z C2ND exit 101 after 26 s, peak 1809872 kB
+2026-11-25T04:15:15Z C2CL running
+2026-11-25T04:15:27Z C2CL exit 1 after 12 s, peak 1762020 kB
+2026-11-25T04:15:27Z C1a: Comparator exit 1, con-leche --compare exit 1
+2026-11-25T04:15:27Z C1b: Comparator exit 1, con-leche --compare exit 1
+2026-11-25T04:15:27Z C3: Comparator exit 1, con-leche --compare exit 1
+2026-11-25T04:15:27Z C2: C2: OAI.LinearAlgebra.SpectralBooks.square_exponent re-typed as False (expr 1925); nanoda exit 101, con-leche exit 1
+2026-11-25T04:15:27Z CEN running
+2026-11-25T04:16:38Z CEN exit 0 after 71 s, peak 8222368 kB
+2026-11-25T04:17:08Z CEN: exit 0; G3 names: 101 lines; G2 division: 216; G3 per-n (9/4 literals): 1374
+2026-11-25T04:17:08Z SUMMARY K0U=0 K0M=0 K0B=0 K0A=0 K1=0 K1N=0 EXP=0 K2=0 K3=0 K3C=0 C1aCMP=1 C1aCL=1 C1bCMP=1 C1bCL=1 C2ND=101 C2CL=1 C3CMP=1 C3CL=1 CEN=0

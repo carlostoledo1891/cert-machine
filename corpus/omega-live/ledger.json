@@ -1,0 +1,127 @@
+{
+ "what": "The corrections ledger of the ω = 9/4 lane: every deviation from the pre-registration, read from corpus/omega-nine-fourths/DEVIATIONS.md, and every amendment, read from AMENDMENTS.md.",
+ "corrections": [
+  {
+   "id": "C-1",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "PREREG.md G6 says \"28 compatibility patches\"; lean/patches/ holds 27 patch files and a README. The PIN row found 0 of the 27 patched packages in the closure of the three theorems.",
+   "gaps": [
+    "G6"
+   ]
+  },
+  {
+   "id": "C-2",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "prompts/provenance-scout.md identified the paper's reference [41] as the two 2026-09-24 manuscripts. The scout (provenance/SCOUT.md) found [41] is the 2026-10-02 preprint \"An Upper Bound of 9/4 for the Matrix Multiplication Exponent\" (over ℂ); the two 2026-09-24 papers are [44] and [45].",
+   "gaps": []
+  },
+  {
+   "id": "C-3",
+   "amendment": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "text": "G5 as sealed is a true sentence about DeepMind's notebook, but the scout reads it as stale: the upper bound ω ≤ 9/4 has seven outside write-ups (none refereed) and four outside Lean developments (three descend from OpenAI's October code; one, qit-lmu/omega, is code-independent and uses a rank-based ω). G5 stays listed, with this reading.",
+   "gaps": [
+    "G5"
+   ]
+  }
+ ],
+ "deviations": [
+  {
+   "id": "D1",
+   "when": "2026-11-25 03:04 UTC, row PIN, script fix, no result changed",
+   "text": "The first PIN run (03:02:16 UTC) cloned the release and printed its head as 92b516ef8e2abf66c3db7aa31438d3010bc7956f (runs/p1/pin-clone.txt), then stopped at 03:03:56 UTC on its own check \"the release is not at 92b516ef\": the check ran `git rev-parse` as root on a clone owned by the unprivileged user, and git refused the directory as of \"dubious ownership\", printing nothing. No file was checked and no sum written. The check now runs as the clone's owner (tools/runpod-omega-p1.sh); PIN is run again from the start."
+  },
+  {
+   "id": "D2",
+   "when": "2026-11-25 03:07 UTC, row PIN, script fix before the seal, nothing sealed",
+   "text": "The second PIN run finished at 03:06:18 UTC with a list of 11,278 files (sha256 064b658a…) that was NOT sealed, for two faults found on reading its log: one imported module, Lake.Util.Casing (imported by Mathlib.Tactic.Linter.TextBased), was left unresolved because the closure script searched the toolchain's src/lean but not src/lean/lake, where Lake's sources live; and the check of which compatibility patches touch closure files matched by path suffix only, so three paths inside other packages (e.g. PrimeNumberTheoremAnd/Erdos970/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean) were reported as Mathlib files. The script now also searches src/lean/lake and matches a patch's paths only inside the package the patch is named for. PIN is run a third time from the start; only that run's list is sealed (the unsealed one is kept in runs/p1/pin-attempt2/)."
+  },
+  {
+   "id": "D3",
+   "when": "2026-11-25 03:26 UTC, additions to Phase 1 at the control room's word; no pre-registered row changes",
+   "text": "While K0 was building, the control room sent (a) the provenance scout's facts N1–N3 (AMENDMENTS.md A8) for CEN and the K0 log, and (b) the statement reader's decision tests for F4 (reader/tests at commit 94b626de: the six planted challenges V1–V6, each changing one definition body, which Comparator must refuse; the T3 pair ReaderDivision / ReaderDivisionPlanted, accept / refuse; T1–T5 with `lake env lean`) and its note on `rigidity` / `contact_of_installations`. These run AFTER the pre-registered rows, from a separate script (tools/runpod-omega-p1x.sh, which sources the running tools/runpod-omega-p1.sh unchanged; the running file is not edited). Two tests (T3_DivisionInEnv, T4) and N2 need two modules outside the sealed A1 closure (SpectralBooks.DivisionExponent and SpectralBooks.CircuitRankSpecialization); the files they add beyond A1, with the reader's test files, are hashed into A1x-SHA256SUMS and stamped (SEAL-A1x) before anything of them is built. Those two modules are then checked by Lean's kernel at build only (no Comparator config names them, no external kernel); this is said wherever their results are quoted."
+  }
+ ],
+ "amendments": [
+  {
+   "id": "A2",
+   "when": "2026-11-25 ~02:56 UTC",
+   "title": "the prompt files, sealed before any agent starts",
+   "correction": null
+  },
+  {
+   "id": "A3",
+   "when": "2026-11-25 ~02:58 UTC",
+   "title": "the two GPT-6.2-astra task files (sealed prompt + a role-and-folders footer)",
+   "correction": null
+  },
+  {
+   "id": "A4",
+   "when": "2026-11-25 ~03:03 UTC",
+   "title": "writer B's blind statement sealed before it is first elaborated",
+   "correction": null
+  },
+  {
+   "id": "A5",
+   "when": "2026-11-25 ~03:06 UTC",
+   "title": "the page's order (the operator's word)",
+   "correction": null
+  },
+  {
+   "id": "A5-c",
+   "when": "2026-11-25 03:05 UTC",
+   "title": "a correction",
+   "correction": "A5's heading says \"~03:06 UTC\"; it was written ahead of the clock, which read 03:04:36 UTC when A5 was sealed."
+  },
+  {
+   "id": "A6",
+   "when": "2026-11-25 03:06 UTC",
+   "title": "A5 withdrawn",
+   "correction": null
+  },
+  {
+   "id": "A6-c",
+   "when": "2026-11-25 03:05 UTC",
+   "title": "a correction",
+   "correction": "A6's heading says 03:06 UTC; the clock read 03:05:39 UTC when A6 was sealed (21 seconds ahead)."
+  },
+  {
+   "id": "A7",
+   "when": "2026-11-25 03:07 UTC",
+   "title": "writer A's blind statement sealed; both blind statements published",
+   "correction": null
+  },
+  {
+   "id": "A7-c",
+   "when": "2026-11-25 03:06 UTC",
+   "title": "a correction",
+   "correction": "A7's heading says 03:07 UTC; the clock read 03:06:25 UTC when A7 was sealed. From here every heading time in this file is written by the shell from `date -u`, never by hand."
+  },
+  {
+   "id": "A8",
+   "when": "2026-11-25 03:19 UTC",
+   "title": "corrections, facts found after the pin, and F2's scope (before any bridge attempt)",
+   "correction": null
+  },
+  {
+   "id": "A9",
+   "when": "2026-11-25 03:30 UTC",
+   "title": "the bridge author's brief (rows F2, F3), sealed before its agent starts",
+   "correction": null
+  },
+  {
+   "id": "A10",
+   "when": "2026-11-25 03:38 UTC",
+   "title": "a new row X1 (Sun's M_32 construction, decided exactly), sealed before it starts",
+   "correction": null
+  },
+  {
+   "id": "A11",
+   "when": "2026-11-25 04:08 UTC",
+   "title": "the clean-room pod, created and deleted; F1 and X1 states",
+   "correction": null
+  }
+ ]
+}

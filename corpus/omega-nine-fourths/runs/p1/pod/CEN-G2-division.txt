@@ -1,0 +1,216 @@
+OAI/Algebra/FiniteTensor/JacobianAlgebraicity.lean:96:    | inv x hx ih =>
+OAI/Algebra/Finitistic/Selection/GroupSelection.lean:249:  | inv a ha ia => exact ia.inv_right
+OAI/Algebra/GroupRing/ContiguousSplit.lean:367:  | inv x _ hx =>
+OAI/Algebra/OddKaplansky/Amalgam.lean:136:    | inv h _ hh => simpa using (Subgroup.closure T).inv_mem hh
+OAI/Algebra/OddKaplansky/AmalgamExtras.lean:53:    | inv h _ hh => simpa only [map_inv] using (Subgroup.closure C).inv_mem hh
+OAI/AlgebraicGeometry/CharacterVarieties/Foundation/MatrixExpressions.lean:54:  | inv {n : ℕ} (x : Term n) : Term n
+OAI/AlgebraicGeometry/CharacterVarieties/Foundation/MatrixExpressions.lean:103:  | inv x hx =>
+OAI/AlgebraicGeometry/HodgeConjecture/HeckeCycles/Finite/BareNe.lean:193:    | inv a _ ha =>
+OAI/AlgebraicGeometry/PELModuli/IntegralModel/CM/NormOneGenerator.lean:30:  | inv x _ hx => rw [map_inv₀, hx]
+OAI/AlgebraicGeometry/SurfaceCones/KummerCanonical.lean:74:    | inv x hx h₁ => exact G.inv_mem h₁
+OAI/AlgebraicGeometry/SurfaceCones/KummerGalois.lean:354:    | inv x hx h₁ => simp [map_inv₀, h₁]
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:33:  | inv : AlgebraicExpr E → AlgebraicExpr E
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:41:  | inv p,x => (p.eval x)⁻¹
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:48:  | inv p,x => p.RegularAt x ∧ p.eval x≠0
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:57:  | inv p ih => exact (ih hp.1).inv hp.2
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:64:  | inv p,u => Ring.inverse (p.onPaths u)
+OAI/Analysis/LienardCycles/AlgebraicFlow.lean:87:  | inv p ih =>
+OAI/Analysis/LienardCycles/SmoothFlow.lean:360:  | inv : RationalExpr ι → RationalExpr ι
+OAI/Analysis/LienardCycles/SmoothFlow.lean:370:  | inv p, x => (eval p x)⁻¹
+OAI/Analysis/LienardCycles/SmoothFlow.lean:377:  | inv p, x => RegularAt p x ∧ eval p x ≠ 0
+OAI/Analysis/LienardCycles/SmoothFlow.lean:386:  | inv p ih => exact (ih hp.1).inv hp.2
+OAI/Analysis/LienardCycles/SmoothFlow.lean:395:  | inv p ih => exact (ih hp.1).and ((p.eval_contDiffAt hp.1).continuousAt.eventually_ne hp.2)
+OAI/Analysis/LienardCycles/SmoothFlow.lean:405:  | inv p, u => Ring.inverse (onPaths p u)
+OAI/Analysis/LienardCycles/SmoothFlow.lean:436:  | inv p ih =>
+OAI/Analysis/MatrixSigning/Arithmetic/RationalArithmeticMeter.lean:15:  | div : RationalExpr → RationalExpr → RationalExpr
+OAI/Analysis/MatrixSigning/Arithmetic/RationalExpressionHeight.lean:74:  | div x y ihx ihy =>
+OAI/Analysis/MatrixSigning/Machines/ExpressionPrimitives.lean:88:inductive BinaryOp where | add | sub | mul | div deriving DecidableEq
+OAI/Analysis/MatrixSigning/Machines/ExpressionSyntax.lean:14:  | add | sub | mul | div | neg
+OAI/Analysis/MatrixSigning/Machines/ExpressionSyntax.lean:194:  | div x y ihx ihy =>
+OAI/Analysis/PlaneSpectrum/NumberFields.lean:455:  | inv x hx ihx => simpa using (generatedField s).inv_mem ihx
+OAI/Combinatorics/Coboundary/Cosets.lean:436:  | inv x hx ih =>
+OAI/Combinatorics/Coboundary/Realization.lean:152:  | inv x hx ih =>
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:102:def withDivision (x : List Bool) : List Bool := next^[rank (setupWords x)] (setupWords x)
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:105:  pairBits (normalize (quotient (withDivision x)),normalize (remainder (withDivision x)))
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:114:noncomputable def withDivision_computes : PolyComputes withDivision := by
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:116:  unfold withDivision
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:122:  have hh := withDivision_computes.comp (hq.pair hr)
+OAI/Combinatorics/KMedianRecovery/Recovery/DigitBit.lean:150:    simp only [divide,er,hy,ite_false,rawDivide,withDivision,setupWords,ep,rank_pack,
+OAI/Combinatorics/Ryser/Incidence/ScalarCoverExpressions.lean:28:  | inv {c : F} {m : ℕ}
+OAI/Combinatorics/Ryser/Incidence/ScalarCoverExpressions.lean:122:  | inv h hc ih =>
+OAI/Combinatorics/SumProduct/Alignment/TriangularDenominators01.lean:255:        | inv g hg ig =>
+OAI/Computability/BorderVNP/PackedInheritedWorkSelectedPreCost.lean:4:/-! # Charging the actual grouped exterior directories and inherited subdivision gates -/
+OAI/Computability/BorderVNP/PackedInheritedWorkSelectedPreCost.lean:20:/-- The extra subdivision gates beyond the shared geometric compiler, as a polynomial
+OAI/Computability/BorderVNP/PackedInheritedWorkWrapped.lean:59:/-- Exactly the subdivision gates, the inner history gates, and the original terminal placement. -/
+OAI/Computability/BorderVNP/ResidueSeparableParameter.lean:129:    | inv w _ hw =>
+OAI/Computability/FourierTransform/RAM.lean:154:  | add | sub | mul | div | mod | lt  -- truncated subtraction; compare returns 1 or 0
+OAI/Computability/FourierTransform/RAM.lean:164:  | inv : Atom allow sc sc
+OAI/Computability/FourierTransform/RegisterBounds.lean:95:  | inv => intro; trivial
+OAI/Computability/MinUncut/Search/ArithmeticExpression.lean:14:  | div (a b : AExpr)
+OAI/Computability/QuantumFactoring/CircuitEmissionEncoding.lean:23:noncomputable def gateInverseP : Procedure gateCode boolCode Gate.inverse:=
+OAI/Computability/QuantumFactoring/ExpressionPostfix.lean:106:  | div a b ha hb=>exact produces_binary ha hb 3
+OAI/Computability/QuantumFactoring/ExpressionPostfix.lean:122:  | div a b ha hb=>exact compPack_spec _ _ _ _ (pairPack_spec _ _ _ _ ha hb) (divPack_value w)
+OAI/Computability/QuantumFactoring/ExpressionSharing.lean:50:  | div a b ia ib =>
+OAI/Computability/QuantumFactoring/ExpressionTemplateCircuit.lean:26:  | add a b ia ib | mul a b ia ib | sub a b ia ib | div a b ia ib | mod a b ia ib =>
+OAI/Computability/QuantumFactoring/NaturalExpressionCircuit.lean:74:  | div a b ia ib =>
+OAI/Computability/QuantumFactoring/NaturalExpressionCircuit.lean:118:  | div a b ia ib =>
+OAI/Computability/QuantumFactoring/NaturalExpressions.lean:20:  | div : NatExpr v → NatExpr v → NatExpr v
+OAI/Computability/QuantumFactoring/NaturalExpressions.lean:79:  | div a b ia _ =>
+OAI/Computability/QuantumFactoring/NaturalExpressions.lean:102:  | add a b ia ib | mul a b ia ib | sub a b ia ib | div a b ia ib | mod a b ia ib =>
+OAI/Computability/QuantumFactoring/NaturalExpressions.lean:111:  | add a b ia ib | mul a b ia ib | sub a b ia ib | div a b ia ib | mod a b ia ib =>
+OAI/Computability/RationalHitting/Affine.lean:68:  | inv f ih =>
+OAI/Computability/RationalHitting/Affine.lean:282:  | inv f ih =>
+OAI/Computability/RationalHitting/Affine.lean:321:  | inv f ih =>
+OAI/Computability/RationalHitting/Evaluation.lean:37:  | inv ha hab hba ih =>
+OAI/Computability/RationalHitting/Model.lean:14:  | inv : Formula n → Formula n
+OAI/Computability/RationalHitting/Model.lean:32:  | inv {f a b} : Eval c X f a → a * b = 1 → b * a = 1 → Eval c X (.inv f) b
+OAI/Computability/VPVNP/PairNativeOperandArithmetic.lean:14:inductive Arithmetic where | add | sub | mul | div
+OAI/Computability/VPVNP/PairNativeOperandArithmetic.lean:45:  | div =>
+OAI/Computability/VPVNP/RAMProgram.lean:25:  | add | sub | mul | div | mod | bitAnd | bitOr | bitXor | shiftLeft | shiftRight
+OAI/Computability/VPVNP/RAMSortCostLayout.lean:39:  | div (a b : IndexExpr)
+OAI/Computability/VPVNP/RankQueryStackDispatch.lean:21:  | add | sub | mul | div | mod
+OAI/Computability/VPVNP/RankQueryStackExpressions.lean:152:    | div => exact (Nat.div_le_self ..).trans_lt (hl.trans_le hlW)
+OAI/Computability/VPVNP/RankQueryStackRegister.lean:49:  | add | mul | div | mod =>
+OAI/Computability/VPVNP/RankQueryStackRegister.lean:138:    | add | mul | div | mod =>
+OAI/Geometry/Cannon/Conformal/SphereTile.lean:167:    DifferentiableOn ℂ (fun z : ℂ => coordinate (inv (z:Sphere))) {z | inv (z:Sphere) ≠ ∞} := by
+OAI/Geometry/Cannon/Conformal/SphereTile.lean:194:      {z | inv (inv (inv (z:Sphere))) ≠ ∞}
+OAI/Geometry/HarmonicGrowth/ControlWords.lean:396:  | inv x _ hx =>
+OAI/Geometry/HarmonicGrowth/ControlWords.lean:608:  | inv u _ hu =>
+OAI/Geometry/HarmonicGrowth/ControlWords.lean:737:  | inv u _ hu =>
+OAI/Geometry/HyperbolicGroups/GeometricAction.lean:212:    | inv a _ ha =>
+OAI/Geometry/HyperbolicGroups/IndexedFillingValue.lean:5488:  | inv x hx ih =>
+OAI/Geometry/NilpotentCharts/CentralWords.lean:18:  | inv {k n : ℕ} (a : Word k n) : Word k n
+OAI/Geometry/NilpotentCharts/CentralWords.lean:34:  | inv a ha => simp only [Word.eval,ha,inv_one]
+OAI/Geometry/NilpotentCharts/CentralWords.lean:43:  | inv w hw => exact Subgroup.inv_mem _ (hw _)
+OAI/Geometry/NilpotentCharts/CentralWords.lean:52:  | inv w hw => exact S.inv_mem (hw _ ha)
+OAI/Geometry/NilpotentCharts/CentralWords.lean:98:  | inv w hw => exact (hw a ha).inv c
+OAI/Geometry/UnitDistances/Derivations.lean:600:    | inv x hx hx' => exact hx'.inv
+OAI/GroupTheory/BooneHigman/CantorBricks.lean:691:    | inv x hx ih =>
+OAI/GroupTheory/BooneHigman/Steinberg.lean:384:  | inv z _ ih =>
+OAI/GroupTheory/BooneHigman/Steinberg.lean:485:  | inv z _ ih =>
+OAI/GroupTheory/BooneHigman/Steinberg.lean:868:    | inv _ _ ih => exact ih.inv_right
+OAI/GroupTheory/BooneHigman/Steinberg.lean:871:  | inv _ _ ih => exact ih.inv_left
+OAI/GroupTheory/Congruence/ProStability.lean:148:  | inv a _ ia =>
+OAI/GroupTheory/FiniteLattice/LabelledCollection.lean:35:  | inv x hx ih =>
+OAI/GroupTheory/FiniteType/AscendingHNN.lean:61:  | inv x hx =>
+OAI/GroupTheory/FiniteType/StageGeometry.lean:82:    | inv x _ hx => simpa using Subgroup.inv_mem _ hx
+OAI/GroupTheory/FiniteType/SurjectiveTrivialInduction.lean:241:      | inv a ha ia => simpa using congrArg Inv.inv ia
+OAI/GroupTheory/FiniteType/SurjectiveTrivialInduction.lean:360:    | inv y hy iy => simpa only [map_inv] using iy.inv_right
+OAI/GroupTheory/FiniteType/SurjectiveTrivialInduction.lean:363:  | inv x hx ix => intro y; simpa only [map_inv] using (ix y).inv_left
+OAI/GroupTheory/FiniteType/TwistedBrinBasisCutBasis.lean:113:    | inv k hk ik => exact (Subgroup.closure T).inv_mem ik
+OAI/GroupTheory/Hyperbolic/Presentation.lean:343:    | inv a _ ha =>
+OAI/GroupTheory/PeriodicGroups/Formulas/PredicateCompilation.lean:97:  | div x y hx hy =>
+OAI/GroupTheory/PeriodicGroups/Formulas/PredicateCompilation.lean:146:  | div x y hx hy =>
+OAI/GroupTheory/PeriodicGroups/Formulas/PredicateCompilation.lean:189:  | div x y hx hy => exact ⟨hx he.1,hy he.2.1,he.2.2.trans hp⟩
+OAI/GroupTheory/PeriodicGroups/Formulas/PredicateCompilation.lean:256:  | div x y hx hy =>
+OAI/GroupTheory/PeriodicGroups/Formulas/PredicateCompilation.lean:359:  | add a b ha hb | sub a b ha hb | mul a b ha hb | div a b ha hb | mod a b ha hb | le a b ha hb => exact ⟨ha he.1,hb he.2⟩
+OAI/GroupTheory/PeriodicGroups/Machines/InputEncoding.lean:14:  | add x y hx hy | sub x y hx hy | mul x y hx hy | div x y hx hy | mod x y hx hy | le x y hx hy =>
+OAI/GroupTheory/PeriodicGroups/Machines/RegisterLoops.lean:910:  | div : Formula ι → Formula ι → Formula ι
+OAI/GroupTheory/PeriodicGroups/Steinberg/BandFactorization.lean:398:  | inv g hg ih =>
+OAI/GroupTheory/PeriodicGroups/Steinberg/BlockEmbeddings.lean:261:  | inv x hx ih =>
+OAI/GroupTheory/PeriodicGroups/Steinberg/BlockEmbeddings.lean:620:  | inv u hu ihu =>
+OAI/GroupTheory/PolycyclicRecognition/Algebra/Abelian.lean:53:    | inv g hg ih =>
+OAI/GroupTheory/PolycyclicRecognition/Algebra/CyclicSchreierKernel.lean:82:    | inv x _ hx =>
+OAI/GroupTheory/PolycyclicRecognition/Algebra/FiniteNormalGeneration.lean:35:    | inv y _ hy => rw [map_inv]; exact hy.inv_right
+OAI/GroupTheory/PolycyclicRecognition/Algebra/FiniteNormalGeneration.lean:42:    | inv x _ hx => rw [map_inv]; exact hx.inv_left
+OAI/GroupTheory/PolycyclicRecognition/Algebra/SpectralUnitGroup.lean:43:  | inv x _ hx => simpa only [star_inv] using (spectralUnitGroup S).inv_mem hx
+OAI/GroupTheory/PolycyclicRecognition/CoarseFiniteGeneration.lean:39:    | inv a _ ia =>
+OAI/GroupTheory/PolycyclicRecognition/Finiteness/FiniteAugmentationKernel.lean:49:  | inv g _ hg =>
+OAI/GroupTheory/SimpleAmenable/CentralCovers/WholeCoverCentrality.lean:137:    | inv x _ hx => exact hx.inv_right
+OAI/GroupTheory/UniversalGroup/UniversalPresentation.lean:205:  | inv g hg => exact S.inv_mem hg
+OAI/LinearAlgebra/MatrixExponent/Prices/Motion/TreePrice.lean:324:  | inv x hx h => exact hi ⟨x, hx⟩ h
+OAI/LinearAlgebra/MatrixExponent/RationalCircuits.lean:35:  | div {m T x y} : Build S m T → x ∈ T → y ∈ T → y ≠ 0 → Build S (m + 1) (insert (x / y) T)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Verification/Gaps.lean:98:  | div (a b c : Operand F n t)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Verification/Gaps.lean:162:  | op _ a b c | div a b c =>
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Verification/Geometry/Ray.lean:550:    | inv z _ hz => rw [D.leibniz_inv, hz, smul_zero]
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Verification/Geometry/SimpleLift.lean:168:  | div => exact hi.1
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Verification/Geometry/SimpleLift.lean:182:  | div a b c =>
+OAI/LinearAlgebra/MatrixExponent/Routing/Uniform/Blueprint.lean:323:  | inv r hr =>
+OAI/LinearAlgebra/MatrixExponent/Routing/Uniform/Recipe.lean:470:  | add | sub | mul | div | mod | lt
+OAI/LinearAlgebra/MatrixExponent/Routing/Uniform/Recipe.lean:870:  | inv (r : Recipe M)
+OAI/LinearAlgebra/MatrixExponent/Routing/Uniform/Tables.lean:554:  | div => exact (Nat.div_le_self x y).trans_lt (hx.trans_le (grow (by omega)))
+OAI/LinearAlgebra/MatrixFields/Certificates/CertificatesReplay.lean:367:  | inv : Expression → Expression
+OAI/LinearAlgebra/MatrixFields/Certificates/CertificatesReplay.lean:383:  | inv {e a} : Certificate e a → 0 < a.lower → Certificate (.inv e) (.inv a)
+OAI/LinearAlgebra/MatrixFields/Certificates/CertificatesReplay.lean:396:  | inv _ hp ih => exact Ball.inv_sound ih hp
+OAI/LinearAlgebra/MatrixFields/Certificates/CertificatesReplay.lean:440:  | inv (i : ℕ)
+OAI/LinearAlgebra/MatrixFields/Certificates/CertificatesReplay.lean:792:  | inv i =>
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificates.lean:177:  | inv : Expression → Expression
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificates.lean:193:  | inv {e a} : Certificate e a → 0 < a.lower → Certificate (.inv e) (.inv a)
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificates.lean:206:  | inv _ hp ih => exact Ball.inv_sound ih hp
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificatesReplay.lean:16:  | inv (i : ℕ)
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificatesReplay.lean:200:  | inv i =>
+OAI/LinearAlgebra/MatrixMultiplication/Numerical/AllFieldCertificatesReplayStatic.lean:43:  | inv i =>
+OAI/LinearAlgebra/SpectralBooks/DivisionExponent.lean:25:/-- The arithmetic exponent with division gates. -/
+OAI/LinearAlgebra/SpectralBooks/DivisionModel.lean:6:A program computes rational functions in independent matrix entries. A division gate is
+OAI/LinearAlgebra/SpectralBooks/DivisionModel.lean:95:/-- A rectangular matrix multiplication algorithm with division gates. -/
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/ExpressionAlgebra.lean:118:  | inv a ha =>
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/ForceExpressions.lean:406:  | inv e he =>
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/RationalEvaluation.lean:94:  | inv e he => exact Ball.certifies_inv (he (Bool.and_eq_true_iff.mp hs).1) (Bool.and_eq_true_iff.mp hs).2
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/RationalEvaluation.lean:117:  | inv e he =>
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/SmoothExpressions.lean:106:  | inv : Expr n → Expr n
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/SmoothExpressions.lean:153:  | inv a ha => exact ⟨ha h.1,⟨h,h⟩⟩
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/SmoothExpressions.lean:164:  | inv a ha => exact (ha h.1).inv₀ h.2
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/SmoothExpressions.lean:173:  | inv a ha => exact (ha h.1).and ((a.continuousAt_eval h.1).eventually_ne h.2)
+OAI/MathematicalPhysics/NavierStokes/VelocityDetection/SmoothExpressions.lean:190:  | inv a ha =>
+OAI/MathematicalPhysics/SheetFlows/Circuits.lean:385:  | reciprocal => simp [compile,eval,Atom.eval,Atom.profile]
+OAI/MathematicalPhysics/SheetFlows/JetCalculus.lean:121:  | reciprocal : JetExpr
+OAI/MathematicalPhysics/SheetFlows/JetCalculus.lean:142:  | reciprocal => exact transitionReciprocal_smooth
+OAI/MathematicalPhysics/SheetFlows/JetCalculus.lean:167:  | reciprocal =>
+OAI/MathematicalPhysics/SheetFlows/JetCalculus.lean:198:  | reciprocal => norm_num [bound]
+OAI/MathematicalPhysics/SheetFlows/JetCalculus.lean:218:  | reciprocal => exact transitionReciprocal_bound x
+OAI/NumberTheory/DukePrimeDegree/Dynamics/SingleBlockTransverse.lean:91:  | inv u _ hu =>
+OAI/NumberTheory/Jacobsthal/Siegel/LogarithmicForm.lean:203:  | inv x _ hx => simp [D.leibniz_inv, hx]
+OAI/NumberTheory/SiegelZeros/EntireFunctions/LogarithmicForm.lean:202:  | inv x _ hx => simp [D.leibniz_inv, hx]
+OAI/NumberTheory/SingleFold/MacroMachine.lean:21:  | div (j : J) (binary : Bool) (p : Fin 5 → Q)
+OAI/NumberTheory/SingleFold/MacroMachine.lean:327:  | div j b p =>
+OAI/Optimization/LinearProgramming/Compression/ProxyMemory.lean:101:  | div d r s =>
+OAI/Optimization/LinearProgramming/Geometry/GramAlgorithm.lean:163:  | reciprocal
+OAI/Optimization/LinearProgramming/Geometry/GramAlgorithm.lean:235:  | reciprocal =>
+OAI/Optimization/LinearProgramming/RAM/Basic.lean:20:  | div (dst left right : Nat)
+OAI/Optimization/LinearProgramming/RAM/Call.lean:59:  | div d a b =>
+OAI/Optimization/LinearProgramming/RAM/CallableLocal.lean:79:  | div d a c =>
+OAI/Optimization/LinearProgramming/RAM/Footprint.lean:85:  | div d a b =>
+OAI/Optimization/LinearProgramming/RAM/RAMFrame.lean:35:  | div d a b =>
+OAI/Optimization/LinearProgramming/Recovery/OracleSteps.lean:70:    | div d x y =>
+OAI/Probability/BenjaminiSchramm/Cayley.lean:85:    | inv a _ ha => simpa using htranslate a⁻¹ (hreverse ha)
+OAI/Probability/BenjaminiSchramm/CayleyInputs.lean:72:  | inv a _ ha =>
+OAI/Probability/CriticalPercolation/GraphGeometry/IntegerKernelGeneration.lean:44:    | inv x _ hx =>
+OAI/Probability/CriticalPercolation/Growth/CosetBounded.lean:26:  | inv a _ ha =>
+OAI/Probability/CriticalPercolation/Growth/CosetGeometry.lean:83:  | inv a _ ha =>
+OAI/Probability/CriticalPercolation/Growth/CosetIntegerKernel.lean:41:    | inv x _ hx => rw [map_inv,hx,map_inv,toAdd_inv,zpow_neg]
+OAI/Probability/CriticalPercolation/Growth/PolynomialGrowthDescent.lean:140:  | inv x hx ih =>
+OAI/Probability/CriticalPercolation/Nilpotent/CentralCommutatorGeneration.lean:49:      | inv b hb ih =>
+OAI/Probability/CriticalPercolation/Nilpotent/CentralCommutatorGeneration.lean:58:    | inv a ha ih =>
+OAI/Probability/ParisiFinite/InsertionApprox.lean:444:def inv (w : List (WeylGate ι)) : List (WeylGate ι) := w.reverse.map WeylGate.inv
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:73:  | inv : Expr → Expr
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:87:  | inv a => (a.val x)⁻¹
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:98:  | inv a => -a.der x*((a.val x)⁻¹)^2
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:109:  | inv a => 2*a.der x^2*((a.val x)⁻¹)^3-a.sec x*((a.val x)⁻¹)^2
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:121:  | inv a => do let A ← a.compute B; Jet.inv A
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:129:  | inv a => a.Regular x ∧ a.val x ≠ 0
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:155:  | inv a ha =>
+OAI/Probability/SKRatio/Certificates/CertifiedJet.lean:218:  | inv a ha =>
+OAI/Probability/UnimodularPercolation/Cayley/Folner.lean:91:  | inv g hg ig =>
+OAI/Probability/UnimodularPercolation/Cayley/Geometry.lean:132:    | inv a ha ia =>
+OAI/RepresentationTheory/KazhdanLusztig/Tits.lean:663:  | inv x hx ih =>
+OAI/RepresentationTheory/Weil/Local/OscillatorProjection.lean:53:    | inv a _ ha =>
+OAI/RingTheory/BassTrace/CentralizerGeometry.lean:187:  | inv a ha ia =>
+OAI/RingTheory/DirectFiniteness/FinitePresentation.lean:63:    | inv b hb hB => simpa only [map_inv] using hB.inv_right
+OAI/RingTheory/DirectFiniteness/FinitePresentation.lean:66:  | inv a ha hA => simpa only [map_inv] using hA.inv_left
+OAI/RingTheory/DirectFiniteness/MultiHNN.lean:134:    | inv h _ hh => simpa using (Subgroup.closure T).inv_mem hh
+OAI/ThreeFlat/Diagonal/TraceBinaryOps.lean:32:  | div => exact TraceArithmeticOps.div_correct x y j
+OAI/ThreeFlat/Diagonal/TraceBinaryOps.lean:49:  | div => exact (BitArithmetic.div_count w).trans (by ring_nf; omega)
+OAI/ThreeFlat/RAM/PhysicalPinsBounds.lean:107:  | div => exact (Nat.div_le_self _ _).trans_lt hv
+OAI/ThreeFlat/RAM/PhysicalPinsNat.lean:58:  | div | mod | bitAnd | bitOr | bitXor =>
+OAI/Topology/ArtinGroups/Coxeter/Parabolic.lean:54:    | inv x hx ih =>
+OAI/Topology/ArtinGroups/Geometry/CoordinateExtension.lean:35:    | inv a ha ia =>
+OAI/Topology/ArtinGroups/Harmonic/PositiveLiftSimple.lean:63:  | inv a ha ia => exact ia.inv_right
+OAI/Topology/ArtinGroups/Harmonic/RestrictedArtinHom.lean:57:    | inv x hx hix => rw [map_inv]; exact Subgroup.inv_mem _ hix
+OAI/Topology/ArtinGroups/ParabolicIntersections/AcyclicTwistInput.lean:68:  | inv a _ ha =>
+OAI/Topology/ArtinGroups/ParabolicIntersections/NormalParabolic.lean:31:  | inv x hx ih => rw [map_inv]; exact Subgroup.inv_mem _ ih
+OAI/Topology/ArtinGroups/ParabolicIntersections/OrbitEdgeGraph.lean:58:  | inv a ha ih =>
+OAI/Topology/ArtinGroups/ParabolicIntersections/PointedBoundaryZero.lean:160:    | inv g hg ih =>
+OAI/Topology/ArtinGroups/ParabolicIntersections/PointedFamily.lean:82:  | inv g hg ih =>
+OAI/Topology/ArtinGroups/ParabolicIntersections/StandardEmbedding.lean:74:  | inv x hx ih =>
+OAI/Topology/ArtinGroups/ParabolicIntersections/VisualAmalgam.lean:146:  | inv x hx ih =>
+OAI/Topology/EilenbergGanea/PresentationComparison.lean:91:  | inv x hx ih =>

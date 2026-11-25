@@ -1,0 +1,4 @@
+89c89
+<     ∑ j : Fin b, X (Sum.inl (i, j)) * X (Sum.inr (j, k))
+---
+>     ∑ j : Fin b, X (Sum.inr (j, k)) * X (Sum.inl (i, j))

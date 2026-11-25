@@ -1,0 +1,101 @@
+OAI/LinearAlgebra/FiniteFourier/CircuitToFeedback.lean:66:theorem RealizableAtMost.geometricBorder {M : Matrix O I K} (h : RealizableAtMost M s) :
+OAI/LinearAlgebra/FiniteFourier/FeedbackBorder.lean:96:theorem FeedbackAtMost.geometricBorder {M : Matrix O I K} {S : ℕ} (h : FeedbackAtMost M S) :
+OAI/LinearAlgebra/FiniteFourier/FeedbackBorderReindex.lean:64:theorem geometricBorderAtMost_reindex_iff (M : Matrix O I K) (s : ℕ)
+OAI/LinearAlgebra/FiniteFourier/FeedbackBorderReindex.lean:70:theorem geometricBorderAtMost_smul_iff (M : Matrix O I K) (s : ℕ)
+OAI/LinearAlgebra/FiniteFourier/InverseBorder.lean:12:theorem geometricBorderAtMost_inverseFourierMatrix_iff
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Model.lean:25:def BorderRankLE (w : Fin i → Fin j → Fin k → F) (r : ℕ) : Prop :=
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Price.lean:505:theorem BorderRankLE.delete (h : BorderRankLE w r) (hw : ∀ x y z, w x y z ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Price.lean:739:theorem BorderRankLE.pow (h : BorderRankLE w r) (n : ℕ) : BorderRankLE (WPower w n) (r ^ n) := by
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Price.lean:764:theorem BorderRankLE.small (h : BorderRankLE w r) :
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:24:theorem WeightedRankLE.border (hr : WeightedRankLE w r) : BorderRankLE w r :=
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:49:theorem BorderRankLE.asymptotic (h : BorderRankLE w r) (hi : 0 < i) (hj : 0 < j)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:62:theorem BorderRankLE.density (h : BorderRankLE w r) (hi : 0 < i) (hj : 0 < j) (hk : 0 < k) :
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:68:theorem BorderRankLE.full (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:99:theorem BorderRankLE.cells (h : BorderRankLE w r) {u : Finset (Pos i j)}
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Border/Surplus.lean:112:theorem BorderRankLE.surplus (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Consequences.lean:64:theorem grouped (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Consequences.lean:78:theorem directional (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Dual.lean:497:theorem tendsto_asymptoticRank (hi : 0 < i) (hj : 0 < j) (hk : 0 < k) (hw : 0 < density w) :
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Dual.lean:513:theorem asymptotic_zero (hs : supportSize w = 0) : asymptoticRank w = 0 :=
+OAI/LinearAlgebra/MatrixExponent/Rectangle/FiniteModel.lean:24:def asymptoticRank (w : Fin i → Fin j → Fin k → F) : ℝ :=
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Speedup/Strict.lean:618:theorem BorderRankLE.grouped (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Speedup/Strict.lean:757:theorem BorderRankLE.directional {F : Type*} [Field F] {i j k r g : ℕ}
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Speedup/Strict.lean:789:theorem BorderRankLE.directional_benchmark {F : Type*} [Field F] {i j k r g : ℕ}
+OAI/LinearAlgebra/MatrixExponent/Rectangle/Speedup/Strict.lean:830:theorem BorderRankLE.strict (h : BorderRankLE w r) (hw : ∀ a b c, w a b c ≠ 0)
+OAI/LinearAlgebra/MatrixFields/Construction/ComplexRectangularASI.lean:153:theorem borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Extraction/AuxiliarySeparation.lean:47:theorem auxiliary_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/AuxiliarySeparation.lean:71:theorem auxiliary_separation_directSum_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/AuxiliarySeparation.lean:114:theorem directSum_borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Extraction/ComplexFiniteSeparation.lean:355:theorem finite_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/ComplexFiniteSeparation.lean:417:theorem finite_grid_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/ComplexLabelHierarchySeparation.lean:363:theorem exact_pool_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/ComplexLabelHierarchySeparation.lean:585:theorem stageTensor_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Extraction/ConditionalLabels.lean:192:theorem stageAuxiliaryTensor_borderRankAtMost (counts : A → ℕ)
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexDotPairing.lean:228:def BorderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexDotPairing.lean:242:theorem RankAtMost.borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexDotPairing.lean:252:theorem BorderRankAtMost.restrict [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexDotPairing.lean:276:theorem BorderRankAtMost.product {U V W : Type*}
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexDotPairing.lean:297:theorem BorderRankAtMost.of_degeneration [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexSeparatedTensorDecomposition.lean:165:theorem separatedTensor_fiber_directSum_borderRankAtMost
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexSeparatedTensorDecomposition.lean:239:theorem separatedTensor_localModels_borderRankAtMost {A B C : Type*}
+OAI/LinearAlgebra/MatrixFields/Tensors/ComplexSeparatedTensorDecomposition.lean:288:theorem separatedTensor_scalar_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/AuxiliarySeparation/Convolution/Rank.lean:65:theorem convolution_borderRankAtMost (a b : ℕ) :
+OAI/LinearAlgebra/MatrixMultiplication/CoppersmithWinograd/ComplexCW75Primitive.lean:136:theorem borderRankAtMost : Tensor.BorderRankAtMost tensor 27 := approximation.borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/CoppersmithWinograd/ComplexCWBoundary.lean:237:theorem borderRankAtMost : Tensor.BorderRankAtMost tensor 3 :=
+OAI/LinearAlgebra/MatrixMultiplication/CoppersmithWinograd/ComplexCoppersmithWinograd.lean:82:theorem borderRankAtMost : Tensor.BorderRankAtMost tensor 3 :=
+OAI/LinearAlgebra/MatrixMultiplication/Polynomial/ComplexPolynomialApproximation.lean:150:theorem borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixMultiplication/Separation/AuxiliarySeparation.lean:29:theorem directSum_borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexAuxiliarySeparation.lean:44:theorem auxiliary_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexAuxiliarySeparation.lean:68:theorem auxiliary_separation_directSum_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexBalancedSeparation.lean:225:theorem orientedPairingBank_directSum_borderRank {Label : Type*}
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexFiniteSeparation.lean:81:theorem finite_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexFiniteSeparation.lean:143:theorem finite_grid_separation_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexLabelHierarchySeparation.lean:355:theorem exact_pool_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexLabelHierarchySeparation.lean:576:theorem stageTensor_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Separation/ComplexStageHierarchyResources.lean:182:theorem stageAuxiliaryTensor_borderRankAtMost (counts : A → ℕ)
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/BaseTensorBudgets.lean:98:theorem borderRankAtMost : Tensor.BorderRankAtMost tensor 2 :=
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/BaseTensorBudgets.lean:163:theorem borderRankAtMost : Tensor.BorderRankAtMost tensor 3 :=
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexPairingMatrixTensor.lean:58:theorem matrixCoefficients_borderRank_of_dotPairing
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexPairingMatrixTensor.lean:112:theorem matrixCoefficients_borderRank_of_pairingTriple
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexPairingMatrixTensor.lean:128:theorem matrixCoefficients_directSum_borderRank_of_pairingTriple
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexSeparatedTensorDecomposition.lean:168:theorem separatedTensor_fiber_directSum_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexSeparatedTensorDecomposition.lean:242:theorem separatedTensor_localModels_borderRankAtMost {A B C : Type*}
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexSeparatedTensorDecomposition.lean:291:theorem separatedTensor_scalar_borderRankAtMost
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexTensor.lean:230:def BorderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexTensor.lean:244:theorem RankAtMost.borderRankAtMost [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexTensor.lean:254:theorem BorderRankAtMost.restrict [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexTensor.lean:278:theorem BorderRankAtMost.product {U V W : Type*}
+OAI/LinearAlgebra/MatrixMultiplication/Tensor/ComplexTensor.lean:299:theorem BorderRankAtMost.of_degeneration [Fintype X] [Fintype Y] [Fintype Z]
+OAI/LinearAlgebra/SpectralBooks/AbsoluteTensorRank.lean:61:theorem asymptoticRank_map_eq {X Y Z : Type*} [Fintype X] [Fintype Y] [Finite Z]
+OAI/LinearAlgebra/SpectralBooks/AbsoluteTensorRank.lean:84:theorem asymptoticRank_matrixTensor_baseChange (F E : Type*) [Field F] [Field E] [Algebra F E]
+OAI/LinearAlgebra/SpectralBooks/AbsoluteTensorRank.lean:93:theorem asymptoticRank_matrixTensor_eq_of_ringChar_eq (F E : Type*) [Field F] [Field E]
+OAI/LinearAlgebra/SpectralBooks/AbsoluteTensorRank.lean:110:theorem matrix_asymptoticRank_eq_of_charP (F G : Type*) [Field F] [Field G]
+OAI/LinearAlgebra/SpectralBooks/AlgebraicExtensionRank.lean:28:theorem asymptoticRank_map_le (T : Tensor F X Y Z) :
+OAI/LinearAlgebra/SpectralBooks/AlgebraicExtensionRank.lean:42:theorem asymptoticRank_map_eq_of_isAlgebraic [Algebra.IsAlgebraic F K] [Finite Z]
+OAI/LinearAlgebra/SpectralBooks/BorderComparison.lean:43:theorem tensorRank_power_le_of_geometricBorderRankAtMost {T : Tensor F X Y Z} {r : ℕ}
+OAI/LinearAlgebra/SpectralBooks/BorderComparison.lean:59:theorem asymptoticRank_le_geometricBorderRank (T : Tensor F X Y Z) :
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:33:def GeometricBorderRankAtMost (T : Tensor F X Y Z) (r : ℕ) : Prop :=
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:38:theorem geometricBorderRankAtMost_of_rankAtMost {T : Tensor F X Y Z} {r : ℕ}
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:60:def geometricBorderRank (T : Tensor F X Y Z) : ℕ := by
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:64:theorem geometricBorderRankAtMost_geometricBorderRank (T : Tensor F X Y Z) :
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:69:theorem geometricBorderRank_le_of_atMost {T : Tensor F X Y Z} {r : ℕ}
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:74:theorem geometricBorderRank_le_tensorRank (T : Tensor F X Y Z) :
+OAI/LinearAlgebra/SpectralBooks/BorderRank.lean:80:theorem card_le_geometricBorderRank_of_minor {I : Type*} [Fintype I] [DecidableEq I]
+OAI/LinearAlgebra/SpectralBooks/FiniteExtensionRank.lean:70:theorem asymptoticRank_le_of_power_bound (T : Tensor F X Y Z) {C r : ℕ}
+OAI/LinearAlgebra/SpectralBooks/FiniteExtensionRank.lean:90:theorem asymptoticRank_le_of_finiteExtension [FiniteDimensional F K] {T : Tensor F X Y Z}
+OAI/LinearAlgebra/SpectralBooks/Flattening.lean:74:theorem matrix_flattening_le_asymptoticRank (h12 : 0 < n12) (h23 : 0 < n23) (h31 : 0 < n31) :
+OAI/LinearAlgebra/SpectralBooks/PowerRank.lean:68:theorem asymptoticRank_power (T : Tensor F X Y Z) (n : ℕ) :
+OAI/LinearAlgebra/SpectralBooks/RankGrowth.lean:23:theorem asymptoticRank_le_of_polynomial_power_bound (T : Tensor F X Y Z) (r D : ℕ)
+OAI/LinearAlgebra/SpectralBooks/SpectralPoint.lean:113:theorem le_asymptoticRank (T : Tensor F X Y Z) : (φ.value T : ℝ) ≤ asymptoticRank T := by
+OAI/LinearAlgebra/SpectralBooks/SquareExponent.lean:20:theorem square_asymptoticRank_le_of_rank_growth (F : Type*) [Field F] {n : ℕ} (hn : 0 < n)
+OAI/LinearAlgebra/SpectralBooks/SquareExponent.lean:55:theorem square_asymptoticRank_le_rpow_formalOmega (F : Type*) [Field F] {n : ℕ} (hn : 0 < n) :
+OAI/LinearAlgebra/SpectralBooks/SquareExponent.lean:62:theorem rpow_formalOmega_le_asymptoticRank (F : Type*) [Field F] {n : ℕ} (hn : 2 ≤ n) :
+OAI/LinearAlgebra/SpectralBooks/SquareExponent.lean:75:theorem square_asymptoticRank_eq_rpow_formalOmega (F : Type*) [Field F] {n : ℕ} (hn : 2 ≤ n) :
+OAI/LinearAlgebra/SpectralBooks/StrassenRank.lean:44:def asymptoticRank (T : TensorClass.{v} I K) : ℝ :=
+OAI/LinearAlgebra/SpectralBooks/StrassenRank.lean:47:theorem asymptoticRank_nonneg (T : TensorClass.{v} I K) : 0 ≤ asymptoticRank T :=
+OAI/LinearAlgebra/SpectralBooks/StrassenRank.lean:69:theorem spectral_value_le_asymptoticRank
+OAI/LinearAlgebra/SpectralBooks/StrassenRank.lean:89:theorem exists_spectral_value_eq_asymptoticRank [Nontrivial I] (T : TensorClass.{v} I K) :
+OAI/LinearAlgebra/SpectralBooks/StudentMatrixRank.lean:28:theorem matrix_load_le_log_asymptoticRank {x y z : ℕ} (hx : 0 < x) (hy : 0 < y)
+OAI/LinearAlgebra/SpectralBooks/Tensor.lean:59:def asymptoticRank (T : Tensor F X Y Z) : ℝ :=
+OAI/LinearAlgebra/SpectralBooks/Tensor.lean:62:theorem asymptoticRank_nonneg (T : Tensor F X Y Z) : 0 ≤ asymptoticRank T :=
+OAI/LinearAlgebra/SpectralBooks/Tensor.lean:65:theorem asymptoticRank_le_tensorRank (T : Tensor F X Y Z) :

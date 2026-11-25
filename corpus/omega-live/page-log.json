@@ -1,0 +1,49 @@
+{
+ "what": "The public change log of /omega/: one dated entry per change of the page or of its state. The builder refuses when the newest entry’s state is not the records’.",
+ "entries": [
+  {
+   "at": "2026-11-25T03:14Z",
+   "as_of": "2026-11-25T03:14Z",
+   "passed": 0,
+   "running": 5,
+   "verdict": "OPEN",
+   "what": "The page opens, public and listed. The pre-registration was sealed at 02:52 UTC on 25 November, before any run: twenty rows in three phases, the verdict rule and seven gaps read at the pin. Phase 1 runs on a rented machine; the pin step is under way. Both blind statements are written and sealed before elaboration: writer B (GPT-6.2-astra) at about 03:03 UTC, writer A (a Claude agent) at 03:06 UTC. The statement reader, the two readings of the lower-bound proof and the provenance scout are at work."
+  },
+  {
+   "at": "2026-11-25T03:23Z",
+   "as_of": "2026-11-25T03:23Z",
+   "passed": 1,
+   "running": 4,
+   "verdict": "OPEN",
+   "rows": "PIN:passed K0:running K1:pending K1N:pending EXP:pending K2:pending K3:pending KR:pending CR:pending C1:pending C2:pending C3:pending CEN:pending F1:running F2:pending F3:pending F4:running P1:running P2:pending U:read",
+   "what": "PIN passed at 03:09 UTC: every pinned file matched, and the sha256 of all 11,279 files the proof imports was sealed before the build. K0, the build, started at 03:15 UTC. The provenance report is in (row U). Added from amendment A8 (03:19 UTC): three corrections of the audit's own errors (C-1 to C-3), three facts found after the pin (N1 to N3), shown beside the gaps, and F2's scope, set before any bridge attempt."
+  },
+  {
+   "at": "2026-11-25T03:34Z",
+   "as_of": "2026-11-25T03:34Z",
+   "passed": 1,
+   "running": 3,
+   "verdict": "OPEN",
+   "rows": "PIN:passed K0:running K1:pending K1N:pending EXP:pending K2:pending K3:pending KR:pending CR:pending C1:pending C2:pending C3:pending CEN:pending F1:running F2:pending F3:pending F4:running P1:read P2:pending U:read",
+   "what": "Both readings of the lower-bound proof are in (row P1): reader 1, a Claude agent, and reader 2, GPT-6.2-astra, each written alone. K0, the build, is running. Added: deviation D3 (tests added to Phase 1 after the pre-registered rows, their files sealed as A1x before they are built) and amendment A9 (the bridge author's brief for F2 and F3, sealed before its agent starts)."
+  },
+  {
+   "at": "2026-11-25T03:43Z",
+   "as_of": "2026-11-25T03:43Z",
+   "passed": 2,
+   "running": 2,
+   "verdict": "OPEN",
+   "rows": "PIN:passed K0:passed K1:pending K1N:pending EXP:pending K2:pending K3:pending KR:pending CR:pending C1:pending C2:pending C3:pending CEN:pending F1:running F2:pending F3:pending F4:running P1:read P2:pending U:read X1:pending",
+   "what": "K0 passed at 03:41 UTC: the release's solution and challenge modules build with exit 0, and each of the three theorems depends on the three standard axioms only (propext, Classical.choice, Quot.sound); the search for unsafe code is in the Phase 1 log. A new row, X1, registered by amendment A10 before it starts and outside the verdict: Sun's printed border-rank bound for 32 × 32 matrices, decided exactly."
+  },
+  {
+   "at": "2026-11-25T04:08Z",
+   "as_of": "2026-11-25T04:08Z",
+   "passed": 9,
+   "running": 2,
+   "verdict": "OPEN",
+   "rows": "PIN:passed K0:passed K1:passed K1N:passed EXP:passed K2:passed K3:passed KR:pending CR:passed C1:pending C2:pending C3:pending CEN:pending F1:passed F2:running F3:pending F4:running P1:read P2:pending U:read X1:open",
+   "what": "The release builds (K0) and passes its own Comparator bar with Lean's kernel (K1) and with nanoda switched on (K1N); nanoda at a second version (K2) and con-leche (K3) accept the export and match the three theorems to the challenge; a clean machine that never ran the release's code accepts the same export (CR). Both blind statements are sealed (F1); both readings of the proof and the provenance scout are in; Sun's conflicting construction cannot be decided as printed (X1)."
+  }
+ ]
+}

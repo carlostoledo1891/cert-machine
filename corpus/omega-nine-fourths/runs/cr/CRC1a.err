@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 1.5s (index 0.0s), check 11.0s
+con-leche: stats: check pool: 11.001s wall, 16 workers, 92673 records, busy 175.426s (99.6%); tail 0.030s after the last start, 16 busy then, 0.091s worker-time in it (18.9%)
+con-leche: stats: slowest checks: 1.123s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82116); 0.618s theorem OAI.LinearAlgebra.MatrixExponent.Protocol.applyMove_value (#67707); 0.494s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59799); 0.420s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59773); 0.410s theorem OAI.LinearAlgebra.MatrixExponent.Coloring.cheap_permutation._proof_1_1 (#59956)
+con-leche: stats: peak RSS 1.57 GiB
+con-leche: stats: phases: parse 12.8s (index 0.0s), check 0.4s
+con-leche: stats: check pool: 0.422s wall, 16 workers, 16106 records, busy 6.598s (97.6%); tail 0.009s after the last start, 16 busy then, 0.023s worker-time in it (16.2%)
+con-leche: stats: slowest checks: 0.042s inductive RCLike (#14287); 0.036s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.IsCharP.mk'_aux._proof_1_5 (#4506); 0.031s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#15544); 0.031s theorem _private.Mathlib.Algebra.Order.Field.Basic.0.mul_self_inj_of_nonneg._proof_1_1 (#10644); 0.029s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#15547)
+con-leche: stats: peak RSS 1.57 GiB
+con-leche: invalid: axiom OAI.LinearAlgebra.SpectralBooks.square_exponent is not justified by the solution: the solution's OAI.LinearAlgebra.SpectralBooks.square_exponent has another type [at axiom OAI.LinearAlgebra.SpectralBooks.square_exponent, fold position 16105] (--verified) t=13.2s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/cr/challenge-C1a.ndjson /data/export.ndjson"
+	User time (seconds): 170.64
+	System time (seconds): 0.74
+	Percent of CPU this job got: 1293%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1646420
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 170544
+	Voluntary context switches: 5699
+	Involuntary context switches: 7517
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

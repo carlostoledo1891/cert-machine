@@ -1,0 +1,31 @@
+con-leche: stats: phases: parse 1.6s (index 0.1s), check 10.7s
+con-leche: stats: check pool: 10.730s wall, 16 workers, 92673 records, busy 170.833s (99.5%); tail 0.031s after the last start, 16 busy then, 0.095s worker-time in it (19.1%)
+con-leche: stats: slowest checks: 0.828s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82116); 0.713s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59799); 0.413s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70860); 0.326s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59773); 0.318s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85802)
+con-leche: stats: peak RSS 1.57 GiB
+con-leche: stats: phases: parse 12.7s (index 0.0s), check 0.7s
+con-leche: stats: check pool: 0.770s wall, 16 workers, 16084 records, busy 11.855s (96.1%); tail 0.026s after the last start, 16 busy then, 0.116s worker-time in it (27.1%)
+con-leche: stats: slowest checks: 0.075s theorem _private.Mathlib.Data.List.Perm.Lattice.0.List.Perm.bagInter_right._proof_1_3 (#11746); 0.066s theorem _private.Mathlib.Order.Interval.Finset.Nat.0.Nat.instLocallyFiniteOrder._proof_8 (#12354); 0.059s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.cos_bound._proof_1_3 (#15396); 0.058s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#15544); 0.056s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.Ring.intCast_nat_sub._proof_1_2 (#4390)
+con-leche: stats: peak RSS 1.57 GiB
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/cr/challenge.ndjson /data/export.ndjson"
+	User time (seconds): 171.68
+	System time (seconds): 0.80
+	Percent of CPU this job got: 1259%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.69
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1653124
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 206733
+	Voluntary context switches: 5792
+	Involuntary context switches: 5685
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,4 @@
+94c94
+< def wireDimension (N : ℕ) (w : ℝ) : ℕ := ⌈(N : ℝ) ^ w⌉₊
+---
+> def wireDimension (N : ℕ) (w : ℝ) : ℕ := ⌊(N : ℝ) ^ w⌋₊

@@ -1,0 +1,4 @@
+79c79
+<     (fun i j => v i + v j) (fun i j => v i - v j) (fun i j => v i * v j)
+---
+>     (fun i j => v i + v j) (fun i j => v j - v i) (fun i j => v i * v j)

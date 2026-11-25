@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 1.9s (index 0.1s), check 10.3s
+con-leche: stats: check pool: 10.392s wall, 32 workers, 92673 records, busy 329.734s (99.1%); tail 0.059s after the last start, 32 busy then, 0.393s worker-time in it (20.5%)
+con-leche: stats: slowest checks: 1.827s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82116); 1.480s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59799); 0.746s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70860); 0.704s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59773); 0.547s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85802)
+con-leche: stats: peak RSS 1.72 GiB
+con-leche: stats: phases: parse 12.6s (index 0.0s), check 0.5s
+con-leche: stats: check pool: 0.556s wall, 32 workers, 16108 records, busy 16.009s (89.8%); tail 0.029s after the last start, 32 busy then, 0.087s worker-time in it (9.2%)
+con-leche: stats: slowest checks: 0.108s def Nat.mod (#213); 0.098s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.IsCharP.mk'_aux._proof_1_5 (#4506); 0.076s theorem _private.Init.Data.Nat.Div.Lemmas.0.Nat.div_le_iff_le_mul._proof_1_1 (#3253); 0.065s theorem _private.Mathlib.Order.Interval.Finset.Nat.0.Nat.instLocallyFiniteOrder._proof_2 (#12335); 0.059s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.Ring.intCast_nat_sub._proof_1_3 (#4392)
+con-leche: stats: peak RSS 1.72 GiB
+con-leche: invalid: axiom OAI.LinearAlgebra.SpectralBooks.square_exponent is not justified by the solution: the solution's OAI.LinearAlgebra.SpectralBooks.square_exponent has another type [at axiom OAI.LinearAlgebra.SpectralBooks.square_exponent, fold position 16105] (--verified) t=13.2s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 /home/tester/tools/con-leche/.lake/build/bin/con-leche --verified --jobs=32 --compare -- /home/tester/exports/challenge-C1a.ndjson /home/tester/exports/export.ndjson"
+	User time (seconds): 333.03
+	System time (seconds): 4.03
+	Percent of CPU this job got: 2540%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.26
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1805820
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 210102
+	Voluntary context switches: 13167
+	Involuntary context switches: 9784
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

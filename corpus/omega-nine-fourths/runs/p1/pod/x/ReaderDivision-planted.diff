@@ -1,0 +1,8 @@
+1c1
+< -- Reader test T3 (omega = 9/4 lane, F4). Definitions: byte copy of
+---
+> -- Reader test T3 PLANTED (must be refused) (omega = 9/4 lane, F4). Definitions: byte copy of
+58c58
+< theorem omega_eq (F : Type*) [Field F] : omega F = 9 / 4 := by
+---
+> theorem omega_eq (F : Type*) [Field F] : omega F = 2.24 := by

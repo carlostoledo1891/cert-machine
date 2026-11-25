@@ -108,3 +108,10 @@ X1: two reconstructions of Sun's printed tables with no shared code (a Claude ag
 random-point falsifier over two primes, verdict words REFUTED-AS-PRINTED / PASSES-POINTS / NEEDS DATA
 (prompts/sun-check.md). X1 is outside the CERTIFIED rule; it is reported with the facts, and a dense check needs a pod and
 the operator's word. db6a7b5679c7a140a69153d698fc101c85eb7a5a00c06bddd4f3e466e34272c0  prompts/sun-check.md
+
+## A11 — 2026-11-25 04:08 UTC: the clean-room pod, created and deleted; F1 and X1 states
+
+CR pod: vznibdp98fhl5c, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 03:42:32 UTC (EU-RO-1), on the
+operator's "You can use pods"; it never ran the release's code. Its results came home (runs/cr/, hashes equal on both
+ends) and vznibdp98fhl5c was deleted 2026-11-25 04:08 UTC. Lane-level states are logged in PROGRESS.md (F1: both blind statements
+sealed; X1: both reconstructions NEEDS DATA).

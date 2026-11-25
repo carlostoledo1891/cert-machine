@@ -1,0 +1,84 @@
+info: cw: no previous manifest, creating one from scratch
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4
+info: mathlib: checking out revision 'd13f23b723b8a846827a245b89c10fc7d3f11612'
+info: toolchain not updated; already up-to-date
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision '118aa17ee84656b8bd727fef7c458ee8c833385c'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision 'ddf04cf3949fa556442341e87d47f9f6e6074707'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision 'e928b72544873815af278d38681b31c0293588e3'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '106ff4fafc74ef4ac99d81dbf3ab399118f497a5'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '355695d523e41d0554926416cba2a2b3544fbbc9'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision 'f2effa3d803fda822b1f97b806c47cf2adfbcbc2'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision 'e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204'
+info: mathlib: running post-update hooks
+✔ [1/5] Built Cache.Cli (266ms)
+✔ [3/42] Built Cache.Lean (300ms)
+✔ [6/42] Built Cache.Cli:c.o (87ms)
+✔ [7/42] Built Cache.Lean:c.o (99ms)
+✔ [8/42] Built Cache.Env (276ms)
+✔ [9/42] Built Cache.Env:c.o (146ms)
+✔ [10/42] Built Cache.Infra (329ms)
+✔ [11/42] Built Batteries.Tactic.OpenPrivate (757ms)
+✔ [12/42] Built Cache.Infra:c.o (140ms)
+✔ [13/42] Built Batteries.Tactic.OpenPrivate:c.o (812ms)
+✔ [14/42] Built Cache.IO (1.2s)
+✔ [15/42] Built Cache.Hashing (623ms)
+✔ [16/42] Built Cache.Hashing:c.o (267ms)
+✔ [17/42] Built Cache.IO:c.o (1.0s)
+✔ [18/42] Built Cache.Requests (1.5s)
+✔ [19/42] Built Cache.Marker (479ms)
+✔ [20/42] Built Cache.Marker:c.o (70ms)
+✔ [21/42] Built Cache.Upload.Dest (518ms)
+✔ [22/42] Built Cache.Query (576ms)
+✔ [23/42] Built Cache.Upload.Dest:c.o (77ms)
+✔ [24/42] Built Cache.Query:c.o (195ms)
+✔ [25/42] Built Cache.Upload.Curl (489ms)
+✔ [26/42] Built Cache.Upload.Rclone (527ms)
+✔ [27/42] Built Cache.Upload.Curl:c.o (120ms)
+✔ [28/42] Built Cache.Warning (582ms)
+✔ [29/42] Built Cache.Upload.Rclone:c.o (106ms)
+✔ [30/42] Built Cache.Requests:c.o (1.7s)
+✔ [31/42] Built Cache.Warning:c.o (166ms)
+✔ [32/42] Built Cache.Upload.Azure (492ms)
+✔ [33/42] Built Cache.Upload.Azure:c.o (100ms)
+✔ [34/42] Built Cache.Upload.S3 (618ms)
+✔ [35/42] Built Cache.Upload.S3:c.o (199ms)
+✔ [36/42] Built Cache.Upload.Defs (504ms)
+✔ [37/42] Built Cache.Upload.Defs:c.o (95ms)
+✔ [38/42] Built Cache.Upload (470ms)
+✔ [39/42] Built Cache.Upload:c.o (78ms)
+✔ [40/42] Built Cache.Main (860ms)
+✔ [41/42] Built Cache.Main:c.o (581ms)
+✔ [42/42] Built cache:exe (604ms)
+Downloaded: 1 file(s) [attempted 1/8908 = 0%, 248 KB/s], Decompressed: 0Downloaded: 31 file(s) [attempted 31/8908 = 0%, 248 KB/s], Decompressed: 10Downloaded: 149 file(s) [attempted 149/8908 = 1%, 265 KB/s], Decompressed: 41Downloaded: 279 file(s) [attempted 279/8908 = 3%, 706 KB/s], Decompressed: 41Downloaded: 402 file(s) [attempted 402/8908 = 4%, 412 KB/s], Decompressed: 130Downloaded: 505 file(s) [attempted 505/8908 = 5%, 1638 KB/s], Decompressed: 130Downloaded: 619 file(s) [attempted 619/8908 = 6%, 1850 KB/s], Decompressed: 130Downloaded: 753 file(s) [attempted 753/8908 = 8%, 257 KB/s], Decompressed: 315Downloaded: 874 file(s) [attempted 874/8908 = 9%, 3198 KB/s], Decompressed: 315Downloaded: 1003 file(s) [attempted 1003/8908 = 11%, 137 KB/s], Decompressed: 315Downloaded: 1121 file(s) [attempted 1121/8908 = 12%, 1142 KB/s], Decompressed: 315Downloaded: 1246 file(s) [attempted 1246/8908 = 13%, 1290 KB/s], Decompressed: 315Downloaded: 1369 file(s) [attempted 1369/8908 = 15%, 2125 KB/s], Decompressed: 729Downloaded: 1496 file(s) [attempted 1496/8908 = 16%, 1903 KB/s], Decompressed: 729Downloaded: 1628 file(s) [attempted 1628/8908 = 18%, 258 KB/s], Decompressed: 729Downloaded: 1749 file(s) [attempted 1749/8908 = 19%, 248 KB/s], Decompressed: 729Downloaded: 1869 file(s) [attempted 1869/8908 = 20%, 7967 KB/s], Decompressed: 729Downloaded: 1982 file(s) [attempted 1982/8908 = 22%, 138 KB/s], Decompressed: 729Downloaded: 2085 file(s) [attempted 2085/8908 = 23%, 562 KB/s], Decompressed: 729Downloaded: 2210 file(s) [attempted 2210/8908 = 24%, 471 KB/s], Decompressed: 729Downloaded: 2332 file(s) [attempted 2332/8908 = 26%, 920 KB/s], Decompressed: 1359Downloaded: 2438 file(s) [attempted 2438/8908 = 27%, 1779 KB/s], Decompressed: 1359Downloaded: 2563 file(s) [attempted 2563/8908 = 28%, 3764 KB/s], Decompressed: 1359Downloaded: 2698 file(s) [attempted 2698/8908 = 30%, 1770 KB/s], Decompressed: 1359Downloaded: 2813 file(s) [attempted 2813/8908 = 31%, 1465 KB/s], Decompressed: 1359Downloaded: 2936 file(s) [attempted 2936/8908 = 32%, 953 KB/s], Decompressed: 1359Downloaded: 3041 file(s) [attempted 3041/8908 = 34%, 988 KB/s], Decompressed: 1359Downloaded: 3162 file(s) [attempted 3162/8908 = 35%, 368 KB/s], Decompressed: 1359Downloaded: 3296 file(s) [attempted 3296/8908 = 37%, 386 KB/s], Decompressed: 1359Downloaded: 3411 file(s) [attempted 3411/8908 = 38%, 2305 KB/s], Decompressed: 1359Downloaded: 3532 file(s) [attempted 3532/8908 = 39%, 174 KB/s], Decompressed: 2260Downloaded: 3649 file(s) [attempted 3649/8908 = 40%, 1795 KB/s], Decompressed: 2260Downloaded: 3770 file(s) [attempted 3770/8908 = 42%, 909 KB/s], Decompressed: 2260Downloaded: 3887 file(s) [attempted 3887/8908 = 43%, 243 KB/s], Decompressed: 2260Downloaded: 4000 file(s) [attempted 4000/8908 = 44%, 272 KB/s], Decompressed: 2260Downloaded: 4120 file(s) [attempted 4120/8908 = 46%, 1084 KB/s], Decompressed: 2260Downloaded: 4248 file(s) [attempted 4248/8908 = 47%, 492 KB/s], Decompressed: 2260Downloaded: 4380 file(s) [attempted 4380/8908 = 49%, 957 KB/s], Decompressed: 2260Downloaded: 4510 file(s) [attempted 4510/8908 = 50%, 1367 KB/s], Decompressed: 2260Downloaded: 4627 file(s) [attempted 4627/8908 = 51%, 250 KB/s], Decompressed: 2260Downloaded: 4728 file(s) [attempted 4728/8908 = 53%, 3776 KB/s], Decompressed: 2260Downloaded: 4865 file(s) [attempted 4865/8908 = 54%, 92 KB/s], Decompressed: 2260Downloaded: 4995 file(s) [attempted 4995/8908 = 56%, 100 KB/s], Decompressed: 2260Downloaded: 5111 file(s) [attempted 5111/8908 = 57%, 1494 KB/s], Decompressed: 3491Downloaded: 5228 file(s) [attempted 5228/8908 = 58%, 1543 KB/s], Decompressed: 3491Downloaded: 5363 file(s) [attempted 5363/8908 = 60%, 416 KB/s], Decompressed: 3491Downloaded: 5485 file(s) [attempted 5485/8908 = 61%, 104 KB/s], Decompressed: 3491Downloaded: 5603 file(s) [attempted 5603/8908 = 62%, 364 KB/s], Decompressed: 3491Downloaded: 5716 file(s) [attempted 5716/8908 = 64%, 562 KB/s], Decompressed: 3491Downloaded: 5829 file(s) [attempted 5829/8908 = 65%, 345 KB/s], Decompressed: 3491Downloaded: 5961 file(s) [attempted 5961/8908 = 66%, 2707 KB/s], Decompressed: 3491Downloaded: 6092 file(s) [attempted 6092/8908 = 68%, 4407 KB/s], Decompressed: 3491Downloaded: 6223 file(s) [attempted 6223/8908 = 69%, 457 KB/s], Decompressed: 3491Downloaded: 6334 file(s) [attempted 6334/8908 = 71%, 916 KB/s], Decompressed: 3491Downloaded: 6451 file(s) [attempted 6451/8908 = 72%, 343 KB/s], Decompressed: 3491Downloaded: 6528 file(s) [attempted 6528/8908 = 73%, 1080 KB/s], Decompressed: 3491Downloaded: 6646 file(s) [attempted 6646/8908 = 74%, 1867 KB/s], Decompressed: 3491Downloaded: 6781 file(s) [attempted 6781/8908 = 76%, 586 KB/s], Decompressed: 3491Downloaded: 6903 file(s) [attempted 6903/8908 = 77%, 414 KB/s], Decompressed: 3491Downloaded: 7033 file(s) [attempted 7033/8908 = 78%, 8268 KB/s], Decompressed: 3491Downloaded: 7156 file(s) [attempted 7156/8908 = 80%, 4787 KB/s], Decompressed: 5077Downloaded: 7266 file(s) [attempted 7266/8908 = 81%, 1684 KB/s], Decompressed: 5077Downloaded: 7391 file(s) [attempted 7391/8908 = 82%, 495 KB/s], Decompressed: 5077Downloaded: 7506 file(s) [attempted 7506/8908 = 84%, 570 KB/s], Decompressed: 5077Downloaded: 7603 file(s) [attempted 7603/8908 = 85%, 219 KB/s], Decompressed: 5077Downloaded: 7718 file(s) [attempted 7718/8908 = 86%, 1872 KB/s], Decompressed: 5077Downloaded: 7824 file(s) [attempted 7824/8908 = 87%, 273 KB/s], Decompressed: 5077Downloaded: 7941 file(s) [attempted 7941/8908 = 89%, 897 KB/s], Decompressed: 5077Downloaded: 8073 file(s) [attempted 8073/8908 = 90%, 689 KB/s], Decompressed: 5077Downloaded: 8208 file(s) [attempted 8208/8908 = 92%, 194 KB/s], Decompressed: 5077Downloaded: 8343 file(s) [attempted 8343/8908 = 93%, 632 KB/s], Decompressed: 5077Downloaded: 8453 file(s) [attempted 8453/8908 = 94%, 691 KB/s], Decompressed: 5077Downloaded: 8564 file(s) [attempted 8564/8908 = 96%, 1208 KB/s], Decompressed: 5077Downloaded: 8679 file(s) [attempted 8679/8908 = 97%, 3430 KB/s], Decompressed: 5077Downloaded: 8799 file(s) [attempted 8799/8908 = 98%, 1047 KB/s], Decompressed: 5077Downloaded: 8900 file(s) [attempted 8900/8908 = 99%, 329 KB/s], Decompressed: 5077Downloaded: 8905 file(s) [attempted 8905/8908 = 99%, 514 KB/s], Decompressed: 5077Downloaded: 8908 file(s) [attempted 8908/8908 = 100%, 514 KB/s], Decompressed: 5077
+	Command being timed: "timeout 7200 bash -c for t in 1 2 3 4 5; do lake exe cache get && exit 0; sleep $((t*30)); done; exit 1"
+	User time (seconds): 97.95
+	System time (seconds): 60.89
+	Percent of CPU this job got: 263%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:00.26
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1015184
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 20
+	Minor (reclaiming a frame) page faults: 5446326
+	Voluntary context switches: 2432831
+	Involuntary context switches: 57497
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16227704
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

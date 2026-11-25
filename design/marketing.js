@@ -46,6 +46,15 @@ const PAGES = {
     quote: 'Public and listed (Recommended)',
     relayed: 'the operator\'s choice in the control room\'s dialog of 2026-11-23 ("How should the new /vp-vnp/ page go up tonight?"), with the brief\'s rule: rigor one click down, no hashes or commit links on the surface',
   },
+  /* the live ω = 9/4 audit page (2026-11-25, public and listed). Its rigor is one click down, in its "why you can trust
+     this" layer, where every record, seal, source and script is listed with its hash; the operator's words reached the
+     builder through the control room's brief */
+  'omega/index.html': {
+    url: '/omega/',
+    ruled: '2026-11-25',
+    quote: 'We need to build the live page as soon as we can. And keep updating. We must put the flag first.',
+    relayed: 'the control room\'s brief of 2026-11-25 for the live ω = 9/4 page, relaying the operator, with the template\'s rule: no hashes on the surface, rigor one click down in "Why you can trust this"',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',
