@@ -55,6 +55,15 @@ const PAGES = {
     quote: 'We need to build the live page as soon as we can. And keep updating. We must put the flag first.',
     relayed: 'the control room\'s brief of 2026-11-25 for the live ω = 9/4 page, relaying the operator, with the template\'s rule: no hashes on the surface, rigor one click down in "Why you can trust this"',
   },
+  /* the live δ₃-in-HOL4 page (2026-11-25, public and listed): the checker and its blind proving benchmark. Its rigor is
+     one click down, in its "why you can trust this" layer, where every record and source is listed with its hash; the
+     operator's words (quoted in part) reached the builder through the control room's brief */
+  'delta3-hol4/index.html': {
+    url: '/delta3-hol4/',
+    ruled: '2026-11-25',
+    quote: 'Let\'s start building and publish live already so we gain time.',
+    relayed: 'the control room\'s brief of 2026-11-25 for the live δ₃-in-HOL4 page (hol4/delta3/LIVE-PAGE-BRIEF.md), relaying the operator, with its rules: no commit hashes or commit links on the page, rigor one click down in "Why you can trust this"',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',

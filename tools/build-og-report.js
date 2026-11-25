@@ -443,6 +443,26 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /delta3-hol4/ (2026-11-25, the live δ₃-in-HOL4 page): the page's figures without their words or
+     states — a hatched band across the top (the soundness proof, not yet proved), under it five solid blocks at the true
+     widths of the five regions the certificates cover on [0, 1/2], and below a line, two rows of nine small hollow tiles,
+     the two families' batches, all one tone so the card never states a result (it is not re-rendered at every build).
+     LIGHT theme, no number, no label. */
+  'delta3-hol4': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · a certificate checker in HOL4, in the open', path: '/delta3-hol4/',
+    title: 'δ₃ in HOL4: the checker and its blind benchmark, live',
+    alt: 'A hatched band across the top; under it five solid blocks of unequal width side by side; below a thin line, two rows of nine small hollow tiles.',
+    svgRaw: (() => {
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A hatched band; five solid blocks of unequal width; two rows of nine hollow tiles" style="position:absolute;left:0;top:0">'];
+      o.push('<defs><pattern id="og-void" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="var(--surface)"/><path d="M0,9 l9,-9 M-2.25,2.25 l4.5,-4.5 M6.75,11.25 l4.5,-4.5" stroke="var(--ink-5)" stroke-width="0.9" fill="none"/></pattern></defs>');
+      const x0 = 140, x1 = 1060, W = x1 - x0, cuts = [0, 1 / 5, 3 / 10, 2 / 5, 9 / 20, 1 / 2];
+      o.push('<rect x="' + x0 + '" y="164" width="' + W + '" height="42" rx="5" fill="url(#og-void)" stroke="var(--ink-4)" stroke-width="1.2"/>');
+      for (let k = 0; k < 5; k++) { const a = x0 + cuts[k] / 0.5 * W, b = x0 + cuts[k + 1] / 0.5 * W; o.push('<rect x="' + (a + (k ? 5 : 0)).toFixed(1) + '" y="224" width="' + (b - a - (k ? 5 : 0) - (k < 4 ? 5 : 0)).toFixed(1) + '" height="92" rx="6" fill="var(--ink)"/>'); }
+      o.push('<line x1="' + x0 + '" y1="342" x2="' + x1 + '" y2="342" stroke="var(--ink-4)" stroke-width="1.6"/>');
+      const tw = (W - 8 * 14) / 9;
+      for (const y of [374, 430]) for (let i = 0; i < 9; i++) o.push('<rect x="' + (x0 + i * (tw + 14)).toFixed(1) + '" y="' + y + '" width="' + tw.toFixed(1) + '" height="40" rx="5" fill="var(--surface)" stroke="var(--ink-3)" stroke-width="1.6"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
      record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
      terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing

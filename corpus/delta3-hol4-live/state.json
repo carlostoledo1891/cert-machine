@@ -1,0 +1,604 @@
+{
+ "what": "The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run is open.",
+ "as_of": "2026-11-25T14:34Z",
+ "sig": "open claude:dddddddrr gpt:ddddddddd gaps:4 events:10",
+ "run_open": true,
+ "run": {
+  "start_utc": "2026-11-25T11:02:30Z",
+  "ended_utc": null,
+  "cap": 3,
+  "statements": 162,
+  "batches": 9,
+  "batch_size": 18,
+  "in_flight": 3,
+  "claude_in_flight_from": {
+   "at": "2026-11-25T13:29:00Z",
+   "max": 6
+  },
+  "pause": {
+   "from": "2026-11-25T11:38:00Z",
+   "stopped": "2026-11-25T11:39:10Z",
+   "to": "2026-11-25T13:13:11Z",
+   "lasted": "1 h 34 min"
+  },
+  "limits": {
+   "wall_s": 600,
+   "cpu_s": 1200,
+   "mem_gb": 6
+  },
+  "uniform": {
+   "judge_code": 1,
+   "freeze": 1,
+   "host": 1,
+   "limits": true
+  },
+  "hol_tag": "trindemossen-2-v10",
+  "poly_tag": "v5.9.2",
+  "judge": {
+   "code_12": "4b421d34e8f2",
+   "controls": "9 of 9 controls, the memory limit and both refutation controls passed on the judge machine before the run"
+  }
+ },
+ "freeze": {
+  "frozen_utc": "2026-11-25T10:25:58Z",
+  "digest_12": "e65702ecaef0",
+  "cipher": "openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt",
+  "public_files": [
+   "base/delta3_checkScript.sml",
+   "base/delta3_check2Script.sml",
+   "base/delta3_semScript.sml",
+   "base/delta3_stmtsScript.sml",
+   "lemmas.json",
+   "agents/STATEMENTS.md",
+   "agents/BRIEF.md",
+   "agents/PITFALLS.md",
+   "gen-statements.py"
+  ],
+  "supersedes_utc": "2026-11-24T22:03:28Z"
+ },
+ "families": [
+  {
+   "id": "claude",
+   "name": "Claude Opus 5.5",
+   "model": "claude-opus-5-5",
+   "attempts": 145,
+   "outcomes": {
+    "proved": 82,
+    "refuted": 54,
+    "failed": 9
+   },
+   "statements": {
+    "proved": 82,
+    "refuted": 54,
+    "cap": 1,
+    "open": 0,
+    "untouched": 25
+   },
+   "batches": [
+    {
+     "id": "b1",
+     "state": "done",
+     "started_utc": "2026-11-25T11:07:50Z",
+     "ended_utc": "2026-11-25T13:23:30Z",
+     "tokens": 481370,
+     "attempts": 18
+    },
+    {
+     "id": "b2",
+     "state": "done",
+     "started_utc": "2026-11-25T11:07:50Z",
+     "ended_utc": "2026-11-25T13:41:00Z",
+     "tokens": 544030,
+     "attempts": 19
+    },
+    {
+     "id": "b3",
+     "state": "done",
+     "started_utc": "2026-11-25T11:08:00Z",
+     "ended_utc": "2026-11-25T13:51:00Z",
+     "tokens": 714365,
+     "attempts": 21
+    },
+    {
+     "id": "b4",
+     "state": "done",
+     "started_utc": "2026-11-25T13:24:00Z",
+     "ended_utc": "2026-11-25T14:31:00Z",
+     "tokens": 626508,
+     "attempts": 20
+    },
+    {
+     "id": "b5",
+     "state": "done",
+     "started_utc": "2026-11-25T13:29:00Z",
+     "ended_utc": "2026-11-25T14:06:00Z",
+     "tokens": 387526,
+     "attempts": 18
+    },
+    {
+     "id": "b6",
+     "state": "done",
+     "started_utc": "2026-11-25T13:29:00Z",
+     "ended_utc": "2026-11-25T14:29:00Z",
+     "tokens": 544537,
+     "attempts": 20
+    },
+    {
+     "id": "b7",
+     "state": "done",
+     "started_utc": "2026-11-25T13:43:00Z",
+     "ended_utc": "2026-11-25T14:24:00Z",
+     "tokens": 428984,
+     "attempts": 18
+    },
+    {
+     "id": "b8",
+     "state": "running",
+     "started_utc": "2026-11-25T14:33:59Z",
+     "ended_utc": null,
+     "tokens": null,
+     "attempts": 1
+    },
+    {
+     "id": "b9",
+     "state": "running",
+     "started_utc": "2026-11-25T14:32:28Z",
+     "ended_utc": null,
+     "tokens": null,
+     "attempts": 10
+    }
+   ],
+   "batches_done": 7,
+   "batches_running": 2,
+   "first_attempt_utc": "2026-11-25T11:24:44Z",
+   "last_attempt_utc": "2026-11-25T14:33:59Z",
+   "all_done_utc": null,
+   "tokens": {
+    "total": 3727320,
+    "batches": 7,
+    "counter": "the Agent tool’s usage report for each agent"
+   },
+   "judged_in_pause": 1,
+   "cap_over": 0,
+   "after_judged": 0,
+   "outside_batch": 0,
+   "per_statement": null
+  },
+  {
+   "id": "gpt",
+   "name": "GPT-6.2 Astra",
+   "model": "gpt-6.2-astra",
+   "attempts": 272,
+   "outcomes": {
+    "failed": 113,
+    "refuted": 78,
+    "proved": 71,
+    "timeout": 10
+   },
+   "statements": {
+    "proved": 71,
+    "refuted": 78,
+    "cap": 13,
+    "open": 0,
+    "untouched": 0
+   },
+   "batches": [
+    {
+     "id": "b1",
+     "state": "done",
+     "started_utc": "2026-11-25T11:08:06Z",
+     "ended_utc": "2026-11-25T11:24:07Z",
+     "tokens": 100094,
+     "attempts": 24
+    },
+    {
+     "id": "b2",
+     "state": "done",
+     "started_utc": "2026-11-25T11:08:06Z",
+     "ended_utc": "2026-11-25T13:14:34Z",
+     "tokens": 127213,
+     "attempts": 37
+    },
+    {
+     "id": "b3",
+     "state": "done",
+     "started_utc": "2026-11-25T11:08:06Z",
+     "ended_utc": "2026-11-25T13:16:51Z",
+     "tokens": 169787,
+     "attempts": 40
+    },
+    {
+     "id": "b4",
+     "state": "done",
+     "started_utc": "2026-11-25T11:26:10Z",
+     "ended_utc": "2026-11-25T13:16:08Z",
+     "tokens": 188894,
+     "attempts": 24
+    },
+    {
+     "id": "b5",
+     "state": "done",
+     "started_utc": "2026-11-25T13:15:00Z",
+     "ended_utc": "2026-11-25T13:32:52Z",
+     "tokens": 102693,
+     "attempts": 31
+    },
+    {
+     "id": "b6",
+     "state": "done",
+     "started_utc": "2026-11-25T13:16:50Z",
+     "ended_utc": "2026-11-25T13:32:03Z",
+     "tokens": 95837,
+     "attempts": 29
+    },
+    {
+     "id": "b7",
+     "state": "done",
+     "started_utc": "2026-11-25T13:17:20Z",
+     "ended_utc": "2026-11-25T13:41:28Z",
+     "tokens": 140689,
+     "attempts": 40
+    },
+    {
+     "id": "b8",
+     "state": "done",
+     "started_utc": "2026-11-25T13:32:10Z",
+     "ended_utc": "2026-11-25T13:40:56Z",
+     "tokens": 73986,
+     "attempts": 21
+    },
+    {
+     "id": "b9",
+     "state": "done",
+     "started_utc": "2026-11-25T13:33:30Z",
+     "ended_utc": "2026-11-25T13:54:03Z",
+     "tokens": 101016,
+     "attempts": 26
+    }
+   ],
+   "batches_done": 9,
+   "batches_running": 0,
+   "first_attempt_utc": "2026-11-25T11:09:44Z",
+   "last_attempt_utc": "2026-11-25T13:48:10Z",
+   "all_done_utc": "2026-11-25T13:54:03Z",
+   "tokens": {
+    "total": 1100209,
+    "batches": 9,
+    "counter": "Codex’s own “tokens used” count for each session"
+   },
+   "judged_in_pause": 2,
+   "cap_over": 0,
+   "after_judged": 0,
+   "outside_batch": 0,
+   "per_statement": null
+  }
+ ],
+ "gaps": [
+  {
+   "id": "log",
+   "when": "13:41",
+   "title": "The judge’s log could be read across the two families",
+   "happened": "The judge writes every attempt of both families to one log. The brief forbade reading the other family’s folder, but not that log. A Claude agent read it; the GPT family was ahead, so a Claude agent reading the log could see GPT outcomes before attempting the same statement.",
+   "done": "At 13:42 UTC the 4 Claude agents then running were told not to read the log or other agents’ results, and to report whether they had, and for which statements. Each later Claude agent gets the same message at its start.",
+   "scoring": "The blinding audit counts every read of the log, per agent and per statement. The Claude family is scored twice: with all its statements, and without the statements an agent could have seen in the log first."
+  },
+  {
+   "id": "prerun",
+   "when": "13:51",
+   "title": "Work from before the run, by an agent that had seen the answer texts, could be read",
+   "happened": "A folder the proving agents were allowed to read still held earlier attempts and proofs written before the run by a Claude agent that built the harness and had read the texts of the true statements. One Claude proving agent used that material for 2 of its statements. Also readable: the first answer key’s statement list, whose lists identify 41 of its 44 planted texts (this run uses the same texts, renumbered), and one accepted proof from before the run.",
+   "done": "At 13:51 UTC all of it (11 folders, the first statement list and the accepted proof) was moved out of the folders the agents may read; a note stands in its place.",
+   "scoring": "Those 2 statements are marked contaminated for the Claude family, which is reported with and without them. The blinding audit lists every read of the moved material by any agent of either family, with its time; any statement decided after such a read is reported separately."
+  },
+  {
+   "id": "decoy-text",
+   "when": "13:29",
+   "title": "A correct refutation would have stopped the run",
+   "happened": "A refutation proves that a statement’s text, taken alone without its “may use” hypotheses, is false. A decoy whose text is a planted (false) text is true as a whole, because one of its hypotheses is false, yet its text can be refuted. The protocol said that refuting a decoy meant a kernel or judge fault and stopped the run. This was found during the run and written down before the answer key is opened.",
+   "done": "Ruled at 13:29 UTC, before the key is opened: such a refutation is correct. It is reported in its own column, “text refuted”, beside “proved”, and it does not stop the run. A family that refuted such a decoy first can no longer prove it, and the report says so.",
+   "scoring": "The rule that stops the run stays for a refutation of a true original or of a decoy whose text is true."
+  },
+  {
+   "id": "vacuous",
+   "when": "13:47",
+   "title": "A planted statement can be true, vacuously",
+   "happened": "A Claude agent found that a planted statement’s “may use” list can name a decoy whose text is false. The planted statement then holds vacuously and has a correct kernel proof, and the gate “zero planted statements proved” would have flagged a correct proof as a fault.",
+   "done": "Ruled at 13:47 UTC, before the key is opened: the gate judges what the kernel judged. Zero “proved” on a statement whose goal is false, and zero “refuted” on a statement whose text is true; either one would mean a kernel or judge fault. A planted statement whose goal holds vacuously is scored in its own class.",
+   "scoring": "Every statement is classed by the truth of what the kernel was asked to judge, read from the key once it is opened."
+  }
+ ],
+ "rulings": [
+  {
+   "when": "13:29",
+   "text": "A refuted decoy text counts as correct, in its own column; it does not stop the run."
+  },
+  {
+   "when": "13:47",
+   "text": "Agents, not people, read the accepted scripts: one Claude and one GPT-6.2 reader, each alone, every script. The report will say that no person read them."
+  },
+  {
+   "when": "13:47",
+   "text": "The gate judges what the kernel judged: no proof of a false goal, no refutation of a true text."
+  }
+ ],
+ "limits_known": [
+  {
+   "text": "The first answer key, frozen at 22:03 UTC on 24 November, was printed into AI session transcripts on the machine that runs the benchmark. It was replaced before the run by a fresh key, frozen at 10:25 UTC on 25 November and encrypted under a passphrase that one person, Carlos Toledo, holds."
+  },
+  {
+   "text": "The Claude agents that built the harness read the texts of the true statements. The proving agents are other agents; the blinding audit checks what each of them read."
+  },
+  {
+   "text": "Nothing stops an agent from reading a file: the machine does not restrict reads. The blinding rule is checked afterwards, on every agent’s tool log."
+  },
+  {
+   "text": "Agents of the same family may read each other’s scripts. The brief allows it; reuse is reported, not excluded."
+  },
+  {
+   "text": "The decoys remove the signal that used to mark the true statements; weaker signals remain, were measured before the run, and are reported with the results."
+  },
+  {
+   "text": "The judge trusts the files HOL4 writes. A deliberate forgery from inside a build would be stopped only by a text filter on the script and by reading the script, which is why every accepted proof is rebuilt and read (below)."
+  },
+  {
+   "text": "The judge kept running through the pause: 1 Claude Opus 5.5 attempt and 2 GPT-6.2 Astra attempts, already submitted when the agents stopped (11:39 UTC), were judged during it."
+  }
+ ],
+ "events": [
+  {
+   "at": "2026-11-25T11:02:30Z",
+   "title": "The run starts",
+   "text": "From here the judge enforces the cap of 3 attempts per statement per family."
+  },
+  {
+   "at": "2026-11-25T11:08:00Z",
+   "title": "Both families start",
+   "text": "Each family starts its first 3 batches; at most 3 per family run at once, and the next starts, in order, when one ends."
+  },
+  {
+   "at": "2026-11-25T11:38:00Z",
+   "title": "Pause",
+   "text": "The Claude agents finish the attempt in flight and stop; the GPT sessions are frozen where they are; the judge keeps running."
+  },
+  {
+   "at": "2026-11-25T13:13:11Z",
+   "title": "Resume",
+   "text": "After 1 h 34 min."
+  },
+  {
+   "at": "2026-11-25T13:29:00Z",
+   "title": "A ruling, and a faster pace",
+   "text": "A refuted decoy text counts as correct. The Claude family may run up to 6 batches at once, to keep pace; the limit had been 3 for each family."
+  },
+  {
+   "at": "2026-11-25T13:41:00Z",
+   "title": "Two findings",
+   "text": "A Claude agent reports that the judge’s log can be read across families, and that a planted statement can hold vacuously."
+  },
+  {
+   "at": "2026-11-25T13:42:00Z",
+   "title": "The log is put off limits",
+   "text": "The 4 running Claude agents are told not to read it."
+  },
+  {
+   "at": "2026-11-25T13:47:00Z",
+   "title": "Two rulings",
+   "text": "Agents read the accepted scripts; the gate judges what the kernel judged."
+  },
+  {
+   "at": "2026-11-25T13:51:00Z",
+   "title": "Material from before the run moved out",
+   "text": "A Claude agent’s report shows it could be read; it is moved out of the agents’ reach."
+  },
+  {
+   "at": "2026-11-25T13:54:03Z",
+   "title": "The GPT-6.2 Astra family finishes",
+   "text": "All 9 of its batches have ended."
+  }
+ ],
+ "work": {
+  "value": "117/2192",
+  "problem": "Erdős #1186",
+  "certificates": 5,
+  "regions": [
+   {
+    "id": "inner",
+    "lo": [
+     0,
+     1
+    ],
+    "hi": [
+     1,
+     5
+    ],
+    "forms": 22808,
+    "check_s": 1.29,
+    "tag": "-v10"
+   },
+   {
+    "id": "slabA",
+    "lo": [
+     1,
+     5
+    ],
+    "hi": [
+     3,
+     10
+    ],
+    "n": 130,
+    "forms": 13324,
+    "check_s": 1.357,
+    "tag": "-v9"
+   },
+   {
+    "id": "slabB",
+    "lo": [
+     3,
+     10
+    ],
+    "hi": [
+     2,
+     5
+    ],
+    "n": 130,
+    "forms": 9849,
+    "check_s": 1.344,
+    "tag": "-v9"
+   },
+   {
+    "id": "slabC",
+    "lo": [
+     2,
+     5
+    ],
+    "hi": [
+     9,
+     20
+    ],
+    "n": 146,
+    "forms": 1998,
+    "check_s": 1.154,
+    "tag": "-v9"
+   },
+   {
+    "id": "slabD",
+    "lo": [
+     9,
+     20
+    ],
+    "hi": [
+     1,
+     2
+    ],
+    "n": 146,
+    "forms": 2332,
+    "check_s": 1.293,
+    "tag": "-v9"
+   }
+  ],
+  "js_s": 0.18,
+  "kernel_factor": 6.4,
+  "battery": {
+   "planted": 40,
+   "kernel_f": 36,
+   "cover_f": 3,
+   "loader": 1
+  },
+  "more_forgeries": 6,
+  "binary": {
+   "agree": 52,
+   "of": 52,
+   "lo_s": 0.28,
+   "hi_s": 0.32
+  },
+  "v9_v10_inputs": 51,
+  "hol_tag": "trindemossen-2-v10",
+  "poly_tag": "v5.9.2",
+  "lean": {
+   "url": "https://github.com/dreadpiratechan/erdos-1186",
+   "version": "1.0.0",
+   "date": "26 October 2026"
+  },
+  "sfm": {
+   "date": "15 July 2026",
+   "capture": "20260715002525"
+  }
+ },
+ "next": [
+  {
+   "title": "The run ends",
+   "short": "run ends",
+   "text": "When every statement is judged or at the cap for both families, or the run is stopped. The judge machine is stopped, its log brought home, and the machine deleted."
+  },
+  {
+   "title": "A fresh rebuild of every accepted proof",
+   "short": "fresh rebuild",
+   "text": "Each accepted script is built again, alone, in a new process against the frozen statements; an attempt counts only if the rebuild gives the same decision."
+  },
+  {
+   "title": "Two readers for every accepted script",
+   "short": "two readers",
+   "text": "One Claude and one GPT-6.2 agent, each alone, read every accepted script against a seven-item checklist. No person reads them, and the report will say so."
+  },
+  {
+   "title": "The blinding audit",
+   "short": "blinding audit",
+   "text": "Every agent’s tool log is read for forbidden reads: the judge’s log, the moved material, the answer texts."
+  },
+  {
+   "title": "The key is unlocked",
+   "short": "key unlocked",
+   "text": "Carlos Toledo types the passphrase; the key says which statements are true, planted or decoys. Nobody knows that before."
+  },
+  {
+   "title": "Scoring",
+   "short": "scoring",
+   "text": "By what the kernel judged, per family and per class, with exact 95% intervals, the Claude family also without the statements touched by the two leaks above."
+  },
+  {
+   "title": "A non-blind builder finishes the slab lemmas",
+   "short": "non-blind builder",
+   "text": "Any lemma of the slab proof left unproved after the run is finished by a builder agent that is not blind. Those lemmas are labelled non-blind, and the scores count only blind attempts."
+  },
+  {
+   "title": "The slab theorem",
+   "short": "slab theorem",
+   "text": "The theorem that an accepting slab check implies the bound on its region, for the four slabs: the next milestone of the soundness proof."
+  },
+  {
+   "title": "A public repository",
+   "short": "public repository",
+   "text": "The checker, its proofs and the run’s records in a small public repository of their own."
+  }
+ ],
+ "sources": [
+  {
+   "file": "hol4/delta3/harness/RUN.json",
+   "sha256_12": "35b226d97d14"
+  },
+  {
+   "file": "hol4/delta3/harness/attempts.jsonl",
+   "sha256_12": "26dabfa160dd"
+  },
+  {
+   "file": "hol4/delta3/harness/runs/tokens.tsv",
+   "sha256_12": "4c95559afb5e"
+  },
+  {
+   "file": "hol4/delta3/harness/RUN-PROTOCOL.md",
+   "sha256_12": "d4703046e370"
+  },
+  {
+   "file": "hol4/delta3/harness/FREEZE-2.json",
+   "sha256_12": "d7fbed838ab8"
+  },
+  {
+   "file": "hol4/delta3/harness/PIN.json",
+   "sha256_12": "63df502488fb"
+  },
+  {
+   "file": "hol4/delta3/harness/JUDGE.json",
+   "sha256_12": "d5c1bafb6c3b"
+  },
+  {
+   "file": "hol4/delta3/harness/MOVED-PRERUN.txt",
+   "sha256_12": "3db44ab61fcb"
+  },
+  {
+   "file": "hol4/delta3/agents/BRIEF.md",
+   "sha256_12": "2e9a8aad3d36"
+  },
+  {
+   "file": "hol4/delta3/WORKLOG.md",
+   "sha256_12": "9b896f6620ee"
+  },
+  {
+   "file": "hol4/delta3/README.md",
+   "sha256_12": "0e6e094d349b"
+  },
+  {
+   "file": "hol4/delta3/repo-draft/README.md",
+   "sha256_12": "9307ca1e7131"
+  }
+ ]
+}
