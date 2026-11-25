@@ -469,6 +469,16 @@ function build(clock) {
       return Object.assign({}, a, { recorded_in: LANE_REL + '/' + a.recorded_in, size_in: LANE_REL + '/' + a.size_in, url: a.published === false ? null : 'https://github.com/carlostoledo1891/cert-machine/releases/download/' + tag + '/' + a.name });
     })
   } : null;
+  /* the Zenodo deposit, once published (DEPOSIT.json, read back from Zenodo's public record): each export in it must be
+     the size the lane recorded, so the DOI never names bytes the lane did not check */
+  let deposit = null;
+  if (has('DEPOSIT.json')) {
+    const D = JSON.parse(txt('DEPOSIT.json'));
+    need(/^10\.5281\/zenodo\.\d+$/.test(D.doi) && D.record === 'https://zenodo.org/records/' + D.doi.split('.').pop(), 'DEPOSIT.json: the DOI and the record do not agree');
+    at('the Zenodo deposit', Date.parse(D.published_utc));
+    for (const a of ASSETS) { const f = D.files.find((x) => x.name === a.name); need(f && f.bytes === a.bytes, 'DEPOSIT.json: ' + a.name + ' is not in the deposit at the size the lane recorded'); }
+    deposit = { doi: D.doi, record: D.record, published_utc: D.published_utc, license: D.license, files: D.files.map((f) => f.name), source: LANE_REL + '/DEPOSIT.json' };
+  }
 
   /* ------------------------------------------------------------ the verdict */
   /* the verdict is OPEN until the lane declares one in VERDICT.md: "VERDICT: <word>" on its first line, the reason after */
@@ -496,7 +506,7 @@ function build(clock) {
       { who: 'The Phase 1 runner, a Claude agent', role: 'builds and checks the proof on rented machines, every step logged (Phase 1)' },
       { who: 'The provenance scout', role: 'where the upper bound comes from and how the release was received, every fact with its source (U)' },
       { who: 'The control room, Claude Opus 5.5 (Anthropic), for Carlos Toledo', role: 'wrote and sealed the pre-registration and its amendments, and writes the records this page reads' }],
-    facts, scopes, phase4, phase5, exports,
+    facts, scopes, phase4, phase5, exports, deposit,
     seals, amendments: amendments.map(({ id, day, approx, hm: h, title, body }) => ({ id, when: day + ' ' + (approx ? '~' : '') + h + ' UTC', title, correction: /-c$/.test(id) ? norm(body) : null })),
     progress: progress.filter((p) => !p.echo).map(({ file, line }) => ({ file, line })),
     sources: SOURCES.map((f) => ({ file: LANE_REL + '/' + f, sha256_12: sha(rd(f)).slice(0, 12) })),
@@ -538,6 +548,7 @@ function finalize(recs) {
   if (S.phase5) cert.phase5 = Object.assign({ what: 'After the verdict, which it does not change (amendments A15, A16): Corollary 1.3 for every format (border rank and asymptotic rank of T_{a,b,c}), and the paper’s α_F in its own circuit model with division gates (1/2 ≤ α_F ≤ 2/3, and α_F = 1/2), stated by us without seeing the release’s Lean, sealed before elaboration (A16), proved from the release’s theorems, and replayed on a clean machine.' }, S.phase5,
     { rows: S.phases.filter((p) => p.phase === 6).flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: 6, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))) });
   if (S.exports) cert.exports = S.exports;
+  if (S.deposit) cert.deposit = S.deposit;
   cert.pods = S.pods;
   return Object.assign({}, recs, { cert });
 }
