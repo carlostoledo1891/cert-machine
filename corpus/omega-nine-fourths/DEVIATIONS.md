@@ -47,3 +47,5 @@ changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line dif
 Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins).
 Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 09:22:01 UTC (US-CA-2), for the Phase 4 prover (A13).
 Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code.
+Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home).
+Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/).

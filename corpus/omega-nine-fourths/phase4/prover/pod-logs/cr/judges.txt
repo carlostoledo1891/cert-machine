@@ -1,0 +1,18 @@
+info: downloading installer
+lean4export 076e8e57707e813375e8f9da8bf989799ace9680 v4.34.0
+lean4export toolchain as committed: leanprover/lean4:v4.34.0
+Build completed successfully (6 jobs).
+nanoda d0a02cc5defadd683f62f9d078f41688314fa31f v0.3.2-82-gd0a02cc
+    Finished `release` profile [optimized] target(s) in 13.60s
+con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f 5ea446d5c
+info: downloading https://releases.lean-lang.org/lean4/v4.36.0/lean-4.36.0-linux.tar.zst
+info: installing /root/.elan/toolchains/leanprover--lean4---v4.36.0
+
+leanprover/lean4:v4.36.0 installed - Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+
+✔ [1709/1713] Built ConLeche.Model.IsModelJson (313ms)
+✔ [1711/1713] Built ConLeche.MainTheorem (313ms)
+Build completed successfully (1713 jobs).
+8c5d64ba68f4d3a68b3bcb7e1c5f188e35ae573b29470b8d4530a62324c9ddd1  lean4export/.lake/build/bin/lean4export
+b96771e25c54460a326b18f80ce208b049423896ab315dffaad828fa8ed9c60b  nanoda_lib/target/release/nanoda_bin
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  con-leche/.lake/build/bin/con-leche

@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 2.1s (index 0.0s), check 11.8s
+con-leche: stats: check pool: 11.807s wall, 16 workers, 92099 records, busy 187.744s (99.3%); tail 0.066s after the last start, 16 busy then, 0.130s worker-time in it (12.2%)
+con-leche: stats: slowest checks: 1.211s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82145); 0.810s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59802); 0.711s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59828); 0.382s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70889); 0.366s theorem OAI.LinearAlgebra.MatrixExponent.Protocol.applyMove_value (#67736)
+con-leche: stats: peak RSS 1.56 GiB
+con-leche: stats: phases: parse 14.3s (index 0.0s), check 0.9s
+con-leche: stats: check pool: 0.972s wall, 16 workers, 17593 records, busy 14.819s (95.2%); tail 0.035s after the last start, 16 busy then, 0.133s worker-time in it (23.6%)
+con-leche: stats: slowest checks: 0.097s def Nat.land (#1175); 0.065s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#10561); 0.063s theorem _private.Mathlib.Data.List.Perm.Lattice.0.List.Perm.bagInter_right._proof_1_3 (#3286); 0.060s theorem Lean.Grind.Linarith.Poly.combine._unary._proof_1 (#10410); 0.059s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.IsCharP.mk'_aux._proof_1_5 (#10215)
+con-leche: stats: peak RSS 1.56 GiB
+con-leche: invalid: axiom PerN.asymptoticRank_holds is not justified by the solution: its type reads PerN.AsymptoticRank, which the solution does not declare alike [at axiom PerN.asymptoticRank_holds, fold position 17592] (--verified) t=15.3s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/cr/challenge-planted.ndjson /data/sol.ndjson"
+	User time (seconds): 186.21
+	System time (seconds): 0.96
+	Percent of CPU this job got: 1219%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:15.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1637444
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 187048
+	Voluntary context switches: 5557
+	Involuntary context switches: 9645
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
