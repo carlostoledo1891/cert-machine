@@ -27,3 +27,10 @@ planted theorem only; C3 through K2 and S1's check), S1, KR beside the Comparato
 then B2 and E1; S2 last and dropped first. DEADLINE is set from the ceiling and the balance read before the pod is
 created. P1's disclosure stands: at the host's Landlock ABI, what landrun enforces is recorded, and Comparator's
 systemd AF_UNIX guard cannot run in a container; S1's row says both.
+
+## A4 (2026-11-25 23:32 UTC, before any run) — the pod starts now, beside the Lean-bridge pod
+
+The operator's word: "Run the pods together, I will top later" (it replaces A1's "after the Lean pod"). The ceiling
+stays US$15. Balance read at 23:32 UTC: US$32.48 (get-balance). Both pods burn US$1.84/h, which empties the
+balance at about 17:05 UTC on 26 Nov unless it is topped up; so this lane's DEADLINE is 2026-11-26 15:30 UTC (about
+16 h, about US$14), and the balance is read at every milestone.
