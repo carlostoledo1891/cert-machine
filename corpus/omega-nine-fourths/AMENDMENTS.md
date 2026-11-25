@@ -35,3 +35,7 @@ records, gaps first" is replaced by: the page is built only from records; it lea
 verification (every row and its state); the gaps G1–G7 appear as a consequence, each with the row that measures it,
 worded as in PREREG.md. Public texts do not use the word "hostile". Nothing else changes: the rows, the verdict rule,
 the ceiling and the sends stand as sealed.
+
+## A5-c — 2026-11-25 03:05 UTC: a correction
+
+A5's heading says "~03:06 UTC"; it was written ahead of the clock, which read 03:04:36 UTC when A5 was sealed.
