@@ -97,3 +97,14 @@ not decide the verdict.
 
 prompts/bridge-author.md. The bridge author writes proofs before the build exists and compiles them on the Phase 1 pod
 once K0 has passed, without touching the runner's folders. ada1c407a6b150fa5678920d23975354ba523b37ae895446c6d1a19869199c58  prompts/bridge-author.md
+
+## A10 — 2026-11-25 03:38 UTC: a new row X1 (Sun's M_32 construction, decided exactly), sealed before it starts
+
+The provenance scout (provenance/SUN.md) found that Zhi-Wei Sun's arXiv:2610.13971 exists only as v1 (14 Sep 2026,
+math.GM), not withdrawn, and claims border rank R(M_32) ≤ 2048 (Theorem 1.3(a), characteristic ≠ 2) and R(M_{2^n}) ≤
+2^{2n+1} for n ≥ 5, "Consequently, ω(K) = 2"; OpenAI's paper claims border rank ≥ n^{9/4} (≈ 2435.5 at n = 32) and names
+the conflict at n = 2^8. If Sun's M_32 bound held, ω ≤ log_32 2048 = 2.2 < 9/4, against the Lean square_exponent too.
+X1: two reconstructions of Sun's printed tables with no shared code (a Claude agent; GPT-6.2-astra offline), an exact
+random-point falsifier over two primes, verdict words REFUTED-AS-PRINTED / PASSES-POINTS / NEEDS DATA
+(prompts/sun-check.md). X1 is outside the CERTIFIED rule; it is reported with the facts, and a dense check needs a pod and
+the operator's word. db6a7b5679c7a140a69153d698fc101c85eb7a5a00c06bddd4f3e466e34272c0  prompts/sun-check.md
