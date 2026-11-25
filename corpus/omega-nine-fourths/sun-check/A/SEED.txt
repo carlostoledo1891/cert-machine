@@ -1,0 +1,15 @@
+X1 reconstruction A -- seed, written 2026-11-25 03:51 UTC (date -u 03:51:26), before any check runs.
+
+seed            = 2610139701
+prng            = Python random.Random(2610139701)  (Mersenne Twister, CPython 3.9.6, run as python3 -I)
+primes          = 1000003, 998244353
+points          = 24 per prime per identity (>= 20 as the brief requires)
+draw order      = for each identity in the fixed order of check 18 in AMBIGUITY-LOG.md, for p in (1000003, 998244353),
+                  for k in 0..23: draw every coordinate of x, then y, then z, uniformly in [0, p-1] with rng.randrange(p);
+                  one Random instance, never reseeded.
+what is compared = Sum over source monomials of coefficient * A(x)(t) * B(y)(t) * C(z)(t), a Laurent polynomial in t
+                  (or s) over F_p, against the claimed target tensor evaluated at (x, y, z) at the claimed degree, and
+                  zero at every lower degree; every coefficient at and below the claimed degree is recorded, and all
+                  higher ones too.
+scope           = local printed identities only. The M_32 falsifier of brief step 2 needs A, B, C for M_32, which the
+                  paper does not print (AMBIGUITY-LOG.md section 0); it is not run.

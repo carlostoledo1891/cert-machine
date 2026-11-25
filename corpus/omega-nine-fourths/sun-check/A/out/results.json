@@ -1,0 +1,1658 @@
+{
+ "n_checks": 33,
+ "n_pass": 27,
+ "points_per_prime_per_identity": 24,
+ "primes": [
+  1000003,
+  998244353
+ ],
+ "python": "3.9.6",
+ "results": [
+  {
+   "details": {
+    "A_0, A_1 l.1482-1488": true,
+    "A_0, A_1 repeat l.3657-3662": true,
+    "App A.3 repeat l.3701-3720 vs main table": true,
+    "F_3 tilde E_L, E_R l.4489-4541": true,
+    "K, B_0, B_1 repeat l.3666": true,
+    "Theta l.1590 and l.3673": true,
+    "U_X,U_Y,U_Z l.2008-2010": true,
+    "active slice M_0 l.1912-1917": true,
+    "barred covectors l.4407-4410": true,
+    "five-empty B, D l.1805-1825": true,
+    "five-empty B, D repeat l.3858-3877": true,
+    "five-empty c l.1801": true,
+    "generic E_L, E_R l.4425-4477": true,
+    "k, B_0, B_1 l.1490,1584": true,
+    "packet table l.1509-1540": true,
+    "side-colour twists l.3681-3683": true,
+    "singular-active A, R l.1719,1727": true
+   },
+   "id": "T0 transcription",
+   "ok": true,
+   "summary": "17/17 hand transcriptions equal the values parsed from the TeX text"
+  },
+  {
+   "details": null,
+   "id": "C1 Lemma fibres32",
+   "ok": true,
+   "summary": "128 fibres of [2048] elements; zero fibre 2048 = 1954 all-nonzero + [31, 31, 31] one-bar + 1 cubic"
+  },
+  {
+   "details": null,
+   "id": "C1b completion tensor eq. completion32",
+   "ok": true,
+   "summary": "the 94 printed completion triples are exactly the zero-fibre triples with a zero label: True"
+  },
+  {
+   "details": null,
+   "id": "C2 Prop orbit32",
+   "ok": true,
+   "summary": "16*2048 row-translated monomials are cycles x_ij y_jk z_ki: True; distinct cycles 32768 (32^3 = 32768)"
+  },
+  {
+   "details": null,
+   "id": "S1 T_0 = G_H4 [x] M_2, G_H4 = D_16 by Fourier",
+   "ok": true,
+   "summary": "relabeling u=(q,e,a)->(q;a,a+e) maps the 2048 zero-fibre triples bijectively onto {q+r+s=0} x {M_2 cycles}: True; Fourier identity G_H4 = (1/16) sum of 16 rank-one terms: True"
+  },
+  {
+   "details": null,
+   "id": "C4a packet table vs formulas",
+   "ok": true,
+   "summary": "p = k(s) XOR 3*lambda and chi = A_lambda s reproduce all 32 rows: True (bad []); labels once: True; each layer runs through all 16 characters: True; integer \"+\" would reproduce row 1: False"
+  },
+  {
+   "details": null,
+   "id": "C4b type count",
+   "ok": true,
+   "summary": "types 22 CW_3 + 10 CW_2 (printed 22 + 10)"
+  },
+  {
+   "details": null,
+   "id": "C4c masks",
+   "ok": true,
+   "summary": "table masks = Xi rule and exist in the packet type: True (bad []); packet-support identities 354 (printed 354); retained supports 128; retained per character [8]"
+  },
+  {
+   "details": {
+    "omitted_wrong": [],
+    "retained_wrong": [
+     [
+      1,
+      "B1",
+      "1"
+     ],
+     [
+      1,
+      "C1",
+      "1"
+     ],
+     [
+      1,
+      "B2",
+      "1"
+     ],
+     [
+      3,
+      "B1",
+      "1"
+     ],
+     [
+      3,
+      "C1",
+      "1"
+     ],
+     [
+      3,
+      "B2",
+      "1"
+     ],
+     [
+      4,
+      "B1",
+      "1"
+     ],
+     [
+      4,
+      "C1",
+      "1"
+     ],
+     [
+      6,
+      "B1",
+      "1"
+     ],
+     [
+      6,
+      "C1",
+      "1"
+     ],
+     [
+      6,
+      "B2",
+      "1"
+     ],
+     [
+      7,
+      "C1",
+      "1"
+     ],
+     [
+      8,
+      "C1",
+      "1"
+     ],
+     [
+      9,
+      "B1",
+      "1"
+     ],
+     [
+      9,
+      "C1",
+      "1"
+     ],
+     [
+      9,
+      "B2",
+      "1"
+     ],
+     [
+      11,
+      "B1",
+      "1"
+     ],
+     [
+      11,
+      "C1",
+      "1"
+     ],
+     [
+      11,
+      "B2",
+      "1"
+     ],
+     [
+      12,
+      "B1",
+      "1"
+     ],
+     [
+      12,
+      "C1",
+      "1"
+     ],
+     [
+      12,
+      "B2",
+      "1"
+     ],
+     [
+      14,
+      "B1",
+      "1"
+     ],
+     [
+      14,
+      "C1",
+      "1"
+     ],
+     [
+      14,
+      "B2",
+      "1"
+     ],
+     [
+      17,
+      "B1",
+      "1"
+     ],
+     [
+      17,
+      "C1",
+      "1"
+     ],
+     [
+      17,
+      "B2",
+      "1"
+     ],
+     [
+      19,
+      "B1",
+      "1"
+     ],
+     [
+      19,
+      "C1",
+      "1"
+     ],
+     [
+      19,
+      "B2",
+      "1"
+     ],
+     [
+      20,
+      "B1",
+      "1"
+     ],
+     [
+      20,
+      "C1",
+      "1"
+     ],
+     [
+      20,
+      "B2",
+      "1"
+     ],
+     [
+      22,
+      "B1",
+      "1"
+     ],
+     [
+      22,
+      "C1",
+      "1"
+     ],
+     [
+      22,
+      "B2",
+      "1"
+     ],
+     [
+      23,
+      "C1",
+      "1"
+     ],
+     [
+      24,
+      "C1",
+      "1"
+     ],
+     [
+      25,
+      "B1",
+      "1"
+     ],
+     [
+      25,
+      "C1",
+      "1"
+     ],
+     [
+      25,
+      "B2",
+      "1"
+     ],
+     [
+      27,
+      "B1",
+      "1"
+     ],
+     [
+      27,
+      "C1",
+      "1"
+     ],
+     [
+      28,
+      "B1",
+      "1"
+     ],
+     [
+      28,
+      "C1",
+      "1"
+     ],
+     [
+      28,
+      "B2",
+      "1"
+     ],
+     [
+      30,
+      "B1",
+      "1"
+     ],
+     [
+      30,
+      "C1",
+      "1"
+     ],
+     [
+      30,
+      "B2",
+      "1"
+     ]
+    ]
+   },
+   "id": "C5 scalar restriction, literal (as printed)",
+   "ok": false,
+   "summary": "retained supports with coefficient != 1/128: 50 {'B': 30, 'C': 20}; omitted supports with nonzero coefficient: 0"
+  },
+  {
+   "details": {
+    "omitted_wrong": [],
+    "retained_wrong": []
+   },
+   "id": "C5 scalar restriction, alternate G3' (x_i scaled 1/128)",
+   "ok": true,
+   "summary": "retained supports with coefficient != 1/128: 0 {}; omitted supports with nonzero coefficient: 0"
+  },
+  {
+   "details": null,
+   "id": "C6 B_0, B_1, Lambda",
+   "ok": true,
+   "summary": "B_0(15)=3; ker(B_0+B_1)=[0, 15]; every one of the 128 defects has exactly two chart representatives: True; d=0 -> [(0, 0), (3, 15)]"
+  },
+  {
+   "details": {
+    "pointwise_failures": []
+   },
+   "id": "C7a Prop dense32 (uniform 1/128, as printed)",
+   "ok": true,
+   "summary": "256 pointwise identities: 0 failures; 4096 translated identities: 0 failures"
+  },
+  {
+   "details": {
+    "bad": []
+   },
+   "id": "C7b eight Walsh buckets per character",
+   "ok": true,
+   "summary": "for every chi the 8 retained (layer, support) pairs occupy exactly {eta: <eta,15> = <chi,3>} once: True"
+  },
+  {
+   "details": null,
+   "id": "C7c dense32 with the literal restriction weights",
+   "ok": false,
+   "summary": "256 pointwise identities with each retained support weighted by its restriction coefficient: 128 failures"
+  },
+  {
+   "details": null,
+   "id": "C7c dense32 with the alternate G3' restriction weights",
+   "ok": true,
+   "summary": "256 pointwise identities with each retained support weighted by its restriction coefficient: 0 failures"
+  },
+  {
+   "details": null,
+   "id": "C8 module-chart table (M_1024 appendix, same 32-packet ledger)",
+   "ok": true,
+   "summary": "module table lists 27 labels, distinct, the 5 unlisted = the five-empty packets: True; 4096 entries C_lambda(rho,beta): 0 failures; eq. literal-W32-scaled (1024 entries): 0 failures; zero columns [0, 2, 5, 10, 13, 15, 16, 18, 21, 26, 29, 31]"
+  },
+  {
+   "details": null,
+   "id": "C8b side-colour twists",
+   "ok": true,
+   "summary": "X xor Y xor Z twist = Theta on all 12 CW_3 supports: True; record-partition common labels: True"
+  },
+  {
+   "details": null,
+   "id": "C9 usage table and source rows",
+   "ok": true,
+   "summary": "labels once: True; punctures layer-0 & empty: True, types (3, 4) CW_3/CW_2; companions are CW_3: True; exceptional = Xi-character packets: True; S_2128 = {'CW3': 19, 'CW2': 6, 'W': 7}, cost 133; S_2048 cost 128; 16*128=2048, 16*133=2128"
+  },
+  {
+   "details": null,
+   "id": "C10 W map vs T_ar",
+   "ok": true,
+   "summary": "image has 7 monomials, all in T_ar with coefficient 1; missing [(('X', 1), ('Y', 1), ('Z', 0))]"
+  },
+  {
+   "details": {
+    "diff": {},
+    "raw_degrees": {
+     "0": 5,
+     "1": 2,
+     "4": 1
+    }
+   },
+   "id": "C11a singular-active Y-endpoint compiler (literal map, A, Y shift)",
+   "ok": true,
+   "summary": "Laurent degrees present [0, 1, 4] (none negative: True); degree-0 output = T_ar + X_E Ybar Z_E: True; without the unprinted Y index shift: False"
+  },
+  {
+   "details": {
+    "diff": {}
+   },
+   "id": "C11b singular-active X-endpoint compiler (reading G7)",
+   "ok": true,
+   "summary": "degrees [0, 1, 4]; degree-0 output = T_ar + Xbar Y_E Z_E: True"
+  },
+  {
+   "details": null,
+   "id": "C12a Lemma active-rank4",
+   "ok": true,
+   "summary": "det(M0+M2) = -1, A^-1 B = E31: True, A^-1 C = E44: True; swap -> (I,E21,E44): True; R_t = A_can + t x2y2z1: True; flattening ranks (4, 4, 3); R_t transferred by the printed steps has degree-0 term T_ar + E_X E_Y E_Z: True"
+  },
+  {
+   "details": null,
+   "id": "C12b active lift (App A.5 / Lemma active-lift-1024)",
+   "ok": true,
+   "summary": "R_t = A_hat + t(bvs+avz+aus) + t^2 avs and physical specialization gives T_ar + endpoint: True"
+  },
+  {
+   "details": null,
+   "id": "C13a exceptional blocks: E_L K E_R^T = I_r (Q and F_3)",
+   "ok": true,
+   "summary": "Q: [True, True, True, True]; F_3 tilde: [True, True, True, True]; generic chi=7,10 mod 3: [True, True]; source occurrences 78 (printed 78)"
+  },
+  {
+   "details": {
+    "10": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "0"
+        ],
+        [
+         "0",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "65/64"
+        ],
+        [
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "11": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "0"
+        ],
+        [
+         "0",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "131/128"
+        ],
+        [
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "6": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "0"
+        ],
+        [
+         "0",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "4"
+        ],
+        [
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "7": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "0"
+        ],
+        [
+         "0",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "5"
+        ],
+        [
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    }
+   },
+   "id": "C13b exceptional cross identities + clean dims under R-D1 (one row per packet)",
+   "ok": false,
+   "summary": "chi=6: DKD=0 False, EKD=0 True, DKE=0 False, clean (6, 6) (printed (7, 6)); chi=7: DKD=0 False, EKD=0 True, DKE=0 False, clean (7, 7) (printed (8, 7)); chi=10: DKD=0 False, EKD=0 True, DKE=0 False, clean (6, 6) (printed (7, 6)); chi=11: DKD=0 False, EKD=0 True, DKE=0 False, clean (7, 7) (printed (8, 7))"
+  },
+  {
+   "details": {
+    "10": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "0"
+        ],
+        [
+         "0",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "65/64"
+        ],
+        [
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "11": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "0"
+        ],
+        [
+         "0",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "131/128"
+        ],
+        [
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "6": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "0"
+        ],
+        [
+         "0",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "4"
+        ],
+        [
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "7": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "0"
+        ],
+        [
+         "0",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "5"
+        ],
+        [
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    }
+   },
+   "id": "C13b exceptional cross identities + clean dims under R-D2 (one combined row)",
+   "ok": false,
+   "summary": "chi=6: DKD=0 True, EKD=0 True, DKE=0 True, clean (7, 7) (printed (7, 6)); chi=7: DKD=0 True, EKD=0 True, DKE=0 True, clean (8, 8) (printed (8, 7)); chi=10: DKD=0 True, EKD=0 True, DKE=0 True, clean (7, 7) (printed (7, 6)); chi=11: DKD=0 True, EKD=0 True, DKE=0 True, clean (8, 8) (printed (8, 7))"
+  },
+  {
+   "details": {
+    "10": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "0"
+        ],
+        [
+         "0",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "65/64"
+        ],
+        [
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "11": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "0"
+        ],
+        [
+         "0",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "131/128"
+        ],
+        [
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "6": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "0"
+        ],
+        [
+         "0",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "4"
+        ],
+        [
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "7": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "0"
+        ],
+        [
+         "0",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "5"
+        ],
+        [
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    }
+   },
+   "id": "C13b exceptional cross identities + clean dims under R-D3 (D_L per packet, D_R combined)",
+   "ok": false,
+   "summary": "chi=6: DKD=0 False, EKD=0 True, DKE=0 False, clean (7, 6) (printed (7, 6)); chi=7: DKD=0 False, EKD=0 True, DKE=0 False, clean (8, 7) (printed (8, 7)); chi=10: DKD=0 False, EKD=0 True, DKE=0 False, clean (7, 6) (printed (7, 6)); chi=11: DKD=0 False, EKD=0 True, DKE=0 False, clean (8, 7) (printed (8, 7))"
+  },
+  {
+   "details": {
+    "10": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "0"
+        ],
+        [
+         "0",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "65/64"
+        ],
+        [
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "65/64",
+         "-65/64"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "11": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "0"
+        ],
+        [
+         "0",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "131/128"
+        ],
+        [
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "131/128",
+         "-131/128"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "6": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": null,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "0"
+        ],
+        [
+         "0",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        6
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "4"
+        ],
+        [
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        6
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "4",
+         "-4"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        6,
+        7
+       ]
+      }
+     },
+     "tilde over F_3": true
+    },
+    "7": {
+     "E_L K E_R^T = I_r over Q": true,
+     "generic reduced mod 3": true,
+     "readings": {
+      "R-D1 (one row per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "0"
+        ],
+        [
+         "0",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        7
+       ]
+      },
+      "R-D2 (one combined row)": {
+       "DLKDR": [
+        [
+         "0"
+        ]
+       ],
+       "DLKDR=0": true,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        8
+       ]
+      },
+      "R-D3 (D_L per packet, D_R combined)": {
+       "DLKDR": [
+        [
+         "5"
+        ],
+        [
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": false,
+       "ELKDR=0": true,
+       "clean_dims": [
+        8,
+        7
+       ]
+      },
+      "R-D4 (D_L combined, D_R per packet)": {
+       "DLKDR": [
+        [
+         "5",
+         "-5"
+        ]
+       ],
+       "DLKDR=0": false,
+       "DLKER=0": true,
+       "ELKDR=0": true,
+       "clean_dims": [
+        7,
+        8
+       ]
+      }
+     },
+     "tilde over F_3": true
+    }
+   },
+   "id": "C13b exceptional cross identities + clean dims under R-D4 (D_L combined, D_R per packet)",
+   "ok": false,
+   "summary": "chi=6: DKD=0 False, EKD=0 True, DKE=0 True, clean (6, 7) (printed (7, 6)); chi=7: DKD=0 False, EKD=0 True, DKE=0 True, clean (7, 8) (printed (8, 7)); chi=10: DKD=0 False, EKD=0 True, DKE=0 True, clean (6, 7) (printed (7, 6)); chi=11: DKD=0 False, EKD=0 True, DKE=0 True, clean (7, 8) (printed (8, 7))"
+  },
+  {
+   "details": {
+    "diff": {}
+   },
+   "id": "C14 five-empty module (Lemma fiveC3paper32)",
+   "ok": true,
+   "summary": "cJc^T=1, BJD^T=I_7: True, BJc^T=0: True, DJc^T=0: True, last-five zero sums: True; Laurent degrees [0, 3, 6] (no negative: True); degree-0 output = eq. fiveC3-output32: True; profile (16, 15, 22)"
+  },
+  {
+   "details": null,
+   "id": "C15 endpoint ledger and allocation table",
+   "ok": true,
+   "summary": "profile sum (31, 31, 31); each sector uses 1..31 once: True"
+  },
+  {
+   "details": null,
+   "id": "C16 section-8 identities",
+   "ok": true,
+   "summary": "subset-sum ranks {'X': 4, 'Y': 4, 'Z': 4, 'XY': 4, 'XZ': 4, 'YZ': 4, 'XYZ': 4}; eq. absolute-row32 failures 0 (7*256 cases); Heisenberg failures 0 (65536); Weyl product failures 0 (1048576 entries); Gram failures 0; diagonal failures 0"
+  },
+  {
+   "details": null,
+   "id": "C17 source realizations",
+   "ok": true,
+   "summary": "Phi_3: 5 products, [s^0]=[s^1]=0, [s^2]=CW_3, deg<=6: True; Phi_2 (char != 3): True; W tangent times s: True"
+  },
+  {
+   "details": null,
+   "id": "C18 seeded F_p replays (local identities only)",
+   "ok": true,
+   "summary": "9 identities x 2 primes x 24 points = 432 evaluations, all pass: {'five-empty module': True, 'singular active, Y endpoint': True, 'singular active, X endpoint (reading G7)': True, 'R_t on A_can': True, 'R_t transferred to A_X': True, 'active lift, physical specialization': True, 'Phi_3 -> CW_3': True, 'Phi_2 -> CW_2': True, 'W tangent * s -> W': True}"
+  }
+ ],
+ "seed": 2610139701,
+ "tex_sha256": "267360310577c890173eb22a50abbe205aaf1bb2b8cb2bcebf1e824924682467"
+}
