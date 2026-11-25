@@ -102,6 +102,12 @@ First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 
      Lean soundness for slab C running on pod alt1te1i1gsnpy (see NOW).
   4. The private lanes, the grant (numbers set: US$6,000 + US$1,000 a month, total US$87,300) and the disk freeze: the
      private block.
+  5. NEW LANE grh-lean (22:4x UTC, his word "start a new lane to contribute with useful things we can"): an independent
+     check of lsernau/grh-lean at 72fead10 (RH + GRH in Lean, two editions; now the main branch of
+     leanprover-community/riemann-hypothesis). PRE-REGISTERED and sealed (corpus/grh-lean-check/PREREG.md, 278f4cf4;
+     A1: ceiling US$15, the pod starts only AFTER the Lean-bridge pod is deleted). An agent is preparing
+     instruments/grh-lean/ and tools/runpod-grh-lean.sh + tools/check-grh-lean.py (not committed; review first).
+     Community texts: facts sheets he writes (no LLM comments on Zulip/GitHub).
 
 PREVIOUS START HERE (2026-11-24 ~10:15 UTC, history. The operator, in order: "Keep the efforts on 1, 2 and 3 … use also Astra as
 partner"; "Let's focus on 40"; then, at about 10:00 UTC: "I want to stop spending on pods that will not close the
