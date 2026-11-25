@@ -1,0 +1,13 @@
+con-leche: stats: phases: parse 2.9s (index 0.1s), check 23.3s
+con-leche: stats: check pool: 23.368s wall, 8 workers, 92893 records, busy 186.195s (99.5%); tail 0.072s after the last start, 8 busy then, 0.095s worker-time in it (16.5%)
+con-leche: stats: slowest checks: 0.889s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59841); 0.840s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82158); 0.520s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59815); 0.392s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85844); 0.374s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70902)
+con-leche: stats: peak RSS 1.32 GiB
+con-leche: stats: phases: parse 26.8s (index 0.0s), check 1.8s
+con-leche: stats: check pool: 1.825s wall, 8 workers, 22134 records, busy 14.353s (98.2%); tail 0.038s after the last start, 8 busy then, 0.099s worker-time in it (32.0%)
+con-leche: stats: slowest checks: 0.080s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#19923); 0.056s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#15542); 0.054s axiom Rect.borderRankRect_holds (#21875); 0.044s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Real.sin_pos_of_pos_of_le_one._proof_1_3 (#15539); 0.042s def Nat.div (#265)
+con-leche: stats: peak RSS 1.32 GiB
+con-leche: accepted 22133 declarations, 4 axioms justified by the solution /home/prover/work/exports/sol.ndjson (92893 declarations accepted) (--verified)
+con-leche: theorem Rect.borderRankRect_holds justified by the solution
+con-leche: theorem Rect.asymptoticRankRect_holds justified by the solution
+con-leche: theorem Rect.alphaBounds_holds justified by the solution
+con-leche: theorem Rect.dualExponentDiv_holds justified by the solution

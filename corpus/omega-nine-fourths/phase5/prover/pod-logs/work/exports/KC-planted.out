@@ -1,0 +1,9 @@
+con-leche: stats: phases: parse 2.9s (index 0.1s), check 26.5s
+con-leche: stats: check pool: 26.509s wall, 8 workers, 92893 records, busy 211.574s (99.7%); tail 0.055s after the last start, 8 busy then, 0.076s worker-time in it (17.1%)
+con-leche: stats: slowest checks: 1.302s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82158); 0.901s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59841); 0.549s theorem OAI.LinearAlgebra.MatrixExponent.Protocol.applyMove_value (#67749); 0.528s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59815); 0.517s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70902)
+con-leche: stats: peak RSS 1.31 GiB
+con-leche: stats: phases: parse 29.9s (index 0.0s), check 1.8s
+con-leche: stats: check pool: 1.808s wall, 8 workers, 21991 records, busy 14.305s (98.8%); tail 0.017s after the last start, 8 busy then, 0.018s worker-time in it (13.6%)
+con-leche: stats: slowest checks: 0.081s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#19923); 0.060s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.sin_bound._proof_1_4 (#15542); 0.056s theorem AlgebraicClosure.toSplittingField_coeff (#21740); 0.038s theorem _private.Mathlib.Algebra.Order.Field.Basic.0.mul_self_inj_of_nonneg._proof_1_1 (#10639); 0.035s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#5389)
+con-leche: stats: peak RSS 1.31 GiB
+con-leche: invalid: axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike [at axiom Rect.borderRankRect_holds, fold position 21875] (--verified) t=31.7s

@@ -80,9 +80,18 @@ const ROWS = [
   ['G3c', 5, 'The asymptotic rank of T_n over every field equals n^{9/4}', null, 'prompts/pern-prover.md', 'A13'],
   ['G3d', 5, 'The geometric border rank of T_n is at least n^{9/4}', null, 'prompts/pern-prover.md', 'A13'],
   ['G3-CR', 5, 'A clean-room replay of the Phase 4 proofs on a fresh machine that never ran the release’s code', null, null, null, { file: 'DEVIATIONS.md', needle: 'for the Phase 4 clean-room replay' }],
+  /* Phase 5 (amendment A15, its statements sealed by A16), also after the verdict and outside it, in a sixth band: each of
+     G3e, G3f, G2a, G2b is a "- <id>" line of A15, whose body hashes the prover's brief; P5-CR, the clean-room replay A15
+     names, stands in DEVIATIONS.md (its pod) and in the prover's log */
+  ['G3e', 6, 'Corollary 1.3, border rank: for every format a × b × c (a, b, c ≥ 1) and every field, the geometric border rank of T_{a,b,c} is at least max{ab, bc, ca, (abc)^{3/4}}', null, 'prompts/rect-prover.md', 'A15'],
+  ['G3f', 6, 'Corollary 1.3, asymptotic rank: the same bound for the asymptotic rank of T_{a,b,c}, over every field', null, 'prompts/rect-prover.md', 'A15'],
+  ['G2a', 6, 'The paper’s 1/2 ≤ α_F ≤ 2/3, in its own circuit model, where division gates are allowed', null, 'prompts/rect-prover.md', 'A15'],
+  ['G2b', 6, 'The stronger α_F = 1/2 with division gates allowed (more than the paper claims)', null, 'prompts/rect-prover.md', 'A15'],
+  ['P5-CR', 6, 'A clean-room replay of the Phase 5 proofs on a fresh machine that never ran the release’s code', null, null, null, { file: 'DEVIATIONS.md', needle: 'for the Phase 5 clean-room replay' }],
 ].map(([id, phase, title, amendment, brief, listed, logged]) => ({ id, phase, title, amendment, brief, listed, logged }));
 const PHASE_AFTER = 'Added after the seal';
 const PHASE_VERDICT = 'Added after the verdict (amendment A13)';
+const PHASE_VERDICT2 = 'Added after the verdict (amendments A15, A16)';
 const CONTROLS = new Set(['C1', 'C2', 'C3']);
 const READ_ROWS = new Set(['P1', 'P2', 'U']);
 const STATES = ['passed', 'read', 'running', 'pending', 'failed', 'refused', 'open'];
@@ -97,6 +106,11 @@ const VERBS = { started: 'running', running: 'running', restarted: 'running', re
   decision: 'running',
   /* "CEN additions (XCEN, exit 0)": further census items the control room asked for, finished; CEN had already passed */
   additions: 'passed' };
+
+/* P5-CR's note once it has passed, each fact read from its lines in phase5/prover/PROGRESS.md (say(needles, words)) */
+const P5CR_NOTE = (say) => say(['P5-CR passed: all 4 gates held', 'no openai/math clone on the pod', 'BYTE-IDENTICAL to the prover pod\'s chal.ndjson and chalPlanted2.ndjson',
+  'Checked 96137 declarations with no typechecker errors', 'accepted 92893 declarations', '4 axioms justified by the solution', 'the planted challenge refused, exit 1', 'STOPPED at 15:02:34 UTC on infrastructure, not a gate'],
+  'On a fresh machine that never downloaded or ran the release’s code, the exported proof arrived intact and was checked again from scratch: nanoda and con-leche accept it, con-leche finds all four statements justified against our sealed statements, rebuilt there byte for byte as on the prover’s machine, and the planted false copy is refused. One setup step stopped once on the machine’s package mirror, not on a check; the script was fixed and the setup rerun.');
 
 /* an .ots file: the digest it stamps (sha256 op 0x08 after the 31-byte magic and the version byte), and its attestations */
 function ots(buf) {
@@ -186,6 +200,23 @@ function build(clock) {
     }
     for (const m of a.body.matchAll(/^([A-Z][A-Z0-9]*)'s scope \(([^)]*)\): ([\s\S]+?)(?=\n\n|(?![\s\S]))/gm)) scopes.push({ row: m[1], amendment: a.id, when: a.day + ' ' + a.hm + ' UTC', why: norm(m[2]), text: norm(m[3]) });
   }
+  /* the control room's own correction after Phase 5 (no amendment carries it; the house rule: our misses are reported
+     before the results). Each fact it states is read from the file that states it, and it refuses when one no longer does. */
+  {
+    const P1 = norm(txt('runs/p1/PROGRESS.md')), P5L = norm(txt('phase5/prover/PROGRESS.md'));
+    for (const n of ['CEN additions (XCEN, exit 0): docs/379.md\'s division theorems are SpectralBooks.divisionOmega_square_eq_formalOmega', 'MatrixExponent.omega_eq (division model) IS on the route'])
+      need(P1.includes(n), 'correction C-4: runs/p1/PROGRESS.md no longer says "' + n + '"');
+    need(!txt('runs/p1/PROGRESS.md').split('\n').filter((l) => /— CEN /.test(l)).some((l) => l.includes('Rectangle.exponent_eq')), 'correction C-4: the census lines do name Rectangle.exponent_eq (runs/p1/PROGRESS.md), so there is no miss to correct');
+    need(norm(txt('VERDICT.md')).includes('divisions beyond the square case'), 'correction C-4: VERDICT.md no longer says "divisions beyond the square case"');
+    need(P5L.includes('the release\'s rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank)'), 'correction C-4: phase5/prover/PROGRESS.md no longer says the prover used Rectangle.exponent_eq');
+    const LIB = txt('phase5/prover/src/RectProof/Lib.lean');
+    need(LIB.includes('import OAI.LinearAlgebra.MatrixExponent.FieldFormula') && LIB.includes('Rectangle.exponent_eq K'), 'correction C-4: RectProof/Lib.lean no longer imports FieldFormula and uses Rectangle.exponent_eq');
+    need(txt('phase5/prover/inputs/rel/ME_FieldFormula.lean').includes('theorem Rectangle.exponent_eq (F : Type*) [Field F]'), 'correction C-4: the release’s FieldFormula.lean (phase5/prover/inputs/rel/) no longer states Rectangle.exponent_eq');
+    need(!corrections.some((c) => c.id === 'C-4'), 'an amendment now has its own C-4: renumber the control room’s correction');
+    at('correction C-4', Date.parse('2026-11-25T14:57:00Z'));
+    corrections.push({ id: 'C-4', amendment: null, by: 'the control room, after Phase 5', when: '2026-11-25 14:57 UTC', gaps: ['G2'],
+      text: 'The census (row CEN, at 04:58 UTC) named the release’s division theorems for the square case only (`MatrixExponent.omega_eq`, and `SpectralBooks.divisionOmega_square_eq_formalOmega` beside it), and the verdict’s text followed it: it lists “divisions beyond the square case” among what it does not say. The census missed `MatrixExponent.Rectangle.exponent_eq` (in `OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean`), the rectangular exponent in the release’s own division model; Phase 5’s prover found it and used it to prove α_F = 1/2 with division gates. So divisions beyond the square case are not in the statements this audit checked (Comparator’s challenge), but they are proved in the release’s files. The verdict does not change.' });
+  }
   for (const c of corrections) for (const g of c.gaps) need(/^G[1-7]$/.test(g), 'correction ' + c.id + ' names a gap the pre-registration does not have: ' + g);
   const A3 = norm(AM.slice(AM.indexOf('## A3 '), AM.indexOf('\n## ', AM.indexOf('## A3 ') + 4) > 0 ? AM.indexOf('\n## ', AM.indexOf('## A3 ') + 4) : AM.length));
   const st = /Started (\d\d:\d\d)–(\d\d:\d\d) UTC with the four Claude agents \(([^)]+)\) and the provenance scout/.exec(A3) || die('amendment A3 no longer says when the agents started');
@@ -193,9 +224,10 @@ function build(clock) {
   const started = at('A3’s start of the agents', Date.parse(iso(a3.day, st[1])));
   const startedWho = st[3].split(',').map((s) => s.trim());
   for (const w of ['Phase 1 runner', 'writer A', 'the adversarial reader', 'proof reader 1']) need(startedWho.includes(w), 'amendment A3 no longer names ' + w + ' among the agents started');
-  /* the pods: "pod: <id>, <machine>, US$<x>/h, created YYYY-MM-DD HH:MM:SS UTC"; an end "<id> … deleted|terminated … <time>" */
+  /* the pods: "pod: <id>, <machine>, US$<x>/h, created YYYY-MM-DD HH:MM:SS UTC" (or "pod (replacement): …"); an end "<id> … deleted|terminated … <time>" */
   const PODTXT = [norm(AM)].concat(has('DEVIATIONS.md') ? [norm(txt('DEVIATIONS.md'))] : []).join(' ');
-  const pods = [...PODTXT.matchAll(/pod: ([a-z0-9]{10,20}), ([^,]+), US\$(\d+(?:\.\d+)?)\/h, created (\d{4}-\d\d-\d\d) (\d\d:\d\d:\d\d) UTC/g)].map((m) => ({ id: m[1], machine: m[2], usd_per_h: Number(m[3]), created_utc: iso(m[4], m[5]) }));
+  /* "pod (replacement): <id>, …" too: the Phase 5 prover's second pod is declared that way in DEVIATIONS.md */
+  const pods = [...PODTXT.matchAll(/pod(?: \([a-z ]+\))?: ([a-z0-9]{10,20}), ([^,]+), US\$(\d+(?:\.\d+)?)\/h, created (\d{4}-\d\d-\d\d) (\d\d:\d\d:\d\d) UTC/g)].map((m) => ({ id: m[1], machine: m[2], usd_per_h: Number(m[3]), created_utc: iso(m[4], m[5]) }));
   need(pods.length >= 1, 'AMENDMENTS.md names no pod with its price and creation time');
 
   /* ------------------------------------------------------------ the corrections ledger */
@@ -260,6 +292,7 @@ function build(clock) {
   }
   for (const r of ROWS.filter((x) => x.logged)) need(norm(txt(r.logged.file)).includes(r.logged.needle), 'row ' + r.id + ' stands nowhere in ' + r.logged.file + ' ("' + r.logged.needle + '")');
   if (ROWS.some((x) => x.phase === 5)) PHASES[5] = PHASE_VERDICT;
+  if (ROWS.some((x) => x.phase === 6)) PHASES[6] = PHASE_VERDICT2;
 
   /* ------------------------------------------------------------ the runs */
   function run(dir) {
@@ -274,7 +307,7 @@ function build(clock) {
 
   /* ------------------------------------------------------------ the progress lines */
   const progFiles = (has('runs') ? fs.readdirSync(path.join(LANE, 'runs')).filter((d) => has('runs/' + d + '/PROGRESS.md')).map((d) => 'runs/' + d + '/PROGRESS.md') : [])
-    .concat(['bridge/PROGRESS.md', 'phase4/prover/PROGRESS.md', 'PROGRESS.md'].filter((f) => has(f)));   /* bridge/: the bridge author's log (rows F2, F3; amendment A9); phase4/prover/: the Phase 4 prover's (rows G3a–G3d, G3-CR; A13) */
+    .concat(['bridge/PROGRESS.md', 'phase4/prover/PROGRESS.md', 'phase5/prover/PROGRESS.md', 'PROGRESS.md'].filter((f) => has(f)));   /* bridge/: the bridge author's log (rows F2, F3; amendment A9); phase4/prover/: the Phase 4 prover's (rows G3a–G3d, G3-CR; A13); phase5/prover/: the Phase 5 prover's and its clean-room replay's (rows G3e, G3f, G2a, G2b, P5-CR; A15) */
   const progress = [];
   for (const f of progFiles) for (const l of txt(f).split('\n')) {
     const m = /^- (\d{4}-\d\d-\d\d) (\d\d:\d\d(?::\d\d)?) — (\S+)(?: (\S+))?(.*)$/.exec(l.trim());
@@ -358,6 +391,21 @@ function build(clock) {
         : say(['nanoda kernel accepts the solution', 'Lean default kernel accepts the solution', 'Your solution is okay!', 'justifies all four theorems', 'Const does not match between challenge and target', 'it refuses, exit 1'],
           'Proved from the release’s theorems: Comparator, with our sealed statement file as the challenge, accepts the proof under Lean’s kernel and nanoda; con-leche justifies it; a planted copy with one constant changed is refused by both.'));
     }
+    /* Phase 5: each passed row in one plain line of what it means, then how it was checked, every fact read from the
+       prover's log (and the replay's lines in it) */
+    if (r.phase === 6 && state === 'passed') {
+      const P5L = norm(txt('phase5/prover/PROGRESS.md'));
+      const say = (needles, words) => { for (const n of needles) need(P5L.includes(n), 'phase5/prover/PROGRESS.md no longer says "' + n + '" (row ' + r.id + ')'); return words; };
+      const CHK = say(['nanoda kernel accepts the solution', 'Lean default kernel accepts the solution', 'Your solution is okay!', 'justifies all four theorems', 'refused it, exit 1', 'it refuses, exit 1', 'is refused by Comparator, exit 1', 'the sealed Rect.lean elaborates unchanged (no repair'],
+        ' Checked as in Phase 4: Comparator (with Lean’s kernel and with nanoda) and con-leche accept the proof against our sealed statements, and both refuse two planted copies made false by one changed number.');
+      const WHAT = {
+        G3e: say(['G3e from G3f by asymptoticRank_le_geometricBorderRank'], 'In plain words: no bilinear algorithm for an a × b times b × c matrix product, not even an approximate one, gets by with fewer multiplications than this bound. Proved from the release’s theorems by way of the asymptotic-rank bound below.'),
+        G3f: say(['G3f from the release\'s flattening bound + our own cube argument'], 'In plain words: the same floor holds for the cost per product when many such products are computed together, over any field. Proved from the release’s square-matrix theorem and its flattening bound, with our own argument that three relabelled copies of the rectangular product combine into a square one.'),
+        G2a: say(['G2b and G2a:'], 'In plain words: α says how wide the middle dimension can grow (an n × n^β matrix times an n^β × n one) while the product still costs about n² operations; in the paper’s model, where a circuit may also divide, α lies between 1/2 and 2/3, as the paper claims. It follows from the next row.'),
+        G2b: say(['β ≤ 1/2 by compiling the release\'s division-free programs', 'the release\'s rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank)'], 'In plain words: α is exactly 1/2, sharper than the paper’s claim. Up to 1/2, the release’s division-free programs, rewritten as circuits of our model, already cost about n²; beyond 1/2, the release’s own rectangular exponent with divisions (a theorem in its files that our census missed, correction C-4) shows that even circuits that divide cost more.')
+      };
+      note = 'Passed at ' + hm(last[r.id].t) + '. ' + (r.id === 'P5-CR' ? P5CR_NOTE(say) : WHAT[r.id] + CHK);
+    }
     note = (note + devNote(r.id)).trim();
     /* the row's record, one click down on the final report: every log line that names it, and the files its state is read from */
     const files = { F1: ['blind/A/BlindA.lean', 'blind/A/NOTES.md', 'blind/B/work/BlindB.lean', 'blind/B/work/NOTES.md', 'blind/B/RUN.txt'], F4: ['reader/REPORT.md'],
@@ -390,18 +438,35 @@ function build(clock) {
     amendment: 'A13', statements: { file: LANE_REL + '/phase4/writer/PerN.lean', sha256: has('phase4/writer/PerN.lean') ? sha(rd('phase4/writer/PerN.lean')) : null, sealed_by: pern },
     rows: P5.map((r) => r.id), closes_g3: ['G3a', 'G3b', 'G3c', 'G3d', 'G3-CR'].every((id) => (P5.find((r) => r.id === id) || {}).state === 'passed') && !!pern
   } : null;
+  /* Phase 5 (amendments A15, A16), after the verdict too: its sealed statements, its rows, and the solution export the
+     three checkers accepted on the prover's machine (its digest and size as the lane recorded them) */
+  const P6 = rows.filter((r) => r.phase === 6);
+  const rect = sealOf(/^phase5\/writer\/Rect\.lean$/);
+  const SOL5 = { file: 'sol.ndjson', sha256: '1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957', bytes: 1218760170 };
+  if (P6.length) {
+    need(has('phase5/prover/pod-logs/work/exports/sol.ndjson.sha256') && txt('phase5/prover/pod-logs/work/exports/sol.ndjson.sha256').includes(SOL5.sha256), 'the Phase 5 solution export’s sha256 is not the one recorded in phase5/prover/pod-logs/work/exports/sol.ndjson.sha256');
+    need(norm(txt('phase5/prover/PROGRESS.md')).includes('sol.ndjson ' + N3(SOL5.bytes) + ' bytes, sha256 ' + SOL5.sha256), 'the Phase 5 solution export’s size and sha256 are not the ones the prover logged');
+  }
+  const phase5 = P6.length ? {
+    amendments: ['A15', 'A16'], statements: { file: LANE_REL + '/phase5/writer/Rect.lean', sha256: has('phase5/writer/Rect.lean') ? sha(rd('phase5/writer/Rect.lean')) : null, sealed_by: rect },
+    rows: P6.map((r) => r.id), solution_export: Object.assign({}, SOL5, { recorded_in: LANE_REL + '/phase5/prover/pod-logs/work/exports/sol.ndjson.sha256' }),
+    proved_all: P6.every((r) => r.state === 'passed') && !!rect
+  } : null;
   /* the exported proofs, published as release assets (the operator's choice, A13): each name, size and sha256 must be the
      one the lane recorded when the file came home, so a link never points at bytes the lane did not check */
   const tag = (/tag (omega-nine-fourths-export-\d{4}-\d\d-\d\d)/.exec(norm(AM)) || [, null])[1];
   const ASSETS = [
     { name: 'export.ndjson.zst', what: 'the Phase 1 export of the three theorems', sha256: '4731e942060bb4d759f9cb77ef496794f5c30b5bd3b2fcace01c86cb19282ed5', bytes: 172572532, recorded_in: 'runs/p1/LARGE-FILES.txt', size_in: 'runs/p1/LARGE-FILES.txt' },
-    { name: 'phase4-export.ndjson.zst', what: 'the Phase 4 export of the four statements’ proofs', sha256: '0644a59535ac0822be9562a280875df71768762a5895b479333e823683b65284', bytes: 128599600, recorded_in: 'phase4/prover/pod-logs/work/exports/sol.ndjson.zst.sha256', size_in: 'phase4/prover/PROGRESS.md' }];
+    { name: 'phase4-export.ndjson.zst', what: 'the Phase 4 export of the four statements’ proofs', sha256: '0644a59535ac0822be9562a280875df71768762a5895b479333e823683b65284', bytes: 128599600, recorded_in: 'phase4/prover/pod-logs/work/exports/sol.ndjson.zst.sha256', size_in: 'phase4/prover/PROGRESS.md' },
+    /* an asset not yet uploaded carries published: false (no link is printed); the Phase 5 export was uploaded by the
+       control room after P5-CR passed, and GitHub's digest and size were checked equal to these */
+    { name: 'phase5-export.ndjson.zst', what: 'the Phase 5 export of the four statements’ proofs', sha256: '5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770', bytes: 129490641, recorded_in: 'phase5/prover/pod-logs/work/exports/sol.ndjson.zst.sha256', size_in: 'phase5/prover/PROGRESS.md' }];
   const exports = tag ? {
     tag, url: 'https://github.com/carlostoledo1891/cert-machine/releases/tag/' + tag,
     files: ASSETS.map((a) => {
       need(has(a.recorded_in) && txt(a.recorded_in).includes(a.sha256), a.name + ': its sha256 is not the one recorded in ' + a.recorded_in);
       need(norm(txt(a.size_in)).includes(N3(a.bytes) + ' bytes'), a.name + ': its size is not the one the lane logged in ' + a.size_in);
-      return Object.assign({}, a, { recorded_in: LANE_REL + '/' + a.recorded_in, size_in: LANE_REL + '/' + a.size_in, url: 'https://github.com/carlostoledo1891/cert-machine/releases/download/' + tag + '/' + a.name });
+      return Object.assign({}, a, { recorded_in: LANE_REL + '/' + a.recorded_in, size_in: LANE_REL + '/' + a.size_in, url: a.published === false ? null : 'https://github.com/carlostoledo1891/cert-machine/releases/download/' + tag + '/' + a.name });
     })
   } : null;
 
@@ -431,7 +496,7 @@ function build(clock) {
       { who: 'The Phase 1 runner, a Claude agent', role: 'builds and checks the proof on rented machines, every step logged (Phase 1)' },
       { who: 'The provenance scout', role: 'where the upper bound comes from and how the release was received, every fact with its source (U)' },
       { who: 'The control room, Claude Opus 5.5 (Anthropic), for Carlos Toledo', role: 'wrote and sealed the pre-registration and its amendments, and writes the records this page reads' }],
-    facts, scopes, phase4, exports,
+    facts, scopes, phase4, phase5, exports,
     seals, amendments: amendments.map(({ id, day, approx, hm: h, title, body }) => ({ id, when: day + ' ' + (approx ? '~' : '') + h + ' UTC', title, correction: /-c$/.test(id) ? norm(body) : null })),
     progress: progress.filter((p) => !p.echo).map(({ file, line }) => ({ file, line })),
     sources: SOURCES.map((f) => ({ file: LANE_REL + '/' + f, sha256_12: sha(rd(f)).slice(0, 12) })),
@@ -469,6 +534,9 @@ function finalize(recs) {
   /* Phase 4 (amendment A13), after the verdict, which it does not change: its own section, beside the fields above */
   if (S.phase4) cert.phase4 = Object.assign({ what: 'After the verdict, which it does not change (amendment A13): the corollaries the release does not state (gap G3), stated by us without seeing the release’s Lean, sealed before elaboration (A14), and proved from the release’s theorems.' }, S.phase4,
     { rows: S.phases.filter((p) => p.phase === 5).flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: 5, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))) });
+  /* Phase 5 (amendments A15, A16), after the verdict as well, which it does not change: its own section beside Phase 4's */
+  if (S.phase5) cert.phase5 = Object.assign({ what: 'After the verdict, which it does not change (amendments A15, A16): Corollary 1.3 for every format (border rank and asymptotic rank of T_{a,b,c}), and the paper’s α_F in its own circuit model with division gates (1/2 ≤ α_F ≤ 2/3, and α_F = 1/2), stated by us without seeing the release’s Lean, sealed before elaboration (A16), proved from the release’s theorems, and replayed on a clean machine.' }, S.phase5,
+    { rows: S.phases.filter((p) => p.phase === 6).flatMap((p) => p.rows.map((r) => ({ id: r.id, phase: 6, title: r.title, state: r.state, note: r.note, evidence: r.evidence }))) });
   if (S.exports) cert.exports = S.exports;
   cert.pods = S.pods;
   return Object.assign({}, recs, { cert });

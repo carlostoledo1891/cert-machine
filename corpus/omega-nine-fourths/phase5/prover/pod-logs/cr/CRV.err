@@ -1,0 +1,27 @@
+con-leche: stats: phases: parse 3.3s (index 0.1s), check 17.7s
+con-leche: stats: check pool: 17.791s wall, 16 workers, 92893 records, busy 282.966s (99.4%); tail 0.094s after the last start, 16 busy then, 0.279s worker-time in it (18.4%)
+con-leche: stats: slowest checks: 1.284s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82158); 0.959s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59841); 0.592s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70902); 0.590s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85844); 0.586s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59815)
+con-leche: stats: peak RSS 1.48 GiB
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 /data/sol.ndjson"
+	User time (seconds): 285.66
+	System time (seconds): 3.47
+	Percent of CPU this job got: 1365%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:21.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1552584
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 362285
+	Voluntary context switches: 3785
+	Involuntary context switches: 6920
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

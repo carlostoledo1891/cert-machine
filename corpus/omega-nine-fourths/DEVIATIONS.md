@@ -50,3 +50,8 @@ Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, create
 Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home).
 Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/).
 Phase 5 pod: 9qk333lxv35g50, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:32:40 UTC (EU-RO-1), for the Phase 5 prover (A15).
+Phase 5 pod 9qk333lxv35g50 deleted 2026-11-25 13:42 UTC without ever starting: its host (EU-RO-1) failed every container create with "layer does not exist" from 13:40 (the system log); about 10 minutes billed, nothing ran.
+Phase 5 pod (replacement): yyfaihduhd3ixs, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:43:01 UTC (US-CA-2), for the Phase 5 prover (A15).
+Phase 5 pod yyfaihduhd3ixs deleted 2026-11-25 14:50 UTC (the prover's results home in phase5/prover/: PROGRESS.md, pod-logs/; sol.ndjson.zst 5a19d261… on the Mac, decompressing to 1e4aca34…).
+Phase 5 CR pod: n45j6auh12ai1n, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 14:50:45 UTC (US-CA-2), for the Phase 5 clean-room replay (P5-CR); it never runs the release's code.
+Phase 5 CR pod n45j6auh12ai1n deleted 2026-11-25 15:10 UTC (its logs home in phase5/prover/pod-logs/cr/; P5-CR all 4 gates held, 15:10 UTC).

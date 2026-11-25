@@ -25,6 +25,16 @@
    "gaps": [
     "G5"
    ]
+  },
+  {
+   "id": "C-4",
+   "amendment": null,
+   "by": "the control room, after Phase 5",
+   "when": "2026-11-25 14:57 UTC",
+   "gaps": [
+    "G2"
+   ],
+   "text": "The census (row CEN, at 04:58 UTC) named the release’s division theorems for the square case only (`MatrixExponent.omega_eq`, and `SpectralBooks.divisionOmega_square_eq_formalOmega` beside it), and the verdict’s text followed it: it lists “divisions beyond the square case” among what it does not say. The census missed `MatrixExponent.Rectangle.exponent_eq` (in `OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean`), the rectangular exponent in the release’s own division model; Phase 5’s prover found it and used it to prove α_F = 1/2 with division gates. So divisions beyond the square case are not in the statements this audit checked (Comparator’s challenge), but they are proved in the release’s files. The verdict does not change."
   }
  ],
  "deviations": [
@@ -51,7 +61,7 @@
   {
    "id": "D5",
    "when": "2026-11-25 04:57 UTC, F4 test T2, a repair, not a finding",
-   "text": "T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal \"unsolved\" — the two sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this (\"a tactic failure … repair … report it as a repair\"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule. Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins). Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 09:22:01 UTC (US-CA-2), for the Phase 4 prover (A13). Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code. Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home). Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/)."
+   "text": "T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal \"unsolved\" — the two sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this (\"a tactic failure … repair … report it as a repair\"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule. Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins). Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 09:22:01 UTC (US-CA-2), for the Phase 4 prover (A13). Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code. Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home). Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/). Phase 5 pod: 9qk333lxv35g50, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:32:40 UTC (EU-RO-1), for the Phase 5 prover (A15). Phase 5 pod 9qk333lxv35g50 deleted 2026-11-25 13:42 UTC without ever starting: its host (EU-RO-1) failed every container create with \"layer does not exist\" from 13:40 (the system log); about 10 minutes billed, nothing ran. Phase 5 pod (replacement): yyfaihduhd3ixs, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:43:01 UTC (US-CA-2), for the Phase 5 prover (A15). Phase 5 pod yyfaihduhd3ixs deleted 2026-11-25 14:50 UTC (the prover's results home in phase5/prover/: PROGRESS.md, pod-logs/; sol.ndjson.zst 5a19d261… on the Mac, decompressing to 1e4aca34…). Phase 5 CR pod: n45j6auh12ai1n, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 14:50:45 UTC (US-CA-2), for the Phase 5 clean-room replay (P5-CR); it never runs the release's code. Phase 5 CR pod n45j6auh12ai1n deleted 2026-11-25 15:10 UTC (its logs home in phase5/prover/pod-logs/cr/; P5-CR all 4 gates held, 15:10 UTC)."
   }
  ],
  "amendments": [
@@ -149,6 +159,18 @@
    "id": "A14",
    "when": "2026-11-25 09:21 UTC",
    "title": "the Phase 4 statements sealed before they are first elaborated",
+   "correction": null
+  },
+  {
+   "id": "A15",
+   "when": "2026-11-25 13:32 UTC",
+   "title": "Phase 5, Corollary 1.3 per format and the exponent with divisions (after the verdict; it does not change it)",
+   "correction": null
+  },
+  {
+   "id": "A16",
+   "when": "2026-11-25 13:40 UTC",
+   "title": "the Phase 5 statements sealed before they are first elaborated",
    "correction": null
   }
  ]

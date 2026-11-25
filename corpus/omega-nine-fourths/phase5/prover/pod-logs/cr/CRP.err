@@ -1,0 +1,33 @@
+con-leche: stats: phases: parse 2.7s (index 0.1s), check 16.8s
+con-leche: stats: check pool: 16.828s wall, 16 workers, 92893 records, busy 267.711s (99.4%); tail 0.086s after the last start, 16 busy then, 0.228s worker-time in it (16.5%)
+con-leche: stats: slowest checks: 1.521s theorem OAI.LinearAlgebra.MatrixExponent.Assembly.Attachment.Alias.mask_circuit (#82158); 0.952s theorem OAI.LinearAlgebra.MatrixExponent.Transport.assemble._proof_1_2 (#59841); 0.745s theorem OAI.LinearAlgebra.MatrixExponent.Processor.PacketKernel.switched_net._proof_1_4 (#70902); 0.389s theorem _private.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.ContractRates.0.OAI.LinearAlgebra.MatrixExponent.Assembly.Terminal.Header.account._proof_1_2 (#85844); 0.375s theorem OAI.LinearAlgebra.MatrixExponent.Transport.Book.render_net._proof_1_1 (#59815)
+con-leche: stats: peak RSS 1.59 GiB
+con-leche: stats: phases: parse 20.1s (index 0.0s), check 1.5s
+con-leche: stats: check pool: 1.557s wall, 16 workers, 22133 records, busy 24.048s (96.5%); tail 0.048s after the last start, 16 busy then, 0.166s worker-time in it (21.2%)
+con-leche: stats: slowest checks: 0.094s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#19922); 0.088s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.cos_bound._proof_1_3 (#15391); 0.081s theorem _private.Mathlib.Algebra.Order.Group.MinMax.0.max_sub_max_le_max._proof_1_1 (#5389); 0.080s theorem _private.Init.Grind.Ring.Basic.0.Lean.Grind.IsCharP.mk'_aux._proof_1_5 (#4488); 0.079s theorem AlgebraicClosure.toSplittingField_coeff (#21739)
+con-leche: stats: peak RSS 1.59 GiB
+con-leche: invalid: axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike [at axiom Rect.borderRankRect_holds, fold position 21874] (--verified) t=21.6s
+Command exited with non-zero status 1
+	Command being timed: "timeout 14400 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/cr/challenge-planted.ndjson /data/sol.ndjson"
+	User time (seconds): 285.17
+	System time (seconds): 2.59
+	Percent of CPU this job got: 1325%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:21.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1667780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 225362
+	Voluntary context switches: 6404
+	Involuntary context switches: 8559
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

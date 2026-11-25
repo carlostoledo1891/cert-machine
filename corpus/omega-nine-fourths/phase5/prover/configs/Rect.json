@@ -1,0 +1,17 @@
+{
+  "challenge_module": "RectChallenges.Rect",
+  "solution_module": "RectProof.Main",
+  "theorem_names": [
+    "Rect.borderRankRect_holds",
+    "Rect.asymptoticRankRect_holds",
+    "Rect.alphaBounds_holds",
+    "Rect.dualExponentDiv_holds"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

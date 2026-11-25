@@ -1,0 +1,15 @@
+2026-11-25T14:35:14Z con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f toolchain leanprover/lean4:v4.36.0 build exit 0
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  /home/prover/tools/con-leche/.lake/build/bin/con-leche
+2026-11-25T14:36:53Z export sol (RectProof.Main) exit 0 1e4aca344f9afe67
+2026-11-25T14:37:26Z export chal (RectChallenges.Rect) exit 0 d331d068203d7fad
+2026-11-25T14:37:59Z export chalPlanted (RectChallenges.RectPlanted) exit 0 a6355aed09075ccf
+2026-11-25T14:38:26Z con-leche --verified sol exit 0
+2026-11-25T14:38:55Z con-leche --verified --compare chal exit 0; justified lines: 5
+2026-11-25T14:39:27Z con-leche --verified --compare planted exit 1; justified lines: 1
+d331d068203d7fad669d49beecc4b4f582d5d6a8ab938d73c8d03fa8111ca89b  chal.ndjson
+a6355aed09075ccf7e1465866eeaf4c90647333720900982981ce759a9fa0205  chalPlanted.ndjson
+1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957  sol.ndjson
+2026-11-25T14:43:54Z export chalPlanted2 (RectChallenges.RectPlanted2) exit 0 3bce0248a32e29e3
+2026-11-25T14:44:23Z con-leche --verified --compare planted2 exit 1; justified lines: 1
+3bce0248a32e29e3fc661c46665d86b5824aabed7553d38ad012419406c95ee0  chalPlanted2.ndjson
+2026-11-25T14:45:56Z zstd exit 0 5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770  sol.ndjson.zst

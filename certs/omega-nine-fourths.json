@@ -1,6 +1,6 @@
 {
  "what": "The decision of OpenAI’s claim that the exponent of matrix multiplication is 9/4 over every field (github.com/openai/math at 92b516ef8e2abf66c3db7aa31438d3010bc7956f), row by row, under the pre-registration corpus/omega-nine-fourths/PREREG.md; written by tools/omega-live-records.js --final from the lane’s files, the same records the page /omega/ is built from.",
- "as_of": "2026-11-25T11:10Z",
+ "as_of": "2026-11-25T15:12Z",
  "verdict": "CERTIFIED",
  "verdict_reason": "Declared 2026-11-25 06:05 UTC by the control room under the sealed verdict rule (PREREG.md; amendments A8 and A12 fixed F2's and F4's scope before any verdict). Every row the rule names has the state it requires: K0, K1, K1N, K2, K3, KR and CR passed; C1, C2 and C3 were refused; F2 proves BOTH blind statements' propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent) with Comparator accepting our challenge, Lean's kernel and nanoda, and con-leche --compare justifying them; F3 holds (nine anchors, Comparator and con-leche); every MATERIAL item of F4 is decided (A12). What it says: the formal claim — over every field, the exponent of square matrix multiplication for division-free straight-line programs is 9/4, the dual exponent is 1/2, and the stated rectangular formula holds — is proved in Lean 4.34.1 / Mathlib d13f23b7 from the release at openai/math 92b516ef with only propext, Classical.choice and Quot.sound, checked by three independent kernels (Lean's, nanoda at two versions, con-leche), on a clean second machine, and its statement matches two statements written blind from the textbooks. What it does NOT say (PREREG.md, as sealed): that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use); the per-n bound ⌈n^{9/4}/2⌉ in nonscalar gates (proved only counting every multiplication), geometric border rank of T_n, or Corollary 1.3 per format (absent from the release); divisions beyond the square case. The square case with divisions IS proved (MatrixExponent.omega_eq), by Lean's kernel only through the statement reader's challenge and Comparator, and by both bridges. Outside the rule: P1 (two readings of the lower-bound proof: no counterexample; both name the imported list-distinctness bound as the first place to challenge), P2 (read), U (read), X1 (Sun's conflicting construction: NEEDS DATA, twice).",
  "verdict_rule": {
@@ -551,6 +551,16 @@
    "gaps": [
     "G5"
    ]
+  },
+  {
+   "id": "C-4",
+   "amendment": null,
+   "by": "the control room, after Phase 5",
+   "when": "2026-11-25 14:57 UTC",
+   "gaps": [
+    "G2"
+   ],
+   "text": "The census (row CEN, at 04:58 UTC) named the release’s division theorems for the square case only (`MatrixExponent.omega_eq`, and `SpectralBooks.divisionOmega_square_eq_formalOmega` beside it), and the verdict’s text followed it: it lists “divisions beyond the square case” among what it does not say. The census missed `MatrixExponent.Rectangle.exponent_eq` (in `OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean`), the rectangular exponent in the release’s own division model; Phase 5’s prover found it and used it to prove α_F = 1/2 with division gates. So divisions beyond the square case are not in the statements this audit checked (Comparator’s challenge), but they are proved in the release’s files. The verdict does not change."
   }
  ],
  "deviations": [
@@ -577,7 +587,7 @@
   {
    "id": "D5",
    "when": "2026-11-25 04:57 UTC, F4 test T2, a repair, not a finding",
-   "text": "T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal \"unsolved\" — the two sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this (\"a tactic failure … repair … report it as a repair\"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule. Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins). Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 09:22:01 UTC (US-CA-2), for the Phase 4 prover (A13). Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code. Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home). Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/)."
+   "text": "T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal \"unsolved\" — the two sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this (\"a tactic failure … repair … report it as a repair\"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three #print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule. Phase 1 pod: yfz653o1ck7ew9 deleted 2026-11-25 06:05 UTC (every result home: runs/p1/, bridge/pod-logs/; the bridge author's build and judges on it were its own, at the runner's pins). Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 09:22:01 UTC (US-CA-2), for the Phase 4 prover (A13). Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code. Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home). Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/). Phase 5 pod: 9qk333lxv35g50, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:32:40 UTC (EU-RO-1), for the Phase 5 prover (A15). Phase 5 pod 9qk333lxv35g50 deleted 2026-11-25 13:42 UTC without ever starting: its host (EU-RO-1) failed every container create with \"layer does not exist\" from 13:40 (the system log); about 10 minutes billed, nothing ran. Phase 5 pod (replacement): yyfaihduhd3ixs, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:43:01 UTC (US-CA-2), for the Phase 5 prover (A15). Phase 5 pod yyfaihduhd3ixs deleted 2026-11-25 14:50 UTC (the prover's results home in phase5/prover/: PROGRESS.md, pod-logs/; sol.ndjson.zst 5a19d261… on the Mac, decompressing to 1e4aca34…). Phase 5 CR pod: n45j6auh12ai1n, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 14:50:45 UTC (US-CA-2), for the Phase 5 clean-room replay (P5-CR); it never runs the release's code. Phase 5 CR pod n45j6auh12ai1n deleted 2026-11-25 15:10 UTC (its logs home in phase5/prover/pod-logs/cr/; P5-CR all 4 gates held, 15:10 UTC)."
   }
  ],
  "amendments": [
@@ -660,6 +670,16 @@
    "id": "A14",
    "when": "2026-11-25 09:21 UTC",
    "title": "the Phase 4 statements sealed before they are first elaborated"
+  },
+  {
+   "id": "A15",
+   "when": "2026-11-25 13:32 UTC",
+   "title": "Phase 5, Corollary 1.3 per format and the exponent with divisions (after the verdict; it does not change it)"
+  },
+  {
+   "id": "A16",
+   "when": "2026-11-25 13:40 UTC",
+   "title": "the Phase 5 statements sealed before they are first elaborated"
   }
  ],
  "seals": [
@@ -781,9 +801,23 @@
    "sha256": "4f7d2fa3b31fb2ddc7e0605eb8e6b646cdea0f3bd56dd98515fca0ff8f3bc201",
    "ots_state": "bitcoin",
    "bitcoin_block": 977493
+  },
+  {
+   "id": "SEAL-A15",
+   "file": "corpus/omega-nine-fourths/SEAL-A15.sha256",
+   "sha256": "dd3430e6f1ea4853ae764e021beb3453157a783bb9d1e69e6880d8efe4cc7b7c",
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A16",
+   "file": "corpus/omega-nine-fourths/SEAL-A16.sha256",
+   "sha256": "9bd6760659c88e9328ad5f8102a622efccd5ae9d0b60a4b3a5dc083be583f968",
+   "ots_state": "pending",
+   "bitcoin_block": null
   }
  ],
- "spent_usd": 8.11,
+ "spent_usd": 10.64,
  "ceiling_usd": 50,
  "records": [
   "corpus/omega-live/state.json",
@@ -958,6 +992,196 @@
   ],
   "closes_g3": true
  },
+ "phase5": {
+  "what": "After the verdict, which it does not change (amendments A15, A16): Corollary 1.3 for every format (border rank and asymptotic rank of T_{a,b,c}), and the paper’s α_F in its own circuit model with division gates (1/2 ≤ α_F ≤ 2/3, and α_F = 1/2), stated by us without seeing the release’s Lean, sealed before elaboration (A16), proved from the release’s theorems, and replayed on a clean machine.",
+  "amendments": [
+   "A15",
+   "A16"
+  ],
+  "statements": {
+   "file": "corpus/omega-nine-fourths/phase5/writer/Rect.lean",
+   "sha256": "953402670d04aaeac26f97e8034debb8401250de62bcb0baa511931d85e8577a",
+   "sealed_by": "SEAL-A16"
+  },
+  "rows": [
+   {
+    "id": "G3e",
+    "phase": 6,
+    "title": "Corollary 1.3, border rank: for every format a × b × c (a, b, c ≥ 1) and every field, the geometric border rank of T_{a,b,c} is at least max{ab, bc, ca, (abc)^{3/4}}",
+    "state": "passed",
+    "note": "Passed at 14:49 UTC. In plain words: no bilinear algorithm for an a × b times b × c matrix product, not even an approximate one, gets by with fewer multiplications than this bound. Proved from the release’s theorems by way of the asymptotic-rank bound below. Checked as in Phase 4: Comparator (with Lean’s kernel and with nanoda) and con-leche accept the proof against our sealed statements, and both refuse two planted copies made false by one changed number.",
+    "evidence": [
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:34 — G3e started; G3f started; G2a started; G2b started: brief (rect-prover.md cd66352d…, matches A15) read; PREREG, AMENDMENTS (A13–A15), reader/REPORT.md, runs/p1/PROGRESS.md, Phase 4's PerN.lean and proofs read; release files being fetched read-only at 92b516ef into phase5/prover/inputs/rel/; waiting for the pod address. phase5/writer/ not opened (A16 not yet announced)."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:51 — G3e running; G3f running; G2a running; G2b running: the first pod (9qk333lxv35g50) never started and was deleted by the control room; on pod yyfaihduhd3ixs (US-CA-2, 32 vCPU / 256 GB) the Phase 4 setup scripts (copied unchanged, sha256 77dfe474… root, a89ef4a2… setup, 6188b6c9… judges) started 13:44:07 UTC as the unprivileged user `prover`: toolchain v4.34.1 digest-checked, release cloned at 92b516ef (PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked in setup.log), lake update exit 0 (manifest unchanged), cache get running, then the build of ExactExponent + the challenge, then the judges. After A16 (13:40 UTC) phase5/writer/Rect.lean read (sha256 95340267…, matches A16) and NOTES.md (5113b0f5…); proofs written in src/RectProof/ (Lib.lean, Main.lean) before any elaboration: G3f from the release's flattening bound + our own cube argument (three cyclic copies of T_{a,b,c}^{⊗k} → T_{(abc)^k}, rank ≥ ((abc)^k)^{9/4} from square_exponent); G3e from G3f by asymptoticRank_le_geometricBorderRank; G2b and G2a: β ≤ 1/2 by compiling the release's division-free programs (formalOmega (1/2) 1 1 = 2, zero padding) into the sealed circuits, β > 1/2 by our Lemma 2.4 (rank over F(X,Y) ≤ 2·opCount, division gates included) and the release's rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank) as a per-size rank lower bound."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:17 — G3e passed (build); G3f passed (build); G2a passed (build); G2b passed (build): own release build exit 0 at 14:10:03 UTC (9,516 jobs; cache get exit 0); the sealed Rect.lean elaborates unchanged (no repair, REPAIRS.md), and the challenge copy and its planted twin build (only the four stubs' `sorry`); own judges built at the runner's pins (Comparator d03acab1, lean4export 076e8e57 8c5d64ba…, landrun 811cfff5, nanoda 3a240721); RectProof.Main built (lake build exit 0; no warning from our files — the one warning is the release's own MatrixMultiplication/Model.lean:37 linter note, as in Phase 1); #print axioms for Rect.borderRankRect_holds, Rect.asymptoticRankRect_holds, Rect.alphaBounds_holds, Rect.dualExponentDiv_holds = [propext, Classical.choice, Quot.sound]; grep of RectProof/Lib.lean and Main.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Repairs of OUR proof files on the way (none of the sealed file): one fully qualified name (`MatrixAlgorithm.pad_cost_eq` resolved to another namespace), the `Arithmetic.` names qualified, two `field_simp` closings, and deprecated lemma names replaced (dif_pos → dite_eq_left, Fin.coe_castSucc → Fin.val_castSucc, ite_cond_eq_true → ite_eq_left_of_eq_true) with `omit [Field F]` on five lemmas. Comparator (configs/Rect.json, nanoda on) running, then the planted twin."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:25 — G3e passed (Comparator); G3f passed (Comparator); G2a passed (Comparator); G2b passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/Rect.json (challenge RectChallenges.Rect = the sealed Rect.lean byte for byte + four stubs; solution RectProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 507 s (14:17:13–14:25:40 UTC), peak 8.4 GB. The planted twin (rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:29 — G3e passed (control); G3f passed (control); G2a passed (control); G2b passed (control): Comparator on configs/RectPlanted.json (the challenge with ONE constant changed, line 109, rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`, a false statement; same solution) refused it, exit 1 after 199 s: \"uncaught exception: Const does not match between challenge and target 'Rect.AlphaBounds'\" (Comparator walks its worklist from the back, so it reports the first differing constant it meets; why AlphaBounds, which does not mention rectBound, is checked against con-leche's diagnostic and the two challenge exports next). con-leche 5ea446d5 (own build) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:39 — G3e passed; G3f passed; G2a passed; G2b passed: con-leche 5ea446d5 (own build, toolchain v4.36.0, binary f38aae26… — equal to Phase 4's) --verified accepts the solution export (92,893 declarations; sol.ndjson 1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957), and --verified --compare against the challenge export (chal.ndjson d331d068…) justifies all four theorems (borderRankRect_holds, asymptoticRankRect_holds, alphaBounds_holds, dualExponentDiv_holds), exit 0; against the planted challenge (chalPlanted.ndjson a6355aed…) it refuses, exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". Why Comparator named Rect.AlphaBounds instead: printed with pp.all, the planted file's AlphaBounds (text unchanged) differs from the sealed one in ONE subterm — the `Nat.AtLeastTwo 3` instance proof of the literal `(3 : ℝ)` in `(2 : ℝ) / 3` is the auxiliary `Rect.rectBound._proof_1` in the sealed file (where `(3 : ℝ)` first occurs, in rectBound) and `Rect.AlphaBounds._proof_1` in the planted one (rectBound no longer contains a 3); Comparator compares elaborated terms structurally, so a one-character change upstream also changed the term of a later definition. A second planted twin with no such side effect is run as well: RectPlanted2, line 109 `(3 : ℝ) / 4` → `(3 : ℝ) / 3` (also false: (abc)^1 = 8 > 2^(9/4) at a = b = c = 2); its probe shows only rectBound's term differs (AlphaBounds, alpha, rectExponent, BorderRankRect, DualExponentDiv hash equal to the sealed file's). Comparator on it running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:49 — G3e passed; G3f passed; G2a passed; G2b passed: the second planted twin (configs/RectPlanted2.json, RectPlanted2.lean 22012647…) is refused by Comparator, exit 1 after 200 s: \"uncaught exception: Const does not match between challenge and target 'Rect.rectBound'\", and by con-leche --verified --compare (chalPlanted2.ndjson 3bce0248…), exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". The solution export for the clean-room replay: sol.ndjson (1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957) compressed on the pod as sol.ndjson.zst (zstd -19 --long=27, 129,490,641 bytes, sha256 5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770), copied to the Mac (session scratch folder, not the repo), sha256 equal on both ends, and decompressed on the Mac it hashes to 1e4aca34…; challenge exports chal.ndjson d331d068…, chalPlanted.ndjson a6355aed…, chalPlanted2.ndjson 3bce0248…. Logs in phase5/prover/pod-logs/. Prover work complete; the pod can be deleted (the control room's call)."
+     }
+    ]
+   },
+   {
+    "id": "G3f",
+    "phase": 6,
+    "title": "Corollary 1.3, asymptotic rank: the same bound for the asymptotic rank of T_{a,b,c}, over every field",
+    "state": "passed",
+    "note": "Passed at 14:49 UTC. In plain words: the same floor holds for the cost per product when many such products are computed together, over any field. Proved from the release’s square-matrix theorem and its flattening bound, with our own argument that three relabelled copies of the rectangular product combine into a square one. Checked as in Phase 4: Comparator (with Lean’s kernel and with nanoda) and con-leche accept the proof against our sealed statements, and both refuse two planted copies made false by one changed number.",
+    "evidence": [
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:34 — G3e started; G3f started; G2a started; G2b started: brief (rect-prover.md cd66352d…, matches A15) read; PREREG, AMENDMENTS (A13–A15), reader/REPORT.md, runs/p1/PROGRESS.md, Phase 4's PerN.lean and proofs read; release files being fetched read-only at 92b516ef into phase5/prover/inputs/rel/; waiting for the pod address. phase5/writer/ not opened (A16 not yet announced)."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:51 — G3e running; G3f running; G2a running; G2b running: the first pod (9qk333lxv35g50) never started and was deleted by the control room; on pod yyfaihduhd3ixs (US-CA-2, 32 vCPU / 256 GB) the Phase 4 setup scripts (copied unchanged, sha256 77dfe474… root, a89ef4a2… setup, 6188b6c9… judges) started 13:44:07 UTC as the unprivileged user `prover`: toolchain v4.34.1 digest-checked, release cloned at 92b516ef (PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked in setup.log), lake update exit 0 (manifest unchanged), cache get running, then the build of ExactExponent + the challenge, then the judges. After A16 (13:40 UTC) phase5/writer/Rect.lean read (sha256 95340267…, matches A16) and NOTES.md (5113b0f5…); proofs written in src/RectProof/ (Lib.lean, Main.lean) before any elaboration: G3f from the release's flattening bound + our own cube argument (three cyclic copies of T_{a,b,c}^{⊗k} → T_{(abc)^k}, rank ≥ ((abc)^k)^{9/4} from square_exponent); G3e from G3f by asymptoticRank_le_geometricBorderRank; G2b and G2a: β ≤ 1/2 by compiling the release's division-free programs (formalOmega (1/2) 1 1 = 2, zero padding) into the sealed circuits, β > 1/2 by our Lemma 2.4 (rank over F(X,Y) ≤ 2·opCount, division gates included) and the release's rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank) as a per-size rank lower bound."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:17 — G3e passed (build); G3f passed (build); G2a passed (build); G2b passed (build): own release build exit 0 at 14:10:03 UTC (9,516 jobs; cache get exit 0); the sealed Rect.lean elaborates unchanged (no repair, REPAIRS.md), and the challenge copy and its planted twin build (only the four stubs' `sorry`); own judges built at the runner's pins (Comparator d03acab1, lean4export 076e8e57 8c5d64ba…, landrun 811cfff5, nanoda 3a240721); RectProof.Main built (lake build exit 0; no warning from our files — the one warning is the release's own MatrixMultiplication/Model.lean:37 linter note, as in Phase 1); #print axioms for Rect.borderRankRect_holds, Rect.asymptoticRankRect_holds, Rect.alphaBounds_holds, Rect.dualExponentDiv_holds = [propext, Classical.choice, Quot.sound]; grep of RectProof/Lib.lean and Main.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Repairs of OUR proof files on the way (none of the sealed file): one fully qualified name (`MatrixAlgorithm.pad_cost_eq` resolved to another namespace), the `Arithmetic.` names qualified, two `field_simp` closings, and deprecated lemma names replaced (dif_pos → dite_eq_left, Fin.coe_castSucc → Fin.val_castSucc, ite_cond_eq_true → ite_eq_left_of_eq_true) with `omit [Field F]` on five lemmas. Comparator (configs/Rect.json, nanoda on) running, then the planted twin."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:25 — G3e passed (Comparator); G3f passed (Comparator); G2a passed (Comparator); G2b passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/Rect.json (challenge RectChallenges.Rect = the sealed Rect.lean byte for byte + four stubs; solution RectProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 507 s (14:17:13–14:25:40 UTC), peak 8.4 GB. The planted twin (rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:29 — G3e passed (control); G3f passed (control); G2a passed (control); G2b passed (control): Comparator on configs/RectPlanted.json (the challenge with ONE constant changed, line 109, rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`, a false statement; same solution) refused it, exit 1 after 199 s: \"uncaught exception: Const does not match between challenge and target 'Rect.AlphaBounds'\" (Comparator walks its worklist from the back, so it reports the first differing constant it meets; why AlphaBounds, which does not mention rectBound, is checked against con-leche's diagnostic and the two challenge exports next). con-leche 5ea446d5 (own build) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:39 — G3e passed; G3f passed; G2a passed; G2b passed: con-leche 5ea446d5 (own build, toolchain v4.36.0, binary f38aae26… — equal to Phase 4's) --verified accepts the solution export (92,893 declarations; sol.ndjson 1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957), and --verified --compare against the challenge export (chal.ndjson d331d068…) justifies all four theorems (borderRankRect_holds, asymptoticRankRect_holds, alphaBounds_holds, dualExponentDiv_holds), exit 0; against the planted challenge (chalPlanted.ndjson a6355aed…) it refuses, exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". Why Comparator named Rect.AlphaBounds instead: printed with pp.all, the planted file's AlphaBounds (text unchanged) differs from the sealed one in ONE subterm — the `Nat.AtLeastTwo 3` instance proof of the literal `(3 : ℝ)` in `(2 : ℝ) / 3` is the auxiliary `Rect.rectBound._proof_1` in the sealed file (where `(3 : ℝ)` first occurs, in rectBound) and `Rect.AlphaBounds._proof_1` in the planted one (rectBound no longer contains a 3); Comparator compares elaborated terms structurally, so a one-character change upstream also changed the term of a later definition. A second planted twin with no such side effect is run as well: RectPlanted2, line 109 `(3 : ℝ) / 4` → `(3 : ℝ) / 3` (also false: (abc)^1 = 8 > 2^(9/4) at a = b = c = 2); its probe shows only rectBound's term differs (AlphaBounds, alpha, rectExponent, BorderRankRect, DualExponentDiv hash equal to the sealed file's). Comparator on it running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:49 — G3e passed; G3f passed; G2a passed; G2b passed: the second planted twin (configs/RectPlanted2.json, RectPlanted2.lean 22012647…) is refused by Comparator, exit 1 after 200 s: \"uncaught exception: Const does not match between challenge and target 'Rect.rectBound'\", and by con-leche --verified --compare (chalPlanted2.ndjson 3bce0248…), exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". The solution export for the clean-room replay: sol.ndjson (1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957) compressed on the pod as sol.ndjson.zst (zstd -19 --long=27, 129,490,641 bytes, sha256 5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770), copied to the Mac (session scratch folder, not the repo), sha256 equal on both ends, and decompressed on the Mac it hashes to 1e4aca34…; challenge exports chal.ndjson d331d068…, chalPlanted.ndjson a6355aed…, chalPlanted2.ndjson 3bce0248…. Logs in phase5/prover/pod-logs/. Prover work complete; the pod can be deleted (the control room's call)."
+     }
+    ]
+   },
+   {
+    "id": "G2a",
+    "phase": 6,
+    "title": "The paper’s 1/2 ≤ α_F ≤ 2/3, in its own circuit model, where division gates are allowed",
+    "state": "passed",
+    "note": "Passed at 14:49 UTC. In plain words: α says how wide the middle dimension can grow (an n × n^β matrix times an n^β × n one) while the product still costs about n² operations; in the paper’s model, where a circuit may also divide, α lies between 1/2 and 2/3, as the paper claims. It follows from the next row. Checked as in Phase 4: Comparator (with Lean’s kernel and with nanoda) and con-leche accept the proof against our sealed statements, and both refuse two planted copies made false by one changed number.",
+    "evidence": [
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:34 — G3e started; G3f started; G2a started; G2b started: brief (rect-prover.md cd66352d…, matches A15) read; PREREG, AMENDMENTS (A13–A15), reader/REPORT.md, runs/p1/PROGRESS.md, Phase 4's PerN.lean and proofs read; release files being fetched read-only at 92b516ef into phase5/prover/inputs/rel/; waiting for the pod address. phase5/writer/ not opened (A16 not yet announced)."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:51 — G3e running; G3f running; G2a running; G2b running: the first pod (9qk333lxv35g50) never started and was deleted by the control room; on pod yyfaihduhd3ixs (US-CA-2, 32 vCPU / 256 GB) the Phase 4 setup scripts (copied unchanged, sha256 77dfe474… root, a89ef4a2… setup, 6188b6c9… judges) started 13:44:07 UTC as the unprivileged user `prover`: toolchain v4.34.1 digest-checked, release cloned at 92b516ef (PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked in setup.log), lake update exit 0 (manifest unchanged), cache get running, then the build of ExactExponent + the challenge, then the judges. After A16 (13:40 UTC) phase5/writer/Rect.lean read (sha256 95340267…, matches A16) and NOTES.md (5113b0f5…); proofs written in src/RectProof/ (Lib.lean, Main.lean) before any elaboration: G3f from the release's flattening bound + our own cube argument (three cyclic copies of T_{a,b,c}^{⊗k} → T_{(abc)^k}, rank ≥ ((abc)^k)^{9/4} from square_exponent); G3e from G3f by asymptoticRank_le_geometricBorderRank; G2b and G2a: β ≤ 1/2 by compiling the release's division-free programs (formalOmega (1/2) 1 1 = 2, zero padding) into the sealed circuits, β > 1/2 by our Lemma 2.4 (rank over F(X,Y) ≤ 2·opCount, division gates included) and the release's rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank) as a per-size rank lower bound."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:17 — G3e passed (build); G3f passed (build); G2a passed (build); G2b passed (build): own release build exit 0 at 14:10:03 UTC (9,516 jobs; cache get exit 0); the sealed Rect.lean elaborates unchanged (no repair, REPAIRS.md), and the challenge copy and its planted twin build (only the four stubs' `sorry`); own judges built at the runner's pins (Comparator d03acab1, lean4export 076e8e57 8c5d64ba…, landrun 811cfff5, nanoda 3a240721); RectProof.Main built (lake build exit 0; no warning from our files — the one warning is the release's own MatrixMultiplication/Model.lean:37 linter note, as in Phase 1); #print axioms for Rect.borderRankRect_holds, Rect.asymptoticRankRect_holds, Rect.alphaBounds_holds, Rect.dualExponentDiv_holds = [propext, Classical.choice, Quot.sound]; grep of RectProof/Lib.lean and Main.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Repairs of OUR proof files on the way (none of the sealed file): one fully qualified name (`MatrixAlgorithm.pad_cost_eq` resolved to another namespace), the `Arithmetic.` names qualified, two `field_simp` closings, and deprecated lemma names replaced (dif_pos → dite_eq_left, Fin.coe_castSucc → Fin.val_castSucc, ite_cond_eq_true → ite_eq_left_of_eq_true) with `omit [Field F]` on five lemmas. Comparator (configs/Rect.json, nanoda on) running, then the planted twin."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:25 — G3e passed (Comparator); G3f passed (Comparator); G2a passed (Comparator); G2b passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/Rect.json (challenge RectChallenges.Rect = the sealed Rect.lean byte for byte + four stubs; solution RectProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 507 s (14:17:13–14:25:40 UTC), peak 8.4 GB. The planted twin (rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:29 — G3e passed (control); G3f passed (control); G2a passed (control); G2b passed (control): Comparator on configs/RectPlanted.json (the challenge with ONE constant changed, line 109, rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`, a false statement; same solution) refused it, exit 1 after 199 s: \"uncaught exception: Const does not match between challenge and target 'Rect.AlphaBounds'\" (Comparator walks its worklist from the back, so it reports the first differing constant it meets; why AlphaBounds, which does not mention rectBound, is checked against con-leche's diagnostic and the two challenge exports next). con-leche 5ea446d5 (own build) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:39 — G3e passed; G3f passed; G2a passed; G2b passed: con-leche 5ea446d5 (own build, toolchain v4.36.0, binary f38aae26… — equal to Phase 4's) --verified accepts the solution export (92,893 declarations; sol.ndjson 1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957), and --verified --compare against the challenge export (chal.ndjson d331d068…) justifies all four theorems (borderRankRect_holds, asymptoticRankRect_holds, alphaBounds_holds, dualExponentDiv_holds), exit 0; against the planted challenge (chalPlanted.ndjson a6355aed…) it refuses, exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". Why Comparator named Rect.AlphaBounds instead: printed with pp.all, the planted file's AlphaBounds (text unchanged) differs from the sealed one in ONE subterm — the `Nat.AtLeastTwo 3` instance proof of the literal `(3 : ℝ)` in `(2 : ℝ) / 3` is the auxiliary `Rect.rectBound._proof_1` in the sealed file (where `(3 : ℝ)` first occurs, in rectBound) and `Rect.AlphaBounds._proof_1` in the planted one (rectBound no longer contains a 3); Comparator compares elaborated terms structurally, so a one-character change upstream also changed the term of a later definition. A second planted twin with no such side effect is run as well: RectPlanted2, line 109 `(3 : ℝ) / 4` → `(3 : ℝ) / 3` (also false: (abc)^1 = 8 > 2^(9/4) at a = b = c = 2); its probe shows only rectBound's term differs (AlphaBounds, alpha, rectExponent, BorderRankRect, DualExponentDiv hash equal to the sealed file's). Comparator on it running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:49 — G3e passed; G3f passed; G2a passed; G2b passed: the second planted twin (configs/RectPlanted2.json, RectPlanted2.lean 22012647…) is refused by Comparator, exit 1 after 200 s: \"uncaught exception: Const does not match between challenge and target 'Rect.rectBound'\", and by con-leche --verified --compare (chalPlanted2.ndjson 3bce0248…), exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". The solution export for the clean-room replay: sol.ndjson (1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957) compressed on the pod as sol.ndjson.zst (zstd -19 --long=27, 129,490,641 bytes, sha256 5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770), copied to the Mac (session scratch folder, not the repo), sha256 equal on both ends, and decompressed on the Mac it hashes to 1e4aca34…; challenge exports chal.ndjson d331d068…, chalPlanted.ndjson a6355aed…, chalPlanted2.ndjson 3bce0248…. Logs in phase5/prover/pod-logs/. Prover work complete; the pod can be deleted (the control room's call)."
+     }
+    ]
+   },
+   {
+    "id": "G2b",
+    "phase": 6,
+    "title": "The stronger α_F = 1/2 with division gates allowed (more than the paper claims)",
+    "state": "passed",
+    "note": "Passed at 14:49 UTC. In plain words: α is exactly 1/2, sharper than the paper’s claim. Up to 1/2, the release’s division-free programs, rewritten as circuits of our model, already cost about n²; beyond 1/2, the release’s own rectangular exponent with divisions (a theorem in its files that our census missed, correction C-4) shows that even circuits that divide cost more. Checked as in Phase 4: Comparator (with Lean’s kernel and with nanoda) and con-leche accept the proof against our sealed statements, and both refuse two planted copies made false by one changed number.",
+    "evidence": [
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:34 — G3e started; G3f started; G2a started; G2b started: brief (rect-prover.md cd66352d…, matches A15) read; PREREG, AMENDMENTS (A13–A15), reader/REPORT.md, runs/p1/PROGRESS.md, Phase 4's PerN.lean and proofs read; release files being fetched read-only at 92b516ef into phase5/prover/inputs/rel/; waiting for the pod address. phase5/writer/ not opened (A16 not yet announced)."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 13:51 — G3e running; G3f running; G2a running; G2b running: the first pod (9qk333lxv35g50) never started and was deleted by the control room; on pod yyfaihduhd3ixs (US-CA-2, 32 vCPU / 256 GB) the Phase 4 setup scripts (copied unchanged, sha256 77dfe474… root, a89ef4a2… setup, 6188b6c9… judges) started 13:44:07 UTC as the unprivileged user `prover`: toolchain v4.34.1 digest-checked, release cloned at 92b516ef (PREREG sha256s of the challenge, ExactExponent, manifest, lakefile, toolchain re-checked in setup.log), lake update exit 0 (manifest unchanged), cache get running, then the build of ExactExponent + the challenge, then the judges. After A16 (13:40 UTC) phase5/writer/Rect.lean read (sha256 95340267…, matches A16) and NOTES.md (5113b0f5…); proofs written in src/RectProof/ (Lib.lean, Main.lean) before any elaboration: G3f from the release's flattening bound + our own cube argument (three cyclic copies of T_{a,b,c}^{⊗k} → T_{(abc)^k}, rank ≥ ((abc)^k)^{9/4} from square_exponent); G3e from G3f by asymptoticRank_le_geometricBorderRank; G2b and G2a: β ≤ 1/2 by compiling the release's division-free programs (formalOmega (1/2) 1 1 = 2, zero padding) into the sealed circuits, β > 1/2 by our Lemma 2.4 (rank over F(X,Y) ≤ 2·opCount, division gates included) and the release's rectangular exponent WITH division (MatrixExponent.Rectangle.exponent_eq via exponent_lt_of_rank) as a per-size rank lower bound."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:17 — G3e passed (build); G3f passed (build); G2a passed (build); G2b passed (build): own release build exit 0 at 14:10:03 UTC (9,516 jobs; cache get exit 0); the sealed Rect.lean elaborates unchanged (no repair, REPAIRS.md), and the challenge copy and its planted twin build (only the four stubs' `sorry`); own judges built at the runner's pins (Comparator d03acab1, lean4export 076e8e57 8c5d64ba…, landrun 811cfff5, nanoda 3a240721); RectProof.Main built (lake build exit 0; no warning from our files — the one warning is the release's own MatrixMultiplication/Model.lean:37 linter note, as in Phase 1); #print axioms for Rect.borderRankRect_holds, Rect.asymptoticRankRect_holds, Rect.alphaBounds_holds, Rect.dualExponentDiv_holds = [propext, Classical.choice, Quot.sound]; grep of RectProof/Lib.lean and Main.lean for sorry, admit, native_decide, implemented_by, extern, axiom, opaque, unsafe, csimp: none. Repairs of OUR proof files on the way (none of the sealed file): one fully qualified name (`MatrixAlgorithm.pad_cost_eq` resolved to another namespace), the `Arithmetic.` names qualified, two `field_simp` closings, and deprecated lemma names replaced (dif_pos → dite_eq_left, Fin.coe_castSucc → Fin.val_castSucc, ite_cond_eq_true → ite_eq_left_of_eq_true) with `omit [Field F]` on five lemmas. Comparator (configs/Rect.json, nanoda on) running, then the planted twin."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:25 — G3e passed (Comparator); G3f passed (Comparator); G2a passed (Comparator); G2b passed (Comparator): Comparator d03acab1 (own build at the runner's pins), configs/Rect.json (challenge RectChallenges.Rect = the sealed Rect.lean byte for byte + four stubs; solution RectProof.Main; the four theorems; permitted axioms the three; nanoda on): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 507 s (14:17:13–14:25:40 UTC), peak 8.4 GB. The planted twin (rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:29 — G3e passed (control); G3f passed (control); G2a passed (control); G2b passed (control): Comparator on configs/RectPlanted.json (the challenge with ONE constant changed, line 109, rectBound's `(3 : ℝ) / 4` → `(4 : ℝ) / 5`, a false statement; same solution) refused it, exit 1 after 199 s: \"uncaught exception: Const does not match between challenge and target 'Rect.AlphaBounds'\" (Comparator walks its worklist from the back, so it reports the first differing constant it meets; why AlphaBounds, which does not mention rectBound, is checked against con-leche's diagnostic and the two challenge exports next). con-leche 5ea446d5 (own build) running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:39 — G3e passed; G3f passed; G2a passed; G2b passed: con-leche 5ea446d5 (own build, toolchain v4.36.0, binary f38aae26… — equal to Phase 4's) --verified accepts the solution export (92,893 declarations; sol.ndjson 1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957), and --verified --compare against the challenge export (chal.ndjson d331d068…) justifies all four theorems (borderRankRect_holds, asymptoticRankRect_holds, alphaBounds_holds, dualExponentDiv_holds), exit 0; against the planted challenge (chalPlanted.ndjson a6355aed…) it refuses, exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". Why Comparator named Rect.AlphaBounds instead: printed with pp.all, the planted file's AlphaBounds (text unchanged) differs from the sealed one in ONE subterm — the `Nat.AtLeastTwo 3` instance proof of the literal `(3 : ℝ)` in `(2 : ℝ) / 3` is the auxiliary `Rect.rectBound._proof_1` in the sealed file (where `(3 : ℝ)` first occurs, in rectBound) and `Rect.AlphaBounds._proof_1` in the planted one (rectBound no longer contains a 3); Comparator compares elaborated terms structurally, so a one-character change upstream also changed the term of a later definition. A second planted twin with no such side effect is run as well: RectPlanted2, line 109 `(3 : ℝ) / 4` → `(3 : ℝ) / 3` (also false: (abc)^1 = 8 > 2^(9/4) at a = b = c = 2); its probe shows only rectBound's term differs (AlphaBounds, alpha, rectExponent, BorderRankRect, DualExponentDiv hash equal to the sealed file's). Comparator on it running."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:49 — G3e passed; G3f passed; G2a passed; G2b passed: the second planted twin (configs/RectPlanted2.json, RectPlanted2.lean 22012647…) is refused by Comparator, exit 1 after 200 s: \"uncaught exception: Const does not match between challenge and target 'Rect.rectBound'\", and by con-leche --verified --compare (chalPlanted2.ndjson 3bce0248…), exit 1: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\". The solution export for the clean-room replay: sol.ndjson (1,218,760,170 bytes, sha256 1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957) compressed on the pod as sol.ndjson.zst (zstd -19 --long=27, 129,490,641 bytes, sha256 5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770), copied to the Mac (session scratch folder, not the repo), sha256 equal on both ends, and decompressed on the Mac it hashes to 1e4aca34…; challenge exports chal.ndjson d331d068…, chalPlanted.ndjson a6355aed…, chalPlanted2.ndjson 3bce0248…. Logs in phase5/prover/pod-logs/. Prover work complete; the pod can be deleted (the control room's call)."
+     }
+    ]
+   },
+   {
+    "id": "P5-CR",
+    "phase": 6,
+    "title": "A clean-room replay of the Phase 5 proofs on a fresh machine that never ran the release’s code",
+    "state": "passed",
+    "note": "Passed at 15:10 UTC. On a fresh machine that never downloaded or ran the release’s code, the exported proof arrived intact and was checked again from scratch: nanoda and con-leche accept it, con-leche finds all four statements justified against our sealed statements, rebuilt there byte for byte as on the prover’s machine, and the planted false copy is refused. One setup step stopped once on the machine’s package mirror, not on a check; the script was fixed and the setup rerun.",
+    "evidence": [
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 14:53 — P5-CR started: the clean-room replay of Phase 5, as Phase 4's G3-CR, on a fresh pod (n45j6auh12ai1n, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, US-CA-2, created by the control room 14:50:45 UTC) that never clones, builds or runs openai/math. scripts/cr-p5.sh (sha256 0b2b78c7…) = cr-g3.sh with the Phase 5 challenge (src/RectChallenges/Rect.lean 412524b9…, whose first 17,068 bytes are the sealed Rect.lean 95340267…), its planted twin RectPlanted2.lean (22012647…, `(3 : ℝ) / 4` → `(3 : ℝ) / 3`, one line) and the four theorem names; same pins (Lean v4.34.1 by GitHub's digest, lean4export 076e8e57, nanoda d0a02cc5, con-leche 5ea446d5, Mathlib d13f23b7 by cache only). Setup started detached 14:53:36 UTC; the solution export sol.ndjson.zst (5a19d261…) uploading."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 15:04 — P5-CR running: the export arrived on the pod at its digest (5a19d261…, 129,490,641 bytes, 14:54:26 UTC). The first setup passed the challenge records (412524b9…, 22012647…), the sealed prefix (the first 17,068 bytes hash to 95340267…) and the one-line planted diff, the toolchain archive at GitHub's digest (Lean 4.34.1, commit 5045d005), and built the three judges at their pins (lean4export 076e8e57 8c5d64ba…, nanoda d0a02cc5 b96771e2…, con-leche 5ea446d5 f38aae26… — the same con-leche binary as the prover pod's), then STOPPED at 15:02:34 UTC on infrastructure, not a gate: CRM exit 127, /usr/bin/time missing, because the image's deadsnakes PPA answered 503 to `apt-get update` and cr-g3.sh's `apt-get update && apt-get install` therefore installed nothing. The script's one change: install runs after update regardless and must itself succeed, and /usr/bin/time is checked (cr-p5.sh now sha256 b19f84c6…). Setup rerun detached 15:03:52 UTC; the first run's logs kept as cr-setup-run1.log, judges-run1.txt, run1-CRM.*."
+     },
+     {
+      "file": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+      "line": "- 2026-11-25 15:10 — P5-CR passed: all 4 gates held (cr-p5.sh b19f84c6…, check 15:07:50–15:09:28 UTC). Setup rerun: records, sealed prefix and toolchain digest re-checked; judges at their pins with the same binaries as the first run (lean4export 076e8e57 8c5d64ba…, nanoda d0a02cc5 b96771e2…, con-leche 5ea446d5 f38aae26…; lean4export's lean-toolchain as committed is v4.34.0, run 1, set to v4.34.1 as in cr-g3.sh); Mathlib d13f23b7 by cache only (CRM exit 0, 134 s), packages Cli LeanSearchClient Qq aesop batteries importGraph mathlib plausible proofwidgets, no OAI package, no openai/math clone on the pod; both challenges built (CRB exit 0, only the four stubs' `sorry` warnings per file) and exported here: challenge.ndjson d331d068… and challenge-planted.ndjson 3bce0248…, both BYTE-IDENTICAL to the prover pod's chal.ndjson and chalPlanted2.ndjson. Check: the decompressed export 1,218,760,170 bytes, sha256 1e4aca34… = the record; nanoda d0a02cc5 \"Checked 96137 declarations with no typechecker errors\" (the same \"Unable to print axioms\" pretty-printer note as Phase 1 and G3-CR), exit 0, 32 s; con-leche --verified \"accepted 92893 declarations\", exit 0, 22 s; --verified --compare against the challenge exported here \"accepted 22133 declarations, 4 axioms justified by the solution\" with borderRankRect_holds, asymptoticRankRect_holds, alphaBounds_holds, dualExponentDiv_holds each \"justified by the solution\", exit 0, 23 s; the planted challenge refused, exit 1, 21 s: \"axiom Rect.borderRankRect_holds is not justified by the solution: its type reads Rect.rectBound, which the solution does not declare alike\" (the prover pod's diagnostic word for word). Logs in pod-logs/cr/. Pod n45j6auh12ai1n used 14:50:45–15:10 UTC (~20 min, ~US$0.30 at US$0.88/h); handed back to the control room for deletion."
+     }
+    ]
+   }
+  ],
+  "solution_export": {
+   "file": "sol.ndjson",
+   "sha256": "1e4aca344f9afe67fd8f847864d5cba6fe8eb53d86c15677365494537cde1957",
+   "bytes": 1218760170,
+   "recorded_in": "corpus/omega-nine-fourths/phase5/prover/pod-logs/work/exports/sol.ndjson.sha256"
+  },
+  "proved_all": true
+ },
  "exports": {
   "tag": "omega-nine-fourths-export-2026-11-25",
   "url": "https://github.com/carlostoledo1891/cert-machine/releases/tag/omega-nine-fourths-export-2026-11-25",
@@ -979,6 +1203,15 @@
     "recorded_in": "corpus/omega-nine-fourths/phase4/prover/pod-logs/work/exports/sol.ndjson.zst.sha256",
     "size_in": "corpus/omega-nine-fourths/phase4/prover/PROGRESS.md",
     "url": "https://github.com/carlostoledo1891/cert-machine/releases/download/omega-nine-fourths-export-2026-11-25/phase4-export.ndjson.zst"
+   },
+   {
+    "name": "phase5-export.ndjson.zst",
+    "what": "the Phase 5 export of the four statements’ proofs",
+    "sha256": "5a19d2613705e61e15c9613fb0973dffb6193fae7fefafa77418a97dd57d7770",
+    "bytes": 129490641,
+    "recorded_in": "corpus/omega-nine-fourths/phase5/prover/pod-logs/work/exports/sol.ndjson.zst.sha256",
+    "size_in": "corpus/omega-nine-fourths/phase5/prover/PROGRESS.md",
+    "url": "https://github.com/carlostoledo1891/cert-machine/releases/download/omega-nine-fourths-export-2026-11-25/phase5-export.ndjson.zst"
    }
   ]
  },
@@ -1010,6 +1243,27 @@
    "usd_per_h": 0.88,
    "created_utc": "2026-11-25T10:25:53Z",
    "ended_utc": "2026-11-25T10:37:00Z"
+  },
+  {
+   "id": "9qk333lxv35g50",
+   "machine": "RunPod cpu3m 32 vCPU / 256 GB",
+   "usd_per_h": 1.76,
+   "created_utc": "2026-11-25T13:32:40Z",
+   "ended_utc": "2026-11-25T13:42:00Z"
+  },
+  {
+   "id": "yyfaihduhd3ixs",
+   "machine": "RunPod cpu3m 32 vCPU / 256 GB",
+   "usd_per_h": 1.76,
+   "created_utc": "2026-11-25T13:43:01Z",
+   "ended_utc": "2026-11-25T14:50:00Z"
+  },
+  {
+   "id": "n45j6auh12ai1n",
+   "machine": "RunPod cpu3m 16 vCPU / 128 GB",
+   "usd_per_h": 0.88,
+   "created_utc": "2026-11-25T14:50:45Z",
+   "ended_utc": "2026-11-25T15:10:00Z"
   }
  ]
 }
