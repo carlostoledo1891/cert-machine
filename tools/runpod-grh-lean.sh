@@ -584,6 +584,8 @@ group() {
     KR)     need KR B1 && { [ -f $R/KR.exit ] || gate_challenge grh > $R/KR-gate.txt 2>&1; run KR 36000 $U $WR lake env leanchecker --fresh Main; } ;;
     E1)     cfgs; judge E1 compact $CM/cfg/e1.json 28800 B2 LL1 ;;
     D1)     d1_steps grh; d1_steps compact ;;
+    D1-grh) d1_steps grh ;;
+    D1-compact) d1_steps compact ;;
     S2)     need S2-install B1 && run S2-install 600 root / bash -c step_s2_install
             judge S2 grh $CM/cfg/s2.json 36000 S2-install LL1 ;;
     CHAR)   char_steps ;;
@@ -592,7 +594,7 @@ group() {
   esac
   return 0
 }
-ALL="setup DERISK I1 CHB B1 A1-grh EXP CTL S1 C3 KR B2 A1-compact E1 D1 S2"
+ALL="setup DERISK I1 CHB B1 A1-grh EXP CTL S1 C3 KR D1-grh B2 A1-compact E1 D1-compact S2"   # amendment A3's order
 [ $# -ge 1 ] || { sed -n '2,40p' "$SELF"; exit 2; }
 log "invoked: $* (pid $$; audit ${AUDIT_SHA:-unset}; deadline ${DEADLINE:-none}; script $(sha256sum "$SELF" | cut -c1-16))"
 for g in "$@"; do
