@@ -1,0 +1,17 @@
+'OAI.LinearAlgebra.SpectralBooks.reader_rank_per_n' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_asymptoticRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_gates_per_n' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.LinearAlgebra.SpectralBooks.RationalProgram.productQuotientCount.{u_1, u_2} : {F : Type u_1} →
+  {I : Type u_2} → {r : ℕ} → OAI.LinearAlgebra.SpectralBooks.RationalProgram F I r → ℕ :=
+fun {F} {I} x x_1 =>
+  OAI.LinearAlgebra.SpectralBooks.RationalProgram.brecOn x_1
+    OAI.LinearAlgebra.SpectralBooks.RationalProgram.productQuotientCount._f
+def OAI.LinearAlgebra.SpectralBooks.RationalMatrixAlgorithm.Correct.{u_1} : {F : Type u_1} →
+  {a b c : ℕ} → [Field F] → OAI.LinearAlgebra.SpectralBooks.RationalMatrixAlgorithm F a b c → Prop :=
+fun {F} {a b c} [Field F] P =>
+  P.program.Valid ∧
+    ∀ (i : Fin a) (k : Fin c),
+      P.program.value (P.output i k) =
+        (algebraMap (MvPolynomial (OAI.MatrixMultiplication.Arithmetic.MatrixInput a b c) F)
+            (FractionRing (MvPolynomial (OAI.MatrixMultiplication.Arithmetic.MatrixInput a b c) F)))
+          (∑ j, MvPolynomial.X (Sum.inl (i, j)) * MvPolynomial.X (Sum.inr (j, k)))

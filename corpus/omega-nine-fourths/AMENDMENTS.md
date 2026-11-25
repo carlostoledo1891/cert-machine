@@ -115,3 +115,22 @@ CR pod: vznibdp98fhl5c, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-1
 operator's "You can use pods"; it never ran the release's code. Its results came home (runs/cr/, hashes equal on both
 ends) and vznibdp98fhl5c was deleted 2026-11-25 04:08 UTC. Lane-level states are logged in PROGRESS.md (F1: both blind statements
 sealed; X1: both reconstructions NEEDS DATA).
+
+## A12 — 2026-11-25 05:00 UTC: how F4's items are decided (written before any verdict, after the F4 tests ran)
+
+The statement reader (reader/REPORT.md) rated 6 items MATERIAL, 1 UNSURE, 28 IMMATERIAL; all six MATERIAL items are about
+claims PREREG.md already places outside CERTIFIED ("What CERTIFIED would NOT say": divisions, the per-n bound, border
+rank, asymptotic rank). Their decisions, from the Phase 1 run (runs/p1/PROGRESS.md; DEVIATIONS D3, D5):
+- U1 (does Comparator pin definition bodies?): DECIDED, immaterial — C3 and the six planted variants V1–V6 were all
+  refused, each naming the changed definition (V1, floor for ceil, names wireDimension).
+- M1 (division, square case): DECIDED, proved — MatrixExponent.omega_eq (ω = 9/4 with division gates) is on the route of
+  square_exponent; Comparator accepted the reader's challenge built from its definitions and refused the planted twin
+  (Lean's kernel only: no nanoda, no con-leche, no Comparator config of the release pins it).
+- M3 (per-n gate count): DECIDED in a weaker form only — T4 proves the count of ALL multiplications; the paper's
+  nonscalar count is ABSENT from the release.
+- M4 (asymptotic rank = n^{9/4}): DECIDED, proved on the route (T4; square_asymptoticRank_eq_rpow_formalOmega).
+- M2 (division for α and the rectangular formula), M5 (geometric border rank of T_n), M6 (Corollary 1.3 per format):
+  DECIDED ABSENT — CEN finds no such theorem in the release.
+The verdict rule's "every MATERIAL item of F4 is decided" is read as: every item has a decision — proved, proved in a
+weaker form, absent, or failed — and none is left undecided. Absent items are reported under G2 and G3 and do not enter
+what CERTIFIED says. F4 therefore passes with the decisions above.

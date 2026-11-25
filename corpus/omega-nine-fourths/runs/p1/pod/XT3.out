@@ -1,0 +1,25 @@
+'OAI.LinearAlgebra.SpectralBooks.reader_divisionOmega_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_rational_omega' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.LinearAlgebra.MatrixExponent.omega.{u_1} : (F : Type u_1) → [Field F] → ℝ :=
+fun F [Field F] => sInf {s | OAI.LinearAlgebra.MatrixExponent.Admissible F s}
+inductive OAI.LinearAlgebra.MatrixExponent.Build.{u_1} : {K : Type u_1} → [Field K] → Set K → ℕ → Set K → Prop
+number of parameters: 3
+constructors:
+OAI.LinearAlgebra.MatrixExponent.Build.nil : ∀ {K : Type u_1} [inst : Field K] {S : Set K},
+  OAI.LinearAlgebra.MatrixExponent.Build S 0 S
+OAI.LinearAlgebra.MatrixExponent.Build.add : ∀ {K : Type u_1} [inst : Field K] {S : Set K} {m : ℕ} {T : Set K}
+  {x y : K},
+  OAI.LinearAlgebra.MatrixExponent.Build S m T →
+    x ∈ T → y ∈ T → OAI.LinearAlgebra.MatrixExponent.Build S (m + 1) (insert (x + y) T)
+OAI.LinearAlgebra.MatrixExponent.Build.sub : ∀ {K : Type u_1} [inst : Field K] {S : Set K} {m : ℕ} {T : Set K}
+  {x y : K},
+  OAI.LinearAlgebra.MatrixExponent.Build S m T →
+    x ∈ T → y ∈ T → OAI.LinearAlgebra.MatrixExponent.Build S (m + 1) (insert (x - y) T)
+OAI.LinearAlgebra.MatrixExponent.Build.mul : ∀ {K : Type u_1} [inst : Field K] {S : Set K} {m : ℕ} {T : Set K}
+  {x y : K},
+  OAI.LinearAlgebra.MatrixExponent.Build S m T →
+    x ∈ T → y ∈ T → OAI.LinearAlgebra.MatrixExponent.Build S (m + 1) (insert (x * y) T)
+OAI.LinearAlgebra.MatrixExponent.Build.div : ∀ {K : Type u_1} [inst : Field K] {S : Set K} {m : ℕ} {T : Set K}
+  {x y : K},
+  OAI.LinearAlgebra.MatrixExponent.Build S m T →
+    x ∈ T → y ∈ T → y ≠ 0 → OAI.LinearAlgebra.MatrixExponent.Build S (m + 1) (insert (x / y) T)

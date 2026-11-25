@@ -36,3 +36,11 @@ implicit import added, the script's closure of {the solution module, Lean} equal
 modules Lean's own environment reports in the census (CEN.out, CENIMP lines). The 95 files' sha256s are recorded in
 runs/p1/pod/x/init/missing-from-A1.SHA256SUMS (from the digest-checked archive). Found by the Phase 1 runner when the
 census compared Lean's import list with A1.
+
+D5 (2026-11-25 04:57 UTC, F4 test T2, a repair, not a finding). T2_AlphaOrientation.lean (reader/tests, 0a87a589…) did
+not elaborate on the pod (XT2, 04:53:39 UTC, exit 1): `readerRHS_swap13` (l.40–41) left the goal "unsolved" — the two
+sides differ only in how `max a 0 + max b 0 + max c 0` is bracketed, because the simp set had commutativity lemmas but
+no `add_assoc` (Lean also warned that `add_left_comm` was unused). The reader's file anticipates exactly this ("a tactic
+failure … repair … report it as a repair"). Repair r1: `add_assoc` added to that one `simp only` list; nothing else
+changes (runs/p1/inputs/T2_AlphaOrientation_r1.lean, 4569a6bd…, a one-line diff). The statements and the three
+#print axioms lines are the reader's, unchanged. Run as XT2r1 with the same green rule.

@@ -1,0 +1,47 @@
+/home/tester/audit/T2_AlphaOrientation.lean:40:76: error: unsolved goals
+a b c : ℝ
+⊢ max a (max b (max c (max 0 (max 0 0)))) +
+        (max a 0 + max b 0 + max c 0 - max a (max b (max c (max 0 (max 0 0)))) -
+          min (max a 0) (min (max b 0) (max c 0))) +
+      max 0
+            ((max a (max b (max c (max 0 (max 0 0)))) +
+                  (max a 0 + max b 0 + max c 0 - max a (max b (max c (max 0 (max 0 0)))) -
+                    min (max a 0) (min (max b 0) (max c 0)))) *
+                min (max a 0) (min (max b 0) (max c 0)) -
+              max a (max b (max c (max 0 (max 0 0)))) *
+                (max a 0 + max b 0 + max c 0 - max a (max b (max c (max 0 (max 0 0)))) -
+                  min (max a 0) (min (max b 0) (max c 0)))) ^
+          2 /
+        (4 * max a (max b (max c (max 0 (max 0 0)))) *
+            (max a 0 + max b 0 + max c 0 - max a (max b (max c (max 0 (max 0 0)))) -
+              min (max a 0) (min (max b 0) (max c 0))) *
+          min (max a 0) (min (max b 0) (max c 0))) =
+    max a (max b (max c (max 0 (max 0 0)))) +
+        (max a 0 + (max b 0 + max c 0) - max a (max b (max c (max 0 (max 0 0)))) -
+          min (max a 0) (min (max b 0) (max c 0))) +
+      max 0
+            ((max a (max b (max c (max 0 (max 0 0)))) +
+                  (max a 0 + (max b 0 + max c 0) - max a (max b (max c (max 0 (max 0 0)))) -
+                    min (max a 0) (min (max b 0) (max c 0)))) *
+                min (max a 0) (min (max b 0) (max c 0)) -
+              max a (max b (max c (max 0 (max 0 0)))) *
+                (max a 0 + (max b 0 + max c 0) - max a (max b (max c (max 0 (max 0 0)))) -
+                  min (max a 0) (min (max b 0) (max c 0)))) ^
+          2 /
+        (4 * max a (max b (max c (max 0 (max 0 0)))) *
+            (max a 0 + (max b 0 + max c 0) - max a (max b (max c (max 0 (max 0 0)))) -
+              min (max a 0) (min (max b 0) (max c 0))) *
+          min (max a 0) (min (max b 0) (max c 0)))
+/home/tester/audit/T2_AlphaOrientation.lean:41:84: warning: This simp argument is unused:
+  add_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [readerRHS, max_comm, max_left_comm, min_comm, min_left_comm, add_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'OAI.LinearAlgebra.SpectralBooks.reader_alpha_inner' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_dual_nonjunk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_alpha_textbook' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

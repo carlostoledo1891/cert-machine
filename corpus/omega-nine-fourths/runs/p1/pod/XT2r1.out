@@ -1,0 +1,10 @@
+/home/tester/audit/T2_AlphaOrientation_r1.lean:41:84: warning: This simp argument is unused:
+  add_left_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [readerRHS, max_comm, max_left_comm, min_comm, min_left_comm, add_comm, add_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'OAI.LinearAlgebra.SpectralBooks.reader_alpha_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_dual_nonjunk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LinearAlgebra.SpectralBooks.reader_alpha_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]

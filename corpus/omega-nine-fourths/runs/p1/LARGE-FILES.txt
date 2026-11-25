@@ -1,0 +1,14 @@
+Files of Phase 1 too large for the repository (written 2026-11-25T04:58:56Z); hashes read on each machine.
+P1 pod yfz653o1ck7ew9, /home/tester/exports (root-owned), lean4export 076e8e57 (format 3.1.0):
+90444ef2fcf006e9f6872bfff99bd7b77c68c8f85dcaefbb379da511308b5f44  export.ndjson (1,214,282,939 bytes; the three theorems' closure)
+8027091ec24d840663def014276c0428ebca2ef4d418b0e646a91dd11f87c59c  challenge.ndjson (72,200,646 bytes)
+8272e8b2f397c4b497e21cbcecd2a2dd229e0b451275a48452c9bc189875c83c  challenge-C1a.ndjson
+220132b60f98839b516291bf9b152cf0bafc9f2a1af906d0a243015fdbdb36c1  challenge-C1b.ndjson
+1c23247bcb2eef91f58fd97b78e10798e8b920340d1aa983518ebf6e4610d2e4  challenge-C3.ndjson
+5e1fbc4c22196bce92d3920e4b512bb68a111f8eaa8e0a47104b64ad2a7a1125  export-c2.ndjson (C2: square_exponent re-typed as False)
+Transfer copy: 4731e942060bb4d759f9cb77ef496794f5c30b5bd3b2fcace01c86cb19282ed5  export.ndjson.zst (172,572,532 bytes; P1 /root, the
+operator's Mac scratchpad, CR /data — equal on all three).
+CR pod vznibdp98fhl5c, /data: export.ndjson 90444ef2… (from the .zst), cr/challenge.ndjson 8027091e…, cr/challenge-C1a 8272e8b2…,
+cr/challenge-C1b 220132b6…, cr/export-c2.ndjson 5e1fbc4c… — the challenge exports built there from Mathlib only are
+byte-identical to P1's, and C2 made there is byte-identical to P1's (runs/cr/_pull-large.sha256).
+These copies vanish when the pods are deleted; to keep the export, the control room can store the .zst elsewhere.

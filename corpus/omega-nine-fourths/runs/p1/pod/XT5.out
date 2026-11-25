@@ -1,0 +1,10 @@
+/home/tester/audit/T5_Eventually.lean:43:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+'OAI.LinearAlgebra.SpectralBooks.reader_admissible_iff_eventually' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

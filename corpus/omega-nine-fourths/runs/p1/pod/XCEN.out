@@ -1,0 +1,108 @@
+CENX route of the three theorems: 94737 constants
+CENX matching constants: 19
+CENX def OAI.MatrixMultiplication.Arithmetic.omega in OAI.LinearAlgebra.MatrixMultiplication.Model onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (F : Type u_1) → [Field F] → ℝ
+CENX inductive OAI.LinearAlgebra.SpectralBooks.RationalMatrixAlgorithm in OAI.LinearAlgebra.SpectralBooks.DivisionModel onRoute=false axioms=[] : Type
+    u_1 →
+  ℕ → ℕ → ℕ → Type u_1
+CENX theorem OAI.LinearAlgebra.MatrixExponent.contact_of_installations in OAI.LinearAlgebra.MatrixExponent.Realization onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (∀ (p : ℕ) [inst : Fact (Nat.Prime p)],
+    OAI.LinearAlgebra.MatrixExponent.Prices.SharedPrice (AlgebraicClosure (ZMod p)) →
+      OAI.LinearAlgebra.MatrixExponent.Rounds.Installable (ZMod p)) →
+  ∀ (F : Type u_1) [inst : Field F],
+    OAI.LinearAlgebra.MatrixExponent.omega F = 9 / 4 ∧ OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity F
+CENX theorem OAI.LinearAlgebra.SpectralBooks.divisionOmega_square_eq_formalOmega in OAI.LinearAlgebra.SpectralBooks.DivisionExponent onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ (F : Type u_1) [inst : Field F],
+  OAI.LinearAlgebra.SpectralBooks.divisionOmega F 1 1 1 = OAI.LinearAlgebra.SpectralBooks.formalOmega F 1 1 1
+CENX theorem OAI.LinearAlgebra.MatrixExponent.Rectangle.StarTripod.rigidity_of_limit in OAI.LinearAlgebra.MatrixExponent.Rectangle.Face.Contact onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ {F : Type} [inst : Field F] {D : OAI.LinearAlgebra.MatrixExponent.Rectangle.Minimum.Vec → ℝ},
+  OAI.LinearAlgebra.MatrixExponent.Rectangle.StarTripod F D →
+    OAI.LinearAlgebra.MatrixExponent.Rectangle.Face.Uniform (OAI.LinearAlgebra.MatrixExponent.Rectangle.defect D) →
+      OAI.LinearAlgebra.MatrixExponent.Rectangle.Face.limit D 1 1 = 0 →
+        OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity F
+CENX def OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity in OAI.LinearAlgebra.MatrixExponent.Rectangle.Model onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (F : Type u_1) → [Field F] → Prop
+CENX def OAI.MatrixMultiplication.Foundation.Arithmetic.omega in OAI.LinearAlgebra.MatrixMultiplication.ComplexArithmetic.Complexity onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ℝ
+CENX theorem OAI.LinearAlgebra.MatrixExponent.Rectangle.rigidity in OAI.LinearAlgebra.MatrixExponent.Rectangle onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (∀ (K : Type) [inst : Field K],
+    OAI.LinearAlgebra.MatrixExponent.Rectangle.Propagation (OAI.LinearAlgebra.MatrixExponent.Rectangle.Prices K)) →
+  ∀ (F : Type u_1) [inst : Field F], OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity F
+CENX def OAI.LinearAlgebra.SpectralBooks.DivisionAdmissibleExponent in OAI.LinearAlgebra.SpectralBooks.DivisionExponent onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (F : Type u_1) → [Field F] → ℝ → ℝ → ℝ → ℝ → Prop
+CENX theorem OAI.LinearAlgebra.MatrixExponent.Rectangle.rigidity_of_contact in OAI.LinearAlgebra.MatrixExponent.Rectangle.Rows onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ {F : Type u_1} [inst : Field F] {P : ℝ → ℝ → ℝ → Prop},
+  OAI.LinearAlgebra.MatrixExponent.Rectangle.Support F P →
+    OAI.LinearAlgebra.MatrixExponent.Rectangle.DiagonalBound P →
+      OAI.LinearAlgebra.MatrixExponent.Rectangle.Propagation P → OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity F
+CENX theorem OAI.LinearAlgebra.SpectralBooks.algebraicClosure_rank_le_twice_cost in OAI.LinearAlgebra.SpectralBooks.CircuitRankSpecialization onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ {F : Type u_1} [inst : Field F] {a b c : ℕ}
+  {P : OAI.LinearAlgebra.SpectralBooks.RationalMatrixAlgorithm F a b c},
+  P.Correct →
+    OAI.LinearAlgebra.SpectralBooks.tensorRank
+        (OAI.LinearAlgebra.SpectralBooks.matrixTensor (AlgebraicClosure F) b c a) ≤
+      2 * P.cost
+CENX theorem OAI.LinearAlgebra.SpectralBooks.formalOmega_square_eq_omega in OAI.LinearAlgebra.SpectralBooks.SquareRankModel onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ (F : Type u_1) [inst : Field F],
+  OAI.LinearAlgebra.SpectralBooks.formalOmega F 1 1 1 = OAI.LinearAlgebra.MatrixExponent.omega F
+CENX def OAI.LinearAlgebra.SpectralBooks.divisionOmega in OAI.LinearAlgebra.SpectralBooks.DivisionExponent onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (F : Type u_1) → [Field F] → ℝ → ℝ → ℝ → ℝ
+CENX theorem OAI.LinearAlgebra.SpectralBooks.matrix_tensorRank_algebraicClosure_le_fractionRing in OAI.LinearAlgebra.SpectralBooks.CircuitRankSpecialization onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ (F : Type u_1) (I : Type u_2) [inst : Field F] (a b c : ℕ),
+  OAI.LinearAlgebra.SpectralBooks.tensorRank (OAI.LinearAlgebra.SpectralBooks.matrixTensor (AlgebraicClosure F) a b c) ≤
+    OAI.LinearAlgebra.SpectralBooks.tensorRank
+      (OAI.LinearAlgebra.SpectralBooks.matrixTensor (FractionRing (MvPolynomial I F)) a b c)
+CENX theorem OAI.LinearAlgebra.MatrixExponent.omega_eq in OAI.LinearAlgebra.MatrixExponent.FieldFormula onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ (F : Type u_1) [inst : Field F], OAI.LinearAlgebra.MatrixExponent.omega F = 9 / 4
+CENX def OAI.LinearAlgebra.MatrixExponent.omega in OAI.LinearAlgebra.MatrixExponent.RationalCircuits onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : (F : Type u_1) → [Field F] → ℝ
+CENX theorem OAI.LinearAlgebra.MatrixExponent.omega_eq_and_rigidity in OAI.LinearAlgebra.MatrixExponent.FieldFormula onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ (F : Type u_1) [inst : Field F],
+  OAI.LinearAlgebra.MatrixExponent.omega F = 9 / 4 ∧ OAI.LinearAlgebra.MatrixExponent.Rectangle.Rigidity F
+CENX theorem OAI.LinearAlgebra.MatrixExponent.Rounds.Levels.stage_of_installations in OAI.LinearAlgebra.MatrixExponent.Rounds.Install onRoute=true axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ {δ : ℝ} {p : OAI.LinearAlgebra.MatrixExponent.Rounds.Design δ} {M : ℕ} {K : Type} [inst : Field K]
+  (v : OAI.LinearAlgebra.MatrixExponent.Rounds.Levels p M) {n c T₀ S : ℕ} {a b ξ : ℝ},
+  0 < a →
+    0 < δ →
+      ↑(p.groupRate + c + 1) * a ≤ b →
+        v.Suits n T₀ a b ξ →
+          (∀ (m : ℕ), v.Costs n m a b (a * δ / 6)) →
+            3 ≤ ↑(Nat.clog 2 n) ^ (a * δ / 6) →
+              (∀ (x y : OAI.LinearAlgebra.MatrixExponent.Wire) (G : OAI.LinearAlgebra.MatrixExponent.Diagram K x y)
+                  (m u : ℕ) (labels : Finset (OAI.LinearAlgebra.MatrixExponent.Table K)),
+                  n ≤ m →
+                    ↑m ≤ ↑n ^ (11 / 10) →
+                      G.cost ≤ m →
+                        G.Admits u ↑labels →
+                          labels.card ≤ S →
+                            ↑u ≤ ↑(Nat.clog 2 n) ^ b →
+                              ↑(OAI.LinearAlgebra.MatrixExponent.wd x + OAI.LinearAlgebra.MatrixExponent.wd y) ≤
+                                  ↑m * ↑(Nat.clog 2 n) ^ (-(2 * a)) →
+                                v.Installed n m c a G.eval) →
+                OAI.LinearAlgebra.MatrixExponent.ArityStep K n S (OAI.LinearAlgebra.MatrixExponent.Shaving.dictionary n)
+                  b δ a ξ
+CENX theorem OAI.LinearAlgebra.SpectralBooks.algebraicClosure_rank_le_twice_productQuotientCount in OAI.LinearAlgebra.SpectralBooks.CircuitRankSpecialization onRoute=false axioms=[propext,
+ Classical.choice,
+ Quot.sound] : ∀ {F : Type u_1} [inst : Field F] {a b c : ℕ}
+  {P : OAI.LinearAlgebra.SpectralBooks.RationalMatrixAlgorithm F a b c},
+  P.Correct →
+    OAI.LinearAlgebra.SpectralBooks.tensorRank
+        (OAI.LinearAlgebra.SpectralBooks.matrixTensor (AlgebraicClosure F) b c a) ≤
+      2 * P.program.productQuotientCount
