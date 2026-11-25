@@ -60,3 +60,35 @@ NOTES ends "I did not see the claimant's Lean statement". Hashes:
 a9535d53f70b9fd92fceb25925d0533d340c7c85fb7a124e5c6d588c52f94a45  blind/A/BlindA.lean
 e22cb9e95e4edf50237d423699445999ab8e22d72d5358873f3b2271c743ad92  blind/A/NOTES.md
 With both sealed (B in A4), both files are committed now, before either is first elaborated.
+
+## A7-c — 2026-11-25 03:06 UTC: a correction
+
+A7's heading says 03:07 UTC; the clock read 03:06:25 UTC when A7 was sealed. From here every heading time in this
+file is written by the shell from `date -u`, never by hand.
+
+## A8 — 2026-11-25 03:19 UTC: corrections, facts found after the pin, and F2's scope (before any bridge attempt)
+
+Corrections (the control room's errors):
+- C-1 PREREG.md G6 says "28 compatibility patches"; lean/patches/ holds 27 patch files and a README. The PIN row found
+  0 of the 27 patched packages in the closure of the three theorems.
+- C-2 prompts/provenance-scout.md identified the paper's reference [41] as the two 2026-09-24 manuscripts. The scout
+  (provenance/SCOUT.md) found [41] is the 2026-10-02 preprint "An Upper Bound of 9/4 for the Matrix Multiplication
+  Exponent" (over ℂ); the two 2026-09-24 papers are [44] and [45].
+- C-3 G5 as sealed is a true sentence about DeepMind's notebook, but the scout reads it as stale: the upper bound
+  ω ≤ 9/4 has seven outside write-ups (none refereed) and four outside Lean developments (three descend from OpenAI's
+  October code; one, qit-lmu/omega, is code-independent and uses a rank-based ω). G5 stays listed, with this reading.
+Facts found after the pin (READ by the scout, each with its source in provenance/SCOUT.md):
+- N1 OpenAI's PR #6 (2026-11-25 00:17:44 UTC), which added this release: "Lean and LaTeX builds were not run for this
+  PR." formalization.yaml: review status "unchecked", method "agent".
+- N2 lean/docs/379.md (not read before the seal): "Lean also proves that allowing division preserves the square
+  exponent. In any circuit for matrix multiplication, the total number of multiplication and division gates is at least
+  half the tensor rank over the algebraic closure of F. The paper's lower bound of ⌈n^{9/4}/2⌉ … at each side length
+  n ≥ 2 remains unformalized." CEN records whether those theorems exist, under which Comparator config, and whether they
+  are on the route.
+- N3 The October Comparator challenge for ω_ℂ ≤ 9/4 (MatrixMultiplication.json, complex_omega_le_nine_quarters) is
+  removed at 92b516ef; its solution file is unchanged. CEN records whether the three theorems use that subtree.
+F2's scope (a flaw in PREREG.md, fixed before any bridge attempt): the writers were asked for a with-division
+proposition, which the challenge does not claim. CERTIFIED's F2 condition covers the propositions in the challenge's
+scope (each writer's SquareExponent, DualExponent, RectangularExponent). Each writer's SquareExponentWithDivision is
+attempted from any theorem of the release (N2 included) and reported proved or not, with the reason, under G2; it does
+not decide the verdict.
