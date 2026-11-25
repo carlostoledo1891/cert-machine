@@ -73,6 +73,16 @@
    "rows": "PIN:passed K0:passed K1:passed K1N:passed EXP:passed K2:passed K3:passed KR:passed CR:passed C1:passed C2:passed C3:passed CEN:passed F1:passed F2:passed F3:passed F4:passed P1:read P2:read U:read X1:open G3a:passed G3b:passed G3c:passed G3d:passed G3-CR:passed",
    "what": "Phase 4, after the verdict and outside it (amendment A13; the verdict is unchanged): the corollaries the release does not state (gap G3), stated by a Claude agent without seeing the release's Lean and sealed before elaboration (A14), are proved from the release's theorems. G3a (the per-n bound counting every multiplication and division gate), G3b (the paper's per-n bound in nonscalar gates, ⌈n^{9/4}/2⌉ at every n ≥ 2), G3c (the asymptotic rank of T_n equals n^{9/4}) and G3d (the geometric border rank of T_n is at least n^{9/4}) passed: Comparator with our statement file as the challenge accepts under Lean's kernel and nanoda, con-leche justifies all four, and a planted copy with one constant changed is refused by both. G3-CR passed: a fresh machine that never ran the release's code accepts the transferred export. Both exported proofs are published as release assets; the two Phase 4 machines are counted in the money.",
    "final": true
+  },
+  {
+   "at": "2026-11-25T11:10Z",
+   "as_of": "2026-11-25T11:10Z",
+   "passed": 22,
+   "running": 0,
+   "verdict": "CERTIFIED",
+   "rows": "PIN:passed K0:passed K1:passed K1N:passed EXP:passed K2:passed K3:passed KR:passed CR:passed C1:passed C2:passed C3:passed CEN:passed F1:passed F2:passed F3:passed F4:passed P1:read P2:read U:read X1:open G3a:passed G3b:passed G3c:passed G3d:passed G3-CR:passed",
+   "what": "The OpenTimestamps seals are upgraded: all seventeen (SEAL-0 and the amendments A1–A14) carry Bitcoin attestations, the earliest block 977462.",
+   "final": true
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "what": "The decision of OpenAI’s claim that the exponent of matrix multiplication is 9/4 over every field (github.com/openai/math at 92b516ef8e2abf66c3db7aa31438d3010bc7956f), row by row, under the pre-registration corpus/omega-nine-fourths/PREREG.md; written by tools/omega-live-records.js --final from the lane’s files, the same records the page /omega/ is built from.",
- "as_of": "2026-11-25T10:42Z",
+ "as_of": "2026-11-25T11:10Z",
  "verdict": "CERTIFIED",
  "verdict_reason": "Declared 2026-11-25 06:05 UTC by the control room under the sealed verdict rule (PREREG.md; amendments A8 and A12 fixed F2's and F4's scope before any verdict). Every row the rule names has the state it requires: K0, K1, K1N, K2, K3, KR and CR passed; C1, C2 and C3 were refused; F2 proves BOTH blind statements' propositions in the challenge's scope (each writer's SquareExponent, DualExponent, RectangularExponent) with Comparator accepting our challenge, Lean's kernel and nanoda, and con-leche --compare justifying them; F3 holds (nine anchors, Comparator and con-leche); every MATERIAL item of F4 is decided (A12). What it says: the formal claim — over every field, the exponent of square matrix multiplication for division-free straight-line programs is 9/4, the dual exponent is 1/2, and the stated rectangular formula holds — is proved in Lean 4.34.1 / Mathlib d13f23b7 from the release at openai/math 92b516ef with only propext, Classical.choice and Quot.sound, checked by three independent kernels (Lean's, nanoda at two versions, con-leche), on a clean second machine, and its statement matches two statements written blind from the textbooks. What it does NOT say (PREREG.md, as sealed): that any human has checked the mathematics; anything beyond the trusted base (the kernels, the three axioms, the Mathlib definitions the statements use); the per-n bound ⌈n^{9/4}/2⌉ in nonscalar gates (proved only counting every multiplication), geometric border rank of T_n, or Corollary 1.3 per format (absent from the release); divisions beyond the square case. The square case with divisions IS proved (MatrixExponent.omega_eq), by Lean's kernel only through the statement reader's challenge and Comparator, and by both bridges. Outside the rule: P1 (two readings of the lower-bound proof: no counterexample; both name the imported list-distinctness bound as the first place to challenge), P2 (read), U (read), X1 (Sun's conflicting construction: NEEDS DATA, twice).",
  "verdict_rule": {
@@ -71,8 +71,8 @@
   "seal": "corpus/omega-nine-fourths/SEAL-0.sha256",
   "seal_sha256": "f499f5df63e62f6bce84bbaaa5f635392f9180d32e0510021d488b19aa25d2ef",
   "stamped_utc": "2026-11-25T02:52:37Z",
-  "ots_state": "pending",
-  "bitcoin_block": null
+  "ots_state": "bitcoin",
+  "bitcoin_block": 977462
  },
  "rows": [
   {
@@ -667,120 +667,120 @@
    "id": "SEAL-0",
    "file": "corpus/omega-nine-fourths/SEAL-0.sha256",
    "sha256": "f499f5df63e62f6bce84bbaaa5f635392f9180d32e0510021d488b19aa25d2ef",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A1",
    "file": "corpus/omega-nine-fourths/SEAL-A1.sha256",
    "sha256": "a33e2f80b137d3f228d33021a8b05f8e74419257abad7fb830e6db56e17715d2",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A1x",
    "file": "corpus/omega-nine-fourths/SEAL-A1x.sha256",
    "sha256": "28c4f33c92c162af6640ed54ac0cb708160156bc13aa74deee43092dbb8cb1b0",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A2",
    "file": "corpus/omega-nine-fourths/SEAL-A2.sha256",
    "sha256": "decfdd9ec04e4af4f1f13a3c744387b120c026d3dea56c54e33397389a08ee30",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A3",
    "file": "corpus/omega-nine-fourths/SEAL-A3.sha256",
    "sha256": "b99e25dace4b753f3af0f09793f355d910ec5d3b33cbbb664042ee0d80cf3149",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A4",
    "file": "corpus/omega-nine-fourths/SEAL-A4.sha256",
    "sha256": "e92f7f751cf2b39df0edeca7b64796f1d34404f0af3a9d38f7d89a09f8a9b7a3",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A5",
    "file": "corpus/omega-nine-fourths/SEAL-A5.sha256",
    "sha256": "c439452f019ff5d87b37233e53cd1ea4884d3dd1e1b7dc37ae0e9f8e571fcd33",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A5c",
    "file": "corpus/omega-nine-fourths/SEAL-A5c.sha256",
    "sha256": "9d6122ac3d5cd09724cff75260b979c91b921d0765b8bf1ad2ad4b27eb23a25a",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A6",
    "file": "corpus/omega-nine-fourths/SEAL-A6.sha256",
    "sha256": "a00a72664d5068e03ea5c1ca653c339dc6d844859adc584ab2aa8c364cb1885b",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A7",
    "file": "corpus/omega-nine-fourths/SEAL-A7.sha256",
    "sha256": "80c07c5ece9e5319942ea16ff42287cfda1fdcf60216963f4785eaaa8be22342",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A8",
    "file": "corpus/omega-nine-fourths/SEAL-A8.sha256",
    "sha256": "d63d8870d516c171e61c3b99a501d8d0676c97b624a591dbe06e8be5555b6a30",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977462
   },
   {
    "id": "SEAL-A9",
    "file": "corpus/omega-nine-fourths/SEAL-A9.sha256",
    "sha256": "f933c90f785e231ae4c274060904963870215a41d4f885c565bd3dd150687a63",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977465
   },
   {
    "id": "SEAL-A10",
    "file": "corpus/omega-nine-fourths/SEAL-A10.sha256",
    "sha256": "06669417e466ae70bad945bd661a3f5249c1ea581cfde8873a9903ea1d982ff9",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977465
   },
   {
    "id": "SEAL-A11",
    "file": "corpus/omega-nine-fourths/SEAL-A11.sha256",
    "sha256": "d922b138431023fee92acf18b30127cec732c210ac0f653ef3469b5ed0bf2812",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977465
   },
   {
    "id": "SEAL-A12",
    "file": "corpus/omega-nine-fourths/SEAL-A12.sha256",
    "sha256": "28164d2699635d8200b406ba485118ecb7d39f7d2a5d76702e9d05679789f9cb",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977472
   },
   {
    "id": "SEAL-A13",
    "file": "corpus/omega-nine-fourths/SEAL-A13.sha256",
    "sha256": "b84a6491d2fa20861225ac6f5f8d52f7fb173df8f17c10cbe43d9c4adbfa238f",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977493
   },
   {
    "id": "SEAL-A14",
    "file": "corpus/omega-nine-fourths/SEAL-A14.sha256",
    "sha256": "4f7d2fa3b31fb2ddc7e0605eb8e6b646cdea0f3bd56dd98515fca0ff8f3bc201",
-   "ots_state": "pending",
-   "bitcoin_block": null
+   "ots_state": "bitcoin",
+   "bitcoin_block": 977493
   }
  ],
  "spent_usd": 8.11,
