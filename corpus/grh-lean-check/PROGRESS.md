@@ -8,3 +8,7 @@
   GRH in textbook form equivalent to the release's definitions) each depend on [propext, Classical.choice, Quot.sound]
   (TextbookAx.out). Only deprecation warnings (push_neg, Set.mem_setOf_eq); Challenge's five sorry theorems are not
   used by any of the eight, as the axiom lists show.
+- 2026-11-25 23:34 — pod tzj3kmtfk6flzc (grh-lean-check-2026-11-25, cpu3m 16 vCPU / 128 GB, disk 160 GB, US$0.88/h,
+  EU-RO-1, created 23:33:13 UTC, amendment A4). First start (audit 8d96a4ff) ended at setup, exit 127: the image has no
+  /usr/bin/time; nothing ran; that /results is kept on the pod as /results-attempt0. Restarted 23:34:49 UTC with the fix
+  (audit 083bbf00), DEADLINE 1795707000 (2026-11-26 15:30 UTC).
