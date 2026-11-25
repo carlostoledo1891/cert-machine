@@ -39,3 +39,9 @@ the ceiling and the sends stand as sealed.
 ## A5-c — 2026-11-25 03:05 UTC: a correction
 
 A5's heading says "~03:06 UTC"; it was written ahead of the clock, which read 03:04:36 UTC when A5 was sealed.
+
+## A6 — 2026-11-25 03:06 UTC: A5 withdrawn
+
+The operator, after A5: "I mean from the post". His instruction concerned the wording of a draft X post, not the page.
+A5 is withdrawn: the page is built as PREREG.md says, gaps first. The neutral wording (no "hostile") is kept on the
+page as well. The control room misread the instruction; this line says so.
