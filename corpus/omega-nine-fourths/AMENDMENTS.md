@@ -92,3 +92,8 @@ proposition, which the challenge does not claim. CERTIFIED's F2 condition covers
 scope (each writer's SquareExponent, DualExponent, RectangularExponent). Each writer's SquareExponentWithDivision is
 attempted from any theorem of the release (N2 included) and reported proved or not, with the reason, under G2; it does
 not decide the verdict.
+
+## A9 — 2026-11-25 03:30 UTC: the bridge author's brief (rows F2, F3), sealed before its agent starts
+
+prompts/bridge-author.md. The bridge author writes proofs before the build exists and compiles them on the Phase 1 pod
+once K0 has passed, without touching the runner's folders. ada1c407a6b150fa5678920d23975354ba523b37ae895446c6d1a19869199c58  prompts/bridge-author.md
