@@ -49,3 +49,4 @@ Phase 4 pod: 30uvwu2xeeknef, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2
 Phase 4 CR pod: cq6kgq4cw61uxt, RunPod cpu3m 16 vCPU / 128 GB, US$0.88/h, created 2026-11-25 10:25:53 UTC (EU-RO-1), for the Phase 4 clean-room replay; it never runs the release's code.
 Phase 4 pod 30uvwu2xeeknef deleted 2026-11-25 10:29 UTC (sol.ndjson.zst 0644a595… on the Mac, decompressing to 7738050c…; every log home).
 Phase 4 CR pod cq6kgq4cw61uxt deleted 2026-11-25 10:37 UTC (its logs home in phase4/prover/pod-logs/cr/).
+Phase 5 pod: 9qk333lxv35g50, RunPod cpu3m 32 vCPU / 256 GB, US$1.76/h, created 2026-11-25 13:32:40 UTC (EU-RO-1), for the Phase 5 prover (A15).

@@ -162,3 +162,36 @@ GatesPerNAll (every multiplication and division), AsymptoticRank (the limit AND 
 NOTES.md ends "I did not see the claimant's Lean statements". Both files are committed now.
 71a4378ddf537461ed70a35916ea7f283072a7a8fd3500a3800b13ad6d9daac3  phase4/writer/PerN.lean
 5e01e83f7f588b58adb0c9999d44fbc92e20f74042385e628ede094a1454e3e9  phase4/writer/NOTES.md
+
+## A15 — 2026-11-25 13:32 UTC: Phase 5, Corollary 1.3 per format and the exponent with divisions (after the verdict; it does not change it)
+
+On the operator's word (dialog, 13:2x UTC: "Go, both parts"): an attempt to close the rest of gaps G2 and G3 ourselves —
+what the paper states and the release does not prove (reader/REPORT.md M6; VERDICT.md "What it does NOT say").
+Rows (outside the sealed verdict rule; the verdict stands whatever they find):
+- G3e  Corollary 1.3, border rank: for all a, b, c >= 1 and every field, the geometric border rank of T_{a,b,c} >= max{ab, bc, ca, (abc)^{3/4}} (Rect.BorderRankRect).
+- G3f  Corollary 1.3, asymptotic rank: the same bound for the asymptotic rank of T_{a,b,c} over every field (Rect.AsymptoticRankRect).
+- G2a  the paper's 1/2 <= alpha_F <= 2/3 in its own circuit model, WITH division gates, over every field (Rect.AlphaBounds).
+- G2b  the stronger alpha_F = 1/2 with division gates (the release states it division-free only; the paper does not claim it) (Rect.DualExponentDiv).
+Procedure as Phase 4 (A13): a statement writer (a Claude agent, prompts/rect-writer.md) states them from the paper and the
+textbooks without seeing the release's Lean (it may copy our own sealed Phase 4 definitions); the file is sealed (A16)
+before it is first elaborated; a prover (a Claude agent, prompts/rect-prover.md) proves them from the release and Phase 4
+on a fresh pod; Comparator with our file as the challenge, Lean's kernel and nanoda, con-leche, a planted control
+refused; then a clean-room replay (P5-CR) on a second fresh pod that never runs the release's code. Words per row: PROVED
+(all three checkers), NOT PROVED (with the reason). Pod spend counts toward the US$50 ceiling (US$8.11 spent so far).
+The operator's other answers of the same dialog: X1 stays NEEDS DATA, no contact with Sun; the Phase 4 post waits for
+Phase 5.
+5ac776c7a0800f69c6e40a6137729297a81a56179cc02f02ec57eddd9cccb24b  prompts/rect-writer.md
+cd66352d7fd2ac20fa6febef1d28a3a16469fefe78f62b8e0c1d950f52cf062d  prompts/rect-prover.md
+
+## A16 — 2026-11-25 13:40 UTC: the Phase 5 statements sealed before they are first elaborated
+
+The Phase 5 writer (a Claude agent, 13:32–13:40 UTC; it read only its brief, our sealed Phase 4 statements
+phase4/writer/PerN.lean and NOTES.md, intro.tex, consequences.tex, obstruction.tex and Mathlib's source) wrote
+phase5/writer/Rect.lean with four propositions in namespace Rect: BorderRankRect (over the algebraic closure, a, b, c >= 1),
+AsymptoticRankRect (the limit AND the infimum over k >= 1), AlphaBounds and DualExponentDiv (alpha_F in the paper's circuit
+model with division gates: cost = the number of +, −, ×, ÷ gates; exponent = sInf of the s with cost O(n^s), one circuit
+per n; the inner dimension floor(n^beta) kept exactly; "exponent two" = sInf equal to 2). Phase 4's definitions are copied
+with the same Lean bodies; the matrix-multiplication tensor and the circuit variables are generalised to a×b by b×c.
+NOTES.md lists every choice a reader could dispute and ends "I did not see the claimant's Lean statements".
+953402670d04aaeac26f97e8034debb8401250de62bcb0baa511931d85e8577a  phase5/writer/Rect.lean
+5113b0f5af78199e9118d18e0b8113806653ce9c250c382a06e93c4b75b479a8  phase5/writer/NOTES.md
