@@ -517,13 +517,22 @@ function build(clock) {
   const cake = /The CakeML job started by hand \(workflow_dispatch, run \d+, (\d\d:\d\d) UTC; ~(\d+) h expected\)/.exec(WN);
   if (ciG) { tAt(ciG[1], 'CI green'); need(ciG[2] === ci[1].slice(0, 5), 'the CI run the work log calls green is not the one it says started'); }
   if (cake) tAt(cake[1], 'the CakeML job');
+  /* the CakeML job's result and the HOL4 pull request, once the work log records them */
+  const cakeG = /- (\d\d:\d\d) \*\*CakeML job GREEN on CI\*\* \(workflow_dispatch run (\d+): replay [\d:–]+, cakeml (\d\d:\d\d):\d\d–(\d\d:\d\d):\d\d UTC, (\d+) min on GitHub's runner: the toolchain built from nothing, the binary decides the (\d+) inputs\)/.exec(WN);
+  if (cakeG) { tAt(cakeG[1], 'CakeML green'); need(cake && /The CakeML job started by hand \(workflow_dispatch, run (\d+),/.exec(WN)[1] === cakeG[2], 'the CakeML job the work log calls green is not the one it says started'); }
+  const prO = /- (\d\d:\d\d) HOL4 PULL REQUEST opened on the operator's word .*? opened as a DRAFT .*?: (https:\/\/github\.com\/HOL-Theorem-Prover\/HOL\/pull\/(\d+))/.exec(WN);
+  const prR = prO && /- (\d\d:\d\d) HOL4 PULL REQUEST #(\d+) marked READY for review/.exec(WN);
+  if (prO) tAt(prO[1], 'the HOL4 pull request');
+  if (prR) { tAt(prR[1], 'the pull request ready'); need(prR[2] === prO[3], 'the pull request marked ready is not the one opened'); }
   const RM = norm(txt('assembly/repo/delta3-hol4/README.md'));
   for (const n of ['**The three soundness theorems.** If `slab_check` accepts, the slab polynomial L_θ is at least the claimed bound on the whole region.', 'A GitHub Actions workflow (`.github/workflows/replay.yml`) runs it on every push.',
     '**The model constants are data.**', '**The analytic reduction is not in HOL4.**', '**Each certificate lives on its own grid**']) has(RM, norm(n), 'the repository’s README');
   const proved = { theorems: sound.map((s) => s.name), lemmas_read_back: holdsOk, ancestry: anc, axioms: axl[0][2].split(','), checks_T: checks.length, bounds,
     forgeries: { total: +fg[1], certs: +fg[2], covers: +fg[3], kernel: +fg[5], loader: +fg[8] }, replay: { files: +rp[1], s: Number(rp[4]), peak_gb: Number(rp[5]), verdicts: +rp[6] },
     layer1_at: l1[1], slab_sound_at: sb[1], cleanroom_at: cr[1], repo: { url: 'https://github.com/carlostoledo1891/delta3-hol4', public_at: hm(repoAt), ci_started: ci[1].slice(0, 5),
-      ci_green: ciG ? { at: ciG[1], from: ciG[2], to: ciG[3], took: ciG[4] + ' min ' + ciG[5] + ' s', theorem_files: Number(ciG[6]) } : null, cakeml_started: cake ? { at: cake[1], expected_h: Number(cake[2]) } : null } };
+      ci_green: ciG ? { at: ciG[1], from: ciG[2], to: ciG[3], took: ciG[4] + ' min ' + ciG[5] + ' s', theorem_files: Number(ciG[6]) } : null, cakeml_started: cake ? { at: cake[1], expected_h: Number(cake[2]) } : null,
+      cakeml_green: cakeG ? { at: cakeG[1], run: cakeG[2], from: cakeG[3], to: cakeG[4], min: Number(cakeG[5]), inputs: Number(cakeG[6]) } : null,
+      pr: prO ? { url: prO[2], number: Number(prO[3]), opened_at: prO[1], ready_at: prR ? prR[1] : null } : null } };
 
   /* ------------------------------------------------------------ how each lemma on the chain was made (assembly/SOURCES.tsv) */
   const ST = txt('assembly/SOURCES.tsv').split('\n').filter((l) => l.trim() && !l.startsWith('#'));
@@ -571,13 +580,17 @@ function build(clock) {
     { at: iso(tAt(cr[1], 'clean room')), title: 'Two lemmas proved again, clean', text: 'A fresh agent that never saw their earlier proofs proves the two lemmas whose only accepted proofs were contaminated.' },
     { at: iso(repoAt), title: 'The repository is public', text: 'Its replay runs on every push.' }];
   if (ciG) after.push({ at: iso(tAt(ciG[1], 'CI green')), title: 'The replay passes on CI', text: 'On GitHub’s own runner, Poly/ML and HOL4 built from scratch, everything replayed in ' + ciG[4] + ' min ' + ciG[5] + ' s; the read-back is exact.' + (cake ? ' The CakeML job is started by hand.' : '') });
+  if (prO) after.push({ at: iso(tAt(prO[1], 'the HOL4 pull request')), title: 'The dominance lemma offered to HOL4', text: 'Pull request #' + prO[3] + ' is opened as a draft, so that HOL4’s build runs on it first.' });
+  if (cakeG) after.push({ at: iso(tAt(cakeG[1], 'CakeML green')), title: 'The CakeML job passes on CI', text: 'On GitHub’s own runner, from nothing: CakeML’s basis, the translation, the compile and the ' + cakeG[6] + ' binary runs, in ' + cakeG[5] + ' min (' + cakeG[3] + '–' + cakeG[4] + ' UTC).' });
+  if (prR) after.push({ at: iso(tAt(prR[1], 'the pull request ready')), title: 'The pull request is ready for review', text: 'Its build passed in the fork; pull request #' + prR[2] + ' is marked ready for HOL4’s maintainers.' });
   events.push(...after);
   events.sort((a, b) => Date.parse(a.at) - Date.parse(b.at));
 
   /* ------------------------------------------------------------ what happens next, each read from its source */
   const WF = txt('assembly/repo/delta3-hol4/.github/workflows/replay.yml');
   need(/^# The CakeML job \(replay\.sh --cakeml\) is run by hand or weekly:/m.test(WF) && /has not been run on one\.$/m.test(WF) && /^ {2}cakeml:$/m.test(WF) && /if: github\.event_name == 'workflow_dispatch' \|\| github\.event_name == 'schedule'/.test(WF), 'the workflow no longer says its CakeML job runs by hand or weekly and has not run on a standard runner');
-  has(RM, 'In this repository\'s layout it has not been run yet; in CI it runs by hand or weekly.', 'the repository’s README');
+  if (cakeG) has(RM, norm('CakeML job green on CI (' + cakeG[5] + ' min): run [' + cakeG[2] + ']'), 'the repository’s README');
+  else has(RM, 'In this repository\'s layout it has not been run yet; in CI it runs by hand or weekly.', 'the repository’s README');
   const binW = work.binary;
   const LR = ntxt('astra-lean-slab/REPORT.md'), LRN = norm(LR), LP = norm(ntxt('control-room-replay-lean/REPLAY-NOTE.md'));
   const leanT = /^L1: PASS ([\d.]+) s, ([\d.]+) GB$/m.exec(LR) || die('the Lean trial’s report no longer opens with its result');
@@ -591,10 +604,12 @@ function build(clock) {
   has(UP, 'Nothing has been sent anywhere; the pull request is the operator\'s to open.', 'upstream/README.md');
   has(UP, 'The pull request package (title, body, commit message, release-notes patch, steps) is in `pr/`; the operator opens it.', 'upstream/README.md');
   const next = [
-    { title: 'The CakeML job on CI', short: 'CakeML on CI', state: cake ? 'started ' + cake[1] + ' UTC, running' : 'set up, not yet run', text: 'The repository’s replay runs on every push. Its second job, which also builds CakeML’s basis, translates and compiles the checker and runs the binary on all ' + binW.of + ' inputs, runs by hand or weekly. '
-      + (cake ? 'It was started by hand at ' + cake[1] + ' UTC and is expected to take about ' + cake[2] + ' h; until it ends, it has not run on a standard CI runner nor in the repository’s own layout.' : 'It has not yet run on a standard CI runner, nor in the repository’s own layout.') },
+    ...(cakeG ? [] : [{ title: 'The CakeML job on CI', short: 'CakeML on CI', state: cake ? 'started ' + cake[1] + ' UTC, running' : 'set up, not yet run', text: 'The repository’s replay runs on every push. Its second job, which also builds CakeML’s basis, translates and compiles the checker and runs the binary on all ' + binW.of + ' inputs, runs by hand or weekly. '
+      + (cake ? 'It was started by hand at ' + cake[1] + ' UTC and is expected to take about ' + cake[2] + ' h; until it ends, it has not run on a standard CI runner nor in the repository’s own layout.' : 'It has not yet run on a standard CI runner, nor in the repository’s own layout.') }]),
     { title: 'A bridge to Lean, as a plan', short: 'Lean bridge', state: 'a plan; one trial so far', text: 'The plan: decide the certificates in Lean’s own kernel as well, read the data back and refuse the forgeries there, and set the result beside the Lean formalisation of the full statement by Snively. So far one slab has been decided in Lean’s kernel, as a trial before the run, in ' + Math.round(Number(leanT[1])) + ' s (HOL4: ' + slabC.check_s.toFixed(2) + ' s); the other four have no Lean verdict.' },
-    { title: 'The dominance lemma, offered to HOL4', short: 'HOL4 pull request', state: 'prepared, not opened', text: 'The lemma that weighted diagonal dominance gives positive (semi)definiteness is prepared as a pull request to the HOL4 repository. Opening it is Carlos Toledo’s step; nothing has been sent.' }];
+    prO ? { title: 'The dominance lemma, offered to HOL4', short: 'HOL4 pull request', state: prR ? 'ready for review' : 'open as a draft', text: 'The lemma that weighted diagonal dominance gives positive (semi)definiteness is offered to the HOL4 repository as pull request #' + prO[3] + ' (' + prO[2] + '). '
+        + (prR ? 'Its build passed in the fork and it is marked ready for review; whether it is merged is the HOL4 maintainers’ decision.' : 'It is open as a draft while HOL4’s build runs on it; it is marked ready for review only if that build is green.') }
+      : { title: 'The dominance lemma, offered to HOL4', short: 'HOL4 pull request', state: 'prepared, not opened', text: 'The lemma that weighted diagonal dominance gives positive (semi)definiteness is prepared as a pull request to the HOL4 repository. Opening it is Carlos Toledo’s step; nothing has been sent.' }];
 
   /* ------------------------------------------------------------ what went wrong, continued: the protocol's sentence, the audits, the readers */
   gaps.push(
@@ -617,7 +632,7 @@ function build(clock) {
   /* ------------------------------------------------------------ the clock */
   for (const [label, ms] of times) need(ms <= clock, 'a state is ahead of the clock: ' + label + ' says ' + new Date(ms).toISOString() + ', the clock reads ' + new Date(clock).toISOString());
   const sig = (run_open ? 'open' : 'ended') + ' ' + families.map((f) => f.id + ':' + f.batches.map((b) => b.state[0]).join('')).join(' ') + ' gaps:' + gaps.length + ' events:' + events.length
-    + ' scored:1 layer1:1 lemmas:' + lemmas.length + ' next:' + next.length + ' ci:' + (ciG ? 1 : 0) + ' cake:' + (cake ? 1 : 0);
+    + ' scored:1 layer1:1 lemmas:' + lemmas.length + ' next:' + next.length + ' ci:' + (ciG ? 1 : 0) + ' cake:' + (cakeG ? 2 : cake ? 1 : 0) + ' pr:' + (prR ? 2 : prO ? 1 : 0);
   const out = {
     what: 'The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ and its notes (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run was open; after scoring, the scorer’s totals, the audits’ set sizes, the Layer-1 read-back and the chain’s sources.',
     as_of: new Date(asOf).toISOString().slice(0, 16) + 'Z', sig, run_open,
@@ -672,6 +687,9 @@ if (last && last.sig !== S.sig) {
   }
   if (last.run_open && !S.run_open) says.push('The run has ended.');
   if (S.proved && S.proved.repo.ci_green && !/ ci:1\b/.test(last.sig) && / scored:1\b/.test(last.sig)) says.push('The repository’s replay passed on CI (' + S.proved.repo.ci_green.from + '–' + S.proved.repo.ci_green.to + ' UTC)' + (S.proved.repo.cakeml_started ? ', and its CakeML job was started by hand at ' + S.proved.repo.cakeml_started.at + ' UTC' : '') + '.');
+  if (S.proved && S.proved.repo.pr && !/ pr:[12]\b/.test(last.sig)) says.push('The dominance lemma is offered to HOL4 as pull request #' + S.proved.repo.pr.number + ', open as a draft while HOL4’s build runs on it.');
+  if (S.proved && S.proved.repo.cakeml_green && !/ cake:2\b/.test(last.sig)) says.push('The repository’s CakeML job passed on CI in ' + S.proved.repo.cakeml_green.min + ' min (' + S.proved.repo.cakeml_green.from + '–' + S.proved.repo.cakeml_green.to + ' UTC).');
+  if (S.proved && S.proved.repo.pr && S.proved.repo.pr.ready_at && !/ pr:2\b/.test(last.sig)) says.push('Pull request #' + S.proved.repo.pr.number + ' is marked ready for review.');
   if (!/ scored:1\b/.test(last.sig) && S.scored) says.push('The run is scored, Layer 1 holds and the repository is public. The page now says, in this order: what is proved; the run’s results per family and class, with exact intervals; what went wrong and what was done, now with the two blinding audits and the readers’ ruling; how each of the ' + S.lemmas.length + ' lemmas on the chain was made; and what is next.');
   const gw = /gaps:(\d+) events:(\d+)/.exec(last.sig) || [, 0, 0];
   if (S.gaps.length !== Number(gw[1])) says.push('The list of what went wrong now has ' + S.gaps.length + ' items.');

@@ -1,7 +1,7 @@
 {
  "what": "The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ and its notes (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run was open; after scoring, the scorer’s totals, the audits’ set sizes, the Layer-1 read-back and the chain’s sources.",
- "as_of": "2026-11-25T19:38Z",
- "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:7 events:22 scored:1 layer1:1 lemmas:42 next:3 ci:1 cake:1",
+ "as_of": "2026-11-25T21:39Z",
+ "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:7 events:24 scored:1 layer1:1 lemmas:42 next:2 ci:1 cake:2 pr:1",
  "run_open": false,
  "run": {
   "start_utc": "2026-11-25T11:02:30Z",
@@ -814,6 +814,16 @@
    "at": "2026-11-25T19:37:00Z",
    "title": "The replay passes on CI",
    "text": "On GitHub’s own runner, Poly/ML and HOL4 built from scratch, everything replayed in 27 min 39 s; the read-back is exact. The CakeML job is started by hand."
+  },
+  {
+   "at": "2026-11-25T20:40:00Z",
+   "title": "The dominance lemma offered to HOL4",
+   "text": "Pull request #2228 is opened as a draft, so that HOL4’s build runs on it first."
+  },
+  {
+   "at": "2026-11-25T21:24:00Z",
+   "title": "The CakeML job passes on CI",
+   "text": "On GitHub’s own runner, from nothing: CakeML’s basis, the translation, the compile and the 52 binary runs, in 82 min (20:00–21:22 UTC)."
   }
  ],
  "work": {
@@ -1449,6 +1459,20 @@
    "cakeml_started": {
     "at": "19:37",
     "expected_h": 3
+   },
+   "cakeml_green": {
+    "at": "21:24",
+    "run": "45687039594",
+    "from": "20:00",
+    "to": "21:22",
+    "min": 82,
+    "inputs": 52
+   },
+   "pr": {
+    "url": "https://github.com/HOL-Theorem-Prover/HOL/pull/2228",
+    "number": 2228,
+    "opened_at": "20:40",
+    "ready_at": null
    }
   }
  },
@@ -1933,12 +1957,6 @@
  ],
  "next": [
   {
-   "title": "The CakeML job on CI",
-   "short": "CakeML on CI",
-   "state": "started 19:37 UTC, running",
-   "text": "The repository’s replay runs on every push. Its second job, which also builds CakeML’s basis, translates and compiles the checker and runs the binary on all 52 inputs, runs by hand or weekly. It was started by hand at 19:37 UTC and is expected to take about 3 h; until it ends, it has not run on a standard CI runner nor in the repository’s own layout."
-  },
-  {
    "title": "A bridge to Lean, as a plan",
    "short": "Lean bridge",
    "state": "a plan; one trial so far",
@@ -1947,8 +1965,8 @@
   {
    "title": "The dominance lemma, offered to HOL4",
    "short": "HOL4 pull request",
-   "state": "prepared, not opened",
-   "text": "The lemma that weighted diagonal dominance gives positive (semi)definiteness is prepared as a pull request to the HOL4 repository. Opening it is Carlos Toledo’s step; nothing has been sent."
+   "state": "open as a draft",
+   "text": "The lemma that weighted diagonal dominance gives positive (semi)definiteness is offered to the HOL4 repository as pull request #2228 (https://github.com/HOL-Theorem-Prover/HOL/pull/2228). It is open as a draft while HOL4’s build runs on it; it is marked ready for review only if that build is green."
   }
  ],
  "sources": [
@@ -1990,7 +2008,7 @@
   },
   {
    "file": "hol4/delta3/WORKLOG.md",
-   "sha256_12": "536feceafd58"
+   "sha256_12": "cfe826af04e0"
   },
   {
    "file": "hol4/delta3/README.md",
@@ -2030,7 +2048,7 @@
   },
   {
    "file": "hol4/delta3/assembly/repo/delta3-hol4/README.md",
-   "sha256_12": "7edf188e9b3c"
+   "sha256_12": "545f3011a770"
   },
   {
    "file": "hol4/delta3/assembly/repo/delta3-hol4/.github/workflows/replay.yml",
