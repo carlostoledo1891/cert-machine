@@ -27,3 +27,11 @@ can read the other's); their hashes are public now:
 c8723bbd5023915b32bfd6357e2ca4b3d4c5d5efd1a3aed1afc30a44b6f82007  blind/B/work/BlindB.lean
 9ecb5d112131a1568ba33045a168c60066d16b8a6f05910483525cb7df6f199d  blind/B/work/NOTES.md
 7886cd08fe80bbb0302b5fa52ac67d5a3b78c4c463d3dee673611054b6167101  blind/B/REPORT.md
+
+## A5 — 2026-11-25 ~03:06 UTC: the page's order (the operator's word)
+
+The operator: "Remove the hostile and gaps first. This is a consequence." PREREG.md's "The page is built only from
+records, gaps first" is replaced by: the page is built only from records; it leads with the claim and the
+verification (every row and its state); the gaps G1–G7 appear as a consequence, each with the row that measures it,
+worded as in PREREG.md. Public texts do not use the word "hostile". Nothing else changes: the rows, the verdict rule,
+the ceiling and the sends stand as sealed.
