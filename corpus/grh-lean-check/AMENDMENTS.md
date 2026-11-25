@@ -17,3 +17,13 @@ is byte-identical at 72fead10). A file that no longer elaborates at the new Math
 never silently. D1 stays as registered (from this lane's own build); the community already has a constant-graph tool
 for its alpoge branch (leanprover-community/riemann-hypothesis issue #1304, opened 2026-11-24, and many
 "remove unreachable modules" PRs), so no census of that branch is added here.
+
+## A3 (2026-11-25 23:25 UTC, before any run) — the runner, the controls' form, the order under the ceiling
+
+The control room adopts the proposals P1–P6 of PROPOSED-AMENDMENTS.md (written by the agent that prepared
+tools/runpod-grh-lean.sh, tools/check-grh-lean.py and instruments/grh-lean/, none of it run) as written there, with
+this order under A1's US$15 ceiling: setup, DERISK, I1, CHB, B1, A1, EXP, K1, K2, the controls (C1, C2 naming the
+planted theorem only; C3 through K2 and S1's check), S1, KR beside the Comparator chain, D1 on the readable edition;
+then B2 and E1; S2 last and dropped first. DEADLINE is set from the ceiling and the balance read before the pod is
+created. P1's disclosure stands: at the host's Landlock ABI, what landrun enforces is recorded, and Comparator's
+systemd AF_UNIX guard cannot run in a container; S1's row says both.
