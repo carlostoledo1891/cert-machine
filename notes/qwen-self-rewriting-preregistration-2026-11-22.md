@@ -158,3 +158,11 @@ The operator paused this audit to keep two other lanes moving. The run stopped a
   log prints; the control room saw the last lines of two logs. No results file has been opened by the control room.
 - **To resume,** on the operator's word: the two control steps and the recorder, in that order, with no step repeated.
 
+
+## Resume note (2026-11-26 20:31 UTC)
+
+The operator's word: "can we go with qwen lane now? We use claude + pods in. a small effort." Resumed at the step
+boundary: the paused state's pins checked first (results 792664c2…, 1f9d3438…, unchanged), then the two control steps
+and the recorder, in that order, no step repeated. Jiajun Fan's e-mail of 26 Nov (notes/qwen-self-rewriting-2026-11-22/
+reply-from-fan-2026-11-26.md) answers the five questions; it changes no Stage 1 row (all rows read the public weights
+and the paper's own sentences). A GPU stage, if any, is registered separately before it runs, with a quote.

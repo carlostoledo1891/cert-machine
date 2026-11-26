@@ -1,0 +1,68 @@
+{
+ "meta": {
+  "decider": "tools/qwen-stage1.js",
+  "node": "v24.14.1",
+  "claims_sha256": "91495c589a33bff1f0fe45e26f25c01468def3f7727c7dc00b8e021c81ab151a",
+  "pins_sha256": "85d93628d6b7bc567a0909b4524f424f69f18341f714c6457c4d52b06d70cddc",
+  "code_sha256": "836f3a031e6da64e5787a8d016a57d8e9a9219bf9c83231394dd1d70b372ddda",
+  "written_utc": "2026-11-26T20:32:58Z"
+ },
+ "K1": {
+  "first_byte": 2245914424,
+  "last_byte": 2246192951,
+  "late_bytes": 2,
+  "recorded_sha256": "042e97c92a6f06b316b8a02170e27eaadc34ccc4f8591830cab95fa952057fea",
+  "on_time_sha256": "042e97c92a6f06b316b8a02170e27eaadc34ccc4f8591830cab95fa952057fea",
+  "late_sha256": "2bcd0971e023f7a3836db524000c1121187371db4c61b1c0a70b9603ef472e14",
+  "on_time_equals_recorded": true,
+  "late_differs_from_recorded": true,
+  "caught": true
+ },
+ "K2": {
+  "deleted": "model.language_model.layers.30.linear_attn.dt_bias",
+  "E1": "REFUTED",
+  "count": 47,
+  "layers_with_none": [
+   30
+  ],
+  "specification_written": false,
+  "caught": true
+ },
+ "K3": {
+  "constant": "0.25",
+  "base_bytes_equal_the_recorded": true,
+  "entries_rejected_by_the_check": {
+   "a": 2304,
+   "b": 2304,
+   "c": 2304
+  },
+  "specification_sha256_with_the_wrong_constant": "4a109b315ac1a39dc4ca01d04a98b2c57adbc164e945d8232a7f90e82d5c9d31",
+  "specification_sha256": "2e2c3f761426c086fd2b669d5389031e5eac1700b2b384204fec8b50310c9c13",
+  "rebuilt_with_the_right_constant_equals_recorded": true,
+  "caught": true
+ },
+ "K4": {
+  "tensor": "model.language_model.layers.30.mlp.down_proj.weight",
+  "header_of": "model.safetensors-00007-of-00011.safetensors",
+  "dtype_to": "F32",
+  "S3": "REFUTED",
+  "S3_lists_the_tensor": true,
+  "length_check_failures": [
+   "model.language_model.layers.30.mlp.down_proj.weight"
+  ],
+  "length_check_failures_without_the_change": [],
+  "caught": true
+ },
+ "K5": {
+  "tensor": "model.language_model.layers.30.mlp.down_proj.weight",
+  "byte": 123456,
+  "bit": 0,
+  "reread_equals_recorded": true,
+  "sha256": "3d02b2d144b6994f1fa6c21533f579360dfd6873221798e7b8d0d57467e4c1c1",
+  "sha256_after_the_flip": "4acd16821153d3e5d0702d92d0430235acd6df5ba469a2ea69966e0c08893d01",
+  "census_sha256": "f7f22b06c3b580d184c95fc6b6536e0be573b59950721d249307db527a2bd661",
+  "census_sha256_after_the_flip": "751cff10be51bfe3cc4c70e171bf71002eff298966373ac7a80638e373f19963",
+  "caught": true
+ },
+ "bytes_read": 178819584
+}
