@@ -523,7 +523,11 @@ function build(clock) {
   const prO = /- (\d\d:\d\d) HOL4 PULL REQUEST opened on the operator's word .*? opened as a DRAFT .*?: (https:\/\/github\.com\/HOL-Theorem-Prover\/HOL\/pull\/(\d+))/.exec(WN);
   const prR = prO && /- (\d\d:\d\d) HOL4 PULL REQUEST #(\d+) marked READY for review/.exec(WN);
   if (prO) tAt(prO[1], 'the HOL4 pull request');
-  if (prR) { tAt(prR[1], 'the pull request ready'); need(prR[2] === prO[3], 'the pull request marked ready is not the one opened'); }
+  /* the work log's times are of the run's day; a line written after midnight UTC (the ready mark, 00:43 on 26 Nov) is
+     read as the next day, and it must still say so in its own words */
+  const nextDay = (hm, label) => { need(/\(26 Nov;/.test(WN) || label !== 'ready', 'a next-day line without its date'); return at(label, Date.parse(DAY + 'T' + hm + ':00Z') + 86400000); };
+  const prRAt = prR ? nextDay(prR[1], 'ready') : null;
+  if (prR) { need(prRAt > tAt(prO[1], 'the HOL4 pull request'), 'the pull request is marked ready before it was opened'); need(prR[2] === prO[3], 'the pull request marked ready is not the one opened'); }
   const RM = norm(txt('assembly/repo/delta3-hol4/README.md'));
   for (const n of ['**The three soundness theorems.** If `slab_check` accepts, the slab polynomial L_θ is at least the claimed bound on the whole region.', 'A GitHub Actions workflow (`.github/workflows/replay.yml`) runs it on every push.',
     '**The model constants are data.**', '**The analytic reduction is not in HOL4.**', '**Each certificate lives on its own grid**']) has(RM, norm(n), 'the repository’s README');
@@ -582,7 +586,7 @@ function build(clock) {
   if (ciG) after.push({ at: iso(tAt(ciG[1], 'CI green')), title: 'The replay passes on CI', text: 'On GitHub’s own runner, Poly/ML and HOL4 built from scratch, everything replayed in ' + ciG[4] + ' min ' + ciG[5] + ' s; the read-back is exact.' + (cake ? ' The CakeML job is started by hand.' : '') });
   if (prO) after.push({ at: iso(tAt(prO[1], 'the HOL4 pull request')), title: 'The dominance lemma offered to HOL4', text: 'Pull request #' + prO[3] + ' is opened as a draft, so that HOL4’s build runs on it first.' });
   if (cakeG) after.push({ at: iso(tAt(cakeG[1], 'CakeML green')), title: 'The CakeML job passes on CI', text: 'On GitHub’s own runner, from nothing: CakeML’s basis, the translation, the compile and the ' + cakeG[6] + ' binary runs, in ' + cakeG[5] + ' min (' + cakeG[3] + '–' + cakeG[4] + ' UTC).' });
-  if (prR) after.push({ at: iso(tAt(prR[1], 'the pull request ready')), title: 'The pull request is ready for review', text: 'Its build passed in the fork; pull request #' + prR[2] + ' is marked ready for HOL4’s maintainers.' });
+  if (prR) after.push({ at: iso(prRAt), title: 'The pull request is ready for review', text: 'Its build passed in the fork; pull request #' + prR[2] + ' is marked ready for HOL4’s maintainers.' });
   events.push(...after);
   events.sort((a, b) => Date.parse(a.at) - Date.parse(b.at));
 

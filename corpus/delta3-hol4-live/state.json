@@ -1,7 +1,7 @@
 {
  "what": "The state of the δ₃-in-HOL4 work and its blind benchmark as the live page /delta3-hol4/ shows it, written by tools/delta3-hol4-live-records.js from the run’s private files in hol4/delta3/ and its notes (read-only, not published): aggregates and dated facts only; no statement’s outcome while the run was open; after scoring, the scorer’s totals, the audits’ set sizes, the Layer-1 read-back and the chain’s sources.",
- "as_of": "2026-11-25T21:39Z",
- "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:7 events:24 scored:1 layer1:1 lemmas:42 next:2 ci:1 cake:2 pr:1",
+ "as_of": "2026-11-26T00:43Z",
+ "sig": "ended claude:ddddddddd gpt:ddddddddd gaps:7 events:25 scored:1 layer1:1 lemmas:42 next:2 ci:1 cake:2 pr:2",
  "run_open": false,
  "run": {
   "start_utc": "2026-11-25T11:02:30Z",
@@ -824,6 +824,11 @@
    "at": "2026-11-25T21:24:00Z",
    "title": "The CakeML job passes on CI",
    "text": "On GitHub’s own runner, from nothing: CakeML’s basis, the translation, the compile and the 52 binary runs, in 82 min (20:00–21:22 UTC)."
+  },
+  {
+   "at": "2026-11-26T00:43:00Z",
+   "title": "The pull request is ready for review",
+   "text": "Its build passed in the fork; pull request #2228 is marked ready for HOL4’s maintainers."
   }
  ],
  "work": {
@@ -1472,7 +1477,7 @@
     "url": "https://github.com/HOL-Theorem-Prover/HOL/pull/2228",
     "number": 2228,
     "opened_at": "20:40",
-    "ready_at": null
+    "ready_at": "00:43"
    }
   }
  },
@@ -1965,8 +1970,8 @@
   {
    "title": "The dominance lemma, offered to HOL4",
    "short": "HOL4 pull request",
-   "state": "open as a draft",
-   "text": "The lemma that weighted diagonal dominance gives positive (semi)definiteness is offered to the HOL4 repository as pull request #2228 (https://github.com/HOL-Theorem-Prover/HOL/pull/2228). It is open as a draft while HOL4’s build runs on it; it is marked ready for review only if that build is green."
+   "state": "ready for review",
+   "text": "The lemma that weighted diagonal dominance gives positive (semi)definiteness is offered to the HOL4 repository as pull request #2228 (https://github.com/HOL-Theorem-Prover/HOL/pull/2228). Its build passed in the fork and it is marked ready for review; whether it is merged is the HOL4 maintainers’ decision."
   }
  ],
  "sources": [
@@ -2008,7 +2013,7 @@
   },
   {
    "file": "hol4/delta3/WORKLOG.md",
-   "sha256_12": "cfe826af04e0"
+   "sha256_12": "ae60fe6f419e"
   },
   {
    "file": "hol4/delta3/README.md",
