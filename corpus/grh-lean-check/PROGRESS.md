@@ -18,3 +18,19 @@
   A1 (readable): each of the five theorems depends on axioms [propext, Classical.choice, Quot.sound].
 - 2026-11-26 00:08 — EXP running (since 00:05:56); KR (leanchecker --fresh Main) started beside it in a second
   invocation (amendment A3, P6).
+- 2026-11-26 00:09 — EXP exit 0 after 201 s (the lean4export export of the closure of the five).
+- 2026-11-26 00:11 — K1 (nanoda) exit 0 after 137 s: "Checked 222117 declarations with no typechecker errors, 1
+  pretty printer errors: [ "Unable to print axioms" ]" — a printing error, not a type error; the recorder's
+  nanoda_accepts decides the row.
+- 2026-11-26 00:14 — K2 (con-leche): --verified "accepted 216567 declarations"; --compare against cert-machine's
+  challenge: "accepted 52169 declarations, 5 axioms justified by the solution", each of the five theorems "justified by
+  the solution".
+- 2026-11-26 00:19 — the planted controls, each refused by every check it went through: C3 (1/2 → 1/3 in the
+  challenge) by con-leche ("axiom LFunction_eq_zero_re is not justified by the solution: its type reads
+  DirichletLZerosOnLine, which the solution does not declare alike"); C1 (an added axiom) by con-leche, as "not
+  implemented yet: non-standard axiom (CertMachine.plantedAxiomC1)" — a refusal by unsupported feature, exit 2, said as
+  such — and by Comparator ("Illegal axiom detected: 'CertMachine.plantedAxiomC1'"); C2 (one proof replaced by sorry)
+  by con-leche ("use of the sorryAx axiom in value of LFunction_ne_zero_of_half_lt_re", exit 2) and by Comparator
+  ("Illegal axiom detected: 'sorryAx'"). Landlock on this host is ABI v4: landrun warns that device ioctl, pathname
+  UNIX socket connections and UDP restrictions are not enforced (P1's disclosure).
+- 2026-11-26 00:19 — S1 (Comparator v4.35.0 against cert-machine's challenge) running; KR running since 00:08.
