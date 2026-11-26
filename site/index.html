@@ -848,10 +848,27 @@ a.hm-more{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing
 /* the first screen */
 /* two columns, two rows: the headline block is centred in the room above the three words, the three words end where
    the figure's card ends, and the figure takes both rows, so the page is no taller for them */
-.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr auto;gap:var(--s-6) var(--s-7);padding-top:var(--s-5)}
+.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr auto auto;gap:var(--s-6) var(--s-7);padding-top:var(--s-5)}
 .hm-hero-t{grid-column:1;grid-row:1;align-self:center}
 .hm-scope{grid-column:2;grid-row:1 / span 2}
 .hm-w3{grid-column:1;grid-row:2;align-self:end}
+/* AI forecasts: a third row under the hero, every line on the page's one left edge (the ruler counts left edges, and a
+   framed box with padding added three); set apart by its double rules above and below and its italic, never a decided
+   number's frame or type */
+.hm-fc{grid-column:1 / span 2;grid-row:3;position:relative;display:grid;gap:var(--s-2);padding:var(--s-4) 0;
+  border-top:3px double var(--rule-strong);border-bottom:3px double var(--rule-strong)}
+.hm-fc-k{margin:0;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.hm-fc-row{display:grid;gap:var(--s-1)}
+.hm-fc-m{display:block;width:max-content;max-width:100%;font-style:italic;font-size:var(--text-3);color:var(--ink-2);
+  border-bottom:1px dotted var(--rule-strong);cursor:help}
+.hm-fc-m:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.hm-fc-v{color:var(--ink)}
+.hm-fc-tip{position:absolute;left:0;right:0;bottom:calc(100% + var(--s-2));z-index:5;padding:var(--s-4);display:none;
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-s);box-shadow:0 2px 10px rgba(0,0,0,.12);
+  font-style:normal;font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-2)}
+.hm-fc-tip ul{margin:var(--s-2) 0 0;padding-left:var(--s-4);display:grid;gap:var(--s-2)}
+.hm-fc-m:hover .hm-fc-tip,.hm-fc-m:focus .hm-fc-tip,.hm-fc-m:focus-within .hm-fc-tip{display:block}
+.hm-fc-n{margin:0;font-style:italic;font-size:var(--text-eyebrow);color:var(--ink-3)}
 .hm-hero h1{margin:0}
 .hm-hero h1 span{display:block}
 .hm-hero h1 span:first-child{color:var(--ink-4)}
@@ -1038,7 +1055,8 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
 
 @media (max-width:900px){
   .hm-hero{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
-  .hm-hero-t,.hm-scope,.hm-w3{grid-column:auto;grid-row:auto}
+  .hm-hero-t,.hm-scope,.hm-w3,.hm-fc{grid-column:auto;grid-row:auto}
+
   .hm-pairs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hm-voices,.hm-doors,.hm-gram{grid-template-columns:minmax(0,1fr)}
   .hm-gram{gap:var(--s-6)}
@@ -1186,6 +1204,7 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
 </figure>
 <script type="application/json" id="hm-scope-data">{"c":[[0.11115627115028132,0.11115627115084246,0.11115627115024547],[0.24064766741862897,0.23704120675799983,0.06944034764136284],[0.40478029346167205,0.2579506239367525,0.09601908139267645],[0.5966411932537901,0.2575830170802785,0.09584243117349218],[0.7602894052009158,0.23632649951417523,0.06918083025201152],[0.8892208961115712,0.11077910388925,0.11077910388836991],[0.09615143956726316,0.31792000576650425,0.09615143956491454],[0.3140570280218641,0.09259220535247208,0.09259220535128884],[0.5005716322406134,0.09392744630525414,0.09392744630395965],[0.6868841422367753,0.09239166171816175,0.09239166171670514],[0.9042675658201628,0.31674151085917773,0.09573243417734675],[0.10346733117236942,0.5174044196038402,0.10346733117232944],[0.2730943451158042,0.4039573287408527,0.10060046707275727],[0.5013319274950983,0.4700365969595976,0.13701048323528764],[0.7283700924754289,0.4023652304787408,0.0998984490946671],[0.8969393829469984,0.5153991937002443,0.10306061705255447],[0.1051826561298224,0.7260471162475903,0.105182656128557],[0.29739045077700016,0.6183341369975928,0.11514896321970038],[0.5044682500258281,0.7246573372120985,0.11762976916838219],[0.7052538933974226,0.613076415822945,0.11207716811017572],[0.8932097572878551,0.7252166696587324,0.10679024271285271],[0.08492636774570173,0.9150736322539605,0.08492636774555953],[0.29769053157461445,0.8667413589850032,0.1332586410162904],[0.5027155618387108,0.9211395172371711,0.07886048276039317],[0.7053904631448461,0.8697788354121145,0.13022116458385388],[0.9153603944444383,0.9153603944442092,0.08463960555516493]],"pair":[4,9],"guide":[2,3]}</script>
 <div class="hm-w3"><p class="lab">Three words. That’s the whole product.</p><div class="hm-w3-row"><div class="hm-w3-i"><span class="hm-w3-g c" aria-hidden="true"></span><b>Certified</b><p>It holds. Here’s the file that proves it.</p></div><div class="hm-w3-i"><svg class="hm-w3-g" viewBox="-14 -14 28 28" aria-hidden="true"><path class="w-wx" d="M-9.0,-9.0L9.0,9.0M-9.0,9.0L9.0,-9.0" fill="none" stroke-width="3.4" stroke-linecap="round"/></svg><b>Refuted</b><p>It fails. Here’s the thing that breaks it.</p></div><div class="hm-w3-i"><span class="hm-w3-g n" aria-hidden="true">∅</span><b>Refused</b><p>I can’t decide it, and here’s why. No guessing.</p></div></div></div>
+<div class="hm-fc" role="group" aria-label="Forecast · R(3,10) resolved before July 2027"><p class="hm-fc-k">Forecast · R(3,10) resolved before July 2027</p><div class="hm-fc-row"><div class="hm-fc-m" tabindex="0" aria-describedby="hm-fc-tip-0"><span class="hm-fc-who">by this lane:</span> <span class="hm-fc-v">3%</span><div class="hm-fc-tip" role="tooltip" id="hm-fc-tip-0"><b>By this lane: the probability that the R(3,10) lane of cert-machine decides, by 30 June 2027, whether a (3,10;40)-graph exists, either way, to the lane&#39;s certification standard.</b><ul><li><b>Claude Opus 5.5: 3%</b> (80% range 1%–9%); if decided: none exists, about 70% (if decided). Every global route that got a price is above about 60,000–70,000 CPU-hours, and 32 of the lane&#39;s 68 gates failed. Base rates: R(3,9) took 1966–1982; the upper bound went 42 (2013) to 41 (2024–25), years per step. Every construction attempt (extensions of 39-vertex graphs, AlphaEvolve, lane 41) found nothing, which favours &#39;none exists&#39;. Risks: one person working with AI agents, seven months, much of the rigour still to build.</li><li><b>GPT-6.2 (Astra): 3%</b> (80% range 0.5%–10%); if decided: none exists, about 60% (if decided). The lane certified all 977,008 configurations of the regular codegree-seven case with two LRAT checkers: it can certify a small enough reduction. The hard cases set the date: none of ten benchmark boards closed in two CPU-hours; 236 of 519 degree distributions remain. Angeltveit&#39;s ≤ 41 took about three CPU-years and leaves the 9-regular case at 40 open. Searches over 37 million 39-vertex graphs found no extension, so it leans to &#39;none exists&#39;, modestly, because one witness checks in seconds.</li></ul></div></div><div class="hm-fc-m" tabindex="0" aria-describedby="hm-fc-tip-1"><span class="hm-fc-who">by others:</span> <span class="hm-fc-v">8%</span><div class="hm-fc-tip" role="tooltip" id="hm-fc-tip-1"><b>By others: the probability that someone other than this lane (any person, group or lab, human or AI-assisted) publicly resolves, by 30 June 2027, whether a (3,10;40)-graph exists, either way, with a proof or certificate others can check.</b><ul><li><b>Claude Opus 5.5: 8%</b> (80% range 2%–20%). What is left is exactly 40 vertices, and its near-9-regular slice is far larger than anything glued so far (Angeltveit&#39;s ≤ 41 took about three CPU-years). A construction is unlikely: searches since 1989, AlphaEvolve included, stop at 39 vertices. The field is active (Chen, McCrea, Daugherty–Ward–Ryan, SAT with computer algebra), but seven months is short for a new decomposition and its certificates.</li><li><b>GPT-6.2 (Astra): 8%</b> (80% range 2%–20%). Angeltveit lowered the bound to 41 in work published in 2025; at 40 vertices the 9-regular case leaves a much larger family for that method. Most of the 8% is an outside team finding a reduction that lets SAT solvers cover many cases at once. A construction would be quick to verify, but AlphaEvolve reached the same 39 vertices Exoo reached in 1989.</li></ul></div></div></div><p class="hm-fc-n">AI forecast: the average of Claude and GPT, each asked alone on 26 Nov 2026 with the same brief. A guess, not a commitment and not a result. Hover a line for each model’s number and reasons. <a href="r310/">The lane</a></p></div>
 </div>
 
 <section id="register">

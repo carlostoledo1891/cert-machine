@@ -1,0 +1,98 @@
+{
+ "what": "AI forecasts, shown on the home page as forecasts and never as facts: each model was asked alone, with the same brief and the lane's public records, and told not to read the lane's own bets or the other model's answer. Nothing decided any of these numbers and nothing on the site rests on them. They are not a commitment by anyone.",
+ "asked_utc": "2026-11-26T01:17Z",
+ "question": "By this lane: the probability that the R(3,10) lane of cert-machine decides, by 30 June 2027, whether a (3,10;40)-graph exists, either way, to the lane's certification standard.",
+ "horizon": "2027-06-30",
+ "lane": "/r310/",
+ "brief": {
+  "file": "notes/forecasts-2026-11-26/BRIEF.md (copied here as brief)",
+  "sha256": "583613924f5c9194930d4d2d418a6eb92bf087a4725b22d070b17f8af6a0f3d7",
+  "text": "# Forecast brief (the same text for each model; each answers alone, without seeing the other's answer)\n\nQuestion: what is the probability that the R(3,10) lane of cert-machine DECIDES, by 30 June 2027 (23:59 UTC), whether a\n(3,10;40)-graph exists — either way: a certified construction of one (R(3,10) ≥ 41), or a certified proof that none\nexists (R(3,10) ≤ 40, so R(3,10) = 40 given the known lower bound) — with the certification standard the lane uses\n(exact checks, LRAT through two checkers or a kernel-checked proof, premises listed)?\n\nRead the lane's public records: ~/Projects/cert-machine/corpus/r310-live/ (cases.json, boxes.json, process.json,\npaths.json, corrections.json, machine.json) and the published sources in corpus/r310-live/sources/ (the round ledger\nround1/LEDGER.md, round5/PATHS.md, the gate files). The page is https://carlostoledo.co/r310/ (do not fetch it; the\nrecords are the same). Also use what you know of the literature (Goedgebeur–Radziszowski 2013, Angeltveit's 2024–25 work\nand any later bound you know of, the history of R(3,k) computations) and of the lane's resources (one person with AI\nagents, a laptop and rented CPU pods at about US$1–3 an hour).\n\nDO NOT read: corpus/r310-live/fieldmap.json's forecast entries, the Field Map's \"bets\" section, or any file under\nnotes/forecasts-2026-11-26/ other than this brief and your own folder. Answer independently.\n\nAnswer in this exact form (plain text, under 350 words in all):\nRANGE: <low>%–<high>%            (your 80% credible interval for the probability)\nPOINT: <p>%\nDIRECTION: if decided, which way you expect and how strongly (e.g. \"none exists, ~80%\")\nBASIS: 4–6 short lines — what in the records moves you most, what the main risks are, what base rates you used\nWHAT WOULD CHANGE IT: 2–3 short lines\nSay plainly that this is a model's forecast and not a commitment.\n"
+ },
+ "models": [
+  {
+   "id": "claude",
+   "name": "Claude Opus 5.5",
+   "how": "a fresh Claude agent, alone, reading the brief and the records",
+   "answered_utc": "2026-11-26T01:17Z",
+   "range": [
+    1,
+    9
+   ],
+   "point": 3,
+   "direction": "none exists, about 70% (if decided)",
+   "basis": [
+    "Every global route that got a price is above about 60,000–70,000 CPU-hours, and 32 of the lane's 68 gates failed.",
+    "Base rates: R(3,9) took 1966–1982; the upper bound went 42 (2013) to 41 (2024–25), years per step.",
+    "Every construction attempt (extensions of 39-vertex graphs, AlphaEvolve, lane 41) found nothing, which favours 'none exists'.",
+    "Risks: one person working with AI agents, seven months, much of the rigour still to build."
+   ],
+   "text": "Written: Thu Nov 26 01:17:34 UTC 2026 (date -u)\nClaude Opus 5.5, alone. This is a model's forecast, not a commitment.\n\nRANGE: 1%–9%\nPOINT: 3%\nDIRECTION: none exists, ~70% (if decided)\n\nBASIS:\n- Records: three pieces closed (C35, R(7) recomputed, R(6) three-edge branch). Still open: 236 near-regular distributions, R(6) with 4–9 cross-edges (a pilot only), R(3)–R(5) (c* = 4: 60 of 69 profiles open; c* = 3: 0 of 7 closed).\n- Moves me most: 20 dead paths and 32 FAIL gates. Every global route that got a price is above about 60,000–70,000 CPU-h (F1, F3), and F1's open count stayed flat. That is a lower bound, not a quote. At about US$0.03 per core-hour it could be paid for, but nothing shows the work converges.\n- Base rates: R(3,9) took 1966–1982; R(3,10) has been open since 1989. The upper bound went 42 (2013) → 41 (Angeltveit 2024–25), years per step. Excluding 40 is the larger space. Several AI-assisted groups are closing slices; none is near done.\n- Building one: extensions of 39-vertex graphs (37M, 43M, 18.4M) found nothing, nor did AlphaEvolve or lane 41. The best misses still have 23–24 independent 10-sets, or one triangle. This favours \"none exists\" and makes finding one unlikely.\n- Risks: one operator who parks lanes, seven months, and much of the rigour still to build (prose reductions; Chen's unchecked 97/88 floors). The point includes ~1% for the lane re-certifying someone else's decisive proof.\n\nWHAT WOULD CHANGE IT:\n- Up: a whole stratum (all of c* = 4, or the 236 distributions) closed at a measured, falling cost; or a published outside proof of R(3,10) = 40 that the lane could re-check.\n- Up, sharply: any (3,10;40)-graph found (checked in seconds).\n- Down: the lane parked, or F1's cost turning out unbounded on the strata still open.\n\nThis is a model's forecast, not a commitment.\n"
+  },
+  {
+   "id": "gpt",
+   "name": "GPT-6.2 (Astra)",
+   "how": "a fresh Codex session, alone, reading the brief and the records",
+   "answered_utc": "2026-11-26T01:18Z",
+   "range": [
+    0.5,
+    10
+   ],
+   "point": 3,
+   "direction": "none exists, about 60% (if decided)",
+   "basis": [
+    "The lane certified all 977,008 configurations of the regular codegree-seven case with two LRAT checkers: it can certify a small enough reduction.",
+    "The hard cases set the date: none of ten benchmark boards closed in two CPU-hours; 236 of 519 degree distributions remain.",
+    "Angeltveit's ≤ 41 took about three CPU-years and leaves the 9-regular case at 40 open.",
+    "Searches over 37 million 39-vertex graphs found no extension, so it leans to 'none exists', modestly, because one witness checks in seconds."
+   ],
+   "text": "RANGE: 0.5%–10%  \nPOINT: 3%  \nDIRECTION: If the lane decides by 30 June 2027, I give about 60% to “none exists” and 40% to a construction.\n\nBASIS: Goedgebeur–Radziszowski reached ≤42 in 2013. Angeltveit reached ≤41 about a decade later, using three CPU-years and a parity argument that leaves the 9-regular case open at 40 vertices. [Angeltveit’s paper](https://arxiv.org/html/2401.00392v2)  \nThe lane certified all 977,008 configurations in the regular codegree-seven case with both LRAT checkers. That gives me confidence it can certify a sufficiently small reduction.  \nThe harder cases set my deadline estimate. None of ten benchmark boards closed within two CPU-hours each. A follow-up spent 13.9 core-hours on one board and still had 242 open leaves.  \nEven after two programs excluded 283 of 519 nonregular degree distributions, 236 remained. A proof must also cover asymmetric regular graphs.  \nI favor nonexistence because earlier searches failed to extend over 37 million 39-vertex graphs. My conditional lean is modest because a single witness takes seconds to certify. [Goedgebeur–Radziszowski’s extension search](https://www.cs.rit.edu/~spr/PUBL/ber12.pdf)\n\nWHAT WOULD CHANGE IT: I’d raise the estimate if a structural lemma covered asymmetric graphs and timed certificate replays on the hardest remaining cases put the full run within the pod budget.  \nI’d also raise it if a new construction method recovered known Ramsey graphs from scratch and repeatedly produced 40-vertex triangle-free graphs with only one independent 10-set.\n\nThis is a model’s forecast, not a commitment."
+  }
+ ],
+ "others": {
+  "asked_utc": "2026-11-26T01:35Z",
+  "horizon": "2027-06-30",
+  "question": "By others: the probability that someone other than this lane (any person, group or lab, human or AI-assisted) publicly resolves, by 30 June 2027, whether a (3,10;40)-graph exists, either way, with a proof or certificate others can check.",
+  "brief": {
+   "file": "notes/forecasts-2026-11-26/BRIEF-OTHERS.md",
+   "sha256": "5d8d0defa3925574d481863d2feadcd5cdf98e234885b3966980dcf1ac8631e9",
+   "text": "# Forecast brief, second question (the same text for each model; each answers alone)\n\nQuestion: what is the probability that SOMEONE OTHER THAN the cert-machine R(3,10) lane — any person, group or lab,\nhuman or AI-assisted — resolves, by 30 June 2027 (23:59 UTC), whether a (3,10;40)-graph exists, either way: a\nconstruction of one (R(3,10) ≥ 41), or a proof that none exists (R(3,10) = 40), published publicly (paper, preprint or\nrepository) with a proof or certificate the community could check? Count it even if the lane also does it.\n\nUse what you know of the literature and the field (Goedgebeur–Radziszowski 2013, Angeltveit's 2024–25 work and any\nlater bound you know of, the groups working on small Ramsey numbers, SAT and computer-algebra methods, AI-assisted\nmathematics efforts in 2025–26). You may read the lane's public records for context\n(~/Projects/cert-machine/corpus/r310-live/ and corpus/r310-live/sources/), but this question is about everyone else.\n\nDO NOT read: corpus/r310-live/fieldmap.json's forecast entries, the Field Map's \"bets\" section, corpus/forecasts/, or any\nfile under notes/forecasts-2026-11-26/ other than this brief and your own folder. Answer independently. No web fetches.\n\nAnswer in this exact form (plain text, under 250 words):\nRANGE: <low>%–<high>%            (your 80% credible interval)\nPOINT: <p>%\nBASIS: 3–5 short lines\nSay plainly that this is a model's forecast and not a commitment.\n"
+  },
+  "models": [
+   {
+    "id": "claude",
+    "name": "Claude Opus 5.5",
+    "answered_utc": "2026-11-26T01:35Z",
+    "range": [
+     2,
+     20
+    ],
+    "point": 8,
+    "direction": null,
+    "basis": [
+     "What is left is exactly 40 vertices, and its near-9-regular slice is far larger than anything glued so far (Angeltveit's ≤ 41 took about three CPU-years).",
+     "A construction is unlikely: searches since 1989, AlphaEvolve included, stop at 39 vertices.",
+     "The field is active (Chen, McCrea, Daugherty–Ward–Ryan, SAT with computer algebra), but seven months is short for a new decomposition and its certificates."
+    ],
+    "text": "Thu Nov 26 01:35:44 UTC 2026\n\nThis is a model's forecast (Claude Opus 5.5), not a commitment.\n\nRANGE: 2%–20%\nPOINT: 8%\nBASIS:\n- What is left is exactly (3,10;40), between Exoo's 40 (1989) and Angeltveit's ≤ 41 (EJC 2025). Angeltveit's ≤ 41 took about 3 CPU-years of gluing. The 40-vertex case runs into the near-9-regular slice: for a 9-regular graph every G−N[v] is a (3,9;30,99)-graph, a class estimated at about 10^18 graphs. That class is far larger than anything glued so far.\n- A construction is unlikely. Decades of searches (Exoo, McKay, AlphaEvolve in 2026) stop at 39 vertices, and the heuristic consensus leans towards R(3,10) = 40. I put a construction by mid-2027 at about 1%.\n- The field is active in 2026: Daugherty–Ward–Ryan, Chen (MTF, δ ≥ 6, 545 degree sequences), McCrea, Pandey–Ravi, Unsolved Lab, and SAT+CAS work (SMS, Li–Duggan–Bright–Ganesh). This makes a non-existence proof plausible within a few years. But the steps so far exclude corners (degree 4, degree 7 with e = 104), not the bulk of the degree-9 window.\n- Seven months is short for a new decomposition plus about 10^2–10^3 core-years of checkable certificates. Lifting this would take a well-resourced group (a Heule-type SAT team or an AI lab with compute) that has not yet surfaced, so I add a few percent for that. The question also counts unrefereed public certificates, which widens the target somewhat.\n"
+   },
+   {
+    "id": "gpt",
+    "name": "GPT-6.2 (Astra)",
+    "answered_utc": "2026-11-26T01:36Z",
+    "range": [
+     2,
+     20
+    ],
+    "point": 8,
+    "direction": null,
+    "basis": [
+     "Angeltveit lowered the bound to 41 in work published in 2025; at 40 vertices the 9-regular case leaves a much larger family for that method.",
+     "Most of the 8% is an outside team finding a reduction that lets SAT solvers cover many cases at once.",
+     "A construction would be quick to verify, but AlphaEvolve reached the same 39 vertices Exoo reached in 1989."
+    ],
+    "text": "RANGE: 2%–20%\nPOINT: 8%\nBASIS: Goedgebeur–Radziszowski lowered the upper bound to 42 in 2013. Angeltveit lowered it to 41 in work published in 2025.\nAt 40 vertices, the 9-regular case alone leaves a much larger family of 30-vertex graphs for Angeltveit’s method to enumerate.\nChen and McCrea report exclusions of specific cases. I put most of the 8% on an outside team finding a reduction that lets SAT solvers cover many cases at once by June.\nA 40-vertex construction would be quick to verify, but AlphaEvolve reached the same 39 vertices Exoo achieved in 1989.\nThis is a model’s forecast and carries no commitment."
+   }
+  ]
+ }
+}

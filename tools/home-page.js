@@ -53,6 +53,7 @@ module.exports = function homePage(X) {
   };
   const WHY = { [W.DECIDED]: 'decided — ' + SAY.decided.g, [W.COMPUTED]: 'computed — ' + SAY.computed.g, [W.CHOSEN]: 'chosen — ' + SAY.chosen.g };
   const val = (file, ptr, standing, f) => W.val({ rec: { path: file, ptr }, standing, fmt: f || 'int', why: WHY[standing] });
+  const dateWordsFc = (iso) => Number(iso.slice(8, 10)) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(iso.slice(5, 7)) - 1] + ' ' + iso.slice(0, 4);
   const value = (text, standing, from) => W.value(text, standing, Object.assign({ title: WHY[standing] }, from));
 
   /* ---- THE HERO: one published circle packing, zoomed onto the pair its record names ---------------------------- */
@@ -112,12 +113,26 @@ module.exports = function homePage(X) {
     ]
   });
   hg('the figure names the source of its circles (it is credited in the footer, with its licence, and nowhere in the figure)', !/thetaevolve/i.test(scope));
+  /* ---- AI FORECASTS (2026-11-26): read from corpus/forecasts/; each model asked alone, each question on its own; the
+     line shows the average of the two models' points, the tooltip each model's number, range and basis ---------- */
+  const FCR = J('corpus/forecasts/r310-2026-11-26.json');
+  const okModels = (ms) => ms.length === 2 && ms.every((m) => m.range[0] <= m.point && m.point <= m.range[1] && m.basis.length >= 2 && /(not a|no) commitment/i.test(m.text));
+  hg('the forecast record does not hold, for this lane and for others, two models each with a range, a point inside it and a basis, or its horizon is not 30 June 2027',
+    okModels(FCR.models) && FCR.others && okModels(FCR.others.models) && FCR.horizon === '2027-06-30' && FCR.others.horizon === '2027-06-30');
+  const mean = (ms) => ms.reduce((a, m) => a + m.point, 0) / ms.length;
+  const forecastRaw = H.forecast({ title: 'Forecast · R(3,10) resolved before July 2027',
+    rows: [
+      { label: 'by this lane', mean: mean(FCR.models), question: FCR.question, models: FCR.models },
+      { label: 'by others', mean: mean(FCR.others.models), question: FCR.others.question, models: FCR.others.models }],
+    note: 'AI forecast: the average of Claude and GPT, each asked alone on ' + dateWordsFc(FCR.asked_utc) + ' with the same brief. A guess, not a commitment and not a result. Hover a line for each model’s number and reasons.',
+    href: 'r310/' });
   const hero = H.hero({
+
     lines: ['Looks right?', 'Zoom in.'],
     ledeRaw: 'I’m Carlos. I check published results <b>exactly</b>, whoever printed them: an AI lab, a journal, a simulation, a spreadsheet. '
       + 'You get one word back, and a file you can run.',
     ctasRaw: H.btn({ href: '#register', raw: 'See what I’ve checked', solid: true }) + H.btn({ href: '#doors', raw: 'Work with me' }),
-    scopeRaw: scope,
+    scopeRaw: scope, forecastRaw,
     /* the three words, compact, at the foot of the left column (the operator, 2026-11-11: the section was too big) */
     wordsRaw: H.words({ label: 'Three words. That’s the whole product.', items: [
       { word: 'Certified', text: 'It holds. Here’s the file that proves it.' },

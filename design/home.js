@@ -184,12 +184,32 @@ function scope({ caption, alt, circles, pair, saysRaw, chipsRaw, record, sliderL
    foot of the left column (the operator, 2026-11-11: "too big" as a section of its own), the three words. The words
    come after the figure in the markup: on a phone they read after it, and the figure's own × stays the first on the
    page (tools/check-wiring.js reads the order). */
-function hero({ lines, ledeRaw, ctasRaw, scopeRaw, wordsRaw }) {
+function hero({ lines, ledeRaw, ctasRaw, scopeRaw, wordsRaw, forecastRaw }) {
   return '<div class="hm-hero">\n<div class="hm-hero-t">\n'
     + '  <h1>' + lines.map((l) => '<span>' + esc(l) + '</span>').join(' ') + '</h1>\n'
     + '  <p class="hm-lede">' + ledeRaw + '</p>\n'
     + '  <div class="hm-cta">' + ctasRaw + '</div>\n'
-    + '</div>\n' + scopeRaw + '\n' + (wordsRaw || '') + '\n</div>';
+    + '</div>\n' + scopeRaw + '\n' + (wordsRaw || '') + '\n' + (forecastRaw || '') + '\n</div>';
+}
+
+/* ---- AI FORECASTS (the operator, 2026-11-26: "a new component on the hero section with the forecast … From Claude and
+   GPT. On the tooltip … the details and on what's based. Make it clear it's an AI forecast"; then the shape: "Forecast —
+   Resolution until July 2027 / by this lane: x% / by others: Y% / (the average of Claude and ChatGPT)"). A forecast is
+   drawn ONLY in this frame and type — italic, an inset double outline, the word FORECAST in its title — so it never
+   shares a typography or a frame with a decided number (WARRANT). Each line's tooltip gives each model's own number,
+   range and basis: a popover on hover or focus, positioned on the frame and display:none until asked for (a hidden box
+   still widens the page's scroll area). */
+function forecast({ title, rows, note, href }) {
+  if (!/forecast/i.test(title) || !/AI forecast/.test(note) || !/not a commitment/i.test(note)) throw new Error('home.forecast: the title must say forecast and the note AI forecast, not a commitment');
+  const pct = (x) => String(Math.round(x * 10) / 10) + '%';
+  return '<div class="hm-fc" role="group" aria-label="' + esc(title) + '"><p class="hm-fc-k">' + esc(title) + '</p><div class="hm-fc-row">'
+    + rows.map((r, i) => '<div class="hm-fc-m" tabindex="0" aria-describedby="hm-fc-tip-' + i + '"><span class="hm-fc-who">' + esc(r.label) + ':</span> '
+      + '<span class="hm-fc-v">' + esc(pct(r.mean)) + '</span>'
+      + '<div class="hm-fc-tip" role="tooltip" id="hm-fc-tip-' + i + '"><b>' + esc(r.question) + '</b><ul>'
+      + r.models.map((m) => '<li><b>' + esc(m.name) + ': ' + esc(pct(m.point)) + '</b> (80% range ' + esc(pct(m.range[0])) + '–' + esc(pct(m.range[1])) + ')'
+        + (m.direction ? '; if decided: ' + esc(m.direction) : '') + '. ' + esc(m.basis.join(' ')) + '</li>').join('')
+      + '</ul></div></div>').join('')
+    + '</div><p class="hm-fc-n">' + esc(note) + (href ? ' <a href="' + esc(href) + '">The lane</a>' : '') + '</p></div>';
 }
 
 /* ---- three words, compact, each with its small shape: filled (it holds), the witness × (the thing that breaks it),
@@ -313,10 +333,27 @@ a.hm-more{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing
 /* the first screen */
 /* two columns, two rows: the headline block is centred in the room above the three words, the three words end where
    the figure's card ends, and the figure takes both rows, so the page is no taller for them */
-.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr auto;gap:var(--s-6) var(--s-7);padding-top:var(--s-5)}
+.hm-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:1fr auto auto;gap:var(--s-6) var(--s-7);padding-top:var(--s-5)}
 .hm-hero-t{grid-column:1;grid-row:1;align-self:center}
 .hm-scope{grid-column:2;grid-row:1 / span 2}
 .hm-w3{grid-column:1;grid-row:2;align-self:end}
+/* AI forecasts: a third row under the hero, every line on the page's one left edge (the ruler counts left edges, and a
+   framed box with padding added three); set apart by its double rules above and below and its italic, never a decided
+   number's frame or type */
+.hm-fc{grid-column:1 / span 2;grid-row:3;position:relative;display:grid;gap:var(--s-2);padding:var(--s-4) 0;
+  border-top:3px double var(--rule-strong);border-bottom:3px double var(--rule-strong)}
+.hm-fc-k{margin:0;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.hm-fc-row{display:grid;gap:var(--s-1)}
+.hm-fc-m{display:block;width:max-content;max-width:100%;font-style:italic;font-size:var(--text-3);color:var(--ink-2);
+  border-bottom:1px dotted var(--rule-strong);cursor:help}
+.hm-fc-m:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.hm-fc-v{color:var(--ink)}
+.hm-fc-tip{position:absolute;left:0;right:0;bottom:calc(100% + var(--s-2));z-index:5;padding:var(--s-4);display:none;
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-s);box-shadow:0 2px 10px rgba(0,0,0,.12);
+  font-style:normal;font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-2)}
+.hm-fc-tip ul{margin:var(--s-2) 0 0;padding-left:var(--s-4);display:grid;gap:var(--s-2)}
+.hm-fc-m:hover .hm-fc-tip,.hm-fc-m:focus .hm-fc-tip,.hm-fc-m:focus-within .hm-fc-tip{display:block}
+.hm-fc-n{margin:0;font-style:italic;font-size:var(--text-eyebrow);color:var(--ink-3)}
 .hm-hero h1{margin:0}
 .hm-hero h1 span{display:block}
 .hm-hero h1 span:first-child{color:var(--ink-4)}
@@ -503,7 +540,8 @@ a.hm-mail{display:inline-block;margin-top:var(--s-6);font-family:var(--f-display
 
 @media (max-width:900px){
   .hm-hero{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
-  .hm-hero-t,.hm-scope,.hm-w3{grid-column:auto;grid-row:auto}
+  .hm-hero-t,.hm-scope,.hm-w3,.hm-fc{grid-column:auto;grid-row:auto}
+
   .hm-pairs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hm-voices,.hm-doors,.hm-gram{grid-template-columns:minmax(0,1fr)}
   .hm-gram{gap:var(--s-6)}
@@ -671,4 +709,4 @@ function client() {
 }
 const script = () => '<script>(function(){var readoutHtml=' + readoutHtml.toString() + ',ZK=(' + zoomKit.toString() + ')();(' + client.toString() + ')();})();</script>';
 
-module.exports = { head, section, btn, more, hero, scope, still, words, field, pairs, chain, voices, strokes, doors, css, script, CELL, readoutHtml, zoomKit, ZMAX };
+module.exports = { head, section, btn, more, hero, scope, still, words, forecast, field, pairs, chain, voices, strokes, doors, css, script, CELL, readoutHtml, zoomKit, ZMAX };
