@@ -43,3 +43,8 @@
 - 2026-11-26 01:02 — C3S: Comparator refuses the challenge with 1/2 → 1/3 in DirichletLZerosOnLine ("Const does not
   match between challenge and target 'DirichletLZerosOnLine'", exit 1 after 350 s): all three planted controls are now
   refused by every check they went through. D1 on the readable edition running since 01:02:28.
+- 2026-11-26 01:05 — D1 (readable edition) exit 0 after 183 s: "D1SUM closure_constants=222115 missing=0
+  release_constants=64456 release_in_closure=50283 release_outside=14173 outside_decl=1394 outside_aux=12779
+  outside_modules=753" — 14,173 lines, one per release constant outside the closure of the five. Not yet read: how
+  many of the 1,394 'decl' rows are compiler-generated (e.g. `.congr_simp`) rather than written declarations; the
+  authors' README says "several hundred". B2 (the compact edition) running.
