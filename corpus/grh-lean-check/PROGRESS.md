@@ -40,3 +40,6 @@
   (ABI 4, P1's disclosure), "Lean default kernel accepts the solution" / "Your solution is okay!", exit 0 after 2,229 s
   (37 min, peak RSS 15.9 GB). The recorder (00:58): I1, B1, S1, K1, K2, KR, CHAR CERTIFIED; A1 waits for the compact
   edition, C1–C3 for C3S (running since 00:56:38), then D1, B2, E1, S2.
+- 2026-11-26 01:02 — C3S: Comparator refuses the challenge with 1/2 → 1/3 in DirichletLZerosOnLine ("Const does not
+  match between challenge and target 'DirichletLZerosOnLine'", exit 1 after 350 s): all three planted controls are now
+  refused by every check they went through. D1 on the readable edition running since 01:02:28.
