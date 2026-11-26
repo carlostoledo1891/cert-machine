@@ -260,6 +260,7 @@ function build(clock) {
   const PH = txt(R('_phase.log'));
   const steps = {};
   const invocations = [];
+  let sealLine = null;
   for (const l of PH.split('\n').filter(Boolean)) {
     const m = /^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ) (.*)$/.exec(l);
     need(m, R('_phase.log') + ': a line the records cannot read: ' + l.slice(0, 60));
@@ -269,6 +270,8 @@ function build(clock) {
     else if ((q = /^(\S+) exit (\d+) after (\d+) s$/.exec(m[2]))) { need(steps[q[1]], '_phase.log: ' + q[1] + ' exits before it runs'); Object.assign(steps[q[1]], { end_utc: m[1], exit: Number(q[2]), seconds: Number(q[3]) }); need(Math.abs((t - Date.parse(steps[q[1]].start_utc)) / 1000 - Number(q[3])) <= 1, '_phase.log: ' + q[1] + '’s seconds are not its start to its exit'); }
     else if ((q = /^invoked: (\S+) \(pid \d+; audit ([0-9a-f]{40}); deadline (\d+); script ([0-9a-f]{16})\)$/.exec(m[2]))) invocations.push({ at_utc: m[1], what: q[1], audit: q[2], deadline: Number(q[3]), script16: q[4] });
     else if (/^invocation done: /.test(m[2])) continue;
+    /* the runner's last line of `all`: its seal of /results (RESULTS.sha256), read as the run's end */
+    else if ((q = /^seal: (\d+) files listed, (\d+) large$/.exec(m[2]))) { sealLine = { at_utc: m[1], files: Number(q[1]), large: Number(q[2]) }; continue; }
     else die(R('_phase.log') + ': a line the records cannot read: ' + l.slice(0, 80));
   }
   need(invocations.length >= 1 && invocations.every((v) => v.audit === REC.tools.audit_commit), 'an invocation in _phase.log ran another audit commit than record.json’s');

@@ -58,3 +58,9 @@
   by the census's rule, beside generated ones) and S2 (the release's own challenge; running since 02:17:41, dropped
   first under the ceiling). What this does not say: anything about the mathematics beyond what the kernels check; no
   person read the proof.
+- 2026-11-26 03:03 — S2 passed: Comparator with the release's own Challenge.lean and comparator.json (nanoda on, as
+  theirs): "nanoda kernel accepts the solution", "Lean default kernel accepts the solution", "Your solution is okay!",
+  exit 0 after 2,754 s (45 min 54 s, peak RSS 15.9 GB). "invocation done: all" at 03:03:36; the seal lists 358 files
+  (RESULTS.sha256; _phase.log differs from its sealed hash only by the two lines the runner appends after the seal).
+  Every registered row now has its word: 12 CERTIFIED and D1 COMPUTED. Pulled home; the pod is deleted next.
+- 2026-11-26 03:05 — the pod tzj3kmtfk6flzc deleted (list-pods empty after the delete); its small results are home in runs/tzj3kmtfk6flzc/.

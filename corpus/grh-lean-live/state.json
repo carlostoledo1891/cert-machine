@@ -1,6 +1,6 @@
 {
  "what": "The state of the grh-lean lane as the live page /grh-lean/ shows it, written by tools/grh-lean-records.js from corpus/grh-lean-check/ (its record.json the only source of a verdict) and checked against PREREG.md, the seals and the clock.",
- "as_of": "2026-11-26T02:41Z",
+ "as_of": "2026-11-26T03:05Z",
  "target": {
   "repo": "lsernau/grh-lean",
   "commit": "72fead102f663d5c7a407964a13dc0cf9d977207",
@@ -56,18 +56,16 @@
    "C1-C3"
   ]
  },
- "in_the_open": true,
- "remaining": [
-  "S2"
- ],
+ "in_the_open": false,
+ "remaining": [],
  "counts": {
   "all": 13,
-  "certified": 11,
+  "certified": 12,
   "computed": 1,
   "refused": 0,
-  "running": 1,
+  "running": 0,
   "not_started": 0,
-  "pending": 1,
+  "pending": 0,
   "unreadable": 0
  },
  "rows": [
@@ -130,10 +128,10 @@
   {
    "id": "S2",
    "title": "The same judge against the release’s own statement file",
-   "verdict": "PENDING",
-   "state": "running",
-   "note": "Running on the pod since 02:17 UTC.",
-   "why": "S2 is running",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Accepted after 46 min.",
+   "why": "Comparator v4.35.0 accepted (Lean's kernel and nanoda), in its Landlock sandbox (ABI 4), the challenge unchanged since it was built before the release",
    "steps": [
     "S2-install",
     "S2"
@@ -439,7 +437,7 @@
  ],
  "ceiling_usd": 15,
  "deadline_utc": "2026-11-26 15:30",
- "spent_usd": 2.75,
+ "spent_usd": 3.1,
  "pod": {
   "id": "tzj3kmtfk6flzc",
   "name": "grh-lean-check-2026-11-25",
@@ -448,7 +446,7 @@
   "usd_per_h": 0.88,
   "region": "EU-RO-1",
   "created_utc": "2026-11-25T23:33:13Z",
-  "deleted_utc": null
+  "deleted_utc": "2026-11-26T03:05:00Z"
  },
  "char_pod": "alt1te1i1gsnpy",
  "steps": [
@@ -815,7 +813,10 @@
   {
    "step": "S2",
    "start_utc": "2026-11-26T02:17:41Z",
-   "timeout_s": 36000
+   "timeout_s": 36000,
+   "end_utc": "2026-11-26T03:03:35Z",
+   "exit": 0,
+   "seconds": 2754
   }
  ],
  "invocations": [
@@ -894,6 +895,14 @@
   {
    "at": "2026-11-26T02:18Z",
    "text": "THE RECORDER (tools/check-grh-lean.py): claim CERTIFIED — \"Lean accepts proofs of the five stated theorems from propext, Classical.choice and Quot.sound: B1, A1, S1, K1, K2 and KR pass and C1–C3 are refused\". Every registered row CERTIFIED except D1 (COMPUTED, a list: 1,394 readable / 618 compact declarations outside the closure, by the census's rule, beside generated ones) and S2 (the release's own challenge; running since 02:17:41, dropped first under the ceiling). What this does not say: anything about the mathematics beyond what the kernels check; no person read the proof."
+  },
+  {
+   "at": "2026-11-26T03:03Z",
+   "text": "S2 passed: Comparator with the release's own Challenge.lean and comparator.json (nanoda on, as theirs): \"nanoda kernel accepts the solution\", \"Lean default kernel accepts the solution\", \"Your solution is okay!\", exit 0 after 2,754 s (45 min 54 s, peak RSS 15.9 GB). \"invocation done: all\" at 03:03:36; the seal lists 358 files (RESULTS.sha256; _phase.log differs from its sealed hash only by the two lines the runner appends after the seal). Every registered row now has its word: 12 CERTIFIED and D1 COMPUTED. Pulled home; the pod is deleted next."
+  },
+  {
+   "at": "2026-11-26T03:05Z",
+   "text": "the pod tzj3kmtfk6flzc deleted (list-pods empty after the delete); its small results are home in runs/tzj3kmtfk6flzc/."
   }
  ],
  "seals": [
@@ -1117,11 +1126,11 @@
   },
   {
    "file": "corpus/grh-lean-check/PROGRESS.md",
-   "sha256_12": "dcd6d802553a"
+   "sha256_12": "0c9ff5012ce4"
   },
   {
    "file": "corpus/grh-lean-check/record.json",
-   "sha256_12": "e529a4eeb064"
+   "sha256_12": "11b0dc5d1e08"
   },
   {
    "file": "corpus/grh-lean-check/SEAL-A2.sha256",
@@ -1149,7 +1158,7 @@
   },
   {
    "file": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/_phase.log",
-   "sha256_12": "33728fdd3c9d"
+   "sha256_12": "439cb9d491d9"
   },
   {
    "file": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/D1-grh.out",
