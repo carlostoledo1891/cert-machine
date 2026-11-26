@@ -64,3 +64,4 @@
   (RESULTS.sha256; _phase.log differs from its sealed hash only by the two lines the runner appends after the seal).
   Every registered row now has its word: 12 CERTIFIED and D1 COMPUTED. Pulled home; the pod is deleted next.
 - 2026-11-26 03:05 — the pod tzj3kmtfk6flzc deleted (list-pods empty after the delete); its small results are home in runs/tzj3kmtfk6flzc/.
+- 2026-11-26 19:45 — the operator opened leanprover-community/riemann-hypothesis issue #8747, "An independent check of grh-lean at 72fead10 (both editions)", in his words (https://github.com/leanprover-community/riemann-hypothesis/issues/8747).
