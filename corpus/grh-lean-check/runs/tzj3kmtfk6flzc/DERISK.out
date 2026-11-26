@@ -1,0 +1,36 @@
+✔ [6/7] Built Bad (319ms)
+Build completed successfully (7 jobs).
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+DERISK comparator-So exit 0
+Build completed successfully (3 jobs).
+[landrun:warn] 2026/11/25 23:42:15 kernel supports Landlock ABI v4, so these default restrictions are not enforced: device ioctl (ABI v5), pathname UNIX socket connections (ABI v9), UDP bind/connect/send (ABI v10), abstract UNIX socket and signal scoping (ABI v6)
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, t, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Bad
+uncaught exception: Illegal axiom detected: 'a'
+DERISK comparator-Bad exit 1
+DERISK export exit 0 bytes 122124
+{"meta":{"exporter":{"name":"lean4export","version":"3.1.0"},"format":{"version":"3.1.0"},"lean":{"githash":"eb6cafb7290e8bd5f2937522d8d804f58f02bafc","version":"4.35.0"}}}
+{"in":1,"str":{"pre":0,"str":"Eq"}}
+{"in":2,"st
+DERISK export-ch exit 0
+DERISK flip exit 0
+Checked 84 declarations with no typechecker errors, 1 pretty printer errors: [
+    "Unable to print axioms",
+]
+DERISK nanoda-e exit 0
+con-leche: stats: peak RSS 0.03 GiB
+con-leche: accepted 63 declarations (--verified)
+DERISK conleche-e exit 0
+thread 'thread_1' (86418) panicked at src/tc.rs:988:71:
+assertion failed: self.def_eq(u, v)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+DERISK nanoda-bad exit 101
+con-leche: stats: peak RSS 0.02 GiB
+con-leche: invalid: application type mismatch [at theorem t, fold position 69] (--verified) t=0.0s
+DERISK conleche-bad exit 1
+con-leche: stats: peak RSS 0.05 GiB
+con-leche: accepted 297 declarations, 1 axioms justified by the solution e.ndjson (63 declarations accepted) (--verified)
+con-leche: theorem t justified by the solution
+DERISK conleche-compare exit 0

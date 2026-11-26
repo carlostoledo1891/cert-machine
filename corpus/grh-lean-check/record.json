@@ -1,0 +1,237 @@
+{
+ "what": "The grh-lean lane: lsernau/grh-lean at 72fead102f663d5c7a407964a13dc0cf9d977207, checked row by row on the pod and derived by tools/check-grh-lean.py under corpus/grh-lean-check/PREREG.md and AMENDMENTS.md.",
+ "target": {
+  "commit": "72fead102f663d5c7a407964a13dc0cf9d977207",
+  "tree": "5eb1240f03e791edd3fc7aa84a3a7d8dc3997b7f",
+  "files": 1627,
+  "lean": "v4.35.0",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679"
+ },
+ "run": "tzj3kmtfk6flzc",
+ "char_run": "char-alt1te1i1gsnpy",
+ "claim": {
+  "id": "claim",
+  "verdict": "PENDING",
+  "why": "rows still pending: A1, C1-C3",
+  "state": "pending"
+ },
+ "rows": [
+  {
+   "id": "I1",
+   "verdict": "CERTIFIED",
+   "why": "the clone at 72fead10 (tree 5eb1240f) hashes to one list of 1627 files, pinned before any build; the 14 registered pins match; no cache service, executable or lakefile.lean",
+   "list_sha256": "470a6d1a7afc3d01e42dbe66f01f8a10305b3f5ef27b55345a79a8724432aab5"
+  },
+  {
+   "id": "B1",
+   "verdict": "CERTIFIED",
+   "why": "lake build of grh/ exits 0 from source (Mathlib's official cache only): all 803 release modules compiled here, none present before, no `sorry`",
+   "seconds": 1268,
+   "peak_rss_gb": 10.1,
+   "sources": 803,
+   "oleans": 803,
+   "missing": 0,
+   "extra": 0,
+   "sorry_warnings": 0,
+   "built_release_modules": 803,
+   "release_oleans_before": 0,
+   "fetch_lines": 1
+  },
+  {
+   "id": "B2",
+   "verdict": "PENDING",
+   "why": "B2 has not run yet",
+   "state": "pending"
+  },
+  {
+   "id": "A1",
+   "verdict": "PENDING",
+   "why": "[compact] A1-compact has not run yet",
+   "state": "pending"
+  },
+  {
+   "id": "S1",
+   "verdict": "CERTIFIED",
+   "why": "Comparator v4.35.0 accepted (Lean's kernel), in its Landlock sandbox (ABI 4), the challenge unchanged since it was built before the release",
+   "seconds": 2229,
+   "peak_rss_gb": 15.1
+  },
+  {
+   "id": "S2",
+   "verdict": "PENDING",
+   "why": "S2 has not run yet",
+   "state": "pending"
+  },
+  {
+   "id": "K1",
+   "verdict": "CERTIFIED",
+   "why": "nanoda 0da9f98f checked 222117 declarations of the exported closure of the five with no typechecker error",
+   "declarations": 222117,
+   "export_sha256": "a28b40e7e90aa8477b01294d0afce119d1756d42b582c17a009f85694493396e",
+   "seconds": 137,
+   "peak_rss_gb": 8.8
+  },
+  {
+   "id": "K2",
+   "verdict": "CERTIFIED",
+   "why": "con-leche 5ea446d5 --verified accepted the 216567 declarations of the export, and --compare justified the five theorems against the challenge's export",
+   "declarations": 216567,
+   "K2V": {
+    "seconds": 52,
+    "peak_rss_gb": 3.9,
+    "cgroup_peak_gb": null
+   },
+   "K2C": {
+    "seconds": 55,
+    "peak_rss_gb": 4.2,
+    "cgroup_peak_gb": null
+   }
+  },
+  {
+   "id": "KR",
+   "verdict": "CERTIFIED",
+   "why": "leanchecker --fresh Main replayed the environment of Main (the readable edition) through Lean's kernel and exits 0",
+   "seconds": 2546,
+   "peak_rss_gb": 10.6
+  },
+  {
+   "id": "C1-C3",
+   "verdict": "PENDING",
+   "why": "control checks without a result yet: C3S",
+   "state": "pending",
+   "controls": {
+    "C1": {
+     "C1S": {
+      "state": "refused",
+      "exit": 1,
+      "refused": true
+     },
+     "C1K": {
+      "state": "refused",
+      "exit": 2,
+      "refused": true
+     },
+     "C1KC": {
+      "state": "refused",
+      "exit": 2,
+      "refused": true
+     }
+    },
+    "C2": {
+     "C2S": {
+      "state": "refused",
+      "exit": 1,
+      "refused": true
+     },
+     "C2K": {
+      "state": "refused",
+      "exit": 2,
+      "refused": true
+     },
+     "C2KC": {
+      "state": "refused",
+      "exit": 2,
+      "refused": true
+     }
+    },
+    "C3": {
+     "C3S": {
+      "state": "running",
+      "refused": null,
+      "info": null
+     },
+     "C3K": {
+      "state": "refused",
+      "exit": 1,
+      "refused": true
+     }
+    }
+   }
+  },
+  {
+   "id": "E1",
+   "verdict": "PENDING",
+   "why": "E1 has not run yet",
+   "state": "pending"
+  },
+  {
+   "id": "CHAR",
+   "verdict": "CERTIFIED",
+   "why": "the textbook RH and GRH (zeta and L characterised by their Dirichlet series and holomorphy on C minus 1, without Mathlib's definitions) proved equivalent to the release's statements at Lean v4.35.0 and Mathlib 56a00585, the four files unchanged; the eight theorems on the three standard axioms (amendment A2)",
+   "where": "char-alt1te1i1gsnpy",
+   "inputs_equal_repository": {
+    "Challenge.lean": true,
+    "Spec.lean": true,
+    "Textbook.lean": true,
+    "TextbookAx.lean": true
+   },
+   "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679"
+  },
+  {
+   "id": "D1",
+   "verdict": "PENDING",
+   "why": "D1 not complete: {'grh': 'absent', 'compact': 'absent'}",
+   "state": "pending",
+   "editions": {
+    "grh": {
+     "state": "absent"
+    },
+    "compact": {
+     "state": "absent"
+    }
+   }
+  }
+ ],
+ "tools": {
+  "audit_commit": "083bbf0009ec30d80e1626faa8ab7b07952a6528",
+  "judges": {
+   "comparator": "e3dcf3083fc53d44b27a4431fabf7d43181583f5",
+   "lean4export": "5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe",
+   "nanoda": "0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929",
+   "landrun": "573aa723afb16bb1da2dbe24fc00df46cd0ad13b",
+   "con-leche": "5ea446d5c79d23ef1f954215d094db2162f1ab6f"
+  },
+  "toolchains": [
+   [
+    "4.35.0",
+    "7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d"
+   ],
+   [
+    "4.36.0",
+    "2b7ab1ed8b92d2e6abfaf41344823b510064dbc9c0260cac73eb496ab2dea6eb"
+   ]
+  ],
+  "landlock": "4",
+  "systemd_run": "/usr/bin/systemd-run; /run/systemd/system: absent",
+  "cache_host_blocked": true,
+  "sandbox_gate": true,
+  "derisk": {
+   "comparator-So": "0",
+   "comparator-Bad": "1",
+   "export": "0",
+   "export-ch": "0",
+   "flip": "0",
+   "nanoda-e": "0",
+   "conleche-e": "0",
+   "nanoda-bad": "101",
+   "conleche-bad": "1",
+   "conleche-compare": "0"
+  },
+  "derisk_as_expected": true
+ },
+ "instruments_equal_audit_commit": {
+  "corpus/grh-lean-check/AMENDMENTS.md": true,
+  "corpus/grh-lean-check/PREREG.md": true,
+  "instruments/alpoge-grh/Challenge.lean": true,
+  "instruments/alpoge-grh/spec/Spec.lean": true,
+  "instruments/alpoge-grh/spec/Textbook.lean": true,
+  "instruments/alpoge-grh/spec/TextbookAx.lean": true,
+  "instruments/grh-lean/Challenge.lean": true,
+  "instruments/grh-lean/census/Unused.lean": true,
+  "instruments/grh-lean/controls/ChallengeC3.lean": true,
+  "instruments/grh-lean/controls/GrhC1.lean": true,
+  "instruments/grh-lean/controls/GrhC2.lean": true,
+  "tools/runpod-grh-lean.sh": true
+ },
+ "words": "REFUTED is never written by this recorder (PREREG verdict rule); a verdict null is an output that could not be read."
+}

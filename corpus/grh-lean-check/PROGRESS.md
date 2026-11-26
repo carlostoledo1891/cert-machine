@@ -36,3 +36,7 @@
 - 2026-11-26 00:19 — S1 (Comparator v4.35.0 against cert-machine's challenge) running; KR running since 00:08.
 - 2026-11-26 00:51 — KR passed: `leanchecker --fresh Main` (readable edition) exit 0 after 2,546 s (42 min 26 s wall,
   peak RSS 11.1 GB, KR.err). S1 still running (since 00:19:29).
+- 2026-11-26 00:56 — S1 passed: Comparator v4.35.0 against cert-machine's Mathlib-only challenge, in its Landlock sandbox
+  (ABI 4, P1's disclosure), "Lean default kernel accepts the solution" / "Your solution is okay!", exit 0 after 2,229 s
+  (37 min, peak RSS 15.9 GB). The recorder (00:58): I1, B1, S1, K1, K2, KR, CHAR CERTIFIED; A1 waits for the compact
+  edition, C1–C3 for C3S (running since 00:56:38), then D1, B2, E1, S2.

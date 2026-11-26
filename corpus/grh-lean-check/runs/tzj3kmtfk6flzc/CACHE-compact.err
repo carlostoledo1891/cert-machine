@@ -1,0 +1,89 @@
+info: mathlib: materializing new dependency
+info: mathlib: fetching revision '56a005855ea17e0b0958f73ec801ae140b0a1679' from https://github.com/leanprover-community/mathlib4
+info: mathlib: checking out revision '56a005855ea17e0b0958f73ec801ae140b0a1679'
+info: plausible: materializing new dependency
+info: plausible: fetching revision 'dfa4f38190d07c37e315953e08b90fe2d95b3c24' from https://github.com/leanprover-community/plausible
+info: plausible: checking out revision 'dfa4f38190d07c37e315953e08b90fe2d95b3c24'
+info: LeanSearchClient: materializing new dependency
+info: LeanSearchClient: fetching revision 'd6b4c7be5be75ec4917c873ac50c756dc1436372' from https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision 'd6b4c7be5be75ec4917c873ac50c756dc1436372'
+info: importGraph: materializing new dependency
+info: importGraph: fetching revision 'a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93' from https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision 'a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93'
+info: proofwidgets: materializing new dependency
+info: proofwidgets: fetching revision 'df72b022e558978a1c50264cfc4d7fec86fa8e04' from https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision 'df72b022e558978a1c50264cfc4d7fec86fa8e04'
+info: aesop: materializing new dependency
+info: aesop: fetching revision '4a174c490d8707121c4a9290800489f105d85e07' from https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '4a174c490d8707121c4a9290800489f105d85e07'
+info: Qq: materializing new dependency
+info: Qq: fetching revision 'dce0ad79c486cb1fb504af04f953c3466b0c6db8' from https://github.com/leanprover-community/quote4
+info: Qq: checking out revision 'dce0ad79c486cb1fb504af04f953c3466b0c6db8'
+info: batteries: materializing new dependency
+info: batteries: fetching revision '66e469188fe07963e5cf666c7d4433f45b8131c5' from https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '66e469188fe07963e5cf666c7d4433f45b8131c5'
+info: Cli: materializing new dependency
+info: Cli: fetching revision 'c24fe6078c630e89b489bffe59b3e20ac30d12c8' from https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision 'c24fe6078c630e89b489bffe59b3e20ac30d12c8'
+✔ [1/5] Built Cache.Cli (402ms)
+✔ [2/5] Built Cache.Lean (446ms)
+✔ [6/42] Built Cache.Cli:c.o (108ms)
+✔ [7/42] Built Cache.Lean:c.o (144ms)
+✔ [8/42] Built Cache.Env (418ms)
+✔ [9/42] Built Cache.Env:c.o (132ms)
+✔ [10/42] Built Cache.Infra (444ms)
+✔ [11/42] Built Batteries.Tactic.OpenPrivate (896ms)
+✔ [12/42] Built Cache.Infra:c.o (143ms)
+✔ [13/42] Built Cache.Location (529ms)
+✔ [14/42] Built Cache.Location:c.o (187ms)
+✔ [15/42] Built Batteries.Tactic.OpenPrivate:c.o (769ms)
+✔ [16/42] Built Cache.IO (1.5s)
+✔ [17/42] Built Cache.Hashing (658ms)
+✔ [18/42] Built Cache.IO:c.o (1.1s)
+✔ [19/42] Built Cache.Hashing:c.o (418ms)
+✔ [20/42] Built Cache.Requests (1.6s)
+✔ [21/42] Built Cache.Marker (450ms)
+✔ [22/42] Built Cache.Marker:c.o (118ms)
+✔ [23/42] Built Cache.Upload.Curl (486ms)
+✔ [24/42] Built Cache.Upload.Rclone (565ms)
+✔ [25/42] Built Cache.Query (591ms)
+✔ [26/42] Built Cache.Upload.Curl:c.o (145ms)
+✔ [27/42] Built Cache.Upload.Rclone:c.o (184ms)
+✔ [28/42] Built Cache.Query:c.o (206ms)
+✔ [29/42] Built Cache.Upload.Azure (504ms)
+✔ [30/42] Built Cache.Upload.S3 (585ms)
+✔ [31/42] Built Cache.Warning (579ms)
+✔ [32/42] Built Cache.Upload.Azure:c.o (120ms)
+✔ [33/42] Built Cache.Requests:c.o (1.8s)
+✔ [34/42] Built Cache.Upload.S3:c.o (223ms)
+✔ [35/42] Built Cache.Warning:c.o (236ms)
+✔ [36/42] Built Cache.Upload.Defs (480ms)
+✔ [37/42] Built Cache.Upload.Defs:c.o (133ms)
+✔ [38/42] Built Cache.Upload (436ms)
+✔ [39/42] Built Cache.Upload:c.o (101ms)
+✔ [40/42] Built Cache.Main (864ms)
+✔ [41/42] Built Cache.Main:c.o (707ms)
+✔ [42/42] Built cache:exe (643ms)
+	Command being timed: "timeout -k 60 3600 lake exe cache get"
+	User time (seconds): 52.90
+	System time (seconds): 81.42
+	Percent of CPU this job got: 223%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:00.13
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1001076
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 40
+	Minor (reclaiming a frame) page faults: 5198157
+	Voluntary context switches: 1731978
+	Involuntary context switches: 28857
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 15080144
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

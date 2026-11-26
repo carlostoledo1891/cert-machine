@@ -1,0 +1,35 @@
+info: downloading installer
+JUDGE comparator e3dcf3083fc53d44b27a4431fabf7d43181583f5 v4.35.0
+comparator lean-toolchain leanprover/lean4:v4.35.0
+info: downloading https://releases.lean-lang.org/lean4/v4.35.0/lean-4.35.0-linux.tar.zst
+info: installing /root/.elan/toolchains/leanprover--lean4---v4.35.0
+
+leanprover/lean4:v4.35.0 installed - Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+
+✔ [20/21] Built Main:c.o (622ms)
+✔ [21/21] Built comparator:exe (564ms)
+Build completed successfully (21 jobs).
+JUDGE lean4export 5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe v4.35.0
+rustc 1.100.0 (0ef1bc386 2026-11-09)
+JUDGE nanoda 0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929 v0.3.2-86-g0da9f98
+   Compiling nanoda_lib v0.4.32 (/opt/judges/nanoda_lib)
+    Finished `release` profile [optimized] target(s) in 13.03s
+JUDGE landrun 573aa723afb16bb1da2dbe24fc00df46cd0ad13b v0.2.0-1-g573aa72
+go version go1.22.2 linux/amd64
+go: downloading golang.org/x/sys v0.49.0
+go: downloading kernel.org/pub/linux/libs/security/libcap/psx v1.2.78
+JUDGE con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f 5ea446d5c
+con-leche lean-toolchain leanprover/lean4:v4.36.0
+info: downloading https://releases.lean-lang.org/lean4/v4.36.0/lean-4.36.0-linux.tar.zst
+info: installing /root/.elan/toolchains/leanprover--lean4---v4.36.0
+
+leanprover/lean4:v4.36.0 installed - Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+
+✔ [1709/1713] Built ConLeche.Model.Modular.SeesCompare (502ms)
+✔ [1711/1713] Built ConLeche.MainTheorem (430ms)
+Build completed successfully (1713 jobs).
+3300f5a725ae8dcbfb88b3eb0c605c5737ec8e02bc3033f80665a182d997b023  /opt/judges/comparator/.lake/build/bin/comparator
+87f4fe988dfe97a2a607cf38a8777a625b482f833985c16dbc1ddafa525f4bba  /opt/judges/comparator/.lake/packages/lean4export/.lake/build/bin/lean4export
+d2431e25a7cf7fc6de460f3fbbc2365bce9e24ff588a41ad0e097c99135d004e  /opt/judges/nanoda_lib/target/release/nanoda_bin
+6622fd5288376034a9bf3012c8b871accc48514a0aa9331d4b2d4d4c26a11f82  /opt/judges/landrun/landrun
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  /opt/judges/con-leche/.lake/build/bin/con-leche

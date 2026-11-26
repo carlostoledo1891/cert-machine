@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 1.2s (index 0.0s), check 2.0s
+con-leche: stats: check pool: 2.080s wall, 16 workers, 52057 records, busy 32.735s (98.3%); tail 0.017s after the last start, 16 busy then, 0.040s worker-time in it (14.2%)
+con-leche: stats: slowest checks: 0.099s theorem Lean.Grind.Ring.OfSemiring.mul_helper (#24836); 0.060s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.cos_bound._proof_1_3 (#15879); 0.057s theorem HasFPowerSeriesWithinOnBall.hasSum_derivSeries_of_hasFDerivWithinAt (#41051); 0.055s theorem _private.Init.Data.List.Sort.Basic.0.List.MergeSort.Internal.splitInTwo._proof_2 (#39719); 0.053s theorem bernsteinPolynomial.sum_mul_smul (#51247)
+con-leche: stats: peak RSS 0.83 GiB
+con-leche: the solution /data/k2/c2.ndjson: not implemented yet: use of the sorryAx axiom in value of LFunction_ne_zero_of_half_lt_re [at theorem LFunction_ne_zero_of_half_lt_re, fold position 52056] (--verified) t=3.3s
+Command exited with non-zero status 2
+	Command being timed: "timeout -k 60 3600 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/k2/challenge-c2.ndjson /data/k2/c2.ndjson"
+	User time (seconds): 28.05
+	System time (seconds): 0.50
+	Percent of CPU this job got: 846%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 876712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 26450
+	Voluntary context switches: 4888
+	Involuntary context switches: 3317
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 2

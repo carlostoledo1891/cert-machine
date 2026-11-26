@@ -1,0 +1,63 @@
+Building CertMachine.Challenge
+⚠ [9047/9047] Replayed CertMachine.Challenge
+warning: src/CertMachine/Challenge.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: src/CertMachine/Challenge.lean:39:8: declaration uses `sorry`
+warning: src/CertMachine/Challenge.lean:41:8: declaration uses `sorry`
+warning: src/CertMachine/Challenge.lean:43:8: declaration uses `sorry`
+warning: src/CertMachine/Challenge.lean:45:8: declaration uses `sorry`
+warning: src/CertMachine/Challenge.lean:47:8: declaration uses `sorry`
+Build completed successfully (9047 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, riemannHypothesis, riemannZeta_eq_zero_re, LFunction_ne_zero_of_half_lt_re, LFunction_eq_zero_re, LFunction_eq_zero_re_of_isPrimitive, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from CertMachine.Challenge
+Building Main
+⚠ [9046/9374] Replayed Statements
+warning: src/Statements.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9047/9374] Replayed Lib.Speed
+warning: src/Lib/Speed.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [9054/9374] Replayed Lib.General.NumberTheory.EmbeddingsAndDifferent
+info: src/Lib/General/NumberTheory/EmbeddingsAndDifferent.lean:249:8: Try these:
+  [apply] [grind .] for pattern: [@star (RingHom #3 `[ℂ] _ `[Complex.instSemiring.toNonAssocSemiring]) _ #0]
+  [apply] [grind
+    =>] for pattern: [IsTotallyComplex #3 #2, @star (RingHom _ `[ℂ] _ `[Complex.instSemiring.toNonAssocSemiring]) _ #0]
+ℹ [9184/9374] Replayed Lib.GLn.SchurModule.WeylKernel
+info: src/Lib/GLn/SchurModule/WeylKernel.lean:283:2: Try these:
+  [apply] [grind
+    =] for pattern: [@DFunLike.coe (Finsupp (Prod #5 `[ℕ]) `[ℕ] `[Nat.instMulZeroClass.toZero]) (Prod _ `[ℕ]) _ _ (@diagramWeight _ #4 #2 #3) (@Prod.mk _ `[ℕ] #1 #0)]
+  [apply] [grind
+    =_] for pattern: [@HAdd.hAdd `[ℕ] `[ℕ] `[ℕ] `[instHAdd] _ (@DFunLike.coe (Finsupp (Prod #5 `[ℕ]) `[ℕ] `[Nat.instMulZeroClass.toZero]) (Prod _ `[ℕ]) _ _ (@diagramWeight _ #4 #2 #3) (@Prod.mk _ `[ℕ] #1 (#0 + 1)))]
+ℹ [9200/9374] Replayed Lib.CM.ConjugateCurve
+info: src/Lib/CM/ConjugateCurve.lean:338:8: Try these:
+  [apply] [grind
+    =] for pattern: [@DFunLike.coe (AlgEquiv (@Subtype `[ℂ] _) `[ℂ] `[ℂ] _ `[Complex.instSemiring] `[Complex.instSemiring] _ _) `[ℂ] `[fun
+      x ↦
+    ℂ] _ #1 #2]
+  [apply] [grind
+    =>] for pattern: [@Membership.mem `[ℂ] `[Subring ℂ] `[SetLike.instMembership] (quadInt #3) #2, @DFunLike.coe (AlgEquiv (@Subtype `[ℂ] _) `[ℂ] `[ℂ] _ `[Complex.instSemiring] `[Complex.instSemiring] _ _) `[ℂ] `[fun
+      x ↦
+    ℂ] _ #1 #2]
+⚠ [9266/9374] Replayed Lib.General.LinearAlgebra.BlockEmbeddings
+warning: src/Lib/General/LinearAlgebra/BlockEmbeddings.lean: imports `Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [9272/9374] Replayed Lib.LocalGL.Iwahori.QuadraticRelation
+info: src/Lib/LocalGL/Iwahori/QuadraticRelation.lean:56:2: Try this:
+  [apply] [grind
+    =] for pattern: [@Membership.mem (Units _ _) (Subgroup (Units _ _) _) _ (@blockParahoric #5 #4 #3 #2 #1) #0]
+⚠ [9414/9495] Replayed Lib.SiegelWeil.NeighbourLattices
+warning: src/Lib/SiegelWeil/NeighbourLattices.lean: imports `Mathlib.LinearAlgebra.Projectivization.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9415/9495] Replayed Lib.SiegelWeil.UnramifiedSeries.VacuumCoefficients
+warning: src/Lib/SiegelWeil/UnramifiedSeries/VacuumCoefficients.lean: imports `Mathlib.LinearAlgebra.Projectivization.Cardinality` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9417/9495] Replayed Lib.SiegelWeil.UnramifiedSeries.RallisSeries
+warning: src/Lib/SiegelWeil/UnramifiedSeries/RallisSeries.lean: imports `Mathlib.LinearAlgebra.Projectivization.Cardinality` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9600/9610] Replayed Lib.DiscreteSeries.Bruhat.QuadricBlocks
+warning: src/Lib/DiscreteSeries/Bruhat/QuadricBlocks.lean: imports `Mathlib.Probability.Kernel.Composition.MeasureCompProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9601/9610] Replayed Lib.DiscreteSeries.Bruhat.FourierKernels
+warning: src/Lib/DiscreteSeries/Bruhat/FourierKernels.lean: imports `Mathlib.Probability.Kernel.Composition.IntegralCompProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9669/9745] Replayed Lib.DiscreteSeries.Bruhat.SphereFibres
+warning: src/Lib/DiscreteSeries/Bruhat/SphereFibres.lean: imports `Mathlib.Probability.Kernel.WithDensity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9783/9850] Replayed New.OneLift.ComparisonOperator.ProductsSpan
+warning: src/New/OneLift/ComparisonOperator/ProductsSpan.lean:99:44: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Build completed successfully (9850 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, riemannHypothesis, riemannZeta_eq_zero_re, LFunction_ne_zero_of_half_lt_re, LFunction_eq_zero_re, LFunction_eq_zero_re_of_isPrimitive, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!

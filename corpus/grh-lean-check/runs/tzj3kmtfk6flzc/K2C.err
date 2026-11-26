@@ -1,0 +1,79 @@
+con-leche: reading /data/k2/challenge.ndjson
+con-leche: reading /data/export.ndjson
+con-leche: checking: 216567 declarations on 16 workers t=5.8s
+con-leche: check 10829 (5%) t=6.1s busy=15/16
+con-leche: check 21657 (10%) t=6.5s busy=15/16
+con-leche: check 32486 (15%) t=6.9s busy=14/16
+con-leche: check 43314 (20%) t=7.5s busy=14/16
+con-leche: check 54142 (25%) t=8.2s busy=15/16
+con-leche: check 64971 (30%) t=8.9s busy=15/16
+con-leche: check 75799 (35%) t=9.6s busy=15/16
+con-leche: check 86627 (40%) t=10.5s busy=15/16
+con-leche: check 97456 (45%) t=11.8s busy=15/16
+con-leche: check 108284 (50%) t=13.0s busy=15/16
+con-leche: check 119112 (55%) t=14.5s busy=15/16
+con-leche: check 129941 (60%) t=16.3s busy=15/16
+con-leche: check 140769 (65%) t=19.0s busy=15/16
+con-leche: check 151597 (70%) t=22.8s busy=15/16
+con-leche: check 162426 (75%) t=26.2s busy=15/16
+con-leche: check 173254 (80%) t=28.1s busy=15/16
+con-leche: check 184082 (85%) t=30.2s busy=15/16
+con-leche: check 194911 (90%) t=32.0s busy=15/16
+con-leche: check 205739 (95%) t=37.2s busy=15/16
+con-leche: check 216567 (100%) t=50.6s busy=0/16
+con-leche: check done: 216567 declarations t=50.6s (check 44.8s)
+con-leche: done: parse 5.8s, check 44.8s, 16 workers t=50.6s
+con-leche: stats: phases: parse 5.8s (index 0.2s), check 44.8s
+con-leche: stats: check pool: 44.800s wall, 16 workers, 216567 records, busy 603.760s (84.2%); tail 7.555s after the last start, 16 busy then, 8.865s worker-time in it (7.3%)
+con-leche: stats: slowest checks: 10.589s theorem New.Selmer.isNegligible_padicValNat_oddClassBound (#211768); 4.624s theorem New.adelicSum._proof_12 (#88018); 2.134s theorem New.derivation_eulerAddition._proof_1_3 (#213858); 1.439s theorem New.GaloisRep.IsSplitPrimeToDisc.exists_place_above_ne._proof_1_13 (#168154); 1.359s theorem New.Data.abs_targetParameter_sub_lowestKType_le_and_eq._proof_1_9 (#143331)
+con-leche: stats: peak RSS 4.16 GiB
+con-leche: checking: 52169 declarations on 16 workers t=52.0s
+con-leche: check 2609 (5%) t=52.0s busy=12/16
+con-leche: check 5217 (10%) t=52.1s busy=15/16
+con-leche: check 7826 (15%) t=52.2s busy=15/16
+con-leche: check 10434 (20%) t=52.2s busy=15/16
+con-leche: check 13043 (25%) t=52.3s busy=15/16
+con-leche: check 15651 (30%) t=52.3s busy=15/16
+con-leche: check 18260 (35%) t=52.4s busy=15/16
+con-leche: check 20868 (40%) t=52.5s busy=15/16
+con-leche: check 23477 (45%) t=52.5s busy=15/16
+con-leche: check 26085 (50%) t=52.6s busy=15/16
+con-leche: check 28693 (55%) t=52.7s busy=15/16
+con-leche: check 31302 (60%) t=52.8s busy=15/16
+con-leche: check 33910 (65%) t=52.9s busy=15/16
+con-leche: check 36519 (70%) t=53.0s busy=15/16
+con-leche: check 39127 (75%) t=53.1s busy=15/16
+con-leche: check 41736 (80%) t=53.3s busy=15/16
+con-leche: check 44344 (85%) t=53.4s busy=15/16
+con-leche: check 46953 (90%) t=53.5s busy=15/16
+con-leche: check 49561 (95%) t=53.6s busy=15/16
+con-leche: check 52169 (100%) t=53.8s busy=0/16
+con-leche: check done: 52169 declarations t=53.9s (check 1.9s)
+con-leche: done: parse 52.0s, check 1.9s, 16 workers t=53.9s
+con-leche: stats: phases: parse 52.0s (index 0.1s), check 1.9s
+con-leche: stats: check pool: 1.907s wall, 16 workers, 52169 records, busy 29.232s (95.7%); tail 0.081s after the last start, 16 busy then, 0.286s worker-time in it (21.9%)
+con-leche: stats: slowest checks: 0.074s axiom riemannHypothesis (#51679); 0.074s axiom riemannZeta_eq_zero_re (#51682); 0.071s axiom LFunction_eq_zero_re_of_isPrimitive (#52168); 0.064s axiom LFunction_ne_zero_of_half_lt_re (#52062); 0.064s axiom LFunction_eq_zero_re (#52064)
+con-leche: stats: peak RSS 4.16 GiB
+	Command being timed: "timeout -k 60 7200 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --progress=5% --compare -- /data/k2/challenge.ndjson /data/export.ndjson"
+	User time (seconds): 596.01
+	System time (seconds): 8.79
+	Percent of CPU this job got: 1100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:54.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4362764
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1863040
+	Voluntary context switches: 15003
+	Involuntary context switches: 23784
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,51 @@
+⚠ [9046/9338] Replayed Lib.Speed
+warning: src/Lib/Speed.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [9053/9338] Replayed Lib.General.NumberTheory.EmbeddingsAndDifferent
+info: src/Lib/General/NumberTheory/EmbeddingsAndDifferent.lean:249:8: Try these:
+  [apply] [grind .] for pattern: [@star (RingHom #3 `[ℂ] _ `[Complex.instSemiring.toNonAssocSemiring]) _ #0]
+  [apply] [grind
+    =>] for pattern: [IsTotallyComplex #3 #2, @star (RingHom _ `[ℂ] _ `[Complex.instSemiring.toNonAssocSemiring]) _ #0]
+ℹ [9183/9338] Replayed Lib.GLn.SchurModule.WeylKernel
+info: src/Lib/GLn/SchurModule/WeylKernel.lean:283:2: Try these:
+  [apply] [grind
+    =] for pattern: [@DFunLike.coe (Finsupp (Prod #5 `[ℕ]) `[ℕ] `[Nat.instMulZeroClass.toZero]) (Prod _ `[ℕ]) _ _ (@diagramWeight _ #4 #2 #3) (@Prod.mk _ `[ℕ] #1 #0)]
+  [apply] [grind
+    =_] for pattern: [@HAdd.hAdd `[ℕ] `[ℕ] `[ℕ] `[instHAdd] _ (@DFunLike.coe (Finsupp (Prod #5 `[ℕ]) `[ℕ] `[Nat.instMulZeroClass.toZero]) (Prod _ `[ℕ]) _ _ (@diagramWeight _ #4 #2 #3) (@Prod.mk _ `[ℕ] #1 (#0 + 1)))]
+ℹ [9199/9338] Replayed Lib.CM.ConjugateCurve
+info: src/Lib/CM/ConjugateCurve.lean:338:8: Try these:
+  [apply] [grind
+    =] for pattern: [@DFunLike.coe (AlgEquiv (@Subtype `[ℂ] _) `[ℂ] `[ℂ] _ `[Complex.instSemiring] `[Complex.instSemiring] _ _) `[ℂ] `[fun
+      x ↦
+    ℂ] _ #1 #2]
+  [apply] [grind
+    =>] for pattern: [@Membership.mem `[ℂ] `[Subring ℂ] `[SetLike.instMembership] (quadInt #3) #2, @DFunLike.coe (AlgEquiv (@Subtype `[ℂ] _) `[ℂ] `[ℂ] _ `[Complex.instSemiring] `[Complex.instSemiring] _ _) `[ℂ] `[fun
+      x ↦
+    ℂ] _ #1 #2]
+⚠ [9265/9338] Replayed Lib.General.LinearAlgebra.BlockEmbeddings
+warning: src/Lib/General/LinearAlgebra/BlockEmbeddings.lean: imports `Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+ℹ [9271/9338] Replayed Lib.LocalGL.Iwahori.QuadraticRelation
+info: src/Lib/LocalGL/Iwahori/QuadraticRelation.lean:56:2: Try this:
+  [apply] [grind
+    =] for pattern: [@Membership.mem (Units _ _) (Subgroup (Units _ _) _) _ (@blockParahoric #5 #4 #3 #2 #1) #0]
+⚠ [9413/9467] Replayed Lib.SiegelWeil.NeighbourLattices
+warning: src/Lib/SiegelWeil/NeighbourLattices.lean: imports `Mathlib.LinearAlgebra.Projectivization.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9414/9467] Replayed Lib.SiegelWeil.UnramifiedSeries.VacuumCoefficients
+warning: src/Lib/SiegelWeil/UnramifiedSeries/VacuumCoefficients.lean: imports `Mathlib.LinearAlgebra.Projectivization.Cardinality` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9416/9467] Replayed Lib.SiegelWeil.UnramifiedSeries.RallisSeries
+warning: src/Lib/SiegelWeil/UnramifiedSeries/RallisSeries.lean: imports `Mathlib.LinearAlgebra.Projectivization.Cardinality` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9599/9688] Replayed Lib.DiscreteSeries.Bruhat.QuadricBlocks
+warning: src/Lib/DiscreteSeries/Bruhat/QuadricBlocks.lean: imports `Mathlib.Probability.Kernel.Composition.MeasureCompProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9600/9688] Replayed Lib.DiscreteSeries.Bruhat.FourierKernels
+warning: src/Lib/DiscreteSeries/Bruhat/FourierKernels.lean: imports `Mathlib.Probability.Kernel.Composition.IntegralCompProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9668/9688] Replayed Lib.DiscreteSeries.Bruhat.SphereFibres
+warning: src/Lib/DiscreteSeries/Bruhat/SphereFibres.lean: imports `Mathlib.Probability.Kernel.WithDensity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9781/9807] Replayed New.OneLift.ComparisonOperator.ProductsSpan
+warning: src/New/OneLift/ComparisonOperator/ProductsSpan.lean:99:44: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9846/9850] Replayed Statements
+warning: src/Statements.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9849/9850] Built CertMachineCtl.GrhC1 (5.1s)
+⚠ [9850/9850] Built CertMachineCtl.GrhC2 (5.2s)
+warning: src/CertMachineCtl/GrhC2.lean:22:8: declaration uses `sorry`
+Build completed successfully (9850 jobs).

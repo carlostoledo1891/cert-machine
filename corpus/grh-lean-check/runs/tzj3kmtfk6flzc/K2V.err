@@ -1,0 +1,52 @@
+con-leche: reading /data/export.ndjson
+con-leche: parse done: 216567 fold records — the file's 216567, 0 built-in prelude records synthesised t=5.3s (parse 5.3s)
+con-leche: checking: 216567 declarations on 16 workers t=5.3s
+con-leche: check 10829 (5%) t=5.8s busy=15/16
+con-leche: check 21657 (10%) t=6.4s busy=15/16
+con-leche: check 32486 (15%) t=7.1s busy=15/16
+con-leche: check 43314 (20%) t=7.8s busy=13/16
+con-leche: check 54142 (25%) t=8.4s busy=15/16
+con-leche: check 64971 (30%) t=9.0s busy=13/16
+con-leche: check 75799 (35%) t=9.7s busy=15/16
+con-leche: check 86627 (40%) t=10.5s busy=15/16
+con-leche: check 97456 (45%) t=11.8s busy=14/16
+con-leche: check 108284 (50%) t=13.1s busy=15/16
+con-leche: check 119112 (55%) t=14.5s busy=15/16
+con-leche: check 129941 (60%) t=16.2s busy=15/16
+con-leche: check 140769 (65%) t=18.9s busy=15/16
+con-leche: check 151597 (70%) t=22.8s busy=15/16
+con-leche: check 162426 (75%) t=26.6s busy=15/16
+con-leche: check 173254 (80%) t=28.6s busy=15/16
+con-leche: check 184082 (85%) t=30.9s busy=15/16
+con-leche: check 194911 (90%) t=32.9s busy=15/16
+con-leche: check 205739 (95%) t=38.1s busy=15/16
+con-leche: check 216567 (100%) t=51.5s busy=0/16
+con-leche: check done: 216567 declarations t=51.5s (check 46.2s)
+con-leche: done: parse 5.3s, check 46.2s, 16 workers t=51.5s
+con-leche: stats: phases: parse 5.3s (index 0.2s), check 46.2s
+con-leche: stats: check pool: 46.289s wall, 16 workers, 216567 records, busy 627.013s (84.6%); tail 7.597s after the last start, 16 busy then, 8.863s worker-time in it (7.2%)
+con-leche: stats: slowest checks: 10.614s theorem New.Selmer.isNegligible_padicValNat_oddClassBound (#211768); 2.629s theorem New.adelicSum._proof_12 (#88018); 2.196s theorem New.derivation_eulerAddition._proof_1_3 (#213858); 2.184s theorem New.GaloisRep.IsSplitPrimeToDisc.exists_place_above_ne._proof_1_13 (#168154); 1.831s theorem New.Data.abs_targetParameter_sub_lowestKType_le_and_eq._proof_1_9 (#143331)
+con-leche: stats: peak RSS 3.91 GiB
+	Command being timed: "timeout -k 60 7200 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --progress=5% /data/export.ndjson"
+	User time (seconds): 568.99
+	System time (seconds): 8.62
+	Percent of CPU this job got: 1117%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:51.70
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4105004
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1933564
+	Voluntary context switches: 11745
+	Involuntary context switches: 26815
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 80
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

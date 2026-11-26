@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 0.6s (index 0.0s), check 2.1s
+con-leche: stats: check pool: 2.105s wall, 16 workers, 52158 records, busy 33.355s (99.0%); tail 0.011s after the last start, 16 busy then, 0.034s worker-time in it (19.0%)
+con-leche: stats: slowest checks: 0.156s theorem cauchy_product (#13066); 0.075s theorem _private.Mathlib.Analysis.Complex.Trigonometric.0.Complex.cos_bound._proof_1_3 (#16028); 0.074s theorem _private.Mathlib.Data.List.Perm.Lattice.0.List.Perm.bagInter_right._proof_1_3 (#12421); 0.070s theorem Besicovitch.SatelliteConfig.exists_normalized_aux3 (#43764); 0.070s theorem Complex.integral_boundary_rect_of_hasFDerivAt_real_off_countable (#48116)
+con-leche: stats: peak RSS 0.59 GiB
+con-leche: not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1); con-leche does not support such axioms at the moment [at axiom CertMachine.plantedAxiomC1, fold position 52157] (--verified) t=2.7s
+Command exited with non-zero status 2
+	Command being timed: "timeout -k 60 3600 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 /data/k2/c1.ndjson"
+	User time (seconds): 25.91
+	System time (seconds): 0.42
+	Percent of CPU this job got: 954%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 628820
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 23773
+	Voluntary context switches: 2539
+	Involuntary context switches: 2131
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 2

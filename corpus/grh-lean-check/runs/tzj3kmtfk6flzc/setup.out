@@ -1,0 +1,38 @@
+audit commit 083bbf0009ec30d80e1626faa8ab7b07952a6528
+host 213b72188a23; 16 vCPU; memory.max ; disk 160G free; kernel 6.8.0-138-generic
+cache host blocked: rh-cache.taucetiproject.org unreachable
+toolchain 4.35.0 archive 7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d (expected 7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d)
+toolchain 4.36.0 archive 2b7ab1ed8b92d2e6abfaf41344823b510064dbc9c0260cac73eb496ab2dea6eb (expected 2b7ab1ed8b92d2e6abfaf41344823b510064dbc9c0260cac73eb496ab2dea6eb)
+Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+d665ba0f48e98c4ecd22e8c1737655bdae8a260d4ec1400029476c0eecae2afe  ./corpus/grh-lean-check/AMENDMENTS.md
+34a5d3bbc638e3c082a429f5a89df149782960c9a49f8a8836db289823677c26  ./corpus/grh-lean-check/PREREG.md
+8c1e5e1d10e7484d40da56d4e311cfe425146f70a694665937341c81343f2a4f  ./instruments/alpoge-grh/Challenge.lean
+a15f6d86eb74275c505cc5299925d029b34a250b85e0c9d5c69a10afdad50db9  ./instruments/alpoge-grh/spec/Spec.lean
+5310cb6fe26eda7d25f0c2f84542644a13b39e5d6dc1c7c7f26d5526b016947e  ./instruments/alpoge-grh/spec/Textbook.lean
+cbf610a2d32a1bf375f2ee6bf639a078200808d49ea35117c904da0856e1008f  ./instruments/alpoge-grh/spec/TextbookAx.lean
+8d6c3d4d1bba7a12bf04f39f48ee960a196a32669d3b633ba94ffb2fd4e07c33  ./instruments/grh-lean/Challenge.lean
+5b0a4bcf6123990b0fa2f1dc0086239c8d566eec1fb26a9a0d7c973fc059c6e7  ./instruments/grh-lean/census/Unused.lean
+5a1ffa177b90ba47c362d7dd0660919d8bfbf9c211f122b4357635eb8b3c1ab8  ./instruments/grh-lean/controls/ChallengeC3.lean
+3912e11a7f1e44ef1cda29a5ccb0a0aba71f072249f4552f4d9b2f018ee583a2  ./instruments/grh-lean/controls/GrhC1.lean
+a348c63ef80482107c80bc71e036e9c7711281b4cac609c1b3a0b201b547ac65  ./instruments/grh-lean/controls/GrhC2.lean
+d1a2cf70be7c0e160f381a116fbc8bb9b0642188e974ee2d97bbfa612b415fab  ./tools/runpod-grh-lean.sh
+this script: d1a2cf70be7c0e160f381a116fbc8bb9b0642188e974ee2d97bbfa612b415fab  /root/runpod-grh-lean.sh
+this script equals tools/runpod-grh-lean.sh at 083bbf0009ec30d80e1626faa8ab7b07952a6528
+JUDGE comparator e3dcf3083fc53d44b27a4431fabf7d43181583f5 v4.35.0
+JUDGE lean4export 5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe v4.35.0
+JUDGE nanoda 0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929 v0.3.2-86-g0da9f98
+JUDGE landrun 573aa723afb16bb1da2dbe24fc00df46cd0ad13b v0.2.0-1-g573aa72
+JUDGE con-leche 5ea446d5c79d23ef1f954215d094db2162f1ab6f 5ea446d5c
+3300f5a725ae8dcbfb88b3eb0c605c5737ec8e02bc3033f80665a182d997b023  /opt/judges/comparator/.lake/build/bin/comparator
+87f4fe988dfe97a2a607cf38a8777a625b482f833985c16dbc1ddafa525f4bba  /opt/judges/comparator/.lake/packages/lean4export/.lake/build/bin/lean4export
+d2431e25a7cf7fc6de460f3fbbc2365bce9e24ff588a41ad0e097c99135d004e  /opt/judges/nanoda_lib/target/release/nanoda_bin
+6622fd5288376034a9bf3012c8b871accc48514a0aa9331d4b2d4d4c26a11f82  /opt/judges/landrun/landrun
+f38aae2667960c4e4e10b536cd376b6cdd34b1859f0597abf23816a52412db4f  /opt/judges/con-leche/.lake/build/bin/con-leche
+elan's leanprover--lean4---v4.35.0 equals the published archive (de17e73f5ff00427174164a71c78280e6b1229ecc849412bfafd64485856da78)
+elan's leanprover--lean4---v4.36.0 equals the published archive (52be9d5d78c26b11925a8877d5458b8aeee5d4211a15518bf752b1cccb86d286)
+landlock ABI 4
+systemd-run: /usr/bin/systemd-run; /run/systemd/system: absent
+listening UNIX sockets (pathname and abstract):
+Netid State Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+setup complete

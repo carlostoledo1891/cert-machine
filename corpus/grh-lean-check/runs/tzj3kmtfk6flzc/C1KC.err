@@ -1,0 +1,29 @@
+con-leche: stats: phases: parse 1.1s (index 0.0s), check 1.9s
+con-leche: stats: check pool: 1.921s wall, 16 workers, 52159 records, busy 30.127s (98.0%); tail 0.018s after the last start, 16 busy then, 0.034s worker-time in it (11.7%)
+con-leche: stats: slowest checks: 0.059s theorem LinearMap.mkContinuous₂OfExists._proof_7 (#35680); 0.048s theorem _private.Init.GrindInstances.Ring.Fin.0.Lean.Grind.Fin.neg_mul._proof_1_5 (#19542); 0.047s theorem bernsteinPolynomial.variance (#51365); 0.045s theorem StrictConvexOn.secant_strict_mono_aux1 (#31006); 0.044s def Nat.land (#1427)
+con-leche: stats: peak RSS 0.83 GiB
+con-leche: the solution /data/k2/c1.ndjson: not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1); con-leche does not support such axioms at the moment [at axiom CertMachine.plantedAxiomC1, fold position 52157] (--verified) t=3.0s
+Command exited with non-zero status 2
+	Command being timed: "timeout -k 60 3600 env LEAN_ABORT_ON_PANIC=1 /opt/judges/con-leche/.lake/build/bin/con-leche --verified --jobs=16 --compare -- /data/k2/challenge-c1.ndjson /data/k2/c1.ndjson"
+	User time (seconds): 29.27
+	System time (seconds): 0.47
+	Percent of CPU this job got: 975%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 879776
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16715
+	Voluntary context switches: 5181
+	Involuntary context switches: 2555
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 2
