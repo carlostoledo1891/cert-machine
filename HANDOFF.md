@@ -93,6 +93,11 @@ START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a 
 Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
 First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 21:2x UTC on 25 Nov after the CI job passed); `pmset -g batt`; disk.
 
+  UPDATE 2026-11-26 ~02:15 UTC: home page carries the AI forecast (R(3,10) before July 2027: this lane 3%, others 8%;
+  corpus/forecasts/, 1a1a5cbf). FUNDING BUTTON waits for his GitHub Sponsors listing ("I will setup the sponsors later"):
+  then a 'Fund the next run' link beside the forecast, built only when the listing is public, + .github/FUNDING.yml.
+  X post on /r310/ SENT by him (notes/x/r310-open-2026-11-26.txt; record its URL when known). W1h PASSED (2^18 1^4 = ∅);
+  Astra E on W1i (2^17 1^6, the last order-2 type), Astra D on G32. grh-lean report page: an agent finishing it.
   UPDATE 2026-11-26 ~01:30 UTC: HOL4 PR #2228 READY for review (00:43, fork CI green). LB1 PASSED (claimbox branch
   bridge-lean-sound-2026-11-25, 2cc8330, not pushed — his word). R(3,10) is NO LONGER PRIVATE (his "Everything, seal
   opened"): /r310/ documents the whole lane, box 3 opened, sources in corpus/r310-live/sources/ (f3ee3844); W1g PASSED
