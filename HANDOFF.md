@@ -93,6 +93,11 @@ START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a 
 Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
 First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 21:2x UTC on 25 Nov after the CI job passed); `pmset -g batt`; disk.
 
+  UPDATE 2026-11-26 ~01:30 UTC: HOL4 PR #2228 READY for review (00:43, fork CI green). LB1 PASSED (claimbox branch
+  bridge-lean-sound-2026-11-25, 2cc8330, not pushed — his word). R(3,10) is NO LONGER PRIVATE (his "Everything, seal
+  opened"): /r310/ documents the whole lane, box 3 opened, sources in corpus/r310-live/sources/ (f3ee3844); W1g PASSED
+  (2^19 1^2 = ∅), Astra E on W1h, Astra D on G31. grh-lean: I1 B1 S1 K1 K2 KR CHAR CERTIFIED; the claim waits on the
+  compact edition's A1 and C3S.
   UPDATE 2026-11-25 ~22:50 UTC (same session, the operator's dialog answers):
   1. δ₃ IN HOL4 — public: github.com/carlostoledo1891/delta3-hol4 (CI green) and /delta3-hol4/. Layer 1 holds; the
      blind benchmark is scored (harness records local). The README says "CakeML job green on CI (82 min)" (6667132) and
