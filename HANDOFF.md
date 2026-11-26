@@ -93,6 +93,11 @@ START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a 
 Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
 First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 21:2x UTC on 25 Nov after the CI job passed); `pmset -g batt`; disk.
 
+  UPDATE 2026-11-26 ~03:10 UTC: NO POD IS RUNNING (tzj3kmtfk6flzc deleted 03:05, US$3.10). grh-lean DONE: formal claim
+  CERTIFIED, 12 of 13 rows certified + D1 computed; /grh-lean/ live and listed (572ed287); the community post is his
+  (facts: notes/grh-lean-2026-11-25/community-facts.md). OEIS A121385 credit pinned. R(3,10): X1 PASS (external note's
+  Routes B and C re-derived), H1 PASS (H5 K5-free in 9-regular candidates), Astra F on H2 (K4 in H5), D on G32, E on W1i;
+  the triage keeps Routes B, C and parks A, D (round6/TRIAGE-2026-11-26.md).
   UPDATE 2026-11-26 ~02:15 UTC: home page carries the AI forecast (R(3,10) before July 2027: this lane 3%, others 8%;
   corpus/forecasts/, 1a1a5cbf). FUNDING BUTTON waits for his GitHub Sponsors listing ("I will setup the sponsors later"):
   then a 'Fund the next run' link beside the forecast, built only when the listing is public, + .github/FUNDING.yml.
