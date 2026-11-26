@@ -464,6 +464,25 @@ const CARDS = {
       o.push('</svg>');
       return o.join('');
     })() },
+  /* an ART card for /grh-lean/ (2026-11-26, the live grh-lean check): the page's subject without its words or states —
+     two solid blocks at the left, the two editions (the readable one taller), each sending five thin lines to five dots
+     on one vertical line at the right, the five theorems on the critical line; all one tone, so the card states no
+     verdict and no count (a card is not re-rendered at every build). LIGHT theme, no number, no label. */
+  'grh-lean': { art: true, theme: 'light', eyebrow: 'Carlos Toledo · a Lean release on RH and GRH, in the open', path: '/grh-lean/',
+    title: 'A Lean release on RH and GRH for Dirichlet L-functions, checked in the open',
+    alt: 'Two solid blocks at the left, one taller than the other; from each, five thin lines run right to five dots on a single vertical line.',
+    svgRaw: (() => {
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two solid blocks; from each, five lines to five dots on one vertical line" style="position:absolute;left:0;top:0">'];
+      const blocks = [{ x: 140, y: 168, w: 132, h: 190 }, { x: 140, y: 390, w: 132, h: 84 }], lx = 1000, dots = [196, 262, 322, 392, 452];
+      o.push('<line x1="' + lx + '" y1="150" x2="' + lx + '" y2="500" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>');
+      for (const b of blocks) {
+        o.push('<rect x="' + b.x + '" y="' + b.y + '" width="' + b.w + '" height="' + b.h + '" rx="6" fill="var(--ink)"/>');
+        for (const y of dots) o.push('<path d="M' + (b.x + b.w) + ' ' + (b.y + b.h / 2) + ' C' + (b.x + b.w + 260) + ' ' + (b.y + b.h / 2) + ' ' + (lx - 300) + ' ' + y + ' ' + (lx - 12) + ' ' + y + '" fill="none" stroke="var(--ink-4)" stroke-width="1.6"/>');
+      }
+      for (const y of dots) o.push('<circle cx="' + lx + '" cy="' + y + '" r="9" fill="var(--ink)"/>');
+      o.push('</svg>');
+      return o.join('');
+    })() },
   /* an ART card for /reports/twelve-blocks-exact.html (2026-11-19): the page's own figure without its words, read from the
      record (certs/twelve-blocks-exact.json) and the first run's table: what is left of the minimum after its two leading
      terms, a heavy solid line where the value is decided (n = 1..95) ending in a dot, and a lighter line continuing

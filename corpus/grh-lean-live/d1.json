@@ -1,0 +1,5087 @@
+{
+ "what": "D1 of the grh-lean lane, recomputed from the census output and split by the rule stated in tools/grh-lean-records.js (the rule’s words are in each edition’s rules). A list, never a verdict.",
+ "as_of": "2026-11-26T02:41Z",
+ "rule_source": "tools/grh-lean-records.js",
+ "census": "instruments/grh-lean/census/Unused.lean",
+ "census_sha256": "5b0a4bcf6123990b0fa2f1dc0086239c8d566eec1fb26a9a0d7c973fc059c6e7",
+ "pending": false,
+ "editions": [
+  {
+   "edition": "grh",
+   "source": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/D1-grh.out",
+   "source_sha256": "2255461a68d34d76d2539671d32267778eb5dd225f8160f4f3a62c4786a93305",
+   "summary": {
+    "closure_constants": 222115,
+    "missing": 0,
+    "release_constants": 64456,
+    "release_in_closure": 50283,
+    "release_outside": 14173,
+    "outside_decl": 1394,
+    "outside_aux": 12779,
+    "outside_modules": 753
+   },
+   "rules": [
+    {
+     "id": "G1",
+     "class": "generated",
+     "words": "a congruence lemma Lean’s simp makes for a function (name ends .congr_simp)",
+     "count": 684
+    },
+    {
+     "id": "G2",
+     "class": "generated",
+     "words": "a heterogeneous congruence lemma Lean makes (name ends .hcongr_<n>)",
+     "count": 6
+    },
+    {
+     "id": "G3",
+     "class": "generated",
+     "words": "an equation lemma Lean makes for a match (name ends .match_<n>.congr_eq_<n>)",
+     "count": 6
+    },
+    {
+     "id": "G4",
+     "class": "generated",
+     "words": "an eliminator Lean makes for an inductive type (name ends .ctorElim or .ctorElimType)",
+     "count": 6
+    },
+    {
+     "id": "G5",
+     "class": "generated",
+     "words": "a per-constructor eliminator Lean makes (T.c.elim, with T.ctorElim in the census)",
+     "count": 7
+    },
+    {
+     "id": "G6",
+     "class": "generated",
+     "words": "a helper of structural recursion (name ends .brecOn.<x>)",
+     "count": 3
+    },
+    {
+     "id": "I",
+     "class": "instance",
+     "words": "an instance name of Lean’s automatic form (last component inst followed by a capital letter)",
+     "count": 30
+    },
+    {
+     "id": "W",
+     "class": "written",
+     "words": "every other decl row: a declaration written in the release’s files",
+     "count": 652
+    }
+   ],
+   "written": 652,
+   "written_kinds": {
+    "theorem": 628,
+    "def": 24,
+    "other": 0
+   },
+   "written_files": 261,
+   "areas": [
+    {
+     "area": "New.Spanning",
+     "n": 102
+    },
+    {
+     "area": "Lib.Weil",
+     "n": 73
+    },
+    {
+     "area": "Lib.Adelic",
+     "n": 46
+    },
+    {
+     "area": "New.UpperBound",
+     "n": 46
+    },
+    {
+     "area": "Lib.Shimura",
+     "n": 45
+    },
+    {
+     "area": "Lib.PadicHodge",
+     "n": 41
+    },
+    {
+     "area": "New.Congruences",
+     "n": 40
+    },
+    {
+     "area": "Lib.ClassField",
+     "n": 37
+    },
+    {
+     "area": "Lib.Cohomology",
+     "n": 35
+    },
+    {
+     "area": "Lib.DiscreteSeries",
+     "n": 32
+    },
+    {
+     "area": "Lib.General",
+     "n": 26
+    },
+    {
+     "area": "New.Determinant",
+     "n": 23
+    },
+    {
+     "area": "New.Reduction",
+     "n": 22
+    },
+    {
+     "area": "New.Derivatives",
+     "n": 15
+    },
+    {
+     "area": "Lib.GaloisRep",
+     "n": 14
+    },
+    {
+     "area": "New.OneLift",
+     "n": 13
+    },
+    {
+     "area": "Lib.SiegelWeil",
+     "n": 11
+    },
+    {
+     "area": "Lib.GLn",
+     "n": 10
+    },
+    {
+     "area": "Lib.CM",
+     "n": 9
+    },
+    {
+     "area": "Lib.LocalGL",
+     "n": 4
+    },
+    {
+     "area": "Lib.PadicComparison",
+     "n": 4
+    },
+    {
+     "area": "New.Appendix",
+     "n": 3
+    },
+    {
+     "area": "Lib.Cyclotomic",
+     "n": 1
+    }
+   ],
+   "by_file": [
+    {
+     "file": "src/Lib/Adelic/Adeles/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.coe_algebraMap_Ô"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_natCast_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_neg_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_one_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_pow_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.finAdele_zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Adeles/SemilocalProducts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.adeleOfLocal_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.evalAt_adeleOfLocal_of_notMem"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/AutomorphicForms/AutomorphicAsAlgebraic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.toAlgForm_eq_toAlgFormFun"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/AutomorphicForms/HeckeEigenforms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.evalClassReps_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.freeLevelEquiv_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.freeLevelEquiv_symm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/AutomorphicForms/PAdicGauge.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Rows.apply_eq_evalForm"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/AutomorphicForms/SmoothAlgebraicForms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.highestVector_cyclic"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Hecke/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.card_classAut_mul_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.classSum_eq_finsum_of_rep"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/QuotientMeasure/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.cosetProdEquiv_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.cosetProdEquiv_symm_apply_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.cosetProdEquiv_symm_apply_snd"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.lintegral_chosenAddCutoff_vadd"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.lintegral_chosenCutoff_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.measurable_chosenAddCutoff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.measurable_chosenCutoff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/FibreIntegral.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.TestFunction.eval_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.TestFunction.setIndicator_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/LevelAlgebra.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.coe_levelAction_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/LevelCut.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.coe_cutInclusion_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.coe_cutInclusion_meanAt_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/LineStabiliser.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.asAlgebraHom_sphericalMeanElement"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/OffPlace.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.offPlace_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/TraceFormula/ReduciblePolynomials.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.geometricSide_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Unitary/ComponentsAndBlockSums.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.G.adeleMatrix_reindex"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.U.block_val"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Unitary/CongruenceLevels.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.stdLevel.map_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Unitary/Defs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Gf.codRestrict_eq_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Gf.coe_inv"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Gf.coe_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Gf.coe_mul_U"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Gf.coe_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Gf.subtype_eq_val"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.vecAtPoint_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Witt/IwasawaDecomposition.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.IsAdapted.inv_mul_mem_maxCompact"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.exists_mem_maxCompact_actsOnFrame_and_eq_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.card_eq_of_perp_subset"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.exists_splitting_of_perp_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/ChowlaSelberg.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.IsComplexMultiplicationData.area_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.IsComplexMultiplicationData.exists_mul_mem_latticeModule"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.IsComplexMultiplicationData.ideal_ne_bot"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.IsComplexMultiplicationData.mem_lattice_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.IsComplexMultiplicationData.taylorVia_twistedTranslate_theta"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/FormalGroup/IntegralParameter.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.constantCoeff_seriesToCp"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/Integrality/IsogenyIntegrality.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.rescale_translatedY_mem_and_rescale_theta_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/Integrality/LogTheta.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.mvPowerSeries_constantCoeff_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/Sigma/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsAppellHumbert.thetaSpace_two_eq_span"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Avatar/HeckeBaseChange.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.HasWeight.spaceChar_apply_of_snd_eq_one"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/GaloisCohomology/KummerCyclicClasses.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteUnits.val_ofBase"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteUnits.val_ofNeZero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/GaloisCohomology/ShapiroCorestriction.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.QZChar.comap_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.QZChar.comap_val_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Global/CMSplittingCharacters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Cohomology.υ_star_eq_inv_and_apply_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Global/ExistenceTheorem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.val_ideleAt_principalIdele"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/GreenbergWiles/CocycleCounts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsLargeLevel.SplitPlaces.hasFewCocycles_of_isHigmanProjective"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/GreenbergWiles/Relations.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.RelationSetting.mem_relations"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/HeckeCharacter/AlgebraicValues.lean",
+     "names": [
+      {
+       "kind": "def",
+       "name": "New.AlgHeckeChar.conjugateBy"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AlgHeckeChar.conjugateBy_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AlgHeckeChar.conjugateBy_exponent"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/HeckeCharacter/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.HasWeight.isOfFinOrder_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.card_u1_classGroup_dvd_classNumber"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.circleChar_inv_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.divStar_mem_integralU1_empty"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/HeckeCharacter/SplittingCharacters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.inv_spaceChar_rankTwist_inv"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.spaceChar_autChar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.spaceChar_eq_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.spaceChar_inv_mul_upsilonU1_pow"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.spaceChar_stdChar"
+      },
+      {
+       "kind": "def",
+       "name": "New.HeckeChar.IsSplitting"
+      },
+      {
+       "kind": "def",
+       "name": "New.HeckeChar.IsSplitting.autChar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.HeckeChar.exists_baseChange_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.HeckeChar.exists_baseChange_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.HeckeChar.isSplitting_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.divStar_eq_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.divStar_eq_one_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Local/ArtinMap.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.IsTameUnit.localArtin_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.IsTameUnit.mem_unitGroup"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.IsTameUnit.mem_zpowers_residue"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.IsTameUnit.valuation_eq_one"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/LocalDuality/CrystallineDuality.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.IsCupOrthogonal.exists_lift"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.IsCupOrthogonal.mem_Z1"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Places/DecompositionCompletion.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.ramificationIdx_eq_one_of_inertiaGroup_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsPlaceOver.relIndex_decompGroup_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/Places/ValuationSubrings.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.placeOfEmbExtension_mem_adjoin"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Etale/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.freeAb.map_of"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Etale/BijectiveComparisons.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.witnessed.cocycleClass_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.witnessed.universalClass_succ"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.witnessed.universalClass_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Etale/RelativeChains.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.relFreeAb.π_map"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Hodge/CupProduct.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.addCommGrp_tensor_hom_ext_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Hodge/GrothendieckSymbol.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.map_cup_symbolClass_eq_map_symbolClass"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.pi_comp_detCocycle"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/PointClass/LinearIndependence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsEtaleProjection.coordinate_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsEtaleProjection.evalForms_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsEtaleProjection.isCoordsWithUnit"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsEtaleProjection.isHomogeneousSolution"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsEtaleProjection.mem_locus"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.evalForms_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.injective"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.isCoordsWithUnit_point"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.isCoordsWithUnit_z"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.isHomogeneousSolution"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsGenericChart.isNoetherNormalization"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/PointClass/NoetherNormalization.lean",
+     "names": [
+      {
+       "kind": "def",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.B"
+      },
+      {
+       "kind": "def",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.G"
+      },
+      {
+       "kind": "def",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.b"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.evalForms_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.exists_shift"
+      },
+      {
+       "kind": "def",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.f"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.finite"
+      },
+      {
+       "kind": "def",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.fintype"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.injective"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.CutsOutLocus.IsNoetherNormalization.GaloisClosure.isHomogeneousSolution"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/PointClass/ProjectiveSpace.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.projSpace.isUnit_and_exists_eq_affinePoint_of_mul_eq_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/ProjectiveLine/ChernClass.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.TorsionCoeff.lineBasis_true"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/ProjectiveLine/PerfectLine.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.PerfectLine.pointOrTorus_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.PerfectLine.pointOrTorus_true"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/ProperBaseChange/SubringSplitting.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.absIntegrallyClosedSubrings.extendedIdeal_eq_map_toRingHom"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.absIntegrallyClosedSubrings.quotientFunctor_map_mk"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cyclotomic/Stickelberger.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.OddPart.IsJacobiFamily.norm_eq_one"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Bessel/UnipotentHaarMeasure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.RealPlace.injective_measurePreserving_freeEntries₀"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Bruhat/ComplexPlace.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.complexPlace_element"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.complexPlace_kernelBound"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.complexPlace_modulus_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.complexPlace_skewUnit"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.complexPlace_ψ_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Bruhat/FloorMeasures.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.FloorGroups.bijOn_mulVec_eStar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.FloorGroups.existsUnique_prod_of_mem_besselU"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.FloorGroups.existsUnique_prod_of_mem_unipotentBelow"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.FloorGroups.prod_ofFn_mem_unipotentBelow"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.HyperbolicBasis.col_floorBasis"
+      },
+      {
+       "kind": "def",
+       "name": "New.Floors.HyperbolicBasis.middleVector"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Character/FormalDegree.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Orbital.integrable_dsCoeff_conj"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/FlenstedJensen/CasimirEigenfunction.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.analyticOnNhd_splitCoeff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.isOpen_splittable"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/FlenstedJensen/FlagDensities.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.coe_signBlocksHom"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/FlenstedJensen/RightDerivatives.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.rightDerivMatrix_apply_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/FlenstedJensen/SquareIntegrability.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.HCParam.HasLargeGap.isUnitaryCasimirGe_dsAction"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Haar/CayleyChart.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.det_cayleyDenom_one_ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Haar/GramCoordinates.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.mul_toCol"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.skewAddHerm_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.toCol_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.toCorner_symm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Holomorphic/MaximalCompactMinors.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.blockDiagPart_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Theta/BlockRule.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsBlockRule.neg_signs"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Theta/FockDualPair.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.IsPreJointHarmonic.isCompactPrimitive_cols"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.IsPreJointHarmonic.isKHighest_rows"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.IsPreJointHarmonic.isLaplaceHarmonic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.IsPreJointHarmonic.isLaplaceHarmonic_swap"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.IsPreJointHarmonic.ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FockDualPair.oscRows_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Theta/FockJointHarmonics.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsJointHarmonic.exists_eq_smul_of_column_weight"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GLn/Dual.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsDualPairing.ofAlgForm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GLn/SchurModule/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.sum_weylGram_smul_eq_weylKernel_of_exists"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GLn/SchurModule/GramMatrix.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.GL.comulMatrix_isometry_and_equivariant"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.exists_toPoly_eq_sum_multinomialMonomial"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.firstColumnExponent_injective"
+      },
+      {
+       "kind": "def",
+       "name": "New.multinomialMonomial"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.toPoly_mem_span_multinomialMonomial_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GLn/SchurModule/TensorModel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.exists_fillingMatrix_mulVec_eq_iff_mem_span"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.nablaCombination_schur_row"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.range_fillingMatrixOver_eq_span"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/BaseChange/CommutingHeckeFamilies.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.atPlace_baseChangeGf"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/BaseChange/IwahoriEigenforms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsIwahoriMatchingPolynomial.dvd_twistedNorm_sub_X"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsIwahoriMatchingPolynomial.inv_mul_mem_proIwahori"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsIwahoriMatchingPolynomial.mem_iwahoriDoubleCoset_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/BaseChange/PrimeDegreeTransfer.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsHeckeEigenvector.heckeFun_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsHeckeEigenvector.mem_levelSpace"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/Hilbert90/UnitaryGroups.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsTwistedRoot.aeval_map_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsTwistedRoot.aeval_mul_eq_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsTwistedRoot.aeval_twistedNorm_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsTwistedRoot.pow_mul_star_eq_pow"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/LocalGlobal/IwahoriCompatibility.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Patching.IsParahoricCompatible.commute"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Patching.IsParahoricCompatible.exists_characters"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/Main/SelmerModules.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.tateTwist_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/Pseudocharacter/Pseudorepresentations.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.exists_eq_smul_of_conj_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Algebra/AdicCompletion.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.shiftDiff_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.valRingCp.algebraMap_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Algebra/CartanMap.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteModule.TrivialOn.conj_apply_eq_of_mk_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteModule.TrivialOn.isHigmanProjective_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Algebra/CohomologyBaseChange.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.Comparison.pullₗ_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Algebra/LongExactSequences.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.Comparison.pull_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Geometry/LineBundles.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.LineBundle.mem_H0"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.LineBundle.pull_id"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/CharacterTheory.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsIrreducibleChar.classInner_self"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsIrreducibleChar.isChar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsIrreducibleChar.mul_classInner_translate"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.coeff_piTensorElem_apply_support_val"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/CongruenceSubgroups.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.intGL.map_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.intGL.toMatrix_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.val_inv_transposeGL"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.val_inv_transvectionGL"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/ProfiniteCharacters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.QZChar.abelianization_ext_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Measure/FibreMeasure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.LeFibreMeasure.mono"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.LeFibreMeasure.smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Measure/HaarModulus.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.isAddLeftInvariant_measure_smul_neg"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.map_restrict_addHaar_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.map_restrict_haar_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/NumberTheory/ImaginaryQuadraticField.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.QuadField.coe_betaK"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/NumberTheory/LatticeCovolumes.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mem_imSkewLattice"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/NumberTheory/PadicLimitsValuation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.CoeffRing.normLength_natCast_of_irreducible"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.CoeffRing.normLength_top"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/LocalGL/Green/HallAlgebra.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Hall.smul_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Hall.zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/LocalGL/Iwahori/ParahoricStructure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsIwahoriEigen.compactMean_eq_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsIwahoriEigen.mem_levelSpace"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicComparison/HodgeTate/Map.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.HodgeTatePair.comp_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.HodgeTatePair.comp_snd_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.HodgeTatePair.id_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.HodgeTatePair.id_snd_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/ArtinSchreierSequence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.DiagTensor.map_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.DiagTensor.pair_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.FrobGroup.snd_inr"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.FrobGroup.snd_phi"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.TateTwist.smallPart_spec"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Characters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.isPotentiallyCrystalline_of_unramified_char"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Crystalline/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.IsKilledBy.eval₂_eq_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.IsKilledBy.isPotentiallyCrystalline"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.IsPotentiallyCrystalline.linearFrob_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.baseChange_eq_periodTensorMap"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.isKilledBy_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Crystalline/Regularity.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.coeffEnd_tmul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/Bicommutant.lean",
+     "names": [
+      {
+       "kind": "def",
+       "name": "New.Lift.Chart.adjoinEDivP"
+      },
+      {
+       "kind": "def",
+       "name": "New.Lift.Chart.adjoinEDivPClosure"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.adjoinEDivPClosure_eq_bicommutant"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.adjoinEDivP_le_bicommutant"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.extendedCoord_oneIndex_aeval_mem_adjoinEDivP"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/Charts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.coe_seriesEquiv_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.fixesThetaZ_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/FrameTheorem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.free_kisinModule"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.valueFieldPoints_frobKisinAinf_eq_span"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/KummerChartDeRham.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.toGp_def"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/KummerChartExistence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.IsChartFor.e_mul_f_eq_index"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.IsChartFor.exists_isFrob"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.IsChartFor.fixes_thetaZ"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.IsChartFor.isUnramified_of_inertia_le"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/Modules.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.smul_eq_val_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Kisin/PeriodMatrixBasis.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsPeriodBasis.det_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsPeriodBasis.dvd_dotProduct"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsPeriodBasis.exists_mulVec_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsPeriodBasis.mem_bicommutant"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsPeriodBasis.mul_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/PeriodRings/AxTheorem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.OC.coe_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/PeriodRings/CrystallineRings.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.mem_amaxImage_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/PeriodRings/DeRhamPeriods.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Period.frobEnd_tPeriodAmax"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Period.tPeriod_def"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/RadiusLemma.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsRadiusFactorization.map_frobEnd_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsRadiusFactorization.pow_smul_mem_span"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.IsRadiusFactorization.smul_C_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.exists_E_pow_mul_eq_tau_pow_mul_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.Chart.mem_S_of_E_pow_mul_mem_bicommutant"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/AbelianScheme/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsFiniteKernelRing.comp_eq_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsFiniteKernelRing.exists_comp_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsFiniteKernelRing.finite"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsFiniteKernelRing.flat"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsFiniteKernelRing.isClosedImmersion"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/AbelianScheme/TangentCoordinates.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsLieChart.tangentCoords_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/CongruenceRelation/EichlerShimura.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ellAdicCohom.frobEnd_app"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/Deformation/TangentBound.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsReductionModEps.comp_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsReductionModEps.exists_factor"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsReductionModEps.isSqZeroExt"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/HeckeTower/HeckeData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.GaloisRep.IsSplitPrimeToDisc.isSplit"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.GaloisRep.IsSplitPrimeToDisc.prime_q"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.GaloisRep.IsSplitPrimeToDisc.q_mem_asIdeal_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafe.isSplitPrimeToDisc_below"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafe.level_notMem_asIdeal"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafe.level_notMem_asIdeal_of_below_eq_star"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.asAlgebraHom_eq_sum_support"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.eigenReflection_eq_ite"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.heckeAlgebra.val_mem_fixedToEigen"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.heckeAlgebra.val_mem_spanOn"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/IntegralModel/PELDataExistence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafeGoodPEL.beta_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafeGoodPEL.isGoodAt_of_isSafe"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafeGoodPEL.level_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsSafeGoodPEL.rank_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/IntegralModel/UniversalFamily.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ThetaObject.pointOf_proj_assoc"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/ThetaModuli/FlatClosure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.allSpecializeTo_isReduced"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.flat"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.isHomogeneousCoords"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.isProjEmbedding"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.isSeparatingFamily"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.ThetaNull.IsFlatClosure.isSeparatingFamily_fibre"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/ThetaModuli/PELThetaTori.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.PEL.HasClassLaws.atPoint_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.PEL.HasClassLaws.pairing_smul_beta"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.PEL.HasClassLaws.parallelogramLaw"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/ThetaModuli/ThetaFamilyRigidity.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ThetaObject.IsTangentLogAt.infinitesimal"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.ThetaObject.IsTangentLogAt.map_add"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.ThetaObject.IsTangentLogAt.naturality"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/ThetaNormality/RiemannRelation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ThetaTori.ThetaTorus.IsRiemannTuple.sum_star_fst_mul_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.ThetaTori.ThetaTorus.IsRiemannTuple.sum_star_fst_mul_snd"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/Transfer/WeightOccurs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsCoefficientSystem.exponent_self"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsCoefficientSystem.jump_add_nonneg"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsCoefficientSystem.map_scalar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsCoefficientSystem.occursInWeight"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Variety.IsCoefficientSystem.weightRep_entryConj"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/Uniformisation/HolomorphicFamilies.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.atGeneric_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/SiegelWeil/OneVector/SemilocalDensityBounds.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.classGaussSum_one_zero_eq_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.one_add_enorm_measure_intVectors_sub_one_le"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/SiegelWeil/RallisInner/Doubling.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.SiegelWeil.norm_negSourceFactor"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/SiegelWeil/RallisInner/SharpData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.AutChar.HasWeight.apply_eq_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.SiegelWeil.IsSharpFn.le_stdLevel"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.SiegelWeil.vacuumCoeff_eq_spaceChar"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/SiegelWeil/SingularForms/CentreCoefficients.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.symm_iAdelic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.symm_iCoord"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.symm_kAdelic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.symm_lCoord"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.symm_symm"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/AdelicRepresentation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.apply_eq_rawTheta"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.dataInner_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.data_ext_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.smul_eq_adeleMatrix_mulVec"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/FiniteMultiplier.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsSaturating.inv"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsSaturating.v_det_eq_prod"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsSaturating.v_det_mul_v_det"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.stdLattice.semichar_eq_ψf"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/HeisenbergModel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Heisenberg.IsVacuum.add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Heisenberg.IsVacuum.form_eq_mul_modelInner"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Heisenberg.IsVacuum.zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/ProductsAndTransport.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.CoordChange.norm_map"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.dataInner_boxProd"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/ThetaDictionary.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.exists_semichar_finiteImage_eq_neg_one_zpow"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.im_traceOne_mul_normSq_realImage"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.semichar_finiteImage_eq_exp"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/VacuumProjections.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.dataInner_finHeisenbergOp_rep_vacElem"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.dataInner_finHeisenbergOp_vacElem_eq_zero_of_sub_notMem"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.span_finHeisenbergOp_rep_vacElem"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/WeilData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.vacuumFn_eq_exp_mul_ite"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/WeilOperators.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Heisenberg.IsVacuum.norm_transport"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Heisenberg.OrthogonalSum.norm_tmul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/Defs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Modulus.IsGenerator.forall_smul_mem_iff"
+      },
+      {
+       "kind": "def",
+       "name": "New.stdChar"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.stdChar_neg"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.stdChar_sum"
+      },
+      {
+       "kind": "def",
+       "name": "New.stdKernel"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/FiniteAction.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.G.onHom_atPlace"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.normNegOne_inv"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/Flip.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Seesaw.flipSpace_J"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/KernelLaws.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.exists_stdKernel_neg_left"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.stdKernel_sum_left"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.stdKernel_sum_right"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/ThetaLiftConvergence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ThetaKernel.swap_θ"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.ThetaKernel.swap_ω"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.norm_realPairWeil_le"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/WeilAction.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.G.onHom_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.dataInner_omega_of_mem_maxCompact"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.matrixToVec_add"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.matrixToVec_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.matrixToVec_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.pairThetaKer_θ"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.pairThetaKer_ω"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.realPairWeil_vacVector"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.vacuumFn_mulVec_of_mem_maxCompact"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.weilMultiplier_mul_of_mem_maxCompact"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Fock/Basic.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Fock.piTensor_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Fock.unitary_smul_eq_mulVec"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Fock/PolynomialVectors.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Fock.fockInner_polyVector_monomial"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Fock.fockMatrixCoeff_raiseOp_lowerOp"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Lift.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ParamsCorrespond.prod_eq_smul_jointHarmonic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.coe_conjForm"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.negIf_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.negIf_true"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/MixedModel/NamedData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.commute_rho_schrodingerOp"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/MixedModel/RealTheta.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.theta_integrated_polyVector_eq_integral_entireTheta"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/MixedModel/ZeroTerm.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.Splitting.IsAdapted.slice_omega_eq_integral"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/ConstantTerm.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Grading.hasSum_constTerm"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/DescentVanishing.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.U.smul_matrix_eq_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/Equivariant.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Grading.sourceFn_gramForm_mul_inclX"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/Grading.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.ratCoordMatrix_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/StringPowers.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Grading.form_middlePower"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Grading.form_stringPower"
+      },
+      {
+       "kind": "def",
+       "name": "New.Grading.middlePower"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Grading.middlePower_apply_eq_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Grading.middlePower_eq_single"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Grading.shift_factor_mul_powerCoeff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Grading.shift_mulVec_stringPower"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Seesaw.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.isPairEdge_of_isJointHarmonic"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/TameGaussSum.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.submatrix_id_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Unramified/HeckeTransfer.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.SiegelWeil.pairWeilSource_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.SiegelWeil.pairWeilTarget_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Unramified/SplitHecke.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.HasHeckePolynomial.smul"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Appendix/DiscreteSeries/PositionGroup.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteSeries.IsPosition.inducedHom_val"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteSeries.mul_initCols"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Appendix/DiscreteSeries/Positions.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DiscreteSeries.IsStationary.trace_eq_and_phase_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/EvenClasses.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.withConjInv_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.withConjInv_true"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/FittingBlock.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.exists_relations_det_eq_pow_mul_det"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/KummerMaps.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.toGalPlus_conjGal"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/OnePrime.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Patching.coe_firstEntry"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/RibetMatrices.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.coboundary_eq_zero_of_apply_eq_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.mem_map_tiedRows_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/FirstOrder/RibetMethod.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.blockFlattenAlgEquiv_symm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/GaloisRepresentations/BaseLevelOfLabel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.normalisedJumps_eq_map_hcParameter"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.normalisedJumps_eq_range_add_map"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/GaloisRepresentations/SelmerHypotheses.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsMainSummandLike.eventually_eq_bot_or_eq_top"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsMainSummandLike.eventually_lattice_unique"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsTwistedLattice.scalar_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Lifting/CutExponentBounds.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.Letter.IsLongGap.far_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.Letter.IsLongGap.five_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.Letter.IsLongGap.isUnramified"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.Letter.IsLongGap.low_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.Letter.IsLongGap.lt_far_pivot"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Lifting/ExponentLattices.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.depthStepOperator_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.frobEUnit_zpow_smul_mem_withOrders_add_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.prod_frobEUnit_zpow_smul_mem_kisinLoc_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.prod_frobEUnit_zpow_smul_mem_withOrders_add_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Lifting/HodgeExpansion.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.frobEUnit_pow_smul_mem_frobKisinAinf_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.prod_frobEUnit_zpow_smul_mem_kisinLoc_and_withOrders_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.JumpLattice.prod_frobEUnit_zpow_smul_mem_withOrders_stdOrders_add_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Lifting/SidePoints.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Lift.KummerChart.PairingSide.stepBack_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Lift.mem_twoWindows"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/LocalLoss/CrystallineDefect.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsSummandClass.exists_jump_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsSummandClass.finrank_none"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsSummandClass.hasJumps_none"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsSummandClass.hasJumps_some"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsSummandClass.tame_or_crystalline"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Selmer/Mirror.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.characterModule_add_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Selmer/OneSystem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.relationMatrix_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Selmer/SelmerData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsNewAuxiliaryPrime.prime_norm"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.IsNewAuxiliaryPrime.star_notMem"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.SelmerDatum.apply_mul_of_mem_Z"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.evalConjPair_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Congruences/Selmer/StickelbergerSystems.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.StickelbergerSystem.unramified"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Selmer.eulerFactor_nil"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Divisibility/NormalForm.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.HasNormalForm.exists_of_norm_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Field/ChosenPlaces.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.abs_log_deltaE_sub_log_rootDiscr_le"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Field/PrimeDecomposition.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.betaKInE_mul_star_notMem_of_star_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.coe_zetaInt"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.natCast_eq_neg_one_of_star_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.not_dvd_q₁_of_star_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Field/WeilData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.diagonalAtPlaces_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/FormalGroup/Resolution.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsResolution.sum_conj_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Sharpness/BoundAttained.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.copyEmbedding_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Sharpness/Cases.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.norm_conj_piMBar_mul_jetScale_sq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Vacuum/Scale.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.CMLattice.area_eq_of_a₁_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.norm_jetScale_sq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Vacuum/StandardDataProducts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Parameters.isResolution_resolutionVectors_zeta_pow"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Derivatives/Vacuum/TightFrames.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Space.jetSeries_eq_prod"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.theta_eq_prod_of_entireTheta_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/AuxiliaryForms/PathData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.gridChar_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.gridChar_true"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.triangleModulus_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.triangleModulus_true"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/AuxiliaryForms/Turns.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.Corner.IsTurn.newTuple_fst"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Chain/Moduli.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.CriticalPair.lRatioProd_eq_prod_norm_div"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Chain/TriangleLifts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.triangleLift_eq_triangleDatumLift"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.lift_modDatum_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Chain/TriangleNorms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsTriangle.exists_chainCommutes_and_chainAdjoint"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsTriangle.ne_zero_of_squareCommutes"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Exchange/ExplicitMatching.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Rows.val_inv_posBlockEmb_apply_coe"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Exchange/MatchingPartners.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsCommonCosetRep.coe_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.mul_firstCols"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Exchange/OneSquare.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsSquare.card_le_weight"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsSquare.negCount_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsSquare.negCount_lt_half"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsSquare.spaceChar_mul_first"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.IsSquare.spaceChar_mul_second"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Exchange/TheoremForPartners.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Exchange.adjointCoords_finEquiv_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Norms/AdjointThetaLift.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.adjoint_singleLift_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Norms/VectorKernel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DescentPair.normalizedDescent_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.DescentPair.vectorKernelForm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Determinant/Twist/FitTwists.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.IsNegligible.nonneg"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/ComparisonOperator/GluingMaps.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Rows.stdClassSum_gramForm_eq_zero_of_mem_falseLiftsAt"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Rows.weilScalar_glueLattice"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/ComparisonOperator/LineCoordinates.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.IsSmallSpecialization.norm_entry_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.IsSmallSpecialization.norm_value_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.weylNormSq_stackedDetProdCoords_le"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/FalseLifts/BottomOfTower.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DescentPair.leftMul_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/FalseLifts/PeriodsOfFalseLifts.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Rows.stdClassSum_gramForm_eq_zero_of_rank_one"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/HeckeValues/CharacterLiftNorm.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.LValueData.lift_fockDatum_const_one"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/HeckeValues/TwistedRatio.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.CriticalPair.exists_ofAlgForm_trivialLift_eq_smul_lift"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.CriticalPair.formAction_trivialLift"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.CriticalPair.ratio_ne_zero_and_real"
+      }
+     ]
+    },
+    {
+     "file": "src/New/OneLift/TestedForms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.PadicPlace.ιₚ_ofIso"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Rows.IsPointLift.mem_supportedOn"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Data/Existence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasFields.N_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasFields.bPlaces_heq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasFields.levelPrime_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasFields.piMBar_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasFields.piN_heq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Data/Sizes.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.a_div_x₁_mem_Icc"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.logB_pow_le_x"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.logX₁_pow_le_logB"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.m_sq_mem_Icc"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.q₁_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.r_le_two_mul_k"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.x_pow_le_x₁"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.x₁_pow_le_b"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/IntegralTargetForms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.volume_targetLattice"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Lattices/Colength.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.ColengthDvd.relLength_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.IsOntoUpToColength.exists_relLength_le"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Lattices/TwistedLattice.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.TwistedLattice.toBlocks₁₁_formGram_sumElim"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.TwistedLattice.toBlocks₂₂_formGram_sumElim"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.TwistedLattice.volume_eq_det_adjoint_comp"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/ShortAndEnough.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.coe_normalizedPoincare"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Zeros/PrimeError.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.lambdaKResidueClass_nonneg_and_abs_le"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Reduction/Zeros/PrimeNumberTheorem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.tendsto_primeRemainder"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Bessel/Average.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Shape.besselGraphChart_symm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Bessel/SobolevBound.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.RealPlace.convolutionWeight_nil"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/BesselVector.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.IsLargeLatticeData.card_cosets_mul_groupMeasure"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.IsLargeLatticeData.leadingMinor_mem_of_besselOrbitalIntegral_ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/Correlations.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.Gauge.leadingMinor_mem_ofSize_of_isNear"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.PlaceData.IsPairingKernel.partialCorrelation_eq_integral_succ"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/Densities.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.Gauge.leadingMinor_mem_ofSize_of_besselOrbitalIntegral_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.Place.IsBessel.besselOrbitalIntegral_besselU_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.PlaceData.IsActive.inner_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.PlaceData.IsActive.isNear_left"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.PlaceData.IsActive.isNear_right"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/FiniteDepth.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.IsLargeLatticeData.exists_ideal_depth_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/FixedLines.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.evalFiber_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/Lengths.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.Size.IsBalanced.exists_dual"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/QuadricVolumes.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.PlaceData.lintegral_floorQuadricMeasure_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.orbitPoint_floorWeyl_inv_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/RealPlaceGauge.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.complexData_positions"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.complexData_topFloorMeasure"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.exists_orthonormal_mul_eq_zero_and_fixed"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.lengthAt_le_of_lengthLeAt"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.lengthLeAt_of_lengthAt_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.mem_gauge_ofSize_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Floors.RealPlaceSizes.norm_leadingMinor_le_of_isNear"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/RealShells.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IsCutBessel.norm_leadingMinor_le_of_besselOrbitalIntegral_ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Frames/StandardLevel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Floors.IntegralPlace.IsLargeLatticeData.leadingMinor_mem_of_isNear"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/MainTerm/SieveSystem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.SieveSystem.integrable_and_integral_sum_update"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.SieveSystem.sum_nonneg_and_lowerSemicontinuousAt"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/BorderedDeterminant.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.subframeMinor_ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/ColumnLattice.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.conjColumnsAtInfinity_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/Data.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.cellRank_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/Denominators.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.exists_mem_commonIsotropic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.frameProducts_mulVec_eq_zero_of_shared"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.linearIndependent_mkQ_frameImage_and_sup_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.linearIndependent_mkQ_frameImage_coe_and_sup_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.linearIndependent_mkQ_frameImage_one_and_sup_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.frameImage_one_mulVec_mem_commonIsotropic_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.linearIndependent_mkQ_col_and_colSpan_sup_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.mulVec_eq_submatrix_mulVec_of_eq_zero_off"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/LinkVectors.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.elim_mem_preimageLattice_classCoord_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.exists_lift_mem_linkedX₀_iff_exists_orthogonal"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.isIntMatrix_lastFramePair_mul"
+      },
+      {
+       "kind": "def",
+       "name": "New.Filling.lastFramePair"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linearIndependent_linkVectors"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linearIndependent_linkVectors_and_prod_norm_det"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linkIsometry_perpToPositive_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linkVectors_mulVec_perpToPositive"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linkVectors_mulVec_perpToPositive_mem"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.prod_norm_det_gram_linkVectors"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/RemainingTerms/SiegelLemma.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.IsKernelExtension.finrank_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/BesselFormula.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.besselRealToPi_apply_snd"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/BesselLevelStructure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.idOrInvAdjoint_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mem_reducedImage_besselU_iff_exists_termsOver"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.prod_wave_eq_star_unipotentChar"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/Climbing.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.CharsAgree.exists_isTopIndex_apply_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mul_star_eq_and_ne_zero_and_exists_isTopIndex"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mul_star_eq_and_pairOccursAt_of_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.reducedImage_besselH_le_fixer"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.reducedImage_besselH_le_vectorFixer"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.isTopIndex_of_ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/CutoffIntegral.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.coe_classUnipotentToInf_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/FillingAdmissible.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.card_mul_prod_frameMass_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.comap_inclXFin_zero_chosenLevel"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.inclXFin_zero_mem_stdLevel_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/FrameMass.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.inv_pow_le_frameMass"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.inv_unitSphereMass_le_pow"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.one_le_inv_unitSphereMass"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.two_div_and_inv_sqrt_deltaE_mem_Icc"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/Link.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.linkIsometry_inv_mul_mul_of_mem_besselU"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/Packing.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.exists_gramSchmidtMatrix_le"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/PoincareSeries.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.inclXFin_mem_stdLevel_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.inclXFin_mem_stdPrincipalLevel_iff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.integrable_and_integral_mul_poincareSeries"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.integrable_mul_poincareSeries"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/ReducedGroups.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.exists_mulEquiv_reducedImage_besselH"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.inclHFin_mem_latticeStabilizer_of_supportedOn"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.isConjApart_chosenPlaces"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.ker_toReducedImageBesselH"
+      },
+      {
+       "kind": "def",
+       "name": "New.Filling.latticeStabilizerH"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mem_reducedImage_besselS_iff_forall_place"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.mem_reducedImage_iff_forall_place"
+      },
+      {
+       "kind": "def",
+       "name": "New.Filling.reduceLatticeStabilizerH"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.reduceLatticeStabilizerH_surjective"
+      },
+      {
+       "kind": "def",
+       "name": "New.Filling.reducedImageBesselHEquiv"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.reducedImageBesselHEquiv_reduction_inclHFin"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.reducedImage_besselS_le_normalizer"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.relIndex_sourceLevel"
+      },
+      {
+       "kind": "def",
+       "name": "New.Filling.toReducedImageBesselH"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.toReducedImageBesselH_surjective"
+      },
+      {
+       "kind": "def",
+       "name": "New.mulEquivOfKerEq"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.mulEquivOfKerEq_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/SeriesPeriod.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.Fits.sourceFormCoords_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/Setup.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.IsBoxPartitionOfUnity.le_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.coe_ratToFin"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/TermStructure.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.CharsAgree.disjoint_flagSpan_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.CharsAgree.disjoint_flagSpan_one_commonIsotropic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.CharsAgree.linkedX₀_eq_top"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.HasCellRank.flagSpan_one_sup_commonIsotropic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.form_framePerpToX₀"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.form_self_eq_zero_iff_mem_commonIsotropic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.frameSum_inf_framePerp"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Spanning/Unfolding/Terms.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Filling.exists_frameImage_one_mulVec_eq_of_nonpos"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Filling.norm_sq_middle_part_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Divisibility/ChainValuation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.weylGauge_le_one_iff_mem_span"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Divisibility/ColengthAtLevel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.colengthDvd_span_pow_monomials"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.mul_sum_monomials_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Divisibility/HeckeEdges.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Columns.latticeGL_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Divisibility/JetExponent.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.lowColumns_lowBoxes_bounds"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Divisibility/MarkedPrimes.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasExceptionalOrbits.ceilLogLifts_le_l₀"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasExceptionalOrbits.inducedPlace_neg_pow_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasExceptionalOrbits.q_inducedPlace"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.HasExceptionalOrbits.star_ne"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/Depth.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.divisorConstant_map"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/Edges.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.depthScaling_mulVec_mem_allEdgesForms"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.polyAction_map_monomial"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.polyAction_mem_dividedPowerLattice"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.polyAction_mem_monomialLattice"
+      },
+      {
+       "kind": "def",
+       "name": "New.dividedPowerCoeff"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.dividedPowerCoeff_eq_prod_multinomial"
+      },
+      {
+       "kind": "def",
+       "name": "New.dividedPowerLattice"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.dividedPowerLattice_le_monomialLattice"
+      },
+      {
+       "kind": "def",
+       "name": "New.monomialLattice"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.symPowMatrix_mul_multinomial"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/ElementaryDivisorTheorem.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.IsEdgeCondition.pow_smul_mem"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.elementary_divisors_length"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.regroup_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/InvariantAverage.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Average.tensorOrbit_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/RootLemma.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.RootAt.swapVar_snd"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.RootAt.varX_snd"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/ElementaryDivisors/TwistingData.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.FrobeniusCycle.rootVar_fst"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/AuxiliaryPair.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.DescentPair.residueLevelChar_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.firstBlockHom_apply_inl"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/CharactersAtLevel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.liftKernel_lift_scaling"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.liftKernel_lift_sub_scaling"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.liftKernel_lift_sub_scaling_eq_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/LabelsAndIndexTypes.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.BlockIndex.equivSum_zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/LiftChains.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.kernelProduct_succ"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/LiftLawsModuloN.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.IsSplitLevel.mirrorDatum_mul_mul_of_mem_mirabolic"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.residueOverN_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/Parameters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.gridIndex_false"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.gridIndex_true"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Data.paramsCorrespond_grid"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Objects/PoincareMap.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.poincareAt_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Form.add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Space.Form.smul_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Seesaw/EdgePairEvaluation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Seesaw.relIndex_zeroTermLattice_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "New.Seesaw.zeroTermFin_omega"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Seesaw/StandardLines.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Grading.SpansLattice.mem_lattice_and_stringProj_eq_zero_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/New/UpperBound/Seesaw/UnfoldingStages.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "New.Data.unfoldStageOn_zero"
+      }
+     ]
+    }
+   ],
+   "tsv": "corpus/grh-lean-live/d1-grh.tsv"
+  },
+  {
+   "edition": "compact",
+   "source": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/D1-compact.out",
+   "source_sha256": "93240214298eb24ee59c10fa84c8e04a7968e1629abcdaa6f6bf5d4ff7c57696",
+   "summary": {
+    "closure_constants": 209637,
+    "missing": 0,
+    "release_constants": 51804,
+    "release_in_closure": 37778,
+    "release_outside": 14026,
+    "outside_decl": 618,
+    "outside_aux": 13408,
+    "outside_modules": 717
+   },
+   "rules": [
+    {
+     "id": "G1",
+     "class": "generated",
+     "words": "a congruence lemma Lean’s simp makes for a function (name ends .congr_simp)",
+     "count": 437
+    },
+    {
+     "id": "G2",
+     "class": "generated",
+     "words": "a heterogeneous congruence lemma Lean makes (name ends .hcongr_<n>)",
+     "count": 10
+    },
+    {
+     "id": "G3",
+     "class": "generated",
+     "words": "an equation lemma Lean makes for a match (name ends .match_<n>.congr_eq_<n>)",
+     "count": 0
+    },
+    {
+     "id": "G4",
+     "class": "generated",
+     "words": "an eliminator Lean makes for an inductive type (name ends .ctorElim or .ctorElimType)",
+     "count": 2
+    },
+    {
+     "id": "G5",
+     "class": "generated",
+     "words": "a per-constructor eliminator Lean makes (T.c.elim, with T.ctorElim in the census)",
+     "count": 2
+    },
+    {
+     "id": "G6",
+     "class": "generated",
+     "words": "a helper of structural recursion (name ends .brecOn.<x>)",
+     "count": 2
+    },
+    {
+     "id": "I",
+     "class": "instance",
+     "words": "an instance name of Lean’s automatic form (last component inst followed by a capital letter)",
+     "count": 33
+    },
+    {
+     "id": "W",
+     "class": "written",
+     "words": "every other decl row: a declaration written in the release’s files",
+     "count": 132
+    }
+   ],
+   "written": 132,
+   "written_kinds": {
+    "theorem": 128,
+    "def": 4,
+    "other": 0
+   },
+   "written_files": 62,
+   "areas": [
+    {
+     "area": "Lib.Weil",
+     "n": 31
+    },
+    {
+     "area": "Lib.Adelic",
+     "n": 24
+    },
+    {
+     "area": "Lib.PadicHodge",
+     "n": 11
+    },
+    {
+     "area": "Lib.General",
+     "n": 10
+    },
+    {
+     "area": "Lib.Shimura",
+     "n": 8
+    },
+    {
+     "area": "Lib.DiscreteSeries",
+     "n": 7
+    },
+    {
+     "area": "Lib.ClassField",
+     "n": 5
+    },
+    {
+     "area": "Lib.LocalGL",
+     "n": 5
+    },
+    {
+     "area": "New.DiscreteSeries",
+     "n": 5
+    },
+    {
+     "area": "New.Selmer",
+     "n": 5
+    },
+    {
+     "area": "Lib.Cohomology",
+     "n": 4
+    },
+    {
+     "area": "Lib.PadicComparison",
+     "n": 4
+    },
+    {
+     "area": "Lib.CM",
+     "n": 2
+    },
+    {
+     "area": "New.Data",
+     "n": 2
+    },
+    {
+     "area": "New.Filling",
+     "n": 2
+    },
+    {
+     "area": "New.RealPlace",
+     "n": 2
+    },
+    {
+     "area": "New.Seesaw",
+     "n": 2
+    },
+    {
+     "area": "Lib.GaloisRep",
+     "n": 1
+    },
+    {
+     "area": "New.Exchange",
+     "n": 1
+    },
+    {
+     "area": "New.Rows",
+     "n": 1
+    }
+   ],
+   "by_file": [
+    {
+     "file": "src/Lib/Adelic/Adeles/AdeleIdempotent.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "finAdele_add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_natCast_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_neg_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_one_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_pow_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_sub_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Adeles/AdeleTopology.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coe_algebraMap_Ô"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_mul_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "finAdele_star_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Adeles/CoprimeValuation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coe_star_ringOfIntegers"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Adeles/IdeleHilbert90.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "algebraMap_eq_finAdeleIncl"
+      },
+      {
+       "kind": "theorem",
+       "name": "star_eq_adeleMap"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Unitary/CongruenceLevel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Kf.map_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Unitary/SpaceDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "G.mat_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "G.mat_snd"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.codRestrict_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.coe_inv"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.coe_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.coe_mul'"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.coe_one"
+      },
+      {
+       "kind": "theorem",
+       "name": "Gf.subtype_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Adelic/Witt/SpaceOperations.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "G.mat_reindex"
+      },
+      {
+       "kind": "theorem",
+       "name": "U.block_val"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/KroneckerLimit/LogTheta.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "mv_constantCoeff_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/CM/Sigma/PadicSeriesDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "seriesToCp_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/GaloisCohomology/DiscreteUnits.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "DiscreteUnits.val_ofBase"
+      },
+      {
+       "kind": "theorem",
+       "name": "DiscreteUnits.val_ofNeZero"
+      },
+      {
+       "kind": "theorem",
+       "name": "DiscreteUnits.val_unitsRep"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/ClassField/HeckeCharacter/CharacterDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "circleChar_inv_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "coe_divStar"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Etale/RelativeChains.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "relFreeAb.π_map"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Hodge/CupProduct.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "addCommGrp_tensor_hom_ext_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Hodge/GrothendieckSymbol.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "pi_comp_detCocycle"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Cohomology/Hodge/WitnessCocycles.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "freeAb.map_of"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Bruhat/ComplexPlace.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "complexPlace_c"
+      },
+      {
+       "kind": "theorem",
+       "name": "complexPlace_md_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "complexPlace_skewUnit"
+      },
+      {
+       "kind": "theorem",
+       "name": "complexPlace_τ"
+      },
+      {
+       "kind": "theorem",
+       "name": "complexPlace_ψ_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/DiscreteSeries/Theta/JointHarmonicExists.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "IsLayering.closed"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsLayering.sign_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/GaloisRep/BaseChange/BaseChangePlaces.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "atPlace_baseChangeGf"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Geometry/ProjectiveSpace.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "LineBundle.picClass_mul"
+      },
+      {
+       "kind": "theorem",
+       "name": "LineBundle.pull_id"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/ArtinDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "QZChar.abelianLift_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "QZChar.abelianization_ext_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/CentralProjections.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coeff_piTensorElem_apply_support_val"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/Groups/ValuationPair.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coe_diagGL"
+      },
+      {
+       "kind": "theorem",
+       "name": "intGL.map_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "val_inv_transvectionGL"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/LinearAlgebra/ElementOfMatrix.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "G.mat_ofMat"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/General/NumberTheory/QuadField.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "QuadField.coe_c₀"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/LocalGL/Green/MackeyFormula.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Hall.add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Hall.neg_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Hall.one_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Hall.smul_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Hall.zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicComparison/HodgeTate/HodgeTatePairs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "HodgeTatePair.comp_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "HodgeTatePair.comp_snd_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "HodgeTatePair.id_fst"
+      },
+      {
+       "kind": "theorem",
+       "name": "HodgeTatePair.id_snd_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/Crystalline/RegularityFrobenius.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coefEnd_tmul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/WachGamma/KisinModuleDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Lift.DiagTensor.map_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.DiagTensor.pair_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.DiagTensor.smul_mk"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.FrobGroup.snd_inr"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.FrobGroup.snd_φ"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/WachGamma/Letters.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Lift.KummerChart.JumpLattice.S_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.KummerChart.JumpLattice.inr_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/WachKisin/KummerChart.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Lift.KummerChart.toGp_def"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/PadicHodge/WachKisin/PeriodMatrixBasis.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Lift.Chart.IsPeriodMatrix.exists_frob"
+      },
+      {
+       "kind": "theorem",
+       "name": "Lift.Chart.IsPeriodMatrix.hat_stable"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/HeckeTower/GroupRingOperators.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "asAlgebraHom_eq_sum_support"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/IntegralModel/UniversalPoints.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "ThetaObject.pointOf_proj_assoc"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/Transfer/PELDataExistence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "IsTestVector.fixed"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsTestVector.level₀"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsTestVector.level₁"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsTestVector.mem_levelSpace"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsTestVector.ne_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Shimura/Uniformisation/LieExponential.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "riemannForm_pullForm"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/ConjugateJetDefs.lean",
+     "names": [
+      {
+       "kind": "def",
+       "name": "Space.VacuumExpansion.Index"
+      },
+      {
+       "kind": "theorem",
+       "name": "Space.VacuumExpansion.card_dvd"
+      },
+      {
+       "kind": "def",
+       "name": "Space.VacuumExpansion.fintypeIndex"
+      },
+      {
+       "kind": "theorem",
+       "name": "Space.VacuumExpansion.mul_shift_mem"
+      },
+      {
+       "kind": "def",
+       "name": "Space.VacuumExpansion.multiplier"
+      },
+      {
+       "kind": "theorem",
+       "name": "Space.VacuumExpansion.nonempty"
+      },
+      {
+       "kind": "def",
+       "name": "Space.VacuumExpansion.shift"
+      },
+      {
+       "kind": "theorem",
+       "name": "Space.VacuumExpansion.sum_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/Model.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Heisenberg.IsVacuum.add_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Heisenberg.IsVacuum.modelInner_apply"
+      },
+      {
+       "kind": "theorem",
+       "name": "Heisenberg.IsVacuum.zero_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Construction/PairDefs.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Space.data_ext_iff"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/Flip.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "flipSpace_J"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/Lift.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "ThetaKernel.swap_θ"
+      },
+      {
+       "kind": "theorem",
+       "name": "ThetaKernel.swap_ω"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/PairReal.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "pairThetaKer_θ"
+      },
+      {
+       "kind": "theorem",
+       "name": "pairThetaKer_ω"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/PairSplitting.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "G.mat_onHom"
+      },
+      {
+       "kind": "theorem",
+       "name": "G.onHom_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "matToVec_add"
+      },
+      {
+       "kind": "theorem",
+       "name": "matToVec_smul"
+      },
+      {
+       "kind": "theorem",
+       "name": "matToVec_vecToMat"
+      },
+      {
+       "kind": "theorem",
+       "name": "matToVec_zero"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/DualPair/PairSumNegation.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "G.onHom_atPlace"
+      },
+      {
+       "kind": "theorem",
+       "name": "normNegOne_inv"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Fock/FockAction.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "unitary_smul_eq_mulVec"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Fock/FockTensor.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "piTensor_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/GaussSum/ShearInvariance.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "submatrix_id_mul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Lift/Arrow.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "coe_conjForm"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/MixedModel/AdelicSum.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "IsSchwartzBruhat.idem_smul"
+      }
+     ]
+    },
+    {
+     "file": "src/Lib/Weil/Periods/FiniteBesselGroup.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Space.ratCoordMatrix_eq"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Data/Different.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Parameters.coe_zetaInt"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Data/WeilDataOfE.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Parameters.coe_galOfPlaceInt"
+      }
+     ]
+    },
+    {
+     "file": "src/New/DiscreteSeries/BesselExistence.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "HasPeakAt.apply_ne_zero"
+      },
+      {
+       "kind": "theorem",
+       "name": "HasPeakAt.convolve_eq"
+      },
+      {
+       "kind": "theorem",
+       "name": "HasPeakAt.enorm_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "HasPeakAt.lintegral_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "Shape.besselGraphChart_symm_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Exchange/BlockPartners.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "mul_firstCols"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Filling/Moments.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Prod.mk.hinj"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Filling/Setup.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "Filling.coe_ratToFin"
+      }
+     ]
+    },
+    {
+     "file": "src/New/RealPlace/ComplexGauge.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "RealPlaceSizes.complexLevel_positions"
+      }
+     ]
+    },
+    {
+     "file": "src/New/RealPlace/Size.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "weylRatio_inv"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Rows/RealMatching.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "val_inv_posBlockEmb_apply_coe"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Seesaw/EdgePair.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "GradeZeroPart.grade_add"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Seesaw/NamesAtSplitLevel.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "residueOverN_apply"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Selmer/Corepresentable.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "IsAnticyclotomicAt.norm_modEq"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsBalanced.coboundary_mem"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsBalanced.local_length_le"
+      },
+      {
+       "kind": "theorem",
+       "name": "IsBalanced.span_eq_top"
+      }
+     ]
+    },
+    {
+     "file": "src/New/Selmer/RibetCramer.lean",
+     "names": [
+      {
+       "kind": "theorem",
+       "name": "blockFlattenAlgEquiv_symm_apply"
+      }
+     ]
+    }
+   ],
+   "tsv": "corpus/grh-lean-live/d1-compact.tsv"
+  }
+ ]
+}

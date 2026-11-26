@@ -64,6 +64,15 @@ const PAGES = {
     quote: 'Let\'s start building and publish live already so we gain time.',
     relayed: 'the control room\'s brief of 2026-11-25 for the live δ₃-in-HOL4 page (hol4/delta3/LIVE-PAGE-BRIEF.md), relaying the operator, with its rules: no commit hashes or commit links on the page, rigor one click down in "Why you can trust this"',
   },
+  /* the live grh-lean page (2026-11-26, public and listed): an independent check of lsernau/grh-lean at its pinned commit.
+     Its rigor is one click down, in its "why you can trust this" layer, where every record, seal, source and version is
+     listed with its hash; the operator approved the page that night, and the rule below is the control room's brief */
+  'grh-lean/index.html': {
+    url: '/grh-lean/',
+    ruled: '2026-11-26',
+    quote: 'No commit links or hashes as visible text above the trust layer.',
+    relayed: 'the control room\'s brief of 2026-11-26 for the live /grh-lean/ page, which the operator approved that night, relaying its rules: plain words first, the dense material one click down',
+  },
   'extremos/index.html': {
     url: '/extremos/',
     ruled: '2026-11-04',

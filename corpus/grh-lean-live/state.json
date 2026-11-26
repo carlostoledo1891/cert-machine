@@ -1,0 +1,1165 @@
+{
+ "what": "The state of the grh-lean lane as the live page /grh-lean/ shows it, written by tools/grh-lean-records.js from corpus/grh-lean-check/ (its record.json the only source of a verdict) and checked against PREREG.md, the seals and the clock.",
+ "as_of": "2026-11-26T02:41Z",
+ "target": {
+  "repo": "lsernau/grh-lean",
+  "commit": "72fead102f663d5c7a407964a13dc0cf9d977207",
+  "tree": "5eb1240f03e791edd3fc7aa84a3a7d8dc3997b7f",
+  "committed_utc": "2026-11-25 20:38:07",
+  "files": 1627,
+  "editions": {
+   "readable": "300,000",
+   "compact": "76,000"
+  },
+  "pinned": [
+   {
+    "file": "src/Statements.lean",
+    "about": "byte-identical to the original Alpöge release's, pinned in corpus/alpoge-grh/PINS.json",
+    "sha256": "79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf"
+   },
+   {
+    "file": "Challenge.lean",
+    "about": "imports `Statements`",
+    "sha256": "b729a3ccbc3290cf9d9356d8dd8009ad19b5bad10bb50d5a4711ff3d5133b055"
+   },
+   {
+    "file": "comparator.json",
+    "about": "the five names, the three axioms, `enable_nanoda: true`, `definition_names: []`",
+    "sha256": "af227d4d6a09bd1449d297a745a7a28d1ecd22ecf85ec62deb2825bd0f164304"
+   }
+  ],
+  "statements_sha256": "79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf",
+  "theorems": [
+   "riemannHypothesis",
+   "riemannZeta_eq_zero_re",
+   "LFunction_ne_zero_of_half_lt_re",
+   "LFunction_eq_zero_re",
+   "LFunction_eq_zero_re_of_isPrimitive"
+  ],
+  "axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "credit": "Levent Alpöge’s, with Claude"
+ },
+ "claim": {
+  "verdict": "CERTIFIED",
+  "why": "Lean accepts proofs of the five stated theorems from propext, Classical.choice and Quot.sound: B1, A1, S1, K1, K2 and KR pass and C1-C3 are refused (PREREG verdict rule). Nothing is said about the mathematics beyond what the kernels check.",
+  "rule_rows": [
+   "B1",
+   "A1",
+   "S1",
+   "K1",
+   "K2",
+   "KR",
+   "C1-C3"
+  ]
+ },
+ "in_the_open": true,
+ "remaining": [
+  "S2"
+ ],
+ "counts": {
+  "all": 13,
+  "certified": 11,
+  "computed": 1,
+  "refused": 0,
+  "running": 1,
+  "not_started": 0,
+  "pending": 1,
+  "unreadable": 0
+ },
+ "rows": [
+  {
+   "id": "I1",
+   "title": "Integrity: every file of the release at the pinned commit hashed into one list before anything was built",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "The clone at the pinned commit hashed to one list of 1,627 files before any build; every registered pin matched.",
+   "why": "the clone at 72fead10 (tree 5eb1240f) hashes to one list of 1627 files, pinned before any build; the 14 registered pins match; no cache service, executable or lakefile.lean",
+   "steps": [
+    "I1"
+   ]
+  },
+  {
+   "id": "B1",
+   "title": "The readable edition builds from source",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "`lake build` exited 0 after 21 min: all 803 modules of the release compiled on our machine, none brought in pre-built, no `sorry`.",
+   "why": "lake build of grh/ exits 0 from source (Mathlib's official cache only): all 803 release modules compiled here, none present before, no `sorry`",
+   "steps": [
+    "B1"
+   ]
+  },
+  {
+   "id": "B2",
+   "title": "The compact edition builds from source",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "`lake build` exited 0 after 26 min: all 794 modules of the release compiled on our machine, none brought in pre-built, no `sorry`.",
+   "why": "lake build of grh-compact/ exits 0 from source (Mathlib's official cache only): all 794 release modules compiled here, none present before, no `sorry`",
+   "steps": [
+    "B2"
+   ]
+  },
+  {
+   "id": "A1",
+   "title": "Axioms: each of the five theorems, in both editions, rests only on propext, Classical.choice and Quot.sound",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Each of the five theorems, in both editions, depends on [propext, Classical.choice, Quot.sound] and nothing else (`#print axioms`).",
+   "why": "in both editions each of the five theorems depends only on propext, Classical.choice, Quot.sound",
+   "steps": [
+    "A1-grh",
+    "A1-compact"
+   ]
+  },
+  {
+   "id": "S1",
+   "title": "The judge, Comparator, in its sandbox, against our own statement file, written from Mathlib alone",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Accepted after 37 min, peak memory 15.1 GiB: “Lean default kernel accepts the solution”, “Your solution is okay!”.",
+   "why": "Comparator v4.35.0 accepted (Lean's kernel), in its Landlock sandbox (ABI 4), the challenge unchanged since it was built before the release",
+   "steps": [
+    "S1"
+   ]
+  },
+  {
+   "id": "S2",
+   "title": "The same judge against the release’s own statement file",
+   "verdict": "PENDING",
+   "state": "running",
+   "note": "Running on the pod since 02:17 UTC.",
+   "why": "S2 is running",
+   "steps": [
+    "S2-install",
+    "S2"
+   ]
+  },
+  {
+   "id": "K1",
+   "title": "nanoda, a kernel written apart from Lean’s, on the exported proofs",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "nanoda checked 222,117 declarations of the exported closure of the five theorems in 2 min with no typechecker error.",
+   "why": "nanoda 0da9f98f checked 222117 declarations of the exported closure of the five with no typechecker error",
+   "steps": [
+    "EXP",
+    "K1"
+   ]
+  },
+  {
+   "id": "K2",
+   "title": "con-leche, a third kernel, on the export, with the five theorems matched against our statement file",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "con-leche accepted the 216,567 declarations of the export, and found each of the five theorems “justified by the solution” against our statement file.",
+   "why": "con-leche 5ea446d5 --verified accepted the 216567 declarations of the export, and --compare justified the five theorems against the challenge's export",
+   "steps": [
+    "K2V",
+    "K2X",
+    "K2C"
+   ]
+  },
+  {
+   "id": "KR",
+   "title": "Lean’s own checker, replaying the proof from scratch",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "`leanchecker --fresh Main` exited 0 after 42 min, peak memory 10.6 GiB.",
+   "why": "leanchecker --fresh Main replayed the environment of Main (the readable edition) through Lean's kernel and exits 0",
+   "steps": [
+    "KR"
+   ]
+  },
+  {
+   "id": "C1-C3",
+   "title": "Three planted errors, each to be refused: an added axiom, a proof replaced by sorry, and 1/2 changed to 1/3 in a statement",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Every planted error was refused by every check it went through; each refusal is quoted below.",
+   "why": "each control was refused by S1's check (Comparator) and by K2's (con-leche), naming the planted axiom, sorry or statement",
+   "steps": [
+    "CTLB",
+    "C1X",
+    "C1K",
+    "C1KC",
+    "C1S",
+    "C2X",
+    "C2K",
+    "C2KC",
+    "C2S",
+    "C3X",
+    "C3K",
+    "C3S"
+   ]
+  },
+  {
+   "id": "E1",
+   "title": "The compact edition through the same judge, against our statement file",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Accepted after 43 min.",
+   "why": "Comparator v4.35.0 accepted (Lean's kernel), in its Landlock sandbox (ABI 4), the challenge unchanged since it was built before the release",
+   "steps": [
+    "E1"
+   ]
+  },
+  {
+   "id": "CHAR",
+   "title": "The textbook bridge: ζ and L defined by their Dirichlet series and holomorphy on ℂ ∖ {1}, without Mathlib’s definitions, proved equivalent to the statements",
+   "verdict": "CERTIFIED",
+   "state": "done",
+   "note": "Re-run at the release’s Lean and Mathlib with our four files unchanged: the eight theorems of the bridge compile and depend on the three standard axioms only. It ran on another lane’s machine (amendment A2).",
+   "why": "the textbook RH and GRH (zeta and L characterised by their Dirichlet series and holomorphy on C minus 1, without Mathlib's definitions) proved equivalent to the release's statements at Lean v4.35.0 and Mathlib 56a00585, the four files unchanged; the eight theorems on the three standard axioms (amendment A2)",
+   "steps": []
+  },
+  {
+   "id": "D1",
+   "title": "The declarations the five theorems never use (a list, not a verdict)",
+   "verdict": "COMPUTED",
+   "state": "done",
+   "note": "The census is in for both editions; its counts are below.",
+   "why": "the release's declarations outside the closure of the five theorems: 1394 (grh), 618 (compact) user-written, beside generated ones (a list, never a verdict)",
+   "steps": [
+    "D1-grh",
+    "D1-compact"
+   ]
+  }
+ ],
+ "controls": [
+  {
+   "id": "C1",
+   "planted": "the fifth theorem, `LFunction_eq_zero_re_of_isPrimitive`, proved from an added axiom (`CertMachine.plantedAxiomC1`)",
+   "refusals": [
+    {
+     "step": "C1S",
+     "exit": 1,
+     "line": "Illegal axiom detected: 'CertMachine.plantedAxiomC1'",
+     "by": "Comparator"
+    },
+    {
+     "step": "C1K",
+     "exit": 2,
+     "line": "not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1)",
+     "by": "con-leche --verified"
+    },
+    {
+     "step": "C1KC",
+     "exit": 2,
+     "line": "not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1)",
+     "by": "con-leche --compare"
+    }
+   ]
+  },
+  {
+   "id": "C2",
+   "planted": "the proof of `LFunction_ne_zero_of_half_lt_re` replaced by `sorry`",
+   "refusals": [
+    {
+     "step": "C2S",
+     "exit": 1,
+     "line": "Illegal axiom detected: 'sorryAx'",
+     "by": "Comparator"
+    },
+    {
+     "step": "C2K",
+     "exit": 2,
+     "line": "use of the sorryAx axiom in value of LFunction_ne_zero_of_half_lt_re",
+     "by": "con-leche --verified"
+    },
+    {
+     "step": "C2KC",
+     "exit": 2,
+     "line": "use of the sorryAx axiom in value of LFunction_ne_zero_of_half_lt_re",
+     "by": "con-leche --compare"
+    }
+   ]
+  },
+  {
+   "id": "C3",
+   "planted": "1/2 changed to 1/3 in our statement file’s `DirichletLZerosOnLine`",
+   "refusals": [
+    {
+     "step": "C3S",
+     "exit": 1,
+     "line": "Const does not match between challenge and target 'DirichletLZerosOnLine'",
+     "by": "Comparator"
+    },
+    {
+     "step": "C3K",
+     "exit": 1,
+     "line": "is not justified by the solution",
+     "by": "con-leche --verified"
+    }
+   ]
+  }
+ ],
+ "gaps": [
+  {
+   "id": "sandbox",
+   "b": "The judge’s sandbox is partial on this machine.",
+   "text": "The host’s kernel offers Landlock ABI v4, and landrun, the sandbox Comparator calls, warns at every start: “kernel supports Landlock ABI v4, so these default restrictions are not enforced: device ioctl (ABI v5), pathname UNIX socket connections (ABI v9), UDP bind/connect/send (ABI v10), abstract UNIX socket and signal scoping (ABI v6)”. Comparator also asks for a systemd guard against UNIX sockets, which cannot run in a container (amendment A3); the machine has no systemd manager. The sockets a sandboxed process could have reached were recorded before each judge run.",
+   "sources": [
+    "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/S1.err",
+    "corpus/grh-lean-check/AMENDMENTS.md",
+    "corpus/grh-lean-check/record.json"
+   ]
+  },
+  {
+   "id": "conleche",
+   "b": "con-leche refused the added axiom as an unsupported feature, not as an error.",
+   "text": "Its line for control C1 is “not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1)” (exit 2). It is a refusal, and Comparator refused the same control by name, but con-leche did not judge that proof; it declined to read it.",
+   "sources": [
+    "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/C1K.err",
+    "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/C1S.err"
+   ]
+  },
+  {
+   "id": "nanoda",
+   "b": "nanoda printed one error of its own printer.",
+   "text": "Its line is “Checked 222117 declarations with no typechecker errors, 1 pretty printer errors: [ \"Unable to print axioms\" ]”: a failure to print the list of axioms, with no typechecker error. The axioms are checked by row A1 and by Comparator, not by this printout.",
+   "sources": [
+    "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/K1.out"
+   ]
+  },
+  {
+   "id": "person",
+   "b": "No person read the mathematics.",
+   "text": "The rows check what a machine can check: that Lean and two kernels written apart from it accept the proofs, from the three standard axioms, of the five theorems as stated. Lean, Mathlib and the axioms propext, Classical.choice and Quot.sound are trusted. Nothing here says that RH or GRH hold beyond that.",
+   "sources": [
+    "corpus/grh-lean-check/PREREG.md"
+   ]
+  },
+  {
+   "id": "fidelity",
+   "b": "What the statements mean is carried from the earlier lane, not read again.",
+   "text": "The release’s statement file is byte for byte the one of Alpöge’s earlier release, whose statements our earlier lane read against the textbooks; that reading is carried over, and only the textbook bridge (CHAR) was re-run, because Mathlib moved.",
+   "sources": [
+    "corpus/grh-lean-check/PREREG.md",
+    "corpus/alpoge-grh/PINS.json"
+   ]
+  },
+  {
+   "id": "standin",
+   "b": "The authors’ own run of the judge used a stand-in for its sandbox.",
+   "text": "Their README says Comparator accepted the proofs “with a stand-in for its sandbox and `ulimit -s unlimited`”. Rows S1 and E1 run it in its own sandbox, partial as said above; S2 runs it on their own statement file.",
+   "sources": [
+    "corpus/grh-lean-check/PREREG.md"
+   ]
+  },
+  {
+   "id": "runner",
+   "b": "The script that runs the steps changed after its seal.",
+   "text": "Amendment A3 sealed the runner with the other instruments. It was changed twice before the run whose results stand: the order of the steps set to the one A3 fixes, and the install of GNU time after a start that ran nothing (“ended at setup, exit 127: the image has no /usr/bin/time; nothing ran”). The script the run used is named in the pod’s log; both hashes are one click down.",
+   "sources": [
+    "corpus/grh-lean-check/SEAL-A3.sha256",
+    "corpus/grh-lean-check/PROGRESS.md",
+    "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/_phase.log"
+   ]
+  },
+  {
+   "id": "stamps",
+   "b": "The timestamps await a Bitcoin block.",
+   "text": "The pre-registration and each amendment’s seal are stamped with OpenTimestamps; all 5 proofs are still pending at the calendars, not yet in a block. Until then a stamp shows the calendars’ receipt, not a block.",
+   "sources": [
+    "corpus/grh-lean-check/PREREG.md.ots",
+    "corpus/grh-lean-check/AMENDMENTS.md.ots",
+    "corpus/grh-lean-check/SEAL-A2.sha256.ots",
+    "corpus/grh-lean-check/SEAL-A3.sha256.ots",
+    "corpus/grh-lean-check/SEAL-A4.sha256.ots"
+   ]
+  }
+ ],
+ "compare": {
+  "earlier": {
+   "release": "Alpöge’s release of 20 November 2026",
+   "judge": "Comparator v4.33.0",
+   "lean": "v4.33.1",
+   "machine_memory_bytes": 376000000000,
+   "wall_seconds": 191142,
+   "rss_kib": 348861876,
+   "verdict_lines": 0,
+   "stopped_utc": "2026-11-24T10:08:32Z",
+   "words": "Stop it now",
+   "files": 175187,
+   "build_seconds": 67566,
+   "nanoda_declarations": 1484729,
+   "source": "certs/alpoge-grh-lean.json"
+  },
+  "here": {
+   "judge": "Comparator v4.35.0",
+   "lean": "v4.35.0",
+   "machine": "cpu3m 16 vCPU / 128 GB",
+   "wall_seconds": 2229,
+   "rss_gib": 15.1,
+   "rss_kib": 15857836,
+   "modules": 803,
+   "build_seconds": 1268,
+   "nanoda_declarations": 222117,
+   "source": "corpus/grh-lean-check/record.json"
+  }
+ },
+ "s1_progress_gb": 15.9,
+ "claims": {
+  "sandbox": "Comparator v4.35.0 accepted the proofs \"with a stand-in for its sandbox and `ulimit -s unlimited`\" (64 GB, a few hours)",
+  "unused": "\"several hundred of the more than 20,000 declarations are not used by the five theorems\"",
+  "kernels": "an export of the closure is accepted by nanoda, con-leche and con-ron"
+ },
+ "verdict_rule": "The formal claim (Lean accepts proofs of the five stated theorems from the three axioms) is CERTIFIED when B1, A1, S1, K1, K2 and KR pass and C1–C3 are refused; REFUTED only by a reproduced rejection traced to an ill-typed term or an extra axiom; otherwise OPEN or REFUSED with the row it rests on. No row says anything about the mathematics beyond what the kernels check; no person reads the proof. The fidelity of the statements is carried from the earlier lane's reading (F1, F2), because `Statements.lean` is byte-identical; CHAR is re-run because Mathlib moved.",
+ "prereg_written": "2026-11-25 22:51 UTC",
+ "amendments": [
+  {
+   "id": "A1",
+   "when": "2026-11-25 22:5x UTC",
+   "note": "before any run",
+   "title": "the ceiling and the start"
+  },
+  {
+   "id": "A2",
+   "when": "2026-11-25 22:5x UTC",
+   "note": "before any run",
+   "title": "CHAR runs now, on the Lean-bridge pod"
+  },
+  {
+   "id": "A3",
+   "when": "2026-11-25 23:25 UTC",
+   "note": "before any run",
+   "title": "the runner, the controls' form, the order under the ceiling"
+  },
+  {
+   "id": "A4",
+   "when": "2026-11-25 23:32 UTC",
+   "note": "before any run",
+   "title": "the pod starts now, beside the Lean-bridge pod"
+  }
+ ],
+ "ceiling_usd": 15,
+ "deadline_utc": "2026-11-26 15:30",
+ "spent_usd": 2.75,
+ "pod": {
+  "id": "tzj3kmtfk6flzc",
+  "name": "grh-lean-check-2026-11-25",
+  "machine": "cpu3m 16 vCPU / 128 GB",
+  "disk": "160 GB",
+  "usd_per_h": 0.88,
+  "region": "EU-RO-1",
+  "created_utc": "2026-11-25T23:33:13Z",
+  "deleted_utc": null
+ },
+ "char_pod": "alt1te1i1gsnpy",
+ "steps": [
+  {
+   "step": "setup",
+   "start_utc": "2026-11-25T23:34:49Z",
+   "timeout_s": 5400,
+   "end_utc": "2026-11-25T23:42:12Z",
+   "exit": 0,
+   "seconds": 443
+  },
+  {
+   "step": "LL1",
+   "start_utc": "2026-11-25T23:42:12Z",
+   "timeout_s": 300,
+   "end_utc": "2026-11-25T23:42:12Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "LL2",
+   "start_utc": "2026-11-25T23:42:12Z",
+   "timeout_s": 300,
+   "end_utc": "2026-11-25T23:42:12Z",
+   "exit": 2,
+   "seconds": 0
+  },
+  {
+   "step": "LL3",
+   "start_utc": "2026-11-25T23:42:12Z",
+   "timeout_s": 300,
+   "end_utc": "2026-11-25T23:42:12Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "DERISK",
+   "start_utc": "2026-11-25T23:42:12Z",
+   "timeout_s": 1800,
+   "end_utc": "2026-11-25T23:42:17Z",
+   "exit": 0,
+   "seconds": 5
+  },
+  {
+   "step": "I1",
+   "start_utc": "2026-11-25T23:42:17Z",
+   "timeout_s": 1800,
+   "end_utc": "2026-11-25T23:42:19Z",
+   "exit": 0,
+   "seconds": 2
+  },
+  {
+   "step": "CHB-grh-install",
+   "start_utc": "2026-11-25T23:42:19Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-25T23:42:19Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "CACHE-grh",
+   "start_utc": "2026-11-25T23:42:19Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-25T23:43:19Z",
+   "exit": 0,
+   "seconds": 60
+  },
+  {
+   "step": "CHB-grh",
+   "start_utc": "2026-11-25T23:43:19Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-25T23:43:30Z",
+   "exit": 0,
+   "seconds": 11
+  },
+  {
+   "step": "CHB-grh-seal",
+   "start_utc": "2026-11-25T23:43:30Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-25T23:43:30Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "CHB-compact-install",
+   "start_utc": "2026-11-25T23:43:30Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-25T23:43:30Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "CACHE-compact",
+   "start_utc": "2026-11-25T23:43:30Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-25T23:44:30Z",
+   "exit": 0,
+   "seconds": 60
+  },
+  {
+   "step": "CHB-compact",
+   "start_utc": "2026-11-25T23:44:30Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-25T23:44:40Z",
+   "exit": 0,
+   "seconds": 10
+  },
+  {
+   "step": "CHB-compact-seal",
+   "start_utc": "2026-11-25T23:44:40Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-25T23:44:40Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "B1",
+   "start_utc": "2026-11-25T23:44:40Z",
+   "timeout_s": 14400,
+   "end_utc": "2026-11-26T00:05:48Z",
+   "exit": 0,
+   "seconds": 1268
+  },
+  {
+   "step": "A1-grh",
+   "start_utc": "2026-11-26T00:05:48Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:05:56Z",
+   "exit": 0,
+   "seconds": 8
+  },
+  {
+   "step": "EXP",
+   "start_utc": "2026-11-26T00:05:56Z",
+   "timeout_s": 14400,
+   "end_utc": "2026-11-26T00:09:17Z",
+   "exit": 0,
+   "seconds": 201
+  },
+  {
+   "step": "KR",
+   "start_utc": "2026-11-26T00:08:57Z",
+   "timeout_s": 36000,
+   "end_utc": "2026-11-26T00:51:23Z",
+   "exit": 0,
+   "seconds": 2546
+  },
+  {
+   "step": "EXPF",
+   "start_utc": "2026-11-26T00:09:17Z",
+   "timeout_s": 7200,
+   "end_utc": "2026-11-26T00:09:40Z",
+   "exit": 0,
+   "seconds": 23
+  },
+  {
+   "step": "K1",
+   "start_utc": "2026-11-26T00:09:40Z",
+   "timeout_s": 14400,
+   "end_utc": "2026-11-26T00:11:57Z",
+   "exit": 0,
+   "seconds": 137
+  },
+  {
+   "step": "K2V",
+   "start_utc": "2026-11-26T00:11:57Z",
+   "timeout_s": 7200,
+   "end_utc": "2026-11-26T00:12:49Z",
+   "exit": 0,
+   "seconds": 52
+  },
+  {
+   "step": "K2X",
+   "start_utc": "2026-11-26T00:12:49Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:13:09Z",
+   "exit": 0,
+   "seconds": 20
+  },
+  {
+   "step": "K2C",
+   "start_utc": "2026-11-26T00:13:09Z",
+   "timeout_s": 7200,
+   "end_utc": "2026-11-26T00:14:04Z",
+   "exit": 0,
+   "seconds": 55
+  },
+  {
+   "step": "C3X",
+   "start_utc": "2026-11-26T00:14:04Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:14:24Z",
+   "exit": 0,
+   "seconds": 20
+  },
+  {
+   "step": "C3K",
+   "start_utc": "2026-11-26T00:14:24Z",
+   "timeout_s": 7200,
+   "end_utc": "2026-11-26T00:15:19Z",
+   "exit": 1,
+   "seconds": 55
+  },
+  {
+   "step": "CTL-install",
+   "start_utc": "2026-11-26T00:15:19Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-26T00:15:20Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "CTLB",
+   "start_utc": "2026-11-26T00:15:20Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:15:31Z",
+   "exit": 0,
+   "seconds": 11
+  },
+  {
+   "step": "C1X",
+   "start_utc": "2026-11-26T00:15:31Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:15:52Z",
+   "exit": 0,
+   "seconds": 21
+  },
+  {
+   "step": "C1CX",
+   "start_utc": "2026-11-26T00:15:52Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:16:12Z",
+   "exit": 0,
+   "seconds": 20
+  },
+  {
+   "step": "C1K",
+   "start_utc": "2026-11-26T00:16:12Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:16:15Z",
+   "exit": 2,
+   "seconds": 3
+  },
+  {
+   "step": "C1KC",
+   "start_utc": "2026-11-26T00:16:15Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:16:18Z",
+   "exit": 2,
+   "seconds": 3
+  },
+  {
+   "step": "C1S",
+   "start_utc": "2026-11-26T00:16:18Z",
+   "timeout_s": 21600,
+   "end_utc": "2026-11-26T00:17:31Z",
+   "exit": 1,
+   "seconds": 73
+  },
+  {
+   "step": "C2X",
+   "start_utc": "2026-11-26T00:17:31Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:17:51Z",
+   "exit": 0,
+   "seconds": 20
+  },
+  {
+   "step": "C2CX",
+   "start_utc": "2026-11-26T00:17:51Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:18:11Z",
+   "exit": 0,
+   "seconds": 20
+  },
+  {
+   "step": "C2K",
+   "start_utc": "2026-11-26T00:18:11Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:18:15Z",
+   "exit": 2,
+   "seconds": 4
+  },
+  {
+   "step": "C2KC",
+   "start_utc": "2026-11-26T00:18:15Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T00:18:18Z",
+   "exit": 2,
+   "seconds": 3
+  },
+  {
+   "step": "C2S",
+   "start_utc": "2026-11-26T00:18:18Z",
+   "timeout_s": 21600,
+   "end_utc": "2026-11-26T00:19:29Z",
+   "exit": 1,
+   "seconds": 71
+  },
+  {
+   "step": "S1",
+   "start_utc": "2026-11-26T00:19:29Z",
+   "timeout_s": 36000,
+   "end_utc": "2026-11-26T00:56:38Z",
+   "exit": 0,
+   "seconds": 2229
+  },
+  {
+   "step": "C3S",
+   "start_utc": "2026-11-26T00:56:38Z",
+   "timeout_s": 21600,
+   "end_utc": "2026-11-26T01:02:28Z",
+   "exit": 1,
+   "seconds": 350
+  },
+  {
+   "step": "D1-grh",
+   "start_utc": "2026-11-26T01:02:28Z",
+   "timeout_s": 10800,
+   "end_utc": "2026-11-26T01:05:31Z",
+   "exit": 0,
+   "seconds": 183
+  },
+  {
+   "step": "B2",
+   "start_utc": "2026-11-26T01:05:31Z",
+   "timeout_s": 14400,
+   "end_utc": "2026-11-26T01:31:10Z",
+   "exit": 0,
+   "seconds": 1539
+  },
+  {
+   "step": "A1-compact",
+   "start_utc": "2026-11-26T01:31:10Z",
+   "timeout_s": 3600,
+   "end_utc": "2026-11-26T01:31:18Z",
+   "exit": 0,
+   "seconds": 8
+  },
+  {
+   "step": "E1",
+   "start_utc": "2026-11-26T01:31:18Z",
+   "timeout_s": 28800,
+   "end_utc": "2026-11-26T02:14:36Z",
+   "exit": 0,
+   "seconds": 2598
+  },
+  {
+   "step": "D1-compact",
+   "start_utc": "2026-11-26T02:14:36Z",
+   "timeout_s": 10800,
+   "end_utc": "2026-11-26T02:17:41Z",
+   "exit": 0,
+   "seconds": 185
+  },
+  {
+   "step": "S2-install",
+   "start_utc": "2026-11-26T02:17:41Z",
+   "timeout_s": 600,
+   "end_utc": "2026-11-26T02:17:41Z",
+   "exit": 0,
+   "seconds": 0
+  },
+  {
+   "step": "S2",
+   "start_utc": "2026-11-26T02:17:41Z",
+   "timeout_s": 36000
+  }
+ ],
+ "invocations": [
+  {
+   "at_utc": "2026-11-25T23:34:49Z",
+   "what": "all",
+   "audit": "083bbf0009ec30d80e1626faa8ab7b07952a6528",
+   "deadline": 1795707000,
+   "script16": "d1a2cf70be7c0e16"
+  },
+  {
+   "at_utc": "2026-11-26T00:08:57Z",
+   "what": "KR",
+   "audit": "083bbf0009ec30d80e1626faa8ab7b07952a6528",
+   "deadline": 1795707000,
+   "script16": "d1a2cf70be7c0e16"
+  }
+ ],
+ "progress": [
+  {
+   "at": "2026-11-25T22:59Z",
+   "text": "CHAR passed. On pod alt1te1i1gsnpy (amendment A2), Lean v4.35.0 with Mathlib 56a005855ea1 (the release's pins; runs/char-alt1te1i1gsnpy/mathlib-rev.txt), the four files UNCHANGED from cert-machine (inputs.sha256 = the instruments' sha256: Textbook.lean 5310cb6f…, Spec.lean a15f6d86…, TextbookAx.lean cbf610a2…, Challenge.lean 8c1e5e1d…): Spec, Challenge, Textbook, TextbookAx each exit 0 (CHAR.log); the eight theorems (Mathlib's ζ and L meet the textbook characterisations; the characterisations determine them on ℂ ∖ {1}; RH and GRH in textbook form equivalent to the release's definitions) each depend on [propext, Classical.choice, Quot.sound] (TextbookAx.out). Only deprecation warnings (push_neg, Set.mem_setOf_eq); Challenge's five sorry theorems are not used by any of the eight, as the axiom lists show."
+  },
+  {
+   "at": "2026-11-25T23:34Z",
+   "text": "pod tzj3kmtfk6flzc (grh-lean-check-2026-11-25, cpu3m 16 vCPU / 128 GB, disk 160 GB, US$0.88/h, EU-RO-1, created 23:33:13 UTC, amendment A4). First start (audit 8d96a4ff) ended at setup, exit 127: the image has no /usr/bin/time; nothing ran; that /results is kept on the pod as /results-attempt0. Restarted 23:34:49 UTC with the fix (audit 083bbf00), DEADLINE 1795707000 (2026-11-26 15:30 UTC)."
+  },
+  {
+   "at": "2026-11-26T00:05Z",
+   "text": "setup, the Landlock probes (LL2's write refused, as required), DERISK (con-leche reads a v4.35.0 export; both checkers refuse the bad sample), I1, the challenge builds and their seals for both editions: all done before any release module was compiled. B1 (the readable edition, `lake build` from source) exit 0 after 1,268 s. A1 (readable): each of the five theorems depends on axioms [propext, Classical.choice, Quot.sound]."
+  },
+  {
+   "at": "2026-11-26T00:08Z",
+   "text": "EXP running (since 00:05:56); KR (leanchecker --fresh Main) started beside it in a second invocation (amendment A3, P6)."
+  },
+  {
+   "at": "2026-11-26T00:09Z",
+   "text": "EXP exit 0 after 201 s (the lean4export export of the closure of the five)."
+  },
+  {
+   "at": "2026-11-26T00:11Z",
+   "text": "K1 (nanoda) exit 0 after 137 s: \"Checked 222117 declarations with no typechecker errors, 1 pretty printer errors: [ \"Unable to print axioms\" ]\" — a printing error, not a type error; the recorder's nanoda_accepts decides the row."
+  },
+  {
+   "at": "2026-11-26T00:14Z",
+   "text": "K2 (con-leche): --verified \"accepted 216567 declarations\"; --compare against cert-machine's challenge: \"accepted 52169 declarations, 5 axioms justified by the solution\", each of the five theorems \"justified by the solution\"."
+  },
+  {
+   "at": "2026-11-26T00:19Z",
+   "text": "the planted controls, each refused by every check it went through: C3 (1/2 → 1/3 in the challenge) by con-leche (\"axiom LFunction_eq_zero_re is not justified by the solution: its type reads DirichletLZerosOnLine, which the solution does not declare alike\"); C1 (an added axiom) by con-leche, as \"not implemented yet: non-standard axiom (CertMachine.plantedAxiomC1)\" — a refusal by unsupported feature, exit 2, said as such — and by Comparator (\"Illegal axiom detected: 'CertMachine.plantedAxiomC1'\"); C2 (one proof replaced by sorry) by con-leche (\"use of the sorryAx axiom in value of LFunction_ne_zero_of_half_lt_re\", exit 2) and by Comparator (\"Illegal axiom detected: 'sorryAx'\"). Landlock on this host is ABI v4: landrun warns that device ioctl, pathname UNIX socket connections and UDP restrictions are not enforced (P1's disclosure)."
+  },
+  {
+   "at": "2026-11-26T00:19Z",
+   "text": "S1 (Comparator v4.35.0 against cert-machine's challenge) running; KR running since 00:08."
+  },
+  {
+   "at": "2026-11-26T00:51Z",
+   "text": "KR passed: `leanchecker --fresh Main` (readable edition) exit 0 after 2,546 s (42 min 26 s wall, peak RSS 11.1 GB, KR.err). S1 still running (since 00:19:29)."
+  },
+  {
+   "at": "2026-11-26T00:56Z",
+   "text": "S1 passed: Comparator v4.35.0 against cert-machine's Mathlib-only challenge, in its Landlock sandbox (ABI 4, P1's disclosure), \"Lean default kernel accepts the solution\" / \"Your solution is okay!\", exit 0 after 2,229 s (37 min, peak RSS 15.9 GB). The recorder (00:58): I1, B1, S1, K1, K2, KR, CHAR CERTIFIED; A1 waits for the compact edition, C1–C3 for C3S (running since 00:56:38), then D1, B2, E1, S2."
+  },
+  {
+   "at": "2026-11-26T01:02Z",
+   "text": "C3S: Comparator refuses the challenge with 1/2 → 1/3 in DirichletLZerosOnLine (\"Const does not match between challenge and target 'DirichletLZerosOnLine'\", exit 1 after 350 s): all three planted controls are now refused by every check they went through. D1 on the readable edition running since 01:02:28."
+  },
+  {
+   "at": "2026-11-26T01:05Z",
+   "text": "D1 (readable edition) exit 0 after 183 s: \"D1SUM closure_constants=222115 missing=0 release_constants=64456 release_in_closure=50283 release_outside=14173 outside_decl=1394 outside_aux=12779 outside_modules=753\" — 14,173 lines, one per release constant outside the closure of the five. Not yet read: how many of the 1,394 'decl' rows are compiler-generated (e.g. `.congr_simp`) rather than written declarations; the authors' README says \"several hundred\". B2 (the compact edition) running."
+  },
+  {
+   "at": "2026-11-26T02:17Z",
+   "text": "the compact edition: B2 (lake build from source) exit 0 after 1,539 s; A1-compact: each of the five theorems depends on [propext, Classical.choice, Quot.sound]; E1 (Comparator against cert-machine's challenge) \"Lean default kernel accepts the solution\" / \"Your solution is okay!\", exit 0 after 2,598 s; D1-compact exit 0 after 185 s (\"release_constants=51804 release_in_closure=37778 release_outside=14026 outside_decl=618 outside_aux=13408\")."
+  },
+  {
+   "at": "2026-11-26T02:18Z",
+   "text": "THE RECORDER (tools/check-grh-lean.py): claim CERTIFIED — \"Lean accepts proofs of the five stated theorems from propext, Classical.choice and Quot.sound: B1, A1, S1, K1, K2 and KR pass and C1–C3 are refused\". Every registered row CERTIFIED except D1 (COMPUTED, a list: 1,394 readable / 618 compact declarations outside the closure, by the census's rule, beside generated ones) and S2 (the release's own challenge; running since 02:17:41, dropped first under the ceiling). What this does not say: anything about the mathematics beyond what the kernels check; no person read the proof."
+  }
+ ],
+ "seals": [
+  {
+   "id": "PREREG",
+   "what": "the pre-registration",
+   "file": "corpus/grh-lean-check/PREREG.md",
+   "ots": "corpus/grh-lean-check/PREREG.md.ots",
+   "stamps_bytes": 6257,
+   "whole": true,
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "AMENDMENTS",
+   "what": "the amendments as they stood when this proof was made (A1)",
+   "file": "corpus/grh-lean-check/AMENDMENTS.md",
+   "ots": "corpus/grh-lean-check/AMENDMENTS.md.ots",
+   "stamps_bytes": 485,
+   "whole": false,
+   "ots_state": "pending",
+   "bitcoin_block": null
+  },
+  {
+   "id": "SEAL-A2",
+   "what": "amendment A2: CHAR runs now, on the Lean-bridge pod",
+   "file": "corpus/grh-lean-check/SEAL-A2.sha256",
+   "ots": "corpus/grh-lean-check/SEAL-A2.sha256.ots",
+   "stamps_bytes": 80,
+   "whole": true,
+   "ots_state": "pending",
+   "bitcoin_block": null,
+   "files": [
+    {
+     "file": "corpus/grh-lean-check/AMENDMENTS.md",
+     "sha256": "a1304cb5fab5d1e1ae0bc7bd5ad97384c5f53b19585e458d0af310a22e999e6c",
+     "state": "appended to"
+    }
+   ]
+  },
+  {
+   "id": "SEAL-A3",
+   "what": "amendment A3: the runner, the controls' form, the order under the ceiling",
+   "file": "corpus/grh-lean-check/SEAL-A3.sha256",
+   "ots": "corpus/grh-lean-check/SEAL-A3.sha256.ots",
+   "stamps_bytes": 927,
+   "whole": true,
+   "ots_state": "pending",
+   "bitcoin_block": null,
+   "files": [
+    {
+     "file": "corpus/grh-lean-check/AMENDMENTS.md",
+     "sha256": "a3a4aac22dd1625c6f4ef8ec9a4e0a07b5f62fbcd8603eeb08ed042eeb396677",
+     "state": "appended to"
+    },
+    {
+     "file": "corpus/grh-lean-check/PROPOSED-AMENDMENTS.md",
+     "sha256": "b9ec38b45896259ab008c475da03d0b91e012793fedf7cdb6802ebb0b2af9e70",
+     "state": "unchanged"
+    },
+    {
+     "file": "tools/runpod-grh-lean.sh",
+     "sha256": "45a2a419c5bac2b96806c0943e8cb10f0bcbc9414e978fe7bac068ede34592ce",
+     "state": "changed after the seal, before the run (recorded)"
+    },
+    {
+     "file": "tools/check-grh-lean.py",
+     "sha256": "66b2d05fc768c284809c15310a89ab2ed3c08786255f5202ccb54ddf05744efd",
+     "state": "unchanged"
+    },
+    {
+     "file": "instruments/grh-lean/Challenge.lean",
+     "sha256": "8d6c3d4d1bba7a12bf04f39f48ee960a196a32669d3b633ba94ffb2fd4e07c33",
+     "state": "unchanged"
+    },
+    {
+     "file": "instruments/grh-lean/controls/ChallengeC3.lean",
+     "sha256": "5a1ffa177b90ba47c362d7dd0660919d8bfbf9c211f122b4357635eb8b3c1ab8",
+     "state": "unchanged"
+    },
+    {
+     "file": "instruments/grh-lean/controls/GrhC1.lean",
+     "sha256": "3912e11a7f1e44ef1cda29a5ccb0a0aba71f072249f4552f4d9b2f018ee583a2",
+     "state": "unchanged"
+    },
+    {
+     "file": "instruments/grh-lean/controls/GrhC2.lean",
+     "sha256": "a348c63ef80482107c80bc71e036e9c7711281b4cac609c1b3a0b201b547ac65",
+     "state": "unchanged"
+    },
+    {
+     "file": "instruments/grh-lean/census/Unused.lean",
+     "sha256": "5b0a4bcf6123990b0fa2f1dc0086239c8d566eec1fb26a9a0d7c973fc059c6e7",
+     "state": "unchanged"
+    }
+   ]
+  },
+  {
+   "id": "SEAL-A4",
+   "what": "amendment A4: the pod starts now, beside the Lean-bridge pod",
+   "file": "corpus/grh-lean-check/SEAL-A4.sha256",
+   "ots": "corpus/grh-lean-check/SEAL-A4.sha256.ots",
+   "stamps_bytes": 80,
+   "whole": true,
+   "ots_state": "pending",
+   "bitcoin_block": null,
+   "files": [
+    {
+     "file": "corpus/grh-lean-check/AMENDMENTS.md",
+     "sha256": "d665ba0f48e98c4ecd22e8c1737655bdae8a260d4ec1400029476c0eecae2afe",
+     "state": "unchanged"
+    }
+   ]
+  }
+ ],
+ "runner": {
+  "file": "tools/runpod-grh-lean.sh",
+  "sealed_sha256": "45a2a419c5bac2b96806c0943e8cb10f0bcbc9414e978fe7bac068ede34592ce",
+  "run_sha256": "d1a2cf70be7c0e160f381a116fbc8bb9b0642188e974ee2d97bbfa612b415fab",
+  "now_sha256": "d1a2cf70be7c0e160f381a116fbc8bb9b0642188e974ee2d97bbfa612b415fab",
+  "audit_commit": "083bbf0009ec30d80e1626faa8ab7b07952a6528",
+  "attempt0": "ended at setup, exit 127: the image has no /usr/bin/time; nothing ran",
+  "restart_utc": "2026-11-25T23:34:49Z",
+  "sealed_by": "SEAL-A3"
+ },
+ "versions": {
+  "comparator": "e3dcf3083fc53d44b27a4431fabf7d43181583f5",
+  "lean4export": "5a9a355dc6c5fd82b69058d433e2ae2e8dfbf8fe",
+  "nanoda": "0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929",
+  "landrun": "573aa723afb16bb1da2dbe24fc00df46cd0ad13b",
+  "con-leche": "5ea446d5c79d23ef1f954215d094db2162f1ab6f",
+  "lean": "v4.35.0",
+  "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "landlock_abi": "4",
+  "conleche_lean": "v4.36.0"
+ },
+ "instruments": [
+  {
+   "file": "instruments/grh-lean/Challenge.lean",
+   "sha256": "8d6c3d4d1bba7a12bf04f39f48ee960a196a32669d3b633ba94ffb2fd4e07c33",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/grh-lean/controls/GrhC1.lean",
+   "sha256": "3912e11a7f1e44ef1cda29a5ccb0a0aba71f072249f4552f4d9b2f018ee583a2",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/grh-lean/controls/GrhC2.lean",
+   "sha256": "a348c63ef80482107c80bc71e036e9c7711281b4cac609c1b3a0b201b547ac65",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/grh-lean/controls/ChallengeC3.lean",
+   "sha256": "5a1ffa177b90ba47c362d7dd0660919d8bfbf9c211f122b4357635eb8b3c1ab8",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/grh-lean/census/Unused.lean",
+   "sha256": "5b0a4bcf6123990b0fa2f1dc0086239c8d566eec1fb26a9a0d7c973fc059c6e7",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/alpoge-grh/spec/Textbook.lean",
+   "sha256": "5310cb6fe26eda7d25f0c2f84542644a13b39e5d6dc1c7c7f26d5526b016947e",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/alpoge-grh/spec/Spec.lean",
+   "sha256": "a15f6d86eb74275c505cc5299925d029b34a250b85e0c9d5c69a10afdad50db9",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/alpoge-grh/spec/TextbookAx.lean",
+   "sha256": "cbf610a2d32a1bf375f2ee6bf639a078200808d49ea35117c904da0856e1008f",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "instruments/alpoge-grh/Challenge.lean",
+   "sha256": "8c1e5e1d10e7484d40da56d4e311cfe425146f70a694665937341c81343f2a4f",
+   "equal_audit_commit": true
+  },
+  {
+   "file": "tools/check-grh-lean.py",
+   "sha256": "66b2d05fc768c284809c15310a89ab2ed3c08786255f5202ccb54ddf05744efd",
+   "equal_audit_commit": null
+  },
+  {
+   "file": "tools/runpod-grh-lean.sh",
+   "sha256": "d1a2cf70be7c0e160f381a116fbc8bb9b0642188e974ee2d97bbfa612b415fab",
+   "equal_audit_commit": true
+  }
+ ],
+ "challenge_seal": "challenge unchanged since CHB-grh-seal",
+ "export": {
+  "sha256": "a28b40e7e90aa8477b01294d0afce119d1756d42b582c17a009f85694493396e",
+  "bytes": 4486595522
+ },
+ "afunix": "Comparator's systemd AF_UNIX guard cannot run in a container",
+ "d1_unread_line": "Not yet read: how many of the 1,394 'decl' rows are compiler-generated",
+ "sources": [
+  {
+   "file": "corpus/grh-lean-check/PREREG.md",
+   "sha256_12": "34a5d3bbc638"
+  },
+  {
+   "file": "corpus/grh-lean-check/PREREG.md.ots",
+   "sha256_12": "6b6bc91d7492"
+  },
+  {
+   "file": "corpus/grh-lean-check/AMENDMENTS.md",
+   "sha256_12": "d665ba0f48e9"
+  },
+  {
+   "file": "corpus/grh-lean-check/AMENDMENTS.md.ots",
+   "sha256_12": "8cd6ed1392f6"
+  },
+  {
+   "file": "corpus/grh-lean-check/PROPOSED-AMENDMENTS.md",
+   "sha256_12": "b9ec38b45896"
+  },
+  {
+   "file": "corpus/grh-lean-check/PROGRESS.md",
+   "sha256_12": "dcd6d802553a"
+  },
+  {
+   "file": "corpus/grh-lean-check/record.json",
+   "sha256_12": "e529a4eeb064"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A2.sha256",
+   "sha256_12": "2e5348513b29"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A2.sha256.ots",
+   "sha256_12": "c590aec0eb6e"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A3.sha256",
+   "sha256_12": "a11d49fa3f08"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A3.sha256.ots",
+   "sha256_12": "02aea1706bd7"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A4.sha256",
+   "sha256_12": "fc0fa5116544"
+  },
+  {
+   "file": "corpus/grh-lean-check/SEAL-A4.sha256.ots",
+   "sha256_12": "3d91da238d6d"
+  },
+  {
+   "file": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/_phase.log",
+   "sha256_12": "33728fdd3c9d"
+  },
+  {
+   "file": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/D1-grh.out",
+   "sha256_12": "2255461a68d3"
+  },
+  {
+   "file": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc/D1-compact.out",
+   "sha256_12": "93240214298e"
+  }
+ ],
+ "run": "tzj3kmtfk6flzc",
+ "run_dir": "corpus/grh-lean-check/runs/tzj3kmtfk6flzc"
+}

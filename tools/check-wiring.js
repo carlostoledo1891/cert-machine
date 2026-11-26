@@ -262,7 +262,7 @@ if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.ht
 /* AND THE PAGES WHOSE BUILDERS WRITE STRAIGHT INTO site/ (2026-10-29, walked on the operator's word): /eth/, /papers/, /eleicoes2026/, and the two apps /janela/ (with /janela/metodo/) and /swell/. Each
    builder writes its page in place, so what is read here is current when the batteries run. /cv/ is not a page — the
    URL redirects to site/cv/carlos-toledo-cv.pdf — so there is nothing of it to walk. */
-for (const d of ['site/eth', 'site/papers', 'site/eleicoes2026', 'site/extremos', 'site/janela', 'site/swell', 'site/z-in-q', 'site/atalaia', 'site/r310', 'site/vp-vnp', 'site/omega', 'site/delta3-hol4']) walk(d);   /* delta3-hol4: the live δ₃-in-HOL4 page, 2026-11-25; z-in-q: the unlisted ℤ-in-ℚ page, 2026-11-06; r310: the live R(3,10) page, 2026-11-23; vp-vnp: the live VP ≠ VNP audit, 2026-11-23; omega: the live ω = 9/4 audit, 2026-11-25 */
+for (const d of ['site/eth', 'site/papers', 'site/eleicoes2026', 'site/extremos', 'site/janela', 'site/swell', 'site/z-in-q', 'site/atalaia', 'site/r310', 'site/vp-vnp', 'site/omega', 'site/delta3-hol4', 'site/grh-lean']) walk(d);   /* grh-lean: the live grh-lean check, 2026-11-26; delta3-hol4: the live δ₃-in-HOL4 page, 2026-11-25; z-in-q: the unlisted ℤ-in-ℚ page, 2026-11-06; r310: the live R(3,10) page, 2026-11-23; vp-vnp: the live VP ≠ VNP audit, 2026-11-23; omega: the live ω = 9/4 audit, 2026-11-25 */
 /* AND /instruments (2026-09-15). The walk below used to be added only after
    check 4 had run, so the type check covered 69 pages and the palette check
    90 — and four instruments pages carried a literal ui-monospace stack in

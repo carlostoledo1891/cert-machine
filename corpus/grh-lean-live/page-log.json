@@ -1,0 +1,26 @@
+{
+ "what": "The public change log of /grh-lean/: one dated entry per change of the page or of its state. The builder refuses when the newest entry’s state is not the records’.",
+ "entries": [
+  {
+   "at": "2026-11-26T01:25Z",
+   "as_of": "2026-11-26T01:22Z",
+   "claim": "PENDING",
+   "rows": "I1:CERTIFIED B1:CERTIFIED B2:PENDING/running A1:PENDING S1:CERTIFIED S2:PENDING K1:CERTIFIED K2:CERTIFIED KR:CERTIFIED C1-C3:CERTIFIED E1:PENDING CHAR:CERTIFIED D1:PENDING",
+   "what": "The page opens, public and listed. The pre-registration was written at about 22:51 UTC on 25 November, before any run; four amendments since. On the pod, created 23:33 UTC: integrity, the readable edition's build, nanoda, con-leche, Lean's fresh replay and the judge (Comparator, against our own statement file) are CERTIFIED, and the three planted errors were each refused; the textbook bridge is CERTIFIED. The readable edition's census of unused declarations is in, split here into generated and written. The compact edition is building; its axioms, its judge run, its census and the judge against the release's own statement file remain."
+  },
+  {
+   "at": "2026-11-26T01:58Z",
+   "as_of": "2026-11-26T01:58Z",
+   "claim": "CERTIFIED",
+   "rows": "I1:CERTIFIED B1:CERTIFIED B2:CERTIFIED A1:CERTIFIED S1:CERTIFIED S2:PENDING K1:CERTIFIED K2:CERTIFIED KR:CERTIFIED C1-C3:CERTIFIED E1:PENDING/running CHAR:CERTIFIED D1:PENDING",
+   "what": "The compact edition built from source (all 794 modules, 26 min), and its five theorems depend on the three standard axioms only, so A1 holds in both editions and every row the verdict rule names is CERTIFIED: Lean accepts proofs of the five stated theorems from propext, Classical.choice and Quot.sound. The compact edition's run through the same judge against our statement file (E1) is running; its census (D1) and the judge against the release's own statement file (S2) remain."
+  },
+  {
+   "at": "2026-11-26T02:18Z",
+   "as_of": "2026-11-26T02:17Z",
+   "claim": "CERTIFIED",
+   "rows": "I1:CERTIFIED B1:CERTIFIED B2:CERTIFIED A1:CERTIFIED S1:CERTIFIED S2:PENDING/running K1:CERTIFIED K2:CERTIFIED KR:CERTIFIED C1-C3:CERTIFIED E1:CERTIFIED CHAR:CERTIFIED D1:COMPUTED",
+   "what": "The compact edition went through the same judge against our statement file (E1) and was accepted after 43 min. Its census of unused declarations (D1) is in: by the rule on this page, 132 declarations written in its files are never used by the five theorems (652 in the readable edition). The judge against the release's own statement file (S2) is running, the last row."
+  }
+ ]
+}
